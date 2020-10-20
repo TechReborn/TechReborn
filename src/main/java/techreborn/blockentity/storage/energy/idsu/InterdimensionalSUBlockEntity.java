@@ -91,6 +91,11 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
+	protected boolean shouldHandleEnergyNBT() {
+		return false;
+	}
+
+	@Override
 	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
 		super.fromTag(blockState, nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
@@ -111,10 +116,5 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		return new ScreenHandlerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().addInventory().create(this, syncID);
-	}
-
-	@Override
-	protected boolean shouldHandleEnergyNBT() {
-		return false;
 	}
 }

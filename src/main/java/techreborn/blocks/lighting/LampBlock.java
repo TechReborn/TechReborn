@@ -122,10 +122,10 @@ public class LampBlock extends BaseBlockEntityProvider {
 	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {
-		for (Direction enumfacing : context.getPlacementDirections()) {
-			BlockState iblockstate = this.getDefaultState().with(FACING, enumfacing.getOpposite());
-			if (iblockstate.canPlaceAt(context.getWorld(), context.getBlockPos())) {
-				return iblockstate;
+		for (Direction facing : context.getPlacementDirections()) {
+			BlockState state = this.getDefaultState().with(FACING, facing.getOpposite());
+			if (state.canPlaceAt(context.getWorld(), context.getBlockPos())) {
+				return state;
 			}
 		}
 		return null;

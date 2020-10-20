@@ -29,7 +29,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
-import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -194,7 +193,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		super.tick();
 		charge(2);
 
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
 
@@ -232,18 +231,13 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
+	protected boolean canProvideEnergy(EnergySide side) {
+		return false;
+	}
+
+	@Override
 	public double getBaseMaxPower() {
 		return TechRebornConfig.electricFurnaceMaxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final Direction direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final Direction direction) {
-		return false;
 	}
 
 	@Override
@@ -262,13 +256,13 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		return TRContent.Machine.ELECTRIC_FURNACE.getStack();
 	}
 
-	// ItemHandlerProvider
+	// InventoryProvider
 	@Override
 	public RebornInventory<ElectricFurnaceBlockEntity> getInventory() {
 		return inventory;
 	}
 
-	// IContainerProvider
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()

@@ -26,7 +26,6 @@ package techreborn.blockentity.machine.misc;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -35,6 +34,7 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.Energy;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -76,13 +76,8 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final Direction direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final Direction direction) {
-		return direction == null;
+	public boolean canProvideEnergy(EnergySide side) {
+		return false;
 	}
 
 	@Override

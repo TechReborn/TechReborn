@@ -214,7 +214,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public boolean canProvideEnergy(Direction direction) {
+	public boolean canProvideEnergy(EnergySide side) {
 		return false;
 	}
 

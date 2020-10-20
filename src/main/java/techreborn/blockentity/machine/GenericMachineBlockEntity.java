@@ -28,13 +28,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 
 /**
  * @author drcrazy
@@ -67,6 +67,12 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 		checkTier();
 	}
 
+	/**
+	 * Returns progress scaled to input value
+	 *
+	 * @param scale int Maximum value for progress
+	 * @return int Scale of progress
+	 */
 	public int getProgressScaled(int scale) {
 		if (crafter != null && crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
@@ -78,7 +84,10 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isClient && energySlot != -1) {
+		if (world == null || world.isClient) {
+			return;
+		}
+		if (energySlot != -1) {
 			charge(energySlot);
 		}
 	}
@@ -89,12 +98,7 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final Direction direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final Direction direction) {
+	public boolean canProvideEnergy(EnergySide side) {
 		return false;
 	}
 

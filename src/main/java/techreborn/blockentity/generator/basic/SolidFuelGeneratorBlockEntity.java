@@ -31,7 +31,6 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -40,6 +39,7 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -77,6 +77,9 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	@Override
 	public void tick() {
 		super.tick();
+		if (world == null){
+			return;
+		}
 		if (world.isClient) {
 			return;
 		}
@@ -131,13 +134,8 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	@Override
-	public boolean canAcceptEnergy(Direction direction) {
+	public boolean canAcceptEnergy(EnergySide side) {
 		return false;
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction direction) {
-		return true;
 	}
 
 	@Override

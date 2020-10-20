@@ -26,9 +26,9 @@ package techreborn.blockentity.generator.basic;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -49,6 +49,10 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	@Override
 	public void tick() {
 		super.tick();
+
+		if (world == null) {
+			return;
+		}
 
 		boolean generating = pos.getY() > 64;
 
@@ -79,12 +83,7 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	@Override
-	public boolean canAcceptEnergy(Direction direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction direction) {
+	public boolean canProvideEnergy(EnergySide side) {
 		return true;
 	}
 

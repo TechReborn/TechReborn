@@ -412,12 +412,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public boolean canAcceptEnergy(Direction enumFacing) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction enumFacing) {
+	public boolean canProvideEnergy(EnergySide side) {
 		return false;
 	}
 

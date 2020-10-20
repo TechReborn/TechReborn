@@ -32,7 +32,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -53,9 +52,7 @@ import techreborn.init.TRContent;
 
 public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public RebornInventory<FusionControlComputerBlockEntity> inventory;
-
-	public int crafingTickTime = 0;
+	public int craftingTickTime = 0;
 	public int neededPower = 0;
 	public int size = 6;
 	public int state = -1;
@@ -74,10 +71,44 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		this.inventory = new RebornInventory<>(3, "FusionControlComputerBlockEntity", 64, this);
 	}
 
-	@Override
-	public void writeMultiblock(MultiblockWriter writer) {
-		BlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
-		Torus.generate(BlockPos.ORIGIN, size).forEach(pos -> writer.add(pos.getX(), pos.getY(), pos.getZ(), coil));
+
+
+	public FusionReactorRecipe getCurrentRecipeFromID() {
+		if (currentRecipeID == null) return null;
+		return ModRecipes.FUSION_REACTOR.getRecipes(world).stream()
+				.filter(recipe -> recipe.getId().equals(currentRecipeID))
+				.findFirst()
+				.orElse(null);
+	}
+
+	//TODO: translate
+	public Text getStateText() {
+		if (state == -1) {
+			return LiteralText.EMPTY;
+		} else if (state == 0) {
+			return new LiteralText("No recipe");
+		} else if (state == 1) {
+			FusionReactorRecipe r = getCurrentRecipeFromID();
+			if (r == null) {
+				return new LiteralText("Charging");
+			}
+			int percentage = percentage(r.getStartEnergy(), getEnergy());
+			return new LiteralText("Charging (")
+					.append(StringUtils.getPercentageText(percentage));
+		} else if (state == 2) {
+			return new LiteralText("Crafting");
+		}
+		return LiteralText.EMPTY;
+	}
+
+	/**
+	 * Changes size of fusion reactor ring after GUI button click
+	 *
+	 * @param sizeDelta int Size increment
+	 */
+	public void changeSize(int sizeDelta) {
+		int newSize = size + sizeDelta;
+		this.size = Math.max(6, Math.min(TechRebornConfig.fusionControlComputerMaxCoilSize, newSize));
 	}
 
 	/**
@@ -85,7 +116,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 */
 	private void resetCrafter() {
 		currentRecipe = null;
-		crafingTickTime = 0;
+		craftingTickTime = 0;
 		neededPower = 0;
 		hasStartedCrafting = false;
 	}
@@ -114,27 +145,13 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	/**
-	 * Returns progress scaled to input value
-	 *
-	 * @param scale int Maximum value for progress
-	 * @return int Scale of progress
-	 */
-	public int getProgressScaled(int scale) {
-		FusionReactorRecipe reactorRecipe = getCurrentRecipeFromID();
-		if (crafingTickTime != 0 && reactorRecipe != null && reactorRecipe.getTime() != 0) {
-			return crafingTickTime * scale / reactorRecipe.getTime();
-		}
-		return 0;
-	}
-
-	/**
 	 * Tries to set current recipe based in inputs in reactor
 	 */
 	private void updateCurrentRecipe() {
 		for (RebornRecipe recipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
 			if (validateRecipe((FusionReactorRecipe) recipe)) {
 				currentRecipe = (FusionReactorRecipe) recipe;
-				crafingTickTime = 0;
+				craftingTickTime = 0;
 				neededPower = currentRecipe.getStartEnergy();
 				hasStartedCrafting = false;
 				break;
@@ -192,13 +209,50 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		}
 	}
 
+	private int percentage(double MaxValue, double CurrentValue) {
+		if (CurrentValue == 0) {
+			return 0;
+		}
+		return (int) ((CurrentValue * 100.0f) / MaxValue);
+	}
 
-	// TilePowerAcceptor
+	// GenericMachineBlockEntity
+	@Override
+	public int getProgressScaled(int scale) {
+		FusionReactorRecipe reactorRecipe = getCurrentRecipeFromID();
+		if (craftingTickTime != 0 && reactorRecipe != null && reactorRecipe.getTime() != 0) {
+			return craftingTickTime * scale / reactorRecipe.getTime();
+		}
+		return 0;
+	}
+
+	@Override
+	public double getBaseMaxPower() {
+		return Math.min(TechRebornConfig.fusionControlComputerMaxEnergy * getPowerMultiplier(), Integer.MAX_VALUE);
+	}
+
+	@Override
+	public double getBaseMaxOutput() {
+		if (!hasStartedCrafting) {
+			return 0;
+		}
+		return TechRebornConfig.fusionControlComputerMaxOutput;
+	}
+
+	@Override
+	public double getBaseMaxInput() {
+		if (hasStartedCrafting) {
+			return 0;
+		}
+		return TechRebornConfig.fusionControlComputerMaxInput;
+	}
+
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
 
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
 
@@ -213,7 +267,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		}
 
 		if (lastTick == world.getTime()) {
-			//Prevent tick accerators, blame obstinate for this.
+			//Prevent tick accelerators, blame obstinate for this.
 			return;
 		}
 		lastTick = world.getTime();
@@ -248,21 +302,21 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 					useInput(bottomStackSlot);
 				}
 			}
-			if (hasStartedCrafting && crafingTickTime < currentRecipe.getTime()) {
+			if (hasStartedCrafting && craftingTickTime < currentRecipe.getTime()) {
 				// Power gen
 				if (currentRecipe.getPower() > 0) {
 					// Waste power if it has no where to go
 					double power = Math.abs(currentRecipe.getPower()) * getPowerMultiplier();
 					addEnergy(power);
 					powerChange = (power);
-					crafingTickTime++;
+					craftingTickTime++;
 				} else { // Power user
 					if (getStored(EnergySide.UNKNOWN) > currentRecipe.getPower()) {
 						setEnergy(getEnergy() - currentRecipe.getPower());
-						crafingTickTime++;
+						craftingTickTime++;
 					}
 				}
-			} else if (crafingTickTime >= currentRecipe.getTime()) {
+			} else if (craftingTickTime >= currentRecipe.getTime()) {
 				ItemStack result = currentRecipe.getOutputs().get(0);
 				if (canFitStack(result, outputStackSlot, true)) {
 					if (inventory.getStack(outputStackSlot).isEmpty()) {
@@ -271,7 +325,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 						inventory.shrinkSlot(outputStackSlot, -result.getCount());
 					}
 					if (validateRecipe(this.currentRecipe)) {
-						crafingTickTime = 0;
+						craftingTickTime = 0;
 						useInput(topStackSlot);
 						useInput(bottomStackSlot);
 					} else {
@@ -285,48 +339,22 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		inventory.resetChanged();
 	}
 
-
 	@Override
-	public double getPowerMultiplier() {
-		double calc = (1F / 2F) * Math.pow(size - 5, 1.8);
-		return Math.max(Math.round(calc * 100D) / 100D, 1D);
+	protected boolean canAcceptEnergy(EnergySide side) {
+		// Accept from sides
+		return !(side == EnergySide.DOWN || side == EnergySide.UP);
 	}
 
 	@Override
-	public double getBaseMaxPower() {
-		return Math.min(TechRebornConfig.fusionControlComputerMaxEnergy * getPowerMultiplier(), Integer.MAX_VALUE);
-	}
-
-	@Override
-	public boolean canAcceptEnergy(Direction direction) {
-		return !(direction == Direction.DOWN || direction == Direction.UP);
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction direction) {
-		return direction == Direction.DOWN || direction == Direction.UP;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		if (!hasStartedCrafting) {
-			return 0;
-		}
-		return TechRebornConfig.fusionControlComputerMaxOutput;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		if (hasStartedCrafting) {
-			return 0;
-		}
-		return TechRebornConfig.fusionControlComputerMaxInput;
+	public boolean canProvideEnergy(EnergySide side) {
+		// Provide from top and bottom
+		return side == EnergySide.DOWN || side == EnergySide.UP;
 	}
 
 	@Override
 	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
 		super.fromTag(blockState, tagCompound);
-		this.crafingTickTime = tagCompound.getInt("crafingTickTime");
+		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
 		if (tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null) {
@@ -335,13 +363,14 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		if (tagCompound.contains("size")) {
 			this.size = tagCompound.getInt("size");
 		}
-		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.
+		//Done here to force the smaller size, will be useful if people lag out on a large one.
+		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize);
 	}
 
 	@Override
 	public CompoundTag toTag(final CompoundTag tagCompound) {
 		super.toTag(tagCompound);
-		tagCompound.putInt("crafingTickTime", this.crafingTickTime);
+		tagCompound.putInt("craftingTickTime", this.craftingTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
 		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
 		tagCompound.putBoolean("hasActiveRecipe", this.currentRecipe != null);
@@ -349,23 +378,30 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		return tagCompound;
 	}
 
+	//MachineBaseBlockEntity
+	@Override
+	public double getPowerMultiplier() {
+		double calc = (1F / 2F) * Math.pow(size - 5, 1.8);
+		return Math.max(Math.round(calc * 100D) / 100D, 1D);
+	}
+
+	@Override
+	public void writeMultiblock(MultiblockWriter writer) {
+		BlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
+		Torus.generate(BlockPos.ORIGIN, size).forEach(pos -> writer.add(pos.getX(), pos.getY(), pos.getZ(), coil));
+	}
+
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
 	}
 
-	// ItemHandlerProvider
-	@Override
-	public RebornInventory<FusionControlComputerBlockEntity> getInventory() {
-		return inventory;
-	}
-
-	// IContainerProvider
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
-				.sync(this::getCrafingTickTime, this::setCrafingTickTime)
+				.sync(this::getCraftingTickTime, this::setCraftingTickTime)
 				.sync(this::getSize, this::setSize)
 				.sync(this::getState, this::setState)
 				.sync(this::getNeededPower, this::setNeededPower)
@@ -374,20 +410,12 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 				.create(this, syncID);
 	}
 
-	public int getCrafingTickTime() {
-		return crafingTickTime;
+	public int getCraftingTickTime() {
+		return craftingTickTime;
 	}
 
-	public void setCrafingTickTime(int crafingTickTime) {
-		this.crafingTickTime = crafingTickTime;
-	}
-
-	public int getNeededPower() {
-		return neededPower;
-	}
-
-	public void setNeededPower(int neededPower) {
-		this.neededPower = neededPower;
+	public void setCraftingTickTime(int craftingTickTime) {
+		this.craftingTickTime = craftingTickTime;
 	}
 
 	public int getSize() {
@@ -396,11 +424,6 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	public void setSize(int size) {
 		this.size = size;
-	}
-
-	public void changeSize(int sizeDelta) {
-		int newSize = size + sizeDelta;
-		this.size = Math.max(6, Math.min(TechRebornConfig.fusionControlComputerMaxCoilSize, newSize));
 	}
 
 	public int getState() {
@@ -417,6 +440,14 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		this.state = state;
 	}
 
+	public int getNeededPower() {
+		return neededPower;
+	}
+
+	public void setNeededPower(int neededPower) {
+		this.neededPower = neededPower;
+	}
+
 	public Identifier getCurrentRecipeID() {
 		if (currentRecipe == null) {
 			return new Identifier("null", "null");
@@ -429,39 +460,5 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			currentRecipeID = null;
 		}
 		this.currentRecipeID = currentRecipeID;
-	}
-
-	public FusionReactorRecipe getCurrentRecipeFromID() {
-		if (currentRecipeID == null) return null;
-		return ModRecipes.FUSION_REACTOR.getRecipes(world).stream()
-				.filter(recipe -> recipe.getId().equals(currentRecipeID))
-				.findFirst()
-				.orElse(null);
-	}
-
-	public Text getStateText() {
-		if (state == -1) {
-			return LiteralText.EMPTY;
-		} else if (state == 0) {
-			return new LiteralText("No recipe");
-		} else if (state == 1) {
-			FusionReactorRecipe r = getCurrentRecipeFromID();
-			if (r == null) {
-				return new LiteralText("Charging");
-			}
-			int percentage = percentage(r.getStartEnergy(), getEnergy());
-			return new LiteralText("Charging (")
-					.append(StringUtils.getPercentageText(percentage));
-		} else if (state == 2) {
-			return new LiteralText("Crafting");
-		}
-		return LiteralText.EMPTY;
-	}
-
-	private int percentage(double MaxValue, double CurrentValue) {
-		if (CurrentValue == 0) {
-			return 0;
-		}
-		return (int) ((CurrentValue * 100.0f) / MaxValue);
 	}
 }
