@@ -233,7 +233,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(
-								new LiteralText(PowerSystem.getLocaliszedPowerFormatted(getMaxPower()))
+								new LiteralText(PowerSystem.getLocaliszedPowerFormatted(getMaxStoredPower()))
 										.formatted(Formatting.GOLD)
 						)
 		);

@@ -60,10 +60,10 @@ public class GuiLESU extends GuiBase<BuiltScreenHandler> {
 		RenderSystem.pushMatrix();
 		RenderSystem.scaled(0.6, 0.6, 1);
 		drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()) + "/"
-				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxPower()) + " "
+				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxStoredPower()) + " "
 				+ PowerSystem.getDisplayPower().abbreviation), 35, 0, 58, layer);
 		RenderSystem.popMatrix();
 
-		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }

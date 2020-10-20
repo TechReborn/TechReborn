@@ -78,7 +78,7 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 			RenderSystem.scaled(0.6, 0.6, 1);
 			Text text = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()))
 					.append("/")
-					.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxPower()))
+					.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxStoredPower()))
 					.append(" ")
 					.append(PowerSystem.getDisplayPower().abbreviation);
 
@@ -86,7 +86,7 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 			RenderSystem.popMatrix();
 		}
 
-		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void onClick(int amount) {

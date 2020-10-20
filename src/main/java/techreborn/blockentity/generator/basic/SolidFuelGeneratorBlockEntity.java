@@ -81,7 +81,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 			return;
 		}
 		discharge(1);
-		if (getEnergy() < getMaxPower()) {
+		if (getEnergy() < getMaxStoredPower()) {
 			if (burnTime > 0) {
 				burnTime--;
 				addEnergy(TechRebornConfig.solidFuelGeneratorOutputAmount);
@@ -118,7 +118,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		final BlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			boolean active = burnTime > 0 && getEnergy() < getMaxPower();
+			boolean active = burnTime > 0 && getFreeSpace() > 0.0f;
 			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != active) {
 				blockMachineBase.setActive(active, world, pos);
 			}

@@ -49,13 +49,11 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private boolean tryAddingEnergy(int amount) {
-		if (this.getMaxPower() - this.getEnergy() >= amount) {
+		if (getFreeSpace() > 0) {
 			addEnergy(amount);
 			return true;
-		} else if (this.getMaxPower() - this.getEnergy() > 0) {
-			addEnergy(this.getMaxPower() - this.getEnergy());
-			return true;
 		}
+
 		return false;
 	}
 

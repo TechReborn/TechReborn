@@ -63,14 +63,14 @@ public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 
 		Text text = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) idsu.getEnergy()))
 				.append("/")
-				.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) idsu.getMaxPower()))
+				.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) idsu.getMaxStoredPower()))
 				.append(" ")
 				.append(PowerSystem.getDisplayPower().abbreviation);
 
 		drawCentredText(matrixStack, text, 35, 0, 58, layer);
 		RenderSystem.popMatrix();
 
-		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) idsu.getEnergy(), (int) idsu.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) idsu.getEnergy(), (int) idsu.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 }

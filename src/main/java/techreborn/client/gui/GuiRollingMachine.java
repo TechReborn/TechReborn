@@ -71,7 +71,7 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(matrixStack, this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 17, (int) rollingMachine.getEnergy(), (int) rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 17, (int) rollingMachine.getEnergy(), (int) rollingMachine.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	@Override

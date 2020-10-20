@@ -32,6 +32,7 @@ import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.WorldUtils;
+import team.reborn.energy.EnergySide;
 import techreborn.blocks.machine.tier1.PlayerDetectorBlock;
 import techreborn.blocks.machine.tier1.PlayerDetectorBlock.PlayerDetectorType;
 import techreborn.config.TechRebornConfig;
@@ -59,7 +60,7 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 		if (!world.isClient && world.getTime() % 20 == 0) {
 			boolean lastRedstone = redstone;
 			redstone = false;
-			if (canUseEnergy(TechRebornConfig.playerDetectorEuPerTick)) {
+			if (getStored(EnergySide.UNKNOWN) > TechRebornConfig.playerDetectorEuPerTick) {
 				for (PlayerEntity player : world.getPlayers()) {
 					if (player.distanceTo(player) <= 256.0D) {
 						PlayerDetectorType type = world.getBlockState(pos).get(PlayerDetectorBlock.TYPE);

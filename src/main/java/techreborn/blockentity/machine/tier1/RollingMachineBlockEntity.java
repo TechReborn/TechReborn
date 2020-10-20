@@ -43,6 +43,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
@@ -160,7 +161,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			tickTime = 0;
 		}
 		if (!currentRecipeOutput.isEmpty()) {
-			if (canUseEnergy(getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick))
+			if (getStored(EnergySide.UNKNOWN) > getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick)
 					&& tickTime < Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1)
 					&& canMake(craftMatrix)) {
 				useEnergy(getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick));

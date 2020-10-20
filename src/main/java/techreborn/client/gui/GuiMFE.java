@@ -63,7 +63,7 @@ public class GuiMFE extends GuiBase<BuiltScreenHandler> {
 
 			drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getEnergy()))
 							.append("/")
-							.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getMaxPower()))
+							.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getMaxStoredPower()))
 							.append(" ")
 							.append(PowerSystem.getDisplayPower().abbreviation)
 					, 35, 0, 58, layer);
@@ -71,6 +71,6 @@ public class GuiMFE extends GuiBase<BuiltScreenHandler> {
 			RenderSystem.popMatrix();
 		}
 
-		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) mfe.getEnergy(), (int) mfe.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) mfe.getEnergy(), (int) mfe.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }

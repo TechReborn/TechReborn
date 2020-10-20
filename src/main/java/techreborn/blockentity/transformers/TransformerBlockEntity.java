@@ -73,8 +73,6 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 		this.maxOutput = tier.getMaxOutput();
 		this.maxStorage = tier.getMaxInput() * 2;
 
-		// Should always be 4, except if we're tier MICRO, in which it will be 1.
-		super.setMaxPacketsPerTick(tier.getMaxOutput() / ouputTier.getMaxInput());
 	}
 
 	// TilePowerAcceptor
@@ -107,11 +105,6 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public double getBaseMaxInput() {
 		return inputTier.getMaxInput();
-	}
-
-	@Override
-	public EnergyTier getPushingTier() {
-		return ouputTier;
 	}
 
 	@Override

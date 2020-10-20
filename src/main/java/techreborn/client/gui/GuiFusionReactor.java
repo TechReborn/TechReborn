@@ -115,7 +115,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
 		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y) {

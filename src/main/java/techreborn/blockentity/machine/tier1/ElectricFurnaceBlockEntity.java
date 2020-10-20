@@ -40,6 +40,7 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -218,7 +219,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 				craftRecipe(currentRecipe);
 				updateCurrentRecipe();
 			} else if (cookTime < cookTimeTotal) {
-				if (canUseEnergy(getEuPerTick(EnergyPerTick))) {
+				if (getStored(EnergySide.UNKNOWN) > getEuPerTick(EnergyPerTick)) {
 					useEnergy(getEuPerTick(EnergyPerTick));
 					cookTime++;
 					if (cookTime == 1 || cookTime % 20 == 0 && RecipeCrafter.soundHanlder != null) {

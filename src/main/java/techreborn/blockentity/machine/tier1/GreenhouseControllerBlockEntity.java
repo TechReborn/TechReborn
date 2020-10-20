@@ -41,6 +41,7 @@ import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.blocks.lighting.LampBlock;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.config.TechRebornConfig;
@@ -76,7 +77,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 					|| block instanceof SugarCaneBlock
 					|| block instanceof CactusBlock
 			) {
-				if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerBonemeal)) {
+				if (getStored(EnergySide.UNKNOWN) > TechRebornConfig.greenhouseControllerEnergyPerBonemeal) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerBonemeal);
 					blockState.scheduledTick((ServerWorld) world, blockPos, world.random);
 				}
@@ -112,7 +113,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		} else if (block instanceof BlockRubberLog) {
 			for (int y = 0; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block && y < 10; y++) {
 				if (blockState.get(BlockRubberLog.HAS_SAP)
-						&& canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)
+						&& (getStored(EnergySide.UNKNOWN) > TechRebornConfig.greenhouseControllerEnergyPerHarvest)
 						&& insertIntoInv(Collections.singletonList(TRContent.Parts.SAP.getStack()))
 				) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
@@ -138,7 +139,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		if (world == null) {
 			return false;
 		}
-		if (!canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)){
+		if (getStored(EnergySide.UNKNOWN) < TechRebornConfig.greenhouseControllerEnergyPerHarvest){
 			return false;
 		}
 		if (insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null))) {
@@ -195,7 +196,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 
-		if (useEnergy(getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) != getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) {
+		if (getStored(EnergySide.UNKNOWN) < getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) {
 			return;
 		}
 

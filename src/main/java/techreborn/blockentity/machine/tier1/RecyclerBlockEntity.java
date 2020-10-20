@@ -40,6 +40,7 @@ import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -106,7 +107,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		final BlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			boolean shouldBurn = isBurning || (canRecycle() && canUseEnergy(getEuPerTick(cost)));
+			boolean shouldBurn = isBurning || (canRecycle() && (getStored(EnergySide.UNKNOWN) > getEuPerTick(cost)));
 			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != shouldBurn) {
 				blockMachineBase.setActive(isBurning, world, pos);
 			}
@@ -126,7 +127,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		if (canRecycle() && !isBurning() && getEnergy() != 0) {
 			setBurning(true);
 		} else if (isBurning()) {
-			if (useEnergy(getEuPerTick(cost)) != getEuPerTick(cost)) {
+			if (getStored(EnergySide.UNKNOWN) < getEuPerTick(cost)) {
 				this.setBurning(false);
 			}
 			progress++;

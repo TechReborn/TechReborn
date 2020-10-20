@@ -43,6 +43,7 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
+import team.reborn.energy.EnergySide;
 import techreborn.api.recipe.recipes.FusionReactorRecipe;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
@@ -240,7 +241,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 			if (!hasStartedCrafting) {
 				// Ignition!
-				if (canUseEnergy(currentRecipe.getStartEnergy())) {
+				if (getStored(EnergySide.UNKNOWN) > currentRecipe.getStartEnergy()) {
 					useEnergy(currentRecipe.getStartEnergy());
 					hasStartedCrafting = true;
 					useInput(topStackSlot);
@@ -256,7 +257,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 					powerChange = (power);
 					crafingTickTime++;
 				} else { // Power user
-					if (canUseEnergy(currentRecipe.getPower())) {
+					if (getStored(EnergySide.UNKNOWN) > currentRecipe.getPower()) {
 						setEnergy(getEnergy() - currentRecipe.getPower());
 						crafingTickTime++;
 					}

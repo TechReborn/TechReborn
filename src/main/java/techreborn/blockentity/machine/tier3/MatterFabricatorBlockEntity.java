@@ -35,6 +35,7 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -134,7 +135,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 			if (!stack.isEmpty() && spaceForOutput()) {
 				final int amp = getValue(stack);
 				final int euNeeded = amp * TechRebornConfig.matterFabricatorEnergyPerAmp;
-				if (amp != 0 && this.canUseEnergy(euNeeded)) {
+				if (amp != 0 && getStored(EnergySide.UNKNOWN) > euNeeded) {
 					useEnergy(euNeeded);
 					amplifier += amp;
 					inventory.shrinkSlot(i, 1);
