@@ -109,8 +109,9 @@ public class TRRecipeParser {
 				}
 				return new StackIngredient(Collections.singletonList(stack), amount, tag, requireEmpty);
 			}
-		} else
+		} else {
 			throw new DPSyntaxError("Illegal object passed to TechReborn ingredient parser of type " + input.getClass().getName());
+		}
 	}
 
 	public static FluidInstance parseFluid(String fluid) {

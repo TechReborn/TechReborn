@@ -34,7 +34,7 @@ import techreborn.items.DynamicCellItem;
 public class LibDPPlugin implements DriverInitializer {
 	@Override
 	public void init(DriverManager manager) {
-		manager.addDriver("techreborn.TRTweaker", TRTweaker.INSTANCE);
+		manager.addDriver("techreborn.TRDriver", TRDriver.INSTANCE);
 		manager.addStackFactory(new Identifier(TechReborn.MOD_ID, "cell"), (id) -> DynamicCellItem.getCellWithFluid(Registry.FLUID.get(id)));
 	}
 }

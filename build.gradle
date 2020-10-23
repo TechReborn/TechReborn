@@ -91,7 +91,7 @@ dependencies {
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.2.3")
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
-    optionalDependency ("io.github.cottonmc:LibDP:1.1.0+1.16.2")
+	optionalDependency ("io.github.cottonmc:LibDP:1.1.0+1.16.2")
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
 	modApi (rcVersion) {

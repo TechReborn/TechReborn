@@ -60,8 +60,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Executor;
 
-public class TRTweaker implements Driver {
-	public static final TRTweaker INSTANCE = new TRTweaker();
+public class TRDriver implements Driver {
+	public static final TRDriver INSTANCE = new TRDriver();
 	private final RecipeDriver tweaker = RecipeDriver.INSTANCE;
 	private JsonObject debug;
 
@@ -122,8 +122,9 @@ public class TRTweaker implements Driver {
 		Fluid parsedFluid = DriverUtils.INSTANCE.getRawFluid(fluid);
 		Optional<List<Item>> parsedHolders;
 		Optional<Integer> count;
-		if (holders.length == 0) parsedHolders = Optional.empty();
-		else {
+		if (holders.length == 0) {
+			parsedHolders = Optional.empty();
+		} else {
 			List<Item> items = new ArrayList<>();
 			for (String holder : holders) {
 				items.add(DriverUtils.INSTANCE.getRawItem(holder));
