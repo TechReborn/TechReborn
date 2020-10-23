@@ -61,9 +61,9 @@ public class GuiMFE extends GuiBase<BuiltScreenHandler> {
 			RenderSystem.pushMatrix();
 			RenderSystem.scaled(0.6, 0.6, 1);
 
-			drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getEnergy()))
+			drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(mfe.getEnergy()))
 							.append("/")
-							.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getMaxStoredPower()))
+							.append(PowerSystem.getLocalizedPowerNoSuffix(mfe.getMaxStoredPower()))
 							.append(" ")
 							.append(PowerSystem.getDisplayPower().abbreviation)
 					, 35, 0, 58, layer);

@@ -226,7 +226,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(
-								new LiteralText(PowerSystem.getLocaliszedPowerFormatted(getMaxStoredPower()))
+								new LiteralText(PowerSystem.getLocalizedPower(getMaxStoredPower()))
 										.formatted(Formatting.GOLD)
 						)
 		);
@@ -236,7 +236,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(
-								new LiteralText(PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD))
+								new LiteralText(PowerSystem.getLocalizedPower(panel.generationRateD))
 										.formatted(Formatting.GOLD)
 						)
 		);
@@ -246,7 +246,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(
-								new LiteralText(PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN))
+								new LiteralText(PowerSystem.getLocalizedPower(panel.generationRateN))
 										.formatted(Formatting.GOLD)
 						)
 		);

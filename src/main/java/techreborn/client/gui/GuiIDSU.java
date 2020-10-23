@@ -61,9 +61,9 @@ public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 		RenderSystem.pushMatrix();
 		RenderSystem.scaled(0.6, 0.6, 1);
 
-		Text text = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) idsu.getEnergy()))
+		Text text = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(idsu.getEnergy()))
 				.append("/")
-				.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) idsu.getMaxStoredPower()))
+				.append(PowerSystem.getLocalizedPowerNoSuffix(idsu.getMaxStoredPower()))
 				.append(" ")
 				.append(PowerSystem.getDisplayPower().abbreviation);
 

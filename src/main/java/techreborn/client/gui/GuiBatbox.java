@@ -60,9 +60,9 @@ public class GuiBatbox extends GuiBase<BuiltScreenHandler> {
 		if (!hideGuiElements()) {
 			RenderSystem.pushMatrix();
 			RenderSystem.scaled(0.6, 0.6, 5);
-			Text text = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()))
+			Text text = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
 					.append("/")
-					.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxStoredPower()))
+					.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
 					.append(" ")
 					.append(PowerSystem.getDisplayPower().abbreviation);
 

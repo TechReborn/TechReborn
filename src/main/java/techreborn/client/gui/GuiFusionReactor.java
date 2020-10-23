@@ -89,7 +89,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
 			drawCentredText(matrixStack, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
 			if (blockEntity.state == 2) {
-				drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormatted((int) blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
+				drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(matrixStack, this, layer);

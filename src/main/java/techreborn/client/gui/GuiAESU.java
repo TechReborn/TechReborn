@@ -76,9 +76,9 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 		if (!hideGuiElements()) {
 			RenderSystem.pushMatrix();
 			RenderSystem.scaled(0.6, 0.6, 1);
-			Text text = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()))
+			Text text = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix((int) blockEntity.getEnergy()))
 					.append("/")
-					.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxStoredPower()))
+					.append(PowerSystem.getLocalizedPowerNoSuffix((int) blockEntity.getMaxStoredPower()))
 					.append(" ")
 					.append(PowerSystem.getDisplayPower().abbreviation);
 

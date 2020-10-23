@@ -141,12 +141,12 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements 
 	}
 
 	// IListInfoProvider
-	// TO-DO: translate
+	// TODO: translate
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-		info.add(new LiteralText(Formatting.GRAY + "Input Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxInput(EnergySide.UNKNOWN))));
+		info.add(new LiteralText(Formatting.GRAY + "Input Rate: " + Formatting.GOLD + PowerSystem.getLocalizedPower(getMaxInput(EnergySide.UNKNOWN))));
 		info.add(new LiteralText(Formatting.GRAY + "Input Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString())));
-		info.add(new LiteralText(Formatting.GRAY + "Output Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxOutput(EnergySide.UNKNOWN))));
+		info.add(new LiteralText(Formatting.GRAY + "Output Rate: " + Formatting.GOLD + PowerSystem.getLocalizedPower(getMaxOutput(EnergySide.UNKNOWN))));
 		info.add(new LiteralText(Formatting.GRAY + "Output Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(outputTier.toString())));
 	}
 }

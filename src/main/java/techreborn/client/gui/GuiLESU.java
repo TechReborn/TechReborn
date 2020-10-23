@@ -24,7 +24,6 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -57,12 +56,15 @@ public class GuiLESU extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		RenderSystem.pushMatrix();
-		RenderSystem.scaled(0.6, 0.6, 1);
-		drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()) + "/"
-				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxStoredPower()) + " "
-				+ PowerSystem.getDisplayPower().abbreviation), 35, 0, 58, layer);
-		RenderSystem.popMatrix();
+		matrixStack.push();
+		matrixStack.scale(0.6f, 0.6f, 1.0f);
+		drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocalizedPowerNoSuffix( blockEntity.getEnergy()))
+				.append("/")
+				.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
+				.append(" ")
+				.append(PowerSystem.getDisplayPower().abbreviation),
+				35, 0, 58, layer);
+		matrixStack.pop();
 
 		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
