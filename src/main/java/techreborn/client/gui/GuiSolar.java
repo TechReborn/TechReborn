@@ -42,12 +42,6 @@ public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
-		super.drawBackground(matrixStack, lastFrameDuration, mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
-	}
-
-	@Override
 	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;

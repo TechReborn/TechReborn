@@ -58,17 +58,14 @@ public class GuiBatbox extends GuiBase<BuiltScreenHandler> {
 		final Layer layer = Layer.FOREGROUND;
 
 		if (!hideGuiElements()) {
-			RenderSystem.pushMatrix();
-			RenderSystem.scaled(0.6, 0.6, 5);
+			matrixStack.push();
+			matrixStack.scale(0.6f, 0.6f, 1.0f);
 			Text text = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
 					.append("/")
-					.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
-					.append(" ")
-					.append(PowerSystem.getDisplayPower().abbreviation);
+					.append(PowerSystem.getLocalizedPower(blockEntity.getMaxStoredPower()));
 
 			drawCentredText(matrixStack, text, 35, 0, 58, layer);
-
-			RenderSystem.popMatrix();
+			matrixStack.pop();
 		}
 
 		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

@@ -24,7 +24,6 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
@@ -45,8 +44,6 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
-
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
 		drawSlot(matrixStack, 8, 72, layer);
@@ -77,7 +74,6 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 			builder.drawHologramButton(matrixStack, this, 76, 56, mouseX, mouseY, layer);
 		}
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
-
 	}
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY) {

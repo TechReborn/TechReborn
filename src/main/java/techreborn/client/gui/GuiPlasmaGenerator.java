@@ -39,11 +39,6 @@ import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 @Environment(EnvType.CLIENT)
 public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
 
-	/**
-	 * @param player
-	 * @param blockEntity
-	 * @param container
-	 */
 	PlasmaGeneratorBlockEntity blockEntity;
 
 	public GuiPlasmaGenerator(int syncID, final PlayerEntity player, final PlasmaGeneratorBlockEntity blockEntity) {
