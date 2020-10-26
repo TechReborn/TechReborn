@@ -287,6 +287,19 @@
   "block.techreborn.wolframium": "Wolframium",
   "block.techreborn.biofuel": "BioFuel",
 
+  "block.techreborn.beryllium": "Beryllium",
+  "block.techreborn.calcium_carbonate": "Calcium Carbonate",
+  "block.techreborn.carbon_fiber": "Carbon Fiber",
+  "block.techreborn.compressed_air": "Compressed Air",
+  "block.techreborn.electrolyzed_water": "Electrolyzed Water",
+  "block.techreborn.nitro_carbon": "Nitrocarbon",
+  "block.techreborn.nitro_diesel": "Nitro Diesel",
+  "block.techreborn.nitrocoal_fuel": "Nitrocoal Fuel",
+  "block.techreborn.nitrogen_dioxide": "Nitrogen Dioxide",
+  "block.techreborn.sodium_sulfide": "Sodium Sulfide",
+  "block.techreborn.sodium_persulfate": "Sodium Persulfate",
+  "block.techreborn.sulfuric_acid": "Sulfuric Acid",
+
   "_comment6": "Fluids",
   "fluid.fluidberylium": "Beryllium",
   "fluid.fluidcalcium": "Calcium",
@@ -955,7 +968,7 @@
   "techreborn:plasma_generator": "Plasma Generator",
 
   "_comment26": "Fluid buckets",
-   "item.techreborn.beryllium_bucket": "Beryllium",
+  "item.techreborn.beryllium_bucket": "Beryllium",
   "item.techreborn.calcium_bucket": "Calcium",
   "item.techreborn.calcium_carbonate_bucket": "Calcium Carbonate",
   "item.techreborn.carbon_bucket": "Carbon",
@@ -991,13 +1004,13 @@
   "item.techreborn.wolframium_bucket": "Wolframium",
   "item.techreborn.biofuel_bucket": "Biofuel",
 
-	"_comment27": "Gui",
-	"gui.techreborn.unit.wrenchtip": "Wrench unit to retain contents",
-	"gui.techreborn.unit.in": "IN",
-	"gui.techreborn.unit.out": "OUT",
-	"gui.techreborn.unit.used": "Used: ",
-	"gui.techreborn.tank.type": "Fluid Type:",
-	"gui.techreborn.tank.amount": "Fluid Amount:",
-	"gui.techreborn.storage.store": "Storing:",
-	"gui.techreborn.storage.amount": "Amount:"
+  "_comment27": "Gui",
+  "gui.techreborn.unit.wrenchtip": "Wrench unit to retain contents",
+  "gui.techreborn.unit.in": "IN",
+  "gui.techreborn.unit.out": "OUT",
+  "gui.techreborn.unit.used": "Used: ",
+  "gui.techreborn.tank.type": "Fluid Type:",
+  "gui.techreborn.tank.amount": "Fluid Amount:",
+  "gui.techreborn.storage.store": "Storing:",
+  "gui.techreborn.storage.amount": "Amount:"
 }
