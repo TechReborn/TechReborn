@@ -1,0 +1,23 @@
+{
+  "type": "techreborn:industrial_grinder",
+  "power": 64,
+  "time": 100,
+  "tank": {
+	"fluid": "techreborn:mercury",
+	"amount": 1000
+  },
+  "ingredients": [
+	{
+	  "item": "minecraft:ancient_debris"
+	}
+  ],
+  "results": [
+	{
+	  "item": "minecraft:netherite_scrap",
+	  "count": 3
+	},
+	{
+	  "item": "techreborn:gold_small_dust"
+	}
+  ]
+}
