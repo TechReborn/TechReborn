@@ -64,6 +64,7 @@ public class FluidUtils {
 		ItemStack outputStack = inventory.getStack(outputSlot);
 
 		if (inputStack.isEmpty()) return false;
+		if (!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
 		if (FluidUtils.isContainerEmpty(inputStack)) return false;
 		if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
 		if (!outputStack.isEmpty() && !FluidUtils.isContainerEmpty(outputStack)) return false;
