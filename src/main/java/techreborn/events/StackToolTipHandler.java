@@ -32,10 +32,12 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
@@ -87,22 +89,47 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		// Other section
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(tooltipLines, false, false);
-		} else if (stack.getItem() instanceof EnergyHolder) {
+		} else if (item instanceof EnergyHolder) {
 			LiteralText line1 = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(Energy.of(stack).getEnergy()));
 			line1.append("/");
-			line1.append(PowerSystem.getLocalizedPowerNoSuffix(Energy.of(stack).getMaxStored()));
-			line1.append(" ");
-			line1.append(PowerSystem.getDisplayPower().abbreviation);
+			line1.append(PowerSystem.getLocalizedPower(Energy.of(stack).getMaxStored()));
 			line1.formatted(Formatting.GOLD);
 
 			tooltipLines.add(1, line1);
 
 			if (Screen.hasShiftDown()) {
 				int percentage = percentage(Energy.of(stack).getMaxStored(), Energy.of(stack).getEnergy());
-				Formatting color = StringUtils.getPercentageColour(percentage);
-				tooltipLines.add(2, new LiteralText(color + "" + percentage + "%" + Formatting.GRAY + " Charged"));
-				// TODO: show both input and output rates
-				tooltipLines.add(3, new LiteralText(Formatting.GRAY + "I/O Rate: " + Formatting.GOLD + PowerSystem.getLocalizedPower(((EnergyHolder) item).getMaxInput(EnergySide.UNKNOWN))));
+				MutableText line2  = StringUtils.getPercentageText(percentage);
+				line2.append(" ");
+				line2.formatted(Formatting.GRAY);
+				line2.append(I18n.translate("reborncore.gui.tooltip.power_charged"));
+				tooltipLines.add(2, line2);
+
+				double inputRate = ((EnergyHolder) item).getMaxInput(EnergySide.UNKNOWN);
+				double outputRate = ((EnergyHolder) item).getMaxOutput(EnergySide.UNKNOWN);
+				LiteralText line3 = new LiteralText("");
+				if (inputRate != 0 && inputRate == outputRate){
+					line3.append(I18n.translate("techreborn.tooltip.transferRate"));
+					line3.append(" : ");
+					line3.formatted(Formatting.GRAY);
+					line3.append(PowerSystem.getLocalizedPower(inputRate));
+					line3.formatted(Formatting.GOLD);
+				}
+				else if(inputRate != 0){
+					line3.append(I18n.translate("reborncore.tooltip.energy.inputRate"));
+					line3.append(" : ");
+					line3.formatted(Formatting.GRAY);
+					line3.append(PowerSystem.getLocalizedPower(inputRate));
+					line3.formatted(Formatting.GOLD);
+				}
+				else if (outputRate !=0){
+					line3.append(I18n.translate("reborncore.tooltip.energy.outputRate"));
+					line3.append(" : ");
+					line3.formatted(Formatting.GRAY);
+					line3.append(PowerSystem.getLocalizedPower(outputRate));
+					line3.formatted(Formatting.GOLD);
+				}
+				tooltipLines.add(3, line3);
 			}
 		} else {
 			try {
