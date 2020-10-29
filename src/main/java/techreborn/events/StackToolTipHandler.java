@@ -133,14 +133,16 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			}
 		} else {
 			try {
-				if ((block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
+				if ((block instanceof BlockEntityProvider) && isTRBlock(block)) {
 					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
 					boolean hasData = false;
-					if (stack.hasTag() && stack.getTag().contains("blockEntity_data")) {
-						CompoundTag blockEntityData = stack.getTag().getCompound("blockEntity_data");
-						blockEntity.fromTag(blockEntity.getCachedState(), blockEntityData);
-						hasData = true;
-						tooltipLines.add(new LiteralText("Block data contained").formatted(Formatting.DARK_GREEN));
+					if (stack.hasTag() && stack.getOrCreateTag().contains("blockEntity_data")) {
+						CompoundTag blockEntityData = stack.getOrCreateTag().getCompound("blockEntity_data");
+						if (blockEntity != null) {
+							blockEntity.fromTag(block.getDefaultState(), blockEntityData);
+							hasData = true;
+							tooltipLines.add(new LiteralText(I18n.translate("techreborn.tooltip.has_data")).formatted(Formatting.DARK_GREEN));
+						}
 					}
 					if (blockEntity instanceof IListInfoProvider) {
 						((IListInfoProvider) blockEntity).addInfo(tooltipLines, false, hasData);
@@ -154,6 +156,10 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 	private boolean isTRItem(Item item) {
 		return Registry.ITEM.getId(item).getNamespace().equals("techreborn");
+	}
+
+	private boolean isTRBlock(Block block){
+		return Registry.BLOCK.getId(block).getNamespace().contains("techreborn");
 	}
 
 	public int percentage(int MaxValue, int CurrentValue) {
