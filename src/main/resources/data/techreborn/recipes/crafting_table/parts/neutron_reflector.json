@@ -10,7 +10,7 @@
       "tag": "c:copper_plates"
     },
     "C": {
-      "item": "techreborn:coal_dust"
+      "tag": "c:coal_dusts"
     },
     "T": {
       "tag": "c:tin_dusts"

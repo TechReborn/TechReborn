@@ -137,9 +137,9 @@ public class DebugToolItem extends Item {
 		String s = "" + Formatting.GREEN;
 		s += "Power: ";
 		s += Formatting.BLUE;
-		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getEnergy());
+		s += PowerSystem.getLocalizedPower(Energy.of(blockEntity).getEnergy());
 		s += "/";
-		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getMaxStored());
+		s += PowerSystem.getLocalizedPower(Energy.of(blockEntity).getMaxStored());
 
 		return s;
 	}

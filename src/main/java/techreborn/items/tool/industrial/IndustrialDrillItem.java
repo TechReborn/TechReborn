@@ -33,7 +33,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -42,6 +41,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
@@ -52,7 +52,6 @@ import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class IndustrialDrillItem extends DrillItem {
@@ -97,12 +96,6 @@ public class IndustrialDrillItem extends DrillItem {
 		}
 
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
-	}
-
-	// PickaxeItem
-	@Override
-	public boolean isEffectiveOn(BlockState blockIn) {
-		return (Items.DIAMOND_PICKAXE.isEffectiveOn(blockIn) || Items.DIAMOND_SHOVEL.isEffectiveOn(blockIn)) && !Items.DIAMOND_AXE.isEffectiveOn(blockIn);
 	}
 
 	// Item

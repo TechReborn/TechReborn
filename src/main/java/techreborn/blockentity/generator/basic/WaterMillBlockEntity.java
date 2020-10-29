@@ -31,6 +31,7 @@ import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -75,13 +76,8 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 	}
 
 	@Override
-	public boolean canAcceptEnergy(Direction direction) {
+	public boolean canAcceptEnergy(EnergySide side) {
 		return false;
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction direction) {
-		return true;
 	}
 
 	@Override

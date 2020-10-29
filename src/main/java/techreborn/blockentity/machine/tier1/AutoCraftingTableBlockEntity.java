@@ -46,6 +46,7 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.ExtendedRecipeRemainder;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
@@ -265,7 +266,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 				}
 			} else {
 				if (canMake(recipe)) {
-					if (canUseEnergy(euTick)) {
+					if (getStored(EnergySide.UNKNOWN) > euTick) {
 						progress++;
 						if (progress == 1) {
 							world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
@@ -411,12 +412,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public boolean canAcceptEnergy(Direction enumFacing) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction enumFacing) {
+	public boolean canProvideEnergy(EnergySide side) {
 		return false;
 	}
 

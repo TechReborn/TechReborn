@@ -73,9 +73,9 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public double useEnergy(double extract, boolean simulate) {
+	public void useEnergy(double extract) {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
-			return 0.0;
+			return;
 		}
 		if (world.isClient) {
 			throw new UnsupportedOperationException("cannot set energy on the client!");
@@ -84,21 +84,15 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (extract > energy) {
 			extract = energy;
 		}
-		if (!simulate) {
-			setEnergy(energy - extract);
-		}
-		return extract;
+
+		setStored(energy - extract);
+
+		return;
 	}
 
 	@Override
-	public boolean canUseEnergy(double input) {
-		if (ownerUdid == null || ownerUdid.isEmpty()) {
-			return false;
-		}
-		if (world.isClient) {
-			throw new UnsupportedOperationException("cannot set energy on the client!");
-		}
-		return input <= IDSUManager.getPlayer(world, ownerUdid).getEnergy();
+	protected boolean shouldHandleEnergyNBT() {
+		return false;
 	}
 
 	@Override
@@ -122,10 +116,5 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		return new ScreenHandlerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().addInventory().create(this, syncID);
-	}
-
-	@Override
-	public boolean shouldHanldeEnergyNBT() {
-		return false;
 	}
 }

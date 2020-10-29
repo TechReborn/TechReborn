@@ -86,7 +86,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	public void onSteppedOn(final World worldIn, final BlockPos pos, final Entity entityIn) {
 		super.onSteppedOn(worldIn, pos, entityIn);
 		if (worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity) {
-			if (((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).crafingTickTime != 0
+			if (((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).craftingTickTime != 0
 					&& ((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).isMultiblockValid()) {
 				entityIn.damage(new FusionDamageSource(), 200F);
 			}

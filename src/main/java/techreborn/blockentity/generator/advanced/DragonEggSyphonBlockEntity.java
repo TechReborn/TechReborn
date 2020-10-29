@@ -28,12 +28,12 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -49,20 +49,22 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private boolean tryAddingEnergy(int amount) {
-		if (this.getMaxPower() - this.getEnergy() >= amount) {
+		if (getFreeSpace() > 0) {
 			addEnergy(amount);
 			return true;
-		} else if (this.getMaxPower() - this.getEnergy() > 0) {
-			addEnergy(this.getMaxPower() - this.getEnergy());
-			return true;
 		}
+
 		return false;
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
+
+		if (world == null) {
+			return;
+		}
 
 		if (!world.isClient) {
 			if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
@@ -85,13 +87,8 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public boolean canAcceptEnergy(Direction direction) {
+	public boolean canAcceptEnergy(EnergySide side) {
 		return false;
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction direction) {
-		return true;
 	}
 
 	@Override
@@ -110,7 +107,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 		return TRContent.Machine.DRAGON_EGG_SYPHON.getStack();
 	}
 
-	// ItemHandlerProvider
+	// InventoryProvider
 	@Override
 	public RebornInventory<DragonEggSyphonBlockEntity> getInventory() {
 		return inventory;

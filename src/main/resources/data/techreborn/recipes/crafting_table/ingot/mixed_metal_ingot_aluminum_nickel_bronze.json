@@ -10,10 +10,10 @@
       "tag": "c:aluminum_ingots"
     },
     "T": {
-      "item": "techreborn:nickel_ingot"
+      "tag": "c:nickel_ingots"
     },
     "M": {
-      "item": "techreborn:bronze_ingot"
+      "tag": "c:bronze_ingots"
     }
   },
   "result": {

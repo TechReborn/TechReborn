@@ -47,14 +47,12 @@ import java.util.List;
 /**
  * Created by Rushmead
  */
-public class TransformerBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, IListInfoProvider {
-
+public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, IListInfoProvider {
 
 	public String name;
 	public Block wrenchDrop;
 	public EnergyTier inputTier;
-	public EnergyTier ouputTier;
+	public EnergyTier outputTier;
 	public int maxInput;
 	public int maxOutput;
 	public int maxStorage;
@@ -64,44 +62,48 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 		this.wrenchDrop = wrenchDrop;
 		this.inputTier = tier;
 		if (tier != EnergyTier.MICRO) {
-			ouputTier = EnergyTier.values()[tier.ordinal() - 1];
+			outputTier = EnergyTier.values()[tier.ordinal() - 1];
 		} else {
-			ouputTier = EnergyTier.MICRO;
+			outputTier = EnergyTier.MICRO;
 		}
 		this.name = name;
 		this.maxInput = tier.getMaxInput();
 		this.maxOutput = tier.getMaxOutput();
 		this.maxStorage = tier.getMaxInput() * 2;
 
-		// Should always be 4, except if we're tier MICRO, in which it will be 1.
-		super.setMaxPacketsPerTick(tier.getMaxOutput() / ouputTier.getMaxInput());
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
+	@Override
+	protected boolean canAcceptEnergy(EnergySide side) {
+		if (side == EnergySide.UNKNOWN) {
+			return true;
+		}
+		if (TechRebornConfig.IC2TransformersStyle) {
+			return getFacing() == Direction.values()[side.ordinal()];
+		}
+		return getFacing() != Direction.values()[side.ordinal()];
+	}
+
+	@Override
+	protected boolean canProvideEnergy(EnergySide side) {
+		if (side == EnergySide.UNKNOWN) {
+			return true;
+		}
+		if (TechRebornConfig.IC2TransformersStyle) {
+			return getFacing() != Direction.values()[side.ordinal()];
+		}
+		return getFacing() == Direction.values()[side.ordinal()];
+	}
+
 	@Override
 	public double getBaseMaxPower() {
 		return maxStorage;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(Direction direction) {
-		if (TechRebornConfig.IC2TransformersStyle) {
-			return getFacingEnum() == direction;
-		}
-		return getFacingEnum() != direction;
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction direction) {
-		if (TechRebornConfig.IC2TransformersStyle) {
-			return getFacingEnum() != direction;
-		}
-		return getFacing() == direction;
-	}
-
-	@Override
 	public double getBaseMaxOutput() {
-		return ouputTier.getMaxOutput();
+		return outputTier.getMaxOutput();
 	}
 
 	@Override
@@ -110,16 +112,11 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public EnergyTier getPushingTier() {
-		return ouputTier;
-	}
-
-	@Override
 	public void checkTier() {
 		//Nope
 	}
 
-	// TileMachineBase
+	// MachineBaseBlockEntity
 	@Override
 	public Direction getFacingEnum() {
 		if (world == null) {
@@ -132,6 +129,11 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 		return null;
 	}
 
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity playerIn) {
@@ -139,12 +141,12 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	// IListInfoProvider
+	// TODO: translate
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-		info.add(new LiteralText(Formatting.GRAY + "Input Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxInput(EnergySide.UNKNOWN))));
+		info.add(new LiteralText(Formatting.GRAY + "Input Rate: " + Formatting.GOLD + PowerSystem.getLocalizedPower(getMaxInput(EnergySide.UNKNOWN))));
 		info.add(new LiteralText(Formatting.GRAY + "Input Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString())));
-		info.add(new LiteralText(Formatting.GRAY + "Output Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxOutput(EnergySide.UNKNOWN))));
-		info.add(new LiteralText(Formatting.GRAY + "Output Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(ouputTier.toString())));
+		info.add(new LiteralText(Formatting.GRAY + "Output Rate: " + Formatting.GOLD + PowerSystem.getLocalizedPower(getMaxOutput(EnergySide.UNKNOWN))));
+		info.add(new LiteralText(Formatting.GRAY + "Output Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(outputTier.toString())));
 	}
-
 }

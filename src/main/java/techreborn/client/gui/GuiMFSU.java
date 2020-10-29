@@ -57,11 +57,11 @@ public class GuiMFSU extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		RenderSystem.pushMatrix();
-		RenderSystem.scaled(0.6, 0.6, 1);
-		drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfsu.getEnergy()) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfsu.getMaxPower()) + " " + PowerSystem.getDisplayPower().abbreviation), 35, 0, 58, layer);
-		RenderSystem.popMatrix();
+		matrixStack.push();
+		matrixStack.scale(0.6f, 0.6f, 1.0f);
+		drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(mfsu.getEnergy()) + "/" + PowerSystem.getLocalizedPower(mfsu.getMaxStoredPower())), 35, 0, 58, layer);
+		matrixStack.pop();
 
-		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) mfsu.getEnergy(), (int) mfsu.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) mfsu.getEnergy(), (int) mfsu.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }

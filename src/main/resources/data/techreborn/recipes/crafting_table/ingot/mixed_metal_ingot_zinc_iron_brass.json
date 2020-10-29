@@ -10,7 +10,7 @@
       "tag": "c:zinc_ingots"
     },
     "T": {
-      "item": "techreborn:refined_iron_ingot"
+      "tag": "c:refined_iron_ingots"
     },
     "M": {
       "tag": "c:brass_ingots"

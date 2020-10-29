@@ -31,11 +31,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import techreborn.blocks.lighting.BlockLamp;
+import team.reborn.energy.EnergySide;
+import techreborn.blocks.lighting.LampBlock;
 import techreborn.init.TRBlockEntities;
 
-public class LampBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop {
+public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
 
 	private static final int capacity = 33;
 
@@ -43,7 +43,7 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity
 		super(TRBlockEntities.LAMP);
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
@@ -52,36 +52,34 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity
 		}
 		BlockState state = world.getBlockState(pos);
 		Block b = state.getBlock();
-		if (b instanceof BlockLamp) {
-			double cost = getEuPerTick(((BlockLamp) b).getCost());
-			if (getEnergy() > cost) {
-				useEnergy(getEuPerTick(cost));
-				if (!BlockLamp.isActive(state))
-					BlockLamp.setActive(true, world, pos);
-			} else if (BlockLamp.isActive(state)) {
-				BlockLamp.setActive(false, world, pos);
-			}
+		if (!(b instanceof LampBlock)) {
+			return;
 		}
+
+		double cost = getEuPerTick(((LampBlock) b).getCost());
+		if (getStored(EnergySide.UNKNOWN) > cost) {
+			useEnergy(cost);
+			if (!LampBlock.isActive(state)) {
+				LampBlock.setActive(true, world, pos);
+			}
+		} else if (LampBlock.isActive(state)) {
+			LampBlock.setActive(false, world, pos);
+		}
+	}
+
+	@Override
+	protected boolean canAcceptEnergy(EnergySide side) {
+		return side == EnergySide.UNKNOWN || getFacing().getOpposite() != Direction.values()[side.ordinal()];
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnergySide side) {
+		return false;
 	}
 
 	@Override
 	public double getBaseMaxPower() {
 		return capacity;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final Direction direction) {
-		if (world == null) {
-			// Blame tooltip for this
-			return true;
-		}
-		Direction me = BlockLamp.getFacing(world.getBlockState(pos)).getOpposite();
-		return direction == me;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final Direction direction) {
-		return false;
 	}
 
 	@Override
@@ -99,6 +97,4 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity
 	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return new ItemStack(world.getBlockState(pos).getBlock());
 	}
-
-
 }

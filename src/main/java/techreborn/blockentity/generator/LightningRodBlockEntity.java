@@ -36,6 +36,7 @@ import net.minecraft.world.Heightmap;
 import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -52,6 +53,10 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	@Override
 	public void tick() {
 		super.tick();
+
+		if (world == null){
+			return;
+		}
 
 		if (onStatusHoldTicks > 0) {
 			--onStatusHoldTicks;
@@ -110,6 +115,9 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	public boolean isValidIronFence(int y) {
+		if (world == null){
+			return false;
+		}
 		Block block = this.world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock();
 		return block == TRContent.REFINED_IRON_FENCE;
 	}
@@ -120,13 +128,8 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final Direction direction) {
+	public boolean canAcceptEnergy(EnergySide side) {
 		return false;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final Direction direction) {
-		return true;
 	}
 
 	@Override

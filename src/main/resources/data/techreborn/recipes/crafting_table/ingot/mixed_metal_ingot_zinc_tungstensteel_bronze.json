@@ -10,10 +10,10 @@
       "tag": "c:zinc_ingots"
     },
     "T": {
-      "item": "techreborn:tungstensteel_ingot"
+      "tag": "c:tungstensteel_ingots"
     },
     "M": {
-      "item": "techreborn:bronze_ingot"
+      "tag": "c:bronze_ingots"
     }
   },
   "result": {
