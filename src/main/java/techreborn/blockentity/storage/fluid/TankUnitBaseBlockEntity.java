@@ -33,7 +33,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import org.apache.commons.lang3.text.WordUtils;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -175,7 +175,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				.sync(tank).addInventory().create(this, syncID);
 	}
 
-	@NotNull
+	@Nullable
 	@Override
 	public Tank getTank() {
 		return tank;

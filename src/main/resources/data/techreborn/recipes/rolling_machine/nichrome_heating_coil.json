@@ -8,7 +8,7 @@
     ],
     "key": {
       "N": {
-        "item": "techreborn:nickel_ingot"
+        "tag": "c:nickel_ingots"
       },
       "C": {
         "item": "techreborn:chrome_ingot"

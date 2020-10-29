@@ -66,7 +66,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(matrixStack, this, blockEntityAutoCraftingTable.getProgress(), blockEntityAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 26, (int) blockEntityAutoCraftingTable.getEnergy(), (int) blockEntityAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 26, (int) blockEntityAutoCraftingTable.getEnergy(), (int) blockEntityAutoCraftingTable.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	@Override

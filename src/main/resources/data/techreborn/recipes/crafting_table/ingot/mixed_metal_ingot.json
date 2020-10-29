@@ -10,10 +10,10 @@
       "tag": "c:tin_ingots"
     },
     "T": {
-      "item": "techreborn:refined_iron_ingot"
+      "tag": "c:refined_iron_ingots"
     },
     "M": {
-      "item": "techreborn:bronze_ingot"
+      "tag": "c:bronze_ingots"
     }
   },
   "result": {

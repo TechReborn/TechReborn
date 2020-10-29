@@ -50,9 +50,7 @@ public class AlarmBlockEntity extends BlockEntity
 	}
 
 	public void rightClick() {
-		if (world.isClient) {
-			return;
-		}
+		if (world == null || world.isClient) return;
 
 		if (selectedSound < 3) {
 			selectedSound++;
@@ -84,15 +82,12 @@ public class AlarmBlockEntity extends BlockEntity
 		super.fromTag(blockState, compound);
 	}
 
-	// ITickable
+	// Tickable
 	@Override
 	public void tick() {
-		if (world.isClient()) {
-			return;
-		}
-		if (world.getTime() % 25 != 0) {
-			return;
-		}
+		if (world == null || world.isClient()) return;
+		if (world.getTime() % 25 != 0) return;
+
 		if (world.isReceivingRedstonePower(getPos())) {
 			BlockAlarm.setActive(true, world, pos);
 			switch (selectedSound) {

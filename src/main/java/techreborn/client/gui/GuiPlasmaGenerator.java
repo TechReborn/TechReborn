@@ -39,11 +39,6 @@ import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 @Environment(EnvType.CLIENT)
 public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
 
-	/**
-	 * @param player
-	 * @param blockEntity
-	 * @param container
-	 */
 	PlasmaGeneratorBlockEntity blockEntity;
 
 	public GuiPlasmaGenerator(int syncID, final PlayerEntity player, final PlasmaGeneratorBlockEntity blockEntity) {
@@ -67,7 +62,7 @@ public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(matrixStack, this, 130, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 130, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 		builder.drawTank(matrixStack, this, 44, 25, mouseX, mouseY, blockEntity.tank.getFluidInstance(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
 
 	}

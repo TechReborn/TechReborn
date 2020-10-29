@@ -33,15 +33,14 @@ import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.Energy;
+import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.blocks.storage.energy.EnergyStorageBlock;
 
 /**
  * Created by Rushmead
  */
-public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider {
+public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider {
 
 	public RebornInventory<EnergyStorageBlockEntity> inventory;
 	public String name;
@@ -68,17 +67,14 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
+		if (world == null) {
+			return;
+		}
 		if (world.isClient) {
 			return;
 		}
 		if (!inventory.getStack(0).isEmpty()) {
-			ItemStack stack = inventory.getStack(0);
-
-			if (Energy.valid(stack)) {
-				Energy.of(this)
-						.into(Energy.of(stack))
-						.move(tier.getMaxInput());
-			}
+			discharge(0);
 		}
 		if (!inventory.getStack(1).isEmpty()) {
 			charge(1);
@@ -86,18 +82,18 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
+	public boolean canAcceptEnergy(EnergySide side) {
+		return side == EnergySide.UNKNOWN || getFacing() != Direction.values()[side.ordinal()];
+	}
+
+	@Override
+	public boolean canProvideEnergy(EnergySide side) {
+		return side == EnergySide.UNKNOWN || getFacing() == Direction.values()[side.ordinal()];
+	}
+
+	@Override
 	public double getBaseMaxPower() {
 		return maxStorage;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(Direction direction) {
-		return direction == null || getFacing() != direction;
-	}
-
-	@Override
-	public boolean canProvideEnergy(Direction direction) {
-		return direction == null || getFacing() == direction;
 	}
 
 	@Override

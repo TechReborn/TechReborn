@@ -101,7 +101,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 			}
 		}
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void onClick(GuiButtonExtended button, Double x, Double y) {

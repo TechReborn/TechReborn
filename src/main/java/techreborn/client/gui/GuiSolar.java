@@ -42,17 +42,11 @@ public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
-		super.drawBackground(matrixStack, lastFrameDuration, mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
-	}
-
-	@Override
 	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawMultiEnergyBar(matrixStack, this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 
 		switch (blockEntity.getSunState()) {
 			case SolarPanelBlockEntity.DAYGEN:

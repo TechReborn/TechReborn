@@ -31,7 +31,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
@@ -43,6 +42,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
@@ -84,12 +84,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final Direction direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final Direction direction) {
+	public boolean canProvideEnergy(EnergySide side) {
 		return false;
 	}
 
@@ -160,7 +155,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			tickTime = 0;
 		}
 		if (!currentRecipeOutput.isEmpty()) {
-			if (canUseEnergy(getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick))
+			if (getStored(EnergySide.UNKNOWN) > getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick)
 					&& tickTime < Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1)
 					&& canMake(craftMatrix)) {
 				useEnergy(getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick));
