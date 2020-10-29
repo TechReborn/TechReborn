@@ -33,7 +33,6 @@ import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.Energy;
 import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
@@ -48,25 +47,16 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 		super(TRBlockEntities.CHARGE_O_MAT);
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
 
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
 		for (int i = 0; i < 6; i++) {
-			ItemStack stack = inventory.getStack(i);
-
-			if (Energy.valid(stack)) {
-				Energy.of(this)
-						.into(
-								Energy
-										.of(stack)
-						)
-						.move();
-			}
+			discharge(i);
 		}
 	}
 
@@ -77,7 +67,8 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canProvideEnergy(EnergySide side) {
-		return false;
+		// This allows to move energy from BE to chargeable item. #2264
+		return side == EnergySide.UNKNOWN;
 	}
 
 	@Override
@@ -90,7 +81,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 		return TechRebornConfig.chargeOMatBMaxInput;
 	}
 
-	// TileMachineBase
+	// MachineBaseBlockEntity
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
@@ -102,13 +93,13 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 		return TRContent.Machine.CHARGE_O_MAT.getStack();
 	}
 
-	// ItemHandlerProvider
+	// InventoryProvider
 	@Override
 	public RebornInventory<ChargeOMatBlockEntity> getInventory() {
 		return inventory;
 	}
 
-	// IContainerProvider
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
