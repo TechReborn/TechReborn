@@ -89,7 +89,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
 			drawCentredText(matrixStack, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
 			if (blockEntity.state == 2) {
-				drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormatted((int) blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
+				drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(matrixStack, this, layer);
@@ -115,7 +115,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
 		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y) {

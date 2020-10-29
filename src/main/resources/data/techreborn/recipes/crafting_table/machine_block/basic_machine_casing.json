@@ -10,7 +10,7 @@
       "item": "techreborn:basic_machine_frame"
     },
     "R": {
-      "item": "techreborn:refined_iron_ingot"
+      "tag": "c:refined_iron_ingots"
     },
     "C": {
       "item": "techreborn:electronic_circuit"

@@ -4,7 +4,7 @@
   "time": 250,
   "ingredients": [
     {
-      "item": "techreborn:lazurite_dust"
+      "tag": "c:lazurite_dusts"
     }
   ],
   "results": [

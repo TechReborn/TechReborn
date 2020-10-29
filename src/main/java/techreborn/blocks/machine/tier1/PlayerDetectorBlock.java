@@ -56,7 +56,7 @@ import techreborn.utils.MessageIDs;
 
 public class PlayerDetectorBlock extends BlockMachineBase {
 
-	public static EnumProperty<PlayerDetectorType> TYPE;
+	public static final EnumProperty<PlayerDetectorType> TYPE = EnumProperty.of("type", PlayerDetectorType.class);
 
 	public PlayerDetectorBlock() {
 		super(Block.Settings.of(Material.METAL).strength(2f, 2f), true);
@@ -143,7 +143,6 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		TYPE = EnumProperty.of("type", PlayerDetectorType.class);
 		builder.add(TYPE);
 	}
 

@@ -11,6 +11,7 @@
     "techreborn:basic_jackhammer",
     "techreborn:advanced_jackhammer",
     "techreborn:industrial_jackhammer",
-    "techreborn:rock_cutter"
+    "techreborn:rock_cutter",
+	"techreborn:omni_tool"
   ]
 }

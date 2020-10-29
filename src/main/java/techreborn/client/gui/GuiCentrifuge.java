@@ -64,6 +64,6 @@ public class GuiCentrifuge extends GuiBase<BuiltScreenHandler> {
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }

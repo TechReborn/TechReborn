@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:nickel_ingot"
+      "tag": "c:nickel_ingots"
     }
   ],
   "result": {

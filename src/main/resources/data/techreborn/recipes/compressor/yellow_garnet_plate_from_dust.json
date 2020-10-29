@@ -4,7 +4,7 @@
   "time": 250,
   "ingredients": [
     {
-      "item": "techreborn:yellow_garnet_dust"
+      "tag": "c:yellow_garnet_dusts"
     }
   ],
   "results": [

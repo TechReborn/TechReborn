@@ -61,7 +61,7 @@ public class GuiIndustrialElectrolyzer extends GuiBase<BuiltScreenHandler> {
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 84, 52, mouseX, mouseY, GuiBuilder.ProgressDirection.UP, layer);
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 

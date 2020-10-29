@@ -4,7 +4,7 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "techreborn:bronze_ingot"
+      "tag": "c:bronze_ingots"
     }
   ],
   "results": [

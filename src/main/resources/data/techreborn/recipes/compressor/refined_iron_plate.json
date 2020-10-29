@@ -4,7 +4,7 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "techreborn:refined_iron_ingot"
+      "tag": "c:refined_iron_ingots"
     }
   ],
   "results": [

@@ -55,7 +55,7 @@ repositories {
 	}
 }
 
-version = "3.5.4"
+version = "3.6.1"
 
 configurations {
 	shade
@@ -81,10 +81,10 @@ configurations.all {
 dependencies {
 	minecraft "com.mojang:minecraft:1.16.3"
 	mappings "net.fabricmc:yarn:1.16.3+build.11:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.9.3+build.207"
+    modImplementation "net.fabricmc:fabric-loader:0.10.1+build.209"
 
-	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.21.0+build.407-1.16"
+    //Fabric api
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.23.0+build.410-1.16"
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.2.3")
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')

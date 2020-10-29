@@ -26,12 +26,15 @@ package techreborn.items.tool.industrial;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.tag.Tag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -50,20 +53,23 @@ import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
-public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int cost = TechRebornConfig.omniToolCost;
 	public int hitCost = TechRebornConfig.omniToolHitCost;
+	public final int miningLevel;
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
 		super(ToolMaterials.DIAMOND, 3, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		this.miningLevel = MiningLevel.DIAMOND.intLevel;
 	}
 
 	// PickaxeItem
@@ -164,5 +170,14 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 	@Override
 	public EnergyTier getTier() {
 		return EnergyTier.EXTREME;
+	}
+
+	// DynamicAttributeTool
+	@Override
+	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
+		if (tag.equals(FabricToolTags.PICKAXES) || tag.equals(FabricToolTags.SHOVELS) || tag.equals(FabricToolTags.AXES) || tag.equals(FabricToolTags.SHEARS) || tag.equals(FabricToolTags.SWORDS)) {
+			return miningLevel;
+		}
+		return 0;
 	}
 }

@@ -50,21 +50,27 @@ import techreborn.blockentity.lighting.LampBlockEntity;
 
 import org.jetbrains.annotations.Nullable;
 
-public class BlockLamp extends BaseBlockEntityProvider {
+import java.util.function.ToIntFunction;
 
-	public static DirectionProperty FACING = Properties.FACING;
-	public static BooleanProperty ACTIVE;
+public class LampBlock extends BaseBlockEntityProvider {
+
+	public static final DirectionProperty FACING = Properties.FACING;
+	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
 	protected final VoxelShape[] shape;
 
 	private final int cost;
 	private static final int brightness = 15;
 
-	public BlockLamp(int cost, double depth, double width) {
-		super(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(2f, 2f).lightLevel(brightness));
+	public LampBlock(int cost, double depth, double width) {
+		super(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(2f, 2f).lightLevel(createLightLevelFromBlockState()));
 		this.shape = genCuboidShapes(depth, width);
 		this.cost = cost;
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
+	}
+
+	private static ToIntFunction<BlockState> createLightLevelFromBlockState() {
+		return (blockState) -> isActive(blockState) ? brightness : 0;
 	}
 
 	private VoxelShape[] genCuboidShapes(double depth, double width) {
@@ -77,11 +83,6 @@ public class BlockLamp extends BaseBlockEntityProvider {
 				createCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
 				createCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
 		};
-	}
-
-	@Override
-	public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
-		return shape[blockState.get(FACING).ordinal()];
 	}
 
 	public static boolean isActive(BlockState state) {
@@ -115,27 +116,34 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	// Block
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		ACTIVE = BooleanProperty.of("active");
 		builder.add(FACING, ACTIVE);
 	}
 
 	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {
-		for (Direction enumfacing : context.getPlacementDirections()) {
-			BlockState iblockstate = this.getDefaultState().with(FACING, enumfacing.getOpposite());
-			if (iblockstate.canPlaceAt(context.getWorld(), context.getBlockPos())) {
-				return iblockstate;
+		for (Direction facing : context.getPlacementDirections()) {
+			BlockState state = this.getDefaultState().with(FACING, facing.getOpposite());
+			if (state.canPlaceAt(context.getWorld(), context.getBlockPos())) {
+				return state;
 			}
 		}
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
+		return shape[blockState.get(FACING).ordinal()];
+	}
+
+	@SuppressWarnings("deprecation")
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.MODEL;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);

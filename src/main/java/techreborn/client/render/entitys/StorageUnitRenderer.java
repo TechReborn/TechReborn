@@ -82,9 +82,12 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 		TextRenderer textRenderer = this.dispatcher.getTextRenderer();
 		Direction facing = storage.getFacing();
 
-		matrices.translate(0.5, 0.5, 0.5); // Translate center
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
-		matrices.translate(0, 0, -0.505); // Translate forward
+		// Render item only on horizontal facing #2183
+		if (Direction.Type.HORIZONTAL.test(facing) ){
+			matrices.translate(0.5, 0.5, 0.5); // Translate center
+			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
+			matrices.translate(0, 0, -0.505); // Translate forward
+		}
 
 		matrices.scale(-0.01f, -0.01F, -0.01f);
 
