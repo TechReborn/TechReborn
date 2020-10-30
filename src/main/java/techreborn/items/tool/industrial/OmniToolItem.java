@@ -30,6 +30,7 @@ import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -137,7 +138,7 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		tooltip.add(new LiteralText(Formatting.YELLOW + "Swiss Army Knife"));
+		tooltip.add(new LiteralText(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
 	}
 
 	// ItemDurabilityExtensions
