@@ -35,7 +35,7 @@ public class WorldGenConfig {
 	public static final Codec<WorldGenConfig> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
 					Codec.list(TechRebornOre.CODEC).fieldOf("ores").forGetter(WorldGenConfig::getOres),
-					ConfiguredFeature.field_25833.fieldOf("rubberTree").forGetter(WorldGenConfig::getRubberTree)
+					ConfiguredFeature.CODEC.fieldOf("rubberTree").forGetter(WorldGenConfig::getRubberTree)
 			)
 			.apply(instance, WorldGenConfig::new)
 	);
