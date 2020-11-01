@@ -163,9 +163,6 @@ public class TechRebornConfig {
 	public static int solidFuelGeneratorOutputAmount = 10;
 
 	// Items
-	@Config(config = "items", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
-	public static boolean enableGemArmorAndTools = true;
-
 	@Config(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber")
 	public static int nanosaberCharge = 1_000_000;
 
