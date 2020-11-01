@@ -1,0 +1,52 @@
+{
+  "biomeSelector": "end",
+  "generationStep": "UNDERGROUND_ORES",
+  "configuredFeature": {
+	"config": {
+	  "feature": {
+		"config": {
+		  "feature": {
+			"config": {
+			  "feature": {
+				"config": {
+				  "target": {
+					"block_state": {
+					  "Name": "minecraft:end_stone"
+					},
+					"predicate_type": "minecraft:blockstate_match"
+				  },
+				  "state": {
+					"Name": "techreborn:peridot_ore"
+				  },
+				  "size": 6
+				},
+				"type": "minecraft:ore"
+			  },
+			  "decorator": {
+				"config": {
+				  "bottom_offset": 0,
+				  "top_offset": 0,
+				  "maximum": 250
+				},
+				"type": "minecraft:range"
+			  }
+			},
+			"type": "minecraft:decorated"
+		  },
+		  "decorator": {
+			"config": {},
+			"type": "minecraft:square"
+		  }
+		},
+		"type": "minecraft:decorated"
+	  },
+	  "decorator": {
+		"config": {
+		  "count": 3
+		},
+		"type": "minecraft:count"
+	  }
+	},
+	"type": "minecraft:decorated"
+  }
+}

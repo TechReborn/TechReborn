@@ -1,0 +1,129 @@
+{
+  "biomeSelector": [
+	"forest",
+	"taiga",
+	"swamp"
+  ],
+  "generationStep": "VEGETAL_DECORATION",
+  "configuredFeature": {
+	"config": {
+	  "feature": {
+		"config": {
+		  "max_water_depth": 0,
+		  "ignore_vines": false,
+		  "heightmap": "OCEAN_FLOOR",
+		  "minimum_size": {
+			"limit": 1,
+			"lower_size": 0,
+			"upper_size": 1,
+			"type": "minecraft:two_layers_feature_size"
+		  },
+		  "decorators": [],
+		  "trunk_provider": {
+			"entries": [
+			  {
+				"weight": 10,
+				"data": {
+				  "Properties": {
+					"shouldsap": "true",
+					"hassap": "false",
+					"facing": "north",
+					"axis": "y"
+				  },
+				  "Name": "techreborn:rubber_log"
+				}
+			  },
+			  {
+				"weight": 1,
+				"data": {
+				  "Properties": {
+					"shouldsap": "true",
+					"hassap": "true",
+					"facing": "north",
+					"axis": "y"
+				  },
+				  "Name": "techreborn:rubber_log"
+				}
+			  },
+			  {
+				"weight": 1,
+				"data": {
+				  "Properties": {
+					"shouldsap": "true",
+					"hassap": "true",
+					"facing": "south",
+					"axis": "y"
+				  },
+				  "Name": "techreborn:rubber_log"
+				}
+			  },
+			  {
+				"weight": 1,
+				"data": {
+				  "Properties": {
+					"shouldsap": "true",
+					"hassap": "true",
+					"facing": "west",
+					"axis": "y"
+				  },
+				  "Name": "techreborn:rubber_log"
+				}
+			  },
+			  {
+				"weight": 1,
+				"data": {
+				  "Properties": {
+					"shouldsap": "true",
+					"hassap": "true",
+					"facing": "east",
+					"axis": "y"
+				  },
+				  "Name": "techreborn:rubber_log"
+				}
+			  }
+			],
+			"type": "minecraft:weighted_state_provider"
+		  },
+		  "leaves_provider": {
+			"state": {
+			  "Properties": {
+				"persistent": "false",
+				"distance": "7"
+			  },
+			  "Name": "techreborn:rubber_leaves"
+			},
+			"type": "minecraft:simple_state_provider"
+		  },
+		  "foliage_placer": {
+			"height": 3,
+			"spireHeight": 3,
+			"spireBlockState": {
+			  "Properties": {
+				"persistent": "false",
+				"distance": "7"
+			  },
+			  "Name": "techreborn:rubber_leaves"
+			},
+			"radius": 2,
+			"offset": 0,
+			"type": "techreborn:rubber_tree"
+		  },
+		  "trunk_placer": {
+			"base_height": 6,
+			"height_rand_a": 3,
+			"height_rand_b": 0,
+			"type": "minecraft:straight_trunk_placer"
+		  }
+		},
+		"type": "techreborn:rubber_tree"
+	  },
+	  "decorator": {
+		"config": {
+		  "chance": 50
+		},
+		"type": "techreborn:rubber_tree"
+	  }
+	},
+	"type": "minecraft:decorated"
+  }
+}
