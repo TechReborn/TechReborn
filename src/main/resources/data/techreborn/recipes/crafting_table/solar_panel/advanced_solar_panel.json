@@ -13,7 +13,7 @@
       "item": "techreborn:advanced_circuit"
     },
     "D": {
-      "item": "techreborn:coal_dust"
+      "tag": "c:coal_dusts"
     },
     "L": {
       "item": "minecraft:glass"
