@@ -79,15 +79,15 @@ configurations.all {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.16.4-rc1"
-	mappings "net.fabricmc:yarn:1.16.4-rc1+build.2:v2"
+	minecraft "com.mojang:minecraft:1.16.4"
+	mappings "net.fabricmc:yarn:1.16.4+build.6:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.10.6+build.214"
 
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.25.0+build.415-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.2.3")
-	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.8.0")
+	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
 	modApi (rcVersion) {
@@ -99,7 +99,7 @@ dependencies {
 
     optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
 
-	modRuntime "curse.maven:applied-energistics-2:3060182"
+	modRuntime "curse.maven:applied-energistics-2:3100394"
 	modRuntime "alexiil.mc.lib:libblockattributes-core:0.8.0"
 	modRuntime "alexiil.mc.lib:libblockattributes-items:0.8.0"
 	modRuntime "alexiil.mc.lib:libblockattributes-fluids:0.8.0"

@@ -65,7 +65,7 @@ public class DataDrivenFeature {
 		this(identifier, biomeSelector, Feature.ORE.configure(
 				new OreFeatureConfig(ruleTest, blockState, veinSize)
 		)
-				.method_30377(maxY)
+				.rangeOf(maxY)
 				.spreadHorizontally()
 				.repeat(veinCount), GenerationStep.Feature.UNDERGROUND_ORES);
 	}
