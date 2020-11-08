@@ -114,6 +114,7 @@ public class TRContent {
 	public static Block RUBBER_LOG_STRIPPED;
 	public static Block RUBBER_WOOD;
 	public static Block STRIPPED_RUBBER_WOOD;
+	public static Block POTTED_RUBBER_SAPLING;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;
