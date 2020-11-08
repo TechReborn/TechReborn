@@ -93,6 +93,7 @@ public class TechReborn implements ModInitializer {
 		TRDispenserBehavior.init();
 		PoweredCraftingHandler.setup();
 		UseBlockHandler.init();
+		FuelRecipes.init();
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
