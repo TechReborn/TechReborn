@@ -8,7 +8,7 @@
 	},
 	"ingredients": [
 		{
-			"item": "minecraft:diamond_ore"
+			"tag": "c:diamond_ores"
 		}
 	],
 	"results": [
