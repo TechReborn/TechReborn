@@ -8,7 +8,7 @@
 	},
 	"ingredients": [
 		{
-			"item": "minecraft:iron_ore"
+		  	"tag": "c:iron_ores"
 		}
 	],
 	"results": [

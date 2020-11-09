@@ -8,7 +8,7 @@
 	},
 	"ingredients": [
 		{
-			"item": "minecraft:emerald_ore"
+		  	"tag": "c:emerald_ores"
 		}
 	],
 	"results": [

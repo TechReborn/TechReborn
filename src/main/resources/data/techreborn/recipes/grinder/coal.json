@@ -4,7 +4,7 @@
   "time": 200,
   "ingredients": [
     {
-      "item": "minecraft:coal_ore"
+      "tag": "c:coal_ores"
     }
   ],
   "results": [

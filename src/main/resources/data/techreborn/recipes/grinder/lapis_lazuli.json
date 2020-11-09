@@ -4,7 +4,7 @@
   "time": 200,
   "ingredients": [
     {
-      "item": "minecraft:lapis_ore"
+	  "tag": "c:lapis_ores"
     }
   ],
   "results": [
