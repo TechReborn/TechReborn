@@ -1,16 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "BNB",
-    "NBN",
+    "B B",
+    " B ",
     " B "
   ],
   "key": {
     "B": {
       "tag": "c:bronze_ingots"
-    },
-    "N": {
-      "tag": "c:bronze_nuggets"
     }
   },
   "result": {
