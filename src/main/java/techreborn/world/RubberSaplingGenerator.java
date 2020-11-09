@@ -35,13 +35,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class RubberSaplingGenerator extends SaplingGenerator {
-	private final Identifier identifier = new Identifier("techreborn", "rubber_tree");
+	private final Identifier identifier = new Identifier("techreborn", "techreborn/features/rubber_tree.json");
 
 	@Nullable
 	@Override
 	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
 		MutableRegistry<ConfiguredFeature<?, ?>> registry = WorldGenerator.worldGenObseravable.getA();
-		if (!registry.containsId(identifier)) {
+		if (!registry.getIds().contains(identifier)) {
 			throw new RuntimeException("Could not find registered rubber tree feature!");
 		}
 
