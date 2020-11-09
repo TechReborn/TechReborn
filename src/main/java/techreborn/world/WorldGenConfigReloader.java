@@ -36,6 +36,7 @@ import net.minecraft.util.profiler.Profiler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+import reborncore.common.crafting.ConditionManager;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -80,7 +81,13 @@ public class WorldGenConfigReloader implements IdentifiableResourceReloadListene
 	private <T> T parse(BiFunction<Identifier, JsonObject, T> deserialiser, Identifier resource, ResourceManager manager) {
 		try(InputStreamReader inputStreamReader = new InputStreamReader(manager.getResource(resource).getInputStream(), StandardCharsets.UTF_8)) {
 			JsonElement jsonElement = new JsonParser().parse(inputStreamReader);
-			return deserialiser.apply(resource, jsonElement.getAsJsonObject());
+			JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+			if (!ConditionManager.shouldLoadRecipe(jsonObject)) {
+				return null;
+			}
+
+			return deserialiser.apply(resource, jsonObject);
 		} catch (JsonParseException |IOException e) {
 			LOGGER.error("Failed to parse " + resource.toString());
 			LOGGER.error(e);
