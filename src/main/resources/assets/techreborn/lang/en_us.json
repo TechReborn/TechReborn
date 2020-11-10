@@ -810,6 +810,8 @@
   "_comment22": "Tooltips",
   "techreborn.tooltip.transferRate": "Transfer Rate",
   "techreborn.tooltip.tier": "Tier",
+  "techreborn.tooltip.input_tier": "Input Tier",
+  "techreborn.tooltip.output_tier": "Output Tier",
   "techreborn.tooltip.wip": "WIP Coming Soon",
   "techreborn.tooltip.inventory": "Inventory",
   "techreborn.tooltip.upgrades": "Upgrades",
@@ -831,7 +833,7 @@
   "techreborn.tooltip.painting_tool.apply": "Right click on covered cable to apply",
   "techreborn.tooltip.cable.can_cover": "Can be covered with wooden plates",
   "techreborn.tooltip.more_info": "Hold Shift for more info",
-  "techreborn.tooltip.has_data": "Stored data",
+  "techreborn.tooltip.stack_info": "Hold Shift for stack info",
   "techreborn.tooltip.omnitool_motto" : "Swiss Army Knife",
 
   "_comment23": "ManualUI",

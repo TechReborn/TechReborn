@@ -28,8 +28,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IListInfoProvider;
@@ -141,12 +141,35 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements 
 	}
 
 	// IListInfoProvider
-	// TODO: translate
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-		info.add(new LiteralText(Formatting.GRAY + "Input Rate: " + Formatting.GOLD + PowerSystem.getLocalizedPower(getMaxInput(EnergySide.UNKNOWN))));
-		info.add(new LiteralText(Formatting.GRAY + "Input Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString())));
-		info.add(new LiteralText(Formatting.GRAY + "Output Rate: " + Formatting.GOLD + PowerSystem.getLocalizedPower(getMaxOutput(EnergySide.UNKNOWN))));
-		info.add(new LiteralText(Formatting.GRAY + "Output Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(outputTier.toString())));
+		info.add(
+				new TranslatableText("reborncore.tooltip.energy.inputRate")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(PowerSystem.getLocalizedPower(getMaxInput(EnergySide.UNKNOWN)))
+						.formatted(Formatting.GOLD)
+		);
+		info.add(
+				new TranslatableText("techreborn.tooltip.input_tier")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(StringUtils.toFirstCapitalAllLowercase(inputTier.toString()))
+						.formatted(Formatting.GOLD)
+		);
+		info.add(
+				new TranslatableText("reborncore.tooltip.energy.outputRate")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(PowerSystem.getLocalizedPower(getMaxOutput(EnergySide.UNKNOWN)))
+						.formatted(Formatting.GOLD)
+		);
+		info.add(
+				new TranslatableText("techreborn.tooltip.output_tier")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(StringUtils.toFirstCapitalAllLowercase(outputTier.toString()))
+						.formatted(Formatting.GOLD)
+		);
 	}
 }

@@ -49,7 +49,7 @@ public class ToolTipAssistUtils {
 
 	public static List<Text> getUpgradeStats(TRContent.Upgrades upgradeType, int count, boolean shiftHeld) {
 		List<Text> tips = new ArrayList<>();
-		boolean shouldStackCalculate = true;
+		boolean shouldStackCalculate = count > 1;
 
 		switch (upgradeType) {
 			case OVERCLOCKER:
@@ -69,7 +69,7 @@ public class ToolTipAssistUtils {
 
 		// Add reminder that they can use shift to calculate the entire stack
 		if (shouldStackCalculate && !shiftHeld) {
-			tips.add(new LiteralText(instructColour + I18n.translate("techreborn.tooltip.more_info")));
+			tips.add(new LiteralText(instructColour + I18n.translate("techreborn.tooltip.stack_info")));
 		}
 
 		return tips;
@@ -88,7 +88,7 @@ public class ToolTipAssistUtils {
 				String[] infoLines = info.split("\\r?\\n");
 
 				for (String infoLine : infoLines) {
-					list.add(new LiteralText(infoColour + infoLine));
+					list.add(1, new LiteralText(infoColour + infoLine));
 				}
 			} else {
 				list.add(new LiteralText(instructColour + I18n.translate("techreborn.tooltip.more_info")));
