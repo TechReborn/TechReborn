@@ -4,7 +4,7 @@
   "time": 200,
   "ingredients": [
     {
-      "item": "techreborn:silicon_plate"
+      "tag": "c:silicon_plates"
     },
     {
       "item": "techreborn:synthetic_redstone_crystal",
