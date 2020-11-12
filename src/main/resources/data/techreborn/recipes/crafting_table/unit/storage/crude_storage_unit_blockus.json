@@ -24,6 +24,6 @@
   },
 
   "conditions": {
-    "reborncore:tag": "blockus:barrels"
+	"reborncore:mod": "blockus"
   }
 }
