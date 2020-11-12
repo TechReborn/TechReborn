@@ -835,6 +835,7 @@
   "techreborn.tooltip.more_info": "Hold Shift for more info",
   "techreborn.tooltip.stack_info": "Hold Shift for stack info",
   "techreborn.tooltip.omnitool_motto" : "Swiss Army Knife",
+  "techreborn.tooltip.fusion_coil" : "Right click Fusion Control computer to auto place",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",
