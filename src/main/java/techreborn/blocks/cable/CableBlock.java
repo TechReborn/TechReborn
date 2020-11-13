@@ -56,6 +56,7 @@ import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import team.reborn.energy.Energy;
+import techreborn.api.events.CableElectrocutionEvent;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
@@ -229,16 +230,16 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		super.onEntityCollision(state, worldIn, pos, entityIn);
+	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+		super.onEntityCollision(state, world, pos, entity);
 		if (!type.canKill) {
 			return;
 		}
-		if (!(entityIn instanceof LivingEntity)) {
+		if (!(entity instanceof LivingEntity)) {
 			return;
 		}
 
-		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity == null) {
 			return;
 		}
@@ -251,19 +252,23 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			return;
 		}
 
+		if (!CableElectrocutionEvent.EVENT.invoker().electrocute((LivingEntity) entity, type, pos, world, blockEntityCable)) {
+			return;
+		}
+
 		if (TechRebornConfig.uninsulatedElectrocutionDamage) {
 			if (type == TRContent.Cables.HV) {
-				entityIn.setOnFireFor(1);
+				entity.setOnFireFor(1);
 			}
-			entityIn.damage(new ElectrialShockSource(), 1F);
+			entity.damage(new ElectrialShockSource(), 1F);
 			blockEntityCable.setEnergy(0d);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionSound) {
-			worldIn.playSound(null, entityIn.getX(), entityIn.getY(), entityIn.getZ(), ModSounds.CABLE_SHOCK, SoundCategory.BLOCKS,
+			world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.CABLE_SHOCK, SoundCategory.BLOCKS,
 					0.6F, 1F);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionParticles) {
-			worldIn.addParticle(ParticleTypes.CRIT, entityIn.getX(), entityIn.getY(), entityIn.getZ(), 0, 0, 0);
+			world.addParticle(ParticleTypes.CRIT, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
 		}
 	}
 
