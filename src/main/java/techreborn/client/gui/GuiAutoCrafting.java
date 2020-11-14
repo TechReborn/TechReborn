@@ -29,7 +29,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -59,10 +58,6 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
-		CraftingRecipe recipe = blockEntityAutoCraftingTable.getCurrentRecipe();
-		if (recipe != null) {
-			renderItemStack(recipe.getOutput(), 95, 42);
-		}
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(matrixStack, this, blockEntityAutoCraftingTable.getProgress(), blockEntityAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -78,8 +73,14 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 				drawSlot(matrixStack, 28 + (i * 18), 25 + (j * 18), layer);
 			}
 		}
-		drawOutputSlot(matrixStack, 145, 42, layer);
 		drawOutputSlot(matrixStack, 95, 42, layer);
+		drawOutputSlot(matrixStack, 145, 42, layer);
+		drawOutputSlot(matrixStack, 145, 70, layer);
+
+		CraftingRecipe recipe = blockEntityAutoCraftingTable.getCurrentRecipe();
+		if (recipe != null) {
+			renderItemStack(recipe.getOutput(), 95 + getGuiLeft(), 42 + getGuiTop());
+		}
 
 		builder.drawLockButton(matrixStack, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);
 	}
