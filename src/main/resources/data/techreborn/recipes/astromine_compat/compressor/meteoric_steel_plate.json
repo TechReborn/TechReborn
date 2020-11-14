@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "astromine:meteoric_steel_ingot"
+	}
+  ],
+  "results": [
+	{
+	  "item": "astromine:meteoric_steel_plate"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "astromine"
+  }
+}

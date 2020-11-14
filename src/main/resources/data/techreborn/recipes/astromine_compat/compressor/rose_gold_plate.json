@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "astromine:rose_gold_ingot"
+	}
+  ],
+  "results": [
+	{
+	  "item": "astromine:rose_gold_plate"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "astromine"
+  }
+}
