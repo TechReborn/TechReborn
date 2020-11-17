@@ -45,31 +45,34 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
+import techreborn.utils.ToolsUtil;
 
 import java.util.Random;
 
 public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge;
-	public final int cost;
 	public final EnergyTier tier;
-	public final MiningLevel miningLevel;
+	public final int cost;
+	protected final float unpoweredSpeed = 0.5F;
 
-	public JackhammerItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, MiningLevel miningLevel) {
-		super(material, (int) material.getAttackDamage(), 1F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+	public JackhammerItem(int energyCapacity, EnergyTier tier, int cost) {
+		super(ToolMaterials.DIAMOND, (int) ToolMaterials.DIAMOND.getAttackDamage(), 1F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxCharge = energyCapacity;
-		this.cost = cost;
 		this.tier = tier;
-		this.miningLevel = miningLevel;
+		this.cost = cost;
 	}
 
 	// PickaxeItem
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (state.getMaterial() == Material.STONE && Energy.of(stack).getEnergy() >= cost) {
+		if (Energy.of(stack).getEnergy() < cost) return unpoweredSpeed;
+		if (ToolsUtil.JackHammerSkippedBlocks(state)) return unpoweredSpeed;
+
+		if (state.getMaterial() == Material.STONE) {
 			return miningSpeed;
 		} else {
-			return 0.5F;
+			return unpoweredSpeed;
 		}
 	}
 
@@ -85,13 +88,6 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 		return 0.5F;
 	}*/
 
-	@Override
-	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
-		if (tag.equals(FabricToolTags.PICKAXES)) {
-			return miningLevel.intLevel;
-		}
-		return 0;
-	}
 
 	// MiningToolItem
 	@Override
@@ -116,11 +112,6 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	// Item
 	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
-	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
 	}
@@ -131,6 +122,22 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 			return;
 		}
 		InitUtils.initPoweredItems(this, stacks);
+	}
+
+	// EnergyHolder
+	@Override
+	public double getMaxStoredPower() {
+		return maxCharge;
+	}
+
+	@Override
+	public EnergyTier getTier() {
+		return tier;
+	}
+
+	@Override
+	public double getMaxOutput(EnergySide side) {
+		return 0;
 	}
 
 	// ItemDurabilityExtensions
@@ -149,19 +156,12 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	// EnergyHolder
+	// DynamicAttributeTool
 	@Override
-	public double getMaxStoredPower() {
-		return maxCharge;
-	}
-
-	@Override
-	public EnergyTier getTier() {
-		return tier;
-	}
-
-	@Override
-	public double getMaxOutput(EnergySide side) {
+	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
+		if (tag.equals(FabricToolTags.PICKAXES)) {
+			return MiningLevel.IRON.intLevel;
+		}
 		return 0;
 	}
 }
