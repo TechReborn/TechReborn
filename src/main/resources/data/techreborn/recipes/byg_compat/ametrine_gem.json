@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:grinder",
+  "power": 5,
+  "time": 200,
+  "ingredients": [
+	{
+	  "item": "byg:ametrine_ore"
+	}
+  ],
+  "results": [
+	{
+	  "item": "byg:ametrine_gems"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "byg"
+  }
+}

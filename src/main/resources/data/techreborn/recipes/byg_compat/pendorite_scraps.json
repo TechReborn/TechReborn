@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:grinder",
+  "power": 5,
+  "time": 200,
+  "ingredients": [
+	{
+	  "item": "byg:pendorite_ore"
+	}
+  ],
+  "results": [
+	{
+	  "item": "byg:pendorite_scraps"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "byg"
+  }
+}
