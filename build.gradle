@@ -99,7 +99,7 @@ dependencies {
 
     optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
 
-	modRuntime "curse.maven:applied-energistics-2:3100394"
+	modRuntime "curse.maven:applied-energistics-2:3117933"
 	modRuntime "alexiil.mc.lib:libblockattributes-core:0.8.0"
 	modRuntime "alexiil.mc.lib:libblockattributes-items:0.8.0"
 	modRuntime "alexiil.mc.lib:libblockattributes-fluids:0.8.0"
