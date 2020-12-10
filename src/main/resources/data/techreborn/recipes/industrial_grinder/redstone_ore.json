@@ -8,7 +8,7 @@
 	},
 	"ingredients": [
 		{
-			"item": "minecraft:redstone_ore"
+			"tag": "c:redstone_ores"
 		}
 	],
 	"results": [

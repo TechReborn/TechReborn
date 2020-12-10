@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "minecraft:netherite_ingot"
+	}
+  ],
+  "results": [
+	{
+	  "item": "astromine:netherite_plate"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "astromine"
+  }
+}

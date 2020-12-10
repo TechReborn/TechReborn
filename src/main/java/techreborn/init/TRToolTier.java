@@ -32,13 +32,13 @@ import java.util.function.Supplier;
 
 //TODO: Use tags
 public enum TRToolTier implements ToolMaterial {
-	BRONZE(2, 375, 7.0F, 2.25f, 12, () -> {
+	BRONZE(2, 375, 7.0F, 2.25f, 6, () -> {
 		return Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem());
-	}), RUBY(2, 1651, 6.0F, 4.7F, 10, () -> {
+	}), RUBY(2, 750, 6.0F, 1.5F, 10, () -> {
 		return Ingredient.ofItems(TRContent.Gems.RUBY.asItem());
-	}), SAPPHIRE(3, 1651, 14.0F, 1.8F, 8, () -> {
+	}), SAPPHIRE(3, 1000, 7.0F, 1.5F, 12, () -> {
 		return Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem());
-	}), PERIDOT(2, 573, 7.0F, 2.4F, 24, () -> {
+	}), PERIDOT(2, 750, 7.0F, 1.5F, 12, () -> {
 		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
 	});
 
@@ -46,17 +46,17 @@ public enum TRToolTier implements ToolMaterial {
 	 * The level of material this tool can harvest (3 = DIAMOND, 2 = IRON, 1 =
 	 * STONE, 0 = WOOD/GOLD)
 	 */
-	private final int harvestLevel;
+	private final int miningLevel;
 	/**
 	 * The number of uses this material allows. (wood = 59, stone = 131, iron = 250,
 	 * diamond = 1561, gold = 32)
 	 */
-	private final int maxUses;
+	private final int itemDurability;
 	/**
 	 * The strength of this tool material against blocks which it is effective
 	 * against.
 	 */
-	private final float efficiency;
+	private final float miningSpeed;
 	/**
 	 * Damage versus entities.
 	 */
@@ -67,24 +67,24 @@ public enum TRToolTier implements ToolMaterial {
 	private final int enchantability;
 	private final Lazy<Ingredient> repairMaterial;
 
-	TRToolTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
-			   int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
-		this.harvestLevel = harvestLevelIn;
-		this.maxUses = maxUsesIn;
-		this.efficiency = efficiencyIn;
-		this.attackDamage = attackDamageIn;
-		this.enchantability = enchantabilityIn;
+	TRToolTier(int miningLevel, int itemDurability, float miningSpeed, float attackDamage,
+			   int enchantability, Supplier<Ingredient> repairMaterialIn) {
+		this.miningLevel = miningLevel;
+		this.itemDurability = itemDurability;
+		this.miningSpeed = miningSpeed;
+		this.attackDamage = attackDamage;
+		this.enchantability = enchantability;
 		this.repairMaterial = new Lazy<>(repairMaterialIn);
 	}
 
 	@Override
 	public int getDurability() {
-		return maxUses;
+		return itemDurability;
 	}
 
 	@Override
 	public float getMiningSpeedMultiplier() {
-		return efficiency;
+		return miningSpeed;
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public enum TRToolTier implements ToolMaterial {
 
 	@Override
 	public int getMiningLevel() {
-		return harvestLevel;
+		return miningLevel;
 	}
 
 	@Override

@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:grinder",
+  "power": 2,
+  "time": 230,
+  "ingredients" : [
+	{
+	  "item": "byg:lignite"
+	}
+  ],
+  "results" : [
+	{
+	  "item": "techreborn:coal_dust"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "byg"
+  }
+}

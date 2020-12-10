@@ -27,13 +27,11 @@ package techreborn.items.tool.industrial;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -43,18 +41,16 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.JackhammerItem;
-import techreborn.items.tool.MiningLevel;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -63,7 +59,7 @@ import java.util.stream.Collectors;
 public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public IndustrialJackhammerItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost, MiningLevel.DIAMOND);
+		super(TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5
@@ -122,26 +118,14 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	@Override
-	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
-			return Collections.emptySet();
-		}
-		int radius = isAOE5(stack) ? 2 : 1;
-		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius, false)
-				.stream()
-				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
-				.collect(Collectors.toSet());
-	}
-
-	// PickaxeItem
-	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (state.getMaterial() == Material.STONE && Energy.of(stack).getEnergy() >= cost) {
-			// x4 diamond mining speed
-			return 32.0F;
-		} else {
-			return 0.5F;
+		float speed = super.getMiningSpeedMultiplier(stack, state);
+
+		if (speed > unpoweredSpeed) {
+			return miningSpeed * 4;
 		}
+
+		return speed;
 	}
 
 	// Item
@@ -171,5 +155,18 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 				tooltip.add(new LiteralText("3*3").formatted(Formatting.RED));
 			}
 		}
+	}
+
+	// MultiBlockBreakingTool
+	@Override
+	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
+		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
+			return Collections.emptySet();
+		}
+		int radius = isAOE5(stack) ? 2 : 1;
+		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius, false)
+				.stream()
+				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
+				.collect(Collectors.toSet());
 	}
 }

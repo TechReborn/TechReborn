@@ -1,0 +1,50 @@
+{
+  "biomeSelector": "overworld",
+  "generationStep": "UNDERGROUND_ORES",
+  "configuredFeature": {
+	"config": {
+	  "feature": {
+		"config": {
+		  "feature": {
+			"config": {
+			  "feature": {
+				"config": {
+				  "target": {
+					"tag": "minecraft:base_stone_overworld",
+					"predicate_type": "minecraft:tag_match"
+				  },
+				  "state": {
+					"Name": "techreborn:ruby_ore"
+				  },
+				  "size": 6
+				},
+				"type": "minecraft:ore"
+			  },
+			  "decorator": {
+				"config": {
+				  "bottom_offset": 0,
+				  "top_offset": 0,
+				  "maximum": 60
+				},
+				"type": "minecraft:range"
+			  }
+			},
+			"type": "minecraft:decorated"
+		  },
+		  "decorator": {
+			"config": {},
+			"type": "minecraft:square"
+		  }
+		},
+		"type": "minecraft:decorated"
+	  },
+	  "decorator": {
+		"config": {
+		  "count": 3
+		},
+		"type": "minecraft:count"
+	  }
+	},
+	"type": "minecraft:decorated"
+  }
+}

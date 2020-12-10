@@ -49,27 +49,27 @@ public class ToolTipAssistUtils {
 
 	public static List<Text> getUpgradeStats(TRContent.Upgrades upgradeType, int count, boolean shiftHeld) {
 		List<Text> tips = new ArrayList<>();
-		boolean shouldStackCalculate = true;
+		boolean shouldStackCalculate = count > 1;
 
 		switch (upgradeType) {
 			case OVERCLOCKER:
-				tips.add(getPositive("Speed increase", calculateValue(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%"));
-				tips.add(getNegative("Energy increase", calculateValue(TechRebornConfig.overclockerPower * 100, count, shiftHeld), "%"));
+				tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.speed_increase"), calculateValue(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%"));
+				tips.add(getNegative(I18n.translate("techreborn.tooltip.upgrade.energy_increase"), calculateValue(TechRebornConfig.overclockerPower * 100, count, shiftHeld), "%"));
 				break;
 			case TRANSFORMER:
 				shouldStackCalculate = false;
 				break;
 			case ENERGY_STORAGE:
-				tips.add(getPositive("Storage increase", calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E"));
+				tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E"));
 				break;
 			case SUPERCONDUCTOR:
-				tips.add(getPositive("Increased flow by: ", calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%"));
+				tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%"));
 				break;
 		}
 
 		// Add reminder that they can use shift to calculate the entire stack
 		if (shouldStackCalculate && !shiftHeld) {
-			tips.add(new LiteralText(instructColour + "Hold shift for stack calculation"));
+			tips.add(new LiteralText(instructColour + I18n.translate("techreborn.tooltip.stack_info")));
 		}
 
 		return tips;
@@ -88,10 +88,10 @@ public class ToolTipAssistUtils {
 				String[] infoLines = info.split("\\r?\\n");
 
 				for (String infoLine : infoLines) {
-					list.add(new LiteralText(infoColour + infoLine));
+					list.add(1, new LiteralText(infoColour + infoLine));
 				}
 			} else {
-				list.add(new LiteralText(instructColour + "Hold shift for info"));
+				list.add(new LiteralText(instructColour + I18n.translate("techreborn.tooltip.more_info")));
 			}
 		}
 	}

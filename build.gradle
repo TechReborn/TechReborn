@@ -10,7 +10,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.5.26"
+		classpath "net.fabricmc:fabric-loom:0.5-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
 	}
@@ -55,7 +55,7 @@ repositories {
 	}
 }
 
-version = "3.6.1"
+version = "3.7.1"
 
 configurations {
 	shade
@@ -79,15 +79,15 @@ configurations.all {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.16.3"
-	mappings "net.fabricmc:yarn:1.16.3+build.11:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.10.1+build.209"
+	minecraft "com.mojang:minecraft:1.16.4"
+	mappings "net.fabricmc:yarn:1.16.4+build.6:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.10.6+build.214"
 
-    //Fabric api
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.23.0+build.410-1.16"
+	//Fabric api
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.25.0+build.415-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.2.3")
-	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.8.0")
+	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
 	modApi (rcVersion) {
@@ -99,7 +99,7 @@ dependencies {
 
     optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
 
-	modRuntime "curse.maven:applied-energistics-2:3060182"
+	modRuntime "curse.maven:applied-energistics-2:3117933"
 	modRuntime "alexiil.mc.lib:libblockattributes-core:0.8.0"
 	modRuntime "alexiil.mc.lib:libblockattributes-items:0.8.0"
 	modRuntime "alexiil.mc.lib:libblockattributes-fluids:0.8.0"

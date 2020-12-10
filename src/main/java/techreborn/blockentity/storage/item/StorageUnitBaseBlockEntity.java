@@ -25,6 +25,7 @@
 package techreborn.blockentity.storage.item;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -435,8 +436,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 						.append(
 								new LiteralText(String.valueOf(this.getMaxCapacity()))
 										.formatted(Formatting.GOLD)
-										.append(" items (")
+										.append(" ")
+										.append(I18n.translate("techreborn.tooltip.unit.items"))
+										.append(" (")
 										.append(String.valueOf(this.getMaxCapacity() / 64))
+										.append(" ")
+										.append(I18n.translate("techreborn.tooltip.unit.stacks"))
 										.append(")")
 						)
 		);

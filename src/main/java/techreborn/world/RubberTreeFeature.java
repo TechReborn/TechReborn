@@ -49,7 +49,7 @@ public class RubberTreeFeature extends TreeFeature {
 	}
 
 	public static class FoliagePlacer extends BlobFoliagePlacer {
-		public static final Codec<FoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> method_28838(instance)
+		public static final Codec<FoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> createCodec(instance)
 				.and(
 						Codec.INT.fieldOf("spireHeight").forGetter(FoliagePlacer::getSpireHeight)
 				)

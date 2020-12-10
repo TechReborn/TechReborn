@@ -56,7 +56,7 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 	private final EnergyTier tier;
 
 	public BatteryItem(int maxEnergy, EnergyTier tier) {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(1));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxEnergy = maxEnergy;
 		this.tier = tier;
 	}

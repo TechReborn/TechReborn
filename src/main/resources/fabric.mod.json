@@ -30,7 +30,8 @@
     "fabricloader": ">=0.6.3",
     "fabric": "*",
     "reborncore": "*",
-	"team_reborn_energy": ">=0.1.0"
+	"team_reborn_energy": ">=0.1.0",
+	"fabric-biome-api-v1": ">=3.0.0"
   },
   "authors": [
     "Team Reborn",

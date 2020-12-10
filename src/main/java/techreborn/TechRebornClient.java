@@ -110,7 +110,6 @@ public class TechRebornClient implements ClientModInitializer {
 							return Collections.emptyList();
 						}
 
-						@Nullable
 						@Override
 						public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
 							return new DynamicCellBakedModel();
@@ -135,7 +134,6 @@ public class TechRebornClient implements ClientModInitializer {
 							return Collections.emptyList();
 						}
 
-						@Nullable
 						@Override
 						public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
 							return new DynamicBucketBakedModel();
@@ -160,6 +158,7 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.RUBBER_SAPLING, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.REINFORCED_GLASS, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.RESIN_BASIN.block, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.POTTED_RUBBER_SAPLING, RenderLayer.getCutout());
 
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.RUBBER_LEAVES, RenderLayer.getCutoutMipped());
 

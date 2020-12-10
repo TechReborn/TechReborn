@@ -22,42 +22,32 @@
  * SOFTWARE.
  */
 
-package techreborn.world;
+package techreborn.api.events;
 
-import com.mojang.serialization.Codec;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.world.biome.Biome;
+import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.EventFactory;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import techreborn.blockentity.cable.CableBlockEntity;
+import techreborn.init.TRContent;
 
-import java.util.function.Predicate;
+public interface CableElectrocutionEvent {
+	Event<CableElectrocutionEvent> EVENT = EventFactory.createArrayBacked(CableElectrocutionEvent.class, (listeners) ->
+		(livingEntity, cableType, blockPos, world, cableBlockEntity) -> {
+			for (CableElectrocutionEvent listener : listeners) {
+				if (!listener.electrocute(livingEntity, cableType, blockPos, world, cableBlockEntity)) {
+					return false;
+				}
+			}
+			return true;
+		}
+	);
 
-public enum WorldTargetType implements StringIdentifiable {
-	DEFAULT("default", category -> category != Biome.Category.NETHER && category != Biome.Category.THEEND),
-	NETHER("nether", category -> category == Biome.Category.NETHER),
-	END("end", category -> category == Biome.Category.THEEND);
-
-	private final String name;
-	private final Predicate<Biome.Category> biomeCategoryPredicate;
-	public static final Codec<WorldTargetType> CODEC = StringIdentifiable.createCodec(WorldTargetType::values, WorldTargetType::getByName);
-
-	WorldTargetType(String name, Predicate<Biome.Category> biomeCategoryPredicate) {
-		this.name = name;
-		this.biomeCategoryPredicate = biomeCategoryPredicate;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public boolean isApplicable(Biome.Category biomeCategory) {
-		return biomeCategoryPredicate.test(biomeCategory);
-	}
-
-	public static WorldTargetType getByName(String name) {
-		return null;
-	}
-
-	@Override
-	public String asString() {
-		return name;
-	}
+	/**
+	 * Fired before an entity is electrocuted
+	 *
+	 * @return true to electrocute the entity (if not other listeners return false), false to do nothing
+	 */
+	boolean electrocute(LivingEntity livingEntity, TRContent.Cables cableType, BlockPos blockPos, World world, CableBlockEntity cableBlockEntity);
 }

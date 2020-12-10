@@ -11,7 +11,7 @@
         "tag": "c:nickel_ingots"
       },
       "C": {
-        "item": "techreborn:chrome_ingot"
+        "tag": "c:chrome_ingots"
       }
     },
     "result": {

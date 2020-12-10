@@ -16,7 +16,7 @@
       "item": "techreborn:extractor"
     },
     "I": {
-      "item": "techreborn:invar_plate"
+      "tag": "c:invar_plates"
     }
   },
   "result": {

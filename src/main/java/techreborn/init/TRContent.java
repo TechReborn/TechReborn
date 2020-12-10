@@ -24,6 +24,7 @@
 
 package techreborn.init;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
@@ -33,6 +34,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.structure.rule.RuleTest;
+import net.minecraft.util.Identifier;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -87,11 +89,11 @@ import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
 import org.jetbrains.annotations.Nullable;
-import techreborn.world.TechRebornOre;
-import techreborn.world.WorldTargetType;
+import techreborn.world.DataDrivenFeature;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class TRContent {
@@ -117,6 +119,7 @@ public class TRContent {
 	public static Block RUBBER_WOOD;
 	public static Block STRIPPED_RUBBER_WOOD;
 	public static Block DRILL_PIPE;
+	public static Block POTTED_RUBBER_SAPLING;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -422,8 +425,8 @@ public class TRContent {
 			return block.asItem();
 		}
 
-		public TechRebornOre asNewOres(WorldTargetType targetType, RuleTest ruleTest) {
-			return new TechRebornOre(targetType, ruleTest, block.getDefaultState(), maxY, veinSize, veinsPerChunk);
+		public DataDrivenFeature asNewOres(Identifier identifier, Predicate<BiomeSelectionContext> targetType, RuleTest ruleTest) {
+			return new DataDrivenFeature(identifier, targetType, ruleTest, block.getDefaultState(), maxY, veinSize, veinsPerChunk);
 		}
 
 	}

@@ -26,6 +26,7 @@ package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -44,6 +45,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
 import team.reborn.energy.Energy;
 import techreborn.events.TRRecipeHandler;
@@ -61,20 +63,29 @@ public class BlockRubberLog extends PillarBlock {
 
 	public static DirectionProperty SAP_SIDE = Properties.HORIZONTAL_FACING;
 	public static BooleanProperty HAS_SAP = BooleanProperty.of("hassap");
+	public static BooleanProperty SHOULD_SAP = BooleanProperty.of("shouldsap");
 
 	public BlockRubberLog() {
 		super(Settings.of(Material.WOOD, (blockState) -> MaterialColor.SPRUCE)
 				.strength(2.0F, 2f)
 				.sounds(BlockSoundGroup.WOOD)
 				.ticksRandomly());
-		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(AXIS, Direction.Axis.Y));
+		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(SHOULD_SAP, true).with(AXIS, Direction.Axis.Y));
 		FlammableBlockRegistry.getDefaultInstance().add(this, 5, 5);
 	}
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		super.appendProperties(builder);
-		builder.add(SAP_SIDE, HAS_SAP);
+		builder.add(SAP_SIDE, HAS_SAP, SHOULD_SAP);
+	}
+
+	@Override
+	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+		super.onPlaced(world, pos, state, placer, itemStack);
+		if (placer instanceof PlayerEntity) {
+			world.setBlockState(pos, state.with(SHOULD_SAP, false));
+		}
 	}
 
 	@Override
@@ -82,6 +93,7 @@ public class BlockRubberLog extends PillarBlock {
 		return tagIn == BlockTags.LOGS;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onBreak(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
 		int i = 4;
@@ -98,15 +110,14 @@ public class BlockRubberLog extends PillarBlock {
 		super.onBreak(worldIn, pos, state, player);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 		super.randomTick(state, worldIn, pos, random);
-		if (state.get(AXIS) != Direction.Axis.Y) {
-			return;
-		}
-		if (state.get(HAS_SAP)) {
-			return;
-		}
+		if (state.get(AXIS) != Direction.Axis.Y) return;
+		if (!state.get(SHOULD_SAP)) return;
+		if (state.get(HAS_SAP)) return;
+
 		if (random.nextInt(50) == 0) {
 			Direction facing = Direction.fromHorizontal(random.nextInt(4));
 			if (worldIn.getBlockState(pos.offset(Direction.DOWN, 1)).getBlock() == this
@@ -116,6 +127,7 @@ public class BlockRubberLog extends PillarBlock {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
 							  Hand hand, BlockHitResult hitResult) {
