@@ -67,7 +67,7 @@ import techreborn.blocks.lighting.LampBlock;
 import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
 import techreborn.blocks.machine.tier1.BlockMiningRig;
-import techreborn.blocks.machine.tier1.BlockPlayerDetector;
+import techreborn.blocks.machine.tier1.PlayerDetectorBlock;
 import techreborn.blocks.machine.tier1.ResinBasinBlock;
 import techreborn.blocks.misc.*;
 import techreborn.blocks.storage.energy.*;

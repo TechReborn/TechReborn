@@ -140,7 +140,7 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 					tank.isEmpty(), layer);
 		}
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.maxEnergy, mouseX, mouseY, 0, layer);
 
 	}
 

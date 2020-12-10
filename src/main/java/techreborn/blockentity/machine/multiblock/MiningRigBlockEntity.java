@@ -16,6 +16,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.explosion.Explosion;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -182,7 +183,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 				// Conditions to mine and consume, must not be air and not unbreakable
 				if (!minedState.isAir() && minedHardness != -1) {
 					// Checking consume status (Need enough energy, liquid and drill durability
-					if (!this.canUseEnergy(drillItem.energyPerBlock)) {
+					if (!this.canUseEnergy()) {
 						status.add(RigStatus.NO_ENERGY);
 						return;
 					}
@@ -273,7 +274,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 					break;
 				case NO_ENERGY:
 					this.setActiveMining(false);
-					if(this.canUseEnergy(drillItem.energyPerBlock)){
+					if(this.canUseEnergy()){
 						status.remove(RigStatus.NO_ENERGY);
 					}
 					break;
@@ -498,7 +499,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	private LootContext.Builder getDefaultLootContext(){
 		return (new LootContext.Builder(Objects.requireNonNull(world.getServer()).getOverworld()))
 				.random(world.random)
-				.parameter(LootContextParameters.POSITION, pos)
+				.parameter(LootContextParameters.ORIGIN, new Vec3d(pos.getX(), pos.getY(), pos.getZ()))
 				.parameter(LootContextParameters.TOOL, new ItemStack(Items.DIAMOND_PICKAXE));
 	}
 
@@ -508,6 +509,10 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	private void useFluid(int amount) {
 		this.tank.setFluidAmount(this.tank.getFluidAmount().subtract(FluidValue.fromRaw(amount)));
+	}
+
+	private boolean canUseEnergy(){
+		return drillItem != null || this.getEnergy() >= drillItem.energyPerBlock;
 	}
 
 	private boolean canUseDurability(double durability) {
