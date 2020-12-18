@@ -114,10 +114,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 
 	@Override
 	public void onPlace(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (world.isClient) {
-			return;
-		}
 		ownerUdid = placer.getUuidAsString();
+		if (worldIn.isClient) return;
 		reload();
 	}
 
