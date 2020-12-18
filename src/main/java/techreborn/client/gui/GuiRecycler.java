@@ -45,9 +45,11 @@ public class GuiRecycler extends GuiBase<BuiltScreenHandler> {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
+		// Battery slot
 		drawSlot(matrixStack, 8, 72, layer);
-
+		// Input
 		drawSlot(matrixStack, 55, 45, layer);
+		// Output
 		drawOutputSlot(matrixStack, 101, 45, layer);
 	}
 
@@ -56,7 +58,7 @@ public class GuiRecycler extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(matrixStack, this, blockEntity.gaugeProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }

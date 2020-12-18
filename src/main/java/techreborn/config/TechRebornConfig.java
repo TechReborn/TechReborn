@@ -501,11 +501,14 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxCoilSize", comment = "Fusion Reactor Max Coil size (Radius)")
 	public static int fusionControlComputerMaxCoilSize = 50;
 
-	@Config(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input (Value in EU)")
+	@Config(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input")
 	public static int recyclerMaxInput = 32;
 
-	@Config(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
+	@Config(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy")
 	public static int recyclerMaxEnergy = 1000;
+
+	@Config(config = "machines", category = "recycler", key = "RecyclerChance", comment = "Recycler Chance to produce scrap (1 out of chance)")
+	public static int recyclerChance = 6;
 
 	@Config(config = "machines", category = "recycler", key = "RecyclerBlacklist", comment = "Recycler blacklist")
 	public static List<String> recyclerBlackList = Arrays.asList("techreborn:scrap_box", "techreborn:scrap");
