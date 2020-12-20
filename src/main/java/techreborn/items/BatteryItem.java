@@ -82,7 +82,7 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 			return;
 		}
 		if (entity instanceof PlayerEntity) {
-			ItemUtils.distributePowerToInventory((PlayerEntity) entity, stack, tier.getMaxOutput());
+			ItemUtils.distributePowerToInventory((PlayerEntity) entity, stack, tier.getMaxOutput(), (testStack) -> !(testStack.getItem() instanceof BatteryItem));
 		}
 	}
 
