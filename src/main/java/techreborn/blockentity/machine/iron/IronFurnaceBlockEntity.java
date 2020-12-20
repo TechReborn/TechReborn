@@ -30,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.AbstractCookingRecipe;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -48,6 +49,8 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	int inputSlot = 0;
 	int outputSlot = 1;
 	public float experience;
+
+	private Recipe<?> lastRecipe = null;
 
 	public IronFurnaceBlockEntity() {
 		super(TRBlockEntities.IRON_FURNACE, 2, TRContent.Machine.IRON_FURNACE.block);
@@ -68,10 +71,23 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	private ItemStack getResultFor(ItemStack stack) {
-		ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
-		if (!result.isEmpty()) {
-			return result.copy();
+		if (stack.isEmpty()) {
+			// Fast fail if there is no input, no point checking the recipes if the machine is empty
+			return ItemStack.EMPTY;
 		}
+
+		// Check the previous recipe to see if it still applies to the current inv, saves rechecking the whole recipe list
+		if (lastRecipe != null && RecipeUtils.matchesSingleInput(lastRecipe, stack)) {
+			return lastRecipe.getOutput();
+		}
+
+		Recipe<?> matchingRecipe = RecipeUtils.getMatchingRecipe(world, RecipeType.SMELTING, stack).orElse(null);
+
+		if (matchingRecipe != null) {
+			lastRecipe = matchingRecipe;
+			return matchingRecipe.getOutput().copy();
+		}
+
 		return ItemStack.EMPTY;
 	}
 
@@ -104,17 +120,20 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 	@Override
 	protected boolean canSmelt() {
-		if (inventory.getStack(inputSlot).isEmpty()) {
+		ItemStack inputStack = inventory.getStack(inputSlot);
+		if (inputStack.isEmpty())
 			return false;
-		}
-		ItemStack outputStack = getResultFor(inventory.getStack(inputSlot));
+
+		ItemStack outputStack = getResultFor(inputStack);
 		if (outputStack.isEmpty())
 			return false;
-		if (inventory.getStack(outputSlot).isEmpty())
+
+		ItemStack outputSlotStack = inventory.getStack(outputSlot);
+		if (outputSlotStack.isEmpty())
 			return true;
-		if (!inventory.getStack(outputSlot).isItemEqualIgnoreDamage(outputStack))
+		if (!outputSlotStack.isItemEqualIgnoreDamage(outputStack))
 			return false;
-		int result = inventory.getStack(outputSlot).getCount() + outputStack.getCount();
+		int result = outputSlotStack.getCount() + outputStack.getCount();
 		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
 	}
 
