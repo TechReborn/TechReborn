@@ -127,10 +127,10 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public Optional<Pair<Integer, Integer>> getCoilStackCount() {
-		if (!Torus.TORUS_SIZE_MAP.containsKey(blockEntity.size)) {
+		if (!Torus.getTorusSizeCache().containsKey(blockEntity.size)) {
 			return Optional.empty();
 		}
-		int count = Torus.TORUS_SIZE_MAP.get(blockEntity.size);
+		int count = Torus.getTorusSizeCache().get(blockEntity.size);
 		return Optional.of(Pair.of(count / 64, count % 64));
 	}
 }
