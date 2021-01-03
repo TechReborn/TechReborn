@@ -114,11 +114,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return inventoryCrafting;
 	}
 
-	// Check if we have locked recipe, inputs and space for outputs
+	// Check if we have recipe, inputs and space for outputs
 	private boolean canMake(CraftingRecipe recipe) {
 		if (world == null) return false;
 		if (recipe == null) return false;
-		if (!locked) return false;
 
 		CraftingInventory crafting = getCraftingInventory();
 		if (crafting.isEmpty()) return false;
