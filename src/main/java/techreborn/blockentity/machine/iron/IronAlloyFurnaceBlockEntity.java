@@ -36,6 +36,8 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
+import java.util.List;
+
 public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	int input1 = 0;
@@ -72,7 +74,12 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		ItemStack itemstack = null;
 		for (RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
 			if (hasAllInputs(recipeType)) {
-				itemstack = recipeType.getOutputs().get(0);
+				List<ItemStack> outputs = recipeType.getOutputs();
+
+				if(!outputs.isEmpty()){
+					itemstack = outputs.get(0);
+				}
+
 				break;
 			}
 		}
