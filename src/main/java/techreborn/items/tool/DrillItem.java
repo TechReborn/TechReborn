@@ -82,6 +82,10 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	// PickaxeItem
 	@Override
 	public boolean isEffectiveOn(BlockState blockIn) {
+		if(blockIn == null){
+			return false;
+		}
+
 		if (Items.DIAMOND_PICKAXE.isEffectiveOn(blockIn)) {
 			return true;
 		}
