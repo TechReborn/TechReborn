@@ -76,9 +76,11 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 			if (hasAllInputs(recipeType)) {
 				List<ItemStack> outputs = recipeType.getOutputs();
 
-				if(!outputs.isEmpty()){
-					itemstack = outputs.get(0);
+				if(outputs.isEmpty()){
+					continue;
 				}
+
+				itemstack = outputs.get(0);
 
 				break;
 			}
