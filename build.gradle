@@ -74,17 +74,17 @@ configurations.all {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.16.5"
-	mappings "net.fabricmc:yarn:1.16.5+build.4:v2"
+	minecraft "com.mojang:minecraft:21w06a"
+	mappings "net.fabricmc:yarn:21w06a+build.8:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.11.1"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.30.0+1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.30.2+1.17"
 
 	optionalDependency "me.shedaniel:RoughlyEnoughItems:5.8.9"
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
 
-	def rcVersion = 'RebornCore:RebornCore-1.16:+'
+	def rcVersion = 'RebornCore:RebornCore-1.17:+'
 	modApi (rcVersion) {
 		exclude group: "net.fabricmc.fabric-api"
 	}

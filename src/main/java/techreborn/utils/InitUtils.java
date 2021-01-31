@@ -27,8 +27,8 @@ package techreborn.utils;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
@@ -68,13 +68,13 @@ public class InitUtils {
 
 	public static AbstractBlock.Settings setupRubberBlockSettings(boolean noCollision, float hardness, float resistance) {
 
-		FabricBlockSettings settings = FabricBlockSettings.of(Material.WOOD, MaterialColor.SPRUCE);
+		FabricBlockSettings settings = FabricBlockSettings.of(Material.WOOD, MapColor.SPRUCE_BROWN);
 		settings.strength(hardness, resistance);
 		settings.sounds(BlockSoundGroup.WOOD);
 		if (noCollision) {
 			settings.noCollision();
 		}
-		settings.materialColor(MaterialColor.SPRUCE);
+		settings.materialColor(MapColor.SPRUCE_BROWN);
 		return settings;
 	}
 

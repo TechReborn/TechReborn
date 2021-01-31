@@ -69,7 +69,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 		// Going to remain to use this ol reliable function, the fabric one is funky
 
 		if (Energy.of(stack).getEnergy() >= cost) {
-			if (stack.getItem().isEffectiveOn(state)) {
+			if (stack.getItem().isSuitableFor(state)) {
 				return poweredSpeed;
 			} else {
 				return Math.min(unpoweredSpeed * 10f, poweredSpeed); // Still be faster than unpowered when not effective
@@ -81,15 +81,15 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 
 	// PickaxeItem
 	@Override
-	public boolean isEffectiveOn(BlockState blockIn) {
+	public boolean isSuitableFor(BlockState blockIn) {
 		if(blockIn == null){
 			return false;
 		}
 
-		if (Items.DIAMOND_PICKAXE.isEffectiveOn(blockIn)) {
+		if (Items.DIAMOND_PICKAXE.isSuitableFor(blockIn)) {
 			return true;
 		}
-		if (Items.DIAMOND_SHOVEL.isEffectiveOn(blockIn)) {
+		if (Items.DIAMOND_SHOVEL.isSuitableFor(blockIn)) {
 			return true;
 		}
 		// More checks to fix #2225

@@ -33,9 +33,9 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3f;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 /**
@@ -59,7 +59,7 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 		// Item rendering
 		matrices.push();
 		Direction direction = storage.getFacing();
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((direction.getHorizontal() - 2) * 90F));
+		matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((direction.getHorizontal() - 2) * 90F));
 		matrices.scale(0.5F, 0.5F, 0.5F);
 		switch (direction) {
 			case NORTH:
@@ -85,7 +85,7 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 		// Render item only on horizontal facing #2183
 		if (Direction.Type.HORIZONTAL.test(facing) ){
 			matrices.translate(0.5, 0.5, 0.5); // Translate center
-			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
+			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
 			matrices.translate(0, 0, -0.505); // Translate forward
 		}
 

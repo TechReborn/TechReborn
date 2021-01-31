@@ -75,10 +75,10 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 
 	// PickaxeItem
 	@Override
-	public boolean isEffectiveOn(BlockState state) {
-		return Items.DIAMOND_AXE.isEffectiveOn(state) || Items.DIAMOND_SWORD.isEffectiveOn(state)
-				|| Items.DIAMOND_PICKAXE.isEffectiveOn(state) || Items.DIAMOND_SHOVEL.isEffectiveOn(state)
-				|| Items.SHEARS.isEffectiveOn(state);
+	public boolean isSuitableFor(BlockState state) {
+		return Items.DIAMOND_AXE.isSuitableFor(state) || Items.DIAMOND_SWORD.isSuitableFor(state)
+				|| Items.DIAMOND_PICKAXE.isSuitableFor(state) || Items.DIAMOND_SHOVEL.isSuitableFor(state)
+				|| Items.SHEARS.isSuitableFor(state);
 	}
 
 	@Override
