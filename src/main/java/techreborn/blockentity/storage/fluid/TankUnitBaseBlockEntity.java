@@ -71,15 +71,21 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		this.tank = new Tank("TankStorage", type.capacity, this);
 	}
 
+	public ItemStack getDropWithNBT() {
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
+		final CompoundTag blockEntity = new CompoundTag();
+		this.toTag(blockEntity);
+		dropStack.setTag(new CompoundTag());
+		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
+		return dropStack;
+	}
+
+	// MachineBaseBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
 
-		if (world == null){
-			return;
-		}
-
-		if (world.isClient()) {
+		if (world == null || world.isClient()){
 			return;
 		}
 
@@ -123,24 +129,25 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		return tagCompound;
 	}
 
-	public ItemStack getDropWithNBT() {
-		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final CompoundTag blockEntity = new CompoundTag();
-		this.toTag(blockEntity);
-		dropStack.setTag(new CompoundTag());
-		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
-		return dropStack;
+	@Override
+	public FluidValue fluidTransferAmount() {
+		// Full capacity should be filled in four minutes (4 minutes * 20 ticks per second / slotTransferSpeed equals 4)
+		return type.capacity.fraction(1200);
 	}
 
-	// ItemHandlerProvider
+	// InventoryProvider
 	@Override
 	public RebornInventory<TankUnitBaseBlockEntity> getInventory() {
 		return this.inventory;
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(PlayerEntity playerEntity) {
+		return getDropWithNBT();
+	}
 
 	// IListInfoProvider
-	@SuppressWarnings("deprecation")
 	@Override
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
@@ -157,17 +164,12 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		info.add(
 				new TranslatableText("techreborn.tooltip.unit.capacity")
 						.formatted(Formatting.GRAY)
-						.append(
-								new LiteralText(String.valueOf(this.tank.getCapacity()))
-										.formatted(Formatting.GOLD)
-										.append(" (")
-										.append(String.valueOf(this.tank.getCapacity().getRawValue() / 1000))
-										.append(")")
-						)
+						.append(new LiteralText(String.valueOf(this.tank.getCapacity()))
+								.formatted(Formatting.GOLD))
 		);
 	}
 
-	// IContainerProvider
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("tank").player(player.inventory).inventory().hotbar()
@@ -184,10 +186,5 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	@Deprecated
 	public void setTank(Tank tank) {
 		this.tank.setFluid(null, tank.getFluidInstance());
-	}
-
-	@Override
-	public ItemStack getToolDrop(PlayerEntity playerEntity) {
-		return getDropWithNBT();
 	}
 }
