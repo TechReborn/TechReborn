@@ -1,28 +1,20 @@
 buildscript {
-	repositories {
-		mavenCentral()
-		maven {
-			name = "Modmuss50"
-			url = "https://maven.modmuss50.me/"
-		}
-		maven {
-			url "https://plugins.gradle.org/m2/"
-		}
-	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.5-SNAPSHOT"
-		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
-		classpath 'de.undercouch:gradle-download-task:3.4.3'
+		classpath 'org.kohsuke:github-api:1.114'
 	}
 }
 
-apply plugin: net.fabricmc.loom.LoomGradlePlugin
-apply plugin: 'maven'
-apply plugin: 'maven-publish'
-apply plugin: net.minecrell.gradle.licenser.Licenser
-apply plugin: 'de.undercouch.download'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
+plugins {
+	id 'java'
+	id 'idea'
+	id 'eclipse'
+	id 'maven-publish'
+	id 'signing'
+	id "org.cadixdev.licenser" version "0.5.0"
+	id "fabric-loom" version "0.6-SNAPSHOT"
+	id "com.matthewprenger.cursegradle" version "1.4.0"
+	id "de.undercouch.download" version "4.1.1"
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -44,6 +36,9 @@ repositories {
 		content {
 			includeGroup "curse.maven"
 		}
+	}
+	maven {
+		url "https://maven.shedaniel.me/"
 	}
 	maven {
 		url = "https://jitpack.io"
@@ -79,14 +74,14 @@ configurations.all {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.16.4"
-	mappings "net.fabricmc:yarn:1.16.4+build.6:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.10.8"
+	minecraft "com.mojang:minecraft:1.16.5"
+	mappings "net.fabricmc:yarn:1.16.5+build.4:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.11.1"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.28.3+1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.30.0+1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.8.9")
+	optionalDependency "me.shedaniel:RoughlyEnoughItems:5.8.9"
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
@@ -98,11 +93,6 @@ dependencies {
 	modApi 'teamreborn:energy:0.1.1'
 
     optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
-
-	modRuntime "curse.maven:applied-energistics-2:3117933"
-	modRuntime "alexiil.mc.lib:libblockattributes-core:0.8.0"
-	modRuntime "alexiil.mc.lib:libblockattributes-items:0.8.0"
-	modRuntime "alexiil.mc.lib:libblockattributes-fluids:0.8.0"
 }
 
 def optionalDependency(String dep) {
@@ -126,13 +116,16 @@ def disabledOptionalDependency(String dep) {
 processResources {
 	inputs.property "version", project.version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
+	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
+}
 
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+
+	if (JavaVersion.current().isJava9Compatible()) {
+		it.options.release = 8
 	}
 }
 
@@ -149,10 +142,10 @@ jar {
 //Triggers crowdin to export the latest translations
 task crowdinExport() {
 	onlyIf {
-		project.hasProperty('crowdinKey')
+		ENV.CROWDIN_KEY
 	}
 	doLast{
-		def apiKey = project.crowdinKey
+		def apiKey = ENV.CROWDIN_KEY
 		def projectId = 'techreborn'
 		def response = new URL(sprintf('https://api.crowdin.com/api/project/%1$s/export?key=%2$s', [projectId, apiKey])).text
 		def metadata = new XmlParser().parseText(response)
@@ -222,19 +215,28 @@ publishing {
 		}
 	}
 	repositories {
-		maven {
-			url "http://mavenupload.modmuss50.me/"
-			if (project.hasProperty('mavenPass')) {
+		if (ENV.MAVEN_URL) {
+			maven {
+				url ENV.MAVEN_URL
 				credentials {
-					username 'buildslave'
-					password project.getProperty('mavenPass')
+					username ENV.MAVEN_USERNAME
+					password ENV.MAVEN_PASSWORD
 				}
 			}
 		}
 	}
 }
 
-// apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
+if (ENV.SIGNING_KEY) {
+	signing {
+		useInMemoryPgpKeys(ENV.SIGNING_KEY, ENV.SIGNING_PASSWORD)
+
+		sign publishing.publications.maven
+		sign remapJar
+	}
+
+	task signAll(dependsOn: [signMavenPublication, signRemapJar, remapJar])
+}
 
 import com.google.gson.JsonArray
 import groovy.util.XmlSlurper
@@ -242,36 +244,66 @@ import org.apache.commons.io.FileUtils
 
 import java.util.function.Consumer
 
-task curseTools {
+curseforge {
+	if (ENV.CURSEFORGE_API_KEY) {
+		apiKey = ENV.CURSEFORGE_API_KEY
+	}
+
+	project {
+		id = "233564"
+		changelog = "A changelog can be found at https://github.com/TechReborn/TechReborn"
+		releaseType = ENV.RELEASE_CHANNEL ?: "release"
+		addGameVersion "1.16.5"
+		addGameVersion "Fabric"
+
+		mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+		relations {
+			requiredDependency 'reborncore'
+		}
+
+		afterEvaluate {
+			uploadTask.dependsOn("remapJar")
+		}
+	}
+
+	options {
+		forgeGradleIntegration = false
+	}
+}
+
+def getBranch() {
+	def ENV = System.getenv()
+	if (ENV.GITHUB_REF) {
+		def branch = ENV.GITHUB_REF
+		return branch.substring(branch.lastIndexOf("/") + 1)
+	}
+
+	return "unknown"
+}
+
+import org.kohsuke.github.GHReleaseBuilder
+import org.kohsuke.github.GitHub
+
+task github(dependsOn: remapJar) {
+	onlyIf {
+		ENV.GITHUB_TOKEN
+	}
+
 	doLast {
-		def cacheFiles = new File(".gradle/curseTools")
-		if (!cacheFiles.exists()) {
-			cacheFiles.mkdirs()
-		}
+		def github = GitHub.connectUsingOAuth(ENV.GITHUB_TOKEN as String)
+		def repository = github.getRepository(ENV.GITHUB_REPOSITORY)
 
-		def mavenMetadata = new File(cacheFiles, "maven-metadata.xml")
+		def releaseBuilder = new GHReleaseBuilder(repository, version as String)
+		releaseBuilder.name("${archivesBaseName}-${version}")
+		releaseBuilder.body("A changelog can be found at https://github.com/TechReborn/TechReborn")
+		releaseBuilder.commitish(getBranch())
 
-		logger.lifecycle(":downloading curseTools metadata")
-		FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/CurseTools/CurseTools/maven-metadata.xml"), mavenMetadata)
-
-		def metadata = new XmlSlurper().parseText(FileUtils.readFileToString(mavenMetadata))
-		def curseToolsVersion = metadata.versioning.release
-
-		def curseTools = new File(cacheFiles, "${curseToolsVersion}.jar")
-
-		logger.lifecycle(":downloading CurseTools")
-		FileUtils.copyURLToFile(new URL("http://maven.modmuss50.me/CurseTools/CurseTools/${curseToolsVersion}/CurseTools-${curseToolsVersion}.jar"), curseTools)
-
-		logger.lifecycle(":launching CurseTools")
-		ant.java(jar: curseTools.getAbsolutePath(), fork: true, spawn: false) {
-			arg(value: remapJar.archivePath.getAbsolutePath())
-		}
+		def ghRelease = releaseBuilder.create()
+		ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive");
 	}
 }
 
 // Generate recipe JSON for similar recipes
-import java.util.regex.Pattern
-
 task compileRecipes {
 	def jsonSlurper = new JsonSlurper()
 	def recipePath = "build/resources/main/data/techreborn/recipes"
@@ -300,3 +332,23 @@ task compileRecipes {
 		}
     }
 }
+
+// A task to ensure that the version being released has not already been released.
+task checkVersion {
+	doFirst {
+		def xml = new URL("https://maven.modmuss50.me/TechReborn/TechReborn-1.16/maven-metadata.xml").text
+		def metadata = new XmlSlurper().parseText(xml)
+		def versions = metadata.versioning.versions.version*.text();
+		if (versions.contains(version)) {
+			throw new RuntimeException("${version} has already been released!")
+		}
+	}
+}
+
+if (ENV.SIGNING_KEY) {
+	publish.dependsOn signAll
+}
+
+github.mustRunAfter checkVersion
+publish.mustRunAfter checkVersion
+project.tasks.curseforge.mustRunAfter checkVersion
