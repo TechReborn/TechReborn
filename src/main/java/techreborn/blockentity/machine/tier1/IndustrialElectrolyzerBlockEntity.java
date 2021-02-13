@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -40,8 +42,8 @@ import techreborn.items.DynamicCellItem;
 
 public class IndustrialElectrolyzerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public IndustrialElectrolyzerBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_ELECTROLYZER, "IndustrialElectrolyzer", TechRebornConfig.industrialElectrolyzerMaxInput, TechRebornConfig.industrialElectrolyzerMaxEnergy, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
+	public IndustrialElectrolyzerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.INDUSTRIAL_ELECTROLYZER, pos, state, "IndustrialElectrolyzer", TechRebornConfig.industrialElectrolyzerMaxInput, TechRebornConfig.industrialElectrolyzerMaxEnergy, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(7, "IndustrialElectrolyzerBlockEntity", 64, this);
@@ -51,7 +53,7 @@ public class IndustrialElectrolyzerBlockEntity extends GenericMachineBlockEntity
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("industrialelectrolyzer").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("industrialelectrolyzer").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.filterSlot(1, 47, 72, stack -> ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
 				.filterSlot(0, 81, 72, stack -> !ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))

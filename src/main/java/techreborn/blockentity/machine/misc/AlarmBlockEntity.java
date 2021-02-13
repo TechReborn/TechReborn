@@ -26,13 +26,16 @@ package techreborn.blockentity.machine.misc;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Tickable;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.common.util.ChatUtils;
 import techreborn.blocks.misc.BlockAlarm;
@@ -42,11 +45,11 @@ import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
 public class AlarmBlockEntity extends BlockEntity
-		implements Tickable, IToolDrop {
+		implements BlockEntityTicker<AlarmBlockEntity>, IToolDrop {
 	private int selectedSound = 1;
 
-	public AlarmBlockEntity() {
-		super(TRBlockEntities.ALARM);
+	public AlarmBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.ALARM, pos, state);
 	}
 
 	public void rightClick() {
@@ -75,16 +78,16 @@ public class AlarmBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag compound) {
+	public void fromTag(CompoundTag compound) {
 		if (compound != null && compound.contains("selectedSound")) {
 			selectedSound = compound.getInt("selectedSound");
 		}
-		super.fromTag(blockState, compound);
+		super.fromTag(compound);
 	}
 
 	// Tickable
 	@Override
-	public void tick() {
+	public void tick(World world, BlockPos pos, BlockState state, AlarmBlockEntity blockEntity) {
 		if (world == null || world.isClient()) return;
 		if (world.getTime() % 25 != 0) return;
 

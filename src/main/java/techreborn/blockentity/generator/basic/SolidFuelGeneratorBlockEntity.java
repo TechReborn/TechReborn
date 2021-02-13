@@ -31,11 +31,15 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
@@ -44,7 +48,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
@@ -59,8 +62,8 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	public boolean lastTickBurning;
 	ItemStack burnItem;
 
-	public SolidFuelGeneratorBlockEntity() {
-		super(TRBlockEntities.SOLID_FUEL_GENEREATOR);
+	public SolidFuelGeneratorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.SOLID_FUEL_GENEREATOR, pos, state);
 	}
 
 	public static int getItemBurnTime(@NotNull ItemStack stack) {
@@ -75,8 +78,8 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null){
 			return;
 		}
@@ -180,7 +183,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("generator").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("generator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
 				.sync(this::getBurnTime, this::setBurnTime)
 				.sync(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);

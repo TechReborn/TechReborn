@@ -32,6 +32,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
@@ -57,12 +59,12 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	private TRContent.TankUnit type;
 
-	public TankUnitBaseBlockEntity() {
-		super(TRBlockEntities.TANK_UNIT);
+	public TankUnitBaseBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.TANK_UNIT, pos, state);
 	}
 
-	public TankUnitBaseBlockEntity(TRContent.TankUnit type) {
-		super(TRBlockEntities.TANK_UNIT);
+	public TankUnitBaseBlockEntity(BlockPos pos, BlockState state, TRContent.TankUnit type) {
+		super(TRBlockEntities.TANK_UNIT, pos, state);
 		configureEntity(type);
 	}
 
@@ -82,8 +84,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	// MachineBaseBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null || world.isClient()){
 			return;
@@ -112,8 +114,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
@@ -172,7 +174,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("tank").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("tank").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
 				.sync(tank).addInventory().create(this, syncID);
 	}

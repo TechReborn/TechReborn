@@ -35,13 +35,16 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.ExtendedRecipeRemainder;
 import reborncore.common.util.ItemUtils;
@@ -78,8 +81,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	public boolean locked = true;
 
-	public AutoCraftingTableBlockEntity() {
-		super(TRBlockEntities.AUTO_CRAFTING_TABLE);
+	public AutoCraftingTableBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.AUTO_CRAFTING_TABLE, pos, state);
 	}
 
 	@Nullable
@@ -314,8 +317,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	// TilePowerAcceptor
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
 		}
@@ -375,11 +378,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tag) {
+	public void fromTag(CompoundTag tag) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.fromTag(blockState, tag);
+		super.fromTag(tag);
 	}
 
 	// MachineBaseBlockEntity
@@ -414,7 +417,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("autocraftingtable").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
 				.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)

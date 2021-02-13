@@ -29,10 +29,14 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
@@ -45,16 +49,14 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
-import org.jetbrains.annotations.Nullable;
-
 public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
 	public Tank tank;
 	int ticksSinceLastChange;
 
-	public IndustrialGrinderBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_GRINDER, "IndustrialGrinder", TechRebornConfig.industrialGrinderMaxInput, TechRebornConfig.industrialGrinderMaxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
+	public IndustrialGrinderBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.INDUSTRIAL_GRINDER, pos, state, "IndustrialGrinder", TechRebornConfig.industrialGrinderMaxInput, TechRebornConfig.industrialGrinderMaxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(8, "IndustrialGrinderBlockEntity", 64, this);
@@ -75,7 +77,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 
 	// TilePowerAcceptor
 	@Override
-	public void tick() {
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (world == null){
 			return;
 		}
@@ -89,12 +91,12 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 			ticksSinceLastChange = 0;
 		}
 
-		super.tick();
+		super.tick(world, pos, state, blockEntity);
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		tank.read(tagCompound);
 	}
 
@@ -116,7 +118,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		// fluidSlot first to support automation and shift-click
-		return new ScreenHandlerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("industrialgrinder").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
 				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
 				.sync(tank).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);

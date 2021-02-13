@@ -24,8 +24,10 @@
 
 package techreborn.blockentity.generator;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -37,8 +39,8 @@ import techreborn.init.TRContent;
 
 public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
-	public PlasmaGeneratorBlockEntity() {
-		super(TRBlockEntities.PLASMA_GENERATOR, EFluidGenerator.PLASMA, "PlasmaGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.plasmaGeneratorEnergyPerTick);
+	public PlasmaGeneratorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.PLASMA_GENERATOR, pos, state, EFluidGenerator.PLASMA, "PlasmaGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.plasmaGeneratorEnergyPerTick);
 	}
 
 	@Override
@@ -58,7 +60,7 @@ public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("plasmagenerator").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("plasmagenerator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 				.sync(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
 				.sync(this::getTankAmount, this::setTankAmount)

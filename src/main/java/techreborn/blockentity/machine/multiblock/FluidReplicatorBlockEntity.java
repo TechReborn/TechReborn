@@ -27,10 +27,14 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
@@ -44,8 +48,6 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * @author drcrazy
  */
@@ -55,8 +57,8 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	public Tank tank;
 	int ticksSinceLastChange;
 
-	public FluidReplicatorBlockEntity() {
-		super(TRBlockEntities.FLUID_REPLICATOR, "FluidReplicator", TechRebornConfig.fluidReplicatorMaxInput, TechRebornConfig.fluidReplicatorMaxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
+	public FluidReplicatorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.FLUID_REPLICATOR, pos, state, "FluidReplicator", TechRebornConfig.fluidReplicatorMaxInput, TechRebornConfig.fluidReplicatorMaxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
 		this.inventory = new RebornInventory<>(4, "FluidReplicatorBlockEntity", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(ModRecipes.FLUID_REPLICATOR, this, 1, 0, this.inventory, new int[]{0}, null);
 		this.tank = new Tank("FluidReplicatorBlockEntity", FluidReplicatorBlockEntity.TANK_CAPACITY, this);
@@ -71,7 +73,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	// TileGenericMachine
 	@Override
-	public void tick() {
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (world == null){
 			return;
 		}
@@ -84,7 +86,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 			ticksSinceLastChange = 0;
 		}
 
-		super.tick();
+		super.tick(world, pos, state, blockEntity);
 	}
 
 	@Override
@@ -94,8 +96,8 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	// TilePowerAcceptor
 	@Override
-	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		tank.read(tagCompound);
 	}
 
@@ -125,7 +127,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("fluidreplicator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this, syncID);

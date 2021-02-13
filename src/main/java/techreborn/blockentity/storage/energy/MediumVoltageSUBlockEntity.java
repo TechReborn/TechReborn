@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.storage.energy;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -40,13 +42,13 @@ public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity impleme
 	/**
 	 * MFE should store 300k energy with 128 E/t I/O
 	 */
-	public MediumVoltageSUBlockEntity() {
-		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnergyTier.MEDIUM, 300_000);
+	public MediumVoltageSUBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, pos, state, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnergyTier.MEDIUM, 300_000);
 	}
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("mfe").player(player.inventory).inventory().hotbar().armor()
+		return new ScreenHandlerBuilder("mfe").player(player.getInventory()).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().addInventory().create(this, syncID);
 	}

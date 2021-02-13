@@ -65,8 +65,8 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 
 	// BlockMachineBase
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new PlayerDectectorBlockEntity();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new PlayerDectectorBlockEntity(pos, state);
 	}
 
 	@Override

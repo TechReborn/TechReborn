@@ -24,9 +24,11 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -41,8 +43,8 @@ import techreborn.init.TRContent;
 
 public class RecyclerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public RecyclerBlockEntity() {
-		super(TRBlockEntities.RECYCLER, "Recycler", TechRebornConfig.recyclerMaxInput, TechRebornConfig.recyclerMaxEnergy, TRContent.Machine.RECYCLER.block, 2);
+	public RecyclerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.RECYCLER, pos, state, "Recycler", TechRebornConfig.recyclerMaxInput, TechRebornConfig.recyclerMaxEnergy, TRContent.Machine.RECYCLER.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this);
@@ -60,7 +62,7 @@ public class RecyclerBlockEntity extends GenericMachineBlockEntity implements Bu
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("recycler").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45, RecyclerBlockEntity::canRecycle)
 				.outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.addInventory().create(this, syncID);

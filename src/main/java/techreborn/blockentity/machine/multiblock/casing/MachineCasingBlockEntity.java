@@ -24,6 +24,10 @@
 
 package techreborn.blockentity.machine.multiblock.casing;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockBlockEntityBase;
 import techreborn.init.TRBlockEntities;
@@ -31,8 +35,8 @@ import techreborn.multiblocks.MultiBlockCasing;
 
 public class MachineCasingBlockEntity extends RectangularMultiblockBlockEntityBase {
 
-	public MachineCasingBlockEntity() {
-		super(TRBlockEntities.MACHINE_CASINGS);
+	public MachineCasingBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.MACHINE_CASINGS, pos, state);
 	}
 
 	@Override
@@ -86,7 +90,7 @@ public class MachineCasingBlockEntity extends RectangularMultiblockBlockEntityBa
 	}
 
 	@Override
-	public void tick() {
+	public void tick(World world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
 
 	}
 }

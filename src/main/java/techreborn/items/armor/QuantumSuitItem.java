@@ -41,7 +41,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorRemoveHandler;
-import reborncore.api.items.ArmorTickable;
+import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ItemStackModifiers;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemUtils;
@@ -52,7 +52,7 @@ import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.utils.InitUtils;
 
-public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorTickable, ArmorRemoveHandler, EnergyHolder {
+public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorBlockEntityTicker, ArmorRemoveHandler, EnergyHolder {
 
 	public final double flyCost = TechRebornConfig.quantumSuitFlyingCost;
 	public final double swimCost = TechRebornConfig.quantumSuitSwimmingCost;
@@ -92,14 +92,14 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 				break;
 			case CHEST:
 				if (Energy.of(stack).getEnergy() > flyCost && !TechReborn.elytraPredicate.test(playerEntity)) {
-					playerEntity.abilities.allowFlying = true;
-					if (playerEntity.abilities.flying) {
+					playerEntity.getAbilities().allowFlying = true;
+					if (playerEntity.getAbilities().flying) {
 						Energy.of(stack).use(flyCost);
 					}
 					playerEntity.setOnGround(true);
 				} else {
-					playerEntity.abilities.allowFlying = false;
-					playerEntity.abilities.flying = false;
+					playerEntity.getAbilities().allowFlying = false;
+					playerEntity.getAbilities().flying = false;
 				}
 				if (playerEntity.isOnFire() && Energy.of(stack).getEnergy() > fireExtinguishCost) {
 					playerEntity.extinguish();
@@ -131,8 +131,8 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	public void onRemoved(PlayerEntity playerEntity) {
 		if (this.slot == EquipmentSlot.CHEST) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
-				playerEntity.abilities.allowFlying = false;
-				playerEntity.abilities.flying = false;
+				playerEntity.getAbilities().allowFlying = false;
+				playerEntity.getAbilities().flying = false;
 			}
 		}
 	}

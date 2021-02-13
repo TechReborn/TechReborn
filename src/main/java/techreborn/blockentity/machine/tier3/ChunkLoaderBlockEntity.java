@@ -54,8 +54,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	private int radius;
 	private String ownerUdid;
 
-	public ChunkLoaderBlockEntity() {
-		super(TRBlockEntities.CHUNK_LOADER);
+	public ChunkLoaderBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.CHUNK_LOADER, pos, state);
 		this.radius = 1;
 	}
 
@@ -138,8 +138,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
-		super.fromTag(blockState, nbttagcompound);
+	public void fromTag(CompoundTag nbttagcompound) {
+		super.fromTag(nbttagcompound);
 		this.radius = nbttagcompound.getInt("radius");
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 		if (!StringUtils.isBlank(ownerUdid)) {
@@ -163,7 +163,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("chunkloader").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 

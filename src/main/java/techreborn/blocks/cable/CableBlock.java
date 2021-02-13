@@ -26,6 +26,8 @@ package techreborn.blocks.cable;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -148,8 +150,13 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 	@Nullable
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new CableBlockEntity(type);
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new CableBlockEntity(pos, state, type);
+	}
+
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+		return (world1, pos, state1, blockEntity) -> ((CableBlockEntity) blockEntity).tick(world1, pos, state1, (CableBlockEntity) blockEntity);
 	}
 
 	// Block

@@ -31,13 +31,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
@@ -49,7 +52,6 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,8 +75,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	public boolean locked = false;
 	public int balanceSlot = 0;
 
-	public RollingMachineBlockEntity() {
-		super(TRBlockEntities.ROLLING_MACHINE);
+	public RollingMachineBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.ROLLING_MACHINE, pos, state);
 		outputSlot = 9;
 	}
 
@@ -99,8 +101,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world.isClient) {
 			return;
 		}
@@ -343,8 +345,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		this.isRunning = tagCompound.getBoolean("isRunning");
 		this.tickTime = tagCompound.getInt("tickTime");
 		this.locked = tagCompound.getBoolean("locked");
@@ -381,7 +383,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("rollingmachine").player(player.inventory)
+		return new ScreenHandlerBuilder("rollingmachine").player(player.getInventory())
 				.inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)

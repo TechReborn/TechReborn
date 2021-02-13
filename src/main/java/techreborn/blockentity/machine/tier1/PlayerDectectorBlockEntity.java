@@ -28,7 +28,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.WorldUtils;
 import team.reborn.energy.EnergySide;
@@ -44,8 +47,8 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 	public String owenerUdid = "";
 	boolean redstone = false;
 
-	public PlayerDectectorBlockEntity() {
-		super(TRBlockEntities.PLAYER_DETECTOR);
+	public PlayerDectectorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.PLAYER_DETECTOR, pos, state);
 	}
 
 	public boolean isProvidingPower() {
@@ -54,8 +57,8 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null) {
 			return;
@@ -117,8 +120,8 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tag) {
-		super.fromTag(blockState, tag);
+	public void fromTag(CompoundTag tag) {
+		super.fromTag(tag);
 		owenerUdid = tag.getString("ownerID");
 	}
 

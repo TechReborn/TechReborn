@@ -33,10 +33,13 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
@@ -65,12 +68,12 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	private SolarPanels panel;
 
-	public SolarPanelBlockEntity() {
-		super(TRBlockEntities.SOLAR_PANEL);
+	public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.SOLAR_PANEL, pos, state);
 	}
 
-	public SolarPanelBlockEntity(SolarPanels panel) {
-		super(TRBlockEntities.SOLAR_PANEL);
+	public SolarPanelBlockEntity(BlockPos pos, BlockState state, SolarPanels panel) {
+		super(TRBlockEntities.SOLAR_PANEL, pos, state);
 		this.panel = panel;
 	}
 
@@ -147,8 +150,8 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	// Overrides
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null) {
 			return;
@@ -264,13 +267,13 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tag) {
+	public void fromTag(CompoundTag tag) {
 		if (world == null) {
 			// We are in BlockEntity.create method during chunk load.
 			this.checkOverfill = false;
 		}
 		updatePanel();
-		super.fromTag(blockState, tag);
+		super.fromTag(tag);
 	}
 
 	// MachineBaseBlockEntity
@@ -288,7 +291,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("solar_panel").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
 				.sync(this::getSunState, this::setSunState)
 				.addInventory().create(this, syncID);

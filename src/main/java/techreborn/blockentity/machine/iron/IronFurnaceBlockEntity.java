@@ -34,6 +34,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -52,8 +53,8 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 	private Recipe<?> lastRecipe = null;
 
-	public IronFurnaceBlockEntity() {
-		super(TRBlockEntities.IRON_FURNACE, 2, TRContent.Machine.IRON_FURNACE.block);
+	public IronFurnaceBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.IRON_FURNACE, pos, state, 2, TRContent.Machine.IRON_FURNACE.block);
 		this.inventory = new RebornInventory<>(3, "IronFurnaceBlockEntity", 64, this);
 	}
 
@@ -143,8 +144,8 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag compoundTag) {
-		super.fromTag(blockState, compoundTag);
+	public void fromTag(CompoundTag compoundTag) {
+		super.fromTag(compoundTag);
 		experience = compoundTag.getFloat("Experience");
 	}
 
@@ -171,7 +172,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("ironfurnace").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("ironfurnace").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
 				.sync(this::getBurnTime, this::setBurnTime)

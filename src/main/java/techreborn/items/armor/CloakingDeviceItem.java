@@ -33,7 +33,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorRemoveHandler;
-import reborncore.api.items.ArmorTickable;
+import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
@@ -45,7 +45,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterials;
 import techreborn.utils.InitUtils;
 
-public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, ArmorTickable, ArmorRemoveHandler {
+public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, ArmorBlockEntityTicker, ArmorRemoveHandler {
 
 	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
 	public static int cost = TechRebornConfig.cloackingDeviceCost;

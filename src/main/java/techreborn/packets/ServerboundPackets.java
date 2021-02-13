@@ -121,12 +121,12 @@ public class ServerboundPackets {
 				return;
 			}
 			server.execute(() -> {
-				for (int i = 0; i < player.inventory.size(); i++) {
-					ItemStack stack = player.inventory.getStack(i);
+				for (int i = 0; i < player.getInventory().size(); i++) {
+					ItemStack stack = player.getInventory().getStack(i);
 					if (stack.getItem() == TRContent.MANUAL) {
-						player.inventory.removeStack(i);
-						player.inventory.insertStack(new ItemStack(Items.BOOK));
-						player.inventory.insertStack(TRContent.Ingots.REFINED_IRON.getStack());
+						player.getInventory().removeStack(i);
+						player.getInventory().insertStack(new ItemStack(Items.BOOK));
+						player.getInventory().insertStack(TRContent.Ingots.REFINED_IRON.getStack());
 						return;
 					}
 				}

@@ -54,8 +54,8 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 
 	private int cachedHeat;
 
-	public IndustrialBlastFurnaceBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, "IndustrialBlastFurnace", TechRebornConfig.industrialBlastFurnaceMaxInput, TechRebornConfig.industrialBlastFurnaceMaxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
+	public IndustrialBlastFurnaceBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, pos, state, "IndustrialBlastFurnace", TechRebornConfig.industrialBlastFurnaceMaxInput, TechRebornConfig.industrialBlastFurnaceMaxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3};
 		this.inventory = new RebornInventory<>(5, "IndustrialBlastFurnaceBlockEntity", 64, this);
@@ -134,7 +134,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("blastfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
 				.sync(this::getHeat, this::setHeat).addInventory().create(this, syncID);

@@ -25,15 +25,17 @@
 package techreborn.blockentity.generator;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.EnergySide;
@@ -46,13 +48,13 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 
 	private int onStatusHoldTicks = -1;
 
-	public LightningRodBlockEntity() {
-		super(TRBlockEntities.LIGHTNING_ROD);
+	public LightningRodBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.LIGHTNING_ROD, pos, state);
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null){
 			return;

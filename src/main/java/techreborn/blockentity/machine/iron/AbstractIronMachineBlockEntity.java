@@ -31,6 +31,8 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -50,8 +52,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	Block toolDrop;
 	boolean active = false;
 
-	public AbstractIronMachineBlockEntity(BlockEntityType<?> blockEntityTypeIn, int fuelSlot, Block toolDrop) {
-		super(blockEntityTypeIn);
+	public AbstractIronMachineBlockEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state, int fuelSlot, Block toolDrop) {
+		super(blockEntityTypeIn, pos, state);
 		this.fuelSlot = fuelSlot;
 		// default value for vanilla smelting recipes is 200
 		this.totalCookingTime = (int) (200 / TechRebornConfig.cookingScale);
@@ -132,8 +134,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	// MachineBaseBlockEntity
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag compoundTag) {
-		super.fromTag(blockState, compoundTag);
+	public void fromTag(CompoundTag compoundTag) {
+		super.fromTag(compoundTag);
 		burnTime = compoundTag.getInt("BurnTime");
 		totalBurnTime = compoundTag.getInt("TotalBurnTime");
 		progress = compoundTag.getInt("Progress");
@@ -149,8 +151,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world.isClient) {
 			return;
 		}

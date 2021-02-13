@@ -28,10 +28,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -62,8 +65,8 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	 */
 	double pendingWithdraw = 0.0;
 
-	public BaseFluidGeneratorBlockEntity(BlockEntityType<?> blockEntityType, EFluidGenerator type, String blockEntityName, FluidValue tankCapacity, int euTick) {
-		super(blockEntityType);
+	public BaseFluidGeneratorBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, EFluidGenerator type, String blockEntityName, FluidValue tankCapacity, int euTick) {
+		super(blockEntityType, pos, state);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		Validate.notNull(recipes, "null recipe list for " + type.getRecipeID());
 		tank = new Tank(blockEntityName, tankCapacity, this);
@@ -74,8 +77,8 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null) {
 			return;
@@ -167,8 +170,8 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void fromTag(CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		tank.read(tagCompound);
 	}
 

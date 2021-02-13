@@ -24,8 +24,10 @@
 
 package techreborn.blockentity.machine.iron;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -44,8 +46,8 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 	int input2 = 1;
 	int output = 2;
 
-	public IronAlloyFurnaceBlockEntity() {
-		super(TRBlockEntities.IRON_ALLOY_FURNACE, 3, TRContent.Machine.IRON_ALLOY_FURNACE.block);
+	public IronAlloyFurnaceBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.IRON_ALLOY_FURNACE, pos, state, 3, TRContent.Machine.IRON_ALLOY_FURNACE.block);
 		this.inventory = new RebornInventory<>(4, "IronAlloyFurnaceBlockEntity", 64, this);
 	}
 
@@ -134,7 +136,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("alloyfurnace").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("alloyfurnace").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.slot(0, 47, 17)
 				.slot(1, 65, 17)

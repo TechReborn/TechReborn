@@ -29,7 +29,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 import net.minecraft.tag.TagGroup;
-import net.minecraft.tag.TagGroupLoader;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class TagUtils {
@@ -39,14 +39,14 @@ public class TagUtils {
 	}
 
 	public static TagGroup<Block> getAllBlockTags(World world) {
-		return world.getTagManager().getBlocks();
+		return world.getTagManager().getOrCreateTagGroup(Registry.BLOCK_KEY);
 	}
 
 	public static TagGroup<Item> getAllItemTags(World world) {
-		return world.getTagManager().getItems();
+		return world.getTagManager().getOrCreateTagGroup(Registry.ITEM_KEY);
 	}
 
 	public static TagGroup<Fluid> getAllFluidTags(World world) {
-		return world.getTagManager().getFluids();
+		return world.getTagManager().getOrCreateTagGroup(Registry.FLUID_KEY);
 	}
 }

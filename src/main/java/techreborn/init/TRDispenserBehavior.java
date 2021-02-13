@@ -30,8 +30,6 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.DispenserBlockEntity;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPointer;
@@ -78,7 +76,7 @@ public class TRDispenserBehavior {
 				if (cell.getFluid(stack) == Fluids.EMPTY) {
 					// fill cell
 					if (block instanceof FluidDrainable) {
-						Fluid fluid = ((FluidDrainable) block).tryDrainFluid(iWorld, blockPos, blockState);
+						/*FIXME Fluid fluid = ((FluidDrainable) block).tryDrainFluid(iWorld, blockPos, blockState);
 						if (!(fluid instanceof FlowableFluid)) {
 							return super.dispenseSilently(pointer, stack);
 						} else {
@@ -92,7 +90,8 @@ public class TRDispenserBehavior {
 								}
 							}
 							return stack;
-						}
+						}*/
+						return ItemStack.EMPTY;
 					} else {
 						return super.dispenseSilently(pointer, stack);
 					}

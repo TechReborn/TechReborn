@@ -72,12 +72,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	// the locked-in item, even if the stored amount drops to zero.
 	private ItemStack lockedItemStack = ItemStack.EMPTY;
 
-	public StorageUnitBaseBlockEntity() {
-		super(TRBlockEntities.STORAGE_UNIT);
+	public StorageUnitBaseBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.STORAGE_UNIT, pos, state);
 	}
 
-	public StorageUnitBaseBlockEntity(TRContent.StorageUnit type) {
-		super(TRBlockEntities.STORAGE_UNIT);
+	public StorageUnitBaseBlockEntity(BlockPos pos, BlockState state, TRContent.StorageUnit type) {
+		super(TRBlockEntities.STORAGE_UNIT, pos, state);
 		configureEntity(type);
 	}
 
@@ -242,8 +242,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	// MachineBaseBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
 		}
@@ -283,8 +283,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void fromTag(CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
@@ -450,7 +450,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity playerEntity) {
-		return new ScreenHandlerBuilder("chest").player(playerEntity.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("chest").player(playerEntity.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.slot(INPUT_SLOT, 100, 53)
 				.outputSlot(OUTPUT_SLOT, 140, 53)

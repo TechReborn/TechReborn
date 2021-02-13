@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -41,8 +43,8 @@ import techreborn.init.TRContent;
 
 public class DistillationTowerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public DistillationTowerBlockEntity() {
-		super(TRBlockEntities.DISTILLATION_TOWER, "DistillationTower", TechRebornConfig.distillationTowerMaxInput, TechRebornConfig.distillationTowerMaxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
+	public DistillationTowerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.DISTILLATION_TOWER, pos, state, "DistillationTower", TechRebornConfig.distillationTowerMaxInput, TechRebornConfig.distillationTowerMaxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(7, "DistillationTowerBlockEntity", 64, this);
@@ -61,7 +63,7 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("Distillationtower").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("Distillationtower").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 35, 27).slot(1, 35, 47).outputSlot(2, 79, 37).outputSlot(3, 99, 37)
 				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this, syncID);

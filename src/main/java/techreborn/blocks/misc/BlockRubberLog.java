@@ -38,7 +38,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -88,10 +87,10 @@ public class BlockRubberLog extends PillarBlock {
 		}
 	}
 
-	@Override
+	/* FIXME @Override
 	public boolean isIn(Tag<Block> tagIn) {
 		return tagIn == BlockTags.LOGS;
-	}
+	}*/
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -148,7 +147,7 @@ public class BlockRubberLog extends PillarBlock {
 				} else {
 					stack.damage(1, playerIn, player -> player.sendToolBreakStatus(hand));
 				}
-				if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
+				if (!playerIn.getInventory().insertStack(TRContent.Parts.SAP.getStack())) {
 					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));
 				}
 				if (playerIn instanceof ServerPlayerEntity) {

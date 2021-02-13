@@ -25,12 +25,16 @@
 package techreborn.blockentity.machine;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -57,8 +61,9 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	 * @param toolDrop   Block Block to drop with wrench
 	 * @param energySlot int Energy slot to use to charge machine from battery
 	 */
-	public GenericMachineBlockEntity(BlockEntityType<?> blockEntityType, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
-		super(blockEntityType);
+	public GenericMachineBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
+		super(blockEntityType, pos, state);
+		System.out.println("created machineentity");
 		this.name = "BlockEntity" + name;
 		this.maxInput = maxInput;
 		this.maxEnergy = maxEnergy;
@@ -82,8 +87,8 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
 		}
