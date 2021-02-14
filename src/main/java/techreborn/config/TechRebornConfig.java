@@ -292,6 +292,9 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "quantumSuitFireExtinguishCost", comment = "Quantum Suit Cost for Fire Extinguish")
 	public static double fireExtinguishCost = 50;
 
+	@Config(config = "items", category = "power", key = "quantumSuitDamageAbsorbCost", comment = "Quantum Suit Cost for Damage Absorbed")
+	public static double damageAbsorbCost = 10;
+
 	@Config(config = "items", category = "upgrades", key = "overclcoker_speed", comment = "Overclocker behavior speed multipiler")
 	public static double overclockerSpeed = 0.25;
 
