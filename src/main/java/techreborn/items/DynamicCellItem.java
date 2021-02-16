@@ -184,8 +184,9 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 			if (world.canPlayerModifyAt(player, hitPos) && player.canPlaceOn(placePos, side, stack)) {
 				if (containedFluid == Fluids.EMPTY) {
 					if (hitState.getBlock() instanceof FluidDrainable) {
-						/* FIXMEFluid drainFluid = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
-						if (drainFluid != Fluids.EMPTY) {
+						ItemStack itemStack = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
+						if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemFluidInfo) {
+							Fluid drainFluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
 							if (stack.getCount() == 1) {
 								stack = getCellWithFluid(drainFluid, 1);
 							} else {
@@ -195,7 +196,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 							playEmptyingSound(player, world, hitPos, drainFluid);
 							return TypedActionResult.success(stack);
-						}*/
+						}
 					}
 
 				} else {

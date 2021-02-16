@@ -30,6 +30,8 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.DispenserBlockEntity;
+import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPointer;
@@ -38,6 +40,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.WorldAccess;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.fluid.container.ItemFluidInfo;
+import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.DynamicCellItem;
 
@@ -76,7 +80,13 @@ public class TRDispenserBehavior {
 				if (cell.getFluid(stack) == Fluids.EMPTY) {
 					// fill cell
 					if (block instanceof FluidDrainable) {
-						/*FIXME Fluid fluid = ((FluidDrainable) block).tryDrainFluid(iWorld, blockPos, blockState);
+						ItemStack fluidContainer = ((FluidDrainable) block).tryDrainFluid(iWorld, blockPos, blockState);
+						Fluid fluid = null;
+						if (fluidContainer.getItem() instanceof ItemFluidInfo) {
+							fluid = ((ItemFluidInfo) fluidContainer.getItem()).getFluid(fluidContainer);
+						} else {
+							TechReborn.LOGGER.debug("Could not get Fluid from ItemStack " + fluidContainer.getItem());
+						}
 						if (!(fluid instanceof FlowableFluid)) {
 							return super.dispenseSilently(pointer, stack);
 						} else {
@@ -90,8 +100,7 @@ public class TRDispenserBehavior {
 								}
 							}
 							return stack;
-						}*/
-						return ItemStack.EMPTY;
+						}
 					} else {
 						return super.dispenseSilently(pointer, stack);
 					}
