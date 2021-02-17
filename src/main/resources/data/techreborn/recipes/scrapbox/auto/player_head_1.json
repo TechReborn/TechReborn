@@ -10,7 +10,7 @@
     {
       "item": "minecraft:player_head",
       "count": 3,
-      "tag": {
+      "nbt": {
         "SkullOwner": "Gigabit101"
       }
     }
