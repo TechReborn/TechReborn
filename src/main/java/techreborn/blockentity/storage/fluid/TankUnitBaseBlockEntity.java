@@ -43,6 +43,7 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.FluidValue;
+import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
@@ -53,6 +54,8 @@ import java.util.List;
 
 public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 	protected Tank tank;
+	private int serverMaxCapacity = -1;
+
 	protected RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(2, "TankInventory", 64, this);
 
 	private TRContent.TankUnit type;
@@ -68,7 +71,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	private void configureEntity(TRContent.TankUnit type) {
 		this.type = type;
-		this.tank = new Tank("TankStorage", type.capacity, this);
+		this.tank = new Tank("TankStorage", serverMaxCapacity == -1 ? type.capacity : FluidValue.fromRaw(serverMaxCapacity), this);
 	}
 
 	public ItemStack getDropWithNBT() {
@@ -174,7 +177,22 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("tank").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
-				.sync(tank).addInventory().create(this, syncID);
+				.sync(tank)
+				.sync(this::getMaxCapacity, this::setMaxCapacity)
+
+				.addInventory().create(this, syncID);
+	}
+
+	// Sync between server/client if configs are mis-matched.
+	public int getMaxCapacity() {
+		return this.tank.getCapacity().getRawValue();
+	}
+
+	public void setMaxCapacity(int maxCapacity) {
+		FluidInstance instance = tank.getFluidInstance();
+		this.tank = new Tank("TankStorage", FluidValue.fromRaw(maxCapacity), this);
+		this.tank.setFluidInstance(instance);
+		this.serverMaxCapacity = maxCapacity;
 	}
 
 	@Nullable

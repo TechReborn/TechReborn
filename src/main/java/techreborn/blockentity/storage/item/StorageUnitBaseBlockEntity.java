@@ -63,6 +63,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	protected RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private int maxCapacity;
+	private int serverCapacity = -1;
 
 	private ItemStack storeItemStack;
 
@@ -82,7 +83,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	private void configureEntity(TRContent.StorageUnit type) {
-		this.maxCapacity = type.capacity;
+
+		// Set capacity to local config unless overridden by server
+		if(serverCapacity == -1){
+			this.maxCapacity = type.capacity;
+		}
+
 		storeItemStack = ItemStack.EMPTY;
 		inventory = new RebornInventory<>(2, "ItemInventory", 64, this);
 
@@ -234,10 +240,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public int getCurrentCapacity() {
 		return storeItemStack.getCount() + inventory.getStack(OUTPUT_SLOT).getCount();
-	}
-
-	public int getMaxCapacity() {
-		return maxCapacity;
 	}
 
 	// MachineBaseBlockEntity
@@ -457,6 +459,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				.sync(this::isLockedInt, this::setLockedInt)
 				.sync(this::getStoredStackNBT, this::setStoredStackFromNBT)
 				.sync(this::getStoredAmount, this::setStoredAmount)
+				.sync(this::getMaxCapacity, this::setMaxCapacity)
 				.addInventory().create(this, syncID);
 
 		// Note that inventory is synced, and it gets the stack from that
@@ -477,6 +480,16 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public void setStoredAmount(int storedAmount) {
 		this.storedAmount = storedAmount;
+	}
+
+	// Sync between server/client if configs are mis-matched.
+	public int getMaxCapacity() {
+		return this.maxCapacity;
+	}
+
+	public void setMaxCapacity(int maxCapacity) {
+		this.maxCapacity = maxCapacity;
+		this.serverCapacity = maxCapacity;
 	}
 
 	public CompoundTag getStoredStackNBT() {
