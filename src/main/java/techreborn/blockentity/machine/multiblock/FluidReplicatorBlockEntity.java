@@ -26,6 +26,7 @@ package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -80,6 +81,10 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 		if (!world.isClient && ticksSinceLastChange >= 10) {
 			if (!inventory.getStack(1).isEmpty()) {
 				FluidUtils.fillContainers(tank, inventory, 1, 2);
+				if (tank.isEmpty()){
+					// need to set to empty fluid due to #2352
+					tank.setFluid(Fluids.EMPTY);
+				}
 			}
 			ticksSinceLastChange = 0;
 		}
