@@ -107,7 +107,6 @@ public class DefaultWorldGen {
 		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.TUNGSTEN);
 
 		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.BAUXITE);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.COPPER);
 		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.GALENA);
 		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.IRIDIUM);
 		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.LEAD);
