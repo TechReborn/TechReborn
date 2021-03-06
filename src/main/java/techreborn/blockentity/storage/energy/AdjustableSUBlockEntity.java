@@ -81,7 +81,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public ItemStack getDropWithNBT() {
 		CompoundTag blockEntity = new CompoundTag();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
-		toTag(blockEntity);
+		writeNbt(blockEntity);
 		dropStack.setTag(new CompoundTag());
 		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 		return dropStack;
@@ -140,15 +140,15 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public CompoundTag writeNbt(CompoundTag tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putInt("output", OUTPUT);
 		return tagCompound;
 	}
 
 	@Override
-	public void fromTag(CompoundTag nbttagcompound) {
-		super.fromTag(nbttagcompound);
+	public void readNbt(CompoundTag nbttagcompound) {
+		super.readNbt(nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInt("output");
 	}
 

@@ -76,7 +76,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	public ItemStack getDropWithNBT() {
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
 		final CompoundTag blockEntity = new CompoundTag();
-		this.toTag(blockEntity);
+		this.writeNbt(blockEntity);
 		dropStack.setTag(new CompoundTag());
 		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 		return dropStack;
@@ -114,8 +114,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public void fromTag(final CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void readNbt(final CompoundTag tagCompound) {
+		super.readNbt(tagCompound);
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
@@ -124,8 +124,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public CompoundTag toTag(final CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public CompoundTag writeNbt(final CompoundTag tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putString("unitType", this.type.name());
 		tank.write(tagCompound);
 		return tagCompound;

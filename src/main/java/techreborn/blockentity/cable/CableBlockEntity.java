@@ -124,20 +124,20 @@ public class CableBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public CompoundTag toInitialChunkDataTag() {
-		return toTag(new CompoundTag());
+	public CompoundTag toInitialChunkDataNbt() {
+		return writeNbt(new CompoundTag());
 	}
 
 	@Override
 	public BlockEntityUpdateS2CPacket toUpdatePacket() {
 		CompoundTag nbtTag = new CompoundTag();
-		toTag(nbtTag);
+		writeNbt(nbtTag);
 		return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
 	}
 
 	@Override
-	public void fromTag(CompoundTag compound) {
-		super.fromTag(compound);
+	public void readNbt(CompoundTag compound) {
+		super.readNbt(compound);
 		if (compound.contains("energy")) {
 			energy = compound.getDouble("energy");
 		}
@@ -149,8 +149,8 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag compound) {
-		super.toTag(compound);
+	public CompoundTag writeNbt(CompoundTag compound) {
+		super.writeNbt(compound);
 		compound.putDouble("energy", energy);
 		if (cover != null) {
 			compound.put("cover", NbtHelper.fromBlockState(cover));

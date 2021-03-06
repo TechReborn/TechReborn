@@ -120,14 +120,14 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
-		super.fromTag(tag);
+	public void readNbt(CompoundTag tag) {
+		super.readNbt(tag);
 		owenerUdid = tag.getString("ownerID");
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
-		super.toTag(tag);
+	public CompoundTag writeNbt(CompoundTag tag) {
+		super.writeNbt(tag);
 		tag.putString("ownerID", owenerUdid);
 		return tag;
 	}

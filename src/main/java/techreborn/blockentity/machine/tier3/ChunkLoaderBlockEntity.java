@@ -129,8 +129,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public CompoundTag writeNbt(CompoundTag tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putInt("radius", radius);
 		tagCompound.putString("ownerUdid", ownerUdid);
 		inventory.write(tagCompound);
@@ -138,8 +138,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void fromTag(CompoundTag nbttagcompound) {
-		super.fromTag(nbttagcompound);
+	public void readNbt(CompoundTag nbttagcompound) {
+		super.readNbt(nbttagcompound);
 		this.radius = nbttagcompound.getInt("radius");
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 		if (!StringUtils.isBlank(ownerUdid)) {

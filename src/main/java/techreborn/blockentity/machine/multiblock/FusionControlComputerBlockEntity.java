@@ -354,8 +354,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void fromTag(final CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void readNbt(final CompoundTag tagCompound) {
+		super.readNbt(tagCompound);
 		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
@@ -370,8 +370,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public CompoundTag toTag(final CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public CompoundTag writeNbt(final CompoundTag tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putInt("craftingTickTime", this.craftingTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
 		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);

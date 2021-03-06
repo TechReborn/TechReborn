@@ -97,14 +97,14 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void fromTag(CompoundTag nbttagcompound) {
-		super.fromTag(nbttagcompound);
+	public void readNbt(CompoundTag nbttagcompound) {
+		super.readNbt(nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag nbttagcompound) {
-		super.toTag(nbttagcompound);
+	public CompoundTag writeNbt(CompoundTag nbttagcompound) {
+		super.writeNbt(nbttagcompound);
 		if (ownerUdid == null || StringUtils.isEmpty(ownerUdid)) {
 			return nbttagcompound;
 		}

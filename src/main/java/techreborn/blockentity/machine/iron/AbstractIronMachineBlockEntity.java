@@ -134,16 +134,16 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	// MachineBaseBlockEntity
 	@Override
-	public void fromTag(CompoundTag compoundTag) {
-		super.fromTag(compoundTag);
+	public void readNbt(CompoundTag compoundTag) {
+		super.readNbt(compoundTag);
 		burnTime = compoundTag.getInt("BurnTime");
 		totalBurnTime = compoundTag.getInt("TotalBurnTime");
 		progress = compoundTag.getInt("Progress");
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag compoundTag) {
-		super.toTag(compoundTag);
+	public CompoundTag writeNbt(CompoundTag compoundTag) {
+		super.writeNbt(compoundTag);
 		compoundTag.putInt("BurnTime", burnTime);
 		compoundTag.putInt("TotalBurnTime", totalBurnTime);
 		compoundTag.putInt("Progress", progress);

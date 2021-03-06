@@ -283,8 +283,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public void fromTag(CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void readNbt(CompoundTag tagCompound) {
+		super.readNbt(tagCompound);
 
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
@@ -296,7 +296,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		storeItemStack = ItemStack.EMPTY;
 
 		if (tagCompound.contains("storedStack")) {
-			storeItemStack = ItemStack.fromTag(tagCompound.getCompound("storedStack"));
+			storeItemStack = ItemStack.fromNbt(tagCompound.getCompound("storedStack"));
 		}
 
 		if (!storeItemStack.isEmpty()) {
@@ -309,15 +309,15 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		}
 
 		if (tagCompound.contains("lockedItem")) {
-			lockedItemStack = ItemStack.fromTag(tagCompound.getCompound("lockedItem"));
+			lockedItemStack = ItemStack.fromNbt(tagCompound.getCompound("lockedItem"));
 		}
 
 		inventory.read(tagCompound);
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public CompoundTag writeNbt(CompoundTag tagCompound) {
+		super.writeNbt(tagCompound);
 
 		tagCompound.putString("unitType", this.type.name());
 
@@ -326,7 +326,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			if (storeItemStack.getCount() > storeItemStack.getMaxCount()) {
 				temp.setCount(storeItemStack.getMaxCount());
 			}
-			tagCompound.put("storedStack", temp.toTag(new CompoundTag()));
+			tagCompound.put("storedStack", temp.writeNbt(new CompoundTag()));
 			tagCompound.putInt("storedQuantity", Math.min(storeItemStack.getCount(), maxCapacity));
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
@@ -336,7 +336,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		tagCompound.putInt("totalStoredAmount", getCurrentCapacity());
 
 		if (isLocked()) {
-			tagCompound.put("lockedItem", lockedItemStack.toTag(new CompoundTag()));
+			tagCompound.put("lockedItem", lockedItemStack.writeNbt(new CompoundTag()));
 		}
 
 		inventory.write(tagCompound);
@@ -408,7 +408,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
 		final CompoundTag blockEntity = new CompoundTag();
 
-		this.toTag(blockEntity);
+		this.writeNbt(blockEntity);
 		dropStack.setTag(new CompoundTag());
 		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 
@@ -481,11 +481,11 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public CompoundTag getStoredStackNBT() {
 		CompoundTag tag = new CompoundTag();
-		getStoredStack().toTag(tag);
+		getStoredStack().writeNbt(tag);
 		return tag;
 	}
 
 	public void setStoredStackFromNBT(CompoundTag tag) {
-		storeItemStack = ItemStack.fromTag(tag);
+		storeItemStack = ItemStack.fromNbt(tag);
 	}
 }

@@ -372,17 +372,17 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
+	public CompoundTag writeNbt(CompoundTag tag) {
 		tag.putBoolean("locked", locked);
-		return super.toTag(tag);
+		return super.writeNbt(tag);
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
+	public void readNbt(CompoundTag tag) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.fromTag(tag);
+		super.readNbt(tag);
 	}
 
 	// MachineBaseBlockEntity

@@ -149,15 +149,15 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public CompoundTag writeNbt(CompoundTag tagCompound) {
+		super.writeNbt(tagCompound);
 
 		return tagCompound;
 	}
 
 	@Override
-	public void fromTag(CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void readNbt(CompoundTag tagCompound) {
+		super.readNbt(tagCompound);
 	}
 
 	@Override

@@ -70,7 +70,7 @@ public class IDSUManager extends PersistentState {
 	}
 
 	@Override
-	public CompoundTag toNbt(CompoundTag tag) {
+	public CompoundTag writeNbt(CompoundTag tag) {
 		playerHashMap.forEach((uuid, player) -> tag.put(uuid, player.write()));
 		return tag;
 	}

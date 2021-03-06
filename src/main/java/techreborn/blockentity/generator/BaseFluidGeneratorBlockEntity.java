@@ -170,14 +170,14 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	@Override
-	public void fromTag(CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void readNbt(CompoundTag tagCompound) {
+		super.readNbt(tagCompound);
 		tank.read(tagCompound);
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public CompoundTag writeNbt(CompoundTag tagCompound) {
+		super.writeNbt(tagCompound);
 		tank.write(tagCompound);
 		return tagCompound;
 	}

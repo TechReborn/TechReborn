@@ -69,20 +69,20 @@ public class AlarmBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public CompoundTag toTag(CompoundTag compound) {
+	public CompoundTag writeNbt(CompoundTag compound) {
 		if (compound == null) {
 			compound = new CompoundTag();
 		}
 		compound.putInt("selectedSound", this.selectedSound);
-		return super.toTag(compound);
+		return super.writeNbt(compound);
 	}
 
 	@Override
-	public void fromTag(CompoundTag compound) {
+	public void readNbt(CompoundTag compound) {
 		if (compound != null && compound.contains("selectedSound")) {
 			selectedSound = compound.getInt("selectedSound");
 		}
-		super.fromTag(compound);
+		super.readNbt(compound);
 	}
 
 	// Tickable

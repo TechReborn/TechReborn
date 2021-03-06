@@ -345,16 +345,16 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void fromTag(final CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void readNbt(final CompoundTag tagCompound) {
+		super.readNbt(tagCompound);
 		this.isRunning = tagCompound.getBoolean("isRunning");
 		this.tickTime = tagCompound.getInt("tickTime");
 		this.locked = tagCompound.getBoolean("locked");
 	}
 
 	@Override
-	public CompoundTag toTag(final CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public CompoundTag writeNbt(final CompoundTag tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putBoolean("isRunning", this.isRunning);
 		tagCompound.putInt("tickTime", this.tickTime);
 		tagCompound.putBoolean("locked", locked);
