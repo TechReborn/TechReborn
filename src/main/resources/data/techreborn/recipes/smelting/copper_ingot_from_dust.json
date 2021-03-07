@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "c:copper_dusts"
   },
-  "result": "techreborn:copper_ingot",
+  "result": "minecraft:copper_ingot",
   "experience": 0.5,
   "cookingtime": 200
 }
