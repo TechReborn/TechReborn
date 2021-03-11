@@ -8,7 +8,7 @@
 			"item": "techreborn:refined_iron_ingot"
 		},
 		{
-			"item": "techreborn:coal_dust",
+			"tag": "c:coal_dusts",
 			"count": 4
 		}
 	],
