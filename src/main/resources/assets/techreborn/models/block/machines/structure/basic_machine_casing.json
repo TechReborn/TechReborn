@@ -1,6 +1,10 @@
 {
-    "parent": "minecraft:block/cube_all",
+    "parent": "techreborn:block/cube_ctmh_base",
     "textures": {
         "all": "techreborn:block/machines/structure/tier1_casing"
+    },
+    "ctm_version": 1,
+    "ctm_overrides": {
+        "0": "techreborn:block/machines/structure/tier1_casing_ctmh"
     }
 }
