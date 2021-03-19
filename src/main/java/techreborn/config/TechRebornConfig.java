@@ -292,6 +292,12 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "quantumSuitFireExtinguishCost", comment = "Quantum Suit Cost for Fire Extinguish")
 	public static double fireExtinguishCost = 50;
 
+	@Config(config = "items", category = "power", key = "quantumSuitEnableSprint", comment = "Enable Sprint Speed increase for Quantum Legs")
+	public static boolean quantumSuitEnableSprint = true;
+
+	@Config(config = "items", category = "power", key = "quantumSuitEnableFlight", comment = "Enable Flight for Quantum Chest")
+	public static boolean quantumSuitEnableFlight = true;
+
 	@Config(config = "items", category = "power", key = "quantumSuitDamageAbsorbCost", comment = "Quantum Suit Cost for Damage Absorbed")
 	public static double damageAbsorbCost = 10;
 
