@@ -60,6 +60,10 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	public final double sprintingCost = TechRebornConfig.quantumSuitSprintingCost;
 	public final double fireExtinguishCost = TechRebornConfig.fireExtinguishCost;
 
+	public final boolean enableSprint = TechRebornConfig.quantumSuitEnableSprint;
+	public final boolean enableFlight = TechRebornConfig.quantumSuitEnableFlight;
+
+
 	public QuantumSuitItem(ArmorMaterial material, EquipmentSlot slot) {
 		super(material, slot, new Item.Settings().group(TechReborn.ITEMGROUP).maxDamage(-1).maxCount(1));
 	}
@@ -68,7 +72,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	public void getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
 		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS) {
+		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && enableSprint) {
 			if (Energy.of(stack).getEnergy() > sprintingCost) {
 				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
@@ -91,22 +95,24 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 				}
 				break;
 			case CHEST:
-				if (Energy.of(stack).getEnergy() > flyCost && !TechReborn.elytraPredicate.test(playerEntity)) {
-					playerEntity.getAbilities().allowFlying = true;
-					if (playerEntity.getAbilities().flying) {
-						Energy.of(stack).use(flyCost);
+				if (enableFlight){
+					if (Energy.of(stack).getEnergy() > flyCost && !TechReborn.elytraPredicate.test(playerEntity)) {
+						playerEntity.getAbilities().allowFlying = true;
+						if (playerEntity.getAbilities().flying) {
+							Energy.of(stack).use(flyCost);
+						}
+						playerEntity.setOnGround(true);
+					} else {
+						playerEntity.getAbilities().allowFlying = false;
+						playerEntity.getAbilities().flying = false;
 					}
-					playerEntity.setOnGround(true);
-				} else {
-					playerEntity.getAbilities().allowFlying = false;
-					playerEntity.getAbilities().flying = false;
 				}
 				if (playerEntity.isOnFire() && Energy.of(stack).getEnergy() > fireExtinguishCost) {
 					playerEntity.extinguish();
 				}
 				break;
 			case LEGS:
-				if (playerEntity.isSprinting()) {
+				if (playerEntity.isSprinting() && enableSprint) {
 					Energy.of(stack).use(sprintingCost);
 				}
 				break;
@@ -129,7 +135,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 
 	@Override
 	public void onRemoved(PlayerEntity playerEntity) {
-		if (this.slot == EquipmentSlot.CHEST) {
+		if (this.slot == EquipmentSlot.CHEST && enableFlight) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
 				playerEntity.getAbilities().allowFlying = false;
 				playerEntity.getAbilities().flying = false;
