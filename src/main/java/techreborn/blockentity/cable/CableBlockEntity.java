@@ -159,10 +159,7 @@ public class CableBlockEntity extends BlockEntity
 	// Tickable
 	@Override
 	public void tick() {
-		if (world == null) {
-			return;
-		}
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
 
