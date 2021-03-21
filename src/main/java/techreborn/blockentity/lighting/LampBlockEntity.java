@@ -37,6 +37,7 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.EnergySide;
 import techreborn.blocks.lighting.LampBlock;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
 
@@ -71,7 +72,7 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 
 	@Override
 	protected boolean canAcceptEnergy(EnergySide side) {
-		return side == EnergySide.UNKNOWN || getFacing().getOpposite() != Direction.values()[side.ordinal()];
+		return side == EnergySide.UNKNOWN || getFacing().getOpposite() == Direction.values()[side.ordinal()];
 	}
 
 	@Override
@@ -94,9 +95,22 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 		return 32;
 	}
 
+	//MachineBaseBlockEntity
+	@Override
+	public Direction getFacing(){
+		if (world == null){
+			return Direction.NORTH;
+		}
+		return LampBlock.getFacing(world.getBlockState(pos));
+	}
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+		// I know it is weird. But world is nullable
+		if (world == null) {
+			return new ItemStack(TRContent.Machine.LAMP_INCANDESCENT.block);
+		}
 		return new ItemStack(world.getBlockState(pos).getBlock());
 	}
 }
