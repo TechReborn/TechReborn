@@ -68,7 +68,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (Energy.of(stack).getEnergy() >= cost
-				&& (state.getMaterial() == Material.WOOD)) {
+				&& (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.NETHER_WOOD)) {
 			return poweredSpeed;
 		}
 		return unpoweredSpeed;
