@@ -30,7 +30,7 @@ import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -149,14 +149,14 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	}
 
 	@Override
-	public CompoundTag writeNbt(CompoundTag tagCompound) {
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 
 		return tagCompound;
 	}
 
 	@Override
-	public void readNbt(CompoundTag tagCompound) {
+	public void readNbt(NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
 	}
 

@@ -79,9 +79,9 @@ public class DefaultWorldGen {
 
 		TreeFeatureConfig treeFeatureConfig = new TreeFeatureConfig.Builder(
 			logProvider,
+			new StraightTrunkPlacer(6, 3, 0),
 			new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
 			new RubberTreeFeature.FoliagePlacer(UniformIntDistribution.of(2, 0), UniformIntDistribution.of(0, 0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
-			new StraightTrunkPlacer(6, 3, 0),
 			new TwoLayersFeatureSize(1, 0, 1)
 		).build();
 

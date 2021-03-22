@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -129,7 +129,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public CompoundTag writeNbt(CompoundTag tagCompound) {
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putInt("radius", radius);
 		tagCompound.putString("ownerUdid", ownerUdid);
@@ -138,7 +138,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void readNbt(CompoundTag nbttagcompound) {
+	public void readNbt(NbtCompound nbttagcompound) {
 		super.readNbt(nbttagcompound);
 		this.radius = nbttagcompound.getInt("radius");
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");

@@ -27,7 +27,7 @@ package techreborn.blockentity.storage.energy;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IUpgrade;
@@ -79,10 +79,10 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	public ItemStack getDropWithNBT() {
-		CompoundTag blockEntity = new CompoundTag();
+		NbtCompound blockEntity = new NbtCompound();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
 		writeNbt(blockEntity);
-		dropStack.setTag(new CompoundTag());
+		dropStack.setTag(new NbtCompound());
 		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 		return dropStack;
 	}
@@ -140,14 +140,14 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public CompoundTag writeNbt(CompoundTag tagCompound) {
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putInt("output", OUTPUT);
 		return tagCompound;
 	}
 
 	@Override
-	public void readNbt(CompoundTag nbttagcompound) {
+	public void readNbt(NbtCompound nbttagcompound) {
 		super.readNbt(nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInt("output");
 	}

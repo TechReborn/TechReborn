@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -95,13 +95,13 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(final CompoundTag tagCompound) {
+	public void readNbt(final NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
 		tank.read(tagCompound);
 	}
 
 	@Override
-	public CompoundTag writeNbt(final CompoundTag tagCompound) {
+	public NbtCompound writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tank.write(tagCompound);
 		return tagCompound;

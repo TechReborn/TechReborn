@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
@@ -345,7 +345,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void readNbt(final CompoundTag tagCompound) {
+	public void readNbt(final NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
 		this.isRunning = tagCompound.getBoolean("isRunning");
 		this.tickTime = tagCompound.getInt("tickTime");
@@ -353,7 +353,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public CompoundTag writeNbt(final CompoundTag tagCompound) {
+	public NbtCompound writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putBoolean("isRunning", this.isRunning);
 		tagCompound.putInt("tickTime", this.tickTime);

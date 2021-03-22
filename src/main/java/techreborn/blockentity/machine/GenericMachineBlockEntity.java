@@ -63,7 +63,6 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	 */
 	public GenericMachineBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
 		super(blockEntityType, pos, state);
-		System.out.println("created machineentity");
 		this.name = "BlockEntity" + name;
 		this.maxInput = maxInput;
 		this.maxEnergy = maxEnergy;

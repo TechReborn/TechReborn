@@ -29,7 +29,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.text.LiteralText;
@@ -124,19 +124,19 @@ public class CableBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public CompoundTag toInitialChunkDataNbt() {
-		return writeNbt(new CompoundTag());
+	public NbtCompound toInitialChunkDataNbt() {
+		return writeNbt(new NbtCompound());
 	}
 
 	@Override
 	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		CompoundTag nbtTag = new CompoundTag();
+		NbtCompound nbtTag = new NbtCompound();
 		writeNbt(nbtTag);
 		return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
 	}
 
 	@Override
-	public void readNbt(CompoundTag compound) {
+	public void readNbt(NbtCompound compound) {
 		super.readNbt(compound);
 		if (compound.contains("energy")) {
 			energy = compound.getDouble("energy");
@@ -149,7 +149,7 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public CompoundTag writeNbt(CompoundTag compound) {
+	public NbtCompound writeNbt(NbtCompound compound) {
 		super.writeNbt(compound);
 		compound.putDouble("energy", energy);
 		if (cover != null) {

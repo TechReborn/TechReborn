@@ -24,7 +24,7 @@
 
 package techreborn.blockentity.storage.energy.idsu;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
@@ -57,20 +57,20 @@ public class IDSUManager extends PersistentState {
 		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer());
 	}
 
-	public static IDSUManager createFromTag(CompoundTag tag) {
+	public static IDSUManager createFromTag(NbtCompound tag) {
 		IDSUManager	idsuManager = new IDSUManager();
 		idsuManager.fromTag(tag);
 		return idsuManager;
 	}
 
-	public void fromTag(CompoundTag tag) {
+	public void fromTag(NbtCompound tag) {
 		for (String uuid : tag.getKeys()) {
 			playerHashMap.put(uuid, new IDSUPlayer(tag.getCompound(uuid)));
 		}
 	}
 
 	@Override
-	public CompoundTag writeNbt(CompoundTag tag) {
+	public NbtCompound writeNbt(NbtCompound tag) {
 		playerHashMap.forEach((uuid, player) -> tag.put(uuid, player.write()));
 		return tag;
 	}
@@ -82,20 +82,20 @@ public class IDSUManager extends PersistentState {
 		private IDSUPlayer() {
 		}
 
-		private IDSUPlayer(CompoundTag compoundTag) {
+		private IDSUPlayer(NbtCompound compoundTag) {
 			read(compoundTag);
 		}
 
 		@NotNull
 		@Override
-		public CompoundTag write() {
-			CompoundTag tag = new CompoundTag();
+		public NbtCompound write() {
+			NbtCompound tag = new NbtCompound();
 			tag.putDouble("energy", energy);
 			return tag;
 		}
 
 		@Override
-		public void read(@NotNull CompoundTag tag) {
+		public void read(@NotNull NbtCompound tag) {
 			energy = tag.getDouble("energy");
 		}
 

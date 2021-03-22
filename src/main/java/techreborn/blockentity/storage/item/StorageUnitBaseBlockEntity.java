@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -283,7 +283,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public void readNbt(CompoundTag tagCompound) {
+	public void readNbt(NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
 
 		if (tagCompound.contains("unitType")) {
@@ -316,7 +316,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public CompoundTag writeNbt(CompoundTag tagCompound) {
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 
 		tagCompound.putString("unitType", this.type.name());
@@ -326,7 +326,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			if (storeItemStack.getCount() > storeItemStack.getMaxCount()) {
 				temp.setCount(storeItemStack.getMaxCount());
 			}
-			tagCompound.put("storedStack", temp.writeNbt(new CompoundTag()));
+			tagCompound.put("storedStack", temp.writeNbt(new NbtCompound()));
 			tagCompound.putInt("storedQuantity", Math.min(storeItemStack.getCount(), maxCapacity));
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
@@ -336,7 +336,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		tagCompound.putInt("totalStoredAmount", getCurrentCapacity());
 
 		if (isLocked()) {
-			tagCompound.put("lockedItem", lockedItemStack.writeNbt(new CompoundTag()));
+			tagCompound.put("lockedItem", lockedItemStack.writeNbt(new NbtCompound()));
 		}
 
 		inventory.write(tagCompound);
@@ -406,10 +406,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final CompoundTag blockEntity = new CompoundTag();
+		final NbtCompound blockEntity = new NbtCompound();
 
 		this.writeNbt(blockEntity);
-		dropStack.setTag(new CompoundTag());
+		dropStack.setTag(new NbtCompound());
 		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 
 		return dropStack;
@@ -479,13 +479,13 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		this.storedAmount = storedAmount;
 	}
 
-	public CompoundTag getStoredStackNBT() {
-		CompoundTag tag = new CompoundTag();
+	public NbtCompound getStoredStackNBT() {
+		NbtCompound tag = new NbtCompound();
 		getStoredStack().writeNbt(tag);
 		return tag;
 	}
 
-	public void setStoredStackFromNBT(CompoundTag tag) {
+	public void setStoredStackFromNBT(NbtCompound tag) {
 		storeItemStack = ItemStack.fromNbt(tag);
 	}
 }

@@ -27,7 +27,7 @@ package techreborn.blockentity.generator;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
@@ -170,13 +170,13 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	@Override
-	public void readNbt(CompoundTag tagCompound) {
+	public void readNbt(NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
 		tank.read(tagCompound);
 	}
 
 	@Override
-	public CompoundTag writeNbt(CompoundTag tagCompound) {
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tank.write(tagCompound);
 		return tagCompound;

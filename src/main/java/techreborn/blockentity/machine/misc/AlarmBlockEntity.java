@@ -29,7 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -69,16 +69,16 @@ public class AlarmBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public CompoundTag writeNbt(CompoundTag compound) {
+	public NbtCompound writeNbt(NbtCompound compound) {
 		if (compound == null) {
-			compound = new CompoundTag();
+			compound = new NbtCompound();
 		}
 		compound.putInt("selectedSound", this.selectedSound);
 		return super.writeNbt(compound);
 	}
 
 	@Override
-	public void readNbt(CompoundTag compound) {
+	public void readNbt(NbtCompound compound) {
 		if (compound != null && compound.contains("selectedSound")) {
 			selectedSound = compound.getInt("selectedSound");
 		}

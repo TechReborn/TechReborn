@@ -28,7 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -267,7 +267,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public void readNbt(CompoundTag tag) {
+	public void readNbt(NbtCompound tag) {
 		if (world == null) {
 			// We are in BlockEntity.create method during chunk load.
 			this.checkOverfill = false;

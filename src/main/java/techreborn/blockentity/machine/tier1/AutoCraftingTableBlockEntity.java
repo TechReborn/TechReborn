@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeType;
@@ -372,13 +372,13 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public CompoundTag writeNbt(CompoundTag tag) {
+	public NbtCompound writeNbt(NbtCompound tag) {
 		tag.putBoolean("locked", locked);
 		return super.writeNbt(tag);
 	}
 
 	@Override
-	public void readNbt(CompoundTag tag) {
+	public void readNbt(NbtCompound tag) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}

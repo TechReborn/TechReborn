@@ -27,7 +27,7 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -354,7 +354,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void readNbt(final CompoundTag tagCompound) {
+	public void readNbt(final NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
 		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
@@ -370,7 +370,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public CompoundTag writeNbt(final CompoundTag tagCompound) {
+	public NbtCompound writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putInt("craftingTickTime", this.craftingTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
