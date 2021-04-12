@@ -65,6 +65,6 @@ public class RecyclerBlockEntity extends GenericMachineBlockEntity implements Bu
 		return new ScreenHandlerBuilder("recycler").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45, RecyclerBlockEntity::canRecycle)
 				.outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.addInventory().create(this, syncID);
+				.syncCrafterValue().addInventory().create(this, syncID);
 	}
 }
