@@ -27,6 +27,7 @@ package techreborn.events;
 import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.block.Block;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
@@ -34,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.BaseBlockEntityProvider;
+import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.items.UpgradeItem;
 import techreborn.utils.ToolTipAssistUtils;
@@ -53,7 +55,12 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Text> tooltipLines) {
 		Item item = stack.getItem();
 
-		if (!ITEM_ID.computeIfAbsent(item, this::isTRItem))
+		// Can currently be executed by a ForkJoinPool.commonPool-worker when REI is in async search mode
+		// We skip this method until a thread-safe solution is in place
+		if (!MinecraftClient.getInstance().isOnThread())
+			return;
+
+		if (!ITEM_ID.computeIfAbsent(item, StackToolTipHandler::isTRItem))
 			return;
 
 		// Machine info and upgrades helper section
@@ -71,7 +78,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		}
 	}
 
-	private boolean isTRItem(Item item) {
+	private static boolean isTRItem(Item item) {
 		return Registry.ITEM.getId(item).getNamespace().equals("techreborn");
 	}
 }
