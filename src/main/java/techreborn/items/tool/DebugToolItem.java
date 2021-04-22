@@ -135,7 +135,7 @@ public class DebugToolItem extends Item {
 		MutableText s = new LiteralText("BlockEntity Tags:").formatted(Formatting.GREEN);
 
 		BlockDataObject bdo = new BlockDataObject(blockEntity, blockEntity.getPos());
-		s.append(bdo.getTag().toText());
+		s.append(bdo.getNbt().toString());
 
 		return s;
 	}

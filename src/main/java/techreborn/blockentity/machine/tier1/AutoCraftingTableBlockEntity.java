@@ -165,7 +165,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!hasOutputSpace(recipe.getOutput(), OUTPUT_SLOT)) return false;
 
-		DefaultedList<ItemStack> remainingStacks = recipe.getRemainingStacks(crafting);
+		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
 		for (ItemStack stack : remainingStacks){
 			if (!stack.isEmpty() && !hasRoomForExtraItem(stack)) return false;
 		}
