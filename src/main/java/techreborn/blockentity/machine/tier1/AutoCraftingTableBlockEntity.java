@@ -27,6 +27,7 @@ package techreborn.blockentity.machine.tier1;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.CraftingRecipe;
@@ -68,6 +69,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(11, "AutoCraftingTableBlockEntity", 64, this);
 	private final int OUTPUT_SLOT = 9;
 	private final int EXTRA_OUTPUT_SLOT = 10;
+
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
@@ -76,7 +78,13 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	CraftingInventory inventoryCrafting = null;
 	CraftingRecipe lastRecipe = null;
 
-	public boolean locked = true;
+	Item[] layoutInv = {
+			null, null, null,
+			null, null, null,
+			null, null, null,
+	};
+
+	public boolean locked = false;
 
 	public AutoCraftingTableBlockEntity() {
 		super(TRBlockEntities.AUTO_CRAFTING_TABLE);
@@ -90,6 +98,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (lastRecipe != null && lastRecipe.matches(crafting, world)) return lastRecipe;
 
+		Item[] currentInvLayout = getCraftingLayout(crafting);
+		if(Arrays.equals(layoutInv, currentInvLayout)) return null;
+
+		layoutInv = currentInvLayout;
+
 		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
@@ -97,6 +110,20 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		return null;
+	}
+
+	private Item[] getCraftingLayout(CraftingInventory craftingInventory){
+		Item[] layout = {
+				null, null, null,
+				null, null, null,
+				null, null, null,
+		};
+
+		for (int i = 0; i < 9; i++) {
+			layout[i] = craftingInventory.getStack(i).getItem();
+		}
+
+		return layout;
 	}
 
 	private CraftingInventory getCraftingInventory() {
@@ -122,11 +149,20 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		CraftingInventory crafting = getCraftingInventory();
 		if (crafting.isEmpty()) return false;
 
+		// Don't allow recipe to change (Keep at least one of each slot stocked, assuming it's actually a recipe)
+		if(locked){
+			for(int i = 0; i < 9; i++){
+				if(crafting.getStack(i).getCount() == 1){
+					return false;
+				}
+			}
+		}
+
 		if (!recipe.matches(crafting, world)) return false;
 
 		if (!hasOutputSpace(recipe.getOutput(), OUTPUT_SLOT)) return false;
 
-		DefaultedList<ItemStack> remainingStacks = world.getRecipeManager().getRemainingStacks(RecipeType.CRAFTING, crafting, world);
+		DefaultedList<ItemStack> remainingStacks = recipe.getRemainingStacks(crafting);
 		for (ItemStack stack : remainingStacks){
 			if (!stack.isEmpty() && !hasRoomForExtraItem(stack)) return false;
 		}
