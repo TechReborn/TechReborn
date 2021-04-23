@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "astromine:sterling_silver_ingot"
+	}
+  ],
+  "results": [
+	{
+	  "item": "astromine:sterling_silver_plate"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "astromine"
+  }
+}

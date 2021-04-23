@@ -24,11 +24,18 @@
 
 package techreborn.world;
 
+import com.google.gson.JsonElement;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.rule.BlockStateMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -39,22 +46,24 @@ import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.apache.logging.log4j.util.TriConsumer;
+import reborncore.common.util.IdentifiableObject;
 import techreborn.blocks.misc.BlockRubberLog;
-import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class DefaultWorldGen {
 
 	private static final RuleTest END_STONE = new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState());
-
-	public static WorldGenConfig getDefaultWorldGen() {
-		return new WorldGenConfig(getOres(), getRubberTree());
-	}
 
 	private static ConfiguredFeature<?, ?> getRubberTree() {
 		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
@@ -83,30 +92,53 @@ public class DefaultWorldGen {
 				));
 	}
 
-	private static List<TechRebornOre> getOres() {
-		List<TechRebornOre> ores = new ArrayList<>();
-		TriConsumer<WorldTargetType, RuleTest, TRContent.Ores> addOre = (worldTargetType, ruleTest, ore) -> ores.add(ore.asNewOres(worldTargetType, ruleTest));
+	public static List<DataDrivenFeature> getDefaultFeatures() {
+		List<DataDrivenFeature> features = new ArrayList<>();
+		TriConsumer<Predicate<BiomeSelectionContext>, RuleTest, TRContent.Ores> addOre = (worldTargetType, ruleTest, ore) ->
+				features.add(ore.asNewOres(new Identifier("techreborn", Registry.BLOCK.getId(ore.block).getPath()), worldTargetType, ruleTest));
 
-		addOre.accept(WorldTargetType.NETHER, OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.CINNABAR);
-		addOre.accept(WorldTargetType.NETHER, OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.PYRITE);
-		addOre.accept(WorldTargetType.NETHER, OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.SPHALERITE);
+		addOre.accept(BiomeSelectors.foundInTheNether(), OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.CINNABAR);
+		addOre.accept(BiomeSelectors.foundInTheNether(), OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.PYRITE);
+		addOre.accept(BiomeSelectors.foundInTheNether(), OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.SPHALERITE);
 
-		addOre.accept(WorldTargetType.END, END_STONE, TRContent.Ores.PERIDOT);
-		addOre.accept(WorldTargetType.END, END_STONE, TRContent.Ores.SHELDONITE);
-		addOre.accept(WorldTargetType.END, END_STONE, TRContent.Ores.SODALITE);
-		addOre.accept(WorldTargetType.END, END_STONE, TRContent.Ores.TUNGSTEN);
+		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.PERIDOT);
+		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.SHELDONITE);
+		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.SODALITE);
+		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.TUNGSTEN);
 
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.BAUXITE);
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.COPPER);
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.GALENA);
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.IRIDIUM);
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.LEAD);
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.RUBY);
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.SAPPHIRE);
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.SILVER);
-		addOre.accept(WorldTargetType.DEFAULT, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.TIN);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.BAUXITE);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.COPPER);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.GALENA);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.IRIDIUM);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.LEAD);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.RUBY);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.SAPPHIRE);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.SILVER);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.TIN);
 
-		return Collections.unmodifiableList(ores);
+
+		features.add(new DataDrivenFeature(
+			new Identifier("techreborn", "rubber_tree"),
+			BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA, Biome.Category.SWAMP),
+			getRubberTree(),
+			GenerationStep.Feature.VEGETAL_DECORATION
+		));
+
+		return features;
 	}
 
+	// Used to export the worldgen jsons
+	public static void export() {
+		for (DataDrivenFeature defaultFeature : getDefaultFeatures()) {
+			JsonElement jsonElement = defaultFeature.serialise();
+			String json = jsonElement.toString();
+
+			Path dir = Paths.get("..\\src\\main\\resources\\data\\techreborn\\techreborn\\features");
+			try {
+				Files.write(dir.resolve(defaultFeature.getIdentifier().getPath() + ".json"), json.getBytes(StandardCharsets.UTF_8));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

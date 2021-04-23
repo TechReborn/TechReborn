@@ -22,37 +22,36 @@
  * SOFTWARE.
  */
 
-package techreborn.world;
+package techreborn.init;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.fabricmc.fabric.impl.content.registry.FuelRegistryImpl;
 
-import java.util.List;
+// Class containing definitions of burnable materials
+public class FuelRecipes {
+	public static void init() {
+		FuelRegistryImpl registry = FuelRegistryImpl.INSTANCE;
 
-public class WorldGenConfig {
-	public static final Codec<WorldGenConfig> CODEC = RecordCodecBuilder.create(instance ->
-			instance.group(
-					Codec.list(TechRebornOre.CODEC).fieldOf("ores").forGetter(WorldGenConfig::getOres),
-					ConfiguredFeature.field_25833.fieldOf("rubberTree").forGetter(WorldGenConfig::getRubberTree)
-			)
-			.apply(instance, WorldGenConfig::new)
-	);
+		// Basing it off https://minecraft.gamepedia.com/Furnace/table
 
-	private final List<TechRebornOre> ores;
-	private final ConfiguredFeature<?, ?> rubberTree;
+		// Rubber spam
+		registry.add(TRContent.RUBBER_BUTTON, 300);
+		registry.add(TRContent.RUBBER_LOG, 300);
+		registry.add(TRContent.RUBBER_LOG_STRIPPED, 300);
+		registry.add(TRContent.RUBBER_WOOD, 300);
+		registry.add(TRContent.STRIPPED_RUBBER_WOOD, 300);
+		registry.add(TRContent.RUBBER_PLANKS, 300);
+		registry.add(TRContent.RUBBER_PLANK_SLAB, 150);
+		registry.add(TRContent.RUBBER_FENCE, 300);
+		registry.add(TRContent.RUBBER_FENCE_GATE, 300);
+		registry.add(TRContent.RUBBER_PLANK_STAIR, 300);
+		registry.add(TRContent.RUBBER_TRAPDOOR, 300);
+		registry.add(TRContent.RUBBER_PRESSURE_PLATE, 300);
+		registry.add(TRContent.RUBBER_DOOR, 200);
+		registry.add(TRContent.RUBBER_SAPLING, 100);
 
-	public WorldGenConfig(List<TechRebornOre> ores, ConfiguredFeature<?, ?> rubberTree) {
-		this.ores = ores;
-		this.rubberTree = rubberTree;
-	}
 
-	public ConfiguredFeature<?, ?> getRubberTree() {
-		return rubberTree;
-	}
-
-	public List<TechRebornOre> getOres() {
-		return ores;
+		// Other stuff
+		registry.add(TRContent.Machine.RESIN_BASIN, 300);
+		registry.add(TRContent.Plates.WOOD, 300);
 	}
 }

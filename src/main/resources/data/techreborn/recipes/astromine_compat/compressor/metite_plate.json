@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "astromine:metite_ingot"
+	}
+  ],
+  "results": [
+	{
+	  "item": "astromine:metite_plate"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "astromine"
+  }
+}

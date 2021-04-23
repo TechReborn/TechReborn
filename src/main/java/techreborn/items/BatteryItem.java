@@ -56,7 +56,7 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 	private final EnergyTier tier;
 
 	public BatteryItem(int maxEnergy, EnergyTier tier) {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(1));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxEnergy = maxEnergy;
 		this.tier = tier;
 	}
@@ -82,7 +82,7 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 			return;
 		}
 		if (entity instanceof PlayerEntity) {
-			ItemUtils.distributePowerToInventory((PlayerEntity) entity, stack, tier.getMaxOutput());
+			ItemUtils.distributePowerToInventory((PlayerEntity) entity, stack, tier.getMaxOutput(), (testStack) -> !(testStack.getItem() instanceof BatteryItem));
 		}
 	}
 

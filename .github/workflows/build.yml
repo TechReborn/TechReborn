@@ -1,12 +1,33 @@
-name: Build
-on: [push, pull_request]
+name: Publish
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-20.04
     container:
-      image: openjdk:14-jdk
+      image: openjdk:15-jdk
       options: --user root
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: gradle/wrapper-validation-action@v1
-      - run: ./gradlew build --stacktrace
+
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{ secrets.github_token }}
+          prefix: ${{ github.ref }}
+
+      - run: ./gradlew build publish --stacktrace
+        env:
+          MAVEN_URL: ${{ secrets.MAVEN_URL }}
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          CROWDIN_KEY: ${{ secrets.CROWDIN_KEY }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: build/libs/

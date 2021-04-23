@@ -42,6 +42,7 @@ import reborncore.common.util.Torus;
 import techreborn.client.GuiType;
 import techreborn.compat.trinkets.Trinkets;
 import techreborn.config.TechRebornConfig;
+import techreborn.events.ApplyArmorToDamageHandler;
 import techreborn.events.ModRegistry;
 import techreborn.events.UseBlockHandler;
 import techreborn.init.*;
@@ -72,6 +73,7 @@ public class TechReborn implements ModInitializer {
 		new Configuration(TechRebornConfig.class, "techreborn");
 
 		// Done to force the class to load
+		//noinspection ResultOfMethodCallIgnored
 		ModRecipes.GRINDER.getName();
 
 		ClientboundPackets.init();
@@ -93,6 +95,8 @@ public class TechReborn implements ModInitializer {
 		TRDispenserBehavior.init();
 		PoweredCraftingHandler.setup();
 		UseBlockHandler.init();
+		ApplyArmorToDamageHandler.init();
+		FuelRecipes.init();
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 

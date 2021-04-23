@@ -74,7 +74,7 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	 * @return int Scale of progress
 	 */
 	public int getProgressScaled(int scale) {
-		if (crafter != null && crafter.currentTickTime != 0) {
+		if (crafter != null && crafter.currentTickTime != 0 && crafter.currentNeededTicks != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;

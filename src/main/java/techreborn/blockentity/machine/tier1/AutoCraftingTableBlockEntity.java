@@ -27,6 +27,7 @@ package techreborn.blockentity.machine.tier1;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.CraftingRecipe;
@@ -66,16 +67,24 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(11, "AutoCraftingTableBlockEntity", 64, this);
+	private final int OUTPUT_SLOT = 9;
+	private final int EXTRA_OUTPUT_SLOT = 10;
+
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
 	public int balanceSlot = 0;
 
 	CraftingInventory inventoryCrafting = null;
-	CraftingRecipe lastCustomRecipe = null;
 	CraftingRecipe lastRecipe = null;
 
-	public boolean locked = true;
+	Item[] layoutInv = {
+			null, null, null,
+			null, null, null,
+			null, null, null,
+	};
+
+	public boolean locked = false;
 
 	public AutoCraftingTableBlockEntity() {
 		super(TRBlockEntities.AUTO_CRAFTING_TABLE);
@@ -83,23 +92,41 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	@Nullable
 	public CraftingRecipe getCurrentRecipe() {
+		if (world == null) return null;
 		CraftingInventory crafting = getCraftingInventory();
-		if (!crafting.isEmpty()) {
-			if (lastRecipe != null) {
-				if (lastRecipe.matches(crafting, world)) {
-					return lastRecipe;
-				}
-			}
-			Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world);
-			if (testRecipe.isPresent()) {
-				lastRecipe = testRecipe.get();
-				return lastRecipe;
-			}
+		if (crafting.isEmpty()) return null;
+
+		if (lastRecipe != null && lastRecipe.matches(crafting, world)) return lastRecipe;
+
+		Item[] currentInvLayout = getCraftingLayout(crafting);
+		if(Arrays.equals(layoutInv, currentInvLayout)) return null;
+
+		layoutInv = currentInvLayout;
+
+		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world);
+		if (testRecipe.isPresent()) {
+			lastRecipe = testRecipe.get();
+			return lastRecipe;
 		}
+
 		return null;
 	}
 
-	public CraftingInventory getCraftingInventory() {
+	private Item[] getCraftingLayout(CraftingInventory craftingInventory){
+		Item[] layout = {
+				null, null, null,
+				null, null, null,
+				null, null, null,
+		};
+
+		for (int i = 0; i < 9; i++) {
+			layout[i] = craftingInventory.getStack(i).getItem();
+		}
+
+		return layout;
+	}
+
+	private CraftingInventory getCraftingInventory() {
 		if (inventoryCrafting == null) {
 			inventoryCrafting = new CraftingInventory(new ScreenHandler(null, -1) {
 				@Override
@@ -114,59 +141,44 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return inventoryCrafting;
 	}
 
-	public boolean canMake(CraftingRecipe recipe) {
-		if (recipe != null) {
-			boolean missingOutput = false;
-			int[] stacksInSlots = new int[9];
-			for (int i = 0; i < 9; i++) {
-				stacksInSlots[i] = inventory.getStack(i).getCount();
-			}
+	// Check if we have recipe, inputs and space for outputs
+	private boolean canMake(CraftingRecipe recipe) {
+		if (world == null) return false;
+		if (recipe == null) return false;
 
-			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
-			List<Integer> checkedSlots = new ArrayList<>();
-			for (Ingredient ingredient : ingredients) {
-				if (ingredient != Ingredient.EMPTY && !(ingredient.test(ItemStack.EMPTY))) {
-					boolean foundIngredient = false;
-					for (int i = 0; i < 9; i++) {
-						if (checkedSlots.contains(i)) {
-							continue;
-						}
-						ItemStack stack = inventory.getStack(i);
-						int requiredSize = locked ? 1 : 0;
-						if (stack.getMaxCount() == 1) {
-							requiredSize = 0;
-						}
-						if (stacksInSlots[i] > requiredSize) {
-							if (ingredient.test(stack)) {
-								foundIngredient = true;
-								checkedSlots.add(i);
-								stacksInSlots[i]--;
-								break;
-							}
-						}
-					}
-					if (!foundIngredient) {
-						missingOutput = true;
-					}
+		CraftingInventory crafting = getCraftingInventory();
+		if (crafting.isEmpty()) return false;
+
+		// Don't allow recipe to change (Keep at least one of each slot stocked, assuming it's actually a recipe)
+		if(locked){
+			for(int i = 0; i < 9; i++){
+				if(crafting.getStack(i).getCount() == 1){
+					return false;
 				}
 			}
-			if (!missingOutput) {
-				return hasOutputSpace(recipe.getOutput(), 9);
-			}
-			return false;
 		}
-		return false;
+
+		if (!recipe.matches(crafting, world)) return false;
+
+		if (!hasOutputSpace(recipe.getOutput(), OUTPUT_SLOT)) return false;
+
+		DefaultedList<ItemStack> remainingStacks = recipe.getRemainingStacks(crafting);
+		for (ItemStack stack : remainingStacks){
+			if (!stack.isEmpty() && !hasRoomForExtraItem(stack)) return false;
+		}
+
+		return true;
 	}
 
-	boolean hasRoomForExtraItem(ItemStack stack) {
-		ItemStack extraOutputSlot = inventory.getStack(10);
+	private boolean hasRoomForExtraItem(ItemStack stack) {
+		ItemStack extraOutputSlot = inventory.getStack(EXTRA_OUTPUT_SLOT);
 		if (extraOutputSlot.isEmpty()) {
 			return true;
 		}
-		return hasOutputSpace(stack, 10);
+		return hasOutputSpace(stack, EXTRA_OUTPUT_SLOT);
 	}
 
-	public boolean hasOutputSpace(ItemStack output, int slot) {
+	private boolean hasOutputSpace(ItemStack output, int slot) {
 		ItemStack stack = inventory.getStack(slot);
 		if (stack.isEmpty()) {
 			return true;
@@ -177,7 +189,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
-	public boolean make(CraftingRecipe recipe) {
+	private boolean make(CraftingRecipe recipe) {
 		if (recipe == null || !canMake(recipe)) {
 			return false;
 		}
@@ -188,10 +200,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			ItemStack bestSlot = inventory.getStack(i);
 			if (ingredient.test(bestSlot)) {
 				ItemStack remainderStack = getRemainderItem(bestSlot);
-				if (remainderStack.isEmpty()) {
-					bestSlot.decrement(1);
-				} else {
-					inventory.setStack(i, remainderStack);
+				bestSlot.decrement(1);
+				if (!remainderStack.isEmpty()) {
+					moveExtraOutput(remainderStack);
 				}
 
 			} else {
@@ -199,24 +210,32 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 					ItemStack stack = inventory.getStack(j);
 					if (ingredient.test(stack)) {
 						ItemStack remainderStack = getRemainderItem(stack);
-						if (remainderStack.isEmpty()) {
-							stack.decrement(1);
-						} else {
-							inventory.setStack(j, remainderStack);
+						stack.decrement(1);
+						if (!remainderStack.isEmpty()) {
+							moveExtraOutput(remainderStack);
 						}
 						break;
 					}
 				}
 			}
 		}
-		ItemStack output = inventory.getStack(9);
+		ItemStack output = inventory.getStack(OUTPUT_SLOT);
 		ItemStack outputStack = recipe.craft(getCraftingInventory());
 		if (output.isEmpty()) {
-			inventory.setStack(9, outputStack.copy());
+			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
 		} else {
 			output.increment(recipe.getOutput().getCount());
 		}
 		return true;
+	}
+
+	private void moveExtraOutput(ItemStack stack){
+		ItemStack currentExtraOutput = inventory.getStack(EXTRA_OUTPUT_SLOT);
+		if (currentExtraOutput.isEmpty()){
+			inventory.setStack(EXTRA_OUTPUT_SLOT, stack.copy());
+		} else {
+			currentExtraOutput.increment(stack.getCount());
+		}
 	}
 
 	private ItemStack getRemainderItem(ItemStack stack) {
@@ -229,72 +248,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return ItemStack.EMPTY;
 	}
 
-	public int getProgress() {
-		return progress;
-	}
+	private Optional<CraftingInventory> balanceRecipe(CraftingInventory craftCache) {
+		if (world == null || world.isClient) return Optional.empty();
+		if (craftCache.isEmpty()) return Optional.empty();
 
-	public void setProgress(int progress) {
-		this.progress = progress;
-	}
-
-	public int getMaxProgress() {
-		if (maxProgress == 0) {
-			maxProgress = 1;
-		}
-		return maxProgress;
-	}
-
-	public void setMaxProgress(int maxProgress) {
-		this.maxProgress = maxProgress;
-	}
-
-	// TilePowerAcceptor
-	@Override
-	public void tick() {
-		super.tick();
-		if (world.isClient) {
-			return;
-		}
-		CraftingRecipe recipe = getCurrentRecipe();
-		if (recipe != null) {
-			Optional<CraftingInventory> balanceResult = balanceRecipe(getCraftingInventory());
-			balanceResult.ifPresent(craftingInventory -> inventoryCrafting = craftingInventory);
-
-			if (progress >= maxProgress) {
-				if (make(recipe)) {
-					progress = 0;
-				}
-			} else {
-				if (canMake(recipe)) {
-					if (getStored(EnergySide.UNKNOWN) > euTick) {
-						progress++;
-						if (progress == 1) {
-							world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
-									SoundCategory.BLOCKS, 0.3F, 0.8F);
-						}
-						useEnergy(euTick);
-					}
-				} else {
-					progress = 0;
-				}
-			}
-		}
-		if (recipe == null) {
-			progress = 0;
-		}
-	}
-
-	public Optional<CraftingInventory> balanceRecipe(CraftingInventory craftCache) {
 		CraftingRecipe currentRecipe = getCurrentRecipe();
 		if (currentRecipe == null) {
 			return Optional.empty();
 		}
-		if (world.isClient) {
-			return Optional.empty();
-		}
-		if (craftCache.isEmpty()) {
-			return Optional.empty();
-		}
+
 		balanceSlot++;
 		if (balanceSlot > craftCache.size()) {
 			balanceSlot = 0;
@@ -327,7 +289,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 					.mapToInt(value -> inventory.getStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
-			//This makes an array of ints with the best possible slot EnvTyperibution
+			//This makes an array of ints with the best possible slot distribution
 			int[] split = new int[slots];
 			int remainder = totalItems % slots;
 			Arrays.fill(split, totalItems / slots);
@@ -340,15 +302,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 				}
 			}
 
-			List<Integer> slotEnvTyperubution = possibleSlots.stream()
+			List<Integer> slotDistribution = possibleSlots.stream()
 					.mapToInt(value -> inventory.getStack(value).getCount())
 					.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
 			for (int required : split) {
-				if (slotEnvTyperubution.contains(required)) {
+				if (slotDistribution.contains(required)) {
 					//We need to remove the int, not at the int, this seems to work around that
-					slotEnvTyperubution.remove(Integer.valueOf(required));
+					slotDistribution.remove(Integer.valueOf(required));
 				} else {
 					needsBalance = true;
 				}
@@ -373,8 +335,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 				bestSlot = Pair.of(slot, slotStack.getCount());
 			}
 		}
-		if (bestSlot == null
-				|| bestSlot.getLeft() == balanceSlot
+		if (bestSlot.getLeft() == balanceSlot
 				|| bestSlot.getRight() == sourceStack.getCount()
 				|| inventory.getStack(bestSlot.getLeft()).isEmpty()
 				|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
@@ -387,13 +348,40 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return Optional.of(getCraftingInventory());
 	}
 
-	// Easyest way to sync back to the client
-	public int getLockedInt() {
-		return locked ? 1 : 0;
-	}
+	// TilePowerAcceptor
+	@Override
+	public void tick() {
+		super.tick();
+		if (world == null || world.isClient) {
+			return;
+		}
+		CraftingRecipe recipe = getCurrentRecipe();
+		if (recipe == null) {
+			progress = 0;
+			return;
+		}
 
-	public void setLockedInt(int lockedInt) {
-		locked = lockedInt == 1;
+		Optional<CraftingInventory> balanceResult = balanceRecipe(getCraftingInventory());
+		balanceResult.ifPresent(craftingInventory -> inventoryCrafting = craftingInventory);
+
+		if (progress >= maxProgress) {
+			if (make(recipe)) {
+				progress = 0;
+			}
+		} else {
+			if (canMake(recipe)) {
+				if (getStored(EnergySide.UNKNOWN) > euTick) {
+					progress++;
+					if (progress == 1) {
+						world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
+								SoundCategory.BLOCKS, 0.3F, 0.8F);
+					}
+					useEnergy(euTick);
+				}
+			} else {
+				progress = 0;
+			}
+		}
 	}
 
 	@Override
@@ -430,10 +418,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		super.fromTag(blockState, tag);
 	}
 
-	// TileMachineBase
+	// MachineBaseBlockEntity
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
+	}
+
+	@Override
+	public boolean hasSlotConfig() {
+		return true;
 	}
 
 	// This machine doesnt have a facing
@@ -448,25 +441,52 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return TRContent.Machine.AUTO_CRAFTING_TABLE.getStack();
 	}
 
-	// ItemHandlerProvider
+	// InventoryProvider
 	@Override
 	public RebornInventory<AutoCraftingTableBlockEntity> getInventory() {
 		return inventory;
 	}
 
-	// IContainerProvider
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25).slot(3, 28, 43).slot(4, 46, 43)
-				.slot(5, 64, 43).slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61).outputSlot(9, 145, 42)
-				.outputSlot(10, 145, 70).syncEnergyValue().sync(this::getProgress, this::setProgress)
+				.blockEntity(this)
+				.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
+				.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)
+				.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
+				.outputSlot(OUTPUT_SLOT, 145, 42)
+				.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
+				.syncEnergyValue().sync(this::getProgress, this::setProgress)
 				.sync(this::getMaxProgress, this::setMaxProgress)
 				.sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
-	@Override
-	public boolean hasSlotConfig() {
-		return true;
+	public int getProgress() {
+		return progress;
 	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+
+	public int getMaxProgress() {
+		if (maxProgress == 0) {
+			maxProgress = 1;
+		}
+		return maxProgress;
+	}
+
+	public void setMaxProgress(int maxProgress) {
+		this.maxProgress = maxProgress;
+	}
+
+	public int getLockedInt() {
+		return locked ? 1 : 0;
+	}
+
+	public void setLockedInt(int lockedInt) {
+		locked = lockedInt == 1;
+	}
+
 }

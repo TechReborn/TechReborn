@@ -4,8 +4,7 @@
   "time": 170,
   "ingredients" : [
     {
-      "item": "minecraft:bone",
-      "count": 2
+      "item": "minecraft:bone"
     }
   ],
   "results" : [

@@ -22,42 +22,41 @@
  * SOFTWARE.
  */
 
-package techreborn.world;
+package techreborn.events;
 
-import com.mojang.serialization.Codec;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import reborncore.api.events.ApplyArmorToDamageCallback;
+import team.reborn.energy.Energy;
+import techreborn.config.TechRebornConfig;
+import techreborn.items.armor.QuantumSuitItem;
 
-import java.util.function.Predicate;
+public class ApplyArmorToDamageHandler implements ApplyArmorToDamageCallback {
 
-public enum WorldTargetType implements StringIdentifiable {
-	DEFAULT("default", category -> category != Biome.Category.NETHER && category != Biome.Category.THEEND),
-	NETHER("nether", category -> category == Biome.Category.NETHER),
-	END("end", category -> category == Biome.Category.THEEND);
-
-	private final String name;
-	private final Predicate<Biome.Category> biomeCategoryPredicate;
-	public static final Codec<WorldTargetType> CODEC = StringIdentifiable.createCodec(WorldTargetType::values, WorldTargetType::getByName);
-
-	WorldTargetType(String name, Predicate<Biome.Category> biomeCategoryPredicate) {
-		this.name = name;
-		this.biomeCategoryPredicate = biomeCategoryPredicate;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public boolean isApplicable(Biome.Category biomeCategory) {
-		return biomeCategoryPredicate.test(biomeCategory);
-	}
-
-	public static WorldTargetType getByName(String name) {
-		return null;
+	public static void init() {
+		ApplyArmorToDamageCallback.EVENT.register(new ApplyArmorToDamageHandler());
 	}
 
 	@Override
-	public String asString() {
-		return name;
+	public float applyArmorToDamage(PlayerEntity player, DamageSource source, float amount) {
+		double damageAbsorbed = 0.0d;
+		for (ItemStack stack : player.getArmorItems()) {
+			if (!(stack.getItem() instanceof QuantumSuitItem)) {
+				continue;
+			}
+
+			double stackEnergy = Energy.of(stack).getEnergy();
+			if (stackEnergy == 0.0d) {
+				continue;
+			}
+
+			double damageToAbsorb = Math.min(stackEnergy, amount * 0.2d);
+			if (Energy.of(stack).use(damageToAbsorb * TechRebornConfig.damageAbsorbCost)) {
+				damageAbsorbed += damageToAbsorb;
+			}
+		}
+
+		return amount - (float) damageAbsorbed;
 	}
 }

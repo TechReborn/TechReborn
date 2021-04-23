@@ -77,11 +77,6 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		}
 	}
 
-	@Override
-	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
-		return TRContent.Machine.CHUNK_LOADER.getStack();
-	}
-
 	private void reload() {
 		unloadAll();
 		load();
@@ -102,7 +97,16 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		}
 	}
 
+	private void unloadAll() {
+		ChunkLoaderManager manager = ChunkLoaderManager.get(world);
+		manager.unloadChunkLoader(world, getPos());
+	}
 
+	public ChunkPos getChunkPos() {
+		return new ChunkPos(getPos());
+	}
+
+	// MachineBaseBlockEntity
 	@Override
 	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
 		if (world.isClient) {
@@ -114,27 +118,18 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 
 	@Override
 	public void onPlace(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (world.isClient) {
-			return;
-		}
 		ownerUdid = placer.getUuidAsString();
+		if (worldIn.isClient) return;
 		reload();
-	}
-
-	private void unloadAll() {
-		ChunkLoaderManager manager = ChunkLoaderManager.get(world);
-		manager.unloadChunkLoader(world, getPos());
-	}
-
-	public ChunkPos getChunkPos() {
-		return new ChunkPos(getPos());
 	}
 
 	@Override
 	public CompoundTag toTag(CompoundTag tagCompound) {
 		super.toTag(tagCompound);
 		tagCompound.putInt("radius", radius);
-		tagCompound.putString("ownerUdid", ownerUdid);
+		if (ownerUdid != null && !ownerUdid.isEmpty()){
+			tagCompound.putString("ownerUdid", ownerUdid);
+		}
 		inventory.write(tagCompound);
 		return tagCompound;
 	}
@@ -150,9 +145,23 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		inventory.read(nbttagcompound);
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+		return TRContent.Machine.CHUNK_LOADER.getStack();
+	}
+
+	// InventoryProvider
 	@Override
 	public RebornInventory<ChunkLoaderBlockEntity> getInventory() {
 		return this.inventory;
+	}
+
+	// BuiltScreenHandlerProvider
+	@Override
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
+				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 
 	public int getRadius() {
@@ -163,10 +172,5 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		this.radius = radius;
 	}
 
-	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
-	}
 
 }

@@ -50,6 +50,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	public final int maxCharge;
 	public final int cost;
 	public final float poweredSpeed;
+	private final float unpoweredSpeed;
 	public final Item referenceTool;
 	public final EnergyTier tier;
 
@@ -59,6 +60,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 		this.tier = tier;
 		this.cost = cost;
 		this.poweredSpeed = poweredSpeed;
+		this.unpoweredSpeed = unpoweredSpeed;
 		this.referenceTool = referenceTool;
 	}
 
@@ -66,10 +68,10 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (Energy.of(stack).getEnergy() >= cost
-				&& (state.getMaterial() == Material.WOOD)) {
-			return this.poweredSpeed;
+				&& (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.NETHER_WOOD)) {
+			return poweredSpeed;
 		}
-		return super.getMiningSpeedMultiplier(stack, state);
+		return unpoweredSpeed;
 	}
 
 	// MiningToolItem

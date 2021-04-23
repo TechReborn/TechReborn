@@ -43,28 +43,28 @@ public class TechRebornConfig {
 	public static int basicGenerationRateN = 0;
 
 	@Config(config = "generators", category = "solarPanelAdvanced", key = "advancedDayRate", comment = "Generation rate during day for Advanced Solar Panel (Value in FE)")
-	public static int advancedGenerationRateD = 16;
+	public static int advancedGenerationRateD = 4;
 
 	@Config(config = "generators", category = "solarPanelAdvanced", key = "advancedNightRate", comment = "Generation rate during night for Advanced Solar Panel (Value in FE)")
 	public static int advancedGenerationRateN = 0;
 
 	@Config(config = "generators", category = "solarPanelIndustrial", key = "industrialDayRate", comment = "Generation rate during day for Industrial Solar Panel (Value in FE)")
-	public static int industrialGenerationRateD = 64;
+	public static int industrialGenerationRateD = 8;
 
 	@Config(config = "generators", category = "solarPanelIndustrial", key = "industrialNightRate", comment = "Generation rate during night for Industrial Solar Panel (Value in FE)")
-	public static int industrialGenerationRateN = 2;
+	public static int industrialGenerationRateN = 1;
 
 	@Config(config = "generators", category = "solarPanelUltimate", key = "ultimateDayRate", comment = "Generation rate during day for Ultimate Solar Panel (Value in FE)")
-	public static int ultimateGenerationRateD = 256;
+	public static int ultimateGenerationRateD = 16;
 
 	@Config(config = "generators", category = "solarPanelUltimate", key = "ultimateNightRate", comment = "Generation rate during night for Ultimate Solar Panel (Value in FE)")
-	public static int ultimateGenerationRateN = 16;
+	public static int ultimateGenerationRateN = 4;
 
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumDayRate", comment = "Generation rate during day for Quantum Solar Panel (Value in FE)")
-	public static int quantumGenerationRateD = 2048;
+	public static int quantumGenerationRateD = 128;
 
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Value in FE)")
-	public static int quantumGenerationRateN = 128;
+	public static int quantumGenerationRateN = 16;
 
 	@Config(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
 	public static int lightningRodMaxOutput = 2048;
@@ -163,9 +163,6 @@ public class TechRebornConfig {
 	public static int solidFuelGeneratorOutputAmount = 10;
 
 	// Items
-	@Config(config = "items", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
-	public static boolean enableGemArmorAndTools = true;
-
 	@Config(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber")
 	public static int nanosaberCharge = 1_000_000;
 
@@ -294,6 +291,15 @@ public class TechRebornConfig {
 
 	@Config(config = "items", category = "power", key = "quantumSuitFireExtinguishCost", comment = "Quantum Suit Cost for Fire Extinguish")
 	public static double fireExtinguishCost = 50;
+
+	@Config(config = "items", category = "power", key = "quantumSuitEnableSprint", comment = "Enable Sprint Speed increase for Quantum Legs")
+	public static boolean quantumSuitEnableSprint = true;
+
+	@Config(config = "items", category = "power", key = "quantumSuitEnableFlight", comment = "Enable Flight for Quantum Chest")
+	public static boolean quantumSuitEnableFlight = true;
+
+	@Config(config = "items", category = "power", key = "quantumSuitDamageAbsorbCost", comment = "Quantum Suit Cost for Damage Absorbed")
+	public static double damageAbsorbCost = 10;
 
 	@Config(config = "items", category = "upgrades", key = "overclcoker_speed", comment = "Overclocker behavior speed multipiler")
 	public static double overclockerSpeed = 0.25;
@@ -504,11 +510,14 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxCoilSize", comment = "Fusion Reactor Max Coil size (Radius)")
 	public static int fusionControlComputerMaxCoilSize = 50;
 
-	@Config(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input (Value in EU)")
+	@Config(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input")
 	public static int recyclerMaxInput = 32;
 
-	@Config(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
+	@Config(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy")
 	public static int recyclerMaxEnergy = 1000;
+
+	@Config(config = "machines", category = "recycler", key = "RecyclerChance", comment = "Recycler Chance to produce scrap (1 out of chance)")
+	public static int recyclerChance = 6;
 
 	@Config(config = "machines", category = "recycler", key = "RecyclerBlacklist", comment = "Recycler blacklist")
 	public static List<String> recyclerBlackList = Arrays.asList("techreborn:scrap_box", "techreborn:scrap");

@@ -82,6 +82,10 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	// PickaxeItem
 	@Override
 	public boolean isEffectiveOn(BlockState blockIn) {
+		if(blockIn == null){
+			return false;
+		}
+
 		if (Items.DIAMOND_PICKAXE.isEffectiveOn(blockIn)) {
 			return true;
 		}
@@ -89,10 +93,11 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 			return true;
 		}
 		// More checks to fix #2225
-		if (Items.DIAMOND_SHOVEL.getMiningSpeedMultiplier(null, blockIn) > 1.0f) {
+		// Pass stack to fix #2348
+		if (Items.DIAMOND_SHOVEL.getMiningSpeedMultiplier(new ItemStack(Items.DIAMOND_SHOVEL), blockIn) > 1.0f) {
 			return true;
 		}
-		return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(null, blockIn) > 1.0f;
+		return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(new ItemStack(Items.DIAMOND_SHOVEL), blockIn) > 1.0f;
 	}
 
 	// MiningToolItem

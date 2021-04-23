@@ -43,6 +43,7 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.FluidValue;
+import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
@@ -53,6 +54,8 @@ import java.util.List;
 
 public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 	protected Tank tank;
+	private int serverMaxCapacity = -1;
+
 	protected RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(2, "TankInventory", 64, this);
 
 	private TRContent.TankUnit type;
@@ -68,18 +71,24 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	private void configureEntity(TRContent.TankUnit type) {
 		this.type = type;
-		this.tank = new Tank("TankStorage", type.capacity, this);
+		this.tank = new Tank("TankStorage", serverMaxCapacity == -1 ? type.capacity : FluidValue.fromRaw(serverMaxCapacity), this);
 	}
 
+	public ItemStack getDropWithNBT() {
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
+		final CompoundTag blockEntity = new CompoundTag();
+		this.toTag(blockEntity);
+		dropStack.setTag(new CompoundTag());
+		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
+		return dropStack;
+	}
+
+	// MachineBaseBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
 
-		if (world == null){
-			return;
-		}
-
-		if (world.isClient()) {
+		if (world == null || world.isClient()){
 			return;
 		}
 
@@ -123,24 +132,25 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		return tagCompound;
 	}
 
-	public ItemStack getDropWithNBT() {
-		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final CompoundTag blockEntity = new CompoundTag();
-		this.toTag(blockEntity);
-		dropStack.setTag(new CompoundTag());
-		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
-		return dropStack;
+	@Override
+	public FluidValue fluidTransferAmount() {
+		// Full capacity should be filled in four minutes (4 minutes * 20 ticks per second / slotTransferSpeed equals 4)
+		return type.capacity.fraction(1200);
 	}
 
-	// ItemHandlerProvider
+	// InventoryProvider
 	@Override
 	public RebornInventory<TankUnitBaseBlockEntity> getInventory() {
 		return this.inventory;
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(PlayerEntity playerEntity) {
+		return getDropWithNBT();
+	}
 
 	// IListInfoProvider
-	@SuppressWarnings("deprecation")
 	@Override
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
@@ -157,22 +167,32 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		info.add(
 				new TranslatableText("techreborn.tooltip.unit.capacity")
 						.formatted(Formatting.GRAY)
-						.append(
-								new LiteralText(String.valueOf(this.tank.getCapacity()))
-										.formatted(Formatting.GOLD)
-										.append(" (")
-										.append(String.valueOf(this.tank.getCapacity().getRawValue() / 1000))
-										.append(")")
-						)
+						.append(new LiteralText(String.valueOf(this.tank.getCapacity()))
+								.formatted(Formatting.GOLD))
 		);
 	}
 
-	// IContainerProvider
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("tank").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
-				.sync(tank).addInventory().create(this, syncID);
+				.sync(tank)
+				.sync(this::getMaxCapacity, this::setMaxCapacity)
+
+				.addInventory().create(this, syncID);
+	}
+
+	// Sync between server/client if configs are mis-matched.
+	public int getMaxCapacity() {
+		return this.tank.getCapacity().getRawValue();
+	}
+
+	public void setMaxCapacity(int maxCapacity) {
+		FluidInstance instance = tank.getFluidInstance();
+		this.tank = new Tank("TankStorage", FluidValue.fromRaw(maxCapacity), this);
+		this.tank.setFluidInstance(instance);
+		this.serverMaxCapacity = maxCapacity;
 	}
 
 	@Nullable
@@ -184,10 +204,5 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	@Deprecated
 	public void setTank(Tank tank) {
 		this.tank.setFluid(null, tank.getFluidInstance());
-	}
-
-	@Override
-	public ItemStack getToolDrop(PlayerEntity playerEntity) {
-		return getDropWithNBT();
 	}
 }

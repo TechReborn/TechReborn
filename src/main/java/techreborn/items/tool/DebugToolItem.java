@@ -33,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.registry.Registry;
@@ -88,6 +89,15 @@ public class DebugToolItem extends Item {
 			}
 
 		}
+
+		sendMessage(context, new LiteralText(getBlockEntityType(blockEntity)));
+
+		if (Energy.valid(blockEntity)) {
+			sendMessage(context, new LiteralText(getRCPower(blockEntity)));
+		}
+
+		sendMessage(context, getBlockEntityTags(blockEntity));
+
 		return ActionResult.SUCCESS;
 	}
 
@@ -105,6 +115,7 @@ public class DebugToolItem extends Item {
 		if (!context.getWorld().isClient) {
 			context.getPlayer().sendSystemMessage(string, Util.NIL_UUID);
 		}
+		context.getPlayer().sendSystemMessage(message, Util.NIL_UUID);
 	}
 
 	private void sendMessage(PlayerEntity user, Text string) {
@@ -140,5 +151,14 @@ public class DebugToolItem extends Item {
 						+ "/"
 						+ PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getMaxStored()));
 
+	}
+
+	private Text getBlockEntityTags(BlockEntity blockEntity){
+		MutableText s = new LiteralText("BlockEntity Tags:").formatted(Formatting.GREEN);
+
+		BlockDataObject bdo = new BlockDataObject(blockEntity, blockEntity.getPos());
+		s.append(bdo.getTag().toText());
+
+		return s;
 	}
 }

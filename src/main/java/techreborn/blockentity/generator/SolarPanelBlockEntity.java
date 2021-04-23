@@ -166,6 +166,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 		// State checking and updating
 		if (world.getTime() % 20 == 0) {
+			checkOverfill = true;
 			updateState();
 		}
 

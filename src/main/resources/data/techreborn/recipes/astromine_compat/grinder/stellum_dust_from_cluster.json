@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:grinder",
+  "power": 5,
+  "time": 200,
+  "ingredients": [
+	{
+	  "item": "astromine:asteroid_stellum_cluster"
+	}
+  ],
+  "results": [
+	{
+	  "item": "astromine:stellum_dust",
+	  "count": 2
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "astromine"
+  }
+}
