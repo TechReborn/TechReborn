@@ -311,7 +311,7 @@ task compileRecipes {
 	def smeltingPath = recipePath + "/smelting"
 	def blastingPath = recipePath + "/blasting"
 
-    doLast {
+	doLast {
 		// Add any recipe filenames that don't match the regex here
 		String[] whitelist = []
 		def pattern = ~'^\\w+_(ingot(_from_dust)?)\\.json$'
@@ -325,12 +325,12 @@ task compileRecipes {
 					recipe.type = "minecraft:blasting"
 					recipe.cookingtime = recipe.cookingtime / 2
 
-					File output = new File(blastingPath, it.name)
+					File output = file(new File(blastingPath, it.name))
 					output.write(JsonOutput.prettyPrint(JsonOutput.toJson(recipe)))
 				}
 			}
 		}
-    }
+	}
 }
 
 // A task to ensure that the version being released has not already been released.
