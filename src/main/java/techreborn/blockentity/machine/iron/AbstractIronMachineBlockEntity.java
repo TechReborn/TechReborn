@@ -30,7 +30,7 @@ import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -132,16 +132,16 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	// MachineBaseBlockEntity
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag compoundTag) {
-		super.fromTag(blockState, compoundTag);
+	public void readNbt(BlockState blockState, NbtCompound compoundTag) {
+		super.readNbt(blockState, compoundTag);
 		burnTime = compoundTag.getInt("BurnTime");
 		totalBurnTime = compoundTag.getInt("TotalBurnTime");
 		progress = compoundTag.getInt("Progress");
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag compoundTag) {
-		super.toTag(compoundTag);
+	public NbtCompound writeNbt(NbtCompound compoundTag) {
+		super.writeNbt(compoundTag);
 		compoundTag.putInt("BurnTime", burnTime);
 		compoundTag.putInt("TotalBurnTime", totalBurnTime);
 		compoundTag.putInt("Progress", progress);

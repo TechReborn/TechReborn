@@ -31,7 +31,7 @@ import it.unimi.dsi.fastutil.ints.IntLists;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.Validate;
@@ -80,7 +80,7 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 	}
 
-	public SlotConfiguration(CompoundTag tagCompound) {
+	public SlotConfiguration(NbtCompound tagCompound) {
 		read(tagCompound);
 	}
 
@@ -119,8 +119,8 @@ public class SlotConfiguration implements NBTSerializable {
 
 	@NotNull
 	@Override
-	public CompoundTag write() {
-		CompoundTag tagCompound = new CompoundTag();
+	public NbtCompound write() {
+		NbtCompound tagCompound = new NbtCompound();
 		tagCompound.putInt("size", slotDetails.size());
 		for (int i = 0; i < slotDetails.size(); i++) {
 			tagCompound.put("slot_" + i, slotDetails.get(i).write());
@@ -129,10 +129,10 @@ public class SlotConfiguration implements NBTSerializable {
 	}
 
 	@Override
-	public void read(@NotNull CompoundTag nbt) {
+	public void read(@NotNull NbtCompound nbt) {
 		int size = nbt.getInt("size");
 		for (int i = 0; i < size; i++) {
-			CompoundTag tagCompound = nbt.getCompound("slot_" + i);
+			NbtCompound tagCompound = nbt.getCompound("slot_" + i);
 			SlotConfigHolder slotConfigHolder = new SlotConfigHolder(tagCompound);
 			updateSlotDetails(slotConfigHolder);
 		}
@@ -150,7 +150,7 @@ public class SlotConfiguration implements NBTSerializable {
 			Arrays.stream(Direction.values()).forEach(facing -> sideMap.put(facing, new SlotConfig(facing, slotID)));
 		}
 
-		public SlotConfigHolder(CompoundTag tagCompound) {
+		public SlotConfigHolder(NbtCompound tagCompound) {
 			sideMap = new HashMap<>();
 			read(tagCompound);
 			Validate.isTrue(Arrays.stream(Direction.values())
@@ -218,8 +218,8 @@ public class SlotConfiguration implements NBTSerializable {
 
 		@NotNull
 		@Override
-		public CompoundTag write() {
-			CompoundTag compound = new CompoundTag();
+		public NbtCompound write() {
+			NbtCompound compound = new NbtCompound();
 			compound.putInt("slotID", slotID);
 			Arrays.stream(Direction.values()).forEach(facing -> compound.put("side_" + facing.ordinal(), sideMap.get(facing).write()));
 			compound.putBoolean("input", input);
@@ -229,11 +229,11 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public void read(@NotNull CompoundTag nbt) {
+		public void read(@NotNull NbtCompound nbt) {
 			sideMap.clear();
 			slotID = nbt.getInt("slotID");
 			Arrays.stream(Direction.values()).forEach(facing -> {
-				CompoundTag compound = nbt.getCompound("side_" + facing.ordinal());
+				NbtCompound compound = nbt.getCompound("side_" + facing.ordinal());
 				SlotConfig config = new SlotConfig(compound);
 				sideMap.put(facing, config);
 			});
@@ -264,7 +264,7 @@ public class SlotConfiguration implements NBTSerializable {
 			this.slotID = slotID;
 		}
 
-		public SlotConfig(CompoundTag tagCompound) {
+		public SlotConfig(NbtCompound tagCompound) {
 			read(tagCompound);
 			Validate.notNull(side, "error when loading slot config");
 			Validate.notNull(slotIO, "error when loading slot config");
@@ -358,8 +358,8 @@ public class SlotConfiguration implements NBTSerializable {
 
 		@NotNull
 		@Override
-		public CompoundTag write() {
-			CompoundTag tagCompound = new CompoundTag();
+		public NbtCompound write() {
+			NbtCompound tagCompound = new NbtCompound();
 			tagCompound.putInt("side", side.ordinal());
 			tagCompound.put("config", slotIO.write());
 			tagCompound.putInt("slot", slotID);
@@ -367,7 +367,7 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public void read(@NotNull CompoundTag nbt) {
+		public void read(@NotNull NbtCompound nbt) {
 			side = Direction.values()[nbt.getInt("side")];
 			slotIO = new SlotIO(nbt.getCompound("config"));
 			slotID = nbt.getInt("slot");
@@ -377,7 +377,7 @@ public class SlotConfiguration implements NBTSerializable {
 	public static class SlotIO implements NBTSerializable {
 		ExtractConfig ioConfig;
 
-		public SlotIO(CompoundTag tagCompound) {
+		public SlotIO(NbtCompound tagCompound) {
 			read(tagCompound);
 		}
 
@@ -391,14 +391,14 @@ public class SlotConfiguration implements NBTSerializable {
 
 		@NotNull
 		@Override
-		public CompoundTag write() {
-			CompoundTag compound = new CompoundTag();
+		public NbtCompound write() {
+			NbtCompound compound = new NbtCompound();
 			compound.putInt("config", ioConfig.ordinal());
 			return compound;
 		}
 
 		@Override
-		public void read(@NotNull CompoundTag nbt) {
+		public void read(@NotNull NbtCompound nbt) {
 			ioConfig = ExtractConfig.values()[nbt.getInt("config")];
 		}
 	}
@@ -434,14 +434,14 @@ public class SlotConfiguration implements NBTSerializable {
 	}
 
 	public String toJson(String machineIdent) {
-		CompoundTag tagCompound = new CompoundTag();
+		NbtCompound tagCompound = new NbtCompound();
 		tagCompound.put("data", write());
 		tagCompound.putString("machine", machineIdent);
 		return tagCompound.toString();
 	}
 
 	public void readJson(String json, String machineIdent) throws UnsupportedOperationException {
-		CompoundTag compound;
+		NbtCompound compound;
 		try {
 			compound = StringNbtReader.parse(json);
 		} catch (CommandSyntaxException e) {

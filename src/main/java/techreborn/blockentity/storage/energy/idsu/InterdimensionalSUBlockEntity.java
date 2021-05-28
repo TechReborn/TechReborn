@@ -26,7 +26,7 @@ package techreborn.blockentity.storage.energy.idsu;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import org.apache.commons.lang3.StringUtils;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -96,14 +96,14 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
-		super.fromTag(blockState, nbttagcompound);
+	public void readNbt(BlockState blockState, NbtCompound nbttagcompound) {
+		super.readNbt(blockState, nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag nbttagcompound) {
-		super.toTag(nbttagcompound);
+	public NbtCompound writeNbt(NbtCompound nbttagcompound) {
+		super.writeNbt(nbttagcompound);
 		if (ownerUdid == null || StringUtils.isEmpty(ownerUdid)) {
 			return nbttagcompound;
 		}

@@ -27,10 +27,10 @@ package reborncore.common.network;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.PacketByteBuf;
 
 import java.io.ByteArrayInputStream;
@@ -74,19 +74,19 @@ public class ExtendedPacketBuffer extends PacketByteBuf {
 
 	// Supports reading and writing list codec's
 	public <T> void writeCodec(Codec<T> codec, T object) {
-		DataResult<Tag> dataResult = codec.encodeStart(NbtOps.INSTANCE, object);
+		DataResult<NbtElement> dataResult = codec.encodeStart(NbtOps.INSTANCE, object);
 		if (dataResult.error().isPresent()) {
 			throw new RuntimeException("Failed to encode: " + dataResult.error().get().message() + " " + object);
 		} else {
-			Tag tag = dataResult.result().get();
-			if (tag instanceof CompoundTag) {
+			NbtElement tag = dataResult.result().get();
+			if (tag instanceof NbtCompound) {
 				writeByte(0);
-				writeCompoundTag((CompoundTag) tag);
-			} else if (tag instanceof ListTag) {
+				writeNbt((NbtCompound) tag);
+			} else if (tag instanceof NbtList) {
 				writeByte(1);
-				CompoundTag compoundTag = new CompoundTag();
+				NbtCompound compoundTag = new NbtCompound();
 				compoundTag.put("tag", tag);
-				writeCompoundTag(compoundTag);
+				writeNbt(compoundTag);
 			} else {
 				throw new RuntimeException("Failed to write: " + tag);
 			}
@@ -95,12 +95,12 @@ public class ExtendedPacketBuffer extends PacketByteBuf {
 
 	public <T> T readCodec(Codec<T> codec) {
 		byte type = readByte();
-		Tag tag = null;
+		NbtElement tag = null;
 
 		if (type == 0) {
-			tag = readCompoundTag();
+			tag = readNbt();
 		} else if (type == 1) {
-			tag = readCompoundTag().get("tag");
+			tag = readNbt().get("tag");
 		} else {
 			throw new RuntimeException("Failed to read codec");
 		}

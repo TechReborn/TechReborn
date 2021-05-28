@@ -30,7 +30,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -48,10 +48,10 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 			return Optional.empty();
 		}
 		ItemStack newStack = stack.copy();
-		CompoundTag blockEntityData = blockEntity.toTag(new CompoundTag());
+		NbtCompound blockEntityData = blockEntity.writeNbt(new NbtCompound());
 		stripLocationData(blockEntityData);
 		if (!newStack.hasTag()) {
-			newStack.setTag(new CompoundTag());
+			newStack.setTag(new NbtCompound());
 		}
 		newStack.getTag().put("blockEntity_data", blockEntityData);
 		return Optional.of(newStack);
@@ -61,20 +61,20 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		if (stack.hasTag() && stack.getTag().contains("blockEntity_data")) {
 			BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-			CompoundTag nbt = stack.getTag().getCompound("blockEntity_data");
+			NbtCompound nbt = stack.getTag().getCompound("blockEntity_data");
 			injectLocationData(nbt, pos);
-			blockEntity.fromTag(state, nbt);
+			blockEntity.readNbt(state, nbt);
 			blockEntity.markDirty();
 		}
 	}
 
-	private void stripLocationData(CompoundTag compound) {
+	private void stripLocationData(NbtCompound compound) {
 		compound.remove("x");
 		compound.remove("y");
 		compound.remove("z");
 	}
 
-	private void injectLocationData(CompoundTag compound, BlockPos pos) {
+	private void injectLocationData(NbtCompound compound, BlockPos pos) {
 		compound.putInt("x", pos.getX());
 		compound.putInt("y", pos.getY());
 		compound.putInt("z", pos.getZ());

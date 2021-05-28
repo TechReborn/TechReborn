@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -124,8 +124,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putInt("radius", radius);
 		if (ownerUdid != null && !ownerUdid.isEmpty()){
 			tagCompound.putString("ownerUdid", ownerUdid);
@@ -135,8 +135,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
-		super.fromTag(blockState, nbttagcompound);
+	public void readNbt(BlockState blockState, NbtCompound nbttagcompound) {
+		super.readNbt(blockState, nbttagcompound);
 		this.radius = nbttagcompound.getInt("radius");
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 		if (!StringUtils.isBlank(ownerUdid)) {

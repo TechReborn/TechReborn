@@ -34,7 +34,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.LiteralText;
@@ -129,13 +129,13 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 	@Nullable
 	@Override
 	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		return new BlockEntityUpdateS2CPacket(getPos(), 0, toInitialChunkDataTag());
+		return new BlockEntityUpdateS2CPacket(getPos(), 0, toInitialChunkDataNbt());
 	}
 
 	@Override
-	public CompoundTag toInitialChunkDataTag() {
-		CompoundTag compound = super.toTag(new CompoundTag());
-		toTag(compound);
+	public NbtCompound toInitialChunkDataNbt() {
+		NbtCompound compound = super.writeNbt(new NbtCompound());
+		writeNbt(compound);
 		return compound;
 	}
 
@@ -232,8 +232,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void readNbt(BlockState blockState, NbtCompound tagCompound) {
+		super.readNbt(blockState, tagCompound);
 		if (getOptionalInventory().isPresent()) {
 			getOptionalInventory().get().read(tagCompound);
 		}
@@ -258,8 +258,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		if (getOptionalInventory().isPresent()) {
 			getOptionalInventory().get().write(tagCompound);
 		}

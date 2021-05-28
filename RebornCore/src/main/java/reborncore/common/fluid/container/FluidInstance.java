@@ -26,7 +26,7 @@ package reborncore.common.fluid.container;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.fluid.FluidValue;
@@ -41,7 +41,7 @@ public class FluidInstance implements NBTSerializable {
 
 	protected Fluid fluid;
 	protected FluidValue amount;
-	protected CompoundTag tag;
+	protected NbtCompound tag;
 
 	public FluidInstance(Fluid fluid, FluidValue amount) {
 		this.fluid = fluid;
@@ -56,7 +56,7 @@ public class FluidInstance implements NBTSerializable {
 		this(Fluids.EMPTY);
 	}
 
-	public FluidInstance(CompoundTag tag) {
+	public FluidInstance(NbtCompound tag) {
 		this();
 		read(tag);
 	}
@@ -69,7 +69,7 @@ public class FluidInstance implements NBTSerializable {
 		return amount;
 	}
 
-	public CompoundTag getTag() {
+	public NbtCompound getTag() {
 		return tag;
 	}
 
@@ -93,7 +93,7 @@ public class FluidInstance implements NBTSerializable {
 		return this;
 	}
 
-	public void setTag(CompoundTag tag) {
+	public void setTag(NbtCompound tag) {
 		this.tag = tag;
 	}
 
@@ -110,8 +110,8 @@ public class FluidInstance implements NBTSerializable {
 	}
 
 	@Override
-	public CompoundTag write() {
-		CompoundTag tag = new CompoundTag();
+	public NbtCompound write() {
+		NbtCompound tag = new NbtCompound();
 		tag.putString(FLUID_KEY, Registry.FLUID.getId(fluid).toString());
 		tag.putInt(AMOUNT_KEY, amount.getRawValue());
 		if (this.tag != null && !this.tag.isEmpty()) {
@@ -121,7 +121,7 @@ public class FluidInstance implements NBTSerializable {
 	}
 
 	@Override
-	public void read(CompoundTag tag) {
+	public void read(NbtCompound tag) {
 		fluid = Registry.FLUID.get(new Identifier(tag.getString(FLUID_KEY)));
 		amount = FluidValue.fromRaw(tag.getInt(AMOUNT_KEY));
 		if (tag.contains(TAG_KEY)) {

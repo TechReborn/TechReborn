@@ -94,7 +94,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 			return false;
 		}
 
-		return (stack.getItem().isEffectiveOn(blockState));
+		return (stack.getItem().isSuitableFor(blockState));
 	}
 
 	private boolean isAOE5(ItemStack stack) {
@@ -104,7 +104,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (!ItemUtils.isActive(stack) || !stack.getItem().isEffectiveOn(stateIn)) {
+		if (!ItemUtils.isActive(stack) || !stack.getItem().isSuitableFor(stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 		int radius = isAOE5(stack) ? 2 : 1;
@@ -160,7 +160,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
+		if (!stack.getItem().isSuitableFor(worldIn.getBlockState(pos))) {
 			return Collections.emptySet();
 		}
 		int radius = isAOE5(stack) ? 2 : 1;

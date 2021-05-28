@@ -43,7 +43,7 @@ public class RecipeUtils {
 	}
 
 	public static boolean matchesSingleInput(Recipe<?> recipe, ItemStack input) {
-		return recipe.getPreviewInputs().size() == 1 && recipe.getPreviewInputs().get(0).test(input);
+		return recipe.getIngredients().size() == 1 && recipe.getIngredients().get(0).test(input);
 	}
 
 	/**

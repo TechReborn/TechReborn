@@ -35,7 +35,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -231,7 +231,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
-		CompoundTag tag = itemStack.getTag();
+		NbtCompound tag = itemStack.getTag();
 		if (tag != null && tag.contains("fluid")) {
 			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
 		}

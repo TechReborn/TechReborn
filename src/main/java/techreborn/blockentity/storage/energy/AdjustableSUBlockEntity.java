@@ -27,7 +27,7 @@ package techreborn.blockentity.storage.energy;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -76,10 +76,10 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	public ItemStack getDropWithNBT() {
-		CompoundTag blockEntity = new CompoundTag();
+		NbtCompound blockEntity = new NbtCompound();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
-		toTag(blockEntity);
-		dropStack.setTag(new CompoundTag());
+		writeNbt(blockEntity);
+		dropStack.setTag(new NbtCompound());
 		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 		return dropStack;
 	}
@@ -137,15 +137,15 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putInt("output", OUTPUT);
 		return tagCompound;
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
-		super.fromTag(blockState, nbttagcompound);
+	public void readNbt(BlockState blockState, NbtCompound nbttagcompound) {
+		super.readNbt(blockState, nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInt("output");
 	}
 

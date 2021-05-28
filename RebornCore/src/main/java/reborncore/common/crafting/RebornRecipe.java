@@ -158,7 +158,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	// use the RebornIngredient version to ensure stack sizes are checked
 	@Deprecated
 	@Override
-	public DefaultedList<Ingredient> getPreviewInputs() {
+	public DefaultedList<Ingredient> getIngredients() {
 		return ingredients.stream().map(RebornIngredient::getPreview).collect(DefaultedListCollector.toList());
 	}
 
@@ -231,7 +231,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	}
 
 	@Override
-	public DefaultedList<ItemStack> getRemainingStacks(Inventory p_179532_1_) {
+	public DefaultedList<ItemStack> getRemainder(Inventory p_179532_1_) {
 		throw new UnsupportedOperationException();
 	}
 

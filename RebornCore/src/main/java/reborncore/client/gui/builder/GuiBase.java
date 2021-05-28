@@ -31,7 +31,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -277,7 +277,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			offset += 24;
 		}
 
-		for (AbstractButtonWidget abstractButtonWidget : buttons) {
+		for (ClickableWidget abstractButtonWidget : buttons) {
 			if (abstractButtonWidget.isHovered()) {
 				abstractButtonWidget.renderToolTip(matrixStack, mouseX, mouseY);
 				break;

@@ -30,7 +30,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -51,13 +51,13 @@ public class ClientBoundPacketHandlers {
 	public static void init() {
 		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "custom_description"), (client, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
-			CompoundTag tagCompound = packetBuffer.readCompoundTag();
+			NbtCompound tagCompound = packetBuffer.readNbt();
 			client.execute(() -> {
 				World world = MinecraftClient.getInstance().world;
 				if (world.isChunkLoaded(pos)) {
 					BlockEntity blockentity = world.getBlockEntity(pos);
 					if (blockentity != null && tagCompound != null) {
-						blockentity.fromTag(blockentity.getCachedState(), tagCompound);
+						blockentity.readNbt(blockentity.getCachedState(), tagCompound);
 					}
 				}
 			});
@@ -65,7 +65,7 @@ public class ClientBoundPacketHandlers {
 
 		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "fluid_config_sync"), (client, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
-			CompoundTag compoundTag = packetBuffer.readCompoundTag();
+			NbtCompound compoundTag = packetBuffer.readNbt();
 
 			client.execute(() -> {
 				FluidConfiguration fluidConfiguration = new FluidConfiguration(compoundTag);
@@ -86,7 +86,7 @@ public class ClientBoundPacketHandlers {
 
 		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "slot_sync"), (client, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
-			CompoundTag compoundTag = packetBuffer.readCompoundTag();
+			NbtCompound compoundTag = packetBuffer.readNbt();
 
 			client.execute(() -> {
 				SlotConfiguration slotConfig = new SlotConfiguration(compoundTag);

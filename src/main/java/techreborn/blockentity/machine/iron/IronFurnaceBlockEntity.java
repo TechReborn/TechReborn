@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
@@ -143,14 +143,14 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag compoundTag) {
-		super.fromTag(blockState, compoundTag);
+	public void readNbt(BlockState blockState, NbtCompound compoundTag) {
+		super.readNbt(blockState, compoundTag);
 		experience = compoundTag.getFloat("Experience");
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag compoundTag) {
-		super.toTag(compoundTag);
+	public NbtCompound writeNbt(NbtCompound compoundTag) {
+		super.writeNbt(compoundTag);
 		compoundTag.putFloat("Experience", experience);
 		return compoundTag;
 	}

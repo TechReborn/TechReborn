@@ -26,7 +26,7 @@ package reborncore.common.util;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
@@ -93,8 +93,8 @@ public class Tank implements GenericFluidContainer<Direction>, Syncable {
 		return !getFluidInstance().isEmpty() && getFluidInstance().getAmount().equalOrMoreThan(getCapacity());
 	}
 
-	public final CompoundTag write(CompoundTag nbt) {
-		CompoundTag tankData = fluidInstance.write();
+	public final NbtCompound write(NbtCompound nbt) {
+		NbtCompound tankData = fluidInstance.write();
 		nbt.put(name, tankData);
 		return nbt;
 	}
@@ -105,12 +105,12 @@ public class Tank implements GenericFluidContainer<Direction>, Syncable {
 		}
 	}
 
-	public final Tank read(CompoundTag nbt) {
+	public final Tank read(NbtCompound nbt) {
 		if (nbt.contains(name)) {
 			// allow to read empty tanks
 			setFluid(Fluids.EMPTY);
 
-			CompoundTag tankData = nbt.getCompound(name);
+			NbtCompound tankData = nbt.getCompound(name);
 			fluidInstance = new FluidInstance(tankData);
 		}
 		return this;

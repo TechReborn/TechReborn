@@ -27,7 +27,7 @@ package techreborn.blockentity.storage.fluid;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -76,9 +76,9 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	public ItemStack getDropWithNBT() {
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final CompoundTag blockEntity = new CompoundTag();
-		this.toTag(blockEntity);
-		dropStack.setTag(new CompoundTag());
+		final NbtCompound blockEntity = new NbtCompound();
+		this.writeNbt(blockEntity);
+		dropStack.setTag(new NbtCompound());
 		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 		return dropStack;
 	}
@@ -115,8 +115,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void readNbt(BlockState blockState, final NbtCompound tagCompound) {
+		super.readNbt(blockState, tagCompound);
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
@@ -125,8 +125,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public CompoundTag toTag(final CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putString("unitType", this.type.name());
 		tank.write(tagCompound);
 		return tagCompound;

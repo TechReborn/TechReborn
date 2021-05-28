@@ -31,9 +31,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.RebornCore;
@@ -155,11 +155,11 @@ public class BlockEntityScreenHandlerBuilder {
 
 	public <T> BlockEntityScreenHandlerBuilder sync(Codec<T> codec) {
 		return sync(() -> {
-			DataResult<Tag> dataResult = codec.encodeStart(NbtOps.INSTANCE, (T) blockEntity);
+			DataResult<NbtElement> dataResult = codec.encodeStart(NbtOps.INSTANCE, (T) blockEntity);
 			if (dataResult.error().isPresent()) {
 				throw new RuntimeException("Failed to encode: " + dataResult.error().get().message() + " " + blockEntity);
 			} else {
-				return (CompoundTag) dataResult.result().get();
+				return (NbtCompound) dataResult.result().get();
 			}
 		}, compoundTag -> {
 			DataResult<T> dataResult = codec.parse(NbtOps.INSTANCE, compoundTag);

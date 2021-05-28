@@ -27,7 +27,7 @@ package reborncore.common.recipes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -291,8 +291,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 		}
 	}
 
-	public void read(CompoundTag tag) {
-		CompoundTag data = tag.getCompound("Crater");
+	public void read(NbtCompound tag) {
+		NbtCompound data = tag.getCompound("Crater");
 
 		if (data.contains("currentTickTime")) {
 			currentTickTime = data.getInt("currentTickTime");
@@ -305,9 +305,9 @@ public class RecipeCrafter implements IUpgradeHandler {
 		}
 	}
 
-	public void write(CompoundTag tag) {
+	public void write(NbtCompound tag) {
 
-		CompoundTag data = new CompoundTag();
+		NbtCompound data = new NbtCompound();
 
 		data.putDouble("currentTickTime", currentTickTime);
 

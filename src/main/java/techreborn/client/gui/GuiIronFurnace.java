@@ -100,7 +100,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 			}
 
 			@Override
-			public void renderBg(MatrixStack matrixStack, MinecraftClient mc, int mouseX, int mouseY) {
+			public void renderBackground(MatrixStack matrixStack, MinecraftClient mc, int mouseX, int mouseY) {
 				mc.getItemRenderer().renderInGuiWithOverrides(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
 			}
 		});

@@ -35,11 +35,11 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.network.Packet;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.client.gui.GuiUtil;
@@ -80,12 +80,12 @@ public class SlotConfigPopupElement extends ElementBase {
 		BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
 		BakedModel model = dispatcher.getModels().getModel(state.getBlock().getDefaultState());
 		MinecraftClient.getInstance().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
-		drawState(gui, world, model, actualState, pos, dispatcher, 4, 23, Vector3f.POSITIVE_Y.getDegreesQuaternion(90F)); //left
-		drawState(gui, world, model, actualState, pos, dispatcher, 23, 4, Vector3f.NEGATIVE_X.getDegreesQuaternion(90F)); //top
+		drawState(gui, world, model, actualState, pos, dispatcher, 4, 23, Vec3f.POSITIVE_Y.getDegreesQuaternion(90F)); //left
+		drawState(gui, world, model, actualState, pos, dispatcher, 23, 4, Vec3f.NEGATIVE_X.getDegreesQuaternion(90F)); //top
 		drawState(gui, world, model, actualState, pos, dispatcher, 23, 23, null); //centre
-		drawState(gui, world, model, actualState, pos, dispatcher, 23, 26, Vector3f.POSITIVE_X.getDegreesQuaternion(90F)); //bottom
-		drawState(gui, world, model, actualState, pos, dispatcher, 42, 23, Vector3f.POSITIVE_Y.getDegreesQuaternion(90F)); //right
-		drawState(gui, world, model, actualState, pos, dispatcher, 26, 42, Vector3f.POSITIVE_Y.getDegreesQuaternion(180F)); //back
+		drawState(gui, world, model, actualState, pos, dispatcher, 23, 26, Vec3f.POSITIVE_X.getDegreesQuaternion(90F)); //bottom
+		drawState(gui, world, model, actualState, pos, dispatcher, 42, 23, Vec3f.POSITIVE_Y.getDegreesQuaternion(90F)); //right
+		drawState(gui, world, model, actualState, pos, dispatcher, 26, 42, Vec3f.POSITIVE_Y.getDegreesQuaternion(180F)); //back
 
 		drawSlotSateColor(gui.getMachine(), MachineFacing.UP.getFacing(machine), id, 22, -1, gui);
 		drawSlotSateColor(gui.getMachine(), MachineFacing.FRONT.getFacing(machine), id, 22, 18, gui);

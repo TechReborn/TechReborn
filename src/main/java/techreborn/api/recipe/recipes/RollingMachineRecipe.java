@@ -97,8 +97,8 @@ public class RollingMachineRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public DefaultedList<Ingredient> getPreviewInputs() {
-		return shapedRecipe.getPreviewInputs();
+	public DefaultedList<Ingredient> getIngredients() {
+		return shapedRecipe.getIngredients();
 	}
 
 	@Override

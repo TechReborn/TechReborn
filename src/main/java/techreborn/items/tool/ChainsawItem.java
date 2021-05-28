@@ -115,8 +115,8 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	}
 
 	@Override
-	public boolean isEffectiveOn(BlockState state) {
-		return referenceTool.isEffectiveOn(state);
+	public boolean isSuitableFor(BlockState state) {
+		return referenceTool.isSuitableFor(state);
 	}
 
 	// ItemDurabilityExtensions

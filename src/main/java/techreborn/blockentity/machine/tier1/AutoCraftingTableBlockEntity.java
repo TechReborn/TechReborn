@@ -29,7 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeType;
@@ -162,7 +162,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!hasOutputSpace(recipe.getOutput(), OUTPUT_SLOT)) return false;
 
-		DefaultedList<ItemStack> remainingStacks = recipe.getRemainingStacks(crafting);
+		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
 		for (ItemStack stack : remainingStacks){
 			if (!stack.isEmpty() && !hasRoomForExtraItem(stack)) return false;
 		}
@@ -193,8 +193,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (recipe == null || !canMake(recipe)) {
 			return false;
 		}
-		for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
-			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
+		for (int i = 0; i < recipe.getIngredients().size(); i++) {
+			DefaultedList<Ingredient> ingredients = recipe.getIngredients();
 			Ingredient ingredient = ingredients.get(i);
 			// Looks for the best slot to take it from
 			ItemStack bestSlot = inventory.getStack(i);
@@ -267,13 +267,13 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			return Optional.empty();
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
-		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
+		for (int s = 0; s < currentRecipe.getIngredients().size(); s++) {
 			for (int i = 0; i < 9; i++) {
 				if (possibleSlots.contains(i)) {
 					continue;
 				}
 				ItemStack stackInSlot = inventory.getStack(i);
-				Ingredient ingredient = currentRecipe.getPreviewInputs().get(s);
+				Ingredient ingredient = currentRecipe.getIngredients().get(s);
 				if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
 					if (stackInSlot.getItem() == sourceStack.getItem()) {
 						possibleSlots.add(i);
@@ -405,17 +405,17 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
+	public NbtCompound writeNbt(NbtCompound tag) {
 		tag.putBoolean("locked", locked);
-		return super.toTag(tag);
+		return super.writeNbt(tag);
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tag) {
+	public void readNbt(BlockState blockState, NbtCompound tag) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.fromTag(blockState, tag);
+		super.readNbt(blockState, tag);
 	}
 
 	// MachineBaseBlockEntity

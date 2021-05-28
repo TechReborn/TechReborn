@@ -258,7 +258,7 @@ public class BuiltScreenHandler extends ScreenHandler implements ExtendedScreenH
 				}
 			}
 
-			slot.onStackChanged(stackInSlot, originalStack);
+			slot.onQuickTransfer(stackInSlot, originalStack);
 			if (stackInSlot.getCount() <= 0) {
 				slot.setStack(ItemStack.EMPTY);
 			} else {

@@ -26,7 +26,7 @@ package reborncore.common.util;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -88,18 +88,18 @@ public class ItemUtils {
 		return false;
 	}
 
-	public static void writeItemToNBT(ItemStack stack, CompoundTag data) {
+	public static void writeItemToNBT(ItemStack stack, NbtCompound data) {
 		if (stack.isEmpty() || stack.getCount() <= 0) {
 			return;
 		}
 		if (stack.getCount() > 127) {
 			stack.setCount(127);
 		}
-		stack.toTag(data);
+		stack.writeNbt(data);
 	}
 
-	public static ItemStack readItemFromNBT(CompoundTag data) {
-		return ItemStack.fromTag(data);
+	public static ItemStack readItemFromNBT(NbtCompound data) {
+		return ItemStack.fromNbt(data);
 	}
 
 	public static double getPowerForDurabilityBar(ItemStack stack) {

@@ -59,7 +59,7 @@ public class GuiButtonItemTexture extends ButtonWidget {
 			MinecraftClient mc = MinecraftClient.getInstance();
 			boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
 					&& mouseY < this.y + this.height;
-			mc.getTextureManager().bindTexture(WIDGETS_LOCATION);
+			mc.getTextureManager().bindTexture(WIDGETS_TEXTURE);
 			int u = textureU;
 			int v = textureV;
 			if (flag) {

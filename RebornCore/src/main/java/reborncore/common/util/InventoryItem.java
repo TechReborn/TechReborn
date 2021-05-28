@@ -25,7 +25,7 @@
 package reborncore.common.util;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import org.apache.commons.lang3.Validate;
 import reborncore.api.items.InventoryBase;
 
@@ -58,30 +58,30 @@ public class InventoryItem extends InventoryBase {
 		return stack;
 	}
 
-	public CompoundTag getInvData() {
+	public NbtCompound getInvData() {
 		Validate.isTrue(!stack.isEmpty());
 		if (!stack.hasTag()) {
-			stack.setTag(new CompoundTag());
+			stack.setTag(new NbtCompound());
 		}
 		if (!stack.getTag().contains("inventory")) {
-			stack.getTag().put("inventory", new CompoundTag());
+			stack.getTag().put("inventory", new NbtCompound());
 		}
 		return stack.getTag().getCompound("inventory");
 	}
 
-	public CompoundTag getSlotData(int slot) {
+	public NbtCompound getSlotData(int slot) {
 		validateSlotIndex(slot);
-		CompoundTag invData = getInvData();
+		NbtCompound invData = getInvData();
 		if (!invData.contains("slot_" + slot)) {
-			invData.put("slot_" + slot, new CompoundTag());
+			invData.put("slot_" + slot, new NbtCompound());
 		}
 		return invData.getCompound("slot_" + slot);
 	}
 
-	public void setSlotData(int slot, CompoundTag tagCompound) {
+	public void setSlotData(int slot, NbtCompound tagCompound) {
 		validateSlotIndex(slot);
 		Validate.notNull(tagCompound);
-		CompoundTag invData = getInvData();
+		NbtCompound invData = getInvData();
 		invData.put("slot_" + slot, tagCompound);
 	}
 
@@ -98,14 +98,14 @@ public class InventoryItem extends InventoryBase {
 	@NotNull
 	@Override
 	public ItemStack getStack(int slot) {
-		return ItemStack.fromTag(getSlotData(slot));
+		return ItemStack.fromNbt(getSlotData(slot));
 	}
 
 	@Override
 	public void setStack(int slot,
 						 @NotNull
 								 ItemStack stack) {
-		setSlotData(slot, stack.toTag(new CompoundTag()));
+		setSlotData(slot, stack.writeNbt(new NbtCompound()));
 	}
 
 	public int getSlotLimit(int slot) {

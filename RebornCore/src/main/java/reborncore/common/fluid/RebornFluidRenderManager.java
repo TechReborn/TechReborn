@@ -80,7 +80,7 @@ public class RebornFluidRenderManager implements ClientSpriteRegistryCallback, S
 	}
 
 	@Override
-	public void apply(ResourceManager manager) {
+	public void reload(ResourceManager manager) {
 		//Reset the cached fluid sprites
 		spriteMap.forEach((key, value) -> value.reset());
 	}

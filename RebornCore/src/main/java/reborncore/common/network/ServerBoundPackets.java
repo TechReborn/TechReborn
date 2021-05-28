@@ -25,7 +25,7 @@
 package reborncore.common.network;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -43,7 +43,7 @@ public class ServerBoundPackets {
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "fluid_config_save"), (server, player, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
-			CompoundTag compoundTag = packetBuffer.readCompoundTag();
+			NbtCompound compoundTag = packetBuffer.readNbt();
 
 			server.execute(() -> {
 				FluidConfiguration.FluidConfig fluidConfiguration = new FluidConfiguration.FluidConfig(compoundTag);
@@ -63,7 +63,7 @@ public class ServerBoundPackets {
 
 		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "config_save"), (server, player, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
-			CompoundTag tagCompound = packetBuffer.readCompoundTag();
+			NbtCompound tagCompound = packetBuffer.readNbt();
 
 			server.execute(() -> {
 				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.world.getBlockEntity(pos);
@@ -122,7 +122,7 @@ public class ServerBoundPackets {
 
 		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "slot_save"), (server, player, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
-			CompoundTag compoundTag = packetBuffer.readCompoundTag();
+			NbtCompound compoundTag = packetBuffer.readNbt();
 
 			server.execute(() -> {
 				SlotConfiguration.SlotConfig slotConfig = new SlotConfiguration.SlotConfig(compoundTag);
@@ -168,14 +168,14 @@ public class ServerBoundPackets {
 	public static IdentifiedPacket createPacketFluidConfigSave(BlockPos pos, FluidConfiguration.FluidConfig fluidConfiguration) {
 		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "fluid_config_save"), packetBuffer -> {
 			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeCompoundTag(fluidConfiguration.write());
+			packetBuffer.writeNbt(fluidConfiguration.write());
 		});
 	}
 
 	public static IdentifiedPacket createPacketConfigSave(BlockPos pos, SlotConfiguration slotConfig) {
 		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "config_save"), packetBuffer -> {
 			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeCompoundTag(slotConfig.write());
+			packetBuffer.writeNbt(slotConfig.write());
 		});
 	}
 
@@ -200,7 +200,7 @@ public class ServerBoundPackets {
 	public static IdentifiedPacket createPacketSlotSave(BlockPos pos, SlotConfiguration.SlotConfig slotConfig) {
 		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "slot_save"), packetBuffer -> {
 			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeCompoundTag(slotConfig.write());
+			packetBuffer.writeNbt(slotConfig.write());
 		});
 	}
 

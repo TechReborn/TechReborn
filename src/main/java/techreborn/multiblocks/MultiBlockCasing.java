@@ -28,7 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.multiblock.IMultiblockPart;
@@ -213,7 +213,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, CompoundTag data) {
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NbtCompound data) {
 
 	}
 
@@ -302,22 +302,22 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	public void write(CompoundTag data) {
+	public void write(NbtCompound data) {
 
 	}
 
 	@Override
-	public void read(CompoundTag data) {
+	public void read(NbtCompound data) {
 
 	}
 
 	@Override
-	public void formatDescriptionPacket(CompoundTag data) {
+	public void formatDescriptionPacket(NbtCompound data) {
 
 	}
 
 	@Override
-	public void decodeDescriptionPacket(CompoundTag data) {
+	public void decodeDescriptionPacket(NbtCompound data) {
 
 	}
 

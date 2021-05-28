@@ -27,7 +27,7 @@ package reborncore.common.blockentity;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
@@ -147,8 +147,8 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 
 	@NotNull
 	@Override
-	public CompoundTag write() {
-		CompoundTag tag = new CompoundTag();
+	public NbtCompound write() {
+		NbtCompound tag = new NbtCompound();
 		for (Element element : getElements()) {
 			tag.putInt(element.getName(), getState(element).ordinal());
 		}
@@ -156,7 +156,7 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 	}
 
 	@Override
-	public void read(@NotNull CompoundTag tag) {
+	public void read(@NotNull NbtCompound tag) {
 		stateMap = new HashMap<>();
 		for (String key : tag.getKeys()) {
 			Element element = ELEMENT_MAP.get(key);
@@ -178,7 +178,7 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 
 	@Override
 	public void getSyncPair(List<Pair<Supplier, Consumer>> pairList) {
-		pairList.add(Pair.of(this::write, (Consumer<CompoundTag>) this::read));
+		pairList.add(Pair.of(this::write, (Consumer<NbtCompound>) this::read));
 	}
 
 	public static Element getElementByName(String name) {

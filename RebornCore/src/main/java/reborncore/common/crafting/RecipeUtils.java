@@ -31,7 +31,7 @@ import com.mojang.serialization.JsonOps;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -73,7 +73,7 @@ public class RecipeUtils {
 		}
 		ItemStack stack = new ItemStack(item, count);
 		if (jsonObject.has("nbt")) {
-			CompoundTag tag = (CompoundTag) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject.get("nbt"));
+			NbtCompound tag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject.get("nbt"));
 			stack.setTag(tag);
 		}
 		return stack;

@@ -35,9 +35,9 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3f;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.util.CalenderUtils;
 
@@ -74,8 +74,8 @@ public class HolidayRenderManager {
 			float yaw = player.prevYaw + (player.yaw - player.prevYaw) * tickDelta - (player.prevBodyYaw + (player.bodyYaw - player.prevBodyYaw) * tickDelta);
 			float pitch = player.prevPitch + (player.pitch - player.prevPitch) * tickDelta;
 
-			matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(yaw));
-			matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(pitch));
+			matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(yaw));
+			matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(pitch));
 			santaHat.render(matrixStack, vertexConsumer, i, LivingEntityRenderer.getOverlay(player, 0.0F), 1F, 1F, 1F, 1F);
 			matrixStack.pop();
 		}

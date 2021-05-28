@@ -26,7 +26,7 @@ package reborncore.common.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Direction;
 import reborncore.api.items.InventoryBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -105,21 +105,21 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 		//return externalInventory.withFacing(facing);
 	}
 
-	public void read(CompoundTag data) {
+	public void read(NbtCompound data) {
 		read(data, "Items");
 	}
 
-	public void read(CompoundTag data, String tag) {
-		CompoundTag nbttaglist = data.getCompound(tag);
+	public void read(NbtCompound data, String tag) {
+		NbtCompound nbttaglist = data.getCompound(tag);
 		deserializeNBT(nbttaglist);
 		hasChanged = true;
 	}
 
-	public void write(CompoundTag data) {
+	public void write(NbtCompound data) {
 		write(data, "Items");
 	}
 
-	public void write(CompoundTag data, String tag) {
+	public void write(NbtCompound data, String tag) {
 		data.put(tag, serializeNBT());
 	}
 

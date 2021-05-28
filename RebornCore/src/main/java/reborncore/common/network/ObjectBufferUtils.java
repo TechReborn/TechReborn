@@ -24,7 +24,7 @@
 
 package reborncore.common.network;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -77,9 +77,9 @@ public enum ObjectBufferUtils {
 		return FluidValue.fromRaw(buffer.readInt());
 	}),
 
-	COMPOUND_TAG(CompoundTag.class, (value, buffer) -> {
-		buffer.writeCompoundTag(value);
-	}, PacketByteBuf::readCompoundTag),
+	COMPOUND_TAG(NbtCompound.class, (value, buffer) -> {
+		buffer.writeNbt(value);
+	}, PacketByteBuf::readNbt),
 
 	BIG_INT(BigInteger.class, (pos, buffer) -> {
 		buffer.writeBigInt(pos);

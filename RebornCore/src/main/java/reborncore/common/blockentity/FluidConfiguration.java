@@ -25,7 +25,7 @@
 package reborncore.common.blockentity;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.common.fluid.FluidUtil;
@@ -48,7 +48,7 @@ public class FluidConfiguration implements NBTSerializable {
 		Arrays.stream(Direction.values()).forEach(facing -> sideMap.put(facing, new FluidConfig(facing)));
 	}
 
-	public FluidConfiguration(CompoundTag tagCompound) {
+	public FluidConfiguration(NbtCompound tagCompound) {
 		sideMap = new HashMap<>();
 		read(tagCompound);
 	}
@@ -119,8 +119,8 @@ public class FluidConfiguration implements NBTSerializable {
 
 	@NotNull
 	@Override
-	public CompoundTag write() {
-		CompoundTag compound = new CompoundTag();
+	public NbtCompound write() {
+		NbtCompound compound = new NbtCompound();
 		Arrays.stream(Direction.values()).forEach(facing -> compound.put("side_" + facing.ordinal(), sideMap.get(facing).write()));
 		compound.putBoolean("input", input);
 		compound.putBoolean("output", output);
@@ -128,10 +128,10 @@ public class FluidConfiguration implements NBTSerializable {
 	}
 
 	@Override
-	public void read(@NotNull CompoundTag nbt) {
+	public void read(@NotNull NbtCompound nbt) {
 		sideMap.clear();
 		Arrays.stream(Direction.values()).forEach(facing -> {
-			CompoundTag compound = nbt.getCompound("side_" + facing.ordinal());
+			NbtCompound compound = nbt.getCompound("side_" + facing.ordinal());
 			FluidConfig config = new FluidConfig(compound);
 			sideMap.put(facing, config);
 		});
@@ -153,7 +153,7 @@ public class FluidConfiguration implements NBTSerializable {
 			this.ioConfig = ioConfig;
 		}
 
-		public FluidConfig(CompoundTag tagCompound) {
+		public FluidConfig(NbtCompound tagCompound) {
 			read(tagCompound);
 		}
 
@@ -167,15 +167,15 @@ public class FluidConfiguration implements NBTSerializable {
 
 		@NotNull
 		@Override
-		public CompoundTag write() {
-			CompoundTag tagCompound = new CompoundTag();
+		public NbtCompound write() {
+			NbtCompound tagCompound = new NbtCompound();
 			tagCompound.putInt("side", side.ordinal());
 			tagCompound.putInt("config", ioConfig.ordinal());
 			return tagCompound;
 		}
 
 		@Override
-		public void read(@NotNull CompoundTag nbt) {
+		public void read(@NotNull NbtCompound nbt) {
 			side = Direction.values()[nbt.getInt("side")];
 			ioConfig = FluidConfiguration.ExtractConfig.values()[nbt.getInt("config")];
 		}

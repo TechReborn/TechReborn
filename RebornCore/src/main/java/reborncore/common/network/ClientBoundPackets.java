@@ -25,7 +25,7 @@
 package reborncore.common.network;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -38,27 +38,27 @@ import java.util.List;
 public class ClientBoundPackets {
 
 	public static IdentifiedPacket createCustomDescriptionPacket(BlockEntity blockEntity) {
-		return createCustomDescriptionPacket(blockEntity.getPos(), blockEntity.toTag(new CompoundTag()));
+		return createCustomDescriptionPacket(blockEntity.getPos(), blockEntity.writeNbt(new NbtCompound()));
 	}
 
-	public static IdentifiedPacket createCustomDescriptionPacket(BlockPos blockPos, CompoundTag nbt) {
+	public static IdentifiedPacket createCustomDescriptionPacket(BlockPos blockPos, NbtCompound nbt) {
 		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "custom_description"), packetBuffer -> {
 			packetBuffer.writeBlockPos(blockPos);
-			packetBuffer.writeCompoundTag(nbt);
+			packetBuffer.writeNbt(nbt);
 		});
 	}
 
 	public static IdentifiedPacket createPacketFluidConfigSync(BlockPos pos, FluidConfiguration fluidConfiguration) {
 		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "fluid_config_sync"), packetBuffer -> {
 			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeCompoundTag(fluidConfiguration.write());
+			packetBuffer.writeNbt(fluidConfiguration.write());
 		});
 	}
 
 	public static IdentifiedPacket createPacketSlotSync(BlockPos pos, SlotConfiguration slotConfig) {
 		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "slot_sync"), packetBuffer -> {
 			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeCompoundTag(slotConfig.write());
+			packetBuffer.writeNbt(slotConfig.write());
 		});
 	}
 

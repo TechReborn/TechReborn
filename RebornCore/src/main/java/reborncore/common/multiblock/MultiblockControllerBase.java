@@ -25,7 +25,7 @@
 package reborncore.common.multiblock;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
@@ -128,7 +128,7 @@ public abstract class MultiblockControllerBase {
 	 * @param part Attached part
 	 * @param data The NBT tag containing this controller's data.
 	 */
-	public abstract void onAttachedPartWithMultiblockData(IMultiblockPart part, CompoundTag data);
+	public abstract void onAttachedPartWithMultiblockData(IMultiblockPart part, NbtCompound data);
 
 	/**
 	 * Check if a block is being tracked by this machine.
@@ -160,7 +160,7 @@ public abstract class MultiblockControllerBase {
 		this.onBlockAdded(part);
 
 		if (part.hasMultiblockSaveData()) {
-			CompoundTag savedData = part.getMultiblockSaveData();
+			NbtCompound savedData = part.getMultiblockSaveData();
 			onAttachedPartWithMultiblockData(part, savedData);
 			part.onMultiblockDataAssimilated();
 		}
@@ -679,9 +679,9 @@ public abstract class MultiblockControllerBase {
 		return connectedParts.size();
 	}
 
-	public abstract void write(CompoundTag data);
+	public abstract void write(NbtCompound data);
 
-	public abstract void read(CompoundTag data);
+	public abstract void read(NbtCompound data);
 
 	/**
 	 * Force this multiblock to recalculate its minimum and maximum coordinates
@@ -746,7 +746,7 @@ public abstract class MultiblockControllerBase {
 	 *
 	 * @param data A fresh compound tag to write your multiblock data into
 	 */
-	public abstract void formatDescriptionPacket(CompoundTag data);
+	public abstract void formatDescriptionPacket(NbtCompound data);
 
 	/**
 	 * Called when the save delegate's blockEntity entity receiving a description
@@ -754,7 +754,7 @@ public abstract class MultiblockControllerBase {
 	 *
 	 * @param data A compound tag containing multiblock data to import
 	 */
-	public abstract void decodeDescriptionPacket(CompoundTag data);
+	public abstract void decodeDescriptionPacket(NbtCompound data);
 
 	/**
 	 * @return True if this controller has no associated blocks, false otherwise

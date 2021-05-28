@@ -34,7 +34,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -109,9 +109,9 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
 					boolean hasData = false;
 					if (itemStack.hasTag() && itemStack.getOrCreateTag().contains("blockEntity_data")) {
-						CompoundTag blockEntityData = itemStack.getOrCreateTag().getCompound("blockEntity_data");
+						NbtCompound blockEntityData = itemStack.getOrCreateTag().getCompound("blockEntity_data");
 						if (blockEntity != null) {
-							blockEntity.fromTag(block.getDefaultState(), blockEntityData);
+							blockEntity.readNbt(block.getDefaultState(), blockEntityData);
 							hasData = true;
 							tooltipLines.add(new LiteralText(I18n.translate("reborncore.tooltip.has_data")).formatted(Formatting.DARK_GREEN));
 						}

@@ -31,7 +31,7 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
@@ -49,10 +49,10 @@ public class StackIngredient extends RebornIngredient {
 	private final List<ItemStack> stacks;
 
 	private final Optional<Integer> count;
-	private final Optional<CompoundTag> tag;
+	private final Optional<NbtCompound> tag;
 	private final boolean requireEmptyTag;
 
-	public StackIngredient(List<ItemStack> stacks, Optional<Integer> count, Optional<CompoundTag> tag, boolean requireEmptyTag) {
+	public StackIngredient(List<ItemStack> stacks, Optional<Integer> count, Optional<NbtCompound> tag, boolean requireEmptyTag) {
 		super(IngredientManager.STACK_RECIPE_TYPE);
 		this.stacks = stacks;
 		this.count = count;
@@ -73,7 +73,7 @@ public class StackIngredient extends RebornIngredient {
 			stackSize = Optional.of(JsonHelper.getInt(json, "count"));
 		}
 
-		Optional<CompoundTag> tag = Optional.empty();
+		Optional<NbtCompound> tag = Optional.empty();
 		boolean requireEmptyTag = false;
 
 		if (json.has("nbt")) {
@@ -82,7 +82,7 @@ public class StackIngredient extends RebornIngredient {
 					requireEmptyTag = true;
 				}
 			} else {
-				tag = Optional.of((CompoundTag) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, json.get("nbt")));
+				tag = Optional.of((NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, json.get("nbt")));
 			}
 		}
 
@@ -109,9 +109,9 @@ public class StackIngredient extends RebornIngredient {
 			//Bit of a meme here, as DataFixer likes to use the most basic primative type over using an int.
 			//So we have to go to json and back on the incoming stack to be sure its using types that match our input.
 
-			CompoundTag compoundTag = itemStack.getTag();
+			NbtCompound compoundTag = itemStack.getTag();
 			JsonElement jsonElement = Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag);
-			compoundTag = (CompoundTag) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonElement);
+			compoundTag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonElement);
 
 			if (!tag.get().equals(compoundTag)) {
 				return false;

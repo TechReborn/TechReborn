@@ -27,8 +27,8 @@ package reborncore.common.multiblock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -50,7 +50,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	private boolean visited;
 
 	private boolean saveMultiblockData;
-	private CompoundTag cachedMultiblockData;
+	private NbtCompound cachedMultiblockData;
 	//private boolean paused;
 
 	public MultiblockBlockEntityBase(BlockEntityType<?> tBlockEntityType) {
@@ -112,8 +112,8 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	// /// Overrides from base BlockEntity methods
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag data) {
-		super.fromTag(blockState, data);
+	public void readNbt(BlockState blockState, NbtCompound data) {
+		super.readNbt(blockState, data);
 
 		// We can't directly initialize a multiblock controller yet, so we cache
 		// the data here until
@@ -125,11 +125,11 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag data) {
-		super.toTag(data);
+	public NbtCompound writeNbt(NbtCompound data) {
+		super.writeNbt(data);
 
 		if (isMultiblockSaveDelegate() && isConnected()) {
-			CompoundTag multiblockData = new CompoundTag();
+			NbtCompound multiblockData = new NbtCompound();
 			this.controller.write(multiblockData);
 			data.put("multiblockData", multiblockData);
 		}
@@ -173,7 +173,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	// Network Communication
 	@Override
 	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		CompoundTag packetData = new CompoundTag();
+		NbtCompound packetData = new NbtCompound();
 		encodeDescriptionPacket(packetData);
 		return new BlockEntityUpdateS2CPacket(getPos(), 0, packetData);
 	}
@@ -188,9 +188,9 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	 * @param packetData An NBT compound tag into which you should write your custom
 	 * description data.
 	 */
-	protected void encodeDescriptionPacket(CompoundTag packetData) {
+	protected void encodeDescriptionPacket(NbtCompound packetData) {
 		if (this.isMultiblockSaveDelegate() && isConnected()) {
-			CompoundTag tag = new CompoundTag();
+			NbtCompound tag = new NbtCompound();
 			getMultiblockController().formatDescriptionPacket(tag);
 			packetData.put("multiblockData", tag);
 		}
@@ -202,9 +202,9 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	 *
 	 * @param packetData The NBT data from the blockEntity entity's description packet.
 	 */
-	protected void decodeDescriptionPacket(CompoundTag packetData) {
+	protected void decodeDescriptionPacket(NbtCompound packetData) {
 		if (packetData.contains("multiblockData")) {
-			CompoundTag tag = packetData.getCompound("multiblockData");
+			NbtCompound tag = packetData.getCompound("multiblockData");
 			if (isConnected()) {
 				getMultiblockController().decodeDescriptionPacket(tag);
 			} else {
@@ -220,7 +220,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	@Override
-	public CompoundTag getMultiblockSaveData() {
+	public NbtCompound getMultiblockSaveData() {
 		return this.cachedMultiblockData;
 	}
 

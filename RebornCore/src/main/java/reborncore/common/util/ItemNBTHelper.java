@@ -25,8 +25,8 @@
 package reborncore.common.util;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 
 public class ItemNBTHelper {
 
@@ -43,7 +43,7 @@ public class ItemNBTHelper {
 	 **/
 	public static void initNBT(ItemStack stack) {
 		if (!detectNBT(stack)) {
-			injectNBT(stack, new CompoundTag());
+			injectNBT(stack, new NbtCompound());
 		}
 	}
 
@@ -51,7 +51,7 @@ public class ItemNBTHelper {
 	 * Injects an NBT Tag Compound to an ItemStack, no checks are made
 	 * previously
 	 **/
-	public static void injectNBT(ItemStack stack, CompoundTag nbt) {
+	public static void injectNBT(ItemStack stack, NbtCompound nbt) {
 		stack.setTag(nbt);
 	}
 
@@ -59,7 +59,7 @@ public class ItemNBTHelper {
 	 * Gets the NBTTagCompound in an ItemStack. Tries to init it previously in
 	 * case there isn't one present
 	 **/
-	public static CompoundTag getNBT(ItemStack stack) {
+	public static NbtCompound getNBT(ItemStack stack) {
 		initNBT(stack);
 		return stack.getTag();
 	}
@@ -95,7 +95,7 @@ public class ItemNBTHelper {
 		getNBT(stack).putDouble(tag, d);
 	}
 
-	public static void setCompound(ItemStack stack, String tag, CompoundTag cmp) {
+	public static void setCompound(ItemStack stack, String tag, NbtCompound cmp) {
 		if (!tag.equalsIgnoreCase("ench")) // not override the enchantments
 		{
 			getNBT(stack).put(tag, cmp);
@@ -106,7 +106,7 @@ public class ItemNBTHelper {
 		getNBT(stack).putString(tag, s);
 	}
 
-	public static void setList(ItemStack stack, String tag, ListTag list) {
+	public static void setList(ItemStack stack, String tag, NbtList list) {
 		getNBT(stack).put(tag, list);
 	}
 
@@ -149,17 +149,17 @@ public class ItemNBTHelper {
 	 * If nullifyOnFail is true it'll return null if it doesn't find any
 	 * compounds, otherwise it'll return a new one.
 	 **/
-	public static CompoundTag getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
+	public static NbtCompound getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag) ? getNBT(stack).getCompound(tag)
-				: nullifyOnFail ? null : new CompoundTag();
+				: nullifyOnFail ? null : new NbtCompound();
 	}
 
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
 		return verifyExistance(stack, tag) ? getNBT(stack).getString(tag) : defaultExpected;
 	}
 
-	public static ListTag getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
+	public static NbtList getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag) ? getNBT(stack).getList(tag, objtype)
-				: nullifyOnFail ? null : new ListTag();
+				: nullifyOnFail ? null : new NbtList();
 	}
 }

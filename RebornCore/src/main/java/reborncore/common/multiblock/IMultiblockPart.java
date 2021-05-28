@@ -27,7 +27,7 @@ package reborncore.common.multiblock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Set;
@@ -246,7 +246,7 @@ public abstract class IMultiblockPart extends BlockEntity {
 	 * @return The part's saved multiblock game-data in NBT format, or null if
 	 * there isn't any.
 	 */
-	public abstract CompoundTag getMultiblockSaveData();
+	public abstract NbtCompound getMultiblockSaveData();
 
 	/**
 	 * Called after a block is added and the controller has incorporated the

@@ -124,7 +124,7 @@ public abstract class RebornFluid extends FlowableFluid {
 
 	@Override
 	protected BlockState toBlockState(FluidState fluidState) {
-		return fluidBlockSupplier.get().getDefaultState().with(FluidBlock.LEVEL, method_15741(fluidState));
+		return fluidBlockSupplier.get().getDefaultState().with(FluidBlock.LEVEL, getBlockStateLevel(fluidState));
 	}
 
 	@Override
