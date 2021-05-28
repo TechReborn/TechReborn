@@ -8,4 +8,6 @@ pluginManagement {
 	}
 }
 
-rootProject.name = "TechReborn-1.16"
+rootProject.name = "TechReborn"
+
+include("RebornCore")

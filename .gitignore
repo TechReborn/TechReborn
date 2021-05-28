@@ -30,3 +30,6 @@ java_pid2412.hprof
 /buildSrc/build/
 /src/main/resources/package-lock.json
 /src/main/resources/node_modules/
+
+/RebornCore/.gradle
+/RebornCore/build

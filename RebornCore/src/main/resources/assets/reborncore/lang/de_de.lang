@@ -1,0 +1,31 @@
+reborncore.message.active=Aktiv
+reborncore.message.inactive=Inaktiv
+
+item.reborncore.manual.name=Team Reborn-Handbuch
+
+reborncore.tooltip.energy.maxEnergy=Maximale Energie
+reborncore.tooltip.energy.inputRate=Eingangs-Rate
+reborncore.tooltip.energy.outputRate=Ausgangs-Rate
+reborncore.tooltip.energy.tier=Stufe
+reborncore.tooltip.energy.change=Energie-Änderung
+
+reborncore.gui.heat=Wärme
+reborncore.gui.missingmultiblock=Unvollständiger Multiblock
+
+reborncore.gui.tooltip.config_slots=Slots konfigurieren
+reborncore.gui.tooltip.config_fluids=Flüssigkeiten konfigurieren
+reborncore.gui.tooltip.hologram=Multiblock-Hologramm umschalten
+reborncore.gui.tooltip.lock_items=Gegenstände sperren
+reborncore.gui.tooltip.power_charged=Aufgeladen
+reborncore.gui.tooltip.power_click=Klicken zum Ändern der angezeigten Einheit
+reborncore.gui.tooltip.power_moreinfo=für mehr Information
+reborncore.gui.tooltip.dsu_fullness=Voll
+reborncore.gui.tooltip.tank_amount=%smB/%smB
+reborncore.gui.tooltip.tank_empty=Leerer Tank
+reborncore.gui.tooltip.tank_fullness=Voll
+reborncore.gui.tooltip.unlock_items=Gegenstände entsperren
+reborncore.gui.tooltip.upgrades=Maschinenaufrüstung
+
+reborncore.gui.slotconfigtip.slot=Auf einen Slot klicken zum Konfigurieren.
+reborncore.gui.slotconfigtip.side=Orange Seite bedeutet Ausgang, blaue Seite bedeutet Eingang.
+reborncore.gui.slotconfigtip.side=Strg+C zum Kopieren der Slotkonfiguration, Strg+V zum Einfügen Slotkonfiguration.

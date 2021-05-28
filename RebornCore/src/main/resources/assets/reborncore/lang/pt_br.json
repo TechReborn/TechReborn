@@ -1,0 +1,33 @@
+{
+  "reborncore.message.active": "Ativo",
+  "reborncore.message.inactive": "Inativo",
+
+  "item.reborncore:manual.name": "Manual do Grupo Reborn",
+
+  "reborncore.tooltip.energy.maxEnergy": "Energia Máx",
+  "reborncore.tooltip.energy.inputRate": "Taxa de Entrada",
+  "reborncore.tooltip.energy.outputRate": "Taxa de Saída",
+  "reborncore.tooltip.energy.tier": "Nível",
+  "reborncore.tooltip.energy.change": "Troca de Energia",
+
+  "reborncore.gui.heat": "Calor",
+  "reborncore.gui.missingmultiblock": "Multibloco Incompleto",
+
+  "reborncore.gui.tooltip.config_slots": "Configurar slots",
+  "reborncore.gui.tooltip.config_fluids": "Configurar Fluídos",
+  "reborncore.gui.tooltip.hologram": "Alternar Holograma Multibloco",
+  "reborncore.gui.tooltip.lock_items": "Bloquear Itens",
+  "reborncore.gui.tooltip.power_charged": "Carregado",
+  "reborncore.gui.tooltip.power_click": "Clique para mudar unidade de exibição",
+  "reborncore.gui.tooltip.power_moreinfo": "para mais informações",
+  "reborncore.gui.tooltip.dsu_fullness": "Cheio",
+  "reborncore.gui.tooltip.tank_amount": "%s / %s",
+  "reborncore.gui.tooltip.tank_empty": "Tanque Vazio",
+  "reborncore.gui.tooltip.tank_fullness": "Cheio",
+  "reborncore.gui.tooltip.unlock_items": "Desbloquear itens",
+  "reborncore.gui.tooltip.upgrades": "Atualizações de máquinas",
+
+  "reborncore.gui.slotconfigtip.slot": "Clique no slot para configurar.",
+  "reborncore.gui.slotconfigtip.side1": "Lado laranja significa saída, lado azul significa entrada.",
+  "reborncore.gui.slotconfigtip.side2": "Ctrl+C para copiar a configuração de slot, Ctrl+V para colar a configuração de slot."
+}

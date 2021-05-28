@@ -6,18 +6,16 @@ buildscript {
 
 plugins {
 	id 'java'
+    id 'java-library'
 	id 'idea'
 	id 'eclipse'
 	id 'maven-publish'
 	id 'signing'
 	id "org.cadixdev.licenser" version "0.5.0"
-	id "fabric-loom" version "0.6-SNAPSHOT"
+	id "fabric-loom" version "0.8-SNAPSHOT"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
 	maven {
@@ -50,7 +48,7 @@ repositories {
 	}
 }
 
-version = "3.8.3"
+
 
 configurations {
 	shade
@@ -69,29 +67,94 @@ license {
 
 group = 'TechReborn'
 
-configurations.all {
-	resolutionStrategy.cacheDynamicVersionsFor 2, 'minutes'
+allprojects {
+    version = "5.0.0-alpha+1.16"
+
+    apply plugin: "fabric-loom"
+
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
+
+    configurations {
+        dev
+    }
+
+    // Shared deps between TR and RC
+    dependencies {
+        minecraft "com.mojang:minecraft:1.16.5"
+        mappings "net.fabricmc:yarn:1.16.5+build.4:v2"
+        modImplementation "net.fabricmc:fabric-loader:0.11.3"
+
+        //Fabric api
+        modImplementation "net.fabricmc.fabric-api:fabric-api:0.30.0+1.16"
+
+        modApi 'teamreborn:energy:0.1.1'
+    }
+
+    processResources {
+        inputs.property "version", project.version
+
+        filesMatching("fabric.mod.json") {
+            expand "version": project.version
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = "UTF-8"
+        it.options.release = 16
+    }
+
+    java {
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId project.name
+                artifactId project.archivesBaseName
+                version project.version
+
+                artifact(remapJar) {
+                    builtBy remapJar
+                }
+                artifact(sourcesJar) {
+                    builtBy remapSourcesJar
+                }
+            }
+        }
+        repositories {
+            if (ENV.MAVEN_URL) {
+                maven {
+                    url ENV.MAVEN_URL
+                    credentials {
+                        username ENV.MAVEN_USERNAME
+                        password ENV.MAVEN_PASSWORD
+                    }
+                }
+            }
+        }
+    }
+
+    if (ENV.SIGNING_KEY) {
+        signing {
+            useInMemoryPgpKeys(ENV.SIGNING_KEY, ENV.SIGNING_PASSWORD)
+
+            sign publishing.publications.maven
+            sign remapJar
+        }
+
+        task signAll(dependsOn: [signMavenPublication, signRemapJar, remapJar])
+    }
 }
 
+// TechReborn sepecific deps
 dependencies {
-	minecraft "com.mojang:minecraft:1.16.5"
-	mappings "net.fabricmc:yarn:1.16.5+build.4:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.11.1"
+    api project(":RebornCore")
+    include project(":RebornCore")
 
-	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.30.0+1.16"
-
-	optionalDependency "me.shedaniel:RoughlyEnoughItems:5.8.9"
-	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
-
-	def rcVersion = 'RebornCore:RebornCore-1.16:+'
-	modApi (rcVersion) {
-		exclude group: "net.fabricmc.fabric-api"
-	}
-	include rcVersion
-
-	modApi 'teamreborn:energy:0.1.1'
-
+    optionalDependency "me.shedaniel:RoughlyEnoughItems:5.8.9"
+    disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
     optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
 }
 
@@ -113,21 +176,6 @@ def disabledOptionalDependency(String dep) {
 	}
 }
 
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
-
-	if (JavaVersion.current().isJava9Compatible()) {
-		it.options.release = 8
-	}
-}
 
 jar {
 	exclude "**/*.psd"
@@ -192,50 +240,6 @@ task fixTranslations(dependsOn: ['renameCrowdin']) {
 			}
 		}
 	}
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
-	from sourceSets.main.allSource
-}
-
-publishing {
-	publications {
-		maven(MavenPublication) {
-			groupId 'TechReborn'
-			artifactId project.archivesBaseName
-			version project.version
-
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
-		}
-	}
-	repositories {
-		if (ENV.MAVEN_URL) {
-			maven {
-				url ENV.MAVEN_URL
-				credentials {
-					username ENV.MAVEN_USERNAME
-					password ENV.MAVEN_PASSWORD
-				}
-			}
-		}
-	}
-}
-
-if (ENV.SIGNING_KEY) {
-	signing {
-		useInMemoryPgpKeys(ENV.SIGNING_KEY, ENV.SIGNING_PASSWORD)
-
-		sign publishing.publications.maven
-		sign remapJar
-	}
-
-	task signAll(dependsOn: [signMavenPublication, signRemapJar, remapJar])
 }
 
 import com.google.gson.JsonArray
