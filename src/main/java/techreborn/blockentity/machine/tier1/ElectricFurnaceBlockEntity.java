@@ -131,8 +131,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	private void updateState() {
 		Block furnaceBlock = getWorld().getBlockState(pos).getBlock();
 
-		if (furnaceBlock instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) furnaceBlock;
+		if (furnaceBlock instanceof BlockMachineBase blockMachineBase) {
 			boolean isActive = currentRecipe != null || canCraftAgain();
 			blockMachineBase.setActive(isActive, world, pos);
 		}

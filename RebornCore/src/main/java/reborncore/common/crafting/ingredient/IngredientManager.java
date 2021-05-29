@@ -29,8 +29,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-
 import org.jetbrains.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.function.Function;
 

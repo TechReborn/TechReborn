@@ -27,9 +27,9 @@ package reborncore.common.util;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.NotNull;
 import reborncore.api.items.InventoryBase;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

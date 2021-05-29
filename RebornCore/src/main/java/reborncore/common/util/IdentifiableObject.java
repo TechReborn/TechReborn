@@ -27,42 +27,4 @@ package reborncore.common.util;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
-public class IdentifiableObject<T> {
-	@NotNull
-	private final T object;
-	@NotNull
-	private final Identifier identifier;
-
-	public IdentifiableObject(@NotNull T object, @NotNull Identifier identifier) {
-		Objects.requireNonNull(object);
-		Objects.requireNonNull(identifier);
-		this.object = object;
-		this.identifier = identifier;
-	}
-
-	@NotNull
-	public T getObject() {
-		return object;
-	}
-
-	@NotNull
-	public Identifier getIdentifier() {
-		return identifier;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		IdentifiableObject<?> that = (IdentifiableObject<?>) o;
-		return object.equals(that.object) &&
-				identifier.equals(that.identifier);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(object, identifier);
-	}
-}
+public record IdentifiableObject<T>(@NotNull T object, @NotNull Identifier identifier) { }

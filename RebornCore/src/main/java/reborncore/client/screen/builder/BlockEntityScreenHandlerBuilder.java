@@ -170,8 +170,7 @@ public class BlockEntityScreenHandlerBuilder {
 	}
 
 	public BlockEntityScreenHandlerBuilder syncEnergyValue() {
-		if (this.blockEntity instanceof PowerAcceptorBlockEntity) {
-			PowerAcceptorBlockEntity powerAcceptor = ((PowerAcceptorBlockEntity) this.blockEntity);
+		if (this.blockEntity instanceof PowerAcceptorBlockEntity powerAcceptor) {
 
 			return this.sync(powerAcceptor::getEnergy, powerAcceptor::setEnergy)
 					.sync(powerAcceptor::getExtraPowerStorage, powerAcceptor::setExtraPowerStorage)
@@ -183,8 +182,7 @@ public class BlockEntityScreenHandlerBuilder {
 	}
 
 	public BlockEntityScreenHandlerBuilder syncCrafterValue() {
-		if (this.blockEntity instanceof IRecipeCrafterProvider) {
-			IRecipeCrafterProvider recipeCrafter = ((IRecipeCrafterProvider) this.blockEntity);
+		if (this.blockEntity instanceof IRecipeCrafterProvider recipeCrafter) {
 			return this
 					.sync(() -> recipeCrafter.getRecipeCrafter().currentTickTime, (time) -> recipeCrafter.getRecipeCrafter().currentTickTime = time)
 					.sync(() -> recipeCrafter.getRecipeCrafter().currentNeededTicks, (ticks) -> recipeCrafter.getRecipeCrafter().currentNeededTicks = ticks);

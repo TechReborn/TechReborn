@@ -178,8 +178,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		isRunning = active;
-		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) this.getWorld().getBlockState(this.getPos()).getBlock();
+		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase blockMachineBase) {
 			blockMachineBase.setActive(active, this.getWorld(), this.getPos());
 		}
 		this.getWorld().updateListeners(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);

@@ -35,8 +35,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.api.items.ArmorBlockEntityTicker;
+import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.util.ItemUtils;
 
 @Mixin(PlayerEntity.class)

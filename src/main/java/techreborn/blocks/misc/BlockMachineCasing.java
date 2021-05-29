@@ -45,11 +45,11 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 
 	public static int getHeatFromState(BlockState state) {
 		Block block = state.getBlock();
-		if (!(block instanceof BlockMachineCasing)) {
-			return 0;
+		if (block instanceof BlockMachineCasing casing) {
+			return casing.heatCapacity;
 		}
-		BlockMachineCasing casing = (BlockMachineCasing) block;
-		return casing.heatCapacity;
+
+		return 0;
 	}
 
 	@Override

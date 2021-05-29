@@ -30,14 +30,13 @@ import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import reborncore.common.util.ItemDurabilityExtensions;
-
-import org.jetbrains.annotations.Nullable;
 
 //Not too happy with this, need to find and get a better solution into fabric soon
 @Mixin(ItemRenderer.class)
@@ -48,8 +47,7 @@ public abstract class MixinItemRenderer {
 
 	@Inject(method = "renderGuiItemOverlay(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V", at = @At("HEAD"))
 	private void renderGuiItemOverlay(TextRenderer textRenderer, ItemStack stack, int x, int y, @Nullable String string, CallbackInfo info) {
-		if (stack.getItem() instanceof ItemDurabilityExtensions) {
-			ItemDurabilityExtensions durabilityExtensions = (ItemDurabilityExtensions) stack.getItem();
+		if (stack.getItem() instanceof ItemDurabilityExtensions durabilityExtensions) {
 			if (!durabilityExtensions.showDurability(stack)) {
 				return;
 			}

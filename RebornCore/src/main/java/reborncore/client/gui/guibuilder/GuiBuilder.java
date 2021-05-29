@@ -414,7 +414,7 @@ public class GuiBuilder {
 	}
 
 
-	private class TipsListWidget extends EntryListWidget<TipsListWidget.TipsListEntry> {
+	private static class TipsListWidget extends EntryListWidget<TipsListWidget.TipsListEntry> {
 
 		public TipsListWidget(GuiBase<?> gui, int width, int height, int top, int bottom, int entryHeight, List<Text> tips) {
 			super(gui.getMinecraft(), width, height, top, bottom, entryHeight);

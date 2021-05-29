@@ -66,8 +66,7 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 
 	@Override
 	public boolean canCraft(final BlockEntity blockEntity) {
-		if (blockEntity instanceof IndustrialBlastFurnaceBlockEntity) {
-			final IndustrialBlastFurnaceBlockEntity blastFurnace = (IndustrialBlastFurnaceBlockEntity) blockEntity;
+		if (blockEntity instanceof final IndustrialBlastFurnaceBlockEntity blastFurnace) {
 			return blastFurnace.getHeat() >= heat;
 		}
 		return false;

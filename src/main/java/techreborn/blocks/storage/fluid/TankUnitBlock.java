@@ -75,10 +75,9 @@ public class TankUnitBlock extends BlockMachineBase {
 		// Assuming ItemFluidInfo is 1 BUCKET, for now only allow exact amount or less
 		// I am only going to trust cells or buckets, they are known to be 1 BUCKET size, too suss of other items not abiding by that.
 		if ((itemInHand instanceof DynamicCellItem || itemInHand instanceof BucketItem)
-				&& tankUnitEntity != null && itemInHand instanceof ItemFluidInfo) {
+				&& tankUnitEntity != null && itemInHand instanceof ItemFluidInfo itemFluid) {
 
 			// Get fluid information from item
-			ItemFluidInfo itemFluid = (ItemFluidInfo) itemInHand;
 			Fluid fluid = itemFluid.getFluid(stackInHand);
 			int amount = stackInHand.getCount();
 
@@ -154,14 +153,11 @@ public class TankUnitBlock extends BlockMachineBase {
 
 	boolean isSameItemFluid(ItemStack i1, ItemStack i2){
 		// Only care about cells, buckets don't stack
-		if(!(i1.getItem() instanceof DynamicCellItem && i2.getItem() instanceof DynamicCellItem)){
-			return false;
+		if(i1.getItem() instanceof DynamicCellItem dc1 && i2.getItem() instanceof DynamicCellItem dc2){
+			return dc1.getFluid(i1).matchesType(dc2.getFluid(i2));
 		}
 
-		DynamicCellItem dc1 = (DynamicCellItem)i1.getItem();
-		DynamicCellItem dc2 = (DynamicCellItem)i2.getItem();
-
-		return  dc1.getFluid(i1).matchesType(dc2.getFluid(i2));
+		return false;
 	}
 
 	@Override

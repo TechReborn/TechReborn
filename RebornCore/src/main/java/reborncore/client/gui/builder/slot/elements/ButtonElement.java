@@ -29,13 +29,13 @@ public class ButtonElement extends ElementBase {
 	private final Sprite.Button buttonSprite;
 
 	public ButtonElement(int x, int y, Sprite.Button buttonSprite) {
-		super(x, y, buttonSprite.getNormal());
+		super(x, y, buttonSprite.normal());
 		this.buttonSprite = buttonSprite;
 		this.addUpdateAction((gui, element) -> {
 			if (isHovering) {
-				element.container.setSprite(0, buttonSprite.getHovered());
+				element.container.setSprite(0, buttonSprite.hovered());
 			} else {
-				element.container.setSprite(0, buttonSprite.getNormal());
+				element.container.setSprite(0, buttonSprite.normal());
 			}
 		});
 	}

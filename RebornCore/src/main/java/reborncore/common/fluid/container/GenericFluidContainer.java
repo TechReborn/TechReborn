@@ -26,10 +26,9 @@ package reborncore.common.fluid.container;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import reborncore.common.fluid.FluidValue;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import reborncore.common.fluid.FluidValue;
 
 /*
 

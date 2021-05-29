@@ -125,8 +125,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	private void updateState() {
 		BlockState state = world.getBlockState(pos);
-		if (state.getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) state.getBlock();
+		if (state.getBlock() instanceof BlockMachineBase blockMachineBase) {
 			if (state.get(BlockMachineBase.ACTIVE) != burnTime > 0)
 				blockMachineBase.setActive(burnTime > 0, world, pos);
 		}

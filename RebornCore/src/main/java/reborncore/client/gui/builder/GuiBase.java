@@ -46,6 +46,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Util;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.builder.slot.FluidConfigGui;
@@ -56,8 +57,6 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.slot.PlayerInventorySlot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-
-import org.jetbrains.annotations.Nullable;
 import reborncore.mixin.client.AccessorScreen;
 
 import java.util.ArrayList;
@@ -212,8 +211,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		if (drawPlayerSlots) {
 			builder.drawPlayerSlots(matrixStack, this, x + backgroundWidth / 2, y + 93, true);
 		}
-		if (tryAddUpgrades() && be instanceof IUpgradeable) {
-			IUpgradeable upgradeable = (IUpgradeable) be;
+		if (tryAddUpgrades() && be instanceof IUpgradeable upgradeable) {
 			if (upgradeable.canBeUpgraded()) {
 				builder.drawUpgrades(matrixStack, this, x - 24, y + 6);
 				upgrades = true;

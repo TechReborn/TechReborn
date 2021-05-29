@@ -38,34 +38,27 @@ import reborncore.common.util.serialization.SerializationUtil;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class RebornRecipeType<R extends RebornRecipe> implements RecipeType, RecipeSerializer {
-
-	private final BiFunction<RebornRecipeType<R>, Identifier, R> recipeFunction;
-
-	private final Identifier typeId;
-
-	public RebornRecipeType(BiFunction<RebornRecipeType<R>, Identifier, R> recipeFunction, Identifier typeId) {
-		this.recipeFunction = recipeFunction;
-		this.typeId = typeId;
-	}
+public record RebornRecipeType<R extends RebornRecipe>(
+		BiFunction<RebornRecipeType<R>, Identifier, R> recipeFunction,
+		Identifier name) implements RecipeType, RecipeSerializer {
 
 	@Override
 	public R read(Identifier recipeId, JsonObject json) {
 		Identifier type = new Identifier(JsonHelper.getString(json, "type"));
-		if (!type.equals(typeId)) {
+		if (!type.equals(name)) {
 			throw new RuntimeException("RebornRecipe type not supported!");
 		}
 
 		R recipe = newRecipe(recipeId);
 
-		try{
-			if(!ConditionManager.shouldLoadRecipe(json)) {
+		try {
+			if (!ConditionManager.shouldLoadRecipe(json)) {
 				recipe.makeDummy();
 				return recipe;
 			}
 
 			recipe.deserialize(json);
-		} catch (Throwable t){
+		} catch (Throwable t) {
 			t.printStackTrace();
 			RebornCore.LOGGER.error("Failed to read recipe: " + recipeId);
 		}
@@ -75,7 +68,7 @@ public class RebornRecipeType<R extends RebornRecipe> implements RecipeType, Rec
 
 	public JsonObject toJson(R recipe) {
 		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("type", typeId.toString());
+		jsonObject.addProperty("type", name.toString());
 
 		recipe.serialize(jsonObject);
 
@@ -107,12 +100,7 @@ public class RebornRecipeType<R extends RebornRecipe> implements RecipeType, Rec
 		((R) recipe).serialize(buffer);
 	}
 
-	public Identifier getName() {
-		return typeId;
-	}
-
 	public List<R> getRecipes(World world) {
 		return RecipeUtils.getRecipes(world, this);
 	}
-
 }

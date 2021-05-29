@@ -87,8 +87,7 @@ public class ConfigSlotElement extends ElementBase {
 			return true;
 		}));
 
-		if (gui.getMachine() instanceof SlotConfiguration.SlotFilter) {
-			SlotConfiguration.SlotFilter slotFilter = (SlotConfiguration.SlotFilter) gui.getMachine();
+		if (gui.getMachine() instanceof SlotConfiguration.SlotFilter slotFilter) {
 			if (Arrays.stream(slotFilter.getInputSlots()).anyMatch(value -> value == slotId)) {
 				elements.add(new CheckBoxElement(new TranslatableText("reborncore.gui.slotconfig.filter_input"), 0xFFFFFFFF, x - 26, y + 72, "filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
 						checkBoxElement -> checkBoxElement.machineBase.getSlotConfiguration().getSlotDetails(checkBoxElement.slotID).filter()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {

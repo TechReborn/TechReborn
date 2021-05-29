@@ -29,7 +29,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -113,7 +112,7 @@ public class TranslationTools {
 					System.out.println(key);
 					System.out.println();
 					for (int i = 0; i < newKeys.size(); i++) {
-						System.out.println(String.format("%d) %s", i, newKeys.get(i)));
+						System.out.printf("%d) %s%n", i, newKeys.get(i));
 					}
 					System.out.print("Input selection:");
 					int input = SCANNER.nextInt();
@@ -129,7 +128,7 @@ public class TranslationTools {
 	private static Map<String, String> readJsonFile(Path path) throws IOException {
 		Type mapType = new TypeToken<Map<String, String>>() {
 		}.getType();
-		return new Gson().fromJson(new String(Files.readAllBytes(path), StandardCharsets.UTF_8), mapType);
+		return new Gson().fromJson(Files.readString(path), mapType);
 	}
 
 	private static Map<String, String> readLangFile(Path path) throws IOException {

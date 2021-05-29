@@ -50,10 +50,9 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 		network.addElement(this);
 		for (Direction direction : Direction.values()) {
 			BlockEntity be = world.getBlockEntity(pos.offset(direction));
-			if (!(be instanceof LSUStorageBlockEntity)) {
+			if (!(be instanceof LSUStorageBlockEntity lesuStorage)) {
 				continue;
 			}
-			LSUStorageBlockEntity lesuStorage = (LSUStorageBlockEntity) be;
 			if (lesuStorage.network != null) {
 				lesuStorage.network.merge(network);
 			}

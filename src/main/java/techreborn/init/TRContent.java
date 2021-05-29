@@ -35,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -83,8 +84,6 @@ import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
-
-import org.jetbrains.annotations.Nullable;
 import techreborn.world.DataDrivenFeature;
 
 import java.util.*;

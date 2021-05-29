@@ -30,7 +30,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.util.Identifier;
-
 import org.jetbrains.annotations.Nullable;
 
 public class SpriteSlot extends FilteredSlot {

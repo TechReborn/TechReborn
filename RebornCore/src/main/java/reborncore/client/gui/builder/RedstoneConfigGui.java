@@ -26,7 +26,6 @@ package reborncore.client.gui.builder;
 
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.network.Packet;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import reborncore.client.RenderUtil;

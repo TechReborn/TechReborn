@@ -32,13 +32,13 @@ import java.util.function.BiConsumer;
 public enum SlotType {
 	//Im really not a fan of the way I add the slots to the builder here
 	INPUT((builder, slot) -> {
-		builder.slot(slot.getId(), slot.getX(), slot.getY());
+		builder.slot(slot.id(), slot.x(), slot.y());
 	}),
 	OUTPUT((builder, slot) -> {
-		builder.outputSlot(slot.getId(), slot.getX(), slot.getY());
+		builder.outputSlot(slot.id(), slot.x(), slot.y());
 	}),
 	ENERGY((builder, slot) -> {
-		builder.energySlot(slot.getId(), slot.getX(), slot.getY());
+		builder.energySlot(slot.id(), slot.x(), slot.y());
 	});
 
 	public static SlotType fromString(String string) {

@@ -43,12 +43,12 @@ public class RollingMachineCategory extends DefaultCraftingCategory {
 
 	@Override
 	public Identifier getIdentifier() {
-		return rebornRecipeType.getName();
+		return rebornRecipeType.name();
 	}
 
 	@Override
 	public String getCategoryName() {
-		return I18n.translate(rebornRecipeType.getName().toString());
+		return I18n.translate(rebornRecipeType.name().toString());
 	}
 
 	@Override

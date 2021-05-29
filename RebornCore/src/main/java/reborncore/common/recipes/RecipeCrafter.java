@@ -29,6 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -41,7 +42,6 @@ import team.reborn.energy.Energy;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -336,8 +336,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		BlockPos pos = blockEntity.getPos();
 		if (blockEntity.getWorld() == null) return;
 		BlockState oldState  = blockEntity.getWorld().getBlockState(pos);
-		if (oldState.getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) oldState.getBlock();
+		if (oldState.getBlock() instanceof BlockMachineBase blockMachineBase) {
 			boolean isActive = isActive() || canCraftAgain();
 
 			if (isActive == oldState.get(BlockMachineBase.ACTIVE)) {

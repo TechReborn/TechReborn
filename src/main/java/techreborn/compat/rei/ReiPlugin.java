@@ -159,25 +159,25 @@ public class ReiPlugin implements REIPluginV0 {
 
 	@Override
 	public void registerOthers(RecipeHelper recipeHelper) {
-		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(), EntryStack.create(Machine.ALLOY_SMELTER), EntryStack.create(Machine.IRON_ALLOY_FURNACE));
-		recipeHelper.registerWorkingStations(ModRecipes.ASSEMBLING_MACHINE.getName(), EntryStack.create(Machine.ASSEMBLY_MACHINE));
-		recipeHelper.registerWorkingStations(ModRecipes.BLAST_FURNACE.getName(), EntryStack.create(Machine.INDUSTRIAL_BLAST_FURNACE));
-		recipeHelper.registerWorkingStations(ModRecipes.CENTRIFUGE.getName(), EntryStack.create(Machine.INDUSTRIAL_CENTRIFUGE));
-		recipeHelper.registerWorkingStations(ModRecipes.CHEMICAL_REACTOR.getName(), EntryStack.create(Machine.CHEMICAL_REACTOR));
-		recipeHelper.registerWorkingStations(ModRecipes.COMPRESSOR.getName(), EntryStack.create(Machine.COMPRESSOR));
-		recipeHelper.registerWorkingStations(ModRecipes.DISTILLATION_TOWER.getName(), EntryStack.create(Machine.DISTILLATION_TOWER));
-		recipeHelper.registerWorkingStations(ModRecipes.EXTRACTOR.getName(), EntryStack.create(Machine.EXTRACTOR));
-		recipeHelper.registerWorkingStations(ModRecipes.FLUID_REPLICATOR.getName(), EntryStack.create(Machine.FLUID_REPLICATOR));
-		recipeHelper.registerWorkingStations(ModRecipes.FUSION_REACTOR.getName(), EntryStack.create(Machine.FUSION_CONTROL_COMPUTER));
-		recipeHelper.registerWorkingStations(ModRecipes.GRINDER.getName(), EntryStack.create(Machine.GRINDER));
-		recipeHelper.registerWorkingStations(ModRecipes.IMPLOSION_COMPRESSOR.getName(), EntryStack.create(Machine.IMPLOSION_COMPRESSOR));
-		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_ELECTROLYZER.getName(), EntryStack.create(Machine.INDUSTRIAL_ELECTROLYZER));
-		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_GRINDER.getName(), EntryStack.create(Machine.INDUSTRIAL_GRINDER));
-		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_SAWMILL.getName(), EntryStack.create(Machine.INDUSTRIAL_SAWMILL));
-		recipeHelper.registerWorkingStations(ModRecipes.ROLLING_MACHINE.getName(), EntryStack.create(Machine.ROLLING_MACHINE));
-		recipeHelper.registerWorkingStations(ModRecipes.SOLID_CANNING_MACHINE.getName(), EntryStack.create(Machine.SOLID_CANNING_MACHINE));
-		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.getName(), EntryStack.create(Machine.VACUUM_FREEZER));
-		recipeHelper.registerWorkingStations(ModRecipes.WIRE_MILL.getName(), EntryStack.create(Machine.WIRE_MILL));
+		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.name(), EntryStack.create(Machine.ALLOY_SMELTER), EntryStack.create(Machine.IRON_ALLOY_FURNACE));
+		recipeHelper.registerWorkingStations(ModRecipes.ASSEMBLING_MACHINE.name(), EntryStack.create(Machine.ASSEMBLY_MACHINE));
+		recipeHelper.registerWorkingStations(ModRecipes.BLAST_FURNACE.name(), EntryStack.create(Machine.INDUSTRIAL_BLAST_FURNACE));
+		recipeHelper.registerWorkingStations(ModRecipes.CENTRIFUGE.name(), EntryStack.create(Machine.INDUSTRIAL_CENTRIFUGE));
+		recipeHelper.registerWorkingStations(ModRecipes.CHEMICAL_REACTOR.name(), EntryStack.create(Machine.CHEMICAL_REACTOR));
+		recipeHelper.registerWorkingStations(ModRecipes.COMPRESSOR.name(), EntryStack.create(Machine.COMPRESSOR));
+		recipeHelper.registerWorkingStations(ModRecipes.DISTILLATION_TOWER.name(), EntryStack.create(Machine.DISTILLATION_TOWER));
+		recipeHelper.registerWorkingStations(ModRecipes.EXTRACTOR.name(), EntryStack.create(Machine.EXTRACTOR));
+		recipeHelper.registerWorkingStations(ModRecipes.FLUID_REPLICATOR.name(), EntryStack.create(Machine.FLUID_REPLICATOR));
+		recipeHelper.registerWorkingStations(ModRecipes.FUSION_REACTOR.name(), EntryStack.create(Machine.FUSION_CONTROL_COMPUTER));
+		recipeHelper.registerWorkingStations(ModRecipes.GRINDER.name(), EntryStack.create(Machine.GRINDER));
+		recipeHelper.registerWorkingStations(ModRecipes.IMPLOSION_COMPRESSOR.name(), EntryStack.create(Machine.IMPLOSION_COMPRESSOR));
+		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_ELECTROLYZER.name(), EntryStack.create(Machine.INDUSTRIAL_ELECTROLYZER));
+		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_GRINDER.name(), EntryStack.create(Machine.INDUSTRIAL_GRINDER));
+		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_SAWMILL.name(), EntryStack.create(Machine.INDUSTRIAL_SAWMILL));
+		recipeHelper.registerWorkingStations(ModRecipes.ROLLING_MACHINE.name(), EntryStack.create(Machine.ROLLING_MACHINE));
+		recipeHelper.registerWorkingStations(ModRecipes.SOLID_CANNING_MACHINE.name(), EntryStack.create(Machine.SOLID_CANNING_MACHINE));
+		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.name(), EntryStack.create(Machine.VACUUM_FREEZER));
+		recipeHelper.registerWorkingStations(ModRecipes.WIRE_MILL.name(), EntryStack.create(Machine.WIRE_MILL));
 		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.THERMAL_GENERATOR.name), EntryStack.create(Machine.THERMAL_GENERATOR));
 		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.GAS_TURBINE.name), EntryStack.create(Machine.GAS_TURBINE));
 		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.DIESEL_GENERATOR.name), EntryStack.create(Machine.DIESEL_GENERATOR));
@@ -240,7 +240,7 @@ public class ReiPlugin implements REIPluginV0 {
 			};
 		}
 
-		recipeHelper.registerRecipes(recipeType.getName(), (Predicate<Recipe>) recipe -> {
+		recipeHelper.registerRecipes(recipeType.name(), (Predicate<Recipe>) recipe -> {
 			if (recipe instanceof RebornRecipe) {
 				return ((RebornRecipe) recipe).getRebornRecipeType() == recipeType;
 			}
@@ -253,11 +253,9 @@ public class ReiPlugin implements REIPluginV0 {
 		BaseBoundsHandler baseBoundsHandler = BaseBoundsHandler.getInstance();
 		baseBoundsHandler.registerExclusionZones(GuiBase.class, () -> {
 			Screen currentScreen = MinecraftClient.getInstance().currentScreen;
-			if (currentScreen instanceof GuiBase) {
-				GuiBase<?> guiBase = (GuiBase<?>) currentScreen;
+			if (currentScreen instanceof GuiBase<?> guiBase) {
 				int height = 0;
-				if (guiBase.tryAddUpgrades() && guiBase.be instanceof IUpgradeable) {
-					IUpgradeable upgradeable = (IUpgradeable) guiBase.be;
+				if (guiBase.tryAddUpgrades() && guiBase.be instanceof IUpgradeable upgradeable) {
 					if (upgradeable.canBeUpgraded()) {
 						height = 80;
 					}
@@ -286,18 +284,10 @@ public class ReiPlugin implements REIPluginV0 {
 			}
 
 			switch (direction) {
-				case RIGHT:
-					helper.drawTexture(matrices, x, y, direction.xActive, direction.yActive, j, 10);
-					break;
-				case LEFT:
-					helper.drawTexture(matrices, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-					break;
-				case UP:
-					helper.drawTexture(matrices, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-					break;
-				case DOWN:
-					helper.drawTexture(matrices, x, y, direction.xActive, direction.yActive, 10, j);
-					break;
+				case RIGHT -> helper.drawTexture(matrices, x, y, direction.xActive, direction.yActive, j, 10);
+				case LEFT -> helper.drawTexture(matrices, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+				case UP -> helper.drawTexture(matrices, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+				case DOWN -> helper.drawTexture(matrices, x, y, direction.xActive, direction.yActive, 10, j);
 			}
 		});
 	}
@@ -342,7 +332,7 @@ public class ReiPlugin implements REIPluginV0 {
 				drawTexture(matrices, bounds.x, bounds.y, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
-					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight) / 1f);
+					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight));
 					if (animation.animationType == EntryAnimationType.DOWNWARDS)
 						innerDisplayHeight = innerHeight - innerDisplayHeight;
 				} else innerDisplayHeight = innerHeight;
@@ -379,7 +369,7 @@ public class ReiPlugin implements REIPluginV0 {
 				drawTexture(matrices, bounds.x, bounds.y, 194, 82, width, height);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
-					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight) / 1f);
+					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight));
 					if (animation.animationType == EntryAnimationType.DOWNWARDS)
 						innerDisplayHeight = innerHeight - innerDisplayHeight;
 				} else innerDisplayHeight = innerHeight;
@@ -423,14 +413,7 @@ public class ReiPlugin implements REIPluginV0 {
 		protected void drawCurrentEntry(MatrixStack matrices, int mouseX, int mouseY, float delta) {}
 	}
 
-	public static class EntryAnimation {
-		private final EntryAnimationType animationType;
-		private final long duration;
-
-		private EntryAnimation(EntryAnimationType animationType, long duration) {
-			this.animationType = animationType;
-			this.duration = duration;
-		}
+	public record EntryAnimation(EntryAnimationType animationType, long duration) {
 
 		public static EntryAnimation upwards(long duration) {
 			return new EntryAnimation(EntryAnimationType.UPWARDS, duration);

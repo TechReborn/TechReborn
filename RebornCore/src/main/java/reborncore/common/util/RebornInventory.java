@@ -28,11 +28,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.NotNull;
 import reborncore.api.items.InventoryBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
-
-import org.jetbrains.annotations.NotNull;
 
 public class RebornInventory<T extends MachineBaseBlockEntity> extends InventoryBase {
 
@@ -56,13 +55,10 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 			if (facing == null) {
 				return true;
 			}
-			switch (direction) {
-				case INSERT:
-					return SlotConfiguration.canInsertItem(slotID, stack, facing, be);
-				case EXTRACT:
-					return SlotConfiguration.canExtractItem(slotID, stack, facing, be);
-			}
-			return false;
+			return switch (direction) {
+				case INSERT -> SlotConfiguration.canInsertItem(slotID, stack, facing, be);
+				case EXTRACT -> SlotConfiguration.canExtractItem(slotID, stack, facing, be);
+			};
 		});
 	}
 

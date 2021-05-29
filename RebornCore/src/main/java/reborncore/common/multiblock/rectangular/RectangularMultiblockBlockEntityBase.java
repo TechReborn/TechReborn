@@ -28,8 +28,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockBlockEntityBase;
+import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
 
 public abstract class RectangularMultiblockBlockEntityBase extends MultiblockBlockEntityBase {

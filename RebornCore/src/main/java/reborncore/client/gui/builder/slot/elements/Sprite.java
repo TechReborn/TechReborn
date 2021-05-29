@@ -107,63 +107,16 @@ public class Sprite implements ISprite {
 		return this;
 	}
 
-	public static class Button {
-		private final Sprite normal;
-		private final Sprite hovered;
-
-		public Button(Sprite normal, Sprite hovered) {
-			this.normal = normal;
-			this.hovered = hovered;
-		}
-
-		public Sprite getNormal() {
-			return normal;
-		}
-
-		public Sprite getHovered() {
-			return hovered;
-		}
+	public record Button(Sprite normal,
+						 Sprite hovered) {
 	}
 
-	public static class ToggleButton {
-		private final Sprite normal;
-		private final Sprite hovered;
-		private final Sprite pressed;
-
-		public ToggleButton(Sprite normal, Sprite hovered, Sprite pressed) {
-			this.normal = normal;
-			this.hovered = hovered;
-			this.pressed = pressed;
-		}
-
-		public Sprite getNormal() {
-			return normal;
-		}
-
-		public Sprite getHovered() {
-			return hovered;
-		}
-
-		public Sprite getPressed() {
-			return pressed;
-		}
+	public record ToggleButton(Sprite normal,
+							   Sprite hovered,
+							   Sprite pressed) {
 	}
 
-	public static class CheckBox {
-		private final Sprite normal;
-		private final Sprite ticked;
-
-		public CheckBox(Sprite normal, Sprite ticked) {
-			this.normal = normal;
-			this.ticked = ticked;
-		}
-
-		public Sprite getNormal() {
-			return normal;
-		}
-
-		public Sprite getTicked() {
-			return ticked;
-		}
+	public record CheckBox(Sprite normal,
+						   Sprite ticked) {
 	}
 }

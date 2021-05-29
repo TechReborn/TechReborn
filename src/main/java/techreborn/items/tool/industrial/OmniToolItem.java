@@ -43,6 +43,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
@@ -57,7 +58,6 @@ import techreborn.init.TRContent;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {

@@ -39,7 +39,7 @@ public class FluidGeneratorRecipeList {
 	}
 
 	public boolean addRecipe(FluidGeneratorRecipe fluidGeneratorRecipe) {
-		if (!this.getRecipeForFluid(fluidGeneratorRecipe.getFluid()).isPresent())
+		if (!this.getRecipeForFluid(fluidGeneratorRecipe.fluid()).isPresent())
 			return this.getRecipes().add(fluidGeneratorRecipe);
 		return false;
 	}
@@ -49,7 +49,7 @@ public class FluidGeneratorRecipeList {
 	}
 
 	public Optional<FluidGeneratorRecipe> getRecipeForFluid(Fluid fluid) {
-		return this.recipes.stream().filter(recipe -> FluidUtils.fluidEquals(recipe.getFluid(), fluid)).findAny();
+		return this.recipes.stream().filter(recipe -> FluidUtils.fluidEquals(recipe.fluid(), fluid)).findAny();
 	}
 
 	public HashSet<FluidGeneratorRecipe> getRecipes() {

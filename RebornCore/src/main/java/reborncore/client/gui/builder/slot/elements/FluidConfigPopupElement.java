@@ -35,7 +35,6 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.network.Packet;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
@@ -153,24 +152,12 @@ public class FluidConfigPopupElement extends ElementBase {
 			return;
 		}
 		FluidConfiguration.FluidConfig fluidConfig = fluidConfiguration.getSideDetail(side);
-		Color color;
-		switch (fluidConfig.getIoConfig()) {
-			case NONE:
-				color = new Color(0, 0, 0, 0);
-				break;
-			case INPUT:
-				color = new Color(0, 0, 255, 128);
-				break;
-			case OUTPUT:
-				color = new Color(255, 69, 0, 128);
-				break;
-			case ALL:
-				color = new Color(52, 255, 30, 128);
-				break;
-			default:
-				color = new Color(0, 0, 0, 0);
-				break;
-		}
+		Color color = switch (fluidConfig.getIoConfig()) {
+			case NONE -> new Color(0, 0, 0, 0);
+			case INPUT -> new Color(0, 0, 255, 128);
+			case OUTPUT -> new Color(255, 69, 0, 128);
+			case ALL -> new Color(52, 255, 30, 128);
+		};
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		GuiUtil.drawGradientRect(matrices, sx, sy, 18, 18, color.getColor(), color.getColor());
 		RenderSystem.setShaderColor(1, 1, 1, 1);

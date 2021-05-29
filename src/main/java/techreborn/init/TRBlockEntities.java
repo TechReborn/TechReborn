@@ -73,7 +73,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
 public class TRBlockEntities {
 
@@ -146,7 +145,7 @@ public class TRBlockEntities {
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, Block... blocks) {
 		Validate.isTrue(blocks.length > 0, "no blocks for blockEntity entity type!");
-		return register(new Identifier(TechReborn.MOD_ID, name).toString(), FabricBlockEntityTypeBuilder.create((pos, state) -> supplier.apply(pos, state), blocks));
+		return register(new Identifier(TechReborn.MOD_ID, name).toString(), FabricBlockEntityTypeBuilder.create(supplier::apply, blocks));
 	}
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(String id, FabricBlockEntityTypeBuilder<T> builder) {

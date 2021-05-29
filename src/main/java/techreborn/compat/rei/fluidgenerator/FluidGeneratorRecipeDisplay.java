@@ -43,7 +43,7 @@ public class FluidGeneratorRecipeDisplay implements RecipeDisplay {
 		this.category = category;
 		this.inputs = Lists.newArrayList();
 		this.totalEnergy = recipe.getEnergyPerBucket();
-		inputs.add(Collections.singletonList(EntryStack.create(recipe.getFluid(), 1000)));
+		inputs.add(Collections.singletonList(EntryStack.create(recipe.fluid(), 1000)));
 	}
 
 	@Override

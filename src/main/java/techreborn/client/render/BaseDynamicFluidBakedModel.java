@@ -46,10 +46,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockRenderView;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Color;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -66,8 +66,7 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 	@Override
 	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
 		Fluid fluid = Fluids.EMPTY;
-		if (stack.getItem() instanceof ItemFluidInfo) {
-			ItemFluidInfo fluidInfo = (ItemFluidInfo) stack.getItem();
+		if (stack.getItem() instanceof ItemFluidInfo fluidInfo) {
 			fluid = fluidInfo.getFluid(stack);
 
 		}

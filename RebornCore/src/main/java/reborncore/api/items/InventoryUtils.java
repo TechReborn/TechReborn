@@ -33,9 +33,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import reborncore.common.util.ItemUtils;
-
 import org.jetbrains.annotations.Nullable;
+import reborncore.common.util.ItemUtils;
 
 public class InventoryUtils {
 
@@ -67,8 +66,7 @@ public class InventoryUtils {
 	public static ItemStack insertItem(ItemStack input, Inventory inventory, Direction direction) {
 		ItemStack stack = input.copy();
 
-		if (inventory instanceof SidedInventory) {
-			SidedInventory sidedInventory = (SidedInventory) inventory;
+		if (inventory instanceof SidedInventory sidedInventory) {
 			for (int slot : sidedInventory.getAvailableSlots(direction)) {
 				if (sidedInventory.canInsert(slot, stack, direction)) {
 					stack = insertIntoInv(sidedInventory, slot, stack);

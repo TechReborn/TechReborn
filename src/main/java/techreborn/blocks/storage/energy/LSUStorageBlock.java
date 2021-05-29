@@ -58,8 +58,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 		if (state.getBlock() == newState.getBlock()) {
 			return;
 		}
-		if (worldIn.getBlockEntity(pos) instanceof LSUStorageBlockEntity) {
-			LSUStorageBlockEntity blockEntity = (LSUStorageBlockEntity) worldIn.getBlockEntity(pos);
+		if (worldIn.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
 			if (blockEntity != null) {
 				blockEntity.removeFromNetwork();
 			}
@@ -75,8 +74,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
 		super.onPlaced(world, pos, state, player, itemstack);
-		if (world.getBlockEntity(pos) instanceof LSUStorageBlockEntity) {
-			LSUStorageBlockEntity blockEntity = (LSUStorageBlockEntity) world.getBlockEntity(pos);
+		if (world.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
 			if (blockEntity != null) {
 				blockEntity.rebuildNetwork();
 			}

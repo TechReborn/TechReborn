@@ -44,7 +44,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import reborncore.api.ToolManager;
@@ -195,8 +194,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 				if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
 					return ActionResult.SUCCESS;
 				}
-			} else if (stack.getItem() instanceof IUpgrade && blockEntity instanceof IUpgradeable) {
-				IUpgradeable upgradeableEntity = (IUpgradeable) blockEntity;
+			} else if (stack.getItem() instanceof IUpgrade && blockEntity instanceof IUpgradeable upgradeableEntity) {
 				if (upgradeableEntity.canBeUpgraded()) {
 					if (InventoryUtils.insertItemStacked(upgradeableEntity.getUpgradeInvetory(), stack,
 							true).getCount() > 0) {

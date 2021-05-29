@@ -47,8 +47,7 @@ public abstract class MixinItemStack {
 
 	@Inject(method = "getAttributeModifiers", at = @At("RETURN"), cancellable = true)
 	private void getAttributeModifiers(EquipmentSlot equipmentSlot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> info) {
-		if (getItem() instanceof ItemStackModifiers) {
-			ItemStackModifiers item = (ItemStackModifiers) getItem();
+		if (getItem() instanceof ItemStackModifiers item) {
 			Multimap<EntityAttribute, EntityAttributeModifier> modifierHashMap = ArrayListMultimap.create(info.getReturnValue());
 			item.getAttributeModifiers(equipmentSlot, (ItemStack) (Object) this, modifierHashMap);
 			info.setReturnValue(ImmutableMultimap.copyOf(modifierHashMap));

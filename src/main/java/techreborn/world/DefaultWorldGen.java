@@ -32,11 +32,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.structure.rule.BlockStateMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
@@ -50,12 +48,10 @@ import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.apache.logging.log4j.util.TriConsumer;
-import reborncore.common.util.IdentifiableObject;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.init.TRContent;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -140,7 +136,7 @@ public class DefaultWorldGen {
 
 			Path dir = Paths.get("..\\src\\main\\resources\\data\\techreborn\\techreborn\\features");
 			try {
-				Files.write(dir.resolve(defaultFeature.getIdentifier().getPath() + ".json"), json.getBytes(StandardCharsets.UTF_8));
+				Files.writeString(dir.resolve(defaultFeature.getIdentifier().getPath() + ".json"), json);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

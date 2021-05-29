@@ -37,6 +37,6 @@ public class RollingMachineDisplay extends DefaultShapedDisplay {
 
 	@Override
 	public Identifier getRecipeCategory() {
-		return ModRecipes.ROLLING_MACHINE.getName();
+		return ModRecipes.ROLLING_MACHINE.name();
 	}
 }

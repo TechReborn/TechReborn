@@ -28,9 +28,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import reborncore.common.util.NBTSerializable;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 
 public class IDSUManager extends PersistentState {

@@ -74,7 +74,7 @@ public class TechReborn implements ModInitializer {
 
 		// Done to force the class to load
 		//noinspection ResultOfMethodCallIgnored
-		ModRecipes.GRINDER.getName();
+		ModRecipes.GRINDER.name();
 
 		ClientboundPackets.init();
 		ServerboundPackets.init();

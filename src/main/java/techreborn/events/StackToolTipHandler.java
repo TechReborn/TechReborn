@@ -35,7 +35,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.BaseBlockEntityProvider;
-import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.items.UpgradeItem;
 import techreborn.utils.ToolTipAssistUtils;
@@ -70,8 +69,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			ToolTipAssistUtils.addInfo(item.getTranslationKey(), tooltipLines);
 		}
 
-		if (item instanceof UpgradeItem) {
-			UpgradeItem upgrade = (UpgradeItem) item;
+		if (item instanceof UpgradeItem upgrade) {
 
 			ToolTipAssistUtils.addInfo(item.getTranslationKey(), tooltipLines, false);
 			tooltipLines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));

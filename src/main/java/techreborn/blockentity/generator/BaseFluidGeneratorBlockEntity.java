@@ -105,7 +105,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		}
 
 		if (!tank.getFluidAmount().isEmpty()) {
-			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.getFluid(), tank.getFluid()))
+			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.fluid(), tank.getFluid()))
 				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluid()).orElse(null);
 
 			if (currentRecipe != null) {

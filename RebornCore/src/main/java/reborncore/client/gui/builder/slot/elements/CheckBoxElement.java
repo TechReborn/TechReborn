@@ -41,7 +41,7 @@ public class CheckBoxElement extends ElementBase {
 	private final Sprite.CheckBox checkBoxSprite;
 
 	public CheckBoxElement(Text label, int labelColor, int x, int y, String type, int slotID, Sprite.CheckBox checkBoxSprite, MachineBaseBlockEntity machineBase, Predicate<CheckBoxElement> ticked) {
-		super(x, y, checkBoxSprite.getNormal());
+		super(x, y, checkBoxSprite.normal());
 		this.checkBoxSprite = checkBoxSprite;
 		this.type = type;
 		this.slotID = slotID;
@@ -50,15 +50,15 @@ public class CheckBoxElement extends ElementBase {
 		this.labelColor = labelColor;
 		this.ticked = ticked;
 		if (ticked.test(this)) {
-			container.setSprite(0, checkBoxSprite.getTicked());
+			container.setSprite(0, checkBoxSprite.ticked());
 		} else {
-			container.setSprite(0, checkBoxSprite.getNormal());
+			container.setSprite(0, checkBoxSprite.normal());
 		}
 		this.addPressAction((element, gui, provider, mouseX, mouseY) -> {
 			if (ticked.test(this)) {
-				element.container.setSprite(0, checkBoxSprite.getTicked());
+				element.container.setSprite(0, checkBoxSprite.ticked());
 			} else {
-				element.container.setSprite(0, checkBoxSprite.getNormal());
+				element.container.setSprite(0, checkBoxSprite.normal());
 			}
 			return true;
 		});
@@ -67,12 +67,12 @@ public class CheckBoxElement extends ElementBase {
 	@Override
 	public void draw(MatrixStack matrixStack, GuiBase<?> gui) {
 		//	super.draw(gui);
-		ISprite sprite = checkBoxSprite.getNormal();
+		ISprite sprite = checkBoxSprite.normal();
 		if (ticked.test(this)) {
-			sprite = checkBoxSprite.getTicked();
+			sprite = checkBoxSprite.ticked();
 		}
 		drawSprite(matrixStack, gui, sprite, x, y);
-		drawText(matrixStack, gui, label, x + checkBoxSprite.getNormal().width + 5, ((y + getHeight(gui.getMachine()) / 2) - (gui.getTextRenderer().fontHeight / 2)), labelColor);
+		drawText(matrixStack, gui, label, x + checkBoxSprite.normal().width + 5, ((y + getHeight(gui.getMachine()) / 2) - (gui.getTextRenderer().fontHeight / 2)), labelColor);
 	}
 
 }

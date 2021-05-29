@@ -41,8 +41,7 @@ public class ItemHandlerUtils {
 		if (blockEntity == null) {
 			return;
 		}
-		if (blockEntity instanceof Inventory) {
-			Inventory inventory = (Inventory) blockEntity;
+		if (blockEntity instanceof Inventory inventory) {
 			dropItemHandler(world, pos, inventory);
 		}
 		if (blockEntity instanceof IUpgradeable) {

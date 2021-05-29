@@ -24,18 +24,17 @@
 
 package reborncore.common.crafting;
 
-import java.util.HashMap;
-import java.util.function.Function;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.SimpleRegistry;
 import org.apache.commons.lang3.Validate;
 
-import net.fabricmc.loader.api.FabricLoader;
+import java.util.HashMap;
+import java.util.function.Function;
 
 public final class ConditionManager {
 

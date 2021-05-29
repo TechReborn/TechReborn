@@ -62,16 +62,9 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((direction.getHorizontal() - 2) * 90F));
 		matrices.scale(0.5F, 0.5F, 0.5F);
 		switch (direction) {
-			case NORTH:
-			case WEST:
-				matrices.translate(1, 1, 0);
-				break;
-			case SOUTH:
-				matrices.translate(-1, 1, -2);
-				break;
-			case EAST:
-				matrices.translate(-1, 1, 2);
-				break;
+			case NORTH, WEST -> matrices.translate(1, 1, 0);
+			case SOUTH -> matrices.translate(-1, 1, -2);
+			case EAST -> matrices.translate(-1, 1, 2);
 		}
 		int lightAbove = WorldRenderer.getLightmapCoordinates(storage.getWorld(), storage.getPos().offset(storage.getFacing()));
 		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);

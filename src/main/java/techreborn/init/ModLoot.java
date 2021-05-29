@@ -28,10 +28,10 @@ import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent.Ingots;
 import techreborn.init.TRContent.Parts;
@@ -94,24 +94,21 @@ public class ModLoot {
 
 			if (TechRebornConfig.enableOverworldLoot) {
 				switch (stringId) {
-					case "minecraft:chests/abandoned_mineshaft":
-					case "minecraft:chests/desert_pyramid":
-					case "minecraft:chests/igloo_chest":
-					case "minecraft:chests/jungle_temple":
-					case "minecraft:chests/simple_dungeon":
-					case "minecraft:chests/village/village_weaponsmith":
-					case "minecraft:chests/village/village_armorer":
-					case "minecraft:chests/village/village_toolsmith":
-						supplier.withPool(poolBasic);
-						break;
-					case "minecraft:chests/stronghold_corridor":
-					case "minecraft:chests/stronghold_crossing":
-					case "minecraft:chests/stronghold_library":
-						supplier.withPool(poolAdvanced);
-						break;
-					case "minecraft:chests/woodland_mansion":
-						supplier.withPool(poolIndustrial);
-						break;
+					case "minecraft:chests/abandoned_mineshaft",
+						"minecraft:chests/desert_pyramid",
+						"minecraft:chests/igloo_chest",
+						"minecraft:chests/jungle_temple",
+						"minecraft:chests/simple_dungeon",
+						"minecraft:chests/village/village_weaponsmith",
+						"minecraft:chests/village/village_armorer",
+						"minecraft:chests/village/village_toolsmith"
+							-> supplier.withPool(poolBasic);
+					case "minecraft:chests/stronghold_corridor",
+						"minecraft:chests/stronghold_crossing",
+						"minecraft:chests/stronghold_library"
+							-> supplier.withPool(poolAdvanced);
+					case "minecraft:chests/woodland_mansion"
+							-> supplier.withPool(poolIndustrial);
 				}
 			}
 

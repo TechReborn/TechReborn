@@ -36,9 +36,9 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.Energy;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
@@ -91,11 +91,10 @@ public class ToolsUtil {
 	 * @return Set of BlockPos to process by tool block break logic
 	 */
 	public static Set<BlockPos> getAOEMiningBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving, int radius, boolean placeDummyBlocks) {
-		if (!(entityLiving instanceof PlayerEntity)) {
+		if (!(entityLiving instanceof PlayerEntity playerIn)) {
 			return ImmutableSet.of();
 		}
 		Set<BlockPos> targetBlocks = new HashSet<>();
-		PlayerEntity playerIn = (PlayerEntity) entityLiving;
 
 		if (placeDummyBlocks) {
 			//Put a dirt block down to raytrace with to stop it raytracing past the intended block
@@ -133,30 +132,30 @@ public class ToolsUtil {
 			int maxZ = 0;
 
 			switch (playerDirection) {
-				case SOUTH:
+				case SOUTH -> {
 					minZ = -1;
 					maxZ = 1 + (radius - 1) * 2;
 					minX = -radius;
 					maxX = radius;
-					break;
-				case NORTH:
+				}
+				case NORTH -> {
 					minZ = -1 - (radius - 1) * 2;
 					maxZ = 1;
 					minX = -radius;
 					maxX = radius;
-					break;
-				case WEST:
+				}
+				case WEST -> {
 					minZ = -radius;
 					maxZ = radius;
 					minX = -1 - (radius - 1) * 2;
 					maxX = 1;
-					break;
-				case EAST:
+				}
+				case EAST -> {
 					minZ = -radius;
 					maxZ = radius;
 					minX = -1;
 					maxX = 1 + (radius - 1) * 2;
-					break;
+				}
 			}
 			for (int x = minX; x <= maxX; x++) {
 				for (int z = minZ; z <= maxZ; z++) {

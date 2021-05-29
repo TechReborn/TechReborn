@@ -59,8 +59,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	public void handleGuiInputFromClient(PlayerEntity playerIn) {
-		if (playerIn instanceof ServerPlayerEntity) {
-			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
+		if (playerIn instanceof ServerPlayerEntity player) {
 			int totalExperience = (int) experience;
 			while (totalExperience > 0) {
 				int expToDrop = ExperienceOrbEntity.roundToOrbSize(totalExperience);

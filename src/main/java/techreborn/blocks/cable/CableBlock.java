@@ -54,6 +54,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
@@ -64,8 +65,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.utils.damageSources.ElectrialShockSource;
-
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,20 +105,14 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	public BooleanProperty getProperty(Direction facing) {
-		switch (facing) {
-			case WEST:
-				return WEST;
-			case NORTH:
-				return NORTH;
-			case SOUTH:
-				return SOUTH;
-			case UP:
-				return UP;
-			case DOWN:
-				return DOWN;
-			default:
-				return EAST;
-		}
+		return switch (facing) {
+			case WEST -> WEST;
+			case NORTH -> NORTH;
+			case SOUTH -> SOUTH;
+			case UP -> UP;
+			case DOWN -> DOWN;
+			default -> EAST;
+		};
 	}
 
 	private BlockState makeConnections(World world, BlockPos pos) {
@@ -250,11 +243,10 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		if (blockEntity == null) {
 			return;
 		}
-		if (!(blockEntity instanceof CableBlockEntity)) {
+		if (!(blockEntity instanceof CableBlockEntity blockEntityCable)) {
 			return;
 		}
 
-		CableBlockEntity blockEntityCable = (CableBlockEntity) blockEntity;
 		if (blockEntityCable.getEnergy() <= 0) {
 			return;
 		}

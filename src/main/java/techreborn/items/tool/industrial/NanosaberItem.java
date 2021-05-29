@@ -43,6 +43,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.items.ItemStackModifiers;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
@@ -56,7 +57,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabilityExtensions, ItemStackModifiers {

@@ -86,7 +86,7 @@ public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
 
 	@Override
 	public Identifier getRecipeCategory() {
-		return recipe.getRebornRecipeType().getName();
+		return recipe.getRebornRecipeType().name();
 	}
 
 	@Override

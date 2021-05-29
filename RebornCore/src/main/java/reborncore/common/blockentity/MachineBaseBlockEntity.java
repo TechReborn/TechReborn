@@ -27,8 +27,8 @@ package reborncore.common.blockentity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -36,16 +36,15 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
-import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.IUpgradeable;
@@ -60,8 +59,6 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -210,8 +207,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	public Optional<RebornInventory<?>> getOptionalInventory() {
-		if (this instanceof InventoryProvider) {
-			InventoryProvider inventory = (InventoryProvider) this;
+		if (this instanceof InventoryProvider inventory) {
 			if (inventory.getInventory() == null) {
 				return Optional.empty();
 			}
@@ -221,8 +217,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	protected Optional<RecipeCrafter> getOptionalCrafter() {
-		if (this instanceof IRecipeCrafterProvider) {
-			IRecipeCrafterProvider crafterProvider = (IRecipeCrafterProvider) this;
+		if (this instanceof IRecipeCrafterProvider crafterProvider) {
 			if (crafterProvider.getRecipeCrafter() == null) {
 				return Optional.empty();
 			}

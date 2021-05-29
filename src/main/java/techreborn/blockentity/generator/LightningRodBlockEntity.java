@@ -65,11 +65,9 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 		}
 
 		Block BEBlock = getCachedState().getBlock();
-		if (!(BEBlock instanceof BlockMachineBase)) {
+		if (!(BEBlock instanceof BlockMachineBase machineBaseBlock)) {
 			return;
 		}
-
-		BlockMachineBase machineBaseBlock = (BlockMachineBase) BEBlock;
 
 		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
 			machineBaseBlock.setActive(false, world, pos);

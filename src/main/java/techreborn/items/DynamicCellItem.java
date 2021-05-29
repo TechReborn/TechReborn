@@ -57,14 +57,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.WordUtils;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
-
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by modmuss50 on 17/05/2016.

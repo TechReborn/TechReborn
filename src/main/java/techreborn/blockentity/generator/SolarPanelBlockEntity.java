@@ -82,8 +82,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			return;
 		}
 		Block panelBlock = world.getBlockState(pos).getBlock();
-		if (panelBlock instanceof BlockSolarPanel) {
-			BlockSolarPanel solarPanelBlock = (BlockSolarPanel) panelBlock;
+		if (panelBlock instanceof BlockSolarPanel solarPanelBlock) {
 			panel = solarPanelBlock.panelType;
 		}
 	}
@@ -133,17 +132,11 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	public int getGenerationRate() {
-		int rate = 0;
-
-		switch (getSunState()) {
-			case DAYGEN:
-				rate = getPanel().generationRateD;
-				break;
-			case NIGHTGEN:
-				rate = getPanel().generationRateN;
-		}
-
-		return rate;
+		return switch (getSunState()) {
+			case DAYGEN -> getPanel().generationRateD;
+			case NIGHTGEN -> getPanel().generationRateN;
+			default -> 0;
+		};
 	}
 
 

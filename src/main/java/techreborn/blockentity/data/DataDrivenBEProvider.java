@@ -138,19 +138,19 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 	}
 
 	private int getEnergySlot() {
-		return slots.stream().filter(slot -> slot.getType() == SlotType.ENERGY).findFirst().orElse(null).getId();
+		return slots.stream().filter(slot -> slot.type() == SlotType.ENERGY).findFirst().orElse(null).id();
 	}
 
 	private int countOfSlotType(SlotType type) {
 		return (int) slots.stream()
-				.filter(slot -> slot.getType() == type)
+				.filter(slot -> slot.type() == type)
 				.count();
 	}
 
 	private int[] slotIds(SlotType type) {
 		return slots.stream()
-				.filter(slot -> slot.getType() == type)
-				.mapToInt(DataDrivenSlot::getId)
+				.filter(slot -> slot.type() == type)
+				.mapToInt(DataDrivenSlot::id)
 				.toArray();
 	}
 

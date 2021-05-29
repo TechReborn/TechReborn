@@ -30,7 +30,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.JsonHelper;
-import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.NotNull;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.common.util.serialization.SerializationUtil;
@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class DataDrivenSlot {
+public record DataDrivenSlot(int id, int x, int y, @NotNull SlotType type) {
 
 	public static List<DataDrivenSlot> read(JsonArray jsonArray) {
 		AtomicInteger idCount = new AtomicInteger();
@@ -49,35 +49,6 @@ public class DataDrivenSlot {
 				.collect(Collectors.toList());
 	}
 
-	private final int id;
-	private final int x;
-	private final int y;
-	private final SlotType type;
-
-	public DataDrivenSlot(int id, int x, int y, SlotType type) {
-		this.id = id;
-		this.x = x;
-		this.y = y;
-		this.type = type;
-		Validate.notNull(type);
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public SlotType getType() {
-		return type;
-	}
-
 	public void add(BlockEntityScreenHandlerBuilder inventoryBuilder) {
 		type.getSlotBiConsumer().accept(inventoryBuilder, this);
 	}
@@ -85,10 +56,10 @@ public class DataDrivenSlot {
 	@Environment(EnvType.CLIENT)
 	public void draw(MatrixStack matrixStack, GuiBase<?> guiBase, GuiBase.Layer layer) {
 		//TODO find a better way to do this
-		if (getType() == SlotType.OUTPUT) {
-			guiBase.drawOutputSlot(matrixStack, getX(), getY(), layer);
+		if (type() == SlotType.OUTPUT) {
+			guiBase.drawOutputSlot(matrixStack, x(), y(), layer);
 		} else {
-			guiBase.drawSlot(matrixStack, getX(), getY(), layer);
+			guiBase.drawSlot(matrixStack, x(), y(), layer);
 		}
 	}
 }

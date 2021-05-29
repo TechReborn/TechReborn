@@ -28,11 +28,12 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SlotFilteredVoid extends BaseSlot {
 
-	private final List<ItemStack> filter = new ArrayList<ItemStack>();
+	private final List<ItemStack> filter = new ArrayList<>();
 
 	public SlotFilteredVoid(Inventory itemHandler, int id, int x, int y) {
 		super(itemHandler, id, x, y);
@@ -40,9 +41,7 @@ public class SlotFilteredVoid extends BaseSlot {
 
 	public SlotFilteredVoid(Inventory itemHandler, int id, int x, int y, ItemStack[] filterList) {
 		super(itemHandler, id, x, y);
-		for (ItemStack itemStack : filterList) {
-			this.filter.add(itemStack);
-		}
+		this.filter.addAll(Arrays.asList(filterList));
 	}
 
 	@Override

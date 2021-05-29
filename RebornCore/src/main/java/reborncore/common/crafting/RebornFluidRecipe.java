@@ -30,14 +30,13 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.NotNull;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
-import net.minecraft.util.collection.DefaultedList;
 import reborncore.common.util.Tank;
-
-import org.jetbrains.annotations.NotNull;
 
 public abstract class RebornFluidRecipe extends RebornRecipe {
 

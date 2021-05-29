@@ -180,8 +180,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 * @return the calculated comparator output or 0 if {@code blockEntity} is not a {@code PowerAcceptorBlockEntity}
 	 */
 	public static int calculateComparatorOutputFromEnergy(@Nullable BlockEntity blockEntity) {
-		if (blockEntity instanceof PowerAcceptorBlockEntity) {
-			PowerAcceptorBlockEntity storage = (PowerAcceptorBlockEntity) blockEntity;
+		if (blockEntity instanceof PowerAcceptorBlockEntity storage) {
 			return MathHelper.ceil(storage.getStored(EnergySide.UNKNOWN) * 15.0 / storage.getMaxStoredPower());
 		} else {
 			return 0;

@@ -85,10 +85,9 @@ public class IndustrialDrillItem extends DrillItem {
 		if (!ItemUtils.isActive(stack)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
-		if (!(entityLiving instanceof PlayerEntity)) {
+		if (!(entityLiving instanceof PlayerEntity playerIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
-		PlayerEntity playerIn = (PlayerEntity) entityLiving;
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1)) {
 			if (shouldBreak(playerIn, worldIn, pos, additionalPos)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);

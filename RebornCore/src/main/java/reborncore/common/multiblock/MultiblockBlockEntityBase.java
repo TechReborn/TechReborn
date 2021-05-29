@@ -26,10 +26,10 @@ package reborncore.common.multiblock;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
@@ -79,7 +79,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 				}
 
 				if (controllers == null) {
-					controllers = new HashSet<MultiblockControllerBase>();
+					controllers = new HashSet<>();
 					bestController = candidate;
 				} else if (!controllers.contains(candidate) && candidate.shouldConsume(bestController)) {
 					bestController = candidate;
@@ -313,7 +313,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	@Override
 	public IMultiblockPart[] getNeighboringParts() {
 		BlockEntity te;
-		List<IMultiblockPart> neighborParts = new ArrayList<IMultiblockPart>();
+		List<IMultiblockPart> neighborParts = new ArrayList<>();
 		BlockPos neighborPosition, partPosition = this.getWorldLocation();
 
 		for (Direction facing : Direction.values()) {
@@ -326,7 +326,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 			}
 		}
 
-		return neighborParts.toArray(new IMultiblockPart[neighborParts.size()]);
+		return neighborParts.toArray(new IMultiblockPart[0]);
 	}
 
 	@Override

@@ -49,7 +49,9 @@ import reborncore.mixin.ifaces.ServerPlayerEntityScreenHandler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class BuiltScreenHandler extends ScreenHandler {
 	private static final Logger LOGGER = LogManager.getLogger();

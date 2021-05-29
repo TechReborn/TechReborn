@@ -64,7 +64,7 @@ public class NetworkManager {
 
 
 	public static void sendToServer(IdentifiedPacket packet) {
-		ClientPlayNetworking.send(packet.getChannel(), packet.getPacketByteBuf());
+		ClientPlayNetworking.send(packet.channel(), packet.packetByteBuf());
 	}
 
 	public static void sendToAll(IdentifiedPacket packet, MinecraftServer server) {
@@ -86,7 +86,7 @@ public class NetworkManager {
 
 	public static void send(IdentifiedPacket packet, Collection<ServerPlayerEntity> players) {
 		for (ServerPlayerEntity player : players) {
-			ServerPlayNetworking.send(player, packet.getChannel(), packet.getPacketByteBuf());
+			ServerPlayNetworking.send(player, packet.channel(), packet.packetByteBuf());
 		}
 	}
 

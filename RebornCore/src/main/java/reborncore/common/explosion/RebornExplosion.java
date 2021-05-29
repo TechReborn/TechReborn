@@ -32,10 +32,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.apache.commons.lang3.time.StopWatch;
-import reborncore.RebornCore;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import reborncore.RebornCore;
+
 import java.util.ArrayList;
 import java.util.List;
 

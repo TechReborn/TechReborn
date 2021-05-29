@@ -105,6 +105,6 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 
 	@Override
 	public Identifier getRecipeCategory() {
-		return recipe.getRebornRecipeType().getName();
+		return recipe.getRebornRecipeType().name();
 	}
 }

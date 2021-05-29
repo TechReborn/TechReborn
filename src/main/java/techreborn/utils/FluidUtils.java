@@ -64,12 +64,11 @@ public class FluidUtils {
 		ItemStack outputStack = inventory.getStack(outputSlot);
 
 		if (inputStack.isEmpty()) return false;
-		if (!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
+		if (!(inputStack.getItem() instanceof ItemFluidInfo itemFluidInfo)) return false;
 		if (FluidUtils.isContainerEmpty(inputStack)) return false;
 		if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
 		if (!outputStack.isEmpty() && !FluidUtils.isContainerEmpty(outputStack)) return false;
 
-		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) inputStack.getItem();
 		if (!outputStack.isEmpty() && !outputStack.isItemEqual(itemFluidInfo.getEmpty())) return false;
 
 		FluidInstance tankFluidInstance = tank.getFluidInstance(null);
@@ -109,10 +108,8 @@ public class FluidUtils {
 
 		if (!outputStack.isEmpty()) {
 			if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
-			if (!(outputStack.getItem() instanceof ItemFluidInfo)) return false;
+			if (!(outputStack.getItem() instanceof ItemFluidInfo outputFluidInfo)) return false;
 			if (!outputStack.isItemEqual(itemFluidInfo.getEmpty())) return false;
-
-			ItemFluidInfo outputFluidInfo = (ItemFluidInfo) outputStack.getItem();
 
 			if (outputFluidInfo.getFluid(outputStack) != sourceFluid.getFluid()) {
 				return false;
@@ -138,9 +135,9 @@ public class FluidUtils {
 	public static boolean isContainerEmpty(ItemStack stack) {
 		if (stack.isEmpty())
 			return false;
-		if (!(stack.getItem() instanceof ItemFluidInfo))
-			return false;
-		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) stack.getItem();
-		return itemFluidInfo.getFluid(stack) == Fluids.EMPTY;
+		if (stack.getItem() instanceof ItemFluidInfo itemFluidInfo)
+			return itemFluidInfo.getFluid(stack) == Fluids.EMPTY;
+
+		return false;
 	}
 }

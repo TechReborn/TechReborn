@@ -27,6 +27,7 @@ package techreborn.blockentity.cable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -36,7 +37,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -180,9 +180,7 @@ public class CableBlockEntity extends BlockEntity
 				continue;
 			}
 
-			if (blockEntity instanceof CableBlockEntity) {
-				CableBlockEntity cableBlockEntity = (CableBlockEntity) blockEntity;
-
+			if (blockEntity instanceof CableBlockEntity cableBlockEntity) {
 				if (cableBlockEntity.getTier() != this.getTier()) {
 					continue;
 				}

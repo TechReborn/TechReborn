@@ -35,7 +35,6 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.network.Packet;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
@@ -159,18 +158,11 @@ public class SlotConfigPopupElement extends ElementBase {
 			return;
 		}
 		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(side);
-		Color color;
-		switch (slotConfig.getSlotIO().getIoConfig()) {
-			case INPUT:
-				color = new Color(0, 0, 255, 128);
-				break;
-			case OUTPUT:
-				color = new Color(255, 69, 0, 128);
-				break;
-			default:
-				color = new Color(0, 0, 0, 0);
-				break;
-		}
+		Color color = switch (slotConfig.getSlotIO().getIoConfig()) {
+			case INPUT -> new Color(0, 0, 255, 128);
+			case OUTPUT -> new Color(255, 69, 0, 128);
+			default -> new Color(0, 0, 0, 0);
+		};
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		GuiUtil.drawGradientRect(matrices, sx, sy, 18, 18, color.getColor(), color.getColor());
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

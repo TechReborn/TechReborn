@@ -28,40 +28,24 @@ import net.minecraft.util.math.Direction;
 
 public class Functions {
 	public static int getIntDirFromDirection(Direction dir) {
-		switch (dir) {
-			case DOWN:
-				return 0;
-			case EAST:
-				return 5;
-			case NORTH:
-				return 2;
-			case SOUTH:
-				return 3;
-			case UP:
-				return 1;
-			case WEST:
-				return 4;
-			default:
-				return 0;
-		}
+		return switch (dir) {
+			case DOWN -> 0;
+			case EAST -> 5;
+			case NORTH -> 2;
+			case SOUTH -> 3;
+			case UP -> 1;
+			case WEST -> 4;
+		};
 	}
 
 	public static Direction getDirectionFromInt(int dir) {
-		int metaDataToSet = 0;
-		switch (dir) {
-			case 0:
-				metaDataToSet = 2;
-				break;
-			case 1:
-				metaDataToSet = 4;
-				break;
-			case 2:
-				metaDataToSet = 3;
-				break;
-			case 3:
-				metaDataToSet = 5;
-				break;
-		}
+		int metaDataToSet = switch (dir) {
+			case 0 -> 2;
+			case 1 -> 4;
+			case 2 -> 3;
+			case 3 -> 5;
+			default -> 0;
+		};
 		return Direction.byId(metaDataToSet);
 	}
 }

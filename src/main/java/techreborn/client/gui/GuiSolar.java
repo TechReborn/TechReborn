@@ -49,15 +49,9 @@ public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 		builder.drawMultiEnergyBar(matrixStack, this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 
 		switch (blockEntity.getSunState()) {
-			case SolarPanelBlockEntity.DAYGEN:
-				builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.daygen"), 10, 20, 15129632);
-				break;
-			case SolarPanelBlockEntity.NIGHTGEN:
-				builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.nightgen"), 10, 20, 7566195);
-				break;
-			case SolarPanelBlockEntity.ZEROGEN:
-				builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.zerogen"), 10, 20, 12066591);
-				break;
+			case SolarPanelBlockEntity.DAYGEN -> builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.daygen"), 10, 20, 15129632);
+			case SolarPanelBlockEntity.NIGHTGEN -> builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.nightgen"), 10, 20, 7566195);
+			case SolarPanelBlockEntity.ZEROGEN -> builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.zerogen"), 10, 20, 12066591);
 		}
 
 		builder.drawText(matrixStack, this, new LiteralText("Generating: " + blockEntity.getGenerationRate() + " E/t"), 10, 30, 0);

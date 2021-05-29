@@ -122,8 +122,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 	public void updateState() {
 		final BlockState BlockStateContainer = world.getBlockState(pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
+		if (BlockStateContainer.getBlock() instanceof final BlockMachineBase blockMachineBase) {
 			boolean active = burnTime > 0 && getFreeSpace() > 0.0f;
 			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != active) {
 				blockMachineBase.setActive(active, world, pos);
