@@ -50,7 +50,7 @@ public class RebornCoreClient implements ClientModInitializer {
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
 
 		/* register UnloadHandler */
-		ClientBlockEntityEvents.BLOCK_ENTITY_LOAD.register((blockEntity, world) -> {
+		ClientBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {
 			if (blockEntity instanceof UnloadHandler) ((UnloadHandler) blockEntity).onUnload();
 		});
 	}

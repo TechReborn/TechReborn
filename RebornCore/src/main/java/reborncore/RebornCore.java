@@ -109,7 +109,7 @@ public class RebornCore implements ModInitializer {
 		RebornCoreTags.WATER_EXPLOSION_ITEM.toString();
 		
 		/* register UnloadHandler */
-		ServerBlockEntityEvents.BLOCK_ENTITY_LOAD.register((blockEntity, world) -> {
+		ServerBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {
 			if (blockEntity instanceof UnloadHandler) ((UnloadHandler) blockEntity).onUnload();
 		});
 

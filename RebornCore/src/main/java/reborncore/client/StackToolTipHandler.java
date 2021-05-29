@@ -71,7 +71,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			tooltipLines.add(1, line1);
 
 			if (Screen.hasShiftDown()) {
-				int percentage = percentage(Energy.of(itemStack).getMaxStored(), Energy.of(itemStack).getEnergy());
+				int percentage = percentage(Energy.of(itemStack).getEnergy(), Energy.of(itemStack).getMaxStored());
 				MutableText line2  = StringUtils.getPercentageText(percentage);
 				line2.append(" ");
 				line2.formatted(Formatting.GRAY);
