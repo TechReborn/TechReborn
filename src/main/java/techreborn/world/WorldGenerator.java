@@ -67,17 +67,19 @@ public class WorldGenerator {
 //		DefaultWorldGen.export();
 
 		worldGenObseravable.listen(WorldGenerator::applyToActiveRegistry);
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new WorldGenConfigReloader());
+
+
+		// FIXME 1.17 datadriven worldgen, for now we just use the default
+		//ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new WorldGenConfigReloader());
+		worldGenObseravable.pushB(DefaultWorldGen.getDefaultFeatures());
+
+
 		DynamicRegistrySetupCallback.EVENT.register(registryManager -> {
 			worldGenObseravable.pushA(registryManager.getMutable(BuiltinRegistries.CONFIGURED_FEATURE.getKey()));
 		});
 
-		BiomeModifications.create(new Identifier("techreborn", "features")).add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), (biomeSelectionContext, biomeModificationContext) -> {
-			if (!worldGenObseravable.hasBoth()) {
-				LOGGER.warn("TR world gen not ready for biome modification");
-				return;
-			}
-
+		BiomeModifications.create(new Identifier("techreborn", "features")).add(ModificationPhase.ADDITIONS, BiomeSelectors.all(),
+				(biomeSelectionContext, biomeModificationContext) -> {
 			for (DataDrivenFeature feature : worldGenObseravable.getB()) {
 				if (feature.getBiomeSelector().test(biomeSelectionContext)) {
 					biomeModificationContext.getGenerationSettings().addFeature(feature.getGenerationStep(), feature.getRegistryKey());

@@ -35,6 +35,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -62,7 +63,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class DefaultWorldGen {
 
@@ -88,7 +88,7 @@ public class DefaultWorldGen {
 			new StraightTrunkPlacer(6, 3, 0),
 			new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
 			new SimpleBlockStateProvider(TRContent.RUBBER_SAPLING.getDefaultState()),
-			new RubberTreeFeature.FoliagePlacer(UniformIntProvider.create(2, 0), UniformIntProvider.create(0, 0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
+			new RubberTreeFeature.FoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
 			new TwoLayersFeatureSize(1, 0, 1)
 		).build();
 
@@ -123,7 +123,7 @@ public class DefaultWorldGen {
 
 
 		features.add(new DataDrivenFeature(
-			new Identifier("techreborn", "rubber_tree"),
+			RubberSaplingGenerator.IDENTIFIER,
 			BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA, Biome.Category.SWAMP),
 			getRubberTree(),
 			GenerationStep.Feature.VEGETAL_DECORATION
