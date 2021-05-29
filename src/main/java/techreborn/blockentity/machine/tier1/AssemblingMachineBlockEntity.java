@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -38,8 +40,8 @@ import techreborn.init.TRContent;
 
 public class AssemblingMachineBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public AssemblingMachineBlockEntity() {
-		super(TRBlockEntities.ASSEMBLY_MACHINE, "AssemblingMachine", TechRebornConfig.assemblingMachineMaxInput, TechRebornConfig.assemblingMachineMaxEnergy, TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
+	public AssemblingMachineBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.ASSEMBLY_MACHINE, pos, state, "AssemblingMachine", TechRebornConfig.assemblingMachineMaxInput, TechRebornConfig.assemblingMachineMaxEnergy, TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "AssemblingMachineBlockEntity", 64, this);
@@ -49,7 +51,7 @@ public class AssemblingMachineBlockEntity extends GenericMachineBlockEntity impl
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("assemblingmachine").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("assemblingmachine").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 55, 35).slot(1, 55, 55).outputSlot(2, 101, 45).energySlot(3, 8, 72)
 				.syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}

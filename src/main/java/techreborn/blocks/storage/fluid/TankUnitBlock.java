@@ -35,7 +35,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
@@ -59,8 +58,8 @@ public class TankUnitBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TankUnitBaseBlockEntity(unitType);
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new TankUnitBaseBlockEntity(pos, state, unitType);
 	}
 
 	@Override
@@ -114,7 +113,7 @@ public class TankUnitBlock extends BlockMachineBase {
 							selectedStack.increment(1);
 							didInsert = true;
 						}else {
-							didInsert = playerIn.inventory.insertStack(item);
+							didInsert = playerIn.getInventory().insertStack(item);
 						}
 
 

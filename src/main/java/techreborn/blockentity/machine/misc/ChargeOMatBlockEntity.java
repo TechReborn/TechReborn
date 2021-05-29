@@ -24,13 +24,17 @@
 
 package techreborn.blockentity.machine.misc;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.EnergySide;
@@ -43,14 +47,14 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	public RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this);
 
-	public ChargeOMatBlockEntity() {
-		super(TRBlockEntities.CHARGE_O_MAT);
+	public ChargeOMatBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.CHARGE_O_MAT, pos, state);
 	}
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null || world.isClient) {
 			return;
@@ -102,7 +106,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("chargebench").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
 				.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create(this, syncID);
 	}

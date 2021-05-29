@@ -57,7 +57,7 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 	protected final float unpoweredSpeed = 0.5F;
 
 	public JackhammerItem(int energyCapacity, EnergyTier tier, int cost) {
-		super(ToolMaterials.DIAMOND, (int) ToolMaterials.DIAMOND.getAttackDamage(), 1F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(ToolMaterials.DIAMOND, (int) ToolMaterials.DIAMOND.getAttackDamage(), 1F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -111,11 +111,6 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 	}
 
 	// Item
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;

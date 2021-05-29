@@ -25,12 +25,14 @@
 package techreborn.blockentity.transformers;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -57,8 +59,8 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements 
 	public int maxOutput;
 	public int maxStorage;
 
-	public TransformerBlockEntity(BlockEntityType<?> blockEntityType, String name, Block wrenchDrop, EnergyTier tier) {
-		super(blockEntityType);
+	public TransformerBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, String name, Block wrenchDrop, EnergyTier tier) {
+		super(blockEntityType, pos, state);
 		this.wrenchDrop = wrenchDrop;
 		this.inputTier = tier;
 		if (tier != EnergyTier.MICRO) {

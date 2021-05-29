@@ -5,7 +5,7 @@
 	"heat": 1000,
 	"ingredients": [
 		{
-			"tag": "c:iron_ores"
+			"item": "minecraft:iron_ore"
 		},
 		{
 			"fluid": "techreborn:calcium_carbonate",

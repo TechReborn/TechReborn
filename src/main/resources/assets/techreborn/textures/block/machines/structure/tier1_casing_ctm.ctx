@@ -1,0 +1,7 @@
+{
+	"type":"CTMH",
+	"textures":[
+        "./tier1_casing",
+        "./tier1_casing_ctmh"
+    ]
+}

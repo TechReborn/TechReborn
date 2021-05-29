@@ -49,12 +49,12 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 
 	public void init() {
 		super.init();
-		addButton(new GuiButtonUpDown(x + 64, y + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
-		addButton(new GuiButtonUpDown(x + 64 + 12, y + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
-		addButton(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
-		addButton(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 64, y + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 64 + 12, y + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
 
-		addButton(new GuiButtonSimple(x + 10, y + 70, 155, 20, new LiteralText("Toggle Loaded Chunks"), b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
+		addDrawableChild(new GuiButtonSimple(x + 10, y + 70, 155, 20, new LiteralText("Toggle Loaded Chunks"), b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
 	}
 
 	@Override

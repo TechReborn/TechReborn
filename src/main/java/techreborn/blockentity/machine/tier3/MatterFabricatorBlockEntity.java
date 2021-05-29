@@ -24,13 +24,17 @@
 
 package techreborn.blockentity.machine.tier3;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
@@ -45,8 +49,8 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<MatterFabricatorBlockEntity> inventory = new RebornInventory<>(12, "MatterFabricatorBlockEntity", 64, this);
 	private int amplifier = 0;
 
-	public MatterFabricatorBlockEntity() {
-		super(TRBlockEntities.MATTER_FABRICATOR);
+	public MatterFabricatorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.MATTER_FABRICATOR, pos, state);
 	}
 
 	private boolean spaceForOutput() {
@@ -121,8 +125,8 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 	// TilePowerAcceptor
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world.isClient) {
 			return;
@@ -191,7 +195,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("matterfabricator").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("matterfabricator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20).slot(4, 110, 20)
 				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
 				.outputSlot(9, 100, 66).outputSlot(10, 120, 66).energySlot(11, 8, 72).syncEnergyValue()

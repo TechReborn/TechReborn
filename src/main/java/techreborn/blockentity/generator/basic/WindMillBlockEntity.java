@@ -24,9 +24,13 @@
 
 package techreborn.blockentity.generator.basic;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
@@ -42,13 +46,13 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	public float bladeAngle;
 	public float spinSpeed;
 
-	public WindMillBlockEntity() {
-		super(TRBlockEntities.WIND_MILL);
+	public WindMillBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.WIND_MILL, pos, state);
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null) {
 			return;

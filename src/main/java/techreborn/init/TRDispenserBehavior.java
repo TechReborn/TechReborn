@@ -40,6 +40,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.WorldAccess;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.fluid.container.ItemFluidInfo;
+import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.DynamicCellItem;
 
@@ -78,7 +80,13 @@ public class TRDispenserBehavior {
 				if (cell.getFluid(stack) == Fluids.EMPTY) {
 					// fill cell
 					if (block instanceof FluidDrainable) {
-						Fluid fluid = ((FluidDrainable) block).tryDrainFluid(iWorld, blockPos, blockState);
+						ItemStack fluidContainer = ((FluidDrainable) block).tryDrainFluid(iWorld, blockPos, blockState);
+						Fluid fluid = null;
+						if (fluidContainer.getItem() instanceof ItemFluidInfo) {
+							fluid = ((ItemFluidInfo) fluidContainer.getItem()).getFluid(fluidContainer);
+						} else {
+							TechReborn.LOGGER.debug("Could not get Fluid from ItemStack " + fluidContainer.getItem());
+						}
 						if (!(fluid instanceof FlowableFluid)) {
 							return super.dispenseSilently(pointer, stack);
 						} else {

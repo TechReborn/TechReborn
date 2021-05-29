@@ -404,7 +404,7 @@ public class ReiPlugin implements REIPluginV0 {
 			final int iconHeight = sprite.getHeight();
 			int offsetHeight = drawHeight;
 
-			RenderSystem.color3f((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F);
+			RenderSystem.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
 
 			int iteration = 0;
 			while (offsetHeight != 0) {

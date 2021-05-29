@@ -25,6 +25,7 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,6 +49,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 
 	IronFurnaceBlockEntity blockEntity;
 
+
 	public GuiIronFurnace(int syncID, PlayerEntity player, IronFurnaceBlockEntity furnace) {
 		super(player, furnace, furnace.createScreenHandler(syncID, player));
 		this.blockEntity = furnace;
@@ -60,14 +62,11 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public void init() {
 		super.init();
-		addButton(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, LiteralText.EMPTY, b -> onClick()) {
+		addSelectableChild(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, LiteralText.EMPTY, b -> onClick()) {
 
 			@Override
 			public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
-				PlayerEntity player = playerInventory.player;
-				if (player == null) {
-					return;
-				}
+				PlayerEntity player = MinecraftClient.getInstance().player;
 				String message = "Experience: ";
 
 				float furnaceExp = blockEntity.experience;
@@ -94,14 +93,13 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 				List<Text> list = new ArrayList<>();
 				list.add(new LiteralText(message));
 				renderTooltip(matrixStack, list, mouseX, mouseY);
-				GlStateManager.disableLighting();
-				GlStateManager.color4f(1, 1, 1, 1);
+				RenderSystem.setShaderColor(1, 1, 1, 1);
 
 			}
 
 			@Override
-			public void renderBackground(MatrixStack matrixStack, MinecraftClient mc, int mouseX, int mouseY) {
-				mc.getItemRenderer().renderInGuiWithOverrides(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
+			protected void renderBackground(MatrixStack matrices, MinecraftClient client, int mouseX, int mouseY) {
+				client.getItemRenderer().renderInGuiWithOverrides(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
 			}
 		});
 	}

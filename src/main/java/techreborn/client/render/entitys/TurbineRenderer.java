@@ -30,20 +30,23 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 
-public class TurbineRenderer extends BlockEntityRenderer<WindMillBlockEntity> {
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+
+public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity> {
 	private static final TurbineModel MODEL = new TurbineModel();
 	public static final Identifier TEXTURE = new Identifier("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
-
-	public TurbineRenderer(BlockEntityRenderDispatcher dispatcher) {
-		super(dispatcher);
+	
+	public TurbineRenderer(BlockEntityRendererFactory.Context ctx) {
 	}
 
 	@Override
@@ -71,33 +74,40 @@ public class TurbineRenderer extends BlockEntityRenderer<WindMillBlockEntity> {
 
 		public TurbineModel() {
 			super(RenderLayer::getEntityCutoutNoCull);
-			textureWidth = 64;
-			textureHeight = 64;
 
-			base = new ModelPart(this);
+			ModelPart.Cuboid[] baseCuboids = {
+					new ModelPart.Cuboid(0, 0, -2.0F, -2.0F, -1.0F, 4F, 4F, 2F, 0F, 0F, 0F, false, 64F, 64F),
+					new ModelPart.Cuboid(0, 6, -1.0F, -1.0F, -2.0F, 2F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F)
+			};
 
+			base = new ModelPart(Arrays.asList(baseCuboids), new HashMap<String, ModelPart>() {
+				{
+					ModelPart.Cuboid[] blade1Cuboids = {
+							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F)
+					};
+					ModelPart blade1 = new ModelPart(Arrays.asList(blade1Cuboids) , Collections.emptyMap());
+					blade1.setPivot(0.0F, 0.0F, 0.0F);
+					setRotation(blade1, -0.5236F, 0.0F, 0.0F);
+					put("blade1", blade1);
+
+					ModelPart.Cuboid[] blade2Cuboids = {
+							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F)
+					};
+					ModelPart blade2 = new ModelPart(Arrays.asList(blade2Cuboids) , Collections.emptyMap());
+					blade2.setPivot(0.0F, 0.0F, 0.0F);
+					setRotation(blade2, -0.5236F, 0.0F, 2.0944F);
+					put("blade2", blade2);
+
+					ModelPart.Cuboid[] blade3Cuboids = {
+							new ModelPart.Cuboid(0, 9, -24.0F, -2.0F, -1.075F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F)
+					};
+					ModelPart blade3 = new ModelPart(Arrays.asList(blade3Cuboids) , Collections.emptyMap());
+					blade3.setPivot(0.0F, 0.0F, 0.0F);
+					setRotation(blade3, -0.5236F, 0.0F, -2.0944F);
+					put("blade3", blade3);
+				}
+			});
 			base.setPivot(0.0F, 24.0F, 0.0F);
-			base.addCuboid(null, -2.0F, -2.0F, -1.0F, 4, 4, 2, 0.0F, 0, 0);
-			base.addCuboid(null, -1.0F, -1.0F, -2.0F, 2, 2, 1, 0.0F, 0, 6);
-
-			ModelPart blade1 = new ModelPart(this);
-			blade1.setPivot(0.0F, 0.0F, 0.0F);
-			setRotation(blade1, -0.5236F, 0.0F, 0.0F);
-			blade1.addCuboid(null, -24.0F, -1.0F, -0.5F, 24, 2, 1, 0.0F, 0, 9);
-
-			ModelPart blade2 = new ModelPart(this);
-			blade2.setPivot(0.0F, 0.0F, 0.0F);
-			setRotation(blade2, -0.5236F, 0.0F, 2.0944F);
-			blade2.addCuboid(null, -24.0F, -1.0F, -0.5F, 24, 2, 1, 0.0F, 0, 9);
-
-			ModelPart blade3 = new ModelPart(this);
-			blade3.setPivot(0.0F, 0.0F, 0.0F);
-			setRotation(blade3, -0.5236F, 0.0F, -2.0944F);
-			blade3.addCuboid(null, -24.0F, -2.0F, -1.075F, 24, 2, 1, 0.0F, 0, 9);
-
-			base.addChild(blade1);
-			base.addChild(blade2);
-			base.addChild(blade3);
 		}
 
 		private void setRotation(ModelPart model, float x, float y, float z) {

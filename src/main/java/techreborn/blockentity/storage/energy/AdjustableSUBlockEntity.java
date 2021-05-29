@@ -28,10 +28,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
@@ -45,8 +48,8 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	private int OUTPUT = 64; // The current output
 	public int superconductors = 0;
 
-	public AdjustableSUBlockEntity() {
-		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
+	public AdjustableSUBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.ADJUSTABLE_SU, pos, state, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
 	}
 
 	public int getMaxConfigOutput() {
@@ -86,8 +89,8 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	// EnergyStorageBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null) {
 			return;
 		}
@@ -144,8 +147,8 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound nbttagcompound) {
-		super.readNbt(blockState, nbttagcompound);
+	public void readNbt(NbtCompound nbttagcompound) {
+		super.readNbt(nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInt("output");
 	}
 
@@ -158,7 +161,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
+		return new ScreenHandlerBuilder("aesu").player(player.getInventory()).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().sync(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this, syncID);
 	}

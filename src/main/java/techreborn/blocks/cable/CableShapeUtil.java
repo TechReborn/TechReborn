@@ -62,7 +62,7 @@ public final class CableShapeUtil {
 				double z = dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
 				double y = dir == Direction.DOWN ? 0 : dir == Direction.UP ? 16D : size;
 
-				VoxelShape shape = Block.createCuboidShape(x, y, z, 16.0D - size, 16.0D - size, 16.0D - size);
+				VoxelShape shape = VoxelShapes.cuboidUnchecked(x, y, z, 16.0D - size, 16.0D - size, 16.0D - size);
 				connections.add(shape);
 			}
 		}

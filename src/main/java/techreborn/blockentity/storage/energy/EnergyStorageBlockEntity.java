@@ -25,12 +25,16 @@
 package techreborn.blockentity.storage.energy;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.EnergySide;
@@ -50,8 +54,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 	public int maxOutput;
 	public int maxStorage;
 
-	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, String name, int invSize, Block wrenchDrop, EnergyTier tier, int maxStorage) {
-		super(blockEntityType);
+	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, String name, int invSize, Block wrenchDrop, EnergyTier tier, int maxStorage) {
+		super(blockEntityType, pos, state);
 		inventory = new RebornInventory<>(invSize, name + "BlockEntity", 64, this);
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;
@@ -65,8 +69,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null) {
 			return;
 		}

@@ -32,9 +32,11 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
@@ -65,8 +67,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	boolean checkNBTRecipe = false;
 	long lastTick = -1;
 
-	public FusionControlComputerBlockEntity() {
-		super(TRBlockEntities.FUSION_CONTROL_COMPUTER, "FusionControlComputer", -1, -1, TRContent.Machine.FUSION_CONTROL_COMPUTER.block, -1);
+	public FusionControlComputerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.FUSION_CONTROL_COMPUTER, pos, state, "FusionControlComputer", -1, -1, TRContent.Machine.FUSION_CONTROL_COMPUTER.block, -1);
 		checkOverfill = false;
 		this.inventory = new RebornInventory<>(3, "FusionControlComputerBlockEntity", 64, this);
 	}
@@ -249,8 +251,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null || world.isClient) {
 			return;
@@ -352,8 +354,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, final NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void readNbt(final NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
@@ -399,7 +401,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("fusionreactor").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
 				.sync(this::getCraftingTickTime, this::setCraftingTickTime)
 				.sync(this::getSize, this::setSize)

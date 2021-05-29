@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.energy.lesu;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -40,8 +41,8 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 
 	public LesuNetwork network;
 
-	public LSUStorageBlockEntity() {
-		super(TRBlockEntities.LSU_STORAGE);
+	public LSUStorageBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.LSU_STORAGE, pos, state);
 	}
 
 	public final void findAndJoinNetwork(World world, BlockPos pos) {
@@ -86,8 +87,8 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 
 	// TileMachineBase
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (network == null) {
 			findAndJoinNetwork(world, pos);
 		} else {

@@ -56,10 +56,10 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public void init() {
 		super.init();
-		addButton(new GuiButtonUpDown(x + 121, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
-		addButton(new GuiButtonUpDown(x + 121 + 12, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
-		addButton(new GuiButtonUpDown(x + 121 + 24, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.REWIND));
-		addButton(new GuiButtonUpDown(x + 121 + 36, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1), UpDownButtonType.FASTREWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 121, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 121 + 12, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 121 + 24, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.REWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 121 + 36, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1), UpDownButtonType.FASTREWIND));
 	}
 
 	@Override

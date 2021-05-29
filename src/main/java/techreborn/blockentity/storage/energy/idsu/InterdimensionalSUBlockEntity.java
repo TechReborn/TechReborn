@@ -27,6 +27,7 @@ package techreborn.blockentity.storage.energy.idsu;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.StringUtils;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -45,8 +46,8 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	//This is the energy value that is synced to the client
 	private double clientEnergy;
 
-	public InterdimensionalSUBlockEntity() {
-		super(TRBlockEntities.INTERDIMENSIONAL_SU, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnergyTier.INSANE, TechRebornConfig.idsuMaxEnergy);
+	public InterdimensionalSUBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.INTERDIMENSIONAL_SU, pos, state, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnergyTier.INSANE, TechRebornConfig.idsuMaxEnergy);
 	}
 
 	@Override
@@ -96,8 +97,8 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound nbttagcompound) {
-		super.readNbt(blockState, nbttagcompound);
+	public void readNbt(NbtCompound nbttagcompound) {
+		super.readNbt(nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 
@@ -113,7 +114,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
+		return new ScreenHandlerBuilder("idsu").player(player.getInventory()).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().addInventory().create(this, syncID);
 	}

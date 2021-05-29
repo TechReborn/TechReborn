@@ -25,15 +25,19 @@
 package techreborn.blockentity.machine.tier1;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
@@ -59,8 +63,8 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	// Energy cost per tick of cooking
 	final int EnergyPerTick = 1;
 
-	public ElectricFurnaceBlockEntity() {
-		super(TRBlockEntities.ELECTRIC_FURNACE);
+	public ElectricFurnaceBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.ELECTRIC_FURNACE, pos, state);
 	}
 
 	private void setInvDirty(boolean isDirty) {
@@ -189,8 +193,8 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	// TilePowerAcceptor
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		charge(2);
 
 		if (world == null || world.isClient) {
@@ -265,7 +269,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("electricfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.sync(this::getCookTime, this::setCookTime).sync(this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
 	}

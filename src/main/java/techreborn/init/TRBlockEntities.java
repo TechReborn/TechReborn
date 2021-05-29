@@ -24,11 +24,14 @@
 
 package techreborn.init;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
 import techreborn.TechReborn;
@@ -69,6 +72,7 @@ import techreborn.blockentity.transformers.MVTransformerBlockEntity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class TRBlockEntities {
@@ -136,16 +140,16 @@ public class TRBlockEntities {
 	public static final BlockEntityType<WireMillBlockEntity> WIRE_MILL = register(WireMillBlockEntity::new, "wire_mill", TRContent.Machine.WIRE_MILL);
 	public static final BlockEntityType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register(GreenhouseControllerBlockEntity::new, "greenhouse_controller", TRContent.Machine.GREENHOUSE_CONTROLLER);
 
-	public static <T extends BlockEntity> BlockEntityType<T> register(Supplier<T> supplier, String name, ItemConvertible... items) {
+	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, ItemConvertible... items) {
 		return register(supplier, name, Arrays.stream(items).map(itemConvertible -> Block.getBlockFromItem(itemConvertible.asItem())).toArray(Block[]::new));
 	}
 
-	public static <T extends BlockEntity> BlockEntityType<T> register(Supplier<T> supplier, String name, Block... blocks) {
+	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, Block... blocks) {
 		Validate.isTrue(blocks.length > 0, "no blocks for blockEntity entity type!");
-		return register(new Identifier(TechReborn.MOD_ID, name).toString(), BlockEntityType.Builder.create(supplier, blocks));
+		return register(new Identifier(TechReborn.MOD_ID, name).toString(), FabricBlockEntityTypeBuilder.create((pos, state) -> supplier.apply(pos, state), blocks));
 	}
 
-	public static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType.Builder<T> builder) {
+	public static <T extends BlockEntity> BlockEntityType<T> register(String id, FabricBlockEntityTypeBuilder<T> builder) {
 		BlockEntityType<T> blockEntityType = builder.build(null);
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(id), blockEntityType);
 		TRBlockEntities.TYPES.add(blockEntityType);

@@ -32,6 +32,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
@@ -43,7 +45,6 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.FluidValue;
-import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
@@ -54,24 +55,22 @@ import java.util.List;
 
 public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 	protected Tank tank;
-	private int serverMaxCapacity = -1;
-
 	protected RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(2, "TankInventory", 64, this);
 
 	private TRContent.TankUnit type;
 
-	public TankUnitBaseBlockEntity() {
-		super(TRBlockEntities.TANK_UNIT);
+	public TankUnitBaseBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.TANK_UNIT, pos, state);
 	}
 
-	public TankUnitBaseBlockEntity(TRContent.TankUnit type) {
-		super(TRBlockEntities.TANK_UNIT);
+	public TankUnitBaseBlockEntity(BlockPos pos, BlockState state, TRContent.TankUnit type) {
+		super(TRBlockEntities.TANK_UNIT, pos, state);
 		configureEntity(type);
 	}
 
 	private void configureEntity(TRContent.TankUnit type) {
 		this.type = type;
-		this.tank = new Tank("TankStorage", serverMaxCapacity == -1 ? type.capacity : FluidValue.fromRaw(serverMaxCapacity), this);
+		this.tank = new Tank("TankStorage", type.capacity, this);
 	}
 
 	public ItemStack getDropWithNBT() {
@@ -85,8 +84,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	// MachineBaseBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null || world.isClient()){
 			return;
@@ -115,8 +114,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, final NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void readNbt(final NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
@@ -175,24 +174,9 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("tank").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("tank").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
-				.sync(tank)
-				.sync(this::getMaxCapacity, this::setMaxCapacity)
-
-				.addInventory().create(this, syncID);
-	}
-
-	// Sync between server/client if configs are mis-matched.
-	public int getMaxCapacity() {
-		return this.tank.getCapacity().getRawValue();
-	}
-
-	public void setMaxCapacity(int maxCapacity) {
-		FluidInstance instance = tank.getFluidInstance();
-		this.tank = new Tank("TankStorage", FluidValue.fromRaw(maxCapacity), this);
-		this.tank.setFluidInstance(instance);
-		this.serverMaxCapacity = maxCapacity;
+				.sync(tank).addInventory().create(this, syncID);
 	}
 
 	@Nullable

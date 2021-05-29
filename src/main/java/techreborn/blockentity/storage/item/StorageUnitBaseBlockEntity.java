@@ -63,7 +63,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	protected RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private int maxCapacity;
-	private int serverCapacity = -1;
 
 	private ItemStack storeItemStack;
 
@@ -73,22 +72,17 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	// the locked-in item, even if the stored amount drops to zero.
 	private ItemStack lockedItemStack = ItemStack.EMPTY;
 
-	public StorageUnitBaseBlockEntity() {
-		super(TRBlockEntities.STORAGE_UNIT);
+	public StorageUnitBaseBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.STORAGE_UNIT, pos, state);
 	}
 
-	public StorageUnitBaseBlockEntity(TRContent.StorageUnit type) {
-		super(TRBlockEntities.STORAGE_UNIT);
+	public StorageUnitBaseBlockEntity(BlockPos pos, BlockState state, TRContent.StorageUnit type) {
+		super(TRBlockEntities.STORAGE_UNIT, pos, state);
 		configureEntity(type);
 	}
 
 	private void configureEntity(TRContent.StorageUnit type) {
-
-		// Set capacity to local config unless overridden by server
-		if(serverCapacity == -1){
-			this.maxCapacity = type.capacity;
-		}
-
+		this.maxCapacity = type.capacity;
 		storeItemStack = ItemStack.EMPTY;
 		inventory = new RebornInventory<>(2, "ItemInventory", 64, this);
 
@@ -242,10 +236,14 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		return storeItemStack.getCount() + inventory.getStack(OUTPUT_SLOT).getCount();
 	}
 
+	public int getMaxCapacity() {
+		return maxCapacity;
+	}
+
 	// MachineBaseBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
 		}
@@ -285,8 +283,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void readNbt(NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
@@ -452,14 +450,13 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity playerEntity) {
-		return new ScreenHandlerBuilder("chest").player(playerEntity.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("chest").player(playerEntity.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.slot(INPUT_SLOT, 100, 53)
 				.outputSlot(OUTPUT_SLOT, 140, 53)
 				.sync(this::isLockedInt, this::setLockedInt)
 				.sync(this::getStoredStackNBT, this::setStoredStackFromNBT)
 				.sync(this::getStoredAmount, this::setStoredAmount)
-				.sync(this::getMaxCapacity, this::setMaxCapacity)
 				.addInventory().create(this, syncID);
 
 		// Note that inventory is synced, and it gets the stack from that
@@ -480,16 +477,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public void setStoredAmount(int storedAmount) {
 		this.storedAmount = storedAmount;
-	}
-
-	// Sync between server/client if configs are mis-matched.
-	public int getMaxCapacity() {
-		return this.maxCapacity;
-	}
-
-	public void setMaxCapacity(int maxCapacity) {
-		this.maxCapacity = maxCapacity;
-		this.serverCapacity = maxCapacity;
 	}
 
 	public NbtCompound getStoredStackNBT() {

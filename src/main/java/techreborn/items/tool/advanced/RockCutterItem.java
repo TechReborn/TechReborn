@@ -55,7 +55,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	// 400k FE with 1k FE\t charge rate
 	public RockCutterItem() {
-		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	// PickaxeItem

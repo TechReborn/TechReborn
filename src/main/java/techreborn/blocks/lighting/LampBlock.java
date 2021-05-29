@@ -109,8 +109,8 @@ public class LampBlock extends BaseBlockEntityProvider {
 
 	// BaseTileBlock
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new LampBlockEntity();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new LampBlockEntity(pos, state);
 	}
 
 	// Block

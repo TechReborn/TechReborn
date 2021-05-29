@@ -36,8 +36,10 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Tickable;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -63,19 +65,19 @@ import java.util.List;
  */
 
 public class CableBlockEntity extends BlockEntity
-		implements Tickable, IListInfoProvider, IToolDrop, EnergyStorage {
+		implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop, EnergyStorage {
 
 	private double energy = 0;
 	private TRContent.Cables cableType = null;
 	private ArrayList<EnergySide> sendingFace = new ArrayList<>();
 	private BlockState cover = null;
 
-	public CableBlockEntity() {
-		super(TRBlockEntities.CABLE);
+	public CableBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.CABLE, pos, state);
 	}
 
-	public CableBlockEntity(TRContent.Cables type) {
-		super(TRBlockEntities.CABLE);
+	public CableBlockEntity(BlockPos pos, BlockState state, TRContent.Cables type) {
+		super(TRBlockEntities.CABLE, pos, state);
 		this.cableType = type;
 	}
 
@@ -134,8 +136,8 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound compound) {
-		super.readNbt(blockState, compound);
+	public void readNbt(NbtCompound compound) {
+		super.readNbt(compound);
 		if (compound.contains("energy")) {
 			energy = compound.getDouble("energy");
 		}
@@ -158,8 +160,11 @@ public class CableBlockEntity extends BlockEntity
 
 	// Tickable
 	@Override
-	public void tick() {
-		if (world == null || world.isClient) {
+	public void tick(World world, BlockPos pos, BlockState state, CableBlockEntity blockEntity2) {
+		if (world == null) {
+			return;
+		}
+		if (world.isClient) {
 			return;
 		}
 
@@ -174,12 +179,7 @@ public class CableBlockEntity extends BlockEntity
 
 		for (Direction face : Direction.values()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
-
-			if (blockEntity == null) {
-				continue;
-			}
-
-			if (!Energy.valid(blockEntity)) {
+			if (blockEntity == null || !Energy.valid(blockEntity)) {
 				continue;
 			}
 

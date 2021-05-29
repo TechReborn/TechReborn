@@ -62,6 +62,18 @@ public class BiObseravable<A, B> {
 		return b;
 	}
 
+	public boolean hasA() {
+		return a != null;
+	}
+
+	public boolean hasB() {
+		return b != null;
+	}
+
+	public boolean hasBoth() {
+		return hasA() && hasB();
+	}
+
 	private void fireListeners() {
 		if (a == null || b == null) {
 			return;

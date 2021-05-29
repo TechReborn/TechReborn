@@ -24,8 +24,9 @@
 
 package techreborn.blocks.storage.energy;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.world.BlockView;
+import net.minecraft.util.math.BlockPos;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
 import techreborn.client.GuiType;
 
@@ -36,8 +37,8 @@ public class LapotronicSUBlock extends EnergyStorageBlock {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new LapotronicSUBlockEntity();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new LapotronicSUBlockEntity(pos, state);
 	}
 
 }

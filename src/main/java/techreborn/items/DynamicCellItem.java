@@ -98,7 +98,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	}
 
 	private void insertOrDropStack(PlayerEntity playerEntity, ItemStack stack) {
-		if (!playerEntity.inventory.insertStack(stack)) {
+		if (!playerEntity.getInventory().insertStack(stack)) {
 			playerEntity.dropStack(stack);
 		}
 	}
@@ -184,8 +184,9 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 			if (world.canPlayerModifyAt(player, hitPos) && player.canPlaceOn(placePos, side, stack)) {
 				if (containedFluid == Fluids.EMPTY) {
 					if (hitState.getBlock() instanceof FluidDrainable) {
-						Fluid drainFluid = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
-						if (drainFluid != Fluids.EMPTY) {
+						ItemStack itemStack = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
+						if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemFluidInfo) {
+							Fluid drainFluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
 							if (stack.getCount() == 1) {
 								stack = getCellWithFluid(drainFluid, 1);
 							} else {

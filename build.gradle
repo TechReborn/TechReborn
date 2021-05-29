@@ -153,9 +153,9 @@ dependencies {
     api project(":RebornCore")
     include project(":RebornCore")
 
-    optionalDependency "me.shedaniel:RoughlyEnoughItems:5.8.9"
+    disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems:5.8.9"
     disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
-    optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
+    disabledOptionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
 }
 
 def optionalDependency(String dep) {

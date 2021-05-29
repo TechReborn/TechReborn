@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "techreborn:copper_ore"
+        }
+    ],
+    "result": {
+        "item": "minecraft:copper_ore",
+        "count": 1
+    }
+}

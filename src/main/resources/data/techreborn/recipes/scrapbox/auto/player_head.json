@@ -10,7 +10,7 @@
     {
       "item": "minecraft:player_head",
       "count": 3,
-      "nbt": {
+      "tag": {
         "SkullOwner": "modmuss50"
       }
     }

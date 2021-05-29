@@ -55,13 +55,21 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 
 	private int pouringTimer = 0;
 
-	public ResinBasinBlockEntity() {
-		super(TRBlockEntities.RESIN_BASIN);
+	public ResinBasinBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.RESIN_BASIN, pos, state);
+
+		/* TODO is this the right place? */
+		this.isFull = state.get(ResinBasinBlock.FULL);
+
+		if (state.get(ResinBasinBlock.POURING)) {
+			this.isPouring = true;
+			pouringTimer = TechRebornConfig.sapTimeTicks;
+		}
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) return;
 
 		boolean shouldUpdateState = false;
@@ -148,15 +156,8 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
-
-		this.isFull = blockState.get(ResinBasinBlock.FULL);
-
-		if (blockState.get(ResinBasinBlock.POURING)) {
-			this.isPouring = true;
-			pouringTimer = TechRebornConfig.sapTimeTicks;
-		}
+	public void readNbt(NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 	}
 
 	@Override

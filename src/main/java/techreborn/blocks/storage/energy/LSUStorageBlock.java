@@ -35,7 +35,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
@@ -69,8 +68,8 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new LSUStorageBlockEntity();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new LSUStorageBlockEntity(pos, state);
 	}
 
 	@Override

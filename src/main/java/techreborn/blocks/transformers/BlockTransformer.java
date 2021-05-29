@@ -75,9 +75,9 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 						 ItemStack stack) {
 		super.onPlaced(worldIn, pos, state, placer, stack);
 		Direction facing = placer.getHorizontalFacing().getOpposite();
-		if (placer.pitch < -50) {
+		if (placer.getPitch() < -50) {
 			facing = Direction.DOWN;
-		} else if (placer.pitch > 50) {
+		} else if (placer.getPitch() > 50) {
 			facing = Direction.UP;
 		}
 		setFacing(facing, worldIn, pos);

@@ -69,10 +69,15 @@ public class WorldGenerator {
 		worldGenObseravable.listen(WorldGenerator::applyToActiveRegistry);
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new WorldGenConfigReloader());
 		DynamicRegistrySetupCallback.EVENT.register(registryManager -> {
-			worldGenObseravable.pushA(registryManager.get(BuiltinRegistries.CONFIGURED_FEATURE.getKey()));
+			worldGenObseravable.pushA(registryManager.getMutable(BuiltinRegistries.CONFIGURED_FEATURE.getKey()));
 		});
 
 		BiomeModifications.create(new Identifier("techreborn", "features")).add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), (biomeSelectionContext, biomeModificationContext) -> {
+			if (!worldGenObseravable.hasBoth()) {
+				LOGGER.warn("TR world gen not ready for biome modification");
+				return;
+			}
+
 			for (DataDrivenFeature feature : worldGenObseravable.getB()) {
 				if (feature.getBiomeSelector().test(biomeSelectionContext)) {
 					biomeModificationContext.getGenerationSettings().addFeature(feature.getGenerationStep(), feature.getRegistryKey());

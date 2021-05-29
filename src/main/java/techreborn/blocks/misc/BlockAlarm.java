@@ -100,8 +100,8 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 	// BaseTileBlock
 	@Nullable
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new AlarmBlockEntity();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new AlarmBlockEntity(pos, state);
 	}
 
 	// Block

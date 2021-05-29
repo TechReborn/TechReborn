@@ -19,7 +19,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:copper_ore"
+            "item": "techreborn:lead_ore"
           }
         ]
       }
@@ -29,22 +29,12 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:lead_ore"
-          }
-        ]
-      }
-    },
-    "ore3_in_inventory": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
             "item": "techreborn:silver_ore"
           }
         ]
       }
     },
-    "ore4_in_inventory": {
+    "ore3_in_inventory": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -56,6 +46,6 @@
     }
   },
   "requirements": [
-    ["ore_in_inventory", "ore2_in_inventory","ore3_in_inventory", "ore4_in_inventory"]
+    ["ore_in_inventory", "ore2_in_inventory","ore3_in_inventory"]
 ]
 }

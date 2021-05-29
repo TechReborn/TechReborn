@@ -38,7 +38,6 @@ public class IDSUManager extends PersistentState {
 	private static final String KEY = "techreborn_idsu";
 
 	public IDSUManager() {
-		super(KEY);
 	}
 
 	@NotNull
@@ -48,7 +47,7 @@ public class IDSUManager extends PersistentState {
 
 	public static IDSUManager get(World world) {
 		ServerWorld serverWorld = (ServerWorld) world;
-		return serverWorld.getPersistentStateManager().getOrCreate(IDSUManager::new, KEY);
+		return serverWorld.getPersistentStateManager().getOrCreate(IDSUManager::createFromTag, IDSUManager::new, KEY);
 	}
 
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
@@ -58,8 +57,13 @@ public class IDSUManager extends PersistentState {
 		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer());
 	}
 
-	@Override
-	public void fromNbt(NbtCompound tag) {
+	public static IDSUManager createFromTag(NbtCompound tag) {
+		IDSUManager	idsuManager = new IDSUManager();
+		idsuManager.fromTag(tag);
+		return idsuManager;
+	}
+
+	public void fromTag(NbtCompound tag) {
 		for (String uuid : tag.getKeys()) {
 			playerHashMap.put(uuid, new IDSUPlayer(tag.getCompound(uuid)));
 		}

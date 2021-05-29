@@ -80,9 +80,9 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		super.onPlaced(worldIn, pos, state, placer, stack);
 		Direction facing = placer.getHorizontalFacing().getOpposite();
-		if (placer.pitch < -50) {
+		if (placer.getPitch() < -50) {
 			facing = Direction.DOWN;
-		} else if (placer.pitch > 50) {
+		} else if (placer.getPitch() > 50) {
 			facing = Direction.UP;
 		}
 		setFacing(facing, worldIn, pos);

@@ -32,11 +32,13 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
@@ -59,8 +61,8 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	private int ticksToNextMultiblockCheck = 0;
 	private boolean growthBoost = false;
 
-	public GreenhouseControllerBlockEntity() {
-		super(TRBlockEntities.GREENHOUSE_CONTROLLER);
+	public GreenhouseControllerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.GREENHOUSE_CONTROLLER, pos, state);
 	}
 
 	private void workCycle() {
@@ -182,7 +184,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (world == null){
 			return;
 		}
@@ -190,7 +192,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			multiblockCenter = pos.offset(getFacing().getOpposite(), 5);
 		}
 		charge(6);
-		super.tick();
+		super.tick(world, pos, state, blockEntity);
 
 		if (world.isClient) {
 			return;
@@ -272,7 +274,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("greenhousecontroller").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("greenhousecontroller").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.outputSlot(0, 30, 22).outputSlot(1, 48, 22)
 				.outputSlot(2, 30, 40).outputSlot(3, 48, 40)

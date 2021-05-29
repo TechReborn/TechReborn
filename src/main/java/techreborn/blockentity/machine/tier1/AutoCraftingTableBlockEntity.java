@@ -27,7 +27,6 @@ package techreborn.blockentity.machine.tier1;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.CraftingRecipe;
@@ -36,13 +35,16 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.ExtendedRecipeRemainder;
 import reborncore.common.util.ItemUtils;
@@ -69,7 +71,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(11, "AutoCraftingTableBlockEntity", 64, this);
 	private final int OUTPUT_SLOT = 9;
 	private final int EXTRA_OUTPUT_SLOT = 10;
-
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
@@ -78,16 +79,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	CraftingInventory inventoryCrafting = null;
 	CraftingRecipe lastRecipe = null;
 
-	Item[] layoutInv = {
-			null, null, null,
-			null, null, null,
-			null, null, null,
-	};
+	public boolean locked = true;
 
-	public boolean locked = false;
-
-	public AutoCraftingTableBlockEntity() {
-		super(TRBlockEntities.AUTO_CRAFTING_TABLE);
+	public AutoCraftingTableBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.AUTO_CRAFTING_TABLE, pos, state);
 	}
 
 	@Nullable
@@ -98,11 +93,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (lastRecipe != null && lastRecipe.matches(crafting, world)) return lastRecipe;
 
-		Item[] currentInvLayout = getCraftingLayout(crafting);
-		if(Arrays.equals(layoutInv, currentInvLayout)) return null;
-
-		layoutInv = currentInvLayout;
-
 		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
@@ -110,20 +100,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		return null;
-	}
-
-	private Item[] getCraftingLayout(CraftingInventory craftingInventory){
-		Item[] layout = {
-				null, null, null,
-				null, null, null,
-				null, null, null,
-		};
-
-		for (int i = 0; i < 9; i++) {
-			layout[i] = craftingInventory.getStack(i).getItem();
-		}
-
-		return layout;
 	}
 
 	private CraftingInventory getCraftingInventory() {
@@ -149,20 +125,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		CraftingInventory crafting = getCraftingInventory();
 		if (crafting.isEmpty()) return false;
 
-		// Don't allow recipe to change (Keep at least one of each slot stocked, assuming it's actually a recipe)
-		if(locked){
-			for(int i = 0; i < 9; i++){
-				if(crafting.getStack(i).getCount() == 1){
-					return false;
-				}
-			}
-		}
-
 		if (!recipe.matches(crafting, world)) return false;
 
 		if (!hasOutputSpace(recipe.getOutput(), OUTPUT_SLOT)) return false;
 
-		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
+		DefaultedList<ItemStack> remainingStacks = world.getRecipeManager().getRemainingStacks(RecipeType.CRAFTING, crafting, world);
 		for (ItemStack stack : remainingStacks){
 			if (!stack.isEmpty() && !hasRoomForExtraItem(stack)) return false;
 		}
@@ -350,8 +317,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	// TilePowerAcceptor
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
 		}
@@ -411,11 +378,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tag) {
+	public void readNbt(NbtCompound tag) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.readNbt(blockState, tag);
+		super.readNbt(tag);
 	}
 
 	// MachineBaseBlockEntity
@@ -450,7 +417,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("autocraftingtable").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
 				.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)

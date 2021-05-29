@@ -41,7 +41,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorRemoveHandler;
-import reborncore.api.items.ArmorTickable;
+import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ItemStackModifiers;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemUtils;
@@ -52,17 +52,13 @@ import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.utils.InitUtils;
 
-public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorTickable, ArmorRemoveHandler, EnergyHolder {
+public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorBlockEntityTicker, ArmorRemoveHandler, EnergyHolder {
 
 	public final double flyCost = TechRebornConfig.quantumSuitFlyingCost;
 	public final double swimCost = TechRebornConfig.quantumSuitSwimmingCost;
 	public final double breathingCost = TechRebornConfig.quantumSuitBreathingCost;
 	public final double sprintingCost = TechRebornConfig.quantumSuitSprintingCost;
 	public final double fireExtinguishCost = TechRebornConfig.fireExtinguishCost;
-
-	public final boolean enableSprint = TechRebornConfig.quantumSuitEnableSprint;
-	public final boolean enableFlight = TechRebornConfig.quantumSuitEnableFlight;
-
 
 	public QuantumSuitItem(ArmorMaterial material, EquipmentSlot slot) {
 		super(material, slot, new Item.Settings().group(TechReborn.ITEMGROUP).maxDamage(-1).maxCount(1));
@@ -72,7 +68,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	public void getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
 		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && enableSprint) {
+		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS) {
 			if (Energy.of(stack).getEnergy() > sprintingCost) {
 				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
@@ -95,24 +91,22 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 				}
 				break;
 			case CHEST:
-				if (enableFlight){
-					if (Energy.of(stack).getEnergy() > flyCost && !TechReborn.elytraPredicate.test(playerEntity)) {
-						playerEntity.abilities.allowFlying = true;
-						if (playerEntity.abilities.flying) {
-							Energy.of(stack).use(flyCost);
-						}
-						playerEntity.setOnGround(true);
-					} else {
-						playerEntity.abilities.allowFlying = false;
-						playerEntity.abilities.flying = false;
+				if (Energy.of(stack).getEnergy() > flyCost && !TechReborn.elytraPredicate.test(playerEntity)) {
+					playerEntity.getAbilities().allowFlying = true;
+					if (playerEntity.getAbilities().flying) {
+						Energy.of(stack).use(flyCost);
 					}
+					playerEntity.setOnGround(true);
+				} else {
+					playerEntity.getAbilities().allowFlying = false;
+					playerEntity.getAbilities().flying = false;
 				}
 				if (playerEntity.isOnFire() && Energy.of(stack).getEnergy() > fireExtinguishCost) {
 					playerEntity.extinguish();
 				}
 				break;
 			case LEGS:
-				if (playerEntity.isSprinting() && enableSprint) {
+				if (playerEntity.isSprinting()) {
 					Energy.of(stack).use(sprintingCost);
 				}
 				break;
@@ -135,10 +129,10 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 
 	@Override
 	public void onRemoved(PlayerEntity playerEntity) {
-		if (this.slot == EquipmentSlot.CHEST && enableFlight) {
+		if (this.slot == EquipmentSlot.CHEST) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
-				playerEntity.abilities.allowFlying = false;
-				playerEntity.abilities.flying = false;
+				playerEntity.getAbilities().allowFlying = false;
+				playerEntity.getAbilities().flying = false;
 			}
 		}
 	}

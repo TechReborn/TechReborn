@@ -24,12 +24,15 @@
 
 package techreborn.blockentity.generator.advanced;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
@@ -44,8 +47,8 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<DragonEggSyphonBlockEntity> inventory = new RebornInventory<>(3, "DragonEggSyphonBlockEntity", 64, this);
 	private long lastOutput = 0;
 
-	public DragonEggSyphonBlockEntity() {
-		super(TRBlockEntities.DRAGON_EGG_SYPHON);
+	public DragonEggSyphonBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.DRAGON_EGG_SYPHON, pos, state);
 	}
 
 	private boolean tryAddingEnergy(int amount) {
@@ -59,8 +62,8 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null) {
 			return;

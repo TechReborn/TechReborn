@@ -31,6 +31,7 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.minecraft.client.item.ModelPredicateProvider;
+import net.minecraft.client.item.UnclampedModelPredicateProvider;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
@@ -182,7 +183,7 @@ public class TechRebornClient implements ClientModInitializer {
 		registerPredicateProvider(
 				BatpackItem.class,
 				new Identifier("techreborn:empty"),
-				(item, stack, world, entity) -> {
+				(item, stack, world, entity, seed) -> {
 					if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
 						return 1.0F;
 					}
@@ -193,7 +194,7 @@ public class TechRebornClient implements ClientModInitializer {
 		registerPredicateProvider(
 				BatteryItem.class,
 				new Identifier("techreborn:empty"),
-				(item, stack, world, entity) -> {
+				(item, stack, world, entity, seed) -> {
 					if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
 						return 1.0F;
 					}
@@ -204,7 +205,7 @@ public class TechRebornClient implements ClientModInitializer {
 		registerPredicateProvider(
 				FrequencyTransmitterItem.class,
 				new Identifier("techreborn:coords"),
-				(item, stack, world, entity) -> {
+				(item, stack, world, entity, seed) -> {
 					if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
 							&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
 						return 1.0F;
@@ -216,7 +217,7 @@ public class TechRebornClient implements ClientModInitializer {
 		registerPredicateProvider(
 				ChainsawItem.class,
 				new Identifier("techreborn:animated"),
-				(item, stack, world, entity) -> {
+				(item, stack, world, entity, seed) -> {
 					if (!stack.isEmpty() && Energy.of(stack).getEnergy() >= item.getCost() && entity != null && entity.getMainHandStack().equals(stack)) {
 						return 1.0F;
 					}
@@ -227,7 +228,7 @@ public class TechRebornClient implements ClientModInitializer {
 		registerPredicateProvider(
 				NanosaberItem.class,
 				new Identifier("techreborn:active"),
-				(item, stack, world, entity) -> {
+				(item, stack, world, entity, seed) -> {
 					if (ItemUtils.isActive(stack)) {
 						if (Energy.of(stack).getMaxStored() - Energy.of(stack).getEnergy() >= 0.9 * Energy.of(stack).getMaxStored()) {
 							return 0.5F;
@@ -247,13 +248,14 @@ public class TechRebornClient implements ClientModInitializer {
 	}
 
 	//Need the item instance in a few places, this makes it easier
-	private interface ItemModelPredicateProvider<T extends Item> extends ModelPredicateProvider {
+	private interface ItemModelPredicateProvider<T extends Item> extends UnclampedModelPredicateProvider {
 
-		float call(T item, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity);
+		float call(T item, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed);
 
 		@Override
-		default float call(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
-			return call((T) stack.getItem(), stack, world, entity);
+		default float unclampedCall(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
+			return call((T) stack.getItem(), stack, world, entity, seed);
 		}
+
 	}
 }

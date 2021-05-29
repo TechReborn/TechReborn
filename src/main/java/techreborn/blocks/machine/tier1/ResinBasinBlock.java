@@ -46,16 +46,16 @@ import reborncore.common.util.WorldUtils;
 import techreborn.init.TRContent;
 
 import java.util.UUID;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class ResinBasinBlock extends BaseBlockEntityProvider {
 
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty POURING = BooleanProperty.of("pouring");
 	public static final BooleanProperty FULL = BooleanProperty.of("full");
-	Supplier<BlockEntity> blockEntityClass;
+	BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
-	public ResinBasinBlock(Supplier<BlockEntity> blockEntityClass) {
+	public ResinBasinBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
 		super(Block.Settings.of(Material.WOOD).strength(2F, 2F));
 		this.blockEntityClass = blockEntityClass;
 
@@ -99,11 +99,11 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		if (blockEntityClass == null) {
 			return null;
 		}
-		return blockEntityClass.get();
+		return blockEntityClass.apply(pos, state);
 	}
 
 	@Override

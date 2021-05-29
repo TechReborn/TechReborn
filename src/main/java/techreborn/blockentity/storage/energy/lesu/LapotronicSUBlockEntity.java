@@ -25,12 +25,16 @@
 package techreborn.blockentity.storage.energy.lesu;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import team.reborn.energy.EnergyTier;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
 import techreborn.blocks.storage.energy.LapotronicSUBlock;
@@ -45,8 +49,8 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	private int connectedBlocks = 0;
 	private final ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
-	public LapotronicSUBlockEntity() {
-		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.LOW, TechRebornConfig.lesuStoragePerBlock);
+	public LapotronicSUBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.LAPOTRONIC_SU, pos, state, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.LOW, TechRebornConfig.lesuStoragePerBlock);
 		checkOverfill = false;
 		this.maxOutput = TechRebornConfig.lesuBaseOutput;
 	}
@@ -95,8 +99,8 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	// EnergyStorageBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world.isClient) {
 			return;
 		}
@@ -125,7 +129,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
+		return new ScreenHandlerBuilder("lesu").player(player.getInventory()).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
 				.sync(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
 	}
