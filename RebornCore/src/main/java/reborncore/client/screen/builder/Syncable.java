@@ -32,6 +32,6 @@ import java.util.function.Supplier;
 
 public interface Syncable {
 
-	void getSyncPair(List<Pair<Supplier, Consumer>> pairList);
+	void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList);
 
 }

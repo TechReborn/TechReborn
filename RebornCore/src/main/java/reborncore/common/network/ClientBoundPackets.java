@@ -24,6 +24,7 @@
 
 package reborncore.common.network;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
@@ -62,10 +63,13 @@ public class ClientBoundPackets {
 		});
 	}
 
-	public static IdentifiedPacket createPacketSendObject(int id, Object value, ScreenHandler screenHandler) {
+	public static IdentifiedPacket createPacketSendObject(ScreenHandler screenHandler, Int2ObjectMap<Object> updatedValues) {
 		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "send_object"), packetBuffer -> {
-			packetBuffer.writeInt(id);
-			packetBuffer.writeObject(value);
+			packetBuffer.writeInt(updatedValues.size());
+			updatedValues.forEach((integer, o) -> {
+				packetBuffer.writeInt(integer);
+				packetBuffer.writeObject(o);
+			});
 			packetBuffer.writeInt(screenHandler.getClass().getName().length());
 			packetBuffer.writeString(screenHandler.getClass().getName());
 		});

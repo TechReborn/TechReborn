@@ -24,6 +24,8 @@
 
 package reborncore.common.network;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
@@ -35,9 +37,11 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import reborncore.RebornCore;
 import reborncore.client.ClientChunkManager;
-import reborncore.client.screen.builder.ExtendedScreenHandlerListener;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
@@ -47,6 +51,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class ClientBoundPacketHandlers {
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	public static void init() {
 		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "custom_description"), (client, handler, packetBuffer, responseSender) -> {
@@ -103,15 +108,30 @@ public class ClientBoundPacketHandlers {
 		});
 
 		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "send_object"), (client, handler, packetBuffer, responseSender) -> {
-			int id = packetBuffer.readInt();
-			Object value = new ExtendedPacketBuffer(packetBuffer).readObject();
-			String container = packetBuffer.readString(packetBuffer.readInt());
+			int size = packetBuffer.readInt();
+			ExtendedPacketBuffer epb = new ExtendedPacketBuffer(packetBuffer);
+			Int2ObjectMap<Object> updatedValues = new Int2ObjectOpenHashMap<>();
+
+			for (int i = 0; i < size; i++) {
+				int id = packetBuffer.readInt();
+				Object value =  epb.readObject();
+				updatedValues.put(id, value);
+			}
+
+			String name = packetBuffer.readString(packetBuffer.readInt());
+
 			client.execute(() -> {
 				Screen gui = MinecraftClient.getInstance().currentScreen;
-				if (gui instanceof HandledScreen) {
-					ScreenHandler screenHandler = ((HandledScreen) gui).getScreenHandler();
-					if (screenHandler instanceof ExtendedScreenHandlerListener) {
-						((ExtendedScreenHandlerListener) screenHandler).handleObject(id, value);
+				if (gui instanceof HandledScreen handledScreen) {
+					ScreenHandler screenHandler = handledScreen.getScreenHandler();
+					if (screenHandler instanceof BuiltScreenHandler builtScreenHandler) {
+						String shName = screenHandler.getClass().getName();
+						if (!shName.equals(name)) {
+							LOGGER.warn("Received packet for {} but screen handler {} is open!", name, shName);
+							return;
+						}
+
+						builtScreenHandler.handleUpdateValues(updatedValues);
 					}
 				}
 			});

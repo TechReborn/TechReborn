@@ -177,7 +177,7 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 	}
 
 	@Override
-	public void getSyncPair(List<Pair<Supplier, Consumer>> pairList) {
+	public void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList) {
 		pairList.add(Pair.of(this::write, (Consumer<NbtCompound>) this::read));
 	}
 

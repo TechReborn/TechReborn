@@ -24,6 +24,8 @@
 
 package reborncore.client.screen.builder;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
@@ -34,17 +36,23 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.tuple.MutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.network.ClientBoundPackets;
+import reborncore.common.network.NetworkManager;
 import reborncore.common.util.ItemUtils;
 import reborncore.mixin.common.AccessorScreenHandler;
+import reborncore.mixin.ifaces.ServerPlayerEntityScreenHandler;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.*;
 
-public class BuiltScreenHandler extends ScreenHandler implements ExtendedScreenHandlerListener {
+public class BuiltScreenHandler extends ScreenHandler {
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	private final String name;
 
@@ -52,9 +60,10 @@ public class BuiltScreenHandler extends ScreenHandler implements ExtendedScreenH
 	private final List<Range<Integer>> playerSlotRanges;
 	private final List<Range<Integer>> blockEntitySlotRanges;
 
-	private final ArrayList<MutableTriple<IntSupplier, IntConsumer, Short>> shortValues;
-	private final ArrayList<MutableTriple<IntSupplier, IntConsumer, Integer>> integerValues;
-	private final ArrayList<MutableTriple<Supplier, Consumer, Object>> objectValues;
+	// Holds the syncpair along with the last value
+	private final Map<SyncPair, Object> syncPairCache = new HashMap<>();
+	private final Int2ObjectMap<SyncPair> syncPairIdLookup = new Int2ObjectOpenHashMap<>();
+
 	private List<Consumer<CraftingInventory>> craftEvents;
 	private Integer[] integerParts;
 
@@ -71,36 +80,17 @@ public class BuiltScreenHandler extends ScreenHandler implements ExtendedScreenH
 		this.playerSlotRanges = playerSlotRange;
 		this.blockEntitySlotRanges = blockEntitySlotRange;
 
-		this.shortValues = new ArrayList<>();
-		this.integerValues = new ArrayList<>();
-		this.objectValues = new ArrayList<>();
-
 		this.blockEntity = blockEntity;
 	}
 
-	public void addShortSync(final List<Pair<IntSupplier, IntConsumer>> syncables) {
-
-		for (final Pair<IntSupplier, IntConsumer> syncable : syncables) {
-			this.shortValues.add(MutableTriple.of(syncable.getLeft(), syncable.getRight(), (short) 0));
+	public void addObjectSync(final List<Pair<Supplier<?>, Consumer<?>>> syncables) {
+		for (final Pair<Supplier<?>, Consumer<?>> syncable : syncables) {
+			// Add a new sync pair to the cache with a null value
+			int id = syncPairCache.size() + 1;
+			var syncPair = new SyncPair(syncable.getLeft(), syncable.getRight(), id);
+			this.syncPairCache.put(syncPair, null);
+			this.syncPairIdLookup.put(id, syncPair);
 		}
-		this.shortValues.trimToSize();
-	}
-
-	public void addIntegerSync(final List<Pair<IntSupplier, IntConsumer>> syncables) {
-
-		for (final Pair<IntSupplier, IntConsumer> syncable : syncables) {
-			this.integerValues.add(MutableTriple.of(syncable.getLeft(), syncable.getRight(), 0));
-		}
-		this.integerValues.trimToSize();
-		this.integerParts = new Integer[this.integerValues.size()];
-	}
-
-	public void addObjectSync(final List<Pair<Supplier, Consumer>> syncables) {
-
-		for (final Pair<Supplier, Consumer> syncable : syncables) {
-			this.objectValues.add(MutableTriple.of(syncable.getLeft(), syncable.getRight(), null));
-		}
-		this.objectValues.trimToSize();
 	}
 
 	public void addCraftEvents(final List<Consumer<CraftingInventory>> craftEvents) {
@@ -124,44 +114,7 @@ public class BuiltScreenHandler extends ScreenHandler implements ExtendedScreenH
 		super.sendContentUpdates();
 
 		for (final ScreenHandlerListener listener : ((AccessorScreenHandler) (this)).getListeners()) {
-
-			int i = 0;
-			if (!this.shortValues.isEmpty()) {
-				for (final MutableTriple<IntSupplier, IntConsumer, Short> value : this.shortValues) {
-					final short supplied = (short) value.getLeft().getAsInt();
-					if (supplied != value.getRight()) {
-
-						listener.onPropertyUpdate(this, i, supplied);
-						value.setRight(supplied);
-					}
-					i++;
-				}
-			}
-
-			if (!this.integerValues.isEmpty()) {
-				for (final MutableTriple<IntSupplier, IntConsumer, Integer> value : this.integerValues) {
-					final int supplied = value.getLeft().getAsInt();
-					if (supplied != value.getRight()) {
-
-						listener.onPropertyUpdate(this, i, supplied >> 16);
-						listener.onPropertyUpdate(this, i + 1, (short) (supplied & 0xFFFF));
-						value.setRight(supplied);
-					}
-					i += 2;
-				}
-			}
-
-			if (!this.objectValues.isEmpty()) {
-				int objects = 0;
-				for (final MutableTriple<Supplier, Consumer, Object> value : this.objectValues) {
-					final Object supplied = value.getLeft().get();
-					if (supplied != value.getRight()) {
-						sendObject(listener, this, objects, supplied);
-						value.setRight(supplied);
-					}
-					objects++;
-				}
-			}
+			sendContentUpdatePacketToListener(listener);
 		}
 	}
 
@@ -169,57 +122,45 @@ public class BuiltScreenHandler extends ScreenHandler implements ExtendedScreenH
 	public void addListener(final ScreenHandlerListener listener) {
 		super.addListener(listener);
 
-		int i = 0;
-		if (!this.shortValues.isEmpty()) {
-			for (final MutableTriple<IntSupplier, IntConsumer, Short> value : this.shortValues) {
-				final short supplied = (short) value.getLeft().getAsInt();
-
-				listener.onPropertyUpdate(this, i, supplied);
-				value.setRight(supplied);
-				i++;
-			}
-		}
-
-		if (!this.integerValues.isEmpty()) {
-			for (final MutableTriple<IntSupplier, IntConsumer, Integer> value : this.integerValues) {
-				final int supplied = value.getLeft().getAsInt();
-
-				listener.onPropertyUpdate(this, i, supplied >> 16);
-				listener.onPropertyUpdate(this, i + 1, (short) (supplied & 0xFFFF));
-				value.setRight(supplied);
-				i += 2;
-			}
-		}
-
-		if (!this.objectValues.isEmpty()) {
-			int objects = 0;
-			for (final MutableTriple<Supplier, Consumer, Object> value : this.objectValues) {
-				final Object supplied = value.getLeft();
-				sendObject(listener, this, objects, ((Supplier) supplied).get());
-				value.setRight(supplied);
-				objects++;
-			}
-		}
+		sendContentUpdatePacketToListener(listener);
 	}
 
-	@Override
-	public void handleObject(int var, Object value) {
-		this.objectValues.get(var).getMiddle().accept(value);
+	private void sendContentUpdatePacketToListener(final ScreenHandlerListener listener) {
+		Int2ObjectMap<Object> updatedValues = new Int2ObjectOpenHashMap<>();
+
+		this.syncPairCache.replaceAll((syncPair, cached) -> {
+			final Object value = syncPair.supplier().get();
+
+			if (value != cached) {
+				updatedValues.put(syncPair.id, value);
+				return value;
+			}
+			return null;
+		});
+
+		sendUpdatedValues(listener, this, updatedValues);
 	}
 
-	@Override
-	public void setProperty(int id, int value) {
-		if (id < this.shortValues.size()) {
-			this.shortValues.get(id).getMiddle().accept((short) value);
-			this.shortValues.get(id).setRight((short) value);
-		} else if (id - this.shortValues.size() < this.integerValues.size() * 2) {
-
-			if ((id - this.shortValues.size()) % 2 == 0) {
-				this.integerParts[(id - this.shortValues.size()) / 2] = value;
-			} else {
-				this.integerValues.get((id - this.shortValues.size()) / 2).getMiddle().accept(
-						(this.integerParts[(id - this.shortValues.size()) / 2] & 0xFFFF) << 16 | value & 0xFFFF);
+	public void handleUpdateValues(Int2ObjectMap<Object> updatedValues) {
+		updatedValues.int2ObjectEntrySet().forEach(entry -> {
+			SyncPair syncPair = syncPairIdLookup.get(entry.getIntKey());
+			if (syncPair == null) {
+				LOGGER.warn("Unknown sync pair id: " + entry.getIntKey());
+				return;
 			}
+
+			// TODO check the object type here?
+			syncPair.consumer().accept(entry.getValue());
+		});
+	}
+
+	private void sendUpdatedValues(ScreenHandlerListener screenHandlerListener, ScreenHandler screenHandler, Int2ObjectMap<Object> updatedValues) {
+		if (updatedValues.isEmpty()) {
+			return;
+		}
+
+		if (screenHandlerListener instanceof ServerPlayerEntityScreenHandler serverPlayerEntityScreenHandler) {
+			NetworkManager.sendToPlayer(ClientBoundPackets.createPacketSendObject(screenHandler, updatedValues), serverPlayerEntityScreenHandler.rc_getServerPlayerEntity());
 		}
 	}
 
@@ -369,5 +310,9 @@ public class BuiltScreenHandler extends ScreenHandler implements ExtendedScreenH
 	@Override
 	public ScreenHandlerType<BuiltScreenHandler> getType() {
 		return type;
+	}
+
+	private record SyncPair(Supplier supplier, Consumer consumer, int id) {
+
 	}
 }

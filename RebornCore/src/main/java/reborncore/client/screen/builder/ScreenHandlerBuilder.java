@@ -47,7 +47,7 @@ public class ScreenHandlerBuilder {
 	final List<Slot> slots;
 	final List<Range<Integer>> playerInventoryRanges, blockEntityInventoryRanges;
 
-	final List<Pair<Supplier, Consumer>> objectValues;
+	final List<Pair<Supplier<?>, Consumer<?>>> objectValues;
 
 	final List<Consumer<CraftingInventory>> craftEvents;
 
