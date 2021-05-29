@@ -8,7 +8,8 @@
     "MixinDebugRenderer",
 	"MixinWorldRenderer",
 	"AccessorModelPredicateProviderRegistry",
-	"AccessorChatHud"
+	"AccessorChatHud",
+	"AccessorScreen"
   ],
   "injectors": {
     "defaultRequire": 1

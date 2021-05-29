@@ -32,7 +32,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
@@ -59,7 +58,7 @@ import reborncore.client.screen.builder.slot.PlayerInventorySlot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 import org.jetbrains.annotations.Nullable;
-import reborncore.mixin.client.ScreenAccessor;
+import reborncore.mixin.client.AccessorScreen;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -281,8 +280,8 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			offset += 24;
 		}
 
-		ScreenAccessor screenAccessor = (ScreenAccessor)this;
-		for (Selectable selectable : screenAccessor.getSelectables()) {
+		AccessorScreen accessorScreen = (AccessorScreen)this;
+		for (Selectable selectable : accessorScreen.getSelectables()) {
 			if (selectable instanceof ClickableWidget clickable) {
 				if (clickable.isHovered()) {
 					clickable.renderToolTip(matrixStack, mouseX, mouseY);
