@@ -24,15 +24,14 @@
 
 package reborncore.client.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.lwjgl.opengl.GL11;
 import reborncore.common.util.Color;
 
 public class GuiButtonCustomTexture extends ButtonWidget {
@@ -69,35 +68,32 @@ public class GuiButtonCustomTexture extends ButtonWidget {
 		if (this.visible) {
 			boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
 					&& mouseY < this.y + this.height;
-			mc.getTextureManager().bindTexture(WIDGETS_TEXTURE);
+			RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 			int u = textureU;
 			int v = textureV;
 
 			if (flag) {
 				u += width;
-				GL11.glPushMatrix();
-				GL11.glColor4f(0f, 0f, 0f, 1f);
+				matrixStack.push();
+				RenderSystem.setShaderColor(0f, 0f, 0f, 1f);
 				this.drawTexture(matrixStack, this.x, this.y, u, v, width, height);
-				GL11.glPopMatrix();
+				matrixStack.pop();
 			}
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glEnable(32826);
-			DiffuseLighting.enable();
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			renderImage(matrixStack, this.x, this.y);
-			this.drawTextWithShadow(matrixStack, mc.textRenderer, this.name, this.x + 20, this.y + 3,
+			drawTextWithShadow(matrixStack, mc.textRenderer, this.name, this.x + 20, this.y + 3,
 					Color.WHITE.getColor());
 		}
 	}
 
 	public void renderImage(MatrixStack matrixStack, int offsetX, int offsetY) {
-		TextureManager render = MinecraftClient.getInstance().getTextureManager();
-		render.bindTexture(new Identifier(imageprefix + this.texturename + ".png"));
+		RenderSystem.setShaderTexture(0, new Identifier(imageprefix + this.texturename + ".png"));
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		drawTexture(matrixStack, offsetX, offsetY, this.buttonU, this.buttonV, this.textureW, this.textureH);
-		GL11.glDisable(GL11.GL_BLEND);
+		RenderSystem.disableBlend();
 	}
 
 }

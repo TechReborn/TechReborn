@@ -28,10 +28,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.chunkloading.ChunkLoaderManager;
@@ -72,9 +69,12 @@ public class ClientChunkManager {
 		final MinecraftClient minecraftClient = MinecraftClient.getInstance();
 
 		RenderSystem.enableDepthTest();
-		RenderSystem.shadeModel(7425);
+
+		// FIXME 1.17
+
+		/*RenderSystem.shadeModel(7425);
 		RenderSystem.enableAlphaTest();
-		RenderSystem.defaultAlphaFunc();
+		RenderSystem.defaultAlphaFunc();*/
 
 		final Tessellator tessellator = Tessellator.getInstance();
 		final BufferBuilder bufferBuilder = tessellator.getBuffer();
@@ -83,7 +83,7 @@ public class ClientChunkManager {
 		RenderSystem.disableBlend();
 		RenderSystem.lineWidth(5.0F);
 
-		bufferBuilder.begin(3, VertexFormats.POSITION_COLOR);
+		bufferBuilder.begin(VertexFormat.DrawMode.LINE_STRIP, VertexFormats.POSITION_COLOR);
 
 		loadedChunks.stream()
 				.filter(loadedChunk -> loadedChunk.getWorld().equals(ChunkLoaderManager.getWorldName(minecraftClient.world)))

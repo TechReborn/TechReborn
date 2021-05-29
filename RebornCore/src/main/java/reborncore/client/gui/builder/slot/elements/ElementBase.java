@@ -263,14 +263,14 @@ public class ElementBase {
 		void update(GuiBase<?> gui, ElementBase element);
 	}
 
-	public void drawRect(GuiBase<?> gui, int x, int y, int width, int height, int colour) {
-		drawGradientRect(gui, x, y, width, height, colour, colour);
+	public void drawRect(MatrixStack matrices, GuiBase<?> gui, int x, int y, int width, int height, int colour) {
+		drawGradientRect(matrices, gui, x, y, width, height, colour, colour);
 	}
 
 	/*
 		Taken from Gui
 	*/
-	public void drawGradientRect(GuiBase<?> gui, int x, int y, int width, int height, int startColor, int endColor) {
+	public void drawGradientRect(MatrixStack matrices, GuiBase<?> gui, int x, int y, int width, int height, int startColor, int endColor) {
 		x = adjustX(gui, x);
 		y = adjustY(gui, y);
 
@@ -279,7 +279,7 @@ public class ElementBase {
 		int right = x + width;
 		int bottom = y + height;
 
-		RenderUtil.drawGradientRect(0, left, top, right, bottom, startColor, endColor);
+		RenderUtil.drawGradientRect(matrices, 0, left, top, right, bottom, startColor, endColor);
 	}
 
 	public int adjustX(GuiBase<?> gui, int x) {
@@ -301,27 +301,26 @@ public class ElementBase {
 	}
 
 	public void setTextureSheet(Identifier textureLocation) {
-		MinecraftClient.getInstance().getTextureManager().bindTexture(textureLocation);
+		RenderSystem.setShaderTexture(0, textureLocation);
 	}
 
 	public void drawSprite(MatrixStack matrixStack, GuiBase<?> gui, ISprite iSprite, int x, int y) {
 		Sprite sprite = iSprite.getSprite(gui.getMachine());
 		if (sprite != null) {
 			if (sprite.hasTextureInfo()) {
-				RenderSystem.color3f(1F, 1F, 1F);
+				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				setTextureSheet(sprite.textureLocation);
 				gui.drawTexture(matrixStack, x + gui.getGuiLeft(), y + gui.getGuiTop(), sprite.x, sprite.y, sprite.width, sprite.height);
 			}
 			if (sprite.hasStack()) {
-				RenderSystem.pushMatrix();
+				matrixStack.push();
 				RenderSystem.enableBlend();
 				RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 
 				ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 				itemRenderer.renderInGuiWithOverrides(sprite.itemStack, x + gui.getGuiLeft(), y + gui.getGuiTop());
 
-				RenderSystem.disableLighting();
-				RenderSystem.popMatrix();
+				matrixStack.pop();
 			}
 		}
 	}
@@ -338,8 +337,8 @@ public class ElementBase {
 	}
 
 	public void drawDefaultBackground(MatrixStack matrixStack, Screen gui, int x, int y, int width, int height) {
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		MinecraftClient.getInstance().getTextureManager().bindTexture(GuiBuilder.defaultTextureSheet);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
 		gui.drawTexture(matrixStack, x, y, 0, 0, width / 2, height / 2);
 		gui.drawTexture(matrixStack, x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
 		gui.drawTexture(matrixStack, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);

@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "reborncore.mixin.common",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AccessorFluidBlock",
     "AccessorFoliagePlacerType",

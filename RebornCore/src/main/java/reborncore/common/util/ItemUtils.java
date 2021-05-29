@@ -222,8 +222,8 @@ public class ItemUtils {
 			return;
 		}
 
-		for (int i = 0; i < player.inventory.size(); i++) {
-			ItemStack invStack = player.inventory.getStack(i);
+		for (int i = 0; i < player.getInventory().size(); i++) {
+			ItemStack invStack = player.getInventory().getStack(i);
 
 			if (invStack.isEmpty() || !filter.test(invStack)) {
 				continue;

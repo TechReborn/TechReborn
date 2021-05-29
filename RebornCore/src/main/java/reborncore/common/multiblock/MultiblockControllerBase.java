@@ -1072,8 +1072,7 @@ public abstract class MultiblockControllerBase {
 			return;
 		}
 
-		BlockEntity saveTe = worldObj.getBlockEntity(referenceCoord);
-		worldObj.markDirty(referenceCoord, saveTe);
+		worldObj.markDirty(referenceCoord);
 	}
 
 }

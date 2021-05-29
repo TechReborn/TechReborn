@@ -29,16 +29,16 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.gui.Drawable;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.render.*;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.lwjgl.opengl.GL11;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
@@ -54,7 +54,7 @@ public class RenderUtil {
 	}
 
 	public static void bindBlockTexture() {
-		engine().bindTexture(BLOCK_TEX);
+		RenderSystem.setShaderTexture(0, BLOCK_TEX);
 	}
 
 	public static Sprite getStillTexture(FluidInstance fluid) {
@@ -96,7 +96,8 @@ public class RenderUtil {
 
 		RenderUtil.bindBlockTexture();
 		int color = 0;
-		GL11.glColor3ub((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF));
+		// FIXME 1.17 what is the input range of the shader? 255.0F or 1.0F?
+		RenderSystem.setShaderColor((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF), 1.0F);
 
 		RenderSystem.enableBlend();
 		for (int i = 0; i < width; i += 16) {
@@ -114,7 +115,7 @@ public class RenderUtil {
 
 				Tessellator tessellator = Tessellator.getInstance();
 				BufferBuilder tes = tessellator.getBuffer();
-				tes.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+				tes.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
 				tes.vertex(drawX, drawY + drawHeight, 0).texture(minU, minV + (maxV - minV) * drawHeight / 16F).next();
 				tes.vertex(drawX + drawWidth, drawY + drawHeight, 0)
 						.texture(minU + (maxU - minU) * drawWidth / 16F, minV + (maxV - minV) * drawHeight / 16F)
@@ -127,31 +128,33 @@ public class RenderUtil {
 		RenderSystem.disableBlend();
 	}
 
-	public static void drawGradientRect(int zLevel, int left, int top, int right, int bottom, int startColor, int endColor) {
-		float f = (float) (startColor >> 24 & 255) / 255.0F;
-		float f1 = (float) (startColor >> 16 & 255) / 255.0F;
-		float f2 = (float) (startColor >> 8 & 255) / 255.0F;
-		float f3 = (float) (startColor & 255) / 255.0F;
-		float f4 = (float) (endColor >> 24 & 255) / 255.0F;
-		float f5 = (float) (endColor >> 16 & 255) / 255.0F;
-		float f6 = (float) (endColor >> 8 & 255) / 255.0F;
-		float f7 = (float) (endColor & 255) / 255.0F;
+	public static void drawGradientRect(MatrixStack matrices, int zLevel, int left, int top, int right, int bottom, int startColor, int endColor) {
 		RenderSystem.disableTexture();
 		RenderSystem.enableBlend();
-		RenderSystem.disableAlphaTest();
-		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-		RenderSystem.shadeModel(7425);
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.setShader(GameRenderer::getPositionColorShader);
+
 		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder vertexbuffer = tessellator.getBuffer();
-		vertexbuffer.begin(7, VertexFormats.POSITION_COLOR);
-		vertexbuffer.vertex(right, top, 0).color(f1, f2, f3, f).next();
-		vertexbuffer.vertex(left, top, 0).color(f1, f2, f3, f).next();
-		vertexbuffer.vertex(left, bottom, 0).color(f5, f6, f7, f4).next();
-		vertexbuffer.vertex(right, bottom, 0).color(f5, f6, f7, f4).next();
+		BufferBuilder bufferBuilder = tessellator.getBuffer();
+		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+
+		float f = (startColor >> 24 & 0xFF) / 255.0F;
+		float g = (startColor >> 16 & 0xFF) / 255.0F;
+		float h = (startColor >> 8 & 0xFF) / 255.0F;
+		float i = (startColor & 0xFF) / 255.0F;
+
+		float j = (endColor >> 24 & 0xFF) / 255.0F;
+		float k = (endColor >> 16 & 0xFF) / 255.0F;
+		float l = (endColor >> 8 & 0xFF) / 255.0F;
+		float m = (endColor & 0xFF) / 255.0F;
+
+		bufferBuilder.vertex(matrices.peek().getModel(), right, top, zLevel).color(g, h, i, f).next();
+		bufferBuilder.vertex(matrices.peek().getModel(), left, top, zLevel).color(g, h, i, f).next();
+		bufferBuilder.vertex(matrices.peek().getModel(), left, bottom, zLevel).color(k, l, m, j).next();
+		bufferBuilder.vertex(matrices.peek().getModel(), right, bottom, zLevel).color(k, l, m, j).next();
+
 		tessellator.draw();
-		RenderSystem.shadeModel(7424);
 		RenderSystem.disableBlend();
-		RenderSystem.enableAlphaTest();
 		RenderSystem.enableTexture();
 	}
 

@@ -41,8 +41,8 @@ public class TorchHelper {
 			return ActionResult.FAIL;
 		}
 
-		for (int i = 0; i < player.inventory.main.size(); i++) {
-			ItemStack torchStack = player.inventory.getStack(i);
+		for (int i = 0; i < player.getInventory().main.size(); i++) {
+			ItemStack torchStack = player.getInventory().getStack(i);
 			if (torchStack.isEmpty() || !torchStack.getTranslationKey().toLowerCase(Locale.ROOT).contains("torch")) {
 				continue;
 			}
@@ -56,7 +56,7 @@ public class TorchHelper {
 			if (player.isCreative()) {
 				torchStack.setCount(oldSize);
 			} else if (torchStack.getCount() <= 0) {
-				player.inventory.setStack(i, ItemStack.EMPTY);
+				player.getInventory().setStack(i, ItemStack.EMPTY);
 			}
 			if (result == ActionResult.SUCCESS) {
 				return ActionResult.SUCCESS;

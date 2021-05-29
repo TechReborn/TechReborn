@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.builder.widget;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
@@ -46,7 +47,7 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (gui.hideGuiElements()) return;
-		gui.getMinecraft().getTextureManager().bindTexture(gui.builder.getResourceLocation());
+		RenderSystem.setShaderTexture(0, gui.builder.getResourceLocation());
 		switch (type) {
 			case FASTFORWARD:
 				gui.drawTexture(matrixStack, x, y, 174, 74, 12, 12);

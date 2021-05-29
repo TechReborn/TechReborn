@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import reborncore.api.items.ArmorRemoveHandler;
-import reborncore.api.items.ArmorTickable;
+import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.common.util.ItemUtils;
 
 @Mixin(PlayerEntity.class)
@@ -64,8 +64,8 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 			}
 			i++;
 
-			if (!stack.isEmpty() && stack.getItem() instanceof ArmorTickable) {
-				((ArmorTickable) stack.getItem()).tickArmor(stack, (PlayerEntity) (Object) this);
+			if (!stack.isEmpty() && stack.getItem() instanceof ArmorBlockEntityTicker) {
+				((ArmorBlockEntityTicker) stack.getItem()).tickArmor(stack, (PlayerEntity) (Object) this);
 			}
 		}
 	}

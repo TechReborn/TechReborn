@@ -87,12 +87,12 @@ public class SlotConfigPopupElement extends ElementBase {
 		drawState(gui, world, model, actualState, pos, dispatcher, 42, 23, Vec3f.POSITIVE_Y.getDegreesQuaternion(90F)); //right
 		drawState(gui, world, model, actualState, pos, dispatcher, 26, 42, Vec3f.POSITIVE_Y.getDegreesQuaternion(180F)); //back
 
-		drawSlotSateColor(gui.getMachine(), MachineFacing.UP.getFacing(machine), id, 22, -1, gui);
-		drawSlotSateColor(gui.getMachine(), MachineFacing.FRONT.getFacing(machine), id, 22, 18, gui);
-		drawSlotSateColor(gui.getMachine(), MachineFacing.DOWN.getFacing(machine), id, 22, 37, gui);
-		drawSlotSateColor(gui.getMachine(), MachineFacing.RIGHT.getFacing(machine), id, 41, 18, gui);
-		drawSlotSateColor(gui.getMachine(), MachineFacing.BACK.getFacing(machine), id, 41, 37, gui);
-		drawSlotSateColor(gui.getMachine(), MachineFacing.LEFT.getFacing(machine), id, 3, 18, gui);
+		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.UP.getFacing(machine), id, 22, -1, gui);
+		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.FRONT.getFacing(machine), id, 22, 18, gui);
+		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.DOWN.getFacing(machine), id, 22, 37, gui);
+		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.RIGHT.getFacing(machine), id, 41, 18, gui);
+		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.BACK.getFacing(machine), id, 41, 37, gui);
+		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.LEFT.getFacing(machine), id, 3, 18, gui);
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		NetworkManager.sendToServer(packetSlotSave);
 	}
 
-	private void drawSlotSateColor(MachineBaseBlockEntity machineBase, Direction side, int slotID, int inx, int iny, GuiBase<?> gui) {
+	private void drawSlotSateColor(MatrixStack matrices, MachineBaseBlockEntity machineBase, Direction side, int slotID, int inx, int iny, GuiBase<?> gui) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -161,9 +161,6 @@ public class SlotConfigPopupElement extends ElementBase {
 		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(side);
 		Color color;
 		switch (slotConfig.getSlotIO().getIoConfig()) {
-			case NONE:
-				color = new Color(0, 0, 0, 0);
-				break;
 			case INPUT:
 				color = new Color(0, 0, 255, 128);
 				break;
@@ -174,9 +171,9 @@ public class SlotConfigPopupElement extends ElementBase {
 				color = new Color(0, 0, 0, 0);
 				break;
 		}
-		RenderSystem.color3f(255, 255, 255);
-		GuiUtil.drawGradientRect(sx, sy, 18, 18, color.getColor(), color.getColor());
-		RenderSystem.color3f(255, 255, 255);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		GuiUtil.drawGradientRect(matrices, sx, sy, 18, 18, color.getColor(), color.getColor());
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
 	}
 

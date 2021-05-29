@@ -24,15 +24,14 @@
 
 package reborncore.client.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import org.lwjgl.opengl.GL11;
 import reborncore.common.util.Color;
 
 public class GuiButtonItemTexture extends ButtonWidget {
@@ -59,20 +58,20 @@ public class GuiButtonItemTexture extends ButtonWidget {
 			MinecraftClient mc = MinecraftClient.getInstance();
 			boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
 					&& mouseY < this.y + this.height;
-			mc.getTextureManager().bindTexture(WIDGETS_TEXTURE);
+			RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 			int u = textureU;
 			int v = textureV;
 			if (flag) {
 				u += mc.textRenderer.getWidth(this.NAME) + 25;
 				v += mc.textRenderer.getWidth(this.NAME) + 25;
-				GL11.glPushMatrix();
-				GL11.glColor4f(0f, 0f, 0f, 1f);
+				matrixStack.push();
+				RenderSystem.setShaderColor(0f, 0f, 0f, 1f);
 				this.drawTexture(matrixStack, this.x, this.y, u, v, mc.textRenderer.getWidth(this.NAME) + 25, height);
-				GL11.glPopMatrix();
+				matrixStack.pop();
 			}
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glEnable(32826);
-			DiffuseLighting.enable();
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+			//GL11.glEnable(32826); RESCALE_NORMAL_EXT
+			// DiffuseLighting.enable(); FIXME 1.17
 			ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 			itemRenderer.renderGuiItemIcon(itemstack, this.x, this.y);
 			this.drawTextWithShadow(matrixStack, mc.textRenderer, this.NAME, this.x + 20, this.y + 3,

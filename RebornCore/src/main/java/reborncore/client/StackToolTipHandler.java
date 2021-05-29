@@ -27,6 +27,7 @@ package reborncore.client;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -39,6 +40,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCore;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.BaseBlockEntityProvider;
@@ -69,7 +71,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			tooltipLines.add(1, line1);
 
 			if (Screen.hasShiftDown()) {
-				int percentage = percentage(Energy.of(itemStack).getEnergy(), Energy.of(itemStack).getMaxStored());
+				int percentage = percentage(Energy.of(itemStack).getMaxStored(), Energy.of(itemStack).getEnergy());
 				MutableText line2  = StringUtils.getPercentageText(percentage);
 				line2.append(" ");
 				line2.formatted(Formatting.GRAY);
@@ -106,12 +108,12 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		else {
 			try {
 				if ((block instanceof BaseBlockEntityProvider)) {
-					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
+					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(BlockPos.ORIGIN, block.getDefaultState());
 					boolean hasData = false;
 					if (itemStack.hasTag() && itemStack.getOrCreateTag().contains("blockEntity_data")) {
 						NbtCompound blockEntityData = itemStack.getOrCreateTag().getCompound("blockEntity_data");
 						if (blockEntity != null) {
-							blockEntity.readNbt(block.getDefaultState(), blockEntityData);
+							blockEntity.readNbt(blockEntityData);
 							hasData = true;
 							tooltipLines.add(new LiteralText(I18n.translate("reborncore.tooltip.has_data")).formatted(Formatting.DARK_GREEN));
 						}

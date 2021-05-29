@@ -24,8 +24,8 @@
 
 package reborncore.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRendererRegistrationCallback;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -35,9 +35,9 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3f;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.util.CalenderUtils;
 
@@ -48,7 +48,7 @@ public class HolidayRenderManager {
 
 	public static void setupClient() {
 		if (CalenderUtils.christmas && RebornCoreConfig.easterEggs) {
-			LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper) -> {
+			LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
 				if (entityRenderer.getModel() instanceof PlayerEntityModel) {
 					registrationHelper.register(new LayerRender(entityRenderer));
 				}
@@ -67,12 +67,12 @@ public class HolidayRenderManager {
 
 		@Override
 		public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-			MinecraftClient.getInstance().getTextureManager().bindTexture(TEXTURE);
+			RenderSystem.setShaderTexture(0, TEXTURE);
 			VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(TEXTURE));
 			matrixStack.push();
 
-			float yaw = player.prevYaw + (player.yaw - player.prevYaw) * tickDelta - (player.prevBodyYaw + (player.bodyYaw - player.prevBodyYaw) * tickDelta);
-			float pitch = player.prevPitch + (player.pitch - player.prevPitch) * tickDelta;
+			float yaw = player.prevYaw + (player.getYaw() - player.prevYaw) * tickDelta - (player.prevBodyYaw + (player.bodyYaw - player.prevBodyYaw) * tickDelta);
+			float pitch = player.prevPitch + (player.getPitch() - player.prevPitch) * tickDelta;
 
 			matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(yaw));
 			matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(pitch));

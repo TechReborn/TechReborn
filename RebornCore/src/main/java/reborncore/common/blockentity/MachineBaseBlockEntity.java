@@ -41,7 +41,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Tickable;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -69,7 +69,7 @@ import java.util.Optional;
 /**
  * Created by modmuss50 on 04/11/2016.
  */
-public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUpgradeable, IUpgradeHandler, IListInfoProvider, Inventory, SidedInventory {
+public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTicker<MachineBaseBlockEntity>, IUpgradeable, IUpgradeHandler, IListInfoProvider, Inventory, SidedInventory {
 
 	public RebornInventory<MachineBaseBlockEntity> upgradeInventory = new RebornInventory<>(getUpgradeSlotCount(), "upgrades", 1, this, (slotID, stack, face, direction, blockEntity) -> true);
 	private SlotConfiguration slotConfiguration;
@@ -94,8 +94,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 	 */
 	double powerMultiplier = 1;
 
-	public MachineBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn) {
-		super(blockEntityTypeIn);
+	public MachineBaseBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 		redstoneConfiguration = new RedstoneConfiguration(this);
 	}
 
@@ -140,7 +140,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 	}
 
 	@Override
-	public void tick() {
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (ticktime == 0) {
 			onLoad();
 		}
@@ -232,8 +232,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void readNbt(NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 		if (getOptionalInventory().isPresent()) {
 			getOptionalInventory().get().read(tagCompound);
 		}
@@ -304,11 +304,6 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 
 	public Direction getFacing() {
 		return getFacingEnum();
-	}
-
-	@Override
-	public void applyRotation(BlockRotation rotationIn) {
-		setFacing(rotationIn.rotate(getFacing()));
 	}
 
 	@Override

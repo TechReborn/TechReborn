@@ -39,6 +39,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.dimension.DimensionType;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -57,25 +58,27 @@ public class ChunkLoaderManager extends PersistentState {
 	private static final String KEY = "reborncore_chunk_loader";
 
 	public ChunkLoaderManager() {
-		super(KEY);
 	}
 
-	public static ChunkLoaderManager get(World world){
+	public static ChunkLoaderManager get(World world) {
 		ServerWorld serverWorld = (ServerWorld) world;
-		return serverWorld.getPersistentStateManager().getOrCreate(ChunkLoaderManager::new, KEY);
+		return serverWorld.getPersistentStateManager().getOrCreate(ChunkLoaderManager::fromTag, ChunkLoaderManager::new, KEY);
 	}
 
 	private final List<LoadedChunk> loadedChunks = new ArrayList<>();
 
-	@Override
-	public void fromNbt(NbtCompound tag) {
-		loadedChunks.clear();
+	public static ChunkLoaderManager fromTag(NbtCompound tag) {
+		ChunkLoaderManager chunkLoaderManager = new ChunkLoaderManager();
+
+		chunkLoaderManager.loadedChunks.clear();
 
 		List<LoadedChunk> chunks = CODEC.parse(NbtOps.INSTANCE, tag.getCompound("loadedchunks"))
 				.result()
 				.orElse(Collections.emptyList());
 
-		loadedChunks.addAll(chunks);
+		chunkLoaderManager.loadedChunks.addAll(chunks);
+
+		return chunkLoaderManager;
 	}
 
 	@Override

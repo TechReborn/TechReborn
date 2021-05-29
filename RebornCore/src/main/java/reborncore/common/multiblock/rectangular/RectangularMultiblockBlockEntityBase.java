@@ -24,6 +24,7 @@
 
 package reborncore.common.multiblock.rectangular;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -36,8 +37,8 @@ public abstract class RectangularMultiblockBlockEntityBase extends MultiblockBlo
 	PartPosition position;
 	Direction outwards;
 
-	public RectangularMultiblockBlockEntityBase(BlockEntityType<?> blockEntityType) {
-		super(blockEntityType);
+	public RectangularMultiblockBlockEntityBase(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 
 		position = PartPosition.Unknown;
 		outwards = null;

@@ -31,9 +31,11 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -81,8 +83,8 @@ public class GuiBuilder {
 	}
 
 	public void drawDefaultBackground(MatrixStack matrixStack, Screen gui, int x, int y, int width, int height) {
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		MinecraftClient.getInstance().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 0, 0, width / 2, height / 2);
 		gui.drawTexture(matrixStack, x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
 		gui.drawTexture(matrixStack, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
@@ -91,7 +93,7 @@ public class GuiBuilder {
 	}
 
 	public void drawPlayerSlots(MatrixStack matrixStack, Screen gui, int posX, int posY, boolean center) {
-		MinecraftClient.getInstance().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 
 		if (center) {
 			posX -= 81;
@@ -109,7 +111,7 @@ public class GuiBuilder {
 	}
 
 	public void drawSlot(MatrixStack matrixStack, Screen gui, int posX, int posY) {
-		MinecraftClient.getInstance().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, posX, posY, 150, 0, 18, 18);
 	}
 
@@ -118,7 +120,7 @@ public class GuiBuilder {
 	}
 
 	public void drawProgressBar(MatrixStack matrixStack, GuiBase<?> gui, double progress, int x, int y) {
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 150, 18, 22, 15);
 		int j = (int) (progress);
 		if (j > 0) {
@@ -127,7 +129,7 @@ public class GuiBuilder {
 	}
 
 	public void drawOutputSlot(MatrixStack matrixStack, GuiBase<?> gui, int x, int y) {
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 174, 0, 26, 26);
 	}
 
@@ -146,7 +148,7 @@ public class GuiBuilder {
 				x += gui.getGuiLeft();
 				y += gui.getGuiTop();
 			}
-			gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+			RenderSystem.setShaderTexture(0, resourceLocation);
 			gui.drawTexture(matrixStack, x, y, 202, 0, 12, 12);
 		}
 	}
@@ -168,7 +170,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 174, 26 + (locked ? 12 : 0), 20, 12);
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
@@ -177,9 +179,9 @@ public class GuiBuilder {
 			} else {
 				list.add(new TranslatableText("reborncore.gui.tooltip.lock_items"));
 			}
-			RenderSystem.pushMatrix();
+			matrixStack.push();
 			gui.renderTooltip(matrixStack, list, mouseX, mouseY);
-			RenderSystem.popMatrix();
+			matrixStack.pop();
 		}
 	}
 
@@ -199,7 +201,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		if (gui.getMachine().renderMultiblock) {
 			gui.drawTexture(matrixStack, x, y, 174, 62, 20, 12);
 		} else {
@@ -208,13 +210,13 @@ public class GuiBuilder {
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
 			list.add(new TranslatableText("reborncore.gui.tooltip.hologram"));
-			RenderSystem.pushMatrix();
+			matrixStack.push();
 			if (layer == GuiBase.Layer.FOREGROUND) {
 				mouseX -= gui.getGuiLeft();
 				mouseY -= gui.getGuiTop();
 			}
 			gui.renderTooltip(matrixStack, list, mouseX, mouseY);
-			RenderSystem.popMatrix();
+			matrixStack.pop();
 		}
 	}
 
@@ -234,7 +236,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 26, 218, 114, 18);
 		if (value != 0) {
 			int j = (int) ((double) value / (double) max * 106);
@@ -271,7 +273,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		int j = (int) ((double) value / (double) max * 106);
 		if (j < 0) {
 			j = 0;
@@ -324,8 +326,8 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			gui.renderTooltip(matrixStack, list, mouseX, mouseY);
-			RenderSystem.disableLighting();
-			RenderSystem.color4f(1, 1, 1, 1);
+			//RenderSystem.disableLighting();
+			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -352,12 +354,12 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		RenderSystem.disableLighting();
+		//RenderSystem.disableLighting();
 		RenderSystem.enableDepthTest();
 		RenderSystem.colorMask(true, true, true, false);
-		RenderUtil.drawGradientRect(0, x, y, x + 176, y + 20, 0x000000, 0xC0000000);
-		RenderUtil.drawGradientRect(0, x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
-		RenderUtil.drawGradientRect(0, x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
+		RenderUtil.drawGradientRect(matrixStack, 0, x, y, x + 176, y + 20, 0x000000, 0xC0000000);
+		RenderUtil.drawGradientRect(matrixStack, 0, x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
+		RenderUtil.drawGradientRect(matrixStack, 0, x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
 		RenderSystem.colorMask(true, true, true, true);
 		RenderSystem.disableDepthTest();
 		gui.drawCentredText(matrixStack, new TranslatableText("reborncore.gui.missingmultiblock"), 43, 0xFFFFFF, layer);
@@ -372,7 +374,7 @@ public class GuiBuilder {
 	 * @param y   int Top left corner where to place slots
 	 */
 	public void drawUpgrades(MatrixStack matrixStack, GuiBase<?> gui, int x, int y) {
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 217, 0, 24, 81);
 	}
 
@@ -385,7 +387,7 @@ public class GuiBuilder {
 	 * @param stack ItemStack Item to show as tab icon
 	 */
 	public void drawSlotTab(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, ItemStack stack) {
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 217, 82, 24, 24);
 		gui.getMinecraft().getItemRenderer().renderInGuiWithOverrides(stack, x + 5, y + 4);
 	}
@@ -408,7 +410,7 @@ public class GuiBuilder {
 		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 54, y, y + 76, 9 + 2, tips);
 		explanation.setLeftPos(x - 81);
 		explanation.render(matrixStack, mouseX, mouseY, 1.0f);
-		RenderSystem.color4f(1, 1, 1, 1);
+		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
 
@@ -435,9 +437,9 @@ public class GuiBuilder {
 		public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferBuilder = tessellator.getBuffer();
-			this.client.getTextureManager().bindTexture(DrawableHelper.OPTIONS_BACKGROUND_TEXTURE);
-			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-			bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE_COLOR);
+			RenderSystem.setShaderTexture(0, DrawableHelper.OPTIONS_BACKGROUND_TEXTURE);
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
 			bufferBuilder.vertex(this.left, this.bottom, 0.0D).texture((float) this.left / 32.0F, (float) (this.bottom + (int) this.getScrollAmount()) / 32.0F).color(32, 32, 32, 255).next();
 			bufferBuilder.vertex(this.right, this.bottom, 0.0D).texture((float) this.right / 32.0F, (float) (this.bottom + (int) this.getScrollAmount()) / 32.0F).color(32, 32, 32, 255).next();
 			bufferBuilder.vertex(this.right, this.top, 0.0D).texture((float) this.right / 32.0F, (float) (this.top + (int) this.getScrollAmount()) / 32.0F).color(32, 32, 32, 255).next();
@@ -445,6 +447,11 @@ public class GuiBuilder {
 			tessellator.draw();
 
 			super.renderList(matrices, this.getRowLeft(), this.top, mouseX, mouseY, delta);
+		}
+
+		@Override
+		public void appendNarrations(NarrationMessageBuilder builder) {
+
 		}
 
 		private class TipsListEntry extends EntryListWidget.Entry<TipsListWidget.TipsListEntry> {
@@ -484,7 +491,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 150, 91, 16, 16);
 	}
 
@@ -508,7 +515,7 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, direction.x, direction.y, direction.width, direction.height);
 		int j = (int) ((double) progress / (double) maxProgress * 16);
 		if (j < 0) {
@@ -545,8 +552,8 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			gui.renderTooltip(matrixStack, list, mouseX, mouseY);
-			RenderSystem.disableLighting();
-			RenderSystem.color4f(1, 1, 1, 1);
+			//RenderSystem.disableLighting();
+			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -572,7 +579,7 @@ public class GuiBuilder {
 		}
 
 		EnergySystem displayPower = PowerSystem.getDisplayPower();
-		MinecraftClient.getInstance().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, displayPower.xBar - 15, displayPower.yBar - 1, 14, 50);
 		int draw = (int) ((double) energyStored / (double) maxEnergyStored * (48));
 		if (energyStored > maxEnergyStored) {
@@ -626,8 +633,8 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			gui.renderTooltip(matrixStack, list, mouseX, mouseY);
-			RenderSystem.disableLighting();
-			RenderSystem.color4f(1, 1, 1, 1);
+			//RenderSystem.disableLighting();
+			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -657,7 +664,7 @@ public class GuiBuilder {
 			amount = fluid.getAmount();
 			percentage = percentage(maxCapacity.getRawValue(), amount.getRawValue());
 		}
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 194, 26, 22, 56);
 		if (!isTankEmpty) {
 			drawFluid(matrixStack, gui, fluid, x + 4, y + 4, 14, 48, maxCapacity.getRawValue());
@@ -689,8 +696,8 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			gui.renderTooltip(matrixStack, list, mouseX, mouseY);
-			RenderSystem.disableLighting();
-			RenderSystem.color4f(1, 1, 1, 1);
+			//RenderSystem.disableLighting();
+			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -709,7 +716,7 @@ public class GuiBuilder {
 		if (fluid.getFluid() == Fluids.EMPTY) {
 			return;
 		}
-		gui.getMinecraft().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+		RenderSystem.setShaderTexture(0, SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 		y += height;
 		final Sprite sprite = FluidRenderHandlerRegistry.INSTANCE.get(fluid.getFluid()).getFluidSprites(gui.getMachine().getWorld(), gui.getMachine().getPos(), fluid.getFluid().getDefaultState())[0];
 		int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid.getFluid()).getFluidColor(gui.getMachine().getWorld(), gui.getMachine().getPos(), fluid.getFluid().getDefaultState());
@@ -718,7 +725,7 @@ public class GuiBuilder {
 		final int iconHeight = sprite.getHeight();
 		int offsetHeight = drawHeight;
 
-		RenderSystem.color3f((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F);
+		RenderSystem.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
 
 		int iteration = 0;
 		while (offsetHeight != 0) {
@@ -731,9 +738,9 @@ public class GuiBuilder {
 				break;
 			}
 		}
-		RenderSystem.color3f(1F, 1F, 1F);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 	}
 
 	/**
@@ -754,7 +761,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		gui.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 150, 64, 13, 13);
 		int j = 13 - (int) ((double) progress / (double) maxProgress * 13);
 		if (j > 0) {
@@ -770,8 +777,8 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			gui.renderTooltip(matrixStack, list, mouseX, mouseY);
-			RenderSystem.disableLighting();
-			RenderSystem.color4f(1, 1, 1, 1);
+			//RenderSystem.disableLighting();
+			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -784,7 +791,7 @@ public class GuiBuilder {
 	 * @param count int Number of output slots
 	 */
 	public void drawOutputSlotBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int count) {
-		MinecraftClient.getInstance().getTextureManager().bindTexture(resourceLocation);
+		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 150, 122, 3, 26);
 		x += 3;
 		for (int i = 1; i <= count; i++) {

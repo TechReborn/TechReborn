@@ -272,7 +272,7 @@ public interface MultiblockWriter {
 
 			if (state.getBlock() instanceof FluidBlock) {
 				FluidState fluidState = ((FluidBlock) state.getBlock()).getFluidState(state);
-				MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ModelTransformation.Mode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider);
+				MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ModelTransformation.Mode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, 0);
 			} else {
 				matrix.translate(-0.5, -0.5, -0.5);
 				VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayers.getBlockLayer(state));

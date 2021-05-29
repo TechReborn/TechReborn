@@ -127,7 +127,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return null;
 	}
 

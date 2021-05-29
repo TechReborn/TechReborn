@@ -32,8 +32,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -58,8 +60,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	public double powerLastTick;
 	public boolean checkOverfill = true; // Set to false to disable the overfill check.
 
-	public PowerAcceptorBlockEntity(BlockEntityType<?> blockEntityType) {
-		super(blockEntityType);
+	public PowerAcceptorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 		checkTier();
 	}
 
@@ -302,8 +304,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	// MachineBaseBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity2) {
+		super.tick(world, pos, state, blockEntity2);
 		if (world == null || world.isClient) {
 			return;
 		}
@@ -330,8 +332,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tag) {
-		super.readNbt(blockState, tag);
+	public void readNbt(NbtCompound tag) {
+		super.readNbt(tag);
 		NbtCompound data = tag.getCompound("PowerAcceptor");
 		if (shouldHandleEnergyNBT()) {
 			this.setStored(data.getDouble("energy"));

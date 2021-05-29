@@ -30,7 +30,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
@@ -57,6 +59,8 @@ import reborncore.client.screen.builder.slot.PlayerInventorySlot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 import org.jetbrains.annotations.Nullable;
+import reborncore.mixin.client.ScreenAccessor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -135,7 +139,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	public boolean upgrades;
 
 	public GuiBase(PlayerEntity player, BlockEntity blockEntity, T screenHandler) {
-		super(screenHandler, player.inventory, new LiteralText(I18n.translate(blockEntity.getCachedState().getBlock().getTranslationKey())));
+		super(screenHandler, player.getInventory(), new LiteralText(I18n.translate(blockEntity.getCachedState().getBlock().getTranslationKey())));
 		this.be = blockEntity;
 		this.builtScreenHandler = (BuiltScreenHandler) screenHandler;
 		selectedTab = null;
@@ -201,7 +205,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		renderBackground(matrixStack);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
@@ -277,11 +281,15 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			offset += 24;
 		}
 
-		for (ClickableWidget abstractButtonWidget : buttons) {
-			if (abstractButtonWidget.isHovered()) {
-				abstractButtonWidget.renderToolTip(matrixStack, mouseX, mouseY);
-				break;
+		ScreenAccessor screenAccessor = (ScreenAccessor)this;
+		for (Selectable selectable : screenAccessor.getSelectables()) {
+			if (selectable instanceof ClickableWidget clickable) {
+				if (clickable.isHovered()) {
+					clickable.renderToolTip(matrixStack, mouseX, mouseY);
+					break;
+				}
 			}
+
 		}
 		super.drawMouseoverTooltip(matrixStack, mouseX, mouseY);
 	}
@@ -306,13 +314,13 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			factorY = this.y;
 		}
 		getTextRenderer().draw(matrixStack, text, x + factorX, y + factorY, colour);
-		RenderSystem.color4f(1, 1, 1, 1);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
 	public GuiButtonHologram addHologramButton(int x, int y, int id, Layer layer) {
 		GuiButtonHologram buttonHologram = new GuiButtonHologram(x + this.x, y + this.y, this, layer, var1 -> {
 		});
-		addButton(buttonHologram);
+		addSelectableChild(buttonHologram);
 		return buttonHologram;
 	}
 

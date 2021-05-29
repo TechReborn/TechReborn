@@ -24,13 +24,13 @@
 
 package reborncore.client.gui.componets;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import org.lwjgl.opengl.GL11;
 
 public class GuiHiddenButton extends ButtonWidget {
 
@@ -48,13 +48,13 @@ public class GuiHiddenButton extends ButtonWidget {
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (this.visible) {
 			TextRenderer fontrenderer = MinecraftClient.getInstance().textRenderer;
-			MinecraftClient.getInstance().getTextureManager().bindTexture(WIDGETS_TEXTURE);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			this.hovered = mouseX >= this.x && mouseY >= this.y
 					&& mouseX < this.x + this.width && mouseY < this.y + this.height;
-			GL11.glEnable(GL11.GL_BLEND);
+			RenderSystem.enableBlend();
 			RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 			int l = 14737632;
 
 			if (!this.active) {

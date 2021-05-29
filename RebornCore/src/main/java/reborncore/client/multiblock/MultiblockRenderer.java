@@ -24,17 +24,19 @@
 
 package reborncore.client.multiblock;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 
-public class MultiblockRenderer<T extends MachineBaseBlockEntity> extends BlockEntityRenderer<T> {
+public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements BlockEntityRenderer<T> {
 
-	public MultiblockRenderer(BlockEntityRenderDispatcher blockEntityRenderDispatcher) {
-		super(blockEntityRenderDispatcher);
+	public MultiblockRenderer(BlockEntityRendererFactory.Context ctx) {
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class RedstoneConfigGui {
 
 			boolean hovered = withinBounds(guiBase, mouseX, mouseY, x + 92, y + (i * spread) - 2, 63, 15);
 			int color = hovered ? 0xFF8b8b8b : 0x668b8b8b;
-			RenderUtil.drawGradientRect(0, x + 91, y + (i * spread) - 2, x + 93 + 65, y + (i * spread) + 10, color, color);
+			RenderUtil.drawGradientRect(matrixStack, 0, x + 91, y + (i * spread) - 2, x + 93 + 65, y + (i * spread) + 10, color, color);
 
 			Text name = new TranslatableText("reborncore.gui.fluidconfig." + configuration.getState(element).name().toLowerCase(Locale.ROOT));
 			guiBase.drawCentredText(matrixStack, name, y + (i * spread), -1, x + 37, GuiBase.Layer.FOREGROUND);

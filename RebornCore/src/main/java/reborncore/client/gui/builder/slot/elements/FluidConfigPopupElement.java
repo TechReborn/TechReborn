@@ -83,12 +83,12 @@ public class FluidConfigPopupElement extends ElementBase {
 		drawState(gui, world, model, actualState, pos, dispatcher, 42, 23, Vec3f.POSITIVE_Y.getDegreesQuaternion(90F)); //right
 		drawState(gui, world, model, actualState, pos, dispatcher, 26, 42, Vec3f.POSITIVE_Y.getDegreesQuaternion(180F)); //back
 
-		drawSateColor(gui.getMachine(), MachineFacing.UP.getFacing(machine), 22, -1, gui);
-		drawSateColor(gui.getMachine(), MachineFacing.FRONT.getFacing(machine), 22, 18, gui);
-		drawSateColor(gui.getMachine(), MachineFacing.DOWN.getFacing(machine), 22, 37, gui);
-		drawSateColor(gui.getMachine(), MachineFacing.RIGHT.getFacing(machine), 41, 18, gui);
-		drawSateColor(gui.getMachine(), MachineFacing.BACK.getFacing(machine), 41, 37, gui);
-		drawSateColor(gui.getMachine(), MachineFacing.LEFT.getFacing(machine), 3, 18, gui);
+		drawSateColor(matrixStack, gui.getMachine(), MachineFacing.UP.getFacing(machine), 22, -1, gui);
+		drawSateColor(matrixStack, gui.getMachine(), MachineFacing.FRONT.getFacing(machine), 22, 18, gui);
+		drawSateColor(matrixStack, gui.getMachine(), MachineFacing.DOWN.getFacing(machine), 22, 37, gui);
+		drawSateColor(matrixStack, gui.getMachine(), MachineFacing.RIGHT.getFacing(machine), 41, 18, gui);
+		drawSateColor(matrixStack, gui.getMachine(), MachineFacing.BACK.getFacing(machine), 41, 37, gui);
+		drawSateColor(matrixStack, gui.getMachine(), MachineFacing.LEFT.getFacing(machine), 3, 18, gui);
 	}
 
 	@Override
@@ -143,7 +143,7 @@ public class FluidConfigPopupElement extends ElementBase {
 		return super.onHover(provider, gui, mouseX, mouseY);
 	}
 
-	private void drawSateColor(MachineBaseBlockEntity machineBase, Direction side, int inx, int iny, GuiBase<?> gui) {
+	private void drawSateColor(MatrixStack matrices, MachineBaseBlockEntity machineBase, Direction side, int inx, int iny, GuiBase<?> gui) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -171,9 +171,9 @@ public class FluidConfigPopupElement extends ElementBase {
 				color = new Color(0, 0, 0, 0);
 				break;
 		}
-		RenderSystem.color3f(255, 255, 255);
-		GuiUtil.drawGradientRect(sx, sy, 18, 18, color.getColor(), color.getColor());
-		RenderSystem.color3f(255, 255, 255);
+		RenderSystem.setShaderColor(1, 1, 1, 1);
+		GuiUtil.drawGradientRect(matrices, sx, sy, 18, 18, color.getColor(), color.getColor());
+		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
 	private boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY, GuiBase<?> guiBase) {

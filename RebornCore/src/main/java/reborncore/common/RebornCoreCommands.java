@@ -159,7 +159,7 @@ public class RebornCoreCommands {
 	private static int flySpeed(CommandContext<ServerCommandSource> ctx, Collection<ServerPlayerEntity> players) {
 		final int speed = getInteger(ctx, "speed");
 		players.stream()
-				.peek(player -> player.abilities.setFlySpeed(speed / 20F))
+				.peek(player -> player.getAbilities().setFlySpeed(speed / 20F))
 				.forEach(ServerPlayerEntity::sendAbilitiesUpdate);
 
 		return Command.SINGLE_SUCCESS;
@@ -187,7 +187,7 @@ public class RebornCoreCommands {
 
 	private static int handRenderer(CommandContext<ServerCommandSource> ctx) {
 		try {
-			queueRender(Collections.singletonList(ctx.getSource().getPlayer().inventory.getMainHandStack()));
+			queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getMainHandStack()));
 		} catch (CommandSyntaxException e) {
 			e.printStackTrace();
 			return 0;

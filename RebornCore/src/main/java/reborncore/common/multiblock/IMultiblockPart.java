@@ -43,8 +43,8 @@ import java.util.Set;
 public abstract class IMultiblockPart extends BlockEntity {
 	public static final int INVALID_DISTANCE = Integer.MAX_VALUE;
 
-	public IMultiblockPart(BlockEntityType<?> blockEntityTypeIn) {
-		super(blockEntityTypeIn);
+    public IMultiblockPart(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	/**

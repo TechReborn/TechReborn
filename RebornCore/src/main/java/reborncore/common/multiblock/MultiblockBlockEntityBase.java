@@ -29,7 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.util.Tickable;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
@@ -45,7 +45,7 @@ import java.util.Set;
  * machines should derive from this and implement their game logic in certain
  * abstract methods.
  */
-public abstract class MultiblockBlockEntityBase extends IMultiblockPart implements Tickable, UnloadHandler {
+public abstract class MultiblockBlockEntityBase extends IMultiblockPart implements BlockEntityTicker, UnloadHandler {
 	private MultiblockControllerBase controller;
 	private boolean visited;
 
@@ -53,8 +53,8 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	private NbtCompound cachedMultiblockData;
 	//private boolean paused;
 
-	public MultiblockBlockEntityBase(BlockEntityType<?> tBlockEntityType) {
-		super(tBlockEntityType);
+	public MultiblockBlockEntityBase(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 		controller = null;
 		visited = false;
 		saveMultiblockData = false;
@@ -112,8 +112,8 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	// /// Overrides from base BlockEntity methods
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound data) {
-		super.readNbt(blockState, data);
+	public void readNbt(NbtCompound data) {
+		super.readNbt(data);
 
 		// We can't directly initialize a multiblock controller yet, so we cache
 		// the data here until
@@ -332,7 +332,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	@Override
 	public void onOrphaned(MultiblockControllerBase controller, int oldSize, int newSize) {
 		this.markDirty();
-		getWorld().markDirty(getPos(), this);
+		getWorld().markDirty(getPos());
 	}
 
 	// // Helper functions for notifying neighboring blocks
