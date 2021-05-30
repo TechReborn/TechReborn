@@ -79,11 +79,7 @@ public enum ObjectBufferUtils {
 
 	COMPOUND_TAG(NbtCompound.class, (value, buffer) -> {
 		buffer.writeNbt(value);
-	}, PacketByteBuf::readNbt),
-
-	BIG_INT(BigInteger.class, (pos, buffer) -> {
-		buffer.writeBigInt(pos);
-	}, ExtendedPacketBuffer::readBigInt);
+	}, PacketByteBuf::readNbt);
 
 	Class clazz;
 	ObjectWriter writer;

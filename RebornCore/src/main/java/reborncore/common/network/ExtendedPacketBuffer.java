@@ -52,26 +52,6 @@ public class ExtendedPacketBuffer extends PacketByteBuf {
 		return ObjectBufferUtils.readObject(this);
 	}
 
-	public void writeBigInt(BigInteger bigInteger) {
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ObjectOutputStream outputStream = new ObjectOutputStream(baos);
-			outputStream.writeObject(bigInteger);
-			writeByteArray(baos.toByteArray());
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to write big int");
-		}
-	}
-
-	public BigInteger readBigInt() {
-		try {
-			ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(readByteArray()));
-			return (BigInteger) inputStream.readObject();
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to read big int");
-		}
-	}
-
 	// Supports reading and writing list codec's
 	public <T> void writeCodec(Codec<T> codec, T object) {
 		DataResult<NbtElement> dataResult = codec.encodeStart(NbtOps.INSTANCE, object);
