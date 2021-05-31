@@ -40,7 +40,7 @@ public class PlayerInventorySlot extends Slot {
 	}
 
 	@Override
-	public boolean doDrawHoveringEffect() {
+	public boolean isEnabled() {
 		return doDraw;
 	}
 }
