@@ -53,6 +53,7 @@ public class ChunkLoaderManager extends PersistentState {
 
 	private static final ChunkTicketType<ChunkPos> CHUNK_LOADER = ChunkTicketType.create("reborncore:chunk_loader", Comparator.comparingLong(ChunkPos::toLong));
 	private static final String KEY = "reborncore_chunk_loader";
+	private static final int RADIUS = 1;
 
 	public ChunkLoaderManager() {
 	}
@@ -123,7 +124,7 @@ public class ChunkLoaderManager extends PersistentState {
 		loadedChunks.add(loadedChunk);
 
 		final ServerChunkManager serverChunkManager = ((ServerWorld) world).getChunkManager();
-		serverChunkManager.addTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.getChunk(), 31, loadedChunk.getChunk());
+		serverChunkManager.addTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.getChunk(), RADIUS, loadedChunk.getChunk());
 
 		markDirty();
 	}
@@ -142,7 +143,7 @@ public class ChunkLoaderManager extends PersistentState {
 
 		if(!isChunkLoaded(world, loadedChunk.getChunk())){
 			final ServerChunkManager serverChunkManager = ((ServerWorld) world).getChunkManager();
-			serverChunkManager.removeTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.getChunk(), 31, loadedChunk.getChunk());
+			serverChunkManager.removeTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.getChunk(), RADIUS, loadedChunk.getChunk());
 		}
 		markDirty();
 	}
