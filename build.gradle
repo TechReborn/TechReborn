@@ -89,7 +89,7 @@ allprojects {
         //Fabric api
         modImplementation "net.fabricmc.fabric-api:fabric-api:0.34.8+1.17"
 
-        modApi 'teamreborn:energy:0.1.1'
+        include(modApi('teamreborn:energy:0.1.1'))
     }
 
     processResources {
