@@ -58,7 +58,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (world.isClient) {
 			return clientEnergy;
 		}
-		return IDSUManager.getPlayer(world, ownerUdid).getEnergy();
+		return IDSUManager.getPlayer(world.getServer(), ownerUdid).getEnergy();
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (world.isClient) {
 			clientEnergy = energy;
 		} else {
-			IDSUManager.getPlayer(world, ownerUdid).setEnergy(energy);
+			IDSUManager.getPlayer(world.getServer(), ownerUdid).setEnergy(energy);
 		}
 	}
 
@@ -81,7 +81,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (world.isClient) {
 			throw new UnsupportedOperationException("cannot set energy on the client!");
 		}
-		double energy = IDSUManager.getPlayer(world, ownerUdid).getEnergy();
+		double energy = IDSUManager.getPlayer(world.getServer(), ownerUdid).getEnergy();
 		if (extract > energy) {
 			extract = energy;
 		}

@@ -25,6 +25,7 @@
 package techreborn.blockentity.storage.energy.idsu;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
@@ -37,16 +38,16 @@ public class IDSUManager extends PersistentState {
 
 	private static final String KEY = "techreborn_idsu";
 
-	public IDSUManager() {
+	private IDSUManager() {
 	}
 
 	@NotNull
-	public static IDSUPlayer getPlayer(World world, String uuid) {
-		return get(world).getPlayer(uuid);
+	public static IDSUPlayer getPlayer(MinecraftServer server, String uuid) {
+		return get(server).getPlayer(uuid);
 	}
 
-	public static IDSUManager get(World world) {
-		ServerWorld serverWorld = (ServerWorld) world;
+	private static IDSUManager get(MinecraftServer server) {
+		ServerWorld serverWorld = server.getWorld(World.OVERWORLD);
 		return serverWorld.getPersistentStateManager().getOrCreate(IDSUManager::createFromTag, IDSUManager::new, KEY);
 	}
 
