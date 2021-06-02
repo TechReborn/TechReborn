@@ -45,6 +45,7 @@ import reborncore.common.misc.RebornCoreTags;
 import reborncore.common.multiblock.MultiblockRegistry;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.recipes.PaddedShapedRecipe;
 import reborncore.common.util.CalenderUtils;
 import reborncore.common.util.GenericWrenchHelper;
 
@@ -107,6 +108,7 @@ public class RebornCore implements ModInitializer {
 		RebornCoreCommands.setup();
 
 		RebornCoreTags.WATER_EXPLOSION_ITEM.toString();
+		PaddedShapedRecipe.PADDED.toString();
 		
 		/* register UnloadHandler */
 		ServerBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {

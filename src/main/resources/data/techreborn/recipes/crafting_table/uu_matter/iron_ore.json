@@ -1,17 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "reborncore:padded",
   "pattern": [
-    "UXU",
-    "XXX",
-    "XXX"
+    "U U",
+    "   ",
+    "   "
   ],
   "key": {
     "U": {
       "item": "techreborn:uu_matter"
-    },
-	"X": {
-	  "item": "minecraft:air"
-	}
+    }
   },
   "result": {
     "item": "minecraft:iron_ore"

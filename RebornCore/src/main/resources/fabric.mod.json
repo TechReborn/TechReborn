@@ -46,5 +46,6 @@
   ],
   "custom": {
     "modmenu:api": true
-  }
+  },
+  "accessWidener": "reborncore.accesswidener"
 }
