@@ -19,7 +19,7 @@
     "client": [
       "techreborn.TechRebornClient"
     ],
-    "rei_plugins_v0": [
+    "rei": [
       "techreborn.compat.rei.ReiPlugin"
     ],
 	"autoswitch": [

@@ -24,9 +24,11 @@
 
 package techreborn.compat.rei;
 
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeDisplay;
-import me.shedaniel.rei.utils.CollectionUtils;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.CollectionUtils;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
@@ -37,11 +39,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDisplay {
+public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 
 	private final R recipe;
-	private final List<List<EntryStack>> inputs;
-	private final List<EntryStack> outputs;
+	private final List<EntryIngredient> inputs;
+	private final List<EntryIngredient> outputs;
 	private final int energy;
 	private int heat = 0;
 	private final int time;
@@ -49,8 +51,8 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryStack.ofItemStacks(ing.getPreviewStacks()));
-		this.outputs = EntryStack.ofItemStacks(recipe.getOutputs());
+		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
+		this.outputs = Collections.singletonList(EntryIngredients.ofItemStacks(recipe.getOutputs()));
 		this.time = recipe.getTime();
 		this.energy = recipe.getPower();
 		if (recipe instanceof BlastFurnaceRecipe) {
@@ -58,13 +60,8 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 		}
 		if (recipe instanceof RebornFluidRecipe) {
 			this.fluidInstance = ((RebornFluidRecipe) recipe).getFluidInstance();
-			inputs.add(Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue())));
+			inputs.add(EntryIngredients.of(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
 		}
-		for (List<EntryStack> entries : inputs)
-			for (EntryStack stack : entries)
-				ReiPlugin.applyCellEntry(stack);
-		for (EntryStack stack : outputs)
-			ReiPlugin.applyCellEntry(stack);
 	}
 
 	public int getEnergy() {
@@ -84,27 +81,22 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	}
 
 	@Override
-	public Optional<Identifier> getRecipeLocation() {
+	public Optional<Identifier> getDisplayLocation() {
 		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
 	}
 
 	@Override
-	public List<List<EntryStack>> getInputEntries() {
+	public List<EntryIngredient> getInputEntries() {
 		return inputs;
 	}
 
 	@Override
-	public List<List<EntryStack>> getRequiredEntries() {
-		return inputs;
-	}
-
-	@Override
-	public List<EntryStack> getOutputEntries() {
+	public List<EntryIngredient> getOutputEntries() {
 		return outputs;
 	}
 
 	@Override
-	public Identifier getRecipeCategory() {
-		return recipe.getRebornRecipeType().name();
+	public CategoryIdentifier<?> getCategoryIdentifier() {
+		return CategoryIdentifier.of(recipe.getRebornRecipeType().name());
 	}
 }

@@ -25,44 +25,40 @@
 package techreborn.compat.rei.fluidgenerator;
 
 import com.google.common.collect.Lists;
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeDisplay;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.util.Identifier;
 import techreborn.api.generator.FluidGeneratorRecipe;
 
-import java.util.Collections;
 import java.util.List;
 
-public class FluidGeneratorRecipeDisplay implements RecipeDisplay {
+public class FluidGeneratorRecipeDisplay implements Display {
 
-	private final List<List<EntryStack>> inputs;
-	private final Identifier category;
+	private final List<EntryIngredient> inputs;
+	private final CategoryIdentifier<?> category;
 	private final int totalEnergy;
 
 	public FluidGeneratorRecipeDisplay(FluidGeneratorRecipe recipe, Identifier category) {
-		this.category = category;
+		this.category = CategoryIdentifier.of(category);
 		this.inputs = Lists.newArrayList();
 		this.totalEnergy = recipe.getEnergyPerBucket();
-		inputs.add(Collections.singletonList(EntryStack.create(recipe.fluid(), 1000)));
+		inputs.add(EntryIngredients.of(recipe.fluid(), 1000));
 	}
 
 	@Override
-	public List<List<EntryStack>> getInputEntries() {
+	public List<EntryIngredient> getInputEntries() {
 		return inputs;
 	}
 
 	@Override
-	public List<List<EntryStack>> getRequiredEntries() {
-		return inputs;
-	}
-
-	@Override
-	public List<EntryStack> getOutputEntries() {
+	public List<EntryIngredient> getOutputEntries() {
 		return Lists.newArrayList();
 	}
 
 	@Override
-	public Identifier getRecipeCategory() {
+	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return category;
 	}
 

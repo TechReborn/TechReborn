@@ -143,7 +143,7 @@ dependencies {
     api project(":RebornCore")
     include project(":RebornCore")
 
-    disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems:5.8.9"
+    optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:6.0.245-alpha"
     disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
 }
