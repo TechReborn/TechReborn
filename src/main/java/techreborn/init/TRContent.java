@@ -378,7 +378,6 @@ public class TRContent {
 	public enum Ores implements ItemConvertible {
 		BAUXITE(6, 10, 10, 60, MiningLevel.STONE),
 		CINNABAR(6, 3, 10, 126, MiningLevel.IRON),
-		COPPER(8, 16, 20, 60, MiningLevel.STONE),
 		GALENA(8, 16, 10, 60, MiningLevel.IRON),
 		IRIDIUM(3, 3, 5, 60, MiningLevel.DIAMOND),
 		LEAD(6, 16, 20, 60, MiningLevel.IRON),
