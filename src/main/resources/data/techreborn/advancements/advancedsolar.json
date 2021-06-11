@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:advanced_solar_panel"
+            "items": ["techreborn:advanced_solar_panel"]
           }
         ]
       }

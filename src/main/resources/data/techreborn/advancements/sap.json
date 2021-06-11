@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:sap"
+            "items": ["techreborn:sap"]
           }
         ]
       }

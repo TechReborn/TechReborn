@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:medium_voltage_su"
+            "items": ["techreborn:medium_voltage_su"]
           }
         ]
       }

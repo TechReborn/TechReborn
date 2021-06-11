@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:rolling_machine"
+            "items": ["techreborn:rolling_machine"]
           }
         ]
       }

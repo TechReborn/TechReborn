@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:iridium_ingot"
+            "items": ["techreborn:iridium_ingot"]
           }
         ]
       }

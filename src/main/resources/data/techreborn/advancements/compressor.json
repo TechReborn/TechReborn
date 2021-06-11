@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:compressor"
+            "items": ["techreborn:compressor"]
           }
         ]
       }

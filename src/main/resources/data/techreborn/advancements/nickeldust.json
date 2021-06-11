@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:nickel_small_dust"
+            "items": ["techreborn:nickel_small_dust"]
           }
         ]
       }

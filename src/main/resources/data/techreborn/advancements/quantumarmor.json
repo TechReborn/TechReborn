@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:quantum_helmet"
+            "items": ["techreborn:quantum_helmet"]
           }
         ]
       }
@@ -27,7 +27,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:quantum_chestplate"
+            "items": ["techreborn:quantum_chestplate"]
           }
         ]
       }
@@ -37,7 +37,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:quantum_leggings"
+            "items": ["techreborn:quantum_leggings"]
           }
         ]
       }
@@ -47,7 +47,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:quantum_boots"
+            "items": ["techreborn:quantum_boots"]
           }
         ]
       }

@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:iron_furnace"
+            "items": ["techreborn:iron_furnace"]
           }
         ]
       }

@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:industrial_centrifuge"
+            "items": ["techreborn:industrial_centrifuge"]
           }
         ]
       }

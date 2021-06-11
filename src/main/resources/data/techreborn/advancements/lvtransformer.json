@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:lv_transformer"
+            "items": ["techreborn:lv_transformer"]
           }
         ]
       }

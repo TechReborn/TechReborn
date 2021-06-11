@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:industrial_machine_frame"
+            "items": ["techreborn:industrial_machine_frame"]
           }
         ]
       }

@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:thermal_generator"
+            "items": ["techreborn:thermal_generator"]
           }
         ]
       }

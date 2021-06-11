@@ -19,7 +19,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:lead_ore"
+            "items": ["techreborn:lead_ore"]
           }
         ]
       }
@@ -29,7 +29,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:silver_ore"
+            "items": ["techreborn:silver_ore"]
           }
         ]
       }
@@ -39,7 +39,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:tin_ore"
+            "items": ["techreborn:tin_ore"]
           }
         ]
       }
