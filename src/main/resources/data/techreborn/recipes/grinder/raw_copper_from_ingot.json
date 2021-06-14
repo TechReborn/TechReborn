@@ -1,16 +1,15 @@
 {
   "type": "techreborn:grinder",
   "power": 2,
-  "time": 270,
+  "time": 200,
   "ingredients": [
     {
-      "tag": "c:copper_ores"
+      "item": "minecraft:copper_ingot"
     }
   ],
   "results": [
     {
-      "item": "techreborn:copper_dust",
-      "count": 2
+      "item": "minecraft:raw_copper"
     }
   ]
 }
