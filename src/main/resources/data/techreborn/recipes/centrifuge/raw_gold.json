@@ -5,7 +5,7 @@
   "ingredients": [
     {
       "count": 3,
-      "tag": "c:gold_dusts"
+      "item": "minecraft:raw_gold"
     }
   ],
   "results": [

@@ -4,7 +4,7 @@
   "time": 200,
   "ingredients": [
     {
-      "tag": "c:gold_dusts"
+      "item": "minecraft:raw_gold"
     },
     {
       "tag": "c:silver_dusts"
