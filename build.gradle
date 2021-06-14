@@ -66,7 +66,7 @@ license {
 group = 'TechReborn'
 
 allprojects {
-    version = "5.0.0-alpha"
+    version = "5.0.1-beta"
     def build_number = ENV.BUILD_NUMBER ?: "local"
     version = "${version}+build.$build_number"
 
