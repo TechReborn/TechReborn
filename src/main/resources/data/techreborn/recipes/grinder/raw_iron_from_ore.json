@@ -1,15 +1,16 @@
 {
   "type": "techreborn:grinder",
   "power": 2,
-  "time": 200,
+  "time": 270,
   "ingredients": [
     {
-      "item": "minecraft:iron_ingot"
+	  "tag": "c:iron_ores"
     }
   ],
   "results": [
     {
-      "item": "techreborn:iron_dust"
+      "item": "minecraft:raw_iron",
+      "count": 2
     }
   ]
 }
