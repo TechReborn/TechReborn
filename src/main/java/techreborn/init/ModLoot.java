@@ -27,6 +27,7 @@ package techreborn.init;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
@@ -40,7 +41,7 @@ public class ModLoot {
 
 	public static void init() {
 
-		LootPoolEntry copperIngot = makeEntry(Ingots.COPPER);
+		LootPoolEntry copperIngot = makeEntry(Items.COPPER_INGOT);
 		LootPoolEntry tinIngot = makeEntry(Ingots.TIN);
 		LootPoolEntry leadIngot = makeEntry(Ingots.LEAD);
 		LootPoolEntry silverIngot = makeEntry(Ingots.SILVER);
