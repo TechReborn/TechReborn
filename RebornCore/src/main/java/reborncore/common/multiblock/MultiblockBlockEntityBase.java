@@ -361,9 +361,4 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 		// Clean part out of lists in the registry
 		MultiblockRegistry.onPartRemovedFromWorld(getWorld(), this);
 	}
-
-	@Override
-	public BlockState getCachedState() {
-		return world.getBlockState(pos);
-	}
 }

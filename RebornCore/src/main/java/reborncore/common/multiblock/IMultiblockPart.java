@@ -255,8 +255,6 @@ public abstract class IMultiblockPart extends BlockEntity {
 	 */
 	public abstract void onMultiblockDataAssimilated();
 
-	public abstract BlockState getCachedState();
-
 	public boolean isInvalid() {
 		return false;
 	}

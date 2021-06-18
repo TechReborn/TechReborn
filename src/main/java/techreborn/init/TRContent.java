@@ -496,7 +496,9 @@ public class TRContent {
 		}
 
 		public static ItemConvertible[] getCasings() {
-			return Arrays.stream(MachineBlocks.values()).map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> () -> Item.fromBlock(machineBlocks.casing)).toArray(ItemConvertible[]::new);
+			return Arrays.stream(MachineBlocks.values())
+					.map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> () -> machineBlocks.casing.asItem())
+					.toArray(ItemConvertible[]::new);
 		}
 	}
 
