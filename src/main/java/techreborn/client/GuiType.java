@@ -125,6 +125,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<WireMillBlockEntity> WIRE_MILL = register("wire_mill", () -> () -> GuiWireMill::new);
 	public static final GuiType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register("greenhouse_controller", () -> () -> GuiGreenhouseController::new);
 	public static final GuiType<FluidReplicatorBlockEntity> FLUID_REPLICATOR = register("fluid_replicator", () -> () -> GuiFluidReplicator::new);
+	public static final GuiType<PlayerDetectorBlockEntity> PLAYER_DETECTOR = register("player_detector", () -> () -> GuiPlayerDetector::new);
 
 	public static final GuiType<DataDrivenBEProvider.DataDrivenBlockEntity> DATA_DRIVEN = register("data_driven", () -> () -> DataDrivenGui::new);
 

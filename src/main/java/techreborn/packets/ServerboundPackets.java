@@ -35,6 +35,7 @@ import techreborn.TechReborn;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
+import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
@@ -52,6 +53,7 @@ public class ServerboundPackets {
 	public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
 	public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
 	public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
+	public static final Identifier DETECTOR_RADIUS = new Identifier(TechReborn.MOD_ID, "detector_radius");
 
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
@@ -157,6 +159,18 @@ public class ServerboundPackets {
 				}
 			});
 		});
+
+		NetworkManager.registerServerBoundHandler(DETECTOR_RADIUS, ((server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+			int buttonAmount = buf.readInt();
+
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				if (blockEntity instanceof PlayerDetectorBlockEntity) {
+					((PlayerDetectorBlockEntity) blockEntity).handleGuiInputFromClient(buttonAmount);
+				}
+			});
+		}));
 	}
 
 	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
@@ -215,4 +229,10 @@ public class ServerboundPackets {
 		return NetworkManager.createServerBoundPacket(EXPERIENCE, extendedPacketBuffer -> extendedPacketBuffer.writeBlockPos(blockEntity.getPos()));
 	}
 
+	public static IdentifiedPacket createPacketPlayerDetector(int buttonAmount, PlayerDetectorBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(DETECTOR_RADIUS, buf -> {
+			buf.writeBlockPos(blockEntity.getPos());
+			buf.writeInt(buttonAmount);
+		});
+	}
 }

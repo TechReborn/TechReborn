@@ -29,8 +29,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.WorldUtils;
@@ -41,13 +45,14 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
+public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
 
-	public String owenerUdid = "";
+	public String ownerUdid = "";
 	boolean redstone = false;
+	int radius = 16;
 
-	public PlayerDectectorBlockEntity(BlockPos pos, BlockState state) {
+	public PlayerDetectorBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.PLAYER_DETECTOR, pos, state);
 	}
 
@@ -55,16 +60,23 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 		return redstone;
 	}
 
+	public void handleGuiInputFromClient(int amount) {
+		radius += amount;
+
+		if (radius > TechRebornConfig.playerDetectorMaxRadius) {
+			radius = TechRebornConfig.playerDetectorMaxRadius;
+		}
+		if (radius <= 1) {
+			radius = 1;
+		}
+	}
+
 	// PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
 
-		if (world == null) {
-			return;
-		}
-
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
 
@@ -76,16 +88,16 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 		redstone = false;
 		if (getStored(EnergySide.UNKNOWN) > TechRebornConfig.playerDetectorEuPerTick) {
 			for (PlayerEntity player : world.getPlayers()) {
-				if (player.distanceTo(player) <= 256.0D) {
+				if (MathHelper.sqrt((float)player.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ())) <= (float)radius ) {
 					PlayerDetectorType type = world.getBlockState(pos).get(PlayerDetectorBlock.TYPE);
 					if (type == PlayerDetectorType.ALL) {// ALL
 						redstone = true;
 					} else if (type == PlayerDetectorType.OTHERS) {// Others
-						if (!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUuid().toString())) {
+						if (!ownerUdid.isEmpty() && !ownerUdid.equals(player.getUuid().toString())) {
 							redstone = true;
 						}
 					} else {// You
-						if (!owenerUdid.isEmpty() && owenerUdid.equals(player.getUuid().toString())) {
+						if (!ownerUdid.isEmpty() && ownerUdid.equals(player.getUuid().toString())) {
 							redstone = true;
 						}
 					}
@@ -122,19 +134,52 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 	@Override
 	public void readNbt(NbtCompound tag) {
 		super.readNbt(tag);
-		owenerUdid = tag.getString("ownerID");
+		ownerUdid = tag.getString("ownerID");
+		radius = tag.getInt("radius");
 	}
 
 	@Override
 	public NbtCompound writeNbt(NbtCompound tag) {
 		super.writeNbt(tag);
-		tag.putString("ownerID", owenerUdid);
+		tag.putString("ownerID", ownerUdid);
+		tag.putInt("radius", radius);
 		return tag;
+	}
+
+	// MachineBaseBlockEntity
+	@Override
+	public boolean hasSlotConfig() {
+		return false;
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
 	}
 
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity p0) {
 		return TRContent.Machine.PLAYER_DETECTOR.getStack();
+	}
+
+	// BuiltScreenHandlerProvider
+	@Override
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("player_detector")
+				.player(player.getInventory())
+				.inventory().hotbar().addInventory()
+				.blockEntity(this)
+				.syncEnergyValue()
+				.sync(this::getCurrentRadius, this::setCurrentRadius)
+				.addInventory().create(this, syncID);
+	}
+
+	public int getCurrentRadius() {
+		return radius;
+	}
+
+	public void setCurrentRadius(int radius) {
+		this.radius = radius;
 	}
 }
