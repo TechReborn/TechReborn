@@ -588,10 +588,9 @@ public class TRContent {
 	public enum Dusts implements ItemConvertible {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
-		FLINT, GALENA, GRANITE, GROSSULAR, INVAR, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
+		FLINT, GALENA, GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
 		NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, RED_GARNET, RUBY, SALTPETER,
-		SAPPHIRE, SAW, SILVER, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TIN, TITANIUM, TUNGSTEN, UVAROVITE,
-		YELLOW_GARNET, ZINC;
+		SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM, UVAROVITE, YELLOW_GARNET, ZINC;
 
 		public final String name;
 		public final Item item;
@@ -608,6 +607,25 @@ public class TRContent {
 
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
+		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
+	}
+
+
+	public enum RawMetals implements ItemConvertible{
+		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN;
+
+		public final String name;
+		public final  Item item;
+
+		RawMetals() {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			InitUtils.setup(item, "raw_" + name);
 		}
 
 		@Override

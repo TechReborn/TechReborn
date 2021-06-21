@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 2400,
+  "ingredients": [
+    {
+      "count": 2,
+      "item": "techreborn:raw_lead"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:silver_small_dust"
+    }
+  ]
+}

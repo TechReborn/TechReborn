@@ -112,6 +112,7 @@ public class ModRegistry {
 		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(RawMetals.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));

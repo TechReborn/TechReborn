@@ -13,7 +13,7 @@
       "tag": "c:coal_dusts"
     },
     "T": {
-      "tag": "c:tin_dusts"
+      "item": "techreborn:raw_tin"
     }
   },
   "result": {

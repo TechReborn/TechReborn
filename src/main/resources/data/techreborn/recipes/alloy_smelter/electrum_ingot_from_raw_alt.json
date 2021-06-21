@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:alloy_smelter",
+  "power": 6,
+  "time": 200,
+  "ingredients": [
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "techreborn:raw_silver"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:electrum_ingot",
+      "count": 2
+    }
+  ]
+}
