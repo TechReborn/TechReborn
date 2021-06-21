@@ -47,7 +47,7 @@ public class PowerSystem {
 	}
 
 	public static String getLocalizedPowerNoSuffix(double power) {
-		return getRoundedString(power, "", true);
+		return getRoundedString((int) power, "", true);
 	}
 
 	public static String getLocalizedPowerNoFormat(double power){
