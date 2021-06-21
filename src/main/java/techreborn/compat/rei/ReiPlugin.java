@@ -268,7 +268,7 @@ public class ReiPlugin implements REIClientPlugin {
 
 	public static Widget createProgressBar(int x, int y, double animationDuration, GuiBuilder.ProgressDirection direction) {
 		return Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> {
-			MinecraftClient.getInstance().getTextureManager().bindTexture(GuiBuilder.defaultTextureSheet);
+			RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
 			helper.drawTexture(matrices, x, y, direction.x, direction.y, direction.width, direction.height);
 			int j = (int) ((System.currentTimeMillis() / animationDuration) % 1.0 * 16.0);
 			if (j < 0) {
@@ -323,7 +323,7 @@ public class ReiPlugin implements REIClientPlugin {
 				int innerHeight = height - 2;
 
 				PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
-				MinecraftClient.getInstance().getTextureManager().bindTexture(GuiBuilder.defaultTextureSheet);
+				RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
 				drawTexture(matrices, bounds.x, bounds.y, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
@@ -352,23 +352,22 @@ public class ReiPlugin implements REIClientPlugin {
 		public void render(EntryStack<FluidStack> entry, MatrixStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {
 			int width = bounds.width;
 			int height = bounds.height;
-			int innerHeight = height - 2;
 
 			PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
-			MinecraftClient.getInstance().getTextureManager().bindTexture(GuiBuilder.defaultTextureSheet);
-			drawTexture(matrices, bounds.x - 3, bounds.y - 3, 194, 26, width + 6, height + 6);
-			drawTexture(matrices, bounds.x, bounds.y, 194, 82, width, height);
+			RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
+			drawTexture(matrices, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
+			drawTexture(matrices, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
-				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight));
+				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / height) % height));
 				if (animation.animationType == EntryAnimationType.DOWNWARDS)
-					innerDisplayHeight = innerHeight - innerDisplayHeight;
-			} else innerDisplayHeight = innerHeight;
-			drawFluid(matrices, entry.getValue().getFluid(), innerDisplayHeight, bounds.x + 1, bounds.y + 1, width - 2, innerHeight);
+					innerDisplayHeight = height - innerDisplayHeight;
+			} else innerDisplayHeight = height;
+			drawFluid(matrices, entry.getValue().getFluid(), innerDisplayHeight, bounds.x, bounds.y, width, height);
 		}
 
 		public void drawFluid(MatrixStack matrixStack, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
-			MinecraftClient.getInstance().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+			RenderSystem.setShaderTexture(0, SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 			y += height;
 
 			FluidRenderHandler handler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
