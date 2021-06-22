@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "techreborn:block/storage/raw_tungsten_storage_block"
+    }
+}

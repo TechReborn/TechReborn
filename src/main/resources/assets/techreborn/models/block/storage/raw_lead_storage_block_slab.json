@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+	"bottom": "techreborn:block/storage/raw_lead_storage_block",
+	"top": "techreborn:block/storage/raw_lead_storage_block",
+	"side": "techreborn:block/storage/raw_lead_storage_block"
+  }
+}

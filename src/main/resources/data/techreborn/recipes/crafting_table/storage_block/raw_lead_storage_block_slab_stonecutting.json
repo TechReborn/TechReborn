@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+	"item": "techreborn:raw_lead_storage_block"
+  },
+  "result": "techreborn:raw_lead_storage_block_slab",
+  "count": 2
+}
