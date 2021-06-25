@@ -60,6 +60,10 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	private BlockPos multiblockCenter;
 	private int ticksToNextMultiblockCheck = 0;
 	private boolean growthBoost = false;
+	private int workingIndex = 0;
+	// number of blocks from center
+	private int range = 4;
+
 
 	public GreenhouseControllerBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.GREENHOUSE_CONTROLLER, pos, state);
@@ -69,7 +73,14 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		if (world == null){
 			return;
 		}
-		BlockPos blockPos = multiblockCenter.add(world.random.nextInt(9) - 4, 0, world.random.nextInt(9) - 4);
+
+		int size = range * 2 + 1;
+		int offsetX = workingIndex % size;
+		int offsetZ = workingIndex / size;
+		BlockPos corner = multiblockCenter.add(-range, 0, -range);
+		BlockPos blockPos = corner.add(offsetX, 0, offsetZ);
+
+		workingIndex = (workingIndex + 1) % (size * size);
 		BlockState blockState = world.getBlockState(blockPos);
 		Block block = blockState.getBlock();
 
@@ -189,8 +200,9 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		if (multiblockCenter == null) {
-			multiblockCenter = pos.offset(getFacing().getOpposite(), 5);
+			multiblockCenter = pos.offset(getFacing().getOpposite(), range + 1);
 		}
+
 		charge(6);
 		super.tick(world, pos, state, blockEntity);
 
