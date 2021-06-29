@@ -62,7 +62,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	private boolean growthBoost = false;
 	private int workingIndex = 0;
 	// number of blocks from center
-	private int range = 4;
+	private final int range = 4;
 
 
 	public GreenhouseControllerBlockEntity(BlockPos pos, BlockState state) {
@@ -85,10 +85,8 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		Block block = blockState.getBlock();
 
 		if (growthBoost) {
-			if (block instanceof Fertilizable
-					|| block instanceof PlantBlock
-					|| block instanceof SugarCaneBlock
-					|| block instanceof CactusBlock
+			if (block instanceof Fertilizable || block instanceof PlantBlock
+					|| block instanceof SugarCaneBlock	|| block instanceof CactusBlock
 			) {
 				if (getStored(EnergySide.UNKNOWN) > TechRebornConfig.greenhouseControllerEnergyPerBonemeal) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerBonemeal);
@@ -196,19 +194,15 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	// PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		if (world == null){
+		super.tick(world, pos, state, blockEntity);
+		if (world == null || world.isClient){
 			return;
 		}
 		if (multiblockCenter == null) {
-			multiblockCenter = pos.offset(getFacing().getOpposite(), range + 1);
+			multiblockCenter = pos.offset(getFacing().getOpposite(), range);
 		}
 
 		charge(6);
-		super.tick(world, pos, state, blockEntity);
-
-		if (world.isClient) {
-			return;
-		}
 
 		if (getStored(EnergySide.UNKNOWN) < getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) {
 			return;
