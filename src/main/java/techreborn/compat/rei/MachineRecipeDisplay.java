@@ -35,9 +35,9 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 
@@ -52,7 +52,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
 		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
-		this.outputs = Collections.singletonList(EntryIngredients.ofItemStacks(recipe.getOutputs()));
+		this.outputs = recipe.getOutputs().stream().map(EntryIngredients::of).collect(Collectors.toList());
 		this.time = recipe.getTime();
 		this.energy = recipe.getPower();
 		if (recipe instanceof BlastFurnaceRecipe) {
