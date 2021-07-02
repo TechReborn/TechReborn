@@ -37,7 +37,6 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
@@ -351,7 +350,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return Optional.of(getCraftingInventory());
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
@@ -430,12 +429,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public boolean hasSlotConfig() {
 		return true;
-	}
-
-	// This machine doesnt have a facing
-	@Override
-	public Direction getFacingEnum() {
-		return Direction.NORTH;
 	}
 
 	// IToolDrop
