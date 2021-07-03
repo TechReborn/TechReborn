@@ -86,18 +86,20 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 			return false;
 		}
 
-		if (Items.DIAMOND_PICKAXE.isSuitableFor(blockIn)) {
+		ItemStack diamondPickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
+		if (diamondPickaxe.isSuitableFor(blockIn)) {
 			return true;
 		}
-		if (Items.DIAMOND_SHOVEL.isSuitableFor(blockIn)) {
+		ItemStack diamondShovel = new ItemStack(Items.DIAMOND_SHOVEL);
+		if (diamondShovel.isSuitableFor(blockIn)) {
 			return true;
 		}
 		// More checks to fix #2225
 		// Pass stack to fix #2348
-		if (Items.DIAMOND_SHOVEL.getMiningSpeedMultiplier(new ItemStack(Items.DIAMOND_SHOVEL), blockIn) > 1.0f) {
+		if (diamondShovel.getMiningSpeedMultiplier(blockIn) > 1.0f) {
 			return true;
 		}
-		return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(new ItemStack(Items.DIAMOND_SHOVEL), blockIn) > 1.0f;
+		return diamondPickaxe.getMiningSpeedMultiplier(blockIn) > 1.0f;
 	}
 
 	// MiningToolItem
