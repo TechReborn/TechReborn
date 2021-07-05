@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+	"techreborn:bauxite_ore",
+	"techreborn:cinnabar_ore",
+	"techreborn:galena_ore",
+	"techreborn:lead_ore",
+	"techreborn:peridot_ore",
+	"techreborn:pyrite_ore",
+	"techreborn:ruby_ore",
+	"techreborn:sapphire_ore",
+	"techreborn:silver_ore",
+	"techreborn:sphalerite_ore",
+	"techreborn:tin_ore"
+  ]
+}
