@@ -17,10 +17,12 @@
       "count": 2
     },
     {
-      "item": "techreborn:iron_small_dust"
+      "item": "minecraft:iron_nugget",
+	  "count": 3
     },
     {
-      "item": "techreborn:zinc_small_dust"
+      "item": "techreborn:zinc_nugget",
+	  "count": 3
     }
   ]
 }
