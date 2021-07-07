@@ -43,10 +43,12 @@ import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.Nullable;
+import reborncore.client.RenderUtil;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Color;
 
@@ -80,10 +82,18 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 			int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getBlockPos(), fluid.getDefaultState());
 			Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
 			int color = new Color((float) (fluidColor >> 16 & 255) / 255.0F, (float) (fluidColor >> 8 & 255) / 255.0F, (float) (fluidColor & 255) / 255.0F).getColor();
+
 			context.pushTransform(quad -> {
 				quad.nominalFace(GeometryHelper.lightFace(quad));
 				quad.spriteColor(0, color, color, color, color);
-				quad.spriteBake(0, fluidSprite, MutableQuadView.BAKE_LOCK_UV);
+				// Some modded fluids doesn't have sprites. Fix for #2429
+				if (fluidSprite == null) {
+					quad.spriteBake(0, RenderUtil.getSprite(new Identifier("minecraft", "missingno")), MutableQuadView.BAKE_LOCK_UV);
+				}
+				else {
+					quad.spriteBake(0, fluidSprite, MutableQuadView.BAKE_LOCK_UV);
+				}
+
 				return true;
 			});
 			final QuadEmitter emitter = context.getEmitter();
