@@ -4,16 +4,15 @@
   "time": 2400,
   "ingredients": [
     {
-      "count": 3,
       "item": "minecraft:raw_copper"
     }
   ],
   "results": [
     {
-      "item": "techreborn:gold_small_dust"
+      "item": "minecraft:gold_nugget"
     },
     {
-      "item": "techreborn:nickel_small_dust"
+      "item": "techreborn:nickel_nugget"
     }
   ]
 }

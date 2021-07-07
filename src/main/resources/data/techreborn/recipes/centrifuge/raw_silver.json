@@ -10,7 +10,8 @@
   ],
   "results": [
     {
-      "item": "techreborn:lead_small_dust"
+      "item": "techreborn:lead_nugget",
+	  "count": 3
     }
   ]
 }

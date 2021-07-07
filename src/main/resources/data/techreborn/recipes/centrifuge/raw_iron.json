@@ -10,10 +10,12 @@
   ],
   "results": [
     {
-      "item": "techreborn:tin_small_dust"
+      "item": "techreborn:tin_nugget",
+	  "count": 3
     },
     {
-      "item": "techreborn:nickel_small_dust"
+      "item": "techreborn:nickel_nugget",
+	  "count": 3
     }
   ]
 }

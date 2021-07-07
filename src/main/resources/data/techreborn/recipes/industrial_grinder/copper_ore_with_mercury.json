@@ -17,7 +17,8 @@
       "count": 3
     },
     {
-      "item": "techreborn:gold_small_dust"
+      "item": "minecraft:gold_nugget",
+	  "count": 3
     }
   ]
 }

@@ -10,7 +10,8 @@
   ],
   "results": [
     {
-      "item": "techreborn:silver_small_dust"
+      "item": "techreborn:silver_nugget",
+	  "count": 3
     }
   ]
 }
