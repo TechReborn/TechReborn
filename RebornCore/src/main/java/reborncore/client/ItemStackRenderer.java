@@ -136,8 +136,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 		framebuffer.endWrite();
 
 		try (NativeImage nativeImage = new NativeImage(size, size, false)) {
-			// FIXME 1.17
-			//GlStateManager.bindTexture(framebuffer.getColorAttachment());
+			RenderSystem.bindTexture(framebuffer.getColorAttachment());
 			nativeImage.loadFromTextureImage(0, false);
 			nativeImage.mirrorVertically();
 
