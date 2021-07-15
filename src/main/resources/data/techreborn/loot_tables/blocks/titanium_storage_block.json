@@ -1,19 +1,19 @@
 {
   "type": "minecraft:block",
   "pools": [
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "techreborn:titanium_storage_block"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
-    }
+	{
+	  "rolls": 1,
+	  "entries": [
+		{
+		  "type": "minecraft:item",
+		  "name": "techreborn:titanium_storage_block"
+		}
+	  ],
+	  "conditions": [
+		{
+		  "condition": "minecraft:survives_explosion"
+		}
+	  ]
+	}
   ]
 }
