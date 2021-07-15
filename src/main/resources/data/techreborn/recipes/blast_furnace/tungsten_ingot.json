@@ -5,7 +5,7 @@
   "heat": 2500,
   "ingredients": [
     {
-      "item": "techreborn:raw_tungsten"
+      "tag": "c:raw_tungsten_ores"
     }
   ],
   "results": [

@@ -5,7 +5,7 @@
   "ingredients": [
     {
       "count": 2,
-      "item": "techreborn:raw_tin"
+      "tag": "c:raw_tin_ores"
     }
   ],
   "results": [

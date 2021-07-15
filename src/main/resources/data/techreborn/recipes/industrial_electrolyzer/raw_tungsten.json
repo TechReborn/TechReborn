@@ -4,7 +4,7 @@
   "time": 1200,
   "ingredients": [
     {
-      "item": "techreborn:raw_tungsten"
+      "tag": "c:raw_tungsten_ores"
     },
     {
       "item": "techreborn:cell",

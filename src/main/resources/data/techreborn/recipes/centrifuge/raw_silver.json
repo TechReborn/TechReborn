@@ -5,7 +5,7 @@
   "ingredients": [
     {
       "count": 2,
-      "item": "techreborn:raw_silver"
+      "tag": "c:raw_silver_ores"
     }
   ],
   "results": [
