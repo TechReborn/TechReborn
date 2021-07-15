@@ -34,6 +34,12 @@ repositories {
 			includeGroup "curse.maven"
 		}
 	}
+    maven {
+        url = "https://maven.oskarstrom.net"
+        content {
+            includeGroup "net.oskarstrom"
+        }
+    }
 	maven {
 		url "https://maven.shedaniel.me/"
 	}
@@ -146,6 +152,8 @@ dependencies {
     optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:6.0.262-alpha"
     disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
+    optionalDependency 'net.oskarstrom:DashLoader:2.0'
+
 }
 
 def optionalDependency(String dep) {
