@@ -199,7 +199,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		if (multiblockCenter == null) {
-			multiblockCenter = pos.offset(getFacing().getOpposite(), range);
+			multiblockCenter = pos.offset(getFacing().getOpposite(), range + 1);
 		}
 
 		charge(6);
