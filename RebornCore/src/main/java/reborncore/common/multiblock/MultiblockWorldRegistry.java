@@ -29,6 +29,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import reborncore.RebornCore;
+import reborncore.common.util.WorldUtils;
 
 import java.util.*;
 
@@ -140,7 +141,7 @@ public class MultiblockWorldRegistry {
 				// controller
 				for (IMultiblockPart orphan : orphansToProcess) {
 					coord = orphan.getWorldLocation();
-					if (!this.worldObj.isChunkLoaded(coord)) {
+					if (!WorldUtils.isChunkLoaded(worldObj, coord)) {
 						continue;
 					}
 
@@ -318,7 +319,7 @@ public class MultiblockWorldRegistry {
 	public void onPartAdded(IMultiblockPart part) {
 		BlockPos pos = part.getWorldLocation();
 
-		if (!this.worldObj.isChunkLoaded(pos)) {
+		if (!WorldUtils.isChunkLoaded(worldObj, pos)) {
 			// Part goes into the waiting-for-chunk-load list
 			Set<IMultiblockPart> partSet;
 			int chunkHash = new ChunkPos(pos).hashCode();

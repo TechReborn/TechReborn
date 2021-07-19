@@ -29,6 +29,7 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -45,9 +46,17 @@ public class WorldUtils {
 		world.updateListeners(pos, state, state, 3);
 	}
 
-	public static boolean chunkExists(World world, int x, int z) {
-		return world.isChunkLoaded(new BlockPos(x << 4, 64, z << 4));
+	/**
+	 * Checks if chunk is loaded using proper chunk manager
+	 *
+	 * @param world World object
+	 * @param pos BlockPos X and Z coordinates to check
+	 * @return boolean True if chunk is loaded
+	 */
+	public static boolean isChunkLoaded(World world, BlockPos pos){
+		return world.getChunkManager().isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ()));
 	}
+
 
 	public static void dropItem(ItemStack itemStack, World world, BlockPos pos) {
 		Random rand = new Random();

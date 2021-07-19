@@ -498,7 +498,7 @@ public class TRContent {
 
 		public static ItemConvertible[] getCasings() {
 			return Arrays.stream(MachineBlocks.values())
-					.map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> () -> machineBlocks.casing.asItem())
+					.map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> machineBlocks.casing::asItem)
 					.toArray(ItemConvertible[]::new);
 		}
 	}
@@ -855,8 +855,10 @@ public class TRContent {
 			if (blockEntity instanceof PowerAcceptorBlockEntity) {
 				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
-			handler.addSpeedMulti(TechRebornConfig.overclockerSpeed);
-			handler.addPowerMulti(TechRebornConfig.overclockerPower);
+			if (handler != null) {
+				handler.addSpeedMulti(TechRebornConfig.overclockerSpeed);
+				handler.addPowerMulti(TechRebornConfig.overclockerPower);
+			}
 			if (powerAcceptor != null) {
 				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(EnergySide.UNKNOWN);
 				powerAcceptor.extraPowerStorage += powerAcceptor.getBaseMaxPower();

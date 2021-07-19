@@ -56,7 +56,6 @@ public abstract class MultiblockControllerBase {
 		Disassembled, Assembled, Paused
 	}
 
-	;
 	protected AssemblyState assemblyState;
 
 	public HashSet<IMultiblockPart> connectedParts;
@@ -398,7 +397,6 @@ public abstract class MultiblockControllerBase {
 	 * now is, assemble the machine. If the machine was whole, but no longer is,
 	 * disassemble the machine.
 	 *
-	 * @return
 	 */
 	public void checkIfMachineIsWhole() {
 		AssemblyState oldState = this.assemblyState;
@@ -494,15 +492,16 @@ public abstract class MultiblockControllerBase {
 	 * @param otherController The controller consuming this controller.
 	 */
 	private void _onAssimilated(MultiblockControllerBase otherController) {
-		if (referenceCoord != null) {
-			if (this.worldObj.isChunkLoaded(this.referenceCoord)) {
-				BlockEntity te = this.worldObj.getBlockEntity(referenceCoord);
-				if (te instanceof IMultiblockPart) {
-					((IMultiblockPart) te).forfeitMultiblockSaveDelegate();
-				}
+		if (referenceCoord == null) { return; }
+
+		if (WorldUtils.isChunkLoaded(worldObj, referenceCoord)) {
+			BlockEntity te = this.worldObj.getBlockEntity(referenceCoord);
+			if (te instanceof IMultiblockPart) {
+				((IMultiblockPart) te).forfeitMultiblockSaveDelegate();
 			}
-			this.referenceCoord = null;
 		}
+		this.referenceCoord = null;
+
 		connectedParts.clear();
 	}
 
@@ -862,7 +861,7 @@ public abstract class MultiblockControllerBase {
 	 * Called when this machine may need to check for blocks that are no longer
 	 * physically connected to the reference coordinate.
 	 *
-	 * @return
+	 * @return Set with removed parts
 	 */
 	public Set<IMultiblockPart> checkForDisconnections() {
 		if (!this.shouldCheckForDisconnections) {
@@ -886,7 +885,7 @@ public abstract class MultiblockControllerBase {
 
 		for (IMultiblockPart part : connectedParts) {
 			pos = part.getWorldLocation();
-			if (!this.worldObj.isChunkLoaded(pos) || part.isInvalid()) {
+			if (!WorldUtils.isChunkLoaded(worldObj, pos) || part.isInvalid()) {
 				deadParts.add(part);
 				onDetachBlock(part);
 				continue;
@@ -927,7 +926,7 @@ public abstract class MultiblockControllerBase {
 		// coord's part
 		IMultiblockPart part;
 		LinkedList<IMultiblockPart> partsToCheck = new LinkedList<>();
-		IMultiblockPart[] nearbyParts = null;
+		IMultiblockPart[] nearbyParts;
 		int visitedParts = 0;
 
 		partsToCheck.add(referencePart);
@@ -992,7 +991,7 @@ public abstract class MultiblockControllerBase {
 		}
 
 		for (IMultiblockPart part : connectedParts) {
-			if (this.worldObj.isChunkLoaded(part.getWorldLocation())) {
+			if (WorldUtils.isChunkLoaded(worldObj, part.getWorldLocation())) {
 				onDetachBlock(part);
 			}
 		}
@@ -1017,7 +1016,7 @@ public abstract class MultiblockControllerBase {
 
 		for (IMultiblockPart part : connectedParts) {
 			pos = part.getWorldLocation();
-			if (part.isInvalid() || !this.worldObj.isChunkLoaded(pos)) {
+			if (part.isInvalid() || !WorldUtils.isChunkLoaded(worldObj, pos)) {
 				// Chunk is unloading, skip this coord to prevent chunk thrashing
 				continue;
 			}
