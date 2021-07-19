@@ -31,6 +31,7 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -56,8 +57,6 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	public int fuelSlot = 0;
 	public int burnTime;
 	public int totalBurnTime = 0;
-	// sould properly use the conversion
-	// ratio here.
 	public boolean isBurning;
 	public boolean lastTickBurning;
 	ItemStack burnItem;
@@ -77,17 +76,28 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		return 0;
 	}
 
+	private void updateState() {
+		assert world != null;
+		final BlockState BlockStateContainer = world.getBlockState(pos);
+		if (BlockStateContainer.getBlock() instanceof final BlockMachineBase blockMachineBase) {
+			boolean active = burnTime > 0 && getFreeSpace() > 0.0f;
+			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != active) {
+				blockMachineBase.setActive(active, world, pos);
+			}
+		}
+	}
+
+
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null){
+		if (world == null || world.isClient){
 			return;
 		}
-		if (world.isClient) {
-			return;
-		}
+
 		discharge(1);
-		if (getEnergy() < getMaxStoredPower()) {
+		if (getFreeSpace() >= TechRebornConfig.solidFuelGeneratorOutputAmount) {
 			if (burnTime > 0) {
 				burnTime--;
 				addEnergy(TechRebornConfig.solidFuelGeneratorOutputAmount);
@@ -120,16 +130,6 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		lastTickBurning = isBurning;
 	}
 
-	public void updateState() {
-		final BlockState BlockStateContainer = world.getBlockState(pos);
-		if (BlockStateContainer.getBlock() instanceof final BlockMachineBase blockMachineBase) {
-			boolean active = burnTime > 0 && getFreeSpace() > 0.0f;
-			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != active) {
-				blockMachineBase.setActive(active, world, pos);
-			}
-		}
-	}
-
 	@Override
 	public double getBaseMaxPower() {
 		return TechRebornConfig.solidFuelGeneratorMaxEnergy;
@@ -151,15 +151,39 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	@Override
+	public void readNbt(NbtCompound tag) {
+		super.readNbt(tag);
+		burnTime = tag.getInt("BurnTime");
+		totalBurnTime = tag.getInt("TotalBurnTime");
+	}
+
+	@Override
+	public NbtCompound writeNbt(NbtCompound tag) {
+		super.writeNbt(tag);
+		tag.putInt("BurnTime", burnTime);
+		tag.putInt("TotalBurnTime", totalBurnTime);
+		return tag;
+	}
+
+	// MachineBaseBlockEntity
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
+	// IToolDrop
+	@Override
 	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.SOLID_FUEL_GENERATOR.getStack();
 	}
 
+	// InventoryProvider
 	@Override
 	public RebornInventory<SolidFuelGeneratorBlockEntity> getInventory() {
 		return inventory;
 	}
 
+	// BuiltScreenHandlerProvider
 	public int getBurnTime() {
 		return burnTime;
 	}
@@ -186,10 +210,5 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 				.blockEntity(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
 				.sync(this::getBurnTime, this::setBurnTime)
 				.sync(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
-	}
-
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
 	}
 }
