@@ -60,13 +60,13 @@ public class InventoryItem extends InventoryBase {
 
 	public NbtCompound getInvData() {
 		Validate.isTrue(!stack.isEmpty());
-		if (!stack.hasTag()) {
-			stack.setTag(new NbtCompound());
+		if (!stack.hasNbt()) {
+			stack.setNbt(new NbtCompound());
 		}
-		if (!stack.getTag().contains("inventory")) {
-			stack.getTag().put("inventory", new NbtCompound());
+		if (!stack.getNbt().contains("inventory")) {
+			stack.getNbt().put("inventory", new NbtCompound());
 		}
-		return stack.getTag().getCompound("inventory");
+		return stack.getNbt().getCompound("inventory");
 	}
 
 	public NbtCompound getSlotData(int slot) {

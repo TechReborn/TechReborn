@@ -102,14 +102,14 @@ public class StackIngredient extends RebornIngredient {
 			return false;
 		}
 		if (tag.isPresent()) {
-			if (!itemStack.hasTag()) {
+			if (!itemStack.hasNbt()) {
 				return false;
 			}
 
 			//Bit of a meme here, as DataFixer likes to use the most basic primative type over using an int.
 			//So we have to go to json and back on the incoming stack to be sure its using types that match our input.
 
-			NbtCompound compoundTag = itemStack.getTag();
+			NbtCompound compoundTag = itemStack.getNbt();
 			JsonElement jsonElement = Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag);
 			compoundTag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonElement);
 
@@ -117,7 +117,7 @@ public class StackIngredient extends RebornIngredient {
 				return false;
 			}
 		}
-		return !requireEmptyTag || !itemStack.hasTag();
+		return !requireEmptyTag || !itemStack.hasNbt();
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class StackIngredient extends RebornIngredient {
 				stacks.stream()
 						.map(ItemStack::copy)
 						.peek(itemStack -> itemStack.setCount(count.orElse(1)))
-						.peek(itemStack -> itemStack.setTag(tag.orElse(null)))
+						.peek(itemStack -> itemStack.setNbt(tag.orElse(null)))
 						.collect(Collectors.toList()));
 	}
 

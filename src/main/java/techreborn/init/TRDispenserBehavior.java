@@ -74,7 +74,7 @@ public class TRDispenserBehavior {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				DynamicCellItem cell = (DynamicCellItem) stack.getItem();
 				WorldAccess iWorld = pointer.getWorld();
-				BlockPos blockPos = pointer.getBlockPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
+				BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
 				BlockState blockState = iWorld.getBlockState(blockPos);
 				Block block = blockState.getBlock();
 				if (cell.getFluid(stack) == Fluids.EMPTY) {

@@ -49,7 +49,7 @@ public class ItemUtils {
 		if (a.getItem() != b.getItem()) {
 			return false;
 		}
-		return !matchNBT || ItemStack.areTagsEqual(a, b);
+		return !matchNBT || ItemStack.areNbtEqual(a, b);
 	}
 
 	public static boolean isItemEqual(ItemStack a, ItemStack b, boolean matchNBT,
@@ -121,7 +121,7 @@ public class ItemUtils {
 	 * @return True if powered item is active
 	 */
 	public static boolean isActive(ItemStack stack) {
-		return !stack.isEmpty() && stack.getTag() != null && stack.getTag().getBoolean("isActive");
+		return !stack.isEmpty() && stack.getNbt() != null && stack.getNbt().getBoolean("isActive");
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class ItemUtils {
 					)
 			);
 		}
-		stack.getOrCreateTag().putBoolean("isActive", false);
+		stack.getOrCreateNbt().putBoolean("isActive", false);
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class ItemUtils {
 		ItemUtils.checkActive(stack, cost, isClient, messageId);
 
 		if (!ItemUtils.isActive(stack)) {
-			stack.getOrCreateTag().putBoolean("isActive", true);
+			stack.getOrCreateNbt().putBoolean("isActive", true);
 			if (isClient) {
 
 
@@ -178,7 +178,7 @@ public class ItemUtils {
 				);
 			}
 		} else {
-			stack.getOrCreateTag().putBoolean("isActive", false);
+			stack.getOrCreateNbt().putBoolean("isActive", false);
 			if (isClient) {
 				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.setTo")
 						.formatted(Formatting.GRAY)

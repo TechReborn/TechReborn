@@ -64,7 +64,7 @@ public class PaintingToolItem extends Item {
 		if (player.isSneaking()) {
 			if (blockState.isOpaqueFullCube(context.getWorld(), context.getBlockPos())
 					&& blockState.getBlock().getDefaultState().isOpaqueFullCube(context.getWorld(), context.getBlockPos())) {
-				context.getStack().getOrCreateTag().put("cover", NbtHelper.fromBlockState(blockState));
+				context.getStack().getOrCreateNbt().put("cover", NbtHelper.fromBlockState(blockState));
 				return ActionResult.SUCCESS;
 			}
 			return ActionResult.FAIL;
@@ -90,8 +90,8 @@ public class PaintingToolItem extends Item {
 	}
 
 	public static BlockState getCover(ItemStack stack) {
-		if (stack.hasTag() && stack.getTag().contains("cover")) {
-			return NbtHelper.toBlockState(stack.getTag().getCompound("cover"));
+		if (stack.hasNbt() && stack.getOrCreateNbt().contains("cover")) {
+			return NbtHelper.toBlockState(stack.getOrCreateNbt().getCompound("cover"));
 		}
 		return null;
 	}

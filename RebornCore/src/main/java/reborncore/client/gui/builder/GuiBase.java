@@ -282,7 +282,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		for (Selectable selectable : accessorScreen.getSelectables()) {
 			if (selectable instanceof ClickableWidget clickable) {
 				if (clickable.isHovered()) {
-					clickable.renderToolTip(matrixStack, mouseX, mouseY);
+					clickable.renderTooltip(matrixStack, mouseX, mouseY);
 					break;
 				}
 			}

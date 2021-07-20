@@ -114,17 +114,17 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 			return;
 		}
 		ItemStack inactiveUncharged = new ItemStack(this);
-		inactiveUncharged.setTag(new NbtCompound());
-		inactiveUncharged.getOrCreateTag().putBoolean("isActive", false);
+		inactiveUncharged.setNbt(new NbtCompound());
+		inactiveUncharged.getOrCreateNbt().putBoolean("isActive", false);
 
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
-		inactiveCharged.setTag(new NbtCompound());
-		inactiveCharged.getOrCreateTag().putBoolean("isActive", false);
+		inactiveCharged.setNbt(new NbtCompound());
+		inactiveCharged.getOrCreateNbt().putBoolean("isActive", false);
 		Energy.of(inactiveCharged).set(Energy.of(inactiveCharged).getMaxStored());
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
-		activeCharged.setTag(new NbtCompound());
-		activeCharged.getOrCreateTag().putBoolean("isActive", true);
+		activeCharged.setNbt(new NbtCompound());
+		activeCharged.getOrCreateNbt().putBoolean("isActive", true);
 		Energy.of(activeCharged).set(Energy.of(activeCharged).getMaxStored());
 
 		itemList.add(inactiveUncharged);

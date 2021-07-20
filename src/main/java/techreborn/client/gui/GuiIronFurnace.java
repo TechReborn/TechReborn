@@ -64,7 +64,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 		addSelectableChild(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, LiteralText.EMPTY, b -> onClick()) {
 
 			@Override
-			public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+			public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
 				PlayerEntity player = MinecraftClient.getInstance().player;
 				String message = "Experience: ";
 

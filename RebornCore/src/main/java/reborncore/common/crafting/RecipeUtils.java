@@ -74,7 +74,7 @@ public class RecipeUtils {
 		ItemStack stack = new ItemStack(item, count);
 		if (jsonObject.has("nbt")) {
 			NbtCompound tag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject.get("nbt"));
-			stack.setTag(tag);
+			stack.setNbt(tag);
 		}
 		return stack;
 	}

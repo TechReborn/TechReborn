@@ -108,8 +108,8 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 				if ((block instanceof BaseBlockEntityProvider)) {
 					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(BlockPos.ORIGIN, block.getDefaultState());
 					boolean hasData = false;
-					if (itemStack.hasTag() && itemStack.getOrCreateTag().contains("blockEntity_data")) {
-						NbtCompound blockEntityData = itemStack.getOrCreateTag().getCompound("blockEntity_data");
+					if (itemStack.hasNbt() && itemStack.getOrCreateNbt().contains("blockEntity_data")) {
+						NbtCompound blockEntityData = itemStack.getOrCreateNbt().getCompound("blockEntity_data");
 						if (blockEntity != null) {
 							blockEntity.readNbt(blockEntityData);
 							hasData = true;

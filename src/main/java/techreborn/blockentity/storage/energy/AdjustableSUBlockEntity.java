@@ -82,8 +82,8 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		NbtCompound blockEntity = new NbtCompound();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
 		writeNbt(blockEntity);
-		dropStack.setTag(new NbtCompound());
-		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
+		dropStack.setNbt(new NbtCompound());
+		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
 		return dropStack;
 	}
 

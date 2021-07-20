@@ -205,8 +205,9 @@ public class TechRebornClient implements ClientModInitializer {
 				FrequencyTransmitterItem.class,
 				new Identifier("techreborn:coords"),
 				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
-							&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
+					if (!stack.isEmpty() && stack.hasNbt() && stack.getOrCreateNbt().contains("x")
+							&& stack.getOrCreateNbt().contains("y") && stack.getOrCreateNbt().contains("z")
+							&& stack.getOrCreateNbt().contains("dim")) {
 						return 1.0F;
 					}
 					return 0.0F;

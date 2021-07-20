@@ -411,8 +411,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		final NbtCompound blockEntity = new NbtCompound();
 
 		this.writeNbt(blockEntity);
-		dropStack.setTag(new NbtCompound());
-		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
+		dropStack.setNbt(new NbtCompound());
+		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
 
 		return dropStack;
 	}

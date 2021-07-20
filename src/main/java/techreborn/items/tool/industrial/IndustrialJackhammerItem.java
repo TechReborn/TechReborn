@@ -67,16 +67,16 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 		ItemUtils.checkActive(stack, cost, isClient, messageId);
 		if (!ItemUtils.isActive(stack)) {
 			ItemUtils.switchActive(stack, cost, isClient, messageId);
-			stack.getOrCreateTag().putBoolean("AOE5", false);
+			stack.getOrCreateNbt().putBoolean("AOE5", false);
 			if (isClient) {
 				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(new LiteralText("3*3").formatted(Formatting.GOLD)));
 			}
 		} else {
 			if (isAOE5(stack)) {
 				ItemUtils.switchActive(stack, cost, isClient, messageId);
-				stack.getOrCreateTag().putBoolean("AOE5", false);
+				stack.getOrCreateNbt().putBoolean("AOE5", false);
 			} else {
-				stack.getOrCreateTag().putBoolean("AOE5", true);
+				stack.getOrCreateNbt().putBoolean("AOE5", true);
 				if (isClient) {
 					ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(new LiteralText("5*5").formatted(Formatting.GOLD)));
 				}
@@ -98,7 +98,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	private boolean isAOE5(ItemStack stack) {
-		return !stack.isEmpty() && stack.getTag() != null && stack.getTag().getBoolean("AOE5");
+		return !stack.isEmpty() && stack.getOrCreateNbt().getBoolean("AOE5");
 	}
 
 	// JackhammerItem

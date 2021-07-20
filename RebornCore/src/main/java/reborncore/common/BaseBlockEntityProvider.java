@@ -52,18 +52,19 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 		ItemStack newStack = stack.copy();
 		NbtCompound blockEntityData = blockEntity.writeNbt(new NbtCompound());
 		stripLocationData(blockEntityData);
-		if (!newStack.hasTag()) {
-			newStack.setTag(new NbtCompound());
+		if (!newStack.hasNbt()) {
+			newStack.setNbt(new NbtCompound());
 		}
-		newStack.getTag().put("blockEntity_data", blockEntityData);
+		newStack.getOrCreateNbt().put("blockEntity_data", blockEntityData);
 		return Optional.of(newStack);
 	}
 
 	@Override
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (stack.hasTag() && stack.getTag().contains("blockEntity_data")) {
+		if (stack.hasNbt() && stack.getOrCreateNbt().contains("blockEntity_data")) {
 			BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-			NbtCompound nbt = stack.getTag().getCompound("blockEntity_data");
+			if (blockEntity == null) { return; }
+			NbtCompound nbt = stack.getOrCreateNbt().getCompound("blockEntity_data");
 			injectLocationData(nbt, pos);
 			blockEntity.readNbt(nbt);
 			blockEntity.markDirty();

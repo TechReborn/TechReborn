@@ -34,7 +34,7 @@ public class ItemNBTHelper {
 	 * Checks if an ItemStack has a Tag Compound
 	 **/
 	public static boolean detectNBT(ItemStack stack) {
-		return stack.hasTag();
+		return stack.hasNbt();
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class ItemNBTHelper {
 	 * previously
 	 **/
 	public static void injectNBT(ItemStack stack, NbtCompound nbt) {
-		stack.setTag(nbt);
+		stack.setNbt(nbt);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class ItemNBTHelper {
 	 **/
 	public static NbtCompound getNBT(ItemStack stack) {
 		initNBT(stack);
-		return stack.getTag();
+		return stack.getNbt();
 	}
 
 	// SETTERS

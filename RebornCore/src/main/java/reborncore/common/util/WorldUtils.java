@@ -68,8 +68,8 @@ public class WorldUtils {
 		ItemEntity entityItem = new ItemEntity(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
 				itemStack.copy());
 
-		if (itemStack.hasTag()) {
-			entityItem.getStack().setTag(itemStack.getTag().copy());
+		if (itemStack.hasNbt()) {
+			entityItem.getStack().setNbt(itemStack.getNbt().copy());
 		}
 
 		float factor = 0.05F;

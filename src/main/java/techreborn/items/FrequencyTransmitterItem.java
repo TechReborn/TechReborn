@@ -64,7 +64,7 @@ public class FrequencyTransmitterItem extends Item {
 		GlobalPos globalPos = GlobalPos.create(ChunkLoaderManager.getDimensionRegistryKey(world), pos);
 
 		GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, globalPos).result()
-				.ifPresent(tag -> stack.getOrCreateTag().put("pos", tag));
+				.ifPresent(tag -> stack.getOrCreateNbt().put("pos", tag));
 
 		if (!world.isClient) {
 
@@ -84,10 +84,10 @@ public class FrequencyTransmitterItem extends Item {
 	}
 
 	public static Optional<GlobalPos> getPos(ItemStack stack) {
-		if (!stack.hasTag() || !stack.getOrCreateTag().contains("pos")) {
+		if (!stack.hasNbt() || !stack.getOrCreateNbt().contains("pos")) {
 			return Optional.empty();
 		}
-		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, stack.getOrCreateTag().getCompound("pos")).result();
+		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, stack.getOrCreateNbt().getCompound("pos")).result();
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class FrequencyTransmitterItem extends Item {
 											Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			stack.setTag(null);
+			stack.setNbt(null);
 			if (!world.isClient) {
 
 				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID,
