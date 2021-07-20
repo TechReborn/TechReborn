@@ -81,7 +81,7 @@ public class RebornExplosion extends Explosion {
 		return livingBase;
 	}
 
-	public void explode() {
+	public void applyExplosion() {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		for (int tx = -radius; tx < radius + 1; tx++) {
@@ -104,12 +104,12 @@ public class RebornExplosion extends Explosion {
 
 	@Override
 	public void collectBlocksAndDamageEntities() {
-		explode();
+		applyExplosion();
 	}
 
 	@Override
 	public void affectWorld(boolean spawnParticles) {
-		explode();
+		applyExplosion();
 	}
 
 	@Override

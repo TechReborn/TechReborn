@@ -107,7 +107,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 				out.setCount(0);
 			}
 
-			inventory.setChanged();
+			inventory.setHashChanged();
 		}
 
 	}

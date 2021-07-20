@@ -69,7 +69,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	@Override
 	public void setStack(int slot, @NotNull ItemStack stack) {
 		super.setStack(slot, stack);
-		setChanged();
+		setHashChanged();
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 		ItemStack stack = super.removeStack(i, i1);
 
 		if (!stack.isEmpty()) {
-			setChanged();
+			setHashChanged();
 		}
 
 		return stack;
@@ -91,7 +91,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	public ItemStack shrinkSlot(int slot, int count) {
 		ItemStack stack = getStack(slot);
 		stack.decrement(count);
-		setChanged();
+		setHashChanged();
 		return stack;
 	}
 
@@ -139,15 +139,15 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 		return hasChanged;
 	}
 
-	public void setChanged() {
+	public void setHashChanged() {
 		this.hasChanged = true;
 	}
 
-	public void setChanged(boolean changed) {
+	public void setHashChanged(boolean changed) {
 		this.hasChanged = changed;
 	}
 
-	public void resetChanged() {
+	public void resetHasChanged() {
 		this.hasChanged = false;
 	}
 

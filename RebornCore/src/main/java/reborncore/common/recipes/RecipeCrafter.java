@@ -357,7 +357,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	public void setInvDirty(boolean isDiry) {
-		inventory.setChanged(isDiry);
+		inventory.setHashChanged(isDiry);
 	}
 
 	public boolean isStackValidInput(ItemStack stack) {

@@ -279,7 +279,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		sourceStack.decrement(1);
 		inventory.getStack(bestSlot.getLeft()).increment(1);
-		inventory.setChanged();
+		inventory.setHashChanged();
 
 		return Optional.of(getCraftingMatrix());
 	}
@@ -292,7 +292,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			for (int i = 0; i < 9; i++) {
 				craftCache.setStack(i, inventory.getStack(i).copy());
 			}
-			inventory.resetChanged();
+			inventory.resetHasChanged();
 		}
 		return craftCache;
 	}

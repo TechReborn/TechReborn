@@ -345,7 +345,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 		sourceStack.decrement(1);
 		inventory.getStack(bestSlot.getLeft()).increment(1);
-		inventory.setChanged();
+		inventory.setHashChanged();
 
 		return Optional.of(getCraftingInventory());
 	}

@@ -276,7 +276,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 		// Force check every second
 		if (world.getTime() % 20 == 0) {
-			inventory.setChanged();
+			inventory.setHashChanged();
 		}
 
 		if (!isMultiblockValid()) {
@@ -291,7 +291,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		if (currentRecipe != null) {
 			if (!hasStartedCrafting && !validateRecipe(currentRecipe)) {
 				resetCrafter();
-				inventory.resetChanged();
+				inventory.resetHasChanged();
 				return;
 			}
 
@@ -338,7 +338,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			markDirty();
 		}
 
-		inventory.resetChanged();
+		inventory.resetHasChanged();
 	}
 
 	@Override

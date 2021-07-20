@@ -335,7 +335,7 @@ public class SlotConfiguration implements NBTSerializable {
 				} else {
 					inventory.getStack(slotID).increment(extractedStack.getCount());
 				}
-				inventory.setChanged();
+				inventory.setHashChanged();
 				break;
 			}
 		}

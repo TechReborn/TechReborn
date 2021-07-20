@@ -68,7 +68,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private void setInvDirty(boolean isDirty) {
-		inventory.setChanged(isDirty);
+		inventory.setHashChanged(isDirty);
 	}
 
 	private boolean isInvDirty() {

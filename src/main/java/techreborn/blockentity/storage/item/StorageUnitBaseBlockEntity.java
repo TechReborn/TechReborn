@@ -211,7 +211,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			}
 		}
 
-		inventory.setChanged();
+		inventory.setHashChanged();
 		return inputStack;
 	}
 
@@ -270,7 +270,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 		if (inventory.hasChanged()) {
 			syncWithAll();
-			inventory.resetChanged();
+			inventory.resetHasChanged();
 		}
 	}
 
