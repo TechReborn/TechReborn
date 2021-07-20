@@ -26,6 +26,7 @@ package techreborn.world;
 
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.MutableRegistry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
@@ -42,13 +43,7 @@ public class RubberSaplingGenerator extends SaplingGenerator {
 	@Nullable
 	@Override
 	protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bl) {
-		MutableRegistry<ConfiguredFeature<?, ?>> registry = WorldGenerator.worldGenObseravable.getA();
-		if (!registry.getIds().contains(IDENTIFIER)) {
-			LOGGER.debug("Rubber tree feature not found. Are you in the rendering thread?");
-			return null;
-		}
-
-		DecoratedFeatureConfig decoratedFeatureConfig = (DecoratedFeatureConfig) registry.get(IDENTIFIER).getConfig();
+		DecoratedFeatureConfig decoratedFeatureConfig = (DecoratedFeatureConfig) BuiltinRegistries.CONFIGURED_FEATURE.get(IDENTIFIER).getConfig();
 		//noinspection unchecked
 		return (ConfiguredFeature<TreeFeatureConfig, ?>) decoratedFeatureConfig.feature.get();
 	}
