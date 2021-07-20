@@ -253,7 +253,7 @@ curseforge {
 
 	project {
 		id = "233564"
-		changelog = "A changelog can be found at https://github.com/TechReborn/TechReborn"
+		changelog = ENV.CHANGELOG
 		releaseType = ENV.RELEASE_CHANNEL ?: "release"
 		addGameVersion "1.17.1" // Also update in RebornCore/build.gradle
 		addGameVersion "Fabric"
@@ -297,7 +297,7 @@ task github(dependsOn: remapJar) {
 
 		def releaseBuilder = new GHReleaseBuilder(repository, version as String)
 		releaseBuilder.name("${archivesBaseName}-${version}")
-		releaseBuilder.body("A changelog can be found at https://github.com/TechReborn/TechReborn")
+		releaseBuilder.body(ENV.CHANGELOG)
 		releaseBuilder.commitish(getBranch())
 
 		def ghRelease = releaseBuilder.create()

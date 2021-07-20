@@ -14,7 +14,7 @@ curseforge {
 
     project {
         id = "237903"
-        changelog = "A changelog can be found at https://github.com/TechReborn/TechReborn"
+        changelog = ENV.CHANGELOG
         releaseType = ENV.RELEASE_CHANNEL ?: "release"
         addGameVersion "1.17.1"
         addGameVersion "Fabric"
