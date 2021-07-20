@@ -14,7 +14,7 @@ curseforge {
 
     project {
         id = "237903"
-        changelog = ENV.CHANGELOG
+        changelog = ENV.CHANGELOG ?: "No changelog provided"
         releaseType = ENV.RELEASE_CHANNEL ?: "release"
         addGameVersion "1.17.1"
         addGameVersion "Fabric"
