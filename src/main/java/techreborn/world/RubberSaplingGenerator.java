@@ -41,7 +41,7 @@ public class RubberSaplingGenerator extends SaplingGenerator {
 
 	@Nullable
 	@Override
-	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+	protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bl) {
 		MutableRegistry<ConfiguredFeature<?, ?>> registry = WorldGenerator.worldGenObseravable.getA();
 		if (!registry.getIds().contains(IDENTIFIER)) {
 			LOGGER.debug("Rubber tree feature not found. Are you in the rendering thread?");

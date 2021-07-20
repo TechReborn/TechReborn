@@ -56,24 +56,24 @@ public class GuiManual extends Screen {
 		int y = (height / 2) - guiHeight / 2;
 		if (client == null) { return; }
 
-		addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 40, 60, 20, new TranslatableText("techreborn.manual.wikibtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
+		addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 40, 60, 20, new TranslatableText("techreborn.manual.wikibtn"), var1 -> client.setScreen(new ConfirmChatLinkScreen(t -> {
 			if (t) {
 				Util.getOperatingSystem().open("http://wiki.techreborn.ovh");
 			}
-			this.client.openScreen(this);
+			this.client.setScreen(this);
 		}, "http://wiki.techreborn.ovh", false))));
 
-		addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 90, 60, 20, new TranslatableText("techreborn.manual.discordbtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
+		addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 90, 60, 20, new TranslatableText("techreborn.manual.discordbtn"), var1 -> client.setScreen(new ConfirmChatLinkScreen(t -> {
 			if (t) {
 				Util.getOperatingSystem().open("https://discord.gg/teamreborn");
 			}
-			this.client.openScreen(this);
+			this.client.setScreen(this);
 		}, "https://discord.gg/teamreborn", false))));
 
 		if (TechRebornConfig.allowManualRefund) {
 			addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 140, 60, 20, new TranslatableText("techreborn.manual.refundbtn"), var1 -> {
 				NetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
-				this.client.openScreen(null);
+				this.client.setScreen(null);
 			}));
 		}
 	}

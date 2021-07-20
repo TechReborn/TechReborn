@@ -51,6 +51,6 @@ public class ManualItem extends Item {
 
 	@Environment(EnvType.CLIENT)
 	private void openGui() {
-		MinecraftClient.getInstance().openScreen(new GuiManual());
+		MinecraftClient.getInstance().setScreen(new GuiManual());
 	}
 }

@@ -91,7 +91,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 
 				List<Text> list = new ArrayList<>();
 				list.add(new LiteralText(message));
-				renderTooltip(matrixStack, list, mouseX, mouseY);
+				GuiIronFurnace.this.renderTooltip(matrixStack, list, mouseX, mouseY);
 				RenderSystem.setShaderColor(1, 1, 1, 1);
 
 			}
