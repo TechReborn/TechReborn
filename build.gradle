@@ -42,13 +42,23 @@ repositories {
     }
 	maven {
 		url "https://maven.shedaniel.me/"
+        content {
+            includeGroup "me.shedaniel"
+            includeGroup "me.shedaniel.cloth"
+            includeGroup "dev.architectury"
+        }
 	}
+    maven {
+        url = 'https://ladysnake.jfrog.io/artifactory/mods'
+        content {
+            includeGroup "io.github.onyxstudios.Cardinal-Components-API"
+        }
+    }
 	maven {
 		url = "https://jitpack.io"
 		content {
 			includeGroup "com.github.dexman545"
 			includeGroup "com.github.emilyploszaj"
-			includeGroup "io.github.onyxstudios.Cardinal-Components-API"
 		}
 	}
 }
@@ -72,7 +82,7 @@ license {
 group = 'TechReborn'
 
 allprojects {
-    version = "5.0.4-beta"
+    version = "5.0.5-beta"
     def build_number = ENV.BUILD_NUMBER ?: "local"
     version = "${version}+build.$build_number"
 
@@ -150,7 +160,7 @@ dependencies {
     include project(":RebornCore")
 
     optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:6.0.264-alpha"
-    disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
+    disabledOptionalDependency "com.github.emilyploszaj:trinkets:3.0.2"
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
     disabledOptionalDependency 'net.oskarstrom:DashLoader:2.0'
 
