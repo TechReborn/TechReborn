@@ -54,37 +54,11 @@ public class FluidUtil {
 	}
 
 	public static String getFluidName(@NotNull FluidInstance fluidInstance) {
+		// TODO: use FluidVariantRendering
 		return getFluidName(fluidInstance.getFluid());
 	}
 
 	public static String getFluidName(@NotNull Fluid fluid) {
 		return StringUtils.capitalize(Registry.FLUID.getId(fluid).getPath());
-	}
-
-	public static void transferFluid(Tank source, Tank destination, FluidValue amount) {
-		if (source == null || destination == null) {
-			return;
-		}
-		if (source.getFluid() == Fluids.EMPTY || source.getFluidAmount().isEmpty()) {
-			return;
-		}
-		if (destination.getFluid() != Fluids.EMPTY && source.getFluid() != destination.getFluid()) {
-			return;
-		}
-		FluidValue transferAmount = source.getFluidAmount().min(amount);
-		if (destination.getFreeSpace().equalOrMoreThan(transferAmount)) {
-			FluidInstance fluidInstance = destination.getFluidInstance();
-			if (fluidInstance.isEmpty()) {
-				fluidInstance = new FluidInstance(source.getFluid(), transferAmount);
-			} else {
-				fluidInstance.addAmount(transferAmount);
-			}
-			source.setFluidAmount(source.getFluidAmount().subtract(transferAmount));
-			destination.setFluidInstance(fluidInstance);
-
-			if (source.getFluidAmount().equals(FluidValue.EMPTY)) {
-				source.setFluid(Fluids.EMPTY);
-			}
-		}
 	}
 }

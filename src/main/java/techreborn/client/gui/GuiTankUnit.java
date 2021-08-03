@@ -73,7 +73,7 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.amount"), 10, 50, 4210752);
 			textRenderer.draw(matrixStack, fluid.getAmount().toString(), 10, 60, 4210752);
 
-			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getCapacity().getRawValue() * 100));
+			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getFluidValueCapacity().getRawValue() * 100));
 
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
 

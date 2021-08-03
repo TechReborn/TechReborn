@@ -24,35 +24,35 @@
 
 package reborncore.common.util;
 
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.builder.Syncable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
-import reborncore.common.fluid.container.GenericFluidContainer;
 
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Tank implements GenericFluidContainer<Direction>, Syncable {
+@SuppressWarnings({"deprecation", "UnstableApiUsage"})
+public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable, SingleSlotStorage<FluidVariant> {
 
 	private final String name;
 	@NotNull
 	private FluidInstance fluidInstance = new FluidInstance();
 	private final FluidValue capacity;
-
-	@Nullable
-	private Direction side = null;
 
 	private final MachineBaseBlockEntity blockEntity;
 
@@ -65,7 +65,7 @@ public class Tank implements GenericFluidContainer<Direction>, Syncable {
 
 	@NotNull
 	public FluidInstance getFluidInstance() {
-		return getFluidInstance(side);
+		return fluidInstance;
 	}
 
 	@NotNull
@@ -73,12 +73,12 @@ public class Tank implements GenericFluidContainer<Direction>, Syncable {
 		return getFluidInstance().getFluid();
 	}
 
-	public FluidValue getCapacity() {
+	public FluidValue getFluidValueCapacity() {
 		return capacity;
 	}
 
 	public FluidValue getFreeSpace() {
-		return getCapacity().subtract(getFluidAmount());
+		return getFluidValueCapacity().subtract(getFluidAmount());
 	}
 
 	public boolean canFit(Fluid fluid, FluidValue amount) {
@@ -90,7 +90,7 @@ public class Tank implements GenericFluidContainer<Direction>, Syncable {
 	}
 
 	public boolean isFull() {
-		return !getFluidInstance().isEmpty() && getFluidInstance().getAmount().equalOrMoreThan(getCapacity());
+		return !getFluidInstance().isEmpty() && getFluidInstance().getAmount().equalOrMoreThan(getFluidValueCapacity());
 	}
 
 	public final NbtCompound write(NbtCompound nbt) {
@@ -121,17 +121,6 @@ public class Tank implements GenericFluidContainer<Direction>, Syncable {
 		fluidInstance.setFluid(f);
 	}
 
-	@Nullable
-	public Direction getSide() {
-		return side;
-	}
-
-	public void setSide(
-			@Nullable
-					Direction side) {
-		this.side = side;
-	}
-
 	@Override
 	public void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList) {
 		pairList.add(Pair.of(() -> Registry.FLUID.getId(fluidInstance.getFluid()).toString(), (Consumer<String>) o -> fluidInstance.setFluid(Registry.FLUID.get(new Identifier(o)))));
@@ -142,15 +131,8 @@ public class Tank implements GenericFluidContainer<Direction>, Syncable {
 		return getFluidInstance().getAmount();
 	}
 
-	@Override
-	public void setFluid(@Nullable Direction type, @NotNull FluidInstance instance) {
+	public void setFluid(@NotNull FluidInstance instance) {
 		fluidInstance = instance;
-	}
-
-	@NotNull
-	@Override
-	public FluidInstance getFluidInstance(@Nullable Direction type) {
-		return fluidInstance;
 	}
 
 	public void setFluidInstance(@NotNull FluidInstance fluidInstance) {
@@ -158,9 +140,77 @@ public class Tank implements GenericFluidContainer<Direction>, Syncable {
 	}
 
 	@Override
-	public FluidValue getCapacity(@Nullable Direction type) {
-		return capacity;
+	public long insert(FluidVariant insertedVariant, long maxAmount, TransactionContext transaction) {
+		StoragePreconditions.notBlankNotNegative(insertedVariant, maxAmount);
+		FluidVariant currentVariant = getResource();
+
+		if (currentVariant.equals(insertedVariant) || currentVariant.isBlank()) {
+			long insertedAmount = Math.min(maxAmount, getCapacity() - getAmount());
+
+			if (insertedAmount > 0) {
+				updateSnapshots(transaction);
+
+				// Just in case.
+				if (currentVariant.isBlank()) fluidInstance.setAmount(FluidValue.EMPTY);
+
+				fluidInstance.setFluid(insertedVariant.getFluid());
+				fluidInstance.setTag(insertedVariant.getNbt());
+				fluidInstance.addAmount(FluidValue.fromRaw(insertedAmount));
+			}
+
+			return insertedAmount;
+		}
+
+		return 0;
 	}
 
+	@Override
+	public long extract(FluidVariant extractedVariant, long maxAmount, TransactionContext transaction) {
+		StoragePreconditions.notBlankNotNegative(extractedVariant, maxAmount);
+		FluidVariant currentVariant = getResource();
 
+		if (extractedVariant.equals(currentVariant)) {
+			long extractedAmount = Math.min(maxAmount, getAmount());
+
+			if (extractedAmount > 0) {
+				updateSnapshots(transaction);
+
+				fluidInstance.subtractAmount(FluidValue.fromRaw(extractedAmount));
+			}
+
+			return extractedAmount;
+		}
+
+		return 0;
+	}
+
+	@Override
+	public boolean isResourceBlank() {
+		return getResource().isBlank();
+	}
+
+	@Override
+	public FluidVariant getResource() {
+		return fluidInstance.getVariant();
+	}
+
+	@Override
+	public long getAmount() {
+		return fluidInstance.getAmount().getRawValue();
+	}
+
+	@Override
+	public long getCapacity() {
+		return getFluidValueCapacity().getRawValue();
+	}
+
+	@Override
+	protected FluidInstance createSnapshot() {
+		return fluidInstance.copy();
+	}
+
+	@Override
+	protected void readSnapshot(FluidInstance snapshot) {
+		setFluidInstance(snapshot);
+	}
 }

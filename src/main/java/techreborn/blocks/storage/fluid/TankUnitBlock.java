@@ -91,7 +91,7 @@ public class TankUnitBlock extends BlockMachineBase {
 				if(amountInTank.equalOrMoreThan(FluidValue.BUCKET)){
 
 					// Amount to transfer is whatever is lower (stack count or tank level)
-					int amountTransferBuckets = Math.min(amountInTank.getRawValue() / FluidValue.BUCKET.getRawValue(), stackInHand.getCount());
+					int amountTransferBuckets = (int) Math.min(amountInTank.getRawValue() / FluidValue.BUCKET.getRawValue(), stackInHand.getCount());
 
 					// Remove items from player
 					stackInHand.decrement(amountTransferBuckets);

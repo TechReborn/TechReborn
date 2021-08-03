@@ -28,6 +28,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerBlockEntityEvents;
 import net.fabricmc.fabric.api.event.world.WorldTickCallback;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +37,7 @@ import reborncore.api.ToolManager;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.common.RebornCoreCommands;
 import reborncore.common.RebornCoreConfig;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.config.Configuration;
 import reborncore.common.crafting.ingredient.IngredientManager;
@@ -48,6 +50,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.recipes.PaddedShapedRecipe;
 import reborncore.common.util.CalenderUtils;
 import reborncore.common.util.GenericWrenchHelper;
+import reborncore.common.util.Tank;
 
 import java.io.File;
 import java.util.function.Supplier;
@@ -113,6 +116,13 @@ public class RebornCore implements ModInitializer {
 		/* register UnloadHandler */
 		ServerBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {
 			if (blockEntity instanceof UnloadHandler) ((UnloadHandler) blockEntity).onUnload();
+		});
+
+		FluidStorage.SIDED.registerFallback((world, pos, state, be, direction) -> {
+			if (be instanceof MachineBaseBlockEntity machineBase) {
+				return machineBase.getTank();
+			}
+			return null;
 		});
 
 		LOGGER.info("Reborn core is done for now, now to let other mods have their turn...");

@@ -24,11 +24,16 @@
 
 package reborncore.common.blockentity;
 
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.util.NBTSerializable;
 import reborncore.common.util.Tank;
@@ -82,23 +87,21 @@ public class FluidConfiguration implements NBTSerializable {
 				continue;
 			}
 
-			Tank tank = getTank(machineBase, facing);
+			@Nullable
+			Storage<FluidVariant> tank = getTank(machineBase, facing);
 			if (autoInput() && fluidConfig.getIoConfig().isInsert()) {
-				FluidUtil.transferFluid(tank, machineBase.getTank(), machineBase.fluidTransferAmount());
+				StorageUtil.move(tank, machineBase.getTank(), fv -> true, machineBase.fluidTransferAmount().getRawValue(), null);
 			}
 			if (autoOutput() && fluidConfig.getIoConfig().isExtact()) {
-				FluidUtil.transferFluid(machineBase.getTank(), tank, machineBase.fluidTransferAmount());
+				StorageUtil.move(machineBase.getTank(), tank, fv -> true, machineBase.fluidTransferAmount().getRawValue(), null);
 			}
 		}
 	}
 
-	private Tank getTank(MachineBaseBlockEntity machine, Direction facing) {
+	@Nullable
+	private Storage<FluidVariant> getTank(MachineBaseBlockEntity machine, Direction facing) {
 		BlockPos pos = machine.getPos().offset(facing);
-		BlockEntity blockEntity = machine.getWorld().getBlockEntity(pos);
-		if (blockEntity instanceof MachineBaseBlockEntity) {
-			return ((MachineBaseBlockEntity) blockEntity).getTank();
-		}
-		return null;
+		return FluidStorage.SIDED.find(machine.getWorld(), pos, facing.getOpposite());
 	}
 
 	public boolean autoInput() {
