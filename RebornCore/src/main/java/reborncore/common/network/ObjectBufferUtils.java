@@ -72,9 +72,9 @@ public enum ObjectBufferUtils {
 	}),
 
 	FLUID_VALUE(FluidValue.class, (value, buffer) -> {
-		buffer.writeInt(value.getRawValue());
+		buffer.writeLong(value.getRawValue());
 	}, buffer -> {
-		return FluidValue.fromRaw(buffer.readInt());
+		return FluidValue.fromRaw(buffer.readLong());
 	}),
 
 	COMPOUND_TAG(NbtCompound.class, (value, buffer) -> {

@@ -28,26 +28,32 @@ import com.google.common.base.Objects;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.util.JsonHelper;
+import reborncore.common.util.FluidTextHelper;
 
 public final class FluidValue {
 
 	public static final FluidValue EMPTY = new FluidValue(0);
-	public static final FluidValue BUCKET_QUARTER = new FluidValue(250);
-	public static final FluidValue BUCKET = new FluidValue(1000);
-	public static final FluidValue INFINITE = new FluidValue(Integer.MAX_VALUE);
+	public static final FluidValue BUCKET_QUARTER = new FluidValue(FluidConstants.BUCKET / 4);
+	public static final FluidValue BUCKET = new FluidValue(FluidConstants.BUCKET);
+	public static final FluidValue INFINITE = new FluidValue(Long.MAX_VALUE);
 
-	private final int rawValue;
+	private final long rawValue;
 
-	private FluidValue(final int rawValue) {
+	private static FluidValue fromMillibuckets(long millibuckets) {
+		return new FluidValue(millibuckets * 81);
+	}
+
+	private FluidValue(long rawValue) {
 		this.rawValue = rawValue;
 	}
 
-	public FluidValue multiply(int value) {
+	public FluidValue multiply(long value) {
 		return fromRaw(rawValue * value);
 	}
 
-	public FluidValue fraction(int divider) {return fromRaw(rawValue / divider);}
+	public FluidValue fraction(long divider) {return fromRaw(rawValue / divider);}
 
 	public FluidValue add(FluidValue fluidValue) {
 		return fromRaw(rawValue + fluidValue.rawValue);
@@ -83,12 +89,12 @@ public final class FluidValue {
 
 	@Override
 	public String toString() {
-		return rawValue + " Mb";
+		return FluidTextHelper.getValueDisplay(this) + " Mb";
 	}
 
 	//TODO move away from using this
 	@Deprecated
-	public int getRawValue() {
+	public long getRawValue() {
 		return rawValue;
 	}
 
@@ -106,7 +112,7 @@ public final class FluidValue {
 	}
 
 	@Deprecated
-	public static FluidValue fromRaw(int rawValue) {
+	public static FluidValue fromRaw(long rawValue) {
 		if (rawValue < 0) {
 			rawValue = 0;
 		}
@@ -119,10 +125,13 @@ public final class FluidValue {
 			if (jsonObject.has("buckets")) {
 				int buckets = JsonHelper.getInt(jsonObject, "buckets");
 				return BUCKET.multiply(buckets);
+			} else if (jsonObject.has("droplets")) {
+				long droplets = JsonHelper.getLong(jsonObject, "droplets");
+				return fromRaw(droplets);
 			}
 		} else if (jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isNumber()) {
 			//TODO add a warning here
-			return fromRaw(jsonElement.getAsJsonPrimitive().getAsInt());
+			return fromMillibuckets(jsonElement.getAsJsonPrimitive().getAsInt());
 		}
 		throw new JsonSyntaxException("Could not parse fluid value");
 	}

@@ -24,6 +24,7 @@
 
 package reborncore.common.fluid.container;
 
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
@@ -39,6 +40,7 @@ public class FluidInstance implements NBTSerializable {
 
 	public static final FluidInstance EMPTY = new FluidInstance(Fluids.EMPTY, FluidValue.EMPTY);
 
+	// TODO: move to FluidVariant
 	protected Fluid fluid;
 	protected FluidValue amount;
 	protected NbtCompound tag;
@@ -113,7 +115,7 @@ public class FluidInstance implements NBTSerializable {
 	public NbtCompound write() {
 		NbtCompound tag = new NbtCompound();
 		tag.putString(FLUID_KEY, Registry.FLUID.getId(fluid).toString());
-		tag.putInt(AMOUNT_KEY, amount.getRawValue());
+		tag.putLong(AMOUNT_KEY, amount.getRawValue());
 		if (this.tag != null && !this.tag.isEmpty()) {
 			tag.put(TAG_KEY, this.tag);
 		}
@@ -123,7 +125,7 @@ public class FluidInstance implements NBTSerializable {
 	@Override
 	public void read(NbtCompound tag) {
 		fluid = Registry.FLUID.get(new Identifier(tag.getString(FLUID_KEY)));
-		amount = FluidValue.fromRaw(tag.getInt(AMOUNT_KEY));
+		amount = FluidValue.fromRaw(tag.getLong(AMOUNT_KEY));
 		if (tag.contains(TAG_KEY)) {
 			this.tag = tag.getCompound(TAG_KEY);
 		}
@@ -136,5 +138,10 @@ public class FluidInstance implements NBTSerializable {
 
 	public boolean isFluidEqual(FluidInstance instance) {
 		return (isEmpty() && instance.isEmpty()) || fluid.equals(instance.getFluid());
+	}
+
+	public FluidVariant getVariant() {
+		if (isEmpty()) return FluidVariant.blank();
+		else return FluidVariant.of(fluid, tag);
 	}
 }
