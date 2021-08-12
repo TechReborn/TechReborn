@@ -57,7 +57,8 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 	protected final float unpoweredSpeed = 0.5F;
 
 	public JackhammerItem(int energyCapacity, EnergyTier tier, int cost) {
-		super(ToolMaterials.DIAMOND, (int) ToolMaterials.DIAMOND.getAttackDamage(), 1F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		// combat stats same as for diamond pickaxe. Fix for #2468
+		super(ToolMaterials.DIAMOND, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;

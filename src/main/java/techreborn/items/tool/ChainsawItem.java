@@ -55,7 +55,8 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	public final EnergyTier tier;
 
 	public ChainsawItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referenceTool) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		// combat stats same as for diamond axe. Fix for #2468
+		super(material, 5.0F, -3.0F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;

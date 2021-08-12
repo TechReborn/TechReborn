@@ -55,7 +55,8 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	public final EnergyTier tier;
 
 	public DrillItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, MiningLevel miningLevel) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		// combat stats same as for diamond pickaxe. Fix for #2468
+		super(material, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.cost = cost;
 		this.poweredSpeed = poweredSpeed;
