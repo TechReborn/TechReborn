@@ -28,7 +28,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
-import reborncore.mixin.common.AccessorIngredient;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +56,7 @@ public class WrappedIngredient extends RebornIngredient {
 
 	@Override
 	public List<ItemStack> getPreviewStacks() {
-		return Arrays.asList(((AccessorIngredient) (Object) wrapped).getMatchingStacks());
+		return Arrays.asList(wrapped.getMatchingStacks());
 	}
 
 	@Override
@@ -72,7 +71,7 @@ public class WrappedIngredient extends RebornIngredient {
 
 	@Override
 	public int getCount() {
-		return ((AccessorIngredient) (Object) wrapped).getMatchingStacks().length;
+		return wrapped.getMatchingStacks().length;
 	}
 
 	public static RebornIngredient deserialize(JsonObject jsonObject) {
