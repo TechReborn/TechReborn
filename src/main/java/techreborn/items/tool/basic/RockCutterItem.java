@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool.advanced;
+package techreborn.items.tool.basic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -53,7 +53,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 	public static final int maxCharge = TechRebornConfig.rockCutterCharge;
 	public int cost = TechRebornConfig.rockCutterCost;
 
-	// 400k FE with 1k FE\t charge rate
+	// 10k Energy with 128 E\t charge rate
 	public RockCutterItem() {
 		// combat stats same as for diamond pickaxe. Fix for #2468
 		super(ToolMaterials.DIAMOND, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
@@ -153,7 +153,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.EXTREME;
+		return EnergyTier.MEDIUM;
 	}
 
 	@Override

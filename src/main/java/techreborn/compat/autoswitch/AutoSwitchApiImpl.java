@@ -34,7 +34,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.items.tool.DrillItem;
 import techreborn.items.tool.JackhammerItem;
-import techreborn.items.tool.advanced.RockCutterItem;
+import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
 import techreborn.items.tool.industrial.NanosaberItem;
 import techreborn.items.tool.industrial.OmniToolItem;

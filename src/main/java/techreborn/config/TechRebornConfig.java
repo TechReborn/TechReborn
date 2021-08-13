@@ -242,10 +242,10 @@ public class TechRebornConfig {
 	public static int omniToolHitCost = 125;
 
 	@Config(config = "items", category = "power", key = "rockCutterCharge", comment = "Energy Capacity for Rock Cutter")
-	public static int rockCutterCharge = 400_000;
+	public static int rockCutterCharge = 10_000;
 
 	@Config(config = "items", category = "power", key = "rockCutterCost", comment = "Energy Cost for Rock Cutter")
-	public static int rockCutterCost = 500;
+	public static int rockCutterCost = 10;
 
 	@Config(config = "items", category = "power", key = "lapotronPackCharge", comment = "Energy Capacity for Lapotron Pack")
 	public static int lapotronPackCharge = 100_000_000;

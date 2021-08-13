@@ -46,7 +46,7 @@ import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.armor.TRArmourItem;
 import techreborn.items.tool.*;
 import techreborn.items.tool.advanced.AdvancedJackhammerItem;
-import techreborn.items.tool.advanced.RockCutterItem;
+import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
 import techreborn.items.tool.industrial.*;
 import techreborn.items.tool.vanilla.*;

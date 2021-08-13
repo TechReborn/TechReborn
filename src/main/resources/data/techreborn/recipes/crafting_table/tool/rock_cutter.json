@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DT ",
-    "DT ",
+    "DN ",
+    "DN ",
     "DCB"
   ],
   "key": {
     "D": {
       "tag": "c:diamond_dusts"
     },
-    "T": {
-      "tag": "c:titanium_ingots"
+    "N": {
+      "item": "minecraft:gold_nugget"
     },
     "C": {
       "item": "techreborn:electronic_circuit"
