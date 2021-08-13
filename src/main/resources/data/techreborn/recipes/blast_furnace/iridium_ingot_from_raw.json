@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 800,
+  "heat": 2000,
+  "ingredients" : [
+	{
+	  "item": "techreborn:raw_iridium"
+	}
+  ],
+  "results" : [
+	{
+	  "item": "techreborn:iridium_ingot"
+	}
+  ]
+}
