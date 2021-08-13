@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+	"item": "techreborn:raw_tin_storage_block"
+  },
+  "result": "techreborn:tin_storage_block",
+  "experience": 4.5,
+  "cookingtime": 1500
+}
