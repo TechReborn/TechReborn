@@ -26,6 +26,9 @@ package reborncore.client.screen.builder;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.CraftingInventory;
@@ -48,7 +51,7 @@ import reborncore.client.screen.builder.slot.UpgradeSlot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import team.reborn.energy.Energy;
+import team.reborn.energy.api.EnergyStorageUtil;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -106,7 +109,7 @@ public class BlockEntityScreenHandlerBuilder {
 
 	public BlockEntityScreenHandlerBuilder energySlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.inventory, index, x, y)
-				.setFilter(Energy::valid));
+				.setFilter(EnergyStorageUtil::isEnergyStorage));
 		return this;
 	}
 

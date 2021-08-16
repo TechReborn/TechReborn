@@ -35,17 +35,15 @@ import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterials;
 import techreborn.utils.InitUtils;
 
-public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, ArmorBlockEntityTicker, ArmorRemoveHandler {
+public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, ArmorBlockEntityTicker, ArmorRemoveHandler {
 
 	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
 	public static int cost = TechRebornConfig.cloackingDeviceCost;
@@ -94,24 +92,24 @@ public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, Ar
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public EnergyTier getTier() {
-		return EnergyTier.INSANE;
+	public RcEnergyTier getTier() {
+		return RcEnergyTier.INSANE;
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getEnergyMaxOutput() {
 		return 0;
 	}
 
 	// ArmorTickable
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
-		if (Energy.of(stack).use(cost)) {
+		if (tryUseEnergy(stack, cost)) {
 			playerEntity.setInvisible(true);
 		} else {
 			if (playerEntity.isInvisible()) {

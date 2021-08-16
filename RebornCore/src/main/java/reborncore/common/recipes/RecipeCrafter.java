@@ -36,11 +36,9 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyStorage;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -63,7 +61,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	/**
 	 * This is the place to use the power from
 	 */
-	public EnergyStorage energy;
+	public PowerAcceptorBlockEntity energy;
 
 	public Optional<IUpgradeHandler> parentUpgradeHandler = Optional.empty();
 
@@ -107,8 +105,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 						 int[] inputSlots, int[] outputSlots) {
 		this.recipeType = recipeType;
 		this.blockEntity = blockEntity;
-		if (blockEntity instanceof EnergyStorage) {
-			energy = (EnergyStorage) blockEntity;
+		if (blockEntity instanceof PowerAcceptorBlockEntity powerAcceptor) {
+			energy = powerAcceptor;
 		}
 		if (blockEntity instanceof IUpgradeHandler) {
 			parentUpgradeHandler = Optional.of((IUpgradeHandler) blockEntity);
@@ -180,8 +178,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 					}
 				}
 			} else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
-				double useRequirement = getEuPerTick(currentRecipe.getPower());
-				if (Energy.of(energy).use(useRequirement)) {
+				long useRequirement = getEuPerTick(currentRecipe.getPower());
+				if (energy.tryUseExact(useRequirement)) {
 					currentTickTime++;
 					if ((currentTickTime == 1 || currentTickTime % 20 == 0) && soundHanlder != null) {
 						soundHanlder.playSound(false, blockEntity);
@@ -315,7 +313,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	private boolean isActive() {
-		return currentRecipe != null && energy.getStored(EnergySide.UNKNOWN) >= currentRecipe.getPower();
+		return currentRecipe != null && energy.getEnergy() >= currentRecipe.getPower();
 	}
 
 	public boolean canCraftAgain() {
@@ -326,7 +324,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 						return false;
 					}
 				}
-				return !(energy.getStored(EnergySide.UNKNOWN) < recipe.getPower());
+				return !(energy.getEnergy() < recipe.getPower());
 			}
 		}
 		return false;
@@ -404,8 +402,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	@Override
-	public double getEuPerTick(double baseEu) {
-		double power = parentUpgradeHandler.map(iUpgradeHandler -> iUpgradeHandler.getEuPerTick(baseEu)).orElse(1D);
+	public long getEuPerTick(long baseEu) {
+		long power = parentUpgradeHandler.map(iUpgradeHandler -> iUpgradeHandler.getEuPerTick(baseEu)).orElse(1L);
 		return Math.min(power, energy.getMaxStoredPower());
 	}
 

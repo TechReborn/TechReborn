@@ -28,7 +28,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.api.events.ApplyArmorToDamageCallback;
-import team.reborn.energy.Energy;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.armor.QuantumSuitItem;
 
@@ -42,17 +41,17 @@ public class ApplyArmorToDamageHandler implements ApplyArmorToDamageCallback {
 	public float applyArmorToDamage(PlayerEntity player, DamageSource source, float amount) {
 		double damageAbsorbed = 0.0d;
 		for (ItemStack stack : player.getArmorItems()) {
-			if (!(stack.getItem() instanceof QuantumSuitItem)) {
+			if (!(stack.getItem() instanceof QuantumSuitItem item)) {
 				continue;
 			}
 
-			double stackEnergy = Energy.of(stack).getEnergy();
+			double stackEnergy = item.getStoredEnergy(stack);
 			if (stackEnergy == 0.0d) {
 				continue;
 			}
 
 			double damageToAbsorb = Math.min(stackEnergy, amount * 0.2d);
-			if (Energy.of(stack).use(damageToAbsorb * TechRebornConfig.damageAbsorbCost)) {
+			if (item.tryUseEnergy(stack, (long) (damageToAbsorb * TechRebornConfig.damageAbsorbCost))) {
 				damageAbsorbed += damageToAbsorb;
 			}
 		}

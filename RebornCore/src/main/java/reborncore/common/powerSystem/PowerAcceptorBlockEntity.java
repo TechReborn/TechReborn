@@ -24,9 +24,14 @@
 
 package reborncore.common.powerSystem;
 
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
@@ -41,23 +46,37 @@ import reborncore.api.IListInfoProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.util.StringUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyStorage;
-import team.reborn.energy.EnergyTier;
+import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.EnergyStorageUtil;
+import team.reborn.energy.api.base.SimpleSidedEnergyContainer;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity implements EnergyStorage, IListInfoProvider // TechReborn
-{
-	private EnergyTier blockEntityPowerTier;
-	private double energy;
+public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity implements IListInfoProvider {
+	public final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
+		@Override
+		public long getCapacity() {
+			return PowerAcceptorBlockEntity.this.getMaxStoredPower();
+		}
 
-	public double extraPowerStorage;
-	public double extraPowerInput;
+		@Override
+		public long getMaxInsert(@Nullable Direction side) {
+			return PowerAcceptorBlockEntity.this.getMaxInput(side);
+		}
+
+		@Override
+		public long getMaxExtract(@Nullable Direction side) {
+			return PowerAcceptorBlockEntity.this.getMaxOutput(side);
+		}
+	};
+	private RcEnergyTier blockEntityPowerTier;
+
+	public long extraPowerStorage;
+	public long extraPowerInput;
 	public int extraTier;
-	public double powerChange;
-	public double powerLastTick;
+	public long powerChange;
+	public long powerLastTick;
 	public boolean checkOverfill = true; // Set to false to disable the overfill check.
 
 	public PowerAcceptorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -65,22 +84,16 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		checkTier();
 	}
 
-	public void checkTier() {
-		if (this.getMaxInput(EnergySide.UNKNOWN) == 0) {
-			blockEntityPowerTier = getTier((int) this.getBaseMaxOutput());
-		} else {
-			blockEntityPowerTier = getTier((int) this.getBaseMaxInput());
-		}
+	public EnergyStorage getSideEnergyStorage(@Nullable Direction side) {
+		return energyContainer.getSideStorage(side);
 	}
 
-	// TO-DO: Move to Energy API probably. Cables use this method.
-	public static EnergyTier getTier(int power) {
-		for (EnergyTier tier : EnergyTier.values()) {
-			if (tier.getMaxInput() >= power) {
-				return tier;
-			}
+	public void checkTier() {
+		if (this.getMaxInput(null) == 0) {
+			blockEntityPowerTier = RcEnergyTier.getTier(this.getBaseMaxOutput());
+		} else {
+			blockEntityPowerTier = RcEnergyTier.getTier(this.getBaseMaxInput());
 		}
-		return EnergyTier.INFINITE;
 	}
 
 	/**
@@ -88,8 +101,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 *
 	 * @return double Free space for energy in internal buffer
 	 */
-	public double getFreeSpace() {
-		return getMaxStoredPower() - getStored(EnergySide.UNKNOWN);
+	public long getFreeSpace() {
+		return getMaxStoredPower() - getStored();
 	}
 
 	/**
@@ -97,8 +110,18 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 *
 	 * @param amount double Amount to add
 	 */
-	public void addEnergy(double amount){
-		setStored(energy + amount);
+	public void addEnergy(long amount){
+		setStored(getEnergy() + amount);
+	}
+
+	public void addEnergyProbabilistic(double amount) {
+		long integerPart = (long) Math.floor(amount);
+		addEnergy(integerPart);
+
+		double fractionalPart = amount - integerPart;
+		if (ThreadLocalRandom.current().nextDouble() <= fractionalPart) {
+			addEnergy(1);
+		}
 	}
 
 	/**
@@ -106,9 +129,9 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 *
 	 * @param amount double Amount of energy to use
 	 */
-	public void useEnergy(double amount){
-		if (energy > amount) {
-			setStored(energy - amount);
+	public void useEnergy(long amount){
+		if (getEnergy() > amount) {
+			setStored(getEnergy() - amount);
 		} else {
 			setStored(0);
 		}
@@ -127,21 +150,21 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 			return;
 		}
 
-		double chargeEnergy = Math.min(getFreeSpace(), getMaxInput(EnergySide.UNKNOWN));
-		if (chargeEnergy <= 0.0) {
+		long chargeEnergy = Math.min(getFreeSpace(), getMaxInput(null));
+		if (chargeEnergy <= 0) {
 			return;
 		}
-		if (!getOptionalInventory().isPresent()) {
+		if (getOptionalInventory().isEmpty()) {
 			return;
 		}
-		ItemStack batteryStack = getOptionalInventory().get().getStack(slot);
-		if (batteryStack.isEmpty()) {
-			return;
-		}
+		Inventory inventory = getOptionalInventory().get();
 
-		if (Energy.valid(batteryStack)) {
-			Energy.of(batteryStack).into(Energy.of(this)).move();
-		}
+		EnergyStorageUtil.move(
+				ContainerItemContext.ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(slot)).find(EnergyStorage.ITEM),
+				energyContainer.getSideStorage(null),
+				Long.MAX_VALUE,
+				null
+		);
 	}
 
 	/**
@@ -158,30 +181,30 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 			return;
 		}
 
-		if (!getOptionalInventory().isPresent()){
+		if (getOptionalInventory().isEmpty()){
 			return;
 		}
 
-		ItemStack batteryStack = getOptionalInventory().get().getStack(slot);
-		if (batteryStack.isEmpty()) {
-			return;
-		}
+		Inventory inventory = getOptionalInventory().get();
 
-		if (Energy.valid(batteryStack)) {
-			Energy.of(this).into(Energy.of(batteryStack)).move(getTier().getMaxOutput());
-		}
+		EnergyStorageUtil.move(
+				energyContainer.getSideStorage(null),
+				ContainerItemContext.ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(slot)).find(EnergyStorage.ITEM),
+				Long.MAX_VALUE,
+				null
+		);
 	}
 
 	/**
 	 * Calculates the comparator output of a powered BE with the formula
-	 * {@code ceil(blockEntity.getStored(EnergySide.UNKNOWN) * 15.0 / storage.getMaxPower())}.
+	 * {@code ceil(blockEntity.getStored() * 15.0 / storage.getMaxPower())}.
 	 *
 	 * @param blockEntity the powered BE
 	 * @return the calculated comparator output or 0 if {@code blockEntity} is not a {@code PowerAcceptorBlockEntity}
 	 */
 	public static int calculateComparatorOutputFromEnergy(@Nullable BlockEntity blockEntity) {
 		if (blockEntity instanceof PowerAcceptorBlockEntity storage) {
-			return MathHelper.ceil(storage.getStored(EnergySide.UNKNOWN) * 15.0 / storage.getMaxStoredPower());
+			return MathHelper.ceil(storage.getStored() * 15.0 / storage.getMaxStoredPower());
 		} else {
 			return 0;
 		}
@@ -202,7 +225,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 * @param side EnergySide Machine side
 	 * @return boolean Returns true if machine can accept energy from side provided
 	 */
-	protected boolean canAcceptEnergy(EnergySide side){
+	protected boolean canAcceptEnergy(@Nullable Direction side){
 		return true;
 	}
 
@@ -212,17 +235,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 * @param side EnergySide Machine side
 	 * @return boolean Returns true if machine can provide energy via particular side
 	 */
-	protected boolean canProvideEnergy(EnergySide side){
-		return true;
-	}
-
-	@Deprecated
-	public boolean canAcceptEnergy(Direction direction) {
-		return true;
-	}
-
-	@Deprecated
-	public boolean canProvideEnergy(Direction direction) {
+	protected boolean canProvideEnergy(@Nullable Direction side){
 		return true;
 	}
 
@@ -231,7 +244,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 *
 	 * @return double Size of additional energy buffer
 	 */
-	public double getExtraPowerStorage(){
+	public long getExtraPowerStorage(){
 		return extraPowerStorage;
 	}
 
@@ -240,7 +253,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 *
 	 * @param extraPowerStorage double Size of additional energy buffer
 	 */
-	public void setExtraPowerStorage(double extraPowerStorage) {
+	public void setExtraPowerStorage(long extraPowerStorage) {
 		this.extraPowerStorage = extraPowerStorage;
 	}
 
@@ -249,7 +262,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 *
 	 * @return double Energy change per tick
 	 */
-	public double getPowerChange() {
+	public long getPowerChange() {
 		return powerChange;
 	}
 
@@ -258,7 +271,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 *
 	 * @param powerChange double Energy change per tick
 	 */
-	public void setPowerChange(double powerChange) {
+	public void setPowerChange(long powerChange) {
 		this.powerChange = powerChange;
 	}
 
@@ -268,15 +281,15 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 * @return double Energy stored in block entity
 	 */
 
-	public double getEnergy() {
-		return getStored(EnergySide.UNKNOWN);
+	public long getEnergy() {
+		return getStored();
 	}
 
 	/**
 	 * Wrapper method used to sync energy values with client via BlockEntityScreenHandlerBuilder
 	 * @param energy double Energy stored in block entity
 	 */
-	public void setEnergy(double energy) {
+	public void setEnergy(long energy) {
 		setStored(energy);
 	}
 
@@ -285,21 +298,21 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 *
 	 * @return double Size of internal Energy buffer
 	 */
-	public abstract double getBaseMaxPower();
+	public abstract long getBaseMaxPower();
 
 	/**
 	 * Returns base output rate or zero if machine doesn't output energy
 	 *
 	 * @return double Output rate, E\t
 	 */
-	public abstract double getBaseMaxOutput();
+	public abstract long getBaseMaxOutput();
 
 	/**
 	 * Returns base input rate or zero if machine doesn't accept energy
 	 *
 	 * @return double Input rate, E\t
 	 */
-	public abstract double getBaseMaxInput();
+	public abstract long getBaseMaxInput();
 
 	// MachineBaseBlockEntity
 	@Override
@@ -308,7 +321,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		if (world == null || world.isClient) {
 			return;
 		}
-		if (getStored(EnergySide.UNKNOWN) <= 0) {
+		if (getStored() <= 0) {
 			return;
 		}
 		if (!isActive(RedstoneConfiguration.POWER_IO)) {
@@ -316,18 +329,16 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		}
 
 		for (Direction side : Direction.values()) {
-			BlockEntity blockEntity = world.getBlockEntity(getPos().offset(side));
-			if (blockEntity == null || !Energy.valid(blockEntity)) {
-				continue;
-			}
-			Energy.of(this)
-					.side(side)
-					.into(Energy.of(blockEntity).side(side.getOpposite()))
-					.move();
+			EnergyStorageUtil.move(
+					energyContainer.getSideStorage(side),
+					EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()),
+					Long.MAX_VALUE,
+					null
+			);
 		}
 
-		powerChange = getStored(EnergySide.UNKNOWN) - powerLastTick;
-		powerLastTick = getStored(EnergySide.UNKNOWN);
+		powerChange = getStored() - powerLastTick;
+		powerLastTick = getStored();
 	}
 
 	@Override
@@ -335,7 +346,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		super.readNbt(tag);
 		NbtCompound data = tag.getCompound("PowerAcceptor");
 		if (shouldHandleEnergyNBT()) {
-			this.setStored(data.getDouble("energy"));
+			this.setStored(data.getLong("energy"));
 		}
 	}
 
@@ -343,7 +354,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	public NbtCompound writeNbt(NbtCompound tag) {
 		super.writeNbt(tag);
 		NbtCompound data = new NbtCompound();
-		data.putDouble("energy", getStored(EnergySide.UNKNOWN));
+		data.putLong("energy", getStored());
 		tag.put("PowerAcceptor", data);
 		return tag;
 	}
@@ -356,28 +367,23 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		extraPowerInput = 0;
 	}
 
-	// EnergyStorage
-	@Override
-	public double getStored(EnergySide face) {
-		return energy;
+	public long getStored() {
+		return energyContainer.amount;
 	}
 
-	@Override
-	public void setStored(double amount) {
-		this.energy = amount;
+	public void setStored(long amount) {
+		energyContainer.amount = amount;
 		if(checkOverfill){
-			this.energy = Math.max(Math.min(energy, getMaxStoredPower()), 0);
+			energyContainer.amount = Math.max(Math.min(energyContainer.amount, getMaxStoredPower()), 0);
 		}
 		markDirty();
 	}
 
-	@Override
-	public double getMaxStoredPower() {
+	public long getMaxStoredPower() {
 		return getBaseMaxPower() + extraPowerStorage;
 	}
 
-	@Override
-	public double getMaxOutput(EnergySide face) {
+	public long getMaxOutput(@Nullable Direction face) {
 		if (!isActive(RedstoneConfiguration.POWER_IO)) {
 			return 0;
 		}
@@ -390,8 +396,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		return getBaseMaxOutput();
 	}
 
-	@Override
-	public double getMaxInput(EnergySide face) {
+	public long getMaxInput(@Nullable Direction face) {
 		if (!isActive(RedstoneConfiguration.POWER_IO)) {
 			return 0;
 		}
@@ -404,21 +409,29 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		return getBaseMaxInput() + extraPowerInput;
 	}
 
-	@Override
-	public EnergyTier getTier() {
+	public RcEnergyTier getTier() {
 		if (blockEntityPowerTier == null) {
 			checkTier();
 		}
 
 		if (extraTier > 0) {
-			for (EnergyTier enumTier : EnergyTier.values()) {
+			for (RcEnergyTier enumTier : RcEnergyTier.values()) {
 				if (enumTier.ordinal() == blockEntityPowerTier.ordinal() + extraTier) {
 					return enumTier;
 				}
 			}
-			return EnergyTier.INFINITE;
+			return RcEnergyTier.INFINITE;
 		}
 		return blockEntityPowerTier;
+	}
+
+	public boolean tryUseExact(long energy) {
+		if (getStored() >= energy) {
+			addEnergy(-energy);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// IListInfoProvider
@@ -429,7 +442,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 					new TranslatableText("reborncore.tooltip.energy")
 							.formatted(Formatting.GRAY)
 							.append(": ")
-							.append(PowerSystem.getLocalizedPower(energy))
+							.append(PowerSystem.getLocalizedPower(getStored()))
 							.formatted(Formatting.GOLD)
 			);
 		}
@@ -442,21 +455,21 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 				.formatted(Formatting.GOLD)
 		);
 
-		if (getMaxInput(EnergySide.UNKNOWN) != 0) {
+		if (getMaxInput(null) != 0) {
 			info.add(
 					new TranslatableText("reborncore.tooltip.energy.inputRate")
 							.formatted(Formatting.GRAY)
 							.append(": ")
-							.append(PowerSystem.getLocalizedPower(getMaxInput(EnergySide.UNKNOWN)))
+							.append(PowerSystem.getLocalizedPower(getMaxInput(null)))
 							.formatted(Formatting.GOLD)
 			);
 		}
-		if (getMaxOutput(EnergySide.UNKNOWN) > 0) {
+		if (getMaxOutput(null) > 0) {
 			info.add(
 					new TranslatableText("reborncore.tooltip.energy.outputRate")
 							.formatted(Formatting.GRAY)
 							.append(": ")
-							.append(PowerSystem.getLocalizedPower(getMaxOutput(EnergySide.UNKNOWN)))
+							.append(PowerSystem.getLocalizedPower(getMaxOutput(null)))
 							.formatted(Formatting.GOLD)
 			);
 		}

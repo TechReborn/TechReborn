@@ -35,7 +35,7 @@ import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
 import techreborn.blocks.storage.energy.LapotronicSUBlock;
 import techreborn.config.TechRebornConfig;
@@ -50,7 +50,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	private final ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public LapotronicSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.LAPOTRONIC_SU, pos, state, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.LOW, TechRebornConfig.lesuStoragePerBlock);
+		super(TRBlockEntities.LAPOTRONIC_SU, pos, state, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, RcEnergyTier.LOW, TechRebornConfig.lesuStoragePerBlock);
 		checkOverfill = false;
 		this.maxOutput = TechRebornConfig.lesuBaseOutput;
 	}
@@ -67,9 +67,9 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		if (connectedBlocks < 32) {
 			return;
 		} else if (connectedBlocks < 128) {
-			maxInput = EnergyTier.MEDIUM.getMaxInput();
+			maxInput = RcEnergyTier.MEDIUM.getMaxInput();
 		} else {
-			maxInput = EnergyTier.HIGH.getMaxInput();
+			maxInput = RcEnergyTier.HIGH.getMaxInput();
 		}
 	}
 

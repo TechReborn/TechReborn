@@ -31,7 +31,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -43,7 +45,6 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -221,7 +222,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 				craftRecipe(currentRecipe);
 				updateCurrentRecipe();
 			} else if (cookTime < cookTimeTotal) {
-				if (getStored(EnergySide.UNKNOWN) > getEuPerTick(EnergyPerTick)) {
+				if (getStored() > getEuPerTick(EnergyPerTick)) {
 					useEnergy(getEuPerTick(EnergyPerTick));
 					cookTime++;
 					if (cookTime == 1 || cookTime % 20 == 0 && RecipeCrafter.soundHanlder != null) {
@@ -234,22 +235,22 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	protected boolean canProvideEnergy(EnergySide side) {
+	protected boolean canProvideEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.electricFurnaceMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return TechRebornConfig.electricFurnaceMaxInput;
 	}
 

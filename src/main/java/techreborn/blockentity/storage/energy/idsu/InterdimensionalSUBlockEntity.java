@@ -32,8 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
@@ -44,16 +43,16 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	public String ownerUdid;
 
 	//This is the energy value that is synced to the client
-	private double clientEnergy;
+	private long clientEnergy;
 
 	public InterdimensionalSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.INTERDIMENSIONAL_SU, pos, state, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnergyTier.INSANE, TechRebornConfig.idsuMaxEnergy);
+		super(TRBlockEntities.INTERDIMENSIONAL_SU, pos, state, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, RcEnergyTier.INSANE, TechRebornConfig.idsuMaxEnergy);
 	}
 
 	@Override
-	public double getStored(EnergySide face) {
+	public long getStored() {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
-			return 0.0;
+			return 0;
 		}
 		if (world.isClient) {
 			return clientEnergy;
@@ -62,7 +61,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void setStored(double energy) {
+	public void setStored(long energy) {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return;
 		}
@@ -74,14 +73,14 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void useEnergy(double extract) {
+	public void useEnergy(long extract) {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return;
 		}
 		if (world.isClient) {
 			throw new UnsupportedOperationException("cannot set energy on the client!");
 		}
-		double energy = IDSUManager.getPlayer(world.getServer(), ownerUdid).getEnergy();
+		long energy = IDSUManager.getPlayer(world.getServer(), ownerUdid).getEnergy();
 		if (extract > energy) {
 			extract = energy;
 		}

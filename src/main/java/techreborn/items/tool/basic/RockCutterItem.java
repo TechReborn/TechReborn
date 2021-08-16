@@ -36,19 +36,17 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.Random;
 
-public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class RockCutterItem extends PickaxeItem implements RcEnergyItem, ItemDurabilityExtensions {
 
 	public static final int maxCharge = TechRebornConfig.rockCutterCharge;
 	public int cost = TechRebornConfig.rockCutterCost;
@@ -67,7 +65,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (Energy.of(stack).getEnergy() < cost) {
+		if (getStoredEnergy(stack) < cost) {
 			return 2F;
 		} else {
 			return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(stack, state);
@@ -79,7 +77,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			Energy.of(stack).use(cost);
+			tryUseEnergy(stack, cost);
 		}
 		return true;
 	}
@@ -123,7 +121,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 		uncharged.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		ItemStack charged = new ItemStack(TRContent.ROCK_CUTTER);
 		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);
-		Energy.of(charged).set(Energy.of(charged).getMaxStored());
+		setStoredEnergy(charged, getEnergyCapacity());
 
 		stacks.add(uncharged);
 		stacks.add(charged);
@@ -147,17 +145,17 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public EnergyTier getTier() {
-		return EnergyTier.MEDIUM;
+	public RcEnergyTier getTier() {
+		return RcEnergyTier.MEDIUM;
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getEnergyMaxOutput() {
 		return 0;
 	}
 }

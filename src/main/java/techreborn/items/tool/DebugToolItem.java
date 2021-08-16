@@ -39,7 +39,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.powerSystem.PowerSystem;
-import team.reborn.energy.Energy;
+import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 
 import java.util.Map.Entry;
@@ -60,26 +60,30 @@ public class DebugToolItem extends Item {
 		if (block == null) {
 			return ActionResult.FAIL;
 		}
+		if (context.getWorld().isClient) {
+			return ActionResult.SUCCESS;
+		}
 		sendMessage(context, new LiteralText(getRegistryName(block)));
 
 		for (Entry<Property<?>, Comparable<?>> entry : blockState.getEntries().entrySet()) {
 			sendMessage(context, new LiteralText(getPropertyString(entry)));
 		}
 
+		EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.getWorld(), context.getBlockPos(), context.getSide());
+		if (energyStorage != null) {
+			sendMessage(context, new LiteralText(getRCPower(energyStorage)));
+		}
+
 		BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
 		if (blockEntity == null) {
-			return ActionResult.SUCCESS;
+			return ActionResult.CONSUME;
 		}
 
 		sendMessage(context, new LiteralText(getBlockEntityType(blockEntity)));
 
-		if (Energy.valid(blockEntity)) {
-			sendMessage(context, new LiteralText(getRCPower(blockEntity)));
-		}
-
 		sendMessage(context, getBlockEntityTags(blockEntity));
 
-		return ActionResult.SUCCESS;
+		return ActionResult.CONSUME;
 	}
 
 	private void sendMessage(ItemUsageContext context, Text message) {
@@ -120,13 +124,13 @@ public class DebugToolItem extends Item {
 		return s;
 	}
 
-	private String getRCPower(BlockEntity blockEntity) {
+	private String getRCPower(EnergyStorage energyStorage) {
 		String s = "" + Formatting.GREEN;
 		s += "Power: ";
 		s += Formatting.BLUE;
-		s += PowerSystem.getLocalizedPower(Energy.of(blockEntity).getEnergy());
+		s += PowerSystem.getLocalizedPower(energyStorage.getAmount());
 		s += "/";
-		s += PowerSystem.getLocalizedPower(Energy.of(blockEntity).getMaxStored());
+		s += PowerSystem.getLocalizedPower(energyStorage.getCapacity());
 
 		return s;
 	}

@@ -29,15 +29,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -49,7 +50,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public int superconductors = 0;
 
 	public AdjustableSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.ADJUSTABLE_SU, pos, state, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
+		super(TRBlockEntities.ADJUSTABLE_SU, pos, state, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, RcEnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
 	}
 
 	public int getMaxConfigOutput() {
@@ -114,12 +115,12 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return OUTPUT;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		//If we have super conductors increase the max input of the machine
 		if (getMaxConfigOutput() > maxOutput) {
 			return getMaxConfigOutput();
@@ -135,7 +136,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getMaxOutput(@Nullable Direction side) {
 		return OUTPUT;
 	}
 

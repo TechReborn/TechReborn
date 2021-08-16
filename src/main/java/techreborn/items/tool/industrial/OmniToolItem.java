@@ -45,13 +45,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -60,7 +58,7 @@ import techreborn.utils.InitUtils;
 
 import java.util.List;
 
-public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
+public class OmniToolItem extends PickaxeItem implements RcEnergyItem, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int cost = TechRebornConfig.omniToolCost;
@@ -83,7 +81,7 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (Energy.of(stack).getEnergy() >= cost) {
+		if (getStoredEnergy(stack) >= cost) {
 			return ToolMaterials.DIAMOND.getMiningSpeedMultiplier();
 		}
 		return super.getMiningSpeedMultiplier(stack, state);
@@ -92,13 +90,13 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		Energy.of(stack).use(cost);
+		tryUseEnergy(stack, cost);
 		return true;
 	}
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
-		if (Energy.of(stack).use(hitCost)) {
+		if (tryUseEnergy(stack, hitCost)) {
 			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);
 		}
 		return false;
@@ -159,18 +157,18 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getEnergyMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public EnergyTier getTier() {
-		return EnergyTier.EXTREME;
+	public RcEnergyTier getTier() {
+		return RcEnergyTier.EXTREME;
 	}
 
 	// DynamicAttributeTool

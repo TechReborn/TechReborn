@@ -50,12 +50,12 @@ public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.dieselGeneratorMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return TechRebornConfig.dieselGeneratorMaxOutput;
 	}
 

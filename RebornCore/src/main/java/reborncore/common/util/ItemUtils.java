@@ -24,14 +24,20 @@
 
 package reborncore.common.util;
 
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.recipes.IRecipeInput;
-import team.reborn.energy.Energy;
+import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.EnergyStorageUtil;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -103,15 +109,11 @@ public class ItemUtils {
 	}
 
 	public static double getPowerForDurabilityBar(ItemStack stack) {
-		if (stack.isEmpty()) {
+		if (!(stack.getItem() instanceof RcEnergyItem energyItem)) {
 			return 0.0;
 		}
 
-		if (!Energy.valid(stack)) {
-			return 0.0;
-		}
-
-		return Energy.of(stack).getEnergy() / Energy.of(stack).getMaxStored();
+		return (double) energyItem.getStoredEnergy(stack) / energyItem.getEnergyCapacity();
 	}
 
 	/**
@@ -136,7 +138,7 @@ public class ItemUtils {
 		if (!ItemUtils.isActive(stack)) {
 			return;
 		}
-		if (Energy.of(stack).getEnergy() >= cost) {
+		if (((RcEnergyItem) stack.getItem()).getStoredEnergy(stack) >= cost) {
 			return;
 		}
 		if (isClient) {
@@ -213,12 +215,29 @@ public class ItemUtils {
 	 * @param itemStack ItemStack Powered item
 	 * @param maxOutput int Maximum output rate of powered item
 	 */
-	public static void distributePowerToInventory(PlayerEntity player, ItemStack itemStack, int maxOutput) {
+	public static void distributePowerToInventory(PlayerEntity player, ItemStack itemStack, long maxOutput) {
 		distributePowerToInventory(player, itemStack, maxOutput, (stack) -> true);
 	}
 
-	public static void distributePowerToInventory(PlayerEntity player, ItemStack itemStack, int maxOutput, Predicate<ItemStack> filter) {
-		if (!Energy.valid(itemStack)) {
+	public static void distributePowerToInventory(PlayerEntity player, ItemStack itemStack, long maxOutput, Predicate<ItemStack> filter) {
+		// Locate the current stack in the player inventory.
+		PlayerInventoryStorage playerInv = PlayerInventoryStorage.of(player);
+		SingleSlotStorage<ItemVariant> sourceSlot = null;
+
+		for (int i = 0; i < player.getInventory().size(); i++) {
+			if (player.getInventory().getStack(i) == itemStack) {
+				sourceSlot = playerInv.getSlots().get(i);
+				break;
+			}
+		}
+
+		if (sourceSlot == null) {
+			throw new IllegalArgumentException("Failed to locate current stack in the player inventory.");
+		}
+
+		EnergyStorage sourceStorage = ContainerItemContext.ofPlayerSlot(player, sourceSlot).find(EnergyStorage.ITEM);
+
+		if (sourceStorage == null) {
 			return;
 		}
 
@@ -229,11 +248,12 @@ public class ItemUtils {
 				continue;
 			}
 
-			if (Energy.valid(invStack)) {
-				Energy.of(itemStack)
-						.into(Energy.of(invStack))
-						.move(maxOutput);
-			}
+			EnergyStorageUtil.move(
+					sourceStorage,
+					ContainerItemContext.ofPlayerSlot(player, playerInv.getSlots().get(i)).find(EnergyStorage.ITEM),
+					maxOutput,
+					null
+			);
 		}
 	}
 }
