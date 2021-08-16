@@ -317,8 +317,8 @@ task github(dependsOn: remapJar) {
 }
 github.dependsOn(project(":RebornCore").getTasks().getByName("remapJar"))
 
-// Generate recipe JSON for similar recipes
 task compileRecipes {
+    description "Generate recipe JSON for similar recipes"
 	def jsonSlurper = new JsonSlurper()
 	def recipePath = "build/resources/main/data/techreborn/recipes"
 
@@ -328,7 +328,7 @@ task compileRecipes {
 	doLast {
 		// Add any recipe filenames that don't match the regex here
 		String[] whitelist = []
-		def pattern = ~'^\\w+_(ingot(_from_dust)?)\\.json$'
+		def pattern = ~'^\\w+_(ingot)\\w*\\.json$'
 
 		file(smeltingPath).eachFileRecurse(groovy.io.FileType.FILES) {
 			if (whitelist.contains(it.name) || it.name ==~ pattern) {
