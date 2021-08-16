@@ -90,7 +90,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 
 	@Override
 	public boolean canProvideEnergy(@Nullable Direction side) {
-		return getFacing() == side;
+		// side == null allows to move energy from BE to chargeable item.
+		return side == null || getFacing() == side;
 	}
 
 	@Override
