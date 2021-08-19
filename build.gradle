@@ -97,14 +97,6 @@ allprojects {
     }
 
     repositories {
-        // TODO: remove these
-        maven {
-            name = "Technici4n"
-            url = "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
-            content {
-                includeGroup "net.fabricmc.fabric-api"
-            }
-        }
         mavenLocal()
     }
 
@@ -117,7 +109,7 @@ allprojects {
         //Fabric api
         modImplementation "net.fabricmc.fabric-api:fabric-api:0.37.0+1.17"
 
-        include(modApi('teamreborn:energy:0.1.2-7-gab79fbf'))
+        include(modApi('teamreborn:energy:0.1.2-10-gf0d5cb7'))
     }
 
     processResources {
