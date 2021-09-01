@@ -40,22 +40,22 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
 
 import java.util.List;
 
-public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExtensions {
+public class BatteryItem extends Item implements RcEnergyItem, ItemDurabilityExtensions {
 
 	private final int maxEnergy;
-	private final EnergyTier tier;
+	private final RcEnergyTier tier;
 
-	public BatteryItem(int maxEnergy, EnergyTier tier) {
+	public BatteryItem(int maxEnergy, RcEnergyTier tier) {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxEnergy = maxEnergy;
 		this.tier = tier;
@@ -102,12 +102,12 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxEnergy;
 	}
 
 	@Override
-	public EnergyTier getTier() {
+	public RcEnergyTier getTier() {
 		return tier;
 	}
 

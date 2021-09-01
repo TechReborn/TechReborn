@@ -28,7 +28,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -38,7 +40,6 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -85,20 +86,6 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 		}
 	}
 
-	public boolean decreaseStoredEnergy(double aEnergy, boolean aIgnoreTooLessEnergy) {
-		if (getEnergy() - aEnergy < 0 && !aIgnoreTooLessEnergy) {
-			return false;
-		} else {
-			setEnergy(getEnergy() - aEnergy);
-			if (getEnergy() < 0) {
-				setEnergy(0);
-				return false;
-			} else {
-				return true;
-			}
-		}
-	}
-
 	public int getValue(ItemStack itemStack) {
 		if (itemStack.isItemEqualIgnoreDamage(TRContent.Parts.SCRAP.getStack())) {
 			return 200;
@@ -138,7 +125,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 			if (!stack.isEmpty() && spaceForOutput()) {
 				final int amp = getValue(stack);
 				final int euNeeded = amp * TechRebornConfig.matterFabricatorEnergyPerAmp;
-				if (amp != 0 && getStored(EnergySide.UNKNOWN) > euNeeded) {
+				if (amp != 0 && getStored() > euNeeded) {
 					useEnergy(euNeeded);
 					amplifier += amp;
 					inventory.shrinkSlot(i, 1);
@@ -155,22 +142,22 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.matterFabricatorMaxEnergy;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnergySide side) {
+	public boolean canProvideEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return TechRebornConfig.matterFabricatorMaxInput;
 	}
 

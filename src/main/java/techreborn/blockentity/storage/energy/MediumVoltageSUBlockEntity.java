@@ -30,7 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -43,7 +43,7 @@ public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity impleme
 	 * MFE should store 300k energy with 128 E/t I/O
 	 */
 	public MediumVoltageSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, pos, state, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnergyTier.MEDIUM, 300_000);
+		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, pos, state, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, RcEnergyTier.MEDIUM, 300_000);
 	}
 
 	@Override

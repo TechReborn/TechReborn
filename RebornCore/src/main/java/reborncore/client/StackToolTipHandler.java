@@ -43,10 +43,8 @@ import reborncore.RebornCore;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.StringUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
 
 import java.util.List;
 
@@ -60,24 +58,24 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(tooltipLines, false, false);
 		}
-		else if (item instanceof EnergyHolder) {
-			LiteralText line1 = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(Energy.of(itemStack).getEnergy()));
+		else if (item instanceof RcEnergyItem energyItem) {
+			LiteralText line1 = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(energyItem.getStoredEnergy(itemStack)));
 			line1.append("/");
-			line1.append(PowerSystem.getLocalizedPower(Energy.of(itemStack).getMaxStored()));
+			line1.append(PowerSystem.getLocalizedPower(energyItem.getEnergyCapacity()));
 			line1.formatted(Formatting.GOLD);
 
 			tooltipLines.add(1, line1);
 
 			if (Screen.hasShiftDown()) {
-				int percentage = percentage(Energy.of(itemStack).getEnergy(), Energy.of(itemStack).getMaxStored());
+				int percentage = percentage(energyItem.getStoredEnergy(itemStack), energyItem.getEnergyCapacity());
 				MutableText line2  = StringUtils.getPercentageText(percentage);
 				line2.append(" ");
 				line2.formatted(Formatting.GRAY);
 				line2.append(I18n.translate("reborncore.gui.tooltip.power_charged"));
 				tooltipLines.add(2, line2);
 
-				double inputRate = ((EnergyHolder) item).getMaxInput(EnergySide.UNKNOWN);
-				double outputRate = ((EnergyHolder) item).getMaxOutput(EnergySide.UNKNOWN);
+				double inputRate = energyItem.getEnergyMaxInput();
+				double outputRate = energyItem.getEnergyMaxOutput();
 				LiteralText line3 = new LiteralText("");
 				if (inputRate != 0 && inputRate == outputRate){
 					line3.append(I18n.translate("techreborn.tooltip.transferRate"));

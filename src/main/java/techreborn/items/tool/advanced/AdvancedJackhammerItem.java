@@ -41,7 +41,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.JackhammerItem;
 import techreborn.utils.MessageIDs;
@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
 public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public AdvancedJackhammerItem() {
-		super(TechRebornConfig.advancedJackhammerCharge, EnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost);
+		super(TechRebornConfig.advancedJackhammerCharge, RcEnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost);
 	}
 
 	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos, ItemStack stack) {

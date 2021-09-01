@@ -39,8 +39,9 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
+
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -238,12 +239,12 @@ public class TRContent {
 	public static Item PERIDOT_BOOTS;
 
 	public enum SolarPanels implements ItemConvertible {
-		BASIC(EnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
-		ADVANCED(EnergyTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
-		INDUSTRIAL(EnergyTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
-		ULTIMATE(EnergyTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
-		QUANTUM(EnergyTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
-		CREATIVE(EnergyTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
+		BASIC(RcEnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
+		ADVANCED(RcEnergyTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
+		INDUSTRIAL(RcEnergyTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
+		ULTIMATE(RcEnergyTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
+		QUANTUM(RcEnergyTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
+		CREATIVE(RcEnergyTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
 
 		public final String name;
 		public final Block block;
@@ -254,9 +255,9 @@ public class TRContent {
 		public int generationRateN;
 		// Internal EU storage of solar panel
 		public int internalCapacity;
-		public final EnergyTier powerTier;
+		public final RcEnergyTier powerTier;
 
-		SolarPanels(EnergyTier tier, int generationRateD, int generationRateN) {
+		SolarPanels(RcEnergyTier tier, int generationRateD, int generationRateN) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			powerTier = tier;
 			block = new BlockSolarPanel(this);
@@ -332,15 +333,15 @@ public class TRContent {
 	}
 
 	public enum Cables implements ItemConvertible {
-		COPPER(128, 12.0, true, EnergyTier.MEDIUM),
-		TIN(32, 12.0, true, EnergyTier.LOW),
-		GOLD(512, 12.0, true, EnergyTier.HIGH),
-		HV(2048, 12.0, true, EnergyTier.EXTREME),
-		GLASSFIBER(8192, 12.0, false, EnergyTier.INSANE),
-		INSULATED_COPPER(128, 10.0, false, EnergyTier.MEDIUM),
-		INSULATED_GOLD(512, 10.0, false, EnergyTier.HIGH),
-		INSULATED_HV(2048, 10.0, false, EnergyTier.EXTREME),
-		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, EnergyTier.INFINITE);
+		COPPER(128, 12.0, true, RcEnergyTier.MEDIUM),
+		TIN(32, 12.0, true, RcEnergyTier.LOW),
+		GOLD(512, 12.0, true, RcEnergyTier.HIGH),
+		HV(2048, 12.0, true, RcEnergyTier.EXTREME),
+		GLASSFIBER(8192, 12.0, false, RcEnergyTier.INSANE),
+		INSULATED_COPPER(128, 10.0, false, RcEnergyTier.MEDIUM),
+		INSULATED_GOLD(512, 10.0, false, RcEnergyTier.HIGH),
+		INSULATED_HV(2048, 10.0, false, RcEnergyTier.EXTREME),
+		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, RcEnergyTier.INFINITE);
 
 
 		public final String name;
@@ -351,10 +352,10 @@ public class TRContent {
 		public double cableThickness;
 		public boolean canKill;
 		public boolean defaultCanKill;
-		public EnergyTier tier;
+		public RcEnergyTier tier;
 
 
-		Cables(int transferRate, double cableThickness, boolean canKill, EnergyTier tier) {
+		Cables(int transferRate, double cableThickness, boolean canKill, RcEnergyTier tier) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
@@ -860,7 +861,7 @@ public class TRContent {
 				handler.addPowerMulti(TechRebornConfig.overclockerPower);
 			}
 			if (powerAcceptor != null) {
-				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(EnergySide.UNKNOWN);
+				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(null);
 				powerAcceptor.extraPowerStorage += powerAcceptor.getBaseMaxPower();
 			}
 		}),

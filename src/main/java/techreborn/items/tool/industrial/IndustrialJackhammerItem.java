@@ -45,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.JackhammerItem;
 import techreborn.utils.MessageIDs;
@@ -59,7 +59,7 @@ import java.util.stream.Collectors;
 public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public IndustrialJackhammerItem() {
-		super(TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
+		super(TechRebornConfig.industrialJackhammerCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5

@@ -91,7 +91,7 @@ public class TechRebornConfig {
 	public static int plasmaGeneratorMaxOutput = 2048;
 
 	@Config(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorMaxEnergy", comment = "Plasma Generator Max Energy")
-	public static double plasmaGeneratorMaxEnergy = 500_000_000;
+	public static long plasmaGeneratorMaxEnergy = 500_000_000;
 
 	@Config(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorEnergyPerTick", comment = "Plasma Generator Energy Per Tick")
 	public static int plasmaGeneratorEnergyPerTick = 400;
@@ -275,22 +275,22 @@ public class TechRebornConfig {
 	public static int cloackingDeviceCost = 10;
 
 	@Config(config = "items", category = "power", key = "quantumSuitCapacity", comment = "Quantum Suit Energy Capacity")
-	public static double quantumSuitCapacity = 40_000_000;
+	public static long quantumSuitCapacity = 40_000_000;
 
 	@Config(config = "items", category = "power", key = "quantumSuitFlyingCost", comment = "Quantum Suit Flying Cost")
-	public static double quantumSuitFlyingCost = 50;
+	public static long quantumSuitFlyingCost = 50;
 
 	@Config(config = "items", category = "power", key = "quantumSuitSwimmingCost", comment = "Quantum Suit Swimming Cost")
-	public static double quantumSuitSwimmingCost = 20;
+	public static long quantumSuitSwimmingCost = 20;
 
 	@Config(config = "items", category = "power", key = "quantumSuitBreathingCost", comment = "Quantum Suit Breathing Cost")
-	public static double quantumSuitBreathingCost = 20;
+	public static long quantumSuitBreathingCost = 20;
 
 	@Config(config = "items", category = "power", key = "quantumSuitSprintingCost", comment = "Quantum Suit Sprinting Cost")
-	public static double quantumSuitSprintingCost = 20;
+	public static long quantumSuitSprintingCost = 20;
 
 	@Config(config = "items", category = "power", key = "quantumSuitFireExtinguishCost", comment = "Quantum Suit Cost for Fire Extinguish")
-	public static double fireExtinguishCost = 50;
+	public static long fireExtinguishCost = 50;
 
 	@Config(config = "items", category = "power", key = "quantumSuitEnableSprint", comment = "Enable Sprint Speed increase for Quantum Legs")
 	public static boolean quantumSuitEnableSprint = true;

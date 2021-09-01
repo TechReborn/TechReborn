@@ -34,27 +34,25 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
 import java.util.Random;
 
-public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class ChainsawItem extends AxeItem implements RcEnergyItem, ItemDurabilityExtensions {
 
 	public final int maxCharge;
 	public final int cost;
 	public final float poweredSpeed;
 	private final float unpoweredSpeed;
 	public final Item referenceTool;
-	public final EnergyTier tier;
+	public final RcEnergyTier tier;
 
-	public ChainsawItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referenceTool) {
+	public ChainsawItem(ToolMaterials material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referenceTool) {
 		// combat stats same as for diamond axe. Fix for #2468
 		super(material, 5.0F, -3.0F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
@@ -68,7 +66,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	// AxeItem
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (Energy.of(stack).getEnergy() >= cost
+		if (getStoredEnergy(stack) >= cost
 				&& (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.NETHER_WOOD)) {
 			return poweredSpeed;
 		}
@@ -80,7 +78,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			Energy.of(stack).use(cost);
+			tryUseEnergy(stack, cost);
 		}
 		return true;
 	}
@@ -138,17 +136,17 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public EnergyTier getTier() {
+	public RcEnergyTier getTier() {
 		return tier;
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getEnergyMaxOutput() {
 		return 0;
 	}
 

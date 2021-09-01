@@ -36,25 +36,23 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
+public class DrillItem extends PickaxeItem implements RcEnergyItem, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge;
 	public final int cost;
 	public final float poweredSpeed;
 	public final float unpoweredSpeed;
 	public final int miningLevel;
-	public final EnergyTier tier;
+	public final RcEnergyTier tier;
 
-	public DrillItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, MiningLevel miningLevel) {
+	public DrillItem(ToolMaterials material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, MiningLevel miningLevel) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
 		super(material, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
@@ -69,7 +67,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		// Going to remain to use this ol reliable function, the fabric one is funky
 
-		if (Energy.of(stack).getEnergy() >= cost) {
+		if (getStoredEnergy(stack) >= cost) {
 			if (stack.getItem().isSuitableFor(state)) {
 				return poweredSpeed;
 			} else {
@@ -105,7 +103,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		if (worldIn.random.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			Energy.of(stack).use(cost);
+			tryUseEnergy(stack, cost);
 		}
 		return true;
 	}
@@ -153,17 +151,17 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public EnergyTier getTier() {
+	public RcEnergyTier getTier() {
 		return tier;
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getEnergyMaxOutput() {
 		return 0;
 	}
 

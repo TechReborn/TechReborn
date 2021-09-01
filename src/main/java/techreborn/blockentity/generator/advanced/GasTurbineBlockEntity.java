@@ -50,12 +50,12 @@ public class GasTurbineBlockEntity extends BaseFluidGeneratorBlockEntity impleme
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.gasTurbineMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return TechRebornConfig.gasTurbineMaxOutput;
 	}
 

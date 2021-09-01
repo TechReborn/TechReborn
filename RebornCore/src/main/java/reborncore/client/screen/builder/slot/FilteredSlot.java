@@ -28,6 +28,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import reborncore.client.gui.slots.BaseSlot;
 
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public class FilteredSlot extends BaseSlot {

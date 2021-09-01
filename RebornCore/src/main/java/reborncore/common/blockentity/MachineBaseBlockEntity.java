@@ -327,8 +327,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public double getEuPerTick(double baseEu) {
-		return baseEu * powerMultiplier;
+	public long getEuPerTick(long baseEu) {
+		return (long) (baseEu * powerMultiplier);
 	}
 
 	@Override

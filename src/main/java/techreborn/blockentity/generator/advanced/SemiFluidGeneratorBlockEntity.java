@@ -50,12 +50,12 @@ public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.semiFluidGeneratorMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return TechRebornConfig.semiFluidGeneratorMaxOutput;
 	}
 

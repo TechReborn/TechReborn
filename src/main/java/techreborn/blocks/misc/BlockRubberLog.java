@@ -46,7 +46,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
-import team.reborn.energy.Energy;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
@@ -135,15 +134,15 @@ public class BlockRubberLog extends PillarBlock {
 			return ActionResult.PASS;
 		}
 
-		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20 && stack.getItem() instanceof ElectricTreetapItem) || stack.getItem() instanceof TreeTapItem) {
+		if ((stack.getItem() instanceof ElectricTreetapItem item && item.getStoredEnergy(stack) > 20) || stack.getItem() instanceof TreeTapItem) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
 				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F);
 				if (worldIn.isClient) {
 					return ActionResult.SUCCESS;
 				}
-				if (Energy.valid(stack)) {
-					Energy.of(stack).use(20);
+				if (stack.getItem() instanceof ElectricTreetapItem item) {
+					item.tryUseEnergy(stack, 20);
 				} else {
 					stack.damage(1, playerIn, player -> player.sendToolBreakStatus(hand));
 				}

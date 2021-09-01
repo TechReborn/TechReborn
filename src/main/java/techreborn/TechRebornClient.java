@@ -51,9 +51,10 @@ import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
 import reborncore.mixin.client.AccessorModelPredicateProviderRegistry;
-import team.reborn.energy.Energy;
+import team.reborn.energy.api.base.SimpleBatteryItem;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
@@ -183,7 +184,7 @@ public class TechRebornClient implements ClientModInitializer {
 				BatpackItem.class,
 				new Identifier("techreborn:empty"),
 				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
+					if (!stack.isEmpty() && SimpleBatteryItem.getStoredEnergyUnchecked(stack) == 0) {
 						return 1.0F;
 					}
 					return 0.0F;
@@ -194,7 +195,7 @@ public class TechRebornClient implements ClientModInitializer {
 				BatteryItem.class,
 				new Identifier("techreborn:empty"),
 				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
+					if (!stack.isEmpty() && SimpleBatteryItem.getStoredEnergyUnchecked(stack) == 0) {
 						return 1.0F;
 					}
 					return 0.0F;
@@ -218,7 +219,7 @@ public class TechRebornClient implements ClientModInitializer {
 				ChainsawItem.class,
 				new Identifier("techreborn:animated"),
 				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && Energy.of(stack).getEnergy() >= item.getCost() && entity != null && entity.getMainHandStack().equals(stack)) {
+					if (!stack.isEmpty() && SimpleBatteryItem.getStoredEnergyUnchecked(stack) >= item.getCost() && entity != null && entity.getMainHandStack().equals(stack)) {
 						return 1.0F;
 					}
 					return 0.0F;
@@ -230,7 +231,8 @@ public class TechRebornClient implements ClientModInitializer {
 				new Identifier("techreborn:active"),
 				(item, stack, world, entity, seed) -> {
 					if (ItemUtils.isActive(stack)) {
-						if (Energy.of(stack).getMaxStored() - Energy.of(stack).getEnergy() >= 0.9 * Energy.of(stack).getMaxStored()) {
+						RcEnergyItem energyItem = (RcEnergyItem) stack.getItem();
+						if (energyItem.getEnergyCapacity() - energyItem.getStoredEnergy(stack) >= 0.9 * item.getEnergyCapacity()) {
 							return 0.5F;
 						}
 						return 1.0F;

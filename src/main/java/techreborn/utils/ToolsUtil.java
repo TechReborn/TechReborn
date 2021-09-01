@@ -37,7 +37,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.Energy;
+import reborncore.common.powerSystem.RcEnergyItem;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -59,7 +59,7 @@ public class ToolsUtil {
 		}
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool) + 1) == 0) {
-			if (!Energy.of(tool).use(cost)) {
+			if (!((RcEnergyItem) tool.getItem()).tryUseEnergy(tool, cost)) {
 				return;
 			}
 		}

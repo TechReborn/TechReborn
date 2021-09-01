@@ -50,12 +50,12 @@ public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity i
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.thermalGeneratorMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return TechRebornConfig.thermalGeneratorMaxOutput;
 	}
 
