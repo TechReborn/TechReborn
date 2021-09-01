@@ -22,25 +22,20 @@ repositories {
 		url = "https://maven.modmuss50.me/"
 	}
 	maven {
-		name = "BuildCraft"
-		url = "https://mod-buildcraft.com/maven"
-		content {
-			includeGroup "alexiil.mc.lib"
-		}
-	}
-	maven {
 		url = "https://www.cursemaven.com"
 		content {
 			includeGroup "curse.maven"
 		}
 	}
     maven {
+        name "DashLoader"
         url = "https://maven.oskarstrom.net"
         content {
             includeGroup "net.oskarstrom"
         }
     }
 	maven {
+        name "REI"
 		url "https://maven.shedaniel.me/"
         content {
             includeGroup "me.shedaniel"
@@ -51,19 +46,20 @@ repositories {
     maven {
         url = 'https://ladysnake.jfrog.io/artifactory/mods'
         content {
+            // Trinkets dependency
             includeGroup "io.github.onyxstudios.Cardinal-Components-API"
         }
     }
 	maven {
 		url = "https://jitpack.io"
 		content {
+            // Autoswitch API
 			includeGroup "com.github.dexman545"
+            // Trinkets API
 			includeGroup "com.github.emilyploszaj"
 		}
 	}
 }
-
-
 
 configurations {
 	shade
@@ -82,9 +78,8 @@ license {
 group = 'TechReborn'
 
 allprojects {
-    version = "5.0.6-beta"
     def build_number = ENV.BUILD_NUMBER ?: "local"
-    version = "${version}+build.$build_number"
+    version = "project.$mod_version+build.$build_number"
 
     apply plugin: "fabric-loom"
     apply plugin: "maven-publish"
@@ -102,14 +97,14 @@ allprojects {
 
     // Shared deps between TR and RC
     dependencies {
-        minecraft "com.mojang:minecraft:1.17.1"
-        mappings "net.fabricmc:yarn:1.17.1+build.23:v2"
-        modImplementation "net.fabricmc:fabric-loader:0.11.6"
+        minecraft "com.mojang:minecraft:${project.minecraft_version}"
+        mappings "net.fabricmc:yarn:${project.yarn_version}"
+        modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         //Fabric api
-        modImplementation "net.fabricmc.fabric-api:fabric-api:0.37.0+1.17"
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
 
-        include(modApi('teamreborn:energy:0.1.2-10-gf0d5cb7'))
+        include(modApi("teamreborn:energy:${project.energy_version}"))
     }
 
     processResources {
@@ -158,16 +153,15 @@ allprojects {
     }
 }
 
-// TechReborn sepecific deps
+// TechReborn specific dependencies
 dependencies {
     api project(":RebornCore")
     include project(":RebornCore")
 
-    optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:6.0.267-alpha"
-    disabledOptionalDependency "com.github.emilyploszaj:trinkets:3.0.2"
-    disabledOptionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
-    disabledOptionalDependency 'net.oskarstrom:DashLoader:2.0'
-
+    optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
+    disabledOptionalDependency "com.github.dexman545:autoswitch-api:${project.autoswitch_version}"
+    disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
 }
 
 def optionalDependency(String dep) {
@@ -188,7 +182,6 @@ def disabledOptionalDependency(String dep) {
 	}
 }
 
-
 jar {
 	exclude "**/*.psd"
 	classifier = 'universal'
@@ -199,8 +192,8 @@ jar {
 }
 
 
-//Triggers crowdin to export the latest translations
 task crowdinExport() {
+    description "Triggers crowdin to export the latest translations"
 	onlyIf {
 		ENV.CROWDIN_KEY
 	}
@@ -213,19 +206,20 @@ task crowdinExport() {
 	}
 }
 
-
 task crowdin(type: Download, dependsOn: 'crowdinExport'){
+    description "Downloads translations from CrowdIn"
 	src 'https://crowdin.com/backend/download/project/techreborn.zip'
 	dest file("build/translations.zip")
 	overwrite true
 }
 
 task cleanCrowdin(type: Delete){
+    description "Delete old translations"
 	delete 'build/translations'
 }
 
-//Renames the translation files to be all lower case
 task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
+    description "Renames the translation files to be all lower case"
 	mustRunAfter 'crowdin'
 	from zipTree(file("build/translations.zip"))
 	into file('build/translations')
@@ -240,8 +234,8 @@ task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
-//Remove all translations that do not have an entry, ensures that minecraft falls back to EN_US over writing out an empty string.
 task fixTranslations(dependsOn: ['renameCrowdin']) {
+    description "Remove all translations that do not have an entry, ensures that minecraft falls back to EN_US over writing out an empty string"
 	def jsonSlurper = new JsonSlurper()
 	doLast {
 		file('build/translations').eachFileRecurse(groovy.io.FileType.FILES) {
@@ -321,8 +315,8 @@ task github(dependsOn: remapJar) {
 }
 github.dependsOn(project(":RebornCore").getTasks().getByName("remapJar"))
 
-// Generate recipe JSON for similar recipes
 task compileRecipes {
+    description "Generate recipe JSON for similar recipes"
 	def jsonSlurper = new JsonSlurper()
 	def recipePath = "build/resources/main/data/techreborn/recipes"
 
@@ -332,7 +326,7 @@ task compileRecipes {
 	doLast {
 		// Add any recipe filenames that don't match the regex here
 		String[] whitelist = []
-		def pattern = ~'^\\w+_(ingot(_from_dust)?)\\.json$'
+		def pattern = ~'^\\w+_(ingot)\\w*\\.json$'
 
 		file(smeltingPath).eachFileRecurse(groovy.io.FileType.FILES) {
 			if (whitelist.contains(it.name) || it.name ==~ pattern) {

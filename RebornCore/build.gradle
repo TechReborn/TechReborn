@@ -2,8 +2,8 @@ apply plugin: "com.matthewprenger.cursegradle"
 
 group = 'RebornCore'
 
-minecraft {
-    accessWidener = file("src/main/resources/reborncore.accesswidener")
+loom {
+    accessWidenerPath = file("src/main/resources/reborncore.accesswidener")
 }
 def ENV = System.getenv()
 
