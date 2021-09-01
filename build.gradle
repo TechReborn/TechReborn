@@ -6,6 +6,7 @@ buildscript {
 
 plugins {
 	id 'java'
+    id 'groovy'
     id 'java-library'
 	id 'idea'
 	id 'eclipse'
@@ -72,6 +73,7 @@ def ENV = System.getenv()
 license {
 	header file('HEADER')
 	include '**/*.java'
+    include '**/*.groovy'
 	ignoreFailures = true //Stops the build from failing if a file does not have a license header
 }
 
@@ -149,6 +151,15 @@ allprojects {
     }
 }
 
+sourceSets {
+    gametest {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
 // TechReborn specific dependencies
 dependencies {
     api project(":RebornCore")
@@ -158,6 +169,8 @@ dependencies {
     disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:${project.autoswitch_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
+
+    gametestImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
 }
 
 def optionalDependency(String dep) {
@@ -177,6 +190,28 @@ def disabledOptionalDependency(String dep) {
 		exclude module: "nbt-crafting"
 	}
 }
+
+loom {
+    runs {
+        // Use to run the tests
+        gametest {
+            server()
+            name "Game Test"
+            vmArg "-Dfabric-api.gametest"
+            vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/junit.xml"
+            runDir "build/gametest"
+            source sourceSets.gametest
+        }
+
+        // Use to debug tests
+        gametestClient {
+            client()
+            name "Game Test Client"
+            source sourceSets.gametest
+        }
+    }
+}
+test.dependsOn runGametest
 
 jar {
 	exclude "**/*.psd"
