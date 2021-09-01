@@ -91,10 +91,6 @@ allprojects {
         dev
     }
 
-    repositories {
-        mavenLocal()
-    }
-
     // Shared deps between TR and RC
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraft_version}"

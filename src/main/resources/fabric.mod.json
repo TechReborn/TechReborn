@@ -34,9 +34,9 @@
   },
   "depends": {
     "fabricloader": ">=0.11.6",
-	"fabric": ">=0.37.0",
+	"fabric": ">=0.40.0",
     "reborncore": "*",
-	"team_reborn_energy": ">=0.1.1",
+	"team_reborn_energy": ">=2.0.0-beta1",
 	"fabric-biome-api-v1": ">=3.0.0"
   },
   "authors": [
