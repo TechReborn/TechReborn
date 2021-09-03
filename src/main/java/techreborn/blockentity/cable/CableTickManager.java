@@ -8,25 +8,22 @@ import net.minecraft.util.math.Direction;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.init.TRContent;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.List;
 
 @SuppressWarnings("UnstableApiUsage")
 class CableTickManager {
 	private static long tickCounter = 0;
 	private static final List<CableBlockEntity> cableList = new ArrayList<>();
-	private static final List<EnergyStorage> targetStorages = new ArrayList<>();
-	static boolean blockCableIo = false;
+	private static final List<OfferedEnergyStorage> targetStorages = new ArrayList<>();
+	private static final Deque<CableBlockEntity> bfsQueue = new ArrayDeque<>();
 
 	static void handleCableTick(CableBlockEntity startingCable) {
 		if (!(startingCable.getWorld() instanceof ServerWorld)) throw new IllegalStateException();
-
-		// Block any cable I/O while we access the network amount directly.
-		// Some things might try to access cables, for example a p2p tunnel pointing back at a cable.
-		// If the cables and the network go out of sync, we risk duping or voiding energy.
-		blockCableIo = true;
 
 		try {
 			gatherCables(startingCable);
@@ -42,6 +39,15 @@ class CableTickManager {
 
 				// Update cable connections.
 				cable.appendTargets(targetStorages);
+				// Block any cable I/O while we access the network amount directly.
+				// Some things might try to access cables, for example a p2p tunnel pointing back at a cable.
+				// If the cables and the network go out of sync, we risk duping or voiding energy.
+				cable.ioBlocked = true;
+			}
+
+			// Just in case.
+			if (networkAmount > networkCapacity) {
+				networkAmount = networkCapacity;
 			}
 
 			// Pull energy from storages.
@@ -56,32 +62,47 @@ class CableTickManager {
 				networkAmount -= cable.energyContainer.amount;
 				cableCount--;
 				cable.markDirty();
+				cable.ioBlocked = false;
 			}
 		} finally {
 			cableList.clear();
 			targetStorages.clear();
-
-			blockCableIo = false;
+			bfsQueue.clear();
 		}
-
 	}
 
-	static void gatherCables(CableBlockEntity current) {
+	private static boolean shouldTickCable(CableBlockEntity current) {
 		// Make sure we only gather and tick each cable once per tick.
-		if (current.lastTick == tickCounter) return;
-		// Ticking check.
-		if (!(current.getWorld() instanceof ServerWorld sw) || !sw.method_37117(current.getPos())) return;
+		if (current.lastTick == tickCounter) return false;
+		// Make sure we ignore cables in non-ticking chunks.
+		if (!(current.getWorld() instanceof ServerWorld sw) || !sw.method_37117(current.getPos())) return false;
 
-		current.lastTick = tickCounter;
-		cableList.add(current);
+		return true;
+	}
 
-		for (Direction direction : Direction.values()) {
-			BlockPos adjPos = current.getPos().offset(direction);
-			// Make sure we only add ticking block entities.
-			if (!((ServerWorld) current.getWorld()).method_37117(adjPos)) continue;
+	/**
+	 * Perform a BFS to gather all connected ticking cables.
+	 */
+	private static void gatherCables(CableBlockEntity start) {
+		if (!shouldTickCable(start)) return;
 
-			if (current.getWorld().getBlockEntity(adjPos) instanceof CableBlockEntity adjCable) {
-				gatherCables(adjCable);
+		bfsQueue.add(start);
+		start.lastTick = tickCounter;
+		cableList.add(start);
+
+		while (!bfsQueue.isEmpty()) {
+			CableBlockEntity current = bfsQueue.removeFirst();
+
+			for (Direction direction : Direction.values()) {
+				BlockPos adjPos = current.getPos().offset(direction);
+
+				if (current.getWorld().getBlockEntity(adjPos) instanceof CableBlockEntity adjCable && current.getCableType() == adjCable.getCableType()) {
+					if (shouldTickCable(adjCable)) {
+						bfsQueue.add(adjCable);
+						adjCable.lastTick = tickCounter;
+						cableList.add(adjCable);
+					}
+				}
 			}
 		}
 	}
@@ -109,7 +130,12 @@ class CableTickManager {
 				// Limit max amount to the cable transfer rate.
 				long targetMaxAmount = Math.min(remainingAmount / remainingTargets, cableType.transferRate);
 
-				transferredAmount += operation.transfer(target.storage, targetMaxAmount, transaction);
+				long localTransferred = operation.transfer(target.storage.storage, targetMaxAmount, transaction);
+				if (localTransferred > 0) {
+					transferredAmount += localTransferred;
+					// Block duplicate operations.
+					target.storage.afterTransfer();
+				}
 			}
 			transaction.commit();
 			return transferredAmount;
@@ -121,13 +147,13 @@ class CableTickManager {
 	}
 
 	private static class SortableStorage {
-		private final EnergyStorage storage;
+		private final OfferedEnergyStorage storage;
 		private final long simulationResult;
 
-		SortableStorage(TransferOperation operation, EnergyStorage storage) {
+		SortableStorage(TransferOperation operation, OfferedEnergyStorage storage) {
 			this.storage = storage;
 			try (Transaction tx = Transaction.openOuter()) {
-				this.simulationResult = operation.transfer(storage, Long.MAX_VALUE, tx);
+				this.simulationResult = operation.transfer(storage.storage, Long.MAX_VALUE, tx);
 			}
 		}
 	}

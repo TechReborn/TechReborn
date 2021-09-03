@@ -105,17 +105,6 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		cableShapeUtil = new CableShapeUtil(this);
 	}
 
-	public BooleanProperty getProperty(Direction facing) {
-		return switch (facing) {
-			case WEST -> WEST;
-			case NORTH -> NORTH;
-			case SOUTH -> SOUTH;
-			case UP -> UP;
-			case DOWN -> DOWN;
-			default -> EAST;
-		};
-	}
-
 	// BlockContainer
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

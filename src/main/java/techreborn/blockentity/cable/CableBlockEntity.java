@@ -25,7 +25,6 @@
 package techreborn.blockentity.cable;
 
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -51,14 +50,12 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.SimpleSidedEnergyContainer;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CableBlockEntity extends BlockEntity
@@ -71,15 +68,15 @@ public class CableBlockEntity extends BlockEntity
 		}
 
 		@Override
-		public long getMaxInsert(@Nullable Direction side) {
-			if (CableTickManager.blockCableIo) return 0;
-			return getCableType().transferRate;
+		public long getMaxInsert(Direction side) {
+			if (allowTransfer(side)) return getCableType().transferRate;
+			else return 0;
 		}
 
 		@Override
-		public long getMaxExtract(@Nullable Direction side) {
-			if (CableTickManager.blockCableIo) return 0;
-			return getCableType().transferRate;
+		public long getMaxExtract(Direction side) {
+			if (allowTransfer(side)) return getCableType().transferRate;
+			else return 0;
 		}
 	};
 	private TRContent.Cables cableType = null;
@@ -87,6 +84,15 @@ public class CableBlockEntity extends BlockEntity
 	long lastTick = 0;
 	// null means that it needs to be re-queried
 	List<CableTarget> targets = null;
+	/**
+	 * Bitmask to prevent input or output into/from the cable when the cable already transferred in the target direction.
+	 * This prevents double transfer rates, and back and forth between two cables.
+	 */
+	int blockedSides = 0;
+	/**
+	 * This is only used during the cable tick, whereas blockedOperations is used between ticks.
+	 */
+	boolean ioBlocked = false;
 
 	public CableBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.CABLE, pos, state);
@@ -110,6 +116,10 @@ public class CableBlockEntity extends BlockEntity
 		}
 		//Something has gone wrong if this happens
 		return TRContent.Cables.COPPER;
+	}
+
+	private boolean allowTransfer(Direction side) {
+		return !ioBlocked && (blockedSides & (1 << side.ordinal())) == 0;
 	}
 
 	public EnergyStorage getSideEnergyStorage(@Nullable Direction side) {
@@ -218,7 +228,7 @@ public class CableBlockEntity extends BlockEntity
 		return new ItemStack(getCableType().block);
 	}
 
-	void appendTargets(List<EnergyStorage> targetStorages) {
+	void appendTargets(List<OfferedEnergyStorage> targetStorages) {
 		ServerWorld serverWorld = (ServerWorld) world;
 
 		// Update our targets if necessary.
@@ -232,7 +242,7 @@ public class CableBlockEntity extends BlockEntity
 				BlockPos adjPos = getPos().offset(direction);
 				BlockEntity adjBe = serverWorld.getBlockEntity(adjPos);
 
-				if (adjBe instanceof CableBlockEntity) {
+				if (adjBe instanceof CableBlockEntity adjCable && adjCable.getCableType() == getCableType()) {
 					// Make sure cables are not used as regular targets.
 					foundSomething = true;
 				} else if (EnergyStorage.SIDED.find(serverWorld, adjPos, null, adjBe, direction.getOpposite()) != null) {
@@ -249,7 +259,7 @@ public class CableBlockEntity extends BlockEntity
 			serverWorld.setBlockState(getPos(), newBlockState);
 		}
 
-		// Fill the list
+		// Fill the list.
 		for (CableTarget target : targets) {
 			EnergyStorage storage = target.find();
 
@@ -258,8 +268,26 @@ public class CableBlockEntity extends BlockEntity
 				// This is just a reference change, the iterator remains valid.
 				targets = null;
 			} else {
-				targetStorages.add(storage);
+				targetStorages.add(new OfferedEnergyStorage(this, target.directionTo, storage));
 			}
+		}
+
+		// Reset blocked sides.
+		blockedSides = 0;
+	}
+
+	private static final class CableTarget {
+		private final Direction directionTo;
+		private final BlockApiCache<EnergyStorage, Direction> cache;
+
+		CableTarget(Direction directionTo, BlockApiCache<EnergyStorage, Direction> cache) {
+			this.directionTo = directionTo;
+			this.cache = cache;
+		}
+
+		@Nullable
+		EnergyStorage find() {
+			return cache.find(directionTo.getOpposite());
 		}
 	}
 }
