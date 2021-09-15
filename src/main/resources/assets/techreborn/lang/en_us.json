@@ -720,9 +720,7 @@
   "techreborn.message.allPlayers": "All Players",
   "techreborn.message.onlyOtherPlayers": "Only Other Players",
   "techreborn.message.onlyYou": "Only You",
-  "techreborn.message.daygen": "Panel in direct sunlight",
-  "techreborn.message.nightgen": "Panel in reduced sunlight",
-  "techreborn.message.zerogen": "Panel obstructed from sky",
+  "techreborn.message.panel_blocked": "Panel obstructed from sky",
 
   "techreborn.message.info.item.techreborn.overclocker_upgrade": "Increases speed at the cost of more energy used per tick",
   "techreborn.message.info.item.techreborn.transformer_upgrade": "Increase energy tier",
