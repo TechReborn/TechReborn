@@ -24,8 +24,10 @@
 
 package techreborn.blockentity.generator.advanced;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -38,8 +40,8 @@ import techreborn.init.TRContent;
 
 public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
-	public DieselGeneratorBlockEntity() {
-		super(TRBlockEntities.DIESEL_GENERATOR, EFluidGenerator.DIESEL, "DieselGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.dieselGeneratorEnergyPerTick);
+	public DieselGeneratorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.DIESEL_GENERATOR, pos, state, EFluidGenerator.DIESEL, "DieselGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.dieselGeneratorEnergyPerTick);
 	}
 
 	@Override
@@ -48,18 +50,18 @@ public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.dieselGeneratorMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return TechRebornConfig.dieselGeneratorMaxOutput;
 	}
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("dieselgenerator").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("dieselgenerator").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 				.sync(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
 				.sync(this::getTankAmount, this::setTankAmount)

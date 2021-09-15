@@ -32,16 +32,18 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
 import techreborn.blocks.lighting.LampBlock;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.config.TechRebornConfig;
@@ -58,28 +60,37 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	private BlockPos multiblockCenter;
 	private int ticksToNextMultiblockCheck = 0;
 	private boolean growthBoost = false;
+	private int workingIndex = 0;
+	// number of blocks from center
+	private final int range = 4;
 
-	public GreenhouseControllerBlockEntity() {
-		super(TRBlockEntities.GREENHOUSE_CONTROLLER);
+
+	public GreenhouseControllerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.GREENHOUSE_CONTROLLER, pos, state);
 	}
 
 	private void workCycle() {
 		if (world == null){
 			return;
 		}
-		BlockPos blockPos = multiblockCenter.add(world.random.nextInt(9) - 4, 0, world.random.nextInt(9) - 4);
+
+		int size = range * 2 + 1;
+		int offsetX = workingIndex % size;
+		int offsetZ = workingIndex / size;
+		BlockPos corner = multiblockCenter.add(-range, 0, -range);
+		BlockPos blockPos = corner.add(offsetX, 0, offsetZ);
+
+		workingIndex = (workingIndex + 1) % (size * size);
 		BlockState blockState = world.getBlockState(blockPos);
 		Block block = blockState.getBlock();
 
 		if (growthBoost) {
-			if (block instanceof Fertilizable
-					|| block instanceof PlantBlock
-					|| block instanceof SugarCaneBlock
-					|| block instanceof CactusBlock
+			if (block instanceof Fertilizable || block instanceof PlantBlock
+					|| block instanceof SugarCaneBlock	|| block instanceof CactusBlock
 			) {
-				if (getStored(EnergySide.UNKNOWN) > TechRebornConfig.greenhouseControllerEnergyPerBonemeal) {
+				if (getStored() > TechRebornConfig.greenhouseControllerEnergyPerBonemeal) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerBonemeal);
-					blockState.scheduledTick((ServerWorld) world, blockPos, world.random);
+					blockState.randomTick((ServerWorld) world, blockPos, world.random);
 				}
 			}
 		}
@@ -113,7 +124,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		} else if (block instanceof BlockRubberLog) {
 			for (int y = 0; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block && y < 10; y++) {
 				if (blockState.get(BlockRubberLog.HAS_SAP)
-						&& (getStored(EnergySide.UNKNOWN) > TechRebornConfig.greenhouseControllerEnergyPerHarvest)
+						&& (getStored() > TechRebornConfig.greenhouseControllerEnergyPerHarvest)
 						&& insertIntoInv(Collections.singletonList(TRContent.Parts.SAP.getStack()))
 				) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
@@ -139,7 +150,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		if (world == null) {
 			return false;
 		}
-		if (getStored(EnergySide.UNKNOWN) < TechRebornConfig.greenhouseControllerEnergyPerHarvest){
+		if (getStored() < TechRebornConfig.greenhouseControllerEnergyPerHarvest){
 			return false;
 		}
 		if (insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null))) {
@@ -182,21 +193,18 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		if (world == null){
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
+		if (world == null || world.isClient){
 			return;
 		}
 		if (multiblockCenter == null) {
-			multiblockCenter = pos.offset(getFacing().getOpposite(), 5);
+			multiblockCenter = pos.offset(getFacing().getOpposite(), range + 1);
 		}
+
 		charge(6);
-		super.tick();
 
-		if (world.isClient) {
-			return;
-		}
-
-		if (getStored(EnergySide.UNKNOWN) < getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) {
+		if (getStored() < getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) {
 			return;
 		}
 
@@ -214,22 +222,22 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnergySide side) {
+	public boolean canProvideEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.greenhouseControllerMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return TechRebornConfig.greenhouseControllerMaxInput;
 	}
 
@@ -272,7 +280,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("greenhousecontroller").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("greenhousecontroller").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.outputSlot(0, 30, 22).outputSlot(1, 48, 22)
 				.outputSlot(2, 30, 40).outputSlot(3, 48, 40)

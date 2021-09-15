@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:alloy_smelter"
+            "items": ["techreborn:alloy_smelter"]
           }
         ]
       }

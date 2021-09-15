@@ -19,18 +19,24 @@
     "client": [
       "techreborn.TechRebornClient"
     ],
-    "rei_plugins_v0": [
+    "rei": [
       "techreborn.compat.rei.ReiPlugin"
     ],
 	"autoswitch": [
 	  "techreborn.compat.autoswitch.AutoSwitchApiImpl"
 	]
   },
+  "custom": {
+	"dashloader:customobject": [
+	  "techreborn.compat.dashloader.DashDynamicBucketBakedModel",
+	  "techreborn.compat.dashloader.DashDynamicCellBakedModel"
+	]
+  },
   "depends": {
-    "fabricloader": ">=0.6.3",
-    "fabric": "*",
+    "fabricloader": ">=0.11.6",
+	"fabric": ">=0.40.0",
     "reborncore": "*",
-	"team_reborn_energy": ">=0.1.0",
+	"team_reborn_energy": ">=2.0.0-beta1",
 	"fabric-biome-api-v1": ">=3.0.0"
   },
   "authors": [

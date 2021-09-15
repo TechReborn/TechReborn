@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:industrial_grinder",
+  "power": 16,
+  "time": 40,
+  "tank": {
+	"fluid": "techreborn:mercury",
+	"amount": 1000
+  },
+  "ingredients": [
+	{
+	  "tag": "c:iridium_ingots"
+	}
+  ],
+  "results": [
+	{
+	  "item": "techreborn:raw_iridium"
+	}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "c:raw_lead_ores"
+  },
+  "result": "techreborn:lead_ingot",
+  "experience": 0.5,
+  "cookingtime": 200
+}

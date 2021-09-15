@@ -17,16 +17,17 @@ import techreborn.blocks.GenericMachineBlock;
 import techreborn.init.TRContent;
 import techreborn.utils.WorldHelper;
 
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class BlockMiningRig extends GenericMachineBlock {
-	public BlockMiningRig(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
+	public BlockMiningRig(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
 		super(gui, blockEntityClass);
 	}
 
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
-		ItemStack holding = playerIn.inventory.getStack(playerIn.inventory.selectedSlot);
+		ItemStack holding = playerIn.getInventory().getStack(playerIn.getInventory().selectedSlot);
 		boolean hasPlaced = false;
 		if(holding.getItem() == TRContent.DRILL_PIPE.asItem()){
 

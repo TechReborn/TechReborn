@@ -1,0 +1,21 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 2100,
+  "ingredients": [
+    {
+      "count": 2,
+      "tag": "c:raw_tin_ores"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:zinc_nugget",
+	  "count": 3
+    },
+    {
+      "item": "minecraft:iron_nugget",
+	  "count": 3
+    }
+  ]
+}

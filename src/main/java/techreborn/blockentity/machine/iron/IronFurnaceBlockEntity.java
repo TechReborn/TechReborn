@@ -28,11 +28,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.AbstractCookingRecipe;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -49,14 +51,15 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	int outputSlot = 1;
 	public float experience;
 
-	public IronFurnaceBlockEntity() {
-		super(TRBlockEntities.IRON_FURNACE, 2, TRContent.Machine.IRON_FURNACE.block);
+	private Recipe<?> lastRecipe = null;
+
+	public IronFurnaceBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.IRON_FURNACE, pos, state, 2, TRContent.Machine.IRON_FURNACE.block);
 		this.inventory = new RebornInventory<>(3, "IronFurnaceBlockEntity", 64, this);
 	}
 
 	public void handleGuiInputFromClient(PlayerEntity playerIn) {
-		if (playerIn instanceof ServerPlayerEntity) {
-			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
+		if (playerIn instanceof ServerPlayerEntity player) {
 			int totalExperience = (int) experience;
 			while (totalExperience > 0) {
 				int expToDrop = ExperienceOrbEntity.roundToOrbSize(totalExperience);
@@ -68,10 +71,23 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	private ItemStack getResultFor(ItemStack stack) {
-		ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
-		if (!result.isEmpty()) {
-			return result.copy();
+		if (stack.isEmpty()) {
+			// Fast fail if there is no input, no point checking the recipes if the machine is empty
+			return ItemStack.EMPTY;
 		}
+
+		// Check the previous recipe to see if it still applies to the current inv, saves rechecking the whole recipe list
+		if (lastRecipe != null && RecipeUtils.matchesSingleInput(lastRecipe, stack)) {
+			return lastRecipe.getOutput();
+		}
+
+		Recipe<?> matchingRecipe = RecipeUtils.getMatchingRecipe(world, RecipeType.SMELTING, stack).orElse(null);
+
+		if (matchingRecipe != null) {
+			lastRecipe = matchingRecipe;
+			return matchingRecipe.getOutput().copy();
+		}
+
 		return ItemStack.EMPTY;
 	}
 
@@ -104,17 +120,20 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 	@Override
 	protected boolean canSmelt() {
-		if (inventory.getStack(inputSlot).isEmpty()) {
+		ItemStack inputStack = inventory.getStack(inputSlot);
+		if (inputStack.isEmpty())
 			return false;
-		}
-		ItemStack outputStack = getResultFor(inventory.getStack(inputSlot));
+
+		ItemStack outputStack = getResultFor(inputStack);
 		if (outputStack.isEmpty())
 			return false;
-		if (inventory.getStack(outputSlot).isEmpty())
+
+		ItemStack outputSlotStack = inventory.getStack(outputSlot);
+		if (outputSlotStack.isEmpty())
 			return true;
-		if (!inventory.getStack(outputSlot).isItemEqualIgnoreDamage(outputStack))
+		if (!outputSlotStack.isItemEqualIgnoreDamage(outputStack))
 			return false;
-		int result = inventory.getStack(outputSlot).getCount() + outputStack.getCount();
+		int result = outputSlotStack.getCount() + outputStack.getCount();
 		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
 	}
 
@@ -124,14 +143,14 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag compoundTag) {
-		super.fromTag(blockState, compoundTag);
+	public void readNbt(NbtCompound compoundTag) {
+		super.readNbt(compoundTag);
 		experience = compoundTag.getFloat("Experience");
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag compoundTag) {
-		super.toTag(compoundTag);
+	public NbtCompound writeNbt(NbtCompound compoundTag) {
+		super.writeNbt(compoundTag);
 		compoundTag.putFloat("Experience", experience);
 		return compoundTag;
 	}
@@ -152,7 +171,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("ironfurnace").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("ironfurnace").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
 				.sync(this::getBurnTime, this::setBurnTime)

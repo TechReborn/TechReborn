@@ -36,30 +36,28 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.items.ItemStackModifiers;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
-public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabilityExtensions, ItemStackModifiers {
+public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemDurabilityExtensions, ItemStackModifiers {
 	public static final int maxCharge = TechRebornConfig.nanosaberCharge;
 	public int cost = TechRebornConfig.nanosaberCost;
 
@@ -71,7 +69,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 	// SwordItem
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
-		return Energy.of(stack).use(cost);
+		return tryUseEnergy(stack, cost);
 	}
 
 	// ToolItem
@@ -114,18 +112,18 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 			return;
 		}
 		ItemStack inactiveUncharged = new ItemStack(this);
-		inactiveUncharged.setTag(new CompoundTag());
-		inactiveUncharged.getOrCreateTag().putBoolean("isActive", false);
+		inactiveUncharged.setNbt(new NbtCompound());
+		inactiveUncharged.getOrCreateNbt().putBoolean("isActive", false);
 
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
-		inactiveCharged.setTag(new CompoundTag());
-		inactiveCharged.getOrCreateTag().putBoolean("isActive", false);
-		Energy.of(inactiveCharged).set(Energy.of(inactiveCharged).getMaxStored());
+		inactiveCharged.setNbt(new NbtCompound());
+		inactiveCharged.getOrCreateNbt().putBoolean("isActive", false);
+		setStoredEnergy(inactiveCharged, getEnergyCapacity());
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
-		activeCharged.setTag(new CompoundTag());
-		activeCharged.getOrCreateTag().putBoolean("isActive", true);
-		Energy.of(activeCharged).set(Energy.of(activeCharged).getMaxStored());
+		activeCharged.setNbt(new NbtCompound());
+		activeCharged.getOrCreateNbt().putBoolean("isActive", true);
+		setStoredEnergy(activeCharged, getEnergyCapacity());
 
 		itemList.add(inactiveUncharged);
 		itemList.add(inactiveCharged);
@@ -140,17 +138,17 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public EnergyTier getTier() {
-		return EnergyTier.EXTREME;
+	public RcEnergyTier getTier() {
+		return RcEnergyTier.EXTREME;
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getEnergyMaxOutput() {
 		return 0;
 	}
 

@@ -5,7 +5,7 @@
   "heat": 2500,
   "ingredients": [
     {
-      "tag": "c:tungsten_dusts"
+      "tag": "c:raw_tungsten_ores"
     }
   ],
   "results": [

@@ -28,21 +28,25 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.StringUtils;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -65,12 +69,12 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	private SolarPanels panel;
 
-	public SolarPanelBlockEntity() {
-		super(TRBlockEntities.SOLAR_PANEL);
+	public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.SOLAR_PANEL, pos, state);
 	}
 
-	public SolarPanelBlockEntity(SolarPanels panel) {
-		super(TRBlockEntities.SOLAR_PANEL);
+	public SolarPanelBlockEntity(BlockPos pos, BlockState state, SolarPanels panel) {
+		super(TRBlockEntities.SOLAR_PANEL, pos, state);
 		this.panel = panel;
 	}
 
@@ -79,8 +83,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			return;
 		}
 		Block panelBlock = world.getBlockState(pos).getBlock();
-		if (panelBlock instanceof BlockSolarPanel) {
-			BlockSolarPanel solarPanelBlock = (BlockSolarPanel) panelBlock;
+		if (panelBlock instanceof BlockSolarPanel solarPanelBlock) {
 			panel = solarPanelBlock.panelType;
 		}
 	}
@@ -130,25 +133,19 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	public int getGenerationRate() {
-		int rate = 0;
-
-		switch (getSunState()) {
-			case DAYGEN:
-				rate = getPanel().generationRateD;
-				break;
-			case NIGHTGEN:
-				rate = getPanel().generationRateN;
-		}
-
-		return rate;
+		return switch (getSunState()) {
+			case DAYGEN -> getPanel().generationRateD;
+			case NIGHTGEN -> getPanel().generationRateN;
+			default -> 0;
+		};
 	}
 
 
 	// Overrides
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null) {
 			return;
@@ -166,6 +163,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 		// State checking and updating
 		if (world.getTime() % 20 == 0) {
+			checkOverfill = true;
 			updateState();
 		}
 
@@ -174,24 +172,24 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return getPanel().internalCapacity;
 	}
 
 	@Override
-	protected boolean canAcceptEnergy(EnergySide side) { return false; }
+	protected boolean canAcceptEnergy(@Nullable Direction side) { return false; }
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		if (getPanel() == TRContent.SolarPanels.CREATIVE) {
-			return EnergyTier.INSANE.getMaxOutput();
+			return RcEnergyTier.INSANE.getMaxOutput();
 		}
 		// Solar panel output will only be limited by the cables the users use
-		return EnergyTier.EXTREME.getMaxOutput();
+		return RcEnergyTier.EXTREME.getMaxOutput();
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return 0;
 	}
 
@@ -206,7 +204,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public EnergyTier getTier() {
+	public RcEnergyTier getTier() {
 		return getPanel().powerTier;
 	}
 
@@ -263,13 +261,13 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tag) {
+	public void readNbt(NbtCompound tag) {
 		if (world == null) {
 			// We are in BlockEntity.create method during chunk load.
 			this.checkOverfill = false;
 		}
 		updatePanel();
-		super.fromTag(blockState, tag);
+		super.readNbt(tag);
 	}
 
 	// MachineBaseBlockEntity
@@ -287,7 +285,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("solar_panel").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
 				.sync(this::getSunState, this::setSunState)
 				.addInventory().create(this, syncID);

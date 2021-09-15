@@ -38,7 +38,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -47,7 +46,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
-import team.reborn.energy.Energy;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
@@ -66,7 +64,7 @@ public class BlockRubberLog extends PillarBlock {
 	public static BooleanProperty SHOULD_SAP = BooleanProperty.of("shouldsap");
 
 	public BlockRubberLog() {
-		super(Settings.of(Material.WOOD, (blockState) -> MaterialColor.SPRUCE)
+		super(Settings.of(Material.WOOD, (blockState) -> MapColor.SPRUCE_BROWN)
 				.strength(2.0F, 2f)
 				.sounds(BlockSoundGroup.WOOD)
 				.ticksRandomly());
@@ -88,10 +86,10 @@ public class BlockRubberLog extends PillarBlock {
 		}
 	}
 
-	@Override
+	/* FIXME @Override
 	public boolean isIn(Tag<Block> tagIn) {
 		return tagIn == BlockTags.LOGS;
-	}
+	}*/
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -136,19 +134,19 @@ public class BlockRubberLog extends PillarBlock {
 			return ActionResult.PASS;
 		}
 
-		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20 && stack.getItem() instanceof ElectricTreetapItem) || stack.getItem() instanceof TreeTapItem) {
+		if ((stack.getItem() instanceof ElectricTreetapItem item && item.getStoredEnergy(stack) > 20) || stack.getItem() instanceof TreeTapItem) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
 				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F);
 				if (worldIn.isClient) {
 					return ActionResult.SUCCESS;
 				}
-				if (Energy.valid(stack)) {
-					Energy.of(stack).use(20);
+				if (stack.getItem() instanceof ElectricTreetapItem item) {
+					item.tryUseEnergy(stack, 20);
 				} else {
 					stack.damage(1, playerIn, player -> player.sendToolBreakStatus(hand));
 				}
-				if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
+				if (!playerIn.getInventory().insertStack(TRContent.Parts.SAP.getStack())) {
 					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));
 				}
 				if (playerIn instanceof ServerPlayerEntity) {

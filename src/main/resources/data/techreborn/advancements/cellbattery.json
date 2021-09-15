@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:red_cell_battery"
+            "items": ["techreborn:red_cell_battery"]
           }
         ]
       }

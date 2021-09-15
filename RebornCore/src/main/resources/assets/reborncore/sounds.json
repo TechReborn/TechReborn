@@ -1,0 +1,8 @@
+{
+  "block_dismantle": {
+    "category": "block",
+    "sounds": [
+      "reborncore:block_dismantle"
+    ]
+  }
+}

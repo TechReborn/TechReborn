@@ -24,7 +24,7 @@
 
 package techreborn.client.keybindings;
 
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {

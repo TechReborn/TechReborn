@@ -13,11 +13,11 @@
   ],
   "results": [
     {
-      "item": "techreborn:tin_dust",
+      "item": "techreborn:raw_tin",
       "count": 2
     },
     {
-      "item": "techreborn:iron_dust"
+      "item": "minecraft:raw_iron"
     },
     {
       "item": "techreborn:zinc_dust"

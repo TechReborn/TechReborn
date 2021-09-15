@@ -28,15 +28,18 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 import net.fabricmc.loader.launch.common.FabricLauncherBase;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.WordUtils;
+import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -48,13 +51,12 @@ import reborncore.common.util.serialization.SerializationUtil;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.init.ModRecipes;
 
-import org.jetbrains.annotations.Nullable;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
-public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.DataDrivenBlockEntity> implements Supplier<BlockEntity> {
+public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.DataDrivenBlockEntity> implements BiFunction<BlockPos, BlockState, BlockEntity> {
 
 	private final Identifier identifier;
 	private final Block block;
@@ -89,12 +91,12 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 
 	@Nullable
 	@Override
-	public DataDrivenBlockEntity instantiate() {
-		return new DataDrivenBlockEntity(this);
+	public DataDrivenBlockEntity instantiate(BlockPos pos, BlockState state) {
+		return new DataDrivenBlockEntity(this, pos, state);
 	}
 
 	public BuiltScreenHandler createScreenHandler(DataDrivenBlockEntity blockEntity, int syncID, PlayerEntity player) {
-		BlockEntityScreenHandlerBuilder builder = new ScreenHandlerBuilder(identifier.getPath()).player(player.inventory)
+		BlockEntityScreenHandlerBuilder builder = new ScreenHandlerBuilder(identifier.getPath()).player(player.getInventory())
 				.inventory().hotbar().addInventory().blockEntity(blockEntity);
 
 		slots.forEach(dataDrivenSlot -> dataDrivenSlot.add(builder));
@@ -106,16 +108,16 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 
 	//Used by the GenericMachineBlock
 	@Override
-	public BlockEntity get() {
-		return instantiate();
+	public BlockEntity apply(BlockPos pos, BlockState state) {
+		return instantiate(pos, state);
 	}
 
 	public static class DataDrivenBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 		private final DataDrivenBEProvider provider;
 
-		private DataDrivenBlockEntity(DataDrivenBEProvider provider) {
-			super(provider, provider.getSimpleName(), provider.maxInput, provider.energy, provider.block, provider.getEnergySlot());
+		private DataDrivenBlockEntity(DataDrivenBEProvider provider, BlockPos pos, BlockState state) {
+			super(provider, pos, state,  provider.getSimpleName(), provider.maxInput, provider.energy, provider.block, provider.getEnergySlot());
 			this.provider = provider;
 
 			RebornRecipeType<?> recipeType = ModRecipes.byName(provider.identifier);
@@ -136,19 +138,19 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 	}
 
 	private int getEnergySlot() {
-		return slots.stream().filter(slot -> slot.getType() == SlotType.ENERGY).findFirst().orElse(null).getId();
+		return slots.stream().filter(slot -> slot.type() == SlotType.ENERGY).findFirst().orElse(null).id();
 	}
 
 	private int countOfSlotType(SlotType type) {
 		return (int) slots.stream()
-				.filter(slot -> slot.getType() == type)
+				.filter(slot -> slot.type() == type)
 				.count();
 	}
 
 	private int[] slotIds(SlotType type) {
 		return slots.stream()
-				.filter(slot -> slot.getType() == type)
-				.mapToInt(DataDrivenSlot::getId)
+				.filter(slot -> slot.type() == type)
+				.mapToInt(DataDrivenSlot::id)
 				.toArray();
 	}
 

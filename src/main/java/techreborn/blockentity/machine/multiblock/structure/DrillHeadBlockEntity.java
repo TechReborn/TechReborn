@@ -1,16 +1,18 @@
 package techreborn.blockentity.machine.multiblock.structure;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundManager;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Tickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 
-public class DrillHeadBlockEntity extends BlockEntity implements Tickable {
+public class DrillHeadBlockEntity extends BlockEntity implements BlockEntityTicker<DrillHeadBlockEntity> {
 	public float drillAngle;
 
 	public boolean isActive;
@@ -26,8 +28,8 @@ public class DrillHeadBlockEntity extends BlockEntity implements Tickable {
 	private PositionedSoundInstance soundInstance = null;
 
 
-	public DrillHeadBlockEntity(){
-		super(TRBlockEntities.DRILL_HEAD);
+	public DrillHeadBlockEntity(BlockPos pos, BlockState state){
+		super(TRBlockEntities.DRILL_HEAD, pos, state);
 
 		client = MinecraftClient.getInstance();
 		soundManager = client.getSoundManager();
@@ -44,7 +46,7 @@ public class DrillHeadBlockEntity extends BlockEntity implements Tickable {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(World world, BlockPos pos, BlockState state, DrillHeadBlockEntity blockEntity) {
 		if(world != null && world.isClient) {
 			drillAngle += spinSpeed;
 

@@ -24,9 +24,9 @@
 
 package techreborn.compat.rei.rollingmachine;
 
-import me.shedaniel.rei.plugin.crafting.DefaultShapedDisplay;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapedDisplay;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.util.Identifier;
 import techreborn.init.ModRecipes;
 
 public class RollingMachineDisplay extends DefaultShapedDisplay {
@@ -36,7 +36,7 @@ public class RollingMachineDisplay extends DefaultShapedDisplay {
 	}
 
 	@Override
-	public Identifier getRecipeCategory() {
-		return ModRecipes.ROLLING_MACHINE.getName();
+	public CategoryIdentifier<?> getCategoryIdentifier() {
+		return CategoryIdentifier.of(ModRecipes.ROLLING_MACHINE.name());
 	}
 }

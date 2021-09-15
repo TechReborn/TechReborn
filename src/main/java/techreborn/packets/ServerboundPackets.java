@@ -24,30 +24,24 @@
 
 package techreborn.packets;
 
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.Packet;
-import net.minecraft.network.listener.ServerPlayPacketListener;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import reborncore.common.network.ExtendedPacketBuffer;
+import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
+import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
-
-import java.util.function.BiConsumer;
 
 public class ServerboundPackets {
 
@@ -59,82 +53,82 @@ public class ServerboundPackets {
 	public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
 	public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
 	public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
+	public static final Identifier DETECTOR_RADIUS = new Identifier(TechReborn.MOD_ID, "detector_radius");
 
 	public static void init() {
-		registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
-			BlockPos pos = extendedPacketBuffer.readBlockPos();
-			int buttonID = extendedPacketBuffer.readInt();
-			boolean shift = extendedPacketBuffer.readBoolean();
-			boolean ctrl = extendedPacketBuffer.readBoolean();
+		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+			int buttonID = buf.readInt();
+			boolean shift = buf.readBoolean();
+			boolean ctrl = buf.readBoolean();
 
-			context.getTaskQueue().execute(() -> {
-				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
 				if (blockEntity instanceof AdjustableSUBlockEntity) {
 					((AdjustableSUBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, shift, ctrl);
 				}
 			});
 		});
 
-		registerPacketHandler(AUTO_CRAFTING_LOCK, (extendedPacketBuffer, context) -> {
-			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
-			boolean locked = extendedPacketBuffer.readBoolean();
+		NetworkManager.registerServerBoundHandler(AUTO_CRAFTING_LOCK, (server, player, handler, buf, responseSender) -> {
+			BlockPos machinePos = buf.readBlockPos();
+			boolean locked = buf.readBoolean();
 
-			context.getTaskQueue().execute(() -> {
-				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
+			server.execute(() -> {
+				BlockEntity BlockEntity = player.world.getBlockEntity(machinePos);
 				if (BlockEntity instanceof AutoCraftingTableBlockEntity) {
 					((AutoCraftingTableBlockEntity) BlockEntity).locked = locked;
 				}
 			});
 		});
 
-		registerPacketHandler(FUSION_CONTROL_SIZE, (extendedPacketBuffer, context) -> {
-			int sizeDelta = extendedPacketBuffer.readInt();
-			BlockPos pos = extendedPacketBuffer.readBlockPos();
+		NetworkManager.registerServerBoundHandler(FUSION_CONTROL_SIZE, (server, player, handler, buf, responseSender) -> {
+			int sizeDelta = buf.readInt();
+			BlockPos pos = buf.readBlockPos();
 
-			context.getTaskQueue().execute(() -> {
-				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
 				if (blockEntity instanceof FusionControlComputerBlockEntity) {
 					((FusionControlComputerBlockEntity) blockEntity).changeSize(sizeDelta);
 				}
 			});
 		});
 
-		registerPacketHandler(ROLLING_MACHINE_LOCK, (extendedPacketBuffer, context) -> {
-			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
-			boolean locked = extendedPacketBuffer.readBoolean();
+		NetworkManager.registerServerBoundHandler(ROLLING_MACHINE_LOCK, (server, player, handler, buf, responseSender) -> {
+			BlockPos machinePos = buf.readBlockPos();
+			boolean locked = buf.readBoolean();
 
-			context.getTaskQueue().execute(() -> {
-				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
+			server.execute(() -> {
+				BlockEntity BlockEntity = player.world.getBlockEntity(machinePos);
 				if (BlockEntity instanceof RollingMachineBlockEntity) {
 					((RollingMachineBlockEntity) BlockEntity).locked = locked;
 				}
 			});
 		});
 
-		registerPacketHandler(STORAGE_UNIT_LOCK, (extendedPacketBuffer, context) -> {
-			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
-			boolean locked = extendedPacketBuffer.readBoolean();
+		NetworkManager.registerServerBoundHandler(STORAGE_UNIT_LOCK, (server, player, handler, buf, responseSender) -> {
+			BlockPos machinePos = buf.readBlockPos();
+			boolean locked = buf.readBoolean();
 
-			context.getTaskQueue().execute(() -> {
-				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
+			server.execute(() -> {
+				BlockEntity BlockEntity = player.world.getBlockEntity(machinePos);
 				if (BlockEntity instanceof StorageUnitBaseBlockEntity) {
 					((StorageUnitBaseBlockEntity) BlockEntity).setLocked(locked);
 				}
 			});
 		});
 
-		registerPacketHandler(REFUND, (extendedPacketBuffer, context) -> {
+		NetworkManager.registerServerBoundHandler(REFUND, (server, player, handler, buf, responseSender) -> {
 			if (!TechRebornConfig.allowManualRefund) {
 				return;
 			}
-			context.getTaskQueue().execute(() -> {
-				PlayerEntity playerMP = context.getPlayer();
-				for (int i = 0; i < playerMP.inventory.size(); i++) {
-					ItemStack stack = playerMP.inventory.getStack(i);
+			server.execute(() -> {
+				for (int i = 0; i < player.getInventory().size(); i++) {
+					ItemStack stack = player.getInventory().getStack(i);
 					if (stack.getItem() == TRContent.MANUAL) {
-						playerMP.inventory.removeStack(i);
-						playerMP.inventory.insertStack(new ItemStack(Items.BOOK));
-						playerMP.inventory.insertStack(TRContent.Ingots.REFINED_IRON.getStack());
+						player.getInventory().removeStack(i);
+						player.getInventory().insertStack(new ItemStack(Items.BOOK));
+						player.getInventory().insertStack(TRContent.Ingots.REFINED_IRON.getStack());
 						return;
 					}
 				}
@@ -142,89 +136,103 @@ public class ServerboundPackets {
 
 		});
 
-		registerPacketHandler(CHUNKLOADER, (extendedPacketBuffer, context) -> {
-			BlockPos pos = extendedPacketBuffer.readBlockPos();
-			int buttonID = extendedPacketBuffer.readInt();
-			boolean sync = extendedPacketBuffer.readBoolean();
+		NetworkManager.registerServerBoundHandler(CHUNKLOADER, (server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+			int buttonID = buf.readInt();
+			boolean sync = buf.readBoolean();
 
-			context.getTaskQueue().execute(() -> {
-				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
 				if (blockEntity instanceof ChunkLoaderBlockEntity) {
-					((ChunkLoaderBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, sync ? context.getPlayer() : null);
+					((ChunkLoaderBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, sync ? player : null);
 				}
 			});
 		});
 
-		registerPacketHandler(EXPERIENCE, (extendedPacketBuffer, context) -> {
-			BlockPos pos = extendedPacketBuffer.readBlockPos();
+		NetworkManager.registerServerBoundHandler(EXPERIENCE, (server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
 
-			context.getTaskQueue().execute(() -> {
-				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
 				if (blockEntity instanceof IronFurnaceBlockEntity) {
-					((IronFurnaceBlockEntity) blockEntity).handleGuiInputFromClient(context.getPlayer());
+					((IronFurnaceBlockEntity) blockEntity).handleGuiInputFromClient(player);
 				}
 			});
 		});
+
+		NetworkManager.registerServerBoundHandler(DETECTOR_RADIUS, ((server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+			int buttonAmount = buf.readInt();
+
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				if (blockEntity instanceof PlayerDetectorBlockEntity) {
+					((PlayerDetectorBlockEntity) blockEntity).handleGuiInputFromClient(buttonAmount);
+				}
+			});
+		}));
 	}
 
-	private static void registerPacketHandler(Identifier identifier, BiConsumer<ExtendedPacketBuffer, PacketContext> consumer) {
-		ServerSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
-	}
-
-	public static Packet<ServerPlayPacketListener> createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
-		return NetworkManager.createServerBoundPacket(AESU, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
-			extendedPacketBuffer.writeInt(buttonID);
-			extendedPacketBuffer.writeBoolean(shift);
-			extendedPacketBuffer.writeBoolean(ctrl);
+	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(AESU, buf -> {
+			buf.writeBlockPos(blockEntity.getPos());
+			buf.writeInt(buttonID);
+			buf.writeBoolean(shift);
+			buf.writeBoolean(ctrl);
 		});
 	}
 
-	public static Packet<ServerPlayPacketListener> createPacketAutoCraftingTableLock(AutoCraftingTableBlockEntity machine, boolean locked) {
-		return NetworkManager.createServerBoundPacket(AUTO_CRAFTING_LOCK, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(machine.getPos());
-			extendedPacketBuffer.writeBoolean(locked);
+	public static IdentifiedPacket createPacketAutoCraftingTableLock(AutoCraftingTableBlockEntity machine, boolean locked) {
+		return NetworkManager.createServerBoundPacket(AUTO_CRAFTING_LOCK, buf -> {
+			buf.writeBlockPos(machine.getPos());
+			buf.writeBoolean(locked);
 		});
 	}
 
-	public static Packet<ServerPlayPacketListener> createPacketFusionControlSize(int sizeDelta, BlockPos pos) {
-		return NetworkManager.createServerBoundPacket(FUSION_CONTROL_SIZE, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeInt(sizeDelta);
-			extendedPacketBuffer.writeBlockPos(pos);
+	public static IdentifiedPacket createPacketFusionControlSize(int sizeDelta, BlockPos pos) {
+		return NetworkManager.createServerBoundPacket(FUSION_CONTROL_SIZE, buf -> {
+			buf.writeInt(sizeDelta);
+			buf.writeBlockPos(pos);
 		});
 	}
 
 
-	public static Packet<ServerPlayPacketListener> createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
-		return NetworkManager.createServerBoundPacket(ROLLING_MACHINE_LOCK, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(machine.getPos());
-			extendedPacketBuffer.writeBoolean(locked);
+	public static IdentifiedPacket createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
+		return NetworkManager.createServerBoundPacket(ROLLING_MACHINE_LOCK, buf -> {
+			buf.writeBlockPos(machine.getPos());
+			buf.writeBoolean(locked);
 		});
 	}
 
-	public static Packet<ServerPlayPacketListener> createPacketStorageUnitLock(StorageUnitBaseBlockEntity machine, boolean locked) {
-		return NetworkManager.createServerBoundPacket(STORAGE_UNIT_LOCK, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(machine.getPos());
-			extendedPacketBuffer.writeBoolean(locked);
+	public static IdentifiedPacket createPacketStorageUnitLock(StorageUnitBaseBlockEntity machine, boolean locked) {
+		return NetworkManager.createServerBoundPacket(STORAGE_UNIT_LOCK, buf -> {
+			buf.writeBlockPos(machine.getPos());
+			buf.writeBoolean(locked);
 		});
 	}
 
-	public static Packet<ServerPlayPacketListener> createRefundPacket() {
+	public static IdentifiedPacket createRefundPacket() {
 		return NetworkManager.createServerBoundPacket(REFUND, extendedPacketBuffer -> {
 
 		});
 	}
 
-	public static Packet<ServerPlayPacketListener> createPacketChunkloader(int buttonID, ChunkLoaderBlockEntity blockEntity, boolean sync) {
-		return NetworkManager.createServerBoundPacket(CHUNKLOADER, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
-			extendedPacketBuffer.writeInt(buttonID);
-			extendedPacketBuffer.writeBoolean(sync);
+	public static IdentifiedPacket createPacketChunkloader(int buttonID, ChunkLoaderBlockEntity blockEntity, boolean sync) {
+		return NetworkManager.createServerBoundPacket(CHUNKLOADER, buf -> {
+			buf.writeBlockPos(blockEntity.getPos());
+			buf.writeInt(buttonID);
+			buf.writeBoolean(sync);
 		});
 	}
 
-	public static Packet<ServerPlayPacketListener> createPacketExperience(IronFurnaceBlockEntity blockEntity) {
+	public static IdentifiedPacket createPacketExperience(IronFurnaceBlockEntity blockEntity) {
 		return NetworkManager.createServerBoundPacket(EXPERIENCE, extendedPacketBuffer -> extendedPacketBuffer.writeBlockPos(blockEntity.getPos()));
 	}
 
+	public static IdentifiedPacket createPacketPlayerDetector(int buttonAmount, PlayerDetectorBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(DETECTOR_RADIUS, buf -> {
+			buf.writeBlockPos(blockEntity.getPos());
+			buf.writeInt(buttonAmount);
+		});
+	}
 }

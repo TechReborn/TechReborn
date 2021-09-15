@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.transformers;
 
-import team.reborn.energy.EnergyTier;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -33,8 +35,8 @@ import techreborn.init.TRContent;
  */
 public class EVTransformerBlockEntity extends TransformerBlockEntity {
 
-	public EVTransformerBlockEntity() {
-		super(TRBlockEntities.EV_TRANSFORMER, "EVTransformer", TRContent.Machine.EV_TRANSFORMER.block, EnergyTier.INSANE);
+	public EVTransformerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.EV_TRANSFORMER, pos, state, "EVTransformer", TRContent.Machine.EV_TRANSFORMER.block, RcEnergyTier.INSANE);
 	}
 
 }

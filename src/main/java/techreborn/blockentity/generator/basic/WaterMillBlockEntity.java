@@ -24,14 +24,19 @@
 
 package techreborn.blockentity.generator.basic;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import team.reborn.energy.EnergySide;
+
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -43,18 +48,18 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	int waterblocks = 0;
 
-	public WaterMillBlockEntity() {
-		super(TRBlockEntities.WATER_MILL);
+	public WaterMillBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.WATER_MILL, pos, state);
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world.getTime() % 20 == 0) {
 			checkForWater();
 		}
 		if (waterblocks > 0) {
-			addEnergy(waterblocks * TechRebornConfig.waterMillEnergyMultiplier);
+			addEnergyProbabilistic(waterblocks * TechRebornConfig.waterMillEnergyMultiplier);
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 		} else {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
@@ -71,22 +76,22 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.waterMillMaxEnergy;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnergySide side) {
+	public boolean canAcceptEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return TechRebornConfig.waterMillMaxOutput;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return 0;
 	}
 

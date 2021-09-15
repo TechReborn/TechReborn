@@ -32,19 +32,23 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
 import techreborn.blockentity.machine.multiblock.structure.DrillHeadBlockEntity;
 
-public class DrillHeadRenderer extends BlockEntityRenderer<DrillHeadBlockEntity> {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class DrillHeadRenderer implements BlockEntityRenderer<DrillHeadBlockEntity> {
 	public static final DrillModel MODEL = new DrillModel();
 	public static final Identifier TEXTURE = new Identifier("techreborn:textures/block/machines/structure/drill_heads/iron.png");
 
-	public DrillHeadRenderer(BlockEntityRenderDispatcher dispatcher) {
-		super(dispatcher);
+	public DrillHeadRenderer(BlockEntityRendererFactory.Context ctx) {
+		super();
 	}
 
 	@Override
@@ -70,18 +74,20 @@ public class DrillHeadRenderer extends BlockEntityRenderer<DrillHeadBlockEntity>
 
 		public DrillModel() {
 			super(RenderLayer::getEntityCutoutNoCull);
-			textureWidth = 64;
-			textureHeight = 64;
 
-			base = new ModelPart(this);
-
-			base.setPivot(0.0F, 0.0f, 0.0F);
-			base.addCuboid(null, -5.5F, -6.0F, -5.5F, 11, 2, 11, 0.0F, 0, 16);
-			base.addCuboid(null, -4.5F, -4.0F, -4.5F, 9, 2, 9, 0.0F, 0, 29);
-			base.addCuboid(null, -3.5F, -2.0F, -3.5F, 7, 2, 7, 0.0F, 0, 40);
-			base.addCuboid(null, -2.5F, 0.0F, -2.5F, 5, 2, 5, 0.0F, 0, 49);
-			base.addCuboid(null, -0.5F, 4.0F, -0.5F, 1, 2, 1, 0.0F, 0, 61);
-			base.addCuboid(null, -1.5F, 2.0F, -1.5F, 3, 2, 3, 0.0F, 0, 56);
+			base = new ModelPart(new ArrayList<ModelPart.Cuboid>(), new HashMap<>());
+//			textureWidth = 64;
+//			textureHeight = 64;
+//
+//			base = new ModelPart(this);
+//
+//			base.setPivot(0.0F, 0.0f, 0.0F);
+//			base.addCuboid(null, -5.5F, -6.0F, -5.5F, 11, 2, 11, 0.0F, 0, 16);
+//			base.addCuboid(null, -4.5F, -4.0F, -4.5F, 9, 2, 9, 0.0F, 0, 29);
+//			base.addCuboid(null, -3.5F, -2.0F, -3.5F, 7, 2, 7, 0.0F, 0, 40);
+//			base.addCuboid(null, -2.5F, 0.0F, -2.5F, 5, 2, 5, 0.0F, 0, 49);
+//			base.addCuboid(null, -0.5F, 4.0F, -0.5F, 1, 2, 1, 0.0F, 0, 61);
+//			base.addCuboid(null, -1.5F, 2.0F, -1.5F, 3, 2, 3, 0.0F, 0, 56);
 		}
 
 		private void setSpin(float z) {

@@ -25,7 +25,6 @@
 package techreborn.utils;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -72,9 +71,9 @@ public class TagRemapper {
 		final char quote = '"';
 		return path -> {
 			try {
-				String recipe = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+				String recipe = Files.readString(path);
 				recipe = recipe.replaceAll(quote + rename.getOldTagName() + quote, quote + rename.getNewTagName() + quote);
-				Files.write(path, recipe.getBytes(StandardCharsets.UTF_8));
+				Files.writeString(path, recipe);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}

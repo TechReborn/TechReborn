@@ -66,13 +66,13 @@ public class ClientboundPackets {
 		ClientSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
 	}
 
-	public static Packet<ClientPlayPacketListener> createPacketMiningRigSync(boolean active, BlockPos headPos, boolean maxSpeed) {
-		return NetworkManager.createClientBoundPacket(MINING_DRILL_ANIM_SYNC, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(headPos);
-			extendedPacketBuffer.writeBoolean(active);
-			extendedPacketBuffer.writeBoolean(maxSpeed);
-		});
-	}
+//	public static Packet<ClientPlayPacketListener> createPacketMiningRigSync(boolean active, BlockPos headPos, boolean maxSpeed) {
+//		return NetworkManager.createClientBoundPacket(MINING_DRILL_ANIM_SYNC, extendedPacketBuffer -> {
+//			extendedPacketBuffer.writeBlockPos(headPos);
+//			extendedPacketBuffer.writeBoolean(active);
+//			extendedPacketBuffer.writeBoolean(maxSpeed);
+//		});
+//	}
 
 
 }

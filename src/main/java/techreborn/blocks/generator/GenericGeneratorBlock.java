@@ -32,14 +32,14 @@ import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
 
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 /**
  * An extension of {@link GenericMachineBlock} that provides utilities
  * for generators, like comparator output based on energy.
  */
 public class GenericGeneratorBlock extends GenericMachineBlock {
-	public GenericGeneratorBlock(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
+	public GenericGeneratorBlock(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
 		super(gui, blockEntityClass);
 	}
 

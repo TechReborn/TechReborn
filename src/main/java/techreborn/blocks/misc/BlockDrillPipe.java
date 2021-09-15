@@ -25,7 +25,7 @@ public class BlockDrillPipe extends Block {
 	VoxelShape shape;
 
 	public BlockDrillPipe() {
-		super(FabricBlockSettings.of(Material.METAL, MaterialColor.WOOD).strength(0, 0).sounds(BlockSoundGroup.METAL));
+		super(FabricBlockSettings.of(Material.METAL).strength(0, 0).sounds(BlockSoundGroup.METAL));
 
 
 		// Pipe shape for outline
@@ -68,7 +68,7 @@ public class BlockDrillPipe extends Block {
 
 
 		ItemStack itemStack = new ItemStack(TRContent.DRILL_PIPE.asItem(), pipeCount);
-		if(!player.inventory.insertStack(itemStack)){
+		if(!player.getInventory().insertStack(itemStack)){
 			// Inventory's full, drop remaining at player's feet
 			ItemEntity itemEntity = new ItemEntity(world,player.getX(), player.getY(), player.getZ(), itemStack);
 			world.spawnEntity(itemEntity);
@@ -79,7 +79,7 @@ public class BlockDrillPipe extends Block {
 	// Allow users to build it up, why not
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-			ItemStack holding = player.inventory.getStack(player.inventory.selectedSlot);
+			ItemStack holding = player.getInventory().getStack(player.getInventory().selectedSlot);
 			if(holding.getItem() == TRContent.DRILL_PIPE.asItem()){
 				if(world.isClient){
 					return ActionResult.SUCCESS;

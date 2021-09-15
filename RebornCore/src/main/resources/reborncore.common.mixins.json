@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "reborncore.mixin.common",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "AccessorFluidBlock",
+    "AccessorFoliagePlacerType",
+    "AccessorRecipeManager",
+    "AccessorScreenHandler",
+    "AccessorSlot",
+    "MixinBucketItem",
+    "MixinCraftingResultSlot",
+    "MixinItemEntity",
+    "MixinItemStack",
+    "MixinLivingEntity",
+    "MixinPlayerEntity",
+    "MixinRecipeManager",
+	"MixinServerPlayerEntity"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

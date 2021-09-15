@@ -28,172 +28,27 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.IUpgrade;
-import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
-import reborncore.common.blockentity.SlotConfiguration;
-import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
+import techreborn.api.recipe.RecyclerRecipeCrafter;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider, SlotConfiguration.SlotFilter {
+public class RecyclerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	private final RebornInventory<RecyclerBlockEntity> inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this);
-	private final int cost = 2;
-	private final int time = 15;
-	private final int chance = 6;
-	private boolean isBurning;
-	private int progress;
-
-	public RecyclerBlockEntity() {
-		super(TRBlockEntities.RECYCLER);
-	}
-
-	public int gaugeProgressScaled(int scale) {
-		return progress * scale / time;
-	}
-
-	public int getProgress() {
-		return progress;
-	}
-
-	public void setProgress(int progress) {
-		this.progress = progress;
-	}
-
-	public void recycleItems() {
-		ItemStack itemstack = TRContent.Parts.SCRAP.getStack();
-		final int randomchance = this.world.random.nextInt(chance);
-
-		if (randomchance == 1) {
-			if (inventory.getStack(1).isEmpty()) {
-				inventory.setStack(1, itemstack.copy());
-			} else {
-				inventory.getStack(1).increment(itemstack.getCount());
-			}
-		}
-		inventory.shrinkSlot(0, 1);
-	}
-
-	public boolean canRecycle() {
-		return !inventory.getStack(0).isEmpty() && hasSlotGotSpace(1);
-	}
-
-	public boolean hasSlotGotSpace(int slot) {
-		if (inventory.getStack(slot).isEmpty()) {
-			return true;
-		} else return inventory.getStack(slot).getCount() < inventory.getStack(slot).getMaxCount();
-	}
-
-	public boolean isBurning() {
-		return isBurning;
-	}
-
-	public void setBurning(boolean burning) {
-		this.isBurning = burning;
-	}
-
-	public void updateState() {
-		final BlockState BlockStateContainer = world.getBlockState(pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			boolean shouldBurn = isBurning || (canRecycle() && (getStored(EnergySide.UNKNOWN) > getEuPerTick(cost)));
-			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != shouldBurn) {
-				blockMachineBase.setActive(isBurning, world, pos);
-			}
-		}
-	}
-
-	// TilePowerAcceptor
-	@Override
-	public void tick() {
-		super.tick();
-		if (world.isClient) {
-			return;
-		}
-		charge(2);
-
-		boolean updateInventory = false;
-		if (canRecycle() && !isBurning() && getEnergy() != 0) {
-			setBurning(true);
-		} else if (isBurning()) {
-			if (getStored(EnergySide.UNKNOWN) < getEuPerTick(cost)) {
-				this.setBurning(false);
-			}
-			progress++;
-			if (progress >= Math.max((int) (time * (1.0 - getSpeedMultiplier())), 1)) {
-				progress = 0;
-				recycleItems();
-				updateInventory = true;
-				setBurning(false);
-			}
-		}
-
-		updateState();
-
-		if (updateInventory) {
-			markDirty();
-		}
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return TechRebornConfig.recyclerMaxEnergy;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnergySide side) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return TechRebornConfig.recyclerMaxInput;
-	}
-
-	// TileMachineBase
-	@Override
-	public boolean canBeUpgraded() {
-		return true;
-	}
-
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
-		return TRContent.Machine.RECYCLER.getStack();
-	}
-
-	@Override
-	public boolean isStackValid(int slotID, ItemStack stack) {
-		if (slotID == 0) {
-			return canRecycle(stack);
-		}
-		return false;
-	}
-
-	@Override
-	public int[] getInputSlots() {
-		return new int[]{0};
-	}
-
-	// ItemHandlerProvider
-	@Override
-	public RebornInventory<RecyclerBlockEntity> getInventory() {
-		return this.inventory;
+	public RecyclerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.RECYCLER, pos, state, "Recycler", TechRebornConfig.recyclerMaxInput, TechRebornConfig.recyclerMaxEnergy, TRContent.Machine.RECYCLER.block, 2);
+		final int[] inputs = new int[]{0};
+		final int[] outputs = new int[]{1};
+		this.inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this);
+		this.crafter = new RecyclerRecipeCrafter(this, this.inventory, inputs, outputs);
 	}
 
 	public static boolean canRecycle(ItemStack stack) {
@@ -204,13 +59,12 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		return !TechRebornConfig.recyclerBlackList.contains(Registry.ITEM.getId(item).toString());
 	}
 
-	// IContainerProvider
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("recycler").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45, RecyclerBlockEntity::canRecycle)
 				.outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.sync(this::getProgress, this::setProgress).addInventory().create(this, syncID);
+				.syncCrafterValue().addInventory().create(this, syncID);
 	}
-
 }

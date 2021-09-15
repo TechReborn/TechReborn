@@ -18,7 +18,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:matter_fabricator"
+            "items": ["techreborn:matter_fabricator"]
           }
         ]
       }

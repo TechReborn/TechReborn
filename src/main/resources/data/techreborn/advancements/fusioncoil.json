@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:fusion_coil"
+            "items": ["techreborn:fusion_coil"]
           }
         ]
       }

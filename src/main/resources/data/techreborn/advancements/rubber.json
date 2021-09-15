@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:rubber"
+            "items": ["techreborn:rubber"]
           }
         ]
       }

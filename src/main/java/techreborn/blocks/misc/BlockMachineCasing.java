@@ -30,7 +30,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.world.BlockView;
+import net.minecraft.util.math.BlockPos;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
 
@@ -45,16 +45,16 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 
 	public static int getHeatFromState(BlockState state) {
 		Block block = state.getBlock();
-		if (!(block instanceof BlockMachineCasing)) {
-			return 0;
+		if (block instanceof BlockMachineCasing casing) {
+			return casing.heatCapacity;
 		}
-		BlockMachineCasing casing = (BlockMachineCasing) block;
-		return casing.heatCapacity;
+
+		return 0;
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new MachineCasingBlockEntity();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new MachineCasingBlockEntity(pos, state);
 	}
 
 }

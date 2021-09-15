@@ -24,11 +24,14 @@
 
 package techreborn.blockentity.storage.energy;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -40,13 +43,13 @@ public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implement
 	/**
 	 * MFSU should store 4M Energy with 512 E/t I/O
 	 */
-	public HighVoltageSUBlockEntity() {
-		super(TRBlockEntities.HIGH_VOLTAGE_SU, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnergyTier.HIGH, 4_000_000);
+	public HighVoltageSUBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.HIGH_VOLTAGE_SU, pos, state, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, RcEnergyTier.HIGH, 4_000_000);
 	}
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("mfsu").player(player.inventory).inventory().hotbar().armor()
+		return new ScreenHandlerBuilder("mfsu").player(player.getInventory()).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().addInventory().create(this, syncID);
 	}

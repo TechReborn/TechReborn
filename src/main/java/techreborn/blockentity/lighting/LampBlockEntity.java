@@ -28,36 +28,39 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import team.reborn.energy.EnergySide;
 import techreborn.blocks.lighting.LampBlock;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
 
 	private static final int capacity = 33;
 
-	public LampBlockEntity() {
-		super(TRBlockEntities.LAMP);
+	public LampBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.LAMP, pos, state);
 	}
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
 		}
-		BlockState state = world.getBlockState(pos);
 		Block b = state.getBlock();
 		if (!(b instanceof LampBlock)) {
 			return;
 		}
 
-		double cost = getEuPerTick(((LampBlock) b).getCost());
-		if (getStored(EnergySide.UNKNOWN) > cost) {
+		long cost = getEuPerTick(((LampBlock) b).getCost());
+		if (getStored() > cost) {
 			useEnergy(cost);
 			if (!LampBlock.isActive(state)) {
 				LampBlock.setActive(true, world, pos);
@@ -68,33 +71,46 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 	}
 
 	@Override
-	protected boolean canAcceptEnergy(EnergySide side) {
-		return side == EnergySide.UNKNOWN || getFacing().getOpposite() != Direction.values()[side.ordinal()];
+	protected boolean canAcceptEnergy(@Nullable Direction side) {
+		return side == null || getFacing().getOpposite() == Direction.values()[side.ordinal()];
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnergySide side) {
+	public boolean canProvideEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return capacity;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return 32;
+	}
+
+	//MachineBaseBlockEntity
+	@Override
+	public Direction getFacing(){
+		if (world == null){
+			return Direction.NORTH;
+		}
+		return LampBlock.getFacing(world.getBlockState(pos));
 	}
 
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+		// I know it is weird. But world is nullable
+		if (world == null) {
+			return new ItemStack(TRContent.Machine.LAMP_INCANDESCENT.block);
+		}
 		return new ItemStack(world.getBlockState(pos).getBlock());
 	}
 }

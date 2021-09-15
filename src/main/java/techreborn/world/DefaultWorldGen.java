@@ -27,31 +27,31 @@ package techreborn.world;
 import com.google.gson.JsonElement;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.rule.BlockStateMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
+import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.apache.logging.log4j.util.TriConsumer;
-import reborncore.common.util.IdentifiableObject;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.init.TRContent;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,15 +59,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class DefaultWorldGen {
 
 	private static final RuleTest END_STONE = new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState());
 
 	private static ConfiguredFeature<?, ?> getRubberTree() {
-		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
-		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);
+		DataPool.Builder<BlockState> logPoolBuilder = DataPool.<BlockState>builder()
+				.add(TRContent.RUBBER_LOG.getDefaultState(), 10);
 
 		Arrays.stream(Direction.values())
 				.filter(direction -> direction.getAxis().isHorizontal())
@@ -75,16 +74,19 @@ public class DefaultWorldGen {
 						.with(BlockRubberLog.HAS_SAP, true)
 						.with(BlockRubberLog.SAP_SIDE, direction)
 				)
-				.forEach(state -> logProvider.addState(state, 1));
+				.forEach(state -> logPoolBuilder.add(state, 1));
+
+		BlockStateProvider logProvider = new WeightedBlockStateProvider(logPoolBuilder.build());
+
 
 		TreeFeatureConfig treeFeatureConfig = new TreeFeatureConfig.Builder(
 			logProvider,
-			new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
-			new RubberTreeFeature.FoliagePlacer(UniformIntDistribution.of(2, 0), UniformIntDistribution.of(0, 0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
 			new StraightTrunkPlacer(6, 3, 0),
+			new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
+			new SimpleBlockStateProvider(TRContent.RUBBER_SAPLING.getDefaultState()),
+			new RubberTreeFeature.FoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
 			new TwoLayersFeatureSize(1, 0, 1)
 		).build();
-
 
 		return WorldGenerator.RUBBER_TREE_FEATURE.configure(treeFeatureConfig)
 				.decorate(WorldGenerator.RUBBER_TREE_DECORATOR
@@ -107,7 +109,6 @@ public class DefaultWorldGen {
 		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.TUNGSTEN);
 
 		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.BAUXITE);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.COPPER);
 		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.GALENA);
 		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.IRIDIUM);
 		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.LEAD);
@@ -118,7 +119,7 @@ public class DefaultWorldGen {
 
 
 		features.add(new DataDrivenFeature(
-			new Identifier("techreborn", "rubber_tree"),
+			RubberSaplingGenerator.IDENTIFIER,
 			BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA, Biome.Category.SWAMP),
 			getRubberTree(),
 			GenerationStep.Feature.VEGETAL_DECORATION
@@ -135,7 +136,7 @@ public class DefaultWorldGen {
 
 			Path dir = Paths.get("..\\src\\main\\resources\\data\\techreborn\\techreborn\\features");
 			try {
-				Files.write(dir.resolve(defaultFeature.getIdentifier().getPath() + ".json"), json.getBytes(StandardCharsets.UTF_8));
+				Files.writeString(dir.resolve(defaultFeature.getIdentifier().getPath() + ".json"), json);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

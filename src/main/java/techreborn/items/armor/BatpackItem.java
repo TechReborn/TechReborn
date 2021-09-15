@@ -36,19 +36,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabilityExtensions {
+public class BatpackItem extends ArmorItem implements RcEnergyItem, ItemDurabilityExtensions {
 
 	public final int maxCharge;
-	public final EnergyTier tier;
+	public final RcEnergyTier tier;
 
-	public BatpackItem(int maxCharge, ArmorMaterial material, EnergyTier tier) {
+	public BatpackItem(int maxCharge, ArmorMaterial material, RcEnergyTier tier) {
 		super(material, EquipmentSlot.CHEST, new Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = maxCharge;
 		this.tier = tier;
@@ -86,12 +86,12 @@ public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabili
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public EnergyTier getTier() {
+	public RcEnergyTier getTier() {
 		return tier;
 	}
 

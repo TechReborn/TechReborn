@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:wire_mill"
+            "items": ["techreborn:wire_mill"]
           }
         ]
       }

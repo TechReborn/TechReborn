@@ -45,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.JackhammerItem;
 import techreborn.utils.MessageIDs;
@@ -59,7 +59,7 @@ import java.util.stream.Collectors;
 public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public IndustrialJackhammerItem() {
-		super(TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
+		super(TechRebornConfig.industrialJackhammerCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5
@@ -67,16 +67,16 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 		ItemUtils.checkActive(stack, cost, isClient, messageId);
 		if (!ItemUtils.isActive(stack)) {
 			ItemUtils.switchActive(stack, cost, isClient, messageId);
-			stack.getOrCreateTag().putBoolean("AOE5", false);
+			stack.getOrCreateNbt().putBoolean("AOE5", false);
 			if (isClient) {
 				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(new LiteralText("3*3").formatted(Formatting.GOLD)));
 			}
 		} else {
 			if (isAOE5(stack)) {
 				ItemUtils.switchActive(stack, cost, isClient, messageId);
-				stack.getOrCreateTag().putBoolean("AOE5", false);
+				stack.getOrCreateNbt().putBoolean("AOE5", false);
 			} else {
-				stack.getOrCreateTag().putBoolean("AOE5", true);
+				stack.getOrCreateNbt().putBoolean("AOE5", true);
 				if (isClient) {
 					ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(new LiteralText("5*5").formatted(Formatting.GOLD)));
 				}
@@ -94,17 +94,17 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 			return false;
 		}
 
-		return (stack.getItem().isEffectiveOn(blockState));
+		return (stack.getItem().isSuitableFor(blockState));
 	}
 
 	private boolean isAOE5(ItemStack stack) {
-		return !stack.isEmpty() && stack.getTag() != null && stack.getTag().getBoolean("AOE5");
+		return !stack.isEmpty() && stack.getOrCreateNbt().getBoolean("AOE5");
 	}
 
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (!ItemUtils.isActive(stack) || !stack.getItem().isEffectiveOn(stateIn)) {
+		if (!ItemUtils.isActive(stack) || !stack.getItem().isSuitableFor(stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 		int radius = isAOE5(stack) ? 2 : 1;
@@ -160,7 +160,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
+		if (!stack.getItem().isSuitableFor(worldIn.getBlockState(pos))) {
 			return Collections.emptySet();
 		}
 		int radius = isAOE5(stack) ? 2 : 1;

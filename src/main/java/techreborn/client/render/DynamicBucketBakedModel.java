@@ -38,7 +38,7 @@ public class DynamicBucketBakedModel extends BaseDynamicFluidBakedModel {
 	private static final ModelIdentifier BUCKET_FLUID = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_fluid"), "inventory");
 
 	@Override
-	public Sprite getSprite() {
+	public Sprite getParticleSprite() {
 		return MinecraftClient.getInstance()
 				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)
 				.apply(new Identifier("minecraft:item/bucket"));

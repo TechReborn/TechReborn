@@ -25,6 +25,7 @@
 package techreborn.blocks.storage.item;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -35,7 +36,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
@@ -50,13 +50,13 @@ public class StorageUnitBlock extends BlockMachineBase {
 	public final TRContent.StorageUnit unitType;
 
 	public StorageUnitBlock(TRContent.StorageUnit unitType) {
-		super();
+		super((Settings.of(unitType.name.equals("crude") ? Material.WOOD : Material.METAL).strength(2.0F, 2.0F)));
 		this.unitType = unitType;
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new StorageUnitBaseBlockEntity(unitType);
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new StorageUnitBaseBlockEntity(pos, state, unitType);
 	}
 
 	@Override
@@ -73,10 +73,10 @@ public class StorageUnitBlock extends BlockMachineBase {
 				(!storageEntity.isLocked() && storageEntity.isEmpty() && (!(itemInHand instanceof ToolItem))))) {
 
 			// Add item which is the same type (in users inventory) into storage
-			for (int i = 0; i < playerIn.inventory.size() && !storageEntity.isFull(); i++) {
-				ItemStack curStack = playerIn.inventory.getStack(i);
+			for (int i = 0; i < playerIn.getInventory().size() && !storageEntity.isFull(); i++) {
+				ItemStack curStack = playerIn.getInventory().getStack(i);
 				if (curStack.getItem() == itemInHand) {
-					playerIn.inventory.setStack(i, storageEntity.processInput(curStack));
+					playerIn.getInventory().setStack(i, storageEntity.processInput(curStack));
 				}
 			}
 
@@ -107,7 +107,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 				out.setCount(0);
 			}
 
-			inventory.setChanged();
+			inventory.setHashChanged();
 		}
 
 	}

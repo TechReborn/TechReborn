@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "c:raw_silver_ores"
+  },
+  "result": "techreborn:silver_ingot",
+  "experience": 0.5,
+  "cookingtime": 200
+}

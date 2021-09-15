@@ -27,14 +27,18 @@ package techreborn.blockentity.storage.energy;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -45,8 +49,8 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	private int OUTPUT = 64; // The current output
 	public int superconductors = 0;
 
-	public AdjustableSUBlockEntity() {
-		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
+	public AdjustableSUBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.ADJUSTABLE_SU, pos, state, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, RcEnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
 	}
 
 	public int getMaxConfigOutput() {
@@ -76,18 +80,18 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	public ItemStack getDropWithNBT() {
-		CompoundTag blockEntity = new CompoundTag();
+		NbtCompound blockEntity = new NbtCompound();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
-		toTag(blockEntity);
-		dropStack.setTag(new CompoundTag());
-		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
+		writeNbt(blockEntity);
+		dropStack.setNbt(new NbtCompound());
+		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
 		return dropStack;
 	}
 
 	// EnergyStorageBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null) {
 			return;
 		}
@@ -111,12 +115,12 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return OUTPUT;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		//If we have super conductors increase the max input of the machine
 		if (getMaxConfigOutput() > maxOutput) {
 			return getMaxConfigOutput();
@@ -132,20 +136,20 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getMaxOutput(@Nullable Direction side) {
 		return OUTPUT;
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putInt("output", OUTPUT);
 		return tagCompound;
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
-		super.fromTag(blockState, nbttagcompound);
+	public void readNbt(NbtCompound nbttagcompound) {
+		super.readNbt(nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInt("output");
 	}
 
@@ -158,7 +162,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
+		return new ScreenHandlerBuilder("aesu").player(player.getInventory()).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().sync(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this, syncID);
 	}

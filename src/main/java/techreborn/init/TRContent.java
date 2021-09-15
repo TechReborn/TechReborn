@@ -28,18 +28,18 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
+
 import techreborn.TechReborn;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -50,6 +50,7 @@ import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.multiblock.miningrig.MiningRigBlockEntity;
 import techreborn.blockentity.machine.multiblock.structure.DrillHeadBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
@@ -78,17 +79,13 @@ import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.client.GuiType;
-import techreborn.client.gui.GuiMiningRig;
 import techreborn.config.TechRebornConfig;
-import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DrillHeadItem;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
-
-import org.jetbrains.annotations.Nullable;
 import techreborn.world.DataDrivenFeature;
 
 import java.util.*;
@@ -120,6 +117,7 @@ public class TRContent {
 	public static Block STRIPPED_RUBBER_WOOD;
 	public static Block DRILL_PIPE;
 	public static Block POTTED_RUBBER_SAPLING;
+	public static Block COPPER_WALL;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -243,12 +241,12 @@ public class TRContent {
 	public static Item PERIDOT_BOOTS;
 
 	public enum SolarPanels implements ItemConvertible {
-		BASIC(EnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
-		ADVANCED(EnergyTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
-		INDUSTRIAL(EnergyTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
-		ULTIMATE(EnergyTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
-		QUANTUM(EnergyTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
-		CREATIVE(EnergyTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
+		BASIC(RcEnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
+		ADVANCED(RcEnergyTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
+		INDUSTRIAL(RcEnergyTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
+		ULTIMATE(RcEnergyTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
+		QUANTUM(RcEnergyTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
+		CREATIVE(RcEnergyTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
 
 		public final String name;
 		public final Block block;
@@ -259,9 +257,9 @@ public class TRContent {
 		public int generationRateN;
 		// Internal EU storage of solar panel
 		public int internalCapacity;
-		public final EnergyTier powerTier;
+		public final RcEnergyTier powerTier;
 
-		SolarPanels(EnergyTier tier, int generationRateD, int generationRateN) {
+		SolarPanels(RcEnergyTier tier, int generationRateD, int generationRateN) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			powerTier = tier;
 			block = new BlockSolarPanel(this);
@@ -336,15 +334,15 @@ public class TRContent {
 	}
 
 	public enum Cables implements ItemConvertible {
-		COPPER(128, 12.0, true, EnergyTier.MEDIUM),
-		TIN(32, 12.0, true, EnergyTier.LOW),
-		GOLD(512, 12.0, true, EnergyTier.HIGH),
-		HV(2048, 12.0, true, EnergyTier.EXTREME),
-		GLASSFIBER(8192, 12.0, false, EnergyTier.INSANE),
-		INSULATED_COPPER(128, 10.0, false, EnergyTier.MEDIUM),
-		INSULATED_GOLD(512, 10.0, false, EnergyTier.HIGH),
-		INSULATED_HV(2048, 10.0, false, EnergyTier.EXTREME),
-		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, EnergyTier.INFINITE);
+		COPPER(128, 12.0, true, RcEnergyTier.MEDIUM),
+		TIN(32, 12.0, true, RcEnergyTier.LOW),
+		GOLD(512, 12.0, true, RcEnergyTier.HIGH),
+		HV(2048, 12.0, true, RcEnergyTier.EXTREME),
+		GLASSFIBER(8192, 12.0, false, RcEnergyTier.INSANE),
+		INSULATED_COPPER(128, 10.0, false, RcEnergyTier.MEDIUM),
+		INSULATED_GOLD(512, 10.0, false, RcEnergyTier.HIGH),
+		INSULATED_HV(2048, 10.0, false, RcEnergyTier.EXTREME),
+		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, RcEnergyTier.INFINITE);
 
 
 		public final String name;
@@ -355,10 +353,10 @@ public class TRContent {
 		public double cableThickness;
 		public boolean canKill;
 		public boolean defaultCanKill;
-		public EnergyTier tier;
+		public RcEnergyTier tier;
 
 
-		Cables(int transferRate, double cableThickness, boolean canKill, EnergyTier tier) {
+		Cables(int transferRate, double cableThickness, boolean canKill, RcEnergyTier tier) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
@@ -383,7 +381,6 @@ public class TRContent {
 	public enum Ores implements ItemConvertible {
 		BAUXITE(6, 10, 10, 60, MiningLevel.STONE),
 		CINNABAR(6, 3, 10, 126, MiningLevel.IRON),
-		COPPER(8, 16, 20, 60, MiningLevel.STONE),
 		GALENA(8, 16, 10, 60, MiningLevel.IRON),
 		IRIDIUM(3, 3, 5, 60, MiningLevel.DIAMOND),
 		LEAD(6, 16, 20, 60, MiningLevel.IRON),
@@ -432,9 +429,10 @@ public class TRContent {
 	}
 
 	public enum StorageBlocks implements ItemConvertible {
-		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
-		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RED_GARNET, REFINED_IRON, RUBY,
-		SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
+		ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
+		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RAW_IRIDIUM, RAW_LEAD, RAW_SILVER, RAW_TIN,
+		RAW_TUNGSTEN, RED_GARNET, REFINED_IRON, RUBY, SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL,
+		YELLOW_GARNET, ZINC;
 
 		public final String name;
 		public final Block block;
@@ -501,7 +499,9 @@ public class TRContent {
 		}
 
 		public static ItemConvertible[] getCasings() {
-			return Arrays.stream(MachineBlocks.values()).map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> () -> Item.fromBlock(machineBlocks.casing)).toArray(ItemConvertible[]::new);
+			return Arrays.stream(MachineBlocks.values())
+					.map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> machineBlocks.casing::asItem)
+					.toArray(ItemConvertible[]::new);
 		}
 	}
 
@@ -593,11 +593,10 @@ public class TRContent {
 
 	public enum Dusts implements ItemConvertible {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
-		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
-		FLINT, GALENA, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
+		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
+		FLINT, GALENA, GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
 		NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, RED_GARNET, RUBY, SALTPETER,
-		SAPPHIRE, SAW, SILVER, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TIN, TITANIUM, TUNGSTEN, UVAROVITE,
-		YELLOW_GARNET, ZINC;
+		SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM, UVAROVITE, YELLOW_GARNET, ZINC;
 
 		public final String name;
 		public final Item item;
@@ -622,12 +621,31 @@ public class TRContent {
 		}
 	}
 
+
+	public enum RawMetals implements ItemConvertible{
+		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN;
+
+		public final String name;
+		public final  Item item;
+
+		RawMetals() {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			InitUtils.setup(item, "raw_" + name);
+		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
+	}
+
 	public enum SmallDusts implements ItemConvertible {
-		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
-		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
-		FLINT, GALENA, GLOWSTONE, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE,
+		ALMANDINE, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, CALCITE, CHARCOAL, CHROME,
+		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
+		FLINT, GALENA, GLOWSTONE, GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE,
 		NETHERRACK, NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, REDSTONE, RED_GARNET,
-		RUBY, SALTPETER, SAPPHIRE, SAW, SILVER, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TIN, TITANIUM,
+		RUBY, SALTPETER, SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM,
 		TUNGSTEN, UVAROVITE, YELLOW_GARNET, ZINC;
 
 		public final String name;
@@ -680,7 +698,7 @@ public class TRContent {
 	}
 
 	public enum Ingots implements ItemConvertible {
-		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
+		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
 		public final String name;
@@ -880,10 +898,12 @@ public class TRContent {
 			if (blockEntity instanceof PowerAcceptorBlockEntity) {
 				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
-			handler.addSpeedMulti(TechRebornConfig.overclockerSpeed);
-			handler.addPowerMulti(TechRebornConfig.overclockerPower);
+			if (handler != null) {
+				handler.addSpeedMulti(TechRebornConfig.overclockerSpeed);
+				handler.addPowerMulti(TechRebornConfig.overclockerPower);
+			}
 			if (powerAcceptor != null) {
-				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(EnergySide.UNKNOWN);
+				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(null);
 				powerAcceptor.extraPowerStorage += powerAcceptor.getBaseMaxPower();
 			}
 		}),

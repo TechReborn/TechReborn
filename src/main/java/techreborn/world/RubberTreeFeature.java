@@ -27,17 +27,16 @@ package techreborn.world;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ModifiableTestableWorld;
-import net.minecraft.world.gen.UniformIntDistribution;
+import net.minecraft.util.math.intprovider.IntProvider;
+import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 
 import java.util.Random;
-import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * @author drcrazy
@@ -61,20 +60,20 @@ public class RubberTreeFeature extends TreeFeature {
 		private final int spireHeight;
 		private final BlockState spireBlockState;
 
-		public FoliagePlacer(UniformIntDistribution radius, UniformIntDistribution offset, int height, int spireHeight, BlockState spireBlockState) {
+		public FoliagePlacer(IntProvider radius, IntProvider offset, int height, int spireHeight, BlockState spireBlockState) {
 			super(radius, offset, height);
 			this.spireHeight = spireHeight;
 			this.spireBlockState = spireBlockState;
 		}
 
 		@Override
-		protected void generate(ModifiableTestableWorld world, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, Set<BlockPos> leaves, int i, BlockBox blockBox) {
-			super.generate(world, random, config, trunkHeight, treeNode, foliageHeight, radius, leaves, i, blockBox);
+		protected void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
+			super.generate(world, replacer, random, config, trunkHeight, treeNode, foliageHeight, radius, offset);
 
-			spawnSpike(world, treeNode.getCenter());
+			spawnSpike(world, treeNode.getCenter(), replacer);
 		}
 
-		private void spawnSpike(ModifiableTestableWorld world, BlockPos pos) {
+		private void spawnSpike(TestableWorld world, BlockPos pos, BiConsumer<BlockPos, BlockState> replacer) {
 			final int startScan = pos.getY();
 			BlockPos topPos = null;
 
@@ -89,7 +88,7 @@ public class RubberTreeFeature extends TreeFeature {
 			if (topPos == null) return;
 
 			for (int i = 0; i < spireHeight; i++) {
-				world.setBlockState(pos.up(i), spireBlockState, 19);
+				replacer.accept(pos.up(i), spireBlockState);
 			}
 		}
 

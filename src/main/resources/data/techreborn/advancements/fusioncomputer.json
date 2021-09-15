@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:fusion_control_computer"
+            "items": ["techreborn:fusion_control_computer"]
           }
         ]
       }

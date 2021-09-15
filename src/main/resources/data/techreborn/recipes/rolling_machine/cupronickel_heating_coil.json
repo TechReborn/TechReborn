@@ -11,7 +11,7 @@
         "tag": "c:nickel_ingots"
       },
       "C": {
-        "tag": "c:copper_ingots"
+        "item": "minecraft:copper_ingot"
       }
     },
     "result": {

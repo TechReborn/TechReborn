@@ -29,31 +29,33 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
+import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Tank;
+import techreborn.TechReborn;
 import techreborn.init.TRBlockEntities;
-
-import org.jetbrains.annotations.Nullable;
 
 public class DrainBlockEntity extends MachineBaseBlockEntity {
 
 	protected Tank internalTank = new Tank("tank", FluidValue.BUCKET, this);
 
-	public DrainBlockEntity() {
-		this(TRBlockEntities.DRAIN);
+	public DrainBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.DRAIN, pos, state);
 	}
 
-	public DrainBlockEntity(BlockEntityType<?> blockEntityTypeIn) {
-		super(blockEntityTypeIn);
+	public DrainBlockEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state) {
+		super(blockEntityTypeIn, pos, state);
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world.isClient) {
 			return;
 		}
@@ -81,11 +83,12 @@ public class DrainBlockEntity extends MachineBaseBlockEntity {
 		Block aboveBlock = aboveBlockState.getBlock();
 
 		if (aboveBlock instanceof FluidDrainable) {
-
-			Fluid drainFluid = ((FluidDrainable) aboveBlock).tryDrainFluid(world, above, aboveBlockState);
-
-			if (drainFluid != Fluids.EMPTY) {
+			ItemStack fluidContainer = ((FluidDrainable) aboveBlock).tryDrainFluid(world, above, aboveBlockState);
+			if (fluidContainer.getItem() instanceof ItemFluidInfo) {
+				Fluid drainFluid = ((ItemFluidInfo) fluidContainer.getItem()).getFluid(fluidContainer);
 				internalTank.setFluidInstance(new FluidInstance(drainFluid, FluidValue.BUCKET));
+			} else {
+				TechReborn.LOGGER.debug("Could not get Fluid from ItemStack " + fluidContainer.getItem());
 			}
 		}
 	}

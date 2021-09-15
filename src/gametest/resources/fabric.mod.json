@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "techreborn-gametest",
+  "name": "TechReborn Gametest",
+  "version": "1.0.0",
+  "environment": "*",
+  "entrypoints": {
+	"fabric-gametest" : [
+	  "techreborn.test.machine.GrinderTest"
+	]
+  }
+}

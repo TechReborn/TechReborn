@@ -17,13 +17,14 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.init.TRContent;
 
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class BlockDrillHead extends GenericMachineBlock {
 	VoxelShape shape;
 	//FabricBlockSettings.of(Material.METAL).strength(-1, 40000000).sounds(BlockSoundGroup.METAL)
 
-	public BlockDrillHead(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
+	public BlockDrillHead(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
 		super(gui, blockEntityClass);
 
 		shape = VoxelShapes.cuboid(3 / 16D, 0, 3 / 16D, 13 / 16D, 1, 13 / 16D);

@@ -30,7 +30,7 @@ import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -55,13 +55,21 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 
 	private int pouringTimer = 0;
 
-	public ResinBasinBlockEntity() {
-		super(TRBlockEntities.RESIN_BASIN);
+	public ResinBasinBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.RESIN_BASIN, pos, state);
+
+		/* TODO is this the right place? */
+		this.isFull = state.get(ResinBasinBlock.FULL);
+
+		if (state.get(ResinBasinBlock.POURING)) {
+			this.isPouring = true;
+			pouringTimer = TechRebornConfig.sapTimeTicks;
+		}
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) return;
 
 		boolean shouldUpdateState = false;
@@ -141,22 +149,15 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 
 		return tagCompound;
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
-
-		this.isFull = blockState.get(ResinBasinBlock.FULL);
-
-		if (blockState.get(ResinBasinBlock.POURING)) {
-			this.isPouring = true;
-			pouringTimer = TechRebornConfig.sapTimeTicks;
-		}
+	public void readNbt(NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 	}
 
 	@Override

@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:insulated_copper_cable"
+            "items": ["techreborn:insulated_copper_cable"]
           }
         ]
       }

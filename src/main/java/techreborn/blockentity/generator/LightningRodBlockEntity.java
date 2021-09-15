@@ -25,6 +25,7 @@
 package techreborn.blockentity.generator;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,10 +34,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -46,13 +49,13 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 
 	private int onStatusHoldTicks = -1;
 
-	public LightningRodBlockEntity() {
-		super(TRBlockEntities.LIGHTNING_ROD);
+	public LightningRodBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.LIGHTNING_ROD, pos, state);
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null){
 			return;
@@ -63,11 +66,9 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 		}
 
 		Block BEBlock = getCachedState().getBlock();
-		if (!(BEBlock instanceof BlockMachineBase)) {
+		if (!(BEBlock instanceof BlockMachineBase machineBaseBlock)) {
 			return;
 		}
-
-		BlockMachineBase machineBaseBlock = (BlockMachineBase) BEBlock;
 
 		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
 			machineBaseBlock.setActive(false, world, pos);
@@ -91,7 +92,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 				if (!world.isClient) {
 					world.spawnEntity(lightningBolt);
 				}
-				addEnergy(TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength));
+				addEnergy((long) (TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength)));
 				machineBaseBlock.setActive(true, world, pos);
 				onStatusHoldTicks = 400;
 			}
@@ -123,22 +124,22 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.lightningRodMaxEnergy;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnergySide side) {
+	public boolean canAcceptEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return TechRebornConfig.lightningRodMaxOutput;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return 0;
 	}
 

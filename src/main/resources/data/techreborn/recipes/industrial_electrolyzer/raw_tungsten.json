@@ -1,0 +1,22 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 50,
+  "time": 1200,
+  "ingredients": [
+    {
+      "tag": "c:raw_tungsten_ores"
+    },
+    {
+      "item": "techreborn:cell",
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "nbt": {
+        "fluid": "techreborn:wolframium"
+      }
+    }
+  ]
+}

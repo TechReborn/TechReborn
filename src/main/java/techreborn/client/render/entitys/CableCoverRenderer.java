@@ -31,18 +31,17 @@ import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
 
 import java.util.Random;
 
-public class CableCoverRenderer extends BlockEntityRenderer<CableBlockEntity> {
+public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity> {
 
-	public CableCoverRenderer(BlockEntityRenderDispatcher dispatcher) {
-		super(dispatcher);
+	public CableCoverRenderer(BlockEntityRendererFactory.Context ctx) {
 	}
 
 	@Override

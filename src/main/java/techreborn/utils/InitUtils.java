@@ -27,8 +27,8 @@ package techreborn.utils;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
@@ -37,7 +37,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import reborncore.RebornRegistry;
-import team.reborn.energy.Energy;
+import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
 
 public class InitUtils {
@@ -59,8 +59,9 @@ public class InitUtils {
 	public static void initPoweredItems(Item item, DefaultedList<ItemStack> itemList) {
 		ItemStack uncharged = new ItemStack(item);
 		ItemStack charged = new ItemStack(item);
+		RcEnergyItem energyItem = (RcEnergyItem) item;
 
-		Energy.of(charged).set(Energy.of(charged).getMaxStored());
+		energyItem.setStoredEnergy(charged, energyItem.getEnergyCapacity());
 
 		itemList.add(uncharged);
 		itemList.add(charged);
@@ -68,13 +69,13 @@ public class InitUtils {
 
 	public static AbstractBlock.Settings setupRubberBlockSettings(boolean noCollision, float hardness, float resistance) {
 
-		FabricBlockSettings settings = FabricBlockSettings.of(Material.WOOD, MaterialColor.SPRUCE);
+		FabricBlockSettings settings = FabricBlockSettings.of(Material.WOOD, MapColor.SPRUCE_BROWN);
 		settings.strength(hardness, resistance);
 		settings.sounds(BlockSoundGroup.WOOD);
 		if (noCollision) {
 			settings.noCollision();
 		}
-		settings.materialColor(MaterialColor.SPRUCE);
+		settings.materialColor(MapColor.SPRUCE_BROWN);
 		return settings;
 	}
 

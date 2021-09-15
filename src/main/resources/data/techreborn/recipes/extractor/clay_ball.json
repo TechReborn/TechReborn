@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:extractor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "minecraft:clay"
+	}
+  ],
+  "results": [
+	{
+	  "item": "minecraft:clay_ball",
+	  "count": 4
+	}
+  ]
+}

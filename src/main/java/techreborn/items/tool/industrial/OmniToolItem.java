@@ -43,24 +43,22 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
-public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
+public class OmniToolItem extends PickaxeItem implements RcEnergyItem, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int cost = TechRebornConfig.omniToolCost;
@@ -69,21 +67,21 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(ToolMaterials.DIAMOND, 3, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(ToolMaterials.DIAMOND, 3, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.miningLevel = MiningLevel.DIAMOND.intLevel;
 	}
 
 	// PickaxeItem
 	@Override
-	public boolean isEffectiveOn(BlockState state) {
-		return Items.DIAMOND_AXE.isEffectiveOn(state) || Items.DIAMOND_SWORD.isEffectiveOn(state)
-				|| Items.DIAMOND_PICKAXE.isEffectiveOn(state) || Items.DIAMOND_SHOVEL.isEffectiveOn(state)
-				|| Items.SHEARS.isEffectiveOn(state);
+	public boolean isSuitableFor(BlockState state) {
+		return Items.DIAMOND_AXE.isSuitableFor(state) || Items.DIAMOND_SWORD.isSuitableFor(state)
+				|| Items.DIAMOND_PICKAXE.isSuitableFor(state) || Items.DIAMOND_SHOVEL.isSuitableFor(state)
+				|| Items.SHEARS.isSuitableFor(state);
 	}
 
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (Energy.of(stack).getEnergy() >= cost) {
+		if (getStoredEnergy(stack) >= cost) {
 			return ToolMaterials.DIAMOND.getMiningSpeedMultiplier();
 		}
 		return super.getMiningSpeedMultiplier(stack, state);
@@ -92,13 +90,13 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		Energy.of(stack).use(cost);
+		tryUseEnergy(stack, cost);
 		return true;
 	}
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
-		if (Energy.of(stack).use(hitCost)) {
+		if (tryUseEnergy(stack, hitCost)) {
 			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);
 		}
 		return false;
@@ -159,18 +157,18 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getEnergyMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public EnergyTier getTier() {
-		return EnergyTier.EXTREME;
+	public RcEnergyTier getTier() {
+		return RcEnergyTier.EXTREME;
 	}
 
 	// DynamicAttributeTool

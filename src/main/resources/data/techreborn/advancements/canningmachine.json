@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:solid_canning_machine"
+            "items": ["techreborn:solid_canning_machine"]
           }
         ]
       }

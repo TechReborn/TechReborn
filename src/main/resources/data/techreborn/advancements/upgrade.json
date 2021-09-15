@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:overclocker_upgrade"
+            "items": ["techreborn:overclocker_upgrade"]
           }
         ]
       }
@@ -27,7 +27,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:transformer_upgrade"
+            "items": ["techreborn:transformer_upgrade"]
           }
         ]
       }
@@ -37,7 +37,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:energy_storage_upgrade"
+            "items": ["techreborn:energy_storage_upgrade"]
           }
         ]
       }
@@ -47,7 +47,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:superconductor_upgrade"
+            "items": ["techreborn:superconductor_upgrade"]
           }
         ]
       }

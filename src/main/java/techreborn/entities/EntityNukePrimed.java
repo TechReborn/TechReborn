@@ -60,9 +60,9 @@ public class EntityNukePrimed extends TntEntity {
 			this.setVelocity(this.getVelocity().multiply(0.7D, -0.5D, 0.7D));
 		}
 
-		setFuse(getFuseTimer() - 1);
-		if (this.getFuseTimer() <= 0) {
-			this.remove();
+		setFuse(getFuse() - 1);
+		if (this.getFuse() <= 0) {
+			this.remove(RemovalReason.KILLED);
 			if (!this.world.isClient) {
 				this.explodeNuke();
 			}
@@ -80,6 +80,6 @@ public class EntityNukePrimed extends TntEntity {
 		}
 		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), world, TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getCausingEntity());
-		nukeExplosion.explode();
+		nukeExplosion.applyExplosion();
 	}
 }

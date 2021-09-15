@@ -8,9 +8,10 @@ import reborncore.client.RenderUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.Tank;
-import techreborn.blockentity.machine.multiblock.MiningRigBlockEntity;
-import techreborn.utils.enums.RigStatus;
+import techreborn.blockentity.machine.multiblock.miningrig.MiningRigBlockEntity;
+import techreborn.blockentity.machine.multiblock.miningrig.enums.RigStatus;
 
 public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 
@@ -71,8 +72,7 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		// Valid block and working
 
 		// Black background, should probably move to background
-		RenderUtil.drawGradientRect(0, 50, 15, 120, 89, 0xFF000000, 0xFF000000);
-
+		RenderUtil.drawGradientRect(matrixStack, 50, 15, 120, 89, 0xFF000000, 0xFF000000,0xFF000000);
 
 		drawText(matrixStack, new LiteralText("Drill"), 138, 19, 4210752, layer);
 		drawText(matrixStack, new LiteralText("Out"), 140, 60, 4210752, layer);
@@ -128,7 +128,7 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		if (tank != null) {
 			builder.drawTank(matrixStack, this, 27, 13, mouseX, mouseY,
 					tank.getFluidInstance(),
-					tank.getCapacity(),
+					FluidValue.fromRaw(tank.getCapacity()),
 					tank.isEmpty(), layer);
 		}
 

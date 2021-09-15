@@ -10,13 +10,16 @@
   ],
   "results": [
     {
-      "item": "techreborn:iron_small_dust"
+      "item": "minecraft:iron_nugget",
+	  "count": 3
     },
     {
-      "item": "techreborn:gold_small_dust"
+      "item": "minecraft:gold_nugget",
+	  "count": 3
     },
     {
-      "item": "techreborn:copper_small_dust"
+      "item": "techreborn:copper_nugget",
+	  "count": 3
     }
   ]
 }

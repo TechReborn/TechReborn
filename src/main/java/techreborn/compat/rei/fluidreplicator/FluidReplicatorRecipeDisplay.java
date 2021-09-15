@@ -24,9 +24,11 @@
 
 package techreborn.compat.rei.fluidreplicator;
 
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeDisplay;
-import me.shedaniel.rei.utils.CollectionUtils;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.CollectionUtils;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
@@ -39,20 +41,20 @@ import java.util.Optional;
 /**
  * @author drcrazy
  */
-public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
+public class FluidReplicatorRecipeDisplay implements Display {
 
 	private final FluidReplicatorRecipe recipe;
-	private final List<List<EntryStack>> inputs;
-	private final List<EntryStack> output;
+	private final List<EntryIngredient> inputs;
+	private final List<EntryIngredient> output;
 	private final FluidInstance fluidInstance;
 	private final int energy;
 	private final int time;
 
 	public FluidReplicatorRecipeDisplay(FluidReplicatorRecipe recipe) {
 		this.recipe = recipe;
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryStack.ofItemStacks(ing.getPreviewStacks()));
+		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
 		this.fluidInstance = recipe.getFluidInstance();
-		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
+		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryIngredients.of(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
 		this.energy = recipe.getPower();
 		this.time = recipe.getTime();
 	}
@@ -70,27 +72,22 @@ public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
 	}
 
 	@Override
-	public List<List<EntryStack>> getInputEntries() {
+	public List<EntryIngredient> getInputEntries() {
 		return inputs;
 	}
 
 	@Override
-	public List<EntryStack> getOutputEntries() {
+	public List<EntryIngredient> getOutputEntries() {
 		return output;
 	}
 
 	@Override
-	public List<List<EntryStack>> getRequiredEntries() {
-		return inputs;
+	public CategoryIdentifier<?> getCategoryIdentifier() {
+		return CategoryIdentifier.of(recipe.getRebornRecipeType().name());
 	}
 
 	@Override
-	public Identifier getRecipeCategory() {
-		return recipe.getRebornRecipeType().getName();
-	}
-
-	@Override
-	public Optional<Identifier> getRecipeLocation() {
+	public Optional<Identifier> getDisplayLocation() {
 		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
 	}
 }

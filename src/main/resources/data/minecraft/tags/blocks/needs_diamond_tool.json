@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+	"techreborn:iridium_ore",
+	"techreborn:sheldonite_ore",
+	"techreborn:sodalite_ore",
+	"techreborn:tungsten_ore"
+  ]
+}

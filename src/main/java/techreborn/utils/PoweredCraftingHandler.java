@@ -32,7 +32,7 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.events.ItemCraftCallback;
-import team.reborn.energy.Energy;
+import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
 
 import java.util.Map;
@@ -49,15 +49,20 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 
 	@Override
 	public void onCraft(ItemStack stack, CraftingInventory craftingInventory, PlayerEntity playerEntity) {
-		if (Energy.valid(stack)) {
-			double totalEnergy = IntStream.range(0, craftingInventory.size())
+		if (stack.getItem() instanceof RcEnergyItem energyItem) {
+			long totalEnergy = IntStream.range(0, craftingInventory.size())
 					.mapToObj(craftingInventory::getStack)
 					.filter(s -> !s.isEmpty())
-					.filter(Energy::valid)
-					.mapToDouble(s -> Energy.of(s).getEnergy())
+					.mapToLong(s -> {
+						if (s.getItem() instanceof RcEnergyItem inputItem) {
+							return inputItem.getStoredEnergy(s);
+						} else {
+							return 0;
+						}
+					})
 					.sum();
 
-			Energy.of(stack).set(totalEnergy);
+			energyItem.setStoredEnergy(stack, totalEnergy);
 		}
 
 		if (!Registry.ITEM.getId(stack.getItem()).getNamespace().equalsIgnoreCase(TechReborn.MOD_ID)) {

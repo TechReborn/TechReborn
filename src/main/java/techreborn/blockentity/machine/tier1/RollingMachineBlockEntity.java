@@ -28,28 +28,32 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
+
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,34 +77,34 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	public boolean locked = false;
 	public int balanceSlot = 0;
 
-	public RollingMachineBlockEntity() {
-		super(TRBlockEntities.ROLLING_MACHINE);
+	public RollingMachineBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.ROLLING_MACHINE, pos, state);
 		outputSlot = 9;
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.rollingMachineMaxEnergy;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnergySide side) {
+	public boolean canProvideEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return TechRebornConfig.rollingMachineMaxInput;
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world.isClient) {
 			return;
 		}
@@ -155,7 +159,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			tickTime = 0;
 		}
 		if (!currentRecipeOutput.isEmpty()) {
-			if (getStored(EnergySide.UNKNOWN) > getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick)
+			if (getStored() > getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick)
 					&& tickTime < Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1)
 					&& canMake(craftMatrix)) {
 				useEnergy(getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick));
@@ -176,8 +180,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		isRunning = active;
-		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) this.getWorld().getBlockState(this.getPos()).getBlock();
+		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase blockMachineBase) {
 			blockMachineBase.setActive(active, this.getWorld(), this.getPos());
 		}
 		this.getWorld().updateListeners(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);
@@ -206,9 +209,9 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			return Optional.empty();
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
-		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
+		for (int s = 0; s < currentRecipe.getIngredients().size(); s++) {
 			ItemStack stackInSlot = inventory.getStack(s);
-			Ingredient ingredient = currentRecipe.getPreviewInputs().get(s);
+			Ingredient ingredient = currentRecipe.getIngredients().get(s);
 			if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(s);
@@ -278,7 +281,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		sourceStack.decrement(1);
 		inventory.getStack(bestSlot.getLeft()).increment(1);
-		inventory.setChanged();
+		inventory.setHashChanged();
 
 		return Optional.of(getCraftingMatrix());
 	}
@@ -291,7 +294,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			for (int i = 0; i < 9; i++) {
 				craftCache.setStack(i, inventory.getStack(i).copy());
 			}
-			inventory.resetChanged();
+			inventory.resetHasChanged();
 		}
 		return craftCache;
 	}
@@ -343,16 +346,16 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void readNbt(final NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 		this.isRunning = tagCompound.getBoolean("isRunning");
 		this.tickTime = tagCompound.getInt("tickTime");
 		this.locked = tagCompound.getBoolean("locked");
 	}
 
 	@Override
-	public CompoundTag toTag(final CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putBoolean("isRunning", this.isRunning);
 		tagCompound.putInt("tickTime", this.tickTime);
 		tagCompound.putBoolean("locked", locked);
@@ -381,7 +384,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("rollingmachine").player(player.inventory)
+		return new ScreenHandlerBuilder("rollingmachine").player(player.getInventory())
 				.inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)

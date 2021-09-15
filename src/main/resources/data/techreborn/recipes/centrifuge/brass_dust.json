@@ -9,11 +9,12 @@
   ],
   "results": [
     {
-      "item": "techreborn:copper_small_dust",
-      "count": 3
+      "item": "techreborn:copper_nugget",
+      "count": 6
     },
     {
-      "item": "techreborn:zinc_small_dust"
+      "item": "techreborn:zinc_nugget",
+	  "count": 3
     }
   ]
 }

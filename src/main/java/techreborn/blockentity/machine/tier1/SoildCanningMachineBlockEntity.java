@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -38,8 +40,8 @@ import techreborn.init.TRContent;
 
 public class SoildCanningMachineBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public SoildCanningMachineBlockEntity() {
-		super(TRBlockEntities.SOLID_CANNING_MACHINE, "SolidCanningMachine", TechRebornConfig.solidCanningMachineMaxInput, TechRebornConfig.solidCanningMachineMaxEnergy, TRContent.Machine.SOLID_CANNING_MACHINE.block, 3);
+	public SoildCanningMachineBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.SOLID_CANNING_MACHINE, pos, state, "SolidCanningMachine", TechRebornConfig.solidCanningMachineMaxInput, TechRebornConfig.solidCanningMachineMaxEnergy, TRContent.Machine.SOLID_CANNING_MACHINE.block, 3);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "SolidCanningMachineBlockEntity", 64, this);
@@ -49,7 +51,7 @@ public class SoildCanningMachineBlockEntity extends GenericMachineBlockEntity im
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("solidcanningmachine").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("solidcanningmachine").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.slot(0, 34, 47)
 				.slot(1, 126, 47)

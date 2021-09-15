@@ -52,19 +52,13 @@ public class ToolTipAssistUtils {
 		boolean shouldStackCalculate = count > 1;
 
 		switch (upgradeType) {
-			case OVERCLOCKER:
+			case OVERCLOCKER -> {
 				tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.speed_increase"), calculateValue(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%"));
 				tips.add(getNegative(I18n.translate("techreborn.tooltip.upgrade.energy_increase"), calculateValue(TechRebornConfig.overclockerPower * 100, count, shiftHeld), "%"));
-				break;
-			case TRANSFORMER:
-				shouldStackCalculate = false;
-				break;
-			case ENERGY_STORAGE:
-				tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E"));
-				break;
-			case SUPERCONDUCTOR:
-				tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%"));
-				break;
+			}
+			case TRANSFORMER -> shouldStackCalculate = false;
+			case ENERGY_STORAGE -> tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E"));
+			case SUPERCONDUCTOR -> tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%"));
 		}
 
 		// Add reminder that they can use shift to calculate the entire stack

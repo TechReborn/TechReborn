@@ -37,27 +37,26 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.RcEnergyItem;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Random;
 
-public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
+public class JackhammerItem extends PickaxeItem implements RcEnergyItem, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge;
-	public final EnergyTier tier;
+	public final RcEnergyTier tier;
 	public final int cost;
 	protected final float unpoweredSpeed = 0.5F;
 
-	public JackhammerItem(int energyCapacity, EnergyTier tier, int cost) {
-		super(ToolMaterials.DIAMOND, (int) ToolMaterials.DIAMOND.getAttackDamage(), 1F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+	public JackhammerItem(int energyCapacity, RcEnergyTier tier, int cost) {
+		// combat stats same as for diamond pickaxe. Fix for #2468
+		super(ToolMaterials.DIAMOND, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -66,7 +65,7 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 	// PickaxeItem
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (Energy.of(stack).getEnergy() < cost) return unpoweredSpeed;
+		if (getStoredEnergy(stack) < cost) return unpoweredSpeed;
 		if (ToolsUtil.JackHammerSkippedBlocks(state)) return unpoweredSpeed;
 
 		if (state.getMaterial() == Material.STONE) {
@@ -94,7 +93,7 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			Energy.of(stack).use(cost);
+			tryUseEnergy(stack, cost);
 		}
 		return true;
 	}
@@ -112,6 +111,11 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	// Item
 	@Override
+	public boolean isDamageable() {
+		return false;
+	}
+
+	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
 	}
@@ -126,17 +130,17 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	// EnergyHolder
 	@Override
-	public double getMaxStoredPower() {
+	public long getEnergyCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public EnergyTier getTier() {
+	public RcEnergyTier getTier() {
 		return tier;
 	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public long getEnergyMaxOutput() {
 		return 0;
 	}
 

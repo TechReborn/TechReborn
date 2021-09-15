@@ -24,8 +24,10 @@
 
 package techreborn.blockentity.generator.advanced;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -38,8 +40,8 @@ import techreborn.init.TRContent;
 
 public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
-	public ThermalGeneratorBlockEntity() {
-		super(TRBlockEntities.THERMAL_GEN, EFluidGenerator.THERMAL, "ThermalGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.thermalGeneratorEnergyPerTick);
+	public ThermalGeneratorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.THERMAL_GEN, pos, state, EFluidGenerator.THERMAL, "ThermalGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.thermalGeneratorEnergyPerTick);
 	}
 
 	@Override
@@ -48,18 +50,18 @@ public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity i
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.thermalGeneratorMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return TechRebornConfig.thermalGeneratorMaxOutput;
 	}
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("thermalgenerator").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("thermalgenerator").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 				.sync(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
 				.sync(this::getTankAmount, this::setTankAmount)

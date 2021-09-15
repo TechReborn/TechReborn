@@ -24,13 +24,16 @@
 
 package techreborn.compat.rei.machine;
 
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeCategory;
-import me.shedaniel.rei.gui.entries.RecipeEntry;
-import me.shedaniel.rei.gui.entries.SimpleRecipeEntry;
-import net.minecraft.client.resource.language.I18n;
+import me.shedaniel.rei.api.client.gui.DisplayRenderer;
+import me.shedaniel.rei.api.client.gui.Renderer;
+import me.shedaniel.rei.api.client.gui.SimpleDisplayRenderer;
+import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import techreborn.compat.rei.MachineRecipeDisplay;
@@ -39,7 +42,7 @@ import techreborn.compat.rei.ReiPlugin;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractMachineCategory<R extends RebornRecipe> implements RecipeCategory<MachineRecipeDisplay<R>> {
+public abstract class AbstractMachineCategory<R extends RebornRecipe> implements DisplayCategory<MachineRecipeDisplay<R>> {
 	private final RebornRecipeType<R> rebornRecipeType;
 
 	public AbstractMachineCategory(RebornRecipeType<R> rebornRecipeType) {
@@ -47,32 +50,32 @@ public abstract class AbstractMachineCategory<R extends RebornRecipe> implements
 	}
 
 	@Override
-	public Identifier getIdentifier() {
-		return rebornRecipeType.getName();
+	public CategoryIdentifier<? extends MachineRecipeDisplay<R>> getCategoryIdentifier() {
+		return CategoryIdentifier.of(rebornRecipeType.name());
 	}
 
 	@Override
-	public String getCategoryName() {
-		return I18n.translate(rebornRecipeType.getName().toString());
+	public Text getTitle() {
+		return new TranslatableText(rebornRecipeType.name().toString());
 	}
 
 	@Override
-	public EntryStack getLogo() {
-		return EntryStack.create(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
+	public Renderer getIcon() {
+		return EntryStacks.of(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
 	}
 
 	@Override
-	public RecipeEntry getSimpleRenderer(MachineRecipeDisplay<R> recipe) {
-		return SimpleRecipeEntry.create(Collections.singletonList(recipe.getInputEntries().get(0)), recipe.getOutputEntries());
+	public DisplayRenderer getDisplayRenderer(MachineRecipeDisplay<R> recipe) {
+		return SimpleDisplayRenderer.from(Collections.singletonList(recipe.getInputEntries().get(0)), recipe.getOutputEntries());
 	}
 
-	public List<EntryStack> getInput(MachineRecipeDisplay<R> recipeDisplay, int index) {
-		List<List<EntryStack>> inputs = recipeDisplay.getInputEntries();
-		return inputs.size() > index ? inputs.get(index) : Collections.emptyList();
+	public EntryIngredient getInput(MachineRecipeDisplay<R> recipeDisplay, int index) {
+		List<EntryIngredient> inputs = recipeDisplay.getInputEntries();
+		return inputs.size() > index ? inputs.get(index) : EntryIngredient.empty();
 	}
 
-	public List<EntryStack> getOutput(MachineRecipeDisplay<R> recipeDisplay, int index) {
-		List<EntryStack> outputs = recipeDisplay.getOutputEntries();
-		return outputs.size() > index ? Collections.singletonList(outputs.get(index)) : Collections.emptyList();
+	public EntryIngredient getOutput(MachineRecipeDisplay<R> recipeDisplay, int index) {
+		List<EntryIngredient> outputs = recipeDisplay.getOutputEntries();
+		return outputs.size() > index ? outputs.get(index) : EntryIngredient.empty();
 	}
 }

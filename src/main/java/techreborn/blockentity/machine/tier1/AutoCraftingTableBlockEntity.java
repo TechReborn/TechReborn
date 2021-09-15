@@ -27,32 +27,35 @@ package techreborn.blockentity.machine.tier1;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.ExtendedRecipeRemainder;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,6 +71,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(11, "AutoCraftingTableBlockEntity", 64, this);
 	private final int OUTPUT_SLOT = 9;
 	private final int EXTRA_OUTPUT_SLOT = 10;
+
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
@@ -76,10 +80,16 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	CraftingInventory inventoryCrafting = null;
 	CraftingRecipe lastRecipe = null;
 
-	public boolean locked = true;
+	Item[] layoutInv = {
+			null, null, null,
+			null, null, null,
+			null, null, null,
+	};
 
-	public AutoCraftingTableBlockEntity() {
-		super(TRBlockEntities.AUTO_CRAFTING_TABLE);
+	public boolean locked = false;
+
+	public AutoCraftingTableBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.AUTO_CRAFTING_TABLE, pos, state);
 	}
 
 	@Nullable
@@ -90,6 +100,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (lastRecipe != null && lastRecipe.matches(crafting, world)) return lastRecipe;
 
+		Item[] currentInvLayout = getCraftingLayout(crafting);
+		if(Arrays.equals(layoutInv, currentInvLayout)) return null;
+
+		layoutInv = currentInvLayout;
+
 		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
@@ -97,6 +112,20 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		return null;
+	}
+
+	private Item[] getCraftingLayout(CraftingInventory craftingInventory){
+		Item[] layout = {
+				null, null, null,
+				null, null, null,
+				null, null, null,
+		};
+
+		for (int i = 0; i < 9; i++) {
+			layout[i] = craftingInventory.getStack(i).getItem();
+		}
+
+		return layout;
 	}
 
 	private CraftingInventory getCraftingInventory() {
@@ -114,20 +143,28 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return inventoryCrafting;
 	}
 
-	// Check if we have locked recipe, inputs and space for outputs
+	// Check if we have recipe, inputs and space for outputs
 	private boolean canMake(CraftingRecipe recipe) {
 		if (world == null) return false;
 		if (recipe == null) return false;
-		if (!locked) return false;
 
 		CraftingInventory crafting = getCraftingInventory();
 		if (crafting.isEmpty()) return false;
+
+		// Don't allow recipe to change (Keep at least one of each slot stocked, assuming it's actually a recipe)
+		if(locked){
+			for(int i = 0; i < 9; i++){
+				if(crafting.getStack(i).getCount() == 1){
+					return false;
+				}
+			}
+		}
 
 		if (!recipe.matches(crafting, world)) return false;
 
 		if (!hasOutputSpace(recipe.getOutput(), OUTPUT_SLOT)) return false;
 
-		DefaultedList<ItemStack> remainingStacks = world.getRecipeManager().getRemainingStacks(RecipeType.CRAFTING, crafting, world);
+		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
 		for (ItemStack stack : remainingStacks){
 			if (!stack.isEmpty() && !hasRoomForExtraItem(stack)) return false;
 		}
@@ -158,8 +195,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (recipe == null || !canMake(recipe)) {
 			return false;
 		}
-		for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
-			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
+		for (int i = 0; i < recipe.getIngredients().size(); i++) {
+			DefaultedList<Ingredient> ingredients = recipe.getIngredients();
 			Ingredient ingredient = ingredients.get(i);
 			// Looks for the best slot to take it from
 			ItemStack bestSlot = inventory.getStack(i);
@@ -232,13 +269,13 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			return Optional.empty();
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
-		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
+		for (int s = 0; s < currentRecipe.getIngredients().size(); s++) {
 			for (int i = 0; i < 9; i++) {
 				if (possibleSlots.contains(i)) {
 					continue;
 				}
 				ItemStack stackInSlot = inventory.getStack(i);
-				Ingredient ingredient = currentRecipe.getPreviewInputs().get(s);
+				Ingredient ingredient = currentRecipe.getIngredients().get(s);
 				if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
 					if (stackInSlot.getItem() == sourceStack.getItem()) {
 						possibleSlots.add(i);
@@ -308,15 +345,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 		sourceStack.decrement(1);
 		inventory.getStack(bestSlot.getLeft()).increment(1);
-		inventory.setChanged();
+		inventory.setHashChanged();
 
 		return Optional.of(getCraftingInventory());
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
 		}
@@ -335,7 +372,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		} else {
 			if (canMake(recipe)) {
-				if (getStored(EnergySide.UNKNOWN) > euTick) {
+				if (getStored() > euTick) {
 					progress++;
 					if (progress == 1) {
 						world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
@@ -350,37 +387,37 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return TechRebornConfig.autoCraftingTableMaxEnergy;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return TechRebornConfig.autoCraftingTableMaxInput;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnergySide side) {
+	public boolean canProvideEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
+	public NbtCompound writeNbt(NbtCompound tag) {
 		tag.putBoolean("locked", locked);
-		return super.toTag(tag);
+		return super.writeNbt(tag);
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag tag) {
+	public void readNbt(NbtCompound tag) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.fromTag(blockState, tag);
+		super.readNbt(tag);
 	}
 
 	// MachineBaseBlockEntity
@@ -392,12 +429,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public boolean hasSlotConfig() {
 		return true;
-	}
-
-	// This machine doesnt have a facing
-	@Override
-	public Direction getFacingEnum() {
-		return Direction.NORTH;
 	}
 
 	// IToolDrop
@@ -415,7 +446,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("autocraftingtable").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
 				.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)

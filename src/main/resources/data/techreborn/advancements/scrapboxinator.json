@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:scrapboxinator"
+            "items": ["techreborn:scrapboxinator"]
           }
         ]
       }

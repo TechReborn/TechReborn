@@ -18,7 +18,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:advanced_machine_frame"
+            "items": ["techreborn:advanced_machine_frame"]
           }
         ]
       }

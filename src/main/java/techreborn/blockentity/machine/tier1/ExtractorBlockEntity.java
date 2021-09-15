@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -38,8 +40,8 @@ import techreborn.init.TRContent;
 
 public class ExtractorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public ExtractorBlockEntity() {
-		super(TRBlockEntities.EXTRACTOR, "Extractor", TechRebornConfig.extractorMaxInput, TechRebornConfig.extractorMaxEnergy, TRContent.Machine.EXTRACTOR.block, 2);
+	public ExtractorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.EXTRACTOR, pos, state, "Extractor", TechRebornConfig.extractorMaxInput, TechRebornConfig.extractorMaxEnergy, TRContent.Machine.EXTRACTOR.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "ExtractorBlockEntity", 64, this);
@@ -49,7 +51,7 @@ public class ExtractorBlockEntity extends GenericMachineBlockEntity implements B
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("extractor").player(player.inventory).inventory().hotbar().addInventory().blockEntity(this)
+		return new ScreenHandlerBuilder("extractor").player(player.getInventory()).inventory().hotbar().addInventory().blockEntity(this)
 				.slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this, syncID);
 	}

@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:treetap"
+            "items": ["techreborn:treetap"]
           }
         ]
       }

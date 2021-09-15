@@ -43,7 +43,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.DrillItem;
@@ -57,7 +57,7 @@ import java.util.List;
 public class IndustrialDrillItem extends DrillItem {
 
 	public IndustrialDrillItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialDrillCharge, EnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 20.0F, 1.0F, MiningLevel.DIAMOND);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialDrillCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 20.0F, 1.0F, MiningLevel.DIAMOND);
 	}
 
 	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
@@ -85,10 +85,9 @@ public class IndustrialDrillItem extends DrillItem {
 		if (!ItemUtils.isActive(stack)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
-		if (!(entityLiving instanceof PlayerEntity)) {
+		if (!(entityLiving instanceof PlayerEntity playerIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
-		PlayerEntity playerIn = (PlayerEntity) entityLiving;
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1)) {
 			if (shouldBreak(playerIn, worldIn, pos, additionalPos)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);

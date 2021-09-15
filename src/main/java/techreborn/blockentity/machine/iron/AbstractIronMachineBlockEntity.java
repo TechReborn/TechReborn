@@ -30,7 +30,9 @@ import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -50,8 +52,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	Block toolDrop;
 	boolean active = false;
 
-	public AbstractIronMachineBlockEntity(BlockEntityType<?> blockEntityTypeIn, int fuelSlot, Block toolDrop) {
-		super(blockEntityTypeIn);
+	public AbstractIronMachineBlockEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state, int fuelSlot, Block toolDrop) {
+		super(blockEntityTypeIn, pos, state);
 		this.fuelSlot = fuelSlot;
 		// default value for vanilla smelting recipes is 200
 		this.totalCookingTime = (int) (200 / TechRebornConfig.cookingScale);
@@ -123,8 +125,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	private void updateState() {
 		BlockState state = world.getBlockState(pos);
-		if (state.getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) state.getBlock();
+		if (state.getBlock() instanceof BlockMachineBase blockMachineBase) {
 			if (state.get(BlockMachineBase.ACTIVE) != burnTime > 0)
 				blockMachineBase.setActive(burnTime > 0, world, pos);
 		}
@@ -132,16 +133,16 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	// MachineBaseBlockEntity
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag compoundTag) {
-		super.fromTag(blockState, compoundTag);
+	public void readNbt(NbtCompound compoundTag) {
+		super.readNbt(compoundTag);
 		burnTime = compoundTag.getInt("BurnTime");
 		totalBurnTime = compoundTag.getInt("TotalBurnTime");
 		progress = compoundTag.getInt("Progress");
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag compoundTag) {
-		super.toTag(compoundTag);
+	public NbtCompound writeNbt(NbtCompound compoundTag) {
+		super.writeNbt(compoundTag);
 		compoundTag.putInt("BurnTime", burnTime);
 		compoundTag.putInt("TotalBurnTime", totalBurnTime);
 		compoundTag.putInt("Progress", progress);
@@ -149,8 +150,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world.isClient) {
 			return;
 		}
@@ -185,7 +186,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		}
 
 		if (isBurning != isBurning()) {
-			inventory.setChanged();
+			inventory.setHashChanged();
 			updateState();
 		}
 		if (inventory.hasChanged()) {

@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:mv_transformer"
+            "items": ["techreborn:mv_transformer"]
           }
         ]
       }
@@ -27,7 +27,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:hv_transformer"
+            "items": ["techreborn:hv_transformer"]
           }
         ]
       }
@@ -37,7 +37,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:ev_transformer"
+            "items": ["techreborn:ev_transformer"]
           }
         ]
       }

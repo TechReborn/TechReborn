@@ -73,8 +73,7 @@ public class FusionReactorRecipe extends RebornRecipe {
 
 	@Override
 	public boolean canCraft(final BlockEntity blockEntity) {
-		if (blockEntity instanceof FusionControlComputerBlockEntity) {
-			final FusionControlComputerBlockEntity reactor = (FusionControlComputerBlockEntity) blockEntity;
+		if (blockEntity instanceof final FusionControlComputerBlockEntity reactor) {
 			return reactor.getSize() >= minSize;
 		}
 		return false;

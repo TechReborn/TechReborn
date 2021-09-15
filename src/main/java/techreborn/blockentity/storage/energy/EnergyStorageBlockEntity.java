@@ -25,16 +25,20 @@
 package techreborn.blockentity.storage.energy;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyTier;
 import techreborn.blocks.storage.energy.EnergyStorageBlock;
 
 /**
@@ -45,16 +49,14 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 	public RebornInventory<EnergyStorageBlockEntity> inventory;
 	public String name;
 	public Block wrenchDrop;
-	public EnergyTier tier;
 	public int maxInput;
 	public int maxOutput;
 	public int maxStorage;
 
-	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, String name, int invSize, Block wrenchDrop, EnergyTier tier, int maxStorage) {
-		super(blockEntityType);
+	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, String name, int invSize, Block wrenchDrop, RcEnergyTier tier, int maxStorage) {
+		super(blockEntityType, pos, state);
 		inventory = new RebornInventory<>(invSize, name + "BlockEntity", 64, this);
 		this.wrenchDrop = wrenchDrop;
-		this.tier = tier;
 		this.name = name;
 		this.maxInput = tier.getMaxInput();
 		this.maxOutput = tier.getMaxOutput();
@@ -65,8 +67,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null) {
 			return;
 		}
@@ -82,27 +84,28 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnergySide side) {
-		return side == EnergySide.UNKNOWN || getFacing() != Direction.values()[side.ordinal()];
+	public boolean canAcceptEnergy(@Nullable Direction side) {
+		return getFacing() != side;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnergySide side) {
-		return side == EnergySide.UNKNOWN || getFacing() == Direction.values()[side.ordinal()];
+	public boolean canProvideEnergy(@Nullable Direction side) {
+		// side == null allows to move energy from BE to chargeable item.
+		return side == null || getFacing() == side;
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return maxStorage;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return maxOutput;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return maxInput;
 	}
 

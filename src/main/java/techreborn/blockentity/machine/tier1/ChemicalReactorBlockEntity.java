@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -38,8 +40,8 @@ import techreborn.init.TRContent;
 
 public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public ChemicalReactorBlockEntity() {
-		super(TRBlockEntities.CHEMICAL_REACTOR, "ChemicalReactor", TechRebornConfig.chemicalReactorMaxInput, TechRebornConfig.chemicalReactorMaxEnergy, TRContent.Machine.CHEMICAL_REACTOR.block, 3);
+	public ChemicalReactorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.CHEMICAL_REACTOR, pos, state, "ChemicalReactor", TechRebornConfig.chemicalReactorMaxInput, TechRebornConfig.chemicalReactorMaxEnergy, TRContent.Machine.CHEMICAL_REACTOR.block, 3);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "ChemicalReactorBlockEntity", 64, this);
@@ -49,7 +51,7 @@ public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implem
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("chemicalreactor").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
 				.syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}

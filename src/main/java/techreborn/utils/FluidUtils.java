@@ -29,13 +29,12 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
-import reborncore.common.fluid.container.GenericFluidContainer;
 import reborncore.common.fluid.container.ItemFluidInfo;
+import reborncore.common.util.Tank;
 import reborncore.mixin.common.AccessorFluidBlock;
 
 import java.util.List;
@@ -55,28 +54,27 @@ public class FluidUtils {
 		return Registry.FLUID.stream().collect(Collectors.toList());
 	}
 
-	public static boolean drainContainers(GenericFluidContainer<Direction> tank, Inventory inventory, int inputSlot, int outputSlot) {
+	public static boolean drainContainers(Tank tank, Inventory inventory, int inputSlot, int outputSlot) {
 		return drainContainers(tank, inventory, inputSlot, outputSlot, false);
 	}
 
-	public static boolean drainContainers(GenericFluidContainer<Direction> tank, Inventory inventory, int inputSlot, int outputSlot, boolean voidFluid) {
+	public static boolean drainContainers(Tank tank, Inventory inventory, int inputSlot, int outputSlot, boolean voidFluid) {
 		ItemStack inputStack = inventory.getStack(inputSlot);
 		ItemStack outputStack = inventory.getStack(outputSlot);
 
 		if (inputStack.isEmpty()) return false;
-		if (!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
+		if (!(inputStack.getItem() instanceof ItemFluidInfo itemFluidInfo)) return false;
 		if (FluidUtils.isContainerEmpty(inputStack)) return false;
 		if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
 		if (!outputStack.isEmpty() && !FluidUtils.isContainerEmpty(outputStack)) return false;
 
-		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) inputStack.getItem();
 		if (!outputStack.isEmpty() && !outputStack.isItemEqual(itemFluidInfo.getEmpty())) return false;
 
-		FluidInstance tankFluidInstance = tank.getFluidInstance(null);
+		FluidInstance tankFluidInstance = tank.getFluidInstance();
 		Fluid tankFluid = tankFluidInstance.getFluid();
 
 		if (tankFluidInstance.isEmpty() || tankFluid == itemFluidInfo.getFluid(inputStack)) {
-			FluidValue freeSpace = tank.getCapacity(null).subtract(tankFluidInstance.getAmount());
+			FluidValue freeSpace = tank.getFluidValueCapacity().subtract(tankFluidInstance.getAmount());
 
 			if (freeSpace.equalOrMoreThan(FluidValue.BUCKET) || voidFluid) {
 				inputStack.decrement(1);
@@ -95,13 +93,13 @@ public class FluidUtils {
 		return true;
 	}
 
-	public static boolean fillContainers(GenericFluidContainer<Direction> source, Inventory inventory, int inputSlot, int outputSlot) {
+	public static boolean fillContainers(Tank source, Inventory inventory, int inputSlot, int outputSlot) {
 		ItemStack inputStack = inventory.getStack(inputSlot);
 		ItemStack outputStack = inventory.getStack(outputSlot);
 
 		if (!FluidUtils.isContainerEmpty(inputStack)) return false;
 		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) inputStack.getItem();
-		FluidInstance sourceFluid = source.getFluidInstance(null);
+		FluidInstance sourceFluid = source.getFluidInstance();
 
 		if (sourceFluid.getFluid() == Fluids.EMPTY || sourceFluid.getAmount().lessThan(FluidValue.BUCKET)) {
 			return false;
@@ -109,10 +107,8 @@ public class FluidUtils {
 
 		if (!outputStack.isEmpty()) {
 			if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
-			if (!(outputStack.getItem() instanceof ItemFluidInfo)) return false;
+			if (!(outputStack.getItem() instanceof ItemFluidInfo outputFluidInfo)) return false;
 			if (!outputStack.isItemEqual(itemFluidInfo.getEmpty())) return false;
-
-			ItemFluidInfo outputFluidInfo = (ItemFluidInfo) outputStack.getItem();
 
 			if (outputFluidInfo.getFluid(outputStack) != sourceFluid.getFluid()) {
 				return false;
@@ -138,9 +134,9 @@ public class FluidUtils {
 	public static boolean isContainerEmpty(ItemStack stack) {
 		if (stack.isEmpty())
 			return false;
-		if (!(stack.getItem() instanceof ItemFluidInfo))
-			return false;
-		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) stack.getItem();
-		return itemFluidInfo.getFluid(stack) == Fluids.EMPTY;
+		if (stack.getItem() instanceof ItemFluidInfo itemFluidInfo)
+			return itemFluidInfo.getFluid(stack) == Fluids.EMPTY;
+
+		return false;
 	}
 }

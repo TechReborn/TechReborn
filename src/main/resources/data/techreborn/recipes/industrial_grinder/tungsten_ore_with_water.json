@@ -13,12 +13,12 @@
   ],
   "results": [
     {
-      "item": "techreborn:tungsten_dust",
+      "item": "techreborn:raw_tungsten",
       "count": 2
     },
     {
-      "item": "techreborn:iron_small_dust",
-      "count": 3
+      "item": "minecraft:iron_nugget",
+      "count": 7
     },
     {
       "item": "techreborn:manganese_small_dust",

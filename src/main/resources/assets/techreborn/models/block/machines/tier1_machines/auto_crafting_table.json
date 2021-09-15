@@ -1,8 +1,9 @@
 {
-    "parent": "minecraft:block/cube_bottom_top",
+    "parent": "minecraft:block/orientable",
     "textures": {
         "top": "techreborn:block/machines/tier1_machines/auto_crafting_table_top",
+	  	"front": "techreborn:block/machines/tier1_machines/auto_crafting_table_side",
         "bottom": "techreborn:block/machines/tier1_machines/machine_bottom",
-        "side": "techreborn:block/machines/tier1_machines/auto_crafting_table_side"
+        "side": "techreborn:block/machines/tier1_machines/machine_side"
     }
 }

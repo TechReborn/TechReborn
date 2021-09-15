@@ -25,26 +25,25 @@
 package techreborn.client.render.entitys;
 
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.TntMinecartEntityRenderer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
+import org.jetbrains.annotations.Nullable;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
-
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by Mark on 13/03/2016.
  */
 public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 
-	public NukeRenderer(EntityRenderDispatcher renderManager) {
-		super(renderManager);
+	public NukeRenderer(EntityRendererFactory.Context ctx) {
+		super(ctx);
 		this.shadowRadius = 0.5F;
 	}
 
@@ -58,8 +57,8 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 	public void render(EntityNukePrimed entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
 		matrixStack.push();
 		matrixStack.translate(0.0D, 0.5D, 0.0D);
-		if ((float) entity.getFuseTimer() - g + 1.0F < 10.0F) {
-			float h = 1.0F - ((float) entity.getFuseTimer() - g + 1.0F) / 10.0F;
+		if ((float) entity.getFuse() - g + 1.0F < 10.0F) {
+			float h = 1.0F - ((float) entity.getFuse() - g + 1.0F) / 10.0F;
 			h = MathHelper.clamp(h, 0.0F, 1.0F);
 			h *= h;
 			h *= h;
@@ -67,9 +66,9 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 			matrixStack.scale(j, j, j);
 		}
 
-		matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
+		matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
-		TntMinecartEntityRenderer.renderFlashingBlock(TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuseTimer() / 5 % 2 == 0);
+		TntMinecartEntityRenderer.renderFlashingBlock(TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuse() / 5 % 2 == 0);
 		matrixStack.pop();
 		super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
 	}

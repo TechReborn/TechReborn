@@ -3,7 +3,14 @@
         "ctm_version": 1,
         "type":"CTM",
         "textures":[
-            "techreborn:blocks/machines/energy/ev_multi_side_ctm"
-        ]
+            "techreborn:block/machines/energy/lapotronic_su_side_ctm"
+        ],
+        "extra":{
+            "ignore_states":true,
+            "connect_to":[
+                {"block":"techreborn:lsu_storage"},
+                {"block":"techreborn:lapotronic_su"}
+            ]
+        }
     }
 }

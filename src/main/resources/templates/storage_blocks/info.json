@@ -98,6 +98,25 @@
 	{
 	  "from" : "recipes/wall_stonecutting.json",
 	  "to" : "data/techreborn/recipes/crafting_table/storage_block/%name%_wall_stonecutting.json"
+	},
+
+	{
+	  "from": "block/loot_block.json",
+	  "to": "data/techreborn/loot_tables/blocks/%name%.json"
+	},
+	{
+	  "from": "slab/loot_slab.json",
+	  "to": "data/techreborn/loot_tables/blocks/%name%_slab.json"
+	},
+	{
+	  "from": "stair/loot_stair.json",
+	  "to": "data/techreborn/loot_tables/blocks/%name%_stairs.json"
+	},
+	{
+	  "from": "wall/loot_wall.json",
+	  "to": "data/techreborn/loot_tables/blocks/%name%_wall.json"
 	}
+
+
   ]
 }

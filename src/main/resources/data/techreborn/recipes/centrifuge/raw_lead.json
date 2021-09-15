@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 2400,
+  "ingredients": [
+    {
+      "count": 2,
+      "tag": "c:raw_lead_ores"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:silver_nugget",
+	  "count": 3
+    }
+  ]
+}

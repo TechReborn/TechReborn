@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:recycler",
+  "power": 2,
+  "time": 25,
+  "ingredients": [
+	{
+	  "item": "minecraft:air"
+	}
+  ],
+  "results": [
+	{
+	  "item": "techreborn:scrap"
+	}
+  ]
+}

@@ -41,7 +41,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.JackhammerItem;
 import techreborn.utils.MessageIDs;
@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
 public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public AdvancedJackhammerItem() {
-		super(TechRebornConfig.advancedJackhammerCharge, EnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost);
+		super(TechRebornConfig.advancedJackhammerCharge, RcEnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost);
 	}
 
 	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos, ItemStack stack) {
@@ -66,13 +66,13 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 		if (ToolsUtil.JackHammerSkippedBlocks(blockState)){
 			return false;
 		}
-		return (stack.getItem().isEffectiveOn(blockState));
+		return (stack.getItem().isSuitableFor(blockState));
 	}
 
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (!ItemUtils.isActive(stack) || !stack.getItem().isEffectiveOn(stateIn)) {
+		if (!ItemUtils.isActive(stack) || !stack.getItem().isSuitableFor(stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1)) {
@@ -109,7 +109,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
+		if (!stack.getItem().isSuitableFor(worldIn.getBlockState(pos))) {
 			return Collections.emptySet();
 		}
 		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1, false)

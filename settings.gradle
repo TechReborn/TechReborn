@@ -1,1 +1,13 @@
-rootProject.name = "TechReborn-1.16"
+pluginManagement {
+	repositories {
+		maven {
+			url = "https://maven.fabricmc.net"
+			name = "FabricMC"
+		}
+		gradlePluginPortal()
+	}
+}
+
+rootProject.name = "TechReborn"
+
+include("RebornCore")

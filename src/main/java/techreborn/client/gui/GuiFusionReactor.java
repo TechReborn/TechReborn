@@ -56,10 +56,10 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public void init() {
 		super.init();
-		addButton(new GuiButtonUpDown(x + 121, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
-		addButton(new GuiButtonUpDown(x + 121 + 12, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
-		addButton(new GuiButtonUpDown(x + 121 + 24, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.REWIND));
-		addButton(new GuiButtonUpDown(x + 121 + 36, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1), UpDownButtonType.FASTREWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 121, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 121 + 12, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 121 + 24, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1), UpDownButtonType.REWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 121 + 36, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.FASTREWIND));
 	}
 
 	@Override
@@ -112,8 +112,8 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 
 			}
 		}
-		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
-		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
+		drawTextWithShadow(matrixStack, this.textRenderer, new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
+		drawTextWithShadow(matrixStack, this.textRenderer, new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
 
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
@@ -127,10 +127,10 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public Optional<Pair<Integer, Integer>> getCoilStackCount() {
-		if (!Torus.TORUS_SIZE_MAP.containsKey(blockEntity.size)) {
+		if (!Torus.getTorusSizeCache().containsKey(blockEntity.size)) {
 			return Optional.empty();
 		}
-		int count = Torus.TORUS_SIZE_MAP.get(blockEntity.size);
+		int count = Torus.getTorusSizeCache().get(blockEntity.size);
 		return Optional.of(Pair.of(count / 64, count % 64));
 	}
 }

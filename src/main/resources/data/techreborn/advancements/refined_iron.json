@@ -17,7 +17,7 @@
         "conditions": {
           "items": [
             {
-              "item": "techreborn:refined_iron_ingot"
+              "items": ["techreborn:refined_iron_ingot"]
             }
           ]
         }

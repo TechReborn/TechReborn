@@ -25,16 +25,22 @@
 package techreborn.blockentity.machine;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.EnergySide;
+
 
 /**
  * @author drcrazy
@@ -57,8 +63,8 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	 * @param toolDrop   Block Block to drop with wrench
 	 * @param energySlot int Energy slot to use to charge machine from battery
 	 */
-	public GenericMachineBlockEntity(BlockEntityType<?> blockEntityType, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
-		super(blockEntityType);
+	public GenericMachineBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
+		super(blockEntityType, pos, state);
 		this.name = "BlockEntity" + name;
 		this.maxInput = maxInput;
 		this.maxEnergy = maxEnergy;
@@ -74,7 +80,7 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	 * @return int Scale of progress
 	 */
 	public int getProgressScaled(int scale) {
-		if (crafter != null && crafter.currentTickTime != 0) {
+		if (crafter != null && crafter.currentTickTime != 0 && crafter.currentNeededTicks != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;
@@ -82,8 +88,8 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
 		}
@@ -93,22 +99,22 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public double getBaseMaxPower() {
+	public long getBaseMaxPower() {
 		return maxEnergy;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnergySide side) {
+	public boolean canProvideEnergy(@Nullable Direction side) {
 		return false;
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		return 0;
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		return maxInput;
 	}
 

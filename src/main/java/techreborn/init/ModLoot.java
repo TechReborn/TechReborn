@@ -27,11 +27,12 @@ package techreborn.init;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.UniformLootTableRange;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent.Ingots;
 import techreborn.init.TRContent.Parts;
@@ -40,7 +41,7 @@ public class ModLoot {
 
 	public static void init() {
 
-		LootPoolEntry copperIngot = makeEntry(Ingots.COPPER);
+		LootPoolEntry copperIngot = makeEntry(Items.COPPER_INGOT);
 		LootPoolEntry tinIngot = makeEntry(Ingots.TIN);
 		LootPoolEntry leadIngot = makeEntry(Ingots.LEAD);
 		LootPoolEntry silverIngot = makeEntry(Ingots.SILVER);
@@ -73,17 +74,17 @@ public class ModLoot {
 
 		LootPool poolBasic = FabricLootPoolBuilder.builder().withEntry(copperIngot).withEntry(tinIngot)
 				.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedronIngot).withEntry(advancedalloyIngot)
-				.withEntry(basicFrame).withEntry(basicCircuit).withEntry(rubberSapling).rolls(UniformLootTableRange.between(1.0f, 2.0f))
+				.withEntry(basicFrame).withEntry(basicCircuit).withEntry(rubberSapling).rolls(UniformLootNumberProvider.create(1.0f, 2.0f))
 				.build();
 
 		LootPool poolAdvanced = FabricLootPoolBuilder.builder().withEntry(aluminumIngot).withEntry(electrumIngot)
 				.withEntry(invarIngot).withEntry(nickelIngot).withEntry(steelIngot).withEntry(zincIngot)
-				.withEntry(advancedFrame).withEntry(advancedCircuit).withEntry(dataStorageChip).rolls(UniformLootTableRange.between(1.0f, 3.0f))
+				.withEntry(advancedFrame).withEntry(advancedCircuit).withEntry(dataStorageChip).rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
 				.build();
 
 		LootPool poolIndustrial = FabricLootPoolBuilder.builder().withEntry(chromeIngot).withEntry(iridiumIngot)
 				.withEntry(platinumIngot).withEntry(titaniumIngot).withEntry(tungstenIngot).withEntry(tungstensteelIngot)
-				.withEntry(industrialFrame).withEntry(industrialCircuit).withEntry(energyFlowChip).rolls(UniformLootTableRange.between(1.0f, 3.0f))
+				.withEntry(industrialFrame).withEntry(industrialCircuit).withEntry(energyFlowChip).rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
 				.build();
 
 		LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, ident, supplier, setter) -> {
@@ -94,24 +95,21 @@ public class ModLoot {
 
 			if (TechRebornConfig.enableOverworldLoot) {
 				switch (stringId) {
-					case "minecraft:chests/abandoned_mineshaft":
-					case "minecraft:chests/desert_pyramid":
-					case "minecraft:chests/igloo_chest":
-					case "minecraft:chests/jungle_temple":
-					case "minecraft:chests/simple_dungeon":
-					case "minecraft:chests/village/village_weaponsmith":
-					case "minecraft:chests/village/village_armorer":
-					case "minecraft:chests/village/village_toolsmith":
-						supplier.withPool(poolBasic);
-						break;
-					case "minecraft:chests/stronghold_corridor":
-					case "minecraft:chests/stronghold_crossing":
-					case "minecraft:chests/stronghold_library":
-						supplier.withPool(poolAdvanced);
-						break;
-					case "minecraft:chests/woodland_mansion":
-						supplier.withPool(poolIndustrial);
-						break;
+					case "minecraft:chests/abandoned_mineshaft",
+						"minecraft:chests/desert_pyramid",
+						"minecraft:chests/igloo_chest",
+						"minecraft:chests/jungle_temple",
+						"minecraft:chests/simple_dungeon",
+						"minecraft:chests/village/village_weaponsmith",
+						"minecraft:chests/village/village_armorer",
+						"minecraft:chests/village/village_toolsmith"
+							-> supplier.withPool(poolBasic);
+					case "minecraft:chests/stronghold_corridor",
+						"minecraft:chests/stronghold_crossing",
+						"minecraft:chests/stronghold_library"
+							-> supplier.withPool(poolAdvanced);
+					case "minecraft:chests/woodland_mansion"
+							-> supplier.withPool(poolIndustrial);
 				}
 			}
 
@@ -149,7 +147,7 @@ public class ModLoot {
 	 */
 	private static LootPoolEntry makeEntry(ItemConvertible item, int weight) {
 		return ItemEntry.builder(item).weight(weight)
-				.apply(SetCountLootFunction.builder(UniformLootTableRange.between(1.0f, 2.0f))).build();
+				.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f))).build();
 	}
 
 

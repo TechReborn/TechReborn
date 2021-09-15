@@ -28,11 +28,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
@@ -45,16 +49,14 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
-import org.jetbrains.annotations.Nullable;
-
 public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
 	public Tank tank;
 	int ticksSinceLastChange;
 
-	public IndustrialSawmillBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_SAWMILL, "IndustrialSawmill", TechRebornConfig.industrialSawmillMaxInput, TechRebornConfig.industrialSawmillMaxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
+	public IndustrialSawmillBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.INDUSTRIAL_SAWMILL, pos, state, "IndustrialSawmill", TechRebornConfig.industrialSawmillMaxInput, TechRebornConfig.industrialSawmillMaxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4};
 		this.inventory = new RebornInventory<>(7, "SawmillBlockEntity", 64, this);
@@ -75,7 +77,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 
 	// TileGenericMachine
 	@Override
-	public void tick() {
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (world == null) {
 			return;
 		}
@@ -89,20 +91,20 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 			ticksSinceLastChange = 0;
 		}
 
-		super.tick();
+		super.tick(world, pos, state, blockEntity);
 
 	}
 
 	// TilePowerAcceptor
 	@Override
-	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void readNbt(final NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 		tank.read(tagCompound);
 	}
 
 	@Override
-	public CompoundTag toTag(final CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		tank.write(tagCompound);
 		return tagCompound;
 	}
@@ -117,7 +119,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("industrialsawmill").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("industrialsawmill").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
 				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this, syncID);

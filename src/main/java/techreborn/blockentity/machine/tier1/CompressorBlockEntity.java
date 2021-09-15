@@ -24,7 +24,9 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -38,8 +40,8 @@ import techreborn.init.TRContent;
 
 public class CompressorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public CompressorBlockEntity() {
-		super(TRBlockEntities.COMPRESSOR, "Compressor", TechRebornConfig.compressorMaxInput, TechRebornConfig.compressorMaxEnergy, TRContent.Machine.COMPRESSOR.block, 2);
+	public CompressorBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.COMPRESSOR, pos, state, "Compressor", TechRebornConfig.compressorMaxInput, TechRebornConfig.compressorMaxEnergy, TRContent.Machine.COMPRESSOR.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "CompressorBlockEntity", 64, this);
@@ -49,7 +51,7 @@ public class CompressorBlockEntity extends GenericMachineBlockEntity implements 
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("compressor").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("compressor").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncCrafterValue().addInventory().create(this, syncID);
 	}

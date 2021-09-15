@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:grinder"
+            "items": ["techreborn:grinder"]
           }
         ]
       }

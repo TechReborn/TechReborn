@@ -75,13 +75,12 @@ public class BlockNuke extends BaseBlock {
 
 	@Override
 	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		if (!worldIn.isClient && entityIn instanceof ProjectileEntity) {
-			ProjectileEntity entityarrow = (ProjectileEntity) entityIn;
+		if (!worldIn.isClient && entityIn instanceof ProjectileEntity projectileEntity) {
 			LivingEntity shooter = null;
-			if (entityarrow.getOwner() instanceof LivingEntity) {
-				shooter = (LivingEntity) entityarrow.getOwner();
+			if (projectileEntity.getOwner() instanceof LivingEntity) {
+				shooter = (LivingEntity) projectileEntity.getOwner();
 			}
-			if (entityarrow.isOnFire()) {
+			if (projectileEntity.isOnFire()) {
 				ignite(worldIn, pos, state, shooter);
 				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 			}

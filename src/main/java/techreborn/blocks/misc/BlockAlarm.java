@@ -45,13 +45,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.machine.misc.AlarmBlockEntity;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class BlockAlarm extends BaseBlockEntityProvider {
@@ -100,8 +100,8 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 	// BaseTileBlock
 	@Nullable
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new AlarmBlockEntity();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new AlarmBlockEntity(pos, state);
 	}
 
 	// Block

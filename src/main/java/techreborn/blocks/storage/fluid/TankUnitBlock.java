@@ -35,7 +35,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
@@ -59,8 +58,8 @@ public class TankUnitBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TankUnitBaseBlockEntity(unitType);
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new TankUnitBaseBlockEntity(pos, state, unitType);
 	}
 
 	@Override
@@ -76,10 +75,9 @@ public class TankUnitBlock extends BlockMachineBase {
 		// Assuming ItemFluidInfo is 1 BUCKET, for now only allow exact amount or less
 		// I am only going to trust cells or buckets, they are known to be 1 BUCKET size, too suss of other items not abiding by that.
 		if ((itemInHand instanceof DynamicCellItem || itemInHand instanceof BucketItem)
-				&& tankUnitEntity != null && itemInHand instanceof ItemFluidInfo) {
+				&& tankUnitEntity != null && itemInHand instanceof ItemFluidInfo itemFluid) {
 
 			// Get fluid information from item
-			ItemFluidInfo itemFluid = (ItemFluidInfo) itemInHand;
 			Fluid fluid = itemFluid.getFluid(stackInHand);
 			int amount = stackInHand.getCount();
 
@@ -93,7 +91,7 @@ public class TankUnitBlock extends BlockMachineBase {
 				if(amountInTank.equalOrMoreThan(FluidValue.BUCKET)){
 
 					// Amount to transfer is whatever is lower (stack count or tank level)
-					int amountTransferBuckets = Math.min(amountInTank.getRawValue() / FluidValue.BUCKET.getRawValue(), stackInHand.getCount());
+					int amountTransferBuckets = (int) Math.min(amountInTank.getRawValue() / FluidValue.BUCKET.getRawValue(), stackInHand.getCount());
 
 					// Remove items from player
 					stackInHand.decrement(amountTransferBuckets);
@@ -114,7 +112,7 @@ public class TankUnitBlock extends BlockMachineBase {
 							selectedStack.increment(1);
 							didInsert = true;
 						}else {
-							didInsert = playerIn.inventory.insertStack(item);
+							didInsert = playerIn.getInventory().insertStack(item);
 						}
 
 
@@ -155,14 +153,11 @@ public class TankUnitBlock extends BlockMachineBase {
 
 	boolean isSameItemFluid(ItemStack i1, ItemStack i2){
 		// Only care about cells, buckets don't stack
-		if(!(i1.getItem() instanceof DynamicCellItem && i2.getItem() instanceof DynamicCellItem)){
-			return false;
+		if(i1.getItem() instanceof DynamicCellItem dc1 && i2.getItem() instanceof DynamicCellItem dc2){
+			return dc1.getFluid(i1).matchesType(dc2.getFluid(i2));
 		}
 
-		DynamicCellItem dc1 = (DynamicCellItem)i1.getItem();
-		DynamicCellItem dc2 = (DynamicCellItem)i2.getItem();
-
-		return  dc1.getFluid(i1).matchesType(dc2.getFluid(i2));
+		return false;
 	}
 
 	@Override

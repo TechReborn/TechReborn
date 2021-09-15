@@ -27,10 +27,10 @@ package techreborn.compat.rei.machine;
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.ClientHelper;
-import me.shedaniel.rei.api.widgets.Tooltip;
-import me.shedaniel.rei.api.widgets.Widgets;
-import me.shedaniel.rei.gui.widget.Widget;
+import me.shedaniel.rei.api.client.ClientHelper;
+import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
+import me.shedaniel.rei.api.client.gui.widgets.Widget;
+import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -67,7 +67,7 @@ public class GrinderCategory<R extends RebornRecipe> extends AbstractMachineCate
 		widgets.add(Widgets.createSlot(new Point(bounds.x + 55 + 46, bounds.y + 36 - 9 + 18)).entries(getOutput(recipeDisplay, 2)).markOutput());
 		widgets.add(Widgets.createSlot(new Point(bounds.x + 55 + 46, bounds.y + 36 - 9 + 36)).entries(getOutput(recipeDisplay, 3)).markOutput());
 		widgets.add(ReiPlugin.createProgressBar(bounds.x + 55 + 21, bounds.y + 36 + 4, recipeDisplay.getTime() * 50, GuiBuilder.ProgressDirection.RIGHT));
-		widgets.add(ReiPlugin.createFluidDisplay(new Rectangle(bounds.x + 55 - 26, bounds.y + 18, 16, 50), getInput(recipeDisplay, 1).get(0), ReiPlugin.EntryAnimation.downwards(5000)));
+		widgets.add(ReiPlugin.createFluidDisplay(new Rectangle(bounds.x + 55 - 26, bounds.y + 18, 16, 50), getInput(recipeDisplay, 1).get(0).cast(), ReiPlugin.EntryAnimation.downwards(5000)));
 
 		widgets.add(Widgets.createLabel(new Point(bounds.x + 51, bounds.y + 15), new TranslatableText("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
 				.shadow(false)

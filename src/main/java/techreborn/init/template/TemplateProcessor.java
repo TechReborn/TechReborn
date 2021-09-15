@@ -32,7 +32,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -73,9 +72,9 @@ public class TemplateProcessor {
 	}
 
 	private void processFile(Path inputFile, Path outputFile, Map<String, String> values) throws IOException {
-		String input = new String(Files.readAllBytes(inputFile), StandardCharsets.UTF_8);
+		String input = Files.readString(inputFile);
 		String output = replaceValues(input, values);
-		Files.write(outputFile, output.getBytes(StandardCharsets.UTF_8));
+		Files.writeString(outputFile, output);
 	}
 
 	private static String replaceValues(String input, Map<String, String> values) {

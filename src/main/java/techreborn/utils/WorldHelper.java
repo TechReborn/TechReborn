@@ -31,7 +31,7 @@ public abstract class WorldHelper {
 
 		boolean shouldExit = false;
 
-		while (!shouldExit && !World.isOutOfBuildLimitVertically(current)) {
+		while (!shouldExit && !World.isValid(current)) {
 			// If we reach target, return
 			Block block = world.getBlockState(current).getBlock();
 			if (block == target) {
@@ -64,7 +64,7 @@ public abstract class WorldHelper {
 		int count = 0;
 
 		boolean foundLast = false;
-		while (!foundLast && !World.isOutOfBuildLimitVertically(current)) {
+		while (!foundLast && !World.isValid(current)) {
 			// If we reach target, return
 			Block block = world.getBlockState(current).getBlock();
 

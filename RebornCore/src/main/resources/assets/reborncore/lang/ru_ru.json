@@ -1,0 +1,52 @@
+{
+  "reborncore.message.active": "Активно",
+  "reborncore.message.inactive": "Неактивно",
+  "reborncore.message.energyError": "Недостаточно энергии:",
+  "reborncore.message.deactivating": "Деактивировано",
+  "reborncore.message.setTo": "Изменено на",
+
+  "reborncore.tooltip.energy.maxEnergy": "Макс. энергия",
+  "reborncore.tooltip.energy.inputRate": "Скорость ввода",
+  "reborncore.tooltip.energy.outputRate": "Скорость вывода",
+  "reborncore.tooltip.energy.tier": "Уровень",
+  "reborncore.tooltip.energy.change": "Изменение энергии",
+  "reborncore.tooltip.energy": "Накопленная энергия",
+
+  "reborncore.gui.heat": "Нагрев",
+  "reborncore.gui.missingmultiblock": "Неполный мультиблок",
+
+  "reborncore.gui.tooltip.config_slots": "Настроить слоты",
+  "reborncore.gui.tooltip.config_fluids": "Настроить жидкости",
+  "reborncore.gui.tooltip.config_redstone": "Настроить сигнал красного камня",
+  "reborncore.gui.tooltip.hologram": "Переключить многоблочную голограмму",
+  "reborncore.gui.tooltip.lock_items": "Заблокировать предметы",
+  "reborncore.gui.tooltip.power_charged": "Заряженный",
+  "reborncore.gui.tooltip.power_moreinfo": "для большей информации",
+  "reborncore.gui.tooltip.dsu_fullness": "Полный",
+  "reborncore.gui.tooltip.tank_amount": "%s / %s",
+  "reborncore.gui.tooltip.tank_empty": "Пустой резервуар",
+  "reborncore.gui.tooltip.tank_fullness": "заполнено",
+  "reborncore.gui.tooltip.unlock_items": "Разблокировать предметы",
+  "reborncore.gui.tooltip.upgrades": "Улучшение",
+
+  "reborncore.gui.slotconfig.autoinput": "Авто ввод",
+  "reborncore.gui.slotconfig.autooutput": "Авто вывод",
+  "reborncore.gui.slotconfig.filter_input": "Фильтр ввода",
+
+  "reborncore.gui.slotconfigtip.slot": "Выберите слот для настройки.",
+  "reborncore.gui.slotconfigtip.side1": "Оранжевый - вход.",
+  "reborncore.gui.slotconfigtip.side2": "Синий - выход.",
+  "reborncore.gui.slotconfigtip.side3": "Зеленый - вход и выход.",
+  "reborncore.gui.slotconfigtip.copy1": "Ctrl+C скопировать настройки.",
+  "reborncore.gui.slotconfigtip.copy2": "Ctrl+V вставить настройки.",
+
+  "reborncore.gui.fluidconfig.pullin": "Закачивать",
+  "reborncore.gui.fluidconfig.pumpout": "Откачивать",
+  "reborncore.gui.fluidconfig.item_io": "Предметы",
+  "reborncore.gui.fluidconfig.power_io": "Энергия",
+  "reborncore.gui.fluidconfig.fluid_io": "Жидкости",
+  "reborncore.gui.fluidconfig.recipe_processing": "Создание",
+  "reborncore.gui.fluidconfig.ignored": "Игнорировать",
+  "reborncore.gui.fluidconfig.enabled_on": "§cСигнал §aВкл",
+  "reborncore.gui.fluidconfig.enabled_off": "§cСигнал §4Выкл"
+}

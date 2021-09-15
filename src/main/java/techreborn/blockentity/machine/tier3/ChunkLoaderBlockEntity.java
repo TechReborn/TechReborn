@@ -28,12 +28,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -46,16 +47,14 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import org.jetbrains.annotations.Nullable;
-
 public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public RebornInventory<ChunkLoaderBlockEntity> inventory = new RebornInventory<>(0, "ChunkLoaderBlockEntity", 64, this);
 	private int radius;
 	private String ownerUdid;
 
-	public ChunkLoaderBlockEntity() {
-		super(TRBlockEntities.CHUNK_LOADER);
+	public ChunkLoaderBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.CHUNK_LOADER, pos, state);
 		this.radius = 1;
 	}
 
@@ -75,11 +74,6 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 			ChunkLoaderManager manager = ChunkLoaderManager.get(getWorld());
 			manager.syncChunkLoaderToClient((ServerPlayerEntity) playerEntity, getPos());
 		}
-	}
-
-	@Override
-	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
-		return TRContent.Machine.CHUNK_LOADER.getStack();
 	}
 
 	private void reload() {
@@ -102,7 +96,16 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		}
 	}
 
+	private void unloadAll() {
+		ChunkLoaderManager manager = ChunkLoaderManager.get(world);
+		manager.unloadChunkLoader(world, getPos());
+	}
 
+	public ChunkPos getChunkPos() {
+		return new ChunkPos(getPos());
+	}
+
+	// MachineBaseBlockEntity
 	@Override
 	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
 		if (world.isClient) {
@@ -114,34 +117,25 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 
 	@Override
 	public void onPlace(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (world.isClient) {
-			return;
-		}
 		ownerUdid = placer.getUuidAsString();
+		if (worldIn.isClient) return;
 		reload();
 	}
 
-	private void unloadAll() {
-		ChunkLoaderManager manager = ChunkLoaderManager.get(world);
-		manager.unloadChunkLoader(world, getPos());
-	}
-
-	public ChunkPos getChunkPos() {
-		return new ChunkPos(getPos());
-	}
-
 	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putInt("radius", radius);
-		tagCompound.putString("ownerUdid", ownerUdid);
+		if (ownerUdid != null && !ownerUdid.isEmpty()){
+			tagCompound.putString("ownerUdid", ownerUdid);
+		}
 		inventory.write(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
-		super.fromTag(blockState, nbttagcompound);
+	public void readNbt(NbtCompound nbttagcompound) {
+		super.readNbt(nbttagcompound);
 		this.radius = nbttagcompound.getInt("radius");
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 		if (!StringUtils.isBlank(ownerUdid)) {
@@ -150,9 +144,23 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		inventory.read(nbttagcompound);
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+		return TRContent.Machine.CHUNK_LOADER.getStack();
+	}
+
+	// InventoryProvider
 	@Override
 	public RebornInventory<ChunkLoaderBlockEntity> getInventory() {
 		return this.inventory;
+	}
+
+	// BuiltScreenHandlerProvider
+	@Override
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("chunkloader").player(player.getInventory()).inventory().hotbar().addInventory()
+				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 
 	public int getRadius() {
@@ -163,10 +171,5 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		this.radius = radius;
 	}
 
-	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
-	}
 
 }

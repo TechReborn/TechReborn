@@ -1,0 +1,32 @@
+apply plugin: "com.matthewprenger.cursegradle"
+
+group = 'RebornCore'
+
+loom {
+    accessWidenerPath = file("src/main/resources/reborncore.accesswidener")
+}
+def ENV = System.getenv()
+
+curseforge {
+    if (ENV.CURSEFORGE_API_KEY) {
+        apiKey = ENV.CURSEFORGE_API_KEY
+    }
+
+    project {
+        id = "237903"
+        changelog = ENV.CHANGELOG ?: "No changelog provided"
+        releaseType = ENV.RELEASE_CHANNEL ?: "release"
+        addGameVersion "1.17.1"
+        addGameVersion "Fabric"
+
+        mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+
+        afterEvaluate {
+            uploadTask.dependsOn("remapJar")
+        }
+    }
+
+    options {
+        forgeGradleIntegration = false
+    }
+}

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.energy.lesu;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -40,8 +41,8 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 
 	public LesuNetwork network;
 
-	public LSUStorageBlockEntity() {
-		super(TRBlockEntities.LSU_STORAGE);
+	public LSUStorageBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.LSU_STORAGE, pos, state);
 	}
 
 	public final void findAndJoinNetwork(World world, BlockPos pos) {
@@ -49,10 +50,9 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 		network.addElement(this);
 		for (Direction direction : Direction.values()) {
 			BlockEntity be = world.getBlockEntity(pos.offset(direction));
-			if (!(be instanceof LSUStorageBlockEntity)) {
+			if (!(be instanceof LSUStorageBlockEntity lesuStorage)) {
 				continue;
 			}
-			LSUStorageBlockEntity lesuStorage = (LSUStorageBlockEntity) be;
 			if (lesuStorage.network != null) {
 				lesuStorage.network.merge(network);
 			}
@@ -86,8 +86,8 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 
 	// TileMachineBase
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 		if (network == null) {
 			findAndJoinNetwork(world, pos);
 		} else {

@@ -41,16 +41,15 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.TagUtils;
 import techreborn.utils.ToolsUtil;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +58,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	private static final Direction[] SEARCH_ORDER = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
 
 	public IndustrialChainsawItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialChainsawCharge, EnergyTier.EXTREME, TechRebornConfig.industrialChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialChainsawCharge, RcEnergyTier.EXTREME, TechRebornConfig.industrialChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE);
 	}
 
 	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves) {
@@ -95,7 +94,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 			findWood(worldIn, pos, wood, leaves);
 			wood.remove(pos);
 			wood.stream()
-					.filter(p -> Energy.of(stack).simulate().use(cost))
+					.filter(p -> tryUseEnergy(stack, cost))
 					.forEach(pos1 -> ToolsUtil.breakBlock(stack, worldIn, pos1, entityLiving, cost));
 			leaves.remove(pos);
 			leaves.forEach(pos1 -> ToolsUtil.breakBlock(stack, worldIn, pos1, entityLiving, 0));

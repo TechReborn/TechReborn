@@ -35,7 +35,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -57,14 +57,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.WordUtils;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
-
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by modmuss50 on 17/05/2016.
@@ -98,7 +97,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	}
 
 	private void insertOrDropStack(PlayerEntity playerEntity, ItemStack stack) {
-		if (!playerEntity.inventory.insertStack(stack)) {
+		if (!playerEntity.getInventory().insertStack(stack)) {
 			playerEntity.dropStack(stack);
 		}
 	}
@@ -184,8 +183,9 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 			if (world.canPlayerModifyAt(player, hitPos) && player.canPlaceOn(placePos, side, stack)) {
 				if (containedFluid == Fluids.EMPTY) {
 					if (hitState.getBlock() instanceof FluidDrainable) {
-						Fluid drainFluid = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
-						if (drainFluid != Fluids.EMPTY) {
+						ItemStack itemStack = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
+						if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemFluidInfo) {
+							Fluid drainFluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
 							if (stack.getCount() == 1) {
 								stack = getCellWithFluid(drainFluid, 1);
 							} else {
@@ -231,7 +231,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
-		CompoundTag tag = itemStack.getTag();
+		NbtCompound tag = itemStack.getNbt();
 		if (tag != null && tag.contains("fluid")) {
 			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
 		}

@@ -10,8 +10,8 @@
     {
       "item": "minecraft:player_head",
       "count": 3,
-      "tag": {
-        "SkullOwner": "ProfProspector"
+      "nbt": {
+        "SkullOwner": "ProspectorDev"
       }
     }
   ],

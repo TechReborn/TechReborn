@@ -28,26 +28,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.world.World;
-import techreborn.items.DynamicCellItem;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RecipeUtils {
-	@NotNull
-	public static ItemStack getEmptyCell(int stackSize) {
-		return DynamicCellItem.getEmptyCell(stackSize);
+	public static <T extends Recipe<?>> Optional<Recipe<?>> getMatchingRecipe(World world, RecipeType<T> type, ItemStack input) {
+		return getRecipes(world, type).stream()
+				.filter(recipe -> matchesSingleInput(recipe, input))
+				.findFirst();
+	}
+
+	public static boolean matchesSingleInput(Recipe<?> recipe, ItemStack input) {
+		return recipe.getIngredients().size() == 1 && recipe.getIngredients().get(0).test(input);
 	}
 
 	/**
 	 * Used to get the matching output of a recipe type that only has 1 input
 	 */
-	public static <T extends Recipe<?>> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input) {
-		return getRecipes(world, type).stream()
-				.filter(recipe -> recipe.getPreviewInputs().size() == 1 && recipe.getPreviewInputs().get(0).test(input))
+	public static <T extends Recipe<?>> ItemStack getMatchingRecipeOutput(World world, RecipeType<T> type, ItemStack input) {
+		return getMatchingRecipe(world, type, input)
 				.map(Recipe::getOutput)
-				.findFirst()
 				.orElse(ItemStack.EMPTY);
 	}
 

@@ -27,14 +27,18 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
@@ -42,7 +46,6 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
-import team.reborn.energy.EnergySide;
 import techreborn.api.recipe.recipes.FusionReactorRecipe;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
@@ -65,8 +68,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	boolean checkNBTRecipe = false;
 	long lastTick = -1;
 
-	public FusionControlComputerBlockEntity() {
-		super(TRBlockEntities.FUSION_CONTROL_COMPUTER, "FusionControlComputer", -1, -1, TRContent.Machine.FUSION_CONTROL_COMPUTER.block, -1);
+	public FusionControlComputerBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.FUSION_CONTROL_COMPUTER, pos, state, "FusionControlComputer", -1, -1, TRContent.Machine.FUSION_CONTROL_COMPUTER.block, -1);
 		checkOverfill = false;
 		this.inventory = new RebornInventory<>(3, "FusionControlComputerBlockEntity", 64, this);
 	}
@@ -227,12 +230,12 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public double getBaseMaxPower() {
-		return Math.min(TechRebornConfig.fusionControlComputerMaxEnergy * getPowerMultiplier(), Integer.MAX_VALUE);
+	public long getBaseMaxPower() {
+		return Math.min((long) (TechRebornConfig.fusionControlComputerMaxEnergy * getPowerMultiplier()), Long.MAX_VALUE);
 	}
 
 	@Override
-	public double getBaseMaxOutput() {
+	public long getBaseMaxOutput() {
 		if (!hasStartedCrafting) {
 			return 0;
 		}
@@ -240,7 +243,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public double getBaseMaxInput() {
+	public long getBaseMaxInput() {
 		if (hasStartedCrafting) {
 			return 0;
 		}
@@ -249,8 +252,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick() {
-		super.tick();
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
 
 		if (world == null || world.isClient) {
 			return;
@@ -274,7 +277,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 		// Force check every second
 		if (world.getTime() % 20 == 0) {
-			inventory.setChanged();
+			inventory.setHashChanged();
 		}
 
 		if (!isMultiblockValid()) {
@@ -289,13 +292,13 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		if (currentRecipe != null) {
 			if (!hasStartedCrafting && !validateRecipe(currentRecipe)) {
 				resetCrafter();
-				inventory.resetChanged();
+				inventory.resetHasChanged();
 				return;
 			}
 
 			if (!hasStartedCrafting) {
 				// Ignition!
-				if (getStored(EnergySide.UNKNOWN) > currentRecipe.getStartEnergy()) {
+				if (getStored() > currentRecipe.getStartEnergy()) {
 					useEnergy(currentRecipe.getStartEnergy());
 					hasStartedCrafting = true;
 					useInput(topStackSlot);
@@ -306,12 +309,12 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 				// Power gen
 				if (currentRecipe.getPower() > 0) {
 					// Waste power if it has no where to go
-					double power = Math.abs(currentRecipe.getPower()) * getPowerMultiplier();
+					long power = (long) (Math.abs(currentRecipe.getPower()) * getPowerMultiplier());
 					addEnergy(power);
 					powerChange = (power);
 					craftingTickTime++;
 				} else { // Power user
-					if (getStored(EnergySide.UNKNOWN) > currentRecipe.getPower()) {
+					if (getStored() > currentRecipe.getPower()) {
 						setEnergy(getEnergy() - currentRecipe.getPower());
 						craftingTickTime++;
 					}
@@ -336,24 +339,24 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			markDirty();
 		}
 
-		inventory.resetChanged();
+		inventory.resetHasChanged();
 	}
 
 	@Override
-	protected boolean canAcceptEnergy(EnergySide side) {
+	protected boolean canAcceptEnergy(@Nullable Direction side) {
 		// Accept from sides
-		return !(side == EnergySide.DOWN || side == EnergySide.UP);
+		return !(side == Direction.DOWN || side == Direction.UP);
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnergySide side) {
+	public boolean canProvideEnergy(@Nullable Direction side) {
 		// Provide from top and bottom
-		return side == EnergySide.DOWN || side == EnergySide.UP;
+		return side == Direction.DOWN || side == Direction.UP;
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
-		super.fromTag(blockState, tagCompound);
+	public void readNbt(final NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
 		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
@@ -368,8 +371,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public CompoundTag toTag(final CompoundTag tagCompound) {
-		super.toTag(tagCompound);
+	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
 		tagCompound.putInt("craftingTickTime", this.craftingTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
 		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
@@ -399,7 +402,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
+		return new ScreenHandlerBuilder("fusionreactor").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
 				.sync(this::getCraftingTickTime, this::setCraftingTickTime)
 				.sync(this::getSize, this::setSize)
