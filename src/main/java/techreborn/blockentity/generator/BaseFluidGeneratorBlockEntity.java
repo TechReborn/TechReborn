@@ -59,8 +59,8 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	protected long lastOutput = 0;
 
 	/*
-	 * We use this to keep track of fractional millibuckets, allowing us to hit
-	 * our eu/bucket targets while still only ever removing integer millibucket
+	 * We use this to keep track of fractional fluid units, allowing us to hit
+	 * our eu/bucket targets while still only ever removing integer fluid unit
 	 * amounts.
 	 */
 	double pendingWithdraw = 0.0;
@@ -110,10 +110,12 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 			if (currentRecipe != null) {
 				final int euPerBucket = currentRecipe.getEnergyPerBucket();
-				final float millibucketsPerTick = euTick * 1000 / (float) euPerBucket;
+
+				// Make sure to calculate the fluid used per tick based on the underlying fluid unit (droplets)
+				final float fluidPerTick = (euTick / (euPerBucket / (float)FluidValue.BUCKET.getRawValue()));
 
 				if (tryAddingEnergy(euTick)) {
-					pendingWithdraw += millibucketsPerTick;
+					pendingWithdraw += fluidPerTick;
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
 					tank.getFluidInstance().subtractAmount(FluidValue.fromRaw(currentWithdraw));
