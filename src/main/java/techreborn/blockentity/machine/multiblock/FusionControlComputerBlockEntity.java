@@ -70,7 +70,6 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	public FusionControlComputerBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.FUSION_CONTROL_COMPUTER, pos, state, "FusionControlComputer", -1, -1, TRContent.Machine.FUSION_CONTROL_COMPUTER.block, -1);
-		checkOverfill = false;
 		this.inventory = new RebornInventory<>(3, "FusionControlComputerBlockEntity", 64, this);
 	}
 
