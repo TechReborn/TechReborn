@@ -117,15 +117,6 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		}
 	}
 
-	@Override
-	public Direction getFacingEnum() {
-		Block block = world.getBlockState(pos).getBlock();
-		if (block instanceof LapotronicSUBlock) {
-			return ((LapotronicSUBlock) block).getFacing(world.getBlockState(pos));
-		}
-		return null;
-	}
-
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
