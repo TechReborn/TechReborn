@@ -24,7 +24,7 @@
 
 package techreborn.blockentity.cable;
 
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -34,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -49,45 +50,49 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.SimpleSidedEnergyContainer;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-/**
- * Created by modmuss50 on 19/05/2017.
- */
 
 public class CableBlockEntity extends BlockEntity
 		implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop {
-	private final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
+	// Can't use SimpleEnergyStorage because the cable type is not available when the BE is constructed.
+	final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
 		@Override
 		public long getCapacity() {
-			return getCableType().transferRate * 4;
+			return getCableType().transferRate * 4L;
 		}
 
 		@Override
-		public long getMaxInsert(@Nullable Direction side) {
-			if (!canAcceptEnergy(side)) {
-				return 0;
-			}
-			return getCableType().transferRate;
+		public long getMaxInsert(Direction side) {
+			if (allowTransfer(side)) return getCableType().transferRate;
+			else return 0;
 		}
 
 		@Override
-		public long getMaxExtract(@Nullable Direction side) {
-			return getCableType().transferRate;
+		public long getMaxExtract(Direction side) {
+			if (allowTransfer(side)) return getCableType().transferRate;
+			else return 0;
 		}
 	};
-	private double energy = 0;
 	private TRContent.Cables cableType = null;
-	private ArrayList<Direction> sendingFace = new ArrayList<>();
 	private BlockState cover = null;
+	long lastTick = 0;
+	// null means that it needs to be re-queried
+	List<CableTarget> targets = null;
+	/**
+	 * Bitmask to prevent input or output into/from the cable when the cable already transferred in the target direction.
+	 * This prevents double transfer rates, and back and forth between two cables.
+	 */
+	int blockedSides = 0;
+	/**
+	 * This is only used during the cable tick, whereas blockedOperations is used between ticks.
+	 */
+	boolean ioBlocked = false;
 
 	public CableBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.CABLE, pos, state);
@@ -98,7 +103,7 @@ public class CableBlockEntity extends BlockEntity
 		this.cableType = type;
 	}
 
-	private TRContent.Cables getCableType() {
+	TRContent.Cables getCableType() {
 		if (cableType != null) {
 			return cableType;
 		}
@@ -111,6 +116,10 @@ public class CableBlockEntity extends BlockEntity
 		}
 		//Something has gone wrong if this happens
 		return TRContent.Cables.COPPER;
+	}
+
+	private boolean allowTransfer(Direction side) {
+		return !ioBlocked && (blockedSides & (1 << side.ordinal())) == 0;
 	}
 
 	public EnergyStorage getSideEnergyStorage(@Nullable Direction side) {
@@ -126,13 +135,6 @@ public class CableBlockEntity extends BlockEntity
 		if (world != null && !world.isClient) {
 			NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
 		}
-	}
-
-	public boolean canAcceptEnergy(@Nullable Direction direction) {
-		if (sendingFace.contains(direction)) {
-			return false;
-		}
-		return energyContainer.getCapacity() != getEnergy();
 	}
 
 	public long getEnergy() {
@@ -160,7 +162,7 @@ public class CableBlockEntity extends BlockEntity
 	public void readNbt(NbtCompound compound) {
 		super.readNbt(compound);
 		if (compound.contains("energy")) {
-			energy = compound.getDouble("energy");
+			energyContainer.amount = compound.getLong("energy");
 		}
 		if (compound.contains("cover")) {
 			cover = NbtHelper.toBlockState(compound.getCompound("cover"));
@@ -172,11 +174,15 @@ public class CableBlockEntity extends BlockEntity
 	@Override
 	public NbtCompound writeNbt(NbtCompound compound) {
 		super.writeNbt(compound);
-		compound.putDouble("energy", energy);
+		compound.putLong("energy", energyContainer.amount);
 		if (cover != null) {
 			compound.put("cover", NbtHelper.fromBlockState(cover));
 		}
 		return compound;
+	}
+
+	public void neighborUpdate() {
+		targets = null;
 	}
 
 	// Tickable
@@ -186,72 +192,7 @@ public class CableBlockEntity extends BlockEntity
 			return;
 		}
 
-		sendingFace.clear();
-
-		if (getEnergy() == 0) {
-			return;
-		}
-
-		ArrayList<EnergyStorage> acceptors = new ArrayList<>();
-		ArrayList<CableBlockEntity> cables = new ArrayList<>();
-
-		for (Direction face : Direction.values()) {
-			BlockPos adjPos = pos.offset(face);
-			BlockEntity blockEntity = world.getBlockEntity(adjPos);
-			EnergyStorage target = EnergyStorage.SIDED.find(world, adjPos, null, blockEntity, face.getOpposite());
-			if (target == null) {
-				continue;
-			}
-
-			if (blockEntity instanceof CableBlockEntity cableBlockEntity) {
-				if (cableBlockEntity.cableType != this.cableType) {
-					continue;
-				}
-				// Only need ones with energy stores less than ours
-				if (cableBlockEntity.getEnergy() < this.getEnergy()) {
-					cables.add(cableBlockEntity);
-				}
-
-
-			} else {
-				try (Transaction transaction = Transaction.openOuter()) {
-					if (target.insert(Long.MAX_VALUE, transaction) > 0) {
-						acceptors.add(target);
-						if (!sendingFace.contains(face)) {
-							sendingFace.add(face);
-						}
-					}
-				}
-			}
-		}
-
-		if (!acceptors.isEmpty()) {
-			Collections.shuffle(acceptors);
-
-			acceptors.forEach(t -> EnergyStorageUtil.move(
-					energyContainer.getSideStorage(null),
-					t,
-					Long.MAX_VALUE,
-					null
-			));
-		}
-
-
-		// Distribute energy between cables (TODO DIRTY FIX, until we game network cables)
-
-		if (!cables.isEmpty()) {
-
-			cables.add(this);
-			long energyTotal = cables.stream().mapToLong(CableBlockEntity::getEnergy).sum();
-			long remainingCount = cables.size();
-
-			for (CableBlockEntity cable : cables) {
-				long newEnergy = energyTotal / remainingCount;
-				cable.setEnergy(newEnergy);
-				energyTotal -= newEnergy;
-				remainingCount--;
-			}
-		}
+		CableTickManager.handleCableTick(this);
 	}
 
 	// IListInfoProvider
@@ -285,5 +226,68 @@ public class CableBlockEntity extends BlockEntity
 	@Override
 	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return new ItemStack(getCableType().block);
+	}
+
+	void appendTargets(List<OfferedEnergyStorage> targetStorages) {
+		ServerWorld serverWorld = (ServerWorld) world;
+
+		// Update our targets if necessary.
+		if (targets == null) {
+			BlockState newBlockState = getCachedState();
+
+			targets = new ArrayList<>();
+			for (Direction direction : Direction.values()) {
+				boolean foundSomething = false;
+
+				BlockPos adjPos = getPos().offset(direction);
+				BlockEntity adjBe = serverWorld.getBlockEntity(adjPos);
+
+				if (adjBe instanceof CableBlockEntity adjCable && adjCable.getCableType() == getCableType()) {
+					// Make sure cables are not used as regular targets.
+					foundSomething = true;
+				} else if (EnergyStorage.SIDED.find(serverWorld, adjPos, null, adjBe, direction.getOpposite()) != null) {
+					foundSomething = true;
+					targets.add(new CableTarget(
+							direction,
+							BlockApiCache.create(EnergyStorage.SIDED, serverWorld, adjPos)
+					));
+				}
+
+				newBlockState = newBlockState.with(CableBlock.PROPERTY_MAP.get(direction), foundSomething);
+			}
+
+			serverWorld.setBlockState(getPos(), newBlockState);
+		}
+
+		// Fill the list.
+		for (CableTarget target : targets) {
+			EnergyStorage storage = target.find();
+
+			if (storage == null) {
+				// Schedule a rebuild next tick.
+				// This is just a reference change, the iterator remains valid.
+				targets = null;
+			} else {
+				targetStorages.add(new OfferedEnergyStorage(this, target.directionTo, storage));
+			}
+		}
+
+		// Reset blocked sides.
+		blockedSides = 0;
+	}
+
+	private static final class CableTarget {
+		private final Direction directionTo;
+		private final BlockApiCache<EnergyStorage, Direction> cache;
+
+		CableTarget(Direction directionTo, BlockApiCache<EnergyStorage, Direction> cache) {
+			this.directionTo = directionTo;
+			this.cache = cache;
+		}
+
+		@Nullable
+		EnergyStorage find() {
+			return cache.find(directionTo.getOpposite());
+		}
 	}
 }

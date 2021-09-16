@@ -105,42 +105,6 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		cableShapeUtil = new CableShapeUtil(this);
 	}
 
-	public BooleanProperty getProperty(Direction facing) {
-		return switch (facing) {
-			case WEST -> WEST;
-			case NORTH -> NORTH;
-			case SOUTH -> SOUTH;
-			case UP -> UP;
-			case DOWN -> DOWN;
-			default -> EAST;
-		};
-	}
-
-	private BlockState makeConnections(World world, BlockPos pos) {
-		Boolean down = canConnectTo(world, pos, Direction.DOWN);
-		Boolean up = canConnectTo(world, pos, Direction.UP);
-		Boolean north = canConnectTo(world, pos, Direction.NORTH);
-		Boolean east = canConnectTo(world, pos, Direction.EAST);
-		Boolean south = canConnectTo(world, pos, Direction.SOUTH);
-		Boolean west = canConnectTo(world, pos, Direction.WEST);
-
-		return this.getDefaultState().with(DOWN, down).with(UP, up).with(NORTH, north).with(EAST, east)
-				.with(SOUTH, south).with(WEST, west);
-	}
-
-	private Boolean canConnectTo(WorldAccess world, BlockPos currentPos, Direction side) {
-		BlockPos adjPos = currentPos.offset(side);
-		BlockEntity adjBe = world.getBlockEntity(adjPos);
-		if (adjBe instanceof CableBlockEntity) {
-			return Boolean.TRUE;
-		}
-		// TODO: this doesn't work at all, fix this
-		else if (world instanceof ServerWorld sw && EnergyStorage.SIDED.find(sw, adjPos, null, adjBe, side.getOpposite()) != null) {
-			return Boolean.TRUE;
-		}
-		return Boolean.FALSE;
-	}
-
 	// BlockContainer
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
@@ -210,7 +174,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {
-		return makeConnections(context.getWorld(), context.getBlockPos())
+		return getDefaultState()
 				.with(WATERLOGGED, context.getWorld().getFluidState(context.getBlockPos()).getFluid() == Fluids.WATER);
 	}
 
@@ -221,8 +185,16 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		if (ourState.get(WATERLOGGED)) {
 			worldIn.getFluidTickScheduler().schedule(ourPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
 		}
-		Boolean value = canConnectTo(worldIn, otherPos, direction);
-		return ourState.with(getProperty(direction), value);
+		return ourState;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+		if (world.getBlockEntity(pos) instanceof CableBlockEntity cable) {
+			cable.neighborUpdate();
+		}
+		super.neighborUpdate(state, world, pos, block, fromPos, notify);
 	}
 
 	@SuppressWarnings("deprecation")
