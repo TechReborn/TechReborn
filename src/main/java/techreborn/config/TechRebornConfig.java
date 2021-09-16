@@ -40,13 +40,13 @@ public class TechRebornConfig {
 	public static int basicGenerationRateD = 3;
 
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicNightRate", comment = "Generation rate during night for Basic Solar Panel (Energy per tick)")
-	public static int basicGenerationRateN = 1;
+	public static int basicGenerationRateN = 0;
 
 	@Config(config = "generators", category = "solarPanelAdvanced", key = "advancedDayRate", comment = "Generation rate during day for Advanced Solar Panel (Energy per tick)")
 	public static int advancedGenerationRateD = 12;
 
 	@Config(config = "generators", category = "solarPanelAdvanced", key = "advancedNightRate", comment = "Generation rate during night for Advanced Solar Panel (Energy per tick)")
-	public static int advancedGenerationRateN = 2;
+	public static int advancedGenerationRateN = 0;
 
 	@Config(config = "generators", category = "solarPanelIndustrial", key = "industrialDayRate", comment = "Generation rate during day for Industrial Solar Panel (Energy per tick)")
 	public static int industrialGenerationRateD = 24;
