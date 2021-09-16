@@ -37,34 +37,34 @@ public class TechRebornConfig {
 	public static int solarInternalCapacityMultiplier = 2000;
 
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Energy per tick)")
-	public static int basicGenerationRateD = 1;
+	public static int basicGenerationRateD = 3;
 
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicNightRate", comment = "Generation rate during night for Basic Solar Panel (Energy per tick)")
-	public static int basicGenerationRateN = 0;
+	public static int basicGenerationRateN = 1;
 
 	@Config(config = "generators", category = "solarPanelAdvanced", key = "advancedDayRate", comment = "Generation rate during day for Advanced Solar Panel (Energy per tick)")
-	public static int advancedGenerationRateD = 4;
+	public static int advancedGenerationRateD = 12;
 
 	@Config(config = "generators", category = "solarPanelAdvanced", key = "advancedNightRate", comment = "Generation rate during night for Advanced Solar Panel (Energy per tick)")
-	public static int advancedGenerationRateN = 0;
+	public static int advancedGenerationRateN = 2;
 
 	@Config(config = "generators", category = "solarPanelIndustrial", key = "industrialDayRate", comment = "Generation rate during day for Industrial Solar Panel (Energy per tick)")
-	public static int industrialGenerationRateD = 8;
+	public static int industrialGenerationRateD = 24;
 
 	@Config(config = "generators", category = "solarPanelIndustrial", key = "industrialNightRate", comment = "Generation rate during night for Industrial Solar Panel (Energy per tick)")
-	public static int industrialGenerationRateN = 1;
+	public static int industrialGenerationRateN = 4;
 
 	@Config(config = "generators", category = "solarPanelUltimate", key = "ultimateDayRate", comment = "Generation rate during day for Ultimate Solar Panel (Energy per tick)")
-	public static int ultimateGenerationRateD = 16;
+	public static int ultimateGenerationRateD = 48;
 
 	@Config(config = "generators", category = "solarPanelUltimate", key = "ultimateNightRate", comment = "Generation rate during night for Ultimate Solar Panel (Energy per tick)")
-	public static int ultimateGenerationRateN = 4;
+	public static int ultimateGenerationRateN = 8;
 
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumDayRate", comment = "Generation rate during day for Quantum Solar Panel (Energy per tick)")
-	public static int quantumGenerationRateD = 128;
+	public static int quantumGenerationRateD = 512;
 
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Energy per tick)")
-	public static int quantumGenerationRateN = 16;
+	public static int quantumGenerationRateN = 32;
 
 	@Config(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Energy per tick)")
 	public static int lightningRodMaxOutput = 2048;
