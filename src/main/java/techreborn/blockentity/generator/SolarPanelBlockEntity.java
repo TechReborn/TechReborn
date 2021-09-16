@@ -55,11 +55,7 @@ import techreborn.init.TRContent.SolarPanels;
 
 public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
-	// Use int value for tracking if the panel is generating; would prefer to use boolean here, but something about
-	// sync layer doesn't like booleans
-	private static final int NOT_GENERATING = 0;
-	private static final int GENERATING = 1;
-	private int generating = NOT_GENERATING;
+	private boolean generating = false;
 
 	// Range of panel between day/night production; we calculate this only when panel is updated
 	private int dayNightRange = 0;
@@ -88,20 +84,16 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		dayNightRange = getPanel().generationRateD - getPanel().generationRateN;
 	}
 
-	// Setters and getters for the GUI to sync
-	private void setGenerating(int generating) { this.generating = generating;}
-	public int getGenerating() { return generating; }
-
 	// Setters/getters that provide boolean interface to underlying generating int; something about
 	// screen auto-sync REQUIRES an integer value (booleans don't get transmitted?!), so resorted to
 	// this ugly approach
-	public boolean isGenerating() { return getGenerating() == GENERATING; }
+	public boolean isGenerating() { return generating; }
 	private void setIsGenerating(boolean isGenerating) {
 		if (isGenerating != isGenerating()) {
 			// Update block state if necessary
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isGenerating));
 		}
-		setGenerating(isGenerating ? GENERATING : NOT_GENERATING);
+		this.generating = isGenerating;
 	}
 
 	SolarPanels getPanel() {
@@ -297,7 +289,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("solar_panel").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
-				.sync(this::getGenerating, this::setGenerating)
+				.sync(this::isGenerating, this::setIsGenerating)
 				.addInventory().create(this, syncID);
 	}
 }

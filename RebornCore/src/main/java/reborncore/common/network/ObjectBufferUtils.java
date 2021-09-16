@@ -59,6 +59,10 @@ public enum ObjectBufferUtils {
 		buffer.writeFloat(pos);
 	}, ExtendedPacketBuffer::readFloat),
 
+	BOOLEAN(Boolean.class, (value, buffer) -> {
+		buffer.writeBoolean(value);
+	}, ExtendedPacketBuffer::readBoolean),
+
 	BLOCK_POS(BlockPos.class, (pos, buffer) -> {
 		buffer.writeBlockPos(pos);
 	}, PacketByteBuf::readBlockPos),
