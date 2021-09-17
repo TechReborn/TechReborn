@@ -4,13 +4,13 @@
   "time": 300,
   "ingredients": [
     {
-      "tag": "c:sawdusts",
+      "tag": "c:saw_dusts",
 	  "count": 2
     }
   ],
   "results": [
     {
-      "item": "techreborn:wooden_plate"
+      "item": "techreborn:wood_plate"
     }
   ]
 }

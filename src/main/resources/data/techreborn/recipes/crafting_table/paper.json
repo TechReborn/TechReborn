@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
 	{
-	  "item": "c:sawdusts"
+	  "tag": "c:saw_dusts"
 	},
 	{
-	  "item": "c:sawdusts"
+	  "tag": "c:saw_dusts"
 	},
 	{
-	  "item": "c:sawdusts"
+	  "tag": "c:saw_dusts"
 	},
 	{
 	  "item": "minecraft:water_bucket"
