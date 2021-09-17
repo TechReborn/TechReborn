@@ -81,7 +81,7 @@ group = 'TechReborn'
 
 allprojects {
     def build_number = ENV.BUILD_NUMBER ?: "local"
-    version = "project.$mod_version+build.$build_number"
+    version = "${project.mod_version}+build.$build_number"
 
     apply plugin: "fabric-loom"
     apply plugin: "maven-publish"
