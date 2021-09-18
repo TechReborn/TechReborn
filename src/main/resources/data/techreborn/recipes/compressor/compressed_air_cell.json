@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 250,
+  "ingredients": [
+	{
+	  "item": "techreborn:cell"
+	}
+  ],
+  "results": [
+	{
+	  "item": "techreborn:cell",
+	  "count": 1,
+	  "nbt": {
+		"fluid": "techreborn:compressed_air"
+	  }
+	}
+  ]
+}
