@@ -56,8 +56,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-
-		if (world == null){
+		if (world == null || world.isClient){
 			return;
 		}
 

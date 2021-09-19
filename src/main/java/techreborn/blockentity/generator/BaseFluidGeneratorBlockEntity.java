@@ -79,16 +79,11 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-
-		if (world == null) {
+		if (world == null || world.isClient) {
 			return;
 		}
 
 		ticksSinceLastChange++;
-
-		if (world.isClient) {
-			return;
-		}
 
 		// Check cells input slot 2 time per second
 		if (ticksSinceLastChange >= 10) {

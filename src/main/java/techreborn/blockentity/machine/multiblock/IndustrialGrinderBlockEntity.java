@@ -78,20 +78,20 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	// TilePowerAcceptor
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		if (world == null){
+		super.tick(world, pos, state, blockEntity);
+		if (world == null || world.isClient){
 			return;
 		}
+
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
-		if (!world.isClient && ticksSinceLastChange >= 10) {
+		if (ticksSinceLastChange >= 10) {
 			if (!inventory.getStack(1).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 1, 6);
 				FluidUtils.fillContainers(tank, inventory, 1, 6);
 			}
 			ticksSinceLastChange = 0;
 		}
-
-		super.tick(world, pos, state, blockEntity);
 	}
 
 	@Override

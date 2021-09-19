@@ -114,10 +114,10 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
+		
 		this.charge(11);
 
 		for (int i = 0; i < 6; i++) {
