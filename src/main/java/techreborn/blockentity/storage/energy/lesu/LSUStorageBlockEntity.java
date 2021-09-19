@@ -88,6 +88,10 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
+		if (world == null || world.isClient) {
+			return;
+		}
+
 		if (network == null) {
 			findAndJoinNetwork(world, pos);
 		} else {

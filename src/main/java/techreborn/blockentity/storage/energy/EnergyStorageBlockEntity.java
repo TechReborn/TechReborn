@@ -69,12 +69,10 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null) {
+		if (world == null || world.isClient) {
 			return;
 		}
-		if (world.isClient) {
-			return;
-		}
+
 		if (!inventory.getStack(0).isEmpty()) {
 			discharge(0);
 		}

@@ -56,7 +56,7 @@ public class DrainBlockEntity extends MachineBaseBlockEntity {
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
 

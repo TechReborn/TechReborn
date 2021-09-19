@@ -148,12 +148,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-
-		if (world == null) {
-			return;
-		}
-
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
 

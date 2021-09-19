@@ -65,23 +65,20 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-
-		if (world == null) {
+		if (world == null || world.isClient) {
 			return;
 		}
 
-		if (!world.isClient) {
-			if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
-					.getBlock() == Blocks.DRAGON_EGG) {
-				if (tryAddingEnergy(TechRebornConfig.dragonEggSyphonEnergyPerTick))
-					lastOutput = world.getTime();
-			}
+		if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
+				.getBlock() == Blocks.DRAGON_EGG) {
+			if (tryAddingEnergy(TechRebornConfig.dragonEggSyphonEnergyPerTick))
+				lastOutput = world.getTime();
+		}
 
-			if (world.getTime() - lastOutput < 30 && !isActive()) {
-				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
-			} else if (world.getTime() - lastOutput > 30 && isActive()) {
-				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
-			}
+		if (world.getTime() - lastOutput < 30 && !isActive()) {
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
+		} else if (world.getTime() - lastOutput > 30 && isActive()) {
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 		}
 	}
 
