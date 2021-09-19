@@ -454,8 +454,8 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	@Override
 	protected boolean isClickOutsideBounds(double mouseX, double mouseY, int left, int top, int mouseButton) {
-		//Expanded the width to allow for the upgrades
-		return super.isClickOutsideBounds(mouseX + 40, mouseY, left + 40, top, mouseButton);
+		// Upgrades are normally outside of the bounds, so let's pretend we are within the bounds if there is a slot here.
+		return getSlotAt(mouseX, mouseY) == null && super.isClickOutsideBounds(mouseX, mouseY, left, top, mouseButton);
 	}
 
 	public List<GuiTab> getTabs() {
