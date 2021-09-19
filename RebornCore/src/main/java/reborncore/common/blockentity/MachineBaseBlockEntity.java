@@ -155,6 +155,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 					((IUpgrade) stack.getItem()).process(this, this, stack);
 				}
 			}
+			afterUpgradesApplication();
 		}
 		if (world == null || world.isClient) {
 			return;
@@ -173,6 +174,9 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public void resetUpgrades() {
 		resetPowerMulti();
 		resetSpeedMulti();
+	}
+
+	protected void afterUpgradesApplication() {
 	}
 
 	public int getFacingInt() {
