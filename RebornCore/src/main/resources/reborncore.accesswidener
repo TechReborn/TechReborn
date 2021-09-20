@@ -3,3 +3,5 @@ accessWidener	v1	named
 accessible    method    net/minecraft/recipe/ShapedRecipe    readSymbols    (Lcom/google/gson/JsonObject;)Ljava/util/Map;
 accessible    method    net/minecraft/recipe/ShapedRecipe    getPattern    (Lcom/google/gson/JsonArray;)[Ljava/lang/String;
 accessible    method    net/minecraft/recipe/ShapedRecipe    createPatternMatrix    ([Ljava/lang/String;Ljava/util/Map;II)Lnet/minecraft/util/collection/DefaultedList;
+
+accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen    getSlotAt     (DD)Lnet/minecraft/screen/slot/Slot;
