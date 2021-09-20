@@ -81,7 +81,7 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public long getBaseMaxPower() {
 		if (isFormed) {
-			return cells * E_PER_CELL;
+			return getEstimatedCapacity();
 		} else {
 			return 0;
 		}
@@ -140,6 +140,10 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 			this.layers = Math.max(1, this.layers + layersDelta);
 			this.cells = newCells;
 		}
+	}
+
+	public long getEstimatedCapacity() {
+		return cells * E_PER_CELL;
 	}
 
 	public boolean isFormed() { return isFormed; }
