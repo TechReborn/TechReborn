@@ -57,6 +57,7 @@ import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.MoltenSaltBatteryBlockEntity;
 import techreborn.blocks.DataDrivenMachineBlock;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
@@ -116,6 +117,7 @@ public class TRContent {
 	public static Block STRIPPED_RUBBER_WOOD;
 	public static Block POTTED_RUBBER_SAPLING;
 	public static Block COPPER_WALL;
+	public static Block SULFUR_BLOCK;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -561,6 +563,8 @@ public class TRContent {
 		MV_TRANSFORMER(new BlockMVTransformer()),
 		HV_TRANSFORMER(new BlockHVTransformer()),
 		EV_TRANSFORMER(new BlockEVTransformer()),
+
+		MOLTEN_SALT_BATTERY(new GenericMachineBlock(GuiType.MOLTEN_SALT_BATTERY, MoltenSaltBatteryBlockEntity::new)),
 
 		ALARM(new BlockAlarm()),
 		CHUNK_LOADER(new GenericMachineBlock(GuiType.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),

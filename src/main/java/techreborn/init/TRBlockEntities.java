@@ -59,6 +59,7 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.MoltenSaltBatteryBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LSUStorageBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
@@ -73,6 +74,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
+import techreborn.init.TRContent.Machine;
 
 public class TRBlockEntities {
 
@@ -128,6 +130,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<MVTransformerBlockEntity> MV_TRANSFORMER = register(MVTransformerBlockEntity::new, "mv_transformer", TRContent.Machine.MV_TRANSFORMER);
 	public static final BlockEntityType<HVTransformerBlockEntity> HV_TRANSFORMER = register(HVTransformerBlockEntity::new, "hv_transformer", TRContent.Machine.HV_TRANSFORMER);
 	public static final BlockEntityType<EVTransformerBlockEntity> EV_TRANSFORMER = register(EVTransformerBlockEntity::new, "ev_transformer", TRContent.Machine.EV_TRANSFORMER);
+	public static final BlockEntityType<MoltenSaltBatteryBlockEntity> MOLTEN_SALT_BATTERY = register(MoltenSaltBatteryBlockEntity::new, "molen_salt_battery", TRContent.Machine.MOLTEN_SALT_BATTERY);
 	public static final BlockEntityType<AutoCraftingTableBlockEntity> AUTO_CRAFTING_TABLE = register(AutoCraftingTableBlockEntity::new, "auto_crafting_table", TRContent.Machine.AUTO_CRAFTING_TABLE);
 	public static final BlockEntityType<IronFurnaceBlockEntity> IRON_FURNACE = register(IronFurnaceBlockEntity::new, "iron_furnace", TRContent.Machine.IRON_FURNACE);
 	public static final BlockEntityType<ScrapboxinatorBlockEntity> SCRAPBOXINATOR = register(ScrapboxinatorBlockEntity::new, "scrapboxinator", TRContent.Machine.SCRAPBOXINATOR);

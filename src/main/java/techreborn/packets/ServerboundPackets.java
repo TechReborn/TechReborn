@@ -39,6 +39,7 @@ import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.MoltenSaltBatteryBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -54,6 +55,7 @@ public class ServerboundPackets {
 	public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
 	public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
 	public static final Identifier DETECTOR_RADIUS = new Identifier(TechReborn.MOD_ID, "detector_radius");
+	public static final Identifier BATTERY_DIMENSIONS = new Identifier(TechReborn.MOD_ID, "battery_dimensions");
 
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
@@ -171,6 +173,20 @@ public class ServerboundPackets {
 				}
 			});
 		}));
+
+
+		NetworkManager.registerServerBoundHandler(BATTERY_DIMENSIONS, ((server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+			int radiusDelta = buf.readInt();
+			int layersDelta = buf.readInt();
+
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				if (blockEntity instanceof MoltenSaltBatteryBlockEntity) {
+					((MoltenSaltBatteryBlockEntity)blockEntity).changeDimensions(radiusDelta, layersDelta);
+				}
+			});
+		}));
 	}
 
 	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
@@ -233,6 +249,14 @@ public class ServerboundPackets {
 		return NetworkManager.createServerBoundPacket(DETECTOR_RADIUS, buf -> {
 			buf.writeBlockPos(blockEntity.getPos());
 			buf.writeInt(buttonAmount);
+		});
+	}
+
+	public static IdentifiedPacket createPacketBatteryDimensions(MoltenSaltBatteryBlockEntity blockEntity, int radiusDelta, int layerDelta) {
+		return NetworkManager.createServerBoundPacket(BATTERY_DIMENSIONS, buf -> {
+			buf.writeBlockPos(blockEntity.getPos());
+			buf.writeInt(radiusDelta);
+			buf.writeInt(layerDelta);
 		});
 	}
 }

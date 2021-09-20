@@ -107,6 +107,8 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.RUBBER_DOOR = InitUtils.setup(new RubberDoorBlock(), "rubber_door"), itemGroup);
 		RebornRegistry.registerBlockNoItem(TRContent.POTTED_RUBBER_SAPLING = InitUtils.setup(new FlowerPotBlock(TRContent.RUBBER_SAPLING, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()), "potted_rubber_sapling"));
 		RebornRegistry.registerBlock(TRContent.COPPER_WALL = InitUtils.setup(new WallBlock(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL)), "copper_wall"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.SULFUR_BLOCK = InitUtils.setup(new Block(FabricBlockSettings.of(Material.SOIL).strength(1f, 1f).sounds(BlockSoundGroup.SAND)), "sulfur_block"), itemGroup);
+
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}
