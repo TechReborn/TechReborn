@@ -93,6 +93,7 @@ public class TechReborn implements ModInitializer {
 		//noinspection ResultOfMethodCallIgnored
 		GuiType.AESU.getIdentifier();
 		TRDispenserBehavior.init();
+		TRCauldronBehavior.init();
 		PoweredCraftingHandler.setup();
 		UseBlockHandler.init();
 		ApplyArmorToDamageHandler.init();

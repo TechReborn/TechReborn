@@ -186,6 +186,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 						ItemStack itemStack = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
 						if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemFluidInfo) {
 							Fluid drainFluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
+							// TODO: Change to ItemUsage.exchangeStack
 							if (stack.getCount() == 1) {
 								stack = getCellWithFluid(drainFluid, 1);
 							} else {
