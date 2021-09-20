@@ -78,7 +78,7 @@ public class WrenchUtils {
 							net.minecraft.util.ItemScatterer.spawn(worldIn, pos.getX(), pos.getY(), pos.getZ(), drop);
 						}
 						worldIn.removeBlockEntity(pos);
-						worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+						worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 					}
 					worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSounds.BLOCK_DISMANTLE,
 							SoundCategory.BLOCKS, 0.6F, 1F);
