@@ -346,7 +346,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		super.readNbt(tag);
 		NbtCompound data = tag.getCompound("PowerAcceptor");
 		if (shouldHandleEnergyNBT()) {
-			this.setStored(data.getLong("energy"));
+			// Bypass the overfill check in setStored() because upgrades have not yet been applied.
+			this.energyContainer.amount = data.getLong("energy");
 		}
 	}
 
@@ -365,6 +366,13 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		extraPowerStorage = 0;
 		extraTier = 0;
 		extraPowerInput = 0;
+	}
+
+	@Override
+	protected void afterUpgradesApplication() {
+		if (checkOverfill && getStored() > getMaxStoredPower()) {
+			setStored(getStored());
+		}
 	}
 
 	public long getStored() {
