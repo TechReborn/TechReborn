@@ -151,6 +151,24 @@ public interface MultiblockWriter {
 		return this;
 	}
 
+	default MultiblockWriter cylinder(int radius, BlockState border, BlockState fill) {
+		double rSquared = Math.pow(radius, 2);
+		for (int x = -radius; x <= radius; x++) {
+			for (int z = -radius; z <= radius; z++) {
+				double dist = (Math.pow(x, 2) + Math.pow(z, 2));
+				double diff = Math.abs(rSquared - dist);
+				if (diff < radius) {
+					add(x, 0, z, border);
+				} else if (dist < rSquared) {
+					add(x, 0, z, fill);
+				}
+			}
+		}
+		return this;
+	}
+
+
+
 	default MultiblockWriter ringWithAir(Direction.Axis through, int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
 		return ring(through, x, y, z, predicate, state, (view, pos) -> view.getBlockState(pos).getBlock() == Blocks.AIR, Blocks.AIR.getDefaultState());
 	}
