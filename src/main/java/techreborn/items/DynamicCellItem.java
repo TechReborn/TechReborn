@@ -35,6 +35,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -55,6 +56,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
@@ -171,51 +173,55 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		BlockHitResult hitResult = raycast(world, player, containedFluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
 		if (hitResult.getType() == HitResult.Type.MISS) {
 			return TypedActionResult.pass(stack);
-		} else if (hitResult.getType() != HitResult.Type.BLOCK) {
+		}
+		if (hitResult.getType() != HitResult.Type.BLOCK) {
 			return TypedActionResult.pass(stack);
+		}
+
+		BlockPos hitPos = hitResult.getBlockPos();
+		if (!world.canPlayerModifyAt(player, hitPos)) {
+			return TypedActionResult.fail(stack);
+		}
+
+		Direction side = hitResult.getSide();
+		BlockPos placePos = hitPos.offset(side);
+		if (!player.canPlaceOn(placePos, side, stack)) {
+			return TypedActionResult.fail(stack);
+		}
+
+		BlockState hitState = world.getBlockState(hitPos);
+
+		if (containedFluid == Fluids.EMPTY) {
+			if (!(hitState.getBlock() instanceof FluidDrainable fluidDrainable)) {
+				return TypedActionResult.fail(stack);
+			}
+			// This will give us bucket, not a cell
+			ItemStack itemStack = fluidDrainable.tryDrainFluid(world, hitPos, hitState);
+			if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemFluidInfo) {
+				Fluid drainFluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
+				fluidDrainable.getBucketFillSound().ifPresent((sound) -> player.playSound(sound, 1.0F, 1.0F));
+				world.emitGameEvent(player, GameEvent.FLUID_PICKUP, hitPos);
+				// Replace bucket item with cell item
+				itemStack = getCellWithFluid(drainFluid, 1);
+				ItemStack resultStack = ItemUsage.exchangeStack(stack, player, itemStack);
+				return TypedActionResult.success(resultStack, world.isClient());
+			}
 		} else {
-			BlockPos hitPos = hitResult.getBlockPos();
-			BlockState hitState = world.getBlockState(hitPos);
+			BlockState placeState = world.getBlockState(placePos);
+			if (placeState.canBucketPlace(containedFluid)) {
+				placeFluid(player, world, placePos, hitResult, stack);
 
-			Direction side = hitResult.getSide();
-			BlockPos placePos = hitPos.offset(side);
-
-			if (world.canPlayerModifyAt(player, hitPos) && player.canPlaceOn(placePos, side, stack)) {
-				if (containedFluid == Fluids.EMPTY) {
-					if (hitState.getBlock() instanceof FluidDrainable) {
-						ItemStack itemStack = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
-						if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemFluidInfo) {
-							Fluid drainFluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
-							// TODO: Change to ItemUsage.exchangeStack
-							if (stack.getCount() == 1) {
-								stack = getCellWithFluid(drainFluid, 1);
-							} else {
-								stack.decrement(1);
-								insertOrDropStack(player, getCellWithFluid(drainFluid, 1));
-							}
-
-							playEmptyingSound(player, world, hitPos, drainFluid);
-							return TypedActionResult.success(stack);
-						}
-					}
-
+				if (stack.getCount() == 1) {
+					stack = getEmpty();
 				} else {
-					BlockState placeState = world.getBlockState(placePos);
-					if (placeState.canBucketPlace(containedFluid)) {
-						placeFluid(player, world, placePos, hitResult, stack);
-
-						if (stack.getCount() == 1) {
-							stack = getEmpty();
-						} else {
-							stack.decrement(1);
-							insertOrDropStack(player, getEmpty());
-						}
-
-						return TypedActionResult.success(stack);
-					}
+					stack.decrement(1);
+					insertOrDropStack(player, getEmpty());
 				}
+
+				return TypedActionResult.success(stack);
 			}
 		}
+
 		return TypedActionResult.fail(stack);
 	}
 
