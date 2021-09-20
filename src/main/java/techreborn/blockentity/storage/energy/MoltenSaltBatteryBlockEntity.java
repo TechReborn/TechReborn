@@ -1,7 +1,6 @@
 package techreborn.blockentity.storage.energy;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +31,7 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 
 	public MoltenSaltBatteryBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.MOLTEN_SALT_BATTERY, pos, state, "MoltenSaltBattery",
-			  RcEnergyTier.LOW.getMaxInput(), -1, Machine.	MOLTEN_SALT_BATTERY.block, -1);
+			  RcEnergyTier.LOW.getMaxInput(), -1, Machine.MOLTEN_SALT_BATTERY.block, -1);
 	}
 
 	@Override
@@ -106,8 +105,7 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state,
-		  MachineBaseBlockEntity blockEntity) {
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
 		if (world == null || world.isClient) {
 			return;
