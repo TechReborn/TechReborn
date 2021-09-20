@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+	{
+	  "item": "techreborn:sulfur_block"
+	}
+  ],
+  "result": {
+	"item": "techreborn:sulfur_dust",
+	"count": 9
+  }
+}
