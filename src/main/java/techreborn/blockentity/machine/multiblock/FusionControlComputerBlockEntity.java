@@ -96,7 +96,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			}
 			int percentage = percentage(r.getStartEnergy(), getEnergy());
 			return new LiteralText("Charging (")
-					.append(StringUtils.getPercentageText(percentage));
+					.append(StringUtils.getPercentageText(percentage))
+					.append(")");
 		} else if (state == 2) {
 			return new LiteralText("Crafting");
 		}
