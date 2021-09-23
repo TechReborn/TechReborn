@@ -151,14 +151,28 @@ public interface MultiblockWriter {
 		return this;
 	}
 
-	default MultiblockWriter cylinder(int radius, BlockState border, BlockState fill) {
+	default MultiblockWriter cylinderSolid(int radius, BiPredicate<BlockView, BlockPos> predicate, BlockState fill) {
+		double rSquared = Math.pow(radius, 2);
+		for (int x = -radius; x <= radius; x++) {
+			for (int z = -radius; z <= radius; z++) {
+				double dist = (Math.pow(x, 2) + Math.pow(z, 2));
+				double diff = Math.abs(rSquared - dist);
+				if (diff < radius || dist < rSquared) {
+					add(x, 0, z, predicate, fill);
+				}
+			}
+		}
+		return this;
+	}
+
+	default MultiblockWriter cylinder(int radius, BiPredicate<BlockView, BlockPos> predicate, BlockState border, BlockState fill) {
 		double rSquared = Math.pow(radius, 2);
 		for (int x = -radius; x <= radius; x++) {
 			for (int z = -radius; z <= radius; z++) {
 				double dist = (Math.pow(x, 2) + Math.pow(z, 2));
 				double diff = Math.abs(rSquared - dist);
 				if (diff < radius) {
-					add(x, 0, z, border);
+					add(x, 0, z, predicate, border);
 				} else if (dist < rSquared) {
 					add(x, 0, z, fill);
 				}
