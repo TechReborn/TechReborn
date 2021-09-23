@@ -39,7 +39,7 @@ import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.energy.MoltenSaltBatteryBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;

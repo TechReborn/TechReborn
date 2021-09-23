@@ -68,7 +68,7 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
-import techreborn.blockentity.storage.energy.MoltenSaltBatteryBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;

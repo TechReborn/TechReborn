@@ -41,7 +41,6 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
 
-import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -57,7 +56,8 @@ import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.energy.MoltenSaltBatteryBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltPortBlockEntity;
 import techreborn.blocks.DataDrivenMachineBlock;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
@@ -72,6 +72,7 @@ import techreborn.blocks.machine.tier1.PlayerDetectorBlock;
 import techreborn.blocks.machine.tier1.ResinBasinBlock;
 import techreborn.blocks.misc.*;
 import techreborn.blocks.storage.energy.*;
+import techreborn.blocks.storage.energy.msb.MoltenSaltPortBlock;
 import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.storage.item.StorageUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
@@ -565,6 +566,7 @@ public class TRContent {
 		EV_TRANSFORMER(new BlockEVTransformer()),
 
 		MOLTEN_SALT_BATTERY(new GenericMachineBlock(GuiType.MOLTEN_SALT_BATTERY, MoltenSaltBatteryBlockEntity::new)),
+		MOLTEN_SALT_PORT(new MoltenSaltPortBlock()),
 
 		ALARM(new BlockAlarm()),
 		CHUNK_LOADER(new GenericMachineBlock(GuiType.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),

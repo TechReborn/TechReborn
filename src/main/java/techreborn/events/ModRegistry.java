@@ -38,6 +38,8 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltPortBlockEntity;
 import techreborn.blocks.misc.*;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.*;
@@ -236,5 +238,7 @@ public class ModRegistry {
 
 	private static void registerApis() {
 		EnergyStorage.SIDED.registerForBlockEntities((be, direction) -> ((CableBlockEntity) be).getSideEnergyStorage(direction), TRBlockEntities.CABLE);
+		EnergyStorage.SIDED.registerForBlockEntities((be, direction) -> ((MoltenSaltBatteryBlockEntity) be).getSideEnergyStorage(direction), TRBlockEntities.MOLTEN_SALT_BATTERY);
+		EnergyStorage.SIDED.registerForBlockEntities((be, direction) -> ((MoltenSaltPortBlockEntity) be).getEnergyStorage(), TRBlockEntities.MOLTEN_SALT_PORT);
 	}
 }

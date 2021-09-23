@@ -1,10 +1,16 @@
-package techreborn.blockentity.storage.energy;
+package techreborn.blockentity.storage.energy.msb;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.BiPredicate;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -13,6 +19,7 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.powerSystem.RcEnergyTier;
+import team.reborn.energy.api.EnergyStorage;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
@@ -21,13 +28,15 @@ import techreborn.init.TRContent.Machine;
 
 public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	private static final int E_PER_CELL = 10000000;
+	private static final long E_PER_CELL = 10000000;
 
 	private int radius = 1;
 	private int layers = 1;
 	private int cells = calculateCells(1, 1);
 
 	private boolean isFormed = false;
+
+	private Set<BlockPos> pendingPorts = new HashSet<>();
 
 	public MoltenSaltBatteryBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.MOLTEN_SALT_BATTERY, pos, state, "MoltenSaltBattery",
@@ -56,12 +65,24 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState casing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
-		writer = writer.translate(radius+1, 0, 0).cylinder(radius, casing, casing);
+		BlockState port = Machine.MOLTEN_SALT_PORT.block.getDefaultState();
+
+		BiPredicate<BlockView, BlockPos> casingOrPort = (view, pos) -> {
+			BlockState s = view.getBlockState(pos);
+			if (s == port) {
+				pendingPorts.add(pos);
+				return true;
+			}
+
+			return s == casing;
+		};
+
+		writer = writer.translate(radius+1, 0, 0).cylinderSolid(radius, casingOrPort, casing);
 		for (int i = 0; i < layers; i++) {
-			writer = writer.translate(0, 1, 0).cylinder(radius, casing, TRContent.SULFUR_BLOCK.getDefaultState())
-				  .translate(0, 1, 0).cylinder(radius, casing, ModFluids.SODIUM.getBlock().getDefaultState());
+			writer = writer.translate(0, 1, 0).cylinder(radius, casingOrPort, casing, TRContent.SULFUR_BLOCK.getDefaultState())
+				  .translate(0, 1, 0).cylinder(radius, casingOrPort, casing, ModFluids.SODIUM.getBlock().getDefaultState());
 		}
-		writer.translate(0, 1, 0).cylinder(radius, casing, casing);
+		writer.translate(0, 1, 0).cylinderSolid(radius, casingOrPort, casing);
 	}
 
 	@Override
@@ -113,7 +134,23 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 
 		// Every 250ms, check if multiblock is formed
 		if (ticktime % 5 == 0) {
-			isFormed = isMultiblockValid();
+			pendingPorts.clear();
+			boolean isFormedPending = isMultiblockValid();
+			if (isFormedPending != isFormed) {
+				// Change of formation state
+				if (isFormedPending) {
+					// Not formed -> formed; register all pending ports
+					for (BlockPos pendingPort : pendingPorts) {
+						BlockEntity portEntity = world.getBlockEntity(pendingPort);
+						if (portEntity instanceof MoltenSaltPortBlockEntity) {
+
+						}
+					}
+
+				} else {
+					// Formed -> not formed
+				}
+			}
 		}
 	}
 
@@ -133,9 +170,8 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	public void changeDimensions(int radiusDelta, int layersDelta) {
-		// Limit dimensions such that we will not overflow a long in energy storage
 		int newCells = calculateCells(this.radius + radiusDelta, this.layers + layersDelta);
-		if (newCells > 0 && newCells <= 200) {
+		if (newCells > 0) {
 			this.radius = Math.max(1, this.radius + radiusDelta);
 			this.layers = Math.max(1, this.layers + layersDelta);
 			this.cells = newCells;
@@ -143,7 +179,7 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	public long getEstimatedCapacity() {
-		return cells * E_PER_CELL;
+		return E_PER_CELL * (long)cells;
 	}
 
 	public boolean isFormed() { return isFormed; }

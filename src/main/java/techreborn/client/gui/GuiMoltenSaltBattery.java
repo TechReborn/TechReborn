@@ -1,21 +1,18 @@
 package techreborn.client.gui;
 
 import java.awt.Color;
-import java.util.Optional;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
-import org.apache.commons.lang3.tuple.Pair;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
-import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.blockentity.storage.energy.MoltenSaltBatteryBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
 public class GuiMoltenSaltBattery extends GuiBase<BuiltScreenHandler> {
