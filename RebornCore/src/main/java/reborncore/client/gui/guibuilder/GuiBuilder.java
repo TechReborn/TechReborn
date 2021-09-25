@@ -572,7 +572,7 @@ public class GuiBuilder {
 	 * @param buttonID        int Button ID used to switch energy systems
 	 * @param layer           Layer Layer to draw on
 	 */
-	public void drawMultiEnergyBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX,
+	public void drawMultiEnergyBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, long energyStored, long maxEnergyStored, int mouseX,
 								   int mouseY, int buttonID, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
