@@ -92,6 +92,12 @@
   "block.techreborn.wire_mill": "Wire Mill",
   "block.techreborn.greenhouse_controller": "Greenhouse controller",
 
+  "block.techreborn.molten_salt_battery": "Molten-salt Battery",
+  "block.techreborn.machines.energy.msb_port_mv": "Molten-salt Battery Port - MV",
+  "block.techreborn.machines.energy.msb_port_hv": "Molten-salt Battery Port - HV",
+  "block.techreborn.machines.energy.msb_port_ev": "Molten-salt Battery Port - EV",
+  "block.techreborn.machines.energy.msb_port_sc": "Molten-salt Battery Port - Superconducting",
+
   "_comment1": "Blocks",
   "block.techreborn.rubber_log": "Rubber Log",
   "block.techreborn.rubber_log_stripped": "Stripped Rubber Log",

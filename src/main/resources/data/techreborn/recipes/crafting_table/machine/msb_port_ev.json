@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	" C ",
+	"CMC",
+	" C "
+  ],
+  "key": {
+	"C": {
+	  "item": "techreborn:glassfiber_cable"
+	},
+	"M": {
+	  "item": "techreborn:machines/energy/msb_port_hv"
+	}
+  },
+  "result": {
+	"item": "techreborn:machines/energy/msb_port_ev"
+  }
+}
