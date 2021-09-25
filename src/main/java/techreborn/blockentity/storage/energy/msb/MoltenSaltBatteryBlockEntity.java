@@ -21,35 +21,48 @@ import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.powerSystem.RcEnergyTier;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
+import techreborn.blocks.storage.energy.msb.MoltenSaltPortBlock;
 import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
+import techreborn.init.TRContent.MoltenSaltPorts;
 
-public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
+public class MoltenSaltBatteryBlockEntity extends MachineBaseBlockEntity implements BuiltScreenHandlerProvider {
+
+	private final BatteryEnergyStore energyStore = new BatteryEnergyStore() {
+		@Override
+		protected void onFinalCommit() {
+			MoltenSaltBatteryBlockEntity.this.markDirty();
+		}
+	};
+
+	private final EnergyStorage localInserter = energyStore.newView(RcEnergyTier.LOW.getMaxInput(), 0);
+	private final EnergyStorage localExtractor = energyStore.newView(0, RcEnergyTier.LOW.getMaxOutput());
 
 	private static final long E_PER_CELL = 10000000;
 
-	private int radius = 1;
-	private int layers = 1;
-	private int cells = calculateCells(1, 1);
+	private int radius;
+	private int layers;
+	private int cells;
 
 	private boolean isFormed = false;
 
-	private Set<BlockPos> pendingPorts = new HashSet<>();
+	private Set<BlockPos> ports = new HashSet<>();
 
 	public MoltenSaltBatteryBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.MOLTEN_SALT_BATTERY, pos, state, "MoltenSaltBattery",
-			  RcEnergyTier.LOW.getMaxInput(), -1, Machine.MOLTEN_SALT_BATTERY.block, -1);
+		super(TRBlockEntities.MOLTEN_SALT_BATTERY, pos, state);
+		updateCapacity(1, 1);
 	}
 
 	@Override
 	public void readNbt(NbtCompound tag) {
 		super.readNbt(tag);
 		NbtCompound data = tag.getCompound("MoltenSaltBattery");
-		radius = Math.max(1, data.getInt("radius"));
-		layers = Math.max(1, data.getInt("layers"));
-		cells = calculateCells(radius, layers);
+		updateCapacity(
+			  Math.max(1, data.getInt("radius")),
+			  Math.max(1, data.getInt("layers")));
+		energyStore.setAmount(Math.max(0, data.getLong("energy")));
 	}
 
 	@Override
@@ -58,6 +71,7 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 		NbtCompound data = new NbtCompound();
 		data.putInt("radius", radius);
 		data.putInt("layers", layers);
+		data.putLong("energy", energyStore.getAmount());
 		tag.put("MoltenSaltBattery", data);
 		return tag;
 	}
@@ -65,12 +79,11 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState casing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
-		BlockState port = Machine.MOLTEN_SALT_PORT.block.getDefaultState();
 
 		BiPredicate<BlockView, BlockPos> casingOrPort = (view, pos) -> {
 			BlockState s = view.getBlockState(pos);
-			if (s == port) {
-				pendingPorts.add(pos);
+			if (MoltenSaltPorts.BLOCKS.containsKey(s.getBlock())) {
+				ports.add(pos);
 				return true;
 			}
 
@@ -91,39 +104,25 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 		return new ScreenHandlerBuilder("molten_salt_battery")
 			  .player(player.getInventory()).inventory().hotbar()
 			  .addInventory().blockEntity(this)
-			  .syncEnergyValue()
 			  .sync(this::getCells, this::setCells)
 			  .sync(this::getRadius, this::setRadius)
 			  .sync(this::getLayers, this::setLayers)
 			  .sync(this::isFormed, this::setIsFormed)
+			  .sync(this.energyStore::getAmount, this.energyStore::setAmount)
+			  .sync(this.energyStore::getCapacity, this.energyStore::setCapacity)
 			  .addInventory().create(this, syncID);
 	}
 
-	@Override
-	public long getBaseMaxPower() {
-		if (isFormed) {
-			return getEstimatedCapacity();
+	public EnergyStorage getSideEnergyStorage(Direction direction) {
+		if (direction == Direction.UP || direction == Direction.DOWN) {
+			return localExtractor;
 		} else {
-			return 0;
-		}
-	}
-
-	@Override
-	public long getBaseMaxOutput() {
-		if (isFormed) {
-			return RcEnergyTier.LOW.getMaxOutput();
-		} else {
-			return 0;
+			return localInserter;
 		}
 	}
 
 	@Override
 	public boolean canBeUpgraded() { return false; }
-
-	@Override
-	public boolean canProvideEnergy(@Nullable Direction side) {
-		return (isFormed && (side == Direction.DOWN || side == Direction.UP));
-	}
 
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
@@ -134,24 +133,41 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 
 		// Every 250ms, check if multiblock is formed
 		if (ticktime % 5 == 0) {
-			pendingPorts.clear();
+			ports.clear();
 			boolean isFormedPending = isMultiblockValid();
 			if (isFormedPending != isFormed) {
 				// Change of formation state
 				if (isFormedPending) {
-					// Not formed -> formed; register all pending ports
-					for (BlockPos pendingPort : pendingPorts) {
-						BlockEntity portEntity = world.getBlockEntity(pendingPort);
+					// Not formed -> formed; register all ports
+					for (BlockPos port : ports) {
+						BlockEntity portEntity = world.getBlockEntity(port);
 						if (portEntity instanceof MoltenSaltPortBlockEntity) {
-
+							((MoltenSaltPortBlockEntity)portEntity).link(this.energyStore);
 						}
 					}
+				}
+				isFormed = isFormedPending;
+				energyStore.setEnabled(isFormed);
+			}
+		}
 
-				} else {
-					// Formed -> not formed
+		// If multiblock is formed, tick discharge on each of the ports
+		if (isFormed) {
+			for (BlockPos port : ports) {
+				BlockEntity portEntity = world.getBlockEntity(port);
+				if (portEntity instanceof MoltenSaltPortBlockEntity) {
+//					((MoltenSaltPortBlockEntity) portEntity).dischargeTick();
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos,
+		  BlockState blockState) {
+		// Make sure to disable the energy store; ports will still have a reference to it and this stops them
+		// from producing/consuming further
+		energyStore.setEnabled(false);
 	}
 
 	private int calculateCells(int radius, int layers) {
@@ -170,16 +186,17 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	public void changeDimensions(int radiusDelta, int layersDelta) {
-		int newCells = calculateCells(this.radius + radiusDelta, this.layers + layersDelta);
-		if (newCells > 0) {
-			this.radius = Math.max(1, this.radius + radiusDelta);
-			this.layers = Math.max(1, this.layers + layersDelta);
-			this.cells = newCells;
-		}
+		updateCapacity(this.radius + radiusDelta, this.layers + layersDelta);
 	}
 
-	public long getEstimatedCapacity() {
-		return E_PER_CELL * (long)cells;
+	private void updateCapacity(int newRadius, int newLayers) {
+		int newCells = calculateCells(newRadius, newLayers);
+		if (newCells > 0) {
+			this.radius = Math.max(1, newRadius);
+			this.layers = Math.max(1, newLayers);
+			this.cells = newCells;
+			energyStore.setCapacity(E_PER_CELL * (long)cells);
+		}
 	}
 
 	public boolean isFormed() { return isFormed; }
@@ -193,4 +210,7 @@ public class MoltenSaltBatteryBlockEntity extends GenericMachineBlockEntity impl
 
 	public int getLayers() { return layers; }
 	public void setLayers(int layers) { this.layers = layers; }
+
+	public long getEnergyCapacity() { return energyStore.getCapacity(); }
+	public long getEnergyAmount() { return energyStore.getAmount(); }
 }

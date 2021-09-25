@@ -26,12 +26,45 @@ package techreborn.blockentity.storage.energy.msb;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
+import reborncore.common.powerSystem.RcEnergyTier;
+import team.reborn.energy.api.EnergyStorage;
+import techreborn.blocks.storage.energy.msb.MoltenSaltPortBlock;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent.MoltenSaltPorts;
 
 public class MoltenSaltPortBlockEntity extends BlockEntity {
 
+	private RcEnergyTier tier;
+	private BatteryEnergyStore battery;
+	private EnergyStorage cachedView = BatteryEnergyStore.ZERO;
+
 	public MoltenSaltPortBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.MOLTEN_SALT_PORT, pos, state);
+		MoltenSaltPorts port = MoltenSaltPorts.BLOCKS.get(state.getBlock());
+		this.tier = port.tier;
 	}
 
+
+
+	public void link(BatteryEnergyStore battery) {
+		this.battery = battery;
+		blockStateUpdate();
+	}
+
+	public EnergyStorage getEnergyStorage() {
+		return cachedView;
+	}
+
+	public void blockStateUpdate() {
+		if (battery == null) {
+			return;
+		}
+
+		boolean isCharging = world.getBlockState(pos).get(MoltenSaltPortBlock.CHARGING);
+		if (isCharging) {
+			this.cachedView = this.battery.newView(tier.getMaxInput(), 0);
+		} else {
+			this.cachedView = this.battery.newView(0, tier.getMaxOutput());
+		}
+	}
 }

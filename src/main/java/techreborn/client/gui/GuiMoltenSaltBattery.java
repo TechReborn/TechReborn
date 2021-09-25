@@ -56,17 +56,20 @@ public class GuiMoltenSaltBattery extends GuiBase<BuiltScreenHandler> {
 
 		drawText(matrixStack, new LiteralText("Cells: ").append(String.valueOf(blockEntity.getCells())), 28, 49, Color.BLACK.getRGB(), layer);
 
+		String capacity = PowerSystem.getLocalizedPower(blockEntity.getEnergyCapacity());
 		if (blockEntity.isFormed()) {
-			String capacity = PowerSystem.getLocalizedPower(blockEntity.getBaseMaxPower());
 			drawText(matrixStack, new LiteralText("Capacity: ").append(capacity),
 				  28, 63, Color.BLACK.getRGB(), layer);
+			drawText(matrixStack, new LiteralText("Amount: ").append(String.valueOf(blockEntity.getEnergyAmount())),
+				  28, 75, Color.BLUE.getRGB(), layer);
 		} else {
-			String estCapacity = PowerSystem.getLocalizedPower(blockEntity.getEstimatedCapacity());
-			drawText(matrixStack, new LiteralText("Est. Capacity: ").append(estCapacity), 28, 62, Color.BLACK.getRGB(), layer);
+			drawText(matrixStack, new LiteralText("Est. Capacity: ").append(capacity), 28, 62, Color.BLACK.getRGB(), layer);
 			drawCentredText(matrixStack, new LiteralText("Multi-block is not valid!"), 75, Color.RED.getRGB(), layer);
 		}
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19,
+			  this.blockEntity.getEnergyAmount(),
+			  this.blockEntity.getEnergyCapacity(), mouseX, mouseY, 0, layer);
 	}
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y) {

@@ -87,6 +87,11 @@ public class ModRegistry {
 		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 
+		// Register all MSB port variations
+		Arrays.stream(MoltenSaltPorts.values()).forEach(value -> {
+			RebornRegistry.registerBlock(value.block, itemGroup);
+		});
+
 		// Misc. blocks
 		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), itemGroup);

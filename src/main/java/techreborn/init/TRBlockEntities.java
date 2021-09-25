@@ -76,6 +76,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
 import techreborn.init.TRContent.Machine;
+import techreborn.init.TRContent.MoltenSaltPorts;
 
 public class TRBlockEntities {
 
@@ -131,8 +132,6 @@ public class TRBlockEntities {
 	public static final BlockEntityType<MVTransformerBlockEntity> MV_TRANSFORMER = register(MVTransformerBlockEntity::new, "mv_transformer", TRContent.Machine.MV_TRANSFORMER);
 	public static final BlockEntityType<HVTransformerBlockEntity> HV_TRANSFORMER = register(HVTransformerBlockEntity::new, "hv_transformer", TRContent.Machine.HV_TRANSFORMER);
 	public static final BlockEntityType<EVTransformerBlockEntity> EV_TRANSFORMER = register(EVTransformerBlockEntity::new, "ev_transformer", TRContent.Machine.EV_TRANSFORMER);
-	public static final BlockEntityType<MoltenSaltBatteryBlockEntity> MOLTEN_SALT_BATTERY = register(MoltenSaltBatteryBlockEntity::new, "molten_salt_battery", TRContent.Machine.MOLTEN_SALT_BATTERY);
-	public static final BlockEntityType<MoltenSaltPortBlockEntity> MOLTEN_SALT_PORT = register(MoltenSaltPortBlockEntity::new, "molten_salt_port", TRContent.Machine.MOLTEN_SALT_PORT);
 	public static final BlockEntityType<AutoCraftingTableBlockEntity> AUTO_CRAFTING_TABLE = register(AutoCraftingTableBlockEntity::new, "auto_crafting_table", TRContent.Machine.AUTO_CRAFTING_TABLE);
 	public static final BlockEntityType<IronFurnaceBlockEntity> IRON_FURNACE = register(IronFurnaceBlockEntity::new, "iron_furnace", TRContent.Machine.IRON_FURNACE);
 	public static final BlockEntityType<ScrapboxinatorBlockEntity> SCRAPBOXINATOR = register(ScrapboxinatorBlockEntity::new, "scrapboxinator", TRContent.Machine.SCRAPBOXINATOR);
@@ -143,6 +142,11 @@ public class TRBlockEntities {
 	public static final BlockEntityType<SoildCanningMachineBlockEntity> SOLID_CANNING_MACHINE = register(SoildCanningMachineBlockEntity::new, "solid_canning_machine", TRContent.Machine.SOLID_CANNING_MACHINE);
 	public static final BlockEntityType<WireMillBlockEntity> WIRE_MILL = register(WireMillBlockEntity::new, "wire_mill", TRContent.Machine.WIRE_MILL);
 	public static final BlockEntityType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register(GreenhouseControllerBlockEntity::new, "greenhouse_controller", TRContent.Machine.GREENHOUSE_CONTROLLER);
+
+	public static final BlockEntityType<MoltenSaltBatteryBlockEntity> MOLTEN_SALT_BATTERY = register(MoltenSaltBatteryBlockEntity::new, "molten_salt_battery", TRContent.Machine.MOLTEN_SALT_BATTERY);
+	public static final BlockEntityType<MoltenSaltPortBlockEntity> MOLTEN_SALT_PORT = register(MoltenSaltPortBlockEntity::new, "molten_salt_port", TRContent.MoltenSaltPorts.allBlocks());
+
+
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, ItemConvertible... items) {
 		return register(supplier, name, Arrays.stream(items).map(itemConvertible -> Block.getBlockFromItem(itemConvertible.asItem())).toArray(Block[]::new));
