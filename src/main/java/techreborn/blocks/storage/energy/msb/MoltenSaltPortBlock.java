@@ -8,6 +8,7 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager.Builder;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
@@ -16,6 +17,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techreborn.blockentity.storage.energy.msb.MoltenSaltPortBlockEntity;
+import techreborn.items.tool.WrenchItem;
 
 public class MoltenSaltPortBlock extends BlockWithEntity {
 
@@ -43,18 +45,18 @@ public class MoltenSaltPortBlock extends BlockWithEntity {
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		// Invert charging state and update world
-		boolean isCharging = !state.get(CHARGING);
-		world.setBlockState(pos, state.with(CHARGING, isCharging));
+		if (player.getStackInHand(hand).getItem() instanceof WrenchItem) {
+			// Invert charging state and update world
+			boolean isCharging = !state.get(CHARGING);
+			world.setBlockState(pos, state.with(CHARGING, isCharging));
 
-		if (hand != Hand.MAIN_HAND || world.isClient) {
-			return super.onUse(state, world, pos, player, hand, hit);
+			BlockEntity blockEntity = world.getBlockEntity(pos);
+			if (blockEntity instanceof MoltenSaltPortBlockEntity) {
+				((MoltenSaltPortBlockEntity) blockEntity).blockStateUpdate();
+			}
+			return ActionResult.SUCCESS;
 		}
 
-		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if (blockEntity instanceof MoltenSaltPortBlockEntity) {
-			((MoltenSaltPortBlockEntity) blockEntity).blockStateUpdate();
-		}
-		return ActionResult.SUCCESS;
+		return ActionResult.FAIL;
 	}
 }
