@@ -26,8 +26,10 @@ package techreborn.blockentity.storage.energy.msb;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.common.powerSystem.RcEnergyTier;
 import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.EnergyStorageUtil;
 import techreborn.blocks.storage.energy.msb.MoltenSaltPortBlock;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent.MoltenSaltPorts;
@@ -44,6 +46,18 @@ public class MoltenSaltPortBlockEntity extends BlockEntity {
 		this.tier = port.tier;
 	}
 
+	public void discharge() {
+		// If we're in discharge mode, push energy out to surrounding cables
+		if (!world.getBlockState(pos).get(MoltenSaltPortBlock.CHARGING)) {
+			for (Direction side : Direction.values()) {
+				EnergyStorageUtil.move(cachedView,
+					  EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()),
+					  Long.MAX_VALUE,
+					  null
+				);
+			}
+		}
+	}
 
 
 	public void link(BatteryEnergyStore battery) {

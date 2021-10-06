@@ -1,6 +1,7 @@
 package techreborn.blockentity.storage.energy.msb;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.BiPredicate;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
@@ -8,11 +9,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import reborncore.api.IListInfoProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
@@ -28,7 +31,8 @@ import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
 import techreborn.init.TRContent.MoltenSaltPorts;
 
-public class MoltenSaltBatteryBlockEntity extends MachineBaseBlockEntity implements BuiltScreenHandlerProvider {
+public class MoltenSaltBatteryBlockEntity extends MachineBaseBlockEntity implements BuiltScreenHandlerProvider,
+	  IListInfoProvider {
 
 	private final BatteryEnergyStore energyStore = new BatteryEnergyStore() {
 		@Override
@@ -45,6 +49,9 @@ public class MoltenSaltBatteryBlockEntity extends MachineBaseBlockEntity impleme
 	private int radius;
 	private int layers;
 	private int cells;
+
+	private long lastEnergyReading;
+	private long energyDelta;
 
 	private boolean isFormed = false;
 
@@ -108,6 +115,7 @@ public class MoltenSaltBatteryBlockEntity extends MachineBaseBlockEntity impleme
 			  .sync(this::getRadius, this::setRadius)
 			  .sync(this::getLayers, this::setLayers)
 			  .sync(this::isFormed, this::setIsFormed)
+			  .sync(this::getEnergyDelta, this::setEnergyDelta)
 			  .sync(this.energyStore::getAmount, this.energyStore::setAmount)
 			  .sync(this.energyStore::getCapacity, this.energyStore::setCapacity)
 			  .addInventory().create(this, syncID);
@@ -151,15 +159,22 @@ public class MoltenSaltBatteryBlockEntity extends MachineBaseBlockEntity impleme
 			}
 		}
 
-		// If multiblock is formed, tick discharge on each of the ports
-		if (isFormed) {
-			for (BlockPos port : ports) {
-				BlockEntity portEntity = world.getBlockEntity(port);
-				if (portEntity instanceof MoltenSaltPortBlockEntity) {
-//					((MoltenSaltPortBlockEntity) portEntity).dischargeTick();
-				}
+		// If multiblock is not formed; nothing to do right now
+		if (!isFormed) {
+			return;
+		}
+
+		// Discharge all ports
+		for (BlockPos blockPos : ports) {
+			MoltenSaltPortBlockEntity portBlockEntity = (MoltenSaltPortBlockEntity) world.getBlockEntity(blockPos);
+			if (portBlockEntity != null) {
+				portBlockEntity.discharge();
 			}
 		}
+
+		// Update energyDelta
+		energyDelta = energyStore.getAmount() - lastEnergyReading;
+		lastEnergyReading = energyStore.getAmount();
 	}
 
 	@Override
@@ -199,6 +214,11 @@ public class MoltenSaltBatteryBlockEntity extends MachineBaseBlockEntity impleme
 		}
 	}
 
+	@Override
+	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
+		super.addInfo(info, isReal, hasData);
+	}
+
 	public boolean isFormed() { return isFormed; }
 	public void setIsFormed(boolean isFormed) { this.isFormed = isFormed; }
 
@@ -213,4 +233,7 @@ public class MoltenSaltBatteryBlockEntity extends MachineBaseBlockEntity impleme
 
 	public long getEnergyCapacity() { return energyStore.getCapacity(); }
 	public long getEnergyAmount() { return energyStore.getAmount(); }
+
+	public long getEnergyDelta() { return energyDelta; }
+	public void setEnergyDelta(long energyDelta) { this.energyDelta = energyDelta;}
 }

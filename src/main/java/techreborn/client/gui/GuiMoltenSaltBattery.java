@@ -60,8 +60,19 @@ public class GuiMoltenSaltBattery extends GuiBase<BuiltScreenHandler> {
 		if (blockEntity.isFormed()) {
 			drawText(matrixStack, new LiteralText("Capacity: ").append(capacity),
 				  28, 63, Color.BLACK.getRGB(), layer);
-			drawText(matrixStack, new LiteralText("Amount: ").append(String.valueOf(blockEntity.getEnergyAmount())),
-				  28, 75, Color.BLUE.getRGB(), layer);
+
+			long delta = blockEntity.getEnergyDelta();
+			String chargeStr = "";
+			if (delta > 0) {
+				chargeStr = String.format("Charging @ %d E/t", delta);
+			} else if (delta < 0) {
+				chargeStr = String.format("Discharging @ %d E/t", delta);
+			}
+
+			if (chargeStr != "") {
+				drawText(matrixStack, new LiteralText(chargeStr), 28, 77, Color.BLACK.getRGB(), layer);
+			}
+
 		} else {
 			drawText(matrixStack, new LiteralText("Est. Capacity: ").append(capacity), 28, 62, Color.BLACK.getRGB(), layer);
 			drawCentredText(matrixStack, new LiteralText("Multi-block is not valid!"), 75, Color.RED.getRGB(), layer);
