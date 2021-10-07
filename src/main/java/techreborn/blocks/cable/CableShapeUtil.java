@@ -31,46 +31,37 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public final class CableShapeUtil {
 
-	private final CableBlock cableBlock;
-	private final HashMap<BlockState, VoxelShape> shapes;
+	private static final Map<BlockState, VoxelShape> SHAPE_CACHE = new IdentityHashMap<>();
 
-	public CableShapeUtil(CableBlock cableBlock) {
-		this.cableBlock = cableBlock;
-		this.shapes = createStateShapeMap();
-	}
+	private static VoxelShape getStateShape(BlockState state) {
+		CableBlock cableBlock = (CableBlock) state.getBlock();
 
-	private HashMap<BlockState, VoxelShape> createStateShapeMap() {
-		return Util.make(new HashMap<>(), map -> cableBlock.getStateManager().getStates()
-				.forEach(state -> map.put(state, getStateShape(state)))
-		);
-	}
-
-	private VoxelShape getStateShape(BlockState state) {
-		final double size = cableBlock.type != null ? cableBlock.type.cableThickness : 6;
-		final VoxelShape baseShape = Block.createCuboidShape(size, size, size, 16.0D - size, 16.0D - size, 16.0D - size);
+		final double size = cableBlock.type.cableThickness;
+		final VoxelShape baseShape = Block.createCuboidShape(size, size, size, 1 - size, 1 - size, 1 - size);
 
 		final List<VoxelShape> connections = new ArrayList<>();
 		for (Direction dir : Direction.values()) {
 			if (state.get(CableBlock.PROPERTY_MAP.get(dir))) {
-				double x = dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
-				double z = dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
-				double y = dir == Direction.DOWN ? 0 : dir == Direction.UP ? 16D : size;
-
-				VoxelShape shape = VoxelShapes.cuboidUnchecked(x, y, z, 16.0D - size, 16.0D - size, 16.0D - size);
-				connections.add(shape);
+				double[] mins = new double[] { size, size, size };
+				double[] maxs = new double[] { 1 - size, 1 - size, 1 - size };
+				int axis = dir.getAxis().ordinal();
+				if (dir.getDirection() == Direction.AxisDirection.POSITIVE) {
+					maxs[axis] = 1;
+				} else {
+					mins[axis] = 0;
+				}
+				connections.add(VoxelShapes.cuboid(mins[0], mins[1], mins[2], maxs[0], maxs[1], maxs[2]));
 			}
 		}
 		return VoxelShapes.union(baseShape, connections.toArray(new VoxelShape[]{}));
 	}
 
-	public VoxelShape getShape(BlockState state) {
-		return shapes.get(state);
+	public static VoxelShape getShape(BlockState state) {
+		return SHAPE_CACHE.computeIfAbsent(state, CableShapeUtil::getStateShape);
 	}
 
 }
