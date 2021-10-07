@@ -49,21 +49,24 @@ public record RebornRecipeType<R extends RebornRecipe>(
 			throw new RuntimeException("RebornRecipe type not supported!");
 		}
 
-		R recipe = newRecipe(recipeId);
-
 		try {
+			R recipe = newRecipe(recipeId);
+
 			if (!ConditionManager.shouldLoadRecipe(json)) {
 				recipe.makeDummy();
 				return recipe;
 			}
 
 			recipe.deserialize(json);
+			return recipe;
 		} catch (Throwable t) {
-			t.printStackTrace();
-			RebornCore.LOGGER.error("Failed to read recipe: " + recipeId);
+			RebornCore.LOGGER.error("Failed to read recipe: " + recipeId, t);
+			// Make a new recipe - don't reuse the existing recipe object because it might be in an invalid state if an
+			// exception was thrown in the middle of its deserialization.
+			R recipe = newRecipe(recipeId);
+			recipe.makeDummy();
+			return recipe;
 		}
-		return recipe;
-
 	}
 
 	public JsonObject toJson(R recipe) {
