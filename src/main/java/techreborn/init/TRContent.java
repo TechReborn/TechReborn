@@ -309,7 +309,7 @@ public class TRContent {
 		ADVANCED(TechRebornConfig.advancedTankUnitMaxStorage),
 		INDUSTRIAL(TechRebornConfig.industrialTankUnitCapacity),
 		QUANTUM(TechRebornConfig.quantumTankUnitCapacity),
-		CREATIVE(Integer.MAX_VALUE);
+		CREATIVE(Integer.MAX_VALUE / 1000);
 
 		public final String name;
 		public final Block block;
