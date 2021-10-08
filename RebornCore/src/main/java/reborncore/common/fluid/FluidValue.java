@@ -37,7 +37,6 @@ public final class FluidValue {
 	public static final FluidValue EMPTY = new FluidValue(0);
 	public static final FluidValue BUCKET_QUARTER = new FluidValue(FluidConstants.BUCKET / 4);
 	public static final FluidValue BUCKET = new FluidValue(FluidConstants.BUCKET);
-	public static final FluidValue INFINITE = new FluidValue(Long.MAX_VALUE);
 
 	private final long rawValue;
 

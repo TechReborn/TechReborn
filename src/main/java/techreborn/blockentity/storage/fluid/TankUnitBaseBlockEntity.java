@@ -100,7 +100,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 			if (type == TRContent.TankUnit.CREATIVE) {
 				if (!tank.isEmpty() && !tank.isFull()) {
-					tank.setFluidAmount(FluidValue.INFINITE);
+					tank.setFluidAmount(tank.getFluidValueCapacity());
 				}
 			}
 			syncWithAll();
