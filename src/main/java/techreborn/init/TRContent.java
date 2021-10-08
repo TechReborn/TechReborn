@@ -359,7 +359,7 @@ public class TRContent {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
-			this.cableThickness = cableThickness / 2;
+			this.cableThickness = cableThickness / 2 / 16;
 			this.canKill = canKill;
 			this.defaultCanKill = canKill;
 			this.tier = tier;
