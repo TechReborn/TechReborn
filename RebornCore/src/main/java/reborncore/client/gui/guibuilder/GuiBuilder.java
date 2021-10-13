@@ -145,7 +145,8 @@ public class GuiBuilder {
 	 */
 	public void drawJEIButton(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
-		if (FabricLoader.getInstance().isModLoaded("jei")) {
+		//if (FabricLoader.getInstance().isModLoaded("jei")) {
+		if (FabricLoader.getInstance().isModLoaded("roughlyenoughitems")) {
 			if (layer == GuiBase.Layer.BACKGROUND) {
 				x += gui.getGuiLeft();
 				y += gui.getGuiTop();
