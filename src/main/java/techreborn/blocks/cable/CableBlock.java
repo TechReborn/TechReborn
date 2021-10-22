@@ -58,7 +58,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import team.reborn.energy.api.EnergyStorage;
 import techreborn.api.events.CableElectrocutionEvent;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.config.TechRebornConfig;
@@ -102,7 +101,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
-	// BlockContainer
+	// BlockWithEntity
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.MODEL;

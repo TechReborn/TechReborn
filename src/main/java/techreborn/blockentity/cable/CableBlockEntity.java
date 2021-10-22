@@ -145,6 +145,57 @@ public class CableBlockEntity extends BlockEntity
 		energyContainer.amount = energy;
 	}
 
+	void appendTargets(List<OfferedEnergyStorage> targetStorages) {
+		ServerWorld serverWorld = (ServerWorld) world;
+		if (serverWorld == null) { return; }
+
+		// Update our targets if necessary.
+		if (targets == null) {
+			BlockState newBlockState = getCachedState();
+
+			targets = new ArrayList<>();
+			for (Direction direction : Direction.values()) {
+				boolean foundSomething = false;
+
+				BlockPos adjPos = getPos().offset(direction);
+				BlockEntity adjBe = serverWorld.getBlockEntity(adjPos);
+
+				if (adjBe instanceof CableBlockEntity adjCable) {
+					if (adjCable.getCableType().transferRate == getCableType().transferRate) {
+						// Make sure cables are not used as regular targets.
+						foundSomething = true;
+					}
+				} else if (EnergyStorage.SIDED.find(serverWorld, adjPos, null, adjBe, direction.getOpposite()) != null) {
+					foundSomething = true;
+					targets.add(new CableTarget(
+							direction,
+							BlockApiCache.create(EnergyStorage.SIDED, serverWorld, adjPos)
+					));
+				}
+
+				newBlockState = newBlockState.with(CableBlock.PROPERTY_MAP.get(direction), foundSomething);
+			}
+
+			serverWorld.setBlockState(getPos(), newBlockState);
+		}
+
+		// Fill the list.
+		for (CableTarget target : targets) {
+			EnergyStorage storage = target.find();
+
+			if (storage == null) {
+				// Schedule a rebuild next tick.
+				// This is just a reference change, the iterator remains valid.
+				targets = null;
+			} else {
+				targetStorages.add(new OfferedEnergyStorage(this, target.directionTo, storage));
+			}
+		}
+
+		// Reset blocked sides.
+		blockedSides = 0;
+	}
+
 	// BlockEntity
 	@Override
 	public NbtCompound toInitialChunkDataNbt() {
@@ -185,7 +236,7 @@ public class CableBlockEntity extends BlockEntity
 		targets = null;
 	}
 
-	// Tickable
+	// BlockEntityTicker
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, CableBlockEntity blockEntity2) {
 		if (world == null || world.isClient) {
@@ -228,62 +279,7 @@ public class CableBlockEntity extends BlockEntity
 		return new ItemStack(getCableType().block);
 	}
 
-	void appendTargets(List<OfferedEnergyStorage> targetStorages) {
-		ServerWorld serverWorld = (ServerWorld) world;
-
-		// Update our targets if necessary.
-		if (targets == null) {
-			BlockState newBlockState = getCachedState();
-
-			targets = new ArrayList<>();
-			for (Direction direction : Direction.values()) {
-				boolean foundSomething = false;
-
-				BlockPos adjPos = getPos().offset(direction);
-				BlockEntity adjBe = serverWorld.getBlockEntity(adjPos);
-
-				if (adjBe instanceof CableBlockEntity adjCable && adjCable.getCableType() == getCableType()) {
-					// Make sure cables are not used as regular targets.
-					foundSomething = true;
-				} else if (EnergyStorage.SIDED.find(serverWorld, adjPos, null, adjBe, direction.getOpposite()) != null) {
-					foundSomething = true;
-					targets.add(new CableTarget(
-							direction,
-							BlockApiCache.create(EnergyStorage.SIDED, serverWorld, adjPos)
-					));
-				}
-
-				newBlockState = newBlockState.with(CableBlock.PROPERTY_MAP.get(direction), foundSomething);
-			}
-
-			serverWorld.setBlockState(getPos(), newBlockState);
-		}
-
-		// Fill the list.
-		for (CableTarget target : targets) {
-			EnergyStorage storage = target.find();
-
-			if (storage == null) {
-				// Schedule a rebuild next tick.
-				// This is just a reference change, the iterator remains valid.
-				targets = null;
-			} else {
-				targetStorages.add(new OfferedEnergyStorage(this, target.directionTo, storage));
-			}
-		}
-
-		// Reset blocked sides.
-		blockedSides = 0;
-	}
-
-	private static final class CableTarget {
-		private final Direction directionTo;
-		private final BlockApiCache<EnergyStorage, Direction> cache;
-
-		CableTarget(Direction directionTo, BlockApiCache<EnergyStorage, Direction> cache) {
-			this.directionTo = directionTo;
-			this.cache = cache;
-		}
+	private record CableTarget(Direction directionTo, BlockApiCache<EnergyStorage, Direction> cache) {
 
 		@Nullable
 		EnergyStorage find() {
