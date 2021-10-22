@@ -80,8 +80,7 @@ license {
 group = 'TechReborn'
 
 allprojects {
-    def build_number = ENV.BUILD_NUMBER ?: "local"
-    version = "${project.mod_version}+build.$build_number"
+    version = project.mod_version + (ENV.GITHUB_ACTIONS ? "" : "+local")
 
     apply plugin: "fabric-loom"
     apply plugin: "maven-publish"
@@ -279,11 +278,7 @@ task fixTranslations(dependsOn: ['renameCrowdin']) {
 	}
 }
 
-import com.google.gson.JsonArray
 import groovy.util.XmlSlurper
-import org.apache.commons.io.FileUtils
-
-import java.util.function.Consumer
 
 curseforge {
 	if (ENV.CURSEFORGE_API_KEY) {

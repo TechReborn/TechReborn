@@ -24,14 +24,7 @@ jobs:
           workflow_id: release.yml
       - uses: gradle/wrapper-validation-action@v1
 
-      - name: Generate build number
-        id: buildnumber
-        uses: einaregilsson/build-number@v3
-        with:
-          token: ${{ secrets.github_token }}
-          prefix: ${{ github.ref }}
-
-      - run: ./gradlew build publish curseforge github --stacktrace
+      - run: ./gradlew checkVersion build publish curseforge github --stacktrace
         env:
           RELEASE_CHANNEL: ${{ github.event.inputs.channel }}
           MAVEN_URL: ${{ secrets.MAVEN_URL }}
