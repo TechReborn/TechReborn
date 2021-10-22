@@ -4,7 +4,8 @@
   "time": 300,
   "ingredients": [
 	{
-	  "item": "appliedenergistics2:fluix_crystal"
+	  "item": "appliedenergistics2:fluix_crystal",
+	  "count": 2
 	}
   ],
   "results": [

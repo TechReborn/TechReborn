@@ -8,7 +8,7 @@
   },
   "ingredients": [
 	{
-	  "item": "appliedenergistics2:quartz_ore"
+	  "tag": "c:certus_quartz_ores"
 	}
   ],
   "results": [
@@ -18,7 +18,7 @@
 	},
 	{
 	  "item": "appliedenergistics2:certus_quartz_dust",
-	  "count": 3
+	  "count": 5
 	}
   ],
   "conditions": {
