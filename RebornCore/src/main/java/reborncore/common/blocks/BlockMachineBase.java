@@ -24,6 +24,10 @@
 
 package reborncore.common.blocks;
 
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.InventoryProvider;
@@ -50,7 +54,6 @@ import reborncore.api.ToolManager;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.IUpgradeable;
-import reborncore.api.items.InventoryUtils;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidUtil;
@@ -196,11 +199,14 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 				}
 			} else if (stack.getItem() instanceof IUpgrade && blockEntity instanceof IUpgradeable upgradeableEntity) {
 				if (upgradeableEntity.canBeUpgraded()) {
-					if (InventoryUtils.insertItemStacked(upgradeableEntity.getUpgradeInvetory(), stack,
-							true).getCount() > 0) {
-						stack = InventoryUtils.insertItemStacked(upgradeableEntity.getUpgradeInvetory(), stack, false);
-						playerIn.setStackInHand(Hand.MAIN_HAND, stack);
-						return ActionResult.SUCCESS;
+					int inserted = (int) insertItemStacked(
+							InventoryStorage.of(upgradeableEntity.getUpgradeInvetory(), null),
+							ItemVariant.of(stack),
+							stack.getCount()
+					);
+					if (inserted > 0) {
+						stack.decrement(inserted);
+						return ActionResult.success(worldIn.isClient());
 					}
 				}
 			}
@@ -212,6 +218,28 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 		}
 
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+	}
+
+	// TODO: use the fabric one when it will be PR'ed.
+	@SuppressWarnings({"deprecation", "UnstableApiUsage"})
+	public static long insertItemStacked(InventoryStorage inventory, ItemVariant variant, long maxAmount) {
+		long inserted = 0;
+		try (Transaction tx = Transaction.openOuter()) {
+			outer: for (int loop = 0; loop < 2; ++loop) {
+				for (SingleSlotStorage<ItemVariant> slot : inventory.getSlots()) {
+					if (slot.getResource().equals(variant) || loop == 1) {
+						inserted += slot.insert(variant, maxAmount - inserted, tx);
+
+						if (inserted == maxAmount) {
+							break outer;
+						}
+					}
+				}
+			}
+
+			tx.commit();
+		}
+		return inserted;
 	}
 
 	@SuppressWarnings("deprecation")

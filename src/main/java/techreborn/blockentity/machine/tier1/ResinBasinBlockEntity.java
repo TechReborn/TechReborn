@@ -24,11 +24,13 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
@@ -43,8 +45,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-
-import static reborncore.api.items.InventoryUtils.getInventoryAt;
 
 public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	private Direction direction = Direction.NORTH;
@@ -92,16 +92,15 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		// Try and deposit
 		if (isFull) {
 			// Get inventory
-			Inventory invBelow = getInventoryBelow();
+			Storage<ItemVariant> invBelow = getInventoryBelow();
 			if (invBelow != null) {
-
-				ItemStack out = new ItemStack(TRContent.Parts.SAP, (Math.random() <= 0.5) ? 1 : 2);
-				out = HopperBlockEntity.transfer(null, invBelow, out, Direction.UP);
-
-				if (out.isEmpty()) {
-					// Successfully deposited
-					isFull = false;
-					shouldUpdateState = true;
+				try (Transaction tx = Transaction.openOuter()) {
+					int sentAmount = (Math.random() <= 0.5) ? 1 : 2;
+					if (invBelow.insert(ItemVariant.of(TRContent.Parts.SAP), sentAmount, tx) > 0) {
+						tx.commit();
+						isFull = false;
+						shouldUpdateState = true;
+					}
 				}
 			}
 		}
@@ -170,8 +169,8 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		direction = world.getBlockState(pos).get(ResinBasinBlock.FACING).getOpposite();
 	}
 
-	private Inventory getInventoryBelow() {
-		return getInventoryAt(this.getWorld(), this.pos.offset(Direction.DOWN));
+	private Storage<ItemVariant> getInventoryBelow() {
+		return ItemStorage.SIDED.find(this.getWorld(), this.pos.offset(Direction.DOWN), Direction.UP);
 	}
 
 	private boolean validPlacement() {

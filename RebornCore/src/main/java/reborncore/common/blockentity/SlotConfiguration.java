@@ -25,10 +25,10 @@
 package reborncore.common.blockentity;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntList;
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
@@ -37,8 +37,6 @@ import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.RebornCore;
-import reborncore.api.items.InventoryUtils;
-import reborncore.common.util.ItemUtils;
 import reborncore.common.util.NBTSerializable;
 import reborncore.common.util.RebornInventory;
 
@@ -291,53 +289,14 @@ public class SlotConfiguration implements NBTSerializable {
 			if (targetStack.getMaxCount() == targetStack.getCount()) {
 				return;
 			}
-			Inventory sourceInv = InventoryUtils.getInventoryAt(machineBase.getWorld(), machineBase.getPos().offset(side));
-			if (sourceInv == null) {
-				return;
-			}
 
-			IntList availableSlots = null;
-
-			if (sourceInv instanceof SidedInventory) {
-				availableSlots = IntArrayList.wrap(((SidedInventory) sourceInv).getAvailableSlots(side.getOpposite()));
-			}
-
-			for (int i = 0; i < sourceInv.size(); i++) {
-				if (availableSlots != null && !availableSlots.contains(i)) {
-					continue;
-				}
-
-				ItemStack sourceStack = sourceInv.getStack(i);
-				if (sourceStack.isEmpty()) {
-					continue;
-				}
-				if(!canInsertItem(slotID, sourceStack, side, machineBase)){
-					continue;
-				}
-
-				if (sourceInv instanceof SidedInventory && !((SidedInventory) sourceInv).canExtract(i, sourceStack, side.getOpposite())) {
-					continue;
-				}
-
-				//Checks if we are going to merge stacks that the items are the same
-				if (!targetStack.isEmpty()) {
-					if (!ItemUtils.isItemEqual(sourceStack, targetStack, true, false)) {
-						continue;
-					}
-				}
-				int extract = 4;
-				if (!targetStack.isEmpty()) {
-					extract = Math.min(targetStack.getMaxCount() - targetStack.getCount(), extract);
-				}
-				ItemStack extractedStack = sourceInv.removeStack(i, extract);
-				if (targetStack.isEmpty()) {
-					inventory.setStack(slotID, extractedStack);
-				} else {
-					inventory.getStack(slotID).increment(extractedStack.getCount());
-				}
-				inventory.setHashChanged();
-				break;
-			}
+			StorageUtil.move(
+					ItemStorage.SIDED.find(machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+					InventoryStorage.of(machineBase, null).getSlot(slotID),
+					iv -> true,
+					4, // Move up to 4 per tick.
+					null
+			);
 		}
 
 		private void handleItemOutput(MachineBaseBlockEntity machineBase) {
@@ -346,13 +305,14 @@ public class SlotConfiguration implements NBTSerializable {
 			if (sourceStack.isEmpty()) {
 				return;
 			}
-			Inventory destInventory = InventoryUtils.getInventoryAt(machineBase.getWorld(), machineBase.getPos().offset(side));
-			if (destInventory == null) {
-				return;
-			}
 
-			ItemStack stack = InventoryUtils.insertItem(sourceStack, destInventory, side.getOpposite());
-			inventory.setStack(slotID, stack);
+			StorageUtil.move(
+					InventoryStorage.of(machineBase, null).getSlot(slotID),
+					ItemStorage.SIDED.find(machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+					iv -> true,
+					Long.MAX_VALUE,
+					null
+			);
 		}
 
 		@NotNull
