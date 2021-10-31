@@ -54,7 +54,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity implements IListInfoProvider {
-	public final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
+	private final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
 		@Override
 		public long getCapacity() {
 			return PowerAcceptorBlockEntity.this.getMaxStoredPower();
@@ -161,7 +161,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 		EnergyStorageUtil.move(
 				ContainerItemContext.ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(slot)).find(EnergyStorage.ITEM),
-				energyContainer.getSideStorage(null),
+				getSideEnergyStorage(null),
 				Long.MAX_VALUE,
 				null
 		);
@@ -188,7 +188,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		Inventory inventory = getOptionalInventory().get();
 
 		EnergyStorageUtil.move(
-				energyContainer.getSideStorage(null),
+				getSideEnergyStorage(null),
 				ContainerItemContext.ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(slot)).find(EnergyStorage.ITEM),
 				Long.MAX_VALUE,
 				null
@@ -330,7 +330,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 		for (Direction side : Direction.values()) {
 			EnergyStorageUtil.move(
-					energyContainer.getSideStorage(side),
+					getSideEnergyStorage(side),
 					EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()),
 					Long.MAX_VALUE,
 					null

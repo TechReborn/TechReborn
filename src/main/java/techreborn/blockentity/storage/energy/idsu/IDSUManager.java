@@ -31,6 +31,9 @@ import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.util.NBTSerializable;
+import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.base.SimpleEnergyStorage;
+import techreborn.config.TechRebornConfig;
 
 import java.util.HashMap;
 
@@ -77,8 +80,13 @@ public class IDSUManager extends PersistentState {
 	}
 
 	public class IDSUPlayer implements NBTSerializable {
-
-		private long energy;
+		// This storage is never exposed directly, it's always wrapped behind getMaxInput()/getMaxOutput() checks
+		private final SimpleEnergyStorage storage = new SimpleEnergyStorage(TechRebornConfig.idsuMaxEnergy, Long.MAX_VALUE, Long.MAX_VALUE) {
+			@Override
+			protected void onFinalCommit() {
+				markDirty();
+			}
+		};
 
 		private IDSUPlayer() {
 		}
@@ -91,21 +99,25 @@ public class IDSUManager extends PersistentState {
 		@Override
 		public NbtCompound write() {
 			NbtCompound tag = new NbtCompound();
-			tag.putLong("energy", energy);
+			tag.putLong("energy", storage.amount);
 			return tag;
 		}
 
 		@Override
 		public void read(@NotNull NbtCompound tag) {
-			energy = tag.getLong("energy");
+			storage.amount = tag.getLong("energy");
+		}
+
+		public EnergyStorage getStorage() {
+			return storage;
 		}
 
 		public long getEnergy() {
-			return energy;
+			return storage.amount;
 		}
 
 		public void setEnergy(long energy) {
-			this.energy = energy;
+			storage.amount = energy;
 			markDirty();
 		}
 	}
