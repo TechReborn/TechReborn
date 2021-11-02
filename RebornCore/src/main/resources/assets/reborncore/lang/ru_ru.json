@@ -11,6 +11,7 @@
   "reborncore.tooltip.energy.tier": "Уровень",
   "reborncore.tooltip.energy.change": "Изменение энергии",
   "reborncore.tooltip.energy": "Накопленная энергия",
+  "reborncore.tooltip.has_data": "Сохраненные данные",
 
   "reborncore.gui.heat": "Нагрев",
   "reborncore.gui.missingmultiblock": "Неполный мультиблок",
@@ -34,8 +35,8 @@
   "reborncore.gui.slotconfig.filter_input": "Фильтр ввода",
 
   "reborncore.gui.slotconfigtip.slot": "Выберите слот для настройки.",
-  "reborncore.gui.slotconfigtip.side1": "Оранжевый - вход.",
-  "reborncore.gui.slotconfigtip.side2": "Синий - выход.",
+  "reborncore.gui.slotconfigtip.side1": "Оранжевый - выход.",
+  "reborncore.gui.slotconfigtip.side2": "Синий - вход.",
   "reborncore.gui.slotconfigtip.side3": "Зеленый - вход и выход.",
   "reborncore.gui.slotconfigtip.copy1": "Ctrl+C скопировать настройки.",
   "reborncore.gui.slotconfigtip.copy2": "Ctrl+V вставить настройки.",
