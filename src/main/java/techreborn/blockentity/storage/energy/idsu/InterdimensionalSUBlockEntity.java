@@ -24,15 +24,20 @@
 
 package techreborn.blockentity.storage.energy.idsu;
 
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.powerSystem.RcEnergyTier;
+import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.base.DelegatingEnergyStorage;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
@@ -47,6 +52,28 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 
 	public InterdimensionalSUBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.INTERDIMENSIONAL_SU, pos, state, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, RcEnergyTier.INSANE, TechRebornConfig.idsuMaxEnergy);
+	}
+
+	@Override
+	public EnergyStorage getSideEnergyStorage(@Nullable Direction side) {
+		if (ownerUdid == null || ownerUdid.isEmpty()) {
+			return EnergyStorage.EMPTY;
+		}
+		if (world.isClient) {
+			throw new UnsupportedOperationException("Energy API may only be queried on the server side.");
+		}
+		EnergyStorage globalStorage = IDSUManager.getPlayer(world.getServer(), ownerUdid).getStorage();
+		return new DelegatingEnergyStorage(globalStorage, null) {
+			@Override
+			public long insert(long maxAmount, TransactionContext transaction) {
+				return backingStorage.get().insert(Math.min(maxAmount, getMaxInput(side)), transaction);
+			}
+
+			@Override
+			public long extract(long maxAmount, TransactionContext transaction) {
+				return backingStorage.get().extract(Math.min(maxAmount, getMaxOutput(side)), transaction);
+			}
+		};
 	}
 
 	@Override
