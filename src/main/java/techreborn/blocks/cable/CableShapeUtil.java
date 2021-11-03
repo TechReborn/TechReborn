@@ -24,7 +24,6 @@
 
 package techreborn.blocks.cable;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -40,7 +39,7 @@ public final class CableShapeUtil {
 		CableBlock cableBlock = (CableBlock) state.getBlock();
 
 		final double size = cableBlock.type.cableThickness;
-		final VoxelShape baseShape = Block.createCuboidShape(size, size, size, 1 - size, 1 - size, 1 - size);
+		final VoxelShape baseShape = VoxelShapes.cuboid(size, size, size, 1 - size, 1 - size, 1 - size);
 
 		final List<VoxelShape> connections = new ArrayList<>();
 		for (Direction dir : Direction.values()) {
