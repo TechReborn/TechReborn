@@ -24,12 +24,12 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.impl.content.registry.FuelRegistryImpl;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 
 // Class containing definitions of burnable materials
 public class FuelRecipes {
 	public static void init() {
-		FuelRegistryImpl registry = FuelRegistryImpl.INSTANCE;
+		FuelRegistry registry = FuelRegistry.INSTANCE;
 
 		// Basing it off https://minecraft.gamepedia.com/Furnace/table
 
