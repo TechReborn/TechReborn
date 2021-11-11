@@ -89,7 +89,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 			try {
 				Path path = FabricLoader.getInstance().getGameDir().resolve("item_renderer").resolve(identifier.getNamespace()).resolve(identifier.getPath() + ".png");
 				Files.createDirectories(path.getParent());
-				nativeImage.writeFile(path);
+				nativeImage.writeTo(path);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

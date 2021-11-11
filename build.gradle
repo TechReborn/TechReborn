@@ -12,7 +12,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id "org.cadixdev.licenser" version "0.6.1"
-	id "fabric-loom" version "0.9-SNAPSHOT"
+	id "fabric-loom" version "0.10-SNAPSHOT"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
@@ -62,13 +62,7 @@ repositories {
 	}
 }
 
-configurations {
-	shade
-	compile.extendsFrom shade
-}
-
 def ENV = System.getenv()
-
 
 license {
 	header file('HEADER')
@@ -87,10 +81,6 @@ allprojects {
 
     sourceCompatibility = JavaVersion.VERSION_16
     targetCompatibility = JavaVersion.VERSION_16
-
-    configurations {
-        dev
-    }
 
     // Shared deps between TR and RC
     dependencies {
@@ -128,12 +118,7 @@ allprojects {
                 artifactId project.archivesBaseName  + "-" + getBranch()
                 version project.version
 
-                artifact(remapJar) {
-                    builtBy remapJar
-                }
-                artifact(sourcesJar) {
-                    builtBy remapSourcesJar
-                }
+                from components.java
             }
         }
         repositories {
@@ -161,7 +146,7 @@ sourceSets {
 
 // TechReborn specific dependencies
 dependencies {
-    api project(":RebornCore")
+    api project(path: ":RebornCore", configuration: "namedElements")
     include project(":RebornCore")
 
     optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
@@ -169,11 +154,11 @@ dependencies {
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:${project.autoswitch_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
 
-    gametestImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
+    gametestImplementation 'org.apache.groovy:groovy:4.0.0-beta-2'
 }
 
 def optionalDependency(String dep) {
-	dependencies.modRuntime (dep) {
+	dependencies.modLocalRuntime (dep) {
 		exclude group: "net.fabricmc.fabric-api"
 		exclude module: "nbt-crafting"
 	}
@@ -214,7 +199,7 @@ test.dependsOn runGametest
 
 jar {
 	exclude "**/*.psd"
-	classifier = 'universal'
+    archiveClassifier = 'universal'
 
 	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.json"} : null}
 	dependsOn 'fixTranslations'
@@ -292,7 +277,7 @@ curseforge {
 		addGameVersion "1.17.1" // Also update in RebornCore/build.gradle
 		addGameVersion "Fabric"
 
-		mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+		mainArtifact remapJar
 		relations {
 			requiredDependency 'reborncore'
 		}
