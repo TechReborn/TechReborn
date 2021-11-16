@@ -85,7 +85,7 @@ public class TechReborn implements ModInitializer {
 			RecipeCrafter.soundHanlder = new ModSounds.SoundHandler();
 		}
 		ModLoot.init();
-		WorldGenerator.initWorldGen();
+//		WorldGenerator.initWorldGen();
 		FluidGeneratorRecipes.init();
 		//Force loads the block entities at the right time
 		//noinspection ResultOfMethodCallIgnored

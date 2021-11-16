@@ -50,7 +50,7 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 			return Optional.empty();
 		}
 		ItemStack newStack = stack.copy();
-		NbtCompound blockEntityData = blockEntity.writeNbt(new NbtCompound());
+		NbtCompound blockEntityData = blockEntity.createNbt();
 		stripLocationData(blockEntityData);
 		if (!newStack.hasNbt()) {
 			newStack.setNbt(new NbtCompound());

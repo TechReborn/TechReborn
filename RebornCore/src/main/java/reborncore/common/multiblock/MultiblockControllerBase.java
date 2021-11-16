@@ -556,7 +556,7 @@ public abstract class MultiblockControllerBase {
 						// Ensure that we save our data, even if the our save
 						// delegate is in has no TEs.
 						WorldChunk chunkToSave = this.worldObj.getChunk(x, z);
-						chunkToSave.markDirty();
+						chunkToSave.needsSaving();
 					}
 				}
 			}

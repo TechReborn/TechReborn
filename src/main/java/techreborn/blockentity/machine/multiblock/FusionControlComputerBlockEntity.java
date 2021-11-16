@@ -371,14 +371,13 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+	public void writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putInt("craftingTickTime", this.craftingTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
 		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
 		tagCompound.putBoolean("hasActiveRecipe", this.currentRecipe != null);
 		tagCompound.putInt("size", size);
-		return tagCompound;
 	}
 
 	//MachineBaseBlockEntity

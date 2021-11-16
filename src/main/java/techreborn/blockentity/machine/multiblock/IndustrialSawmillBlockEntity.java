@@ -102,10 +102,9 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	@Override
-	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+	public void writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tank.write(tagCompound);
-		return tagCompound;
 	}
 
 	// TileMachineBase

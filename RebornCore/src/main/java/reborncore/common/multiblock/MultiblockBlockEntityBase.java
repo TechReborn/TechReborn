@@ -125,7 +125,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound data) {
+	public void writeNbt(NbtCompound data) {
 		super.writeNbt(data);
 
 		if (isMultiblockSaveDelegate() && isConnected()) {
@@ -133,7 +133,6 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 			this.controller.write(multiblockData);
 			data.put("multiblockData", multiblockData);
 		}
-		return data;
 	}
 
 	@Override
@@ -175,7 +174,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	public BlockEntityUpdateS2CPacket toUpdatePacket() {
 		NbtCompound packetData = new NbtCompound();
 		encodeDescriptionPacket(packetData);
-		return new BlockEntityUpdateS2CPacket(getPos(), 0, packetData);
+		return BlockEntityUpdateS2CPacket.create(this);
 	}
 
 	// /// Things to override in most implementations (IMultiblockPart)

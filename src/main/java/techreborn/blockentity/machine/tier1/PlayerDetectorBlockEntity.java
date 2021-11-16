@@ -141,11 +141,10 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tag) {
+	public void writeNbt(NbtCompound tag) {
 		super.writeNbt(tag);
 		tag.putString("ownerID", ownerUdid);
 		tag.putInt("radius", radius);
-		return tag;
 	}
 
 	// MachineBaseBlockEntity

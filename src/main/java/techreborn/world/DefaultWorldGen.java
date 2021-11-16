@@ -34,19 +34,13 @@ import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.feature.OreConfiguredFeatures;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
-import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.apache.logging.log4j.util.TriConsumer;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.init.TRContent;
@@ -79,19 +73,21 @@ public class DefaultWorldGen {
 		BlockStateProvider logProvider = new WeightedBlockStateProvider(logPoolBuilder.build());
 
 
-		TreeFeatureConfig treeFeatureConfig = new TreeFeatureConfig.Builder(
-			logProvider,
-			new StraightTrunkPlacer(6, 3, 0),
-			new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
-			new SimpleBlockStateProvider(TRContent.RUBBER_SAPLING.getDefaultState()),
-			new RubberTreeFeature.FoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
-			new TwoLayersFeatureSize(1, 0, 1)
-		).build();
+//		TreeFeatureConfig treeFeatureConfig = new TreeFeatureConfig.Builder(
+//			logProvider,
+//			new StraightTrunkPlacer(6, 3, 0),
+//			BlockStateProvider.of(TRContent.RUBBER_LEAVES.getDefaultState()),
+//			BlockStateProvider.of(TRContent.RUBBER_SAPLING.getDefaultState()),
+//			new RubberTreeFeature.FoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
+//			new TwoLayersFeatureSize(1, 0, 1)
+//		).build();
 
-		return WorldGenerator.RUBBER_TREE_FEATURE.configure(treeFeatureConfig)
-				.decorate(WorldGenerator.RUBBER_TREE_DECORATOR
-						.configure(new ChanceDecoratorConfig(50)
-				));
+		return null; // TODO 1.18
+
+//		return WorldGenerator.RUBBER_TREE_FEATURE.configure(treeFeatureConfig)
+//				.decorate(WorldGenerator.RUBBER_TREE_DECORATOR
+//						.configure(new ChanceDecoratorConfig(50)
+//				));
 	}
 
 	public static List<DataDrivenFeature> getDefaultFeatures() {
@@ -99,31 +95,31 @@ public class DefaultWorldGen {
 		TriConsumer<Predicate<BiomeSelectionContext>, RuleTest, TRContent.Ores> addOre = (worldTargetType, ruleTest, ore) ->
 				features.add(ore.asNewOres(new Identifier("techreborn", Registry.BLOCK.getId(ore.block).getPath()), worldTargetType, ruleTest));
 
-		addOre.accept(BiomeSelectors.foundInTheNether(), OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.CINNABAR);
-		addOre.accept(BiomeSelectors.foundInTheNether(), OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.PYRITE);
-		addOre.accept(BiomeSelectors.foundInTheNether(), OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.SPHALERITE);
+		addOre.accept(BiomeSelectors.foundInTheNether(), OreConfiguredFeatures.BASE_STONE_NETHER, TRContent.Ores.CINNABAR);
+		addOre.accept(BiomeSelectors.foundInTheNether(), OreConfiguredFeatures.BASE_STONE_NETHER, TRContent.Ores.PYRITE);
+		addOre.accept(BiomeSelectors.foundInTheNether(), OreConfiguredFeatures.BASE_STONE_NETHER, TRContent.Ores.SPHALERITE);
 
 		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.PERIDOT);
 		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.SHELDONITE);
 		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.SODALITE);
 		addOre.accept(BiomeSelectors.foundInTheEnd(), END_STONE, TRContent.Ores.TUNGSTEN);
 
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.BAUXITE);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.GALENA);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.IRIDIUM);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.LEAD);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.RUBY);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.SAPPHIRE);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.SILVER);
-		addOre.accept(BiomeSelectors.foundInOverworld(), OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.TIN);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.BASE_STONE_OVERWORLD, TRContent.Ores.BAUXITE);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.BASE_STONE_OVERWORLD, TRContent.Ores.GALENA);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.BASE_STONE_OVERWORLD, TRContent.Ores.IRIDIUM);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.BASE_STONE_OVERWORLD, TRContent.Ores.LEAD);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.BASE_STONE_OVERWORLD, TRContent.Ores.RUBY);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.BASE_STONE_OVERWORLD, TRContent.Ores.SAPPHIRE);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.BASE_STONE_OVERWORLD, TRContent.Ores.SILVER);
+		addOre.accept(BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.BASE_STONE_OVERWORLD, TRContent.Ores.TIN);
 
-
-		features.add(new DataDrivenFeature(
-			RubberSaplingGenerator.IDENTIFIER,
-			BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA, Biome.Category.SWAMP),
-			getRubberTree(),
-			GenerationStep.Feature.VEGETAL_DECORATION
-		));
+//
+//		features.add(new DataDrivenFeature(
+//			RubberSaplingGenerator.IDENTIFIER,
+//			BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA, Biome.Category.SWAMP),
+//			getRubberTree(),
+//			GenerationStep.Feature.VEGETAL_DECORATION
+//		));
 
 		return features;
 	}

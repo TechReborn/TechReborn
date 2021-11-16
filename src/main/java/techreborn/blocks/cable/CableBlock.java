@@ -179,7 +179,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction direction, BlockState otherState,
 												WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
 		if (ourState.get(WATERLOGGED)) {
-			worldIn.getFluidTickScheduler().schedule(ourPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+			worldIn.createAndScheduleFluidTick(ourPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
 		}
 		return ourState;
 	}

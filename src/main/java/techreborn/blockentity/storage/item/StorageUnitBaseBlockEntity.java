@@ -318,7 +318,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tagCompound) {
+	public void writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 
 		tagCompound.putString("unitType", this.type.name());
@@ -342,7 +342,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		}
 
 		inventory.write(tagCompound);
-		return tagCompound;
 	}
 
 	@Override

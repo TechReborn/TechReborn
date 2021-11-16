@@ -128,11 +128,10 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+	public void writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putString("unitType", this.type.name());
 		tank.write(tagCompound);
-		return tagCompound;
 	}
 
 	@Override

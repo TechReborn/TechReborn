@@ -123,14 +123,13 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tagCompound) {
+	public void writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putInt("radius", radius);
 		if (ownerUdid != null && !ownerUdid.isEmpty()){
 			tagCompound.putString("ownerUdid", ownerUdid);
 		}
 		inventory.write(tagCompound);
-		return tagCompound;
 	}
 
 	@Override

@@ -126,12 +126,13 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	@Nullable
 	@Override
 	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		return new BlockEntityUpdateS2CPacket(getPos(), 0, toInitialChunkDataNbt());
+		return BlockEntityUpdateS2CPacket.create(this);
 	}
 
 	@Override
 	public NbtCompound toInitialChunkDataNbt() {
-		NbtCompound compound = super.writeNbt(new NbtCompound());
+		NbtCompound compound = new NbtCompound();
+		super.writeNbt(compound);
 		writeNbt(compound);
 		return compound;
 	}
@@ -257,7 +258,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tagCompound) {
+	public void writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		if (getOptionalInventory().isPresent()) {
 			getOptionalInventory().get().write(tagCompound);
@@ -273,7 +274,6 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		}
 		upgradeInventory.write(tagCompound, "Upgrades");
 		tagCompound.put("redstoneConfig", redstoneConfiguration.write());
-		return tagCompound;
 	}
 
 	private boolean isItemValidForSlot(int index, ItemStack stack) {

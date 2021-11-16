@@ -129,13 +129,12 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound nbttagcompound) {
+	public void writeNbt(NbtCompound nbttagcompound) {
 		super.writeNbt(nbttagcompound);
 		if (ownerUdid == null || StringUtils.isEmpty(ownerUdid)) {
-			return nbttagcompound;
+			return;
 		}
 		nbttagcompound.putString("ownerUdid", this.ownerUdid);
-		return nbttagcompound;
 	}
 
 	@Override

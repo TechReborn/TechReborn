@@ -141,12 +141,11 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound compoundTag) {
+	public void writeNbt(NbtCompound compoundTag) {
 		super.writeNbt(compoundTag);
 		compoundTag.putInt("BurnTime", burnTime);
 		compoundTag.putInt("TotalBurnTime", totalBurnTime);
 		compoundTag.putInt("Progress", progress);
-		return compoundTag;
 	}
 
 	@Override

@@ -39,7 +39,7 @@ import java.util.List;
 public class ClientBoundPackets {
 
 	public static IdentifiedPacket createCustomDescriptionPacket(BlockEntity blockEntity) {
-		return createCustomDescriptionPacket(blockEntity.getPos(), blockEntity.writeNbt(new NbtCompound()));
+		return createCustomDescriptionPacket(blockEntity.getPos(), blockEntity.createNbt());
 	}
 
 	public static IdentifiedPacket createCustomDescriptionPacket(BlockPos blockPos, NbtCompound nbt) {

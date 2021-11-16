@@ -107,10 +107,9 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	}
 
 	@Override
-	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+	public void writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tank.write(tagCompound);
-		return tagCompound;
 	}
 
 	private static IInventoryAccess<FluidReplicatorBlockEntity> getInventoryAccess() {

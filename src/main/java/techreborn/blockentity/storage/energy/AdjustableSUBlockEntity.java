@@ -141,10 +141,9 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tagCompound) {
+	public void writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putInt("output", OUTPUT);
-		return tagCompound;
 	}
 
 	@Override

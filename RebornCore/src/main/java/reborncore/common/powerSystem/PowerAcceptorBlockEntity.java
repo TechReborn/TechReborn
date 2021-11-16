@@ -352,12 +352,11 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tag) {
+	public void writeNbt(NbtCompound tag) {
 		super.writeNbt(tag);
 		NbtCompound data = new NbtCompound();
 		data.putLong("energy", getStored());
 		tag.put("PowerAcceptor", data);
-		return tag;
 	}
 
 	@Override

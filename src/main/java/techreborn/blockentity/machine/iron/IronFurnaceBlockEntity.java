@@ -149,10 +149,9 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound compoundTag) {
+	public void writeNbt(NbtCompound compoundTag) {
 		super.writeNbt(compoundTag);
 		compoundTag.putFloat("Experience", experience);
-		return compoundTag;
 	}
 
 	// IContainerProvider

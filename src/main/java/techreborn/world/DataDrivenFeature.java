@@ -49,26 +49,27 @@ import java.util.function.Predicate;
 public class DataDrivenFeature {
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	private final Predicate<BiomeSelectionContext> biomeSelector;
-	private final ConfiguredFeature<?, ?> configuredFeature;
-	private final GenerationStep.Feature generationStep;
-	private final Identifier identifier;
+	private Predicate<BiomeSelectionContext> biomeSelector;
+	private ConfiguredFeature<?, ?> configuredFeature;
+	private GenerationStep.Feature generationStep;
+	private Identifier identifier;
 
-	public DataDrivenFeature(Identifier identifier, Predicate<BiomeSelectionContext> biomeSelector, ConfiguredFeature<?, ?> configuredFeature, GenerationStep.Feature generationStep) {
-		this.identifier = identifier;
-		this.biomeSelector = biomeSelector;
-		this.configuredFeature = configuredFeature;
-		this.generationStep = generationStep;
-	}
+//	public DataDrivenFeature(Identifier identifier, Predicate<BiomeSelectionContext> biomeSelector, ConfiguredFeature<?, ?> configuredFeature, GenerationStep.Feature generationStep) {
+//		this.identifier = identifier;
+//		this.biomeSelector = biomeSelector;
+//		this.configuredFeature = configuredFeature;
+//		this.generationStep = generationStep;
+//	}
 
 	@Deprecated
 	public DataDrivenFeature(Identifier identifier, Predicate<BiomeSelectionContext> biomeSelector, RuleTest ruleTest, BlockState blockState, int maxY, int veinSize, int veinCount) {
-		this(identifier, biomeSelector, Feature.ORE.configure(
-				new OreFeatureConfig(ruleTest, blockState, veinSize)
-		)
-				.uniformRange(YOffset.getBottom(), YOffset.fixed(maxY))
-				.spreadHorizontally()
-				.repeat(veinCount), GenerationStep.Feature.UNDERGROUND_ORES);
+//		this(identifier, biomeSelector, Feature.ORE.configure(
+//				new OreFeatureConfig(ruleTest, blockState, veinSize)
+//		));
+		// TODO 1.18
+//				.uniformRange(YOffset.getBottom(), YOffset.fixed(maxY))
+//				.spreadHorizontally()
+//				.repeat(veinCount), GenerationStep.Feature.UNDERGROUND_ORES);
 	}
 
 	public static DataDrivenFeature deserialise(Identifier identifier, JsonObject jsonObject) {
@@ -97,7 +98,8 @@ public class DataDrivenFeature {
 			throw new JsonParseException(s);
 		}).getFeature();
 
-		return new DataDrivenFeature(identifier, biomeSelector, configuredFeature, generationStep);
+		return null;
+//		return new DataDrivenFeature(identifier, biomeSelector, configuredFeature, generationStep);
 	}
 
 	public JsonObject serialise() {

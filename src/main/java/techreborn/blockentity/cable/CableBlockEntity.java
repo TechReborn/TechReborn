@@ -199,14 +199,14 @@ public class CableBlockEntity extends BlockEntity
 	// BlockEntity
 	@Override
 	public NbtCompound toInitialChunkDataNbt() {
-		return writeNbt(new NbtCompound());
+		return createNbt();
 	}
 
 	@Override
 	public BlockEntityUpdateS2CPacket toUpdatePacket() {
 		NbtCompound nbtTag = new NbtCompound();
 		writeNbt(nbtTag);
-		return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
+		return BlockEntityUpdateS2CPacket.create(this);
 	}
 
 	@Override
@@ -223,13 +223,12 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound compound) {
+	public void writeNbt(NbtCompound compound) {
 		super.writeNbt(compound);
 		compound.putLong("energy", energyContainer.amount);
 		if (cover != null) {
 			compound.put("cover", NbtHelper.fromBlockState(cover));
 		}
-		return compound;
 	}
 
 	public void neighborUpdate() {

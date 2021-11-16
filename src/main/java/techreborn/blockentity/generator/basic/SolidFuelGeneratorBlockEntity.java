@@ -159,11 +159,10 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tag) {
+	public void writeNbt(NbtCompound tag) {
 		super.writeNbt(tag);
 		tag.putInt("BurnTime", burnTime);
 		tag.putInt("TotalBurnTime", totalBurnTime);
-		return tag;
 	}
 
 	// MachineBaseBlockEntity

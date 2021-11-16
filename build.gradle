@@ -79,8 +79,8 @@ allprojects {
     apply plugin: "fabric-loom"
     apply plugin: "maven-publish"
 
-    sourceCompatibility = JavaVersion.VERSION_16
-    targetCompatibility = JavaVersion.VERSION_16
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
     // Shared deps between TR and RC
     dependencies {
@@ -91,7 +91,9 @@ allprojects {
         //Fabric api
         modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
 
-        include(modApi("teamreborn:energy:${project.energy_version}"))
+        include(modApi("teamreborn:energy:${project.energy_version}")) {
+            transitive = false
+        }
     }
 
     processResources {
@@ -104,7 +106,7 @@ allprojects {
 
     tasks.withType(JavaCompile).configureEach {
         it.options.encoding = "UTF-8"
-        it.options.release = 16
+        it.options.release = 17
     }
 
     java {
@@ -149,7 +151,7 @@ dependencies {
     api project(path: ":RebornCore", configuration: "namedElements")
     include project(":RebornCore")
 
-    optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:${project.autoswitch_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"

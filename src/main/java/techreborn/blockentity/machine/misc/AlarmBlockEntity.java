@@ -68,12 +68,11 @@ public class AlarmBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public NbtCompound writeNbt(NbtCompound compound) {
+	public void writeNbt(NbtCompound compound) {
 		if (compound == null) {
 			compound = new NbtCompound();
 		}
 		compound.putInt("selectedSound", this.selectedSound);
-		return super.writeNbt(compound);
 	}
 
 	@Override

@@ -75,7 +75,7 @@ class CableTickManager {
 		// Make sure we only gather and tick each cable once per tick.
 		if (current.lastTick == tickCounter) return false;
 		// Make sure we ignore cables in non-ticking chunks.
-		if (!(current.getWorld() instanceof ServerWorld sw) || !sw.method_37117(current.getPos())) return false;
+		if (!(current.getWorld() instanceof ServerWorld sw) || !sw.isChunkLoaded(current.getPos())) return false;
 
 		return true;
 	}

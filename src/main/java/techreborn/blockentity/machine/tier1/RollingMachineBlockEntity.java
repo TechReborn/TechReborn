@@ -354,12 +354,11 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public NbtCompound writeNbt(final NbtCompound tagCompound) {
+	public void writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
 		tagCompound.putBoolean("isRunning", this.isRunning);
 		tagCompound.putInt("tickTime", this.tickTime);
 		tagCompound.putBoolean("locked", locked);
-		return tagCompound;
 	}
 
 	@Override

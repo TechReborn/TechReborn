@@ -148,10 +148,8 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tagCompound) {
+	public void writeNbt(NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
-
-		return tagCompound;
 	}
 
 	@Override

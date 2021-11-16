@@ -145,10 +145,10 @@ public class RenderUtil {
 		float l = (endColor >> 8 & 0xFF) / 255.0F;
 		float m = (endColor & 0xFF) / 255.0F;
 
-		bufferBuilder.vertex(matrices.peek().getModel(), right, top, zLevel).color(g, h, i, f).next();
-		bufferBuilder.vertex(matrices.peek().getModel(), left, top, zLevel).color(g, h, i, f).next();
-		bufferBuilder.vertex(matrices.peek().getModel(), left, bottom, zLevel).color(k, l, m, j).next();
-		bufferBuilder.vertex(matrices.peek().getModel(), right, bottom, zLevel).color(k, l, m, j).next();
+		bufferBuilder.vertex(matrices.peek().getPositionMatrix(), right, top, zLevel).color(g, h, i, f).next();
+		bufferBuilder.vertex(matrices.peek().getPositionMatrix(), left, top, zLevel).color(g, h, i, f).next();
+		bufferBuilder.vertex(matrices.peek().getPositionMatrix(), left, bottom, zLevel).color(k, l, m, j).next();
+		bufferBuilder.vertex(matrices.peek().getPositionMatrix(), right, bottom, zLevel).color(k, l, m, j).next();
 
 		tessellator.draw();
 		RenderSystem.disableBlend();

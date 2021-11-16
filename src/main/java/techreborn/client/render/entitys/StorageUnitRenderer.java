@@ -89,12 +89,12 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Render item count
 		String count = String.valueOf(storage.storedAmount);
 		xPosition = (float) (-textRenderer.getWidth(count) / 2);
-		textRenderer.draw(count, xPosition, -4f + 40, 0, false, matrices.peek().getModel(), vertexConsumers, false, 0, light);
+		textRenderer.draw(count, xPosition, -4f + 40, 0, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0, light);
 
 		// Render name
 		String item = stack.getName().asTruncatedString(18);
 		xPosition = (float) (-textRenderer.getWidth(item) / 2);
-		textRenderer.draw(item, xPosition, -4f - 40, 0, false, matrices.peek().getModel(), vertexConsumers, false, 0, light);
+		textRenderer.draw(item, xPosition, -4f - 40, 0, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0, light);
 
 		matrices.pop();
 	}

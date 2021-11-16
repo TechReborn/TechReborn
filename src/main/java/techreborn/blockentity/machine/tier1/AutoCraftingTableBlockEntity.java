@@ -407,9 +407,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tag) {
+	public void writeNbt(NbtCompound tag) {
 		tag.putBoolean("locked", locked);
-		return super.writeNbt(tag);
 	}
 
 	@Override
