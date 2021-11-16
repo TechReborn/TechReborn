@@ -41,7 +41,6 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
 
-import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -85,7 +84,8 @@ import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
-import techreborn.world.DataDrivenFeature;
+import techreborn.world.OreFeature;
+import techreborn.world.TargetDimension;
 
 import java.util.*;
 import java.util.function.Function;
@@ -378,21 +378,21 @@ public class TRContent {
 	}
 
 	public enum Ores implements ItemConvertible {
-		BAUXITE(6, 10, 10, 60, MiningLevel.IRON),
-		CINNABAR(6, 3, 10, 126, MiningLevel.IRON),
-		GALENA(8, 16, 10, 60, MiningLevel.IRON),
-		IRIDIUM(3, 3, 5, 60, MiningLevel.DIAMOND),
-		LEAD(6, 16, 20, 60, MiningLevel.IRON),
-		PERIDOT(6, 3, 10, 250, MiningLevel.DIAMOND),
-		PYRITE(6, 3, 10, 126, MiningLevel.DIAMOND),
-		RUBY(6, 3, 10, 60, MiningLevel.IRON),
-		SAPPHIRE(6, 3, 10, 60, MiningLevel.IRON),
-		SHELDONITE(6, 3, 10, 250, MiningLevel.DIAMOND),
-		SILVER(6, 16, 20, 60, MiningLevel.IRON),
-		SODALITE(6, 3, 10, 250, MiningLevel.DIAMOND),
-		SPHALERITE(6, 3, 10, 126, MiningLevel.IRON),
-		TIN(8, 16, 20, 60, MiningLevel.STONE),
-		TUNGSTEN(6, 3, 10, 250, MiningLevel.DIAMOND);
+		BAUXITE(6, 10, 10, 60, MiningLevel.IRON, TargetDimension.OVERWORLD),
+		CINNABAR(6, 3, 10, 126, MiningLevel.IRON, TargetDimension.NETHER),
+		GALENA(8, 16, 10, 60, MiningLevel.IRON, TargetDimension.OVERWORLD),
+		IRIDIUM(3, 3, 5, 60, MiningLevel.DIAMOND, TargetDimension.OVERWORLD),
+		LEAD(6, 16, 20, 60, MiningLevel.IRON, TargetDimension.OVERWORLD),
+		PERIDOT(6, 3, 10, 250, MiningLevel.DIAMOND, TargetDimension.END),
+		PYRITE(6, 3, 10, 126, MiningLevel.DIAMOND, TargetDimension.NETHER),
+		RUBY(6, 3, 10, 60, MiningLevel.IRON, TargetDimension.OVERWORLD),
+		SAPPHIRE(6, 3, 10, 60, MiningLevel.IRON, TargetDimension.OVERWORLD),
+		SHELDONITE(6, 3, 10, 250, MiningLevel.DIAMOND, TargetDimension.END),
+		SILVER(6, 16, 20, 60, MiningLevel.IRON, TargetDimension.OVERWORLD),
+		SODALITE(6, 3, 10, 250, MiningLevel.DIAMOND, TargetDimension.END),
+		SPHALERITE(6, 3, 10, 126, MiningLevel.IRON, TargetDimension.NETHER),
+		TIN(8, 16, 20, 60, MiningLevel.STONE, TargetDimension.OVERWORLD),
+		TUNGSTEN(6, 3, 10, 250, MiningLevel.DIAMOND, TargetDimension.END);
 
 		public final String name;
 		public final Block block;
@@ -400,8 +400,10 @@ public class TRContent {
 		public final int veinsPerChunk;
 		public final int minY;
 		public final int maxY;
+		public final TargetDimension dimension;
 
-		Ores(int veinSize, int veinsPerChunk, int minY, int maxY, MiningLevel miningLevel) {
+		Ores(int veinSize, int veinsPerChunk, int minY, int maxY, MiningLevel miningLevel, TargetDimension dimension) {
+			this.dimension = dimension;
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, miningLevel.intLevel)
@@ -420,11 +422,6 @@ public class TRContent {
 		public Item asItem() {
 			return block.asItem();
 		}
-
-		public DataDrivenFeature asNewOres(Identifier identifier, Predicate<BiomeSelectionContext> targetType, RuleTest ruleTest) {
-			return new DataDrivenFeature(identifier, targetType, ruleTest, block.getDefaultState(), maxY, veinSize, veinsPerChunk);
-		}
-
 	}
 
 	public enum StorageBlocks implements ItemConvertible {

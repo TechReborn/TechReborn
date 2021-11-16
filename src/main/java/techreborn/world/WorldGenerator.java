@@ -24,48 +24,112 @@
 
 package techreborn.world;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.foliage.FoliagePlacerType;
-import reborncore.mixin.common.AccessorFoliagePlacerType;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.decorator.BiomePlacementModifier;
+import net.minecraft.world.gen.decorator.RarityFilterPlacementModifier;
+import net.minecraft.world.gen.decorator.SquarePlacementModifier;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import techreborn.init.TRContent;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiConsumer;
 
-// TODO 1.18
 public class WorldGenerator {
-	public static Feature<TreeFeatureConfig> RUBBER_TREE_FEATURE;
-	public static RubberTreeDecorator RUBBER_TREE_DECORATOR;
-	public static FoliagePlacerType<RubberTreeFeature.FoliagePlacer> RUBBER_TREE_FOLIAGE_PLACER_TYPE;
+	public static ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE_FEATURE;
+	public static PlacedFeature RUBBER_TREE_PLACED_FEATURE;
+
+	public static ConfiguredFeature<RandomPatchFeatureConfig, ?> RUBBER_TREE_PATCH_FEATURE;
+	public static PlacedFeature RUBBER_TREE_PATCH_PLACED_FEATURE;
+
+	public static final List<OreFeature> ORE_FEATURES = getOreFeatures();
 
 	public static void initWorldGen() {
 		registerTreeDecorators();
 
-		List<DataDrivenFeature> features = DefaultWorldGen.getDefaultFeatures();
-		//TODO modify list with a config
+		BiomeModifications.create(new Identifier("techreborn", "features"))
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), oreModifier())
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA, Biome.Category.SWAMP), rubberTreeModifier());
+	}
 
-		for (DataDrivenFeature feature : features) {
-			Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, feature.getRegistryKey().getValue(), feature.getConfiguredFeature());
-		}
-
-		BiomeModifications.create(new Identifier("techreborn", "features")).add(ModificationPhase.ADDITIONS, BiomeSelectors.all(),
-				(biomeSelectionContext, biomeModificationContext) -> {
-			for (DataDrivenFeature feature : features) {
+	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> oreModifier() {
+		return (biomeSelectionContext, biomeModificationContext) -> {
+			for (OreFeature feature : ORE_FEATURES) {
 				if (feature.getBiomeSelector().test(biomeSelectionContext)) {
-//					biomeModificationContext.getGenerationSettings().addFeature(feature.getGenerationStep(), feature.getRegistryKey());
+					biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.UNDERGROUND_ORES, feature.getPlacedFeatureRegistryKey());
 				}
 			}
-		});
+		};
+	}
+
+	private static List<OreFeature> getOreFeatures() {
+		return Arrays.stream(TRContent.Ores.values())
+				.map(OreFeature::new)
+				.toList();
 	}
 
 	private static void registerTreeDecorators() {
-		RUBBER_TREE_FEATURE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(TreeFeatureConfig.CODEC));
-//		RUBBER_TREE_DECORATOR = Registry.register(Registry.DECORATOR, new Identifier("techreborn:rubber_tree"), new RubberTreeDecorator(ChanceDecoratorConfig.CODEC));
-		RUBBER_TREE_FOLIAGE_PLACER_TYPE = AccessorFoliagePlacerType.register("techreborn:rubber_tree", RubberTreeFeature.FoliagePlacer.CODEC);
+		Identifier treeId = new Identifier("techreborn", "rubber_tree");
+		Identifier patchId = new Identifier("techreborn", "rubber_tree_patch");
+
+		RUBBER_TREE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, treeId,
+				Feature.TREE.configure(rubber().build())
+		);
+		RUBBER_TREE_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, treeId,
+				RUBBER_TREE_FEATURE.withWouldSurviveFilter(TRContent.RUBBER_SAPLING)
+		);
+
+		RUBBER_TREE_PATCH_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, patchId,
+				Feature.RANDOM_PATCH.configure(
+						ConfiguredFeatures.createRandomPatchFeatureConfig(10, RUBBER_TREE_PLACED_FEATURE)
+				)
+		);
+
+		RUBBER_TREE_PATCH_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, patchId,
+				RUBBER_TREE_PATCH_FEATURE.withPlacement(
+						RarityFilterPlacementModifier.of(5),
+						SquarePlacementModifier.of(),
+						PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+						BiomePlacementModifier.of()
+				)
+		);
+	}
+
+	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> rubberTreeModifier() {
+		final RegistryKey<PlacedFeature> registryKey = BuiltinRegistries.PLACED_FEATURE.getKey(RUBBER_TREE_PATCH_PLACED_FEATURE).orElseThrow();
+
+		return (biomeSelectionContext, biomeModificationContext) ->
+				biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, registryKey);
+	}
+
+
+	private static TreeFeatureConfig.Builder rubber() {
+		return new TreeFeatureConfig.Builder(
+				BlockStateProvider.of(TRContent.RUBBER_LOG.getDefaultState()), // TODO 1.18 spawn with rubber
+				new StraightTrunkPlacer(6, 3, 0),
+				BlockStateProvider.of(TRContent.RUBBER_LEAVES.getDefaultState()),
+				new BlobFoliagePlacer(
+						ConstantIntProvider.create(2),
+						ConstantIntProvider.create(0),
+						3
+				),
+				new TwoLayersFeatureSize(
+						1,
+						0,
+						1
+				));
+				// TODO 1.18
+//				.decorators(List.of(new RubberTreeSpikeDecorator(4, TRContent.RUBBER_LEAVES.getDefaultState())));
 	}
 }

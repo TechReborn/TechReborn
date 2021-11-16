@@ -94,7 +94,7 @@ public class RubberTreeFeature extends TreeFeature {
 
 		@Override
 		protected FoliagePlacerType<?> getType() {
-			return WorldGenerator.RUBBER_TREE_FOLIAGE_PLACER_TYPE;
+			return null;
 		}
 
 		public int getSpireHeight() {
@@ -105,6 +105,4 @@ public class RubberTreeFeature extends TreeFeature {
 			return spireBlockState;
 		}
 	}
-
-
 }
