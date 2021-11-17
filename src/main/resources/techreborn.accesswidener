@@ -1,0 +1,3 @@
+accessWidener	v2	named
+
+accessible method net/minecraft/world/gen/treedecorator/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V

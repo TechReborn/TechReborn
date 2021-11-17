@@ -1,4 +1,4 @@
-accessWidener	v1	named
+accessWidener	v2	named
 
 accessible    method    net/minecraft/recipe/ShapedRecipe    readSymbols    (Lcom/google/gson/JsonObject;)Ljava/util/Map;
 accessible    method    net/minecraft/recipe/ShapedRecipe    getPattern    (Lcom/google/gson/JsonArray;)[Ljava/lang/String;

@@ -1,51 +1,61 @@
 package techreborn.world;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.TestableWorld;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class RubberTreeSpikeDecorator  extends TreeDecorator {
-	private final int spireHeight;
-	private final BlockState spireBlockState;
+	public static final Codec<RubberTreeSpikeDecorator> CODEC = RecordCodecBuilder.create(instance ->
+		instance.group(
+			Codec.INT.fieldOf("spire_height").forGetter(RubberTreeSpikeDecorator::getSpireHeight),
+			BlockStateProvider.TYPE_CODEC.fieldOf("provider").forGetter(RubberTreeSpikeDecorator::getProvider)
+		).apply(instance, RubberTreeSpikeDecorator::new)
+	);
 
-	public RubberTreeSpikeDecorator(int spireHeight, BlockState spireBlockState) {
+	public static final TreeDecoratorType<RubberTreeSpikeDecorator> RUBBER_TREE_SPIKE = Registry.register(Registry.TREE_DECORATOR_TYPE, new Identifier("techreborn", "rubber_tree_spike"), new TreeDecoratorType<>(CODEC));
+
+	private final int spireHeight;
+	private final BlockStateProvider provider;
+
+	public RubberTreeSpikeDecorator(int spireHeight, BlockStateProvider spireBlockState) {
 		this.spireHeight = spireHeight;
-		this.spireBlockState = spireBlockState;
+		this.provider = spireBlockState;
 	}
 
 	@Override
 	protected TreeDecoratorType<?> getType() {
-		// TODO 1.18 really needs fabric api help here.
-		throw new UnsupportedOperationException();
+		return RUBBER_TREE_SPIKE;
 	}
 
 	@Override
 	public void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions) {
-		System.out.println("hi");
+		logPositions.stream()
+			.max(Comparator.comparingInt(BlockPos::getY))
+			.ifPresent(blockPos -> {
+				for (int i = 0; i < spireHeight; i++) {
+					BlockPos sPos = blockPos.up(i);
+					replacer.accept(sPos, provider.getBlockState(random, sPos));
+				}
+			});
 	}
 
-	private void generateSpike(TestableWorld world, BlockPos pos, BiConsumer<BlockPos, BlockState> replacer) {
-		final int startScan = pos.getY();
-		BlockPos topPos = null;
+	public int getSpireHeight() {
+		return spireHeight;
+	}
 
-		//Limit the scan to 15 blocks
-		while (topPos == null && pos.getY() - startScan < 15) {
-			pos = pos.up();
-			if (world.testBlockState(pos, BlockState::isAir)) {
-				topPos = pos;
-			}
-		}
-
-		if (topPos == null) return;
-
-		for (int i = 0; i < spireHeight; i++) {
-			replacer.accept(pos.up(i), spireBlockState);
-		}
+	public BlockStateProvider getProvider() {
+		return provider;
 	}
 }

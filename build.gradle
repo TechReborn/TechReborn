@@ -137,6 +137,10 @@ allprojects {
     }
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/techreborn.accesswidener")
+}
+
 sourceSets {
     gametest {
         compileClasspath += sourceSets.main.compileClasspath

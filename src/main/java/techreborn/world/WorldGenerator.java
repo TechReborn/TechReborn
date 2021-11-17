@@ -25,7 +25,10 @@
 package techreborn.world;
 
 import net.fabricmc.fabric.api.biome.v1.*;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -39,7 +42,9 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.init.TRContent;
 
 import java.util.Arrays;
@@ -92,13 +97,13 @@ public class WorldGenerator {
 
 		RUBBER_TREE_PATCH_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, patchId,
 				Feature.RANDOM_PATCH.configure(
-						ConfiguredFeatures.createRandomPatchFeatureConfig(10, RUBBER_TREE_PLACED_FEATURE)
+						ConfiguredFeatures.createRandomPatchFeatureConfig(6, RUBBER_TREE_PLACED_FEATURE)
 				)
 		);
 
 		RUBBER_TREE_PATCH_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, patchId,
 				RUBBER_TREE_PATCH_FEATURE.withPlacement(
-						RarityFilterPlacementModifier.of(5),
+						RarityFilterPlacementModifier.of(3),
 						SquarePlacementModifier.of(),
 						PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
 						BiomePlacementModifier.of()
@@ -113,10 +118,20 @@ public class WorldGenerator {
 				biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, registryKey);
 	}
 
-
 	private static TreeFeatureConfig.Builder rubber() {
+		final DataPool.Builder<BlockState> logDataPool = DataPool.<BlockState>builder()
+				.add(TRContent.RUBBER_LOG.getDefaultState(), 6);
+
+		Arrays.stream(Direction.values())
+				.filter(direction -> direction.getAxis().isHorizontal())
+				.map(direction -> TRContent.RUBBER_LOG.getDefaultState()
+						.with(BlockRubberLog.HAS_SAP, true)
+						.with(BlockRubberLog.SAP_SIDE, direction)
+				)
+				.forEach(state -> logDataPool.add(state, 1));
+
 		return new TreeFeatureConfig.Builder(
-				BlockStateProvider.of(TRContent.RUBBER_LOG.getDefaultState()), // TODO 1.18 spawn with rubber
+				new WeightedBlockStateProvider(logDataPool),
 				new StraightTrunkPlacer(6, 3, 0),
 				BlockStateProvider.of(TRContent.RUBBER_LEAVES.getDefaultState()),
 				new BlobFoliagePlacer(
@@ -128,8 +143,9 @@ public class WorldGenerator {
 						1,
 						0,
 						1
+				))
+				.decorators(List.of(
+						new RubberTreeSpikeDecorator(4, BlockStateProvider.of(TRContent.RUBBER_LEAVES.getDefaultState()))
 				));
-				// TODO 1.18
-//				.decorators(List.of(new RubberTreeSpikeDecorator(4, TRContent.RUBBER_LEAVES.getDefaultState())));
 	}
 }

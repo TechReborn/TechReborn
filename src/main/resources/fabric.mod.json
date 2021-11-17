@@ -33,12 +33,13 @@
 	]
   },
   "depends": {
-    "fabricloader": ">=0.11.6",
+    "fabricloader": ">=0.12.0",
 	"fabric": ">=0.40.0",
     "reborncore": "*",
 	"team_reborn_energy": ">=2.0.0-beta1",
 	"fabric-biome-api-v1": ">=3.0.0"
   },
+  "accessWidener": "techreborn.accesswidener",
   "authors": [
     "Team Reborn",
     "modmuss50",

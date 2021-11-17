@@ -5,6 +5,7 @@ group = 'RebornCore'
 loom {
     accessWidenerPath = file("src/main/resources/reborncore.accesswidener")
 }
+
 def ENV = System.getenv()
 
 curseforge {
