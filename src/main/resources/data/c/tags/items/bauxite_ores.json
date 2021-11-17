@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "techreborn:bauxite_ore"
+        "techreborn:bauxite_ore",
+	  	"techreborn:deepslate_bauxite_ore"
     ]
 }

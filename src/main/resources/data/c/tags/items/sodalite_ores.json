@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "techreborn:sodalite_ore"
+        "techreborn:sodalite_ore",
+	  	"techreborn:deepslate_sodalite_ore"
     ]
 }

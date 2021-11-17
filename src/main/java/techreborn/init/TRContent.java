@@ -392,7 +392,20 @@ public class TRContent {
 		SODALITE(6, 3, 10, 250, MiningLevel.DIAMOND, TargetDimension.END),
 		SPHALERITE(6, 3, 10, 126, MiningLevel.IRON, TargetDimension.NETHER),
 		TIN(8, 16, 20, 60, MiningLevel.STONE, TargetDimension.OVERWORLD),
-		TUNGSTEN(6, 3, 10, 250, MiningLevel.DIAMOND, TargetDimension.END);
+		TUNGSTEN(6, 3, 10, 250, MiningLevel.DIAMOND, TargetDimension.END),
+
+		DEEPSLATE_BAUXITE(6, 10, -50, 20, MiningLevel.IRON, TargetDimension.DEEP_OVERWORLD),
+		DEEPSLATE_GALENA(8, 16, -50, 20, MiningLevel.IRON, TargetDimension.DEEP_OVERWORLD),
+		DEEPSLATE_IRIDIUM(3, 3, -55, 20, MiningLevel.DIAMOND, TargetDimension.DEEP_OVERWORLD),
+		DEEPSLATE_LEAD(6, 16, -40, 20, MiningLevel.IRON, TargetDimension.DEEP_OVERWORLD),
+		DEEPSLATE_PERIDOT(6, 3, -50, 20, MiningLevel.DIAMOND, null),
+		DEEPSLATE_RUBY(6, 3, -50, 20, MiningLevel.IRON, TargetDimension.DEEP_OVERWORLD),
+		DEEPSLATE_SAPPHIRE(6, 3, -50, 20, MiningLevel.IRON, TargetDimension.DEEP_OVERWORLD),
+		DEEPSLATE_SHELDONITE(6, 3, -50, 20, MiningLevel.DIAMOND, null),
+		DEEPSLATE_SILVER(6, 16, -40, 20, MiningLevel.IRON, TargetDimension.DEEP_OVERWORLD),
+		DEEPSLATE_SODALITE(6, 3, -50, 20, MiningLevel.DIAMOND, null),
+		DEEPSLATE_TIN(8, 16, -40, 20, MiningLevel.STONE, TargetDimension.DEEP_OVERWORLD),
+		DEEPSLATE_TUNGSTEN(6, 3, -50, 20, MiningLevel.DIAMOND, null);
 
 		public final String name;
 		public final Block block;

@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "techreborn:ruby_ore"
+        "techreborn:ruby_ore",
+	  	"techreborn:deepslate_ruby_ore"
     ]
 }

@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "techreborn:silver_ore"
+        "techreborn:silver_ore",
+	  	"techreborn:deepslate_silver_ore"
     ]
 }

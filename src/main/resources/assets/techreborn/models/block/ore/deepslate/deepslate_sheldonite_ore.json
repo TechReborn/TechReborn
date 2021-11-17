@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "techreborn:block/ore/deepslate/deepslate_sheldonite_ore"
+    }
+}
