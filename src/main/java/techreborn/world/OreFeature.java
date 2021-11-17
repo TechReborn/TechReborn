@@ -25,6 +25,9 @@
 package techreborn.world;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.minecraft.block.Blocks;
+import net.minecraft.structure.rule.BlockStateMatchRuleTest;
+import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -50,9 +53,30 @@ public class OreFeature {
 	}
 
 	private ConfiguredFeature<?, ?> configureAndRegisterFeature() {
-		ConfiguredFeature<?, ?> configuredFeature = Feature.ORE.configure(new OreFeatureConfig(ore.dimension.ruleTest, ore.block.getDefaultState(), ore.veinSize));
+		final OreFeatureConfig oreFeatureConfig = switch (ore.dimension) {
+			case OVERWORLD -> createOverworldFeatureConfig();
+			case NETHER -> createSimpleFeatureConfig(OreConfiguredFeatures.BASE_STONE_NETHER);
+			case END -> createSimpleFeatureConfig(new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState()));
+		};
+
+		ConfiguredFeature<?, ?> configuredFeature = Feature.ORE.configure(oreFeatureConfig);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, getId(), configuredFeature);
 		return configuredFeature;
+	}
+
+	private OreFeatureConfig createOverworldFeatureConfig() {
+		if (this.ore.getDeeplate() != null) {
+			 return new OreFeatureConfig(List.of(
+					OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, this.ore.block.getDefaultState()),
+					OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, this.ore.getDeeplate().block.getDefaultState())
+			), ore.veinSize);
+		}
+
+		return createSimpleFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES);
+	}
+
+	private OreFeatureConfig createSimpleFeatureConfig(RuleTest test) {
+		return new OreFeatureConfig(test, this.ore.block.getDefaultState(), ore.veinSize);
 	}
 
 	private PlacedFeature configureAndRegisterPlacedFeature() {
@@ -62,7 +86,13 @@ public class OreFeature {
 	}
 
 	private List<PlacementModifier> getPlacementModifiers() {
-		return modifiers(CountPlacementModifier.of(ore.veinsPerChunk), HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(ore.minY), YOffset.aboveBottom(ore.maxY)));
+		return modifiers(
+				CountPlacementModifier.of(ore.veinsPerChunk),
+				HeightRangePlacementModifier.uniform(
+						YOffset.aboveBottom(ore.offsetBottom),
+						YOffset.fixed(ore.maxY)
+				)
+		);
 	}
 
 	private static List<PlacementModifier> modifiers(PlacementModifier first, PlacementModifier second) {

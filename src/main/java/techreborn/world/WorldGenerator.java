@@ -51,6 +51,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+// /fill ~ ~ ~ ~20 ~20 ~20 air replace #minecraft:base_stone_overworld
 public class WorldGenerator {
 	public static ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE_FEATURE;
 	public static PlacedFeature RUBBER_TREE_PLACED_FEATURE;
