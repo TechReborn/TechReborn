@@ -39,7 +39,6 @@ import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
@@ -47,7 +46,7 @@ import techreborn.utils.ToolsUtil;
 
 import java.util.Random;
 
-public class JackhammerItem extends PickaxeItem implements RcEnergyItem, ItemDurabilityExtensions, DynamicAttributeTool {
+public class JackhammerItem extends PickaxeItem implements RcEnergyItem, DynamicAttributeTool {
 
 	public final int maxCharge;
 	public final RcEnergyTier tier;
@@ -144,20 +143,19 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, ItemDur
 		return 0;
 	}
 
-	// ItemDurabilityExtensions
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isItemBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public int getItemBarColor(ItemStack stack) {
+		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
 	// DynamicAttributeTool

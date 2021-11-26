@@ -143,12 +143,12 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isItemBarVisible(ItemStack stack) {
 		return true;
 	}
 
@@ -158,8 +158,8 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	}
 
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public int getItemBarColor(ItemStack stack) {
+		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
 	@Override

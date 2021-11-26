@@ -28,7 +28,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
-import reborncore.common.util.ItemDurabilityExtensions;
 import techreborn.TechReborn;
 
 import java.util.UUID;
@@ -36,7 +35,7 @@ import java.util.UUID;
 /**
  * Created by modmuss50 on 26/02/2016.
  */
-public class TRArmourItem extends ArmorItem implements ItemDurabilityExtensions {
+public class TRArmourItem extends ArmorItem {
 
 	//Thanks for being private
 	public static final UUID[] MODIFIERS = new UUID[]{

@@ -38,12 +38,11 @@ import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-public class BatpackItem extends ArmorItem implements RcEnergyItem, ItemDurabilityExtensions {
+public class BatpackItem extends ArmorItem implements RcEnergyItem {
 
 	public final int maxCharge;
 	public final RcEnergyTier tier;
@@ -95,19 +94,18 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem, ItemDurabili
 		return tier;
 	}
 
-	// ItemDurabilityExtensions
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public int getItemBarColor(ItemStack stack) {
+		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isItemBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 }

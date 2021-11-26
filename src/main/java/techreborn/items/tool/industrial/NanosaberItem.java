@@ -47,7 +47,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.items.ItemStackModifiers;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
-import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
@@ -57,7 +56,7 @@ import techreborn.utils.MessageIDs;
 
 import java.util.List;
 
-public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemDurabilityExtensions, ItemStackModifiers {
+public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemStackModifiers {
 	public static final int maxCharge = TechRebornConfig.nanosaberCharge;
 	public int cost = TechRebornConfig.nanosaberCost;
 
@@ -152,20 +151,19 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemDurabi
 		return 0;
 	}
 
-	// ItemDurabilityExtensions
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isItemBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public int getItemBarColor(ItemStack stack) {
+		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
 	// ItemStackModifiers

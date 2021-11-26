@@ -37,7 +37,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
-import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
@@ -46,7 +45,7 @@ import techreborn.init.TRContent;
 
 import java.util.Random;
 
-public class RockCutterItem extends PickaxeItem implements RcEnergyItem, ItemDurabilityExtensions {
+public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 
 	public static final int maxCharge = TechRebornConfig.rockCutterCharge;
 	public int cost = TechRebornConfig.rockCutterCost;
@@ -129,18 +128,18 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem, ItemDur
 
 	// ItemDurabilityExtensions
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isItemBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public int getItemBarColor(ItemStack stack) {
+		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
 	// EnergyHolder

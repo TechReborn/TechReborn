@@ -46,7 +46,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
-import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -58,7 +57,7 @@ import techreborn.utils.InitUtils;
 
 import java.util.List;
 
-public class OmniToolItem extends PickaxeItem implements RcEnergyItem, ItemDurabilityExtensions, DynamicAttributeTool {
+public class OmniToolItem extends PickaxeItem implements RcEnergyItem, DynamicAttributeTool {
 
 	public final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int cost = TechRebornConfig.omniToolCost;
@@ -139,20 +138,19 @@ public class OmniToolItem extends PickaxeItem implements RcEnergyItem, ItemDurab
 		tooltip.add(new LiteralText(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
 	}
 
-	// ItemDurabilityExtensions
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isItemBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public int getItemBarColor(ItemStack stack) {
+		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
 	// EnergyHolder

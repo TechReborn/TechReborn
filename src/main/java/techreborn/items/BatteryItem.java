@@ -42,7 +42,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
@@ -50,7 +49,7 @@ import techreborn.utils.MessageIDs;
 
 import java.util.List;
 
-public class BatteryItem extends Item implements RcEnergyItem, ItemDurabilityExtensions {
+public class BatteryItem extends Item implements RcEnergyItem {
 
 	private final int maxEnergy;
 	private final RcEnergyTier tier;
@@ -113,17 +112,17 @@ public class BatteryItem extends Item implements RcEnergyItem, ItemDurabilityExt
 
 	// ItemDurabilityExtensions
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isItemBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public int getItemBarColor(ItemStack stack) {
+		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 }

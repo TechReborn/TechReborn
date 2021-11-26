@@ -108,12 +108,16 @@ public class ItemUtils {
 		return ItemStack.fromNbt(data);
 	}
 
-	public static double getPowerForDurabilityBar(ItemStack stack) {
+	public static int getPowerForDurabilityBar(ItemStack stack) {
 		if (!(stack.getItem() instanceof RcEnergyItem energyItem)) {
-			return 0.0;
+			throw new UnsupportedOperationException();
 		}
 
-		return (double) energyItem.getStoredEnergy(stack) / energyItem.getEnergyCapacity();
+		return Math.round((energyItem.getStoredEnergy(stack) * 100f / energyItem.getEnergyCapacity()) * 13) / 100;
+	}
+
+	public static int getColorForDurabilityBar(ItemStack stack) {
+		return 0xff8006;
 	}
 
 	/**

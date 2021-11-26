@@ -33,7 +33,6 @@ import net.minecraft.util.collection.DefaultedList;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
@@ -42,7 +41,7 @@ import techreborn.utils.InitUtils;
 /**
  * Created by modmuss50 on 05/11/2016.
  */
-public class ElectricTreetapItem extends Item implements RcEnergyItem, ItemDurabilityExtensions {
+public class ElectricTreetapItem extends Item implements RcEnergyItem {
 
 	public final int maxCharge = TechRebornConfig.electricTreetapCharge;
 	public int cost = TechRebornConfig.electricTreetapCost;
@@ -67,20 +66,19 @@ public class ElectricTreetapItem extends Item implements RcEnergyItem, ItemDurab
 		InitUtils.initPoweredItems(this, stacks);
 	}
 
-	// ItemDurabilityExtensions
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	public int getItemBarStep(ItemStack stack) {
+		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isItemBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public int getItemBarColor(ItemStack stack) {
+		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
 	// EnergyHolder
