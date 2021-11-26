@@ -6,7 +6,6 @@
     "MixinGameRenderer",
     "MixinItemRenderer",
     "MixinDebugRenderer",
-	"MixinWorldRenderer",
 	"AccessorModelPredicateProviderRegistry",
 	"AccessorChatHud",
 	"AccessorScreen"

@@ -5,3 +5,5 @@ accessible    method    net/minecraft/recipe/ShapedRecipe    getPattern    (Lcom
 accessible    method    net/minecraft/recipe/ShapedRecipe    createPatternMatrix    ([Ljava/lang/String;Ljava/util/Map;II)Lnet/minecraft/util/collection/DefaultedList;
 
 accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen    getSlotAt     (DD)Lnet/minecraft/screen/slot/Slot;
+
+accessible    method    net/minecraft/client/render/WorldRenderer    drawShapeOutline    (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/shape/VoxelShape;DDDFFFF)V
