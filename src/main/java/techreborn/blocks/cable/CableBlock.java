@@ -154,7 +154,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 				&& stack.getItem() == TRContent.Plates.WOOD.asItem()) {
 			worldIn.setBlockState(pos, state.with(COVERED, true));
 			worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 0.6F, 1.0F);
-			if (!worldIn.isClient) {
+			if (!worldIn.isClient && !playerIn.isCreative()) {
 				stack.decrement(1);
 			}
 			return ActionResult.SUCCESS;
