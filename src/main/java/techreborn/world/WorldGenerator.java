@@ -81,7 +81,7 @@ public class WorldGenerator {
 
 	private static List<OreFeature> getOreFeatures() {
 		return Arrays.stream(TRContent.Ores.values())
-				.filter(ores -> ores.dimension != null)
+				.filter(ores -> ores.distribution != null)
 				.map(OreFeature::new)
 				.toList();
 	}

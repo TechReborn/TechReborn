@@ -53,7 +53,7 @@ public class OreFeature {
 	}
 
 	private ConfiguredFeature<?, ?> configureAndRegisterFeature() {
-		final OreFeatureConfig oreFeatureConfig = switch (ore.dimension) {
+		final OreFeatureConfig oreFeatureConfig = switch (ore.distribution.dimension) {
 			case OVERWORLD -> createOverworldFeatureConfig();
 			case NETHER -> createSimpleFeatureConfig(OreConfiguredFeatures.BASE_STONE_NETHER);
 			case END -> createSimpleFeatureConfig(new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState()));
@@ -69,14 +69,14 @@ public class OreFeature {
 			 return new OreFeatureConfig(List.of(
 					OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, this.ore.block.getDefaultState()),
 					OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, this.ore.getDeeplate().block.getDefaultState())
-			), ore.veinSize);
+			), ore.distribution.veinSize);
 		}
 
 		return createSimpleFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES);
 	}
 
 	private OreFeatureConfig createSimpleFeatureConfig(RuleTest test) {
-		return new OreFeatureConfig(test, this.ore.block.getDefaultState(), ore.veinSize);
+		return new OreFeatureConfig(test, this.ore.block.getDefaultState(), ore.distribution.veinSize);
 	}
 
 	private PlacedFeature configureAndRegisterPlacedFeature() {
@@ -87,10 +87,10 @@ public class OreFeature {
 
 	private List<PlacementModifier> getPlacementModifiers() {
 		return modifiers(
-				CountPlacementModifier.of(ore.veinsPerChunk),
+				CountPlacementModifier.of(ore.distribution.veinsPerChunk),
 				HeightRangePlacementModifier.uniform(
-						YOffset.aboveBottom(ore.offsetBottom),
-						YOffset.fixed(ore.maxY)
+						ore.distribution.minOffset,
+						YOffset.fixed(ore.distribution.maxY)
 				)
 		);
 	}
@@ -104,7 +104,7 @@ public class OreFeature {
 	}
 
 	public Predicate<BiomeSelectionContext> getBiomeSelector() {
-		return ore.dimension.biomeSelector;
+		return ore.distribution.dimension.biomeSelector;
 	}
 
 	public RegistryKey<PlacedFeature> getPlacedFeatureRegistryKey() {

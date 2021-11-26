@@ -82,7 +82,7 @@ import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
-import techreborn.world.TargetDimension;
+import techreborn.world.OreDistribution;
 
 import java.util.*;
 import java.util.function.Function;
@@ -376,21 +376,21 @@ public class TRContent {
 	private final static Map<Ores, Ores> deepslateMap = new HashMap<>();
 
 	public enum Ores implements ItemConvertible {
-		BAUXITE(6, 12, 10, 80, MiningLevel.IRON, TargetDimension.OVERWORLD),
-		CINNABAR(6, 5, 0, 128, MiningLevel.IRON, TargetDimension.NETHER),
-		GALENA(8, 12, 10, 80, MiningLevel.IRON, TargetDimension.OVERWORLD),
-		IRIDIUM(3, 4, 5, 80, MiningLevel.DIAMOND, TargetDimension.OVERWORLD),
-		LEAD(6, 16, 20, 80, MiningLevel.IRON, TargetDimension.OVERWORLD),
-		PERIDOT(6, 6, 0, 360, MiningLevel.DIAMOND, TargetDimension.END),
-		PYRITE(6, 6, 0, 128, MiningLevel.DIAMOND, TargetDimension.NETHER),
-		RUBY(6, 8, 10, 80, MiningLevel.IRON, TargetDimension.OVERWORLD),
-		SAPPHIRE(6, 7, 10, 80, MiningLevel.IRON, TargetDimension.OVERWORLD),
-		SHELDONITE(6, 4, 0, 360, MiningLevel.DIAMOND, TargetDimension.END),
-		SILVER(6, 16, 20, 80, MiningLevel.IRON, TargetDimension.OVERWORLD),
-		SODALITE(6, 4, 0, 360, MiningLevel.DIAMOND, TargetDimension.END),
-		SPHALERITE(6, 4, 0, 128, MiningLevel.IRON, TargetDimension.NETHER),
-		TIN(8, 16, 18, 80, MiningLevel.STONE, TargetDimension.OVERWORLD),
-		TUNGSTEN(6, 3, 0, 360, MiningLevel.DIAMOND, TargetDimension.END),
+		BAUXITE(MiningLevel.IRON, OreDistribution.BAUXITE),
+		CINNABAR(MiningLevel.IRON, OreDistribution.CINNABAR),
+		GALENA(MiningLevel.IRON, OreDistribution.GALENA),
+		IRIDIUM(MiningLevel.DIAMOND, OreDistribution.IRIDIUM),
+		LEAD(MiningLevel.IRON, OreDistribution.LEAD),
+		PERIDOT(MiningLevel.DIAMOND, OreDistribution.PERIDOT),
+		PYRITE(MiningLevel.DIAMOND, OreDistribution.PYRITE),
+		RUBY(MiningLevel.IRON, OreDistribution.RUBY),
+		SAPPHIRE(MiningLevel.IRON, OreDistribution.SAPPHIRE),
+		SHELDONITE(MiningLevel.DIAMOND, OreDistribution.SHELDONITE),
+		SILVER(MiningLevel.IRON, OreDistribution.SILVER),
+		SODALITE(MiningLevel.DIAMOND, OreDistribution.SODALITE),
+		SPHALERITE(MiningLevel.IRON, OreDistribution.SPHALERITE),
+		TIN(MiningLevel.STONE, OreDistribution.TIN),
+		TUNGSTEN(MiningLevel.DIAMOND, OreDistribution.TUNGSTEN),
 
 		DEEPSLATE_BAUXITE(BAUXITE, MiningLevel.IRON),
 		DEEPSLATE_GALENA(GALENA, MiningLevel.IRON),
@@ -407,14 +407,9 @@ public class TRContent {
 
 		public final String name;
 		public final Block block;
-		public final int veinSize;
-		public final int veinsPerChunk;
-		public final int offsetBottom; // Min height of ore in number of blocks from the bottom of the world
-		public final int maxY; // Max height of ore in numbers of blocks from the bottom of the world
-		public final TargetDimension dimension;
+		public final OreDistribution distribution;
 
-		Ores(int veinSize, int veinsPerChunk, int offsetBottom, int maxY, MiningLevel miningLevel, TargetDimension dimension) {
-			this.dimension = dimension;
+		Ores(MiningLevel miningLevel, OreDistribution distribution) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, miningLevel.intLevel)
@@ -422,15 +417,13 @@ public class TRContent {
 					.sounds(BlockSoundGroup.STONE)
 					.strength(2f, 2f)
 			);
-			this.veinSize = veinSize;
-			this.veinsPerChunk = veinsPerChunk;
-			this.offsetBottom = offsetBottom;
-			this.maxY = maxY;
+
 			InitUtils.setup(block, name + "_ore");
+			this.distribution = distribution;
 		}
 
 		Ores(TRContent.Ores stoneOre, MiningLevel miningLevel) {
-			this(0, 0, 0, 0, miningLevel, null);
+			this(miningLevel, null);
 			deepslateMap.put(stoneOre, this);
 		}
 
