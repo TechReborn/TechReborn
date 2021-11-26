@@ -80,8 +80,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 			MinecraftClient.getInstance().getItemRenderer().renderInGui(item, 0, 0);
 			framebuffer.endWrite();
 
-			// framebuffer.beginRead
-			framebuffer.method_35610();
+			framebuffer.beginRead();
 			nativeImage.loadFromTextureImage(0, false);
 			nativeImage.mirrorVertically();
 			framebuffer.endRead();
