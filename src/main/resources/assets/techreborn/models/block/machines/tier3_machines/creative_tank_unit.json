@@ -1,8 +1,9 @@
 {
-    "parent": "minecraft:block/cube_bottom_top",
+    "parent": "minecraft:block/orientable",
     "textures": {
         "top": "techreborn:block/machines/tier3_machines/creative_tank_unit_top",
-        "bottom": "techreborn:block/machines/tier3_machines/quantum_bottom",
+        "front": "techreborn:block/machines/tier3_machines/creative_tank_unit_side",
+		"bottom": "techreborn:block/machines/tier3_machines/quantum_bottom",
         "side": "techreborn:block/machines/tier3_machines/creative_tank_unit_side"
     }
 }
