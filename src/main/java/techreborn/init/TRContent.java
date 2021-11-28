@@ -432,9 +432,13 @@ public class TRContent {
 			return block.asItem();
 		}
 
-		public TRContent.Ores getDeeplate() {
-			Preconditions.checkArgument(!name.startsWith("deepslate_"));
+		public TRContent.Ores getDeepslate() {
+			Preconditions.checkArgument(!isDeepslate());
 			return deepslateMap.get(this);
+		}
+
+		public boolean isDeepslate() {
+			return name.startsWith("deepslate_");
 		}
 	}
 

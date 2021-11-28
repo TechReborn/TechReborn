@@ -867,6 +867,9 @@
   "techreborn.tooltip.stack_info": "Hold Shift for stack info",
   "techreborn.tooltip.omnitool_motto" : "Swiss Army Knife",
   "techreborn.tooltip.fusion_coil" : "Right click Fusion Control computer to auto place",
+  "techreborn.tooltip.ores.overworld" : "Can be found at y levels %s < %s",
+  "techreborn.tooltip.ores.nether" : "Can be found in the nether",
+  "techreborn.tooltip.ores.end" : "Can be found in the end",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",
