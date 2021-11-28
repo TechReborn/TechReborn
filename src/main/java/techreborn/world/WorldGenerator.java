@@ -45,6 +45,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import techreborn.blocks.misc.BlockRubberLog;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.Arrays;
@@ -64,6 +65,10 @@ public class WorldGenerator {
 	public static void initWorldGen() {
 		registerTreeDecorators();
 
+		if (!TechRebornConfig.enableOreGeneration && !TechRebornConfig.enableOreGeneration) {
+			return;
+		}
+
 		BiomeModifications.create(new Identifier("techreborn", "features"))
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), oreModifier())
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA, Biome.Category.SWAMP), rubberTreeModifier());
@@ -71,6 +76,10 @@ public class WorldGenerator {
 
 	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> oreModifier() {
 		return (biomeSelectionContext, biomeModificationContext) -> {
+			if (!TechRebornConfig.enableOreGeneration) {
+				return;
+			}
+
 			for (OreFeature feature : ORE_FEATURES) {
 				if (feature.getBiomeSelector().test(biomeSelectionContext)) {
 					biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.UNDERGROUND_ORES, feature.getPlacedFeatureRegistryKey());
@@ -114,6 +123,10 @@ public class WorldGenerator {
 	}
 
 	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> rubberTreeModifier() {
+		if (!TechRebornConfig.enableRubberTreeGeneration) {
+			return (biomeSelectionContext, biomeModificationContext) -> {};
+		}
+
 		final RegistryKey<PlacedFeature> registryKey = BuiltinRegistries.PLACED_FEATURE.getKey(RUBBER_TREE_PATCH_PLACED_FEATURE).orElseThrow();
 
 		return (biomeSelectionContext, biomeModificationContext) ->
