@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "tag": "c:electrum_dusts"
-  },
-  "result": "techreborn:electrum_ingot",
-  "experience": 0.5,
-  "cookingtime": 200
-}

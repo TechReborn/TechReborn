@@ -122,4 +122,8 @@ public enum ModFluids {
 	public Identifier getIdentifier() {
 		return identifier;
 	}
+
+	public RebornBucketItem getBucket() {
+		return bucket;
+	}
 }

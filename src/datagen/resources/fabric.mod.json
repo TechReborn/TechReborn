@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "techreborn-datagen",
-  "name": "TechReborn Gametest",
+  "name": "TechReborn Datagen",
   "version": "1.0.0",
   "environment": "*",
   "entrypoints": {

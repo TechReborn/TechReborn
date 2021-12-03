@@ -236,7 +236,7 @@ jar {
 
 	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.json"} : null}
 	dependsOn 'fixTranslations'
-	dependsOn 'compileRecipes'
+    dependsOn 'runDatagen'
 }
 
 

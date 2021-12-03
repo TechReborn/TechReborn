@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "tag": "c:tin_ores"
-  },
-  "result": "techreborn:tin_ingot",
-  "experience": 0.5,
-  "cookingtime": 200
-}
