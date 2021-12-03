@@ -359,36 +359,6 @@ task github(dependsOn: remapJar) {
 }
 github.dependsOn(project(":RebornCore").getTasks().getByName("remapJar"))
 
-task compileRecipes {
-    description "Generate recipe JSON for similar recipes"
-	def jsonSlurper = new JsonSlurper()
-	def recipePath = "build/resources/main/data/techreborn/recipes"
-
-	def smeltingPath = recipePath + "/smelting"
-	def blastingPath = recipePath + "/blasting"
-
-	doLast {
-		// Add any recipe filenames that don't match the regex here
-		String[] whitelist = []
-		def pattern = ~'^\\w+_(ingot)\\w*\\.json$'
-
-		file(smeltingPath).eachFileRecurse(groovy.io.FileType.FILES) {
-			if (whitelist.contains(it.name) || it.name ==~ pattern) {
-				def recipe = jsonSlurper.parseText(it.text)
-
-				// Final failsafe
-				if (["smelting", "minecraft:smelting"].contains(recipe.type)) {
-					recipe.type = "minecraft:blasting"
-					recipe.cookingtime = recipe.cookingtime / 2
-
-					File output = file(new File(blastingPath, it.name))
-					output.write(JsonOutput.prettyPrint(JsonOutput.toJson(recipe)))
-				}
-			}
-		}
-	}
-}
-
 // A task to ensure that the version being released has not already been released.
 task checkVersion {
 	doFirst {
