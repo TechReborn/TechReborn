@@ -19,10 +19,6 @@ plugins {
 
 repositories {
 	maven {
-		name = "Modmuss50"
-		url = "https://maven.modmuss50.me/"
-	}
-	maven {
 		url = "https://www.cursemaven.com"
 		content {
 			includeGroup "curse.maven"
@@ -142,6 +138,23 @@ loom {
 }
 
 sourceSets {
+    // Add a generated resources directory
+    main {
+        resources {
+            srcDirs += [
+                'src/main/generated'
+            ]
+        }
+    }
+
+    // Add a data gen sourceset
+    datagen {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+
     gametest {
         compileClasspath += sourceSets.main.compileClasspath
         runtimeClasspath += sourceSets.main.runtimeClasspath
@@ -160,7 +173,9 @@ dependencies {
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:${project.autoswitch_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
 
+    // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.0-beta-2'
+    datagenImplementation 'org.apache.groovy:groovy:4.0.0-beta-2'
 }
 
 def optionalDependency(String dep) {
@@ -183,6 +198,17 @@ def disabledOptionalDependency(String dep) {
 
 loom {
     runs {
+        // Add a data gen run config
+        datagen {
+            server()
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=techreborn-datagen"
+            runDir "build/datagen"
+            source sourceSets.datagen
+        }
+
         // Use to run the tests
         gametest {
             server()
@@ -201,6 +227,7 @@ loom {
         }
     }
 }
+assemble.dependsOn runDatagen
 test.dependsOn runGametest
 
 jar {
@@ -280,7 +307,7 @@ curseforge {
 		id = "233564"
 		changelog = ENV.CHANGELOG ?: "No changelog provided"
 		releaseType = ENV.RELEASE_CHANNEL ?: "release"
-		addGameVersion "1.18-Snapshot" // Also update in RebornCore/build.gradle
+		addGameVersion "1.18" // Also update in RebornCore/build.gradle
 		addGameVersion "Fabric"
 
 		mainArtifact remapJar

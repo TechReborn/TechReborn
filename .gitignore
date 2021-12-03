@@ -24,6 +24,7 @@ changelog.txt
 /logs/
 /classes/
 /src/main/resources/package-lock.json
+/src/main/generated
 
 /RebornCore/.gradle
 /RebornCore/build
