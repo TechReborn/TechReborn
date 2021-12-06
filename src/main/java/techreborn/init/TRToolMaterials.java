@@ -11,14 +11,19 @@ import static net.minecraft.item.ToolMaterials.*;
  * We use custom materials to allow LevelZ to tweak the mining level of our tools.
  */
 public class TRToolMaterials {
-	public static final ToolMaterial BASIC_DRILL = copy(IRON, "basic_drill");
 	public static final ToolMaterial BASIC_CHAINSAW = copy(IRON, "basic_chainsaw");
-	public static final ToolMaterial ADVANCED_DRILL = copy(DIAMOND, "advanced_drill");
+	public static final ToolMaterial BASIC_DRILL = copy(IRON, "basic_drill");
+	public static final ToolMaterial BASIC_JACKHAMMER = copy(DIAMOND, "basic_jackhammer");
+
 	public static final ToolMaterial ADVANCED_CHAINSAW = copy(DIAMOND, "advanced_chainsaw");
-	public static final ToolMaterial JACKHAMMER = copy(DIAMOND, "jackhammer");
-	public static final ToolMaterial ROCK_CUTTER = copy(DIAMOND, "rock_cutter");
+	public static final ToolMaterial ADVANCED_DRILL = copy(DIAMOND, "advanced_drill");
+	public static final ToolMaterial ADVANCED_JACKHAMMER = copy(DIAMOND, "advanced_jackhammer");
+
 	public static final ToolMaterial INDUSTRIAL_CHAINSAW = copy(DIAMOND, "industrial_chainsaw");
 	public static final ToolMaterial INDUSTRIAL_DRILL = copy(DIAMOND, "industrial_drill");
+	public static final ToolMaterial INDUSTRIAL_JACKHAMMER = copy(DIAMOND, "industrial_jackhammer");
+
+	public static final ToolMaterial ROCK_CUTTER = copy(DIAMOND, "rock_cutter");
 	public static final ToolMaterial NANOSABER = copy(DIAMOND, "nanosaber");
 	public static final ToolMaterial OMNI_TOOL = copy(DIAMOND, "omni_tool");
 
