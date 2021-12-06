@@ -65,7 +65,7 @@ public class WorldGenerator {
 	public static void initWorldGen() {
 		registerTreeDecorators();
 
-		if (!TechRebornConfig.enableOreGeneration && !TechRebornConfig.enableOreGeneration) {
+		if (!TechRebornConfig.enableOreGeneration && !TechRebornConfig.enableRubberTreeGeneration) {
 			return;
 		}
 
