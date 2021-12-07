@@ -161,8 +161,8 @@ sourceSets {
     }
 
     main {
-        runtimeClasspath += datagen.runtimeClasspath
-        runtimeClasspath += datagen.output
+        runtimeClasspath += generated.runtimeClasspath
+        runtimeClasspath += generated.output
     }
 }
 
