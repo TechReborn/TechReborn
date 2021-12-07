@@ -141,10 +141,6 @@ sourceSets {
     // Add a generated resources directory
     generated {
         resources {
-            srcDirs += [
-                'src/generated/resources'
-            ]
-
             compiledBy("runDatagen")
         }
     }
