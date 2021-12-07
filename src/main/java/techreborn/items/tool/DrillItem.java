@@ -51,7 +51,7 @@ public class DrillItem extends PickaxeItem implements RcEnergyItem, DynamicAttri
 	public final int miningLevel;
 	public final RcEnergyTier tier;
 
-	public DrillItem(ToolMaterials material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, MiningLevel miningLevel) {
+	public DrillItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, MiningLevel miningLevel) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
 		super(material, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;

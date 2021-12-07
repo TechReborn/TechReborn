@@ -52,6 +52,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.init.TRToolMaterials;
 import techreborn.utils.MessageIDs;
 
 import java.util.List;
@@ -62,7 +63,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemStackM
 
 	// 4ME max charge with 1k charge rate
 	public NanosaberItem() {
-		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 	}
 
 	// SwordItem

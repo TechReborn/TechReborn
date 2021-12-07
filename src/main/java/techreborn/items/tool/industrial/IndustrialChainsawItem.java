@@ -45,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.TagUtils;
@@ -58,7 +59,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	private static final Direction[] SEARCH_ORDER = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
 
 	public IndustrialChainsawItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialChainsawCharge, RcEnergyTier.EXTREME, TechRebornConfig.industrialChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE);
+		super(TRToolMaterials.INDUSTRIAL_CHAINSAW, TechRebornConfig.industrialChainsawCharge, RcEnergyTier.EXTREME, TechRebornConfig.industrialChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE);
 	}
 
 	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves) {

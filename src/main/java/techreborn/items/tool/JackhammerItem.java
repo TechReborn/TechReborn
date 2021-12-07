@@ -41,6 +41,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
+import techreborn.init.TRToolMaterials;
 import techreborn.utils.InitUtils;
 import techreborn.utils.ToolsUtil;
 
@@ -53,9 +54,9 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Dynamic
 	public final int cost;
 	protected final float unpoweredSpeed = 0.5F;
 
-	public JackhammerItem(int energyCapacity, RcEnergyTier tier, int cost) {
+	public JackhammerItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(ToolMaterials.DIAMOND, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(material, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;

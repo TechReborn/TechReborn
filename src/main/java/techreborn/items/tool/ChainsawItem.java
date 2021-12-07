@@ -51,7 +51,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	public final Item referenceTool;
 	public final RcEnergyTier tier;
 
-	public ChainsawItem(ToolMaterials material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referenceTool) {
+	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referenceTool) {
 		// combat stats same as for diamond axe. Fix for #2468
 		super(material, 5.0F, -3.0F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;

@@ -52,6 +52,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
@@ -66,7 +67,7 @@ public class OmniToolItem extends PickaxeItem implements RcEnergyItem, DynamicAt
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(ToolMaterials.DIAMOND, 3, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(TRToolMaterials.OMNI_TOOL, 3, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.miningLevel = MiningLevel.DIAMOND.intLevel;
 	}
 
@@ -81,7 +82,7 @@ public class OmniToolItem extends PickaxeItem implements RcEnergyItem, DynamicAt
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (getStoredEnergy(stack) >= cost) {
-			return ToolMaterials.DIAMOND.getMiningSpeedMultiplier();
+			return getMaterial().getMiningSpeedMultiplier();
 		}
 		return super.getMiningSpeedMultiplier(stack, state);
 	}
