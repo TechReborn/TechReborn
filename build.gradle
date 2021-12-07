@@ -139,27 +139,34 @@ loom {
 
 sourceSets {
     // Add a generated resources directory
-    main {
+    generated {
         resources {
             srcDirs += [
-                'src/main/generated'
+                'src/generated/resources'
             ]
+
+            compiledBy("runDatagen")
         }
     }
 
     // Add a data gen sourceset
     datagen {
-        compileClasspath += sourceSets.main.compileClasspath
-        runtimeClasspath += sourceSets.main.runtimeClasspath
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        compileClasspath += main.output
+        runtimeClasspath += main.output
     }
 
     gametest {
-        compileClasspath += sourceSets.main.compileClasspath
-        runtimeClasspath += sourceSets.main.runtimeClasspath
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+
+    main {
+        runtimeClasspath += datagen.runtimeClasspath
+        runtimeClasspath += datagen.output
     }
 }
 
@@ -203,7 +210,7 @@ loom {
             server()
             name "Data Generation"
             vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
             vmArg "-Dfabric-api.datagen.modid=techreborn-datagen"
             runDir "build/datagen"
             source sourceSets.datagen
@@ -230,10 +237,19 @@ loom {
 assemble.dependsOn runDatagen
 test.dependsOn runGametest
 
+runDatagen {
+    // Doesnt re-run the task when its up-to date
+    outputs.dir('src/generated/resources')
+}
+
 jar {
 	exclude "**/*.psd"
 
+    dependsOn("runDatagen")
+
+    from file('src/generated/resources')
 	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.json"} : null}
+
 	dependsOn 'fixTranslations'
     dependsOn 'runDatagen'
 }
