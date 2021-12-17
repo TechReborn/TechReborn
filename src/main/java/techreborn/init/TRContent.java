@@ -376,43 +376,42 @@ public class TRContent {
 	private final static Map<Ores, Ores> deepslateMap = new HashMap<>();
 
 	public enum Ores implements ItemConvertible {
-		BAUXITE(MiningLevel.IRON, OreDistribution.BAUXITE),
-		CINNABAR(MiningLevel.IRON, OreDistribution.CINNABAR),
-		GALENA(MiningLevel.IRON, OreDistribution.GALENA),
-		IRIDIUM(MiningLevel.DIAMOND, OreDistribution.IRIDIUM),
-		LEAD(MiningLevel.IRON, OreDistribution.LEAD),
-		PERIDOT(MiningLevel.DIAMOND, OreDistribution.PERIDOT),
-		PYRITE(MiningLevel.DIAMOND, OreDistribution.PYRITE),
-		RUBY(MiningLevel.IRON, OreDistribution.RUBY),
-		SAPPHIRE(MiningLevel.IRON, OreDistribution.SAPPHIRE),
-		SHELDONITE(MiningLevel.DIAMOND, OreDistribution.SHELDONITE),
-		SILVER(MiningLevel.IRON, OreDistribution.SILVER),
-		SODALITE(MiningLevel.DIAMOND, OreDistribution.SODALITE),
-		SPHALERITE(MiningLevel.IRON, OreDistribution.SPHALERITE),
-		TIN(MiningLevel.STONE, OreDistribution.TIN),
-		TUNGSTEN(MiningLevel.DIAMOND, OreDistribution.TUNGSTEN),
+		BAUXITE(OreDistribution.BAUXITE),
+		CINNABAR(OreDistribution.CINNABAR),
+		GALENA(OreDistribution.GALENA),
+		IRIDIUM(OreDistribution.IRIDIUM),
+		LEAD(OreDistribution.LEAD),
+		PERIDOT(OreDistribution.PERIDOT),
+		PYRITE(OreDistribution.PYRITE),
+		RUBY(OreDistribution.RUBY),
+		SAPPHIRE(OreDistribution.SAPPHIRE),
+		SHELDONITE(OreDistribution.SHELDONITE),
+		SILVER(OreDistribution.SILVER),
+		SODALITE(OreDistribution.SODALITE),
+		SPHALERITE(OreDistribution.SPHALERITE),
+		TIN(OreDistribution.TIN),
+		TUNGSTEN(OreDistribution.TUNGSTEN),
 
-		DEEPSLATE_BAUXITE(BAUXITE, MiningLevel.IRON),
-		DEEPSLATE_GALENA(GALENA, MiningLevel.IRON),
-		DEEPSLATE_IRIDIUM(IRIDIUM, MiningLevel.DIAMOND),
-		DEEPSLATE_LEAD(LEAD, MiningLevel.IRON),
-		DEEPSLATE_PERIDOT(PERIDOT, MiningLevel.DIAMOND),
-		DEEPSLATE_RUBY(RUBY, MiningLevel.IRON),
-		DEEPSLATE_SAPPHIRE(SAPPHIRE, MiningLevel.IRON),
-		DEEPSLATE_SHELDONITE(SHELDONITE, MiningLevel.DIAMOND),
-		DEEPSLATE_SILVER(SILVER, MiningLevel.IRON),
-		DEEPSLATE_SODALITE(SODALITE, MiningLevel.DIAMOND),
-		DEEPSLATE_TIN(TIN, MiningLevel.STONE),
-		DEEPSLATE_TUNGSTEN(TUNGSTEN, MiningLevel.DIAMOND);
+		DEEPSLATE_BAUXITE(BAUXITE),
+		DEEPSLATE_GALENA(GALENA),
+		DEEPSLATE_IRIDIUM(IRIDIUM),
+		DEEPSLATE_LEAD(LEAD),
+		DEEPSLATE_PERIDOT(PERIDOT),
+		DEEPSLATE_RUBY(RUBY),
+		DEEPSLATE_SAPPHIRE(SAPPHIRE),
+		DEEPSLATE_SHELDONITE(SHELDONITE),
+		DEEPSLATE_SILVER(SILVER),
+		DEEPSLATE_SODALITE(SODALITE),
+		DEEPSLATE_TIN(TIN),
+		DEEPSLATE_TUNGSTEN(TUNGSTEN);
 
 		public final String name;
 		public final Block block;
 		public final OreDistribution distribution;
 
-		Ores(MiningLevel miningLevel, OreDistribution distribution) {
+		Ores(OreDistribution distribution) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, miningLevel.intLevel)
 					.requiresTool()
 					.sounds(BlockSoundGroup.STONE)
 					.strength(2f, 2f)
@@ -422,8 +421,8 @@ public class TRContent {
 			this.distribution = distribution;
 		}
 
-		Ores(TRContent.Ores stoneOre, MiningLevel miningLevel) {
-			this(miningLevel, null);
+		Ores(TRContent.Ores stoneOre) {
+			this((OreDistribution) null);
 			deepslateMap.put(stoneOre, this);
 		}
 
