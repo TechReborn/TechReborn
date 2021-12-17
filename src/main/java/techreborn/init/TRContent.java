@@ -411,7 +411,7 @@ public class TRContent {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
 					.requiresTool()
-					.sounds(BlockSoundGroup.STONE)
+					.sounds(name.startsWith("deepslate") ? BlockSoundGroup.DEEPSLATE : BlockSoundGroup.STONE)
 					.strength(2f, 2f)
 			);
 
