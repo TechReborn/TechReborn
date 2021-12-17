@@ -2,8 +2,12 @@
   "replace": false,
   "values": [
 	"techreborn:iridium_ore",
+	"techreborn:deepslate_iridium_ore",
 	"techreborn:sheldonite_ore",
+	"techreborn:deepslate_sheldonite_ore",
 	"techreborn:sodalite_ore",
-	"techreborn:tungsten_ore"
+	"techreborn:deepslate_sodalite_ore",
+	"techreborn:tungsten_ore",
+	"techreborn:deepslate_tungsten_ore"
   ]
 }
