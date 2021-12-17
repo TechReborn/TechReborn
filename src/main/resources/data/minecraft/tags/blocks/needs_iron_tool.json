@@ -17,8 +17,6 @@
 	"techreborn:deepslate_sapphire_ore",
 	"techreborn:silver_ore",
 	"techreborn:deepslate_silver_ore",
-	"techreborn:sphalerite_ore",
-	"techreborn:tin_ore",
-	"techreborn:deepslate_tin_ore"
+	"techreborn:sphalerite_ore"
   ]
 }
