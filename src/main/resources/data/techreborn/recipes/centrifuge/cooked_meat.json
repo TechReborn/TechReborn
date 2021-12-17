@@ -4,7 +4,7 @@
   "time": 5000,
   "ingredients": [
     {
-      "item": "minecraft:cooked_cod",
+      "tag": "c:cooked_meat",
       "count": 16
     },
     {

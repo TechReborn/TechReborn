@@ -4,7 +4,7 @@
   "time": 5000,
   "ingredients": [
     {
-      "item": "minecraft:beef",
+      "tag": "c:raw_meat",
       "count": 12
     },
     {
