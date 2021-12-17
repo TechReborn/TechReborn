@@ -26,7 +26,6 @@ package techreborn.init;
 
 import com.google.common.base.Preconditions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -80,7 +79,6 @@ import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
-import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 import techreborn.world.OreDistribution;
 
