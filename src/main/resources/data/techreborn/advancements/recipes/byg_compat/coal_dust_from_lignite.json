@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:byg_compat/coal_dust_from_lignite"
+	]
+  },
+  "criteria": {
+	"has_lignite": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"reborncore:mod": "byg",
+		"items": [
+		  {
+			"items": ["byg:lignite"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:byg_compat/coal_dust_from_lignite"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_lignite",
+	  "has_the_recipe"
+	]
+  ]
+}
