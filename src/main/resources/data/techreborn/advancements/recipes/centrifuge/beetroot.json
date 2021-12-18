@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/beetroot"
+	]
+  },
+  "criteria": {
+	"has_beetroot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:beetroot"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/beetroot"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_beetroot",
+	  "has_the_recipe"
+	]
+  ]
+}

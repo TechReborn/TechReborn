@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/platinum_dust"
+	]
+  },
+  "criteria": {
+	"has_platinum_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:platinum_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/platinum_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_platinum_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

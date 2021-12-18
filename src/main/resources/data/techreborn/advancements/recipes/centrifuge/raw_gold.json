@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/raw_gold"
+	]
+  },
+  "criteria": {
+	"has_raw_gold": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:raw_gold"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/raw_gold"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_raw_gold",
+	  "has_the_recipe"
+	]
+  ]
+}

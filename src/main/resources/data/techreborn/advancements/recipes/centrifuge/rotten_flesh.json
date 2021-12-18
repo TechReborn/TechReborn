@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/rotten_flesh"
+	]
+  },
+  "criteria": {
+	"has_rotten_flesh": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:rotten_flesh"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/rotten_flesh"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_rotten_flesh",
+	  "has_the_recipe"
+	]
+  ]
+}

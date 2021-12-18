@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/brass_dust"
+	]
+  },
+  "criteria": {
+	"has_brass_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:brass_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/brass_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_brass_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

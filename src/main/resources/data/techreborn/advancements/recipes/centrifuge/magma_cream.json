@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/magma_cream"
+	]
+  },
+  "criteria": {
+	"has_magma_cream": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:magma_cream"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/magma_cream"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_magma_cream",
+	  "has_the_recipe"
+	]
+  ]
+}

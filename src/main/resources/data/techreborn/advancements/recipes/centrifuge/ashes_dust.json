@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/ashes_dust"
+	]
+  },
+  "criteria": {
+	"has_ashes_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:ashes_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/ashes_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ashes_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

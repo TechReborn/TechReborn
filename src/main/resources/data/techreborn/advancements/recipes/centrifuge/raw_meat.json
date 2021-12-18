@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/raw_meat"
+	]
+  },
+  "criteria": {
+	"has_raw_meat": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:raw_meat"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/raw_meat"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_raw_meat",
+	  "has_the_recipe"
+	]
+  ]
+}

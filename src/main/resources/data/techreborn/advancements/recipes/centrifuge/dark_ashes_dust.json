@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/dark_ashes_dust"
+	]
+  },
+  "criteria": {
+	"has_dark_ashes_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:dark_ashes_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/dark_ashes_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_dark_ashes_dust",
+	  "has_the_recipe"
+	]
+  ]
+}
