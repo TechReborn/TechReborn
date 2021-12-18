@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:assembling_machine/electronic_circuit"
+	]
+  },
+  "criteria": {
+	"has_copper_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:copper_plates"
+		  }
+		]
+	  }
+	},
+	"has_silicon_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:silicon_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:assembling_machine/electronic_circuit"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_copper_plate",
+	  "has_silicon_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

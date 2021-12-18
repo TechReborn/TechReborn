@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:assembling_machine/data_storage_core_from_emerald"
+	]
+  },
+  "criteria": {
+	"has_emerald_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:emerald_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:assembling_machine/data_storage_core_from_emerald"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_emerald_plate",
+	  "has_the_recipe"
+	]
+  ]
+}
