@@ -25,12 +25,28 @@
 package techreborn.datagen.tags
 
 import net.fabricmc.fabric.api.tag.TagFactory
-import net.minecraft.item.Item
-import net.minecraft.tag.Tag
 import net.minecraft.util.Identifier
 
-trait CommonTagsTrait {
-    static Tag.Identified<Item> cItem(String path) {
-        return TagFactory.ITEM.create(new Identifier("c", path))
-    }
+class CommonTags {
+	static class Items {
+		public static zincIngots = create("zinc_ingots")
+
+		public static brassDusts = create("brass_dusts")
+		public static electrumDusts = create("electrum_dusts")
+		public static platinumDusts = create("platinum_dusts")
+		public static zincDusts = create("zinc_dusts")
+
+		public static leadOres = create("lead_ores")
+		public static sheldoniteOres = create("sheldonite_ores")
+		public static silverOres = create("silver_ores")
+		public static tinOres = create("tin_ores")
+
+		public static rawLeadOres = create("raw_lead_ores")
+		public static rawSilverOres = create("raw_silver_ores")
+		public static rawTinOres = create("raw_tin_ores")
+
+		private static def create(String path) {
+			return TagFactory.ITEM.create(new Identifier("c", path))
+		}
+	}
 }

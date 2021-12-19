@@ -34,6 +34,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.serde.RecipeSerde;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,11 +46,11 @@ public class RecipeManager {
 
 	private static final Map<Identifier, RebornRecipeType<?>> recipeTypes = new HashMap<>();
 
-	public static <R extends RebornRecipe> RebornRecipeType<R> newRecipeType(BiFunction<RebornRecipeType<R>, Identifier, R> recipeFunction, Identifier name) {
+	public static <R extends RebornRecipe> RebornRecipeType<R> newRecipeType(RecipeSerde<R> recipeSerde, Identifier name) {
 		if (recipeTypes.containsKey(name)) {
 			throw new RuntimeException("RebornRecipe type with this name already registered");
 		}
-		RebornRecipeType<R> type = new RebornRecipeType<>(recipeFunction, name);
+		RebornRecipeType<R> type = new RebornRecipeType<>(recipeSerde, name);
 		recipeTypes.put(name, type);
 
 		Registry.register(Registry.RECIPE_SERIALIZER, name, (RecipeSerializer<?>) type);

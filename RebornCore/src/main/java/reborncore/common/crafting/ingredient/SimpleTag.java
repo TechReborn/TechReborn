@@ -25,16 +25,18 @@
 package reborncore.common.crafting.ingredient;
 
 import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 
 import java.util.Collections;
 import java.util.List;
 
-public class SimpleTag<T> implements Tag<T> {
-
+public class SimpleTag<T> implements Tag.Identified<T> {
 	private final List<T> entries;
+	private final Identifier identifier;
 
-	public SimpleTag(List<T> entries) {
+	public SimpleTag(List<T> entries, Identifier identifier) {
 		this.entries = entries;
+		this.identifier = identifier;
 	}
 
 	@Override
@@ -45,5 +47,10 @@ public class SimpleTag<T> implements Tag<T> {
 	@Override
 	public List<T> values() {
 		return Collections.unmodifiableList(entries);
+	}
+
+	@Override
+	public Identifier getId() {
+		return identifier;
 	}
 }

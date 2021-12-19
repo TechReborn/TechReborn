@@ -33,27 +33,27 @@ import techreborn.api.recipe.recipes.*;
 
 public class ModRecipes {
 
-	public static final RebornRecipeType<RebornRecipe> ALLOY_SMELTER = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:alloy_smelter"));
-	public static final RebornRecipeType<RebornRecipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:assembling_machine"));
-	public static final RebornRecipeType<BlastFurnaceRecipe> BLAST_FURNACE = RecipeManager.newRecipeType(BlastFurnaceRecipe::new, new Identifier("techreborn:blast_furnace"));
-	public static final RebornRecipeType<RebornRecipe> CENTRIFUGE = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:centrifuge"));
-	public static final RebornRecipeType<RebornRecipe> CHEMICAL_REACTOR = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:chemical_reactor"));
-	public static final RebornRecipeType<RebornRecipe> COMPRESSOR = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:compressor"));
-	public static final RebornRecipeType<RebornRecipe> DISTILLATION_TOWER = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:distillation_tower"));
-	public static final RebornRecipeType<RebornRecipe> EXTRACTOR = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:extractor"));
-	public static final RebornRecipeType<RebornRecipe> GRINDER = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:grinder"));
-	public static final RebornRecipeType<RebornRecipe> IMPLOSION_COMPRESSOR = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:implosion_compressor"));
-	public static final RebornRecipeType<RebornRecipe> INDUSTRIAL_ELECTROLYZER = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:industrial_electrolyzer"));
-	public static final RebornRecipeType<IndustrialGrinderRecipe> INDUSTRIAL_GRINDER = RecipeManager.newRecipeType(IndustrialGrinderRecipe::new, new Identifier("techreborn:industrial_grinder"));
-	public static final RebornRecipeType<IndustrialSawmillRecipe> INDUSTRIAL_SAWMILL = RecipeManager.newRecipeType(IndustrialSawmillRecipe::new, new Identifier("techreborn:industrial_sawmill"));
-	public static final RebornRecipeType<RebornRecipe> RECYCLER = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:recycler"));
-	public static final RebornRecipeType<RebornRecipe> SCRAPBOX = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:scrapbox"));
-	public static final RebornRecipeType<RebornRecipe> VACUUM_FREEZER = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:vacuum_freezer"));
-	public static final RebornRecipeType<FluidReplicatorRecipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(FluidReplicatorRecipe::new, new Identifier("techreborn:fluid_replicator"));
-	public static final RebornRecipeType<FusionReactorRecipe> FUSION_REACTOR = RecipeManager.newRecipeType(FusionReactorRecipe::new, new Identifier("techreborn:fusion_reactor"));
-	public static final RebornRecipeType<RollingMachineRecipe> ROLLING_MACHINE = RecipeManager.newRecipeType(RollingMachineRecipe::new, new Identifier("techreborn:rolling_machine"));
-	public static final RebornRecipeType<RebornRecipe> SOLID_CANNING_MACHINE = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:solid_canning_machine"));
-	public static final RebornRecipeType<RebornRecipe> WIRE_MILL = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:wire_mill"));
+	public static final RebornRecipeType<RebornRecipe> ALLOY_SMELTER = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:alloy_smelter"));
+	public static final RebornRecipeType<RebornRecipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:assembling_machine"));
+	public static final RebornRecipeType<BlastFurnaceRecipe> BLAST_FURNACE = RecipeManager.newRecipeType(BlastFurnaceRecipe::deserialize, new Identifier("techreborn:blast_furnace"));
+	public static final RebornRecipeType<RebornRecipe> CENTRIFUGE = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:centrifuge"));
+	public static final RebornRecipeType<RebornRecipe> CHEMICAL_REACTOR = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:chemical_reactor"));
+	public static final RebornRecipeType<RebornRecipe> COMPRESSOR = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:compressor"));
+	public static final RebornRecipeType<RebornRecipe> DISTILLATION_TOWER = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:distillation_tower"));
+	public static final RebornRecipeType<RebornRecipe> EXTRACTOR = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:extractor"));
+	public static final RebornRecipeType<RebornRecipe> GRINDER = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:grinder"));
+	public static final RebornRecipeType<RebornRecipe> IMPLOSION_COMPRESSOR = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:implosion_compressor"));
+	public static final RebornRecipeType<RebornRecipe> INDUSTRIAL_ELECTROLYZER = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:industrial_electrolyzer"));
+	public static final RebornRecipeType<IndustrialGrinderRecipe> INDUSTRIAL_GRINDER = RecipeManager.newRecipeType(IndustrialGrinderRecipe::deserialize, new Identifier("techreborn:industrial_grinder"));
+	public static final RebornRecipeType<IndustrialSawmillRecipe> INDUSTRIAL_SAWMILL = RecipeManager.newRecipeType(IndustrialSawmillRecipe::deserialize, new Identifier("techreborn:industrial_sawmill"));
+	public static final RebornRecipeType<RebornRecipe> RECYCLER = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:recycler"));
+	public static final RebornRecipeType<RebornRecipe> SCRAPBOX = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:scrapbox"));
+	public static final RebornRecipeType<RebornRecipe> VACUUM_FREEZER = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:vacuum_freezer"));
+	public static final RebornRecipeType<FluidReplicatorRecipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(FluidReplicatorRecipe::deserialize, new Identifier("techreborn:fluid_replicator"));
+	public static final RebornRecipeType<FusionReactorRecipe> FUSION_REACTOR = RecipeManager.newRecipeType(FusionReactorRecipe::deserialize, new Identifier("techreborn:fusion_reactor"));
+	public static final RebornRecipeType<RollingMachineRecipe> ROLLING_MACHINE = RecipeManager.newRecipeType(RollingMachineRecipe::deserialize, new Identifier("techreborn:rolling_machine"));
+	public static final RebornRecipeType<RebornRecipe> SOLID_CANNING_MACHINE = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:solid_canning_machine"));
+	public static final RebornRecipeType<RebornRecipe> WIRE_MILL = RecipeManager.newRecipeType(RebornRecipe::deserialize, new Identifier("techreborn:wire_mill"));
 
 	public static RebornRecipeType<?> byName(Identifier identifier) {
 		return (RebornRecipeType<?>) Registry.RECIPE_SERIALIZER.get(identifier);

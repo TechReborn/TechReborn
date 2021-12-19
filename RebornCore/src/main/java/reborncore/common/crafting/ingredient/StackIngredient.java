@@ -38,6 +38,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,22 +50,23 @@ public class StackIngredient extends RebornIngredient {
 	private final List<ItemStack> stacks;
 
 	private final Optional<Integer> count;
-	private final Optional<NbtCompound> tag;
-	private final boolean requireEmptyTag;
+	private final Optional<NbtCompound> nbt;
+	private final boolean requireEmptyNbt;
 
-	public StackIngredient(List<ItemStack> stacks, Optional<Integer> count, Optional<NbtCompound> tag, boolean requireEmptyTag) {
+	public StackIngredient(List<ItemStack> stacks, Optional<Integer> count, Optional<NbtCompound> nbt, boolean requireEmptyNbt) {
 		super(IngredientManager.STACK_RECIPE_TYPE);
 		this.stacks = stacks;
 		this.count = count;
-		this.tag = tag;
-		this.requireEmptyTag = requireEmptyTag;
+		this.nbt = nbt;
+		this.requireEmptyNbt = requireEmptyNbt;
 		Validate.isTrue(stacks.size() == 1, "stack size must 1");
 	}
 
+	public StackIngredient(List<ItemStack> stacks, int count, @Nullable NbtCompound nbt, boolean requireEmptyNbt) {
+		this(stacks, count > 1 ? Optional.of(count) : Optional.empty(), Optional.ofNullable(nbt), requireEmptyNbt);
+	}
+
 	public static RebornIngredient deserialize(JsonObject json) {
-		if (!json.has("item")) {
-			System.out.println("nope");
-		}
 		Identifier identifier = new Identifier(JsonHelper.getString(json, "item"));
 		Item item = Registry.ITEM.getOrEmpty(identifier).orElseThrow(() -> new JsonSyntaxException("Unknown item '" + identifier + "'"));
 
@@ -101,7 +103,7 @@ public class StackIngredient extends RebornIngredient {
 		if (count.isPresent() && count.get() > itemStack.getCount()) {
 			return false;
 		}
-		if (tag.isPresent()) {
+		if (nbt.isPresent()) {
 			if (!itemStack.hasNbt()) {
 				return false;
 			}
@@ -113,11 +115,11 @@ public class StackIngredient extends RebornIngredient {
 			JsonElement jsonElement = Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag);
 			compoundTag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonElement);
 
-			if (!tag.get().equals(compoundTag)) {
+			if (!nbt.get().equals(compoundTag)) {
 				return false;
 			}
 		}
-		return !requireEmptyTag || !itemStack.hasNbt();
+		return !requireEmptyNbt || !itemStack.hasNbt();
 	}
 
 	@Override
@@ -131,7 +133,7 @@ public class StackIngredient extends RebornIngredient {
 				stacks.stream()
 						.map(ItemStack::copy)
 						.peek(itemStack -> itemStack.setCount(count.orElse(1)))
-						.peek(itemStack -> itemStack.setNbt(tag.orElse(null)))
+						.peek(itemStack -> itemStack.setNbt(nbt.orElse(null)))
 						.collect(Collectors.toList()));
 	}
 
@@ -142,10 +144,10 @@ public class StackIngredient extends RebornIngredient {
 		jsonObject.addProperty("item", Registry.ITEM.getId(stacks.get(0).getItem()).toString());
 		count.ifPresent(integer -> jsonObject.addProperty("count", integer));
 
-		if (requireEmptyTag) {
+		if (requireEmptyNbt) {
 			jsonObject.addProperty("nbt", "empty");
 		} else {
-			tag.ifPresent(compoundTag -> jsonObject.add("nbt", Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag)));
+			nbt.ifPresent(compoundTag -> jsonObject.add("nbt", Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag)));
 		}
 
 		return jsonObject;

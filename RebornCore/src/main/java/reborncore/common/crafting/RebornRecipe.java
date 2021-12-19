@@ -30,6 +30,7 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import io.github.cottonmc.libcd.api.CustomOutputRecipe;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -61,79 +62,33 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	private final RebornRecipeType<?> type;
 	private final Identifier name;
 
-	private DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
-	private DefaultedList<ItemStack> outputs = DefaultedList.of();
-	protected int power;
-	protected int time;
+	private final List<RebornIngredient> ingredients;
+	private final List<ItemStack> outputs;
+	protected final int power;
+	protected final int time;
 
 	protected boolean dummy = false;
 
-	public RebornRecipe(RebornRecipeType<?> type, Identifier name) {
+	public RebornRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		this.type = type;
 		this.name = name;
-	}
-
-	public RebornRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time) {
-		this(type, name);
 		this.ingredients = ingredients;
 		this.outputs = outputs;
 		this.power = power;
 		this.time = time;
 	}
 
-	public void deserialize(JsonObject jsonObject) {
-		if (jsonObject.has("dummy")) {
-			makeDummy();
-			return;
-		}
-
-		//Crash if the recipe has all ready been deserialized
-		Validate.isTrue(ingredients.isEmpty());
-
-		power = JsonHelper.getInt(jsonObject, "power");
-		time = JsonHelper.getInt(jsonObject, "time");
-
-		ingredients = SerializationUtil.stream(JsonHelper.getArray(jsonObject, "ingredients"))
-				.map(IngredientManager::deserialize)
-				.collect(DefaultedListCollector.toList());
-
-		JsonArray resultsJson = JsonHelper.getArray(jsonObject, "results");
-		outputs = RecipeUtils.deserializeItems(resultsJson);
-	}
-
-	public void serialize(JsonObject jsonObject) {
-		if (isDummy()) {
-			jsonObject.addProperty("dummy", true);
-			return;
-		}
-		jsonObject.addProperty("power", power);
-		jsonObject.addProperty("time", time);
-
-		JsonArray ingredientsArray = new JsonArray();
-		getRebornIngredients().stream().map(RebornIngredient::witeToJson).forEach(ingredientsArray::add);
-		jsonObject.add("ingredients", ingredientsArray);
-
-		JsonArray resultsArray = new JsonArray();
-		for (ItemStack stack : outputs) {
-			JsonObject stackObject = new JsonObject();
-			stackObject.addProperty("item", Registry.ITEM.getId(stack.getItem()).toString());
-			if (stack.getCount() > 1) {
-				stackObject.addProperty("count", stack.getCount());
-			}
-			if (stack.hasNbt()) {
-				stackObject.add("nbt", Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, stack.getNbt()));
-			}
-			resultsArray.add(stackObject);
-		}
-		jsonObject.add("results", resultsArray);
+	public RebornRecipe(RebornRecipeType<?> type, Identifier name) {
+		this(type, name, List.of(new DummyIngredient()), Collections.emptyList(), Integer.MAX_VALUE, Integer.MAX_VALUE);
+		this.dummy = true;
 	}
 
 	public void serialize(PacketByteBuf byteBuf) {
-
+		throw new UnsupportedOperationException();
 	}
 
 	public void deserialize(PacketByteBuf byteBuf) {
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -162,7 +117,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		return ingredients.stream().map(RebornIngredient::getPreview).collect(DefaultedListCollector.toList());
 	}
 
-	public DefaultedList<RebornIngredient> getRebornIngredients() {
+	public List<RebornIngredient> getRebornIngredients() {
 		return ingredients;
 	}
 
@@ -241,13 +196,8 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		return true;
 	}
 
-	private boolean isDummy() {
+	public boolean isDummy() {
 		return dummy;
-	}
-
-	void makeDummy() {
-		this.ingredients.add(new DummyIngredient());
-		this.dummy = true;
 	}
 
 	@Override

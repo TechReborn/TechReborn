@@ -33,13 +33,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
+import reborncore.common.crafting.serde.RecipeSerde;
 import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
 public record RebornRecipeType<R extends RebornRecipe>(
-		BiFunction<RebornRecipeType<R>, Identifier, R> recipeFunction,
+		RecipeSerde<R> recipeSerde,
 		Identifier name) implements RecipeType, RecipeSerializer {
 
 	@Override
@@ -50,22 +50,18 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		}
 
 		try {
-			R recipe = newRecipe(recipeId);
+			R recipe = newRecipe(json, recipeId);
 
 			if (!ConditionManager.shouldLoadRecipe(json)) {
-				recipe.makeDummy();
-				return recipe;
+				return recipeSerde.createDummy(this, recipeId);
 			}
 
-			recipe.deserialize(json);
 			return recipe;
 		} catch (Throwable t) {
 			RebornCore.LOGGER.error("Failed to read recipe: " + recipeId, t);
 			// Make a new recipe - don't reuse the existing recipe object because it might be in an invalid state if an
 			// exception was thrown in the middle of its deserialization.
-			R recipe = newRecipe(recipeId);
-			recipe.makeDummy();
-			return recipe;
+			return recipeSerde.createDummy(this, recipeId);
 		}
 	}
 
@@ -73,7 +69,7 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", name.toString());
 
-		recipe.serialize(jsonObject);
+		recipeSerde.toJson(recipe, jsonObject);
 
 		return jsonObject;
 	}
@@ -82,8 +78,8 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		return read(recipeType, json);
 	}
 
-	R newRecipe(Identifier recipeId) {
-		return recipeFunction.apply(this, recipeId);
+	private R newRecipe(JsonObject jsonObject, Identifier recipeId) {
+		return recipeSerde.fromJson(jsonObject, this, recipeId);
 	}
 
 	@Override
