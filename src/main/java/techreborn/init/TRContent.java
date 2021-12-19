@@ -231,6 +231,14 @@ public class TRContent {
 	public static Item PERIDOT_LEGGINGS;
 	@Nullable
 	public static Item PERIDOT_BOOTS;
+	@Nullable
+	public static Item SILVER_HELMET;
+	@Nullable
+	public static Item SILVER_CHESTPLATE;
+	@Nullable
+	public static Item SILVER_LEGGINGS;
+	@Nullable
+	public static Item SILVER_BOOTS;
 
 	public enum SolarPanels implements ItemConvertible {
 		BASIC(RcEnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),

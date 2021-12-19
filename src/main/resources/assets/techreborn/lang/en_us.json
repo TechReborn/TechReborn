@@ -728,6 +728,11 @@
   "item.techreborn.peridot_leggings": "Peridot Leggings",
   "item.techreborn.peridot_boots": "Peridot Boots",
 
+  "item.techreborn.silver_helmet": "Silver Helmet",
+  "item.techreborn.silver_chestplate": "Silver Chestplate",
+  "item.techreborn.silver_leggings": "Silver Leggings",
+  "item.techreborn.silver_boots": "Silver Boots",
+
   "_comment18": "Message",
   "techreborn.message.missingmultiblock": "Incomplete Multiblock",
   "techreborn.message.setTo": "Set to",
