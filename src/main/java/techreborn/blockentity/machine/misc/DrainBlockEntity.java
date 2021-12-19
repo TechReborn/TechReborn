@@ -27,7 +27,6 @@ package techreborn.blockentity.machine.misc;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
@@ -50,10 +49,6 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDro
 
 	public DrainBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.DRAIN, pos, state);
-	}
-
-	public DrainBlockEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state) {
-		super(blockEntityTypeIn, pos, state);
 	}
 
 	@Override

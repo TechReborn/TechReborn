@@ -478,9 +478,7 @@ public class TRContent {
 		}
 
 		private List<Block> allBlocks() {
-			return Collections.unmodifiableList(Arrays.asList(
-					block, stairsBlock, slabBlock, wallBlock
-			));
+			return List.of(block, stairsBlock, slabBlock, wallBlock);
 		}
 	}
 
@@ -511,7 +509,7 @@ public class TRContent {
 
 		public static ItemConvertible[] getCasings() {
 			return Arrays.stream(MachineBlocks.values())
-					.map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> machineBlocks.casing::asItem)
+					.map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> machineBlocks.casing)
 					.toArray(ItemConvertible[]::new);
 		}
 	}

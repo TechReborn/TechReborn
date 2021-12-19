@@ -130,7 +130,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		// At this point, we know a light source is present and it's clear weather. We need to determine
 		// the level of generation based on % of time through the day, with peak production at noon and
 		// a smooth transition to night production as sun rises/sets
-		float multiplier = 0.0f;
+		float multiplier;
 		if (skyAngle > 0.75) {
 			// Morning to noon
 			multiplier = (0.25f - (1 - skyAngle)) / 0.25f;

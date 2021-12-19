@@ -91,7 +91,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		return ItemStack.EMPTY;
 	}
 
-	private float getExperienceFor(ItemStack stack) {
+	private float getExperienceFor() {
 		Optional<SmeltingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, this, world);
 		return recipe.map(AbstractCookingRecipe::getExperience).orElse(0F);
 	}
@@ -110,7 +110,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		} else if (inventory.getStack(outputSlot).isItemEqualIgnoreDamage(resultStack)) {
 			inventory.getStack(outputSlot).increment(resultStack.getCount());
 		}
-		experience += getExperienceFor(inputStack);
+		experience += getExperienceFor();
 		if (inputStack.getCount() > 1) {
 			inventory.shrinkSlot(inputSlot, 1);
 		} else {

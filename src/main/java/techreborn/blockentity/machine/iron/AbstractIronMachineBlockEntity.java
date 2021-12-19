@@ -50,7 +50,6 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	public int totalCookingTime;
 	int fuelSlot;
 	Block toolDrop;
-	boolean active = false;
 
 	public AbstractIronMachineBlockEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state, int fuelSlot, Block toolDrop) {
 		super(blockEntityTypeIn, pos, state);
@@ -63,7 +62,6 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	/**
 	 * Checks that we have all inputs and can put output into slot
 	 *
-	 * @return
 	 */
 	protected abstract boolean canSmelt();
 
