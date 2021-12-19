@@ -19,33 +19,33 @@
       "conditions": {
         "items": [
           {
-            "items": ["techreborn:lead_ore"]
+            "tag": "techreborn:ores"
           }
         ]
       }
     },
-    "ore2_in_inventory": {
+    "raw_metal_in_inventory": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["techreborn:silver_ore"]
+            "tag": "techreborn:raw_metals"
           }
         ]
       }
     },
-    "ore3_in_inventory": {
+    "gem_in_inventory": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["techreborn:tin_ore"]
+            "tag": "techreborn:gems"
           }
         ]
       }
     }
   },
   "requirements": [
-    ["ore_in_inventory", "ore2_in_inventory","ore3_in_inventory"]
+    ["ore_in_inventory", "raw_metal_in_inventory","gem_in_inventory"]
 ]
 }
