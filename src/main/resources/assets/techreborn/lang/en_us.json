@@ -875,6 +875,7 @@
   "techreborn.tooltip.ores.overworld" : "Can be found at y levels %s < %s",
   "techreborn.tooltip.ores.nether" : "Can be found in the nether",
   "techreborn.tooltip.ores.end" : "Can be found in the end",
+  "techreborn.tooltip.unobtainable": "Unobtainable in Survival Mode",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",

@@ -381,6 +381,8 @@ public class TRContent {
 
 	private final static Map<Ores, Ores> deepslateMap = new HashMap<>();
 
+	private final static Map<Ores, Ores> unDeepslateMap = new HashMap<>();
+
 	public enum Ores implements ItemConvertible {
 		// when changing ores also change data/techreborn/tags/items/ores.json for correct root advancement display
 		// as well as data/minecraft/tags/blocks for correct mining level
@@ -432,6 +434,7 @@ public class TRContent {
 		Ores(TRContent.Ores stoneOre) {
 			this((OreDistribution) null);
 			deepslateMap.put(stoneOre, this);
+			unDeepslateMap.put(this, stoneOre);
 		}
 
 		@Override
@@ -442,6 +445,11 @@ public class TRContent {
 		public TRContent.Ores getDeepslate() {
 			Preconditions.checkArgument(!isDeepslate());
 			return deepslateMap.get(this);
+		}
+
+		public TRContent.Ores getUnDeepslate() {
+			Preconditions.checkArgument(isDeepslate());
+			return unDeepslateMap.get(this);
 		}
 
 		public boolean isDeepslate() {
