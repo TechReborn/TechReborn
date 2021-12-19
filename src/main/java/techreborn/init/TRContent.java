@@ -374,6 +374,8 @@ public class TRContent {
 	private final static Map<Ores, Ores> deepslateMap = new HashMap<>();
 
 	public enum Ores implements ItemConvertible {
+		// when changing ores also change data/techreborn/tags/items/ores.json for correct root advancement display
+		// as well as data/minecraft/tags/blocks for correct mining level
 		BAUXITE(OreDistribution.BAUXITE),
 		CINNABAR(OreDistribution.CINNABAR),
 		GALENA(OreDistribution.GALENA),
@@ -629,6 +631,7 @@ public class TRContent {
 
 
 	public enum RawMetals implements ItemConvertible{
+		// when changing ores also change data/techreborn/tags/items/raw_metals.json for correct root advancement display
 		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN;
 
 		public final String name;
@@ -678,6 +681,7 @@ public class TRContent {
 	}
 
 	public enum Gems implements ItemConvertible {
+		// when changing ores also change data/techreborn/tags/items/gems.json for correct root advancement display
 		PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
 
 		public final String name;
