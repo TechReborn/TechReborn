@@ -32,7 +32,7 @@ import techreborn.test.TRGameTest
 import techreborn.test.TRTestContext
 
 class GrinderTest extends TRGameTest {
-    @GameTest(structureName = EMPTY_STRUCTURE, tickLimit = 150)
+    @GameTest(structureName = fabric-gametest-api-v1:empty, tickLimit = 150)
     def testGrind2OCs(TRTestContext context) {
         /**
          * Test that grinder with 2 overclocker upgrades grinds coal into coal dust in 116 ticks
