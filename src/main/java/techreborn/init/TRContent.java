@@ -26,7 +26,6 @@ package techreborn.init;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -39,8 +38,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.powerSystem.RcEnergyTier;
-
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
@@ -404,7 +401,6 @@ public class TRContent {
 		Ores(int veinSize, int veinsPerChunk, int minY, int maxY, MiningLevel miningLevel) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, miningLevel.intLevel)
 					.requiresTool()
 					.sounds(BlockSoundGroup.STONE)
 					.strength(2f, 2f)
