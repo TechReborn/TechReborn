@@ -18,7 +18,8 @@
     }
   },
   "textures": {
-    "0": "techreborn:block/machines/lighting/lamp"
+    "0": "techreborn:block/machines/lighting/lamp",
+    "particle":"techreborn:block/machines/lighting/lamp"
   },
   "elements": [
     {
