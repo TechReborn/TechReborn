@@ -1,5 +1,8 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/machines/tier3_machines/creative_tank_unit" }
+        "facing=north": { "model": "techreborn:block/machines/tier3_machines/creative_tank_unit" },
+        "facing=south": { "model": "techreborn:block/machines/tier3_machines/creative_tank_unit", "y": 180 },
+        "facing=west":  { "model": "techreborn:block/machines/tier3_machines/creative_tank_unit", "y": 270 },
+        "facing=east":  { "model": "techreborn:block/machines/tier3_machines/creative_tank_unit", "y": 90 }
     }
 }
