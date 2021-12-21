@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/emerald"
+	]
+  },
+  "criteria": {
+	"has_emerald_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:emerald_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/emerald"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_emerald_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/diamond"
+	]
+  },
+  "criteria": {
+	"has_diamond_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:diamond_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/diamond"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_diamond_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

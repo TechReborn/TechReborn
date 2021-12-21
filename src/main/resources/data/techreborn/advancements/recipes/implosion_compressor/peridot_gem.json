@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/peridot_gem"
+	]
+  },
+  "criteria": {
+	"has_peridot_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:peridot_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/peridot_gem"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_peridot_dust",
+	  "has_the_recipe"
+	]
+  ]
+}
