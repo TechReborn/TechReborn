@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/clay_ball"
+	]
+  },
+  "criteria": {
+	"has_clay": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:clay"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/clay_ball"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_clay",
+	  "has_the_recipe"
+	]
+  ]
+}

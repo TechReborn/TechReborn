@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/rubber_from_log"
+	]
+  },
+  "criteria": {
+	"has_rubber_log": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "techreborn:rubber_logs"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/rubber_from_log"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_rubber_log",
+	  "has_the_recipe"
+	]
+  ]
+}

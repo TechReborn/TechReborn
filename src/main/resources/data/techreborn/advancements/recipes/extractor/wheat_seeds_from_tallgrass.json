@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/wheat_seeds_from_tallgrass"
+	]
+  },
+  "criteria": {
+	"has_tall_grass": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:tall_grass"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/wheat_seeds_from_tallgrass"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_tall_grass",
+	  "has_the_recipe"
+	]
+  ]
+}

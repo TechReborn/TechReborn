@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/wheat_seeds_from_fern"
+	]
+  },
+  "criteria": {
+	"has_large_fern": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:large_fern"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/wheat_seeds_from_fern"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_large_fern",
+	  "has_the_recipe"
+	]
+  ]
+}

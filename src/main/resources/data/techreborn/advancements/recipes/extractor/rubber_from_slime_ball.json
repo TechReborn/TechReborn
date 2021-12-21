@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/rubber_from_slime_ball"
+	]
+  },
+  "criteria": {
+	"has_slime_ball": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:slime_ball"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/rubber_from_slime_ball"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_slime_ball",
+	  "has_the_recipe"
+	]
+  ]
+}
