@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/synthetic_redstone_crystal"
+	]
+  },
+  "criteria": {
+	"has_redstone": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:redstone"]
+		  }
+		]
+	  }
+	},
+	"has_diamond": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:diamond"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/synthetic_redstone_crystal"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_redstone",
+	  "has_diamond",
+	  "has_the_recipe"
+	]
+  ]
+}
