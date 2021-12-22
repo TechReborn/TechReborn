@@ -30,7 +30,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.sound.BlockSoundGroup;
 import reborncore.RebornRegistry;
 import reborncore.common.powerSystem.RcEnergyTier;
