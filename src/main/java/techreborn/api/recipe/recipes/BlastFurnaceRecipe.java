@@ -25,27 +25,26 @@
 package techreborn.api.recipe.recipes;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.recipes.RecipeCrafter;
 import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
+
+import java.util.List;
 
 public class BlastFurnaceRecipe extends RebornRecipe {
 
 	private int heat;
+	private boolean partialReturns;
+	private List<ItemStack> partialOutputs;
 
 	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
-	}
-
-	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time, int heat) {
-		super(type, name, ingredients, outputs, power, time);
-		this.heat = heat;
 	}
 
 	public int getHeat() {
@@ -56,12 +55,19 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 	public void deserialize(JsonObject jsonObject) {
 		super.deserialize(jsonObject);
 		heat = JsonHelper.getInt(jsonObject, "heat");
+		try {
+			partialReturns = JsonHelper.getBoolean(jsonObject, "partialReturns");
+		}
+		catch (JsonSyntaxException e) {
+			partialReturns = false;
+		}
 	}
 
 	@Override
 	public void serialize(JsonObject jsonObject) {
 		super.serialize(jsonObject);
 		jsonObject.addProperty("heat", heat);
+		jsonObject.addProperty("partialReturns", partialReturns);
 	}
 
 	@Override
@@ -72,4 +78,37 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 		return false;
 	}
 
+	@Override
+	public boolean onCraft(BlockEntity be) {
+		if (!partialReturns) {
+			return super.onCraft(be);
+		}
+		if (be instanceof IndustrialBlastFurnaceBlockEntity blastFurnace){
+			RecipeCrafter crafter = blastFurnace.getRecipeCrafter();
+			// Thanks to https://github.com/LauchInterceptor for this part
+			for (int inputSlot : crafter.inputSlots) {
+				ItemStack inputStack = crafter.inventory.getStack(inputSlot);
+				if (inputStack.isDamageable()) {
+					float durabilityPercentage = 1 - ((float)inputStack.getDamage()) / inputStack.getMaxDamage();
+					partialOutputs = this.getOutputs().stream().map(itemStack -> {
+						ItemStack copied = itemStack.copy();
+						if (copied.getCount() > 1) {
+							copied.setCount((int) Math.floor(copied.getCount() * durabilityPercentage));
+						}
+						return copied;
+					}).toList();
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public List<ItemStack> getOutputs() {
+		if (!partialReturns || partialOutputs == null) {
+			return super.getOutputs();
+		}
+		return partialOutputs;
+
+	}
 }
