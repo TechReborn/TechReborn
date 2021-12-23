@@ -171,7 +171,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		Fluid containedFluid = getFluid(stack);
 
 		BlockHitResult hitResult = raycast(world, player, containedFluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
-		if (hitResult.getType() == HitResult.Type.MISS || !(containedFluid instanceof FlowableFluid)) {
+		if (hitResult.getType() == HitResult.Type.MISS) {
 			return TypedActionResult.pass(stack);
 		}
 		if (hitResult.getType() != HitResult.Type.BLOCK) {
@@ -207,6 +207,8 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				return TypedActionResult.success(resultStack, world.isClient());
 			}
 		} else {
+			if (!(containedFluid instanceof FlowableFluid))
+				return TypedActionResult.pass(stack);
 			BlockState placeState = world.getBlockState(placePos);
 			if (placeState.canBucketPlace(containedFluid)) {
 				placeFluid(player, world, placePos, hitResult, stack);
