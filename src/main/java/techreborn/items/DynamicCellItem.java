@@ -207,6 +207,8 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				return TypedActionResult.success(resultStack, world.isClient());
 			}
 		} else {
+			if (!(containedFluid instanceof FlowableFluid))
+				return TypedActionResult.pass(stack);
 			BlockState placeState = world.getBlockState(placePos);
 			if (placeState.canBucketPlace(containedFluid)) {
 				placeFluid(player, world, placePos, hitResult, stack);
