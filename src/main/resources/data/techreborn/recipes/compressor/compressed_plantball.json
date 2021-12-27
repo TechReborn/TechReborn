@@ -4,7 +4,7 @@
   "time": 400,
   "ingredients": [
     {
-      "tag": "minecraft:leaves",
+      "tag": "techreborn:plantball_material",
       "count": 8
     }
   ],

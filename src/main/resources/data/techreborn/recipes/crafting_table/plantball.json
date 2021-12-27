@@ -1,0 +1,16 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "MMM",
+    "MMM",
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "tag": "techreborn:plantball_material"
+    }
+  },
+  "result": {
+    "item": "techreborn:plantball"
+  }
+}
