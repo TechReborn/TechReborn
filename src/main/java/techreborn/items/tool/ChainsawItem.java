@@ -25,7 +25,6 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -66,8 +65,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem, ItemDurabilit
 	// AxeItem
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost
-				&& (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.NETHER_WOOD)) {
+		if (getStoredEnergy(stack) >= cost && isSuitableFor(state)) {
 			return poweredSpeed;
 		}
 		return unpoweredSpeed;
