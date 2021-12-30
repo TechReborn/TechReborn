@@ -27,12 +27,13 @@ package techreborn.blockentity.machine.misc;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
@@ -40,17 +41,14 @@ import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
-public class DrainBlockEntity extends MachineBaseBlockEntity {
+public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDrop {
 
 	protected Tank internalTank = new Tank("tank", FluidValue.BUCKET, this);
 
 	public DrainBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.DRAIN, pos, state);
-	}
-
-	public DrainBlockEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state) {
-		super(blockEntityTypeIn, pos, state);
 	}
 
 	@Override
@@ -91,5 +89,10 @@ public class DrainBlockEntity extends MachineBaseBlockEntity {
 				TechReborn.LOGGER.debug("Could not get Fluid from ItemStack " + fluidContainer.getItem());
 			}
 		}
+	}
+	
+	@Override
+	public ItemStack getToolDrop(PlayerEntity p0) {
+		return TRContent.Machine.DRAIN.getStack();
 	}
 }
