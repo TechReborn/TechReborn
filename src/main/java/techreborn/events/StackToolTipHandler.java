@@ -24,6 +24,7 @@
 
 package techreborn.events;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.block.Block;
@@ -56,12 +57,18 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 	public static final Map<Item, Boolean> ITEM_ID = Maps.newHashMap();
 	private static final Map<Block, OreDistribution> ORE_DISTRIBUTION_MAP = Maps.newHashMap();
+	private static final List<Block> UNOBTAINABLE_ORES = Lists.newLinkedList();
 
 	public static void setup() {
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
 
 		for (TRContent.Ores ore : TRContent.Ores.values()) {
-			if (ore.isDeepslate()) continue;
+			if (ore.isDeepslate()) {
+				TRContent.Ores normal = ore.getUnDeepslate();
+				if (normal.distribution != null && normal.distribution.dimension != TargetDimension.OVERWORLD)
+					UNOBTAINABLE_ORES.add(ore.block);
+				continue;
+			}
 
 			if (ore.distribution != null) {
 				ORE_DISTRIBUTION_MAP.put(ore.block, ore.distribution);
@@ -103,18 +110,19 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			tooltipLines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
 		}
 
+		Text text = null;
+		if (UNOBTAINABLE_ORES.contains(block))
+			text = new TranslatableText("techreborn.tooltip.unobtainable");
 		OreDistribution oreDistribution = ORE_DISTRIBUTION_MAP.get(block);
-
-		if (oreDistribution != null) {
-			Text text = switch (oreDistribution.dimension) {
+		if (oreDistribution != null && text == null) {
+			text = switch (oreDistribution.dimension) {
 				case OVERWORLD -> getOverworldOreText(oreDistribution);
 				case END -> new TranslatableText("techreborn.tooltip.ores.end");
 				case NETHER -> new TranslatableText("techreborn.tooltip.ores.nether");
 			};
-
-			if (text != null)
-				tooltipLines.add(text.copy().formatted(Formatting.AQUA));
 		}
+		if (text != null)
+			tooltipLines.add(text.copy().formatted(Formatting.AQUA));
 	}
 
 	private static boolean isTRItem(Item item) {
