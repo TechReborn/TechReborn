@@ -29,7 +29,7 @@ import net.minecraft.text.Text;
 import org.apache.logging.log4j.util.TriConsumer;
 
 
-public class GuiButtonExtended extends GuiButtonSimple {
+public class GuiButtonExtended extends ButtonWidget {
 
 	private TriConsumer<GuiButtonExtended, Double, Double> clickHandler;
 
@@ -51,6 +51,6 @@ public class GuiButtonExtended extends GuiButtonSimple {
 		if (clickHandler != null) {
 			clickHandler.accept(this, mouseX, mouseY);
 		}
-		super.onClick(mouseY, mouseY);
+		super.onClick(mouseX, mouseY);
 	}
 }
