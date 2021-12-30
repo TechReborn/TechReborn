@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:raw_tungsten"
+    }
+  },
+  "result": {
+    "item": "techreborn:raw_tungsten_storage_block"
+  }
+}
