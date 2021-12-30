@@ -1,8 +1,7 @@
 {
     "parent": "minecraft:block/cube_bottom_top",
     "textures": {
-        "top": "techreborn:block/machines/generators/dragon_egg_syphon_top",
+        "top": "techreborn:block/machines/generators/dragon_egg_syphon_top_on",
         "bottom": "techreborn:block/machines/generators/generator_bottom",
         "side": "techreborn:block/machines/generators/dragon_egg_syphon_side_on"
     }
-}
