@@ -1,5 +1,6 @@
-{
+﻿{
     "textures": {
-        "particle": "techreborn:block/fluids/potassium_flowing"
+        "particle": "techreborn:block/fluids/potassium_still"
     }
 }
+

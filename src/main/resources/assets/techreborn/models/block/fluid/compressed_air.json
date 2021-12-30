@@ -1,5 +1,6 @@
-{
+﻿{
     "textures": {
-        "particle": "techreborn:block/fluids/compressed_air_flowing"
+        "particle": "techreborn:block/fluids/compressed_air_still"
     }
 }
+
