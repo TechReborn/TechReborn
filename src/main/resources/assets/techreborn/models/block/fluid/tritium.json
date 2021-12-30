@@ -1,5 +1,6 @@
-{
+﻿{
     "textures": {
-        "particle": "techreborn:block/fluids/tritium_flowing"
+        "particle": "techreborn:block/fluids/tritium_still"
     }
 }
+

@@ -1,5 +1,6 @@
-{
+﻿{
     "textures": {
-        "particle": "techreborn:block/fluids/beryllium_flowing"
+        "particle": "techreborn:block/fluids/beryllium_still"
     }
 }
+
