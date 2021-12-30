@@ -85,10 +85,11 @@ public enum ModFluids {
 
 		FluidSettings fluidSettings = FluidSettings.create();
 
-		Identifier texture = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_flowing");
+		Identifier texture_still = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_still");
+		Identifier texture_flowing = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_flowing");
 
-		fluidSettings.setStillTexture(texture);
-		fluidSettings.setFlowingTexture(texture);
+		fluidSettings.setStillTexture(texture_still);
+		fluidSettings.setFlowingTexture(texture_flowing);
 
 		stillFluid = new RebornFluid(true, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid) {
 		};
