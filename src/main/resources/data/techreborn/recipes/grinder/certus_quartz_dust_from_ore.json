@@ -9,11 +9,11 @@
   ],
   "results": [
 	{
-	  "item": "appliedenergistics2:certus_quartz_dust",
+	  "item": "ae2:certus_quartz_dust",
 	  "count": 5
 	}
   ],
   "conditions": {
-	"reborncore:mod": "appliedenergistics2"
+	"reborncore:mod": "ae2"
   }
 }
