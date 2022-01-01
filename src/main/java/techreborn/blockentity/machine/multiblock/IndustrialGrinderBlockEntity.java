@@ -47,7 +47,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.utils.FluidUtils;
+import reborncore.common.fluid.FluidUtils;
 
 public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 

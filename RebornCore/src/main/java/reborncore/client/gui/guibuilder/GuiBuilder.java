@@ -26,7 +26,6 @@ package reborncore.client.gui.guibuilder;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
@@ -52,12 +51,11 @@ import reborncore.api.IListInfoProvider;
 import reborncore.client.RenderUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.GuiTab;
-import reborncore.common.fluid.FluidUtil;
+import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PowerSystem.EnergySystem;
-import reborncore.common.util.FluidTextHelper;
 import reborncore.common.util.StringUtils;
 
 import java.util.ArrayList;
@@ -682,7 +680,7 @@ public class GuiBuilder {
 						new LiteralText(String.format("%s / %s", amount, maxCapacity))
 								.formatted(Formatting.GOLD)
 								.append(SPACE_TEXT)
-								.append(FluidUtil.getFluidName(fluid))
+								.append(FluidUtils.getFluidName(fluid))
 				);
 			}
 

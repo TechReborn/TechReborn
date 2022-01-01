@@ -43,15 +43,13 @@ import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
-import reborncore.common.util.FluidTextHelper;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.utils.FluidUtils;
+import reborncore.common.fluid.FluidUtils;
 
 import java.util.List;
 
@@ -160,7 +158,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				info.add(
 						new LiteralText(String.valueOf(this.tank.getFluidAmount()))
 								.append(new TranslatableText("techreborn.tooltip.unit.divider"))
-								.append(WordUtils.capitalize(FluidUtil.getFluidName(this.tank.getFluid())))
+								.append(WordUtils.capitalize(FluidUtils.getFluidName(this.tank.getFluid())))
 				);
 			} else {
 				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));

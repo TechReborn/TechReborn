@@ -38,7 +38,6 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
-import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
@@ -46,7 +45,7 @@ import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.FluidGeneratorRecipeList;
 import techreborn.api.generator.GeneratorRecipeHelper;
-import techreborn.utils.FluidUtils;
+import reborncore.common.fluid.FluidUtils;
 
 public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider {
 
@@ -89,10 +88,10 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		if (ticksSinceLastChange >= 10) {
 			ItemStack inputStack = inventory.getStack(0);
 			if (!inputStack.isEmpty()) {
-				if (FluidUtils.isContainerEmpty(inputStack) && !tank.getFluidAmount().isEmpty()) {
-					FluidUtils.fillContainers(tank, inventory, 0, 1);
-				} else if (inputStack.getItem() instanceof ItemFluidInfo && getRecipes().getRecipeForFluid(((ItemFluidInfo) inputStack.getItem()).getFluid(inputStack)).isPresent()) {
+				if (FluidUtils.containsMatchingFluid(inputStack, f -> getRecipes().getRecipeForFluid(f).isPresent())) {
 					FluidUtils.drainContainers(tank, inventory, 0, 1);
+				} else {
+					FluidUtils.fillContainers(tank, inventory, 0, 1);
 				}
 			}
 
