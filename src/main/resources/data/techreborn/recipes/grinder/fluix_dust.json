@@ -4,16 +4,16 @@
   "time": 300,
   "ingredients": [
 	{
-	  "item": "appliedenergistics2:fluix_crystal",
+	  "item": "ae2:fluix_crystal",
 	  "count": 2
 	}
   ],
   "results": [
 	{
-	  "item": "appliedenergistics2:fluix_dust"
+	  "item": "ae2:fluix_dust"
 	}
   ],
   "conditions": {
-	"reborncore:mod": "appliedenergistics2"
+	"reborncore:mod": "ae2"
   }
 }
