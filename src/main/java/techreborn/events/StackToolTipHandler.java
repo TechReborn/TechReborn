@@ -31,6 +31,9 @@ import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -45,6 +48,7 @@ import net.minecraft.world.gen.HeightContext;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.BaseBlockEntityProvider;
 import techreborn.init.TRContent;
+import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.utils.ToolTipAssistUtils;
 import techreborn.world.OreDistribution;
@@ -108,6 +112,12 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		if (item instanceof UpgradeItem upgrade) {
 			ToolTipAssistUtils.addInfo(item.getTranslationKey(), tooltipLines, false);
 			tooltipLines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
+		}
+
+		if (item instanceof DynamicCellItem cell) {
+			Fluid fluid = cell.getFluid(stack);
+			if (!(fluid instanceof FlowableFluid) && fluid != Fluids.EMPTY)
+				ToolTipAssistUtils.addInfo("unplaceable_fluid", tooltipLines, false);
 		}
 
 		Text text = null;
