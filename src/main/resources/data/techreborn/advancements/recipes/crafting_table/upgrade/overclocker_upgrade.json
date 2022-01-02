@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/upgrade/overclocker_upgrade"
+	]
+  },
+  "criteria": {
+	"has_water_coolant_cell_10k": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:water_coolant_cell_10k"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/upgrade/overclocker_upgrade"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_water_coolant_cell_10k",
+	  "has_the_recipe"
+	]
+  ]
+}
