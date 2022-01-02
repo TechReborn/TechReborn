@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/cable/superconductor_cable"
+	]
+  },
+  "criteria": {
+	"has_energy_flow_chip": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:energy_flow_chip"]
+		  }
+		]
+	  }
+	},
+	"has_superconductor": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:superconductor"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/cable/superconductor_cable"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_energy_flow_chip",
+	  "has_superconductor",
+	  "has_the_recipe"
+	]
+  ]
+}

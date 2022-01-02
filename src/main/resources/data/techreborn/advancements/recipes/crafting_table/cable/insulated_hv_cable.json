@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/cable/insulated_hv_cable"
+	]
+  },
+  "criteria": {
+	"has_rubber": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:rubber"]
+		  }
+		]
+	  }
+	},
+	"has_refined_iron": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:refined_iron_ingot"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/cable/insulated_hv_cable"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_rubber",
+	  "has_refined_iron",
+	  "has_the_recipe"
+	]
+  ]
+}
