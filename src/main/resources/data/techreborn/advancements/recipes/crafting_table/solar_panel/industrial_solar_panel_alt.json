@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/solar_panel/industrial_solar_panel_alt"
+	]
+  },
+  "criteria": {
+	"has_advanced_circuit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_circuit"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/solar_panel/industrial_solar_panel_alt"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_circuit",
+	  "has_the_recipe"
+	]
+  ]
+}
