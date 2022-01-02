@@ -6,12 +6,12 @@
 	]
   },
   "criteria": {
-	"has_almandine_dust": {
+	"has_blaze_powder": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["techreborn:blaze_powder"]
+			"items": ["minecraft:blaze_powder"]
 		  }
 		]
 	  }

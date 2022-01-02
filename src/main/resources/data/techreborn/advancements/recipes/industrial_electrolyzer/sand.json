@@ -6,12 +6,12 @@
 	]
   },
   "criteria": {
-	"has_almandine_dust": {
+	"has_sand": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["techreborn:sand"]
+			"items": ["minecraft:sand"]
 		  }
 		]
 	  }

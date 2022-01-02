@@ -6,7 +6,7 @@
 	]
   },
   "criteria": {
-	"has_almandine_dust": {
+	"has_lazurite_dust": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [

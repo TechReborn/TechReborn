@@ -6,12 +6,12 @@
 	]
   },
   "criteria": {
-	"has_almandine_dust": {
+	"has_sugar": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["techreborn:sugar"]
+			"items": ["minecraft:sugar"]
 		  }
 		]
 	  }

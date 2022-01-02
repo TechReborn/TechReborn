@@ -6,7 +6,7 @@
 	]
   },
   "criteria": {
-	"has_almandine_dust": {
+	"has_peridot_dust": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [

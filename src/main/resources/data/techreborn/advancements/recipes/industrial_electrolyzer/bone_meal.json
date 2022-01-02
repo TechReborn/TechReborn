@@ -6,12 +6,12 @@
 	]
   },
   "criteria": {
-	"has_almandine_dust": {
+	"has_bone_meal": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["techreborn:bone_meal"]
+			"items": ["minecraft:bone_meal"]
 		  }
 		]
 	  }
