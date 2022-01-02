@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/tool/omni_tool"
+	]
+  },
+  "criteria": {
+	"has_advanced_chainsaw": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_chainsaw"]
+		  }
+		]
+	  }
+	},
+	"has_advanced_drill": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_drill"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/tool/omni_tool"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_chainsaw",
+	  "has_advanced_drill",
+	  "has_the_recipe"
+	]
+  ]
+}
