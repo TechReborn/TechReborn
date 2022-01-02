@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"III",
+	"CFC",
+	"III"
+  ],
+  "key": {
+	"I": {
+	  "tag": "c:refined_iron_plates"
+	},
+	"C": {
+	  "item": "techreborn:electronic_circuit"
+	},
+	"F": {
+	  "item": "techreborn:red_cell_battery"
+	}
+  },
+  "result": {
+	"item": "techreborn:molten_salt_battery"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "variants": {
+	"charging=true": { "model": "techreborn:block/machines/energy/msb_port_ev_input" },
+	"charging=false": { "model": "techreborn:block/machines/energy/msb_port_ev_output" }
+  }
+}

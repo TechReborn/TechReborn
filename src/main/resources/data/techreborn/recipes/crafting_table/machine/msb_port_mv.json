@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	" C ",
+	"CMC",
+	" C "
+  ],
+  "key": {
+	"C": {
+	  "item": "techreborn:insulated_gold_cable"
+	},
+	"M": {
+	  "item": "techreborn:basic_machine_frame"
+	}
+  },
+  "result": {
+	"item": "techreborn:machines/energy/msb_port_mv"
+  }
+}

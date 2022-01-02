@@ -38,6 +38,8 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltPortBlockEntity;
 import techreborn.blocks.misc.*;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.*;
@@ -85,6 +87,11 @@ public class ModRegistry {
 		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 
+		// Register all MSB port variations
+		Arrays.stream(MoltenSaltPorts.values()).forEach(value -> {
+			RebornRegistry.registerBlock(value.block, itemGroup);
+		});
+
 		// Misc. blocks
 		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), itemGroup);
@@ -107,6 +114,8 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.RUBBER_DOOR = InitUtils.setup(new RubberDoorBlock(), "rubber_door"), itemGroup);
 		RebornRegistry.registerBlockNoItem(TRContent.POTTED_RUBBER_SAPLING = InitUtils.setup(new FlowerPotBlock(TRContent.RUBBER_SAPLING, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()), "potted_rubber_sapling"));
 		RebornRegistry.registerBlock(TRContent.COPPER_WALL = InitUtils.setup(new WallBlock(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL)), "copper_wall"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.SULFUR_BLOCK = InitUtils.setup(new Block(FabricBlockSettings.of(Material.SOIL).strength(1f, 1f).sounds(BlockSoundGroup.SAND)), "sulfur_block"), itemGroup);
+
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}
@@ -234,5 +243,7 @@ public class ModRegistry {
 
 	private static void registerApis() {
 		EnergyStorage.SIDED.registerForBlockEntities((be, direction) -> ((CableBlockEntity) be).getSideEnergyStorage(direction), TRBlockEntities.CABLE);
+		EnergyStorage.SIDED.registerForBlockEntities((be, direction) -> ((MoltenSaltBatteryBlockEntity) be).getSideEnergyStorage(direction), TRBlockEntities.MOLTEN_SALT_BATTERY);
+		EnergyStorage.SIDED.registerForBlockEntities((be, direction) -> ((MoltenSaltPortBlockEntity) be).getEnergyStorage(), TRBlockEntities.MOLTEN_SALT_PORT);
 	}
 }

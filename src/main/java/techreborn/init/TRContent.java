@@ -24,6 +24,7 @@
 
 package techreborn.init;
 
+import java.util.stream.Collectors;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
@@ -41,7 +42,6 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
 
-import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -57,6 +57,8 @@ import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltPortBlockEntity;
 import techreborn.blocks.DataDrivenMachineBlock;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
@@ -71,6 +73,7 @@ import techreborn.blocks.machine.tier1.PlayerDetectorBlock;
 import techreborn.blocks.machine.tier1.ResinBasinBlock;
 import techreborn.blocks.misc.*;
 import techreborn.blocks.storage.energy.*;
+import techreborn.blocks.storage.energy.msb.MoltenSaltPortBlock;
 import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.storage.item.StorageUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
@@ -116,6 +119,7 @@ public class TRContent {
 	public static Block STRIPPED_RUBBER_WOOD;
 	public static Block POTTED_RUBBER_SAPLING;
 	public static Block COPPER_WALL;
+	public static Block SULFUR_BLOCK;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -504,6 +508,37 @@ public class TRContent {
 		}
 	}
 
+	public enum MoltenSaltPorts {
+		MV(RcEnergyTier.MEDIUM),
+		HV(RcEnergyTier.EXTREME),
+		EV(RcEnergyTier.INSANE),
+		SC(RcEnergyTier.INFINITE);
+
+		public static final Map<Block, MoltenSaltPorts> BLOCKS = new HashMap<>();
+		static {
+			Arrays.stream(MoltenSaltPorts.values()).forEach(port -> BLOCKS.put(port.block, port));
+		}
+
+		public final String name;
+		public final Block block;
+		public final RcEnergyTier tier;
+
+		MoltenSaltPorts(RcEnergyTier tier) {
+			this.name = this.toString().toLowerCase(Locale.ROOT);
+			this.block = new MoltenSaltPortBlock();
+			this.tier = tier;
+			InitUtils.setup(block, "machines/energy/msb_port_" + name);
+		}
+
+		public Block getBlock() {
+			return block;
+		}
+
+		public static Block[] allBlocks() {
+			return BLOCKS.keySet().toArray(new Block[0]);
+		}
+	}
+
 
 	public enum Machine implements ItemConvertible {
 		ALLOY_SMELTER(new GenericMachineBlock(GuiType.ALLOY_SMELTER, AlloySmelterBlockEntity::new)),
@@ -561,6 +596,8 @@ public class TRContent {
 		MV_TRANSFORMER(new BlockMVTransformer()),
 		HV_TRANSFORMER(new BlockHVTransformer()),
 		EV_TRANSFORMER(new BlockEVTransformer()),
+
+		MOLTEN_SALT_BATTERY(new GenericMachineBlock(GuiType.MOLTEN_SALT_BATTERY, MoltenSaltBatteryBlockEntity::new)),
 
 		ALARM(new BlockAlarm()),
 		CHUNK_LOADER(new GenericMachineBlock(GuiType.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),

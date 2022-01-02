@@ -59,9 +59,11 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LSUStorageBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltPortBlockEntity;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.blockentity.transformers.EVTransformerBlockEntity;
@@ -73,6 +75,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
+import techreborn.init.TRContent.Machine;
+import techreborn.init.TRContent.MoltenSaltPorts;
 
 public class TRBlockEntities {
 
@@ -138,6 +142,11 @@ public class TRBlockEntities {
 	public static final BlockEntityType<SoildCanningMachineBlockEntity> SOLID_CANNING_MACHINE = register(SoildCanningMachineBlockEntity::new, "solid_canning_machine", TRContent.Machine.SOLID_CANNING_MACHINE);
 	public static final BlockEntityType<WireMillBlockEntity> WIRE_MILL = register(WireMillBlockEntity::new, "wire_mill", TRContent.Machine.WIRE_MILL);
 	public static final BlockEntityType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register(GreenhouseControllerBlockEntity::new, "greenhouse_controller", TRContent.Machine.GREENHOUSE_CONTROLLER);
+
+	public static final BlockEntityType<MoltenSaltBatteryBlockEntity> MOLTEN_SALT_BATTERY = register(MoltenSaltBatteryBlockEntity::new, "molten_salt_battery", TRContent.Machine.MOLTEN_SALT_BATTERY);
+	public static final BlockEntityType<MoltenSaltPortBlockEntity> MOLTEN_SALT_PORT = register(MoltenSaltPortBlockEntity::new, "molten_salt_port", TRContent.MoltenSaltPorts.allBlocks());
+
+
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, ItemConvertible... items) {
 		return register(supplier, name, Arrays.stream(items).map(itemConvertible -> Block.getBlockFromItem(itemConvertible.asItem())).toArray(Block[]::new));

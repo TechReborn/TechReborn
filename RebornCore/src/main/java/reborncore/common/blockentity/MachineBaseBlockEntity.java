@@ -75,7 +75,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	public boolean renderMultiblock = false;
 
-	private int ticktime = 0;
+	protected int ticktime = 0;
 
 	/**
 	 * This is used to change the speed of the crafting operation.

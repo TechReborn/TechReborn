@@ -68,6 +68,7 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.msb.MoltenSaltBatteryBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
@@ -126,6 +127,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register("greenhouse_controller", () -> () -> GuiGreenhouseController::new);
 	public static final GuiType<FluidReplicatorBlockEntity> FLUID_REPLICATOR = register("fluid_replicator", () -> () -> GuiFluidReplicator::new);
 	public static final GuiType<PlayerDetectorBlockEntity> PLAYER_DETECTOR = register("player_detector", () -> () -> GuiPlayerDetector::new);
+	public static final GuiType<MoltenSaltBatteryBlockEntity> MOLTEN_SALT_BATTERY = register("molten_salt_battery", () -> () -> GuiMoltenSaltBattery::new);
 
 	public static final GuiType<DataDrivenBEProvider.DataDrivenBlockEntity> DATA_DRIVEN = register("data_driven", () -> () -> DataDrivenGui::new);
 
