@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine_block/industrial_machine_casing"
+	]
+  },
+  "criteria": {
+	"has_industrial_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:industrial_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_chrome_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:chrome_plates"
+		  }
+		]
+	  }
+	},
+	"has_data_storage_core": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:data_storage_core"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine_block/industrial_machine_casing"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_industrial_machine_frame",
+	  "has_chrome_plate",
+	  "has_data_storage_core",
+	  "has_the_recipe"
+	]
+  ]
+}
