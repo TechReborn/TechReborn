@@ -53,6 +53,7 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider implements Commo
             (cItem("sheldonite_ores")): TRContent.Ingots.PLATINUM,
             (cItem("platinum_dusts")): TRContent.Ingots.PLATINUM,
             (Items.IRON_INGOT): TRContent.Ingots.REFINED_IRON,
+            (cItem("iron_plates")): TRContent.Plates.REFINED_IRON,
             (cItem("silver_ores")): TRContent.Ingots.SILVER,
             (cItem("raw_silver_ores")): TRContent.Ingots.SILVER,
             (cItem("tin_ores")): TRContent.Ingots.TIN,
