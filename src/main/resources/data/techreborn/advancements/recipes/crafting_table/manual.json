@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/manual"
+	]
+  },
+  "criteria": {
+	"has_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:refined_iron_ingot"]
+		  }
+		]
+	  }
+	},
+	"has_book": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:book"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/manual"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ingot",
+	  "has_book",
+	  "has_the_recipe"
+	]
+  ]
+}

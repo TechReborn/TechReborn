@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/frequency_transmitter"
+	]
+  },
+  "criteria": {
+	"has_circuit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:electronic_circuit"]
+		  }
+		]
+	  }
+	},
+	"has_cable": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:insulated_gold_cable"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/frequency_transmitter"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_circuit",
+	  "has_cable",
+	  "has_the_recipe"
+	]
+  ]
+}

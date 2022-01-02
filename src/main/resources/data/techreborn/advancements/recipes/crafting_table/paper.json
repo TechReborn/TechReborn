@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/paper"
+	]
+  },
+  "criteria": {
+	"has_saw_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:saw_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/paper"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_saw_dust",
+	  "has_the_recipe"
+	]
+  ]
+}
