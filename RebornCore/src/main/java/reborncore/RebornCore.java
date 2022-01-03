@@ -107,7 +107,6 @@ public class RebornCore implements ModInitializer {
 		ServerBoundPackets.init();
 
 		IngredientManager.setup();
-		RebornFluidManager.setupBucketMap();
 
 		RebornCoreCommands.setup();
 

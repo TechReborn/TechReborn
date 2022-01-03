@@ -56,7 +56,7 @@ import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.fluid.FluidUtil;
+import reborncore.common.fluid.FluidUtils;
 import reborncore.common.util.ItemHandlerUtils;
 import reborncore.common.util.Tank;
 import reborncore.common.util.WrenchUtils;
@@ -187,7 +187,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 
 		if (blockEntity instanceof MachineBaseBlockEntity) {
 			Tank tank = ((MachineBaseBlockEntity) blockEntity).getTank();
-			if (tank != null && FluidUtil.interactWithFluidHandler(playerIn, hand, tank)) {
+			if (tank != null && FluidUtils.interactWithFluidHandler(playerIn, hand, tank)) {
 				return ActionResult.SUCCESS;
 			}
 		}

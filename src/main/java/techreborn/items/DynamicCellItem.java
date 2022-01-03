@@ -24,6 +24,13 @@
 
 package techreborn.items;
 
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.FluidFillable;
@@ -60,12 +67,11 @@ import net.minecraft.world.event.GameEvent;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
-import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
-import techreborn.utils.FluidUtils;
+import reborncore.common.fluid.FluidUtils;
 
 /**
  * Created by modmuss50 on 17/05/2016.
@@ -160,7 +166,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		Fluid fluid = getFluid(itemStack);
 		if (fluid != Fluids.EMPTY) {
 			//TODO use translation keys for fluid and the cell https://fabric.asie.pl/wiki/tutorial:lang?s[]=translation might be useful
-			return new LiteralText(WordUtils.capitalizeFully(FluidUtil.getFluidName(fluid).replaceAll("_", " ")) + " Cell");
+			return new LiteralText(WordUtils.capitalizeFully(FluidUtils.getFluidName(fluid).replaceAll("_", " ")) + " Cell");
 		}
 		return super.getName(itemStack);
 	}
@@ -238,10 +244,75 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
-		NbtCompound tag = itemStack.getNbt();
+		return getFluid(itemStack.getNbt());
+	}
+
+	private Fluid getFluid(@Nullable NbtCompound tag) {
 		if (tag != null && tag.contains("fluid")) {
 			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
 		}
 		return Fluids.EMPTY;
+	}
+
+	public void registerFluidApi() {
+		FluidStorage.ITEM.registerForItems((stack, ctx) -> new CellStorage(ctx), this);
+	}
+
+	public class CellStorage extends SingleVariantItemStorage<FluidVariant> {
+		public CellStorage(ContainerItemContext context) {
+			super(context);
+		}
+
+		@Override
+		protected FluidVariant getBlankResource() {
+			return FluidVariant.blank();
+		}
+
+		@Override
+		protected FluidVariant getResource(ItemVariant currentVariant) {
+			return FluidVariant.of(getFluid(currentVariant.getNbt()));
+		}
+
+		@Override
+		protected long getAmount(ItemVariant currentVariant) {
+			return getResource(currentVariant).isBlank() ? 0 : FluidConstants.BUCKET;
+		}
+
+		@Override
+		protected long getCapacity(FluidVariant variant) {
+			return FluidConstants.BUCKET;
+		}
+
+		@Override
+		protected ItemVariant getUpdatedVariant(ItemVariant currentVariant, FluidVariant newResource, long newAmount) {
+			if (newAmount != 0 && newAmount != FluidConstants.BUCKET) {
+				throw new IllegalArgumentException("Only amounts of 0 and 1 bucket are supported! This is a bug!");
+			}
+			// TODO: this is not ideal since we delete any extra NBT, but it probably doesn't matter in practice?
+			if (newResource.isBlank() || newAmount == 0) {
+				return ItemVariant.of(DynamicCellItem.this);
+			} else {
+				return ItemVariant.of(getCellWithFluid(newResource.getFluid()));
+			}
+		}
+
+		// A few "hacks" to ensure that transfer is always exactly 0 or 1 bucket.
+		@Override
+		public long insert(FluidVariant insertedResource, long maxAmount, TransactionContext transaction) {
+			if (isResourceBlank() && maxAmount >= FluidConstants.BUCKET) {
+				return super.insert(insertedResource, FluidConstants.BUCKET, transaction);
+			} else {
+				return 0;
+			}
+		}
+
+		@Override
+		public long extract(FluidVariant extractedResource, long maxAmount, TransactionContext transaction) {
+			if (!isResourceBlank() && maxAmount >= FluidConstants.BUCKET) {
+				return super.extract(extractedResource, FluidConstants.BUCKET, transaction);
+			} else {
+				return 0;
+			}
+		}
 	}
 }
