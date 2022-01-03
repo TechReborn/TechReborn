@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/player_detector"
+	]
+  },
+  "criteria": {
+	"has_computer_cube": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:computer_cube"]
+		  }
+		]
+	  }
+	},
+	"has_advanced_circuit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_circuit"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/player_detector"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_computer_cube",
+	  "has_advanced_circuit",
+	  "has_the_recipe"
+	]
+  ]
+}

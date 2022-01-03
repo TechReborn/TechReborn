@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/fusion_control_computer"
+	]
+  },
+  "criteria": {
+	"has_fusion_coil": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:fusion_coil"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/fusion_control_computer"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_fusion_coil",
+	  "has_the_recipe"
+	]
+  ]
+}

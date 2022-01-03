@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/gas_turbine_alt"
+	]
+  },
+  "criteria": {
+	"has_wind_mill": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:wind_mill"]
+		  }
+		]
+	  }
+	},
+	"has_aluminum_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:aluminum_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/gas_turbine_alt"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_wind_mill",
+	  "has_aluminum_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

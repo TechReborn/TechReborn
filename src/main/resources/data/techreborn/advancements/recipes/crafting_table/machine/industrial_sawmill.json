@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/industrial_sawmill"
+	]
+  },
+  "criteria": {
+	"has_advanced_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_diamond_saw_blade": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:diamond_saw_blade"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/industrial_sawmill"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_machine_frame",
+	  "has_diamond_saw_blade",
+	  "has_the_recipe"
+	]
+  ]
+}

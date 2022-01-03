@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/resin_basin"
+	]
+  },
+  "criteria": {
+	"has_drain": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:drain"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/resin_basin"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_drain",
+	  "has_the_recipe"
+	]
+  ]
+}

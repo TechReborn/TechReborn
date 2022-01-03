@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/dragon_egg_syphon"
+	]
+  },
+  "criteria": {
+	"has_iridium_alloy_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:iridium_alloy_plate"]
+		  }
+		]
+	  }
+	},
+	"has_dragon_egg": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:dragon_egg"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/dragon_egg_syphon"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iridium_alloy_plate",
+	  "has_dragon_egg",
+	  "has_the_recipe"
+	]
+  ]
+}

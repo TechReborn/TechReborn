@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/rolling_machine"
+	]
+  },
+  "criteria": {
+	"has_compressor": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:compressor"]
+		  }
+		]
+	  }
+	},
+	"has_advanced_circuit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_circuit"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/rolling_machine"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_compressor",
+      "has_advanced_circuit",
+	  "has_the_recipe"
+	]
+  ]
+}

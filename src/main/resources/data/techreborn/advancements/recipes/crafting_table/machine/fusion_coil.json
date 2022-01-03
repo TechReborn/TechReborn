@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/fusion_coil"
+	]
+  },
+  "criteria": {
+	"has_nichrome_heating_coil": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:nichrome_heating_coil"]
+		  }
+		]
+	  }
+	},
+	"has_iridium_neutron_reflector": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:iridium_neutron_reflector"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/fusion_coil"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_nichrome_heating_coil",
+	  "has_iridium_neutron_reflector",
+	  "has_the_recipe"
+	]
+  ]
+}

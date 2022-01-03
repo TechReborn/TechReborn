@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/charge_o_mat"
+	]
+  },
+  "criteria": {
+	"has_energy_crystal": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:energy_crystal"]
+		  }
+		]
+	  }
+	},
+	"has_energy_flow_chip": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:energy_flow_chip"]
+		  }
+		]
+	  }
+	},
+	"has_lapotronic_orb": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lapotronic_orb"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/charge_o_mat"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_energy_crystal",
+	  "has_energy_flow_chip",
+	  "has_lapotronic_orb",
+	  "has_the_recipe"
+	]
+  ]
+}

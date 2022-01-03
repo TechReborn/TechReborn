@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/lv_transformer"
+	]
+  },
+  "criteria": {
+	"has_insulated_gold_cable": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:insulated_gold_cable"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/lv_transformer"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_insulated_gold_cable",
+	  "has_the_recipe"
+	]
+  ]
+}

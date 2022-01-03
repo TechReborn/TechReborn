@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/solid_fuel_generator"
+	]
+  },
+  "criteria": {
+	"has_basic_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:basic_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_furnace": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:furnace"]
+		  }
+		]
+	  }
+	},
+	"has_red_cell_battery": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:red_cell_battery"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/solid_fuel_generator"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_basic_machine_frame",
+	  "has_red_cell_battery",
+      "has_furnace",
+	  "has_the_recipe"
+	]
+  ]
+}
