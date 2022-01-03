@@ -11,7 +11,7 @@
 	  "conditions": {
 		"items": [
 		  {
-			"tags": "c:raw_tungsten_ores"
+			"tag": "c:raw_tungsten_ores"
 		  }
 		]
 	  }
