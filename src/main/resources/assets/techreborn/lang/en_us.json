@@ -733,6 +733,11 @@
   "item.techreborn.silver_leggings": "Silver Leggings",
   "item.techreborn.silver_boots": "Silver Boots",
 
+  "item.techreborn.steel_helmet": "Steel Helmet",
+  "item.techreborn.steel_chestplate": "Steel Chestplate",
+  "item.techreborn.steel_leggings": "Steel Leggings",
+  "item.techreborn.steel_boots": "Steel Boots",
+
   "_comment18": "Message",
   "techreborn.message.missingmultiblock": "Incomplete Multiblock",
   "techreborn.message.setTo": "Set to",
