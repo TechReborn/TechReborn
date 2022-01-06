@@ -6,12 +6,12 @@
 	]
   },
   "criteria": {
-	"has_basic_machine_frame": {
+	"has_iron_bars": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["techreborn:basic_machine_frame"]
+			"items": ["minecraft:iron_bars"]
 		  }
 		]
 	  }
@@ -35,7 +35,7 @@
   },
   "requirements": [
 	[
-	  "has_basic_machine_frame",
+	  "has_iron_bars",
 	  "has_hopper",
 	  "has_the_recipe"
 	]
