@@ -1,0 +1,21 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 1640,
+  "ingredients": [
+    {
+      "item": "minecraft:warped_nylium",
+      "count": 8
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:netherrack",
+      "count": 6
+    },
+    {
+      "item": "minecraft:warped_fungus",
+      "count": 2
+    }
+  ]
+}

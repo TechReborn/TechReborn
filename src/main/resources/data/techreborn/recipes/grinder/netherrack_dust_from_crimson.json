@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:grinder",
+  "power": 4,
+  "time": 200,
+  "ingredients" : [
+    {
+      "item": "minecraft:crimson_nylium"
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:netherrack_dust"
+    }
+  ]
+}
