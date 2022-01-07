@@ -1,0 +1,21 @@
+{
+	"type": "techreborn:chemical_reactor",
+	"power": 30,
+	"time": 600,
+	"ingredients": [
+		{
+			"item": "minecraft:crimson_stairs",
+			"count": 4
+		},
+		{
+			"tag": "c:ender_pearl_dusts",
+			"count": 3
+		}
+	],
+	"results": [
+		{
+			"item": "minecraft:warped_stairs",
+			"count": 4
+		}
+	]
+}

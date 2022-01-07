@@ -1,0 +1,20 @@
+{
+	"type": "techreborn:chemical_reactor",
+	"power": 30,
+	"time": 400,
+	"ingredients": [
+		{
+			"item": "minecraft:crimson_fence_gate",
+			"count": 2
+		},
+		{
+			"tag": "c:ender_pearl_dusts"
+		}
+	],
+	"results": [
+		{
+			"item": "minecraft:warped_fence_gate",
+			"count": 2
+		}
+	]
+}

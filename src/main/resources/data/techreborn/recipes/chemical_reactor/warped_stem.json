@@ -1,0 +1,19 @@
+{
+	"type": "techreborn:chemical_reactor",
+	"power": 30,
+	"time": 500,
+	"ingredients": [
+		{
+			"item": "minecraft:crimson_stem"
+		},
+		{
+			"tag": "c:ender_pearl_dusts",
+			"count": 2
+		}
+	],
+	"results": [
+		{
+			"item": "minecraft:warped_stem"
+		}
+	]
+}

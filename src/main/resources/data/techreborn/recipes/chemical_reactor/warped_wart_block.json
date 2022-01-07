@@ -1,0 +1,19 @@
+{
+	"type": "techreborn:chemical_reactor",
+	"power": 30,
+	"time": 500,
+	"ingredients": [
+		{
+			"item": "minecraft:nether_wart_block"
+		},
+		{
+			"tag": "c:ender_pearl_dusts",
+			"count": 2
+		}
+	],
+	"results": [
+		{
+			"item": "minecraft:warped_wart_block"
+		}
+	]
+}
