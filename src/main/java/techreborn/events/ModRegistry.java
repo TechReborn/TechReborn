@@ -176,6 +176,11 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.SILVER_LEGGINGS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.SILVER, EquipmentSlot.LEGS), "silver_leggings"));
 		RebornRegistry.registerItem(TRContent.SILVER_BOOTS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.SILVER, EquipmentSlot.FEET), "silver_boots"));
 
+		RebornRegistry.registerItem(TRContent.STEEL_HELMET = InitUtils.setup(new TRArmourItem(TRArmorMaterials.STEEL, EquipmentSlot.HEAD), "steel_helmet"));
+		RebornRegistry.registerItem(TRContent.STEEL_CHESTPLATE = InitUtils.setup(new TRArmourItem(TRArmorMaterials.STEEL, EquipmentSlot.CHEST), "steel_chestplate"));
+		RebornRegistry.registerItem(TRContent.STEEL_LEGGINGS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.STEEL, EquipmentSlot.LEGS), "steel_leggings"));
+		RebornRegistry.registerItem(TRContent.STEEL_BOOTS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.STEEL, EquipmentSlot.FEET), "steel_boots"));
+
 		// Battery
 		RebornRegistry.registerItem(TRContent.RED_CELL_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.redCellBatteryMaxCharge, RcEnergyTier.LOW), "red_cell_battery"));
 		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.lithiumIonBatteryMaxCharge, RcEnergyTier.MEDIUM), "lithium_ion_battery"));
