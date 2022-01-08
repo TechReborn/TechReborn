@@ -1,5 +1,10 @@
 package reborncore.common.powerSystem;
 
+import net.fabricmc.fabric.api.item.v1.FabricItem;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import reborncore.common.util.ItemUtils;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 
 /**
@@ -10,7 +15,7 @@ import team.reborn.energy.api.base.SimpleBatteryItem;
  * </ul>
  * TODO: consider moving this functionality to the energy API?
  */
-public interface RcEnergyItem extends SimpleBatteryItem {
+public interface RcEnergyItem extends SimpleBatteryItem, FabricItem {
 	long getEnergyCapacity();
 
 	/**
@@ -24,5 +29,15 @@ public interface RcEnergyItem extends SimpleBatteryItem {
 
 	default long getEnergyMaxOutput() {
 		return getTier().getMaxOutput();
+	}
+
+	@Override
+	default boolean allowNbtUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
+		return !ItemUtils.isEqualIgnoreEnergy(oldStack, newStack);
+	}
+
+	@Override
+	default boolean allowContinuingBlockBreaking(PlayerEntity player, ItemStack oldStack, ItemStack newStack) {
+		return ItemUtils.isEqualIgnoreEnergy(oldStack, newStack);
 	}
 }
