@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "gravel",
+  "ingredients": [
+    {
+      "tag": "c:andesite_dusts"
+    },
+    {
+      "tag": "c:diorite_dusts"
+    },
+    {
+      "tag": "c:granite_dusts"
+    },
+    {
+      "item": "minecraft:flint"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gravel",
+	"count": 4
+  }
+}

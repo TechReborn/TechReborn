@@ -4,12 +4,12 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "minecraft:dead_bush"
+      "item": "minecraft:rooted_dirt"
     }
   ],
   "results": [
     {
-      "item": "minecraft:stick",
+      "item": "minecraft:hanging_roots",
 	  "count": 2
     }
   ]
