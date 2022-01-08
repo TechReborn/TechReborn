@@ -38,6 +38,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.recipes.IRecipeInput;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
+import team.reborn.energy.api.base.SimpleBatteryItem;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -74,6 +75,29 @@ public class ItemUtils {
 			//TODO tags
 		}
 		return false;
+	}
+
+	public static boolean isEqualIgnoreEnergy(ItemStack stack1, ItemStack stack2) {
+		if (stack1 == stack2) {
+			return true;
+		}
+		if (!stack1.isOf(stack2.getItem())) {
+			return false;
+		}
+		if (stack1.getCount() != stack2.getCount()) {
+			return false;
+		}
+		if (stack1.getNbt() == stack2.getNbt()) {
+			return true;
+		}
+		if (stack1.getNbt() == null || stack2.getNbt() == null) {
+			return false;
+		}
+		NbtCompound nbt1Copy = stack1.getNbt().copy();
+		NbtCompound nbt2Copy = stack2.getNbt().copy();
+		nbt1Copy.remove(SimpleBatteryItem.ENERGY_KEY);
+		nbt2Copy.remove(SimpleBatteryItem.ENERGY_KEY);
+		return nbt1Copy.equals(nbt2Copy);
 	}
 
 	//TODO tags
