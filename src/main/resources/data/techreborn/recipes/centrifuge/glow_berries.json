@@ -4,7 +4,7 @@
   "time": 5000,
   "ingredients": [
     {
-      "item": "minecraft:sweet_berries",
+      "item": "minecraft:glow_berries",
       "count": 32
     },
     {
@@ -20,8 +20,12 @@
       }
     },
 	{
-	  "item": "minecraft:red_dye",
-	  "count": 5
+	  "item": "minecraft:orange_dye",
+	  "count": 2
+	},
+	{
+	  "item": "minecraft:glowstone_dust",
+	  "count": 2
 	}
   ]
 }

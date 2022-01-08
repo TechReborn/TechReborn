@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:extractor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "minecraft:glow_berries",
+	  "count": 4
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:orange_dye"
+    }
+  ]
+}
