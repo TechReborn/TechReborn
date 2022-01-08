@@ -1,0 +1,19 @@
+{
+	"type": "techreborn:chemical_reactor",
+	"power": 30,
+	"time": 400,
+	"ingredients": [
+		{
+			"tag": "c:calcite_small_dusts",
+			"count": 3
+		},
+		{
+			"item": "minecraft:slime_ball"
+		}
+	],
+	"results": [
+		{
+			"item": "minecraft:pointed_dripstone"
+		}
+	]
+}

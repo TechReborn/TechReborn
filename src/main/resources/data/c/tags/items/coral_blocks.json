@@ -1,0 +1,7 @@
+{
+	"replace": false,
+	"values": [
+	  "#c:living_coral_blocks",
+	  "#c:dead_coral_blocks"
+	]
+}

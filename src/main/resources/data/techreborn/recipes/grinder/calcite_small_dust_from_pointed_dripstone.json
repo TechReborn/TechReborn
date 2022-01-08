@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:grinder",
+  "power": 2,
+  "time": 100,
+  "ingredients" : [
+    {
+      "item": "minecraft:pointed_dripstone"
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:calcite_small_dust"
+    }
+  ]
+}
