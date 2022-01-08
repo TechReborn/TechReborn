@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:extractor",
+  "power": 10,
+  "time": 400,
+  "ingredients": [
+    {
+      "tag": "c:dead_coral_blocks"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:gray_dye",
+      "count": 5
+    }
+  ]
+}
