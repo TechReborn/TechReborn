@@ -4,7 +4,7 @@
   "time": 1000,
   "ingredients": [
     {
-      "item": "minecraft:sand",
+      "tag": "minecraft:sand",
       "count": 16
     },
     {

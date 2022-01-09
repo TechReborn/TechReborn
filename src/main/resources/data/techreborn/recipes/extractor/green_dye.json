@@ -4,13 +4,13 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "minecraft:dead_bush"
+      "item": "techreborn:plantball"
     }
   ],
   "results": [
     {
-      "item": "minecraft:stick",
-	  "count": 2
+      "item": "minecraft:green_dye",
+      "count": 2
     }
   ]
 }

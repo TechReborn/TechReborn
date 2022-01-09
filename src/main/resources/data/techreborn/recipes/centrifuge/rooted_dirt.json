@@ -4,7 +4,7 @@
   "time": 2500,
   "ingredients": [
     {
-      "item": "minecraft:grass_block",
+      "item": "minecraft:rooted_dirt",
       "count": 16
     }
   ],
@@ -16,13 +16,13 @@
     {
       "item": "minecraft:clay_ball"
     },
-    {
-      "item": "minecraft:gravel",
-      "count": 2
-    },
-    {
-      "item": "techreborn:plantball",
-      "count": 2
-    }
+	{
+	  "item": "minecraft:gravel",
+	  "count": 2
+	},
+	{
+	  "item": "minecraft:hanging_roots",
+	  "count": 7
+	}
   ]
 }

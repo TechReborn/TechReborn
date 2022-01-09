@@ -4,13 +4,13 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "minecraft:dead_bush"
+      "item": "minecraft:carrot",
+	  "count": 3
     }
   ],
   "results": [
     {
-      "item": "minecraft:stick",
-	  "count": 2
+      "item": "minecraft:orange_dye"
     }
   ]
 }

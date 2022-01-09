@@ -4,7 +4,7 @@
   "time": 2500,
   "ingredients": [
     {
-      "item": "minecraft:grass_block",
+      "item": "minecraft:podzol",
       "count": 16
     }
   ],
@@ -14,15 +14,16 @@
       "count": 8
     },
     {
-      "item": "minecraft:clay_ball"
+      "item": "minecraft:clay_ball",
+	  "count": 2
     },
     {
       "item": "minecraft:gravel",
       "count": 2
     },
     {
-      "item": "techreborn:plantball",
-      "count": 2
+      "item": "minecraft:plantball",
+      "count": 1
     }
   ]
 }

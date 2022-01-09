@@ -4,13 +4,13 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "minecraft:dead_bush"
+      "item": "minecraft:beetroot"
     }
   ],
   "results": [
     {
-      "item": "minecraft:stick",
-	  "count": 2
+      "item": "minecraft:red_dye",
+      "count": 2
     }
   ]
 }
