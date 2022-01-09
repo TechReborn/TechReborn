@@ -27,6 +27,8 @@ package reborncore;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerBlockEntityEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.world.WorldTickCallback;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
@@ -39,9 +41,9 @@ import reborncore.common.RebornCoreCommands;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
+import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.config.Configuration;
 import reborncore.common.crafting.ingredient.IngredientManager;
-import reborncore.common.fluid.RebornFluidManager;
 import reborncore.common.misc.ModSounds;
 import reborncore.common.misc.RebornCoreTags;
 import reborncore.common.multiblock.MultiblockRegistry;
@@ -117,6 +119,9 @@ public class RebornCore implements ModInitializer {
 		ServerBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {
 			if (blockEntity instanceof UnloadHandler) ((UnloadHandler) blockEntity).onUnload();
 		});
+
+		ServerWorldEvents.LOAD.register((server, world) -> ChunkLoaderManager.get(world).onServerWorldLoad(world));
+		ServerTickEvents.START_WORLD_TICK.register(world -> ChunkLoaderManager.get(world).onServerWorldTick(world));
 
 		FluidStorage.SIDED.registerFallback((world, pos, state, be, direction) -> {
 			if (be instanceof MachineBaseBlockEntity machineBase) {
