@@ -27,6 +27,7 @@ package reborncore.common.chunkloading;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkTicketType;
@@ -70,7 +71,7 @@ public class ChunkLoaderManager extends PersistentState {
 
 		chunkLoaderManager.loadedChunks.clear();
 
-		List<LoadedChunk> chunks = CODEC.parse(NbtOps.INSTANCE, tag.getCompound("loadedchunks"))
+		List<LoadedChunk> chunks = CODEC.parse(NbtOps.INSTANCE, tag.getList("loadedchunks", NbtElement.COMPOUND_TYPE))
 				.result()
 				.orElse(Collections.emptyList());
 
@@ -123,8 +124,7 @@ public class ChunkLoaderManager extends PersistentState {
 		LoadedChunk loadedChunk = new LoadedChunk(chunkPos, getWorldName(world), player, chunkLoader);
 		loadedChunks.add(loadedChunk);
 
-		final ServerChunkManager serverChunkManager = ((ServerWorld) world).getChunkManager();
-		serverChunkManager.addTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.getChunk(), RADIUS, loadedChunk.getChunk());
+		loadChunk((ServerWorld) world, loadedChunk);
 
 		markDirty();
 	}
@@ -146,6 +146,16 @@ public class ChunkLoaderManager extends PersistentState {
 			serverChunkManager.removeTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.getChunk(), RADIUS, loadedChunk.getChunk());
 		}
 		markDirty();
+	}
+
+	public void onServerWorldLoad(ServerWorld world) {
+		loadedChunks.forEach(loadedChunk -> loadChunk(world, loadedChunk));
+	}
+
+	public void onServerWorldTick(ServerWorld world) {
+		if (!loadedChunks.isEmpty()) {
+			world.resetIdleTimeout();
+		}
 	}
 
 	public static Identifier getWorldName(World world){
@@ -170,6 +180,11 @@ public class ChunkLoaderManager extends PersistentState {
 
 	public void syncToClient(ServerPlayerEntity serverPlayerEntity, List<LoadedChunk> chunks) {
 		NetworkManager.sendToPlayer(ClientBoundPackets.createPacketSyncLoadedChunks(chunks), serverPlayerEntity);
+	}
+
+	private void loadChunk(ServerWorld world, LoadedChunk loadedChunk) {
+		ChunkPos chunkPos = loadedChunk.getChunk();
+		world.getChunkManager().addTicket(ChunkLoaderManager.CHUNK_LOADER, chunkPos, RADIUS, chunkPos);
 	}
 
 	public static class LoadedChunk {
