@@ -141,6 +141,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 
 	public void setHashChanged() {
 		this.hasChanged = true;
+		this.markDirty();
 	}
 
 	public void setHashChanged(boolean changed) {

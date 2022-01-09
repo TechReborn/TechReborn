@@ -75,23 +75,21 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public StorageUnitBaseBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.STORAGE_UNIT, pos, state);
+		inventory = new RebornInventory<>(2, "ItemInventory", 64, this);
 	}
 
 	public StorageUnitBaseBlockEntity(BlockPos pos, BlockState state, TRContent.StorageUnit type) {
 		super(TRBlockEntities.STORAGE_UNIT, pos, state);
+		inventory = new RebornInventory<>(2, "ItemInventory", 64, this);
 		configureEntity(type);
 	}
 
 	private void configureEntity(TRContent.StorageUnit type) {
-
 		// Set capacity to local config unless overridden by server
 		if(serverCapacity == -1){
 			this.maxCapacity = type.capacity;
 		}
-
 		storeItemStack = ItemStack.EMPTY;
-		inventory = new RebornInventory<>(2, "ItemInventory", 64, this);
-
 		this.type = type;
 	}
 
@@ -313,8 +311,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		if (tagCompound.contains("lockedItem")) {
 			lockedItemStack = ItemStack.fromNbt(tagCompound.getCompound("lockedItem"));
 		}
-
-		inventory.read(tagCompound);
 	}
 
 	@Override
@@ -340,8 +336,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		if (isLocked()) {
 			tagCompound.put("lockedItem", lockedItemStack.writeNbt(new NbtCompound()));
 		}
-
-		inventory.write(tagCompound);
 	}
 
 	@Override
