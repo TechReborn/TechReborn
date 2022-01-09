@@ -10,16 +10,15 @@
   ],
   "results": [
 	{
-	  "item": "minecraft:sand",
-	  "count": 2
+	  "item": "minecraft:gravel",
+	  "count": 8
 	},
 	{
-	  "item": "minecraft:dirt",
-	  "count": 5
+	  "item": "minecraft:flint"
 	},
     {
-      "item": "minecraft:gravel",
-      "count": 9
+      "item": "minecraft:sand",
+      "count": 2
     }
   ]
 }
