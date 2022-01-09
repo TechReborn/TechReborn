@@ -514,7 +514,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 				@Override
 				protected void setStack(ItemStack stack) {
-					storeItemStack = stack;
+					if (stack.isEmpty()) {
+						// Ensure we maintain reference equality to EMPTY
+						storeItemStack = ItemStack.EMPTY;
+					} else {
+						storeItemStack = stack;
+					}
 				}
 
 				@Override
