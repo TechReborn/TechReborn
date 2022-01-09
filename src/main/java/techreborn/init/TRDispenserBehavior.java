@@ -57,7 +57,7 @@ public class TRDispenserBehavior {
 		if (TechRebornConfig.dispenseScrapboxes) {
 			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new ItemDispenserBehavior() {
 				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-					List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(pointer.getWorld());
+					List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAP_BOX.getRecipes(pointer.getWorld());
 					int random = new Random().nextInt(scrapboxRecipeList.size());
 					ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
 					stack.split(1);

@@ -31,7 +31,7 @@ import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
-import techreborn.api.recipe.ScrapboxRecipeCrafter;
+import techreborn.api.recipe.ScrapBoxRecipeCrafter;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
@@ -44,7 +44,7 @@ public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity impleme
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "ScrapboxinatorBlockEntity", 64, this);
-		this.crafter = new ScrapboxRecipeCrafter(this, this.inventory, inputs, outputs);
+		this.crafter = new ScrapBoxRecipeCrafter(this, this.inventory, inputs, outputs);
 	}
 
 	// TileMachineBase

@@ -47,7 +47,7 @@ public class ModRecipes {
 	public static final RebornRecipeType<IndustrialGrinderRecipe> INDUSTRIAL_GRINDER = RecipeManager.newRecipeType(IndustrialGrinderRecipe::new, new Identifier("techreborn:industrial_grinder"));
 	public static final RebornRecipeType<IndustrialSawmillRecipe> INDUSTRIAL_SAWMILL = RecipeManager.newRecipeType(IndustrialSawmillRecipe::new, new Identifier("techreborn:industrial_sawmill"));
 	public static final RebornRecipeType<RebornRecipe> RECYCLER = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:recycler"));
-	public static final RebornRecipeType<RebornRecipe> SCRAPBOX = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:scrapbox"));
+	public static final RebornRecipeType<RebornRecipe> SCRAP_BOX = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:scrap_box"));
 	public static final RebornRecipeType<RebornRecipe> VACUUM_FREEZER = RecipeManager.newRecipeType(RebornRecipe::new, new Identifier("techreborn:vacuum_freezer"));
 	public static final RebornRecipeType<FluidReplicatorRecipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(FluidReplicatorRecipe::new, new Identifier("techreborn:fluid_replicator"));
 	public static final RebornRecipeType<FusionReactorRecipe> FUSION_REACTOR = RecipeManager.newRecipeType(FusionReactorRecipe::new, new Identifier("techreborn:fusion_reactor"));

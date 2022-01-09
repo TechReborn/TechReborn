@@ -838,7 +838,7 @@
   "techreborn.jei.desc.scrapBoxNoDispenser": "Scrapboxes can be opened by a simple use in hand!",
 
   "techreborn.jei.category.alloy.furnace": "Alloy Furnace",
-  "techreborn.jei.category.scrapbox": "Opening Scrapboxes",
+  "techreborn.jei.category.scrap_box": "Opening Scrapboxes",
   "techreborn.jei.category.generator.gas": "Gas Generator",
   "techreborn.jei.category.generator.semifluid": "Semifluid Generator",
   "techreborn.jei.category.generator.diesel": "Diesel Generator",
@@ -1014,7 +1014,7 @@
   "techreborn:industrial_grinder": "Industrial Grinder",
   "techreborn:industrial_sawmill": "Industrial Sawmill",
   "techreborn:recycler": "Recycler",
-  "techreborn:scrapbox": "Scrapbox",
+  "techreborn:scrap_box": "Scrap Box",
   "techreborn:vacuum_freezer": "Vacuum Freezer",
   "techreborn:fluid_replicator": "Fluid Replicator",
   "techreborn:fusion_reactor": "Fusion Reactor",

@@ -1,0 +1,19 @@
+{
+  "power": 10,
+  "time": 20,
+  "ingredients": [
+    {
+      "item": "techreborn:scrap_box"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:player_head",
+      "count": 3,
+      "nbt": {
+        "SkullOwner": "Gigabit101"
+      }
+    }
+  ],
+  "type": "techreborn:scrap_box"
+}

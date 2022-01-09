@@ -48,9 +48,9 @@ public class ScrapBoxItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getMainHandStack();
 		if (!world.isClient) {
-			List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(world);
-			int random = world.random.nextInt(scrapboxRecipeList.size());
-			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
+			List<RebornRecipe> scrapBoxRecipeList = ModRecipes.SCRAP_BOX.getRecipes(world);
+			int random = world.random.nextInt(scrapBoxRecipeList.size());
+			ItemStack out = scrapBoxRecipeList.get(random).getOutputs().get(0);
 			WorldUtils.dropItem(out, world, player.getBlockPos());
 			stack.decrement(1);
 		}
