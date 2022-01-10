@@ -3,20 +3,22 @@
   "power": 10,
   "time": 4000,
   "ingredients": [
-    {
-      "fluid": "techreborn:calcium_carbonate",
-      "holder": "techreborn:cell"
-    }
+	{
+	  "fluid": "techreborn:calcium_carbonate",
+	  "holder": "techreborn:cell"
+	}
   ],
   "results": [
-    {
-      "item": "techreborn:calcite_dust"
-    },
-    {
-      "item": "techreborn:cell",
-      "count": 1,
-      "nbt": {
-        "fluid": "techreborn:carbon"
-    }
-  ]
-}
+	{
+	  "item": "techreborn:calcite_dust"
+	},
+	{
+	  "item": "techreborn:cell",
+	  "count": 1,
+	  "nbt": {
+		"fluid": "techreborn:carbon"
+	  }
+	  
+	}
+	]
+  }
