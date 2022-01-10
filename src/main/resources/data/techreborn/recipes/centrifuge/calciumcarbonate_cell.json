@@ -10,15 +10,13 @@
   ],
   "results": [
 	{
-	  "item": "techreborn:calcite_dust"
+	  "item": "techreborn:calcite_dust",
+	  "count": 3
 	},
 	{
 	  "item": "techreborn:cell",
-	  "count": 1,
-	  "nbt": {
-		"fluid": "techreborn:carbon"
-	  }
-	  
+	  "count": 1
 	}
-	]
-  }
+  ]
+}
+
