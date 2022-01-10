@@ -1,0 +1,40 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 50,
+  "time": 1300,
+  "ingredients": [
+    {
+      "item": "minecraft:chorus_fruit",
+      "count": 32
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 6,
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "count": 1,
+      "nbt": {
+        "fluid": "techreborn:nitrogen"
+      }
+    },
+    {
+      "item": "techreborn:ender_pearl_dust",
+	  "count": 2
+      },
+    {
+      "item": "techreborn:endstone_dust",
+      "count": 2
+      },
+   {
+      "item": "techreborn:cell",
+      "count": 1,
+      "nbt": {
+        "fluid": "techreborn:methane"
+      }
+    }
+  ]
+}
