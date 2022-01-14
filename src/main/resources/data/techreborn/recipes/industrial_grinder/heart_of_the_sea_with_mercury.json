@@ -1,0 +1,32 @@
+{
+	"type": "techreborn:industrial_grinder",
+	"power": 64,
+	"time": 100,
+	"tank": {
+		"fluid": "techreborn:mercury",
+		"amount": 1000
+	},
+	"ingredients": [
+		{
+			"item": "minecraft:heart_of_the_sea"
+		}
+	],
+	"results": [
+	  {
+		"item": "techreborn:diamond_dust",
+		"count": 2
+	  },
+	  {
+		"item": "techreborn:titanium_dust",
+		"count": 2
+	  },
+	  {
+		"item": "techreborn:platinum_dust",
+		"count": 1
+	  },
+	  {
+		"item": "techreborn:raw_iridium",
+		"count": 1
+	  }
+	]
+}

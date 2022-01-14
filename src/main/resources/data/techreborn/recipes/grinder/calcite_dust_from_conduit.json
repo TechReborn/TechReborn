@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 2,
+  "time": 500,
+  "ingredients" : [
+    {
+      "item": "minecraft:conduit"
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:calcite_dust",
+	  "count": 2
+    }
+  ]
+}
