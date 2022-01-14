@@ -4,7 +4,7 @@
 	"time": 400,
 	"ingredients": [
 		{
-			"item": "minecraft:glowstone_small_dust",
+			"tag": "c:glowstone_small_dusts",
 			"count": 6
 		},
 		{
