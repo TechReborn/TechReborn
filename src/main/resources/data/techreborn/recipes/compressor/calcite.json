@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+    {
+      "tag": "c:calcite_small_dusts",
+      "count": 5
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:calcite"
+    }
+  ]
+}

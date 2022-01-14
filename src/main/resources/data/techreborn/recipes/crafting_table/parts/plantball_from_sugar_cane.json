@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "XXX",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:sugar_cane"
+    }
+  },
+  "result": {
+    "item": "techreborn:plantball"
+  }
+}
