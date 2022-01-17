@@ -14,7 +14,6 @@
     "MixinItemStack",
     "MixinLivingEntity",
     "MixinPlayerEntity",
-    "MixinRecipeManager",
 	"MixinServerPlayerEntity"
   ],
   "injectors": {

@@ -52,11 +52,6 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		try {
 			R recipe = newRecipe(recipeId);
 
-			if (!ConditionManager.shouldLoadRecipe(json)) {
-				recipe.makeDummy();
-				return recipe;
-			}
-
 			recipe.deserialize(json);
 			return recipe;
 		} catch (Throwable t) {

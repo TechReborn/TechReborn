@@ -13,7 +13,12 @@
 	  "item": "ae2:certus_quartz_dust"
 	}
   ],
-  "conditions": {
-	"reborncore:mod": "ae2"
-  }
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:all_mods_loaded",
+	  "values": [
+		"ae2"
+	  ]
+	}
+  ]
 }
