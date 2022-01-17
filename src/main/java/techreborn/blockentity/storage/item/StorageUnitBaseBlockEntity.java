@@ -24,6 +24,11 @@
 
 package techreborn.blockentity.storage.item;
 
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,6 +56,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.List;
+import java.util.Objects;
 
 public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 
@@ -66,6 +72,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	private int serverCapacity = -1;
 
 	private ItemStack storeItemStack;
+	// Fabric transfer API support for the internal stack (one per direction);
+	private final SingleStackStorage[] internalStoreStorage = new SingleStackStorage[6];
 
 	private TRContent.StorageUnit type;
 
@@ -493,5 +501,58 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public void setStoredStackFromNBT(NbtCompound tag) {
 		storeItemStack = ItemStack.fromNbt(tag);
+	}
+
+	private Storage<ItemVariant> getInternalStoreStorage(Direction side) {
+		Objects.requireNonNull(side);
+		if (internalStoreStorage[side.getId()] == null) {
+			internalStoreStorage[side.getId()] = new SingleStackStorage() {
+				@Override
+				protected ItemStack getStack() {
+					return storeItemStack;
+				}
+
+				@Override
+				protected void setStack(ItemStack stack) {
+					if (stack.isEmpty()) {
+						// Ensure we maintain reference equality to EMPTY
+						storeItemStack = ItemStack.EMPTY;
+					} else {
+						storeItemStack = stack;
+					}
+				}
+
+				@Override
+				protected int getCapacity(ItemVariant itemVariant) {
+					// subtract capacity of output slot (super capacity is the default capacity)
+					return maxCapacity - super.getCapacity(itemVariant);
+				}
+
+				@Override
+				protected boolean canInsert(ItemVariant itemVariant) {
+					// Check insertion with the same rules as the input slot
+					return StorageUnitBaseBlockEntity.this.canInsert(INPUT_SLOT, itemVariant.toStack(), side);
+				}
+
+				@Override
+				protected boolean canExtract(ItemVariant itemVariant) {
+					// Check extraction with the same rules as the output slot
+					return StorageUnitBaseBlockEntity.this.canExtract(OUTPUT_SLOT, itemVariant.toStack(), side);
+				}
+
+				@Override
+				protected void onFinalCommit() {
+					inventory.setHashChanged();
+				}
+			};
+		}
+		return internalStoreStorage[side.getId()];
+	}
+
+	public Storage<ItemVariant> getExposedStorage(Direction side) {
+		return new CombinedStorage<>(List.of(
+				getInternalStoreStorage(side),
+				InventoryStorage.of(this, side)
+		));
 	}
 }
