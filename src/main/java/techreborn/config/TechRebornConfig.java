@@ -568,6 +568,9 @@ public class TechRebornConfig {
 	@Config(config = "misc", category = "general", key = "manualRefund", comment = "Allow refunding items used to craft the manual")
 	public static boolean allowManualRefund = true;
 
+	@Config(config = "misc", category = "general", key = "vanillaUnlockRecipes", comment = "Enable recipe unlocks only with vanilla mechanic, instead of getting all of them at once")
+	public static boolean vanillaUnlockRecipes = false;
+
 	@Config(config = "misc", category = "nuke", key = "fusetime", comment = "Nuke fuse time (ticks)")
 	public static int nukeFuseTime = 400;
 
