@@ -225,9 +225,7 @@ public class MultiblockWorldRegistry {
 				}
 
 				if (newMaster == null) {
-					RebornCore.LOGGER.fatal(
-						String.format("Multiblock system checked a merge pool of size %d, found no master candidates. This should never happen.",
-							mergePool.size()));
+					RebornCore.LOGGER.error("Multiblock system checked a merge pool of size %d, found no master candidates. This should never happen., {}", mergePool.size());
 				} else {
 					// Merge all the other machines into the master machine,
 					// then unregister them
@@ -282,8 +280,7 @@ public class MultiblockWorldRegistry {
 				// potentially dead.
 				// Validate that they are empty/dead, then unregister them.
 				if (!controller.isEmpty()) {
-					RebornCore.LOGGER.fatal(
-						"Found a non-empty controller. Forcing it to shed its blocks and die. This should never happen!");
+					RebornCore.LOGGER.error("Found a non-empty controller. Forcing it to shed its blocks and die. This should never happen!");
 					detachedParts.addAll(controller.detachAllBlocks());
 				}
 

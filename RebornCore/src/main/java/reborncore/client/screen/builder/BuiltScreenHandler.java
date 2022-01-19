@@ -37,8 +37,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
@@ -54,7 +54,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class BuiltScreenHandler extends ScreenHandler {
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LoggerFactory.getLogger(BuiltScreenHandler.class);
 
 	private final String name;
 

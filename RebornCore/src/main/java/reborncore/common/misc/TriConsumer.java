@@ -22,34 +22,9 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.widget;
+package reborncore.common.misc;
 
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
-import reborncore.common.misc.TriConsumer;
-
-public class GuiButtonExtended extends ButtonWidget {
-
-	private TriConsumer<GuiButtonExtended, Double, Double> clickHandler;
-
-	public GuiButtonExtended(int x, int y, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, 20, 200, buttonText, pressAction);
-	}
-
-	public GuiButtonExtended(int x, int y, int widthIn, int heightIn, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, widthIn, heightIn, buttonText, pressAction);
-	}
-
-	public GuiButtonExtended clickHandler(TriConsumer<GuiButtonExtended, Double, Double> consumer) {
-		clickHandler = consumer;
-		return this;
-	}
-
-	@Override
-	public void onClick(double mouseX, double mouseY) {
-		if (clickHandler != null) {
-			clickHandler.accept(this, mouseX, mouseY);
-		}
-		super.onClick(mouseX, mouseY);
-	}
+@FunctionalInterface
+public interface TriConsumer<A, B, C> {
+    void accept(A a, B b, C c);
 }

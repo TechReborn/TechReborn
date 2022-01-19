@@ -33,8 +33,8 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
@@ -58,7 +58,7 @@ import java.util.function.Predicate;
 public class TechReborn implements ModInitializer {
 
 	public static final String MOD_ID = "techreborn";
-	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static TechReborn INSTANCE;
 
 	public static ItemGroup ITEMGROUP = FabricItemGroupBuilder.build(
