@@ -37,7 +37,7 @@ import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
-import techreborn.utils.FluidUtils;
+import reborncore.common.fluid.FluidUtils;
 
 public class FluidReplicatorRecipe extends RebornFluidRecipe {
 
@@ -66,7 +66,7 @@ public class FluidReplicatorRecipe extends RebornFluidRecipe {
 			return false;
 		}
 		final BlockPos hole = blockEntity.getPos().offset(blockEntity.getFacing().getOpposite(), 2);
-		final Fluid fluid = techreborn.utils.FluidUtils.fluidFromBlock(blockEntity.getWorld().getBlockState(hole).getBlock());
+		final Fluid fluid = FluidUtils.fluidFromBlock(blockEntity.getWorld().getBlockState(hole).getBlock());
 		if (fluid == Fluids.EMPTY) {
 			return true;
 		}

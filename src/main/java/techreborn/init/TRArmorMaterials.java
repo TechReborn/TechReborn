@@ -49,6 +49,12 @@ public enum TRArmorMaterials implements ArmorMaterial {
 	PERIDOT(17, new int[]{3, 8, 3, 2}, 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
 	}),
+	SILVER(14, new int[]{1, 3, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> {
+		return Ingredient.ofItems(TRContent.Ingots.SILVER.asItem());
+	}),
+	STEEL(24, new int[]{3, 5, 6, 2}, 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.75F, 0.1F, () -> {
+		return Ingredient.ofItems(TRContent.Ingots.STEEL.asItem());
+	}),
 	QUANTUM(75, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
 	CLOAKING_DEVICE(5, new int[]{0, 2, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
 	LITHIUM_BATPACK(25, new int[]{0, 5, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY),
@@ -60,16 +66,23 @@ public enum TRArmorMaterials implements ArmorMaterial {
 	private final int enchantability;
 	private final SoundEvent soundEvent;
 	private final float toughness;
+	private final float knockbackResistance;
 	private final Lazy<Ingredient> repairMaterial;
 
 	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-					 SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
+					 SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairMaterialIn) {
 		this.maxDamageFactor = maxDamageFactor;
 		this.damageReductionAmountArray = damageReductionAmountArray;
 		this.enchantability = enchantability;
 		this.soundEvent = soundEvent;
 		this.toughness = toughness;
+		this.knockbackResistance = knockbackResistance;
 		this.repairMaterial = new Lazy<>(repairMaterialIn);
+	}
+
+	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
+					 SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
+		this(maxDamageFactor, damageReductionAmountArray, enchantability, soundEvent, toughness, 0.0F, repairMaterialIn);
 	}
 
 	@Override
@@ -109,6 +122,6 @@ public enum TRArmorMaterials implements ArmorMaterial {
 
 	@Override
 	public float getKnockbackResistance() {
-		return 0; //Knockback resitance
+		return knockbackResistance;
 	}
 }

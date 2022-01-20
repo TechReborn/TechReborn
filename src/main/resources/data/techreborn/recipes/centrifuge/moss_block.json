@@ -1,0 +1,29 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 2500,
+  "ingredients": [
+    {
+      "item": "minecraft:moss_block",
+      "count": 16
+    }
+  ],
+  "results": [
+	{
+	  "item": "techreborn:plantball",
+	  "count": 9
+	},
+	{
+	  "item": "minecraft:dirt",
+	  "count": 4
+	},
+	{
+	  "item": "minecraft:sand",
+	  "count": 2
+	},
+    {
+      "item": "minecraft:gravel",
+      "count": 2
+    }
+  ]
+}

@@ -35,7 +35,6 @@ import net.minecraft.item.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -54,7 +53,7 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	// 10k Energy with 128 E\t charge rate
 	public RockCutterItem() {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(TRToolMaterials.ROCK_CUTTER, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(TRToolMaterials.ROCK_CUTTER, 1, -2.8f, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 	}
 
 	// PickaxeItem
@@ -66,7 +65,7 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (getStoredEnergy(stack) < cost) {
-			return 2F;
+			return 1.0f;
 		} else {
 			return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(stack, state);
 		}

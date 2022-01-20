@@ -15,6 +15,7 @@
   "results": [
     {
       "item": "techreborn:cell",
+      "count": 2,
       "nbt": {
         "fluid": "techreborn:nitrogen_dioxide"
       }

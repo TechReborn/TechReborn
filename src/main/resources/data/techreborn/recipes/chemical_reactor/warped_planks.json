@@ -1,0 +1,20 @@
+{
+	"type": "techreborn:chemical_reactor",
+	"power": 30,
+	"time": 400,
+	"ingredients": [
+		{
+			"item": "minecraft:crimson_planks",
+			"count": 2
+		},
+		{
+			"tag": "c:ender_pearl_dusts"
+		}
+	],
+	"results": [
+		{
+			"item": "minecraft:warped_planks",
+			"count": 2
+		}
+	]
+}

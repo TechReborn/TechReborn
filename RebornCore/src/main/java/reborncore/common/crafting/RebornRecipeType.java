@@ -52,10 +52,6 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		try {
 			R recipe = newRecipe(json, recipeId);
 
-			if (!ConditionManager.shouldLoadRecipe(json)) {
-				return recipeSerde.createDummy(this, recipeId);
-			}
-
 			return recipe;
 		} catch (Throwable t) {
 			RebornCore.LOGGER.error("Failed to read recipe: " + recipeId, t);

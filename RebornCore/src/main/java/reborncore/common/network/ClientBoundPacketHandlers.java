@@ -37,8 +37,8 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import reborncore.RebornCore;
 import reborncore.client.ClientChunkManager;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -46,13 +46,12 @@ import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.chunkloading.ChunkLoaderManager;
-import reborncore.common.util.WorldUtils;
 
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class ClientBoundPacketHandlers {
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClientBoundPacketHandlers.class);
 
 	public static void init() {
 		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "custom_description"), (client, handler, packetBuffer, responseSender) -> {

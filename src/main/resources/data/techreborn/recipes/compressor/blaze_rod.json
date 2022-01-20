@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 5
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:blaze_rod"
+    }
+  ]
+}

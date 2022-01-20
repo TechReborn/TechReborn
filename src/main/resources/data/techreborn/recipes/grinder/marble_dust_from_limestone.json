@@ -14,8 +14,12 @@
       "item": "techreborn:marble_dust"
     }
   ],
-
-  "conditions": {
-    "reborncore:tag": "c:limestone"
-  }
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:item_tags_populated",
+	  "values": [
+		"c:limestone"
+	  ]
+	}
+  ]
 }

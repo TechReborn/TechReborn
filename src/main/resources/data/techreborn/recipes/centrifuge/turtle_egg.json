@@ -1,0 +1,26 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 5000,
+  "ingredients": [
+    {
+      "item": "minecraft:turtle_egg",
+      "count": 32
+    },
+    {
+      "item": "techreborn:cell",
+      "nbt": "null"
+    }
+  ],
+  "results": [
+	{
+	  "item": "techreborn:cell",
+	  "nbt": {
+		"fluid": "techreborn:methane"
+	  }
+	},
+	{
+	  "item": "techreborn:calcite_dust"
+	}
+  ]
+}

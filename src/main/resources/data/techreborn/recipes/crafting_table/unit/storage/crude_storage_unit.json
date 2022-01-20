@@ -7,7 +7,7 @@
   ],
   "key": {
     "B": {
-      "item": "minecraft:barrel"
+	  "tag": "blockus:barrels"
     },
 	"P": {
       "item": "minecraft:paper"

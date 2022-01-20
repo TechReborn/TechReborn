@@ -18,6 +18,10 @@
       "nbt": {
         "fluid": "techreborn:methane"
       }
-    }
+    },
+	{
+	  "item": "minecraft:red_dye",
+	  "count": 5
+	}
   ]
 }

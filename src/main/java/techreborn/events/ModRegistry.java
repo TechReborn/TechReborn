@@ -25,18 +25,19 @@
 package techreborn.events;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.sound.BlockSoundGroup;
 import reborncore.RebornRegistry;
 import reborncore.common.powerSystem.RcEnergyTier;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.blocks.misc.*;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.*;
@@ -172,6 +173,16 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.PERIDOT_LEGGINGS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.PERIDOT, EquipmentSlot.LEGS), "peridot_leggings"));
 		RebornRegistry.registerItem(TRContent.PERIDOT_BOOTS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.PERIDOT, EquipmentSlot.FEET), "peridot_boots"));
 
+		RebornRegistry.registerItem(TRContent.SILVER_HELMET = InitUtils.setup(new TRArmourItem(TRArmorMaterials.SILVER, EquipmentSlot.HEAD), "silver_helmet"));
+		RebornRegistry.registerItem(TRContent.SILVER_CHESTPLATE = InitUtils.setup(new TRArmourItem(TRArmorMaterials.SILVER, EquipmentSlot.CHEST), "silver_chestplate"));
+		RebornRegistry.registerItem(TRContent.SILVER_LEGGINGS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.SILVER, EquipmentSlot.LEGS), "silver_leggings"));
+		RebornRegistry.registerItem(TRContent.SILVER_BOOTS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.SILVER, EquipmentSlot.FEET), "silver_boots"));
+
+		RebornRegistry.registerItem(TRContent.STEEL_HELMET = InitUtils.setup(new TRArmourItem(TRArmorMaterials.STEEL, EquipmentSlot.HEAD), "steel_helmet"));
+		RebornRegistry.registerItem(TRContent.STEEL_CHESTPLATE = InitUtils.setup(new TRArmourItem(TRArmorMaterials.STEEL, EquipmentSlot.CHEST), "steel_chestplate"));
+		RebornRegistry.registerItem(TRContent.STEEL_LEGGINGS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.STEEL, EquipmentSlot.LEGS), "steel_leggings"));
+		RebornRegistry.registerItem(TRContent.STEEL_BOOTS = InitUtils.setup(new TRArmourItem(TRArmorMaterials.STEEL, EquipmentSlot.FEET), "steel_boots"));
+
 		// Battery
 		RebornRegistry.registerItem(TRContent.RED_CELL_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.redCellBatteryMaxCharge, RcEnergyTier.LOW), "red_cell_battery"));
 		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.lithiumIonBatteryMaxCharge, RcEnergyTier.MEDIUM), "lithium_ion_battery"));
@@ -211,6 +222,7 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.MANUAL = InitUtils.setup(new ManualItem(), "manual"));
 		RebornRegistry.registerItem(TRContent.DEBUG_TOOL = InitUtils.setup(new DebugToolItem(), "debug_tool"));
 		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCellItem(), "cell"));
+		TRContent.CELL.registerFluidApi();
 
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
 	}
@@ -232,6 +244,7 @@ public class ModRegistry {
 	}
 
 	private static void registerApis() {
-		EnergyStorage.SIDED.registerForBlockEntities((be, direction) -> ((CableBlockEntity) be).getSideEnergyStorage(direction), TRBlockEntities.CABLE);
+		EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getSideEnergyStorage, TRBlockEntities.CABLE);
+		ItemStorage.SIDED.registerForBlockEntity(StorageUnitBaseBlockEntity::getExposedStorage, TRBlockEntities.STORAGE_UNIT);
 	}
 }

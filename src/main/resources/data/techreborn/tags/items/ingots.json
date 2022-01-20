@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "techreborn:advanced_alloy_ingot",
+    "techreborn:aluminum_ingot",
+    "techreborn:brass_ingot",
+    "techreborn:bronze_ingot",
+    "techreborn:chrome_ingot",
+    "techreborn:electrum_ingot",
+    "techreborn:hot_tungstensteel_ingot",
+    "techreborn:invar_ingot",
+    "techreborn:iridium_alloy_ingot",
+    "techreborn:iridium_ingot",
+    "techreborn:lead_ingot",
+    "techreborn:mixed_metal_ingot",
+    "techreborn:nickel_ingot",
+    "techreborn:platinum_ingot",
+    "techreborn:refined_iron_ingot",
+    "techreborn:silver_ingot",
+    "techreborn:steel_ingot",
+    "techreborn:tin_ingot",
+    "techreborn:titanium_ingot",
+    "techreborn:tungsten_ingot",
+    "techreborn:tungstensteel_ingot",
+    "techreborn:zinc_ingot"
+  ]
+}

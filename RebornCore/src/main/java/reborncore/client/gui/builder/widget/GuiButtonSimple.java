@@ -28,10 +28,19 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
 public class GuiButtonSimple extends ButtonWidget {
+
+	/**
+	 * @deprecated Please use {@link ButtonWidget}
+	 */
+	@Deprecated
 	public GuiButtonSimple(int x, int y, Text buttonText, ButtonWidget.PressAction pressAction) {
 		super(x, y, 20, 200, buttonText, pressAction);
 	}
 
+	/**
+	 * @deprecated Please use {@link ButtonWidget}
+	 */
+	@Deprecated
 	public GuiButtonSimple(int x, int y, int widthIn, int heightIn, Text buttonText, ButtonWidget.PressAction pressAction) {
 		super(x, y, widthIn, heightIn, buttonText, pressAction);
 	}

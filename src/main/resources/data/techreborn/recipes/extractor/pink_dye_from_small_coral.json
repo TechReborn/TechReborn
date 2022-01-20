@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:extractor",
+  "power": 10,
+  "time": 200,
+  "ingredients": [
+    {
+      "tag": "c:small_corals_pink"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:pink_dye",
+      "count": 1
+    }
+  ]
+}

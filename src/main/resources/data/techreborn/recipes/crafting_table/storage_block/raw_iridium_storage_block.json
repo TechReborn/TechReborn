@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:raw_iridium"
+    }
+  },
+  "result": {
+    "item": "techreborn:raw_iridium_storage_block"
+  }
+}

@@ -13,15 +13,20 @@
   ],
   "results": [
 	{
-	  "item": "appliedenergistics2:certus_quartz_crystal",
+	  "item": "ae2:certus_quartz_crystal",
 	  "count": 2
 	},
 	{
-	  "item": "appliedenergistics2:certus_quartz_dust",
+	  "item": "ae2:certus_quartz_dust",
 	  "count": 5
 	}
   ],
-  "conditions": {
-	"reborncore:mod": "appliedenergistics2"
-  }
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:all_mods_loaded",
+	  "values": [
+		"ae2"
+	  ]
+	}
+  ]
 }

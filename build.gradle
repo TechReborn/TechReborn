@@ -12,7 +12,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id "org.cadixdev.licenser" version "0.6.1"
-	id "fabric-loom" version "0.10-SNAPSHOT"
+	id "fabric-loom" version "0.11-SNAPSHOT"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
@@ -138,13 +138,6 @@ loom {
 }
 
 sourceSets {
-    // Add a generated resources directory
-    generated {
-        resources {
-            compiledBy("runDatagen")
-        }
-    }
-
     // Add a data gen sourceset
     datagen {
         compileClasspath += main.compileClasspath
@@ -161,8 +154,11 @@ sourceSets {
     }
 
     main {
-        runtimeClasspath += generated.runtimeClasspath
-        runtimeClasspath += generated.output
+        resources {
+            srcDirs += [
+                'src/main/generated'
+            ]
+        }
     }
 }
 
@@ -206,7 +202,7 @@ loom {
             server()
             name "Data Generation"
             vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
             vmArg "-Dfabric-api.datagen.modid=techreborn-datagen"
             runDir "build/datagen"
             source sourceSets.datagen
@@ -230,26 +226,24 @@ loom {
         }
     }
 }
-assemble.dependsOn runDatagen
 test.dependsOn runGametest
 
 runDatagen {
     // Doesnt re-run the task when its up-to date
-    outputs.dir('src/generated/resources')
+    outputs.dir('src/main/generated')
 }
 
 jar {
 	exclude "**/*.psd"
-
-    dependsOn("runDatagen")
-
-    from file('src/generated/resources')
+    from file('src/main/generated')
 	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.json"} : null}
+
+    // A bit of a hack to allow the generated sources when they already exist
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
 	dependsOn 'fixTranslations'
     dependsOn 'runDatagen'
 }
-
 
 task crowdinExport() {
     description "Triggers crowdin to export the latest translations"
@@ -318,7 +312,7 @@ curseforge {
 		id = "233564"
 		changelog = ENV.CHANGELOG ?: "No changelog provided"
 		releaseType = ENV.RELEASE_CHANNEL ?: "release"
-		addGameVersion "1.18" // Also update in RebornCore/build.gradle
+		addGameVersion "1.18.1" // Also update in RebornCore/build.gradle
 		addGameVersion "Fabric"
 
 		mainArtifact remapJar

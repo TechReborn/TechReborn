@@ -27,7 +27,6 @@ package reborncore.common.util;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 import reborncore.api.items.InventoryBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -95,12 +94,6 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 		return stack;
 	}
 
-
-	public RebornInventory getExternal(Direction facing) {
-		throw new UnsupportedOperationException("needs fixing");
-		//return externalInventory.withFacing(facing);
-	}
-
 	public void read(NbtCompound data) {
 		read(data, "Items");
 	}
@@ -141,6 +134,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 
 	public void setHashChanged() {
 		this.hasChanged = true;
+		this.markDirty();
 	}
 
 	public void setHashChanged(boolean changed) {

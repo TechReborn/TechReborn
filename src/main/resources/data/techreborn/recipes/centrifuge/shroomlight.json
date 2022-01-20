@@ -1,0 +1,27 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 5000,
+  "ingredients": [
+    {
+      "item": "minecraft:shroomlight",
+      "count": 8
+    },
+    {
+      "item": "techreborn:cell",
+      "nbt": "null"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "nbt": {
+        "fluid": "techreborn:methane"
+      }
+    },
+	{
+	  "item": "minecraft:glowstone_dust",
+	  "count": 4
+	}
+  ]
+}

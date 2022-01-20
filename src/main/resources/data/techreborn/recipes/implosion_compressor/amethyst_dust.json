@@ -1,0 +1,25 @@
+{
+  "type": "techreborn:implosion_compressor",
+  "power": 30,
+  "time": 2000,
+  "ingredients": [
+	{
+	  "count": 8,
+	  "tag": "c:amethyst_dusts"
+	},
+    {
+      "item": "minecraft:tnt",
+      "count": 16
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:amethyst_shard",
+      "count": 16
+    },
+    {
+      "item": "techreborn:quartz_dust",
+      "count": 1
+    }
+  ]
+}

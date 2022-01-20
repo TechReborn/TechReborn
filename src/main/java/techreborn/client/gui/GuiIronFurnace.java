@@ -24,16 +24,14 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
@@ -41,12 +39,10 @@ import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PlayerUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 
 	IronFurnaceBlockEntity blockEntity;
+	private static final Identifier EXP_BUTTON_TEXTURE = new Identifier("minecraft", "textures/item/experience_bottle.png");
 
 
 	public GuiIronFurnace(int syncID, PlayerEntity player, IronFurnaceBlockEntity furnace) {
@@ -61,46 +57,49 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public void init() {
 		super.init();
-		addSelectableChild(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, LiteralText.EMPTY, b -> onClick()) {
+		ButtonWidget.TooltipSupplier tooltipSupplier = (button, matrices, mouseX, mouseY) -> {
+			PlayerEntity player = MinecraftClient.getInstance().player;
+			if (player == null) { return; }
+			String message = "Experience: ";
 
-			@Override
-			public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
-				PlayerEntity player = MinecraftClient.getInstance().player;
-				String message = "Experience: ";
-
-				float furnaceExp = blockEntity.experience;
-				if (furnaceExp <= 0) {
-					message = message + "0";
+			float furnaceExp = blockEntity.experience;
+			if (furnaceExp <= 0) {
+				message = message + "0";
+			} else {
+				float expTillLevel = (1.0F - player.experienceProgress) * player.getNextLevelExperience();
+				if (furnaceExp <= expTillLevel) {
+					int percentage = (int) (blockEntity.experience * 100 / player.getNextLevelExperience());
+					message = message + "+"
+							+ (percentage > 0 ? String.valueOf(percentage) : "<1")
+							+ "%";
 				} else {
-					float expTillLevel = (1.0F - player.experienceProgress) * player.getNextLevelExperience();
-					if (furnaceExp <= expTillLevel) {
-						int percentage = (int) (blockEntity.experience * 100 / player.getNextLevelExperience());
-						message = message + "+"
-								+ (percentage > 0 ? String.valueOf(percentage) : "<1")
-								+ "%";
-					} else {
-						int levels = 0;
-						furnaceExp -= expTillLevel;
-						while (furnaceExp > 0) {
-							furnaceExp -= PlayerUtils.getLevelExperience(player.experienceLevel);
-							++levels;
-						}
-						message = message + "+" + levels + "L";
+					int levels = 0;
+					furnaceExp -= expTillLevel;
+					while (furnaceExp > 0) {
+						furnaceExp -= PlayerUtils.getLevelExperience(player.experienceLevel);
+						++levels;
 					}
+					message = message + "+" + levels + "L";
 				}
-
-				List<Text> list = new ArrayList<>();
-				list.add(new LiteralText(message));
-				GuiIronFurnace.this.renderTooltip(matrixStack, list, mouseX, mouseY);
-				RenderSystem.setShaderColor(1, 1, 1, 1);
-
 			}
 
-			@Override
-			protected void renderBackground(MatrixStack matrices, MinecraftClient client, int mouseX, int mouseY) {
-				client.getItemRenderer().renderInGuiWithOverrides(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
-			}
-		});
+			renderTooltip(matrices, new LiteralText(message), mouseX, mouseY);
+		};
+
+		addDrawableChild(new TexturedButtonWidget(
+				getGuiLeft() + 116,
+				getGuiTop() + 58,
+				16,
+				16,
+				0,
+				0,
+				1,
+				EXP_BUTTON_TEXTURE,
+				16,
+				16,
+				b -> onClick(),
+				tooltipSupplier,
+				LiteralText.EMPTY));
 	}
 
 	@Override

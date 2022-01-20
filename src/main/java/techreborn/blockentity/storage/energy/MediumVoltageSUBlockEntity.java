@@ -40,10 +40,10 @@ import techreborn.init.TRContent;
 public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	/**
-	 * MFE should store 300k energy with 128 E/t I/O
+	 * MFE should store 4M energy with 128 E/t I/O
 	 */
 	public MediumVoltageSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, pos, state, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, RcEnergyTier.MEDIUM, 300_000);
+		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, pos, state, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, RcEnergyTier.MEDIUM, 4_000_000);
 	}
 
 	@Override

@@ -1,0 +1,35 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 5000,
+  "ingredients": [
+    {
+      "item": "minecraft:fire_coral_block",
+      "count": 12
+    },
+    {
+      "item": "techreborn:cell",
+      "nbt": "null"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "nbt": {
+        "fluid": "techreborn:methane"
+      }
+    },
+	{
+	  "item": "minecraft:dead_fire_coral",
+	  "count": 24
+	},
+	{
+	  "item": "minecraft:dead_fire_coral_fan",
+	  "count": 12
+	},
+	{
+	  "item": "minecraft:red_dye",
+	  "count": 16
+	}
+  ]
+}

@@ -1,5 +1,6 @@
-{
+﻿{
     "textures": {
-        "particle": "techreborn:block/fluids/calcium_carbonate_flowing"
+        "particle": "techreborn:block/fluids/calcium_carbonate_still"
     }
 }
+

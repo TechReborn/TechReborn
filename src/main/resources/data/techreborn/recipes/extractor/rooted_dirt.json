@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:extractor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "minecraft:rooted_dirt"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:hanging_roots",
+	  "count": 2
+    }
+  ]
+}

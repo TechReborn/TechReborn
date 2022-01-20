@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "PXP",
     "PHP",
-    "FBF",
-    "PFP"
+    "PBP"
   ],
   "key": {
     "P": {
@@ -15,8 +15,8 @@
 	"H": {
 	  "item": "minecraft:hopper"
 	},
-	"F": {
-	  "item": "techreborn:basic_machine_frame"
+	"X": {
+	  "item": "minecraft:iron_bars"
 	}
   },
   "result": {

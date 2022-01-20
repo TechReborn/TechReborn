@@ -29,7 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.TranslatableText;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.screen.builder.BuiltScreenHandler;
-import reborncore.common.fluid.FluidUtil;
+import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 
@@ -67,7 +67,7 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.type"), 10, 20, 4210752);
-			textRenderer.draw(matrixStack, FluidUtil.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
+			textRenderer.draw(matrixStack, FluidUtils.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
 
 
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.amount"), 10, 50, 4210752);

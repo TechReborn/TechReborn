@@ -31,7 +31,6 @@ import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import reborncore.common.fluid.RebornFluidManager;
 import reborncore.common.fluid.container.ItemFluidInfo;
 
 @Mixin(BucketItem.class)
@@ -48,8 +47,7 @@ public class MixinBucketItem implements ItemFluidInfo {
 
 	@Override
 	public ItemStack getFull(Fluid fluid) {
-		BucketItem item = RebornFluidManager.getBucketMap().get(fluid);
-		return new ItemStack(item);
+		return new ItemStack(fluid.getBucketItem());
 	}
 
 	@Override

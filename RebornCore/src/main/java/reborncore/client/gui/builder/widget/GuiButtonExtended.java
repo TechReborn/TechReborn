@@ -26,10 +26,9 @@ package reborncore.client.gui.builder.widget;
 
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
-import org.apache.logging.log4j.util.TriConsumer;
+import reborncore.common.misc.TriConsumer;
 
-
-public class GuiButtonExtended extends GuiButtonSimple {
+public class GuiButtonExtended extends ButtonWidget {
 
 	private TriConsumer<GuiButtonExtended, Double, Double> clickHandler;
 
@@ -51,6 +50,6 @@ public class GuiButtonExtended extends GuiButtonSimple {
 		if (clickHandler != null) {
 			clickHandler.accept(this, mouseX, mouseY);
 		}
-		super.onClick(mouseY, mouseY);
+		super.onClick(mouseX, mouseY);
 	}
 }

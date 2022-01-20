@@ -1,0 +1,28 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 2500,
+  "ingredients": [
+    {
+      "item": "minecraft:podzol",
+      "count": 16
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:sand",
+      "count": 8
+    },
+    {
+      "item": "minecraft:clay_ball",
+	  "count": 2
+    },
+    {
+      "item": "minecraft:gravel",
+      "count": 2
+    },
+    {
+      "item": "techreborn:plantball"
+    }
+  ]
+}

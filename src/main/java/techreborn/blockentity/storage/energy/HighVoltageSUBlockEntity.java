@@ -41,10 +41,10 @@ import techreborn.init.TRContent;
 public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	/**
-	 * MFSU should store 4M Energy with 512 E/t I/O
+	 * MFSU should store 40M Energy with 512 E/t I/O
 	 */
 	public HighVoltageSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.HIGH_VOLTAGE_SU, pos, state, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, RcEnergyTier.HIGH, 4_000_000);
+		super(TRBlockEntities.HIGH_VOLTAGE_SU, pos, state, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, RcEnergyTier.HIGH, 40_000_000);
 	}
 
 	@Override

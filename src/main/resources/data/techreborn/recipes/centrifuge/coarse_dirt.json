@@ -1,0 +1,24 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5,
+  "time": 2500,
+  "ingredients": [
+    {
+      "item": "minecraft:coarse_dirt",
+      "count": 16
+    }
+  ],
+  "results": [
+	{
+	  "item": "minecraft:gravel",
+	  "count": 8
+	},
+	{
+	  "item": "minecraft:flint"
+	},
+    {
+      "item": "minecraft:sand",
+      "count": 2
+    }
+  ]
+}

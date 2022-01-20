@@ -4,7 +4,7 @@
   "time": 180,
   "ingredients" : [
     {
-      "item": "minecraft:cobblestone"
+      "tag": "minecraft:stone_tool_materials"
     }
   ],
   "results" : [

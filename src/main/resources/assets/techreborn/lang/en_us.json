@@ -377,6 +377,7 @@
   "_comment7": "Dusts",
   "item.techreborn.almandine_dust": "Almandine Dust",
   "item.techreborn.aluminum_dust": "Aluminium Dust",
+  "item.techreborn.amethyst_dust": "Amethyst Dust",
   "item.techreborn.andesite_dust": "Andesite Dust",
   "item.techreborn.andradite_dust": "Andradite Dust",
   "item.techreborn.ashes_dust": "Ashes",
@@ -638,6 +639,7 @@
   "item.techreborn.uu_matter": "UU-Matter",
   "item.techreborn.plantball": "Plantball",
   "item.techreborn.compressed_plantball": "Compressed Plantball",
+  "item.techreborn.sponge_piece": "Piece of Sponge",
   "item.techreborn.synthetic_redstone_crystal": "Synthetic Redstone Crystal",
   
   "_comment14": "Items-Armor",
@@ -728,6 +730,16 @@
   "item.techreborn.peridot_leggings": "Peridot Leggings",
   "item.techreborn.peridot_boots": "Peridot Boots",
 
+  "item.techreborn.silver_helmet": "Silver Helmet",
+  "item.techreborn.silver_chestplate": "Silver Chestplate",
+  "item.techreborn.silver_leggings": "Silver Leggings",
+  "item.techreborn.silver_boots": "Silver Boots",
+
+  "item.techreborn.steel_helmet": "Steel Helmet",
+  "item.techreborn.steel_chestplate": "Steel Chestplate",
+  "item.techreborn.steel_leggings": "Steel Leggings",
+  "item.techreborn.steel_boots": "Steel Boots",
+
   "_comment18": "Message",
   "techreborn.message.missingmultiblock": "Incomplete Multiblock",
   "techreborn.message.setTo": "Set to",
@@ -746,6 +758,8 @@
   "techreborn.message.info.item.techreborn.transformer_upgrade": "Increase energy tier",
   "techreborn.message.info.item.techreborn.energy_storage_upgrade": "Increase energy store",
   "techreborn.message.info.item.techreborn.superconductor_upgrade": "Increases energy flow rate",
+
+  "techreborn.message.info.unplaceable_fluid": "Cannot be placed",
 
   "techreborn.message.info.block.techreborn.basic_solar_panel": "Produce energy from sunlight",
   "techreborn.message.info.block.techreborn.advanced_solar_panel": "Produce energy from sunlight",
@@ -870,6 +884,7 @@
   "techreborn.tooltip.ores.overworld" : "Can be found at y levels %s < %s",
   "techreborn.tooltip.ores.nether" : "Can be found in the nether",
   "techreborn.tooltip.ores.end" : "Can be found in the end",
+  "techreborn.tooltip.unobtainable": "Unobtainable in Survival Mode",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",

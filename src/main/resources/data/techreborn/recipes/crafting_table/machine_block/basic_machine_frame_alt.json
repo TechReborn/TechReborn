@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "A A",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:refined_iron_storage_block"
+    }
+  },
+  "result": {
+    "item": "techreborn:basic_machine_frame",
+	"count": 9
+  }
+}

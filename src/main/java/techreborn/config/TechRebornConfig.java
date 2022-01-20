@@ -301,10 +301,10 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "quantumSuitDamageAbsorbCost", comment = "Quantum Suit Cost for Damage Absorbed")
 	public static double damageAbsorbCost = 10;
 
-	@Config(config = "items", category = "upgrades", key = "overclcoker_speed", comment = "Overclocker behavior speed multipiler")
+	@Config(config = "items", category = "upgrades", key = "overclocker_speed", comment = "Overclocker behavior speed multiplier")
 	public static double overclockerSpeed = 0.25;
 
-	@Config(config = "items", category = "upgrades", key = "overclcoker_power", comment = "Overclocker behavior power multipiler")
+	@Config(config = "items", category = "upgrades", key = "overclocker_power", comment = "Overclocker behavior power multiplier")
 	public static double overclockerPower = 0.75;
 
 	@Config(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage behavior extra power")

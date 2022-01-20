@@ -24,12 +24,16 @@
 
 package techreborn.events;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -44,6 +48,7 @@ import net.minecraft.world.gen.HeightContext;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.BaseBlockEntityProvider;
 import techreborn.init.TRContent;
+import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.utils.ToolTipAssistUtils;
 import techreborn.world.OreDistribution;
@@ -56,12 +61,18 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 	public static final Map<Item, Boolean> ITEM_ID = Maps.newHashMap();
 	private static final Map<Block, OreDistribution> ORE_DISTRIBUTION_MAP = Maps.newHashMap();
+	private static final List<Block> UNOBTAINABLE_ORES = Lists.newLinkedList();
 
 	public static void setup() {
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
 
 		for (TRContent.Ores ore : TRContent.Ores.values()) {
-			if (ore.isDeepslate()) continue;
+			if (ore.isDeepslate()) {
+				TRContent.Ores normal = ore.getUnDeepslate();
+				if (normal.distribution != null && normal.distribution.dimension != TargetDimension.OVERWORLD)
+					UNOBTAINABLE_ORES.add(ore.block);
+				continue;
+			}
 
 			if (ore.distribution != null) {
 				ORE_DISTRIBUTION_MAP.put(ore.block, ore.distribution);
@@ -103,18 +114,25 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			tooltipLines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
 		}
 
-		OreDistribution oreDistribution = ORE_DISTRIBUTION_MAP.get(block);
+		if (item instanceof DynamicCellItem cell) {
+			Fluid fluid = cell.getFluid(stack);
+			if (!(fluid instanceof FlowableFluid) && fluid != Fluids.EMPTY)
+				ToolTipAssistUtils.addInfo("unplaceable_fluid", tooltipLines, false);
+		}
 
-		if (oreDistribution != null) {
-			Text text = switch (oreDistribution.dimension) {
+		Text text = null;
+		if (UNOBTAINABLE_ORES.contains(block))
+			text = new TranslatableText("techreborn.tooltip.unobtainable");
+		OreDistribution oreDistribution = ORE_DISTRIBUTION_MAP.get(block);
+		if (oreDistribution != null && text == null) {
+			text = switch (oreDistribution.dimension) {
 				case OVERWORLD -> getOverworldOreText(oreDistribution);
 				case END -> new TranslatableText("techreborn.tooltip.ores.end");
 				case NETHER -> new TranslatableText("techreborn.tooltip.ores.nether");
 			};
-
-			if (text != null)
-				tooltipLines.add(text.copy().formatted(Formatting.AQUA));
 		}
+		if (text != null)
+			tooltipLines.add(text.copy().formatted(Formatting.AQUA));
 	}
 
 	private static boolean isTRItem(Item item) {

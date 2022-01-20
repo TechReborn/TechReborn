@@ -231,6 +231,22 @@ public class TRContent {
 	public static Item PERIDOT_LEGGINGS;
 	@Nullable
 	public static Item PERIDOT_BOOTS;
+	@Nullable
+	public static Item SILVER_HELMET;
+	@Nullable
+	public static Item SILVER_CHESTPLATE;
+	@Nullable
+	public static Item SILVER_LEGGINGS;
+	@Nullable
+	public static Item SILVER_BOOTS;
+	@Nullable
+	public static Item STEEL_HELMET;
+	@Nullable
+	public static Item STEEL_CHESTPLATE;
+	@Nullable
+	public static Item STEEL_LEGGINGS;
+	@Nullable
+	public static Item STEEL_BOOTS;
 
 	public enum SolarPanels implements ItemConvertible {
 		BASIC(RcEnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
@@ -373,6 +389,8 @@ public class TRContent {
 
 	private final static Map<Ores, Ores> deepslateMap = new HashMap<>();
 
+	private final static Map<Ores, Ores> unDeepslateMap = new HashMap<>();
+
 	public enum Ores implements ItemConvertible {
 		// when changing ores also change data/techreborn/tags/items/ores.json for correct root advancement display
 		// as well as data/minecraft/tags/blocks for correct mining level
@@ -424,6 +442,7 @@ public class TRContent {
 		Ores(TRContent.Ores stoneOre) {
 			this((OreDistribution) null);
 			deepslateMap.put(stoneOre, this);
+			unDeepslateMap.put(this, stoneOre);
 		}
 
 		@Override
@@ -434,6 +453,11 @@ public class TRContent {
 		public TRContent.Ores getDeepslate() {
 			Preconditions.checkArgument(!isDeepslate());
 			return deepslateMap.get(this);
+		}
+
+		public TRContent.Ores getUnDeepslate() {
+			Preconditions.checkArgument(isDeepslate());
+			return unDeepslateMap.get(this);
 		}
 
 		public boolean isDeepslate() {
@@ -600,7 +624,7 @@ public class TRContent {
 	}
 
 	public enum Dusts implements ItemConvertible {
-		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
+		ALMANDINE, ALUMINUM, AMETHYST, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
 		NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, RED_GARNET, RUBY, SALTPETER,
@@ -809,6 +833,7 @@ public class TRContent {
 		UU_MATTER,
 		PLANTBALL,
 		COMPRESSED_PLANTBALL,
+		SPONGE_PIECE,
 
 		SYNTHETIC_REDSTONE_CRYSTAL;
 
