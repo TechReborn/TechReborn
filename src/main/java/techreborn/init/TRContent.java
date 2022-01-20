@@ -76,6 +76,7 @@ import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.client.GuiType;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
+import techreborn.events.ModRegistry;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
@@ -948,4 +949,8 @@ public class TRContent {
 	}
 
 	public static EntityType<EntityNukePrimed> ENTITY_NUKE;
+
+	static {
+		ModRegistry.register();
+	}
 }
