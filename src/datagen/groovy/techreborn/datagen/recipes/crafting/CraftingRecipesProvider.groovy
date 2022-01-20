@@ -171,7 +171,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     def static createDuoShapeRecipe(def input1, def input2, ItemConvertible output, char char1, char char2, boolean crit1 = true, boolean crit2 = false) {
         ShapedRecipeJsonFactory factory = ShapedRecipeJsonFactory.create(output)
                 .input(char1, createIngredient(input1))
-                .input(char2, createIngredient(input1))
+                .input(char2, createIngredient(input2))
         if (crit1)
             factory = factory.criterion(getCriterionName(input1), getCriterionConditions(input1))
         if (crit2)
