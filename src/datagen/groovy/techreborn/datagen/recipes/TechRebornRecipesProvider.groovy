@@ -56,7 +56,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
             return Ingredient.fromTag(input)
         }
 
-        throw new UnsupportedOperationException()
+        throw new IllegalArgumentException()
     }
 
     static String getCriterionName(def input) {
@@ -66,7 +66,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
             return "has_tag_" + input.getId()
         }
 
-        throw new UnsupportedOperationException()
+        throw new IllegalArgumentException()
     }
 
     static CriterionConditions getCriterionConditions(def input) {
@@ -76,7 +76,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
             return conditionsFromTag(input)
         }
 
-        throw new UnsupportedOperationException()
+        throw new IllegalArgumentException()
     }
 
     static String getInputPath(def input) {
@@ -86,7 +86,22 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
             return input.getId().toString().replace(":", "_")
         }
 
-        throw new UnsupportedOperationException()
+        throw new IllegalArgumentException()
+    }
+
+    static String getNamePart1(def input) {
+        String name
+        if (input instanceof ItemConvertible) {
+            name = getItemPath(input)
+            return name.substring(0,name.indexOf("_"))
+        } else if (input instanceof Tag.Identified) {
+            name = input.getId().toString()
+            if (name.contains(":"))
+                name = name.substring(name.indexOf(":")+1)
+            return name.substring(0,name.indexOf("_"))
+        }
+
+        throw new IllegalArgumentException()
     }
 
     @Override

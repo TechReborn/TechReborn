@@ -30,6 +30,7 @@ import net.minecraft.util.Identifier
 class CommonTags {
 	static class Items {
 		public static zincIngots = create("zinc_ingots")
+		public static bronzeIngots = create("bronze_ingots")
 
 		public static brassDusts = create("brass_dusts")
 		public static electrumDusts = create("electrum_dusts")

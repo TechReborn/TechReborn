@@ -30,6 +30,7 @@ import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
 import net.minecraft.recipe.CookingRecipeSerializer
 import net.minecraft.recipe.RecipeSerializer
+import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.tags.CommonTags
 import techreborn.init.TRContent
 
