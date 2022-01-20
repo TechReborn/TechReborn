@@ -24,44 +24,26 @@
 
 package techreborn.api.recipe.recipes;
 
-import com.google.gson.JsonObject;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
 
+import java.util.List;
+
 public class BlastFurnaceRecipe extends RebornRecipe {
+	private final int heat;
 
-	private int heat;
-
-	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name) {
-		super(type, name);
-	}
-
-	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time, int heat) {
+	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, int heat) {
 		super(type, name, ingredients, outputs, power, time);
 		this.heat = heat;
 	}
 
 	public int getHeat() {
 		return heat;
-	}
-
-	@Override
-	public void deserialize(JsonObject jsonObject) {
-		super.deserialize(jsonObject);
-		heat = JsonHelper.getInt(jsonObject, "heat");
-	}
-
-	@Override
-	public void serialize(JsonObject jsonObject) {
-		super.serialize(jsonObject);
-		jsonObject.addProperty("heat", heat);
 	}
 
 	@Override

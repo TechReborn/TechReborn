@@ -15,5 +15,7 @@
       "item": "minecraft:bucket",
       "count": 2
     }
-  }
+  },
+  "power": 5,
+  "time": 250
 }

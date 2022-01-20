@@ -24,30 +24,24 @@
 
 package techreborn.api.recipe.recipes;
 
-import com.google.gson.JsonObject;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 
+import java.util.List;
+
 /**
  * @author drcrazy
  */
 public class FusionReactorRecipe extends RebornRecipe {
+	private final int startE;
+	private final int minSize;
 
-	private int startE;
-	private int minSize;
-
-	public FusionReactorRecipe(RebornRecipeType<?> type, Identifier name) {
-		super(type, name);
-	}
-
-	public FusionReactorRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time, int startE, int minSize) {
+	public FusionReactorRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) {
 		super(type, name, ingredients, outputs, power, time);
 		this.startE = startE;
 		this.minSize = minSize;
@@ -57,18 +51,8 @@ public class FusionReactorRecipe extends RebornRecipe {
 		return startE;
 	}
 
-	@Override
-	public void deserialize(JsonObject jsonObject) {
-		super.deserialize(jsonObject);
-		startE = JsonHelper.getInt(jsonObject, "start-power");
-		minSize = JsonHelper.getInt(jsonObject, "min-size");
-	}
-
-	@Override
-	public void serialize(JsonObject jsonObject) {
-		super.serialize(jsonObject);
-		jsonObject.addProperty("start-power", startE);
-		jsonObject.addProperty("min-size", minSize);
+	public int getMinSize() {
+		return minSize;
 	}
 
 	@Override

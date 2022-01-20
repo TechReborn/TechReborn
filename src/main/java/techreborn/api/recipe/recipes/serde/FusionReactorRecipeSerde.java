@@ -22,15 +22,30 @@
  * SOFTWARE.
  */
 
-package reborncore.common.crafting.serde;
+package techreborn.api.recipe.recipes.serde;
 
 import com.google.gson.JsonObject;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import reborncore.common.crafting.RebornRecipe;
+import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.serde.RebornRecipeSerde;
+import techreborn.api.recipe.recipes.FusionReactorRecipe;
 
-public interface RecipeSerde<R extends RebornRecipe> {
-	R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name);
+import java.util.List;
 
-	void toJson(R recipe, JsonObject jsonObject);
+public class FusionReactorRecipeSerde extends RebornRecipeSerde<FusionReactorRecipe> {
+	@Override
+	protected FusionReactorRecipe fromJson(JsonObject jsonObject, RebornRecipeType<FusionReactorRecipe> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+		final int startE = JsonHelper.getInt(jsonObject, "start-power");
+		final int minSize = JsonHelper.getInt(jsonObject, "min-size");
+		return new FusionReactorRecipe(type, name, ingredients, outputs, power, time, startE, minSize);
+	}
+
+	@Override
+	protected void collectJsonData(FusionReactorRecipe recipe, JsonObject jsonObject) {
+		jsonObject.addProperty("start-power", recipe.getStartEnergy());
+		jsonObject.addProperty("min-size", recipe.getMinSize());
+	}
 }

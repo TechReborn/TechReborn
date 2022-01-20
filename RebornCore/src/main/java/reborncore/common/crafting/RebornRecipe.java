@@ -24,33 +24,20 @@
 
 package reborncore.common.crafting;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.JsonOps;
 import io.github.cottonmc.libcd.api.CustomOutputRecipe;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.Validate;
 import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.common.crafting.ingredient.DummyIngredient;
-import reborncore.common.crafting.ingredient.IngredientManager;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.util.DefaultedListCollector;
-import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,7 +45,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
-
 	private final RebornRecipeType<?> type;
 	private final Identifier name;
 
@@ -67,8 +53,6 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	protected final int power;
 	protected final int time;
 
-	protected boolean dummy = false;
-
 	public RebornRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		this.type = type;
 		this.name = name;
@@ -76,19 +60,6 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		this.outputs = outputs;
 		this.power = power;
 		this.time = time;
-	}
-
-	public RebornRecipe(RebornRecipeType<?> type, Identifier name) {
-		this(type, name, List.of(new DummyIngredient()), Collections.emptyList(), Integer.MAX_VALUE, Integer.MAX_VALUE);
-		this.dummy = true;
-	}
-
-	public void serialize(PacketByteBuf byteBuf) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void deserialize(PacketByteBuf byteBuf) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -138,9 +109,6 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	 * @return if true the recipe will craft, if false it will not
 	 */
 	public boolean canCraft(BlockEntity blockEntity) {
-		if (isDummy()) {
-			return false;
-		}
 		if (blockEntity instanceof IRecipeCrafterProvider) {
 			return ((IRecipeCrafterProvider) blockEntity).canCraft(this);
 		}
@@ -179,7 +147,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	@Deprecated
 	@Override
 	public ItemStack getOutput() {
-		if (isDummy() || outputs.isEmpty()) {
+		if (outputs.isEmpty()) {
 			return ItemStack.EMPTY;
 		}
 		return outputs.get(0);
@@ -194,10 +162,6 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	@Override
 	public boolean isIgnoredInRecipeBook() {
 		return true;
-	}
-
-	public boolean isDummy() {
-		return dummy;
 	}
 
 	@Override

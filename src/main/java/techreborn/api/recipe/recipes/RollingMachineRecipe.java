@@ -28,17 +28,13 @@ import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.crafting.ingredient.DummyIngredient;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 
 import java.util.Collections;
@@ -47,11 +43,6 @@ import java.util.List;
 public class RollingMachineRecipe extends RebornRecipe {
 	private final ShapedRecipe shapedRecipe;
 	private final JsonObject shapedRecipeJson;
-
-	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name) {
-		this(type, name, List.of(new DummyIngredient()), Collections.emptyList(), Integer.MAX_VALUE, Integer.MAX_VALUE, null, null);
-		this.dummy = true;
-	}
 
 	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe, JsonObject shapedRecipeJson) {
 		super(type, name, ingredients, outputs, power, time);

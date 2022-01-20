@@ -22,15 +22,28 @@
  * SOFTWARE.
  */
 
-package reborncore.common.crafting.serde;
+package techreborn.api.recipe.recipes.serde;
 
 import com.google.gson.JsonObject;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import reborncore.common.crafting.RebornRecipe;
+import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.serde.RebornRecipeSerde;
+import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
 
-public interface RecipeSerde<R extends RebornRecipe> {
-	R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name);
+import java.util.List;
 
-	void toJson(R recipe, JsonObject jsonObject);
+public class BlastFurnaceRecipeSerde extends RebornRecipeSerde<BlastFurnaceRecipe> {
+	@Override
+	protected BlastFurnaceRecipe fromJson(JsonObject jsonObject, RebornRecipeType<BlastFurnaceRecipe> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+		final int heat = JsonHelper.getInt(jsonObject, "heat");
+		return new BlastFurnaceRecipe(type, name, ingredients, outputs, power, time, heat);
+	}
+
+	@Override
+	public void collectJsonData(BlastFurnaceRecipe recipe, JsonObject jsonObject) {
+		jsonObject.addProperty("heat", recipe.getHeat());
+	}
 }
