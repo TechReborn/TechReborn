@@ -1,7 +1,7 @@
 /*
- * This file is part of RebornCore, licensed under the MIT License (MIT).
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2021 TeamReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,35 +22,33 @@
  * SOFTWARE.
  */
 
-package reborncore.common.crafting.ingredient;
+package techreborn.datagen.tags
 
-import net.minecraft.tag.Tag;
-import net.minecraft.util.Identifier;
+import net.fabricmc.fabric.api.tag.TagFactory
+import net.minecraft.util.Identifier
 
-import java.util.Collections;
-import java.util.List;
+class CommonTags {
+	static class Items {
+		public static zincIngots = create("zinc_ingots")
 
-public class SimpleTag<T> implements Tag.Identified<T> {
-	private final List<T> entries;
-	private final Identifier identifier;
+		public static brassDusts = create("brass_dusts")
+		public static electrumDusts = create("electrum_dusts")
+		public static platinumDusts = create("platinum_dusts")
+		public static zincDusts = create("zinc_dusts")
 
-	public SimpleTag(List<T> entries, Identifier identifier) {
-		this.entries = entries;
-		this.identifier = identifier;
-	}
+		public static leadOres = create("lead_ores")
+		public static sheldoniteOres = create("sheldonite_ores")
+		public static silverOres = create("silver_ores")
+		public static tinOres = create("tin_ores")
 
-	@Override
-	public boolean contains(T entry) {
-		return entries.contains(entry);
-	}
+		public static rawLeadOres = create("raw_lead_ores")
+		public static rawSilverOres = create("raw_silver_ores")
+		public static rawTinOres = create("raw_tin_ores")
 
-	@Override
-	public List<T> values() {
-		return Collections.unmodifiableList(entries);
-	}
+		public static ironPlates = create("iron_plates")
 
-	@Override
-	public Identifier getId() {
-		return identifier;
+		private static def create(String path) {
+			return TagFactory.ITEM.create(new Identifier("c", path))
+		}
 	}
 }

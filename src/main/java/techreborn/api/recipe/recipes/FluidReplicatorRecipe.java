@@ -29,27 +29,19 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
-import reborncore.common.fluid.FluidUtils;
+
+import java.util.List;
 
 public class FluidReplicatorRecipe extends RebornFluidRecipe {
-
-	public FluidReplicatorRecipe(RebornRecipeType<?> type, Identifier name) {
-		super(type, name);
-	}
-
-	public FluidReplicatorRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time) {
-		super(type, name, ingredients, outputs, power, time);
-	}
-
-	public FluidReplicatorRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time, FluidInstance fluid) {
+	public FluidReplicatorRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
 		super(type, name, ingredients, outputs, power, time, fluid);
 	}
 

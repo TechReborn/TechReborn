@@ -1,7 +1,7 @@
 /*
- * This file is part of RebornCore, licensed under the MIT License (MIT).
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2021 TeamReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,35 +22,28 @@
  * SOFTWARE.
  */
 
-package reborncore.common.crafting.ingredient;
+package techreborn.api.recipe.recipes.serde;
 
-import net.minecraft.tag.Tag;
+import com.google.gson.JsonObject;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.serde.RebornRecipeSerde;
+import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
 
-import java.util.Collections;
 import java.util.List;
 
-public class SimpleTag<T> implements Tag.Identified<T> {
-	private final List<T> entries;
-	private final Identifier identifier;
-
-	public SimpleTag(List<T> entries, Identifier identifier) {
-		this.entries = entries;
-		this.identifier = identifier;
+public class BlastFurnaceRecipeSerde extends RebornRecipeSerde<BlastFurnaceRecipe> {
+	@Override
+	protected BlastFurnaceRecipe fromJson(JsonObject jsonObject, RebornRecipeType<BlastFurnaceRecipe> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+		final int heat = JsonHelper.getInt(jsonObject, "heat");
+		return new BlastFurnaceRecipe(type, name, ingredients, outputs, power, time, heat);
 	}
 
 	@Override
-	public boolean contains(T entry) {
-		return entries.contains(entry);
-	}
-
-	@Override
-	public List<T> values() {
-		return Collections.unmodifiableList(entries);
-	}
-
-	@Override
-	public Identifier getId() {
-		return identifier;
+	public void collectJsonData(BlastFurnaceRecipe recipe, JsonObject jsonObject) {
+		jsonObject.addProperty("heat", recipe.getHeat());
 	}
 }

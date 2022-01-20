@@ -9,3 +9,6 @@ indent_style = tab
 
 [*.json]
 indent_style = tab
+
+[*.groovy]
+indent_style = tab

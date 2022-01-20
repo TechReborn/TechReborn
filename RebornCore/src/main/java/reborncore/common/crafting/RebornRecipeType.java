@@ -26,21 +26,19 @@ package reborncore.common.crafting;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
-import reborncore.RebornCore;
+import reborncore.common.crafting.serde.RecipeSerde;
 import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
 public record RebornRecipeType<R extends RebornRecipe>(
-		BiFunction<RebornRecipeType<R>, Identifier, R> recipeFunction,
-		Identifier name) implements RecipeType, RecipeSerializer {
+		RecipeSerde<R> recipeSerde,
+		Identifier name) implements RecipeType<R>, RecipeSerializer<R> {
 
 	@Override
 	public R read(Identifier recipeId, JsonObject json) {
@@ -49,53 +47,29 @@ public record RebornRecipeType<R extends RebornRecipe>(
 			throw new RuntimeException("RebornRecipe type not supported!");
 		}
 
-		try {
-			R recipe = newRecipe(recipeId);
-
-			recipe.deserialize(json);
-			return recipe;
-		} catch (Throwable t) {
-			RebornCore.LOGGER.error("Failed to read recipe: " + recipeId, t);
-			// Make a new recipe - don't reuse the existing recipe object because it might be in an invalid state if an
-			// exception was thrown in the middle of its deserialization.
-			R recipe = newRecipe(recipeId);
-			recipe.makeDummy();
-			return recipe;
-		}
+		return recipeSerde.fromJson(json, this, recipeId);
 	}
 
-	public JsonObject toJson(R recipe) {
+	private JsonObject toJson(R recipe) {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", name.toString());
 
-		recipe.serialize(jsonObject);
+		recipeSerde.toJson(recipe, jsonObject);
 
 		return jsonObject;
 	}
 
-	public R fromJson(Identifier recipeType, JsonObject json) {
-		return read(recipeType, json);
-	}
-
-	R newRecipe(Identifier recipeId) {
-		return recipeFunction.apply(this, recipeId);
-	}
-
 	@Override
 	public R read(Identifier recipeId, PacketByteBuf buffer) {
-		String input = buffer.readString(buffer.readInt());
-		R r = read(recipeId, SerializationUtil.GSON_FLAT.fromJson(input, JsonObject.class));
-		r.deserialize(buffer);
-		return r;
+		String jsonSize = buffer.readString(buffer.readInt());
+		return read(recipeId, SerializationUtil.GSON_FLAT.fromJson(jsonSize, JsonObject.class));
 	}
 
 	@Override
-	public void write(PacketByteBuf buffer, Recipe recipe) {
-		JsonObject jsonObject = toJson((R) recipe);
-		String output = SerializationUtil.GSON_FLAT.toJson(jsonObject);
+	public void write(PacketByteBuf buffer, R recipe) {
+		String output = SerializationUtil.GSON_FLAT.toJson(toJson(recipe));
 		buffer.writeInt(output.length());
 		buffer.writeString(output);
-		((R) recipe).serialize(buffer);
 	}
 
 	public List<R> getRecipes(World world) {

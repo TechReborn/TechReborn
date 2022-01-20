@@ -28,12 +28,9 @@ import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
@@ -44,41 +41,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class RollingMachineRecipe extends RebornRecipe {
+	private final ShapedRecipe shapedRecipe;
+	private final JsonObject shapedRecipeJson;
 
-	private ShapedRecipe shapedRecipe;
-
-	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name) {
-		super(type, name);
-	}
-
-	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name, ShapedRecipe recipe) {
-		super(type, name);
-		this.shapedRecipe = recipe;
-	}
-
-	@Override
-	public void deserialize(JsonObject jsonObject) {
-		if (jsonObject.has("shaped")) {
-			JsonObject json = JsonHelper.getObject(jsonObject, "shaped");
-			shapedRecipe = RecipeSerializer.SHAPED.read(getId(), json);
-		} else {
-			//This will be handled by the PacketByteBuf deserialize
-		}
-	}
-
-	@Override
-	public void serialize(PacketByteBuf byteBuf) {
-		String s = shapedRecipe.getId().toString();
-		byteBuf.writeInt(s.length());
-		byteBuf.writeString(s);
-		RecipeSerializer.SHAPED.write(byteBuf, shapedRecipe);
-	}
-
-
-	@Override
-	public void deserialize(PacketByteBuf byteBuf) {
-		Identifier identifier = new Identifier(byteBuf.readString(byteBuf.readInt()));
-		shapedRecipe = RecipeSerializer.SHAPED.read(identifier, byteBuf);
+	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe, JsonObject shapedRecipeJson) {
+		super(type, name, ingredients, outputs, power, time);
+		this.shapedRecipe = shapedRecipe;
+		this.shapedRecipeJson = shapedRecipeJson;
 	}
 
 	@Override
@@ -118,5 +87,9 @@ public class RollingMachineRecipe extends RebornRecipe {
 
 	public ShapedRecipe getShapedRecipe() {
 		return shapedRecipe;
+	}
+
+	public JsonObject getShapedRecipeJson() {
+		return shapedRecipeJson;
 	}
 }

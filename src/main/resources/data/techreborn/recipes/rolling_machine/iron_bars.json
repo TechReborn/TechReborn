@@ -14,5 +14,7 @@
       "item": "minecraft:iron_bars",
       "count": 24
     }
-  }
+  },
+  "power": 5,
+  "time": 250
 }

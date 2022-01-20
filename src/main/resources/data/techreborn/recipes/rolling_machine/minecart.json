@@ -14,5 +14,7 @@
       "item": "minecraft:minecart",
       "count": 1
     }
-  }
+  },
+  "power": 5,
+  "time": 250
 }

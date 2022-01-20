@@ -24,32 +24,30 @@
 
 package reborncore.common.crafting;
 
-import io.netty.buffer.Unpooled;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import org.apache.commons.lang3.Validate;
-import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.serde.RebornRecipeSerde;
+import reborncore.common.crafting.serde.RecipeSerde;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public class RecipeManager {
 
 	private static final Map<Identifier, RebornRecipeType<?>> recipeTypes = new HashMap<>();
 
-	public static <R extends RebornRecipe> RebornRecipeType<R> newRecipeType(BiFunction<RebornRecipeType<R>, Identifier, R> recipeFunction, Identifier name) {
+	public static RebornRecipeType<reborncore.common.crafting.RebornRecipe> newRecipeType(Identifier name) {
+		return newRecipeType(RebornRecipeSerde.BASIC, name);
+	}
+
+	public static <R extends RebornRecipe> RebornRecipeType<R> newRecipeType(RecipeSerde<R> recipeSerde, Identifier name) {
 		if (recipeTypes.containsKey(name)) {
 			throw new RuntimeException("RebornRecipe type with this name already registered");
 		}
-		RebornRecipeType<R> type = new RebornRecipeType<>(recipeFunction, name);
+		RebornRecipeType<R> type = new RebornRecipeType<>(recipeSerde, name);
 		recipeTypes.put(name, type);
 
 		Registry.register(Registry.RECIPE_SERIALIZER, name, (RecipeSerializer<?>) type);
@@ -67,64 +65,4 @@ public class RecipeManager {
 	public static List<RebornRecipeType> getRecipeTypes(String namespace) {
 		return recipeTypes.values().stream().filter(rebornRecipeType -> rebornRecipeType.name().getNamespace().equals(namespace)).collect(Collectors.toList());
 	}
-
-	public static void validateRecipes(World world) {
-		//recipeTypes.forEach((key, value) -> validate(value, world));
-
-		System.out.println("Validating recipes");
-		world.getRecipeManager().keys().forEach(identifier -> {
-			try {
-				Recipe recipe = world.getRecipeManager().get(identifier).get();
-				RecipeSerializer recipeSerializer = recipe.getSerializer();
-				PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-				recipeSerializer.write(buf, recipe);
-
-				Recipe readback = recipeSerializer.read(identifier, buf);
-			} catch (Exception e) {
-				throw new RuntimeException("Failed to read " + identifier, e);
-			}
-		});
-		System.out.println("Done");
-	}
-
-	private static <R extends RebornRecipe> void validate(RebornRecipeType<R> rebornRecipeType, World world) {
-		List<R> recipes = rebornRecipeType.getRecipes(world);
-
-		for (RebornRecipe recipe1 : recipes) {
-			for (RebornRecipe recipe2 : recipes) {
-				if (recipe1 == recipe2) {
-					continue;
-				}
-
-				Validate.isTrue(recipe1.getRebornIngredients().size() > 0, recipe1.getId() + " has no inputs");
-				Validate.isTrue(recipe2.getRebornIngredients().size() > 0, recipe2.getId() + " has no inputs");
-				Validate.isTrue(recipe1.getOutputs().size() > 0, recipe1.getId() + " has no outputs");
-				Validate.isTrue(recipe2.getOutputs().size() > 0, recipe2.getId() + " has no outputs");
-
-				boolean hasAll = true;
-
-				for (RebornIngredient recipe1Input : recipe1.getRebornIngredients()) {
-					boolean matches = false;
-					for (ItemStack testStack : recipe1Input.getPreviewStacks()) {
-						for (RebornIngredient recipe2Input : recipe2.getRebornIngredients()) {
-							if (recipe2Input.test(testStack)) {
-								matches = true;
-							}
-						}
-					}
-
-					if (!matches) {
-						hasAll = false;
-					}
-				}
-
-				if (hasAll) {
-					System.out.println(recipe1.getId() + " conflicts with " + recipe2.getId());
-				}
-
-			}
-		}
-	}
-
-
 }

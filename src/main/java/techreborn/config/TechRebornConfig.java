@@ -366,12 +366,6 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "rolling_machine", key = "RollingMachineMaxInput", comment = "Rolling Machine Max Input (Energy per tick)")
 	public static int rollingMachineMaxInput = 32;
 
-	@Config(config = "machines", category = "rolling_machine", key = "RollingMachineEnergyPerTick", comment = "Rolling Machine Energy usage (Energy per tick)")
-	public static int rollingMachineEnergyPerTick = 5;
-
-	@Config(config = "machines", category = "rolling_machine", key = "RollingMachineEnergyRunTime", comment = "Rolling Machine Run Time")
-	public static int rollingMachineRunTime = 250;
-
 	@Config(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy")
 	public static int rollingMachineMaxEnergy = 10000;
 

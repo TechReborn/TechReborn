@@ -28,11 +28,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -42,15 +44,17 @@ import reborncore.common.util.DefaultedListCollector;
 import reborncore.common.util.serialization.SerializationUtil;
 import reborncore.mixin.common.AccessorRecipeManager;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class RecipeUtils {
 	@SuppressWarnings("unchecked")
-	public static <T extends RebornRecipe> List<T> getRecipes(World world, RebornRecipeType<?> type) {
-		AccessorRecipeManager accessorRecipeManager = (AccessorRecipeManager) world.getRecipeManager();
+	public static <T extends RebornRecipe> List<T> getRecipes(World world, RebornRecipeType<T> type) {
+		final AccessorRecipeManager accessorRecipeManager = (AccessorRecipeManager) world.getRecipeManager();
+		final Collection<Recipe<Inventory>> recipes = accessorRecipeManager.getAll(type).values();
 		//noinspection unchecked
-		return new ArrayList<>(accessorRecipeManager.getAll(type).values());
+		return Collections.unmodifiableList((List<T>) (Object) recipes);
 	}
 
 	public static DefaultedList<ItemStack> deserializeItems(JsonElement jsonObject) {
