@@ -63,7 +63,7 @@ import java.util.Arrays;
 
 public class ModRegistry {
 
-	public static void setupShit() {
+	public static void register() {
 		registerBlocks();
 		registerItems();
 		registerFluids();

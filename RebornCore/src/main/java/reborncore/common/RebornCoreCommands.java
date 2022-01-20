@@ -48,7 +48,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.chunk.ChunkStatus;
 import reborncore.client.ItemStackRenderManager;
-import reborncore.common.crafting.RecipeManager;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -78,17 +77,6 @@ public class RebornCoreCommands {
 	private static void addCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
 		dispatcher.register(
 				literal("reborncore")
-
-					.then(
-						literal("recipes")
-							.then(literal("validate")
-									.requires(source -> source.hasPermissionLevel(3))
-									.executes(ctx -> {
-										RecipeManager.validateRecipes(ctx.getSource().getWorld());
-										return Command.SINGLE_SUCCESS;
-									})
-							)
-					)
 
 					.then(
 						literal("generate")

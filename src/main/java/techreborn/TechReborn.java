@@ -74,12 +74,12 @@ public class TechReborn implements ModInitializer {
 
 		// Done to force the class to load
 		//noinspection ResultOfMethodCallIgnored
-		ModRecipes.GRINDER.name();
+		ModRecipes.GRINDER.hashCode();
+		TRContent.SCRAP_BOX.asItem();
 
 		ClientboundPackets.init();
 		ServerboundPackets.init();
 
-		ModRegistry.setupShit();
 		if (TechRebornConfig.machineSoundVolume > 0) {
 			if (TechRebornConfig.machineSoundVolume > 1) TechRebornConfig.machineSoundVolume = 1F;
 			RecipeCrafter.soundHanlder = new ModSounds.SoundHandler();

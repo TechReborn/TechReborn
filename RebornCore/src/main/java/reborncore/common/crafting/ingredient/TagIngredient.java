@@ -26,6 +26,7 @@ package reborncore.common.crafting.ingredient;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -43,16 +44,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TagIngredient extends RebornIngredient {
-
-	private final Identifier tagIdentifier;
-	private final Tag<Item> tag;
+	private final Tag.Identified<Item> tag;
 	private final Optional<Integer> count;
 
-	public TagIngredient(Identifier tagIdentifier, Tag<Item> tag, Optional<Integer> count) {
+	public TagIngredient(Tag.Identified<Item> tag, Optional<Integer> count) {
 		super(IngredientManager.TAG_RECIPE_TYPE);
-		this.tagIdentifier = tagIdentifier;
 		this.tag = tag;
 		this.count = count;
+	}
+
+	public TagIngredient(Tag.Identified<Item> tag, int count) {
+		this(tag, count > 1 ? Optional.of(count) : Optional.empty());
 	}
 
 	@Override
@@ -88,16 +90,17 @@ public class TagIngredient extends RebornIngredient {
 				Validate.isTrue(item != Items.AIR, "item cannot be air");
 				items.add(item);
 			}
-			return new TagIngredient(tagIdent, new SimpleTag<>(items), count);
+			return new TagIngredient(new SimpleTag<>(items, tagIdent), count);
 		}
 
 		Identifier identifier = new Identifier(JsonHelper.getString(json, "tag"));
 
-		Tag<Item> tag = ServerTagManagerHolder.getTagManager().getOrCreateTagGroup(Registry.ITEM_KEY).getTag(identifier);
+		Tag.Identified<Item> tag = TagFactory.of(() -> ServerTagManagerHolder.getTagManager().getOrCreateTagGroup(Registry.ITEM_KEY)).create(identifier);
 		if (tag == null) {
 			throw new JsonSyntaxException("Unknown item tag '" + identifier + "'");
 		}
-		return new TagIngredient(identifier, tag, count);
+
+		return new TagIngredient(tag, count);
 	}
 
 	@Override
@@ -113,7 +116,7 @@ public class TagIngredient extends RebornIngredient {
 		}
 
 		count.ifPresent(integer -> jsonObject.addProperty("count", integer));
-		jsonObject.addProperty("tag_identifier", tagIdentifier.toString());
+		jsonObject.addProperty("tag_identifier", tag.getId().toString());
 		return jsonObject;
 	}
 

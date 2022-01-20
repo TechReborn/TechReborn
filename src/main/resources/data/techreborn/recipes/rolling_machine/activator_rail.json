@@ -21,5 +21,7 @@
       "item": "minecraft:activator_rail",
       "count": 8
     }
-  }
+  },
+  "power": 5,
+  "time": 250
 }

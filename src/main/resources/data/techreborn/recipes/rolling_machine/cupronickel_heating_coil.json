@@ -18,5 +18,7 @@
       "item": "techreborn:cupronickel_heating_coil",
       "count": 3
     }
-  }
+  },
+  "power": 5,
+  "time": 250
 }

@@ -126,7 +126,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		if (!currentRecipeOutput.isEmpty() && canMake(craftMatrix)) {
-			if (tickTime >= Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1)) {
+			if (tickTime >= Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)) {
 				currentRecipeOutput = findMatchingRecipeOutput(craftMatrix, world);
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
@@ -159,10 +159,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			tickTime = 0;
 		}
 		if (!currentRecipeOutput.isEmpty()) {
-			if (getStored() > getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick)
-					&& tickTime < Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1)
+			if (getStored() > getEuPerTick(currentRecipe.getPower())
+					&& tickTime < Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)
 					&& canMake(craftMatrix)) {
-				useEnergy(getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick));
+				useEnergy(getEuPerTick(currentRecipe.getPower()));
 				tickTime++;
 			} else {
 				setIsActive(false);
@@ -375,10 +375,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getBurnTimeRemainingScaled(final int scale) {
-		if (tickTime == 0 || Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1) == 0) {
+		if (tickTime == 0 || Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1) == 0) {
 			return 0;
 		}
-		return tickTime * scale / Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1);
+		return tickTime * scale / Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
 	}
 
 	@Override
@@ -405,8 +405,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getProgressScaled(final int scale) {
-		if (tickTime != 0 && Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1) != 0) {
-			return tickTime * scale / Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1);
+		if (tickTime != 0 && Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1) != 0) {
+			return tickTime * scale / Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
 		}
 		return 0;
 	}

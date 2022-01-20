@@ -22,15 +22,15 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.tags
+package reborncore.common.crafting.serde;
 
-import net.fabricmc.fabric.api.tag.TagFactory
-import net.minecraft.item.Item
-import net.minecraft.tag.Tag
-import net.minecraft.util.Identifier
+import com.google.gson.JsonObject;
+import net.minecraft.util.Identifier;
+import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeType;
 
-trait CommonTagsTrait {
-    static Tag.Identified<Item> cItem(String path) {
-        return TagFactory.ITEM.create(new Identifier("c", path))
-    }
+public interface RecipeSerde<R extends RebornRecipe> {
+	R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name);
+
+	void toJson(R recipe, JsonObject jsonObject);
 }

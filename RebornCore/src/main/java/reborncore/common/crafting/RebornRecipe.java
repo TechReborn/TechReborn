@@ -24,32 +24,20 @@
 
 package reborncore.common.crafting;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.JsonOps;
 import io.github.cottonmc.libcd.api.CustomOutputRecipe;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.Validate;
 import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.common.crafting.ingredient.DummyIngredient;
-import reborncore.common.crafting.ingredient.IngredientManager;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.util.DefaultedListCollector;
-import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -57,83 +45,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
-
 	private final RebornRecipeType<?> type;
 	private final Identifier name;
 
-	private DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
-	private DefaultedList<ItemStack> outputs = DefaultedList.of();
-	protected int power;
-	protected int time;
+	private final List<RebornIngredient> ingredients;
+	private final List<ItemStack> outputs;
+	protected final int power;
+	protected final int time;
 
-	protected boolean dummy = false;
-
-	public RebornRecipe(RebornRecipeType<?> type, Identifier name) {
+	public RebornRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		this.type = type;
 		this.name = name;
-	}
-
-	public RebornRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time) {
-		this(type, name);
 		this.ingredients = ingredients;
 		this.outputs = outputs;
 		this.power = power;
 		this.time = time;
-	}
-
-	public void deserialize(JsonObject jsonObject) {
-		if (jsonObject.has("dummy")) {
-			makeDummy();
-			return;
-		}
-
-		//Crash if the recipe has all ready been deserialized
-		Validate.isTrue(ingredients.isEmpty());
-
-		power = JsonHelper.getInt(jsonObject, "power");
-		time = JsonHelper.getInt(jsonObject, "time");
-
-		ingredients = SerializationUtil.stream(JsonHelper.getArray(jsonObject, "ingredients"))
-				.map(IngredientManager::deserialize)
-				.collect(DefaultedListCollector.toList());
-
-		JsonArray resultsJson = JsonHelper.getArray(jsonObject, "results");
-		outputs = RecipeUtils.deserializeItems(resultsJson);
-	}
-
-	public void serialize(JsonObject jsonObject) {
-		if (isDummy()) {
-			jsonObject.addProperty("dummy", true);
-			return;
-		}
-		jsonObject.addProperty("power", power);
-		jsonObject.addProperty("time", time);
-
-		JsonArray ingredientsArray = new JsonArray();
-		getRebornIngredients().stream().map(RebornIngredient::witeToJson).forEach(ingredientsArray::add);
-		jsonObject.add("ingredients", ingredientsArray);
-
-		JsonArray resultsArray = new JsonArray();
-		for (ItemStack stack : outputs) {
-			JsonObject stackObject = new JsonObject();
-			stackObject.addProperty("item", Registry.ITEM.getId(stack.getItem()).toString());
-			if (stack.getCount() > 1) {
-				stackObject.addProperty("count", stack.getCount());
-			}
-			if (stack.hasNbt()) {
-				stackObject.add("nbt", Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, stack.getNbt()));
-			}
-			resultsArray.add(stackObject);
-		}
-		jsonObject.add("results", resultsArray);
-	}
-
-	public void serialize(PacketByteBuf byteBuf) {
-
-	}
-
-	public void deserialize(PacketByteBuf byteBuf) {
-
 	}
 
 	@Override
@@ -162,7 +88,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		return ingredients.stream().map(RebornIngredient::getPreview).collect(DefaultedListCollector.toList());
 	}
 
-	public DefaultedList<RebornIngredient> getRebornIngredients() {
+	public List<RebornIngredient> getRebornIngredients() {
 		return ingredients;
 	}
 
@@ -183,9 +109,6 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	 * @return if true the recipe will craft, if false it will not
 	 */
 	public boolean canCraft(BlockEntity blockEntity) {
-		if (isDummy()) {
-			return false;
-		}
 		if (blockEntity instanceof IRecipeCrafterProvider) {
 			return ((IRecipeCrafterProvider) blockEntity).canCraft(this);
 		}
@@ -224,7 +147,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	@Deprecated
 	@Override
 	public ItemStack getOutput() {
-		if (isDummy() || outputs.isEmpty()) {
+		if (outputs.isEmpty()) {
 			return ItemStack.EMPTY;
 		}
 		return outputs.get(0);
@@ -239,15 +162,6 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	@Override
 	public boolean isIgnoredInRecipeBook() {
 		return true;
-	}
-
-	private boolean isDummy() {
-		return dummy;
-	}
-
-	void makeDummy() {
-		this.ingredients.add(new DummyIngredient());
-		this.dummy = true;
 	}
 
 	@Override

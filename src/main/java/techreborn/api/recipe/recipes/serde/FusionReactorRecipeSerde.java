@@ -22,45 +22,30 @@
  * SOFTWARE.
  */
 
-package techreborn.api.recipe.recipes;
+package techreborn.api.recipe.recipes.serde;
 
-import net.minecraft.block.entity.BlockEntity;
+import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import reborncore.common.crafting.RebornRecipe;
+import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
-import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
+import reborncore.common.crafting.serde.RebornRecipeSerde;
+import techreborn.api.recipe.recipes.FusionReactorRecipe;
 
 import java.util.List;
 
-/**
- * @author drcrazy
- */
-public class FusionReactorRecipe extends RebornRecipe {
-	private final int startE;
-	private final int minSize;
-
-	public FusionReactorRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) {
-		super(type, name, ingredients, outputs, power, time);
-		this.startE = startE;
-		this.minSize = minSize;
-	}
-
-	public int getStartEnergy() {
-		return startE;
-	}
-
-	public int getMinSize() {
-		return minSize;
+public class FusionReactorRecipeSerde extends RebornRecipeSerde<FusionReactorRecipe> {
+	@Override
+	protected FusionReactorRecipe fromJson(JsonObject jsonObject, RebornRecipeType<FusionReactorRecipe> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+		final int startE = JsonHelper.getInt(jsonObject, "start-power");
+		final int minSize = JsonHelper.getInt(jsonObject, "min-size");
+		return new FusionReactorRecipe(type, name, ingredients, outputs, power, time, startE, minSize);
 	}
 
 	@Override
-	public boolean canCraft(final BlockEntity blockEntity) {
-		if (blockEntity instanceof final FusionControlComputerBlockEntity reactor) {
-			return reactor.getSize() >= minSize;
-		}
-		return false;
+	protected void collectJsonData(FusionReactorRecipe recipe, JsonObject jsonObject) {
+		jsonObject.addProperty("start-power", recipe.getStartEnergy());
+		jsonObject.addProperty("min-size", recipe.getMinSize());
 	}
-
 }
