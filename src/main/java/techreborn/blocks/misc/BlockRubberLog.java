@@ -46,6 +46,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
+import techreborn.config.TechRebornConfig;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
@@ -149,7 +150,7 @@ public class BlockRubberLog extends PillarBlock {
 				if (!playerIn.getInventory().insertStack(TRContent.Parts.SAP.getStack())) {
 					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));
 				}
-				if (playerIn instanceof ServerPlayerEntity) {
+				if (playerIn instanceof ServerPlayerEntity && !TechRebornConfig.vanillaUnlockRecipes) {
 					TRRecipeHandler.unlockTRRecipes((ServerPlayerEntity) playerIn);
 				}
 				return ActionResult.SUCCESS;
