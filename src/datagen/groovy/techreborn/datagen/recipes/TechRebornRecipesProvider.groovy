@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.recipes.smelting
+package techreborn.datagen.recipes
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipesProvider

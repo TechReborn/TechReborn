@@ -31,7 +31,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Pair;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
@@ -84,6 +87,7 @@ import techreborn.world.OreDistribution;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TRContent {
@@ -676,18 +680,31 @@ public class TRContent {
 	public enum SmallDusts implements ItemConvertible {
 		ALMANDINE, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
-		FLINT, GALENA, GLOWSTONE, GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE,
-		NETHERRACK, NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, REDSTONE, RED_GARNET,
-		RUBY, SALTPETER, SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM,
-		TUNGSTEN, UVAROVITE, YELLOW_GARNET, ZINC;
+		FLINT, GALENA, GLOWSTONE(Items.GLOWSTONE_DUST), GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE,
+		NETHERRACK, NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, REDSTONE(Items.REDSTONE),
+		RED_GARNET, RUBY, SALTPETER, SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM,
+		TUNGSTEN(RawMetals.TUNGSTEN), UVAROVITE, YELLOW_GARNET, ZINC;
 
 		public final String name;
 		public final Item item;
+		public final ItemConvertible dust;
 
-		SmallDusts() {
+		SmallDusts(ItemConvertible dustVariant) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			if (dustVariant == null)
+				try {
+					dustVariant = Dusts.valueOf(this.toString());
+				}
+				catch (IllegalArgumentException ex) {
+					TechReborn.LOGGER.warn("Small dust {} has no dust equivalent!", name);
+				}
+			dust = dustVariant;
 			InitUtils.setup(item, name + "_small_dust");
+		}
+
+		SmallDusts() {
+			this(null);
 		}
 
 		public ItemStack getStack() {
@@ -701,6 +718,25 @@ public class TRContent {
 		@Override
 		public Item asItem() {
 			return item;
+		}
+
+		public ItemConvertible getDust() {
+			return dust;
+		}
+
+		/**
+		 * Returns a map that maps the small dusts to their dust equivalent,
+		 * as it was specified in the enum. Note that the dust equivalent
+		 * doesn't have to be a TR dust (see redstone and glowstone dust)
+		 * and also not a dust at all (see tungsten).
+		 * @return A non {@code null} map mapping the small dusts to its dust equivalent.
+		 * If a dust equivalent doesn't exist, the small dust will not be in the keys of this map.
+		 */
+		public static @NotNull Map<SmallDusts, ItemConvertible> getSD2DMap() {
+			return Arrays.stream(values())
+					.map(smallDust -> new Pair(smallDust, smallDust.dust))
+					.filter(entry -> entry.getRight() != null) // ensure dust equivalent exists
+					.collect(Collectors.toMap(entry -> (SmallDusts)entry.getLeft(), entry -> (ItemConvertible)entry.getRight()));
 		}
 	}
 
