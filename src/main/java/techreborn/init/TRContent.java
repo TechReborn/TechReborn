@@ -432,7 +432,8 @@ public class TRContent {
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
 					.requiresTool()
 					.sounds(name.startsWith("deepslate") ? BlockSoundGroup.DEEPSLATE : BlockSoundGroup.STONE)
-					.strength(2f, 2f)
+					.strength(2f, 2f),
+					distribution.experienceDropped
 			);
 
 			InitUtils.setup(block, name + "_ore");
