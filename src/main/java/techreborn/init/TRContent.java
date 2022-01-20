@@ -32,6 +32,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
@@ -428,20 +429,25 @@ public class TRContent {
 		public final Block block;
 		public final OreDistribution distribution;
 
-		Ores(OreDistribution distribution) {
+		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
 					.requiresTool()
 					.sounds(name.startsWith("deepslate") ? BlockSoundGroup.DEEPSLATE : BlockSoundGroup.STONE)
-					.strength(2f, 2f)
+					.strength(2f, 2f),
+					distribution != null ? distribution.experienceDropped : experienceDroppedFallback
 			);
 
 			InitUtils.setup(block, name + "_ore");
 			this.distribution = distribution;
 		}
 
+		Ores(OreDistribution distribution) {
+			this(distribution, null);
+		}
+
 		Ores(TRContent.Ores stoneOre) {
-			this((OreDistribution) null);
+			this(null, stoneOre.distribution != null ? stoneOre.distribution.experienceDropped : null);
 			deepslateMap.put(stoneOre, this);
 			unDeepslateMap.put(this, stoneOre);
 		}
