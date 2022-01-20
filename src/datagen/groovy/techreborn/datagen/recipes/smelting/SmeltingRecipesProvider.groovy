@@ -53,7 +53,7 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 				(CommonTags.Items.sheldoniteOres)      : TRContent.Ingots.PLATINUM,
 				(CommonTags.Items.platinumDusts)       : TRContent.Ingots.PLATINUM,
 				(Items.IRON_INGOT)              : TRContent.Ingots.REFINED_IRON,
-				(cItem("iron_plates")): TRContent.Plates.REFINED_IRON,
+				(CommonTags.Items.ironPlates)   : TRContent.Plates.REFINED_IRON,
 				(CommonTags.Items.silverOres)          : TRContent.Ingots.SILVER,
 				(CommonTags.Items.rawSilverOres)      : TRContent.Ingots.SILVER,
 				(CommonTags.Items.tinOres)             : TRContent.Ingots.TIN,

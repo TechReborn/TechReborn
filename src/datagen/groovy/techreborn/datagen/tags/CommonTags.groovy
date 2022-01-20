@@ -45,6 +45,8 @@ class CommonTags {
 		public static rawSilverOres = create("raw_silver_ores")
 		public static rawTinOres = create("raw_tin_ores")
 
+		public static ironPlates = create("iron_plates")
+
 		private static def create(String path) {
 			return TagFactory.ITEM.create(new Identifier("c", path))
 		}
