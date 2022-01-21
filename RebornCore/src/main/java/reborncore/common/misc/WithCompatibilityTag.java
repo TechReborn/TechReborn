@@ -1,7 +1,7 @@
 /*
- * This file is part of TechReborn, licensed under the MIT License (MIT).
+ * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) 2021 TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,21 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.tags
+package reborncore.common.misc;
 
-import net.fabricmc.fabric.api.tag.TagFactory
-import net.minecraft.util.Identifier
+import net.minecraft.tag.Tag;
 
-class CommonTags {
-	static class Items {
+/**
+ * Tells if an item, block etc. has a tag solely for compatibility with other mods.
+ * For example, several mods have bronze ingots, so TechReborn will tag its bronze ingot with a common tag.
+ * @param <T> The type of the object, like {@link net.minecraft.item.Item} or {@link net.minecraft.block.Block}.
+ */
+public interface WithCompatibilityTag<T> {
 
-		public static leadOres = create("lead_ores")
-		public static sheldoniteOres = create("sheldonite_ores")
-		public static silverOres = create("silver_ores")
-		public static tinOres = create("tin_ores")
+	/**
+	 * Returns the common tag of this object.
+	 * @return the common tag of this object
+	 */
+	public Tag<T> getTag();
 
-		public static rawLeadOres = create("raw_lead_ores")
-		public static rawSilverOres = create("raw_silver_ores")
-		public static rawTinOres = create("raw_tin_ores")
-
-		public static ironPlates = create("iron_plates")
-
-		private static def create(String path) {
-			return TagFactory.ITEM.create(new Identifier("c", path))
-		}
-	}
 }

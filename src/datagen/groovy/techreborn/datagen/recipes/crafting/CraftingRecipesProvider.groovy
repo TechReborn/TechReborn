@@ -33,8 +33,7 @@ import net.minecraft.recipe.Ingredient
 import net.minecraft.util.Identifier
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
-import techreborn.datagen.tags.CommonTags
-import techreborn.init.TRContent 
+import techreborn.init.TRContent
 
 class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	CraftingRecipesProvider(FabricDataGenerator dataGenerator) {
@@ -55,7 +54,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     def generateToolRecipes() {
         // add axes
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_AXE,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_AXE,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_AXE,
                 (TRContent.Gems.RUBY): TRContent.RUBY_AXE,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_AXE
@@ -64,7 +63,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         }
         // add hoes
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_HOE,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_HOE,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_HOE,
                 (TRContent.Gems.RUBY): TRContent.RUBY_HOE,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_HOE
@@ -73,7 +72,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         }
         // add pickaxes
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_PICKAXE,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_PICKAXE,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_PICKAXE,
                 (TRContent.Gems.RUBY): TRContent.RUBY_PICKAXE,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_PICKAXE
@@ -82,7 +81,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         }
         // add shovels
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_SPADE,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_SPADE,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_SPADE,
                 (TRContent.Gems.RUBY): TRContent.RUBY_SPADE,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_SPADE
@@ -91,7 +90,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         }
         // add swords
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_SWORD,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_SWORD,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_SWORD,
                 (TRContent.Gems.RUBY): TRContent.RUBY_SWORD,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_SWORD
@@ -103,7 +102,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     def generateArmorRecipes() {
         // add boots
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_BOOTS,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_BOOTS,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_BOOTS,
                 (TRContent.Gems.RUBY): TRContent.RUBY_BOOTS,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_BOOTS,
@@ -114,7 +113,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         }
         // add chestplate
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_CHESTPLATE,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_CHESTPLATE,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_CHESTPLATE,
                 (TRContent.Gems.RUBY): TRContent.RUBY_CHESTPLATE,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_CHESTPLATE,
@@ -125,7 +124,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         }
         // add helmets
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_HELMET,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_HELMET,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_HELMET,
                 (TRContent.Gems.RUBY): TRContent.RUBY_HELMET,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_HELMET,
@@ -136,7 +135,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         }
         // add leggings
         [
-                (CommonTags.Items.bronzeIngots): TRContent.BRONZE_LEGGINGS,
+                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_LEGGINGS,
                 (TRContent.Gems.PERIDOT): TRContent.PERIDOT_LEGGINGS,
                 (TRContent.Gems.RUBY): TRContent.RUBY_LEGGINGS,
                 (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_LEGGINGS,

@@ -44,22 +44,22 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 		// Add smelting and blasting recipes.
 		[
 				(TRContent.Ingots.MIXED_METAL)  : TRContent.Ingots.ADVANCED_ALLOY,
-				(CommonTags.Items.brassDusts)   : TRContent.Ingots.BRASS,
+				(TRContent.Dusts.BRASS.getTag())   : TRContent.Ingots.BRASS,
 				(TRContent.Dusts.BRONZE)        : TRContent.Ingots.BRONZE,
-				(CommonTags.Items.electrumDusts): TRContent.Ingots.ELECTRUM,
+				(TRContent.Dusts.ELECTRUM.getTag()): TRContent.Ingots.ELECTRUM,
 				(TRContent.Dusts.INVAR)         : TRContent.Ingots.INVAR,
 				(CommonTags.Items.leadOres)     : TRContent.Ingots.LEAD,
 				(CommonTags.Items.rawLeadOres)  : TRContent.Ingots.LEAD,
 				(TRContent.Dusts.NICKEL)        : TRContent.Ingots.NICKEL,
 				(CommonTags.Items.sheldoniteOres)      : TRContent.Ingots.PLATINUM,
-				(CommonTags.Items.platinumDusts)       : TRContent.Ingots.PLATINUM,
+				(TRContent.Dusts.PLATINUM.getTag())       : TRContent.Ingots.PLATINUM,
 				(Items.IRON_INGOT)              : TRContent.Ingots.REFINED_IRON,
 				(CommonTags.Items.ironPlates)   : TRContent.Plates.REFINED_IRON,
 				(CommonTags.Items.silverOres)          : TRContent.Ingots.SILVER,
 				(CommonTags.Items.rawSilverOres)      : TRContent.Ingots.SILVER,
 				(CommonTags.Items.tinOres)             : TRContent.Ingots.TIN,
 				(CommonTags.Items.rawTinOres)         : TRContent.Ingots.TIN,
-				(CommonTags.Items.zincDusts)           : TRContent.Ingots.ZINC
+				(TRContent.Dusts.ZINC.getTag())           : TRContent.Ingots.ZINC
 		].each { input, output ->
 			offerSmelting(input, output)
 			offerBlasting(input, output)
