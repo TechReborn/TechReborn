@@ -25,6 +25,7 @@
 package techreborn.events;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
@@ -32,8 +33,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradeOffers;
 import reborncore.RebornRegistry;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.TradeUtils;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
@@ -56,6 +60,10 @@ import techreborn.items.tool.vanilla.*;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author drcrazy
@@ -69,6 +77,7 @@ public class ModRegistry {
 		registerFluids();
 		registerSounds();
 		registerApis();
+		registerWanderingTraderTrades();
 	}
 
 	private static void registerBlocks() {
@@ -246,5 +255,19 @@ public class ModRegistry {
 	private static void registerApis() {
 		EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getSideEnergyStorage, TRBlockEntities.CABLE);
 		ItemStorage.SIDED.registerForBlockEntity(StorageUnitBaseBlockEntity::getExposedStorage, TRBlockEntities.STORAGE_UNIT);
+	}
+
+	private static void registerWanderingTraderTrades() {
+		List<TradeOffer> extraCommonTrades = new LinkedList<>();
+		List<TradeOffer> extraRareTrades = new LinkedList<>();
+		// specify extra trades here
+		extraCommonTrades.add(TradeUtils.create(TRContent.RUBBER_SAPLING, 5, 1, 8, 1));
+		// registration of the trades
+		TradeOfferHelper.registerWanderingTraderOffers(1, allTradesList -> allTradesList.addAll(
+				extraCommonTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
+		));
+		TradeOfferHelper.registerWanderingTraderOffers(2, allTradesList -> allTradesList.addAll(
+				extraRareTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
+		));
 	}
 }
