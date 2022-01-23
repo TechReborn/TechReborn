@@ -30,7 +30,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import java.util.function.Predicate;
 
 public enum TargetDimension {
-	OVERWORLD(BiomeSelectors.foundInOverworld()),
+	OVERWORLD(BiomeSelectors.foundInTheNether().negate().and(BiomeSelectors.foundInTheEnd().negate())),
 	NETHER(BiomeSelectors.foundInTheNether()),
 	END(BiomeSelectors.foundInTheEnd());
 
