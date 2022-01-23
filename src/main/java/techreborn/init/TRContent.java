@@ -42,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
-import reborncore.common.misc.WithCompatibilityTag;
+import reborncore.common.misc.TagConvertible;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
 
@@ -642,7 +642,7 @@ public class TRContent {
 
 	public static final Tag.Identified<Item> DUSTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "dusts"));
 
-	public enum Dusts implements ItemConvertible, WithCompatibilityTag<Item> {
+	public enum Dusts implements ItemConvertible, TagConvertible<Item> {
 		ALMANDINE, ALUMINUM, AMETHYST, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
@@ -674,7 +674,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag<Item> getTag() {
+		public Tag<Item> asTag() {
 			return tag;
 		}
 	}
@@ -789,7 +789,7 @@ public class TRContent {
 		}
 	}
 
-	public enum Ingots implements ItemConvertible, WithCompatibilityTag<Item> {
+	public enum Ingots implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
@@ -818,7 +818,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag<Item> getTag() {
+		public Tag<Item> asTag() {
 			return tag;
 		}
 	}

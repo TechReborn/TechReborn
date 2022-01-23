@@ -36,11 +36,11 @@ class TRItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	@Override
 	protected void generateTags() {
 		TRContent.Ingots.values().each { ingot ->
-			getOrCreateTagBuilder(ingot.getTag()).add(ingot.asItem())
+			getOrCreateTagBuilder(ingot.asTag()).add(ingot.asItem())
 			getOrCreateTagBuilder(TRContent.ORES_TAG).add(ingot.asItem())
 		}
 		TRContent.Dusts.values().each { dust ->
-			getOrCreateTagBuilder(dust.getTag()).add(dust.asItem())
+			getOrCreateTagBuilder(dust.asTag()).add(dust.asItem())
 			getOrCreateTagBuilder(TRContent.DUSTS_TAG).add(dust.asItem())
 		}
 		/*Arrays.stream(TRContent.Ores.values()).forEach(
@@ -59,5 +59,6 @@ class TRItemTagProvider extends FabricTagProvider.ItemTagProvider {
 				value -> getOrCreateTagBuilder(TRContent.INGOTS_TAG).add(value.asItem()))
 		Arrays.stream(TRContent.Nuggets.values()).forEach(
 				value -> getOrCreateTagBuilder(TRContent.NUGGETS_TAG).add(value.asItem()))*/
+		System.out.println("Created Tags")
 	}
 }

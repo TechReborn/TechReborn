@@ -50,7 +50,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
     abstract void generateRecipes()
 
     static Ingredient createIngredient(def input) {
-        if (input instanceof ItemConvertible) {
+        if (input instanceof Ingredient) {
+			return input
+		}
+		if (input instanceof ItemConvertible) {
             return Ingredient.ofItems(input)
         } else if (input instanceof Tag.Identified) {
             return Ingredient.fromTag(input)

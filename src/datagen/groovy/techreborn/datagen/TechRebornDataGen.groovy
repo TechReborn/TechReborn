@@ -32,10 +32,12 @@ import techreborn.datagen.tags.TRItemTagProvider
 import techreborn.datagen.tags.WaterExplosionTagProvider
 
 class TechRebornDataGen implements DataGeneratorEntrypoint {
+
     @Override
     void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         fabricDataGenerator.addProvider(WaterExplosionTagProvider.&new)
 		fabricDataGenerator.addProvider(TRItemTagProvider.&new)
+        // tags before all else, very important!!
         fabricDataGenerator.addProvider(SmeltingRecipesProvider.&new)
         fabricDataGenerator.addProvider(CraftingRecipesProvider.&new)
     }

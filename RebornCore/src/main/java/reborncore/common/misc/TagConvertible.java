@@ -31,12 +31,12 @@ import net.minecraft.tag.Tag;
  * For example, several mods have bronze ingots, so TechReborn will tag its bronze ingot with a common tag.
  * @param <T> The type of the object, like {@link net.minecraft.item.Item} or {@link net.minecraft.block.Block}.
  */
-public interface WithCompatibilityTag<T> {
+public interface TagConvertible<T> {
 
 	/**
 	 * Returns the common tag of this object.
 	 * @return the common tag of this object
 	 */
-	public Tag<T> getTag();
+	public Tag<T> asTag();
 
 }

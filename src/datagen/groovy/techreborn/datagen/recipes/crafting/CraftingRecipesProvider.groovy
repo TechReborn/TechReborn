@@ -29,7 +29,6 @@ import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
-import net.minecraft.recipe.Ingredient
 import net.minecraft.util.Identifier
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -54,46 +53,46 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     def generateToolRecipes() {
         // add axes
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_AXE,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_AXE,
-                (TRContent.Gems.RUBY): TRContent.RUBY_AXE,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_AXE
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_AXE,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_AXE,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_AXE,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_AXE
         ].each { material, axe ->
             offerAxeRecipe(material, axe, "crafting_table/gem_armor_tools/")
         }
         // add hoes
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_HOE,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_HOE,
-                (TRContent.Gems.RUBY): TRContent.RUBY_HOE,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_HOE
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_HOE,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_HOE,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_HOE,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_HOE
         ].each { material, hoe ->
             offerHoeRecipe(material, hoe, "crafting_table/gem_armor_tools/")
         }
         // add pickaxes
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_PICKAXE,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_PICKAXE,
-                (TRContent.Gems.RUBY): TRContent.RUBY_PICKAXE,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_PICKAXE
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_PICKAXE,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_PICKAXE,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_PICKAXE,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_PICKAXE
         ].each { material, pickaxe ->
             offerPickaxeRecipe(material, pickaxe, "crafting_table/gem_armor_tools/")
         }
         // add shovels
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_SPADE,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_SPADE,
-                (TRContent.Gems.RUBY): TRContent.RUBY_SPADE,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_SPADE
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_SPADE,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_SPADE,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_SPADE,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SPADE
         ].each { material, shovel ->
             offerShovelRecipe(material, shovel, "crafting_table/gem_armor_tools/", "spade")
         }
         // add swords
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_SWORD,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_SWORD,
-                (TRContent.Gems.RUBY): TRContent.RUBY_SWORD,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_SWORD
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_SWORD,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_SWORD,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_SWORD,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SWORD
         ].each { material, sword ->
             offerSwordRecipe(material, sword, "crafting_table/gem_armor_tools/")
         }
@@ -102,45 +101,45 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     def generateArmorRecipes() {
         // add boots
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_BOOTS,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_BOOTS,
-                (TRContent.Gems.RUBY): TRContent.RUBY_BOOTS,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_BOOTS,
-                (TRContent.Ingots.SILVER): TRContent.SILVER_BOOTS,
-                (TRContent.Ingots.STEEL): TRContent.STEEL_BOOTS
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_BOOTS,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_BOOTS,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_BOOTS,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_BOOTS,
+                (TRContent.Ingots.SILVER)        : TRContent.SILVER_BOOTS,
+                (TRContent.Ingots.STEEL)         : TRContent.STEEL_BOOTS
         ].each { material, boots ->
             offerBootsRecipe(material, boots, "crafting_table/gem_armor_tools/")
         }
         // add chestplate
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_CHESTPLATE,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_CHESTPLATE,
-                (TRContent.Gems.RUBY): TRContent.RUBY_CHESTPLATE,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_CHESTPLATE,
-                (TRContent.Ingots.SILVER): TRContent.SILVER_CHESTPLATE,
-                (TRContent.Ingots.STEEL): TRContent.STEEL_CHESTPLATE
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_CHESTPLATE,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_CHESTPLATE,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_CHESTPLATE,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_CHESTPLATE,
+                (TRContent.Ingots.SILVER)        : TRContent.SILVER_CHESTPLATE,
+                (TRContent.Ingots.STEEL)         : TRContent.STEEL_CHESTPLATE
         ].each { material, chestplate ->
             offerChestplateRecipe(material, chestplate, "crafting_table/gem_armor_tools/")
         }
         // add helmets
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_HELMET,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_HELMET,
-                (TRContent.Gems.RUBY): TRContent.RUBY_HELMET,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_HELMET,
-                (TRContent.Ingots.SILVER): TRContent.SILVER_HELMET,
-                (TRContent.Ingots.STEEL): TRContent.STEEL_HELMET
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_HELMET,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_HELMET,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_HELMET,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_HELMET,
+                (TRContent.Ingots.SILVER)        : TRContent.SILVER_HELMET,
+                (TRContent.Ingots.STEEL)         : TRContent.STEEL_HELMET
         ].each { material, helmet ->
             offerHelmetRecipe(material, helmet, "crafting_table/gem_armor_tools/")
         }
         // add leggings
         [
-                (TRContent.Ingots.BRONZE.getTag()): TRContent.BRONZE_LEGGINGS,
-                (TRContent.Gems.PERIDOT): TRContent.PERIDOT_LEGGINGS,
-                (TRContent.Gems.RUBY): TRContent.RUBY_LEGGINGS,
-                (TRContent.Gems.SAPPHIRE): TRContent.SAPPHIRE_LEGGINGS,
-                (TRContent.Ingots.SILVER): TRContent.SILVER_LEGGINGS,
-                (TRContent.Ingots.STEEL): TRContent.STEEL_LEGGINGS
+                (TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_LEGGINGS,
+                (TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_LEGGINGS,
+                (TRContent.Gems.RUBY)            : TRContent.RUBY_LEGGINGS,
+                (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_LEGGINGS,
+                (TRContent.Ingots.SILVER)        : TRContent.SILVER_LEGGINGS,
+                (TRContent.Ingots.STEEL)         : TRContent.STEEL_LEGGINGS
         ].each { material, leggings ->
             offerLeggingsRecipe(material, leggings, "crafting_table/gem_armor_tools/")
         }
@@ -179,7 +178,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     }
 
     def offerAxeRecipe(def material, ItemConvertible output, prefix = "", String type = "axe") {
-        createDuoShapeRecipe(material, Ingredient.ofItems(Items.STICK), output,
+        createDuoShapeRecipe(material, Items.STICK, output,
                 'X' as char, '#' as char)
                 .pattern("XX")
                 .pattern("X#")
@@ -188,7 +187,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     }
 
     def offerHoeRecipe(def material, ItemConvertible output, prefix = "", String type = "hoe") {
-        createDuoShapeRecipe(material, Ingredient.ofItems(Items.STICK), output,
+        createDuoShapeRecipe(material, Items.STICK, output,
                 'X' as char, '#' as char)
                 .pattern("XX")
                 .pattern(" #")
@@ -197,7 +196,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     }
 
     def offerPickaxeRecipe(def material, ItemConvertible output, prefix = "", String type = "pickaxe") {
-        createDuoShapeRecipe(material, Ingredient.ofItems(Items.STICK), output,
+        createDuoShapeRecipe(material, Items.STICK, output,
                 'X' as char, '#' as char)
                 .pattern("XXX")
                 .pattern(" # ")
@@ -206,7 +205,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     }
 
     def offerShovelRecipe(def material, ItemConvertible output, prefix = "", String type = "shovel") {
-        createDuoShapeRecipe(material, Ingredient.ofItems(Items.STICK), output,
+        createDuoShapeRecipe(material, Items.STICK, output,
                 'X' as char, '#' as char)
                 .pattern("X")
                 .pattern("#")
@@ -215,7 +214,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     }
 
     def offerSwordRecipe(def material, ItemConvertible output, prefix = "", String type = "sword") {
-        createDuoShapeRecipe(material, Ingredient.ofItems(Items.STICK), output,
+        createDuoShapeRecipe(material, Items.STICK, output,
                 'X' as char, '#' as char)
                 .pattern("X")
                 .pattern("X")
