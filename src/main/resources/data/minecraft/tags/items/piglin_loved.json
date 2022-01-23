@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+	"techreborn:gold_plate",
+	"techreborn:gold_cable",
+	"techreborn:insulated_gold_cable",
+	"techreborn:electrum_ingot",
+	"techreborn:electrum_plate",
+	"techreborn:electrum_storage_block"
+  ]
+}
