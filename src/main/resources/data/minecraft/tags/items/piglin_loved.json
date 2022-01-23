@@ -2,7 +2,8 @@
   "replace": false,
   "values": [
 	"techreborn:gold_plate",
-    "techreborn:electrum_ingot",
+	"techreborn:electrum_ingot",
+	"techreborn:electrum_plate",
 	"techreborn:electrum_storage_block"
   ]
 }
