@@ -112,15 +112,15 @@ public class ModRegistry {
 	}
 
 	private static void registerItems() {
-		Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(RawMetals.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(RawMetals.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
 
 		RebornRegistry.registerItem(TRContent.QUANTUM_HELMET = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, EquipmentSlot.HEAD), "quantum_helmet"));
 		RebornRegistry.registerItem(TRContent.QUANTUM_CHESTPLATE = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, EquipmentSlot.CHEST), "quantum_chestplate"));

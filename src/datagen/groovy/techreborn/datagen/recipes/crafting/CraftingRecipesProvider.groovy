@@ -41,11 +41,31 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 
 	@Override
 	void generateRecipes() {
-        // Add dust from small dust and vice versa recipes.
-        TRContent.SmallDusts.getSD2DMap().each { input, output ->
-            offerMonoShapelessRecipe(input, 4, output, 1, "small", "crafting_table/dust/")
-            offerMonoShapelessRecipe(output, 1, input, 4, "dust", "crafting_table/small_dust/")
-        }
+		// add dust from small dust and vice versa recipes
+		TRContent.SmallDusts.getSD2DMap().each { input, output ->
+			offerMonoShapelessRecipe(input, 4, output, 1, "small", "crafting_table/dust/")
+			offerMonoShapelessRecipe(output, 1, input, 4, "dust", "crafting_table/small_dust/")
+		}
+		// add storage block from raw metal and vice versa recipes
+		TRContent.RawMetals.getRM2SBMap().each { input, output ->
+			offerMonoShapelessRecipe(input, 9, output, 1, null, "crafting_table/storage_block/", "raw_" + getInputPath(output))
+			offerMonoShapelessRecipe(output, 1, input, 9, "block", "crafting_table/raw/")
+		}
+		// add storage block from gem and vice versa recipes
+		TRContent.Gems.getG2SBMap().each { input, output ->
+			offerMonoShapelessRecipe(input, 9, output, 1, null, "crafting_table/storage_block/", )
+			offerMonoShapelessRecipe(output, 1, input, 9, "block", "crafting_table/gem/")
+		}
+		// add storage block from ingot and vice versa recipes
+		TRContent.Ingots.getI2SBMap().each { input, output ->
+			offerMonoShapelessRecipe(input, 9, output, 1, null, "crafting_table/storage_block/")
+			offerMonoShapelessRecipe(output, 1, input, 9, "block", "crafting_table/ingot/")
+		}
+		// add ingot from nugget and vice versa recipes
+		TRContent.Nuggets.getN2IMap().each { input, output ->
+			offerMonoShapelessRecipe(input, 9, output, 1, "nugget", input.isOfGem() ? "crafting_table/gem/" : "crafting_table/ingot/")
+			offerMonoShapelessRecipe(output, 1, input, 9, null, "crafting_table/nugget/")
+		}
         generateToolRecipes()
         generateArmorRecipes()
 	}
@@ -58,7 +78,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Gems.RUBY)            : TRContent.RUBY_AXE,
                 (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_AXE
         ].each { material, axe ->
-            offerAxeRecipe(material, axe, "crafting_table/gem_armor_tools/")
+            offerAxeRecipe(material, axe, "crafting_table/tool/")
         }
         // add hoes
         [
@@ -67,7 +87,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Gems.RUBY)            : TRContent.RUBY_HOE,
                 (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_HOE
         ].each { material, hoe ->
-            offerHoeRecipe(material, hoe, "crafting_table/gem_armor_tools/")
+            offerHoeRecipe(material, hoe, "crafting_table/tool/")
         }
         // add pickaxes
         [
@@ -76,7 +96,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Gems.RUBY)            : TRContent.RUBY_PICKAXE,
                 (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_PICKAXE
         ].each { material, pickaxe ->
-            offerPickaxeRecipe(material, pickaxe, "crafting_table/gem_armor_tools/")
+            offerPickaxeRecipe(material, pickaxe, "crafting_table/tool/")
         }
         // add shovels
         [
@@ -85,7 +105,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Gems.RUBY)            : TRContent.RUBY_SPADE,
                 (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SPADE
         ].each { material, shovel ->
-            offerShovelRecipe(material, shovel, "crafting_table/gem_armor_tools/", "spade")
+            offerShovelRecipe(material, shovel, "crafting_table/tool/", "spade")
         }
         // add swords
         [
@@ -94,7 +114,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Gems.RUBY)            : TRContent.RUBY_SWORD,
                 (TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SWORD
         ].each { material, sword ->
-            offerSwordRecipe(material, sword, "crafting_table/gem_armor_tools/")
+            offerSwordRecipe(material, sword, "crafting_table/tool/")
         }
     }
 
@@ -108,7 +128,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Ingots.SILVER)        : TRContent.SILVER_BOOTS,
                 (TRContent.Ingots.STEEL)         : TRContent.STEEL_BOOTS
         ].each { material, boots ->
-            offerBootsRecipe(material, boots, "crafting_table/gem_armor_tools/")
+            offerBootsRecipe(material, boots, "crafting_table/armor/")
         }
         // add chestplate
         [
@@ -119,7 +139,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Ingots.SILVER)        : TRContent.SILVER_CHESTPLATE,
                 (TRContent.Ingots.STEEL)         : TRContent.STEEL_CHESTPLATE
         ].each { material, chestplate ->
-            offerChestplateRecipe(material, chestplate, "crafting_table/gem_armor_tools/")
+            offerChestplateRecipe(material, chestplate, "crafting_table/armor/")
         }
         // add helmets
         [
@@ -130,7 +150,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Ingots.SILVER)        : TRContent.SILVER_HELMET,
                 (TRContent.Ingots.STEEL)         : TRContent.STEEL_HELMET
         ].each { material, helmet ->
-            offerHelmetRecipe(material, helmet, "crafting_table/gem_armor_tools/")
+            offerHelmetRecipe(material, helmet, "crafting_table/armor/")
         }
         // add leggings
         [
@@ -141,14 +161,28 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 (TRContent.Ingots.SILVER)        : TRContent.SILVER_LEGGINGS,
                 (TRContent.Ingots.STEEL)         : TRContent.STEEL_LEGGINGS
         ].each { material, leggings ->
-            offerLeggingsRecipe(material, leggings, "crafting_table/gem_armor_tools/")
+            offerLeggingsRecipe(material, leggings, "crafting_table/armor/")
         }
     }
 
-    def offerMonoShapelessRecipe(def input, int inputSize, ItemConvertible output, int outputSize, String source = getInputPath(input), prefix = "") {
-        ShapelessRecipeJsonFactory.create(output, outputSize).input(createIngredient(input), inputSize)
+	def static recipeNameString(String prefix, def input, def output, String source = null, String result = null) {
+		StringBuilder s = new StringBuilder()
+		s.append(prefix)
+		if (result == null)
+			s.append(getInputPath(output))
+		else
+			s.append(result)
+		if (source != null) {
+			s.append("_from_")
+			s.append(source)
+		}
+		return s.toString()
+	}
+
+    def offerMonoShapelessRecipe(def input, int inputSize, ItemConvertible output, int outputSize, String source, prefix = "", String result = null) {
+		ShapelessRecipeJsonFactory.create(output, outputSize).input(createIngredient(input), inputSize)
                 .criterion(getCriterionName(input), getCriterionConditions(input))
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, prefix + getInputPath(output) + "_from_" + source))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(prefix, input, output, source, result)))
     }
 
     def static materialTypeString(String prefix, def material, String type) {

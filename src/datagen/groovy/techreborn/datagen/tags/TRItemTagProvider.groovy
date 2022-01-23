@@ -25,40 +25,51 @@
 package techreborn.datagen.tags
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.ItemTagProvider
 import techreborn.init.TRContent
 
-class TRItemTagProvider extends FabricTagProvider.ItemTagProvider {
+class TRItemTagProvider extends ItemTagProvider {
 	TRItemTagProvider(FabricDataGenerator dataGenerator) {
 		super(dataGenerator)
 	}
 
 	@Override
 	protected void generateTags() {
-		TRContent.Ingots.values().each { ingot ->
-			getOrCreateTagBuilder(ingot.asTag()).add(ingot.asItem())
-			getOrCreateTagBuilder(TRContent.ORES_TAG).add(ingot.asItem())
+		TRContent.Ores.values().each { ore ->
+			getOrCreateTagBuilder(ore.asTag()).add(ore.asItem())
+			getOrCreateTagBuilder(TRContent.ORES_TAG).add(ore.asItem())
+		}
+		TRContent.StorageBlocks.values().each { block ->
+			getOrCreateTagBuilder(block.asTag()).add(block.asItem())
+			getOrCreateTagBuilder(TRContent.STORAGE_BLOCK_TAG).add(block.asItem())
 		}
 		TRContent.Dusts.values().each { dust ->
 			getOrCreateTagBuilder(dust.asTag()).add(dust.asItem())
 			getOrCreateTagBuilder(TRContent.DUSTS_TAG).add(dust.asItem())
 		}
-		/*Arrays.stream(TRContent.Ores.values()).forEach(
-				value -> getOrCreateTagBuilder(TRContent.ORES_TAG).add(value.asItem()))
-		Arrays.stream(TRContent.StorageBlocks.values()).forEach(
-				value -> getOrCreateTagBuilder(TRContent.STORAGE_BLOCKS_TAG).add(value.asItem()))
-		Arrays.stream(TRContent.Dusts.values()).forEach(
-				value -> getOrCreateTagBuilder(TRContent.DUSTS_TAG).add(value.asItem()))
-		Arrays.stream(TRContent.RawMetals.values()).forEach(
-				value -> getOrCreateTagBuilder(TRContent.RAW_METALS_TAG).add(value.asItem()))
-		Arrays.stream(TRContent.SmallDusts.values()).forEach(
-				value -> getOrCreateTagBuilder(TRContent.SMALL_DUSTS_TAG).add(value.asItem()))
-		Arrays.stream(TRContent.Gems.values()).forEach(
-				value -> getOrCreateTagBuilder(TRContent.GEMS_TAG).add(value.asItem()))
-		Arrays.stream(TRContent.Ingots.values()).forEach(
-				value -> getOrCreateTagBuilder(TRContent.INGOTS_TAG).add(value.asItem()))
-		Arrays.stream(TRContent.Nuggets.values()).forEach(
-				value -> getOrCreateTagBuilder(TRContent.NUGGETS_TAG).add(value.asItem()))*/
-		System.out.println("Created Tags")
+		TRContent.RawMetals.values().each { raw ->
+			getOrCreateTagBuilder(raw.asTag()).add(raw.asItem())
+			getOrCreateTagBuilder(TRContent.RAW_METALS_TAG).add(raw.asItem())
+		}
+		TRContent.SmallDusts.values().each { smallDust ->
+			getOrCreateTagBuilder(smallDust.asTag()).add(smallDust.asItem())
+			getOrCreateTagBuilder(TRContent.SMALL_DUSTS_TAG).add(smallDust.asItem())
+		}
+		TRContent.Gems.values().each { gem ->
+			getOrCreateTagBuilder(gem.asTag()).add(gem.asItem())
+			getOrCreateTagBuilder(TRContent.GEMS_TAG).add(gem.asItem())
+		}
+		TRContent.Ingots.values().each { ingot ->
+			getOrCreateTagBuilder(ingot.asTag()).add(ingot.asItem())
+			getOrCreateTagBuilder(TRContent.INGOTS_TAG).add(ingot.asItem())
+		}
+		TRContent.Nuggets.values().each { nugget ->
+			getOrCreateTagBuilder(nugget.asTag()).add(nugget.asItem())
+			getOrCreateTagBuilder(TRContent.NUGGETS_TAG).add(nugget.asItem())
+		}
+		TRContent.Plates.values().each { plate ->
+			getOrCreateTagBuilder(plate.asTag()).add(plate.asItem())
+			getOrCreateTagBuilder(TRContent.PLATES_TAG).add(plate.asItem())
+		}
 	}
 }

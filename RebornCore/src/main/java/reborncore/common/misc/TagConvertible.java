@@ -37,6 +37,6 @@ public interface TagConvertible<T> {
 	 * Returns the common tag of this object.
 	 * @return the common tag of this object
 	 */
-	public Tag<T> asTag();
+	Tag.Identified<T> asTag();
 
 }

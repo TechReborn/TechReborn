@@ -403,9 +403,8 @@ public class TRContent {
 
 	private final static Map<Ores, Ores> unDeepslateMap = new HashMap<>();
 
-	public enum Ores implements ItemConvertible {
-		// when changing ores also change data/techreborn/tags/items/ores.json for correct root advancement display
-		// as well as data/minecraft/tags/blocks for correct mining level
+	public enum Ores implements ItemConvertible, TagConvertible<Item> {
+		// when changing ores also change data/minecraft/tags/blocks for correct mining level
 		BAUXITE(OreDistribution.BAUXITE),
 		CINNABAR(OreDistribution.CINNABAR),
 		GALENA(OreDistribution.GALENA),
@@ -438,6 +437,7 @@ public class TRContent {
 		public final String name;
 		public final Block block;
 		public final OreDistribution distribution;
+		private final Tag.Identified<Item> tag;
 
 		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback) {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -447,8 +447,9 @@ public class TRContent {
 					.strength(2f, 2f),
 					distribution != null ? distribution.experienceDropped : experienceDroppedFallback
 			);
-
 			InitUtils.setup(block, name + "_ore");
+			tag = TagFactory.ITEM.create(new Identifier("c",
+					(name.startsWith("deepslate_") ? name.substring(name.indexOf('_')+1): name) + "_ores"));
 			this.distribution = distribution;
 		}
 
@@ -467,6 +468,11 @@ public class TRContent {
 			return block.asItem();
 		}
 
+		@Override
+		public Tag.Identified<Item> asTag() {
+			return tag;
+		}
+
 		public TRContent.Ores getDeepslate() {
 			Preconditions.checkArgument(!isDeepslate());
 			return deepslateMap.get(this);
@@ -482,22 +488,26 @@ public class TRContent {
 		}
 	}
 
-	public enum StorageBlocks implements ItemConvertible {
+	public static final Tag.Identified<Item> STORAGE_BLOCK_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "storage_blocks"));
+
+	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
 		ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
 		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RAW_IRIDIUM, RAW_LEAD, RAW_SILVER, RAW_TIN,
 		RAW_TUNGSTEN, RED_GARNET, REFINED_IRON, RUBY, SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL,
 		YELLOW_GARNET, ZINC;
 
-		public final String name;
+		private final String name;
 		public final Block block;
-		public final StairsBlock stairsBlock;
-		public final SlabBlock slabBlock;
-		public final WallBlock wallBlock;
+		private final StairsBlock stairsBlock;
+		private final SlabBlock slabBlock;
+		private final WallBlock wallBlock;
+		private final Tag.Identified<Item> tag;
 
 		StorageBlocks() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new BlockStorage();
 			InitUtils.setup(block, name + "_storage_block");
+			tag = TagFactory.ITEM.create(new Identifier("c", name + "_blocks"));
 
 			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block));
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
@@ -512,6 +522,11 @@ public class TRContent {
 		@Override
 		public Item asItem() {
 			return block.asItem();
+		}
+
+		@Override
+		public Tag.Identified<Item> asTag() {
+			return tag;
 		}
 
 		public static Stream<Block> blockStream() {
@@ -649,9 +664,9 @@ public class TRContent {
 		NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, RED_GARNET, RUBY, SALTPETER,
 		SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM, UVAROVITE, YELLOW_GARNET, ZINC;
 
-		public final String name;
-		public final Item item;
-		final Tag<Item> tag;
+		private final String name;
+		private final Item item;
+		private final Tag.Identified<Item> tag;
 
 		Dusts() {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -674,32 +689,66 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag<Item> asTag() {
+		public Tag.Identified<Item> asTag() {
 			return tag;
 		}
 	}
 
+	public static final Tag.Identified<Item> RAW_METALS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "raw_metals"));
 
-	public enum RawMetals implements ItemConvertible{
-		// when changing ores also change data/techreborn/tags/items/raw_metals.json for correct root advancement display
+	public enum RawMetals implements ItemConvertible, TagConvertible<Item> {
 		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN;
 
-		public final String name;
-		public final  Item item;
+		private final String name;
+		private final Item item;
+		private final ItemConvertible storageBlock;
+		private final Tag.Identified<Item> tag;
 
 		RawMetals() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			ItemConvertible blockVariant = null;
+			try {
+				blockVariant = StorageBlocks.valueOf(this.toString());
+			}
+			catch (IllegalArgumentException ex) {
+				TechReborn.LOGGER.warn("Raw metal {} has no storage block equivalent!", name);
+			}
+			storageBlock = blockVariant;
 			InitUtils.setup(item, "raw_" + name);
+			tag = TagFactory.ITEM.create(new Identifier("c", "raw_" + name + "_ores"));
 		}
 
 		@Override
 		public Item asItem() {
 			return item;
 		}
+
+		@Override
+		public Tag.Identified<Item> asTag() {
+			return tag;
+		}
+
+		public ItemConvertible getStorageBlock() {
+			return storageBlock;
+		}
+
+		/**
+		 * Returns a map that maps the raw metals to their storage block equivalent.
+		 * @return A non {@code null} map mapping the raw metals to their storage block equivalent.
+		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
+		 */
+		public static @NotNull Map<RawMetals, ItemConvertible> getRM2SBMap() {
+			return Arrays.stream(values())
+					.map(rawMetal -> new Pair<>(rawMetal, rawMetal.getStorageBlock()))
+					.filter(entry -> entry.getRight() != null) // ensure storage block equivalent exists
+					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
+		}
 	}
 
-	public enum SmallDusts implements ItemConvertible {
+	public static final Tag.Identified<Item> SMALL_DUSTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "small_dusts"));
+
+	public enum SmallDusts implements ItemConvertible, TagConvertible<Item> {
 		ALMANDINE, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GLOWSTONE(Items.GLOWSTONE_DUST), GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE,
@@ -707,9 +756,10 @@ public class TRContent {
 		RED_GARNET, RUBY, SALTPETER, SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM,
 		TUNGSTEN(RawMetals.TUNGSTEN), UVAROVITE, YELLOW_GARNET, ZINC;
 
-		public final String name;
-		public final Item item;
-		public final ItemConvertible dust;
+		private final String name;
+		private final Item item;
+		private final ItemConvertible dust;
+		private final Tag.Identified<Item> tag;
 
 		SmallDusts(ItemConvertible dustVariant) {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -723,6 +773,7 @@ public class TRContent {
 				}
 			dust = dustVariant;
 			InitUtils.setup(item, name + "_small_dust");
+			tag = TagFactory.ITEM.create(new Identifier("c", name + "_small_dusts"));
 		}
 
 		SmallDusts() {
@@ -742,6 +793,11 @@ public class TRContent {
 			return item;
 		}
 
+		@Override
+		public Tag.Identified<Item> asTag() {
+			return tag;
+		}
+
 		public ItemConvertible getDust() {
 			return dust;
 		}
@@ -751,28 +807,44 @@ public class TRContent {
 		 * as it was specified in the enum. Note that the dust equivalent
 		 * doesn't have to be a TR dust (see redstone and glowstone dust)
 		 * and also not a dust at all (see tungsten).
-		 * @return A non {@code null} map mapping the small dusts to its dust equivalent.
+		 * @return A non {@code null} map mapping the small dusts to their dust equivalent.
 		 * If a dust equivalent doesn't exist, the small dust will not be in the keys of this map.
 		 */
 		public static @NotNull Map<SmallDusts, ItemConvertible> getSD2DMap() {
 			return Arrays.stream(values())
-					.map(smallDust -> new Pair(smallDust, smallDust.dust))
+					.map(smallDust -> new Pair<>(smallDust, smallDust.getDust()))
 					.filter(entry -> entry.getRight() != null) // ensure dust equivalent exists
-					.collect(Collectors.toMap(entry -> (SmallDusts)entry.getLeft(), entry -> (ItemConvertible)entry.getRight()));
+					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 	}
 
-	public enum Gems implements ItemConvertible {
-		// when changing ores also change data/techreborn/tags/items/gems.json for correct root advancement display
-		PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
+	public static final Tag.Identified<Item> GEMS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "gems"));
 
-		public final String name;
-		public final Item item;
+	public enum Gems implements ItemConvertible, TagConvertible<Item> {
+		PERIDOT, RED_GARNET, RUBY("rubies"), SAPPHIRE("sapphires"), YELLOW_GARNET;
 
-		Gems() {
+		private final String name;
+		private final Item item;
+		private final ItemConvertible storageBlock;
+		private final Tag.Identified<Item> tag;
+
+		Gems(String tagPlural) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			ItemConvertible blockVariant = null;
+			try {
+				blockVariant = StorageBlocks.valueOf(this.toString());
+			}
+			catch (IllegalArgumentException ex) {
+				TechReborn.LOGGER.warn("Gem {} has no storage block equivalent!", name);
+			}
+			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_gem");
+			tag = TagFactory.ITEM.create(new Identifier("c", tagPlural == null ? name + "_gems" : tagPlural));
+		}
+
+		Gems() {
+			this(null);
 		}
 
 		public ItemStack getStack() {
@@ -787,19 +859,51 @@ public class TRContent {
 		public Item asItem() {
 			return item;
 		}
+
+		@Override
+		public Tag.Identified<Item> asTag() {
+			return tag;
+		}
+
+		public ItemConvertible getStorageBlock() {
+			return storageBlock;
+		}
+
+		/**
+		 * Returns a map that maps the gems to their storage block equivalent.
+		 * @return A non {@code null} map mapping the gems to their storage block equivalent.
+		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
+		 */
+		public static @NotNull Map<Gems, ItemConvertible> getG2SBMap() {
+			return Arrays.stream(values())
+					.map(gem -> new Pair<>(gem, gem.getStorageBlock()))
+					.filter(entry -> entry.getRight() != null) // ensure storage block equivalent exists
+					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
+		}
 	}
+
+	public static final Tag.Identified<Item> INGOTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "ingots"));
 
 	public enum Ingots implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
-		public final String name;
-		public final Item item;
-		final Tag<Item> tag;
+		private final String name;
+		private final Item item;
+		private final ItemConvertible storageBlock;
+		private final Tag.Identified<Item> tag;
 
 		Ingots() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			ItemConvertible blockVariant = null;
+			try {
+				blockVariant = StorageBlocks.valueOf(this.toString());
+			}
+			catch (IllegalArgumentException ex) {
+				TechReborn.LOGGER.warn("Ingot {} has no storage block equivalent!", name);
+			}
+			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_ingot");
 			tag = TagFactory.ITEM.create(new Identifier("c", name + "_ingots"));
 		}
@@ -818,22 +922,58 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag<Item> asTag() {
+		public Tag.Identified<Item> asTag() {
 			return tag;
+		}
+
+		public ItemConvertible getStorageBlock() {
+			return storageBlock;
+		}
+
+		/**
+		 * Returns a map that maps the ingots to their storage block equivalent.
+		 * @return A non {@code null} map mapping the ingots to their storage block equivalent.
+		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
+		 */
+		public static @NotNull Map<Ingots, ItemConvertible> getI2SBMap() {
+			return Arrays.stream(values())
+					.map(ingot -> new Pair<>(ingot, ingot.getStorageBlock()))
+					.filter(entry -> entry.getRight() != null) // ensure storage block equivalent exists
+					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 	}
 
-	public enum Nuggets implements ItemConvertible {
-		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, DIAMOND, ELECTRUM, EMERALD, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD, NICKEL,
+	public static final Tag.Identified<Item> NUGGETS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "nuggets"));
+
+	public enum Nuggets implements ItemConvertible, TagConvertible<Item> {
+		ALUMINUM, BRASS, BRONZE, CHROME, COPPER(Items.COPPER_INGOT, false), DIAMOND(Items.DIAMOND, true),
+		ELECTRUM, EMERALD(Items.EMERALD, true), HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD, NICKEL,
 		PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
-		public final String name;
-		public final Item item;
+		private final String name;
+		private final Item item;
+		private final ItemConvertible ingot;
+		private final boolean ofGem;
+		private final Tag.Identified<Item> tag;
 
-		Nuggets() {
+		Nuggets(ItemConvertible ingotVariant, boolean ofGem) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			if (ingotVariant == null)
+				try {
+					ingotVariant = Ingots.valueOf(this.toString());
+				}
+				catch (IllegalArgumentException ex) {
+					TechReborn.LOGGER.warn("Nugget {} has no ingot equivalent!", name);
+				}
+			ingot = ingotVariant;
+			this.ofGem = ofGem;
 			InitUtils.setup(item, name + "_nugget");
+			tag = TagFactory.ITEM.create(new Identifier("c", name + "_nuggets"));
+		}
+
+		Nuggets() {
+			this(null, false);
 		}
 
 		public ItemStack getStack() {
@@ -847,6 +987,33 @@ public class TRContent {
 		@Override
 		public Item asItem() {
 			return item;
+		}
+
+		@Override
+		public Tag.Identified<Item> asTag() {
+			return tag;
+		}
+
+		public ItemConvertible getIngot() {
+			return ingot;
+		}
+
+		public boolean isOfGem() {
+			return false;
+		}
+
+		/**
+		 * Returns a map that maps the nuggets to their ingot equivalent,
+		 * as it was specified in the enum. Note that the ingot equivalent
+		 * doesn't have to be an ingot at all (see emerald and diamond).
+		 * @return A non {@code null} map mapping the nuggets to their ingot equivalent.
+		 * If an ingot equivalent doesn't exist, the raw metal will not be in the keys of this map.
+		 */
+		public static @NotNull Map<Nuggets, ItemConvertible> getN2IMap() {
+			return Arrays.stream(values())
+					.map(nugget -> new Pair<>(nugget, nugget.getIngot()))
+					.filter(entry -> entry.getRight() != null) // ensure ingot equivalent exists
+					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 	}
 
@@ -925,19 +1092,23 @@ public class TRContent {
 		}
 	}
 
-	public enum Plates implements ItemConvertible {
+	public static final Tag.Identified<Item> PLATES_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "plates"));
+
+	public enum Plates implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CARBON, CHROME, COAL, COPPER, DIAMOND, ELECTRUM, EMERALD, GOLD, INVAR,
 		IRIDIUM_ALLOY, IRIDIUM, IRON, LAPIS, LAZURITE, LEAD, MAGNALIUM, NICKEL, OBSIDIAN, PERIDOT, PLATINUM, QUARTZ, RED_GARNET,
 		REDSTONE, REFINED_IRON, RUBY, SAPPHIRE, SILICON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, WOOD,
 		YELLOW_GARNET, ZINC;
 
-		public final String name;
-		public final Item item;
+		private final String name;
+		private final Item item;
+		private final Tag.Identified<Item> tag;
 
 		Plates() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_plate");
+			tag = TagFactory.ITEM.create(new Identifier("c", name + "_plates"));
 		}
 
 		public ItemStack getStack() {
@@ -951,6 +1122,11 @@ public class TRContent {
 		@Override
 		public Item asItem() {
 			return item;
+		}
+
+		@Override
+		public Tag.Identified<Item> asTag() {
+			return tag;
 		}
 	}
 
