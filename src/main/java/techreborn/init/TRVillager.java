@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuil
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
@@ -22,8 +23,8 @@ public class TRVillager {
 	public static final PointOfInterestType TINKERER_POI = PointOfInterestHelper.register(
 			TINKERER_ID, 1, 1, TRContent.Machine.IRON_ALLOY_FURNACE.block);
 
-	public static final VillagerProfession TINKERER_PROFESSION = VillagerProfessionBuilder.create()
-			.id(TINKERER_ID).workstation(TINKERER_POI).workSound(SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH).build();
+	public static final VillagerProfession TINKERER_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION,TINKERER_ID,
+			VillagerProfessionBuilder.create().id(TINKERER_ID).workstation(TINKERER_POI).workSound(SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH).build());
 
 	private  TRVillager() {/* No instantiation. */}
 
