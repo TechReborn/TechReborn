@@ -27,12 +27,15 @@ package techreborn.datagen.recipes.crafting
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory
+import net.minecraft.data.server.recipe.SingleItemRecipeJsonFactory
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
 import net.minecraft.util.Identifier
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
+
+import java.util.function.Function
 
 class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	CraftingRecipesProvider(FabricDataGenerator dataGenerator) {
@@ -65,6 +68,15 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		TRContent.Nuggets.getN2IMap().each { input, output ->
 			offerMonoShapelessRecipe(input, 9, output, 1, "nugget", input.isOfGem() ? "crafting_table/gem/" : "crafting_table/ingot/")
 			offerMonoShapelessRecipe(output, 1, input, 9, null, "crafting_table/nugget/")
+		}
+		// add slabs, stairs and walls
+		TRContent.StorageBlocks.values().each {block ->
+			offerSlabRecipe(block.asTag(), block.getSlabBlock(), "crafting_table/storage_block/")
+			offerSlabRecipeStonecutter(block.asTag(), block.getSlabBlock(), "crafting_table/storage_block/")
+			offerStairsRecipe(block.asTag(), block.getStairsBlock(), "crafting_table/storage_block/")
+			offerStairsRecipeStonecutter(block.asTag(), block.getStairsBlock(), "crafting_table/storage_block/")
+			offerWallRecipe(block.asTag(), block.getWallBlock(), "crafting_table/storage_block/")
+			offerWallRecipeStonecutter(block.asTag(), block.getWallBlock(), "crafting_table/storage_block/")
 		}
         generateToolRecipes()
         generateArmorRecipes()
@@ -185,17 +197,17 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(prefix, input, output, source, result)))
     }
 
-    def static materialTypeString(String prefix, def material, String type) {
+    def static materialTypeString(String prefix, def material, String type, Function<?, String> modifier) {
         StringBuilder s = new StringBuilder()
         s.append(prefix)
-        s.append(getNamePart1(material))
+        s.append(modifier.apply(material))
         s.append('_')
         s.append(type)
         return s.toString()
     }
 
-    def static createMonoShapeRecipe(def input, ItemConvertible output, char character) {
-        return ShapedRecipeJsonFactory.create(output)
+    def static createMonoShapeRecipe(def input, ItemConvertible output, char character, int outputAmount = 1) {
+        return ShapedRecipeJsonFactory.create(output, outputAmount)
                 .input(character, createIngredient(input))
                 .criterion(getCriterionName(input), getCriterionConditions(input))
     }
@@ -211,13 +223,54 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         return factory
     }
 
+	def static createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1) {
+		return SingleItemRecipeJsonFactory.createStonecutting(createIngredient(input), output, outputAmount)
+				.criterion(getCriterionName(input), getCriterionConditions(input))
+	}
+
+	def offerSlabRecipe(def material, ItemConvertible output, prefix = "") {
+		createMonoShapeRecipe(material, output, 'X' as char, 6)
+				.pattern("XXX")
+				.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, "slab", TechRebornRecipesProvider::getName)))
+	}
+
+	def offerSlabRecipeStonecutter(def material, ItemConvertible output, prefix = "") {
+		createStonecutterRecipe(material, output, 2)
+				.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, "slab", TechRebornRecipesProvider::getName) + "_stonecutter"))
+	}
+
+	def offerStairsRecipe(def material, ItemConvertible output, prefix = "") {
+		createMonoShapeRecipe(material, output, 'X' as char, 4)
+				.pattern("X  ")
+				.pattern("XX ")
+				.pattern("XXX")
+				.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, "stairs", TechRebornRecipesProvider::getName)))
+	}
+
+	def offerStairsRecipeStonecutter(def material, ItemConvertible output, prefix = "") {
+		createStonecutterRecipe(material, output)
+				.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, "stairs", TechRebornRecipesProvider::getName) + "_stonecutter"))
+	}
+
+	def offerWallRecipe(def material, ItemConvertible output, prefix = "") {
+		createMonoShapeRecipe(material, output, 'X' as char, 6)
+				.pattern("XXX")
+				.pattern("XXX")
+				.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, "wall", TechRebornRecipesProvider::getName)))
+	}
+
+	def offerWallRecipeStonecutter(def material, ItemConvertible output, prefix = "") {
+		createStonecutterRecipe(material, output)
+				.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, "wall", TechRebornRecipesProvider::getName) + "_stonecutter"))
+	}
+
     def offerAxeRecipe(def material, ItemConvertible output, prefix = "", String type = "axe") {
         createDuoShapeRecipe(material, Items.STICK, output,
                 'X' as char, '#' as char)
                 .pattern("XX")
                 .pattern("X#")
                 .pattern(" #")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
     def offerHoeRecipe(def material, ItemConvertible output, prefix = "", String type = "hoe") {
@@ -226,7 +279,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 .pattern("XX")
                 .pattern(" #")
                 .pattern(" #")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
     def offerPickaxeRecipe(def material, ItemConvertible output, prefix = "", String type = "pickaxe") {
@@ -235,7 +288,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 .pattern("XXX")
                 .pattern(" # ")
                 .pattern(" # ")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
     def offerShovelRecipe(def material, ItemConvertible output, prefix = "", String type = "shovel") {
@@ -244,7 +297,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 .pattern("X")
                 .pattern("#")
                 .pattern("#")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
     def offerSwordRecipe(def material, ItemConvertible output, prefix = "", String type = "sword") {
@@ -253,14 +306,14 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 .pattern("X")
                 .pattern("X")
                 .pattern("#")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
     def offerBootsRecipe(def material, ItemConvertible output, prefix = "", String type = "boots") {
         createMonoShapeRecipe(material, output, 'X' as char)
                 .pattern("X X")
                 .pattern("X X")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
     def offerChestplateRecipe(def material, ItemConvertible output, prefix = "", String type = "chestplate") {
@@ -268,14 +321,14 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 .pattern("X X")
                 .pattern("XXX")
                 .pattern("XXX")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
     def offerHelmetRecipe(def material, ItemConvertible output, prefix = "", String type = "helmet") {
         createMonoShapeRecipe(material, output, 'X' as char)
                 .pattern("XXX")
                 .pattern("X X")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
     def offerLeggingsRecipe(def material, ItemConvertible output, prefix = "", String type = "leggings") {
@@ -283,7 +336,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 .pattern("XXX")
                 .pattern("X X")
                 .pattern("X X")
-                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type)))
+                .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
 

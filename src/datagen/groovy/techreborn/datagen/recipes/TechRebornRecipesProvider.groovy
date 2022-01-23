@@ -92,20 +92,33 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
         throw new IllegalArgumentException()
     }
 
-    static String getNamePart1(def input) {
-        String name
+    static String getName(def input) {
         if (input instanceof ItemConvertible) {
-            name = getItemPath(input)
-            return name.substring(0,name.indexOf("_"))
+			return getItemPath(input)
         } else if (input instanceof Tag.Identified) {
-            name = input.getId().toString()
+			String name = input.getId().toString()
             if (name.contains(":"))
                 name = name.substring(name.indexOf(":")+1)
-            return name.substring(0,name.indexOf("_"))
+			return name
         }
 
         throw new IllegalArgumentException()
     }
+
+	static String getNamePart1(def input) {
+		String name
+		if (input instanceof ItemConvertible) {
+			name = getItemPath(input)
+			return name.substring(0,name.indexOf("_"))
+		} else if (input instanceof Tag.Identified) {
+			name = input.getId().toString()
+			if (name.contains(":"))
+				name = name.substring(name.indexOf(":")+1)
+			return name.substring(0,name.indexOf("_"))
+		}
+
+		throw new IllegalArgumentException()
+	}
 
     @Override
     protected Identifier getRecipeIdentifier(Identifier identifier) {

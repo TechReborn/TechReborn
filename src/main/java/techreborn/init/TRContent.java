@@ -497,7 +497,7 @@ public class TRContent {
 		YELLOW_GARNET, ZINC;
 
 		private final String name;
-		public final Block block;
+		private final Block block;
 		private final StairsBlock stairsBlock;
 		private final SlabBlock slabBlock;
 		private final WallBlock wallBlock;
@@ -527,6 +527,22 @@ public class TRContent {
 		@Override
 		public Tag.Identified<Item> asTag() {
 			return tag;
+		}
+
+		public Block getBlock() {
+			return block;
+		}
+
+		public StairsBlock getStairsBlock() {
+			return stairsBlock;
+		}
+
+		public SlabBlock getSlabBlock() {
+			return slabBlock;
+		}
+
+		public WallBlock getWallBlock() {
+			return wallBlock;
 		}
 
 		public static Stream<Block> blockStream() {
