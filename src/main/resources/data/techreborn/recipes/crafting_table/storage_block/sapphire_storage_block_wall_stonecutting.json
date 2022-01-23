@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-	"item": "techreborn:sapphire_storage_block"
-  },
-  "result": "techreborn:sapphire_storage_block_wall",
-  "count": 1
-}

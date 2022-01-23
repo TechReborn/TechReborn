@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-	"item": "techreborn:titanium_storage_block"
-  },
-  "result": "techreborn:titanium_storage_block_wall",
-  "count": 1
-}

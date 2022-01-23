@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-	"item": "techreborn:zinc_storage_block"
-  },
-  "result": "techreborn:zinc_storage_block_stairs",
-  "count": 1
-}

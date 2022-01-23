@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-	"item": "techreborn:refined_iron_storage_block"
-  },
-  "result": "techreborn:refined_iron_storage_block_wall",
-  "count": 1
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-	"item": "techreborn:iridium_storage_block"
-  },
-  "result": "techreborn:iridium_storage_block_slab",
-  "count": 2
-}

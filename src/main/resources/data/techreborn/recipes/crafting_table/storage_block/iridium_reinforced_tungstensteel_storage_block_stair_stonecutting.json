@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-	"item": "techreborn:iridium_reinforced_tungstensteel_storage_block"
-  },
-  "result": "techreborn:iridium_reinforced_tungstensteel_storage_block_stairs",
-  "count": 1
-}
