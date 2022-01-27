@@ -137,7 +137,7 @@ public class FluidIngredient extends RebornIngredient {
 	}
 
 	@Override
-	public JsonObject toJson() {
+	public JsonObject toJson(boolean networkSync) {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("fluid", Registry.FLUID.getId(fluid).toString());
 		if (holders.isPresent()) {

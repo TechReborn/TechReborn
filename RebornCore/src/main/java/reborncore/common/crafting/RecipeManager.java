@@ -62,7 +62,7 @@ public class RecipeManager {
 		return recipeTypes.get(name);
 	}
 
-	public static List<RebornRecipeType> getRecipeTypes(String namespace) {
+	public static List<RebornRecipeType<?>> getRecipeTypes(String namespace) {
 		return recipeTypes.values().stream().filter(rebornRecipeType -> rebornRecipeType.name().getNamespace().equals(namespace)).collect(Collectors.toList());
 	}
 }

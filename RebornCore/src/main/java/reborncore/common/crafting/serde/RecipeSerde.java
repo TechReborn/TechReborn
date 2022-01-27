@@ -32,5 +32,5 @@ import reborncore.common.crafting.RebornRecipeType;
 public interface RecipeSerde<R extends RebornRecipe> {
 	R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name);
 
-	void toJson(R recipe, JsonObject jsonObject);
+	void toJson(R recipe, JsonObject jsonObject, boolean networkSync);
 }

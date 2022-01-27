@@ -48,15 +48,19 @@ public abstract class RebornIngredient implements Predicate<ItemStack> {
 
 	public abstract List<ItemStack> getPreviewStacks();
 
-	protected abstract JsonObject toJson();
+	protected abstract JsonObject toJson(boolean networkSync);
 
 	public abstract int getCount();
 
 	//Same as above but adds the type
-	public final JsonObject witeToJson() {
-		JsonObject jsonObject = toJson();
+	public final JsonObject writeToJson(boolean networkSync) {
+		JsonObject jsonObject = toJson(networkSync);
 		jsonObject.addProperty("type", ingredientType.toString());
 		return jsonObject;
+	}
+
+	public final JsonObject writeToSyncJson() {
+		return writeToJson(true);
 	}
 
 	public <T extends RebornIngredient> void ifType(Class<T> clazz, Consumer<T> consumer) {

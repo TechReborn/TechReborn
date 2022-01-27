@@ -7,12 +7,14 @@ import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.crafting.ShapedRecipeHelper;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.crafting.serde.RebornRecipeSerde;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class RollingMachineRecipeSerde extends RebornRecipeSerde<RollingMachineRecipe> {
 	@Override
@@ -23,8 +25,9 @@ public class RollingMachineRecipeSerde extends RebornRecipeSerde<RollingMachineR
 	}
 
 	@Override
-	public void collectJsonData(RollingMachineRecipe recipe, JsonObject jsonObject) {
-		jsonObject.add("shaped", recipe.getShapedRecipeJson());
+	public void collectJsonData(RollingMachineRecipe recipe, JsonObject jsonObject, boolean networkSync) {
+		final JsonObject shapedRecipeJson = networkSync ? ShapedRecipeHelper.rewriteForNetworkSync(recipe.getShapedRecipeJson()) : recipe.getShapedRecipeJson();
+		jsonObject.add("shaped", Objects.requireNonNull(shapedRecipeJson));
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class RollingMachineRecipeSerde extends RebornRecipeSerde<RollingMachineR
 	}
 
 	@Override
-	protected void writeIngredients(RollingMachineRecipe recipe, JsonObject jsonObject) {
+	protected void writeIngredients(RollingMachineRecipe recipe, JsonObject jsonObject, boolean networkSync) {
 	}
 
 	@Override

@@ -24,6 +24,7 @@
 
 package techreborn.test
 
+import groovy.util.logging.Slf4j
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest
 import net.minecraft.test.TestContext
 
@@ -34,9 +35,25 @@ import java.lang.reflect.Method
  *
  * All test methods should accept 1 argument of TRTestContext
  */
+@Slf4j
 abstract class TRGameTest implements FabricGameTest {
     @Override
     void invokeTestMethod(TestContext context, Method method) {
-        method.invoke(this, new TRTestContext(context))
+        try {
+			method.invoke(this, new TRTestContext(context))
+		} catch (TRGameTestException gameTestException) {
+			log.error("Test ${method.name} failed with message ${gameTestException.message}", gameTestException.cause)
+			log.error(gameTestException.cause.message)
+			throw gameTestException
+		} catch (Throwable throwable) {
+			log.error("Test ${method.name} failed", throwable)
+			throw throwable
+		}
     }
+
+	static class TRGameTestException extends AssertionError {
+		TRGameTestException(String message, Throwable cause) {
+			super(message, cause)
+		}
+	}
 }

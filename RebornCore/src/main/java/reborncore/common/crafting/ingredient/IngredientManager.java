@@ -39,7 +39,6 @@ public class IngredientManager {
 	public static final Identifier STACK_RECIPE_TYPE = new Identifier("reborncore", "stack");
 	public static final Identifier FLUID_RECIPE_TYPE = new Identifier("reborncore", "fluid");
 	public static final Identifier TAG_RECIPE_TYPE = new Identifier("reborncore", "tag");
-	public static final Identifier WRAPPED_RECIPE_TYPE = new Identifier("reborncore", "wrapped");
 
 	private static final HashMap<Identifier, Function<JsonObject, RebornIngredient>> recipeTypes = new HashMap<>();
 
@@ -47,7 +46,6 @@ public class IngredientManager {
 		recipeTypes.put(STACK_RECIPE_TYPE, StackIngredient::deserialize);
 		recipeTypes.put(FLUID_RECIPE_TYPE, FluidIngredient::deserialize);
 		recipeTypes.put(TAG_RECIPE_TYPE, TagIngredient::deserialize);
-		recipeTypes.put(WRAPPED_RECIPE_TYPE, WrappedIngredient::deserialize);
 	}
 
 	public static RebornIngredient deserialize(@Nullable JsonElement jsonElement) {
@@ -63,8 +61,6 @@ public class IngredientManager {
 			recipeTypeIdent = FLUID_RECIPE_TYPE;
 		} else if (json.has("tag")) {
 			recipeTypeIdent = TAG_RECIPE_TYPE;
-		} else if (json.has("wrapped")) {
-			recipeTypeIdent = WRAPPED_RECIPE_TYPE;
 		}
 
 		if (json.has("type")) {
@@ -77,5 +73,4 @@ public class IngredientManager {
 		}
 		return recipeTypeFunction.apply(json);
 	}
-
 }

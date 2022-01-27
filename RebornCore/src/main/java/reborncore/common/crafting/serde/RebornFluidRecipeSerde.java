@@ -49,7 +49,7 @@ public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extend
 		final Fluid fluid = Registry.FLUID.get(identifier);
 
 		FluidValue value = FluidValue.BUCKET;
-		if(tank.has("amount")){
+		if (tank.has("amount")){
 			value = FluidValue.parseFluidValue(tank.get("amount"));
 		}
 
@@ -59,10 +59,13 @@ public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extend
 	}
 
 	@Override
-	public void collectJsonData(R recipe, JsonObject jsonObject) {
+	public void collectJsonData(R recipe, JsonObject jsonObject, boolean networkSync) {
 		final JsonObject tankObject = new JsonObject();
 		tankObject.addProperty("fluid", Registry.FLUID.getId(recipe.getFluidInstance().getFluid()).toString());
-		tankObject.addProperty("value", recipe.getFluidInstance().getAmount().getRawValue());
+
+		var amountObject = new JsonObject();
+		amountObject.addProperty("droplets", recipe.getFluidInstance().getAmount().getRawValue());
+		tankObject.add("amount", amountObject);
 
 		jsonObject.add("tank", tankObject);
 	}

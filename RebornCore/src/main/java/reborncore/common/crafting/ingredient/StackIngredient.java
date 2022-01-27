@@ -138,7 +138,7 @@ public class StackIngredient extends RebornIngredient {
 	}
 
 	@Override
-	public JsonObject toJson() {
+	public JsonObject toJson(boolean networkSync) {
 		JsonObject jsonObject = new JsonObject();
 
 		jsonObject.addProperty("item", Registry.ITEM.getId(stacks.get(0).getItem()).toString());

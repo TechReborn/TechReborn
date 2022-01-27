@@ -45,16 +45,15 @@ import reborncore.common.util.serialization.SerializationUtil;
 import reborncore.mixin.common.AccessorRecipeManager;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class RecipeUtils {
 	@SuppressWarnings("unchecked")
 	public static <T extends RebornRecipe> List<T> getRecipes(World world, RebornRecipeType<T> type) {
 		final AccessorRecipeManager accessorRecipeManager = (AccessorRecipeManager) world.getRecipeManager();
-		final Collection<Recipe<Inventory>> recipes = accessorRecipeManager.getAll(type).values();
+		final Collection<Recipe<Inventory>> recipes = accessorRecipeManager.getAll(type).values().stream().toList();
 		//noinspection unchecked
-		return Collections.unmodifiableList((List<T>) (Object) recipes);
+		return (List<T>) (Object) recipes;
 	}
 
 	public static DefaultedList<ItemStack> deserializeItems(JsonElement jsonObject) {

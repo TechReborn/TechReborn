@@ -22,44 +22,18 @@
  * SOFTWARE.
  */
 
-package reborncore.common.crafting.ingredient;
+package reborncore.common.crafting.serde;
 
-import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
+public class RecipeSerdeException extends RuntimeException {
+	private static final Logger LOGGER = LoggerFactory.getLogger(RecipeSerdeException.class);
 
-public class DummyIngredient extends RebornIngredient {
-
-	public DummyIngredient() {
-		super(new Identifier("reborncore", "dummy"));
-	}
-
-	@Override
-	public boolean test(ItemStack itemStack) {
-		return false;
-	}
-
-	@Override
-	public Ingredient getPreview() {
-		return Ingredient.EMPTY;
-	}
-
-	@Override
-	public List<ItemStack> getPreviewStacks() {
-		return Collections.emptyList();
-	}
-
-	@Override
-	protected JsonObject toJson(boolean networkSync) {
-		return new JsonObject();
-	}
-
-	@Override
-	public int getCount() {
-		return 0;
+	public RecipeSerdeException(Identifier identifier, Throwable cause) {
+		super("Failed to ser/de " + identifier, cause);
+		// Dont trust minecraft to log this.
+		LOGGER.error(getMessage(), this);
 	}
 }

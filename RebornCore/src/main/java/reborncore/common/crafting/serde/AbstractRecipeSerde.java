@@ -61,9 +61,9 @@ public abstract class AbstractRecipeSerde<R extends RebornRecipe> implements Rec
 		return RecipeUtils.deserializeItems(resultsJson);
 	}
 
-	protected void writeIngredients(R recipe, JsonObject jsonObject) {
+	protected void writeIngredients(R recipe, JsonObject jsonObject, boolean networkSync) {
 		final JsonArray ingredientsArray = new JsonArray();
-		recipe.getRebornIngredients().stream().map(RebornIngredient::witeToJson).forEach(ingredientsArray::add);
+		recipe.getRebornIngredients().stream().map(RebornIngredient::writeToSyncJson).forEach(ingredientsArray::add);
 		jsonObject.add("ingredients", ingredientsArray);
 	}
 

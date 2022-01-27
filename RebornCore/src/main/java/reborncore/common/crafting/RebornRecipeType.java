@@ -32,6 +32,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 import reborncore.common.crafting.serde.RecipeSerde;
+import reborncore.common.crafting.serde.RecipeSerdeException;
 import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.List;
@@ -47,14 +48,22 @@ public record RebornRecipeType<R extends RebornRecipe>(
 			throw new RuntimeException("RebornRecipe type not supported!");
 		}
 
-		return recipeSerde.fromJson(json, this, recipeId);
+		try {
+			return recipeSerde.fromJson(json, this, recipeId);
+		} catch (Throwable e) {
+			throw new RecipeSerdeException(recipeId, e);
+		}
 	}
 
-	private JsonObject toJson(R recipe) {
+	public JsonObject toJson(R recipe, boolean networkSync) {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", name.toString());
 
-		recipeSerde.toJson(recipe, jsonObject);
+		try {
+			recipeSerde.toJson(recipe, jsonObject, networkSync);
+		} catch (Throwable e) {
+			throw new RecipeSerdeException(recipe.getId(), e);
+		}
 
 		return jsonObject;
 	}
@@ -67,7 +76,7 @@ public record RebornRecipeType<R extends RebornRecipe>(
 
 	@Override
 	public void write(PacketByteBuf buffer, R recipe) {
-		String output = SerializationUtil.GSON_FLAT.toJson(toJson(recipe));
+		String output = SerializationUtil.GSON_FLAT.toJson(toJson(recipe, true));
 		buffer.writeInt(output.length());
 		buffer.writeString(output);
 	}

@@ -104,7 +104,15 @@ public class TagIngredient extends RebornIngredient {
 	}
 
 	@Override
-	public JsonObject toJson() {
+	public JsonObject toJson(boolean networkSync) {
+		if (networkSync) {
+			return toItemJsonObject();
+		}
+
+		throw new UnsupportedOperationException("TODO");
+	}
+
+	private JsonObject toItemJsonObject() {
 		//Tags are not synced across the server so we sync all the items
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("server_sync", true);

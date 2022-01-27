@@ -48,16 +48,16 @@ public abstract class RebornRecipeSerde<R extends RebornRecipe> extends Abstract
 		return fromJson(jsonObject, type, name, ingredients, outputs, power, time);
 	}
 
-	protected abstract void collectJsonData(R recipe, JsonObject jsonObject);
+	protected abstract void collectJsonData(R recipe, JsonObject jsonObject, boolean networkSync);
 
 	@Override
-	public final void toJson(R recipe, JsonObject jsonObject) {
+	public final void toJson(R recipe, JsonObject jsonObject, boolean networkSync) {
 		writePower(recipe, jsonObject);
 		writeTime(recipe, jsonObject);
-		writeIngredients(recipe, jsonObject);
+		writeIngredients(recipe, jsonObject, true);
 		writeOutputs(recipe, jsonObject);
 
-		collectJsonData(recipe, jsonObject);
+		collectJsonData(recipe, jsonObject, networkSync);
 	}
 
 	public static <R extends RebornRecipe> RebornRecipeSerde<R> create(SimpleRecipeFactory<R> factory) {
@@ -68,7 +68,7 @@ public abstract class RebornRecipeSerde<R extends RebornRecipe> extends Abstract
 			}
 
 			@Override
-			protected void collectJsonData(R recipe, JsonObject jsonObject) {
+			protected void collectJsonData(R recipe, JsonObject jsonObject, boolean networkSync) {
 			}
 		};
 	}

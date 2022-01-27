@@ -43,7 +43,7 @@ public class BlastFurnaceRecipeSerde extends RebornRecipeSerde<BlastFurnaceRecip
 	}
 
 	@Override
-	public void collectJsonData(BlastFurnaceRecipe recipe, JsonObject jsonObject) {
+	public void collectJsonData(BlastFurnaceRecipe recipe, JsonObject jsonObject, boolean networkSync) {
 		jsonObject.addProperty("heat", recipe.getHeat());
 	}
 }

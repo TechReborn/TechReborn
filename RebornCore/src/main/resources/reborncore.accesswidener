@@ -4,6 +4,12 @@ accessible    method    net/minecraft/recipe/ShapedRecipe    readSymbols    (Lco
 accessible    method    net/minecraft/recipe/ShapedRecipe    getPattern    (Lcom/google/gson/JsonArray;)[Ljava/lang/String;
 accessible    method    net/minecraft/recipe/ShapedRecipe    createPatternMatrix    ([Ljava/lang/String;Ljava/util/Map;II)Lnet/minecraft/util/collection/DefaultedList;
 
+accessible    class    net/minecraft/recipe/Ingredient$Entry
+accessible    class    net/minecraft/recipe/Ingredient$TagEntry
+accessible    class    net/minecraft/recipe/Ingredient$StackEntry
+accessible    field    net/minecraft/recipe/Ingredient    entries    [Lnet/minecraft/recipe/Ingredient$Entry;
+accessible    field    net/minecraft/recipe/Ingredient$TagEntry    tag    Lnet/minecraft/tag/Tag;
+
 accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen    getSlotAt     (DD)Lnet/minecraft/screen/slot/Slot;
 
 accessible    method    net/minecraft/client/render/WorldRenderer    drawShapeOutline    (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/shape/VoxelShape;DDDFFFF)V

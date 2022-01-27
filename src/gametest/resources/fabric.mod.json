@@ -6,7 +6,8 @@
   "environment": "*",
   "entrypoints": {
 	"fabric-gametest" : [
-	  "techreborn.test.machine.GrinderTest"
+	  "techreborn.test.machine.GrinderTest",
+	  "techreborn.test.recipe.RecipeSyncTests"
 	]
   }
 }

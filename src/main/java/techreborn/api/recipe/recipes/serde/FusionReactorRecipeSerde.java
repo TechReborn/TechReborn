@@ -44,7 +44,7 @@ public class FusionReactorRecipeSerde extends RebornRecipeSerde<FusionReactorRec
 	}
 
 	@Override
-	protected void collectJsonData(FusionReactorRecipe recipe, JsonObject jsonObject) {
+	protected void collectJsonData(FusionReactorRecipe recipe, JsonObject jsonObject, boolean networkSync) {
 		jsonObject.addProperty("start-power", recipe.getStartEnergy());
 		jsonObject.addProperty("min-size", recipe.getMinSize());
 	}
