@@ -491,10 +491,10 @@ public class TRContent {
 	public static final Tag.Identified<Item> STORAGE_BLOCK_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "storage_blocks"));
 
 	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
-		ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
-		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RAW_IRIDIUM, RAW_LEAD, RAW_SILVER, RAW_TIN,
-		RAW_TUNGSTEN, RED_GARNET, REFINED_IRON, RUBY, SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL,
-		YELLOW_GARNET, ZINC;
+		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL(true), INVAR, IRIDIUM,
+		IRIDIUM_REINFORCED_STONE, IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RAW_IRIDIUM,
+		RAW_LEAD, RAW_SILVER, RAW_TIN, RAW_TUNGSTEN, RED_GARNET, REFINED_IRON, RUBY, SAPPHIRE, SILVER, STEEL, TIN,
+		TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
 
 		private final String name;
 		private final Block block;
@@ -503,9 +503,9 @@ public class TRContent {
 		private final WallBlock wallBlock;
 		private final Tag.Identified<Item> tag;
 
-		StorageBlocks() {
+		StorageBlocks(boolean isHot) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new BlockStorage();
+			block = new BlockStorage(isHot);
 			InitUtils.setup(block, name + "_storage_block");
 			tag = TagFactory.ITEM.create(new Identifier("c", name + "_blocks"));
 
@@ -517,6 +517,10 @@ public class TRContent {
 
 			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block));
 			InitUtils.setup(wallBlock, name + "_storage_block_wall");
+		}
+
+		StorageBlocks() {
+			this(false);
 		}
 
 		@Override
