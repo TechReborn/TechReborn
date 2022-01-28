@@ -24,6 +24,8 @@
 
 package techreborn.world;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
@@ -33,6 +35,12 @@ public enum TargetDimension {
 	OVERWORLD(BiomeSelectors.foundInOverworld()),
 	NETHER(BiomeSelectors.foundInTheNether()),
 	END(BiomeSelectors.foundInTheEnd());
+
+	public static final Codec<TargetDimension> CODEC = RecordCodecBuilder.create(instance ->
+		instance.group(
+			Codec.STRING.fieldOf("name").forGetter(TargetDimension::name)
+		).apply(instance, TargetDimension::valueOf)
+	);
 
 	public final Predicate<BiomeSelectionContext> biomeSelector;
 

@@ -36,31 +36,26 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.integrated.IntegratedServer;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.HeightContext;
-import org.jetbrains.annotations.Nullable;
 import reborncore.common.BaseBlockEntityProvider;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.utils.ToolTipAssistUtils;
-import techreborn.world.OreDistribution;
+import techreborn.world.OreDepth;
 import techreborn.world.TargetDimension;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class StackToolTipHandler implements ItemTooltipCallback {
 
 	public static final Map<Item, Boolean> ITEM_ID = Maps.newHashMap();
-	private static final Map<Block, OreDistribution> ORE_DISTRIBUTION_MAP = Maps.newHashMap();
 	private static final List<Block> UNOBTAINABLE_ORES = Lists.newLinkedList();
 
 	public static void setup() {
@@ -71,21 +66,6 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 				TRContent.Ores normal = ore.getUnDeepslate();
 				if (normal.distribution != null && normal.distribution.dimension != TargetDimension.OVERWORLD)
 					UNOBTAINABLE_ORES.add(ore.block);
-				continue;
-			}
-
-			if (ore.distribution != null) {
-				ORE_DISTRIBUTION_MAP.put(ore.block, ore.distribution);
-
-				if (ore.distribution.dimension != TargetDimension.OVERWORLD) {
-					continue; // No Deepslate in other dims
-				}
-
-				TRContent.Ores deepslate = ore.getDeepslate();
-				if (deepslate != null) {
-					// Deepslate shares the same distribution as the stone version.
-					ORE_DISTRIBUTION_MAP.put(deepslate.block, ore.distribution);
-				}
 			}
 		}
 	}
@@ -120,56 +100,23 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 				ToolTipAssistUtils.addInfo("unplaceable_fluid", tooltipLines, false);
 		}
 
-		Text text = null;
-		if (UNOBTAINABLE_ORES.contains(block))
-			text = new TranslatableText("techreborn.tooltip.unobtainable");
-		OreDistribution oreDistribution = ORE_DISTRIBUTION_MAP.get(block);
-		if (oreDistribution != null && text == null) {
-			text = switch (oreDistribution.dimension) {
-				case OVERWORLD -> getOverworldOreText(oreDistribution);
-				case END -> new TranslatableText("techreborn.tooltip.ores.end");
-				case NETHER -> new TranslatableText("techreborn.tooltip.ores.nether");
-			};
-		}
-		if (text != null)
+		if (UNOBTAINABLE_ORES.contains(block)) {
+			tooltipLines.add(new TranslatableText("techreborn.tooltip.unobtainable").formatted(Formatting.AQUA));
+		} else if (OreDepthSyncHandler.getOreDepthMap().containsKey(block)) {
+			OreDepth oreDepth = OreDepthSyncHandler.getOreDepthMap().get(block);
+			Text text = getOreDepthText(oreDepth);
 			tooltipLines.add(text.copy().formatted(Formatting.AQUA));
+		}
 	}
 
 	private static boolean isTRItem(Item item) {
 		return Registry.ITEM.getId(item).getNamespace().equals("techreborn");
 	}
 
-	@Nullable
-	private static HeightContext getHeightContextSafely() {
-		final IntegratedServer server = MinecraftClient.getInstance().getServer();
-
-		if (server == null) {
-			return null;
-		}
-
-		final ServerWorld world = server.getWorld(World.OVERWORLD);
-
-		if (world == null) {
-			return null;
-		}
-
-		return new HeightContext(world.getChunkManager().getChunkGenerator(), world);
-	}
-
-	@Nullable
-	private static Text getOverworldOreText(OreDistribution oreDistribution) {
-		final HeightContext heightContext = getHeightContextSafely();
-
-		if (heightContext == null) {
-			return null;
-		}
-
-		final int minY = oreDistribution.minOffset.getY(heightContext);
-		final int maxY = oreDistribution.maxY;
-
-		return new TranslatableText("techreborn.tooltip.ores.overworld",
-				new LiteralText(String.valueOf(minY)).formatted(Formatting.YELLOW),
-				new LiteralText(String.valueOf(maxY)).formatted(Formatting.YELLOW)
+	private static TranslatableText getOreDepthText(OreDepth depth) {
+		return new TranslatableText("techreborn.tooltip.ores.%s".formatted(depth.dimension().name().toLowerCase(Locale.ROOT)),
+				new LiteralText(String.valueOf(depth.minY())).formatted(Formatting.YELLOW),
+				new LiteralText(String.valueOf(depth.maxY())).formatted(Formatting.YELLOW)
 		);
 	}
 }

@@ -47,8 +47,6 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 
-import java.util.List;
-
 @Environment(EnvType.CLIENT)
 public class ClientBoundPacketHandlers {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientBoundPacketHandlers.class);
@@ -137,11 +135,7 @@ public class ClientBoundPacketHandlers {
 			});
 		});
 
-		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "sync_chunks"), (client, handler, packetBuffer, responseSender) -> {
-			List<ChunkLoaderManager.LoadedChunk> chunks = new ExtendedPacketBuffer(packetBuffer).readCodec(ChunkLoaderManager.CODEC);
-
-			client.execute(() -> ClientChunkManager.setLoadedChunks(chunks));
-		});
+		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, ClientChunkManager::setLoadedChunks);
 	}
 
 }

@@ -43,12 +43,11 @@ import techreborn.client.GuiType;
 import techreborn.compat.trinkets.Trinkets;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ApplyArmorToDamageHandler;
-import techreborn.events.ModRegistry;
+import techreborn.events.OreDepthSyncHandler;
 import techreborn.events.UseBlockHandler;
 import techreborn.init.*;
 import techreborn.init.template.TechRebornTemplates;
 import techreborn.items.DynamicCellItem;
-import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PoweredCraftingHandler;
 import techreborn.world.WorldGenerator;
@@ -77,8 +76,8 @@ public class TechReborn implements ModInitializer {
 		ModRecipes.GRINDER.hashCode();
 		TRContent.SCRAP_BOX.asItem();
 
-		ClientboundPackets.init();
 		ServerboundPackets.init();
+		OreDepthSyncHandler.setup();
 
 		if (TechRebornConfig.machineSoundVolume > 0) {
 			if (TechRebornConfig.machineSoundVolume > 1) TechRebornConfig.machineSoundVolume = 1F;

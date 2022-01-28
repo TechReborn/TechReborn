@@ -22,30 +22,43 @@
  * SOFTWARE.
  */
 
-package techreborn.packets;
+package techreborn.events;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.util.Identifier;
-import reborncore.common.network.IdentifiedPacket;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.block.Block;
+import net.minecraft.util.registry.Registry;
 import reborncore.common.network.NetworkManager;
-import techreborn.TechReborn;
-import techreborn.events.OreDepthSyncHandler;
+import techreborn.packets.ClientboundPackets;
 import techreborn.world.OreDepth;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-public class ClientboundPackets {
-	public static final Identifier ORE_DEPTH = new Identifier(TechReborn.MOD_ID, "ore_depth");
+public final class OreDepthSyncHandler {
+	private static Map<Block, OreDepth> oreDepthMap = new HashMap<>();
 
-	// TODO move to own class
-	@Environment(EnvType.CLIENT)
-	public static void init() {
-		NetworkManager.registerClientBoundHandler(ORE_DEPTH, OreDepth.LIST_CODEC, OreDepthSyncHandler::updateDepths);
+	private OreDepthSyncHandler() {
 	}
 
-	public static IdentifiedPacket createPacketSyncOreDepth(List<OreDepth> oreDepths) {
-		return NetworkManager.createClientBoundPacket(ORE_DEPTH, OreDepth.LIST_CODEC, oreDepths);
+	public static void setup() {
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
+				NetworkManager.sendTo(ClientboundPackets.createPacketSyncOreDepth(OreDepth.create(server)), sender)
+		);
 	}
 
+	public static void updateDepths(List<OreDepth> list) {
+		synchronized (OreDepthSyncHandler.class) {
+			oreDepthMap = list.stream()
+				.collect(Collectors.toMap(oreDepth -> Registry.BLOCK.get(oreDepth.identifier()), Function.identity()));
+		}
+	}
+
+	public static Map<Block, OreDepth> getOreDepthMap() {
+		synchronized (OreDepthSyncHandler.class) {
+			return oreDepthMap;
+		}
+	}
 }

@@ -76,9 +76,7 @@ public class ClientBoundPackets {
 	}
 
 	public static IdentifiedPacket createPacketSyncLoadedChunks(List<ChunkLoaderManager.LoadedChunk> chunks) {
-		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "sync_chunks"), extendedPacketBuffer -> {
-			extendedPacketBuffer.writeCodec(ChunkLoaderManager.CODEC, chunks);
-		});
+		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, chunks);
 	}
 
 }

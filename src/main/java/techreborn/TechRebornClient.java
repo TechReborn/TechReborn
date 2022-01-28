@@ -70,6 +70,7 @@ import techreborn.items.FrequencyTransmitterItem;
 import techreborn.items.armor.BatpackItem;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.items.tool.industrial.NanosaberItem;
+import techreborn.packets.ClientboundPackets;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -146,6 +147,7 @@ public class TechRebornClient implements ClientModInitializer {
 		});
 
 		StackToolTipHandler.setup();
+		ClientboundPackets.init();
 
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;

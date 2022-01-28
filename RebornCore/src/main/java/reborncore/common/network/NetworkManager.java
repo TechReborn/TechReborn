@@ -24,11 +24,16 @@
 
 package reborncore.common.network;
 
+import com.mojang.serialization.Codec;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -58,10 +63,24 @@ public class NetworkManager {
 		return new IdentifiedPacket(identifier, buf);
 	}
 
+	public static <T> IdentifiedPacket createClientBoundPacket(Identifier identifier, Codec<T> codec, T value) {
+		return createClientBoundPacket(identifier, extendedPacketBuffer -> extendedPacketBuffer.writeCodec(codec, value));
+	}
+
+	// TODO move to own class
+	@Environment(EnvType.CLIENT)
 	public static void registerClientBoundHandler(Identifier identifier, ClientPlayNetworking.PlayChannelHandler handler) {
 		ClientPlayNetworking.registerGlobalReceiver(identifier, handler);
 	}
 
+	// TODO move to own class
+	@Environment(EnvType.CLIENT)
+	public static <T> void registerClientBoundHandler(Identifier identifier, Codec<T> codec, Consumer<T> consumer) {
+		registerClientBoundHandler(identifier, (client, handler, buf, responseSender) -> {
+			T value = new ExtendedPacketBuffer(buf).readCodec(codec);
+			client.execute(() -> consumer.accept(value));
+		});
+	}
 
 	public static void sendToServer(IdentifiedPacket packet) {
 		ClientPlayNetworking.send(packet.channel(), packet.packetByteBuf());
@@ -90,5 +109,9 @@ public class NetworkManager {
 		}
 	}
 
+	public static void sendTo(IdentifiedPacket packet, PacketSender sender) {
+		Packet<?> s2CPacket = ServerPlayNetworking.createS2CPacket(packet.channel(), packet.packetByteBuf());
+		sender.sendPacket(s2CPacket);
+	}
 
 }
