@@ -34,7 +34,7 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeUtils;
-import reborncore.common.crafting.ingredient.IngredientManager;
+import reborncore.common.crafting.ingredient.IngredientFactory;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.util.DefaultedListCollector;
 import reborncore.common.util.serialization.SerializationUtil;
@@ -52,7 +52,7 @@ public abstract class AbstractRecipeSerde<R extends RebornRecipe> implements Rec
 
 	protected List<RebornIngredient> getIngredients(JsonObject jsonObject) {
 		return SerializationUtil.stream(JsonHelper.getArray(jsonObject, "ingredients"))
-				.map(IngredientManager::deserialize)
+				.map(IngredientFactory::deserialize)
 				.collect(DefaultedListCollector.toList());
 	}
 
@@ -63,7 +63,7 @@ public abstract class AbstractRecipeSerde<R extends RebornRecipe> implements Rec
 
 	protected void writeIngredients(R recipe, JsonObject jsonObject, boolean networkSync) {
 		final JsonArray ingredientsArray = new JsonArray();
-		recipe.getRebornIngredients().stream().map(RebornIngredient::writeToSyncJson).forEach(ingredientsArray::add);
+		recipe.getRebornIngredients().stream().map(ingredient -> ingredient.toJson(networkSync)).forEach(ingredientsArray::add);
 		jsonObject.add("ingredients", ingredientsArray);
 	}
 

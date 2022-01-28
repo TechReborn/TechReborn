@@ -1,7 +1,7 @@
 /*
- * This file is part of RebornCore, licensed under the MIT License (MIT).
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2021 TeamReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,44 +22,25 @@
  * SOFTWARE.
  */
 
-package reborncore.common.crafting.ingredient;
+package techreborn.datagen.recipes.machine.grinder
 
-import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.minecraft.item.Items
+import techreborn.datagen.recipes.TechRebornRecipesProvider
+import techreborn.init.TRContent
 
-import java.util.Collections;
-import java.util.List;
-
-public class DummyIngredient extends RebornIngredient {
-
-	public DummyIngredient() {
-		super(new Identifier("reborncore", "dummy"));
+class GrinderRecipesProvider extends TechRebornRecipesProvider {
+	GrinderRecipesProvider(FabricDataGenerator dataGenerator) {
+		super(dataGenerator)
 	}
 
 	@Override
-	public boolean test(ItemStack itemStack) {
-		return false;
-	}
-
-	@Override
-	public Ingredient getPreview() {
-		return Ingredient.EMPTY;
-	}
-
-	@Override
-	public List<ItemStack> getPreviewStacks() {
-		return Collections.emptyList();
-	}
-
-	@Override
-	protected JsonObject toJson(boolean networkSync) {
-		return new JsonObject();
-	}
-
-	@Override
-	public int getCount() {
-		return 0;
+	void generateRecipes() {
+//		offerGrinderRecipe {
+//			ingredients TRContent.ORES_TAG, Items.ACACIA_BOAT
+//			outputs Items.DIAMOND
+//			power 5
+//			time 200
+//		}
 	}
 }

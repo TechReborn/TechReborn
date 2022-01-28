@@ -43,7 +43,6 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.config.Configuration;
-import reborncore.common.crafting.ingredient.IngredientManager;
 import reborncore.common.misc.ModSounds;
 import reborncore.common.misc.RebornCoreTags;
 import reborncore.common.multiblock.MultiblockRegistry;
@@ -107,8 +106,6 @@ public class RebornCore implements ModInitializer {
 
 		// packets
 		ServerBoundPackets.init();
-
-		IngredientManager.setup();
 
 		RebornCoreCommands.setup();
 

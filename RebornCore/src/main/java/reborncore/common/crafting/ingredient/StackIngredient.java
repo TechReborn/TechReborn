@@ -54,7 +54,6 @@ public class StackIngredient extends RebornIngredient {
 	private final boolean requireEmptyNbt;
 
 	public StackIngredient(List<ItemStack> stacks, Optional<Integer> count, Optional<NbtCompound> nbt, boolean requireEmptyNbt) {
-		super(IngredientManager.STACK_RECIPE_TYPE);
 		this.stacks = stacks;
 		this.count = count;
 		this.nbt = nbt;

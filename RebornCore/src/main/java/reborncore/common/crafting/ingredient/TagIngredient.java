@@ -48,7 +48,6 @@ public class TagIngredient extends RebornIngredient {
 	private final Optional<Integer> count;
 
 	public TagIngredient(Tag.Identified<Item> tag, Optional<Integer> count) {
-		super(IngredientManager.TAG_RECIPE_TYPE);
 		this.tag = tag;
 		this.count = count;
 	}
@@ -81,7 +80,7 @@ public class TagIngredient extends RebornIngredient {
 			count = Optional.of(JsonHelper.getInt(json, "count"));
 		}
 
-		if (json.has("server_sync")) {
+		if (json.has("tag_server_sync")) {
 			Identifier tagIdent = new Identifier(JsonHelper.getString(json, "tag_identifier"));
 			List<Item> items = new ArrayList<>();
 			for (int i = 0; i < JsonHelper.getInt(json, "items"); i++) {
@@ -109,13 +108,15 @@ public class TagIngredient extends RebornIngredient {
 			return toItemJsonObject();
 		}
 
-		throw new UnsupportedOperationException("TODO");
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("tag", tag.getId().toString());
+		return jsonObject;
 	}
 
 	private JsonObject toItemJsonObject() {
 		//Tags are not synced across the server so we sync all the items
 		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("server_sync", true);
+		jsonObject.addProperty("tag_server_sync", true);
 
 		Item[] items = tag.values().toArray(new Item[0]);
 		jsonObject.addProperty("items", items.length);

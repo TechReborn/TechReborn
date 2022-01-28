@@ -32,6 +32,9 @@ import net.minecraft.item.ItemConvertible
 import net.minecraft.recipe.Ingredient
 import net.minecraft.tag.Tag
 import net.minecraft.util.Identifier
+import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
+
+import techreborn.init.ModRecipes
 
 import java.util.function.Consumer
 
@@ -118,6 +121,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
 		}
 
 		throw new IllegalArgumentException()
+	}
+
+	def offerGrinderRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		MachineRecipeJsonFactory.create(ModRecipes.GRINDER, closure).offerTo(exporter)
 	}
 
     @Override

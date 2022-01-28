@@ -54,7 +54,7 @@ public abstract class RebornRecipeSerde<R extends RebornRecipe> extends Abstract
 	public final void toJson(R recipe, JsonObject jsonObject, boolean networkSync) {
 		writePower(recipe, jsonObject);
 		writeTime(recipe, jsonObject);
-		writeIngredients(recipe, jsonObject, true);
+		writeIngredients(recipe, jsonObject, networkSync);
 		writeOutputs(recipe, jsonObject);
 
 		collectJsonData(recipe, jsonObject, networkSync);
