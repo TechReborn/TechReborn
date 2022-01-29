@@ -25,7 +25,11 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.tag.TagFactory
+import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.util.Identifier
+import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -36,11 +40,74 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	@Override
 	void generateRecipes() {
-//		offerGrinderRecipe {
-//			ingredients TRContent.ORES_TAG, Items.ACACIA_BOAT
-//			outputs Items.DIAMOND
-//			power 5
-//			time 200
-//		}
+		// vanilla raw metals
+		[
+				(Items.RAW_IRON):	(TagFactory.ITEM.create(new Identifier("c","iron_ores"))),
+				(Items.RAW_COPPER):	(TagFactory.ITEM.create(new Identifier("c","copper_ores"))),
+				(Items.RAW_GOLD):	(TagFactory.ITEM.create(new Identifier("c","gold_ores")))
+		].each{raw, oreTag ->
+			offerGrinderRecipe {
+				ingredients oreTag
+				outputs new ItemStack(raw, 2)
+				power 2
+				time 270
+			}
+		}
+		// TR raw metals
+		TRContent.RawMetals.getRM2OBMap().each{raw, ore ->
+			if (!ore.isIndustrial())
+				offerGrinderRecipe {
+					ingredients ore.asTag()
+					outputs new ItemStack(raw, 2)
+					power 2
+					time 270
+				}
+		}
+		// vanilla gems
+		// TODO vanilla gems + storage blocks (Redstone, glowstone, lapis, emerald, diamond)
+		// TR gems
+		TRContent.Gems.getG2DMap().each {gem, dust ->
+			offerGrinderRecipe {
+				ingredients gem.asTag()
+				outputs dust
+				power 2
+				time 200
+			}
+			if (gem.getOre() != null)
+				offerGrinderRecipe {
+					ingredients gem.getOre().asTag()
+					outputs new ItemStack(dust,2)
+					power 2
+					time 220
+					source "ore"
+				}
+			if (gem.getStorageBlock() != null)
+				offerGrinderRecipe {
+					ingredients gem.getStorageBlock().asTag()
+					outputs new ItemStack(dust,9)
+					power 2
+					time 1500
+					source "block"
+				}
+		}
+		// vanilla ingots
+		// TODO vanilla ingots + storage blocks (iron, copper, gold)
+		// TR ingots
+		TRContent.Ingots.getI2DMap().each {ingot, dust ->
+			offerGrinderRecipe {
+				ingredients ingot.asTag()
+				outputs dust
+				power 5
+				time 200
+			}
+			if (ingot.getStorageBlock() != null)
+				offerGrinderRecipe {
+					ingredients ingot.getStorageBlock().asTag()
+					outputs new ItemStack(dust,9)
+					power 5
+					time 1500
+					source "block"
+				}
+		}
 	}
 }

@@ -408,7 +408,7 @@ public class TRContent {
 		BAUXITE(OreDistribution.BAUXITE),
 		CINNABAR(OreDistribution.CINNABAR),
 		GALENA(OreDistribution.GALENA),
-		IRIDIUM(OreDistribution.IRIDIUM),
+		IRIDIUM(OreDistribution.IRIDIUM, true),
 		LEAD(OreDistribution.LEAD),
 		PERIDOT(OreDistribution.PERIDOT),
 		PYRITE(OreDistribution.PYRITE),
@@ -419,7 +419,7 @@ public class TRContent {
 		SODALITE(OreDistribution.SODALITE),
 		SPHALERITE(OreDistribution.SPHALERITE),
 		TIN(OreDistribution.TIN),
-		TUNGSTEN(OreDistribution.TUNGSTEN),
+		TUNGSTEN(OreDistribution.TUNGSTEN, true),
 
 		DEEPSLATE_BAUXITE(BAUXITE),
 		DEEPSLATE_GALENA(GALENA),
@@ -437,9 +437,10 @@ public class TRContent {
 		public final String name;
 		public final Block block;
 		public final OreDistribution distribution;
+		private final boolean industrial;
 		private final Tag.Identified<Item> tag;
 
-		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback) {
+		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback, boolean industrial) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
 					.requiresTool()
@@ -447,18 +448,27 @@ public class TRContent {
 					.strength(2f, 2f),
 					distribution != null ? distribution.experienceDropped : experienceDroppedFallback
 			);
+			this.industrial = industrial;
 			InitUtils.setup(block, name + "_ore");
 			tag = TagFactory.ITEM.create(new Identifier("c",
 					(name.startsWith("deepslate_") ? name.substring(name.indexOf('_')+1): name) + "_ores"));
 			this.distribution = distribution;
 		}
 
+		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback) {
+			this(distribution, experienceDroppedFallback, false);
+		}
+
+		Ores(OreDistribution distribution, boolean industrial) {
+			this(distribution, null, industrial);
+		}
+
 		Ores(OreDistribution distribution) {
-			this(distribution, null);
+			this(distribution, false);
 		}
 
 		Ores(TRContent.Ores stoneOre) {
-			this(null, stoneOre.distribution != null ? stoneOre.distribution.experienceDropped : null);
+			this(null, stoneOre.distribution != null ? stoneOre.distribution.experienceDropped : null, stoneOre.industrial);
 			deepslateMap.put(stoneOre, this);
 			unDeepslateMap.put(this, stoneOre);
 		}
@@ -466,6 +476,10 @@ public class TRContent {
 		@Override
 		public Item asItem() {
 			return block.asItem();
+		}
+
+		public boolean isIndustrial() {
+			return industrial;
 		}
 
 		@Override
@@ -717,13 +731,22 @@ public class TRContent {
 
 		private final String name;
 		private final Item item;
-		private final ItemConvertible storageBlock;
+		private final Ores ore;
+		private final StorageBlocks storageBlock;
 		private final Tag.Identified<Item> tag;
 
 		RawMetals() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
-			ItemConvertible blockVariant = null;
+			Ores oreVariant = null;
+			try {
+				oreVariant = Ores.valueOf(this.toString());
+			}
+			catch (IllegalArgumentException ex) {
+				TechReborn.LOGGER.warn("Raw metal {} has no ore block equivalent!", name);
+			}
+			ore = oreVariant;
+			StorageBlocks blockVariant = null;
 			try {
 				blockVariant = StorageBlocks.valueOf(this.toString());
 			}
@@ -745,8 +768,12 @@ public class TRContent {
 			return tag;
 		}
 
-		public ItemConvertible getStorageBlock() {
+		public StorageBlocks getStorageBlock() {
 			return storageBlock;
+		}
+
+		public Ores getOre() {
+			return ore;
 		}
 
 		/**
@@ -754,10 +781,22 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the raw metals to their storage block equivalent.
 		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
-		public static @NotNull Map<RawMetals, ItemConvertible> getRM2SBMap() {
+		public static @NotNull Map<RawMetals, StorageBlocks> getRM2SBMap() {
 			return Arrays.stream(values())
 					.map(rawMetal -> new Pair<>(rawMetal, rawMetal.getStorageBlock()))
 					.filter(entry -> entry.getRight() != null) // ensure storage block equivalent exists
+					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
+		}
+
+		/**
+		 * Returns a map that maps the raw metals to their ore block equivalent.
+		 * @return A non {@code null} map mapping the raw metals to their ore block equivalent.
+		 * If an ore block equivalent doesn't exist, the raw metal will not be in the keys of this map.
+		 */
+		public static @NotNull Map<RawMetals, Ores> getRM2OBMap() {
+			return Arrays.stream(values())
+					.map(rawMetal -> new Pair<>(rawMetal, rawMetal.getOre()))
+					.filter(entry -> entry.getRight() != null) // ensure ore block equivalent exists
 					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 	}
@@ -841,13 +880,31 @@ public class TRContent {
 
 		private final String name;
 		private final Item item;
-		private final ItemConvertible storageBlock;
+		private final Dusts dust;
+		private final Ores ore;
+		private final StorageBlocks storageBlock;
 		private final Tag.Identified<Item> tag;
 
 		Gems(String tagPlural) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
-			ItemConvertible blockVariant = null;
+			Dusts dustVariant = null;
+			try {
+				dustVariant = Dusts.valueOf(this.toString());
+			}
+			catch (IllegalArgumentException ex) {
+				TechReborn.LOGGER.warn("Gem {} has no dust item equivalent!", name);
+			}
+			dust = dustVariant;
+			Ores oreVariant = null;
+			try {
+				oreVariant = Ores.valueOf(this.toString());
+			}
+			catch (IllegalArgumentException ex) {
+				TechReborn.LOGGER.info("Gem {} has no ore block equivalent.", name);
+			}
+			ore = oreVariant;
+			StorageBlocks blockVariant = null;
 			try {
 				blockVariant = StorageBlocks.valueOf(this.toString());
 			}
@@ -881,16 +938,36 @@ public class TRContent {
 			return tag;
 		}
 
-		public ItemConvertible getStorageBlock() {
+		public Dusts getDust() {
+			return dust;
+		}
+
+		public Ores getOre() {
+			return ore;
+		}
+
+		public StorageBlocks getStorageBlock() {
 			return storageBlock;
+		}
+
+		/**
+		 * Returns a map that maps the gems to their dust item equivalent.
+		 * @return A non {@code null} map mapping the gems to their dust item equivalent.
+		 * If a dust item equivalent doesn't exist, the gem will not be in the keys of this map.
+		 */
+		public static @NotNull Map<Gems, Dusts> getG2DMap() {
+			return Arrays.stream(values())
+					.map(gem -> new Pair<>(gem, gem.getDust()))
+					.filter(entry -> entry.getRight() != null) // ensure dust item equivalent exists
+					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 
 		/**
 		 * Returns a map that maps the gems to their storage block equivalent.
 		 * @return A non {@code null} map mapping the gems to their storage block equivalent.
-		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
+		 * If a storage block equivalent doesn't exist, the gem will not be in the keys of this map.
 		 */
-		public static @NotNull Map<Gems, ItemConvertible> getG2SBMap() {
+		public static @NotNull Map<Gems, StorageBlocks> getG2SBMap() {
 			return Arrays.stream(values())
 					.map(gem -> new Pair<>(gem, gem.getStorageBlock()))
 					.filter(entry -> entry.getRight() != null) // ensure storage block equivalent exists
@@ -906,13 +983,28 @@ public class TRContent {
 
 		private final String name;
 		private final Item item;
-		private final ItemConvertible storageBlock;
+		private final Dusts dust;
+		private final StorageBlocks storageBlock;
 		private final Tag.Identified<Item> tag;
 
 		Ingots() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
-			ItemConvertible blockVariant = null;
+			Dusts dustVariant = null;
+			try {
+				dustVariant = Dusts.valueOf(this.toString());
+			}
+			catch (IllegalArgumentException ex) {
+				try {
+					RawMetals.valueOf(this.toString());
+					TechReborn.LOGGER.info("Ingot {} has no dust item equivalent, but a raw metal.", name);
+				}
+				catch (IllegalArgumentException ex2) {
+					TechReborn.LOGGER.warn("Ingot {} has no dust item equivalent AND no raw metal!", name);
+				}
+			}
+			dust = dustVariant;
+			StorageBlocks blockVariant = null;
 			try {
 				blockVariant = StorageBlocks.valueOf(this.toString());
 			}
@@ -942,8 +1034,24 @@ public class TRContent {
 			return tag;
 		}
 
-		public ItemConvertible getStorageBlock() {
+		public Dusts getDust() {
+			return dust;
+		}
+
+		public StorageBlocks getStorageBlock() {
 			return storageBlock;
+		}
+
+		/**
+		 * Returns a map that maps the ingots to their dust item equivalent.
+		 * @return A non {@code null} map mapping the ingots to their dust item equivalent.
+		 * If a dust item equivalent doesn't exist, the ingot will not be in the keys of this map.
+		 */
+		public static @NotNull Map<Ingots, Dusts> getI2DMap() {
+			return Arrays.stream(values())
+					.map(gem -> new Pair<>(gem, gem.getDust()))
+					.filter(entry -> entry.getRight() != null) // ensure dust item equivalent exists
+					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 
 		/**

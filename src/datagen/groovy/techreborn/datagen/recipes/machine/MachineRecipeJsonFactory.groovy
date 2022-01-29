@@ -32,6 +32,7 @@ import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.tag.Tag
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
+import org.jetbrains.annotations.NotNull
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.ingredient.RebornIngredient
@@ -46,6 +47,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	private int power = -1
 	private int time = -1
 	private Identifier customId = null
+	private String source = null
 
 	protected MachineRecipeJsonFactory(RebornRecipeType<R> type) {
 		this.type = type
@@ -120,6 +122,17 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
+	def source(String s) {
+		this.source = s
+		return this
+	}
+
+	@NotNull String getSourceAppendix() {
+		if (source == null)
+			return ""
+		return "_from_" + source
+	}
+
 	MachineRecipeJsonFactory id(String path) {
 		return id(new Identifier("techreborn", path))
 	}
@@ -168,7 +181,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 
 		def outputId = Registry.ITEM.getId(outputs[0].item)
-		return new Identifier("techreborn", "${type.name().path}/${outputId.path}")
+		return new Identifier("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	static class MachineRecipeJsonProvider<R extends RebornRecipe> implements RecipeJsonProvider {
