@@ -127,6 +127,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
 		MachineRecipeJsonFactory.create(ModRecipes.GRINDER, closure).offerTo(exporter)
 	}
 
+	def offerCompressorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		MachineRecipeJsonFactory.create(ModRecipes.COMPRESSOR, closure).offerTo(exporter)
+	}
+
     @Override
     protected Identifier getRecipeIdentifier(Identifier identifier) {
         return new Identifier("techreborn", super.getRecipeIdentifier(identifier).path)

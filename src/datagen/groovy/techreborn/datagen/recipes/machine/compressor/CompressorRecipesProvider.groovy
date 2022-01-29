@@ -22,28 +22,42 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen
+package techreborn.datagen.recipes.machine.compressor
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import techreborn.datagen.recipes.machine.compressor.CompressorRecipesProvider
-import techreborn.datagen.recipes.machine.grinder.GrinderRecipesProvider
-import techreborn.datagen.recipes.smelting.SmeltingRecipesProvider
-import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
-import techreborn.datagen.tags.TRItemTagProvider
-import techreborn.datagen.tags.WaterExplosionTagProvider
+import net.fabricmc.fabric.api.tag.TagFactory
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
+import net.minecraft.tag.Tag
+import net.minecraft.util.Identifier
+import reborncore.common.misc.TagConvertible
+import techreborn.datagen.recipes.TechRebornRecipesProvider
+import techreborn.init.TRContent
 
-class TechRebornDataGen implements DataGeneratorEntrypoint {
+class CompressorRecipesProvider extends TechRebornRecipesProvider {
+	CompressorRecipesProvider(FabricDataGenerator dataGenerator) {
+		super(dataGenerator)
+	}
 
-    @Override
-    void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        fabricDataGenerator.addProvider(WaterExplosionTagProvider.&new)
-		fabricDataGenerator.addProvider(TRItemTagProvider.&new)
-        // tags before all else, very important!!
-        fabricDataGenerator.addProvider(SmeltingRecipesProvider.&new)
-        fabricDataGenerator.addProvider(CraftingRecipesProvider.&new)
-
-		fabricDataGenerator.addProvider(GrinderRecipesProvider.&new)
-		fabricDataGenerator.addProvider(CompressorRecipesProvider.&new)
-    }
+	@Override
+	void generateRecipes() {
+		TRContent.Plates.values().each {plate ->
+			if (plate.getSource() != null)
+				offerCompressorRecipe {
+					ingredients (plate.getSource() instanceof TagConvertible<Item> ? ((TagConvertible<Item>)plate.getSource()).asTag() : plate.getSource())
+					outputs new ItemStack(plate, 1)
+					power 10
+					time 300
+				}
+			if (plate.getSourceBlock() != null)
+				offerCompressorRecipe {
+					ingredients (plate.getSourceBlock() instanceof TagConvertible<Item> ? ((TagConvertible<Item>)plate.getSourceBlock()).asTag() : plate.getSourceBlock())
+					outputs new ItemStack(plate, 9)
+					power 10
+					time 300
+					source "block"
+				}
+		}
+	}
 }

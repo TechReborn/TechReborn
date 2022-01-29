@@ -93,6 +93,7 @@ import techreborn.world.OreDistribution;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -1219,20 +1220,110 @@ public class TRContent {
 	public static final Tag.Identified<Item> PLATES_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "plates"));
 
 	public enum Plates implements ItemConvertible, TagConvertible<Item> {
-		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CARBON, CHROME, COAL, COPPER, DIAMOND, ELECTRUM, EMERALD, GOLD, INVAR,
-		IRIDIUM_ALLOY, IRIDIUM, IRON, LAPIS, LAZURITE, LEAD, MAGNALIUM, NICKEL, OBSIDIAN, PERIDOT, PLATINUM, QUARTZ, RED_GARNET,
-		REDSTONE, REFINED_IRON, RUBY, SAPPHIRE, SILICON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, WOOD,
-		YELLOW_GARNET, ZINC;
+		ADVANCED_ALLOY,
+		ALUMINUM,
+		BRASS,
+		BRONZE,
+		CARBON(Parts.CARBON_MESH),
+		CHROME,
+		COAL(Dusts.COAL, Items.COAL_BLOCK),
+		COPPER(Items.COPPER_INGOT, Items.COPPER_BLOCK),
+		DIAMOND(Dusts.DIAMOND, Items.DIAMOND_BLOCK),
+		ELECTRUM,
+		EMERALD(Dusts.EMERALD, Items.EMERALD_BLOCK),
+		GOLD(Items.GOLD_INGOT, Items.GOLD_BLOCK),
+		INVAR,
+		IRIDIUM_ALLOY(true),
+		IRIDIUM,
+		IRON(Items.IRON_INGOT, Items.IRON_BLOCK),
+		LAPIS(Items.LAPIS_BLOCK),
+		LAZURITE(Dusts.LAZURITE),
+		LEAD,
+		MAGNALIUM,
+		NICKEL,
+		OBSIDIAN(Dusts.OBSIDIAN, Items.OBSIDIAN),
+		PERIDOT,
+		PLATINUM,
+		QUARTZ(Dusts.QUARTZ),
+		RED_GARNET,
+		REDSTONE(Items.REDSTONE_BLOCK),
+		REFINED_IRON,
+		RUBY,
+		SAPPHIRE,
+		SILICON,
+		SILVER,
+		STEEL,
+		TIN,
+		TITANIUM,
+		TUNGSTEN,
+		TUNGSTENSTEEL,
+		WOOD,
+		YELLOW_GARNET,
+		ZINC;
 
 		private final String name;
 		private final Item item;
+		private final ItemConvertible source;
+		private final ItemConvertible sourceBlock;
+		private final boolean industrial;
 		private final Tag.Identified<Item> tag;
 
-		Plates() {
+		Plates(ItemConvertible source, ItemConvertible sourceBlock, boolean industrial) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			ItemConvertible sourceVariant = null;
+			if (source != null) {
+				sourceVariant = source;
+			}
+			else {
+				try {
+					sourceVariant = Ingots.valueOf(this.toString());
+				}
+				catch (IllegalArgumentException ex) {
+					try {
+						sourceVariant = Gems.valueOf(this.toString());
+					}
+					catch (IllegalArgumentException ex2) {
+						TechReborn.LOGGER.warn("Plate {} has no identifiable source!", name);
+					}
+				}
+			}
+			if (sourceBlock != null) {
+				this.sourceBlock = sourceBlock;
+			}
+			else {
+				if (sourceVariant instanceof Gems gem)
+					this.sourceBlock = gem.getStorageBlock();
+				else if (sourceVariant instanceof Ingots ingot)
+					this.sourceBlock = ingot.getStorageBlock();
+				else {
+					TechReborn.LOGGER.info("Plate {} has no identifiable source block.", name);
+					this.sourceBlock = null;
+				}
+			}
+			if (sourceVariant instanceof Gems gem)
+				this.source = gem.getDust();
+			else
+				this.source = sourceVariant;
+			this.industrial = industrial;
 			InitUtils.setup(item, name + "_plate");
 			tag = TagFactory.ITEM.create(new Identifier("c", name + "_plates"));
+		}
+
+		Plates(ItemConvertible source, ItemConvertible sourceBlock) {
+			this(source, sourceBlock, false);
+		}
+
+		Plates(ItemConvertible source) {
+			this(source, null, false);
+		}
+
+		Plates(boolean industrial) {
+			this(null, null, industrial);
+		}
+
+		Plates() {
+			this(null);
 		}
 
 		public ItemStack getStack() {
@@ -1246,6 +1337,18 @@ public class TRContent {
 		@Override
 		public Item asItem() {
 			return item;
+		}
+
+		public ItemConvertible getSource() {
+			return source;
+		}
+
+		public ItemConvertible getSourceBlock() {
+			return sourceBlock;
+		}
+
+		public boolean isIndustrial() {
+			return industrial;
 		}
 
 		@Override
