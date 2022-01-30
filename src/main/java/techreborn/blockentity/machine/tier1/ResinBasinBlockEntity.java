@@ -95,7 +95,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 			Storage<ItemVariant> invBelow = getInventoryBelow();
 			if (invBelow != null) {
 				try (Transaction tx = Transaction.openOuter()) {
-					int sentAmount = (Math.random() <= 0.5) ? 1 : 2;
+					int sentAmount = getSapAmount();
 					if (invBelow.insert(ItemVariant.of(TRContent.Parts.SAP), sentAmount, tx) > 0) {
 						tx.commit();
 						isFull = false;
@@ -136,13 +136,31 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		}
 	}
 
+	public int getSapAmount() {
+		if (!isFull)
+			return 0;
+		return (Math.random() <= 0.5) ? 1 : 2;
+	}
+
+	public void reset() {
+		setFullState(false);
+		setPouringState(false);
+		// pouringTimer = 0; // not done in setPouringState??
+	}
+
+	public ItemStack empty() {
+		int sapAmount = getSapAmount();
+		reset();
+		return new ItemStack(TRContent.Parts.SAP, sapAmount);
+	}
+
 	@Override
 	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
 		super.onBreak(world, playerEntity, blockPos, blockState);
 
 		// Drop a sap if full
 		if (this.isFull) {
-			ItemStack out = new ItemStack(TRContent.Parts.SAP, (Math.random() <= 0.6) ? 1 : 2);
+			ItemStack out = new ItemStack(TRContent.Parts.SAP, getSapAmount());
 			WorldUtils.dropItem(out, world, pos);
 		}
 	}
