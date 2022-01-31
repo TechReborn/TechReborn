@@ -32,7 +32,7 @@ import reborncore.common.BaseBlock;
 public class BlockStorage extends BaseBlock {
 
 	public BlockStorage(boolean isHot) {
-		super(isHot ? getDefaultSettings().luminance(15) : getDefaultSettings());
+		super(isHot ? getDefaultSettings().luminance(15).nonOpaque() : getDefaultSettings());
 	}
 
 	public BlockStorage() {
