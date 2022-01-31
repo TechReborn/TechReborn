@@ -176,10 +176,6 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			throw new IllegalStateException("Recipe has no outputs")
 		}
 
-		if (outputs.size() > 1) {
-			throw new IllegalStateException("Cannot compute default identifier for a recipe with more than one output. TODO might want to improve this?")
-		}
-
 		def outputId = Registry.ITEM.getId(outputs[0].item)
 		return new Identifier("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
 	}
