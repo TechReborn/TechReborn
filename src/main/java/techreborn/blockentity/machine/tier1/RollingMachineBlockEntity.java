@@ -70,6 +70,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<RollingMachineBlockEntity> inventory = new RebornInventory<>(12, "RollingMachineBlockEntity", 64, this);
 	public boolean isRunning;
 	public int tickTime;
+	// Only synced to the client
+	public int currentRecipeTime;
 	@NotNull
 	public ItemStack currentRecipeOutput;
 	public RollingMachineRecipe currentRecipe;
@@ -392,7 +394,21 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 				.onCraft(inv -> this.inventory.setStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 				.outputSlot(9, 124, 40)
 				.energySlot(10, 8, 70)
-				.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+				.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt)
+				.sync(this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
+	}
+
+	public int getCurrentRecipeTime() {
+		if (currentRecipe != null) {
+			return currentRecipe.getTime();
+		}
+
+		return 0;
+	}
+
+	public RollingMachineBlockEntity setCurrentRecipeTime(int currentRecipeTime) {
+		this.currentRecipeTime = currentRecipeTime;
+		return this;
 	}
 
 	//Easyest way to sync back to the client
@@ -405,8 +421,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getProgressScaled(final int scale) {
-		if (tickTime != 0 && Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1) != 0) {
-			return tickTime * scale / Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
+		if (tickTime != 0 && Math.max((int) (currentRecipeTime * (1.0 - getSpeedMultiplier())), 1) != 0) {
+			return tickTime * scale / Math.max((int) (currentRecipeTime * (1.0 - getSpeedMultiplier())), 1);
 		}
 		return 0;
 	}
