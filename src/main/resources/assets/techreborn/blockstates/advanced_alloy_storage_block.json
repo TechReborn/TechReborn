@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "techreborn:block/storage/advanced_alloy_storage_block" }
+    }
+}

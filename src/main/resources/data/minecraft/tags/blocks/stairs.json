@@ -2,11 +2,13 @@
   "replace": false,
   "values": [
     "techreborn:rubber_plank_stair",
+	"techreborn:advanced_alloy_storage_block_stairs",
 	"techreborn:aluminum_storage_block_stairs",
 	"techreborn:brass_storage_block_stairs",
 	"techreborn:bronze_storage_block_stairs",
 	"techreborn:chrome_storage_block_stairs",
 	"techreborn:electrum_storage_block_stairs",
+	"techreborn:hot_tungstensteel_storage_block_stairs",
 	"techreborn:invar_storage_block_stairs",
 	"techreborn:raw_iridium_storage_block_stairs",
 	"techreborn:iridium_storage_block_stairs",
