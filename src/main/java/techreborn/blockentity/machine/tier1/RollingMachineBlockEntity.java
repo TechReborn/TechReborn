@@ -60,7 +60,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//TODO add tick and power bars.
+// TODO add tick and power bars.
 
 public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
@@ -205,7 +205,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		if (balanceSlot > craftCache.size()) {
 			balanceSlot = 0;
 		}
-		//Find the best slot for each item in a recipe, and move it if needed
+		// Find the best slot for each item in a recipe, and move it if needed
 		ItemStack sourceStack = inventory.getStack(balanceSlot);
 		if (sourceStack.isEmpty()) {
 			return Optional.empty();
@@ -228,7 +228,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 					.mapToInt(value -> inventory.getStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
-			//This makes an array of ints with the best possible slot EnvTyperibution
+			// This makes an array of ints with the best possible slot distribution
 			int[] split = new int[slots];
 			int remainder = totalItems % slots;
 			Arrays.fill(split, totalItems / slots);
@@ -248,7 +248,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			boolean needsBalance = false;
 			for (int required : split) {
 				if (slotEnvTyperubution.contains(required)) {
-					//We need to remove the int, not at the int, this seems to work around that
+					// We need to remove the int, not at the int, this seems to work around that
 					slotEnvTyperubution.remove(Integer.valueOf(required));
 				} else {
 					needsBalance = true;
@@ -261,7 +261,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			return Optional.empty();
 		}
 
-		//Slot, count
+		// Slot, count
 		Pair<Integer, Integer> bestSlot = null;
 		for (Integer slot : possibleSlots) {
 			ItemStack slotStack = inventory.getStack(slot);
@@ -411,7 +411,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		return this;
 	}
 
-	//Easyest way to sync back to the client
+	// Easiest way to sync back to the client
 	public int getLockedInt() {
 		return locked ? 1 : 0;
 	}
@@ -434,7 +434,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		@Override
-		public boolean canUse(final PlayerEntity entityplayer) {
+		public boolean canUse(final PlayerEntity playerEntity) {
 			return true;
 		}
 

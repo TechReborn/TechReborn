@@ -47,7 +47,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 
 	public String ownerUdid;
 
-	//This is the energy value that is synced to the client
+	// This is the energy value that is synced to the client
 	private long clientEnergy;
 
 	public InterdimensionalSUBlockEntity(BlockPos pos, BlockState state) {
@@ -123,18 +123,18 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbttagcompound) {
-		super.readNbt(nbttagcompound);
-		this.ownerUdid = nbttagcompound.getString("ownerUdid");
+	public void readNbt(NbtCompound nbtCompound) {
+		super.readNbt(nbtCompound);
+		this.ownerUdid = nbtCompound.getString("ownerUdid");
 	}
 
 	@Override
-	public void writeNbt(NbtCompound nbttagcompound) {
-		super.writeNbt(nbttagcompound);
+	public void writeNbt(NbtCompound nbtCompound) {
+		super.writeNbt(nbtCompound);
 		if (ownerUdid == null || StringUtils.isEmpty(ownerUdid)) {
 			return;
 		}
-		nbttagcompound.putString("ownerUdid", this.ownerUdid);
+		nbtCompound.putString("ownerUdid", this.ownerUdid);
 	}
 
 	@Override

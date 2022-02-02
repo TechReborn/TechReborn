@@ -46,7 +46,7 @@ import techreborn.init.TRContent;
  */
 public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
 
-	int waterblocks = 0;
+	int waterBlocks = 0;
 
 	public WaterMillBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.WATER_MILL, pos, state);
@@ -62,8 +62,8 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 		if (world.getTime() % 20 == 0) {
 			checkForWater();
 		}
-		if (waterblocks > 0) {
-			addEnergyProbabilistic(waterblocks * TechRebornConfig.waterMillEnergyMultiplier);
+		if (waterBlocks > 0) {
+			addEnergyProbabilistic(waterBlocks * TechRebornConfig.waterMillEnergyMultiplier);
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 		} else {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
@@ -71,10 +71,10 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 	}
 
 	public void checkForWater() {
-		waterblocks = 0;
+		waterBlocks = 0;
 		for (Direction facing : Direction.values()) {
 			if (facing.getAxis().isHorizontal() && world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
-				waterblocks++;
+				waterBlocks++;
 			}
 		}
 	}

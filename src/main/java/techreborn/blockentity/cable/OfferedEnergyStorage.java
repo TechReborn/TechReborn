@@ -28,7 +28,7 @@ import net.minecraft.util.math.Direction;
 import team.reborn.energy.api.EnergyStorage;
 
 /**
- * EnergyStorage adjacent to an energy cable, with some additional info.
+ * {@link EnergyStorage} adjacent to an energy cable, with some additional info.
  */
 class OfferedEnergyStorage {
 	final CableBlockEntity sourceCable;

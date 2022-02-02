@@ -108,7 +108,7 @@ public class DrillItem extends PickaxeItem implements RcEnergyItem, DynamicAttri
 
 	// ToolItem
 	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
+	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		return false;
 	}
 

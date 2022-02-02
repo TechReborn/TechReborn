@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.function.BiConsumer;
 
 public enum SlotType {
-	//Im really not a fan of the way I add the slots to the builder here
+	// I'm really not a fan of the way I add the slots to the builder here
 	INPUT((builder, slot) -> {
 		builder.slot(slot.id(), slot.x(), slot.y());
 	}),

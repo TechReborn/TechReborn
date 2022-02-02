@@ -61,8 +61,8 @@ public class ModelHelper {
 
 	public static Reader getReaderForResource(Identifier location) throws IOException {
 		Identifier file = new Identifier(location.getNamespace(), location.getPath() + ".json");
-		Resource iresource = MinecraftClient.getInstance().getResourceManager().getResource(file);
-		return new BufferedReader(new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8));
+		Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(file);
+		return new BufferedReader(new InputStreamReader(resource.getInputStream(), Charsets.UTF_8));
 	}
 
 }

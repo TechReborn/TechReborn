@@ -25,6 +25,7 @@
 package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -107,7 +108,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	/**
 	 * Changes size of fusion reactor ring after GUI button click
 	 *
-	 * @param sizeDelta int Size increment
+	 * @param sizeDelta {@code int} Size increment
 	 */
 	public void changeSize(int sizeDelta) {
 		int newSize = size + sizeDelta;
@@ -125,13 +126,13 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	/**
-	 * Checks that ItemStack could be inserted into slot provided, including check
+	 * Checks that {@link ItemStack} could be inserted into slot provided, including check
 	 * for existing item in slot and maximum stack size
 	 *
-	 * @param stack ItemStack ItemStack to insert
-	 * @param slot  int Slot ID to check
-	 * @param tags  boolean Should we use tags
-	 * @return boolean Returns true if ItemStack will fit into slot
+	 * @param stack {@link ItemStack} Stack to insert
+	 * @param slot  {@code int} Slot ID to check
+	 * @param tags  {@code boolean} Should we use tags
+	 * @return {@code boolean} Returns true if ItemStack will fit into slot
 	 */
 	public boolean canFitStack(ItemStack stack, int slot, boolean tags) {// Checks to see if it can
 		// fit the stack
@@ -165,18 +166,18 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	/**
 	 * Validates if reactor has all inputs and can output result
 	 *
-	 * @param recipe FusionReactorRecipe Recipe to validate
-	 * @return Boolean True if we have all inputs and can fit output
+	 * @param recipe {@link FusionReactorRecipe} Recipe to validate
+	 * @return {@code boolean} True if we have all inputs and can fit output
 	 */
 	private boolean validateRecipe(FusionReactorRecipe recipe) {
 		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs().get(0), outputStackSlot, true);
 	}
 
 	/**
-	 * Check if BlockEntity has all necessary inputs for recipe provided
+	 * Check if {@link BlockEntity} has all necessary inputs for recipe provided
 	 *
-	 * @param recipeType RebornRecipe Recipe to check inputs
-	 * @return Boolean True if reactor has all inputs for recipe
+	 * @param recipeType {@link RebornRecipe} Recipe to check inputs
+	 * @return {@code boolean} True if reactor has all inputs for recipe
 	 */
 	private boolean hasAllInputs(RebornRecipe recipeType) {
 		if (recipeType == null) {
@@ -198,7 +199,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	/**
 	 * Decrease stack size on the given slot according to recipe input
 	 *
-	 * @param slot int Slot number
+	 * @param slot {@code int} Slot number
 	 */
 	private void useInput(int slot) {
 		if (currentRecipe == null) {
@@ -259,7 +260,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			return;
 		}
 
-		//Move this to here from the nbt read method, as it now requires the world as of 1.14
+		// Move this to here from the nbt read method, as it now requires the world as of 1.14
 		if (checkNBTRecipe) {
 			checkNBTRecipe = false;
 			for (final RebornRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
@@ -270,7 +271,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		}
 
 		if (lastTick == world.getTime()) {
-			//Prevent tick accelerators, blame obstinate for this.
+			// Prevent tick accelerators, blame obstinate for this.
 			return;
 		}
 		lastTick = world.getTime();
@@ -308,7 +309,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			if (hasStartedCrafting && craftingTickTime < currentRecipe.getTime()) {
 				// Power gen
 				if (currentRecipe.getPower() > 0) {
-					// Waste power if it has no where to go
+					// Waste power if it has nowhere to go
 					long power = (long) (Math.abs(currentRecipe.getPower()) * getPowerMultiplier());
 					addEnergy(power);
 					powerChange = (power);
@@ -380,7 +381,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		tagCompound.putInt("size", size);
 	}
 
-	//MachineBaseBlockEntity
+	// MachineBaseBlockEntity
 	@Override
 	public double getPowerMultiplier() {
 		double calc = (1F / 2F) * Math.pow(size - 5, 1.8);

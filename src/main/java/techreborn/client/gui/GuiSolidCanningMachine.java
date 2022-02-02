@@ -29,13 +29,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.screen.builder.BuiltScreenHandler;
-import techreborn.blockentity.machine.tier1.SoildCanningMachineBlockEntity;
+import techreborn.blockentity.machine.tier1.SolidCanningMachineBlockEntity;
 
 public class GuiSolidCanningMachine extends GuiBase<BuiltScreenHandler> {
 
-	SoildCanningMachineBlockEntity blockEntity;
+	SolidCanningMachineBlockEntity blockEntity;
 
-	public GuiSolidCanningMachine(int syncID, final PlayerEntity player, final SoildCanningMachineBlockEntity blockEntity) {
+	public GuiSolidCanningMachine(int syncID, final PlayerEntity player, final SolidCanningMachineBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 

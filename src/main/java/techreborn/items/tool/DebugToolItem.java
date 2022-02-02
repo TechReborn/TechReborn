@@ -94,16 +94,16 @@ public class DebugToolItem extends Item {
 	}
 
 	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
-		Property<?> iproperty = entryIn.getKey();
+		Property<?> property = entryIn.getKey();
 		Comparable<?> comparable = entryIn.getValue();
-		String s = Util.getValueAsString(iproperty, comparable);
+		String s = Util.getValueAsString(property, comparable);
 		if (Boolean.TRUE.equals(comparable)) {
 			s = Formatting.GREEN + s;
 		} else if (Boolean.FALSE.equals(comparable)) {
 			s = Formatting.RED + s;
 		}
 
-		return iproperty.getName() + ": " + s;
+		return property.getName() + ": " + s;
 	}
 
 	private String getRegistryName(Block block) {

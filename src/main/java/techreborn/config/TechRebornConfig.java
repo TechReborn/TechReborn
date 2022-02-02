@@ -29,7 +29,7 @@ import reborncore.common.config.Config;
 import java.util.Arrays;
 import java.util.List;
 
-//All moved into one class as its a lot easier to find the annotations when you know where they all are
+// All moved into one class as it's a lot easier to find the annotations when you know where they all are
 public class TechRebornConfig {
 
 	// Generators
@@ -268,11 +268,11 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "lapotronicOrbMaxCharge", comment = "Energy Capacity for Lapotronic Orb")
 	public static int lapotronicOrbMaxCharge = 100_000_000;
 
-	@Config(config = "items", category = "power", key = "cloakingDeviceCharge", comment = "Energy Capacity for Cloacking Device")
+	@Config(config = "items", category = "power", key = "cloakingDeviceCharge", comment = "Energy Capacity for Cloaking Device")
 	public static int cloakingDeviceCharge = 40_000_000;
 
-	@Config(config = "items", category = "power", key = "clockingDeviceEnergyUsage", comment = "Cloacking device energy usage")
-	public static int cloackingDeviceCost = 10;
+	@Config(config = "items", category = "power", key = "clockingDeviceEnergyUsage", comment = "Cloaking device energy usage")
+	public static int cloakingDeviceCost = 10;
 
 	@Config(config = "items", category = "power", key = "quantumSuitCapacity", comment = "Quantum Suit Energy Capacity")
 	public static long quantumSuitCapacity = 40_000_000;

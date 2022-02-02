@@ -111,7 +111,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 				|| block instanceof CactusBlock
 				|| block instanceof BambooBlock
 		) {
-			// If we can break bottom block we should at least remove all of them up to top so they don't break automatically
+			// If we can break bottom block we should at least remove all of them up to top, so they don't break automatically
 			boolean breakBlocks = false;
 			for (int y = 1; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block; y++) {
 				if (y == 1) {

@@ -148,7 +148,7 @@ public class LampBlock extends BaseBlockEntityProvider {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BaseTileBlock. Thus we should always have blockEntity entity. I hope.
+		// We extended BaseTileBlock. Thus, we should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
 			return ActionResult.FAIL;
 		}

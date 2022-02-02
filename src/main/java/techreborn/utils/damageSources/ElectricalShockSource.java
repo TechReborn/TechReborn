@@ -29,8 +29,8 @@ import net.minecraft.entity.damage.DamageSource;
 /**
  * Created by modmuss50 on 06/03/2016.
  */
-public class ElectrialShockSource extends DamageSource {
-	public ElectrialShockSource() {
+public class ElectricalShockSource extends DamageSource {
+	public ElectricalShockSource() {
 		super("shock");
 	}
 }

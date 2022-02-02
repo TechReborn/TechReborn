@@ -33,22 +33,24 @@ import java.util.Optional;
 public class GeneratorRecipeHelper {
 
 	/**
-	 * This EnumMap store all the energy recipes for the fluid generators. Each
-	 * value of the EFluidGenerator enum is linked to an object holding a set of
-	 * FluidGeneratorRecipe.
+	 * This {@link EnumMap} store all the energy recipes for the fluid generators. Each
+	 * value of the {@link EFluidGenerator} enum is linked to an object holding a set of
+	 * {@link FluidGeneratorRecipe}.
 	 */
 	public static EnumMap<EFluidGenerator, FluidGeneratorRecipeList> fluidRecipes = new EnumMap<>(
 			EFluidGenerator.class);
 
 	/**
-	 * Register a Fluid energy recipe.
+	 * Register a {@link Fluid} energy recipe.
 	 *
-	 * @param generatorType A value of the EFluidGenerator type in which the fluid is
-	 *                      allowed to be consumed.
-	 * @param fluidType
-	 * @param energyPerMb   Represent the energy / MILLI_BUCKET the fluid will produce.
-	 *                      Some generators use this value to alter their fluid decay
-	 *                      speed to match their maximum energy output.
+	 * @param generatorType {@link EFluidGenerator} A value of the {@link EFluidGenerator} type in
+	 *                      which the fluid is allowed to be consumed.
+	 * @param fluidType     {@link Fluid} The fluid type that will be registered.
+	 * @param energyPerMb   {@code int} Represent the energy / MILLI_BUCKET the fluid will produce.
+	 *                      <p>
+	 *                       Some generators use this value to alter their fluid decay
+	 *                       speed to match their maximum energy output.
+	 *                      </p>
 	 */
 	public static void registerFluidRecipe(EFluidGenerator generatorType, Fluid fluidType, int energyPerMb) {
 		fluidRecipes.putIfAbsent(generatorType, new FluidGeneratorRecipeList());
@@ -56,10 +58,10 @@ public class GeneratorRecipeHelper {
 	}
 
 	/**
-	 * @param generatorType A value of the EFluidGenerator type in which the fluid is
-	 *                      allowed to be consumed.
-	 * @return An object holding a set of availables recipes for this type of
-	 * FluidGenerator.
+	 * @param generatorType {@link EFluidGenerator} A value of the {@link EFluidGenerator} type in
+	 *                      which the fluid is allowed to be consumed.
+	 * @return {@link FluidGeneratorRecipeList} An object holding a set of available recipes
+	 * for this type of {@link EFluidGenerator}.
 	 */
 	public static FluidGeneratorRecipeList getFluidRecipesForGenerator(EFluidGenerator generatorType) {
 		return fluidRecipes.get(generatorType);
@@ -68,8 +70,9 @@ public class GeneratorRecipeHelper {
 	/**
 	 * Removes recipe
 	 *
-	 * @param generatorType A value of the EFluidGenerator type for which we should remove recipe
-	 * @param fluidType     Fluid to remove from generator recipes
+	 * @param generatorType {@link EFluidGenerator} A value of the {@link EFluidGenerator} type for
+	 *                      which we should remove recipe
+	 * @param fluidType     {@link Fluid} Fluid to remove from generator recipes
 	 */
 	public static void removeFluidRecipe(EFluidGenerator generatorType, Fluid fluidType) {
 		FluidGeneratorRecipeList recipeList = getFluidRecipesForGenerator(generatorType);

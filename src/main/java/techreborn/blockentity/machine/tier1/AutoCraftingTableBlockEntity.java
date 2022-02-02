@@ -262,7 +262,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (balanceSlot > craftCache.size()) {
 			balanceSlot = 0;
 		}
-		//Find the best slot for each item in a recipe, and move it if needed
+		// Find the best slot for each item in a recipe, and move it if needed
 		ItemStack sourceStack = inventory.getStack(balanceSlot);
 		if (sourceStack.isEmpty()) {
 			return Optional.empty();

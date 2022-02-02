@@ -133,14 +133,14 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbttagcompound) {
-		super.readNbt(nbttagcompound);
-		this.radius = nbttagcompound.getInt("radius");
-		this.ownerUdid = nbttagcompound.getString("ownerUdid");
+	public void readNbt(NbtCompound nbtCompound) {
+		super.readNbt(nbtCompound);
+		this.radius = nbtCompound.getInt("radius");
+		this.ownerUdid = nbtCompound.getString("ownerUdid");
 		if (!StringUtils.isBlank(ownerUdid)) {
-			nbttagcompound.putString("ownerUdid", this.ownerUdid);
+			nbtCompound.putString("ownerUdid", this.ownerUdid);
 		}
-		inventory.read(nbttagcompound);
+		inventory.read(nbtCompound);
 	}
 
 	// IToolDrop

@@ -63,7 +63,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	ItemStack burnItem;
 
 	public SolidFuelGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.SOLID_FUEL_GENEREATOR, pos, state);
+		super(TRBlockEntities.SOLID_FUEL_GENERATOR, pos, state);
 	}
 
 	public static int getItemBurnTime(@NotNull ItemStack stack) {
