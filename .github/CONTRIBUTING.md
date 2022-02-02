@@ -1,8 +1,8 @@
-First of all, thank you for you efforts in contributing to TechReborn project 
+First of all, thank you for your efforts in contributing to TechReborn project 
 
 In order to ease code review of your pull request, please, go through this checklist. 
 
- * The code compiles )).
+ * The code compiles.
  * The code has been developer-tested.
  * The code includes javadoc where appropriate. 
  * The code is tidy (indentation, line length, no commented-out code, no spelling mistakes, etc). 
@@ -15,5 +15,3 @@ In order to ease code review of your pull request, please, go through this check
  * Are there any hardcoded, development only things still in the code? 
  * Was performance considered? 
  * Corner cases well documented or any workarounds for a known limitation of the MC, Fabric, RC, etc used.
-
-   
