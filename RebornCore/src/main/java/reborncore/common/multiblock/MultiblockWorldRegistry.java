@@ -311,7 +311,7 @@ public class MultiblockWorldRegistry {
 	 * during the next tick. If the chunk is not loaded, it will be added to a
 	 * list of objects waiting for a chunkload.
 	 *
-	 * @param part The part which is being added to this world.
+	 * @param part {@link IMultiblockPart} The part which is being added to this world.
 	 */
 	public void onPartAdded(IMultiblockPart part) {
 		BlockPos pos = part.getWorldLocation();
@@ -342,7 +342,7 @@ public class MultiblockWorldRegistry {
 	 * chunk unloads. This part is removed from any lists in which it may be,
 	 * and its machine is marked for recalculation.
 	 *
-	 * @param part The part which is being removed.
+	 * @param part {@link IMultiblockPart} The part which is being removed.
 	 */
 	public void onPartRemovedFromWorld(IMultiblockPart part) {
 		BlockPos pos = part.getWorldLocation();
@@ -394,12 +394,11 @@ public class MultiblockWorldRegistry {
 	}
 
 	/**
-	 * Called when a chunk has finished loading. Adds all of the parts which are
+	 * Called when a chunk has finished loading. Adds all the parts which are
 	 * awaiting load to the list of parts which are orphans and therefore will
-	 * be added to machines after the next world tick.
+	 * be added to the machines after the next world tick.
 	 *
-	 * @param chunk Chunk that was
-	 * loaded
+	 * @param chunk {@link Chunk} Chunk that was loaded
 	 */
 	public void onChunkLoaded(Chunk chunk) {
 		int chunkHash = chunk.getPos().hashCode();
@@ -418,7 +417,7 @@ public class MultiblockWorldRegistry {
 	 * next world tick. Note that a controller must shed all of its blocks
 	 * before being marked as dead, or the system will complain at you.
 	 *
-	 * @param deadController The controller which is dead.
+	 * @param deadController {@link MultiblockControllerBase} The controller which is dead.
 	 */
 	public void addDeadController(MultiblockControllerBase deadController) {
 		this.deadControllers.add(deadController);
@@ -429,7 +428,7 @@ public class MultiblockWorldRegistry {
 	 * changed, and it must be re-checked for assembly and, possibly, for
 	 * orphans.
 	 *
-	 * @param dirtyController The dirty controller.
+	 * @param dirtyController {@link MultiblockControllerBase} The dirty controller.
 	 */
 	public void addDirtyController(MultiblockControllerBase dirtyController) {
 		this.dirtyControllers.add(dirtyController);
@@ -439,8 +438,8 @@ public class MultiblockWorldRegistry {
 	 * Use this only if you know what you're doing. You should rarely need to
 	 * iterate over all controllers in a world!
 	 *
-	 * @return An (unmodifiable) set of controllers which are active in this
-	 * world.
+	 * @return {@link Set} An (unmodifiable) set of {@link MultiblockControllerBase}
+	 * controllers which are active in this world.
 	 */
 	public Set<MultiblockControllerBase> getControllers() {
 		return Collections.unmodifiableSet(controllers);

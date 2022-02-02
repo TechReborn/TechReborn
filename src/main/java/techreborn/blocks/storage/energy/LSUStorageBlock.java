@@ -49,7 +49,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 
 	public LSUStorageBlock() {
 		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f));
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	// BaseTileBlock

@@ -13,6 +13,12 @@ public class FluidTextHelper {
 
 	/**
 	 * Return a unicode string representing a fraction, like ¹⁄₈₁.
+	 *
+	 * @param numerator   {@code long} The numerator of the fraction.
+	 * @param denominator {@code long} The denominator of the fraction.
+	 * @param simplify    {@code boolean} Whether to simplify the fraction.
+	 * @return {@link String} representing the fraction.
+	 * @throws IllegalArgumentException if numerator or denominator is negative.
 	 */
 	public static String getUnicodeFraction(long numerator, long denominator, boolean simplify) {
 		if (numerator < 0 || denominator < 0)
@@ -42,15 +48,13 @@ public class FluidTextHelper {
 	}
 
 	/**
-	 * Convert a non negative fluid amount in droplets to a unicode string
+	 * Convert a non-negative fluid amount in droplets to a unicode string
 	 * representing the amount in millibuckets. For example, passing 163 will result
 	 * in
 	 *
 	 * <pre>
-	 * 2 ¹⁄₈₁
+	 *  2 ¹⁄₈₁
 	 * </pre>
-	 *
-	 * .
 	 */
 	public static String getUnicodeMillibuckets(long droplets, boolean simplify) {
 		String result = "" + droplets / 81;

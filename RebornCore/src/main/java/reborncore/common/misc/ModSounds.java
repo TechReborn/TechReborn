@@ -31,7 +31,6 @@ import net.minecraft.util.registry.Registry;
 /**
  * @author drcrazy
  */
-
 public class ModSounds {
 
 	public static SoundEvent BLOCK_DISMANTLE;

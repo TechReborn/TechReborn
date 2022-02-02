@@ -136,10 +136,10 @@ public class GuiBuilder {
 	/**
 	 * Draws button with JEI icon in the given coords.
 	 *
-	 * @param gui   GuiBase GUI to draw on
-	 * @param x     int Top left corner where to place button
-	 * @param y     int Top left corner where to place button
-	 * @param layer Layer Layer to draw on
+	 * @param gui   {@link GuiBase} The GUI to draw on
+	 * @param x     {@code int} Top left corner where to place button
+	 * @param y     {@code int} Top left corner where to place button
+	 * @param layer {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawJEIButton(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
@@ -156,13 +156,13 @@ public class GuiBuilder {
 	/**
 	 * Draws lock button in either locked or unlocked state
 	 *
-	 * @param gui    GuiBase GUI to draw on
-	 * @param x      int Top left corner where to place button
-	 * @param y      int Top left corner where to place button
-	 * @param mouseX int Mouse cursor position to check for tooltip
-	 * @param mouseY int Mouse cursor position to check for tooltip
-	 * @param layer  Layer Layer to draw on
-	 * @param locked boolean Set to true if it is in locked state
+	 * @param gui    {@link GuiBase} The GUI to draw on
+	 * @param x      {@code int} Top left corner where to place button
+	 * @param y      {@code int} Top left corner where to place button
+	 * @param mouseX {@code int} Mouse cursor position to check for tooltip
+	 * @param mouseY {@code int} Mouse cursor position to check for tooltip
+	 * @param layer  {@link GuiBase.Layer} The layer to draw on
+	 * @param locked {@code boolean} Set to true if it is in locked state
 	 */
 	public void drawLockButton(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer, boolean locked) {
 		if (gui.hideGuiElements()) return;
@@ -188,12 +188,12 @@ public class GuiBuilder {
 	/**
 	 * Draws hologram toggle button
 	 *
-	 * @param gui    GuiBase GUI to draw on
-	 * @param x      int Top left corner where to place button
-	 * @param y      int Top left corner where to place button
-	 * @param mouseX int Mouse cursor position to check for tooltip
-	 * @param mouseY int Mouse cursor position to check for tooltip
-	 * @param layer  Layer Layer to draw on
+	 * @param gui    {@link GuiBase} The GUI to draw on
+	 * @param x      {@code int} Top left corner where to place button
+	 * @param y      {@code int} Top left corner where to place button
+	 * @param mouseX {@code int} Mouse cursor position to check for tooltip
+	 * @param mouseY {@code int} Mouse cursor position to check for tooltip
+	 * @param layer  {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawHologramButton(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (gui.isTabOpen()) return;
@@ -223,12 +223,12 @@ public class GuiBuilder {
 	/**
 	 * Draws big horizontal bar for heat value
 	 *
-	 * @param gui   GuiBase GUI to draw on
-	 * @param x     int Top left corner where to place bar
-	 * @param y     int Top left corner where to place bar
-	 * @param value int Current heat value
-	 * @param max   int Maximum heat value
-	 * @param layer Layer Layer to draw on
+	 * @param gui   {@link GuiBase} The GUI to draw on
+	 * @param x     {@code int} Top left corner where to place bar
+	 * @param y     {@code int} Top left corner where to place bar
+	 * @param value {@code int} Current heat value
+	 * @param max   {@code int} Maximum heat value
+	 * @param layer {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawBigHeatBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int value, int max, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
@@ -255,17 +255,17 @@ public class GuiBuilder {
 	/**
 	 * Draws big horizontal blue bar
 	 *
-	 * @param gui    GuiBase GUI to draw on
-	 * @param x      int Top left corner where to place bar
-	 * @param y      int Top left corner where to place bar
-	 * @param value  int Current value
-	 * @param max    int Maximum value
-	 * @param mouseX int Mouse cursor position to check for tooltip
-	 * @param mouseY int Mouse cursor position to check for tooltip
-	 * @param suffix String String to put on the bar and tooltip after percentage value
-	 * @param line2  String String to put into tooltip as a second line
-	 * @param format String Formatted value to put on the bar
-	 * @param layer  Layer Layer to draw on
+	 * @param gui    {@link GuiBase} The GUI to draw on
+	 * @param x      {@code int} Top left corner where to place bar
+	 * @param y      {@code int} Top left corner where to place bar
+	 * @param value  {@code int} Current value
+	 * @param max    {@code int} Maximum value
+	 * @param mouseX {@code int} Mouse cursor position to check for tooltip
+	 * @param mouseY {@code int} Mouse cursor position to check for tooltip
+	 * @param suffix {@link String} String to put on the bar and tooltip after percentage value
+	 * @param line2  {@link String} String to put into tooltip as a second line
+	 * @param format {@link String} Formatted value to put on the bar
+	 * @param layer  {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawBigBlueBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, Text line2, String format, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
@@ -343,8 +343,8 @@ public class GuiBuilder {
 	/**
 	 * Shades GUI and draw gray bar on top of GUI
 	 *
-	 * @param gui   GuiBase GUI to draw on
-	 * @param layer Layer Layer to draw on
+	 * @param gui   {@link GuiBase} The GUI to draw on
+	 * @param layer {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawMultiblockMissingBar(MatrixStack matrixStack, GuiBase<?> gui, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
@@ -369,9 +369,9 @@ public class GuiBuilder {
 	 * Draws upgrade slots on the left side of machine GUI. Draws on the background
 	 * level.
 	 *
-	 * @param gui GuiBase GUI to draw on
-	 * @param x   int Top left corner where to place slots
-	 * @param y   int Top left corner where to place slots
+	 * @param gui {@link GuiBase} The GUI to draw on
+	 * @param x   {@code int} Top left corner where to place slots
+	 * @param y   {@code int} Top left corner where to place slots
 	 */
 	public void drawUpgrades(MatrixStack matrixStack, GuiBase<?> gui, int x, int y) {
 		RenderSystem.setShaderTexture(0, resourceLocation);
@@ -381,10 +381,10 @@ public class GuiBuilder {
 	/**
 	 * Draws tab on the left side of machine GUI. Draws on the background level.
 	 *
-	 * @param gui   GuiBase GUI to draw on
-	 * @param x     int Top left corner where to place tab
-	 * @param y     int Top left corner where to place tab
-	 * @param stack ItemStack Item to show as tab icon
+	 * @param gui   {@link GuiBase} The GUI to draw on
+	 * @param x     {@code int} Top left corner where to place tab
+	 * @param y     {@code int} Top left corner where to place tab
+	 * @param stack {@link ItemStack} Item to show as tab icon
 	 */
 	public void drawSlotTab(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, ItemStack stack) {
 		RenderSystem.setShaderTexture(0, resourceLocation);
@@ -396,11 +396,11 @@ public class GuiBuilder {
 	/**
 	 * Draws Slot Configuration tips instead of player inventory
 	 *
-	 * @param gui    GuiBase GUI to draw on
-	 * @param x      int Top left corner where to place tips list
-	 * @param y      int Top left corner where to place tips list
-	 * @param mouseX int Mouse cursor position
-	 * @param mouseY int Mouse cursor position
+	 * @param gui    {@link GuiBase} The GUI to draw on
+	 * @param x      {@code int} Top left corner where to place tips list
+	 * @param y      {@code int} Top left corner where to place tips list
+	 * @param mouseX {@code int} Mouse cursor position
+	 * @param mouseY {@code int} Mouse cursor position
 	 */
 	public void drawSlotConfigTips(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiTab guiTab) {
 		List<Text> tips = guiTab.getTips().stream()
@@ -468,15 +468,16 @@ public class GuiBuilder {
 		}
 	}
 
-	//TODO: change to double
+	// TODO: change to double
+
 	/**
 	 * Draws energy output value and icon
 	 *
-	 * @param gui       GuiBase GUI to draw on
-	 * @param x         int Top left corner where to place energy output
-	 * @param y         int Top left corner where to place energy output
-	 * @param maxOutput int Energy output value
-	 * @param layer     Layer Layer to draw on
+	 * @param gui       {@link GuiBase} The GUI to draw on
+	 * @param x         {@code int} Top left corner where to place energy output
+	 * @param y         {@code int} Top left corner where to place energy output
+	 * @param maxOutput {@code int} Energy output value
+	 * @param layer     {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawEnergyOutput(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int maxOutput, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
@@ -498,15 +499,15 @@ public class GuiBuilder {
 	/**
 	 * Draws progress arrow in direction specified.
 	 *
-	 * @param gui         GuiBase GUI to draw on
-	 * @param progress    int Current progress
-	 * @param maxProgress int Maximum progress
-	 * @param x           int Top left corner where to place progress arrow
-	 * @param y           int Top left corner where to place progress arrow
-	 * @param mouseX      int Mouse cursor position to check for tooltip
-	 * @param mouseY      int Mouse cursor position to check for tooltip
-	 * @param direction   ProgressDirection Direction of progress arrow
-	 * @param layer       Layer Layer to draw on
+	 * @param gui         {@link GuiBase} The GUI to draw on
+	 * @param progress    {@code int} Current progress
+	 * @param maxProgress {@code int} Maximum progress
+	 * @param x           {@code int} Top left corner where to place progress arrow
+	 * @param y           {@code int} Top left corner where to place progress arrow
+	 * @param mouseX      {@code int} Mouse cursor position to check for tooltip
+	 * @param mouseY      {@code int} Mouse cursor position to check for tooltip
+	 * @param direction   {@link ProgressDirection} Direction of the progress arrow
+	 * @param layer       {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawProgressBar(MatrixStack matrixStack, GuiBase<?> gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, ProgressDirection direction, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
@@ -560,15 +561,15 @@ public class GuiBuilder {
 	/**
 	 * Draws multi-energy bar
 	 *
-	 * @param gui             GuiBase GUI to draw on
-	 * @param x               int Top left corner where to place energy bar
-	 * @param y               int Top left corner where to place energy bar
-	 * @param energyStored    int Current amount of energy
-	 * @param maxEnergyStored int Maximum amount of energy
-	 * @param mouseX          int Mouse cursor position to check for tooltip
-	 * @param mouseY          int Mouse cursor position to check for tooltip
-	 * @param buttonID        int Button ID used to switch energy systems
-	 * @param layer           Layer Layer to draw on
+	 * @param gui             {@link GuiBase} The GUI to draw on
+	 * @param x               {@code int} Top left corner where to place energy bar
+	 * @param y               {@code int} Top left corner where to place energy bar
+	 * @param energyStored    {@code int} Current amount of energy
+	 * @param maxEnergyStored {@code int} Maximum amount of energy
+	 * @param mouseX          {@code int} Mouse cursor position to check for tooltip
+	 * @param mouseY          {@code int} Mouse cursor position to check for tooltip
+	 * @param buttonID        {@code int} Button ID used to switch energy systems
+	 * @param layer           {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawMultiEnergyBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX,
 								   int mouseY, int buttonID, GuiBase.Layer layer) {
@@ -641,15 +642,15 @@ public class GuiBuilder {
 	/**
 	 * Draws tank and fluid inside it
 	 *
-	 * @param gui         GuiBase GUI to draw on
-	 * @param x           int Top left corner of tank
-	 * @param y           int Top left corner of tank
-	 * @param mouseX      int Mouse cursor position to check for tooltip
-	 * @param mouseY      int Mouse cursor position to check for tooltip
-	 * @param fluid       FluidStack Fluid to draw in tank
-	 * @param maxCapacity int Maximum tank capacity
-	 * @param isTankEmpty boolean True if tank is empty
-	 * @param layer       Layer Layer to draw on
+	 * @param gui         {@link GuiBase} The GUI to draw on
+	 * @param x           {@code int} Top left corner of tank
+	 * @param y           {@code int} Top left corner of tank
+	 * @param mouseX      {@code int} Mouse cursor position to check for tooltip
+	 * @param mouseY      {@code int} Mouse cursor position to check for tooltip
+	 * @param fluid       {@link FluidInstance} to draw in tank
+	 * @param maxCapacity {@code int} Maximum tank capacity
+	 * @param isTankEmpty {@code boolean} True if tank is empty
+	 * @param layer       {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawTank(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, FluidInstance fluid, FluidValue maxCapacity, boolean isTankEmpty, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
@@ -704,13 +705,13 @@ public class GuiBuilder {
 	/**
 	 * Draws fluid in tank
 	 *
-	 * @param gui         GuiBase GUI to draw on
-	 * @param fluid       FluidStack Fluid to draw
-	 * @param x           int Top left corner of fluid
-	 * @param y           int Top left corner of fluid
-	 * @param width       int Width of fluid to draw
-	 * @param height      int Height of fluid to draw
-	 * @param maxCapacity int Maximum capacity of tank
+	 * @param gui         {@link GuiBase} The GUI to draw on
+	 * @param fluid       {@link FluidInstance} Fluid to draw
+	 * @param x           {@code int} Top left corner of fluid
+	 * @param y           {@code int} Top left corner of fluid
+	 * @param width       {@code int} Width of fluid to draw
+	 * @param height      {@code int} Height of fluid to draw
+	 * @param maxCapacity {@code int} Maximum capacity of tank
 	 */
 	public void drawFluid(MatrixStack matrixStack, GuiBase<?> gui, FluidInstance fluid, int x, int y, int width, int height, long maxCapacity) {
 		if (fluid.getFluid() == Fluids.EMPTY) {
@@ -746,14 +747,14 @@ public class GuiBuilder {
 	/**
 	 * Draws burning progress, similar to vanilla furnace
 	 *
-	 * @param gui         GuiBase GUI to draw on
-	 * @param progress    int Current progress
-	 * @param maxProgress int Maximum progress
-	 * @param x           int Top left corner where to place burn bar
-	 * @param y           int Top left corner where to place burn bar
-	 * @param mouseX      int Mouse cursor position to check for tooltip
-	 * @param mouseY      int Mouse cursor position to check for tooltip
-	 * @param layer       Layer Layer to draw on
+	 * @param gui         {@link GuiBase} The GUI to draw on
+	 * @param progress    {@code int} Current progress
+	 * @param maxProgress {@code int} Maximum progress
+	 * @param x           {@code int} Top left corner where to place burn bar
+	 * @param y           {@code int} Top left corner where to place burn bar
+	 * @param mouseX      {@code int} Mouse cursor position to check for tooltip
+	 * @param mouseY      {@code int} Mouse cursor position to check for tooltip
+	 * @param layer       {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawBurnBar(MatrixStack matrixStack, GuiBase<?> gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
@@ -785,10 +786,10 @@ public class GuiBuilder {
 	/**
 	 * Draws bar containing output slots
 	 *
-	 * @param gui   GuiBase GUI to draw on
-	 * @param x     int Top left corner where to place slots bar
-	 * @param y     int Top left corner where to place slots bar
-	 * @param count int Number of output slots
+	 * @param gui   {@link GuiBase} The GUI to draw on
+	 * @param x     {@code int} Top left corner where to place slots bar
+	 * @param y     {@code int} Top left corner where to place slots bar
+	 * @param count {@code int} Number of output slots
 	 */
 	public void drawOutputSlotBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int count) {
 		RenderSystem.setShaderTexture(0, resourceLocation);

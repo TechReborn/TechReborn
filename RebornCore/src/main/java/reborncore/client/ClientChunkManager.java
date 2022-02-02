@@ -50,7 +50,7 @@ public class ClientChunkManager {
 
 	public static void toggleLoadedChunks(BlockPos chunkLoader) {
 		if (loadedChunks.size() == 0) {
-			NetworkManager.sendToServer(ServerBoundPackets.requestChunkloaderChunks(chunkLoader));
+			NetworkManager.sendToServer(ServerBoundPackets.requestChunkLoaderChunks(chunkLoader));
 		} else {
 			loadedChunks.clear();
 		}

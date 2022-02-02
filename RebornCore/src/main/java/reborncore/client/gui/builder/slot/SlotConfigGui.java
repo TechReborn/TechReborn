@@ -109,7 +109,7 @@ public class SlotConfigGui {
 		}
 		String json = machine.getSlotConfiguration().toJson(machine.getClass().getCanonicalName());
 		MinecraftClient.getInstance().keyboard.setClipboard(json);
-		MinecraftClient.getInstance().player.sendSystemMessage(new LiteralText("Slot configuration copyied to clipboard"), Util.NIL_UUID);
+		MinecraftClient.getInstance().player.sendSystemMessage(new LiteralText("Slot configuration copied to clipboard"), Util.NIL_UUID);
 	}
 
 	public static void pasteFromClipboard() {

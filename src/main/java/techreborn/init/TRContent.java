@@ -1157,8 +1157,8 @@ public class TRContent {
 				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
 			if (handler != null) {
-				handler.addSpeedMulti(TechRebornConfig.overclockerSpeed);
-				handler.addPowerMulti(TechRebornConfig.overclockerPower);
+				handler.addSpeedMultiplier(TechRebornConfig.overclockerSpeed);
+				handler.addPowerMultiplier(TechRebornConfig.overclockerPower);
 			}
 			if (powerAcceptor != null) {
 				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(null);

@@ -49,9 +49,9 @@ public class WorldUtils {
 	/**
 	 * Checks if chunk is loaded using proper chunk manager
 	 *
-	 * @param world World object
-	 * @param pos BlockPos X and Z coordinates to check
-	 * @return boolean True if chunk is loaded
+	 * @param world {@link World} World object
+	 * @param pos   {@link BlockPos} X and Z coordinates to check
+	 * @return {@code boolean} True if chunk is loaded
 	 */
 	public static boolean isChunkLoaded(World world, BlockPos pos){
 		return world.getChunkManager().isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ()));

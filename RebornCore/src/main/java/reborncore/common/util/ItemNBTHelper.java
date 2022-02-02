@@ -31,15 +31,15 @@ import net.minecraft.nbt.NbtList;
 public class ItemNBTHelper {
 
 	/**
-	 * Checks if an ItemStack has a Tag Compound
+	 * Checks if an {@link ItemStack} has an {@link NbtCompound}
 	 **/
 	public static boolean detectNBT(ItemStack stack) {
 		return stack.hasNbt();
 	}
 
 	/**
-	 * Tries to initialize an NBT Tag Compound in an ItemStack, this will not do
-	 * anything if the stack already has a tag compound
+	 * Tries to initialize an {@link NbtCompound} in an {@link ItemStack}, this will not do
+	 * anything if the stack already has an {@link NbtCompound}
 	 **/
 	public static void initNBT(ItemStack stack) {
 		if (!detectNBT(stack)) {
@@ -48,7 +48,7 @@ public class ItemNBTHelper {
 	}
 
 	/**
-	 * Injects an NBT Tag Compound to an ItemStack, no checks are made
+	 * Injects an {@link NbtCompound} to an {@link ItemStack}, no checks are made
 	 * previously
 	 **/
 	public static void injectNBT(ItemStack stack, NbtCompound nbt) {
@@ -56,7 +56,7 @@ public class ItemNBTHelper {
 	}
 
 	/**
-	 * Gets the NBTTagCompound in an ItemStack. Tries to init it previously in
+	 * Gets the {@link NbtCompound} in an {@link ItemStack}. Tries to init it previously in
 	 * case there isn't one present
 	 **/
 	public static NbtCompound getNBT(ItemStack stack) {
@@ -113,53 +113,53 @@ public class ItemNBTHelper {
 	// GETTERS
 	// ///////////////////////////////////////////////////////////////////
 
-	public static boolean verifyExistance(ItemStack stack, String tag) {
+	public static boolean verifyExistence(ItemStack stack, String tag) {
 		return !stack.isEmpty() && getNBT(stack).contains(tag);
 	}
 
 	public static boolean getBoolean(ItemStack stack, String tag, boolean defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getBoolean(tag) : defaultExpected;
+		return verifyExistence(stack, tag) ? getNBT(stack).getBoolean(tag) : defaultExpected;
 	}
 
 	public static byte getByte(ItemStack stack, String tag, byte defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getByte(tag) : defaultExpected;
+		return verifyExistence(stack, tag) ? getNBT(stack).getByte(tag) : defaultExpected;
 	}
 
 	public static short getShort(ItemStack stack, String tag, short defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getShort(tag) : defaultExpected;
+		return verifyExistence(stack, tag) ? getNBT(stack).getShort(tag) : defaultExpected;
 	}
 
 	public static int getInt(ItemStack stack, String tag, int defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getInt(tag) : defaultExpected;
+		return verifyExistence(stack, tag) ? getNBT(stack).getInt(tag) : defaultExpected;
 	}
 
 	public static long getLong(ItemStack stack, String tag, long defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getLong(tag) : defaultExpected;
+		return verifyExistence(stack, tag) ? getNBT(stack).getLong(tag) : defaultExpected;
 	}
 
 	public static float getFloat(ItemStack stack, String tag, float defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getFloat(tag) : defaultExpected;
+		return verifyExistence(stack, tag) ? getNBT(stack).getFloat(tag) : defaultExpected;
 	}
 
 	public static double getDouble(ItemStack stack, String tag, double defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getDouble(tag) : defaultExpected;
+		return verifyExistence(stack, tag) ? getNBT(stack).getDouble(tag) : defaultExpected;
 	}
 
 	/**
-	 * If nullifyOnFail is true it'll return null if it doesn't find any
+	 * If {@code nullifyOnFail} is true it'll return null if it doesn't find any
 	 * compounds, otherwise it'll return a new one.
 	 **/
 	public static NbtCompound getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getCompound(tag)
+		return verifyExistence(stack, tag) ? getNBT(stack).getCompound(tag)
 				: nullifyOnFail ? null : new NbtCompound();
 	}
 
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getString(tag) : defaultExpected;
+		return verifyExistence(stack, tag) ? getNBT(stack).getString(tag) : defaultExpected;
 	}
 
 	public static NbtList getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getList(tag, objtype)
+		return verifyExistence(stack, tag) ? getNBT(stack).getList(tag, objtype)
 				: nullifyOnFail ? null : new NbtList();
 	}
 }

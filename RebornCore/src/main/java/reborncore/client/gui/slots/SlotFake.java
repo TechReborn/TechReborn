@@ -31,14 +31,14 @@ public class SlotFake extends BaseSlot {
 
 	public boolean mCanInsertItem;
 	public boolean mCanStackItem;
-	public int mMaxStacksize = 127;
+	public int mMaxStackSize = 127;
 
 	public SlotFake(Inventory itemHandler, int par2, int par3, int par4, boolean aCanInsertItem,
-					boolean aCanStackItem, int aMaxStacksize) {
+					boolean aCanStackItem, int aMaxStackSize) {
 		super(itemHandler, par2, par3, par4);
 		this.mCanInsertItem = aCanInsertItem;
 		this.mCanStackItem = aCanStackItem;
-		this.mMaxStacksize = aMaxStacksize;
+		this.mMaxStackSize = aMaxStackSize;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class SlotFake extends BaseSlot {
 
 	@Override
 	public int getMaxItemCount() {
-		return this.mMaxStacksize;
+		return this.mMaxStackSize;
 	}
 
 	@Override

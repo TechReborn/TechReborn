@@ -147,8 +147,8 @@ public class ItemUtils {
 	/**
 	 * Checks if powered item is active
 	 *
-	 * @param stack ItemStack ItemStack to check
-	 * @return True if powered item is active
+	 * @param stack {@link ItemStack} Stack to check
+	 * @return {@code boolean} True if powered item is active
 	 */
 	public static boolean isActive(ItemStack stack) {
 		return !stack.isEmpty() && stack.getNbt() != null && stack.getNbt().getBoolean("isActive");
@@ -157,10 +157,10 @@ public class ItemUtils {
 	/**
 	 * Check if powered item has enough energy to continue being in active state
 	 *
-	 * @param stack     ItemStack ItemStack to check
-	 * @param cost      int Cost of operation performed by tool
-	 * @param isClient  boolean Client side
-	 * @param messageId int MessageID for sending no spam message
+	 * @param stack     {@link ItemStack} Stack to check
+	 * @param cost      {@link int} Cost of operation performed by tool
+	 * @param isClient  {@link boolean} Client side
+	 * @param messageId {@link int} MessageID for sending no spam message
 	 */
 	public static void checkActive(ItemStack stack, int cost, boolean isClient, int messageId) {
 		if (!ItemUtils.isActive(stack)) {
@@ -185,10 +185,10 @@ public class ItemUtils {
 	/**
 	 * Switch active\inactive state for powered item
 	 *
-	 * @param stack     ItemStack ItemStack to work on
-	 * @param cost      int Cost of operation performed by tool
-	 * @param isClient  boolean Are we on client side
-	 * @param messageId MessageID for sending no spam message
+	 * @param stack     {@link ItemStack} Stack to switch state
+	 * @param cost      {@code int} Cost of operation performed by tool
+	 * @param isClient  {@code boolean} Are we on client side
+	 * @param messageId {@code int} MessageID for sending no spam message
 	 */
 	public static void switchActive(ItemStack stack, int cost, boolean isClient, int messageId) {
 		ItemUtils.checkActive(stack, cost, isClient, messageId);
@@ -225,8 +225,8 @@ public class ItemUtils {
 	/**
 	 * Adds active\inactive state to powered item tooltip
 	 *
-	 * @param stack   ItemStack ItemStack to check
-	 * @param tooltip List Tooltip strings
+	 * @param stack   {@link ItemStack} Stack to check
+	 * @param tooltip {@link List} List of {@link Text} tooltip strings
 	 */
 	public static void buildActiveTooltip(ItemStack stack, List<Text> tooltip) {
 		if (!ItemUtils.isActive(stack)) {
@@ -237,16 +237,25 @@ public class ItemUtils {
 	}
 
 	/**
-	 *  Output energy from item to other items in inventory
+	 * Output energy from item to other items in inventory
 	 *
-	 * @param player PlayerEntity having powered item
-	 * @param itemStack ItemStack Powered item
-	 * @param maxOutput int Maximum output rate of powered item
+	 * @param player    {@link PlayerEntity} Player having powered item
+	 * @param itemStack {@link ItemStack} Powered item
+	 * @param maxOutput {@code int} Maximum output rate of powered item
 	 */
 	public static void distributePowerToInventory(PlayerEntity player, ItemStack itemStack, long maxOutput) {
 		distributePowerToInventory(player, itemStack, maxOutput, (stack) -> true);
 	}
 
+	/**
+	 * Output energy from item to other items in inventory
+	 *
+	 * @param player    {@link PlayerEntity} Player having powered item
+	 * @param itemStack {@link ItemStack} Powered item
+	 * @param maxOutput {@code int} Maximum output rate of powered item
+	 * @param filter    {@link Predicate} Filter for items to output to
+	 * @throws IllegalArgumentException If failed to locate stack in players inventory
+	 */
 	public static void distributePowerToInventory(PlayerEntity player, ItemStack itemStack, long maxOutput, Predicate<ItemStack> filter) {
 		// Locate the current stack in the player inventory.
 		PlayerInventoryStorage playerInv = PlayerInventoryStorage.of(player);

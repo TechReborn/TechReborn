@@ -52,7 +52,7 @@ public class ExtendedPacketBuffer extends PacketByteBuf {
 		return ObjectBufferUtils.readObject(this);
 	}
 
-	// Supports reading and writing list codec's
+	// Supports reading and writing list codecs
 	public <T> void writeCodec(Codec<T> codec, T object) {
 		DataResult<NbtElement> dataResult = codec.encodeStart(NbtOps.INSTANCE, object);
 		if (dataResult.error().isPresent()) {

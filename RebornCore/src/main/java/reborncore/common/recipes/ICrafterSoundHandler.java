@@ -29,7 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 /**
  * Created by Mark on 01/07/2017.
  */
-public interface ICrafterSoundHanlder {
+public interface ICrafterSoundHandler {
 
 	void playSound(boolean firstRun, BlockEntity blockEntity);
 

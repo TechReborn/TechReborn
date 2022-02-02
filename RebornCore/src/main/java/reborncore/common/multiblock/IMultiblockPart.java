@@ -34,11 +34,11 @@ import java.util.Set;
 
 /**
  * Basic interface for a multiblock machine part. This is defined as an abstract
- * class as we need the basic functionality of a BlockEntity as well. Preferably,
- * you should derive from MultiblockBlockEntityBase, which does all the hard work
+ * class as we need the basic functionality of a {@link BlockEntity} as well. Preferably,
+ * you should derive from {@link MultiblockBlockEntityBase}, which does all the hard work
  * for you.
- * <p>
- * {@link MultiblockBlockEntityBase}
+ *
+ * <p>{@link MultiblockBlockEntityBase}</p>
  */
 public abstract class IMultiblockPart extends BlockEntity {
 	public static final int INVALID_DISTANCE = Integer.MAX_VALUE;
@@ -48,22 +48,22 @@ public abstract class IMultiblockPart extends BlockEntity {
 	}
 
 	/**
-	 * @return True if this block is connected to a multiblock controller. False
+	 * @return {@code boolean} True if this block is connected to a multiblock controller. False
 	 * otherwise.
 	 */
 	public abstract boolean isConnected();
 
 	/**
-	 * @return The attached multiblock controller for this blockEntity entity.
+	 * @return {@link MultiblockControllerBase} The attached multiblock controller for this {@link BlockEntity} entity.
 	 */
 	public abstract MultiblockControllerBase getMultiblockController();
 
 	/**
-	 * Returns the location of this blockEntity entity in the world, in BlockPos
+	 * Returns the location of this {@link BlockEntity} entity in the world, in {@link BlockPos}
 	 * form.
 	 *
-	 * @return A BlockPos with its x,y,z members set to the location of this
-	 * blockEntity entity in the world.
+	 * @return A {@link BlockPos} with its x,y,z members set to the location of this
+	 * {@link BlockEntity} entity in the world.
 	 */
 	public abstract BlockPos getWorldLocation();
 
@@ -72,16 +72,16 @@ public abstract class IMultiblockPart extends BlockEntity {
 	/**
 	 * Called after this block has been attached to a new multiblock controller.
 	 *
-	 * @param newController The new multiblock controller to which this blockEntity entity is
-	 * attached.
+	 * @param newController {@link MultiblockControllerBase} The new multiblock controller to which this
+	 *                      {@link BlockEntity} entity is attached.
 	 */
 	public abstract void onAttached(MultiblockControllerBase newController);
 
 	/**
 	 * Called after this block has been detached from a multiblock controller.
 	 *
-	 * @param multiblockController The multiblock controller that no longer controls this blockEntity
-	 * entity.
+	 * @param multiblockController {@link MultiblockControllerBase} The multiblock controller that no longer
+	 *                             controls this blockEntity entity.
 	 */
 	public abstract void onDetached(MultiblockControllerBase multiblockController);
 
@@ -91,11 +91,11 @@ public abstract class IMultiblockPart extends BlockEntity {
 	 * NOT mark the part as disconnected. onDetached will be called immediately
 	 * afterwards.
 	 *
-	 * @param oldController The controller which is orphaning this block.
-	 * @param oldControllerSize The number of connected blocks in the controller prior to
-	 * shedding orphans.
-	 * @param newControllerSize The number of connected blocks in the controller after
-	 * shedding orphans.
+	 * @param oldController     {@link MultiblockControllerBase} The controller which is orphaning this block.
+	 * @param oldControllerSize {@code int} The number of connected blocks in the controller prior to
+	 *                          shedding orphans.
+	 * @param newControllerSize {@code int} The number of connected blocks in the controller after
+	 *                          shedding orphans.
 	 * @see #onDetached(MultiblockControllerBase)
 	 */
 	public abstract void onOrphaned(MultiblockControllerBase oldController, int oldControllerSize,
@@ -108,7 +108,7 @@ public abstract class IMultiblockPart extends BlockEntity {
 	 * not attach this blockEntity entity to it. Override this in your game code!
 	 *
 	 * @return A new Multiblock Controller, derived from
-	 * MultiblockControllerBase.
+	 * {@link MultiblockControllerBase}.
 	 */
 	public abstract MultiblockControllerBase createNewMultiblock();
 
@@ -116,7 +116,7 @@ public abstract class IMultiblockPart extends BlockEntity {
 	 * Retrieve the type of multiblock controller which governs this part. Used
 	 * to ensure that incompatible multiblocks are not merged.
 	 *
-	 * @return The class/type of the multiblock controller which governs this
+	 * @return {@link Class} The class/type of the multiblock controller which governs this
 	 * type of part.
 	 */
 	public abstract Class<? extends MultiblockControllerBase> getMultiblockControllerType();
@@ -126,8 +126,8 @@ public abstract class IMultiblockPart extends BlockEntity {
 	 * controller. A special case of attach/detach, done here for efficiency to
 	 * avoid triggering lots of recalculation logic.
 	 *
-	 * @param newController The new controller into which this blockEntity entity is being
-	 * merged.
+	 * @param newController {@link MultiblockControllerBase} The new controller into which this
+	 *                      {@link BlockEntity} entity is being merged.
 	 */
 	public abstract void onAssimilated(MultiblockControllerBase newController);
 
@@ -146,7 +146,7 @@ public abstract class IMultiblockPart extends BlockEntity {
 	public abstract void setUnvisited();
 
 	/**
-	 * @return True if this block has been visited by your validation algorithms
+	 * @return {@code boolean} True if this block has been visited by your validation algorithms
 	 * since the last reset.
 	 */
 	public abstract boolean isVisited();
@@ -166,22 +166,22 @@ public abstract class IMultiblockPart extends BlockEntity {
 	/**
 	 * Is this block the designated save/load & network delegate?
 	 *
-	 * @return Boolean
+	 * @return {@code boolean}
 	 */
 	public abstract boolean isMultiblockSaveDelegate();
 
 	/**
-	 * Returns an array containing references to neighboring IMultiblockPart
-	 * blockEntity entities. Primarily a utility method. Only works after blockentity
+	 * Returns an array containing references to neighboring {@link IMultiblockPart}
+	 * {@link BlockEntity} entities. Primarily a utility method. Only works after {@link BlockEntity}
 	 * construction, so it cannot be used in
-	 * MultiblockControllerBase::attachBlock.
+	 * {@link MultiblockControllerBase#attachBlock}.
 	 * <p>
 	 * This method is chunk-safe on the server; it will not query for parts in
 	 * chunks that are unloaded. Note that no method is chunk-safe on the
 	 * client, because ChunkProviderClient is stupid.
+	 * </p>
 	 *
-	 * @return An array of references to neighboring IMultiblockPart blockEntity
-	 * entities.
+	 * @return An array of references to neighboring {@link IMultiblockPart} {@link BlockEntity} entities.
 	 */
 	public abstract IMultiblockPart[] getNeighboringParts();
 
@@ -194,7 +194,8 @@ public abstract class IMultiblockPart extends BlockEntity {
 	 * actually be part of the machine! They form an outer bounding box for the
 	 * whole machine itself.
 	 *
-	 * @param multiblockControllerBase The controller to which this part is being assembled.
+	 * @param multiblockControllerBase {@link MultiblockControllerBase} The controller to
+	 *                                 which this part is being assembled.
 	 */
 	public abstract void onMachineAssembled(MultiblockControllerBase multiblockControllerBase);
 
@@ -221,12 +222,12 @@ public abstract class IMultiblockPart extends BlockEntity {
 	/**
 	 * Called when this part should check its neighbors. This method MUST NOT
 	 * cause additional chunks to load. ALWAYS check to see if a chunk is loaded
-	 * before querying for its blockEntity entity This part should inform the
+	 * before querying for its {@link BlockEntity} entity This part should inform the
 	 * controller that it is attaching at this time.
 	 *
-	 * @return A Set of multiblock controllers to which this object would like
+	 * @return A Set of {@link MultiblockControllerBase} to which this object would like
 	 * to attach. It should have attached to one of the controllers in
-	 * this list. Return null if there are no compatible controllers
+	 * this list. Return {@code null} if there are no compatible controllers
 	 * nearby.
 	 */
 	public abstract Set<MultiblockControllerBase> attachToNeighbors();
@@ -238,12 +239,12 @@ public abstract class IMultiblockPart extends BlockEntity {
 	public abstract void assertDetached();
 
 	/**
-	 * @return True if a part has multiblock game-data saved inside it.
+	 * @return {@code boolean} True if a part has multiblock game-data saved inside it.
 	 */
 	public abstract boolean hasMultiblockSaveData();
 
 	/**
-	 * @return The part's saved multiblock game-data in NBT format, or null if
+	 * @return {@link NbtCompound} The part's saved multiblock game-data in NBT format, or null if
 	 * there isn't any.
 	 */
 	public abstract NbtCompound getMultiblockSaveData();

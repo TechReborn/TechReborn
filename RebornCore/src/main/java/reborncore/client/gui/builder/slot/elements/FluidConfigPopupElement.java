@@ -55,7 +55,7 @@ public class FluidConfigPopupElement extends ElementBase {
 	public boolean filter = false;
 
 	ConfigFluidElement fluidElement;
-	double lastMousex, lastMousey;
+	double lastMouseX, lastMouseY;
 
 	public FluidConfigPopupElement(int x, int y, ConfigFluidElement fluidElement) {
 		super(x, y, Sprite.SLOT_CONFIG_POPUP);
@@ -93,24 +93,24 @@ public class FluidConfigPopupElement extends ElementBase {
 	@Override
 	public boolean onRelease(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
 		if (isInBox(23, 4, 16, 16, mouseX, mouseY, gui)) {
-			cyleConfig(MachineFacing.UP.getFacing(provider), gui);
+			cycleConfig(MachineFacing.UP.getFacing(provider), gui);
 		} else if (isInBox(23, 23, 16, 16, mouseX, mouseY, gui)) {
-			cyleConfig(MachineFacing.FRONT.getFacing(provider), gui);
+			cycleConfig(MachineFacing.FRONT.getFacing(provider), gui);
 		} else if (isInBox(42, 23, 16, 16, mouseX, mouseY, gui)) {
-			cyleConfig(MachineFacing.RIGHT.getFacing(provider), gui);
+			cycleConfig(MachineFacing.RIGHT.getFacing(provider), gui);
 		} else if (isInBox(4, 23, 16, 16, mouseX, mouseY, gui)) {
-			cyleConfig(MachineFacing.LEFT.getFacing(provider), gui);
+			cycleConfig(MachineFacing.LEFT.getFacing(provider), gui);
 		} else if (isInBox(23, 42, 16, 16, mouseX, mouseY, gui)) {
-			cyleConfig(MachineFacing.DOWN.getFacing(provider), gui);
+			cycleConfig(MachineFacing.DOWN.getFacing(provider), gui);
 		} else if (isInBox(42, 42, 16, 16, mouseX, mouseY, gui)) {
-			cyleConfig(MachineFacing.BACK.getFacing(provider), gui);
+			cycleConfig(MachineFacing.BACK.getFacing(provider), gui);
 		} else {
 			return false;
 		}
 		return true;
 	}
 
-	public void cyleConfig(Direction side, GuiBase<?> guiBase) {
+	public void cycleConfig(Direction side, GuiBase<?> guiBase) {
 		FluidConfiguration.FluidConfig config = guiBase.getMachine().fluidConfiguration.getSideDetail(side);
 
 		FluidConfiguration.ExtractConfig fluidIO = config.getIoConfig().getNext();
@@ -137,8 +137,8 @@ public class FluidConfigPopupElement extends ElementBase {
 
 	@Override
 	public boolean onHover(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
-		lastMousex = mouseX;
-		lastMousey = mouseY;
+		lastMouseX = mouseX;
+		lastMouseY = mouseY;
 		return super.onHover(provider, gui, mouseX, mouseY);
 	}
 
@@ -148,7 +148,7 @@ public class FluidConfigPopupElement extends ElementBase {
 		int sy = iny + getY() + gui.getGuiTop();
 		FluidConfiguration fluidConfiguration = machineBase.fluidConfiguration;
 		if (fluidConfiguration == null) {
-			RebornCore.LOGGER.debug("Humm, this isnt suppoed to happen");
+			RebornCore.LOGGER.debug("Hmm, this isn't supposed to happen");
 			return;
 		}
 		FluidConfiguration.FluidConfig fluidConfig = fluidConfiguration.getSideDetail(side);

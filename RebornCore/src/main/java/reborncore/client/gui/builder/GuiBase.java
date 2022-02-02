@@ -389,13 +389,13 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	/**
-	 * @param rectX      int Top left corner of region
-	 * @param rectY      int Top left corner of region
-	 * @param rectWidth  int Width of region
-	 * @param rectHeight int Height of region
-	 * @param pointX     int Mouse pointer
-	 * @param pointY     int Mouse pointer
-	 * @return boolean Returns true if mouse pointer is in region specified
+	 * @param rectX      {@code int} Top left corner of region
+	 * @param rectY      {@code int} Top left corner of region
+	 * @param rectWidth  {@code int} Width of region
+	 * @param rectHeight {@code int} Height of region
+	 * @param pointX     {@code int} Mouse pointer
+	 * @param pointY     {@code int} Mouse pointer
+	 * @return {@code boolean} Returns true if mouse pointer is in region specified
 	 */
 	public boolean isPointInRect(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY) {
 		return super.isPointWithinBounds(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
@@ -422,7 +422,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	public MinecraftClient getMinecraft() {
-		// Just to stop complains from IDEA
+		// Just to stop complaints from IDEA
 		if (client == null) {
 			throw new NullPointerException("Minecraft client is null.");
 		}
@@ -454,7 +454,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	@Override
 	protected boolean isClickOutsideBounds(double mouseX, double mouseY, int left, int top, int mouseButton) {
-		// Upgrades are normally outside of the bounds, so let's pretend we are within the bounds if there is a slot here.
+		// Upgrades are normally outside the bounds, so let's pretend we are within the bounds if there is a slot here.
 		return getSlotAt(mouseX, mouseY) == null && super.isClickOutsideBounds(mouseX, mouseY, left, top, mouseButton);
 	}
 

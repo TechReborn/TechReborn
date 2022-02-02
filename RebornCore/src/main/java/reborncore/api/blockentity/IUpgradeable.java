@@ -33,7 +33,7 @@ public interface IUpgradeable {
 		return true;
 	}
 
-	Inventory getUpgradeInvetory();
+	Inventory getUpgradeInventory();
 
 	int getUpgradeSlotCount();
 

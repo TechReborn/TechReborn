@@ -28,7 +28,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
-import reborncore.common.recipes.ICrafterSoundHanlder;
+import reborncore.common.recipes.ICrafterSoundHandler;
 import techreborn.config.TechRebornConfig;
 
 /**
@@ -46,7 +46,7 @@ public class ModSounds {
 	public static SoundEvent ALARM_2;
 	public static SoundEvent ALARM_3;
 
-	public static class SoundHandler implements ICrafterSoundHanlder {
+	public static class SoundHandler implements ICrafterSoundHandler {
 
 		@Override
 		public void playSound(boolean firstRun, BlockEntity blockEntity) {

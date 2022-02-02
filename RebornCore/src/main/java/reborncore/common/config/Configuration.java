@@ -76,7 +76,7 @@ public class Configuration {
 			readFromJson(configs);
 		}
 
-		//Save the configs
+		// Save the configs
 		for (Map.Entry<String, JsonObject> entry : toJson().entrySet()) {
 			final File configFile = new File(configDir, entry.getKey() + ".json");
 			final String jsonStr = GSON.toJson(entry.getValue());
@@ -123,7 +123,7 @@ public class Configuration {
 
 			String key = annotation.key().isEmpty() ? field.getName() : annotation.key();
 			if (categoryObject.has(key)) {
-				throw new UnsupportedOperationException("Some bad happened, duplicate key found: " + key);
+				throw new UnsupportedOperationException("Something bad happened, duplicate key found: " + key);
 			}
 
 			JsonObject fieldObject = new JsonObject();
@@ -155,7 +155,7 @@ public class Configuration {
 			final JsonObject config = configs.get(annotation.config());
 
 			if (config == null) {
-				continue; //Could be possible if a new config is added
+				continue; // Could be possible if a new config is added
 			}
 
 			JsonObject categoryObject = config.getAsJsonObject(annotation.category());

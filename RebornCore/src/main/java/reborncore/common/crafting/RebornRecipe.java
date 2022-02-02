@@ -81,7 +81,9 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		return type;
 	}
 
-	// use the RebornIngredient version to ensure stack sizes are checked
+	/**
+	 * use the {@link RebornIngredient} version to ensure stack sizes are checked
+	 */
 	@Deprecated
 	@Override
 	public DefaultedList<Ingredient> getIngredients() {
@@ -105,8 +107,8 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	}
 
 	/**
-	 * @param blockEntity the blockEntity that is doing the crafting
-	 * @return if true the recipe will craft, if false it will not
+	 * @param blockEntity {@link BlockEntity} The blockEntity that is doing the crafting
+	 * @return {@code boolean} If true, the recipe will craft, if false it will not
 	 */
 	public boolean canCraft(BlockEntity blockEntity) {
 		if (blockEntity instanceof IRecipeCrafterProvider) {
@@ -116,14 +118,14 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	}
 
 	/**
-	 * @param blockEntity the blockEntity that is doing the crafting
-	 * @return return true if fluid was taken and should craft
+	 * @param blockEntity {@link BlockEntity} The blockEntity that is doing the crafting
+	 * @return {@code boolean} Returns true if fluid was taken and should craft
 	 */
 	public boolean onCraft(BlockEntity blockEntity) {
 		return true;
 	}
 
-	//Done as our recipes do not support these functions, hopefully nothing blidly calls them
+	// Done as our recipes do not support these functions, hopefully nothing blindly calls them
 
 	@Deprecated
 	@Override
@@ -143,7 +145,10 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		throw new UnsupportedOperationException();
 	}
 
-	// Do not call directly, this is implemented only as a fallback. getOutputs() will return all of the outputs
+	/**
+	 * Do not call directly, this is implemented only as a fallback.
+	 * {@link RebornRecipe#getOutputs()} will return all the outputs
+	 */
 	@Deprecated
 	@Override
 	public ItemStack getOutput() {
@@ -158,7 +163,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		throw new UnsupportedOperationException();
 	}
 
-	//Done to try and stop the table from loading it
+	// Done to try and stop the table from loading it
 	@Override
 	public boolean isIgnoredInRecipeBook() {
 		return true;

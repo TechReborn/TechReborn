@@ -129,7 +129,7 @@ public final class FluidValue {
 				return fromRaw(droplets);
 			}
 		} else if (jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isNumber()) {
-			//TODO add a warning here
+			// TODO add a warning here
 			return fromMillibuckets(jsonElement.getAsJsonPrimitive().getAsInt());
 		}
 		throw new JsonSyntaxException("Could not parse fluid value");

@@ -54,8 +54,8 @@ public class StringUtils {
 	/**
 	 * Returns red-yellow-green text formatting depending on percentage
 	 *
-	 * @param percentage int percentage amount
-	 * @return TextFormatting Red or Yellow or Green
+	 * @param percentage {@code int} percentage amount
+	 * @return {@link Formatting} Red or Yellow or Green
 	 */
 	public static Formatting getPercentageColour(int percentage) {
 		if (percentage <= 10) {

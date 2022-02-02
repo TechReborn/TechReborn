@@ -63,7 +63,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		super(Block.Settings.of(Material.STONE).strength(2f, 2f));
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		this.shape = GenCuboidShapes(3, 10);
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	private VoxelShape[] GenCuboidShapes(double depth, double width) {

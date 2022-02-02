@@ -65,7 +65,7 @@ public class LampBlock extends BaseBlockEntityProvider {
 		this.shape = genCuboidShapes(depth, width);
 		this.cost = cost;
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	private static ToIntFunction<BlockState> createLightLevelFromBlockState() {

@@ -43,7 +43,7 @@ public enum MachineFacing {
 			return machineBase.getFacing().getOpposite();
 		}
 		if (this == RIGHT) {
-			//North -> West
+			// North -> West
 			int i = machineBase.getFacing().getOpposite().getHorizontal() + 1;
 			if (i > 3) {
 				i = 0;
@@ -54,7 +54,7 @@ public enum MachineFacing {
 			return Direction.fromHorizontal(i);
 		}
 		if (this == LEFT) {
-			//North -> East
+			// North -> East
 			int i = machineBase.getFacing().getOpposite().getHorizontal() - 1;
 			if (i > 3) {
 				i = 0;

@@ -64,7 +64,7 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		this.gui = gui;
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	public void setFacing(Direction facing, World world, BlockPos pos) {

@@ -94,7 +94,7 @@ public abstract class InventoryBase implements Inventory {
 
 	@Override
 	public void markDirty() {
-		//Stuff happens in the super methods
+		// Stuff happens in the super methods
 	}
 
 	@Override

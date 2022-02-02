@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Base logic class for Multiblock-connected blockEntity entities. Most multiblock
+ * Base logic class for Multiblock-connected {@link BlockEntity} entities. Most multiblock
  * machines should derive from this and implement their game logic in certain
  * abstract methods.
  */
@@ -117,7 +117,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 
 		// We can't directly initialize a multiblock controller yet, so we cache
 		// the data here until
-		// we receive a validate() call, which creates the controller and hands
+		// we receive a "validate()" call, which creates the controller and hands
 		// off the cached data.
 		if (data.contains("multiblockData")) {
 			this.cachedMultiblockData = data.getCompound("multiblockData");
@@ -142,10 +142,9 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	/**
-	 * Called from Minecraft's blockEntity entity loop, after all blockEntity entities have
-	 * been ticked, as the chunk in which this blockEntity entity is contained is
+	 * Called from Minecraft's {@link BlockEntity} entity loop, after all {@link BlockEntity} entities have
+	 * been ticked, as the chunk in which this {@link BlockEntity} entity is contained is
 	 * unloading.
-	 *
 	 */
 	@Override
 	public void onUnload() {
@@ -153,15 +152,20 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	/**
-	 * This is called when a block is being marked as valid by the chunk, but
-	 * has not yet fully been placed into the world's BlockEntity cache.
-	 * this.worldObj, xCoord, yCoord and zCoord have been initialized, but any
-	 * attempts to read data about the world can cause infinite loops - if you
-	 * call getBlockEntity on this BlockEntity's coordinate from within
-	 * validate(), you will blow your call stack.
 	 * <p>
-	 * TL;DR: Here there be dragons.
+	 *  This is called when a block is being marked as valid by the chunk, but
+	 *  has not yet fully been placed into the world's {@link BlockEntity} cache.
+	 * </p>
 	 *
+	 * <p>
+	 *  {@code this.worldObj}, {@code xCoord}, {@code yCoord} and {@code zCoord}
+	 *  have been initialized, but any attempts to read data about the world can
+	 *  cause infinite loops - if you call {@code getBlockEntity} on this
+	 *  {@link BlockEntity}'s coordinate from within {@code validate()}, you will
+	 *  blow your call stack.
+	 * </p>
+	 *
+	 * <p>TL;DR: Here there be dragons.</p>
 	 */
 	@Override
 	public void cancelRemoval() {
@@ -182,10 +186,10 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	/**
 	 * Override this to easily modify the description packet's data without
 	 * having to worry about sending the packet itself. Decode this data in
-	 * decodeDescriptionPacket.
+	 * {@link #decodeDescriptionPacket}.
 	 *
-	 * @param packetData An NBT compound tag into which you should write your custom
-	 * description data.
+	 * @param packetData {@link NbtCompound} An NBT compound tag into which
+	 *                   you should write your custom description data.
 	 */
 	protected void encodeDescriptionPacket(NbtCompound packetData) {
 		if (this.isMultiblockSaveDelegate() && isConnected()) {
@@ -196,10 +200,11 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	/**
-	 * Override this to easily read in data from a BlockEntity's description
-	 * packet. Encoded in encodeDescriptionPacket.
+	 * Override this to easily read in data from a {@link BlockEntity}'s description
+	 * packet. Encoded in {@link #encodeDescriptionPacket}.
 	 *
-	 * @param packetData The NBT data from the blockEntity entity's description packet.
+	 * @param packetData {@link NbtCompound} The NBT data from the {@link BlockEntity}
+	 *                   entity's description packet.
 	 */
 	protected void decodeDescriptionPacket(NbtCompound packetData) {
 		if (packetData.contains("multiblockData")) {
@@ -334,7 +339,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 		getWorld().markDirty(getPos());
 	}
 
-	// // Helper functions for notifying neighboring blocks
+	// /// Helper functions for notifying neighboring blocks
 	protected void notifyNeighborsOfBlockChange() {
 		world.updateNeighborsAlways(getPos(), getCachedState().getBlock());
 	}
@@ -344,9 +349,10 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	// /// Private/Protected Logic Helpers
-	/*
-	 * Detaches this block from its controller. Calls detachBlock() and clears
-	 * the controller member.
+
+	/**
+	 * Detaches this block from its controller. Calls {@link MultiblockControllerBase#detachBlock}
+	 * and clears the controller member.
 	 */
 	protected void detachSelf(boolean chunkUnloading) {
 		if (this.controller != null) {

@@ -50,36 +50,36 @@ import java.util.function.BiPredicate;
 /**
  * Writes a multiblock for either verification or hologram rendering
  *
+ * @author ramidzkh
  * @see MultiblockVerifier
  * @see HologramRenderer
- * @author ramidzkh
  */
 public interface MultiblockWriter {
 
 	/**
 	 * Adds a block to the multiblock
 	 *
-	 * @param x X
-	 * @param y Y
-	 * @param z Z
-	 * @param predicate Predicate of the position
-	 * @param state The state for the hologram
-	 * @return This. Useful for chaining
+	 * @param x         {@code int} X
+	 * @param y         {@code int} Y
+	 * @param z         {@code int} Z
+	 * @param predicate {@link BiPredicate} Predicate of the position
+	 * @param state     {@link BlockState} The state for the hologram
+	 * @return {@link MultiblockWriter} This. Useful for chaining
 	 */
 	MultiblockWriter add(int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state);
 
 	/**
 	 * Fills a section between (ax, ay, az) to (bx, by, bz)
 	 *
-	 * @param ax X of the first point
-	 * @param ay Y of the first point
-	 * @param az Z of the first point
-	 * @param bx X of the second point
-	 * @param by X of the second point
-	 * @param bz Z of the second point
-	 * @param predicate Predicate of the position
-	 * @param state The state for the hologram
-	 * @return This. Useful for chaining
+	 * @param ax        {@code int} X of the first point
+	 * @param ay        {@code int} Y of the first point
+	 * @param az        {@code int} Z of the first point
+	 * @param bx        {@code int} X of the second point
+	 * @param by        {@code int} X of the second point
+	 * @param bz        {@code int} Z of the second point
+	 * @param predicate {@link BiPredicate} Predicate of the position
+	 * @param state     {@link BlockState} The state for the hologram
+	 * @return {@link MultiblockWriter} This. Useful for chaining
 	 */
 	default MultiblockWriter fill(int ax, int ay, int az, int bx, int by, int bz, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
 		for (int x = ax; x < bx; x++) {
@@ -97,15 +97,15 @@ public interface MultiblockWriter {
 	 * Fills the outer ring of (0, 0, 0) to (pX, pY, pZ) through the axis, using the <code>predicate</code> and
 	 * <code>state</code>. The inside of the ring uses <code>holePredicate</code> and <code>holeHologramState</code>
 	 *
-	 * @param through The axis to go through
-	 * @param pX Size on the X axis
-	 * @param pY Size on the Y axis
-	 * @param pZ Size on the Z axis
-	 * @param predicate Predicate for the ring
-	 * @param state The ring state for the hologram
-	 * @param holePredicate Predicate for the hole
-	 * @param holeHologramState The hole state for the hologram
-	 * @return This. Useful for chaining
+	 * @param through           {@link Direction.Axis} The axis to go through
+	 * @param pX                {@code int} Size on the X axis
+	 * @param pY                {@code int} Size on the Y axis
+	 * @param pZ                {@code int} Size on the Z axis
+	 * @param predicate         {@link BiPredicate} Predicate for the ring
+	 * @param state             {@link BlockState} The state for the hologram
+	 * @param holePredicate     {@link BiPredicate} Predicate for the hole
+	 * @param holeHologramState {@link BlockState} The hole state for the hologram
+	 * @return {@link MultiblockWriter} This. Useful for chaining
 	 */
 	default MultiblockWriter ring(Direction.Axis through, int pX, int pY, int pZ, BiPredicate<BlockView, BlockPos> predicate, BlockState state, BiPredicate<BlockView, BlockPos> holePredicate, BlockState holeHologramState) {
 		if (holePredicate == null) {

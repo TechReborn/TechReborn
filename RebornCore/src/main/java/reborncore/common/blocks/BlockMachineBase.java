@@ -83,7 +83,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 			this.setDefaultState(
 					this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		}
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	public void setFacing(Direction facing, World world, BlockPos pos) {
@@ -180,7 +180,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 		ItemStack stack = playerIn.getStackInHand(hand);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BlockTileBase. Thus we should always have blockEntity entity. I hope.
+		// We extended BlockTileBase. Thus, we should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
 			return ActionResult.PASS;
 		}
@@ -200,7 +200,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 			} else if (stack.getItem() instanceof IUpgrade && blockEntity instanceof IUpgradeable upgradeableEntity) {
 				if (upgradeableEntity.canBeUpgraded()) {
 					int inserted = (int) insertItemStacked(
-							InventoryStorage.of(upgradeableEntity.getUpgradeInvetory(), null),
+							InventoryStorage.of(upgradeableEntity.getUpgradeInventory(), null),
 							ItemVariant.of(stack),
 							stack.getCount()
 					);

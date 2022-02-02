@@ -41,8 +41,9 @@ import java.util.Set;
  * Conceptually, they are meta-TileEntities. They govern the logic for an
  * associated group of TileEntities.
  * <p>
- * Subordinate TileEntities implement the IMultiblockPart class and, generally,
- * should not have an update() loop.
+ *  Subordinate TileEntities implement the {@link IMultiblockPart} class and, generally,
+ *  should not have an update() loop.
+ * </p>
  */
 public abstract class MultiblockControllerBase {
 	public static final short DIMENSION_UNBOUNDED = -1;
@@ -124,16 +125,16 @@ public abstract class MultiblockControllerBase {
 	 * multiblock. The part will be notified that the data has been used after
 	 * this call completes.
 	 *
-	 * @param part Attached part
-	 * @param data The NBT tag containing this controller's data.
+	 * @param part {@link IMultiblockPart} Attached part
+	 * @param data {@link NbtCompound} The NBT tag containing this controller's data.
 	 */
 	public abstract void onAttachedPartWithMultiblockData(IMultiblockPart part, NbtCompound data);
 
 	/**
 	 * Check if a block is being tracked by this machine.
 	 *
-	 * @param blockCoord Coordinate to check.
-	 * @return True if the blockEntity entity at blockCoord is being tracked by this
+	 * @param blockCoord {@link BlockPos} Coordinate to check.
+	 * @return {@code boolean} True if the blockEntity entity at blockCoord is being tracked by this
 	 * machine, false otherwise.
 	 */
 	public boolean hasBlock(BlockPos blockCoord) {
@@ -143,7 +144,7 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * Attach a new part to this machine.
 	 *
-	 * @param part The part to add.
+	 * @param part {@link IMultiblockPart} The part to add.
 	 */
 	public void attachBlock(IMultiblockPart part) {
 		//IMultiblockPart candidate;
@@ -218,7 +219,7 @@ public abstract class MultiblockControllerBase {
 	 * Called when a new part is added to the machine. Good time to register
 	 * things into lists.
 	 *
-	 * @param newPart The part being added.
+	 * @param newPart {@link IMultiblockPart} The part being added.
 	 */
 	protected abstract void onBlockAdded(IMultiblockPart newPart);
 
@@ -226,7 +227,7 @@ public abstract class MultiblockControllerBase {
 	 * Called when a part is removed from the machine. Good time to clean up
 	 * lists.
 	 *
-	 * @param oldPart The part being removed.
+	 * @param oldPart {@link IMultiblockPart} The part being removed.
 	 */
 	protected abstract void onBlockRemoved(IMultiblockPart oldPart);
 
@@ -257,7 +258,7 @@ public abstract class MultiblockControllerBase {
 	 * Callback whenever a part is removed (or will very shortly be removed)
 	 * from a controller. Do housekeeping/callbacks, also nulls min/max coords.
 	 *
-	 * @param part The part being removed.
+	 * @param part {@link IMultiblockPart} The part being removed.
 	 */
 	private void onDetachBlock(IMultiblockPart part) {
 		// Strip out this part
@@ -276,11 +277,11 @@ public abstract class MultiblockControllerBase {
 
 	/**
 	 * Call to detach a block from this machine. Generally, this should be
-	 * called when the blockEntity entity is being released, e.g. on block destruction.
+	 * called when the {@link BlockEntity} entity is being released, e.g. on block destruction.
 	 *
-	 * @param part The part to detach from this machine.
-	 * @param chunkUnloading Is this entity detaching due to the chunk unloading? If true,
-	 * the multiblock will be paused instead of broken.
+	 * @param part           {@link IMultiblockPart} The part to detach from this machine.
+	 * @param chunkUnloading {@code boolean} Is this entity detaching due to the chunk unloading? If true,
+	 *                       the multiblock will be paused instead of broken.
 	 */
 	public void detachBlock(IMultiblockPart part, boolean chunkUnloading) {
 		if (chunkUnloading && this.assemblyState == AssemblyState.Assembled) {
@@ -316,7 +317,7 @@ public abstract class MultiblockControllerBase {
 	 * blocks to actually assemble it. This isn't as simple as xmax*ymax*zmax
 	 * for non-cubic machines or for machines with hollow/complex interiors.
 	 *
-	 * @return The minimum number of blocks connected to the machine for it to
+	 * @return {@code int} The minimum number of blocks connected to the machine for it to
 	 * be assembled.
 	 */
 	protected abstract int getMinimumNumberOfBlocksForAssembledMachine();
@@ -326,7 +327,7 @@ public abstract class MultiblockControllerBase {
 	 * (DIMENSION_UNBOUNDED) to disable dimension checking in X. (This is not
 	 * recommended.)
 	 *
-	 * @return The maximum X dimension size of the machine, or -1
+	 * @return {@code int} The maximum X dimension size of the machine, or -1
 	 */
 	protected abstract int getMaximumXSize();
 
@@ -335,7 +336,7 @@ public abstract class MultiblockControllerBase {
 	 * (DIMENSION_UNBOUNDED) to disable dimension checking in X. (This is not
 	 * recommended.)
 	 *
-	 * @return The maximum Z dimension size of the machine, or -1
+	 * @return {@code int} The maximum Z dimension size of the machine, or -1
 	 */
 	protected abstract int getMaximumZSize();
 
@@ -344,7 +345,7 @@ public abstract class MultiblockControllerBase {
 	 * (DIMENSION_UNBOUNDED) to disable dimension checking in X. (This is not
 	 * recommended.)
 	 *
-	 * @return The maximum Y dimension size of the machine, or -1
+	 * @return {@code int} The maximum Y dimension size of the machine, or -1
 	 */
 	protected abstract int getMaximumYSize();
 
@@ -352,7 +353,7 @@ public abstract class MultiblockControllerBase {
 	 * Returns the minimum X dimension size of the machine. Must be at least 1,
 	 * because nothing else makes sense.
 	 *
-	 * @return The minimum X dimension size of the machine
+	 * @return {@code int} The minimum X dimension size of the machine
 	 */
 	protected int getMinimumXSize() {
 		return 1;
@@ -362,7 +363,7 @@ public abstract class MultiblockControllerBase {
 	 * Returns the minimum Y dimension size of the machine. Must be at least 1,
 	 * because nothing else makes sense.
 	 *
-	 * @return The minimum Y dimension size of the machine
+	 * @return {@code int} The minimum Y dimension size of the machine
 	 */
 	protected int getMinimumYSize() {
 		return 1;
@@ -372,15 +373,15 @@ public abstract class MultiblockControllerBase {
 	 * Returns the minimum Z dimension size of the machine. Must be at least 1,
 	 * because nothing else makes sense.
 	 *
-	 * @return The minimum Z dimension size of the machine
+	 * @return {@code int} The minimum Z dimension size of the machine
 	 */
 	protected int getMinimumZSize() {
 		return 1;
 	}
 
 	/**
-	 * @return An exception representing the last error encountered when trying
-	 * to assemble this multiblock, or null if there is no error.
+	 * @return {@link MultiblockValidationException} An exception representing the last error encountered when trying
+	 * to assemble this multiblock, or {@code null} if there is no error.
 	 */
 	public MultiblockValidationException getLastValidationException() {
 		return lastValidationException;
@@ -389,6 +390,8 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * Checks if a machine is whole. If not, throws an exception with the reason
 	 * why.
+	 *
+	 * @throws MultiblockValidationException if the machine is not whole.
 	 */
 	protected abstract void isMachineWhole() throws MultiblockValidationException;
 
@@ -396,7 +399,6 @@ public abstract class MultiblockControllerBase {
 	 * Check if the machine is whole or not. If the machine was not whole, but
 	 * now is, assemble the machine. If the machine was whole, but no longer is,
 	 * disassemble the machine.
-	 *
 	 */
 	public void checkIfMachineIsWhole() {
 		AssemblyState oldState = this.assemblyState;
@@ -422,8 +424,10 @@ public abstract class MultiblockControllerBase {
 
 	/**
 	 * Called when a machine becomes "whole" and should begin functioning as a
-	 * game-logically finished machine. Calls onMachineAssembled on all attached
+	 * game-logically finished machine. Calls {@link #onMachineAssembled} on all attached
 	 * parts.
+	 *
+	 * @param oldState {@link AssemblyState} The previous state of the machine.
 	 */
 	private void assembleMachine(AssemblyState oldState) {
 		for (IMultiblockPart part : connectedParts) {
@@ -441,7 +445,7 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * Called when the machine needs to be disassembled. It is not longer
 	 * "whole" and should not be functional, usually as a result of a block
-	 * being removed. Calls onMachineBroken on all attached parts.
+	 * being removed. Calls {@link IMultiblockPart#onMachineBroken} on all attached parts.
 	 */
 	private void disassembleMachine() {
 		for (IMultiblockPart part : connectedParts) {
@@ -453,10 +457,12 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * Assimilate another controller into this controller. Acquire all of the
+	 * Assimilate another controller into this controller. Acquire all the
 	 * other controller's blocks and attach them to this one.
 	 *
-	 * @param other The controller to merge into this one.
+	 * @param other {@link MultiblockControllerBase} The controller to merge into this one.
+	 * @throws IllegalArgumentException if the controller with the lowest minimum-coord value does not consume
+	 *                                  the one with the higher value.
 	 */
 	public void assimilate(MultiblockControllerBase other) {
 		BlockPos otherReferenceCoord = other.getReferenceCoord();
@@ -467,7 +473,7 @@ public abstract class MultiblockControllerBase {
 
 		Set<IMultiblockPart> partsToAcquire = new HashSet<>(other.connectedParts);
 
-		// releases all blocks and references gently so they can be incorporated into another multiblock
+		// releases all blocks and references gently, so they can be incorporated into another multiblock
 		other._onAssimilated(this);
 
 		for (IMultiblockPart acquiredPart : partsToAcquire) {
@@ -489,7 +495,7 @@ public abstract class MultiblockControllerBase {
 	 * Called when this machine is consumed by another controller. Essentially,
 	 * forcibly tear down this object.
 	 *
-	 * @param otherController The controller consuming this controller.
+	 * @param otherController {@link MultiblockControllerBase} The controller consuming this controller.
 	 */
 	private void _onAssimilated(MultiblockControllerBase otherController) {
 		if (referenceCoord == null) { return; }
@@ -509,7 +515,7 @@ public abstract class MultiblockControllerBase {
 	 * Callback. Called after this controller assimilates all the blocks from
 	 * another controller. Use this to absorb that controller's game data.
 	 *
-	 * @param assimilated The controller whose uniqueness was added to our own.
+	 * @param assimilated {@link MultiblockControllerBase} The controller whose uniqueness was added to our own.
 	 */
 	protected abstract void onAssimilate(MultiblockControllerBase assimilated);
 
@@ -518,7 +524,7 @@ public abstract class MultiblockControllerBase {
 	 * controller. All blocks have been stripped out of this object and handed
 	 * over to the other controller. This is intended primarily for cleanup.
 	 *
-	 * @param assimilator The controller which has assimilated this controller.
+	 * @param assimilator {@link MultiblockControllerBase} The controller which has assimilated this controller.
 	 */
 	protected abstract void onAssimilated(MultiblockControllerBase assimilator);
 
@@ -553,7 +559,7 @@ public abstract class MultiblockControllerBase {
 
 				for (int x = minChunkX; x <= maxChunkX; x++) {
 					for (int z = minChunkZ; z <= maxChunkZ; z++) {
-						// Ensure that we save our data, even if the our save
+						// Ensure that we save our data, even if our save
 						// delegate is in has no TEs.
 						WorldChunk chunkToSave = this.worldObj.getChunk(x, z);
 						chunkToSave.needsSaving();
@@ -565,12 +571,12 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * The server-side update loop! Use this similarly to a BlockEntity's update
-	 * loop. You do not need to call your superclass' update() if you're
-	 * directly derived from MultiblockControllerBase. This is a callback. Note
+	 * The server-side update loop! Use this similarly to a {@link BlockEntity}'s update
+	 * loop. You do not need to call your superclass' {@code update()} if you're
+	 * directly derived from {@link MultiblockControllerBase}. This is a callback. Note
 	 * that this will only be called when the machine is assembled.
 	 *
-	 * @return True if the multiblock should save data, i.e. its internal game
+	 * @return {@code boolean} True if the multiblock should save data, i.e. its internal game
 	 * state has changed. False otherwise.
 	 */
 	protected abstract boolean updateServer();
@@ -586,11 +592,11 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The "frame" consists of the outer edges of the machine, plus the corners.
 	 *
-	 * @param world World object for the world in which this controller is
-	 * located.
-	 * @param x X coordinate of the block being tested
-	 * @param y Y coordinate of the block being tested
-	 * @param z Z coordinate of the block being tested
+	 * @param world {@link World} The object for the world in which this controller is
+	 *              located.
+	 * @param x     {@code int} X coordinate of the block being tested
+	 * @param y     {@code int} Y coordinate of the block being tested
+	 * @param z     {@code int} Z coordinate of the block being tested
 	 * @throws MultiblockValidationException if the tested block is not allowed on the machine's frame
 	 */
 	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException {
@@ -601,11 +607,11 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The top consists of the top face, minus the edges.
 	 *
-	 * @param world World object for the world in which this controller is
-	 * located.
-	 * @param x X coordinate of the block being tested
-	 * @param y Y coordinate of the block being tested
-	 * @param z Z coordinate of the block being tested
+	 * @param world {@link World} The object for the world in which this controller is
+	 *              located.
+	 * @param x     {@code int} X coordinate of the block being tested
+	 * @param y     {@code int} Y coordinate of the block being tested
+	 * @param z     {@code int} Z coordinate of the block being tested
 	 * @throws MultiblockValidationException if the tested block is not allowed on the machine's top face
 	 */
 	protected void isBlockGoodForTop(World world, int x, int y, int z) throws MultiblockValidationException {
@@ -616,13 +622,13 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The bottom consists of the bottom face, minus the edges.
 	 *
-	 * @param world World object for the world in which this controller is
-	 * located.
-	 * @param x X coordinate of the block being tested
-	 * @param y Y coordinate of the block being tested
-	 * @param z Z coordinate of the block being tested
+	 * @param world {@link World} The object for the world in which this controller is
+	 *              located.
+	 * @param x     {@code int} X coordinate of the block being tested
+	 * @param y     {@code int} Y coordinate of the block being tested
+	 * @param z     {@code int} Z coordinate of the block being tested
 	 * @throws MultiblockValidationException if the tested block is not allowed on the machine's bottom
-	 * face
+	 *                                       face
 	 */
 	protected void isBlockGoodForBottom(World world, int x, int y, int z) throws MultiblockValidationException {
 		throw new MultiblockValidationException(
@@ -630,15 +636,15 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * The sides consists of the N/E/S/W-facing faces, minus the edges.
+	 * The sides consist of the N/E/S/W-facing faces, minus the edges.
 	 *
-	 * @param world World object for the world in which this controller is
-	 * located.
-	 * @param x X coordinate of the block being tested
-	 * @param y Y coordinate of the block being tested
-	 * @param z Z coordinate of the block being tested
+	 * @param world {@link World} The object for the world in which this controller is
+	 *              located.
+	 * @param x     {@code int} X coordinate of the block being tested
+	 * @param y     {@code int} Y coordinate of the block being tested
+	 * @param z     {@code int} Z coordinate of the block being tested
 	 * @throws MultiblockValidationException if the tested block is not allowed on the machine's side
-	 * faces
+	 *                                       faces
 	 */
 	protected void isBlockGoodForSides(World world, int x, int y, int z) throws MultiblockValidationException {
 		throw new MultiblockValidationException(
@@ -648,11 +654,11 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The interior is any block that does not touch blocks outside the machine.
 	 *
-	 * @param world World object for the world in which this controller is
-	 * located.
-	 * @param x X coordinate of the block being tested
-	 * @param y Y coordinate of the block being tested
-	 * @param z Z coordinate of the block being tested
+	 * @param world {@link World} The object for the world in which this controller is
+	 *              located.
+	 * @param x     {@code int} X coordinate of the block being tested
+	 * @param y     {@code int} Y coordinate of the block being tested
+	 * @param z     {@code int} Z coordinate of the block being tested
 	 * @throws MultiblockValidationException if the tested block is not allowed in the machine's interior
 	 */
 	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException {
@@ -661,7 +667,7 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * @return The reference coordinate, the block with the lowest x, y, z
+	 * @return {@link BlockPos} The reference coordinate, the block with the lowest x, y, z
 	 * coordinates, evaluated in that order.
 	 */
 	public BlockPos getReferenceCoord() {
@@ -672,7 +678,7 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * @return The number of blocks connected to this controller.
+	 * @return {@code int} The number of blocks connected to this controller.
 	 */
 	public int getNumConnectedBlocks() {
 		return connectedParts.size();
@@ -718,7 +724,7 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * @return The minimum bounding-box coordinate containing this machine's
+	 * @return {@link BlockPos} The minimum bounding-box coordinate containing this machine's
 	 * blocks.
 	 */
 	public BlockPos getMinimumCoord() {
@@ -729,7 +735,7 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * @return The maximum bounding-box coordinate containing this machine's
+	 * @return {@link BlockPos} The maximum bounding-box coordinate containing this machine's
 	 * blocks.
 	 */
 	public BlockPos getMaximumCoord() {
@@ -740,23 +746,23 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * Called when the save delegate's blockEntity entity is being asked for its
+	 * Called when the save delegate's {@link BlockEntity} entity is being asked for its
 	 * description packet
 	 *
-	 * @param data A fresh compound tag to write your multiblock data into
+	 * @param data {@link NbtCompound} A fresh compound tag to write your multiblock data into
 	 */
 	public abstract void formatDescriptionPacket(NbtCompound data);
 
 	/**
-	 * Called when the save delegate's blockEntity entity receiving a description
+	 * Called when the save delegate's {@link BlockEntity} entity receiving a description
 	 * packet
 	 *
-	 * @param data A compound tag containing multiblock data to import
+	 * @param data {@link NbtCompound} A compound tag containing multiblock data to import
 	 */
 	public abstract void decodeDescriptionPacket(NbtCompound data);
 
 	/**
-	 * @return True if this controller has no associated blocks, false otherwise
+	 * @return {@code boolean} True if this controller has no associated blocks, false otherwise
 	 */
 	public boolean isEmpty() {
 		return connectedParts.isEmpty();
@@ -767,9 +773,12 @@ public abstract class MultiblockControllerBase {
 	 * become the new multiblock master when the two multiblocks are adjacent.
 	 * Assumes both multiblocks are the same type.
 	 *
-	 * @param otherController The other multiblock controller.
-	 * @return True if this multiblock should consume the other, false
+	 * @param otherController {@link MultiblockControllerBase} The other multiblock controller.
+	 * @return {@code boolean} True if this multiblock should consume the other, false
 	 * otherwise.
+	 * @throws IllegalArgumentException The two multiblocks have different master classes
+	 * @throws IllegalArgumentException The two controllers with the same reference coord both
+	 *                                  have valid parts
 	 */
 	public boolean shouldConsume(MultiblockControllerBase otherController) {
 		if (!otherController.getClass().equals(getClass())) {
@@ -840,7 +849,7 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * Checks all of the parts in the controller. If any are dead or do not
+	 * Checks all the parts in the controller. If any are dead or do not
 	 * exist in the world, they are removed.
 	 */
 	private void auditParts() {
@@ -861,7 +870,7 @@ public abstract class MultiblockControllerBase {
 	 * Called when this machine may need to check for blocks that are no longer
 	 * physically connected to the reference coordinate.
 	 *
-	 * @return Set with removed parts
+	 * @return {@link Set} Set with removed {@link IMultiblockPart}s.
 	 */
 	public Set<IMultiblockPart> checkForDisconnections() {
 		if (!this.shouldCheckForDisconnections) {
@@ -980,10 +989,10 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * Detach all parts. Return a set of all parts which still have a valid blockEntity
+	 * Detach all parts. Return a set of all parts which still have a valid {@link BlockEntity}
 	 * entity. Chunk-safe.
 	 *
-	 * @return A set of all parts which still have a valid blockEntity entity.
+	 * @return {@link Set} A set of all {@link IMultiblockPart}s which still have a valid {@link BlockEntity} entity.
 	 */
 	public Set<IMultiblockPart> detachAllBlocks() {
 		if (worldObj == null) {
@@ -1002,7 +1011,7 @@ public abstract class MultiblockControllerBase {
 	}
 
 	/**
-	 * @return True if this multiblock machine is considered assembled and ready
+	 * @return {@code boolean} True if this multiblock machine is considered assembled and ready
 	 * to go.
 	 */
 	public boolean isAssembled() {
@@ -1035,12 +1044,12 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * Marks the reference coord dirty & updateable.
 	 * <p>
-	 * On the server, this will mark the for a data-update, so that nearby
-	 * clients will receive an updated description packet from the server after
-	 * a short time. The block's chunk will also be marked dirty and the block's
-	 * chunk will be saved to disk the next time chunks are saved.
-	 * <p>
-	 * On the client, this will mark the block for a rendering update.
+	 *  On the server, this will mark the for a data-update, so that nearby
+	 *  clients will receive an updated description packet from the server after
+	 *  a short time. The block's chunk will also be marked dirty and the block's
+	 *  chunk will be saved to disk the next time chunks are saved.
+	 * </p>
+	 * <p>On the client, this will mark the block for a rendering update.</p>
 	 */
 	protected void markReferenceCoordForUpdate() {
 		BlockPos rc = getReferenceCoord();
@@ -1053,11 +1062,11 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * Marks the reference coord dirty.
 	 * <p>
-	 * On the server, this marks the reference coord's chunk as dirty; the block
-	 * (and chunk) will be saved to disk the next time chunks are saved. This
-	 * does NOT mark it dirty for a description-packet update.
-	 * <p>
-	 * On the client, does nothing.
+	 *  On the server, this marks the reference coord's chunk as dirty; the block
+	 *  (and chunk) will be saved to disk the next time chunks are saved. This
+	 *  does NOT mark it dirty for a description-packet update.
+	 * </p>
+	 * <p>On the client, does nothing.</p>
 	 *
 	 * @see MultiblockControllerBase#markReferenceCoordForUpdate()
 	 */
