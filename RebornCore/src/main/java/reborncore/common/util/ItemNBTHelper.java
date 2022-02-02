@@ -158,8 +158,8 @@ public class ItemNBTHelper {
 		return verifyExistence(stack, tag) ? getNBT(stack).getString(tag) : defaultExpected;
 	}
 
-	public static NbtList getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
-		return verifyExistence(stack, tag) ? getNBT(stack).getList(tag, objtype)
+	public static NbtList getList(ItemStack stack, String tag, int objType, boolean nullifyOnFail) {
+		return verifyExistence(stack, tag) ? getNBT(stack).getList(tag, objType)
 				: nullifyOnFail ? null : new NbtList();
 	}
 }
