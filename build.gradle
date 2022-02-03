@@ -137,6 +137,20 @@ allprojects {
     }
 }
 
+processResources {
+    doLast {
+        // Depend on the reborn core version it was built against
+        fileTree(dir: outputs.files.asPath, include: "fabric.mod.json").each {
+            def jsonSlurper = new JsonSlurper()
+            def modJson = jsonSlurper.parseText(it.text)
+
+            modJson.depends.reborncore = "~${project.version}"
+
+            it.text = JsonOutput.toJson(modJson)
+        }
+    }
+}
+
 loom {
     accessWidenerPath = file("src/main/resources/techreborn.accesswidener")
 }
