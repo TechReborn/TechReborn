@@ -33,6 +33,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.HeightContext;
+import org.jetbrains.annotations.Nullable;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
@@ -64,6 +65,10 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 				final Identifier blockId = Registry.BLOCK.getId(ore.block);
 				final HeightContext heightContext = getHeightContext(server, ore.distribution.dimension);
 
+				if (heightContext == null) {
+					continue;
+				}
+
 				final int minY = ore.distribution.minOffset.getY(heightContext);
 				final int maxY = ore.distribution.maxY;
 
@@ -80,6 +85,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 		return Collections.unmodifiableList(depths);
 	}
 
+	@Nullable
 	private static HeightContext getHeightContext(MinecraftServer server, TargetDimension dimension) {
 		RegistryKey<World> key = switch (dimension) {
 			case OVERWORLD -> World.OVERWORLD;
@@ -88,6 +94,11 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 		};
 
 		final ServerWorld world = server.getWorld(key);
+
+		if (world == null) {
+			return null;
+		}
+
 		return new HeightContext(world.getChunkManager().getChunkGenerator(), world);
 	}
 }
