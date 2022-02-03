@@ -856,6 +856,7 @@
 
   "_comment20": "Death Messages",
   "death.attack.shock": "%s was electrocuted",
+  "death.attack.shock.player": "%s was electrocuted trying to outrun %s",
 
   "_comment21": "Entities",
   "entity.nuke": "Nuke",
