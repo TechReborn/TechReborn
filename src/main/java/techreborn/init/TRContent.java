@@ -729,7 +729,7 @@ public class TRContent {
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			ItemConvertible blockVariant = null;
 			try {
-				blockVariant = StorageBlocks.valueOf(this.toString());
+				blockVariant = StorageBlocks.valueOf("RAW_" + this.toString());
 			}
 			catch (IllegalArgumentException ex) {
 				TechReborn.LOGGER.warn("Raw metal {} has no storage block equivalent!", name);
