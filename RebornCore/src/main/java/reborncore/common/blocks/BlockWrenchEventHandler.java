@@ -36,7 +36,7 @@ import java.util.List;
 
 public class BlockWrenchEventHandler {
 
-	public static List<Block> wrenableBlocks = new ArrayList<>();
+	public static List<Block> wrenchableBlocks = new ArrayList<>();
 
 
 	public static void setup() {
@@ -47,7 +47,7 @@ public class BlockWrenchEventHandler {
 			}
 			if (ToolManager.INSTANCE.canHandleTool(playerEntity.getStackInHand(Hand.MAIN_HAND))) {
 				BlockState state = world.getBlockState(blockHitResult.getBlockPos());
-				if (wrenableBlocks.contains(state.getBlock())) {
+				if (wrenchableBlocks.contains(state.getBlock())) {
 					Block block = state.getBlock();
 					block.onUse(state, world, blockHitResult.getBlockPos(), playerEntity, hand, blockHitResult);
 					return ActionResult.SUCCESS;
@@ -56,6 +56,5 @@ public class BlockWrenchEventHandler {
 			return ActionResult.PASS;
 		});
 	}
-
 
 }

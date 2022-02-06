@@ -86,7 +86,7 @@ public final class PlayerScreenHandlerBuilder {
 			this.parent.addPlayerInventoryRange(this.main);
 		}
 		if (this.armor != null) {
-			this.parent.addBlockEnityInventoryRange(this.armor);
+			this.parent.addBlockEntityInventoryRange(this.armor);
 		}
 
 		return this.parent;

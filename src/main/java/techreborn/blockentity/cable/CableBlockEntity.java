@@ -89,8 +89,9 @@ public class CableBlockEntity extends BlockEntity
 	 * This prevents double transfer rates, and back and forth between two cables.
 	 */
 	int blockedSides = 0;
+
 	/**
-	 * This is only used during the cable tick, whereas blockedOperations is used between ticks.
+	 * This is only used during the cable tick, whereas {@link #blockedSides} is used between ticks.
 	 */
 	boolean ioBlocked = false;
 

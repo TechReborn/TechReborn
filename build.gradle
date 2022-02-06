@@ -251,7 +251,7 @@ loom {
 test.dependsOn runGametest
 
 runDatagen {
-    // Doesnt re-run the task when its up-to date
+    // Doesn't re-run the task when its up-to date
     outputs.dir('src/main/generated')
 }
 

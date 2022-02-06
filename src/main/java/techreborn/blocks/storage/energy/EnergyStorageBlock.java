@@ -64,7 +64,7 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		this.gui = gui;
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	public void setFacing(Direction facing, World world, BlockPos pos) {
@@ -100,7 +100,7 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BlockTileBase. Thus we should always have blockEntity entity. I hope.
+		// We extended BlockTileBase. Thus, we should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
 			return ActionResult.FAIL;
 		}

@@ -35,12 +35,12 @@ import org.jetbrains.annotations.Nullable;
 public class SpriteSlot extends FilteredSlot {
 
 	private final Identifier spriteName;
-	int stacksize;
+	int stackSize;
 
-	public SpriteSlot(final Inventory inventory, final int index, final int xPosition, final int yPosition, final Identifier sprite, final int stacksize) {
+	public SpriteSlot(final Inventory inventory, final int index, final int xPosition, final int yPosition, final Identifier sprite, final int stackSize) {
 		super(inventory, index, xPosition, yPosition);
 		this.spriteName = sprite;
-		this.stacksize = stacksize;
+		this.stackSize = stackSize;
 	}
 
 	public SpriteSlot(final Inventory inventory, final int index, final int xPosition, final int yPosition, final Identifier sprite) {
@@ -49,7 +49,7 @@ public class SpriteSlot extends FilteredSlot {
 
 	@Override
 	public int getMaxItemCount() {
-		return this.stacksize;
+		return this.stackSize;
 	}
 
 	@Override

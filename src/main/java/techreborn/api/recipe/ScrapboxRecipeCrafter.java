@@ -38,10 +38,10 @@ import java.util.List;
 public class ScrapboxRecipeCrafter extends RecipeCrafter {
 
 	/**
-	 * @param parent      Tile having this crafter
-	 * @param inventory   Inventory from parent blockEntity
-	 * @param inputSlots  Slot IDs for input
-	 * @param outputSlots Slot IDs for output
+	 * @param parent      {@link BlockEntity} Tile having this crafter
+	 * @param inventory   {@link RebornInventory} Inventory from parent blockEntity
+	 * @param inputSlots  {@code int[]} Slot IDs for input
+	 * @param outputSlots {@code int[]} Slot IDs for output
 	 */
 	public ScrapboxRecipeCrafter(BlockEntity parent, RebornInventory<?> inventory, int[] inputSlots, int[] outputSlots) {
 		super(ModRecipes.SCRAPBOX, parent, 1, 1, inventory, inputSlots, outputSlots);

@@ -34,7 +34,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -46,7 +45,7 @@ import techreborn.utils.InitUtils;
 public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, ArmorBlockEntityTicker, ArmorRemoveHandler {
 
 	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
-	public static int cost = TechRebornConfig.cloackingDeviceCost;
+	public static int cost = TechRebornConfig.cloakingDeviceCost;
 	public static boolean isActive;
 
 	// 40M FE capacity with 10k FE\t charge rate

@@ -43,12 +43,12 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	public RebornInventory(int size, String invName, int invStackLimit, T blockEntity, IInventoryAccess<T> access) {
 		super(size);
 		name = invName;
-		stackLimit = (invStackLimit == 64 ? Items.AIR.getMaxCount() : invStackLimit); //Blame asie for this
+		stackLimit = (invStackLimit == 64 ? Items.AIR.getMaxCount() : invStackLimit); // Blame asie for this
 		this.blockEntity = blockEntity;
 		this.inventoryAccess = access;
 	}
 
-	//If you are using this with a machine, dont forget to set .withConfiguredAccess()
+	// If you are using this with a machine, don't forget to set .withConfiguredAccess()
 	public RebornInventory(int size, String invName, int invStackLimit, T blockEntity) {
 		this(size, invName, invStackLimit, blockEntity, (slotID, stack, facing, direction, be) -> {
 			if (facing == null) {
@@ -99,8 +99,8 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	}
 
 	public void read(NbtCompound data, String tag) {
-		NbtCompound nbttaglist = data.getCompound(tag);
-		deserializeNBT(nbttaglist);
+		NbtCompound nbtTagList = data.getCompound(tag);
+		deserializeNBT(nbtTagList);
 		hasChanged = true;
 	}
 

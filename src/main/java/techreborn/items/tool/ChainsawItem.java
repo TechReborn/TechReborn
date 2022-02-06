@@ -80,13 +80,13 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	}
 
 	@Override
-	public boolean postHit(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
+	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return true;
 	}
 
 	// ToolItem
 	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
+	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		return false;
 	}
 

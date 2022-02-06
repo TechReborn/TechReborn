@@ -97,27 +97,27 @@ public class SlotConfigPopupElement extends ElementBase {
 	@Override
 	public boolean onRelease(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
 		if (isInBox(23, 4, 16, 16, mouseX, mouseY, gui)) {
-			cyleSlotConfig(MachineFacing.UP.getFacing(provider), gui);
+			cycleSlotConfig(MachineFacing.UP.getFacing(provider), gui);
 		} else if (isInBox(23, 23, 16, 16, mouseX, mouseY, gui)) {
-			cyleSlotConfig(MachineFacing.FRONT.getFacing(provider), gui);
+			cycleSlotConfig(MachineFacing.FRONT.getFacing(provider), gui);
 		} else if (isInBox(42, 23, 16, 16, mouseX, mouseY, gui)) {
-			cyleSlotConfig(MachineFacing.RIGHT.getFacing(provider), gui);
+			cycleSlotConfig(MachineFacing.RIGHT.getFacing(provider), gui);
 		} else if (isInBox(4, 23, 16, 16, mouseX, mouseY, gui)) {
-			cyleSlotConfig(MachineFacing.LEFT.getFacing(provider), gui);
+			cycleSlotConfig(MachineFacing.LEFT.getFacing(provider), gui);
 		} else if (isInBox(23, 42, 16, 16, mouseX, mouseY, gui)) {
-			cyleSlotConfig(MachineFacing.DOWN.getFacing(provider), gui);
+			cycleSlotConfig(MachineFacing.DOWN.getFacing(provider), gui);
 		} else if (isInBox(42, 42, 16, 16, mouseX, mouseY, gui)) {
-			cyleSlotConfig(MachineFacing.BACK.getFacing(provider), gui);
+			cycleSlotConfig(MachineFacing.BACK.getFacing(provider), gui);
 		} else {
 			return false;
 		}
 		return true;
 	}
 
-	public void cyleSlotConfig(Direction side, GuiBase<?> guiBase) {
+	public void cycleSlotConfig(Direction side, GuiBase<?> guiBase) {
 		SlotConfiguration.SlotConfig currentSlot = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id).getSideDetail(side);
 
-		//Bit of a mess, in the future have a way to remove config options from this list
+		// A bit of a mess, in the future have a way to remove config options from this list
 		SlotConfiguration.ExtractConfig nextConfig = currentSlot.getSlotIO().getIoConfig().getNext();
 		if (!allowInput && nextConfig == SlotConfiguration.ExtractConfig.INPUT) {
 			nextConfig = SlotConfiguration.ExtractConfig.OUTPUT;
@@ -154,7 +154,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		int sy = iny + getY() + gui.getGuiTop();
 		SlotConfiguration.SlotConfigHolder slotConfigHolder = machineBase.getSlotConfiguration().getSlotDetails(slotID);
 		if (slotConfigHolder == null) {
-			RebornCore.LOGGER.debug("Humm, this isnt suppoed to happen");
+			RebornCore.LOGGER.debug("Hmm, this isn't supposed to happen");
 			return;
 		}
 		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(side);

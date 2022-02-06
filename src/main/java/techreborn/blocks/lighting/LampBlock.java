@@ -65,7 +65,7 @@ public class LampBlock extends BaseBlockEntityProvider {
 		this.shape = genCuboidShapes(depth, width);
 		this.cost = cost;
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	private static ToIntFunction<BlockState> createLightLevelFromBlockState() {
@@ -148,7 +148,7 @@ public class LampBlock extends BaseBlockEntityProvider {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BaseTileBlock. Thus we should always have blockEntity entity. I hope.
+		// We extended BaseTileBlock. Thus, we should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
 			return ActionResult.FAIL;
 		}

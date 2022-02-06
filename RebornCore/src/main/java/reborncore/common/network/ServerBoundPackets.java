@@ -54,7 +54,8 @@ public class ServerBoundPackets {
 				IdentifiedPacket packetFluidConfigSync = ClientBoundPackets.createPacketFluidConfigSync(pos, legacyMachineBase.fluidConfiguration);
 				NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
 
-				//We update the block to allow pipes that are connecting to detctect the update and change their connection status if needed
+				// We update the block to allow pipes that are connecting to detect the update and change their
+			    // connection status if needed
 				World world = legacyMachineBase.getWorld();
 				BlockState blockState = world.getBlockState(legacyMachineBase.getPos());
 				world.updateNeighborsAlways(legacyMachineBase.getPos(), blockState.getBlock());
@@ -89,7 +90,7 @@ public class ServerBoundPackets {
 				config.setInput(input);
 				config.setOutput(output);
 
-				//Syncs back to the client
+				// Syncs back to the client
 				IdentifiedPacket packetFluidConfigSync = ClientBoundPackets.createPacketFluidConfigSync(pos, legacyMachineBase.fluidConfiguration);
 				NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
 			});
@@ -112,7 +113,7 @@ public class ServerBoundPackets {
 
 				holder.setInput(input);
 				holder.setOutput(output);
-				holder.setfilter(filter);
+				holder.setFilter(filter);
 
 				//Syncs back to the client
 				IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(pos, machineBase.getSlotConfiguration());
@@ -204,7 +205,7 @@ public class ServerBoundPackets {
 		});
 	}
 
-	public static IdentifiedPacket requestChunkloaderChunks(BlockPos pos) {
+	public static IdentifiedPacket requestChunkLoaderChunks(BlockPos pos) {
 		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "chunk_loader_request"), packetBuffer -> {
 			packetBuffer.writeBlockPos(pos);
 		});

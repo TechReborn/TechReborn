@@ -81,7 +81,7 @@ public class TechReborn implements ModInitializer {
 
 		if (TechRebornConfig.machineSoundVolume > 0) {
 			if (TechRebornConfig.machineSoundVolume > 1) TechRebornConfig.machineSoundVolume = 1F;
-			RecipeCrafter.soundHanlder = new ModSounds.SoundHandler();
+			RecipeCrafter.soundHandler = new ModSounds.SoundHandler();
 		}
 		ModLoot.init();
 		WorldGenerator.initWorldGen();

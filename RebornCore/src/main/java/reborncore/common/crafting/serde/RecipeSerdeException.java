@@ -33,7 +33,7 @@ public class RecipeSerdeException extends RuntimeException {
 
 	public RecipeSerdeException(Identifier identifier, Throwable cause) {
 		super("Failed to ser/de " + identifier, cause);
-		// Dont trust minecraft to log this.
+		// Don't trust minecraft to log this.
 		LOGGER.error(getMessage(), this);
 	}
 }

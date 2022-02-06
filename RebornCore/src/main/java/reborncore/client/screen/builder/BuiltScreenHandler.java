@@ -37,8 +37,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
@@ -62,7 +62,7 @@ public class BuiltScreenHandler extends ScreenHandler {
 	private final List<Range<Integer>> playerSlotRanges;
 	private final List<Range<Integer>> blockEntitySlotRanges;
 
-	// Holds the syncpair along with the last value
+	// Holds the SyncPair along with the last value
 	private final Map<SyncPair, Object> syncPairCache = new HashMap<>();
 	private final Int2ObjectMap<SyncPair> syncPairIdLookup = new Int2ObjectOpenHashMap<>();
 
@@ -257,7 +257,7 @@ public class BuiltScreenHandler extends ScreenHandler {
 			}
 		}
 
-		//If we moved some, but still have more left over lets try again
+		// If we moved some, but still have more left over lets try again
 		if (!stackToShift.isEmpty() && stackToShift.getCount() != inCount) {
 			shiftItemStack(stackToShift, start, end);
 		}

@@ -75,19 +75,31 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	public boolean renderMultiblock = false;
 
-	private int ticktime = 0;
+	private int tickTime = 0;
 
 	/**
-	 * This is used to change the speed of the crafting operation.
+	 * <p>
+	 *  This is used to change the speed of the crafting operation.
 	 * <p/>
-	 * 0 = none; 0.2 = 20% speed increase 0.75 = 75% increase
+	 *
+	 * <ul>
+	 * 	<li>0 = Normal speed</li>
+	 * 	<li>0.2 = 20% increase</li>
+	 * 	<li>0.75 = 75% increase</li>
+	 * </ul>
 	 */
 	double speedMultiplier = 0;
 	/**
-	 * This is used to change the power of the crafting operation.
+	 * <p>
+	 *  This is used to change the power of the crafting operation.
 	 * <p/>
-	 * 1 = none; 1.2 = 20% speed increase 1.75 = 75% increase 5 = uses 5 times
-	 * more power
+	 *
+	 * <ul>
+	 *  <li>1 = Normal power</li>
+	 *  <li>1.2 = 20% increase</li>
+	 *  <li>1.75 = 75% increase</li>
+	 *  <li>5 = 500% increase</li>
+	 * </ul>
 	 */
 	double powerMultiplier = 1;
 
@@ -139,10 +151,10 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		if (ticktime == 0) {
+		if (tickTime == 0) {
 			onLoad();
 		}
-		ticktime++;
+		tickTime++;
 		@Nullable
 		RecipeCrafter crafter = null;
 		if (getOptionalCrafter().isPresent()) {
@@ -151,7 +163,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		if (canBeUpgraded()) {
 			resetUpgrades();
 			for (int i = 0; i < getUpgradeSlotCount(); i++) {
-				ItemStack stack = getUpgradeInvetory().getStack(i);
+				ItemStack stack = getUpgradeInventory().getStack(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof IUpgrade) {
 					((IUpgrade) stack.getItem()).process(this, this, stack);
 				}
@@ -173,8 +185,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	public void resetUpgrades() {
-		resetPowerMulti();
-		resetSpeedMulti();
+		resetPowerMultiplier();
+		resetSpeedMultiplier();
 	}
 
 	protected void afterUpgradesApplication() {
@@ -289,10 +301,10 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		}
 		return true;
 	}
-	//Inventory end
+	// Inventory end
 
 	@Override
-	public Inventory getUpgradeInvetory() {
+	public Inventory getUpgradeInventory() {
 		return upgradeInventory;
 	}
 
@@ -306,7 +318,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void resetSpeedMulti() {
+	public void resetSpeedMultiplier() {
 		speedMultiplier = 0;
 	}
 
@@ -316,12 +328,12 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void addPowerMulti(double amount) {
+	public void addPowerMultiplier(double amount) {
 		powerMultiplier = powerMultiplier * (1f + amount);
 	}
 
 	@Override
-	public void resetPowerMulti() {
+	public void resetPowerMultiplier() {
 		powerMultiplier = 1;
 	}
 
@@ -336,7 +348,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void addSpeedMulti(double amount) {
+	public void addSpeedMultiplier(double amount) {
 		if (speedMultiplier + amount <= 0.99) {
 			speedMultiplier += amount;
 		} else {
@@ -357,12 +369,12 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		return getTank() != null;
 	}
 
-	//The amount of ticks between a slot tranfer atempt, less is faster
+	//The amount of ticks between a slot transfer attempt, less is faster
 	public int slotTransferSpeed() {
 		return 4;
 	}
 
-	//The amount of fluid transfured each tick buy the fluid config
+	//The amount of fluid transferred each tick buy the fluid config
 	public FluidValue fluidTransferAmount() {
 		return FluidValue.BUCKET_QUARTER;
 	}
@@ -459,7 +471,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	@Override
 	public int[] getAvailableSlots(Direction side) {
 		if(slotConfiguration == null){
-			return new int[]{}; //I think should be ok, if needed this can return all the slots
+			return new int[]{}; // I think should be ok, if needed this can return all the slots
 		}
 		return slotConfiguration.getSlotsForSide(side).stream()
 			.filter(Objects::nonNull)
@@ -491,7 +503,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		}
 		SlotConfiguration.SlotConfigHolder slotConfigHolder = slotConfiguration.getSlotDetails(index);
 		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(direction);
-		return slotConfig.getSlotIO().ioConfig.isExtact();
+		return slotConfig.getSlotIO().ioConfig.isExtract();
 	}
 
 	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState){

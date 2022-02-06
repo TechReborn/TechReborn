@@ -24,7 +24,7 @@
 
 package reborncore.common.util;
 
-//A basic color class that is used in place of the AWT color class as it cannot be used with lwjgl 3
+// A basic color class that is used in place of the AWT color class as it cannot be used with lwjgl 3
 public class Color {
 
 	public final static Color WHITE = new Color(255, 255, 255);

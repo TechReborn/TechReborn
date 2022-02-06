@@ -107,8 +107,8 @@ public class StackIngredient extends RebornIngredient {
 				return false;
 			}
 
-			//Bit of a meme here, as DataFixer likes to use the most basic primative type over using an int.
-			//So we have to go to json and back on the incoming stack to be sure its using types that match our input.
+			// A bit of a meme here, as DataFixer likes to use the most basic primitive type over using an int.
+			// So we have to go to json and back on the incoming stack to be sure it's using types that match our input.
 
 			NbtCompound compoundTag = itemStack.getNbt();
 			JsonElement jsonElement = Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag);

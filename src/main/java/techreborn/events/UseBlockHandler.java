@@ -72,8 +72,8 @@ public class UseBlockHandler implements UseBlockCallback{
 				world.setBlockState(pos, strippedBlock.getDefaultState().with(PillarBlock.AXIS, hitState.get(PillarBlock.AXIS)), 11);
 
 				// Damage axe
-				stack.damage(1, playerEntity, playerx ->
-						playerx.sendToolBreakStatus(hand)
+				stack.damage(1, playerEntity, playerX ->
+						playerX.sendToolBreakStatus(hand)
 				);
 				return ActionResult.SUCCESS;
 			}

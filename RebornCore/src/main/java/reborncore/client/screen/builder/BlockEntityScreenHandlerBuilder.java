@@ -130,17 +130,18 @@ public class BlockEntityScreenHandlerBuilder {
 	private BlockEntityScreenHandlerBuilder upgradeSlots(IUpgradeable upgradeable) {
 		if (upgradeable.canBeUpgraded()) {
 			for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {
-				this.parent.slots.add(new UpgradeSlot(upgradeable.getUpgradeInvetory(), i, -18, i * 18 + 12));
+				this.parent.slots.add(new UpgradeSlot(upgradeable.getUpgradeInventory(), i, -18, i * 18 + 12));
 			}
 		}
 		return this;
 	}
 
 	/**
-	 * @param supplier The supplier it can supply a variable holding in an Object it
-	 *                 will be synced with a custom packet
-	 * @param setter   The setter to call when the variable has been updated.
-	 * @return ContainerTileInventoryBuilder Inventory which will do the sync
+	 * @param <T>      The type of the block entity
+	 * @param supplier {@link Supplier<T>} The supplier it can supply a variable holding in an Object.
+	 *                 it will be synced with a custom packet
+	 * @param setter   {@link Consumer<T>} The setter to call when the variable has been updated.
+	 * @return {@link BlockEntityScreenHandlerBuilder} Inventory which will do the sync
 	 */
 	public <T> BlockEntityScreenHandlerBuilder sync(final Supplier<T> supplier, final Consumer<T> setter) {
 		this.parent.objectValues.add(Pair.of(supplier, setter));

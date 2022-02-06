@@ -53,7 +53,7 @@ public class AutoSwitchApiImpl implements AutoSwitchApi {
 
 	@Override
 	public void customDamageSystems(AutoSwitchMap<Class<?>, DurabilityGetter> damageMap) {
-		// Multiple by 100 to get percentage out of decimal form
+		// Multiply by 100 to get percentage out of decimal form
 		damageMap.put(DrillItem.class, stack -> 100 * ItemUtils.getPowerForDurabilityBar(stack));
 		damageMap.put(ChainsawItem.class, stack -> 100 * ItemUtils.getPowerForDurabilityBar(stack));
 		damageMap.put(JackhammerItem.class, stack -> 100 * ItemUtils.getPowerForDurabilityBar(stack));

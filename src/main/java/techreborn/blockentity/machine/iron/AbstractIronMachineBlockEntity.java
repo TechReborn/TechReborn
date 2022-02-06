@@ -75,8 +75,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	 * Returns the number of ticks that the supplied fuel item will keep the
 	 * furnace burning, or 0 if the item isn't fuel
 	 *
-	 * @param stack Itemstack of fuel
-	 * @return Integer Number of ticks
+	 * @param stack {@link ItemStack} stack of fuel
+	 * @return {@code int} Number of ticks
 	 */
 	private int getItemBurnTime(ItemStack stack) {
 		if (stack.isEmpty()) {
@@ -88,8 +88,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	/**
 	 * Returns remaining fraction of fuel burn time
 	 *
-	 * @param scale Scale to use for burn time
-	 * @return int scaled remaining fuel burn time
+	 * @param scale {@code int} Scale to use for burn time
+	 * @return {@code int} scaled remaining fuel burn time
 	 */
 	public int getBurnTimeRemainingScaled(int scale) {
 		if (totalBurnTime == 0) {
@@ -102,8 +102,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	/**
 	 * Returns crafting progress
 	 *
-	 * @param scale Scale to use for crafting progress
-	 * @return int Scaled crafting progress
+	 * @param scale {@code int} Scale to use for crafting progress
+	 * @return {@code int} Scaled crafting progress
 	 */
 	public int getProgressScaled(int scale) {
 		if (totalCookingTime > 0) {
@@ -115,7 +115,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	/**
 	 * Returns true if Iron Machine is burning fuel thus can do work
 	 *
-	 * @return Boolean True if machine is burning
+	 * @return {@code boolean} True if machine is burning
 	 */
 	public boolean isBurning() {
 		return burnTime > 0;

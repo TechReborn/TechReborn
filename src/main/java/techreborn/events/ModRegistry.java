@@ -117,7 +117,7 @@ public class ModRegistry {
 		RebornRegistry.registerBlockNoItem(TRContent.POTTED_RUBBER_SAPLING = InitUtils.setup(new FlowerPotBlock(TRContent.RUBBER_SAPLING, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()), "potted_rubber_sapling"));
 		RebornRegistry.registerBlock(TRContent.COPPER_WALL = InitUtils.setup(new WallBlock(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL)), "copper_wall"), itemGroup);
 
-		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
+		TechReborn.LOGGER.debug("TechReborn's Blocks Loaded");
 	}
 
 	private static void registerItems() {
@@ -233,7 +233,7 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCellItem(), "cell"));
 		TRContent.CELL.registerFluidApi();
 
-		TechReborn.LOGGER.debug("TechReborns Items Loaded");
+		TechReborn.LOGGER.debug("TechReborn's Items Loaded");
 	}
 
 	private static void registerFluids() {

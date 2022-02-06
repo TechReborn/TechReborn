@@ -26,13 +26,10 @@ package reborncore.common.powerSystem;
 
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -43,6 +40,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
+import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.util.StringUtils;
@@ -77,7 +75,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	public int extraTier;
 	public long powerChange;
 	public long powerLastTick;
-	public boolean checkOverfill = true; // Set to false to disable the overfill check.
+	public boolean checkOverfill = true; // Set false to disable overfill check.
 
 	public PowerAcceptorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -99,7 +97,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Get amount of missing energy
 	 *
-	 * @return double Free space for energy in internal buffer
+	 * @return {@code long} Free space for energy in internal buffer
 	 */
 	public long getFreeSpace() {
 		return getMaxStoredPower() - getStored();
@@ -108,7 +106,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Adds energy to block entity
 	 *
-	 * @param amount double Amount to add
+	 * @param amount {@code long} Amount to add
 	 */
 	public void addEnergy(long amount){
 		setStored(getEnergy() + amount);
@@ -127,7 +125,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Use energy from block entity
 	 *
-	 * @param amount double Amount of energy to use
+	 * @param amount {@code long} Amount of energy to use
 	 */
 	public void useEnergy(long amount){
 		if (getEnergy() > amount) {
@@ -140,7 +138,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Charge machine from battery placed inside inventory slot
 	 *
-	 * @param slot int Slot ID for battery slot
+	 * @param slot {@code int} Slot ID for battery slot
 	 */
 	public void charge(int slot) {
 		if (world == null) {
@@ -170,7 +168,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Charge battery placed inside inventory slot from machine
 	 *
-	 * @param slot int Slot ID for battery slot
+	 * @param slot {@code int} Slot ID for battery slot
 	 */
 	public void discharge(int slot) {
 		if (world == null) {
@@ -197,10 +195,13 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Calculates the comparator output of a powered BE with the formula
-	 * {@code ceil(blockEntity.getStored() * 15.0 / storage.getMaxPower())}.
+	 * <pre>
+	 *  ceil(blockEntity.getStored() * 15.0 / storage.getMaxPower())
+	 * </pre>
 	 *
-	 * @param blockEntity the powered BE
-	 * @return the calculated comparator output or 0 if {@code blockEntity} is not a {@code PowerAcceptorBlockEntity}
+	 * @param blockEntity {@link BlockEntity} the powered BE
+	 * @return {@code int} the calculated comparator output or 0 if {@link BlockEntity}
+	 * is not a {@link PowerAcceptorBlockEntity}
 	 */
 	public static int calculateComparatorOutputFromEnergy(@Nullable BlockEntity blockEntity) {
 		if (blockEntity instanceof PowerAcceptorBlockEntity storage) {
@@ -213,7 +214,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Check if machine should load energy data from NBT
 	 *
-	 * @return boolean Returns true if machine should load energy data from NBT
+	 * @return {@code boolean} Returns true if machine should load energy data from NBT
 	 */
 	protected boolean shouldHandleEnergyNBT() {
 		return true;
@@ -222,8 +223,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Check if block entity can accept energy from a particular side
 	 *
-	 * @param side EnergySide Machine side
-	 * @return boolean Returns true if machine can accept energy from side provided
+	 * @param side {@link Direction} Machine side
+	 * @return {@code boolean} Returns true if machine can accept energy from side provided
 	 */
 	protected boolean canAcceptEnergy(@Nullable Direction side){
 		return true;
@@ -232,62 +233,68 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Check if block entity can provide energy via a particular side
 	 *
-	 * @param side EnergySide Machine side
-	 * @return boolean Returns true if machine can provide energy via particular side
+	 * @param side {@link Direction} Machine side
+	 * @return {@code boolean} Returns true if machine can provide energy via particular side
 	 */
 	protected boolean canProvideEnergy(@Nullable Direction side){
 		return true;
 	}
 
 	/**
-	 * Wrapper method used to sync additional energy storage values with client via BlockEntityScreenHandlerBuilder
+	 * Wrapper method used to sync additional energy storage values with client via
+	 * {@link BlockEntityScreenHandlerBuilder}
 	 *
-	 * @return double Size of additional energy buffer
+	 * @return {@code long} Size of additional energy buffer
 	 */
 	public long getExtraPowerStorage(){
 		return extraPowerStorage;
 	}
 
 	/**
-	 * Wrapper method used to sync additional energy storage values with client via BlockEntityScreenHandlerBuilder
+	 * Wrapper method used to sync additional energy storage values with client via
+	 * {@link BlockEntityScreenHandlerBuilder}
 	 *
-	 * @param extraPowerStorage double Size of additional energy buffer
+	 * @param extraPowerStorage {@code long} Size of additional energy buffer
 	 */
 	public void setExtraPowerStorage(long extraPowerStorage) {
 		this.extraPowerStorage = extraPowerStorage;
 	}
 
 	/**
-	 * Wrapper method used to sync energy change values with client via BlockEntityScreenHandlerBuilder
+	 * Wrapper method used to sync energy change values with client via
+	 * {@link BlockEntityScreenHandlerBuilder}
 	 *
-	 * @return double Energy change per tick
+	 * @return {@code long} Energy change per tick
 	 */
 	public long getPowerChange() {
 		return powerChange;
 	}
 
 	/**
-	 * Wrapper method used to sync energy change values with client via BlockEntityScreenHandlerBuilder
+	 * Wrapper method used to sync energy change values with client via
+	 * {@link BlockEntityScreenHandlerBuilder}
 	 *
-	 * @param powerChange double Energy change per tick
+	 * @param powerChange {@code long} Energy change per tick
 	 */
 	public void setPowerChange(long powerChange) {
 		this.powerChange = powerChange;
 	}
 
 	/**
-	 * Wrapper method used to sync energy values with client via BlockEntityScreenHandlerBuilder
+	 * Wrapper method used to sync energy values with client via
+	 * {@link BlockEntityScreenHandlerBuilder}
 	 *
-	 * @return double Energy stored in block entity
+	 * @return {@code long} Energy stored in block entity
 	 */
-
 	public long getEnergy() {
-		return getStored();
+	  return getStored();
 	}
 
 	/**
-	 * Wrapper method used to sync energy values with client via BlockEntityScreenHandlerBuilder
-	 * @param energy double Energy stored in block entity
+	 * Wrapper method used to sync energy values with client via
+	 * {@link BlockEntityScreenHandlerBuilder}
+	 *
+	 * @param energy {@code long} Energy stored in block entity
 	 */
 	public void setEnergy(long energy) {
 		setStored(energy);
@@ -296,21 +303,21 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	/**
 	 * Returns base size of internal Energy buffer of a particular machine before any upgrades applied
 	 *
-	 * @return double Size of internal Energy buffer
+	 * @return {@code long} Size of internal Energy buffer
 	 */
 	public abstract long getBaseMaxPower();
 
 	/**
 	 * Returns base output rate or zero if machine doesn't output energy
 	 *
-	 * @return double Output rate, E\t
+	 * @return {@code long} Output rate, E\t
 	 */
 	public abstract long getBaseMaxOutput();
 
 	/**
 	 * Returns base input rate or zero if machine doesn't accept energy
 	 *
-	 * @return double Input rate, E\t
+	 * @return {@code long} Input rate, E\t
 	 */
 	public abstract long getBaseMaxInput();
 
@@ -346,7 +353,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		super.readNbt(tag);
 		NbtCompound data = tag.getCompound("PowerAcceptor");
 		if (shouldHandleEnergyNBT()) {
-			// Bypass the overfill check in setStored() because upgrades have not yet been applied.
+			// Bypass overfill check in setStored() because upgrades have not yet been applied.
 			this.energyContainer.amount = data.getLong("energy");
 		}
 	}

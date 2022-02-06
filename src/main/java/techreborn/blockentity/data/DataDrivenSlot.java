@@ -55,7 +55,7 @@ public record DataDrivenSlot(int id, int x, int y, @NotNull SlotType type) {
 
 	@Environment(EnvType.CLIENT)
 	public void draw(MatrixStack matrixStack, GuiBase<?> guiBase, GuiBase.Layer layer) {
-		//TODO find a better way to do this
+		// TODO find a better way to do this
 		if (type() == SlotType.OUTPUT) {
 			guiBase.drawOutputSlot(matrixStack, x(), y(), layer);
 		} else {

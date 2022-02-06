@@ -63,7 +63,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		super(Block.Settings.of(Material.STONE).strength(2f, 2f));
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		this.shape = GenCuboidShapes(3, 10);
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	private VoxelShape[] GenCuboidShapes(double depth, double width) {
@@ -113,10 +113,10 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {
-		for (Direction enumfacing : context.getPlacementDirections()) {
-			BlockState iblockstate = this.getDefaultState().with(FACING, enumfacing.getOpposite());
-			if (iblockstate.canPlaceAt(context.getWorld(), context.getBlockPos())) {
-				return iblockstate;
+		for (Direction facing : context.getPlacementDirections()) {
+			BlockState state = this.getDefaultState().with(FACING, facing.getOpposite());
+			if (state.canPlaceAt(context.getWorld(), context.getBlockPos())) {
+				return state;
 			}
 		}
 		return null;
@@ -127,7 +127,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BaseTileBlock. Thus we should always have blockEntity entity. I hope.
+		// We extended BaseTileBlock. Thus, we should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
 			return ActionResult.FAIL;
 		}

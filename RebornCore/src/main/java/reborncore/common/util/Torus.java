@@ -38,13 +38,13 @@ public class Torus {
 	private static final ExecutorService GEN_EXECUTOR = Executors.newSingleThreadExecutor();
 	private static Int2IntMap torusSizeCache;
 
-	public static List<BlockPos> generate(BlockPos orgin, int radius) {
+	public static List<BlockPos> generate(BlockPos origin, int radius) {
 		List<BlockPos> posLists = new ArrayList<>();
 		for (int x = -radius; x < radius; x++) {
 			for (int y = -radius; y < radius; y++) {
 				for (int z = -radius; z < radius; z++) {
 					if (Math.pow(radius / 2 - Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)), 2) + Math.pow(z, 2) < Math.pow(radius * 0.05, 2)) {
-						posLists.add(orgin.add(x, z, y));
+						posLists.add(origin.add(x, z, y));
 					}
 				}
 			}
@@ -54,10 +54,10 @@ public class Torus {
 
 	public static void genSizeMap(int maxRadius) {
 		if (torusSizeCache != null) {
-			//Lets not do this again
+			// Let's not do this again
 			return;
 		}
-		//10 is added as the control computer has a base of around 6 less
+		// 10 is added as the control computer has a base of around 6 less
 		final int sizeToCompute = maxRadius + 10;
 
 		torusSizeCache = new Int2IntOpenHashMap(sizeToCompute);
@@ -83,6 +83,10 @@ public class Torus {
 		GEN_EXECUTOR.shutdown();
 	}
 
+	/**
+	 * @return {@link Int2IntMap}
+	 * @throws RuntimeException If failed to initialize the map
+	 */
 	public static Int2IntMap getTorusSizeCache() {
 		if (!GEN_EXECUTOR.isShutdown()) {
 			try {

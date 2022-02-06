@@ -114,7 +114,7 @@ public class TagIngredient extends RebornIngredient {
 	}
 
 	private JsonObject toItemJsonObject() {
-		//Tags are not synced across the server so we sync all the items
+		// Tags are not synced across the server, so we sync all the items
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("tag_server_sync", true);
 

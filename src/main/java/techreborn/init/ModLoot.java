@@ -45,8 +45,8 @@ public class ModLoot {
 		LootPoolEntry tinIngot = makeEntry(Ingots.TIN);
 		LootPoolEntry leadIngot = makeEntry(Ingots.LEAD);
 		LootPoolEntry silverIngot = makeEntry(Ingots.SILVER);
-		LootPoolEntry refinedronIngot = makeEntry(Ingots.REFINED_IRON);
-		LootPoolEntry advancedalloyIngot = makeEntry(Ingots.ADVANCED_ALLOY);
+		LootPoolEntry refinedIronIngot = makeEntry(Ingots.REFINED_IRON);
+		LootPoolEntry advancedAlloyIngot = makeEntry(Ingots.ADVANCED_ALLOY);
 		LootPoolEntry basicFrame = makeEntry(TRContent.MachineBlocks.BASIC.frame.asItem());
 		LootPoolEntry basicCircuit = makeEntry(Parts.ELECTRONIC_CIRCUIT);
 		LootPoolEntry rubberSapling = makeEntry(TRContent.RUBBER_SAPLING, 25);
@@ -73,7 +73,7 @@ public class ModLoot {
 
 
 		LootPool poolBasic = FabricLootPoolBuilder.builder().withEntry(copperIngot).withEntry(tinIngot)
-				.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedronIngot).withEntry(advancedalloyIngot)
+				.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedIronIngot).withEntry(advancedAlloyIngot)
 				.withEntry(basicFrame).withEntry(basicCircuit).withEntry(rubberSapling).rolls(UniformLootNumberProvider.create(1.0f, 2.0f))
 				.build();
 
@@ -139,8 +139,8 @@ public class ModLoot {
 	/**
 	 * Makes loot entry from item provided
 	 *
-	 * @param item Item to include into LootEntry
-	 * @return LootEntry for item provided
+	 * @param item {@link ItemConvertible} Item to include into LootEntry
+	 * @return {@link LootPoolEntry} Entry for item provided
 	 */
 	private static LootPoolEntry makeEntry(ItemConvertible item) {
 		return makeEntry(item, 5);
@@ -149,9 +149,9 @@ public class ModLoot {
 	/**
 	 * Makes loot entry from item provided with weight provided
 	 *
-	 * @param item   Item to include into LootEntry
-	 * @param weight Weight of that item
-	 * @return LootEntry for item and weight provided
+	 * @param item   {@link ItemConvertible} Item to include into LootEntry
+	 * @param weight {@code int} Weight of that item
+	 * @return {@link LootPoolEntry} Entry for item and weight provided
 	 */
 	private static LootPoolEntry makeEntry(ItemConvertible item, int weight) {
 		return ItemEntry.builder(item).weight(weight)

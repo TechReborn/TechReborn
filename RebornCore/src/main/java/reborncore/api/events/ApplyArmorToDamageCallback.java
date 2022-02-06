@@ -41,13 +41,15 @@ public interface ApplyArmorToDamageCallback {
 			});
 
 	/**
-	 *  Apply armor to amount of damage inflicted. Decreases it in most cases unless armor should increase damage inflicted.
-	 *  Event is called after damage is being reduced by armor already and before damage reduction from enchants.
+	 * <p>Apply armor to amount of damage inflicted.</p>
+	 * Decreases it in most cases unless armor should increase damage inflicted.
 	 *
-	 * @param player PlayerEntity Player being damaged
-	 * @param source DamageSource Type of damage
-	 * @param amount float Current amount of damage
-	 * @return float Amount of damage after reduction
+	 * <p>Event is called after damage is being reduced by armor already and before damage reduction from enchants.</p>
+	 *
+	 * @param player {@link PlayerEntity} Player being damaged
+	 * @param source {@link DamageSource} Type of damage
+	 * @param amount {@code float} Current amount of damage
+	 * @return {@code float} Amount of damage after reduction
 	 */
 	float applyArmorToDamage(PlayerEntity player, DamageSource source, float amount);
 }

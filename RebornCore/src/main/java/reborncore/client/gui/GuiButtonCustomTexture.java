@@ -37,10 +37,10 @@ import reborncore.common.util.Color;
 public class GuiButtonCustomTexture extends ButtonWidget {
 	public int textureU;
 	public int textureV;
-	public String texturename;
+	public String textureName;
 	public String linkedPage;
 	public Text name;
-	public String imageprefix = "techreborn:textures/manual/elements/";
+	public String imagePrefix = "techreborn:textures/manual/elements/";
 	public int buttonHeight;
 	public int buttonWidth;
 	public int buttonU;
@@ -49,11 +49,11 @@ public class GuiButtonCustomTexture extends ButtonWidget {
 	public int textureW;
 
 	public GuiButtonCustomTexture(int xPos, int yPos, int u, int v, int buttonWidth, int buttonHeight,
-								  String texturename, String linkedPage, Text name, int buttonU, int buttonV, int textureH, int textureW, ButtonWidget.PressAction pressAction) {
+								  String textureName, String linkedPage, Text name, int buttonU, int buttonV, int textureH, int textureW, ButtonWidget.PressAction pressAction) {
 		super(xPos, yPos, buttonWidth, buttonHeight, LiteralText.EMPTY, pressAction);
 		this.textureU = u;
 		this.textureV = v;
-		this.texturename = texturename;
+		this.textureName = textureName;
 		this.name = name;
 		this.linkedPage = linkedPage;
 		this.buttonHeight = height;
@@ -87,7 +87,7 @@ public class GuiButtonCustomTexture extends ButtonWidget {
 	}
 
 	public void renderImage(MatrixStack matrixStack, int offsetX, int offsetY) {
-		RenderSystem.setShaderTexture(0, new Identifier(imageprefix + this.texturename + ".png"));
+		RenderSystem.setShaderTexture(0, new Identifier(imagePrefix + this.textureName + ".png"));
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);

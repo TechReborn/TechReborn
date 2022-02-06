@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
 
 public class RedstoneConfiguration implements NBTSerializable, Syncable {
 
-	//Set in TR to be a better item such as a battery or a cell
+	// Set in TR to be a better item such as a battery or a cell
 	public static ItemStack powerStack = new ItemStack(Items.CARROT_ON_A_STICK);
 	public static ItemStack fluidStack = new ItemStack(Items.BUCKET);
 
@@ -168,7 +168,7 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 			stateMap.put(element, state);
 		}
 
-		//Ensure all active states are in the map, will happen if a new state is added when the world is upgraded
+		// Ensure all active states are in the map, will happen if a new state is added when the world is upgraded
 		for (Element element : getElements()) {
 			if (!stateMap.containsKey(element)) {
 				stateMap.put(element, State.IGNORED);
@@ -185,7 +185,7 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 		return ELEMENT_MAP.get(name);
 	}
 
-	//Could be power input/output, item/fluid io, machine processing
+	// Could be power input/output, item/fluid io, machine processing
 	public static class Element {
 		private final String name;
 		private final BooleanFunction<MachineBaseBlockEntity> isApplicable;

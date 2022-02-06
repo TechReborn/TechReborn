@@ -25,22 +25,22 @@
 package reborncore.common.recipes;
 
 /**
- * This class isnt designed to be used by other mods, if you want to have upgrades have your
+ * This class isn't designed to be used by other mods, if you want to have upgrades have your
  */
 public interface IUpgradeHandler {
 
-	void resetSpeedMulti();
+	void resetSpeedMultiplier();
 
 	double getSpeedMultiplier();
 
-	void addPowerMulti(double amount);
+	void addPowerMultiplier(double amount);
 
-	void resetPowerMulti();
+	void resetPowerMultiplier();
 
 	double getPowerMultiplier();
 
 	long getEuPerTick(long baseEu);
 
-	void addSpeedMulti(double amount);
+	void addSpeedMultiplier(double amount);
 
 }

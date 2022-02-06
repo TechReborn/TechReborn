@@ -56,7 +56,8 @@ public class RebornFluidRenderManager implements ClientSpriteRegistryCallback, S
 	}
 
 	private static void setupFluidRenderer(RebornFluid fluid) {
-		//Done lazy as we want to ensure we get the sprite at the correct time, but also dont want to be making these calls every time its required.
+		// Done lazy as we want to ensure we get the sprite at the correct time,
+	    // but also don't want to be making these calls every time its required.
 		TemporaryLazy<Sprite[]> sprites = new TemporaryLazy<>(() -> {
 			FluidSettings fluidSettings = fluid.getFluidSettings();
 			return new Sprite[]{RenderUtil.getSprite(fluidSettings.getStillTexture()), RenderUtil.getSprite(fluidSettings.getFlowingTexture())};
@@ -81,7 +82,7 @@ public class RebornFluidRenderManager implements ClientSpriteRegistryCallback, S
 
 	@Override
 	public void reload(ResourceManager manager) {
-		//Reset the cached fluid sprites
+		// Reset the cached fluid sprites
 		spriteMap.forEach((key, value) -> value.reset());
 	}
 

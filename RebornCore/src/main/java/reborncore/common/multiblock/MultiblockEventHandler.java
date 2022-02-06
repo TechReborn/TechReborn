@@ -25,7 +25,7 @@
 package reborncore.common.multiblock;
 
 /**
- * In your mod, subscribe this on both the client and server sides side to
+ * In your mod, subscribe this on both the client and server sides to
  * handle chunk load events for your multiblock machines. Chunks can load
  * asynchronously in environments like MCPC+, so we cannot behavior any blocks
  * that are in chunks which are still loading.

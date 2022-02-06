@@ -57,8 +57,8 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		}
 		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
 			boolean hasItem = false;
-			for (int inputslot = 0; inputslot < 2; inputslot++) {
-				if (ingredient.test(inventory.getStack(inputslot))) {
+			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
+				if (ingredient.test(inventory.getStack(inputSlot))) {
 					hasItem = true;
 				}
 			}

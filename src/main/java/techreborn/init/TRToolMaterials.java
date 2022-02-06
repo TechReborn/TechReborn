@@ -25,7 +25,6 @@
 package techreborn.init;
 
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.recipe.Ingredient;
 import techreborn.TechReborn;
 
