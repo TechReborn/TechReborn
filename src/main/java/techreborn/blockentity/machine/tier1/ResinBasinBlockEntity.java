@@ -142,15 +142,12 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		return (Math.random() <= 0.5) ? 1 : 2;
 	}
 
-	public void reset() {
-		setFullState(false);
-		setPouringState(false);
-		// pouringTimer = 0; // not done in setPouringState??
-	}
-
 	public ItemStack empty() {
 		int sapAmount = getSapAmount();
-		reset();
+		if (isFull) {
+			isFull = false;
+			setPouringState(false);
+		}
 		return new ItemStack(TRContent.Parts.SAP, sapAmount);
 	}
 

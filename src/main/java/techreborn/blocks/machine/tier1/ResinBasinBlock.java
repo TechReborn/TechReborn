@@ -88,10 +88,10 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 		return state.get(FACING);
 	}
 
-	/*@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		if (world == null || world.isClient || player == null || pos == null || !(world.getBlockEntity(pos) instanceof ResinBasinBlockEntity))
+		if (world == null || world.isClient() || player == null || pos == null || !(world.getBlockEntity(pos) instanceof ResinBasinBlockEntity))
 			return ActionResult.PASS;
 		ResinBasinBlockEntity basin = (ResinBasinBlockEntity)world.getBlockEntity(pos);
 		ItemStack sap = basin.empty();
@@ -99,7 +99,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 			return ActionResult.PASS;
 		player.getInventory().offerOrDrop(sap);
 		return ActionResult.SUCCESS;
-	}*/
+	}
 
 	@Override
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
