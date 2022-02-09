@@ -40,14 +40,14 @@ import reborncore.common.crafting.ingredient.RebornIngredient
 import java.util.function.Consumer
 
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
-	private final RebornRecipeType<R> type
+	protected final RebornRecipeType<R> type
 
-	private final List<RebornIngredient> ingredients = new ArrayList<>()
-	private final List<ItemStack> outputs = new ArrayList<>()
-	private int power = -1
-	private int time = -1
-	private Identifier customId = null
-	private String source = null
+	protected final List<RebornIngredient> ingredients = new ArrayList<>()
+	protected final List<ItemStack> outputs = new ArrayList<>()
+	protected int power = -1
+	protected int time = -1
+	protected Identifier customId = null
+	protected String source = null
 
 	protected MachineRecipeJsonFactory(RebornRecipeType<R> type) {
 		this.type = type

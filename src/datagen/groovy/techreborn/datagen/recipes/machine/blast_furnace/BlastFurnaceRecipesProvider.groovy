@@ -39,9 +39,9 @@ import techreborn.init.TRContent
 
 class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 
-	public final int ARMOR_POWER = 128;
-	public final int ARMOR_TIME = 140;
-	public final int ARMOR_HEAT = 1000;
+	public final int ARMOR_POWER = 128
+	public final int ARMOR_TIME = 140
+	public final int ARMOR_HEAT = 1000
 
 	BlastFurnaceRecipesProvider(FabricDataGenerator dataGenerator) {
 		super(dataGenerator)
@@ -60,7 +60,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	}
 	
 	void generateFromBootsRecipes() {
-		final int count = 4;
+		final int count = 4
 		[
 				(Items.DIAMOND_BOOTS)      : new ItemStack(Items.DIAMOND, count),
 				(Items.GOLDEN_BOOTS)       : new ItemStack(Items.GOLD_INGOT, count),
@@ -84,7 +84,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	void generateFromChestplateRecipes() {
-		final int count = 8;
+		final int count = 8
 		[
 				(Items.DIAMOND_CHESTPLATE)      : new ItemStack(Items.DIAMOND, count),
 				(Items.GOLDEN_CHESTPLATE)       : new ItemStack(Items.GOLD_INGOT, count),
@@ -95,12 +95,20 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.SAPPHIRE_CHESTPLATE) : new ItemStack(TRContent.Gems.SAPPHIRE, count),
 				(TRContent.SILVER_CHESTPLATE)   : new ItemStack(TRContent.Ingots.SILVER, count),
 				(TRContent.STEEL_CHESTPLATE)    : new ItemStack(TRContent.Ingots.STEEL, count)
-		]
-		
+		].each {chestplate, materialStack ->
+			offerBlastFurnaceRecipe {
+				ingredients chestplate, Items.SAND
+				outputs materialStack, TRContent.Dusts.DARK_ASHES
+				power ARMOR_POWER
+				time ARMOR_TIME
+				heat ARMOR_HEAT
+				source "chestplate"
+			}
+		}
 	}
 
 	void generateFromHelmetRecipes() {
-		final int count = 5;
+		final int count = 5
 		[
 				(Items.DIAMOND_HELMET)      : new ItemStack(Items.DIAMOND, count),
 				(Items.GOLDEN_HELMET)       : new ItemStack(Items.GOLD_INGOT, count),
@@ -111,12 +119,20 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.SAPPHIRE_HELMET) : new ItemStack(TRContent.Gems.SAPPHIRE, count),
 				(TRContent.SILVER_HELMET)   : new ItemStack(TRContent.Ingots.SILVER, count),
 				(TRContent.STEEL_HELMET)    : new ItemStack(TRContent.Ingots.STEEL, count)
-		]
-		
+		].each {helmet, materialStack ->
+			offerBlastFurnaceRecipe {
+				ingredients helmet, Items.SAND
+				outputs materialStack, TRContent.Dusts.DARK_ASHES
+				power ARMOR_POWER
+				time ARMOR_TIME
+				heat ARMOR_HEAT
+				source "helmet"
+			}
+		}
 	}
 
 	void generateFromLeggingsRecipes() {
-		final int count = 7;
+		final int count = 7
 		[
 				(Items.DIAMOND_LEGGINGS)      : new ItemStack(Items.DIAMOND, count),
 				(Items.GOLDEN_LEGGINGS)       : new ItemStack(Items.GOLD_INGOT, count),
@@ -127,7 +143,15 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.SAPPHIRE_LEGGINGS) : new ItemStack(TRContent.Gems.SAPPHIRE, count),
 				(TRContent.SILVER_LEGGINGS)   : new ItemStack(TRContent.Ingots.SILVER, count),
 				(TRContent.STEEL_LEGGINGS)    : new ItemStack(TRContent.Ingots.STEEL, count)
-		]
-		
+		].each {leggings, materialStack ->
+			offerBlastFurnaceRecipe {
+				ingredients leggings, Items.SAND
+				outputs materialStack, TRContent.Dusts.DARK_ASHES
+				power ARMOR_POWER
+				time ARMOR_TIME
+				heat ARMOR_HEAT
+				source "leggings"
+			}
+		}
 	}
 }
