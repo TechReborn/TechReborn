@@ -35,7 +35,7 @@
   },
   "requirements": [
 	[
-	  "has_copper_cable",
+	  "has_tin_cable",
 	  "has_glowstone_dust",
 	  "has_the_recipe"
 	]

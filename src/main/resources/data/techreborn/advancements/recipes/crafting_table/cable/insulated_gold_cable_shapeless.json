@@ -21,7 +21,7 @@
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["minecraft:gold_cable"]
+			"items": ["techreborn:gold_cable"]
 		  }
 		]
 	  }

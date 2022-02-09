@@ -16,12 +16,12 @@
 		]
 	  }
 	},
-	"has_chrome_plate": {
+	"has_chromium_plate": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"tag": "c:chrome_plates"
+			"tag": "c:chromium_plates"
 		  }
 		]
 	  }
@@ -46,7 +46,7 @@
   "requirements": [
 	[
 	  "has_industrial_machine_frame",
-	  "has_chrome_plate",
+	  "has_chromium_plate",
 	  "has_data_storage_core",
 	  "has_the_recipe"
 	]

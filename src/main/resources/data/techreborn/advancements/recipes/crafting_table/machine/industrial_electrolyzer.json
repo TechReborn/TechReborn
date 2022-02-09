@@ -36,6 +36,7 @@
   "requirements": [
 	[
 	  "has_advanced_machine_frame",
+	  "has_extractor",
 	  "has_the_recipe"
 	]
   ]
