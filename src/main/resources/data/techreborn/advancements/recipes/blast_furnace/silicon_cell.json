@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/silicon_cell"
+	]
+  },
+  "criteria": {
+	"has_quartz_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:quartz_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/silicon_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_quartz_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/lead_silver_from_galena_small_dust"
+	]
+  },
+  "criteria": {
+	"has_galena_small_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:galena_small_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/lead_silver_from_galena_small_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_galena_small_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

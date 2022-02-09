@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/steel_ingot"
+	]
+  },
+  "criteria": {
+	"has_steel_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:steel_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/steel_ingot"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_steel_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/aluminum_ingot"
+	]
+  },
+  "criteria": {
+	"has_aluminum_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:aluminum_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/aluminum_ingot"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_aluminum_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

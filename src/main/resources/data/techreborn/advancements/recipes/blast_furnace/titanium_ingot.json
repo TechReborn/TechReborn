@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/titanium_ingot"
+	]
+  },
+  "criteria": {
+	"has_titanium_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tags": "c:titanium_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/titanium_ingot"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_titanium_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

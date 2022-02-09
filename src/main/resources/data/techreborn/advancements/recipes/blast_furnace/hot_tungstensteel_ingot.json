@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/hot_tungstensteel_ingot"
+	]
+  },
+  "criteria": {
+	"has_tungsten_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:tungsten_ingots"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/hot_tungstensteel_ingot"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_tungsten_ingot",
+	  "has_the_recipe"
+	]
+  ]
+}
