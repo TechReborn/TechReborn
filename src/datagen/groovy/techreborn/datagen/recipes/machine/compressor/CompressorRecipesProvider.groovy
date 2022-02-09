@@ -43,21 +43,27 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 	@Override
 	void generateRecipes() {
 		TRContent.Plates.values().each {plate ->
-			if (plate.getSource() != null)
+			if (plate.getSource() != null) {
+				var ingredient = TagConvertible.convertIf(plate.getSource())
 				offerCompressorRecipe {
-					ingredients (plate.getSource() instanceof TagConvertible<Item> ? ((TagConvertible<Item>)plate.getSource()).asTag() : plate.getSource())
+					ingredients ingredient
 					outputs new ItemStack(plate, 1)
 					power 10
 					time 300
+					criterion getCriterionName(ingredient), getCriterionConditions(ingredient)
 				}
-			if (plate.getSourceBlock() != null)
+			}
+			if (plate.getSourceBlock() != null) {
+				var ingredient = TagConvertible.convertIf(plate.getSourceBlock())
 				offerCompressorRecipe {
-					ingredients (plate.getSourceBlock() instanceof TagConvertible<Item> ? ((TagConvertible<Item>)plate.getSourceBlock()).asTag() : plate.getSourceBlock())
+					ingredients ingredient
 					outputs new ItemStack(plate, 9)
 					power 10
 					time 300
 					source "block"
+					criterion getCriterionName(ingredient), getCriterionConditions(ingredient)
 				}
+			}
 		}
 	}
 }

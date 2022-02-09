@@ -25,7 +25,13 @@
 package techreborn.datagen.recipes.machine
 
 import com.google.gson.JsonObject
+import net.minecraft.advancement.Advancement.Task
+import net.minecraft.advancement.AdvancementRewards
+import net.minecraft.advancement.CriterionMerger
+import net.minecraft.advancement.criterion.CriterionConditions
+import net.minecraft.advancement.criterion.RecipeUnlockedCriterion
 import net.minecraft.data.server.recipe.RecipeJsonProvider
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RecipeSerializer
@@ -41,6 +47,7 @@ import java.util.function.Consumer
 
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final RebornRecipeType<R> type
+	protected final Task builder = Task.create()
 
 	protected final List<RebornIngredient> ingredients = new ArrayList<>()
 	protected final List<ItemStack> outputs = new ArrayList<>()
@@ -162,9 +169,18 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 	}
 
+	MachineRecipeJsonFactory<R> criterion(String string, CriterionConditions criterionConditions) {
+		builder.criterion(string, criterionConditions)
+		return this
+	}
+
 	void offerTo(Consumer<RecipeJsonProvider> exporter) {
 		validate()
-		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(getIdentifier())))
+		Identifier recipeId = getIdentifier()
+		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
+		// "has the recipe" condition
+		builder.parent(new Identifier("recipes/root")).criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(CriterionMerger.OR)
+		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), advancementId, builder))
 	}
 
 	def getIdentifier() {
@@ -183,10 +199,14 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	static class MachineRecipeJsonProvider<R extends RebornRecipe> implements RecipeJsonProvider {
 		private final RebornRecipeType<R> type
 		private final R recipe
+		private final Identifier advancementId
+		private final Task builder
 
-		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe) {
+		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe, Identifier advancementId = null, Task builder = null) {
 			this.type = type
 			this.recipe = recipe
+			this.advancementId = advancementId
+			this.builder = builder
 		}
 
 		@Override
@@ -211,12 +231,14 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		@Override
 		JsonObject toAdvancementJson() {
-			return null
+			if (builder == null)
+				return null
+			return builder.toJson()
 		}
 
 		@Override
 		Identifier getAdvancementId() {
-			return null
+			return advancementId
 		}
 	}
 }

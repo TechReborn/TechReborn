@@ -79,6 +79,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				time ARMOR_TIME
 				heat ARMOR_HEAT
 				source "boots"
+				criterion getCriterionName(boots), getCriterionConditions(boots)
 			}
 		}
 	}
@@ -103,6 +104,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				time ARMOR_TIME
 				heat ARMOR_HEAT
 				source "chestplate"
+				criterion getCriterionName(chestplate), getCriterionConditions(chestplate)
 			}
 		}
 	}
@@ -127,6 +129,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				time ARMOR_TIME
 				heat ARMOR_HEAT
 				source "helmet"
+				criterion getCriterionName(helmet), getCriterionConditions(helmet)
 			}
 		}
 	}
@@ -151,6 +154,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				time ARMOR_TIME
 				heat ARMOR_HEAT
 				source "leggings"
+				criterion getCriterionName(leggings), getCriterionConditions(leggings)
 			}
 		}
 	}

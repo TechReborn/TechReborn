@@ -69,7 +69,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
         if (input instanceof ItemConvertible) {
             return hasItem(input)
         } else if (input instanceof Tag.Identified) {
-            return "has_tag_" + input.getId()
+            return "has_tag_" + input.getId().toUnderscoreSeparatedString()
         }
 
         throw new IllegalArgumentException()

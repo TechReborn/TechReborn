@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.tag.TagFactory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.util.Identifier
+import net.minecraft.util.registry.Registry
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
@@ -51,6 +52,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				outputs new ItemStack(raw, 2)
 				power 2
 				time 270
+				criterion getCriterionName(oreTag), getCriterionConditions(oreTag)
 			}
 		}
 		// TR raw metals
@@ -61,6 +63,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					outputs new ItemStack(raw, 2)
 					power 2
 					time 270
+					criterion getCriterionName(ore.asTag()), getCriterionConditions(ore.asTag())
 				}
 		}
 		// vanilla gems
@@ -72,6 +75,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				outputs dust
 				power 2
 				time 200
+				criterion getCriterionName(gem.asTag()), getCriterionConditions(gem.asTag())
 			}
 			if (gem.getOre() != null)
 				offerGrinderRecipe {
@@ -80,6 +84,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					power 2
 					time 220
 					source "ore"
+					criterion getCriterionName(gem.getOre().asTag()), getCriterionConditions(gem.getOre().asTag())
 				}
 			if (gem.getStorageBlock() != null)
 				offerGrinderRecipe {
@@ -88,6 +93,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					power 2
 					time 1500
 					source "block"
+					criterion getCriterionName(gem.getStorageBlock().asTag()), getCriterionConditions(gem.getStorageBlock().asTag())
 				}
 		}
 		// vanilla ingots
@@ -99,6 +105,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				outputs dust
 				power 5
 				time 200
+				criterion getCriterionName(ingot.asTag()), getCriterionConditions(ingot.asTag())
 			}
 			if (ingot.getStorageBlock() != null)
 				offerGrinderRecipe {
@@ -107,6 +114,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					power 5
 					time 1500
 					source "block"
+					criterion getCriterionName(ingot.getStorageBlock().asTag()), getCriterionConditions(ingot.getStorageBlock().asTag())
 				}
 		}
 	}
