@@ -86,7 +86,8 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 		this.energy = JsonHelper.getInt(jsonObject, "energy");
 		this.maxInput = JsonHelper.getInt(jsonObject, "maxInput");
 		this.slots = DataDrivenSlot.read(JsonHelper.getArray(jsonObject, "slots"));
-		Validate.isTrue(getEnergySlot() > 0); //Ensure there is an energy slot, doing it here so it crashes on game load
+		// Ensure there is an energy slot, doing it here ensures it crashes on game load
+		Validate.isTrue(getEnergySlot() > 0);
 	}
 
 	@Nullable

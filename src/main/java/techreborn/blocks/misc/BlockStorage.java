@@ -31,7 +31,15 @@ import reborncore.common.BaseBlock;
 
 public class BlockStorage extends BaseBlock {
 
+	public BlockStorage(boolean isHot) {
+		super(isHot ? getDefaultSettings().luminance(15).nonOpaque() : getDefaultSettings());
+	}
+
 	public BlockStorage() {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL));
+		this(false);
+	}
+
+	public static FabricBlockSettings getDefaultSettings() {
+		return FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL);
 	}
 }

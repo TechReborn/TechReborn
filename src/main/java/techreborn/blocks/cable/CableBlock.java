@@ -63,7 +63,7 @@ import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
-import techreborn.utils.damageSources.ElectrialShockSource;
+import techreborn.utils.damageSources.ElectricalShockSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,7 +98,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		this.type = type;
 		setDefaultState(this.getStateManager().getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
 				.with(SOUTH, false).with(UP, false).with(DOWN, false).with(WATERLOGGED, false).with(COVERED, false));
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		BlockWrenchEventHandler.wrenchableBlocks.add(this);
 	}
 
 	// BlockWithEntity
@@ -233,7 +233,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			if (type == TRContent.Cables.HV) {
 				entity.setOnFireFor(1);
 			}
-			entity.damage(new ElectrialShockSource(), 1F);
+			entity.damage(new ElectricalShockSource(), 1F);
 			blockEntityCable.setEnergy(0);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionSound) {

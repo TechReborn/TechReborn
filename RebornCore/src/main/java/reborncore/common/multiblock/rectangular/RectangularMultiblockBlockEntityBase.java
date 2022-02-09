@@ -121,7 +121,7 @@ public abstract class RectangularMultiblockBlockEntityBase extends MultiblockBlo
 		}
 	}
 
-	// /// Validation Helpers (IMultiblockPart)
+	// Validation Helpers (IMultiblockPart)
 	public abstract void isGoodForFrame() throws MultiblockValidationException;
 
 	public abstract void isGoodForSides() throws MultiblockValidationException;

@@ -44,7 +44,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Initially take from https://github.com/JamiesWhiteShirt/developer-mode/tree/experimental-item-render and then ported to 1.15
+ * Initially taken from https://github.com/JamiesWhiteShirt/developer-mode/tree/experimental-item-render
+ * and then ported to 1.15
  * Thanks 2xsaiko for fixing the lighting + odd issues above
  */
 public class ItemStackRenderer implements HudRenderCallback {

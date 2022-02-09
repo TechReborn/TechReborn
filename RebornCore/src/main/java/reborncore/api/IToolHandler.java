@@ -36,15 +36,16 @@ import net.minecraft.world.World;
 public interface IToolHandler {
 
 	/**
-	 * Called when a machine is actived with the item that has IToolHandler on it
+	 * Called when a machine is activated with the item that has {@link IToolHandler} on it
 	 *
-	 * @param stack  the held itemstack
-	 * @param pos    the pos of the block
-	 * @param world  the world of the block
-	 * @param player the player that actived the block
-	 * @param side   the side that the player actived
-	 * @param damage if the tool should be damged, or power taken
-	 * @return If the tool can handle being actived on the block, return false when the tool is broken or out of power for example.
+	 * @param stack  {@link ItemStack} The held itemstack
+	 * @param pos    {@link BlockPos} The pos of the block
+	 * @param world  {@link World} The world of the block
+	 * @param player {@link PlayerEntity} The player that activated the block
+	 * @param side   {@link Direction} The side that the player activated
+	 * @param damage {@code boolean} If the tool should be damaged, or power taken
+	 * @return {@code boolean} If the tool can handle being activated on the block,
+	 * return false when the tool is broken or out of power for example.
 	 */
 	boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage);
 

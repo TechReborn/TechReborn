@@ -50,7 +50,7 @@ public class InventoryItem extends InventoryBase {
 		this.stack = stack;
 	}
 
-	public static InventoryItem getItemInvetory(ItemStack stack, int size) {
+	public static InventoryItem getItemInventory(ItemStack stack, int size) {
 		return new InventoryItem(stack, size);
 	}
 

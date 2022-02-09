@@ -78,7 +78,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-//The meme is here the double suppliers dont cause the client side gui classes to load on the server
+// The meme is here the double suppliers don't cause the client side gui classes to load on the server
 public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler {
 	private static final Map<Identifier, GuiType<?>> TYPES = new HashMap<>();
 
@@ -121,7 +121,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<SemiFluidGeneratorBlockEntity> SEMIFLUID_GENERATOR = register("semifluid_generator", () -> () -> GuiSemifluidGenerator::new);
 	public static final GuiType<ThermalGeneratorBlockEntity> THERMAL_GENERATOR = register("thermal_generator", () -> () -> GuiThermalGenerator::new);
 	public static final GuiType<VacuumFreezerBlockEntity> VACUUM_FREEZER = register("vacuum_freezer", () -> () -> GuiVacuumFreezer::new);
-	public static final GuiType<SoildCanningMachineBlockEntity> SOLID_CANNING_MACHINE = register("solid_canning_machine", () -> () -> GuiSolidCanningMachine::new);
+	public static final GuiType<SolidCanningMachineBlockEntity> SOLID_CANNING_MACHINE = register("solid_canning_machine", () -> () -> GuiSolidCanningMachine::new);
 	public static final GuiType<WireMillBlockEntity> WIRE_MILL = register("wire_mill", () -> () -> GuiWireMill::new);
 	public static final GuiType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register("greenhouse_controller", () -> () -> GuiGreenhouseController::new);
 	public static final GuiType<FluidReplicatorBlockEntity> FLUID_REPLICATOR = register("fluid_replicator", () -> () -> GuiFluidReplicator::new);

@@ -24,18 +24,22 @@
 
 package reborncore.common.misc;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 import org.jetbrains.annotations.Contract;
 
 /**
  * Tells if an item, block etc. has a tag solely for compatibility with other mods.
  * For example, several mods have bronze ingots, so TechReborn will tag its bronze ingot with a common tag.
- * @param <T> The type of the object, like {@link net.minecraft.item.Item} or {@link net.minecraft.block.Block}.
+ *
+ * @param <T> The type of the object, like {@link Item} or {@link Block}.
  */
 public interface TagConvertible<T> {
 
 	/**
 	 * Returns the common tag of this object.
+	 *
 	 * @return the common tag of this object
 	 */
 	Tag.Identified<T> asTag();

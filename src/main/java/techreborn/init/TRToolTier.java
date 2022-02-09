@@ -30,7 +30,7 @@ import net.minecraft.util.Lazy;
 
 import java.util.function.Supplier;
 
-//TODO: Use tags
+// TODO: Use tags
 public enum TRToolTier implements ToolMaterial {
 	BRONZE(2, 375, 7.0F, 2.25f, 6, () -> {
 		return Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem());

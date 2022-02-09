@@ -33,8 +33,8 @@ import net.fabricmc.fabric.api.event.world.WorldTickCallback;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reborncore.api.ToolManager;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.common.RebornCoreCommands;
@@ -77,7 +77,7 @@ public class RebornCore implements ModInitializer {
 	public void onInitialize() {
 		new Configuration(RebornCoreConfig.class, MOD_ID);
 		PowerSystem.init();
-		CalenderUtils.loadCalender(); //Done early as some features need this
+		CalenderUtils.loadCalender(); // Done early as some features need this
 
 		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ic2:wrench"), true));
 		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("forestry:wrench"), false));

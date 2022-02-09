@@ -98,7 +98,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	int ticksSinceLastChange;
 
 	@Nullable
-	public static ICrafterSoundHanlder soundHanlder = (firstRun, blockEntity) -> {
+	public static ICrafterSoundHandler soundHandler = (firstRun, blockEntity) -> {
 	};
 
 	public RecipeCrafter(RebornRecipeType<?> recipeType, BlockEntity blockEntity, int inputs, int outputs, RebornInventory<?> inventory,
@@ -172,7 +172,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 					currentRecipe = null;
 					currentTickTime = 0;
 					updateCurrentRecipe();
-					//Update active sate if the blockEntity isnt going to start crafting again
+					// Update active state if the blockEntity isn't going to start crafting again
 					if (currentRecipe == null) {
 						setIsActive();
 					}
@@ -181,8 +181,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 				long useRequirement = getEuPerTick(currentRecipe.getPower());
 				if (energy.tryUseExact(useRequirement)) {
 					currentTickTime++;
-					if ((currentTickTime == 1 || currentTickTime % 20 == 0) && soundHanlder != null) {
-						soundHanlder.playSound(false, blockEntity);
+					if ((currentTickTime == 1 || currentTickTime % 20 == 0) && soundHandler != null) {
+						soundHandler.playSound(false, blockEntity);
 					}
 				}
 			}
@@ -196,11 +196,11 @@ public class RecipeCrafter implements IUpgradeHandler {
 	public void updateCurrentRecipe() {
 		currentTickTime = 0;
 		for (RebornRecipe recipe : recipeType.getRecipes(blockEntity.getWorld())) {
-			// This checks to see if it has all of the inputs
+			// This checks to see if it has all the inputs
 			if (!hasAllInputs(recipe)) continue;
 			if (!recipe.canCraft(blockEntity)) continue;
 
-			// This checks to see if it can fit all of the outputs
+			// This checks to see if it can fit all the outputs
 			boolean hasOutputSpace = true;
 			for (int i = 0; i < recipe.getOutputs().size(); i++) {
 				if (!canFitOutput(recipe.getOutputs().get(i), outputSlots[i])) {
@@ -246,7 +246,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 			return;
 		}
 		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
-			for (int inputSlot : inputSlots) {// Uses all of the inputs
+			for (int inputSlot : inputSlots) {// Uses all the inputs
 				if (ingredient.test(inventory.getStack(inputSlot))) {
 					inventory.shrinkSlot(inputSlot, ingredient.getCount());
 					break;
@@ -354,8 +354,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 		return inventory.hasChanged();
 	}
 
-	public void setInvDirty(boolean isDiry) {
-		inventory.setHashChanged(isDiry);
+	public void setInvDirty(boolean isDirty) {
+		inventory.setHashChanged(isDirty);
 	}
 
 	public boolean isStackValidInput(ItemStack stack) {
@@ -363,7 +363,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 			return false;
 		}
 
-		//Test with a stack with the max stack size as some independents will check the stacksize. Bit of a hack but should work.
+		// Test with a stack with the max stack size as some independents will check the stack size.
+	    // A bit of a hack but should work.
 		ItemStack largeStack = stack.copy();
 		largeStack.setCount(largeStack.getMaxCount());
 		for (RebornRecipe recipe : recipeType.getRecipes(blockEntity.getWorld())) {
@@ -377,8 +378,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	@Override
-	public void resetSpeedMulti() {
-		parentUpgradeHandler.ifPresent(IUpgradeHandler::resetSpeedMulti);
+	public void resetSpeedMultiplier() {
+		parentUpgradeHandler.ifPresent(IUpgradeHandler::resetSpeedMultiplier);
 	}
 
 	@Override
@@ -387,13 +388,13 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	@Override
-	public void addPowerMulti(double amount) {
-		parentUpgradeHandler.ifPresent(iUpgradeHandler -> iUpgradeHandler.addPowerMulti(amount));
+	public void addPowerMultiplier(double amount) {
+		parentUpgradeHandler.ifPresent(iUpgradeHandler -> iUpgradeHandler.addPowerMultiplier(amount));
 	}
 
 	@Override
-	public void resetPowerMulti() {
-		parentUpgradeHandler.ifPresent(IUpgradeHandler::resetPowerMulti);
+	public void resetPowerMultiplier() {
+		parentUpgradeHandler.ifPresent(IUpgradeHandler::resetPowerMultiplier);
 	}
 
 	@Override
@@ -408,7 +409,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	@Override
-	public void addSpeedMulti(double amount) {
-		parentUpgradeHandler.ifPresent(iUpgradeHandler -> iUpgradeHandler.addSpeedMulti(amount));
+	public void addSpeedMultiplier(double amount) {
+		parentUpgradeHandler.ifPresent(iUpgradeHandler -> iUpgradeHandler.addSpeedMultiplier(amount));
 	}
 }

@@ -45,7 +45,7 @@ public class ItemHandlerUtils {
 			dropItemHandler(world, pos, inventory);
 		}
 		if (blockEntity instanceof IUpgradeable) {
-			dropItemHandler(world, pos, ((IUpgradeable) blockEntity).getUpgradeInvetory());
+			dropItemHandler(world, pos, ((IUpgradeable) blockEntity).getUpgradeInventory());
 		}
 	}
 

@@ -127,7 +127,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			return getPanel().generationRateN;
 		}
 
-		// At this point, we know a light source is present and it's clear weather. We need to determine
+		// At this point, we know a light source is present, and it's clear weather. We need to determine
 		// the level of generation based on % of time through the day, with peak production at noon and
 		// a smooth transition to night production as sun rises/sets
 		float multiplier;

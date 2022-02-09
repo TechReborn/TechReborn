@@ -95,7 +95,7 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 		return 32;
 	}
 
-	//MachineBaseBlockEntity
+	// MachineBaseBlockEntity
 	@Override
 	public Direction getFacing(){
 		if (world == null){

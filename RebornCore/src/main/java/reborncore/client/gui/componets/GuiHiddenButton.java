@@ -47,7 +47,7 @@ public class GuiHiddenButton extends ButtonWidget {
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (this.visible) {
-			TextRenderer fontrenderer = MinecraftClient.getInstance().textRenderer;
+			TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 			RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			this.hovered = mouseX >= this.x && mouseY >= this.y
@@ -63,7 +63,7 @@ public class GuiHiddenButton extends ButtonWidget {
 				l = 16777120;
 			}
 
-			this.drawTextWithShadow(matrixStack, fontrenderer, this.getMessage(), this.x + this.width / 2,
+			this.drawTextWithShadow(matrixStack, textRenderer, this.getMessage(), this.x + this.width / 2,
 					this.y + (this.height - 8) / 2, l);
 		}
 	}

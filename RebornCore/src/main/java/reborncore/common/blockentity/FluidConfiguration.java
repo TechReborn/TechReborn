@@ -89,7 +89,7 @@ public class FluidConfiguration implements NBTSerializable {
 			if (autoInput() && fluidConfig.getIoConfig().isInsert()) {
 				StorageUtil.move(tank, machineBase.getTank(), fv -> true, machineBase.fluidTransferAmount().getRawValue(), null);
 			}
-			if (autoOutput() && fluidConfig.getIoConfig().isExtact()) {
+			if (autoOutput() && fluidConfig.getIoConfig().isExtract()) {
 				StorageUtil.move(machineBase.getTank(), tank, fv -> true, machineBase.fluidTransferAmount().getRawValue(), null);
 			}
 		}
@@ -187,16 +187,16 @@ public class FluidConfiguration implements NBTSerializable {
 		OUTPUT(true, false),
 		ALL(true, true);
 
-		boolean extact;
+		boolean extract;
 		boolean insert;
 
-		ExtractConfig(boolean extact, boolean insert) {
-			this.extact = extact;
+		ExtractConfig(boolean extract, boolean insert) {
+			this.extract = extract;
 			this.insert = insert;
 		}
 
-		public boolean isExtact() {
-			return extact;
+		public boolean isExtract() {
+			return extract;
 		}
 
 		public boolean isInsert() {
@@ -204,7 +204,7 @@ public class FluidConfiguration implements NBTSerializable {
 		}
 
 		public boolean isEnabled() {
-			return extact || insert;
+			return extract || insert;
 		}
 
 		public FluidConfiguration.ExtractConfig getNext() {

@@ -35,10 +35,10 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//Quick too to migrate to the new lang format, and to try and keep as many lang entrys as possible
+// Quick too to migrate to the new lang format, and to try and keep as many lang entries as possible
 public class TranslationTools {
 
-	//Scanner used for manual matching
+	// Scanner used for manual matching
 	private static final Scanner SCANNER = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
@@ -68,7 +68,7 @@ public class TranslationTools {
 					key = keyMap.get(key);
 				}
 				if (!newLang.containsKey(key)) {
-					//Lost key, no point copying them over
+					// Lost key, no point copying them over
 					continue;
 				}
 				output.put(key, value);

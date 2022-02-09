@@ -36,28 +36,29 @@ public @interface Config {
 	/**
 	 * This the category of the config
 	 *
-	 * @return
+	 * @return {@link String}
 	 */
 	String category() default "config";
 
 	/**
 	 * This is the key for the config, the default is the field name.
 	 *
-	 * @return
+	 * @return {@link String}
 	 */
 	String key() default "";
 
 	/**
 	 * This is a comment that will be supplied along with the config, use this to explain what the config does
 	 *
-	 * @return
+	 * @return {@link String}
 	 */
 	String comment() default "";
 
 	/**
-	 * this is the config file name, the default is just config.cgf, use this is you whish to split the config into more than one file.
+	 * This is the config file name, the default is {@code config.cgf},
+	 * use this if you wish to split the config into more than one file.
 	 *
-	 * @return
+	 * @return {@link String}
 	 */
 	String config() default "config";
 

@@ -26,6 +26,7 @@ package techreborn.blockentity.machine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -57,11 +58,11 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	public RecipeCrafter crafter;
 
 	/**
-	 * @param name       String Name for a blockEntity. Do we need it at all?
-	 * @param maxInput   int Maximum energy input, value in EU
-	 * @param maxEnergy  int Maximum energy buffer, value in EU
-	 * @param toolDrop   Block Block to drop with wrench
-	 * @param energySlot int Energy slot to use to charge machine from battery
+	 * @param name       {@link String} Name for a {@link BlockEntity}. Do we need it at all?
+	 * @param maxInput   {@code int} Maximum energy input, value in EU
+	 * @param maxEnergy  {@code int} Maximum energy buffer, value in EU
+	 * @param toolDrop   {@link Block} Block to drop with wrench
+	 * @param energySlot {@code int} Energy slot to use to charge machine from battery
 	 */
 	public GenericMachineBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
 		super(blockEntityType, pos, state);
@@ -76,8 +77,8 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	/**
 	 * Returns progress scaled to input value
 	 *
-	 * @param scale int Maximum value for progress
-	 * @return int Scale of progress
+	 * @param scale {@code int} Maximum value for progress
+	 * @return {@code int} Scale of progress
 	 */
 	public int getProgressScaled(int scale) {
 		if (crafter != null && crafter.currentTickTime != 0 && crafter.currentNeededTicks != 0) {

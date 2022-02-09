@@ -153,7 +153,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 	protected void validate() {
 		if (ingredients.isEmpty()) {
-			throw new IllegalStateException("recipe has no ingrendients")
+			throw new IllegalStateException("recipe has no ingredients")
 		}
 
 		if (outputs.isEmpty()) {

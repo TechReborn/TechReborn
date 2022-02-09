@@ -34,7 +34,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.lang.reflect.Type;
 
-//Based from ee3's code
+// Based from ee3's code
 public class ItemStackSerializer implements JsonSerializer<ItemStack>, JsonDeserializer<ItemStack> {
 
 	private static final String NAME = "name";

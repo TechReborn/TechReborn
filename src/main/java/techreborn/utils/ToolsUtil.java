@@ -47,7 +47,6 @@ import java.util.Set;
 /**
  * @author drcrazy
  */
-
 public class ToolsUtil {
 	public static void breakBlock(ItemStack tool, World world, BlockPos pos, LivingEntity entityLiving, int cost) {
 		if (!(entityLiving instanceof PlayerEntity)) {
@@ -69,26 +68,27 @@ public class ToolsUtil {
 	}
 
 	/**
-	 * Fills in set of BlockPos which should be broken by AOE mining
+	 * Fills in set of {@link BlockPos} which should be broken by AOE mining
 	 *
-	 * @param worldIn      World reference
-	 * @param pos          BlockPos Position of originally broken block
-	 * @param entityLiving LivingEntity Player who broke block
-	 * @param radius       int Radius of additional blocks to include. E.g. for 3x3 mining radius will be 1
-	 * @return Set of BlockPos to process by tool block break logic
+	 * @param worldIn      {@link World} World reference
+	 * @param pos          {@link BlockPos} Position of originally broken block
+	 * @param entityLiving {@link LivingEntity} Player who broke block
+	 * @param radius       {@code int} Radius of additional blocks to include. E.g. for 3x3 mining radius will be 1
+	 * @return {@link Set} Set of {@link BlockPos} to process by tool block break logic
 	 */
 	public static Set<BlockPos> getAOEMiningBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving, int radius) {
 		return getAOEMiningBlocks(worldIn, pos, entityLiving, radius, true);
 	}
 
 	/**
-	 * Fills in set of BlockPos which should be broken by AOE mining
+	 * Fills in set of {@link BlockPos} which should be broken by AOE mining
 	 *
-	 * @param worldIn      World reference
-	 * @param pos          BlockPos Position of originally broken block
-	 * @param entityLiving LivingEntity Player who broke block
-	 * @param radius       int Radius of additional blocks to include. E.g. for 3x3 mining radius will be 1
-	 * @return Set of BlockPos to process by tool block break logic
+	 * @param worldIn          {@link World} World reference
+	 * @param pos              {@link BlockPos} Position of originally broken block
+	 * @param entityLiving     {@link LivingEntity} Player who broke block
+	 * @param radius           {@code int} Radius of additional blocks to include. E.g. for 3x3 mining radius will be 1
+	 * @param placeDummyBlocks {@code boolean} Whether to place dummy blocks
+	 * @return {@link Set} Set of {@link BlockPos} to process by tool block break logic
 	 */
 	public static Set<BlockPos> getAOEMiningBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving, int radius, boolean placeDummyBlocks) {
 		if (!(entityLiving instanceof PlayerEntity playerIn)) {
@@ -167,10 +167,10 @@ public class ToolsUtil {
 	}
 
 	/**
-	 *  Check if JackHammer shouldn't break block. JackHammers should be good on stone, dirt, sand. And shouldn't break ores.
+	 * Check if JackHammer shouldn't break block. JackHammers should be good on stone, dirt, sand. And shouldn't break ores.
 	 *
-	 * @param blockState BlockState to check
-	 * @return boolean True if block shouldn't be breakable by JackHammer
+	 * @param blockState {@link BlockState} State to check
+	 * @return {@code boolean} True if block shouldn't be breakable by JackHammer
 	 */
 	public static boolean JackHammerSkippedBlocks(BlockState blockState){
 		if (blockState.getMaterial() == Material.AIR) {
@@ -191,5 +191,3 @@ public class ToolsUtil {
 		return blockState.getBlock() instanceof RedstoneOreBlock;
 	}
 }
-
-

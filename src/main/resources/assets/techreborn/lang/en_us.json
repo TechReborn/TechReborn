@@ -150,6 +150,10 @@
 
 
   "_comment3": "Storage",
+  "block.techreborn.advanced_alloy_storage_block": "Block of Advanced Alloy",
+  "block.techreborn.advanced_alloy_storage_block_stairs": "Advanced Alloy Stairs",
+  "block.techreborn.advanced_alloy_storage_block_slab": "Advanced Alloy Slab",
+  "block.techreborn.advanced_alloy_storage_block_wall": "Advanced Alloy Wall",
   "block.techreborn.aluminum_storage_block": "Block of Aluminium",
   "block.techreborn.aluminum_storage_block_stairs": "Aluminium Stairs",
   "block.techreborn.aluminum_storage_block_slab": "Aluminium Slab",
@@ -171,6 +175,10 @@
   "block.techreborn.electrum_storage_block_stairs": "Electrum Stairs",
   "block.techreborn.electrum_storage_block_slab": "Electrum Slab",
   "block.techreborn.electrum_storage_block_wall": "Electrum Wall",
+  "block.techreborn.hot_tungstensteel_storage_block": "Block of Hot Tungstensteel",
+  "block.techreborn.hot_tungstensteel_storage_block_stairs": "Hot Tungstensteel Stairs",
+  "block.techreborn.hot_tungstensteel_storage_block_slab": "Hot Tungstensteel Slab",
+  "block.techreborn.hot_tungstensteel_storage_block_wall": "Hot Tungstensteel Wall",
   "block.techreborn.invar_storage_block": "Block of Invar",
   "block.techreborn.invar_storage_block_stairs": "Invar Stairs",
   "block.techreborn.invar_storage_block_slab": "Invar Slab",
@@ -848,6 +856,7 @@
 
   "_comment20": "Death Messages",
   "death.attack.shock": "%s was electrocuted",
+  "death.attack.shock.player": "%s was electrocuted trying to outrun %s",
 
   "_comment21": "Entities",
   "entity.nuke": "Nuke",

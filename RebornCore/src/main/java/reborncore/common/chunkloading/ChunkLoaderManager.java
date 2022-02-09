@@ -47,7 +47,7 @@ import reborncore.common.network.NetworkManager;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//This does not do the actual chunk loading, just keeps track of what chunks the chunk loader has loaded
+// This does not do the actual chunk loading, just keeps track of what chunks the chunk loader has loaded
 public class ChunkLoaderManager extends PersistentState {
 
 	public static Codec<List<LoadedChunk>> CODEC = Codec.list(LoadedChunk.CODEC);
@@ -103,10 +103,10 @@ public class ChunkLoaderManager extends PersistentState {
 			.findFirst();
 	}
 
-	public List<LoadedChunk> getLoadedChunks(World world, BlockPos chunkloader){
+	public List<LoadedChunk> getLoadedChunks(World world, BlockPos chunkLoader){
 		return loadedChunks.stream()
 			.filter(loadedChunk -> loadedChunk.getWorld().equals(getWorldName(world)))
-			.filter(loadedChunk -> loadedChunk.getChunkLoader().equals(chunkloader))
+			.filter(loadedChunk -> loadedChunk.getChunkLoader().equals(chunkLoader))
 			.collect(Collectors.toList());
 	}
 

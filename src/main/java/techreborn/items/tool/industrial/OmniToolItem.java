@@ -95,9 +95,9 @@ public class OmniToolItem extends PickaxeItem implements RcEnergyItem, DynamicAt
 	}
 
 	@Override
-	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
+	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		if (tryUseEnergy(stack, hitCost)) {
-			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);
+			target.damage(DamageSource.player((PlayerEntity) attacker), 8F);
 		}
 		return false;
 	}

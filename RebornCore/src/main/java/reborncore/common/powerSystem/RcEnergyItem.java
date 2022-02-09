@@ -5,13 +5,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 
 /**
- * Implement on simple energy-containing items and (on top of what SimpleBatteryItem does):
+ * Implement on simple energy-containing items and (on top of what {@link SimpleBatteryItem} does):
  * <ul>
- *     <li>A tooltip will be added for the item, indicating the stored power, the max power and the extraction rates.</li>
- *     <li>Any RcEnergyItem input in a crafting recipe input will automatically give its energy to the output if the output implements RcEnergyItem.</li>
+ *     <li>A tooltip will be added for the item, indicating the stored power,
+ *     the max power and the extraction rates.</li>
+ *     <li>Any {@link RcEnergyItem} input in a crafting recipe input will automatically
+ *     give its energy to the output if the output implements {@link RcEnergyItem}.</li>
  * </ul>
  * TODO: consider moving this functionality to the energy API?
  */
@@ -19,7 +22,7 @@ public interface RcEnergyItem extends SimpleBatteryItem, FabricItem {
 	long getEnergyCapacity();
 
 	/**
-	 * @return the tier of this EnergyStorage, used to have standard I/O rates.
+	 * @return {@link RcEnergyTier} the tier of this {@link EnergyStorage}, used to have standard I/O rates.
 	 */
 	RcEnergyTier getTier();
 

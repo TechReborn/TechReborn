@@ -121,7 +121,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	@Override
 	public long getBaseMaxInput() {
-		//If we have super conductors increase the max input of the machine
+		// If we have super conductors increase the max input of the machine
 		if (getMaxConfigOutput() > maxOutput) {
 			return getMaxConfigOutput();
 		}
@@ -147,9 +147,9 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbttagcompound) {
-		super.readNbt(nbttagcompound);
-		this.OUTPUT = nbttagcompound.getInt("output");
+	public void readNbt(NbtCompound nbtCompound) {
+		super.readNbt(nbtCompound);
+		this.OUTPUT = nbtCompound.getInt("output");
 	}
 
 	// MachineBaseBlockEntity
@@ -163,14 +163,14 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("aesu").player(player.getInventory()).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-				.syncEnergyValue().sync(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this, syncID);
+				.syncEnergyValue().sync(this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentOutput() {
 		return OUTPUT;
 	}
 
-	public void setCurentOutput(int output) {
+	public void setCurrentOutput(int output) {
 		this.OUTPUT = output;
 	}
 }

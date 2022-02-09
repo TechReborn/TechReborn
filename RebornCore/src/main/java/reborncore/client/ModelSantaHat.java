@@ -40,151 +40,151 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class ModelSantaHat extends EntityModel<AbstractClientPlayerEntity> {
-	private final ModelPart hatband1;
-	private final ModelPart hatband2;
-	private final ModelPart hatband3;
-	private final ModelPart hatband4;
-	private final ModelPart hatbase1;
-	private final ModelPart hatband5;
-	private final ModelPart hatband6;
-	private final ModelPart hatbase2;
-	private final ModelPart hatextension1;
-	private final ModelPart hatextension2;
-	private final ModelPart hatextension3;
-	private final ModelPart hatextension4;
-	private final ModelPart hatball1;
-	private final ModelPart hatball2;
-	private final ModelPart hatball3;
-	private final ModelPart hatball4;
-	private final ModelPart hatball5;
-	private final ModelPart hatball6;
+	private final ModelPart hatBand1;
+	private final ModelPart hatBand2;
+	private final ModelPart hatBand3;
+	private final ModelPart hatBand4;
+	private final ModelPart hatBase1;
+	private final ModelPart hatBand5;
+	private final ModelPart hatBand6;
+	private final ModelPart hatBase2;
+	private final ModelPart hatExtension1;
+	private final ModelPart hatExtension2;
+	private final ModelPart hatExtension3;
+	private final ModelPart hatExtension4;
+	private final ModelPart hatBall1;
+	private final ModelPart hatBall2;
+	private final ModelPart hatBall3;
+	private final ModelPart hatBall4;
+	private final ModelPart hatBall5;
+	private final ModelPart hatBall6;
 
 	public ModelSantaHat() {
-		ModelPart.Cuboid[] hatband1Cuboids = {
+		ModelPart.Cuboid[] hatBand1Cuboids = {
 			new ModelPart.Cuboid(0, 32, -4F, -8F, -5F, 8F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatband1 = new ModelPart(Arrays.asList(hatband1Cuboids), Collections.emptyMap());
-		hatband1.setPivot(0F, 0F, 0F);
-		setRotation(hatband1, 0F, 0F, 0F);
+		hatBand1 = new ModelPart(Arrays.asList(hatBand1Cuboids), Collections.emptyMap());
+		hatBand1.setPivot(0F, 0F, 0F);
+		setRotation(hatBand1, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatband2Cuboids = {
+		ModelPart.Cuboid[] hatBand2Cuboids = {
 			new ModelPart.Cuboid(0, 32, -4F, -8F, 4F, 8F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatband2 = new ModelPart(Arrays.asList(hatband2Cuboids), Collections.emptyMap());
-		hatband2.setPivot(0F, 0F, 0F);
-		setRotation(hatband2, 0F, 0F, 0F);
+		hatBand2 = new ModelPart(Arrays.asList(hatBand2Cuboids), Collections.emptyMap());
+		hatBand2.setPivot(0F, 0F, 0F);
+		setRotation(hatBand2, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatband3Cuboids = {
+		ModelPart.Cuboid[] hatBand3Cuboids = {
 			new ModelPart.Cuboid(0, 34, -5F, -8F, -4F, 1F, 1F, 8F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatband3 = new ModelPart(Arrays.asList(hatband3Cuboids), Collections.emptyMap());
-		hatband3.setPivot(0F, 0F, 0F);
-		setRotation(hatband3, 0F, 0F, 0F);
+		hatBand3 = new ModelPart(Arrays.asList(hatBand3Cuboids), Collections.emptyMap());
+		hatBand3.setPivot(0F, 0F, 0F);
+		setRotation(hatBand3, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatband4Cuboids = {
+		ModelPart.Cuboid[] hatBand4Cuboids = {
 			new ModelPart.Cuboid(0, 34, 4F, -8F, -4F, 1F, 1F, 8F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatband4 = new ModelPart(Arrays.asList(hatband4Cuboids), Collections.emptyMap());
-		hatband4.setPivot(0F, 0F, 0F);
-		setRotation(hatband4, 0F, 0F, 0F);
+		hatBand4 = new ModelPart(Arrays.asList(hatBand4Cuboids), Collections.emptyMap());
+		hatBand4.setPivot(0F, 0F, 0F);
+		setRotation(hatBand4, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatbase1Cuboids = {
+		ModelPart.Cuboid[] hatBase1Cuboids = {
 			new ModelPart.Cuboid(0, 43, -4F, -9F, -4F, 8F, 1F, 8F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatbase1 = new ModelPart(Arrays.asList(hatbase1Cuboids), Collections.emptyMap());
-		hatbase1.setPivot(0F, 0F, 0F);
-		setRotation(hatbase1, 0F, 0F, 0F);
+		hatBase1 = new ModelPart(Arrays.asList(hatBase1Cuboids), Collections.emptyMap());
+		hatBase1.setPivot(0F, 0F, 0F);
+		setRotation(hatBase1, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatband5Cuboids = {
+		ModelPart.Cuboid[] hatBand5Cuboids = {
 			new ModelPart.Cuboid(18, 41, 0F, -7F, -5F, 4F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatband5 = new ModelPart(Arrays.asList(hatband5Cuboids), Collections.emptyMap());
-		hatband5.setPivot(0F, 0F, 0F);
-		setRotation(hatband5, 0F, 0F, 0F);
+		hatBand5 = new ModelPart(Arrays.asList(hatBand5Cuboids), Collections.emptyMap());
+		hatBand5.setPivot(0F, 0F, 0F);
+		setRotation(hatBand5, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatband6Cuboids = {
+		ModelPart.Cuboid[] hatBand6Cuboids = {
 			new ModelPart.Cuboid(18, 41, -4F, -7F, 0F, 4F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatband6 = new ModelPart(Arrays.asList(hatband6Cuboids), Collections.emptyMap());
-		hatband6.setPivot(0F, 0F, 4F);
-		setRotation(hatband6, 0F, 0F, 0F);
+		hatBand6 = new ModelPart(Arrays.asList(hatBand6Cuboids), Collections.emptyMap());
+		hatBand6.setPivot(0F, 0F, 4F);
+		setRotation(hatBand6, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatbase2Cuboids = {
+		ModelPart.Cuboid[] hatBase2Cuboids = {
 			new ModelPart.Cuboid(18, 34, -3F, -10F, -3F, 6F, 1F, 6F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatbase2 = new ModelPart(Arrays.asList(hatbase2Cuboids), Collections.emptyMap());
-		hatbase2.setPivot(0F, 0F, 0F);
-		setRotation(hatbase2, 0F, 0.1115358F, 0F);
+		hatBase2 = new ModelPart(Arrays.asList(hatBase2Cuboids), Collections.emptyMap());
+		hatBase2.setPivot(0F, 0F, 0F);
+		setRotation(hatBase2, 0F, 0.1115358F, 0F);
 
-		ModelPart.Cuboid[] hatextension1Cuboids = {
+		ModelPart.Cuboid[] hatExtension1Cuboids = {
 			new ModelPart.Cuboid(0, 52, -3F, -11F, -2F, 4F, 2F, 4F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatextension1 = new ModelPart(Arrays.asList(hatextension1Cuboids), Collections.emptyMap());
-		hatextension1.setPivot(0F, 0F, 0F);
-		setRotation(hatextension1, 0F, -0.0371786F, 0.0743572F);
+		hatExtension1 = new ModelPart(Arrays.asList(hatExtension1Cuboids), Collections.emptyMap());
+		hatExtension1.setPivot(0F, 0F, 0F);
+		setRotation(hatExtension1, 0F, -0.0371786F, 0.0743572F);
 
-		ModelPart.Cuboid[] hatextension2Cuboids = {
+		ModelPart.Cuboid[] hatExtension2Cuboids = {
 			new ModelPart.Cuboid(16, 52, -2.4F, -12F, -1.5F, 3F, 2F, 3F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatextension2 = new ModelPart(Arrays.asList(hatextension2Cuboids), Collections.emptyMap());
-		hatextension2.setPivot(0F, 0F, 0F);
-		setRotation(hatextension2, 0F, 0.0743572F, 0.0743572F);
+		hatExtension2 = new ModelPart(Arrays.asList(hatExtension2Cuboids), Collections.emptyMap());
+		hatExtension2.setPivot(0F, 0F, 0F);
+		setRotation(hatExtension2, 0F, 0.0743572F, 0.0743572F);
 
-		ModelPart.Cuboid[] hatextension3Cuboids = {
+		ModelPart.Cuboid[] hatExtension3Cuboids = {
 			new ModelPart.Cuboid(28, 52, -3.5F, -13F, -1F, 2F, 2F, 2F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatextension3 = new ModelPart(Arrays.asList(hatextension3Cuboids), Collections.emptyMap());
-		hatextension3.setPivot(0F, 0F, 0F);
-		setRotation(hatextension3, 0F, 0F, 0.2230717F);
+		hatExtension3 = new ModelPart(Arrays.asList(hatExtension3Cuboids), Collections.emptyMap());
+		hatExtension3.setPivot(0F, 0F, 0F);
+		setRotation(hatExtension3, 0F, 0F, 0.2230717F);
 
-		ModelPart.Cuboid[] hatextension4Cuboids = {
+		ModelPart.Cuboid[] hatExtension4Cuboids = {
 			new ModelPart.Cuboid(0, 58, -13F, -6.6F, -1F, 2F, 3F, 2F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatextension4 = new ModelPart(Arrays.asList(hatextension4Cuboids), Collections.emptyMap());
-		hatextension4.setPivot(0F, 0F, 0F);
-		setRotation(hatextension4, 0F, 0F, 1.264073F);
+		hatExtension4 = new ModelPart(Arrays.asList(hatExtension4Cuboids), Collections.emptyMap());
+		hatExtension4.setPivot(0F, 0F, 0F);
+		setRotation(hatExtension4, 0F, 0F, 1.264073F);
 
-		ModelPart.Cuboid[] hatball1Cuboids = {
+		ModelPart.Cuboid[] hatBall1Cuboids = {
 			new ModelPart.Cuboid(8, 58, 2F, -14.4F, -1.001F, 2F, 2F, 2F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatball1 = new ModelPart(Arrays.asList(hatball1Cuboids), Collections.emptyMap());
-		hatball1.setPivot(0F, 0F, 0F);
-		setRotation(hatball1, 0F, 0F, 0F);
+		hatBall1 = new ModelPart(Arrays.asList(hatBall1Cuboids), Collections.emptyMap());
+		hatBall1.setPivot(0F, 0F, 0F);
+		setRotation(hatBall1, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatball2Cuboids = {
+		ModelPart.Cuboid[] hatBall2Cuboids = {
 			new ModelPart.Cuboid(16, 57, 2.5F, -14.8F, -0.5F, 1F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatball2 = new ModelPart(Arrays.asList(hatball2Cuboids), Collections.emptyMap());
-		hatball2.setPivot(0F, 0F, 0F);
-		setRotation(hatball2, 0F, 0F, 0F);
+		hatBall2 = new ModelPart(Arrays.asList(hatBall2Cuboids), Collections.emptyMap());
+		hatBall2.setPivot(0F, 0F, 0F);
+		setRotation(hatBall2, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatball3Cuboids = {
+		ModelPart.Cuboid[] hatBall3Cuboids = {
 			new ModelPart.Cuboid(16, 57, 2.5F, -13F, -0.5F, 1F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatball3 = new ModelPart(Arrays.asList(hatball3Cuboids), Collections.emptyMap());
-		hatball3.setPivot(0F, 0F, 0F);
-		setRotation(hatball3, 0F, 0F, 0F);
+		hatBall3 = new ModelPart(Arrays.asList(hatBall3Cuboids), Collections.emptyMap());
+		hatBall3.setPivot(0F, 0F, 0F);
+		setRotation(hatBall3, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatball4Cuboids = {
+		ModelPart.Cuboid[] hatBall4Cuboids = {
 			new ModelPart.Cuboid(16, 57, 3.4F, -14F, -0.5F, 1F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatball4 = new ModelPart(Arrays.asList(hatball4Cuboids), Collections.emptyMap());
-		hatball4.setPivot(0F, 0F, 0F);
-		setRotation(hatball4, 0F, 0F, 0F);
+		hatBall4 = new ModelPart(Arrays.asList(hatBall4Cuboids), Collections.emptyMap());
+		hatBall4.setPivot(0F, 0F, 0F);
+		setRotation(hatBall4, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatball5Cuboids = {
+		ModelPart.Cuboid[] hatBall5Cuboids = {
 			new ModelPart.Cuboid(16, 57, 2.5F, -14F, 0.4F, 1F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatball5 = new ModelPart(Arrays.asList(hatball5Cuboids), Collections.emptyMap());
-		hatball5.setPivot(0F, 0F, 0F);
-		setRotation(hatball5, 0F, 0F, 0F);
+		hatBall5 = new ModelPart(Arrays.asList(hatBall5Cuboids), Collections.emptyMap());
+		hatBall5.setPivot(0F, 0F, 0F);
+		setRotation(hatBall5, 0F, 0F, 0F);
 
-		ModelPart.Cuboid[] hatball6Cuboids = {
+		ModelPart.Cuboid[] hatBall6Cuboids = {
 			new ModelPart.Cuboid(16, 57, 2.5F, -14F, -1.4F, 1F, 1F, 1F, 0F, 0F, 0F, true, 64F, 64F)
 		};
-		hatball6 = new ModelPart(Arrays.asList(hatball6Cuboids), Collections.emptyMap());
-		hatball6.setPivot(0F, 0F, 0F);
-		setRotation(hatball6, 0F, 0F, 0F);
+		hatBall6 = new ModelPart(Arrays.asList(hatBall6Cuboids), Collections.emptyMap());
+		hatBall6.setPivot(0F, 0F, 0F);
+		setRotation(hatBall6, 0F, 0F, 0F);
 	}
 
 	@Override
@@ -194,24 +194,24 @@ public class ModelSantaHat extends EntityModel<AbstractClientPlayerEntity> {
 
 	@Override
 	public void render(MatrixStack matrixStack, VertexConsumer vertexConsumer, int light, int overlay, float r, float g, float b, float f) {
-		hatband1.render(matrixStack, vertexConsumer, light, overlay);
-		hatband2.render(matrixStack, vertexConsumer, light, overlay);
-		hatband3.render(matrixStack, vertexConsumer, light, overlay);
-		hatband4.render(matrixStack, vertexConsumer, light, overlay);
-		hatbase1.render(matrixStack, vertexConsumer, light, overlay);
-		hatband5.render(matrixStack, vertexConsumer, light, overlay);
-		hatband6.render(matrixStack, vertexConsumer, light, overlay);
-		hatbase2.render(matrixStack, vertexConsumer, light, overlay);
-		hatextension1.render(matrixStack, vertexConsumer, light, overlay);
-		hatextension2.render(matrixStack, vertexConsumer, light, overlay);
-		hatextension3.render(matrixStack, vertexConsumer, light, overlay);
-		hatextension4.render(matrixStack, vertexConsumer, light, overlay);
-		hatball1.render(matrixStack, vertexConsumer, light, overlay);
-		hatball2.render(matrixStack, vertexConsumer, light, overlay);
-		hatball3.render(matrixStack, vertexConsumer, light, overlay);
-		hatball4.render(matrixStack, vertexConsumer, light, overlay);
-		hatball5.render(matrixStack, vertexConsumer, light, overlay);
-		hatball6.render(matrixStack, vertexConsumer, light, overlay);
+		hatBand1.render(matrixStack, vertexConsumer, light, overlay);
+		hatBand2.render(matrixStack, vertexConsumer, light, overlay);
+		hatBand3.render(matrixStack, vertexConsumer, light, overlay);
+		hatBand4.render(matrixStack, vertexConsumer, light, overlay);
+		hatBase1.render(matrixStack, vertexConsumer, light, overlay);
+		hatBand5.render(matrixStack, vertexConsumer, light, overlay);
+		hatBand6.render(matrixStack, vertexConsumer, light, overlay);
+		hatBase2.render(matrixStack, vertexConsumer, light, overlay);
+		hatExtension1.render(matrixStack, vertexConsumer, light, overlay);
+		hatExtension2.render(matrixStack, vertexConsumer, light, overlay);
+		hatExtension3.render(matrixStack, vertexConsumer, light, overlay);
+		hatExtension4.render(matrixStack, vertexConsumer, light, overlay);
+		hatBall1.render(matrixStack, vertexConsumer, light, overlay);
+		hatBall2.render(matrixStack, vertexConsumer, light, overlay);
+		hatBall3.render(matrixStack, vertexConsumer, light, overlay);
+		hatBall4.render(matrixStack, vertexConsumer, light, overlay);
+		hatBall5.render(matrixStack, vertexConsumer, light, overlay);
+		hatBall6.render(matrixStack, vertexConsumer, light, overlay);
 	}
 
 	private void setRotation(ModelPart model, float x, float y, float z) {

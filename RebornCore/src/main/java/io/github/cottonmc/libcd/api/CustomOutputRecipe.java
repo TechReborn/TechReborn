@@ -25,11 +25,12 @@
 package io.github.cottonmc.libcd.api;
 
 import net.minecraft.item.Item;
+import net.minecraft.recipe.Recipe;
 
 import java.util.Collection;
 
 /**
- * A recipe that has output behavior that cannot be described by just the Recipe#getOutput() method.
+ * A recipe that has output behavior that cannot be described by just the {@link Recipe#getOutput()} method.
  * Used for RecipeTweaker remove-by-output code.
  */
 public interface CustomOutputRecipe {

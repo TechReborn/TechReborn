@@ -21,7 +21,7 @@ To report an issue or make a suggestion, please head up to the `Issues` tab up a
 
 # Translation
 
-Techreborn is available in a range of diffrent languages, if you want to help out translate the mod please see our crowdin project at [https://translate.techreborn.ovh/](https://translate.techreborn.ovh/) The translations are automaticly included in the jar files at build time.
+Techreborn is available in a range of different languages, if you want to help out translate the mod please see our crowdin project at [https://translate.techreborn.ovh/](https://translate.techreborn.ovh/) The translations are automatically included in the jar files at build time.
 
 # Screenshots
 

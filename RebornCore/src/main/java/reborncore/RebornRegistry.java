@@ -44,11 +44,11 @@ public class RebornRegistry {
 	private static final HashMap<Object, Identifier> objIdentMap = new HashMap<>();
 
 	/**
-	 * Registers Block and BlockItem in vanilla registries
+	 * Registers {@link Block} and {@link BlockItem} in vanilla registries
 	 *
-	 * @param block Block Block to register
-	 * @param builder Item.Settings Settings builder for BlockItem
-	 * @param name Identifier Registry name for block and item
+	 * @param block   {@link Block} Block to register
+	 * @param builder {@link Item.Settings} Settings builder for {@link BlockItem}
+	 * @param name    {@link Identifier} Registry name for block and item
 	 */
 	public static void registerBlock(Block block, Item.Settings builder, Identifier name) {
 		Registry.register(Registry.BLOCK, name, block);
@@ -63,11 +63,11 @@ public class RebornRegistry {
 	}
 
 	/**
-	 * Registers Block and BlockItem in vanilla registries. 
+	 * Registers Block and BlockItem in vanilla registries.
 	 * Block should have registered identifier in RebornRegistry via {@link #registerIdent registerIdent} method
 	 *
-	 * @param block Block Block to register
-	 * @param itemGroup Item.Settings Settings builder for BlockItem
+	 * @param block     {@link Block} Block to register
+	 * @param itemGroup {@link Item.Settings} Settings builder for {@link BlockItem}
 	 */
 	public static void registerBlock(Block block, Item.Settings itemGroup) {
 		Validate.isTrue(objIdentMap.containsKey(block));
@@ -80,9 +80,11 @@ public class RebornRegistry {
 	}
 
 	/**
-	 * Register only Block, without BlockItem in vanilla registries
-	 * Block should have registered identifier in RebornRegistry via {@link #registerIdent registerIdent} method
-	 * @param block Block Block to register
+	 * Register only {@link Block}, without {@link BlockItem} in vanilla registries
+	 * Block should have registered identifier in {@link RebornRegistry} via
+	 * {@link #registerIdent registerIdent} method
+	 *
+	 * @param block {@link Block} Block to register
 	 */
 	public static void registerBlockNoItem(Block block) {
 		Validate.isTrue(objIdentMap.containsKey(block));
@@ -91,20 +93,23 @@ public class RebornRegistry {
 
 
 	/**
-	 * Register Item in vanilla registries
+	 * Register {@link Item} in vanilla registries
 	 *
-	 * @param item Item Item to register
-	 * @param name Identifier Registry name for item
+	 * @param item {@link Item} Item to register
+	 * @param name {@link Identifier} Registry name for item
 	 */
 	public static void registerItem(Item item, Identifier name) {
 		Registry.register(Registry.ITEM, name, item);
 	}
 
 	/**
-	 * Register Item in vanilla registries
-	 * Item should have registered identifier in RebornRegistry via {@link #registerIdent registerIdent} method
+	 * <p>Register {@link Item} in vanilla registries</p>
+	 * <p>
+	 *  {@link Item} should have registered identifier in {@link RebornRegistry}
+	 *  via {@link #registerIdent registerIdent} method
+	 * </p>
 	 *
-	 * @param item Item Item to register
+	 * @param item {@link Item} Item to register
 	 */
 	public static void registerItem(Item item){
 		Validate.isTrue(objIdentMap.containsKey(item));
@@ -112,10 +117,10 @@ public class RebornRegistry {
 	}
 
 	/**
-	 * Registers Identifier in internal RebornCore map
+	 * Registers {@link Identifier} in internal RebornCore map
 	 *
-	 * @param object Object Item, Block or whatever to be put into map
-	 * @param identifier Identifier Registry name for object
+	 * @param object     {@link Object}, {@link Item}, {@link Block} or whatever to be put into map
+	 * @param identifier {@link Identifier} Registry name for object
 	 */
 	public static void registerIdent(Object object, Identifier identifier){
 		objIdentMap.put(object, identifier);

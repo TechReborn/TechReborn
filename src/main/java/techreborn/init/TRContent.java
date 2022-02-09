@@ -506,10 +506,10 @@ public class TRContent {
 	public static final Tag.Identified<Item> STORAGE_BLOCK_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "storage_blocks"));
 
 	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
-		ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
-		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RAW_IRIDIUM, RAW_LEAD, RAW_SILVER, RAW_TIN,
-		RAW_TUNGSTEN, RED_GARNET, REFINED_IRON, RUBY, SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL,
-		YELLOW_GARNET, ZINC;
+		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL(true), INVAR, IRIDIUM,
+		IRIDIUM_REINFORCED_STONE, IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RAW_IRIDIUM,
+		RAW_LEAD, RAW_SILVER, RAW_TIN, RAW_TUNGSTEN, RED_GARNET, REFINED_IRON, RUBY, SAPPHIRE, SILVER, STEEL, TIN,
+		TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
 
 		private final String name;
 		private final Block block;
@@ -518,9 +518,9 @@ public class TRContent {
 		private final WallBlock wallBlock;
 		private final Tag.Identified<Item> tag;
 
-		StorageBlocks() {
+		StorageBlocks(boolean isHot) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new BlockStorage();
+			block = new BlockStorage(isHot);
 			InitUtils.setup(block, name + "_storage_block");
 			tag = TagFactory.ITEM.create(new Identifier("c", name + "_blocks"));
 
@@ -532,6 +532,10 @@ public class TRContent {
 
 			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block));
 			InitUtils.setup(wallBlock, name + "_storage_block_wall");
+		}
+
+		StorageBlocks() {
+			this(false);
 		}
 
 		@Override
@@ -629,7 +633,7 @@ public class TRContent {
 		ROLLING_MACHINE(new GenericMachineBlock(GuiType.ROLLING_MACHINE, RollingMachineBlockEntity::new)),
 		SCRAPBOXINATOR(new GenericMachineBlock(GuiType.SCRAPBOXINATOR, ScrapboxinatorBlockEntity::new)),
 		VACUUM_FREEZER(new GenericMachineBlock(GuiType.VACUUM_FREEZER, VacuumFreezerBlockEntity::new)),
-		SOLID_CANNING_MACHINE(new GenericMachineBlock(GuiType.SOLID_CANNING_MACHINE, SoildCanningMachineBlockEntity::new)),
+		SOLID_CANNING_MACHINE(new GenericMachineBlock(GuiType.SOLID_CANNING_MACHINE, SolidCanningMachineBlockEntity::new)),
 		WIRE_MILL(new GenericMachineBlock(GuiType.WIRE_MILL, WireMillBlockEntity::new)),
 		GREENHOUSE_CONTROLLER(new GenericMachineBlock(GuiType.GREENHOUSE_CONTROLLER, GreenhouseControllerBlockEntity::new)),
 
@@ -749,7 +753,7 @@ public class TRContent {
 			ore = oreVariant;
 			StorageBlocks blockVariant = null;
 			try {
-				blockVariant = StorageBlocks.valueOf(this.toString());
+				blockVariant = StorageBlocks.valueOf("RAW_" + this.toString());
 			}
 			catch (IllegalArgumentException ex) {
 				TechReborn.LOGGER.warn("Raw metal {} has no storage block equivalent!", name);
@@ -1364,8 +1368,8 @@ public class TRContent {
 				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
 			if (handler != null) {
-				handler.addSpeedMulti(TechRebornConfig.overclockerSpeed);
-				handler.addPowerMulti(TechRebornConfig.overclockerPower);
+				handler.addSpeedMultiplier(TechRebornConfig.overclockerSpeed);
+				handler.addPowerMultiplier(TechRebornConfig.overclockerPower);
 			}
 			if (powerAcceptor != null) {
 				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(null);

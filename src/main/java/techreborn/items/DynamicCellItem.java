@@ -165,7 +165,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	public Text getName(ItemStack itemStack) {
 		Fluid fluid = getFluid(itemStack);
 		if (fluid != Fluids.EMPTY) {
-			//TODO use translation keys for fluid and the cell https://fabric.asie.pl/wiki/tutorial:lang?s[]=translation might be useful
+			// TODO use translation keys for fluid and the cell https://fabric.asie.pl/wiki/tutorial:lang?s[]=translation might be useful
 			return new LiteralText(WordUtils.capitalizeFully(FluidUtils.getFluidName(fluid).replaceAll("_", " ")) + " Cell");
 		}
 		return super.getName(itemStack);

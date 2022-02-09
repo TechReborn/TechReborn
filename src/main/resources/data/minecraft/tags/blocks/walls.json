@@ -1,12 +1,14 @@
 {
   "replace": false,
   "values": [
+	"techreborn:advanced_alloy_storage_block_wall",
 	"techreborn:aluminum_storage_block_wall",
 	"techreborn:brass_storage_block_wall",
 	"techreborn:bronze_storage_block_wall",
 	"techreborn:chrome_storage_block_wall",
 	"techreborn:copper_wall",
 	"techreborn:electrum_storage_block_wall",
+	"techreborn:hot_tungstensteel_storage_block_wall",
 	"techreborn:invar_storage_block_wall",
 	"techreborn:raw_iridium_storage_block_wall",
 	"techreborn:iridium_storage_block_wall",

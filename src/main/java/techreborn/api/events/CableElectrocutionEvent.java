@@ -47,7 +47,7 @@ public interface CableElectrocutionEvent {
 	/**
 	 * Fired before an entity is electrocuted
 	 *
-	 * @return true to electrocute the entity (if not other listeners return false), false to do nothing
+	 * @return {@code boolean} true to electrocute the entity (if not other listeners return false), false to do nothing
 	 */
 	boolean electrocute(LivingEntity livingEntity, TRContent.Cables cableType, BlockPos blockPos, World world, CableBlockEntity cableBlockEntity);
 }

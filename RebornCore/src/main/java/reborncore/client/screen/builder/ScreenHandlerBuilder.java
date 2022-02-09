@@ -76,7 +76,7 @@ public class ScreenHandlerBuilder {
 		this.playerInventoryRanges.add(range);
 	}
 
-	void addBlockEnityInventoryRange(final Range<Integer> range) {
+	void addBlockEntityInventoryRange(final Range<Integer> range) {
 		this.blockEntityInventoryRanges.add(range);
 	}
 

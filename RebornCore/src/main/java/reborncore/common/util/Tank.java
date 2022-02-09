@@ -107,7 +107,7 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 
 	public final Tank read(NbtCompound nbt) {
 		if (nbt.contains(name)) {
-			// allow to read empty tanks
+			// allow reading empty tanks
 			setFluid(Fluids.EMPTY);
 
 			NbtCompound tankData = nbt.getCompound(name);

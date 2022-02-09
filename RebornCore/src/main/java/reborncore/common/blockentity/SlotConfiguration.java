@@ -67,7 +67,7 @@ public class SlotConfiguration implements NBTSerializable {
 				SlotConfigHolder holder = getSlotDetails(i);
 				if (holder == null) {
 					RebornCore.LOGGER.debug("Fixed slot " + i + " in " + machineBase);
-					//humm somthing has gone wrong
+					// hmm, something has gone wrong
 					updateSlotDetails(new SlotConfigHolder(i));
 				}
 			}
@@ -88,8 +88,8 @@ public class SlotConfiguration implements NBTSerializable {
 	/**
 	 * Replaces or adds a slot detail for the slot id
 	 *
-	 * @param slotConfigHolder
-	 * @return SlotConfigHolder
+	 * @param slotConfigHolder {@link SlotConfigHolder}
+	 * @return {@link SlotConfigHolder} Updated SlotConfigHolder
 	 */
 	public SlotConfigHolder updateSlotDetails(SlotConfigHolder slotConfigHolder) {
 		SlotConfigHolder lookup = getSlotDetails(slotConfigHolder.slotID);
@@ -209,7 +209,7 @@ public class SlotConfiguration implements NBTSerializable {
 			this.output = output;
 		}
 
-		public void setfilter(boolean filter) {
+		public void setFilter(boolean filter) {
 			this.filter = filter;
 		}
 
@@ -236,7 +236,7 @@ public class SlotConfiguration implements NBTSerializable {
 			});
 			input = nbt.getBoolean("input");
 			output = nbt.getBoolean("output");
-			if (nbt.contains("filter")) { //Was added later, this allows old saves to be upgraded
+			if (nbt.contains("filter")) { // Was added later, this allows old saves to be upgraded
 				filter = nbt.getBoolean("filter");
 			}
 		}
@@ -367,16 +367,16 @@ public class SlotConfiguration implements NBTSerializable {
 		INPUT(false, true),
 		OUTPUT(true, false);
 
-		boolean extact;
+		boolean extract;
 		boolean insert;
 
-		ExtractConfig(boolean extact, boolean insert) {
-			this.extact = extact;
+		ExtractConfig(boolean extract, boolean insert) {
+			this.extract = extract;
 			this.insert = insert;
 		}
 
-		public boolean isExtact() {
-			return extact;
+		public boolean isExtract() {
+			return extract;
 		}
 
 		public boolean isInsert() {
@@ -404,7 +404,7 @@ public class SlotConfiguration implements NBTSerializable {
 		try {
 			compound = StringNbtReader.parse(json);
 		} catch (CommandSyntaxException e) {
-			throw new UnsupportedOperationException("Clipboard conetents isnt a valid slot configuation");
+			throw new UnsupportedOperationException("Clipboard contents isn't a valid slot configuration");
 		}
 		if (!compound.contains("machine") || !compound.getString("machine").equals(machineIdent)) {
 			throw new UnsupportedOperationException("Machine config is not for this machine.");
@@ -412,7 +412,7 @@ public class SlotConfiguration implements NBTSerializable {
 		read(compound.getCompound("data"));
 	}
 
-	//DO NOT CALL THIS, use the inventory access on the inventory
+	// DO NOT CALL THIS, use the inventory access on the inventory
 	public static boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction, MachineBaseBlockEntity blockEntity) {
 		if(itemStackIn.isEmpty()){
 			return false;
@@ -430,11 +430,11 @@ public class SlotConfiguration implements NBTSerializable {
 		return false;
 	}
 
-	//DO NOT CALL THIS, use the inventory access on the inventory
+	// DO NOT CALL THIS, use the inventory access on the inventory
 	public static boolean canExtractItem(int index, ItemStack stack, Direction direction, MachineBaseBlockEntity blockEntity) {
 		SlotConfiguration.SlotConfigHolder slotConfigHolder = blockEntity.getSlotConfiguration().getSlotDetails(index);
 		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(direction);
-		if (slotConfig.getSlotIO().getIoConfig().isExtact()) {
+		if (slotConfig.getSlotIO().getIoConfig().isExtract()) {
 			return true;
 		}
 		return false;
