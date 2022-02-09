@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:solid_canning_machine",
+  "power": 1,
+  "time": 60,
+  "ingredients": [
+    {
+      "item": "techreborn:cell",
+      "nbt": "helium"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:helium_coolant_cell_60k"
+    }
+  ]
+}
