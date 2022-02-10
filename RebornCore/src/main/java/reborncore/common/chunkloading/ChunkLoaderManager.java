@@ -68,7 +68,7 @@ public class ChunkLoaderManager extends PersistentState {
 	private final List<LoadedChunk> loadedChunks = new ArrayList<>();
 
 	@Override
-	public void fromNbt(NbtCompound tag) {
+	public void fromTag(NbtCompound tag) {
 		loadedChunks.clear();
 
 		List<LoadedChunk> chunks = CODEC.parse(NbtOps.INSTANCE, tag.getCompound("loadedchunks"))

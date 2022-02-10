@@ -132,8 +132,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	// MachineBaseBlockEntity
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound compoundTag) {
-		super.readNbt(blockState, compoundTag);
+	public void fromTag(BlockState blockState, NbtCompound compoundTag) {
+		super.fromTag(blockState, compoundTag);
 		burnTime = compoundTag.getInt("BurnTime");
 		totalBurnTime = compoundTag.getInt("TotalBurnTime");
 		progress = compoundTag.getInt("Progress");

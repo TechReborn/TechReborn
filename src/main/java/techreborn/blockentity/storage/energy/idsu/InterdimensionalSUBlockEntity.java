@@ -96,8 +96,8 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound nbttagcompound) {
-		super.readNbt(blockState, nbttagcompound);
+	public void fromTag(BlockState blockState, NbtCompound nbttagcompound) {
+		super.fromTag(blockState, nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 

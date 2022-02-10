@@ -167,8 +167,8 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void fromTag(BlockState blockState, NbtCompound tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		tank.read(tagCompound);
 	}
 

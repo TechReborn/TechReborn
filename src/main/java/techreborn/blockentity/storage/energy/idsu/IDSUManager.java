@@ -59,7 +59,7 @@ public class IDSUManager extends PersistentState {
 	}
 
 	@Override
-	public void fromNbt(NbtCompound tag) {
+	public void fromTag(NbtCompound tag) {
 		for (String uuid : tag.getKeys()) {
 			playerHashMap.put(uuid, new IDSUPlayer(tag.getCompound(uuid)));
 		}

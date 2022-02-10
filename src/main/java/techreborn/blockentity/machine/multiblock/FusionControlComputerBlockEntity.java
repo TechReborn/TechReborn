@@ -352,8 +352,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, final NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void fromTag(BlockState blockState, final NbtCompound tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");

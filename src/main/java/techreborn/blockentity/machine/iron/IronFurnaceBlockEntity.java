@@ -143,8 +143,8 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound compoundTag) {
-		super.readNbt(blockState, compoundTag);
+	public void fromTag(BlockState blockState, NbtCompound compoundTag) {
+		super.fromTag(blockState, compoundTag);
 		experience = compoundTag.getFloat("Experience");
 	}
 

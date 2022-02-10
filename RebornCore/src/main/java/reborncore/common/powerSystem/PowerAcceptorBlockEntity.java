@@ -330,8 +330,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tag) {
-		super.readNbt(blockState, tag);
+	public void fromTag(BlockState blockState, NbtCompound tag) {
+		super.fromTag(blockState, tag);
 		NbtCompound data = tag.getCompound("PowerAcceptor");
 		if (shouldHandleEnergyNBT()) {
 			this.setStored(data.getDouble("energy"));

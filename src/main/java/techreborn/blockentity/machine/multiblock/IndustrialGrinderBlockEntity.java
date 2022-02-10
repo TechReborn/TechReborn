@@ -93,8 +93,8 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, final NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void fromTag(BlockState blockState, final NbtCompound tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		tank.read(tagCompound);
 	}
 

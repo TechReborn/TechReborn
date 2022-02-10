@@ -411,11 +411,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tag) {
+	public void fromTag(BlockState blockState, NbtCompound tag) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.readNbt(blockState, tag);
+		super.fromTag(blockState, tag);
 	}
 
 	// MachineBaseBlockEntity

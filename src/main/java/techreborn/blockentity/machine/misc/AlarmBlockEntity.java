@@ -75,11 +75,11 @@ public class AlarmBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound compound) {
+	public void fromTag(BlockState blockState, NbtCompound compound) {
 		if (compound != null && compound.contains("selectedSound")) {
 			selectedSound = compound.getInt("selectedSound");
 		}
-		super.readNbt(blockState, compound);
+		super.fromTag(blockState, compound);
 	}
 
 	// Tickable

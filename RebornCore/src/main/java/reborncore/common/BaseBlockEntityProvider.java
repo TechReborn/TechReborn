@@ -63,7 +63,7 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 			BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 			NbtCompound nbt = stack.getTag().getCompound("blockEntity_data");
 			injectLocationData(nbt, pos);
-			blockEntity.readNbt(state, nbt);
+			blockEntity.fromTag(state, nbt);
 			blockEntity.markDirty();
 		}
 	}

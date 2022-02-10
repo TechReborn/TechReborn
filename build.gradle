@@ -12,7 +12,7 @@ plugins {
 	id 'maven-publish'
 	id 'signing'
 	id "org.cadixdev.licenser" version "0.5.0"
-	id "fabric-loom" version "0.8-SNAPSHOT"
+	id "fabric-loom" version "0.10-SNAPSHOT"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
@@ -81,14 +81,14 @@ allprojects {
 
     // Shared deps between TR and RC
     dependencies {
-        minecraft "com.mojang:minecraft:1.17-pre1"
-        mappings "net.fabricmc:yarn:1.17-pre1+build.4:v2"
-        modImplementation "net.fabricmc:fabric-loader:0.11.3"
+        minecraft "com.mojang:minecraft:1.16.5"
+        mappings "net.fabricmc:yarn:1.16.5+build.10:v2"
+        modImplementation "net.fabricmc:fabric-loader:0.13.1"
 
         //Fabric api
-        modImplementation "net.fabricmc.fabric-api:fabric-api:0.34.8+1.17"
+        modImplementation "net.fabricmc.fabric-api:fabric-api:0.42.0+1.16"
 
-        modApi 'teamreborn:energy:0.1.1'
+        include(modApi('teamreborn:energy:0.1.1'))
     }
 
     processResources {
@@ -153,7 +153,7 @@ dependencies {
     api project(":RebornCore")
     include project(":RebornCore")
 
-    optionalDependency "me.shedaniel:RoughlyEnoughItems:5.8.9"
+    optionalDependency "me.shedaniel:RoughlyEnoughItems:5.12.385"
     disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.7')
     optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
 }

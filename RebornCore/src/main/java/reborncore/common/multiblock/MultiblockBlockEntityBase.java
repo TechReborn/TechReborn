@@ -112,8 +112,8 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	// /// Overrides from base BlockEntity methods
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound data) {
-		super.readNbt(blockState, data);
+	public void fromTag(BlockState blockState, NbtCompound data) {
+		super.fromTag(blockState, data);
 
 		// We can't directly initialize a multiblock controller yet, so we cache
 		// the data here until

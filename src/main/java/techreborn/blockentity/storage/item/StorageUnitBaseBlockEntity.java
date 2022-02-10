@@ -285,8 +285,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void fromTag(BlockState blockState, NbtCompound tagCompound) {
+		super.fromTag(blockState, tagCompound);
 
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));

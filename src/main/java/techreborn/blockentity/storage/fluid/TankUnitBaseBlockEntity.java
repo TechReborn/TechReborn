@@ -115,8 +115,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, final NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void fromTag(BlockState blockState, final NbtCompound tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);

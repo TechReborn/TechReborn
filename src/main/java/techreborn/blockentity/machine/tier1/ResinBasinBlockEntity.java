@@ -148,8 +148,8 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void fromTag(BlockState blockState, NbtCompound tagCompound) {
+		super.fromTag(blockState, tagCompound);
 
 		this.isFull = blockState.get(ResinBasinBlock.FULL);
 

@@ -94,8 +94,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 	 */
 	double powerMultiplier = 1;
 
-	public MachineBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn) {
-		super(blockEntityTypeIn);
+	public MachineBaseBlockEntity(BlockEntityType<?> type) {
+		super(type);
 		redstoneConfiguration = new RedstoneConfiguration(this);
 	}
 
@@ -232,8 +232,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tagCompound) {
-		super.readNbt(blockState, tagCompound);
+	public void fromTag(BlockState blockState, NbtCompound tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		if (getOptionalInventory().isPresent()) {
 			getOptionalInventory().get().read(tagCompound);
 		}
@@ -304,11 +304,6 @@ public class MachineBaseBlockEntity extends BlockEntity implements Tickable, IUp
 
 	public Direction getFacing() {
 		return getFacingEnum();
-	}
-
-	@Override
-	public void applyRotation(BlockRotation rotationIn) {
-		setFacing(rotationIn.rotate(getFacing()));
 	}
 
 	@Override

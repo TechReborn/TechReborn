@@ -117,8 +117,8 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tag) {
-		super.readNbt(blockState, tag);
+	public void fromTag(BlockState blockState, NbtCompound tag) {
+		super.fromTag(blockState, tag);
 		owenerUdid = tag.getString("ownerID");
 	}
 

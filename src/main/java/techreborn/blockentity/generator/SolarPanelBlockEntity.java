@@ -264,13 +264,13 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound tag) {
+	public void fromTag(BlockState blockState, NbtCompound tag) {
 		if (world == null) {
 			// We are in BlockEntity.create method during chunk load.
 			this.checkOverfill = false;
 		}
 		updatePanel();
-		super.readNbt(blockState, tag);
+		super.fromTag(blockState, tag);
 	}
 
 	// MachineBaseBlockEntity

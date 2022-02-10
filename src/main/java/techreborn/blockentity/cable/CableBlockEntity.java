@@ -134,8 +134,8 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public void readNbt(BlockState blockState, NbtCompound compound) {
-		super.readNbt(blockState, compound);
+	public void fromTag(BlockState blockState, NbtCompound compound) {
+		super.fromTag(blockState, compound);
 		if (compound.contains("energy")) {
 			energy = compound.getDouble("energy");
 		}
