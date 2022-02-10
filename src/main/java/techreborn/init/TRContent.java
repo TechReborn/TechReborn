@@ -110,6 +110,7 @@ public class TRContent {
 	public static Block REINFORCED_GLASS;
 	public static Block RUBBER_LEAVES;
 	public static Block RUBBER_LOG;
+	public static Tag.Identified<Item> RUBBER_LOGS = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "rubber_logs"));
 	public static Block RUBBER_PLANK_SLAB;
 	public static Block RUBBER_PLANK_STAIR;
 	public static Block RUBBER_PLANKS;
