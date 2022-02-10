@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/netherrack_dust_from_crimson"
+	]
+  },
+  "criteria": {
+	"has_crimson_nylium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:crimson_nylium"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/netherrack_dust_from_crimson"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_crimson_nylium",
+	  "has_the_recipe"
+	]
+  ]
+}

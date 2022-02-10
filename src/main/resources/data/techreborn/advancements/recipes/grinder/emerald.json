@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/emerald"
+	]
+  },
+  "criteria": {
+	"has_emerald_ores": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:emerald_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/emerald"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_emerald_ores",
+	  "has_the_recipe"
+	]
+  ]
+}

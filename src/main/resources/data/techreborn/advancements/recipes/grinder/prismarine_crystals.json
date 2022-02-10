@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/prismarine_crystals"
+	]
+  },
+  "criteria": {
+	"has_prismarine_shard": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:prismarine_shard"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/prismarine_crystals"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_prismarine_shard",
+	  "has_the_recipe"
+	]
+  ]
+}

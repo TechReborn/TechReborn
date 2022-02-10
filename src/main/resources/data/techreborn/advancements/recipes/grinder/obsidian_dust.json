@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/obsidian_dust"
+	]
+  },
+  "criteria": {
+	"has_obsidian": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:obsidian"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/obsidian_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_obsidian",
+	  "has_the_recipe"
+	]
+  ]
+}

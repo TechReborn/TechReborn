@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/bauxite_dust"
+	]
+  },
+  "criteria": {
+	"has_bauxite_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:bauxite_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/bauxite_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_bauxite_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

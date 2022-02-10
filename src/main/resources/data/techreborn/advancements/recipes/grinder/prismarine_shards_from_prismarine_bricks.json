@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/prismarine_shards_from_prismarine_bricks"
+	]
+  },
+  "criteria": {
+	"has_prismarine": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:prismarine"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/prismarine_shards_from_prismarine_bricks"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_prismarine",
+	  "has_the_recipe"
+	]
+  ]
+}

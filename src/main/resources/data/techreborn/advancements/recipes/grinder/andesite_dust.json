@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/andesite_dust"
+	]
+  },
+  "criteria": {
+	"has_andesite": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:andesite"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/andesite_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_andesite",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/sand"
+	]
+  },
+  "criteria": {
+	"has_gravel": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:gravel"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/sand"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_gravel",
+	  "has_the_recipe"
+	]
+  ]
+}

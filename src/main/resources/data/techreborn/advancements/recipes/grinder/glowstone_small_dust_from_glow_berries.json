@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/glowstone_small_dust_from_glow_berries"
+	]
+  },
+  "criteria": {
+	"has_glow_berries": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:glow_berries"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/glowstone_small_dust_from_glow_berries"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_glow_berries",
+	  "has_the_recipe"
+	]
+  ]
+}

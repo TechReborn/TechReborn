@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/galena_dust"
+	]
+  },
+  "criteria": {
+	"has_galena_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:galena_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/galena_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_galena_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/sodalite_dust_from_ore"
+	]
+  },
+  "criteria": {
+	"has_sodalite_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:sodalite_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/sodalite_dust_from_ore"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sodalite_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/netherrack_dust_from_warped"
+	]
+  },
+  "criteria": {
+	"has_warped_nylium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:warped_nylium"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/netherrack_dust_from_warped"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_warped_nylium",
+	  "has_the_recipe"
+	]
+  ]
+}
