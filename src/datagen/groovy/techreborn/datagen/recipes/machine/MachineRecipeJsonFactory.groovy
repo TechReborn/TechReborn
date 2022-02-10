@@ -26,12 +26,8 @@ package techreborn.datagen.recipes.machine
 
 import com.google.gson.JsonObject
 import net.minecraft.advancement.Advancement.Task
-import net.minecraft.advancement.AdvancementRewards
-import net.minecraft.advancement.CriterionMerger
 import net.minecraft.advancement.criterion.CriterionConditions
-import net.minecraft.advancement.criterion.RecipeUnlockedCriterion
 import net.minecraft.data.server.recipe.RecipeJsonProvider
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RecipeSerializer
@@ -41,6 +37,7 @@ import net.minecraft.util.registry.Registry
 import org.jetbrains.annotations.NotNull
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
+import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
 
 import java.util.function.Consumer
@@ -178,8 +175,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		validate()
 		Identifier recipeId = getIdentifier()
 		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
-		// "has the recipe" condition
-		builder.parent(new Identifier("recipes/root")).criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(CriterionMerger.OR)
+		RecipeUtils.addToastDefaults(builder, recipeId)
 		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), advancementId, builder))
 	}
 
