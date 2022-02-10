@@ -4,7 +4,7 @@
   "time": 400,
   "ingredients" : [
     {
-      "item": "minecraft:calcite"
+      "tag": "techreborn:calcite_dust_material"
     }
   ],
   "results" : [
