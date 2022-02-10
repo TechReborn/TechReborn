@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/ancient_debris_with_water"
+	]
+  },
+  "criteria": {
+	"has_ancient_debris": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:ancient_debris"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/ancient_debris_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ancient_debris",
+	  "has_the_recipe"
+	]
+  ]
+}

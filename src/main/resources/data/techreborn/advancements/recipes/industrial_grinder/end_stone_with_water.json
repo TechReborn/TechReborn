@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/end_stone_with_water"
+	]
+  },
+  "criteria": {
+	"has_end_stone": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:end_stone"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/end_stone_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_end_stone",
+	  "has_the_recipe"
+	]
+  ]
+}

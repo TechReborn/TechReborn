@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/iridium_ore_with_water"
+	]
+  },
+  "criteria": {
+	"has_iridium_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:iridium_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/iridium_ore_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iridium_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

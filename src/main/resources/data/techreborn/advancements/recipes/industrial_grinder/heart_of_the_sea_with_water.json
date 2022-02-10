@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/heart_of_the_sea_with_water"
+	]
+  },
+  "criteria": {
+	"has_heart_of_the_sea": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:heart_of_the_sea"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/heart_of_the_sea_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_heart_of_the_sea",
+	  "has_the_recipe"
+	]
+  ]
+}
