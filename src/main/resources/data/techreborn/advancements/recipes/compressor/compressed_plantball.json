@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:compressor/compressed_plantball"
+	]
+  },
+  "criteria": {
+	"has_plantball_material": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "techreborn:plantball_material"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:compressor/compressed_plantball"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_plantball_material",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:compressor/compressed_air_cell"
+	]
+  },
+  "criteria": {
+	"has_cell": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:cell"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:compressor/compressed_air_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_cell",
+	  "has_the_recipe"
+	]
+  ]
+}

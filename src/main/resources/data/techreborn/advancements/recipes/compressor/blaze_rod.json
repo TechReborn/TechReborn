@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:compressor/blaze_rod"
+	]
+  },
+  "criteria": {
+	"has_blaze_powder": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:blaze_powder"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:compressor/blaze_rod"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_blaze_powder",
+	  "has_the_recipe"
+	]
+  ]
+}
