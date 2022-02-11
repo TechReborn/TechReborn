@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/storage_block/iridium_reinforced_stone_storage_block"
+	]
+  },
+  "criteria": {
+	"has_iridium_alloy_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:iridium_alloy_plate"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/storage_block/iridium_reinforced_stone_storage_block"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iridium_alloy_plate",
+	  "has_the_recipe"
+	]
+  ]
+}
