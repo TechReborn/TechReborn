@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
 	"recipes": [
-	  "techreborn:industrial_grinder/cinnebar_ore_with_water"
+	  "techreborn:industrial_grinder/cinnabar_ore_with_water"
 	]
   },
   "criteria": {
-	"has_cinnebar_ore": {
+	"has_cinnabar_ore": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"tag": "c:cinnebar_ores"
+			"tag": "c:cinnabar_ores"
 		  }
 		]
 	  }
@@ -19,13 +19,13 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:industrial_grinder/cinnebar_ore_with_water"
+		"recipe": "techreborn:industrial_grinder/cinnabar_ore_with_water"
 	  }
 	}
   },
   "requirements": [
 	[
-	  "has_cinnebar_ore",
+	  "has_cinnabar_ore",
 	  "has_the_recipe"
 	]
   ]

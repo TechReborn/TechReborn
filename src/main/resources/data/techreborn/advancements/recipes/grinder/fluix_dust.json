@@ -28,5 +28,13 @@
 	  "has_fluix_crystal",
 	  "has_the_recipe"
 	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:all_mods_loaded",
+	  "values": [
+		"ae2"
+	  ]
+	}
   ]
 }

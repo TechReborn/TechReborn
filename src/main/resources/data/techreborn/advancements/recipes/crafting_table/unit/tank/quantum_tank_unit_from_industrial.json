@@ -36,7 +36,7 @@
   "requirements": [
 	[
 	  "has_industrial_tank_unit",
-	  "data_storage_chip",
+	  "has_data_storage_chip",
 	  "has_the_recipe"
 	]
   ]

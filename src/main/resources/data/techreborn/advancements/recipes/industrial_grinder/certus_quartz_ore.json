@@ -28,5 +28,13 @@
 	  "has_certus_quartz_ore",
 	  "has_the_recipe"
 	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:item_tags_populated",
+	  "values": [
+		"c:certus_quartz_ores"
+	  ]
+	}
   ]
 }

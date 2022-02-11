@@ -6,12 +6,12 @@
 	]
   },
   "criteria": {
-	"has_iridium_reinforced_stone_ingot": {
+	"has_iridium_reinforced_stone_block": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"tag": "c:iridium_reinforced_stone_ingots"
+			"tag": "c:iridium_reinforced_stone_blocks"
 		  }
 		]
 	  }
@@ -35,7 +35,7 @@
   },
   "requirements": [
 	[
-	  "has_iridium_reinforced_stone_ingot",
+	  "has_iridium_reinforced_stone_block",
 	  "has_tungstensteel_ingot",
 	  "has_the_recipe"
 	]

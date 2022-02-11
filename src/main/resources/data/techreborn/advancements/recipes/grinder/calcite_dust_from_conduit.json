@@ -6,12 +6,12 @@
 	]
   },
   "criteria": {
-	"has_bone": {
+	"has_conduit": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["minecraft:bone"]
+			"items": ["minecraft:conduit"]
 		  }
 		]
 	  }
