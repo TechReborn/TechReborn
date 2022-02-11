@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/unit/storage/advanced_storage_unit"
+	]
+  },
+  "criteria": {
+	"has_basic_storage_unit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:basic_storage_unit"]
+		  }
+		]
+	  }
+	},
+	"has_digital_display": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:digital_display"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/unit/storage/advanced_storage_unit"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_basic_storage_unit",
+	  "has_digital_display",
+	  "has_the_recipe"
+	]
+  ]
+}
