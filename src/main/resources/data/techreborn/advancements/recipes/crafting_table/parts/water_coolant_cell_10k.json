@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/water_coolant_cell_10k"
+	]
+  },
+  "criteria": {
+	"has_tin_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:tin_ingots"
+		  }
+		]
+	  }
+	},
+	"has_water_bucket": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:water_bucket"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/water_coolant_cell_10k"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_tin_ingot",
+	  "has_water_bucket",
+	  "has_the_recipe"
+	]
+  ]
+}

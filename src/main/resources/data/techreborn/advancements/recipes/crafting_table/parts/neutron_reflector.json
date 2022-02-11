@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/neutron_reflector"
+	]
+  },
+  "criteria": {
+	"has_tin_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:tin_plates"
+		  }
+		]
+	  }
+	},
+	"has_copper_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:copper_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/neutron_reflector"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_tin_plate",
+	  "has_copper_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

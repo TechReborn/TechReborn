@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/superconductor"
+	]
+  },
+  "criteria": {
+	"has_helium_coolant_cell_60k": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:helium_coolant_cell_60k"]
+		  }
+		]
+	  }
+	},
+	"has_energy_flow_chip": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:energy_flow_chip"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/superconductor"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_helium_coolant_cell_60k",
+	  "has_energy_flow_chip",
+	  "has_the_recipe"
+	]
+  ]
+}

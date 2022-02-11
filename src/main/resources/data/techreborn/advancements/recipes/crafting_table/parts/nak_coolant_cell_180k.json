@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/nak_coolant_cell_180k"
+	]
+  },
+  "criteria": {
+	"has_nak_coolant_cell_60k": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:nak_coolant_cell_60k"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/nak_coolant_cell_180k"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_nak_coolant_cell_60k",
+	  "has_the_recipe"
+	]
+  ]
+}

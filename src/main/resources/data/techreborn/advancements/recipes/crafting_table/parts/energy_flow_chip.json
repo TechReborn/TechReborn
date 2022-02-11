@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/energy_flow_chip"
+	]
+  },
+  "criteria": {
+	"has_iridium_alloy_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:iridium_alloy_plates"
+		  }
+		]
+	  }
+	},
+	"has_lapotron_crystal": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lapotron_crystal"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/energy_flow_chip"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iridium_alloy_plate",
+	  "has_lapotron_crystal",
+	  "has_the_recipe"
+	]
+  ]
+}

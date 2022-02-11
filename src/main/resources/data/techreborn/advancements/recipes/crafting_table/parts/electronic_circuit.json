@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/electronic_circuit"
+	]
+  },
+  "criteria": {
+	"has_refined_iron_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:refined_iron_ingots"
+		  }
+		]
+	  }
+	},
+	"has_insulated_copper_cable": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:insulated_copper_cable"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/electronic_circuit"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_refined_iron_ingot",
+	  "has_insulated_copper_cable",
+	  "has_the_recipe"
+	]
+  ]
+}

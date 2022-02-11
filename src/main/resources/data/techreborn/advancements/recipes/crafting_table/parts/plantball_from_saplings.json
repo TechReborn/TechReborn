@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/plantball_from_saplings"
+	]
+  },
+  "criteria": {
+	"has_sapling": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "minecraft:saplings"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/plantball_from_saplings"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sapling",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/data_storage_core"
+	]
+  },
+  "criteria": {
+	"has_peridot_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:peridot_plates"
+		  }
+		]
+	  }
+	},
+	"has_electronic_circuit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:electronic_circuit"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/data_storage_core"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_peridot_plate",
+	  "has_electronic_circuit",
+	  "has_the_recipe"
+	]
+  ]
+}

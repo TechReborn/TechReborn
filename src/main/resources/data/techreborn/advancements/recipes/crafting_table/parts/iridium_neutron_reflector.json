@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/iridium_neutron_reflector"
+	]
+  },
+  "criteria": {
+	"has_iridium_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:iridium_ingots"
+		  }
+		]
+	  }
+	},
+	"has_thick_neutron_reflector": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:thick_neutron_reflector"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/iridium_neutron_reflector"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iridium_ingot",
+	  "has_thick_neutron_reflector",
+	  "has_the_recipe"
+	]
+  ]
+}

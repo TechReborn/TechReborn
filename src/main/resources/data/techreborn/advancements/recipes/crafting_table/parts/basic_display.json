@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/basic_display"
+	]
+  },
+  "criteria": {
+	"has_refined_iron_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:refined_iron_plates"
+		  }
+		]
+	  }
+	},
+	"has_electronic_circuit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:electronic_circuit"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/basic_display"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_refined_iron_plate",
+	  "has_electronic_circuit",
+	  "has_the_recipe"
+	]
+  ]
+}
