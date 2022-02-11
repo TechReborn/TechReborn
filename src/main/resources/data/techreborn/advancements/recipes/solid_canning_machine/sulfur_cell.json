@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:solid_canning_machine/sulfur_cell"
+	]
+  },
+  "criteria": {
+	"has_sulfur_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:sulfur_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:solid_canning_machine/sulfur_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sulfur_dust",
+	  "has_the_recipe"
+	]
+  ]
+}
