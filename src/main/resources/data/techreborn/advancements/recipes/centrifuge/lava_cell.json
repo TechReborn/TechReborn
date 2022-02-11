@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/lava_cell"
+	]
+  },
+  "criteria": {
+	"has_lava": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:lava",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/lava_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_lava",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/deuterium_cell"
+	]
+  },
+  "criteria": {
+	"has_deuterium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:deuterium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/deuterium_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_deuterium",
+	  "has_the_recipe"
+	]
+  ]
+}

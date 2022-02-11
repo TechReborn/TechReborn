@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/helium_cell"
+	]
+  },
+  "criteria": {
+	"has_helium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:helium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/helium_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_helium",
+	  "has_the_recipe"
+	]
+  ]
+}
