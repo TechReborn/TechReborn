@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/battery/red_cell_battery"
+	]
+  },
+  "criteria": {
+	"has_insulated_copper_cable": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:insulated_copper_cable"]
+		  }
+		]
+	  }
+	},
+	"has_lead_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:lead_ingots"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/battery/red_cell_battery"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_insulated_copper_cable",
+	  "has_lead_ingot",
+	  "has_the_recipe"
+	]
+  ]
+}
