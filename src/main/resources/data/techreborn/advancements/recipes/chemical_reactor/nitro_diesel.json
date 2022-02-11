@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/nitro_diesel"
+	]
+  },
+  "criteria": {
+	"has_glyceryl": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:glyceryl",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_diesel": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:diesel",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/nitro_diesel"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_glyceryl",
+	  "has_diesel",
+	  "has_the_recipe"
+	]
+  ]
+}

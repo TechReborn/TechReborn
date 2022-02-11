@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/water"
+	]
+  },
+  "criteria": {
+	"has_compressed_air": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:compressed_air",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_hydrogen": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:hydrogen",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_compressed_air",
+	  "has_hydrogen",
+	  "has_the_recipe"
+	]
+  ]
+}

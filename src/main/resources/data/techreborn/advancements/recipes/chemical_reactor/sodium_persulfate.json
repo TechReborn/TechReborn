@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/sodium_persulfate"
+	]
+  },
+  "criteria": {
+	"has_sodium_sulfide": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:sodium_sulfide",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/sodium_persulfate"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sodium_sulfide",
+	  "has_the_recipe"
+	]
+  ]
+}

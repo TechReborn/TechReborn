@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/nitrogen_dioxide"
+	]
+  },
+  "criteria": {
+	"has_nitrogen": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:nitrogen",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/nitrogen_dioxide"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_nitrogen",
+	  "has_the_recipe"
+	]
+  ]
+}
