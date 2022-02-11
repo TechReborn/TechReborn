@@ -34,15 +34,14 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.util.DefaultedListCollector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	private final RebornRecipeType<?> type;
@@ -60,6 +59,16 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		this.outputs = outputs;
 		this.power = power;
 		this.time = time;
+	}
+
+	@Override
+	public ItemStack createIcon() {
+		Optional<Item> catalyst = Registry.ITEM.getOrEmpty(type.name());
+		if (catalyst.isPresent())
+			return new ItemStack(catalyst.get());
+		else
+			RebornCore.LOGGER.warn("Missing toast icon for {}!", type.name());
+		return Recipe.super.createIcon();
 	}
 
 	@Override
@@ -166,7 +175,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	// Done to try and stop the table from loading it
 	@Override
 	public boolean isIgnoredInRecipeBook() {
-		return true;
+		return false;
 	}
 
 	@Override
