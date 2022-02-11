@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/unit/tank/industrial_tank_unit"
+	]
+  },
+  "criteria": {
+	"has_advanced_tank_unit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_tank_unit"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/unit/tank/industrial_tank_unit"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_tank_unit",
+	  "has_the_recipe"
+	]
+  ]
+}
