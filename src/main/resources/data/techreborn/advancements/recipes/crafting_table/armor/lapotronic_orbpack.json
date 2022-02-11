@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/armor/lapotronic_orbpack"
+	]
+  },
+  "criteria": {
+	"has_lapotronic_orb": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lapotronic_orb"]
+		  }
+		]
+	  }
+	},
+	"has_lithium_ion_batpack": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lithium_ion_batpack"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/armor/lapotronic_orbpack"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_lapotronic_orb",
+	  "has_lithium_ion_batpack",
+	  "has_the_recipe"
+	]
+  ]
+}

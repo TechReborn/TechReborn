@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/armor/lithium_ion_batpack"
+	]
+  },
+  "criteria": {
+	"has_lithium_ion_battery": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lithium_ion_battery"]
+		  }
+		]
+	  }
+	},
+	"has_aluminum_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:aluminum_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/armor/lithium_ion_batpack"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_lithium_ion_battery",
+	  "has_aluminum_plate",
+	  "has_the_recipe"
+	]
+  ]
+}
