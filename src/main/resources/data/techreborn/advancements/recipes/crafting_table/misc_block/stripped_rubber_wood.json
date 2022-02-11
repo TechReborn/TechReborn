@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/misc_block/stripped_rubber_wood"
+	]
+  },
+  "criteria": {
+	"has_rubber_log_stripped": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:rubber_log_stripped"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/misc_block/stripped_rubber_wood"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_rubber_log_stripped",
+	  "has_the_recipe"
+	]
+  ]
+}

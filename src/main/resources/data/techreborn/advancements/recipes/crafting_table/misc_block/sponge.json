@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/misc_block/sponge"
+	]
+  },
+  "criteria": {
+	"has_sponge_piece": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:sponge_piece"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/misc_block/sponge"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sponge_piece",
+	  "has_the_recipe"
+	]
+  ]
+}

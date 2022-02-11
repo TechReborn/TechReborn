@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/misc_block/computer_cube"
+	]
+  },
+  "criteria": {
+	"has_energy_flow_chip": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:energy_flow_chip"]
+		  }
+		]
+	  }
+	},
+	"has_data_storage_chip": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:data_storage_chip"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/misc_block/computer_cube"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_energy_flow_chip",
+	  "has_data_storage_chip",
+	  "has_the_recipe"
+	]
+  ]
+}
