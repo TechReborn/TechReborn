@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/ingot/mixed_metal_ingot_alt"
+	]
+  },
+  "criteria": {
+	"has_brass_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:brass_ingots"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/ingot/mixed_metal_ingot_alt"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_brass_ingot",
+	  "has_the_recipe"
+	]
+  ]
+}
