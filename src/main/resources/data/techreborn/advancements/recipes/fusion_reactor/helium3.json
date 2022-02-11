@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:fusion_reactor/helium3"
+	]
+  },
+  "criteria": {
+	"has_deuterium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:deuterium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_tritium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:tritium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:fusion_reactor/helium3"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_deuterium",
+	  "has_tritium",
+	  "has_the_recipe"
+	]
+  ]
+}
