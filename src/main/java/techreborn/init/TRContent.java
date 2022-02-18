@@ -491,10 +491,38 @@ public class TRContent {
 	public static final Tag.Identified<Item> STORAGE_BLOCK_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "storage_blocks"));
 
 	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
-		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL(true), INVAR, IRIDIUM,
-		IRIDIUM_REINFORCED_STONE, IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RAW_IRIDIUM,
-		RAW_LEAD, RAW_SILVER, RAW_TIN, RAW_TUNGSTEN, RED_GARNET, REFINED_IRON, RUBY, SAPPHIRE, SILVER, STEEL, TIN,
-		TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
+		ADVANCED_ALLOY(false, 5f, 6f),
+		ALUMINUM(),
+		BRASS(),
+		BRONZE(false, 5f, 6f),
+		CHROME(false, 5f, 6f),
+		ELECTRUM(),
+		HOT_TUNGSTENSTEEL(true, 5f, 6f),
+		INVAR(),
+		IRIDIUM(false, 5f, 6f),
+		IRIDIUM_REINFORCED_STONE(false, 30f, 800f),
+		IRIDIUM_REINFORCED_TUNGSTENSTEEL(false, 50f, 1200f),
+		LEAD(),
+		NICKEL(false, 5f, 6f),
+		PERIDOT(false, 5f, 6f),
+		PLATINUM(false, 5f, 6f),
+		RAW_IRIDIUM(false, 2f, 2f),
+		RAW_LEAD(false, 2f, 2f),
+		RAW_SILVER(false, 2f, 2f),
+		RAW_TIN(false, 2f, 2f),
+		RAW_TUNGSTEN(false, 2f, 2f),
+		RED_GARNET(false, 5f, 6f),
+		REFINED_IRON(false, 5f, 6f),
+		RUBY(false, 5f, 6f),
+		SAPPHIRE(false, 5f, 6f),
+		SILVER(false, 5f, 6f),
+		STEEL(false, 5f, 6f),
+		TIN(),
+		TITANIUM(false, 5f, 6f),
+		TUNGSTEN(false, 5f, 6f),
+		TUNGSTENSTEEL(false, 30f, 800f),
+		YELLOW_GARNET(false, 5f, 6f),
+		ZINC(false, 5f, 6f);
 
 		private final String name;
 		private final Block block;
@@ -503,9 +531,9 @@ public class TRContent {
 		private final WallBlock wallBlock;
 		private final Tag.Identified<Item> tag;
 
-		StorageBlocks(boolean isHot) {
+		StorageBlocks(boolean isHot, float hardness, float resistance) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new BlockStorage(isHot);
+			block = new BlockStorage(isHot, hardness, resistance);
 			InitUtils.setup(block, name + "_storage_block");
 			tag = TagFactory.ITEM.create(new Identifier("c", name + "_blocks"));
 
@@ -520,7 +548,7 @@ public class TRContent {
 		}
 
 		StorageBlocks() {
-			this(false);
+			this(false, 3f, 6f);
 		}
 
 		@Override
