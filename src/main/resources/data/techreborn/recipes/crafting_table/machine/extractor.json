@@ -2,8 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "TMT",
-    "TCT",
-    "   "
+    "TCT"
   ],
   "key": {
     "C": {
