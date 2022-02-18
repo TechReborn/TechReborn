@@ -62,7 +62,7 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Dusts.ZINC.asTag())    : TRContent.Ingots.ZINC
 		].each { input, output ->
 			offerSmelting(input, output)
-			offerBlasting(input, output)
+			offerBlasting(input, output, 0.5f, 100)
 		}
 	}
 
