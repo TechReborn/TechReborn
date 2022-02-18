@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:solid_canning_machine",
+  "power": 1,
+  "time": 60,
+  "ingredients": [
+    {
+      "item": "techreborn:cell",
+      "nbt": "water"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:water_coolant_cell_10k",
+	  "count": 2
+    }
+  ]
+}
