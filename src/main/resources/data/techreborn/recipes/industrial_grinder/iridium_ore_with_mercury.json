@@ -13,7 +13,8 @@
   ],
   "results": [
     {
-      "item": "techreborn:iridium_ingot"
+      "item": "techreborn:raw_iridium",
+	  "count" : 2
     },
     {
       "item": "techreborn:platinum_dust"
