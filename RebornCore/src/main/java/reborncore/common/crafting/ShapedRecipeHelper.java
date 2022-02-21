@@ -30,10 +30,14 @@ import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 
 import java.util.Map;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class ShapedRecipeHelper {
 	public static JsonObject rewriteForNetworkSync(JsonObject shapedRecipeJson) {
@@ -49,8 +53,8 @@ public class ShapedRecipeHelper {
 				if (ingredientEntry instanceof Ingredient.StackEntry stackEntry) {
 					entries.add(stackEntry.toJson());
 				} else if (ingredientEntry instanceof Ingredient.TagEntry tagEntry) {
-					final Tag<Item> tag = tagEntry.tag;
-					final Item[] items = tag.values().toArray(new Item[0]);
+					final TagKey<Item> tag = tagEntry.tag;
+					final Item[] items = streamItemsFromTag(tag).toArray(Item[]::new);
 
 					for (Item item : items) {
 						JsonObject jsonObject = new JsonObject();
@@ -68,5 +72,10 @@ public class ShapedRecipeHelper {
 		shapedRecipeJson.remove("key");
 		shapedRecipeJson.add("key", keys);
 		return shapedRecipeJson;
+	}
+
+	private static Stream<Item> streamItemsFromTag(TagKey<Item> tag) {
+		return StreamSupport.stream(Registry.ITEM.iterateEntries(tag).spliterator(), false)
+			.map(RegistryEntry::value);
 	}
 }

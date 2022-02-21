@@ -185,14 +185,14 @@ dependencies {
     api project(path: ":RebornCore", configuration: "namedElements")
     include project(":RebornCore")
 
-    optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:${project.autoswitch_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
-    gametestImplementation 'org.apache.groovy:groovy:4.0.0-rc-2'
-    datagenImplementation 'org.apache.groovy:groovy:4.0.0-rc-2'
+    gametestImplementation 'org.apache.groovy:groovy:4.0.0'
+    datagenImplementation 'org.apache.groovy:groovy:4.0.0'
 
     gametestImplementation ("com.google.truth:truth:1.1.3") {
         exclude module: "guava"

@@ -25,34 +25,34 @@
 package reborncore.common.crafting.ingredient;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.tag.ServerTagManagerHolder;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class TagIngredient extends RebornIngredient {
-	private final Tag.Identified<Item> tag;
+	private final TagKey<Item> tag;
 	private final Optional<Integer> count;
 
-	public TagIngredient(Tag.Identified<Item> tag, Optional<Integer> count) {
+	public TagIngredient(TagKey<Item> tag, Optional<Integer> count) {
 		this.tag = tag;
 		this.count = count;
 	}
 
-	public TagIngredient(Tag.Identified<Item> tag, int count) {
+	public TagIngredient(TagKey<Item> tag, int count) {
 		this(tag, count > 1 ? Optional.of(count) : Optional.empty());
 	}
 
@@ -61,7 +61,8 @@ public class TagIngredient extends RebornIngredient {
 		if (count.isPresent() && count.get() > itemStack.getCount()) {
 			return false;
 		}
-		return tag.contains(itemStack.getItem());
+
+		return itemStack.isIn(tag);
 	}
 
 	@Override
@@ -71,7 +72,7 @@ public class TagIngredient extends RebornIngredient {
 
 	@Override
 	public List<ItemStack> getPreviewStacks() {
-		return tag.values().stream().map(ItemStack::new).peek(itemStack -> itemStack.setCount(count.orElse(1))).collect(Collectors.toList());
+		return streamItems().map(ItemStack::new).peek(itemStack -> itemStack.setCount(count.orElse(1))).collect(Collectors.toList());
 	}
 
 	public static RebornIngredient deserialize(JsonObject json) {
@@ -82,24 +83,21 @@ public class TagIngredient extends RebornIngredient {
 
 		if (json.has("tag_server_sync")) {
 			Identifier tagIdent = new Identifier(JsonHelper.getString(json, "tag_identifier"));
-			List<Item> items = new ArrayList<>();
+			List<ItemStack> items = new ArrayList<>();
 			for (int i = 0; i < JsonHelper.getInt(json, "items"); i++) {
 				Identifier identifier = new Identifier(JsonHelper.getString(json, "item_" + i));
 				Item item = Registry.ITEM.get(identifier);
 				Validate.isTrue(item != Items.AIR, "item cannot be air");
-				items.add(item);
+				items.add(new ItemStack(item));
 			}
-			return new TagIngredient(new SimpleTag<>(items, tagIdent), count);
+
+			return new StackIngredient(items, count, null, false);
 		}
 
 		Identifier identifier = new Identifier(JsonHelper.getString(json, "tag"));
 
-		Tag.Identified<Item> tag = TagFactory.of(() -> ServerTagManagerHolder.getTagManager().getOrCreateTagGroup(Registry.ITEM_KEY)).create(identifier);
-		if (tag == null) {
-			throw new JsonSyntaxException("Unknown item tag '" + identifier + "'");
-		}
-
-		return new TagIngredient(tag, count);
+		TagKey<Item> tagKey = TagKey.of(Registry.ITEM_KEY, identifier);
+		return new TagIngredient(tagKey, count);
 	}
 
 	@Override
@@ -109,7 +107,7 @@ public class TagIngredient extends RebornIngredient {
 		}
 
 		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("tag", tag.getId().toString());
+		jsonObject.addProperty("tag", tag.id().toString());
 		return jsonObject;
 	}
 
@@ -118,15 +116,20 @@ public class TagIngredient extends RebornIngredient {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("tag_server_sync", true);
 
-		Item[] items = tag.values().toArray(new Item[0]);
+		Item[] items = streamItems().toArray(Item[]::new);
 		jsonObject.addProperty("items", items.length);
 		for (int i = 0; i < items.length; i++) {
 			jsonObject.addProperty("item_" + i, Registry.ITEM.getId(items[i]).toString());
 		}
 
 		count.ifPresent(integer -> jsonObject.addProperty("count", integer));
-		jsonObject.addProperty("tag_identifier", tag.getId().toString());
+		jsonObject.addProperty("tag_identifier", tag.id().toString());
 		return jsonObject;
+	}
+
+	private Stream<Item> streamItems() {
+		return StreamSupport.stream(Registry.ITEM.iterateEntries(tag).spliterator(), false)
+			.map(RegistryEntry::value);
 	}
 
 	@Override

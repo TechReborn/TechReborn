@@ -8,7 +8,7 @@ accessible    class    net/minecraft/recipe/Ingredient$Entry
 accessible    class    net/minecraft/recipe/Ingredient$TagEntry
 accessible    class    net/minecraft/recipe/Ingredient$StackEntry
 accessible    field    net/minecraft/recipe/Ingredient    entries    [Lnet/minecraft/recipe/Ingredient$Entry;
-accessible    field    net/minecraft/recipe/Ingredient$TagEntry    tag    Lnet/minecraft/tag/Tag;
+accessible    field    net/minecraft/recipe/Ingredient$TagEntry    tag    Lnet/minecraft/tag/TagKey;
 
 accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen    getSlotAt     (DD)Lnet/minecraft/screen/slot/Slot;
 

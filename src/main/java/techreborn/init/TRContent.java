@@ -26,7 +26,6 @@ package techreborn.init;
 
 import com.google.common.base.Preconditions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -35,9 +34,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
@@ -397,7 +398,7 @@ public class TRContent {
 		}
 	}
 
-	public static final Tag.Identified<Item> ORES_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "ores"));
+	public static final TagKey<Item> ORES_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "ores"));
 
 	private final static Map<Ores, Ores> deepslateMap = new HashMap<>();
 
@@ -437,7 +438,7 @@ public class TRContent {
 		public final String name;
 		public final Block block;
 		public final OreDistribution distribution;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback) {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -449,7 +450,7 @@ public class TRContent {
 					distribution != null ? distribution.experienceDropped : experienceDroppedFallback
 			);
 			InitUtils.setup(block, name + "_ore");
-			tag = TagFactory.ITEM.create(new Identifier("c",
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c",
 					(name.startsWith("deepslate_") ? name.substring(name.indexOf('_')+1): name) + "_ores"));
 			this.distribution = distribution;
 		}
@@ -470,7 +471,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 
@@ -489,7 +490,7 @@ public class TRContent {
 		}
 	}
 
-	public static final Tag.Identified<Item> STORAGE_BLOCK_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "storage_blocks"));
+	public static final TagKey<Item> STORAGE_BLOCK_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "storage_blocks"));
 
 	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY(false, 5f, 6f),
@@ -530,13 +531,13 @@ public class TRContent {
 		private final StairsBlock stairsBlock;
 		private final SlabBlock slabBlock;
 		private final WallBlock wallBlock;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		StorageBlocks(boolean isHot, float hardness, float resistance) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new BlockStorage(isHot, hardness, resistance);
 			InitUtils.setup(block, name + "_storage_block");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_blocks"));
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c", name + "_blocks"));
 
 			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block));
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
@@ -558,7 +559,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 
@@ -704,7 +705,7 @@ public class TRContent {
 		}
 	}
 
-	public static final Tag.Identified<Item> DUSTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "dusts"));
+	public static final TagKey<Item> DUSTS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "dusts"));
 
 	public enum Dusts implements ItemConvertible, TagConvertible<Item> {
 		ALMANDINE, ALUMINUM, AMETHYST, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
@@ -715,13 +716,13 @@ public class TRContent {
 
 		private final String name;
 		private final Item item;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		Dusts() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_dust");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_dusts"));
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c", name + "_dusts"));
 		}
 
 		public ItemStack getStack() {
@@ -738,12 +739,12 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 	}
 
-	public static final Tag.Identified<Item> RAW_METALS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "raw_metals"));
+	public static final TagKey<Item> RAW_METALS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "raw_metals"));
 
 	public enum RawMetals implements ItemConvertible, TagConvertible<Item> {
 		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN;
@@ -751,7 +752,7 @@ public class TRContent {
 		private final String name;
 		private final Item item;
 		private final ItemConvertible storageBlock;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		RawMetals() {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -765,7 +766,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, "raw_" + name);
-			tag = TagFactory.ITEM.create(new Identifier("c", "raw_" + name + "_ores"));
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "raw_" + name + "_ores"));
 		}
 
 		@Override
@@ -774,7 +775,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 
@@ -795,7 +796,7 @@ public class TRContent {
 		}
 	}
 
-	public static final Tag.Identified<Item> SMALL_DUSTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "small_dusts"));
+	public static final TagKey<Item> SMALL_DUSTS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "small_dusts"));
 
 	public enum SmallDusts implements ItemConvertible, TagConvertible<Item> {
 		ALMANDINE, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, CALCITE, CHARCOAL, CHROME,
@@ -808,7 +809,7 @@ public class TRContent {
 		private final String name;
 		private final Item item;
 		private final ItemConvertible dust;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		SmallDusts(ItemConvertible dustVariant) {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -822,7 +823,7 @@ public class TRContent {
 				}
 			dust = dustVariant;
 			InitUtils.setup(item, name + "_small_dust");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_small_dusts"));
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c", name + "_small_dusts"));
 		}
 
 		SmallDusts() {
@@ -843,7 +844,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 
@@ -867,7 +868,7 @@ public class TRContent {
 		}
 	}
 
-	public static final Tag.Identified<Item> GEMS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "gems"));
+	public static final TagKey<Item> GEMS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "gems"));
 
 	public enum Gems implements ItemConvertible, TagConvertible<Item> {
 		PERIDOT, RED_GARNET, RUBY("rubies"), SAPPHIRE("sapphires"), YELLOW_GARNET;
@@ -875,7 +876,7 @@ public class TRContent {
 		private final String name;
 		private final Item item;
 		private final ItemConvertible storageBlock;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		Gems(String tagPlural) {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -889,7 +890,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_gem");
-			tag = TagFactory.ITEM.create(new Identifier("c", tagPlural == null ? name + "_gems" : tagPlural));
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c", tagPlural == null ? name + "_gems" : tagPlural));
 		}
 
 		Gems() {
@@ -910,7 +911,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 
@@ -931,7 +932,7 @@ public class TRContent {
 		}
 	}
 
-	public static final Tag.Identified<Item> INGOTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "ingots"));
+	public static final TagKey<Item> INGOTS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "ingots"));
 
 	public enum Ingots implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
@@ -940,7 +941,7 @@ public class TRContent {
 		private final String name;
 		private final Item item;
 		private final ItemConvertible storageBlock;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		Ingots() {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -954,7 +955,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_ingot");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_ingots"));
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c", name + "_ingots"));
 		}
 
 		public ItemStack getStack() {
@@ -971,7 +972,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 
@@ -992,7 +993,7 @@ public class TRContent {
 		}
 	}
 
-	public static final Tag.Identified<Item> NUGGETS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "nuggets"));
+	public static final TagKey<Item> NUGGETS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "nuggets"));
 
 	public enum Nuggets implements ItemConvertible, TagConvertible<Item> {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER(Items.COPPER_INGOT, false), DIAMOND(Items.DIAMOND, true),
@@ -1003,7 +1004,7 @@ public class TRContent {
 		private final Item item;
 		private final ItemConvertible ingot;
 		private final boolean ofGem;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		Nuggets(ItemConvertible ingotVariant, boolean ofGem) {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -1018,7 +1019,7 @@ public class TRContent {
 			ingot = ingotVariant;
 			this.ofGem = ofGem;
 			InitUtils.setup(item, name + "_nugget");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_nuggets"));
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c", name + "_nuggets"));
 		}
 
 		Nuggets() {
@@ -1039,7 +1040,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 
@@ -1141,7 +1142,7 @@ public class TRContent {
 		}
 	}
 
-	public static final Tag.Identified<Item> PLATES_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "plates"));
+	public static final TagKey<Item> PLATES_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "plates"));
 
 	public enum Plates implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CARBON, CHROME, COAL, COPPER, DIAMOND, ELECTRUM, EMERALD, GOLD, INVAR,
@@ -1151,13 +1152,13 @@ public class TRContent {
 
 		private final String name;
 		private final Item item;
-		private final Tag.Identified<Item> tag;
+		private final TagKey<Item> tag;
 
 		Plates() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_plate");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_plates"));
+			tag = TagKey.of(Registry.ITEM_KEY, new Identifier("c", name + "_plates"));
 		}
 
 		public ItemStack getStack() {
@@ -1174,7 +1175,7 @@ public class TRContent {
 		}
 
 		@Override
-		public Tag.Identified<Item> asTag() {
+		public TagKey<Item> asTag() {
 			return tag;
 		}
 	}

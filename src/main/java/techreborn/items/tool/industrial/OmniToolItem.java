@@ -26,8 +26,7 @@ package techreborn.items.tool.industrial;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
@@ -35,20 +34,21 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
+import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
-import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -58,7 +58,8 @@ import techreborn.utils.InitUtils;
 
 import java.util.List;
 
-public class OmniToolItem extends PickaxeItem implements RcEnergyItem, DynamicAttributeTool {
+public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
+	public static final TagKey<Block> OMNI_TOOL_MINEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "mineable/omni_tool"));
 
 	public final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int cost = TechRebornConfig.omniToolCost;
@@ -67,7 +68,7 @@ public class OmniToolItem extends PickaxeItem implements RcEnergyItem, DynamicAt
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(TRToolMaterials.OMNI_TOOL, 3, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(3, 1, TRToolMaterials.OMNI_TOOL, OMNI_TOOL_MINEABLE, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.miningLevel = MiningLevel.DIAMOND.intLevel;
 	}
 
@@ -168,14 +169,5 @@ public class OmniToolItem extends PickaxeItem implements RcEnergyItem, DynamicAt
 	@Override
 	public RcEnergyTier getTier() {
 		return RcEnergyTier.EXTREME;
-	}
-
-	// DynamicAttributeTool
-	@Override
-	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
-		if (tag.equals(FabricToolTags.PICKAXES) || tag.equals(FabricToolTags.SHOVELS) || tag.equals(FabricToolTags.AXES) || tag.equals(FabricToolTags.SHEARS) || tag.equals(FabricToolTags.SWORDS)) {
-			return miningLevel;
-		}
-		return 0;
 	}
 }

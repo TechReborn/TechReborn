@@ -26,7 +26,7 @@ package reborncore.common.misc;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 
 /**
  * Tells if an item, block etc. has a tag solely for compatibility with other mods.
@@ -41,6 +41,6 @@ public interface TagConvertible<T> {
 	 *
 	 * @return the common tag of this object
 	 */
-	Tag.Identified<T> asTag();
+	TagKey<T> asTag();
 
 }

@@ -29,7 +29,7 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RecipeSerializer
-import net.minecraft.tag.Tag
+import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 import reborncore.common.crafting.RebornRecipe
@@ -68,7 +68,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				ingredient {
 					item object
 				}
-			} else if (object instanceof Tag.Identified) {
+			} else if (object instanceof TagKey) {
 				ingredient {
 					tag object
 				}

@@ -25,7 +25,7 @@
 package techreborn.datagen.recipes.smelting
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.minecraft.data.server.recipe.CookingRecipeJsonFactory
+import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
 import net.minecraft.recipe.CookingRecipeSerializer
@@ -75,7 +75,7 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def offerCookingRecipe(def input, ItemConvertible output, float experience, int cookingTime, CookingRecipeSerializer<?> serializer, String prefix = "") {
-		CookingRecipeJsonFactory.create(createIngredient(input), output, experience, cookingTime, serializer)
+		CookingRecipeJsonBuilder.create(createIngredient(input), output, experience, cookingTime, serializer)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 				.offerTo(this.exporter, prefix + getInputPath(output) + "_from_" + getInputPath(input))
 	}

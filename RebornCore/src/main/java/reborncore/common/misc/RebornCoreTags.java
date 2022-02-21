@@ -24,11 +24,11 @@
 
 package reborncore.common.misc;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.item.Item;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class RebornCoreTags {
-	public static final Tag.Identified<Item> WATER_EXPLOSION_ITEM = TagFactory.ITEM.create(new Identifier("reborncore", "water_explosion"));
+	public static final TagKey<Item> WATER_EXPLOSION_ITEM = TagKey.of(Registry.ITEM_KEY, new Identifier("reborncore", "water_explosion"));
 }

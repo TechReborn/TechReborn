@@ -27,13 +27,13 @@ package techreborn.datagen.recipes.machine
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
-import net.minecraft.tag.Tag
+import net.minecraft.tag.TagKey
 import reborncore.common.crafting.ingredient.RebornIngredient
 import reborncore.common.crafting.ingredient.StackIngredient
 import reborncore.common.crafting.ingredient.TagIngredient
 
 class IngredientBuilder {
-	private Tag.Identified<Item> tag
+	private TagKey<Item> tag
 	private List<ItemStack> stacks = new ArrayList<>()
 
 	private IngredientBuilder() {
@@ -59,7 +59,7 @@ class IngredientBuilder {
 		throw new IllegalStateException()
 	}
 
-	def tag(Tag.Identified<Item> tag) {
+	def tag(TagKey<Item> tag) {
 		this.tag = tag
 		return this
 	}
