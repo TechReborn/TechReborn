@@ -91,7 +91,7 @@ public class TagIngredient extends RebornIngredient {
 				items.add(new ItemStack(item));
 			}
 
-			return new StackIngredient(items, count, null, false);
+			return new StackIngredient(items, count, Optional.empty(), false);
 		}
 
 		Identifier identifier = new Identifier(JsonHelper.getString(json, "tag"));

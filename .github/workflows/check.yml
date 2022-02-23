@@ -2,9 +2,12 @@ name: Check
 on: [push, pull_request]
 jobs:
   build:
+    strategy:
+      matrix:
+        java: [ 17-jdk, 18-jdk ]
     runs-on: ubuntu-20.04
     container:
-      image: eclipse-temurin:17-jdk
+      image: eclipse-temurin:${{ matrix.java }}
       options: --user root
     steps:
       - uses: actions/checkout@v2

@@ -38,10 +38,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -55,14 +55,10 @@ public class StackIngredient extends RebornIngredient {
 
 	public StackIngredient(List<ItemStack> stacks, Optional<Integer> count, Optional<NbtCompound> nbt, boolean requireEmptyNbt) {
 		this.stacks = stacks;
-		this.count = count;
-		this.nbt = nbt;
+		this.count = Objects.requireNonNull(count);
+		this.nbt = Objects.requireNonNull(nbt);
 		this.requireEmptyNbt = requireEmptyNbt;
-		Validate.isTrue(stacks.size() == 1, "stack size must 1");
-	}
-
-	public StackIngredient(List<ItemStack> stacks, int count, @Nullable NbtCompound nbt, boolean requireEmptyNbt) {
-		this(stacks, count > 1 ? Optional.of(count) : Optional.empty(), Optional.ofNullable(nbt), requireEmptyNbt);
+		Validate.isTrue(!stacks.isEmpty(), "ingredient stacks must not empty");
 	}
 
 	public static RebornIngredient deserialize(JsonObject json) {
