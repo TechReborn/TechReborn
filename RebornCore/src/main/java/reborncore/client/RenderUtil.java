@@ -91,12 +91,15 @@ public class RenderUtil {
 		int renderAmount = (int) Math.max(Math.min(height, amount.getRawValue() * height / capacity.getRawValue()), 1);
 		int posY = (int) (y + height - renderAmount);
 
-		RenderUtil.bindBlockTexture();
-		int color = 0;
-		// FIXME 1.17 what is the input range of the shader? 255.0F or 1.0F?
-		RenderSystem.setShaderColor((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF), 1.0F);
+		bindBlockTexture();
+		int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid.getFluid()).getFluidColor(null, null, fluid.getFluid().getDefaultState());
+		float r = (float) (color >> 16 & 0xFF) / 255.0F;
+		float g = (float) (color >> 8 & 0xFF) / 255.0F;
+		float b = (float) (color & 0xFF) / 255.0F;
+		RenderSystem.setShaderColor(r, g, b, 1.0F);
 
 		RenderSystem.enableBlend();
+		RenderLayer.getTranslucent().startDrawing();
 		for (int i = 0; i < width; i += 16) {
 			for (int j = 0; j < renderAmount; j += 16) {
 				int drawWidth = (int) Math.min(width - i, 16);
@@ -112,16 +115,35 @@ public class RenderUtil {
 
 				Tessellator tessellator = Tessellator.getInstance();
 				BufferBuilder tes = tessellator.getBuffer();
-				tes.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
-				tes.vertex(drawX, drawY + drawHeight, 0).texture(minU, minV + (maxV - minV) * drawHeight / 16F).next();
+				tes.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL);
+				tes.vertex(drawX, drawY + drawHeight, 0)
+					.color(r, g, b, 1.0F)
+					.texture(minU, minV + (maxV - minV) * drawHeight / 16F)
+					.light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+					.normal(0, 1, 0)
+					.next();
 				tes.vertex(drawX + drawWidth, drawY + drawHeight, 0)
-						.texture(minU + (maxU - minU) * drawWidth / 16F, minV + (maxV - minV) * drawHeight / 16F)
-						.next();
-				tes.vertex(drawX + drawWidth, drawY, 0).texture(minU + (maxU - minU) * drawWidth / 16F, minV).next();
-				tes.vertex(drawX, drawY, 0).texture(minU, minV).next();
+					.color(r, g, b, 1.0F)
+					.texture(minU + (maxU - minU) * drawWidth / 16F, minV + (maxV - minV) * drawHeight / 16F)
+					.light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+					.normal(0, 1, 0)
+					.next();
+				tes.vertex(drawX + drawWidth, drawY, 0)
+					.color(r, g, b, 1.0F)
+					.texture(minU + (maxU - minU) * drawWidth / 16F, minV)
+					.light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+					.normal(0, 1, 0)
+					.next();
+				tes.vertex(drawX, drawY, 0)
+					.color(r, g, b, 1.0F)
+					.texture(minU, minV)
+					.light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+					.normal(0, 1, 0)
+					.next();
 				tessellator.draw();
 			}
 		}
+		RenderLayer.getTranslucent().endDrawing();
 		RenderSystem.disableBlend();
 	}
 
