@@ -8,6 +8,15 @@
 	"techreborn:sodalite_ore",
 	"techreborn:deepslate_sodalite_ore",
 	"techreborn:tungsten_ore",
-	"techreborn:deepslate_tungsten_ore"
+	"techreborn:deepslate_tungsten_ore",
+    "techreborn:hot_tungstensteel_storage_block",
+    "techreborn:iridium_storage_block",
+    "techreborn:iridium_reinforced_stone_storage_block",
+    "techreborn:iridium_reinforced_tungstensteel_storage_block",
+    "techreborn:raw_iridium_storage_block",
+    "techreborn:raw_tungsten_storage_block",
+    "techreborn:titanium_storage_block",
+    "techreborn:tungsten_storage_block",
+    "techreborn:tungstensteel_storage_block"
   ]
 }
