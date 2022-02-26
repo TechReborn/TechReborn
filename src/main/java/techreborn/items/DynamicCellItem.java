@@ -51,6 +51,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
@@ -166,7 +167,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		Fluid fluid = getFluid(itemStack);
 		if (fluid != Fluids.EMPTY) {
 			// TODO use translation keys for fluid and the cell https://fabric.asie.pl/wiki/tutorial:lang?s[]=translation might be useful
-			return new LiteralText(WordUtils.capitalizeFully(FluidUtils.getFluidName(fluid).replaceAll("_", " ")) + " Cell");
+			return new LiteralText(new TranslatableText("item.techreborn.cell.fluid").getString().replace("$fluid$", FluidUtils.getFluidName(fluid)));
 		}
 		return super.getName(itemStack);
 	}

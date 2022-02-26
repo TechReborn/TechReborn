@@ -41,6 +41,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.StringUtils;
@@ -183,6 +184,6 @@ public class FluidUtils {
 	}
 
 	public static String getFluidName(@NotNull Fluid fluid) {
-		return StringUtils.capitalize(Registry.FLUID.getId(fluid).getPath());
+		return new TranslatableText(fluid.getDefaultState().getBlockState().getBlock().getTranslationKey()).getString();
 	}
 }
