@@ -2,8 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "DLD",
-    "S S",
-    "   "
+    "S S"
   ],
   "key": {
     "S": {

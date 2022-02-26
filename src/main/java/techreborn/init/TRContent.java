@@ -451,7 +451,8 @@ public class TRContent {
 			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
 					.requiresTool()
 					.sounds(name.startsWith("deepslate") ? BlockSoundGroup.DEEPSLATE : BlockSoundGroup.STONE)
-					.strength(2f, 2f),
+					.hardness(name.startsWith("deepslate") ? 4.5f : 3f)
+					.resistance(3f),
 					distribution != null ? distribution.experienceDropped : experienceDroppedFallback
 			);
 			this.industrial = industrial;
@@ -508,13 +509,47 @@ public class TRContent {
 		}
 	}
 
+	/**
+	 * The base tag name for chrome items. "chromium" is proper spelling, but changing the enum constant names or
+	 * directly registry names will result in item loss upon updating. Hence, only the base tag is changed, where needed.
+	 */
+	public static final String CHROME_TAG_NAME_BASE = "chromium";
+
 	public static final Tag.Identified<Item> STORAGE_BLOCK_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "storage_blocks"));
 
 	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
-		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL(true), INVAR, IRIDIUM,
-		IRIDIUM_REINFORCED_STONE, IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, PERIDOT, PLATINUM, RAW_IRIDIUM,
-		RAW_LEAD, RAW_SILVER, RAW_TIN, RAW_TUNGSTEN, RED_GARNET, REFINED_IRON, RUBY, SAPPHIRE, SILVER, STEEL, TIN,
-		TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
+		ADVANCED_ALLOY(5f, 6f),
+		ALUMINUM(),
+		BRASS(),
+		BRONZE(5f, 6f),
+		CHROME(false, 5f, 6f, CHROME_TAG_NAME_BASE),
+		ELECTRUM(),
+		HOT_TUNGSTENSTEEL(true, 5f, 6f),
+		INVAR(),
+		IRIDIUM(5f, 6f),
+		IRIDIUM_REINFORCED_STONE(30f, 800f),
+		IRIDIUM_REINFORCED_TUNGSTENSTEEL(50f, 1200f),
+		LEAD(),
+		NICKEL(5f, 6f),
+		PERIDOT(5f, 6f),
+		PLATINUM(5f, 6f),
+		RAW_IRIDIUM(2f, 2f),
+		RAW_LEAD(2f, 2f),
+		RAW_SILVER(2f, 2f),
+		RAW_TIN(2f, 2f),
+		RAW_TUNGSTEN(2f, 2f),
+		RED_GARNET(5f, 6f),
+		REFINED_IRON(5f, 6f),
+		RUBY(5f, 6f),
+		SAPPHIRE(5f, 6f),
+		SILVER(5f, 6f),
+		STEEL(5f, 6f),
+		TIN(),
+		TITANIUM(5f, 6f),
+		TUNGSTEN(5f, 6f),
+		TUNGSTENSTEEL(30f, 800f),
+		YELLOW_GARNET(5f, 6f),
+		ZINC(5f, 6f);
 
 		private final String name;
 		private final Block block;
@@ -523,11 +558,11 @@ public class TRContent {
 		private final WallBlock wallBlock;
 		private final Tag.Identified<Item> tag;
 
-		StorageBlocks(boolean isHot) {
+		StorageBlocks(boolean isHot, float hardness, float resistance, String tagNameBase) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new BlockStorage(isHot);
+			block = new BlockStorage(isHot, hardness, resistance);
 			InitUtils.setup(block, name + "_storage_block");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_blocks"));
+			tag = TagFactory.ITEM.create(new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_blocks"));
 
 			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block));
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
@@ -539,8 +574,16 @@ public class TRContent {
 			InitUtils.setup(wallBlock, name + "_storage_block_wall");
 		}
 
+		StorageBlocks(boolean isHot, float hardness, float resistance) {
+			this(isHot, hardness, resistance, null);
+		}
+
+		StorageBlocks(float hardness, float resistance) {
+			this(false, hardness, resistance, null);
+		}
+
 		StorageBlocks() {
-			this(false);
+			this(false, 3f, 6f);
 		}
 
 		@Override
@@ -698,7 +741,7 @@ public class TRContent {
 	public static final Tag.Identified<Item> DUSTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "dusts"));
 
 	public enum Dusts implements ItemConvertible, TagConvertible<Item> {
-		ALMANDINE, ALUMINUM, AMETHYST, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
+		ALMANDINE, ALUMINUM, AMETHYST, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME(CHROME_TAG_NAME_BASE),
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
 		NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, RED_GARNET, RUBY, SALTPETER,
@@ -708,11 +751,15 @@ public class TRContent {
 		private final Item item;
 		private final Tag.Identified<Item> tag;
 
-		Dusts() {
+		Dusts(String tagNameBase) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_dust");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_dusts"));
+			tag = TagFactory.ITEM.create(new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_dusts"));
+		}
+
+		Dusts() {
+			this(null);
 		}
 
 		public ItemStack getStack() {
@@ -814,7 +861,7 @@ public class TRContent {
 	public static final Tag.Identified<Item> SMALL_DUSTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "small_dusts"));
 
 	public enum SmallDusts implements ItemConvertible, TagConvertible<Item> {
-		ALMANDINE, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, CALCITE, CHARCOAL, CHROME,
+		ALMANDINE, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, CALCITE, CHARCOAL, CHROME(CHROME_TAG_NAME_BASE),
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GLOWSTONE(Items.GLOWSTONE_DUST), GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE,
 		NETHERRACK, NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, REDSTONE(Items.REDSTONE),
@@ -826,7 +873,7 @@ public class TRContent {
 		private final ItemConvertible dust;
 		private final Tag.Identified<Item> tag;
 
-		SmallDusts(ItemConvertible dustVariant) {
+		SmallDusts(String tagNameBase, ItemConvertible dustVariant) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			if (dustVariant == null)
@@ -838,11 +885,19 @@ public class TRContent {
 				}
 			dust = dustVariant;
 			InitUtils.setup(item, name + "_small_dust");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_small_dusts"));
+			tag = TagFactory.ITEM.create(new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_small_dusts"));
+		}
+
+		SmallDusts(String tagNameBase) {
+			this(tagNameBase, null);
+		}
+
+		SmallDusts(ItemConvertible dustVariant) {
+			this(null, dustVariant);
 		}
 
 		SmallDusts() {
-			this(null);
+			this(null, null);
 		}
 
 		public ItemStack getStack() {
@@ -988,7 +1043,7 @@ public class TRContent {
 	public static final Tag.Identified<Item> INGOTS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "ingots"));
 
 	public enum Ingots implements ItemConvertible, TagConvertible<Item> {
-		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
+		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME(CHROME_TAG_NAME_BASE), ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
 		private final String name;
@@ -997,7 +1052,7 @@ public class TRContent {
 		private final StorageBlocks storageBlock;
 		private final Tag.Identified<Item> tag;
 
-		Ingots() {
+		Ingots(String tagNameBase) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			Dusts dustVariant = null;
@@ -1023,7 +1078,11 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_ingot");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_ingots"));
+			tag = TagFactory.ITEM.create(new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_ingots"));
+		}
+
+		Ingots() {
+			this(null);
 		}
 
 		public ItemStack getStack() {
@@ -1080,7 +1139,7 @@ public class TRContent {
 	public static final Tag.Identified<Item> NUGGETS_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "nuggets"));
 
 	public enum Nuggets implements ItemConvertible, TagConvertible<Item> {
-		ALUMINUM, BRASS, BRONZE, CHROME, COPPER(Items.COPPER_INGOT, false), DIAMOND(Items.DIAMOND, true),
+		ALUMINUM, BRASS, BRONZE, CHROME(CHROME_TAG_NAME_BASE), COPPER(Items.COPPER_INGOT, false), DIAMOND(Items.DIAMOND, true),
 		ELECTRUM, EMERALD(Items.EMERALD, true), HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD, NICKEL,
 		PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
@@ -1090,7 +1149,7 @@ public class TRContent {
 		private final boolean ofGem;
 		private final Tag.Identified<Item> tag;
 
-		Nuggets(ItemConvertible ingotVariant, boolean ofGem) {
+		Nuggets(String tagNameBase, ItemConvertible ingotVariant, boolean ofGem) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			if (ingotVariant == null)
@@ -1103,7 +1162,15 @@ public class TRContent {
 			ingot = ingotVariant;
 			this.ofGem = ofGem;
 			InitUtils.setup(item, name + "_nugget");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_nuggets"));
+			tag = TagFactory.ITEM.create(new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_nuggets"));
+		}
+
+		Nuggets(ItemConvertible ingotVariant, boolean ofGem) {
+			this(null, ingotVariant, ofGem);
+		}
+
+		Nuggets(String tagNameBase) {
+			this(tagNameBase, null, false);
 		}
 
 		Nuggets() {
@@ -1234,7 +1301,7 @@ public class TRContent {
 		BRASS,
 		BRONZE,
 		CARBON(Parts.CARBON_MESH),
-		CHROME,
+		CHROME(CHROME_TAG_NAME_BASE),
 		COAL(Dusts.COAL, Items.COAL_BLOCK),
 		COPPER(Items.COPPER_INGOT, Items.COPPER_BLOCK),
 		DIAMOND(Dusts.DIAMOND, Items.DIAMOND_BLOCK),
@@ -1277,7 +1344,7 @@ public class TRContent {
 		private final boolean industrial;
 		private final Tag.Identified<Item> tag;
 
-		Plates(ItemConvertible source, ItemConvertible sourceBlock, boolean industrial) {
+		Plates(ItemConvertible source, ItemConvertible sourceBlock, boolean industrial, String tagNameBase) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			ItemConvertible sourceVariant = null;
@@ -1316,7 +1383,11 @@ public class TRContent {
 				this.source = sourceVariant;
 			this.industrial = industrial;
 			InitUtils.setup(item, name + "_plate");
-			tag = TagFactory.ITEM.create(new Identifier("c", name + "_plates"));
+			tag = TagFactory.ITEM.create(new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_plates"));
+		}
+
+		Plates(String tagNameBase) {
+			this(null, null, false);
 		}
 
 		Plates(ItemConvertible source, ItemConvertible sourceBlock) {
@@ -1332,7 +1403,7 @@ public class TRContent {
 		}
 
 		Plates() {
-			this(null);
+			this(null, null, false);
 		}
 
 		public ItemStack getStack() {

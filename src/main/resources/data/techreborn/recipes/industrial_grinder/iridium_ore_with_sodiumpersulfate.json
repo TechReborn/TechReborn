@@ -3,7 +3,7 @@
 	"power": 64,
 	"time": 100,
 	"tank": {
-		"fluid": "techreborn:mercury",
+		"fluid": "techreborn:sodium_persulfate",
 		"amount": 1000
 	},
 	"ingredients": [
@@ -13,12 +13,10 @@
 	],
 	"results": [
 		{
-			"item": "techreborn:raw_iridium",
-			"count": 2
+			"item": "techreborn:raw_iridium"
 		},
 		{
-			"item": "techreborn:platinum_small_dust",
-			"count": 2
+			"item": "techreborn:platinum_dust"
 		}
 	]
 }

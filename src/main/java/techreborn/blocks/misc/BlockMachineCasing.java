@@ -39,7 +39,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	public final int heatCapacity;
 
 	public BlockMachineCasing(int heatCapacity) {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL));
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).requiresTool());
 		this.heatCapacity = heatCapacity;
 	}
 
@@ -56,5 +56,4 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new MachineCasingBlockEntity(pos, state);
 	}
-
 }
