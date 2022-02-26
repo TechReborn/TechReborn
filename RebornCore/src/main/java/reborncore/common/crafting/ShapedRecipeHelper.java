@@ -56,6 +56,10 @@ public class ShapedRecipeHelper {
 					final TagKey<Item> tag = tagEntry.tag;
 					final Item[] items = streamItemsFromTag(tag).toArray(Item[]::new);
 
+					if (items.length == 0) {
+						throw new IllegalStateException("No items in %s tag".formatted(tag.id()));
+					}
+
 					for (Item item : items) {
 						JsonObject jsonObject = new JsonObject();
 						jsonObject.addProperty("item", Registry.ITEM.getId(item).toString());
@@ -64,6 +68,10 @@ public class ShapedRecipeHelper {
 				} else {
 					throw new UnsupportedOperationException("Cannot write " + ingredientEntry.getClass());
 				}
+			}
+
+			if (entries.size() == 0) {
+				throw new IllegalStateException("Cannot write no entries");
 			}
 
 			keys.add(entry.getKey(), entries);

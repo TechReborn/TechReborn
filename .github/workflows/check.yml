@@ -12,7 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: gradle/wrapper-validation-action@v1
-      - run: ./gradlew build --stacktrace
+      - run: ./gradlew runDatagen --stacktrace
+      - run: ./gradlew build --stacktrace -x runDatagen
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
