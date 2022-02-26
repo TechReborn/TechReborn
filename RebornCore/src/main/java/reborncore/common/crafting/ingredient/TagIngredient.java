@@ -52,10 +52,6 @@ public class TagIngredient extends RebornIngredient {
 		this.count = count;
 	}
 
-	public TagIngredient(TagKey<Item> tag, int count) {
-		this(tag, count > 1 ? Optional.of(count) : Optional.empty());
-	}
-
 	@Override
 	public boolean test(ItemStack itemStack) {
 		if (count.isPresent() && count.get() > itemStack.getCount()) {
@@ -83,15 +79,15 @@ public class TagIngredient extends RebornIngredient {
 
 		if (json.has("tag_server_sync")) {
 			Identifier tagIdent = new Identifier(JsonHelper.getString(json, "tag_identifier"));
-			List<ItemStack> items = new ArrayList<>();
+			List<Item> items = new ArrayList<>();
 			for (int i = 0; i < JsonHelper.getInt(json, "items"); i++) {
 				Identifier identifier = new Identifier(JsonHelper.getString(json, "item_" + i));
 				Item item = Registry.ITEM.get(identifier);
 				Validate.isTrue(item != Items.AIR, "item cannot be air");
-				items.add(new ItemStack(item));
+				items.add(item);
 			}
 
-			return new StackIngredient(items, count, Optional.empty(), false);
+			return new Synced(TagKey.of(Registry.ITEM_KEY, tagIdent), count, items);
 		}
 
 		Identifier identifier = new Identifier(JsonHelper.getString(json, "tag"));
@@ -127,9 +123,28 @@ public class TagIngredient extends RebornIngredient {
 		return jsonObject;
 	}
 
-	private Stream<Item> streamItems() {
+	protected Stream<Item> streamItems() {
 		return StreamSupport.stream(Registry.ITEM.iterateEntries(tag).spliterator(), false)
 			.map(RegistryEntry::value);
+	}
+
+	private static class Synced extends TagIngredient {
+		private final List<Item> items;
+
+		public Synced(TagKey<Item> tag, Optional<Integer> count, List<Item> items) {
+			super(tag, count);
+			this.items = items;
+		}
+
+		@Override
+		public boolean test(ItemStack itemStack) {
+			return items.contains(itemStack.getItem());
+		}
+
+		@Override
+		protected Stream<Item> streamItems() {
+			return items.stream();
+		}
 	}
 
 	@Override

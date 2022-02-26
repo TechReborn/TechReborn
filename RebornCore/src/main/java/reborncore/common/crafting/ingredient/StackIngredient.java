@@ -43,22 +43,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class StackIngredient extends RebornIngredient {
 
-	private final List<ItemStack> stacks;
+	private final ItemStack stack;
 
 	private final Optional<Integer> count;
 	private final Optional<NbtCompound> nbt;
 	private final boolean requireEmptyNbt;
 
-	public StackIngredient(List<ItemStack> stacks, Optional<Integer> count, Optional<NbtCompound> nbt, boolean requireEmptyNbt) {
-		this.stacks = stacks;
+	public StackIngredient(ItemStack stack, Optional<Integer> count, Optional<NbtCompound> nbt, boolean requireEmptyNbt) {
+		this.stack = stack;
 		this.count = Objects.requireNonNull(count);
 		this.nbt = Objects.requireNonNull(nbt);
 		this.requireEmptyNbt = requireEmptyNbt;
-		Validate.isTrue(!stacks.isEmpty(), "ingredient stacks must not empty");
+		Validate.isTrue(!stack.isEmpty(), "ingredient must not empty");
 	}
 
 	public static RebornIngredient deserialize(JsonObject json) {
@@ -83,7 +82,7 @@ public class StackIngredient extends RebornIngredient {
 			}
 		}
 
-		return new StackIngredient(Collections.singletonList(new ItemStack(item)), stackSize, tag, requireEmptyTag);
+		return new StackIngredient(new ItemStack(item), stackSize, tag, requireEmptyTag);
 	}
 
 
@@ -92,12 +91,15 @@ public class StackIngredient extends RebornIngredient {
 		if (itemStack.isEmpty()) {
 			return false;
 		}
-		if (stacks.stream().noneMatch(recipeStack -> recipeStack.getItem() == itemStack.getItem())) {
+
+		if (stack.getItem() != itemStack.getItem()) {
 			return false;
 		}
+
 		if (count.isPresent() && count.get() > itemStack.getCount()) {
 			return false;
 		}
+
 		if (nbt.isPresent()) {
 			if (!itemStack.hasNbt()) {
 				return false;
@@ -114,6 +116,7 @@ public class StackIngredient extends RebornIngredient {
 				return false;
 			}
 		}
+
 		return !requireEmptyNbt || !itemStack.hasNbt();
 	}
 
@@ -124,19 +127,17 @@ public class StackIngredient extends RebornIngredient {
 
 	@Override
 	public List<ItemStack> getPreviewStacks() {
-		return Collections.unmodifiableList(
-				stacks.stream()
-						.map(ItemStack::copy)
-						.peek(itemStack -> itemStack.setCount(count.orElse(1)))
-						.peek(itemStack -> itemStack.setNbt(nbt.orElse(null)))
-						.collect(Collectors.toList()));
+		ItemStack copy = stack.copy();
+		copy.setCount(count.orElse(1));
+		copy.setNbt(nbt.orElse(null));
+		return Collections.singletonList(copy);
 	}
 
 	@Override
 	public JsonObject toJson(boolean networkSync) {
 		JsonObject jsonObject = new JsonObject();
 
-		jsonObject.addProperty("item", Registry.ITEM.getId(stacks.get(0).getItem()).toString());
+		jsonObject.addProperty("item", Registry.ITEM.getId(stack.getItem()).toString());
 		count.ifPresent(integer -> jsonObject.addProperty("count", integer));
 
 		if (requireEmptyNbt) {

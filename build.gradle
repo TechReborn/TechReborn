@@ -196,6 +196,7 @@ dependencies {
 
     gametestImplementation ("com.google.truth:truth:1.1.3") {
         exclude module: "guava"
+        exclude module: "asm"
     }
 }
 
