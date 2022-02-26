@@ -498,38 +498,38 @@ public class TRContent {
 	public static final Tag.Identified<Item> STORAGE_BLOCK_TAG = TagFactory.ITEM.create(new Identifier(TechReborn.MOD_ID, "storage_blocks"));
 
 	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
-		ADVANCED_ALLOY(false, 5f, 6f),
+		ADVANCED_ALLOY(5f, 6f),
 		ALUMINUM(),
 		BRASS(),
-		BRONZE(false, 5f, 6f),
+		BRONZE(5f, 6f),
 		CHROME(false, 5f, 6f, CHROME_TAG_NAME_BASE),
 		ELECTRUM(),
 		HOT_TUNGSTENSTEEL(true, 5f, 6f),
 		INVAR(),
-		IRIDIUM(false, 5f, 6f),
-		IRIDIUM_REINFORCED_STONE(false, 30f, 800f),
-		IRIDIUM_REINFORCED_TUNGSTENSTEEL(false, 50f, 1200f),
+		IRIDIUM(5f, 6f),
+		IRIDIUM_REINFORCED_STONE(30f, 800f),
+		IRIDIUM_REINFORCED_TUNGSTENSTEEL(50f, 1200f),
 		LEAD(),
-		NICKEL(false, 5f, 6f),
-		PERIDOT(false, 5f, 6f),
-		PLATINUM(false, 5f, 6f),
-		RAW_IRIDIUM(false, 2f, 2f),
-		RAW_LEAD(false, 2f, 2f),
-		RAW_SILVER(false, 2f, 2f),
-		RAW_TIN(false, 2f, 2f),
-		RAW_TUNGSTEN(false, 2f, 2f),
-		RED_GARNET(false, 5f, 6f),
-		REFINED_IRON(false, 5f, 6f),
-		RUBY(false, 5f, 6f),
-		SAPPHIRE(false, 5f, 6f),
-		SILVER(false, 5f, 6f),
-		STEEL(false, 5f, 6f),
+		NICKEL(5f, 6f),
+		PERIDOT(5f, 6f),
+		PLATINUM(5f, 6f),
+		RAW_IRIDIUM(2f, 2f),
+		RAW_LEAD(2f, 2f),
+		RAW_SILVER(2f, 2f),
+		RAW_TIN(2f, 2f),
+		RAW_TUNGSTEN(2f, 2f),
+		RED_GARNET(5f, 6f),
+		REFINED_IRON(5f, 6f),
+		RUBY(5f, 6f),
+		SAPPHIRE(5f, 6f),
+		SILVER(5f, 6f),
+		STEEL(5f, 6f),
 		TIN(),
-		TITANIUM(false, 5f, 6f),
-		TUNGSTEN(false, 5f, 6f),
-		TUNGSTENSTEEL(false, 30f, 800f),
-		YELLOW_GARNET(false, 5f, 6f),
-		ZINC(false, 5f, 6f);
+		TITANIUM(5f, 6f),
+		TUNGSTEN(5f, 6f),
+		TUNGSTENSTEEL(30f, 800f),
+		YELLOW_GARNET(5f, 6f),
+		ZINC(5f, 6f);
 
 		private final String name;
 		private final Block block;
@@ -556,6 +556,10 @@ public class TRContent {
 
 		StorageBlocks(boolean isHot, float hardness, float resistance) {
 			this(isHot, hardness, resistance, null);
+		}
+
+		StorageBlocks(float hardness, float resistance) {
+			this(false, hardness, resistance, null);
 		}
 
 		StorageBlocks() {
