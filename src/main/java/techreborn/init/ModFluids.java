@@ -96,7 +96,7 @@ public enum ModFluids {
 		flowingFluid = new RebornFluid(false, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid) {
 		};
 
-		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing());
+		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.LAVA).noCollision().hardness(100.0F).dropsNothing());
 		bucket = new RebornBucketItem(stillFluid, new Item.Settings().group(TechReborn.ITEMGROUP).recipeRemainder(Items.BUCKET).maxCount(1));
 	}
 
