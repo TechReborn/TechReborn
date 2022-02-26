@@ -65,7 +65,10 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 		@Override
 		public long getMaxExtract(@Nullable Direction side) {
-			return PowerAcceptorBlockEntity.this.getMaxOutput(side);
+			if (PowerAcceptorBlockEntity.this.canProvideEnergy(side)) {
+				return PowerAcceptorBlockEntity.this.getMaxOutput(side);
+			}
+			return 0;
 		}
 	};
 	private RcEnergyTier blockEntityPowerTier;

@@ -162,8 +162,8 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("aesu").player(player.getInventory()).inventory().hotbar().armor()
-				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-				.syncEnergyValue().sync(this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
+			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
+			.syncEnergyValue().sync(this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentOutput() {
