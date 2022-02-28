@@ -378,9 +378,9 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	@Override
-	public void onClose() {
+	public void close() {
 		closeSelectedTab();
-		super.onClose();
+		super.close();
 	}
 
 	@Nullable

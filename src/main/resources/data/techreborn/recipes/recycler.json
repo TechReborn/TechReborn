@@ -3,9 +3,6 @@
   "power": 2,
   "time": 25,
   "ingredients": [
-	{
-	  "item": "minecraft:air"
-	}
   ],
   "results": [
 	{

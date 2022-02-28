@@ -25,9 +25,9 @@
 package techreborn.datagen.recipes.crafting
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory
-import net.minecraft.data.server.recipe.SingleItemRecipeJsonFactory
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
+import net.minecraft.data.server.recipe.SingleItemRecipeJsonBuilder
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
 import net.minecraft.util.Identifier
@@ -192,7 +192,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
     def offerMonoShapelessRecipe(def input, int inputSize, ItemConvertible output, int outputSize, String source, prefix = "", String result = null) {
-		ShapelessRecipeJsonFactory.create(output, outputSize).input(createIngredient(input), inputSize)
+		ShapelessRecipeJsonBuilder.create(output, outputSize).input(createIngredient(input), inputSize)
                 .criterion(getCriterionName(input), getCriterionConditions(input))
                 .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(prefix, input, output, source, result)))
     }
@@ -207,13 +207,13 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     }
 
     def static createMonoShapeRecipe(def input, ItemConvertible output, char character, int outputAmount = 1) {
-        return ShapedRecipeJsonFactory.create(output, outputAmount)
+        return ShapedRecipeJsonBuilder.create(output, outputAmount)
                 .input(character, createIngredient(input))
                 .criterion(getCriterionName(input), getCriterionConditions(input))
     }
 
     def static createDuoShapeRecipe(def input1, def input2, ItemConvertible output, char char1, char char2, boolean crit1 = true, boolean crit2 = false) {
-        ShapedRecipeJsonFactory factory = ShapedRecipeJsonFactory.create(output)
+        ShapedRecipeJsonBuilder factory = ShapedRecipeJsonBuilder.create(output)
                 .input(char1, createIngredient(input1))
                 .input(char2, createIngredient(input2))
         if (crit1)
@@ -224,7 +224,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
     }
 
 	def static createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1) {
-		return SingleItemRecipeJsonFactory.createStonecutting(createIngredient(input), output, outputAmount)
+		return SingleItemRecipeJsonBuilder.createStonecutting(createIngredient(input), output, outputAmount)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 	}
 

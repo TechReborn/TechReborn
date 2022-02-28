@@ -25,12 +25,12 @@
 package techreborn.datagen.recipes
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipesProvider
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.recipe.Ingredient
-import net.minecraft.tag.Tag
+import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 
@@ -38,7 +38,7 @@ import techreborn.init.ModRecipes
 
 import java.util.function.Consumer
 
-abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
+abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
     protected Consumer<RecipeJsonProvider> exporter
     TechRebornRecipesProvider(FabricDataGenerator dataGenerator) {
         super(dataGenerator)
@@ -58,7 +58,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
 		}
 		if (input instanceof ItemConvertible) {
             return Ingredient.ofItems(input)
-        } else if (input instanceof Tag.Identified) {
+        } else if (input instanceof TagKey) {
             return Ingredient.fromTag(input)
         }
 
@@ -68,8 +68,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
     static String getCriterionName(def input) {
         if (input instanceof ItemConvertible) {
             return hasItem(input)
-        } else if (input instanceof Tag.Identified) {
-            return "has_tag_" + input.getId()
+        } else if (input instanceof TagKey) {
+            return "has_tag_" + input.id()
         }
 
         throw new IllegalArgumentException()
@@ -78,7 +78,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
     static CriterionConditions getCriterionConditions(def input) {
         if (input instanceof ItemConvertible) {
             return conditionsFromItem(input)
-        } else if (input instanceof Tag.Identified) {
+        } else if (input instanceof TagKey) {
             return conditionsFromTag(input)
         }
 
@@ -88,8 +88,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
     static String getInputPath(def input) {
         if (input instanceof ItemConvertible) {
             return getItemPath(input)
-        } else if (input instanceof Tag.Identified) {
-            return input.getId().toString().replace(":", "_")
+        } else if (input instanceof TagKey) {
+            return input.id().toString().replace(":", "_")
         }
 
         throw new IllegalArgumentException()
@@ -98,8 +98,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
     static String getName(def input) {
         if (input instanceof ItemConvertible) {
 			return getItemPath(input)
-        } else if (input instanceof Tag.Identified) {
-			String name = input.getId().toString()
+        } else if (input instanceof TagKey) {
+			String name = input.id().toString()
             if (name.contains(":"))
                 name = name.substring(name.indexOf(":")+1)
 			return name
@@ -113,8 +113,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipesProvider {
 		if (input instanceof ItemConvertible) {
 			name = getItemPath(input)
 			return name.substring(0,name.indexOf("_"))
-		} else if (input instanceof Tag.Identified) {
-			name = input.getId().toString()
+		} else if (input instanceof TagKey) {
+			name = input.id().toString()
 			if (name.contains(":"))
 				name = name.substring(name.indexOf(":")+1)
 			return name.substring(0,name.indexOf("_"))

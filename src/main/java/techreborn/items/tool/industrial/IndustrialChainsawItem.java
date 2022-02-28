@@ -32,7 +32,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -48,7 +47,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.utils.MessageIDs;
-import techreborn.utils.TagUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.ArrayList;
@@ -75,10 +73,11 @@ public class IndustrialChainsawItem extends ChainsawItem {
 			BlockPos checkPos = pos.offset(facing);
 			if (!wood.contains(checkPos) && !leaves.contains(checkPos)) {
 				BlockState state = world.getBlockState(checkPos);
-				if (TagUtils.hasTag(state.getBlock(), BlockTags.LOGS)) {
+
+				if (state.isIn(BlockTags.LOGS)) {
 					wood.add(checkPos);
 					findWood(world, checkPos, wood, leaves);
-				} else if (TagUtils.hasTag(state.getBlock(), BlockTags.LEAVES)) {
+				} else if (state.isIn(BlockTags.LEAVES)) {
 					leaves.add(checkPos);
 					findWood(world, checkPos, wood, leaves);
 				}

@@ -24,31 +24,25 @@
 
 package techreborn.items.tool;
 
-import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
-import net.minecraft.tag.Tag;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.init.TRToolMaterials;
 import techreborn.utils.InitUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Random;
 
-public class JackhammerItem extends PickaxeItem implements RcEnergyItem, DynamicAttributeTool {
-
+public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	public final int maxCharge;
 	public final RcEnergyTier tier;
 	public final int cost;
@@ -157,14 +151,5 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Dynamic
 	@Override
 	public int getItemBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
-	}
-
-	// DynamicAttributeTool
-	@Override
-	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
-		if (tag.equals(FabricToolTags.PICKAXES)) {
-			return MiningLevel.IRON.intLevel;
-		}
-		return 0;
 	}
 }

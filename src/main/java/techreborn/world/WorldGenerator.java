@@ -32,15 +32,16 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.BiomePlacementModifier;
-import net.minecraft.world.gen.decorator.RarityFilterPlacementModifier;
-import net.minecraft.world.gen.decorator.SquarePlacementModifier;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
+import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
+import net.minecraft.world.gen.placementmodifier.RarityFilterPlacementModifier;
+import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
@@ -100,25 +101,29 @@ public class WorldGenerator {
 		Identifier patchId = new Identifier("techreborn", "rubber_tree_patch");
 
 		RUBBER_TREE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, treeId,
-				Feature.TREE.configure(rubber().build())
+			new ConfiguredFeature<>(Feature.TREE, rubber().build())
 		);
 		RUBBER_TREE_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, treeId,
-				RUBBER_TREE_FEATURE.withWouldSurviveFilter(TRContent.RUBBER_SAPLING)
+			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, RUBBER_TREE_FEATURE), List.of(
+				PlacedFeatures.wouldSurvive(TRContent.RUBBER_SAPLING)
+			))
 		);
 
 		RUBBER_TREE_PATCH_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, patchId,
-				Feature.RANDOM_PATCH.configure(
-						ConfiguredFeatures.createRandomPatchFeatureConfig(6, RUBBER_TREE_PLACED_FEATURE)
+			new ConfiguredFeature<>(Feature.RANDOM_PATCH,
+				ConfiguredFeatures.createRandomPatchFeatureConfig(
+					6, getEntry(BuiltinRegistries.PLACED_FEATURE, RUBBER_TREE_PLACED_FEATURE)
 				)
+			)
 		);
 
 		RUBBER_TREE_PATCH_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, patchId,
-				RUBBER_TREE_PATCH_FEATURE.withPlacement(
-						RarityFilterPlacementModifier.of(3),
-						SquarePlacementModifier.of(),
-						PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-						BiomePlacementModifier.of()
-				)
+			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, RUBBER_TREE_PATCH_FEATURE), List.of(
+				RarityFilterPlacementModifier.of(3),
+				SquarePlacementModifier.of(),
+				PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+				BiomePlacementModifier.of())
+			)
 		);
 	}
 
@@ -162,5 +167,9 @@ public class WorldGenerator {
 				.decorators(List.of(
 						new RubberTreeSpikeDecorator(4, BlockStateProvider.of(TRContent.RUBBER_LEAVES.getDefaultState()))
 				));
+	}
+
+	public static  <T> RegistryEntry<T> getEntry(Registry<T> registry, T value) {
+		return registry.getEntry(registry.getKey(value).orElseThrow()).orElseThrow();
 	}
 }

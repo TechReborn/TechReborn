@@ -2,14 +2,18 @@ name: Check
 on: [push, pull_request]
 jobs:
   build:
+    strategy:
+      matrix:
+        java: [ 17-jdk, 18-jdk ]
     runs-on: ubuntu-20.04
     container:
-      image: eclipse-temurin:17-jdk
+      image: openjdk:${{ matrix.java }}
       options: --user root
     steps:
       - uses: actions/checkout@v2
       - uses: gradle/wrapper-validation-action@v1
-      - run: ./gradlew build --stacktrace
+      - run: ./gradlew runDatagen --stacktrace
+      - run: ./gradlew build --stacktrace -x runDatagen
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2

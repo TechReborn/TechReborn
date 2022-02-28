@@ -31,10 +31,11 @@ import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.decorator.*;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placementmodifier.*;
 import techreborn.init.TRContent;
 
 import java.util.List;
@@ -59,7 +60,7 @@ public class OreFeature {
 			case END -> createSimpleFeatureConfig(new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState()));
 		};
 
-		ConfiguredFeature<?, ?> configuredFeature = Feature.ORE.configure(oreFeatureConfig);
+		ConfiguredFeature<?, ?> configuredFeature = new ConfiguredFeature<>(Feature.ORE, oreFeatureConfig);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, getId(), configuredFeature);
 		return configuredFeature;
 	}
@@ -80,7 +81,7 @@ public class OreFeature {
 	}
 
 	private PlacedFeature configureAndRegisterPlacedFeature() {
-		PlacedFeature placedFeature = configuredFeature.withPlacement(getPlacementModifiers());
+		PlacedFeature placedFeature = new PlacedFeature(WorldGenerator.getEntry(BuiltinRegistries.CONFIGURED_FEATURE, configuredFeature), getPlacementModifiers());
 		Registry.register(BuiltinRegistries.PLACED_FEATURE, getId(), placedFeature);
 		return placedFeature;
 	}

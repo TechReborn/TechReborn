@@ -22,31 +22,31 @@
  * SOFTWARE.
  */
 
-package techreborn.utils;
+package techreborn.datagen.tags
 
-import net.minecraft.block.Block;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Item;
-import net.minecraft.tag.Tag;
-import net.minecraft.tag.TagGroup;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
+import net.fabricmc.fabric.api.mininglevel.v1.FabricMineableTags
+import net.minecraft.tag.BlockTags
+import techreborn.items.tool.DrillItem
+import techreborn.items.tool.industrial.OmniToolItem
 
-public class TagUtils {
+class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
-	public static <T> boolean hasTag(T type, Tag<T> tag) {
-		return tag.contains(type);
+	TRBlockTagProvider(FabricDataGenerator dataGenerator) {
+		super(dataGenerator)
 	}
 
-	public static TagGroup<Block> getAllBlockTags(World world) {
-		return world.getTagManager().getOrCreateTagGroup(Registry.BLOCK_KEY);
-	}
+	@Override
+	protected void generateTags() {
+		getOrCreateTagBuilder(DrillItem.DRILL_MINEABLE)
+			.addOptionalTag(BlockTags.PICKAXE_MINEABLE.id())
+			.addOptionalTag(BlockTags.SHOVEL_MINEABLE.id())
 
-	public static TagGroup<Item> getAllItemTags(World world) {
-		return world.getTagManager().getOrCreateTagGroup(Registry.ITEM_KEY);
-	}
-
-	public static TagGroup<Fluid> getAllFluidTags(World world) {
-		return world.getTagManager().getOrCreateTagGroup(Registry.FLUID_KEY);
+		getOrCreateTagBuilder(OmniToolItem.OMNI_TOOL_MINEABLE)
+			.addOptionalTag(DrillItem.DRILL_MINEABLE.id())
+			.addOptionalTag(BlockTags.AXE_MINEABLE.id())
+			.addOptionalTag(FabricMineableTags.SHEARS_MINEABLE.id())
+			.addOptionalTag(FabricMineableTags.SWORD_MINEABLE.id())
 	}
 }

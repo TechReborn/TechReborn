@@ -25,8 +25,9 @@
 package techreborn.world;
 
 import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -34,7 +35,7 @@ import java.util.Random;
 public class RubberSaplingGenerator extends SaplingGenerator {
 	@Nullable
 	@Override
-	protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bl) {
-		return WorldGenerator.RUBBER_TREE_FEATURE;
+	protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
+		return WorldGenerator.getEntry(BuiltinRegistries.CONFIGURED_FEATURE, WorldGenerator.RUBBER_TREE_FEATURE);
 	}
 }
