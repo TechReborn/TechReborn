@@ -48,7 +48,7 @@ public class ExtendedPacketBuffer extends PacketByteBuf {
 		ObjectBufferUtils.writeObject(object, this);
 	}
 
-	protected Object readObject() {
+	public Object readObject() {
 		return ObjectBufferUtils.readObject(this);
 	}
 

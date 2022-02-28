@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn;
+package techreborn.client;
 
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.ClientModInitializer;
@@ -49,12 +49,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
-import reborncore.mixin.client.AccessorModelPredicateProviderRegistry;
 import team.reborn.energy.api.base.SimpleBatteryItem;
+import techreborn.TechReborn;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.client.render.entitys.CableCoverRenderer;

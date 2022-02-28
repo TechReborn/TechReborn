@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.network;
+package reborncore.client.network;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -46,6 +46,8 @@ import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.chunkloading.ChunkLoaderManager;
+import reborncore.common.network.ExtendedPacketBuffer;
+import reborncore.common.network.NetworkManager;
 
 @Environment(EnvType.CLIENT)
 public class ClientBoundPacketHandlers {
@@ -112,7 +114,7 @@ public class ClientBoundPacketHandlers {
 
 			for (int i = 0; i < size; i++) {
 				int id = packetBuffer.readInt();
-				Object value =  epb.readObject();
+				Object value = epb.readObject();
 				updatedValues.put(id, value);
 			}
 

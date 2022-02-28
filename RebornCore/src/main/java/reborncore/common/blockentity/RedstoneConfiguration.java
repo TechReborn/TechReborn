@@ -33,7 +33,6 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.client.screen.builder.Syncable;
 import reborncore.common.util.BooleanFunction;
 import reborncore.common.util.NBTSerializable;
 

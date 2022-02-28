@@ -24,7 +24,6 @@
 
 package techreborn.blockentity.storage.energy.lesu;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,7 +36,6 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
-import techreborn.blocks.storage.energy.LapotronicSUBlock;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

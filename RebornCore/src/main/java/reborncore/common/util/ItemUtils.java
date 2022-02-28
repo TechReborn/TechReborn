@@ -170,14 +170,15 @@ public class ItemUtils {
 			return;
 		}
 		if (isClient) {
-			ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.energyError")
-					.formatted(Formatting.GRAY)
-					.append(" ")
-					.append(
-							new TranslatableText("reborncore.message.deactivating")
-									.formatted(Formatting.GOLD)
-					)
-			);
+			// TODO client/server fix me!
+//			ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.energyError")
+//					.formatted(Formatting.GRAY)
+//					.append(" ")
+//					.append(
+//							new TranslatableText("reborncore.message.deactivating")
+//									.formatted(Formatting.GOLD)
+//					)
+//			);
 		}
 		stack.getOrCreateNbt().putBoolean("isActive", false);
 	}
@@ -196,28 +197,28 @@ public class ItemUtils {
 		if (!ItemUtils.isActive(stack)) {
 			stack.getOrCreateNbt().putBoolean("isActive", true);
 			if (isClient) {
-
-
-				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.setTo")
-						.formatted(Formatting.GRAY)
-						.append(" ")
-						.append(
-								new TranslatableText("reborncore.message.active")
-										.formatted(Formatting.GOLD)
-						)
-				);
+				// TODO client/server fix me!
+//				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.setTo")
+//						.formatted(Formatting.GRAY)
+//						.append(" ")
+//						.append(
+//								new TranslatableText("reborncore.message.active")
+//										.formatted(Formatting.GOLD)
+//						)
+//				);
 			}
 		} else {
 			stack.getOrCreateNbt().putBoolean("isActive", false);
 			if (isClient) {
-				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.setTo")
-						.formatted(Formatting.GRAY)
-						.append(" ")
-						.append(
-								new TranslatableText("reborncore.message.inactive")
-										.formatted(Formatting.GOLD)
-						)
-				);
+				// TODO client/server fix me!
+//				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.setTo")
+//						.formatted(Formatting.GRAY)
+//						.append(" ")
+//						.append(
+//								new TranslatableText("reborncore.message.inactive")
+//										.formatted(Formatting.GOLD)
+//						)
+//				);
 			}
 		}
 	}

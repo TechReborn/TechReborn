@@ -47,7 +47,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.chunk.ChunkStatus;
-import reborncore.client.ItemStackRenderManager;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -189,6 +188,7 @@ public class RebornCoreCommands {
 			System.out.println("Render item only works on the client!");
 			return;
 		}
-		ItemStackRenderManager.RENDER_QUEUE.addAll(stacks);
+		// TODO client/server fix me!
+//		ItemStackRenderManager.RENDER_QUEUE.addAll(stacks);
 	}
 }

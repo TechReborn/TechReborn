@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.mixin.client;
+package reborncore.client.mixin;
 
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.debug.DebugRenderer;

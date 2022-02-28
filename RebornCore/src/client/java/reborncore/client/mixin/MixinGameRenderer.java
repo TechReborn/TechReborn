@@ -22,39 +22,35 @@
  * SOFTWARE.
  */
 
-package reborncore.common.util;
+package reborncore.client.mixin;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.ChatHud;
-import net.minecraft.text.Text;
-import reborncore.mixin.client.AccessorChatHud;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.item.ItemStack;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import reborncore.api.items.ArmorFovHandler;
 
-/**
- * Class stolen from SteamAgeRevolution, which I stole from BloodMagic, which was stolen from EnderCore, which stole the
- * idea from ExtraUtilities, who stole it from vanilla.
- * <p>
- *  Original class link:
- *  https://github.com/SleepyTrousers/EnderCore/blob/master/src/main/java/com/enderio/core/common/util/ChatUtil.java
- * </p>
- */
+@Mixin(GameRenderer.class)
+public class MixinGameRenderer {
 
-public class ChatUtils {
-	private static final int DELETION_ID = 1337; // MAKE THIS UNIQUE PER MOD THAT USES THIS
+	@Shadow
+	@Final
+	private MinecraftClient client;
 
-	public static void sendNoSpamMessages(int messageID, Text message) {
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			sendNoSpamMessage(messageID, message);
+	@Redirect(method = "updateFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getFovMultiplier()F"))
+	private float updateFovMultiplier(AbstractClientPlayerEntity playerEntity) {
+		float playerSpeed = playerEntity.getFovMultiplier();
+		for (ItemStack stack : playerEntity.getArmorItems()) {
+			if (stack.getItem() instanceof ArmorFovHandler) {
+				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, client.player);
+			}
 		}
+		return playerSpeed;
 	}
 
-	@Environment(EnvType.CLIENT)
-	private static void sendNoSpamMessage(int messageID, Text message) {
-		int deleteID = DELETION_ID + messageID;
-		ChatHud chat = MinecraftClient.getInstance().inGameHud.getChatHud();
-		AccessorChatHud accessorChatHud = (AccessorChatHud) chat;
-		accessorChatHud.invokeAddMessage(message, deleteID);
-	}
 }

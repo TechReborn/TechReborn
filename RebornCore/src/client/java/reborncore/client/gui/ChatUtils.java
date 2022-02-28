@@ -22,15 +22,29 @@
  * SOFTWARE.
  */
 
-package reborncore.mixin.client;
+package reborncore.client.gui;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.text.Text;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import reborncore.client.mixin.AccessorChatHud;
 
-@Mixin(ChatHud.class)
-public interface AccessorChatHud {
-	@Invoker("addMessage")
-	void invokeAddMessage(Text message, int messageId);
+/**
+ * Class stolen from SteamAgeRevolution, which I stole from BloodMagic, which was stolen from EnderCore, which stole the
+ * idea from ExtraUtilities, who stole it from vanilla.
+ * <p>
+ *  Original class link:
+ *  https://github.com/SleepyTrousers/EnderCore/blob/master/src/main/java/com/enderio/core/common/util/ChatUtil.java
+ * </p>
+ */
+
+public class ChatUtils {
+	private static final int DELETION_ID = 1337; // MAKE THIS UNIQUE PER MOD THAT USES THIS
+
+	public static void sendNoSpamMessages(int messageID, Text message) {
+		int deleteID = DELETION_ID + messageID;
+		ChatHud chat = MinecraftClient.getInstance().inGameHud.getChatHud();
+		AccessorChatHud accessorChatHud = (AccessorChatHud) chat;
+		accessorChatHud.invokeAddMessage(message, deleteID);
+	}
 }

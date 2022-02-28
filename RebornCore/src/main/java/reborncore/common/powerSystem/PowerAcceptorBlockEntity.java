@@ -40,7 +40,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.util.StringUtils;
@@ -245,7 +244,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync additional energy storage values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * BlockEntityScreenHandlerBuilder
 	 *
 	 * @return {@code long} Size of additional energy buffer
 	 */
@@ -255,7 +254,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync additional energy storage values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * BlockEntityScreenHandlerBuilder
 	 *
 	 * @param extraPowerStorage {@code long} Size of additional energy buffer
 	 */
@@ -265,7 +264,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync energy change values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * BlockEntityScreenHandlerBuilder
 	 *
 	 * @return {@code long} Energy change per tick
 	 */
@@ -275,7 +274,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync energy change values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * BlockEntityScreenHandlerBuilder
 	 *
 	 * @param powerChange {@code long} Energy change per tick
 	 */
@@ -285,7 +284,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync energy values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * BlockEntityScreenHandlerBuilder
 	 *
 	 * @return {@code long} Energy stored in block entity
 	 */
@@ -295,7 +294,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync energy values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * BlockEntityScreenHandlerBuilder
 	 *
 	 * @param energy {@code long} Energy stored in block entity
 	 */

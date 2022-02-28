@@ -57,7 +57,7 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.slot.PlayerInventorySlot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.mixin.client.AccessorScreen;
+import reborncore.client.mixin.AccessorScreen;
 
 import java.util.ArrayList;
 import java.util.Collections;

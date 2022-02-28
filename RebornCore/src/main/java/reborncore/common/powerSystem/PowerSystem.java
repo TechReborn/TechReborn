@@ -26,7 +26,6 @@ package reborncore.common.powerSystem;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import reborncore.common.RebornCoreConfig;
 
 import java.text.DecimalFormat;
@@ -162,11 +161,12 @@ public class PowerSystem {
 	}
 
 	private static void checkLocale() {
-		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) { return; }
-		MinecraftClient instance = MinecraftClient.getInstance();
-		if (instance == null) { return; }
-		String strangeMcLang = instance.getLanguageManager().getLanguage().getCode();
-		locale = Locale.forLanguageTag(strangeMcLang.substring(0, 2));
+		// TODO client/server fix me!
+//		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) { return; }
+//		MinecraftClient instance = MinecraftClient.getInstance();
+//		if (instance == null) { return; }
+//		String strangeMcLang = instance.getLanguageManager().getLanguage().getCode();
+//		locale = Locale.forLanguageTag(strangeMcLang.substring(0, 2));
 	}
 
 	public enum EnergySystem {

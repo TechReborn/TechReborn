@@ -44,6 +44,7 @@ import reborncore.RebornCore;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.blockentity.FluidConfiguration;
+import reborncore.common.blockentity.FluidConfiguration.ExtractConfig;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
@@ -113,7 +114,7 @@ public class FluidConfigPopupElement extends ElementBase {
 	public void cycleConfig(Direction side, GuiBase<?> guiBase) {
 		FluidConfiguration.FluidConfig config = guiBase.getMachine().fluidConfiguration.getSideDetail(side);
 
-		FluidConfiguration.ExtractConfig fluidIO = config.getIoConfig().getNext();
+		ExtractConfig fluidIO = config.getIoConfig().getNext();
 		FluidConfiguration.FluidConfig newConfig = new FluidConfiguration.FluidConfig(side, fluidIO);
 
 		IdentifiedPacket packetSave = ServerBoundPackets.createPacketFluidConfigSave(guiBase.be.getPos(), newConfig);

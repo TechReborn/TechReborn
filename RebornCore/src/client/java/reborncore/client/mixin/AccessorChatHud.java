@@ -22,19 +22,15 @@
  * SOFTWARE.
  */
 
-package reborncore.mixin.client;
+package reborncore.client.mixin;
 
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.item.UnclampedModelPredicateProvider;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.hud.ChatHud;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(ModelPredicateProviderRegistry.class)
-public interface AccessorModelPredicateProviderRegistry {
-	@Invoker
-	static void callRegister(Item item, Identifier id, UnclampedModelPredicateProvider provider) {
-		throw new RuntimeException("nope");
-	}
+@Mixin(ChatHud.class)
+public interface AccessorChatHud {
+	@Invoker("addMessage")
+	void invokeAddMessage(Text message, int messageId);
 }

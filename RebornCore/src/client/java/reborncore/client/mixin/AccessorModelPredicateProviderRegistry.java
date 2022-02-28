@@ -22,16 +22,19 @@
  * SOFTWARE.
  */
 
-package reborncore.client.screen.builder;
+package reborncore.client.mixin;
 
-import org.apache.commons.lang3.tuple.Pair;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.item.UnclampedModelPredicateProvider;
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-public interface Syncable {
-
-	void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList);
-
+@Mixin(ModelPredicateProviderRegistry.class)
+public interface AccessorModelPredicateProviderRegistry {
+	@Invoker
+	static void callRegister(Item item, Identifier id, UnclampedModelPredicateProvider provider) {
+		throw new RuntimeException("nope");
+	}
 }

@@ -67,21 +67,6 @@ public class NetworkManager {
 		return createClientBoundPacket(identifier, extendedPacketBuffer -> extendedPacketBuffer.writeCodec(codec, value));
 	}
 
-	// TODO move to own class
-	@Environment(EnvType.CLIENT)
-	public static void registerClientBoundHandler(Identifier identifier, ClientPlayNetworking.PlayChannelHandler handler) {
-		ClientPlayNetworking.registerGlobalReceiver(identifier, handler);
-	}
-
-	// TODO move to own class
-	@Environment(EnvType.CLIENT)
-	public static <T> void registerClientBoundHandler(Identifier identifier, Codec<T> codec, Consumer<T> consumer) {
-		registerClientBoundHandler(identifier, (client, handler, buf, responseSender) -> {
-			T value = new ExtendedPacketBuffer(buf).readCodec(codec);
-			client.execute(() -> consumer.accept(value));
-		});
-	}
-
 	public static void sendToServer(IdentifiedPacket packet) {
 		ClientPlayNetworking.send(packet.channel(), packet.packetByteBuf());
 	}

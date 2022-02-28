@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore;
+package reborncore.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents;
@@ -32,9 +32,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import reborncore.api.blockentity.UnloadHandler;
-import reborncore.client.*;
-import reborncore.common.fluid.RebornFluidRenderManager;
-import reborncore.common.network.ClientBoundPacketHandlers;
+import reborncore.client.network.ClientBoundPacketHandlers;
 
 public class RebornCoreClient implements ClientModInitializer {
 

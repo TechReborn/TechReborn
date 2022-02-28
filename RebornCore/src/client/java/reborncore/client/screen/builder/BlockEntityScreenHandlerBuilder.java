@@ -46,6 +46,7 @@ import reborncore.client.gui.slots.SlotOutput;
 import reborncore.client.screen.builder.slot.FilteredSlot;
 import reborncore.client.screen.builder.slot.UpgradeSlot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blockentity.Syncable;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.api.EnergyStorageUtil;

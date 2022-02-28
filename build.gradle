@@ -12,7 +12,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id "org.cadixdev.licenser" version "0.6.1"
-	id "fabric-loom" version "0.11-SNAPSHOT"
+	id "fabric-loom" version "0.12.local"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
@@ -80,6 +80,7 @@ allprojects {
 
     loom {
         runtimeOnlyLog4j = true
+        splitEnvironmentSourceSets()
     }
 
     // Shared deps between TR and RC
@@ -183,6 +184,7 @@ sourceSets {
 // TechReborn specific dependencies
 dependencies {
     api project(path: ":RebornCore", configuration: "namedElements")
+
     include project(":RebornCore")
 
     disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"

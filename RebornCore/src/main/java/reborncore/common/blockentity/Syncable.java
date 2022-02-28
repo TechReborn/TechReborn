@@ -22,35 +22,16 @@
  * SOFTWARE.
  */
 
-package reborncore.mixin.client;
+package reborncore.common.blockentity;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.item.ItemStack;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import reborncore.api.items.ArmorFovHandler;
+import org.apache.commons.lang3.tuple.Pair;
 
-@Mixin(GameRenderer.class)
-public class MixinGameRenderer {
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-	@Shadow
-	@Final
-	private MinecraftClient client;
+public interface Syncable {
 
-	@Redirect(method = "updateFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getFovMultiplier()F"))
-	private float updateFovMultiplier(AbstractClientPlayerEntity playerEntity) {
-		float playerSpeed = playerEntity.getFovMultiplier();
-		for (ItemStack stack : playerEntity.getArmorItems()) {
-			if (stack.getItem() instanceof ArmorFovHandler) {
-				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, client.player);
-			}
-		}
-		return playerSpeed;
-	}
+	void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList);
 
 }

@@ -17,7 +17,7 @@
       "reborncore.RebornCore"
     ],
     "client": [
-      "reborncore.RebornCoreClient"
+		"reborncore.client.RebornCoreClient"
     ]
   },
   "mixins": [

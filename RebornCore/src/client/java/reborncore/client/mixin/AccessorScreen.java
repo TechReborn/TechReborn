@@ -1,4 +1,4 @@
-package reborncore.mixin.client;
+package reborncore.client.mixin;
 
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
