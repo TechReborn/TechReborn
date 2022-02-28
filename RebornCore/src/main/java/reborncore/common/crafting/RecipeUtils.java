@@ -40,6 +40,7 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import reborncore.RebornCore;
 import reborncore.common.util.DefaultedListCollector;
 import reborncore.common.util.serialization.SerializationUtil;
 import reborncore.mixin.common.AccessorRecipeManager;
@@ -68,7 +69,7 @@ public class RecipeUtils {
 		Identifier resourceLocation = new Identifier(JsonHelper.getString(jsonObject, "item"));
 		Item item = Registry.ITEM.get(resourceLocation);
 		if (item == Items.AIR) {
-			throw new IllegalStateException(resourceLocation + " did not exist");
+			RebornCore.LOGGER.warn(resourceLocation + " did not exist");
 		}
 		int count = 1;
 		if (jsonObject.has("count")) {
