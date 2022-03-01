@@ -6,9 +6,13 @@
     "WPW"
   ],
   "key": {
-    "B": {
+    "B":[ 
+	{
 	  "tag": "blockus:barrels"
     },
+	{
+        "tag": "c:wooden_barrels"
+      }],
 	"P": {
       "item": "minecraft:paper"
     },
