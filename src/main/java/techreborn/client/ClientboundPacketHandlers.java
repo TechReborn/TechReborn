@@ -22,30 +22,25 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.data;
+package techreborn.client;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import net.minecraft.util.JsonHelper;
-import org.jetbrains.annotations.NotNull;
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
-import reborncore.common.util.serialization.SerializationUtil;
+import net.minecraft.client.MinecraftClient;
+import reborncore.common.network.NetworkManager;
+import techreborn.client.gui.GuiManual;
+import techreborn.events.OreDepthSyncHandler;
+import techreborn.world.OreDepth;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
+import static techreborn.packets.ClientboundPackets.OPEN_MANUAL;
+import static techreborn.packets.ClientboundPackets.ORE_DEPTH;
 
-public record DataDrivenSlot(int id, int x, int y, @NotNull SlotType type) {
+public class ClientboundPacketHandlers {
+	public static void init() {
+		NetworkManager.registerClientBoundHandler(ORE_DEPTH, OreDepth.LIST_CODEC, OreDepthSyncHandler::updateDepths);
 
-	public static List<DataDrivenSlot> read(JsonArray jsonArray) {
-		AtomicInteger idCount = new AtomicInteger();
-		return SerializationUtil.stream(jsonArray)
-				.map(JsonElement::getAsJsonObject)
-				.map(json -> new DataDrivenSlot(idCount.getAndIncrement(), JsonHelper.getInt(json, "x"), JsonHelper.getInt(json, "y"), SlotType.fromString(JsonHelper.getString(json, "type"))))
-				.collect(Collectors.toList());
-	}
-
-	public void add(BlockEntityScreenHandlerBuilder inventoryBuilder) {
-		type.getSlotBiConsumer().accept(inventoryBuilder, this);
+		NetworkManager.registerClientBoundHandler(OPEN_MANUAL, (client, handler, buf, responseSender) ->
+			client.execute(() ->
+				MinecraftClient.getInstance().setScreen(new GuiManual())
+			)
+		);
 	}
 }

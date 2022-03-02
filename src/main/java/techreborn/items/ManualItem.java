@@ -24,18 +24,17 @@
 
 package techreborn.items;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
-import techreborn.client.gui.GuiManual;
+import techreborn.packets.ClientboundPackets;
 
 public class ManualItem extends Item {
 
@@ -45,12 +44,10 @@ public class ManualItem extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
-		if (world.isClient) { openGui(); }
-		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
-	}
+		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
+			NetworkManager.sendToPlayer(ClientboundPackets.createPacketOpenManual(), serverPlayerEntity);
+		}
 
-	@Environment(EnvType.CLIENT)
-	private void openGui() {
-		MinecraftClient.getInstance().setScreen(new GuiManual());
+		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
 	}
 }

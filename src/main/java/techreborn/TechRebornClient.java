@@ -56,12 +56,13 @@ import reborncore.common.util.ItemUtils;
 import reborncore.mixin.client.AccessorModelPredicateProviderRegistry;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 import techreborn.client.ClientGuiType;
+import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
 import techreborn.client.render.entitys.TurbineRenderer;
-import techreborn.events.StackToolTipHandler;
+import techreborn.client.events.StackToolTipHandler;
 import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -148,7 +149,7 @@ public class TechRebornClient implements ClientModInitializer {
 		});
 
 		StackToolTipHandler.setup();
-		ClientboundPackets.init();
+		ClientboundPacketHandlers.init();
 
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;

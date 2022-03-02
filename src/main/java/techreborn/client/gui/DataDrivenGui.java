@@ -22,13 +22,16 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.data;
+package techreborn.client.gui;
 
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
+import techreborn.blockentity.data.DataDrivenBEProvider;
+import techreborn.blockentity.data.DataDrivenSlot;
+import techreborn.blockentity.data.SlotType;
 
 public class DataDrivenGui extends GuiBase<BuiltScreenHandler> {
 
@@ -47,9 +50,17 @@ public class DataDrivenGui extends GuiBase<BuiltScreenHandler> {
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 		final DataDrivenGui gui = this;
 
-		provider.getSlots().forEach(slot -> slot.draw(matrixStack, gui, layer));
+		provider.getSlots().forEach(slot -> draw(matrixStack, gui, layer, slot));
 	}
 
+
+	public void draw(MatrixStack matrixStack, GuiBase<?> guiBase, GuiBase.Layer layer, DataDrivenSlot slot) {
+		if (slot.type() == SlotType.OUTPUT) {
+			guiBase.drawOutputSlot(matrixStack, slot.x(), slot.y(), layer);
+		} else {
+			guiBase.drawSlot(matrixStack, slot.x(), slot.y(), layer);
+		}
+	}
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);

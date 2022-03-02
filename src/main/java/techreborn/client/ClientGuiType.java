@@ -31,7 +31,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.data.DataDrivenBEProvider;
-import techreborn.blockentity.data.DataDrivenGui;
+import techreborn.client.gui.DataDrivenGui;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;

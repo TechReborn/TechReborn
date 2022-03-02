@@ -22,10 +22,12 @@
  * SOFTWARE.
  */
 
-package techreborn.events;
+package techreborn.client.events;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
@@ -42,10 +44,10 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.BaseBlockEntityProvider;
+import techreborn.events.OreDepthSyncHandler;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
-import techreborn.utils.ToolTipAssistUtils;
 import techreborn.world.OreDepth;
 import techreborn.world.TargetDimension;
 
@@ -53,6 +55,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+@Environment(EnvType.CLIENT)
 public class StackToolTipHandler implements ItemTooltipCallback {
 
 	public static final Map<Item, Boolean> ITEM_ID = Maps.newHashMap();
