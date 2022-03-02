@@ -33,7 +33,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.GreenhouseControllerBlockEntity;
 
 import java.util.Arrays;

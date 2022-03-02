@@ -35,7 +35,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
-import techreborn.client.GuiType;
+import techreborn.blockentity.GuiType;
 
 import java.util.Random;
 

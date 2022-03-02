@@ -33,7 +33,7 @@ import reborncore.client.ClientChunkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.packets.ServerboundPackets;

@@ -37,7 +37,7 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
 import reborncore.client.gui.builder.slot.elements.ElementBase;
 import reborncore.client.gui.builder.slot.elements.SlotType;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.ServerBoundPackets;

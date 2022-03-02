@@ -39,7 +39,7 @@ import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
-import techreborn.client.GuiType;
+import techreborn.blockentity.GuiType;
 import techreborn.init.TRContent;
 import techreborn.utils.damageSources.FusionDamageSource;
 

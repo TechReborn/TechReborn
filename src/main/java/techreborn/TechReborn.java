@@ -39,7 +39,7 @@ import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
-import techreborn.client.GuiType;
+import techreborn.blockentity.GuiType;
 import techreborn.compat.trinkets.Trinkets;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ApplyArmorToDamageHandler;

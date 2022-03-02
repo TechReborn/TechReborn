@@ -34,7 +34,7 @@ import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;

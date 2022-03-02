@@ -29,7 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 
 public class GuiSolar extends GuiBase<BuiltScreenHandler> {

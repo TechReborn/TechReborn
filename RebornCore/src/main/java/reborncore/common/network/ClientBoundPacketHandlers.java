@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import reborncore.RebornCore;
 import reborncore.client.ClientChunkManager;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;

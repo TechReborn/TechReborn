@@ -33,7 +33,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.packets.ServerboundPackets;

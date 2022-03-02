@@ -29,7 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
 
 public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {

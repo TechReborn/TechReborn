@@ -54,7 +54,7 @@ import reborncore.client.gui.builder.slot.GuiTab;
 import reborncore.client.gui.builder.slot.SlotConfigGui;
 import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.client.screen.builder.slot.PlayerInventorySlot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.mixin.client.AccessorScreen;

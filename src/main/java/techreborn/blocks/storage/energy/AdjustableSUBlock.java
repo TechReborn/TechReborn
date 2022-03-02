@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.client.GuiType;
+import techreborn.blockentity.GuiType;
 
 public class AdjustableSUBlock extends EnergyStorageBlock {
 

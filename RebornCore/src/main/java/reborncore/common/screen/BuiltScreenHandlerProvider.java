@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-package reborncore.client.screen;
+package reborncore.common.screen;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandler;
 
 public interface BuiltScreenHandlerProvider {
 	BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player);

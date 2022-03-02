@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.client.screen.builder;
+package reborncore.common.screen;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;

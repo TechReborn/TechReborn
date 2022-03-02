@@ -55,6 +55,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
 import reborncore.mixin.client.AccessorModelPredicateProviderRegistry;
 import team.reborn.energy.api.base.SimpleBatteryItem;
+import techreborn.client.ClientGuiType;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
@@ -243,6 +244,7 @@ public class TechRebornClient implements ClientModInitializer {
 				}
 		);
 
+		ClientGuiType.validate();
 	}
 
 	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {

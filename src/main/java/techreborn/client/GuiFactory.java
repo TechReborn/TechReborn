@@ -22,35 +22,27 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.storage.energy;
+package techreborn.client;
 
-import net.minecraft.block.BlockState;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.Text;
 import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
-import reborncore.common.powerSystem.RcEnergyTier;
-import techreborn.init.TRBlockEntities;
-import techreborn.init.TRContent;
 
-/**
- * Created by modmuss50 on 14/03/2016.
- */
-public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
-
-	/**
-	 * MFE should store 4M energy with 128 E/t I/O
-	 */
-	public MediumVoltageSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, pos, state, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, RcEnergyTier.MEDIUM, 4_000_000);
-	}
+@Environment(EnvType.CLIENT)
+public interface GuiFactory<T extends BlockEntity> extends ScreenRegistry.Factory<BuiltScreenHandler, HandledScreen<BuiltScreenHandler>> {
+	HandledScreen<?> create(int syncId, PlayerEntity playerEntity, T blockEntity);
 
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("mfe").player(player.getInventory()).inventory().hotbar().armor()
-				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-				.syncEnergyValue().addInventory().create(this, syncID);
+	default HandledScreen create(BuiltScreenHandler builtScreenHandler, PlayerInventory playerInventory, Text text) {
+		PlayerEntity playerEntity = playerInventory.player;
+		//noinspection unchecked
+		T blockEntity = (T) builtScreenHandler.getBlockEntity();
+		return create(builtScreenHandler.syncId, playerEntity, blockEntity);
 	}
-
 }

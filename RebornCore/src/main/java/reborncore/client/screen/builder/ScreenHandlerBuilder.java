@@ -33,6 +33,7 @@ import net.minecraft.util.math.Vec3d;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.screen.BuiltScreenHandler;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -52,7 +52,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
-import techreborn.client.GuiType;
+import techreborn.blockentity.GuiType;
 import techreborn.utils.MessageIDs;
 
 public class PlayerDetectorBlock extends BlockMachineBase {
