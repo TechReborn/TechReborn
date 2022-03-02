@@ -27,37 +27,48 @@ package techreborn.blockentity.cable;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.init.TRContent;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("UnstableApiUsage")
 class CableTickManager {
 	private static long tickCounter = 0;
-	private static final List<CableBlockEntity> cableList = new ArrayList<>();
+	private static final HashSet<HashSet<CableBlockEntity>> cableTickCache = new HashSet<>(1024);
 	private static final List<OfferedEnergyStorage> targetStorages = new ArrayList<>();
-	private static final Deque<CableBlockEntity> bfsQueue = new ArrayDeque<>();
+	private static final HashMap<CableBlockEntity, HashSet<CableBlockEntity>> cableLinkedCache = new HashMap<>();
+
 
 	static void handleCableTick(CableBlockEntity startingCable) {
 		if (!(startingCable.getWorld() instanceof ServerWorld)) throw new IllegalStateException();
-
+		if(startingCable.lastTick == tickCounter){
+			return;
+		}
+		HashSet<CableBlockEntity> cableSet;
 		try {
-			gatherCables(startingCable);
-			if (cableList.size() == 0) return;
+			boolean cacheState = startingCable.targets != null && isCacheValid(startingCable);
+			if (cacheState){
+				cableSet = cableLinkedCache.get(startingCable);
+			}
+			else {
+				cableSet = gatherCables(startingCable);
+				if(cableSet == null){
+					return;
+				}
+				cableLinkedCache.put(startingCable,cableSet);
+				cableTickCache.add(cableSet);
+			}
+			if (cableSet == null || cableSet.size() == 0) return;
 
 			// Group all energy into the network.
 			long networkCapacity = 0;
 			long networkAmount = 0;
 
-			for (CableBlockEntity cable : cableList) {
+			for (CableBlockEntity cable : cableSet) {
+				cableLinkedCache.put(cable, cableSet);
 				networkAmount += cable.energyContainer.amount;
 				networkCapacity += cable.energyContainer.getCapacity();
 
@@ -78,10 +89,13 @@ class CableTickManager {
 			networkAmount += dispatchTransfer(startingCable.getCableType(), EnergyStorage::extract, networkCapacity - networkAmount);
 			// Push energy into storages.
 			networkAmount -= dispatchTransfer(startingCable.getCableType(), EnergyStorage::insert, networkAmount);
-
+			if (networkAmount < 0) {
+				networkAmount = 0;
+			}
 			// Split energy evenly across cables.
-			int cableCount = cableList.size();
-			for (CableBlockEntity cable : cableList) {
+			int cableCount = cableSet.size();
+			for (CableBlockEntity cable : cableSet) {
+				cable.lastTick = tickCounter;
 				cable.energyContainer.amount = networkAmount / cableCount;
 				networkAmount -= cable.energyContainer.amount;
 				cableCount--;
@@ -89,48 +103,57 @@ class CableTickManager {
 				cable.ioBlocked = false;
 			}
 		} finally {
-			cableList.clear();
+			//cableTickCache.clear();
 			targetStorages.clear();
-			bfsQueue.clear();
 		}
+	}
+	//target is null when it finds or losts its connection
+	private static boolean isCacheValid(CableBlockEntity cableBlockEntity){
+		HashSet<CableBlockEntity> cableList = cableLinkedCache.get(cableBlockEntity);
+		if (cableList != null){
+			for (CableBlockEntity cables : cableList){
+				if (cables.targets == null || cables.isRemoved() ){
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	private static boolean shouldTickCable(CableBlockEntity current) {
 		// Make sure we only gather and tick each cable once per tick.
 		if (current.lastTick == tickCounter) return false;
 		// Make sure we ignore cables in non-ticking chunks.
-		if (!(current.getWorld() instanceof ServerWorld sw) || !sw.isChunkLoaded(current.getPos())) return false;
-
-		return true;
+		return current.getWorld() instanceof ServerWorld sw && sw.isChunkLoaded(current.getPos());
 	}
 
 	/**
 	 * Perform a BFS to gather all connected ticking cables.
 	 */
-	private static void gatherCables(CableBlockEntity start) {
-		if (!shouldTickCable(start)) return;
-
-		bfsQueue.add(start);
-		start.lastTick = tickCounter;
+	private static HashSet<CableBlockEntity> gatherCables(CableBlockEntity start) {
+		Deque<CableBlockEntity> bfsQueue = new ArrayDeque<>();
+		HashSet<CableBlockEntity> cableList = new HashSet<>();
+		if (!shouldTickCable(start)) return null;
+		Optional <HashSet<CableBlockEntity>> cachedResult = cableTickCache.stream().filter(a->a!= null && a.contains(start)).findAny();
+		if (cachedResult.isPresent()){
+			return cachedResult.get();
+		}
 		cableList.add(start);
-
-		while (!bfsQueue.isEmpty()) {
-			CableBlockEntity current = bfsQueue.removeFirst();
-
-			for (Direction direction : Direction.values()) {
-				BlockPos adjPos = current.getPos().offset(direction);
-
-				if (current.getWorld().getBlockEntity(adjPos) instanceof CableBlockEntity adjCable && current.getCableType() == adjCable.getCableType()) {
-					if (shouldTickCable(adjCable)) {
-						bfsQueue.add(adjCable);
-						adjCable.lastTick = tickCounter;
-						cableList.add(adjCable);
-					}
+		bfsQueue.add(start);
+		World world = start.getWorld();
+		TRContent.Cables cableType = start.getCableType();
+		while (!bfsQueue.isEmpty()){
+			CableBlockEntity where = bfsQueue.removeFirst();
+			for (Direction direction : Direction.values()){
+				if (world.getBlockEntity(where.getPos().offset(direction)) instanceof CableBlockEntity adjCable && !cableList.contains(adjCable) && adjCable.getCableType() == cableType ){
+					bfsQueue.add(adjCable);
+					cableList.add(adjCable);
 				}
 			}
 		}
+		return cableList;
 	}
-
 	/**
 	 * Perform a transfer operation across a list of targets.
 	 */
@@ -140,7 +163,7 @@ class CableTickManager {
 		for (var storage : targetStorages) {
 			sortedTargets.add(new SortableStorage(operation, storage));
 		}
-		// Shuffle for better average transfer.
+		// Why do we need shuffle?
 		Collections.shuffle(sortedTargets);
 		// Sort by lowest simulation target.
 		sortedTargets.sort(Comparator.comparingLong(sortableStorage -> sortableStorage.simulationResult));
@@ -183,6 +206,6 @@ class CableTickManager {
 	}
 
 	static {
-		ServerTickEvents.START_SERVER_TICK.register(server -> tickCounter++);
+		ServerTickEvents.START_SERVER_TICK.register(server -> {tickCounter++; cableTickCache.clear();});
 	}
 }
