@@ -24,8 +24,6 @@
 
 package techreborn.items.tool;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
@@ -96,7 +94,6 @@ public class PaintingToolItem extends Item {
 		return null;
 	}
 
-	@Environment(EnvType.CLIENT)
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		BlockState blockState = getCover(stack);
 		if (blockState != null) {

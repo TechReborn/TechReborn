@@ -101,7 +101,6 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 		ItemUtils.checkActive(stack, cost, MessageIDs.poweredToolID, entity);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);

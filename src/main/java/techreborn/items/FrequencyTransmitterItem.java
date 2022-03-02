@@ -24,8 +24,6 @@
 
 package techreborn.items;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -114,7 +112,6 @@ public class FrequencyTransmitterItem extends Item {
 		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		getPos(stack)

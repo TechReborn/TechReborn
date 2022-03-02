@@ -24,8 +24,6 @@
 
 package techreborn.items.armor;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -35,8 +33,8 @@ import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
-import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterials;
@@ -80,7 +78,6 @@ public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, Ar
 	}
 
 	// Item
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
 		if (!isIn(group)) {

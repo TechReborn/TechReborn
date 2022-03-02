@@ -24,8 +24,6 @@
 
 package techreborn.items.tool.industrial;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
@@ -33,7 +31,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -42,8 +39,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
@@ -114,13 +111,11 @@ public class IndustrialDrillItem extends DrillItem {
 		ItemUtils.checkActive(stack, cost, MessageIDs.poweredToolID, entity);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
 		if (!isIn(par2ItemGroup)) {

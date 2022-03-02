@@ -24,8 +24,6 @@
 
 package techreborn.items.tool.basic;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -36,8 +34,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
-import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -110,7 +108,6 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 		return true;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
 		if (!isIn(group)) {

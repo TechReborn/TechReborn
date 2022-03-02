@@ -33,6 +33,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -101,6 +102,18 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			Fluid fluid = cell.getFluid(stack);
 			if (!(fluid instanceof FlowableFluid) && fluid != Fluids.EMPTY)
 				ToolTipAssistUtils.addInfo("unplaceable_fluid", tooltipLines, false);
+		}
+
+		if (item == TRContent.Upgrades.SUPERCONDUCTOR.item && Screen.hasControlDown()) {
+			tooltipLines.add(new LiteralText(Formatting.GOLD + "Blame obstinate_3 for this"));
+		}
+
+		if (item == TRContent.OMNI_TOOL) {
+			tooltipLines.add(new LiteralText(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
+		}
+
+		if (block == TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block && Screen.hasControlDown()) {
+			tooltipLines.add(new LiteralText("Round and round it goes"));
 		}
 
 		if (UNOBTAINABLE_ORES.contains(block)) {

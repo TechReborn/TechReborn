@@ -24,8 +24,6 @@
 
 package techreborn.blocks.machine.tier0;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -33,9 +31,9 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
-import techreborn.blockentity.GuiType;
 
 import java.util.Random;
 
@@ -46,7 +44,6 @@ public class IronFurnaceBlock extends GenericMachineBlock {
 	}
 
 	// Block
-	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		if (!isActive(stateIn)) {
 			return;

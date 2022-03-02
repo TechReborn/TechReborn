@@ -24,27 +24,19 @@
 
 package techreborn.items.tool.industrial;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.tag.TagKey;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -55,8 +47,6 @@ import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
-
-import java.util.List;
 
 public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 	public static final TagKey<Block> OMNI_TOOL_MINEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "mineable/omni_tool"));
@@ -125,19 +115,12 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 		return true;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		InitUtils.initPoweredItems(TRContent.OMNI_TOOL, itemList);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		tooltip.add(new LiteralText(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
 	}
 
 	@Override

@@ -24,13 +24,10 @@
 
 package techreborn.items.tool.basic;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -57,7 +54,6 @@ public class ElectricTreetapItem extends Item implements RcEnergyItem {
 		return false;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
 		if (!isIn(group)) {

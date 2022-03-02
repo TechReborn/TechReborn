@@ -24,25 +24,14 @@
 
 package techreborn.items;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.recipes.IUpgradeHandler;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
-
-import java.util.List;
 
 public class UpgradeItem extends Item implements IUpgrade {
 
@@ -63,15 +52,5 @@ public class UpgradeItem extends Item implements IUpgrade {
 			@NotNull
 					ItemStack stack) {
 		behavior.process(blockEntity, handler, stack);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		if (stack.getItem() == TRContent.Upgrades.SUPERCONDUCTOR.item) {
-			if (Screen.hasControlDown()) {
-				tooltip.add(new LiteralText(Formatting.GOLD + "Blame obstinate_3 for this"));
-			}
-		}
 	}
 }
