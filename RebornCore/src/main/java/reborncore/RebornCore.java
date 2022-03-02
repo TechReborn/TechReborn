@@ -55,23 +55,16 @@ import reborncore.common.util.GenericWrenchHelper;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.io.File;
+import java.util.Locale;
 import java.util.function.Supplier;
 
 public class RebornCore implements ModInitializer {
-
 	public static final String MOD_NAME = "Reborn Core";
 	public static final String MOD_ID = "reborncore";
-	public static final String MOD_VERSION = "@MODVERSION@";
-	public static final String WEB_URL = "https://files.modmuss50.me/";
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static File configDir;
 
-	public static boolean LOADED = false;
-
-	public RebornCore() {
-
-	}
+	public static Locale locale = Locale.ROOT;
 
 	@Override
 	public void onInitialize() {
@@ -132,9 +125,6 @@ public class RebornCore implements ModInitializer {
 			}
 			return null;
 		});
-
-		LOGGER.info("Reborn core is done for now, now to let other mods have their turn...");
-		LOADED = true;
 	}
 
 	public static EnvType getSide() {

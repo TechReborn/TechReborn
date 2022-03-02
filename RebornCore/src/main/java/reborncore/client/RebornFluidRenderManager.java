@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.fluid;
+package reborncore.client;
 
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
@@ -35,7 +35,9 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
-import reborncore.client.RenderUtil;
+import reborncore.common.fluid.FluidSettings;
+import reborncore.common.fluid.RebornFluid;
+import reborncore.common.fluid.RebornFluidManager;
 import reborncore.common.util.TemporaryLazy;
 
 import java.util.Collection;

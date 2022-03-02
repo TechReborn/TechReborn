@@ -24,22 +24,17 @@
 
 package reborncore.common.powerSystem;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
+import reborncore.RebornCore;
 import reborncore.common.RebornCoreConfig;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.function.Supplier;
 
 public class PowerSystem {
 	private static EnergySystem selectedSystem = EnergySystem.values()[0];
 
 	private static final char[] magnitude = new char[] { 'k', 'M', 'G', 'T' };
-
-	private static Locale locale = Locale.ROOT;
 
 	public static String getLocalizedPower(double power) {
 
@@ -67,8 +62,7 @@ public class PowerSystem {
 	}
 
 	private static String getFullPower(double power, String units){
-		checkLocale();
-		DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(locale);
+		DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(RebornCore.locale);
 		return formatter.format(power) + " " + units;
 	}
 
@@ -111,8 +105,7 @@ public class PowerSystem {
 		}
 
 		if (doFormat){
-			checkLocale();
-			DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(locale);
+			DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(RebornCore.locale);
 			ret += formatter.format(value);
 			int idx = ret.lastIndexOf(formatter.getDecimalFormatSymbols().getDecimalSeparator());
 			if (idx > 0){
@@ -159,14 +152,6 @@ public class PowerSystem {
 		if(!selectedSystem.enabled.get()){
 			bumpPowerConfig();
 		}
-	}
-
-	private static void checkLocale() {
-		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) { return; }
-		MinecraftClient instance = MinecraftClient.getInstance();
-		if (instance == null) { return; }
-		String strangeMcLang = instance.getLanguageManager().getLanguage().getCode();
-		locale = Locale.forLanguageTag(strangeMcLang.substring(0, 2));
 	}
 
 	public enum EnergySystem {

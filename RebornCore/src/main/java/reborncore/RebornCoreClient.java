@@ -26,6 +26,7 @@ package reborncore;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -33,8 +34,8 @@ import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.client.*;
-import reborncore.common.fluid.RebornFluidRenderManager;
-import reborncore.common.network.ClientBoundPacketHandlers;
+
+import java.util.Locale;
 
 public class RebornCoreClient implements ClientModInitializer {
 
@@ -51,6 +52,11 @@ public class RebornCoreClient implements ClientModInitializer {
 		/* register UnloadHandler */
 		ClientBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {
 			if (blockEntity instanceof UnloadHandler) ((UnloadHandler) blockEntity).onUnload();
+		});
+
+		ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+			String strangeMcLang = client.getLanguageManager().getLanguage().getCode();
+			RebornCore.locale = Locale.forLanguageTag(strangeMcLang.substring(0, 2));
 		});
 	}
 }

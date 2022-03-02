@@ -29,7 +29,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.blockentity.MultiblockWriter;
 
 public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements BlockEntityRenderer<T> {
 
@@ -39,7 +38,7 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 	@Override
 	public void render(T blockEntity, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay) {
 		if (blockEntity.renderMultiblock) {
-			blockEntity.writeMultiblock(new MultiblockWriter.HologramRenderer(blockEntity.getWorld(), matrixStack, vertexConsumerProvider, 0.4F).rotate(blockEntity.getFacing().getOpposite()));
+			blockEntity.writeMultiblock(new HologramRenderer(blockEntity.getWorld(), matrixStack, vertexConsumerProvider, 0.4F).rotate(blockEntity.getFacing().getOpposite()));
 		}
 	}
 }

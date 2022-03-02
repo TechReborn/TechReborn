@@ -44,11 +44,11 @@ public class ExtendedPacketBuffer extends PacketByteBuf {
 		super(wrapped);
 	}
 
-	protected void writeObject(Object object) {
+	public void writeObject(Object object) {
 		ObjectBufferUtils.writeObject(object, this);
 	}
 
-	protected Object readObject() {
+	public Object readObject() {
 		return ObjectBufferUtils.readObject(this);
 	}
 

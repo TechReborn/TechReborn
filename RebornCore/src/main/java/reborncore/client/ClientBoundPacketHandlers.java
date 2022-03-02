@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.network;
+package reborncore.client;
 
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -44,12 +44,12 @@ import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.RebornCore;
-import reborncore.client.ClientChunkManager;
-import reborncore.client.ItemStackRenderManager;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.chunkloading.ChunkLoaderManager;
+import reborncore.common.network.ExtendedPacketBuffer;
+import reborncore.common.network.NetworkManager;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.mixin.client.AccessorChatHud;
 
