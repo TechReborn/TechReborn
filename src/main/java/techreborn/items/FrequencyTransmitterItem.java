@@ -32,6 +32,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -66,20 +67,20 @@ public class FrequencyTransmitterItem extends Item {
 		GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, globalPos).result()
 				.ifPresent(tag -> stack.getOrCreateNbt().put("pos", tag));
 
-		if (!world.isClient) {
-
-			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TranslatableText("techreborn.message.setTo")
-					.append(new LiteralText(" X:").formatted(Formatting.GRAY))
-					.append(new LiteralText(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
-					.append(new LiteralText(" Y:").formatted(Formatting.GRAY))
-					.append(new LiteralText(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
-					.append(new LiteralText(" Z:").formatted(Formatting.GRAY))
-					.append(new LiteralText(String.valueOf(pos.getZ())).formatted(Formatting.GOLD))
-					.append(" ")
-					.append(new TranslatableText("techreborn.message.in").formatted(Formatting.GRAY))
-					.append(" ")
-					.append(new LiteralText(getDimName(globalPos.getDimension()).toString()).formatted(Formatting.GOLD)));
+		if (context.getPlayer() instanceof ServerPlayerEntity serverPlayerEntity) {
+			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.freqTransmitterID, new TranslatableText("techreborn.message.setTo")
+				.append(new LiteralText(" X:").formatted(Formatting.GRAY))
+				.append(new LiteralText(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
+				.append(new LiteralText(" Y:").formatted(Formatting.GRAY))
+				.append(new LiteralText(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
+				.append(new LiteralText(" Z:").formatted(Formatting.GRAY))
+				.append(new LiteralText(String.valueOf(pos.getZ())).formatted(Formatting.GOLD))
+				.append(" ")
+				.append(new TranslatableText("techreborn.message.in").formatted(Formatting.GRAY))
+				.append(" ")
+				.append(new LiteralText(getDimName(globalPos.getDimension()).toString()).formatted(Formatting.GOLD)));
 		}
+
 		return ActionResult.SUCCESS;
 	}
 
@@ -96,16 +97,16 @@ public class FrequencyTransmitterItem extends Item {
 		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			stack.setNbt(null);
-			if (!world.isClient) {
 
-				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID,
-						new TranslatableText("techreborn.message.coordsHaveBeen")
-								.formatted(Formatting.GRAY)
-								.append(" ")
-								.append(
-										new TranslatableText("techreborn.message.cleared")
-												.formatted(Formatting.GOLD)
-								)
+			if (player instanceof ServerPlayerEntity serverPlayerEntity) {
+				ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.freqTransmitterID,
+					new TranslatableText("techreborn.message.coordsHaveBeen")
+						.formatted(Formatting.GRAY)
+						.append(" ")
+						.append(
+							new TranslatableText("techreborn.message.cleared")
+								.formatted(Formatting.GOLD)
+						)
 				);
 			}
 		}

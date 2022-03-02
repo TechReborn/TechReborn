@@ -90,7 +90,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, world.isClient, MessageIDs.poweredToolID);
+			ItemUtils.switchActive(stack, cost, MessageIDs.poweredToolID, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -98,7 +98,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		ItemUtils.checkActive(stack, cost, entity.world.isClient, MessageIDs.poweredToolID);
+		ItemUtils.checkActive(stack, cost, MessageIDs.poweredToolID, entity);
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -32,6 +32,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.text.LiteralText;
@@ -123,15 +124,15 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 			}
 		}
 
-		if (worldIn.isClient) {
-			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID,
-					new TranslatableText("techreborn.message.detects")
-							.formatted(Formatting.GRAY)
-							.append(" ")
-							.append(
-									new LiteralText(StringUtils.toFirstCapital(newType.asString()))
-											.formatted(color)
-							)
+		if (playerIn instanceof ServerPlayerEntity serverPlayerEntity) {
+			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.playerDetectorID,
+				new TranslatableText("techreborn.message.detects")
+					.formatted(Formatting.GRAY)
+					.append(" ")
+					.append(
+						new LiteralText(StringUtils.toFirstCapital(newType.asString()))
+							.formatted(color)
+					)
 			);
 		}
 

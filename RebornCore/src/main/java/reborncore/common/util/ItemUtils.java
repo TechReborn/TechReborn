@@ -28,9 +28,11 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -159,26 +161,27 @@ public class ItemUtils {
 	 *
 	 * @param stack     {@link ItemStack} Stack to check
 	 * @param cost      {@link int} Cost of operation performed by tool
-	 * @param isClient  {@link boolean} Client side
 	 * @param messageId {@link int} MessageID for sending no spam message
 	 */
-	public static void checkActive(ItemStack stack, int cost, boolean isClient, int messageId) {
+	public static void checkActive(ItemStack stack, int cost, int messageId, Entity player) {
 		if (!ItemUtils.isActive(stack)) {
 			return;
 		}
 		if (((RcEnergyItem) stack.getItem()).getStoredEnergy(stack) >= cost) {
 			return;
 		}
-		if (isClient) {
-			ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.energyError")
-					.formatted(Formatting.GRAY)
-					.append(" ")
-					.append(
-							new TranslatableText("reborncore.message.deactivating")
-									.formatted(Formatting.GOLD)
-					)
+
+		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
+			ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, new TranslatableText("reborncore.message.energyError")
+				.formatted(Formatting.GRAY)
+				.append(" ")
+				.append(
+					new TranslatableText("reborncore.message.deactivating")
+						.formatted(Formatting.GOLD)
+				)
 			);
 		}
+
 		stack.getOrCreateNbt().putBoolean("isActive", false);
 	}
 
@@ -187,36 +190,34 @@ public class ItemUtils {
 	 *
 	 * @param stack     {@link ItemStack} Stack to switch state
 	 * @param cost      {@code int} Cost of operation performed by tool
-	 * @param isClient  {@code boolean} Are we on client side
 	 * @param messageId {@code int} MessageID for sending no spam message
 	 */
-	public static void switchActive(ItemStack stack, int cost, boolean isClient, int messageId) {
-		ItemUtils.checkActive(stack, cost, isClient, messageId);
+	public static void switchActive(ItemStack stack, int cost, int messageId, Entity entity) {
+		ItemUtils.checkActive(stack, cost, messageId, entity);
 
 		if (!ItemUtils.isActive(stack)) {
 			stack.getOrCreateNbt().putBoolean("isActive", true);
-			if (isClient) {
 
-
-				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.setTo")
-						.formatted(Formatting.GRAY)
-						.append(" ")
-						.append(
-								new TranslatableText("reborncore.message.active")
-										.formatted(Formatting.GOLD)
-						)
+			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
+				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, new TranslatableText("reborncore.message.setTo")
+					.formatted(Formatting.GRAY)
+					.append(" ")
+					.append(
+						new TranslatableText("reborncore.message.active")
+							.formatted(Formatting.GOLD)
+					)
 				);
 			}
 		} else {
 			stack.getOrCreateNbt().putBoolean("isActive", false);
-			if (isClient) {
-				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("reborncore.message.setTo")
-						.formatted(Formatting.GRAY)
-						.append(" ")
-						.append(
-								new TranslatableText("reborncore.message.inactive")
-										.formatted(Formatting.GOLD)
-						)
+			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
+				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, new TranslatableText("reborncore.message.setTo")
+					.formatted(Formatting.GRAY)
+					.append(" ")
+					.append(
+						new TranslatableText("reborncore.message.inactive")
+							.formatted(Formatting.GOLD)
+					)
 				);
 			}
 		}

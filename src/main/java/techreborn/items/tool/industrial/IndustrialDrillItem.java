@@ -103,7 +103,7 @@ public class IndustrialDrillItem extends DrillItem {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, world.isClient, MessageIDs.poweredToolID);
+			ItemUtils.switchActive(stack, cost, MessageIDs.poweredToolID, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -111,7 +111,7 @@ public class IndustrialDrillItem extends DrillItem {
 
 	@Override
 	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
-		ItemUtils.checkActive(stack, cost, entity.world.isClient, MessageIDs.poweredToolID);
+		ItemUtils.checkActive(stack, cost, MessageIDs.poweredToolID, entity);
 	}
 
 	@Environment(EnvType.CLIENT)

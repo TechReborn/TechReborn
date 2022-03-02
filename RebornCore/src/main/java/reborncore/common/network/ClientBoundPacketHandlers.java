@@ -30,22 +30,25 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reborncore.RebornCore;
 import reborncore.client.ClientChunkManager;
-import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.chunkloading.ChunkLoaderManager;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.mixin.client.AccessorChatHud;
 
 @Environment(EnvType.CLIENT)
 public class ClientBoundPacketHandlers {
@@ -136,6 +139,18 @@ public class ClientBoundPacketHandlers {
 		});
 
 		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, ClientChunkManager::setLoadedChunks);
+
+		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "no_spam_chat"), (client, handler, buf, responseSender) -> {
+			final int messageId = buf.readInt();
+			final Text text = buf.readText();
+
+			client.execute(() -> {
+				int deleteID = RebornCore.MOD_ID.hashCode() + messageId;
+				ChatHud chat = MinecraftClient.getInstance().inGameHud.getChatHud();
+				AccessorChatHud accessorChatHud = (AccessorChatHud) chat;
+				accessorChatHud.invokeAddMessage(text, deleteID);
+			});
+		});
 	}
 
 }

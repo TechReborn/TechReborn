@@ -138,8 +138,8 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 			}
 		}
 
-		if (!worldIn.isClient && playerIn.isSneaking()) {
-			((AlarmBlockEntity) blockEntity).rightClick();
+		if (playerIn.isSneaking()) {
+			((AlarmBlockEntity) blockEntity).rightClick(playerIn);
 			return ActionResult.SUCCESS;
 
 		}

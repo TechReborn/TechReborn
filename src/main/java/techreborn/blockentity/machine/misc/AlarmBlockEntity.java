@@ -27,9 +27,11 @@ package techreborn.blockentity.machine.misc;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -51,8 +53,8 @@ public class AlarmBlockEntity extends BlockEntity
 		super(TRBlockEntities.ALARM, pos, state);
 	}
 
-	public void rightClick() {
-		if (world == null || world.isClient) return;
+	public void rightClick(Entity entity) {
+		if (world == null) return;
 
 		if (selectedSound < 3) {
 			selectedSound++;
@@ -60,10 +62,12 @@ public class AlarmBlockEntity extends BlockEntity
 			selectedSound = 1;
 		}
 
-		ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TranslatableText("techreborn.message.alarm")
+		if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
+			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.alarmID, new TranslatableText("techreborn.message.alarm")
 				.formatted(Formatting.GRAY)
 				.append(" Alarm ")
 				.append(String.valueOf(selectedSound)));
+		}
 	}
 
 	// BlockEntity

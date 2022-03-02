@@ -24,37 +24,14 @@
 
 package reborncore.common.util;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.ChatHud;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import reborncore.mixin.client.AccessorChatHud;
-
-/**
- * Class stolen from SteamAgeRevolution, which I stole from BloodMagic, which was stolen from EnderCore, which stole the
- * idea from ExtraUtilities, who stole it from vanilla.
- * <p>
- *  Original class link:
- *  https://github.com/SleepyTrousers/EnderCore/blob/master/src/main/java/com/enderio/core/common/util/ChatUtil.java
- * </p>
- */
+import reborncore.common.network.ClientBoundPackets;
+import reborncore.common.network.NetworkManager;
 
 public class ChatUtils {
-	private static final int DELETION_ID = 1337; // MAKE THIS UNIQUE PER MOD THAT USES THIS
 
-	public static void sendNoSpamMessages(int messageID, Text message) {
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			sendNoSpamMessage(messageID, message);
-		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static void sendNoSpamMessage(int messageID, Text message) {
-		int deleteID = DELETION_ID + messageID;
-		ChatHud chat = MinecraftClient.getInstance().inGameHud.getChatHud();
-		AccessorChatHud accessorChatHud = (AccessorChatHud) chat;
-		accessorChatHud.invokeAddMessage(message, deleteID);
+	public static void sendNoSpamMessage(ServerPlayerEntity player, int messageID, Text message) {
+		NetworkManager.sendToPlayer(ClientBoundPackets.createPacketNoSpamMessage(messageID, message), player);
 	}
 }

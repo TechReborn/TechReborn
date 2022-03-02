@@ -81,14 +81,14 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemStackM
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		ItemUtils.checkActive(stack, cost, entityIn.world.isClient, MessageIDs.poweredToolID);
+		ItemUtils.checkActive(stack, cost, MessageIDs.poweredToolID, entityIn);
 	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, world.isClient, MessageIDs.poweredToolID);
+			ItemUtils.switchActive(stack, cost, MessageIDs.poweredToolID, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);

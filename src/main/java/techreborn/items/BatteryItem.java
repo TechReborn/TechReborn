@@ -65,7 +65,7 @@ public class BatteryItem extends Item implements RcEnergyItem {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, 1, world.isClient, MessageIDs.poweredToolID);
+			ItemUtils.switchActive(stack, 1, MessageIDs.poweredToolID, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -73,7 +73,7 @@ public class BatteryItem extends Item implements RcEnergyItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		ItemUtils.checkActive(stack, 1, entity.world.isClient, MessageIDs.poweredToolID);
+		ItemUtils.checkActive(stack, 1, MessageIDs.poweredToolID, entity);
 		if (world.isClient) {
 			return;
 		}

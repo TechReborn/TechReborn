@@ -28,6 +28,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.FluidConfiguration;
@@ -79,4 +80,10 @@ public class ClientBoundPackets {
 		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, chunks);
 	}
 
+	public static IdentifiedPacket createPacketNoSpamMessage(int messageId, Text text) {
+		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "no_spam_chat"), packetBuffer -> {
+			packetBuffer.writeInt(messageId);
+			packetBuffer.writeText(text);
+		});
+	}
 }
