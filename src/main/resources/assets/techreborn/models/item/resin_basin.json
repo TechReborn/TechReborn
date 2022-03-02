@@ -1,3 +1,119 @@
 {
-	"parent": "techreborn:block/machines/tier0_machines/resin_basin_empty"
+  "parent": "techreborn:block/machines/tier0_machines/resin_basin_empty",
+  "display": {
+	"thirdperson_righthand": {
+	  "rotation": [
+		50,
+		45,
+		0
+	  ],
+	  "translation": [
+		0,
+		1.7,
+		1.2
+	  ],
+	  "scale": [
+		0.325,
+		0.325,
+		0.325
+	  ]
+	},
+	"thirdperson_lefthand": {
+	  "rotation": [
+		50,
+		-16,
+		0
+	  ],
+	  "translation": [
+		0,
+		1.7,
+		1.2
+	  ],
+	  "scale": [
+		0.325,
+		0.325,
+		0.325
+	  ]
+	},
+	"firstperson_righthand": {
+	  "rotation": [
+		0,
+		-225,
+		0
+	  ],
+	  "translation": [
+		0,
+		1.25,
+		0
+	  ],
+	  "scale": [
+		0.4,
+		0.4,
+		0.4
+	  ]
+	},
+	"firstperson_lefthand": {
+	  "rotation": [
+		0,
+		135,
+		0
+	  ],
+	  "translation": [
+		0,
+		1.25,
+		0
+	  ],
+	  "scale": [
+		0.4,
+		0.4,
+		0.4
+	  ]
+	},
+	"gui": {
+	  "rotation": [
+		30,
+		225,
+		0
+	  ],
+	  "translation": [
+		0,
+		0,
+		0
+	  ],
+	  "scale": [
+		0.625,
+		0.625,
+		0.625
+	  ]
+	},
+	"ground": {
+	  "translation": [
+		0,
+		3,
+		0
+	  ],
+	  "scale": [
+		0.25,
+		0.25,
+		0.25
+	  ]
+	},
+	"fixed": {
+	  "rotation": [
+		0,
+		-90,
+		0
+	  ],
+	  "translation": [
+		0,
+		0,
+		0
+	  ],
+	  "scale": [
+		0.5,
+		0.5,
+		0.5
+	  ]
+	}
+  }
 }

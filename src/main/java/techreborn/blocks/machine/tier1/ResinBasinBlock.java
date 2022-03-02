@@ -34,6 +34,9 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -43,6 +46,7 @@ import net.minecraft.world.World;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.WorldUtils;
+import techreborn.blockentity.machine.tier1.ResinBasinBlockEntity;
 import techreborn.init.TRContent;
 
 import java.util.UUID;
@@ -53,6 +57,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty POURING = BooleanProperty.of("pouring");
 	public static final BooleanProperty FULL = BooleanProperty.of("full");
+	protected static final VoxelShape SHAPE = Block.createCuboidShape(0d,0d, 0d, 16d, 8d, 16d);
 	BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
 	public ResinBasinBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
@@ -63,9 +68,10 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 				this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(POURING, false).with(FULL, false));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return VoxelShapes.cuboid(0, 0, 0, 1, 15 / 16f, 1);
+		return SHAPE;
 	}
 
 	public void setFacing(Direction facing, World world, BlockPos pos) {
@@ -80,6 +86,19 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 
 	public Direction getFacing(BlockState state) {
 		return state.get(FACING);
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		if (world == null || world.isClient() || player == null || pos == null || !(world.getBlockEntity(pos) instanceof ResinBasinBlockEntity))
+			return ActionResult.PASS;
+		ResinBasinBlockEntity basin = (ResinBasinBlockEntity)world.getBlockEntity(pos);
+		ItemStack sap = basin.empty();
+		if (sap.isEmpty())
+			return ActionResult.PASS;
+		player.getInventory().offerOrDrop(sap);
+		return ActionResult.SUCCESS;
 	}
 
 	@Override
