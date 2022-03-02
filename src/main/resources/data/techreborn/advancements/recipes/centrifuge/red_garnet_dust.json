@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/red_garnet_dust"
+	]
+  },
+  "criteria": {
+	"has_red_garnet_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:red_garnet_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/red_garnet_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_red_garnet_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

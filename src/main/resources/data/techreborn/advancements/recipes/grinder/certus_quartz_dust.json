@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/certus_quartz_dust"
+	]
+  },
+  "criteria": {
+	"has_certus_quartz": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:certus_quartz"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/certus_quartz_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_certus_quartz",
+	  "has_the_recipe"
+	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:item_tags_populated",
+	  "values": [
+		"c:certus_quartz"
+	  ]
+	}
+  ]
+}

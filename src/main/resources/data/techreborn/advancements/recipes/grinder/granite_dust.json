@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/granite_dust"
+	]
+  },
+  "criteria": {
+	"has_granite": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:granite"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/granite_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_granite",
+	  "has_the_recipe"
+	]
+  ]
+}

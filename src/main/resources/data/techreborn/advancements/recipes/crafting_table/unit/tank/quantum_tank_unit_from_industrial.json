@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/unit/tank/quantum_tank_unit"
+	]
+  },
+  "criteria": {
+	"has_industrial_tank_unit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:industrial_tank_unit"]
+		  }
+		]
+	  }
+	},
+	"has_data_storage_chip": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:data_storage_chip"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/unit/tank/quantum_tank_unit"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_industrial_tank_unit",
+	  "has_data_storage_chip",
+	  "has_the_recipe"
+	]
+  ]
+}

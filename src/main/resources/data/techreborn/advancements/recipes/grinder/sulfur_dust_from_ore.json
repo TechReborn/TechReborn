@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/sulfur_dust_from_ore"
+	]
+  },
+  "criteria": {
+	"has_sulfur_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:sulfur_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/sulfur_dust_from_ore"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sulfur_ore",
+	  "has_the_recipe"
+	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:item_tags_populated",
+	  "values": [
+		"c:sulfur_ores"
+	  ]
+	}
+  ]
+}

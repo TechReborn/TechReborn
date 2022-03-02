@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:assembling_machine/energy_crystal"
+	]
+  },
+  "criteria": {
+	"has_redstone_crystal": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:synthetic_redstone_crystal"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:assembling_machine/energy_crystal"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_redstone_crystal",
+	  "has_the_recipe"
+	]
+  ]
+}

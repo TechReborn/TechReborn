@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/lamp_led"
+	]
+  },
+  "criteria": {
+	"has_tin_cable": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:tin_cable"]
+		  }
+		]
+	  }
+	},
+	"has_glowstone_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:glowstone_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/lamp_led"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_tin_cable",
+	  "has_glowstone_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/copper_ore_with_water"
+	]
+  },
+  "criteria": {
+	"has_copper_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:copper_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/copper_ore_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_copper_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

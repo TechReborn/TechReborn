@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/plasma_generator"
+	]
+  },
+  "criteria": {
+	"has_tungstensteel_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:tungstensteel_plate"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/plasma_generator"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_tungstensteel_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

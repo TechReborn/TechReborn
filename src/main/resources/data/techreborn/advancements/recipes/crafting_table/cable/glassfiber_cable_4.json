@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/cable/glassfiber_cable_4"
+	]
+  },
+  "criteria": {
+	"has_diamond_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:diamond_dusts"
+		  }
+		]
+	  }
+	},
+	"has_redstone": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:redstone"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/cable/glassfiber_cable_4"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_diamond_dust",
+	  "has_redstone",
+	  "has_the_recipe"
+	]
+  ]
+}

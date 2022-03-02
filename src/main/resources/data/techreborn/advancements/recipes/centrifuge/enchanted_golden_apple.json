@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/enchanted_golden_apple"
+	]
+  },
+  "criteria": {
+	"has_enchanted_golden_apple": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:enchanted_golden_apple"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/enchanted_golden_apple"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_enchanted_golden_apple",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -28,6 +28,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementRewards;
+import net.minecraft.advancement.CriterionMerger;
+import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,12 +44,14 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import reborncore.common.util.DefaultedListCollector;
 import reborncore.common.util.serialization.SerializationUtil;
 import reborncore.mixin.common.AccessorRecipeManager;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 public class RecipeUtils {
 	@SuppressWarnings("unchecked")
@@ -80,6 +86,26 @@ public class RecipeUtils {
 			stack.setNbt(tag);
 		}
 		return stack;
+	}
+
+	/**
+	 * Adds the following toast/recipe defaults to an advancement builder:
+	 * <ul>
+	 *     <li>parent as "recipes/root"</li>
+	 *     <li>criterion "has_the_recipe" via OR</li>
+	 *     <li>reward: the specified recipe</li>
+	 * </ul>
+	 * @param builder the advancement task builder to expand
+	 * @param recipeId the ID of the recipe
+	 * @throws NullPointerException If any parameter refers to <code>null</code>.
+	 */
+	public static void addToastDefaults(@NotNull Advancement.Builder builder, @NotNull Identifier recipeId) {
+		Objects.requireNonNull(builder);
+		Objects.requireNonNull(recipeId);
+		builder.parent(new Identifier("recipes/root"))
+			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
+			.rewards(AdvancementRewards.Builder.recipe(recipeId))
+			.criteriaMerger(CriterionMerger.OR);
 	}
 
 }

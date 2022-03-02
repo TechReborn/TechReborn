@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/ender_eye"
+	]
+  },
+  "criteria": {
+	"has_blaze_powder": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:blaze_powder"]
+		  }
+		]
+	  }
+	},
+	"has_ender_pearl": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:ender_pearl"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/ender_eye"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_blaze_powder",
+	  "has_ender_pearl",
+	  "has_the_recipe"
+	]
+  ]
+}

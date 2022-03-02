@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/assembling_machine"
+	]
+  },
+  "criteria": {
+	"has_advanced_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_electrum_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:electrum_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/assembling_machine"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_machine_frame",
+	  "has_electrum_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/thick_neutron_reflector"
+	]
+  },
+  "criteria": {
+	"has_neutron_reflector": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:neutron_reflector"]
+		  }
+		]
+	  }
+	},
+	"has_beryllium_bucket": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:beryllium_bucket"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/thick_neutron_reflector"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_neutron_reflector",
+	  "has_beryllium_bucket",
+	  "has_the_recipe"
+	]
+  ]
+}

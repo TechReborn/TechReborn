@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/apple"
+	]
+  },
+  "criteria": {
+	"has_apple": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:apple"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/apple"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_apple",
+	  "has_the_recipe"
+	]
+  ]
+}

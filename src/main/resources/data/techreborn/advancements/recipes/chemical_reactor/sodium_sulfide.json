@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/sodium_sulfide"
+	]
+  },
+  "criteria": {
+	"has_sulfur": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:sulfur",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_sodium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:sodium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/sodium_sulfide"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sulfur",
+	  "has_sodium",
+	  "has_the_recipe"
+	]
+  ]
+}

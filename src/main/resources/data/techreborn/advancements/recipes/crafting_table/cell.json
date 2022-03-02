@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/cell"
+	]
+  },
+  "criteria": {
+	"has_tin_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:tin_ingots"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_tin_ingot",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/wire_mill"
+	]
+  },
+  "criteria": {
+	"has_extractor": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:extractor"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/wire_mill"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_extractor",
+	  "has_the_recipe"
+	]
+  ]
+}

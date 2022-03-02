@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/red_garnet_dust"
+	]
+  },
+  "criteria": {
+	"has_redstone_block": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:redstone_block"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/red_garnet"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_redstone_block",
+	  "has_the_recipe"
+	]
+  ]
+}

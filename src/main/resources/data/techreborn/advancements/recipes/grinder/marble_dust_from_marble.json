@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/marble_dust_from_marble"
+	]
+  },
+  "criteria": {
+	"has_marble": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:marble"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/marble_dust_from_marble"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_marble",
+	  "has_the_recipe"
+	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:item_tags_populated",
+	  "values": [
+		"c:marble"
+	  ]
+	}
+  ]
+}

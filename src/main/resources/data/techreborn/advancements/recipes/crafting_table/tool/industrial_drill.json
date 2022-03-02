@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/tool/advanced_drill"
+	]
+  },
+  "criteria": {
+	"has_energy_flow_chip": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:energy_flow_chip"]
+		  }
+		]
+	  }
+	},
+	"has_iridium_alloy_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:iridium_alloy_plate"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/tool/advanced_drill"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_energy_flow_chip",
+	  "has_iridium_alloy_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

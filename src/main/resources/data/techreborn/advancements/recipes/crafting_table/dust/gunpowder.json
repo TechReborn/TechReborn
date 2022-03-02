@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/dust/gunpowder"
+	]
+  },
+  "criteria": {
+	"has_charcoal_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:charcoal_dust"]
+		  }
+		]
+	  }
+	},
+	"has_sulfur_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:sulfur_dust"]
+		  }
+		]
+	  }
+	},
+	"has_saltpeter_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:saltpeter_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/dust/gunpowder"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_charcoal_dust",
+	  "has_sulfur_dust",
+	  "has_saltpeter_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

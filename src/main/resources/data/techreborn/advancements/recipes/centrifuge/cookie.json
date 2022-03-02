@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/cookie"
+	]
+  },
+  "criteria": {
+	"has_cookie": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:cookie"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/cookie"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_cookie",
+	  "has_the_recipe"
+	]
+  ]
+}

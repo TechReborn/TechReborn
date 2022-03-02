@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/hydrogen_cell"
+	]
+  },
+  "criteria": {
+	"has_hydrogen": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:hydrogen",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/hydrogen_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_hydrogen",
+	  "has_the_recipe"
+	]
+  ]
+}

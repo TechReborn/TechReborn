@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/bone_meal"
+	]
+  },
+  "criteria": {
+	"has_bone_meal": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:bone_meal"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/bone_meal"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_bone_meal",
+	  "has_the_recipe"
+	]
+  ]
+}

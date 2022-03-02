@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/marble_dust_from_limestone"
+	]
+  },
+  "criteria": {
+	"has_limestone": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:limestone"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/marble_dust_from_limestone"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_limestone",
+	  "has_the_recipe"
+	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:item_tags_populated",
+	  "values": [
+		"c:limestone"
+	  ]
+	}
+  ]
+}

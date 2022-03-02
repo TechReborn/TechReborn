@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/glistering_melon_slice"
+	]
+  },
+  "criteria": {
+	"has_melon_slice": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:melon_slice"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/glistering_melon_slice"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_melon_slice",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/drain"
+	]
+  },
+  "criteria": {
+	"has_iron_bars": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:iron_bars"]
+		  }
+		]
+	  }
+	},
+	"has_hopper": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:hopper"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/drain"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iron_bars",
+	  "has_hopper",
+	  "has_the_recipe"
+	]
+  ]
+}

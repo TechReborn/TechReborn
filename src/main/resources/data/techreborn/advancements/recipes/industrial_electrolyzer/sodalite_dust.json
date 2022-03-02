@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/sodalite_dust"
+	]
+  },
+  "criteria": {
+	"has_sodalite_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:sodalite_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/sodalite_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sodalite_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

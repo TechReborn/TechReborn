@@ -1,0 +1,76 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/armor/quantum_chestplate"
+	]
+  },
+  "criteria": {
+	"has_lapotronic_orb": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lapotronic_orb"]
+		  }
+		]
+	  }
+	},
+	"has_superconductor": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:superconductor"]
+		  }
+		]
+	  }
+	},
+	"has_data_storage_chip": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:data_storage_chip"]
+		  }
+		]
+	  }
+	},
+	"has_iridium_neutron_reflector": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:iridium_neutron_reflector"]
+		  }
+		]
+	  }
+	},
+	"has_tungstensteel_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:tungstensteel_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/armor/quantum_chestplate"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_lapotronic_orb",
+	  "has_superconductor",
+	  "has_data_storage_chip",
+	  "has_iridium_neutron_reflector",
+	  "has_tungstensteel_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/high_voltage_su"
+	]
+  },
+  "criteria": {
+	"has_lapotron_crystal": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lapotron_crystal"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/high_voltage_su"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_lapotron_crystal",
+	  "has_the_recipe"
+	]
+  ]
+}

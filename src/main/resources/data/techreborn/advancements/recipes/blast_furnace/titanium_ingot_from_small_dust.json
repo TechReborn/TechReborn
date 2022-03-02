@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/titanium_ingot_from_small_dust"
+	]
+  },
+  "criteria": {
+	"has_small_titanium_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:titanium_small_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/titanium_ingot_from_small_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_small_titanium_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/silicon_plate"
+	]
+  },
+  "criteria": {
+	"has_silicon": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+		      "fluid": "techreborn:silicon",
+		      "holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/silicon_plate"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_silicon",
+	  "has_the_recipe"
+	]
+  ]
+}

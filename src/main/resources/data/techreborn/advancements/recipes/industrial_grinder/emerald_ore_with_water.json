@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/emerald_ore_with_water"
+	]
+  },
+  "criteria": {
+	"has_emerald_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:emerald_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/emerald_ore_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_emerald_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

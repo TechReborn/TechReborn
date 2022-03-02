@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/hv_transformer"
+	]
+  },
+  "criteria": {
+	"has_mv_transformer": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:mv_transformer"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/hv_transformer"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_mv_transformer",
+	  "has_the_recipe"
+	]
+  ]
+}

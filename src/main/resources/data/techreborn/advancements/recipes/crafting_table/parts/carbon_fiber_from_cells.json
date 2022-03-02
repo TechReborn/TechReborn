@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/carbon_fiber_from_cells"
+	]
+  },
+  "criteria": {
+	"has_carbon_bucket": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:carbon_bucket"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/carbon_fiber_from_cells"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_carbon_bucket",
+	  "has_the_recipe"
+	]
+  ]
+}

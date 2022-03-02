@@ -27,6 +27,7 @@ package reborncore.common.misc;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tag.TagKey;
+import org.jetbrains.annotations.Contract;
 
 /**
  * Tells if an item, block etc. has a tag solely for compatibility with other mods.
@@ -42,5 +43,17 @@ public interface TagConvertible<T> {
 	 * @return the common tag of this object
 	 */
 	TagKey<T> asTag();
+
+	/**
+	 * Converts a given object into its tag form if the item is a {@link TagConvertible}.
+	 * @param obj the object to convert
+	 * @return The tag of the object or the object itself if it is not a {@link TagConvertible}.
+	 */
+	@Contract("null -> null")
+	static Object convertIf(Object obj) {
+		if (obj instanceof TagConvertible<?> convertible)
+			return convertible.asTag();
+		return obj;
+	}
 
 }

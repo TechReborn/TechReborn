@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/steel_ingot_from_refined_iron"
+	]
+  },
+  "criteria": {
+	"has_refined_iron": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:refined_iron_ingot"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/steel_ingot_from_refined_iron"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_refined_iron",
+	  "has_the_recipe"
+	]
+  ]
+}

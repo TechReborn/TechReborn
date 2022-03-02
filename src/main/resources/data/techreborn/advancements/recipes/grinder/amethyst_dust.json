@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/amethyst_dust"
+	]
+  },
+  "criteria": {
+	"has_amethyst_block": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:amethyst_block"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/amethyst_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_amethyst_block",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/industrial_grinder"
+	]
+  },
+  "criteria": {
+	"has_industrial_electrolyzer": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:industrial_electrolyzer"]
+		  }
+		]
+	  }
+	},
+	"has_diamond_grinding_head": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:diamond_grinding_head"]
+		  }
+		]
+	  }
+	},
+	"has_grinder": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:grinder"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/industrial_grinder"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_industrial_electrolyzer",
+	  "has_diamond_grinding_head",
+	  "has_grinder",
+	  "has_the_recipe"
+	]
+  ]
+}

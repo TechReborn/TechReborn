@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/dust/basalt_dust"
+	]
+  },
+  "criteria": {
+	"has_coal_small_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:coal_small_dust"]
+		  }
+		]
+	  }
+	},
+	"has_obsidian_small_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:obsidian_small_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/dust/basalt_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_coal_small_dust",
+	  "has_obsidian_small_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

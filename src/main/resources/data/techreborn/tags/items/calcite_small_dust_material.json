@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bone_meal",
+    "#c:coral_fans",
+    "#c:coral_plants",
+    "minecraft:pointed_dripstone",
+    "minecraft:nautilus_shell"
+  ]
+}

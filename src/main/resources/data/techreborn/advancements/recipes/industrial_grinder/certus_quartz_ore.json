@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/certus_quartz_ore"
+	]
+  },
+  "criteria": {
+	"has_certus_quartz_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:certus_quartz_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/certus_quartz_ore"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_certus_quartz_ore",
+	  "has_the_recipe"
+	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:item_tags_populated",
+	  "values": [
+		"c:certus_quartz_ores"
+	  ]
+	}
+  ]
+}

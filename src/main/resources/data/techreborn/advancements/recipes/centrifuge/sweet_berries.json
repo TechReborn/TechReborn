@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/sweet_berries"
+	]
+  },
+  "criteria": {
+	"has_sweet_berries": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:sweet_berries"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/sweet_berries"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sweet_berries",
+	  "has_the_recipe"
+	]
+  ]
+}

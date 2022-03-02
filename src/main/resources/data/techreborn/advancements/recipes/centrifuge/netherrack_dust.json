@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/netherrack_dust"
+	]
+  },
+  "criteria": {
+	"has_netherrack_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:netherrack_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/netherrack_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_netherrack_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/calcite_dust"
+	]
+  },
+  "criteria": {
+	"has_calcite_dust_material": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "techreborn:calcite_dust_material"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/calcite_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_calcite_dust_material",
+	  "has_the_recipe"
+	]
+  ]
+}

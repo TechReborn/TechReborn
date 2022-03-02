@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/matter_fabricator"
+	]
+  },
+  "criteria": {
+	"has_industrial_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:industrial_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_lapotronic_orb": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lapotronic_orb"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/matter_fabricator"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_industrial_machine_frame",
+	  "has_lapotronic_orb",
+	  "has_the_recipe"
+	]
+  ]
+}

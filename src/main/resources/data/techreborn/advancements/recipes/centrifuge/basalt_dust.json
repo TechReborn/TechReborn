@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/basalt_dust"
+	]
+  },
+  "criteria": {
+	"has_basalt_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:basalt_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/basalt_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_basalt_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:grinder",
+  "power": 2,
+  "time": 100,
+  "ingredients" : [
+    {
+      "tag": "techreborn:calcite_small_dust_material"
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:calcite_small_dust"
+    }
+  ]
+}

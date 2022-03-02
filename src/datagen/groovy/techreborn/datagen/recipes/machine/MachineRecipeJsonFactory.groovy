@@ -25,6 +25,8 @@
 package techreborn.datagen.recipes.machine
 
 import com.google.gson.JsonObject
+import net.minecraft.advancement.Advancement.Builder
+import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
@@ -32,20 +34,24 @@ import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
+import org.jetbrains.annotations.NotNull
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
+import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
 
 import java.util.function.Consumer
 
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
-	private final RebornRecipeType<R> type
+	protected final RebornRecipeType<R> type
+	protected final Builder builder = Builder.create()
 
-	private final List<RebornIngredient> ingredients = new ArrayList<>()
-	private final List<ItemStack> outputs = new ArrayList<>()
-	private int power = -1
-	private int time = -1
-	private Identifier customId = null
+	protected final List<RebornIngredient> ingredients = new ArrayList<>()
+	protected final List<ItemStack> outputs = new ArrayList<>()
+	protected int power = -1
+	protected int time = -1
+	protected Identifier customId = null
+	protected String source = null
 
 	protected MachineRecipeJsonFactory(RebornRecipeType<R> type) {
 		this.type = type
@@ -120,6 +126,17 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
+	def source(String s) {
+		this.source = s
+		return this
+	}
+
+	@NotNull String getSourceAppendix() {
+		if (source == null)
+			return ""
+		return "_from_" + source
+	}
+
 	MachineRecipeJsonFactory id(String path) {
 		return id(new Identifier("techreborn", path))
 	}
@@ -149,9 +166,17 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 	}
 
+	MachineRecipeJsonFactory<R> criterion(String string, CriterionConditions criterionConditions) {
+		builder.criterion(string, criterionConditions)
+		return this
+	}
+
 	void offerTo(Consumer<RecipeJsonProvider> exporter) {
 		validate()
-		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(getIdentifier())))
+		Identifier recipeId = getIdentifier()
+		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
+		RecipeUtils.addToastDefaults(builder, recipeId)
+		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), advancementId, builder))
 	}
 
 	def getIdentifier() {
@@ -163,21 +188,21 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			throw new IllegalStateException("Recipe has no outputs")
 		}
 
-		if (outputs.size() > 1) {
-			throw new IllegalStateException("Cannot compute default identifier for a recipe with more than one output. TODO might want to improve this?")
-		}
-
 		def outputId = Registry.ITEM.getId(outputs[0].item)
-		return new Identifier("techreborn", "${type.name().path}/${outputId.path}")
+		return new Identifier("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	static class MachineRecipeJsonProvider<R extends RebornRecipe> implements RecipeJsonProvider {
 		private final RebornRecipeType<R> type
 		private final R recipe
+		private final Identifier advancementId
+		private final Builder builder
 
-		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe) {
+		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe, Identifier advancementId = null, Builder builder = null) {
 			this.type = type
 			this.recipe = recipe
+			this.advancementId = advancementId
+			this.builder = builder
 		}
 
 		@Override
@@ -202,12 +227,14 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		@Override
 		JsonObject toAdvancementJson() {
-			return null
+			if (builder == null)
+				return null
+			return builder.toJson()
 		}
 
 		@Override
 		Identifier getAdvancementId() {
-			return null
+			return advancementId
 		}
 	}
 }

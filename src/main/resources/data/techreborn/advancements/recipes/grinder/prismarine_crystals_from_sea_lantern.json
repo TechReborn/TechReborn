@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/prismarine_crystals_from_sea_lantern"
+	]
+  },
+  "criteria": {
+	"has_sea_lantern": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:sea_lantern"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/prismarine_crystals_from_sea_lantern"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sea_lantern",
+	  "has_the_recipe"
+	]
+  ]
+}

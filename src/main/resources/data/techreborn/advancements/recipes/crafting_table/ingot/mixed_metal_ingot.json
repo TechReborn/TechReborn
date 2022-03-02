@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/ingot/mixed_metal_ingot"
+	]
+  },
+  "criteria": {
+	"has_bronze_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:bronze_ingots"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/ingot/mixed_metal_ingot"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_bronze_ingot",
+	  "has_the_recipe"
+	]
+  ]
+}

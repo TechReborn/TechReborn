@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/yellow_garnet_gem"
+	]
+  },
+  "criteria": {
+	"has_yellow_garnet_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:yellow_garnet_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/yellow_garnet_gem"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_yellow_garnet_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

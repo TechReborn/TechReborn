@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:assembling_machine/advanced_circuit"
+	]
+  },
+  "criteria": {
+	"has_electrum_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:electrum_plates"
+		  }
+		]
+	  }
+	},
+	"has_silicon_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:silicon_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:assembling_machine/advanced_circuit"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_electrum_plate",
+	  "has_silicon_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

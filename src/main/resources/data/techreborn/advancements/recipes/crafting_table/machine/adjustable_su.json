@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/adjustable_su"
+	]
+  },
+  "criteria": {
+	"has_energy_crystal": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:energy_crystal"]
+		  }
+		]
+	  }
+	},
+	"has_lapotronic_orb": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:lapotronic_orb"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/adjustable_su"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_energy_crystal",
+	  "has_lapotronic_orb",
+	  "has_the_recipe"
+	]
+  ]
+}

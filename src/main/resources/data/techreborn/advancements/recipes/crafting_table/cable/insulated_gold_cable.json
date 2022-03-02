@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/cable/insulated_gold_cable"
+	]
+  },
+  "criteria": {
+	"has_rubber": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:rubber"]
+		  }
+		]
+	  }
+	},
+	"has_gold": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:gold_ingot"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/cable/insulated_gold_cable"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_rubber",
+	  "has_gold",
+	  "has_the_recipe"
+	]
+  ]
+}

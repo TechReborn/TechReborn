@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/scrap_box"
+	]
+  },
+  "criteria": {
+	"has_scrap": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:scrap"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/scrap_box"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_scrap",
+	  "has_the_recipe"
+	]
+  ]
+}

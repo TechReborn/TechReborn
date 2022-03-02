@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/sphalerite_ore_with_water"
+	]
+  },
+  "criteria": {
+	"has_sphalerite_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:sphalerite_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/sphalerite_ore_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sphalerite_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

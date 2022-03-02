@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/nak_coolant_cell_60k_alt"
+	]
+  },
+  "criteria": {
+	"has_water_coolant_cell_10k": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:water_coolant_cell_10k"]
+		  }
+		]
+	  }
+	},
+	"has_sodium_bucket": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:sodium_bucket"]
+		  }
+		]
+	  }
+	},
+	"has_potassium_bucket": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:potassium_bucket"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/nak_coolant_cell_60k_alt"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_water_coolant_cell_10k",
+	  "has_sodium_bucket",
+	  "has_potassium_bucket",
+	  "has_the_recipe"
+	]
+  ]
+}

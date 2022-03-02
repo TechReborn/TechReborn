@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/cinnabar_dust"
+	]
+  },
+  "criteria": {
+	"has_cinnabar_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:cinnabar_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/cinnabar_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_cinnabar_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

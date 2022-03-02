@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/netherrack_with_water"
+	]
+  },
+  "criteria": {
+	"has_netherrack": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:netherrack"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/netherrack_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_netherrack",
+	  "has_the_recipe"
+	]
+  ]
+}

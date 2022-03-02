@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/plantball_from_leaves"
+	]
+  },
+  "criteria": {
+	"has_leaves": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "minecraft:leaves"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/plantball_from_leaves"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_leaves",
+	  "has_the_recipe"
+	]
+  ]
+}

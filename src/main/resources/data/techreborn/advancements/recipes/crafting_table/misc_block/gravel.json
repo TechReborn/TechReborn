@@ -1,0 +1,65 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/misc_block/gravel"
+	]
+  },
+  "criteria": {
+	"has_andesite_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:andesite_dusts"
+		  }
+		]
+	  }
+	},
+	"has_diorite_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:diorite_dusts"
+		  }
+		]
+	  }
+	},
+	"has_granite_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:granite_dusts"
+		  }
+		]
+	  }
+	},
+	"has_flint": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:flint"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/misc_block/gravel"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_andesite_dust",
+	  "has_diorite_dust",
+	  "has_granite_dust",
+	  "has_flint",
+	  "has_the_recipe"
+	]
+  ]
+}

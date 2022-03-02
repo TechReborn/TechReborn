@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/recycler"
+	]
+  },
+  "criteria": {
+	"has_compressor": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:compressor"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/recycler"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_compressor",
+	  "has_the_recipe"
+	]
+  ]
+}

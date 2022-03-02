@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:byg_compat/ametrine_gem"
+	]
+  },
+  "criteria": {
+	"has_ametrine_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"reborncore:mod": "byg",
+		"items": [
+		  {
+			"items": ["byg:ametrine_ore"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:byg_compat/ametrine_gem"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ametrine_ore",
+	  "has_the_recipe"
+	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:all_mods_loaded",
+	  "values": [
+		"byg"
+	  ]
+	}
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/diamond_ore_with_water"
+	]
+  },
+  "criteria": {
+	"has_diamond_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:diamond_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/diamond_ore_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_diamond_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

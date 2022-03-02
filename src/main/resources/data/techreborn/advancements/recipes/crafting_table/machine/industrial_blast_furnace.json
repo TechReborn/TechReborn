@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/industrial_blast_furnace"
+	]
+  },
+  "criteria": {
+	"has_advanced_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_cupronickel_heating_coil": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:cupronickel_heating_coil"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/industrial_blast_furnace"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_machine_frame",
+	  "has_cupronickel_heating_coil",
+	  "has_the_recipe"
+	]
+  ]
+}

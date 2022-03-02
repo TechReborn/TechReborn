@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/gold_ore_with_water"
+	]
+  },
+  "criteria": {
+	"has_gold_ore": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:gold_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/gold_ore_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_gold_ore",
+	  "has_the_recipe"
+	]
+  ]
+}

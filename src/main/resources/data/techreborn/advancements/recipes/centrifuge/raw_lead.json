@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/raw_lead_ores"
+	]
+  },
+  "criteria": {
+	"has_raw_lead_ores": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:raw_lead_ores"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/raw_lead_ores"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_raw_lead_ores",
+	  "has_the_recipe"
+	]
+  ]
+}

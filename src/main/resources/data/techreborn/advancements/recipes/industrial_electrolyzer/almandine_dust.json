@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/almandine_dust"
+	]
+  },
+  "criteria": {
+	"has_almandine_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:almandine_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/almandine_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_almandine_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

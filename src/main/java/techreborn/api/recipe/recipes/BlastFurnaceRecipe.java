@@ -31,6 +31,7 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
+import techreborn.init.TRContent;
 
 import java.util.List;
 
@@ -40,6 +41,11 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, int heat) {
 		super(type, name, ingredients, outputs, power, time);
 		this.heat = heat;
+	}
+
+	@Override
+	public ItemStack createIcon() {
+		return new ItemStack(TRContent.Machine.INDUSTRIAL_BLAST_FURNACE);
 	}
 
 	public int getHeat() {

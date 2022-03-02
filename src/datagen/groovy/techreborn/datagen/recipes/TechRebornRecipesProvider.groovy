@@ -69,7 +69,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
         if (input instanceof ItemConvertible) {
             return hasItem(input)
         } else if (input instanceof TagKey) {
-            return "has_tag_" + input.id()
+            return "has_tag_" + input.id().toUnderscoreSeparatedString()
         }
 
         throw new IllegalArgumentException()
@@ -125,6 +125,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	def offerGrinderRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		MachineRecipeJsonFactory.create(ModRecipes.GRINDER, closure).offerTo(exporter)
+	}
+
+	def offerCompressorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		MachineRecipeJsonFactory.create(ModRecipes.COMPRESSOR, closure).offerTo(exporter)
 	}
 
     @Override

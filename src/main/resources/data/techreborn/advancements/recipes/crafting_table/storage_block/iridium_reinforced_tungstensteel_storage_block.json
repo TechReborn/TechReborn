@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/storage_block/iridium_reinforced_stone_storage_block"
+	]
+  },
+  "criteria": {
+	"has_iridium_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:iridium_plates"
+		  }
+		]
+	  }
+	},
+	"has_tungstensteel_block": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:tungstensteel_blocks"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/storage_block/iridium_reinforced_stone_storage_block"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iridium_plate",
+	  "has_tungstensteel_block",
+	  "has_the_recipe"
+	]
+  ]
+}

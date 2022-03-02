@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:vacuum_freezer/helium"
+	]
+  },
+  "criteria": {
+	"has_heliumplasma": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:heliumplasma",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:vacuum_freezer/helium"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_heliumplasma",
+	  "has_the_recipe"
+	]
+  ]
+}

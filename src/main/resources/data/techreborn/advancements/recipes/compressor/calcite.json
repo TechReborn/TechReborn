@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:compressor/calcite"
+	]
+  },
+  "criteria": {
+	"has_calcite_small_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:calcite_small_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:compressor/calcite"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_calcite_small_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

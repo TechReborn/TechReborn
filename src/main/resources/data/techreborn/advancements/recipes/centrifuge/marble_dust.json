@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/marble_dust"
+	]
+  },
+  "criteria": {
+	"has_marble_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:marble_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/marble_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_marble_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

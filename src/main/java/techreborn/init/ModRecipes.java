@@ -30,6 +30,7 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.crafting.serde.RebornFluidRecipeSerde;
+import reborncore.common.crafting.serde.RebornRecipeSerde;
 import techreborn.api.recipe.recipes.*;
 import techreborn.api.recipe.recipes.serde.BlastFurnaceRecipeSerde;
 import techreborn.api.recipe.recipes.serde.FusionReactorRecipeSerde;
@@ -42,11 +43,13 @@ public class ModRecipes {
 	public static final RebornFluidRecipeSerde<FluidReplicatorRecipe> FLUID_REPLICATOR_RECIPE_SERDE = RebornFluidRecipeSerde.create(FluidReplicatorRecipe::new);
 	public static final FusionReactorRecipeSerde FUSION_REACTOR_RECIPE_SERDE = new FusionReactorRecipeSerde();
 	public static final RollingMachineRecipeSerde ROLLING_MACHINE_RECIPE_SERDE = new RollingMachineRecipeSerde();
+	public static final RebornRecipeSerde<AssemblingMachineRecipe> ASSEMBLING_RECIPE_SERDE = RebornRecipeSerde.create(AssemblingMachineRecipe::new);
+	public static final RebornRecipeSerde<CentrifugeRecipe> CENTRIFUGE_RECIPE_SERDE = RebornRecipeSerde.create(CentrifugeRecipe::new);
 
 	public static final RebornRecipeType<RebornRecipe> ALLOY_SMELTER = RecipeManager.newRecipeType(new Identifier("techreborn:alloy_smelter"));
-	public static final RebornRecipeType<RebornRecipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(new Identifier("techreborn:assembling_machine"));
+	public static final RebornRecipeType<AssemblingMachineRecipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(ASSEMBLING_RECIPE_SERDE, new Identifier("techreborn:assembling_machine"));
 	public static final RebornRecipeType<BlastFurnaceRecipe> BLAST_FURNACE = RecipeManager.newRecipeType(BLAST_FURNACE_RECIPE_SERDE, new Identifier("techreborn:blast_furnace"));
-	public static final RebornRecipeType<RebornRecipe> CENTRIFUGE = RecipeManager.newRecipeType(new Identifier("techreborn:centrifuge"));
+	public static final RebornRecipeType<CentrifugeRecipe> CENTRIFUGE = RecipeManager.newRecipeType(CENTRIFUGE_RECIPE_SERDE, new Identifier("techreborn:centrifuge"));
 	public static final RebornRecipeType<RebornRecipe> CHEMICAL_REACTOR = RecipeManager.newRecipeType(new Identifier("techreborn:chemical_reactor"));
 	public static final RebornRecipeType<RebornRecipe> COMPRESSOR = RecipeManager.newRecipeType(new Identifier("techreborn:compressor"));
 	public static final RebornRecipeType<RebornRecipe> DISTILLATION_TOWER = RecipeManager.newRecipeType(new Identifier("techreborn:distillation_tower"));

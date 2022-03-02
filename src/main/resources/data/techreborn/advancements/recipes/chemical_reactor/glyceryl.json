@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/glyceryl"
+	]
+  },
+  "criteria": {
+	"has_nitro_carbon": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:nitro_carbon",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/glyceryl"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_nitro_carbon",
+	  "has_the_recipe"
+	]
+  ]
+}

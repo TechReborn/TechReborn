@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/data_storage_chip"
+	]
+  },
+  "criteria": {
+	"has_iridium_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:iridium_ingots"
+		  }
+		]
+	  }
+	},
+	"has_data_storage_core": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:data_storage_core"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/data_storage_chip"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iridium_ingot",
+	  "has_data_storage_core",
+	  "has_the_recipe"
+	]
+  ]
+}

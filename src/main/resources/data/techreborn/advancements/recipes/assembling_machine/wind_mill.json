@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:assembling_machine/wind_mill"
+	]
+  },
+  "criteria": {
+	"has_magnalium_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:magnalium_plate"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:assembling_machine/wind_mill"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_magnalium_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

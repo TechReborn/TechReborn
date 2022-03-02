@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/interdimensional_su"
+	]
+  },
+  "criteria": {
+	"has_adjustable_su": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:adjustable_su"]
+		  }
+		]
+	  }
+	},
+	"has_iridium_alloy_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:iridium_alloy_plate"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/interdimensional_su"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_adjustable_su",
+	  "has_iridium_alloy_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

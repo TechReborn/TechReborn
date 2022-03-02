@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/fluix_dust"
+	]
+  },
+  "criteria": {
+	"has_fluix_crystal": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["ae2:fluix_crystal"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/fluix_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_fluix_crystal",
+	  "has_the_recipe"
+	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:all_mods_loaded",
+	  "values": [
+		"ae2"
+	  ]
+	}
+  ]
+}

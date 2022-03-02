@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/raw_tungsten"
+	]
+  },
+  "criteria": {
+	"has_raw_tungsten": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:raw_tungsten"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/raw_tungsten"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_raw_tungsten",
+	  "has_the_recipe"
+	]
+  ]
+}

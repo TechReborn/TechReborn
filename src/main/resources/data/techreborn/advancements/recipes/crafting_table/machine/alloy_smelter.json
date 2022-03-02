@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/alloy_smelter"
+	]
+  },
+  "criteria": {
+	"has_electric_furnace": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:electric_furnace"]
+		  }
+		]
+	  }
+	},
+	"has_iron_alloy_furnace": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:iron_alloy_furnace"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/alloy_smelter"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_electric_furnace",
+	  "has_iron_alloy_furnace",
+	  "has_the_recipe"
+	]
+  ]
+}

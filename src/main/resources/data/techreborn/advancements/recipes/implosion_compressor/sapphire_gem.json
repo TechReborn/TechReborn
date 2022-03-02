@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/sapphire_gem"
+	]
+  },
+  "criteria": {
+	"has_sapphire_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:sapphire_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/sapphire_gem"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sapphire_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

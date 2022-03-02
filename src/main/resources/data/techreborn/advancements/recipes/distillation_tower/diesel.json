@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:distillation_tower/diesel"
+	]
+  },
+  "criteria": {
+	"has_oil": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:oil",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:distillation_tower/diesel"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_oil",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/rubber_from_sapling"
+	]
+  },
+  "criteria": {
+	"has_rubber_sapling": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:rubber_sapling"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/rubber_from_sapling"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_rubber_sapling",
+	  "has_the_recipe"
+	]
+  ]
+}

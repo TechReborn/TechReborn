@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine_block/basic_machine_casing_alt"
+	]
+  },
+  "criteria": {
+	"has_basic_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:basic_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_iron_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:iron_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine_block/basic_machine_casing_alt"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_basic_machine_frame",
+	  "has_iron_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

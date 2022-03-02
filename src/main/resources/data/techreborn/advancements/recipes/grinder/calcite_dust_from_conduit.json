@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/calcite_dust_from_conduit"
+	]
+  },
+  "criteria": {
+	"has_conduit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:conduit"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/calcite_dust_from_conduit"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_conduit",
+	  "has_the_recipe"
+	]
+  ]
+}

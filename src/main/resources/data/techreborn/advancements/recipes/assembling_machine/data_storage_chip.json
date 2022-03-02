@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:assembling_machine/data_storage_chip"
+	]
+  },
+  "criteria": {
+	"has_data_storage_core": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:data_storage_core"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:assembling_machine/data_storage_chip"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_data_storage_core",
+	  "has_the_recipe"
+	]
+  ]
+}

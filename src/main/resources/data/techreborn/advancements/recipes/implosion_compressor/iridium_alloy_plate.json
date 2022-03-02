@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/iridium_alloy_plate"
+	]
+  },
+  "criteria": {
+	"has_iridium_alloy_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:iridium_alloy_ingot"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/iridium_alloy_plate"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_iridium_alloy_ingot",
+	  "has_the_recipe"
+	]
+  ]
+}

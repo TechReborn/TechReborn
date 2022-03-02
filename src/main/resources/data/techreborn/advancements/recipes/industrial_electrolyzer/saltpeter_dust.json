@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/saltpeter_dust"
+	]
+  },
+  "criteria": {
+	"has_saltpeter_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:saltpeter_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/saltpeter_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_saltpeter_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

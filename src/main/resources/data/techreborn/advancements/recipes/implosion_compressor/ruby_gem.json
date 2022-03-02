@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/ruby_gem"
+	]
+  },
+  "criteria": {
+	"has_ruby_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:ruby_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/ruby_gem"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ruby_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/unit/tank/basic_tank_unit"
+	]
+  },
+  "criteria": {
+	"has_basic_storage_unit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:basic_storage_unit"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/unit/tank/basic_tank_unit"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_basic_storage_unit",
+	  "has_the_recipe"
+	]
+  ]
+}

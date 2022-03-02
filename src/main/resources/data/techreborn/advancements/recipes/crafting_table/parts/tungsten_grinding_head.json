@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/parts/tungsten_grinding_head"
+	]
+  },
+  "criteria": {
+	"has_steel_block": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:steel_blocks"
+		  }
+		]
+	  }
+	},
+	"has_tungsten_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:tungsten_ingots"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/parts/tungsten_grinding_head"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_steel_block",
+	  "has_tungsten_ingot",
+	  "has_the_recipe"
+	]
+  ]
+}

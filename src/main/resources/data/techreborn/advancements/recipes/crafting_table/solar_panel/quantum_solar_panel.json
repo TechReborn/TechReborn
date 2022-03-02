@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/solar_panel/quantum_solar_panel"
+	]
+  },
+  "criteria": {
+	"has_ultimate_solar_panel": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:ultimate_solar_panel"]
+		  }
+		]
+	  }
+	},
+	"has_uu_matter": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:uu_matter"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/solar_panel/quantum_solar_panel"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ultimate_solar_panel",
+	  "has_uu_matter",
+	  "has_the_recipe"
+	]
+  ]
+}

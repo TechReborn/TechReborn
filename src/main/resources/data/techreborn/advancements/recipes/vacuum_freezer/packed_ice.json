@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:vacuum_freezer/packed_ice"
+	]
+  },
+  "criteria": {
+	"has_ice": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:ice"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:vacuum_freezer/packed_ice"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ice",
+	  "has_the_recipe"
+	]
+  ]
+}

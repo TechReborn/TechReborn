@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:fusion_reactor/iridium_ore"
+	]
+  },
+  "criteria": {
+	"has_wolframium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:wolframium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_lithium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:lithium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:fusion_reactor/iridium_ore"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_wolframium",
+	  "has_lithium",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/lamp_incandescent"
+	]
+  },
+  "criteria": {
+	"has_copper_cable": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:copper_cable"]
+		  }
+		]
+	  }
+	},
+	"has_carbon_fiber": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:carbon_fiber"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/lamp_incandescent"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_copper_cable",
+	  "has_carbon_fiber",
+	  "has_the_recipe"
+	]
+  ]
+}

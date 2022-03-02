@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/zinc_dust"
+	]
+  },
+  "criteria": {
+	"has_zinc_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:zinc_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/zinc_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_zinc_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

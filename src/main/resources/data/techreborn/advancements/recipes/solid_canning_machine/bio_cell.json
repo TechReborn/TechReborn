@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:solid_canning_machine/bio_cell"
+	]
+  },
+  "criteria": {
+	"has_compressed_plantball": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:compressed_plantball"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:solid_canning_machine/bio_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_compressed_plantball",
+	  "has_the_recipe"
+	]
+  ]
+}

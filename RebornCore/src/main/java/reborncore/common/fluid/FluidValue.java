@@ -40,7 +40,7 @@ public final class FluidValue {
 
 	private final long rawValue;
 
-	private static FluidValue fromMillibuckets(long millibuckets) {
+	public static FluidValue fromMillibuckets(long millibuckets) {
 		return new FluidValue(millibuckets * 81);
 	}
 

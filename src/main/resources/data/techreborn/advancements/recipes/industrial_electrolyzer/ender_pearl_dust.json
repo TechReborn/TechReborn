@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/ender_pearl_dust"
+	]
+  },
+  "criteria": {
+	"has_ender_pearl_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:ender_pearl_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/ender_pearl_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ender_pearl_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

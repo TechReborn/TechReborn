@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:rolling_machine/magnalium_plate"
+	]
+  },
+  "criteria": {
+	"has_magnesium_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:magnesium_dusts"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:rolling_machine/magnalium_plate"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_magnesium_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

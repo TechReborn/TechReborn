@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/coal_dust"
+	]
+  },
+  "criteria": {
+	"has_coal_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:coal_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/coal_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_coal_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

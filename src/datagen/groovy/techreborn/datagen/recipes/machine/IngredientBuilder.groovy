@@ -52,8 +52,8 @@ class IngredientBuilder {
 			return new TagIngredient(tag, getCount())
 		}
 
-		if (!stacks.isEmpty()) {
-			return new StackIngredient(stacks, getCount(), Optional.empty(), false)
+		if (stacks.size() == 1) {
+			return new StackIngredient(stacks.get(0), getCount(), Optional.empty(), false)
 		}
 
 		throw new IllegalStateException()

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/extractor"
+	]
+  },
+  "criteria": {
+	"has_basic_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:basic_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/extractor"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_basic_machine_frame",
+	  "has_the_recipe"
+	]
+  ]
+}

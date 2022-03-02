@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/industrial_electrolyzer"
+	]
+  },
+  "criteria": {
+	"has_advanced_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_extractor": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:extractor"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/industrial_electrolyzer"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_machine_frame",
+	  "has_extractor",
+	  "has_the_recipe"
+	]
+  ]
+}

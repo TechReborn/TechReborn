@@ -1,0 +1,32 @@
+﻿{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_electrolyzer/pyrope_dust"
+	]
+  },
+  "criteria": {
+	"has_pyrope_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:pyrope_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_electrolyzer/pyrope_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_pyrope_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

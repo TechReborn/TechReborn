@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/calcium_carbonate_cell"
+	]
+  },
+  "criteria": {
+	"has_calcium_carbonate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:calcium_carbonate",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/calcium_carbonate_cell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_calcium_carbonate",
+	  "has_the_recipe"
+	]
+  ]
+}

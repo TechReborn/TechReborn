@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/ender_eye_dust"
+	]
+  },
+  "criteria": {
+	"has_ender_eye_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:ender_eye_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/ender_eye_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ender_eye_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

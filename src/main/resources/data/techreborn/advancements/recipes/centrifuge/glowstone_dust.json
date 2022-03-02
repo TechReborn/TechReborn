@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/glowstone_dust"
+	]
+  },
+  "criteria": {
+	"has_glowstone_dust": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:glowstone_dust"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/glowstone_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_glowstone_dust",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine_block/industrial_machine_casing_alt"
+	]
+  },
+  "criteria": {
+	"has_advanced_machine_casing": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_machine_casing"]
+		  }
+		]
+	  }
+	},
+	"has_chromium_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:chromium_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine_block/industrial_machine_casing_alt"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_machine_casing",
+	  "has_chromium_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

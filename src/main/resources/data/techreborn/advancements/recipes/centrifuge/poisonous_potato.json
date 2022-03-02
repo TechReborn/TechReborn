@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/poisonous_potato"
+	]
+  },
+  "criteria": {
+	"has_poisonous_potato": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:poisonous_potato"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/poisonous_potato"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_poisonous_potato",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/solar_panel/ultimate_solar_panel"
+	]
+  },
+  "criteria": {
+	"has_industrial_solar_panel": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:industrial_solar_panel"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/solar_panel/ultimate_solar_panel"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_industrial_solar_panel",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:byg_compat/coal_dust_from_anthracite"
+	]
+  },
+  "criteria": {
+	"has_anthracite": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"reborncore:mod": "byg",
+		"items": [
+		  {
+			"items": ["byg:anthracite"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:byg_compat/coal_dust_from_anthracite"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_anthracite",
+	  "has_the_recipe"
+	]
+  ],
+  "fabric:load_conditions": [
+	{
+	  "condition": "fabric:all_mods_loaded",
+	  "values": [
+		"byg"
+	  ]
+	}
+  ]
+}

@@ -25,7 +25,11 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.tag.TagKey
+import net.minecraft.util.Identifier
+import net.minecraft.util.registry.Registry
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -36,11 +40,81 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	@Override
 	void generateRecipes() {
-//		offerGrinderRecipe {
-//			ingredients TRContent.ORES_TAG, Items.ACACIA_BOAT
-//			outputs Items.DIAMOND
-//			power 5
-//			time 200
-//		}
+		// vanilla raw metals
+		[
+				(Items.RAW_IRON):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","iron_ores"))),
+				(Items.RAW_COPPER):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","copper_ores"))),
+				(Items.RAW_GOLD):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","gold_ores")))
+		].each{raw, oreTag ->
+			offerGrinderRecipe {
+				ingredients oreTag
+				outputs new ItemStack(raw, 2)
+				power 2
+				time 270
+				criterion getCriterionName(oreTag), getCriterionConditions(oreTag)
+			}
+		}
+		// TR raw metals
+		TRContent.RawMetals.getRM2OBMap().each{raw, ore ->
+			if (!ore.isIndustrial())
+				offerGrinderRecipe {
+					ingredients ore.asTag()
+					outputs new ItemStack(raw, 2)
+					power 2
+					time 270
+					criterion getCriterionName(ore.asTag()), getCriterionConditions(ore.asTag())
+				}
+		}
+		// vanilla gems
+		// TODO vanilla gems + storage blocks (Redstone, glowstone, lapis, emerald, diamond)
+		// TR gems
+		TRContent.Gems.getG2DMap().each {gem, dust ->
+			offerGrinderRecipe {
+				ingredients gem.asTag()
+				outputs dust
+				power 2
+				time 200
+				criterion getCriterionName(gem.asTag()), getCriterionConditions(gem.asTag())
+			}
+			if (gem.getOre() != null)
+				offerGrinderRecipe {
+					ingredients gem.getOre().asTag()
+					outputs new ItemStack(dust,2)
+					power 2
+					time 220
+					source "ore"
+					criterion getCriterionName(gem.getOre().asTag()), getCriterionConditions(gem.getOre().asTag())
+				}
+			if (gem.getStorageBlock() != null)
+				offerGrinderRecipe {
+					ingredients gem.getStorageBlock().asTag()
+					outputs new ItemStack(dust,9)
+					power 2
+					time 1500
+					source "block"
+					criterion getCriterionName(gem.getStorageBlock().asTag()), getCriterionConditions(gem.getStorageBlock().asTag())
+				}
+		}
+		// vanilla ingots
+		// TODO vanilla ingots + storage blocks (iron, copper, gold)
+		// TR ingots
+		TRContent.Ingots.getI2DMap().each {ingot, dust ->
+			offerGrinderRecipe {
+				ingredients ingot.asTag()
+				outputs dust
+				power 5
+				time 200
+				criterion getCriterionName(ingot.asTag()), getCriterionConditions(ingot.asTag())
+			}
+			if (ingot.getStorageBlock() != null)
+				offerGrinderRecipe {
+					ingredients ingot.getStorageBlock().asTag()
+					outputs new ItemStack(dust,9)
+					power 5
+					time 1500
+					source "block"
+					criterion getCriterionName(ingot.getStorageBlock().asTag()), getCriterionConditions(ingot.getStorageBlock().asTag())
+				}
+		}
 	}
 }

@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/battery/lapotron_crystal"
+	]
+  },
+  "criteria": {
+	"has_industrial_circuit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:industrial_circuit"]
+		  }
+		]
+	  }
+	},
+	"has_energy_crystal": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:energy_crystal"]
+		  }
+		]
+	  }
+	},
+	"has_lazurite_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:lazurite_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/battery/lapotron_crystal"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_industrial_circuit",
+	  "has_energy_crystal",
+	  "has_lazurite_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -31,6 +31,7 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
+import techreborn.init.TRContent;
 
 import java.util.List;
 
@@ -45,6 +46,11 @@ public class FusionReactorRecipe extends RebornRecipe {
 		super(type, name, ingredients, outputs, power, time);
 		this.startE = startE;
 		this.minSize = minSize;
+	}
+
+	@Override
+	public ItemStack createIcon() {
+		return new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER);
 	}
 
 	public int getStartEnergy() {

@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:fusion_reactor/platinum_dust"
+	]
+  },
+  "criteria": {
+	"has_wolframium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:wolframium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_beryllium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"fluid": "techreborn:beryllium",
+			"holder": "techreborn:cell"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:fusion_reactor/platinum_dust"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_wolframium",
+	  "has_beryllium",
+	  "has_the_recipe"
+	]
+  ]
+}

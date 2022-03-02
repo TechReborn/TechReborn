@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:blast_furnace/iridium_ingot_from_raw"
+	]
+  },
+  "criteria": {
+	"has_raw_iridium": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:raw_iridium"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:blast_furnace/iridium_ingot_from_raw"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_raw_iridium",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine_block/advanced_machine_casing"
+	]
+  },
+  "criteria": {
+	"has_advanced_machine_frame": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:advanced_machine_frame"]
+		  }
+		]
+	  }
+	},
+	"has_steel_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:steel_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine_block/advanced_machine_casing"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_advanced_machine_frame",
+	  "has_steel_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:centrifuge/cooked_meat"
+	]
+  },
+  "criteria": {
+	"has_cooked_meat": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:cooked_meat"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:centrifuge/cooked_meat"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_cooked_meat",
+	  "has_the_recipe"
+	]
+  ]
+}
