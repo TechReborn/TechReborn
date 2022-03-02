@@ -175,7 +175,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	// Done to try and stop the table from loading it
 	@Override
 	public boolean isIgnoredInRecipeBook() {
-		return false;
+		return true;
 	}
 
 	@Override
