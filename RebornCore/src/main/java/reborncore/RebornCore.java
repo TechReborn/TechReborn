@@ -140,10 +140,4 @@ public class RebornCore implements ModInitializer {
 	public static EnvType getSide() {
 		return FabricLoader.getInstance().getEnvironmentType();
 	}
-
-	public static void clientOnly(Supplier<Runnable> runnable){
-		if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
-			runnable.get().run();
-		}
-	}
 }

@@ -82,7 +82,6 @@ import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
-import techreborn.client.GuiType;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.ModRegistry;

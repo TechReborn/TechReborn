@@ -184,6 +184,8 @@ sourceSets {
 // TechReborn specific dependencies
 dependencies {
     api project(path: ":RebornCore", configuration: "namedElements")
+    clientCompileClasspath project(":RebornCore").sourceSets.client.output
+    clientRuntimeClasspath project(":RebornCore").sourceSets.client.output
 
     include project(":RebornCore")
 
