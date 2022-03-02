@@ -24,8 +24,10 @@
 
 package reborncore.common.network;
 
+import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -85,5 +87,9 @@ public class ClientBoundPackets {
 			packetBuffer.writeInt(messageId);
 			packetBuffer.writeText(text);
 		});
+	}
+
+	public static IdentifiedPacket createPacketQueueItemStacksToRender(List<ItemStack> stacks) {
+		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "stacks_to_render"), Codec.list(ItemStack.CODEC), stacks);
 	}
 }

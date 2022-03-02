@@ -31,7 +31,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.command.CommandSource;
@@ -47,7 +46,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.chunk.ChunkStatus;
-import reborncore.client.ItemStackRenderManager;
+import reborncore.common.network.ClientBoundPackets;
+import reborncore.common.network.IdentifiedPacket;
+import reborncore.common.network.NetworkManager;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -162,20 +163,20 @@ public class RebornCoreCommands {
 				.map(ItemStack::new)
 				.collect(Collectors.toList());
 
-		queueRender(list);
+		queueRender(list, ctx);
 		return Command.SINGLE_SUCCESS;
 	}
 
 	private static int itemRenderer(CommandContext<ServerCommandSource> ctx) {
 		Item item = ItemStackArgumentType.getItemStackArgument(ctx, "item").getItem();
-		queueRender(Collections.singletonList(new ItemStack(item)));
+		queueRender(Collections.singletonList(new ItemStack(item)), ctx);
 
 		return Command.SINGLE_SUCCESS;
 	}
 
 	private static int handRenderer(CommandContext<ServerCommandSource> ctx) {
 		try {
-			queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getMainHandStack()));
+			queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getMainHandStack()), ctx);
 		} catch (CommandSyntaxException e) {
 			e.printStackTrace();
 			return 0;
@@ -184,11 +185,13 @@ public class RebornCoreCommands {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static void queueRender(List<ItemStack> stacks) {
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER) {
-			System.out.println("Render item only works on the client!");
-			return;
+	private static void queueRender(List<ItemStack> stacks, CommandContext<ServerCommandSource> ctx) {
+		IdentifiedPacket packet = ClientBoundPackets.createPacketQueueItemStacksToRender(stacks);
+
+		try {
+			NetworkManager.sendToPlayer(packet, ctx.getSource().getPlayer());
+		} catch (CommandSyntaxException e) {
+			e.printStackTrace();
 		}
-		ItemStackRenderManager.RENDER_QUEUE.addAll(stacks);
 	}
 }

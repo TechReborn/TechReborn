@@ -24,6 +24,7 @@
 
 package reborncore.common.network;
 
+import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.api.EnvType;
@@ -33,6 +34,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -43,6 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.RebornCore;
 import reborncore.client.ClientChunkManager;
+import reborncore.client.ItemStackRenderManager;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
@@ -151,6 +154,8 @@ public class ClientBoundPacketHandlers {
 				accessorChatHud.invokeAddMessage(text, deleteID);
 			});
 		});
+
+		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "stacks_to_render"), Codec.list(ItemStack.CODEC), ItemStackRenderManager.RENDER_QUEUE::addAll);
 	}
 
 }
