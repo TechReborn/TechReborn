@@ -111,12 +111,18 @@ class CableTickManager {
 	private static boolean isCacheValid(CableBlockEntity cableBlockEntity){
 		HashSet<CableBlockEntity> cableList = cableLinkedCache.get(cableBlockEntity);
 		if (cableList != null){
+			boolean mark = true;
+			ArrayList<CableBlockEntity> listToRemove = new ArrayList<>();
 			for (CableBlockEntity cables : cableList){
 				if (cables.targets == null || cables.isRemoved() ){
-					return false;
+					listToRemove.add(cables);
+					mark = false;
 				}
 			}
-			return true;
+			for (CableBlockEntity removeCable : listToRemove){
+				cableLinkedCache.remove(removeCable);
+			}
+			return mark;
 		}
 		return false;
 	}
