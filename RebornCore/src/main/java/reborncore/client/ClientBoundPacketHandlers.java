@@ -58,7 +58,7 @@ public class ClientBoundPacketHandlers {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientBoundPacketHandlers.class);
 
 	public static void init() {
-		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "custom_description"), (client, handler, packetBuffer, responseSender) -> {
+		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "custom_description"), (client, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
 			NbtCompound tagCompound = packetBuffer.readNbt();
 			client.execute(() -> {
@@ -72,7 +72,7 @@ public class ClientBoundPacketHandlers {
 			});
 		});
 
-		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "fluid_config_sync"), (client, handler, packetBuffer, responseSender) -> {
+		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "fluid_config_sync"), (client, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
 			NbtCompound compoundTag = packetBuffer.readNbt();
 
@@ -93,7 +93,7 @@ public class ClientBoundPacketHandlers {
 			});
 		});
 
-		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "slot_sync"), (client, handler, packetBuffer, responseSender) -> {
+		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "slot_sync"), (client, handler, packetBuffer, responseSender) -> {
 			BlockPos pos = packetBuffer.readBlockPos();
 			NbtCompound compoundTag = packetBuffer.readNbt();
 
@@ -111,7 +111,7 @@ public class ClientBoundPacketHandlers {
 			});
 		});
 
-		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "send_object"), (client, handler, packetBuffer, responseSender) -> {
+		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "send_object"), (client, handler, packetBuffer, responseSender) -> {
 			int size = packetBuffer.readInt();
 			ExtendedPacketBuffer epb = new ExtendedPacketBuffer(packetBuffer);
 			Int2ObjectMap<Object> updatedValues = new Int2ObjectOpenHashMap<>();
@@ -141,9 +141,9 @@ public class ClientBoundPacketHandlers {
 			});
 		});
 
-		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, ClientChunkManager::setLoadedChunks);
+		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, ClientChunkManager::setLoadedChunks);
 
-		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "no_spam_chat"), (client, handler, buf, responseSender) -> {
+		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "no_spam_chat"), (client, handler, buf, responseSender) -> {
 			final int messageId = buf.readInt();
 			final Text text = buf.readText();
 
@@ -155,7 +155,7 @@ public class ClientBoundPacketHandlers {
 			});
 		});
 
-		NetworkManager.registerClientBoundHandler(new Identifier("reborncore", "stacks_to_render"), Codec.list(ItemStack.CODEC), ItemStackRenderManager.RENDER_QUEUE::addAll);
+		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "stacks_to_render"), Codec.list(ItemStack.CODEC), ItemStackRenderManager.RENDER_QUEUE::addAll);
 	}
 
 }

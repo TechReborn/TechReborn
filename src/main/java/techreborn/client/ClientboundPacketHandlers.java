@@ -25,7 +25,7 @@
 package techreborn.client;
 
 import net.minecraft.client.MinecraftClient;
-import reborncore.common.network.NetworkManager;
+import reborncore.client.ClientNetworkManager;
 import techreborn.client.gui.GuiManual;
 import techreborn.events.OreDepthSyncHandler;
 import techreborn.world.OreDepth;
@@ -35,9 +35,9 @@ import static techreborn.packets.ClientboundPackets.ORE_DEPTH;
 
 public class ClientboundPacketHandlers {
 	public static void init() {
-		NetworkManager.registerClientBoundHandler(ORE_DEPTH, OreDepth.LIST_CODEC, OreDepthSyncHandler::updateDepths);
+		ClientNetworkManager.registerClientBoundHandler(ORE_DEPTH, OreDepth.LIST_CODEC, OreDepthSyncHandler::updateDepths);
 
-		NetworkManager.registerClientBoundHandler(OPEN_MANUAL, (client, handler, buf, responseSender) ->
+		ClientNetworkManager.registerClientBoundHandler(OPEN_MANUAL, (client, handler, buf, responseSender) ->
 			client.execute(() ->
 				MinecraftClient.getInstance().setScreen(new GuiManual())
 			)

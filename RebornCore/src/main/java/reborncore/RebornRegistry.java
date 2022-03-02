@@ -38,8 +38,6 @@ import java.util.function.Function;
  * Created by Gigabit101 on 16/08/2016.
  */
 public class RebornRegistry {
-	//public static LootManager.InnerPool lp = new LootManager.InnerPool();
-
 	//Yeah, this is horrible
 	private static final HashMap<Object, Identifier> objIdentMap = new HashMap<>();
 
@@ -125,16 +123,4 @@ public class RebornRegistry {
 	public static void registerIdent(Object object, Identifier identifier){
 		objIdentMap.put(object, identifier);
 	}
-
-	//eg: RebornRegistry.addLoot(Items.NETHER_STAR, 0.95, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
-	//eg: RebornRegistry.addLoot(Items.DIAMOND, 1.95, LootTableList.ENTITIES_COW);
-
-	public static void addLoot(Item item, double chance, Identifier list) {
-	//	lp.addItem(LootManager.createLootEntry(item, chance, list));
-	}
-
-	public static void addLoot(Item item, int minSize, int maxSize, double chance, Identifier list) {
-	//	lp.addItem(LootManager.createLootEntry(item, minSize, maxSize, chance, list));
-	}
-
 }
