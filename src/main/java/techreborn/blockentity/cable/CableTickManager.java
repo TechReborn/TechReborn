@@ -25,8 +25,14 @@
 package techreborn.blockentity.cable;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.impl.lookup.block.BlockApiCacheImpl;
+import net.minecraft.block.ObserverBlock;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
@@ -40,7 +46,6 @@ class CableTickManager {
 	private static final HashSet<HashSet<CableBlockEntity>> cableTickCache = new HashSet<>(1024);
 	private static final List<OfferedEnergyStorage> targetStorages = new ArrayList<>();
 	private static final HashMap<CableBlockEntity, HashSet<CableBlockEntity>> cableLinkedCache = new HashMap<>();
-
 
 	static void handleCableTick(CableBlockEntity startingCable) {
 		if (!(startingCable.getWorld() instanceof ServerWorld)) throw new IllegalStateException();
@@ -152,7 +157,7 @@ class CableTickManager {
 		while (!bfsQueue.isEmpty()){
 			CableBlockEntity where = bfsQueue.removeFirst();
 			for (Direction direction : Direction.values()){
-				if (world.getBlockEntity(where.getPos().offset(direction)) instanceof CableBlockEntity adjCable && !cableList.contains(adjCable) && adjCable.getCableType() == cableType ){
+				if (CableBlockEntity.CACHE.find(world, where.getPos().offset(direction), null) instanceof CableBlockEntity adjCable && !cableList.contains(adjCable) && adjCable.getCableType() == cableType ){
 					bfsQueue.add(adjCable);
 					cableList.add(adjCable);
 				}

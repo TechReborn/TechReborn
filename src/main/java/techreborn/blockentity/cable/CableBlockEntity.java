@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CableBlockEntity extends BlockEntity
-		implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop {
+		implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop, CableBlockEntityCache {
 	// Can't use SimpleEnergyStorage because the cable type is not available when the BE is constructed.
 	final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
 		@Override
@@ -160,7 +160,7 @@ public class CableBlockEntity extends BlockEntity
 				boolean foundSomething = false;
 
 				BlockPos adjPos = getPos().offset(direction);
-				BlockEntity adjBe = serverWorld.getBlockEntity(adjPos);
+				BlockEntity adjBe = (CableBlockEntity) CableBlockEntity.CACHE.find(serverWorld, adjPos, null);
 
 				if (adjBe instanceof CableBlockEntity adjCable) {
 					if (adjCable.getCableType().transferRate == getCableType().transferRate) {
