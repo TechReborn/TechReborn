@@ -160,7 +160,7 @@ public class CableBlockEntity extends BlockEntity
 				boolean foundSomething = false;
 
 				BlockPos adjPos = getPos().offset(direction);
-				BlockEntity adjBe = (CableBlockEntity) CableBlockEntity.CACHE.find(serverWorld, adjPos, null);
+				BlockEntity adjBe = CableTickManager.getOrCache((ServerWorld) world,adjPos);
 
 				if (adjBe instanceof CableBlockEntity adjCable) {
 					if (adjCable.getCableType().transferRate == getCableType().transferRate) {

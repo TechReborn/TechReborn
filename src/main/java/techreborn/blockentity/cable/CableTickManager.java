@@ -24,12 +24,14 @@
 
 package techreborn.blockentity.cable;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.impl.lookup.block.BlockApiCacheImpl;
 import net.minecraft.block.ObserverBlock;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +48,7 @@ class CableTickManager {
 	private static final HashSet<HashSet<CableBlockEntity>> cableTickCache = new HashSet<>(1024);
 	private static final List<OfferedEnergyStorage> targetStorages = new ArrayList<>();
 	private static final HashMap<CableBlockEntity, HashSet<CableBlockEntity>> cableLinkedCache = new HashMap<>();
-
+	private static final HashMap<Map.Entry<ServerWorld, BlockPos>, BlockApiCache<CableBlockEntityCache, Void>> lookupCache = new HashMap<>();
 	static void handleCableTick(CableBlockEntity startingCable) {
 		if (!(startingCable.getWorld() instanceof ServerWorld)) throw new IllegalStateException();
 		if(startingCable.lastTick == tickCounter){
@@ -94,12 +96,10 @@ class CableTickManager {
 			networkAmount += dispatchTransfer(startingCable.getCableType(), EnergyStorage::extract, networkCapacity - networkAmount);
 			// Push energy into storages.
 			networkAmount -= dispatchTransfer(startingCable.getCableType(), EnergyStorage::insert, networkAmount);
-			if (networkAmount < 0) {
-				networkAmount = 0;
-			}
 			// Split energy evenly across cables.
 			int cableCount = cableSet.size();
 			for (CableBlockEntity cable : cableSet) {
+				if(cable.lastTick == tickCounter) continue;
 				cable.lastTick = tickCounter;
 				cable.energyContainer.amount = networkAmount / cableCount;
 				networkAmount -= cable.energyContainer.amount;
@@ -157,13 +157,19 @@ class CableTickManager {
 		while (!bfsQueue.isEmpty()){
 			CableBlockEntity where = bfsQueue.removeFirst();
 			for (Direction direction : Direction.values()){
-				if (CableBlockEntity.CACHE.find(world, where.getPos().offset(direction), null) instanceof CableBlockEntity adjCable && !cableList.contains(adjCable) && adjCable.getCableType() == cableType ){
+				//CableBlockEntity.CACHE.find(world, where.getPos().offset(direction), null) instanceof CableBlockEntity adjCable
+				 if (getOrCache((ServerWorld) world,where.getPos().offset(direction)) instanceof CableBlockEntity adjCable  && !cableList.contains(adjCable) && adjCable.getCableType() == cableType ){
 					bfsQueue.add(adjCable);
 					cableList.add(adjCable);
 				}
 			}
 		}
 		return cableList;
+	}
+	public static BlockEntity getOrCache(ServerWorld world, BlockPos pos){
+		return lookupCache.computeIfAbsent(Map.entry(world, pos),
+			entry-> BlockApiCache.create(
+				CableBlockEntityCache.CACHE, entry.getKey(), entry.getValue())).getBlockEntity();
 	}
 	/**
 	 * Perform a transfer operation across a list of targets.
