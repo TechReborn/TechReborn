@@ -25,13 +25,18 @@
 package reborncore.common.blockentity;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
@@ -46,9 +51,15 @@ import java.util.stream.Collectors;
 public class SlotConfiguration implements NBTSerializable {
 
 	List<SlotConfigHolder> slotDetails = new ArrayList<>();
-
+	private static final HashMap<Map.Entry<ServerWorld, BlockPos>, BlockApiCache<Storage<ItemVariant>, Direction>> sidedStorageCache = new HashMap<>();
 	@Nullable
 	Inventory inventory;
+
+	public static Storage<ItemVariant> getOrCache(ServerWorld world, BlockPos pos, Direction direction){
+		return sidedStorageCache.computeIfAbsent(Map.entry(world, pos),
+			entry-> BlockApiCache.create(
+				ItemStorage.SIDED, entry.getKey(), entry.getValue())).find(direction);
+	}
 
 	public SlotConfiguration(RebornInventory<?> inventory) {
 		this.inventory = inventory;
@@ -291,10 +302,10 @@ public class SlotConfiguration implements NBTSerializable {
 			}
 
 			StorageUtil.move(
-					ItemStorage.SIDED.find(machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+				getOrCache((ServerWorld)machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
 					InventoryStorage.of(machineBase, null).getSlot(slotID),
 					iv -> true,
-					4, // Move up to 4 per tick.
+					256, // Move up to 256 per tick.
 					null
 			);
 		}
@@ -308,7 +319,7 @@ public class SlotConfiguration implements NBTSerializable {
 
 			StorageUtil.move(
 					InventoryStorage.of(machineBase, null).getSlot(slotID),
-					ItemStorage.SIDED.find(machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+					getOrCache((ServerWorld)machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
 					iv -> true,
 					Long.MAX_VALUE,
 					null
