@@ -85,6 +85,11 @@ public class CableBlockEntity extends BlockEntity
 	// null means that it needs to be re-queried
 	List<CableTarget> targets = null;
 	/**
+	 * Adjacent caches, used to quickly query adjacent cable block entities.
+	 */
+	@SuppressWarnings("unchecked")
+	private final BlockApiCache<EnergyStorage, Direction>[] adjacentCaches = new BlockApiCache[6];
+	/**
 	 * Bitmask to prevent input or output into/from the cable when the cable already transferred in the target direction.
 	 * This prevents double transfer rates, and back and forth between two cables.
 	 */
@@ -146,6 +151,18 @@ public class CableBlockEntity extends BlockEntity
 		energyContainer.amount = energy;
 	}
 
+	private BlockApiCache<EnergyStorage, Direction> getAdjacentCache(Direction direction) {
+		if (adjacentCaches[direction.getId()] == null) {
+			adjacentCaches[direction.getId()] = BlockApiCache.create(EnergyStorage.SIDED, (ServerWorld) world, pos.offset(direction));
+		}
+		return adjacentCaches[direction.getId()];
+	}
+
+	@Nullable
+	BlockEntity getAdjacentBlockEntity(Direction direction) {
+		return getAdjacentCache(direction).getBlockEntity();
+	}
+
 	void appendTargets(List<OfferedEnergyStorage> targetStorages) {
 		ServerWorld serverWorld = (ServerWorld) world;
 		if (serverWorld == null) { return; }
@@ -158,20 +175,16 @@ public class CableBlockEntity extends BlockEntity
 			for (Direction direction : Direction.values()) {
 				boolean foundSomething = false;
 
-				BlockPos adjPos = getPos().offset(direction);
-				BlockEntity adjBe = serverWorld.getBlockEntity(adjPos);
+				BlockApiCache<EnergyStorage, Direction> adjCache = getAdjacentCache(direction);
 
-				if (adjBe instanceof CableBlockEntity adjCable) {
+				if (adjCache.getBlockEntity() instanceof CableBlockEntity adjCable) {
 					if (adjCable.getCableType().transferRate == getCableType().transferRate) {
 						// Make sure cables are not used as regular targets.
 						foundSomething = true;
 					}
-				} else if (EnergyStorage.SIDED.find(serverWorld, adjPos, null, adjBe, direction.getOpposite()) != null) {
+				} else if (adjCache.find(direction.getOpposite()) != null) {
 					foundSomething = true;
-					targets.add(new CableTarget(
-							direction,
-							BlockApiCache.create(EnergyStorage.SIDED, serverWorld, adjPos)
-					));
+					targets.add(new CableTarget(direction, adjCache));
 				}
 
 				newBlockState = newBlockState.with(CableBlock.PROPERTY_MAP.get(direction), foundSomething);

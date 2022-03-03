@@ -118,9 +118,7 @@ class CableTickManager {
 			CableBlockEntity current = bfsQueue.removeFirst();
 
 			for (Direction direction : Direction.values()) {
-				BlockPos adjPos = current.getPos().offset(direction);
-
-				if (current.getWorld().getBlockEntity(adjPos) instanceof CableBlockEntity adjCable && current.getCableType() == adjCable.getCableType()) {
+				if (current.getAdjacentBlockEntity(direction) instanceof CableBlockEntity adjCable && current.getCableType() == adjCable.getCableType()) {
 					if (shouldTickCable(adjCable)) {
 						bfsQueue.add(adjCable);
 						adjCable.lastTick = tickCounter;
