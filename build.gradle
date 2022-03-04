@@ -50,8 +50,6 @@ repositories {
 	maven {
 		url = "https://jitpack.io"
 		content {
-            // Autoswitch API
-			includeGroup "com.github.dexman545"
             // Trinkets API
 			includeGroup "com.github.emilyploszaj"
 		}
@@ -187,7 +185,6 @@ dependencies {
 
     optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
-    disabledOptionalDependency "com.github.dexman545:autoswitch-api:${project.autoswitch_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
