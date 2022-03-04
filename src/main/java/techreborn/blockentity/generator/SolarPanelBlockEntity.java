@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;

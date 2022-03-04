@@ -12,7 +12,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id "org.cadixdev.licenser" version "0.6.1"
-	id "fabric-loom" version "0.11-SNAPSHOT"
+	id "fabric-loom" version "0.12-SNAPSHOT"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
@@ -80,6 +80,11 @@ allprojects {
 
     loom {
         runtimeOnlyLog4j = true
+        splitEnvironmentSourceSets()
+    }
+
+    repositories {
+        mavenLocal()
     }
 
     // Shared deps between TR and RC
@@ -183,9 +188,12 @@ sourceSets {
 // TechReborn specific dependencies
 dependencies {
     api project(path: ":RebornCore", configuration: "namedElements")
+    clientCompileClasspath project(":RebornCore").sourceSets.client.output
+    clientRuntimeClasspath project(":RebornCore").sourceSets.client.output
+
     include project(":RebornCore")
 
-    optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "com.github.dexman545:autoswitch-api:${project.autoswitch_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"

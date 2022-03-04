@@ -40,7 +40,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.util.StringUtils;

@@ -34,7 +34,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.recipes.RecipeCrafter;

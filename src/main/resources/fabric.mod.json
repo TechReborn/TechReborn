@@ -20,7 +20,7 @@
       "techreborn.TechRebornClient"
     ],
     "rei": [
-      "techreborn.compat.rei.ReiPlugin"
+      "techreborn.client.compat.rei.ReiPlugin"
     ],
 	"autoswitch": [
 	  "techreborn.compat.autoswitch.AutoSwitchApiImpl"

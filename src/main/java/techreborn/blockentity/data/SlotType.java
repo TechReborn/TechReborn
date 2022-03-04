@@ -24,7 +24,8 @@
 
 package techreborn.blockentity.data;
 
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
+
+import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;

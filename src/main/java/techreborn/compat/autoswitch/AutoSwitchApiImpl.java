@@ -39,6 +39,8 @@ import techreborn.items.tool.basic.ElectricTreetapItem;
 import techreborn.items.tool.industrial.NanosaberItem;
 import techreborn.items.tool.industrial.OmniToolItem;
 
+import java.util.function.Predicate;
+
 public class AutoSwitchApiImpl implements AutoSwitchApi {
 
 	@Override
@@ -48,6 +50,10 @@ public class AutoSwitchApiImpl implements AutoSwitchApi {
 
 	@Override
 	public void moddedToolGroups(AutoSwitchMap<String, Pair<Tag<Item>, Class<?>>> toolGroupings) {
+	}
+
+	@Override
+	public void moddedToolGroupPredicates(AutoSwitchMap<String, Predicate<Item>> autoSwitchMap) {
 
 	}
 
