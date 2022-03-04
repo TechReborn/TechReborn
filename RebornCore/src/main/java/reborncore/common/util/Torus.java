@@ -24,11 +24,13 @@
 
 package reborncore.common.util;
 
+import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,8 +39,16 @@ import java.util.concurrent.TimeUnit;
 public class Torus {
 	private static final ExecutorService GEN_EXECUTOR = Executors.newSingleThreadExecutor();
 	private static Int2IntMap torusSizeCache;
-
+	private static final HashMap<Integer, ImmutableList<BlockPos>> torusListCache = new HashMap<>();
 	public static List<BlockPos> generate(BlockPos origin, int radius) {
+		boolean putCache = false;
+		if (origin == BlockPos.ORIGIN){
+			if(torusListCache.containsKey(radius)){
+				return torusListCache.get(radius);
+			}
+			putCache = true;
+		}
+
 		List<BlockPos> posLists = new ArrayList<>();
 		for (int x = -radius; x < radius; x++) {
 			for (int y = -radius; y < radius; y++) {
@@ -49,6 +59,7 @@ public class Torus {
 				}
 			}
 		}
+		if (putCache) torusListCache.put(radius, ImmutableList.copyOf(posLists));
 		return posLists;
 	}
 
