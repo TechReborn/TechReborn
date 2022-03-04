@@ -30,7 +30,6 @@ import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -45,10 +44,10 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.WorldUtils;
@@ -440,11 +439,11 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 								new LiteralText(String.valueOf(this.getMaxCapacity()))
 										.formatted(Formatting.GOLD)
 										.append(" ")
-										.append(I18n.translate("techreborn.tooltip.unit.items"))
+										.append(new TranslatableText("techreborn.tooltip.unit.items"))
 										.append(" (")
 										.append(String.valueOf(this.getMaxCapacity() / 64))
 										.append(" ")
-										.append(I18n.translate("techreborn.tooltip.unit.stacks"))
+										.append(new TranslatableText("techreborn.tooltip.unit.stacks"))
 										.append(")")
 						)
 		);
