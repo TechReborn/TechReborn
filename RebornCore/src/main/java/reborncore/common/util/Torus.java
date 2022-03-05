@@ -24,8 +24,10 @@
 
 package reborncore.common.util;
 
+import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 public class Torus {
 	private static final ExecutorService GEN_EXECUTOR = Executors.newSingleThreadExecutor();
 	private static Int2IntMap torusSizeCache;
-
+	private static Int2ObjectOpenHashMap<ImmutableList<BlockPos>> torusListCache;
 	public static List<BlockPos> generate(BlockPos origin, int radius) {
 		List<BlockPos> posLists = new ArrayList<>();
 		for (int x = -radius; x < radius; x++) {
@@ -49,9 +51,12 @@ public class Torus {
 				}
 			}
 		}
+
 		return posLists;
 	}
-
+	public static List<BlockPos> getOriginPositions(int radius){
+		return torusListCache.get(radius);
+	}
 	public static void genSizeMap(int maxRadius) {
 		if (torusSizeCache != null) {
 			// Let's not do this again
@@ -61,21 +66,24 @@ public class Torus {
 		final int sizeToCompute = maxRadius + 10;
 
 		torusSizeCache = new Int2IntOpenHashMap(sizeToCompute);
-
+		torusListCache = new Int2ObjectOpenHashMap<>(sizeToCompute);
 		for (int i = 0; i < sizeToCompute; i++) {
 			final int radius = i;
 			GEN_EXECUTOR.submit(() -> {
 				int size = 0;
+				ArrayList<BlockPos> list = new ArrayList<>();
 				for (int x = -radius; x < radius; x++) {
 					for (int y = -radius; y < radius; y++) {
 						for (int z = -radius; z < radius; z++) {
 							if (Math.pow(radius / 2 - Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)), 2) + Math.pow(z, 2) < Math.pow(radius * 0.05, 2)) {
 								size++;
+								list.add(new BlockPos(x,z,y));
 							}
 						}
 					}
 				}
 				torusSizeCache.put(radius, size);
+				torusListCache.put(radius, ImmutableList.copyOf(list));
 			});
 		}
 

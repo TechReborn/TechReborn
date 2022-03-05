@@ -391,7 +391,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
-		Torus.generate(BlockPos.ORIGIN, size).forEach(pos -> writer.add(pos.getX(), pos.getY(), pos.getZ(), coil));
+		Torus.getOriginPositions(size).forEach(pos -> writer.add(pos.getX(), pos.getY(), pos.getZ(), coil));
 	}
 
 	@Override
