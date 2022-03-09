@@ -104,7 +104,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	};
 
 	public RecipeCrafter(RebornRecipeType<?> recipeType, BlockEntity blockEntity, int inputs, int outputs, RebornInventory<?> inventory,
-	                     int[] inputSlots, int[] outputSlots) {
+						 int[] inputSlots, int[] outputSlots) {
 		this.recipeType = recipeType;
 		this.blockEntity = blockEntity;
 		if (blockEntity instanceof PowerAcceptorBlockEntity powerAcceptor) {
@@ -125,7 +125,6 @@ public class RecipeCrafter implements IUpgradeHandler {
 
 	/**
 	 * Call this on the blockEntity tick
-	 * TODO : cache recipe and reuse it instead.
 	 */
 	public void updateEntity() {
 		if (blockEntity.getWorld() == null || blockEntity.getWorld().isClient) {
@@ -188,7 +187,6 @@ public class RecipeCrafter implements IUpgradeHandler {
 				long useRequirement = getEuPerTick(currentRecipe.getPower());
 				if (energy.tryUseExact(useRequirement)) {
 					currentTickTime++;
-					//we prevent soundHandler spamming sound every tick, especially with 4 upgrades, which spams packet to client.
 					if ((currentTickTime == 1 || currentTickTime % 20 == 0 && cachedWorldTime > lastSoundTime+ 10) && soundHandler != null) {
 						lastSoundTime = cachedWorldTime;
 						soundHandler.playSound(false, blockEntity);
@@ -307,8 +305,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 
 		if (blockEntity != null && blockEntity.getWorld() != null && blockEntity.getWorld().isClient) {
 			blockEntity.getWorld().updateListeners(blockEntity.getPos(),
-				blockEntity.getWorld().getBlockState(blockEntity.getPos()),
-				blockEntity.getWorld().getBlockState(blockEntity.getPos()), 3);
+					blockEntity.getWorld().getBlockState(blockEntity.getPos()),
+					blockEntity.getWorld().getBlockState(blockEntity.getPos()), 3);
 		}
 	}
 
@@ -373,7 +371,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		}
 
 		// Test with a stack with the max stack size as some independents will check the stack size.
-		// A bit of a hack but should work.
+	    // A bit of a hack but should work.
 		ItemStack largeStack = stack.copy();
 		largeStack.setCount(largeStack.getMaxCount());
 		for (RebornRecipe recipe : recipeType.getRecipes(blockEntity.getWorld())) {
@@ -393,7 +391,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 
 	@Override
 	public double getSpeedMultiplier() {
-		return Math.min(parentUpgradeHandler.map(IUpgradeHandler::getSpeedMultiplier).orElse(0D), 0.99);
+		return Math.min(parentUpgradeHandler.map(IUpgradeHandler::getSpeedMultiplier).orElse(0D), 0.975);
 	}
 
 	@Override
