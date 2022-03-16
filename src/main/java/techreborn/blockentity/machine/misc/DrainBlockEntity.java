@@ -40,6 +40,7 @@ import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -58,7 +59,8 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDro
 			return;
 		}
 
-		if (world.getTime() % 10 == 0) {
+		int ticks = TechRebornConfig.ticksUntilNextDrainAttempt;
+		if (ticks > 0 && world.getTime() % ticks == 0) {
 
 			if (internalTank.isEmpty()) {
 				tryDrain();
