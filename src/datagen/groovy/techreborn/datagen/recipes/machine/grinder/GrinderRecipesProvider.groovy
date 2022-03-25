@@ -48,6 +48,8 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		// vanilla ingots
 		// TODO vanilla ingots + storage blocks (iron, copper, gold)
 		generateTRIngots()
+		generateSand()
+		generateRedSand()
 	}
 
 	void generateVanillaRawMetals() {
@@ -127,6 +129,34 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					source "block"
 					criterion getCriterionName(ingot.getStorageBlock().asTag()), getCriterionConditions(ingot.getStorageBlock().asTag())
 				}
+		}
+	}
+
+	void generateSand() {
+		[
+			Items.SANDSTONE, Items.CUT_SANDSTONE, Items.CHISELED_SANDSTONE, Items.SMOOTH_SANDSTONE
+		].each {
+			offerGrinderRecipe {
+				ingredients it
+				outputs new ItemStack(Items.SAND, 3)
+				power 2
+				time 200
+				criterion getCriterionName(it), getCriterionConditions(it)
+			}
+		}
+	}
+
+	void generateRedSand() {
+		[
+			Items.RED_SANDSTONE, Items.CUT_RED_SANDSTONE, Items.CHISELED_RED_SANDSTONE, Items.SMOOTH_RED_SANDSTONE
+		].each {
+			offerGrinderRecipe {
+				ingredients it
+				outputs new ItemStack(Items.RED_SAND, 3)
+				power 2
+				time 200
+				criterion getCriterionName(it), getCriterionConditions(it)
+			}
 		}
 	}
 }
