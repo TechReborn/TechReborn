@@ -10,7 +10,7 @@
       "tag": "c:iron_plates"
     },
     "C": {
-      "item": "minecraft:crafting_table"
+      "tag": "c:workbench"
     },
     "M": {
       "item": "techreborn:advanced_circuit"
