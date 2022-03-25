@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/phantom_membrane_from_elytra"
+	]
+  },
+  "criteria": {
+	"has_elytra": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:elytra"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/phantom_membrane_from_elytra"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_elytra",
+	  "has_the_recipe"
+	]
+  ]
+}
