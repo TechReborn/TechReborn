@@ -145,13 +145,14 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			(Items.SANDSTONE_SLAB) : 2,
 			(Items.CUT_SANDSTONE_SLAB) : 2,
 			(Items.SMOOTH_SANDSTONE_SLAB) : 2,
-		].each {it, count ->
+		].each {item, count ->
 			offerGrinderRecipe {
-				ingredients it
+				ingredients item
 				outputs new ItemStack(Items.SAND, count)
-				power 2
+				power count
 				time 200
-				criterion getCriterionName(it), getCriterionConditions(it)
+				source item.toString()
+				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}
 	}
@@ -168,13 +169,14 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			(Items.RED_SANDSTONE_SLAB) : 2,
 			(Items.CUT_RED_SANDSTONE_SLAB) : 2,
 			(Items.SMOOTH_RED_SANDSTONE_SLAB) : 2,
-		].each {it, count ->
+		].each {item, count ->
 			offerGrinderRecipe {
-				ingredients it
+				ingredients item
 				outputs new ItemStack(Items.RED_SAND, count)
-				power 2
+				power count
 				time 200
-				criterion getCriterionName(it), getCriterionConditions(it)
+				source item.toString()
+				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}
 	}
