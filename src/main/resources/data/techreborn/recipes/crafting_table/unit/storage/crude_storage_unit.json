@@ -7,12 +7,12 @@
   ],
   "key": {
     "B": {
-	  "tag": "blockus:barrels"
+      "tag": "c:wooden_barrels"
     },
-	"P": {
+    "P": {
       "item": "minecraft:paper"
     },
-	"W": {
+    "W": {
       "tag": "minecraft:planks"
     }
   },
