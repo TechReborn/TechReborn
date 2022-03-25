@@ -1084,5 +1084,9 @@
   "gui.techreborn.tank.type": "Fluid Type:",
   "gui.techreborn.tank.amount": "Fluid Amount:",
   "gui.techreborn.storage.store": "Storing:",
-  "gui.techreborn.storage.amount": "Amount:"
+  "gui.techreborn.storage.amount": "Amount:",
+  "gui.techreborn.fusion.norecipe": "No recipe",
+  "gui.techreborn.fusion.charging": "Charging",
+	"gui.techreborn.fusion.chargingdetailed": "Charging (%s)",
+	"gui.techreborn.fusion.crafting": "Crafting"
 }

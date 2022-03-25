@@ -31,18 +31,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.StringUtils;
@@ -84,23 +85,22 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 				.orElse(null);
 	}
 
-	//TODO: translate
 	public Text getStateText() {
 		if (state == -1) {
 			return LiteralText.EMPTY;
 		} else if (state == 0) {
-			return new LiteralText("No recipe");
+			return new TranslatableText("gui.techreborn.fusion.norecipe");
 		} else if (state == 1) {
 			FusionReactorRecipe r = getCurrentRecipeFromID();
 			if (r == null) {
-				return new LiteralText("Charging");
+				return new TranslatableText("gui.techreborn.fusion.charging");
 			}
 			int percentage = percentage(r.getStartEnergy(), getEnergy());
-			return new LiteralText("Charging (")
-					.append(StringUtils.getPercentageText(percentage))
-					.append(")");
+			return new TranslatableText("gui.techreborn.fusion.chargingdetailed",
+				new Object[]{StringUtils.getPercentageText(percentage)}
+			);
 		} else if (state == 2) {
-			return new LiteralText("Crafting");
+			return new TranslatableText("gui.techreborn.fusion.crafting");
 		}
 		return LiteralText.EMPTY;
 	}
