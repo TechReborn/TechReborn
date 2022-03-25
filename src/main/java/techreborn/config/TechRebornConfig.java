@@ -552,6 +552,9 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerBonemeal", comment = "Greenhouse Controller Energy usage Per Bonemeal")
 	public static int greenhouseControllerEnergyPerBonemeal = 50;
 
+	@Config(config = "machines", category = "drain", key = "TicksUntilNextDrainAttempt", comment = "How many ticks should go between two drain attempts. 0 or negative will disable drain.")
+	public static int ticksUntilNextDrainAttempt = 10;
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
