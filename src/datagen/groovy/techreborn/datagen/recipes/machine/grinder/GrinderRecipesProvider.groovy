@@ -40,12 +40,22 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	@Override
 	void generateRecipes() {
-		// vanilla raw metals
+		generateVanillaRawMetals()
+		generateTRRawMetals()
+		// vanilla gems
+		// TODO vanilla gems + storage blocks (Redstone, glowstone, lapis, emerald, diamond)
+		generateTRGems()
+		// vanilla ingots
+		// TODO vanilla ingots + storage blocks (iron, copper, gold)
+		generateTRIngots()
+	}
+
+	void generateVanillaRawMetals() {
 		[
-				(Items.RAW_IRON):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","iron_ores"))),
-				(Items.RAW_COPPER):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","copper_ores"))),
-				(Items.RAW_GOLD):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","gold_ores")))
-		].each{raw, oreTag ->
+			(Items.RAW_IRON)  : (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "iron_ores"))),
+			(Items.RAW_COPPER): (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "copper_ores"))),
+			(Items.RAW_GOLD)  : (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "gold_ores")))
+		].each { raw, oreTag ->
 			offerGrinderRecipe {
 				ingredients oreTag
 				outputs new ItemStack(raw, 2)
@@ -54,8 +64,10 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				criterion getCriterionName(oreTag), getCriterionConditions(oreTag)
 			}
 		}
-		// TR raw metals
-		TRContent.RawMetals.getRM2OBMap().each{raw, ore ->
+	}
+
+	void generateTRRawMetals() {
+		TRContent.RawMetals.getRM2OBMap().each { raw, ore ->
 			if (!ore.isIndustrial())
 				offerGrinderRecipe {
 					ingredients ore.asTag()
@@ -65,9 +77,9 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					criterion getCriterionName(ore.asTag()), getCriterionConditions(ore.asTag())
 				}
 		}
-		// vanilla gems
-		// TODO vanilla gems + storage blocks (Redstone, glowstone, lapis, emerald, diamond)
-		// TR gems
+	}
+
+	void generateTRGems() {
 		TRContent.Gems.getG2DMap().each {gem, dust ->
 			offerGrinderRecipe {
 				ingredients gem.asTag()
@@ -95,9 +107,9 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					criterion getCriterionName(gem.getStorageBlock().asTag()), getCriterionConditions(gem.getStorageBlock().asTag())
 				}
 		}
-		// vanilla ingots
-		// TODO vanilla ingots + storage blocks (iron, copper, gold)
-		// TR ingots
+	}
+
+	void generateTRIngots() {
 		TRContent.Ingots.getI2DMap().each {ingot, dust ->
 			offerGrinderRecipe {
 				ingredients ingot.asTag()
