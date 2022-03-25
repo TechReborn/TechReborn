@@ -25,6 +25,7 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.tag.TagKey
@@ -134,11 +135,20 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateSand() {
 		[
-			Items.SANDSTONE, Items.CUT_SANDSTONE, Items.CHISELED_SANDSTONE, Items.SMOOTH_SANDSTONE
-		].each {
+			(Items.SANDSTONE): 4,
+			(Items.SMOOTH_SANDSTONE): 4,
+			(Items.CUT_SANDSTONE) : 4,
+			(Items.CHISELED_SANDSTONE) :4,
+			(Items.SANDSTONE_STAIRS) : 3,
+			(Items.SMOOTH_SANDSTONE_STAIRS) : 3,
+			(Items.SANDSTONE_WALL) : 3,
+			(Items.SANDSTONE_SLAB) : 2,
+			(Items.CUT_SANDSTONE_SLAB) : 2,
+			(Items.SMOOTH_SANDSTONE_SLAB) : 2,
+		].each {it, count ->
 			offerGrinderRecipe {
 				ingredients it
-				outputs new ItemStack(Items.SAND, 3)
+				outputs new ItemStack(Items.SAND, count)
 				power 2
 				time 200
 				criterion getCriterionName(it), getCriterionConditions(it)
@@ -148,11 +158,20 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateRedSand() {
 		[
-			Items.RED_SANDSTONE, Items.CUT_RED_SANDSTONE, Items.CHISELED_RED_SANDSTONE, Items.SMOOTH_RED_SANDSTONE
-		].each {
+			(Items.RED_SANDSTONE): 4,
+			(Items.SMOOTH_RED_SANDSTONE): 4,
+			(Items.CUT_RED_SANDSTONE) : 4,
+			(Items.CHISELED_RED_SANDSTONE) :4,
+			(Items.RED_SANDSTONE_STAIRS) : 3,
+			(Items.SMOOTH_RED_SANDSTONE_STAIRS) : 3,
+			(Items.RED_SANDSTONE_WALL) : 3,
+			(Items.RED_SANDSTONE_SLAB) : 2,
+			(Items.CUT_RED_SANDSTONE_SLAB) : 2,
+			(Items.SMOOTH_RED_SANDSTONE_SLAB) : 2,
+		].each {it, count ->
 			offerGrinderRecipe {
 				ingredients it
-				outputs new ItemStack(Items.RED_SAND, 3)
+				outputs new ItemStack(Items.RED_SAND, count)
 				power 2
 				time 200
 				criterion getCriterionName(it), getCriterionConditions(it)
