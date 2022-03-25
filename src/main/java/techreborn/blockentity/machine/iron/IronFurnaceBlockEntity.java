@@ -35,27 +35,31 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.util.RebornInventory;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.RecipeUtils;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	int inputSlot = 0;
-	int outputSlot = 1;
+	public final static int INPUT_SLOT = 0;
+	public final static int OUTPUT_SLOT = 1;
+	public final static int FUEL_SLOT = 2;
+
 	public float experience;
 	private boolean previousValid = false;
 	private ItemStack previousStack = ItemStack.EMPTY;
 	private Recipe<?> lastRecipe = null;
 
 	public IronFurnaceBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.IRON_FURNACE, pos, state, 2, TRContent.Machine.IRON_FURNACE.block);
+		super(TRBlockEntities.IRON_FURNACE, pos, state, FUEL_SLOT, TRContent.Machine.IRON_FURNACE.block);
 		this.inventory = new RebornInventory<>(3, "IronFurnaceBlockEntity", 64, this);
 	}
 
@@ -71,6 +75,22 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		experience = 0;
 	}
 
+	@Nullable
+	private Recipe<?> refreshRecipe(ItemStack stack) {
+		// Check the previous recipe to see if it still applies to the current inv, saves rechecking the whole recipe list
+		if (lastRecipe != null && RecipeUtils.matchesSingleInput(lastRecipe, stack)) {
+			return lastRecipe;
+		} else {
+			Recipe<?> matchingRecipe = RecipeUtils.getMatchingRecipe(world, RecipeType.SMELTING, stack).orElse(null);
+			if (matchingRecipe != null) {
+				lastRecipe = matchingRecipe;
+			}
+		}
+
+		return lastRecipe;
+	}
+
+
 	private ItemStack getResultFor(ItemStack stack) {
 		if (stack.isEmpty()) {
 			// Fast fail if there is no input, no point checking the recipes if the machine is empty
@@ -80,15 +100,9 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 			return ItemStack.EMPTY;
 		}
 
-		// Check the previous recipe to see if it still applies to the current inv, saves rechecking the whole recipe list
-		if (lastRecipe != null && RecipeUtils.matchesSingleInput(lastRecipe, stack)) {
-			return lastRecipe.getOutput();
-		}
-
-		Recipe<?> matchingRecipe = RecipeUtils.getMatchingRecipe(world, RecipeType.SMELTING, stack).orElse(null);
+		Recipe<?> matchingRecipe = refreshRecipe(stack);
 
 		if (matchingRecipe != null) {
-			lastRecipe = matchingRecipe;
 			return matchingRecipe.getOutput().copy();
 		}
 
@@ -106,25 +120,25 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		if (!canSmelt()) {
 			return;
 		}
-		ItemStack inputStack = inventory.getStack(inputSlot);
+		ItemStack inputStack = inventory.getStack(INPUT_SLOT);
 		ItemStack resultStack = getResultFor(inputStack);
 
-		if (inventory.getStack(outputSlot).isEmpty()) {
-			inventory.setStack(outputSlot, resultStack.copy());
-		} else if (inventory.getStack(outputSlot).isItemEqualIgnoreDamage(resultStack)) {
-			inventory.getStack(outputSlot).increment(resultStack.getCount());
+		if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
+			inventory.setStack(OUTPUT_SLOT, resultStack.copy());
+		} else if (inventory.getStack(OUTPUT_SLOT).isItemEqualIgnoreDamage(resultStack)) {
+			inventory.getStack(OUTPUT_SLOT).increment(resultStack.getCount());
 		}
 		experience += getExperienceFor();
 		if (inputStack.getCount() > 1) {
-			inventory.shrinkSlot(inputSlot, 1);
+			inventory.shrinkSlot(INPUT_SLOT, 1);
 		} else {
-			inventory.setStack(inputSlot, ItemStack.EMPTY);
+			inventory.setStack(INPUT_SLOT, ItemStack.EMPTY);
 		}
 	}
 
 	@Override
 	protected boolean canSmelt() {
-		ItemStack inputStack = inventory.getStack(inputSlot);
+		ItemStack inputStack = inventory.getStack(INPUT_SLOT);
 		if (inputStack.isEmpty())
 			return false;
 		if (previousStack != inputStack) {
@@ -139,13 +153,32 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		else {
 			previousValid = true;
 		}
-		ItemStack outputSlotStack = inventory.getStack(outputSlot);
+		ItemStack outputSlotStack = inventory.getStack(OUTPUT_SLOT);
 		if (outputSlotStack.isEmpty())
 			return true;
 		if (!outputSlotStack.isItemEqualIgnoreDamage(outputStack))
 			return false;
 		int result = outputSlotStack.getCount() + outputStack.getCount();
 		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
+	}
+
+	@Override
+	protected int cookingTime() {
+		// default value for vanilla smelting recipes is 200
+		int cookingTime = 200;
+
+		Recipe<?> recipe = refreshRecipe(inventory.getStack(INPUT_SLOT));
+
+		if (recipe != null) {
+			try {
+				cookingTime = ((SmeltingRecipe) recipe).getCookTime();
+			} catch (ClassCastException ex) {
+				// Intentionally ignored
+				System.out.println("Not a smelting recipe!");
+			}
+		}
+
+		return (int) (cookingTime / TechRebornConfig.cookingScale);
 	}
 
 	@Override
@@ -176,7 +209,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 	@Override
 	public int[] getInputSlots() {
-		return new int[]{inputSlot};
+		return new int[]{INPUT_SLOT};
 	}
 
 	@Override

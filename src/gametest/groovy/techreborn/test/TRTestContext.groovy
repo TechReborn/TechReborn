@@ -28,7 +28,7 @@ import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.test.TestContext
 import net.minecraft.util.math.BlockPos
-import techreborn.blockentity.machine.GenericMachineBlockEntity
+import reborncore.common.blockentity.MachineBaseBlockEntity
 import techreborn.init.TRContent
 
 class TRTestContext extends TestContext {
@@ -54,6 +54,20 @@ class TRTestContext extends TestContext {
             }
         }
     }
+
+	def machine(TRContent.Machine machine, @DelegatesTo(MachineContext) Closure machineContextClosure) {
+		def machinePos = new BlockPos(0, 1, 0)
+		setBlockState(machinePos, machine.block)
+
+		waitAndRun(5) {
+			try {
+				new MachineContext(machinePos).with(machineContextClosure)
+			} catch (e) {
+				e.printStackTrace()
+				throw e
+			}
+		}
+	}
 
     class MachineContext {
         final BlockPos machinePos
@@ -100,14 +114,14 @@ class TRTestContext extends TestContext {
             }
         }
 
-        GenericMachineBlockEntity getBlockEntity() {
+		MachineBaseBlockEntity getBlockEntity() {
             def be = getBlockEntity(machinePos)
 
             if (!be) {
                 throwPositionedException("Failed to get machine block entity", machinePos)
             }
 
-            return be as GenericMachineBlockEntity
+            return be as MachineBaseBlockEntity
         }
     }
 }

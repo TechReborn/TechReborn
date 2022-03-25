@@ -47,15 +47,12 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	public int burnTime;
 	public int totalBurnTime;
 	public int progress;
-	public int totalCookingTime;
 	int fuelSlot;
 	Block toolDrop;
 
 	public AbstractIronMachineBlockEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state, int fuelSlot, Block toolDrop) {
 		super(blockEntityTypeIn, pos, state);
 		this.fuelSlot = fuelSlot;
-		// default value for vanilla smelting recipes is 200
-		this.totalCookingTime = (int) (200 / TechRebornConfig.cookingScale);
 		this.toolDrop = toolDrop;
 	}
 
@@ -70,6 +67,12 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	 * item in the output slot
 	 */
 	protected abstract void smelt();
+
+	/**
+	 * Get the current recipe's cooking time
+	 *
+	 */
+	protected abstract int cookingTime();
 
 	/**
 	 * Returns the number of ticks that the supplied fuel item will keep the
@@ -106,8 +109,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	 * @return {@code int} Scaled crafting progress
 	 */
 	public int getProgressScaled(int scale) {
-		if (totalCookingTime > 0) {
-			return progress * scale / totalCookingTime;
+		if (cookingTime() > 0) {
+			return progress * scale / cookingTime();
 		}
 		return 0;
 	}
@@ -174,7 +177,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 		if (isBurning() && canSmelt()) {
 			++progress;
-			if (progress == totalCookingTime) {
+			if (progress == cookingTime()) {
 				progress = 0;
 				smelt();
 			}
@@ -231,6 +234,4 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
-
-
 }

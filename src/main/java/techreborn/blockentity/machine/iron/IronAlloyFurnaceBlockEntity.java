@@ -28,12 +28,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.util.RebornInventory;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -42,12 +43,13 @@ import java.util.List;
 
 public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	int input1 = 0;
-	int input2 = 1;
-	int output = 2;
+	public final static int INPUT_SLOT_1 = 0;
+	public final static int INPUT_SLOT_2 = 1;
+	public final static int OUTPUT_SLOT = 2;
+	public final static int FUEL_SLOT = 3;
 
 	public IronAlloyFurnaceBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.IRON_ALLOY_FURNACE, pos, state, 3, TRContent.Machine.IRON_ALLOY_FURNACE.block);
+		super(TRBlockEntities.IRON_ALLOY_FURNACE, pos, state, FUEL_SLOT, TRContent.Machine.IRON_ALLOY_FURNACE.block);
 		this.inventory = new RebornInventory<>(4, "IronAlloyFurnaceBlockEntity", 64, this);
 	}
 
@@ -68,9 +70,19 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		return true;
 	}
 
+	private RebornRecipe getRecipe() {
+		for (RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+			if (hasAllInputs(recipeType)) {
+				return recipeType;
+			}
+		}
+
+		return null;
+	}
+
 	@Override
 	protected boolean canSmelt() {
-		if (inventory.getStack(input1).isEmpty() || inventory.getStack(input2).isEmpty()) {
+		if (inventory.getStack(INPUT_SLOT_1).isEmpty() || inventory.getStack(INPUT_SLOT_2).isEmpty()) {
 			return false;
 		}
 		ItemStack itemstack = null;
@@ -90,12 +102,12 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 
 		if (itemstack == null)
 			return false;
-		if (inventory.getStack(output).isEmpty())
+		if (inventory.getStack(OUTPUT_SLOT).isEmpty())
 			return true;
-		if (!inventory.getStack(output).isItemEqualIgnoreDamage(itemstack))
+		if (!inventory.getStack(OUTPUT_SLOT).isItemEqualIgnoreDamage(itemstack))
 			return false;
-		int result = inventory.getStack(output).getCount() + itemstack.getCount();
-		return result <= inventory.getStackLimit() && result <= inventory.getStack(output).getMaxCount();
+		int result = inventory.getStack(OUTPUT_SLOT).getCount() + itemstack.getCount();
+		return result <= inventory.getStackLimit() && result <= inventory.getStack(OUTPUT_SLOT).getMaxCount();
 	}
 
 	@Override
@@ -104,24 +116,19 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 			return;
 		}
 
-		RebornRecipe currentRecipe = null;
-		for (RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
-			if (hasAllInputs(recipeType)) {
-				currentRecipe = recipeType;
-				break;
-			}
-		}
+		RebornRecipe currentRecipe = getRecipe();
 		if (currentRecipe == null) {
 			return;
 		}
+
 		ItemStack outputStack = currentRecipe.getOutputs().get(0);
 		if (outputStack.isEmpty()) {
 			return;
 		}
-		if (inventory.getStack(output).isEmpty()) {
-			inventory.setStack(output, outputStack.copy());
-		} else if (inventory.getStack(output).getItem() == outputStack.getItem()) {
-			inventory.shrinkSlot(output, -outputStack.getCount());
+		if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
+			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
+		} else if (inventory.getStack(OUTPUT_SLOT).getItem() == outputStack.getItem()) {
+			inventory.shrinkSlot(OUTPUT_SLOT, -outputStack.getCount());
 		}
 
 		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
@@ -132,6 +139,19 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 				}
 			}
 		}
+	}
+
+	@Override
+	protected int cookingTime() {
+		// default value for vanilla smelting recipes is 200
+		int cookingTime = 200;
+
+		RebornRecipe recipe = getRecipe();
+		if (recipe != null) {
+			cookingTime = recipe.getTime();
+		}
+
+		return (int) (cookingTime / TechRebornConfig.cookingScale);
 	}
 
 	@Override
@@ -157,6 +177,6 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 
 	@Override
 	public int[] getInputSlots() {
-		return new int[]{input1, input2};
+		return new int[]{INPUT_SLOT_1, INPUT_SLOT_2};
 	}
 }
