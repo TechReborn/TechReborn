@@ -90,6 +90,12 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem, Trinket {
 		if (worldIn.isClient) {
 			return;
 		}
+
+		// vanilla default for chest inventory slot
+		if (itemSlot != 2) {
+			return;
+		}
+
 		if (entityIn instanceof PlayerEntity) {
 			ItemUtils.distributePowerToInventory((PlayerEntity) entityIn, stack, tier.getMaxOutput());
 		}
