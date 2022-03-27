@@ -25,6 +25,7 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.tag.TagKey
@@ -40,12 +41,24 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	@Override
 	void generateRecipes() {
-		// vanilla raw metals
+		generateVanillaRawMetals()
+		generateTRRawMetals()
+		// vanilla gems
+		// TODO vanilla gems + storage blocks (Redstone, glowstone, lapis, emerald, diamond)
+		generateTRGems()
+		// vanilla ingots
+		// TODO vanilla ingots + storage blocks (iron, copper, gold)
+		generateTRIngots()
+		generateSand()
+		generateRedSand()
+	}
+
+	void generateVanillaRawMetals() {
 		[
-				(Items.RAW_IRON):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","iron_ores"))),
-				(Items.RAW_COPPER):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","copper_ores"))),
-				(Items.RAW_GOLD):	(TagKey.of(Registry.ITEM_KEY, new Identifier("c","gold_ores")))
-		].each{raw, oreTag ->
+			(Items.RAW_IRON)  : (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "iron_ores"))),
+			(Items.RAW_COPPER): (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "copper_ores"))),
+			(Items.RAW_GOLD)  : (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "gold_ores")))
+		].each { raw, oreTag ->
 			offerGrinderRecipe {
 				ingredients oreTag
 				outputs new ItemStack(raw, 2)
@@ -54,8 +67,10 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				criterion getCriterionName(oreTag), getCriterionConditions(oreTag)
 			}
 		}
-		// TR raw metals
-		TRContent.RawMetals.getRM2OBMap().each{raw, ore ->
+	}
+
+	void generateTRRawMetals() {
+		TRContent.RawMetals.getRM2OBMap().each { raw, ore ->
 			if (!ore.isIndustrial())
 				offerGrinderRecipe {
 					ingredients ore.asTag()
@@ -65,9 +80,9 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					criterion getCriterionName(ore.asTag()), getCriterionConditions(ore.asTag())
 				}
 		}
-		// vanilla gems
-		// TODO vanilla gems + storage blocks (Redstone, glowstone, lapis, emerald, diamond)
-		// TR gems
+	}
+
+	void generateTRGems() {
 		TRContent.Gems.getG2DMap().each {gem, dust ->
 			offerGrinderRecipe {
 				ingredients gem.asTag()
@@ -95,9 +110,9 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					criterion getCriterionName(gem.getStorageBlock().asTag()), getCriterionConditions(gem.getStorageBlock().asTag())
 				}
 		}
-		// vanilla ingots
-		// TODO vanilla ingots + storage blocks (iron, copper, gold)
-		// TR ingots
+	}
+
+	void generateTRIngots() {
 		TRContent.Ingots.getI2DMap().each {ingot, dust ->
 			offerGrinderRecipe {
 				ingredients ingot.asTag()
@@ -115,6 +130,54 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					source "block"
 					criterion getCriterionName(ingot.getStorageBlock().asTag()), getCriterionConditions(ingot.getStorageBlock().asTag())
 				}
+		}
+	}
+
+	void generateSand() {
+		[
+			(Items.SANDSTONE): 4,
+			(Items.SMOOTH_SANDSTONE): 4,
+			(Items.CUT_SANDSTONE) : 4,
+			(Items.CHISELED_SANDSTONE) :4,
+			(Items.SANDSTONE_STAIRS) : 3,
+			(Items.SMOOTH_SANDSTONE_STAIRS) : 3,
+			(Items.SANDSTONE_WALL) : 3,
+			(Items.SANDSTONE_SLAB) : 2,
+			(Items.CUT_SANDSTONE_SLAB) : 2,
+			(Items.SMOOTH_SANDSTONE_SLAB) : 2,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs new ItemStack(Items.SAND, count)
+				power count
+				time 200
+				source item.toString()
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+	}
+
+	void generateRedSand() {
+		[
+			(Items.RED_SANDSTONE): 4,
+			(Items.SMOOTH_RED_SANDSTONE): 4,
+			(Items.CUT_RED_SANDSTONE) : 4,
+			(Items.CHISELED_RED_SANDSTONE) :4,
+			(Items.RED_SANDSTONE_STAIRS) : 3,
+			(Items.SMOOTH_RED_SANDSTONE_STAIRS) : 3,
+			(Items.RED_SANDSTONE_WALL) : 3,
+			(Items.RED_SANDSTONE_SLAB) : 2,
+			(Items.CUT_RED_SANDSTONE_SLAB) : 2,
+			(Items.SMOOTH_RED_SANDSTONE_SLAB) : 2,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs new ItemStack(Items.RED_SAND, count)
+				power count
+				time 200
+				source item.toString()
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
 		}
 	}
 }

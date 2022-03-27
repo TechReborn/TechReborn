@@ -4,13 +4,13 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "techreborn:plantball"
+      "item": "minecraft:elytra"
     }
   ],
   "results": [
     {
-      "item": "minecraft:green_dye",
-      "count": 1
+      "item": "minecraft:phantom_membrane",
+	  "count": 2
     }
   ]
 }

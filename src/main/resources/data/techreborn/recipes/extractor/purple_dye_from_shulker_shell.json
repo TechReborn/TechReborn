@@ -1,16 +1,16 @@
 {
   "type": "techreborn:extractor",
   "power": 10,
-  "time": 300,
+  "time": 400,
   "ingredients": [
     {
-      "item": "techreborn:plantball"
+      "item": "minecraft:shulker_shell"
     }
   ],
   "results": [
     {
-      "item": "minecraft:green_dye",
-      "count": 1
+      "item": "minecraft:purple_dye",
+      "count": 4
     }
   ]
 }

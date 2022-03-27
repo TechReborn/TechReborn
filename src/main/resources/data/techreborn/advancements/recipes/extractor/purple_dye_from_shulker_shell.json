@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/purple_dye_from_shulker_shell"
+	]
+  },
+  "criteria": {
+	"has_shulker_shell": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:shulker_shell"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/purple_dye_from_shulker_shell"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_shulker_shell",
+	  "has_the_recipe"
+	]
+  ]
+}
