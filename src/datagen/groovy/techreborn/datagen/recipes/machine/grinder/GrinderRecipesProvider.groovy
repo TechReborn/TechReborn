@@ -204,7 +204,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			offerGrinderRecipe {
 				ingredients concrete
 				outputs concretePowder
-				source "concrete_powder"
+				source "concrete"
 				power 4
 				time 200
 				criterion getCriterionName(concrete), getCriterionConditions(concrete)

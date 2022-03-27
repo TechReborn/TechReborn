@@ -78,8 +78,13 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				ingredient {
 					tag object
 				}
+			} else if (object instanceof ItemStack) {
+				ingredient {
+					stack object
+					count
+				}
 			} else {
-				throw new UnsupportedOperationException()
+				throw new IllegalArgumentException()
 			}
 		}
 
