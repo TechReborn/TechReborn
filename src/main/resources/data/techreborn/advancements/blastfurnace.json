@@ -10,7 +10,7 @@
       "translate": "advancements.techreborn.blastfurnace.desc"
     }
   },
-  "parent": "techreborn:nickeldust",
+  "parent": "techreborn:nickelnugget",
   "criteria": {
     "crit1": {
       "trigger": "minecraft:placed_block",
