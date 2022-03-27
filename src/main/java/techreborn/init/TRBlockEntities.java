@@ -51,6 +51,8 @@ import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
+import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
+import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -138,6 +140,8 @@ public class TRBlockEntities {
 	public static final BlockEntityType<SolidCanningMachineBlockEntity> SOLID_CANNING_MACHINE = register(SolidCanningMachineBlockEntity::new, "solid_canning_machine", TRContent.Machine.SOLID_CANNING_MACHINE);
 	public static final BlockEntityType<WireMillBlockEntity> WIRE_MILL = register(WireMillBlockEntity::new, "wire_mill", TRContent.Machine.WIRE_MILL);
 	public static final BlockEntityType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register(GreenhouseControllerBlockEntity::new, "greenhouse_controller", TRContent.Machine.GREENHOUSE_CONTROLLER);
+	public static final BlockEntityType<BlockBreakerBlockEntity> BLOCK_BREAKER = register(BlockBreakerBlockEntity::new, "block_breaker", TRContent.Machine.BLOCK_BREAKER);
+	public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER = register(BlockPlacerBlockEntity::new, "block_placer", TRContent.Machine.BLOCK_PLACER);
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, ItemConvertible... items) {
 		return register(supplier, name, Arrays.stream(items).map(itemConvertible -> Block.getBlockFromItem(itemConvertible.asItem())).toArray(Block[]::new));

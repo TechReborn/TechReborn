@@ -47,8 +47,8 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.misc.TagConvertible;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
-
 import techreborn.TechReborn;
+import techreborn.blockentity.GuiType;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.*;
@@ -58,6 +58,8 @@ import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
+import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -83,7 +85,6 @@ import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
-import techreborn.blockentity.GuiType;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.ModRegistry;
@@ -95,7 +96,6 @@ import techreborn.world.OreDistribution;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -684,6 +684,8 @@ public class TRContent {
 		SOLID_CANNING_MACHINE(new GenericMachineBlock(GuiType.SOLID_CANNING_MACHINE, SolidCanningMachineBlockEntity::new)),
 		WIRE_MILL(new GenericMachineBlock(GuiType.WIRE_MILL, WireMillBlockEntity::new)),
 		GREENHOUSE_CONTROLLER(new GenericMachineBlock(GuiType.GREENHOUSE_CONTROLLER, GreenhouseControllerBlockEntity::new)),
+		BLOCK_BREAKER(new GenericMachineBlock(GuiType.BLOCK_BREAKER, BlockBreakerBlockEntity::new)),
+		BLOCK_PLACER(new GenericMachineBlock(GuiType.BLOCK_PLACER, BlockPlacerBlockEntity::new)),
 
 		DIESEL_GENERATOR(new GenericGeneratorBlock(GuiType.DIESEL_GENERATOR, DieselGeneratorBlockEntity::new)),
 		DRAGON_EGG_SYPHON(new GenericGeneratorBlock(null, DragonEggSyphonBlockEntity::new)),

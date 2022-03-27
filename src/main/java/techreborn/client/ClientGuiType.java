@@ -31,7 +31,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.data.DataDrivenBEProvider;
-import techreborn.client.gui.DataDrivenGui;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
@@ -43,6 +42,8 @@ import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
+import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -110,6 +111,8 @@ public class ClientGuiType<T extends BlockEntity> {
 	public static final ClientGuiType<FluidReplicatorBlockEntity> FLUID_REPLICATOR = register(GuiType.FLUID_REPLICATOR, GuiFluidReplicator::new);
 	public static final ClientGuiType<PlayerDetectorBlockEntity> PLAYER_DETECTOR = register(GuiType.PLAYER_DETECTOR, GuiPlayerDetector::new);
 	public static final ClientGuiType<DataDrivenBEProvider.DataDrivenBlockEntity> DATA_DRIVEN = register(GuiType.DATA_DRIVEN, DataDrivenGui::new);
+	public static final ClientGuiType<BlockBreakerBlockEntity> BLOCK_BREAKER = register(GuiType.BLOCK_BREAKER, GuiBlockBreaker::new);
+	public static final ClientGuiType<BlockPlacerBlockEntity> BLOCK_PLACER = register(GuiType.BLOCK_PLACER, GuiBlockPlacer::new);
 
 	private static <T extends BlockEntity> ClientGuiType<T> register(GuiType<T> type, GuiFactory<T> factory) {
 		return new ClientGuiType<>(type, factory);

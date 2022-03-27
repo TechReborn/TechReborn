@@ -91,6 +91,8 @@
   "block.techreborn.solid_canning_machine": "Solid Canning Machine",
   "block.techreborn.wire_mill": "Wire Mill",
   "block.techreborn.greenhouse_controller": "Greenhouse controller",
+  "block.techreborn.block_breaker": "Block Breaker",
+  "block.techreborn.block_placer": "Block Placer",
 
   "_comment1": "Blocks",
   "block.techreborn.rubber_log": "Rubber Log",
@@ -829,6 +831,8 @@
   "techreborn.message.info.block.techreborn.charge_o_mat": "Charges up to 6 items simultaneously",
   "techreborn.message.info.block.techreborn.chunk_loader": "Keeps chunks loaded, allows machines to run when you're not nearby",
   "techreborn.message.info.block.techreborn.drain": "Pulls any fluid directly above it, pairs nicely with a tank unit underneath",
+  "techreborn.message.info.block.techreborn.block_breaker": "Breaks any block directly in front of it",
+  "techreborn.message.info.block.techreborn.block_placer": "Places blocks from its inventory directly in front of it",
 
   "keys.techreborn.category": "TechReborn Category",
   "keys.techreborn.config": "Config",
@@ -857,8 +861,6 @@
   "_comment20": "Death Messages",
   "death.attack.shock": "%s was electrocuted",
   "death.attack.shock.player": "%s was electrocuted trying to outrun %s",
-  "death.attack.fusion": "%s suffered from acute radiation sickness",
-  "death.attack.fusion.player": "%s suffered from acute radiation sickness trying to outrun %s",
 
   "_comment21": "Entities",
   "entity.nuke": "Nuke",
@@ -1085,8 +1087,24 @@
   "gui.techreborn.tank.amount": "Fluid Amount:",
   "gui.techreborn.storage.store": "Storing:",
   "gui.techreborn.storage.amount": "Amount:",
+
   "gui.techreborn.fusion.norecipe": "No recipe",
   "gui.techreborn.fusion.charging": "Charging",
-	"gui.techreborn.fusion.chargingdetailed": "Charging (%s)",
-	"gui.techreborn.fusion.crafting": "Crafting"
+  "gui.techreborn.fusion.chargingdetailed": "Charging (%s)",
+  "gui.techreborn.fusion.crafting": "Crafting",
+
+  "gui.techreborn.block_breaker.idle": "Nothing to break",
+  "gui.techreborn.block_breaker.processing": "Breaking block",
+
+  "gui.techreborn.block_placer.idle": "Nothing to place",
+  "gui.techreborn.block_placer.processing": "Placing block",
+
+  "gui.techreborn.block.idle_redstone": "Processing paused by redstone",
+  "gui.techreborn.block.output_full": "Output is full",
+  "gui.techreborn.block.no_energy": "Not enough energy",
+  "gui.techreborn.block.interrupted": "Interrupted",
+  "gui.techreborn.block.output_blocked": "Output blocked",
+  "gui.techreborn.block.progress.active": "Progress: (%s)",
+  "gui.techreborn.block.progress.stopped": "Idle (Stopped)",
+  "gui.techreborn.block.progress.paused": "Idle (%s)"
 }

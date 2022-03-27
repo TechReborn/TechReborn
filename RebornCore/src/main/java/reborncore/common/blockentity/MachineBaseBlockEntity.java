@@ -66,7 +66,7 @@ import java.util.Optional;
 /**
  * Created by modmuss50 on 04/11/2016.
  */
-public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTicker<MachineBaseBlockEntity>, IUpgradeable, IUpgradeHandler, IListInfoProvider, Inventory, SidedInventory {
+public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTicker<MachineBaseBlockEntity>, IUpgradeable, IUpgradeHandler, IListInfoProvider, Inventory, SidedInventory, RedstoneConfigurable {
 
 	public RebornInventory<MachineBaseBlockEntity> upgradeInventory = new RebornInventory<>(getUpgradeSlotCount(), "upgrades", 1, this, (slotID, stack, face, direction, blockEntity) -> true);
 	private SlotConfiguration slotConfiguration;
@@ -518,6 +518,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		return redstoneConfiguration;
 	}
 
+	@Override
 	public boolean isActive(RedstoneConfiguration.Element element) {
 		return redstoneConfiguration.isActive(element);
 	}

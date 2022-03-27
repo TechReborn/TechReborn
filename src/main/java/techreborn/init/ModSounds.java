@@ -54,6 +54,7 @@ public class ModSounds {
 			if (world == null) {
 				return;
 			}
+
 			world.playSound(null, blockEntity.getPos().getX(), blockEntity.getPos().getY(),
 					blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN, SoundCategory.BLOCKS, TechRebornConfig.machineSoundVolume, 1F);
 		}
