@@ -81,7 +81,6 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			} else if (object instanceof ItemStack) {
 				ingredient {
 					stack object
-					count
 				}
 			} else {
 				throw new IllegalArgumentException()
