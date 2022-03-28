@@ -92,6 +92,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 	 */
 	public int[] outputSlots;
 	public RebornRecipe currentRecipe;
+	public long lastSoundTime = 0;
+	private long cachedWorldTime = 0;
 	public int currentTickTime = 0;
 	public int currentNeededTicks = 1;// Set to 1 to stop rare crashes
 
@@ -129,6 +131,10 @@ public class RecipeCrafter implements IUpgradeHandler {
 			return;
 		}
 		ticksSinceLastChange++;
+		if (cachedWorldTime == 0){
+			cachedWorldTime = blockEntity.getWorld().getTime();
+		}
+		cachedWorldTime++;
 		// Force a has chanced every second
 		if (ticksSinceLastChange == 20) {
 			setInvDirty(true);
@@ -181,7 +187,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 				long useRequirement = getEuPerTick(currentRecipe.getPower());
 				if (energy.tryUseExact(useRequirement)) {
 					currentTickTime++;
-					if ((currentTickTime == 1 || currentTickTime % 20 == 0) && soundHandler != null) {
+					if ((currentTickTime == 1 || currentTickTime % 20 == 0 && cachedWorldTime > lastSoundTime+ 10) && soundHandler != null) {
+						lastSoundTime = cachedWorldTime;
 						soundHandler.playSound(false, blockEntity);
 					}
 				}
