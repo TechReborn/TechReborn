@@ -99,8 +99,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			(Items.YELLOW_DYE): Items.YELLOW_CARPET
 		].each {dye, carpet ->
 			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.WHITE_CARPET, 4)
-				output new ItemStack(carpet, 4)
+				ingredients dye, new ItemStack(Items.WHITE_CARPET, 8)
+				output new ItemStack(carpet, 8)
 				source "white_carpet"
 				power DYE_POWER
 				time DYE_TIME
