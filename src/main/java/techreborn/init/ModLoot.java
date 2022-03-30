@@ -32,6 +32,7 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.function.SetDamageLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent.Ingots;
@@ -51,6 +52,11 @@ public class ModLoot {
 		LootPoolEntry basicCircuit = makeEntry(Parts.ELECTRONIC_CIRCUIT);
 		LootPoolEntry rubberSapling = makeEntry(TRContent.RUBBER_SAPLING, 25);
 
+		LootPool poolBasic = FabricLootPoolBuilder.builder().withEntry(copperIngot).withEntry(tinIngot)
+			.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedIronIngot).withEntry(advancedAlloyIngot)
+			.withEntry(basicFrame).withEntry(basicCircuit).withEntry(rubberSapling).rolls(UniformLootNumberProvider.create(1.0f, 2.0f))
+			.build();
+
 		LootPoolEntry aluminumIngot = makeEntry(Ingots.ALUMINUM);
 		LootPoolEntry electrumIngot = makeEntry(Ingots.ELECTRUM);
 		LootPoolEntry invarIngot = makeEntry(Ingots.INVAR);
@@ -60,6 +66,11 @@ public class ModLoot {
 		LootPoolEntry advancedFrame = makeEntry(TRContent.MachineBlocks.ADVANCED.frame.asItem());
 		LootPoolEntry advancedCircuit = makeEntry(Parts.ADVANCED_CIRCUIT);
 		LootPoolEntry dataStorageChip = makeEntry(Parts.DATA_STORAGE_CHIP);
+
+		LootPool poolAdvanced = FabricLootPoolBuilder.builder().withEntry(aluminumIngot).withEntry(electrumIngot)
+			.withEntry(invarIngot).withEntry(nickelIngot).withEntry(steelIngot).withEntry(zincIngot)
+			.withEntry(advancedFrame).withEntry(advancedCircuit).withEntry(dataStorageChip).rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
+			.build();
 
 		LootPoolEntry chromeIngot = makeEntry(Ingots.CHROME);
 		LootPoolEntry iridiumIngot = makeEntry(Ingots.IRIDIUM);
@@ -71,21 +82,16 @@ public class ModLoot {
 		LootPoolEntry industrialCircuit = makeEntry(Parts.INDUSTRIAL_CIRCUIT);
 		LootPoolEntry energyFlowChip = makeEntry(Parts.ENERGY_FLOW_CHIP);
 
-
-		LootPool poolBasic = FabricLootPoolBuilder.builder().withEntry(copperIngot).withEntry(tinIngot)
-				.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedIronIngot).withEntry(advancedAlloyIngot)
-				.withEntry(basicFrame).withEntry(basicCircuit).withEntry(rubberSapling).rolls(UniformLootNumberProvider.create(1.0f, 2.0f))
-				.build();
-
-		LootPool poolAdvanced = FabricLootPoolBuilder.builder().withEntry(aluminumIngot).withEntry(electrumIngot)
-				.withEntry(invarIngot).withEntry(nickelIngot).withEntry(steelIngot).withEntry(zincIngot)
-				.withEntry(advancedFrame).withEntry(advancedCircuit).withEntry(dataStorageChip).rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
-				.build();
-
 		LootPool poolIndustrial = FabricLootPoolBuilder.builder().withEntry(chromeIngot).withEntry(iridiumIngot)
 				.withEntry(platinumIngot).withEntry(titaniumIngot).withEntry(tungstenIngot).withEntry(tungstensteelIngot)
 				.withEntry(industrialFrame).withEntry(industrialCircuit).withEntry(energyFlowChip).rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
 				.build();
+
+		LootPoolEntry rubber = ItemEntry.builder(Parts.RUBBER).weight(10).build();
+		LootPoolEntry treeTap = ItemEntry.builder(TRContent.TREE_TAP).weight(10)
+			.apply(SetDamageLootFunction.builder(UniformLootNumberProvider.create(0.0f, 0.9f))).build();
+
+		LootPool poolFishingJunk = FabricLootPoolBuilder.builder().withEntry(rubber).withEntry(treeTap).build();
 
 		LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, ident, supplier, setter) -> {
 			String stringId = ident.toString();
@@ -130,6 +136,12 @@ public class ModLoot {
 			if (TechRebornConfig.enableEndLoot) {
 				if (stringId.equals("minecraft:chests/end_city_treasure")) {
 					supplier.withPool(poolIndustrial);
+				}
+			}
+
+			if (TechRebornConfig.enableFishingJunkLoot) {
+				if (stringId.equals("minecraft:gameplay/fishing/junk")) {
+					supplier.withPool(poolFishingJunk);
 				}
 			}
 

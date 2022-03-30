@@ -605,6 +605,9 @@ public class TechRebornConfig {
 	@Config(config = "world", category = "loot", key = "enableEndLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to The End loot chests.")
 	public static boolean enableEndLoot = true;
 
+	@Config(config = "world", category = "loot", key = "enableFishingJunkLoot", comment = "When true TechReborn will add items to fishing junk loot.")
+	public static boolean enableFishingJunkLoot = true;
+
 	@Config(config = "world", category = "generation", key = "enableOreGeneration", comment = "When enabled ores will generate in the world")
 	public static boolean enableOreGeneration = true;
 
