@@ -81,6 +81,8 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		if (lastRecipe != null && RecipeUtils.matchesSingleInput(lastRecipe, stack)) {
 			return lastRecipe;
 		} else {
+			// If the previous recipe does not apply anymore, reset the progress
+			progress = 0;
 			Recipe<?> matchingRecipe = RecipeUtils.getMatchingRecipe(world, RecipeType.SMELTING, stack).orElse(null);
 			if (matchingRecipe != null) {
 				lastRecipe = matchingRecipe;
