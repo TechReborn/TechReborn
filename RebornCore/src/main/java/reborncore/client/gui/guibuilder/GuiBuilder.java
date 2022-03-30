@@ -564,14 +564,14 @@ public class GuiBuilder {
 	 * @param gui             {@link GuiBase} The GUI to draw on
 	 * @param x               {@code int} Top left corner where to place energy bar
 	 * @param y               {@code int} Top left corner where to place energy bar
-	 * @param energyStored    {@code int} Current amount of energy
-	 * @param maxEnergyStored {@code int} Maximum amount of energy
+	 * @param energyStored    {@code long} Current amount of energy
+	 * @param maxEnergyStored {@code long} Maximum amount of energy
 	 * @param mouseX          {@code int} Mouse cursor position to check for tooltip
 	 * @param mouseY          {@code int} Mouse cursor position to check for tooltip
 	 * @param buttonID        {@code int} Button ID used to switch energy systems
 	 * @param layer           {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawMultiEnergyBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX,
+	public void drawMultiEnergyBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, long energyStored, long maxEnergyStored, int mouseX,
 								   int mouseY, int buttonID, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {

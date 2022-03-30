@@ -34,9 +34,9 @@ import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
@@ -115,7 +115,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 		drawTextWithShadow(matrixStack, this.textRenderer, new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
 		drawTextWithShadow(matrixStack, this.textRenderer, new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, this.blockEntity.getEnergy(), this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y) {

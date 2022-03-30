@@ -857,6 +857,8 @@
   "_comment20": "Death Messages",
   "death.attack.shock": "%s was electrocuted",
   "death.attack.shock.player": "%s was electrocuted trying to outrun %s",
+  "death.attack.fusion": "%s suffered from acute radiation sickness",
+  "death.attack.fusion.player": "%s suffered from acute radiation sickness trying to outrun %s",
 
   "_comment21": "Entities",
   "entity.nuke": "Nuke",
@@ -1082,5 +1084,9 @@
   "gui.techreborn.tank.type": "Fluid Type:",
   "gui.techreborn.tank.amount": "Fluid Amount:",
   "gui.techreborn.storage.store": "Storing:",
-  "gui.techreborn.storage.amount": "Amount:"
+  "gui.techreborn.storage.amount": "Amount:",
+  "gui.techreborn.fusion.norecipe": "No recipe",
+  "gui.techreborn.fusion.charging": "Charging",
+	"gui.techreborn.fusion.chargingdetailed": "Charging (%s)",
+	"gui.techreborn.fusion.crafting": "Crafting"
 }
