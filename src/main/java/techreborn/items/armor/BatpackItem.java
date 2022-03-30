@@ -24,22 +24,30 @@
 
 package techreborn.items.armor;
 
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.Trinket;
+import dev.emi.trinkets.api.TrinketsApi;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-public class BatpackItem extends ArmorItem implements RcEnergyItem {
+public class BatpackItem extends ArmorItem implements RcEnergyItem, Trinket {
 
 	public final int maxCharge;
 	public final RcEnergyTier tier;
@@ -48,6 +56,32 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem {
 		super(material, EquipmentSlot.CHEST, new Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = maxCharge;
 		this.tier = tier;
+		registerTrinket();
+	}
+
+	//Trinket
+	@Override
+	public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+		if (entity instanceof ServerPlayerEntity) {
+
+			EnergyStorage sourceStorage = ContainerItemContext.withInitial(stack).find(EnergyStorage.ITEM);
+
+			ServerPlayerEntity player = (ServerPlayerEntity) entity;
+
+			for (int i = 0; i < player.getInventory().size(); i++) {
+
+				long amountBefore = sourceStorage.getAmount();
+
+				long accepted = ItemUtils.transferPower(player, i, sourceStorage, tier.getMaxOutput(), (itemStack) -> true );
+
+				long expectedAfter = amountBefore - accepted;
+
+				if (amountBefore != expectedAfter) {
+					((BatpackItem) stack.getItem()).setStoredEnergy(stack, expectedAfter);
+				}
+			}
+
+		}
 	}
 
 	// Item
@@ -56,6 +90,12 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem {
 		if (worldIn.isClient) {
 			return;
 		}
+
+		// vanilla default for chest inventory slot
+		if (itemSlot != 2) {
+			return;
+		}
+
 		if (entityIn instanceof PlayerEntity) {
 			ItemUtils.distributePowerToInventory((PlayerEntity) entityIn, stack, tier.getMaxOutput());
 		}
@@ -103,5 +143,12 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem {
 	@Override
 	public int getItemBarStep(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
+	}
+
+	private void registerTrinket() {
+		// Ensures that trinkets are only registered if the mod is installed
+		if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+			TrinketsApi.registerTrinket(this, this);
+		}
 	}
 }
