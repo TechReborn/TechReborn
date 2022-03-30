@@ -49,11 +49,11 @@ class IngredientBuilder {
 				throw new IllegalStateException("Cannot have ingredient with tag and stack inputs")
 			}
 
-			return new TagIngredient(tag, getCount())
+			return new TagIngredient(tag, Optional.empty())
 		}
 
 		if (stacks.size() == 1) {
-			return new StackIngredient(stacks.get(0), getCount(), Optional.empty(), false)
+			return new StackIngredient(stacks.get(0), Optional.of(stacks.get(0).getCount()), Optional.empty(), false)
 		}
 
 		throw new IllegalStateException()
@@ -71,10 +71,5 @@ class IngredientBuilder {
 	def stack(ItemStack itemStack) {
 		stacks.add(itemStack)
 		return this
-	}
-
-
-	private Optional<Integer> getCount() {
-		return Optional.empty()
 	}
 }

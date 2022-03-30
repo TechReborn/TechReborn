@@ -27,6 +27,7 @@ package techreborn.datagen
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipesProvider
+import techreborn.datagen.recipes.machine.chemical_reactor.ChemicalReactorRecipesProvider
 import techreborn.datagen.recipes.machine.compressor.CompressorRecipesProvider
 import techreborn.datagen.recipes.machine.grinder.GrinderRecipesProvider
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipesProvider
@@ -49,6 +50,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 
 		fabricDataGenerator.addProvider(GrinderRecipesProvider.&new)
 		fabricDataGenerator.addProvider(CompressorRecipesProvider.&new)
+		fabricDataGenerator.addProvider(ChemicalReactorRecipesProvider.&new)
 		fabricDataGenerator.addProvider(BlastFurnaceRecipesProvider.&new)
 		fabricDataGenerator.addProvider(IndustrialSawmillRecipesProvider.&new)
     }
