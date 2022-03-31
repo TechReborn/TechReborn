@@ -44,7 +44,7 @@ public class RecipeManager {
 
 	public static <R extends RebornRecipe> RebornRecipeType<R> newRecipeType(RecipeSerde<R> recipeSerde, Identifier name) {
 		if (recipeTypes.containsKey(name)) {
-			throw new RuntimeException("RebornRecipe type with this name already registered");
+			throw new IllegalStateException("RebornRecipe type with this name already registered");
 		}
 		RebornRecipeType<R> type = new RebornRecipeType<>(recipeSerde, name);
 		recipeTypes.put(name, type);
