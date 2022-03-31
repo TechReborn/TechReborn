@@ -45,8 +45,10 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(ItemTags.DARK_OAK_LOGS): Items.DARK_OAK_PLANKS,
 			(ItemTags.JUNGLE_LOGS): Items.JUNGLE_PLANKS,
 			(ItemTags.OAK_LOGS): Items.OAK_PLANKS,
-			(TRContent.RUBBER_LOGS): TRContent.RUBBER_PLANKS,
-			(ItemTags.SPRUCE_LOGS): Items.SPRUCE_PLANKS
+			(ItemTags.SPRUCE_LOGS): Items.SPRUCE_PLANKS,
+			(ItemTags.CRIMSON_STEMS): Items.CRIMSON_PLANKS,
+			(ItemTags.WARPED_STEMS): Items.WARPED_PLANKS,
+			(TRContent.RUBBER_LOGS): TRContent.RUBBER_PLANKS
 		].each {logs, planks ->
 			offerIndustrialSawmillRecipe {
 				ingredients logs
@@ -55,6 +57,95 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				time 200
 				fluidAmount 1000 // in millibuckets
 			}
+		}
+		[
+			(Items.ACACIA_STAIRS): Items.ACACIA_SLAB,
+			(Items.BIRCH_STAIRS): Items.BIRCH_SLAB,
+			(Items.DARK_OAK_STAIRS): Items.DARK_OAK_SLAB,
+			(Items.JUNGLE_STAIRS): Items.JUNGLE_SLAB,
+			(Items.OAK_STAIRS): Items.OAK_SLAB,
+			(Items.SPRUCE_STAIRS): Items.SPRUCE_SLAB,
+			(Items.CRIMSON_STAIRS): Items.CRIMSON_SLAB,
+			(Items.WARPED_STAIRS): Items.WARPED_SLAB,
+			(TRContent.RUBBER_PLANK_STAIR): TRContent.RUBBER_PLANK_SLAB
+		].each { stairs, slab ->
+			offerIndustrialSawmillRecipe {
+				ingredients stairs
+				outputs slab, new ItemStack(TRContent.Dusts.SAW, 2)
+				power 30
+				time 100
+				fluidAmount 250 // in millibuckets
+				source "stairs"
+				criterion getCriterionName(stairs), getCriterionConditions(stairs)
+			}
+		}
+		[
+			(Items.ACACIA_SLAB): Items.ACACIA_PRESSURE_PLATE,
+			(Items.BIRCH_SLAB): Items.BIRCH_PRESSURE_PLATE,
+			(Items.DARK_OAK_SLAB): Items.DARK_OAK_PRESSURE_PLATE,
+			(Items.JUNGLE_SLAB): Items.JUNGLE_PRESSURE_PLATE,
+			(Items.OAK_SLAB): Items.OAK_PRESSURE_PLATE,
+			(Items.SPRUCE_SLAB): Items.SPRUCE_PRESSURE_PLATE,
+			(Items.CRIMSON_SLAB): Items.CRIMSON_PRESSURE_PLATE,
+			(Items.WARPED_SLAB): Items.WARPED_PRESSURE_PLATE,
+			(TRContent.RUBBER_PLANK_SLAB): TRContent.RUBBER_PRESSURE_PLATE
+		].each { slab, plate ->
+			offerIndustrialSawmillRecipe {
+				ingredients slab
+				outputs new ItemStack(plate, 2), new ItemStack(TRContent.Dusts.SAW, 2)
+				power 30
+				time 200
+				fluidAmount 250 // in millibuckets
+				source "slab"
+				criterion getCriterionName(slab), getCriterionConditions(slab)
+			}
+		}
+		[
+			(ItemTags.PLANKS): 8,
+			// stairs would be 6, slabs 4
+			// but we don't add them, of course, because the recipes for these were added above
+			(ItemTags.WOODEN_PRESSURE_PLATES): 1,
+			(ItemTags.WOODEN_TRAPDOORS): 1, // not 2 because they often have holes
+			(ItemTags.WOODEN_FENCES): 1,
+			(ItemTags.WOODEN_DOORS): 3,
+			(ItemTags.SIGNS): 1
+		].each { item, count ->
+			offerIndustrialSawmillRecipe {
+				ingredients item
+				outputs new ItemStack(TRContent.Dusts.SAW, count)
+				power 30
+				time 200
+				fluidAmount 125*count // in millibuckets
+				source item.id().path
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		[
+			(Items.BOWL) : 2,
+			(Items.WOODEN_SHOVEL) : 2,
+			(Items.WOODEN_SWORD) : 2,
+			(Items.WOODEN_HOE) : 3,
+			(Items.WOODEN_AXE) : 3,
+			(Items.WOODEN_PICKAXE): 3
+		].each {item, count ->
+			offerIndustrialSawmillRecipe {
+				ingredients item
+				outputs new ItemStack(TRContent.SmallDusts.SAW, count)
+				power 30
+				time 100
+				fluidAmount 100 // in millibuckets
+				source item.toString()
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		offerIndustrialSawmillRecipe {
+			ingredients ItemTags.WOODEN_BUTTONS
+			outputs new ItemStack(TRContent.SmallDusts.SAW, 1)
+			power 20
+			time 50
+			fluidAmount 50 // in millibuckets
+			source "wooden_buttons"
+			criterion getCriterionName(ItemTags.WOODEN_BUTTONS), getCriterionConditions(ItemTags.WOODEN_BUTTONS)
 		}
 	}
 
