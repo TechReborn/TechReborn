@@ -286,11 +286,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 		if (ItemUtils.isItemEqual(inventory.getStack(slot), stack, true)) {// If the slot has stuff in
 			if (stack.getCount() + inventory.getStack(slot).getCount() <= stack.getMaxCount()) {// Check to see if it fits
 				ItemStack newStack = stack.copy();
-				newStack.setCount(inventory.getStack(slot).getCount() + stack.getCount());// Sets
-				// the
-				// new
-				// stack
-				// size
+				// Sets the new stack size
+				newStack.setCount(inventory.getStack(slot).getCount() + stack.getCount());
 				inventory.setStack(slot, newStack);
 			}
 		}
