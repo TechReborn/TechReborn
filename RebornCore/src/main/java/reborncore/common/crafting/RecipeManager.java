@@ -57,7 +57,7 @@ public class RecipeManager {
 
 	public static RebornRecipeType<?> getRecipeType(Identifier name) {
 		if (!recipeTypes.containsKey(name)) {
-			throw new RuntimeException("RebornRecipe type " + name + " not found");
+			throw new IllegalStateException("RebornRecipe type " + name + " not found");
 		}
 		return recipeTypes.get(name);
 	}
