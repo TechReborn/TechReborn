@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.tag.ItemTags
 import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
@@ -52,6 +53,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		generateSand()
 		generateRedSand()
 		generateConcretePowder()
+		generateSawdust()
 	}
 
 	void generateVanillaRawMetals() {
@@ -211,4 +213,29 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 	}
+
+	void generateSawdust() {
+		// designed to be a fourth of what ind. sawmill gives, i.e. the same, just in small dust
+		[
+			(ItemTags.PLANKS)                : 8,
+			(ItemTags.STAIRS)                : 6,
+			(ItemTags.SLABS)                 : 4,
+			(ItemTags.WOODEN_PRESSURE_PLATES): 1,
+			(ItemTags.WOODEN_TRAPDOORS)      : 1,
+			(ItemTags.WOODEN_FENCES)         : 1,
+			(ItemTags.WOODEN_DOORS)          : 3,
+			(ItemTags.SIGNS)                 : 1
+		].each { item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs new ItemStack(TRContent.SmallDusts.SAW, count)
+				power 3
+				time 180
+				source item.id().path
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		// wooden buttons and wooden tools are not eligible
+	}
+
 }
