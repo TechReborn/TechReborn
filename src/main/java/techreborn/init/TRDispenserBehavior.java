@@ -59,7 +59,7 @@ public class TRDispenserBehavior {
 				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 					List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(pointer.getWorld());
 					int random = new Random().nextInt(scrapboxRecipeList.size());
-					ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
+					ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0).copy();
 					stack.split(1);
 
 					Direction facing = pointer.getBlockState().get(DispenserBlock.FACING);
