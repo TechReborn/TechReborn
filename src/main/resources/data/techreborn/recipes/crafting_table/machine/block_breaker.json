@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "PHP",
+    "PXP"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:refined_iron_plate"
+    },
+	"C": {
+	  "item": "techreborn:electronic_circuit"
+	},
+	"H": {
+	  "item": "minecraft:hopper"
+	},
+	"X": {
+	  "item": "minecraft:sticky_piston"
+	}
+  },
+  "result": {
+    "item": "techreborn:block_breaker"
+  }
+}

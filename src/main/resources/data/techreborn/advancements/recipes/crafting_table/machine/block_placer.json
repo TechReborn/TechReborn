@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/block_placer"
+	]
+  },
+  "criteria": {
+	"has_piston": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:piston"]
+		  }
+		]
+	  }
+	},
+	"has_refined_iron_plate": {
+		"trigger": "minecraft:inventory_changed",
+		"conditions": {
+			"items": [
+				{
+					"items": ["techreborn:refined_iron_plate"]
+				}
+			]
+		}
+	},
+	"has_hopper": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:hopper"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/block_placer"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_piston",
+	  "has_refined_iron_plate",
+	  "has_hopper",
+	  "has_the_recipe"
+	]
+  ]
+}

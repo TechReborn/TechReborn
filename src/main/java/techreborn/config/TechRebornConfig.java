@@ -555,6 +555,30 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "drain", key = "TicksUntilNextDrainAttempt", comment = "How many ticks should go between two drain attempts. 0 or negative will disable drain.")
 	public static int ticksUntilNextDrainAttempt = 10;
 
+	@Config(config = "machines", category = "block_breaker", key = "BlockBreakerMaxInput", comment = "Block Breaker Max Input (Energy per tick)")
+	public static int blockBreakerMaxInput = 32;
+
+	@Config(config = "machines", category = "block_breaker", key = "BlockBreakerMaxEnergy", comment = "Block Breaker Max Energy")
+	public static int blockBreakerMaxEnergy = 1_000;
+
+	@Config(config = "machines", category = "block_breaker", key = "BlockBreakerEnergyPerTick", comment = "Block Breaker Energy usage Per Tick")
+	public static int blockBreakerEnergyPerTick = 5;
+
+	@Config(config = "machines", category = "block_breaker", key = "BlockBreakerBaseBreakTime", comment = "How many ticks a block of hardness 1 requires to be broken")
+	public static int blockBreakerBaseBreakTime = 100;
+
+	@Config(config = "machines", category = "block_placer", key = "BlockPlacerMaxInput", comment = "Block Placer Max Input (Energy per tick)")
+	public static int blockPlacerMaxInput = 32;
+
+	@Config(config = "machines", category = "block_placer", key = "BlockPlacerMaxEnergy", comment = "Block Placer Max Energy")
+	public static int blockPlacerMaxEnergy = 1_000;
+
+	@Config(config = "machines", category = "block_placer", key = "BlockPlacerEnergyPerTick", comment = "Block Placer Energy usage Per Tick")
+	public static int blockPlacerEnergyPerTick = 5;
+
+	@Config(config = "machines", category = "block_placer", key = "BlockPlacerBaseBreakTime", comment = "How many ticks a block of hardness 1 requires to be placed")
+	public static int blockPlacerBaseBreakTime = 100;
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;

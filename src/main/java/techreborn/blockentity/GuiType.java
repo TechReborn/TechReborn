@@ -40,8 +40,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IMachineGuiHandler;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
@@ -54,6 +54,8 @@ import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
+import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -118,6 +120,8 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<FluidReplicatorBlockEntity> FLUID_REPLICATOR = register("fluid_replicator");
 	public static final GuiType<PlayerDetectorBlockEntity> PLAYER_DETECTOR = register("player_detector");
 	public static final GuiType<DataDrivenBEProvider.DataDrivenBlockEntity> DATA_DRIVEN = register("data_driven");
+	public static final GuiType<BlockBreakerBlockEntity> BLOCK_BREAKER = register("block_breaker");
+	public static final GuiType<BlockPlacerBlockEntity> BLOCK_PLACER = register("block_placer");
 
 	private static <T extends BlockEntity> GuiType<T> register(String id) {
 		return register(new Identifier("techreborn", id));
