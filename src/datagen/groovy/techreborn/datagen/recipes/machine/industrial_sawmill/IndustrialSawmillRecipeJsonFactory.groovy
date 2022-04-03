@@ -3,25 +3,17 @@ package techreborn.datagen.recipes.machine.industrial_sawmill
 import net.minecraft.fluid.Fluid
 import net.minecraft.fluid.Fluids
 import net.minecraft.util.Identifier
+import reborncore.common.crafting.RebornFluidRecipe
+import reborncore.common.crafting.RebornRecipe
+import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.fluid.FluidValue
 import reborncore.common.fluid.container.FluidInstance
 import techreborn.api.recipe.recipes.IndustrialSawmillRecipe
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
+import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
 import techreborn.init.ModRecipes
 
-class IndustrialSawmillRecipeJsonFactory extends MachineRecipeJsonFactory<IndustrialSawmillRecipe> {
-	private Fluid fluid = Fluids.WATER // default
-	private long fluidAmount = -1
-
-	def fluid(Fluid fluid) {
-		this.fluid = fluid
-		return this
-	}
-
-	def fluidAmount(int fluidAmount) {
-		this.fluidAmount = fluidAmount
-		return this
-	}
+class IndustrialSawmillRecipeJsonFactory extends MachineRecipeWithFluidJsonFactory<IndustrialSawmillRecipe> {
 
 	protected IndustrialSawmillRecipeJsonFactory() {
 		super(ModRecipes.INDUSTRIAL_SAWMILL)
@@ -40,17 +32,6 @@ class IndustrialSawmillRecipeJsonFactory extends MachineRecipeJsonFactory<Indust
 
 	@Override
 	protected IndustrialSawmillRecipe createRecipe(Identifier identifier) {
-		return new IndustrialSawmillRecipe(type, identifier, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
-	}
-
-	@Override
-	protected void validate() {
-		super.validate()
-
-		if (fluidAmount < 0) {
-			throw new IllegalStateException("recipe has no valid fluid value specified")
-		}
-		if (fluid == null)
-			throw new IllegalStateException("recipe has no valid fluid type specified")
+		return new IndustrialSawmillRecipe(ModRecipes.INDUSTRIAL_SAWMILL, identifier, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
 	}
 }

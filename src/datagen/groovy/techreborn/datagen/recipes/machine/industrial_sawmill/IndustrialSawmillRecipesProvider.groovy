@@ -122,11 +122,12 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		}
 		[
 			(Items.BOWL) : 2,
+			(TRContent.TREE_TAP) : 3,
 			(Items.WOODEN_SHOVEL) : 2,
 			(Items.WOODEN_SWORD) : 2,
 			(Items.WOODEN_HOE) : 3,
-			(Items.WOODEN_AXE) : 3,
-			(Items.WOODEN_PICKAXE): 3
+			(Items.WOODEN_AXE) : 5,
+			(Items.WOODEN_PICKAXE): 5
 		].each {item, count ->
 			offerIndustrialSawmillRecipe {
 				ingredients item
@@ -147,9 +148,5 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			source "wooden_buttons"
 			criterion getCriterionName(ItemTags.WOODEN_BUTTONS), getCriterionConditions(ItemTags.WOODEN_BUTTONS)
 		}
-	}
-
-	def offerIndustrialSawmillRecipe(@DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		IndustrialSawmillRecipeJsonFactory.create(closure).offerTo(exporter)
 	}
 }

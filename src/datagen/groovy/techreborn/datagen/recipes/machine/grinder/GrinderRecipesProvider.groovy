@@ -25,7 +25,6 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.tag.ItemTags
@@ -235,7 +234,20 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}
-		// wooden buttons and wooden tools are not eligible
+		// wooden buttons and most wooden tools are not eligible because they give too less
+		[
+			(Items.WOODEN_PICKAXE) : 1,
+			(Items.WOODEN_AXE) : 1
+		].each { item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs new ItemStack(TRContent.SmallDusts.SAW, count)
+				power 3
+				time 180
+				source item.toString()
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
 	}
 
 }
