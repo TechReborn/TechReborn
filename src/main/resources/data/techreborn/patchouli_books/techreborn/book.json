@@ -1,0 +1,11 @@
+{
+	"name": "patchouli.techreborn.guide.name",
+	"landing_text": "patchouli.techreborn.landing_text",
+	"model": "techreborn:manual",
+	"version": 1,
+	"show_progress": false,
+	"pause_game": false,
+	"dont_generate_book": true,
+	"custom_book_item": "techreborn:manual",
+	"i18n": true
+}

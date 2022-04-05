@@ -693,6 +693,7 @@
   "item.techreborn.cell.fluid": "$fluid$ Cell",
   "item.techreborn.frequency_transmitter": "Frequency Transmitter",
   "item.techreborn.manual": "Tech Reborn Manual",
+  "item.techreborn.manual.tooltip": "A handheld guide for everything about Tech Reborn",
   "item.techreborn.missingRecipe": "Missing Recipe Placeholder",
   "item.techreborn.scrap_box": "Scrap Box",
   "item.techreborn.overclocker_upgrade": "Overclocker Upgrade",
@@ -1106,5 +1107,13 @@
   "gui.techreborn.block.output_blocked": "Output blocked",
   "gui.techreborn.block.progress.active": "Progress: (%s)",
   "gui.techreborn.block.progress.stopped": "Idle (Stopped)",
-  "gui.techreborn.block.progress.paused": "Idle (%s)"
+  "gui.techreborn.block.progress.paused": "Idle (%s)",
+
+  "_comment27": "Patchouli Book",
+  "patchouli.techreborn.guide.name": "Tech Reborn Manual",
+  "patchouli.techreborn.landing_text": "Welcome to the world of Tech Reborn.$(br2)Check out our online $(l:https://wiki.techreborn.ovh/doku.php)Wiki$()$(br2)You can also join our $(l:https://discord.gg/teamreborn)Discord!$()$(br2)If you have feedback, suggestions, issues or want to contribute visit our $(l:https://github.com/TechReborn/TechReborn/issues)GitHub$()$(br2)We hope you enjoy playing!",
+
+  "_comment28": "Guide Book Machines",
+  "patchouli.techreborn.machine.block_breaker": "The block breaker is a simple machine. It allows you to break a block from the location in front of it, to its inventory. This action costs energy",
+  "patchouli.techreborn.machine.block_placer": "The block placer is a simple machine. It allows you to place a block from its inventory, to the location in front of it. This action costs energy"
 }

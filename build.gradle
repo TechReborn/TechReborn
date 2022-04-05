@@ -64,6 +64,14 @@ repositories {
 			includeGroup "com.github.emilyploszaj"
 		}
 	}
+    maven {
+        url = 'https://maven.blamejared.com'
+        content {
+            //Patchouli
+            includeGroup "vazkii.patchouli"
+        }
+    }
+
 }
 
 def ENV = System.getenv()
@@ -197,6 +205,8 @@ dependencies {
     optionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
 
+    optionalDependency "vazkii.patchouli:Patchouli:${project.patchouli_version}"
+
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.0'
     datagenImplementation 'org.apache.groovy:groovy:4.0.0'
@@ -318,6 +328,7 @@ task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import groovy.util.XmlSlurper
+import org.kohsuke.github.GHReleaseBuilder
 
 task fixTranslations(dependsOn: ['renameCrowdin']) {
     description "Remove all translations that do not have an entry, ensures that minecraft falls back to EN_US over writing out an empty string"
@@ -334,7 +345,7 @@ task fixTranslations(dependsOn: ['renameCrowdin']) {
 }
 
 
-import org.kohsuke.github.GHReleaseBuilder
+import org.kohsuke.github.GitHub
 
 curseforge {
 	if (ENV.CURSEFORGE_API_KEY) {
@@ -372,9 +383,6 @@ def getBranch() {
 
 	return "unknown"
 }
-
-
-import org.kohsuke.github.GitHub
 
 task github(dependsOn: remapJar) {
 	onlyIf {

@@ -1,0 +1,16 @@
+{
+	"name": "block.techreborn.block_placer",
+	"icon": "techreborn:block_placer",
+	"category": "techreborn:machines/tier0",
+	"sortnum": 2,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.techreborn.machine.block_placer"
+		},
+		{
+			"type": "crafting",
+			"recipe": "techreborn:crafting_table/machine/block_placer"
+		}
+	]
+}

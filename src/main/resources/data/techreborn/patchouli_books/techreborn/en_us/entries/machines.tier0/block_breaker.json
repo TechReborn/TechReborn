@@ -1,0 +1,16 @@
+{
+	"name": "block.techreborn.block_breaker",
+	"icon": "techreborn:block_breaker",
+	"category": "techreborn:machines/tier0",
+	"sortnum": 1,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.techreborn.machine.block_breaker"
+		},
+		{
+			"type": "crafting",
+			"recipe": "techreborn:crafting_table/machine/block_breaker"
+		}
+	]
+}
