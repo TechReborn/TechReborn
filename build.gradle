@@ -45,16 +45,6 @@ repositories {
         content {
             // Trinkets dependency
             includeGroup "io.github.onyxstudios.Cardinal-Components-API"
-            includeGroup "dev.onyxstudios.cardinal-components-api"
-        }
-    }
-    // Needed because of an error in the POM file in the Trinkets implementation
-    // See https://github.com/emilyploszaj/trinkets/issues/159
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-        content {
-            includeGroup("com.terraformersmc")
         }
     }
 	maven {
@@ -194,7 +184,7 @@ dependencies {
     include project(":RebornCore")
 
     optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-    optionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
+    disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
@@ -314,10 +304,8 @@ task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
 	}
 }
 
-
-import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
-import groovy.util.XmlSlurper
+import groovy.json.JsonOutput
 
 task fixTranslations(dependsOn: ['renameCrowdin']) {
     description "Remove all translations that do not have an entry, ensures that minecraft falls back to EN_US over writing out an empty string"
@@ -333,8 +321,7 @@ task fixTranslations(dependsOn: ['renameCrowdin']) {
 	}
 }
 
-
-import org.kohsuke.github.GHReleaseBuilder
+import groovy.util.XmlSlurper
 
 curseforge {
 	if (ENV.CURSEFORGE_API_KEY) {
@@ -373,7 +360,7 @@ def getBranch() {
 	return "unknown"
 }
 
-
+import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
 
 task github(dependsOn: remapJar) {

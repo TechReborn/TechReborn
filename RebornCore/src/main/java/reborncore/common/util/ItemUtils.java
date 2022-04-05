@@ -280,40 +280,18 @@ public class ItemUtils {
 		}
 
 		for (int i = 0; i < player.getInventory().size(); i++) {
-			transferPower(player, i, sourceStorage, maxOutput, filter);
+			ItemStack invStack = player.getInventory().getStack(i);
+
+			if (invStack.isEmpty() || !filter.test(invStack)) {
+				continue;
+			}
+
+			EnergyStorageUtil.move(
+					sourceStorage,
+					ContainerItemContext.ofPlayerSlot(player, playerInv.getSlots().get(i)).find(EnergyStorage.ITEM),
+					maxOutput,
+					null
+			);
 		}
-	}
-
-	/**
-	 * Output energy from EnergyStorage to other EnergyStorage at slot index.
-	 * <br> <br>
-	 * It is recommended to use {@link ItemUtils#distributePowerToInventory(PlayerEntity, ItemStack, long, Predicate)}
-	 * <br> <br>
-	 * Only outputs energy if the item in the provided slot can accept power
-	 *
-	 * @param player    	{@link PlayerEntity} Player having powered item
-	 * @param slot 			{@code int} Slot of the targeted item
-	 * @param sourceStorage {@link EnergyStorage} EnergyStorage to output from
-	 * @param maxOutput 	{@code int} Maximum output rate of powered item
-	 * @param filter    	{@link Predicate} Filter for items to output to
-	 * @return 				The actual amount of energy transferred, can be zero (0) if the targeted item does not support power input
-	 */
-	public static long transferPower(PlayerEntity player, int slot, EnergyStorage sourceStorage, long maxOutput, Predicate<ItemStack> filter) {
-		PlayerInventoryStorage playerInv = PlayerInventoryStorage.of(player);
-
-		ItemStack invStack = player.getInventory().getStack(slot);
-
-		if (invStack.isEmpty() || !filter.test(invStack)) {
-			return 0;
-		}
-
-		EnergyStorage receiverStorage = ContainerItemContext.ofPlayerSlot(player, playerInv.getSlots().get(slot)).find(EnergyStorage.ITEM);
-
-		return EnergyStorageUtil.move(
-			sourceStorage,
-			receiverStorage,
-			maxOutput,
-			null
-		);
 	}
 }
