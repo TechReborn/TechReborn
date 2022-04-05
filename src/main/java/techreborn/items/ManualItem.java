@@ -47,7 +47,15 @@ public class ManualItem extends Item {
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
-			PatchouliAPI.get().openBookGUI(serverPlayerEntity, new Identifier("techreborn:techreborn"));
+            if (FabricLoader.getInstance().isModLoaded("patchouli")) { // TODO replace string by constant TechReborn.PATCHOULI_ID
+				PatchouliAPI.get().openBookGUI(serverPlayerEntity, new Identifier("techreborn:techreborn"));
+				// does 
+                // PatchouliAPI.get().openBookGUI(serverPlayerEntity, Registry.ITEM.getId(this));
+				// not work? Identifier techreborn:techreborn is a bad one btw
+            }
+            else {
+				NetworkManager.sendToPlayer(ClientboundPackets.createPacketOpenManual(), serverPlayerEntity);
+			}
 			return TypedActionResult.success(player.getStackInHand(hand));
 		}
 
