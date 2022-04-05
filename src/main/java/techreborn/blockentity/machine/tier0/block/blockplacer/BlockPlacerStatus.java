@@ -19,7 +19,7 @@ enum BlockPlacerStatus implements ProcessingStatus {
 	NO_ENERGY(new TranslatableText("gui.techreborn.block.no_energy"), Color.RED),
 	INTERRUPTED(new TranslatableText("gui.techreborn.block.interrupted"), Color.RED),
 	OUTPUT_BLOCKED(new TranslatableText("gui.techreborn.block.output_blocked"), Color.RED),
-	PROCESSING(new TranslatableText("gui.techreborn.block_placer.processing"), Color.GREEN);
+	PROCESSING(new TranslatableText("gui.techreborn.block_placer.processing"), Color.DARK_GREEN);
 
 	private final Text text;
 	private final int color;
