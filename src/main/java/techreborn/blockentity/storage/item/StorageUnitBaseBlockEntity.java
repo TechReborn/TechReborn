@@ -115,7 +115,11 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		lockedItemStack = value ? stack : ItemStack.EMPTY;
 		syncWithAll();
 	}
-
+	
+	@Override
+	public void syncWithAll() {
+		NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
+	}
 	public boolean canModifyLocking() {
 		// Can always be unlocked
 		if (isLocked()) {
