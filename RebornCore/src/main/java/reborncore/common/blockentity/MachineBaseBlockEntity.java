@@ -24,8 +24,11 @@
 
 package reborncore.common.blockentity;
 
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
-
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -38,6 +41,7 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -76,6 +80,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private RedstoneConfiguration redstoneConfiguration;
 	private int lastTickedSync = 0;
 	public InventoryStorage inventoryStorage = null;
+	private BlockApiCache<Storage<ItemVariant>, Direction>[] inventoryCacheArray = new BlockApiCache[6];
+	
 	public boolean renderMultiblock = false;
 
 	private int tickTime = 0;
@@ -250,6 +256,13 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		return Optional.empty();
 	}
 
+	public Storage<ItemVariant> getItemStorage(Direction direction){
+		if(this.inventoryCacheArray[direction.ordinal()] == null){
+			this.inventoryCacheArray[direction.ordinal()] = BlockApiCache.create(ItemStorage.SIDED, (ServerWorld)this.world, this.pos.offset(direction));
+		}
+		return this.inventoryCacheArray[direction.ordinal()].find(direction.getOpposite());
+	}
+	
 	@Override
 	public void readNbt(NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
