@@ -51,15 +51,8 @@ import java.util.stream.Collectors;
 public class SlotConfiguration implements NBTSerializable {
 
 	List<SlotConfigHolder> slotDetails = new ArrayList<>();
-	private static final HashMap<Map.Entry<ServerWorld, BlockPos>, BlockApiCache<Storage<ItemVariant>, Direction>> sidedStorageCache = new HashMap<>();
 	@Nullable
 	Inventory inventory;
-
-	public static Storage<ItemVariant> getOrCache(ServerWorld world, BlockPos pos, Direction direction){
-		return sidedStorageCache.computeIfAbsent(Map.entry(world, pos),
-			entry-> BlockApiCache.create(
-				ItemStorage.SIDED, entry.getKey(), entry.getValue())).find(direction);
-	}
 
 	public SlotConfiguration(RebornInventory<?> inventory) {
 		this.inventory = inventory;
@@ -312,7 +305,7 @@ public class SlotConfiguration implements NBTSerializable {
 				return;
 			}
 			StorageUtil.move(
-				getOrCache((ServerWorld)machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+				machineBase.getItemStorage(side),
 				machineBase.inventoryStorage.getSlot(slotID),
 					iv -> true,
 					64, // Move up to 256 per tick.
@@ -329,7 +322,7 @@ public class SlotConfiguration implements NBTSerializable {
 
 			StorageUtil.move(
 					machineBase.inventoryStorage.getSlot(slotID),
-					getOrCache((ServerWorld)machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+					machineBase.getItemStorage(side),
 					iv -> true,
 					64,
 					null
