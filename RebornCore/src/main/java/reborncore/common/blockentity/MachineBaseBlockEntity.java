@@ -24,6 +24,8 @@
 
 package reborncore.common.blockentity;
 
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -72,7 +74,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private SlotConfiguration slotConfiguration;
 	public FluidConfiguration fluidConfiguration;
 	private RedstoneConfiguration redstoneConfiguration;
-
+	private int lastTickedSync = 0;
+	public InventoryStorage inventoryStorage = null;
 	public boolean renderMultiblock = false;
 
 	private int tickTime = 0;
@@ -117,7 +120,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public void writeMultiblock(MultiblockWriter writer) {}
 
 	public void syncWithAll() {
-		if (world == null || world.isClient) { return; }
+		if (world == null || world.isClient|| tickTime < lastTickedSync + 20) { return; }
 		NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
 	}
 
@@ -133,6 +136,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			}
 		}
 		redstoneConfiguration.refreshCache();
+		inventoryStorage = InventoryStorage.of(this, null);
 	}
 
 	@Nullable
@@ -153,6 +157,9 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (tickTime == 0) {
 			onLoad();
+		}
+		if(this.inventoryStorage == null){
+			inventoryStorage = InventoryStorage.of(this, null);
 		}
 		tickTime++;
 		@Nullable
@@ -371,7 +378,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	//The amount of ticks between a slot transfer attempt, less is faster
 	public int slotTransferSpeed() {
-		return 4;
+		return 2;
 	}
 
 	//The amount of fluid transferred each tick buy the fluid config
