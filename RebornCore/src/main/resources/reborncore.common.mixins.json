@@ -11,7 +11,6 @@
     "MixinBucketItem",
     "MixinCraftingResultSlot",
     "MixinItemEntity",
-    "MixinItemStack",
     "MixinLivingEntity",
     "MixinPlayerEntity",
 	"MixinServerPlayerEntity"

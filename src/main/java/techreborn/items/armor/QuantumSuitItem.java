@@ -24,7 +24,9 @@
 
 package techreborn.items.armor;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -40,7 +42,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
-import reborncore.api.items.ItemStackModifiers;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -48,7 +49,7 @@ import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.utils.InitUtils;
 
-public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorBlockEntityTicker, ArmorRemoveHandler, RcEnergyItem {
+public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler, RcEnergyItem {
 
 	public final long flyCost = TechRebornConfig.quantumSuitFlyingCost;
 	public final long swimCost = TechRebornConfig.quantumSuitSwimmingCost;
@@ -65,7 +66,9 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	}
 
 	@Override
-	public void getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
+	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot equipmentSlot) {
+		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, slot));
+
 		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
 		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && enableSprint) {
@@ -78,6 +81,8 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 			attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", 20, EntityAttributeModifier.Operation.ADDITION));
 			attributes.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
 		}
+
+		return ImmutableMultimap.copyOf(attributes);
 	}
 
 	@Override

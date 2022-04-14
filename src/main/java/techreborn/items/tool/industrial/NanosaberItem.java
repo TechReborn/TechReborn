@@ -24,6 +24,8 @@
 
 package techreborn.items.tool.industrial;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -47,7 +49,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import reborncore.api.items.ItemStackModifiers;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -59,7 +60,7 @@ import techreborn.utils.MessageIDs;
 
 import java.util.List;
 
-public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemStackModifiers {
+public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	public static final int maxCharge = TechRebornConfig.nanosaberCharge;
 	public int cost = TechRebornConfig.nanosaberCost;
 
@@ -168,9 +169,10 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemStackM
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
-	// ItemStackModifiers
 	@Override
-	public void getAttributeModifiers(EquipmentSlot slot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
+	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
+		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, slot));
+
 		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_SPEED);
 
@@ -178,5 +180,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, ItemStackM
 			attributes.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADDITION));
 			attributes.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADDITION));
 		}
+
+		return ImmutableMultimap.copyOf(attributes);
 	}
 }
