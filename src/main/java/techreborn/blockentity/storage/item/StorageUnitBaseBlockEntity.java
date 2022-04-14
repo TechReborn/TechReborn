@@ -120,6 +120,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	
 	@Override
 	public void syncWithAll() {
+		if (world.isClient) return;
 		NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
 	}
 	public boolean canModifyLocking() {
