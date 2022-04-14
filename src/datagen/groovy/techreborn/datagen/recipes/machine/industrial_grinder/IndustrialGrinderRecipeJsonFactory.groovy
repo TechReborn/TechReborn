@@ -20,7 +20,7 @@ class IndustrialGrinderRecipeJsonFactory extends MachineRecipeWithFluidJsonFacto
 		return new IndustrialGrinderRecipeJsonFactory()
 	}
 
-	static IndustrialGrinderRecipeJsonFactory create(@DelegatesTo(value = IndustrialGrinderRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+	static IndustrialGrinderRecipeJsonFactory createIndustrialGrinder(@DelegatesTo(value = IndustrialGrinderRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		def factory = new IndustrialGrinderRecipeJsonFactory()
 		closure.setDelegate(factory)
 		closure.call(factory)

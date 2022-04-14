@@ -143,15 +143,15 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	def offerBlastFurnaceRecipe(@DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		BlastFurnaceRecipeJsonFactory.create(closure).offerTo(exporter)
+		BlastFurnaceRecipeJsonFactory.createBlastFurnace(closure).offerTo(exporter)
 	}
 
 	def offerIndustrialGrinderRecipe(@DelegatesTo(value = IndustrialGrinderRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		IndustrialGrinderRecipeJsonFactory.create(ModRecipes.INDUSTRIAL_GRINDER, closure).offerTo(exporter)
+		IndustrialGrinderRecipeJsonFactory.createIndustrialGrinder(closure).offerTo(exporter)
 	}
 
 	def offerIndustrialSawmillRecipe(@DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		IndustrialSawmillRecipeJsonFactory.create(closure).offerTo(exporter)
+		IndustrialSawmillRecipeJsonFactory.createIndustrialSawmill(closure).offerTo(exporter)
 	}
 
 	@Override

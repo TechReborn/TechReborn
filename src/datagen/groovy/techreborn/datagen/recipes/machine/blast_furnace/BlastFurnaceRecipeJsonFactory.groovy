@@ -21,7 +21,7 @@ class BlastFurnaceRecipeJsonFactory extends MachineRecipeJsonFactory<BlastFurnac
 		return new BlastFurnaceRecipeJsonFactory()
 	}
 
-	static BlastFurnaceRecipeJsonFactory create(@DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+	static BlastFurnaceRecipeJsonFactory createBlastFurnace(@DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		def factory = new BlastFurnaceRecipeJsonFactory()
 		closure.setDelegate(factory)
 		closure.call(factory)

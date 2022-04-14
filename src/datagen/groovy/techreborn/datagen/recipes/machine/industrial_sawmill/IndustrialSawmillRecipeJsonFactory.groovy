@@ -23,7 +23,7 @@ class IndustrialSawmillRecipeJsonFactory extends MachineRecipeWithFluidJsonFacto
 		return new IndustrialSawmillRecipeJsonFactory()
 	}
 
-	static IndustrialSawmillRecipeJsonFactory create(@DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+	static IndustrialSawmillRecipeJsonFactory createIndustrialSawmill(@DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		def factory = new IndustrialSawmillRecipeJsonFactory()
 		closure.setDelegate(factory)
 		closure.call(factory)
