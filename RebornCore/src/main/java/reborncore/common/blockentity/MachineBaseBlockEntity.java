@@ -128,6 +128,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public void syncWithAll() {
 		if (world == null || world.isClient|| tickTime < lastTickedSync + 20) { return; }
 		lastTickedSync = tickTime;
+		NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
 	}
 
 	public void onLoad() {
