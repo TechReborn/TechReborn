@@ -6,7 +6,7 @@
 	]
   },
   "criteria": {
-	"has_copper": {
+	"has_iron": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
@@ -35,7 +35,7 @@
   },
   "requirements": [
 	[
-	  "has_copper",
+	  "has_iron",
 	  "has_nickel",
 	  "has_the_recipe"
 	]
