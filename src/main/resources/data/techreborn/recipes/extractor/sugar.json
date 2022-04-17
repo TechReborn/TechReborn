@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:extractor",
+  "power": 2,
+  "time": 200,
+  "ingredients" : [
+    {
+      "item": "minecraft:sugar_cane",
+      "count": 2
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:sugar",
+      "count": 3
+    }
+  ]
+}
