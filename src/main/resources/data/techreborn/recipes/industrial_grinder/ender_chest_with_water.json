@@ -1,0 +1,24 @@
+{
+  "type": "techreborn:industrial_grinder",
+  "power": 64,
+  "time": 100,
+  "tank": {
+	"fluid": "minecraft:water",
+	"amount": 1000
+  },
+  "ingredients": [
+	{
+	  "item": "minecraft:ender_chest"
+	}
+  ],
+  "results": [
+	{
+	  "item": "techreborn:obsidian_dust",
+	  "count": 4
+	},
+	{
+	  "item": "techreborn:ender_eye_small_dust",
+	  "count": 2
+	}
+  ]
+}

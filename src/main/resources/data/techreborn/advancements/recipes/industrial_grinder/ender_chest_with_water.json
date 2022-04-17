@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/ender_chest_with_water"
+	]
+  },
+  "criteria": {
+	"has_ender_chest": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:ender_chest"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/ender_chest_with_water"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ender_chest",
+	  "has_the_recipe"
+	]
+  ]
+}
