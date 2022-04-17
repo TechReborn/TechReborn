@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/string_from_bed"
+	]
+  },
+  "criteria": {
+	"has_bed": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "minecraft:beds"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/string_from_banner"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_bed",
+	  "has_the_recipe"
+	]
+  ]
+}
