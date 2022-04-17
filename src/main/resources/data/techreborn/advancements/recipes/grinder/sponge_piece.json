@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/sponge_piece"
+	]
+  },
+  "criteria": {
+	"has_sponges": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:sponges"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/sponge_piece"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sponges",
+	  "has_the_recipe"
+	]
+  ]
+}
