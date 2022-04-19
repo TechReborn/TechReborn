@@ -188,8 +188,8 @@ dependencies {
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
-    gametestImplementation 'org.apache.groovy:groovy:4.0.0'
-    datagenImplementation 'org.apache.groovy:groovy:4.0.0'
+    gametestImplementation 'org.apache.groovy:groovy:4.0.1'
+    datagenImplementation 'org.apache.groovy:groovy:4.0.1'
 
     gametestImplementation ("com.google.truth:truth:1.1.3") {
         exclude module: "guava"

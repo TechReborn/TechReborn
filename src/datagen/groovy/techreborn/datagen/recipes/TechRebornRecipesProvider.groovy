@@ -33,7 +33,10 @@ import net.minecraft.recipe.Ingredient
 import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
-
+import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
+import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
+import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
+import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
 import techreborn.init.ModRecipes
 
 import java.util.function.Consumer
@@ -139,7 +142,19 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		MachineRecipeJsonFactory.create(ModRecipes.CHEMICAL_REACTOR, closure).offerTo(exporter)
 	}
 
-    @Override
+	def offerBlastFurnaceRecipe(@DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		BlastFurnaceRecipeJsonFactory.createBlastFurnace(closure).offerTo(exporter)
+	}
+
+	def offerIndustrialGrinderRecipe(@DelegatesTo(value = IndustrialGrinderRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		IndustrialGrinderRecipeJsonFactory.createIndustrialGrinder(closure).offerTo(exporter)
+	}
+
+	def offerIndustrialSawmillRecipe(@DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		IndustrialSawmillRecipeJsonFactory.createIndustrialSawmill(closure).offerTo(exporter)
+	}
+
+	@Override
     protected Identifier getRecipeIdentifier(Identifier identifier) {
         return new Identifier("techreborn", super.getRecipeIdentifier(identifier).path)
     }
