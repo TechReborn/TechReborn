@@ -1,0 +1,21 @@
+{
+  "type": "techreborn:assembling_machine",
+  "power": 20,
+  "time": 200,
+  "ingredients": [
+    {
+      "item": "minecraft:soul_torch",
+      "count": 10
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "count": 8
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:soul_lantern",
+      "count": 10
+    }
+  ]
+}

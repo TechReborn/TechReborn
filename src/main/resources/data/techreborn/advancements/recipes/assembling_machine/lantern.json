@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:assembling_machine/lantern"
+	]
+  },
+  "criteria": {
+	"has_torch": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:torch"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:assembling_machine/lantern"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_torch",
+	  "has_the_recipe"
+	]
+  ]
+}

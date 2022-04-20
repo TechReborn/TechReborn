@@ -1,0 +1,21 @@
+{
+  "type": "techreborn:alloy_smelter",
+  "power": 6,
+  "time": 600,
+  "ingredients" : [
+    {
+      "item": "minecraft:gold_ingot",
+      "count": 10
+    },
+    {
+      "item": "minecraft:netherite_scrap",
+      "count": 10
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:netherite_ingot",
+      "count": 3
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/string_from_banner"
+	]
+  },
+  "criteria": {
+	"has_banner": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "minecraft:banners"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/string_from_banner"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_banner",
+	  "has_the_recipe"
+	]
+  ]
+}

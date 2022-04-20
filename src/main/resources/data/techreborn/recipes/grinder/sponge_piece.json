@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 4,
+  "time": 200,
+  "ingredients": [
+    {
+      "tag": "c:sponges"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:sponge_piece",
+      "count": 5
+    }
+  ]
+}

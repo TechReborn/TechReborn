@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/sugar"
+	]
+  },
+  "criteria": {
+	"has_sugar_cane": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:sugar_cane"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/sugar"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sugar_cane",
+	  "has_the_recipe"
+	]
+  ]
+}

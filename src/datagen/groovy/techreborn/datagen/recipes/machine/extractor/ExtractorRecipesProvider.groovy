@@ -42,6 +42,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 	void generateRecipes() {
 		generateDoubleDyes()
 		generateQuadrupleDyes()
+		generateFluidExtraction()
 	}
 
 	// ONLY for doubling vanilla single dye recipes
@@ -92,6 +93,52 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
+		}
+	}
+
+	void generateFluidExtraction() {
+		final int exPower = 10
+		final int exTime = 150
+		// vanilla buckets
+		[
+			Items.MILK_BUCKET,
+			Items.LAVA_BUCKET,
+			Items.POWDER_SNOW_BUCKET,
+		    Items.WATER_BUCKET
+		].each {bucket ->
+			offerExtractorRecipe {
+				ingredients bucket
+				outputs Items.BUCKET
+				source bucket.toString()
+				power exPower
+				time exTime
+				criterion getCriterionName(bucket), getCriterionConditions(bucket)
+			}
+		}
+		// vanilla bottles with toast
+		[
+			Items.EXPERIENCE_BOTTLE,
+			Items.HONEY_BOTTLE,
+			Items.LINGERING_POTION,
+		    Items.POTION,
+			Items.SPLASH_POTION
+		].each {bottle ->
+			offerExtractorRecipe {
+				ingredients bottle
+				outputs Items.GLASS_BOTTLE
+				source bottle.toString()
+				power exPower
+				time exTime
+				criterion getCriterionName(bottle), getCriterionConditions(bottle)
+			}
+		}
+		// cells
+		offerExtractorRecipe {
+			ingredients TRContent.CELL
+			outputs TRContent.CELL
+			power exPower
+			time exTime
+			criterion getCriterionName(TRContent.CELL), getCriterionConditions(TRContent.CELL)
 		}
 	}
 
