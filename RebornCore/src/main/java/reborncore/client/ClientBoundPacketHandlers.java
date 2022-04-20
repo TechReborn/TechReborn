@@ -49,9 +49,7 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.network.ExtendedPacketBuffer;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.mixin.client.AccessorChatHud;
 
 @Environment(EnvType.CLIENT)
 public class ClientBoundPacketHandlers {
@@ -150,8 +148,7 @@ public class ClientBoundPacketHandlers {
 			client.execute(() -> {
 				int deleteID = RebornCore.MOD_ID.hashCode() + messageId;
 				ChatHud chat = MinecraftClient.getInstance().inGameHud.getChatHud();
-				AccessorChatHud accessorChatHud = (AccessorChatHud) chat;
-				accessorChatHud.invokeAddMessage(text, deleteID);
+				chat.addMessage(text, deleteID);
 			});
 		});
 

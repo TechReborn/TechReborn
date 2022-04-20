@@ -4,10 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "MixinGameRenderer",
-    "MixinDebugRenderer",
-	"AccessorModelPredicateProviderRegistry",
-	"AccessorChatHud",
-	"AccessorScreen"
+    "MixinDebugRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

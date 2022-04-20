@@ -43,7 +43,6 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.util.ItemUtils;
-import reborncore.mixin.common.AccessorScreenHandler;
 import reborncore.mixin.ifaces.ServerPlayerEntityScreenHandler;
 
 import java.util.HashMap;
@@ -115,7 +114,7 @@ public class BuiltScreenHandler extends ScreenHandler {
 	public void sendContentUpdates() {
 		super.sendContentUpdates();
 
-		for (final ScreenHandlerListener listener : ((AccessorScreenHandler) (this)).getListeners()) {
+		for (final ScreenHandlerListener listener : listeners) {
 			sendContentUpdatePacketToListener(listener);
 		}
 	}

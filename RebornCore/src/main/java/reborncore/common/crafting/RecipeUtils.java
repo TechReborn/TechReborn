@@ -47,7 +47,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.util.DefaultedListCollector;
 import reborncore.common.util.serialization.SerializationUtil;
-import reborncore.mixin.common.AccessorRecipeManager;
 
 import java.util.Collection;
 import java.util.List;
@@ -56,8 +55,7 @@ import java.util.Objects;
 public class RecipeUtils {
 	@SuppressWarnings("unchecked")
 	public static <T extends RebornRecipe> List<T> getRecipes(World world, RebornRecipeType<T> type) {
-		final AccessorRecipeManager accessorRecipeManager = (AccessorRecipeManager) world.getRecipeManager();
-		final Collection<Recipe<Inventory>> recipes = accessorRecipeManager.getAll(type).values().stream().toList();
+		final Collection<Recipe<Inventory>> recipes = world.getRecipeManager().getAllOfType(type).values().stream().toList();
 		//noinspection unchecked
 		return (List<T>) (Object) recipes;
 	}

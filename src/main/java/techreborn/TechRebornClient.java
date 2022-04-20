@@ -30,6 +30,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.item.UnclampedModelPredicateProvider;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.model.BakedModel;
@@ -53,7 +54,6 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
-import reborncore.mixin.client.AccessorModelPredicateProviderRegistry;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
@@ -72,7 +72,6 @@ import techreborn.items.FrequencyTransmitterItem;
 import techreborn.items.armor.BatpackItem;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.items.tool.industrial.NanosaberItem;
-import techreborn.packets.ClientboundPackets;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -251,7 +250,7 @@ public class TechRebornClient implements ClientModInitializer {
 	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {
 		Registry.ITEM.stream()
 				.filter(item -> item.getClass().isAssignableFrom(itemClass))
-				.forEach(item -> AccessorModelPredicateProviderRegistry.callRegister(item, identifier, modelPredicateProvider));
+				.forEach(item -> ModelPredicateProviderRegistry.register(item, identifier, modelPredicateProvider));
 	}
 
 	//Need the item instance in a few places, this makes it easier

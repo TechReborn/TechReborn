@@ -57,7 +57,6 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.client.screen.builder.slot.PlayerInventorySlot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.mixin.client.AccessorScreen;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -278,8 +277,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			offset += 24;
 		}
 
-		AccessorScreen accessorScreen = (AccessorScreen)this;
-		for (Selectable selectable : accessorScreen.getSelectables()) {
+		for (Selectable selectable : selectables) {
 			if (selectable instanceof ClickableWidget clickable) {
 				if (clickable.isHovered()) {
 					clickable.renderTooltip(matrixStack, mouseX, mouseY);

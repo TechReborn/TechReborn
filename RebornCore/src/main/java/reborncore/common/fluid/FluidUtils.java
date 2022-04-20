@@ -31,11 +31,11 @@ import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.FilteringStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.Block;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -44,11 +44,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.registry.Registry;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
-import reborncore.mixin.common.AccessorFluidBlock;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -58,9 +56,10 @@ public class FluidUtils {
 
 	@NotNull
 	public static Fluid fluidFromBlock(Block block) {
-		if (block instanceof AccessorFluidBlock) {
-			return ((AccessorFluidBlock) block).getFluid();
+		if (block instanceof FluidBlock fluidBlock) {
+			return fluidBlock.fluid;
 		}
+
 		return Fluids.EMPTY;
 	}
 
