@@ -8,7 +8,7 @@
 			"holder": "techreborn:cell"
 		},
 		{
-			"item": "techreborn:tin_ingot",
+			"tag": "c:tin_ingots",
 			"count": 2
 		}
 	],
