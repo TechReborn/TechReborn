@@ -68,6 +68,7 @@ import reborncore.common.util.Tank;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Created by modmuss50 on 04/11/2016.
@@ -78,14 +79,15 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private SlotConfiguration slotConfiguration;
 	public FluidConfiguration fluidConfiguration;
 	private RedstoneConfiguration redstoneConfiguration;
-	private int lastTickedSync = 0;
 	public InventoryStorage inventoryStorage = null;
 	private BlockApiCache<Storage<ItemVariant>, Direction>[] inventoryCacheArray = new BlockApiCache[6];
 	
 	public boolean renderMultiblock = false;
 
 	private int tickTime = 0;
-
+	private boolean toggle = false;
+	private int toggleTick = 0;
+	
 	/**
 	 * <p>
 	 *  This is used to change the speed of the crafting operation.
@@ -126,8 +128,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public void writeMultiblock(MultiblockWriter writer) {}
 
 	public void syncWithAll() {
-		if (world == null || world.isClient|| tickTime < lastTickedSync + 20) { return; }
-		lastTickedSync = tickTime;
+		if (world == null || world.isClient) { return; }
 		NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
 	}
 
@@ -144,6 +145,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		}
 		redstoneConfiguration.refreshCache();
 		inventoryStorage = InventoryStorage.of(this, null);
+		tickTime = world == null? new Random().nextInt(20) : world.random.nextInt(20);
 	}
 
 	@Nullable
@@ -159,7 +161,20 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		writeNbt(compound);
 		return compound;
 	}
-
+	
+	public int getTickTime(){
+		return this.tickTime;
+	}
+	
+	public boolean getToggle(){
+		if (toggleTick == this.tickTime){
+			return toggle;
+		}
+		toggleTick = this.tickTime;
+		this.toggle = !this.toggle;
+		return toggle;
+	}
+	
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (tickTime == 0) {
