@@ -76,7 +76,7 @@ public class SlotConfiguration implements NBTSerializable {
 				}
 			}
 		}
-		if (!machineBase.getWorld().isClient && machineBase.getWorld().getTime() % machineBase.slotTransferSpeed() == 0) {
+		if (!machineBase.getWorld().isClient && machineBase.getWorld().getTickTime() % machineBase.slotTransferSpeed() == 0) {
 			getSlotDetails().forEach(slotConfigHolder -> slotConfigHolder.handleItemIO(machineBase));
 		}
 	}
@@ -181,7 +181,7 @@ public class SlotConfiguration implements NBTSerializable {
 			if (!input && !output) {
 				return;
 			}
-			if(machineBase.getWorld().getTime() % (2L * machineBase.slotTransferSpeed()) == 0) {
+			if(machineBase.getToggle()) {
 				handleItemInput(machineBase);
 			}
 			else {
