@@ -76,7 +76,7 @@ public class SlotConfiguration implements NBTSerializable {
 				}
 			}
 		}
-		if (!machineBase.getWorld().isClient && machineBase.getWorld().getTickTime() % machineBase.slotTransferSpeed() == 0) {
+		if (!machineBase.getWorld().isClient && machineBase.getTickTime() % machineBase.slotTransferSpeed() == 0) {
 			getSlotDetails().forEach(slotConfigHolder -> slotConfigHolder.handleItemIO(machineBase));
 		}
 	}
