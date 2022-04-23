@@ -56,6 +56,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		generateAxe()
 		generatePickaxe()
 		generateGlassFromGlassPane()
+		generateAnvil()
 	}
 	
 	void generateBoots() {
@@ -283,6 +284,24 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				heat 1000
 				source "glass_pane"
 				criterion getCriterionName(pane), getCriterionConditions(pane)
+			}
+		}
+	}
+
+	void generateAnvil() {
+		[
+			(Items.ANVIL) : 12,
+			(Items.CHIPPED_ANVIL) : 9,
+			(Items.DAMAGED_ANVIL) : 6,
+		].each {(anvil,amount) ->
+			offerBlastFurnaceRecipe {
+				ingredients anvil, new ItemStack(Items.SAND, 2)
+				outputs new ItemStack(Items.IRON_INGOT, amount), new ItemStack(TRContent.Dusts.DARK_ASHES, 2)
+				power 128
+				time 300
+				heat 1500
+				source "anvil_gives_"+amount
+				criterion getCriterionName(anvil), getCriterionConditions(anvil)
 			}
 		}
 	}
