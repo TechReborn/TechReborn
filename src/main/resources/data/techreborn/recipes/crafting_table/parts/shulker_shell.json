@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BPB",
+    "BTB",
+    " E "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:purpur_block"
+    },
+	"E": {
+	  "tag": "c:endstone_small_dusts"
+	},
+    "P": {
+      "item": "minecraft:purpur_pillar"
+    },
+    "T": {
+      "tag": "c:enderpearl_dusts"
+    }
+  },
+  "result": {
+    "item": "item:shulker_shell"
+  }
+}
