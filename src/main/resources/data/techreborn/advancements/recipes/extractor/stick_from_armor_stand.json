@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
 	"recipes": [
-	  "techreborn:extractor/stick"
+	  "techreborn:extractor/stick_from_armor_stand"
 	]
   },
   "criteria": {
-	"has_dead_bush": {
+	"has_armor_stand": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["minecraft:dead_bush"]
+			"items": ["minecraft:armor_stand"]
 		  }
 		]
 	  }
@@ -19,13 +19,13 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:extractor/stick"
+		"recipe": "techreborn:extractor/stick_from_armor_stand"
 	  }
 	}
   },
   "requirements": [
 	[
-	  "has_dead_bush",
+	  "has_armor_stand",
 	  "has_the_recipe"
 	]
   ]
