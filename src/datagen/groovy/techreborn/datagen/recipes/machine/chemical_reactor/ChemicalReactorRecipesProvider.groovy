@@ -40,13 +40,255 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 
 	@Override
 	void generateRecipes() {
-		generateWoolFromWhite()
-		generateCarpetFromWhite()
+		generateWool()
+		generateCarpet()
 		generateConcretePowderFromWhite()
 		generateCandleFromNeutral()
 		generateGlassFromNeutral()
 		generateGlassPaneFromNeutral()
 		generateTerracottaFromNeutral()
+	}
+
+	void generateWool() {
+		generateWoolFromBlack()
+		generateWoolFromBlue()
+		generateWoolFromCyan()
+		generateWoolFromGray()
+		generateWoolFromGreen()
+		generateWoolFromLightBlue()
+		generateWoolFromLightGray()
+		generateWoolFromLime()
+		generateWoolFromMagenta()
+		generateWoolFromOrange()
+		generateWoolFromPink()
+		generateWoolFromRed()
+		generateWoolFromWhite()
+		generateWoolFromYellow()
+		// no combinations: brown, purple
+	}
+
+	void generateWoolFromBlue() {
+		[
+			(Items.LIGHT_GRAY_DYE): Items.LIGHT_BLUE_WOOL,
+			(Items.RED_DYE): Items.PURPLE_WOOL,
+			(Items.WHITE_DYE): Items.LIGHT_BLUE_WOOL,
+			(Items.YELLOW_DYE): Items.GREEN_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.BLUE_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "blue_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromBlack() {
+		[
+			(Items.LIGHT_GRAY_DYE): Items.GRAY_WOOL,
+			(Items.ORANGE_DYE): Items.BROWN_WOOL,
+			(Items.WHITE_DYE): Items.GRAY_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.BLACK_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "black_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromCyan() {
+		[
+			(Items.BLUE_DYE): Items.BLUE_WOOL,
+			(Items.GRAY_DYE): Items.BLUE_WOOL,
+			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_WOOL,
+			(Items.YELLOW_DYE): Items.LIME_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.CYAN_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "cyan_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromGray() {
+		[
+			(Items.CYAN_DYE): Items.BLUE_WOOL,
+			(Items.LIME_DYE): Items.GREEN_WOOL,
+			(Items.MAGENTA_DYE): Items.MAGENTA_WOOL,
+			(Items.PINK_DYE): Items.MAGENTA_WOOL,
+			(Items.WHITE_DYE): Items.LIGHT_GRAY_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.GRAY_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "gray_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromGreen() {
+		[
+			(Items.LIME_DYE): Items.LIME_WOOL,
+			(Items.RED_DYE): Items.BROWN_WOOL,
+			(Items.WHITE_DYE): Items.LIME_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.GREEN_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "green_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromLightBlue() {
+		[
+			(Items.BLUE_DYE): Items.BLUE_WOOL,
+			(Items.CYAN_DYE): Items.CYAN_WOOL,
+			(Items.YELLOW_DYE): Items.LIME_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.LIGHT_BLUE_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "light_blue_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromLightGray() {
+		[
+			(Items.BLACK_DYE): Items.GRAY_WOOL,
+			(Items.BLUE_DYE): Items.LIGHT_BLUE_WOOL,
+			(Items.BROWN_DYE): Items.BROWN_WOOL,
+			(Items.CYAN_DYE): Items.LIGHT_BLUE_WOOL,
+			(Items.GRAY_DYE): Items.GRAY_WOOL,
+			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_WOOL,
+			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_WOOL,
+			(Items.LIME_DYE): Items.LIGHT_BLUE_WOOL,
+			(Items.MAGENTA_DYE): Items.PINK_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.LIGHT_GRAY_DYE, 4)
+				output new ItemStack(wool, 4)
+				source "light_gray_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromLime() {
+		[
+			(Items.GRAY_DYE): Items.GREEN_WOOL,
+			(Items.GREEN_DYE): Items.GREEN_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.LIME_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "lime_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromMagenta() {
+		[
+			(Items.BLUE_DYE): Items.PURPLE_WOOL,
+			(Items.PINK_DYE): Items.PINK_WOOL,
+			(Items.PURPLE_DYE): Items.PURPLE_WOOL,
+			(Items.RED_DYE): Items.RED_WOOL,
+			(Items.WHITE_DYE): Items.PINK_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.MAGENTA_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "magenta_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromOrange() {
+		[
+			(Items.BLACK_DYE): Items.BROWN_WOOL,
+			(Items.BROWN_DYE): Items.BROWN_WOOL,
+			(Items.RED_DYE): Items.RED_WOOL,
+			(Items.YELLOW_DYE): Items.ORANGE_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.ORANGE_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "orange_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromPink() {
+		[
+			(Items.GRAY_DYE): Items.MAGENTA_WOOL,
+			(Items.GREEN_DYE): Items.GREEN_WOOL,
+			(Items.MAGENTA_DYE): Items.MAGENTA_WOOL,
+			(Items.PURPLE_DYE): Items.PURPLE_WOOL,
+			(Items.RED_DYE): Items.RED_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.PINK_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "pink_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateWoolFromRed() {
+		[
+			(Items.BLUE_DYE): Items.PURPLE_WOOL,
+			(Items.GREEN_DYE): Items.BROWN_WOOL,
+			(Items.MAGENTA_DYE): Items.MAGENTA_WOOL,
+			(Items.ORANGE_DYE): Items.ORANGE_WOOL,
+			(Items.PINK_DYE): Items.PINK_WOOL,
+			(Items.PURPLE_DYE): Items.PURPLE_WOOL,
+			(Items.RED_DYE): Items.RED_WOOL,
+			(Items.WHITE_DYE): Items.PINK_WOOL,
+			(Items.YELLOW_DYE): Items.ORANGE_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.RED_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "red_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
 	}
 
 	void generateWoolFromWhite() {
@@ -77,6 +319,41 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 				criterion getCriterionName(dye), getCriterionConditions(dye)
 			}
 		}
+	}
+
+	void generateWoolFromYellow() {
+		[
+			(Items.CYAN_DYE): Items.LIME_WOOL,
+			(Items.ORANGE_DYE): Items.ORANGE_WOOL,
+			(Items.RED_DYE): Items.ORANGE_WOOL
+		].each {dye, wool ->
+			offerChemicalReactorRecipe {
+				ingredients dye, new ItemStack(Items.YELLOW_WOOL, 4)
+				output new ItemStack(wool, 4)
+				source "yellow_wool"
+				power DYE_POWER
+				time DYE_TIME
+				criterion getCriterionName(dye), getCriterionConditions(dye)
+			}
+		}
+	}
+
+	void generateCarpet() {
+		generateCarpetFromBlack()
+		generateCarpetFromBlue()
+		generateCarpetFromCyan()
+		generateCarpetFromGray()
+		generateCarpetFromGreen()
+		generateCarpetFromLightBlue()
+		generateCarpetFromLightGray()
+		generateCarpetFromLime()
+		generateCarpetFromMagenta()
+		generateCarpetFromOrange()
+		generateCarpetFromPink()
+		generateCarpetFromRed()
+		generateCarpetFromWhite()
+		generateCarpetFromYellow()
+		// no combinations: brown, purple
 	}
 
 	void generateCarpetFromWhite() {
