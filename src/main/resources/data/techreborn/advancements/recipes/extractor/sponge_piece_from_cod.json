@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/sponge_piece_from_cod"
+	]
+  },
+  "criteria": {
+	"has_cod": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:cod"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/sponge_piece_from_cod"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_cod",
+	  "has_the_recipe"
+	]
+  ]
+}
