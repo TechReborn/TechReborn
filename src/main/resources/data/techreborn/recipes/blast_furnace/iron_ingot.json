@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 200,
+  "heat": 1000,
+  "ingredients": [
+    {
+      "item": "minecraft:iron_bars",
+	  "count": 5
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ]
+}
