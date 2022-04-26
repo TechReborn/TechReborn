@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/string_from_crossbow"
+	]
+  },
+  "criteria": {
+	"has_crossbow": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:crossbow"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/string_from_crossbow"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_crossbow",
+	  "has_the_recipe"
+	]
+  ]
+}
