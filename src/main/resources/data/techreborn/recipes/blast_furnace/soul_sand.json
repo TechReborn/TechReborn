@@ -1,0 +1,23 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 500,
+  "heat": 3000,
+  "ingredients": [
+    {
+      "item": "minecraft:red_sand",
+	  "count": 8
+    },
+	{
+	  "fluid": "techreborn:carbon",
+	  "holder": "techreborn:cell",
+	  "count": 5
+	}
+  ],
+  "results": [
+    {
+      "item": "minecraft:soul_sand",
+	  "count": 8
+    }
+  ]
+}
