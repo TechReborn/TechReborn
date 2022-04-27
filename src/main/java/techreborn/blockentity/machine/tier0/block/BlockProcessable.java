@@ -23,9 +23,19 @@ public interface BlockProcessable extends IUpgradeHandler, RedstoneConfigurable,
 	 */
 	boolean consumeEnergy(int amount);
 
-
 	/**
 	 * <b>Play a sound to the Minecraft world</b>
+	 *
+	 * @see #canPlaySound()
 	 */
 	void playSound();
+
+	/**
+	 * <b>If a sound can be played.</b>
+	 *
+	 * @see #playSound()
+	 */
+	default boolean canPlaySound() {
+		return true;
+	}
 }
