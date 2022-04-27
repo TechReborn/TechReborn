@@ -102,6 +102,12 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	 * </ul>
 	 */
 	double powerMultiplier = 1;
+	/**
+	 * <p>
+	 *  This is used to change the sound of the crafting operation.
+	 * <p/>
+	 */
+	boolean muffled = false;
 
 	public MachineBaseBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -187,6 +193,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public void resetUpgrades() {
 		resetPowerMultiplier();
 		resetSpeedMultiplier();
+		resetMuffler();
 	}
 
 	protected void afterUpgradesApplication() {
@@ -354,6 +361,21 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		} else {
 			speedMultiplier = 0.99;
 		}
+	}
+
+	@Override
+	public void muffle() {
+		muffled = true;
+	}
+
+	@Override
+	public void resetMuffler() {
+		muffled = false;
+	}
+
+	@Override
+	public boolean isMuffled() {
+		return muffled;
 	}
 
 	public boolean hasSlotConfig() {

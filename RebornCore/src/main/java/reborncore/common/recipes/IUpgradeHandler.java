@@ -43,4 +43,10 @@ public interface IUpgradeHandler {
 
 	void addSpeedMultiplier(double amount);
 
+	void muffle();
+
+	void resetMuffler();
+
+	boolean isMuffled();
+
 }

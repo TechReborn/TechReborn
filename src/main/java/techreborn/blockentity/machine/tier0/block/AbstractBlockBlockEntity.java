@@ -93,4 +93,9 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 			RecipeCrafter.soundHandler.playSound(false, this);
 		}
 	}
+
+	@Override
+	public boolean canPlaySound() {
+		return !isMuffled();
+	}
 }
