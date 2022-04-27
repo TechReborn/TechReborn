@@ -51,9 +51,19 @@
           }
         ]
       }
-    }
+    },
+	"muffler": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+	    "items": [
+		  {
+	        "items": ["techreborn:muffler_upgrade"]
+	      }
+	    ]
+	  }
+	}
   },
   "requirements": [
-    ["overclocker", "transformer","energystorage","superconductor"]
+    ["overclocker", "transformer","energystorage","superconductor","muffler"]
   ]
 }
