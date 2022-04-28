@@ -82,4 +82,10 @@ public class InitUtils {
 	public static AbstractBlock.Settings setupRubberBlockSettings(float hardness, float resistance) {
 		return setupRubberBlockSettings(false, hardness, resistance);
 	}
+
+	public static boolean isDatagenRunning() {
+		return System.getProperty("fabric-api.datagen") != null;
+	}
+
+	private InitUtils() {/* No instantiation. */}
 }
