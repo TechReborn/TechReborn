@@ -187,7 +187,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 				long useRequirement = getEuPerTick(currentRecipe.getPower());
 				if (energy.tryUseExact(useRequirement)) {
 					currentTickTime++;
-					if ((currentTickTime == 1 || currentTickTime % 20 == 0 && cachedWorldTime > lastSoundTime+ 10) && soundHandler != null) {
+					if ((currentTickTime == 1 || currentTickTime % 20 == 0 && cachedWorldTime > lastSoundTime+ 10) && soundHandler != null && !isMuffled()) {
 						lastSoundTime = cachedWorldTime;
 						soundHandler.playSound(false, blockEntity);
 					}
@@ -415,5 +415,20 @@ public class RecipeCrafter implements IUpgradeHandler {
 	@Override
 	public void addSpeedMultiplier(double amount) {
 		parentUpgradeHandler.ifPresent(iUpgradeHandler -> iUpgradeHandler.addSpeedMultiplier(amount));
+	}
+
+	@Override
+	public void muffle() {
+		parentUpgradeHandler.ifPresent(IUpgradeHandler::muffle);
+	}
+
+	@Override
+	public void resetMuffler() {
+		parentUpgradeHandler.ifPresent(IUpgradeHandler::resetMuffler);
+	}
+
+	@Override
+	public boolean isMuffled() {
+		return parentUpgradeHandler.map(IUpgradeHandler::isMuffled).orElse(false);
 	}
 }

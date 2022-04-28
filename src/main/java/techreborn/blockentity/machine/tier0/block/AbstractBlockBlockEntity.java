@@ -89,8 +89,13 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 	//BlockBreakerProcessable
 	@Override
 	public void playSound() {
-		if (RecipeCrafter.soundHandler != null) {
+		if (RecipeCrafter.soundHandler != null && canPlaySound()) {
 			RecipeCrafter.soundHandler.playSound(false, this);
 		}
+	}
+
+	@Override
+	public boolean canPlaySound() {
+		return !isMuffled();
 	}
 }

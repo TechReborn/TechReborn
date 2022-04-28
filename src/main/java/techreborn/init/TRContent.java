@@ -1496,6 +1496,9 @@ public class TRContent {
 			if (aesu != null) {
 				aesu.superconductors += TechRebornConfig.superConductorCount;
 			}
+		}),
+		MUFFLER((blockEntity, handler, stack) -> {
+			blockEntity.muffle();
 		});
 
 		public String name;
