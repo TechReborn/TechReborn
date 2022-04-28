@@ -77,7 +77,8 @@ public class ModRegistry {
 		registerFluids();
 		registerSounds();
 		registerApis();
-		registerWanderingTraderTrades();
+		TRVillager.registerVillagerTrades();
+		TRVillager.registerWanderingTraderTrades();
 	}
 
 	private static void registerBlocks() {
@@ -255,19 +256,5 @@ public class ModRegistry {
 	private static void registerApis() {
 		EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getSideEnergyStorage, TRBlockEntities.CABLE);
 		ItemStorage.SIDED.registerForBlockEntity(StorageUnitBaseBlockEntity::getExposedStorage, TRBlockEntities.STORAGE_UNIT);
-	}
-
-	private static void registerWanderingTraderTrades() {
-		List<TradeOffer> extraCommonTrades = new LinkedList<>();
-		List<TradeOffer> extraRareTrades = new LinkedList<>();
-		// specify extra trades here
-		extraCommonTrades.add(TradeUtils.create(TRContent.RUBBER_SAPLING, 5, 1, 8, 1));
-		// registration of the trades
-		TradeOfferHelper.registerWanderingTraderOffers(1, allTradesList -> allTradesList.addAll(
-				extraCommonTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
-		));
-		TradeOfferHelper.registerWanderingTraderOffers(2, allTradesList -> allTradesList.addAll(
-				extraRareTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
-		));
 	}
 }

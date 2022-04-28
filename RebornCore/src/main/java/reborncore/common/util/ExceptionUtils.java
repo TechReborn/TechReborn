@@ -35,4 +35,25 @@ public class ExceptionUtils {
 		}
 	}
 
+	public static void requireNonNull(Object obj, String name) {
+		if (obj == null)
+			throw new NullPointerException(name + " cannot be null!");
+	}
+
+	public static <T> void requireNonNullEntries(T[] array, String name) {
+		if (array == null)
+			return;
+		for (T obj : array)
+			if (obj == null)
+				throw new NullPointerException("No entry of " + name + " can be null!");
+	}
+
+	public static void requireNonNullEntries(Iterable<?> iterable, String name) {
+		if (iterable == null)
+			return;
+		for (Object obj : iterable)
+			if (obj == null)
+				throw new NullPointerException("No entry of " + name + " can be null!");
+	}
+
 }

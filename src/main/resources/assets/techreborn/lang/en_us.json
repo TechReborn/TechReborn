@@ -1106,5 +1106,9 @@
   "gui.techreborn.block.output_blocked": "Output blocked",
   "gui.techreborn.block.progress.active": "Progress: (%s)",
   "gui.techreborn.block.progress.stopped": "Idle (Stopped)",
-  "gui.techreborn.block.progress.paused": "Idle (%s)"
+  "gui.techreborn.block.progress.paused": "Idle (%s)",
+
+  "_comment28": "Villagers",
+  "entity.minecraft.villager.tinkerer": "Tinkerer",
+  "entity.minecraft.villager.electrician": "Electrician"
 }
