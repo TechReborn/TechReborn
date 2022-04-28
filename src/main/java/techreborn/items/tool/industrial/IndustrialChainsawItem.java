@@ -25,6 +25,7 @@
 package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -75,7 +76,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 				if (state.isIn(BlockTags.LOGS)) {
 					wood.add(checkPos);
 					findWood(world, checkPos, wood, leaves);
-				} else if (state.isIn(BlockTags.LEAVES)) {
+				} else if (state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.WART_BLOCKS) || state.isOf(Blocks.SHROOMLIGHT)) {
 					leaves.add(checkPos);
 					findWood(world, checkPos, wood, leaves);
 				}
