@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
 	"recipes": [
-	  "techreborn:extractor/sticks_from_armor_stand"
+	  "techreborn:extractor/string_from_crossbow"
 	]
   },
   "criteria": {
-	"has_armor_stand": {
+	"has_crossbow": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["minecraft:armor_stand"]
+			"items": ["minecraft:crossbow"]
 		  }
 		]
 	  }
@@ -19,13 +19,13 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:extractor/sticks_from_armor_stand"
+		"recipe": "techreborn:extractor/string_from_crossbow"
 	  }
 	}
   },
   "requirements": [
 	[
-	  "has_armor_stand",
+	  "has_crossbow",
 	  "has_the_recipe"
 	]
   ]

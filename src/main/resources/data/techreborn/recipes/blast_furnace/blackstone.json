@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 100,
+  "heat": 3000,
+  "ingredients": [
+    {
+      "item": "minecraft:cobblestone"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:blackstone"
+    }
+  ]
+}

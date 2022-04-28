@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/stick_from_dead_bush"
+	]
+  },
+  "criteria": {
+	"has_dead_bush": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:dead_bush"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/stick_from_dead_bush"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_dead_bush",
+	  "has_the_recipe"
+	]
+  ]
+}

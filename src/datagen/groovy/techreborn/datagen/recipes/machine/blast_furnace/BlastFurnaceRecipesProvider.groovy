@@ -55,6 +55,8 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		generateHoe()
 		generateAxe()
 		generatePickaxe()
+		generateGlassFromGlassPane()
+		generateAnvil()
 	}
 	
 	void generateBoots() {
@@ -250,6 +252,56 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				heat TOOL_HEAT
 				source "pickaxe"
 				criterion getCriterionName(pickaxe), getCriterionConditions(pickaxe)
+			}
+		}
+	}
+
+	void generateGlassFromGlassPane() {
+		[
+			(Items.GLASS_PANE) : Items.GLASS,
+			(Items.BLACK_STAINED_GLASS_PANE) : Items.BLACK_STAINED_GLASS,
+			(Items.BLUE_STAINED_GLASS_PANE) : Items.BLACK_STAINED_GLASS,
+			(Items.BROWN_STAINED_GLASS_PANE) : Items.BROWN_STAINED_GLASS,
+			(Items.CYAN_STAINED_GLASS_PANE) : Items.CYAN_STAINED_GLASS,
+			(Items.GRAY_STAINED_GLASS_PANE) : Items.GRAY_STAINED_GLASS,
+			(Items.GREEN_STAINED_GLASS_PANE) : Items.GREEN_STAINED_GLASS,
+			(Items.LIGHT_BLUE_STAINED_GLASS_PANE) : Items.LIGHT_BLUE_STAINED_GLASS,
+			(Items.LIGHT_GRAY_STAINED_GLASS_PANE) : Items.LIGHT_GRAY_STAINED_GLASS,
+			(Items.LIME_STAINED_GLASS_PANE) : Items.LIME_STAINED_GLASS,
+			(Items.MAGENTA_STAINED_GLASS_PANE) : Items.MAGENTA_STAINED_GLASS,
+			(Items.ORANGE_STAINED_GLASS_PANE) : Items.ORANGE_STAINED_GLASS,
+			(Items.PINK_STAINED_GLASS_PANE) : Items.PINK_STAINED_GLASS,
+			(Items.PURPLE_STAINED_GLASS_PANE) : Items.PURPLE_STAINED_GLASS,
+			(Items.RED_STAINED_GLASS_PANE) : Items.RED_STAINED_GLASS,
+			(Items.WHITE_STAINED_GLASS_PANE) : Items.WHITE_STAINED_GLASS,
+			(Items.YELLOW_STAINED_GLASS_PANE) : Items.YELLOW_STAINED_GLASS
+		].each {(pane,glass) ->
+			offerBlastFurnaceRecipe {
+				ingredients new ItemStack(pane, 10)
+				outputs new ItemStack(glass, 3)
+				power 128
+				time 150
+				heat 1000
+				source "glass_pane"
+				criterion getCriterionName(pane), getCriterionConditions(pane)
+			}
+		}
+	}
+
+	void generateAnvil() {
+		[
+			(Items.ANVIL) : 12,
+			(Items.CHIPPED_ANVIL) : 9,
+			(Items.DAMAGED_ANVIL) : 6,
+		].each {(anvil,amount) ->
+			offerBlastFurnaceRecipe {
+				ingredients anvil, new ItemStack(Items.SAND, 2)
+				outputs new ItemStack(Items.IRON_INGOT, amount), new ItemStack(TRContent.Dusts.DARK_ASHES, 2)
+				power 128
+				time 300
+				heat 1500
+				source "anvil_gives_"+amount
+				criterion getCriterionName(anvil), getCriterionConditions(anvil)
 			}
 		}
 	}

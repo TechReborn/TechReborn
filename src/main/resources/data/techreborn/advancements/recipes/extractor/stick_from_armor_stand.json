@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/stick_from_armor_stand"
+	]
+  },
+  "criteria": {
+	"has_armor_stand": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:armor_stand"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/stick_from_armor_stand"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_armor_stand",
+	  "has_the_recipe"
+	]
+  ]
+}

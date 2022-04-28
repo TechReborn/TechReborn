@@ -30,6 +30,7 @@ import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
+import net.minecraft.recipe.Ingredient
 import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
@@ -82,6 +83,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				ingredient {
 					stack object
 				}
+
 			} else {
 				throw new IllegalArgumentException()
 			}

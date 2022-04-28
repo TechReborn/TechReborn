@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:extractor",
+  "power": 10,
+  "time": 1000,
+  "ingredients" : [
+    {
+      "item": "minecraft:pufferfish",
+	  "count": 32
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:sponge_piece"
+    }
+  ]
+}

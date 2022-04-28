@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
 	"recipes": [
-	  "techreborn:extractor/stick"
+	  "techreborn:extractor/string_from_bow"
 	]
   },
   "criteria": {
-	"has_dead_bush": {
+	"has_bow": {
 	  "trigger": "minecraft:inventory_changed",
 	  "conditions": {
 		"items": [
 		  {
-			"items": ["minecraft:dead_bush"]
+			"items": ["minecraft:bow"]
 		  }
 		]
 	  }
@@ -19,13 +19,13 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:extractor/stick"
+		"recipe": "techreborn:extractor/string_from_bow"
 	  }
 	}
   },
   "requirements": [
 	[
-	  "has_dead_bush",
+	  "has_bow",
 	  "has_the_recipe"
 	]
   ]
