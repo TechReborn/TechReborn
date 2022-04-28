@@ -8,7 +8,8 @@
     },
     "description": {
       "translate": "advancements.techreborn.industrialmachineblock.desc"
-    }
+    },
+	"frame": "goal"
   },
   "parent": "techreborn:advancedmachineblock",
   "criteria": {

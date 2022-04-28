@@ -8,8 +8,7 @@
     },
     "description": {
       "translate": "advancements.techreborn.advancedmachineblock.desc"
-    },
-    "hidden": true
+    }
   },
   "parent": "techreborn:root",
   "criteria": {

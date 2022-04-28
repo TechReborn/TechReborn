@@ -8,7 +8,8 @@
     },
     "description": {
       "translate": "advancements.techreborn.mfsu.desc"
-    }
+    },
+	"frame": "challenge"
   },
   "parent": "techreborn:mfe",
   "criteria": {
