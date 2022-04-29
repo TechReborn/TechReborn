@@ -3,11 +3,14 @@
   "pattern": [
     "ADA",
     "DGD",
-    "ADA"
+    "ACA"
   ],
   "key": {
     "A": {
       "tag": "c:aluminum_plates"
+    },
+    "C": {
+	  "item": "techreborn:advanced_circuit"
     },
     "D": {
       "item": "minecraft:black_dye"
