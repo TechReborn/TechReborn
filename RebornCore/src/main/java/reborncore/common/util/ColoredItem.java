@@ -74,6 +74,17 @@ public enum ColoredItem {
 		builder.put(Pair.of(item2, item1), result);
 	}
 
+	/**
+	 * Returns an immutable map that encodes the vanilla color mixing recipes with 2 inputs + a neutral mixing ingredient.
+	 * <p>
+	 *     The key is a pair of the two inputs and the value is the mixing result.
+	 *     Note that the map is symmetric and irreflexive in the key, i.e. when ((a,b),c) in the map, then also ((b,a),c), but never a = b.
+	 *     The {@link #NEUTRAL} mixing ingredient means that the other pair entry equals the result.
+	 *     The map will be filled upon the first call of this method.
+	 * </p>
+	 * @see #createVanillaMixingColorStream(ColoredItem)
+	 * @see #getExtendedMixingMap(boolean)
+	 */
 	public static Map<Pair<ColoredItem, ColoredItem>, ColoredItem> getVanillaMixingMap() {
 		if (vanillaMixingMap != null)
 			return vanillaMixingMap;
@@ -98,6 +109,15 @@ public enum ColoredItem {
 		return vanillaMixingMap;
 	}
 
+	/**
+	 * Curries the map returned by {@link #getVanillaMixingMap()} into a stream, leaving the map itself unchanged.
+	 * <p>
+	 *     If this method is f, and the map is m, then f(a) is a stream s such that s(b) = c = m(a,b), with ((a,b),c)
+	 *     being an element in the map m.
+	 * </p>
+	 * @see #createVanillaMixingColorMap(ColoredItem)
+	 * @see #createExtendedMixingColorStream(ColoredItem, boolean, boolean)
+	 */
 	public static Stream<Pair<ColoredItem, ColoredItem>> createVanillaMixingColorStream(ColoredItem color) {
 		Objects.requireNonNull(color);
 		return getVanillaMixingMap().entrySet().stream()
@@ -105,11 +125,27 @@ public enum ColoredItem {
 			.map(entry -> Pair.of(entry.getKey().getRight(),entry.getValue()));
 	}
 
+	/**
+	 * Consumes a stream returned by {@link #createVanillaMixingColorStream(ColoredItem)} into a map object.
+	 * @see #createExtendedMixingColorMap(ColoredItem, boolean, boolean)
+	 */
 	public static Map<ColoredItem, ColoredItem> createVanillaMixingColorMap(ColoredItem color) {
 		Objects.requireNonNull(color);
 		return createVanillaMixingColorStream(color).collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 	}
 
+	/**
+	 * Returns an immutable map that encodes extended color mixing recipes with 2 inputs + possibly a neutral mixing ingredient.
+	 * <p>
+	 *     The key is a pair of the two inputs and the value is the mixing result.
+	 *     Note that the map is symmetric and irreflexive in the key, i.e. when ((a,b),c) in the map, then also ((b,a),c), but never a = b.
+	 *     The {@link #NEUTRAL} mixing ingredient means that the other pair entry equals the result.
+	 *     The map will be filled upon the first call of this method.
+	 * </p>
+	 * @param withNeutral If the {@link #NEUTRAL} ingredient is provided. If not, the color {@link #WHITE} will be handled as the neutral ingredient.
+	 * @see #createExtendedMixingColorStream(ColoredItem, boolean, boolean)
+	 * @see #getVanillaMixingMap()
+	 */
 	public static Map<Pair<ColoredItem, ColoredItem>, ColoredItem> getExtendedMixingMap(boolean withNeutral) {
 		if (withNeutral && extendedMixingMap != null)
 			return extendedMixingMap;
@@ -169,6 +205,17 @@ public enum ColoredItem {
 		return extendedMixingMapNoNeutral;
 	}
 
+	/**
+	 * Curries the map returned by {@link #getExtendedMixingMap(boolean)} into a stream, leaving the map itself unchanged.
+	 * <p>
+	 *     If this method is f, and the map is m, then f(a) is a stream s such that s(b) = c = m(a,b), with ((a,b),c)
+	 *     being an element in the map m.
+	 * </p>
+	 * @param withNeutral If the {@link #NEUTRAL} ingredient is provided. If not, the color {@link #WHITE} will be handled as the neutral ingredient.
+	 * @param differentResults If {@code true}, values like s(b) = b will be sorted out.
+	 * @see #createExtendedMixingColorMap(ColoredItem, boolean, boolean)
+	 * @see #createVanillaMixingColorStream(ColoredItem)
+	 */
 	public static Stream<Pair<ColoredItem, ColoredItem>> createExtendedMixingColorStream(ColoredItem color, boolean withNeutral, boolean differentResults) {
 		Objects.requireNonNull(color);
 		return getExtendedMixingMap(withNeutral).entrySet().stream()
@@ -176,6 +223,10 @@ public enum ColoredItem {
 			.map(entry -> Pair.of(entry.getKey().getRight(),entry.getValue()));
 	}
 
+	/**
+	 * Consumes a stream returned by {@link #createExtendedMixingColorStream(ColoredItem, boolean, boolean)} into a map object.
+	 * @see #createVanillaMixingColorMap(ColoredItem)
+	 */
 	public static Map<ColoredItem, ColoredItem> createExtendedMixingColorMap(ColoredItem color, boolean withNeutral, boolean differentResults) {
 		Objects.requireNonNull(color);
 		return createExtendedMixingColorStream(color, withNeutral, differentResults)
