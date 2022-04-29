@@ -181,55 +181,55 @@ public enum ColoredItem {
 			.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 	}
 
-	public Optional<Item> getDye() {
-		return Optional.ofNullable(dye);
+	public Item getDye() {
+		return dye;
 	}
 
-	public Optional<Item> getWool() {
-		return Optional.ofNullable(wool);
+	public Item getWool() {
+		return wool;
 	}
 
-	public Optional<Item> getCarpet() {
-		return Optional.ofNullable(carpet);
+	public Item getCarpet() {
+		return carpet;
 	}
 
-	public Optional<Item> getBed() {
-		return Optional.ofNullable(bed);
+	public Item getBed() {
+		return bed;
 	}
 
-	public Optional<Item> getGlass() {
-		return Optional.ofNullable(glass);
+	public Item getGlass() {
+		return glass;
 	}
 
-	public Optional<Item> getGlassPane() {
-		return Optional.ofNullable(glassPane);
+	public Item getGlassPane() {
+		return glassPane;
 	}
 
-	public Optional<Item> getTerracotta() {
-		return Optional.ofNullable(terracotta);
+	public Item getTerracotta() {
+		return terracotta;
 	}
 
-	public Optional<Item> getGlazedTerracotta() {
-		return Optional.ofNullable(glazedTerracotta);
+	public Item getGlazedTerracotta() {
+		return glazedTerracotta;
 	}
 
-	public Optional<Item> getConcretePowder() {
-		return Optional.ofNullable(concretePowder);
+	public Item getConcretePowder() {
+		return concretePowder;
 	}
 
-	public Optional<Item> getConcrete() {
-		return Optional.ofNullable(concrete);
+	public Item getConcrete() {
+		return concrete;
 	}
 
-	public Optional<Item> getShulkerBox() {
-		return Optional.ofNullable(shulkerBox);
+	public Item getShulkerBox() {
+		return shulkerBox;
 	}
 
-	public Optional<Item> getBanner() {
-		return Optional.ofNullable(banner);
+	public Item getBanner() {
+		return banner;
 	}
 
-	public Optional<Item> getCandle() {
-		return Optional.ofNullable(candle);
+	public Item getCandle() {
+		return candle;
 	}
 }
