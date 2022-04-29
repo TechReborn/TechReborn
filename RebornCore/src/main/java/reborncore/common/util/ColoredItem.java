@@ -153,11 +153,12 @@ public enum ColoredItem {
 
 		builder = new ImmutableMap.Builder<>();
 		for (var entry : extendedMixingMap.entrySet()) {
-			if (entry.getKey().getLeft() != NEUTRAL && entry.getKey().getRight() != NEUTRAL)
+			if (entry.getKey().getLeft() != NEUTRAL && entry.getKey().getRight() != NEUTRAL &&
+				entry.getKey().getLeft() != WHITE && entry.getKey().getRight() != WHITE)
 				builder.put(entry);
 		}
 		for (ColoredItem item : values()) {
-			if (item != WHITE) {
+			if (item != WHITE && item != NEUTRAL) {
 				putSym(builder, WHITE, item, item);
 			}
 		}
@@ -171,7 +172,7 @@ public enum ColoredItem {
 	public static Stream<Pair<ColoredItem, ColoredItem>> createExtendedMixingColorStream(ColoredItem color, boolean withNeutral, boolean differentResults) {
 		Objects.requireNonNull(color);
 		return getExtendedMixingMap(withNeutral).entrySet().stream()
-			.filter(entry -> entry.getKey().getLeft() == color && (!differentResults || entry.getKey().getLeft() != entry.getValue()))
+			.filter(entry -> entry.getKey().getLeft() == color && (!differentResults || entry.getKey().getRight() != entry.getValue()))
 			.map(entry -> Pair.of(entry.getKey().getRight(),entry.getValue()));
 	}
 

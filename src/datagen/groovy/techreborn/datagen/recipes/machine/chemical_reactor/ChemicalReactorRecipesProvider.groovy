@@ -26,7 +26,7 @@ package techreborn.datagen.recipes.machine.chemical_reactor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
+import reborncore.common.util.ColoredItem
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 
 class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
@@ -42,499 +42,118 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 	void generateRecipes() {
 		generateWool()
 		generateCarpet()
-		generateConcretePowderFromWhite()
-		generateCandleFromNeutral()
-		generateGlassFromNeutral()
-		generateGlassPaneFromNeutral()
-		generateTerracottaFromNeutral()
+		generateConcretePowder()
+		generateCandle()
+		generateGlass()
+		generateGlassPane()
+		generateTerracotta()
 	}
 
 	void generateWool() {
-		generateWoolFromBlack()
-		generateWoolFromBlue()
-		generateWoolFromCyan()
-		generateWoolFromGray()
-		generateWoolFromGreen()
-		generateWoolFromLightBlue()
-		generateWoolFromLightGray()
-		generateWoolFromLime()
-		generateWoolFromMagenta()
-		generateWoolFromOrange()
-		generateWoolFromPink()
-		generateWoolFromRed()
-		generateWoolFromWhite()
-		generateWoolFromYellow()
-		// no combinations: brown, purple
-	}
-
-	void generateWoolFromBlue() {
-		[
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_BLUE_WOOL,
-			(Items.RED_DYE): Items.PURPLE_WOOL,
-			(Items.WHITE_DYE): Items.LIGHT_BLUE_WOOL,
-			(Items.YELLOW_DYE): Items.GREEN_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.BLUE_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "blue_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromBlack() {
-		[
-			(Items.LIGHT_GRAY_DYE): Items.GRAY_WOOL,
-			(Items.ORANGE_DYE): Items.BROWN_WOOL,
-			(Items.WHITE_DYE): Items.GRAY_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.BLACK_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "black_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromCyan() {
-		[
-			(Items.BLUE_DYE): Items.BLUE_WOOL,
-			(Items.GRAY_DYE): Items.BLUE_WOOL,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_WOOL,
-			(Items.YELLOW_DYE): Items.LIME_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.CYAN_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "cyan_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromGray() {
-		[
-			(Items.CYAN_DYE): Items.BLUE_WOOL,
-			(Items.LIME_DYE): Items.GREEN_WOOL,
-			(Items.MAGENTA_DYE): Items.MAGENTA_WOOL,
-			(Items.PINK_DYE): Items.MAGENTA_WOOL,
-			(Items.WHITE_DYE): Items.LIGHT_GRAY_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.GRAY_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "gray_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromGreen() {
-		[
-			(Items.LIME_DYE): Items.LIME_WOOL,
-			(Items.RED_DYE): Items.BROWN_WOOL,
-			(Items.WHITE_DYE): Items.LIME_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.GREEN_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "green_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromLightBlue() {
-		[
-			(Items.BLUE_DYE): Items.BLUE_WOOL,
-			(Items.CYAN_DYE): Items.CYAN_WOOL,
-			(Items.YELLOW_DYE): Items.LIME_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.LIGHT_BLUE_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "light_blue_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromLightGray() {
-		[
-			(Items.BLACK_DYE): Items.GRAY_WOOL,
-			(Items.BLUE_DYE): Items.LIGHT_BLUE_WOOL,
-			(Items.BROWN_DYE): Items.BROWN_WOOL,
-			(Items.CYAN_DYE): Items.LIGHT_BLUE_WOOL,
-			(Items.GRAY_DYE): Items.GRAY_WOOL,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_WOOL,
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_WOOL,
-			(Items.LIME_DYE): Items.LIGHT_BLUE_WOOL,
-			(Items.MAGENTA_DYE): Items.PINK_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.LIGHT_GRAY_DYE, 4)
-				output new ItemStack(wool, 4)
-				source "light_gray_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromLime() {
-		[
-			(Items.GRAY_DYE): Items.GREEN_WOOL,
-			(Items.GREEN_DYE): Items.GREEN_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.LIME_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "lime_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromMagenta() {
-		[
-			(Items.BLUE_DYE): Items.PURPLE_WOOL,
-			(Items.PINK_DYE): Items.PINK_WOOL,
-			(Items.PURPLE_DYE): Items.PURPLE_WOOL,
-			(Items.RED_DYE): Items.RED_WOOL,
-			(Items.WHITE_DYE): Items.PINK_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.MAGENTA_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "magenta_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromOrange() {
-		[
-			(Items.BLACK_DYE): Items.BROWN_WOOL,
-			(Items.BROWN_DYE): Items.BROWN_WOOL,
-			(Items.RED_DYE): Items.RED_WOOL,
-			(Items.YELLOW_DYE): Items.ORANGE_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.ORANGE_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "orange_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromPink() {
-		[
-			(Items.GRAY_DYE): Items.MAGENTA_WOOL,
-			(Items.GREEN_DYE): Items.GREEN_WOOL,
-			(Items.MAGENTA_DYE): Items.MAGENTA_WOOL,
-			(Items.PURPLE_DYE): Items.PURPLE_WOOL,
-			(Items.RED_DYE): Items.RED_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.PINK_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "pink_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromRed() {
-		[
-			(Items.BLUE_DYE): Items.PURPLE_WOOL,
-			(Items.GREEN_DYE): Items.BROWN_WOOL,
-			(Items.MAGENTA_DYE): Items.MAGENTA_WOOL,
-			(Items.ORANGE_DYE): Items.ORANGE_WOOL,
-			(Items.PINK_DYE): Items.PINK_WOOL,
-			(Items.PURPLE_DYE): Items.PURPLE_WOOL,
-			(Items.RED_DYE): Items.RED_WOOL,
-			(Items.WHITE_DYE): Items.PINK_WOOL,
-			(Items.YELLOW_DYE): Items.ORANGE_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.RED_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "red_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromWhite() {
-		[
-			(Items.BLACK_DYE): Items.BLACK_WOOL,
-			(Items.BLUE_DYE): Items.BLUE_WOOL,
-			(Items.BROWN_DYE): Items.BROWN_WOOL,
-			(Items.CYAN_DYE): Items.CYAN_WOOL,
-			(Items.GRAY_DYE): Items.GRAY_WOOL,
-			(Items.GREEN_DYE): Items.GREEN_WOOL,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_WOOL,
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_WOOL,
-			(Items.LIME_DYE): Items.LIME_WOOL,
-			(Items.MAGENTA_DYE): Items.MAGENTA_WOOL,
-			(Items.ORANGE_DYE): Items.ORANGE_WOOL,
-			(Items.PINK_DYE): Items.PINK_WOOL,
-			(Items.PURPLE_DYE): Items.PURPLE_WOOL,
-			(Items.RED_DYE): Items.RED_WOOL,
-			// (Items.WHITE_DYE): Items.WHITE_WOOL, // white stays white
-			(Items.YELLOW_DYE): Items.YELLOW_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.WHITE_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "white_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateWoolFromYellow() {
-		[
-			(Items.CYAN_DYE): Items.LIME_WOOL,
-			(Items.ORANGE_DYE): Items.ORANGE_WOOL,
-			(Items.RED_DYE): Items.ORANGE_WOOL
-		].each {dye, wool ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.YELLOW_WOOL, 4)
-				output new ItemStack(wool, 4)
-				source "yellow_wool"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
+		for (ColoredItem color : ColoredItem.values())
+			ColoredItem.createExtendedMixingColorStream(color, false, true).forEach(pair ->
+				offerChemicalReactorRecipe {
+					ingredients color.getDye(), new ItemStack(pair.getLeft().getWool(), 4)
+					output new ItemStack(pair.getRight().getWool(), 4)
+					source pair.getLeft().getWool().toString() + "_with_" + color.getDye().toString()
+					power DYE_POWER
+					time DYE_TIME
+					criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
+				}
+			)
 	}
 
 	void generateCarpet() {
-		generateCarpetFromBlack()
-		generateCarpetFromBlue()
-		generateCarpetFromCyan()
-		generateCarpetFromGray()
-		generateCarpetFromGreen()
-		generateCarpetFromLightBlue()
-		generateCarpetFromLightGray()
-		generateCarpetFromLime()
-		generateCarpetFromMagenta()
-		generateCarpetFromOrange()
-		generateCarpetFromPink()
-		generateCarpetFromRed()
-		generateCarpetFromWhite()
-		generateCarpetFromYellow()
-		// no combinations: brown, purple
+		for (ColoredItem color : ColoredItem.values())
+			ColoredItem.createExtendedMixingColorStream(color, false, true).forEach(pair ->
+				offerChemicalReactorRecipe {
+					ingredients color.getDye(), new ItemStack(pair.getLeft().getCarpet(), 8)
+					output new ItemStack(pair.getRight().getCarpet(), 8)
+					source pair.getLeft().getCarpet().toString() + "_with_" + color.getDye().toString()
+					power DYE_POWER
+					time DYE_TIME
+					criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
+				}
+			)
 	}
 
-	void generateCarpetFromWhite() {
-		[
-			(Items.BLACK_DYE): Items.BLACK_CARPET,
-			(Items.BLUE_DYE): Items.BLUE_CARPET,
-			(Items.BROWN_DYE): Items.BROWN_CARPET,
-			(Items.CYAN_DYE): Items.CYAN_CARPET,
-			(Items.GRAY_DYE): Items.GRAY_CARPET,
-			(Items.GREEN_DYE): Items.GREEN_CARPET,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_CARPET,
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_CARPET,
-			(Items.LIME_DYE): Items.LIME_CARPET,
-			(Items.MAGENTA_DYE): Items.MAGENTA_CARPET,
-			(Items.ORANGE_DYE): Items.ORANGE_CARPET,
-			(Items.PINK_DYE): Items.PINK_CARPET,
-			(Items.PURPLE_DYE): Items.PURPLE_CARPET,
-			(Items.RED_DYE): Items.RED_CARPET,
-			// (Items.WHITE_DYE): Items.WHITE_CARPET, // white stays white
-			(Items.YELLOW_DYE): Items.YELLOW_CARPET
-		].each {dye, carpet ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.WHITE_CARPET, 8)
-				output new ItemStack(carpet, 8)
-				source "white_carpet"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
-	}
-
-	void generateConcretePowderFromWhite() {
-		[
-			(Items.BLACK_DYE): Items.BLACK_CONCRETE_POWDER,
-			(Items.BLUE_DYE): Items.BLUE_CONCRETE_POWDER,
-			(Items.BROWN_DYE): Items.BROWN_CONCRETE_POWDER,
-			(Items.CYAN_DYE): Items.CYAN_CONCRETE_POWDER,
-			(Items.GRAY_DYE): Items.GRAY_CONCRETE_POWDER,
-			(Items.GREEN_DYE): Items.GREEN_CONCRETE_POWDER,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_CONCRETE_POWDER,
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_CONCRETE_POWDER,
-			(Items.LIME_DYE): Items.LIME_CONCRETE_POWDER,
-			(Items.MAGENTA_DYE): Items.MAGENTA_CONCRETE_POWDER,
-			(Items.ORANGE_DYE): Items.ORANGE_CONCRETE_POWDER,
-			(Items.PINK_DYE): Items.PINK_CONCRETE_POWDER,
-			(Items.PURPLE_DYE): Items.PURPLE_CONCRETE_POWDER,
-			(Items.RED_DYE): Items.RED_CONCRETE_POWDER,
-			// (Items.WHITE_DYE): Items.WHITE_CONCRETE_POWDER, // white stays white
-			(Items.YELLOW_DYE): Items.YELLOW_CONCRETE_POWDER
-		].each {dye, concretePowder ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.WHITE_CONCRETE_POWDER, 8)
-				output new ItemStack(concretePowder, 8)
-				source "white_concrete_powder"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
-		}
+	void generateConcretePowder() {
+		for (ColoredItem color : ColoredItem.values())
+			ColoredItem.createExtendedMixingColorStream(color, false, true).forEach(pair ->
+				offerChemicalReactorRecipe {
+					ingredients color.getDye(), new ItemStack(pair.getLeft().getConcretePowder(), 8)
+					output new ItemStack(pair.getRight().getCarpet(), 8)
+					source pair.getLeft().getConcretePowder().toString() + "_with_" + color.getDye().toString()
+					power DYE_POWER
+					time DYE_TIME
+					criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
+				}
+			)
 	}
 
 	// explicitly no recipes for concrete, too thick a material, needs to be grinded back to powder first
 
-	void generateCandleFromNeutral() {
-		[
-			(Items.BLACK_DYE): Items.BLACK_CANDLE,
-			(Items.BLUE_DYE): Items.BLUE_CANDLE,
-			(Items.BROWN_DYE): Items.BROWN_CANDLE,
-			(Items.CYAN_DYE): Items.CYAN_CANDLE,
-			(Items.GRAY_DYE): Items.GRAY_CANDLE,
-			(Items.GREEN_DYE): Items.GREEN_CANDLE,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_CANDLE,
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_CANDLE,
-			(Items.LIME_DYE): Items.LIME_CANDLE,
-			(Items.MAGENTA_DYE): Items.MAGENTA_CANDLE,
-			(Items.ORANGE_DYE): Items.ORANGE_CANDLE,
-			(Items.PINK_DYE): Items.PINK_CANDLE,
-			(Items.PURPLE_DYE): Items.PURPLE_CANDLE,
-			(Items.RED_DYE): Items.RED_CANDLE,
-			(Items.WHITE_DYE): Items.WHITE_CANDLE,
-			(Items.YELLOW_DYE): Items.YELLOW_CANDLE
-		].each {dye, candle ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.CANDLE, 2)
-				output new ItemStack(candle, 2)
-				source "candle"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
+	void generateCandle() {
+		for (ColoredItem color : ColoredItem.values()) {
+			if (color != ColoredItem.NEUTRAL)
+				ColoredItem.createExtendedMixingColorStream(color, true, true).forEach(pair ->
+					offerChemicalReactorRecipe {
+						ingredients color.getDye(), new ItemStack(pair.getLeft().getCandle(), 2)
+						output new ItemStack(pair.getRight().getCandle(), 2)
+						source pair.getLeft().getCandle().toString() + "_with_" + color.getDye().toString()
+						power DYE_POWER
+						time DYE_TIME
+						criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
+					}
+				)
 		}
 	}
 
-	void generateGlassFromNeutral() {
-		[
-			(Items.BLACK_DYE): Items.BLACK_STAINED_GLASS,
-			(Items.BLUE_DYE): Items.BLUE_STAINED_GLASS,
-			(Items.BROWN_DYE): Items.BROWN_STAINED_GLASS,
-			(Items.CYAN_DYE): Items.CYAN_STAINED_GLASS,
-			(Items.GRAY_DYE): Items.GRAY_STAINED_GLASS,
-			(Items.GREEN_DYE): Items.GREEN_STAINED_GLASS,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_STAINED_GLASS,
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_STAINED_GLASS,
-			(Items.LIME_DYE): Items.LIME_STAINED_GLASS,
-			(Items.MAGENTA_DYE): Items.MAGENTA_STAINED_GLASS,
-			(Items.ORANGE_DYE): Items.ORANGE_STAINED_GLASS,
-			(Items.PINK_DYE): Items.PINK_STAINED_GLASS,
-			(Items.PURPLE_DYE): Items.PURPLE_STAINED_GLASS,
-			(Items.RED_DYE): Items.RED_STAINED_GLASS,
-			(Items.WHITE_DYE): Items.WHITE_STAINED_GLASS,
-			(Items.YELLOW_DYE): Items.YELLOW_STAINED_GLASS
-		].each {dye, glass ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.GLASS, 12)
-				output new ItemStack(glass, 12)
-				source "glass"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
+	void generateGlass() {
+		for (ColoredItem color : ColoredItem.values()) {
+			if (color != ColoredItem.NEUTRAL)
+				ColoredItem.createExtendedMixingColorStream(color, true, true).forEach(pair ->
+					offerChemicalReactorRecipe {
+						ingredients color.getDye(), new ItemStack(pair.getLeft().getGlass(), 12)
+						output new ItemStack(pair.getRight().getGlass(), 12)
+						source pair.getLeft().getGlass().toString() + "_with_" + color.getDye().toString()
+						power DYE_POWER
+						time DYE_TIME
+						criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
+					}
+				)
 		}
 	}
 
-	void generateGlassPaneFromNeutral() {
-		[
-			(Items.BLACK_DYE): Items.BLACK_STAINED_GLASS_PANE,
-			(Items.BLUE_DYE): Items.BLUE_STAINED_GLASS_PANE,
-			(Items.BROWN_DYE): Items.BROWN_STAINED_GLASS_PANE,
-			(Items.CYAN_DYE): Items.CYAN_STAINED_GLASS_PANE,
-			(Items.GRAY_DYE): Items.GRAY_STAINED_GLASS_PANE,
-			(Items.GREEN_DYE): Items.GREEN_STAINED_GLASS_PANE,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_STAINED_GLASS_PANE,
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_STAINED_GLASS_PANE,
-			(Items.LIME_DYE): Items.LIME_STAINED_GLASS_PANE,
-			(Items.MAGENTA_DYE): Items.MAGENTA_STAINED_GLASS_PANE,
-			(Items.ORANGE_DYE): Items.ORANGE_STAINED_GLASS_PANE,
-			(Items.PINK_DYE): Items.PINK_STAINED_GLASS_PANE,
-			(Items.PURPLE_DYE): Items.PURPLE_STAINED_GLASS_PANE,
-			(Items.RED_DYE): Items.RED_STAINED_GLASS_PANE,
-			(Items.WHITE_DYE): Items.WHITE_STAINED_GLASS_PANE,
-			(Items.YELLOW_DYE): Items.YELLOW_STAINED_GLASS_PANE
-		].each {dye, glass_pane ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.GLASS_PANE, 16)
-				output new ItemStack(glass_pane, 16)
-				source "glass_pane"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
+	void generateGlassPane() {
+		for (ColoredItem color : ColoredItem.values()) {
+			if (color != ColoredItem.NEUTRAL)
+				ColoredItem.createExtendedMixingColorStream(color, true, true).forEach(pair ->
+					offerChemicalReactorRecipe {
+						ingredients color.getDye(), new ItemStack(pair.getLeft().getGlassPane(), 16)
+						output new ItemStack(pair.getRight().getGlassPane(), 16)
+						source pair.getLeft().getGlassPane().toString() + "_with_" + color.getDye().toString()
+						power DYE_POWER
+						time DYE_TIME
+						criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
+					}
+				)
 		}
 	}
 
-	void generateTerracottaFromNeutral() {
-		[
-			(Items.BLACK_DYE): Items.BLACK_TERRACOTTA,
-			(Items.BLUE_DYE): Items.BLUE_TERRACOTTA,
-			(Items.BROWN_DYE): Items.BROWN_TERRACOTTA,
-			(Items.CYAN_DYE): Items.CYAN_TERRACOTTA,
-			(Items.GRAY_DYE): Items.GRAY_TERRACOTTA,
-			(Items.GREEN_DYE): Items.GREEN_TERRACOTTA,
-			(Items.LIGHT_BLUE_DYE): Items.LIGHT_BLUE_TERRACOTTA,
-			(Items.LIGHT_GRAY_DYE): Items.LIGHT_GRAY_TERRACOTTA,
-			(Items.LIME_DYE): Items.LIME_TERRACOTTA,
-			(Items.MAGENTA_DYE): Items.MAGENTA_TERRACOTTA,
-			(Items.ORANGE_DYE): Items.ORANGE_TERRACOTTA,
-			(Items.PINK_DYE): Items.PINK_TERRACOTTA,
-			(Items.PURPLE_DYE): Items.PURPLE_TERRACOTTA,
-			(Items.RED_DYE): Items.RED_TERRACOTTA,
-			(Items.WHITE_DYE): Items.WHITE_TERRACOTTA,
-			(Items.YELLOW_DYE): Items.YELLOW_TERRACOTTA
-		].each {dye, terracotta ->
-			offerChemicalReactorRecipe {
-				ingredients dye, new ItemStack(Items.TERRACOTTA, 8)
-				output new ItemStack(terracotta, 8)
-				source "terracotta"
-				power DYE_POWER
-				time DYE_TIME
-				criterion getCriterionName(dye), getCriterionConditions(dye)
-			}
+	void generateTerracotta() {
+		for (ColoredItem color : ColoredItem.values()) {
+			if (color != ColoredItem.NEUTRAL)
+				ColoredItem.createExtendedMixingColorStream(color, true, true).forEach(pair ->
+					offerChemicalReactorRecipe {
+						ingredients color.getDye(), new ItemStack(pair.getLeft().getTerracotta(), 8)
+						output new ItemStack(pair.getRight().getTerracotta(), 8)
+						source pair.getLeft().getTerracotta().toString() + "_with_" + color.getDye().toString()
+						power DYE_POWER
+						time DYE_TIME
+						criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
+					}
+				)
 		}
 	}
 
