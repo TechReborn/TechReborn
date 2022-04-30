@@ -93,7 +93,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 			return;
 		}
 
-		if (!inventory.getStack(0).isEmpty() && FluidUtils.drainContainers(tank, inventory, 0, 1)
+		if (inventory != null && inventory.size()>0 && !inventory.getStack(0).isEmpty() && FluidUtils.drainContainers(tank, inventory, 0, 1)
 				|| FluidUtils.fillContainers(tank, inventory, 0, 1)) {
 
 			if (type == TRContent.TankUnit.CREATIVE) {
