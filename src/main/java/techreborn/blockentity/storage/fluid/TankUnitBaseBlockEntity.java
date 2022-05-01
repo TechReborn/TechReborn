@@ -85,7 +85,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 	
 	protected boolean canDrainTransfer(){
-		if (inventory == null || inventory.size()< 2){
+		if (inventory == null || inventory.size() < 2){
 			return false;
 		}
 		ItemStack firstStack = inventory.getStack(0);
@@ -108,7 +108,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 			return;
 		}
 
-		if (canDrainTransfer() && FluidUtils.drainContainers(tank, inventory, 0, 1)
+		if ((canDrainTransfer() && FluidUtils.drainContainers(tank, inventory, 0, 1))
 				|| FluidUtils.fillContainers(tank, inventory, 0, 1)) {
 
 			if (type == TRContent.TankUnit.CREATIVE) {
