@@ -108,17 +108,27 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 			return;
 		}
 
-		if ((canDrainTransfer() && FluidUtils.drainContainers(tank, inventory, 0, 1))
-				|| FluidUtils.fillContainers(tank, inventory, 0, 1)) {
-
-			if (type == TRContent.TankUnit.CREATIVE) {
-				if (!tank.isEmpty() && !tank.isFull()) {
-					tank.setFluidAmount(tank.getFluidValueCapacity());
-				}
+		if (canDrainTransfer() && FluidUtils.isContainer(inventory.getStack(0))) {
+			boolean didSomething = false;
+			if(FluidUtils.drainContainers(tank, inventory, 0, 1)){
+				didSomething = true;
 			}
-			syncWithAll();
+			if(!didSomething && FluidUtils.fillContainers(tank, inventory, 0, 1)){
+				didSomething = true;
+			}
+			if(didSomething){
+				if(inventory.getStack(1).isEmpty() && !inventory.getStack(0).isEmpty() && inventory.getStack(0).getCount() == 1){
+					inventory.setStack(1, inventory.getStack(0));
+					inventory.setStack(0, ItemStack.EMPTY);
+				}
+				syncWithAll();
+			}
 		}
-
+		if (type == TRContent.TankUnit.CREATIVE) {
+			if (!tank.isEmpty() && !tank.isFull()) {
+				tank.setFluidAmount(tank.getFluidValueCapacity());
+			}
+		}
 		// Void excessive fluid in creative tank (#2205)
 		if (type == TRContent.TankUnit.CREATIVE && tank.isFull()) {
 			FluidUtils.drainContainers(tank, inventory, 0, 1, true);
