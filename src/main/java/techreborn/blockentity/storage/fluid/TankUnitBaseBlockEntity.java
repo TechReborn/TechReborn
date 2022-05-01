@@ -83,7 +83,22 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
 		return dropStack;
 	}
-
+	
+	protected boolean canDrainTransfer(){
+		if (inventory == null || inventory.size()< 2){
+			return false;
+		}
+		ItemStack firstStack = inventory.getStack(0);
+		if (firstStack.isEmpty()){
+			return false;
+		}
+		ItemStack secondStack = inventory.getStack(1);
+		if (secondStack.getCount() >= secondStack.getMaxCount()){
+			return false;
+		}
+		return true;
+	}
+	
 	// MachineBaseBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
@@ -93,7 +108,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 			return;
 		}
 
-		if (inventory != null && inventory.size()>0 && !inventory.getStack(0).isEmpty() && FluidUtils.drainContainers(tank, inventory, 0, 1)
+		if (canDrainTransfer() && FluidUtils.drainContainers(tank, inventory, 0, 1)
 				|| FluidUtils.fillContainers(tank, inventory, 0, 1)) {
 
 			if (type == TRContent.TankUnit.CREATIVE) {
