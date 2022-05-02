@@ -50,10 +50,13 @@ import techreborn.utils.ToolsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class IndustrialChainsawItem extends ChainsawItem {
 
 	private static final Direction[] SEARCH_ORDER = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
+
+	private BlockState lastCheckedBlockState;
 
 	public IndustrialChainsawItem() {
 		super(TRToolMaterials.INDUSTRIAL_CHAINSAW, TechRebornConfig.industrialChainsawCharge, RcEnergyTier.EXTREME, TechRebornConfig.industrialChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE);
@@ -96,12 +99,18 @@ public class IndustrialChainsawItem extends ChainsawItem {
 		}
 	}
 
+	@Override
+	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
+		lastCheckedBlockState = state;
+		return super.canMine(state, world, pos, miner);
+	}
+
 	//ChainsawItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		List<BlockPos> wood = new ArrayList<>();
 		List<BlockPos> leaves = new ArrayList<>();
-		if (ItemUtils.isActive(stack) && isValidStartBlock(worldIn.getBlockState(pos))) {
+		if (ItemUtils.isActive(stack) && (lastCheckedBlockState == null || isValidStartBlock(lastCheckedBlockState))) {
 			findWood(worldIn, pos, wood, leaves);
 			wood.remove(pos);
 			wood.stream()
