@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:industrial_grinder/netherite_ingot_with_lava"
+	]
+  },
+  "criteria": {
+	"has_ingot": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:netherite_ingot"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:industrial_grinder/netherite_ingot_with_lava"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ingot",
+	  "has_the_recipe"
+	]
+  ]
+}
