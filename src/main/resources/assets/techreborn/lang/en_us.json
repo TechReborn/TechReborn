@@ -1111,6 +1111,6 @@
   "gui.techreborn.block.progress.paused": "Idle (%s)",
 
   "_comment28": "Villagers",
-  "entity.minecraft.villager.tinkerer": "Tinkerer",
+  "entity.minecraft.villager.metallurgist": "Metallurgist",
   "entity.minecraft.villager.electrician": "Electrician"
 }
