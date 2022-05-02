@@ -19,42 +19,42 @@ import java.util.stream.Collectors;
 
 public class TRVillager {
 
-	public static final Identifier TINKERER_ID = new Identifier(TechReborn.MOD_ID, "tinkerer");
+	public static final Identifier METALLURGIST_ID = new Identifier(TechReborn.MOD_ID, "metallurgist");
 	public static final Identifier ELECTRICIAN_ID = new Identifier(TechReborn.MOD_ID, "electrician");
 
-	public static final PointOfInterestType TINKERER_POI = PointOfInterestHelper.register(
-			TINKERER_ID, 1, 1, TRContent.Machine.IRON_ALLOY_FURNACE.block);
+	public static final PointOfInterestType METALLURGIST_POI = PointOfInterestHelper.register(
+		METALLURGIST_ID, 1, 1, TRContent.Machine.IRON_ALLOY_FURNACE.block);
 	public static final PointOfInterestType ELECTRICIAN_POI = PointOfInterestHelper.register(
 			ELECTRICIAN_ID, 1, 1, TRContent.Machine.SOLID_FUEL_GENERATOR.block);
 
-	public static final VillagerProfession TINKERER_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION,TINKERER_ID,
-		VillagerProfessionBuilder.create().id(TINKERER_ID).workstation(TINKERER_POI).workSound(SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH).build());
+	public static final VillagerProfession METALLURGIST_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION, METALLURGIST_ID,
+		VillagerProfessionBuilder.create().id(METALLURGIST_ID).workstation(METALLURGIST_POI).workSound(SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH).build());
 	public static final VillagerProfession ELECTRICIAN_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION,ELECTRICIAN_ID,
 		VillagerProfessionBuilder.create().id(ELECTRICIAN_ID).workstation(ELECTRICIAN_POI).workSound(ModSounds.CABLE_SHOCK).build());
 
 	private TRVillager() {/* No instantiation. */}
 
 	public static void registerVillagerTrades() {
-		// tinkerer
-		TradeUtils.registerTradesForLevel(TINKERER_PROFESSION, TradeUtils.Level.NOVICE, false,
+		// metallurgist
+		TradeUtils.registerTradesForLevel(METALLURGIST_PROFESSION, TradeUtils.Level.NOVICE, false,
 			TradeUtils.createBuy(TRContent.RawMetals.TIN, 1, 6, 12, 2),
 			TradeUtils.createBuy(TRContent.RawMetals.LEAD, 1, 4, 12, 2),
 			TradeUtils.createSell(TRContent.Parts.RUBBER, 2, 3, 16, 2)
 		);
-		TradeUtils.registerTradesForLevel(TINKERER_PROFESSION, TradeUtils.Level.APPRENTICE, false,
+		TradeUtils.registerTradesForLevel(METALLURGIST_PROFESSION, TradeUtils.Level.APPRENTICE, false,
 			TradeUtils.createSell(TRContent.Ingots.BRONZE, 2, 1, 12, 10),
 			TradeUtils.createSell(TRContent.Ingots.BRASS, 5, 1, 12, 10),
 			TradeUtils.createSell(TRContent.Parts.ELECTRONIC_CIRCUIT, 3, 2, 12, 10)
 		);
-		TradeUtils.registerTradesForLevel(TINKERER_PROFESSION, TradeUtils.Level.JOURNEYMAN, false,
+		TradeUtils.registerTradesForLevel(METALLURGIST_PROFESSION, TradeUtils.Level.JOURNEYMAN, false,
 			TradeUtils.createSell(TRContent.Ingots.ELECTRUM, 7, 3, 12, 20),
 			TradeUtils.createBuy(TRContent.Parts.CARBON_FIBER, 1, 3, 12, 20)
 		);
-		TradeUtils.registerTradesForLevel(TINKERER_PROFESSION, TradeUtils.Level.EXPERT, false,
+		TradeUtils.registerTradesForLevel(METALLURGIST_PROFESSION, TradeUtils.Level.EXPERT, false,
 			TradeUtils.createSell(TRContent.Ingots.ADVANCED_ALLOY, 7, 4, 12, 20),
 			TradeUtils.createBuy(TRContent.Ingots.NICKEL, 1, 1, 12, 30)
 		);
-		TradeUtils.registerTradesForLevel(TINKERER_PROFESSION, TradeUtils.Level.MASTER, false,
+		TradeUtils.registerTradesForLevel(METALLURGIST_PROFESSION, TradeUtils.Level.MASTER, false,
 			TradeUtils.createSell(TRContent.Parts.ADVANCED_CIRCUIT, 7, 3, 12, 30)
 		);
 		// electrician
