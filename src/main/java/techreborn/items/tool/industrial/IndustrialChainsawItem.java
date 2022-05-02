@@ -59,6 +59,18 @@ public class IndustrialChainsawItem extends ChainsawItem {
 		super(TRToolMaterials.INDUSTRIAL_CHAINSAW, TechRebornConfig.industrialChainsawCharge, RcEnergyTier.EXTREME, TechRebornConfig.industrialChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE);
 	}
 
+	private boolean isValidLog(BlockState state) {
+		return state.isIn(BlockTags.LOGS);
+	}
+
+	private boolean isValidLeaves(BlockState state) {
+		return state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.WART_BLOCKS) || state.isOf(Blocks.SHROOMLIGHT);
+	}
+
+	private boolean isValidStartBlock(BlockState state) {
+		return isValidLog(state) || isValidLeaves(state);
+	}
+
 	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves) {
 		//Limit the amount of wood to be broken to 64 blocks.
 		if (wood.size() >= 64) {
@@ -73,10 +85,10 @@ public class IndustrialChainsawItem extends ChainsawItem {
 			if (!wood.contains(checkPos) && !leaves.contains(checkPos)) {
 				BlockState state = world.getBlockState(checkPos);
 
-				if (state.isIn(BlockTags.LOGS)) {
+				if (isValidLog(state)) {
 					wood.add(checkPos);
 					findWood(world, checkPos, wood, leaves);
-				} else if (state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.WART_BLOCKS) || state.isOf(Blocks.SHROOMLIGHT)) {
+				} else if (isValidLeaves(state)) {
 					leaves.add(checkPos);
 					findWood(world, checkPos, wood, leaves);
 				}
@@ -89,7 +101,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		List<BlockPos> wood = new ArrayList<>();
 		List<BlockPos> leaves = new ArrayList<>();
-		if (ItemUtils.isActive(stack)) {
+		if (ItemUtils.isActive(stack) && isValidStartBlock(worldIn.getBlockState(pos))) {
 			findWood(worldIn, pos, wood, leaves);
 			wood.remove(pos);
 			wood.stream()
