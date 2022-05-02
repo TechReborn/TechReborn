@@ -1,0 +1,25 @@
+{
+  "type": "techreborn:implosion_compressor",
+  "power": 30,
+  "time": 2000,
+  "ingredients" : [
+	{
+	  "tag": "c:netherite_nuggets",
+	  "count": 9
+	},
+    {
+      "item": "minecraft:tnt",
+      "count": 16
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:netherite_ingot",
+      "count": 1
+    },
+    {
+      "item": "techreborn:dark_ashes_dust",
+      "count": 12
+    }
+  ]
+}
