@@ -11,7 +11,7 @@
 	  "conditions": {
 		"items": [
 		  {
-			"tag": "blockus:barrels"
+			"tag": "c:barrels"
 		  }
 		]
 	  }
