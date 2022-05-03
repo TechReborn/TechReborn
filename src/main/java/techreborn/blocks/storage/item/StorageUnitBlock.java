@@ -50,7 +50,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 	public final TRContent.StorageUnit unitType;
 
 	public StorageUnitBlock(TRContent.StorageUnit unitType) {
-		super((Settings.of(unitType.name.equals("crude") ? Material.WOOD : Material.METAL).strength(2.0F, 2.0F)));
+		super((Settings.of(unitType.name.equals("buffer") || unitType.name.equals("crude") ? Material.WOOD : Material.METAL).strength(2.0F, 2.0F)));
 		this.unitType = unitType;
 	}
 

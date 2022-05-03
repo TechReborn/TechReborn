@@ -7,6 +7,7 @@
   "block.techreborn.gas_turbine": "Gas Turbine",
   "block.techreborn.thermal_generator": "Thermal Generator",
 
+  "block.techreborn.storage_buffer": "Storage Buffer",
   "block.techreborn.crude_storage_unit": "Crude Storage Unit",
   "block.techreborn.basic_storage_unit": "Basic Storage Unit",
   "block.techreborn.advanced_storage_unit": "Advanced Storage Unit",
