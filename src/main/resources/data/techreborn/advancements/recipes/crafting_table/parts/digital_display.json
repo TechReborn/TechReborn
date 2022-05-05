@@ -16,6 +16,16 @@
 		]
 	  }
 	},
+    "has_advanced_circuit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+  	    "items": [
+		  {
+  	        "items": ["techreborn:advanced_circuit"]
+		  }
+  	    ]
+	  }
+    },
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
@@ -26,6 +36,7 @@
   "requirements": [
 	[
 	  "has_aluminium_plate",
+	  "has_advanced_circuit",
 	  "has_the_recipe"
 	]
   ]
