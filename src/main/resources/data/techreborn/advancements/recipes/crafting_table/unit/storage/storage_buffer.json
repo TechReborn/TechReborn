@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/unit/storage/storage_buffer"
+	]
+  },
+  "criteria": {
+	"has_wood_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:wood_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/unit/storage/storage_buffer"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_wood_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

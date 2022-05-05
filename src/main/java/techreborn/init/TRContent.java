@@ -302,6 +302,7 @@ public class TRContent {
 	}
 
 	public enum StorageUnit implements ItemConvertible {
+		BUFFER(1),
 		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage),
 		BASIC(TechRebornConfig.basicStorageUnitMaxStorage),
 		ADVANCED(TechRebornConfig.advancedStorageUnitMaxStorage),
@@ -312,7 +313,7 @@ public class TRContent {
 		public final String name;
 		public final Block block;
 
-		// How many blocks it can hold
+		// How many items it can hold
 		public int capacity;
 
 
@@ -321,7 +322,10 @@ public class TRContent {
 			block = new StorageUnitBlock(this);
 			this.capacity = capacity;
 
-			InitUtils.setup(block, name + "_storage_unit");
+			if (name.equals("buffer"))
+				InitUtils.setup(block, "storage_buffer");
+			else
+				InitUtils.setup(block, name + "_storage_unit");
 		}
 
 		@Override
