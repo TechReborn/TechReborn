@@ -60,7 +60,7 @@ public class FluidReplicatorRecipe extends RebornFluidRecipe {
 		final BlockPos hole = blockEntity.getPos().offset(blockEntity.getFacing().getOpposite(), 2);
 		final Fluid fluid = FluidUtils.fluidFromBlock(blockEntity.getWorld().getBlockState(hole).getBlock());
 		if (fluid == Fluids.EMPTY) {
-			return true;
+			return false;
 		}
 		if (!FluidUtils.fluidEquals(fluid, getFluidInstance().getFluid())) {
 			return false;
