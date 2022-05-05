@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CableBlockEntity extends BlockEntity
-		implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop {
+	implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop {
 	// Can't use SimpleEnergyStorage because the cable type is not available when the BE is constructed.
 	final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
 		@Override
@@ -165,7 +165,9 @@ public class CableBlockEntity extends BlockEntity
 
 	void appendTargets(List<OfferedEnergyStorage> targetStorages) {
 		ServerWorld serverWorld = (ServerWorld) world;
-		if (serverWorld == null) { return; }
+		if (serverWorld == null) {
+			return;
+		}
 
 		// Update our targets if necessary.
 		if (targets == null) {
@@ -263,22 +265,22 @@ public class CableBlockEntity extends BlockEntity
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
 		info.add(
-				new TranslatableText("techreborn.tooltip.transferRate")
-						.formatted(Formatting.GRAY)
-						.append(": ")
-						.append(PowerSystem.getLocalizedPower(getCableType().transferRate))
-						.formatted(Formatting.GOLD)
-						.append("/t")
+			new TranslatableText("techreborn.tooltip.transferRate")
+				.formatted(Formatting.GRAY)
+				.append(": ")
+				.append(PowerSystem.getLocalizedPower(getCableType().transferRate))
+				.formatted(Formatting.GOLD)
+				.append("/t")
 		);
 
 		info.add(
-				new TranslatableText("techreborn.tooltip.tier")
-						.formatted(Formatting.GRAY)
-						.append(": ")
-						.append(
-								new LiteralText(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
-										.formatted(Formatting.GOLD)
-						)
+			new TranslatableText("techreborn.tooltip.tier")
+				.formatted(Formatting.GRAY)
+				.append(": ")
+				.append(
+					new LiteralText(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
+						.formatted(Formatting.GOLD)
+				)
 		);
 
 		if (!getCableType().canKill) {
