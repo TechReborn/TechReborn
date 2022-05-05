@@ -24,11 +24,10 @@
 
 package techreborn.blockentity.machine.misc;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidDrainable;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -90,6 +89,26 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDro
 			} else {
 				TechReborn.LOGGER.debug("Could not get Fluid from ItemStack " + fluidContainer.getItem());
 			}
+		}
+		if (aboveBlock instanceof LeveledCauldronBlock && aboveBlockState.isOf(Blocks.WATER_CAULDRON)) { //ensure Water cauldron
+			Fluid drainFluid = Fluids.WATER;
+			int level;
+			if (aboveBlockState.contains(LeveledCauldronBlock.LEVEL)){
+				level = aboveBlockState.get(LeveledCauldronBlock.LEVEL);
+			}
+			else {
+				return;
+			}
+			world.setBlockState(above, Blocks.CAULDRON.getDefaultState());
+			internalTank.setFluidInstance(
+				new FluidInstance(drainFluid, FluidValue.BUCKET.fraction(3).multiply(level))
+			);
+		}
+		if (aboveBlock instanceof LavaCauldronBlock){
+			world.setBlockState(above, Blocks.CAULDRON.getDefaultState());
+			internalTank.setFluidInstance(
+				new FluidInstance(Fluids.LAVA, FluidValue.BUCKET)
+			);
 		}
 	}
 
