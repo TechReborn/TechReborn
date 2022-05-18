@@ -27,7 +27,7 @@ package reborncore.client.gui.builder;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import reborncore.client.RenderUtil;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.blockentity.RedstoneConfiguration;
@@ -53,13 +53,13 @@ public class RedstoneConfigGui {
 		for (RedstoneConfiguration.Element element : configuration.getElements()) {
 			itemRenderer.renderInGuiWithOverrides(element.getIcon(), x - 3, y + (i * spread) - 5);
 
-			guiBase.getTextRenderer().draw(matrixStack, new TranslatableText("reborncore.gui.fluidconfig." + element.getName()), x + 15, y + (i * spread), -1);
+			guiBase.getTextRenderer().draw(matrixStack, Text.translatable("reborncore.gui.fluidconfig." + element.getName()), x + 15, y + (i * spread), -1);
 
 			boolean hovered = withinBounds(guiBase, mouseX, mouseY, x + 92, y + (i * spread) - 2, 63, 15);
 			int color = hovered ? 0xFF8b8b8b : 0x668b8b8b;
 			RenderUtil.drawGradientRect(matrixStack, 0, x + 91, y + (i * spread) - 2, x + 93 + 65, y + (i * spread) + 10, color, color);
 
-			Text name = new TranslatableText("reborncore.gui.fluidconfig." + configuration.getState(element).name().toLowerCase(Locale.ROOT));
+			Text name = Text.translatable("reborncore.gui.fluidconfig." + configuration.getState(element).name().toLowerCase(Locale.ROOT));
 			guiBase.drawCentredText(matrixStack, name, y + (i * spread), -1, x + 37, GuiBase.Layer.FOREGROUND);
 			//guiBase.getTextRenderer().drawWithShadow(name, x + 92, y + (i * spread), -1);
 			i++;

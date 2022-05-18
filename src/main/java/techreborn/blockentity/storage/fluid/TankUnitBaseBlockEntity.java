@@ -28,9 +28,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -181,18 +181,18 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		if (isReal || hasData) {
 			if (!this.tank.getFluidInstance().isEmpty()) {
 				info.add(
-						new LiteralText(String.valueOf(this.tank.getFluidAmount()))
-								.append(new TranslatableText("techreborn.tooltip.unit.divider"))
+						Text.literal(String.valueOf(this.tank.getFluidAmount()))
+								.append(Text.translatable("techreborn.tooltip.unit.divider"))
 								.append(WordUtils.capitalize(FluidUtils.getFluidName(this.tank.getFluid())))
 				);
 			} else {
-				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
+				info.add(Text.translatable("techreborn.tooltip.unit.empty"));
 			}
 		}
 		info.add(
-				new TranslatableText("techreborn.tooltip.unit.capacity")
+				Text.translatable("techreborn.tooltip.unit.capacity")
 						.formatted(Formatting.GRAY)
-						.append(new LiteralText(String.valueOf(this.tank.getFluidValueCapacity()))
+						.append(Text.literal(String.valueOf(this.tank.getFluidValueCapacity()))
 								.formatted(Formatting.GOLD))
 		);
 	}

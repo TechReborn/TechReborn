@@ -32,7 +32,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -456,7 +455,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
 		if (!isReal && hasData) {
 			info.add(
-					new TranslatableText("reborncore.tooltip.energy")
+					Text.translatable("reborncore.tooltip.energy")
 							.formatted(Formatting.GRAY)
 							.append(": ")
 							.append(PowerSystem.getLocalizedPower(getStored()))
@@ -465,7 +464,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		}
 
 		info.add(
-				new TranslatableText("reborncore.tooltip.energy.maxEnergy")
+				Text.translatable("reborncore.tooltip.energy.maxEnergy")
 				.formatted(Formatting.GRAY)
 				.append(": ")
 				.append(PowerSystem.getLocalizedPower(getMaxStoredPower()))
@@ -474,7 +473,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 		if (getMaxInput(null) != 0) {
 			info.add(
-					new TranslatableText("reborncore.tooltip.energy.inputRate")
+					Text.translatable("reborncore.tooltip.energy.inputRate")
 							.formatted(Formatting.GRAY)
 							.append(": ")
 							.append(PowerSystem.getLocalizedPower(getMaxInput(null)))
@@ -483,7 +482,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		}
 		if (getMaxOutput(null) > 0) {
 			info.add(
-					new TranslatableText("reborncore.tooltip.energy.outputRate")
+					Text.translatable("reborncore.tooltip.energy.outputRate")
 							.formatted(Formatting.GRAY)
 							.append(": ")
 							.append(PowerSystem.getLocalizedPower(getMaxOutput(null)))
@@ -492,7 +491,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		}
 
 		info.add(
-				new TranslatableText("reborncore.tooltip.energy.tier")
+				Text.translatable("reborncore.tooltip.energy.tier")
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(StringUtils.toFirstCapitalAllLowercase(getTier().toString()))
@@ -501,7 +500,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 		if (isReal) {
 			info.add(
-					new TranslatableText("reborncore.tooltip.energy.change")
+					Text.translatable("reborncore.tooltip.energy.change")
 							.formatted(Formatting.GRAY)
 							.append(": ")
 							.append(PowerSystem.getLocalizedPower(powerChange))

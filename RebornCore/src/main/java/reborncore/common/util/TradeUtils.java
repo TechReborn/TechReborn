@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
@@ -56,7 +57,7 @@ public final class TradeUtils {
 
 			@Nullable
 			@Override
-			public TradeOffer create(Entity entity, Random random) {
+			public TradeOffer create(Entity entity, AbstractRandom random) {
 				return copy(offer);
 			}
 		};

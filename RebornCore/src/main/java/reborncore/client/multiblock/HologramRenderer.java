@@ -15,6 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
 import reborncore.common.blockentity.MultiblockWriter;
@@ -46,7 +47,7 @@ record HologramRenderer(BlockRenderView view, MatrixStack matrix, VertexConsumer
 		} else {
 			matrix.translate(-0.5, -0.5, -0.5);
 			VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayers.getBlockLayer(state));
-			blockRenderManager.renderBlock(state, OUT_OF_WORLD_POS, view, matrix, consumer, false, new Random());
+			blockRenderManager.renderBlock(state, OUT_OF_WORLD_POS, view, matrix, consumer, false, AbstractRandom.create());
 		}
 
 		matrix.pop();

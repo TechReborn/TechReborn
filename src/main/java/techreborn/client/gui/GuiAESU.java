@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
@@ -75,7 +75,7 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 		if (!hideGuiElements()) {
 			matrixStack.push();
 			matrixStack.scale(0.6f, 0.6f, 1.0f);
-			Text text = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
+			Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
 					.append("/")
 					.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
 					.append(" ")

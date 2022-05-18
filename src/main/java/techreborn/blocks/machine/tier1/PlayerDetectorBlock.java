@@ -35,8 +35,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -126,11 +126,11 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 
 		if (playerIn instanceof ServerPlayerEntity serverPlayerEntity) {
 			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.playerDetectorID,
-				new TranslatableText("techreborn.message.detects")
+				Text.translatable("techreborn.message.detects")
 					.formatted(Formatting.GRAY)
 					.append(" ")
 					.append(
-						new LiteralText(StringUtils.toFirstCapital(newType.asString()))
+						Text.literal(StringUtils.toFirstCapital(newType.asString()))
 							.formatted(color)
 					)
 			);

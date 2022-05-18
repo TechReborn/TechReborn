@@ -29,7 +29,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.tag.Tag;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;

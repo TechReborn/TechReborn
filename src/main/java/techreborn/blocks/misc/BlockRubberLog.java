@@ -43,6 +43,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
@@ -111,7 +112,7 @@ public class BlockRubberLog extends PillarBlock {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, AbstractRandom random) {
 		super.randomTick(state, worldIn, pos, random);
 		if (state.get(AXIS) != Direction.Axis.Y) return;
 		if (!state.get(SHOULD_SAP)) return;

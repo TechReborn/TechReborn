@@ -42,9 +42,8 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.api.IListInfoProvider;
@@ -67,7 +66,7 @@ import java.util.stream.Collectors;
  */
 public class GuiBuilder {
 	public static final Identifier defaultTextureSheet = new Identifier("reborncore", "textures/gui/guielements.png");
-	private static final Text SPACE_TEXT = new LiteralText(" ");
+	private static final Text SPACE_TEXT = Text.literal(" ");
 	static Identifier resourceLocation;
 
 	public GuiBuilder() {
@@ -175,9 +174,9 @@ public class GuiBuilder {
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
 			if (locked) {
-				list.add(new TranslatableText("reborncore.gui.tooltip.unlock_items"));
+				list.add(Text.translatable("reborncore.gui.tooltip.unlock_items"));
 			} else {
-				list.add(new TranslatableText("reborncore.gui.tooltip.lock_items"));
+				list.add(Text.translatable("reborncore.gui.tooltip.lock_items"));
 			}
 			matrixStack.push();
 			gui.renderTooltip(matrixStack, list, mouseX, mouseY);
@@ -209,7 +208,7 @@ public class GuiBuilder {
 		}
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
-			list.add(new TranslatableText("reborncore.gui.tooltip.hologram"));
+			list.add(Text.translatable("reborncore.gui.tooltip.hologram"));
 			matrixStack.push();
 			if (layer == GuiBase.Layer.FOREGROUND) {
 				mouseX -= gui.getGuiLeft();
@@ -245,8 +244,8 @@ public class GuiBuilder {
 			}
 			gui.drawTexture(matrixStack, x + 4, y + 4, 26, 246, j, 10);
 
-			Text text = new LiteralText(String.valueOf(value))
-					.append(new TranslatableText("reborncore.gui.heat"));
+			Text text = Text.literal(String.valueOf(value))
+					.append(Text.translatable("reborncore.gui.heat"));
 
 			gui.drawCentredText(matrixStack, text, y + 5, 0xFFFFFF, layer);
 		}
@@ -282,13 +281,13 @@ public class GuiBuilder {
 		if (!suffix.equals("")) {
 			suffix = " " + suffix;
 		}
-		gui.drawCentredText(matrixStack, new LiteralText(format).append(suffix), y + 5, 0xFFFFFF, layer);
+		gui.drawCentredText(matrixStack, Text.literal(format).append(suffix), y + 5, 0xFFFFFF, layer);
 		if (gui.isPointInRect(x, y, 114, 18, mouseX, mouseY)) {
 			int percentage = percentage(max, value);
 			List<Text> list = new ArrayList<>();
 
 			list.add(
-					new LiteralText(String.valueOf(value))
+					Text.literal(String.valueOf(value))
 							.formatted(Formatting.GOLD)
 							.append("/")
 							.append(String.valueOf(max))
@@ -296,11 +295,11 @@ public class GuiBuilder {
 			);
 
 			list.add(
-					new LiteralText(String.valueOf(percentage))
+					Text.literal(String.valueOf(percentage))
 							.formatted(StringUtils.getPercentageColour(percentage))
 							.append("%")
 							.append(
-									new TranslatableText("reborncore.gui.tooltip.dsu_fullness")
+									Text.translatable("reborncore.gui.tooltip.dsu_fullness")
 											.formatted(Formatting.GRAY)
 							)
 			);
@@ -309,15 +308,15 @@ public class GuiBuilder {
 
 			if (value > max) {
 				list.add(
-						new LiteralText("Yo this is storing more than it should be able to")
+						Text.literal("Yo this is storing more than it should be able to")
 								.formatted(Formatting.GRAY)
 				);
 				list.add(
-						new LiteralText("prolly a bug")
+						Text.literal("prolly a bug")
 								.formatted(Formatting.GRAY)
 				);
 				list.add(
-						new LiteralText("pls report and tell how tf you did this")
+						Text.literal("pls report and tell how tf you did this")
 								.formatted(Formatting.GRAY)
 				);
 			}
@@ -332,12 +331,12 @@ public class GuiBuilder {
 	}
 
 	public void drawBigBlueBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
-		drawBigBlueBar(matrixStack, gui, x, y, value, max, mouseX, mouseY, suffix, LiteralText.EMPTY, Integer.toString(value), layer);
+		drawBigBlueBar(matrixStack, gui, x, y, value, max, mouseX, mouseY, suffix, Text.empty(), Integer.toString(value), layer);
 
 	}
 
 	public void drawBigBlueBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, GuiBase.Layer layer) {
-		drawBigBlueBar(matrixStack, gui, x, y, value, max, mouseX, mouseY, "", LiteralText.EMPTY, "", layer);
+		drawBigBlueBar(matrixStack, gui, x, y, value, max, mouseX, mouseY, "", Text.empty(), "", layer);
 	}
 
 	/**
@@ -362,7 +361,7 @@ public class GuiBuilder {
 		RenderUtil.drawGradientRect(matrixStack, 0, x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
 		RenderSystem.colorMask(true, true, true, true);
 		RenderSystem.disableDepthTest();
-		gui.drawCentredText(matrixStack, new TranslatableText("reborncore.gui.missingmultiblock"), 43, 0xFFFFFF, layer);
+		gui.drawCentredText(matrixStack, Text.translatable("reborncore.gui.missingmultiblock"), 43, 0xFFFFFF, layer);
 	}
 
 	/**
@@ -404,7 +403,7 @@ public class GuiBuilder {
 	 */
 	public void drawSlotConfigTips(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiTab guiTab) {
 		List<Text> tips = guiTab.getTips().stream()
-				.map(TranslatableText::new)
+				.map(Text::translatable)
 				.collect(Collectors.toList());
 
 		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 54, y, y + 76, 9 + 2, tips);
@@ -481,7 +480,7 @@ public class GuiBuilder {
 	 */
 	public void drawEnergyOutput(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, int maxOutput, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
-		Text text = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(maxOutput))
+		Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(maxOutput))
 				.append(SPACE_TEXT)
 				.append(PowerSystem.getDisplayPower().abbreviation)
 				.append("\t");
@@ -544,7 +543,7 @@ public class GuiBuilder {
 			int percentage = percentage(maxProgress, progress);
 			List<Text> list = new ArrayList<>();
 			list.add(
-					new LiteralText(String.valueOf(percentage))
+					Text.literal(String.valueOf(percentage))
 							.formatted(StringUtils.getPercentageColour(percentage))
 							.append("%")
 			);
@@ -592,14 +591,14 @@ public class GuiBuilder {
 			List<Text> list = Lists.newArrayList();
 			if (Screen.hasShiftDown()) {
 				list.add(
-						new LiteralText(PowerSystem.getLocalizedPowerFullNoSuffix(energyStored))
+						Text.literal(PowerSystem.getLocalizedPowerFullNoSuffix(energyStored))
 								.formatted(Formatting.GOLD)
 								.append("/")
 								.append(PowerSystem.getLocalizedPowerFull(maxEnergyStored))
 				);
 			} else {
 				list.add(
-						new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(energyStored))
+						Text.literal(PowerSystem.getLocalizedPowerNoSuffix(energyStored))
 								.formatted(Formatting.GOLD)
 								.append("/")
 								.append(PowerSystem.getLocalizedPower(maxEnergyStored))
@@ -609,7 +608,7 @@ public class GuiBuilder {
 					StringUtils.getPercentageText(percentage)
 							.append(SPACE_TEXT)
 							.append(
-									new TranslatableText("reborncore.gui.tooltip.power_charged")
+									Text.translatable("reborncore.gui.tooltip.power_charged")
 											.formatted(Formatting.GRAY)
 							)
 			);
@@ -618,14 +617,14 @@ public class GuiBuilder {
 				if (Screen.hasShiftDown()) {
 					((IListInfoProvider) gui.be).addInfo(list, true, true);
 				} else {
-					list.add(LiteralText.EMPTY);
+					list.add(Text.empty());
 
 					list.add(
-							new LiteralText("Shift")
+							Text.literal("Shift")
 									.formatted(Formatting.BLUE)
 									.append(SPACE_TEXT)
 									.formatted(Formatting.GRAY)
-									.append(new TranslatableText("reborncore.gui.tooltip.power_moreinfo"))
+									.append(Text.translatable("reborncore.gui.tooltip.power_moreinfo"))
 					);
 				}
 			}
@@ -675,10 +674,10 @@ public class GuiBuilder {
 		if (gui.isPointInRect(x, y, 22, 56, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
 			if (isTankEmpty) {
-				list.add(new TranslatableText("reborncore.gui.tooltip.tank_empty").formatted(Formatting.GOLD));
+				list.add(Text.translatable("reborncore.gui.tooltip.tank_empty").formatted(Formatting.GOLD));
 			} else {
 				list.add(
-						new LiteralText(String.format("%s / %s", amount, maxCapacity))
+						Text.literal(String.format("%s / %s", amount, maxCapacity))
 								.formatted(Formatting.GOLD)
 								.append(SPACE_TEXT)
 								.append(FluidUtils.getFluidName(fluid))
@@ -689,7 +688,7 @@ public class GuiBuilder {
 					StringUtils.getPercentageText(percentage)
 							.formatted(Formatting.GRAY)
 							.append(SPACE_TEXT)
-							.append(new TranslatableText("reborncore.gui.tooltip.tank_fullness"))
+							.append(Text.translatable("reborncore.gui.tooltip.tank_fullness"))
 			);
 
 			if (layer == GuiBase.Layer.FOREGROUND) {

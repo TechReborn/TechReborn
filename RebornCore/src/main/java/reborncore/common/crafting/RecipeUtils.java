@@ -32,13 +32,11 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.CriterionMerger;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -48,16 +46,12 @@ import org.jetbrains.annotations.NotNull;
 import reborncore.common.util.DefaultedListCollector;
 import reborncore.common.util.serialization.SerializationUtil;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 public class RecipeUtils {
-	@SuppressWarnings("unchecked")
 	public static <T extends RebornRecipe> List<T> getRecipes(World world, RebornRecipeType<T> type) {
-		final Collection<Recipe<Inventory>> recipes = world.getRecipeManager().getAllOfType(type).values().stream().toList();
-		//noinspection unchecked
-		return (List<T>) (Object) recipes;
+		return (List<T>) world.getRecipeManager().getAllOfType(type).values().stream().toList();
 	}
 
 	public static DefaultedList<ItemStack> deserializeItems(JsonElement jsonObject) {

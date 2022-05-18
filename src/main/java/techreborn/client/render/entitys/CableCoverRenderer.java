@@ -34,6 +34,7 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.random.AbstractRandom;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
 
@@ -56,7 +57,7 @@ public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity>
 		final BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
 		BlockState coverState = blockEntity.getCover() != null ? blockEntity.getCover() : Blocks.OAK_PLANKS.getDefaultState();
 		VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayers.getBlockLayer(coverState));
-		blockRenderManager.renderBlock(coverState, blockEntity.getPos(), blockEntity.getWorld(), matrices, consumer, true, new Random());
+		blockRenderManager.renderBlock(coverState, blockEntity.getPos(), blockEntity.getWorld(), matrices, consumer, true, AbstractRandom.create());
 	}
 
 }

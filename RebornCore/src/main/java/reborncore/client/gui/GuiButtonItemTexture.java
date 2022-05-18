@@ -30,7 +30,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import reborncore.common.util.Color;
 
@@ -44,7 +43,7 @@ public class GuiButtonItemTexture extends ButtonWidget {
 
 	public GuiButtonItemTexture(int xPos, int yPos, int u, int v, int width, int height, ItemStack stack,
 								String linkedPage, Text name, ButtonWidget.PressAction pressAction) {
-		super(xPos, yPos, width, height, LiteralText.EMPTY, pressAction);
+		super(xPos, yPos, width, height, Text.empty(), pressAction);
 		textureU = u;
 		textureV = v;
 		itemstack = stack;

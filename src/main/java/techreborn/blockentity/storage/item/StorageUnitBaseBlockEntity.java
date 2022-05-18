@@ -33,9 +33,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -423,27 +423,27 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		if (isReal || hasData) {
 			if (!this.isEmpty()) {
 				info.add(
-						new LiteralText(String.valueOf(this.getCurrentCapacity()))
-								.append(new TranslatableText("techreborn.tooltip.unit.divider"))
+						Text.literal(String.valueOf(this.getCurrentCapacity()))
+								.append(Text.translatable("techreborn.tooltip.unit.divider"))
 								.append(this.getStoredStack().getName())
 				);
 			} else {
-				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
+				info.add(Text.translatable("techreborn.tooltip.unit.empty"));
 			}
 		}
 
 		info.add(
-				new TranslatableText("techreborn.tooltip.unit.capacity")
+				Text.translatable("techreborn.tooltip.unit.capacity")
 						.formatted(Formatting.GRAY)
 						.append(
-								new LiteralText(String.valueOf(this.getMaxCapacity()))
+								Text.literal(String.valueOf(this.getMaxCapacity()))
 										.formatted(Formatting.GOLD)
 										.append(" ")
-										.append(new TranslatableText("techreborn.tooltip.unit.items"))
+										.append(Text.translatable("techreborn.tooltip.unit.items"))
 										.append(" (")
 										.append(String.valueOf(this.getMaxCapacity() / 64))
 										.append(" ")
-										.append(new TranslatableText("techreborn.tooltip.unit.stacks"))
+										.append(Text.translatable("techreborn.tooltip.unit.stacks"))
 										.append(")")
 						)
 		);

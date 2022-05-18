@@ -35,7 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -82,6 +82,6 @@ public class BlockFusionCoil extends Block {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		super.appendTooltip(stack, worldIn, tooltip, flagIn);
-		tooltip.add(new TranslatableText("techreborn.tooltip.fusion_coil").formatted(Formatting.BLUE));
+		tooltip.add(Text.translatable("techreborn.tooltip.fusion_coil").formatted(Formatting.BLUE));
 	}
 }

@@ -33,7 +33,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -169,7 +169,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 
 				@Override
 				public Text getDisplayName() {
-					return new LiteralText("What is this for?");
+					return Text.literal("What is this for?");
 				}
 
 				@Nullable

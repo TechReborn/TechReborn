@@ -28,7 +28,7 @@ import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
@@ -51,7 +51,7 @@ public class OneInputOneOutputCategory<R extends RebornRecipe> extends AbstractE
 		widgets.add(Widgets.createSlot(new Point(bounds.x + 46 + 46, bounds.y + 26)).entries(getOutput(recipeDisplay, 0)).disableBackground().markOutput());
 		widgets.add(ReiPlugin.createProgressBar(bounds.x + 46 + 21, bounds.y + 30, recipeDisplay.getTime() * 50, GuiBuilder.ProgressDirection.RIGHT));
 
-		widgets.add(Widgets.createLabel(new Point(bounds.getMaxX() - 5, bounds.y + 5), new TranslatableText("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
+		widgets.add(Widgets.createLabel(new Point(bounds.getMaxX() - 5, bounds.y + 5), Text.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
 				.shadow(false)
 				.rightAligned()
 				.color(0xFF404040, 0xFFBBBBBB)

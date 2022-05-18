@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.fluid.FluidUtils;
@@ -57,27 +57,27 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 
 		// Draw input/out
-		builder.drawText(matrixStack, this, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
-		builder.drawText(matrixStack, this, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
+		builder.drawText(matrixStack, this, Text.translatable("gui.techreborn.unit.in"), 100, 43, 4210752);
+		builder.drawText(matrixStack, this, Text.translatable("gui.techreborn.unit.out"), 140, 43, 4210752);
 
 
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
 
 		if (fluid.isEmpty()) {
-			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
+			textRenderer.draw(matrixStack, Text.translatable("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.type"), 10, 20, 4210752);
+			textRenderer.draw(matrixStack, Text.translatable("gui.techreborn.tank.type"), 10, 20, 4210752);
 			textRenderer.draw(matrixStack, FluidUtils.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
 
 
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.amount"), 10, 50, 4210752);
+			textRenderer.draw(matrixStack, Text.translatable("gui.techreborn.tank.amount"), 10, 50, 4210752);
 			textRenderer.draw(matrixStack, fluid.getAmount().toString(), 10, 60, 4210752);
 
 			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getFluidValueCapacity().getRawValue() * 100));
 
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
+			textRenderer.draw(matrixStack, Text.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
 
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
+			textRenderer.draw(matrixStack, Text.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
 		}
 	}
 

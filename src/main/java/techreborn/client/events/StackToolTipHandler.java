@@ -40,9 +40,9 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -116,19 +116,19 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		}
 
 		if (item == TRContent.Upgrades.SUPERCONDUCTOR.item && Screen.hasControlDown()) {
-			tooltipLines.add(new LiteralText(Formatting.GOLD + "Blame obstinate_3 for this"));
+			tooltipLines.add(Text.literal(Formatting.GOLD + "Blame obstinate_3 for this"));
 		}
 
 		if (item == TRContent.OMNI_TOOL) {
-			tooltipLines.add(new LiteralText(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
+			tooltipLines.add(Text.literal(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
 		}
 
 		if (block == TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block && Screen.hasControlDown()) {
-			tooltipLines.add(new LiteralText("Round and round it goes"));
+			tooltipLines.add(Text.literal("Round and round it goes"));
 		}
 
 		if (UNOBTAINABLE_ORES.contains(block)) {
-			tooltipLines.add(new TranslatableText("techreborn.tooltip.unobtainable").formatted(Formatting.AQUA));
+			tooltipLines.add(Text.translatable("techreborn.tooltip.unobtainable").formatted(Formatting.AQUA));
 		} else if (OreDepthSyncHandler.getOreDepthMap().containsKey(block)) {
 			OreDepth oreDepth = OreDepthSyncHandler.getOreDepthMap().get(block);
 			Text text = getOreDepthText(oreDepth);
@@ -140,10 +140,10 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		return Registry.ITEM.getId(item).getNamespace().equals("techreborn");
 	}
 
-	private static TranslatableText getOreDepthText(OreDepth depth) {
-		return new TranslatableText("techreborn.tooltip.ores.%s".formatted(depth.dimension().name().toLowerCase(Locale.ROOT)),
-				new LiteralText(String.valueOf(depth.minY())).formatted(Formatting.YELLOW),
-				new LiteralText(String.valueOf(depth.maxY())).formatted(Formatting.YELLOW)
+	private static Text getOreDepthText(OreDepth depth) {
+		return Text.translatable("techreborn.tooltip.ores.%s".formatted(depth.dimension().name().toLowerCase(Locale.ROOT)),
+				Text.literal(String.valueOf(depth.minY())).formatted(Formatting.YELLOW),
+				Text.literal(String.valueOf(depth.maxY())).formatted(Formatting.YELLOW)
 		);
 	}
 }

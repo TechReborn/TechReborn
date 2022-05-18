@@ -28,7 +28,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
@@ -70,7 +70,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
 				List<Text> list = Arrays.stream(I18n.translate("techreborn.tooltip.greenhouse.upgrade_available")
 						.split("\\r?\\n"))
-						.map(LiteralText::new)
+						.map(Text::literal)
 						.collect(Collectors.toList());
 
 				matrixStack.push();
@@ -93,7 +93,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
 				List<Text> list = Arrays.stream(I18n.translate("techreborn.tooltip.greenhouse.upgrade_available")
 						.split("\\r?\\n"))
-						.map(LiteralText::new)
+						.map(Text::literal)
 						.collect(Collectors.toList());
 
 				matrixStack.push();

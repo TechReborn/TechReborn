@@ -35,7 +35,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -62,7 +62,7 @@ public class FluidGeneratorRecipeCategory implements DisplayCategory<FluidGenera
 
 	@Override
 	public Text getTitle() {
-		return new TranslatableText(identifier.toString());
+		return Text.translatable(identifier.toString());
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class FluidGeneratorRecipeCategory implements DisplayCategory<FluidGenera
 		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 108, bounds.y + 8, 14, 50), recipeDisplay.getTotalEnergy(), ReiPlugin.EntryAnimation.upwards(5000), point -> {
 			List<Text> list = Lists.newArrayList();
 			list.add(Text.of("Energy"));
-			list.add(new TranslatableText("techreborn.jei.recipe.generator.total", recipeDisplay.getTotalEnergy()).formatted(Formatting.GRAY));
+			list.add(Text.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getTotalEnergy()).formatted(Formatting.GRAY));
 			list.add(Text.of(""));
 			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(new Identifier("techreborn", "")));
 			return Tooltip.create(point, list);

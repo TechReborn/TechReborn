@@ -39,9 +39,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-/*
- * Credits to JsonDestroyer
- */
 @Environment(EnvType.CLIENT)
 public class ModelHelper {
 
@@ -61,7 +58,7 @@ public class ModelHelper {
 
 	public static Reader getReaderForResource(Identifier location) throws IOException {
 		Identifier file = new Identifier(location.getNamespace(), location.getPath() + ".json");
-		Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(file);
+		Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(file).orElseThrow();
 		return new BufferedReader(new InputStreamReader(resource.getInputStream(), Charsets.UTF_8));
 	}
 

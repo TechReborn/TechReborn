@@ -25,6 +25,7 @@
 package techreborn.client.render.entitys;
 
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.TntMinecartEntityRenderer;
@@ -41,10 +42,12 @@ import techreborn.init.TRContent;
  * Created by Mark on 13/03/2016.
  */
 public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
+	private final BlockRenderManager blockRenderManager;
 
 	public NukeRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx);
 		this.shadowRadius = 0.5F;
+		this.blockRenderManager = ctx.getBlockRenderManager();
 	}
 
 	@Nullable
@@ -68,7 +71,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 
 		matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
-		TntMinecartEntityRenderer.renderFlashingBlock(TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuse() / 5 % 2 == 0);
+		TntMinecartEntityRenderer.renderFlashingBlock(blockRenderManager, TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuse() / 5 % 2 == 0);
 		matrixStack.pop();
 		super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
 	}

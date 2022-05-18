@@ -43,7 +43,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.chunk.ChunkStatus;
 import reborncore.common.network.ClientBoundPackets;
@@ -108,13 +108,14 @@ public class RebornCoreCommands {
 										.executes(RebornCoreCommands::renderMod)
 									)
 							)
-							.then(
-								literal("item")
-									.then(
-										argument("item", ItemStackArgumentType.itemStack())
-										.executes(RebornCoreCommands::itemRenderer)
-									)
-							)
+							// TODO 1.19: Waiting on https://github.com/FabricMC/fabric/pull/2227
+//							.then(
+//								literal("item")
+//									.then(
+//										argument("item", ItemStackArgumentType.itemStack())
+//										.executes(RebornCoreCommands::itemRenderer)
+//									)
+//							)
 							.then(
 								literal("hand")
 								.executes(RebornCoreCommands::handRenderer)
@@ -137,7 +138,7 @@ public class RebornCoreCommands {
 				CompletableFuture.supplyAsync(() -> serverChunkManager.getChunk(chunkPosX, chunkPosZ, ChunkStatus.FULL, true), EXECUTOR_SERVICE)
 						.whenComplete((chunk, throwable) -> {
 									int max = (int) Math.pow(size, 2);
-									ctx.getSource().sendFeedback(new LiteralText(String.format("Finished generating %d:%d (%d/%d %d%%)", chunk.getPos().x, chunk.getPos().z, completed.getAndIncrement(), max, completed.get() == 0 ? 0 : (int) ((completed.get() * 100.0f) / max))), true);
+									ctx.getSource().sendFeedback(Text.literal(String.format("Finished generating %d:%d (%d/%d %d%%)", chunk.getPos().x, chunk.getPos().z, completed.getAndIncrement(), max, completed.get() == 0 ? 0 : (int) ((completed.get() * 100.0f) / max))), true);
 								}
 						);
 			}
@@ -175,23 +176,13 @@ public class RebornCoreCommands {
 	}
 
 	private static int handRenderer(CommandContext<ServerCommandSource> ctx) {
-		try {
-			queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getMainHandStack()), ctx);
-		} catch (CommandSyntaxException e) {
-			e.printStackTrace();
-			return 0;
-		}
+		queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getMainHandStack()), ctx);
 
 		return Command.SINGLE_SUCCESS;
 	}
 
 	private static void queueRender(List<ItemStack> stacks, CommandContext<ServerCommandSource> ctx) {
 		IdentifiedPacket packet = ClientBoundPackets.createPacketQueueItemStacksToRender(stacks);
-
-		try {
-			NetworkManager.sendToPlayer(packet, ctx.getSource().getPlayer());
-		} catch (CommandSyntaxException e) {
-			e.printStackTrace();
-		}
+		NetworkManager.sendToPlayer(packet, ctx.getSource().getPlayer());
 	}
 }

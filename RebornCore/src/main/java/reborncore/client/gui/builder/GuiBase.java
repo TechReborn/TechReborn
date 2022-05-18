@@ -42,9 +42,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
@@ -136,7 +134,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	public boolean upgrades;
 
 	public GuiBase(PlayerEntity player, BlockEntity blockEntity, T screenHandler) {
-		super(screenHandler, player.getInventory(), new LiteralText(I18n.translate(blockEntity.getCachedState().getBlock().getTranslationKey())));
+		super(screenHandler, player.getInventory(), Text.literal(I18n.translate(blockEntity.getCachedState().getBlock().getTranslationKey())));
 		this.be = blockEntity;
 		this.builtScreenHandler = (BuiltScreenHandler) screenHandler;
 		selectedTab = null;
@@ -266,13 +264,13 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		if (isPointWithinBounds(-25, 6, 24, 80, mouseX, mouseY) && upgrades
 				&& this.focusedSlot != null && !this.focusedSlot.hasStack()) {
 			List<Text> list = new ArrayList<>();
-			list.add(new TranslatableText("reborncore.gui.tooltip.upgrades"));
+			list.add(Text.translatable("reborncore.gui.tooltip.upgrades"));
 			renderTooltip(matrixStack, list, mouseX, mouseY);
 		}
 		int offset = upgrades ? 82 : 0;
 		for (GuiTab tab : tabs) {
 			if (isPointWithinBounds(-26, 6 + offset, 24, 23, mouseX, mouseY)) {
-				renderTooltip(matrixStack, Collections.singletonList(new TranslatableText(tab.name())), mouseX, mouseY);
+				renderTooltip(matrixStack, Collections.singletonList(Text.translatable(tab.name())), mouseX, mouseY);
 			}
 			offset += 24;
 		}
@@ -290,7 +288,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	protected void drawTitle(MatrixStack matrixStack) {
-		drawCentredText(matrixStack, new TranslatableText(be.getCachedState().getBlock().getTranslationKey()), 6, 4210752, Layer.FOREGROUND);
+		drawCentredText(matrixStack, Text.translatable(be.getCachedState().getBlock().getTranslationKey()), 6, 4210752, Layer.FOREGROUND);
 	}
 
 	public void drawCentredText(MatrixStack matrixStack, Text text, int y, int colour, Layer layer) {

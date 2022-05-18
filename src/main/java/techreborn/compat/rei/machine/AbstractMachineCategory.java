@@ -33,7 +33,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import techreborn.compat.rei.MachineRecipeDisplay;
@@ -56,7 +56,7 @@ public abstract class AbstractMachineCategory<R extends RebornRecipe> implements
 
 	@Override
 	public Text getTitle() {
-		return new TranslatableText(rebornRecipeType.name().toString());
+		return Text.translatable(rebornRecipeType.name().toString());
 	}
 
 	@Override

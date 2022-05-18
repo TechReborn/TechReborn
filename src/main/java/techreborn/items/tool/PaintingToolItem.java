@@ -35,7 +35,7 @@ import net.minecraft.nbt.NbtHelper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
@@ -97,10 +97,10 @@ public class PaintingToolItem extends Item {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		BlockState blockState = getCover(stack);
 		if (blockState != null) {
-			tooltip.add((new TranslatableText(blockState.getBlock().getTranslationKey())).formatted(Formatting.GRAY));
-			tooltip.add((new TranslatableText("techreborn.tooltip.painting_tool.apply")).formatted(Formatting.GOLD));
+			tooltip.add((Text.translatable(blockState.getBlock().getTranslationKey())).formatted(Formatting.GRAY));
+			tooltip.add((Text.translatable("techreborn.tooltip.painting_tool.apply")).formatted(Formatting.GOLD));
 		} else {
-			tooltip.add((new TranslatableText("techreborn.tooltip.painting_tool.select")).formatted(Formatting.GOLD));
+			tooltip.add((Text.translatable("techreborn.tooltip.painting_tool.select")).formatted(Formatting.GOLD));
 		}
 	}
 

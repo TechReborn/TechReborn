@@ -29,7 +29,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import reborncore.common.util.Color;
@@ -50,7 +49,7 @@ public class GuiButtonCustomTexture extends ButtonWidget {
 
 	public GuiButtonCustomTexture(int xPos, int yPos, int u, int v, int buttonWidth, int buttonHeight,
 								  String textureName, String linkedPage, Text name, int buttonU, int buttonV, int textureH, int textureW, ButtonWidget.PressAction pressAction) {
-		super(xPos, yPos, buttonWidth, buttonHeight, LiteralText.EMPTY, pressAction);
+		super(xPos, yPos, buttonWidth, buttonHeight, Text.empty(), pressAction);
 		this.textureU = u;
 		this.textureV = v;
 		this.textureName = textureName;

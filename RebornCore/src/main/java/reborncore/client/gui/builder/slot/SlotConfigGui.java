@@ -28,10 +28,13 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.network.MessageType;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Util;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Unique;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
@@ -41,6 +44,7 @@ import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.ServerBoundPackets;
+import reborncore.common.util.ClientChatUtils;
 import reborncore.common.util.Color;
 
 import java.util.Collections;
@@ -108,7 +112,7 @@ public class SlotConfigGui {
 		}
 		String json = machine.getSlotConfiguration().toJson(machine.getClass().getCanonicalName());
 		MinecraftClient.getInstance().keyboard.setClipboard(json);
-		MinecraftClient.getInstance().player.sendSystemMessage(new LiteralText("Slot configuration copied to clipboard"), Util.NIL_UUID);
+		ClientChatUtils.addHudMessage(Text.literal("Slot configuration copied to clipboard"));
 	}
 
 	public static void pasteFromClipboard() {
@@ -120,9 +124,9 @@ public class SlotConfigGui {
 		try {
 			machine.getSlotConfiguration().readJson(json, machine.getClass().getCanonicalName());
 			NetworkManager.sendToServer(ServerBoundPackets.createPacketConfigSave(machine.getPos(), machine.getSlotConfiguration()));
-			MinecraftClient.getInstance().player.sendSystemMessage(new LiteralText("Slot configuration loaded from clipboard"), Util.NIL_UUID);
+			ClientChatUtils.addHudMessage(Text.literal("Slot configuration loaded from clipboard"));
 		} catch (UnsupportedOperationException e) {
-			MinecraftClient.getInstance().player.sendSystemMessage(new LiteralText(e.getMessage()), Util.NIL_UUID);
+			ClientChatUtils.addHudMessage(Text.literal(e.getMessage()));
 		}
 	}
 

@@ -31,7 +31,7 @@ import net.minecraft.command.BlockDataObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -63,15 +63,15 @@ public class DebugToolItem extends Item {
 		if (context.getWorld().isClient) {
 			return ActionResult.SUCCESS;
 		}
-		sendMessage(context, new LiteralText(getRegistryName(block)));
+		sendMessage(context, Text.literal(getRegistryName(block)));
 
 		for (Entry<Property<?>, Comparable<?>> entry : blockState.getEntries().entrySet()) {
-			sendMessage(context, new LiteralText(getPropertyString(entry)));
+			sendMessage(context, Text.literal(getPropertyString(entry)));
 		}
 
 		EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.getWorld(), context.getBlockPos(), context.getSide());
 		if (energyStorage != null) {
-			sendMessage(context, new LiteralText(getRCPower(energyStorage)));
+			sendMessage(context, Text.literal(getRCPower(energyStorage)));
 		}
 
 		BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
@@ -79,7 +79,7 @@ public class DebugToolItem extends Item {
 			return ActionResult.CONSUME;
 		}
 
-		sendMessage(context, new LiteralText(getBlockEntityType(blockEntity)));
+		sendMessage(context, Text.literal(getBlockEntityType(blockEntity)));
 
 		sendMessage(context, getBlockEntityTags(blockEntity));
 
@@ -90,7 +90,7 @@ public class DebugToolItem extends Item {
 		if (context.getWorld().isClient || context.getPlayer() == null) {
 			return;
 		}
-		context.getPlayer().sendSystemMessage(message, Util.NIL_UUID);
+		context.getPlayer().sendMessage(message);
 	}
 
 	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
@@ -136,7 +136,7 @@ public class DebugToolItem extends Item {
 	}
 
 	private Text getBlockEntityTags(BlockEntity blockEntity){
-		MutableText s = new LiteralText("BlockEntity Tags:").formatted(Formatting.GREEN);
+		MutableText s = Text.literal("BlockEntity Tags:").formatted(Formatting.GREEN);
 
 		BlockDataObject bdo = new BlockDataObject(blockEntity, blockEntity.getPos());
 		s.append(bdo.getNbt().toString());

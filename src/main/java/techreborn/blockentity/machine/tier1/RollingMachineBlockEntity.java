@@ -434,6 +434,11 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		@Override
+		public ItemStack transferSlot(PlayerEntity player, int index) {
+			return ItemStack.EMPTY;
+		}
+
+		@Override
 		public boolean canUse(final PlayerEntity playerEntity) {
 			return true;
 		}

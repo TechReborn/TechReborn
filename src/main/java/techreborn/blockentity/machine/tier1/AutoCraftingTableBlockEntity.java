@@ -125,6 +125,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (inventoryCrafting == null) {
 			inventoryCrafting = new CraftingInventory(new ScreenHandler(null, -1) {
 				@Override
+				public ItemStack transferSlot(PlayerEntity player, int index) {
+					return ItemStack.EMPTY;
+				}
+
+				@Override
 				public boolean canUse(PlayerEntity playerIn) {
 					return false;
 				}

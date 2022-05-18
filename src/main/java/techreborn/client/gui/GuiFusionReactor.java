@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
@@ -89,7 +89,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
 			drawCentredText(matrixStack, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
 			if (blockEntity.state == 2) {
-				drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
+				drawCentredText(matrixStack, Text.literal(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(matrixStack, this, layer);
@@ -101,19 +101,19 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 				if (stackSize.get().getLeft() > 0) {
 
 					drawCentredText(matrixStack,
-							new LiteralText("Required Coils: ")
+							Text.literal("Required Coils: ")
 									.append(String.valueOf(stackSize.get().getLeft()))
 									.append("x64 +")
 									.append(String.valueOf(stackSize.get().getRight()))
 							, 25, 0xFFFFFF, layer);
 				} else {
-					drawCentredText(matrixStack, new LiteralText("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFF, layer);
+					drawCentredText(matrixStack, Text.literal("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFF, layer);
 				}
 
 			}
 		}
-		drawTextWithShadow(matrixStack, this.textRenderer, new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
-		drawTextWithShadow(matrixStack, this.textRenderer, new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
+		drawTextWithShadow(matrixStack, this.textRenderer, Text.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
+		drawTextWithShadow(matrixStack, this.textRenderer, Text.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
 
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, this.blockEntity.getEnergy(), this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}

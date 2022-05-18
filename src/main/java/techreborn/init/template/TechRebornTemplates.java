@@ -30,7 +30,7 @@ import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import techreborn.init.TRContent;
 
 import java.io.IOException;
@@ -69,11 +69,11 @@ public class TechRebornTemplates {
 			process(processor);
 		} catch (Exception e) {
 			e.printStackTrace();
-			ctx.getSource().sendError(new LiteralText(e.getMessage()));
+			ctx.getSource().sendError(Text.literal(e.getMessage()));
 			return 0;
 		}
 
-		ctx.getSource().sendFeedback(new LiteralText("done"), true);
+		ctx.getSource().sendFeedback(Text.literal("done"), true);
 
 		return Command.SINGLE_SUCCESS;
 	}

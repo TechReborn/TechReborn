@@ -32,6 +32,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.AbstractRandom;
 import techreborn.TechReborn;
 
 import java.util.Random;
@@ -45,7 +46,7 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 	private static final ModelIdentifier CELL_GLASS = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_glass"), "inventory");
 
 	@Override
-	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
+	public void emitItemQuads(ItemStack stack, Supplier<AbstractRandom> randomSupplier, RenderContext context) {
 		super.emitItemQuads(stack, randomSupplier, context);
 
 		BakedModelManager bakedModelManager = MinecraftClient.getInstance().getBakedModelManager();

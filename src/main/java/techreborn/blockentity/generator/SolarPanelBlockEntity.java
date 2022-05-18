@@ -30,9 +30,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -217,41 +217,41 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		}
 
 		info.add(
-				new TranslatableText("reborncore.tooltip.energy.maxEnergy")
+				Text.translatable("reborncore.tooltip.energy.maxEnergy")
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(
-								new LiteralText(PowerSystem.getLocalizedPower(getMaxStoredPower()))
+								Text.literal(PowerSystem.getLocalizedPower(getMaxStoredPower()))
 										.formatted(Formatting.GOLD)
 						)
 		);
 
 		info.add(
-				new TranslatableText("techreborn.tooltip.generationRate.day")
+				Text.translatable("techreborn.tooltip.generationRate.day")
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(
-								new LiteralText(PowerSystem.getLocalizedPower(panel.generationRateD))
+								Text.literal(PowerSystem.getLocalizedPower(panel.generationRateD))
 										.formatted(Formatting.GOLD)
 						)
 		);
 
 		info.add(
-				new TranslatableText("techreborn.tooltip.generationRate.night")
+				Text.translatable("techreborn.tooltip.generationRate.night")
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(
-								new LiteralText(PowerSystem.getLocalizedPower(panel.generationRateN))
+								Text.literal(PowerSystem.getLocalizedPower(panel.generationRateN))
 										.formatted(Formatting.GOLD)
 						)
 		);
 
 		info.add(
-				new TranslatableText("reborncore.tooltip.energy.tier")
+				Text.translatable("reborncore.tooltip.energy.tier")
 						.formatted(Formatting.GRAY)
 						.append(": ")
 						.append(
-								new LiteralText(StringUtils.toFirstCapitalAllLowercase(getTier().toString()))
+								Text.literal(StringUtils.toFirstCapitalAllLowercase(getTier().toString()))
 										.formatted(Formatting.GOLD)
 						)
 		);

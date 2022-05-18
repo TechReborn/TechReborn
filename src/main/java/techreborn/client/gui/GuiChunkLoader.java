@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.Text;
 import reborncore.client.ClientChunkManager;
 import reborncore.client.gui.builder.GuiBase;
@@ -54,7 +54,7 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 		addDrawableChild(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
 		addDrawableChild(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
 
-		addDrawableChild(new ButtonWidget(x + 10, y + 70, 155, 20, new LiteralText("Toggle Loaded Chunks"), b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
+		addDrawableChild(new ButtonWidget(x + 10, y + 70, 155, 20, Text.literal("Toggle Loaded Chunks"), b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 
 		if (hideGuiElements()) return;
 
-		Text text = new LiteralText("Radius: ")
+		Text text = Text.literal("Radius: ")
 				.append(String.valueOf(blockEntity.getRadius()));
 		drawCentredText(matrixStack, text, 25, 4210752, layer);
 	}

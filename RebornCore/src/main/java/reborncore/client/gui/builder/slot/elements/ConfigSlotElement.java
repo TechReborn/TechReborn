@@ -31,7 +31,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.SlotConfigGui;
 import reborncore.client.gui.slots.BaseSlot;
@@ -74,14 +74,14 @@ public class ConfigSlotElement extends ElementBase {
 		}));
 
 		if (inputEnabled) {
-			elements.add(new CheckBoxElement(new TranslatableText("reborncore.gui.slotconfig.autoinput"), 0xFFFFFFFF, x - 26, y + 42, "input", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
+			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), 0xFFFFFFFF, x - 26, y + 42, "input", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
 					checkBoxElement -> checkBoxElement.machineBase.getSlotConfiguration().getSlotDetails(checkBoxElement.slotID).autoInput()).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
 				popupElement.updateCheckBox((CheckBoxElement) element, "input", gui12);
 				return true;
 			}));
 		}
 
-		elements.add(new CheckBoxElement(new TranslatableText("reborncore.gui.slotconfig.autooutput"), 0xFFFFFFFF, x - 26, y + 57, "output", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autooutput"), 0xFFFFFFFF, x - 26, y + 57, "output", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
 				checkBoxElement -> checkBoxElement.machineBase.getSlotConfiguration().getSlotDetails(checkBoxElement.slotID).autoOutput()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
 			popupElement.updateCheckBox((CheckBoxElement) element, "output", gui13);
 			return true;
@@ -89,7 +89,7 @@ public class ConfigSlotElement extends ElementBase {
 
 		if (gui.getMachine() instanceof SlotConfiguration.SlotFilter slotFilter) {
 			if (Arrays.stream(slotFilter.getInputSlots()).anyMatch(value -> value == slotId)) {
-				elements.add(new CheckBoxElement(new TranslatableText("reborncore.gui.slotconfig.filter_input"), 0xFFFFFFFF, x - 26, y + 72, "filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
+				elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.filter_input"), 0xFFFFFFFF, x - 26, y + 72, "filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
 						checkBoxElement -> checkBoxElement.machineBase.getSlotConfiguration().getSlotDetails(checkBoxElement.slotID).filter()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
 					popupElement.updateCheckBox((CheckBoxElement) element, "filter", gui13);
 					return true;

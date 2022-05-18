@@ -64,13 +64,13 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 	}
 
 	@Override
-	public void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions) {
-		logPositions.stream()
+	public void generate(Generator generator) {
+		generator.getLogPositions().stream()
 			.max(Comparator.comparingInt(BlockPos::getY))
 			.ifPresent(blockPos -> {
 				for (int i = 0; i < spireHeight; i++) {
 					BlockPos sPos = blockPos.up(i);
-					replacer.accept(sPos, provider.getBlockState(random, sPos));
+					generator.replace(sPos, provider.getBlockState(generator.getRandom(), sPos));
 				}
 			});
 	}

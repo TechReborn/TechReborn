@@ -34,7 +34,6 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -59,7 +58,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			((IListInfoProvider) item).addInfo(tooltipLines, false, false);
 		}
 		else if (item instanceof RcEnergyItem energyItem) {
-			LiteralText line1 = new LiteralText(PowerSystem.getLocalizedPowerNoSuffix(energyItem.getStoredEnergy(itemStack)));
+			MutableText line1 = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(energyItem.getStoredEnergy(itemStack)));
 			line1.append("/");
 			line1.append(PowerSystem.getLocalizedPower(energyItem.getEnergyCapacity()));
 			line1.formatted(Formatting.GOLD);
@@ -76,7 +75,8 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 				double inputRate = energyItem.getEnergyMaxInput();
 				double outputRate = energyItem.getEnergyMaxOutput();
-				LiteralText line3 = new LiteralText("");
+
+				MutableText line3 = Text.literal("");
 				if (inputRate != 0 && inputRate == outputRate){
 					line3.append(I18n.translate("techreborn.tooltip.transferRate"));
 					line3.append(" : ");
@@ -111,7 +111,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 						if (blockEntity != null) {
 							blockEntity.readNbt(blockEntityData);
 							hasData = true;
-							tooltipLines.add(new LiteralText(I18n.translate("reborncore.tooltip.has_data")).formatted(Formatting.DARK_GREEN));
+							tooltipLines.add(Text.literal(I18n.translate("reborncore.tooltip.has_data")).formatted(Formatting.DARK_GREEN));
 						}
 					}
 					if (blockEntity instanceof IListInfoProvider) {

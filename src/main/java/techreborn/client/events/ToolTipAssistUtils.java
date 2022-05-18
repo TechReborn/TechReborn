@@ -26,7 +26,7 @@ package techreborn.client.events;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import techreborn.config.TechRebornConfig;
@@ -63,7 +63,7 @@ public class ToolTipAssistUtils {
 
 		// Add reminder that they can use shift to calculate the entire stack
 		if (shouldStackCalculate && !shiftHeld) {
-			tips.add(new LiteralText(instructColour + I18n.translate("techreborn.tooltip.stack_info")));
+			tips.add(Text.literal(instructColour + I18n.translate("techreborn.tooltip.stack_info")));
 		}
 
 		return tips;
@@ -82,10 +82,10 @@ public class ToolTipAssistUtils {
 				String[] infoLines = info.split("\\r?\\n");
 
 				for (String infoLine : infoLines) {
-					list.add(1, new LiteralText(infoColour + infoLine));
+					list.add(1, Text.literal(infoColour + infoLine));
 				}
 			} else {
-				list.add(new LiteralText(instructColour + I18n.translate("techreborn.tooltip.more_info")));
+				list.add(Text.literal(instructColour + I18n.translate("techreborn.tooltip.more_info")));
 			}
 		}
 	}
@@ -104,11 +104,11 @@ public class ToolTipAssistUtils {
 	}
 
 	private static Text getPositive(String text, int value, String unit) {
-		return new LiteralText(posColour + getStatStringUnit(text, value, unit));
+		return Text.literal(posColour + getStatStringUnit(text, value, unit));
 	}
 
 	private static Text getNegative(String text, int value, String unit) {
-		return new LiteralText(negColour + getStatStringUnit(text, value, unit));
+		return Text.literal(negColour + getStatStringUnit(text, value, unit));
 	}
 
 	private static String getStatStringUnit(String text, int value, String unit) {

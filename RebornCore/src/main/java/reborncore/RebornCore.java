@@ -29,7 +29,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerBlockEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
-import net.fabricmc.fabric.api.event.world.WorldTickCallback;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
@@ -95,7 +94,7 @@ public class RebornCore implements ModInitializer {
 		  each game loop. SERVER and WORLD ticks only run on the server. WORLDLOAD
 		  ticks run only on the server, and only when worlds are loaded.
 		 */
-		WorldTickCallback.EVENT.register(MultiblockRegistry::tickStart);
+		ServerTickEvents.START_WORLD_TICK.register(MultiblockRegistry::tickStart);
 
 		// packets
 		ServerBoundPackets.init();

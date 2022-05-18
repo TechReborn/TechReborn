@@ -25,7 +25,7 @@
 package reborncore.client.gui.builder.slot.elements;
 
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.util.Tank;
 
@@ -51,12 +51,12 @@ public class ConfigFluidElement extends ElementBase {
 			return true;
 		}));
 
-		elements.add(new CheckBoxElement(new TranslatableText("reborncore.gui.fluidconfig.pullin"), 0xFFFFFFFF, x - 26, y + 42, "input", 0, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), 0xFFFFFFFF, x - 26, y + 42, "input", 0, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
 				checkBoxElement -> checkBoxElement.machineBase.fluidConfiguration.autoInput()).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
 			popupElement.updateCheckBox((CheckBoxElement) element, "input", gui12);
 			return true;
 		}));
-		elements.add(new CheckBoxElement(new TranslatableText("reborncore.gui.fluidconfig.pumpout"), 0xFFFFFFFF, x - 26, y + 57, "output", 0, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pumpout"), 0xFFFFFFFF, x - 26, y + 57, "output", 0, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
 				checkBoxElement -> checkBoxElement.machineBase.fluidConfiguration.autoOutput()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
 			popupElement.updateCheckBox((CheckBoxElement) element, "output", gui13);
 			return true;

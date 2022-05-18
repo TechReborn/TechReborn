@@ -29,7 +29,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -83,7 +83,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 				}
 			}
 
-			renderTooltip(matrices, new LiteralText(message), mouseX, mouseY);
+			renderTooltip(matrices, Text.literal(message), mouseX, mouseY);
 		};
 
 		addDrawableChild(new TexturedButtonWidget(
@@ -99,7 +99,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 				16,
 				b -> onClick(),
 				tooltipSupplier,
-				LiteralText.EMPTY));
+				Text.empty()));
 	}
 
 	@Override

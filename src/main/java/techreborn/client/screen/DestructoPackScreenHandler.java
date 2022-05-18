@@ -45,6 +45,11 @@ public class DestructoPackScreenHandler extends ScreenHandler {
 	}
 
 	@Override
+	public ItemStack transferSlot(PlayerEntity player, int index) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
 	public boolean canUse(PlayerEntity arg0) {
 		return true;
 	}

@@ -28,9 +28,9 @@ import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.Text;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
@@ -55,14 +55,14 @@ public class BlastFurnaceCategory<R extends RebornRecipe> extends AbstractEnergy
 		widgets.add(Widgets.createSlot(new Point(bounds.x + 101 + 20 - 17, bounds.y + 45 - 19)).entries(getOutput(recipeDisplay, 1)).disableBackground().markOutput());
 		widgets.add(ReiPlugin.createProgressBar(bounds.x + 76 - 17, bounds.y + 48 - 19, recipeDisplay.getTime() * 50, GuiBuilder.ProgressDirection.RIGHT));
 
-		Text neededHeat = new LiteralText(String.valueOf(recipeDisplay.getHeat())).append(" ").append(new TranslatableText("techreborn.jei.recipe.heat"));
+		Text neededHeat = Text.literal(String.valueOf(recipeDisplay.getHeat())).append(" ").append(Text.translatable("techreborn.jei.recipe.heat"));
 		widgets.add(Widgets.createLabel(new Point(bounds.getMaxX() - 5, bounds.y + 5), neededHeat)
 				.shadow(false)
 				.rightAligned()
 				.color(0xFF404040, 0xFFBBBBBB)
 		);
 
-		widgets.add(Widgets.createLabel(new Point(bounds.x + 24, bounds.y + 5), new TranslatableText("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
+		widgets.add(Widgets.createLabel(new Point(bounds.x + 24, bounds.y + 5), Text.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
 				.shadow(false)
 				.leftAligned()
 				.color(0xFF404040, 0xFFBBBBBB)

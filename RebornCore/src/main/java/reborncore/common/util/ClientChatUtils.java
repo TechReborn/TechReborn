@@ -1,7 +1,7 @@
 /*
- * This file is part of TechReborn, licensed under the MIT License (MIT).
+ * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) 2021 TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +22,22 @@
  * SOFTWARE.
  */
 
-package techreborn.world;
+package reborncore.common.util;
 
-import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.util.math.random.AbstractRandom;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.MessageSender;
+import net.minecraft.network.MessageType;
+import net.minecraft.text.Text;
+import net.minecraft.util.Util;
+import net.minecraft.util.registry.Registry;
 
-import java.util.Random;
+public class ClientChatUtils {
+	public static void addHudMessage(Text text) {
+		MinecraftClient.getInstance().inGameHud.onChatMessage(getSystemMessageType(), text, new MessageSender(Util.NIL_UUID, text));
+	}
 
-public class RubberSaplingGenerator extends SaplingGenerator {
-	@Nullable
-	@Override
-	protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(AbstractRandom random, boolean bees) {
-		return WorldGenerator.getEntry(BuiltinRegistries.CONFIGURED_FEATURE, WorldGenerator.RUBBER_TREE_FEATURE);
+	private static MessageType getSystemMessageType() {
+		Registry<MessageType> registry = MinecraftClient.getInstance().world.getRegistryManager().get(Registry.MESSAGE_TYPE_KEY);
+		return registry.get(MessageType.SYSTEM);
 	}
 }

@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
@@ -65,7 +65,7 @@ public class GuiPlayerDetector extends GuiBase<BuiltScreenHandler> {
 
 		if (hideGuiElements()) return;
 
-		Text text = new LiteralText("Radius: ").append(String.valueOf(blockEntity.getCurrentRadius()));
+		Text text = Text.literal("Radius: ").append(String.valueOf(blockEntity.getCurrentRadius()));
 		drawCentredText(matrixStack, text, 25, 4210752, layer);
 	}
 

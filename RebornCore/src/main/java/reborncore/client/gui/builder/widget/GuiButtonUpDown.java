@@ -27,7 +27,7 @@ package reborncore.client.gui.builder.widget;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
 
 /**
@@ -39,7 +39,7 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	UpDownButtonType type;
 
 	public GuiButtonUpDown(int x, int y, GuiBase<?> gui, ButtonWidget.PressAction pressAction, UpDownButtonType type) {
-		super(x, y, 12, 12, LiteralText.EMPTY, pressAction);
+		super(x, y, 12, 12, Text.empty(), pressAction);
 		this.gui = gui;
 		this.type = type;
 	}
