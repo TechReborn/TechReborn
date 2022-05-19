@@ -3,7 +3,7 @@ package techreborn.blockentity.machine.tier0.block;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
+import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 
 public interface BlockProcessor {
 

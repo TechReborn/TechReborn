@@ -37,10 +37,10 @@ import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
-import reborncore.client.screen.builder.Syncable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
+import reborncore.common.screen.Syncable;
 
 import java.util.List;
 import java.util.function.Consumer;

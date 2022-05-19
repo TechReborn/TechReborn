@@ -1,7 +1,7 @@
 package techreborn.blockentity.machine.tier0.block.blockplacer;
 
 import net.minecraft.nbt.NbtCompound;
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
+import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
 
 /**

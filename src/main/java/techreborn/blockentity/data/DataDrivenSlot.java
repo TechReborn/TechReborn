@@ -28,7 +28,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import net.minecraft.util.JsonHelper;
 import org.jetbrains.annotations.NotNull;
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
+import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.List;

@@ -78,6 +78,7 @@ allprojects {
 
     loom {
         runtimeOnlyLog4j = true
+        splitEnvironmentSourceSets()
     }
 
     // Shared deps between TR and RC
@@ -178,9 +179,33 @@ sourceSets {
     }
 }
 
+allprojects {
+    loom {
+        mods {
+            reborncore {
+                sourceSet project(":RebornCore").sourceSets.main
+                sourceSet project(":RebornCore").sourceSets.client
+            }
+            techreborn {
+                sourceSet project(":").sourceSets.main
+                sourceSet project(":").sourceSets.client
+            }
+            "techreborn-datagen" {
+                sourceSet project(":").sourceSets.datagen
+            }
+            "techreborn-gametest" {
+                sourceSet project(":").sourceSets.gametest
+            }
+        }
+    }
+}
+
 // TechReborn specific dependencies
 dependencies {
     api project(path: ":RebornCore", configuration: "namedElements")
+    clientCompileClasspath project(":RebornCore").sourceSets.client.output
+    clientRuntimeClasspath project(":RebornCore").sourceSets.client.output
+
     include project(":RebornCore")
 
     disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"

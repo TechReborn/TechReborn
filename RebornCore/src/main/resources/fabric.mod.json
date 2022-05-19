@@ -21,7 +21,7 @@
     ]
   },
   "mixins": [
-    "reborncore.client.mixins.json",
+	  "reborncore.client.mixins.json",
     "reborncore.common.mixins.json"
   ],
   "depends": {

@@ -32,7 +32,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;

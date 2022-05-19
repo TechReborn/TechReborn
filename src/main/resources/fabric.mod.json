@@ -20,13 +20,13 @@
       "techreborn.TechRebornClient"
     ],
     "rei": [
-      "techreborn.compat.rei.ReiPlugin"
+		"techreborn.client.compat.rei.ReiPlugin"
     ]
   },
   "custom": {
 	"dashloader:customobject": [
-	  "techreborn.compat.dashloader.DashDynamicBucketBakedModel",
-	  "techreborn.compat.dashloader.DashDynamicCellBakedModel"
+	  "techreborn.client.compat.dashloader.DashDynamicBucketBakedModel",
+	  "techreborn.client.compat.dashloader.DashDynamicCellBakedModel"
 	]
   },
   "depends": {
