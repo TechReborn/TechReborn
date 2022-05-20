@@ -208,6 +208,7 @@ dependencies {
 
     include project(":RebornCore")
 
+    // Blocked on https://github.com/shedaniel/RoughlyEnoughItems/issues/856
     disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
@@ -223,21 +224,24 @@ dependencies {
 }
 
 def optionalDependency(String dep) {
-	dependencies.modLocalRuntime (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
-	dependencies.modCompileOnly (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
+    def excludes = {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude module: "nbt-crafting"
+        exclude module: "modmenu"
+    }
+
+	dependencies.modLocalRuntime(dep, excludes)
+	dependencies.modCompileOnly(dep, excludes)
 }
 
 def disabledOptionalDependency(String dep) {
-	dependencies.modCompileOnly (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
+    def excludes = {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude module: "nbt-crafting"
+        exclude module: "modmenu"
+    }
+
+	dependencies.modCompileOnly(dep, excludes)
 }
 
 loom {
