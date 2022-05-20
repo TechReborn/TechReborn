@@ -30,7 +30,7 @@
 	]
   },
   "depends": {
-    "fabricloader": ">=0.13.3",
+    "fabricloader": ">=0.14.5",
 	"fabric": ">=0.51.1",
     "reborncore": "*",
 	"team_reborn_energy": ">=2.2.0",

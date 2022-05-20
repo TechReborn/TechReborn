@@ -7,6 +7,7 @@
 *.iml
 *.ipr
 *.iws
+.vscode
 /.metadata
 /.settings
 /classpath
@@ -28,3 +29,4 @@ changelog.txt
 
 /RebornCore/.gradle
 /RebornCore/build
+/RebornCore/bin
