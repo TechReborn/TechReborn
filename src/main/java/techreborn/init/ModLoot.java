@@ -88,10 +88,11 @@ public class ModLoot {
 				.build();
 
 		LootPoolEntry rubber = ItemEntry.builder(Parts.RUBBER).weight(10).build();
+		LootPoolEntry scrap = ItemEntry.builder(Parts.SCRAP).weight(10).build();
 		LootPoolEntry treeTap = ItemEntry.builder(TRContent.TREE_TAP).weight(10)
 			.apply(SetDamageLootFunction.builder(UniformLootNumberProvider.create(0.0f, 0.9f))).build();
 
-		LootPool poolFishingJunk = FabricLootPoolBuilder.builder().withEntry(rubber).withEntry(treeTap).build();
+		LootPool poolFishingJunk = FabricLootPoolBuilder.builder().withEntry(rubber).withEntry(scrap).withEntry(treeTap).build();
 
 		LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, ident, supplier, setter) -> {
 			String stringId = ident.toString();
