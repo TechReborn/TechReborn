@@ -31,8 +31,6 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
-import net.minecraft.util.math.random.Random;
-
 public class RubberSaplingGenerator extends SaplingGenerator {
 	@Nullable
 	@Override

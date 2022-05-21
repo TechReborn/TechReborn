@@ -41,8 +41,8 @@ import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.WorldUtils;
-import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.blockentity.GuiType;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.init.TRContent;
 
 public class StorageUnitBlock extends BlockMachineBase {

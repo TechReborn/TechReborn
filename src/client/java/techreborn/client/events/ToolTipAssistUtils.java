@@ -27,7 +27,6 @@ package techreborn.client.events;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;

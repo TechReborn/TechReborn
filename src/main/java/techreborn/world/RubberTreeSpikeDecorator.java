@@ -26,19 +26,14 @@ package techreborn.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 import java.util.Comparator;
-import java.util.List;
-import net.minecraft.util.math.random.Random;
-import java.util.function.BiConsumer;
 
 public class RubberTreeSpikeDecorator  extends TreeDecorator {
 	public static final Codec<RubberTreeSpikeDecorator> CODEC = RecordCodecBuilder.create(instance ->

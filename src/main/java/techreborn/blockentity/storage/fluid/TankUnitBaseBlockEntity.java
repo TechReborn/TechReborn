@@ -37,17 +37,17 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import reborncore.common.fluid.FluidUtils;
 
 import java.util.List;
 

@@ -31,16 +31,16 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
+import reborncore.client.ClientChatUtils;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
 import reborncore.client.gui.builder.slot.elements.ElementBase;
 import reborncore.client.gui.builder.slot.elements.SlotType;
-import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.ServerBoundPackets;
-import reborncore.client.ClientChatUtils;
+import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
 
 import java.util.Collections;

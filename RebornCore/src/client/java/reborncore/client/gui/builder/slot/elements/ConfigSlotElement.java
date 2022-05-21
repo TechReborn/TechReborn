@@ -34,8 +34,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.SlotConfigGui;
-import reborncore.common.screen.slot.BaseSlot;
 import reborncore.common.blockentity.SlotConfiguration;
+import reborncore.common.screen.slot.BaseSlot;
 
 import java.util.ArrayList;
 import java.util.Arrays;

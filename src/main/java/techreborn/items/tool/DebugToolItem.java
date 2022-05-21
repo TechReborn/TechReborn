@@ -31,7 +31,6 @@ import net.minecraft.command.BlockDataObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.Text;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;

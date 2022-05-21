@@ -41,7 +41,6 @@ import reborncore.common.powerSystem.RcEnergyItem;
 
 import java.util.Collections;
 import java.util.HashSet;
-import net.minecraft.util.math.random.Random;
 import java.util.Set;
 
 /**

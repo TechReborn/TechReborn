@@ -41,8 +41,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
 
-import net.minecraft.util.math.random.Random;
-
 public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 
 	public static final int maxCharge = TechRebornConfig.rockCutterCharge;

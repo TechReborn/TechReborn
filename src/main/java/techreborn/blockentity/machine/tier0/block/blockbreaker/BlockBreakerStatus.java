@@ -1,8 +1,6 @@
 package techreborn.blockentity.machine.tier0.block.blockbreaker;
 
 import net.minecraft.text.Text;
-import net.minecraft.text.Text;
-import net.minecraft.text.Text;
 import reborncore.common.util.Color;
 import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
 

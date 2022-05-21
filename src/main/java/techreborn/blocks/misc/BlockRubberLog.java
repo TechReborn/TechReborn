@@ -54,8 +54,6 @@ import techreborn.init.TRContent;
 import techreborn.items.tool.TreeTapItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
 
-import net.minecraft.util.math.random.Random;
-
 /**
  * Created by modmuss50 on 19/02/2016.
  */

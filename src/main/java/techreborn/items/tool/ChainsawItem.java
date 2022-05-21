@@ -38,8 +38,6 @@ import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-import net.minecraft.util.math.random.Random;
-
 public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 	public final int maxCharge;

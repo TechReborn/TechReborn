@@ -38,6 +38,7 @@ import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -46,7 +47,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.items.DynamicCellItem;
 
 import java.util.List;
-import net.minecraft.util.math.random.Random;
 
 /**
  * Created by drcrazy on 10-Jan-20 for TechReborn-1.15.

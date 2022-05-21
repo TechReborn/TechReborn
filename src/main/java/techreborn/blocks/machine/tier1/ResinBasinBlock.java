@@ -48,7 +48,6 @@ import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.machine.tier1.ResinBasinBlockEntity;
 import techreborn.init.TRContent;
 
-import java.util.UUID;
 import java.util.function.BiFunction;
 
 public class ResinBasinBlock extends BaseBlockEntityProvider {

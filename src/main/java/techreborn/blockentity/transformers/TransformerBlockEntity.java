@@ -30,7 +30,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -39,8 +38,8 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.util.StringUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.StringUtils;
 import techreborn.blocks.transformers.BlockTransformer;
 import techreborn.config.TechRebornConfig;
 

@@ -36,7 +36,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.text.Text;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -52,8 +51,8 @@ import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.blockentity.GuiType;
+import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.utils.MessageIDs;
 
 public class PlayerDetectorBlock extends BlockMachineBase {

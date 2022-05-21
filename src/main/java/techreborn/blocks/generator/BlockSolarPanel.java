@@ -31,8 +31,8 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.GuiType;
+import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.init.TRContent.SolarPanels;
 
 /**

@@ -34,7 +34,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

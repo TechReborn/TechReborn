@@ -27,9 +27,6 @@ package techreborn.datagen.recipes.machine.extractor
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
-import net.minecraft.tag.TagKey
-import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 

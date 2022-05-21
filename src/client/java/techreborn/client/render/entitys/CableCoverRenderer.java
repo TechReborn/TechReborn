@@ -38,8 +38,6 @@ import net.minecraft.util.math.random.Random;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
 
-import net.minecraft.util.math.random.Random;
-
 public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity> {
 
 	public CableCoverRenderer(BlockEntityRendererFactory.Context ctx) {

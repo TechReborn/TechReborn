@@ -25,8 +25,8 @@
 package techreborn.blocks;
 
 import net.minecraft.util.Identifier;
-import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.GuiType;
+import techreborn.blockentity.data.DataDrivenBEProvider;
 
 /**
  * @author modmuss50

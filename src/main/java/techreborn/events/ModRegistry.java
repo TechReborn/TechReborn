@@ -25,7 +25,6 @@
 package techreborn.events;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
@@ -33,11 +32,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
 import reborncore.RebornRegistry;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.TradeUtils;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
@@ -53,17 +49,13 @@ import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.armor.TRArmourItem;
 import techreborn.items.tool.*;
 import techreborn.items.tool.advanced.AdvancedJackhammerItem;
-import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
+import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.industrial.*;
 import techreborn.items.tool.vanilla.*;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author drcrazy

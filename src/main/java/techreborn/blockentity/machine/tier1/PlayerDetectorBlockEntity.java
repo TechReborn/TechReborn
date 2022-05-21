@@ -34,13 +34,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.WorldUtils;
-
 import techreborn.blocks.machine.tier1.PlayerDetectorBlock;
 import techreborn.blocks.machine.tier1.PlayerDetectorBlock.PlayerDetectorType;
 import techreborn.config.TechRebornConfig;

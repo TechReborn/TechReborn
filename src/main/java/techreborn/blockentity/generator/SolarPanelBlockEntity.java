@@ -24,7 +24,6 @@
 
 package techreborn.blockentity.generator;
 
-import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,19 +36,21 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.SolarPanels;
+
+import java.util.List;
 
 public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 

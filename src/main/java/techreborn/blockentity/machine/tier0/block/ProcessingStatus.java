@@ -1,7 +1,6 @@
 package techreborn.blockentity.machine.tier0.block;
 
 import net.minecraft.text.Text;
-import net.minecraft.text.Text;
 
 /**
  * <b>Interface describing different statuses of a Processing Machine</b>

@@ -33,7 +33,6 @@ import net.minecraft.recipe.Ingredient
 import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
-import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory

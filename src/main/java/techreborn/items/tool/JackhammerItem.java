@@ -40,8 +40,6 @@ import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 import techreborn.utils.ToolsUtil;
 
-import net.minecraft.util.math.random.Random;
-
 public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	public final int maxCharge;
 	public final RcEnergyTier tier;

@@ -20,7 +20,6 @@ import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
 import reborncore.common.blockentity.MultiblockWriter;
 
-import net.minecraft.util.math.random.Random;
 import java.util.function.BiPredicate;
 
 /**

@@ -34,7 +34,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.recipes.IRecipeInput;

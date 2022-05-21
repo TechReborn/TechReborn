@@ -50,8 +50,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.text.Text;
-import net.minecraft.text.Text;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
@@ -66,13 +64,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
+import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
-import reborncore.common.fluid.FluidUtils;
 
 /**
  * Created by modmuss50 on 17/05/2016.

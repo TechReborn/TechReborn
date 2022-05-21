@@ -25,14 +25,12 @@
 package techreborn.packets;
 
 import net.minecraft.util.Identifier;
-import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
 import techreborn.world.OreDepth;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class ClientboundPackets {
 	public static final Identifier ORE_DEPTH = new Identifier(TechReborn.MOD_ID, "ore_depth");

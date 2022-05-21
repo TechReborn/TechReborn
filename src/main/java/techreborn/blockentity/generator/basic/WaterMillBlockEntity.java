@@ -36,7 +36,6 @@ import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

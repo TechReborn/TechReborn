@@ -52,9 +52,9 @@ import reborncore.client.gui.builder.slot.GuiTab;
 import reborncore.client.gui.builder.slot.SlotConfigGui;
 import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.slot.PlayerInventorySlot;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 import java.util.ArrayList;
 import java.util.Collections;
