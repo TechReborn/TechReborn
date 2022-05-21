@@ -19,7 +19,7 @@
     "client": [
       "techreborn.TechRebornClient"
     ],
-    "rei": [
+    "rei_client": [
 		"techreborn.client.compat.rei.ReiPlugin"
     ]
   },

@@ -3,11 +3,10 @@ package reborncore.common.util;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
@@ -15,7 +14,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public final class TradeUtils {
@@ -57,7 +55,7 @@ public final class TradeUtils {
 
 			@Nullable
 			@Override
-			public TradeOffer create(Entity entity, AbstractRandom random) {
+			public TradeOffer create(Entity entity, Random random) {
 				return copy(offer);
 			}
 		};

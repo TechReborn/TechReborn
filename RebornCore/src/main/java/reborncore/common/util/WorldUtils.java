@@ -34,7 +34,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -59,7 +59,7 @@ public class WorldUtils {
 
 
 	public static void dropItem(ItemStack itemStack, World world, BlockPos pos) {
-		Random rand = new Random();
+		Random rand = Random.create();
 
 		float dX = rand.nextFloat() * 0.8F + 0.1F;
 		float dY = rand.nextFloat() * 0.8F + 0.1F;

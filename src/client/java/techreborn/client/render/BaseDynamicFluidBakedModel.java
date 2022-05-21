@@ -46,7 +46,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.RenderUtil;
@@ -66,7 +66,7 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 	public abstract ModelIdentifier getFluidModel();
 
 	@Override
-	public void emitItemQuads(ItemStack stack, Supplier<AbstractRandom> randomSupplier, RenderContext context) {
+	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
 		Fluid fluid = Fluids.EMPTY;
 		if (stack.getItem() instanceof ItemFluidInfo fluidInfo) {
 			fluid = fluidInfo.getFluid(stack);
@@ -106,12 +106,12 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 	}
 
 	@Override
-	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<AbstractRandom> randomSupplier, RenderContext context) {
+	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 
 	}
 
 	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, AbstractRandom random) {
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
 		return Collections.emptyList();
 	}
 

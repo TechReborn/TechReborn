@@ -27,7 +27,7 @@ package techreborn.init.template;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
@@ -46,7 +46,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class TechRebornTemplates {
 
 	public static void init() {
-		CommandRegistrationCallback.EVENT.register((dispatcher, b) -> dispatcher.register(
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(
 				literal("techreborn")
 						.then(literal("template")
 								.requires(source -> source.hasPermissionLevel(3))

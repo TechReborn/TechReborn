@@ -208,10 +208,12 @@ dependencies {
 
     include project(":RebornCore")
 
-    // Blocked on https://github.com/shedaniel/RoughlyEnoughItems/issues/856
-    disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
+
+    // REI's deps depend on the deprecated command module.
+    modRuntimeOnly "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fapi_version}"
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.1'

@@ -41,7 +41,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 import java.util.Set;
 
 /**
@@ -56,8 +56,7 @@ public class ToolsUtil {
 		if (blockState.getHardness(world, pos) == -1.0F) {
 			return;
 		}
-		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool) + 1) == 0) {
+		if (world.getRandom().nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool) + 1) == 0) {
 			if (!((RcEnergyItem) tool.getItem()).tryUseEnergy(tool, cost)) {
 				return;
 			}

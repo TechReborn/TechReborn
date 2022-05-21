@@ -46,7 +46,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.items.DynamicCellItem;
 
 import java.util.List;
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 /**
  * Created by drcrazy on 10-Jan-20 for TechReborn-1.15.
@@ -58,7 +58,7 @@ public class TRDispenserBehavior {
 			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new ItemDispenserBehavior() {
 				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 					List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(pointer.getWorld());
-					int random = new Random().nextInt(scrapboxRecipeList.size());
+					int random = Random.create().nextInt(scrapboxRecipeList.size());
 					ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0).copy();
 					stack.split(1);
 

@@ -29,10 +29,10 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.ItemStackArgumentType;
@@ -72,10 +72,10 @@ public class RebornCoreCommands {
 			CommandSource.suggestMatching(FabricLoader.getInstance().getAllMods().stream().map(modContainer -> modContainer.getMetadata().getId()), builder);
 
 	public static void setup() {
-		CommandRegistrationCallback.EVENT.register(((dispatcher, isDedicated) -> RebornCoreCommands.addCommands(dispatcher)));
+		CommandRegistrationCallback.EVENT.register((RebornCoreCommands::addCommands));
 	}
 
-	private static void addCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
+	private static void addCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
 		dispatcher.register(
 				literal("reborncore")
 
@@ -108,14 +108,13 @@ public class RebornCoreCommands {
 										.executes(RebornCoreCommands::renderMod)
 									)
 							)
-							// TODO 1.19: Waiting on https://github.com/FabricMC/fabric/pull/2227
-//							.then(
-//								literal("item")
-//									.then(
-//										argument("item", ItemStackArgumentType.itemStack())
-//										.executes(RebornCoreCommands::itemRenderer)
-//									)
-//							)
+							.then(
+								literal("item")
+									.then(
+										argument("item", ItemStackArgumentType.itemStack(registryAccess))
+										.executes(RebornCoreCommands::itemRenderer)
+									)
+							)
 							.then(
 								literal("hand")
 								.executes(RebornCoreCommands::handRenderer)

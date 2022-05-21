@@ -43,7 +43,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
@@ -54,7 +54,7 @@ import techreborn.init.TRContent;
 import techreborn.items.tool.TreeTapItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
 
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 /**
  * Created by modmuss50 on 19/02/2016.
@@ -112,7 +112,7 @@ public class BlockRubberLog extends PillarBlock {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, AbstractRandom random) {
+	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 		super.randomTick(state, worldIn, pos, random);
 		if (state.get(AXIS) != Direction.Axis.Y) return;
 		if (!state.get(SHOULD_SAP)) return;

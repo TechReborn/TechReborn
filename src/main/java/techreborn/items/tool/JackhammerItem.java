@@ -40,7 +40,7 @@ import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 import techreborn.utils.ToolsUtil;
 
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	public final int maxCharge;
@@ -85,8 +85,7 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
+		if (worldIn.getRandom().nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			tryUseEnergy(stack, cost);
 		}
 		return true;
