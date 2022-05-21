@@ -110,8 +110,8 @@ public class TRContent {
 	public static Block RUBBER_LEAVES;
 	public static Block RUBBER_LOG;
 	public static TagKey<Item> RUBBER_LOGS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
-	public static Block RUBBER_PLANK_SLAB;
-	public static Block RUBBER_PLANK_STAIR;
+	public static Block RUBBER_SLAB;
+	public static Block RUBBER_STAIR;
 	public static Block RUBBER_PLANKS;
 	public static Block RUBBER_SAPLING;
 	public static Block RUBBER_FENCE;

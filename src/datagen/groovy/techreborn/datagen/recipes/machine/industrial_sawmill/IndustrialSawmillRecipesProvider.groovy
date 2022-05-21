@@ -67,7 +67,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(Items.SPRUCE_STAIRS): Items.SPRUCE_SLAB,
 			(Items.CRIMSON_STAIRS): Items.CRIMSON_SLAB,
 			(Items.WARPED_STAIRS): Items.WARPED_SLAB,
-			(TRContent.RUBBER_PLANK_STAIR): TRContent.RUBBER_PLANK_SLAB
+			(TRContent.RUBBER_STAIR): TRContent.RUBBER_SLAB
 		].each { stairs, slab ->
 			offerIndustrialSawmillRecipe {
 				ingredients stairs
@@ -88,7 +88,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(Items.SPRUCE_SLAB): Items.SPRUCE_PRESSURE_PLATE,
 			(Items.CRIMSON_SLAB): Items.CRIMSON_PRESSURE_PLATE,
 			(Items.WARPED_SLAB): Items.WARPED_PRESSURE_PLATE,
-			(TRContent.RUBBER_PLANK_SLAB): TRContent.RUBBER_PRESSURE_PLATE
+			(TRContent.RUBBER_SLAB): TRContent.RUBBER_PRESSURE_PLATE
 		].each { slab, plate ->
 			offerIndustrialSawmillRecipe {
 				ingredients slab

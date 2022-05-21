@@ -40,10 +40,10 @@ public class FuelRecipes {
 		registry.add(TRContent.RUBBER_WOOD, 300);
 		registry.add(TRContent.STRIPPED_RUBBER_WOOD, 300);
 		registry.add(TRContent.RUBBER_PLANKS, 300);
-		registry.add(TRContent.RUBBER_PLANK_SLAB, 150);
+		registry.add(TRContent.RUBBER_SLAB, 150);
 		registry.add(TRContent.RUBBER_FENCE, 300);
 		registry.add(TRContent.RUBBER_FENCE_GATE, 300);
-		registry.add(TRContent.RUBBER_PLANK_STAIR, 300);
+		registry.add(TRContent.RUBBER_STAIR, 300);
 		registry.add(TRContent.RUBBER_TRAPDOOR, 300);
 		registry.add(TRContent.RUBBER_PRESSURE_PLATE, 300);
 		registry.add(TRContent.RUBBER_DOOR, 200);

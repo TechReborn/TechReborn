@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "techreborn:rubber_plank_slab"
+          "name": "techreborn:rubber_slab"
         }
       ],
       "conditions": [

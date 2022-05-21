@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "techreborn:rubber_plank_stair"
+          "name": "techreborn:rubber_stair"
         }
       ],
       "conditions": [

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
 	"recipes": [
-	  "techreborn:crafting_table/misc_block/rubber_plank_stair"
+	  "techreborn:crafting_table/misc_block/rubber_slab"
 	]
   },
   "criteria": {
@@ -19,7 +19,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/misc_block/rubber_plank_stair"
+		"recipe": "techreborn:crafting_table/misc_block/rubber_slab"
 	  }
 	}
   },
