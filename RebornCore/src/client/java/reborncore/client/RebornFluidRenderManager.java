@@ -34,6 +34,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.FluidSettings;
 import reborncore.common.fluid.RebornFluid;
@@ -52,7 +53,7 @@ public class RebornFluidRenderManager implements ClientSpriteRegistryCallback, S
 
 	public static void setupClient() {
 		RebornFluidRenderManager rebornFluidRenderManager = new RebornFluidRenderManager();
-		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register(rebornFluidRenderManager);
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(rebornFluidRenderManager);
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(rebornFluidRenderManager);
 		RebornFluidManager.getFluidStream().forEach(RebornFluidRenderManager::setupFluidRenderer);
 	}

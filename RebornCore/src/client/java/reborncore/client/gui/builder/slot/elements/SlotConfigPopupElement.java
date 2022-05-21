@@ -33,8 +33,8 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
@@ -78,7 +78,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		BlockState actualState = state.getBlock().getDefaultState();
 		BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
 		BakedModel model = dispatcher.getModels().getModel(state.getBlock().getDefaultState());
-		MinecraftClient.getInstance().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+		MinecraftClient.getInstance().getTextureManager().bindTexture(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
 		drawState(gui, world, model, actualState, pos, dispatcher, 4, 23, Vec3f.POSITIVE_Y.getDegreesQuaternion(90F)); //left
 		drawState(gui, world, model, actualState, pos, dispatcher, 23, 4, Vec3f.NEGATIVE_X.getDegreesQuaternion(90F)); //top
 		drawState(gui, world, model, actualState, pos, dispatcher, 23, 23, null); //centre

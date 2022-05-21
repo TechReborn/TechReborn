@@ -25,7 +25,7 @@
 package techreborn.blockentity;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -36,6 +36,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IMachineGuiHandler;
@@ -138,13 +139,14 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 
 	private GuiType(Identifier identifier) {
 		this.identifier = identifier;
-		this.screenHandlerType = ScreenHandlerRegistry.registerExtended(identifier, getScreenHandlerFactory());
+		this.screenHandlerType = Registry.register(Registry.SCREEN_HANDLER, identifier, new ExtendedScreenHandlerType<>(getScreenHandlerFactory()));
 
 		TYPES.put(identifier, this);
 	}
 
-	private ScreenHandlerRegistry.ExtendedClientHandlerFactory<BuiltScreenHandler> getScreenHandlerFactory() {
+	private ExtendedScreenHandlerType.ExtendedFactory<BuiltScreenHandler> getScreenHandlerFactory() {
 		return (syncId, playerInventory, packetByteBuf) -> {
+
 			final BlockEntity blockEntity = playerInventory.player.world.getBlockEntity(packetByteBuf.readBlockPos());
 			BuiltScreenHandler screenHandler = ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncId, playerInventory.player);
 

@@ -29,8 +29,8 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.TntMinecartEntityRenderer;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
@@ -53,7 +53,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 	@Nullable
 	@Override
 	public Identifier getTexture(EntityNukePrimed entityNukePrimed) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
+		return PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
 	}
 
 	@Override

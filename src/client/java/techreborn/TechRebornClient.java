@@ -83,7 +83,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		ModelLoadingRegistry.INSTANCE.registerAppender((manager, out) -> {
+		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_base"), "inventory"));
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory"));
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_background"), "inventory"));

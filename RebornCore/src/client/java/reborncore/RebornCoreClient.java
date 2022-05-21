@@ -31,7 +31,7 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.screen.PlayerScreenHandler;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.client.*;
 import reborncore.common.screen.ScreenIcons;
@@ -44,7 +44,7 @@ public class RebornCoreClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		RebornFluidRenderManager.setupClient();
 		HolidayRenderManager.setupClient();
-		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
 			registry.register(ScreenIcons.HEAD);
 			registry.register(ScreenIcons.CHEST);
 			registry.register(ScreenIcons.LEGS);
