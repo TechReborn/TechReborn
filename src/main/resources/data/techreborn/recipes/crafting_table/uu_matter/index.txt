@@ -1,0 +1,35 @@
+aluminium_dust:4:UUUU
+bone:1:   U
+cactus:2:U    U
+chrome_dust:6:UUUUU  U
+clay:1:  U
+coal_ore:2:U   U
+cocoa_beans:2:U     U
+diamond_ore:6: U UUUUU
+emerald_ore:6:UUUU UU
+ender_pearl:3:UUU
+feather:3:U  U  U
+glass:2:U       U
+glowstone:2:UU
+gold_ore:3:   UUU
+grass_block:1:      U
+ink_sac:3:UU U
+iridium_ore:6:UUUUU U
+iron_ore:2:U U
+lapis_ore:2:U  U
+lily_pad: U   U
+netherite_nugget:8:UUUUUUUU
+oak_wood:1: U
+obsidian:4:UUU U
+platinum_dust:5:UUUUU
+raw_copper:2:U      U
+raw_lead:2:   U  U
+raw_tin:2:    U   U
+raw_tungsten:6:UUUUUU
+redstone_ore:2:      U U
+snow_block:1:       U
+stone:1:    U
+sugar_cane:2: U    U
+titanium_dust:5:UUUU U
+tnt:3:U   U   U
+vine:2: U  U
