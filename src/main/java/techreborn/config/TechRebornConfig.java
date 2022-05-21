@@ -351,6 +351,12 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy")
 	public static int extractorMaxEnergy = 1_000;
 
+	@Config(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Energy per tick)")
+	public static int grinderMaxInput = 32;
+
+	@Config(config = "machines", category = "grinder", key = "GrinderMaxEnergy", comment = "Grinder Max Energy")
+	public static int grinderMaxEnergy = 1_000;
+
 	@Config(config = "machines", category = "compressor", key = "CompressorInput", comment = "Compressor Max Input (Energy per tick)")
 	public static int compressorMaxInput = 32;
 

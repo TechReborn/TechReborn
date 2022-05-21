@@ -41,7 +41,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
-import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
@@ -108,6 +107,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<RecyclerBlockEntity> RECYCLER = register("recycler");
 	public static final GuiType<RollingMachineBlockEntity> ROLLING_MACHINE = register("rolling_machine");
 	public static final GuiType<IndustrialSawmillBlockEntity> SAWMILL = register("sawmill");
+	public static final GuiType<GrinderBlockEntity> GRINDER = register("grinder");
 	public static final GuiType<ScrapboxinatorBlockEntity> SCRAPBOXINATOR = register("scrapboxinator");
 	public static final GuiType<SolarPanelBlockEntity> SOLAR_PANEL = register("solar_panel");
 	public static final GuiType<SemiFluidGeneratorBlockEntity> SEMIFLUID_GENERATOR = register("semifluid_generator");
@@ -118,7 +118,6 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register("greenhouse_controller");
 	public static final GuiType<FluidReplicatorBlockEntity> FLUID_REPLICATOR = register("fluid_replicator");
 	public static final GuiType<PlayerDetectorBlockEntity> PLAYER_DETECTOR = register("player_detector");
-	public static final GuiType<DataDrivenBEProvider.DataDrivenBlockEntity> DATA_DRIVEN = register("data_driven");
 	public static final GuiType<BlockBreakerBlockEntity> BLOCK_BREAKER = register("block_breaker");
 	public static final GuiType<BlockPlacerBlockEntity> BLOCK_PLACER = register("block_placer");
 

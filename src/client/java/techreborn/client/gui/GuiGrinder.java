@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) 2018 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,38 +29,29 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
-import techreborn.blockentity.data.DataDrivenBEProvider;
-import techreborn.blockentity.data.DataDrivenSlot;
-import techreborn.blockentity.data.SlotType;
+import techreborn.blockentity.machine.tier1.GrinderBlockEntity;
 
-public class DataDrivenGui extends GuiBase<BuiltScreenHandler> {
+public class GuiGrinder extends GuiBase<BuiltScreenHandler> {
+	GrinderBlockEntity blockEntity;
 
-	private final DataDrivenBEProvider provider;
-	private final DataDrivenBEProvider.DataDrivenBlockEntity blockEntity;
-
-	public DataDrivenGui(int syncID, final PlayerEntity player, final DataDrivenBEProvider.DataDrivenBlockEntity blockEntity) {
+	public GuiGrinder(int syncID, final PlayerEntity player, final GrinderBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
-		this.provider = blockEntity.getProvider();
 	}
 
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
-		final DataDrivenGui gui = this;
 
-		provider.getSlots().forEach(slot -> draw(matrixStack, gui, layer, slot));
+		drawSlot(matrixStack, 8, 72, layer);
+
+		drawSlot(matrixStack, 55, 45, layer);
+		drawOutputSlot(matrixStack, 101, 45, layer);
+
+		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
 	}
 
-
-	public void draw(MatrixStack matrixStack, GuiBase<?> guiBase, GuiBase.Layer layer, DataDrivenSlot slot) {
-		if (slot.type() == SlotType.OUTPUT) {
-			guiBase.drawOutputSlot(matrixStack, slot.x(), slot.y(), layer);
-		} else {
-			guiBase.drawSlot(matrixStack, slot.x(), slot.y(), layer);
-		}
-	}
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);

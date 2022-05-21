@@ -28,9 +28,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.util.Identifier;
 import techreborn.blockentity.GuiType;
-import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
@@ -82,6 +82,7 @@ public class ClientGuiType<T extends BlockEntity> {
 	public static final ClientGuiType<DistillationTowerBlockEntity> DISTILLATION_TOWER = register(GuiType.DISTILLATION_TOWER, GuiDistillationTower::new);
 	public static final ClientGuiType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = register(GuiType.ELECTRIC_FURNACE, GuiElectricFurnace::new);
 	public static final ClientGuiType<ExtractorBlockEntity> EXTRACTOR = register(GuiType.EXTRACTOR, GuiExtractor::new);
+	public static final ClientGuiType<GrinderBlockEntity> GRINDER = register(GuiType.GRINDER, GuiGrinder::new);
 	public static final ClientGuiType<FusionControlComputerBlockEntity> FUSION_CONTROLLER = register(GuiType.FUSION_CONTROLLER, GuiFusionReactor::new);
 	public static final ClientGuiType<GasTurbineBlockEntity> GAS_TURBINE = register(GuiType.GAS_TURBINE, GuiGasTurbine::new);
 	public static final ClientGuiType<SolidFuelGeneratorBlockEntity> GENERATOR = register(GuiType.GENERATOR, GuiGenerator::new);
@@ -110,7 +111,6 @@ public class ClientGuiType<T extends BlockEntity> {
 	public static final ClientGuiType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register(GuiType.GREENHOUSE_CONTROLLER, GuiGreenhouseController::new);
 	public static final ClientGuiType<FluidReplicatorBlockEntity> FLUID_REPLICATOR = register(GuiType.FLUID_REPLICATOR, GuiFluidReplicator::new);
 	public static final ClientGuiType<PlayerDetectorBlockEntity> PLAYER_DETECTOR = register(GuiType.PLAYER_DETECTOR, GuiPlayerDetector::new);
-	public static final ClientGuiType<DataDrivenBEProvider.DataDrivenBlockEntity> DATA_DRIVEN = register(GuiType.DATA_DRIVEN, DataDrivenGui::new);
 	public static final ClientGuiType<BlockBreakerBlockEntity> BLOCK_BREAKER = register(GuiType.BLOCK_BREAKER, GuiBlockBreaker::new);
 	public static final ClientGuiType<BlockPlacerBlockEntity> BLOCK_PLACER = register(GuiType.BLOCK_PLACER, GuiBlockPlacer::new);
 
@@ -132,7 +132,7 @@ public class ClientGuiType<T extends BlockEntity> {
 		this.guiType = Objects.requireNonNull(guiType);
 		this.guiFactory = Objects.requireNonNull(guiFactory);
 
-		ScreenRegistry.register(guiType.getScreenHandlerType(), getGuiFactory());
+		HandledScreens.register(guiType.getScreenHandlerType(), getGuiFactory());
 
 		TYPES.put(guiType.getIdentifier(), this);
 	}
