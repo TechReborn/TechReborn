@@ -1,0 +1,19 @@
+{
+  "type": "reborncore:padded",
+  "pattern": [
+    "   ",
+    " U ",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:warped_wart_block"
+    },
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  },
+  "result": {
+    "item": "minecraft:warped_fungus"
+  }
+}

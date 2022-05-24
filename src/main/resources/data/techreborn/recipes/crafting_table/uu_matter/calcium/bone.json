@@ -1,16 +1,19 @@
 {
   "type": "reborncore:padded",
   "pattern": [
-    " U ",
-    "UUU",
-    "UU "
+    "   ",
+    "UC ",
+    "   "
   ],
   "key": {
+    "C": {
+      "tag": "c:calcium_dusts"
+    },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:diamond_ore"
+    "item": "minecraft:bone"
   }
 }

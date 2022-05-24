@@ -1,16 +1,19 @@
 {
   "type": "reborncore:padded",
   "pattern": [
-    " U ",
-    " U ",
+    "  U",
+    " S ",
     "   "
   ],
   "key": {
+	"S": {
+      "tag": "c:saw_dusts"
+	},
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:vine"
+    "item": "minecraft:birch_wood"
   }
 }

@@ -1,16 +1,19 @@
 {
   "type": "reborncore:padded",
   "pattern": [
-    "U  ",
-    " U ",
-    "   "
+    "UUU",
+    "U U",
+    "US "
   ],
   "key": {
+    "S": {
+      "item": "techreborn:stone"
+    },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:coal_ore"
+    "item": "minecraft:emerald_ore"
   }
 }

@@ -1,16 +1,19 @@
 {
   "type": "reborncore:padded",
   "pattern": [
-    "UUU",
-    "UU ",
-    "U  "
+    " U ",
+    "GU ",
+    "   "
   ],
   "key": {
+    "G": {
+      "item":  "techreborn:plant_ball"
+    },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "techreborn:iridium_ore"
+    "item": "minecraft:glow_berries"
   }
 }

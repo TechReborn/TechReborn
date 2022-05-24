@@ -1,16 +1,19 @@
 {
   "type": "reborncore:padded",
   "pattern": [
-    "   ",
-    "   ",
-    "U U"
+    "UUU",
+    "UCU",
+    "   "
   ],
   "key": {
+    "C": {
+      "tag": "c:calcium_dusts"
+    },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:redstone_ore"
+    "item": "minecraft:scute"
   }
 }

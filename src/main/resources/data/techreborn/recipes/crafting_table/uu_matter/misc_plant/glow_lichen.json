@@ -2,15 +2,18 @@
   "type": "reborncore:padded",
   "pattern": [
     " U ",
-    "  U",
-    "   "
+    " U ",
+    " G "
   ],
   "key": {
+    "G": {
+      "item":  "techreborn:plant_ball"
+    },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:lily_pad"
+    "item": "minecraft:glow_lichen"
   }
 }
