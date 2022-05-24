@@ -2,15 +2,18 @@
   "type": "reborncore:padded",
   "pattern": [
     "   ",
-    "U  ",
-    "   "
+    " U ",
+    " C "
   ],
   "key": {
+    "C": {
+      "tag": "c:calcium_dusts"
+    },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:bone"
+    "item": "minecraft:calcite"
   }
 }

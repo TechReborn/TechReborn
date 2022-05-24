@@ -2,15 +2,18 @@
   "type": "reborncore:padded",
   "pattern": [
     "U  ",
-    "  U",
-    "   "
+    " U ",
+    " S "
   ],
   "key": {
+    "S": {
+      "item": "techreborn:stone"
+    },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:cactus"
+    "item": "minecraft:coal_ore"
   }
 }
