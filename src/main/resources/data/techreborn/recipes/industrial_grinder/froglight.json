@@ -1,0 +1,23 @@
+{
+  "type": "techreborn:industrial_grinder",
+  "power": 64,
+  "time": 100,
+  "tank": {
+	"fluid": "minecraft:water",
+	"amount": 1000
+  },
+  "ingredients": [
+	{
+	  "tag": "c:froglights"
+	}
+  ],
+  "results": [
+	{
+	  "item": "minecraft:prismarine_crystals",
+	  "count": 3
+	},
+	{
+	  "item": "minecraft:slime_ball"
+	}
+  ]
+}
