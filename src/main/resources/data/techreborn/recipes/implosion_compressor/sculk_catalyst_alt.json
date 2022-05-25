@@ -1,0 +1,24 @@
+{
+  "type": "techreborn:implosion_compressor",
+  "power": 30,
+  "time": 2000,
+  "ingredients" : [
+	{
+	  "item": "minecraft:sculk",
+      "count": 64
+	},
+    {
+      "item": "minecraft:end_crystal",
+      "count": 2
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:sculk_catalyst"
+    },
+    {
+      "item": "techreborn:ender_eye_small_dust",
+      "count": 2
+    }
+  ]
+}
