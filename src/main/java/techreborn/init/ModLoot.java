@@ -118,7 +118,8 @@ public class ModLoot {
 						"minecraft:chest/underwater_ruin_big",
 						"minecraft:chests/pillager_outpost"
 							-> supplier.withPool(poolAdvanced);
-					case "minecraft:chests/woodland_mansion"
+					case "minecraft:chests/woodland_mansion",
+						"minecraft:chests/ancient_city"
 							-> supplier.withPool(poolIndustrial);
 				}
 			}
