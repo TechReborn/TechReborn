@@ -53,5 +53,6 @@ public class FuelRecipes {
 		// Other stuff
 		registry.add(TRContent.Machine.RESIN_BASIN, 300);
 		registry.add(TRContent.Plates.WOOD, 300);
+		registry.add(TRContent.Tools.TREE_TAP, 200);
 	}
 }
