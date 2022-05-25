@@ -125,6 +125,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		}
 		[
 			(Items.BOWL) : 2,
+			(Items.MANGROVE_ROOTS) : 2,
 			(TRContent.TREE_TAP) : 3,
 			(Items.WOODEN_SHOVEL) : 2,
 			(Items.WOODEN_SWORD) : 2,
