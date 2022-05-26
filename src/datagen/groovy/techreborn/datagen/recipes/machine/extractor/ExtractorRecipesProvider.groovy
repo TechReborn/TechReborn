@@ -39,6 +39,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 	void generateRecipes() {
 		generateDoubleDyes()
 		generateQuadrupleDyes()
+		generateFroglight()
 		generateFluidExtraction()
 	}
 
@@ -85,6 +86,23 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients item
 				outputs new ItemStack(dye, 4)
+				source item.toString()
+				power 10
+				time 300
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+	}
+
+	void generateFroglight() {
+		[
+			(Items.OCHRE_FROGLIGHT) : Items.YELLOW_DYE,
+			(Items.VERDANT_FROGLIGHT) : Items.GREEN_DYE,
+			(Items.PEARLESCENT_FROGLIGHT) : Items.PURPLE_DYE
+		].each { item, dye ->
+			offerExtractorRecipe {
+				ingredients new ItemStack(item, 3)
+				outputs dye
 				source item.toString()
 				power 10
 				time 300

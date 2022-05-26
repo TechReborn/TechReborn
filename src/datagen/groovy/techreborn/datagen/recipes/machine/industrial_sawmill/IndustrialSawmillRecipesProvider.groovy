@@ -48,6 +48,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(ItemTags.SPRUCE_LOGS): Items.SPRUCE_PLANKS,
 			(ItemTags.CRIMSON_STEMS): Items.CRIMSON_PLANKS,
 			(ItemTags.WARPED_STEMS): Items.WARPED_PLANKS,
+			(ItemTags.MANGROVE_LOGS): Items.MANGROVE_PLANKS,
 			(TRContent.RUBBER_LOGS): TRContent.RUBBER_PLANKS
 		].each {logs, planks ->
 			offerIndustrialSawmillRecipe {
@@ -67,6 +68,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(Items.SPRUCE_STAIRS): Items.SPRUCE_SLAB,
 			(Items.CRIMSON_STAIRS): Items.CRIMSON_SLAB,
 			(Items.WARPED_STAIRS): Items.WARPED_SLAB,
+			(Items.MANGROVE_STAIRS): Items.MANGROVE_SLAB,
 			(TRContent.RUBBER_STAIR): TRContent.RUBBER_SLAB
 		].each { stairs, slab ->
 			offerIndustrialSawmillRecipe {
@@ -88,6 +90,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(Items.SPRUCE_SLAB): Items.SPRUCE_PRESSURE_PLATE,
 			(Items.CRIMSON_SLAB): Items.CRIMSON_PRESSURE_PLATE,
 			(Items.WARPED_SLAB): Items.WARPED_PRESSURE_PLATE,
+			(Items.MANGROVE_SLAB): Items.MANGROVE_PRESSURE_PLATE,
 			(TRContent.RUBBER_SLAB): TRContent.RUBBER_PRESSURE_PLATE
 		].each { slab, plate ->
 			offerIndustrialSawmillRecipe {
@@ -122,6 +125,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		}
 		[
 			(Items.BOWL) : 2,
+			(Items.MANGROVE_ROOTS) : 2,
 			(TRContent.TREE_TAP) : 3,
 			(Items.WOODEN_SHOVEL) : 2,
 			(Items.WOODEN_SWORD) : 2,

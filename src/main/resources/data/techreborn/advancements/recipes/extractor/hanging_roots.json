@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/hanging_roots"
+	]
+  },
+  "criteria": {
+	"has_mangrove_roots": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:mangrove_roots"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/hanging_roots"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_mangrove_roots",
+	  "has_the_recipe"
+	]
+  ]
+}

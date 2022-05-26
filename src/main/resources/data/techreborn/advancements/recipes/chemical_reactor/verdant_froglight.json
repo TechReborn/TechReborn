@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/verdant_froglight"
+	]
+  },
+  "criteria": {
+	"has_ochre_froglight": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:ochre_froglight"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/verdant_froglight"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_ochre_froglight",
+	  "has_the_recipe"
+	]
+  ]
+}

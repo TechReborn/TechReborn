@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:extractor/mangrove_roots"
+	]
+  },
+  "criteria": {
+	"has_muddy_mangrove_roots": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:muddy_mangrove_roots"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:extractor/mangrove_roots"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_muddy_mangrove_roots",
+	  "has_the_recipe"
+	]
+  ]
+}

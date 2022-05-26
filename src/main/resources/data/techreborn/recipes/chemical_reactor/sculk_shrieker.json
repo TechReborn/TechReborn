@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:chemical_reactor",
+  "power": 30,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "minecraft:sculk_catalyst",
+	  "count": 3
+	},
+	{
+	  "item": "minecraft:nether_star"
+	}
+  ],
+  "results": [
+	{
+	  "item": "minecraft:sculk_shrieker"
+	}
+  ]
+}

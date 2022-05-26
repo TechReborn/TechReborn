@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:chemical_reactor/sculk_sensor"
+	]
+  },
+  "criteria": {
+	"has_sculk": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:sculk"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:chemical_reactor/sculk_sensor"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sculk",
+	  "has_the_recipe"
+	]
+  ]
+}

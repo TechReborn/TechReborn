@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:implosion_compressor/sculk_catalyst"
+	]
+  },
+  "criteria": {
+	"has_sculk": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["minecraft:sculk"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:implosion_compressor/sculk_catalyst"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sculk",
+	  "has_the_recipe"
+	]
+  ]
+}
