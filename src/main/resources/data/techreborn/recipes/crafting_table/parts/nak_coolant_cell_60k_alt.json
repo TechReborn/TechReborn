@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "nak_coolant_cell_60k",
   "pattern": [
     "TPT",
     "SCS",
