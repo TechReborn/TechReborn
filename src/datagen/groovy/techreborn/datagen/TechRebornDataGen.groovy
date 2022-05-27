@@ -39,6 +39,7 @@ import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRe
 import techreborn.datagen.recipes.smelting.SmeltingRecipesProvider
 import techreborn.datagen.tags.TRBlockTagProvider
 import techreborn.datagen.tags.TRItemTagProvider
+import techreborn.datagen.tags.TRPointOfInterestTagProvider
 import techreborn.datagen.tags.WaterExplosionTagProvider
 
 class TechRebornDataGen implements DataGeneratorEntrypoint {
@@ -47,6 +48,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
     void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         fabricDataGenerator.addProvider(WaterExplosionTagProvider.&new)
 		fabricDataGenerator.addProvider(TRItemTagProvider.&new)
+		fabricDataGenerator.addProvider(TRPointOfInterestTagProvider.&new)
 		fabricDataGenerator.addProvider(TRBlockTagProvider.&new)
         // tags before all else, very important!!
         fabricDataGenerator.addProvider(SmeltingRecipesProvider.&new)
