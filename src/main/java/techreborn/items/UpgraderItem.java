@@ -39,6 +39,7 @@ public class UpgraderItem extends Item {
 		if (newBlockState == null)
 			return ActionResult.PASS;
 		NbtCompound data = oldBlockEntity.createNbt();
+		world.getBlockEntity(blockPos).readNbt(new NbtCompound());
 		world.setBlockState(blockPos, newBlockState);
 		world.getBlockEntity(blockPos).readNbt(data);
 		world.getBlockEntity(blockPos).readNbt(data);
