@@ -56,6 +56,7 @@ import techreborn.items.tool.vanilla.*;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * @author drcrazy
@@ -83,6 +84,7 @@ public class ModRegistry {
 		});
 		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(StorageUnit.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
+		Arrays.stream(StorageUnit.values()).map(StorageUnit::getUpgrader).filter(Optional::isPresent).forEach(value -> RebornRegistry.registerItem(value.get()));
 		Arrays.stream(TankUnit.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
