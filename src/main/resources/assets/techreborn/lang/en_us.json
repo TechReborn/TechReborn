@@ -653,6 +653,10 @@
   "item.techreborn.compressed_plantball": "Compressed Plantball",
   "item.techreborn.sponge_piece": "Piece of Sponge",
   "item.techreborn.synthetic_redstone_crystal": "Synthetic Redstone Crystal",
+  "item.techreborn.crude_unit_upgrader": "Crude Unit Upgrader",
+  "item.techreborn.basic_unit_upgrader": "Basic Unit Upgrader",
+  "item.techreborn.advanced_unit_upgrader": "Advanced Unit Upgrader",
+  "item.techreborn.industrial_unit_upgrader": "Industrial Unit Upgrader",
 
   "_comment14": "Items-Armor",
   "item.techreborn.cloaking_device": "Cloaking Device",

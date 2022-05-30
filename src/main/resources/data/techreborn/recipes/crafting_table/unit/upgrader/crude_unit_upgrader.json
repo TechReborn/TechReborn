@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "XB ",
+    "CDC"
+  ],
+  "key": {
+    "X": {
+      "item": "techreborn:crude_storage_unit"
+    },
+    "B": {
+      "item": "techreborn:basic_machine_frame"
+    },
+    "P": {
+      "tag": "c:refined_iron_plates"
+    },
+    "D": {
+      "item": "techreborn:basic_display"
+    },
+	"C": {
+	  "item": "techreborn:electronic_circuit"
+	}
+  },
+  "result": { 
+    "item": "techreborn:crude_unit_upgrader"
+  }
+}
