@@ -30,7 +30,7 @@ public class UpgraderItem extends Item {
 		if (oldBlockState.isOf(StorageUnit.getUpgradableFor(this).map(StorageUnit::asBlock).orElse(null))) {
 			// upgradable is now guaranteed to be present, or something is seriously wrong
 			// we want to get the next unit in the enum, hence ordinal()+1
-			newBlockState = StorageUnit.values()[StorageUnit.getUpgradableFor(this).orElseThrow().ordinal()+1].asBlock().getDefaultState();
+			newBlockState = StorageUnit.values()[StorageUnit.getUpgradableFor(this).orElseThrow().ordinal()+1].asBlock().getStateWithProperties(oldBlockState);
 		}
 		// same for the tank
 		else if (oldBlockState.isOf(TankUnit.getUpgradableFor(this).map(TankUnit::asBlock).orElse(null))) {
@@ -40,6 +40,7 @@ public class UpgraderItem extends Item {
 			return ActionResult.PASS;
 		NbtCompound data = oldBlockEntity.createNbt();
 		world.setBlockState(blockPos, newBlockState);
+		world.getBlockEntity(blockPos).readNbt(data);
 		world.getBlockEntity(blockPos).readNbt(data);
 		return ActionResult.SUCCESS;
 	}
