@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:fluid_replicator",
+  "power": 40,
+  "time": 150,
+  "tank": {
+    "fluid": "techreborn:silicon",
+    "amount": 1000
+  },
+  "ingredients": [
+    {
+      "item": "techreborn:uu_matter",
+      "count": 6
+    }
+  ],
+  "results": []
+}
