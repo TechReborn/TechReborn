@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "item": "techreborn:plant_ball"
+      "item": "techreborn:plantball"
     },
 	"S": {
       "tag": "c:saw_dusts"
@@ -17,6 +17,6 @@
     }
   },
   "result": {
-    "item": "minecraft:arcadia_sapling"
+    "item": "minecraft:acacia_sapling"
   }
 }
