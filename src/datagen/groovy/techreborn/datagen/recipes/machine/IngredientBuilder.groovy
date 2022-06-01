@@ -28,13 +28,15 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.tag.TagKey
+import net.minecraft.util.Identifier
 import reborncore.common.crafting.ingredient.RebornIngredient
 import reborncore.common.crafting.ingredient.StackIngredient
 import reborncore.common.crafting.ingredient.TagIngredient
 
 class IngredientBuilder {
 	private TagKey<Item> tag
-	private List<ItemStack> stacks = new ArrayList<>()
+	private List<ItemStack> stacks = []
+	private List<Identifier> ids = []
 
 	private IngredientBuilder() {
 	}
@@ -44,9 +46,21 @@ class IngredientBuilder {
 	}
 
 	RebornIngredient build() {
+		if (!ids.isEmpty()) {
+			if (!stacks.isEmpty() || tag != null) {
+				throw new IllegalStateException("Cannot have id ingredient with tag/stack inputs")
+			}
+
+			if (ids.size() != 1) {
+				throw new IllegalStateException()
+			}
+
+			return new StackIdIngredient(ids.get(0))
+		}
+
 		if (tag != null) {
-			if (!stacks.isEmpty()) {
-				throw new IllegalStateException("Cannot have ingredient with tag and stack inputs")
+			if (!stacks.isEmpty() || !ids.isEmpty()) {
+				throw new IllegalStateException("Cannot have ingredient with tag and stack/id inputs")
 			}
 
 			return new TagIngredient(tag, Optional.empty())
@@ -70,6 +84,11 @@ class IngredientBuilder {
 
 	def stack(ItemStack itemStack) {
 		stacks.add(itemStack)
+		return this
+	}
+
+	def ident(Identifier identifier) {
+		ids.add(identifier)
 		return this
 	}
 }
