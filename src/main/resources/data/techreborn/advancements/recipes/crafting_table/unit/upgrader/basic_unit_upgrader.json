@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/unit/upgrader/basic_unit_upgrader"
+	]
+  },
+  "criteria": {
+	"has_basic_storage_unit": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:basic_storage_unit"]
+		  }
+		]
+	  }
+	},
+	"has_digital_display": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:digital_display"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/unit/upgrader/basic_unit_upgrader"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_basic_storage_unit",
+	  "has_digital_display",
+	  "has_the_recipe"
+	]
+  ]
+}

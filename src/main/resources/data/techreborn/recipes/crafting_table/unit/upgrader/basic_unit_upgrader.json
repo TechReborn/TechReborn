@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"PPP",
+	"XB ",
+	"CDC"
+  ],
+  "key": {
+	"P": {
+	  "tag": "c:electrum_plates"
+	},
+	"B": {
+	  "item": "techreborn:advanced_machine_frame"
+	},
+	"D": {
+	  "item": "techreborn:digital_display"
+	},
+	"X": {
+	  "item": "techreborn:basic_storage_unit"
+	},
+	"C": {
+	  "item": "techreborn:advanced_circuit"
+	}
+  },
+  "result": {
+	"item": "techreborn:basic_unit_upgrader"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"PPP",
+	"XB ",
+	"CDC"
+  ],
+  "key": {
+	"P": {
+	  "tag": "c:tungsten_plates"
+	},
+	"B": {
+	  "item": "techreborn:industrial_machine_frame"
+	},
+	"X": {
+	  "item": "techreborn:industrial_storage_unit"
+	},
+	"D": {
+	  "item": "techreborn:digital_display"
+	},
+	"C": {
+	  "item": "techreborn:data_storage_chip"
+	}
+  },
+  "result": {
+	"item": "techreborn:industrial_unit_upgrader"
+  }
+}
