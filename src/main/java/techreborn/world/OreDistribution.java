@@ -39,6 +39,8 @@ public enum OreDistribution {
 	PERIDOT(6, 6, YOffset.aboveBottom(0), 360, TargetDimension.END, UniformIntProvider.create(2,6)),
 	PYRITE(6, 6, YOffset.aboveBottom(0), 128, TargetDimension.NETHER),
 	RUBY(6, 8, YOffset.fixed(20), 120, TargetDimension.OVERWORLD, UniformIntProvider.create(2,6)),
+	RUTILE(5, 8, YOffset.aboveBottom(0), 0, TargetDimension.OVERWORLD),
+	RUTILE_END(6, 4, YOffset.aboveBottom(0), 360, TargetDimension.END),
 	SAPPHIRE(6, 7, YOffset.fixed(20), 120, TargetDimension.OVERWORLD, UniformIntProvider.create(2,6)),
 	SHELDONITE(6, 4, YOffset.aboveBottom(0), 360, TargetDimension.END),
 	SILVER(6, 16, YOffset.aboveBottom(40), 60,TargetDimension.OVERWORLD),

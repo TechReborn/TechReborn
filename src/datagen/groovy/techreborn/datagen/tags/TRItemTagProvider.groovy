@@ -39,6 +39,7 @@ class TRItemTagProvider extends ItemTagProvider {
 			getOrCreateTagBuilder(ore.asTag()).add(ore.asItem())
 			getOrCreateTagBuilder(TRContent.ORES_TAG).add(ore.asItem())
 		}
+		getOrCreateTagBuilder(TRContent.Ores.RUTILE.asTag()).add(TRContent.Ores.RUTILE_END.asItem())
 		TRContent.StorageBlocks.values().each { block ->
 			getOrCreateTagBuilder(block.asTag()).add(block.asItem())
 			getOrCreateTagBuilder(TRContent.STORAGE_BLOCK_TAG).add(block.asItem())
