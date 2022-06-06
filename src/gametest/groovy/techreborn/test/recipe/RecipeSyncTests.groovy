@@ -36,7 +36,7 @@ import techreborn.test.TRTestContext
  * A bit of a mess, but checks that we can ser/de all recipes to and from json.
  */
 class RecipeSyncTests extends TRGameTest {
-	@GameTest(structureName = "fabric-gametest-api-v1:empty", tickLimit = 150)
+	@GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 150)
 	def testRecipes(TRTestContext context) {
 
 		def recipeTypes = RecipeManager.getRecipeTypes("techreborn")

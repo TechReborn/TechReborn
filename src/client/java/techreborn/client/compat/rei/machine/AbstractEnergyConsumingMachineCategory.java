@@ -49,13 +49,13 @@ public abstract class AbstractEnergyConsumingMachineCategory<R extends RebornRec
 	public List<Widget> setupDisplay(MachineRecipeDisplay<R> recipeDisplay, Rectangle bounds) {
 		List<Widget> widgets = Lists.newArrayList();
 		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 8, bounds.y + 8, 14, 50), recipeDisplay.getEnergy(), ReiPlugin.EntryAnimation.downwards(5000), point -> {
+		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 8, bounds.y + 8, 14, 50), recipeDisplay.getEnergy(), ReiPlugin.EntryAnimation.downwards(5000), tooltipContext -> {
 			List<Text> list = Lists.newArrayList();
 			list.add(Text.of("Energy"));
 			list.add(Text.translatable("techreborn.jei.recipe.running.cost", "E", recipeDisplay.getEnergy()).formatted(Formatting.GRAY));
 			list.add(Text.of(""));
 			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(new Identifier("techreborn", "")));
-			return Tooltip.create(point, list);
+			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 		return widgets;
 	}

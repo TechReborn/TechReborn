@@ -25,8 +25,8 @@
 package reborncore.client;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageSender;
-import net.minecraft.network.MessageType;
+import net.minecraft.network.message.MessageSender;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;

@@ -25,6 +25,7 @@
 package techreborn.client.compat.rei.fluidgenerator;
 
 import com.google.common.collect.Lists;
+import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.ClientHelper;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -73,13 +74,13 @@ public class FluidGeneratorRecipeCategory implements DisplayCategory<FluidGenera
 	public List<Widget> setupDisplay(FluidGeneratorRecipeDisplay recipeDisplay, Rectangle bounds) {
 		List<Widget> widgets = Lists.newArrayList();
 		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 108, bounds.y + 8, 14, 50), recipeDisplay.getTotalEnergy(), ReiPlugin.EntryAnimation.upwards(5000), point -> {
+		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 108, bounds.y + 8, 14, 50), recipeDisplay.getTotalEnergy(), ReiPlugin.EntryAnimation.upwards(5000), tooltipContext -> {
 			List<Text> list = Lists.newArrayList();
 			list.add(Text.of("Energy"));
 			list.add(Text.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getTotalEnergy()).formatted(Formatting.GRAY));
 			list.add(Text.of(""));
 			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(new Identifier("techreborn", "")));
-			return Tooltip.create(point, list);
+			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 		widgets.add(ReiPlugin.createFluidDisplay(new Rectangle(bounds.x + 16, bounds.y + 8, 16, 50), recipeDisplay.getInputEntries().get(0).get(0).cast(), ReiPlugin.EntryAnimation.downwards(5000)));
 		widgets.add(ReiPlugin.createProgressBar(bounds.x + 76 - 16, bounds.y + 48 - 19, 5000, GuiBuilder.ProgressDirection.RIGHT));

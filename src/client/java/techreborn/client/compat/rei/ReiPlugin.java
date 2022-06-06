@@ -33,6 +33,7 @@ import me.shedaniel.rei.api.client.entry.renderer.AbstractEntryRenderer;
 import me.shedaniel.rei.api.client.entry.renderer.EntryRenderer;
 import me.shedaniel.rei.api.client.gui.AbstractRenderer;
 import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
+import me.shedaniel.rei.api.client.gui.widgets.TooltipContext;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
@@ -283,16 +284,15 @@ public class ReiPlugin implements REIClientPlugin {
 		});
 	}
 
-	public static Widget createEnergyDisplay(Rectangle bounds, double energy, EntryAnimation animation, Function<Point, Tooltip> tooltipBuilder) {
+	public static Widget createEnergyDisplay(Rectangle bounds, double energy, EntryAnimation animation, Function<TooltipContext, Tooltip> tooltipBuilder) {
 		return new EnergyEntryWidget(bounds, animation).entry(
 				ClientEntryStacks.of(new AbstractRenderer() {
 					@Override
 					public void render(MatrixStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {}
 
 					@Override
-					@Nullable
-					public Tooltip getTooltip(Point mouse) {
-						return tooltipBuilder.apply(mouse);
+					public @Nullable Tooltip getTooltip(TooltipContext context) {
+						return tooltipBuilder.apply(context);
 					}
 				})
 		).notFavoritesInteractable();
@@ -399,8 +399,8 @@ public class ReiPlugin implements REIClientPlugin {
 
 		@Override
 		@Nullable
-		public Tooltip getTooltip(EntryStack<FluidStack> entry, Point mouse) {
-			return parent.getTooltip(entry, mouse);
+		public Tooltip getTooltip(EntryStack<FluidStack> entry, TooltipContext context) {
+			return parent.getTooltip(entry, context);
 		}
 	}
 
