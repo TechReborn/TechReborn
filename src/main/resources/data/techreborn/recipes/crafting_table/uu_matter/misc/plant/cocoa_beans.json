@@ -1,0 +1,19 @@
+{
+  "type": "reborncore:padded",
+  "pattern": [
+    "U  ",
+    " G ",
+    "U  "
+  ],
+  "key": {
+    "G": {
+      "item":  "techreborn:plantball"
+    },
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  },
+  "result": {
+    "item": "minecraft:cocoa_beans"
+  }
+}
