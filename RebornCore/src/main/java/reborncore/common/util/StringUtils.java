@@ -24,8 +24,8 @@
 
 package reborncore.common.util;
 
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.Locale;
@@ -68,7 +68,7 @@ public class StringUtils {
 	}
 
 	public static MutableText getPercentageText(int percentage) {
-		return new LiteralText(String.valueOf(percentage))
+		return Text.literal(String.valueOf(percentage))
 				.formatted(getPercentageColour(percentage))
 				.append("%");
 	}

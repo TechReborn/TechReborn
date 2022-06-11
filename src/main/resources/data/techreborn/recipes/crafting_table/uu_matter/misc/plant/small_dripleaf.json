@@ -1,0 +1,19 @@
+{
+  "type": "reborncore:padded",
+  "pattern": [
+    "   ",
+    " G ",
+    "U  "
+  ],
+  "key": {
+    "G": {
+      "item":  "techreborn:plantball"
+    },
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  },
+  "result": {
+    "item": "minecraft:small_dripleaf"
+  }
+}

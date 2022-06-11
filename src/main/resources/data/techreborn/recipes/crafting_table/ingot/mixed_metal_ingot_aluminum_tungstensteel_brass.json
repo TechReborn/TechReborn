@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "mixed_metal_ingot",
   "pattern": [
     "TTT",
     "MMM",

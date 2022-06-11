@@ -30,12 +30,11 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
-
-import java.util.Random;
 
 public class IronFurnaceBlock extends GenericMachineBlock {
 
@@ -44,6 +43,7 @@ public class IronFurnaceBlock extends GenericMachineBlock {
 	}
 
 	// Block
+	@Override
 	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		if (!isActive(stateIn)) {
 			return;

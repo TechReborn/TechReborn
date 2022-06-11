@@ -1,0 +1,19 @@
+{
+  "type": "reborncore:padded",
+  "pattern": [
+    "   ",
+    " SU",
+    "   "
+  ],
+  "key": {
+	"S": {
+      "tag": "c:saw_dusts"
+	},
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  },
+  "result": {
+    "item": "minecraft:spruce_wood"
+  }
+}

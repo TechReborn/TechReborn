@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "glassfiber_cable",
   "pattern": [
     "GGG",
     "RDR",

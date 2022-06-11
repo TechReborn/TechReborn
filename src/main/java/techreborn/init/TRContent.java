@@ -65,7 +65,6 @@ import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.blocks.DataDrivenMachineBlock;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.blocks.generator.BlockFusionCoil;
@@ -90,6 +89,7 @@ import techreborn.entities.EntityNukePrimed;
 import techreborn.events.ModRegistry;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
+import techreborn.items.UpgraderItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.utils.InitUtils;
 import techreborn.world.OreDistribution;
@@ -111,8 +111,8 @@ public class TRContent {
 	public static Block RUBBER_LEAVES;
 	public static Block RUBBER_LOG;
 	public static TagKey<Item> RUBBER_LOGS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
-	public static Block RUBBER_PLANK_SLAB;
-	public static Block RUBBER_PLANK_STAIR;
+	public static Block RUBBER_SLAB;
+	public static Block RUBBER_STAIR;
 	public static Block RUBBER_PLANKS;
 	public static Block RUBBER_SAPLING;
 	public static Block RUBBER_FENCE;
@@ -302,22 +302,23 @@ public class TRContent {
 	}
 
 	public enum StorageUnit implements ItemConvertible {
-		BUFFER(1),
-		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage),
-		BASIC(TechRebornConfig.basicStorageUnitMaxStorage),
-		ADVANCED(TechRebornConfig.advancedStorageUnitMaxStorage),
-		INDUSTRIAL(TechRebornConfig.industrialStorageUnitMaxStorage),
-		QUANTUM(TechRebornConfig.quantumStorageUnitMaxStorage),
-		CREATIVE(Integer.MAX_VALUE);
+		BUFFER(1, false),
+		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage, true),
+		BASIC(TechRebornConfig.basicStorageUnitMaxStorage, true),
+		ADVANCED(TechRebornConfig.advancedStorageUnitMaxStorage, true),
+		INDUSTRIAL(TechRebornConfig.industrialStorageUnitMaxStorage, true),
+		QUANTUM(TechRebornConfig.quantumStorageUnitMaxStorage, false),
+		CREATIVE(Integer.MAX_VALUE, false);
 
 		public final String name;
 		public final Block block;
+		public final Item upgrader;
 
 		// How many items it can hold
 		public int capacity;
 
 
-		StorageUnit(int capacity) {
+		StorageUnit(int capacity, boolean upgradable) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new StorageUnitBlock(this);
 			this.capacity = capacity;
@@ -326,11 +327,37 @@ public class TRContent {
 				InitUtils.setup(block, "storage_buffer");
 			else
 				InitUtils.setup(block, name + "_storage_unit");
+			if (upgradable) {
+				if (name.equals("buffer"))
+					upgrader = InitUtils.setup(new UpgraderItem(), "storage_buffer_upgrader");
+				else
+					upgrader = InitUtils.setup(new UpgraderItem(), name + "_unit_upgrader");
+			}
+			else
+				upgrader = null;
+		}
+
+		public Block asBlock() {
+			return block;
 		}
 
 		@Override
 		public Item asItem() {
 			return block.asItem();
+		}
+
+		public Optional<Item> getUpgrader() {
+			return Optional.ofNullable(upgrader);
+		}
+
+		public static Optional<StorageUnit> getUpgradableFor(UpgraderItem item) {
+			if (item == null)
+				return Optional.empty();
+			for (StorageUnit unit : StorageUnit.values()) {
+				if (item.equals(unit.getUpgrader().orElse(null)))
+					return Optional.of(unit);
+			}
+			return Optional.empty();
 		}
 	}
 
@@ -356,9 +383,32 @@ public class TRContent {
 			InitUtils.setup(block, name + "_tank_unit");
 		}
 
+		public Block asBlock() {
+			return block;
+		}
+
 		@Override
 		public Item asItem() {
 			return block.asItem();
+		}
+
+		public Optional<Item> getUpgrader() {
+			try {
+				return StorageUnit.valueOf(name()).getUpgrader();
+			}
+			catch (IllegalArgumentException ex) {
+				return Optional.empty();
+			}
+		}
+
+		public static Optional<TankUnit> getUpgradableFor(UpgraderItem item) {
+			if (item == null)
+				return Optional.empty();
+			for (TankUnit unit : TankUnit.values()) {
+				if (item.equals(unit.getUpgrader().orElse(null)))
+					return Optional.of(unit);
+			}
+			return Optional.empty();
 		}
 	}
 
@@ -670,7 +720,7 @@ public class TRContent {
 		EXTRACTOR(new GenericMachineBlock(GuiType.EXTRACTOR, ExtractorBlockEntity::new)),
 		RESIN_BASIN(new ResinBasinBlock(ResinBasinBlockEntity::new)),
 		FLUID_REPLICATOR(new GenericMachineBlock(GuiType.FLUID_REPLICATOR, FluidReplicatorBlockEntity::new)),
-		GRINDER(new DataDrivenMachineBlock("techreborn:grinder")),
+		GRINDER(new GenericMachineBlock(GuiType.GRINDER, GrinderBlockEntity::new)),
 		ELECTRIC_FURNACE(new GenericMachineBlock(GuiType.ELECTRIC_FURNACE, ElectricFurnaceBlockEntity::new)),
 		IMPLOSION_COMPRESSOR(new GenericMachineBlock(GuiType.IMPLOSION_COMPRESSOR, ImplosionCompressorBlockEntity::new)),
 		INDUSTRIAL_BLAST_FURNACE(new GenericMachineBlock(GuiType.BLAST_FURNACE, IndustrialBlastFurnaceBlockEntity::new)),

@@ -31,12 +31,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
-import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -66,17 +64,17 @@ public class FrequencyTransmitterItem extends Item {
 				.ifPresent(tag -> stack.getOrCreateNbt().put("pos", tag));
 
 		if (context.getPlayer() instanceof ServerPlayerEntity serverPlayerEntity) {
-			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.freqTransmitterID, new TranslatableText("techreborn.message.setTo")
-				.append(new LiteralText(" X:").formatted(Formatting.GRAY))
-				.append(new LiteralText(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
-				.append(new LiteralText(" Y:").formatted(Formatting.GRAY))
-				.append(new LiteralText(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
-				.append(new LiteralText(" Z:").formatted(Formatting.GRAY))
-				.append(new LiteralText(String.valueOf(pos.getZ())).formatted(Formatting.GOLD))
+			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.freqTransmitterID, Text.translatable("techreborn.message.setTo")
+				.append(Text.literal(" X:").formatted(Formatting.GRAY))
+				.append(Text.literal(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
+				.append(Text.literal(" Y:").formatted(Formatting.GRAY))
+				.append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
+				.append(Text.literal(" Z:").formatted(Formatting.GRAY))
+				.append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD))
 				.append(" ")
-				.append(new TranslatableText("techreborn.message.in").formatted(Formatting.GRAY))
+				.append(Text.translatable("techreborn.message.in").formatted(Formatting.GRAY))
 				.append(" ")
-				.append(new LiteralText(getDimName(globalPos.getDimension()).toString()).formatted(Formatting.GOLD)));
+				.append(Text.literal(getDimName(globalPos.getDimension()).toString()).formatted(Formatting.GOLD)));
 		}
 
 		return ActionResult.SUCCESS;
@@ -98,11 +96,11 @@ public class FrequencyTransmitterItem extends Item {
 
 			if (player instanceof ServerPlayerEntity serverPlayerEntity) {
 				ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.freqTransmitterID,
-					new TranslatableText("techreborn.message.coordsHaveBeen")
+					Text.translatable("techreborn.message.coordsHaveBeen")
 						.formatted(Formatting.GRAY)
 						.append(" ")
 						.append(
-							new TranslatableText("techreborn.message.cleared")
+							Text.translatable("techreborn.message.cleared")
 								.formatted(Formatting.GOLD)
 						)
 				);
@@ -116,10 +114,10 @@ public class FrequencyTransmitterItem extends Item {
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		getPos(stack)
 				.ifPresent(globalPos -> {
-					tooltip.add(new LiteralText(Formatting.GRAY + "X: " + Formatting.GOLD + globalPos.getPos().getX()));
-					tooltip.add(new LiteralText(Formatting.GRAY + "Y: " + Formatting.GOLD + globalPos.getPos().getY()));
-					tooltip.add(new LiteralText(Formatting.GRAY + "Z: " + Formatting.GOLD + globalPos.getPos().getZ()));
-					tooltip.add(new LiteralText(Formatting.DARK_GRAY + getDimName(globalPos.getDimension()).toString()));
+					tooltip.add(Text.literal(Formatting.GRAY + "X: " + Formatting.GOLD + globalPos.getPos().getX()));
+					tooltip.add(Text.literal(Formatting.GRAY + "Y: " + Formatting.GOLD + globalPos.getPos().getY()));
+					tooltip.add(Text.literal(Formatting.GRAY + "Z: " + Formatting.GOLD + globalPos.getPos().getZ()));
+					tooltip.add(Text.literal(Formatting.DARK_GRAY + getDimName(globalPos.getDimension()).toString()));
 				});
 	}
 

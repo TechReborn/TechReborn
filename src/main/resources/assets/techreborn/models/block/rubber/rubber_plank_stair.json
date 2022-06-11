@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/stairs",
-    "textures": {
-        "bottom": "techreborn:block/rubber_planks",
-        "top": "techreborn:block/rubber_planks",
-        "side": "techreborn:block/rubber_planks"
-    }
-}

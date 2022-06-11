@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "group": "insulated_copper_cable",
   "ingredients": [
     {
       "item": "techreborn:rubber"

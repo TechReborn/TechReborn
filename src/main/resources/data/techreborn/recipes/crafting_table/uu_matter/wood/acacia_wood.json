@@ -1,0 +1,19 @@
+{
+  "type": "reborncore:padded",
+  "pattern": [
+    "   ",
+    "US ",
+    "   "
+  ],
+  "key": {
+	"S": {
+      "tag": "c:saw_dusts"
+	},
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  },
+  "result": {
+    "item": "minecraft:acacia_wood"
+  }
+}

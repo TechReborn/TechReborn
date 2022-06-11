@@ -26,6 +26,7 @@ package techreborn.world;
 
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.block.BlockState;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
@@ -34,7 +35,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -72,7 +73,9 @@ public class WorldGenerator {
 
 		BiomeModifications.create(new Identifier("techreborn", "features"))
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), oreModifier())
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA, Biome.Category.SWAMP), rubberTreeModifier());
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_FOREST)
+					.or(BiomeSelectors.tag(BiomeTags.IS_TAIGA))
+					.or(BiomeSelectors.includeByKey(BiomeKeys.SWAMP)), rubberTreeModifier());
 	}
 
 	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> oreModifier() {

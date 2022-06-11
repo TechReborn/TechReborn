@@ -29,7 +29,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-import reborncore.client.multiblock.HologramRenderer;
 
 import java.util.function.BiPredicate;
 
@@ -38,7 +37,6 @@ import java.util.function.BiPredicate;
  *
  * @author ramidzkh
  * @see MultiblockVerifier
- * @see HologramRenderer
  */
 public interface MultiblockWriter {
 

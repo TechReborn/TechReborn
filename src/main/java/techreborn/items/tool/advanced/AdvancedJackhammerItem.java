@@ -24,8 +24,6 @@
 
 package techreborn.items.tool.advanced;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -40,8 +38,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
-import reborncore.common.util.ItemUtils;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.JackhammerItem;

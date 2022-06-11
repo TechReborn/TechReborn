@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:grinder/gravel"
+	]
+  },
+  "criteria": {
+	"has_gravel_material": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "techreborn:gravel_material"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:grinder/gravel"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_gravel_material",
+	  "has_the_recipe"
+	]
+  ]
+}

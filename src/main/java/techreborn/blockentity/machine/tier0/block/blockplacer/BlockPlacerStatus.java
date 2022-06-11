@@ -1,8 +1,6 @@
 package techreborn.blockentity.machine.tier0.block.blockplacer;
 
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import reborncore.common.util.Color;
 import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
 
@@ -14,12 +12,12 @@ import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
  * @author SimonFlapse
  */
 enum BlockPlacerStatus implements ProcessingStatus {
-	IDLE(new TranslatableText("gui.techreborn.block_placer.idle"), Color.BLUE),
-	IDLE_PAUSED(new TranslatableText("gui.techreborn.block.idle_redstone"), Color.BLUE),
-	NO_ENERGY(new TranslatableText("gui.techreborn.block.no_energy"), Color.RED),
-	INTERRUPTED(new TranslatableText("gui.techreborn.block.interrupted"), Color.RED),
-	OUTPUT_BLOCKED(new TranslatableText("gui.techreborn.block.output_blocked"), Color.RED),
-	PROCESSING(new TranslatableText("gui.techreborn.block_placer.processing"), Color.DARK_GREEN);
+	IDLE(Text.translatable("gui.techreborn.block_placer.idle"), Color.BLUE),
+	IDLE_PAUSED(Text.translatable("gui.techreborn.block.idle_redstone"), Color.BLUE),
+	NO_ENERGY(Text.translatable("gui.techreborn.block.no_energy"), Color.RED),
+	INTERRUPTED(Text.translatable("gui.techreborn.block.interrupted"), Color.RED),
+	OUTPUT_BLOCKED(Text.translatable("gui.techreborn.block.output_blocked"), Color.RED),
+	PROCESSING(Text.translatable("gui.techreborn.block_placer.processing"), Color.DARK_GREEN);
 
 	private final Text text;
 	private final int color;
@@ -39,11 +37,11 @@ enum BlockPlacerStatus implements ProcessingStatus {
 		progress = Math.max(progress, 0);
 
 		if (this == PROCESSING) {
-			return new TranslatableText("gui.techreborn.block.progress.active", new LiteralText("" + progress + "%"));
+			return Text.translatable("gui.techreborn.block.progress.active", Text.literal("" + progress + "%"));
 		} else if (this == IDLE || this == INTERRUPTED) {
-			return new TranslatableText("gui.techreborn.block.progress.stopped");
+			return Text.translatable("gui.techreborn.block.progress.stopped");
 		} else {
-			return new TranslatableText("gui.techreborn.block.progress.paused", new LiteralText("" + progress + "%"));
+			return Text.translatable("gui.techreborn.block.progress.paused", Text.literal("" + progress + "%"));
 		}
 	}
 

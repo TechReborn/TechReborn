@@ -33,14 +33,13 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.common.BaseBlockEntityProvider;
@@ -49,7 +48,6 @@ import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.machine.tier1.ResinBasinBlockEntity;
 import techreborn.init.TRContent;
 
-import java.util.UUID;
 import java.util.function.BiFunction;
 
 public class ResinBasinBlock extends BaseBlockEntityProvider {
@@ -113,7 +111,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 		if (worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() != TRContent.RUBBER_LOG) {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 			WorldUtils.dropItem(this.asItem(), worldIn, pos);
-			placer.sendSystemMessage(new TranslatableText("techreborn.tooltip.invalid_basin_placement"), UUID.randomUUID());
+			placer.sendMessage(Text.translatable("techreborn.tooltip.invalid_basin_placement"));
 		}
 	}
 

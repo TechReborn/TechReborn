@@ -36,7 +36,6 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -405,10 +404,10 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
 		if (hasData) {
 			if (getOptionalInventory().isPresent()) {
-				info.add(new LiteralText(Formatting.GOLD + "" + getOptionalInventory().get().getContents() + Formatting.GRAY + " items"));
+				info.add(Text.literal(Formatting.GOLD + "" + getOptionalInventory().get().getContents() + Formatting.GRAY + " items"));
 			}
 			if (!upgradeInventory.isEmpty()) {
-				info.add(new LiteralText(Formatting .GOLD + "" + upgradeInventory.getContents() + Formatting .GRAY + " upgrades"));
+				info.add(Text.literal(Formatting .GOLD + "" + upgradeInventory.getContents() + Formatting .GRAY + " upgrades"));
 			}
 		}
 	}

@@ -32,13 +32,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
+import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
@@ -47,7 +48,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import reborncore.common.fluid.FluidUtils;
 
 /**
  * @author drcrazy

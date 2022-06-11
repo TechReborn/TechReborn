@@ -1,0 +1,19 @@
+{
+  "type": "reborncore:padded",
+  "pattern": [
+    "   ",
+    "UUU",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:netherrack"
+    },
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  },
+  "result": {
+    "item": "minecraft:nether_gold_ore"
+  }
+}

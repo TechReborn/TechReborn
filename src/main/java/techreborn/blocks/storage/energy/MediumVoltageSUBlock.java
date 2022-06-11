@@ -27,8 +27,8 @@ package techreborn.blocks.storage.energy;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.GuiType;
+import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 
 /**
  * Created by modmuss50 on 14/03/2016.

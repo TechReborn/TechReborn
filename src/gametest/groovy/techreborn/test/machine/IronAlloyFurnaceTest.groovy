@@ -34,7 +34,7 @@ import techreborn.test.TRGameTest
 import techreborn.test.TRTestContext
 
 class IronAlloyFurnaceTest extends TRGameTest {
-    @GameTest(structureName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
+    @GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
     def testIronAlloyFurnaceElectrumAlloyIngot(TRTestContext context) {
         /**
          * Test that the Iron Alloy Furnace smelts a gold ingot and a silver ingot into an electrum alloy ingot in 200

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "carbon_fiber",
   "pattern": [
     "CCC",
     "C C",

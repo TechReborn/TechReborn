@@ -25,7 +25,6 @@
 package techreborn.events;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
@@ -33,11 +32,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
 import reborncore.RebornRegistry;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.TradeUtils;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
@@ -53,17 +49,14 @@ import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.armor.TRArmourItem;
 import techreborn.items.tool.*;
 import techreborn.items.tool.advanced.AdvancedJackhammerItem;
-import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
+import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.industrial.*;
 import techreborn.items.tool.vanilla.*;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * @author drcrazy
@@ -91,6 +84,7 @@ public class ModRegistry {
 		});
 		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(StorageUnit.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
+		Arrays.stream(StorageUnit.values()).map(StorageUnit::getUpgrader).filter(Optional::isPresent).forEach(value -> RebornRegistry.registerItem(value.get()));
 		Arrays.stream(TankUnit.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
@@ -107,10 +101,10 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.STRIPPED_RUBBER_WOOD = InitUtils.setup(new PillarBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "stripped_rubber_wood"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"), itemGroup);
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new SlabBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_plank_slab"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_SLAB = InitUtils.setup(new SlabBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_slab"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_FENCE = InitUtils.setup(new FenceBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_fence"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_FENCE_GATE = InitUtils.setup(new FenceGateBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_fence_gate"), itemGroup);
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_stair"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_TRAPDOOR = InitUtils.setup(new RubberTrapdoorBlock(), "rubber_trapdoor"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_BUTTON = InitUtils.setup(new RubberButtonBlock(), "rubber_button"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PRESSURE_PLATE = InitUtils.setup(new RubberPressurePlateBlock(), "rubber_pressure_plate"), itemGroup);

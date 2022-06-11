@@ -27,17 +27,11 @@ package techreborn.blockentity.cable;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.init.TRContent;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("UnstableApiUsage")
 class CableTickManager {

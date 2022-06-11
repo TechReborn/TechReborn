@@ -35,7 +35,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -161,7 +160,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		tooltip.add(new TranslatableText("techreborn.tooltip.alarm").formatted(Formatting.GRAY));
+		tooltip.add(Text.translatable("techreborn.tooltip.alarm").formatted(Formatting.GRAY));
 	}
 
 }

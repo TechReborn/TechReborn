@@ -35,7 +35,7 @@ import techreborn.test.TRGameTest
 import techreborn.test.TRTestContext
 
 class IronFurnaceTest extends TRGameTest {
-	@GameTest(structureName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
+	@GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
 	def testIronFurnaceSmeltRawIron(TRTestContext context) {
 		/**
 		 * Test that the Iron Furnace smelts a raw iron ore into an iron ingot in 200 ticks
@@ -49,7 +49,7 @@ class IronFurnaceTest extends TRGameTest {
 		}
 	}
 
-    @GameTest(structureName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
+    @GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
     def testIronFurnaceSmeltRawIronBlock(TRTestContext context) {
         /**
          * Test that the Iron Furnace smelts a raw iron block into an iron block in 1500 ticks instead of 200

@@ -33,7 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -63,7 +63,7 @@ public class AlarmBlockEntity extends BlockEntity
 		}
 
 		if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.alarmID, new TranslatableText("techreborn.message.alarm")
+			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.alarmID, Text.translatable("techreborn.message.alarm")
 				.formatted(Formatting.GRAY)
 				.append(" Alarm ")
 				.append(String.valueOf(selectedSound)));

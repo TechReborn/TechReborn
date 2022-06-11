@@ -25,12 +25,13 @@
 package techreborn.datagen.recipes.machine
 
 import com.google.gson.JsonObject
+import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider
+import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancement.Advancement.Builder
 import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
-import net.minecraft.recipe.Ingredient
 import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
@@ -40,6 +41,7 @@ import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
+import techreborn.datagen.recipes.TechRebornRecipesProvider
 
 import java.util.function.Consumer
 
@@ -53,6 +55,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected int time = -1
 	protected Identifier customId = null
 	protected String source = null
+	protected List<ConditionJsonProvider> conditions = []
 
 	protected MachineRecipeJsonFactory(RebornRecipeType<R> type) {
 		this.type = type
@@ -83,7 +86,14 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				ingredient {
 					stack object
 				}
-
+			} else if (object instanceof Identifier) {
+				ingredient {
+					ident object
+				}
+			} else if (object instanceof String) {
+				ingredient {
+					ident(new Identifier(object))
+				}
 			} else {
 				throw new IllegalArgumentException()
 			}
@@ -137,6 +147,11 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
+	def condition(ConditionJsonProvider conditionJsonProvider) {
+		this.conditions.add(conditionJsonProvider)
+		return this
+	}
+
 	@NotNull String getSourceAppendix() {
 		if (source == null)
 			return ""
@@ -182,7 +197,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		Identifier recipeId = getIdentifier()
 		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		RecipeUtils.addToastDefaults(builder, recipeId)
-		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), advancementId, builder))
+		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), advancementId, builder, conditions))
 	}
 
 	def getIdentifier() {
@@ -203,16 +218,22 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		private final R recipe
 		private final Identifier advancementId
 		private final Builder builder
+		private final List<ConditionJsonProvider> conditions
 
-		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe, Identifier advancementId = null, Builder builder = null) {
+		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe, Identifier advancementId, Builder builder, List<ConditionJsonProvider> conditions) {
 			this.type = type
 			this.recipe = recipe
 			this.advancementId = advancementId
 			this.builder = builder
+			this.conditions = conditions
 		}
 
 		@Override
 		JsonObject toJson() {
+			if (!conditions.isEmpty()) {
+				FabricDataGenHelper.addConditions(this, conditions.toArray() as ConditionJsonProvider[])
+			}
+
 			return type.toJson(recipe, false)
 		}
 

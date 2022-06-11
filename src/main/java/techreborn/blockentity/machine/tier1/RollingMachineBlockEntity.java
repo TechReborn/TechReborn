@@ -39,15 +39,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
@@ -431,6 +430,11 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 		protected RollingBEContainer() {
 			super(null, 0);
+		}
+
+		@Override
+		public ItemStack transferSlot(PlayerEntity player, int index) {
+			return ItemStack.EMPTY;
 		}
 
 		@Override

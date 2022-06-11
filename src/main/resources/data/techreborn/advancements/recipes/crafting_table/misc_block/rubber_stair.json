@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/misc_block/rubber_stair"
+	]
+  },
+  "criteria": {
+	"has_rubber_planks": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"items": ["techreborn:rubber_planks"]
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/misc_block/rubber_stair"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_rubber_planks",
+	  "has_the_recipe"
+	]
+  ]
+}

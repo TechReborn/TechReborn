@@ -8,12 +8,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 
 public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider, BlockProcessable {

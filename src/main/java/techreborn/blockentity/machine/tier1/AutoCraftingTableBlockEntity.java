@@ -43,11 +43,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
@@ -124,6 +124,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	private CraftingInventory getCraftingInventory() {
 		if (inventoryCrafting == null) {
 			inventoryCrafting = new CraftingInventory(new ScreenHandler(null, -1) {
+				@Override
+				public ItemStack transferSlot(PlayerEntity player, int index) {
+					return ItemStack.EMPTY;
+				}
+
 				@Override
 				public boolean canUse(PlayerEntity playerIn) {
 					return false;

@@ -42,8 +42,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import techreborn.items.DynamicCellItem;
 import reborncore.common.fluid.FluidUtils;
+import techreborn.items.DynamicCellItem;
 
 public class TRCauldronBehavior {
 	public static void init() {

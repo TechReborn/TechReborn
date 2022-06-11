@@ -1,0 +1,22 @@
+{
+  "type": "reborncore:padded",
+  "pattern": [
+    " U ",
+    " P ",
+    " S "
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:plantball"
+    },
+	"S": {
+      "tag": "c:saw_dusts"
+	},
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  },
+  "result": {
+    "item": "minecraft:oak_sapling"
+  }
+}

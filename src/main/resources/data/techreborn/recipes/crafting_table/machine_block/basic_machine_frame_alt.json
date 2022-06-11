@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "basic_machine_frame",
   "pattern": [
     "AAA",
     "A A",

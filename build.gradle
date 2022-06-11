@@ -12,7 +12,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id "org.cadixdev.licenser" version "0.6.1"
-	id "fabric-loom" version "0.11-SNAPSHOT"
+	id "fabric-loom" version "0.12-SNAPSHOT"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
@@ -78,6 +78,7 @@ allprojects {
 
     loom {
         runtimeOnlyLog4j = true
+        splitEnvironmentSourceSets()
     }
 
     // Shared deps between TR and RC
@@ -178,14 +179,40 @@ sourceSets {
     }
 }
 
+allprojects {
+    loom {
+        mods {
+            reborncore {
+                sourceSet project(":RebornCore").sourceSets.main
+                sourceSet project(":RebornCore").sourceSets.client
+            }
+            techreborn {
+                sourceSet project(":").sourceSets.main
+                sourceSet project(":").sourceSets.client
+            }
+            "techreborn-datagen" {
+                sourceSet project(":").sourceSets.datagen
+            }
+            "techreborn-gametest" {
+                sourceSet project(":").sourceSets.gametest
+            }
+        }
+    }
+}
+
 // TechReborn specific dependencies
 dependencies {
     api project(path: ":RebornCore", configuration: "namedElements")
+    clientImplementation project(":RebornCore").sourceSets.client.output
+
     include project(":RebornCore")
 
-    optionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
     disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
+
+    // REI's deps depend on the deprecated command module.
+    modRuntimeOnly "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fapi_version}"
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.1'
@@ -198,21 +225,24 @@ dependencies {
 }
 
 def optionalDependency(String dep) {
-	dependencies.modLocalRuntime (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
-	dependencies.modCompileOnly (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
+    def excludes = {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude module: "nbt-crafting"
+        exclude module: "modmenu"
+    }
+
+	dependencies.modLocalRuntime(dep, excludes)
+	dependencies.modCompileOnly(dep, excludes)
 }
 
 def disabledOptionalDependency(String dep) {
-	dependencies.modCompileOnly (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
+    def excludes = {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude module: "nbt-crafting"
+        exclude module: "modmenu"
+    }
+
+	dependencies.modCompileOnly(dep, excludes)
 }
 
 loom {
@@ -332,7 +362,7 @@ curseforge {
 		id = "233564"
 		changelog = ENV.CHANGELOG ?: "No changelog provided"
 		releaseType = ENV.RELEASE_CHANNEL ?: "release"
-		addGameVersion "1.18.2" // Also update in RebornCore/build.gradle
+		addGameVersion "1.19" // Also update in RebornCore/build.gradle
 		addGameVersion "Fabric"
 
 		mainArtifact remapJar

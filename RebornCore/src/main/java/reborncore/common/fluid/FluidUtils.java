@@ -41,7 +41,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +78,7 @@ public class FluidUtils {
 			// Just extract as much as we can
 			try (Transaction tx = Transaction.openOuter()) {
 				boolean didSomething = false;
-				for (var view : itemStorage.iterable(tx)) {
+				for (var view : itemStorage) {
 					if (view.isResourceBlank()) continue;
 
 					didSomething = didSomething | view.extract(view.getResource(), Long.MAX_VALUE, tx) > 0;
@@ -145,7 +145,7 @@ public class FluidUtils {
 
 		// Use current transaction in case this check is nested in a transfer operation.
 		try (var tx = Transaction.openNested(Transaction.getCurrentUnsafe())) {
-			for (var view : fluidStorage.iterable(tx)) {
+			for (var view : fluidStorage) {
 				if (!view.isResourceBlank() && view.getAmount() > 0) {
 					return false;
 				}
@@ -161,7 +161,7 @@ public class FluidUtils {
 
 		// Use current transaction in case this check is nested in a transfer operation.
 		try (var tx = Transaction.openNested(Transaction.getCurrentUnsafe())) {
-			for (var view : fluidStorage.iterable(tx)) {
+			for (var view : fluidStorage) {
 				if (!view.isResourceBlank() && view.getAmount() > 0 && predicate.test(view.getResource().getFluid())) {
 					return true;
 				}
@@ -183,6 +183,6 @@ public class FluidUtils {
 	}
 
 	public static String getFluidName(@NotNull Fluid fluid) {
-		return new TranslatableText(fluid.getDefaultState().getBlockState().getBlock().getTranslationKey()).getString();
+		return Text.translatable(fluid.getDefaultState().getBlockState().getBlock().getTranslationKey()).getString();
 	}
 }

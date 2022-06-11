@@ -26,6 +26,8 @@ package techreborn.datagen
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import techreborn.datagen.models.ModelProvider
+import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipesProvider
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipesProvider
 import techreborn.datagen.recipes.machine.chemical_reactor.ChemicalReactorRecipesProvider
@@ -35,9 +37,9 @@ import techreborn.datagen.recipes.machine.grinder.GrinderRecipesProvider
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipesProvider
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipesProvider
 import techreborn.datagen.recipes.smelting.SmeltingRecipesProvider
-import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
 import techreborn.datagen.tags.TRBlockTagProvider
 import techreborn.datagen.tags.TRItemTagProvider
+import techreborn.datagen.tags.TRPointOfInterestTagProvider
 import techreborn.datagen.tags.WaterExplosionTagProvider
 
 class TechRebornDataGen implements DataGeneratorEntrypoint {
@@ -46,6 +48,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
     void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         fabricDataGenerator.addProvider(WaterExplosionTagProvider.&new)
 		fabricDataGenerator.addProvider(TRItemTagProvider.&new)
+		fabricDataGenerator.addProvider(TRPointOfInterestTagProvider.&new)
 		fabricDataGenerator.addProvider(TRBlockTagProvider.&new)
         // tags before all else, very important!!
         fabricDataGenerator.addProvider(SmeltingRecipesProvider.&new)
@@ -59,5 +62,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 		fabricDataGenerator.addProvider(BlastFurnaceRecipesProvider.&new)
 		fabricDataGenerator.addProvider(IndustrialGrinderRecipesProvider.&new)
 		fabricDataGenerator.addProvider(IndustrialSawmillRecipesProvider.&new)
+
+		fabricDataGenerator.addProvider(ModelProvider.&new)
     }
 }

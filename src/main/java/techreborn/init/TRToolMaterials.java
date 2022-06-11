@@ -28,7 +28,8 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import techreborn.TechReborn;
 
-import static net.minecraft.item.ToolMaterials.*;
+import static net.minecraft.item.ToolMaterials.DIAMOND;
+import static net.minecraft.item.ToolMaterials.IRON;
 
 /**
  * We use custom materials to allow LevelZ to tweak the mining level of our tools.

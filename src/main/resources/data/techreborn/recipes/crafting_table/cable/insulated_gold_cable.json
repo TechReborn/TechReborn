@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "insulated_gold_cable",
   "pattern": [
     "RRR",
     "RIR",

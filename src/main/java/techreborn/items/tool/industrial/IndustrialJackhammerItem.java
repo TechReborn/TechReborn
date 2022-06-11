@@ -31,9 +31,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -69,7 +67,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 			ItemUtils.switchActive(stack, cost, messageId, entity);
 			stack.getOrCreateNbt().putBoolean("AOE5", false);
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, new TranslatableText("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(new LiteralText("3*3").formatted(Formatting.GOLD)));
+				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("3*3").formatted(Formatting.GOLD)));
 			}
 		} else {
 			if (isAOE5(stack)) {
@@ -78,7 +76,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 			} else {
 				stack.getOrCreateNbt().putBoolean("AOE5", true);
 				if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-					ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, new TranslatableText("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(new LiteralText("5*5").formatted(Formatting.GOLD)));
+					ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("5*5").formatted(Formatting.GOLD)));
 				}
 			}
 		}
@@ -149,9 +147,9 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 		ItemUtils.buildActiveTooltip(stack, tooltip);
 		if (ItemUtils.isActive(stack)) {
 			if (isAOE5(stack)) {
-				tooltip.add(new LiteralText("5*5").formatted(Formatting.RED));
+				tooltip.add(Text.literal("5*5").formatted(Formatting.RED));
 			} else {
-				tooltip.add(new LiteralText("3*3").formatted(Formatting.RED));
+				tooltip.add(Text.literal("3*3").formatted(Formatting.RED));
 			}
 		}
 	}

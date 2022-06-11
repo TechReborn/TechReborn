@@ -4,7 +4,7 @@
   "time": 180,
   "ingredients" : [
     {
-      "tag": "minecraft:stone_tool_materials"
+      "tag": "techreborn:gravel_material"
     }
   ],
   "results" : [

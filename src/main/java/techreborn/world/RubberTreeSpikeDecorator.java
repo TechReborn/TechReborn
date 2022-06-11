@@ -26,19 +26,14 @@ package techreborn.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-import java.util.function.BiConsumer;
 
 public class RubberTreeSpikeDecorator  extends TreeDecorator {
 	public static final Codec<RubberTreeSpikeDecorator> CODEC = RecordCodecBuilder.create(instance ->
@@ -64,13 +59,13 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 	}
 
 	@Override
-	public void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions) {
-		logPositions.stream()
+	public void generate(Generator generator) {
+		generator.getLogPositions().stream()
 			.max(Comparator.comparingInt(BlockPos::getY))
 			.ifPresent(blockPos -> {
 				for (int i = 0; i < spireHeight; i++) {
 					BlockPos sPos = blockPos.up(i);
-					replacer.accept(sPos, provider.getBlockState(random, sPos));
+					generator.replace(sPos, provider.getBlockState(generator.getRandom(), sPos));
 				}
 			});
 	}

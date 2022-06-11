@@ -50,7 +50,6 @@ import techreborn.utils.ToolsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class IndustrialChainsawItem extends ChainsawItem {
 

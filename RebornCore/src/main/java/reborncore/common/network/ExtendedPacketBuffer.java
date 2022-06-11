@@ -33,12 +33,6 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.PacketByteBuf;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.math.BigInteger;
-
 public class ExtendedPacketBuffer extends PacketByteBuf {
 	public ExtendedPacketBuffer(ByteBuf wrapped) {
 		super(wrapped);

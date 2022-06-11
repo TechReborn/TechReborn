@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "insulated_copper_cable",
   "pattern": [
     "RRR",
     "III",

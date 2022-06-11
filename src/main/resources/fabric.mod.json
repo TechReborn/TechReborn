@@ -19,23 +19,23 @@
     "client": [
       "techreborn.TechRebornClient"
     ],
-    "rei": [
-      "techreborn.compat.rei.ReiPlugin"
+    "rei_client": [
+		"techreborn.client.compat.rei.ReiPlugin"
     ]
   },
   "custom": {
 	"dashloader:customobject": [
-	  "techreborn.compat.dashloader.DashDynamicBucketBakedModel",
-	  "techreborn.compat.dashloader.DashDynamicCellBakedModel"
+	  "techreborn.client.compat.dashloader.DashDynamicBucketBakedModel",
+	  "techreborn.client.compat.dashloader.DashDynamicCellBakedModel"
 	]
   },
   "depends": {
-    "fabricloader": ">=0.13.3",
-	"fabric": ">=0.51.1",
+    "fabricloader": ">=0.14.6",
+	"fabric": ">=0.55.1",
     "reborncore": "*",
 	"team_reborn_energy": ">=2.2.0",
 	"fabric-biome-api-v1": ">=3.0.0",
-  	"minecraft": "~1.18.2-beta.1"
+  	"minecraft": "~1.19-beta.1"
   },
   "accessWidener": "techreborn.accesswidener",
   "authors": [

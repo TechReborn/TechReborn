@@ -34,7 +34,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.recipes.IRecipeInput;
@@ -172,11 +171,11 @@ public class ItemUtils {
 		}
 
 		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
-			ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, new TranslatableText("reborncore.message.energyError")
+			ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("reborncore.message.energyError")
 				.formatted(Formatting.GRAY)
 				.append(" ")
 				.append(
-					new TranslatableText("reborncore.message.deactivating")
+					Text.translatable("reborncore.message.deactivating")
 						.formatted(Formatting.GOLD)
 				)
 			);
@@ -199,11 +198,11 @@ public class ItemUtils {
 			stack.getOrCreateNbt().putBoolean("isActive", true);
 
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, new TranslatableText("reborncore.message.setTo")
+				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("reborncore.message.setTo")
 					.formatted(Formatting.GRAY)
 					.append(" ")
 					.append(
-						new TranslatableText("reborncore.message.active")
+						Text.translatable("reborncore.message.active")
 							.formatted(Formatting.GOLD)
 					)
 				);
@@ -211,11 +210,11 @@ public class ItemUtils {
 		} else {
 			stack.getOrCreateNbt().putBoolean("isActive", false);
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, new TranslatableText("reborncore.message.setTo")
+				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("reborncore.message.setTo")
 					.formatted(Formatting.GRAY)
 					.append(" ")
 					.append(
-						new TranslatableText("reborncore.message.inactive")
+						Text.translatable("reborncore.message.inactive")
 							.formatted(Formatting.GOLD)
 					)
 				);
@@ -231,9 +230,9 @@ public class ItemUtils {
 	 */
 	public static void buildActiveTooltip(ItemStack stack, List<Text> tooltip) {
 		if (!ItemUtils.isActive(stack)) {
-			tooltip.add(new TranslatableText("reborncore.message.inactive").formatted(Formatting.RED));
+			tooltip.add(Text.translatable("reborncore.message.inactive").formatted(Formatting.RED));
 		} else {
-			tooltip.add(new TranslatableText("reborncore.message.active").formatted(Formatting.GREEN));
+			tooltip.add(Text.translatable("reborncore.message.active").formatted(Formatting.GREEN));
 		}
 	}
 

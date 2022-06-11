@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:stone",
+    "#minecraft:stone_bricks",
+    "minecraft:smooth_stone",
+    "minecraft:cobblestone",
+    "minecraft:deepslate",
+    "minecraft:deepslate_bricks",
+    "minecraft:cracked_deepslate_bricks",
+    "minecraft:deepslate_tiles",
+    "minecraft:cracked_deepslate_tiles",
+    "minecraft:polished_deepslate",
+    "minecraft:chiseled_deepslate",
+    "minecraft:cobbled_deepslate",
+    "minecraft:blackstone",
+    "minecraft:polished_blackstone",
+    "minecraft:chiseled_polished_blackstone",
+    "minecraft:polished_blackstone_bricks",
+    "minecraft:cracked_polished_blackstone_bricks"
+  ]
+}

@@ -7,6 +7,7 @@ import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
@@ -23,14 +24,27 @@ public class TRVillager {
 	public static final Identifier ELECTRICIAN_ID = new Identifier(TechReborn.MOD_ID, "electrician");
 
 	public static final PointOfInterestType METALLURGIST_POI = PointOfInterestHelper.register(
-		METALLURGIST_ID, 1, 1, TRContent.Machine.IRON_ALLOY_FURNACE.block);
+		METALLURGIST_ID, 1, 1, TRContent.Machine.IRON_ALLOY_FURNACE.block
+	);
 	public static final PointOfInterestType ELECTRICIAN_POI = PointOfInterestHelper.register(
-			ELECTRICIAN_ID, 1, 1, TRContent.Machine.SOLID_FUEL_GENERATOR.block);
+		ELECTRICIAN_ID, 1, 1, TRContent.Machine.SOLID_FUEL_GENERATOR.block
+	);
 
 	public static final VillagerProfession METALLURGIST_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION, METALLURGIST_ID,
-		VillagerProfessionBuilder.create().id(METALLURGIST_ID).workstation(METALLURGIST_POI).workSound(SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH).build());
-	public static final VillagerProfession ELECTRICIAN_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION,ELECTRICIAN_ID,
-		VillagerProfessionBuilder.create().id(ELECTRICIAN_ID).workstation(ELECTRICIAN_POI).workSound(ModSounds.CABLE_SHOCK).build());
+		VillagerProfessionBuilder.create()
+			.id(METALLURGIST_ID)
+			.workstation(RegistryKey.of(Registry.POINT_OF_INTEREST_TYPE_KEY, METALLURGIST_ID))
+			.workSound(SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH)
+			.build()
+	);
+
+	public static final VillagerProfession ELECTRICIAN_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION, ELECTRICIAN_ID,
+		VillagerProfessionBuilder.create()
+			.id(ELECTRICIAN_ID)
+			.workstation(RegistryKey.of(Registry.POINT_OF_INTEREST_TYPE_KEY, ELECTRICIAN_ID))
+			.workSound(ModSounds.CABLE_SHOCK)
+			.build()
+	);
 
 	private TRVillager() {/* No instantiation. */}
 

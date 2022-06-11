@@ -1,0 +1,19 @@
+{
+  "type": "reborncore:padded",
+  "pattern": [
+    "U U",
+    "   ",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:deepslate"
+    },
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  },
+  "result": {
+    "item": "minecraft:deepslate_iron_ore"
+  }
+}
