@@ -89,8 +89,10 @@ public class ModLoot {
 		LootPoolEntry rubber = ItemEntry.builder(Parts.RUBBER).weight(10).build();
 		LootPoolEntry treeTap = ItemEntry.builder(TRContent.TREE_TAP).weight(10)
 			.apply(SetDamageLootFunction.builder(UniformLootNumberProvider.create(0.0f, 0.9f))).build();
+		LootPoolEntry scrap = ItemEntry.builder(Parts.SCRAP).weight(10).build();
 
-		LootPool poolFishingJunk = LootPool.builder().with(rubber).with(treeTap).build();
+		LootPool poolFishingJunk = LootPool.builder().with(rubber).with(treeTap).with(scrap).build();
+
 
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			String stringId = id.toString();
@@ -144,7 +146,6 @@ public class ModLoot {
 					tableBuilder.pool(poolFishingJunk);
 				}
 			}
-			return;
 		});
 
 	}
