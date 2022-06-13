@@ -35,10 +35,14 @@ import java.util.*;
 
 @SuppressWarnings("UnstableApiUsage")
 class CableTickManager {
-	private static long tickCounter = 0;
 	private static final List<CableBlockEntity> cableList = new ArrayList<>();
 	private static final List<OfferedEnergyStorage> targetStorages = new ArrayList<>();
 	private static final Deque<CableBlockEntity> bfsQueue = new ArrayDeque<>();
+	private static long tickCounter = 0;
+
+	static {
+		ServerTickEvents.START_SERVER_TICK.register(server -> tickCounter++);
+	}
 
 	static void handleCableTick(CableBlockEntity startingCable) {
 		if (!(startingCable.getWorld() instanceof ServerWorld)) throw new IllegalStateException();
@@ -93,9 +97,7 @@ class CableTickManager {
 		// Make sure we only gather and tick each cable once per tick.
 		if (current.lastTick == tickCounter) return false;
 		// Make sure we ignore cables in non-ticking chunks.
-		if (!(current.getWorld() instanceof ServerWorld sw) || !sw.isChunkLoaded(current.getPos())) return false;
-
-		return true;
+		return current.getWorld() instanceof ServerWorld sw && sw.isChunkLoaded(current.getPos());
 	}
 
 	/**
@@ -112,7 +114,7 @@ class CableTickManager {
 			CableBlockEntity current = bfsQueue.removeFirst();
 
 			for (Direction direction : Direction.values()) {
-				if (current.getAdjacentBlockEntity(direction) instanceof CableBlockEntity adjCable && current.getCableType() == adjCable.getCableType()) {
+				if (current.getAdjacentBlockEntity(direction) instanceof CableBlockEntity adjCable && current.getCableType().transferRate == adjCable.getCableType().transferRate) {
 					if (shouldTickCable(adjCable)) {
 						bfsQueue.add(adjCable);
 						adjCable.lastTick = tickCounter;
@@ -172,9 +174,5 @@ class CableTickManager {
 				this.simulationResult = operation.transfer(storage.storage, Long.MAX_VALUE, tx);
 			}
 		}
-	}
-
-	static {
-		ServerTickEvents.START_SERVER_TICK.register(server -> tickCounter++);
 	}
 }
