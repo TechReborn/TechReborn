@@ -107,6 +107,32 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	/**
+	 * Updates this.state according to the overall state of the reactor
+	 *
+	 * @return True if the machine is doing something, False if not.
+	 */
+	private boolean updateState() {
+		this.state = FusionControlComputerState.INACTIVE;
+		
+		if (!isMultiblockValid())
+			return false;
+		
+		if (this.state != FusionControlComputerState.CHARGING && !isActive(RedstoneConfiguration.RECIPE_PROCESSING)) {
+			this.state = FusionControlComputerState.PAUSED;
+			return false;
+		}
+		
+		if (currentRecipe == null)
+			this.state = FusionControlComputerState.NO_RECIPE;
+		else if (hasStartedCrafting)
+			this.state = FusionControlComputerState.CRAFTING;
+		else
+			this.state = FusionControlComputerState.CHARGING;
+
+		return true;
+	}
+	
+	/**
 	 * Changes size of fusion reactor ring after GUI button click
 	 *
 	 * @param sizeDelta {@code int} Size increment
@@ -259,12 +285,11 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			return;
 		}
 
-		if (!isActive(RedstoneConfiguration.RECIPE_PROCESSING)) {
+		if(!updateState()) {
 			resetCrafter();
-			this.state = FusionControlComputerState.PAUSED;
 			return;
 		}
-
+		
 		// Move this to here from the nbt read method, as it now requires the world as of 1.14
 		if (checkNBTRecipe) {
 			checkNBTRecipe = false;
@@ -286,22 +311,14 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			inventory.setHashChanged();
 		}
 
-		if (!isMultiblockValid()) {
-			resetCrafter();
-			this.state = FusionControlComputerState.INACTIVE;
-			return;
-		}
-
 		if (currentRecipe == null && inventory.hasChanged()) {
 			updateCurrentRecipe();
-			this.state = FusionControlComputerState.CHARGING;
 		}
 
 		if (currentRecipe != null) {
 			if (!hasStartedCrafting && !validateRecipe(currentRecipe)) {
 				resetCrafter();
 				inventory.resetHasChanged();
-				this.state = FusionControlComputerState.INACTIVE;
 				return;
 			}
 
