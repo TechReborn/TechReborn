@@ -33,7 +33,7 @@ import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
-import techreborn.blockentity.machine.multiblock.FusionControlComputer.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.fusion.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;

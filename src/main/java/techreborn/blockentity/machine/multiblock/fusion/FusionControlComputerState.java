@@ -1,4 +1,4 @@
-package techreborn.blockentity.machine.multiblock.FusionControlComputer;
+package techreborn.blockentity.machine.multiblock.fusion;
 
 public enum FusionControlComputerState {
 	INACTIVE(-1),

@@ -30,7 +30,7 @@ import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
-import techreborn.blockentity.machine.multiblock.FusionControlComputer.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.fusion.FusionControlComputerBlockEntity;
 import techreborn.init.TRContent;
 
 import java.util.List;

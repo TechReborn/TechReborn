@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.machine.multiblock.FusionControlComputer;
+package techreborn.blockentity.machine.multiblock.fusion;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

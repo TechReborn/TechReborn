@@ -39,7 +39,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
-import techreborn.blockentity.machine.multiblock.FusionControlComputer.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.fusion.FusionControlComputerBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
 import java.util.Optional;
