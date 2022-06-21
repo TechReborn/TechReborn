@@ -50,6 +50,7 @@ import techreborn.blockentity.machine.misc.AlarmBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.multiblock.fusion.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;

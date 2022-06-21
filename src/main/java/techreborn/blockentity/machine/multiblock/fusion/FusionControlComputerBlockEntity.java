@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.machine.multiblock;
+package techreborn.blockentity.machine.multiblock.fusion;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -40,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
+import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -60,7 +61,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	public int craftingTickTime = 0;
 	public int neededPower = 0;
 	public int size = 6;
-	public int state = -1;
+	public FusionControlComputerState state = FusionControlComputerState.INACTIVE;
 	int topStackSlot = 0;
 	int bottomStackSlot = 1;
 	int outputStackSlot = 2;
@@ -86,25 +87,51 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	public Text getStateText() {
-		if (state == -1) {
-			return LiteralText.EMPTY;
-		} else if (state == 0) {
-			return new TranslatableText("gui.techreborn.fusion.norecipe");
-		} else if (state == 1) {
-			FusionReactorRecipe r = getCurrentRecipeFromID();
-			if (r == null) {
-				return new TranslatableText("gui.techreborn.fusion.charging");
-			}
-			int percentage = percentage(r.getStartEnergy(), getEnergy());
-			return new TranslatableText("gui.techreborn.fusion.chargingdetailed",
-				new Object[]{StringUtils.getPercentageText(percentage)}
-			);
-		} else if (state == 2) {
-			return new TranslatableText("gui.techreborn.fusion.crafting");
+		switch (this.state) {
+			case NO_RECIPE:
+				return new TranslatableText("gui.techreborn.fusion.norecipe");
+			case CHARGING:
+				FusionReactorRecipe r = getCurrentRecipeFromID();
+				if (r == null)
+					return new TranslatableText("gui.techreborn.fusion.charging");
+
+				int percentage = percentage(r.getStartEnergy(), getEnergy());
+				return new TranslatableText("gui.techreborn.fusion.chargingdetailed", StringUtils.getPercentageText(percentage));
+			case CRAFTING:
+				return new TranslatableText("gui.techreborn.fusion.crafting");
+			case PAUSED:
+				return new TranslatableText("gui.techreborn.fusion.paused");
+			default:
+				return LiteralText.EMPTY;
 		}
-		return LiteralText.EMPTY;
 	}
 
+	/**
+	 * Updates this.state according to the overall state of the reactor
+	 *
+	 * @return True if the machine is doing something, False if not.
+	 */
+	private boolean updateState() {
+		this.state = FusionControlComputerState.INACTIVE;
+		
+		if (!isMultiblockValid())
+			return false;
+		
+		if (this.state != FusionControlComputerState.CHARGING && !isActive(RedstoneConfiguration.RECIPE_PROCESSING)) {
+			this.state = FusionControlComputerState.PAUSED;
+			return false;
+		}
+		
+		if (currentRecipe == null)
+			this.state = FusionControlComputerState.NO_RECIPE;
+		else if (hasStartedCrafting)
+			this.state = FusionControlComputerState.CRAFTING;
+		else
+			this.state = FusionControlComputerState.CHARGING;
+
+		return true;
+	}
+	
 	/**
 	 * Changes size of fusion reactor ring after GUI button click
 	 *
@@ -152,9 +179,9 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 * Tries to set current recipe based in inputs in reactor
 	 */
 	private void updateCurrentRecipe() {
-		for (RebornRecipe recipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
-			if (validateRecipe((FusionReactorRecipe) recipe)) {
-				currentRecipe = (FusionReactorRecipe) recipe;
+		for (FusionReactorRecipe recipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
+			if (validateRecipe(recipe)) {
+				currentRecipe = recipe;
 				craftingTickTime = 0;
 				neededPower = currentRecipe.getStartEnergy();
 				hasStartedCrafting = false;
@@ -184,11 +211,9 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			return false;
 		}
 		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
-			boolean hasItem = false;
-			if (ingredient.test(inventory.getStack(topStackSlot))
-					|| ingredient.test(inventory.getStack(bottomStackSlot))) {
-				hasItem = true;
-			}
+			boolean hasItem = ingredient.test(inventory.getStack(topStackSlot))
+							|| ingredient.test(inventory.getStack(bottomStackSlot));
+
 			if (!hasItem) {
 				return false;
 			}
@@ -260,12 +285,17 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			return;
 		}
 
+		if(!updateState()) {
+			resetCrafter();
+			return;
+		}
+		
 		// Move this to here from the nbt read method, as it now requires the world as of 1.14
 		if (checkNBTRecipe) {
 			checkNBTRecipe = false;
-			for (final RebornRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
-				if (validateRecipe((FusionReactorRecipe) reactorRecipe)) {
-					this.currentRecipe = (FusionReactorRecipe) reactorRecipe;
+			for (final FusionReactorRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
+				if (validateRecipe(reactorRecipe)) {
+					this.currentRecipe = reactorRecipe;
 				}
 			}
 		}
@@ -279,11 +309,6 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		// Force check every second
 		if (world.getTime() % 20 == 0) {
 			inventory.setHashChanged();
-		}
-
-		if (!isMultiblockValid()) {
-			resetCrafter();
-			return;
 		}
 
 		if (currentRecipe == null && inventory.hasChanged()) {
@@ -304,6 +329,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 					hasStartedCrafting = true;
 					useInput(topStackSlot);
 					useInput(bottomStackSlot);
+					this.state = FusionControlComputerState.CRAFTING;
 				}
 			}
 			if (hasStartedCrafting && craftingTickTime < currentRecipe.getTime()) {
@@ -334,6 +360,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 						useInput(bottomStackSlot);
 					} else {
 						resetCrafter();
+						this.state = FusionControlComputerState.NO_RECIPE;
 					}
 				}
 			}
@@ -430,17 +457,11 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	public int getState() {
-		if (currentRecipe == null) {
-			return 0; //No Recipe
-		}
-		if (!hasStartedCrafting) {
-			return 1; //Waiting on power
-		}
-		return 2; //Crafting
+		return this.state.getValue();
 	}
 
 	public void setState(int state) {
-		this.state = state;
+		this.state = FusionControlComputerState.fromValue(state);
 	}
 
 	public int getNeededPower() {

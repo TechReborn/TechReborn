@@ -1096,6 +1096,7 @@
   "gui.techreborn.fusion.charging": "Charging",
   "gui.techreborn.fusion.chargingdetailed": "Charging (%s)",
   "gui.techreborn.fusion.crafting": "Crafting",
+  "gui.techreborn.fusion.paused": "Paused",
 
   "gui.techreborn.block_breaker.idle": "Nothing to break",
   "gui.techreborn.block_breaker.processing": "Breaking block",

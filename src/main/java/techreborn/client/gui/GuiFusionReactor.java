@@ -39,7 +39,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
-import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.fusion.FusionControlComputerBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
 import java.util.Optional;
@@ -88,7 +88,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 		if (blockEntity.isMultiblockValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
 			drawCentredText(matrixStack, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
-			if (blockEntity.state == 2) {
+			if (blockEntity.state.getValue() == 2) {
 				drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
 			}
 		} else {
