@@ -97,7 +97,7 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 				break;
 			case CHEST:
 				if (enableFlight){
-					if (getStoredEnergy(stack) > flyCost && !TechReborn.elytraPredicate.test(playerEntity)) {
+					if (getStoredEnergy(stack) > flyCost) {
 						playerEntity.getAbilities().allowFlying = true;
 						if (playerEntity.getAbilities().flying) {
 							tryUseEnergy(stack, flyCost);

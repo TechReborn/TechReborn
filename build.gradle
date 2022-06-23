@@ -19,19 +19,6 @@ plugins {
 
 repositories {
 	maven {
-		url = "https://www.cursemaven.com"
-		content {
-			includeGroup "curse.maven"
-		}
-	}
-    maven {
-        name "DashLoader"
-        url = "https://maven.oskarstrom.net"
-        content {
-            includeGroup "net.oskarstrom"
-        }
-    }
-	maven {
         name "REI"
 		url "https://maven.shedaniel.me/"
         content {
@@ -40,18 +27,11 @@ repositories {
             includeGroup "dev.architectury"
         }
 	}
-    maven {
-        url = 'https://ladysnake.jfrog.io/artifactory/mods'
-        content {
-            // Trinkets dependency
-            includeGroup "io.github.onyxstudios.Cardinal-Components-API"
-        }
-    }
 	maven {
-		url = "https://jitpack.io"
+		name = "JEI"
+		url = "https://dvs1.progwml6.com/files/maven/"
 		content {
-            // Trinkets API
-			includeGroup "com.github.emilyploszaj"
+			includeGroup "mezz.jei"
 		}
 	}
 }
@@ -207,16 +187,9 @@ dependencies {
 
     include project(":RebornCore")
 
-    disabledOptionalDependency "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-    disabledOptionalDependency "com.github.emilyploszaj:trinkets:${project.trinkets_version}"
-    disabledOptionalDependency "net.oskarstrom:DashLoader:${project.dashloader_version}"
-
-    // REI's deps depend on the deprecated command module.
-    modRuntimeOnly "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fapi_version}"
-
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
-    gametestImplementation 'org.apache.groovy:groovy:4.0.1'
-    datagenImplementation 'org.apache.groovy:groovy:4.0.1'
+    gametestImplementation 'org.apache.groovy:groovy:4.0.3'
+    datagenImplementation 'org.apache.groovy:groovy:4.0.3'
 
     gametestImplementation ("com.google.truth:truth:1.1.3") {
         exclude module: "guava"
@@ -224,26 +197,80 @@ dependencies {
     }
 }
 
-def optionalDependency(String dep) {
-    def excludes = {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude module: "nbt-crafting"
-        exclude module: "modmenu"
-    }
+def modCompat(Map args) {
+	SourceSet compatSourceSet = sourceSets.create(args.name) {
+		compileClasspath += args.sourceSet.compileClasspath
+		runtimeClasspath += args.sourceSet.runtimeClasspath
 
-	dependencies.modLocalRuntime(dep, excludes)
-	dependencies.modCompileOnly(dep, excludes)
+		java {
+			srcDirs = ["src/compat/${args.name}"]
+		}
+	}
+
+	jar {
+		from compatSourceSet.output.classesDirs
+		from compatSourceSet.output.resourcesDir
+	}
+
+	sourcesJar {
+		from compatSourceSet.allSource
+	}
+
+	def excludes = {
+		exclude group: "net.fabricmc.fabric-api"
+		exclude module: "nbt-crafting"
+		exclude module: "modmenu"
+	}
+
+	// TODO use sourceset specific configurations with https://github.com/FabricMC/fabric-loom/pull/674
+	dependencies {
+		args.dependencies.each { dependency ->
+			modLocalRuntime(dependency, excludes)
+			modCompileOnly(dependency, excludes)
+		}
+		args.compile.each { dependency ->
+			modCompileOnly(dependency, excludes)
+		}
+		args.runtime.each { dependency ->
+			modLocalRuntime(dependency, excludes)
+		}
+	}
+
+	allprojects {
+		loom {
+			mods {
+				techreborn {
+					sourceSet compatSourceSet
+				}
+			}
+		}
+	}
 }
 
-def disabledOptionalDependency(String dep) {
-    def excludes = {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude module: "nbt-crafting"
-        exclude module: "modmenu"
-    }
-
-	dependencies.modCompileOnly(dep, excludes)
+configurations.each {
+	println it
 }
+
+modCompat(
+	name: "rei",
+	dependencies: [
+		"me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+	],
+	sourceSet: sourceSets.client,
+)
+
+modCompat(
+	name: "jei",
+	runtime: [
+		// Uncomment to enable JEI
+//		"mezz.jei:jei-1.19-fabric:${project.jei_version}"
+	],
+	compile: [
+		"mezz.jei:jei-1.19-common-api:${project.jei_version}",
+		"mezz.jei:jei-1.19-fabric-api:${project.jei_version}"
+	],
+	sourceSet: sourceSets.client,
+)
 
 loom {
     runs {
@@ -276,7 +303,6 @@ loom {
         }
     }
 }
-test.dependsOn runGametest
 
 runDatagen {
     // Doesn't re-run the task when its up-to date
