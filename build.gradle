@@ -247,10 +247,6 @@ def modCompat(Map args) {
 	}
 }
 
-configurations.each {
-	println it
-}
-
 modCompat(
 	name: "rei",
 	dependencies: [
