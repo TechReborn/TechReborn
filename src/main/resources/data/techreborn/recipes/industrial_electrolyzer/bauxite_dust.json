@@ -4,7 +4,7 @@
   "time": 2000,
   "ingredients": [
     {
-      "item": "techreborn:bauxite_dust",
+      "tag": "c:bauxite_dusts",
       "count": 12
     },
     {
