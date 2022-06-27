@@ -198,6 +198,7 @@ dependencies {
 }
 
 def modCompat(Map args) {
+	/*
 	SourceSet compatSourceSet = sourceSets.create(args.name) {
 		compileClasspath += args.sourceSet.compileClasspath
 		runtimeClasspath += args.sourceSet.runtimeClasspath
@@ -215,6 +216,7 @@ def modCompat(Map args) {
 	sourcesJar {
 		from compatSourceSet.allSource
 	}
+	*/
 
 	def excludes = {
 		exclude group: "net.fabricmc.fabric-api"
@@ -236,6 +238,7 @@ def modCompat(Map args) {
 		}
 	}
 
+	/*
 	allprojects {
 		loom {
 			mods {
@@ -245,6 +248,7 @@ def modCompat(Map args) {
 			}
 		}
 	}
+	*/
 }
 
 modCompat(
@@ -255,11 +259,11 @@ modCompat(
 	sourceSet: sourceSets.client,
 )
 
+/*
 modCompat(
 	name: "jei",
 	runtime: [
-		// Uncomment to enable JEI
-//		"mezz.jei:jei-1.19-fabric:${project.jei_version}"
+		"mezz.jei:jei-1.19-fabric:${project.jei_version}"
 	],
 	compile: [
 		"mezz.jei:jei-1.19-common-api:${project.jei_version}",
@@ -267,6 +271,7 @@ modCompat(
 	],
 	sourceSet: sourceSets.client,
 )
+*/
 
 loom {
     runs {
