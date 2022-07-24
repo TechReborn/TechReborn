@@ -3,6 +3,7 @@ package techreborn.items;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
@@ -65,6 +66,9 @@ public class UpgraderItem extends Item {
 			newBlockEntity.readNbt(data);
 			((MachineBaseBlockEntity) newBlockEntity).syncWithAll();
 		}
+
+		ItemStack stack = context.getStack();
+		stack.decrement(1);
 
 		return ActionResult.SUCCESS;
 	}
