@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.ConfirmChatLinkScreen;
+import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -54,14 +54,14 @@ public class GuiManual extends Screen {
 		int y = (height / 2) - guiHeight / 2;
 		if (client == null) { return; }
 
-		addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 40, 60, 20, Text.translatable("techreborn.manual.wikibtn"), var1 -> client.setScreen(new ConfirmChatLinkScreen(t -> {
+		addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 40, 60, 20, Text.translatable("techreborn.manual.wikibtn"), var1 -> client.setScreen(new ConfirmLinkScreen(t -> {
 			if (t) {
 				Util.getOperatingSystem().open("http://wiki.techreborn.ovh");
 			}
 			this.client.setScreen(this);
 		}, "http://wiki.techreborn.ovh", false))));
 
-		addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 90, 60, 20, Text.translatable("techreborn.manual.discordbtn"), var1 -> client.setScreen(new ConfirmChatLinkScreen(t -> {
+		addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 90, 60, 20, Text.translatable("techreborn.manual.discordbtn"), var1 -> client.setScreen(new ConfirmLinkScreen(t -> {
 			if (t) {
 				Util.getOperatingSystem().open("https://discord.gg/teamreborn");
 			}

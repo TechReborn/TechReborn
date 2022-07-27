@@ -147,8 +147,7 @@ public class ClientBoundPacketHandlers {
 
 			client.execute(() -> {
 				int deleteID = RebornCore.MOD_ID.hashCode() + messageId;
-				ChatHud chat = MinecraftClient.getInstance().inGameHud.getChatHud();
-				chat.addMessage(text, deleteID);
+				MinecraftClient.getInstance().inGameHud.setOverlayMessage(text, false);
 			});
 		});
 

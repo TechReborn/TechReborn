@@ -444,7 +444,7 @@ public class GuiBuilder {
 			bufferBuilder.vertex(this.left, this.top, 0.0D).texture((float) this.left / 32.0F, (float) (this.top + (int) this.getScrollAmount()) / 32.0F).color(32, 32, 32, 255).next();
 			tessellator.draw();
 
-			super.renderList(matrices, this.getRowLeft(), this.top, mouseX, mouseY, delta);
+			super.renderList(matrices, mouseX, mouseY, delta);
 		}
 
 		@Override

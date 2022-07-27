@@ -25,19 +25,11 @@
 package reborncore.client;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.message.MessageSender;
-import net.minecraft.network.message.MessageType;
 import net.minecraft.text.Text;
-import net.minecraft.util.Util;
-import net.minecraft.util.registry.Registry;
 
 public class ClientChatUtils {
 	public static void addHudMessage(Text text) {
-		MinecraftClient.getInstance().inGameHud.onChatMessage(getSystemMessageType(), text, new MessageSender(Util.NIL_UUID, text));
-	}
-
-	private static MessageType getSystemMessageType() {
-		Registry<MessageType> registry = MinecraftClient.getInstance().world.getRegistryManager().get(Registry.MESSAGE_TYPE_KEY);
-		return registry.get(MessageType.SYSTEM);
+		final MinecraftClient client = MinecraftClient.getInstance();
+		client.inGameHud.getChatHud().addMessage(text);
 	}
 }
