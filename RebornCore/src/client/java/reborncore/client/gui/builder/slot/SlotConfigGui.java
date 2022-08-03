@@ -32,13 +32,13 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientChatUtils;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
 import reborncore.client.gui.builder.slot.elements.ElementBase;
 import reborncore.client.gui.builder.slot.elements.SlotType;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
@@ -119,7 +119,7 @@ public class SlotConfigGui {
 		String json = MinecraftClient.getInstance().keyboard.getClipboard();
 		try {
 			machine.getSlotConfiguration().readJson(json, machine.getClass().getCanonicalName());
-			NetworkManager.sendToServer(ServerBoundPackets.createPacketConfigSave(machine.getPos(), machine.getSlotConfiguration()));
+			ClientNetworkManager.sendToServer(ServerBoundPackets.createPacketConfigSave(machine.getPos(), machine.getSlotConfiguration()));
 			ClientChatUtils.addHudMessage(Text.literal("Slot configuration loaded from clipboard"));
 		} catch (UnsupportedOperationException e) {
 			ClientChatUtils.addHudMessage(Text.literal(e.getMessage()));

@@ -41,12 +41,12 @@ import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.IdentifiedPacket;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.util.Color;
 import reborncore.common.util.MachineFacing;
@@ -126,7 +126,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(nextConfig);
 		SlotConfiguration.SlotConfig newConfig = new SlotConfiguration.SlotConfig(side, slotIO, id);
 		IdentifiedPacket packetSlotSave = ServerBoundPackets.createPacketSlotSave(guiBase.be.getPos(), newConfig);
-		NetworkManager.sendToServer(packetSlotSave);
+		ClientNetworkManager.sendToServer(packetSlotSave);
 	}
 
 	public void updateCheckBox(CheckBoxElement checkBoxElement, String type, GuiBase<?> guiBase) {
@@ -145,7 +145,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		}
 
 		IdentifiedPacket packetSlotSave = ServerBoundPackets.createPacketIOSave(guiBase.be.getPos(), id, input, output, filter);
-		NetworkManager.sendToServer(packetSlotSave);
+		ClientNetworkManager.sendToServer(packetSlotSave);
 	}
 
 	private void drawSlotSateColor(MatrixStack matrices, MachineBaseBlockEntity machineBase, Direction side, int slotID, int inx, int iny, GuiBase<?> gui) {

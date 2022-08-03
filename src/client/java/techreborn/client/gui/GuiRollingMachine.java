@@ -26,9 +26,9 @@ package techreborn.client.gui;
 
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.packets.ServerboundPackets;
@@ -77,7 +77,7 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 		if (isPointInRect(130, 4, 20, 12, mouseX, mouseY)) {
-			NetworkManager.sendToServer(ServerboundPackets.createPacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
+			ClientNetworkManager.sendToServer(ServerboundPackets.createPacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
 			return true;
 		}
 		return super.mouseClicked(mouseX, mouseY, mouseButton);

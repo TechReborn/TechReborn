@@ -29,12 +29,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.tuple.Pair;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
@@ -123,7 +123,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	private void sendSizeChange(int sizeDelta) {
-		NetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, blockEntity.getPos()));
+		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, blockEntity.getPos()));
 	}
 
 	public Optional<Pair<Integer, Integer>> getCoilStackCount() {

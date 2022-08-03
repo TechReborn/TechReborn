@@ -27,11 +27,11 @@ package reborncore.client.gui.builder;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.RenderUtil;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.network.IdentifiedPacket;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.network.ServerBoundPackets;
 
 import java.util.Locale;
@@ -84,7 +84,7 @@ public class RedstoneConfigGui {
 				}
 				RedstoneConfiguration.State nextState = RedstoneConfiguration.State.values()[ns];
 				IdentifiedPacket packet = ServerBoundPackets.createPacketSetRedstoneSate(guiBase.getMachine().getPos(), element, nextState);
-				NetworkManager.sendToServer(packet);
+				ClientNetworkManager.sendToServer(packet);
 				return true;
 			}
 			i++;

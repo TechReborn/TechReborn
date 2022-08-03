@@ -30,9 +30,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.util.Identifier;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.packets.ServerboundPackets;
@@ -88,7 +88,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 		if (isPointInRect(145, 4, 20, 12, mouseX, mouseY)) {
-			NetworkManager.sendToServer(ServerboundPackets.createPacketAutoCraftingTableLock(blockEntityAutoCraftingTable, !blockEntityAutoCraftingTable.locked));
+			ClientNetworkManager.sendToServer(ServerboundPackets.createPacketAutoCraftingTableLock(blockEntityAutoCraftingTable, !blockEntityAutoCraftingTable.locked));
 			return true;
 		}
 		return super.mouseClicked(mouseX, mouseY, mouseButton);

@@ -41,12 +41,12 @@ import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.IdentifiedPacket;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.util.Color;
 import reborncore.common.util.MachineFacing;
@@ -117,7 +117,7 @@ public class FluidConfigPopupElement extends ElementBase {
 		FluidConfiguration.FluidConfig newConfig = new FluidConfiguration.FluidConfig(side, fluidIO);
 
 		IdentifiedPacket packetSave = ServerBoundPackets.createPacketFluidConfigSave(guiBase.be.getPos(), newConfig);
-		NetworkManager.sendToServer(packetSave);
+		ClientNetworkManager.sendToServer(packetSave);
 	}
 
 	public void updateCheckBox(CheckBoxElement checkBoxElement, String type, GuiBase<?> guiBase) {
@@ -132,7 +132,7 @@ public class FluidConfigPopupElement extends ElementBase {
 		}
 
 		IdentifiedPacket packetFluidIOSave = ServerBoundPackets.createPacketFluidIOSave(guiBase.be.getPos(), input, output);
-		NetworkManager.sendToServer(packetFluidIOSave);
+		ClientNetworkManager.sendToServer(packetFluidIOSave);
 	}
 
 	@Override

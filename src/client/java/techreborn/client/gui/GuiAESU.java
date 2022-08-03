@@ -27,10 +27,10 @@ package techreborn.client.gui;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
@@ -87,6 +87,6 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void onClick(int amount) {
-		NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(amount, hasShiftDown(), hasControlDown(), blockEntity));
+		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketAesu(amount, hasShiftDown(), hasControlDown(), blockEntity));
 	}
 }

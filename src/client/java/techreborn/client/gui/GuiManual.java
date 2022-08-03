@@ -31,8 +31,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
-import reborncore.common.network.NetworkManager;
 import techreborn.config.TechRebornConfig;
 import techreborn.packets.ServerboundPackets;
 
@@ -70,7 +70,7 @@ public class GuiManual extends Screen {
 
 		if (TechRebornConfig.allowManualRefund) {
 			addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 140, 60, 20, Text.translatable("techreborn.manual.refundbtn"), var1 -> {
-				NetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
+				ClientNetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
 				this.client.setScreen(null);
 			}));
 		}

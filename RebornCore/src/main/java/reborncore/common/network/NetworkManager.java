@@ -25,7 +25,6 @@
 package reborncore.common.network;
 
 import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -63,10 +62,6 @@ public class NetworkManager {
 
 	public static <T> IdentifiedPacket createClientBoundPacket(Identifier identifier, Codec<T> codec, T value) {
 		return createClientBoundPacket(identifier, extendedPacketBuffer -> extendedPacketBuffer.writeCodec(codec, value));
-	}
-
-	public static void sendToServer(IdentifiedPacket packet) {
-		ClientPlayNetworking.send(packet.channel(), packet.packetByteBuf());
 	}
 
 	public static void sendToAll(IdentifiedPacket packet, MinecraftServer server) {

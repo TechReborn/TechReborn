@@ -27,9 +27,9 @@ package techreborn.client.gui;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.packets.ServerboundPackets;
@@ -44,7 +44,7 @@ public class GuiPlayerDetector extends GuiBase<BuiltScreenHandler> {
 	}
 
 	private void onClick(int amount) {
-		NetworkManager.sendToServer(ServerboundPackets.createPacketPlayerDetector(amount, blockEntity));
+		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketPlayerDetector(amount, blockEntity));
 	}
 
 	@Override

@@ -30,6 +30,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.util.Identifier;
 import reborncore.common.network.ExtendedPacketBuffer;
+import reborncore.common.network.IdentifiedPacket;
 
 import java.util.function.Consumer;
 
@@ -44,5 +45,9 @@ public class ClientNetworkManager {
 			T value = new ExtendedPacketBuffer(buf).readCodec(codec);
 			client.execute(() -> consumer.accept(value));
 		});
+	}
+
+	public static void sendToServer(IdentifiedPacket packet) {
+		ClientPlayNetworking.send(packet.channel(), packet.packetByteBuf());
 	}
 }

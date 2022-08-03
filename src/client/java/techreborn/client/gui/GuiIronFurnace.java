@@ -31,9 +31,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.packets.ServerboundPackets;
@@ -51,7 +51,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void onClick() {
-		NetworkManager.sendToServer(ServerboundPackets.createPacketExperience(blockEntity));
+		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketExperience(blockEntity));
 	}
 
 	@Override

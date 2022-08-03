@@ -29,10 +29,10 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import reborncore.client.ClientChunkManager;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.packets.ServerboundPackets;
@@ -69,6 +69,6 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void onClick(int amount) {
-		NetworkManager.sendToServer(ServerboundPackets.createPacketChunkloader(amount, blockEntity, ClientChunkManager.hasChunksForLoader(blockEntity.getPos())));
+		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketChunkloader(amount, blockEntity, ClientChunkManager.hasChunksForLoader(blockEntity.getPos())));
 	}
 }

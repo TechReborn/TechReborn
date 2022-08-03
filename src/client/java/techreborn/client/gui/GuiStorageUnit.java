@@ -27,8 +27,8 @@ package techreborn.client.gui;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.common.network.NetworkManager;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.packets.ServerboundPackets;
@@ -85,7 +85,7 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 		if (isPointInRect(150, 4, 20, 12, mouseX, mouseY) && storageEntity.canModifyLocking()) {
-			NetworkManager.sendToServer(ServerboundPackets.createPacketStorageUnitLock(storageEntity, !storageEntity.isLocked()));
+			ClientNetworkManager.sendToServer(ServerboundPackets.createPacketStorageUnitLock(storageEntity, !storageEntity.isLocked()));
 			return true;
 		}
 		return super.mouseClicked(mouseX, mouseY, mouseButton);
