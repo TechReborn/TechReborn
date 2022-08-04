@@ -27,7 +27,6 @@ package techreborn.client.compat.rei;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.architectury.event.CompoundEventResult;
 import dev.architectury.fluid.FluidStack;
-import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.entry.renderer.AbstractEntryRenderer;
 import me.shedaniel.rei.api.client.entry.renderer.EntryRenderer;
@@ -48,7 +47,6 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.comparison.ItemComparatorRegistry;
 import me.shedaniel.rei.api.common.fluid.FluidSupportProvider;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.impl.client.gui.widget.EntryWidget;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
@@ -214,7 +212,7 @@ public class ReiPlugin implements REIClientPlugin {
 	private void registerFluidGeneratorDisplays(DisplayRegistry registry, EFluidGenerator generator, Machine machine) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, machine.name);
 		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe ->
-				registry.add(new FluidGeneratorRecipeDisplay(recipe, identifier))
+			registry.add(new FluidGeneratorRecipeDisplay(recipe, identifier))
 		);
 	}
 
@@ -285,16 +283,8 @@ public class ReiPlugin implements REIClientPlugin {
 	}
 
 	public static Widget createEnergyDisplay(Rectangle bounds, double energy, EntryAnimation animation, Function<TooltipContext, Tooltip> tooltipBuilder) {
-		return new EnergyEntryWidget(bounds, animation).entry(
-				ClientEntryStacks.of(new AbstractRenderer() {
-					@Override
-					public void render(MatrixStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {}
-
-					@Override
-					public @Nullable Tooltip getTooltip(TooltipContext context) {
-						return tooltipBuilder.apply(context);
-					}
-				})
+		return Widgets.createSlot(bounds).entry(
+			ClientEntryStacks.of(new EnergyEntryRenderer(animation, tooltipBuilder))
 		).notFavoritesInteractable();
 	}
 
@@ -304,40 +294,40 @@ public class ReiPlugin implements REIClientPlugin {
 		return Widgets.createSlot(bounds).entry(copy);
 	}
 
-	private static class EnergyEntryWidget extends EntryWidget {
-		private EntryAnimation animation;
+	private static class EnergyEntryRenderer extends AbstractRenderer {
+		private final EntryAnimation animation;
+		private final Function<TooltipContext, Tooltip> tooltipBuilder;
 
-		protected EnergyEntryWidget(Rectangle rectangle, EntryAnimation animation) {
-			super(new Point(rectangle.x, rectangle.y));
-			this.getBounds().setBounds(rectangle);
+		protected EnergyEntryRenderer(EntryAnimation animation, Function<TooltipContext, Tooltip> tooltipBuilder) {
 			this.animation = animation;
+			this.tooltipBuilder = tooltipBuilder;
 		}
 
 		@Override
-		protected void drawBackground(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-			if (background) {
-				Rectangle bounds = getBounds();
-				int width = bounds.width;
-				int height = bounds.height;
-				int innerHeight = height - 2;
+		public void render(MatrixStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {
+			int width = bounds.width + 2;
+			int height = bounds.height + 2;
+			int innerHeight = height - 2;
 
-				PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
-				RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-				drawTexture(matrices, bounds.x, bounds.y, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
-				int innerDisplayHeight;
-				if (animation.animationType != EntryAnimationType.NONE) {
-					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight));
-					if (animation.animationType == EntryAnimationType.DOWNWARDS)
-						innerDisplayHeight = innerHeight - innerDisplayHeight;
-				} else innerDisplayHeight = innerHeight;
-				drawTexture(matrices, bounds.x + 1, bounds.y + 1 + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
-			}
+			PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
+			RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
+			drawTexture(matrices, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
+			int innerDisplayHeight;
+			if (animation.animationType != EntryAnimationType.NONE) {
+				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight));
+				if (animation.animationType == EntryAnimationType.DOWNWARDS)
+					innerDisplayHeight = innerHeight - innerDisplayHeight;
+			} else innerDisplayHeight = innerHeight;
+			drawTexture(matrices, bounds.x, bounds.y + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
 		}
 
 		@Override
-		protected void drawCurrentEntry(MatrixStack matrices, int mouseX, int mouseY, float delta) {}
+		@Nullable
+		public Tooltip getTooltip(TooltipContext context) {
+			return this.tooltipBuilder.apply(context);
+		}
 	}
-	
+
 	private static class FluidStackRenderer extends AbstractEntryRenderer<FluidStack> {
 		private final EntryAnimation animation;
 		private final EntryRenderer<FluidStack> parent;
