@@ -495,7 +495,7 @@ public class TRContent {
 		DEEPSLATE_TUNGSTEN(TUNGSTEN);
 
 		public final String name;
-		public final Block block;
+		private final Block block;
 		public final OreDistribution distribution;
 		private final boolean industrial;
 		private final TagKey<Item> tag;
@@ -532,6 +532,10 @@ public class TRContent {
 			this(null, stoneOre.distribution != null ? stoneOre.distribution.experienceDropped : null, stoneOre.industrial);
 			deepslateMap.put(stoneOre, this);
 			unDeepslateMap.put(this, stoneOre);
+		}
+
+		public Block asBlock()  {
+			return block;
 		}
 
 		@Override

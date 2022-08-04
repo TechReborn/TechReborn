@@ -28,6 +28,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
 import net.fabricmc.fabric.api.mininglevel.v1.FabricMineableTags
 import net.minecraft.tag.BlockTags
+import net.minecraft.tag.TagKey
+import net.minecraft.util.Identifier
+import net.minecraft.util.registry.Registry
+import techreborn.init.TRContent
 import techreborn.items.tool.DrillItem
 import techreborn.items.tool.industrial.OmniToolItem
 
@@ -48,5 +52,9 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.AXE_MINEABLE.id())
 			.addOptionalTag(FabricMineableTags.SHEARS_MINEABLE.id())
 			.addOptionalTag(FabricMineableTags.SWORD_MINEABLE.id())
+
+		TRContent.Ores.values().each { ore ->
+			getOrCreateTagBuilder(TagKey.of(Registry.BLOCK_KEY, new Identifier("c", "ores"))).add(ore.asBlock())
+		}
 	}
 }

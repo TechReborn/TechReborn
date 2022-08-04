@@ -67,8 +67,8 @@ public class OreFeature {
 	private OreFeatureConfig createOverworldFeatureConfig() {
 		if (this.ore.getDeepslate() != null) {
 			 return new OreFeatureConfig(List.of(
-					OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, this.ore.block.getDefaultState()),
-					OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, this.ore.getDeepslate().block.getDefaultState())
+					OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, this.ore.asBlock().getDefaultState()),
+					OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, this.ore.getDeepslate().asBlock().getDefaultState())
 			), ore.distribution.veinSize);
 		}
 
@@ -76,7 +76,7 @@ public class OreFeature {
 	}
 
 	private OreFeatureConfig createSimpleFeatureConfig(RuleTest test) {
-		return new OreFeatureConfig(test, this.ore.block.getDefaultState(), ore.distribution.veinSize);
+		return new OreFeatureConfig(test, this.ore.asBlock().getDefaultState(), ore.distribution.veinSize);
 	}
 
 	private PlacedFeature configureAndRegisterPlacedFeature() {

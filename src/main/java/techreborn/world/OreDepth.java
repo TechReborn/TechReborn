@@ -62,7 +62,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 			if (ore.isDeepslate()) continue;
 
 			if (ore.distribution != null) {
-				final Identifier blockId = Registry.BLOCK.getId(ore.block);
+				final Identifier blockId = Registry.BLOCK.getId(ore.asBlock());
 				final HeightContext heightContext = getHeightContext(server, ore.distribution.dimension);
 
 				if (heightContext == null) {
@@ -77,7 +77,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 				TRContent.Ores deepslate = ore.getDeepslate();
 				if (deepslate == null) continue;
 
-				final Identifier deepSlateBlockId = Registry.BLOCK.getId(deepslate.block);
+				final Identifier deepSlateBlockId = Registry.BLOCK.getId(deepslate.asBlock());
 				depths.add(new OreDepth(deepSlateBlockId, minY, maxY, ore.distribution.dimension));
 			}
 		}
