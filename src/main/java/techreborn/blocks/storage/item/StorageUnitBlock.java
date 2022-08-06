@@ -30,8 +30,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -44,6 +42,7 @@ import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.init.TRContent;
+import techreborn.items.tool.WrenchItem;
 
 public class StorageUnitBlock extends BlockMachineBase {
 
@@ -66,23 +65,32 @@ public class StorageUnitBlock extends BlockMachineBase {
 		}
 
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
-		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
-		Item itemInHand = stackInHand.getItem();
-
-		if (storageEntity != null && itemInHand != Items.AIR && (storageEntity.isSameType(stackInHand) && !storageEntity.isFull() ||
-				(!storageEntity.isLocked() && storageEntity.isEmpty() && (!(itemInHand instanceof ToolItem))))) {
-
-			// Add item which is the same type (in users inventory) into storage
-			for (int i = 0; i < playerIn.getInventory().size() && !storageEntity.isFull(); i++) {
-				ItemStack curStack = playerIn.getInventory().getStack(i);
-				if (curStack.getItem() == itemInHand) {
-					playerIn.getInventory().setStack(i, storageEntity.processInput(curStack));
-				}
-			}
-
-			return ActionResult.SUCCESS;
+		if (storageEntity == null) {
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 		}
-		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		if (storageEntity.isFull()) {
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		}
+
+		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
+		if (!storageEntity.canAcceptStack(stackInHand)) {
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		}
+
+		Item itemInHand = stackInHand.getItem();
+		if (itemInHand instanceof WrenchItem){
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		}
+
+		// Add item which is the same type (in users inventory) into storage
+		for (int i = 0; i < playerIn.getInventory().size() && !storageEntity.isFull(); i++) {
+			ItemStack curStack = playerIn.getInventory().getStack(i);
+			if (curStack.getItem() == itemInHand) {
+				playerIn.getInventory().setStack(i, storageEntity.processInput(curStack));
+			}
+		}
+
+		return ActionResult.SUCCESS;
 	}
 
 	@Override
@@ -94,7 +102,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
 		ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
 
-		if (storageEntity != null && (stackInHand.isEmpty() || storageEntity.isSameType(stackInHand)) && !storageEntity.isEmpty()) {
+		if (storageEntity != null && (stackInHand.isEmpty() || storageEntity.canAcceptStack(stackInHand)) && !storageEntity.isEmpty()) {
 			RebornInventory<StorageUnitBaseBlockEntity> inventory = storageEntity.getInventory();
 			ItemStack out = inventory.getStack(StorageUnitBaseBlockEntity.OUTPUT_SLOT);
 

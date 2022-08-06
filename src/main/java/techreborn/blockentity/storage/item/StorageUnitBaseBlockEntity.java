@@ -183,7 +183,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public ItemStack processInput(ItemStack inputStack) {
 
-		boolean isSameStack = isSameType(inputStack);
+		boolean isSameStack = canAcceptStack(inputStack);
 
 		if (storeItemStack == ItemStack.EMPTY && (isSameStack || (getCurrentCapacity() == 0 && !isLocked()))) {
 			// Check if storage is empty, NOT including the output slot
@@ -218,15 +218,19 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		return inputStack;
 	}
 
-	public boolean isSameType(ItemStack inputStack) {
+	public boolean canAcceptStack(ItemStack inputStack) {
+		if (inputStack == ItemStack.EMPTY){
+			return false;
+		}
 		if (isLocked()) {
 			return ItemUtils.isItemEqual(lockedItemStack, inputStack, true, true);
 		}
 
-		if (inputStack != ItemStack.EMPTY) {
-			return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
+		if (isEmpty()){
+			return true;
 		}
-		return false;
+
+		return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
 	}
 
 	// Creative function
@@ -284,7 +288,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	@Override
 	public boolean canInsert(int index, ItemStack stack, @Nullable Direction direction) {
-		return super.canInsert(index, stack, direction) && (this.isEmpty() && !isLocked() || isSameType(stack));
+		return super.canInsert(index, stack, direction) && (this.isEmpty() && !isLocked() || canAcceptStack(stack));
 	}
 
 	@Override
@@ -385,7 +389,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		}
 
 
-		if (slot == INPUT_SLOT && !(isEmpty() || isSameType(stack))) {
+		if (slot == INPUT_SLOT && !(isEmpty() || canAcceptStack(stack))) {
 			return false;
 		}
 		return super.isValid(slot, stack);
