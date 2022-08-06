@@ -30,6 +30,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.MiningToolItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -100,26 +101,35 @@ public class StorageUnitBlock extends BlockMachineBase {
 		if (world.isClient) return;
 
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
-		ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
-
-		if (storageEntity != null && (stackInHand.isEmpty() || storageEntity.canAcceptStack(stackInHand)) && !storageEntity.isEmpty()) {
-			RebornInventory<StorageUnitBaseBlockEntity> inventory = storageEntity.getInventory();
-			ItemStack out = inventory.getStack(StorageUnitBaseBlockEntity.OUTPUT_SLOT);
-
-			// Drop stack if sneaking
-			if (player.isSneaking()) {
-				WorldUtils.dropItem(new ItemStack(out.getItem()), world, player.getBlockPos());
-				out.decrement(1);
-			} else {
-				WorldUtils.dropItem(out, world, player.getBlockPos());
-				out.setCount(0);
-			}
-
-			inventory.setHashChanged();
+		if (storageEntity == null) {
+			return;
+		}
+		if (storageEntity.isEmpty()) {
+			return;
 		}
 
-	}
+		ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
 
+		// Let's assume that player is trying to break this block, rather than get an item from storage
+		if (stackInHand.getItem() instanceof MiningToolItem) {
+			return;
+		}
+		RebornInventory<StorageUnitBaseBlockEntity> inventory = storageEntity.getInventory();
+		ItemStack out = inventory.getStack(StorageUnitBaseBlockEntity.OUTPUT_SLOT);
+
+		// Full stack if sneaking
+		if (player.isSneaking()) {
+			WorldUtils.dropItem(out, world, player.getBlockPos());
+			out.setCount(0);
+		} else {
+			ItemStack dropStack = out.copy();
+			dropStack.setCount(1);
+			WorldUtils.dropItem(dropStack, world, player.getBlockPos());
+			out.decrement(1);
+		}
+
+		inventory.setHashChanged();
+	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
