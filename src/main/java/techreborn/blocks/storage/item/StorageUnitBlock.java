@@ -74,7 +74,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 		}
 
 		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
-		if (!storageEntity.canAcceptStack(stackInHand)) {
+		if (!storageEntity.isValid(StorageUnitBaseBlockEntity.INPUT_SLOT, stackInHand)) {
 			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 		}
 
@@ -94,6 +94,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 		return ActionResult.SUCCESS;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
 		super.onBlockBreakStart(state, world, pos, player);

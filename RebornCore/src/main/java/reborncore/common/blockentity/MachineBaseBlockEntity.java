@@ -294,19 +294,6 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		tagCompound.put("redstoneConfig", redstoneConfiguration.write());
 	}
 
-	private boolean isItemValidForSlot(int index, ItemStack stack) {
-		if (slotConfiguration == null) {
-			return false;
-		}
-		SlotConfiguration.SlotConfigHolder slotConfigHolder = slotConfiguration.getSlotDetails(index);
-		if (slotConfigHolder.filter() && getOptionalCrafter().isPresent()) {
-			RecipeCrafter crafter = getOptionalCrafter().get();
-			if (!crafter.isStackValidInput(stack)) {
-				return false;
-			}
-		}
-		return true;
-	}
 	// Inventory end
 
 	@Override
@@ -473,7 +460,17 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	
 	@Override
 	public boolean isValid(int slot, ItemStack stack) {
-		return isItemValidForSlot(slot, stack);
+		if (slotConfiguration == null) {
+			return false;
+		}
+		SlotConfiguration.SlotConfigHolder slotConfigHolder = slotConfiguration.getSlotDetails(slot);
+		if (slotConfigHolder.filter() && getOptionalCrafter().isPresent()) {
+			RecipeCrafter crafter = getOptionalCrafter().get();
+			if (!crafter.isStackValidInput(stack)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override

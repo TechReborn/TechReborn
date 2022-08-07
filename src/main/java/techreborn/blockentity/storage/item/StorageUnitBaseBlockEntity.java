@@ -32,6 +32,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SkullItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -70,6 +71,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	private ItemStack storeItemStack;
 	// Fabric transfer API support for the internal stack (one per direction);
+	@SuppressWarnings("UnstableApiUsage")
 	private final SingleStackStorage[] internalStoreStorage = new SingleStackStorage[6];
 
 	private TRContent.StorageUnit type;
@@ -183,10 +185,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public ItemStack processInput(ItemStack inputStack) {
 
-		boolean isSameStack = canAcceptStack(inputStack);
+		if (!isValid(INPUT_SLOT, inputStack)){
+			return inputStack;
+		}
 
-		if (storeItemStack == ItemStack.EMPTY && (isSameStack || (getCurrentCapacity() == 0 && !isLocked()))) {
-			// Check if storage is empty, NOT including the output slot
+		if (getDisplayedStack().isEmpty()) {
+			// Check if storage is empty, including the output slot and locked stack
 			storeItemStack = inputStack.copy();
 
 			if (inputStack.getCount() <= maxCapacity) {
@@ -196,16 +200,22 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				storeItemStack.setCount(maxCapacity);
 				inputStack.decrement(maxCapacity);
 			}
-		} else if (isSameStack) {
+		} else {
 			// Not empty but same type
 
 			// Amount of items that can be added before reaching capacity
 			int reminder = maxCapacity - getCurrentCapacity();
 
-
 			if (inputStack.getCount() <= reminder) {
 				// Add full stack
-				addStoredItemCount(inputStack.getCount());
+				if (storeItemStack == ItemStack.EMPTY){
+					// copy input stack into stored if everything is in OUTPUT_SLOT
+					storeItemStack = inputStack.copy();
+				}
+				else {
+					addStoredItemCount(inputStack.getCount());
+				}
+
 				inputStack = ItemStack.EMPTY;
 			} else {
 				// Add only what is needed to reach max capacity
@@ -216,21 +226,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 		inventory.setHashChanged();
 		return inputStack;
-	}
-
-	public boolean canAcceptStack(ItemStack inputStack) {
-		if (inputStack == ItemStack.EMPTY){
-			return false;
-		}
-		if (isLocked()) {
-			return ItemUtils.isItemEqual(lockedItemStack, inputStack, true, true);
-		}
-
-		if (isEmpty()){
-			return true;
-		}
-
-		return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
 	}
 
 	// Creative function
@@ -288,7 +283,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	@Override
 	public boolean canInsert(int index, ItemStack stack, @Nullable Direction direction) {
-		return super.canInsert(index, stack, direction) && (this.isEmpty() && !isLocked() || canAcceptStack(stack));
+		return super.canInsert(index, stack, direction) && isValid(INPUT_SLOT, stack);
 	}
 
 	@Override
@@ -383,16 +378,26 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public boolean isValid(int slot, ItemStack stack) {
-		if (slot == INPUT_SLOT && isLocked()) {
-			return ItemUtils.isItemEqual(lockedItemStack, stack, true, true);
-		}
-
-
-		if (slot == INPUT_SLOT && !(isEmpty() || canAcceptStack(stack))) {
+	public boolean isValid(int slot, ItemStack inputStack) {
+		if (slot != INPUT_SLOT) {
 			return false;
 		}
-		return super.isValid(slot, stack);
+		if (inputStack == ItemStack.EMPTY){
+			return false;
+		}
+		// Do not allow player heads into storage due to lag. Fix #2888
+		if (inputStack.getItem() instanceof SkullItem){
+			return false;
+		}
+		if (isLocked()) {
+			return ItemUtils.isItemEqual(lockedItemStack, inputStack, true, true);
+		}
+
+		if (isEmpty()){
+			return true;
+		}
+
+		return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
 	}
 
 	@Override
@@ -504,6 +509,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		storeItemStack = ItemStack.fromNbt(tag);
 	}
 
+	@SuppressWarnings("UnstableApiUsage")
 	private Storage<ItemVariant> getInternalStoreStorage(Direction side) {
 		Objects.requireNonNull(side);
 		if (internalStoreStorage[side.getId()] == null) {
@@ -550,6 +556,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		return internalStoreStorage[side.getId()];
 	}
 
+	@SuppressWarnings("UnstableApiUsage")
 	public Storage<ItemVariant> getExposedStorage(Direction side) {
 		return new CombinedStorage<>(List.of(
 				getInternalStoreStorage(side),
