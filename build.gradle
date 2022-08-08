@@ -12,7 +12,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id "org.cadixdev.licenser" version "0.6.1"
-	id "fabric-loom" version "0.12-SNAPSHOT"
+	id "fabric-loom" version "0.13-SNAPSHOT"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
@@ -26,13 +26,6 @@ repositories {
             includeGroup "me.shedaniel.cloth"
             includeGroup "dev.architectury"
         }
-	}
-	maven {
-		name = "JEI"
-		url = "https://dvs1.progwml6.com/files/maven/"
-		content {
-			includeGroup "mezz.jei"
-		}
 	}
 }
 
@@ -187,9 +180,11 @@ dependencies {
 
     include project(":RebornCore")
 
+	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", false)
+
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
-    gametestImplementation 'org.apache.groovy:groovy:4.0.3'
-    datagenImplementation 'org.apache.groovy:groovy:4.0.3'
+    gametestImplementation 'org.apache.groovy:groovy:4.0.4'
+    datagenImplementation 'org.apache.groovy:groovy:4.0.4'
 
     gametestImplementation ("com.google.truth:truth:1.1.3") {
         exclude module: "guava"
@@ -197,58 +192,15 @@ dependencies {
     }
 }
 
-def modCompat(Map args) {
-	/*
-	SourceSet compatSourceSet = sourceSets.create(args.name) {
-		compileClasspath += args.sourceSet.compileClasspath
-		runtimeClasspath += args.sourceSet.runtimeClasspath
-
-		java {
-			srcDirs = ["src/compat/${args.name}"]
-		}
-	}
-
-	jar {
-		from compatSourceSet.output.classesDirs
-		from compatSourceSet.output.resourcesDir
-	}
-
-	sourcesJar {
-		from compatSourceSet.allSource
-	}
-	*/
-
-	def excludes = {
+def optionalClientDependency(String dep, runtime = true) {
+	def exclude = {
 		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-		exclude module: "modmenu"
 	}
+	dependencies.modClientCompileOnly(dep, exclude)
 
-	// TODO use sourceset specific configurations with https://github.com/FabricMC/fabric-loom/pull/674
-	dependencies {
-		args.dependencies.each { dependency ->
-			modLocalRuntime(dependency, excludes)
-			modCompileOnly(dependency, excludes)
-		}
-		args.compile.each { dependency ->
-			modCompileOnly(dependency, excludes)
-		}
-		args.runtime.each { dependency ->
-			modLocalRuntime(dependency, excludes)
-		}
+	if (runtime) {
+		dependencies.modClientRuntimeOnly(dep, exclude)
 	}
-
-	/*
-	allprojects {
-		loom {
-			mods {
-				techreborn {
-					sourceSet compatSourceSet
-				}
-			}
-		}
-	}
-	*/
 }
 
 modCompat(
@@ -394,7 +346,7 @@ curseforge {
 		id = "233564"
 		changelog = ENV.CHANGELOG ?: "No changelog provided"
 		releaseType = ENV.RELEASE_CHANNEL ?: "release"
-		addGameVersion "1.19.1" // Also update in RebornCore/build.gradle
+		addGameVersion "1.19.2" // Also update in RebornCore/build.gradle
 		addGameVersion "Fabric"
 
 		mainArtifact remapJar
