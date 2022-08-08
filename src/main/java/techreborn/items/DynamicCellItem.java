@@ -81,6 +81,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	}
 
 	// Thanks vanilla :)
+	@SuppressWarnings("deprecation")
 	private void playEmptyingSound(@Nullable PlayerEntity playerEntity, WorldAccess world, BlockPos blockPos, Fluid fluid) {
 		SoundEvent soundEvent = fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
 		world.playSound(playerEntity, blockPos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -121,6 +122,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable) blockState.getBlock()).canFillWithFluid(world, pos, blockState, fluid))) {
 			return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()), null, filledCell);
 		} else {
+			//noinspection deprecation
 			if (world.getDimension().ultrawarm() && fluid.isIn(FluidTags.WATER)) {
 				int i = pos.getX();
 				int j = pos.getY();
@@ -207,13 +209,17 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				world.emitGameEvent(player, GameEvent.FLUID_PICKUP, hitPos);
 				// Replace bucket item with cell item
 				itemStack = getCellWithFluid(drainFluid, 1);
-				ItemStack resultStack = ItemUsage.exchangeStack(stack, player, itemStack);
+				ItemStack resultStack = ItemUsage.exchangeStack(stack, player, itemStack, false);
 				return TypedActionResult.success(resultStack, world.isClient());
 			}
 		} else {
 			BlockState placeState = world.getBlockState(placePos);
 			if (placeState.canBucketPlace(containedFluid)) {
 				placeFluid(player, world, placePos, hitResult, stack);
+
+				if (player.getAbilities().creativeMode) {
+					return TypedActionResult.success(stack);
+				}
 
 				if (stack.getCount() == 1) {
 					stack = getEmpty();
@@ -252,10 +258,12 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		return Fluids.EMPTY;
 	}
 
+	@SuppressWarnings("UnstableApiUsage")
 	public void registerFluidApi() {
 		FluidStorage.ITEM.registerForItems((stack, ctx) -> new CellStorage(ctx), this);
 	}
 
+	@SuppressWarnings("UnstableApiUsage")
 	public class CellStorage extends SingleVariantItemStorage<FluidVariant> {
 		public CellStorage(ContainerItemContext context) {
 			super(context);
