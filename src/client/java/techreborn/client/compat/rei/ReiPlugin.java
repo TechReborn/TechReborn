@@ -190,17 +190,14 @@ public class ReiPlugin implements REIClientPlugin {
 
 	@Override
 	public void registerFluidSupport(FluidSupportProvider support) {
-		support.register(new FluidSupportProvider.Provider() {
-			@Override
-			public CompoundEventResult<Stream<EntryStack<FluidStack>>> itemToFluid(EntryStack<? extends ItemStack> stack) {
-				ItemStack itemStack = stack.getValue();
-				if (itemStack.getItem() instanceof ItemFluidInfo) {
-					Fluid fluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
-					if (fluid != null)
-						return CompoundEventResult.interruptTrue(Stream.of(EntryStacks.of(fluid)));
-				}
-				return CompoundEventResult.pass();
+		support.register(stack -> {
+			ItemStack itemStack = stack.getValue();
+			if (itemStack.getItem() instanceof ItemFluidInfo) {
+				Fluid fluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
+				if (fluid != null)
+					return CompoundEventResult.interruptTrue(Stream.of(EntryStacks.of(fluid)));
 			}
+			return CompoundEventResult.pass();
 		});
 	}
 
@@ -217,6 +214,9 @@ public class ReiPlugin implements REIClientPlugin {
 	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(DisplayRegistry registry, RebornRecipeType<R> recipeType) {
+		if (recipeType == ModRecipes.RECYCLER) {
+			return;
+		}
 		Function<R, Display> recipeDisplay = r -> new MachineRecipeDisplay<>((RebornRecipe) r);
 
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
@@ -234,7 +234,7 @@ public class ReiPlugin implements REIClientPlugin {
 		}
 
 		registry.registerFiller(RebornRecipe.class, recipe -> {
-			if (recipe instanceof RebornRecipe) {
+			if (recipe != null) {
 				return recipe.getRebornRecipeType() == recipeType;
 			}
 			return false;
