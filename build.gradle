@@ -203,33 +203,6 @@ def optionalClientDependency(String dep, runtime = true) {
 	}
 }
 
-modCompat(
-	name: "rei",
-    runtime: [
-//        "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}",
-//        "dev.architectury:architectury-fabric:6.+" // Support for 1.19.1
-    ],
-	compile: [
-		"me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}",
-		"me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.rei_version}"
-	],
-	sourceSet: sourceSets.client,
-)
-
-/*
-modCompat(
-	name: "jei",
-	runtime: [
-		"mezz.jei:jei-1.19-fabric:${project.jei_version}"
-	],
-	compile: [
-		"mezz.jei:jei-1.19-common-api:${project.jei_version}",
-		"mezz.jei:jei-1.19-fabric-api:${project.jei_version}"
-	],
-	sourceSet: sourceSets.client,
-)
-*/
-
 loom {
     runs {
         // Add a data gen run config
