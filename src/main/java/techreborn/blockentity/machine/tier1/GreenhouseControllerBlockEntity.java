@@ -27,6 +27,7 @@ package techreborn.blockentity.machine.tier1;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -129,6 +130,16 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 				) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
 					world.setBlockState(blockPos.up(y), blockState.with(BlockRubberLog.HAS_SAP, false).with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontal(0)));
+				}
+			}
+		} else if (block instanceof CaveVines){
+			for (int y=0; (blockState = world.getBlockState(blockPos.up(y))).getBlock() instanceof CaveVines; y++){
+				if (blockState.get(Properties.BERRIES)
+					&& (getStored() > TechRebornConfig.greenhouseControllerEnergyPerHarvest)
+					&& insertIntoInv(Collections.singletonList(new ItemStack(Items.GLOW_BERRIES, 1)))
+				){
+					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
+					world.setBlockState(blockPos.up(y), blockState.with(Properties.BERRIES, false));
 				}
 			}
 		}
