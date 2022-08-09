@@ -26,48 +26,55 @@ package techreborn.world;
 
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.YOffset;
+import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
-import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
-import net.minecraft.world.gen.placementmodifier.RarityFilterPlacementModifier;
-import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
+import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
+import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.ModFluids;
 import techreborn.init.TRContent;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 // /fill ~ ~ ~ ~20 ~20 ~20 air replace #minecraft:base_stone_overworld
 public class WorldGenerator {
 	public static ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE_FEATURE;
 	public static PlacedFeature RUBBER_TREE_PLACED_FEATURE;
-
 	public static ConfiguredFeature<RandomPatchFeatureConfig, ?> RUBBER_TREE_PATCH_FEATURE;
 	public static PlacedFeature RUBBER_TREE_PATCH_PLACED_FEATURE;
-
 	public static final List<OreFeature> ORE_FEATURES = getOreFeatures();
+	public static ConfiguredFeature<?, ?> OIL_LAKE_FEATURE;
+	public static PlacedFeature OIL_LAKE_PLACED_FEATURE;
 
 	public static void initWorldGen() {
 		registerTreeDecorators();
+		registerOilLakes();
 
-		if (!TechRebornConfig.enableOreGeneration && !TechRebornConfig.enableRubberTreeGeneration) {
+		if (!TechRebornConfig.enableOreGeneration && !TechRebornConfig.enableRubberTreeGeneration && !TechRebornConfig.enableOilLakeGeneration) {
 			return;
 		}
 
@@ -75,7 +82,8 @@ public class WorldGenerator {
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), oreModifier())
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_FOREST)
 					.or(BiomeSelectors.tag(BiomeTags.IS_TAIGA))
-					.or(BiomeSelectors.includeByKey(BiomeKeys.SWAMP)), rubberTreeModifier());
+					.or(BiomeSelectors.includeByKey(BiomeKeys.SWAMP)), rubberTreeModifier())
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), oilLakeModifier());
 	}
 
 	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> oreModifier() {
@@ -170,6 +178,32 @@ public class WorldGenerator {
 				.decorators(List.of(
 						new RubberTreeSpikeDecorator(4, BlockStateProvider.of(TRContent.RUBBER_LEAVES.getDefaultState()))
 				));
+	}
+
+	@SuppressWarnings("deprecation")
+	private static void registerOilLakes() {
+		Identifier lakeId = new Identifier("techreborn", "oil_lake");
+		OIL_LAKE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, lakeId,
+			new ConfiguredFeature<>(Feature.LAKE,
+				new LakeFeature.Config(BlockStateProvider.of(ModFluids.OIL.getBlock().getDefaultState()), BlockStateProvider.of(Blocks.STONE.getDefaultState()))
+			));
+		OIL_LAKE_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, lakeId,
+			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, OIL_LAKE_FEATURE), List.of(
+				RarityFilterPlacementModifier.of(20),
+				HeightRangePlacementModifier.of(UniformHeightProvider.create(YOffset.fixed(0), YOffset.getTop())),
+				EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.bothOf(BlockPredicate.not(BlockPredicate.IS_AIR), BlockPredicate.insideWorldBounds(new BlockPos(0, -5, 0))), 32),
+				SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5)
+			)));
+	}
+
+	private static Consumer<BiomeModificationContext> oilLakeModifier(){
+		if (!TechRebornConfig.enableOilLakeGeneration) {
+			return (biomeModificationContext) -> {};
+		}
+
+		final RegistryKey<PlacedFeature> registryKey = BuiltinRegistries.PLACED_FEATURE.getKey(OIL_LAKE_PLACED_FEATURE).orElseThrow();
+
+		return (biomeModificationContext) -> biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.LAKES, registryKey);
 	}
 
 	public static  <T> RegistryEntry<T> getEntry(Registry<T> registry, T value) {

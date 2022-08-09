@@ -643,4 +643,7 @@ public class TechRebornConfig {
 
 	@Config(config = "world", category = "generation", key = "enableRubberTreeGeneration", comment = "When enabled rubber trees will generate in the world")
 	public static boolean enableRubberTreeGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableOilLakeGeneration", comment = "When enabled oil lakes will generate in the world")
+	public static boolean enableOilLakeGeneration = true;
 }
