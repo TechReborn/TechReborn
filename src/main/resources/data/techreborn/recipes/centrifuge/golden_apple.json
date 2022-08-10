@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
   "power": 10,
-  "time": 5000,
+  "time": 500,
   "ingredients": [
     {
       "item": "minecraft:golden_apple"

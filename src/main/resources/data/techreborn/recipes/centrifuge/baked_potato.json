@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
   "power": 10,
-  "time": 5000,
+  "time": 100,
   "ingredients": [
     {
       "item": "minecraft:baked_potato",

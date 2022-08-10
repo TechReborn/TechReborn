@@ -1,6 +1,6 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 5000,
+  "power": 500,
   "time": 5,
   "ingredients": [
     {
