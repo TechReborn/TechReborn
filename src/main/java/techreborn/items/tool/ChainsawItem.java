@@ -29,6 +29,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -58,6 +59,10 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 		this.referenceTool = referenceTool;
 	}
 
+	public int getCost() {
+		return cost;
+	}
+
 	// AxeItem
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
@@ -68,6 +73,15 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	}
 
 	// MiningToolItem
+	@Override
+	public boolean isSuitableFor(BlockState state) {
+		// Fix for #2860
+		if (state.isIn(BlockTags.LEAVES)){
+			return true;
+		}
+
+		return referenceTool.isSuitableFor(state);
+	}
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		if (worldIn.getRandom().nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
@@ -107,11 +121,6 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	}
 
 	@Override
-	public boolean isSuitableFor(BlockState state) {
-		return referenceTool.isSuitableFor(state);
-	}
-
-	@Override
 	public int getItemBarStep(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
@@ -140,9 +149,5 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	@Override
 	public long getEnergyMaxOutput() {
 		return 0;
-	}
-
-	public int getCost() {
-		return cost;
 	}
 }

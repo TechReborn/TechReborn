@@ -44,7 +44,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.RecipeUtils;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements BuiltScreenHandlerProvider {
