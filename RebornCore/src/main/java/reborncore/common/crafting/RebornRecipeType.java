@@ -31,6 +31,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
+import reborncore.RebornCore;
 import reborncore.common.crafting.serde.RecipeSerde;
 import reborncore.common.crafting.serde.RecipeSerdeException;
 import reborncore.common.util.serialization.SerializationUtil;
@@ -77,6 +78,12 @@ public record RebornRecipeType<R extends RebornRecipe>(
 	@Override
 	public void write(PacketByteBuf buffer, R recipe) {
 		String output = SerializationUtil.GSON_FLAT.toJson(toJson(recipe, true));
+		// Add more info to debug weird mods
+		if (output.length() > PacketByteBuf.DEFAULT_MAX_STRING_LENGTH) {
+			RebornCore.LOGGER.error("Recipe output string is too big. This breaks recipe books!");
+			RebornCore.LOGGER.error("Recipe is:" + recipe.getId().toString());
+			RebornCore.LOGGER.error("Output is:" + output);
+		}
 		buffer.writeInt(output.length());
 		buffer.writeString(output);
 	}
