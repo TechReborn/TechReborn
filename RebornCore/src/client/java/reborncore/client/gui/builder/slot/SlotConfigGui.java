@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
 
 public class SlotConfigGui {
 
-	static HashMap<Integer, ConfigSlotElement> slotElementMap = new HashMap<>();
+	public static HashMap<Integer, ConfigSlotElement> slotElementMap = new HashMap<>();
 
 	public static int selectedSlot = 0;
 

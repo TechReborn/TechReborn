@@ -264,6 +264,11 @@ public class ReiPlugin implements REIClientPlugin {
 		});
 	}
 
+	@Override
+	public void registerExclusionZones(ExclusionZones zones) {
+		zones.register(GuiBase.class, new SlotConfigExclusionZones());
+	}
+
 	public static Widget createProgressBar(int x, int y, double animationDuration, GuiBuilder.ProgressDirection direction) {
 		return Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> {
 			RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
@@ -314,7 +319,7 @@ public class ReiPlugin implements REIClientPlugin {
 			drawTexture(matrices, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
-				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight));
+				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) innerHeight) % innerHeight));
 				if (animation.animationType == EntryAnimationType.DOWNWARDS)
 					innerDisplayHeight = innerHeight - innerDisplayHeight;
 			} else innerDisplayHeight = innerHeight;
@@ -342,13 +347,12 @@ public class ReiPlugin implements REIClientPlugin {
 			int width = bounds.width;
 			int height = bounds.height;
 
-			PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
 			RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
 			drawTexture(matrices, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
 			drawTexture(matrices, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
-				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / height) % height));
+				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) height) % height));
 				if (animation.animationType == EntryAnimationType.DOWNWARDS)
 					innerDisplayHeight = height - innerDisplayHeight;
 			} else innerDisplayHeight = height;
