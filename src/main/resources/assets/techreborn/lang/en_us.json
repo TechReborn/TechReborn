@@ -771,7 +771,7 @@
   "techreborn.message.onlyYou": "Only You",
   "techreborn.message.panel_blocked": "Panel obstructed from sky",
 
-  "techreborn.message.info.item.techreborn.overclocker_upgrade": "Increases speed at the cost of more energy used per tick",
+  "techreborn.message.info.item.techreborn.overclocker_upgrade": "Decrease crafting time at the cost of more energy used per tick",
   "techreborn.message.info.item.techreborn.transformer_upgrade": "Increase energy tier",
   "techreborn.message.info.item.techreborn.energy_storage_upgrade": "Increase energy store",
   "techreborn.message.info.item.techreborn.superconductor_upgrade": "Increases energy flow rate",
@@ -882,7 +882,7 @@
   "techreborn.tooltip.inventory": "Inventory",
   "techreborn.tooltip.upgrades": "Upgrades",
   "techreborn.tooltip.upgrade.speed_increase": "Time decrease",
-  "techreborn.tooltip.upgrade.energy_increase": "Energy increase",
+  "techreborn.tooltip.upgrade.energy_increase": "Energy per tick increase",
   "techreborn.tooltip.upgrade.storage_increase": "Storage increase",
   "techreborn.tooltip.upgrade.flow_increase": "Increased flow by",
   "techreborn.tooltip.alarm": "Shift right-click to change sound",
