@@ -12,7 +12,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id "org.cadixdev.licenser" version "0.6.1"
-	id "fabric-loom" version "0.13-SNAPSHOT"
+	id "fabric-loom" version "1.0-SNAPSHOT"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "de.undercouch.download" version "4.1.1"
 }
@@ -180,7 +180,8 @@ dependencies {
 
     include project(":RebornCore")
 
-	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", false)
+	optionalClientDependency("dev.architectury:architectury-fabric:${project.arch_version}")
+	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}")
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.4'
