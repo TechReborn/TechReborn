@@ -1,0 +1,16 @@
+{
+    "type": "techreborn:grinder",
+    "power": 4,
+    "time": 270,
+    "ingredients": [
+        {
+            "tag": "c:rutile_ores"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:rutile_dust",
+            "count": 2
+        }
+    ]
+}
