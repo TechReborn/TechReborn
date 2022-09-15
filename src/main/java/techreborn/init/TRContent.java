@@ -110,7 +110,6 @@ public class TRContent {
 	public static Block REINFORCED_GLASS;
 	public static Block RUBBER_LEAVES;
 	public static Block RUBBER_LOG;
-	public static TagKey<Item> RUBBER_LOGS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
 	public static Block RUBBER_SLAB;
 	public static Block RUBBER_STAIR;
 	public static Block RUBBER_PLANKS;
@@ -263,6 +262,31 @@ public class TRContent {
 	public static Item STEEL_LEGGINGS;
 	@Nullable
 	public static Item STEEL_BOOTS;
+
+	public final static class BlockTags {
+		public static final TagKey<Block> RUBBER_LOGS = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
+		public static final TagKey<Block> OMNI_TOOL_MINEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "mineable/omni_tool"));
+		public static final TagKey<Block> DRILL_MINEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "mineable/drill"));
+
+		private BlockTags() {
+		}
+	}
+
+	public final static class ItemTags {
+		public static final TagKey<Item> RUBBER_LOGS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
+		public static final TagKey<Item> INGOTS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "ingots"));
+		public static final TagKey<Item> ORES = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "ores"));
+		public static final TagKey<Item> STORAGE_BLOCK = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "storage_blocks"));
+		public static final TagKey<Item> DUSTS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "dusts"));
+		public static final TagKey<Item> RAW_METALS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "raw_metals"));
+		public static final TagKey<Item> SMALL_DUSTS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "small_dusts"));
+		public static final TagKey<Item> GEMS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "gems"));
+		public static final TagKey<Item> NUGGETS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "nuggets"));
+		public static final TagKey<Item> PLATES = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "plates"));
+
+		private ItemTags() {
+		}
+	}
 
 	public enum SolarPanels implements ItemConvertible {
 		BASIC(RcEnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
@@ -457,7 +481,7 @@ public class TRContent {
 		}
 	}
 
-	public static final TagKey<Item> ORES_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "ores"));
+
 
 	private final static Map<Ores, Ores> deepslateMap = new HashMap<>();
 
@@ -568,8 +592,6 @@ public class TRContent {
 	 * directly registry names will result in item loss upon updating. Hence, only the base tag is changed, where needed.
 	 */
 	public static final String CHROME_TAG_NAME_BASE = "chromium";
-
-	public static final TagKey<Item> STORAGE_BLOCK_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "storage_blocks"));
 
 	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY(5f, 6f),
@@ -794,8 +816,6 @@ public class TRContent {
 		}
 	}
 
-	public static final TagKey<Item> DUSTS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "dusts"));
-
 	public enum Dusts implements ItemConvertible, TagConvertible<Item> {
 		ALMANDINE, ALUMINUM, AMETHYST, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME(CHROME_TAG_NAME_BASE),
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
@@ -836,8 +856,6 @@ public class TRContent {
 			return tag;
 		}
 	}
-
-	public static final TagKey<Item> RAW_METALS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "raw_metals"));
 
 	public enum RawMetals implements ItemConvertible, TagConvertible<Item> {
 		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN;
@@ -915,8 +933,6 @@ public class TRContent {
 					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 	}
-
-	public static final TagKey<Item> SMALL_DUSTS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "small_dusts"));
 
 	public enum SmallDusts implements ItemConvertible, TagConvertible<Item> {
 		ALMANDINE, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, CALCITE, CHARCOAL, CHROME(CHROME_TAG_NAME_BASE),
@@ -996,8 +1012,6 @@ public class TRContent {
 					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 	}
-
-	public static final TagKey<Item> GEMS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "gems"));
 
 	public enum Gems implements ItemConvertible, TagConvertible<Item> {
 		PERIDOT, RED_GARNET, RUBY("rubies"), SAPPHIRE("sapphires"), YELLOW_GARNET;
@@ -1101,7 +1115,6 @@ public class TRContent {
 		}
 	}
 
-	public static final TagKey<Item> INGOTS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "ingots"));
 
 	public enum Ingots implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME(CHROME_TAG_NAME_BASE), ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
@@ -1199,8 +1212,6 @@ public class TRContent {
 					.collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
 		}
 	}
-
-	public static final TagKey<Item> NUGGETS_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "nuggets"));
 
 	public enum Nuggets implements ItemConvertible, TagConvertible<Item> {
 		ALUMINUM, BRASS, BRONZE, CHROME(CHROME_TAG_NAME_BASE), COPPER(Items.COPPER_INGOT, false), DIAMOND(Items.DIAMOND, true),
@@ -1358,8 +1369,6 @@ public class TRContent {
 			return item;
 		}
 	}
-
-	public static final TagKey<Item> PLATES_TAG = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "plates"));
 
 	public enum Plates implements ItemConvertible, TagConvertible<Item> {
 		ADVANCED_ALLOY,

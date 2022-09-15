@@ -49,7 +49,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(ItemTags.CRIMSON_STEMS): Items.CRIMSON_PLANKS,
 			(ItemTags.WARPED_STEMS): Items.WARPED_PLANKS,
 			(ItemTags.MANGROVE_LOGS): Items.MANGROVE_PLANKS,
-			(TRContent.RUBBER_LOGS): TRContent.RUBBER_PLANKS
+			(TRContent.ItemTags.RUBBER_LOGS): TRContent.RUBBER_PLANKS
 		].each {logs, planks ->
 			offerIndustrialSawmillRecipe {
 				ingredients logs

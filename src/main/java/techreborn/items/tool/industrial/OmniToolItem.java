@@ -24,18 +24,19 @@
 
 package techreborn.items.tool.industrial;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.tag.TagKey;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.Items;
+import net.minecraft.item.MiningToolItem;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -49,8 +50,6 @@ import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
 public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
-	public static final TagKey<Block> OMNI_TOOL_MINEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "mineable/omni_tool"));
-
 	public final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int cost = TechRebornConfig.omniToolCost;
 	public int hitCost = TechRebornConfig.omniToolHitCost;
@@ -58,7 +57,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(3, 1, TRToolMaterials.OMNI_TOOL, OMNI_TOOL_MINEABLE, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(3, 1, TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.miningLevel = MiningLevel.DIAMOND.intLevel;
 	}
 

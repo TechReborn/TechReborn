@@ -28,8 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
 import net.fabricmc.fabric.api.mininglevel.v1.FabricMineableTags
 import net.minecraft.tag.BlockTags
-import techreborn.items.tool.DrillItem
-import techreborn.items.tool.industrial.OmniToolItem
+import techreborn.init.TRContent
 
 class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
@@ -39,14 +38,99 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 	@Override
 	protected void generateTags() {
-		getOrCreateTagBuilder(DrillItem.DRILL_MINEABLE)
+		getOrCreateTagBuilder(TRContent.BlockTags.DRILL_MINEABLE)
 			.addOptionalTag(BlockTags.PICKAXE_MINEABLE.id())
 			.addOptionalTag(BlockTags.SHOVEL_MINEABLE.id())
 
-		getOrCreateTagBuilder(OmniToolItem.OMNI_TOOL_MINEABLE)
-			.addOptionalTag(DrillItem.DRILL_MINEABLE.id())
+		getOrCreateTagBuilder(TRContent.BlockTags.OMNI_TOOL_MINEABLE)
+			.addTag(TRContent.BlockTags.DRILL_MINEABLE)
 			.addOptionalTag(BlockTags.AXE_MINEABLE.id())
 			.addOptionalTag(FabricMineableTags.SHEARS_MINEABLE.id())
 			.addOptionalTag(FabricMineableTags.SWORD_MINEABLE.id())
+
+		getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
+			.add(TRContent.RUBBER_LEAVES)
+
+		TRContent.Ores.values().each {
+			getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+				.add(it.block)
+		}
+
+		TRContent.StorageBlocks.values().each {
+			getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+				.add(it.block)
+		}
+
+		TRContent.MachineBlocks.values().each {
+			getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+				.add(it.casing)
+		}
+
+		getOrCreateTagBuilder(BlockTags.FENCES)
+			.add(TRContent.RUBBER_FENCE)
+			.add(TRContent.REFINED_IRON_FENCE)
+
+		getOrCreateTagBuilder(BlockTags.GUARDED_BY_PIGLINS)
+			.add(TRContent.StorageBlocks.ELECTRUM.block)
+
+		getOrCreateTagBuilder(BlockTags.LEAVES)
+			.add(TRContent.RUBBER_LEAVES)
+
+		getOrCreateTagBuilder(TRContent.BlockTags.RUBBER_LOGS)
+			.add(TRContent.RUBBER_LOG)
+			.add(TRContent.RUBBER_LOG_STRIPPED)
+			.add(TRContent.RUBBER_WOOD)
+			.add(TRContent.STRIPPED_RUBBER_WOOD)
+
+		getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
+			.addTag(TRContent.BlockTags.RUBBER_LOGS)
+
+		getOrCreateTagBuilder(BlockTags.PLANKS)
+			.add(TRContent.RUBBER_PLANKS)
+
+		getOrCreateTagBuilder(BlockTags.SAPLINGS)
+			.add(TRContent.RUBBER_SAPLING)
+
+		getOrCreateTagBuilder(BlockTags.SLABS)
+			.add(TRContent.RUBBER_SLAB)
+
+		TRContent.StorageBlocks.values().each {
+			getOrCreateTagBuilder(BlockTags.SLABS)
+				.add(it.slabBlock)
+		}
+
+		getOrCreateTagBuilder(BlockTags.STAIRS)
+			.add(TRContent.RUBBER_STAIR)
+
+		TRContent.StorageBlocks.values().each {
+			getOrCreateTagBuilder(BlockTags.STAIRS)
+				.add(it.stairsBlock)
+		}
+
+		TRContent.StorageBlocks.values().each {
+			getOrCreateTagBuilder(BlockTags.WALLS)
+				.add(it.wallBlock)
+		}
+
+		getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS)
+			.add(TRContent.RUBBER_BUTTON)
+
+		getOrCreateTagBuilder(BlockTags.WOODEN_DOORS)
+			.add(TRContent.RUBBER_DOOR)
+
+		getOrCreateTagBuilder(BlockTags.WOODEN_FENCES)
+			.add(TRContent.RUBBER_FENCE)
+
+		getOrCreateTagBuilder(BlockTags.WOODEN_PRESSURE_PLATES)
+			.add(TRContent.RUBBER_PRESSURE_PLATE)
+
+		getOrCreateTagBuilder(BlockTags.WOODEN_SLABS)
+			.add(TRContent.RUBBER_SLAB)
+
+		getOrCreateTagBuilder(BlockTags.WOODEN_STAIRS)
+			.add(TRContent.RUBBER_STAIR)
+
+		getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS)
+			.add(TRContent.RUBBER_TRAPDOOR)
 	}
 }
