@@ -31,4 +31,14 @@ class TexturePaths {
 	public static Map<Block, String> blockItemTexturePaths = [
 		(TRContent.RUBBER_DOOR): "misc/rubber_door"
 	]
+
+	static {
+		TRContent.Ores.values().each {
+			if (it.isDeepslate()) {
+				blockItemTexturePaths.put(it.block, "ore/deepslate/${it.name.toLowerCase()}_ore")
+			} else {
+				blockItemTexturePaths.put(it.block, "ore/${it.name.toLowerCase()}_ore")
+			}
+		}
+	}
 }

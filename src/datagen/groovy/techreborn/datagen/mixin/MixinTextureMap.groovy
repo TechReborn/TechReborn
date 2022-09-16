@@ -1,5 +1,6 @@
 package techreborn.datagen.mixin
 
+import net.minecraft.block.Block
 import net.minecraft.data.client.TextureMap
 import net.minecraft.item.Item
 import net.minecraft.util.Identifier
@@ -17,6 +18,15 @@ class MixinTextureMap {
 		TexturePaths.blockItemTexturePaths.each {
 			if (it.key.asItem() == item) {
 				cir.setReturnValue(new Identifier("techreborn", "item/${it.value}"))
+			}
+		}
+	}
+
+	@Inject(method = "getId(Lnet/minecraft/block/Block;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getId(Block block, CallbackInfoReturnable<Identifier> cir) {
+		TexturePaths.blockItemTexturePaths.each {
+			if (it.key == block) {
+				cir.setReturnValue(new Identifier("techreborn", "block/${it.value}"))
 			}
 		}
 	}
