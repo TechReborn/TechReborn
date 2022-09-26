@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-	"bottom": "techreborn:block/storage/brass_storage_block",
-	"top": "techreborn:block/storage/brass_storage_block",
-	"side": "techreborn:block/storage/brass_storage_block"
-  }
-}

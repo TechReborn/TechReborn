@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_wall_post",
-  "textures": {
-    "wall": "techreborn:block/storage/steel_storage_block"
-  }
-}

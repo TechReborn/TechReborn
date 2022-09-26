@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "techreborn:block/storage/hot_tungstensteel_storage_block"
-  }
-}

@@ -150,6 +150,9 @@ class TRItemTagProvider extends ItemTagProvider {
 				.add(it.wallBlock.asItem())
 		}
 
+		getOrCreateTagBuilder(ItemTags.WALLS)
+			.add(TRContent.COPPER_WALL.asItem())
+
 		getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS)
 			.add(TRContent.RUBBER_BUTTON.asItem())
 

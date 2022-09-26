@@ -25,20 +25,47 @@
 package techreborn.datagen.models
 
 import net.minecraft.block.Block
+import net.minecraft.item.Item
 import techreborn.init.TRContent
 
 class TexturePaths {
-	public static Map<Block, String> blockItemTexturePaths = [
+	public static Map<Block, String> blockPaths = [
 		(TRContent.RUBBER_DOOR): "misc/rubber_door"
 	]
+
+	public static Map<Item, String> itemPaths = [:]
 
 	static {
 		TRContent.Ores.values().each {
 			if (it.isDeepslate()) {
-				blockItemTexturePaths.put(it.block, "ore/deepslate/${it.name.toLowerCase()}_ore")
+				blockPaths.put(it.block, "ore/deepslate/${it.name.toLowerCase()}_ore")
 			} else {
-				blockItemTexturePaths.put(it.block, "ore/${it.name.toLowerCase()}_ore")
+				blockPaths.put(it.block, "ore/${it.name.toLowerCase()}_ore")
 			}
+		}
+
+		TRContent.StorageBlocks.values().each {
+			blockPaths.put(it.block, "storage/${it.name.toLowerCase()}_storage_block")
+		}
+
+		TRContent.Dusts.values().each {
+			itemPaths.put(it.asItem(), "dust/${it.name.toLowerCase()}_dust")
+		}
+
+		TRContent.SmallDusts.values().each {
+			itemPaths.put(it.asItem(), "smalldust/${it.name.toLowerCase()}_small_dust")
+		}
+
+		TRContent.Ingots.values().each {
+			itemPaths.put(it.asItem(), "ingot/${it.name.toLowerCase()}_ingot")
+		}
+
+		TRContent.Plates.values().each {
+			itemPaths.put(it.asItem(), "plate/${it.name.toLowerCase()}_plate")
+		}
+
+		TRContent.Nuggets.values().each {
+			itemPaths.put(it.asItem(), "nugget/${it.name.toLowerCase()}_nugget")
 		}
 	}
 }

@@ -26,8 +26,12 @@ package techreborn.datagen.models
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider
+import net.minecraft.block.Blocks
 import net.minecraft.data.client.BlockStateModelGenerator
 import net.minecraft.data.client.ItemModelGenerator
+import net.minecraft.data.client.Models
+import net.minecraft.data.family.BlockFamilies
+import net.minecraft.data.family.BlockFamily
 import techreborn.init.TRContent
 
 class ModelProvider extends FabricModelProvider {
@@ -38,9 +42,42 @@ class ModelProvider extends FabricModelProvider {
 	@Override
 	void generateBlockStateModels(BlockStateModelGenerator generator) {
 		generator.registerDoor(TRContent.RUBBER_DOOR)
+
+		TRContent.Ores.values().each {
+			generator.registerSimpleCubeAll(it.block)
+		}
+
+		TRContent.StorageBlocks.values().each {
+			def family = BlockFamilies.register(it.block)
+				.slab(it.slabBlock)
+				.stairs(it.stairsBlock)
+				.wall(it.wallBlock)
+				.build()
+
+			generator.registerCubeAllModelTexturePool(it.block).family(family)
+		}
 	}
 
 	@Override
 	void generateItemModels(ItemModelGenerator generator) {
+		TRContent.Dusts.values().each {
+			generator.register(it.asItem(), Models.GENERATED)
+		}
+
+		TRContent.SmallDusts.values().each {
+			generator.register(it.asItem(), Models.GENERATED)
+		}
+
+		TRContent.Ingots.values().each {
+			generator.register(it.asItem(), Models.GENERATED)
+		}
+
+		TRContent.Plates.values().each {
+			generator.register(it.asItem(), Models.GENERATED)
+		}
+
+		TRContent.Nuggets.values().each {
+			generator.register(it.asItem(), Models.GENERATED)
+		}
 	}
 }

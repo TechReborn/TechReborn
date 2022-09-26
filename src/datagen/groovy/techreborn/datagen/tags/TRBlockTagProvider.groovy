@@ -112,6 +112,9 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 				.add(it.wallBlock)
 		}
 
+		getOrCreateTagBuilder(BlockTags.WALLS)
+			.add(TRContent.COPPER_WALL)
+
 		getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS)
 			.add(TRContent.RUBBER_BUTTON)
 

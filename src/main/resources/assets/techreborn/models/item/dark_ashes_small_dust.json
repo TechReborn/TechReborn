@@ -1,6 +1,0 @@
-{
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "techreborn:item/smalldust/dark_ashes_small_dust"
-    }
-}

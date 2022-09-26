@@ -1,6 +1,0 @@
-{
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "techreborn:item/smalldust/ender_eye_small_dust"
-    }
-}

@@ -1,6 +1,0 @@
-{
-    "parent": "minecraft:block/cube_all",
-    "textures": {
-        "all": "techreborn:block/storage/tin_storage_block"
-    }
-}

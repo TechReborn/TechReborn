@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-	"bottom": "techreborn:block/storage/platinum_storage_block",
-	"top": "techreborn:block/storage/platinum_storage_block",
-	"side": "techreborn:block/storage/platinum_storage_block"
-  }
-}
