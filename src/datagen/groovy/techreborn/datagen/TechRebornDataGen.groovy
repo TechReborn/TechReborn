@@ -26,6 +26,7 @@ package techreborn.datagen
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import techreborn.TechReborn
 import techreborn.datagen.models.ModelProvider
 import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipesProvider
@@ -65,4 +66,9 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 
 		fabricDataGenerator.addProvider(ModelProvider.&new)
     }
+
+	@Override
+	String getEffectiveModId() {
+		return TechReborn.MOD_ID
+	}
 }

@@ -27,15 +27,21 @@ package reborncore;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerBlockEntityEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.api.ToolManager;
 import reborncore.api.blockentity.UnloadHandler;
+import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.RebornCoreCommands;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -109,6 +115,13 @@ public class RebornCore implements ModInitializer {
 
 		ServerWorldEvents.LOAD.register((server, world) -> ChunkLoaderManager.get(world).onServerWorldLoad(world));
 		ServerTickEvents.START_WORLD_TICK.register(world -> ChunkLoaderManager.get(world).onServerWorldTick(world));
+
+		ServerEntityEvents.EQUIPMENT_CHANGE.register((livingEntity, equipmentSlot, previousStack, currentStack) -> {
+			if (livingEntity instanceof PlayerEntity playerEntity
+				&& previousStack.getItem() instanceof ArmorRemoveHandler armorRemoveHandler) {
+				armorRemoveHandler.onRemoved(playerEntity);
+			}
+		});
 
 		FluidStorage.SIDED.registerFallback((world, pos, state, be, direction) -> {
 			if (be instanceof MachineBaseBlockEntity machineBase) {

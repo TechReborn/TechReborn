@@ -69,6 +69,8 @@ public enum TRArmorMaterials implements ArmorMaterial {
 	private final float knockbackResistance;
 	private final Lazy<Ingredient> repairMaterial;
 
+	private final String name;
+
 	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
 					 SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairMaterialIn) {
 		this.maxDamageFactor = maxDamageFactor;
@@ -78,6 +80,7 @@ public enum TRArmorMaterials implements ArmorMaterial {
 		this.toughness = toughness;
 		this.knockbackResistance = knockbackResistance;
 		this.repairMaterial = new Lazy<>(repairMaterialIn);
+		this.name = "techreborn:" + this.toString().toLowerCase(Locale.ROOT);
 	}
 
 	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
@@ -112,7 +115,7 @@ public enum TRArmorMaterials implements ArmorMaterial {
 
 	@Override
 	public String getName() {
-		return this.toString().toLowerCase(Locale.ROOT);
+		return name;
 	}
 
 	@Override
