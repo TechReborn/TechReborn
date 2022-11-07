@@ -24,37 +24,25 @@
 
 package techreborn.items;
 
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.ChatUtils;
 import techreborn.TechReborn;
 import techreborn.utils.MessageIDs;
-
-import java.util.List;
-import java.util.Optional;
 
 public class GpsItem extends Item {
 
 	public GpsItem() {
 		super(new Settings().group(TechReborn.ITEMGROUP));
-	}
-
-	public static Optional<GlobalPos> getPos(ItemStack stack) {
-		if (!stack.hasNbt() || !stack.getOrCreateNbt().contains("pos")) {
-			return Optional.empty();
-		}
-		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, stack.getOrCreateNbt().getCompound("pos")).result();
 	}
 
 	@Override
@@ -72,15 +60,5 @@ public class GpsItem extends Item {
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
-	}
-
-	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		getPos(stack)
-				.ifPresent(globalPos -> {
-					tooltip.add(Text.literal(Formatting.GRAY + "X: " + Formatting.GOLD + globalPos.getPos().getX()));
-					tooltip.add(Text.literal(Formatting.GRAY + "Y: " + Formatting.GOLD + globalPos.getPos().getY()));
-					tooltip.add(Text.literal(Formatting.GRAY + "Z: " + Formatting.GOLD + globalPos.getPos().getZ()));
-				});
 	}
 }
