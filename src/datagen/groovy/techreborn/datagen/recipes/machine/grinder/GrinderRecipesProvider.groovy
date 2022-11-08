@@ -217,8 +217,8 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		// designed to be a fourth of what ind. sawmill gives, i.e. the same, just in small dust
 		[
 			(ItemTags.PLANKS)                : 8,
-			(ItemTags.STAIRS)                : 6,
-			(ItemTags.SLABS)                 : 4,
+			(ItemTags.WOODEN_STAIRS)         : 6,
+			(ItemTags.WOODEN_SLABS)          : 4,
 			(ItemTags.WOODEN_PRESSURE_PLATES): 1,
 			(ItemTags.WOODEN_TRAPDOORS)      : 1,
 			(ItemTags.WOODEN_FENCES)         : 1,
