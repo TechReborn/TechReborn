@@ -61,6 +61,7 @@ import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
+import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
@@ -762,6 +763,7 @@ public class TRContent {
 		GREENHOUSE_CONTROLLER(new GenericMachineBlock(GuiType.GREENHOUSE_CONTROLLER, GreenhouseControllerBlockEntity::new)),
 		BLOCK_BREAKER(new GenericMachineBlock(GuiType.BLOCK_BREAKER, BlockBreakerBlockEntity::new)),
 		BLOCK_PLACER(new GenericMachineBlock(GuiType.BLOCK_PLACER, BlockPlacerBlockEntity::new)),
+		LAUNCHPAD(new GenericMachineBlock(GuiType.LAUNCHPAD, LaunchpadBlockEntity::new)),
 
 		DIESEL_GENERATOR(new GenericGeneratorBlock(GuiType.DIESEL_GENERATOR, DieselGeneratorBlockEntity::new)),
 		DRAGON_EGG_SYPHON(new GenericGeneratorBlock(null, DragonEggSyphonBlockEntity::new)),
