@@ -15,6 +15,7 @@
 TechReborn.iws
 TechReborn.ipr
 Thumbs.db
+.DS_Store
 changelog.txt
 *.log
 *.launch
