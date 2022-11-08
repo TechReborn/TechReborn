@@ -51,6 +51,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -259,5 +260,17 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	@Override
 	public FluidState getFluidState(BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+	}
+
+	@Override
+	public BlockState getAppearance(BlockState state, BlockRenderView renderView, BlockPos pos, Direction side, @Nullable BlockState sourceState, @Nullable BlockPos sourcePos) {
+		if (state.get(COVERED)) {
+			if (renderView.getBlockEntity(pos) instanceof CableBlockEntity cableBlockEntity) {
+				final BlockState cover = cableBlockEntity.getCover();
+				return cover != null ? cover : Blocks.OAK_PLANKS.getDefaultState();
+			}
+		}
+
+		return super.getAppearance(state, renderView, pos, side, sourceState, sourcePos);
 	}
 }
