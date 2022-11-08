@@ -585,6 +585,39 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "block_placer", key = "BlockPlacerBaseBreakTime", comment = "How many ticks a block of hardness 1 requires to be placed")
 	public static int blockPlacerBaseBreakTime = 100;
 
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadMaxInput", comment = "Launchpad Max Input (Energy per tick)")
+	public static int launchpadMaxInput = 128;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadMaxEnergy", comment = "Launchpad Max Energy")
+	public static int launchpadMaxEnergy = 40_000;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadSpeedLow", comment = "Launchpad Low Speed")
+	public static double launchpadSpeedLow = 1d;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadSpeedMedium", comment = "Launchpad Medium Speed")
+	public static double launchpadSpeedMedium = 3d;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadSpeedHigh", comment = "Launchpad High Speed")
+	public static double launchpadSpeedHigh = 5d;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadSpeedExtreme", comment = "Launchpad Extreme Speed")
+	public static double launchpadSpeedExtreme = 10d;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadEnergyLow", comment = "Launchpad Low Energy")
+	public static int launchpadEnergyLow = 1_000;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadEnergyMedium", comment = "Launchpad Medium Energy")
+	public static int launchpadEnergyMedium = 6_000;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadEnergyHigh", comment = "Launchpad High Energy")
+	public static int launchpadEnergyHigh = 10_000;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadEnergyExtreme", comment = "Launchpad Extreme Energy")
+	public static int launchpadEnergyExtreme = 20_000;
+
+	@Config(config = "machines", category = "launchpad", key = "LaunchpadDefaultSelection", comment = "Launchpad Default Selection (0-3 for Low-Extreme)")
+	public static int launchpadDefaultSelection = 0;
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
