@@ -25,14 +25,13 @@
 package techreborn.blockentity.machine.tier2;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
@@ -41,34 +40,32 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
-import reborncore.common.util.WorldUtils;
-import techreborn.blocks.machine.tier1.PlayerDetectorBlock;
-import techreborn.blocks.machine.tier1.PlayerDetectorBlock.PlayerDetectorType;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
+import java.util.List;
+
 public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
-	boolean redstone = false;
-	int radius = 16;
+	public static final int MAX_SELECTION = 3;
+	int selection = TechRebornConfig.launchpadDefaultSelection;
 
 	public LaunchpadBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.LAUNCHPAD, pos, state);
 	}
 
-	public boolean isProvidingPower() {
-		return redstone;
+	public void handleGuiInputFromClient(int amount) {
+		selection += amount;
+		ensureSelectionInRange();
 	}
 
-	public void handleGuiInputFromClient(int amount) {
-		radius += amount;
-
-		if (radius > TechRebornConfig.playerDetectorMaxRadius) {
-			radius = TechRebornConfig.playerDetectorMaxRadius;
+	public void ensureSelectionInRange() {
+		if (selection > MAX_SELECTION) {
+			selection = MAX_SELECTION;
 		}
-		if (radius <= 1) {
-			radius = 1;
+		if (selection <= 0) {
+			selection = 0;
 		}
 	}
 
@@ -76,33 +73,67 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-
 		if (world == null) {
 			return;
 		}
 
+		// TODO overclocker functionality?
 		if (world.getTime() % 20 != 0) {
 			return;
 		}
 
-		boolean lastRedstone = redstone;
-		redstone = false;
-		if (getStored() > TechRebornConfig.playerDetectorEuPerTick) { //TODO
-			for (PlayerEntity player : world.getPlayers()) {
-				if (player.getBlockPos().down().equals(pos))
-					player.addVelocity(0d, 5d, 0d);
+		ensureSelectionInRange();
+		final double speed = selectedSpeed(selection);
+		final int energyCost = selectedEnergyCost(selection);
+
+		// TODO redstone functionality?
+
+		if (getStored() > energyCost) {
+			List<Entity> entities = world.getNonSpectatingEntities(Entity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
+			if (entities.size() == 0) {
+				return;
 			}
-			useEnergy(TechRebornConfig.playerDetectorEuPerTick); //TODO
-		}
-		if (lastRedstone != redstone) {
-			WorldUtils.updateBlock(world, pos);
-			world.updateNeighborsAlways(pos, world.getBlockState(pos).getBlock());
+			for (Entity entity : entities) {
+				entity.addVelocity(0d, speed, 0d);
+			}
+			useEnergy(energyCost);
 		}
 	}
 
+	public static double selectedSpeed(final int selection) {
+		return switch(selection) {
+			case 0 -> TechRebornConfig.launchpadSpeedLow;
+			case 1 -> TechRebornConfig.launchpadSpeedMedium;
+			case 2 -> TechRebornConfig.launchpadSpeedHigh;
+			case MAX_SELECTION -> TechRebornConfig.launchpadSpeedExtreme;
+			default -> throw new IllegalArgumentException("Impossible launchpad selection value!");
+		};
+	}
+
+	public static int selectedEnergyCost(final int selection) {
+		return switch(selection) {
+			case 0 -> TechRebornConfig.launchpadEnergyLow;
+			case 1 -> TechRebornConfig.launchpadEnergyMedium;
+			case 2 -> TechRebornConfig.launchpadEnergyHigh;
+			case MAX_SELECTION -> TechRebornConfig.launchpadEnergyExtreme;
+			default -> throw new IllegalArgumentException("Impossible launchpad selection value!");
+		};
+	}
+
+	public static String selectedTranslationKey(final int selection) {
+		return switch(selection) {
+			case 0 -> "techreborn.message.info.block.techreborn.launchpad.low";
+			case 1 -> "techreborn.message.info.block.techreborn.launchpad.medium";
+			case 2 -> "techreborn.message.info.block.techreborn.launchpad.high";
+			case MAX_SELECTION -> "techreborn.message.info.block.techreborn.launchpad.extreme";
+			default -> throw new IllegalArgumentException("Impossible launchpad selection value!");
+		};
+	}
+
+
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.playerDetectorMaxEnergy; //TODO
+		return TechRebornConfig.launchpadMaxEnergy;
 	}
 
 	@Override
@@ -117,17 +148,19 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.playerDetectorMaxInput; //TODO
+		return TechRebornConfig.launchpadMaxInput;
 	}
 
 	@Override
 	public void readNbt(NbtCompound tag) {
 		super.readNbt(tag);
+		selection = tag.getInt("selection");
 	}
 
 	@Override
 	public void writeNbt(NbtCompound tag) {
 		super.writeNbt(tag);
+		tag.putInt("selection", selection);
 	}
 
 	// MachineBaseBlockEntity
@@ -150,20 +183,20 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("player_detector")
+		return new ScreenHandlerBuilder("launchpad")
 				.player(player.getInventory())
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.syncEnergyValue()
-				.sync(this::getCurrentRadius, this::setCurrentRadius)
+				.sync(this::getSelection, this::setSelection)
 				.addInventory().create(this, syncID);
 	}
 
-	public int getCurrentRadius() {
-		return radius;
+	public int getSelection() {
+		return selection;
 	}
 
-	public void setCurrentRadius(int radius) {
-		this.radius = radius;
+	public void setSelection(int selection) {
+		this.selection = selection;
 	}
 }
