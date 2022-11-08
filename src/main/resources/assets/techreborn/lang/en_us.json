@@ -697,6 +697,7 @@
   "_comment17": "Items-Misc",
   "item.techreborn.cell": "Empty Cell",
   "item.techreborn.cell.fluid": "$fluid$ Cell",
+  "item.techreborn.gps": "GPS",
   "item.techreborn.frequency_transmitter": "Frequency Transmitter",
   "item.techreborn.manual": "Tech Reborn Manual",
   "item.techreborn.missingRecipe": "Missing Recipe Placeholder",

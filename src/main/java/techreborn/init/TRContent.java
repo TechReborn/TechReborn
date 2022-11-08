@@ -163,6 +163,7 @@ public class TRContent {
 
 	// Other
 	public static Item FREQUENCY_TRANSMITTER;
+	public static Item GPS;
 	public static Item SCRAP_BOX;
 	public static Item MANUAL;
 	public static DynamicCellItem CELL;
