@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/launchpad"
+	]
+  },
+  "criteria": {
+	"has_magnalium_plates": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:magnalium_plates"
+		  }
+		]
+	  }
+	},
+	"has_zinc_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:zinc_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/launchpad"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_magnalium_plates",
+	  "has_zinc_plate",
+	  "has_the_recipe"
+	]
+  ]
+}
