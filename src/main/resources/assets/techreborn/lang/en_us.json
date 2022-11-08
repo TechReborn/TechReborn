@@ -707,7 +707,7 @@
   "item.techreborn.transformer_upgrade": "Transformer Upgrade",
   "item.techreborn.energy_storage_upgrade": "Energy Storage Upgrade",
   "item.techreborn.superconductor_upgrade": "Superconductor Upgrade",
-	"item.techreborn.muffler_upgrade": "Muffler Upgrade",
+  "item.techreborn.muffler_upgrade": "Muffler Upgrade",
 
   "item.techreborn.bronze_sword": "Bronze Sword",
   "item.techreborn.bronze_pickaxe": "Bronze Pickaxe",
@@ -777,7 +777,7 @@
   "techreborn.message.info.item.techreborn.transformer_upgrade": "Increase energy tier",
   "techreborn.message.info.item.techreborn.energy_storage_upgrade": "Increase energy store",
   "techreborn.message.info.item.techreborn.superconductor_upgrade": "Increases energy flow rate",
-	"techreborn.message.info.item.techreborn.muffler_upgrade": "Muffles the machine",
+  "techreborn.message.info.item.techreborn.muffler_upgrade": "Muffles the machine",
 
   "techreborn.message.info.unplaceable_fluid": "Cannot be placed",
 
@@ -843,7 +843,12 @@
   "techreborn.message.info.block.techreborn.drain": "Pulls any fluid directly above it, pairs nicely with a tank unit underneath",
   "techreborn.message.info.block.techreborn.block_breaker": "Breaks any block directly in front of it",
   "techreborn.message.info.block.techreborn.block_placer": "Places blocks from its inventory directly in front of it",
-
+  "techreborn.message.info.block.techreborn.launchpad": "Launches entities into the air",
+  "techreborn.message.info.block.techreborn.launchpad.low": "Low",
+  "techreborn.message.info.block.techreborn.launchpad.medium": "Medium",
+  "techreborn.message.info.block.techreborn.launchpad.high": "High",
+  "techreborn.message.info.block.techreborn.launchpad.extreme": "Extreme",
+  
   "keys.techreborn.category": "TechReborn Category",
   "keys.techreborn.config": "Config",
 

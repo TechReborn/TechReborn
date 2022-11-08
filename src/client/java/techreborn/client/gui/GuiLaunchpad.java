@@ -31,7 +31,6 @@ import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.common.screen.BuiltScreenHandler;
-import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
@@ -45,7 +44,7 @@ public class GuiLaunchpad extends GuiBase<BuiltScreenHandler> {
 	}
 
 	private void onClick(int amount) {
-		//ClientNetworkManager.sendToServer(ServerboundPackets.createPacketPlayerDetector(amount, blockEntity));
+		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketLaunchpad(amount, blockEntity));
 	}
 
 	@Override
@@ -65,7 +64,7 @@ public class GuiLaunchpad extends GuiBase<BuiltScreenHandler> {
 
 		if (hideGuiElements()) return;
 
-		Text text = Text.literal("Radius: ").append(String.valueOf(blockEntity.getCurrentRadius()));
+		Text text = Text.literal("Launch Speed: ").append(Text.translatable(LaunchpadBlockEntity.selectedTranslationKey(blockEntity.getSelection())));
 		drawCentredText(matrixStack, text, 25, 4210752, layer);
 	}
 
