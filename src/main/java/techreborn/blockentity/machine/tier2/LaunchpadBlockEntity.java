@@ -52,7 +52,7 @@ import java.util.List;
 public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
 	public static final int MAX_SELECTION = 3;
-	int selection = TechRebornConfig.launchpadDefaultSelection;
+	private int selection = TechRebornConfig.launchpadDefaultSelection;
 
 	public LaunchpadBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.LAUNCHPAD, pos, state);
@@ -130,7 +130,6 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 			default -> throw new IllegalArgumentException("Impossible launchpad selection value!");
 		};
 	}
-
 
 	@Override
 	public long getBaseMaxPower() {

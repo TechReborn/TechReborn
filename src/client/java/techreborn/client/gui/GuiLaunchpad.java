@@ -51,10 +51,10 @@ public class GuiLaunchpad extends GuiBase<BuiltScreenHandler> {
 	public void init() {
 		super.init();
 
-		addDrawableChild(new GuiButtonUpDown(x + 64, y + 40, this, b -> onClick(16), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 64, y + 40, this, b -> onClick(LaunchpadBlockEntity.MAX_SELECTION), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
 		addDrawableChild(new GuiButtonUpDown(x + 64 + 12, y + 40, this, b -> onClick(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
 		addDrawableChild(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-16), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-LaunchpadBlockEntity.MAX_SELECTION), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
 	}
 
 	@Override
