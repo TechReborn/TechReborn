@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"EEE",
+		"PFP",
+		"PCP"
+	],
+	"key": {
+		"C": {
+			"item": "techreborn:electronic_circuit"
+		},
+		"E": {
+			"tag": "c:ender_pearl_dusts"
+		},
+		"F": {
+			"item": "techreborn:basic_machine_frame"
+		},
+		"P": {
+			"tag": "c:zinc_plates"
+		}
+	},
+	"result": {
+		"item": "techreborn:launchpad"
+	}
+}

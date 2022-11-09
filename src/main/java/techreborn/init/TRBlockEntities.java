@@ -145,6 +145,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<BlockBreakerBlockEntity> BLOCK_BREAKER = register(BlockBreakerBlockEntity::new, "block_breaker", TRContent.Machine.BLOCK_BREAKER);
 	public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER = register(BlockPlacerBlockEntity::new, "block_placer", TRContent.Machine.BLOCK_PLACER);
 	public static final BlockEntityType<LaunchpadBlockEntity> LAUNCHPAD = register(LaunchpadBlockEntity::new, "launchpad", TRContent.Machine.LAUNCHPAD);
+	public static final BlockEntityType<ElevatorBlockEntity> ELEVATOR = register(ElevatorBlockEntity::new, "elevator", TRContent.Machine.ELEVATOR);
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, ItemConvertible... items) {
 		return register(supplier, name, Arrays.stream(items).map(itemConvertible -> Block.getBlockFromItem(itemConvertible.asItem())).toArray(Block[]::new));

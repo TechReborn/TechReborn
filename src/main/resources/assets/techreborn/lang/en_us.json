@@ -33,6 +33,7 @@
   "block.techreborn.implosion_compressor": "Implosion Compressor",
   "block.techreborn.industrial_grinder": "Industrial Grinder",
   "block.techreborn.launchpad": "Launchpad",
+  "block.techreborn.elevator": "Elevator",
   "block.techreborn.chunk_loader": "Industrial Chunkloader",
   "block.techreborn.diesel_generator": "Diesel Generator",
   "block.techreborn.drain": "Drain",
@@ -848,6 +849,7 @@
   "techreborn.message.info.block.techreborn.launchpad.medium": "Medium",
   "techreborn.message.info.block.techreborn.launchpad.high": "High",
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Extreme",
+  "techreborn.message.info.block.techreborn.elevator": "Teleports player up or down to the next free elevator block",
   
   "keys.techreborn.category": "TechReborn Category",
   "keys.techreborn.config": "Config",

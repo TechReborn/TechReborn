@@ -123,6 +123,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<BlockBreakerBlockEntity> BLOCK_BREAKER = register("block_breaker");
 	public static final GuiType<BlockPlacerBlockEntity> BLOCK_PLACER = register("block_placer");
 	public static final GuiType<LaunchpadBlockEntity> LAUNCHPAD = register("launchpad");
+	public static final GuiType<ElevatorBlockEntity> ELEVATOR = register("elevator");
 
 	private static <T extends BlockEntity> GuiType<T> register(String id) {
 		return register(new Identifier("techreborn", id));
