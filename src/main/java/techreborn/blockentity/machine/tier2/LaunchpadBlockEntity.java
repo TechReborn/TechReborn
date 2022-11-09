@@ -36,6 +36,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -73,20 +74,17 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null) {
+		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
 			return;
 		}
 
-		// TODO overclocker functionality?
-		if (world.getTime() % 20 != 0) {
+		if (world.getTime() % TechRebornConfig.launchpadInterval != 0) {
 			return;
 		}
 
 		ensureSelectionInRange();
 		final double speed = selectedSpeed(selection);
 		final int energyCost = selectedEnergyCost(selection);
-
-		// TODO redstone functionality?
 
 		if (getStored() > energyCost) {
 			List<Entity> entities = world.getNonSpectatingEntities(Entity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
@@ -171,7 +169,7 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	@Override
 	public boolean canBeUpgraded() {
-		return true;
+		return false;
 	}
 
 	// IToolDrop
