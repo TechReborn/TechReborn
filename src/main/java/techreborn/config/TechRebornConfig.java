@@ -621,6 +621,15 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "launchpad", key = "LaunchpadInterval", comment = "Launchpad Launch Interval in Ticks > 0")
 	public static int launchpadInterval = 100; // 5 seconds
 
+	@Config(config = "machines", category = "elevator", key = "ElevatorMaxInput", comment = "Elevator Max Input (Energy per tick)")
+	public static int elevatorMaxInput = 32;
+
+	@Config(config = "machines", category = "elevator", key = "ElevatorMaxEnergy", comment = "Elevator Max Energy")
+	public static int elevatorMaxEnergy = 1_000;
+
+	@Config(config = "machines", category = "elevator", key = "ElevatorEnergyPerBlock", comment = "Elevator Energy used per vertical block of transportation")
+	public static int elevatorEnergyPerBlock = 2;
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
