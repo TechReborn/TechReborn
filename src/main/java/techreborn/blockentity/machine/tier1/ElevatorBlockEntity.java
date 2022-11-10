@@ -31,10 +31,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -44,7 +46,8 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import java.util.function.BiFunction;
+import java.util.List;
+import java.util.Optional;
 
 public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
@@ -71,59 +74,83 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		return isRunning(world, pos) && isFree(world, pos);
 	}
 
-	public static BlockPos nextUpElevator(final World world, final BlockPos pos) {
+	public static Optional<BlockPos> nextUpElevator(final World world, final BlockPos pos) {
 		BlockPos upPos = pos.up().up();
 		do {
 			upPos = upPos.up();
 		} while (upPos.getY() <= MAX_HEIGHT && !isValidTarget(world, upPos));
 		if (upPos.getY() < MAX_HEIGHT || isValidTarget(world, upPos)) {
-			return upPos;
+			return Optional.of(upPos);
 		}
-		return null;
+		return Optional.empty();
 	}
 
-	public static BlockPos nextDownElevator(final World world, final BlockPos pos) {
+	public static Optional<BlockPos> nextDownElevator(final World world, final BlockPos pos) {
 		BlockPos downPos = pos.down().down();
 		do {
 			downPos = downPos.down();
 		} while (downPos.getY() >= MIN_HEIGHT && !isValidTarget(world, downPos));
 		if (downPos.getY() > MIN_HEIGHT || isValidTarget(world, downPos)) {
-			return downPos;
+			return Optional.of(downPos);
 		}
-		return null;
+		return Optional.empty();
 	}
 
 	public static int energyCost(BlockPos startPos, BlockPos endPos) {
 		return Math.min(Math.abs(endPos.getY()-startPos.getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
 	}
 
-	public void teleportUp(World world, BlockPos pos, PlayerEntity player) {
-		teleport(world, pos, player, ElevatorBlockEntity::nextUpElevator);
-	}
-
-	public void teleportDown(World world, BlockPos pos, PlayerEntity player) {
-		teleport(world, pos, player, ElevatorBlockEntity::nextDownElevator);
-	}
-
-	protected void teleport(World world, BlockPos pos, PlayerEntity player, BiFunction<World, BlockPos, BlockPos> targetCalculator) {
-		if (world == null || !isActive(RedstoneConfiguration.POWER_IO)) {
-			return;
-		}
-		BlockPos targetPos = targetCalculator.apply(world, pos);
-		if (targetPos == null) {
-			return;
-		}
+	protected boolean teleport(World world, BlockPos pos, PlayerEntity player, BlockPos targetPos) {
 		final int energy = energyCost(pos, targetPos);
 		if (getStored() < energy) {
-			return;
+			return false;
 		}
 		world.playSound(null, pos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
-		player.teleport(targetPos.getX(), targetPos.getY(), targetPos.getZ(), true);
+		player.teleport(targetPos.getX(), targetPos.getY(), targetPos.getZ());
 		useEnergy(energy);
+		return true;
 	}
-	// world.playSound(null, pos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
 
 	// PowerAcceptorBlockEntity
+	@Override
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
+		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
+			return;
+		}
+
+		Optional<BlockPos> upTarget = null;
+		Optional<BlockPos> downTarget = null;
+
+		List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
+		if (players.size() == 0) {
+			return;
+		}
+		for (PlayerEntity player : players) {
+			if (player.jumping) {
+				if (upTarget == null) {
+					upTarget = nextUpElevator(world, pos);
+				}
+				if (upTarget.isEmpty()) {
+					continue;
+				}
+				if (teleport(world, pos, player, upTarget.get().up())) {
+					player.setJumping(false);
+				}
+			}
+			else if (player.isSneaking()) {
+				if (downTarget == null) {
+					downTarget = nextDownElevator(world, pos);
+				}
+				if (downTarget.isEmpty()) {
+					continue;
+				}
+				if (teleport(world, pos, player, downTarget.get().up())) {
+					player.setSneaking(false);
+				}
+			}
+		}
+	}
 	@Override
 	public long getBaseMaxPower() {
 		return TechRebornConfig.elevatorMaxEnergy;
