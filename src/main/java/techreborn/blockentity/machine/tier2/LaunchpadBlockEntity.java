@@ -72,35 +72,6 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 		}
 	}
 
-	// PowerAcceptorBlockEntity
-	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
-			return;
-		}
-
-		if (world.getTime() % TechRebornConfig.launchpadInterval != 0) {
-			return;
-		}
-
-		ensureSelectionInRange();
-		final double speed = selectedSpeed(selection);
-		final int energyCost = selectedEnergyCost(selection);
-
-		if (getStored() > energyCost) {
-			List<Entity> entities = world.getNonSpectatingEntities(Entity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
-			if (entities.size() == 0) {
-				return;
-			}
-			world.playSound(null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 1f, 1f);
-			for (Entity entity : entities) {
-				entity.addVelocity(0d, speed, 0d);
-			}
-			useEnergy(energyCost);
-		}
-	}
-
 	public static double selectedSpeed(final int selection) {
 		return switch(selection) {
 			case 0 -> TechRebornConfig.launchpadSpeedLow;
@@ -129,6 +100,35 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 			case MAX_SELECTION -> "techreborn.message.info.block.techreborn.launchpad.extreme";
 			default -> throw new IllegalArgumentException("Impossible launchpad selection value!");
 		};
+	}
+
+	// PowerAcceptorBlockEntity
+	@Override
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(world, pos, state, blockEntity);
+		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
+			return;
+		}
+
+		if (world.getTime() % TechRebornConfig.launchpadInterval != 0) {
+			return;
+		}
+
+		ensureSelectionInRange();
+		final double speed = selectedSpeed(selection);
+		final int energyCost = selectedEnergyCost(selection);
+
+		if (getStored() > energyCost) {
+			List<Entity> entities = world.getNonSpectatingEntities(Entity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
+			if (entities.size() == 0) {
+				return;
+			}
+			world.playSound(null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 1f, 1f);
+			for (Entity entity : entities) {
+				entity.addVelocity(0d, speed, 0d);
+			}
+			useEnergy(energyCost);
+		}
 	}
 
 	@Override
