@@ -1,31 +1,30 @@
 {
 	"multipart": [
 		{
-		  	"when": { "covered": false },
 			"apply": { "model": "techreborn:block/cable/insulated_hv_cable_core" }
 		},
 		{
-			"when": { "north": true, "covered": false },
+			"when": { "north": true },
 			"apply": { "model": "techreborn:block/cable/insulated_hv_cable_side" }
 		},
 		{
-			"when": { "east": true, "covered": false },
+			"when": { "east": true },
 			"apply": { "model": "techreborn:block/cable/insulated_hv_cable_side", "y": 90 }
 		},
 		{
-			"when": { "south": true, "covered": false },
+			"when": { "south": true },
 			"apply": { "model": "techreborn:block/cable/insulated_hv_cable_side", "y": 180 }
 		},
 		{
-			"when": { "west": true, "covered": false },
+			"when": { "west": true },
 			"apply": { "model": "techreborn:block/cable/insulated_hv_cable_side", "y": 270 }
 		},
 		{
-			"when": { "up": true, "covered": false },
+			"when": { "up": true },
 			"apply": { "model": "techreborn:block/cable/insulated_hv_cable_side", "x": 270}
 		},
 		{
-			"when": { "down": true, "covered": false },
+			"when": { "down": true },
 			"apply": { "model": "techreborn:block/cable/insulated_hv_cable_side", "x": 90 }
 		}
 	]

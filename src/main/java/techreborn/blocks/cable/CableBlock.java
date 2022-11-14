@@ -24,6 +24,7 @@
 
 package techreborn.blocks.cable;
 
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -203,6 +204,11 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		return CableShapeUtil.getShape(state);
 	}
 
+	@Override
+	public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+		return CableShapeUtil.getShape(state);
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
@@ -265,10 +271,15 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	@Override
 	public BlockState getAppearance(BlockState state, BlockRenderView renderView, BlockPos pos, Direction side, @Nullable BlockState sourceState, @Nullable BlockPos sourcePos) {
 		if (state.get(COVERED)) {
-			if (renderView.getBlockEntity(pos) instanceof CableBlockEntity cableBlockEntity) {
-				final BlockState cover = cableBlockEntity.getCover();
-				return cover != null ? cover : Blocks.OAK_PLANKS.getDefaultState();
+			final BlockState cover;
+
+			if (((RenderAttachedBlockView) renderView).getBlockEntityRenderAttachment(pos) instanceof BlockState blockState) {
+				cover = blockState;
+			} else {
+				cover = Blocks.OAK_PLANKS.getDefaultState();
 			}
+
+			return cover;
 		}
 
 		return super.getAppearance(state, renderView, pos, side, sourceState, sourcePos);

@@ -45,16 +45,14 @@ public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity>
 
 	@Override
 	public void render(CableBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-		if (blockEntity.getWorld() == null) {
+		if (!blockEntity.getCachedState().get(CableBlock.COVERED) || blockEntity.getWorld() == null) {
 			return;
 		}
-		BlockState blockState = blockEntity.getWorld().getBlockState(blockEntity.getPos());
-		if (!(blockState.getBlock() instanceof CableBlock) || !blockState.get(CableBlock.COVERED)) {
-			return;
-		}
+
 		final BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-		BlockState coverState = blockEntity.getCover() != null ? blockEntity.getCover() : Blocks.OAK_PLANKS.getDefaultState();
-		VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayers.getBlockLayer(coverState));
+		final BlockState renderData = blockEntity.getRenderAttachmentData();
+		final BlockState coverState = renderData != null ? renderData : Blocks.OAK_PLANKS.getDefaultState();
+		final VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayers.getBlockLayer(coverState));
 		blockRenderManager.renderBlock(coverState, blockEntity.getPos(), blockEntity.getWorld(), matrices, consumer, true, Random.create());
 	}
 
