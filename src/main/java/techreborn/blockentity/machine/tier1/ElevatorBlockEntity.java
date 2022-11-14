@@ -98,7 +98,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	public static int energyCost(BlockPos startPos, BlockPos endPos) {
-		return Math.min(Math.abs(endPos.getY()-startPos.getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
+		return Math.max(Math.abs(endPos.getY()-startPos.getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
 	}
 
 	protected boolean teleport(World world, BlockPos pos, PlayerEntity player, BlockPos targetPos) {
