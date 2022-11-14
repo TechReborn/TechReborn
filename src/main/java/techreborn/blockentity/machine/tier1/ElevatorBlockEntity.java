@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -111,15 +112,25 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		return true;
 	}
 
+	public void teleportUp(World world, BlockPos pos, PlayerEntity player) {
+		Optional<BlockPos> upTarget = nextUpElevator(player.getWorld(), pos);
+		if (upTarget.isEmpty()) {
+			return;
+		}
+		if (teleport(player.getWorld(), pos, player, upTarget.get().up())) {
+			player.setJumping(false);
+		}
+	}
+
 	// PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!(world instanceof ServerWorld) || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
 			return;
 		}
 
-		Optional<BlockPos> upTarget = null;
+		//Optional<BlockPos> upTarget = null;
 		Optional<BlockPos> downTarget = null;
 
 		List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
@@ -127,7 +138,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 			return;
 		}
 		for (PlayerEntity player : players) {
-			if (player.jumping) {
+			/*if (player.jumping) {
 				if (upTarget == null) {
 					upTarget = nextUpElevator(world, pos);
 				}
@@ -138,7 +149,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 					player.setJumping(false);
 				}
 			}
-			else if (player.isSneaking()) {
+			else*/ if (player.isSneaking()) {
 				if (downTarget == null) {
 					downTarget = nextDownElevator(world, pos);
 				}

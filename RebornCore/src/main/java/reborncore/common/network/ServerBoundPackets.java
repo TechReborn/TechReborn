@@ -219,4 +219,10 @@ public class ServerBoundPackets {
 			packetBuffer.writeInt(state.ordinal());
 		});
 	}
+
+	public static IdentifiedPacket createPacketJump(BlockPos pos) {
+		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "jump"), packetBuffer -> {
+			packetBuffer.writeBlockPos(pos);
+		});
+	}
 }

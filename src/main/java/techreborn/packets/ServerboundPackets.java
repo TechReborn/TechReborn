@@ -35,6 +35,7 @@ import techreborn.TechReborn;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
+import techreborn.blockentity.machine.tier1.ElevatorBlockEntity;
 import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
@@ -185,6 +186,17 @@ public class ServerboundPackets {
 				}
 			});
 		}));
+
+		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "jump"), (server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+
+			server.execute(() -> {
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos.down());
+				if (blockEntity instanceof ElevatorBlockEntity elevator) {
+					elevator.teleportUp(player.getWorld(), pos.down(), player);
+				}
+			});
+		});
 	}
 
 	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
