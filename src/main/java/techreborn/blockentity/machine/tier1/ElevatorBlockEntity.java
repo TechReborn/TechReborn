@@ -59,24 +59,24 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		super(TRBlockEntities.ELEVATOR, pos, state);
 	}
 
-	public static boolean isRunning(final World world, final BlockPos pos) {
-		final BlockEntity entity = world.getBlockEntity(pos);
+	public boolean isRunning(final World world, final BlockPos targetPos) {
+		final BlockEntity entity = world.getBlockEntity(targetPos);
 		if (!(entity instanceof ElevatorBlockEntity)) {
 			return false;
 		}
 		return ((ElevatorBlockEntity)entity).getStored() > 0;
 	}
 
-	public static boolean isFree(final World world, final BlockPos pos) {
-		return world.getBlockState(pos.up()).isAir() && world.getBlockState(pos.up().up()).isAir();
+	public boolean isFree(final World world, final BlockPos targetPos) {
+		return world.getBlockState(targetPos.up()).isAir() && world.getBlockState(targetPos.up().up()).isAir();
 	}
 
-	public static boolean isValidTarget(final World world, final BlockPos pos) {
-		return isRunning(world, pos) && isFree(world, pos);
+	public boolean isValidTarget(final World world, final BlockPos targetPos) {
+		return isRunning(world, targetPos) && isFree(world, targetPos);
 	}
 
-	public static Optional<BlockPos> nextUpElevator(final World world, final BlockPos pos) {
-		BlockPos upPos = pos.up().up();
+	public Optional<BlockPos> nextUpElevator(final World world) {
+		BlockPos upPos = getPos().up().up();
 		do {
 			upPos = upPos.up();
 		} while (upPos.getY() <= MAX_HEIGHT && !isValidTarget(world, upPos));
@@ -86,8 +86,8 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		return Optional.empty();
 	}
 
-	public static Optional<BlockPos> nextDownElevator(final World world, final BlockPos pos) {
-		BlockPos downPos = pos.down().down();
+	public Optional<BlockPos> nextDownElevator(final World world) {
+		BlockPos downPos = getPos().down().down();
 		do {
 			downPos = downPos.down();
 		} while (downPos.getY() >= MIN_HEIGHT && !isValidTarget(world, downPos));
@@ -97,12 +97,12 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		return Optional.empty();
 	}
 
-	public static int energyCost(BlockPos startPos, BlockPos endPos) {
-		return Math.max(Math.abs(endPos.getY()-startPos.getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
+	public int energyCost(BlockPos targetPos) {
+		return Math.max(Math.abs(targetPos.getY()-getPos().getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
 	}
 
 	protected boolean teleport(World world, BlockPos pos, PlayerEntity player, BlockPos targetPos) {
-		final int energy = energyCost(pos, targetPos);
+		final int energy = energyCost(targetPos);
 		if (getStored() < energy) {
 			return false;
 		}
@@ -113,11 +113,11 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	public void teleportUp(World world, BlockPos pos, PlayerEntity player) {
-		Optional<BlockPos> upTarget = nextUpElevator(player.getWorld(), pos);
+		Optional<BlockPos> upTarget = nextUpElevator(world);
 		if (upTarget.isEmpty()) {
 			return;
 		}
-		if (teleport(player.getWorld(), pos, player, upTarget.get().up())) {
+		if (teleport(world, pos, player, upTarget.get().up())) {
 			player.setJumping(false);
 		}
 	}
@@ -151,7 +151,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 			}
 			else*/ if (player.isSneaking()) {
 				if (downTarget == null) {
-					downTarget = nextDownElevator(world, pos);
+					downTarget = nextDownElevator(world);
 				}
 				if (downTarget.isEmpty()) {
 					continue;
