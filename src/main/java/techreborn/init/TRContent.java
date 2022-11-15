@@ -284,6 +284,11 @@ public class TRContent {
 		public static final TagKey<Item> GEMS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "gems"));
 		public static final TagKey<Item> NUGGETS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "nuggets"));
 		public static final TagKey<Item> PLATES = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "plates"));
+		public static final TagKey<Item> C_DUSTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "dusts"));
+		public static final TagKey<Item> C_RAW_METALS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "raw_metals"));
+		public static final TagKey<Item> C_SMALL_DUSTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "small_dusts"));
+		public static final TagKey<Item> C_GEMS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "gems"));
+		public static final TagKey<Item> C_NUGGETS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "nuggets"));
 
 		private ItemTags() {
 		}
