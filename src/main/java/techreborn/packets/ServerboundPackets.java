@@ -193,7 +193,7 @@ public class ServerboundPackets {
 			server.execute(() -> {
 				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos.down());
 				if (blockEntity instanceof ElevatorBlockEntity elevator) {
-					elevator.teleportUp(player.getWorld(), pos.down(), player);
+					elevator.teleportUp(player);
 				}
 			});
 		});

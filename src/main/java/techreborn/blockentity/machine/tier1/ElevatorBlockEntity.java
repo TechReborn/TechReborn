@@ -56,69 +56,85 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		super(TRBlockEntities.ELEVATOR, pos, state);
 	}
 
-	public boolean isRunning(final World world, final BlockPos targetPos) {
-		final BlockEntity entity = world.getBlockEntity(targetPos);
+	/**
+	 * @param targetPos the position of another elevator
+	 */
+	public boolean isRunning(final BlockPos targetPos) {
+		// null-safe because of the following instanceof
+		final BlockEntity entity = getWorld().getBlockEntity(targetPos);
 		if (!(entity instanceof ElevatorBlockEntity)) {
 			return false;
 		}
 		return ((ElevatorBlockEntity)entity).getStored() > 0;
 	}
 
-	public boolean isFree(final World world, final BlockPos targetPos) {
-		return world.getBlockState(targetPos.up()).isAir() && world.getBlockState(targetPos.up().up()).isAir();
+	/**
+	 * @param targetPos the position of another elevator
+	 */
+	public boolean isFree(final BlockPos targetPos) {
+		return getWorld().getBlockState(targetPos.up()).isAir() && getWorld().getBlockState(targetPos.up().up()).isAir();
 	}
 
-	public boolean isValidTarget(final World world, final BlockPos targetPos) {
-		return isRunning(world, targetPos) && isFree(world, targetPos);
+	/**
+	 * @param targetPos the position of another elevator
+	 */
+	public boolean isValidTarget(final BlockPos targetPos) {
+		return isRunning(targetPos) && isFree(targetPos);
 	}
 
-	public Optional<BlockPos> nextUpElevator(final World world) {
+	public Optional<BlockPos> nextUpElevator() {
 		BlockPos upPos = getPos().up().up();
 		do {
 			upPos = upPos.up();
-		} while (upPos.getY() <= world.getTopY() && !isValidTarget(world, upPos));
-		if (upPos.getY() < world.getTopY() || isValidTarget(world, upPos)) {
+		} while (upPos.getY() <= getWorld().getTopY() && !isValidTarget(upPos));
+		if (upPos.getY() < getWorld().getTopY() || isValidTarget(upPos)) {
 			return Optional.of(upPos);
 		}
 		return Optional.empty();
 	}
 
-	public Optional<BlockPos> nextDownElevator(final World world) {
+	public Optional<BlockPos> nextDownElevator() {
 		BlockPos downPos = getPos().down().down();
 		do {
 			downPos = downPos.down();
-		} while (downPos.getY() >= world.getBottomY() && !isValidTarget(world, downPos));
-		if (downPos.getY() > world.getBottomY() || isValidTarget(world, downPos)) {
+		} while (downPos.getY() >= getWorld().getBottomY() && !isValidTarget(downPos));
+		if (downPos.getY() > getWorld().getBottomY() || isValidTarget(downPos)) {
 			return Optional.of(downPos);
 		}
 		return Optional.empty();
 	}
 
-	public int energyCost(BlockPos targetPos) {
+	/**
+	 * @param targetPos the position of another elevator
+	 */
+	public int energyCost(final BlockPos targetPos) {
 		return Math.max(Math.abs(targetPos.getY()-getPos().getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
 	}
 
-	protected boolean teleport(World world, BlockPos pos, PlayerEntity player, BlockPos targetPos) {
-		if (!(world instanceof ServerWorld)) {
+	/**
+	 * @param targetPos the position <strong>over</strong> another elevator
+	 */
+	protected boolean teleport(final PlayerEntity player, final BlockPos targetPos) {
+		if (!(getWorld() instanceof ServerWorld)) {
 			return false;
 		}
 		final int energy = energyCost(targetPos);
 		if (getStored() < energy) {
 			return false;
 		}
-		world.playSound(null, getPos(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
-		FabricDimensions.teleport(player, (ServerWorld)world,
+		getWorld().playSound(null, getPos(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
+		FabricDimensions.teleport(player, (ServerWorld)getWorld(),
 			new TeleportTarget(Vec3d.ofBottomCenter(new Vec3i(targetPos.getX(), targetPos.getY(), targetPos.getZ())), Vec3d.ZERO, player.getYaw(), player.getPitch()));
 		useEnergy(energy);
 		return true;
 	}
 
-	public void teleportUp(World world, BlockPos pos, PlayerEntity player) {
-		Optional<BlockPos> upTarget = nextUpElevator(world);
+	public void teleportUp(final PlayerEntity player) {
+		Optional<BlockPos> upTarget = nextUpElevator();
 		if (upTarget.isEmpty()) {
 			return;
 		}
-		if (teleport(world, pos, player, upTarget.get().up())) {
+		if (teleport(player, upTarget.get().up())) {
 			player.setJumping(false);
 		}
 	}
@@ -141,12 +157,12 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		for (PlayerEntity player : players) {
 			if (player.isSneaking()) {
 				if (downTarget == null) {
-					downTarget = nextDownElevator(world);
+					downTarget = nextDownElevator();
 				}
 				if (downTarget.isEmpty()) {
 					continue;
 				}
-				if (teleport(world, pos, player, downTarget.get().up())) {
+				if (teleport(player, downTarget.get().up())) {
 					player.setSneaking(false);
 				}
 			}
