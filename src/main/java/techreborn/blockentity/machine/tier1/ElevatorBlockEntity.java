@@ -52,9 +52,6 @@ import java.util.Optional;
 
 public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
-	public static final int MIN_HEIGHT = -64;
-	public static final int MAX_HEIGHT = 319;
-
 	public ElevatorBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.ELEVATOR, pos, state);
 	}
@@ -79,8 +76,8 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		BlockPos upPos = getPos().up().up();
 		do {
 			upPos = upPos.up();
-		} while (upPos.getY() <= MAX_HEIGHT && !isValidTarget(world, upPos));
-		if (upPos.getY() < MAX_HEIGHT || isValidTarget(world, upPos)) {
+		} while (upPos.getY() <= world.getTopY() && !isValidTarget(world, upPos));
+		if (upPos.getY() < world.getTopY() || isValidTarget(world, upPos)) {
 			return Optional.of(upPos);
 		}
 		return Optional.empty();
@@ -90,8 +87,8 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		BlockPos downPos = getPos().down().down();
 		do {
 			downPos = downPos.down();
-		} while (downPos.getY() >= MIN_HEIGHT && !isValidTarget(world, downPos));
-		if (downPos.getY() > MIN_HEIGHT || isValidTarget(world, downPos)) {
+		} while (downPos.getY() >= world.getBottomY() && !isValidTarget(world, downPos));
+		if (downPos.getY() > world.getBottomY() || isValidTarget(world, downPos)) {
 			return Optional.of(downPos);
 		}
 		return Optional.empty();
