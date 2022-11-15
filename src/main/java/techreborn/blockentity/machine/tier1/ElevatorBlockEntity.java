@@ -122,11 +122,16 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		if (getStored() < energy) {
 			return false;
 		}
-		getWorld().playSound(null, getPos(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
+		playTeleportSoundAt(getPos());
 		FabricDimensions.teleport(player, (ServerWorld)getWorld(),
 			new TeleportTarget(Vec3d.ofBottomCenter(new Vec3i(targetPos.getX(), targetPos.getY(), targetPos.getZ())), Vec3d.ZERO, player.getYaw(), player.getPitch()));
 		useEnergy(energy);
+		playTeleportSoundAt(targetPos);
 		return true;
+	}
+
+	protected void playTeleportSoundAt(final BlockPos targetPos) {
+		getWorld().playSound(null, targetPos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
 	}
 
 	public void teleportUp(final PlayerEntity player) {
