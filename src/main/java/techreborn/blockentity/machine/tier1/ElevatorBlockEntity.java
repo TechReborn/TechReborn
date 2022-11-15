@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,9 +32,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.*;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
@@ -102,12 +102,16 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	protected boolean teleport(World world, BlockPos pos, PlayerEntity player, BlockPos targetPos) {
+		if (!(world instanceof ServerWorld)) {
+			return false;
+		}
 		final int energy = energyCost(targetPos);
 		if (getStored() < energy) {
 			return false;
 		}
-		world.playSound(null, pos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
-		player.teleport(targetPos.getX(), targetPos.getY(), targetPos.getZ());
+		world.playSound(null, getPos(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
+		FabricDimensions.teleport(player, (ServerWorld)world,
+			new TeleportTarget(Vec3d.ofBottomCenter(new Vec3i(targetPos.getX(), targetPos.getY(), targetPos.getZ())), Vec3d.ZERO, player.getYaw(), player.getPitch()));
 		useEnergy(energy);
 		return true;
 	}
@@ -130,7 +134,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 			return;
 		}
 
-		//Optional<BlockPos> upTarget = null;
+		// teleporting up must be done via mixin for now
 		Optional<BlockPos> downTarget = null;
 
 		List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
@@ -138,18 +142,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 			return;
 		}
 		for (PlayerEntity player : players) {
-			/*if (player.jumping) {
-				if (upTarget == null) {
-					upTarget = nextUpElevator(world, pos);
-				}
-				if (upTarget.isEmpty()) {
-					continue;
-				}
-				if (teleport(world, pos, player, upTarget.get().up())) {
-					player.setJumping(false);
-				}
-			}
-			else*/ if (player.isSneaking()) {
+			if (player.isSneaking()) {
 				if (downTarget == null) {
 					downTarget = nextDownElevator(world);
 				}
