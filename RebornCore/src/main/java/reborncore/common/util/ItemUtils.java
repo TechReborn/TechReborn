@@ -160,9 +160,8 @@ public class ItemUtils {
 	 *
 	 * @param stack     {@link ItemStack} Stack to check
 	 * @param cost      {@link int} Cost of operation performed by tool
-	 * @param messageId {@link int} MessageID for sending no spam message
 	 */
-	public static void checkActive(ItemStack stack, int cost, int messageId, Entity player) {
+	public static void checkActive(ItemStack stack, int cost, Entity player) {
 		if (!ItemUtils.isActive(stack)) {
 			return;
 		}
@@ -171,14 +170,13 @@ public class ItemUtils {
 		}
 
 		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
-			ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("reborncore.message.energyError")
-				.formatted(Formatting.GRAY)
-				.append(" ")
-				.append(
-					Text.translatable("reborncore.message.deactivating")
-						.formatted(Formatting.GOLD)
-				)
-			);
+			serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.energyError")
+				                   .formatted(Formatting.GRAY)
+				                   .append(" ")
+				                   .append(
+					                   Text.translatable("reborncore.message.deactivating")
+						                   .formatted(Formatting.GOLD)
+				                   ), true);
 		}
 
 		stack.getOrCreateNbt().putBoolean("isActive", false);
@@ -189,35 +187,32 @@ public class ItemUtils {
 	 *
 	 * @param stack     {@link ItemStack} Stack to switch state
 	 * @param cost      {@code int} Cost of operation performed by tool
-	 * @param messageId {@code int} MessageID for sending no spam message
 	 */
-	public static void switchActive(ItemStack stack, int cost, int messageId, Entity entity) {
-		ItemUtils.checkActive(stack, cost, messageId, entity);
+	public static void switchActive(ItemStack stack, int cost, Entity entity) {
+		ItemUtils.checkActive(stack, cost, entity);
 
 		if (!ItemUtils.isActive(stack)) {
 			stack.getOrCreateNbt().putBoolean("isActive", true);
 
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("reborncore.message.setTo")
-					.formatted(Formatting.GRAY)
-					.append(" ")
-					.append(
-						Text.translatable("reborncore.message.active")
-							.formatted(Formatting.GOLD)
-					)
-				);
+				serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.setTo")
+					                               .formatted(Formatting.GRAY)
+					                               .append(" ")
+					                               .append(
+						                               Text.translatable("reborncore.message.active")
+							                               .formatted(Formatting.GOLD)
+					                               ), true);
 			}
 		} else {
 			stack.getOrCreateNbt().putBoolean("isActive", false);
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("reborncore.message.setTo")
-					.formatted(Formatting.GRAY)
-					.append(" ")
-					.append(
-						Text.translatable("reborncore.message.inactive")
-							.formatted(Formatting.GOLD)
-					)
-				);
+				serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.setTo")
+					                               .formatted(Formatting.GRAY)
+					                               .append(" ")
+					                               .append(
+						                               Text.translatable("reborncore.message.inactive")
+							                               .formatted(Formatting.GOLD)
+					                               ), true);
 			}
 		}
 	}

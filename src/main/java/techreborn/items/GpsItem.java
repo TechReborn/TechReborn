@@ -35,9 +35,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.common.util.ChatUtils;
 import techreborn.TechReborn;
-import techreborn.utils.MessageIDs;
 
 public class GpsItem extends Item {
 
@@ -50,13 +48,12 @@ public class GpsItem extends Item {
 		ItemStack stack = player.getStackInHand(hand);
 		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
 			BlockPos pos = player.getBlockPos();
-			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.freqTransmitterID,
-				Text.literal(" X:").formatted(Formatting.GRAY)
-				.append(Text.literal(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
-				.append(Text.literal(" Y:").formatted(Formatting.GRAY))
-				.append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
-				.append(Text.literal(" Z:").formatted(Formatting.GRAY))
-				.append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD)));
+			serverPlayerEntity.sendMessage(Text.literal(" X:").formatted(Formatting.GRAY)
+				                               .append(Text.literal(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
+				                               .append(Text.literal(" Y:").formatted(Formatting.GRAY))
+				                               .append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
+				                               .append(Text.literal(" Z:").formatted(Formatting.GRAY))
+				                               .append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD)), true);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);

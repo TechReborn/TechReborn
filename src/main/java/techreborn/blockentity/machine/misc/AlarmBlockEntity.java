@@ -38,12 +38,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
-import reborncore.common.util.ChatUtils;
 import techreborn.blocks.misc.BlockAlarm;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.utils.MessageIDs;
 
 public class AlarmBlockEntity extends BlockEntity
 		implements BlockEntityTicker<AlarmBlockEntity>, IToolDrop {
@@ -63,10 +61,10 @@ public class AlarmBlockEntity extends BlockEntity
 		}
 
 		if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.alarmID, Text.translatable("techreborn.message.alarm")
-				.formatted(Formatting.GRAY)
-				.append(" Alarm ")
-				.append(String.valueOf(selectedSound)));
+			serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.alarm")
+				                               .formatted(Formatting.GRAY)
+				                               .append(" Alarm ")
+				                               .append(String.valueOf(selectedSound)), true);
 		}
 	}
 
