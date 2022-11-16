@@ -42,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
+import techreborn.init.TRContent;
 
 import java.util.List;
 
@@ -59,8 +60,10 @@ public class PaintingToolItem extends Item {
 
 		BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
 		if (player.isSneaking()) {
-			if (blockState.isOpaqueFullCube(context.getWorld(), context.getBlockPos())
-					&& blockState.getBlock().getDefaultState().isOpaqueFullCube(context.getWorld(), context.getBlockPos())) {
+			boolean opaqueFullCube = blockState.isOpaqueFullCube(context.getWorld(), context.getBlockPos())
+				&& blockState.getBlock().getDefaultState().isOpaqueFullCube(context.getWorld(), context.getBlockPos());
+
+			if (opaqueFullCube || blockState.isIn(TRContent.BlockTags.NONE_SOLID_COVERS)) {
 				context.getStack().getOrCreateNbt().put("cover", NbtHelper.fromBlockState(blockState));
 				return ActionResult.SUCCESS;
 			}
