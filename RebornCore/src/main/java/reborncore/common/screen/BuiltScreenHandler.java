@@ -43,6 +43,7 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.util.ItemUtils;
+import reborncore.common.util.RangeUtil;
 import reborncore.mixin.ifaces.ServerPlayerEntityScreenHandler;
 
 import java.util.HashMap;
@@ -78,8 +79,8 @@ public class BuiltScreenHandler extends ScreenHandler {
 
 		this.canInteract = canInteract;
 
-		this.playerSlotRanges = playerSlotRange;
-		this.blockEntitySlotRanges = blockEntitySlotRange;
+		this.playerSlotRanges = RangeUtil.joinAdjacent(playerSlotRange);
+		this.blockEntitySlotRanges = RangeUtil.joinAdjacent(blockEntitySlotRange);
 
 		this.blockEntity = blockEntity;
 	}
