@@ -91,12 +91,12 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	public Optional<BlockPos> nextUpElevator() {
 		BlockPos upPos = getPos().up().up();
-		if (TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getPos().up()) || !isAirOrElevator(getPos().up().up()))) {
+		if (!TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getPos().up()) || !isAirOrElevator(getPos().up().up()))) {
 			return Optional.empty();
 		}
 		do {
 			upPos = upPos.up();
-			if (TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(upPos)) {
+			if (!TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(upPos)) {
 				return Optional.empty();
 			}
 		} while (upPos.getY() <= getWorld().getTopY() && !isValidTarget(upPos));
@@ -108,12 +108,12 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	public Optional<BlockPos> nextDownElevator() {
 		BlockPos downPos = getPos().down().down();
-		if (TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getPos().down()) || !isAirOrElevator(getPos().down().down()))) {
+		if (!TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getPos().down()) || !isAirOrElevator(getPos().down().down()))) {
 			return Optional.empty();
 		}
 		do {
 			downPos = downPos.down();
-			if (TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(downPos)) {
+			if (!TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(downPos)) {
 				return Optional.empty();
 			}
 		} while (downPos.getY() >= getWorld().getBottomY() && !isValidTarget(downPos));
