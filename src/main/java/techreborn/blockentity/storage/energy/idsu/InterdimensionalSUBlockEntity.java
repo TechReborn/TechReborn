@@ -38,6 +38,7 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.powerSystem.RcEnergyTier;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.DelegatingEnergyStorage;
+import team.reborn.energy.api.base.SimpleEnergyStorage;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
@@ -60,7 +61,8 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 			return EnergyStorage.EMPTY;
 		}
 		if (world.isClient) {
-			throw new UnsupportedOperationException("Energy API may only be queried on the server side.");
+			// Can't access the global storage, return a dummy. (Only for existence checks)
+			return new SimpleEnergyStorage(TechRebornConfig.idsuMaxEnergy, 0, 0);
 		}
 		EnergyStorage globalStorage = IDSUManager.getPlayer(world.getServer(), ownerUdid).getStorage();
 		return new DelegatingEnergyStorage(globalStorage, null) {
