@@ -69,6 +69,13 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	/**
+	 * @param targetPos the position will be checked to be an elevator or air
+	 */
+	public boolean isAirOrElevator(final BlockPos targetPos) {
+		return getWorld().isAir(targetPos) || getWorld().getBlockEntity(targetPos) instanceof ElevatorBlockEntity;
+	}
+
+	/**
 	 * @param targetPos the position of another elevator
 	 */
 	public boolean isFree(final BlockPos targetPos) {
@@ -84,8 +91,14 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	public Optional<BlockPos> nextUpElevator() {
 		BlockPos upPos = getPos().up().up();
+		if (TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getPos().up()) || !isAirOrElevator(getPos().up().up()))) {
+			return Optional.empty();
+		}
 		do {
 			upPos = upPos.up();
+			if (TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(upPos)) {
+				return Optional.empty();
+			}
 		} while (upPos.getY() <= getWorld().getTopY() && !isValidTarget(upPos));
 		if (upPos.getY() < getWorld().getTopY() || isValidTarget(upPos)) {
 			return Optional.of(upPos);
@@ -95,8 +108,14 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	public Optional<BlockPos> nextDownElevator() {
 		BlockPos downPos = getPos().down().down();
+		if (TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getPos().down()) || !isAirOrElevator(getPos().down().down()))) {
+			return Optional.empty();
+		}
 		do {
 			downPos = downPos.down();
+			if (TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(downPos)) {
+				return Optional.empty();
+			}
 		} while (downPos.getY() >= getWorld().getBottomY() && !isValidTarget(downPos));
 		if (downPos.getY() > getWorld().getBottomY() || isValidTarget(downPos)) {
 			return Optional.of(downPos);

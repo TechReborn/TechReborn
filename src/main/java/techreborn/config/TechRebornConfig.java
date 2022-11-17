@@ -630,6 +630,9 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "elevator", key = "ElevatorEnergyPerBlock", comment = "Elevator Energy used per vertical block of transportation")
 	public static int elevatorEnergyPerBlock = 2;
 
+	@Config(config = "machines", category = "elevator", key = "AllowElevatingThroughBlocks", comment = "Allow elevating through blocks (i.e. non air)")
+	public static boolean allowElevatingThroughBlocks = true;
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
