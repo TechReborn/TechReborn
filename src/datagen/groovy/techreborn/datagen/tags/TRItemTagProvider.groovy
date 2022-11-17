@@ -26,6 +26,7 @@ package techreborn.datagen.tags
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.ItemTagProvider
+import net.minecraft.item.Items
 import net.minecraft.tag.BlockTags
 import net.minecraft.tag.ItemTags
 import techreborn.init.TRContent
@@ -37,38 +38,63 @@ class TRItemTagProvider extends ItemTagProvider {
 
 	@Override
 	protected void generateTags() {
+
 		TRContent.Ores.values().each { ore ->
 			getOrCreateTagBuilder(ore.asTag()).add(ore.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.ORES).add(ore.asItem())
 		}
+
 		TRContent.StorageBlocks.values().each { block ->
 			getOrCreateTagBuilder(block.asTag()).add(block.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.STORAGE_BLOCK).add(block.asItem())
 		}
+
 		TRContent.Dusts.values().each { dust ->
 			getOrCreateTagBuilder(dust.asTag()).add(dust.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.DUSTS).add(dust.asItem())
 		}
+
+		getOrCreateTagBuilder(TRContent.ItemTags.C_DUSTS).addTag(TRContent.ItemTags.DUSTS)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_DUSTS).add(Items.REDSTONE)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_DUSTS).add(Items.GLOWSTONE_DUST)
+
 		TRContent.RawMetals.values().each { raw ->
 			getOrCreateTagBuilder(raw.asTag()).add(raw.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.RAW_METALS).add(raw.asItem())
 		}
+		getOrCreateTagBuilder(TRContent.ItemTags.C_RAW_METALS).addTag(TRContent.ItemTags.RAW_METALS)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_RAW_METALS).add(Items.RAW_IRON)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_RAW_METALS).add(Items.RAW_COPPER)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_RAW_METALS).add(Items.RAW_GOLD)
+
 		TRContent.SmallDusts.values().each { smallDust ->
 			getOrCreateTagBuilder(smallDust.asTag()).add(smallDust.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.SMALL_DUSTS).add(smallDust.asItem())
 		}
+		getOrCreateTagBuilder(TRContent.ItemTags.C_SMALL_DUSTS).addTag(TRContent.ItemTags.SMALL_DUSTS)
+
 		TRContent.Gems.values().each { gem ->
 			getOrCreateTagBuilder(gem.asTag()).add(gem.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.GEMS).add(gem.asItem())
 		}
+		getOrCreateTagBuilder(TRContent.ItemTags.C_GEMS).addTag(TRContent.ItemTags.GEMS)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_GEMS).add(Items.LAPIS_LAZULI)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_GEMS).add(Items.EMERALD)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_GEMS).add(Items.DIAMOND)
+
 		TRContent.Ingots.values().each { ingot ->
 			getOrCreateTagBuilder(ingot.asTag()).add(ingot.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.INGOTS).add(ingot.asItem())
 		}
+
 		TRContent.Nuggets.values().each { nugget ->
 			getOrCreateTagBuilder(nugget.asTag()).add(nugget.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.NUGGETS).add(nugget.asItem())
 		}
+		getOrCreateTagBuilder(TRContent.ItemTags.C_NUGGETS).addTag(TRContent.ItemTags.NUGGETS)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_NUGGETS).add(Items.IRON_NUGGET)
+		getOrCreateTagBuilder(TRContent.ItemTags.C_NUGGETS).add(Items.GOLD_NUGGET)
+
 		TRContent.Plates.values().each { plate ->
 			getOrCreateTagBuilder(plate.asTag()).add(plate.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.PLATES).add(plate.asItem())

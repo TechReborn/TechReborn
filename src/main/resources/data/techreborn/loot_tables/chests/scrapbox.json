@@ -1,0 +1,62 @@
+{
+	"type": "minecraft:chest",
+	"pools": [
+		{
+			"bonus_rolls": 0.0,
+			"entries": [
+				{
+					"type": "minecraft:tag",
+					"name": "c:small_dusts",
+					"expand": true,
+					"weight": 3
+				},
+				{
+					"type": "minecraft:tag",
+					"name": "c:nuggets",
+					"expand": true,
+					"weight": 3
+				},
+				{
+					"type": "minecraft:tag",
+					"name": "c:dusts",
+					"expand": true,
+					"weight": 2
+				},
+				{
+					"type": "minecraft:tag",
+					"name": "c:raw_metals",
+					"expand": true,
+					"weight": 2
+				},
+				{
+					"type": "minecraft:tag",
+					"name": "c:gems",
+					"expand": true,
+					"weight": 2
+				},
+				{
+					"type": "minecraft:tag",
+					"name": "c:raw_meat",
+					"expand": true,
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:coal",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:charcoal",
+					"weight": 2
+				},
+				{
+					"type": "minecraft:item",
+					"name": "techreborn:rubber",
+					"weight": 2
+				}
+			],
+			"rolls": 1.0
+		}
+	]
+}

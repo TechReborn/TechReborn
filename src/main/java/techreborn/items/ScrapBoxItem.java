@@ -27,14 +27,18 @@ package techreborn.items;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
-import techreborn.init.ModRecipes;
 
 import java.util.List;
 
@@ -48,9 +52,13 @@ public class ScrapBoxItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getMainHandStack();
 		if (!world.isClient) {
-			List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(world);
-			int random = world.random.nextInt(scrapboxRecipeList.size());
-			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
+			LootContext.Builder builder = (new LootContext.Builder((ServerWorld)world)).parameter(LootContextParameters.ORIGIN, player.getPos()).parameter(LootContextParameters.THIS_ENTITY, player).random(world.random).luck(player.getLuck());
+			LootTable lootTable = world.getServer().getLootManager().getTable(new Identifier(TechReborn.MOD_ID, "chests/scrapbox"));
+			List<ItemStack> list = lootTable.generateLoot(builder.build(LootContextTypes.CHEST));
+			if (list == null || list.isEmpty()) {
+				return new TypedActionResult<>(ActionResult.FAIL, stack);
+			}
+			ItemStack out = list.get(0);
 			WorldUtils.dropItem(out, world, player.getBlockPos());
 			stack.decrement(1);
 		}
