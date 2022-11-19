@@ -22,3 +22,4 @@ accessible    field    net/minecraft/block/FluidBlock    fluid    Lnet/minecraft
 accessible    method    net/minecraft/world/gen/foliage/FoliagePlacerType    register    (Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lnet/minecraft/world/gen/foliage/FoliagePlacerType;
 accessible    method    net/minecraft/recipe/RecipeManager    getAllOfType    (Lnet/minecraft/recipe/RecipeType;)Ljava/util/Map;
 accessible    field    net/minecraft/screen/ScreenHandler    listeners    Ljava/util/List;
+accessible    method    net/minecraft/recipe/ShapedRecipe    matchesPattern    (Lnet/minecraft/inventory/CraftingInventory;IIZ)Z
