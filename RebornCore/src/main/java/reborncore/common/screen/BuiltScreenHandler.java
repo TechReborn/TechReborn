@@ -44,7 +44,6 @@ import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RangeUtil;
-import reborncore.mixin.ifaces.ServerPlayerEntityScreenHandler;
 
 import java.util.HashMap;
 import java.util.List;
@@ -161,9 +160,8 @@ public class BuiltScreenHandler extends ScreenHandler {
 			return;
 		}
 
-		if (screenHandlerListener instanceof ServerPlayerEntityScreenHandler serverPlayerEntityScreenHandler) {
-			NetworkManager.sendToPlayer(ClientBoundPackets.createPacketSendObject(screenHandler, updatedValues), serverPlayerEntityScreenHandler.rc_getServerPlayerEntity());
-		}
+		ServerPlayerEntityScreenHandlerHelper.getServerPlayerEntity(screenHandlerListener)
+			.ifPresent(serverPlayerEntity -> NetworkManager.sendToPlayer(ClientBoundPackets.createPacketSendObject(screenHandler, updatedValues), serverPlayerEntity));
 	}
 
 	@Override
