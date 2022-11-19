@@ -1,19 +1,19 @@
 {
   "type": "reborncore:padded",
   "pattern": [
-    "UUU",
-    "UCU",
+    " U ",
+    " CU",
     "   "
   ],
   "key": {
     "C": {
-      "tag": "c:calcium_dusts"
+      "tag": "c:calcite_dusts"
     },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:scute"
+    "item": "minecraft:nautilus_shell"
   }
 }
