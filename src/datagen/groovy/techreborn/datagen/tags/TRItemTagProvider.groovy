@@ -73,6 +73,9 @@ class TRItemTagProvider extends ItemTagProvider {
 			getOrCreateTagBuilder(plate.asTag()).add(plate.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.PLATES).add(plate.asItem())
 		}
+		TRContent.StorageUnit.values().each {unit ->
+			getOrCreateTagBuilder(TRContent.ItemTags.STORAGE_UNITS).add(unit.asItem())
+		}
 
 		getOrCreateTagBuilder(TRContent.ItemTags.RUBBER_LOGS)
 			.add(TRContent.RUBBER_LOG.asItem())
