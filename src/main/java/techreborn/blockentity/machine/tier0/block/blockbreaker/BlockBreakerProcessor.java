@@ -5,14 +5,22 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import techreborn.blockentity.machine.tier0.block.BlockProcessable;
 import techreborn.blockentity.machine.tier0.block.BlockProcessor;
 import techreborn.blockentity.machine.tier0.block.BlockProcessorUtils;
 import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
+import techreborn.init.TRContent;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -65,7 +73,15 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 
 		Item currentBreakingItem = processable.getInventory().getStack(fakeInputSlot).getItem();
 
-		ItemStack item = blockInFront.getBlock().asItem().getDefaultStack().copy();
+		ItemStack item = blockInFront.getBlock().asItem().getDefaultStack();
+
+		List<ItemStack> blockDrops = world instanceof ServerWorld
+			? blockInFront.getDroppedStacks((new LootContext.Builder((ServerWorld) world)).random(world.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(positionInFront)).parameter(LootContextParameters.TOOL, TRContent.Machine.BLOCK_BREAKER.getStack()))
+			: Collections.singletonList(item);
+		ItemStack blockDrop = blockDrops.isEmpty() ? null : blockDrops.get(0);
+		if (blockDrop != null) {
+			blockDrop.setCount(1);
+		}
 
 		ItemStack fakeItem = item.copy();
 
@@ -83,13 +99,13 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 
 		if (!ensureBlockNotReplaced(currentBreakingItem, item)) return status;
 
-		if (!ensureBlockFitInOutput(outputItemStack, item)) return status;
+		if (!ensureBlockFitInOutput(outputItemStack, blockDrop)) return status;
 
 		if (!increaseBreakTime(world, positionInFront)) return status;
 
 		BlockProcessorUtils.playSound(processable, currentBreakTime);
 
-		breakBlock(world, positionInFront, outputItemStack, item);
+		breakBlock(world, positionInFront, outputItemStack, blockDrop);
 
 		status = BlockBreakerStatus.PROCESSING;
 
@@ -136,7 +152,8 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		//Resets time if there is no block
 		//If breaking the block returns no output, skip breaking it
 		//Blocks with a hardness below 0 are unbreakable
-		if (blockInFront.isAir() || fakeItem.isEmpty() || hardness < 0) {
+		//shulker boxes don't drop their content when broken, so ignore them for now
+		if (blockInFront.isAir() || fakeItem.isEmpty() || hardness < 0 || blockInFront.isIn(BlockTags.SHULKER_BOXES)) {
 			return breakControlFlow(BlockBreakerStatus.IDLE);
 		}
 
@@ -152,14 +169,18 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		return true;
 	}
 
-	private boolean ensureBlockFitInOutput(ItemStack currentStack, ItemStack item) {
+	private boolean ensureBlockFitInOutput(ItemStack currentStack, ItemStack blockDrop) {
+		if (blockDrop == null || blockDrop.getCount() == 0) {
+			return true;
+		}
+
 		//Ensures that the block is the same as the one currently in the output slot
-		if (!currentStack.isOf(ItemStack.EMPTY.getItem()) && !currentStack.isOf(item.getItem())) {
+		if (!currentStack.isOf(ItemStack.EMPTY.getItem()) && !currentStack.isOf(blockDrop.getItem())) {
 			return breakControlFlow(BlockBreakerStatus.OUTPUT_BLOCKED);
 		}
 
 		//Ensure that output slot can fit the block
-		if (currentStack.getMaxCount() < currentStack.getCount() + item.getCount()) {
+		if (currentStack.getMaxCount() < currentStack.getCount() + blockDrop.getCount()) {
 			return breakControlFlow(BlockBreakerStatus.OUTPUT_FULL);
 		}
 
@@ -177,18 +198,21 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		return true;
 	}
 
-	private void breakBlock(World world, BlockPos positionInFront, ItemStack currentStack, ItemStack item) {
+	private void breakBlock(World world, BlockPos positionInFront, ItemStack currentStack, ItemStack blockDrop) {
 		if (currentBreakTime >= breakTime) {
 
 			world.breakBlock(positionInFront, false);
 
 			resetProcessing(0);
 
+			if (blockDrop == null || blockDrop.getCount() == 0) {
+				return;
+			}
 			if (currentStack.isOf(ItemStack.EMPTY.getItem())) {
-				processable.getInventory().setStack(outputSlot, item);
+				processable.getInventory().setStack(outputSlot, blockDrop);
 			} else {
 				int currentCount = currentStack.getCount();
-				currentStack.setCount(currentCount + item.getCount());
+				currentStack.setCount(currentCount + blockDrop.getCount());
 			}
 		}
 	}
