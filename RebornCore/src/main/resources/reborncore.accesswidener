@@ -23,4 +23,3 @@ accessible    method    net/minecraft/world/gen/foliage/FoliagePlacerType    reg
 accessible    method    net/minecraft/recipe/RecipeManager    getAllOfType    (Lnet/minecraft/recipe/RecipeType;)Ljava/util/Map;
 accessible    field    net/minecraft/screen/ScreenHandler    listeners    Ljava/util/List;
 accessible    method    net/minecraft/recipe/ShapedRecipe    matchesPattern    (Lnet/minecraft/inventory/CraftingInventory;IIZ)Z
-accessible    field    net/minecraft/entity/LivingEntity    jumping    Z
