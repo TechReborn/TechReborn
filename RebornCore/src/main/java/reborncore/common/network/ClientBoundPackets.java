@@ -82,13 +82,6 @@ public class ClientBoundPackets {
 		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, chunks);
 	}
 
-	public static IdentifiedPacket createPacketNoSpamMessage(int messageId, Text text) {
-		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "no_spam_chat"), packetBuffer -> {
-			packetBuffer.writeInt(messageId);
-			packetBuffer.writeText(text);
-		});
-	}
-
 	public static IdentifiedPacket createPacketQueueItemStacksToRender(List<ItemStack> stacks) {
 		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "stacks_to_render"), Codec.list(ItemStack.CODEC), stacks);
 	}

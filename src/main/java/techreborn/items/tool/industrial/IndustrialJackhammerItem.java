@@ -41,12 +41,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.JackhammerItem;
-import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Collections;
@@ -61,22 +59,22 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5
-	private void switchAOE(ItemStack stack, int cost, int messageId, Entity entity) {
-		ItemUtils.checkActive(stack, cost, messageId, entity);
+	private void switchAOE(ItemStack stack, int cost, Entity entity) {
+		ItemUtils.checkActive(stack, cost, entity);
 		if (!ItemUtils.isActive(stack)) {
-			ItemUtils.switchActive(stack, cost, messageId, entity);
+			ItemUtils.switchActive(stack, cost, entity);
 			stack.getOrCreateNbt().putBoolean("AOE5", false);
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("3*3").formatted(Formatting.GOLD)));
+				serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("3*3").formatted(Formatting.GOLD)), true);
 			}
 		} else {
 			if (isAOE5(stack)) {
-				ItemUtils.switchActive(stack, cost, messageId, entity);
+				ItemUtils.switchActive(stack, cost, entity);
 				stack.getOrCreateNbt().putBoolean("AOE5", false);
 			} else {
 				stack.getOrCreateNbt().putBoolean("AOE5", true);
 				if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-					ChatUtils.sendNoSpamMessage(serverPlayerEntity, messageId, Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("5*5").formatted(Formatting.GOLD)));
+					serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("5*5").formatted(Formatting.GOLD)), true);
 				}
 			}
 		}
@@ -131,7 +129,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			switchAOE(stack, cost, MessageIDs.poweredToolID, player);
+			switchAOE(stack, cost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -139,7 +137,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		ItemUtils.checkActive(stack, cost, MessageIDs.poweredToolID, entity);
+		ItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override

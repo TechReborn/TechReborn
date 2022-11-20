@@ -24,10 +24,11 @@
 
 package reborncore.common.crafting.ingredient;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -79,12 +80,13 @@ public class TagIngredient extends RebornIngredient {
 
 		if (json.has("tag_server_sync")) {
 			Identifier tagIdent = new Identifier(JsonHelper.getString(json, "tag_identifier"));
+
 			List<Item> items = new ArrayList<>();
-			for (int i = 0; i < JsonHelper.getInt(json, "items"); i++) {
-				Identifier identifier = new Identifier(JsonHelper.getString(json, "item_" + i));
-				Item item = Registry.ITEM.get(identifier);
-				Validate.isTrue(item != Items.AIR, "item cannot be air");
-				items.add(item);
+			final JsonArray itemsArray = JsonHelper.getArray(json, "items");
+			for (JsonElement jsonElement : itemsArray) {
+				Validate.isTrue(jsonElement.isJsonPrimitive());
+				Optional<RegistryEntry<Item>> entry = Registry.ITEM.getEntry(jsonElement.getAsInt());
+				items.add(entry.orElseThrow().value());
 			}
 
 			return new Synced(TagKey.of(Registry.ITEM_KEY, tagIdent), count, items);
@@ -113,10 +115,14 @@ public class TagIngredient extends RebornIngredient {
 		jsonObject.addProperty("tag_server_sync", true);
 
 		Item[] items = streamItems().toArray(Item[]::new);
-		jsonObject.addProperty("items", items.length);
-		for (int i = 0; i < items.length; i++) {
-			jsonObject.addProperty("item_" + i, Registry.ITEM.getId(items[i]).toString());
+		JsonArray itemArray = new JsonArray();
+
+		for (Item item : items) {
+			int rawId = Registry.ITEM.getRawId(item);
+			itemArray.add(rawId);
 		}
+
+		jsonObject.add("items", itemArray);
 
 		count.ifPresent(integer -> jsonObject.addProperty("count", integer));
 		jsonObject.addProperty("tag_identifier", tag.id().toString());

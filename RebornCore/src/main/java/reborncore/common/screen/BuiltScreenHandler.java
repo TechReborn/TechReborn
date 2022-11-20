@@ -43,7 +43,7 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.util.ItemUtils;
-import reborncore.mixin.ifaces.ServerPlayerEntityScreenHandler;
+import reborncore.common.util.RangeUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -78,8 +78,8 @@ public class BuiltScreenHandler extends ScreenHandler {
 
 		this.canInteract = canInteract;
 
-		this.playerSlotRanges = playerSlotRange;
-		this.blockEntitySlotRanges = blockEntitySlotRange;
+		this.playerSlotRanges = RangeUtil.joinAdjacent(playerSlotRange);
+		this.blockEntitySlotRanges = RangeUtil.joinAdjacent(blockEntitySlotRange);
 
 		this.blockEntity = blockEntity;
 	}
@@ -160,9 +160,8 @@ public class BuiltScreenHandler extends ScreenHandler {
 			return;
 		}
 
-		if (screenHandlerListener instanceof ServerPlayerEntityScreenHandler serverPlayerEntityScreenHandler) {
-			NetworkManager.sendToPlayer(ClientBoundPackets.createPacketSendObject(screenHandler, updatedValues), serverPlayerEntityScreenHandler.rc_getServerPlayerEntity());
-		}
+		ServerPlayerEntityScreenHandlerHelper.getServerPlayerEntity(screenHandlerListener)
+			.ifPresent(serverPlayerEntity -> NetworkManager.sendToPlayer(ClientBoundPackets.createPacketSendObject(screenHandler, updatedValues), serverPlayerEntity));
 	}
 
 	@Override

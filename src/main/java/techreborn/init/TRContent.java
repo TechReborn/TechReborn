@@ -61,6 +61,7 @@ import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
+import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
@@ -268,6 +269,7 @@ public class TRContent {
 		public static final TagKey<Block> RUBBER_LOGS = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
 		public static final TagKey<Block> OMNI_TOOL_MINEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "mineable/omni_tool"));
 		public static final TagKey<Block> DRILL_MINEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "mineable/drill"));
+		public static final TagKey<Block> NONE_SOLID_COVERS = TagKey.of(Registry.BLOCK_KEY, new Identifier(TechReborn.MOD_ID, "none_solid_covers"));
 
 		private BlockTags() {
 		}
@@ -763,6 +765,8 @@ public class TRContent {
 		GREENHOUSE_CONTROLLER(new GenericMachineBlock(GuiType.GREENHOUSE_CONTROLLER, GreenhouseControllerBlockEntity::new)),
 		BLOCK_BREAKER(new GenericMachineBlock(GuiType.BLOCK_BREAKER, BlockBreakerBlockEntity::new)),
 		BLOCK_PLACER(new GenericMachineBlock(GuiType.BLOCK_PLACER, BlockPlacerBlockEntity::new)),
+		LAUNCHPAD(new GenericMachineBlock(GuiType.LAUNCHPAD, LaunchpadBlockEntity::new)),
+		ELEVATOR(new GenericMachineBlock(GuiType.ELEVATOR, ElevatorBlockEntity::new)),
 
 		DIESEL_GENERATOR(new GenericGeneratorBlock(GuiType.DIESEL_GENERATOR, DieselGeneratorBlockEntity::new)),
 		DRAGON_EGG_SYPHON(new GenericGeneratorBlock(null, DragonEggSyphonBlockEntity::new)),

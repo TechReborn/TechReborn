@@ -47,7 +47,6 @@ import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.DrillItem;
 import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
-import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
 import java.util.List;
@@ -100,7 +99,7 @@ public class IndustrialDrillItem extends DrillItem {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, MessageIDs.poweredToolID, player);
+			ItemUtils.switchActive(stack, cost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -108,7 +107,7 @@ public class IndustrialDrillItem extends DrillItem {
 
 	@Override
 	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
-		ItemUtils.checkActive(stack, cost, MessageIDs.poweredToolID, entity);
+		ItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override

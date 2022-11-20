@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/elevator"
+	]
+  },
+  "criteria": {
+	"has_enderpearl_dusts": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:enderpearl_dusts"
+		  }
+		]
+	  }
+	},
+	"has_zinc_plate": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:zinc_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/elevator"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_enderpearl_dusts",
+	  "has_zinc_plate",
+	  "has_the_recipe"
+	]
+  ]
+}

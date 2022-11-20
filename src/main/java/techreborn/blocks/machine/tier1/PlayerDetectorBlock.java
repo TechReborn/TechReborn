@@ -49,11 +49,9 @@ import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
-import techreborn.utils.MessageIDs;
 
 public class PlayerDetectorBlock extends BlockMachineBase {
 
@@ -124,15 +122,13 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 		}
 
 		if (playerIn instanceof ServerPlayerEntity serverPlayerEntity) {
-			ChatUtils.sendNoSpamMessage(serverPlayerEntity, MessageIDs.playerDetectorID,
-				Text.translatable("techreborn.message.detects")
-					.formatted(Formatting.GRAY)
-					.append(" ")
-					.append(
-						Text.literal(StringUtils.toFirstCapital(newType.asString()))
-							.formatted(color)
-					)
-			);
+			serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.detects")
+				                               .formatted(Formatting.GRAY)
+				                               .append(" ")
+				                               .append(
+					                               Text.literal(StringUtils.toFirstCapital(newType.asString()))
+						                               .formatted(color)
+				                               ), true);
 		}
 
 		if (getGui() != null && !playerIn.isSneaking()) {

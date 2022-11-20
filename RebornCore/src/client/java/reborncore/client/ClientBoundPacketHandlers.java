@@ -140,18 +140,6 @@ public class ClientBoundPacketHandlers {
 		});
 
 		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, ClientChunkManager::setLoadedChunks);
-
-		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "no_spam_chat"), (client, handler, buf, responseSender) -> {
-			final int messageId = buf.readInt();
-			final Text text = buf.readText();
-
-			client.execute(() -> {
-				int deleteID = RebornCore.MOD_ID.hashCode() + messageId;
-				MinecraftClient.getInstance().inGameHud.setOverlayMessage(text, false);
-			});
-		});
-
 		ClientNetworkManager.registerClientBoundHandler(new Identifier("reborncore", "stacks_to_render"), Codec.list(ItemStack.CODEC), ItemStackRenderManager.RENDER_QUEUE::addAll);
 	}
-
 }

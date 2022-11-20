@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"MMM",
+		"CPC",
+		"ZFZ"
+	],
+	"key": {
+		"C": {
+			"item": "techreborn:advanced_circuit"
+		},
+		"F": {
+			"item": "techreborn:advanced_machine_frame"
+		},
+		"M": {
+			"tag": "c:magnalium_plates"
+		},
+		"P": {
+			"item": "minecraft:piston"
+		},
+		"Z": {
+			"tag": "c:zinc_plates"
+		}
+	},
+	"result": {
+		"item": "techreborn:launchpad"
+	}
+}

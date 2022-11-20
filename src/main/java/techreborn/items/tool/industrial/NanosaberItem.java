@@ -56,7 +56,6 @@ import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
-import techreborn.utils.MessageIDs;
 
 import java.util.List;
 
@@ -84,14 +83,14 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		ItemUtils.checkActive(stack, cost, MessageIDs.poweredToolID, entityIn);
+		ItemUtils.checkActive(stack, cost, entityIn);
 	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, MessageIDs.poweredToolID, player);
+			ItemUtils.switchActive(stack, cost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
