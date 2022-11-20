@@ -5,7 +5,7 @@
   "client": [
 	  "MixinDebugRenderer",
 	  "MixinGameRenderer",
-	  "MixinLivingEntity"
+    "MixinKeyBinding"
   ],
   "injectors": {
     "defaultRequire": 1

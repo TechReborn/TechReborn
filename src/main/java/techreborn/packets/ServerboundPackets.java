@@ -57,6 +57,7 @@ public class ServerboundPackets {
 	public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
 	public static final Identifier DETECTOR_RADIUS = new Identifier(TechReborn.MOD_ID, "detector_radius");
 	public static final Identifier LAUNCH_SPEED = new Identifier(TechReborn.MOD_ID, "launch_speed");
+	public static final Identifier JUMP = new Identifier(TechReborn.MOD_ID, "jump");
 
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
@@ -187,7 +188,7 @@ public class ServerboundPackets {
 			});
 		}));
 
-		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "jump"), (server, player, handler, buf, responseSender) -> {
+		NetworkManager.registerServerBoundHandler(JUMP, (server, player, handler, buf, responseSender) -> {
 			BlockPos pos = buf.readBlockPos();
 
 			server.execute(() -> {
@@ -266,6 +267,12 @@ public class ServerboundPackets {
 		return NetworkManager.createServerBoundPacket(LAUNCH_SPEED, buf -> {
 			buf.writeBlockPos(blockEntity.getPos());
 			buf.writeInt(buttonAmount);
+		});
+	}
+
+	public static IdentifiedPacket createPacketJump(BlockPos pos) {
+		return NetworkManager.createServerBoundPacket(JUMP, packetBuffer -> {
+			packetBuffer.writeBlockPos(pos);
 		});
 	}
 }

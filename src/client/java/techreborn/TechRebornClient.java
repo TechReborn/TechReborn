@@ -50,6 +50,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
+import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.powerSystem.RcEnergyItem;
@@ -57,6 +58,7 @@ import reborncore.common.util.ItemUtils;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
+import techreborn.client.events.ClientJumpHandler;
 import techreborn.client.events.StackToolTipHandler;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
@@ -245,6 +247,8 @@ public class TechRebornClient implements ClientModInitializer {
 		);
 
 		ClientGuiType.validate();
+
+		ClientJumpEvent.EVENT.register(new ClientJumpHandler());
 	}
 
 	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {
