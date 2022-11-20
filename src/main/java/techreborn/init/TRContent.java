@@ -284,6 +284,7 @@ public class TRContent {
 		public static final TagKey<Item> GEMS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "gems"));
 		public static final TagKey<Item> NUGGETS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "nuggets"));
 		public static final TagKey<Item> PLATES = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "plates"));
+		public static final TagKey<Item> STORAGE_UNITS = TagKey.of(Registry.ITEM_KEY, new Identifier(TechReborn.MOD_ID, "storage_units"));
 
 		private ItemTags() {
 		}

@@ -382,13 +382,18 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		if (slot != INPUT_SLOT) {
 			return false;
 		}
-		if (inputStack == ItemStack.EMPTY){
+		if (inputStack == ItemStack.EMPTY) {
 			return false;
 		}
 		// Do not allow player heads into storage due to lag. Fix #2888
-		if (inputStack.getItem() instanceof SkullItem){
+		if (inputStack.getItem() instanceof SkullItem) {
 			return false;
 		}
+		// do not allow other storage units to avoid NBT overflow. Fix #2580
+		if (inputStack.isIn(TRContent.ItemTags.STORAGE_UNITS)) {
+			return false;
+		}
+
 		if (isLocked()) {
 			return ItemUtils.isItemEqual(lockedItemStack, inputStack, true, true);
 		}
