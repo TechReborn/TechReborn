@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
 	  "MixinDebugRenderer",
-	  "MixinGameRenderer"
+	  "MixinGameRenderer",
+	  "MixinKeyBinding"
   ],
   "injectors": {
     "defaultRequire": 1

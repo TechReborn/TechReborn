@@ -26,7 +26,6 @@ package techreborn.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.util.Identifier;
@@ -45,6 +44,7 @@ import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
+import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
@@ -113,6 +113,8 @@ public class ClientGuiType<T extends BlockEntity> {
 	public static final ClientGuiType<PlayerDetectorBlockEntity> PLAYER_DETECTOR = register(GuiType.PLAYER_DETECTOR, GuiPlayerDetector::new);
 	public static final ClientGuiType<BlockBreakerBlockEntity> BLOCK_BREAKER = register(GuiType.BLOCK_BREAKER, GuiBlockBreaker::new);
 	public static final ClientGuiType<BlockPlacerBlockEntity> BLOCK_PLACER = register(GuiType.BLOCK_PLACER, GuiBlockPlacer::new);
+	public static final ClientGuiType<LaunchpadBlockEntity> LAUNCHPAD = register(GuiType.LAUNCHPAD, GuiLaunchpad::new);
+	public static final ClientGuiType<ElevatorBlockEntity> ELEVATOR = register(GuiType.ELEVATOR, GuiElevator::new);
 
 	private static <T extends BlockEntity> ClientGuiType<T> register(GuiType<T> type, GuiFactory<T> factory) {
 		return new ClientGuiType<>(type, factory);
