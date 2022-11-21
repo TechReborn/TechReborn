@@ -44,6 +44,16 @@ public class GuiFishingStation extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
+		drawSlot(matrixStack, 8, 72, layer);
+
+		int gridYPos = 22;
+		drawSlot(matrixStack, 30, gridYPos, layer);
+		drawSlot(matrixStack, 48, gridYPos, layer);
+		drawSlot(matrixStack, 30, gridYPos + 18, layer);
+		drawSlot(matrixStack, 48, gridYPos + 18, layer);
+		drawSlot(matrixStack, 30, gridYPos + 36, layer);
+		drawSlot(matrixStack, 48, gridYPos + 36, layer);
+
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 

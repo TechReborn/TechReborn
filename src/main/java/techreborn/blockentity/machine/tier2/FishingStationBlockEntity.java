@@ -35,17 +35,21 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
+import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
+public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
+
+	private final RebornInventory<FishingStationBlockEntity> inventory = new RebornInventory<>(7, "FishingStationBlockEntity", 64, this);
 
 	public FishingStationBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.FISHING_STATION, pos, state);
@@ -122,6 +126,12 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 		return TRContent.Machine.FISHING_STATION.getStack();
 	}
 
+	// InventoryProvider
+	@Override
+	public RebornInventory<FishingStationBlockEntity> getInventory() {
+		return this.inventory;
+	}
+
 	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
@@ -129,7 +139,10 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 				.player(player.getInventory())
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
-				.syncEnergyValue()
+				.outputSlot(0, 30, 22).outputSlot(1, 48, 22)
+				.outputSlot(2, 30, 40).outputSlot(3, 48, 40)
+				.outputSlot(4, 30, 58).outputSlot(5, 48, 58)
+				.energySlot(6, 8, 72).syncEnergyValue()
 				.addInventory().create(this, syncID);
 	}
 }
