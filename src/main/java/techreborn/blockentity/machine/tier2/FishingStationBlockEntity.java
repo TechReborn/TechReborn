@@ -29,9 +29,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
@@ -42,10 +49,13 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
+
+import java.util.List;
 
 public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
@@ -55,11 +65,42 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 		super(TRBlockEntities.FISHING_STATION, pos, state);
 	}
 
+	private boolean insertIntoInv(List<ItemStack> stacks) {
+		boolean result = false;
+		for (ItemStack stack : stacks) {
+			for (int i = 0; i < 6; i++) {
+				if (insertIntoInv(i, stack)) result = true;
+				if (stack.isEmpty()) break;
+			}
+		}
+		return result;
+	}
+
+	private boolean insertIntoInv(int slot, ItemStack stack) {
+		ItemStack targetStack = inventory.getStack(slot);
+		if (targetStack.isEmpty()) {
+			inventory.setStack(slot, stack.copy());
+			stack.decrement(stack.getCount());
+			return true;
+		} else {
+			if (ItemUtils.isItemEqual(stack, targetStack, true, false)) {
+				int freeStackSpace = targetStack.getMaxCount() - targetStack.getCount();
+				if (freeStackSpace > 0) {
+					int transferAmount = Math.min(freeStackSpace, stack.getCount());
+					targetStack.increment(transferAmount);
+					stack.decrement(transferAmount);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	// PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || getStored() <= TechRebornConfig.fishingStationEnergyPerCatch || !isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!(world instanceof ServerWorld) || getStored() <= TechRebornConfig.fishingStationEnergyPerCatch || !isActive(RedstoneConfiguration.POWER_IO)) {
 			return;
 		}
 
@@ -74,7 +115,10 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 		}
 
 		if (getStored() > TechRebornConfig.fishingStationEnergyPerCatch) {
-
+			LootContext.Builder builder = (new LootContext.Builder((ServerWorld)this.world)).parameter(LootContextParameters.ORIGIN, new Vec3d(frontPos.getX()+0.5,frontPos.getY()-0.5,frontPos.getZ()+0.5)).parameter(LootContextParameters.TOOL, TRContent.Machine.FISHING_STATION.getStack()).random(world.random);
+			LootTable lootTable = this.world.getServer().getLootManager().getTable(LootTables.FISHING_GAMEPLAY);
+			List<ItemStack> list = lootTable.generateLoot(builder.build(LootContextTypes.FISHING));
+			insertIntoInv(list);
 			useEnergy(TechRebornConfig.fishingStationEnergyPerCatch);
 		}
 	}
