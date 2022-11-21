@@ -26,6 +26,8 @@ package techreborn.blockentity.machine.tier2;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
@@ -53,21 +55,29 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
+		if (world == null || getStored() <= TechRebornConfig.fishingStationEnergyPerCatch || !isActive(RedstoneConfiguration.POWER_IO)) {
 			return;
 		}
 
-		if (world.getTime() % TechRebornConfig.launchpadInterval != 0) {
+		if (world.getTime() % TechRebornConfig.fishingStationInterval != 0) {
 			return;
 		}
 
-		if (getStored() > 0) {
+		BlockPos frontPos = pos.offset(getFacing());
+		FluidState frontFluid = world.getFluidState(frontPos);
+		if (!frontFluid.isEqualAndStill(Fluids.WATER)) {
+			return;
+		}
+
+		if (getStored() > TechRebornConfig.fishingStationEnergyPerCatch) {
+
+			useEnergy(TechRebornConfig.fishingStationEnergyPerCatch);
 		}
 	}
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.launchpadMaxEnergy;
+		return TechRebornConfig.fishingStationMaxEnergy;
 	}
 
 	@Override
@@ -82,7 +92,7 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.launchpadMaxInput;
+		return TechRebornConfig.fishingStationMaxInput;
 	}
 
 	@Override
@@ -109,7 +119,7 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity p0) {
-		return TRContent.Machine.LAUNCHPAD.getStack();
+		return TRContent.Machine.FISHING_STATION.getStack();
 	}
 
 	// BuiltScreenHandlerProvider

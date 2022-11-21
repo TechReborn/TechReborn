@@ -633,6 +633,18 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "elevator", key = "AllowElevatingThroughBlocks", comment = "Allow elevating through blocks (i.e. non air)")
 	public static boolean allowElevatingThroughBlocks = true;
 
+	@Config(config = "machines", category = "fishing_station", key = "FishingStationMaxInput", comment = "Fishing Station Max Input (Energy per tick)")
+	public static int fishingStationMaxInput = 128;
+
+	@Config(config = "machines", category = "fishing_station", key = "FishingStationMaxEnergy", comment = "Fishing Station Max Energy")
+	public static int fishingStationMaxEnergy = 10_000;
+
+	@Config(config = "machines", category = "fishing_station", key = "FishingStationEnergyPerCatch", comment = "How much energy the Fishing Station uses per catch")
+	public static int fishingStationEnergyPerCatch = 500;
+
+	@Config(config = "machines", category = "fishing_station", key = "FishingStationInterval", comment = "Fishing Station Catch Interval in Ticks > 0")
+	public static int fishingStationInterval = 400; // 20 seconds
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
