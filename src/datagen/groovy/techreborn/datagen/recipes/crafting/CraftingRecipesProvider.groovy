@@ -35,6 +35,7 @@ import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.util.Identifier
+import reborncore.common.recipes.PaddedShapedRecipeJsonBuilder
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
@@ -85,6 +86,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		}
         generateToolRecipes()
         generateArmorRecipes()
+		generateUuMatterRecipes()
 	}
 
     def generateToolRecipes() {
@@ -181,6 +183,62 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
             offerLeggingsRecipe(material, leggings, "crafting_table/armor/")
         }
     }
+
+	def generateUuMatterRecipes() {
+		String rootDir = "crafting_table/uu_matter/"
+		String dir
+		// dusts
+		dir = rootDir + "dust/"
+		createPureUuMatterPaddedRecipe(TRContent.Dusts.ALUMINUM)
+			.pattern("UUU")
+			.pattern("U  ")
+			.pattern("   ")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.Dusts.ALUMINUM)))
+		createPureUuMatterPaddedRecipe(TRContent.Dusts.CHROME)
+			.pattern("UUU")
+			.pattern("UU ")
+			.pattern(" U ")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.Dusts.CHROME)))
+		createPureUuMatterPaddedRecipe(TRContent.Dusts.PLATINUM)
+			.pattern("UUU")
+			.pattern("UU ")
+			.pattern("   ")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.Dusts.PLATINUM)))
+		createPureUuMatterPaddedRecipe(TRContent.Dusts.TITANIUM)
+			.pattern("UUU")
+			.pattern("U U")
+			.pattern("   ")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.Dusts.TITANIUM)))
+		// nuggets
+		dir = rootDir + "nugget/"
+		createPureUuMatterPaddedRecipe(TRContent.Nuggets.NETHERITE)
+			.pattern("UUU")
+			.pattern("UUU")
+			.pattern("UU ")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.Nuggets.NETHERITE)))
+		// raw ores
+		dir = rootDir + "raw/"
+		createPureUuMatterPaddedRecipe(Items.RAW_COPPER)
+			.pattern("U  ")
+			.pattern("   ")
+			.pattern(" U ")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, Items.RAW_COPPER)))
+		createPureUuMatterPaddedRecipe(TRContent.RawMetals.LEAD)
+			.pattern("   ")
+			.pattern("U  ")
+			.pattern("U  ")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.RawMetals.LEAD)))
+		createPureUuMatterPaddedRecipe(TRContent.RawMetals.TIN)
+			.pattern("   ")
+			.pattern(" U ")
+			.pattern("  U")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.RawMetals.TIN)))
+		createPureUuMatterPaddedRecipe(TRContent.RawMetals.TUNGSTEN)
+			.pattern("UUU")
+			.pattern("UUU")
+			.pattern("   ")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.RawMetals.TUNGSTEN)))
+	}
 
 	def static recipeNameString(String prefix, def input, def output, String source = null, String result = null) {
 		StringBuilder s = new StringBuilder()
@@ -344,5 +402,11 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
                 .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
     }
 
+	def static createPureUuMatterPaddedRecipe(ItemConvertible output) {
+		var input = TRContent.Parts.UU_MATTER
+		return PaddedShapedRecipeJsonBuilder.create(output, 1)
+			.input('U' as char, createIngredient(input))
+			.criterion(getCriterionName(input), getCriterionConditions(input))
+	}
 
 }
