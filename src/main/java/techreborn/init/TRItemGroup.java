@@ -81,7 +81,9 @@ public class TRItemGroup {
 		addRockCutter(entries);
 
 		for (TRContent.StorageUnit storageUnit : TRContent.StorageUnit.values()) {
-			entries.add(storageUnit.upgrader);
+			if (storageUnit.upgrader != null) {
+				entries.add(storageUnit.upgrader);
+			}
 		}
 		
 		entries.add(TRContent.BRONZE_HELMET);
