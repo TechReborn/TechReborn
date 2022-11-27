@@ -28,8 +28,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -56,7 +57,7 @@ public class RecyclerBlockEntity extends GenericMachineBlockEntity implements Bu
 		if ((item instanceof IUpgrade)) {
 			return false;
 		}
-		return !TechRebornConfig.recyclerBlackList.contains(Registry.ITEM.getId(item).toString());
+		return !TechRebornConfig.recyclerBlackList.contains(Registries.ITEM.getId(item).toString());
 	}
 
 	// BuiltScreenHandlerProvider

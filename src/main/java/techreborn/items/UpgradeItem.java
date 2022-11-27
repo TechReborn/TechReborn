@@ -39,7 +39,7 @@ public class UpgradeItem extends Item implements IUpgrade {
 	public final IUpgrade behavior;
 
 	public UpgradeItem(String name, IUpgrade process) {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(16));
+		super(new Item.Settings().maxCount(16));
 		this.name = name;
 		this.behavior = process;
 	}

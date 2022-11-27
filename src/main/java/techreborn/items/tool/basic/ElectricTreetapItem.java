@@ -45,21 +45,13 @@ public class ElectricTreetapItem extends Item implements RcEnergyItem {
 	public RcEnergyTier tier = RcEnergyTier.MEDIUM;
 
 	public ElectricTreetapItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(new Item.Settings().maxCount(1).maxDamage(-1));
 	}
 
 	// Item
 	@Override
 	public boolean isDamageable() {
 		return false;
-	}
-
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(this, stacks);
 	}
 
 	@Override

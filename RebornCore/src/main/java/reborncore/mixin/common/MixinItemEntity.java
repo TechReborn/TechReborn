@@ -50,7 +50,7 @@ public abstract class MixinItemEntity extends Entity {
 	public void tick(CallbackInfo info) {
 		if (!world.isClient && isTouchingWater() && !getStack().isEmpty()) {
 			if (getStack().isIn(RebornCoreTags.WATER_EXPLOSION_ITEM)) {
-				world.createExplosion(this, getX(), getY(), getZ(), 2F, Explosion.DestructionType.BREAK);
+				world.createExplosion(this, getX(), getY(), getZ(), 2F, World.ExplosionSourceType.NONE);
 				this.remove(RemovalReason.KILLED);
 			}
 		}

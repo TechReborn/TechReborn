@@ -37,10 +37,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.util.DefaultedListCollector;
@@ -64,7 +65,7 @@ public class RecipeUtils {
 
 	private static ItemStack deserializeItem(JsonObject jsonObject) {
 		Identifier resourceLocation = new Identifier(JsonHelper.getString(jsonObject, "item"));
-		Item item = Registry.ITEM.get(resourceLocation);
+		Item item = Registries.ITEM.get(resourceLocation);
 		if (item == Items.AIR) {
 			throw new IllegalStateException(resourceLocation + " did not exist");
 		}

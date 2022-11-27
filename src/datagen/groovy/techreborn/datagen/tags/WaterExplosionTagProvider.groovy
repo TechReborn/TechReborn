@@ -24,19 +24,23 @@
 
 package techreborn.datagen.tags
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
+import net.minecraft.registry.RegistryWrapper
 import reborncore.common.misc.RebornCoreTags
 import techreborn.init.ModFluids
 
+import java.util.concurrent.CompletableFuture
+
 class WaterExplosionTagProvider extends FabricTagProvider.ItemTagProvider {
-    WaterExplosionTagProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator)
+    WaterExplosionTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture)
     }
 
-    @Override
-    protected void generateTags() {
-        getOrCreateTagBuilder(RebornCoreTags.WATER_EXPLOSION_ITEM)
-            .add(ModFluids.SODIUM.getBucket())
-    }
+
+	@Override
+	protected void configure(RegistryWrapper.WrapperLookup arg) {
+		getOrCreateTagBuilder(RebornCoreTags.WATER_EXPLOSION_ITEM)
+			.add(ModFluids.SODIUM.getBucket())
+	}
 }

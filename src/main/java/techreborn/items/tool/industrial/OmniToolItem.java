@@ -57,7 +57,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(3, 1, TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(3, 1, TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings().maxCount(1).maxDamage(-1));
 		this.miningLevel = MiningLevel.DIAMOND.intLevel;
 	}
 
@@ -112,14 +112,6 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.OMNI_TOOL, itemList);
 	}
 
 	@Override

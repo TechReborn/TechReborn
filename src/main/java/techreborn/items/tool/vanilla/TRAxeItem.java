@@ -29,7 +29,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
 
 public class TRAxeItem extends AxeItem {
 
@@ -40,7 +39,7 @@ public class TRAxeItem extends AxeItem {
 	}
 
 	public TRAxeItem(ToolMaterial material, String repairOreDict) {
-		super(material, material.getAttackDamage(), -3.0F, new Item.Settings().group(TechReborn.ITEMGROUP));
+		super(material, material.getAttackDamage(), -3.0F, new Item.Settings());
 		this.repairOreDict = repairOreDict;
 	}
 

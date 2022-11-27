@@ -114,12 +114,4 @@ public class IndustrialDrillItem extends DrillItem {
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
 	}
-
-	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_DRILL, itemList);
-	}
 }

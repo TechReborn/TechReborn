@@ -27,9 +27,10 @@ package reborncore.common.crafting.serde;
 import com.google.gson.JsonObject;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipeType;
@@ -46,7 +47,7 @@ public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extend
 	protected final R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		final JsonObject tank = JsonHelper.getObject(jsonObject, "tank");
 		final Identifier identifier = new Identifier(JsonHelper.getString(tank, "fluid"));
-		final Fluid fluid = Registry.FLUID.get(identifier);
+		final Fluid fluid = Registries.FLUID.get(identifier);
 
 		FluidValue value = FluidValue.BUCKET;
 		if (tank.has("amount")){
@@ -61,7 +62,7 @@ public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extend
 	@Override
 	public void collectJsonData(R recipe, JsonObject jsonObject, boolean networkSync) {
 		final JsonObject tankObject = new JsonObject();
-		tankObject.addProperty("fluid", Registry.FLUID.getId(recipe.getFluidInstance().getFluid()).toString());
+		tankObject.addProperty("fluid", Registries.FLUID.getId(recipe.getFluidInstance().getFluid()).toString());
 
 		var amountObject = new JsonObject();
 		amountObject.addProperty("droplets", recipe.getFluidInstance().getAmount().getRawValue());

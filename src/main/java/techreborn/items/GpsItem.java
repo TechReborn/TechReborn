@@ -35,12 +35,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techreborn.TechReborn;
 
 public class GpsItem extends Item {
 
 	public GpsItem() {
-		super(new Settings().group(TechReborn.ITEMGROUP));
+		super(new Settings());
 	}
 
 	@Override

@@ -30,8 +30,9 @@ import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.crafting.ingredient.IngredientFactory;
@@ -72,7 +73,7 @@ public abstract class AbstractRecipeSerde<R extends RebornRecipe> implements Rec
 
 		for (ItemStack stack : recipe.getOutputs()) {
 			final JsonObject stackObject = new JsonObject();
-			stackObject.addProperty("item", Registry.ITEM.getId(stack.getItem()).toString());
+			stackObject.addProperty("item", Registries.ITEM.getId(stack.getItem()).toString());
 
 			if (stack.getCount() > 1) {
 				stackObject.addProperty("count", stack.getCount());

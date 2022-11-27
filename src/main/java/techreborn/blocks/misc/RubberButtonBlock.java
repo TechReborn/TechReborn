@@ -24,15 +24,16 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.WoodenButtonBlock;
+import net.minecraft.block.ButtonBlock;
+import net.minecraft.sound.SoundEvents;
 import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy
  */
-public class RubberButtonBlock extends WoodenButtonBlock {
+public class RubberButtonBlock extends ButtonBlock {
 
 	public RubberButtonBlock() {
-		super(InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F));
+		super(InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F), 30, true, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_OFF, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON);
 	}
 }

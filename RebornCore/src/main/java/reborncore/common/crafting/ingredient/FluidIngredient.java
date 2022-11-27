@@ -34,10 +34,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Lazy;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import reborncore.common.fluid.container.ItemFluidInfo;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class FluidIngredient extends RebornIngredient {
 		this.holders = holders;
 		this.count = count;
 
-		previewStacks = new Lazy<>(() -> Registry.ITEM.stream()
+		previewStacks = new Lazy<>(() -> Registries.ITEM.stream()
 				.filter(item -> item instanceof ItemFluidInfo)
 				.filter(item -> !holders.isPresent() || holders.get().stream().anyMatch(i -> i == item))
 				.map(item -> ((ItemFluidInfo) item).getFull(fluid))
@@ -72,7 +73,7 @@ public class FluidIngredient extends RebornIngredient {
 
 	public static RebornIngredient deserialize(JsonObject json) {
 		Identifier identifier = new Identifier(JsonHelper.getString(json, "fluid"));
-		Fluid fluid = Registry.FLUID.get(identifier);
+		Fluid fluid = Registries.FLUID.get(identifier);
 		if (fluid == Fluids.EMPTY) {
 			throw new JsonParseException("Fluid could not be found: " + JsonHelper.getString(json, "fluid"));
 		}
@@ -82,7 +83,7 @@ public class FluidIngredient extends RebornIngredient {
 		if (json.has("holder")) {
 			if (json.get("holder").isJsonPrimitive()) {
 				String ident = JsonHelper.getString(json, "holder");
-				Item item = Registry.ITEM.get(new Identifier(ident));
+				Item item = Registries.ITEM.get(new Identifier(ident));
 				if (item == Items.AIR) {
 					throw new JsonParseException("could not find item:" + ident);
 				}
@@ -92,7 +93,7 @@ public class FluidIngredient extends RebornIngredient {
 				List<Item> itemList = new ArrayList<>();
 				for (int i = 0; i < jsonArray.size(); i++) {
 					String ident = jsonArray.get(i).getAsString();
-					Item item = Registry.ITEM.get(new Identifier(ident));
+					Item item = Registries.ITEM.get(new Identifier(ident));
 					if (item == Items.AIR) {
 						throw new JsonParseException("could not find item:" + ident);
 					}
@@ -138,14 +139,14 @@ public class FluidIngredient extends RebornIngredient {
 	@Override
 	public JsonObject toJson(boolean networkSync) {
 		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("fluid", Registry.FLUID.getId(fluid).toString());
+		jsonObject.addProperty("fluid", Registries.FLUID.getId(fluid).toString());
 		if (holders.isPresent()) {
 			List<Item> holderList = holders.get();
 			if (holderList.size() == 1) {
-				jsonObject.addProperty("holder", Registry.ITEM.getId(holderList.get(0)).toString());
+				jsonObject.addProperty("holder", Registries.ITEM.getId(holderList.get(0)).toString());
 			} else {
 				JsonArray holderArray = new JsonArray();
-				holderList.forEach(item -> holderArray.add(new JsonPrimitive(Registry.ITEM.getId(item).toString())));
+				holderList.forEach(item -> holderArray.add(new JsonPrimitive(Registries.ITEM.getId(item).toString())));
 				jsonObject.add("holder", holderArray);
 			}
 		}

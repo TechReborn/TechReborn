@@ -25,12 +25,9 @@
 package techreborn;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.RedstoneConfiguration;
@@ -42,7 +39,15 @@ import techreborn.config.TechRebornConfig;
 import techreborn.events.ApplyArmorToDamageHandler;
 import techreborn.events.OreDepthSyncHandler;
 import techreborn.events.UseBlockHandler;
-import techreborn.init.*;
+import techreborn.init.FluidGeneratorRecipes;
+import techreborn.init.FuelRecipes;
+import techreborn.init.ModLoot;
+import techreborn.init.ModRecipes;
+import techreborn.init.ModSounds;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRCauldronBehavior;
+import techreborn.init.TRContent;
+import techreborn.init.TRDispenserBehavior;
 import techreborn.init.template.TechRebornTemplates;
 import techreborn.items.DynamicCellItem;
 import techreborn.packets.ServerboundPackets;
@@ -54,10 +59,6 @@ public class TechReborn implements ModInitializer {
 	public static final String MOD_ID = "techreborn";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static TechReborn INSTANCE;
-
-	public static ItemGroup ITEMGROUP = FabricItemGroupBuilder.build(
-			new Identifier("techreborn", "item_group"),
-			() -> new ItemStack(TRContent.NUKE));
 
 	@Override
 	public void onInitialize() {

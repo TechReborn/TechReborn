@@ -38,13 +38,14 @@ import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.ItemStackArgumentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.chunk.ChunkStatus;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.IdentifiedPacket;
@@ -157,9 +158,9 @@ public class RebornCoreCommands {
 	private static int renderMod(CommandContext<ServerCommandSource> ctx) {
 		String modid = StringArgumentType.getString(ctx, "modid");
 
-		List<ItemStack> list = Registry.ITEM.getIds().stream()
+		List<ItemStack> list = Registries.ITEM.getIds().stream()
 				.filter(identifier -> identifier.getNamespace().equals(modid))
-				.map(Registry.ITEM::get)
+				.map(Registries.ITEM::get)
 				.map(ItemStack::new)
 				.collect(Collectors.toList());
 

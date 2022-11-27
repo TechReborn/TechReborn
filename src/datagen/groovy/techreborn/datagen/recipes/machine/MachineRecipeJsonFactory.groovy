@@ -33,15 +33,14 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RecipeSerializer
-import net.minecraft.tag.TagKey
+import net.minecraft.registry.Registry
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
 import org.jetbrains.annotations.NotNull
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
-import techreborn.datagen.recipes.TechRebornRecipesProvider
 
 import java.util.function.Consumer
 

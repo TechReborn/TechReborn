@@ -26,8 +26,8 @@ package techreborn.datagen.tags
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.ItemTagProvider
-import net.minecraft.tag.BlockTags
-import net.minecraft.tag.ItemTags
+import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.tag.ItemTags
 import techreborn.init.TRContent
 
 class TRItemTagProvider extends ItemTagProvider {
@@ -36,7 +36,7 @@ class TRItemTagProvider extends ItemTagProvider {
 	}
 
 	@Override
-	protected void generateTags() {
+	protected void configure(RegistryWrapper.WrapperLookup arg) {
 		TRContent.Ores.values().each { ore ->
 			getOrCreateTagBuilder(ore.asTag()).add(ore.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.ORES).add(ore.asItem())

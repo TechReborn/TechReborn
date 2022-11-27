@@ -24,9 +24,13 @@
 
 package techreborn.init.template;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,7 +55,7 @@ public class TemplateProcessor {
 	public void processSimpleBlocks(String template, List<Block> blocks) throws IOException {
 		for (Block block : blocks) {
 			Map<String, String> values = new HashMap<>();
-			values.put("name", Registry.BLOCK.getId(block).getPath());
+			values.put("name", Registries.BLOCK.getId(block).getPath());
 
 			process(template, values);
 		}

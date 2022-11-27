@@ -27,16 +27,16 @@ package techreborn.world;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.tag.BiomeTags;
+import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.registry.BuiltinRegistries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
@@ -111,31 +111,31 @@ public class WorldGenerator {
 		Identifier treeId = new Identifier("techreborn", "rubber_tree");
 		Identifier patchId = new Identifier("techreborn", "rubber_tree_patch");
 
-		RUBBER_TREE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, treeId,
-			new ConfiguredFeature<>(Feature.TREE, rubber().build())
-		);
-		RUBBER_TREE_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, treeId,
-			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, RUBBER_TREE_FEATURE), List.of(
-				PlacedFeatures.wouldSurvive(TRContent.RUBBER_SAPLING)
-			))
-		);
-
-		RUBBER_TREE_PATCH_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, patchId,
-			new ConfiguredFeature<>(Feature.RANDOM_PATCH,
-				ConfiguredFeatures.createRandomPatchFeatureConfig(
-					6, getEntry(BuiltinRegistries.PLACED_FEATURE, RUBBER_TREE_PLACED_FEATURE)
-				)
-			)
-		);
-
-		RUBBER_TREE_PATCH_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, patchId,
-			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, RUBBER_TREE_PATCH_FEATURE), List.of(
-				RarityFilterPlacementModifier.of(3),
-				SquarePlacementModifier.of(),
-				PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-				BiomePlacementModifier.of())
-			)
-		);
+//		RUBBER_TREE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, treeId,
+//			new ConfiguredFeature<>(Feature.TREE, rubber().build())
+//		);
+//		RUBBER_TREE_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, treeId,
+//			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, RUBBER_TREE_FEATURE), List.of(
+//				PlacedFeatures.wouldSurvive(TRContent.RUBBER_SAPLING)
+//			))
+//		);
+//
+//		RUBBER_TREE_PATCH_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, patchId,
+//			new ConfiguredFeature<>(Feature.RANDOM_PATCH,
+//				ConfiguredFeatures.createRandomPatchFeatureConfig(
+//					6, getEntry(BuiltinRegistries.PLACED_FEATURE, RUBBER_TREE_PLACED_FEATURE)
+//				)
+//			)
+//		);
+//
+//		RUBBER_TREE_PATCH_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, patchId,
+//			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, RUBBER_TREE_PATCH_FEATURE), List.of(
+//				RarityFilterPlacementModifier.of(3),
+//				SquarePlacementModifier.of(),
+//				PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+//				BiomePlacementModifier.of())
+//			)
+//		);
 	}
 
 	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> rubberTreeModifier() {
@@ -143,10 +143,11 @@ public class WorldGenerator {
 			return (biomeSelectionContext, biomeModificationContext) -> {};
 		}
 
-		final RegistryKey<PlacedFeature> registryKey = BuiltinRegistries.PLACED_FEATURE.getKey(RUBBER_TREE_PATCH_PLACED_FEATURE).orElseThrow();
-
-		return (biomeSelectionContext, biomeModificationContext) ->
-				biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, registryKey);
+//		final RegistryKey<PlacedFeature> registryKey = BuiltinRegistries.PLACED_FEATURE.getKey(RUBBER_TREE_PATCH_PLACED_FEATURE).orElseThrow();
+//
+//		return (biomeSelectionContext, biomeModificationContext) ->
+//				biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, registryKey);
+		return null;
 	}
 
 	private static TreeFeatureConfig.Builder rubber() {
@@ -183,17 +184,17 @@ public class WorldGenerator {
 	@SuppressWarnings("deprecation")
 	private static void registerOilLakes() {
 		Identifier lakeId = new Identifier("techreborn", "oil_lake");
-		OIL_LAKE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, lakeId,
-			new ConfiguredFeature<>(Feature.LAKE,
-				new LakeFeature.Config(BlockStateProvider.of(ModFluids.OIL.getBlock().getDefaultState()), BlockStateProvider.of(Blocks.STONE.getDefaultState()))
-			));
-		OIL_LAKE_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, lakeId,
-			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, OIL_LAKE_FEATURE), List.of(
-				RarityFilterPlacementModifier.of(20),
-				HeightRangePlacementModifier.of(UniformHeightProvider.create(YOffset.fixed(0), YOffset.getTop())),
-				EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.bothOf(BlockPredicate.not(BlockPredicate.IS_AIR), BlockPredicate.insideWorldBounds(new BlockPos(0, -5, 0))), 32),
-				SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5)
-			)));
+//		OIL_LAKE_FEATURE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, lakeId,
+//			new ConfiguredFeature<>(Feature.LAKE,
+//				new LakeFeature.Config(BlockStateProvider.of(ModFluids.OIL.getBlock().getDefaultState()), BlockStateProvider.of(Blocks.STONE.getDefaultState()))
+//			));
+//		OIL_LAKE_PLACED_FEATURE = Registry.register(BuiltinRegistries.PLACED_FEATURE, lakeId,
+//			new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, OIL_LAKE_FEATURE), List.of(
+//				RarityFilterPlacementModifier.of(20),
+//				HeightRangePlacementModifier.of(UniformHeightProvider.create(YOffset.fixed(0), YOffset.getTop())),
+//				EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.bothOf(BlockPredicate.not(BlockPredicate.IS_AIR), BlockPredicate.insideWorldBounds(new BlockPos(0, -5, 0))), 32),
+//				SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5)
+//			)));
 	}
 
 	private static Consumer<BiomeModificationContext> oilLakeModifier(){
@@ -201,9 +202,10 @@ public class WorldGenerator {
 			return (biomeModificationContext) -> {};
 		}
 
-		final RegistryKey<PlacedFeature> registryKey = BuiltinRegistries.PLACED_FEATURE.getKey(OIL_LAKE_PLACED_FEATURE).orElseThrow();
-
-		return (biomeModificationContext) -> biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.LAKES, registryKey);
+//		final RegistryKey<PlacedFeature> registryKey = BuiltinRegistries.PLACED_FEATURE.getKey(OIL_LAKE_PLACED_FEATURE).orElseThrow();
+//
+//		return (biomeModificationContext) -> biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.LAKES, registryKey);
+		return null;
 	}
 
 	public static  <T> RegistryEntry<T> getEntry(Registry<T> registry, T value) {

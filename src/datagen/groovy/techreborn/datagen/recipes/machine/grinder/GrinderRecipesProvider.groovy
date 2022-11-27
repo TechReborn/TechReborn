@@ -27,10 +27,10 @@ package techreborn.datagen.recipes.machine.grinder
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
-import net.minecraft.tag.ItemTags
-import net.minecraft.tag.TagKey
+import net.minecraft.registry.Registry
+import net.minecraft.registry.tag.ItemTags
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -249,5 +249,4 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 	}
-
 }

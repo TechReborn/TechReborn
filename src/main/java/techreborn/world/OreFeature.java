@@ -29,9 +29,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.structure.rule.BlockStateMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.registry.BuiltinRegistries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
@@ -53,26 +53,27 @@ public class OreFeature {
 	}
 
 	private ConfiguredFeature<?, ?> configureAndRegisterFeature() {
-		final OreFeatureConfig oreFeatureConfig = switch (ore.distribution.dimension) {
-			case OVERWORLD -> createOverworldFeatureConfig();
-			case NETHER -> createSimpleFeatureConfig(OreConfiguredFeatures.BASE_STONE_NETHER);
-			case END -> createSimpleFeatureConfig(new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState()));
-		};
-
-		ConfiguredFeature<?, ?> configuredFeature = new ConfiguredFeature<>(Feature.ORE, oreFeatureConfig);
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, getId(), configuredFeature);
+//		final OreFeatureConfig oreFeatureConfig = switch (ore.distribution.dimension) {
+//			case OVERWORLD -> createOverworldFeatureConfig();
+//			case NETHER -> createSimpleFeatureConfig(OreConfiguredFeatures.BASE_STONE_NETHER);
+//			case END -> createSimpleFeatureConfig(new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState()));
+//		};
+//
+//		ConfiguredFeature<?, ?> configuredFeature = new ConfiguredFeature<>(Feature.ORE, oreFeatureConfig);
+//		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, getId(), configuredFeature);
 		return configuredFeature;
 	}
 
 	private OreFeatureConfig createOverworldFeatureConfig() {
-		if (this.ore.getDeepslate() != null) {
-			 return new OreFeatureConfig(List.of(
-					OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, this.ore.block.getDefaultState()),
-					OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, this.ore.getDeepslate().block.getDefaultState())
-			), ore.distribution.veinSize);
-		}
-
-		return createSimpleFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES);
+//		if (this.ore.getDeepslate() != null) {
+//			 return new OreFeatureConfig(List.of(
+//					OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, this.ore.block.getDefaultState()),
+//					OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, this.ore.getDeepslate().block.getDefaultState())
+//			), ore.distribution.veinSize);
+//		}
+//
+//		return createSimpleFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES);
+		return null;
 	}
 
 	private OreFeatureConfig createSimpleFeatureConfig(RuleTest test) {
@@ -80,9 +81,10 @@ public class OreFeature {
 	}
 
 	private PlacedFeature configureAndRegisterPlacedFeature() {
-		PlacedFeature placedFeature = new PlacedFeature(WorldGenerator.getEntry(BuiltinRegistries.CONFIGURED_FEATURE, configuredFeature), getPlacementModifiers());
-		Registry.register(BuiltinRegistries.PLACED_FEATURE, getId(), placedFeature);
-		return placedFeature;
+//		PlacedFeature placedFeature = new PlacedFeature(WorldGenerator.getEntry(BuiltinRegistries.CONFIGURED_FEATURE, configuredFeature), getPlacementModifiers());
+//		Registry.register(BuiltinRegistries.PLACED_FEATURE, getId(), placedFeature);
+//		return placedFeature;
+		return null;
 	}
 
 	private List<PlacementModifier> getPlacementModifiers() {
@@ -108,6 +110,7 @@ public class OreFeature {
 	}
 
 	public RegistryKey<PlacedFeature> getPlacedFeatureRegistryKey() {
-		return BuiltinRegistries.PLACED_FEATURE.getKey(this.placedFeature).orElseThrow();
+//		return BuiltinRegistries.PLACED_FEATURE.getKey(this.placedFeature).orElseThrow();
+		return null;
 	}
 }

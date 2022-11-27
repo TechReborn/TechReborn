@@ -32,9 +32,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -63,7 +64,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 
 	@Override
 	public ItemStack createIcon() {
-		Optional<Item> catalyst = Registry.ITEM.getOrEmpty(type.name());
+		Optional<Item> catalyst = Registries.ITEM.getOrEmpty(type.name());
 		if (catalyst.isPresent())
 			return new ItemStack(catalyst.get());
 		else

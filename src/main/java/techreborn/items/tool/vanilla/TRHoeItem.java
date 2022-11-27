@@ -40,7 +40,7 @@ public class TRHoeItem extends HoeItem {
 	}
 
 	public TRHoeItem(ToolMaterial material, String repairOreDict) {
-		super(material, 0, 0F, new Item.Settings().group(TechReborn.ITEMGROUP));
+		super(material, 0, 0F, new Item.Settings());
 		this.repairOreDict = repairOreDict;
 	}
 

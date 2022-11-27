@@ -24,8 +24,9 @@
 
 package reborncore.common.fluid;
 
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -36,7 +37,7 @@ public class RebornFluidManager {
 
 	public static void register(RebornFluid rebornFluid, Identifier identifier) {
 		fluids.put(identifier, rebornFluid);
-		Registry.register(Registry.FLUID, identifier, rebornFluid);
+		Registry.register(Registries.FLUID, identifier, rebornFluid);
 	}
 
 	public static HashMap<Identifier, RebornFluid> getFluids() {

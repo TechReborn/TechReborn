@@ -27,7 +27,7 @@ package techreborn.datagen.recipes.machine.assembling_machine
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
-import net.minecraft.tag.ItemTags
+import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 
 class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {

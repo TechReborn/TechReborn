@@ -40,25 +40,23 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -68,7 +66,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.ItemNBTHelper;
-import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
 /**
@@ -77,7 +74,7 @@ import techreborn.init.TRContent;
 public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	public DynamicCellItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(16));
+		super(new Item.Settings().maxCount(16));
 	}
 
 	// Thanks vanilla :)
@@ -90,7 +87,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid);
 		ItemStack stack = new ItemStack(TRContent.CELL);
-		ItemNBTHelper.getNBT(stack).putString("fluid", Registry.FLUID.getId(fluid).toString());
+		ItemNBTHelper.getNBT(stack).putString("fluid", Registries.FLUID.getId(fluid).toString());
 		stack.setCount(stackSize);
 		return stack;
 	}
@@ -145,19 +142,6 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				world.setBlockState(pos, fluid.getDefaultState().getBlockState(), 11);
 			}
 			return true;
-		}
-	}
-
-	@Override
-	public void appendStacks(ItemGroup tab, DefaultedList<ItemStack> subItems) {
-		if (!isIn(tab)) {
-			return;
-		}
-		subItems.add(getEmptyCell(1));
-		for (Fluid fluid : FluidUtils.getAllFluids()) {
-			if (fluid.isStill(fluid.getDefaultState())) {
-				subItems.add(getCellWithFluid(fluid));
-			}
 		}
 	}
 
@@ -253,7 +237,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	private Fluid getFluid(@Nullable NbtCompound tag) {
 		if (tag != null && tag.contains("fluid")) {
-			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
+			return Registries.FLUID.get(new Identifier(tag.getString("fluid")));
 		}
 		return Fluids.EMPTY;
 	}

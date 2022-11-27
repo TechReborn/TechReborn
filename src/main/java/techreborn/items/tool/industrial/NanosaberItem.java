@@ -38,23 +38,18 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
 
 import java.util.List;
@@ -65,7 +60,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 
 	// 4ME max charge with 1k charge rate
 	public NanosaberItem() {
-		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().maxCount(1).maxDamage(-1));
 	}
 
 	// SwordItem
@@ -104,31 +99,6 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public void appendStacks(
-			ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
-		}
-		ItemStack inactiveUncharged = new ItemStack(this);
-		inactiveUncharged.setNbt(new NbtCompound());
-		inactiveUncharged.getOrCreateNbt().putBoolean("isActive", false);
-
-		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
-		inactiveCharged.setNbt(new NbtCompound());
-		inactiveCharged.getOrCreateNbt().putBoolean("isActive", false);
-		setStoredEnergy(inactiveCharged, getEnergyCapacity());
-
-		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
-		activeCharged.setNbt(new NbtCompound());
-		activeCharged.getOrCreateNbt().putBoolean("isActive", true);
-		setStoredEnergy(activeCharged, getEnergyCapacity());
-
-		itemList.add(inactiveUncharged);
-		itemList.add(inactiveCharged);
-		itemList.add(activeCharged);
 	}
 
 	@Environment(EnvType.CLIENT)

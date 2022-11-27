@@ -30,13 +30,14 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IMachineGuiHandler;
@@ -142,7 +143,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 
 	private GuiType(Identifier identifier) {
 		this.identifier = identifier;
-		this.screenHandlerType = Registry.register(Registry.SCREEN_HANDLER, identifier, new ExtendedScreenHandlerType<>(getScreenHandlerFactory()));
+		this.screenHandlerType = Registry.register(Registries.SCREEN_HANDLER, identifier, new ExtendedScreenHandlerType<>(getScreenHandlerFactory()));
 
 		TYPES.put(identifier, this);
 	}

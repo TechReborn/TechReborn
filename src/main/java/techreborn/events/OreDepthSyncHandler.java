@@ -26,7 +26,7 @@ package techreborn.events;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.Block;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.ClientboundPackets;
 import techreborn.world.OreDepth;
@@ -52,7 +52,7 @@ public final class OreDepthSyncHandler {
 	public static void updateDepths(List<OreDepth> list) {
 		synchronized (OreDepthSyncHandler.class) {
 			oreDepthMap = list.stream()
-				.collect(Collectors.toMap(oreDepth -> Registry.BLOCK.get(oreDepth.identifier()), Function.identity()));
+				.collect(Collectors.toMap(oreDepth -> Registries.BLOCK.get(oreDepth.identifier()), Function.identity()));
 		}
 	}
 

@@ -37,17 +37,13 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
-import techreborn.utils.InitUtils;
 
 public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler, RcEnergyItem {
 
@@ -62,7 +58,7 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 
 
 	public QuantumSuitItem(ArmorMaterial material, EquipmentSlot slot) {
-		super(material, slot, new Item.Settings().group(TechReborn.ITEMGROUP).maxDamage(-1).maxCount(1));
+		super(material, slot, new Item.Settings().maxDamage(-1).maxCount(1));
 	}
 
 	@Override
@@ -177,13 +173,5 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 	@Override
 	public RcEnergyTier getTier() {
 		return RcEnergyTier.EXTREME;
-	}
-
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(this, itemList);
 	}
 }

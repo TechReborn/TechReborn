@@ -30,11 +30,13 @@ import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
@@ -85,16 +87,16 @@ public class TagIngredient extends RebornIngredient {
 			final JsonArray itemsArray = JsonHelper.getArray(json, "items");
 			for (JsonElement jsonElement : itemsArray) {
 				Validate.isTrue(jsonElement.isJsonPrimitive());
-				Optional<RegistryEntry<Item>> entry = Registry.ITEM.getEntry(jsonElement.getAsInt());
-				items.add(entry.orElseThrow().value());
+				Item item = Registries.ITEM.get(jsonElement.getAsInt());
+				items.add(item);
 			}
 
-			return new Synced(TagKey.of(Registry.ITEM_KEY, tagIdent), count, items);
+			return new Synced(TagKey.of(RegistryKeys.ITEM, tagIdent), count, items);
 		}
 
 		Identifier identifier = new Identifier(JsonHelper.getString(json, "tag"));
 
-		TagKey<Item> tagKey = TagKey.of(Registry.ITEM_KEY, identifier);
+		TagKey<Item> tagKey = TagKey.of(RegistryKeys.ITEM, identifier);
 		return new TagIngredient(tagKey, count);
 	}
 
@@ -118,7 +120,7 @@ public class TagIngredient extends RebornIngredient {
 		JsonArray itemArray = new JsonArray();
 
 		for (Item item : items) {
-			int rawId = Registry.ITEM.getRawId(item);
+			int rawId = Registries.ITEM.getRawId(item);
 			itemArray.add(rawId);
 		}
 
@@ -130,7 +132,7 @@ public class TagIngredient extends RebornIngredient {
 	}
 
 	protected Stream<Item> streamItems() {
-		return StreamSupport.stream(Registry.ITEM.iterateEntries(tag).spliterator(), false)
+		return StreamSupport.stream(Registries.ITEM.iterateEntries(tag).spliterator(), false)
 			.map(RegistryEntry::value);
 	}
 

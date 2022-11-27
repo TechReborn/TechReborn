@@ -10,7 +10,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import techreborn.TechReborn;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.init.TRContent.StorageUnit;
@@ -19,7 +18,7 @@ import techreborn.init.TRContent.TankUnit;
 public class UpgraderItem extends Item {
 
 	public UpgraderItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP));
+		super(new Item.Settings());
 	}
 
 	@Override

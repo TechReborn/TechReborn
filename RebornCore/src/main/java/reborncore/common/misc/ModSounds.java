@@ -24,9 +24,10 @@
 
 package reborncore.common.misc;
 
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 /**
  * @author drcrazy
@@ -41,6 +42,6 @@ public class ModSounds {
 	}
 
 	private static SoundEvent createSoundEvent(Identifier identifier) {
-		return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));
+		return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
 	}
 }

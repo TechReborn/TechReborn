@@ -41,7 +41,7 @@ import java.util.List;
 public class ScrapBoxItem extends Item {
 
 	public ScrapBoxItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP));
+		super(new Item.Settings());
 	}
 
 	@Override

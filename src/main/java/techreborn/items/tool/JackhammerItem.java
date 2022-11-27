@@ -48,7 +48,7 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 
 	public JackhammerItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(material, 1, -2.8F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(material, 1, -2.8F, new Item.Settings().maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -109,14 +109,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(this, stacks);
 	}
 
 	// EnergyHolder
