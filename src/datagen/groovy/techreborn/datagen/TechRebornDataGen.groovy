@@ -26,8 +26,8 @@ package techreborn.datagen
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.minecraft.data.DataProvider
 import net.minecraft.registry.RegistryBuilder
+import net.minecraft.registry.RegistryKeys
 import techreborn.TechReborn
 import techreborn.datagen.models.BlockLootTableProvider
 import techreborn.datagen.models.ModelProvider
@@ -44,6 +44,8 @@ import techreborn.datagen.recipes.smelting.SmeltingRecipesProvider
 import techreborn.datagen.tags.TRBlockTagProvider
 import techreborn.datagen.tags.TRItemTagProvider
 import techreborn.datagen.tags.TRPointOfInterestTagProvider
+import techreborn.datagen.worldgen.TRWorldGenBootstrap
+import techreborn.datagen.worldgen.TRWorldGenProvider
 
 class TechRebornDataGen implements DataGeneratorEntrypoint {
 
@@ -55,25 +57,27 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 			pack.addProvider factory
 		}
 
-		add TRItemTagProvider.&new
-		add TRPointOfInterestTagProvider.&new
+		add TRItemTagProvider::new
+		add TRPointOfInterestTagProvider::new
 
-		add TRBlockTagProvider.&new
+		add TRBlockTagProvider::new
         // tags before all else, very important!!
-		add SmeltingRecipesProvider.&new
-		add CraftingRecipesProvider.&new
+		add SmeltingRecipesProvider::new
+		add CraftingRecipesProvider::new
 
-		add GrinderRecipesProvider.&new
-		add CompressorRecipesProvider.&new
-		add ExtractorRecipesProvider.&new
-		add ChemicalReactorRecipesProvider.&new
-		add AssemblingMachineRecipesProvider.&new
-		add BlastFurnaceRecipesProvider.&new
-		add IndustrialGrinderRecipesProvider.&new
-		add IndustrialSawmillRecipesProvider.&new
+		add GrinderRecipesProvider::new
+		add CompressorRecipesProvider::new
+		add ExtractorRecipesProvider::new
+		add ChemicalReactorRecipesProvider::new
+		add AssemblingMachineRecipesProvider::new
+		add BlastFurnaceRecipesProvider::new
+		add IndustrialGrinderRecipesProvider::new
+		add IndustrialSawmillRecipesProvider::new
 
-		add ModelProvider.&new
-		add BlockLootTableProvider.&new
+		add ModelProvider::new
+		add BlockLootTableProvider::new
+		
+		add TRWorldGenProvider::new
     }
 
 	@Override
@@ -83,14 +87,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 
 	@Override
 	void buildRegistry(RegistryBuilder registryBuilder) {
-
-	}
-
-	<T extends DataProvider> FabricDataGenerator.Pack.RegistryDependentFactory<T> withRegistries(FabricDataGenerator.Pack.RegistryDependentFactory<T> factory) {
-		return factory
-	}
-
-	<T extends DataProvider> FabricDataGenerator.Pack.Factory<T> withOutput(FabricDataGenerator.Pack.Factory<T> factory) {
-		return factory
+		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, TRWorldGenBootstrap::configuredFeatures)
+		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, TRWorldGenBootstrap::placedFeatures)
 	}
 }

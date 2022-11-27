@@ -71,19 +71,19 @@ public class WorldGenerator {
 	public static PlacedFeature OIL_LAKE_PLACED_FEATURE;
 
 	public static void initWorldGen() {
-		registerTreeDecorators();
-		registerOilLakes();
+		//registerTreeDecorators();
+		//registerOilLakes();
 
 		if (!TechRebornConfig.enableOreGeneration && !TechRebornConfig.enableRubberTreeGeneration && !TechRebornConfig.enableOilLakeGeneration) {
 			return;
 		}
 
 		BiomeModifications.create(new Identifier("techreborn", "features"))
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), oreModifier())
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_FOREST)
-					.or(BiomeSelectors.tag(BiomeTags.IS_TAIGA))
-					.or(BiomeSelectors.includeByKey(BiomeKeys.SWAMP)), rubberTreeModifier())
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), oilLakeModifier());
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), oreModifier());
+//				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_FOREST)
+//					.or(BiomeSelectors.tag(BiomeTags.IS_TAIGA))
+//					.or(BiomeSelectors.includeByKey(BiomeKeys.SWAMP)), rubberTreeModifier())
+//				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), oilLakeModifier());
 	}
 
 	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> oreModifier() {
@@ -94,7 +94,7 @@ public class WorldGenerator {
 
 			for (OreFeature feature : ORE_FEATURES) {
 				if (feature.getBiomeSelector().test(biomeSelectionContext)) {
-					biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.UNDERGROUND_ORES, feature.getPlacedFeatureRegistryKey());
+					biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Feature.UNDERGROUND_ORES, feature.getPlacedFeature());
 				}
 			}
 		};
