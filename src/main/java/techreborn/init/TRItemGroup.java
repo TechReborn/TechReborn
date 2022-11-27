@@ -52,6 +52,41 @@ public class TRItemGroup {
 
 	// TODO improve ordering and also add to vanilla groups as needed
 	private static void entries(FabricItemGroupEntries entries) {
+		addContent(TRContent.Ores.values(), entries);
+		addContent(TRContent.StorageBlocks.values(), entries);
+
+		for (TRContent.MachineBlocks machineBlock : TRContent.MachineBlocks.values()) {
+			entries.add(machineBlock.frame);
+			entries.add(machineBlock.casing);
+		}
+
+		addContent(TRContent.SolarPanels.values(), entries);
+		addContent(TRContent.StorageUnit.values(), entries);
+		addContent(TRContent.TankUnit.values(), entries);
+		addContent(TRContent.Cables.values(), entries);
+		addContent(TRContent.Machine.values(), entries);
+
+		entries.add(TRContent.COMPUTER_CUBE);
+		entries.add(TRContent.NUKE);
+		entries.add(TRContent.REFINED_IRON_FENCE);
+		entries.add(TRContent.REINFORCED_GLASS);
+		entries.add(TRContent.RUBBER_LEAVES);
+		entries.add(TRContent.RUBBER_LOG);
+		entries.add(TRContent.RUBBER_LOG_STRIPPED);
+		entries.add(TRContent.RUBBER_WOOD);
+		entries.add(TRContent.STRIPPED_RUBBER_WOOD);
+		entries.add(TRContent.RUBBER_PLANKS);
+		entries.add(TRContent.RUBBER_SAPLING);
+		entries.add(TRContent.RUBBER_SLAB);
+		entries.add(TRContent.RUBBER_FENCE);
+		entries.add(TRContent.RUBBER_FENCE_GATE);
+		entries.add(TRContent.RUBBER_STAIR);
+		entries.add(TRContent.RUBBER_TRAPDOOR);
+		entries.add(TRContent.RUBBER_BUTTON);
+		entries.add(TRContent.RUBBER_PRESSURE_PLATE);
+		entries.add(TRContent.RUBBER_DOOR);
+		entries.add(TRContent.COPPER_WALL);
+
 		addContent(TRContent.Dusts.values(), entries);
 		addContent(TRContent.RawMetals.values(), entries);
 		addContent(TRContent.SmallDusts.values(), entries);
