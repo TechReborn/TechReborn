@@ -250,7 +250,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 		@Override
 		public Collection<Identifier> getModelDependencies() {
-			return null;
+			return Collections.emptyList();
 		}
 
 		@Override
