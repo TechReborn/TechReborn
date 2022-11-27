@@ -50,16 +50,16 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 		RenderSystem.setShaderTexture(0, gui.builder.getResourceLocation());
 		switch (type) {
 			case FASTFORWARD:
-				gui.drawTexture(matrixStack, x, y, 174, 74, 12, 12);
+				gui.drawTexture(matrixStack, getX(), getY(), 174, 74, 12, 12);
 				break;
 			case FORWARD:
-				gui.drawTexture(matrixStack, x, y, 174, 86, 12, 12);
+				gui.drawTexture(matrixStack, getX(), getY(), 174, 86, 12, 12);
 				break;
 			case REWIND:
-				gui.drawTexture(matrixStack, x, y, 174, 98, 12, 12);
+				gui.drawTexture(matrixStack, getX(), getY(), 174, 98, 12, 12);
 				break;
 			case FASTREWIND:
-				gui.drawTexture(matrixStack, x, y, 174, 110, 12, 12);
+				gui.drawTexture(matrixStack, getX(), getY(), 174, 110, 12, 12);
 				break;
 			default:
 				break;

@@ -24,18 +24,21 @@
 
 package techreborn.datagen.recipes.machine.chemical_reactor
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
+import net.minecraft.registry.RegistryWrapper
 import reborncore.common.util.ColoredItem
 import techreborn.datagen.recipes.TechRebornRecipesProvider
+
+import java.util.concurrent.CompletableFuture
 
 class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 
 	public final int DYE_POWER = 25
 	public final int DYE_TIME = 250
 
-	ChemicalReactorRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	ChemicalReactorRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override

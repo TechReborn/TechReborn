@@ -2,12 +2,15 @@ package techreborn.datagen.models
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
+import net.minecraft.registry.RegistryWrapper
 import techreborn.init.TRContent
+
+import java.util.concurrent.CompletableFuture
 
 class BlockLootTableProvider extends FabricBlockLootTableProvider{
 
-	BlockLootTableProvider(FabricDataOutput dataOutput) {
-		super(dataOutput)
+	BlockLootTableProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output)
 	}
 
 	@Override

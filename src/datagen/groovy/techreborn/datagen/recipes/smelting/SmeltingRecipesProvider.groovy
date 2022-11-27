@@ -24,18 +24,22 @@
 
 package techreborn.datagen.recipes.smelting
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
 import net.minecraft.recipe.CookingRecipeSerializer
 import net.minecraft.recipe.RecipeSerializer
+import net.minecraft.recipe.book.RecipeCategory
+import net.minecraft.registry.RegistryWrapper
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
+import java.util.concurrent.CompletableFuture
+
 class SmeltingRecipesProvider extends TechRebornRecipesProvider {
-	SmeltingRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	SmeltingRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override
@@ -73,8 +77,8 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 		offerCookingRecipe(input, output, experience, cookingTime, RecipeSerializer.BLASTING, "blasting/")
 	}
 
-	def offerCookingRecipe(def input, ItemConvertible output, float experience, int cookingTime, CookingRecipeSerializer<?> serializer, String prefix = "") {
-		CookingRecipeJsonBuilder.create(createIngredient(input), output, experience, cookingTime, serializer)
+	def offerCookingRecipe(def input, ItemConvertible output, float experience, int cookingTime, CookingRecipeSerializer<?> serializer, String prefix = "", RecipeCategory category = RecipeCategory.MISC) {
+		CookingRecipeJsonBuilder.create(createIngredient(input), category, output, experience, cookingTime, serializer)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 				.offerTo(this.exporter, prefix + getInputPath(output) + "_from_" + getInputPath(input))
 	}

@@ -35,7 +35,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 
 import java.util.Arrays;
@@ -58,7 +58,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 
 		matrixStack.push();
 		matrixStack.translate(0.5, 0, 0.5);
-		matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-facing.rotateYCounterclockwise().asRotation() + 90));
+		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-facing.rotateYCounterclockwise().asRotation() + 90));
 		matrixStack.translate(0, -1, -0.56);
 
 		float spin = blockEntity.bladeAngle + tickDelta * blockEntity.spinSpeed;

@@ -24,16 +24,19 @@
 
 package techreborn.datagen.recipes.machine.assembling_machine
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 
+import java.util.concurrent.CompletableFuture
+
 class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 
-    AssemblingMachineRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+    AssemblingMachineRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override

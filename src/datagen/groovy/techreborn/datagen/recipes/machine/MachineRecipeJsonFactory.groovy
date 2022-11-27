@@ -33,6 +33,7 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RecipeSerializer
+import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
@@ -208,7 +209,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			throw new IllegalStateException("Recipe has no outputs")
 		}
 
-		def outputId = Registry.ITEM.getId(outputs[0].item)
+		def outputId = Registries.ITEM.getId(outputs[0].item)
 		return new Identifier("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
 	}
 

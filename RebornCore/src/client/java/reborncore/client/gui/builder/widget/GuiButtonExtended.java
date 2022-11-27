@@ -25,19 +25,22 @@
 package reborncore.client.gui.builder.widget;
 
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import reborncore.common.misc.TriConsumer;
+
+import java.util.function.Supplier;
 
 public class GuiButtonExtended extends ButtonWidget {
 
 	private TriConsumer<GuiButtonExtended, Double, Double> clickHandler;
 
 	public GuiButtonExtended(int x, int y, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, 20, 200, buttonText, pressAction);
+		super(x, y, 20, 200, buttonText, pressAction, narrationSupplier());
 	}
 
 	public GuiButtonExtended(int x, int y, int widthIn, int heightIn, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, widthIn, heightIn, buttonText, pressAction);
+		super(x, y, widthIn, heightIn, buttonText, pressAction, narrationSupplier());
 	}
 
 	public GuiButtonExtended clickHandler(TriConsumer<GuiButtonExtended, Double, Double> consumer) {
@@ -51,5 +54,12 @@ public class GuiButtonExtended extends ButtonWidget {
 			clickHandler.accept(this, mouseX, mouseY);
 		}
 		super.onClick(mouseX, mouseY);
+	}
+
+	private static NarrationSupplier narrationSupplier() {
+		return textSupplier -> {
+			// TODO 1.19.3
+			return null;
+		};
 	}
 }

@@ -24,15 +24,18 @@
 
 package techreborn.datagen.recipes.machine.compressor
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
+import net.minecraft.registry.RegistryWrapper
 import reborncore.common.misc.TagConvertible
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
+import java.util.concurrent.CompletableFuture
+
 class CompressorRecipesProvider extends TechRebornRecipesProvider {
-	CompressorRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	CompressorRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override

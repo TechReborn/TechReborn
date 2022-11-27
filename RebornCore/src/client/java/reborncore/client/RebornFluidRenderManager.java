@@ -25,16 +25,13 @@
 package reborncore.client;
 
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourceReloadListenerKeys;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.FluidSettings;
 import reborncore.common.fluid.RebornFluid;
@@ -45,15 +42,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
-public class RebornFluidRenderManager implements ClientSpriteRegistryCallback, SimpleSynchronousResourceReloadListener {
+public class RebornFluidRenderManager implements SimpleSynchronousResourceReloadListener {
 
 	private static final Map<Fluid, TemporaryLazy<Sprite[]>> spriteMap = new HashMap<>();
 
 	public static void setupClient() {
 		RebornFluidRenderManager rebornFluidRenderManager = new RebornFluidRenderManager();
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(rebornFluidRenderManager);
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(rebornFluidRenderManager);
 		RebornFluidManager.getFluidStream().forEach(RebornFluidRenderManager::setupFluidRenderer);
 	}
@@ -68,14 +63,6 @@ public class RebornFluidRenderManager implements ClientSpriteRegistryCallback, S
 
 		spriteMap.put(fluid, sprites);
 		FluidRenderHandlerRegistry.INSTANCE.register(fluid, (extendedBlockView, blockPos, fluidState) -> sprites.get());
-	}
-
-	@Override
-	public void registerSprites(SpriteAtlasTexture spriteAtlasTexture, Registry registry) {
-		Stream.concat(
-				RebornFluidManager.getFluidStream().map(rebornFluid -> rebornFluid.getFluidSettings().getFlowingTexture()),
-				RebornFluidManager.getFluidStream().map(rebornFluid -> rebornFluid.getFluidSettings().getStillTexture())
-		).forEach(registry::register);
 	}
 
 	@Override

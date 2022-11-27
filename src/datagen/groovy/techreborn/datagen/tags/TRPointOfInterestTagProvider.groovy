@@ -26,7 +26,7 @@ package techreborn.datagen.tags
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
-import net.minecraft.registry.Registries
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.PointOfInterestTypeTags
 import net.minecraft.world.poi.PointOfInterestType
@@ -36,7 +36,7 @@ import java.util.concurrent.CompletableFuture
 
 class TRPointOfInterestTagProvider extends FabricTagProvider<PointOfInterestType> {
 	TRPointOfInterestTagProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-		super(dataOutput, Registries.POINT_OF_INTEREST_TYPE, registriesFuture)
+		super(dataOutput, RegistryKeys.POINT_OF_INTEREST_TYPE, registriesFuture)
 	}
 
 	@Override

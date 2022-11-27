@@ -25,21 +25,26 @@
 package techreborn.datagen.recipes.crafting
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
 import net.minecraft.data.server.recipe.SingleItemRecipeJsonBuilder
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
+import net.minecraft.recipe.RecipeSerializer
+import net.minecraft.recipe.book.RecipeCategory
+import net.minecraft.registry.RegistryWrapper
 import net.minecraft.util.Identifier
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
+import java.util.concurrent.CompletableFuture
 import java.util.function.Function
 
 class CraftingRecipesProvider extends TechRebornRecipesProvider {
-	CraftingRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	CraftingRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override
@@ -191,8 +196,8 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		return s.toString()
 	}
 
-    def offerMonoShapelessRecipe(def input, int inputSize, ItemConvertible output, int outputSize, String source, prefix = "", String result = null) {
-		ShapelessRecipeJsonBuilder.create(output, outputSize).input(createIngredient(input), inputSize)
+    def offerMonoShapelessRecipe(def input, int inputSize, ItemConvertible output, int outputSize, String source, prefix = "", String result = null, RecipeCategory category = RecipeCategory.MISC) {
+		new ShapelessRecipeJsonBuilder(category, output, outputSize).input(createIngredient(input), inputSize)
                 .criterion(getCriterionName(input), getCriterionConditions(input))
                 .offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(prefix, input, output, source, result)))
     }
@@ -206,14 +211,14 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         return s.toString()
     }
 
-    def static createMonoShapeRecipe(def input, ItemConvertible output, char character, int outputAmount = 1) {
-        return ShapedRecipeJsonBuilder.create(output, outputAmount)
+    def static createMonoShapeRecipe(def input, ItemConvertible output, char character, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
+        return new ShapedRecipeJsonBuilder(category, output, outputAmount)
                 .input(character, createIngredient(input))
                 .criterion(getCriterionName(input), getCriterionConditions(input))
     }
 
-    def static createDuoShapeRecipe(def input1, def input2, ItemConvertible output, char char1, char char2, boolean crit1 = true, boolean crit2 = false) {
-        ShapedRecipeJsonBuilder factory = ShapedRecipeJsonBuilder.create(output)
+    def static createDuoShapeRecipe(def input1, def input2, ItemConvertible output, char char1, char char2, boolean crit1 = true, boolean crit2 = false, RecipeCategory category = RecipeCategory.MISC) {
+        ShapedRecipeJsonBuilder factory = ShapedRecipeJsonBuilder.create(category, output)
                 .input(char1, createIngredient(input1))
                 .input(char2, createIngredient(input2))
         if (crit1)
@@ -223,8 +228,8 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
         return factory
     }
 
-	def static createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1) {
-		return SingleItemRecipeJsonBuilder.createStonecutting(createIngredient(input), output, outputAmount)
+	def static createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
+		return new SingleItemRecipeJsonBuilder(category, RecipeSerializer.STONECUTTING, createIngredient(input), output, outputAmount)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 	}
 

@@ -24,15 +24,19 @@
 
 package techreborn.datagen.tags
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.ItemTagProvider
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
+import reborncore.common.misc.RebornCoreTags
+import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
+import java.util.concurrent.CompletableFuture
+
 class TRItemTagProvider extends ItemTagProvider {
-	TRItemTagProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	TRItemTagProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(dataOutput, registriesFuture)
 	}
 
 	@Override
@@ -176,5 +180,8 @@ class TRItemTagProvider extends ItemTagProvider {
 
 		getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS)
 			.add(TRContent.RUBBER_TRAPDOOR.asItem())
+
+		getOrCreateTagBuilder(RebornCoreTags.WATER_EXPLOSION_ITEM)
+			.add(ModFluids.SODIUM.getBucket())
 	}
 }

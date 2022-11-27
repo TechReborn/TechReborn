@@ -24,17 +24,20 @@
 
 package techreborn.datagen.recipes.machine.industrial_sawmill
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
+import java.util.concurrent.CompletableFuture
+
 class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 
-	IndustrialSawmillRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	IndustrialSawmillRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override
