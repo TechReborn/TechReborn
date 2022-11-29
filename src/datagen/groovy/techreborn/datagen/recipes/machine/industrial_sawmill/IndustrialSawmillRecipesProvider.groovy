@@ -140,7 +140,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				power 30
 				time 200
 				fluidAmount 250 // in millibuckets
-				source "slab"
+				source ((slab == Items.BAMBOO_MOSAIC_SLAB ? "mosaic_" : "") + "slab")
 				criterion getCriterionName(slab), getCriterionConditions(slab)
 				feature FeatureFlags.UPDATE_1_20
 			}
