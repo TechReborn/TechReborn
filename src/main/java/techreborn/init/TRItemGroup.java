@@ -49,6 +49,7 @@ public class TRItemGroup {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register(TRItemGroup::addColoredBlocks);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(TRItemGroup::addNaturalBlocks);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(TRItemGroup::addFunctionalBlocks);
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(TRItemGroup::addRedstoneBlocks);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(TRItemGroup::addTools);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(TRItemGroup::addCombat);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(TRItemGroup::addIngredients);
@@ -221,6 +222,10 @@ public class TRItemGroup {
 			TRContent.RUBBER_TRAPDOOR,
 			TRContent.RUBBER_PRESSURE_PLATE,
 			TRContent.RUBBER_BUTTON);
+		entries.addAfter(Items.AMETHYST_BLOCK,
+			TRContent.MachineBlocks.BASIC.getFrame(),
+			TRContent.MachineBlocks.ADVANCED.getFrame(),
+			TRContent.MachineBlocks.INDUSTRIAL.getFrame());
 		entries.addBefore(Items.COPPER_BLOCK,
 			TRContent.StorageBlocks.RAW_TIN,
 			TRContent.StorageBlocks.RAW_TIN.getStairsBlock(),
@@ -422,12 +427,10 @@ public class TRItemGroup {
 		entries.addAfter(Items.CAULDRON,
 			TRContent.Machine.DRAIN,
 			TRContent.Machine.FLUID_REPLICATOR);
-		entries.addBefore(Items.BEACON,
-			TRContent.Machine.ALARM,
-			TRContent.Machine.PLAYER_DETECTOR);
 		entries.addAfter(Items.LODESTONE, TRContent.Machine.CHUNK_LOADER);
 		entries.addAfter(Items.BEEHIVE, TRContent.Machine.GREENHOUSE_CONTROLLER);
 		entries.addAfter(Items.LIGHTNING_ROD, TRContent.Machine.LIGHTNING_ROD);
+		// inventory stuff
 		entries.addAfter(Items.ENDER_CHEST,
 			TRContent.StorageUnit.BUFFER,
 			TRContent.StorageUnit.CRUDE,
@@ -465,11 +468,11 @@ public class TRItemGroup {
 			TRContent.Machine.MV_TRANSFORMER,
 			TRContent.Machine.HIGH_VOLTAGE_SU,
 			TRContent.Machine.HV_TRANSFORMER,
+			TRContent.Machine.CHARGE_O_MAT,
 			TRContent.Machine.LAPOTRONIC_SU,
 			TRContent.Machine.LSU_STORAGE,
-			TRContent.Machine.CHARGE_O_MAT,
-			TRContent.Machine.EV_TRANSFORMER,
 			TRContent.Machine.ADJUSTABLE_SU,
+			TRContent.Machine.EV_TRANSFORMER,
 			TRContent.Machine.INTERDIMENSIONAL_SU,
 			// cables
 			TRContent.Cables.TIN,
@@ -482,6 +485,11 @@ public class TRItemGroup {
 			TRContent.Cables.GLASSFIBER,
 			TRContent.Cables.SUPERCONDUCTOR,
 			TRContent.Machine.WIRE_MILL);
+	}
+
+	private static void addRedstoneBlocks(FabricItemGroupEntries entries) {
+		entries.addBefore(Items.SCULK_SENSOR, TRContent.Machine.ALARM);
+		entries.addAfter(Items.WHITE_WOOL, TRContent.Machine.PLAYER_DETECTOR);
 	}
 
 	private static void addTools(FabricItemGroupEntries entries) {
