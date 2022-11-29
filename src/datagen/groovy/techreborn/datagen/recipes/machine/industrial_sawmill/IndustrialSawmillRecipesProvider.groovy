@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
+import net.minecraft.resource.featuretoggle.FeatureFlags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -62,6 +63,14 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				fluidAmount 1000 // in millibuckets
 			}
 		}
+		offerIndustrialSawmillRecipe {
+			ingredients ItemTags.BAMBOO_BLOCKS
+			outputs new ItemStack(Items.BAMBOO_PLANKS,2), new ItemStack(TRContent.Dusts.SAW, 1)
+			power 40
+			time 100
+			fluidAmount 500 // in millibuckets
+			feature FeatureFlags.UPDATE_1_20
+		}
 		[
 			(Items.ACACIA_STAIRS): Items.ACACIA_SLAB,
 			(Items.BIRCH_STAIRS): Items.BIRCH_SLAB,
@@ -85,6 +94,21 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		[
+			(Items.BAMBOO_STAIRS): Items.BAMBOO_SLAB,
+			(Items.BAMBOO_MOSAIC_STAIRS): Items.BAMBOO_MOSAIC_SLAB
+		].each { stairs, slab ->
+			offerIndustrialSawmillRecipe {
+				ingredients stairs
+				outputs slab, new ItemStack(TRContent.Dusts.SAW, 2)
+				power 30
+				time 100
+				fluidAmount 250 // in millibuckets
+				source "stairs"
+				criterion getCriterionName(stairs), getCriterionConditions(stairs)
+				feature FeatureFlags.UPDATE_1_20
+			}
+		}
+		[
 			(Items.ACACIA_SLAB): Items.ACACIA_PRESSURE_PLATE,
 			(Items.BIRCH_SLAB): Items.BIRCH_PRESSURE_PLATE,
 			(Items.DARK_OAK_SLAB): Items.DARK_OAK_PRESSURE_PLATE,
@@ -104,6 +128,21 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				fluidAmount 250 // in millibuckets
 				source "slab"
 				criterion getCriterionName(slab), getCriterionConditions(slab)
+			}
+		}
+		[
+			(Items.BAMBOO_SLAB): Items.BAMBOO_PRESSURE_PLATE,
+			(Items.BAMBOO_MOSAIC_SLAB): Items.BAMBOO_PRESSURE_PLATE
+		].each { slab, plate ->
+			offerIndustrialSawmillRecipe {
+				ingredients slab
+				outputs new ItemStack(plate, 2), new ItemStack(TRContent.Dusts.SAW, 2)
+				power 30
+				time 200
+				fluidAmount 250 // in millibuckets
+				source ((slab == Items.BAMBOO_MOSAIC_SLAB ? "mosaic_" : "") + "slab")
+				criterion getCriterionName(slab), getCriterionConditions(slab)
+				feature FeatureFlags.UPDATE_1_20
 			}
 		}
 		[
