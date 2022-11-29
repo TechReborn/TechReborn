@@ -26,6 +26,7 @@ package techreborn.datagen.recipes.machine
 
 import com.google.gson.JsonObject
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancement.Advancement.Builder
 import net.minecraft.advancement.criterion.CriterionConditions
@@ -36,6 +37,7 @@ import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.registry.tag.TagKey
+import net.minecraft.resource.featuretoggle.FeatureFlag
 import net.minecraft.util.Identifier
 import org.jetbrains.annotations.NotNull
 import reborncore.common.crafting.RebornRecipe
@@ -211,6 +213,10 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		def outputId = Registries.ITEM.getId(outputs[0].item)
 		return new Identifier("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
+	}
+
+	def feature(FeatureFlag flag) {
+		condition(DefaultResourceConditions.featuresEnabled(flag))
 	}
 
 	static class MachineRecipeJsonProvider<R extends RebornRecipe> implements RecipeJsonProvider {
