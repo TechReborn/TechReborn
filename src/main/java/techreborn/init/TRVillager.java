@@ -7,6 +7,8 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -112,5 +114,15 @@ public class TRVillager {
 		TradeOfferHelper.registerWanderingTraderOffers(2, allTradesList -> allTradesList.addAll(
 				extraRareTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
 		));
+	}
+
+	public static void addHouses(Registry<StructurePool> templatePoolRegistry) {
+		StructurePool pool;
+		final String[] types = new String[] {"desert", "plains", "savanna", "snowy", "taiga"};
+		for (String type : types) {
+			pool = templatePoolRegistry.get(new Identifier("minecraft", "village/"+type+"/houses"));
+			pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/"+type+"/houses/"+type+"_metallurgist").apply(StructurePool.Projection.RIGID));
+			pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/"+type+"/houses/"+type+"_electrician").apply(StructurePool.Projection.RIGID));
+		}
 	}
 }
