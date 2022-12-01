@@ -37,6 +37,10 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.industrial.NanosaberItem;
+import techreborn.utils.MaterialComparator;
+import techreborn.utils.MaterialTypeComparator;
+
+import java.util.*;
 
 public class TRItemGroup {
 	public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder(new Identifier("techreborn", "item_group"))
@@ -54,77 +58,105 @@ public class TRItemGroup {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(TRItemGroup::addCombat);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(TRItemGroup::addIngredients);
 	}
+	
+	private static final ItemConvertible[] rubberOrderSmall = new ItemConvertible[]{
+		TRContent.RUBBER_LOG,
+		TRContent.RUBBER_LOG_STRIPPED,
+		TRContent.RUBBER_WOOD,
+		TRContent.STRIPPED_RUBBER_WOOD,
+		TRContent.RUBBER_PLANKS,
+		TRContent.RUBBER_STAIR,
+		TRContent.RUBBER_SLAB,
+		TRContent.RUBBER_FENCE,
+		TRContent.RUBBER_FENCE_GATE,
+		TRContent.RUBBER_DOOR,
+		TRContent.RUBBER_TRAPDOOR,
+		TRContent.RUBBER_PRESSURE_PLATE,
+		TRContent.RUBBER_BUTTON
+	};
 
 	private static void entries(FabricItemGroupEntries entries) {
-		addContent(TRContent.Ores.values(), entries);
-		addContent(TRContent.StorageBlocks.values(), entries);
+		// rubber tree and related stuff
+		entries.add(TRContent.RUBBER_SAPLING);
+		entries.add(TRContent.RUBBER_LEAVES);
+		addContent(rubberOrderSmall, entries);
+		entries.add(TRContent.TREE_TAP);
+		addPoweredItem(TRContent.ELECTRIC_TREE_TAP, entries, null, true);
+		entries.add(TRContent.Machine.RESIN_BASIN);
+		entries.add(TRContent.Parts.SAP);
+		entries.add(TRContent.Parts.RUBBER);
 
+		// resources
+		List<Enum<? extends ItemConvertible>> stuff = new LinkedList<>();
+		stuff.addAll(Arrays.stream(TRContent.Ores.values()).filter(ore -> !ore.isDeepslate()).toList());
+		stuff.addAll(Arrays.stream(TRContent.Dusts.values()).toList());
+		stuff.addAll(Arrays.stream(TRContent.RawMetals.values()).toList());
+		stuff.addAll(Arrays.stream(TRContent.SmallDusts.values()).toList());
+		stuff.addAll(Arrays.stream(TRContent.Gems.values()).toList());
+		stuff.addAll(Arrays.stream(TRContent.Ingots.values()).toList());
+		stuff.addAll(Arrays.stream(TRContent.Nuggets.values()).toList());
+		stuff.addAll(Arrays.stream(TRContent.Plates.values()).toList());
+		stuff.addAll(Arrays.stream(TRContent.StorageBlocks.values()).filter(block -> !block.name().startsWith("RAW")).toList());
+		Collections.sort(stuff, new MaterialComparator().thenComparing(new MaterialTypeComparator()));
+		for (Object item : stuff) {
+			entries.add((ItemConvertible)item);
+		}
+		entries.addAfter(TRContent.Plates.COPPER, TRContent.COPPER_WALL);
+		entries.addAfter(TRContent.Plates.IRON, TRContent.REFINED_IRON_FENCE);
+		entries.addBefore(TRContent.Plates.CARBON,
+			TRContent.Parts.CARBON_FIBER,
+			TRContent.Parts.CARBON_MESH);
+		entries.addAfter(TRContent.RawMetals.TIN, TRContent.StorageBlocks.RAW_TIN);
+		entries.addAfter(TRContent.RawMetals.LEAD, TRContent.StorageBlocks.RAW_LEAD);
+		entries.addAfter(TRContent.RawMetals.SILVER, TRContent.StorageBlocks.RAW_SILVER);
+		entries.addAfter(TRContent.RawMetals.IRIDIUM, TRContent.StorageBlocks.RAW_IRIDIUM);
+		entries.addAfter(TRContent.RawMetals.TUNGSTEN, TRContent.StorageBlocks.RAW_TUNGSTEN);
+		for (TRContent.StorageBlocks block : TRContent.StorageBlocks.values()) {
+			entries.addAfter(block,
+				block.getStairsBlock(),
+				block.getSlabBlock(),
+				block.getWallBlock()
+				);
+		}
+		for (TRContent.Ores ore : TRContent.Ores.values()) {
+			if (!ore.isDeepslate()) {
+				continue;
+			}
+			entries.addAfter(ore, ore.getUnDeepslate());
+		}
+
+		// fluids
+		addContent(ModFluids.values(), entries);
+		addCells(entries);
+
+		// parts
+		addContent(TRContent.Parts.values(), entries);
+		entries.add(TRContent.FREQUENCY_TRANSMITTER);
+		entries.add(TRContent.REINFORCED_GLASS);
+		entries.addAfter(TRContent.Parts.SCRAP, TRContent.SCRAP_BOX);
+
+		// machines
+		entries.add(TRContent.WRENCH);
+		entries.add(TRContent.PAINTING_TOOL);
 		for (TRContent.MachineBlocks machineBlock : TRContent.MachineBlocks.values()) {
 			entries.add(machineBlock.frame);
 			entries.add(machineBlock.casing);
 		}
-
-		addContent(TRContent.SolarPanels.values(), entries);
-		addContent(TRContent.StorageUnit.values(), entries);
-		addContent(TRContent.TankUnit.values(), entries);
 		addContent(TRContent.Cables.values(), entries);
 		addContent(TRContent.Machine.values(), entries);
-
+		addContent(TRContent.SolarPanels.values(), entries);
 		entries.add(TRContent.COMPUTER_CUBE);
 		entries.add(TRContent.NUKE);
-		entries.add(TRContent.REFINED_IRON_FENCE);
-		entries.add(TRContent.REINFORCED_GLASS);
-		entries.add(TRContent.RUBBER_LEAVES);
-		entries.add(TRContent.RUBBER_LOG);
-		entries.add(TRContent.RUBBER_LOG_STRIPPED);
-		entries.add(TRContent.RUBBER_WOOD);
-		entries.add(TRContent.STRIPPED_RUBBER_WOOD);
-		entries.add(TRContent.RUBBER_PLANKS);
-		entries.add(TRContent.RUBBER_SAPLING);
-		entries.add(TRContent.RUBBER_SLAB);
-		entries.add(TRContent.RUBBER_FENCE);
-		entries.add(TRContent.RUBBER_FENCE_GATE);
-		entries.add(TRContent.RUBBER_STAIR);
-		entries.add(TRContent.RUBBER_TRAPDOOR);
-		entries.add(TRContent.RUBBER_BUTTON);
-		entries.add(TRContent.RUBBER_PRESSURE_PLATE);
-		entries.add(TRContent.RUBBER_DOOR);
-		entries.add(TRContent.COPPER_WALL);
-
-		addContent(TRContent.Dusts.values(), entries);
-		addContent(TRContent.RawMetals.values(), entries);
-		addContent(TRContent.SmallDusts.values(), entries);
-		addContent(TRContent.Gems.values(), entries);
-		addContent(TRContent.Ingots.values(), entries);
-		addContent(TRContent.Nuggets.values(), entries);
-		addContent(TRContent.Parts.values(), entries);
-		addContent(TRContent.Plates.values(), entries);
-
-		addContent(ModFluids.values(), entries);
-		addCells(entries);
-
-		entries.add(TRContent.FREQUENCY_TRANSMITTER);
-
-		addPoweredItem(TRContent.BASIC_CHAINSAW, entries, null, true);
-		addPoweredItem(TRContent.BASIC_JACKHAMMER, entries, null, true);
-		addPoweredItem(TRContent.BASIC_DRILL, entries, null, true);
-
-		addPoweredItem(TRContent.ADVANCED_CHAINSAW, entries, null, true);
-		addPoweredItem(TRContent.ADVANCED_JACKHAMMER, entries, null, true);
-		addPoweredItem(TRContent.ADVANCED_DRILL, entries, null, true);
-
-		addPoweredItem(TRContent.INDUSTRIAL_CHAINSAW, entries, null, true);
-		addPoweredItem(TRContent.INDUSTRIAL_JACKHAMMER, entries, null, true);
-		addPoweredItem(TRContent.INDUSTRIAL_DRILL, entries, null, true);
-
-		addRockCutter(entries, null, true);
-
+		addContent(TRContent.Upgrades.values(), entries);
+		addContent(TRContent.StorageUnit.values(), entries);
+		addContent(TRContent.TankUnit.values(), entries);
 		for (TRContent.StorageUnit storageUnit : TRContent.StorageUnit.values()) {
 			if (storageUnit.upgrader != null) {
 				entries.add(storageUnit.upgrader);
 			}
 		}
 		
+		// armor and traditional tools
 		entries.add(TRContent.BRONZE_HELMET);
 		entries.add(TRContent.BRONZE_CHESTPLATE);
 		entries.add(TRContent.BRONZE_LEGGINGS);
@@ -175,15 +207,28 @@ public class TRItemGroup {
 		entries.add(TRContent.STEEL_LEGGINGS);
 		entries.add(TRContent.STEEL_BOOTS);
 
+		// powered tools
+		addPoweredItem(TRContent.BASIC_CHAINSAW, entries, null, true);
+		addPoweredItem(TRContent.BASIC_JACKHAMMER, entries, null, true);
+		addPoweredItem(TRContent.BASIC_DRILL, entries, null, true);
+
+		addPoweredItem(TRContent.ADVANCED_CHAINSAW, entries, null, true);
+		addPoweredItem(TRContent.ADVANCED_JACKHAMMER, entries, null, true);
+		addPoweredItem(TRContent.ADVANCED_DRILL, entries, null, true);
+
+		addPoweredItem(TRContent.INDUSTRIAL_CHAINSAW, entries, null, true);
+		addPoweredItem(TRContent.INDUSTRIAL_JACKHAMMER, entries, null, true);
+		addPoweredItem(TRContent.INDUSTRIAL_DRILL, entries, null, true);
+
+		addRockCutter(entries, null, true);
+		addPoweredItem(TRContent.OMNI_TOOL, entries, null, true);
+
 		addPoweredItem(TRContent.QUANTUM_HELMET, entries, null, true);
 		addPoweredItem(TRContent.QUANTUM_CHESTPLATE, entries, null, true);
 		addPoweredItem(TRContent.QUANTUM_LEGGINGS, entries, null, true);
 		addPoweredItem(TRContent.QUANTUM_BOOTS, entries, null, true);
-
+		
 		addNanosaber(entries, null, false);
-
-		entries.add(TRContent.SCRAP_BOX);
-		addContent(TRContent.Upgrades.values(), entries);
 
 		addPoweredItem(TRContent.LITHIUM_ION_BATPACK, entries, null, true);
 		addPoweredItem(TRContent.LAPOTRONIC_ORBPACK, entries, null, true);
@@ -194,38 +239,20 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.ENERGY_CRYSTAL, entries, null, true);
 		addPoweredItem(TRContent.LAPOTRON_CRYSTAL, entries, null, true);
 		addPoweredItem(TRContent.LAPOTRONIC_ORB, entries, null, true);
-
-		entries.add(TRContent.WRENCH);
-		addPoweredItem(TRContent.OMNI_TOOL, entries, null, true);
-		entries.add(TRContent.PAINTING_TOOL);
-
+		
 		entries.add(TRContent.GPS);
-		entries.add(TRContent.TREE_TAP);
-		addPoweredItem(TRContent.ELECTRIC_TREE_TAP, entries, null, true);
-
+		
 		entries.add(TRContent.MANUAL);
 		entries.add(TRContent.DEBUG_TOOL);
 	}
 
 	private static void addBuildingBlocks(FabricItemGroupEntries entries) {
-		entries.addAfter(Items.MANGROVE_BUTTON,
-			TRContent.RUBBER_LOG,
-			TRContent.RUBBER_WOOD,
-			TRContent.RUBBER_LOG_STRIPPED,
-			TRContent.STRIPPED_RUBBER_WOOD,
-			TRContent.RUBBER_PLANKS,
-			TRContent.RUBBER_STAIR,
-			TRContent.RUBBER_SLAB,
-			TRContent.RUBBER_FENCE,
-			TRContent.RUBBER_FENCE_GATE,
-			TRContent.RUBBER_DOOR,
-			TRContent.RUBBER_TRAPDOOR,
-			TRContent.RUBBER_PRESSURE_PLATE,
-			TRContent.RUBBER_BUTTON);
+		entries.addAfter(Items.MANGROVE_BUTTON, rubberOrderSmall);
 		entries.addAfter(Items.AMETHYST_BLOCK,
 			TRContent.MachineBlocks.BASIC.getFrame(),
 			TRContent.MachineBlocks.ADVANCED.getFrame(),
 			TRContent.MachineBlocks.INDUSTRIAL.getFrame());
+		entries.addAfter(Items.CHAIN, TRContent.REFINED_IRON_FENCE);
 		entries.addBefore(Items.COPPER_BLOCK,
 			TRContent.StorageBlocks.RAW_TIN,
 			TRContent.StorageBlocks.RAW_TIN.getStairsBlock(),
@@ -243,7 +270,6 @@ public class TRItemGroup {
 			TRContent.StorageBlocks.REFINED_IRON.getStairsBlock(),
 			TRContent.StorageBlocks.REFINED_IRON.getSlabBlock(),
 			TRContent.StorageBlocks.REFINED_IRON.getWallBlock(),
-			TRContent.REFINED_IRON_FENCE,
 			TRContent.StorageBlocks.STEEL,
 			TRContent.StorageBlocks.STEEL.getStairsBlock(),
 			TRContent.StorageBlocks.STEEL.getSlabBlock(),
@@ -345,7 +371,15 @@ public class TRItemGroup {
 			TRContent.StorageBlocks.HOT_TUNGSTENSTEEL,
 			TRContent.StorageBlocks.HOT_TUNGSTENSTEEL.getStairsBlock(),
 			TRContent.StorageBlocks.HOT_TUNGSTENSTEEL.getSlabBlock(),
-			TRContent.StorageBlocks.HOT_TUNGSTENSTEEL.getWallBlock());
+			TRContent.StorageBlocks.HOT_TUNGSTENSTEEL.getWallBlock(),
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_STONE,
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_STONE.getStairsBlock(),
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_STONE.getSlabBlock(),
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_STONE.getWallBlock(),
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_TUNGSTENSTEEL,
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_TUNGSTENSTEEL.getStairsBlock(),
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_TUNGSTENSTEEL.getSlabBlock(),
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_TUNGSTENSTEEL.getWallBlock());
 	}
 
 	private static void addColoredBlocks(FabricItemGroupEntries entries) {
