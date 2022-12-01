@@ -122,7 +122,7 @@ public class TRItemGroup {
 			if (!ore.isDeepslate()) {
 				continue;
 			}
-			entries.addAfter(ore, ore.getUnDeepslate());
+			entries.addAfter(ore.getUnDeepslate(), ore);
 		}
 
 		// fluids
