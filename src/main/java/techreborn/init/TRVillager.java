@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
@@ -20,7 +21,6 @@ import techreborn.TechReborn;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TRVillager {
 
@@ -109,20 +109,24 @@ public class TRVillager {
 		extraCommonTrades.add(TradeUtils.createSell(TRContent.RUBBER_SAPLING, 5, 1, 8, 1));
 		// registration of the trades, no changes necessary for new trades
 		TradeOfferHelper.registerWanderingTraderOffers(1, allTradesList -> allTradesList.addAll(
-				extraCommonTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
+			extraCommonTrades.stream().map(TradeUtils::asFactory).toList()
 		));
 		TradeOfferHelper.registerWanderingTraderOffers(2, allTradesList -> allTradesList.addAll(
-				extraRareTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
+			extraRareTrades.stream().map(TradeUtils::asFactory).toList()
 		));
 	}
 
-	public static void addHouses(Registry<StructurePool> templatePoolRegistry) {
-		StructurePool pool;
+	public static void registerVillagerHouses() {
 		final String[] types = new String[] {"desert", "plains", "savanna", "snowy", "taiga"};
 		for (String type : types) {
-			pool = templatePoolRegistry.get(new Identifier("minecraft", "village/"+type+"/houses"));
-			pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/"+type+"/houses/"+type+"_metallurgist").apply(StructurePool.Projection.RIGID));
-			pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/"+type+"/houses/"+type+"_electrician").apply(StructurePool.Projection.RIGID));
+			DynamicRegistrySetupCallback.EVENT.register(registryManager ->
+				registryManager.registerEntryAdded(RegistryKeys.TEMPLATE_POOL, ((rawId, id, pool) -> {
+					if (id.equals(new Identifier("minecraft", "village/"+type+"/houses"))) {
+						pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/"+type+"/houses/"+type+"_metallurgist").apply(StructurePool.Projection.RIGID));
+						pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/"+type+"/houses/"+type+"_electrician").apply(StructurePool.Projection.RIGID));
+					}
+				}))
+			);
 		}
 	}
 }
