@@ -73,6 +73,7 @@ public class ModRegistry {
 		registerApis();
 		TRVillager.registerVillagerTrades();
 		TRVillager.registerWanderingTraderTrades();
+		TRVillager.registerVillagerHouses();
 	}
 
 	private static void registerBlocks() {
