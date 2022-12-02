@@ -18,6 +18,7 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import reborncore.common.util.TradeUtils;
 import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -122,8 +123,12 @@ public class TRVillager {
 			DynamicRegistrySetupCallback.EVENT.register(registryManager ->
 				registryManager.registerEntryAdded(RegistryKeys.TEMPLATE_POOL, ((rawId, id, pool) -> {
 					if (id.equals(new Identifier("minecraft", "village/"+type+"/houses"))) {
-						pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/"+type+"/houses/"+type+"_metallurgist").apply(StructurePool.Projection.RIGID));
-						pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/"+type+"/houses/"+type+"_electrician").apply(StructurePool.Projection.RIGID));
+						if (TechRebornConfig.enableMetallurgistGeneration) {
+							pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_metallurgist").apply(StructurePool.Projection.RIGID));
+						}
+						if (TechRebornConfig.enableElectricianGeneration) {
+							pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_electrician").apply(StructurePool.Projection.RIGID));
+						}
 					}
 				}))
 			);
