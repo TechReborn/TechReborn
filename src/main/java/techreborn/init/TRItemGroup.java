@@ -460,7 +460,8 @@ public class TRItemGroup {
 			TRContent.Machine.DISTILLATION_TOWER);
 		entries.addAfter(Items.CAULDRON,
 			TRContent.Machine.DRAIN,
-			TRContent.Machine.FLUID_REPLICATOR);
+			TRContent.Machine.FLUID_REPLICATOR,
+			TRContent.Machine.FISHING_STATION);
 		entries.addAfter(Items.LODESTONE, TRContent.Machine.CHUNK_LOADER);
 		entries.addAfter(Items.BEEHIVE, TRContent.Machine.GREENHOUSE_CONTROLLER);
 		entries.addAfter(Items.LIGHTNING_ROD, TRContent.Machine.LIGHTNING_ROD);
