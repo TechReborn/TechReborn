@@ -40,9 +40,9 @@ public class GuiFishingStation extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
-		final Layer layer = Layer.FOREGROUND;
+	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(matrixStack, f, mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		drawSlot(matrixStack, 8, 72, layer);
 
@@ -53,6 +53,13 @@ public class GuiFishingStation extends GuiBase<BuiltScreenHandler> {
 		drawSlot(matrixStack, 48, gridYPos + 18, layer);
 		drawSlot(matrixStack, 30, gridYPos + 36, layer);
 		drawSlot(matrixStack, 48, gridYPos + 36, layer);
+
+	}
+
+	@Override
+	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
+		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
