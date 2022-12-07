@@ -33,6 +33,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -41,16 +43,16 @@ import java.util.function.Consumer;
 
 public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 
-	public PaddedShapedRecipeJsonBuilder(ItemConvertible output, int outputCount) {
-		super(output, outputCount);
+	public PaddedShapedRecipeJsonBuilder(RecipeCategory category, ItemConvertible output, int outputCount) {
+		super(category, output, outputCount);
 	}
 
-	public static PaddedShapedRecipeJsonBuilder create(ItemConvertible output) {
-		return create(output, 1);
+	public static PaddedShapedRecipeJsonBuilder create(RecipeCategory category, ItemConvertible output) {
+		return create(category, output, 1);
 	}
 
-	public static PaddedShapedRecipeJsonBuilder create(ItemConvertible output, int outputCount) {
-		return new PaddedShapedRecipeJsonBuilder(output, outputCount);
+	public static PaddedShapedRecipeJsonBuilder create(RecipeCategory category, ItemConvertible output, int outputCount) {
+		return new PaddedShapedRecipeJsonBuilder(category, output, outputCount);
 	}
 
 	@Override
@@ -58,14 +60,14 @@ public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 		validate(recipeId);
 		advancementBuilder.parent(ROOT).criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(net.minecraft.advancement.AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(CriterionMerger.OR);
 		String group = this.group == null ? "" : this.group;
-		exporter.accept(new PaddedShapedRecipeJsonProvider(recipeId, output, outputCount, group, pattern, inputs, advancementBuilder,
-			new Identifier(recipeId.getNamespace(), "recipes/" + output.getGroup().getName() + "/" + recipeId.getPath())));
+		exporter.accept(new PaddedShapedRecipeJsonProvider(recipeId, output, count, group, getCraftingCategory(category), pattern, inputs, advancementBuilder,
+			new Identifier(recipeId.getNamespace(), "recipes/" + category.getName() + "/" + recipeId.getPath())));
 	}
 
 	static class PaddedShapedRecipeJsonProvider extends PaddedShapedRecipeJsonBuilder.ShapedRecipeJsonProvider {
 
-		public PaddedShapedRecipeJsonProvider(Identifier recipeId, Item output, int resultCount, String group, List<String> pattern, Map<Character, Ingredient> inputs, Advancement.Builder advancementBuilder, Identifier advancementId) {
-			super(recipeId, output, resultCount, group, pattern, inputs, advancementBuilder, advancementId);
+		public PaddedShapedRecipeJsonProvider(Identifier recipeId, Item output, int resultCount, String group, CraftingRecipeCategory category, List<String> pattern, Map<Character, Ingredient> inputs, Advancement.Builder advancementBuilder, Identifier advancementId) {
+			super(recipeId, output, resultCount, group, category, pattern, inputs, advancementBuilder, advancementId);
 		}
 
 		@Override
