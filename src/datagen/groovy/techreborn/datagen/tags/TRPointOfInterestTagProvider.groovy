@@ -24,20 +24,23 @@
 
 package techreborn.datagen.tags
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
-import net.minecraft.tag.PointOfInterestTypeTags
-import net.minecraft.util.registry.Registry
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.tag.PointOfInterestTypeTags
 import net.minecraft.world.poi.PointOfInterestType
 import techreborn.init.TRVillager
 
+import java.util.concurrent.CompletableFuture
+
 class TRPointOfInterestTagProvider extends FabricTagProvider<PointOfInterestType> {
-	TRPointOfInterestTagProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator, Registry.POINT_OF_INTEREST_TYPE)
+	TRPointOfInterestTagProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(dataOutput, RegistryKeys.POINT_OF_INTEREST_TYPE, registriesFuture)
 	}
 
 	@Override
-	protected void generateTags() {
+	protected void configure(RegistryWrapper.WrapperLookup arg) {
 		getOrCreateTagBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE)
 			.add(TRVillager.METALLURGIST_POI)
 			.add(TRVillager.ELECTRICIAN_POI)

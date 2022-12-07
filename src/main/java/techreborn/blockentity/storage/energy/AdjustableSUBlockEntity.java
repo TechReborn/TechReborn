@@ -155,7 +155,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	// MachineBaseBlockEntity
 	@Override
 	public boolean isUpgradeValid(IUpgrade upgrade, ItemStack stack) {
-		return stack.isItemEqual(new ItemStack(TRContent.Upgrades.SUPERCONDUCTOR.item));
+		return stack.isOf(TRContent.Upgrades.SUPERCONDUCTOR.item);
 	}
 
 	// IContainerProvider

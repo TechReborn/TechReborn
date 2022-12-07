@@ -1,22 +1,27 @@
 package techreborn.init;
 
+import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import reborncore.common.util.TradeUtils;
 import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TRVillager {
 
@@ -30,18 +35,18 @@ public class TRVillager {
 		ELECTRICIAN_ID, 1, 1, TRContent.Machine.SOLID_FUEL_GENERATOR.block
 	);
 
-	public static final VillagerProfession METALLURGIST_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION, METALLURGIST_ID,
+	public static final VillagerProfession METALLURGIST_PROFESSION = Registry.register(Registries.VILLAGER_PROFESSION, METALLURGIST_ID,
 		VillagerProfessionBuilder.create()
 			.id(METALLURGIST_ID)
-			.workstation(RegistryKey.of(Registry.POINT_OF_INTEREST_TYPE_KEY, METALLURGIST_ID))
+			.workstation(RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, METALLURGIST_ID))
 			.workSound(SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH)
 			.build()
 	);
 
-	public static final VillagerProfession ELECTRICIAN_PROFESSION = Registry.register(Registry.VILLAGER_PROFESSION, ELECTRICIAN_ID,
+	public static final VillagerProfession ELECTRICIAN_PROFESSION = Registry.register(Registries.VILLAGER_PROFESSION, ELECTRICIAN_ID,
 		VillagerProfessionBuilder.create()
 			.id(ELECTRICIAN_ID)
-			.workstation(RegistryKey.of(Registry.POINT_OF_INTEREST_TYPE_KEY, ELECTRICIAN_ID))
+			.workstation(RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, ELECTRICIAN_ID))
 			.workSound(ModSounds.CABLE_SHOCK)
 			.build()
 	);
@@ -105,10 +110,28 @@ public class TRVillager {
 		extraCommonTrades.add(TradeUtils.createSell(TRContent.RUBBER_SAPLING, 5, 1, 8, 1));
 		// registration of the trades, no changes necessary for new trades
 		TradeOfferHelper.registerWanderingTraderOffers(1, allTradesList -> allTradesList.addAll(
-				extraCommonTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
+			extraCommonTrades.stream().map(TradeUtils::asFactory).toList()
 		));
 		TradeOfferHelper.registerWanderingTraderOffers(2, allTradesList -> allTradesList.addAll(
-				extraRareTrades.stream().map(TradeUtils::asFactory).collect(Collectors.toList())
+			extraRareTrades.stream().map(TradeUtils::asFactory).toList()
 		));
+	}
+
+	public static void registerVillagerHouses() {
+		final String[] types = new String[] {"desert", "plains", "savanna", "snowy", "taiga"};
+		for (String type : types) {
+			DynamicRegistrySetupCallback.EVENT.register(registryManager ->
+				registryManager.registerEntryAdded(RegistryKeys.TEMPLATE_POOL, ((rawId, id, pool) -> {
+					if (id.equals(new Identifier("minecraft", "village/"+type+"/houses"))) {
+						if (TechRebornConfig.enableMetallurgistGeneration) {
+							pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_metallurgist").apply(StructurePool.Projection.RIGID));
+						}
+						if (TechRebornConfig.enableElectricianGeneration) {
+							pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_electrician").apply(StructurePool.Projection.RIGID));
+						}
+					}
+				}))
+			);
+		}
 	}
 }

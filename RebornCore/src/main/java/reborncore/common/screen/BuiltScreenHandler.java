@@ -165,7 +165,7 @@ public class BuiltScreenHandler extends ScreenHandler {
 	}
 
 	@Override
-	public ItemStack transferSlot(final PlayerEntity player, final int index) {
+	public ItemStack quickMove(final PlayerEntity player, final int index) {
 
 		ItemStack originalStack = ItemStack.EMPTY;
 

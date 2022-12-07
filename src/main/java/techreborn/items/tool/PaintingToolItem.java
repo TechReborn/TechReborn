@@ -39,6 +39,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
@@ -49,7 +50,7 @@ import java.util.List;
 public class PaintingToolItem extends Item {
 
 	public PaintingToolItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(64));
+		super(new Item.Settings().maxCount(1).maxDamageIfAbsent(64));
 	}
 
 	public ActionResult useOnBlock(ItemUsageContext context) {
@@ -69,7 +70,7 @@ public class PaintingToolItem extends Item {
 			}
 			return ActionResult.FAIL;
 		} else {
-			BlockState cover = getCover(context.getStack());
+			BlockState cover = getCover(context.getWorld(), context.getStack());
 			if (cover != null && blockState.getBlock() instanceof CableBlock && blockState.get(CableBlock.COVERED)) {
 				BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
 				if (blockEntity == null) {
@@ -89,15 +90,15 @@ public class PaintingToolItem extends Item {
 		return ActionResult.FAIL;
 	}
 
-	public static BlockState getCover(ItemStack stack) {
+	public static BlockState getCover(World world, ItemStack stack) {
 		if (stack.hasNbt() && stack.getOrCreateNbt().contains("cover")) {
-			return NbtHelper.toBlockState(stack.getOrCreateNbt().getCompound("cover"));
+			return NbtHelper.toBlockState(WorldUtils.getBlockRegistryWrapper(world), stack.getOrCreateNbt().getCompound("cover"));
 		}
 		return null;
 	}
 
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		BlockState blockState = getCover(stack);
+		BlockState blockState = getCover(world, stack);
 		if (blockState != null) {
 			tooltip.add((Text.translatable(blockState.getBlock().getTranslationKey())).formatted(Formatting.GRAY));
 			tooltip.add((Text.translatable("techreborn.tooltip.painting_tool.apply")).formatted(Formatting.GOLD));

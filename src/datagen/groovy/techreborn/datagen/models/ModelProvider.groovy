@@ -24,19 +24,20 @@
 
 package techreborn.datagen.models
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider
-import net.minecraft.block.Blocks
 import net.minecraft.data.client.BlockStateModelGenerator
 import net.minecraft.data.client.ItemModelGenerator
 import net.minecraft.data.client.Models
 import net.minecraft.data.family.BlockFamilies
-import net.minecraft.data.family.BlockFamily
+import net.minecraft.registry.RegistryWrapper
 import techreborn.init.TRContent
 
+import java.util.concurrent.CompletableFuture
+
 class ModelProvider extends FabricModelProvider {
-	ModelProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	ModelProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output)
 	}
 
 	@Override

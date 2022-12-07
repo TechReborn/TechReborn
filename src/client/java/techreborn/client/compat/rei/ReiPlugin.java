@@ -373,7 +373,7 @@ public class ReiPlugin implements REIClientPlugin {
 			final Sprite sprite = handler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
 			int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
 
-			final int iconHeight = sprite.getHeight();
+			final int iconHeight = sprite.getContents().getHeight();
 			int offsetHeight = drawHeight;
 
 			RenderSystem.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);

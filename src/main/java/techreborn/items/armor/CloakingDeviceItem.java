@@ -48,7 +48,7 @@ public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, Ar
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public CloakingDeviceItem() {
-		super(TRArmorMaterials.CLOAKING_DEVICE, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxDamage(-1).maxCount(1));
+		super(TRArmorMaterials.CLOAKING_DEVICE, EquipmentSlot.CHEST, new Item.Settings().maxDamage(-1).maxCount(1));
 	}
 
 	@Override
@@ -75,15 +75,6 @@ public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, Ar
 	@Override
 	public int getItemBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
-	}
-
-	// Item
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(this, itemList);
 	}
 
 	// EnergyHolder

@@ -278,7 +278,8 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		for (Selectable selectable : selectables) {
 			if (selectable instanceof ClickableWidget clickable) {
 				if (clickable.isHovered()) {
-					clickable.renderTooltip(matrixStack, mouseX, mouseY);
+					// TODO 1.19.3
+					// clickable.renderTooltip(matrixStack, mouseX, mouseY);
 					break;
 				}
 			}

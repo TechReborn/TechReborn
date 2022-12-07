@@ -26,6 +26,7 @@ package techreborn.datagen.recipes.machine
 
 import com.google.gson.JsonObject
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancement.Advancement.Builder
 import net.minecraft.advancement.criterion.CriterionConditions
@@ -33,15 +34,16 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RecipeSerializer
-import net.minecraft.tag.TagKey
+import net.minecraft.registry.Registries
+import net.minecraft.registry.Registry
+import net.minecraft.registry.tag.TagKey
+import net.minecraft.resource.featuretoggle.FeatureFlag
 import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
 import org.jetbrains.annotations.NotNull
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
-import techreborn.datagen.recipes.TechRebornRecipesProvider
 
 import java.util.function.Consumer
 
@@ -209,8 +211,12 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			throw new IllegalStateException("Recipe has no outputs")
 		}
 
-		def outputId = Registry.ITEM.getId(outputs[0].item)
+		def outputId = Registries.ITEM.getId(outputs[0].item)
 		return new Identifier("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
+	}
+
+	def feature(FeatureFlag flag) {
+		condition(DefaultResourceConditions.featuresEnabled(flag))
 	}
 
 	static class MachineRecipeJsonProvider<R extends RebornRecipe> implements RecipeJsonProvider {

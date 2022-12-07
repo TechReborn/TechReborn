@@ -25,6 +25,7 @@
 package techreborn.blocks.misc;
 
 import net.minecraft.block.DoorBlock;
+import net.minecraft.sound.SoundEvents;
 import techreborn.utils.InitUtils;
 
 /**
@@ -33,6 +34,6 @@ import techreborn.utils.InitUtils;
 public class RubberDoorBlock extends DoorBlock {
 
 	public RubberDoorBlock() {
-		super(InitUtils.setupRubberBlockSettings(3.0F, 3.0F));
+		super(InitUtils.setupRubberBlockSettings(3.0F, 3.0F), SoundEvents.BLOCK_NETHER_WOOD_TRAPDOOR_CLOSE, SoundEvents.BLOCK_NETHER_WOOD_TRAPDOOR_OPEN);
 	}
 }

@@ -34,9 +34,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import org.apache.commons.lang3.Validate;
 
 import java.util.Collections;
@@ -62,7 +63,7 @@ public class StackIngredient extends RebornIngredient {
 
 	public static RebornIngredient deserialize(JsonObject json) {
 		Identifier identifier = new Identifier(JsonHelper.getString(json, "item"));
-		Item item = Registry.ITEM.getOrEmpty(identifier).orElseThrow(() -> new JsonSyntaxException("Unknown item '" + identifier + "'"));
+		Item item = Registries.ITEM.getOrEmpty(identifier).orElseThrow(() -> new JsonSyntaxException("Unknown item '" + identifier + "'"));
 
 		Optional<Integer> stackSize = Optional.empty();
 		if (json.has("count")) {
@@ -137,7 +138,7 @@ public class StackIngredient extends RebornIngredient {
 	public JsonObject toJson(boolean networkSync) {
 		JsonObject jsonObject = new JsonObject();
 
-		jsonObject.addProperty("item", Registry.ITEM.getId(stack.getItem()).toString());
+		jsonObject.addProperty("item", Registries.ITEM.getId(stack.getItem()).toString());
 		count.ifPresent(integer -> jsonObject.addProperty("count", integer));
 
 		if (requireEmptyNbt) {

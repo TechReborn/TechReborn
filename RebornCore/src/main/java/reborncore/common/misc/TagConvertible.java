@@ -26,7 +26,7 @@ package reborncore.common.misc;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.tag.TagKey;
 import org.jetbrains.annotations.Contract;
 
 /**

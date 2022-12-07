@@ -8,7 +8,7 @@ accessible    class    net/minecraft/recipe/Ingredient$Entry
 accessible    class    net/minecraft/recipe/Ingredient$TagEntry
 accessible    class    net/minecraft/recipe/Ingredient$StackEntry
 accessible    field    net/minecraft/recipe/Ingredient    entries    [Lnet/minecraft/recipe/Ingredient$Entry;
-accessible    field    net/minecraft/recipe/Ingredient$TagEntry    tag    Lnet/minecraft/tag/TagKey;
+accessible    field    net/minecraft/recipe/Ingredient$TagEntry    tag    Lnet/minecraft/registry/tag/TagKey;
 
 accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen    getSlotAt     (DD)Lnet/minecraft/screen/slot/Slot;
 
@@ -16,10 +16,13 @@ accessible    method    net/minecraft/client/render/WorldRenderer    drawShapeOu
 
 accessible method net/minecraft/world/gen/treedecorator/TreeDecoratorType <init> (Lcom/mojang/serialization/Codec;)V
 
-accessible    method    net/minecraft/client/item/ModelPredicateProviderRegistry    register    (Lnet/minecraft/item/Item;Lnet/minecraft/util/Identifier;Lnet/minecraft/client/item/UnclampedModelPredicateProvider;)V
 accessible    field    net/minecraft/client/gui/screen/Screen    selectables    Ljava/util/List;
 accessible    field    net/minecraft/block/FluidBlock    fluid    Lnet/minecraft/fluid/FlowableFluid;
 accessible    method    net/minecraft/world/gen/foliage/FoliagePlacerType    register    (Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lnet/minecraft/world/gen/foliage/FoliagePlacerType;
 accessible    method    net/minecraft/recipe/RecipeManager    getAllOfType    (Lnet/minecraft/recipe/RecipeType;)Ljava/util/Map;
 accessible    field    net/minecraft/screen/ScreenHandler    listeners    Ljava/util/List;
 accessible    method    net/minecraft/recipe/ShapedRecipe    matchesPattern    (Lnet/minecraft/inventory/CraftingInventory;IIZ)Z
+
+accessible    field    net/minecraft/structure/pool/StructurePool    elements    Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
+
+extendable method net/minecraft/data/server/recipe/RecipeProvider getName ()Ljava/lang/String;

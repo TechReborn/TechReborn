@@ -24,14 +24,21 @@
 
 package techreborn.init;
 
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.crafting.serde.RebornFluidRecipeSerde;
 import reborncore.common.crafting.serde.RebornRecipeSerde;
-import techreborn.api.recipe.recipes.*;
+import techreborn.api.recipe.recipes.AssemblingMachineRecipe;
+import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
+import techreborn.api.recipe.recipes.CentrifugeRecipe;
+import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
+import techreborn.api.recipe.recipes.FusionReactorRecipe;
+import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
+import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
+import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.api.recipe.recipes.serde.BlastFurnaceRecipeSerde;
 import techreborn.api.recipe.recipes.serde.FusionReactorRecipeSerde;
 import techreborn.api.recipe.recipes.serde.RollingMachineRecipeSerde;
@@ -69,6 +76,6 @@ public class ModRecipes {
 	public static final RebornRecipeType<RebornRecipe> WIRE_MILL = RecipeManager.newRecipeType(new Identifier("techreborn:wire_mill"));
 
 	public static RebornRecipeType<?> byName(Identifier identifier) {
-		return (RebornRecipeType<?>) Registry.RECIPE_SERIALIZER.get(identifier);
+		return (RebornRecipeType<?>) Registries.RECIPE_SERIALIZER.get(identifier);
 	}
 }

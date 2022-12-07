@@ -26,7 +26,7 @@ package techreborn
 
 import net.minecraft.Bootstrap
 import net.minecraft.SharedConstants
-import net.minecraft.util.registry.BuiltinRegistries
+import net.minecraft.registry.BuiltinRegistries
 import net.minecraft.world.EmptyBlockView
 import net.minecraft.world.gen.HeightContext
 import net.minecraft.world.gen.chunk.DebugChunkGenerator

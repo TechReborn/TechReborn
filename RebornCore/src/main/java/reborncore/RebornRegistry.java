@@ -27,8 +27,9 @@ package reborncore;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import org.apache.commons.lang3.Validate;
 
 import java.util.HashMap;
@@ -49,15 +50,15 @@ public class RebornRegistry {
 	 * @param name    {@link Identifier} Registry name for block and item
 	 */
 	public static void registerBlock(Block block, Item.Settings builder, Identifier name) {
-		Registry.register(Registry.BLOCK, name, block);
+		Registry.register(Registries.BLOCK, name, block);
 		BlockItem itemBlock = new BlockItem(block, builder);
-		Registry.register(Registry.ITEM, name, itemBlock);
+		Registry.register(Registries.ITEM, name, itemBlock);
 	}
 
 	public static void registerBlock(Block block, Function<Block, BlockItem> blockItemFunction, Identifier name) {
-		Registry.register(Registry.BLOCK, name, block);
+		Registry.register(Registries.BLOCK, name, block);
 		BlockItem itemBlock = blockItemFunction.apply(block);
-		Registry.register(Registry.ITEM, name, itemBlock);
+		Registry.register(Registries.ITEM, name, itemBlock);
 	}
 
 	/**
@@ -86,7 +87,7 @@ public class RebornRegistry {
 	 */
 	public static void registerBlockNoItem(Block block) {
 		Validate.isTrue(objIdentMap.containsKey(block));
-		Registry.register(Registry.BLOCK, objIdentMap.get(block), block);
+		Registry.register(Registries.BLOCK, objIdentMap.get(block), block);
 	}
 
 
@@ -97,7 +98,7 @@ public class RebornRegistry {
 	 * @param name {@link Identifier} Registry name for item
 	 */
 	public static void registerItem(Item item, Identifier name) {
-		Registry.register(Registry.ITEM, name, item);
+		Registry.register(Registries.ITEM, name, item);
 	}
 
 	/**

@@ -25,12 +25,14 @@
 package techreborn.utils;
 
 import com.google.common.collect.ImmutableSet;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -177,7 +179,7 @@ public class ToolsUtil {
 		if (blockState.getMaterial().isLiquid()) {
 			return true;
 		}
-		if (blockState.getBlock() instanceof OreBlock) {
+		if (blockState.isIn(ConventionalBlockTags.ORES)) {
 			return true;
 		}
 		if (blockState.isOf(Blocks.OBSIDIAN) || blockState.isOf(Blocks.CRYING_OBSIDIAN)){

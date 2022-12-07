@@ -24,13 +24,14 @@
 
 package techreborn.datagen.recipes
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.recipe.Ingredient
-import net.minecraft.tag.TagKey
+import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
@@ -38,23 +39,24 @@ import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRe
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
 import techreborn.init.ModRecipes
 
+import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
 abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
     protected Consumer<RecipeJsonProvider> exporter
-    TechRebornRecipesProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator)
+    TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output)
     }
 
     @Override
-    protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
+    final void generate(Consumer<RecipeJsonProvider> exporter) {
         this.exporter = exporter
         generateRecipes()
     }
 
     abstract void generateRecipes()
 
-    static Ingredient createIngredient(def input) {
+	static Ingredient createIngredient(def input) {
         if (input instanceof Ingredient) {
 			return input
 		}
@@ -161,4 +163,9 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
     protected Identifier getRecipeIdentifier(Identifier identifier) {
         return new Identifier("techreborn", super.getRecipeIdentifier(identifier).path)
     }
+
+	@Override
+	public String getName() {
+		return "Recipes / " + getClass().name
+	}
 }

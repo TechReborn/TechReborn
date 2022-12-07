@@ -30,16 +30,15 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.command.BlockDataObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
-import net.minecraft.util.registry.Registry;
 import reborncore.common.powerSystem.PowerSystem;
 import team.reborn.energy.api.EnergyStorage;
-import techreborn.TechReborn;
 
 import java.util.Map.Entry;
 
@@ -49,7 +48,7 @@ import java.util.Map.Entry;
 public class DebugToolItem extends Item {
 
 	public DebugToolItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP));
+		super(new Item.Settings());
 	}
 
 	@Override
@@ -109,7 +108,7 @@ public class DebugToolItem extends Item {
 		String s = "" + Formatting.GREEN;
 		s += "Block Registry Name: ";
 		s += Formatting.BLUE;
-		s += Registry.BLOCK.getId(block);
+		s += Registries.BLOCK.getId(block);
 
 		return s;
 	}

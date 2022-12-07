@@ -22,21 +22,30 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.tags
+package techreborn.world;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
-import reborncore.common.misc.RebornCoreTags
-import techreborn.init.ModFluids
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.PlacedFeature;
+import techreborn.init.TRContent;
 
-class WaterExplosionTagProvider extends FabricTagProvider.ItemTagProvider {
-    WaterExplosionTagProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator)
-    }
+import java.util.function.Predicate;
 
-    @Override
-    protected void generateTags() {
-        getOrCreateTagBuilder(RebornCoreTags.WATER_EXPLOSION_ITEM)
-            .add(ModFluids.SODIUM.getBucket())
-    }
+public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, RegistryKey<ConfiguredFeature<?, ?>> configuredFeature, RegistryKey<PlacedFeature> placedFeature) {
+	public static TROreFeatureConfig of(TRContent.Ores ore) {
+		Identifier id = new Identifier("techreborn", ore.name + "_ore");
+		return new TROreFeatureConfig(
+			id,
+			ore,
+			RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, id),
+			RegistryKey.of(RegistryKeys.PLACED_FEATURE, id)
+		);
+	}
+
+	public Predicate<BiomeSelectionContext> biomeSelector() {
+		return ore.distribution.dimension.biomeSelector;
+	}
 }

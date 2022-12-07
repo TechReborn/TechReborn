@@ -17,7 +17,7 @@ curseforge {
         id = "237903"
         changelog = ENV.CHANGELOG ?: "No changelog provided"
         releaseType = ENV.RELEASE_CHANNEL ?: "release"
-        addGameVersion "1.19.2"
+        addGameVersion "1.19.3"
         addGameVersion "Fabric"
 
         mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))

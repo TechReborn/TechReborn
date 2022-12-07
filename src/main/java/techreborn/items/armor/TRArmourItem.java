@@ -28,7 +28,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
-import techreborn.TechReborn;
 
 import java.util.UUID;
 
@@ -46,7 +45,7 @@ public class TRArmourItem extends ArmorItem {
 	};
 
 	public TRArmourItem(ArmorMaterial material, EquipmentSlot slot) {
-		this(material, slot, new Item.Settings().group(TechReborn.ITEMGROUP));
+		this(material, slot, new Item.Settings());
 	}
 
 	public TRArmourItem(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings) {

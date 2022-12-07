@@ -32,7 +32,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.IToolHandler;
-import techreborn.TechReborn;
 
 /**
  * Created by modmuss50 on 26/02/2016.
@@ -40,7 +39,7 @@ import techreborn.TechReborn;
 public class WrenchItem extends Item implements IToolHandler {
 
 	public WrenchItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(new Item.Settings().maxCount(1));
 	}
 
 	@Override

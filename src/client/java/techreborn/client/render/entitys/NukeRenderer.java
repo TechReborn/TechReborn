@@ -33,7 +33,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import org.jetbrains.annotations.Nullable;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
@@ -69,7 +69,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 			matrixStack.scale(j, j, j);
 		}
 
-		matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
+		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
 		TntMinecartEntityRenderer.renderFlashingBlock(blockRenderManager, TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuse() / 5 % 2 == 0);
 		matrixStack.pop();

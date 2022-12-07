@@ -1,26 +1,20 @@
 package techreborn.datagen.models
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
-import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider
-import net.minecraft.data.DataWriter
-import net.minecraft.data.server.BlockLootTableGenerator
-import net.minecraft.loot.LootTable
-import net.minecraft.util.Identifier
-import org.jetbrains.annotations.NotNull
+import net.minecraft.registry.RegistryWrapper
 import techreborn.init.TRContent
 
-import java.util.function.BiConsumer
-import java.util.function.Consumer
+import java.util.concurrent.CompletableFuture
 
 class BlockLootTableProvider extends FabricBlockLootTableProvider{
 
-	BlockLootTableProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	BlockLootTableProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output)
 	}
 
 	@Override
-	protected void generateBlockLootTables() {
+	public void generate() {
 		TRContent.StorageBlocks.values().each {
 			addDrop(it.getBlock())
 			addDrop(it.getSlabBlock())

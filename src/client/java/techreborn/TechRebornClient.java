@@ -30,10 +30,11 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.minecraft.client.item.ClampedModelPredicateProvider;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.item.UnclampedModelPredicateProvider;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.Baker;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
@@ -47,8 +48,9 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.builder.GuiBase;
@@ -60,6 +62,7 @@ import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
 import techreborn.client.events.StackToolTipHandler;
+import techreborn.client.render.BaseDynamicFluidBakedModel;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
@@ -80,6 +83,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class TechRebornClient implements ClientModInitializer {
 
@@ -103,47 +107,15 @@ public class TechRebornClient implements ClientModInitializer {
 						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"techreborn:item/cell_background\"}}");
 					}
 
-					return new UnbakedModel() {
-						@Override
-						public Collection<Identifier> getModelDependencies() {
-							return Collections.emptyList();
-						}
-
-						@Override
-						public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
-							return Collections.emptyList();
-						}
-
-						@Override
-						public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
-							return new DynamicCellBakedModel();
-						}
-
-					};
+					return new UnbakedDynamicModel(DynamicCellBakedModel::new);
 				}
-				Fluid fluid = Registry.FLUID.get(new Identifier(TechReborn.MOD_ID, modelIdentifier.getPath().split("_bucket")[0]));
+				Fluid fluid = Registries.FLUID.get(new Identifier(TechReborn.MOD_ID, modelIdentifier.getPath().split("_bucket")[0]));
 				if (modelIdentifier.getPath().endsWith("_bucket") && fluid != Fluids.EMPTY) {
 					if (!RendererAccess.INSTANCE.hasRenderer()) {
 						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"minecraft:item/bucket\"}}");
 					}
 
-					return new UnbakedModel() {
-						@Override
-						public Collection<Identifier> getModelDependencies() {
-							return Collections.emptyList();
-						}
-
-						@Override
-						public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
-							return Collections.emptyList();
-						}
-
-						@Override
-						public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
-							return new DynamicBucketBakedModel();
-						}
-
-					};
+					return new UnbakedDynamicModel(DynamicBucketBakedModel::new);
 				}
 			}
 			return null;
@@ -252,13 +224,13 @@ public class TechRebornClient implements ClientModInitializer {
 	}
 
 	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {
-		Registry.ITEM.stream()
+		Registries.ITEM.stream()
 				.filter(item -> item.getClass().isAssignableFrom(itemClass))
 				.forEach(item -> ModelPredicateProviderRegistry.register(item, identifier, modelPredicateProvider));
 	}
 
 	//Need the item instance in a few places, this makes it easier
-	private interface ItemModelPredicateProvider<T extends Item> extends UnclampedModelPredicateProvider {
+	private interface ItemModelPredicateProvider<T extends Item> extends ClampedModelPredicateProvider {
 
 		float call(T item, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed);
 
@@ -267,5 +239,29 @@ public class TechRebornClient implements ClientModInitializer {
 			return call((T) stack.getItem(), stack, world, entity, seed);
 		}
 
+	}
+
+	private static class UnbakedDynamicModel implements UnbakedModel {
+		private final Supplier<BaseDynamicFluidBakedModel> supplier;
+
+		public UnbakedDynamicModel(Supplier<BaseDynamicFluidBakedModel> supplier) {
+			this.supplier = supplier;
+		}
+
+		@Override
+		public Collection<Identifier> getModelDependencies() {
+			return Collections.emptyList();
+		}
+
+		@Override
+		public void setParents(Function<Identifier, UnbakedModel> modelLoader) {
+
+		}
+
+		@Nullable
+		@Override
+		public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+			return supplier.get();
+		}
 	}
 }

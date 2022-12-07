@@ -25,6 +25,7 @@
 package techreborn.blocks.misc;
 
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.sound.SoundEvents;
 import techreborn.utils.InitUtils;
 
 /**
@@ -33,6 +34,6 @@ import techreborn.utils.InitUtils;
 public class RubberTrapdoorBlock extends TrapdoorBlock {
 
 	public RubberTrapdoorBlock() {
-		super(InitUtils.setupRubberBlockSettings(3.0F, 3.0F));
+		super(InitUtils.setupRubberBlockSettings(3.0F, 3.0F), SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN);
 	}
 }

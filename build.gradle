@@ -27,6 +27,7 @@ repositories {
             includeGroup "dev.architectury"
         }
 	}
+	mavenCentral()
 }
 
 def ENV = System.getenv()
@@ -180,12 +181,12 @@ dependencies {
 
     include project(":RebornCore")
 
-	optionalClientDependency("dev.architectury:architectury-fabric:${project.arch_version}")
-	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}")
+	optionalClientDependency("dev.architectury:architectury-fabric:${project.arch_version}", false)
+	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", false)
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
-    gametestImplementation 'org.apache.groovy:groovy:4.0.4'
-    datagenImplementation 'org.apache.groovy:groovy:4.0.4'
+    gametestImplementation 'org.apache.groovy:groovy:4.0.6'
+    datagenImplementation 'org.apache.groovy:groovy:4.0.6'
 
     gametestImplementation ("com.google.truth:truth:1.1.3") {
         exclude module: "guava"
@@ -320,7 +321,7 @@ curseforge {
 		id = "233564"
 		changelog = ENV.CHANGELOG ?: "No changelog provided"
 		releaseType = ENV.RELEASE_CHANNEL ?: "release"
-		addGameVersion "1.19.2" // Also update in RebornCore/build.gradle
+		addGameVersion "1.19.3" // Also update in RebornCore/build.gradle
 		addGameVersion "Fabric"
 
 		mainArtifact remapJar

@@ -28,16 +28,16 @@ import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.*;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
-import techreborn.utils.InitUtils;
 
 public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
@@ -50,7 +50,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referenceTool) {
 		// combat stats same as for diamond axe. Fix for #2468
-		super(material, 5.0F, -3.0F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(material, 5.0F, -3.0F, new Item.Settings().maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -110,14 +110,6 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(this, stacks);
 	}
 
 	@Override

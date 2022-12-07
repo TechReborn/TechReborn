@@ -87,7 +87,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getValue(ItemStack itemStack) {
-		if (itemStack.isItemEqualIgnoreDamage(TRContent.Parts.SCRAP.getStack())) {
+		if (itemStack.isItemEqual(TRContent.Parts.SCRAP.getStack())) {
 			return 200;
 		} else if (itemStack.getItem() == TRContent.SCRAP_BOX) {
 			return 2000;

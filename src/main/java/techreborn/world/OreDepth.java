@@ -26,11 +26,12 @@ package techreborn.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.HeightContext;
 import org.jetbrains.annotations.Nullable;
@@ -62,7 +63,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 			if (ore.isDeepslate()) continue;
 
 			if (ore.distribution != null) {
-				final Identifier blockId = Registry.BLOCK.getId(ore.block);
+				final Identifier blockId = Registries.BLOCK.getId(ore.block);
 				final HeightContext heightContext = getHeightContext(server, ore.distribution.dimension);
 
 				if (heightContext == null) {
@@ -77,7 +78,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 				TRContent.Ores deepslate = ore.getDeepslate();
 				if (deepslate == null) continue;
 
-				final Identifier deepSlateBlockId = Registry.BLOCK.getId(deepslate.block);
+				final Identifier deepSlateBlockId = Registries.BLOCK.getId(deepslate.block);
 				depths.add(new OreDepth(deepSlateBlockId, minY, maxY, ore.distribution.dimension));
 			}
 		}

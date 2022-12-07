@@ -115,7 +115,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	private static IInventoryAccess<FluidReplicatorBlockEntity> getInventoryAccess() {
 		return (slotID, stack, face, direction, blockEntity) -> {
 			if (slotID == 0) {
-				return stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack());
+				return stack.isItemEqual(TRContent.Parts.UU_MATTER.getStack());
 			}
 			return true;
 		};
@@ -132,7 +132,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("fluidreplicator").player(player.getInventory()).inventory().hotbar().addInventory()
-				.blockEntity(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack()))
+				.blockEntity(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqual(TRContent.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this, syncID);
 	}

@@ -1126,6 +1126,6 @@
   "gui.techreborn.block.progress.paused": "Idle (%s)",
 
   "_comment28": "Villagers",
-  "entity.minecraft.villager.metallurgist": "Metallurgist",
-  "entity.minecraft.villager.electrician": "Electrician"
+  "entity.minecraft.villager.techreborn.metallurgist": "Metallurgist",
+  "entity.minecraft.villager.techreborn.electrician": "Electrician"
 }

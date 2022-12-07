@@ -30,11 +30,13 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.minecraft.screen.PlayerScreenHandler;
 import reborncore.api.blockentity.UnloadHandler;
-import reborncore.client.*;
-import reborncore.common.screen.ScreenIcons;
+import reborncore.client.BlockOutlineRenderer;
+import reborncore.client.ClientBoundPacketHandlers;
+import reborncore.client.HolidayRenderManager;
+import reborncore.client.ItemStackRenderer;
+import reborncore.client.RebornFluidRenderManager;
+import reborncore.client.StackToolTipHandler;
 
 import java.util.Locale;
 
@@ -44,12 +46,6 @@ public class RebornCoreClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		RebornFluidRenderManager.setupClient();
 		HolidayRenderManager.setupClient();
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
-			registry.register(ScreenIcons.HEAD);
-			registry.register(ScreenIcons.CHEST);
-			registry.register(ScreenIcons.LEGS);
-			registry.register(ScreenIcons.FEET);
-		});
 		ClientBoundPacketHandlers.init();
 		HudRenderCallback.EVENT.register(new ItemStackRenderer());
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());

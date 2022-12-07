@@ -28,20 +28,16 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
-import techreborn.utils.InitUtils;
 
 import java.util.List;
 
@@ -51,7 +47,7 @@ public class BatteryItem extends Item implements RcEnergyItem {
 	private final RcEnergyTier tier;
 
 	public BatteryItem(int maxEnergy, RcEnergyTier tier) {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(new Item.Settings().maxCount(1));
 		this.maxEnergy = maxEnergy;
 		this.tier = tier;
 	}
@@ -84,14 +80,6 @@ public class BatteryItem extends Item implements RcEnergyItem {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
-	}
-
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(this, stacks);
 	}
 
 	// EnergyHolder

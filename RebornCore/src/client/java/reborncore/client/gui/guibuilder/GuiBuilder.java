@@ -721,7 +721,7 @@ public class GuiBuilder {
 		int color = FluidVariantRendering.getColor(fluid.getVariant());
 
 		final int drawHeight = (int) (fluid.getAmount().getRawValue() / (maxCapacity * 1F) * height);
-		final int iconHeight = sprite.getHeight();
+		final int iconHeight = sprite.getContents().getHeight();
 		int offsetHeight = drawHeight;
 
 		RenderSystem.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);

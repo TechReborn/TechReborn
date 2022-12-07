@@ -34,7 +34,7 @@ public class GuiButtonSimple extends ButtonWidget {
 	 */
 	@Deprecated
 	public GuiButtonSimple(int x, int y, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, 20, 200, buttonText, pressAction);
+		super(x, y, 20, 200, buttonText, pressAction, narrationSupplier());
 	}
 
 	/**
@@ -42,6 +42,13 @@ public class GuiButtonSimple extends ButtonWidget {
 	 */
 	@Deprecated
 	public GuiButtonSimple(int x, int y, int widthIn, int heightIn, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, widthIn, heightIn, buttonText, pressAction);
+		super(x, y, widthIn, heightIn, buttonText, pressAction, narrationSupplier());
+	}
+
+	private static NarrationSupplier narrationSupplier() {
+		return textSupplier -> {
+			// TODO 1.19.3
+			return null;
+		};
 	}
 }

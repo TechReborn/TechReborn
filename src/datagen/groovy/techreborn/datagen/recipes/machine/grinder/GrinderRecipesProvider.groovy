@@ -24,19 +24,23 @@
 
 package techreborn.datagen.recipes.machine.grinder
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
-import net.minecraft.tag.ItemTags
-import net.minecraft.tag.TagKey
+import net.minecraft.registry.Registry
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.tag.ItemTags
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
+import java.util.concurrent.CompletableFuture
+
 class GrinderRecipesProvider extends TechRebornRecipesProvider {
-	GrinderRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	GrinderRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override
@@ -57,9 +61,9 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateVanillaRawMetals() {
 		[
-			(Items.RAW_IRON)  : (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "iron_ores"))),
-			(Items.RAW_COPPER): (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "copper_ores"))),
-			(Items.RAW_GOLD)  : (TagKey.of(Registry.ITEM_KEY, new Identifier("c", "gold_ores")))
+			(Items.RAW_IRON)  : (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "iron_ores"))),
+			(Items.RAW_COPPER): (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "copper_ores"))),
+			(Items.RAW_GOLD)  : (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "gold_ores")))
 		].each { raw, oreTag ->
 			offerGrinderRecipe {
 				ingredients oreTag
@@ -249,5 +253,4 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 	}
-
 }

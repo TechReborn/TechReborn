@@ -26,11 +26,11 @@ package reborncore.common.util;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import reborncore.api.ICustomToolHandler;
 
@@ -46,7 +46,7 @@ public class GenericWrenchHelper implements ICustomToolHandler {
 
 	@Override
 	public boolean canHandleTool(ItemStack stack) {
-		return Registry.ITEM.getId(stack.getItem()).equals(itemLocation);
+		return Registries.ITEM.getId(stack.getItem()).equals(itemLocation);
 	}
 
 	@Override

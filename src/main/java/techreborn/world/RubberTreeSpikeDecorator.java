@@ -26,9 +26,7 @@ package techreborn.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
@@ -43,8 +41,6 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 		).apply(instance, RubberTreeSpikeDecorator::new)
 	);
 
-	public static final TreeDecoratorType<RubberTreeSpikeDecorator> RUBBER_TREE_SPIKE = Registry.register(Registry.TREE_DECORATOR_TYPE, new Identifier("techreborn", "rubber_tree_spike"), new TreeDecoratorType<>(CODEC));
-
 	private final int spireHeight;
 	private final BlockStateProvider provider;
 
@@ -55,7 +51,7 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 
 	@Override
 	protected TreeDecoratorType<?> getType() {
-		return RUBBER_TREE_SPIKE;
+		return WorldGenerator.RUBBER_TREE_SPIKE;
 	}
 
 	@Override
@@ -65,7 +61,7 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 			.ifPresent(blockPos -> {
 				for (int i = 0; i < spireHeight; i++) {
 					BlockPos sPos = blockPos.up(i);
-					generator.replace(sPos, provider.getBlockState(generator.getRandom(), sPos));
+					generator.replace(sPos, provider.get(generator.getRandom(), sPos));
 				}
 			});
 	}

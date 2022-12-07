@@ -24,11 +24,14 @@
 
 package techreborn.datagen.recipes.machine.blast_furnace
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.registry.RegistryWrapper
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
+
+import java.util.concurrent.CompletableFuture
 
 class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 
@@ -39,8 +42,8 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	public final int TOOL_TIME = ARMOR_TIME
 	public final int TOOL_HEAT = ARMOR_HEAT
 
-	BlastFurnaceRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	BlastFurnaceRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override

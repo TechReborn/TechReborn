@@ -24,12 +24,15 @@
 
 package techreborn.datagen.recipes.machine.industrial_grinder
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.registry.RegistryWrapper
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
+
+import java.util.concurrent.CompletableFuture
 
 class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 
@@ -41,8 +44,8 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 	public final long TOOL_FLUID_AMOUNT = 500L // in millibuckets
 	var dustMap = TRContent.SmallDusts.SD2DMap
 
-	IndustrialGrinderRecipesProvider(FabricDataGenerator dataGenerator) {
-		super(dataGenerator)
+	IndustrialGrinderRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
 	}
 
 	@Override

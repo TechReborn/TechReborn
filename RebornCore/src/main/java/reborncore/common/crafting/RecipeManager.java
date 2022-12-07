@@ -24,8 +24,9 @@
 
 package reborncore.common.crafting;
 
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import reborncore.common.crafting.serde.RebornRecipeSerde;
 import reborncore.common.crafting.serde.RecipeSerde;
 
@@ -49,8 +50,8 @@ public class RecipeManager {
 		RebornRecipeType<R> type = new RebornRecipeType<>(recipeSerde, name);
 		recipeTypes.put(name, type);
 
-		Registry.register(Registry.RECIPE_TYPE, name, type);
-		Registry.register(Registry.RECIPE_SERIALIZER, name, type);
+		Registry.register(Registries.RECIPE_TYPE, name, type);
+		Registry.register(Registries.RECIPE_SERIALIZER, name, type);
 
 		return type;
 	}

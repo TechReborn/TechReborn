@@ -36,7 +36,6 @@ import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
 public class BatpackItem extends ArmorItem implements RcEnergyItem {
@@ -45,7 +44,7 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem {
 	public final RcEnergyTier tier;
 
 	public BatpackItem(int maxCharge, ArmorMaterial material, RcEnergyTier tier) {
-		super(material, EquipmentSlot.CHEST, new Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		super(material, EquipmentSlot.CHEST, new Settings().maxCount(1).maxDamage(-1));
 		this.maxCharge = maxCharge;
 		this.tier = tier;
 	}
@@ -69,14 +68,6 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem {
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(this, itemList);
 	}
 
 	// EnergyHolder

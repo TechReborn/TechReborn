@@ -30,7 +30,8 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import reborncore.api.events.ItemCraftCallback;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
@@ -65,7 +66,7 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 			energyItem.setStoredEnergy(stack, Math.min(totalEnergy, energyItem.getEnergyCapacity()));
 		}
 
-		if (!Registry.ITEM.getId(stack.getItem()).getNamespace().equalsIgnoreCase(TechReborn.MOD_ID)) {
+		if (!Registries.ITEM.getId(stack.getItem()).getNamespace().equalsIgnoreCase(TechReborn.MOD_ID)) {
 			return;
 		}
 		Map<Enchantment, Integer> map = Maps.newLinkedHashMap();

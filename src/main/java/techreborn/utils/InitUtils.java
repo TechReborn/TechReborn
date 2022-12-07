@@ -24,6 +24,7 @@
 
 package techreborn.utils;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -31,11 +32,12 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import reborncore.RebornRegistry;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
@@ -53,18 +55,7 @@ public class InitUtils {
 
 	public static SoundEvent setup(String name) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, name);
-		return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));
-	}
-
-	public static void initPoweredItems(Item item, DefaultedList<ItemStack> itemList) {
-		ItemStack uncharged = new ItemStack(item);
-		ItemStack charged = new ItemStack(item);
-		RcEnergyItem energyItem = (RcEnergyItem) item;
-
-		energyItem.setStoredEnergy(charged, energyItem.getEnergyCapacity());
-
-		itemList.add(uncharged);
-		itemList.add(charged);
+		return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
 	}
 
 	public static AbstractBlock.Settings setupRubberBlockSettings(boolean noCollision, float hardness, float resistance) {

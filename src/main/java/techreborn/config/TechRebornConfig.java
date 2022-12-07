@@ -694,4 +694,10 @@ public class TechRebornConfig {
 
 	@Config(config = "world", category = "generation", key = "enableOilLakeGeneration", comment = "When enabled oil lakes will generate in the world")
 	public static boolean enableOilLakeGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableMetallurgistGeneration", comment = "When enabled metallurgist houses can generate in villages")
+	public static boolean enableMetallurgistGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableElectricianGeneration", comment = "When enabled electrician houses can generate in villages")
+	public static boolean enableElectricianGeneration = true;
 }

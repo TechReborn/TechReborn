@@ -25,10 +25,10 @@
 package reborncore.common.misc;
 
 import net.minecraft.item.Item;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class RebornCoreTags {
-	public static final TagKey<Item> WATER_EXPLOSION_ITEM = TagKey.of(Registry.ITEM_KEY, new Identifier("reborncore", "water_explosion"));
+	public static final TagKey<Item> WATER_EXPLOSION_ITEM = TagKey.of(RegistryKeys.ITEM, new Identifier("reborncore", "water_explosion"));
 }

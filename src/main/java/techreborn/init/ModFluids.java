@@ -28,15 +28,17 @@ package techreborn.init;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import reborncore.common.fluid.*;
 import techreborn.TechReborn;
 
 import java.util.Locale;
 
-public enum ModFluids {
+public enum ModFluids implements ItemConvertible {
 	BERYLLIUM,
 	CALCIUM,
 	CALCIUM_CARBONATE,
@@ -97,15 +99,15 @@ public enum ModFluids {
 		};
 
 		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing());
-		bucket = new RebornBucketItem(stillFluid, new Item.Settings().group(TechReborn.ITEMGROUP).recipeRemainder(Items.BUCKET).maxCount(1));
+		bucket = new RebornBucketItem(stillFluid, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1));
 	}
 
 	public void register() {
 		RebornFluidManager.register(stillFluid, identifier);
 		RebornFluidManager.register(flowingFluid, new Identifier(TechReborn.MOD_ID, identifier.getPath() + "_flowing"));
 
-		Registry.register(Registry.BLOCK, identifier, block);
-		Registry.register(Registry.ITEM, new Identifier(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
+		Registry.register(Registries.BLOCK, identifier, block);
+		Registry.register(Registries.ITEM, new Identifier(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
 	}
 
 	public RebornFluid getFluid() {
@@ -126,5 +128,10 @@ public enum ModFluids {
 
 	public RebornBucketItem getBucket() {
 		return bucket;
+	}
+
+	@Override
+	public Item asItem() {
+		return getBucket();
 	}
 }

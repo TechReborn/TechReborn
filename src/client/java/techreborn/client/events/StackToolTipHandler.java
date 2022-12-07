@@ -40,10 +40,11 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.BaseBlockEntityProvider;
 import techreborn.blocks.cable.CableBlock;
@@ -135,7 +136,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	}
 
 	private static boolean isTRItem(Item item) {
-		return Registry.ITEM.getId(item).getNamespace().equals("techreborn");
+		return Registries.ITEM.getId(item).getNamespace().equals("techreborn");
 	}
 
 	private static Text getOreDepthText(OreDepth depth) {

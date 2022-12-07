@@ -26,6 +26,8 @@ package techreborn.datagen
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.minecraft.registry.RegistryBuilder
+import net.minecraft.registry.RegistryKeys
 import techreborn.TechReborn
 import techreborn.datagen.models.BlockLootTableProvider
 import techreborn.datagen.models.ModelProvider
@@ -42,35 +44,50 @@ import techreborn.datagen.recipes.smelting.SmeltingRecipesProvider
 import techreborn.datagen.tags.TRBlockTagProvider
 import techreborn.datagen.tags.TRItemTagProvider
 import techreborn.datagen.tags.TRPointOfInterestTagProvider
-import techreborn.datagen.tags.WaterExplosionTagProvider
+import techreborn.datagen.worldgen.TRWorldGenBootstrap
+import techreborn.datagen.worldgen.TRWorldGenProvider
 
 class TechRebornDataGen implements DataGeneratorEntrypoint {
 
     @Override
     void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        fabricDataGenerator.addProvider(WaterExplosionTagProvider.&new)
-		fabricDataGenerator.addProvider(TRItemTagProvider.&new)
-		fabricDataGenerator.addProvider(TRPointOfInterestTagProvider.&new)
-		fabricDataGenerator.addProvider(TRBlockTagProvider.&new)
+		def pack = fabricDataGenerator.createPack()
+		
+		def add = { FabricDataGenerator.Pack.RegistryDependentFactory factory ->
+			pack.addProvider factory
+		}
+
+		add TRItemTagProvider::new
+		add TRPointOfInterestTagProvider::new
+
+		add TRBlockTagProvider::new
         // tags before all else, very important!!
-        fabricDataGenerator.addProvider(SmeltingRecipesProvider.&new)
-        fabricDataGenerator.addProvider(CraftingRecipesProvider.&new)
+		add SmeltingRecipesProvider::new
+		add CraftingRecipesProvider::new
 
-		fabricDataGenerator.addProvider(GrinderRecipesProvider.&new)
-		fabricDataGenerator.addProvider(CompressorRecipesProvider.&new)
-		fabricDataGenerator.addProvider(ExtractorRecipesProvider.&new)
-		fabricDataGenerator.addProvider(ChemicalReactorRecipesProvider.&new)
-		fabricDataGenerator.addProvider(AssemblingMachineRecipesProvider.&new)
-		fabricDataGenerator.addProvider(BlastFurnaceRecipesProvider.&new)
-		fabricDataGenerator.addProvider(IndustrialGrinderRecipesProvider.&new)
-		fabricDataGenerator.addProvider(IndustrialSawmillRecipesProvider.&new)
+		add GrinderRecipesProvider::new
+		add CompressorRecipesProvider::new
+		add ExtractorRecipesProvider::new
+		add ChemicalReactorRecipesProvider::new
+		add AssemblingMachineRecipesProvider::new
+		add BlastFurnaceRecipesProvider::new
+		add IndustrialGrinderRecipesProvider::new
+		add IndustrialSawmillRecipesProvider::new
 
-		fabricDataGenerator.addProvider(ModelProvider.&new)
-		fabricDataGenerator.addProvider(BlockLootTableProvider.&new)
+		add ModelProvider::new
+		add BlockLootTableProvider::new
+		
+		add TRWorldGenProvider::new
     }
 
 	@Override
 	String getEffectiveModId() {
 		return TechReborn.MOD_ID
+	}
+
+	@Override
+	void buildRegistry(RegistryBuilder registryBuilder) {
+		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, TRWorldGenBootstrap::configuredFeatures)
+		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, TRWorldGenBootstrap::placedFeatures)
 	}
 }

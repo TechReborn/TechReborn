@@ -28,8 +28,9 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.NBTSerializable;
 
@@ -114,7 +115,7 @@ public class FluidInstance implements NBTSerializable {
 	@Override
 	public NbtCompound write() {
 		NbtCompound tag = new NbtCompound();
-		tag.putString(FLUID_KEY, Registry.FLUID.getId(fluid).toString());
+		tag.putString(FLUID_KEY, Registries.FLUID.getId(fluid).toString());
 		tag.putLong(AMOUNT_KEY, amount.getRawValue());
 		if (this.tag != null && !this.tag.isEmpty()) {
 			tag.put(TAG_KEY, this.tag);
@@ -124,7 +125,7 @@ public class FluidInstance implements NBTSerializable {
 
 	@Override
 	public void read(NbtCompound tag) {
-		fluid = Registry.FLUID.get(new Identifier(tag.getString(FLUID_KEY)));
+		fluid = Registries.FLUID.get(new Identifier(tag.getString(FLUID_KEY)));
 		amount = FluidValue.fromRaw(tag.getLong(AMOUNT_KEY));
 		if (tag.contains(TAG_KEY)) {
 			this.tag = tag.getCompound(TAG_KEY);

@@ -35,9 +35,10 @@ import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL12;
 
 import java.nio.file.Files;
@@ -56,14 +57,15 @@ public class ItemStackRenderer implements HudRenderCallback {
 	public void onHudRender(MatrixStack matrixStack, float v) {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
 			ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.remove();
-			Identifier id = Registry.ITEM.getId(itemStack.getItem());
+			Identifier id = Registries.ITEM.getId(itemStack.getItem());
 			MinecraftClient.getInstance().textRenderer.draw(matrixStack, "Rendering " + id + ", " + ItemStackRenderManager.RENDER_QUEUE.size() + " items left", 5, 5, -1);
 			export(id, itemStack);
 		}
 	}
 
 	private void export(Identifier identifier, ItemStack item) {
-		RenderSystem.setProjectionMatrix(Matrix4f.projectionMatrix(0, 16, 0, 16, 1000, 3000));
+		Matrix4f matrix4f = new Matrix4f().setOrtho(0, 16, 0, 16, 1000, 3000);
+		RenderSystem.setProjectionMatrix(matrix4f);
 		MatrixStack stack = RenderSystem.getModelViewStack();
 		stack.loadIdentity();
 		stack.translate(0, 0, -2000);

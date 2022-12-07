@@ -37,9 +37,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
+import org.joml.Quaternionf;
 import reborncore.RebornCore;
 import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiUtil;
@@ -75,12 +75,12 @@ public class FluidConfigPopupElement extends ElementBase {
 		BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
 		BakedModel model = dispatcher.getModels().getModel(state.getBlock().getDefaultState());
 		MinecraftClient.getInstance().getTextureManager().bindTexture(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
-		drawState(gui, world, model, actualState, pos, dispatcher, 4, 23, Vec3f.POSITIVE_Y.getDegreesQuaternion(90F)); //left
-		drawState(gui, world, model, actualState, pos, dispatcher, 23, 4, Vec3f.NEGATIVE_X.getDegreesQuaternion(90F)); //top
+		drawState(gui, world, model, actualState, pos, dispatcher, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //left
+		drawState(gui, world, model, actualState, pos, dispatcher, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F)); //top
 		drawState(gui, world, model, actualState, pos, dispatcher, 23, 23, null); //centre
-		drawState(gui, world, model, actualState, pos, dispatcher, 23, 26, Vec3f.POSITIVE_X.getDegreesQuaternion(90F)); //bottom
-		drawState(gui, world, model, actualState, pos, dispatcher, 42, 23, Vec3f.POSITIVE_Y.getDegreesQuaternion(90F)); //right
-		drawState(gui, world, model, actualState, pos, dispatcher, 26, 42, Vec3f.POSITIVE_Y.getDegreesQuaternion(180F)); //back
+		drawState(gui, world, model, actualState, pos, dispatcher, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F)); //bottom
+		drawState(gui, world, model, actualState, pos, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //right
+		drawState(gui, world, model, actualState, pos, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F)); //back
 
 		drawSateColor(matrixStack, gui.getMachine(), MachineFacing.UP.getFacing(machine), 22, -1, gui);
 		drawSateColor(matrixStack, gui.getMachine(), MachineFacing.FRONT.getFacing(machine), 22, 18, gui);
@@ -178,7 +178,7 @@ public class FluidConfigPopupElement extends ElementBase {
 						  BlockRenderManager dispatcher,
 						  int x,
 						  int y,
-						  Quaternion quaternion) {
+						  Quaternionf quaternion) {
 
 		MatrixStack matrixStack = new MatrixStack();
 		matrixStack.push();

@@ -29,10 +29,11 @@ import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 
 import java.util.Map;
 import java.util.stream.Stream;
@@ -61,7 +62,7 @@ public class ShapedRecipeHelper {
 
 					for (Item item : items) {
 						JsonObject jsonObject = new JsonObject();
-						jsonObject.addProperty("item", Registry.ITEM.getId(item).toString());
+						jsonObject.addProperty("item", Registries.ITEM.getId(item).toString());
 						entries.add(jsonObject);
 					}
 				} else {
@@ -82,7 +83,7 @@ public class ShapedRecipeHelper {
 	}
 
 	private static Stream<Item> streamItemsFromTag(TagKey<Item> tag) {
-		return StreamSupport.stream(Registry.ITEM.iterateEntries(tag).spliterator(), false)
+		return StreamSupport.stream(Registries.ITEM.iterateEntries(tag).spliterator(), false)
 			.map(RegistryEntry::value);
 	}
 }

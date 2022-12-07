@@ -33,13 +33,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.network.NetworkManager;
-import techreborn.TechReborn;
 import techreborn.packets.ClientboundPackets;
 
 public class ManualItem extends Item {
 
 	public ManualItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(new Item.Settings().maxCount(1));
 	}
 
 	@Override

@@ -41,9 +41,10 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
@@ -64,7 +65,7 @@ public class FluidUtils {
 	}
 
 	public static List<Fluid> getAllFluids() {
-		return Registry.FLUID.stream().collect(Collectors.toList());
+		return Registries.FLUID.stream().collect(Collectors.toList());
 	}
 
 	public static boolean drainContainers(Tank tank, Inventory inventory, int inputSlot, int outputSlot) {

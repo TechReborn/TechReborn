@@ -35,6 +35,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -48,6 +51,7 @@ import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
+import reborncore.common.util.WorldUtils;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleSidedEnergyContainer;
 import techreborn.blocks.cable.CableBlock;
@@ -232,7 +236,7 @@ public class CableBlockEntity extends BlockEntity
 			energyContainer.amount = compound.getLong("energy");
 		}
 		if (compound.contains("cover")) {
-			cover = NbtHelper.toBlockState(compound.getCompound("cover"));
+			cover = NbtHelper.toBlockState(WorldUtils.getBlockRegistryWrapper(world), compound.getCompound("cover"));
 		} else {
 			cover = null;
 		}

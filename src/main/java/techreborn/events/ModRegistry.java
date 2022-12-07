@@ -32,6 +32,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvents;
 import reborncore.RebornRegistry;
 import reborncore.common.powerSystem.RcEnergyTier;
 import team.reborn.energy.api.EnergyStorage;
@@ -72,10 +73,11 @@ public class ModRegistry {
 		registerApis();
 		TRVillager.registerVillagerTrades();
 		TRVillager.registerWanderingTraderTrades();
+		TRVillager.registerVillagerHouses();
 	}
 
 	private static void registerBlocks() {
-		Settings itemGroup = new Item.Settings().group(TechReborn.ITEMGROUP);
+		Settings itemGroup = new Item.Settings();
 		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		StorageBlocks.blockStream().forEach(block -> RebornRegistry.registerBlock(block, itemGroup));
 		Arrays.stream(MachineBlocks.values()).forEach(value -> {
@@ -103,7 +105,7 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_SLAB = InitUtils.setup(new SlabBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_slab"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_FENCE = InitUtils.setup(new FenceBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_fence"), itemGroup);
-		RebornRegistry.registerBlock(TRContent.RUBBER_FENCE_GATE = InitUtils.setup(new FenceGateBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_fence_gate"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_FENCE_GATE = InitUtils.setup(new FenceGateBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F), SoundEvents.BLOCK_FENCE_GATE_CLOSE, SoundEvents.BLOCK_FENCE_GATE_OPEN), "rubber_fence_gate"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_stair"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_TRAPDOOR = InitUtils.setup(new RubberTrapdoorBlock(), "rubber_trapdoor"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_BUTTON = InitUtils.setup(new RubberButtonBlock(), "rubber_button"), itemGroup);
