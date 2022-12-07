@@ -98,7 +98,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 			// Fast fail if there is no input, no point checking the recipes if the machine is empty
 			return ItemStack.EMPTY;
 		}
-		if (previousStack.isItemEqualIgnoreDamage(stack) && !previousValid){
+		if (previousStack.isItemEqual(stack) && !previousValid){
 			return ItemStack.EMPTY;
 		}
 
@@ -127,7 +127,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 		if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
 			inventory.setStack(OUTPUT_SLOT, resultStack.copy());
-		} else if (inventory.getStack(OUTPUT_SLOT).isItemEqualIgnoreDamage(resultStack)) {
+		} else if (inventory.getStack(OUTPUT_SLOT).isItemEqual(resultStack)) {
 			inventory.getStack(OUTPUT_SLOT).increment(resultStack.getCount());
 		}
 		experience += getExperienceFor();
@@ -158,7 +158,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		ItemStack outputSlotStack = inventory.getStack(OUTPUT_SLOT);
 		if (outputSlotStack.isEmpty())
 			return true;
-		if (!outputSlotStack.isItemEqualIgnoreDamage(outputStack))
+		if (!outputSlotStack.isItemEqual(outputStack))
 			return false;
 		int result = outputSlotStack.getCount() + outputStack.getCount();
 		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
