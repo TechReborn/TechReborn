@@ -321,7 +321,7 @@ curseforge {
 		id = "233564"
 		changelog = ENV.CHANGELOG ?: "No changelog provided"
 		releaseType = ENV.RELEASE_CHANNEL ?: "release"
-		addGameVersion "1.19.2" // Also update in RebornCore/build.gradle
+		addGameVersion "1.19.3" // Also update in RebornCore/build.gradle
 		addGameVersion "Fabric"
 
 		mainArtifact remapJar
