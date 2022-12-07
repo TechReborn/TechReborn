@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+	"recipes": [
+	  "techreborn:crafting_table/machine/fishing_station"
+	]
+  },
+  "criteria": {
+	"has_sapphire_plates": {
+	  "trigger": "minecraft:inventory_changed",
+	  "conditions": {
+		"items": [
+		  {
+			"tag": "c:sapphire_plates"
+		  }
+		]
+	  }
+	},
+	"has_the_recipe": {
+	  "trigger": "minecraft:recipe_unlocked",
+	  "conditions": {
+		"recipe": "techreborn:crafting_table/machine/fishing_station"
+	  }
+	}
+  },
+  "requirements": [
+	[
+	  "has_sapphire_plates",
+	  "has_the_recipe"
+	]
+  ]
+}
