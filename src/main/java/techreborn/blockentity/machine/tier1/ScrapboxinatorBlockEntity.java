@@ -26,25 +26,37 @@ package techreborn.blockentity.machine.tier1;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import reborncore.api.IToolDrop;
+import reborncore.api.blockentity.InventoryProvider;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
-import techreborn.api.recipe.ScrapboxRecipeCrafter;
-import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
+public class ScrapboxinatorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
+
+	private final RebornInventory<ScrapboxinatorBlockEntity> inventory = new RebornInventory<>(3, "ScrapboxinatorBlockEntity", 64, this);
 
 	public ScrapboxinatorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.SCRAPBOXINATOR, pos, state, "Scrapboxinator", TechRebornConfig.scrapboxinatorMaxInput, TechRebornConfig.scrapboxinatorMaxEnergy, TRContent.Machine.SCRAPBOXINATOR.block, 2);
-		final int[] inputs = new int[]{0};
-		final int[] outputs = new int[]{1};
-		this.inventory = new RebornInventory<>(3, "ScrapboxinatorBlockEntity", 64, this);
-		this.crafter = new ScrapboxRecipeCrafter(this, this.inventory, inputs, outputs);
+		super(TRBlockEntities.SCRAPBOXINATOR, pos, state);
+	}
+
+	@Override
+	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity2) {
+		super.tick(world, pos, state, blockEntity2);
+		if (world == null || world.isClient) {
+			return;
+		}
+
 	}
 
 	// TileMachineBase
@@ -59,5 +71,30 @@ public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity impleme
 		return new ScreenHandlerBuilder("scrapboxinator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).filterSlot(0, 55, 45, stack -> stack.getItem() == TRContent.SCRAP_BOX).outputSlot(1, 101, 45)
 				.energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
+	}
+
+	@Override
+	public ItemStack getToolDrop(PlayerEntity p0) {
+		return TRContent.Machine.SCRAPBOXINATOR.getStack();
+	}
+
+	@Override
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	@Override
+	public long getBaseMaxPower() {
+		return TechRebornConfig.scrapboxinatorMaxEnergy;
+	}
+
+	@Override
+	public long getBaseMaxOutput() {
+		return 0;
+	}
+
+	@Override
+	public long getBaseMaxInput() {
+		return TechRebornConfig.scrapboxinatorMaxInput;
 	}
 }
