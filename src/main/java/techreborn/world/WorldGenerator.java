@@ -96,6 +96,7 @@ public class WorldGenerator {
 	private static List<TROreFeatureConfig> getOreFeatures() {
 		return Arrays.stream(TRContent.Ores.values())
 				.filter(ores -> ores.distribution != null)
+				.filter(ores -> ores.distribution.isGenerating())
 				.map(TROreFeatureConfig::of)
 				.toList();
 	}
