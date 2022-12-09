@@ -34,6 +34,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.RcEnergyItem;
+import techreborn.TechReborn;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.industrial.NanosaberItem;
@@ -43,7 +44,7 @@ import techreborn.utils.MaterialTypeComparator;
 import java.util.*;
 
 public class TRItemGroup {
-	public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder(new Identifier("techreborn", "item_group"))
+	public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder(new Identifier(TechReborn.MOD_ID, "item_group"))
 		.icon(() -> new ItemStack(TRContent.NUKE))
 		.build();
 
