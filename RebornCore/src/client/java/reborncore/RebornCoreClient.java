@@ -33,7 +33,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.client.BlockOutlineRenderer;
 import reborncore.client.ClientBoundPacketHandlers;
-import reborncore.client.HolidayRenderManager;
 import reborncore.client.ItemStackRenderer;
 import reborncore.client.RebornFluidRenderManager;
 import reborncore.client.StackToolTipHandler;
@@ -45,7 +44,6 @@ public class RebornCoreClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		RebornFluidRenderManager.setupClient();
-		HolidayRenderManager.setupClient();
 		ClientBoundPacketHandlers.init();
 		HudRenderCallback.EVENT.register(new ItemStackRenderer());
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
