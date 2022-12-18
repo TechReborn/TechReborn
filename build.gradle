@@ -11,10 +11,10 @@ plugins {
 	id 'idea'
 	id 'eclipse'
 	id 'maven-publish'
-	id "org.cadixdev.licenser" version "0.6.1"
-	id "fabric-loom" version "1.0-SNAPSHOT"
-	id "com.matthewprenger.cursegradle" version "1.4.0"
-	id "de.undercouch.download" version "4.1.1"
+	id 'com.diffplug.spotless' version '6.12.0'
+	id 'fabric-loom' version '1.0-SNAPSHOT'
+	id 'com.matthewprenger.cursegradle' version '1.4.0'
+	id 'de.undercouch.download' version '4.1.1'
 }
 
 repositories {
@@ -32,13 +32,6 @@ repositories {
 
 def ENV = System.getenv()
 
-license {
-	header file('HEADER')
-	include '**/*.java'
-    include '**/*.groovy'
-	ignoreFailures = true //Stops the build from failing if a file does not have a license header
-}
-
 group = 'TechReborn'
 
 allprojects {
@@ -46,6 +39,7 @@ allprojects {
 
     apply plugin: "fabric-loom"
     apply plugin: "maven-publish"
+	apply plugin: "com.diffplug.spotless"
 
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -108,6 +102,18 @@ allprojects {
             }
         }
     }
+
+	spotless {
+		java {
+			licenseHeaderFile(file("HEADER"))
+		}
+	}
+}
+
+spotless {
+	groovy {
+		licenseHeaderFile(file("HEADER"))
+	}
 }
 
 processResources {
@@ -181,8 +187,7 @@ dependencies {
 
     include project(":RebornCore")
 
-	optionalClientDependency("dev.architectury:architectury-fabric:${project.arch_version}", false)
-	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", false)
+	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", true)
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.6'
@@ -197,6 +202,7 @@ dependencies {
 def optionalClientDependency(String dep, runtime = true) {
 	def exclude = {
 		exclude group: "net.fabricmc.fabric-api"
+		exclude group: "net.fabricmc"
 	}
 	dependencies.modClientCompileOnly(dep, exclude)
 
@@ -241,6 +247,8 @@ runDatagen {
     // Doesn't re-run the task when its up-to date
     outputs.dir('src/main/generated')
 }
+
+tasks.sourcesJar.dependsOn runDatagen
 
 jar {
 	exclude "**/*.psd"

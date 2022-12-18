@@ -22,7 +22,6 @@
  * SOFTWARE.
  */
 
-//file:noinspection GrMethodMayBeStatic
 package techreborn.test.machine
 
 
