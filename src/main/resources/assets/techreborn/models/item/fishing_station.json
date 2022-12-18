@@ -1,0 +1,10 @@
+{
+	"parent": "techreborn:block/machines/tier2_machines/fishing_station",
+	"display": {
+		"gui": {
+			"rotation": [ 30, 225, 0 ],
+			"translation": [ -1, 0, 0],
+			"scale":[ 0.5, 0.5, 0.5 ]
+		}
+	}
+}

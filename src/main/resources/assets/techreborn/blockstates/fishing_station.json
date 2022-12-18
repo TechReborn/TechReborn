@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "techreborn:block/machines/tier2_machines/fishing_station" },
+        "facing=south": { "model": "techreborn:block/machines/tier2_machines/fishing_station", "y": 180 },
+        "facing=west":  { "model": "techreborn:block/machines/tier2_machines/fishing_station", "y": 270 },
+        "facing=east":  { "model": "techreborn:block/machines/tier2_machines/fishing_station", "y": 90 }
+    }
+}

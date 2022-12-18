@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"SCS",
+		"TFT",
+		"PSP"
+	],
+	"key": {
+		"C": {
+			"item": "techreborn:advanced_circuit"
+		},
+		"F": {
+			"item": "techreborn:advanced_machine_frame"
+		},
+		"P": {
+			"tag": "c:sapphire_plates"
+		},
+		"S": {
+			"item": "minecraft:string"
+		},
+		"T": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"item": "techreborn:fishing_station"
+	}
+}

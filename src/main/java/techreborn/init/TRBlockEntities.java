@@ -55,6 +55,7 @@ import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
+import techreborn.blockentity.machine.tier2.FishingStationBlockEntity;
 import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -147,6 +148,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER = register(BlockPlacerBlockEntity::new, "block_placer", TRContent.Machine.BLOCK_PLACER);
 	public static final BlockEntityType<LaunchpadBlockEntity> LAUNCHPAD = register(LaunchpadBlockEntity::new, "launchpad", TRContent.Machine.LAUNCHPAD);
 	public static final BlockEntityType<ElevatorBlockEntity> ELEVATOR = register(ElevatorBlockEntity::new, "elevator", TRContent.Machine.ELEVATOR);
+	public static final BlockEntityType<FishingStationBlockEntity> FISHING_STATION = register(FishingStationBlockEntity::new, "fishing_station", TRContent.Machine.FISHING_STATION);
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, ItemConvertible... items) {
 		return register(supplier, name, Arrays.stream(items).map(itemConvertible -> Block.getBlockFromItem(itemConvertible.asItem())).toArray(Block[]::new));
