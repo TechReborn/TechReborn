@@ -27,9 +27,6 @@ package reborncore.common;
 import reborncore.common.config.Config;
 
 public class RebornCoreConfig {
-	@Config(config = "misc", key = "Enable Seasonal Easter Eggs", comment = "Disable this is you don't want seasonal easter eggs")
-	public static boolean easterEggs = true;
-
 	@Config(config = "misc", key = "Selected Energy system", comment = "Possible values are: E (was FE, EU)")
 	public static String selectedSystem = "E";
 }

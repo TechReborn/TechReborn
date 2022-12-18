@@ -1,7 +1,7 @@
 /*
- * This file is part of TechReborn, licensed under the MIT License (MIT).
+ * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) $YEAR TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,32 +22,3 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool.vanilla;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.ToolMaterial;
-import reborncore.common.util.ItemUtils;
-
-public class TRSpadeItem extends ShovelItem {
-
-	String repairOreDict;
-
-	public TRSpadeItem(ToolMaterial material) {
-		this(material, "");
-	}
-
-	public TRSpadeItem(ToolMaterial material, String repairOreDict) {
-		super(material, 1.5F, -3.0F, new Item.Settings());
-		this.repairOreDict = repairOreDict;
-	}
-
-	@Override
-	public boolean canRepair(ItemStack toRepair, ItemStack repair) {
-		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
-			return ItemUtils.isInputEqual(repairOreDict, repair, false, true);
-		}
-		return super.canRepair(toRepair, repair);
-	}
-}

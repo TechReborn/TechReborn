@@ -61,7 +61,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		generateGlassFromGlassPane()
 		generateAnvil()
 	}
-	
+
 	void generateBoots() {
 		final int count = 2
 		[

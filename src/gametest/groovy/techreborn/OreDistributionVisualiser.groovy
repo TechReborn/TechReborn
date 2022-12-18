@@ -40,84 +40,84 @@ import java.nio.file.Paths
 import java.util.List
 
 class OreDistributionVisualiser {
-    private static final Color[] colors = new Color[] {
-            Color.black,
-            Color.red,
-            Color.pink,
-            Color.orange,
-            Color.yellow,
-            Color.green,
-            Color.magenta,
-            Color.cyan,
-            Color.blue
-    }
+	private static final Color[] colors = new Color[] {
+			Color.black,
+			Color.red,
+			Color.pink,
+			Color.orange,
+			Color.yellow,
+			Color.green,
+			Color.magenta,
+			Color.cyan,
+			Color.blue
+	}
 
-    static void main(String[] args) {
-        // Start the game up enough
-        SharedConstants.createGameVersion()
-        Bootstrap.initialize()
+	static void main(String[] args) {
+		// Start the game up enough
+		SharedConstants.createGameVersion()
+		Bootstrap.initialize()
 
-        generateOreDistributionVisualization()
-    }
+		generateOreDistributionVisualization()
+	}
 
-    static void generateOreDistributionVisualization() throws IOException {
-        def heightContext = new FixedHeightContext(-64, 360)
+	static void generateOreDistributionVisualization() throws IOException {
+		def heightContext = new FixedHeightContext(-64, 360)
 
-        BufferedImage bi = new BufferedImage(450, 220, BufferedImage.TYPE_INT_ARGB)
-        Graphics2D png = bi.createGraphics()
-        Font font = new Font("TimesRoman", Font.BOLD, 20)
-        png.setFont(font)
+		BufferedImage bi = new BufferedImage(450, 220, BufferedImage.TYPE_INT_ARGB)
+		Graphics2D png = bi.createGraphics()
+		Font font = new Font("TimesRoman", Font.BOLD, 20)
+		png.setFont(font)
 
-        png.setPaint(Color.black)
-        // Draw 0
-        png.drawLine(0, -heightContext.minY, (overworldOres().size() * 10) + 20, -heightContext.minY)
+		png.setPaint(Color.black)
+		// Draw 0
+		png.drawLine(0, -heightContext.minY, (overworldOres().size() * 10) + 20, -heightContext.minY)
 
-        png.setPaint(Color.blue)
-        // Draw ground
-        png.drawLine(0, -heightContext.minY + 64, (overworldOres().size() * 10) + 20, -heightContext.minY + 64)
+		png.setPaint(Color.blue)
+		// Draw ground
+		png.drawLine(0, -heightContext.minY + 64, (overworldOres().size() * 10) + 20, -heightContext.minY + 64)
 
-        int c = 1
-        for (OreDistribution value : overworldOres()) {
-            png.setPaint(colors[c])
+		int c = 1
+		for (OreDistribution value : overworldOres()) {
+			png.setPaint(colors[c])
 
-            def yMin = value.minOffset.getY(heightContext) + -heightContext.minY
-            def yMax = -heightContext.minY + value.maxY
+			def yMin = value.minOffset.getY(heightContext) + -heightContext.minY
+			def yMax = -heightContext.minY + value.maxY
 
-            png.fill3DRect(c * 10, yMin, 10, yMax - yMin, true)
+			png.fill3DRect(c * 10, yMin, 10, yMax - yMin, true)
 
-            png.drawString(value.name() + "(%d -> %d)".formatted(value.minOffset.getY(heightContext), value.maxY), 190, 25 * c)
+			png.drawString(value.name() + "(%d -> %d)".formatted(value.minOffset.getY(heightContext), value.maxY), 190, 25 * c)
 
-            c += 1
-        }
+			c += 1
+		}
 
-        ImageIO.write(bi, "PNG", Paths.get("ore_distribution.png").toFile())
-    }
+		ImageIO.write(bi, "PNG", Paths.get("ore_distribution.png").toFile())
+	}
 
-    private static List<OreDistribution> overworldOres() {
-        return Arrays.stream(OreDistribution.values())
-                .filter(ore -> ore.dimension == TargetDimension.OVERWORLD)
-                .toList()
-    }
+	private static List<OreDistribution> overworldOres() {
+		return Arrays.stream(OreDistribution.values())
+				.filter(ore -> ore.dimension == TargetDimension.OVERWORLD)
+				.toList()
+	}
 
-    private static class FixedHeightContext extends HeightContext {
-        final int minY
-        final int height
+	private static class FixedHeightContext extends HeightContext {
+		final int minY
+		final int height
 
-        FixedHeightContext(int minY, int height) {
-            super(new DebugChunkGenerator(BuiltinRegistries.BIOME), EmptyBlockView.INSTANCE)
+		FixedHeightContext(int minY, int height) {
+			super(new DebugChunkGenerator(BuiltinRegistries.BIOME), EmptyBlockView.INSTANCE)
 
-            this.minY = minY
-            this.height = height
-        }
+			this.minY = minY
+			this.height = height
+		}
 
-        @Override
-        int getMinY() {
-            return minY
-        }
+		@Override
+		int getMinY() {
+			return minY
+		}
 
-        @Override
-        int getHeight() {
-            return height
-        }
-    }
+		@Override
+		int getHeight() {
+			return height
+		}
+	}
 }

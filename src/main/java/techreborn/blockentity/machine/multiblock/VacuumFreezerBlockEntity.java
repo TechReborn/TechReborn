@@ -62,7 +62,7 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 				.fill(0, 2, 0, 3, 3, 3, advanced);
 	}
 
-    // IContainerProvider
+	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("vacuumfreezer").player(player.getInventory()).inventory().hotbar().addInventory()

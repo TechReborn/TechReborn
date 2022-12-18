@@ -35,7 +35,7 @@ import java.util.concurrent.CompletableFuture
 
 class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 
-    AssemblingMachineRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	AssemblingMachineRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

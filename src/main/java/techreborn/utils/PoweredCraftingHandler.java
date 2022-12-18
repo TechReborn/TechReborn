@@ -31,7 +31,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import reborncore.api.events.ItemCraftCallback;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;

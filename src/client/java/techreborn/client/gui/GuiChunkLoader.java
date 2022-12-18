@@ -54,9 +54,9 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 		addDrawableChild(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
 
 		addDrawableChild(ButtonWidget.builder(Text.literal("Toggle Loaded Chunks"), b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos()))
-			                 .position(x + 10, y + 70)
-			                 .size(155, 20)
-			                 .build());
+							.position(x + 10, y + 70)
+							.size(155, 20)
+							.build());
 	}
 
 	@Override

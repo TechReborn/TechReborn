@@ -570,7 +570,7 @@ public class GuiBuilder {
 	 * @param layer           {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawMultiEnergyBar(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, long energyStored, long maxEnergyStored, int mouseX,
-								   int mouseY, int buttonID, GuiBase.Layer layer) {
+								int mouseY, int buttonID, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();

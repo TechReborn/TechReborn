@@ -37,9 +37,9 @@ import java.lang.reflect.Method
  */
 @Slf4j
 abstract class TRGameTest implements FabricGameTest {
-    @Override
-    void invokeTestMethod(TestContext context, Method method) {
-        try {
+	@Override
+	void invokeTestMethod(TestContext context, Method method) {
+		try {
 			method.invoke(this, new TRTestContext(context))
 		} catch (TRGameTestException gameTestException) {
 			log.error("Test ${method.name} failed with message ${gameTestException.message}", gameTestException.cause)
@@ -49,7 +49,7 @@ abstract class TRGameTest implements FabricGameTest {
 			log.error("Test ${method.name} failed", throwable)
 			throw throwable
 		}
-    }
+	}
 
 	static class TRGameTestException extends AssertionError {
 		TRGameTestException(String message, Throwable cause) {

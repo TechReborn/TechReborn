@@ -32,28 +32,28 @@ import reborncore.common.blockentity.MachineBaseBlockEntity
 import techreborn.init.TRContent
 
 class TRTestContext extends TestContext {
-    TRTestContext(TestContext parentContext) {
-        //noinspection GroovyAccessibility
-        super(parentContext.test)
-    }
+	TRTestContext(TestContext parentContext) {
+		//noinspection GroovyAccessibility
+		super(parentContext.test)
+	}
 
-    /**
-     * Place a machine with a creative solar panel
-     */
-    def poweredMachine(TRContent.Machine machine, @DelegatesTo(MachineContext) Closure machineContextClosure) {
-        def machinePos = new BlockPos(0, 2, 0)
-        setBlockState(machinePos, machine.block)
-        setBlockState(machinePos.down(), TRContent.SolarPanels.CREATIVE.block)
+	/**
+	 * Place a machine with a creative solar panel
+	 */
+	def poweredMachine(TRContent.Machine machine, @DelegatesTo(MachineContext) Closure machineContextClosure) {
+		def machinePos = new BlockPos(0, 2, 0)
+		setBlockState(machinePos, machine.block)
+		setBlockState(machinePos.down(), TRContent.SolarPanels.CREATIVE.block)
 
-        waitAndRun(5) {
-            try {
-                new MachineContext(machinePos).with(machineContextClosure)
-            } catch (e) {
-                e.printStackTrace()
-                throw e
-            }
-        }
-    }
+		waitAndRun(5) {
+			try {
+				new MachineContext(machinePos).with(machineContextClosure)
+			} catch (e) {
+				e.printStackTrace()
+				throw e
+			}
+		}
+	}
 
 	def machine(TRContent.Machine machine, @DelegatesTo(MachineContext) Closure machineContextClosure) {
 		def machinePos = new BlockPos(0, 1, 0)
@@ -69,59 +69,59 @@ class TRTestContext extends TestContext {
 		}
 	}
 
-    class MachineContext {
-        final BlockPos machinePos
+	class MachineContext {
+		final BlockPos machinePos
 
-        MachineContext(BlockPos machinePos) {
-            this.machinePos = machinePos
-        }
+		MachineContext(BlockPos machinePos) {
+			this.machinePos = machinePos
+		}
 
-        def input(ItemConvertible item, int slot = -1) {
-            this.input(new ItemStack(item), slot)
-        }
+		def input(ItemConvertible item, int slot = -1) {
+			this.input(new ItemStack(item), slot)
+		}
 
-        def input(ItemStack stack, int slot = -1) {
-            if (slot == -1) {
-                // If not slot is provided use the first input slot
-                slot = blockEntity.crafter.inputSlots[0]
-            }
+		def input(ItemStack stack, int slot = -1) {
+			if (slot == -1) {
+				// If not slot is provided use the first input slot
+				slot = blockEntity.crafter.inputSlots[0]
+			}
 
-            blockEntity.inventory.setStack(slot, stack)
-        }
+			blockEntity.inventory.setStack(slot, stack)
+		}
 
-        def expectOutput(ItemConvertible item, int ticks, int slot = -1) {
-            expectOutput(new ItemStack(item), ticks, slot)
-        }
+		def expectOutput(ItemConvertible item, int ticks, int slot = -1) {
+			expectOutput(new ItemStack(item), ticks, slot)
+		}
 
-        def expectOutput(ItemStack stack, int ticks, int slot = -1) {
-            if (slot == -1) {
-                // If not slot is provided use the first output slot
-                slot = blockEntity.crafter.outputSlots[0]
-            }
+		def expectOutput(ItemStack stack, int ticks, int slot = -1) {
+			if (slot == -1) {
+				// If not slot is provided use the first output slot
+				slot = blockEntity.crafter.outputSlots[0]
+			}
 
-            addFinalTaskWithDuration(ticks) {
-                if (!blockEntity.inventory.getStack(slot).isItemEqual(stack)) {
-                    throwGameTestException("Failed to find $stack in slot $slot")
-                }
-            }
-        }
+			addFinalTaskWithDuration(ticks) {
+				if (!blockEntity.inventory.getStack(slot).isItemEqual(stack)) {
+					throwGameTestException("Failed to find $stack in slot $slot")
+				}
+			}
+		}
 
-        def withUpgrades(TRContent.Upgrades upgrade, int count = -1) {
-            count = (count != -1 ? count : blockEntity.getUpgradeSlotCount()) -1
+		def withUpgrades(TRContent.Upgrades upgrade, int count = -1) {
+			count = (count != -1 ? count : blockEntity.getUpgradeSlotCount()) -1
 
-            (0..count).each {
-                blockEntity.upgradeInventory.setStack(it, new ItemStack(upgrade))
-            }
-        }
+			(0..count).each {
+				blockEntity.upgradeInventory.setStack(it, new ItemStack(upgrade))
+			}
+		}
 
 		MachineBaseBlockEntity getBlockEntity() {
-            def be = getBlockEntity(machinePos)
+			def be = getBlockEntity(machinePos)
 
-            if (!be) {
-                throwPositionedException("Failed to get machine block entity", machinePos)
-            }
+			if (!be) {
+				throwPositionedException("Failed to get machine block entity", machinePos)
+			}
 
-            return be as MachineBaseBlockEntity
-        }
-    }
+			return be as MachineBaseBlockEntity
+		}
+	}
 }

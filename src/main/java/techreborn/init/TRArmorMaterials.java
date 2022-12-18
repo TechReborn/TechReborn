@@ -72,7 +72,7 @@ public enum TRArmorMaterials implements ArmorMaterial {
 	private final String name;
 
 	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-					 SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairMaterialIn) {
+					SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairMaterialIn) {
 		this.maxDamageFactor = maxDamageFactor;
 		this.damageReductionAmountArray = damageReductionAmountArray;
 		this.enchantability = enchantability;
@@ -84,7 +84,7 @@ public enum TRArmorMaterials implements ArmorMaterial {
 	}
 
 	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-					 SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
+					SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
 		this(maxDamageFactor, damageReductionAmountArray, enchantability, soundEvent, toughness, 0.0F, repairMaterialIn);
 	}
 

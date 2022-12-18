@@ -48,11 +48,11 @@ public class GpsItem extends Item {
 		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
 			BlockPos pos = player.getBlockPos();
 			serverPlayerEntity.sendMessage(Text.literal(" X:").formatted(Formatting.GRAY)
-				                               .append(Text.literal(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
-				                               .append(Text.literal(" Y:").formatted(Formatting.GRAY))
-				                               .append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
-				                               .append(Text.literal(" Z:").formatted(Formatting.GRAY))
-				                               .append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD)), true);
+											.append(Text.literal(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
+											.append(Text.literal(" Y:").formatted(Formatting.GRAY))
+											.append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
+											.append(Text.literal(" Z:").formatted(Formatting.GRAY))
+											.append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD)), true);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);

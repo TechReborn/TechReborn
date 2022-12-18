@@ -38,7 +38,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Lazy;
-import net.minecraft.registry.Registry;
 import reborncore.common.fluid.container.ItemFluidInfo;
 
 import java.util.ArrayList;

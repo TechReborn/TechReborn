@@ -25,15 +25,11 @@
 package techreborn.items.tool.basic;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
-import techreborn.utils.InitUtils;
 
 /**
  * Created by modmuss50 on 05/11/2016.

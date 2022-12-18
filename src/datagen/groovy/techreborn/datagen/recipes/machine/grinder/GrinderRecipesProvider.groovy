@@ -186,7 +186,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 	}
-	
+
 	void generateConcretePowder() {
 		[
 			(Items.BLACK_CONCRETE): Items.BLACK_CONCRETE_POWDER,

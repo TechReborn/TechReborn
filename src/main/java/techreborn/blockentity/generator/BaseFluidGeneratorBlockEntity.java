@@ -133,7 +133,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	protected boolean tryAddingEnergy(int amount) {
-		 if (getFreeSpace() > 0) {
+		if (getFreeSpace() > 0) {
 			addEnergy(amount);
 			return true;
 		}

@@ -117,7 +117,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 		if (world == null || world.isClient) {
 			return;
 		}
-		
+
 		this.charge(11);
 
 		for (int i = 0; i < 6; i++) {

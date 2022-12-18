@@ -25,7 +25,6 @@
 package techreborn.client.compat.rei.fluidgenerator;
 
 import com.google.common.collect.Lists;
-import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.ClientHelper;
 import me.shedaniel.rei.api.client.gui.Renderer;

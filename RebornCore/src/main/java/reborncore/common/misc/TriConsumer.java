@@ -26,5 +26,5 @@ package reborncore.common.misc;
 
 @FunctionalInterface
 public interface TriConsumer<A, B, C> {
-    void accept(A a, B b, C c);
+	void accept(A a, B b, C c);
 }

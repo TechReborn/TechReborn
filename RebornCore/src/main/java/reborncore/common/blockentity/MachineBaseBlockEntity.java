@@ -457,7 +457,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean isValid(int slot, ItemStack stack) {
 		if (slotConfiguration == null) {

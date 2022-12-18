@@ -27,18 +27,14 @@ package techreborn.items.armor;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterials;
-import techreborn.utils.InitUtils;
 
 public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, ArmorBlockEntityTicker, ArmorRemoveHandler {
 
