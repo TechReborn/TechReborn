@@ -45,7 +45,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.registry.Registry;
 import net.minecraft.world.chunk.ChunkStatus;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.IdentifiedPacket;

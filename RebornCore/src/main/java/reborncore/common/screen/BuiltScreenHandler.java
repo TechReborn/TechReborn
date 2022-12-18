@@ -71,8 +71,8 @@ public class BuiltScreenHandler extends ScreenHandler {
 	private final MachineBaseBlockEntity blockEntity;
 
 	public BuiltScreenHandler(int syncID, final String name, final Predicate<PlayerEntity> canInteract,
-							  final List<Range<Integer>> playerSlotRange,
-							  final List<Range<Integer>> blockEntitySlotRange, MachineBaseBlockEntity blockEntity) {
+							final List<Range<Integer>> playerSlotRange,
+							final List<Range<Integer>> blockEntitySlotRange, MachineBaseBlockEntity blockEntity) {
 		super(null, syncID);
 		this.name = name;
 

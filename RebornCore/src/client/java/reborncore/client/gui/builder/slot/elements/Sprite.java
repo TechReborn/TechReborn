@@ -108,15 +108,15 @@ public class Sprite implements ISprite {
 	}
 
 	public record Button(Sprite normal,
-						 Sprite hovered) {
+						Sprite hovered) {
 	}
 
 	public record ToggleButton(Sprite normal,
-							   Sprite hovered,
-							   Sprite pressed) {
+							Sprite hovered,
+							Sprite pressed) {
 	}
 
 	public record CheckBox(Sprite normal,
-						   Sprite ticked) {
+						Sprite ticked) {
 	}
 }

@@ -27,25 +27,26 @@ package techreborn.world;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.YOffset;
 import org.jetbrains.annotations.NotNull;
+import techreborn.config.TechRebornConfig;
 
 import java.util.Objects;
 
 public enum OreDistribution {
-	BAUXITE(6, 12, YOffset.aboveBottom(0), 20, TargetDimension.OVERWORLD),
-	CINNABAR(6, 5, YOffset.aboveBottom(0), 128, TargetDimension.NETHER),
-	GALENA(8, 12, YOffset.aboveBottom(25), 40, TargetDimension.OVERWORLD),
-	IRIDIUM(3, 4, YOffset.aboveBottom(0), 0, TargetDimension.OVERWORLD),
-	LEAD(6, 16, YOffset.aboveBottom(40), 40, TargetDimension.OVERWORLD),
-	PERIDOT(6, 6, YOffset.aboveBottom(0), 360, TargetDimension.END, UniformIntProvider.create(2,6)),
-	PYRITE(6, 6, YOffset.aboveBottom(0), 128, TargetDimension.NETHER),
-	RUBY(6, 8, YOffset.fixed(20), 120, TargetDimension.OVERWORLD, UniformIntProvider.create(2,6)),
-	SAPPHIRE(6, 7, YOffset.fixed(20), 120, TargetDimension.OVERWORLD, UniformIntProvider.create(2,6)),
-	SHELDONITE(6, 4, YOffset.aboveBottom(0), 360, TargetDimension.END),
-	SILVER(6, 16, YOffset.aboveBottom(40), 60,TargetDimension.OVERWORLD),
-	SODALITE(6, 4, YOffset.aboveBottom(0), 360, TargetDimension.END),
-	SPHALERITE(6, 4, YOffset.aboveBottom(0), 128, TargetDimension.NETHER),
-	TIN(8, 16, YOffset.fixed(25), 80, TargetDimension.OVERWORLD),
-	TUNGSTEN(6, 3, YOffset.aboveBottom(0), 360, TargetDimension.END);
+	BAUXITE(6, 12, YOffset.aboveBottom(0), 20, TargetDimension.OVERWORLD, TechRebornConfig.enableBauxiteOreGeneration),
+	CINNABAR(6, 5, YOffset.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enableCinnabarOreGeneration),
+	GALENA(8, 12, YOffset.aboveBottom(25), 40, TargetDimension.OVERWORLD, TechRebornConfig.enableGalenaOreGeneration),
+	IRIDIUM(3, 4, YOffset.aboveBottom(0), 0, TargetDimension.OVERWORLD, TechRebornConfig.enableIridiumOreGeneration),
+	LEAD(6, 16, YOffset.aboveBottom(40), 40, TargetDimension.OVERWORLD, TechRebornConfig.enableLeadOreGeneration),
+	PERIDOT(6, 6, YOffset.aboveBottom(0), 360, TargetDimension.END, UniformIntProvider.create(2,6), TechRebornConfig.enablePeridotOreGeneration),
+	PYRITE(6, 6, YOffset.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enablePyriteOreGeneration),
+	RUBY(6, 8, YOffset.fixed(20), 120, TargetDimension.OVERWORLD, UniformIntProvider.create(2,6), TechRebornConfig.enableRubyOreGeneration),
+	SAPPHIRE(6, 7, YOffset.fixed(20), 120, TargetDimension.OVERWORLD, UniformIntProvider.create(2,6), TechRebornConfig.enableSapphireOreGeneration),
+	SHELDONITE(6, 4, YOffset.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableSheldoniteOreGeneration),
+	SILVER(6, 16, YOffset.aboveBottom(40), 60,TargetDimension.OVERWORLD, TechRebornConfig.enableSilverOreGeneration),
+	SODALITE(6, 4, YOffset.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableSodaliteOreGeneration),
+	SPHALERITE(6, 4, YOffset.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enableSphaleriteOreGeneration),
+	TIN(8, 16, YOffset.fixed(25), 80, TargetDimension.OVERWORLD, TechRebornConfig.enableTinOreGeneration),
+	TUNGSTEN(6, 3, YOffset.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableTungstenOreGeneration);
 
 	public final int veinSize;
 	public final int veinsPerChunk;
@@ -53,17 +54,23 @@ public enum OreDistribution {
 	public final int maxY; // Max height of ore in numbers of blocks from the bottom of the world
 	public @NotNull final UniformIntProvider experienceDropped;
 	public final TargetDimension dimension;
+	private final boolean generating;
 
-	OreDistribution(int veinSize, int veinsPerChunk, YOffset minOffset, int maxY, TargetDimension dimension, UniformIntProvider experienceDropped) {
+	OreDistribution(int veinSize, int veinsPerChunk, YOffset minOffset, int maxY, TargetDimension dimension, UniformIntProvider experienceDropped, boolean generating) {
 		this.veinSize = veinSize;
 		this.veinsPerChunk = veinsPerChunk;
 		this.minOffset = minOffset;
 		this.maxY = maxY;
 		this.experienceDropped = Objects.requireNonNullElse(experienceDropped, UniformIntProvider.create(0,0));
 		this.dimension = dimension;
+		this.generating = generating;
 	}
 
-	OreDistribution(int veinSize, int veinsPerChunk, YOffset minOffset, int maxY, TargetDimension dimension) {
-		this(veinSize, veinsPerChunk, minOffset, maxY, dimension, null);
+	OreDistribution(int veinSize, int veinsPerChunk, YOffset minOffset, int maxY, TargetDimension dimension, boolean generating) {
+		this(veinSize, veinsPerChunk, minOffset, maxY, dimension, null, generating);
+	}
+
+	public boolean isGenerating() {
+		return generating;
 	}
 }

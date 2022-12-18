@@ -701,6 +701,51 @@ public class TechRebornConfig {
 	@Config(config = "world", category = "generation", key = "enableOreGeneration", comment = "When enabled ores will generate in the world")
 	public static boolean enableOreGeneration = true;
 
+	@Config(config = "world", category = "generation", key = "enableBauxiteOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, bauxite ores will generate in the world")
+	public static boolean enableBauxiteOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableCinnabarOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, cinnabar ores will generate in the world")
+	public static boolean enableCinnabarOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableGalenaOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, galena ores will generate in the world")
+	public static boolean enableGalenaOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableIridiumOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, iridium ores will generate in the world")
+	public static boolean enableIridiumOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableLeadOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, lead ores will generate in the world")
+	public static boolean enableLeadOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enablePeridotOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, peridot ores will generate in the world")
+	public static boolean enablePeridotOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enablePyriteOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, pyrite ores will generate in the world")
+	public static boolean enablePyriteOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableRubyOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, ruby ores will generate in the world")
+	public static boolean enableRubyOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableSapphireOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, sapphire ores will generate in the world")
+	public static boolean enableSapphireOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableSheldoniteOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, sheldonite ores will generate in the world")
+	public static boolean enableSheldoniteOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableSilverOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, silver ores will generate in the world")
+	public static boolean enableSilverOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableSodaliteOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, sodalite ores will generate in the world")
+	public static boolean enableSodaliteOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableSphaleriteOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, sphalerite ores will generate in the world")
+	public static boolean enableSphaleriteOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableTinOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, tin ores will generate in the world")
+	public static boolean enableTinOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableTungstenOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, tungsten ores will generate in the world")
+	public static boolean enableTungstenOreGeneration = true;
+
 	@Config(config = "world", category = "generation", key = "enableRubberTreeGeneration", comment = "When enabled rubber trees will generate in the world")
 	public static boolean enableRubberTreeGeneration = true;
 

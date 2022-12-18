@@ -44,7 +44,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.registry.Registry;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.BaseBlockEntityProvider;
 import techreborn.blocks.cable.CableBlock;

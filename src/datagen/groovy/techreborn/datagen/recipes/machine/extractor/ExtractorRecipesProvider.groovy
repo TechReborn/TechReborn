@@ -122,7 +122,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			Items.MILK_BUCKET,
 			Items.LAVA_BUCKET,
 			Items.POWDER_SNOW_BUCKET,
-		    Items.WATER_BUCKET
+			Items.WATER_BUCKET
 		].each {bucket ->
 			offerExtractorRecipe {
 				ingredients bucket
@@ -138,7 +138,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			Items.EXPERIENCE_BOTTLE,
 			Items.HONEY_BOTTLE,
 			Items.LINGERING_POTION,
-		    Items.POTION,
+			Items.POTION,
 			Items.SPLASH_POTION
 		].each {bottle ->
 			offerExtractorRecipe {

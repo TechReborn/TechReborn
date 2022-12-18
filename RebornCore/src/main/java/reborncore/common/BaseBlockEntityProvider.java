@@ -92,6 +92,6 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 	}
 
 	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune){
-		
+
 	}
 }

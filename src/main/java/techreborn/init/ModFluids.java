@@ -86,7 +86,7 @@ public enum ModFluids implements ItemConvertible {
 		this.identifier = new Identifier(TechReborn.MOD_ID, this.toString().toLowerCase(Locale.ROOT));
 
 		FluidSettings fluidSettings = FluidSettings.create();
-		
+
 		Identifier texture_still = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_still");
 		Identifier texture_flowing = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_flowing");
 

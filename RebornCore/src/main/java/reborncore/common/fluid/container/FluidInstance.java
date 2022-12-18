@@ -30,7 +30,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.NBTSerializable;
 

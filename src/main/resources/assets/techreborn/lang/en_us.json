@@ -1128,5 +1128,7 @@
 
   "_comment28": "Villagers",
   "entity.minecraft.villager.techreborn.metallurgist": "Metallurgist",
-  "entity.minecraft.villager.techreborn.electrician": "Electrician"
+  "entity.minecraft.villager.metallurgist": "Metallurgist",
+  "entity.minecraft.villager.techreborn.electrician": "Electrician",
+  "entity.minecraft.villager.electrician": "Electrician"
 }

@@ -50,7 +50,7 @@ import java.util.function.Predicate;
 public class ItemUtils {
 
 	public static boolean isItemEqual(final ItemStack a, final ItemStack b,
-									  final boolean matchNBT) {
+									final boolean matchNBT) {
 		if (a.isEmpty() || b.isEmpty()) {
 			return false;
 		}
@@ -61,7 +61,7 @@ public class ItemUtils {
 	}
 
 	public static boolean isItemEqual(ItemStack a, ItemStack b, boolean matchNBT,
-									  boolean useTags) {
+									boolean useTags) {
 		if (a.isEmpty() && b.isEmpty()) {
 			return true;
 		}
@@ -103,7 +103,7 @@ public class ItemUtils {
 
 	//TODO tags
 	public static boolean isInputEqual(Object input, ItemStack other, boolean matchNBT,
-									   boolean useTags) {
+									boolean useTags) {
 		if (input instanceof ItemStack) {
 			return isItemEqual((ItemStack) input, other, matchNBT, useTags);
 		} else if (input instanceof String) {
@@ -171,12 +171,12 @@ public class ItemUtils {
 
 		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
 			serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.energyError")
-				                   .formatted(Formatting.GRAY)
-				                   .append(" ")
-				                   .append(
-					                   Text.translatable("reborncore.message.deactivating")
-						                   .formatted(Formatting.GOLD)
-				                   ), true);
+								.formatted(Formatting.GRAY)
+								.append(" ")
+								.append(
+									Text.translatable("reborncore.message.deactivating")
+										.formatted(Formatting.GOLD)
+								), true);
 		}
 
 		stack.getOrCreateNbt().putBoolean("isActive", false);
@@ -196,23 +196,23 @@ public class ItemUtils {
 
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
 				serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.setTo")
-					                               .formatted(Formatting.GRAY)
-					                               .append(" ")
-					                               .append(
-						                               Text.translatable("reborncore.message.active")
-							                               .formatted(Formatting.GOLD)
-					                               ), true);
+												.formatted(Formatting.GRAY)
+												.append(" ")
+												.append(
+													Text.translatable("reborncore.message.active")
+														.formatted(Formatting.GOLD)
+												), true);
 			}
 		} else {
 			stack.getOrCreateNbt().putBoolean("isActive", false);
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
 				serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.setTo")
-					                               .formatted(Formatting.GRAY)
-					                               .append(" ")
-					                               .append(
-						                               Text.translatable("reborncore.message.inactive")
-							                               .formatted(Formatting.GOLD)
-					                               ), true);
+												.formatted(Formatting.GRAY)
+												.append(" ")
+												.append(
+													Text.translatable("reborncore.message.inactive")
+														.formatted(Formatting.GOLD)
+												), true);
 			}
 		}
 	}

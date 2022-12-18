@@ -104,7 +104,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	};
 
 	public RecipeCrafter(RebornRecipeType<?> recipeType, BlockEntity blockEntity, int inputs, int outputs, RebornInventory<?> inventory,
-						 int[] inputSlots, int[] outputSlots) {
+						int[] inputSlots, int[] outputSlots) {
 		this.recipeType = recipeType;
 		this.blockEntity = blockEntity;
 		if (blockEntity instanceof PowerAcceptorBlockEntity powerAcceptor) {
@@ -368,7 +368,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		}
 
 		// Test with a stack with the max stack size as some independents will check the stack size.
-	    // A bit of a hack but should work.
+		// A bit of a hack but should work.
 		ItemStack largeStack = stack.copy();
 		largeStack.setCount(largeStack.getMaxCount());
 		for (RebornRecipe recipe : recipeType.getRecipes(blockEntity.getWorld())) {

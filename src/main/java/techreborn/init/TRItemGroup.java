@@ -34,6 +34,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.RcEnergyItem;
+import techreborn.TechReborn;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.industrial.NanosaberItem;
@@ -43,7 +44,7 @@ import techreborn.utils.MaterialTypeComparator;
 import java.util.*;
 
 public class TRItemGroup {
-	public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder(new Identifier("techreborn", "item_group"))
+	public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder(new Identifier(TechReborn.MOD_ID, "item_group"))
 		.icon(() -> new ItemStack(TRContent.NUKE))
 		.build();
 
@@ -57,8 +58,9 @@ public class TRItemGroup {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(TRItemGroup::addTools);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(TRItemGroup::addCombat);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(TRItemGroup::addIngredients);
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.OPERATOR).register(TRItemGroup::addOperator);
 	}
-	
+
 	private static final ItemConvertible[] rubberOrderSmall = new ItemConvertible[]{
 		TRContent.RUBBER_LOG,
 		TRContent.RUBBER_LOG_STRIPPED,
@@ -97,7 +99,7 @@ public class TRItemGroup {
 		stuff.addAll(Arrays.stream(TRContent.Nuggets.values()).toList());
 		stuff.addAll(Arrays.stream(TRContent.Plates.values()).toList());
 		stuff.addAll(Arrays.stream(TRContent.StorageBlocks.values()).filter(block -> !block.name().startsWith("RAW")).toList());
-		Collections.sort(stuff, new MaterialComparator().thenComparing(new MaterialTypeComparator()));
+		stuff.sort(new MaterialComparator().thenComparing(new MaterialTypeComparator()));
 		for (Object item : stuff) {
 			entries.add((ItemConvertible)item);
 		}
@@ -155,7 +157,7 @@ public class TRItemGroup {
 				entries.add(storageUnit.upgrader);
 			}
 		}
-		
+
 		// armor and traditional tools
 		entries.add(TRContent.BRONZE_HELMET);
 		entries.add(TRContent.BRONZE_CHESTPLATE);
@@ -227,7 +229,7 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.QUANTUM_CHESTPLATE, entries, null, true);
 		addPoweredItem(TRContent.QUANTUM_LEGGINGS, entries, null, true);
 		addPoweredItem(TRContent.QUANTUM_BOOTS, entries, null, true);
-		
+
 		addNanosaber(entries, null, false);
 
 		addPoweredItem(TRContent.LITHIUM_ION_BATPACK, entries, null, true);
@@ -239,9 +241,9 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.ENERGY_CRYSTAL, entries, null, true);
 		addPoweredItem(TRContent.LAPOTRON_CRYSTAL, entries, null, true);
 		addPoweredItem(TRContent.LAPOTRONIC_ORB, entries, null, true);
-		
+
 		entries.add(TRContent.GPS);
-		
+
 		entries.add(TRContent.MANUAL);
 		entries.add(TRContent.DEBUG_TOOL);
 	}
@@ -726,6 +728,12 @@ public class TRItemGroup {
 			TRContent.Parts.HELIUM_COOLANT_CELL_60K,
 			TRContent.Parts.HELIUM_COOLANT_CELL_180K,
 			TRContent.Parts.HELIUM_COOLANT_CELL_360K);
+	}
+
+	private static void addOperator(FabricItemGroupEntries entries) {
+		if (entries.shouldShowOpRestrictedItems()) {
+			entries.addAfter(Items.DEBUG_STICK, TRContent.DEBUG_TOOL);
+		}
 	}
 
 	private static void addContent(ItemConvertible[] items, FabricItemGroupEntries entries) {

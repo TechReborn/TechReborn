@@ -57,7 +57,7 @@ public class BlockFusionCoil extends Block {
 	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
-							  Hand hand, BlockHitResult hitResult) {
+							Hand hand, BlockHitResult hitResult) {
 
 		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (tool.isEmpty()) return ActionResult.PASS;

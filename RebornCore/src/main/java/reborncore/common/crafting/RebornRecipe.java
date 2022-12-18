@@ -35,7 +35,6 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.registry.Registry;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;

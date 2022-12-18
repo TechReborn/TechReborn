@@ -3,6 +3,17 @@ accessWidener	v2	named
 accessible    method    net/minecraft/recipe/ShapedRecipe    readSymbols    (Lcom/google/gson/JsonObject;)Ljava/util/Map;
 accessible    method    net/minecraft/recipe/ShapedRecipe    getPattern    (Lcom/google/gson/JsonArray;)[Ljava/lang/String;
 accessible    method    net/minecraft/recipe/ShapedRecipe    createPatternMatrix    ([Ljava/lang/String;Ljava/util/Map;II)Lnet/minecraft/util/collection/DefaultedList;
+accessible    method    net/minecraft/recipe/ShapedRecipe    matchesPattern    (Lnet/minecraft/inventory/CraftingInventory;IIZ)Z
+
+accessible    class    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder$ShapedRecipeJsonProvider
+accessible    method    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    validate    (Lnet/minecraft/util/Identifier;)V
+accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    advancementBuilder    Lnet/minecraft/advancement/Advancement$Builder;
+accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    output    Lnet/minecraft/item/Item;
+accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    count    I
+accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    group    Ljava/lang/String;
+accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    pattern    Ljava/util/List;
+accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    inputs    Ljava/util/Map;
+accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    category    Lnet/minecraft/recipe/book/RecipeCategory;
 
 accessible    class    net/minecraft/recipe/Ingredient$Entry
 accessible    class    net/minecraft/recipe/Ingredient$TagEntry
@@ -21,8 +32,5 @@ accessible    field    net/minecraft/block/FluidBlock    fluid    Lnet/minecraft
 accessible    method    net/minecraft/world/gen/foliage/FoliagePlacerType    register    (Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lnet/minecraft/world/gen/foliage/FoliagePlacerType;
 accessible    method    net/minecraft/recipe/RecipeManager    getAllOfType    (Lnet/minecraft/recipe/RecipeType;)Ljava/util/Map;
 accessible    field    net/minecraft/screen/ScreenHandler    listeners    Ljava/util/List;
-accessible    method    net/minecraft/recipe/ShapedRecipe    matchesPattern    (Lnet/minecraft/inventory/CraftingInventory;IIZ)Z
 
 accessible    field    net/minecraft/structure/pool/StructurePool    elements    Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
-
-extendable method net/minecraft/data/server/recipe/RecipeProvider getName ()Ljava/lang/String;

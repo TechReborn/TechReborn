@@ -121,8 +121,8 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		// Ok, we are actively generating power, but check for a few conditions that would restrict
 		// the generation to minimal production...
 		if (!world.getDimension().hasSkyLight() || // No light source in dimension (e.g. nether or end)
-			  (skyAngle > 0.25 && skyAngle < 0.75) || // Light source is below horizon
-			  (world.isRaining() || world.isThundering())) { // Weather is present
+			(skyAngle > 0.25 && skyAngle < 0.75) || // Light source is below horizon
+			(world.isRaining() || world.isThundering())) { // Weather is present
 			return getPanel().generationRateN;
 		}
 
