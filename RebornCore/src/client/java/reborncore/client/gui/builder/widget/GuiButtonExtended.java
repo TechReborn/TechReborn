@@ -25,11 +25,9 @@
 package reborncore.client.gui.builder.widget;
 
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import reborncore.common.misc.TriConsumer;
 
-import java.util.function.Supplier;
 
 public class GuiButtonExtended extends ButtonWidget {
 

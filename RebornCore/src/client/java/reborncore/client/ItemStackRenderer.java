@@ -37,7 +37,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL12;
 

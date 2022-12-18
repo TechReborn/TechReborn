@@ -288,7 +288,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	 * @return {@code long} Energy stored in block entity
 	 */
 	public long getEnergy() {
-	  return getStored();
+	return getStored();
 	}
 
 	/**

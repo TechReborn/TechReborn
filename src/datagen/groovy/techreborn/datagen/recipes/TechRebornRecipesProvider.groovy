@@ -43,74 +43,74 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
 abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
-    protected Consumer<RecipeJsonProvider> exporter
-    TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output)
-    }
+	protected Consumer<RecipeJsonProvider> exporter
+	TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output)
+	}
 
-    @Override
-    final void generate(Consumer<RecipeJsonProvider> exporter) {
-        this.exporter = exporter
-        generateRecipes()
-    }
+	@Override
+	final void generate(Consumer<RecipeJsonProvider> exporter) {
+		this.exporter = exporter
+		generateRecipes()
+	}
 
-    abstract void generateRecipes()
+	abstract void generateRecipes()
 
 	static Ingredient createIngredient(def input) {
-        if (input instanceof Ingredient) {
+		if (input instanceof Ingredient) {
 			return input
 		}
 		if (input instanceof ItemConvertible) {
-            return Ingredient.ofItems(input)
-        } else if (input instanceof TagKey) {
-            return Ingredient.fromTag(input)
-        }
+			return Ingredient.ofItems(input)
+		} else if (input instanceof TagKey) {
+			return Ingredient.fromTag(input)
+		}
 
-        throw new IllegalArgumentException()
-    }
+		throw new IllegalArgumentException()
+	}
 
-    static String getCriterionName(def input) {
-        if (input instanceof ItemConvertible) {
-            return hasItem(input)
-        } else if (input instanceof TagKey) {
-            return "has_tag_" + input.id().toUnderscoreSeparatedString()
-        }
+	static String getCriterionName(def input) {
+		if (input instanceof ItemConvertible) {
+			return hasItem(input)
+		} else if (input instanceof TagKey) {
+			return "has_tag_" + input.id().toUnderscoreSeparatedString()
+		}
 
-        throw new IllegalArgumentException()
-    }
+		throw new IllegalArgumentException()
+	}
 
-    static CriterionConditions getCriterionConditions(def input) {
-        if (input instanceof ItemConvertible) {
-            return conditionsFromItem(input)
-        } else if (input instanceof TagKey) {
-            return conditionsFromTag(input)
-        }
+	static CriterionConditions getCriterionConditions(def input) {
+		if (input instanceof ItemConvertible) {
+			return conditionsFromItem(input)
+		} else if (input instanceof TagKey) {
+			return conditionsFromTag(input)
+		}
 
-        throw new IllegalArgumentException()
-    }
+		throw new IllegalArgumentException()
+	}
 
-    static String getInputPath(def input) {
-        if (input instanceof ItemConvertible) {
-            return getItemPath(input)
-        } else if (input instanceof TagKey) {
-            return input.id().toString().replace(":", "_")
-        }
-
-        throw new IllegalArgumentException()
-    }
-
-    static String getName(def input) {
-        if (input instanceof ItemConvertible) {
+	static String getInputPath(def input) {
+		if (input instanceof ItemConvertible) {
 			return getItemPath(input)
-        } else if (input instanceof TagKey) {
-			String name = input.id().toString()
-            if (name.contains(":"))
-                name = name.substring(name.indexOf(":")+1)
-			return name
-        }
+		} else if (input instanceof TagKey) {
+			return input.id().toString().replace(":", "_")
+		}
 
-        throw new IllegalArgumentException()
-    }
+		throw new IllegalArgumentException()
+	}
+
+	static String getName(def input) {
+		if (input instanceof ItemConvertible) {
+			return getItemPath(input)
+		} else if (input instanceof TagKey) {
+			String name = input.id().toString()
+			if (name.contains(":"))
+				name = name.substring(name.indexOf(":")+1)
+			return name
+		}
+
+		throw new IllegalArgumentException()
+	}
 
 	static String getNamePart1(def input) {
 		String name
@@ -160,9 +160,9 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-    protected Identifier getRecipeIdentifier(Identifier identifier) {
-        return new Identifier("techreborn", super.getRecipeIdentifier(identifier).path)
-    }
+	protected Identifier getRecipeIdentifier(Identifier identifier) {
+		return new Identifier("techreborn", super.getRecipeIdentifier(identifier).path)
+	}
 
 	@Override
 	public String getName() {

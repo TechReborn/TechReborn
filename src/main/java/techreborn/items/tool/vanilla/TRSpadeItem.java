@@ -29,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
 
 public class TRSpadeItem extends ShovelItem {
 

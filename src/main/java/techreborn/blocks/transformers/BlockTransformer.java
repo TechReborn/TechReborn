@@ -72,7 +72,7 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 	// BaseTileBlock
 	@Override
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
-						 ItemStack stack) {
+						ItemStack stack) {
 		super.onPlaced(worldIn, pos, state, placer, stack);
 		Direction facing = placer.getHorizontalFacing().getOpposite();
 		if (placer.getPitch() < -50) {

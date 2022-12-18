@@ -32,10 +32,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,12 +89,12 @@ public class RebornCore implements ModInitializer {
 		BlockWrenchEventHandler.setup();
 
 		/*
-		  This is a generic multiblock tick handler. If you are using this code on your
-		  own, you will need to register this with the Forge TickRegistry on both the
-		  client AND server sides. Note that different types of ticks run on different
-		  parts of the system. CLIENT ticks only run on the client, at the start/end of
-		  each game loop. SERVER and WORLD ticks only run on the server. WORLDLOAD
-		  ticks run only on the server, and only when worlds are loaded.
+		This is a generic multiblock tick handler. If you are using this code on your
+		own, you will need to register this with the Forge TickRegistry on both the
+		client AND server sides. Note that different types of ticks run on different
+		parts of the system. CLIENT ticks only run on the client, at the start/end of
+		each game loop. SERVER and WORLD ticks only run on the server. WORLDLOAD
+		ticks run only on the server, and only when worlds are loaded.
 		 */
 		ServerTickEvents.START_WORLD_TICK.register(MultiblockRegistry::tickStart);
 
@@ -108,7 +105,7 @@ public class RebornCore implements ModInitializer {
 
 		RebornCoreTags.WATER_EXPLOSION_ITEM.toString();
 		PaddedShapedRecipe.PADDED.toString();
-		
+
 		/* register UnloadHandler */
 		ServerBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {
 			if (blockEntity instanceof UnloadHandler) ((UnloadHandler) blockEntity).onUnload();

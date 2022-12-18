@@ -94,5 +94,3 @@ public class GuiManual extends Screen {
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 	}
 }
-
-

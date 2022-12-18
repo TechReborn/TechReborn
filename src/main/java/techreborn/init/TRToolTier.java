@@ -68,7 +68,7 @@ public enum TRToolTier implements ToolMaterial {
 	private final Lazy<Ingredient> repairMaterial;
 
 	TRToolTier(int miningLevel, int itemDurability, float miningSpeed, float attackDamage,
-			   int enchantability, Supplier<Ingredient> repairMaterialIn) {
+			int enchantability, Supplier<Ingredient> repairMaterialIn) {
 		this.miningLevel = miningLevel;
 		this.itemDurability = itemDurability;
 		this.miningSpeed = miningSpeed;

@@ -43,7 +43,7 @@ import java.util.Set;
 public abstract class IMultiblockPart extends BlockEntity {
 	public static final int INVALID_DISTANCE = Integer.MAX_VALUE;
 
-    public IMultiblockPart(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	public IMultiblockPart(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 
@@ -99,7 +99,7 @@ public abstract class IMultiblockPart extends BlockEntity {
 	 * @see #onDetached(MultiblockControllerBase)
 	 */
 	public abstract void onOrphaned(MultiblockControllerBase oldController, int oldControllerSize,
-	                                int newControllerSize);
+									int newControllerSize);
 
 	// Multiblock fuse/split helper methods. Here there be dragons.
 

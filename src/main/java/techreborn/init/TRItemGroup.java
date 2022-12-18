@@ -60,7 +60,7 @@ public class TRItemGroup {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(TRItemGroup::addIngredients);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.OPERATOR).register(TRItemGroup::addOperator);
 	}
-	
+
 	private static final ItemConvertible[] rubberOrderSmall = new ItemConvertible[]{
 		TRContent.RUBBER_LOG,
 		TRContent.RUBBER_LOG_STRIPPED,
@@ -157,7 +157,7 @@ public class TRItemGroup {
 				entries.add(storageUnit.upgrader);
 			}
 		}
-		
+
 		// armor and traditional tools
 		entries.add(TRContent.BRONZE_HELMET);
 		entries.add(TRContent.BRONZE_CHESTPLATE);
@@ -229,7 +229,7 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.QUANTUM_CHESTPLATE, entries, null, true);
 		addPoweredItem(TRContent.QUANTUM_LEGGINGS, entries, null, true);
 		addPoweredItem(TRContent.QUANTUM_BOOTS, entries, null, true);
-		
+
 		addNanosaber(entries, null, false);
 
 		addPoweredItem(TRContent.LITHIUM_ION_BATPACK, entries, null, true);
@@ -241,9 +241,9 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.ENERGY_CRYSTAL, entries, null, true);
 		addPoweredItem(TRContent.LAPOTRON_CRYSTAL, entries, null, true);
 		addPoweredItem(TRContent.LAPOTRONIC_ORB, entries, null, true);
-		
+
 		entries.add(TRContent.GPS);
-		
+
 		entries.add(TRContent.MANUAL);
 		entries.add(TRContent.DEBUG_TOOL);
 	}

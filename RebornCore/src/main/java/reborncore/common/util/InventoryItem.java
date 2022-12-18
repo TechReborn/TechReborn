@@ -103,8 +103,8 @@ public class InventoryItem extends InventoryBase {
 
 	@Override
 	public void setStack(int slot,
-						 @NotNull
-								 ItemStack stack) {
+						@NotNull
+								ItemStack stack) {
 		setSlotData(slot, stack.writeNbt(new NbtCompound()));
 	}
 
@@ -120,8 +120,8 @@ public class InventoryItem extends InventoryBase {
 	}
 
 	public int getStackLimit(int slot,
-							 @NotNull
-									 ItemStack stack) {
+							@NotNull
+									ItemStack stack) {
 		return Math.min(getSlotLimit(slot), stack.getMaxCount());
 	}
 

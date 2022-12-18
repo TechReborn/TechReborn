@@ -49,10 +49,10 @@ import techreborn.datagen.worldgen.TRWorldGenProvider
 
 class TechRebornDataGen implements DataGeneratorEntrypoint {
 
-    @Override
-    void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+	@Override
+	void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		def pack = fabricDataGenerator.createPack()
-		
+
 		def add = { FabricDataGenerator.Pack.RegistryDependentFactory factory ->
 			pack.addProvider factory
 		}
@@ -61,7 +61,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 		add TRPointOfInterestTagProvider::new
 
 		add TRBlockTagProvider::new
-        // tags before all else, very important!!
+		// tags before all else, very important!!
 		add SmeltingRecipesProvider::new
 		add CraftingRecipesProvider::new
 
@@ -76,9 +76,9 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 
 		add ModelProvider::new
 		add BlockLootTableProvider::new
-		
+
 		add TRWorldGenProvider::new
-    }
+	}
 
 	@Override
 	String getEffectiveModId() {

@@ -96,7 +96,7 @@ public class BlockEntityScreenHandlerBuilder {
 	}
 
 	public BlockEntityScreenHandlerBuilder filterSlot(final int index, final int x, final int y,
-													  final Predicate<ItemStack> filter) {
+													final Predicate<ItemStack> filter) {
 		this.parent.slots.add(new FilteredSlot(this.inventory, index, x, y).setFilter(filter));
 		return this;
 	}

@@ -31,7 +31,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.recipes.IUpgradeHandler;
-import techreborn.TechReborn;
 
 public class UpgradeItem extends Item implements IUpgrade {
 

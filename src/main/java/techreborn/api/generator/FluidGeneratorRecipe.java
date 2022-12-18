@@ -29,7 +29,7 @@ import net.minecraft.fluid.Fluid;
 import reborncore.common.fluid.FluidUtils;
 
 public record FluidGeneratorRecipe(Fluid fluid, int energyPerMb,
-								   EFluidGenerator generatorType) {
+								EFluidGenerator generatorType) {
 
 	public int getEnergyPerBucket() {
 		return energyPerMb * 1000;

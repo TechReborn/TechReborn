@@ -55,7 +55,7 @@ public class ServerBoundPackets {
 				NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
 
 				// We update the block to allow pipes that are connecting to detect the update and change their
-			    // connection status if needed
+				// connection status if needed
 				World world = legacyMachineBase.getWorld();
 				BlockState blockState = world.getBlockState(legacyMachineBase.getPos());
 				world.updateNeighborsAlways(legacyMachineBase.getPos(), blockState.getBlock());

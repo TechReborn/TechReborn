@@ -33,7 +33,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.util.WorldUtils;
-import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
 
 import java.util.List;

@@ -33,18 +33,18 @@ import techreborn.test.TRGameTest
 import techreborn.test.TRTestContext
 
 class IronAlloyFurnaceTest extends TRGameTest {
-    @GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
-    def testIronAlloyFurnaceElectrumAlloyIngot(TRTestContext context) {
-        /**
-         * Test that the Iron Alloy Furnace smelts a gold ingot and a silver ingot into an electrum alloy ingot in 200
+	@GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
+	def testIronAlloyFurnaceElectrumAlloyIngot(TRTestContext context) {
+		/**
+		 * Test that the Iron Alloy Furnace smelts a gold ingot and a silver ingot into an electrum alloy ingot in 200
 		 * Verifies: Issue #2850
-         */
-        context.machine(TRContent.Machine.IRON_ALLOY_FURNACE) {
+		 */
+		context.machine(TRContent.Machine.IRON_ALLOY_FURNACE) {
 			input(Items.COAL_BLOCK, IronAlloyFurnaceBlockEntity.FUEL_SLOT)
-            input(Items.GOLD_INGOT, IronAlloyFurnaceBlockEntity.INPUT_SLOT_1)
-            input(TRContent.Ingots.SILVER, IronAlloyFurnaceBlockEntity.INPUT_SLOT_2)
+			input(Items.GOLD_INGOT, IronAlloyFurnaceBlockEntity.INPUT_SLOT_1)
+			input(TRContent.Ingots.SILVER, IronAlloyFurnaceBlockEntity.INPUT_SLOT_2)
 
-            expectOutput(TRContent.Ingots.ELECTRUM, (int) (200 / TechRebornConfig.cookingScale), IronAlloyFurnaceBlockEntity.OUTPUT_SLOT)
-        }
-    }
+			expectOutput(TRContent.Ingots.ELECTRUM, (int) (200 / TechRebornConfig.cookingScale), IronAlloyFurnaceBlockEntity.OUTPUT_SLOT)
+		}
+	}
 }

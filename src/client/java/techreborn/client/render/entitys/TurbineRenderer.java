@@ -45,7 +45,7 @@ import java.util.HashMap;
 public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity> {
 	private static final TurbineModel MODEL = new TurbineModel();
 	public static final Identifier TEXTURE = new Identifier("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
-	
+
 	public TurbineRenderer(BlockEntityRendererFactory.Context ctx) {
 	}
 

@@ -48,17 +48,17 @@ class IronFurnaceTest extends TRGameTest {
 		}
 	}
 
-    @GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
-    def testIronFurnaceSmeltRawIronBlock(TRTestContext context) {
-        /**
-         * Test that the Iron Furnace smelts a raw iron block into an iron block in 1500 ticks instead of 200
+	@GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 2000)
+	def testIronFurnaceSmeltRawIronBlock(TRTestContext context) {
+		/**
+		 * Test that the Iron Furnace smelts a raw iron block into an iron block in 1500 ticks instead of 200
 		 * Verifies: Issue #2850
-         */
-        context.machine(TRContent.Machine.IRON_FURNACE) {
+		 */
+		context.machine(TRContent.Machine.IRON_FURNACE) {
 			input(Items.COAL_BLOCK, IronFurnaceBlockEntity.FUEL_SLOT)
-            input(Items.RAW_IRON_BLOCK, IronFurnaceBlockEntity.INPUT_SLOT)
+			input(Items.RAW_IRON_BLOCK, IronFurnaceBlockEntity.INPUT_SLOT)
 
-            expectOutput(Items.IRON_BLOCK, (int) (1500 / TechRebornConfig.cookingScale), IronFurnaceBlockEntity.OUTPUT_SLOT)
-        }
-    }
+			expectOutput(Items.IRON_BLOCK, (int) (1500 / TechRebornConfig.cookingScale), IronFurnaceBlockEntity.OUTPUT_SLOT)
+		}
+	}
 }

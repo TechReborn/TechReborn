@@ -55,7 +55,7 @@ public class RebornFluidRenderManager implements SimpleSynchronousResourceReload
 
 	private static void setupFluidRenderer(RebornFluid fluid) {
 		// Done lazy as we want to ensure we get the sprite at the correct time,
-	    // but also don't want to be making these calls every time its required.
+		// but also don't want to be making these calls every time its required.
 		TemporaryLazy<Sprite[]> sprites = new TemporaryLazy<>(() -> {
 			FluidSettings fluidSettings = fluid.getFluidSettings();
 			return new Sprite[]{RenderUtil.getSprite(fluidSettings.getStillTexture()), RenderUtil.getSprite(fluidSettings.getFlowingTexture())};

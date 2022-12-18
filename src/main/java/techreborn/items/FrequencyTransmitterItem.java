@@ -66,16 +66,16 @@ public class FrequencyTransmitterItem extends Item {
 
 		if (context.getPlayer() instanceof ServerPlayerEntity serverPlayerEntity) {
 			serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo")
-				                               .append(Text.literal(" X:").formatted(Formatting.GRAY))
-				                               .append(Text.literal(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
-				                               .append(Text.literal(" Y:").formatted(Formatting.GRAY))
-				                               .append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
-				                               .append(Text.literal(" Z:").formatted(Formatting.GRAY))
-				                               .append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD))
-				                               .append(" ")
-				                               .append(Text.translatable("techreborn.message.in").formatted(Formatting.GRAY))
-				                               .append(" ")
-				                               .append(Text.literal(getDimName(globalPos.getDimension()).toString()).formatted(Formatting.GOLD)), true);
+											.append(Text.literal(" X:").formatted(Formatting.GRAY))
+											.append(Text.literal(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
+											.append(Text.literal(" Y:").formatted(Formatting.GRAY))
+											.append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
+											.append(Text.literal(" Z:").formatted(Formatting.GRAY))
+											.append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD))
+											.append(" ")
+											.append(Text.translatable("techreborn.message.in").formatted(Formatting.GRAY))
+											.append(" ")
+											.append(Text.literal(getDimName(globalPos.getDimension()).toString()).formatted(Formatting.GOLD)), true);
 		}
 
 		return ActionResult.SUCCESS;
@@ -97,12 +97,12 @@ public class FrequencyTransmitterItem extends Item {
 
 			if (player instanceof ServerPlayerEntity serverPlayerEntity) {
 				serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.coordsHaveBeen")
-					                               .formatted(Formatting.GRAY)
-					                               .append(" ")
-					                               .append(
-						                               Text.translatable("techreborn.message.cleared")
-							                               .formatted(Formatting.GOLD)
-					                               ), true);
+												.formatted(Formatting.GRAY)
+												.append(" ")
+												.append(
+													Text.translatable("techreborn.message.cleared")
+														.formatted(Formatting.GOLD)
+												), true);
 			}
 		}
 

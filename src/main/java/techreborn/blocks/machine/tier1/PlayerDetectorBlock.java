@@ -123,12 +123,12 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 
 		if (playerIn instanceof ServerPlayerEntity serverPlayerEntity) {
 			serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.detects")
-				                               .formatted(Formatting.GRAY)
-				                               .append(" ")
-				                               .append(
-					                               Text.literal(StringUtils.toFirstCapital(newType.asString()))
-						                               .formatted(color)
-				                               ), true);
+											.formatted(Formatting.GRAY)
+											.append(" ")
+											.append(
+												Text.literal(StringUtils.toFirstCapital(newType.asString()))
+													.formatted(color)
+											), true);
 		}
 
 		if (getGui() != null && !playerIn.isSneaking()) {

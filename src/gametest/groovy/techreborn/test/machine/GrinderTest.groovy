@@ -31,17 +31,17 @@ import techreborn.test.TRGameTest
 import techreborn.test.TRTestContext
 
 class GrinderTest extends TRGameTest {
-    @GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 150)
-    def testGrind2OCs(TRTestContext context) {
-        /**
-         * Test that grinder with 2 overclocker upgrades grinds coal into coal dust in 116 ticks
-         */
-        context.poweredMachine(TRContent.Machine.GRINDER) {
-            input(Items.COAL)
+	@GameTest(templateName = "fabric-gametest-api-v1:empty", tickLimit = 150)
+	def testGrind2OCs(TRTestContext context) {
+		/**
+		 * Test that grinder with 2 overclocker upgrades grinds coal into coal dust in 116 ticks
+		 */
+		context.poweredMachine(TRContent.Machine.GRINDER) {
+			input(Items.COAL)
 
-            withUpgrades(TRContent.Upgrades.OVERCLOCKER, 2)
+			withUpgrades(TRContent.Upgrades.OVERCLOCKER, 2)
 
-            expectOutput(TRContent.Dusts.COAL, 116)
-        }
-    }
+			expectOutput(TRContent.Dusts.COAL, 116)
+		}
+	}
 }

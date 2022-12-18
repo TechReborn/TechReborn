@@ -37,7 +37,6 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.registry.Registry;
 import org.apache.commons.lang3.Validate;
 
 import java.util.Collections;

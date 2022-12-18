@@ -81,7 +81,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
 		return dropStack;
 	}
-	
+
 	protected boolean canDrainTransfer(){
 		if (inventory == null || inventory.size() < 2){
 			return false;
@@ -96,7 +96,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		}
 		return true;
 	}
-	
+
 	// MachineBaseBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {

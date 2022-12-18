@@ -151,9 +151,9 @@ public class SlotConfiguration implements NBTSerializable {
 			sideMap = new HashMap<>();
 			read(tagCompound);
 			Validate.isTrue(Arrays.stream(Direction.values())
-				                .map(enumFacing -> sideMap.get(enumFacing))
-				                .noneMatch(Objects::isNull),
-			                "sideMap failed to load from nbt"
+								.map(enumFacing -> sideMap.get(enumFacing))
+								.noneMatch(Objects::isNull),
+							"sideMap failed to load from nbt"
 			);
 		}
 
