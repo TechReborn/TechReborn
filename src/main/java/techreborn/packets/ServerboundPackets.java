@@ -33,6 +33,7 @@ import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
+import techreborn.blockentity.machine.misc.PumpBlockEntity;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.blockentity.machine.tier1.ElevatorBlockEntity;
@@ -58,6 +59,8 @@ public class ServerboundPackets {
 	public static final Identifier DETECTOR_RADIUS = new Identifier(TechReborn.MOD_ID, "detector_radius");
 	public static final Identifier LAUNCH_SPEED = new Identifier(TechReborn.MOD_ID, "launch_speed");
 	public static final Identifier JUMP = new Identifier(TechReborn.MOD_ID, "jump");
+	public static final Identifier PUMP_DEPTH = new Identifier(TechReborn.MOD_ID, "pump_depth");
+	public static final Identifier PUMP_RANGE = new Identifier(TechReborn.MOD_ID, "pump_range");
 
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
@@ -198,6 +201,31 @@ public class ServerboundPackets {
 				}
 			});
 		});
+
+		NetworkManager.registerServerBoundHandler(PUMP_DEPTH, ((server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+			int buttonAmount = buf.readInt();
+
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				if (blockEntity instanceof PumpBlockEntity) {
+					((PumpBlockEntity) blockEntity).handleDepthGuiInputFromClient(buttonAmount);
+				}
+			});
+		}));
+
+		NetworkManager.registerServerBoundHandler(PUMP_RANGE, ((server, player, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+			int buttonAmount = buf.readInt();
+
+			server.execute(() -> {
+				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				if (blockEntity instanceof PumpBlockEntity) {
+					((PumpBlockEntity) blockEntity).handleRangeGuiInputFromClient(buttonAmount);
+				}
+			});
+		}));
+
 	}
 
 	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
@@ -273,6 +301,20 @@ public class ServerboundPackets {
 	public static IdentifiedPacket createPacketJump(BlockPos pos) {
 		return NetworkManager.createServerBoundPacket(JUMP, packetBuffer -> {
 			packetBuffer.writeBlockPos(pos);
+		});
+	}
+
+	public static IdentifiedPacket createPacketPumpDepth(int buttonAmount, PumpBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(PUMP_DEPTH, buf -> {
+			buf.writeBlockPos(blockEntity.getPos());
+			buf.writeInt(buttonAmount);
+		});
+	}
+
+	public static IdentifiedPacket createPacketPumpRange(int buttonAmount, PumpBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(PUMP_RANGE, buf -> {
+			buf.writeBlockPos(blockEntity.getPos());
+			buf.writeInt(buttonAmount);
 		});
 	}
 }

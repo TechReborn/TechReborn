@@ -645,6 +645,21 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "fishing_station", key = "FishingStationInterval", comment = "Fishing Station Catch Interval in Ticks > 0")
 	public static int fishingStationInterval = 400; // 20 seconds
 
+	@Config(config = "machines", category = "pump", key = "PumpTicksUntilNextAttempt", comment = "How many ticks should go between two pump attempts. 0 or negative will disable pumping.")
+	public static int pumpTicksUntilNextAttempt = 50;
+
+	@Config(config = "machines", category = "pump", key = "PumpTicksToComplete", comment = "How many ticks it takes to pump a source block.")
+	public static int pumpTicksToComplete = 100;
+
+	@Config(config = "machines", category = "pump", key = "PumpMaxInput", comment = ".")
+	public static int pumpMaxInput = 128;
+
+	@Config(config = "machines", category = "pump", key = "PumpMaxEnergy", comment = ".")
+	public static int pumpMaxEnergy = 10_000;
+
+	@Config(config = "machines", category = "pump", key = "PumpEnergyToCollect", comment = ".")
+	public static int pumpEnergyToCollect = 5_000;
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;

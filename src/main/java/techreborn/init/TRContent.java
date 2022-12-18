@@ -66,6 +66,7 @@ import techreborn.blockentity.generator.basic.WaterMillBlockEntity;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
+import techreborn.blockentity.machine.misc.PumpBlockEntity;
 import techreborn.blockentity.machine.multiblock.DistillationTowerBlockEntity;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
@@ -833,7 +834,7 @@ public class TRContent {
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
-
+		PUMP(new GenericMachineBlock(GuiType.PUMP, PumpBlockEntity::new)),
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(GuiType.CHARGEBENCH, ChargeOMatBlockEntity::new)),
 		INTERDIMENSIONAL_SU(new InterdimensionalSUBlock()),

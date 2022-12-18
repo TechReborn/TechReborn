@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"PPP",
+		"PBP",
+		"DXD"
+	],
+	"key": {
+		"P": {
+			"item": "techreborn:refined_iron_plate"
+		},
+		"B": {
+			"item": "techreborn:basic_tank_unit"
+		},
+		"D": {
+			"item": "techreborn:drain"
+		},
+		"X": {
+			"item": "minecraft:iron_bars"
+		}
+	},
+	"result": {
+		"item": "techreborn:pump"
+	}
+}
