@@ -34,5 +34,3 @@ accessible    method    net/minecraft/recipe/RecipeManager    getAllOfType    (L
 accessible    field    net/minecraft/screen/ScreenHandler    listeners    Ljava/util/List;
 
 accessible    field    net/minecraft/structure/pool/StructurePool    elements    Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
-
-extendable method net/minecraft/data/server/recipe/RecipeProvider getName ()Ljava/lang/String;
