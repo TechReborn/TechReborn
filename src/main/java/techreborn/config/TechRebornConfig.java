@@ -655,7 +655,7 @@ public class TechRebornConfig {
 	public static int pumpMaxInput = 128;
 
 	@Config(config = "machines", category = "pump", key = "PumpMaxEnergy", comment = ".")
-	public static int pumpMaxEnergy = 10_000;
+	public static int pumpMaxEnergy = 40_000;
 
 	@Config(config = "machines", category = "pump", key = "PumpEnergyToCollect", comment = ".")
 	public static int pumpEnergyToCollect = 5_000;

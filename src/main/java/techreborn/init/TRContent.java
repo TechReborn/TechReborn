@@ -66,7 +66,7 @@ import techreborn.blockentity.generator.basic.WaterMillBlockEntity;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
-import techreborn.blockentity.machine.misc.PumpBlockEntity;
+import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.multiblock.DistillationTowerBlockEntity;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;

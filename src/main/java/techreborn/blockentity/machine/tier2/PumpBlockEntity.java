@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.machine.misc;
+package techreborn.blockentity.machine.tier2;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -61,7 +61,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	public static final int DEFAULT_RANGE = 10;
 	public static final int DEFAULT_DEPTH = 10;
 	private Iterator<BlockPos> finder;
-	protected final Tank tank;
+	protected final @NotNull Tank tank;
 	boolean exhausted;
 	BlockPos pumpedTargetBlockPos;
 	long timePumpingStarted;
@@ -116,7 +116,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	@Override
-	public Tank getTank() {
+	public @NotNull Tank getTank() {
 		return tank;
 	}
 
@@ -166,12 +166,12 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				FluidValue fluidValue = FluidValue.BUCKET;
 				SoundEvent soundEvent;
 				BlockState blockState = world.getBlockState(pumpedTargetBlockPos);
-				if (blockState.getBlock() == Blocks.WATER) {
-					fluid = Fluids.WATER;
-					soundEvent = SoundEvents.ITEM_BUCKET_EMPTY;
-				} else if (blockState.getBlock() == Blocks.LAVA) {
+				if (blockState.getBlock() == Blocks.LAVA) {
 					fluid = Fluids.LAVA;
 					soundEvent = SoundEvents.ITEM_BUCKET_EMPTY_LAVA;
+				} else if (blockState.getBlock() == Blocks.WATER) {
+					fluid = Fluids.WATER;
+					soundEvent = SoundEvents.ITEM_BUCKET_EMPTY;
 				} else {
 					fluid = Fluids.EMPTY;
 					soundEvent = SoundEvents.BLOCK_DISPENSER_FAIL;

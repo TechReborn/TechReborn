@@ -31,7 +31,7 @@ import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.common.screen.BuiltScreenHandler;
-import techreborn.blockentity.machine.misc.PumpBlockEntity;
+import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
 public class GuiPump extends GuiBase<BuiltScreenHandler> {

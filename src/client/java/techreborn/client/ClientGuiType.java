@@ -40,7 +40,7 @@ import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
-import techreborn.blockentity.machine.misc.PumpBlockEntity;
+import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
