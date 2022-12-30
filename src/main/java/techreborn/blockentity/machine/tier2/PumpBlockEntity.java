@@ -73,7 +73,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	public void setRange(int newRange) {
-		TechReborn.LOGGER.info("setRange {} → {}", range, newRange);
 		if (newRange != range) {
 			range = newRange;
 			if (range < 1) range = 1;
@@ -90,7 +89,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	public void setDepth(int newDepth) {
-		TechReborn.LOGGER.info("setDepth {} → {}", depth, newDepth);
 		if (newDepth != depth) {
 			depth = newDepth;
 			if (depth < 1) depth = 1;
@@ -108,7 +106,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		this.exhausted = false;
 		this.range = DEFAULT_RANGE;
 		this.depth = DEFAULT_DEPTH;
-		TechReborn.LOGGER.debug("pump created");
 	}
 
 	private void setupFinder() {
@@ -265,8 +262,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				for (int j = centerTop.getZ() - range; j <= centerTop.getZ() + range; j++)
 					layer.add(new MeasuredPos(i, centerTop.getY(), j, centerTop.getSquaredDistance(i, centerTop.getY(), j)));
 			layer.sort((o1, o2) -> (int) (o1.weight - o2.weight));
-			TechReborn.LOGGER.info("prepared layer info for pos {} with range {} and depth {}", centerTop, range, depth);
-			TechReborn.LOGGER.info("layer size = {} and m = {}", layerSize, m);
 		}
 
 		/**
@@ -289,7 +284,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 					if (TechRebornConfig.pumpIterateOutwards) {
 						pos = layer.get(index % layerSize).down(1 + index / layerSize);
 					} else {
-						pos = layer.get((m - index) % layerSize).down(1 + (m - index) / layerSize);
+						pos = layer.get((m - index - 1) % layerSize).down(1 + (m - index - 1) / layerSize);
 					}
 					index++;
 					return pos;
