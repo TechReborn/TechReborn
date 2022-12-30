@@ -658,7 +658,10 @@ public class TechRebornConfig {
 	public static int pumpMaxEnergy = 40_000;
 
 	@Config(config = "machines", category = "pump", key = "PumpEnergyToCollect", comment = ".")
-	public static int pumpEnergyToCollect = 5_000;
+	public static int pumpEnergyToCollect = 1_000;
+
+	@Config(config = "machines", category = "pump", key = "PumpIterateOutwards", comment = ".")
+	public static boolean pumpIterateOutwards = false;
 
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")

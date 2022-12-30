@@ -285,7 +285,12 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 
 				@Override
 				public BlockPos next() {
-					BlockPos pos = layer.get(index % layerSize).down(1 + index / layerSize);
+					final BlockPos pos;
+					if (TechRebornConfig.pumpIterateOutwards) {
+						pos = layer.get(index % layerSize).down(1 + index / layerSize);
+					} else {
+						pos = layer.get((m - index) % layerSize).down(1 + (m - index) / layerSize);
+					}
 					index++;
 					return pos;
 				}
