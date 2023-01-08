@@ -645,22 +645,19 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "fishing_station", key = "FishingStationInterval", comment = "Fishing Station Catch Interval in Ticks > 0")
 	public static int fishingStationInterval = 400; // 20 seconds
 
-	@Config(config = "machines", category = "pump", key = "PumpTicksUntilNextAttempt", comment = "How many ticks should go between two pump attempts. 0 or negative will disable pumping.")
-	public static int pumpTicksUntilNextAttempt = 50;
-
 	@Config(config = "machines", category = "pump", key = "PumpTicksToComplete", comment = "How many ticks it takes to pump a source block.")
 	public static int pumpTicksToComplete = 100;
 
-	@Config(config = "machines", category = "pump", key = "PumpMaxInput", comment = ".")
+	@Config(config = "machines", category = "pump", key = "PumpMaxInput", comment = "Pump Max Input (Energy per tick)")
 	public static int pumpMaxInput = 128;
 
-	@Config(config = "machines", category = "pump", key = "PumpMaxEnergy", comment = ".")
+	@Config(config = "machines", category = "pump", key = "PumpMaxEnergy", comment = "Pump Max Energy")
 	public static int pumpMaxEnergy = 40_000;
 
-	@Config(config = "machines", category = "pump", key = "PumpEnergyToCollect", comment = ".")
+	@Config(config = "machines", category = "pump", key = "PumpEnergyToCollect", comment = "Base amount of Energy to collect a block of fluid")
 	public static int pumpEnergyToCollect = 1_000;
 
-	@Config(config = "machines", category = "pump", key = "PumpIterateOutwards", comment = ".")
+	@Config(config = "machines", category = "pump", key = "PumpIterateOutwards", comment = "If true then the pump will collect closest fluid and scan outwards")
 	public static boolean pumpIterateOutwards = false;
 
 	// Misc

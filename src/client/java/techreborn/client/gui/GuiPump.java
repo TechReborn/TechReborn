@@ -36,6 +36,8 @@ import techreborn.packets.ServerboundPackets;
 
 public class GuiPump extends GuiBase<BuiltScreenHandler> {
 
+	static final String DEPTH_LABEL = "Depth (" + PumpBlockEntity.MIN_DEPTH + ".." + PumpBlockEntity.MAX_DEPTH + "):";
+	static final String RANGE_LABEL = "Range (" + PumpBlockEntity.MIN_RANGE + ".." + PumpBlockEntity.MAX_RANGE + "):";
 	private final PumpBlockEntity blockEntity;
 
 	public GuiPump(int syncID, final PlayerEntity player, final PumpBlockEntity blockEntity) {
@@ -75,8 +77,8 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 
 		drawSlot(matrixStack, 8, 72, layer); // Battery slot
 
-		Text depthText = Text.literal("Depth: ").append(Integer.toString(blockEntity.getDepth()));
-		Text rangeText = Text.literal("Range: ").append(Integer.toString(blockEntity.getRange()));
+		Text depthText = Text.literal(DEPTH_LABEL).append(Integer.toString(blockEntity.getDepth()));
+		Text rangeText = Text.literal(RANGE_LABEL).append(Integer.toString(blockEntity.getRange()));
 		drawText(matrixStack, depthText, 80, 25, 4210752, layer);
 		drawText(matrixStack, rangeText, 80, 55, 4210752, layer);
 	}
