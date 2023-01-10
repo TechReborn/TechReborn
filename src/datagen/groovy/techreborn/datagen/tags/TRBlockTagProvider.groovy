@@ -63,7 +63,7 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 		TRContent.StorageBlocks.values().each {
 			getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-				.add(it.block)
+				.add(it.block, it.stairsBlock, it.slabBlock, it.wallBlock)
 		}
 
 		TRContent.MachineBlocks.values().each {
