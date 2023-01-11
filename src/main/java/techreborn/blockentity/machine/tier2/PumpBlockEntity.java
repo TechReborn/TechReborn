@@ -36,7 +36,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
@@ -73,7 +72,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	protected final @NotNull Tank tank;
 	boolean exhausted;
 	BlockPos pumpedTargetBlockPos;
-	long timePumpingStarted;
+	long timeToPump;
 	int range;
 
 	public int getRange() {
@@ -81,12 +80,11 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	public void setRange(int newRange) {
+		if (newRange < MIN_RANGE) newRange = MIN_RANGE;
+		if (newRange > MAX_RANGE) newRange = MAX_RANGE;
 		if (newRange != range) {
 			range = newRange;
-			if (range < MIN_RANGE) range = MIN_RANGE;
-			if (range > MAX_RANGE) range = MAX_RANGE;
-			finder = null;
-			exhausted = false;
+			reset();
 		}
 	}
 
@@ -97,13 +95,18 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	public void setDepth(int newDepth) {
+		if (newDepth < MIN_DEPTH) newDepth = MIN_DEPTH;
+		if (newDepth > MAX_DEPTH) newDepth = MAX_DEPTH;
 		if (newDepth != depth) {
 			depth = newDepth;
-			if (depth < MIN_DEPTH) depth = MIN_DEPTH;
-			if (depth > MAX_DEPTH) depth = MAX_DEPTH;
-			finder = null;
-			exhausted = false;
+			reset();
 		}
+	}
+
+	private void reset() {
+		finder = null;
+		exhausted = false;
+		pumpedTargetBlockPos = null;
 	}
 
 	public PumpBlockEntity(BlockPos pos, BlockState state) {
@@ -163,30 +166,47 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		//do nothing if all liquids have been exhausted
 		if (this.exhausted) return;
 
-		//if pumping time completed
+		//has a target block to pump?
 		if (pumpedTargetBlockPos != null) {
-			if ((world.getTime() - timePumpingStarted >= (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier())))
-				&& getEnergy() >= (long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier())) {
-				//collect fluid
-				FluidValue fluidValue = FluidValue.BUCKET;
+			//pumping time completed?
+			//has space to store?
+			//has enough energy to pump?
+			if ((world.getTime() >= timeToPump)) {
+				//not enough energy to pump?
+				if (getEnergy() < (long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier())) {
+					//play oops
+					world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0f, 1.0f);
+					//don't drop target, retry it again later
+					timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+					return;
+				}
+				//recheck the target
 				BlockState blockState = world.getBlockState(pumpedTargetBlockPos);
 				Fluid fluid = getFluid(blockState);
-				SoundEvent soundEvent = getSoundEvent(fluid);
-				if (fluid == Fluids.EMPTY || !tank.canFit(fluid, fluidValue)) {
+				//no longer fluid there?
+				if (fluid == Fluids.EMPTY) {
 					//play oops
-					world.playSound(null, this.pos, soundEvent, SoundCategory.BLOCKS, 1.0f, 1.0f);
-					//drop target
+					world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, isMuffled() ? 0.1f : 1.0f, 1.0f);
+					//drop target (and find the next)
 					pumpedTargetBlockPos = null;
+					return;
+				}
+				//cannot fit fluid into the tank?
+				if (!tank.canFit(fluid, FluidValue.BUCKET)) {
+					//play oops
+					world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, isMuffled() ? 0.1f : 1.0f, 1.0f);
+					//don't drop target, retry it again later
+					timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;
 				}
 				//fill tank
 				if (tank.getFluidInstance().isEmpty()) {
-					tank.setFluidInstance(new FluidInstance(fluid, fluidValue));
+					tank.setFluidInstance(new FluidInstance(fluid, FluidValue.BUCKET));
 				} else {
-					tank.getFluidInstance().addAmount(fluidValue);
+					tank.getFluidInstance().addAmount(FluidValue.BUCKET);
 				}
 				//play sound
-				world.playSound(null, this.pos, soundEvent, SoundCategory.BLOCKS, isMuffled() ? 0.1f : 1.0f, 1.0f);
+				world.playSound(null, this.pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, isMuffled() ? 0.1f : 1.0f, 1.0f);
 				//consume energy
 				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier()));
 				//extract drops
@@ -200,7 +220,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			//find next target
 			findNextToPump(world);
 			if (pumpedTargetBlockPos != null) {
-				timePumpingStarted = world.getTime();
+				timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 			} else {
 				//else - consider exhausted
 				this.exhausted = true;
@@ -228,28 +248,12 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	@NotNull
-	private SoundEvent getSoundEvent(Fluid fluid) {
-		if (fluid == Fluids.LAVA) return SoundEvents.ITEM_BUCKET_EMPTY_LAVA;
-		else if (fluid == Fluids.EMPTY) return SoundEvents.BLOCK_DISPENSER_FAIL;
-		else return SoundEvents.ITEM_BUCKET_EMPTY;
-	}
-
-	@NotNull
 	private Fluid getFluid(BlockState blockState) {
-		Block block = blockState.getBlock();
 		FluidState fluidState = blockState.getFluidState();
+		Fluid fluid = fluidState.getFluid();
+		if (fluidState.getLevel() == 8) return fluid;
+		else return Fluids.EMPTY;
 
-		final Fluid fluid;
-		if (block == Blocks.LAVA && fluidState.getLevel() == 8) {
-			fluid = Fluids.LAVA;
-		} else if (block == Blocks.WATER && fluidState.getLevel() == 8) {
-			fluid = Fluids.WATER;
-		} else if (fluidState.getLevel() == 8) {
-			fluid = fluidState.getFluid();
-		} else {
-			fluid = Fluids.EMPTY;
-		}
-		return fluid;
 	}
 
 	@NotNull
