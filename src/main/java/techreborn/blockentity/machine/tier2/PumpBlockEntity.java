@@ -70,10 +70,20 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	public static final int MAX_DEPTH = 50;
 	private Iterator<BlockPos> finder;
 	protected final @NotNull Tank tank;
-	boolean exhausted;
-	BlockPos pumpedTargetBlockPos;
-	long timeToPump;
-	int range;
+
+	public boolean getExhausted() {
+		return exhausted;
+	}
+
+	public void setExhausted(boolean v) {
+		exhausted = v;
+	}
+
+	private boolean exhausted;
+
+	private BlockPos pumpedTargetBlockPos;
+	private long timeToPump;
+	private int range;
 
 	public int getRange() {
 		return range;
@@ -88,7 +98,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		}
 	}
 
-	int depth;
+	private int depth;
 
 	public int getDepth() {
 		return depth;
@@ -154,7 +164,16 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("pump").player(player.getInventory()).inventory().hotbar().addInventory().blockEntity(this).energySlot(0, 8, 72).sync(tank).syncEnergyValue().sync(this::getDepth, this::setDepth).sync(this::getRange, this::setRange).addInventory().create(this, syncID);
+		return new ScreenHandlerBuilder("pump")
+			.player(player.getInventory()).inventory().hotbar().addInventory().blockEntity(this)
+			.energySlot(0, 8, 72)
+			.sync(tank)
+			.syncEnergyValue()
+			.sync(this::getDepth, this::setDepth)
+			.sync(this::getRange, this::setRange)
+			.sync(this::getExhausted, this::setExhausted)
+			.addInventory()
+			.create(this, syncID);
 	}
 
 	@Override
@@ -174,8 +193,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			if ((world.getTime() >= timeToPump)) {
 				//not enough energy to pump?
 				if (getEnergy() < (long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier())) {
-					//play oops
-					world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0f, 1.0f);
 					//don't drop target, retry it again later
 					timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;
@@ -193,8 +210,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				}
 				//cannot fit fluid into the tank?
 				if (!tank.canFit(fluid, FluidValue.BUCKET)) {
-					//play oops
-					world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, isMuffled() ? 0.1f : 1.0f, 1.0f);
 					//don't drop target, retry it again later
 					timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;

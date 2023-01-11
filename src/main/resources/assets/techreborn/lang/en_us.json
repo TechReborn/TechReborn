@@ -1126,6 +1126,10 @@
   "gui.techreborn.block.progress.stopped": "Idle (Stopped)",
   "gui.techreborn.block.progress.paused": "Idle (%s)",
 
+  "gui.techreborn.pump.depth": "Depth (%s..%s):",
+  "gui.techreborn.pump.range": "Range (%s..%s):",
+  "gui.techreborn.pump.exhausted": "Exhausted!",
+
   "_comment28": "Villagers",
   "entity.minecraft.villager.techreborn.metallurgist": "Metallurgist",
   "entity.minecraft.villager.metallurgist": "Metallurgist",

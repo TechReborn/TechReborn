@@ -36,8 +36,6 @@ import techreborn.packets.ServerboundPackets;
 
 public class GuiPump extends GuiBase<BuiltScreenHandler> {
 
-	static final String DEPTH_LABEL = "Depth (" + PumpBlockEntity.MIN_DEPTH + ".." + PumpBlockEntity.MAX_DEPTH + "):";
-	static final String RANGE_LABEL = "Range (" + PumpBlockEntity.MIN_RANGE + ".." + PumpBlockEntity.MAX_RANGE + "):";
 	private final PumpBlockEntity blockEntity;
 
 	public GuiPump(int syncID, final PlayerEntity player, final PumpBlockEntity blockEntity) {
@@ -49,15 +47,15 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 	public void init() {
 		super.init();
 
-		addDrawableChild(new GuiButtonUpDown(x + 84, y + 35, this, b -> onClickDepth(10), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 12, y + 35, this, b -> onClickDepth(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 24, y + 35, this, b -> onClickDepth(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 36, y + 35, this, b -> onClickDepth(-10), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 84, y + 30, this, b -> onClickDepth(10), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 84 + 12, y + 30, this, b -> onClickDepth(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 84 + 24, y + 30, this, b -> onClickDepth(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 84 + 36, y + 30, this, b -> onClickDepth(-10), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
 
-		addDrawableChild(new GuiButtonUpDown(x + 84, y + 65, this, b -> onClick(10), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 12, y + 65, this, b -> onClick(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 24, y + 65, this, b -> onClick(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 36, y + 65, this, b -> onClick(-10), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 84, y + 55, this, b -> onClick(10), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 84 + 12, y + 55, this, b -> onClick(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
+		addDrawableChild(new GuiButtonUpDown(x + 84 + 24, y + 55, this, b -> onClick(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
+		addDrawableChild(new GuiButtonUpDown(x + 84 + 36, y + 55, this, b -> onClick(-10), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
 	}
 
 	private void onClickDepth(int amount) {
@@ -77,10 +75,18 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 
 		drawSlot(matrixStack, 8, 72, layer); // Battery slot
 
-		Text depthText = Text.literal(DEPTH_LABEL).append(Integer.toString(blockEntity.getDepth()));
-		Text rangeText = Text.literal(RANGE_LABEL).append(Integer.toString(blockEntity.getRange()));
-		drawText(matrixStack, depthText, 80, 25, 4210752, layer);
-		drawText(matrixStack, rangeText, 80, 55, 4210752, layer);
+		drawText(matrixStack,
+			Text.translatable("gui.techreborn.pump.depth", Integer.toString(PumpBlockEntity.MIN_DEPTH), Integer.toString(PumpBlockEntity.MAX_DEPTH))
+				.append(Integer.toString(blockEntity.getDepth())),
+			80, 20, 0x404040, layer);
+		drawText(matrixStack,
+			Text.translatable("gui.techreborn.pump.range", Integer.toString(PumpBlockEntity.MIN_RANGE), Integer.toString(PumpBlockEntity.MAX_RANGE))
+				.append(Integer.toString(blockEntity.getRange())),
+			80, 45, 0x404040, layer);
+
+		if (blockEntity.getExhausted()) {
+			drawText(matrixStack, Text.translatable("gui.techreborn.pump.exhausted"), 80, 75, 0x800000, layer);
+		}
 	}
 
 	@Override
