@@ -43,6 +43,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -50,7 +51,6 @@ import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import techreborn.TechReborn;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
@@ -117,11 +117,11 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		finder = null;
 		exhausted = false;
 		pumpedTargetBlockPos = null;
+		world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 	}
 
 	public PumpBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.PUMP, pos, state, "Pump", TechRebornConfig.pumpMaxInput, TechRebornConfig.pumpMaxEnergy, TRContent.Machine.PUMP.block, 0);
-		TechReborn.LOGGER.debug("constructing pump at {} with state {}...", pos, state);
 		this.inventory = new RebornInventory<>(1, "PumpBlockEntity", 64, this);
 		this.tank = new Tank("PumpBlockEntity", TANK_CAPACITY, this);
 		this.exhausted = false;
@@ -149,7 +149,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		tank.read(tagCompound);
 		this.range = tagCompound.getInt("range");
 		this.depth = tagCompound.getInt("depth");
-		TechReborn.LOGGER.debug("readNbt, contains range {} depth {}", range, depth);
 		finder = null;
 	}
 
@@ -159,7 +158,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		tank.write(tagCompound);
 		tagCompound.putInt("range", range);
 		tagCompound.putInt("depth", depth);
-		TechReborn.LOGGER.debug("writeNbt, range {} depth {}", range, depth);
 	}
 
 	@Override
@@ -206,6 +204,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 					world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, isMuffled() ? 0.1f : 1.0f, 1.0f);
 					//drop target (and find the next)
 					pumpedTargetBlockPos = null;
+					world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 					return;
 				}
 				//cannot fit fluid into the tank?
@@ -238,8 +237,8 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 			} else {
 				//else - consider exhausted
+				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 				this.exhausted = true;
-				TechReborn.LOGGER.debug("pump {} exhausted", pos);
 			}
 		}
 
@@ -256,6 +255,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			Fluid fluid = getFluid(blockState);
 			if (fluid != Fluids.EMPTY && (fluid == tank.getFluid() || tank.getFluid() == Fluids.EMPTY)) {
 				//if any found - start pumping
+				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 				pumpedTargetBlockPos = blockPos;
 				return;
 			}

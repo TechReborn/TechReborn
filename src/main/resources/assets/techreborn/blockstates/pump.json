@@ -1,5 +1,12 @@
 {
 	"variants": {
-		"": { "model": "techreborn:block/machines/tier0_machines/pump" }
+		"facing=north,active=false": { "model": "techreborn:block/machines/tier2_machines/pump" },
+		"facing=south,active=false": { "model": "techreborn:block/machines/tier2_machines/pump", "y": 180 },
+		"facing=west,active=false":  { "model": "techreborn:block/machines/tier2_machines/pump", "y": 270 },
+		"facing=east,active=false":  { "model": "techreborn:block/machines/tier2_machines/pump", "y": 90 },
+		"facing=north,active=true": { "model": "techreborn:block/machines/tier2_machines/pump_on" },
+		"facing=south,active=true": { "model": "techreborn:block/machines/tier2_machines/pump_on", "y": 180 },
+		"facing=west,active=true":  { "model": "techreborn:block/machines/tier2_machines/pump_on", "y": 270 },
+		"facing=east,active=true":  { "model": "techreborn:block/machines/tier2_machines/pump_on", "y": 90 }
 	}
 }

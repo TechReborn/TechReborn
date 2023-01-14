@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/orientable",
+	"textures": {
+		"top": "techreborn:block/machines/tier2_machines/pump_top",
+		"down": "techreborn:block/machines/tier2_machines/pump_bottom",
+		"side": "techreborn:block/machines/tier2_machines/pump_side",
+		"front": "techreborn:block/machines/tier2_machines/pump_front"
+	}
+}
