@@ -127,6 +127,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		throw new IllegalArgumentException()
 	}
 
+	def offerAlloySmelterRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		MachineRecipeJsonFactory.create(ModRecipes.ALLOY_SMELTER, closure).offerTo(exporter)
+	}
+
 	def offerGrinderRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		MachineRecipeJsonFactory.create(ModRecipes.GRINDER, closure).offerTo(exporter)
 	}

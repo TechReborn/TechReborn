@@ -33,6 +33,7 @@ import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
+import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -61,9 +62,9 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateVanillaRawMetals() {
 		[
-			(Items.RAW_IRON)  : (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "iron_ores"))),
-			(Items.RAW_COPPER): (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "copper_ores"))),
-			(Items.RAW_GOLD)  : (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "gold_ores")))
+			(Items.RAW_IRON)  : (TRConventionalTags.IRON_ORES),
+			(Items.RAW_COPPER): (TRConventionalTags.COPPER_ORES),
+			(Items.RAW_GOLD)  : (TRConventionalTags.GOLD_ORES)
 		].each { raw, oreTag ->
 			offerGrinderRecipe {
 				ingredients oreTag
