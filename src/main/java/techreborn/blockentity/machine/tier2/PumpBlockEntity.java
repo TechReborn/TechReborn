@@ -59,6 +59,9 @@ import techreborn.init.TRContent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * @author maxvar (coding), ashendi (textures)
+ */
 public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
@@ -70,20 +73,28 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	public static final int MAX_DEPTH = 50;
 	private Iterator<BlockPos> finder;
 	protected final @NotNull Tank tank;
+	private boolean exhausted;
+	private BlockPos pumpedTargetBlockPos;
+	private long timeToPump;
+	private int range;
+	private int depth;
+
+	public PumpBlockEntity(BlockPos pos, BlockState state) {
+		super(TRBlockEntities.PUMP, pos, state, "Pump", TechRebornConfig.pumpMaxInput, TechRebornConfig.pumpMaxEnergy, TRContent.Machine.PUMP.block, 0);
+		this.inventory = new RebornInventory<>(1, "PumpBlockEntity", 64, this);
+		this.tank = new Tank("PumpBlockEntity", TANK_CAPACITY, this);
+		this.exhausted = false;
+		this.range = DEFAULT_RANGE;
+		this.depth = DEFAULT_DEPTH;
+	}
 
 	public boolean getExhausted() {
 		return exhausted;
 	}
 
-	public void setExhausted(boolean v) {
-		exhausted = v;
+	public void setExhausted(boolean exhausted) {
+		this.exhausted = exhausted;
 	}
-
-	private boolean exhausted;
-
-	private BlockPos pumpedTargetBlockPos;
-	private long timeToPump;
-	private int range;
 
 	public int getRange() {
 		return range;
@@ -97,8 +108,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			reset();
 		}
 	}
-
-	private int depth;
 
 	public int getDepth() {
 		return depth;
@@ -118,15 +127,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		exhausted = false;
 		pumpedTargetBlockPos = null;
 		world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
-	}
-
-	public PumpBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.PUMP, pos, state, "Pump", TechRebornConfig.pumpMaxInput, TechRebornConfig.pumpMaxEnergy, TRContent.Machine.PUMP.block, 0);
-		this.inventory = new RebornInventory<>(1, "PumpBlockEntity", 64, this);
-		this.tank = new Tank("PumpBlockEntity", TANK_CAPACITY, this);
-		this.exhausted = false;
-		this.range = DEFAULT_RANGE;
-		this.depth = DEFAULT_DEPTH;
 	}
 
 	private void setupFinder() {
@@ -201,7 +201,9 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				//no longer fluid there?
 				if (fluid == Fluids.EMPTY) {
 					//play oops
-					world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, isMuffled() ? 0.1f : 1.0f, 1.0f);
+					if (!isMuffled()) {
+						world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0f, 1.0f);
+					}
 					//drop target (and find the next)
 					pumpedTargetBlockPos = null;
 					world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
@@ -220,7 +222,9 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 					tank.getFluidInstance().addAmount(FluidValue.BUCKET);
 				}
 				//play sound
-				world.playSound(null, this.pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, isMuffled() ? 0.1f : 1.0f, 1.0f);
+				if (!isMuffled()) {
+					world.playSound(null, this.pos, tank.getFluid().getBucketFillSound().orElse(SoundEvents.ITEM_BUCKET_FILL), SoundCategory.BLOCKS, 1.0f, 1.0f);
+				}
 				//consume energy
 				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier()));
 				//extract drops
@@ -292,20 +296,9 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	static class BlockPosIterable implements Iterable<BlockPos> {
-
-		static class MeasuredPos extends BlockPos {
-			private final double weight;
-
-			public MeasuredPos(int x, int y, int z, double weight) {
-				super(x, y, z);
-				this.weight = weight;
-			}
-		}
-
 		int index;
 		final int layerSize;
 		final int m;
-
 		final ArrayList<MeasuredPos> layer;
 
 		public BlockPosIterable(BlockPos centerTop, int range, int depth) {
@@ -345,6 +338,15 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 					return pos;
 				}
 			};
+		}
+
+		static class MeasuredPos extends BlockPos {
+			private final double weight;
+
+			public MeasuredPos(int x, int y, int z, double weight) {
+				super(x, y, z);
+				this.weight = weight;
+			}
 		}
 	}
 }
