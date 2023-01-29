@@ -35,6 +35,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ItemScatterer;
@@ -230,8 +231,13 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				//extract drops
 				DefaultedList<ItemStack> drops = getDrops(blockState);
 				if (!drops.isEmpty()) ItemScatterer.spawn(world, pumpedTargetBlockPos, drops);
-				//replace target with solid
-				world.setBlockState(pumpedTargetBlockPos, Blocks.COBBLESTONE.getDefaultState());
+				//replace target with solid based on dimension
+				final Block replacementBlock;
+				final RegistryKey<World> worldRegistryKey = world.getRegistryKey();
+				if (worldRegistryKey == World.NETHER) replacementBlock = Blocks.BLACKSTONE;
+				else if (worldRegistryKey == World.END) replacementBlock = Blocks.END_STONE;
+				else replacementBlock = Blocks.COBBLESTONE;
+				world.setBlockState(pumpedTargetBlockPos, replacementBlock.getDefaultState());
 				pumpedTargetBlockPos = null;
 			}
 		} else if (!tank.isFull()) {
