@@ -28,8 +28,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.data.server.recipe.RecipeJsonProvider
+import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
+import net.minecraft.item.ItemStack
 import net.minecraft.recipe.Ingredient
+import net.minecraft.registry.Registries
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
@@ -44,6 +48,8 @@ import java.util.function.Consumer
 
 abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	protected Consumer<RecipeJsonProvider> exporter
+	public Set<Identifier> exportedRecipes = []
+
 	TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 		super(output)
 	}
@@ -127,40 +133,59 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		throw new IllegalArgumentException()
 	}
 
+	static ItemStack stack(ItemConvertible itemConvertible, int count = 1) {
+		return new ItemStack(itemConvertible, count)
+	}
+
+	// Todo refactor me out, used to help port json recipes
+	static ItemStack stack(String id, int count = 1) {
+		def item = Registries.ITEM.get(new Identifier(id))
+		return new ItemStack(item, count)
+	}
+
+	// Todo refactor me out, used to help port json recipes
+	static TagKey<Item> tag(String id, count = 1) {
+		if (count != 1) {
+			throw new UnsupportedOperationException()
+		}
+
+		return TagKey.of(RegistryKeys.ITEM, new Identifier(id))
+	}
+
 	def offerAlloySmelterRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.ALLOY_SMELTER, closure).offerTo(exporter)
+		MachineRecipeJsonFactory.create(ModRecipes.ALLOY_SMELTER, this, closure).offerTo(exporter)
 	}
 
 	def offerGrinderRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.GRINDER, closure).offerTo(exporter)
+		MachineRecipeJsonFactory.create(ModRecipes.GRINDER, this, closure).offerTo(exporter)
 	}
 
 	def offerCompressorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.COMPRESSOR, closure).offerTo(exporter)
+		MachineRecipeJsonFactory.create(ModRecipes.COMPRESSOR, this, closure).offerTo(exporter)
 	}
 
 	def offerExtractorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.EXTRACTOR, closure).offerTo(exporter)
+		MachineRecipeJsonFactory.create(ModRecipes.EXTRACTOR, this, closure).offerTo(exporter)
 	}
 
 	def offerChemicalReactorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.CHEMICAL_REACTOR, closure).offerTo(exporter)
+		MachineRecipeJsonFactory.create(ModRecipes.CHEMICAL_REACTOR, this, closure).offerTo(exporter)
 	}
 
 	def offerAssemblingMachineRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.ASSEMBLING_MACHINE, closure).offerTo(exporter)
+		MachineRecipeJsonFactory.create(ModRecipes.ASSEMBLING_MACHINE, this, closure).offerTo(exporter)
 	}
 
 	def offerBlastFurnaceRecipe(@DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		BlastFurnaceRecipeJsonFactory.createBlastFurnace(closure).offerTo(exporter)
+		BlastFurnaceRecipeJsonFactory.createBlastFurnace(this, closure).offerTo(exporter)
 	}
 
 	def offerIndustrialGrinderRecipe(@DelegatesTo(value = IndustrialGrinderRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		IndustrialGrinderRecipeJsonFactory.createIndustrialGrinder(closure).offerTo(exporter)
+		IndustrialGrinderRecipeJsonFactory.createIndustrialGrinder(this, closure).offerTo(exporter)
 	}
 
 	def offerIndustrialSawmillRecipe(@DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		IndustrialSawmillRecipeJsonFactory.createIndustrialSawmill(closure).offerTo(exporter)
+		IndustrialSawmillRecipeJsonFactory.createIndustrialSawmill(this, closure).offerTo(exporter)
 	}
 
 	@Override

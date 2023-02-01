@@ -31,6 +31,7 @@ import net.minecraft.registry.RegistryKeys
 import techreborn.TechReborn
 import techreborn.datagen.models.BlockLootTableProvider
 import techreborn.datagen.models.ModelProvider
+import techreborn.datagen.recipes.Json2Datagen
 import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
 import techreborn.datagen.recipes.machine.alloy_smelter.AlloySmelterRecipesProvider
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipesProvider
@@ -52,6 +53,11 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 
 	@Override
 	void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+//		if (true) {
+//			Json2Datagen.processAll()
+//			return
+//		}
+
 		def pack = fabricDataGenerator.createPack()
 
 		def add = { FabricDataGenerator.Pack.RegistryDependentFactory factory ->

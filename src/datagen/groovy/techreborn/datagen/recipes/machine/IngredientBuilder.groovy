@@ -67,7 +67,9 @@ class IngredientBuilder {
 		}
 
 		if (stacks.size() == 1) {
-			return new StackIngredient(stacks.get(0), Optional.of(stacks.get(0).getCount()), Optional.empty(), false)
+			def stack = stacks[0]
+			def count = stack.getCount() > 1 ? Optional.of(stack.getCount()) : Optional.empty()
+			return new StackIngredient(stack, count, Optional.empty(), false)
 		}
 
 		throw new IllegalStateException()

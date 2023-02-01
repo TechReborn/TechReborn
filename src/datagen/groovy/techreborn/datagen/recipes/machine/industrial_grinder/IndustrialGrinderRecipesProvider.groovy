@@ -72,7 +72,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {boots, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients boots
-				outputs new ItemStack(dustMap.get(smallDust), count-1), new ItemStack(smallDust, 2)
+				outputs stack(dustMap.get(smallDust), count-1), stack(smallDust, 2)
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -81,7 +81,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 			offerIndustrialGrinderRecipe {
 				ingredients boots
-				outputs new ItemStack(dustMap.get(smallDust), count+1), smallDust
+				outputs stack(dustMap.get(smallDust), count+1), smallDust
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -102,7 +102,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {chestplate, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients chestplate
-				outputs new ItemStack(dustMap.get(smallDust), count-1), new ItemStack(smallDust, 2)
+				outputs stack(dustMap.get(smallDust), count-1), stack(smallDust, 2)
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -111,7 +111,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 			offerIndustrialGrinderRecipe {
 				ingredients chestplate
-				outputs new ItemStack(dustMap.get(smallDust), count+1), smallDust
+				outputs stack(dustMap.get(smallDust), count+1), smallDust
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -132,7 +132,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {helmet, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients helmet
-				outputs new ItemStack(dustMap.get(smallDust), count-1), new ItemStack(smallDust, 2)
+				outputs stack(dustMap.get(smallDust), count-1), stack(smallDust, 2)
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -141,7 +141,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 			offerIndustrialGrinderRecipe {
 				ingredients helmet
-				outputs new ItemStack(dustMap.get(smallDust), count+1), smallDust
+				outputs stack(dustMap.get(smallDust), count+1), smallDust
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -162,7 +162,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {leggings, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients leggings
-				outputs new ItemStack(dustMap.get(smallDust), count-1), new ItemStack(smallDust, 2)
+				outputs stack(dustMap.get(smallDust), count-1), stack(smallDust, 2)
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -171,7 +171,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 			offerIndustrialGrinderRecipe {
 				ingredients leggings
-				outputs new ItemStack(dustMap.get(smallDust), count+1), smallDust
+				outputs stack(dustMap.get(smallDust), count+1), smallDust
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -189,7 +189,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {horseArmor, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients horseArmor
-				outputs new ItemStack(dustMap.get(smallDust), count-1), new ItemStack(smallDust, 2)
+				outputs stack(dustMap.get(smallDust), count-1), stack(smallDust, 2)
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -198,7 +198,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 			offerIndustrialGrinderRecipe {
 				ingredients horseArmor
-				outputs new ItemStack(dustMap.get(smallDust), count+1), smallDust
+				outputs stack(dustMap.get(smallDust), count+1), smallDust
 				power ARMOR_POWER
 				time ARMOR_TIME
 				fluidAmount ARMOR_FLUID_AMOUNT
@@ -218,7 +218,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {sword, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients sword
-				outputs new ItemStack(smallDust, 2), TRContent.SmallDusts.SAW
+				outputs stack(smallDust, 2), TRContent.SmallDusts.SAW
 				power TOOL_POWER
 				time TOOL_TIME
 				fluidAmount TOOL_FLUID_AMOUNT
@@ -256,7 +256,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 			offerIndustrialGrinderRecipe {
 				ingredients shovel
-				outputs new ItemStack(smallDust, 2), TRContent.SmallDusts.SAW
+				outputs stack(smallDust, 2), TRContent.SmallDusts.SAW
 				power TOOL_POWER
 				time TOOL_TIME
 				fluidAmount TOOL_FLUID_AMOUNT
@@ -276,7 +276,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {hoe, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients hoe
-				outputs new ItemStack(smallDust, 2), TRContent.SmallDusts.SAW
+				outputs stack(smallDust, 2), TRContent.SmallDusts.SAW
 				power TOOL_POWER
 				time TOOL_TIME
 				fluidAmount TOOL_FLUID_AMOUNT
@@ -305,7 +305,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {axe, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients axe
-				outputs new ItemStack(smallDust, 3), TRContent.SmallDusts.SAW
+				outputs stack(smallDust, 3), TRContent.SmallDusts.SAW
 				power TOOL_POWER
 				time TOOL_TIME
 				fluidAmount TOOL_FLUID_AMOUNT
@@ -314,7 +314,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 			offerIndustrialGrinderRecipe {
 				ingredients axe
-				outputs dustMap.get(smallDust), new ItemStack(smallDust, 3), TRContent.SmallDusts.SAW
+				outputs dustMap.get(smallDust), stack(smallDust, 3), TRContent.SmallDusts.SAW
 				power TOOL_POWER
 				time TOOL_TIME
 				fluidAmount TOOL_FLUID_AMOUNT
@@ -334,7 +334,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {pickaxe, smallDust ->
 			offerIndustrialGrinderRecipe {
 				ingredients pickaxe
-				outputs new ItemStack(smallDust, 3), TRContent.SmallDusts.SAW
+				outputs stack(smallDust, 3), TRContent.SmallDusts.SAW
 				power TOOL_POWER
 				time TOOL_TIME
 				fluidAmount TOOL_FLUID_AMOUNT
@@ -343,7 +343,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 			offerIndustrialGrinderRecipe {
 				ingredients pickaxe
-				outputs dustMap.get(smallDust), new ItemStack(smallDust, 3), TRContent.SmallDusts.SAW
+				outputs dustMap.get(smallDust), stack(smallDust, 3), TRContent.SmallDusts.SAW
 				power TOOL_POWER
 				time TOOL_TIME
 				fluidAmount TOOL_FLUID_AMOUNT

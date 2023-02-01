@@ -49,7 +49,7 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 				var ingredient = TagConvertible.convertIf(plate.getSource())
 				offerCompressorRecipe {
 					ingredients ingredient
-					outputs new ItemStack(plate, 1)
+					outputs stack(plate, 1)
 					power 10
 					time 300
 					criterion getCriterionName(ingredient), getCriterionConditions(ingredient)
@@ -59,7 +59,7 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 				var ingredient = TagConvertible.convertIf(plate.getSourceBlock())
 				offerCompressorRecipe {
 					ingredients ingredient
-					outputs new ItemStack(plate, 9)
+					outputs stack(plate, 9)
 					power 10
 					time 300
 					source "block"

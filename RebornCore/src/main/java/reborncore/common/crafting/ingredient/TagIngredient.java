@@ -158,4 +158,8 @@ public class TagIngredient extends RebornIngredient {
 	public int getCount() {
 		return count.orElse(1);
 	}
+
+	public TagKey<Item> getTag() {
+		return tag;
+	}
 }

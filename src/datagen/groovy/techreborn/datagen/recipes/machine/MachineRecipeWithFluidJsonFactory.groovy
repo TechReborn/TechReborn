@@ -28,6 +28,7 @@ import net.minecraft.fluid.Fluid
 import net.minecraft.fluid.Fluids
 import reborncore.common.crafting.RebornFluidRecipe
 import reborncore.common.crafting.RebornRecipeType
+import techreborn.datagen.recipes.TechRebornRecipesProvider
 
 abstract class MachineRecipeWithFluidJsonFactory<R extends RebornFluidRecipe> extends MachineRecipeJsonFactory<R> {
 	protected Fluid fluid = Fluids.WATER // default
@@ -43,8 +44,8 @@ abstract class MachineRecipeWithFluidJsonFactory<R extends RebornFluidRecipe> ex
 		return this
 	}
 
-	protected MachineRecipeWithFluidJsonFactory(RebornRecipeType<R> type) {
-		super(type)
+	protected MachineRecipeWithFluidJsonFactory(RebornRecipeType<R> type, TechRebornRecipesProvider provider) {
+		super(type, provider)
 	}
 
 	@Override

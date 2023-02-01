@@ -69,7 +69,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
-				outputs new ItemStack(dye, 2)
+				outputs stack(dye, 2)
 				source item.toString()
 				power 10
 				time 300
@@ -88,7 +88,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
-				outputs new ItemStack(dye, 4)
+				outputs stack(dye, 4)
 				source item.toString()
 				power 10
 				time 300
@@ -104,7 +104,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			(Items.PEARLESCENT_FROGLIGHT) : Items.PURPLE_DYE
 		].each { item, dye ->
 			offerExtractorRecipe {
-				ingredients new ItemStack(item, 3)
+				ingredients stack(item, 3)
 				outputs dye
 				source item.toString()
 				power 10

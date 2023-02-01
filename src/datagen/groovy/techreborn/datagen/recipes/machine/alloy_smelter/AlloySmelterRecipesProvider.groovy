@@ -44,36 +44,36 @@ class AlloySmelterRecipesProvider extends TechRebornRecipesProvider {
 		offerAlloySmelterRecipe {
 			power 6
 			time 200
-			ingredients new ItemStack(Items.COPPER_INGOT, 3), TRConventionalTags.ZINC_INGOTS
-			output new ItemStack(TRContent.Ingots.BRASS, 4)
+			ingredients stack(Items.COPPER_INGOT, 3), TRConventionalTags.ZINC_INGOTS
+			outputs stack(TRContent.Ingots.BRASS, 4)
 		}
 
 		offerAlloySmelterRecipe {
 			power 6
 			time 200
-			ingredients new ItemStack(Items.COPPER_INGOT, 3), TRConventionalTags.TIN_INGOTS
-			output new ItemStack(TRContent.Ingots.BRONZE, 4)
+			ingredients stack(Items.COPPER_INGOT, 3), TRConventionalTags.TIN_INGOTS
+			outputs stack(TRContent.Ingots.BRONZE, 4)
 		}
 
 		offerAlloySmelterRecipe {
 			power 6
 			time 200
 			ingredients Items.GOLD_INGOT, TRConventionalTags.SILVER_INGOTS
-			output new ItemStack(TRContent.Ingots.ELECTRUM, 2)
+			outputs stack(TRContent.Ingots.ELECTRUM, 2)
 		}
 
 		offerAlloySmelterRecipe {
 			power 6
 			time 200
-			ingredients new ItemStack(Items.IRON_INGOT, 3), TRConventionalTags.NICKEL_INGOTS
-			output new ItemStack(TRContent.Ingots.INVAR, 3)
+			ingredients stack(Items.IRON_INGOT, 3), TRConventionalTags.NICKEL_INGOTS
+			outputs stack(TRContent.Ingots.INVAR, 3)
 		}
 
 		offerAlloySmelterRecipe {
 			power 6
 			time 600
-			ingredients new ItemStack(Items.GOLD_INGOT, 10), new ItemStack(Items.NETHERITE_SCRAP, 10)
-			output new ItemStack(Items.NETHERITE_INGOT, 3)
+			ingredients stack(Items.GOLD_INGOT, 10), stack(Items.NETHERITE_SCRAP, 10)
+			outputs stack(Items.NETHERITE_INGOT, 3)
 		}
 	}
 }

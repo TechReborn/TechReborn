@@ -57,7 +57,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		].each {logs, planks ->
 			offerIndustrialSawmillRecipe {
 				ingredients logs
-				outputs new ItemStack(planks,4), new ItemStack(TRContent.Dusts.SAW, 3)
+				outputs stack(planks,4), stack(TRContent.Dusts.SAW, 3)
 				power 40
 				time 200
 				fluidAmount 1000 // in millibuckets
@@ -65,7 +65,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialSawmillRecipe {
 			ingredients ItemTags.BAMBOO_BLOCKS
-			outputs new ItemStack(Items.BAMBOO_PLANKS,2), new ItemStack(TRContent.Dusts.SAW, 1)
+			outputs stack(Items.BAMBOO_PLANKS,2), stack(TRContent.Dusts.SAW, 1)
 			power 40
 			time 100
 			fluidAmount 500 // in millibuckets
@@ -85,7 +85,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		].each { stairs, slab ->
 			offerIndustrialSawmillRecipe {
 				ingredients stairs
-				outputs slab, new ItemStack(TRContent.Dusts.SAW, 2)
+				outputs slab, stack(TRContent.Dusts.SAW, 2)
 				power 30
 				time 100
 				fluidAmount 250 // in millibuckets
@@ -99,7 +99,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		].each { stairs, slab ->
 			offerIndustrialSawmillRecipe {
 				ingredients stairs
-				outputs slab, new ItemStack(TRContent.Dusts.SAW, 2)
+				outputs slab, stack(TRContent.Dusts.SAW, 2)
 				power 30
 				time 100
 				fluidAmount 250 // in millibuckets
@@ -122,7 +122,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		].each { slab, plate ->
 			offerIndustrialSawmillRecipe {
 				ingredients slab
-				outputs new ItemStack(plate, 2), new ItemStack(TRContent.Dusts.SAW, 2)
+				outputs stack(plate, 2), stack(TRContent.Dusts.SAW, 2)
 				power 30
 				time 200
 				fluidAmount 250 // in millibuckets
@@ -136,7 +136,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		].each { slab, plate ->
 			offerIndustrialSawmillRecipe {
 				ingredients slab
-				outputs new ItemStack(plate, 2), new ItemStack(TRContent.Dusts.SAW, 2)
+				outputs stack(plate, 2), stack(TRContent.Dusts.SAW, 2)
 				power 30
 				time 200
 				fluidAmount 250 // in millibuckets
@@ -157,7 +157,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		].each { item, count ->
 			offerIndustrialSawmillRecipe {
 				ingredients item
-				outputs new ItemStack(TRContent.Dusts.SAW, count)
+				outputs stack(TRContent.Dusts.SAW, count)
 				power 30
 				time 200
 				fluidAmount 125*count // in millibuckets
@@ -177,7 +177,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		].each {item, count ->
 			offerIndustrialSawmillRecipe {
 				ingredients item
-				outputs new ItemStack(TRContent.SmallDusts.SAW, count)
+				outputs stack(TRContent.SmallDusts.SAW, count)
 				power 30
 				time 100
 				fluidAmount 100 // in millibuckets
@@ -187,7 +187,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialSawmillRecipe {
 			ingredients ItemTags.WOODEN_BUTTONS
-			outputs new ItemStack(TRContent.SmallDusts.SAW, 1)
+			outputs stack(TRContent.SmallDusts.SAW, 1)
 			power 20
 			time 50
 			fluidAmount 50 // in millibuckets
