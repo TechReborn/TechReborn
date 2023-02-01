@@ -25,8 +25,6 @@
 package reborncore.client;
 
 import com.mojang.serialization.Codec;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.util.Identifier;
 import reborncore.common.network.ExtendedPacketBuffer;
@@ -34,7 +32,6 @@ import reborncore.common.network.IdentifiedPacket;
 
 import java.util.function.Consumer;
 
-@Environment(EnvType.CLIENT)
 public class ClientNetworkManager {
 	public static void registerClientBoundHandler(Identifier identifier, ClientPlayNetworking.PlayChannelHandler handler) {
 		ClientPlayNetworking.registerGlobalReceiver(identifier, handler);

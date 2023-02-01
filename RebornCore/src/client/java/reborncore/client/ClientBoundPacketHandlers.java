@@ -27,8 +27,6 @@ package reborncore.client;
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -49,7 +47,6 @@ import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.screen.BuiltScreenHandler;
 
-@Environment(EnvType.CLIENT)
 public class ClientBoundPacketHandlers {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientBoundPacketHandlers.class);
 

@@ -24,8 +24,6 @@
 
 package techreborn.client.gui;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
@@ -33,7 +31,6 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
 
-@Environment(EnvType.CLIENT)
 public class GuiDieselGenerator extends GuiBase<BuiltScreenHandler> {
 
 	DieselGeneratorBlockEntity blockEntity;

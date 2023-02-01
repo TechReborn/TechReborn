@@ -24,8 +24,6 @@
 
 package techreborn.client.gui;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
@@ -36,7 +34,6 @@ import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 /**
  * @author drcrazy
  */
-@Environment(EnvType.CLIENT)
 public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
 
 	PlasmaGeneratorBlockEntity blockEntity;

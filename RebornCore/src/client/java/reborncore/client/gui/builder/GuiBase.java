@@ -25,8 +25,6 @@
 package reborncore.client.gui.builder;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -246,7 +244,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		return true;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 		drawTitle(matrixStack);

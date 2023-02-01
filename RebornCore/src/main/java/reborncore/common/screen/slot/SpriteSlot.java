@@ -25,8 +25,6 @@
 package reborncore.common.screen.slot;
 
 import com.mojang.datafixers.util.Pair;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -54,7 +52,6 @@ public class SpriteSlot extends FilteredSlot {
 
 	@Override
 	@Nullable
-	@Environment(EnvType.CLIENT)
 	public Pair<Identifier, Identifier> getBackgroundSprite() {
 		return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, spriteName);
 	}

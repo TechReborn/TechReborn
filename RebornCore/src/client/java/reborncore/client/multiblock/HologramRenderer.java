@@ -24,8 +24,6 @@
 
 package reborncore.client.multiblock;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.client.MinecraftClient;
@@ -49,7 +47,6 @@ import java.util.function.BiPredicate;
 /**
  * Renders a hologram
  */
-@Environment(EnvType.CLIENT)
 public
 record HologramRenderer(BlockRenderView view, MatrixStack matrix, VertexConsumerProvider vertexConsumerProvider,
 						float scale) implements MultiblockWriter {
