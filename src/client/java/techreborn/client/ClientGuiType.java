@@ -27,6 +27,7 @@ package techreborn.client;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.util.Identifier;
+import techreborn.TechReborn;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
@@ -187,13 +188,14 @@ public class ClientGuiType<T extends BlockEntity> {
 	public static final ClientGuiType<ElevatorBlockEntity> ELEVATOR = register(GuiType.ELEVATOR, GuiElevator::new);
 	public static final ClientGuiType<FishingStationBlockEntity> FISHING_STATION = register(GuiType.FISHING_STATION, GuiFishingStation::new);
 
-	private static <T extends BlockEntity> ClientGuiType<T> register(GuiType<T> type, GuiFactory<T> factory) {
+	public static <T extends BlockEntity> ClientGuiType<T> register(GuiType<T> type, GuiFactory<T> factory) {
 		return new ClientGuiType<>(type, factory);
 	}
 
 	public static void validate() {
 		// Ensure all gui types also have a client version.
 		for (Identifier identifier : GuiType.TYPES.keySet()) {
+			if (!identifier.getNamespace().equals(TechReborn.MOD_ID)) continue;
 			Objects.requireNonNull(TYPES.get(identifier), "No ClientGuiType for " + identifier);
 		}
 	}
