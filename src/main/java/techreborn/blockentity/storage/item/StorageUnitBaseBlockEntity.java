@@ -36,10 +36,12 @@ import net.minecraft.item.SkullItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import oshi.util.tuples.Pair;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -90,7 +92,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		inventory = new RebornInventory<>(2, "ItemInventory", 64, this);
 		configureEntity(type);
 	}
-
 	private void configureEntity(TRContent.StorageUnit type) {
 		// Set capacity to local config unless overridden by server
 		if(serverCapacity == -1){
@@ -184,7 +185,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	public ItemStack processInput(ItemStack inputStack) {
-
 		if (!isValid(INPUT_SLOT, inputStack)){
 			return inputStack;
 		}
@@ -205,7 +205,16 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 			// Amount of items that can be added before reaching capacity
 			int reminder = maxCapacity - getCurrentCapacity();
-
+			DefaultedList<ItemStack> optionalShulkerStack = ItemUtils.getBlockEntityStacks(inputStack);
+			if (isLocked() && ItemUtils.canExtractFromCachedShulker(optionalShulkerStack, lockedItemStack) > 0 ) {
+				Pair<Integer, ItemStack> pair = ItemUtils.extractFromShulker(inputStack, optionalShulkerStack, lockedItemStack, reminder);
+				if (pair.getA() != 0) {
+					addStoredItemCount(pair.getA());
+					inputStack.setNbt(pair.getB().getNbt());
+					inventory.setHashChanged();
+				}
+				return inputStack;
+			}
 			if (inputStack.getCount() <= reminder) {
 				// Add full stack
 				if (storeItemStack == ItemStack.EMPTY){
@@ -251,7 +260,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		if (world == null || world.isClient) {
 			return;
 		}
-
 		// If there is an item in the input AND stored is less than max capacity
 		if (!inventory.getStack(INPUT_SLOT).isEmpty() && !isFull()) {
 			inventory.setStack(INPUT_SLOT, processInput(inventory.getStack(INPUT_SLOT)));
@@ -391,10 +399,15 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		}
 		// do not allow other storage units to avoid NBT overflow. Fix #2580
 		if (inputStack.isIn(TRContent.ItemTags.STORAGE_UNITS)) {
-			return false;
+			NbtCompound tagCompound = inputStack.getNbt();
+			return (tagCompound == null || tagCompound.getSize() == 0) && ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
 		}
 
 		if (isLocked()) {
+			//allow shulker bundle extraction when locked
+			if (ItemUtils.canExtractAnyFromShulker(inputStack, lockedItemStack)) {
+				return true;
+			}
 			return ItemUtils.isItemEqual(lockedItemStack, inputStack, true, true);
 		}
 
