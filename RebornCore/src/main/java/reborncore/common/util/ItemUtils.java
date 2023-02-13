@@ -87,7 +87,7 @@ public class ItemUtils {
 		List<ItemStack> stacks = getBlockEntityStacks(shulkerStack);
 		if (stacks == null) return false;
 		for (ItemStack stack : stacks) {
-			if (!stack.isEmpty() && isItemEqual(targetStack, stack, true)) {
+			if (isItemEqual(targetStack, stack, true)) {
 				return true;
 			}
 		}
@@ -132,8 +132,9 @@ public class ItemUtils {
 	}
 
 	public static Pair<Integer, ItemStack> extractFromShulker(ItemStack shulkerStack, DefaultedList<ItemStack> entityStack, ItemStack targetStack, int capacity) {
+		ItemStack newStack = shulkerStack.copy();
 		if (entityStack == null) {
-			entityStack = getBlockEntityStacks(shulkerStack);
+			entityStack = getBlockEntityStacks(newStack);
 		}
 		if (entityStack == null) {
 			return new Pair<>(0, shulkerStack);
@@ -142,7 +143,6 @@ public class ItemUtils {
 		if (extracted == 0) {
 			return new Pair<>(0, shulkerStack);
 		}
-		ItemStack newStack = shulkerStack.copy();
 		NbtCompound blockEntityTag = newStack.getSubNbt("BlockEntityTag");
 		if (blockEntityTag == null) throw new IllegalStateException("BlockEntityTag is removed during operation!");
 		if (isStackListEmpty(entityStack)) {

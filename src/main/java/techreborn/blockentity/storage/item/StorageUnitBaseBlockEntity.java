@@ -209,7 +209,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			if (isLocked() && ItemUtils.canExtractFromCachedShulker(optionalShulkerStack, lockedItemStack) > 0 ) {
 				Pair<Integer, ItemStack> pair = ItemUtils.extractFromShulker(inputStack, optionalShulkerStack, lockedItemStack, reminder);
 				if (pair.getA() != 0) {
-					addStoredItemCount(pair.getA());
+					int amount = pair.getA();
+					if (storeItemStack.isEmpty()) {
+						storeItemStack = lockedItemStack.copy();
+						amount = amount -1;
+					}
+					addStoredItemCount(amount);
 					inputStack.setNbt(pair.getB().getNbt());
 					inventory.setHashChanged();
 				}
