@@ -405,7 +405,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		// do not allow other storage units to avoid NBT overflow. Fix #2580
 		if (inputStack.isIn(TRContent.ItemTags.STORAGE_UNITS)) {
 			NbtCompound tagCompound = inputStack.getNbt();
-			return (tagCompound == null || tagCompound.getSize() == 0) && ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
+			return (tagCompound == null || tagCompound.getSize() == 0) && (getStoredStack().isEmpty() || ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true));
 		}
 
 		if (isLocked()) {
