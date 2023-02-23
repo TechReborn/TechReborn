@@ -51,8 +51,8 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 		this.blockEntityAutoCraftingTable = blockEntity;
 	}
 
-	public void renderItemStack(ItemStack stack, int x, int y) {
-		MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(stack, x, y);
+	public void renderItemStack(MatrixStack matrixStack, ItemStack stack, int x, int y) {
+		MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(matrixStack, stack, x, y);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 
 		CraftingRecipe recipe = blockEntityAutoCraftingTable.getCurrentRecipe();
 		if (recipe != null) {
-			renderItemStack(recipe.getOutput(), 95 + getGuiLeft(), 42 + getGuiTop());
+			renderItemStack(matrixStack, recipe.getOutput(getMachine().getWorld().getRegistryManager()), 95 + getGuiLeft(), 42 + getGuiTop());
 		}
 
 		builder.drawLockButton(matrixStack, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);

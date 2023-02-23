@@ -1,7 +1,7 @@
 /*
- * This file is part of RebornCore, licensed under the MIT License (MIT).
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2021 TeamReborn
+ * Copyright (c) 2022 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,16 +22,29 @@
  * SOFTWARE.
  */
 
-package reborncore.common.explosion;
+package techreborn.datagen.dynamic
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.EntityDamageSource;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.RegistryWrapper
 
-/**
- * Created by modmuss50 on 16/03/2016.
- */
-public class NuclearDamageSource extends EntityDamageSource {
-	public NuclearDamageSource(Entity entity) {
-		super("nuke", entity);
+import java.util.concurrent.CompletableFuture
+
+class TRDynamicProvider extends FabricDynamicRegistryProvider {
+	TRDynamicProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture)
+	}
+
+	@Override
+	protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
+		entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE))
+		entries.addAll(registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE))
+		entries.addAll(registries.getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE))
+	}
+
+	@Override
+	String getName() {
+		return "TechReborn World gen"
 	}
 }

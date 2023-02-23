@@ -70,7 +70,7 @@ public abstract class AbstractRecipeSerde<R extends RebornRecipe> implements Rec
 	protected void writeOutputs(R recipe, JsonObject jsonObject) {
 		final JsonArray resultsArray = new JsonArray();
 
-		for (ItemStack stack : recipe.getOutputs()) {
+		for (ItemStack stack : recipe.getOutputs(null)) {
 			final JsonObject stackObject = new JsonObject();
 			stackObject.addProperty("item", Registries.ITEM.getId(stack.getItem()).toString());
 

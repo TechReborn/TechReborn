@@ -52,7 +52,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
 		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
-		this.outputs = recipe.getOutputs().stream().map(EntryIngredients::of).collect(Collectors.toList());
+		this.outputs = recipe.getOutputs(null).stream().map(EntryIngredients::of).collect(Collectors.toList());
 		this.time = recipe.getTime();
 		this.energy = recipe.getPower();
 		if (recipe instanceof BlastFurnaceRecipe) {

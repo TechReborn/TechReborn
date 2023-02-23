@@ -387,7 +387,7 @@ public class GuiBuilder {
 	public void drawSlotTab(MatrixStack matrixStack, GuiBase<?> gui, int x, int y, ItemStack stack) {
 		RenderSystem.setShaderTexture(0, resourceLocation);
 		gui.drawTexture(matrixStack, x, y, 217, 82, 24, 24);
-		gui.getMinecraft().getItemRenderer().renderInGuiWithOverrides(stack, x + 5, y + 4);
+		gui.getMinecraft().getItemRenderer().renderInGuiWithOverrides(matrixStack, stack, x + 5, y + 4);
 	}
 
 
@@ -461,7 +461,7 @@ public class GuiBuilder {
 
 			@Override
 			public void render(MatrixStack matrixStack, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
-				MinecraftClient.getInstance().textRenderer.drawTrimmed(tip, x, y, width, 11184810);
+				MinecraftClient.getInstance().textRenderer.drawTrimmed(matrixStack, tip, x, y, width, 11184810);
 			}
 		}
 	}

@@ -67,7 +67,7 @@ public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 	static class PaddedShapedRecipeJsonProvider extends PaddedShapedRecipeJsonBuilder.ShapedRecipeJsonProvider {
 
 		public PaddedShapedRecipeJsonProvider(Identifier recipeId, Item output, int resultCount, String group, CraftingRecipeCategory category, List<String> pattern, Map<Character, Ingredient> inputs, Advancement.Builder advancementBuilder, Identifier advancementId) {
-			super(recipeId, output, resultCount, group, category, pattern, inputs, advancementBuilder, advancementId);
+			super(recipeId, output, resultCount, group, category, pattern, inputs, advancementBuilder, advancementId, false);
 		}
 
 		@Override

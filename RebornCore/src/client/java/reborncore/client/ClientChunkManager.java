@@ -79,7 +79,6 @@ public class ClientChunkManager {
 		final Tessellator tessellator = Tessellator.getInstance();
 		final BufferBuilder bufferBuilder = tessellator.getBuffer();
 
-		RenderSystem.disableTexture();
 		RenderSystem.disableBlend();
 		RenderSystem.lineWidth(5.0F);
 
@@ -100,7 +99,6 @@ public class ClientChunkManager {
 		tessellator.draw();
 		RenderSystem.lineWidth(1.0F);
 		RenderSystem.enableBlend();
-		RenderSystem.enableTexture();
 	}
 
 }

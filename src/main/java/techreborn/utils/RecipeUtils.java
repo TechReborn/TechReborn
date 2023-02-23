@@ -44,15 +44,6 @@ public class RecipeUtils {
 		return recipe.getIngredients().size() == 1 && recipe.getIngredients().get(0).test(input);
 	}
 
-	/**
-	 * Used to get the matching output of a recipe type that only has 1 input
-	 */
-	public static <T extends Recipe<?>> ItemStack getMatchingRecipeOutput(World world, RecipeType<T> type, ItemStack input) {
-		return getMatchingRecipe(world, type, input)
-				.map(Recipe::getOutput)
-				.orElse(ItemStack.EMPTY);
-	}
-
 	public static <T extends Recipe<?>> List<Recipe<?>> getRecipes(World world, RecipeType<T> type) {
 		return world.getRecipeManager().values().stream().filter(iRecipe -> iRecipe.getType() == type).collect(Collectors.toList());
 	}

@@ -318,7 +318,7 @@ public class ElementBase {
 				RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 
 				ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-				itemRenderer.renderInGuiWithOverrides(sprite.itemStack, x + gui.getGuiLeft(), y + gui.getGuiTop());
+				itemRenderer.renderInGuiWithOverrides(matrixStack, sprite.itemStack, x + gui.getGuiLeft(), y + gui.getGuiTop());
 
 				matrixStack.pop();
 			}

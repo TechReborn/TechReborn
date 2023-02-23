@@ -31,7 +31,6 @@ import net.minecraft.registry.RegistryKeys
 import techreborn.TechReborn
 import techreborn.datagen.models.BlockLootTableProvider
 import techreborn.datagen.models.ModelProvider
-import techreborn.datagen.recipes.Json2Datagen
 import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
 import techreborn.datagen.recipes.machine.alloy_smelter.AlloySmelterRecipesProvider
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipesProvider
@@ -46,8 +45,8 @@ import techreborn.datagen.recipes.smelting.SmeltingRecipesProvider
 import techreborn.datagen.tags.TRBlockTagProvider
 import techreborn.datagen.tags.TRItemTagProvider
 import techreborn.datagen.tags.TRPointOfInterestTagProvider
-import techreborn.datagen.worldgen.TRWorldGenBootstrap
-import techreborn.datagen.worldgen.TRWorldGenProvider
+import techreborn.datagen.dynamic.TRDynamicContent
+import techreborn.datagen.dynamic.TRDynamicProvider
 
 class TechRebornDataGen implements DataGeneratorEntrypoint {
 
@@ -85,7 +84,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 		add ModelProvider::new
 		add BlockLootTableProvider::new
 
-		add TRWorldGenProvider::new
+		add TRDynamicProvider::new
 	}
 
 	@Override
@@ -95,7 +94,8 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 
 	@Override
 	void buildRegistry(RegistryBuilder registryBuilder) {
-		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, TRWorldGenBootstrap::configuredFeatures)
-		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, TRWorldGenBootstrap::placedFeatures)
+		registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, TRDynamicContent::damageTypes)
+		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, TRDynamicContent::configuredFeatures)
+		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, TRDynamicContent::placedFeatures)
 	}
 }

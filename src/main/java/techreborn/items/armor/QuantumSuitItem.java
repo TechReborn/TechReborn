@@ -57,25 +57,25 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 	public final boolean enableFlight = TechRebornConfig.quantumSuitEnableFlight;
 
 
-	public QuantumSuitItem(ArmorMaterial material, EquipmentSlot slot) {
+	public QuantumSuitItem(ArmorMaterial material, Type slot) {
 		super(material, slot, new Item.Settings().maxDamage(-1).maxCount(1));
 	}
 
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot equipmentSlot) {
-		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, slot));
+		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, getSlotType()));
 
 		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && enableSprint) {
+		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && enableSprint) {
 			if (getStoredEnergy(stack) > sprintingCost) {
 				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
 		}
 
-		if (equipmentSlot == this.slot && getStoredEnergy(stack) > 0) {
-			attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", 20, EntityAttributeModifier.Operation.ADDITION));
-			attributes.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
+		if (equipmentSlot == this.getSlotType() && getStoredEnergy(stack) > 0) {
+			attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Armor modifier", 20, EntityAttributeModifier.Operation.ADDITION));
+			attributes.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
 		}
 
 		return ImmutableMultimap.copyOf(attributes);
@@ -83,7 +83,7 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
-		switch (this.slot) {
+		switch (this.getSlotType()) {
 			case HEAD:
 				if (playerEntity.isSubmergedInWater()) {
 					if (tryUseEnergy(stack, breathingCost)) {
@@ -132,7 +132,7 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 
 	@Override
 	public void onRemoved(PlayerEntity playerEntity) {
-		if (this.slot == EquipmentSlot.CHEST && enableFlight) {
+		if (this.getSlotType() == EquipmentSlot.CHEST && enableFlight) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
 				playerEntity.getAbilities().allowFlying = false;
 				playerEntity.getAbilities().flying = false;

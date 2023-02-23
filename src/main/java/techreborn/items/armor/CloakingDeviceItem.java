@@ -44,7 +44,7 @@ public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, Ar
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public CloakingDeviceItem() {
-		super(TRArmorMaterials.CLOAKING_DEVICE, EquipmentSlot.CHEST, new Item.Settings().maxDamage(-1).maxCount(1));
+		super(TRArmorMaterials.CLOAKING_DEVICE, Type.CHESTPLATE, new Item.Settings().maxDamage(-1).maxCount(1));
 	}
 
 	@Override

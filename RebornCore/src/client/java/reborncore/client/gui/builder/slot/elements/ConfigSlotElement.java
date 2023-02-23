@@ -114,8 +114,8 @@ public class ConfigSlotElement extends ElementBase {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 		ItemRenderer renderItem = MinecraftClient.getInstance().getItemRenderer();
-		renderItem.renderInGuiWithOverrides(stack, xPos, yPos);
-		renderItem.renderGuiItemOverlay(gui.getTextRenderer(), stack, xPos, yPos, null);
+		renderItem.renderInGuiWithOverrides(matrixStack, stack, xPos, yPos);
+		renderItem.renderGuiItemOverlay(matrixStack, gui.getTextRenderer(), stack, xPos, yPos, null);
 		RenderSystem.disableDepthTest();
 		matrixStack.pop();
 		if (isHovering) {

@@ -55,7 +55,7 @@ public class RebornCoreClient implements ClientModInitializer {
 		});
 
 		ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-			String strangeMcLang = client.getLanguageManager().getLanguage().getCode();
+			String strangeMcLang = client.getLanguageManager().getLanguage();
 			RebornCore.locale = Locale.forLanguageTag(strangeMcLang.substring(0, 2));
 		});
 	}

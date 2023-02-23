@@ -79,7 +79,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 
 			framebuffer.beginWrite(true);
 			GlStateManager._clear(GL12.GL_COLOR_BUFFER_BIT | GL12.GL_DEPTH_BUFFER_BIT, MinecraftClient.IS_SYSTEM_MAC);
-			MinecraftClient.getInstance().getItemRenderer().renderInGui(item, 0, 0);
+			MinecraftClient.getInstance().getItemRenderer().renderInGui(stack, item, 0, 0);
 			framebuffer.endWrite();
 
 			framebuffer.beginRead();
