@@ -160,7 +160,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!recipe.matches(crafting, world)) return false;
 
-		if (!hasOutputSpace(recipe.getOutput(), OUTPUT_SLOT)) return false;
+		if (!hasOutputSpace(recipe.getOutput(getWorld().getRegistryManager()), OUTPUT_SLOT)) return false;
 
 		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
 		for (ItemStack stack : remainingStacks) {
@@ -225,11 +225,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 		ItemStack output = inventory.getStack(OUTPUT_SLOT);
-		ItemStack outputStack = recipe.craft(getCraftingInventory());
+		ItemStack outputStack = recipe.craft(getCraftingInventory(), getWorld().getRegistryManager());
 		if (output.isEmpty()) {
 			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
 		} else {
-			output.increment(recipe.getOutput().getCount());
+			output.increment(recipe.getOutput(getWorld().getRegistryManager()).getCount());
 		}
 		return true;
 	}

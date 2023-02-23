@@ -22,10 +22,12 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.worldgen
+package techreborn.datagen.dynamic
 
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
+import net.minecraft.entity.damage.DamageEffects
+import net.minecraft.entity.damage.DamageType
 import net.minecraft.registry.Registerable
 import net.minecraft.registry.RegistryEntryLookup
 import net.minecraft.registry.RegistryKeys
@@ -52,12 +54,18 @@ import net.minecraft.world.gen.trunk.StraightTrunkPlacer
 import techreborn.blocks.misc.BlockRubberLog
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
+import techreborn.init.TRDamageTypes
 import techreborn.world.RubberTreeSpikeDecorator
 import techreborn.world.TROreFeatureConfig
 import techreborn.world.TargetDimension
 import techreborn.world.WorldGenerator
 
-class TRWorldGenBootstrap {
+class TRDynamicContent {
+	static void damageTypes(Registerable<DamageType> registry) {
+		registry.register(TRDamageTypes.ELECTRIC_SHOCK, new DamageType("electric_shock", 0.1F, DamageEffects.BURNING))
+		registry.register(TRDamageTypes.FUSION, new DamageType("fusion", 0.1F, DamageEffects.BURNING))
+	}
+
 	static void configuredFeatures(Registerable<ConfiguredFeature> registry) {
 		def placedFeatureLookup = registry.getRegistryLookup(RegistryKeys.PLACED_FEATURE)
 

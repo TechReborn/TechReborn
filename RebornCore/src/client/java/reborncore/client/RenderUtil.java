@@ -146,7 +146,6 @@ public class RenderUtil {
 	}
 
 	public static void drawGradientRect(MatrixStack matrices, int zLevel, int left, int top, int right, int bottom, int startColor, int endColor) {
-		RenderSystem.disableTexture();
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.setShader(GameRenderer::getPositionColorProgram);
@@ -172,7 +171,6 @@ public class RenderUtil {
 
 		tessellator.draw();
 		RenderSystem.disableBlend();
-		RenderSystem.enableTexture();
 	}
 
 }

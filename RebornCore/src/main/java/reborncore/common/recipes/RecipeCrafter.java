@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import reborncore.RebornCore;
@@ -41,6 +42,7 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -154,21 +156,23 @@ public class RecipeCrafter implements IUpgradeHandler {
 			}
 			// If it has reached the recipe tick time
 			if (currentRecipe != null && currentTickTime >= currentNeededTicks && hasAllInputs()) {
+				final List<ItemStack> outputs = currentRecipe.getOutputs(getDynamicRegistryManager());
+
 				boolean canGiveInvAll = true;
 				// Checks to see if it can fit the output
-				for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
-					if (!canFitOutput(currentRecipe.getOutputs().get(i), outputSlots[i])) {
+				for (int i = 0; i < outputs.size(); i++) {
+					if (!canFitOutput(outputs.get(i), outputSlots[i])) {
 						canGiveInvAll = false;
 					}
 				}
 				// The slots that have been filled
 				ArrayList<Integer> filledSlots = new ArrayList<>();
 				if (canGiveInvAll && currentRecipe.onCraft(blockEntity)) {
-					for (int i = 0; i < currentRecipe.getOutputs().size(); i++) {
+					for (int i = 0; i < outputs.size(); i++) {
 						// Checks it has not been filled
 						if (!filledSlots.contains(outputSlots[i])) {
 							// Fills the slot with the output stack
-							fitStack(currentRecipe.getOutputs().get(i).copy(), outputSlots[i]);
+							fitStack(outputs.get(i).copy(), outputSlots[i]);
 							filledSlots.add(outputSlots[i]);
 						}
 					}
@@ -207,10 +211,12 @@ public class RecipeCrafter implements IUpgradeHandler {
 			if (!hasAllInputs(recipe)) continue;
 			if (!recipe.canCraft(blockEntity)) continue;
 
+			final List<ItemStack> outputs = recipe.getOutputs(getDynamicRegistryManager());
+
 			// This checks to see if it can fit all the outputs
 			boolean hasOutputSpace = true;
-			for (int i = 0; i < recipe.getOutputs().size(); i++) {
-				if (!canFitOutput(recipe.getOutputs().get(i), outputSlots[i])) {
+			for (int i = 0; i < outputs.size(); i++) {
+				if (!canFitOutput(outputs.get(i), outputSlots[i])) {
 					hasOutputSpace = false;
 				}
 			}
@@ -323,8 +329,10 @@ public class RecipeCrafter implements IUpgradeHandler {
 	public boolean canCraftAgain() {
 		for (RebornRecipe recipe : recipeType.getRecipes(blockEntity.getWorld())) {
 			if (recipe.canCraft(blockEntity) && hasAllInputs(recipe)) {
-				for (int i = 0; i < recipe.getOutputs().size(); i++) {
-					if (!canFitOutput(recipe.getOutputs().get(i), outputSlots[i])) {
+				final List<ItemStack> outputs = recipe.getOutputs(getDynamicRegistryManager());
+
+				for (int i = 0; i < outputs.size(); i++) {
+					if (!canFitOutput(outputs.get(i), outputSlots[i])) {
 						return false;
 					}
 				}
@@ -430,5 +438,10 @@ public class RecipeCrafter implements IUpgradeHandler {
 	@Override
 	public boolean isMuffled() {
 		return parentUpgradeHandler.map(IUpgradeHandler::isMuffled).orElse(false);
+	}
+
+	@Nullable
+	private DynamicRegistryManager getDynamicRegistryManager() {
+		return blockEntity.getWorld().getRegistryManager();
 	}
 }

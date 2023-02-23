@@ -33,6 +33,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
@@ -40,6 +41,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import reborncore.common.blockentity.MultiblockWriter;
 
 import java.util.function.BiPredicate;
@@ -48,7 +50,7 @@ import java.util.function.BiPredicate;
  * Renders a hologram
  */
 public
-record HologramRenderer(BlockRenderView view, MatrixStack matrix, VertexConsumerProvider vertexConsumerProvider,
+record HologramRenderer(World view, MatrixStack matrix, VertexConsumerProvider vertexConsumerProvider,
 						float scale) implements MultiblockWriter {
 	private static final BlockPos OUT_OF_WORLD_POS = new BlockPos(0, 260, 0); // Bad hack; disables lighting
 
@@ -63,7 +65,7 @@ record HologramRenderer(BlockRenderView view, MatrixStack matrix, VertexConsumer
 
 		if (state.getBlock() instanceof FluidBlock) {
 			FluidState fluidState = ((FluidBlock) state.getBlock()).getFluidState(state);
-			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ModelTransformation.Mode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, 0);
+			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ModelTransformationMode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, view, 0);
 		} else {
 			matrix.translate(-0.5, -0.5, -0.5);
 			VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayers.getBlockLayer(state));

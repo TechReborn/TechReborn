@@ -27,9 +27,12 @@ package techreborn.blocks.generator;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -41,7 +44,7 @@ import reborncore.common.util.Torus;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.init.TRContent;
-import techreborn.utils.damageSources.FusionDamageSource;
+import techreborn.init.TRDamageTypes;
 
 import java.util.List;
 
@@ -87,7 +90,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 		if (worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity) {
 			if (((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).craftingTickTime != 0
 					&& ((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).isMultiblockValid()) {
-				entityIn.damage(new FusionDamageSource(), 200F);
+				entityIn.damage(TRDamageTypes.create(worldIn, TRDamageTypes.FUSION), 200F);
 			}
 		}
 	}

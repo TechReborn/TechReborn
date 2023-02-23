@@ -26,6 +26,7 @@ package techreborn.blocks.misc;
 
 import net.minecraft.block.ButtonBlock;
 import net.minecraft.sound.SoundEvents;
+import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
 /**
@@ -34,6 +35,6 @@ import techreborn.utils.InitUtils;
 public class RubberButtonBlock extends ButtonBlock {
 
 	public RubberButtonBlock() {
-		super(InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F), 30, true, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_OFF, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON);
+		super(InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F), TRContent.RUBBER_WOOD_SET_TYPE, 30, true);
 	}
 }

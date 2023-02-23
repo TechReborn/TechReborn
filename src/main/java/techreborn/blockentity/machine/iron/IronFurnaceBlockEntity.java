@@ -105,7 +105,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		Recipe<?> matchingRecipe = refreshRecipe(stack);
 
 		if (matchingRecipe != null) {
-			return matchingRecipe.getOutput().copy();
+			return matchingRecipe.getOutput(getWorld().getRegistryManager()).copy();
 		}
 
 		return ItemStack.EMPTY;

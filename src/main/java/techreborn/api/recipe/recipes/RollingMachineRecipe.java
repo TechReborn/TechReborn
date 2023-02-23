@@ -30,6 +30,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -56,13 +57,13 @@ public class RollingMachineRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public List<ItemStack> getOutputs() {
-		return Collections.singletonList(shapedRecipe.getOutput());
+	public List<ItemStack> getOutputs(DynamicRegistryManager registryManager) {
+		return Collections.singletonList(shapedRecipe.getOutput(registryManager));
 	}
 
 	@Override
-	public ItemStack getOutput() {
-		return shapedRecipe.getOutput();
+	public ItemStack getOutput(DynamicRegistryManager registryManager) {
+		return shapedRecipe.getOutput(registryManager);
 	}
 
 	@Override
@@ -76,8 +77,8 @@ public class RollingMachineRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public ItemStack craft(Inventory inv) {
-		return shapedRecipe.craft((CraftingInventory) inv);
+	public ItemStack craft(Inventory inv, DynamicRegistryManager registryManager) {
+		return shapedRecipe.craft((CraftingInventory) inv, registryManager);
 	}
 
 	@Override

@@ -31,6 +31,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -38,6 +39,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -65,7 +67,7 @@ import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
-import techreborn.utils.damageSources.ElectricalShockSource;
+import techreborn.init.TRDamageTypes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -240,7 +242,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			if (type == TRContent.Cables.HV) {
 				entity.setOnFireFor(1);
 			}
-			entity.damage(new ElectricalShockSource(), 1F);
+
+			entity.damage(TRDamageTypes.create(world, TRDamageTypes.ELECTRIC_SHOCK), 1F);
 			blockEntityCable.setEnergy(0);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionSound) {
