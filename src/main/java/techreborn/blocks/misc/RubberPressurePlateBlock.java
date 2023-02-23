@@ -25,7 +25,6 @@
 package techreborn.blocks.misc;
 
 import net.minecraft.block.PressurePlateBlock;
-import net.minecraft.sound.SoundEvents;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
