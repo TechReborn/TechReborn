@@ -59,7 +59,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			(Items.OXEYE_DAISY) : Items.LIGHT_GRAY_DYE,
 			(Items.WHITE_TULIP) : Items.LIGHT_GRAY_DYE,
 			(Items.ALLIUM) : Items.MAGENTA_DYE,
-			(Items.ORANGE_TULIP) : Items.ORANGE_TULIP,
+			(Items.ORANGE_TULIP) : Items.ORANGE_DYE,
 			(Items.PINK_TULIP) : Items.PINK_DYE,
 			(Items.POPPY) : Items.RED_DYE,
 			(Items.RED_TULIP) : Items.RED_DYE,
