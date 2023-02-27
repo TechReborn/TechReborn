@@ -73,7 +73,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private RedstoneConfiguration redstoneConfiguration;
 
 	public boolean renderMultiblock = false;
-
+	private final static int syncCoolDown = 20;
+	private boolean markSync = false;
 	private int tickTime = 0;
 
 	/**
@@ -119,11 +120,18 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		return verifier.isValid();
 	}
 
+	private void syncIfNecessary(){
+		if (this.markSync && this.tickTime % syncCoolDown == 0) {
+			this.markSync = false;
+			if (world == null || world.isClient) { return; }
+			NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
+		}
+	}
+
 	public void writeMultiblock(MultiblockWriter writer) {}
 
 	public void syncWithAll() {
-		if (world == null || world.isClient) { return; }
-		NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
+		this.markSync = true;
 	}
 
 	public void onLoad() {
@@ -187,6 +195,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		if (fluidConfiguration != null && isActive(RedstoneConfiguration.FLUID_IO)) {
 			fluidConfiguration.update(this);
 		}
+		syncIfNecessary();
 	}
 
 	public void resetUpgrades() {
