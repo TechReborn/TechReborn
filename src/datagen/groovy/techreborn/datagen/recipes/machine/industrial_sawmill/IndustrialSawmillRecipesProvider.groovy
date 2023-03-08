@@ -64,6 +64,14 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		offerIndustrialSawmillRecipe {
+			ingredients ItemTags.CHERRY_LOGS
+			outputs stack(Items.CHERRY_PLANKS,4), stack(TRContent.Dusts.SAW, 3)
+			power 40
+			time 200
+			fluidAmount 1000 // in millibuckets
+			feature FeatureFlags.UPDATE_1_20
+		}
+		offerIndustrialSawmillRecipe {
 			ingredients ItemTags.BAMBOO_BLOCKS
 			outputs stack(Items.BAMBOO_PLANKS,2), stack(TRContent.Dusts.SAW, 1)
 			power 40
@@ -94,6 +102,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		[
+			(Items.CHERRY_STAIRS): Items.CHERRY_SLAB,
 			(Items.BAMBOO_STAIRS): Items.BAMBOO_SLAB,
 			(Items.BAMBOO_MOSAIC_STAIRS): Items.BAMBOO_MOSAIC_SLAB
 		].each { stairs, slab ->
@@ -131,6 +140,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		[
+			(Items.CHERRY_SLAB): Items.CHERRY_PRESSURE_PLATE,
 			(Items.BAMBOO_SLAB): Items.BAMBOO_PRESSURE_PLATE,
 			(Items.BAMBOO_MOSAIC_SLAB): Items.BAMBOO_PRESSURE_PLATE
 		].each { slab, plate ->

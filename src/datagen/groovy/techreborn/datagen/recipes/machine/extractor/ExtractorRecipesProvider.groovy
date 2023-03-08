@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
+import net.minecraft.resource.featuretoggle.FeatureFlags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -43,6 +44,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		generateDoubleDyes()
 		generateQuadrupleDyes()
 		generateFroglight()
+		generateMisc()
 		generateFluidExtraction()
 	}
 
@@ -76,9 +78,23 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}
+		[
+			(Items.TORCHFLOWER) : Items.ORANGE_DYE,
+			(Items.PINK_PETALS) : Items.PINK_DYE
+		].each { item, dye ->
+			offerExtractorRecipe {
+				ingredients item
+				outputs stack(dye, 2)
+				source item.toString()
+				power 10
+				time 300
+				criterion getCriterionName(item), getCriterionConditions(item)
+				feature FeatureFlags.UPDATE_1_20
+			}
+		}
 	}
 
-	// ONLY for double vanilla double dye recipes
+	// ONLY for doubling vanilla double dye recipes
 	void generateQuadrupleDyes() {
 		[
 			(Items.LILAC) : Items.MAGENTA_DYE,
@@ -111,6 +127,18 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
+		}
+	}
+
+	void generateMisc() {
+		offerExtractorRecipe {
+			ingredients Items.CHERRY_LEAVES
+			outputs stack(Items.PINK_PETALS, 4)
+			source Items.CHERRY_LEAVES.toString()
+			power 10
+			time 300
+			criterion getCriterionName(Items.CHERRY_LEAVES), getCriterionConditions(Items.CHERRY_LEAVES)
+			feature FeatureFlags.UPDATE_1_20
 		}
 	}
 
