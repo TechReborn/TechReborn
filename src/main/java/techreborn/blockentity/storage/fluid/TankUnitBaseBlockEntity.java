@@ -91,10 +91,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 			return false;
 		}
 		ItemStack secondStack = inventory.getStack(1);
-		if (secondStack.getCount() >= secondStack.getMaxCount()){
-			return false;
-		}
-		return true;
+		return secondStack.getCount() < secondStack.getMaxCount();
 	}
 
 	// MachineBaseBlockEntity
@@ -107,10 +104,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		}
 
 		if (canDrainTransfer() && FluidUtils.isContainer(inventory.getStack(0))) {
-			boolean didSomething = false;
-			if(FluidUtils.drainContainers(tank, inventory, 0, 1)){
-				didSomething = true;
-			}
+			boolean didSomething = FluidUtils.drainContainers(tank, inventory, 0, 1);
 			if(!didSomething && FluidUtils.fillContainers(tank, inventory, 0, 1)){
 				didSomething = true;
 			}
@@ -122,9 +116,10 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				syncWithAll();
 			}
 		}
+		// allow infinite fluid input for creative tank
 		if (type == TRContent.TankUnit.CREATIVE) {
-			if (!tank.isEmpty() && !tank.isFull()) {
-				tank.setFluidAmount(tank.getFluidValueCapacity());
+			if (!tank.isEmpty() && !tank.getFluidAmount().equals(tank.getFluidValueCapacity().fraction(2))) {
+				tank.setFluidAmount(tank.getFluidValueCapacity().fraction(2));
 			}
 		}
 		// Void excessive fluid in creative tank (#2205)
