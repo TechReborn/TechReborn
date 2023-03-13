@@ -27,6 +27,7 @@ package techreborn.blockentity.machine.tier1;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
@@ -62,7 +63,7 @@ import java.util.stream.Collectors;
 // TODO add tick and power bars.
 
 public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
+	implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public int[] craftingSlots = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
 	private CraftingInventory craftCache;
@@ -77,7 +78,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	private final int outputSlot;
 	public boolean locked = false;
 	public int balanceSlot = 0;
-
+	RollingMachineRecipe lastRecipe = null;
+	private List<Item> cachedInventoryStructure = null;
 	public RollingMachineBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.ROLLING_MACHINE, pos, state);
 		outputSlot = 9;
@@ -111,68 +113,54 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		charge(10);
 
-		CraftingInventory craftMatrix = getCraftingMatrix();
+		CraftingInventory craftMatrix = getCraftingMatrix(true);
 		currentRecipe = findMatchingRecipe(craftMatrix, world);
 		if (currentRecipe != null) {
-			setIsActive(true);
 			if (world.getTime() % 2 == 0) {
-				Optional<CraftingInventory> balanceResult = balanceRecipe(craftMatrix);
-				if (balanceResult.isPresent()) {
-					craftMatrix = balanceResult.get();
-				}
+				balanceRecipe(craftMatrix);
 			}
 			currentRecipeOutput = currentRecipe.craft(craftMatrix);
 		} else {
 			currentRecipeOutput = ItemStack.EMPTY;
 		}
+		craftMatrix = getCraftingMatrix();
 
-		if (!currentRecipeOutput.isEmpty() && canMake(craftMatrix)) {
-			if (tickTime >= Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)) {
-				currentRecipeOutput = findMatchingRecipeOutput(craftMatrix, world);
-				if (!currentRecipeOutput.isEmpty()) {
-					boolean hasCrafted = false;
-					if (inventory.getStack(outputSlot).isEmpty()) {
-						inventory.setStack(outputSlot, currentRecipeOutput.copy());
-						tickTime = 0;
-						hasCrafted = true;
-					} else {
-						if (inventory.getStack(outputSlot).getCount()
-								+ currentRecipeOutput.getCount() <= currentRecipeOutput.getMaxCount()) {
-							final ItemStack stack = inventory.getStack(outputSlot);
-							stack.setCount(stack.getCount() + currentRecipeOutput.getCount());
-							inventory.setStack(outputSlot, stack);
-							tickTime = 0;
-							hasCrafted = true;
-						} else {
-							setIsActive(false);
-						}
-					}
-					if (hasCrafted) {
-						for (int i = 0; i < craftMatrix.size(); i++) {
-							inventory.shrinkSlot(i, 1);
-						}
-						currentRecipeOutput = ItemStack.EMPTY;
-						currentRecipe = null;
-					}
-				}
-			}
+		if (currentRecipeOutput.isEmpty() || !checkNotEmpty(craftMatrix)){
+			// can't make anyway, reject.
+			tickTime = 0;
+			setIsActive(false);
+			return;
+		}
+		// Now we ensured we can make something. Check energy state.
+		if (getStored() > getEuPerTick(currentRecipe.getPower())
+			&& tickTime < Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)
+			&& canMake(craftMatrix)) {
+			setIsActive(true);
+			useEnergy(getEuPerTick(currentRecipe.getPower()));
+			tickTime++;
 		} else {
-			tickTime = 0;
+			setIsActive(false);
+			return;
 		}
-		if (!currentRecipeOutput.isEmpty()) {
-			if (getStored() > getEuPerTick(currentRecipe.getPower())
-					&& tickTime < Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)
-					&& canMake(craftMatrix)) {
-				useEnergy(getEuPerTick(currentRecipe.getPower()));
-				tickTime++;
-			} else {
-				setIsActive(false);
+		// Cached recipe or valid recipe exists.
+		// checked if we can make at least one.
+		if (tickTime >= Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)) {
+			//craft one
+			if (inventory.getStack(outputSlot).isEmpty()) {
+				inventory.setStack(outputSlot, currentRecipeOutput.copy());
 			}
-		}
-		if (currentRecipeOutput.isEmpty()) {
+			else {
+				// we checked stack can fit in output slot in canMake()
+				inventory.getStack(outputSlot).increment(currentRecipeOutput.getCount());
+			}
 			tickTime = 0;
-			currentRecipe = null;
-			setIsActive(canMake(getCraftingMatrix()));
+			for (int i = 0; i < craftMatrix.size(); i++) {
+				inventory.shrinkSlot(i, 1);
+			}
+			if (!locked) {
+				currentRecipeOutput = ItemStack.EMPTY;
+				currentRecipe = null;
+			}
 		}
 	}
 
@@ -224,7 +212,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!possibleSlots.isEmpty()) {
 			int totalItems = possibleSlots.stream()
-					.mapToInt(value -> inventory.getStack(value).getCount()).sum();
+				.mapToInt(value -> inventory.getStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
 			// This makes an array of ints with the best possible slot distribution
@@ -241,8 +229,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			}
 
 			List<Integer> slotEnvTyperubution = possibleSlots.stream()
-					.mapToInt(value -> inventory.getStack(value).getCount())
-					.boxed().collect(Collectors.toList());
+				.mapToInt(value -> inventory.getStack(value).getCount())
+				.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
 			for (int required : split) {
@@ -274,10 +262,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 		if (bestSlot == null
-				|| bestSlot.getLeft() == balanceSlot
-				|| bestSlot.getRight() == sourceStack.getCount()
-				|| inventory.getStack(bestSlot.getLeft()).isEmpty()
-				|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
+			|| bestSlot.getLeft() == balanceSlot
+			|| bestSlot.getRight() == sourceStack.getCount()
+			|| inventory.getStack(bestSlot.getLeft()).isEmpty()
+			|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
 			return Optional.empty();
 		}
 		sourceStack.decrement(1);
@@ -288,10 +276,14 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private CraftingInventory getCraftingMatrix() {
+		return getCraftingMatrix(false);
+	}
+
+	private CraftingInventory getCraftingMatrix(boolean forceRefresh) {
 		if (craftCache == null) {
 			craftCache = new CraftingInventory(new RollingBEContainer(), 3, 3);
 		}
-		if (inventory.hasChanged()) {
+		if (forceRefresh || inventory.hasChanged()) {
 			for (int i = 0; i < 9; i++) {
 				craftCache.setStack(i, inventory.getStack(i).copy());
 			}
@@ -299,17 +291,44 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		return craftCache;
 	}
+	private List<Item> fastIntlayout(){
+		if (this.inventory == null) return null;
+		ArrayList<Item> arrayList = new ArrayList<>(9);
+		for (int i = 0; i < 9; i++){
+			arrayList.add(this.inventory.getStack(i).getItem());
+		}
+		return arrayList;
+	}
 
-	public boolean canMake(CraftingInventory craftMatrix) {
-		ItemStack stack = findMatchingRecipeOutput(craftMatrix, this.world);
+	private boolean checkNotEmpty(CraftingInventory craftMatrix) {
+		//checks if inventory is empty or considered quasi-empty.
 		if (locked) {
+			boolean returnValue = false;
+			// for locked condition, we need to check if inventory contains item and all slots are empty or has more than one item.
 			for (int i = 0; i < craftMatrix.size(); i++) {
 				ItemStack stack1 = craftMatrix.getStack(i);
-				if (!stack1.isEmpty() && stack1.getCount() < 2) {
+				if (stack1.getCount() == 1) {
 					return false;
+				}
+				if (stack1.getCount() > 1) {
+					returnValue = true;
+				}
+			}
+			return returnValue;
+		}
+		else {
+			for (int i = 0; i < craftMatrix.size(); i++) {
+				ItemStack stack1 = craftMatrix.getStack(i);
+				if (!stack1.isEmpty()) {
+					return true;
 				}
 			}
 		}
+		return false;
+	}
+
+	public boolean canMake(CraftingInventory craftMatrix) {
+		ItemStack stack = findMatchingRecipeOutput(craftMatrix, this.world);
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -317,7 +336,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		if (output.isEmpty()) {
 			return true;
 		}
-		return ItemUtils.isItemEqual(stack, output, true, true);
+		return ItemUtils.isItemEqual(stack, output, true, true) && output.getCount() + stack.getCount() <= output.getMaxCount();
 	}
 
 	public List<RollingMachineRecipe> getAllRecipe(World world) {
@@ -333,12 +352,34 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public RollingMachineRecipe findMatchingRecipe(CraftingInventory inv, World world) {
+		if (isCorrectCachedInventory()){
+			return lastRecipe;
+		}
+		cachedInventoryStructure = fastIntlayout();
 		for (RollingMachineRecipe recipe : getAllRecipe(world)) {
 			if (recipe.matches(inv, world)) {
+				lastRecipe = recipe;
 				return recipe;
 			}
 		}
+		lastRecipe = null;
 		return null;
+	}
+
+	private boolean isCorrectCachedInventory(){
+		if (cachedInventoryStructure == null){
+			return false;
+		}
+		List<Item> current = fastIntlayout();
+		if (current == null || current.size() != this.cachedInventoryStructure.size()){
+			return false;
+		}
+		for (int i = 0; i < current.size(); i++ ){
+			if (current.get(i) != this.cachedInventoryStructure.get(i)){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -385,16 +426,16 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("rollingmachine").player(player.getInventory())
-				.inventory().hotbar()
-				.addInventory().blockEntity(this)
-				.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
-				.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
-				.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
-				.onCraft(inv -> this.inventory.setStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
-				.outputSlot(9, 124, 40)
-				.energySlot(10, 8, 70)
-				.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt)
-				.sync(this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
+			.inventory().hotbar()
+			.addInventory().blockEntity(this)
+			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
+			.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
+			.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
+			.onCraft(inv -> this.inventory.setStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
+			.outputSlot(9, 124, 40)
+			.energySlot(10, 8, 70)
+			.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt)
+			.sync(this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentRecipeTime() {
