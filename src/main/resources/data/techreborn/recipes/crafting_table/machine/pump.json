@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"PFP",
+		"PTP",
+		"DXD"
+	],
+	"key": {
+		"F": {
+			"item": "techreborn:advanced_machine_frame"
+		},
+		"P": {
+			"item": "techreborn:refined_iron_plate"
+		},
+		"T": {
+			"item": "techreborn:basic_tank_unit"
+		},
+		"D": {
+			"item": "techreborn:drain"
+		},
+		"X": {
+			"item": "minecraft:iron_bars"
+		}
+	},
+	"result": {
+		"item": "techreborn:pump"
+	}
+}

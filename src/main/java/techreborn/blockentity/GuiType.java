@@ -53,6 +53,7 @@ import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
+import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
@@ -127,6 +128,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<LaunchpadBlockEntity> LAUNCHPAD = register("launchpad");
 	public static final GuiType<ElevatorBlockEntity> ELEVATOR = register("elevator");
 	public static final GuiType<FishingStationBlockEntity> FISHING_STATION = register("fishing_station");
+	public static final GuiType<PumpBlockEntity> PUMP = register("pump");
 
 	private static <T extends BlockEntity> GuiType<T> register(String id) {
 		return register(new Identifier("techreborn", id));

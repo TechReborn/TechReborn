@@ -68,6 +68,7 @@ import techreborn.blockentity.machine.tier1.SolidCanningMachineBlockEntity;
 import techreborn.blockentity.machine.tier1.WireMillBlockEntity;
 import techreborn.blockentity.machine.tier2.FishingStationBlockEntity;
 import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
+import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
@@ -118,6 +119,7 @@ import techreborn.client.gui.GuiMFSU;
 import techreborn.client.gui.GuiMatterFabricator;
 import techreborn.client.gui.GuiPlasmaGenerator;
 import techreborn.client.gui.GuiPlayerDetector;
+import techreborn.client.gui.GuiPump;
 import techreborn.client.gui.GuiRecycler;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiScrapboxinator;
@@ -187,6 +189,7 @@ public class ClientGuiType<T extends BlockEntity> {
 	public static final ClientGuiType<LaunchpadBlockEntity> LAUNCHPAD = register(GuiType.LAUNCHPAD, GuiLaunchpad::new);
 	public static final ClientGuiType<ElevatorBlockEntity> ELEVATOR = register(GuiType.ELEVATOR, GuiElevator::new);
 	public static final ClientGuiType<FishingStationBlockEntity> FISHING_STATION = register(GuiType.FISHING_STATION, GuiFishingStation::new);
+	public static final ClientGuiType<PumpBlockEntity> PUMP = register(GuiType.PUMP, GuiPump::new);
 
 	public static <T extends BlockEntity> ClientGuiType<T> register(GuiType<T> type, GuiFactory<T> factory) {
 		return new ClientGuiType<>(type, factory);

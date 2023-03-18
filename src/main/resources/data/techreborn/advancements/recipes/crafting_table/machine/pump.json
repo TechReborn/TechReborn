@@ -1,0 +1,54 @@
+{
+	"parent": "minecraft:recipes/root",
+	"rewards": {
+		"recipes": [
+			"techreborn:crafting_table/machine/pump"
+		]
+	},
+	"criteria": {
+		"has_refined_iron_plate": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": ["techreborn:refined_iron_plate"]
+					}
+				]
+			}
+		},
+		"has_basic_tank_unit": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": ["techreborn:basic_tank_unit"]
+					}
+				]
+			}
+		},
+		"has_drain": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": ["techreborn:drain"]
+					}
+				]
+			}
+		},
+		"has_the_recipe": {
+			"trigger": "minecraft:recipe_unlocked",
+			"conditions": {
+				"recipe": "techreborn:crafting_table/machine/pump"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"has_refined_iron_plate",
+			"has_basic_tank_unit",
+			"has_drain",
+			"has_the_recipe"
+		]
+	]
+}
