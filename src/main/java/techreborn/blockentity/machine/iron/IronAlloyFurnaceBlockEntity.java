@@ -88,7 +88,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		ItemStack itemstack = null;
 		for (RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
 			if (hasAllInputs(recipeType)) {
-				List<ItemStack> outputs = recipeType.getOutputs();
+				List<ItemStack> outputs = recipeType.getOutputs(getWorld().getRegistryManager());
 
 				if(outputs.isEmpty()){
 					continue;
@@ -121,7 +121,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 			return;
 		}
 
-		ItemStack outputStack = currentRecipe.getOutputs().get(0);
+		ItemStack outputStack = currentRecipe.getOutputs(getWorld().getRegistryManager()).get(0);
 		if (outputStack.isEmpty()) {
 			return;
 		}

@@ -40,9 +40,12 @@ import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Set;
 
 public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity> {
+	private static final Set<Direction> ALL_DIRECTIONS = EnumSet.allOf(Direction.class);
 	private static final TurbineModel MODEL = new TurbineModel();
 	public static final Identifier TEXTURE = new Identifier("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
 
@@ -76,14 +79,14 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 			super(RenderLayer::getEntityCutoutNoCull);
 
 			ModelPart.Cuboid[] baseCuboids = {
-					new ModelPart.Cuboid(0, 0, -2.0F, -2.0F, -1.0F, 4F, 4F, 2F, 0F, 0F, 0F, false, 64F, 64F),
-					new ModelPart.Cuboid(0, 6, -1.0F, -1.0F, -2.0F, 2F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F)
+					new ModelPart.Cuboid(0, 0, -2.0F, -2.0F, -1.0F, 4F, 4F, 2F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS),
+					new ModelPart.Cuboid(0, 6, -1.0F, -1.0F, -2.0F, 2F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 			};
 
 			base = new ModelPart(Arrays.asList(baseCuboids), new HashMap<>() {
 				{
 					ModelPart.Cuboid[] blade1Cuboids = {
-							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F)
+							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade1 = new ModelPart(Arrays.asList(blade1Cuboids), Collections.emptyMap());
 					blade1.setPivot(0.0F, 0.0F, 0.0F);
@@ -91,7 +94,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 					put("blade1", blade1);
 
 					ModelPart.Cuboid[] blade2Cuboids = {
-							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F)
+							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade2 = new ModelPart(Arrays.asList(blade2Cuboids), Collections.emptyMap());
 					blade2.setPivot(0.0F, 0.0F, 0.0F);
@@ -99,7 +102,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 					put("blade2", blade2);
 
 					ModelPart.Cuboid[] blade3Cuboids = {
-							new ModelPart.Cuboid(0, 9, -24.0F, -2.0F, -1.075F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F)
+							new ModelPart.Cuboid(0, 9, -24.0F, -2.0F, -1.075F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade3 = new ModelPart(Arrays.asList(blade3Cuboids), Collections.emptyMap());
 					blade3.setPivot(0.0F, 0.0F, 0.0F);

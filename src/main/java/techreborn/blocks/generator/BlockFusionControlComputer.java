@@ -41,7 +41,7 @@ import reborncore.common.util.Torus;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.init.TRContent;
-import techreborn.utils.damageSources.FusionDamageSource;
+import techreborn.init.TRDamageTypes;
 
 import java.util.List;
 
@@ -87,7 +87,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 		if (worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity) {
 			if (((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).craftingTickTime != 0
 					&& ((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).isMultiblockValid()) {
-				entityIn.damage(new FusionDamageSource(), 200F);
+				entityIn.damage(TRDamageTypes.create(worldIn, TRDamageTypes.FUSION), 200F);
 			}
 		}
 	}

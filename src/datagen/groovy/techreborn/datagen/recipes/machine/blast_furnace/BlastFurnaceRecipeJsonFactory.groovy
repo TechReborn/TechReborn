@@ -26,6 +26,7 @@ package techreborn.datagen.recipes.machine.blast_furnace
 
 import net.minecraft.util.Identifier
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe
+import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.init.ModRecipes
 
@@ -37,16 +38,16 @@ class BlastFurnaceRecipeJsonFactory extends MachineRecipeJsonFactory<BlastFurnac
 		return this
 	}
 
-	protected BlastFurnaceRecipeJsonFactory() {
-		super(ModRecipes.BLAST_FURNACE)
+	protected BlastFurnaceRecipeJsonFactory(TechRebornRecipesProvider provider) {
+		super(ModRecipes.BLAST_FURNACE, provider)
 	}
 
-	static BlastFurnaceRecipeJsonFactory create() {
-		return new BlastFurnaceRecipeJsonFactory()
+	static BlastFurnaceRecipeJsonFactory create(TechRebornRecipesProvider provider) {
+		return new BlastFurnaceRecipeJsonFactory(provider)
 	}
 
-	static BlastFurnaceRecipeJsonFactory createBlastFurnace(@DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		def factory = new BlastFurnaceRecipeJsonFactory()
+	static BlastFurnaceRecipeJsonFactory createBlastFurnace(TechRebornRecipesProvider provider, @DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		def factory = new BlastFurnaceRecipeJsonFactory(provider)
 		closure.setDelegate(factory)
 		closure.call(factory)
 		return factory

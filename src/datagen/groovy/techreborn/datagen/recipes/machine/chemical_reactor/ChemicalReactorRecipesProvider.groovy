@@ -56,8 +56,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		for (ColoredItem color : ColoredItem.values())
 			ColoredItem.createExtendedMixingColorStream(color, false, true).forEach(pair ->
 				offerChemicalReactorRecipe {
-					ingredients color.getDye(), new ItemStack(pair.getLeft().getWool(), 4)
-					output new ItemStack(pair.getRight().getWool(), 4)
+					ingredients color.getDye(), stack(pair.getLeft().getWool(), 4)
+					outputs stack(pair.getRight().getWool(), 4)
 					source pair.getLeft().getWool().toString() + "_with_" + color.getDye().toString()
 					power DYE_POWER
 					time DYE_TIME
@@ -70,8 +70,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		for (ColoredItem color : ColoredItem.values())
 			ColoredItem.createExtendedMixingColorStream(color, false, true).forEach(pair ->
 				offerChemicalReactorRecipe {
-					ingredients color.getDye(), new ItemStack(pair.getLeft().getCarpet(), 8)
-					output new ItemStack(pair.getRight().getCarpet(), 8)
+					ingredients color.getDye(), stack(pair.getLeft().getCarpet(), 8)
+					outputs stack(pair.getRight().getCarpet(), 8)
 					source pair.getLeft().getCarpet().toString() + "_with_" + color.getDye().toString()
 					power DYE_POWER
 					time DYE_TIME
@@ -84,8 +84,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		for (ColoredItem color : ColoredItem.values())
 			ColoredItem.createExtendedMixingColorStream(color, false, true).forEach(pair ->
 				offerChemicalReactorRecipe {
-					ingredients color.getDye(), new ItemStack(pair.getLeft().getConcretePowder(), 8)
-					output new ItemStack(pair.getRight().getCarpet(), 8)
+					ingredients color.getDye(), stack(pair.getLeft().getConcretePowder(), 8)
+					outputs stack(pair.getRight().getConcretePowder(), 8)
 					source pair.getLeft().getConcretePowder().toString() + "_with_" + color.getDye().toString()
 					power DYE_POWER
 					time DYE_TIME
@@ -101,8 +101,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			if (color != ColoredItem.NEUTRAL)
 				ColoredItem.createExtendedMixingColorStream(color, true, true).forEach(pair ->
 					offerChemicalReactorRecipe {
-						ingredients color.getDye(), new ItemStack(pair.getLeft().getCandle(), 2)
-						output new ItemStack(pair.getRight().getCandle(), 2)
+						ingredients color.getDye(), stack(pair.getLeft().getCandle(), 2)
+						outputs stack(pair.getRight().getCandle(), 2)
 						source pair.getLeft().getCandle().toString() + "_with_" + color.getDye().toString()
 						power DYE_POWER
 						time DYE_TIME
@@ -117,8 +117,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			if (color != ColoredItem.NEUTRAL)
 				ColoredItem.createExtendedMixingColorStream(color, true, true).forEach(pair ->
 					offerChemicalReactorRecipe {
-						ingredients color.getDye(), new ItemStack(pair.getLeft().getGlass(), 12)
-						output new ItemStack(pair.getRight().getGlass(), 12)
+						ingredients color.getDye(), stack(pair.getLeft().getGlass(), 12)
+						outputs stack(pair.getRight().getGlass(), 12)
 						source pair.getLeft().getGlass().toString() + "_with_" + color.getDye().toString()
 						power DYE_POWER
 						time DYE_TIME
@@ -133,8 +133,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			if (color != ColoredItem.NEUTRAL)
 				ColoredItem.createExtendedMixingColorStream(color, true, true).forEach(pair ->
 					offerChemicalReactorRecipe {
-						ingredients color.getDye(), new ItemStack(pair.getLeft().getGlassPane(), 16)
-						output new ItemStack(pair.getRight().getGlassPane(), 16)
+						ingredients color.getDye(), stack(pair.getLeft().getGlassPane(), 16)
+						outputs stack(pair.getRight().getGlassPane(), 16)
 						source pair.getLeft().getGlassPane().toString() + "_with_" + color.getDye().toString()
 						power DYE_POWER
 						time DYE_TIME
@@ -149,8 +149,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			if (color != ColoredItem.NEUTRAL)
 				ColoredItem.createExtendedMixingColorStream(color, true, true).forEach(pair ->
 					offerChemicalReactorRecipe {
-						ingredients color.getDye(), new ItemStack(pair.getLeft().getTerracotta(), 8)
-						output new ItemStack(pair.getRight().getTerracotta(), 8)
+						ingredients color.getDye(), stack(pair.getLeft().getTerracotta(), 8)
+						outputs stack(pair.getRight().getTerracotta(), 8)
 						source pair.getLeft().getTerracotta().toString() + "_with_" + color.getDye().toString()
 						power DYE_POWER
 						time DYE_TIME

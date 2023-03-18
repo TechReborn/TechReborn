@@ -153,4 +153,16 @@ public class StackIngredient extends RebornIngredient {
 	public int getCount() {
 		return count.orElse(1);
 	}
+
+	public ItemStack getStack() {
+		return stack;
+	}
+
+	public Optional<NbtCompound> getNbt() {
+		return nbt;
+	}
+
+	public boolean isRequireEmptyNbt() {
+		return requireEmptyNbt;
+	}
 }

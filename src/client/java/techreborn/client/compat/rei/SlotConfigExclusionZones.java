@@ -27,8 +27,6 @@ package techreborn.client.compat.rei;
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZonesProvider;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.SlotConfigGui;
 import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
@@ -36,7 +34,6 @@ import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
 import java.util.Collection;
 import java.util.Collections;
 
-@Environment(EnvType.CLIENT)
 public class SlotConfigExclusionZones implements ExclusionZonesProvider<GuiBase<?>> {
 
 	@Override

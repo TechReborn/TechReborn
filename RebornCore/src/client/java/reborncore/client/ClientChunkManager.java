@@ -25,10 +25,12 @@
 package reborncore.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.chunkloading.ChunkLoaderManager;
@@ -37,7 +39,6 @@ import reborncore.common.network.ServerBoundPackets;
 import java.util.ArrayList;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 public class ClientChunkManager {
 
 	private static final List<ChunkLoaderManager.LoadedChunk> loadedChunks = new ArrayList<>();
@@ -78,7 +79,6 @@ public class ClientChunkManager {
 		final Tessellator tessellator = Tessellator.getInstance();
 		final BufferBuilder bufferBuilder = tessellator.getBuffer();
 
-		RenderSystem.disableTexture();
 		RenderSystem.disableBlend();
 		RenderSystem.lineWidth(5.0F);
 
@@ -99,7 +99,6 @@ public class ClientChunkManager {
 		tessellator.draw();
 		RenderSystem.lineWidth(1.0F);
 		RenderSystem.enableBlend();
-		RenderSystem.enableTexture();
 	}
 
 }

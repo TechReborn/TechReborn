@@ -26,7 +26,6 @@ package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -83,7 +82,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		if (tryUseEnergy(stack, hitCost)) {
-			target.damage(DamageSource.player((PlayerEntity) attacker), 8F);
+			target.damage(target.getWorld().getDamageSources().playerAttack((PlayerEntity) attacker), 8F);
 		}
 		return false;
 	}

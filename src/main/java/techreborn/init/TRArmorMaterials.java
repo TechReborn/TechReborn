@@ -24,7 +24,7 @@
 
 package techreborn.init;
 
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
@@ -89,13 +89,13 @@ public enum TRArmorMaterials implements ArmorMaterial {
 	}
 
 	@Override
-	public int getDurability(EquipmentSlot slotIn) {
-		return MAX_DAMAGE_ARRAY[slotIn.getEntitySlotId()] * maxDamageFactor;
+	public int getDurability(ArmorItem.Type type) {
+		return MAX_DAMAGE_ARRAY[type.getEquipmentSlot().getEntitySlotId()] * maxDamageFactor;
 	}
 
 	@Override
-	public int getProtectionAmount(EquipmentSlot slotIn) {
-		return damageReductionAmountArray[slotIn.getEntitySlotId()];
+	public int getProtection(ArmorItem.Type type) {
+		return damageReductionAmountArray[type.getEquipmentSlot().getEntitySlotId()];
 	}
 
 	@Override

@@ -28,21 +28,22 @@ import net.minecraft.util.Identifier
 import reborncore.common.fluid.FluidValue
 import reborncore.common.fluid.container.FluidInstance
 import techreborn.api.recipe.recipes.IndustrialGrinderRecipe
+import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
 import techreborn.init.ModRecipes
 
 class IndustrialGrinderRecipeJsonFactory extends MachineRecipeWithFluidJsonFactory<IndustrialGrinderRecipe> {
 
-	protected IndustrialGrinderRecipeJsonFactory() {
-		super(ModRecipes.INDUSTRIAL_GRINDER)
+	protected IndustrialGrinderRecipeJsonFactory(TechRebornRecipesProvider provider) {
+		super(ModRecipes.INDUSTRIAL_GRINDER, provider)
 	}
 
-	static IndustrialGrinderRecipeJsonFactory create() {
-		return new IndustrialGrinderRecipeJsonFactory()
+	static IndustrialGrinderRecipeJsonFactory create(TechRebornRecipesProvider provider) {
+		return new IndustrialGrinderRecipeJsonFactory(provider)
 	}
 
-	static IndustrialGrinderRecipeJsonFactory createIndustrialGrinder(@DelegatesTo(value = IndustrialGrinderRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		def factory = new IndustrialGrinderRecipeJsonFactory()
+	static IndustrialGrinderRecipeJsonFactory createIndustrialGrinder(TechRebornRecipesProvider provider, @DelegatesTo(value = IndustrialGrinderRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		def factory = new IndustrialGrinderRecipeJsonFactory(provider)
 		closure.setDelegate(factory)
 		closure.call(factory)
 		return factory

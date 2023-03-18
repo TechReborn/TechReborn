@@ -32,10 +32,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.crafting.ingredient.RebornIngredient;
@@ -103,7 +105,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		return ingredients;
 	}
 
-	public List<ItemStack> getOutputs() {
+	public List<ItemStack> getOutputs(@Nullable DynamicRegistryManager registryManager) {
 		return Collections.unmodifiableList(outputs);
 	}
 
@@ -142,9 +144,8 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		throw new UnsupportedOperationException();
 	}
 
-	@Deprecated
 	@Override
-	public ItemStack craft(Inventory inv) {
+	public ItemStack craft(Inventory inventory, @Nullable DynamicRegistryManager dynamicRegistryManager) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -156,11 +157,11 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 
 	/**
 	 * Do not call directly, this is implemented only as a fallback.
-	 * {@link RebornRecipe#getOutputs()} will return all the outputs
+	 * {@link RebornRecipe#getOutputs(DynamicRegistryManager)} will return all the outputs
 	 */
 	@Deprecated
 	@Override
-	public ItemStack getOutput() {
+	public ItemStack getOutput(DynamicRegistryManager dynamicRegistryManager) {
 		if (outputs.isEmpty()) {
 			return ItemStack.EMPTY;
 		}

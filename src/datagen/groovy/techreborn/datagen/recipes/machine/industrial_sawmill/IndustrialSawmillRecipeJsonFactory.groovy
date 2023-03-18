@@ -29,21 +29,22 @@ import net.minecraft.util.Identifier
 import reborncore.common.fluid.FluidValue
 import reborncore.common.fluid.container.FluidInstance
 import techreborn.api.recipe.recipes.IndustrialSawmillRecipe
+import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
 import techreborn.init.ModRecipes
 
 class IndustrialSawmillRecipeJsonFactory extends MachineRecipeWithFluidJsonFactory<IndustrialSawmillRecipe> {
 
-	protected IndustrialSawmillRecipeJsonFactory() {
-		super(ModRecipes.INDUSTRIAL_SAWMILL)
+	protected IndustrialSawmillRecipeJsonFactory(TechRebornRecipesProvider provider) {
+		super(ModRecipes.INDUSTRIAL_SAWMILL, provider)
 	}
 
-	static IndustrialSawmillRecipeJsonFactory create() {
-		return new IndustrialSawmillRecipeJsonFactory()
+	static IndustrialSawmillRecipeJsonFactory create(TechRebornRecipesProvider provider) {
+		return new IndustrialSawmillRecipeJsonFactory(provider)
 	}
 
-	static IndustrialSawmillRecipeJsonFactory createIndustrialSawmill(@DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		def factory = new IndustrialSawmillRecipeJsonFactory()
+	static IndustrialSawmillRecipeJsonFactory createIndustrialSawmill(TechRebornRecipesProvider provider, @DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		def factory = new IndustrialSawmillRecipeJsonFactory(provider)
 		closure.setDelegate(factory)
 		closure.call(factory)
 		return factory

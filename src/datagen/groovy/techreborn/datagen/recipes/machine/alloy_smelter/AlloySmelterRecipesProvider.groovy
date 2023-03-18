@@ -22,50 +22,58 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.recipes.machine.compressor
+package techreborn.datagen.recipes.machine.alloy_smelter
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
-import reborncore.common.misc.TagConvertible
+import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
 
-class CompressorRecipesProvider extends TechRebornRecipesProvider {
-	CompressorRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+class AlloySmelterRecipesProvider extends TechRebornRecipesProvider {
+	AlloySmelterRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
 	@Override
 	void generateRecipes() {
-		TRContent.Plates.values().each {plate ->
-			if (plate == TRContent.Plates.IRIDIUM_ALLOY) {
-				// Iridium alloy plate should be gated behind Implosion Compressor
-				return
-			}
-			if (plate.getSource() != null) {
-				var ingredient = TagConvertible.convertIf(plate.getSource())
-				offerCompressorRecipe {
-					ingredients ingredient
-					outputs stack(plate, 1)
-					power 10
-					time 300
-					criterion getCriterionName(ingredient), getCriterionConditions(ingredient)
-				}
-			}
-			if (plate.getSourceBlock() != null) {
-				var ingredient = TagConvertible.convertIf(plate.getSourceBlock())
-				offerCompressorRecipe {
-					ingredients ingredient
-					outputs stack(plate, 9)
-					power 10
-					time 300
-					source "block"
-					criterion getCriterionName(ingredient), getCriterionConditions(ingredient)
-				}
-			}
+		offerAlloySmelterRecipe {
+			power 6
+			time 200
+			ingredients stack(Items.COPPER_INGOT, 3), TRConventionalTags.ZINC_INGOTS
+			outputs stack(TRContent.Ingots.BRASS, 4)
+		}
+
+		offerAlloySmelterRecipe {
+			power 6
+			time 200
+			ingredients stack(Items.COPPER_INGOT, 3), TRConventionalTags.TIN_INGOTS
+			outputs stack(TRContent.Ingots.BRONZE, 4)
+		}
+
+		offerAlloySmelterRecipe {
+			power 6
+			time 200
+			ingredients Items.GOLD_INGOT, TRConventionalTags.SILVER_INGOTS
+			outputs stack(TRContent.Ingots.ELECTRUM, 2)
+		}
+
+		offerAlloySmelterRecipe {
+			power 6
+			time 200
+			ingredients stack(Items.IRON_INGOT, 3), TRConventionalTags.NICKEL_INGOTS
+			outputs stack(TRContent.Ingots.INVAR, 3)
+		}
+
+		offerAlloySmelterRecipe {
+			power 6
+			time 600
+			ingredients stack(Items.GOLD_INGOT, 10), stack(Items.NETHERITE_SCRAP, 10)
+			outputs stack(Items.NETHERITE_INGOT, 3)
 		}
 	}
 }

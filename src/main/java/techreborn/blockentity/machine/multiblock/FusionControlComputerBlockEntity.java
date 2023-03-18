@@ -168,7 +168,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 * @return {@code boolean} True if we have all inputs and can fit output
 	 */
 	private boolean validateRecipe(FusionReactorRecipe recipe) {
-		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs().get(0), outputStackSlot, true);
+		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs(getWorld().getRegistryManager()).get(0), outputStackSlot, true);
 	}
 
 	/**
@@ -319,7 +319,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 					}
 				}
 			} else if (craftingTickTime >= currentRecipe.getTime()) {
-				ItemStack result = currentRecipe.getOutputs().get(0);
+				ItemStack result = currentRecipe.getOutputs(getWorld().getRegistryManager()).get(0);
 				if (canFitStack(result, outputStackSlot, true)) {
 					if (inventory.getStack(outputStackSlot).isEmpty()) {
 						inventory.setStack(outputStackSlot, result.copy());

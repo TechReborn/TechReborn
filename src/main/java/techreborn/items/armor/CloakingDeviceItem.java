@@ -24,7 +24,6 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,7 +43,7 @@ public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, Ar
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public CloakingDeviceItem() {
-		super(TRArmorMaterials.CLOAKING_DEVICE, EquipmentSlot.CHEST, new Item.Settings().maxDamage(-1).maxCount(1));
+		super(TRArmorMaterials.CLOAKING_DEVICE, Type.CHESTPLATE, new Item.Settings().maxDamage(-1).maxCount(1));
 	}
 
 	@Override

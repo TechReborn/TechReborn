@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
+import net.minecraft.resource.featuretoggle.FeatureFlags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -43,6 +44,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		generateDoubleDyes()
 		generateQuadrupleDyes()
 		generateFroglight()
+		generateMisc()
 		generateFluidExtraction()
 	}
 
@@ -59,7 +61,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			(Items.OXEYE_DAISY) : Items.LIGHT_GRAY_DYE,
 			(Items.WHITE_TULIP) : Items.LIGHT_GRAY_DYE,
 			(Items.ALLIUM) : Items.MAGENTA_DYE,
-			(Items.ORANGE_TULIP) : Items.ORANGE_TULIP,
+			(Items.ORANGE_TULIP) : Items.ORANGE_DYE,
 			(Items.PINK_TULIP) : Items.PINK_DYE,
 			(Items.POPPY) : Items.RED_DYE,
 			(Items.RED_TULIP) : Items.RED_DYE,
@@ -69,16 +71,30 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
-				outputs new ItemStack(dye, 2)
+				outputs stack(dye, 2)
 				source item.toString()
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}
+		[
+			(Items.TORCHFLOWER) : Items.ORANGE_DYE,
+			(Items.PINK_PETALS) : Items.PINK_DYE
+		].each { item, dye ->
+			offerExtractorRecipe {
+				ingredients item
+				outputs stack(dye, 2)
+				source item.toString()
+				power 10
+				time 300
+				criterion getCriterionName(item), getCriterionConditions(item)
+				feature FeatureFlags.UPDATE_1_20
+			}
+		}
 	}
 
-	// ONLY for double vanilla double dye recipes
+	// ONLY for doubling vanilla double dye recipes
 	void generateQuadrupleDyes() {
 		[
 			(Items.LILAC) : Items.MAGENTA_DYE,
@@ -88,7 +104,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
-				outputs new ItemStack(dye, 4)
+				outputs stack(dye, 4)
 				source item.toString()
 				power 10
 				time 300
@@ -104,13 +120,25 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			(Items.PEARLESCENT_FROGLIGHT) : Items.PURPLE_DYE
 		].each { item, dye ->
 			offerExtractorRecipe {
-				ingredients new ItemStack(item, 3)
+				ingredients stack(item, 3)
 				outputs dye
 				source item.toString()
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
+		}
+	}
+
+	void generateMisc() {
+		offerExtractorRecipe {
+			ingredients Items.CHERRY_LEAVES
+			outputs stack(Items.PINK_PETALS, 4)
+			source Items.CHERRY_LEAVES.toString()
+			power 10
+			time 300
+			criterion getCriterionName(Items.CHERRY_LEAVES), getCriterionConditions(Items.CHERRY_LEAVES)
+			feature FeatureFlags.UPDATE_1_20
 		}
 	}
 

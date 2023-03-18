@@ -25,7 +25,6 @@
 package techreborn.items.armor;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -41,7 +40,7 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem {
 	public final RcEnergyTier tier;
 
 	public BatpackItem(int maxCharge, ArmorMaterial material, RcEnergyTier tier) {
-		super(material, EquipmentSlot.CHEST, new Settings().maxCount(1).maxDamage(-1));
+		super(material, Type.CHESTPLATE, new Settings().maxCount(1).maxDamage(-1));
 		this.maxCharge = maxCharge;
 		this.tier = tier;
 	}

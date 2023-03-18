@@ -65,11 +65,11 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateBoots() {
 		final int count = 2
 		[
-				(Items.GOLDEN_BOOTS)       : new ItemStack(Items.GOLD_INGOT, count),
-				(Items.IRON_BOOTS)         : new ItemStack(Items.IRON_INGOT, count),
-				(TRContent.BRONZE_BOOTS)   : new ItemStack(TRContent.Ingots.BRONZE, count),
-				(TRContent.SILVER_BOOTS)   : new ItemStack(TRContent.Ingots.SILVER, count),
-				(TRContent.STEEL_BOOTS)    : new ItemStack(TRContent.Ingots.STEEL, count)
+				(Items.GOLDEN_BOOTS)       : stack(Items.GOLD_INGOT, count),
+				(Items.IRON_BOOTS)         : stack(Items.IRON_INGOT, count),
+				(TRContent.BRONZE_BOOTS)   : stack(TRContent.Ingots.BRONZE, count),
+				(TRContent.SILVER_BOOTS)   : stack(TRContent.Ingots.SILVER, count),
+				(TRContent.STEEL_BOOTS)    : stack(TRContent.Ingots.STEEL, count)
 		].each {boots, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients boots, Items.SAND
@@ -86,11 +86,11 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateChestplate() {
 		final int count = 5
 		[
-				(Items.GOLDEN_CHESTPLATE)       : new ItemStack(Items.GOLD_INGOT, count),
-				(Items.IRON_CHESTPLATE)         : new ItemStack(Items.IRON_INGOT, count),
-				(TRContent.BRONZE_CHESTPLATE)   : new ItemStack(TRContent.Ingots.BRONZE, count),
-				(TRContent.SILVER_CHESTPLATE)   : new ItemStack(TRContent.Ingots.SILVER, count),
-				(TRContent.STEEL_CHESTPLATE)    : new ItemStack(TRContent.Ingots.STEEL, count)
+				(Items.GOLDEN_CHESTPLATE)       : stack(Items.GOLD_INGOT, count),
+				(Items.IRON_CHESTPLATE)         : stack(Items.IRON_INGOT, count),
+				(TRContent.BRONZE_CHESTPLATE)   : stack(TRContent.Ingots.BRONZE, count),
+				(TRContent.SILVER_CHESTPLATE)   : stack(TRContent.Ingots.SILVER, count),
+				(TRContent.STEEL_CHESTPLATE)    : stack(TRContent.Ingots.STEEL, count)
 		].each {chestplate, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients chestplate, Items.SAND
@@ -107,11 +107,11 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateHelmet() {
 		final int count = 3
 		[
-				(Items.GOLDEN_HELMET)       : new ItemStack(Items.GOLD_INGOT, count),
-				(Items.IRON_HELMET)         : new ItemStack(Items.IRON_INGOT, count),
-				(TRContent.BRONZE_HELMET)   : new ItemStack(TRContent.Ingots.BRONZE, count),
-				(TRContent.SILVER_HELMET)   : new ItemStack(TRContent.Ingots.SILVER, count),
-				(TRContent.STEEL_HELMET)    : new ItemStack(TRContent.Ingots.STEEL, count)
+				(Items.GOLDEN_HELMET)       : stack(Items.GOLD_INGOT, count),
+				(Items.IRON_HELMET)         : stack(Items.IRON_INGOT, count),
+				(TRContent.BRONZE_HELMET)   : stack(TRContent.Ingots.BRONZE, count),
+				(TRContent.SILVER_HELMET)   : stack(TRContent.Ingots.SILVER, count),
+				(TRContent.STEEL_HELMET)    : stack(TRContent.Ingots.STEEL, count)
 		].each {helmet, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients helmet, Items.SAND
@@ -128,11 +128,11 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateLeggings() {
 		final int count = 4
 		[
-			(Items.GOLDEN_LEGGINGS)       : new ItemStack(Items.GOLD_INGOT, count),
-			(Items.IRON_LEGGINGS)         : new ItemStack(Items.IRON_INGOT, count),
-			(TRContent.BRONZE_LEGGINGS)   : new ItemStack(TRContent.Ingots.BRONZE, count),
-			(TRContent.SILVER_LEGGINGS)   : new ItemStack(TRContent.Ingots.SILVER, count),
-			(TRContent.STEEL_LEGGINGS)    : new ItemStack(TRContent.Ingots.STEEL, count)
+			(Items.GOLDEN_LEGGINGS)       : stack(Items.GOLD_INGOT, count),
+			(Items.IRON_LEGGINGS)         : stack(Items.IRON_INGOT, count),
+			(TRContent.BRONZE_LEGGINGS)   : stack(TRContent.Ingots.BRONZE, count),
+			(TRContent.SILVER_LEGGINGS)   : stack(TRContent.Ingots.SILVER, count),
+			(TRContent.STEEL_LEGGINGS)    : stack(TRContent.Ingots.STEEL, count)
 		].each {leggings, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients leggings, Items.SAND
@@ -149,8 +149,8 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateHorseArmor() {
 		final int count = 4
 		[
-			(Items.GOLDEN_HORSE_ARMOR) : new ItemStack(Items.GOLD_INGOT, count),
-			(Items.IRON_HORSE_ARMOR) : new ItemStack(Items.IRON_INGOT, count)
+			(Items.GOLDEN_HORSE_ARMOR) : stack(Items.GOLD_INGOT, count),
+			(Items.IRON_HORSE_ARMOR) : stack(Items.IRON_INGOT, count)
 		].each {horseArmor, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients horseArmor, Items.SAND
@@ -167,9 +167,9 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateSword() {
 		final int count = 5
 		[
-			(Items.GOLDEN_SWORD)       : new ItemStack(Items.GOLD_NUGGET, count),
-			(Items.IRON_SWORD)         : new ItemStack(Items.IRON_NUGGET, count),
-			(TRContent.BRONZE_SWORD)   : new ItemStack(TRContent.Nuggets.BRONZE, count)
+			(Items.GOLDEN_SWORD)       : stack(Items.GOLD_NUGGET, count),
+			(Items.IRON_SWORD)         : stack(Items.IRON_NUGGET, count),
+			(TRContent.BRONZE_SWORD)   : stack(TRContent.Nuggets.BRONZE, count)
 		].each {sword, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients sword, Items.SAND
@@ -186,9 +186,9 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateShovel() {
 		final int count = 3
 		[
-			(Items.GOLDEN_SHOVEL)       : new ItemStack(Items.GOLD_NUGGET, count),
-			(Items.IRON_SHOVEL)         : new ItemStack(Items.IRON_NUGGET, count),
-			(TRContent.BRONZE_SPADE)    : new ItemStack(TRContent.Nuggets.BRONZE, count)
+			(Items.GOLDEN_SHOVEL)       : stack(Items.GOLD_NUGGET, count),
+			(Items.IRON_SHOVEL)         : stack(Items.IRON_NUGGET, count),
+			(TRContent.BRONZE_SPADE)    : stack(TRContent.Nuggets.BRONZE, count)
 		].each {shovel, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients shovel, Items.SAND
@@ -205,9 +205,9 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateHoe() {
 		final int count = 5
 		[
-			(Items.GOLDEN_HOE)       : new ItemStack(Items.GOLD_NUGGET, count),
-			(Items.IRON_HOE)         : new ItemStack(Items.IRON_NUGGET, count),
-			(TRContent.BRONZE_HOE)   : new ItemStack(TRContent.Nuggets.BRONZE, count)
+			(Items.GOLDEN_HOE)       : stack(Items.GOLD_NUGGET, count),
+			(Items.IRON_HOE)         : stack(Items.IRON_NUGGET, count),
+			(TRContent.BRONZE_HOE)   : stack(TRContent.Nuggets.BRONZE, count)
 		].each {hoe, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients hoe, Items.SAND
@@ -224,9 +224,9 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateAxe() {
 		final int count = 1
 		[
-			(Items.GOLDEN_AXE)       : new ItemStack(Items.GOLD_INGOT, count),
-			(Items.IRON_AXE)         : new ItemStack(Items.IRON_INGOT, count),
-			(TRContent.BRONZE_AXE)   : new ItemStack(TRContent.Ingots.BRONZE, count)
+			(Items.GOLDEN_AXE)       : stack(Items.GOLD_INGOT, count),
+			(Items.IRON_AXE)         : stack(Items.IRON_INGOT, count),
+			(TRContent.BRONZE_AXE)   : stack(TRContent.Ingots.BRONZE, count)
 		].each {axe, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients axe, Items.SAND
@@ -243,9 +243,9 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generatePickaxe() {
 		final int count = 1
 		[
-			(Items.GOLDEN_PICKAXE)       : new ItemStack(Items.GOLD_INGOT, count),
-			(Items.IRON_PICKAXE)         : new ItemStack(Items.IRON_INGOT, count),
-			(TRContent.BRONZE_PICKAXE)   : new ItemStack(TRContent.Ingots.BRONZE, count)
+			(Items.GOLDEN_PICKAXE)       : stack(Items.GOLD_INGOT, count),
+			(Items.IRON_PICKAXE)         : stack(Items.IRON_INGOT, count),
+			(TRContent.BRONZE_PICKAXE)   : stack(TRContent.Ingots.BRONZE, count)
 		].each {pickaxe, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients pickaxe, Items.SAND
@@ -280,8 +280,8 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			(Items.YELLOW_STAINED_GLASS_PANE) : Items.YELLOW_STAINED_GLASS
 		].each {(pane,glass) ->
 			offerBlastFurnaceRecipe {
-				ingredients new ItemStack(pane, 10)
-				outputs new ItemStack(glass, 3)
+				ingredients stack(pane, 10)
+				outputs stack(glass, 3)
 				power 128
 				time 150
 				heat 1000
@@ -298,8 +298,8 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			(Items.DAMAGED_ANVIL) : 6,
 		].each {(anvil,amount) ->
 			offerBlastFurnaceRecipe {
-				ingredients anvil, new ItemStack(Items.SAND, 2)
-				outputs new ItemStack(Items.IRON_INGOT, amount), new ItemStack(TRContent.Dusts.DARK_ASHES, 2)
+				ingredients anvil, stack(Items.SAND, 2)
+				outputs stack(Items.IRON_INGOT, amount), stack(TRContent.Dusts.DARK_ASHES, 2)
 				power 128
 				time 300
 				heat 1500

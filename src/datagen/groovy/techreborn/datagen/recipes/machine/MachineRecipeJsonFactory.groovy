@@ -40,15 +40,18 @@ import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlag
 import net.minecraft.util.Identifier
 import org.jetbrains.annotations.NotNull
+import org.jetbrains.annotations.Nullable
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
+import techreborn.datagen.recipes.TechRebornRecipesProvider
 
 import java.util.function.Consumer
 
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final RebornRecipeType<R> type
+	protected final TechRebornRecipesProvider provider
 	protected final Builder builder = Builder.create()
 
 	protected final List<RebornIngredient> ingredients = new ArrayList<>()
@@ -59,16 +62,17 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected String source = null
 	protected List<ConditionJsonProvider> conditions = []
 
-	protected MachineRecipeJsonFactory(RebornRecipeType<R> type) {
+	protected MachineRecipeJsonFactory(RebornRecipeType<R> type, TechRebornRecipesProvider provider) {
 		this.type = type
+		this.provider = provider
 	}
 
-	static <R extends RebornRecipe> MachineRecipeJsonFactory<R> create(RebornRecipeType<R> type) {
-		return new MachineRecipeJsonFactory<R>(type)
+	static <R extends RebornRecipe> MachineRecipeJsonFactory<R> create(RebornRecipeType<R> type, TechRebornRecipesProvider provider) {
+		return new MachineRecipeJsonFactory<R>(type, provider)
 	}
 
-	static <R extends RebornRecipe> MachineRecipeJsonFactory<R> create(RebornRecipeType<R> type, @DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		def factory = new MachineRecipeJsonFactory<R>(type)
+	static <R extends RebornRecipe> MachineRecipeJsonFactory<R> create(RebornRecipeType<R> type, TechRebornRecipesProvider provider, @DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		def factory = new MachineRecipeJsonFactory<R>(type, provider)
 		closure.setDelegate(factory)
 		closure.call(factory)
 		return factory
@@ -114,19 +118,25 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 	def outputs(Object... objects) {
 		for (object in objects) {
-			if (object instanceof ItemStack) {
-				output(object)
-			} else if (object instanceof ItemConvertible) {
-				output(new ItemStack(object.asItem()))
-			}
+			def stack = ofStack(object)
+			outputs.add(stack)
 		}
 
 		return this
 	}
 
-	def output(ItemStack stack) {
-		outputs.add(stack)
-		return this
+	private static ItemStack ofStack(Object object) {
+		if (object instanceof ItemStack) {
+			return object
+		} else if (object instanceof ItemConvertible) {
+			return new ItemStack(object.asItem())
+		} else if (object instanceof String) {
+			// TODO remove me, done to aid porting from json files
+			def item = Registries.ITEM.get(new Identifier(object))
+			return new ItemStack(item)
+		} else {
+			throw new UnsupportedOperationException()
+		}
 	}
 
 	def power(int power) {
@@ -196,7 +206,21 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 	void offerTo(Consumer<RecipeJsonProvider> exporter) {
 		validate()
-		Identifier recipeId = getIdentifier()
+		def recipeId = getIdentifier()
+
+		if (provider.exportedRecipes.contains(recipeId) && !customId) {
+			int i = 1
+			def id
+			do {
+				i++
+				id = new Identifier(recipeId.toString() + "_" + i)
+			} while (provider.exportedRecipes.contains(id))
+
+			recipeId = id
+		}
+
+		provider.exportedRecipes.add(recipeId)
+
 		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		RecipeUtils.addToastDefaults(builder, recipeId)
 		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), advancementId, builder, conditions))

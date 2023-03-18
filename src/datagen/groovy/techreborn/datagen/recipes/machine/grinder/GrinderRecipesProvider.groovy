@@ -33,6 +33,7 @@ import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
+import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -57,17 +58,18 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		generateRedSand()
 		generateConcretePowder()
 		generateSawdust()
+		generateMiscRecipes()
 	}
 
 	void generateVanillaRawMetals() {
 		[
-			(Items.RAW_IRON)  : (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "iron_ores"))),
-			(Items.RAW_COPPER): (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "copper_ores"))),
-			(Items.RAW_GOLD)  : (TagKey.of(RegistryKeys.ITEM, new Identifier("c", "gold_ores")))
+			(Items.RAW_IRON)  : (TRConventionalTags.IRON_ORES),
+			(Items.RAW_COPPER): (TRConventionalTags.COPPER_ORES),
+			(Items.RAW_GOLD)  : (TRConventionalTags.GOLD_ORES)
 		].each { raw, oreTag ->
 			offerGrinderRecipe {
 				ingredients oreTag
-				outputs new ItemStack(raw, 2)
+				outputs stack(raw, 2)
 				power 2
 				time 270
 				criterion getCriterionName(oreTag), getCriterionConditions(oreTag)
@@ -80,7 +82,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			if (!ore.isIndustrial())
 				offerGrinderRecipe {
 					ingredients ore.asTag()
-					outputs new ItemStack(raw, 2)
+					outputs stack(raw, 2)
 					power 2
 					time 270
 					criterion getCriterionName(ore.asTag()), getCriterionConditions(ore.asTag())
@@ -100,7 +102,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			if (gem.getOre() != null)
 				offerGrinderRecipe {
 					ingredients gem.getOre().asTag()
-					outputs new ItemStack(dust,2)
+					outputs stack(dust,2)
 					power 2
 					time 220
 					source "ore"
@@ -109,7 +111,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			if (gem.getStorageBlock() != null)
 				offerGrinderRecipe {
 					ingredients gem.getStorageBlock().asTag()
-					outputs new ItemStack(dust,9)
+					outputs stack(dust,9)
 					power 2
 					time 1500
 					source "block"
@@ -130,7 +132,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			if (ingot.getStorageBlock() != null)
 				offerGrinderRecipe {
 					ingredients ingot.getStorageBlock().asTag()
-					outputs new ItemStack(dust,9)
+					outputs stack(dust,9)
 					power 5
 					time 1500
 					source "block"
@@ -154,7 +156,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {item, count ->
 			offerGrinderRecipe {
 				ingredients item
-				outputs new ItemStack(Items.SAND, count)
+				outputs stack(Items.SAND, count)
 				power count
 				time 200
 				source item.toString()
@@ -178,7 +180,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each {item, count ->
 			offerGrinderRecipe {
 				ingredients item
-				outputs new ItemStack(Items.RED_SAND, count)
+				outputs stack(Items.RED_SAND, count)
 				power count
 				time 200
 				source item.toString()
@@ -231,7 +233,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each { item, count ->
 			offerGrinderRecipe {
 				ingredients item
-				outputs new ItemStack(TRContent.SmallDusts.SAW, count)
+				outputs stack(TRContent.SmallDusts.SAW, count)
 				power 3
 				time 180
 				source item.id().path
@@ -245,12 +247,339 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		].each { item, count ->
 			offerGrinderRecipe {
 				ingredients item
-				outputs new ItemStack(TRContent.SmallDusts.SAW, count)
+				outputs stack(TRContent.SmallDusts.SAW, count)
 				power 3
 				time 180
 				source item.toString()
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
+		}
+	}
+
+	void generateMiscRecipes() {
+		offerGrinderRecipe {
+			power 2
+			time 220
+			ingredients stack("minecraft:glowstone")
+			outputs stack("minecraft:glowstone_dust", 4)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients stack("minecraft:netherrack")
+			outputs stack("techreborn:netherrack_dust")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 200
+			ingredients tag("c:lapis_ores")
+			outputs stack("minecraft:lapis_lazuli", 10)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 180
+			ingredients stack("minecraft:gravel")
+			outputs stack("minecraft:sand")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 1080
+			ingredients stack("minecraft:quartz_block")
+			outputs stack("techreborn:quartz_dust", 4)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 220
+			ingredients tag("c:sphalerite_ores")
+			outputs stack("techreborn:sphalerite_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 100
+			ingredients tag("techreborn:calcite_small_dust_material")
+			outputs stack("techreborn:calcite_small_dust")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 300
+			ingredients stack("minecraft:shroomlight")
+			outputs stack("techreborn:glowstone_small_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 230
+			ingredients stack("minecraft:coal")
+			outputs stack("techreborn:coal_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients tag("c:emerald_ores")
+			outputs stack("minecraft:emerald")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 170
+			ingredients stack("minecraft:bone")
+			outputs stack("minecraft:bone_meal", 6)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 180
+			ingredients tag("techreborn:gravel_material")
+			outputs stack("minecraft:gravel")
+		}
+		offerGrinderRecipe {
+			power 3
+			time 300
+			ingredients tag("minecraft:wool")
+			outputs stack("minecraft:string", 4)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 400
+			ingredients tag("c:froglights")
+			outputs stack("minecraft:prismarine_crystals", 2)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 400
+			ingredients stack("minecraft:sea_lantern")
+			outputs stack("minecraft:prismarine_crystals", 4)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 180
+			ingredients stack("minecraft:clay_ball")
+			outputs stack("techreborn:clay_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients tag("c:pyrite_ores")
+			outputs stack("techreborn:pyrite_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients stack("minecraft:blaze_rod")
+			outputs stack("minecraft:blaze_powder", 4)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 150
+			ingredients stack("minecraft:glow_berries", 4)
+			outputs stack("techreborn:glowstone_small_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients stack("minecraft:andesite")
+			outputs stack("techreborn:andesite_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients stack("minecraft:emerald")
+			outputs stack("techreborn:emerald_dust")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 270
+			ingredients tag("c:cinnabar_ores")
+			outputs stack("techreborn:cinnabar_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 220
+			ingredients tag("c:sodalite_ores")
+			outputs stack("techreborn:sodalite_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients stack("minecraft:ender_pearl")
+			outputs stack("techreborn:ender_pearl_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients stack("minecraft:ender_eye")
+			outputs stack("techreborn:ender_eye_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients tag("c:sponges")
+			outputs stack("techreborn:sponge_piece", 5)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 400
+			ingredients stack("minecraft:coal_block")
+			outputs stack("techreborn:coal_dust", 9)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients stack("minecraft:crimson_nylium")
+			outputs stack("techreborn:netherrack_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 230
+			ingredients stack("minecraft:charcoal")
+			outputs stack("techreborn:charcoal_dust")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 400
+			ingredients tag("techreborn:calcite_dust_material")
+			outputs stack("techreborn:calcite_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients tag("c:diamond_ores")
+			outputs stack("minecraft:diamond")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients stack("minecraft:amethyst_block")
+			outputs stack("techreborn:amethyst_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 500
+			ingredients stack("minecraft:conduit")
+			outputs stack("techreborn:calcite_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients tag("c:bauxite_ores")
+			outputs stack("techreborn:bauxite_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients stack("minecraft:end_stone")
+			outputs stack("techreborn:endstone_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients stack("minecraft:ancient_debris")
+			outputs stack("minecraft:netherite_scrap", 2)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 1440
+			ingredients stack("minecraft:diorite")
+			outputs stack("techreborn:diorite_dust")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 270
+			ingredients tag("c:galena_ores")
+			outputs stack("techreborn:galena_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 220
+			ingredients tag("c:sulfur_ores")
+			outputs stack("techreborn:sulfur_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 200
+			ingredients tag("c:sulfurs")
+			outputs stack("techreborn:sulfur_dust")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 400
+			ingredients stack("minecraft:prismarine_bricks")
+			outputs stack("minecraft:prismarine_shard", 7)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 180
+			ingredients tag("c:limestone")
+			outputs stack("techreborn:marble_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients stack("minecraft:granite")
+			outputs stack("techreborn:granite_dust", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients tag("c:redstone_ores")
+			outputs stack("minecraft:redstone", 8)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients stack("minecraft:nether_quartz_ore")
+			outputs stack("minecraft:quartz", 2)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 180
+			ingredients tag("c:marble")
+			outputs stack("techreborn:marble_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients stack("minecraft:diamond")
+			outputs stack("techreborn:diamond_dust")
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients stack("minecraft:quartz")
+			outputs stack("techreborn:quartz_dust")
+		}
+		offerGrinderRecipe {
+			power 6
+			time 400
+			ingredients stack("minecraft:obsidian")
+			outputs stack("techreborn:obsidian_dust", 4)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 200
+			ingredients tag("c:coal_ores")
+			outputs stack("minecraft:coal", 2)
+		}
+		offerGrinderRecipe {
+			power 4
+			time 200
+			ingredients stack("minecraft:warped_nylium")
+			outputs stack("techreborn:netherrack_dust")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 400
+			ingredients stack("minecraft:prismarine")
+			outputs stack("minecraft:prismarine_shard", 3)
+		}
+		offerGrinderRecipe {
+			power 2
+			time 270
+			ingredients stack("minecraft:flint")
+			outputs stack("techreborn:flint_dust")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 180
+			ingredients tag("c:basalt")
+			outputs stack("techreborn:basalt_dust")
 		}
 	}
 }

@@ -31,7 +31,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
@@ -67,7 +67,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 			case EAST -> matrices.translate(-1, 1, 2);
 		}
 		int lightAbove = WorldRenderer.getLightmapCoordinates(storage.getWorld(), storage.getPos().offset(storage.getFacing()));
-		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
+		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformationMode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, storage.getWorld(), 0);
 		matrices.pop();
 
 		// Text rendering
@@ -89,12 +89,12 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Render item count
 		String count = String.valueOf(storage.storedAmount);
 		xPosition = (float) (-textRenderer.getWidth(count) / 2);
-		textRenderer.draw(count, xPosition, -4f + 40, 0, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0, light);
+		textRenderer.draw(count, xPosition, -4f + 40, 0, false, matrices.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, light);
 
 		// Render name
 		String item = stack.getName().asTruncatedString(18);
 		xPosition = (float) (-textRenderer.getWidth(item) / 2);
-		textRenderer.draw(item, xPosition, -4f - 40, 0, false, matrices.peek().getPositionMatrix(), vertexConsumers, false, 0, light);
+		textRenderer.draw(item, xPosition, -4f - 40, 0, false, matrices.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, light);
 
 		matrices.pop();
 	}

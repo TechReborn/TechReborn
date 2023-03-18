@@ -499,6 +499,12 @@ public class TRItemGroup {
 			TRContent.Machine.WIND_MILL,
 			TRContent.Machine.DRAGON_EGG_SYPHON,
 			TRContent.Machine.FUSION_CONTROL_COMPUTER,
+			TRContent.SolarPanels.BASIC,
+			TRContent.SolarPanels.ADVANCED,
+			TRContent.SolarPanels.INDUSTRIAL,
+			TRContent.SolarPanels.ULTIMATE,
+			TRContent.SolarPanels.QUANTUM,
+			TRContent.SolarPanels.CREATIVE,
 			// batteries & transformers
 			TRContent.Machine.LOW_VOLTAGE_SU,
 			TRContent.Machine.LV_TRANSFORMER,

@@ -136,11 +136,11 @@ public class FluidUtils {
 	}
 
 	public static boolean isContainer(ItemStack stack) {
-		return ContainerItemContext.withInitial(stack).find(FluidStorage.ITEM) != null;
+		return ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null;
 	}
 
 	public static boolean isContainerEmpty(ItemStack stack) {
-		var fluidStorage = ContainerItemContext.withInitial(stack).find(FluidStorage.ITEM);
+		var fluidStorage = ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM);
 		if (fluidStorage == null) return false;
 
 		// Use current transaction in case this check is nested in a transfer operation.
@@ -156,7 +156,7 @@ public class FluidUtils {
 	}
 
 	public static boolean containsMatchingFluid(ItemStack stack, Predicate<Fluid> predicate) {
-		var fluidStorage = ContainerItemContext.withInitial(stack).find(FluidStorage.ITEM);
+		var fluidStorage = ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM);
 		if (fluidStorage == null) return false;
 
 		// Use current transaction in case this check is nested in a transfer operation.

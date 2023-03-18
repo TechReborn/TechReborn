@@ -26,12 +26,16 @@ package techreborn.init;
 
 import com.google.common.base.Preconditions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSetType;
 import net.minecraft.block.ExperienceDroppingBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
+import net.minecraft.block.WoodType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -153,6 +157,8 @@ import java.util.stream.Stream;
 public class TRContent {
 
 	public static Marker DATAGEN = MarkerFactory.getMarker("datagen");
+	public static BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetTypeRegistry.registerWood(new Identifier(TechReborn.MOD_ID, "rubber_wood"));
+	public static WoodType RUBBER_WOOD_TYPE = WoodTypeRegistry.register(new Identifier(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
 
 	// Misc Blocks
 	public static Block COMPUTER_CUBE;

@@ -26,8 +26,6 @@ package techreborn.client.events;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -58,7 +56,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-@Environment(EnvType.CLIENT)
 public class StackToolTipHandler implements ItemTooltipCallback {
 
 	public static final Map<Item, Boolean> ITEM_ID = Maps.newHashMap();

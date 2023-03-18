@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) 2023 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,32 +22,23 @@
  * SOFTWARE.
  */
 
-package techreborn.items.armor;
+package techreborn.init;
 
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Item;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
+import techreborn.TechReborn;
 
-import java.util.UUID;
+public final class TRDamageTypes {
+	public static final RegistryKey<DamageType> ELECTRIC_SHOCK = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(TechReborn.MOD_ID, "electric_shock"));
+	public static final RegistryKey<DamageType> FUSION = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(TechReborn.MOD_ID, "fusion"));
 
-/**
- * Created by modmuss50 on 26/02/2016.
- */
-public class TRArmourItem extends ArmorItem {
-
-	// Thanks for being private
-	public static final UUID[] MODIFIERS = new UUID[]{
-			UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
-			UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
-			UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
-			UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")
-	};
-
-	public TRArmourItem(ArmorMaterial material, Type slot) {
-		this(material, slot, new Item.Settings());
-	}
-
-	public TRArmourItem(ArmorMaterial material, Type slot, Item.Settings settings) {
-		super(material, slot, settings);
+	public static DamageSource create(World world, RegistryKey<DamageType> key) {
+		return new DamageSource(
+			world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(key)
+		);
 	}
 }

@@ -96,7 +96,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private boolean canAcceptOutput(SmeltingRecipe recipe, int slot) {
-		ItemStack recipeOutput = recipe.getOutput();
+		ItemStack recipeOutput = recipe.getOutput(getWorld().getRegistryManager());
 		if (recipeOutput.isEmpty()) {
 			return false;
 		}
@@ -159,7 +159,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		}
 		ItemStack outputStack = inventory.getStack(outputSlot);
 		if (outputStack.isEmpty()) {
-			inventory.setStack(outputSlot, recipe.getOutput().copy());
+			inventory.setStack(outputSlot, recipe.getOutput(getWorld().getRegistryManager()).copy());
 		} else {
 			// Just increment. We already checked stack match and stack size
 			outputStack.increment(1);
