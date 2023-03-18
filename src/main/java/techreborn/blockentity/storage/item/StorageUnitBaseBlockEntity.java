@@ -36,12 +36,12 @@ import net.minecraft.item.SkullItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import oshi.util.tuples.Pair;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -208,14 +208,14 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			DefaultedList<ItemStack> optionalShulkerStack = ItemUtils.getBlockEntityStacks(inputStack);
 			if (isLocked() && ItemUtils.canExtractFromCachedShulker(optionalShulkerStack, lockedItemStack) > 0 ) {
 				Pair<Integer, ItemStack> pair = ItemUtils.extractFromShulker(inputStack, optionalShulkerStack, lockedItemStack, reminder);
-				if (pair.getA() != 0) {
-					int amount = pair.getA();
+				if (pair.getLeft() != 0) {
+					int amount = pair.getLeft();
 					if (storeItemStack.isEmpty()) {
 						storeItemStack = lockedItemStack.copy();
 						amount = amount -1;
 					}
 					addStoredItemCount(amount);
-					inputStack.setNbt(pair.getB().getNbt());
+					inputStack.setNbt(pair.getRight().getNbt());
 					inventory.setHashChanged();
 				}
 				return inputStack;

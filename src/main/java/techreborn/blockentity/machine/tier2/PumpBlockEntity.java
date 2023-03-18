@@ -43,6 +43,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
@@ -73,7 +74,8 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	public static final int MAX_RANGE = 50;
 	public static final int MAX_DEPTH = 50;
 	private Iterator<BlockPos> finder;
-	protected final @NotNull Tank tank;
+	@Nullable
+	private Tank tank;
 	private boolean exhausted;
 	private BlockPos pumpedTargetBlockPos;
 	private long timeToPump;
@@ -83,7 +85,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	public PumpBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.PUMP, pos, state, "Pump", TechRebornConfig.pumpMaxInput, TechRebornConfig.pumpMaxEnergy, TRContent.Machine.PUMP.block, 0);
 		this.inventory = new RebornInventory<>(1, "PumpBlockEntity", 64, this);
-		this.tank = new Tank("PumpBlockEntity", TANK_CAPACITY, this);
 		this.exhausted = false;
 		this.range = DEFAULT_RANGE;
 		this.depth = DEFAULT_DEPTH;
@@ -135,8 +136,17 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	@Override
-	public @NotNull Tank getTank() {
+	@NotNull
+	public Tank getTank() {
+		if (this.tank == null) {
+			this.tank = createTank();
+		}
+
 		return tank;
+	}
+
+	private Tank createTank() {
+		return new Tank("PumpBlockEntity", TANK_CAPACITY, this);
 	}
 
 	@Override
@@ -147,7 +157,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	@Override
 	public void readNbt(final NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
-		tank.read(tagCompound);
+		getTank().read(tagCompound);
 		this.range = tagCompound.getInt("range");
 		this.depth = tagCompound.getInt("depth");
 		finder = null;
@@ -156,7 +166,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	@Override
 	public void writeNbt(final NbtCompound tagCompound) {
 		super.writeNbt(tagCompound);
-		tank.write(tagCompound);
+		getTank().write(tagCompound);
 		tagCompound.putInt("range", range);
 		tagCompound.putInt("depth", depth);
 	}
@@ -166,7 +176,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		return new ScreenHandlerBuilder("pump")
 			.player(player.getInventory()).inventory().hotbar().addInventory().blockEntity(this)
 			.energySlot(0, 8, 72)
-			.sync(tank)
+			.sync(getTank())
 			.syncEnergyValue()
 			.sync(this::getDepth, this::setDepth)
 			.sync(this::getRange, this::setRange)
@@ -211,20 +221,20 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 					return;
 				}
 				//cannot fit fluid into the tank?
-				if (!tank.canFit(fluid, FluidValue.BUCKET)) {
+				if (!getTank().canFit(fluid, FluidValue.BUCKET)) {
 					//don't drop target, retry it again later
 					timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;
 				}
 				//fill tank
-				if (tank.getFluidInstance().isEmpty()) {
-					tank.setFluidInstance(new FluidInstance(fluid, FluidValue.BUCKET));
+				if (getTank().getFluidInstance().isEmpty()) {
+					getTank().setFluidInstance(new FluidInstance(fluid, FluidValue.BUCKET));
 				} else {
-					tank.getFluidInstance().addAmount(FluidValue.BUCKET);
+					getTank().getFluidInstance().addAmount(FluidValue.BUCKET);
 				}
 				//play sound
 				if (!isMuffled()) {
-					world.playSound(null, this.pos, tank.getFluid().getBucketFillSound().orElse(SoundEvents.ITEM_BUCKET_FILL), SoundCategory.BLOCKS, 1.0f, 1.0f);
+					world.playSound(null, this.pos, getTank().getFluid().getBucketFillSound().orElse(SoundEvents.ITEM_BUCKET_FILL), SoundCategory.BLOCKS, 1.0f, 1.0f);
 				}
 				//consume energy
 				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier()));
@@ -240,7 +250,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				world.setBlockState(pumpedTargetBlockPos, replacementBlock.getDefaultState());
 				pumpedTargetBlockPos = null;
 			}
-		} else if (!tank.isFull()) {
+		} else if (!getTank().isFull()) {
 			//find next target
 			findNextToPump(world);
 			if (pumpedTargetBlockPos != null) {
@@ -263,7 +273,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 
 			BlockState blockState = world.getBlockState(blockPos);
 			Fluid fluid = getFluid(blockState);
-			if (fluid != Fluids.EMPTY && (fluid == tank.getFluid() || tank.getFluid() == Fluids.EMPTY)) {
+			if (fluid != Fluids.EMPTY && (fluid == getTank().getFluid() || getTank().getFluid() == Fluids.EMPTY)) {
 				//if any found - start pumping
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 				pumpedTargetBlockPos = blockPos;
