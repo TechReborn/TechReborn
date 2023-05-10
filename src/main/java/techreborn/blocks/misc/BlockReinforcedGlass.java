@@ -24,15 +24,11 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.GlassBlock;
-import net.minecraft.block.Material;
-import net.minecraft.sound.BlockSoundGroup;
+import techreborn.init.TRBlockSettings;
 
 public class BlockReinforcedGlass extends GlassBlock {
-
 	public BlockReinforcedGlass() {
-		super(FabricBlockSettings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE).nonOpaque());
+		super(TRBlockSettings.reinforcedGlass());
 	}
-
 }

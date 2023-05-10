@@ -46,6 +46,7 @@ import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -61,7 +62,7 @@ public class ItemUtils {
 		if (a.getItem() != b.getItem()) {
 			return false;
 		}
-		return !matchNBT || ItemStack.areNbtEqual(a, b);
+		return !matchNBT || Objects.equals(a.getNbt(), b.getNbt());
 	}
 
 	public static boolean isItemEqual(ItemStack a, ItemStack b, boolean matchNBT,

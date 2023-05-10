@@ -47,7 +47,7 @@ public class ServerBoundPackets {
 
 			server.execute(() -> {
 				FluidConfiguration.FluidConfig fluidConfiguration = new FluidConfiguration.FluidConfig(compoundTag);
-				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.world.getBlockEntity(pos);
+				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
 				legacyMachineBase.fluidConfiguration.updateFluidConfig(fluidConfiguration);
 				legacyMachineBase.markDirty();
 
@@ -67,7 +67,7 @@ public class ServerBoundPackets {
 			NbtCompound tagCompound = packetBuffer.readNbt();
 
 			server.execute(() -> {
-				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.world.getBlockEntity(pos);
+				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
 				legacyMachineBase.getSlotConfiguration().read(tagCompound);
 				legacyMachineBase.markDirty();
 
@@ -82,7 +82,7 @@ public class ServerBoundPackets {
 			boolean output = packetBuffer.readBoolean();
 
 			server.execute(() -> {
-				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.world.getBlockEntity(pos);
+				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
 				FluidConfiguration config = legacyMachineBase.fluidConfiguration;
 				if (config == null) {
 					return;
@@ -104,7 +104,7 @@ public class ServerBoundPackets {
 			boolean filter = packetBuffer.readBoolean();
 
 			server.execute(() -> {
-				MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) player.world.getBlockEntity(pos);
+				MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
 				Validate.notNull(machineBase, "machine cannot be null");
 				SlotConfiguration.SlotConfigHolder holder = machineBase.getSlotConfiguration().getSlotDetails(slotID);
 				if (holder == null) {
@@ -127,7 +127,7 @@ public class ServerBoundPackets {
 
 			server.execute(() -> {
 				SlotConfiguration.SlotConfig slotConfig = new SlotConfiguration.SlotConfig(compoundTag);
-				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.world.getBlockEntity(pos);
+				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
 				legacyMachineBase.getSlotConfiguration().getSlotDetails(slotConfig.getSlotID()).updateSlotConfig(slotConfig);
 				legacyMachineBase.markDirty();
 
@@ -140,7 +140,7 @@ public class ServerBoundPackets {
 			BlockPos pos = packetBuffer.readBlockPos();
 			server.execute(() -> {
 				Validate.isInstanceOf(ServerPlayerEntity.class, player, "something very very bad has happened");
-				ChunkLoaderManager chunkLoaderManager = ChunkLoaderManager.get(player.world);
+				ChunkLoaderManager chunkLoaderManager = ChunkLoaderManager.get(player.getWorld());
 				chunkLoaderManager.syncChunkLoaderToClient((ServerPlayerEntity) player, pos);
 			});
 		});
@@ -157,7 +157,7 @@ public class ServerBoundPackets {
 			RedstoneConfiguration.State state = RedstoneConfiguration.State.values()[stateId];
 
 			server.execute(() -> {
-				MachineBaseBlockEntity blockEntity = (MachineBaseBlockEntity) player.world.getBlockEntity(pos);
+				MachineBaseBlockEntity blockEntity = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
 				if (blockEntity == null) return;
 
 				blockEntity.getRedstoneConfiguration().setState(element, state);

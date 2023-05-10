@@ -31,7 +31,6 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.InventoryProvider;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -67,10 +66,6 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
 
 	boolean hasCustomStates;
-
-	public BlockMachineBase() {
-		this(Block.Settings.of(Material.METAL).strength(2F, 2F));
-	}
 
 	public BlockMachineBase(Block.Settings builder) {
 		this(builder, false);
