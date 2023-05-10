@@ -27,7 +27,6 @@ package techreborn.blocks.misc;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -41,6 +40,7 @@ import net.minecraft.world.explosion.Explosion;
 import reborncore.common.BaseBlock;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
+import techreborn.init.TRBlockSettings;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -49,7 +49,7 @@ public class BlockNuke extends BaseBlock {
 	public static BooleanProperty OVERLAY = BooleanProperty.of("overlay");
 
 	public BlockNuke() {
-		super(Block.Settings.of(Material.TNT));
+		super(TRBlockSettings.nuke());
 		this.setDefaultState(this.getStateManager().getDefaultState().with(OVERLAY, false));
 	}
 

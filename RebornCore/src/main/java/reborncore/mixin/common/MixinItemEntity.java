@@ -47,9 +47,9 @@ public abstract class MixinItemEntity extends Entity {
 
 	@Inject(method = "tick", at = @At("RETURN"))
 	public void tick(CallbackInfo info) {
-		if (!world.isClient && isTouchingWater() && !getStack().isEmpty()) {
+		if (!getWorld().isClient && isTouchingWater() && !getStack().isEmpty()) {
 			if (getStack().isIn(RebornCoreTags.WATER_EXPLOSION_ITEM)) {
-				world.createExplosion(this, getX(), getY(), getZ(), 2F, World.ExplosionSourceType.NONE);
+				getWorld().createExplosion(this, getX(), getY(), getZ(), 2F, World.ExplosionSourceType.NONE);
 				this.remove(RemovalReason.KILLED);
 			}
 		}

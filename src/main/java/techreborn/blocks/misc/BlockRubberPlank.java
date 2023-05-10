@@ -24,11 +24,9 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.sound.BlockSoundGroup;
+import techreborn.init.TRBlockSettings;
 
 /**
  * Created by modmuss50 on 20/02/2016.
@@ -36,7 +34,7 @@ import net.minecraft.sound.BlockSoundGroup;
 public class BlockRubberPlank extends Block {
 
 	public BlockRubberPlank() {
-		super(FabricBlockSettings.of(Material.WOOD).strength(2f, 2f).sounds(BlockSoundGroup.WOOD));
+		super(TRBlockSettings.rubberWood());
 		FlammableBlockRegistry.getDefaultInstance().add(this, 5, 20);
 	}
 }
