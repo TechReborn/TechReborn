@@ -26,7 +26,6 @@ package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
@@ -71,7 +70,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 		writer.translate(1, -1, -1)
 				.fill(0, 0, 0, 3, 1, 3, basic)
-				.ring(Direction.Axis.Y, 3, 1, 3, (view, pos) -> view.getBlockState(pos) == advanced, advanced, (view, pos) -> view.getBlockState(pos).getMaterial() == Material.WATER, Blocks.WATER.getDefaultState())
+				.ring(Direction.Axis.Y, 3, 1, 3, (view, pos) -> view.getBlockState(pos) == advanced, advanced, (view, pos) -> view.getBlockState(pos).getBlock() == Blocks.WATER, Blocks.WATER.getDefaultState())
 				.fill(0, 2, 0, 3, 3, 3, basic);
 	}
 

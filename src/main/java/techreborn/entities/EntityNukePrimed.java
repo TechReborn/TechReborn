@@ -56,20 +56,20 @@ public class EntityNukePrimed extends TntEntity {
 
 		this.move(MovementType.SELF, this.getVelocity());
 		this.setVelocity(this.getVelocity().multiply(0.98D));
-		if (this.onGround) {
+		if (this.isOnGround()) {
 			this.setVelocity(this.getVelocity().multiply(0.7D, -0.5D, 0.7D));
 		}
 
 		setFuse(getFuse() - 1);
 		if (this.getFuse() <= 0) {
 			this.remove(RemovalReason.KILLED);
-			if (!this.world.isClient) {
+			if (!this.getWorld().isClient) {
 				this.explodeNuke();
 			}
 		} else {
 			this.updateWaterState();
-			if (this.world.isClient) {
-				this.world.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
+			if (this.getWorld().isClient) {
+				this.getWorld().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
@@ -78,7 +78,7 @@ public class EntityNukePrimed extends TntEntity {
 		if (!TechRebornConfig.nukeEnabled) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), world, TechRebornConfig.nukeRadius);
+		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), getWorld(), TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getOwner());
 		nukeExplosion.applyExplosion();
 	}

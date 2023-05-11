@@ -24,22 +24,20 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
+import techreborn.init.TRBlockSettings;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
 
 	public final int heatCapacity;
 
 	public BlockMachineCasing(int heatCapacity) {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).requiresTool());
+		super(TRBlockSettings.machineCasing());
 		this.heatCapacity = heatCapacity;
 	}
 

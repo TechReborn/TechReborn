@@ -155,7 +155,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	private ExtendedScreenHandlerType.ExtendedFactory<BuiltScreenHandler> getScreenHandlerFactory() {
 		return (syncId, playerInventory, packetByteBuf) -> {
 
-			final BlockEntity blockEntity = playerInventory.player.world.getBlockEntity(packetByteBuf.readBlockPos());
+			final BlockEntity blockEntity = playerInventory.player.getWorld().getBlockEntity(packetByteBuf.readBlockPos());
 			BuiltScreenHandler screenHandler = ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncId, playerInventory.player);
 
 			//Set the screen handler type, not ideal but works lol
@@ -183,7 +183,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 				@Nullable
 				@Override
 				public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-					final BlockEntity blockEntity = player.world.getBlockEntity(pos);
+					final BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 					BuiltScreenHandler screenHandler = ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncId, player);
 					screenHandler.setType(screenHandlerType);
 					return screenHandler;

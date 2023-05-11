@@ -31,6 +31,11 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.RcEnergyItem;
@@ -41,14 +46,19 @@ import techreborn.items.tool.industrial.NanosaberItem;
 import techreborn.utils.MaterialComparator;
 import techreborn.utils.MaterialTypeComparator;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TRItemGroup {
-	public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder(new Identifier(TechReborn.MOD_ID, "item_group"))
-		.icon(() -> new ItemStack(TRContent.NUKE))
-		.build();
+	private static final RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(TechReborn.MOD_ID, "item_group"));
 
-	static {
+	public static void register() {
+		Registry.register(Registries.ITEM_GROUP, ITEM_GROUP, FabricItemGroup.builder()
+			.displayName(Text.translatable("itemGroup.techreborn.item_group"))
+			.icon(() -> new ItemStack(TRContent.NUKE))
+			.build());
+
 		ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP).register(TRItemGroup::entries);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(TRItemGroup::addBuildingBlocks);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register(TRItemGroup::addColoredBlocks);

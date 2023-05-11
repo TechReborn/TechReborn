@@ -25,6 +25,7 @@
 package techreborn.blocks.misc;
 
 import net.minecraft.block.PressurePlateBlock;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
@@ -34,7 +35,7 @@ import techreborn.utils.InitUtils;
 public class RubberPressurePlateBlock extends PressurePlateBlock {
 
 	public RubberPressurePlateBlock() {
-		super(PressurePlateBlock.ActivationRule.EVERYTHING, InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F), TRContent.RUBBER_WOOD_SET_TYPE);
+		super(PressurePlateBlock.ActivationRule.EVERYTHING, TRBlockSettings.rubberPressurePlate(), TRContent.RUBBER_WOOD_SET_TYPE);
 	}
 
 }

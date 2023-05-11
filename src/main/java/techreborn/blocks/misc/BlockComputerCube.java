@@ -41,9 +41,13 @@ import reborncore.api.ToolManager;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.init.ModSounds;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 
 public class BlockComputerCube extends BlockMachineBase {
+	public BlockComputerCube() {
+		super(TRBlockSettings.computerCube());
+	}
 
 	@Override
 	public IMachineGuiHandler getGui() {

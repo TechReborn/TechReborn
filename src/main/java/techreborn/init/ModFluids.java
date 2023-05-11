@@ -25,14 +25,12 @@
 package techreborn.init;
 
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 import reborncore.common.fluid.*;
 import techreborn.TechReborn;
 
@@ -98,7 +96,7 @@ public enum ModFluids implements ItemConvertible {
 		flowingFluid = new RebornFluid(false, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid) {
 		};
 
-		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing());
+		block = new RebornFluidBlock(stillFluid, TRBlockSettings.fluid());
 		bucket = new RebornBucketItem(stillFluid, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1));
 	}
 

@@ -24,18 +24,15 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceBlock;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
+import techreborn.init.TRBlockSettings;
 
 public class BlockRefinedIronFence extends FenceBlock {
 
 	public BlockRefinedIronFence() {
-		super(FabricBlockSettings.of(Material.METAL, MapColor.OAK_TAN).strength(2.0F, 3.0F).sounds(BlockSoundGroup.METAL));
+		super(TRBlockSettings.refinedIronFence());
 	}
 
 	@Override

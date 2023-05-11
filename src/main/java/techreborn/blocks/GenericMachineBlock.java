@@ -24,12 +24,12 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.init.TRBlockSettings;
 
 import java.util.function.BiFunction;
 
@@ -42,13 +42,7 @@ public class GenericMachineBlock extends BlockMachineBase {
 	BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
 	public GenericMachineBlock(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
-		super();
-		this.blockEntityClass = blockEntityClass;
-		this.gui = gui;
-	}
-
-	public GenericMachineBlock(Block.Settings settings, IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
-		super(settings);
+		super(TRBlockSettings.genericMachine());
 		this.blockEntityClass = blockEntityClass;
 		this.gui = gui;
 	}

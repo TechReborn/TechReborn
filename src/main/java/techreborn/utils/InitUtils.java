@@ -24,17 +24,12 @@
 
 package techreborn.utils;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
 import reborncore.RebornRegistry;
 import techreborn.TechReborn;
 
@@ -52,22 +47,6 @@ public class InitUtils {
 	public static SoundEvent setup(String name) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, name);
 		return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
-	}
-
-	public static AbstractBlock.Settings setupRubberBlockSettings(boolean noCollision, float hardness, float resistance) {
-
-		FabricBlockSettings settings = FabricBlockSettings.of(Material.WOOD, MapColor.SPRUCE_BROWN);
-		settings.strength(hardness, resistance);
-		settings.sounds(BlockSoundGroup.WOOD);
-		if (noCollision) {
-			settings.noCollision();
-		}
-		settings.materialColor(MapColor.SPRUCE_BROWN);
-		return settings;
-	}
-
-	public static AbstractBlock.Settings setupRubberBlockSettings(float hardness, float resistance) {
-		return setupRubberBlockSettings(false, hardness, resistance);
 	}
 
 	public static boolean isDatagenRunning() {

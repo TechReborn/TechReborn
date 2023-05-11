@@ -25,7 +25,6 @@
 package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -58,10 +57,10 @@ public class IndustrialDrillItem extends DrillItem {
 			return false;
 		}
 		BlockState blockState = worldIn.getBlockState(pos);
-		if (blockState.getMaterial() == Material.AIR) {
+		if (blockState.isAir()) {
 			return false;
 		}
-		if (blockState.getMaterial().isLiquid()) {
+		if (blockState.isLiquid()) {
 			return false;
 		}
 		float blockHardness = blockState.calcBlockBreakingDelta(playerIn, worldIn, pos);

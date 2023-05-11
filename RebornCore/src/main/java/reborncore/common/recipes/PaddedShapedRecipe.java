@@ -25,7 +25,7 @@
 package reborncore.common.recipes;
 
 import com.google.gson.JsonObject;
-import net.minecraft.class_8566;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
@@ -66,7 +66,7 @@ public class PaddedShapedRecipe extends ShapedRecipe {
 	}
 
 	@Override
-	public boolean matches(class_8566 craftingInventory, World world) {
+	public boolean matches(RecipeInputInventory craftingInventory, World world) {
 		for(int i = 0; i <= craftingInventory.getWidth() - this.getWidth(); ++i) {
 			for(int j = 0; j <= craftingInventory.getHeight() - this.getHeight(); ++j) {
 				if (this.matchesPattern(craftingInventory, i, j, false)) {

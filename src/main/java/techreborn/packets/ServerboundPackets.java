@@ -70,7 +70,7 @@ public class ServerboundPackets {
 			boolean ctrl = buf.readBoolean();
 
 			server.execute(() -> {
-				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 				if (blockEntity instanceof AdjustableSUBlockEntity) {
 					((AdjustableSUBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, shift, ctrl);
 				}
@@ -82,7 +82,7 @@ public class ServerboundPackets {
 			boolean locked = buf.readBoolean();
 
 			server.execute(() -> {
-				BlockEntity BlockEntity = player.world.getBlockEntity(machinePos);
+				BlockEntity BlockEntity = player.getWorld().getBlockEntity(machinePos);
 				if (BlockEntity instanceof AutoCraftingTableBlockEntity) {
 					((AutoCraftingTableBlockEntity) BlockEntity).locked = locked;
 				}
@@ -94,7 +94,7 @@ public class ServerboundPackets {
 			BlockPos pos = buf.readBlockPos();
 
 			server.execute(() -> {
-				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 				if (blockEntity instanceof FusionControlComputerBlockEntity) {
 					((FusionControlComputerBlockEntity) blockEntity).changeSize(sizeDelta);
 				}
@@ -106,7 +106,7 @@ public class ServerboundPackets {
 			boolean locked = buf.readBoolean();
 
 			server.execute(() -> {
-				BlockEntity BlockEntity = player.world.getBlockEntity(machinePos);
+				BlockEntity BlockEntity = player.getWorld().getBlockEntity(machinePos);
 				if (BlockEntity instanceof RollingMachineBlockEntity) {
 					((RollingMachineBlockEntity) BlockEntity).locked = locked;
 				}
@@ -118,7 +118,7 @@ public class ServerboundPackets {
 			boolean locked = buf.readBoolean();
 
 			server.execute(() -> {
-				BlockEntity BlockEntity = player.world.getBlockEntity(machinePos);
+				BlockEntity BlockEntity = player.getWorld().getBlockEntity(machinePos);
 				if (BlockEntity instanceof StorageUnitBaseBlockEntity) {
 					((StorageUnitBaseBlockEntity) BlockEntity).setLocked(locked);
 				}
@@ -149,7 +149,7 @@ public class ServerboundPackets {
 			boolean sync = buf.readBoolean();
 
 			server.execute(() -> {
-				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 				if (blockEntity instanceof ChunkLoaderBlockEntity) {
 					((ChunkLoaderBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, sync ? player : null);
 				}
@@ -160,7 +160,7 @@ public class ServerboundPackets {
 			BlockPos pos = buf.readBlockPos();
 
 			server.execute(() -> {
-				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 				if (blockEntity instanceof IronFurnaceBlockEntity) {
 					((IronFurnaceBlockEntity) blockEntity).handleGuiInputFromClient(player);
 				}
@@ -172,7 +172,7 @@ public class ServerboundPackets {
 			int buttonAmount = buf.readInt();
 
 			server.execute(() -> {
-				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 				if (blockEntity instanceof PlayerDetectorBlockEntity) {
 					((PlayerDetectorBlockEntity) blockEntity).handleGuiInputFromClient(buttonAmount);
 				}
@@ -184,7 +184,7 @@ public class ServerboundPackets {
 			int buttonAmount = buf.readInt();
 
 			server.execute(() -> {
-				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 				if (blockEntity instanceof LaunchpadBlockEntity) {
 					((LaunchpadBlockEntity) blockEntity).handleGuiInputFromClient(buttonAmount);
 				}
@@ -207,7 +207,7 @@ public class ServerboundPackets {
 			int buttonAmount = buf.readInt();
 
 			server.execute(() -> {
-				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 				if (blockEntity instanceof PumpBlockEntity) {
 					((PumpBlockEntity) blockEntity).handleDepthGuiInputFromClient(buttonAmount);
 				}
@@ -219,7 +219,7 @@ public class ServerboundPackets {
 			int buttonAmount = buf.readInt();
 
 			server.execute(() -> {
-				BlockEntity blockEntity = player.world.getBlockEntity(pos);
+				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 				if (blockEntity instanceof PumpBlockEntity) {
 					((PumpBlockEntity) blockEntity).handleRangeGuiInputFromClient(buttonAmount);
 				}
