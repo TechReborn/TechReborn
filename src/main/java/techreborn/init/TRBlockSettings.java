@@ -51,19 +51,49 @@ public class TRBlockSettings {
 			.burnable();
 	}
 
+	public static FabricBlockSettings rubberWoodStripped() {
+		return rubberWood()
+			.strength(2.0F, 15.0F);
+	}
+
 	public static FabricBlockSettings rubberLeaves() {
-		return FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
+		return FabricBlockSettings.copyOf(Blocks.SPRUCE_LEAVES)
 			.mapColor(MapColor.SPRUCE_BROWN);
 	}
 
 	public static FabricBlockSettings rubberSapling() {
-		return FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)
+		return FabricBlockSettings.copyOf(Blocks.SPRUCE_SAPLING)
 			.mapColor(MapColor.SPRUCE_BROWN);
 	}
 
 	public static FabricBlockSettings rubberLog() {
-		return FabricBlockSettings.copyOf(Blocks.OAK_LOG)
+		return FabricBlockSettings.copyOf(Blocks.SPRUCE_LOG)
 			.mapColor(MapColor.SPRUCE_BROWN);
+	}
+
+	public static FabricBlockSettings rubberLogStripped() {
+		return rubberLog().strength(2.0F, 15.0F);
+	}
+
+	public static FabricBlockSettings rubberSlab() {
+		return rubberLog();
+	}
+
+	public static FabricBlockSettings rubberFence() {
+		return rubberLog();
+	}
+
+	public static FabricBlockSettings rubberFenceGate() {
+		return rubberLog();
+	}
+
+	public static FabricBlockSettings pottedRubberSapling() {
+		return FabricBlockSettings.copyOf(Blocks.POTTED_SPRUCE_SAPLING);
+	}
+
+	public static FabricBlockSettings copperWall() {
+		return FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK)
+			.strength(2f, 2f);
 	}
 
 	public static FabricBlockSettings rubberTrapdoor() {
