@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.tier2;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -32,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.nbt.NbtCompound;
@@ -100,7 +102,7 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (!(world instanceof ServerWorld) || getStored() <= TechRebornConfig.fishingStationEnergyPerCatch || !isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!(world instanceof ServerWorld serverWorld) || getStored() <= TechRebornConfig.fishingStationEnergyPerCatch || !isActive(RedstoneConfiguration.POWER_IO)) {
 			return;
 		}
 
@@ -115,9 +117,14 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 		}
 
 		if (getStored() > TechRebornConfig.fishingStationEnergyPerCatch) {
-			LootContext.Builder builder = (new LootContext.Builder((ServerWorld)this.world)).parameter(LootContextParameters.ORIGIN, new Vec3d(frontPos.getX()+0.5,frontPos.getY()-0.5,frontPos.getZ()+0.5)).parameter(LootContextParameters.TOOL, TRContent.Machine.FISHING_STATION.getStack()).random(world.random);
-			LootTable lootTable = this.world.getServer().getLootManager().getTable(LootTables.FISHING_GAMEPLAY);
-			List<ItemStack> list = lootTable.generateLoot(builder.build(LootContextTypes.FISHING));
+			final LootContextParameterSet lootContextParameterSet = new LootContextParameterSet.Builder(serverWorld)
+				.add(LootContextParameters.BLOCK_ENTITY, this)
+				.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(frontPos))
+				.add(LootContextParameters.TOOL, TRContent.Machine.FISHING_STATION.getStack())
+				.build(LootContextTypes.FISHING);
+
+			final LootTable lootTable = this.getWorld().getServer().getLootManager().getLootTable(LootTables.FISHING_GAMEPLAY);
+			final ObjectArrayList<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
 			insertIntoInv(list);
 			useEnergy(TechRebornConfig.fishingStationEnergyPerCatch);
 		}

@@ -30,6 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.registry.tag.BlockTags;
@@ -96,12 +97,18 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		if (!handleBlockInFrontRemoved(blockInFront)) return status;
 
 		Item currentBreakingItem = processable.getInventory().getStack(fakeInputSlot).getItem();
-
 		ItemStack item = blockInFront.getBlock().asItem().getDefaultStack();
+		final List<ItemStack> blockDrops;
 
-		List<ItemStack> blockDrops = world instanceof ServerWorld
-			? blockInFront.getDroppedStacks((new LootContext.Builder((ServerWorld) world)).random(world.random).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(positionInFront)).parameter(LootContextParameters.TOOL, TRContent.Machine.BLOCK_BREAKER.getStack()))
-			: Collections.singletonList(item);
+		if (world instanceof ServerWorld serverWorld) {
+			LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder(serverWorld)
+				.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(positionInFront))
+				.add(LootContextParameters.TOOL, TRContent.Machine.BLOCK_BREAKER.getStack());
+			blockDrops = blockInFront.getDroppedStacks(builder);
+		} else {
+			blockDrops = Collections.singletonList(item);
+		}
+
 		ItemStack blockDrop = blockDrops.isEmpty() ? null : blockDrops.get(0);
 		if (blockDrop != null) {
 			blockDrop.setCount(1);
