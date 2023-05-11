@@ -24,10 +24,8 @@
 
 package techreborn.blocks.transformers;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,6 +43,7 @@ import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
+import techreborn.init.TRBlockSettings;
 
 /**
  * Created by Rushmead
@@ -55,7 +54,7 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 	public String name;
 
 	public BlockTransformer(String name) {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f));
+		super(TRBlockSettings.transformer());
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		BlockWrenchEventHandler.wrenchableBlocks.add(this);

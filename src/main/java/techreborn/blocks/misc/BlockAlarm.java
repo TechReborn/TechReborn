@@ -50,6 +50,7 @@ import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.machine.misc.AlarmBlockEntity;
+import techreborn.init.TRBlockSettings;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 	protected final VoxelShape[] shape;
 
 	public BlockAlarm() {
-		super(Block.Settings.of(Material.STONE).strength(2f, 2f));
+		super(TRBlockSettings.alarm());
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		this.shape = GenCuboidShapes(3, 10);
 		BlockWrenchEventHandler.wrenchableBlocks.add(this);

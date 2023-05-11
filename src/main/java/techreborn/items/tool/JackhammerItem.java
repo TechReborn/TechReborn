@@ -25,11 +25,14 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
@@ -57,7 +60,7 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 		if (getStoredEnergy(stack) < cost) return unpoweredSpeed;
 		if (ToolsUtil.JackHammerSkippedBlocks(state)) return unpoweredSpeed;
 
-		if (state.getMaterial() == Material.STONE) {
+		if (state.isIn(BlockTags.STONE_ORE_REPLACEABLES)) {
 			return miningSpeed;
 		} else {
 			return unpoweredSpeed;

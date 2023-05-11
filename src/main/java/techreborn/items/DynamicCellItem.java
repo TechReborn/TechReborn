@@ -34,7 +34,6 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.FluidFillable;
-import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
@@ -113,7 +112,6 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		}
 
 		BlockState blockState = world.getBlockState(pos);
-		Material material = blockState.getMaterial();
 		boolean canPlace = blockState.canBucketPlace(fluid);
 
 		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable) blockState.getBlock()).canFillWithFluid(world, pos, blockState, fluid))) {
@@ -134,7 +132,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 					this.playEmptyingSound(player, world, pos, fluid);
 				}
 			} else {
-				if (!world.isClient && canPlace && !material.isLiquid()) {
+				if (!world.isClient && canPlace && !blockState.isLiquid()) {
 					world.breakBlock(pos, true);
 				}
 

@@ -25,7 +25,6 @@
 package techreborn.blocks.storage.item;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -42,6 +41,7 @@ import reborncore.common.util.RebornInventory;
 import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 import techreborn.items.tool.WrenchItem;
 
@@ -50,7 +50,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 	public final TRContent.StorageUnit unitType;
 
 	public StorageUnitBlock(TRContent.StorageUnit unitType) {
-		super((Settings.of(unitType.name.equals("buffer") || unitType.name.equals("crude") ? Material.WOOD : Material.METAL).strength(2.0F, 2.0F)));
+		super(TRBlockSettings.storageUnit(unitType.name.equals("buffer") || unitType.name.equals("crude")));
 		this.unitType = unitType;
 	}
 

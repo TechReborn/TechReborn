@@ -64,6 +64,7 @@ import techreborn.api.events.CableElectrocutionEvent;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 import techreborn.init.TRDamageTypes;
 
@@ -96,7 +97,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	public final TRContent.Cables type;
 
 	public CableBlock(TRContent.Cables type) {
-		super(Block.Settings.of(Material.STONE).strength(1f, 8f));
+		super(TRBlockSettings.cable());
 		this.type = type;
 		setDefaultState(this.getStateManager().getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
 				.with(SOUTH, false).with(UP, false).with(DOWN, false).with(WATERLOGGED, false).with(COVERED, false));

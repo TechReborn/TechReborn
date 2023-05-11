@@ -45,6 +45,7 @@ import reborncore.common.util.Tank;
 import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCellItem;
 
@@ -53,7 +54,7 @@ public class TankUnitBlock extends BlockMachineBase {
 	public final TRContent.TankUnit unitType;
 
 	public TankUnitBlock(TRContent.TankUnit unitType) {
-		super();
+		super(TRBlockSettings.tankUnit());
 		this.unitType = unitType;
 	}
 

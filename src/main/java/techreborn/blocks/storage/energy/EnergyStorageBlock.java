@@ -24,10 +24,8 @@
 
 package techreborn.blocks.storage.energy;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,6 +47,7 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemHandlerUtils;
 import reborncore.common.util.WrenchUtils;
+import techreborn.init.TRBlockSettings;
 
 
 /**
@@ -60,7 +59,7 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 	public IMachineGuiHandler gui;
 
 	public EnergyStorageBlock(String name, IMachineGuiHandler gui) {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f));
+		super(TRBlockSettings.energyStorage());
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		this.gui = gui;

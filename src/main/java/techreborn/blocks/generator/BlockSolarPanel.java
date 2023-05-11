@@ -33,6 +33,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent.SolarPanels;
 
 /**
@@ -43,7 +44,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 	public final SolarPanels panelType;
 
 	public BlockSolarPanel(SolarPanels panel) {
-		super();
+		super(TRBlockSettings.solarPanel());
 		this.panelType = panel;
 	}
 

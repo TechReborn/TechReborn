@@ -25,19 +25,20 @@
 package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.PillarBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -50,6 +51,7 @@ import reborncore.common.util.WorldUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 import techreborn.items.tool.TreeTapItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
@@ -64,10 +66,7 @@ public class BlockRubberLog extends PillarBlock {
 	public static BooleanProperty SHOULD_SAP = BooleanProperty.of("shouldsap");
 
 	public BlockRubberLog() {
-		super(Settings.of(Material.WOOD, (blockState) -> MapColor.SPRUCE_BROWN)
-				.strength(2.0F, 2f)
-				.sounds(BlockSoundGroup.WOOD)
-				.ticksRandomly());
+		super(TRBlockSettings.rubberLog());
 		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(SHOULD_SAP, true).with(AXIS, Direction.Axis.Y));
 		FlammableBlockRegistry.getDefaultInstance().add(this, 5, 5);
 	}

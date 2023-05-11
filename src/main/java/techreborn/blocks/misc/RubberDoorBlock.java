@@ -25,8 +25,8 @@
 package techreborn.blocks.misc;
 
 import net.minecraft.block.DoorBlock;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
-import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy
@@ -34,6 +34,6 @@ import techreborn.utils.InitUtils;
 public class RubberDoorBlock extends DoorBlock {
 
 	public RubberDoorBlock() {
-		super(InitUtils.setupRubberBlockSettings(3.0F, 3.0F), TRContent.RUBBER_WOOD_SET_TYPE);
+		super(TRBlockSettings.rubberDoor(), TRContent.RUBBER_WOOD_SET_TYPE);
 	}
 }

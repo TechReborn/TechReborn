@@ -25,8 +25,8 @@
 package techreborn.blocks.misc;
 
 import net.minecraft.block.ButtonBlock;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
-import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy
@@ -34,6 +34,6 @@ import techreborn.utils.InitUtils;
 public class RubberButtonBlock extends ButtonBlock {
 
 	public RubberButtonBlock() {
-		super(InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F), TRContent.RUBBER_WOOD_SET_TYPE, 30, true);
+		super(TRBlockSettings.rubberButton(), TRContent.RUBBER_WOOD_SET_TYPE, 30, true);
 	}
 }

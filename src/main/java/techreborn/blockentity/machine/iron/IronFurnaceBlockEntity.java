@@ -69,7 +69,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 			while (totalExperience > 0) {
 				int expToDrop = ExperienceOrbEntity.roundToOrbSize(totalExperience);
 				totalExperience -= expToDrop;
-				player.world.spawnEntity(new ExperienceOrbEntity(player.world, player.getX(), player.getY() + 0.5D, player.getZ() + 0.5D, expToDrop));
+				player.getWorld().spawnEntity(new ExperienceOrbEntity(player.getWorld(), player.getX(), player.getY() + 0.5D, player.getZ() + 0.5D, expToDrop));
 			}
 		}
 		experience = 0;
@@ -98,7 +98,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 			// Fast fail if there is no input, no point checking the recipes if the machine is empty
 			return ItemStack.EMPTY;
 		}
-		if (previousStack.isItemEqual(stack) && !previousValid){
+		if (previousStack.isOf(stack.getItem()) && !previousValid){
 			return ItemStack.EMPTY;
 		}
 
@@ -127,7 +127,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 		if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
 			inventory.setStack(OUTPUT_SLOT, resultStack.copy());
-		} else if (inventory.getStack(OUTPUT_SLOT).isItemEqual(resultStack)) {
+		} else if (inventory.getStack(OUTPUT_SLOT).isOf(resultStack.getItem())) {
 			inventory.getStack(OUTPUT_SLOT).increment(resultStack.getCount());
 		}
 		experience += getExperienceFor();
@@ -158,7 +158,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		ItemStack outputSlotStack = inventory.getStack(OUTPUT_SLOT);
 		if (outputSlotStack.isEmpty())
 			return true;
-		if (!outputSlotStack.isItemEqual(outputStack))
+		if (!outputSlotStack.isOf(outputStack.getItem()))
 			return false;
 		int result = outputSlotStack.getCount() + outputStack.getCount();
 		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();

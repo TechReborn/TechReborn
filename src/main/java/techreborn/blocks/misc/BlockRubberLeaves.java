@@ -25,16 +25,14 @@
 package techreborn.blocks.misc;
 
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.Material;
-import net.minecraft.sound.BlockSoundGroup;
+import techreborn.init.TRBlockSettings;
 
 public class BlockRubberLeaves extends LeavesBlock {
 
 	public BlockRubberLeaves() {
-		super(FabricBlockSettings.of(Material.LEAVES).hardness(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
+		super(TRBlockSettings.rubberLeaves());
 		FlammableBlockRegistry.getDefaultInstance().add(this, 30, 60);
 	}
 

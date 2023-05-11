@@ -40,12 +40,16 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 import techreborn.init.TRDamageTypes;
 
 import java.util.List;
 
 public class BlockFusionControlComputer extends BlockMachineBase {
+	public BlockFusionControlComputer() {
+		super(TRBlockSettings.fusionControlComputer());
+	}
 
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,

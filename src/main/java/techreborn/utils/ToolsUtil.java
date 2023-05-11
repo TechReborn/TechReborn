@@ -172,10 +172,10 @@ public class ToolsUtil {
 	 * @return {@code boolean} True if block shouldn't be breakable by JackHammer
 	 */
 	public static boolean JackHammerSkippedBlocks(BlockState blockState){
-		if (blockState.getMaterial() == Material.AIR) {
+		if (blockState.isAir()) {
 			return true;
 		}
-		if (blockState.getMaterial().isLiquid()) {
+		if (blockState.isLiquid()) {
 			return true;
 		}
 		if (blockState.isIn(ConventionalBlockTags.ORES)) {

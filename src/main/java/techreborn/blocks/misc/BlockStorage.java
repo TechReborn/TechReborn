@@ -24,22 +24,11 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Material;
-import net.minecraft.sound.BlockSoundGroup;
 import reborncore.common.BaseBlock;
+import techreborn.init.TRBlockSettings;
 
 public class BlockStorage extends BaseBlock {
-
-	public BlockStorage() {
-		this(false, 3f, 6f);
-	}
-
 	public BlockStorage(boolean isHot, float hardness, float resistance) {
-		super(isHot ? getDefaultSettings(hardness, resistance).luminance(15).nonOpaque() : getDefaultSettings(hardness, resistance));
-	}
-
-	public static FabricBlockSettings getDefaultSettings(float hardness, float resistance) {
-		return FabricBlockSettings.of(Material.METAL).strength(hardness, resistance).sounds(BlockSoundGroup.METAL).requiresTool();
+		super(TRBlockSettings.storageBlock(isHot, hardness, resistance));
 	}
 }

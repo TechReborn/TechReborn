@@ -24,7 +24,10 @@
 
 package techreborn.blocks.machine.tier1;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,6 +49,7 @@ import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.machine.tier1.ResinBasinBlockEntity;
+import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 
 import java.util.function.BiFunction;
@@ -59,7 +63,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
 	public ResinBasinBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
-		super(Block.Settings.of(Material.WOOD).strength(2F, 2F));
+		super(TRBlockSettings.resinBasin());
 		this.blockEntityClass = blockEntityClass;
 
 		this.setDefaultState(

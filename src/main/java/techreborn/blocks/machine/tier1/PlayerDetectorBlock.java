@@ -27,7 +27,6 @@ package techreborn.blocks.machine.tier1;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -52,13 +51,14 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.StringUtils;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
+import techreborn.init.TRBlockSettings;
 
 public class PlayerDetectorBlock extends BlockMachineBase {
 
 	public static final EnumProperty<PlayerDetectorType> TYPE = EnumProperty.of("type", PlayerDetectorType.class);
 
 	public PlayerDetectorBlock() {
-		super(Block.Settings.of(Material.METAL).strength(2f, 2f), true);
+		super(TRBlockSettings.playerDetector(), true);
 		this.setDefaultState(this.getStateManager().getDefaultState().with(TYPE, PlayerDetectorType.ALL));
 	}
 

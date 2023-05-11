@@ -28,14 +28,7 @@ import com.google.common.base.Preconditions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockSetType;
-import net.minecraft.block.ExperienceDroppingBlock;
-import net.minecraft.block.Material;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.WallBlock;
-import net.minecraft.block.WoodType;
+import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -43,7 +36,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -60,45 +52,19 @@ import techreborn.TechReborn;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
-import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
-import techreborn.blockentity.generator.advanced.DragonEggSyphonBlockEntity;
-import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
-import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
-import techreborn.blockentity.generator.advanced.ThermalGeneratorBlockEntity;
+import techreborn.blockentity.generator.advanced.*;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 import techreborn.blockentity.generator.basic.WaterMillBlockEntity;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
-import techreborn.blockentity.machine.tier2.PumpBlockEntity;
-import techreborn.blockentity.machine.multiblock.DistillationTowerBlockEntity;
-import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
-import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
-import techreborn.blockentity.machine.multiblock.VacuumFreezerBlockEntity;
+import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
 import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
-import techreborn.blockentity.machine.tier1.AlloySmelterBlockEntity;
-import techreborn.blockentity.machine.tier1.AssemblingMachineBlockEntity;
-import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
-import techreborn.blockentity.machine.tier1.ChemicalReactorBlockEntity;
-import techreborn.blockentity.machine.tier1.CompressorBlockEntity;
-import techreborn.blockentity.machine.tier1.ElectricFurnaceBlockEntity;
-import techreborn.blockentity.machine.tier1.ElevatorBlockEntity;
-import techreborn.blockentity.machine.tier1.ExtractorBlockEntity;
-import techreborn.blockentity.machine.tier1.GreenhouseControllerBlockEntity;
-import techreborn.blockentity.machine.tier1.GrinderBlockEntity;
-import techreborn.blockentity.machine.tier1.IndustrialElectrolyzerBlockEntity;
-import techreborn.blockentity.machine.tier1.RecyclerBlockEntity;
-import techreborn.blockentity.machine.tier1.ResinBasinBlockEntity;
-import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
-import techreborn.blockentity.machine.tier1.ScrapboxinatorBlockEntity;
-import techreborn.blockentity.machine.tier1.SolidCanningMachineBlockEntity;
-import techreborn.blockentity.machine.tier1.WireMillBlockEntity;
+import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier2.FishingStationBlockEntity;
 import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
+import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
@@ -114,18 +80,8 @@ import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
 import techreborn.blocks.machine.tier1.PlayerDetectorBlock;
 import techreborn.blocks.machine.tier1.ResinBasinBlock;
-import techreborn.blocks.misc.BlockAlarm;
-import techreborn.blocks.misc.BlockMachineCasing;
-import techreborn.blocks.misc.BlockMachineFrame;
-import techreborn.blocks.misc.BlockStorage;
-import techreborn.blocks.misc.TechRebornStairsBlock;
-import techreborn.blocks.storage.energy.AdjustableSUBlock;
-import techreborn.blocks.storage.energy.HighVoltageSUBlock;
-import techreborn.blocks.storage.energy.InterdimensionalSUBlock;
-import techreborn.blocks.storage.energy.LSUStorageBlock;
-import techreborn.blocks.storage.energy.LapotronicSUBlock;
-import techreborn.blocks.storage.energy.LowVoltageSUBlock;
-import techreborn.blocks.storage.energy.MediumVoltageSUBlock;
+import techreborn.blocks.misc.*;
+import techreborn.blocks.storage.energy.*;
 import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.storage.item.StorageUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
@@ -142,14 +98,7 @@ import techreborn.items.armor.QuantumSuitItem;
 import techreborn.utils.InitUtils;
 import techreborn.world.OreDistribution;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -586,13 +535,7 @@ public class TRContent {
 
 		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback, boolean industrial) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new ExperienceDroppingBlock(FabricBlockSettings.of(Material.STONE)
-					.requiresTool()
-					.sounds(name.startsWith("deepslate") ? BlockSoundGroup.DEEPSLATE : BlockSoundGroup.STONE)
-					.hardness(name.startsWith("deepslate") ? 4.5f : 3f)
-					.resistance(3f),
-					distribution != null ? distribution.experienceDropped : experienceDroppedFallback
-			);
+			block = new ExperienceDroppingBlock(TRBlockSettings.ore(name.startsWith("deepslate")));
 			this.industrial = industrial;
 			InitUtils.setup(block, name + "_ore");
 			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c",
@@ -1647,6 +1590,6 @@ public class TRContent {
 
 	static {
 		ModRegistry.register();
-		TRItemGroup.ITEM_GROUP.getId();
+		TRItemGroup.register();
 	}
 }

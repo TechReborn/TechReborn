@@ -39,7 +39,7 @@ public class TRRecipeHandler {
 
 	public static void unlockTRRecipes(ServerPlayerEntity playerMP) {
 		List<Recipe<?>> recipeList = new ArrayList<>();
-		for (Recipe<?> recipe : RecipeUtils.getRecipes(playerMP.world, RecipeType.CRAFTING)) {
+		for (Recipe<?> recipe : RecipeUtils.getRecipes(playerMP.getWorld(), RecipeType.CRAFTING)) {
 			if (isRecipeValid(recipe)) {
 				recipeList.add(recipe);
 			}

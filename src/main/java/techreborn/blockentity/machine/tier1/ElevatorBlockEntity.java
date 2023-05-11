@@ -154,7 +154,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	public void teleportUp(final PlayerEntity player) {
-		if (!this.pos.isWithinDistance(player.getPos(), 5) && player.world == this.world) {
+		if (!this.pos.isWithinDistance(player.getPos(), 5) && player.getWorld() == this.world) {
 			// Ensure the player is close to the elevator and in the same world.
 			return;
 		}

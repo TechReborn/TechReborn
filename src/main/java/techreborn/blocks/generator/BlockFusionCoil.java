@@ -24,15 +24,12 @@
 
 package techreborn.blocks.generator;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -45,13 +42,14 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import techreborn.init.ModSounds;
+import techreborn.init.TRBlockSettings;
 
 import java.util.List;
 
 public class BlockFusionCoil extends Block {
 
 	public BlockFusionCoil() {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL));
+		super(TRBlockSettings.fusionCoil());
 	}
 
 	@SuppressWarnings("deprecation")

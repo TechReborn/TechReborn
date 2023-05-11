@@ -26,7 +26,6 @@ package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -112,8 +111,8 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 					heat += BlockMachineCasing.getHeatFromState(part.getCachedState());
 				}
 
-				if (world.getBlockState(location.offset(Direction.UP, 1)).getMaterial().equals(Material.LAVA)
-						&& world.getBlockState(location.offset(Direction.UP, 2)).getMaterial().equals(Material.LAVA)) {
+				if (world.getBlockState(location.offset(Direction.UP, 1)).getBlock() == Blocks.LAVA
+						&& world.getBlockState(location.offset(Direction.UP, 2)).getBlock() == Blocks.LAVA) {
 					heat += 500;
 				}
 				return heat;
