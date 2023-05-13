@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.builder.slot.elements;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
@@ -65,14 +66,14 @@ public class CheckBoxElement extends ElementBase {
 	}
 
 	@Override
-	public void draw(MatrixStack matrixStack, GuiBase<?> gui) {
+	public void draw(DrawContext drawContext, GuiBase<?> gui) {
 		//	super.draw(gui);
 		ISprite sprite = checkBoxSprite.normal();
 		if (ticked.test(this)) {
 			sprite = checkBoxSprite.ticked();
 		}
-		drawSprite(matrixStack, gui, sprite, x, y);
-		drawText(matrixStack, gui, label, x + checkBoxSprite.normal().width + 5, ((y + getHeight(gui.getMachine()) / 2) - (gui.getTextRenderer().fontHeight / 2)), labelColor);
+		drawSprite(drawContext, gui, sprite, x, y);
+		drawText(drawContext, gui, label, x + checkBoxSprite.normal().width + 5, ((y + getHeight(gui.getMachine()) / 2) - (gui.getTextRenderer().fontHeight / 2)), labelColor);
 	}
 
 }

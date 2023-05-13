@@ -28,6 +28,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -150,39 +151,39 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		return backgroundWidth;
 	}
 
-	public void drawSlot(MatrixStack matrixStack, int x, int y, Layer layer) {
+	public void drawSlot(DrawContext drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += this.x;
 			y += this.y;
 		}
-		builder.drawSlot(matrixStack, this, x - 1, y - 1);
+		builder.drawSlot(drawContext, this, x - 1, y - 1);
 	}
 
-	public void drawOutputSlotBar(MatrixStack matrixStack, int x, int y, int count, Layer layer) {
+	public void drawOutputSlotBar(DrawContext drawContext, int x, int y, int count, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += this.x;
 			y += this.y;
 		}
-		builder.drawOutputSlotBar(matrixStack, this, x - 4, y - 4, count);
+		builder.drawOutputSlotBar(drawContext, this, x - 4, y - 4, count);
 	}
 
-	public void drawArmourSlots(MatrixStack matrixStack, int x, int y, Layer layer) {
+	public void drawArmourSlots(DrawContext drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += this.x;
 			y += this.y;
 		}
-		builder.drawSlot(matrixStack, this, x - 1, y - 1);
-		builder.drawSlot(matrixStack, this, x - 1, y - 1 + 18);
-		builder.drawSlot(matrixStack, this, x - 1, y - 1 + 18 + 18);
-		builder.drawSlot(matrixStack, this, x - 1, y - 1 + 18 + 18 + 18);
+		builder.drawSlot(drawContext, this, x - 1, y - 1);
+		builder.drawSlot(drawContext, this, x - 1, y - 1 + 18);
+		builder.drawSlot(drawContext, this, x - 1, y - 1 + 18 + 18);
+		builder.drawSlot(drawContext, this, x - 1, y - 1 + 18 + 18 + 18);
 	}
 
-	public void drawOutputSlot(MatrixStack matrixStack, int x, int y, Layer layer) {
+	public void drawOutputSlot(DrawContext drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += this.x;
 			y += this.y;
 		}
-		builder.drawOutputSlot(matrixStack, this, x - 5, y - 5);
+		builder.drawOutputSlot(drawContext, this, x - 5, y - 5);
 	}
 
 	@Override
@@ -197,31 +198,31 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
+	protected void drawBackground(DrawContext drawContext, float lastFrameDuration, int mouseX, int mouseY) {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		renderBackground(matrixStack);
+		renderBackground(drawContext);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
-		builder.drawDefaultBackground(matrixStack, this, x, y, xSize, ySize);
+		builder.drawDefaultBackground(drawContext, this, x, y, xSize, ySize);
 		if (drawPlayerSlots) {
-			builder.drawPlayerSlots(matrixStack, this, x + backgroundWidth / 2, y + 93, true);
+			builder.drawPlayerSlots(drawContext, this, x + backgroundWidth / 2, y + 93, true);
 		}
 		if (tryAddUpgrades() && be instanceof IUpgradeable upgradeable) {
 			if (upgradeable.canBeUpgraded()) {
-				builder.drawUpgrades(matrixStack, this, x - 24, y + 6);
+				builder.drawUpgrades(drawContext, this, x - 24, y + 6);
 				upgrades = true;
 			}
 		}
 		int offset = upgrades ? 86 : 6;
 		for (GuiTab slot : tabs) {
 			if (slot.enabled()) {
-				builder.drawSlotTab(matrixStack, this, x - 24, y + offset, slot.stack());
+				builder.drawSlotTab(drawContext, this, x - 24, y + offset, slot.stack());
 				offset += 24;
 			}
 		}
 
 		final GuiBase<T> gui = this;
-		getTab().ifPresent(guiTab -> builder.drawSlotConfigTips(matrixStack, gui, x + backgroundWidth / 2, y + 93, mouseX, mouseY, guiTab));
+		getTab().ifPresent(guiTab -> builder.drawSlotConfigTips(drawContext, gui, x + backgroundWidth / 2, y + 93, mouseX, mouseY, guiTab));
 
 	}
 
@@ -245,29 +246,29 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
-		drawTitle(matrixStack);
-		getTab().ifPresent(guiTab -> guiTab.draw(matrixStack, mouseX, mouseY));
+	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
+		drawTitle(drawContext);
+		getTab().ifPresent(guiTab -> guiTab.draw(drawContext, mouseX, mouseY));
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		this.drawMouseoverTooltip(matrixStack, mouseX, mouseY);
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+		super.render(drawContext, mouseX, mouseY, partialTicks);
+		this.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 	}
 
 	@Override
-	protected void drawMouseoverTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
+	protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
 		if (isPointWithinBounds(-25, 6, 24, 80, mouseX, mouseY) && upgrades
 				&& this.focusedSlot != null && !this.focusedSlot.hasStack()) {
 			List<Text> list = new ArrayList<>();
 			list.add(Text.translatable("reborncore.gui.tooltip.upgrades"));
-			renderTooltip(matrixStack, list, mouseX, mouseY);
+			drawContext.drawTooltip(MinecraftClient.getInstance().textRenderer, list, mouseX, mouseY);
 		}
 		int offset = upgrades ? 82 : 0;
 		for (GuiTab tab : tabs) {
 			if (isPointWithinBounds(-26, 6 + offset, 24, 23, mouseX, mouseY)) {
-				renderTooltip(matrixStack, Collections.singletonList(Text.translatable(tab.name())), mouseX, mouseY);
+				drawContext.drawTooltip(MinecraftClient.getInstance().textRenderer, Collections.singletonList(Text.translatable(tab.name())), mouseX, mouseY);
 			}
 			offset += 24;
 		}
@@ -282,29 +283,29 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			}
 
 		}
-		super.drawMouseoverTooltip(matrixStack, mouseX, mouseY);
+		super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 	}
 
-	protected void drawTitle(MatrixStack matrixStack) {
-		drawCentredText(matrixStack, Text.translatable(be.getCachedState().getBlock().getTranslationKey()), 6, 4210752, Layer.FOREGROUND);
+	protected void drawTitle(DrawContext drawContext) {
+		drawCentredText(drawContext, Text.translatable(be.getCachedState().getBlock().getTranslationKey()), 6, 4210752, Layer.FOREGROUND);
 	}
 
-	public void drawCentredText(MatrixStack matrixStack, Text text, int y, int colour, Layer layer) {
-		drawText(matrixStack, text, (backgroundWidth / 2 - getTextRenderer().getWidth(text) / 2), y, colour, layer);
+	public void drawCentredText(DrawContext drawContext, Text text, int y, int colour, Layer layer) {
+		drawText(drawContext, text, (backgroundWidth / 2 - getTextRenderer().getWidth(text) / 2), y, colour, layer);
 	}
 
-	protected void drawCentredText(MatrixStack matrixStack, Text text, int y, int colour, int modifier, Layer layer) {
-		drawText(matrixStack, text, (backgroundWidth / 2 - (getTextRenderer().getWidth(text)) / 2) + modifier, y, colour, layer);
+	protected void drawCentredText(DrawContext drawContext, Text text, int y, int colour, int modifier, Layer layer) {
+		drawText(drawContext, text, (backgroundWidth / 2 - (getTextRenderer().getWidth(text)) / 2) + modifier, y, colour, layer);
 	}
 
-	public void drawText(MatrixStack matrixStack, Text text, int x, int y, int colour, Layer layer) {
+	public void drawText(DrawContext drawContext, Text text, int x, int y, int colour, Layer layer) {
 		int factorX = 0;
 		int factorY = 0;
 		if (layer == Layer.BACKGROUND) {
 			factorX = this.x;
 			factorY = this.y;
 		}
-		getTextRenderer().draw(matrixStack, text, x + factorX, y + factorY, colour);
+		drawContext.drawText(MinecraftClient.getInstance().textRenderer, text, x + factorX, y + factorY, colour, true);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 

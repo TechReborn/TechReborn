@@ -27,6 +27,7 @@ package reborncore.client.gui.builder.slot.elements;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -125,9 +126,9 @@ public class ElementBase {
 		}
 	}
 
-	public void draw(MatrixStack matrixStack, GuiBase<?> gui) {
+	public void draw(DrawContext drawContext, GuiBase<?> gui) {
 		for (OffsetSprite sprite : getSpriteContainer().offsetSprites) {
-			drawSprite(matrixStack, gui, sprite.getSprite(), x + sprite.getOffsetX(gui.getMachine()), y + sprite.getOffsetY(gui.getMachine()));
+			drawSprite(drawContext, gui, sprite.getSprite(), x + sprite.getOffsetX(gui.getMachine()), y + sprite.getOffsetY(gui.getMachine()));
 		}
 	}
 
@@ -294,33 +295,21 @@ public class ElementBase {
 		return gui.isPointInRect(x + gui.getGuiLeft(), y + gui.getGuiTop(), xSize, ySize, mouseX, mouseY);
 	}
 
-	public void drawText(MatrixStack matrixStack, GuiBase<?> gui, Text text, int x, int y, int color) {
+	public void drawText(DrawContext drawContext, GuiBase<?> gui, Text text, int x, int y, int color) {
 		x = adjustX(gui, x);
 		y = adjustY(gui, y);
-		gui.getTextRenderer().draw(matrixStack, text, x, y, color);
+		drawContext.drawText(gui.getTextRenderer(), text, x, y, color, true);
 	}
 
-	public void setTextureSheet(Identifier textureLocation) {
-		RenderSystem.setShaderTexture(0, textureLocation);
-	}
-
-	public void drawSprite(MatrixStack matrixStack, GuiBase<?> gui, ISprite iSprite, int x, int y) {
+	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, ISprite iSprite, int x, int y) {
 		Sprite sprite = iSprite.getSprite(gui.getMachine());
 		if (sprite != null) {
 			if (sprite.hasTextureInfo()) {
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-				setTextureSheet(sprite.textureLocation);
-				gui.drawTexture(matrixStack, x + gui.getGuiLeft(), y + gui.getGuiTop(), sprite.x, sprite.y, sprite.width, sprite.height);
+				drawContext.drawTexture(sprite.textureLocation, x + gui.getGuiLeft(), y + gui.getGuiTop(), sprite.x, sprite.y, sprite.width, sprite.height);
 			}
 			if (sprite.hasStack()) {
-				matrixStack.push();
-				RenderSystem.enableBlend();
-				RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-
-				ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-				itemRenderer.renderInGuiWithOverrides(matrixStack, sprite.itemStack, x + gui.getGuiLeft(), y + gui.getGuiTop());
-
-				matrixStack.pop();
+				drawContext.drawItem(sprite.itemStack, x + gui.getGuiLeft(), y + gui.getGuiTop());
 			}
 		}
 	}
@@ -336,12 +325,10 @@ public class ElementBase {
 		return (int) ((CurrentValue * 100.0f) / MaxValue);
 	}
 
-	public void drawDefaultBackground(MatrixStack matrixStack, Screen gui, int x, int y, int width, int height) {
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-		gui.drawTexture(matrixStack, x, y, 0, 0, width / 2, height / 2);
-		gui.drawTexture(matrixStack, x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
-		gui.drawTexture(matrixStack, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
-		gui.drawTexture(matrixStack, x + width / 2, y + height / 2, 150 - width / 2, 150 - height / 2, width / 2, height / 2);
+	public void drawDefaultBackground(DrawContext drawContext, Screen gui, int x, int y, int width, int height) {
+		drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, 0, 0, width / 2, height / 2);
+		drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
+		drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
+		drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x + width / 2, y + height / 2, 150 - width / 2, 150 - height / 2, width / 2, height / 2);
 	}
 }

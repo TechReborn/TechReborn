@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.builder.widget;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -44,7 +45,7 @@ public class GuiButtonHologram extends GuiButtonExtended {
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
 
 	}
 }

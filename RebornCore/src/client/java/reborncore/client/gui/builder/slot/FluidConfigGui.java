@@ -26,6 +26,7 @@ package reborncore.client.gui.builder.slot;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.gui.builder.GuiBase;
@@ -45,8 +46,8 @@ public class FluidConfigGui {
 		fluidConfigElement = new ConfigFluidElement(guiBase.getMachine().getTank(), SlotType.NORMAL, 35 - guiBase.getGuiLeft() + 50, 35 - guiBase.getGuiTop() - 25, guiBase);
 	}
 
-	public static void draw(MatrixStack matrixStack, GuiBase<?> guiBase, int mouseX, int mouseY) {
-		fluidConfigElement.draw(matrixStack, guiBase);
+	public static void draw(DrawContext drawContext, GuiBase<?> guiBase, int mouseX, int mouseY) {
+		fluidConfigElement.draw(drawContext, guiBase);
 	}
 
 	public static List<ConfigFluidElement> getVisibleElements() {

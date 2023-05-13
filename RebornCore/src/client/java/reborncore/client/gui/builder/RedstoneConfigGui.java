@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.builder;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -38,7 +39,7 @@ import java.util.Locale;
 
 public class RedstoneConfigGui {
 
-	public static void draw(MatrixStack matrixStack, GuiBase<?> guiBase, int mouseX, int mouseY) {
+	public static void draw(DrawContext drawContext, GuiBase<?> guiBase, int mouseX, int mouseY) {
 		if (guiBase.getMachine() == null) return;
 		RedstoneConfiguration configuration = guiBase.getMachine().getRedstoneConfiguration();
 		GuiBuilder builder = guiBase.builder;
@@ -50,16 +51,15 @@ public class RedstoneConfigGui {
 		int i = 0;
 		int spread = configuration.getElements().size() == 3 ? 27 : 18;
 		for (RedstoneConfiguration.Element element : configuration.getElements()) {
-			itemRenderer.renderInGuiWithOverrides(matrixStack, element.getIcon(), x - 3, y + (i * spread) - 5);
-
-			guiBase.getTextRenderer().draw(matrixStack, Text.translatable("reborncore.gui.fluidconfig." + element.getName()), x + 15, y + (i * spread), -1);
+			drawContext.drawItem(element.getIcon(), x - 3, y + (i * spread) - 5);
+			drawContext.drawText(guiBase.getTextRenderer(), Text.translatable("reborncore.gui.fluidconfig." + element.getName()), x + 15, y + (i * spread), -1, true);
 
 			boolean hovered = withinBounds(guiBase, mouseX, mouseY, x + 92, y + (i * spread) - 2, 63, 15);
 			int color = hovered ? 0xFF8b8b8b : 0x668b8b8b;
-			RenderUtil.drawGradientRect(matrixStack, 0, x + 91, y + (i * spread) - 2, x + 93 + 65, y + (i * spread) + 10, color, color);
+			RenderUtil.drawGradientRect(drawContext.getMatrices(), 0, x + 91, y + (i * spread) - 2, x + 93 + 65, y + (i * spread) + 10, color, color);
 
 			Text name = Text.translatable("reborncore.gui.fluidconfig." + configuration.getState(element).name().toLowerCase(Locale.ROOT));
-			guiBase.drawCentredText(matrixStack, name, y + (i * spread), -1, x + 37, GuiBase.Layer.FOREGROUND);
+			guiBase.drawCentredText(drawContext, name, y + (i * spread), -1, x + 37, GuiBase.Layer.FOREGROUND);
 			//guiBase.getTextRenderer().drawWithShadow(name, x + 92, y + (i * spread), -1);
 			i++;
 		}

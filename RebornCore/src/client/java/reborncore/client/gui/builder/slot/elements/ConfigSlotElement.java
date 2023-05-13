@@ -27,6 +27,7 @@ package reborncore.client.gui.builder.slot.elements;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.inventory.Inventory;
@@ -103,25 +104,18 @@ public class ConfigSlotElement extends ElementBase {
 	}
 
 	@Override
-	public void draw(MatrixStack matrixStack, GuiBase<?> gui) {
-		super.draw(matrixStack, gui);
+	public void draw(DrawContext drawContext, GuiBase<?> gui) {
+		super.draw(drawContext, gui);
 		ItemStack stack = inventory.getStack(id);
 		int xPos = x + 1 + gui.getGuiLeft();
 		int yPos = y + 1 + gui.getGuiTop();
 
-		RenderSystem.enableDepthTest();
-		matrixStack.push();
-		RenderSystem.enableBlend();
-		RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-		ItemRenderer renderItem = MinecraftClient.getInstance().getItemRenderer();
-		renderItem.renderInGuiWithOverrides(matrixStack, stack, xPos, yPos);
-		renderItem.renderGuiItemOverlay(matrixStack, gui.getTextRenderer(), stack, xPos, yPos, null);
-		RenderSystem.disableDepthTest();
-		matrixStack.pop();
+		drawContext.drawItemInSlot(gui.getTextRenderer(), stack, xPos, yPos);
+
 		if (isHovering) {
-			drawSprite(matrixStack, gui, type.getButtonHoverOverlay(), x, y);
+			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), x, y);
 		}
-		elements.forEach(elementBase -> elementBase.draw(matrixStack, gui));
+		elements.forEach(elementBase -> elementBase.draw(drawContext, gui));
 	}
 
 	public SlotType getType() {

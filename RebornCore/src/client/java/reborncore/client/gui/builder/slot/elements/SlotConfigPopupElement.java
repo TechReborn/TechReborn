@@ -27,6 +27,7 @@ package reborncore.client.gui.builder.slot.elements;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.Tessellator;
@@ -67,9 +68,9 @@ public class SlotConfigPopupElement extends ElementBase {
 	}
 
 	@Override
-	public void draw(MatrixStack matrixStack, GuiBase<?> gui) {
-		drawDefaultBackground(matrixStack, gui, adjustX(gui, getX() - 8), adjustY(gui, getY() - 7), 84, 105 + (filter ? 15 : 0));
-		super.draw(matrixStack, gui);
+	public void draw(DrawContext drawContext, GuiBase<?> gui) {
+		drawDefaultBackground(drawContext, gui, adjustX(gui, getX() - 8), adjustY(gui, getY() - 7), 84, 105 + (filter ? 15 : 0));
+		super.draw(drawContext, gui);
 
 		MachineBaseBlockEntity machine = ((MachineBaseBlockEntity) gui.be);
 		World world = machine.getWorld();
@@ -86,12 +87,12 @@ public class SlotConfigPopupElement extends ElementBase {
 		drawState(gui, world, model, actualState, pos, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //right
 		drawState(gui, world, model, actualState, pos, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F)); //back
 
-		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.UP.getFacing(machine), id, 22, -1, gui);
-		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.FRONT.getFacing(machine), id, 22, 18, gui);
-		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.DOWN.getFacing(machine), id, 22, 37, gui);
-		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.RIGHT.getFacing(machine), id, 41, 18, gui);
-		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.BACK.getFacing(machine), id, 41, 37, gui);
-		drawSlotSateColor(matrixStack, gui.getMachine(), MachineFacing.LEFT.getFacing(machine), id, 3, 18, gui);
+		drawSlotSateColor(drawContext, gui.getMachine(), MachineFacing.UP.getFacing(machine), id, 22, -1, gui);
+		drawSlotSateColor(drawContext, gui.getMachine(), MachineFacing.FRONT.getFacing(machine), id, 22, 18, gui);
+		drawSlotSateColor(drawContext, gui.getMachine(), MachineFacing.DOWN.getFacing(machine), id, 22, 37, gui);
+		drawSlotSateColor(drawContext, gui.getMachine(), MachineFacing.RIGHT.getFacing(machine), id, 41, 18, gui);
+		drawSlotSateColor(drawContext, gui.getMachine(), MachineFacing.BACK.getFacing(machine), id, 41, 37, gui);
+		drawSlotSateColor(drawContext, gui.getMachine(), MachineFacing.LEFT.getFacing(machine), id, 3, 18, gui);
 	}
 
 	@Override
@@ -148,7 +149,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		ClientNetworkManager.sendToServer(packetSlotSave);
 	}
 
-	private void drawSlotSateColor(MatrixStack matrices, MachineBaseBlockEntity machineBase, Direction side, int slotID, int inx, int iny, GuiBase<?> gui) {
+	private void drawSlotSateColor(DrawContext drawContext, MachineBaseBlockEntity machineBase, Direction side, int slotID, int inx, int iny, GuiBase<?> gui) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -164,7 +165,7 @@ public class SlotConfigPopupElement extends ElementBase {
 			default -> new Color(0, 0, 0, 0);
 		};
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		GuiUtil.drawGradientRect(matrices, sx, sy, 18, 18, color.getColor(), color.getColor());
+		GuiUtil.drawGradientRect(drawContext.getMatrices(), sx, sy, 18, 18, color.getColor(), color.getColor());
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
 	}
