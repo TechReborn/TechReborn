@@ -27,7 +27,6 @@ package techreborn.blocks.misc;
 import net.minecraft.block.PressurePlateBlock;
 import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
-import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy

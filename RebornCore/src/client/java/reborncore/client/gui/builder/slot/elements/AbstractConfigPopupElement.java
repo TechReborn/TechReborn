@@ -106,13 +106,13 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 	}
 
 	protected void drawState(DrawContext drawContext,
-						  GuiBase<?> gui,
-						  BakedModel model,
-						  BlockState actualState,
-						  BlockRenderManager dispatcher,
-						  int x,
-						  int y,
-						  Quaternionf quaternion) {
+						GuiBase<?> gui,
+						BakedModel model,
+						BlockState actualState,
+						BlockRenderManager dispatcher,
+						int x,
+						int y,
+						Quaternionf quaternion) {
 		MatrixStack matrixStack = drawContext.getMatrices();
 		matrixStack.push();
 		matrixStack.translate(8 + gui.getGuiLeft() + this.x + x, 8 + gui.getGuiTop() + this.y + y, 0);
