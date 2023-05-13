@@ -100,7 +100,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			default -> new Color(0, 0, 0, 0);
 		};
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		GuiUtil.drawGradientRect(drawContext.getMatrices(), sx, sy, 18, 18, color.getColor(), color.getColor());
+		GuiUtil.drawGradientRect(drawContext, sx, sy, 18, 18, color.getColor(), color.getColor());
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 }

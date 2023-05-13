@@ -83,7 +83,7 @@ public class SlotConfigGui {
 			}
 			RenderSystem.setShaderColor(1.0F, 0, 0, 1.0F);
 			Color color = new Color(255, 0, 0, 128);
-			GuiUtil.drawGradientRect(drawContext.getMatrices(), slot.x - 1, slot.y - 1, 18, 18, color.getColor(), color.getColor());
+			GuiUtil.drawGradientRect(drawContext, slot.x - 1, slot.y - 1, 18, 18, color.getColor(), color.getColor());
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		}
 

@@ -24,28 +24,13 @@
 
 package reborncore.client.gui;
 
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import reborncore.client.RenderUtil;
 
 public class GuiUtil {
-	public static void drawTooltipBox(MatrixStack matrices, int x, int y, int w, int h) {
-		int bg = 0xf0100010;
-		drawGradientRect(matrices, x + 1, y, w - 1, 1, bg, bg);
-		drawGradientRect(matrices, x + 1, y + h, w - 1, 1, bg, bg);
-		drawGradientRect(matrices, x + 1, y + 1, w - 1, h - 1, bg, bg);// center
-		drawGradientRect(matrices, x, y + 1, 1, h - 1, bg, bg);
-		drawGradientRect(matrices, x + w, y + 1, 1, h - 1, bg, bg);
-		int grad1 = 0x505000ff;
-		int grad2 = 0x5028007F;
-		drawGradientRect(matrices, x + 1, y + 2, 1, h - 3, grad1, grad2);
-		drawGradientRect(matrices, x + w - 1, y + 2, 1, h - 3, grad1, grad2);
-
-		drawGradientRect(matrices, x + 1, y + 1, w - 1, 1, grad1, grad1);
-		drawGradientRect(matrices, x + 1, y + h - 1, w - 1, 1, grad2, grad2);
-	}
-
-	public static void drawGradientRect(MatrixStack matrices, int x, int y, int w, int h, int colour1, int colour2) {
-		RenderUtil.drawGradientRect(matrices, 0, x, y, x + w, y + h, colour1, colour2);
+	@Deprecated(forRemoval = true) // TODO 1.20 remove me
+	public static void drawGradientRect(DrawContext drawContext, int x, int y, int w, int h, int colour1, int colour2) {
+		RenderUtil.drawGradientRect(drawContext, 0, x, y, x + w, y + h, colour1, colour2);
 	}
 
 }
