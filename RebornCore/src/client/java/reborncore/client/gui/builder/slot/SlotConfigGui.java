@@ -25,16 +25,13 @@
 package reborncore.client.gui.builder.slot;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientChatUtils;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
 import reborncore.client.gui.builder.slot.elements.ElementBase;
@@ -81,14 +78,12 @@ public class SlotConfigGui {
 			if (guiBase.be != slot.inventory) {
 				continue;
 			}
-			RenderSystem.setShaderColor(1.0F, 0, 0, 1.0F);
 			Color color = new Color(255, 0, 0, 128);
-			GuiUtil.drawGradientRect(drawContext, slot.x - 1, slot.y - 1, 18, 18, color.getColor(), color.getColor());
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+			drawContext.fill(slot.x -1, slot.y -1, slot.x + 17, slot.y + 17, color.getColor());
 		}
 
 		if (selectedSlot != -1) {
-
 			slotElementMap.get(selectedSlot).draw(drawContext, guiBase);
 		}
 	}

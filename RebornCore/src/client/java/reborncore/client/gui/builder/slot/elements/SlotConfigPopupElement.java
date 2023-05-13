@@ -24,12 +24,10 @@
 
 package reborncore.client.gui.builder.slot.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.IdentifiedPacket;
@@ -99,8 +97,6 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			case OUTPUT -> new Color(255, 69, 0, 128);
 			default -> new Color(0, 0, 0, 0);
 		};
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		GuiUtil.drawGradientRect(drawContext, sx, sy, 18, 18, color.getColor(), color.getColor());
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		drawContext.fill(sx, sy, sx + 18, sy + 18, color.getColor());
 	}
 }

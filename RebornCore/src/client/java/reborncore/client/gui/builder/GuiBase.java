@@ -24,7 +24,6 @@
 
 package reborncore.client.gui.builder;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -33,7 +32,6 @@ import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -199,7 +197,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	@Override
 	protected void drawBackground(DrawContext drawContext, float lastFrameDuration, int mouseX, int mouseY) {
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		renderBackground(drawContext);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
@@ -248,13 +245,17 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	@Override
 	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
 		drawTitle(drawContext);
-		getTab().ifPresent(guiTab -> guiTab.draw(drawContext, mouseX, mouseY));
 	}
 
 	@Override
 	public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
 		super.render(drawContext, mouseX, mouseY, partialTicks);
 		this.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+
+		drawContext.getMatrices().push();
+		drawContext.getMatrices().translate(this.x, this.y, 900);
+		getTab().ifPresent(guiTab -> guiTab.draw(drawContext, mouseX, mouseY));
+		drawContext.getMatrices().pop();
 	}
 
 	@Override
@@ -306,7 +307,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			factorY = this.y;
 		}
 		drawContext.drawText(MinecraftClient.getInstance().textRenderer, text, x + factorX, y + factorY, colour, false);
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
 	public GuiButtonHologram addHologramButton(int x, int y, int id, Layer layer) {

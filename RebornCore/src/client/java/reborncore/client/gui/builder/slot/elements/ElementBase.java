@@ -24,16 +24,10 @@
 
 package reborncore.client.gui.builder.slot.elements;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import reborncore.client.RenderUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -286,7 +280,6 @@ public class ElementBase {
 		Sprite sprite = iSprite.getSprite(gui.getMachine());
 		if (sprite != null) {
 			if (sprite.hasTextureInfo()) {
-				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				drawContext.drawTexture(sprite.textureLocation, x + gui.getGuiLeft(), y + gui.getGuiTop(), sprite.x, sprite.y, sprite.width, sprite.height);
 			}
 			if (sprite.hasStack()) {

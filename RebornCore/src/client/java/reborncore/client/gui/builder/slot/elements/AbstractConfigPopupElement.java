@@ -34,11 +34,8 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraft.world.World;
 import org.joml.Quaternionf;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -56,20 +53,18 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 		drawDefaultBackground(drawContext, gui, adjustX(gui, getX() - 8), adjustY(gui, getY() - 7), 84, 105 + (filter ? 15 : 0));
 		super.draw(drawContext, gui);
 
-		MachineBaseBlockEntity machine = ((MachineBaseBlockEntity) gui.be);
-		World world = machine.getWorld();
-		BlockPos pos = machine.getPos();
-		BlockState state = world.getBlockState(pos);
-		BlockState actualState = state.getBlock().getDefaultState();
-		BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
-		BakedModel model = dispatcher.getModels().getModel(state.getBlock().getDefaultState());
-		MinecraftClient.getInstance().getTextureManager().bindTexture(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
-		drawState(drawContext, gui, world, model, actualState, pos, dispatcher, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //left
-		drawState(drawContext, gui, world, model, actualState, pos, dispatcher, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F)); //top
-		drawState(drawContext, gui, world, model, actualState, pos, dispatcher, 23, 23, null); //centre
-		drawState(drawContext, gui, world, model, actualState, pos, dispatcher, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F)); //bottom
-		drawState(drawContext, gui, world, model, actualState, pos, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //right
-		drawState(drawContext, gui, world, model, actualState, pos, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F)); //back
+		final MachineBaseBlockEntity machine = ((MachineBaseBlockEntity) gui.be);
+		final BlockState state = machine.getCachedState();
+		final BlockState defaultState = state.getBlock().getDefaultState();
+		final BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
+		final BakedModel model = dispatcher.getModels().getModel(defaultState);
+
+		drawState(drawContext, gui, model, defaultState, dispatcher, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //left
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F)); //top
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 23, null); //centre
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F)); //bottom
+		drawState(drawContext, gui, model, defaultState, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //right
+		drawState(drawContext, gui, model, defaultState, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F)); //back
 
 		drawSateColor(drawContext, gui, MachineFacing.UP.getFacing(machine), 22, -1);
 		drawSateColor(drawContext, gui, MachineFacing.FRONT.getFacing(machine), 22, 18);
@@ -112,20 +107,18 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	protected void drawState(DrawContext drawContext,
 						  GuiBase<?> gui,
-						  World world,
 						  BakedModel model,
 						  BlockState actualState,
-						  BlockPos pos,
 						  BlockRenderManager dispatcher,
 						  int x,
 						  int y,
 						  Quaternionf quaternion) {
 		MatrixStack matrixStack = drawContext.getMatrices();
 		matrixStack.push();
-		matrixStack.translate(8 + gui.getGuiLeft() + this.x + x, 8 + gui.getGuiTop() + this.y + y, 512);
+		matrixStack.translate(8 + gui.getGuiLeft() + this.x + x, 8 + gui.getGuiTop() + this.y + y, 0);
 		matrixStack.scale(16F, 16F, 16F);
-		matrixStack.translate(0.5F, 0.5F, 0.5F);
-		matrixStack.scale(-1, -1, -1);
+		matrixStack.translate(0.5F, 0.5F, 0);
+		matrixStack.scale(-1, -1, 0);
 
 		if (quaternion != null) {
 			matrixStack.multiply(quaternion);
