@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.registry.RegistryBuilder
 import net.minecraft.registry.RegistryKeys
 import techreborn.TechReborn
+import techreborn.datagen.advancement.TRAdvancementProvider
 import techreborn.datagen.loottables.BlockLootTableProvider
 import techreborn.datagen.models.ModelProvider
 import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
@@ -85,6 +86,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 		add BlockLootTableProvider::new
 
 		add TRDynamicProvider::new
+		add TRAdvancementProvider::new
 	}
 
 	@Override
