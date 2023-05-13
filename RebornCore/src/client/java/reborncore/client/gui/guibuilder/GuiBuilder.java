@@ -683,6 +683,7 @@ public class GuiBuilder {
 				break;
 			}
 		}
+		drawContext.setShaderColor(1, 1, 1, 1);
 	}
 
 	/**
