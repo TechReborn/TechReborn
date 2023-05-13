@@ -298,7 +298,7 @@ public class ElementBase {
 	public void drawText(DrawContext drawContext, GuiBase<?> gui, Text text, int x, int y, int color) {
 		x = adjustX(gui, x);
 		y = adjustY(gui, y);
-		drawContext.drawText(gui.getTextRenderer(), text, x, y, color, true);
+		drawContext.drawText(gui.getTextRenderer(), text, x, y, color, false);
 	}
 
 	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, ISprite iSprite, int x, int y) {

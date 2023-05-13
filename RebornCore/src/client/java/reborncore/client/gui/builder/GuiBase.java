@@ -305,7 +305,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			factorX = this.x;
 			factorY = this.y;
 		}
-		drawContext.drawText(MinecraftClient.getInstance().textRenderer, text, x + factorX, y + factorY, colour, true);
+		drawContext.drawText(MinecraftClient.getInstance().textRenderer, text, x + factorX, y + factorY, colour, false);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
