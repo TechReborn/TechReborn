@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -41,28 +41,28 @@ public class GuiBlockPlacer extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(matrixStack, f, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		BlockPlacerProcessor processor = blockEntity.getProcessor();
 
-		drawSlot(matrixStack, 8, 72, layer);
+		drawSlot(drawContext, 8, 72, layer);
 
-		drawCentredText(matrixStack, blockEntity.getProcessor().getStatusEnum().getText(), 25, processor.getStatusEnum().getColor(), layer);
+		drawCentredText(drawContext, blockEntity.getProcessor().getStatusEnum().getText(), 25, processor.getStatusEnum().getColor(), layer);
 
-		drawCentredText(matrixStack, processor.getStatusEnum().getProgressText(processor.getProgress()), 40, processor.getStatusEnum().getColor(), layer);
+		drawCentredText(drawContext, processor.getStatusEnum().getProgressText(processor.getProgress()), 40, processor.getStatusEnum().getColor(), layer);
 
-		drawSlot(matrixStack, 80, 60, layer);
+		drawSlot(drawContext, 80, 60, layer);
 
-		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
+		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }

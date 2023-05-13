@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.tuple.Pair;
@@ -63,59 +63,59 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, final float partialTicks, final int mouseX, final int mouseY) {
-		super.drawBackground(matrixStack, partialTicks, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, final float partialTicks, final int mouseX, final int mouseY) {
+		super.drawBackground(drawContext, partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		drawSlot(matrixStack, 34, 47, layer);
-		drawSlot(matrixStack, 126, 47, layer);
-		drawOutputSlot(matrixStack, 80, 47, layer);
+		drawSlot(drawContext, 34, 47, layer);
+		drawSlot(drawContext, 126, 47, layer);
+		drawOutputSlot(drawContext, 80, 47, layer);
 
-		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
+		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 		if (blockEntity.isMultiblockValid()) {
-			builder.drawHologramButton(matrixStack, this, 6, 4, mouseX, mouseY, layer);
+			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}
 
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
+		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
 		if (blockEntity.isMultiblockValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
-			drawCentredText(matrixStack, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
+			drawCentredText(drawContext, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
 			if (blockEntity.state == 2) {
-				drawCentredText(matrixStack, Text.literal(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
+				drawCentredText(drawContext, Text.literal(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
 			}
 		} else {
-			builder.drawMultiblockMissingBar(matrixStack, this, layer);
+			builder.drawMultiblockMissingBar(drawContext, this, layer);
 			addHologramButton(76, 56, 212, layer).clickHandler(this::hologramToggle);
-			builder.drawHologramButton(matrixStack, this, 76, 56, mouseX, mouseY, layer);
+			builder.drawHologramButton(drawContext, this, 76, 56, mouseX, mouseY, layer);
 
 			Optional<Pair<Integer, Integer>> stackSize = getCoilStackCount();
 			if (stackSize.isPresent()) {
 				if (stackSize.get().getLeft() > 0) {
 
-					drawCentredText(matrixStack,
+					drawCentredText(drawContext,
 							Text.literal("Required Coils: ")
 									.append(String.valueOf(stackSize.get().getLeft()))
 									.append("x64 +")
 									.append(String.valueOf(stackSize.get().getRight()))
 							, 25, 0xFFFFFF, layer);
 				} else {
-					drawCentredText(matrixStack, Text.literal("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFF, layer);
+					drawCentredText(drawContext, Text.literal("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFF, layer);
 				}
 
 			}
 		}
-		drawTextWithShadow(matrixStack, this.textRenderer, Text.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
-		drawTextWithShadow(matrixStack, this.textRenderer, Text.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
+		drawTextWithShadow(drawContext, this.textRenderer, Text.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
+		drawTextWithShadow(drawContext, this.textRenderer, Text.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, this.blockEntity.getEnergy(), this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(drawContext, this, 9, 19, this.blockEntity.getEnergy(), this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y) {

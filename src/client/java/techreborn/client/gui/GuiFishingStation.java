@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -40,28 +40,28 @@ public class GuiFishingStation extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(matrixStack, f, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(drawContext, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		drawSlot(matrixStack, 8, 72, layer);
+		drawSlot(drawContext, 8, 72, layer);
 
 		int gridYPos = 22;
-		drawSlot(matrixStack, 30, gridYPos, layer);
-		drawSlot(matrixStack, 48, gridYPos, layer);
-		drawSlot(matrixStack, 30, gridYPos + 18, layer);
-		drawSlot(matrixStack, 48, gridYPos + 18, layer);
-		drawSlot(matrixStack, 30, gridYPos + 36, layer);
-		drawSlot(matrixStack, 48, gridYPos + 36, layer);
+		drawSlot(drawContext, 30, gridYPos, layer);
+		drawSlot(drawContext, 48, gridYPos, layer);
+		drawSlot(drawContext, 30, gridYPos + 18, layer);
+		drawSlot(drawContext, 48, gridYPos + 18, layer);
+		drawSlot(drawContext, 30, gridYPos + 36, layer);
+		drawSlot(drawContext, 48, gridYPos + 36, layer);
 
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 }

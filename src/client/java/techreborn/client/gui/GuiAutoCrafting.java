@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipe;
@@ -51,38 +51,38 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 		this.blockEntityAutoCraftingTable = blockEntity;
 	}
 
-	public void renderItemStack(MatrixStack matrixStack, ItemStack stack, int x, int y) {
-		MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(matrixStack, stack, x, y);
+	public void renderItemStack(DrawContext drawContext, ItemStack stack, int x, int y) {
+		drawContext.drawItem(stack, x, y);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(matrixStack, this, blockEntityAutoCraftingTable.getProgress(), blockEntityAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 26, (int) blockEntityAutoCraftingTable.getEnergy(), (int) blockEntityAutoCraftingTable.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(drawContext, this, blockEntityAutoCraftingTable.getProgress(), blockEntityAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(drawContext, this, 9, 26, (int) blockEntityAutoCraftingTable.getEnergy(), (int) blockEntityAutoCraftingTable.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, final float f, int mouseX, int mouseY) {
-		super.drawBackground(matrixStack, f, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, final float f, int mouseX, int mouseY) {
+		super.drawBackground(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				drawSlot(matrixStack, 28 + (i * 18), 25 + (j * 18), layer);
+				drawSlot(drawContext, 28 + (i * 18), 25 + (j * 18), layer);
 			}
 		}
-		drawOutputSlot(matrixStack, 95, 42, layer);
-		drawOutputSlot(matrixStack, 145, 42, layer);
-		drawOutputSlot(matrixStack, 145, 70, layer);
+		drawOutputSlot(drawContext, 95, 42, layer);
+		drawOutputSlot(drawContext, 145, 42, layer);
+		drawOutputSlot(drawContext, 145, 70, layer);
 
 		CraftingRecipe recipe = blockEntityAutoCraftingTable.getCurrentRecipe();
 		if (recipe != null) {
-			renderItemStack(matrixStack, recipe.getOutput(getMachine().getWorld().getRegistryManager()), 95 + getGuiLeft(), 42 + getGuiTop());
+			renderItemStack(drawContext, recipe.getOutput(getMachine().getWorld().getRegistryManager()), 95 + getGuiLeft(), 42 + getGuiTop());
 		}
 
-		builder.drawLockButton(matrixStack, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);
+		builder.drawLockButton(drawContext, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);
 	}
 
 	@Override

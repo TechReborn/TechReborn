@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
@@ -42,25 +42,25 @@ public class GuiMFSU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(matrixStack, f, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		drawSlot(matrixStack, 62, 45, layer);
-		drawSlot(matrixStack, 98, 45, layer);
-		drawArmourSlots(matrixStack, 8, 18, layer);
+		drawSlot(drawContext, 62, 45, layer);
+		drawSlot(drawContext, 98, 45, layer);
+		drawArmourSlots(drawContext, 8, 18, layer);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		matrixStack.push();
-		matrixStack.scale(0.6f, 0.6f, 1.0f);
-		drawCentredText(matrixStack, Text.literal(PowerSystem.getLocalizedPowerNoSuffix(mfsu.getEnergy()) + "/" + PowerSystem.getLocalizedPower(mfsu.getMaxStoredPower())), 35, 0, 58, layer);
-		matrixStack.pop();
+		drawContext.push();
+		drawContext.scale(0.6f, 0.6f, 1.0f);
+		drawCentredText(drawContext, Text.literal(PowerSystem.getLocalizedPowerNoSuffix(mfsu.getEnergy()) + "/" + PowerSystem.getLocalizedPower(mfsu.getMaxStoredPower())), 35, 0, 58, layer);
+		drawContext.pop();
 
-		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) mfsu.getEnergy(), (int) mfsu.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) mfsu.getEnergy(), (int) mfsu.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }
