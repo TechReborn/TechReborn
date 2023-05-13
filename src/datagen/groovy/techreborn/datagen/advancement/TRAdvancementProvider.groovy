@@ -120,7 +120,23 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 			condition placedBlock(TRContent.Machine.WIND_MILL.block)
 		}
 
-		solarTree(generator)
+		def watermill = create {
+			parent windmill
+			name "watermill"
+			frame AdvancementFrame.GOAL
+			icon TRContent.Machine.WATER_MILL
+			condition placedBlock(TRContent.Machine.WATER_MILL.block)
+		}
+
+		def thermalGenerator = create {
+			parent watermill
+			name "thermalgenerator"
+			frame AdvancementFrame.GOAL
+			icon TRContent.Machine.THERMAL_GENERATOR
+			condition placedBlock(TRContent.Machine.THERMAL_GENERATOR.block)
+		}
+
+		solarTree(machineBlock)
 	}
 
 	private void solarTree(Advancement root) {
@@ -231,6 +247,15 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 			condition placedBlock(TRContent.Machine.LV_TRANSFORMER.block)
 		}
 
+		def futureTransformer = create {
+			parent lvTransformer
+			name "futuretransformer"
+			icon TRContent.Machine.MV_TRANSFORMER
+			condition placedBlock(TRContent.Machine.MV_TRANSFORMER.block)
+			condition placedBlock(TRContent.Machine.HV_TRANSFORMER.block)
+			condition placedBlock(TRContent.Machine.EV_TRANSFORMER.block)
+		}
+
 		def mfsu = create {
 			parent mfe
 			name "mfsu"
@@ -256,7 +281,68 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 			condition placedBlock(TRContent.Machine.IRON_FURNACE.block)
 		}
 
-		// TODO fill this out some more
+		def electricFurnace = create {
+			parent ironFurnace
+			name "electricfurnace"
+			icon TRContent.Machine.ELECTRIC_FURNACE
+			condition placedBlock(TRContent.Machine.ELECTRIC_FURNACE.block)
+		}
+
+		def grinder = create {
+			parent electricFurnace
+			name "grinder"
+			icon TRContent.Machine.GRINDER
+			condition placedBlock(TRContent.Machine.GRINDER.block)
+		}
+
+		def extractor = create {
+			parent grinder
+			name "extractor"
+			icon TRContent.Machine.EXTRACTOR
+			condition placedBlock(TRContent.Machine.EXTRACTOR.block)
+		}
+
+		def compressor = create {
+			parent grinder
+			name "compressor"
+			icon TRContent.Machine.COMPRESSOR
+			condition placedBlock(TRContent.Machine.COMPRESSOR.block)
+		}
+
+		def recycler = create {
+			parent compressor
+			name "recycler"
+			icon TRContent.Machine.RECYCLER
+			condition placedBlock(TRContent.Machine.RECYCLER.block)
+		}
+
+		def scrapboxinator = create {
+			parent recycler
+			name "scrapboxinator"
+			icon TRContent.Machine.SCRAPBOXINATOR
+			condition placedBlock(TRContent.Machine.SCRAPBOXINATOR.block)
+		}
+
+		def canningMachine = create {
+			parent electricFurnace
+			name "canningmachine"
+			icon TRContent.Machine.SOLID_CANNING_MACHINE
+			condition placedBlock(TRContent.Machine.SOLID_CANNING_MACHINE.block)
+		}
+
+		def rollingMachine = create {
+			parent electricFurnace
+			name "rollingmachine"
+			icon TRContent.Machine.ROLLING_MACHINE
+			condition placedBlock(TRContent.Machine.ROLLING_MACHINE.block)
+		}
+
+		def wireMill = create {
+			parent electricFurnace
+			name "wiremill"
+			icon TRContent.Machine.WIRE_MILL
+			condition placedBlock(TRContent.Machine.WIRE_MILL.block)
+		}
 
 		advancedMachineTreeTree(ironFurnace)
 	}
@@ -269,12 +355,27 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 			condition placedBlock(TRContent.MachineBlocks.ADVANCED.frame)
 		}
 
+		def lightningRod = create {
+			parent advancedMachineBlock
+			name "lightningrod"
+			frame AdvancementFrame.GOAL
+			icon TRContent.Machine.LIGHTNING_ROD
+			condition placedBlock(TRContent.Machine.LIGHTNING_ROD.block)
+		}
+
 		def fusionCoil = create {
 			parent advancedMachineBlock
 			name "fusioncoil"
 			icon TRContent.Machine.FUSION_COIL
-			frame AdvancementFrame.CHALLENGE
 			condition placedBlock(TRContent.Machine.FUSION_COIL.block)
+		}
+
+		def fusionComputer = create {
+			parent fusionCoil
+			name "fusioncomputer"
+			icon TRContent.Machine.FUSION_CONTROL_COMPUTER
+			frame AdvancementFrame.CHALLENGE
+			condition placedBlock(TRContent.Machine.FUSION_CONTROL_COMPUTER.block)
 		}
 
 		def nuke = create {
@@ -293,6 +394,48 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 			condition placedBlock(TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block)
 		}
 
+		def nickelNugget = create {
+			parent industrialCentrifuge
+			name "nickelnugget"
+			icon TRContent.Nuggets.NICKEL
+			condition inventoryChanged(TRContent.Nuggets.NICKEL)
+		}
+
+		def blastFurnace = create {
+			parent nickelNugget
+			name "blastfurnace"
+			icon TRContent.Machine.INDUSTRIAL_BLAST_FURNACE
+			frame AdvancementFrame.GOAL
+			condition placedBlock(TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block)
+		}
+
+		def industrialGrinder = create {
+			parent blastFurnace
+			name "industrialgrinder"
+			icon TRContent.Machine.INDUSTRIAL_GRINDER
+			frame AdvancementFrame.GOAL
+			condition placedBlock(TRContent.Machine.INDUSTRIAL_GRINDER.block)
+		}
+
+		def implosion = create {
+			parent industrialGrinder
+			name "implosion"
+			icon TRContent.Machine.IMPLOSION_COMPRESSOR
+			frame AdvancementFrame.GOAL
+			condition placedBlock(TRContent.Machine.IMPLOSION_COMPRESSOR.block)
+		}
+
+		def quantumArmor = create {
+			parent implosion
+			name "quantumarmor"
+			icon TRContent.QUANTUM_CHESTPLATE
+			frame AdvancementFrame.GOAL
+			condition inventoryChanged(TRContent.QUANTUM_HELMET)
+			condition inventoryChanged(TRContent.QUANTUM_CHESTPLATE)
+			condition inventoryChanged(TRContent.QUANTUM_LEGGINGS)
+			condition inventoryChanged(TRContent.QUANTUM_BOOTS)
+		}
+
 		def industrialMachineBlock = create {
 			parent advancedMachineBlock
 			name "industrialmachineblock"
@@ -300,8 +443,16 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 			condition placedBlock(TRContent.MachineBlocks.INDUSTRIAL.frame)
 		}
 
+		def matterFabricator = create {
+			parent industrialMachineBlock
+			name "matterfabricator"
+			icon TRContent.Machine.MATTER_FABRICATOR
+			frame AdvancementFrame.CHALLENGE
+			condition placedBlock(TRContent.Machine.MATTER_FABRICATOR.block)
+		}
+
 		def quantumTank = create {
-			parent advancedMachineBlock
+			parent industrialMachineBlock
 			name "quantumtank"
 			icon TRContent.TankUnit.QUANTUM
 			frame AdvancementFrame.CHALLENGE
