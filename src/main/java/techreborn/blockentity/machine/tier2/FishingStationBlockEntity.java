@@ -32,7 +32,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
-import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
@@ -118,7 +117,6 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 
 		if (getStored() > TechRebornConfig.fishingStationEnergyPerCatch) {
 			final LootContextParameterSet lootContextParameterSet = new LootContextParameterSet.Builder(serverWorld)
-				.add(LootContextParameters.BLOCK_ENTITY, this)
 				.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(frontPos))
 				.add(LootContextParameters.TOOL, TRContent.Machine.FISHING_STATION.getStack())
 				.build(LootContextTypes.FISHING);
