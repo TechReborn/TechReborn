@@ -24,12 +24,10 @@
 
 package reborncore.client.gui.builder.slot.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -96,8 +94,6 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 			case OUTPUT -> new Color(255, 69, 0, 128);
 			case ALL -> new Color(52, 255, 30, 128);
 		};
-		RenderSystem.setShaderColor(1, 1, 1, 1);
-		GuiUtil.drawGradientRect(drawContext, sx, sy, 18, 18, color.getColor(), color.getColor());
-		RenderSystem.setShaderColor(1, 1, 1, 1);
+		drawContext.fill(sx, sy, sx + 18, sy + 18, color.getColor());
 	}
 }

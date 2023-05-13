@@ -25,7 +25,6 @@
 package reborncore.client.gui.guibuilder;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
@@ -40,7 +39,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.api.IListInfoProvider;
-import reborncore.client.RenderUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.GuiTab;
 import reborncore.common.fluid.FluidUtils;
@@ -328,13 +326,11 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		RenderSystem.enableDepthTest();
-		RenderSystem.colorMask(true, true, true, false);
-		RenderUtil.drawGradientRect(drawContext, 0, x, y, x + 176, y + 20, 0x000000, 0xC0000000);
-		RenderUtil.drawGradientRect(drawContext, 0, x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
-		RenderUtil.drawGradientRect(drawContext, 0, x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
-		RenderSystem.colorMask(true, true, true, true);
-		RenderSystem.disableDepthTest();
+
+		drawContext.fillGradient(x, y, x + 176, y + 20, 0x000000, 0xC0000000);
+		drawContext.fillGradient(x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
+		drawContext.fillGradient(x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
+
 		gui.drawCentredText(drawContext, Text.translatable("reborncore.gui.missingmultiblock"), 43, 0xFFFFFF, layer);
 	}
 

@@ -24,22 +24,10 @@
 
 package reborncore.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.*;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import reborncore.common.fluid.FluidValue;
-import reborncore.common.fluid.container.FluidInstance;
-import reborncore.common.util.Tank;
 
 /**
  * Created by Gigabit101 on 08/08/2016.
@@ -48,34 +36,4 @@ public class RenderUtil {
 	public static Sprite getSprite(Identifier identifier) {
 		return MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(identifier);
 	}
-
-	public static void drawGradientRect(DrawContext drawContext, int zLevel, int left, int top, int right, int bottom, int startColor, int endColor) {
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
-		RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferBuilder = tessellator.getBuffer();
-		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-
-		float f = (startColor >> 24 & 0xFF) / 255.0F;
-		float g = (startColor >> 16 & 0xFF) / 255.0F;
-		float h = (startColor >> 8 & 0xFF) / 255.0F;
-		float i = (startColor & 0xFF) / 255.0F;
-
-		float j = (endColor >> 24 & 0xFF) / 255.0F;
-		float k = (endColor >> 16 & 0xFF) / 255.0F;
-		float l = (endColor >> 8 & 0xFF) / 255.0F;
-		float m = (endColor & 0xFF) / 255.0F;
-
-		bufferBuilder.vertex(drawContext.getMatrices().peek().getPositionMatrix(), right, top, zLevel).color(g, h, i, f).next();
-		bufferBuilder.vertex(drawContext.getMatrices().peek().getPositionMatrix(), left, top, zLevel).color(g, h, i, f).next();
-		bufferBuilder.vertex(drawContext.getMatrices().peek().getPositionMatrix(), left, bottom, zLevel).color(k, l, m, j).next();
-		bufferBuilder.vertex(drawContext.getMatrices().peek().getPositionMatrix(), right, bottom, zLevel).color(k, l, m, j).next();
-
-		tessellator.draw();
-		RenderSystem.disableBlend();
-
-	}
-
 }
