@@ -25,7 +25,7 @@
 package reborncore.mixin.common;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.CraftingResultSlot;
 import org.spongepowered.asm.mixin.Final;
@@ -41,7 +41,7 @@ public abstract class MixinCraftingResultSlot {
 
 	@Shadow
 	@Final
-	private CraftingInventory input;
+	private RecipeInputInventory input;
 
 	@Shadow
 	@Final

@@ -50,6 +50,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
@@ -94,6 +95,11 @@ import java.util.stream.Stream;
 
 public class ReiPlugin implements REIClientPlugin {
 	public static final Map<RebornRecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
+
+	@Deprecated(forRemoval = true)
+	public static DrawContext drawContext() {
+		throw new IllegalStateException("TODO 1.20 port!");
+	}
 
 	public ReiPlugin() {
 		iconMap.put(ModRecipes.ALLOY_SMELTER, Machine.ALLOY_SMELTER);
@@ -270,19 +276,18 @@ public class ReiPlugin implements REIClientPlugin {
 	}
 
 	public static Widget createProgressBar(int x, int y, double animationDuration, GuiBuilder.ProgressDirection direction) {
-		return Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> {
-			RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-			helper.drawTexture(matrices, x, y, direction.x, direction.y, direction.width, direction.height);
+		return Widgets.createDrawableWidget((drawContext, matrices, mouseX, mouseY, delta) -> {
+			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, direction.x, direction.y, direction.width, direction.height);
 			int j = (int) ((System.currentTimeMillis() / animationDuration) % 1.0 * 16.0);
 			if (j < 0) {
 				j = 0;
 			}
 
 			switch (direction) {
-				case RIGHT -> helper.drawTexture(matrices, x, y, direction.xActive, direction.yActive, j, 10);
-				case LEFT -> helper.drawTexture(matrices, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-				case UP -> helper.drawTexture(matrices, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-				case DOWN -> helper.drawTexture(matrices, x, y, direction.xActive, direction.yActive, 10, j);
+				case RIGHT -> drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, direction.xActive, direction.yActive, j, 10);
+				case LEFT -> drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+				case UP -> drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+				case DOWN -> drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, direction.xActive, direction.yActive, 10, j);
 			}
 		});
 	}
@@ -315,15 +320,14 @@ public class ReiPlugin implements REIClientPlugin {
 			int innerHeight = height - 2;
 
 			PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
-			RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-			drawTexture(matrices, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
+			drawContext().drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
 				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) innerHeight) % innerHeight));
 				if (animation.animationType == EntryAnimationType.DOWNWARDS)
 					innerDisplayHeight = innerHeight - innerDisplayHeight;
 			} else innerDisplayHeight = innerHeight;
-			drawTexture(matrices, bounds.x, bounds.y + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
+			drawContext().drawTexture(GuiBuilder.defaultTextureSheet, bounds.x, bounds.y + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
 		}
 
 		@Override
@@ -347,9 +351,8 @@ public class ReiPlugin implements REIClientPlugin {
 			int width = bounds.width;
 			int height = bounds.height;
 
-			RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-			drawTexture(matrices, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
-			drawTexture(matrices, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
+			drawContext().drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
+			drawContext().drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
 				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) height) % height));
@@ -382,7 +385,7 @@ public class ReiPlugin implements REIClientPlugin {
 			while (offsetHeight != 0) {
 				final int curHeight = Math.min(offsetHeight, iconHeight);
 
-				drawSprite(matrixStack, x, y - offsetHeight, 0, width, curHeight, sprite);
+				drawContext().drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
 				offsetHeight -= curHeight;
 				iteration++;
 				if (iteration > 50) {

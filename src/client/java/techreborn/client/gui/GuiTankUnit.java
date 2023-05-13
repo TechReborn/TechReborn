@@ -64,20 +64,20 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
 
 		if (fluid.isEmpty()) {
-			textRenderer.draw(drawContext, Text.translatable("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
+			drawContext.drawText(textRenderer, Text.translatable("techreborn.tooltip.unit.empty"), 10, 20, 4210752, false);
 		} else {
-			textRenderer.draw(drawContext, Text.translatable("gui.techreborn.tank.type"), 10, 20, 4210752);
-			textRenderer.draw(drawContext, FluidUtils.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.tank.type"), 10, 20, 4210752, false);
+			drawContext.drawText(textRenderer, FluidUtils.getFluidName(fluid).replace("_", " "), 10, 30, 4210752, false);
 
 
-			textRenderer.draw(drawContext, Text.translatable("gui.techreborn.tank.amount"), 10, 50, 4210752);
-			textRenderer.draw(drawContext, fluid.getAmount().toString(), 10, 60, 4210752);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.tank.amount"), 10, 50, 4210752, false);
+			drawContext.drawText(textRenderer, fluid.getAmount().toString(), 10, 60, 4210752, false);
 
 			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getFluidValueCapacity().getRawValue() * 100));
 
-			textRenderer.draw(drawContext, Text.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752, false);
 
-			textRenderer.draw(drawContext, Text.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680, false);
 		}
 	}
 

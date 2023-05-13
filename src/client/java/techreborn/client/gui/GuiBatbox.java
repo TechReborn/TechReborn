@@ -25,6 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
@@ -56,14 +57,15 @@ public class GuiBatbox extends GuiBase<BuiltScreenHandler> {
 		final Layer layer = Layer.FOREGROUND;
 
 		if (!hideGuiElements()) {
-			drawContext.push();
-			drawContext.scale(0.6f, 0.6f, 1.0f);
+			final MatrixStack matrices = drawContext.getMatrices();
+			matrices.push();
+			matrices.scale(0.6f, 0.6f, 1.0f);
 			Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
 					.append("/")
 					.append(PowerSystem.getLocalizedPower(blockEntity.getMaxStoredPower()));
 
 			drawCentredText(drawContext, text, 35, 0, 58, layer);
-			drawContext.pop();
+			matrices.pop();
 		}
 
 		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
