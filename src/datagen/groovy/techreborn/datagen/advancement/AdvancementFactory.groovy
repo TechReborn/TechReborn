@@ -39,6 +39,7 @@ class AdvancementFactory {
 	private List<CriterionConditions> conditionsList = []
 	private Advancement parent
 	private Identifier background
+	private boolean hidden = false
 
 	void name(String name) {
 		this.name = name
@@ -68,6 +69,10 @@ class AdvancementFactory {
 		this.background = identifier
 	}
 
+	void hidden(boolean hidden) {
+		this.hidden = hidden
+	}
+
 	Advancement build() {
 		Objects.requireNonNull(name, "No name set")
 		assert conditionsList.size() > 0
@@ -82,7 +87,7 @@ class AdvancementFactory {
 			frame,
 			true,
 			true,
-			false
+			hidden
 		)
 
 		int i = 0

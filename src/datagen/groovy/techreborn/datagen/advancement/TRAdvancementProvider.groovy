@@ -64,6 +64,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		}
 
 		refinedIronTree(root)
+		treeTapTree(root)
 	}
 
 	private void refinedIronTree(Advancement root) {
@@ -88,6 +89,22 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 			condition inventoryChanged(TRContent.MachineBlocks.BASIC.frame)
 		}
 
+		machineTree(machineBlock)
+
+		def ironAlloyFurnace = create {
+			parent machineBlock
+			name "ironalloyfurnace"
+			icon TRContent.Machine.IRON_ALLOY_FURNACE
+			condition inventoryChanged(TRContent.Machine.IRON_ALLOY_FURNACE.block)
+		}
+
+		def alloySmelter = create {
+			parent ironAlloyFurnace
+			name "alloysmelter"
+			icon TRContent.Machine.ALLOY_SMELTER
+			condition inventoryChanged(TRContent.Machine.ALLOY_SMELTER.block)
+		}
+
 		def generator = create {
 			parent machineBlock
 			name "generator"
@@ -101,6 +118,194 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 			frame AdvancementFrame.GOAL
 			icon TRContent.Machine.WIND_MILL
 			condition placedBlock(TRContent.Machine.WIND_MILL.block)
+		}
+
+		solarTree(generator)
+	}
+
+	private void solarTree(Advancement root) {
+		def basicSolar = create {
+			parent root
+			name "basicsolar"
+			icon TRContent.SolarPanels.BASIC
+			condition placedBlock(TRContent.SolarPanels.BASIC.block)
+		}
+
+		def advancedSolar = create {
+			parent basicSolar
+			name "advancedsolar"
+			icon TRContent.SolarPanels.ADVANCED
+			condition placedBlock(TRContent.SolarPanels.ADVANCED.block)
+		}
+
+		def industrialSolar = create {
+			parent advancedSolar
+			name "industrialsolar"
+			icon TRContent.SolarPanels.INDUSTRIAL
+			frame AdvancementFrame.GOAL
+			condition placedBlock(TRContent.SolarPanels.INDUSTRIAL.block)
+		}
+
+		def ultimateSolar = create {
+			parent industrialSolar
+			name "ultimatesolar"
+			icon TRContent.SolarPanels.ULTIMATE
+			frame AdvancementFrame.CHALLENGE
+			condition placedBlock(TRContent.SolarPanels.ULTIMATE.block)
+		}
+
+		def quantumSolar = create {
+			parent industrialSolar
+			name "quantumsolar"
+			icon TRContent.SolarPanels.QUANTUM
+			frame AdvancementFrame.CHALLENGE
+			condition placedBlock(TRContent.SolarPanels.QUANTUM.block)
+		}
+	}
+
+	private void treeTapTree(Advancement root) {
+		def treeTap = create {
+			parent root
+			name "treetap"
+			icon TRContent.TREE_TAP
+			condition inventoryChanged(TRContent.TREE_TAP)
+		}
+
+		def sap = create {
+			parent treeTap
+			name "sap"
+			icon TRContent.Parts.SAP
+			condition inventoryChanged(TRContent.Parts.SAP)
+		}
+
+		def rubber = create {
+			parent sap
+			name "rubber"
+			icon TRContent.Parts.RUBBER
+			condition inventoryChanged(TRContent.Parts.RUBBER)
+		}
+
+		def copperCable = create {
+			parent rubber
+			name "coppercable"
+			icon TRContent.Cables.COPPER
+			condition inventoryChanged(TRContent.Cables.COPPER)
+		}
+
+		def upgrade = create {
+			parent copperCable
+			name "upgrade"
+			icon TRContent.Upgrades.OVERCLOCKER
+
+			for (def upgrade in TRContent.Upgrades.values()) {
+				condition inventoryChanged(upgrade)
+			}
+		}
+
+		def cellBattery = create {
+			parent copperCable
+			name "cellbattery"
+			icon TRContent.RED_CELL_BATTERY
+			condition inventoryChanged(TRContent.RED_CELL_BATTERY)
+		}
+
+		def batBox = create {
+			parent cellBattery
+			name "batbox"
+			icon TRContent.Machine.LOW_VOLTAGE_SU
+			condition placedBlock(TRContent.Machine.LOW_VOLTAGE_SU.block)
+		}
+
+		def mfe = create {
+			parent batBox
+			name "mfe"
+			icon TRContent.Machine.MEDIUM_VOLTAGE_SU
+			frame AdvancementFrame.GOAL
+			condition placedBlock(TRContent.Machine.MEDIUM_VOLTAGE_SU.block)
+		}
+
+		def lvTransformer = create {
+			parent batBox
+			name "lvtransformer"
+			icon TRContent.Machine.LV_TRANSFORMER
+			condition placedBlock(TRContent.Machine.LV_TRANSFORMER.block)
+		}
+
+		def mfsu = create {
+			parent mfe
+			name "mfsu"
+			icon TRContent.Machine.HIGH_VOLTAGE_SU
+			frame AdvancementFrame.CHALLENGE
+			condition placedBlock(TRContent.Machine.HIGH_VOLTAGE_SU.block)
+		}
+
+		def idsu = create {
+			parent mfsu
+			name "interdimensionalsu"
+			icon TRContent.Machine.INTERDIMENSIONAL_SU
+			frame AdvancementFrame.CHALLENGE
+			condition placedBlock(TRContent.Machine.INTERDIMENSIONAL_SU.block)
+		}
+	}
+
+	private void machineTree(Advancement root) {
+		def ironFurnace = create {
+			parent root
+			name "ironfurnace"
+			icon TRContent.Machine.IRON_FURNACE
+			condition placedBlock(TRContent.Machine.IRON_FURNACE.block)
+		}
+
+		// TODO fill this out some more
+
+		advancedMachineTreeTree(ironFurnace)
+	}
+
+	private void advancedMachineTreeTree(Advancement root) {
+		def advancedMachineBlock = create {
+			parent root
+			name "advancedmachineblock"
+			icon TRContent.MachineBlocks.ADVANCED.frame
+			condition placedBlock(TRContent.MachineBlocks.ADVANCED.frame)
+		}
+
+		def fusionCoil = create {
+			parent advancedMachineBlock
+			name "fusioncoil"
+			icon TRContent.Machine.FUSION_COIL
+			frame AdvancementFrame.CHALLENGE
+			condition placedBlock(TRContent.Machine.FUSION_COIL.block)
+		}
+
+		def nuke = create {
+			parent fusionCoil
+			name "nuke"
+			icon TRContent.NUKE
+			condition placedBlock(TRContent.NUKE)
+			hidden true
+		}
+
+		def industrialCentrifuge = create {
+			parent advancedMachineBlock
+			name "industrialcentrifuge"
+			icon TRContent.Machine.INDUSTRIAL_CENTRIFUGE
+			frame AdvancementFrame.GOAL
+			condition placedBlock(TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block)
+		}
+
+		def industrialMachineBlock = create {
+			parent advancedMachineBlock
+			name "industrialmachineblock"
+			icon TRContent.MachineBlocks.INDUSTRIAL.frame
+			condition placedBlock(TRContent.MachineBlocks.INDUSTRIAL.frame)
+		}
+
+		def quantumTank = create {
+			parent advancedMachineBlock
+			name "quantumtank"
+			icon TRContent.TankUnit.QUANTUM
+			frame AdvancementFrame.CHALLENGE
+			condition placedBlock(TRContent.TankUnit.QUANTUM.block)
 		}
 	}
 
