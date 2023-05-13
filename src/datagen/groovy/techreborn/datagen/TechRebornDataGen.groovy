@@ -29,7 +29,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.registry.RegistryBuilder
 import net.minecraft.registry.RegistryKeys
 import techreborn.TechReborn
-import techreborn.datagen.models.BlockLootTableProvider
+import techreborn.datagen.loottables.BlockLootTableProvider
 import techreborn.datagen.models.ModelProvider
 import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
 import techreborn.datagen.recipes.machine.alloy_smelter.AlloySmelterRecipesProvider

@@ -575,6 +575,7 @@ public class TRContent {
 			return tag;
 		}
 
+		@Nullable
 		public TRContent.Ores getDeepslate() {
 			Preconditions.checkArgument(!isDeepslate());
 			return deepslateMap.get(this);
