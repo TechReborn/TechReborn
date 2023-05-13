@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import reborncore.client.ClientNetworkManager;
@@ -55,35 +55,35 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(matrixStack, f, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(matrixStack, 62, 45, layer);
-		this.drawSlot(matrixStack, 98, 45, layer);
-		this.drawArmourSlots(matrixStack, 8, 18, layer);
-		this.builder.drawEnergyOutput(matrixStack, this, 155, 61, this.blockEntity.getCurrentOutput(), layer);
+		this.drawSlot(drawContext, 62, 45, layer);
+		this.drawSlot(drawContext, 98, 45, layer);
+		this.drawArmourSlots(drawContext, 8, 18, layer);
+		this.builder.drawEnergyOutput(drawContext, this, 155, 61, this.blockEntity.getCurrentOutput(), layer);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		if (!hideGuiElements()) {
-			matrixStack.push();
-			matrixStack.scale(0.6f, 0.6f, 1.0f);
+			drawContext.push();
+			drawContext.scale(0.6f, 0.6f, 1.0f);
 			Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
 					.append("/")
 					.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
 					.append(" ")
 					.append(PowerSystem.getDisplayPower().abbreviation);
 
-			drawCentredText(matrixStack, text, 35, 0, 58, layer);
-			matrixStack.pop();
+			drawCentredText(drawContext, text, 35, 0, 58, layer);
+			drawContext.pop();
 		}
 
-		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void onClick(int amount) {

@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -40,23 +40,23 @@ public class GuiChargeBench extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(matrixStack, f, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		drawSlot(matrixStack, 62, 25, layer);
-		drawSlot(matrixStack, 98, 25, layer);
-		drawSlot(matrixStack, 62, 45, layer);
-		drawSlot(matrixStack, 98, 45, layer);
-		drawSlot(matrixStack, 62, 65, layer);
-		drawSlot(matrixStack, 98, 65, layer);
+		drawSlot(drawContext, 62, 25, layer);
+		drawSlot(drawContext, 98, 25, layer);
+		drawSlot(drawContext, 62, 45, layer);
+		drawSlot(drawContext, 98, 45, layer);
+		drawSlot(drawContext, 62, 65, layer);
+		drawSlot(drawContext, 98, 65, layer);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }

@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -41,26 +41,26 @@ public class GuiScrapboxinator extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
-		super.drawBackground(matrixStack, partialTicks, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, float partialTicks, int mouseX, int mouseY) {
+		super.drawBackground(drawContext, partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Battery slot
-		drawSlot(matrixStack, 8, 72, layer);
+		drawSlot(drawContext, 8, 72, layer);
 		// Scrapboxes input slot
-		drawSlot(matrixStack, 55, 45, layer);
+		drawSlot(drawContext, 55, 45, layer);
 		// Output slot
-		drawOutputSlot(matrixStack, 101, 45, layer);
+		drawOutputSlot(drawContext, 101, 45, layer);
 
-		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
+		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 }

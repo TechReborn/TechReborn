@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -77,20 +77,18 @@ public class GuiManual extends Screen {
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(matrixStack);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, MANUAL_TEXTURE);
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+		renderBackground(drawContext);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
-		drawTexture(matrixStack, centerX, centerY, 0, 0, guiWidth, guiHeight);
+		drawContext.drawTexture(MANUAL_TEXTURE, centerX, centerY, 0, 0, guiWidth, guiHeight);
 
-		textRenderer.draw(matrixStack, text1, (float) ((width / 2) - textRenderer.getWidth(text1) / 2), centerY + 40, 4210752);
-		textRenderer.draw(matrixStack, text2, (float) ((width / 2) - textRenderer.getWidth(text2) / 2), centerY + 90, 4210752);
+		drawContext.drawText(textRenderer, text1, (float) ((width / 2) - textRenderer.getWidth(text1) / 2), centerY + 40, 4210752);
+		drawContext.drawText(textRenderer, text2, (float) ((width / 2) - textRenderer.getWidth(text2) / 2), centerY + 90, 4210752);
 		if (TechRebornConfig.allowManualRefund) {
-			textRenderer.draw(matrixStack, text3, (float) ((width / 2) - textRenderer.getWidth(text3) / 2), centerY + 140, 4210752);
+			drawContext.drawText(textRenderer, text3, (float) ((width / 2) - textRenderer.getWidth(text3) / 2), centerY + 140, 4210752);
 		}
 
-		super.render(matrixStack, mouseX, mouseY, partialTicks);
+		super.render(drawContext, mouseX, mouseY, partialTicks);
 	}
 }

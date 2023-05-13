@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import reborncore.client.ClientChunkManager;
@@ -60,15 +60,15 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
-		super.drawBackground(matrixStack, partialTicks, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, float partialTicks, int mouseX, int mouseY) {
+		super.drawBackground(drawContext, partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		if (hideGuiElements()) return;
 
 		Text text = Text.literal("Radius: ")
 				.append(String.valueOf(blockEntity.getRadius()));
-		drawCentredText(matrixStack, text, 25, 4210752, layer);
+		drawCentredText(drawContext, text, 25, 4210752, layer);
 	}
 
 	public void onClick(int amount) {

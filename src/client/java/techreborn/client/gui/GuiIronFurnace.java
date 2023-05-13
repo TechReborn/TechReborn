@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -100,24 +100,24 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
-		super.drawBackground(matrixStack, lastFrameDuration, mouseX, mouseY);
+	protected void drawBackground(DrawContext drawContext, float lastFrameDuration, int mouseX, int mouseY) {
+		super.drawBackground(drawContext, lastFrameDuration, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Input slot
-		drawSlot(matrixStack, 56, 17, layer);
+		drawSlot(drawContext, 56, 17, layer);
 		// Fuel slot
-		drawSlot(matrixStack, 56, 53, layer);
+		drawSlot(drawContext, 56, 53, layer);
 
-		drawOutputSlot(matrixStack, 116, 35, layer);
+		drawOutputSlot(drawContext, 116, 35, layer);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
-		super.drawForeground(matrixStack, mouseX, mouseY);
+	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
+		super.drawForeground(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawBurnBar(matrixStack, this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
+		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawBurnBar(drawContext, this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
 	}
 }
