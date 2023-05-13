@@ -24,8 +24,8 @@
 
 package reborncore.client;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.systems.VertexSorter;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
@@ -39,7 +39,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
-import org.lwjgl.opengl.GL12;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -58,15 +57,19 @@ public class ItemStackRenderer implements HudRenderCallback {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
 			ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.remove();
 			Identifier id = Registries.ITEM.getId(itemStack.getItem());
-			drawContext.drawText(MinecraftClient.getInstance().textRenderer, "Rendering " + id + ", " + ItemStackRenderManager.RENDER_QUEUE.size() + " items left", 5, 5, -1, false);
+			drawContext.drawText(MinecraftClient.getInstance().textRenderer, "Rendering " + id, 5, 5, -1, false);
+			drawContext.drawText(MinecraftClient.getInstance().textRenderer, ItemStackRenderManager.RENDER_QUEUE.size() + " items left", 5, 15, -1, false);
 			export(id, itemStack);
 		}
 	}
 
 	private void export(Identifier identifier, ItemStack item) {
-		Matrix4f matrix4f = new Matrix4f().setOrtho(0, 16, 0, 16, 1000, 3000);
-		RenderSystem.setProjectionMatrix(matrix4f, null); // TODO 1.20
+		MinecraftClient client = MinecraftClient.getInstance();
+
+		Matrix4f matrix4f = new Matrix4f().setOrtho(0, 16, 16, 0, 1000, 3000);
+		RenderSystem.setProjectionMatrix(matrix4f, VertexSorter.BY_Z);
 		MatrixStack stack = RenderSystem.getModelViewStack();
+		stack.push();
 		stack.loadIdentity();
 		stack.translate(0, 0, -2000);
 		DiffuseLighting.enableGuiDepthLighting();
@@ -78,15 +81,20 @@ public class ItemStackRenderer implements HudRenderCallback {
 			framebuffer.setClearColor(0, 0, 0, 0);
 			framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
 
-			framebuffer.beginWrite(true);
-			GlStateManager._clear(GL12.GL_COLOR_BUFFER_BIT | GL12.GL_DEPTH_BUFFER_BIT, MinecraftClient.IS_SYSTEM_MAC);
-//			MinecraftClient.getInstance().getItemRenderer().renderInGui(stack, item, 0, 0); // TODO 1.20
-			framebuffer.endWrite();
+			{
+				framebuffer.beginWrite(true);
+				DrawContext drawContext = new DrawContext(client, client.getBufferBuilders().getEntityVertexConsumers());
+				drawContext.drawItem(item, 0, 0);
+				drawContext.draw();
+				framebuffer.endWrite();
+			}
 
-			framebuffer.beginRead();
-			nativeImage.loadFromTextureImage(0, false);
-			nativeImage.mirrorVertically();
-			framebuffer.endRead();
+			{
+				framebuffer.beginRead();
+				nativeImage.loadFromTextureImage(0, false);
+				nativeImage.mirrorVertically();
+				framebuffer.endRead();
+			}
 
 			try {
 				Path path = FabricLoader.getInstance().getGameDir().resolve("item_renderer").resolve(identifier.getNamespace()).resolve(identifier.getPath() + ".png");
@@ -98,5 +106,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 		}
 
 		framebuffer.delete();
+		stack.pop();
+		RenderSystem.applyModelViewMatrix();
 	}
 }
