@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.models
+package techreborn.datagen.loottables
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
@@ -38,7 +38,7 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider{
 	}
 
 	@Override
-	public void generate() {
+	void generate() {
 		TRContent.StorageBlocks.values().each {
 			addDrop(it.getBlock())
 			addDrop(it.getSlabBlock())
@@ -63,6 +63,44 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider{
 		TRContent.MachineBlocks.values().each {
 			addDrop(it.getFrame())
 			addDrop(it.getCasing())
+		}
+		addDrop(TRContent.RUBBER_BUTTON)
+		addDrop(TRContent.RUBBER_DOOR, doorDrops(TRContent.RUBBER_DOOR))
+		addDrop(TRContent.RUBBER_FENCE)
+		addDrop(TRContent.RUBBER_FENCE_GATE)
+		addDrop(TRContent.RUBBER_LOG)
+		addDrop(TRContent.RUBBER_LOG_STRIPPED)
+		addDrop(TRContent.RUBBER_PLANKS)
+		addDrop(TRContent.RUBBER_PRESSURE_PLATE)
+		addDrop(TRContent.RUBBER_SAPLING)
+		addDrop(TRContent.RUBBER_SLAB)
+		addDrop(TRContent.RUBBER_STAIR)
+		addDrop(TRContent.RUBBER_TRAPDOOR)
+		addDrop(TRContent.RUBBER_WOOD)
+		addDrop(TRContent.RUBBER_LOG_STRIPPED)
+		addDrop(TRContent.RUBBER_LEAVES, leavesDrops(
+			TRContent.RUBBER_LEAVES,
+			TRContent.RUBBER_SAPLING,
+			0.05,
+			0.0625,
+			0.083333336,
+			0.1)
+		)
+		addDrop(TRContent.POTTED_RUBBER_SAPLING, pottedPlantDrops(TRContent.RUBBER_SAPLING))
+		addDrop(TRContent.NUKE)
+		addDrop(TRContent.REFINED_IRON_FENCE)
+		addDrop(TRContent.REINFORCED_GLASS)
+
+		addOreDrop(TRContent.Ores.BAUXITE)
+		addOreDrop(TRContent.Ores.GALENA)
+		addOreDrop(TRContent.Ores.SHELDONITE)
+	}
+
+	private void addOreDrop(TRContent.Ores ore) {
+		addDrop(ore.block)
+		def deepslate = ore.getDeepslate()
+		if (deepslate != null) {
+			addDrop(deepslate.block)
 		}
 	}
 }
