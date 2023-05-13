@@ -26,10 +26,8 @@ package reborncore.client.gui.builder;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.RenderUtil;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.network.IdentifiedPacket;
