@@ -453,7 +453,7 @@ public class GuiBuilder {
 
 			@Override
 			public void render(DrawContext drawContext, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
-				drawContext.drawTooltip(MinecraftClient.getInstance().textRenderer, tip, x, y);
+				drawContext.drawTextWrapped(MinecraftClient.getInstance().textRenderer, tip, x, y, width, 11184810);
 			}
 		}
 	}
