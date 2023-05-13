@@ -28,7 +28,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import reborncore.api.events.ItemCraftCallback;
@@ -48,7 +48,7 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 	}
 
 	@Override
-	public void onCraft(ItemStack stack, CraftingInventory craftingInventory, PlayerEntity playerEntity) {
+	public void onCraft(ItemStack stack, RecipeInputInventory craftingInventory, PlayerEntity playerEntity) {
 		if (stack.getItem() instanceof RcEnergyItem energyItem) {
 			long totalEnergy = IntStream.range(0, craftingInventory.size())
 					.mapToObj(craftingInventory::getStack)

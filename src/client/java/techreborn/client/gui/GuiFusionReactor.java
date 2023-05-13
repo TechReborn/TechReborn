@@ -112,8 +112,8 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 
 			}
 		}
-		drawTextWithShadow(drawContext, this.textRenderer, Text.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
-		drawTextWithShadow(drawContext, this.textRenderer, Text.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
+		drawContext.drawText(this.textRenderer, Text.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF, true);
+		drawContext.drawText(this.textRenderer, Text.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF, true);
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, this.blockEntity.getEnergy(), this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}

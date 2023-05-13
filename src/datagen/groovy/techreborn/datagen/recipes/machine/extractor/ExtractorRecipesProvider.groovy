@@ -89,7 +89,6 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
-				feature FeatureFlags.UPDATE_1_20
 			}
 		}
 	}
@@ -138,7 +137,6 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			power 10
 			time 300
 			criterion getCriterionName(Items.CHERRY_LEAVES), getCriterionConditions(Items.CHERRY_LEAVES)
-			feature FeatureFlags.UPDATE_1_20
 		}
 	}
 

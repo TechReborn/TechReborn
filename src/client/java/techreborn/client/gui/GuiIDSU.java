@@ -56,9 +56,6 @@ public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		drawContext.push();
-		drawContext.scale(0.6f, 0.6f, 1.0f);
-
 		Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(idsu.getEnergy()))
 				.append("/")
 				.append(PowerSystem.getLocalizedPowerNoSuffix(idsu.getMaxStoredPower()))
@@ -66,7 +63,6 @@ public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 				.append(PowerSystem.getDisplayPower().abbreviation);
 
 		drawCentredText(drawContext, text, 35, 0, 58, layer);
-		drawContext.pop();
 
 		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) idsu.getEnergy(), (int) idsu.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}

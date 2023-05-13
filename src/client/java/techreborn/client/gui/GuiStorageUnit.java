@@ -66,19 +66,20 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 		int storedAmount = storageEntity.storedAmount;
 
 		if (storedAmount == 0 && !storageEntity.isLocked()) {
-			textRenderer.draw(drawContext, Text.translatable("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
-		} else {
-			textRenderer.draw(drawContext, Text.translatable("gui.techreborn.storage.store"), 10, 20, 4210752);
-			textRenderer.draw(drawContext, storageEntity.getDisplayedStack().getName(), 10, 30, 4210752);
 
-			textRenderer.draw(drawContext, Text.translatable("gui.techreborn.storage.amount"), 10, 50, 4210752);
-			textRenderer.draw(drawContext, String.valueOf(storedAmount), 10, 60, 4210752);
+			drawContext.drawText(textRenderer, Text.translatable("techreborn.tooltip.unit.empty"), 10, 20, 4210752, false);
+		} else {
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.storage.store"), 10, 20, 4210752, false);
+			drawContext.drawText(textRenderer, storageEntity.getDisplayedStack().getName(), 10, 30, 4210752, false);
+
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.storage.amount"), 10, 50, 4210752, false);
+			drawContext.drawText(textRenderer, String.valueOf(storedAmount), 10, 60, 4210752, false);
 
 			String percentFilled = String.valueOf((int) ((double) storedAmount / (double) storageEntity.getMaxCapacity() * 100));
 
-			textRenderer.draw(drawContext, Text.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752, false);
 
-			textRenderer.draw(drawContext, Text.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680, false);
 		}
 	}
 

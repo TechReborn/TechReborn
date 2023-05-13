@@ -83,10 +83,10 @@ public class GuiManual extends Screen {
 		int centerY = (height / 2) - guiHeight / 2;
 		drawContext.drawTexture(MANUAL_TEXTURE, centerX, centerY, 0, 0, guiWidth, guiHeight);
 
-		drawContext.drawText(textRenderer, text1, (float) ((width / 2) - textRenderer.getWidth(text1) / 2), centerY + 40, 4210752);
-		drawContext.drawText(textRenderer, text2, (float) ((width / 2) - textRenderer.getWidth(text2) / 2), centerY + 90, 4210752);
+		drawContext.drawText(textRenderer, text1, (width / 2) - textRenderer.getWidth(text1) / 2, centerY + 40, 4210752, false);
+		drawContext.drawText(textRenderer, text2, (width / 2) - textRenderer.getWidth(text2) / 2, centerY + 90, 4210752, false);
 		if (TechRebornConfig.allowManualRefund) {
-			drawContext.drawText(textRenderer, text3, (float) ((width / 2) - textRenderer.getWidth(text3) / 2), centerY + 140, 4210752);
+			drawContext.drawText(textRenderer, text3, (width / 2) - textRenderer.getWidth(text3) / 2, centerY + 140, 4210752, false);
 		}
 
 		super.render(drawContext, mouseX, mouseY, partialTicks);

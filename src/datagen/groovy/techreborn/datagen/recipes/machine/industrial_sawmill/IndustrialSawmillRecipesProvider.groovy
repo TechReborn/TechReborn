@@ -69,7 +69,6 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			power 40
 			time 200
 			fluidAmount 1000 // in millibuckets
-			feature FeatureFlags.UPDATE_1_20
 		}
 		offerIndustrialSawmillRecipe {
 			ingredients ItemTags.BAMBOO_BLOCKS
@@ -77,7 +76,6 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			power 40
 			time 100
 			fluidAmount 500 // in millibuckets
-			feature FeatureFlags.UPDATE_1_20
 		}
 		[
 			(Items.ACACIA_STAIRS): Items.ACACIA_SLAB,
@@ -114,7 +112,6 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				fluidAmount 250 // in millibuckets
 				source "stairs"
 				criterion getCriterionName(stairs), getCriterionConditions(stairs)
-				feature FeatureFlags.UPDATE_1_20
 			}
 		}
 		[
@@ -152,7 +149,6 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				fluidAmount 250 // in millibuckets
 				source ((slab == Items.BAMBOO_MOSAIC_SLAB ? "mosaic_" : "") + "slab")
 				criterion getCriterionName(slab), getCriterionConditions(slab)
-				feature FeatureFlags.UPDATE_1_20
 			}
 		}
 		[
