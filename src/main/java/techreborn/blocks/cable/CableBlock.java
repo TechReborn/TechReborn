@@ -205,6 +205,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		return CableShapeUtil.getShape(state);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
 		return CableShapeUtil.getShape(state);

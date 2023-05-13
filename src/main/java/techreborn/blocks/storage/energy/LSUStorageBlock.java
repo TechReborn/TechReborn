@@ -81,6 +81,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 	}
 
 	// Block
+	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);

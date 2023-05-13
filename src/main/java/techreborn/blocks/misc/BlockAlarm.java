@@ -122,6 +122,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
@@ -147,12 +148,14 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.MODEL;
 	}
 
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext shapeContext) {
 		return shape[getFacing(state).ordinal()];
