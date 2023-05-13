@@ -111,7 +111,7 @@ public class GuiBuilder {
 	}
 
 	public void drawText(DrawContext drawContext, GuiBase<?> gui, Text text, int x, int y, int color) {
-		drawContext.drawText(gui.getTextRenderer(), text, x, y, color, true);
+		drawContext.drawText(gui.getTextRenderer(), text, x, y, color, false);
 	}
 
 	public void drawProgressBar(DrawContext drawContext, GuiBase<?> gui, double progress, int x, int y) {

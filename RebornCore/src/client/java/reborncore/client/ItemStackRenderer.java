@@ -58,7 +58,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
 			ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.remove();
 			Identifier id = Registries.ITEM.getId(itemStack.getItem());
-			drawContext.drawText(MinecraftClient.getInstance().textRenderer, "Rendering " + id + ", " + ItemStackRenderManager.RENDER_QUEUE.size() + " items left", 5, 5, -1, true);
+			drawContext.drawText(MinecraftClient.getInstance().textRenderer, "Rendering " + id + ", " + ItemStackRenderManager.RENDER_QUEUE.size() + " items left", 5, 5, -1, false);
 			export(id, itemStack);
 		}
 	}
