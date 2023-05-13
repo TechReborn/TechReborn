@@ -97,7 +97,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 			case ALL -> new Color(52, 255, 30, 128);
 		};
 		RenderSystem.setShaderColor(1, 1, 1, 1);
-		GuiUtil.drawGradientRect(drawContext.getMatrices(), sx, sy, 18, 18, color.getColor(), color.getColor());
+		GuiUtil.drawGradientRect(drawContext, sx, sy, 18, 18, color.getColor(), color.getColor());
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 }

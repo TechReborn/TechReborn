@@ -264,25 +264,6 @@ public class ElementBase {
 		void update(GuiBase<?> gui, ElementBase element);
 	}
 
-	public void drawRect(MatrixStack matrices, GuiBase<?> gui, int x, int y, int width, int height, int colour) {
-		drawGradientRect(matrices, gui, x, y, width, height, colour, colour);
-	}
-
-	/*
-		Taken from Gui
-	*/
-	public void drawGradientRect(MatrixStack matrices, GuiBase<?> gui, int x, int y, int width, int height, int startColor, int endColor) {
-		x = adjustX(gui, x);
-		y = adjustY(gui, y);
-
-		int left = x;
-		int top = y;
-		int right = x + width;
-		int bottom = y + height;
-
-		RenderUtil.drawGradientRect(matrices, 0, left, top, right, bottom, startColor, endColor);
-	}
-
 	public int adjustX(GuiBase<?> gui, int x) {
 		return gui.getGuiLeft() + x;
 	}

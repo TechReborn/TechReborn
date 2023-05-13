@@ -33,14 +33,9 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.EntryListWidget;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -88,8 +83,6 @@ public class GuiBuilder {
 	}
 
 	public void drawPlayerSlots(DrawContext drawContext, Screen gui, int posX, int posY, boolean center) {
-		RenderSystem.setShaderTexture(0, resourceLocation);
-
 		if (center) {
 			posX -= 81;
 		}
@@ -106,7 +99,6 @@ public class GuiBuilder {
 	}
 
 	public void drawSlot(DrawContext drawContext, Screen gui, int posX, int posY) {
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, posX, posY, 150, 0, 18, 18);
 	}
 
@@ -115,7 +107,6 @@ public class GuiBuilder {
 	}
 
 	public void drawProgressBar(DrawContext drawContext, GuiBase<?> gui, double progress, int x, int y) {
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 150, 18, 22, 15);
 		int j = (int) (progress);
 		if (j > 0) {
@@ -124,7 +115,6 @@ public class GuiBuilder {
 	}
 
 	public void drawOutputSlot(DrawContext drawContext, GuiBase<?> gui, int x, int y) {
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 174, 0, 26, 26);
 	}
 
@@ -143,7 +133,6 @@ public class GuiBuilder {
 				x += gui.getGuiLeft();
 				y += gui.getGuiTop();
 			}
-			RenderSystem.setShaderTexture(0, resourceLocation);
 			drawContext.drawTexture(resourceLocation, x, y, 202, 0, 12, 12);
 		}
 	}
@@ -165,7 +154,6 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 174, 26 + (locked ? 12 : 0), 20, 12);
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
@@ -194,7 +182,6 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		if (gui.getMachine().renderMultiblock) {
 			drawContext.drawTexture(resourceLocation, x, y, 174, 62, 20, 12);
 		} else {
@@ -227,7 +214,6 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 26, 218, 114, 18);
 		if (value != 0) {
 			int j = (int) ((double) value / (double) max * 106);
@@ -264,7 +250,6 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		int j = (int) ((double) value / (double) max * 106);
 		if (j < 0) {
 			j = 0;
@@ -317,8 +302,6 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
-			//RenderSystem.disableLighting();
-			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -345,12 +328,11 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		//RenderSystem.disableLighting();
 		RenderSystem.enableDepthTest();
 		RenderSystem.colorMask(true, true, true, false);
-		RenderUtil.drawGradientRect(drawContext.getMatrices(), 0, x, y, x + 176, y + 20, 0x000000, 0xC0000000);
-		RenderUtil.drawGradientRect(drawContext.getMatrices(), 0, x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
-		RenderUtil.drawGradientRect(drawContext.getMatrices(), 0, x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
+		RenderUtil.drawGradientRect(drawContext, 0, x, y, x + 176, y + 20, 0x000000, 0xC0000000);
+		RenderUtil.drawGradientRect(drawContext, 0, x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
+		RenderUtil.drawGradientRect(drawContext, 0, x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
 		RenderSystem.colorMask(true, true, true, true);
 		RenderSystem.disableDepthTest();
 		gui.drawCentredText(drawContext, Text.translatable("reborncore.gui.missingmultiblock"), 43, 0xFFFFFF, layer);
@@ -365,7 +347,6 @@ public class GuiBuilder {
 	 * @param y   {@code int} Top left corner where to place slots
 	 */
 	public void drawUpgrades(DrawContext drawContext, GuiBase<?> gui, int x, int y) {
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 217, 0, 24, 81);
 	}
 
@@ -400,7 +381,6 @@ public class GuiBuilder {
 		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 54, y, y + 76, 9 + 2, tips);
 		explanation.setLeftPos(x - 81);
 		explanation.render(drawContext, mouseX, mouseY, 1.0f);
-		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
 
@@ -420,22 +400,11 @@ public class GuiBuilder {
 
 		@Override
 		protected void renderBackground(DrawContext drawContext) {
-
 		}
 
 		@Override
 		public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-			Tessellator tessellator = Tessellator.getInstance();
-			BufferBuilder bufferBuilder = tessellator.getBuffer();
-			RenderSystem.setShaderTexture(0, Screen.OPTIONS_BACKGROUND_TEXTURE);
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
-			bufferBuilder.vertex(this.left, this.bottom, 0.0D).texture((float) this.left / 32.0F, (float) (this.bottom + (int) this.getScrollAmount()) / 32.0F).color(32, 32, 32, 255).next();
-			bufferBuilder.vertex(this.right, this.bottom, 0.0D).texture((float) this.right / 32.0F, (float) (this.bottom + (int) this.getScrollAmount()) / 32.0F).color(32, 32, 32, 255).next();
-			bufferBuilder.vertex(this.right, this.top, 0.0D).texture((float) this.right / 32.0F, (float) (this.top + (int) this.getScrollAmount()) / 32.0F).color(32, 32, 32, 255).next();
-			bufferBuilder.vertex(this.left, this.top, 0.0D).texture((float) this.left / 32.0F, (float) (this.top + (int) this.getScrollAmount()) / 32.0F).color(32, 32, 32, 255).next();
-			tessellator.draw();
-
+			drawContext.fill(this.left, this.top, this.right, this.bottom, 0xff202020); //
 			super.renderList(drawContext, mouseX, mouseY, delta);
 		}
 
@@ -482,7 +451,6 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 150, 91, 16, 16);
 	}
 
@@ -506,7 +474,6 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, direction.x, direction.y, direction.width, direction.height);
 		int j = (int) ((double) progress / (double) maxProgress * 16);
 		if (j < 0) {
@@ -543,8 +510,6 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
-			//RenderSystem.disableLighting();
-			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -570,7 +535,6 @@ public class GuiBuilder {
 		}
 
 		EnergySystem displayPower = PowerSystem.getDisplayPower();
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, displayPower.xBar - 15, displayPower.yBar - 1, 14, 50);
 		int draw = (int) ((double) energyStored / (double) maxEnergyStored * (48));
 		if (energyStored > maxEnergyStored) {
@@ -624,8 +588,6 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
-			//RenderSystem.disableLighting();
-			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -655,7 +617,6 @@ public class GuiBuilder {
 			amount = fluid.getAmount();
 			percentage = percentage(maxCapacity.getRawValue(), amount.getRawValue());
 		}
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 194, 26, 22, 56);
 		if (!isTankEmpty) {
 			drawFluid(drawContext, gui, fluid, x + 4, y + 4, 14, 48, maxCapacity.getRawValue());
@@ -687,8 +648,6 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
-			//RenderSystem.disableLighting();
-			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -707,7 +666,6 @@ public class GuiBuilder {
 		if (fluid.getFluid() == Fluids.EMPTY) {
 			return;
 		}
-		RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
 		y += height;
 		final Sprite sprite = FluidVariantRendering.getSprite(fluid.getVariant());
 		int color = FluidVariantRendering.getColor(fluid.getVariant());
@@ -716,7 +674,7 @@ public class GuiBuilder {
 		final int iconHeight = sprite.getContents().getHeight();
 		int offsetHeight = drawHeight;
 
-		RenderSystem.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
+		drawContext.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
 
 		int iteration = 0;
 		while (offsetHeight != 0) {
@@ -729,9 +687,6 @@ public class GuiBuilder {
 				break;
 			}
 		}
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-
-		RenderSystem.setShaderTexture(0, resourceLocation);
 	}
 
 	/**
@@ -752,7 +707,6 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 150, 64, 13, 13);
 		int j = 13 - (int) ((double) progress / (double) maxProgress * 13);
 		if (j > 0) {
@@ -768,8 +722,6 @@ public class GuiBuilder {
 				mouseY -= gui.getGuiTop();
 			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
-			//RenderSystem.disableLighting();
-			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
 
@@ -782,7 +734,6 @@ public class GuiBuilder {
 	 * @param count {@code int} Number of output slots
 	 */
 	public void drawOutputSlotBar(DrawContext drawContext, GuiBase<?> gui, int x, int y, int count) {
-		RenderSystem.setShaderTexture(0, resourceLocation);
 		drawContext.drawTexture(resourceLocation, x, y, 150, 122, 3, 26);
 		x += 3;
 		for (int i = 1; i <= count; i++) {
