@@ -24,9 +24,8 @@
 
 package reborncore.client.gui.builder.widget;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
 
@@ -45,24 +44,13 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	}
 
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
 		if (gui.hideGuiElements()) return;
-		RenderSystem.setShaderTexture(0, gui.builder.getResourceLocation());
 		switch (type) {
-			case FASTFORWARD:
-				gui.drawTexture(matrixStack, getX(), getY(), 174, 74, 12, 12);
-				break;
-			case FORWARD:
-				gui.drawTexture(matrixStack, getX(), getY(), 174, 86, 12, 12);
-				break;
-			case REWIND:
-				gui.drawTexture(matrixStack, getX(), getY(), 174, 98, 12, 12);
-				break;
-			case FASTREWIND:
-				gui.drawTexture(matrixStack, getX(), getY(), 174, 110, 12, 12);
-				break;
-			default:
-				break;
+			case FASTFORWARD -> drawContext.drawTexture(gui.builder.getResourceLocation(), getX(), getY(), 174, 74, 12, 12);
+			case FORWARD -> drawContext.drawTexture(gui.builder.getResourceLocation(), getX(), getY(), 174, 86, 12, 12);
+			case REWIND -> drawContext.drawTexture(gui.builder.getResourceLocation(), getX(), getY(), 174, 98, 12, 12);
+			case FASTREWIND -> drawContext.drawTexture(gui.builder.getResourceLocation(), getX(), getY(), 174, 110, 12, 12);
 		}
 	}
 

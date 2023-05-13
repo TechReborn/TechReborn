@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.builder.slot.elements;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
@@ -67,12 +68,12 @@ public class ConfigFluidElement extends ElementBase {
 	}
 
 	@Override
-	public void draw(MatrixStack matrixStack, GuiBase<?> gui) {
-		super.draw(matrixStack, gui);
+	public void draw(DrawContext drawContext, GuiBase<?> gui) {
+		super.draw(drawContext, gui);
 		if (isHovering) {
-			drawSprite(matrixStack, gui, type.getButtonHoverOverlay(), x, y);
+			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), x, y);
 		}
-		elements.forEach(elementBase -> elementBase.draw(matrixStack, gui));
+		elements.forEach(elementBase -> elementBase.draw(drawContext, gui));
 	}
 
 	public SlotType getType() {

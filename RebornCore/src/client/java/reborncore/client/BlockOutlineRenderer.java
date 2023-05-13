@@ -49,7 +49,7 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BlockOutline {
 	public boolean onBlockOutline(WorldRenderContext worldRenderContext, WorldRenderContext.BlockOutlineContext context) {
 		List<VoxelShape> shapes = new ArrayList<>();
 
-		World world = context.entity().world;
+		World world = context.entity().getWorld();
 		BlockPos targetPos = context.blockPos();
 
 		if (context.entity() == MinecraftClient.getInstance().player) {
@@ -61,7 +61,7 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BlockOutline {
 			}
 
 			if (stack.getItem() instanceof MultiBlockBreakingTool) {
-				Set<BlockPos> blockPosList = ((MultiBlockBreakingTool) stack.getItem()).getBlocksToBreak(stack, clientPlayerEntity.world, targetPos, clientPlayerEntity);
+				Set<BlockPos> blockPosList = ((MultiBlockBreakingTool) stack.getItem()).getBlocksToBreak(stack, clientPlayerEntity.getWorld(), targetPos, clientPlayerEntity);
 
 				for (BlockPos pos : blockPosList) {
 					if (pos.equals(targetPos)) {
@@ -82,7 +82,7 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BlockOutline {
 				shape = VoxelShapes.union(shape, voxelShape);
 			}
 
-			WorldRenderer.drawShapeOutline(worldRenderContext.matrixStack(), worldRenderContext.consumers().getBuffer(RenderLayer.getLines()), shape, (double)targetPos.getX() - context.cameraX(), (double)targetPos.getY() - context.cameraY(), (double)targetPos.getZ() - context.cameraZ(), 0.0F, 0.0F, 0.0F, 0.4F);
+			WorldRenderer.drawShapeOutline(worldRenderContext.matrixStack(), worldRenderContext.consumers().getBuffer(RenderLayer.getLines()), shape, (double)targetPos.getX() - context.cameraX(), (double)targetPos.getY() - context.cameraY(), (double)targetPos.getZ() - context.cameraZ(), 0.0F, 0.0F, 0.0F, 0.4F, true);
 		}
 
 		return true;
