@@ -36,16 +36,13 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
-import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 
-public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler, RcEnergyItem {
+public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
 
 	public final long flyCost = TechRebornConfig.quantumSuitFlyingCost;
 	public final long swimCost = TechRebornConfig.quantumSuitSwimmingCost;
@@ -56,11 +53,21 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 	public final boolean enableSprint = TechRebornConfig.quantumSuitEnableSprint;
 	public final boolean enableFlight = TechRebornConfig.quantumSuitEnableFlight;
 
-
 	public QuantumSuitItem(ArmorMaterial material, Type slot) {
-		super(material, slot, new Item.Settings().maxDamage(-1).maxCount(1));
+		super(material, slot, TechRebornConfig.quantumSuitCapacity, RcEnergyTier.INSANE);
 	}
 
+	// TREnergyArmourItem
+	@Override
+	public long getEnergyMaxOutput() { return 0; }
+
+	// ArmorItem
+	@Override
+	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+		return HashMultimap.create();
+	}
+
+	// FabricItem
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot equipmentSlot) {
 		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, getSlotType()));
@@ -81,18 +88,17 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 		return ImmutableMultimap.copyOf(attributes);
 	}
 
+	// ArmorBlockEntityTicker
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
 		switch (this.getSlotType()) {
-			case HEAD:
-				if (playerEntity.isSubmergedInWater()) {
-					if (tryUseEnergy(stack, breathingCost)) {
-						playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 5, 1));
-					}
+			case HEAD -> {
+				if (playerEntity.isSubmergedInWater() && tryUseEnergy(stack, breathingCost)) {
+					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 5, 1));
 				}
-				break;
-			case CHEST:
-				if (enableFlight){
+			}
+			case CHEST -> {
+				if (enableFlight) {
 					if (getStoredEnergy(stack) > flyCost) {
 						playerEntity.getAbilities().allowFlying = true;
 						if (playerEntity.getAbilities().flying) {
@@ -104,32 +110,24 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 						playerEntity.getAbilities().flying = false;
 					}
 				}
-				if (playerEntity.isOnFire() && getStoredEnergy(stack) > fireExtinguishCost) {
+				if (playerEntity.isOnFire() && tryUseEnergy(stack, fireExtinguishCost)) {
 					playerEntity.extinguish();
 				}
-				break;
-			case LEGS:
+			}
+			case LEGS -> {
 				if (playerEntity.isSprinting() && enableSprint) {
 					tryUseEnergy(stack, sprintingCost);
 				}
-				break;
-			case FEET:
-				if (playerEntity.isSwimming()) {
-					if (tryUseEnergy(stack, swimCost)) {
-						playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 5, 1));
-					}
+			}
+			case FEET -> {
+				if (playerEntity.isSwimming() && tryUseEnergy(stack, swimCost)) {
+					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 5, 1));
 				}
-				break;
-			default:
-
+			}
 		}
 	}
 
-	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-		return HashMultimap.create();
-	}
-
+	// ArmorRemoveHandler
 	@Override
 	public void onRemoved(PlayerEntity playerEntity) {
 		if (this.getSlotType() == EquipmentSlot.CHEST && enableFlight) {
@@ -138,40 +136,5 @@ public class QuantumSuitItem extends TRArmourItem implements ArmorBlockEntityTic
 				playerEntity.getAbilities().flying = false;
 			}
 		}
-	}
-
-	@Override
-	public int getItemBarStep(ItemStack stack) {
-		return ItemUtils.getPowerForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public boolean isEnchantable(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getItemBarColor(ItemStack stack) {
-		return ItemUtils.getColorForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
-		return false;
-	}
-
-	@Override
-	public long getEnergyCapacity() {
-		return TechRebornConfig.quantumSuitCapacity;
-	}
-
-	@Override
-	public RcEnergyTier getTier() {
-		return RcEnergyTier.EXTREME;
 	}
 }
