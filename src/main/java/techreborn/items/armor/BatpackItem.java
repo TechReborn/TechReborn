@@ -26,7 +26,6 @@ package techreborn.items.armor;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -34,15 +33,10 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 
-public class BatpackItem extends ArmorItem implements RcEnergyItem {
+public class BatpackItem extends TREnergyArmourItem implements RcEnergyItem {
 
-	public final int maxCharge;
-	public final RcEnergyTier tier;
-
-	public BatpackItem(int maxCharge, ArmorMaterial material, RcEnergyTier tier) {
-		super(material, Type.CHESTPLATE, new Settings().maxCount(1).maxDamage(-1));
-		this.maxCharge = maxCharge;
-		this.tier = tier;
+	public BatpackItem(long maxCharge, ArmorMaterial material, RcEnergyTier tier) {
+		super(material, Type.CHESTPLATE, maxCharge, tier);
 	}
 
 	// Item
@@ -52,43 +46,7 @@ public class BatpackItem extends ArmorItem implements RcEnergyItem {
 			return;
 		}
 		if (entityIn instanceof PlayerEntity) {
-			ItemUtils.distributePowerToInventory((PlayerEntity) entityIn, stack, tier.getMaxOutput());
+			ItemUtils.distributePowerToInventory((PlayerEntity) entityIn, stack, this.getTier().getMaxOutput());
 		}
-	}
-
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
-	@Override
-	public boolean isEnchantable(ItemStack stack) {
-		return true;
-	}
-
-	// EnergyHolder
-	@Override
-	public long getEnergyCapacity() {
-		return maxCharge;
-	}
-
-	@Override
-	public RcEnergyTier getTier() {
-		return tier;
-	}
-
-	@Override
-	public int getItemBarColor(ItemStack stack) {
-		return ItemUtils.getColorForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getItemBarStep(ItemStack stack) {
-		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 }

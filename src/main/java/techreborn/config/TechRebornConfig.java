@@ -269,7 +269,7 @@ public class TechRebornConfig {
 	public static int lapotronicOrbMaxCharge = 100_000_000;
 
 	@Config(config = "items", category = "power", key = "cloakingDeviceCharge", comment = "Energy Capacity for Cloaking Device")
-	public static int cloakingDeviceCharge = 40_000_000;
+	public static long cloakingDeviceCharge = 40_000_000;
 
 	@Config(config = "items", category = "power", key = "clockingDeviceEnergyUsage", comment = "Cloaking device energy usage")
 	public static int cloakingDeviceCost = 10;

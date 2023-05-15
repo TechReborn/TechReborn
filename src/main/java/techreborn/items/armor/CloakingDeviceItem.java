@@ -25,70 +25,28 @@
 package techreborn.items.armor;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
-import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterials;
 
-public class CloakingDeviceItem extends TRArmourItem implements RcEnergyItem, ArmorBlockEntityTicker, ArmorRemoveHandler {
+public class CloakingDeviceItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
 
-	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
-	public static int cost = TechRebornConfig.cloakingDeviceCost;
 	public static boolean isActive;
+	public static int cost = TechRebornConfig.cloakingDeviceCost;
 
-	// 40M FE capacity with 10k FE\t charge rate
+	// 40M FE capacity with 8k FE\t charge rate
 	public CloakingDeviceItem() {
-		super(TRArmorMaterials.CLOAKING_DEVICE, Type.CHESTPLATE, new Item.Settings().maxDamage(-1).maxCount(1));
+		super(TRArmorMaterials.CLOAKING_DEVICE, Type.CHESTPLATE, TechRebornConfig.cloakingDeviceCharge, RcEnergyTier.INSANE);
 	}
 
+	// TREnergyArmourItem
 	@Override
-	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-		return false;
-	}
+	public long getEnergyMaxOutput() { return 0; }
 
-	// ItemTRArmour
-	@Override
-	public int getItemBarStep(ItemStack stack) {
-		return ItemUtils.getPowerForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public boolean isEnchantable(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getItemBarColor(ItemStack stack) {
-		return ItemUtils.getColorForDurabilityBar(stack);
-	}
-
-	// EnergyHolder
-	@Override
-	public long getEnergyCapacity() {
-		return maxCharge;
-	}
-
-	@Override
-	public RcEnergyTier getTier() {
-		return RcEnergyTier.INSANE;
-	}
-
-	@Override
-	public long getEnergyMaxOutput() {
-		return 0;
-	}
-
-	// ArmorTickable
+	// ArmorBlockEntityTicker
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
 		if (tryUseEnergy(stack, cost)) {
