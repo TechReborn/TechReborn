@@ -53,7 +53,7 @@ public class TRCauldronBehavior {
 			}
 
 			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack,
-					DynamicCellItem.getCellWithFluid(Fluids.LAVA), (stateX) -> true, SoundEvents.ITEM_BUCKET_FILL);
+					DynamicCellItem.getCellWithFluid(Fluids.LAVA), (stateX) -> true, SoundEvents.ITEM_BUCKET_FILL_LAVA);
 		};
 
 		CauldronBehavior FILL_CELL_WITH_WATER = (state, world, pos, player, hand, stack) -> {
@@ -62,7 +62,7 @@ public class TRCauldronBehavior {
 			}
 
 			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack,
-					DynamicCellItem.getCellWithFluid(Fluids.WATER), (stateX) -> true, SoundEvents.ITEM_BUCKET_FILL_LAVA);
+					DynamicCellItem.getCellWithFluid(Fluids.WATER), (stateX) -> true, SoundEvents.ITEM_BUCKET_FILL);
 		};
 
 		CauldronBehavior FILL_FROM_CELL = (state, world, pos, player, hand, stack) -> {
