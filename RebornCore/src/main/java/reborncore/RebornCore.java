@@ -33,6 +33,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,7 +117,8 @@ public class RebornCore implements ModInitializer {
 
 		ServerEntityEvents.EQUIPMENT_CHANGE.register((livingEntity, equipmentSlot, previousStack, currentStack) -> {
 			if (livingEntity instanceof PlayerEntity playerEntity
-				&& previousStack.getItem() instanceof ArmorRemoveHandler armorRemoveHandler) {
+				&& previousStack.getItem() instanceof ArmorRemoveHandler armorRemoveHandler
+				&& !ItemStack.areItemsEqual(previousStack, currentStack)) {
 				armorRemoveHandler.onRemoved(playerEntity);
 			}
 		});
