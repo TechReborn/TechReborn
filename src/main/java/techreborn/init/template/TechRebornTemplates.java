@@ -73,7 +73,7 @@ public class TechRebornTemplates {
 			return 0;
 		}
 
-		ctx.getSource().sendFeedback(Text.literal("done"), true);
+		ctx.getSource().sendFeedback(() -> Text.literal("done"), true);
 
 		return Command.SINGLE_SUCCESS;
 	}

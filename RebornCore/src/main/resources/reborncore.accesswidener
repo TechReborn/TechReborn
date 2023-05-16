@@ -34,3 +34,5 @@ accessible    method    net/minecraft/recipe/RecipeManager    getAllOfType    (L
 accessible    field    net/minecraft/screen/ScreenHandler    listeners    Ljava/util/List;
 
 accessible    field    net/minecraft/structure/pool/StructurePool    elements    Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
+
+accessible method net/minecraft/block/CropBlock getAgeProperty ()Lnet/minecraft/state/property/IntProperty;
