@@ -96,8 +96,8 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 
-		if (block instanceof CropBlock) {
-			processAgedCrop(blockState, blockPos, ((CropBlock) block).getAgeProperty(), ((CropBlock) block).getMaxAge(), 0);
+		if (block instanceof CropBlock cropBlock) {
+			processAgedCrop(blockState, blockPos, cropBlock.getAgeProperty(), ((CropBlock) block).getMaxAge(), 0);
 		} else if (block instanceof NetherWartBlock) {
 			processAgedCrop(blockState, blockPos, NetherWartBlock.AGE, 3, 0);
 		} else if (block instanceof SweetBerryBushBlock) {

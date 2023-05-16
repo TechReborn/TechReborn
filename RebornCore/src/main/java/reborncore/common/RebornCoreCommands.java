@@ -137,7 +137,7 @@ public class RebornCoreCommands {
 				CompletableFuture.supplyAsync(() -> serverChunkManager.getChunk(chunkPosX, chunkPosZ, ChunkStatus.FULL, true), EXECUTOR_SERVICE)
 						.whenComplete((chunk, throwable) -> {
 									int max = (int) Math.pow(size, 2);
-									ctx.getSource().sendFeedback(Text.literal(String.format("Finished generating %d:%d (%d/%d %d%%)", chunk.getPos().x, chunk.getPos().z, completed.getAndIncrement(), max, completed.get() == 0 ? 0 : (int) ((completed.get() * 100.0f) / max))), true);
+									ctx.getSource().sendFeedback(() -> Text.literal(String.format("Finished generating %d:%d (%d/%d %d%%)", chunk.getPos().x, chunk.getPos().z, completed.getAndIncrement(), max, completed.get() == 0 ? 0 : (int) ((completed.get() * 100.0f) / max))), true);
 								}
 						);
 			}
