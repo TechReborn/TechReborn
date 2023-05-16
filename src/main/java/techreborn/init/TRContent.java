@@ -28,12 +28,16 @@ import com.google.common.base.Preconditions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.*;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -1587,10 +1591,16 @@ public class TRContent {
 		}
 	}
 
-	public static EntityType<EntityNukePrimed> ENTITY_NUKE;
+	public static EntityType<EntityNukePrimed> ENTITY_NUKE = FabricEntityTypeBuilder.create()
+		.entityFactory((EntityType.EntityFactory<EntityNukePrimed>) EntityNukePrimed::new)
+		.dimensions(EntityDimensions.fixed(1f, 1f))
+		.trackRangeChunks(10)
+		.build();
 
 	static {
 		ModRegistry.register();
 		TRItemGroup.register();
+
+		Registry.register(Registries.ENTITY_TYPE, new Identifier(TechReborn.MOD_ID, "nuke"), ENTITY_NUKE);
 	}
 }
