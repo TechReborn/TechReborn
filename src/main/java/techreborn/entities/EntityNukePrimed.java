@@ -28,24 +28,48 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.TntEntity;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.entity.boss.ServerBossBar;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.explosion.RebornExplosion;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRContent;
 
 /**
  * Created by Mark on 13/03/2016.
  */
 public class EntityNukePrimed extends TntEntity {
+	@Nullable LivingEntity owner;
 
-	public EntityNukePrimed(EntityType<EntityNukePrimed> entityType, World world) {
-		super(entityType, world);
+	private final ServerBossBar bossBar = new ServerBossBar(Text.translatable("block.techreborn.nuke"), BossBar.Color.RED, BossBar.Style.PROGRESS);
+
+
+	public EntityNukePrimed(EntityType<? extends EntityNukePrimed> type, World world) {
+		super(type, world);
 		setFuse(TechRebornConfig.nukeFuseTime);
 	}
 
-	public EntityNukePrimed(World world, double x, double y, double z, LivingEntity tntPlacedBy) {
-		super(world, x, y, z, tntPlacedBy);
+	public EntityNukePrimed(World world, double x, double y, double z, LivingEntity owner) {
+		this(TRContent.ENTITY_NUKE, world);
+
+		this.setPosition(x, y, z);
+		double d = world.random.nextDouble() * 6.2831854820251465;
+		this.setVelocity(-Math.sin(d) * 0.02, 0.2f, -Math.cos(d) * 0.02);
+		this.setFuse(80);
+		this.prevX = x;
+		this.prevY = y;
+		this.prevZ = z;
+		this.owner = owner;
 		setFuse(TechRebornConfig.nukeFuseTime);
+	}
+
+	@Nullable
+	@Override
+	public LivingEntity getOwner() {
+		return owner;
 	}
 
 	@Override
@@ -61,6 +85,8 @@ public class EntityNukePrimed extends TntEntity {
 		}
 
 		setFuse(getFuse() - 1);
+		bossBar.setPercent((float) getFuse() / TechRebornConfig.nukeFuseTime);
+
 		if (this.getFuse() <= 0) {
 			this.remove(RemovalReason.KILLED);
 			if (!this.getWorld().isClient) {
@@ -68,9 +94,6 @@ public class EntityNukePrimed extends TntEntity {
 			}
 		} else {
 			this.updateWaterState();
-			if (this.getWorld().isClient) {
-				this.getWorld().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
-			}
 		}
 	}
 
@@ -81,5 +104,17 @@ public class EntityNukePrimed extends TntEntity {
 		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), getWorld(), TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getOwner());
 		nukeExplosion.applyExplosion();
+	}
+
+	@Override
+	public void onStartedTrackingBy(ServerPlayerEntity player) {
+		super.onStartedTrackingBy(player);
+		this.bossBar.addPlayer(player);
+	}
+
+	@Override
+	public void onStoppedTrackingBy(ServerPlayerEntity player) {
+		super.onStoppedTrackingBy(player);
+		this.bossBar.removePlayer(player);
 	}
 }
