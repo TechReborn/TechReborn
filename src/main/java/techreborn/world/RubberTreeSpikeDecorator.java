@@ -26,10 +26,12 @@ package techreborn.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
+import techreborn.init.TRContent;
 
 import java.util.Comparator;
 
@@ -61,6 +63,9 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 			.ifPresent(blockPos -> {
 				for (int i = 0; i < spireHeight; i++) {
 					BlockPos sPos = blockPos.up(i);
+					if (!generator.getWorld().testBlockState(sPos, state -> state.isAir() || state.isOf(TRContent.RUBBER_LOG) || state.isIn(BlockTags.REPLACEABLE_BY_TREES))) {
+						return;
+					}
 					generator.replace(sPos, provider.get(generator.getRandom(), sPos));
 				}
 			});
