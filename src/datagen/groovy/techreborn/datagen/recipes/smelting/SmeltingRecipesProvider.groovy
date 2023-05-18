@@ -32,6 +32,7 @@ import net.minecraft.recipe.CookingRecipeSerializer
 import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.RegistryWrapper
+import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -80,6 +81,6 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 	def offerCookingRecipe(def input, ItemConvertible output, float experience, int cookingTime, CookingRecipeSerializer<?> serializer, String prefix = "", RecipeCategory category = RecipeCategory.MISC) {
 		CookingRecipeJsonBuilder.create(createIngredient(input), category, output, experience, cookingTime, serializer)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
-				.offerTo(this.exporter, prefix + getInputPath(output) + "_from_" + getInputPath(input))
+				.offerTo(this.exporter, TechReborn.MOD_ID + ":" + prefix + getInputPath(output) + "_from_" + getInputPath(input))
 	}
 }
