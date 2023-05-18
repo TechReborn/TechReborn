@@ -62,7 +62,7 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 			(Items.RED_WOOL): Items.RED_BED,
 			(Items.WHITE_DYE): Items.WHITE_BED,
 			(Items.YELLOW_DYE): Items.YELLOW_BED
-		].each {(wool, bed) ->
+		].each {wool, bed ->
 			offerAssemblingMachineRecipe {
 				ingredients stack(wool, 2), ItemTags.PLANKS
 				outputs bed
