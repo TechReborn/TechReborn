@@ -30,6 +30,7 @@ import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
+import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
 
@@ -42,6 +43,8 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 	@Override
 	void generateRecipes() {
 		generateBed()
+		generateMiscTR()
+		generateMiscVanilla()
 	}
 
 	void generateBed() {
@@ -71,6 +74,68 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 				time 250
 				criterion getCriterionName(wool), getCriterionConditions(wool)
 			}
+		}
+	}
+
+	void generateMiscTR() {
+		offerAssemblingMachineRecipe {
+			ingredients TRContent.Plates.PLATINUM.asTag(), TRContent.Parts.ADVANCED_CIRCUIT
+			outputs TRContent.Parts.INDUSTRIAL_CIRCUIT
+			power 20
+			time 200
+			criterion getCriterionName(TRContent.Plates.PLATINUM.asTag()), getCriterionConditions(TRContent.Plates.PLATINUM.asTag())
+		}
+		offerAssemblingMachineRecipe {
+			ingredients TRContent.Parts.DATA_STORAGE_CORE, TRContent.Parts.INDUSTRIAL_CIRCUIT
+			outputs TRContent.Parts.DATA_STORAGE_CHIP
+			power 20
+			time 200
+			criterion getCriterionName(TRContent.Parts.DATA_STORAGE_CORE), getCriterionConditions(TRContent.Parts.DATA_STORAGE_CORE)
+		}
+		offerAssemblingMachineRecipe {
+			ingredients TRContent.LAPOTRON_CRYSTAL, TRContent.Parts.INDUSTRIAL_CIRCUIT
+			outputs TRContent.Parts.ENERGY_FLOW_CHIP
+			power 20
+			time 200
+			criterion getCriterionName(TRContent.LAPOTRON_CRYSTAL), getCriterionConditions(TRContent.LAPOTRON_CRYSTAL)
+		}
+		offerAssemblingMachineRecipe {
+			ingredients stack(TRContent.Parts.SYNTHETIC_REDSTONE_CRYSTAL, 2), TRContent.Plates.SILICON.asTag()
+			outputs TRContent.ENERGY_CRYSTAL
+			power 40
+			time 200
+			criterion getCriterionName(TRContent.Parts.SYNTHETIC_REDSTONE_CRYSTAL), getCriterionConditions(TRContent.Parts.SYNTHETIC_REDSTONE_CRYSTAL)
+		}
+		offerAssemblingMachineRecipe {
+			ingredients TRContent.Machine.SOLID_FUEL_GENERATOR, TRContent.Plates.MAGNALIUM
+			outputs TRContent.Machine.WIND_MILL
+			power 20
+			time 700
+			criterion getCriterionName(TRContent.Plates.MAGNALIUM), getCriterionConditions(TRContent.Plates.MAGNALIUM)
+		}
+	}
+
+	void generateMiscVanilla() {
+		offerAssemblingMachineRecipe {
+			ingredients stack(Items.PHANTOM_MEMBRANE, 16), stack(Items.END_ROD, 3)
+			outputs Items.ELYTRA
+			power 20
+			time 500
+			criterion getCriterionName(Items.END_ROD), getCriterionConditions(Items.END_ROD)
+		}
+		offerAssemblingMachineRecipe {
+			ingredients stack(Items.TORCH, 10), stack(Items.IRON_INGOT, 8)
+			outputs stack(Items.LANTERN, 10)
+			power 20
+			time 200
+			criterion getCriterionName(Items.TORCH), getCriterionConditions(Items.TORCH)
+		}
+		offerAssemblingMachineRecipe {
+			ingredients stack(Items.SOUL_TORCH, 10), stack(Items.IRON_INGOT, 8)
+			outputs stack(Items.SOUL_LANTERN, 10)
+			power 20
+			time 200
+			criterion getCriterionName(Items.SOUL_TORCH), getCriterionConditions(Items.SOUL_TORCH)
 		}
 	}
 
