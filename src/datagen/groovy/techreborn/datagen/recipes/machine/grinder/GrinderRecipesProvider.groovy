@@ -48,16 +48,13 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 	void generateRecipes() {
 		generateVanillaRawMetals()
 		generateTRRawMetals()
-		// vanilla gems
-		// TODO vanilla gems + storage blocks (Redstone, glowstone, lapis, emerald, diamond)
 		generateTRGems()
-		// vanilla ingots
-		// TODO vanilla ingots + storage blocks (iron, copper, gold)
 		generateTRIngots()
 		generateSand()
 		generateRedSand()
 		generateConcretePowder()
 		generateSawdust()
+		// includes vanilla gems and ingots
 		generateMiscRecipes()
 	}
 
