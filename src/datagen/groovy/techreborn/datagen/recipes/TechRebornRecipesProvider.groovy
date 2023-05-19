@@ -192,6 +192,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		IndustrialSawmillRecipeJsonFactory.createIndustrialSawmill(this, closure).offerTo(exporter)
 	}
 
+	def offerImplosionCompressorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		MachineRecipeJsonFactory.create(ModRecipes.IMPLOSION_COMPRESSOR, this, closure).offerTo(exporter)
+	}
+
 	@Override
 	protected Identifier getRecipeIdentifier(Identifier identifier) {
 		return new Identifier("techreborn", super.getRecipeIdentifier(identifier).path)
