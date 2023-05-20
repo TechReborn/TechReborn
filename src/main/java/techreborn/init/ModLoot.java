@@ -100,7 +100,7 @@ public class ModLoot {
 						"minecraft:chests/jungle_temple",
 						"minecraft:chests/simple_dungeon",
 						"minecraft:chests/shipwreck_treasure",
-						"minecraft:chest/underwater_ruin_small",
+						"minecraft:chests/underwater_ruin_small",
 						"minecraft:chests/village/village_weaponsmith",
 						"minecraft:chests/village/village_armorer",
 						"minecraft:chests/village/village_toolsmith"
@@ -108,7 +108,7 @@ public class ModLoot {
 					case "minecraft:chests/stronghold_corridor",
 						"minecraft:chests/stronghold_crossing",
 						"minecraft:chests/stronghold_library",
-						"minecraft:chest/underwater_ruin_big",
+						"minecraft:chests/underwater_ruin_big",
 						"minecraft:chests/pillager_outpost"
 						-> tableBuilder.pool(poolAdvanced);
 					case "minecraft:chests/woodland_mansion",
@@ -116,7 +116,7 @@ public class ModLoot {
 						-> tableBuilder.pool(poolIndustrial);
 					case "minecraft:archeology/trail_ruins_common"
 						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(Parts.RUBBER).build()));
-					case "minecraft:gift/cat_morning_gift"
+					case "minecraft:gameplay/cat_morning_gift"
 						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(Parts.SCRAP).weight(5).build()));
 				}
 			}
