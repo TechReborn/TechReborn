@@ -86,11 +86,6 @@ public class ModLoot {
 				.with(industrialFrame).with(industrialCircuit).with(energyFlowChip).rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
 				.build();
 
-		LootPoolEntry rubber = ItemEntry.builder(Parts.RUBBER).weight(10).build();
-		LootPoolEntry treeTap = ItemEntry.builder(TRContent.TREE_TAP).weight(10)
-			.apply(SetDamageLootFunction.builder(UniformLootNumberProvider.create(0.0f, 0.9f))).build();
-		LootPoolEntry scrap = ItemEntry.builder(Parts.SCRAP).weight(10).build();
-
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			String stringId = id.toString();
 			if (!stringId.startsWith("minecraft:gameplay") && !stringId.startsWith("minecraft:chests")) {
@@ -119,6 +114,10 @@ public class ModLoot {
 					case "minecraft:chests/woodland_mansion",
 						"minecraft:chests/ancient_city"
 						-> tableBuilder.pool(poolIndustrial);
+					case "minecraft:archeology/trail_ruins_common"
+						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(Parts.RUBBER).build()));
+					case "minecraft:gift/cat_morning_gift"
+						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(Parts.SCRAP).weight(5).build()));
 				}
 			}
 
@@ -140,6 +139,10 @@ public class ModLoot {
 
 			if (TechRebornConfig.enableFishingJunkLoot) {
 				if (stringId.equals("minecraft:gameplay/fishing/junk")) {
+					LootPoolEntry rubber = ItemEntry.builder(Parts.RUBBER).weight(10).build();
+					LootPoolEntry treeTap = ItemEntry.builder(TRContent.TREE_TAP).weight(10)
+						.apply(SetDamageLootFunction.builder(UniformLootNumberProvider.create(0.0f, 0.9f))).build();
+					LootPoolEntry scrap = ItemEntry.builder(Parts.SCRAP).weight(10).build();
 					tableBuilder.modifyPools(poolBuilder -> poolBuilder
 						.with(rubber).with(treeTap).with(scrap));
 				}
