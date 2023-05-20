@@ -91,9 +91,6 @@ public class ModLoot {
 			.apply(SetDamageLootFunction.builder(UniformLootNumberProvider.create(0.0f, 0.9f))).build();
 		LootPoolEntry scrap = ItemEntry.builder(Parts.SCRAP).weight(10).build();
 
-		LootPool poolFishingJunk = LootPool.builder().with(rubber).with(treeTap).with(scrap).build();
-
-
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			String stringId = id.toString();
 			if (!stringId.startsWith("minecraft:gameplay") && !stringId.startsWith("minecraft:chests")) {
@@ -143,7 +140,8 @@ public class ModLoot {
 
 			if (TechRebornConfig.enableFishingJunkLoot) {
 				if (stringId.equals("minecraft:gameplay/fishing/junk")) {
-					tableBuilder.pool(poolFishingJunk);
+					tableBuilder.modifyPools(poolBuilder -> poolBuilder
+						.with(rubber).with(treeTap).with(scrap));
 				}
 			}
 		});
