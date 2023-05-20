@@ -115,9 +115,9 @@ public class ModLoot {
 						"minecraft:chests/ancient_city"
 						-> tableBuilder.pool(poolIndustrial);
 					case "minecraft:archeology/trail_ruins_common"
-						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(Parts.RUBBER).build()));
+						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(Parts.RUBBER)));
 					case "minecraft:gift/cat_morning_gift"
-						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(Parts.SCRAP).weight(5).build()));
+						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(ItemEntry.builder(Parts.SCRAP).weight(5)));
 				}
 			}
 
