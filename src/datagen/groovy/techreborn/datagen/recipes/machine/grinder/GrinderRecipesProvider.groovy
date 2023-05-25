@@ -51,6 +51,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		generateVanillaGems()
 		generateTRGems()
 		generateTRIngots()
+		generateSmithingTemplates()
 		generateSand()
 		generateRedSand()
 		generateConcretePowder()
@@ -216,6 +217,15 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 					source "block"
 					criterion getCriterionName(ingot.getStorageBlock().asTag()), getCriterionConditions(ingot.getStorageBlock().asTag())
 				}
+		}
+	}
+
+	void generateSmithingTemplates() {
+		offerGrinderRecipe {
+			power 5
+			time 200
+			ingredients tag("minecraft:trim_templates")
+			outputs stack(TRContent.Dusts.DIAMOND, 2)
 		}
 	}
 
