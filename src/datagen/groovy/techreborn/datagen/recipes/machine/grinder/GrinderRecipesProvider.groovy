@@ -51,7 +51,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		generateVanillaGems()
 		generateTRGems()
 		generateTRIngots()
-		generateSmithingTemplates()
+		generateTrimTemplates()
 		generateSand()
 		generateRedSand()
 		generateConcretePowder()
@@ -220,12 +220,12 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 	}
 
-	void generateSmithingTemplates() {
+	void generateTrimTemplates() {
 		offerGrinderRecipe {
 			power 5
 			time 200
 			ingredients tag("minecraft:trim_templates")
-			outputs stack(TRContent.Dusts.DIAMOND, 2)
+			outputs stack(TRContent.SmallDusts.DIAMOND, 5)
 		}
 	}
 
