@@ -30,8 +30,8 @@
 	]
   },
   "depends": {
-    "fabricloader": ">=0.14.17",
-	"fabric-api": ">=0.75.3",
+    "fabricloader": ">=0.14.21",
+	"fabric-api": ">=0.82.1",
     "reborncore": "*",
 	"team_reborn_energy": ">=3.0.0",
 	"fabric-biome-api-v1": ">=3.0.0",
