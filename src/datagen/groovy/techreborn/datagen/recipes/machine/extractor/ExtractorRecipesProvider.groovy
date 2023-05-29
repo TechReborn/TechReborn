@@ -314,7 +314,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		[
-		    Items.BOOK,
+			Items.BOOK,
 			Items.ENCHANTED_BOOK,
 			Items.WRITABLE_BOOK,
 			Items.WRITTEN_BOOK,
