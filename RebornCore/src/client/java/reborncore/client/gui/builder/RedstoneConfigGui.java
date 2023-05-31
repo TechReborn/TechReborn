@@ -25,23 +25,41 @@
 package reborncore.client.gui.builder;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.builder.slot.GuiTab;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.ServerBoundPackets;
 
 import java.util.Locale;
 
-public class RedstoneConfigGui {
+public class RedstoneConfigGui extends GuiTab {
+	public RedstoneConfigGui(GuiBase<?> guiBase) {
+		super(guiBase);
+	}
 
-	public static void draw(DrawContext drawContext, GuiBase<?> guiBase, int mouseX, int mouseY) {
+	@Override
+	public String name() {
+		return "reborncore.gui.tooltip.config_redstone";
+	}
+
+	@Override
+	public boolean enabled() {
+		return true;
+	}
+
+	@Override
+	public ItemStack stack() {
+		return new ItemStack(Items.REDSTONE);
+	}
+
+	@Override
+	public void draw(DrawContext drawContext, int mouseX, int mouseY) {
 		if (guiBase.getMachine() == null) return;
 		RedstoneConfiguration configuration = guiBase.getMachine().getRedstoneConfiguration();
-		GuiBuilder builder = guiBase.builder;
-		ItemRenderer itemRenderer = guiBase.getMinecraft().getItemRenderer();
 
 		int x = 10;
 		int y = 100;
@@ -60,10 +78,10 @@ public class RedstoneConfigGui {
 			guiBase.drawCentredText(drawContext, name, y + (i * spread), -1, x + 37, GuiBase.Layer.FOREGROUND);
 			i++;
 		}
-
 	}
 
-	public static boolean mouseClicked(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
+	@Override
+	public boolean click(double mouseX, double mouseY, int mouseButton) {
 		if (guiBase.getMachine() == null) return false;
 		RedstoneConfiguration configuration = guiBase.getMachine().getRedstoneConfiguration();
 
@@ -89,10 +107,14 @@ public class RedstoneConfigGui {
 		return false;
 	}
 
-	private static boolean withinBounds(GuiBase<?> guiBase, int mouseX, int mouseY, int x, int y, int width, int height) {
+	@Override
+	public boolean hideGuiElements() {
+		return false;
+	}
+
+	private boolean withinBounds(GuiBase<?> guiBase, int mouseX, int mouseY, int x, int y, int width, int height) {
 		mouseX -= guiBase.getGuiLeft();
 		mouseY -= guiBase.getGuiTop();
 		return (mouseX > x && mouseX < x + width) && (mouseY > y && mouseY < y + height);
 	}
-
 }

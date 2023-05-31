@@ -27,21 +27,13 @@ package reborncore.client.gui.builder.slot.elements;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.common.util.Tank;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ConfigFluidElement extends ParentElement {
+	private final SlotType type;
 
-public class ConfigFluidElement extends ElementBase {
-	SlotType type;
-	Tank tank;
-	public List<ElementBase> elements = new ArrayList<>();
-	boolean filter = false;
-
-	public ConfigFluidElement(Tank tank, SlotType type, int x, int y, GuiBase<?> gui) {
+	public ConfigFluidElement(SlotType type, int x, int y, GuiBase<?> gui) {
 		super(x, y, type.getButtonSprite());
 		this.type = type;
-		this.tank = tank;
 
 		FluidConfigPopupElement popupElement;
 
@@ -63,19 +55,14 @@ public class ConfigFluidElement extends ElementBase {
 
 	@Override
 	public int getHeight() {
-		return 105 + (filter ? 15 : 0);
+		return 105;
 	}
 
 	@Override
 	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		super.draw(drawContext, gui, mouseX, mouseY);
 		if (isMouseWithinRect(gui, mouseX, mouseY)) {
 			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
 		}
-		elements.forEach(elementBase -> elementBase.draw(drawContext, gui, mouseX, mouseY));
-	}
-
-	public SlotType getType() {
-		return type;
+		super.draw(drawContext, gui, mouseX, mouseY);
 	}
 }

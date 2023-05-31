@@ -1,7 +1,7 @@
 /*
  * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2021 TeamReborn
+ * Copyright (c) 2023 TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +22,38 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.widget;
+package reborncore.client.gui.builder.slot.elements;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
+import reborncore.client.gui.builder.GuiBase;
 
-public class GuiButtonHologram extends GuiButtonExtended {
-	public GuiButtonHologram(int x, int y, ButtonWidget.PressAction pressAction) {
-		super(x, y, 20, 12, Text.empty(), pressAction);
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class ParentElement extends ElementBase {
+	protected final List<ElementBase> elements = new ArrayList<>();
+
+	public ParentElement(int x, int y, Sprite sprite) {
+		super(x, y, sprite);
 	}
 
 	@Override
-	public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+		super.draw(drawContext, gui, mouseX, mouseY);
+		elements.forEach(elementBase -> elementBase.draw(drawContext, gui, mouseX, mouseY));
+	}
 
+	@Override
+	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
+		for (ElementBase element : Lists.reverse(elements)) {
+			if (element.isMouseWithinRect(gui, mouseX, mouseY)) {
+				if (element.onClick(gui, mouseX, mouseY)) {
+					return true;
+				}
+			}
+		}
+
+		return super.onClick(gui, mouseX, mouseY);
 	}
 }

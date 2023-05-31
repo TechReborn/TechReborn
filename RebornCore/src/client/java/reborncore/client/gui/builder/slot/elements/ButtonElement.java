@@ -26,7 +26,6 @@ package reborncore.client.gui.builder.slot.elements;
 
 import net.minecraft.client.gui.DrawContext;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 public class ButtonElement extends ElementBase {
 	private final Sprite.Button buttonSprite;
@@ -39,7 +38,7 @@ public class ButtonElement extends ElementBase {
 	}
 
 	@Override
-	public boolean onClick(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
+	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
 		onClicked.run();
 		return true;
 	}

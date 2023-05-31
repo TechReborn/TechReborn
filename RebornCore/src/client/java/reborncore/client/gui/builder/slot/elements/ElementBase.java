@@ -30,7 +30,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 public class ElementBase {
 	private final int x;
@@ -69,7 +68,7 @@ public class ElementBase {
 		return sprite.height();
 	}
 
-	public boolean onClick(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
+	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
 		return false;
 	}
 

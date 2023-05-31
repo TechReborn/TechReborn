@@ -24,41 +24,56 @@
 
 package reborncore.client.gui.builder.slot;
 
-import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 import reborncore.client.ClientChatUtils;
 import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
-import reborncore.client.gui.builder.slot.elements.ElementBase;
 import reborncore.client.gui.builder.slot.elements.SlotType;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
-// Why is all this static?
-public class SlotConfigGui {
+public class SlotConfigGui extends GuiTab {
+	private Int2ObjectMap<ConfigSlotElement> slotElementMap = new Int2ObjectOpenHashMap<>();
 
-	public static HashMap<Integer, ConfigSlotElement> slotElementMap = new HashMap<>();
+	@Nullable
+	private ConfigSlotElement selectedSlot;
 
-	public static int selectedSlot = 0;
-
-	public static void reset() {
-		selectedSlot = -1;
+	public SlotConfigGui(GuiBase<?> guiBase) {
+		super(guiBase);
 	}
 
-	public static void init(GuiBase<?> guiBase) {
-		reset();
+	@Override
+	public String name() {
+		return "reborncore.gui.tooltip.config_slots";
+	}
+
+	@Override
+	public boolean enabled() {
+		return machine.hasSlotConfig();
+	}
+
+	@Override
+	public ItemStack stack() {
+		return GuiBase.wrenchStack;
+	}
+
+	@Override
+	public void open() {
+		selectedSlot = null;
 		slotElementMap.clear();
 
 		BuiltScreenHandler container = guiBase.builtScreenHandler;
@@ -67,13 +82,27 @@ public class SlotConfigGui {
 				continue;
 			}
 
-			ConfigSlotElement slotElement = new ConfigSlotElement(guiBase.getMachine().getOptionalInventory().get(), slot.getIndex(), SlotType.NORMAL, slot.x - guiBase.getGuiLeft() + 50, slot.y - guiBase.getGuiTop() - 25, guiBase);
+			ConfigSlotElement slotElement = new ConfigSlotElement(
+				guiBase.getMachine().getOptionalInventory().get(),
+				slot.getIndex(),
+				SlotType.NORMAL,
+				slot.x - guiBase.getGuiLeft() + 50,
+				slot.y - guiBase.getGuiTop() - 25,
+				guiBase,
+				this::close
+			);
 			slotElementMap.put(slot.getIndex(), slotElement);
 		}
 
 	}
 
-	public static void draw(DrawContext drawContext, GuiBase<?> guiBase, int mouseX, int mouseY) {
+	@Override
+	public void close() {
+		selectedSlot = null;
+	}
+
+	@Override
+	public void draw(DrawContext drawContext, int x, int y) {
 		BuiltScreenHandler container = guiBase.builtScreenHandler;
 		for (Slot slot : container.slots) {
 			if (guiBase.be != slot.inventory) {
@@ -84,35 +113,69 @@ public class SlotConfigGui {
 			drawContext.fill(slot.x -1, slot.y -1, slot.x + 17, slot.y + 17, color.getColor());
 		}
 
-		if (selectedSlot != -1) {
-			slotElementMap.get(selectedSlot).draw(drawContext, guiBase, mouseX, mouseY);
+		if (selectedSlot != null) {
+			selectedSlot.draw(drawContext, guiBase, x, y);
 		}
 	}
 
-	public static List<ConfigSlotElement> getVisibleElements() {
-		if (selectedSlot == -1) {
-			return Collections.emptyList();
+	@Override
+	public boolean click(double mouseX, double mouseY, int mouseButton) {
+		final BuiltScreenHandler screenHandler = Objects.requireNonNull(guiBase.builtScreenHandler);
+
+		if (selectedSlot != null) {
+			return selectedSlot.onClick(guiBase, mouseX, mouseY);
+		} else {
+			for (Slot slot : screenHandler.slots) {
+				if (guiBase.be != slot.inventory) {
+					continue;
+				}
+				if (guiBase.isPointInRect(slot.x, slot.y, 18, 18, mouseX, mouseY)) {
+					selectedSlot = slotElementMap.get(slot.getIndex());
+					return true;
+				}
+			}
 		}
-		return slotElementMap.values().stream()
-				.filter(configSlotElement -> configSlotElement.getId() == selectedSlot)
-				.collect(Collectors.toList());
+
+		return false;
 	}
 
-	public static void copyToClipboard() {
-		MachineBaseBlockEntity machine = getMachine();
-		if (machine == null || machine.getSlotConfiguration() == null) {
-			return;
+	@Override
+	public boolean keyPress(int keyCode, int scanCode, int modifiers) {
+		if (Screen.hasControlDown() && keyCode == GLFW.GLFW_KEY_C) {
+			copyToClipboard();
+			return true;
+		} else if (Screen.hasControlDown() && keyCode == GLFW.GLFW_KEY_V) {
+			pasteFromClipboard();
+			return true;
+		} else if (keyCode == GLFW.GLFW_KEY_ESCAPE && selectedSlot != null) {
+			selectedSlot = null;
+			return true;
 		}
+		return false;
+	}
+
+	@Override
+	public List<String> getTips() {
+		return List.of(
+			"reborncore.gui.slotconfigtip.slot",
+			"reborncore.gui.slotconfigtip.side1",
+			"reborncore.gui.slotconfigtip.side2",
+			"reborncore.gui.slotconfigtip.side3",
+			"reborncore.gui.slotconfigtip.copy1",
+			"reborncore.gui.slotconfigtip.copy2"
+		);
+	}
+
+	private void copyToClipboard() {
+		machine.getSlotConfiguration();
 		String json = machine.getSlotConfiguration().toJson(machine.getClass().getCanonicalName());
 		MinecraftClient.getInstance().keyboard.setClipboard(json);
 		ClientChatUtils.addHudMessage(Text.literal("Slot configuration copied to clipboard"));
 	}
 
-	public static void pasteFromClipboard() {
-		MachineBaseBlockEntity machine = getMachine();
-		if (machine == null || machine.getSlotConfiguration() == null) {
-			return;
-		}
+	private void pasteFromClipboard() {
+		machine.getSlotConfiguration();
+
 		String json = MinecraftClient.getInstance().keyboard.getClipboard();
 		try {
 			machine.getSlotConfiguration().readJson(json, machine.getClass().getCanonicalName());
@@ -123,44 +186,7 @@ public class SlotConfigGui {
 		}
 	}
 
-	@Nullable
-	private static MachineBaseBlockEntity getMachine() {
-		if (!(MinecraftClient.getInstance().currentScreen instanceof GuiBase<?> base)) {
-			return null;
-		}
-		if (base.be instanceof MachineBaseBlockEntity machineBase) {
-			return machineBase;
-		}
-		return null;
-	}
-
-	public static boolean mouseClicked(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
-		BuiltScreenHandler screenHandler = guiBase.builtScreenHandler;
-
-		if (getVisibleElements().isEmpty()) {
-			for (Slot slot : screenHandler.slots) {
-				if (guiBase.be != slot.inventory) {
-					continue;
-				}
-				if (guiBase.isPointInRect(slot.x, slot.y, 18, 18, mouseX, mouseY)) {
-					selectedSlot = slot.getIndex();
-					return true;
-				}
-			}
-		}
-
-		if (mouseButton == 0) {
-			for (ConfigSlotElement configSlotElement : getVisibleElements()) {
-				for (ElementBase element : Lists.reverse(configSlotElement.elements)) {
-					if (element.isMouseWithinRect(guiBase, mouseX, mouseY)) {
-						if (element.onClick(guiBase.getMachine(), guiBase, mouseX, mouseY)) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-
-		return !getVisibleElements().isEmpty();
+	public ConfigSlotElement getSelectedSlot() {
+		return selectedSlot;
 	}
 }

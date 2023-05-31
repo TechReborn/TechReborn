@@ -29,27 +29,30 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.slot.SlotConfigGui;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.screen.slot.BaseSlot;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
-public class ConfigSlotElement extends ElementBase {
-	SlotType type;
-	Inventory inventory;
-	int id;
-	public List<ElementBase> elements = new ArrayList<>();
-	boolean filter = false;
+public class ConfigSlotElement extends ParentElement {
+	private final SlotType type;
+	private final Inventory inventory;
+	private final int id;
+	private final boolean filter;
 
-	public ConfigSlotElement(Inventory slotInventory, int slotId, SlotType type, int x, int y, GuiBase<?> gui) {
+	public ConfigSlotElement(Inventory slotInventory,
+							int slotId,
+							SlotType type,
+							int x,
+							int y,
+							GuiBase<?> gui,
+							Runnable closeConfig) {
 		super(x, y, type.getButtonSprite());
 		this.type = type;
 		this.inventory = slotInventory;
 		this.id = slotId;
+		this.filter = gui.getMachine() instanceof SlotConfiguration.SlotFilter;
 
 		SlotConfigPopupElement popupElement;
 
@@ -63,10 +66,7 @@ public class ConfigSlotElement extends ElementBase {
 
 
 		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, inputEnabled));
-		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON, () -> {
-			SlotConfigGui.selectedSlot = -1;
-			gui.closeSelectedTab();
-		}));
+		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON, closeConfig));
 
 		if (inputEnabled) {
 			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), x - 26, y + 42,
@@ -83,7 +83,6 @@ public class ConfigSlotElement extends ElementBase {
 				elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.filter_input"), x - 26, y + 72,
 					checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(slotId).filter(),
 					() -> popupElement.updateCheckBox("filter", gui)));
-				filter = true;
 				popupElement.filter = true;
 			}
 		}
@@ -101,7 +100,6 @@ public class ConfigSlotElement extends ElementBase {
 
 	@Override
 	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		super.draw(drawContext, gui, mouseX, mouseY);
 		ItemStack stack = inventory.getStack(id);
 		int xPos = getX() + 1 + gui.getGuiLeft();
 		int yPos = getY() + 1 + gui.getGuiTop();
@@ -111,12 +109,9 @@ public class ConfigSlotElement extends ElementBase {
 		if (isMouseWithinRect(gui, mouseX, mouseY)) {
 			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
 		}
-		elements.forEach(elementBase -> elementBase.draw(drawContext, gui, mouseX, mouseY));
+		super.draw(drawContext, gui, mouseX, mouseY);
 	}
 
-	public SlotType getType() {
-		return type;
-	}
 
 	public int getId() {
 		return id;

@@ -38,13 +38,16 @@ public class SlotConfigExclusionZones implements ExclusionZonesProvider<GuiBase<
 
 	@Override
 	public Collection<Rectangle> provide(GuiBase screen) {
-		if (!screen.hideGuiElements()) {
+		if (!(screen.getSelectedTab() instanceof SlotConfigGui slotConfigGui)){
 			return Collections.emptyList();
 		}
-		if (SlotConfigGui.selectedSlot == -1){
+
+		final ConfigSlotElement element = slotConfigGui.getSelectedSlot();
+
+		if (element == null) {
 			return Collections.emptyList();
 		}
-		ConfigSlotElement element = SlotConfigGui.slotElementMap.get(SlotConfigGui.selectedSlot);
+
 		int slotX = element.getX() + screen.getGuiLeft() -50;
 		if (element.getWidth() + slotX > screen.getScreenWidth() ) {
 			int slotY = element.getY() + screen.getGuiTop() + 25;

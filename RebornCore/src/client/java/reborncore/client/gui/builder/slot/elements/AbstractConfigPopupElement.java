@@ -75,24 +75,24 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 	}
 
 	@Override
-	public final boolean onClick(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
+	public final boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
 		if (isInBox(23, 4, 16, 16, mouseX, mouseY, gui)) {
-			cycleConfig(MachineFacing.UP.getFacing(provider), gui);
+			cycleConfig(MachineFacing.UP.getFacing(gui.getMachine()), gui);
 			return true;
 		} else if (isInBox(23, 23, 16, 16, mouseX, mouseY, gui)) {
-			cycleConfig(MachineFacing.FRONT.getFacing(provider), gui);
+			cycleConfig(MachineFacing.FRONT.getFacing(gui.getMachine()), gui);
 			return true;
 		} else if (isInBox(42, 23, 16, 16, mouseX, mouseY, gui)) {
-			cycleConfig(MachineFacing.RIGHT.getFacing(provider), gui);
+			cycleConfig(MachineFacing.RIGHT.getFacing(gui.getMachine()), gui);
 			return true;
 		} else if (isInBox(4, 23, 16, 16, mouseX, mouseY, gui)) {
-			cycleConfig(MachineFacing.LEFT.getFacing(provider), gui);
+			cycleConfig(MachineFacing.LEFT.getFacing(gui.getMachine()), gui);
 			return true;
 		} else if (isInBox(23, 42, 16, 16, mouseX, mouseY, gui)) {
-			cycleConfig(MachineFacing.DOWN.getFacing(provider), gui);
+			cycleConfig(MachineFacing.DOWN.getFacing(gui.getMachine()), gui);
 			return true;
 		} else if (isInBox(42, 42, 16, 16, mouseX, mouseY, gui)) {
-			cycleConfig(MachineFacing.BACK.getFacing(provider), gui);
+			cycleConfig(MachineFacing.BACK.getFacing(gui.getMachine()), gui);
 			return true;
 		}
 

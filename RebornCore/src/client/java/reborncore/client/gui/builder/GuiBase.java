@@ -34,87 +34,25 @@ import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
-import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
-import reborncore.client.gui.builder.slot.FluidConfigGui;
 import reborncore.client.gui.builder.slot.GuiTab;
-import reborncore.client.gui.builder.slot.SlotConfigGui;
 import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.slot.PlayerInventorySlot;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-/**
- * Created by Prospector
- */
+import java.util.*;
 
 public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
-
 	public static FluidCellProvider fluidCellProvider = fluid -> ItemStack.EMPTY;
 	public static ItemStack wrenchStack = ItemStack.EMPTY;
-
-	private final List<GuiTab.Builder> tabBuilders = Util.make(new ArrayList<>(), builders -> {
-		builders.add(GuiTab.Builder.builder()
-				.name("reborncore.gui.tooltip.config_slots")
-				.enabled(guiTab -> guiTab.machine().hasSlotConfig())
-				.stack(guiTab -> wrenchStack)
-				.draw(SlotConfigGui::draw)
-				.click(SlotConfigGui::mouseClicked)
-				.hideGuiElements()
-				.keyPressed((guiBase, keyCode, scanCode, modifiers) -> {
-					if (hasControlDown() && keyCode == GLFW.GLFW_KEY_C) {
-						SlotConfigGui.copyToClipboard();
-						return true;
-					} else if (hasControlDown() && keyCode == GLFW.GLFW_KEY_V) {
-						SlotConfigGui.pasteFromClipboard();
-						return true;
-					} else if (keyCode == GLFW.GLFW_KEY_ESCAPE && SlotConfigGui.selectedSlot != -1) {
-						SlotConfigGui.reset();
-						return true;
-					}
-					return false;
-				})
-				.tips(tips -> {
-					tips.add("reborncore.gui.slotconfigtip.slot");
-					tips.add("reborncore.gui.slotconfigtip.side1");
-					tips.add("reborncore.gui.slotconfigtip.side2");
-					tips.add("reborncore.gui.slotconfigtip.side3");
-					tips.add("reborncore.gui.slotconfigtip.copy1");
-					tips.add("reborncore.gui.slotconfigtip.copy2");
-				})
-		);
-
-		builders.add(GuiTab.Builder.builder()
-				.name("reborncore.gui.tooltip.config_fluids")
-				.enabled(guiTab -> guiTab.machine().showTankConfig())
-				.stack(guiTab -> GuiBase.fluidCellProvider.provide(Fluids.LAVA))
-				.draw(FluidConfigGui::draw)
-				.click(FluidConfigGui::mouseClicked)
-				.hideGuiElements()
-		);
-
-		builders.add(GuiTab.Builder.builder()
-				.name("reborncore.gui.tooltip.config_redstone")
-				.stack(guiTab -> new ItemStack(Items.REDSTONE))
-				.draw(RedstoneConfigGui::draw)
-				.click(RedstoneConfigGui::mouseClicked)
-		);
-	});
 
 	public GuiBuilder builder = new GuiBuilder();
 	public BlockEntity be;
@@ -123,8 +61,9 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	private final int xSize = 176;
 	private final int ySize = 176;
 
-	private GuiTab selectedTab;
-	private List<GuiTab> tabs;
+	@Nullable
+	private GuiTab selectedTab = null;
+	private final List<GuiTab> tabs;
 
 	public boolean upgrades;
 
@@ -132,15 +71,10 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		super(screenHandler, player.getInventory(), Text.literal(I18n.translate(blockEntity.getCachedState().getBlock().getTranslationKey())));
 		this.be = blockEntity;
 		this.builtScreenHandler = (BuiltScreenHandler) screenHandler;
-		selectedTab = null;
-		populateSlots();
-	}
-
-	private void populateSlots() {
-		tabs = tabBuilders.stream()
-				.map(builder -> builder.build(getMachine(), this))
-				.filter(GuiTab::enabled)
-				.collect(Collectors.toList());
+		tabs = GuiTab.TABS.stream()
+			.map(factory -> factory.create(this))
+			.filter(GuiTab::enabled)
+			.toList();
 	}
 
 	public int getScreenWidth() {
@@ -185,11 +119,8 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	@Override
 	public void init() {
 		super.init();
-		if (isConfigEnabled()) {
-			SlotConfigGui.init(this);
-		}
-		if (isConfigEnabled() && getMachine().getTank() != null && getMachine().showTankConfig()) {
-			FluidConfigGui.init(this);
+		for (GuiTab tab : tabs) {
+			tab.open();
 		}
 	}
 
@@ -308,7 +239,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	public GuiButtonHologram addHologramButton(int x, int y, int id, Layer layer) {
-		GuiButtonHologram buttonHologram = new GuiButtonHologram(x + this.x, y + this.y, this, layer, var1 -> {
+		GuiButtonHologram buttonHologram = new GuiButtonHologram(x + this.x, y + this.y, var1 -> {
 		});
 		addSelectableChild(buttonHologram);
 		return buttonHologram;
@@ -333,9 +264,8 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 				if (selectedTab == tab) {
 					closeSelectedTab();
 				} else {
-					selectedTab = tab;
+					setSelectedTab(tab);
 				}
-				SlotConfigGui.reset();
 				break;
 			}
 			offset -= 24;
@@ -362,7 +292,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		super.close();
 	}
 
-	@Nullable
 	public MachineBaseBlockEntity getMachine() {
 		return (MachineBaseBlockEntity) be;
 	}
@@ -427,8 +356,22 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		return selectedTab != null && selectedTab.hideGuiElements();
 	}
 
+	private void setSelectedTab(GuiTab tab) {
+		Objects.requireNonNull(tab);
+		selectedTab = tab;
+		selectedTab.open();
+	}
+
 	public void closeSelectedTab() {
+		if (selectedTab != null) {
+			selectedTab.close();
+		}
+
 		selectedTab = null;
+	}
+
+	public GuiTab getSelectedTab() {
+		return selectedTab;
 	}
 
 	@Override

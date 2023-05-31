@@ -24,46 +24,60 @@
 
 package reborncore.client.gui.builder.slot;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.elements.ConfigFluidElement;
-import reborncore.client.gui.builder.slot.elements.ElementBase;
 import reborncore.client.gui.builder.slot.elements.SlotType;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
 
-// Why is this static?
-public class FluidConfigGui {
+public class FluidConfigGui extends GuiTab {
+	@Nullable
+	private ConfigFluidElement fluidConfigElement;
 
-	static ConfigFluidElement fluidConfigElement;
-
-	public static void init(GuiBase<?> guiBase) {
-		fluidConfigElement = new ConfigFluidElement(guiBase.getMachine().getTank(), SlotType.NORMAL, 35 - guiBase.getGuiLeft() + 50, 35 - guiBase.getGuiTop() - 25, guiBase);
+	public FluidConfigGui(GuiBase<?> guiBase) {
+		super(guiBase);
 	}
 
-	public static void draw(DrawContext drawContext, GuiBase<?> guiBase, int mouseX, int mouseY) {
-		fluidConfigElement.draw(drawContext, guiBase, mouseX, mouseY);
+	@Override
+	public String name() {
+		return "reborncore.gui.tooltip.config_fluids";
 	}
 
-	public static List<ConfigFluidElement> getVisibleElements() {
-		return Collections.singletonList(fluidConfigElement);
+	@Override
+	public boolean enabled() {
+		return machine.showTankConfig();
 	}
 
-	public static boolean mouseClicked(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
-		if (mouseButton == 0) {
-			for (ConfigFluidElement configSlotElement : getVisibleElements()) {
-				for (ElementBase element : Lists.reverse(configSlotElement.elements)) {
-					if (element.isMouseWithinRect(guiBase, mouseX, mouseY)) {
-						if (element.onClick(guiBase.getMachine(), guiBase, mouseX, mouseY)) {
-							return true;
-						}
-					}
-				}
-			}
+	@Override
+	public ItemStack stack() {
+		return GuiBase.fluidCellProvider.provide(Fluids.LAVA);
+	}
+
+	@Override
+	public void open() {
+		fluidConfigElement = new ConfigFluidElement(SlotType.NORMAL, 35 - guiBase.getGuiLeft() + 50, 35 - guiBase.getGuiTop() - 25, guiBase);
+	}
+
+	@Override
+	public void close() {
+		fluidConfigElement = null;
+	}
+
+	@Override
+	public void draw(DrawContext drawContext, int x, int y) {
+		Objects.requireNonNull(fluidConfigElement).draw(drawContext, guiBase, x, y);
+	}
+
+	@Override
+	public boolean click(double mouseX, double mouseY, int mouseButton) {
+		if (mouseButton == 0 && fluidConfigElement != null) {
+			return fluidConfigElement.onClick(guiBase, mouseX, mouseY);
 		}
 
-		return !getVisibleElements().isEmpty();
+		return false;
 	}
 }
