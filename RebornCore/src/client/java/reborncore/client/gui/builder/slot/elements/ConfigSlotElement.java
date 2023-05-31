@@ -62,55 +62,56 @@ public class ConfigSlotElement extends ElementBase {
 				.allMatch(BaseSlot::canWorldBlockInsert);
 
 
-		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, this, inputEnabled));
-		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON).addReleaseAction((element, gui1, provider, mouseX, mouseY) -> {
+		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, inputEnabled));
+		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON, () -> {
 			SlotConfigGui.selectedSlot = -1;
 			gui.closeSelectedTab();
-			return true;
 		}));
 
 		if (inputEnabled) {
-			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), 0xFFFFFFFF, x - 26, y + 42, "input", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
-					checkBoxElement -> checkBoxElement.machineBase.getSlotConfiguration().getSlotDetails(checkBoxElement.slotID).autoInput()).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
-				popupElement.updateCheckBox((CheckBoxElement) element, "input", gui12);
-				return true;
-			}));
+			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), x - 26, y + 42,
+				checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(slotId).autoInput(),
+				() -> popupElement.updateCheckBox("input", gui)));
 		}
 
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autooutput"), 0xFFFFFFFF, x - 26, y + 57, "output", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
-				checkBoxElement -> checkBoxElement.machineBase.getSlotConfiguration().getSlotDetails(checkBoxElement.slotID).autoOutput()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
-			popupElement.updateCheckBox((CheckBoxElement) element, "output", gui13);
-			return true;
-		}));
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autooutput"), x - 26, y + 57,
+			checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(slotId).autoOutput(),
+			() -> popupElement.updateCheckBox("output", gui)));
 
 		if (gui.getMachine() instanceof SlotConfiguration.SlotFilter slotFilter) {
 			if (Arrays.stream(slotFilter.getInputSlots()).anyMatch(value -> value == slotId)) {
-				elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.filter_input"), 0xFFFFFFFF, x - 26, y + 72, "filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
-						checkBoxElement -> checkBoxElement.machineBase.getSlotConfiguration().getSlotDetails(checkBoxElement.slotID).filter()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
-					popupElement.updateCheckBox((CheckBoxElement) element, "filter", gui13);
-					return true;
-				}));
+				elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.filter_input"), x - 26, y + 72,
+					checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(slotId).filter(),
+					() -> popupElement.updateCheckBox("filter", gui)));
 				filter = true;
 				popupElement.filter = true;
 			}
 		}
-		setWidth(85);
-		setHeight(105 + (filter ? 15 : 0));
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui) {
-		super.draw(drawContext, gui);
+	public int getWidth() {
+		return 85;
+	}
+
+	@Override
+	public int getHeight() {
+		return 105 + (filter ? 15 : 0);
+	}
+
+	@Override
+	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+		super.draw(drawContext, gui, mouseX, mouseY);
 		ItemStack stack = inventory.getStack(id);
 		int xPos = getX() + 1 + gui.getGuiLeft();
 		int yPos = getY() + 1 + gui.getGuiTop();
 
 		drawContext.drawItemInSlot(gui.getTextRenderer(), stack, xPos, yPos);
 
-		if (isHovering) {
+		if (isMouseWithinRect(gui, mouseX, mouseY)) {
 			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
 		}
-		elements.forEach(elementBase -> elementBase.draw(drawContext, gui));
+		elements.forEach(elementBase -> elementBase.draw(drawContext, gui, mouseX, mouseY));
 	}
 
 	public SlotType getType() {

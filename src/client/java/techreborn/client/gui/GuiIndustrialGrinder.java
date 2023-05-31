@@ -60,7 +60,6 @@ public class GuiIndustrialGrinder extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 126, 54, layer);
 		drawSlot(drawContext, 126, 72, layer);
 
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}

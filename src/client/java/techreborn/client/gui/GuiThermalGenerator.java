@@ -46,7 +46,6 @@ public class GuiThermalGenerator extends GuiBase<BuiltScreenHandler> {
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 		drawSlot(drawContext, 25, 35, layer);
 		drawSlot(drawContext, 25, 55, layer);
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 

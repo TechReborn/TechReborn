@@ -56,8 +56,6 @@ public class GuiFluidReplicator extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 124, 35, layer);
 		// Liquid output slot
 		drawSlot(drawContext, 124, 55, layer);
-		// JEI button
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}

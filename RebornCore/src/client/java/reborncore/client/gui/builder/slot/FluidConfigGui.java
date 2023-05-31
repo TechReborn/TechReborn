@@ -34,6 +34,7 @@ import reborncore.client.gui.builder.slot.elements.SlotType;
 import java.util.Collections;
 import java.util.List;
 
+// Why is this static?
 public class FluidConfigGui {
 
 	static ConfigFluidElement fluidConfigElement;
@@ -43,7 +44,7 @@ public class FluidConfigGui {
 	}
 
 	public static void draw(DrawContext drawContext, GuiBase<?> guiBase, int mouseX, int mouseY) {
-		fluidConfigElement.draw(drawContext, guiBase);
+		fluidConfigElement.draw(drawContext, guiBase, mouseX, mouseY);
 	}
 
 	public static List<ConfigFluidElement> getVisibleElements() {
@@ -52,50 +53,17 @@ public class FluidConfigGui {
 
 	public static boolean mouseClicked(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
 		if (mouseButton == 0) {
-			for (ConfigFluidElement configFluidElement : getVisibleElements()) {
-				for (ElementBase element : configFluidElement.elements) {
-					if (element.isInRect(guiBase, element.getX(), element.getY(), element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
-						element.isPressing = true;
-						for (ElementBase e : getVisibleElements()) {
-							if (e != element) {
-								e.isPressing = false;
-							}
+			for (ConfigFluidElement configSlotElement : getVisibleElements()) {
+				for (ElementBase element : Lists.reverse(configSlotElement.elements)) {
+					if (element.isMouseWithinRect(guiBase, mouseX, mouseY)) {
+						if (element.onClick(guiBase.getMachine(), guiBase, mouseX, mouseY)) {
+							return true;
 						}
-					} else {
-						element.isPressing = false;
 					}
 				}
 			}
 		}
-		return !getVisibleElements().isEmpty();
-	}
 
-	public static boolean mouseReleased(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
-		boolean clicked = false;
-		if (mouseButton == 0) {
-			for (ConfigFluidElement configFluidElement : getVisibleElements()) {
-				if (configFluidElement.isInRect(guiBase, configFluidElement.getX(), configFluidElement.getY(), configFluidElement.getWidth(guiBase.getMachine()), configFluidElement.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
-					clicked = true;
-				}
-				for (ElementBase element : Lists.reverse(configFluidElement.elements)) {
-					if (element.isInRect(guiBase, element.getX(), element.getY(), element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
-						element.isReleasing = true;
-						boolean action = element.onRelease(guiBase.getMachine(), guiBase, mouseX, mouseY);
-						for (ElementBase e : getVisibleElements()) {
-							if (e != element) {
-								e.isReleasing = false;
-							}
-						}
-						if (action) {
-							clicked = true;
-						}
-						break;
-					} else {
-						element.isReleasing = false;
-					}
-				}
-			}
-		}
-		return clicked;
+		return !getVisibleElements().isEmpty();
 	}
 }

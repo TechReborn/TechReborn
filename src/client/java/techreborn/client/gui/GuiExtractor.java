@@ -49,8 +49,6 @@ public class GuiExtractor extends GuiBase<BuiltScreenHandler> {
 
 		drawSlot(drawContext, 55, 45, layer);
 		drawOutputSlot(drawContext, 101, 45, layer);
-
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override

@@ -53,8 +53,6 @@ public class GuiWireMill extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 101, 45, layer);
 
 		drawOutputSlot(drawContext, 101, 45, layer);
-
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override

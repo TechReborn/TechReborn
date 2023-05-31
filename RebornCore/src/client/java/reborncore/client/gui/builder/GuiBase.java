@@ -75,7 +75,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 				.stack(guiTab -> wrenchStack)
 				.draw(SlotConfigGui::draw)
 				.click(SlotConfigGui::mouseClicked)
-				.mouseReleased(SlotConfigGui::mouseReleased)
 				.hideGuiElements()
 				.keyPressed((guiBase, keyCode, scanCode, modifiers) -> {
 					if (hasControlDown() && keyCode == GLFW.GLFW_KEY_C) {
@@ -106,7 +105,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 				.stack(guiTab -> GuiBase.fluidCellProvider.provide(Fluids.LAVA))
 				.draw(FluidConfigGui::draw)
 				.click(FluidConfigGui::mouseClicked)
-				.mouseReleased(FluidConfigGui::mouseReleased)
 				.hideGuiElements()
 		);
 
@@ -324,17 +322,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		return super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 
-	//	@Override
-	//	protected void mouseClickMove(double mouseX, double mouseY, int clickedMouseButton, long timeSinceLastClick) {
-	//		if (isConfigEnabled() && slotConfigType == SlotConfigType.ITEMS && getMachine().hasSlotConfig()) {
-	//			GuiSlotConfiguration.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, this);
-	//		}
-	//		if (isConfigEnabled() && slotConfigType == SlotConfigType.FLUIDS && getMachine().showTankConfig()) {
-	//			GuiFluidConfiguration.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, this);
-	//		}
-	//		super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
-	//	}
-
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int state) {
 		int offset = 0;
@@ -354,9 +341,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			offset -= 24;
 		}
 
-		if (getTab().map(guiTab -> guiTab.mouseReleased(mouseX, mouseY, state)).orElse(false)) {
-			return true;
-		}
 		return super.mouseReleased(mouseX, mouseY, state);
 	}
 

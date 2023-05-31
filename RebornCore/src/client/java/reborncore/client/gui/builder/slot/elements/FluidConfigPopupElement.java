@@ -53,7 +53,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 		ClientNetworkManager.sendToServer(packetSave);
 	}
 
-	public void updateCheckBox(CheckBoxElement checkBoxElement, String type, GuiBase<?> guiBase) {
+	public void updateCheckBox(String type, GuiBase<?> guiBase) {
 		FluidConfiguration configHolder = guiBase.getMachine().fluidConfiguration;
 		boolean input = configHolder.autoInput();
 		boolean output = configHolder.autoOutput();

@@ -56,8 +56,6 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}
-
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override

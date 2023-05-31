@@ -59,7 +59,6 @@ public class GuiIndustrialSawmill extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 126, 43, layer);
 		drawSlot(drawContext, 126, 61, layer);
 
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}

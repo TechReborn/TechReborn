@@ -46,33 +46,33 @@ public class ConfigFluidElement extends ElementBase {
 		FluidConfigPopupElement popupElement;
 
 		elements.add(popupElement = new FluidConfigPopupElement(x - 22, y - 22, this));
-		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON).addReleaseAction((element, gui1, provider, mouseX, mouseY) -> {
-			gui.closeSelectedTab();
-			return true;
-		}));
+		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON, gui::closeSelectedTab));
 
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), 0xFFFFFFFF, x - 26, y + 42, "input", 0, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
-				checkBoxElement -> checkBoxElement.machineBase.fluidConfiguration.autoInput()).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
-			popupElement.updateCheckBox((CheckBoxElement) element, "input", gui12);
-			return true;
-		}));
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pumpout"), 0xFFFFFFFF, x - 26, y + 57, "output", 0, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
-				checkBoxElement -> checkBoxElement.machineBase.fluidConfiguration.autoOutput()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
-			popupElement.updateCheckBox((CheckBoxElement) element, "output", gui13);
-			return true;
-		}));
-
-		setWidth(85);
-		setHeight(105 + (filter ? 15 : 0));
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 42,
+			checkBoxElement -> gui.getMachine().fluidConfiguration.autoInput(),
+			() -> popupElement.updateCheckBox("input", gui)));
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pumpout"), x - 26, y + 57,
+			checkBoxElement -> gui.getMachine().fluidConfiguration.autoOutput(),
+			() -> popupElement.updateCheckBox("output", gui)));
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui) {
-		super.draw(drawContext, gui);
-		if (isHovering) {
+	public int getWidth() {
+		return 85;
+	}
+
+	@Override
+	public int getHeight() {
+		return 105 + (filter ? 15 : 0);
+	}
+
+	@Override
+	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+		super.draw(drawContext, gui, mouseX, mouseY);
+		if (isMouseWithinRect(gui, mouseX, mouseY)) {
 			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
 		}
-		elements.forEach(elementBase -> elementBase.draw(drawContext, gui));
+		elements.forEach(elementBase -> elementBase.draw(drawContext, gui, mouseX, mouseY));
 	}
 
 	public SlotType getType() {

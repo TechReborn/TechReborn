@@ -71,7 +71,6 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 126, 47, layer);
 		drawOutputSlot(drawContext, 80, 47, layer);
 
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}

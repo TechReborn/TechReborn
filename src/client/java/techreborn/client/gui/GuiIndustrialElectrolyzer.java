@@ -52,7 +52,6 @@ public class GuiIndustrialElectrolyzer extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 81, 72, layer);
 		//Output slots
 		drawOutputSlotBar(drawContext, 50, 23, 4, layer);
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override

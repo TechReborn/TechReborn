@@ -61,7 +61,6 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 8, 70, layer);
 		drawOutputSlot(drawContext, 124, gridYPos + 18, layer);
 
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 		builder.drawLockButton(drawContext, this, 130, 4, mouseX, mouseY, layer, rollingMachine.locked);
 	}
 

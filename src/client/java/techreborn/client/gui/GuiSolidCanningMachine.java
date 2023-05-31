@@ -51,8 +51,6 @@ public class GuiSolidCanningMachine extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 34, 47, layer);
 		drawSlot(drawContext, 126, 47, layer);
 		drawOutputSlot(drawContext, 80, 47, layer);
-
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override
