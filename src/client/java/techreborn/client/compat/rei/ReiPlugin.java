@@ -28,9 +28,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.architectury.event.CompoundEventResult;
 import dev.architectury.fluid.FluidStack;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.client.entry.renderer.AbstractEntryRenderer;
 import me.shedaniel.rei.api.client.entry.renderer.EntryRenderer;
-import me.shedaniel.rei.api.client.gui.AbstractRenderer;
+import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
 import me.shedaniel.rei.api.client.gui.widgets.TooltipContext;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
@@ -52,7 +51,6 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -95,11 +93,6 @@ import java.util.stream.Stream;
 
 public class ReiPlugin implements REIClientPlugin {
 	public static final Map<RebornRecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
-
-	@Deprecated(forRemoval = true)
-	public static DrawContext drawContext() {
-		throw new IllegalStateException("TODO 1.20 port!");
-	}
 
 	public ReiPlugin() {
 		iconMap.put(ModRecipes.ALLOY_SMELTER, Machine.ALLOY_SMELTER);
@@ -276,7 +269,7 @@ public class ReiPlugin implements REIClientPlugin {
 	}
 
 	public static Widget createProgressBar(int x, int y, double animationDuration, GuiBuilder.ProgressDirection direction) {
-		return Widgets.createDrawableWidget((drawContext, matrices, mouseX, mouseY, delta) -> {
+		return Widgets.createDrawableWidget((drawContext, mouseX, mouseY, delta) -> {
 			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, direction.x, direction.y, direction.width, direction.height);
 			int j = (int) ((System.currentTimeMillis() / animationDuration) % 1.0 * 16.0);
 			if (j < 0) {
@@ -304,7 +297,7 @@ public class ReiPlugin implements REIClientPlugin {
 		return Widgets.createSlot(bounds).entry(copy);
 	}
 
-	private static class EnergyEntryRenderer extends AbstractRenderer {
+	private static class EnergyEntryRenderer implements Renderer {
 		private final EntryAnimation animation;
 		private final Function<TooltipContext, Tooltip> tooltipBuilder;
 
@@ -314,20 +307,20 @@ public class ReiPlugin implements REIClientPlugin {
 		}
 
 		@Override
-		public void render(MatrixStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {
+		public void render(DrawContext drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
 			int width = bounds.width + 2;
 			int height = bounds.height + 2;
 			int innerHeight = height - 2;
 
 			PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
-			drawContext().drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
+			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
 				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) innerHeight) % innerHeight));
 				if (animation.animationType == EntryAnimationType.DOWNWARDS)
 					innerDisplayHeight = innerHeight - innerDisplayHeight;
 			} else innerDisplayHeight = innerHeight;
-			drawContext().drawTexture(GuiBuilder.defaultTextureSheet, bounds.x, bounds.y + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
+			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, bounds.x, bounds.y + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
 		}
 
 		@Override
@@ -337,7 +330,7 @@ public class ReiPlugin implements REIClientPlugin {
 		}
 	}
 
-	private static class FluidStackRenderer extends AbstractEntryRenderer<FluidStack> {
+	private static class FluidStackRenderer implements EntryRenderer<FluidStack> {
 		private final EntryAnimation animation;
 		private final EntryRenderer<FluidStack> parent;
 
@@ -347,22 +340,22 @@ public class ReiPlugin implements REIClientPlugin {
 		}
 
 		@Override
-		public void render(EntryStack<FluidStack> entry, MatrixStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {
+		public void render(EntryStack<FluidStack> entry, DrawContext drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
 			int width = bounds.width;
 			int height = bounds.height;
 
-			drawContext().drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
-			drawContext().drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
+			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
+			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
 				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) height) % height));
 				if (animation.animationType == EntryAnimationType.DOWNWARDS)
 					innerDisplayHeight = height - innerDisplayHeight;
 			} else innerDisplayHeight = height;
-			drawFluid(matrices, entry.getValue().getFluid(), innerDisplayHeight, bounds.x, bounds.y, width, height);
+			drawFluid(drawContext, entry.getValue().getFluid(), innerDisplayHeight, bounds.x, bounds.y, width, height);
 		}
 
-		public void drawFluid(MatrixStack matrixStack, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
+		public void drawFluid(DrawContext drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
 			RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
 			y += height;
 
@@ -385,7 +378,7 @@ public class ReiPlugin implements REIClientPlugin {
 			while (offsetHeight != 0) {
 				final int curHeight = Math.min(offsetHeight, iconHeight);
 
-				drawContext().drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
+				drawContext.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
 				offsetHeight -= curHeight;
 				iteration++;
 				if (iteration > 50) {
