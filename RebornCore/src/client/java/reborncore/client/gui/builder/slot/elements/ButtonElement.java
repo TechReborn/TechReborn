@@ -28,10 +28,10 @@ import net.minecraft.client.gui.DrawContext;
 import reborncore.client.gui.builder.GuiBase;
 
 public class ButtonElement extends ElementBase {
-	private final Sprite.Button buttonSprite;
+	private final GuiSprites.Button buttonSprite;
 	private final Runnable onClicked;
 
-	public ButtonElement(int x, int y, Sprite.Button buttonSprite, Runnable onClicked) {
+	public ButtonElement(int x, int y, GuiSprites.Button buttonSprite, Runnable onClicked) {
 		super(x, y, buttonSprite.normal());
 		this.buttonSprite = buttonSprite;
 		this.onClicked = onClicked;

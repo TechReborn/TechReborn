@@ -38,7 +38,7 @@ public class ConfigFluidElement extends ParentElement {
 		FluidConfigPopupElement popupElement;
 
 		elements.add(popupElement = new FluidConfigPopupElement(x - 22, y - 22, this));
-		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON, gui::closeSelectedTab));
+		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, gui::closeSelectedTab));
 
 		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 42,
 			checkBoxElement -> gui.getMachine().fluidConfiguration.autoInput(),

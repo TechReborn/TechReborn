@@ -1,0 +1,71 @@
+/*
+ * This file is part of RebornCore, licensed under the MIT License (MIT).
+ *
+ * Copyright (c) 2023 TeamReborn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package reborncore.client.gui.builder.slot.elements;
+
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.util.Identifier;
+
+public final class GuiSprites {
+	public static final SpriteIdentifier SLOT_NORMAL = create("slot_normal");
+	public static final SpriteIdentifier CHARGE_SLOT_ICON = create("charge_slot_icon");
+	public static final SpriteIdentifier DISCHARGE_SLOT_ICON = create("discharge_slot_icon");
+	public static final SpriteIdentifier ENERGY_BAR = create("energy_bar");
+	public static final SpriteIdentifier ENERGY_BAR_BACKGROUND = create("energy_bar_background");
+	public static final SpriteIdentifier TOP_ENERGY_BAR = create("top_energy_bar");
+	public static final SpriteIdentifier TOP_ENERGY_BAR_BACKGROUND = create("top_energy_bar_background");
+	public static final SpriteIdentifier LEFT_TAB = create("left_tab");
+	public static final SpriteIdentifier LEFT_TAB_SELECTED = create("left_tab_selected");
+	public static final SpriteIdentifier CONFIGURE_ICON = create("configure_icon");
+	public static final SpriteIdentifier UPGRADE_ICON = create("upgrade_icon");
+	public static final SpriteIdentifier ENERGY_ICON = create("energy_icon");
+	public static final SpriteIdentifier ENERGY_ICON_EMPTY = create("energy_icon_empty");
+	public static final SpriteIdentifier JEI_ICON = create("jei_icon");
+	public static final SpriteIdentifier BUTTON_SLOT_NORMAL = create("button_slot_normal");
+	public static final SpriteIdentifier FAKE_SLOT = create("fake_slot");
+	public static final SpriteIdentifier BUTTON_HOVER_OVERLAY_SLOT_NORMAL = create("button_hover_overlay_slot_normal");
+	public static final SpriteIdentifier SLOT_CONFIG_POPUP = create("slot_config_popup");
+
+	public static final SpriteIdentifier EXIT_BUTTON_NORMAL = create("exit_button_normal");
+	public static final SpriteIdentifier EXIT_BUTTON_HOVERED = create("exit_button_hovered");
+	public static final Button EXIT_BUTTON = new Button(EXIT_BUTTON_NORMAL, EXIT_BUTTON_HOVERED);
+
+	public static final SpriteIdentifier DARK_CHECK_BOX_NORMAL = create("dark_check_box_normal");
+	public static final SpriteIdentifier DARK_CHECK_BOX_TICKED = create("dark_check_box_ticked");
+	public static final CheckBox DARK_CHECK_BOX = new CheckBox(DARK_CHECK_BOX_NORMAL, DARK_CHECK_BOX_TICKED);
+
+	public static final SpriteIdentifier LIGHT_CHECK_BOX_NORMAL = create("light_check_box_normal");
+	public static final SpriteIdentifier LIGHT_CHECK_BOX_TICKED = create("light_check_box_ticked");
+	public static final CheckBox LIGHT_CHECK_BOX = new CheckBox(LIGHT_CHECK_BOX_NORMAL, LIGHT_CHECK_BOX_TICKED);
+
+	private static SpriteIdentifier create(String name) {
+		return new SpriteIdentifier(GuiSpriteAtlasHolder.ATLAS_ID, new Identifier("reborncore", name));
+	}
+
+	record Button(SpriteIdentifier normal, SpriteIdentifier hovered) {
+	}
+
+	record CheckBox(SpriteIdentifier normal, SpriteIdentifier ticked) {
+	}
+}

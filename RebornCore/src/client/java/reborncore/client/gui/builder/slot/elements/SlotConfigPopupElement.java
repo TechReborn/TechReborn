@@ -39,7 +39,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 	private final boolean allowInput;
 
 	public SlotConfigPopupElement(int slotId, int x, int y, boolean allowInput) {
-		super(x, y, Sprite.SLOT_CONFIG_POPUP);
+		super(x, y, GuiSprites.SLOT_CONFIG_POPUP);
 		this.id = slotId;
 		this.allowInput = allowInput;
 	}

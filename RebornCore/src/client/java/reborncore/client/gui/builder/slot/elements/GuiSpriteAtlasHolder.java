@@ -24,37 +24,24 @@
 
 package reborncore.client.gui.builder.slot.elements;
 
-import com.google.common.collect.Lists;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.SpriteIdentifier;
-import reborncore.client.gui.builder.GuiBase;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasHolder;
+import net.minecraft.client.texture.TextureManager;
+import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
+public class GuiSpriteAtlasHolder extends SpriteAtlasHolder {
+	@Nullable
+	public static GuiSpriteAtlasHolder INSTANCE;
 
-public abstract class ParentElement extends ElementBase {
-	protected final List<ElementBase> elements = new ArrayList<>();
+	public static final Identifier ATLAS_ID =  new Identifier("reborncore", "textures/atlas/gui.png");
 
-	public ParentElement(int x, int y, SpriteIdentifier sprite) {
-		super(x, y, sprite);
+	public GuiSpriteAtlasHolder(TextureManager textureManager) {
+		super(textureManager, ATLAS_ID, new Identifier("reborncore", "gui"));
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		super.draw(drawContext, gui, mouseX, mouseY);
-		elements.forEach(elementBase -> elementBase.draw(drawContext, gui, mouseX, mouseY));
-	}
-
-	@Override
-	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
-		for (ElementBase element : Lists.reverse(elements)) {
-			if (element.isMouseWithinRect(gui, mouseX, mouseY)) {
-				if (element.onClick(gui, mouseX, mouseY)) {
-					return true;
-				}
-			}
-		}
-
-		return super.onClick(gui, mouseX, mouseY);
+	public Sprite getSprite(Identifier objectId) {
+		return super.getSprite(objectId);
 	}
 }

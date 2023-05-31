@@ -66,7 +66,7 @@ public class ConfigSlotElement extends ParentElement {
 
 
 		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, inputEnabled));
-		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON, closeConfig));
+		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, closeConfig));
 
 		if (inputEnabled) {
 			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), x - 26, y + 42,

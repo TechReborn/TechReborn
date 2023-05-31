@@ -38,7 +38,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 	ConfigFluidElement fluidElement;
 
 	public FluidConfigPopupElement(int x, int y, ConfigFluidElement fluidElement) {
-		super(x, y, Sprite.SLOT_CONFIG_POPUP);
+		super(x, y, GuiSprites.SLOT_CONFIG_POPUP);
 		this.fluidElement = fluidElement;
 	}
 

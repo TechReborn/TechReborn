@@ -26,25 +26,23 @@ package reborncore.client.gui.builder.slot.elements;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 
 public class ElementBase {
 	private final int x;
 	private final int y;
-	private Sprite sprite;
+	private SpriteIdentifier sprite;
 
-	public static final Identifier MECH_ELEMENTS = new Identifier("reborncore", "textures/gui/elements.png");
-
-	public ElementBase(int x, int y, Sprite sprite) {
+	public ElementBase(int x, int y, SpriteIdentifier sprite) {
 		this.sprite = sprite;
 		this.x = x;
 		this.y = y;
 	}
 
-	protected void setSprite(Sprite sprite) {
+	protected void setSprite(SpriteIdentifier sprite) {
 		this.sprite = sprite;
 	}
 
@@ -61,11 +59,11 @@ public class ElementBase {
 	}
 
 	public int getWidth() {
-		return sprite.width();
+		return sprite.getSprite().getContents().getWidth();
 	}
 
 	public int getHeight() {
-		return sprite.height();
+		return sprite.getSprite().getContents().getHeight();
 	}
 
 	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
@@ -94,8 +92,8 @@ public class ElementBase {
 		drawContext.drawText(gui.getTextRenderer(), text, x, y, color, false);
 	}
 
-	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, Sprite sprite, int x, int y) {
-		drawContext.drawTexture(sprite.textureLocation(), x + gui.getGuiLeft(), y + gui.getGuiTop(), sprite.x(), sprite.y(), sprite.width(), sprite.height());
+	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, SpriteIdentifier sprite, int x, int y) {
+		drawContext.drawSprite(x + gui.getGuiLeft(), y + gui.getGuiTop(), 0, getWidth(), getHeight(), sprite.getSprite());
 	}
 
 	public void drawDefaultBackground(DrawContext drawContext, Screen gui, int x, int y, int width, int height) {

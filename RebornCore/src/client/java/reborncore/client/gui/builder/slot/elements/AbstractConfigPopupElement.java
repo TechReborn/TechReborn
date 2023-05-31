@@ -33,6 +33,7 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
@@ -44,7 +45,7 @@ import reborncore.common.util.MachineFacing;
 public abstract class AbstractConfigPopupElement extends ElementBase {
 	public boolean filter = false;
 
-	public AbstractConfigPopupElement(int x, int y, Sprite sprite) {
+	public AbstractConfigPopupElement(int x, int y, SpriteIdentifier sprite) {
 		super(x, y, sprite);
 	}
 
