@@ -24,20 +24,29 @@
 
 package reborncore.client.gui.builder.slot.elements;
 
-public class ButtonElement extends ElementBase {
-	@SuppressWarnings("unused")
-	private final Sprite.Button buttonSprite;
+import net.minecraft.client.gui.DrawContext;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 
-	public ButtonElement(int x, int y, Sprite.Button buttonSprite) {
+public class ButtonElement extends ElementBase {
+	private final Sprite.Button buttonSprite;
+	private final Runnable onClicked;
+
+	public ButtonElement(int x, int y, Sprite.Button buttonSprite, Runnable onClicked) {
 		super(x, y, buttonSprite.normal());
 		this.buttonSprite = buttonSprite;
-		// TODO fix hovering, was broken anyway.
-//		this.addUpdateAction((gui, element) -> {
-//			if (isHovering) {
-//				element.container.setSprite(0, buttonSprite.hovered());
-//			} else {
-//				element.container.setSprite(0, buttonSprite.normal());
-//			}
-//		});
+		this.onClicked = onClicked;
+	}
+
+	@Override
+	public boolean onClick(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
+		onClicked.run();
+		return true;
+	}
+
+	@Override
+	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+		setSprite(isMouseWithinRect(gui, mouseX, mouseY) ? buttonSprite.hovered() : buttonSprite.normal());
+		super.draw(drawContext, gui, mouseX, mouseY);
 	}
 }

@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// Why is all this static?
 public class SlotConfigGui {
 
 	public static HashMap<Integer, ConfigSlotElement> slotElementMap = new HashMap<>();
@@ -84,7 +85,7 @@ public class SlotConfigGui {
 		}
 
 		if (selectedSlot != -1) {
-			slotElementMap.get(selectedSlot).draw(drawContext, guiBase);
+			slotElementMap.get(selectedSlot).draw(drawContext, guiBase, mouseX, mouseY);
 		}
 	}
 
@@ -134,22 +135,6 @@ public class SlotConfigGui {
 	}
 
 	public static boolean mouseClicked(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
-		if (mouseButton == 0) {
-			for (ConfigSlotElement configSlotElement : getVisibleElements()) {
-				for (ElementBase element : configSlotElement.elements) {
-					if (element.isInRect(guiBase, element.getX(), element.getY(), element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
-						element.isPressing = true;
-						for (ElementBase e : getVisibleElements()) {
-							if (e != element) {
-								e.isPressing = false;
-							}
-						}
-					} else {
-						element.isPressing = false;
-					}
-				}
-			}
-		}
 		BuiltScreenHandler screenHandler = guiBase.builtScreenHandler;
 
 		if (getVisibleElements().isEmpty()) {
@@ -163,36 +148,19 @@ public class SlotConfigGui {
 				}
 			}
 		}
-		return !getVisibleElements().isEmpty();
-	}
 
-	public static boolean mouseReleased(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
-		boolean clicked = false;
 		if (mouseButton == 0) {
 			for (ConfigSlotElement configSlotElement : getVisibleElements()) {
-				if (configSlotElement.isInRect(guiBase, configSlotElement.getX(), configSlotElement.getY(), configSlotElement.getWidth(guiBase.getMachine()), configSlotElement.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
-					clicked = true;
-				}
 				for (ElementBase element : Lists.reverse(configSlotElement.elements)) {
-					if (element.isInRect(guiBase, element.getX(), element.getY(), element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
-						element.isReleasing = true;
-						boolean action = element.onRelease(guiBase.getMachine(), guiBase, mouseX, mouseY);
-						for (ElementBase e : getVisibleElements()) {
-							if (e != element) {
-								e.isReleasing = false;
-							}
+					if (element.isMouseWithinRect(guiBase, mouseX, mouseY)) {
+						if (element.onClick(guiBase.getMachine(), guiBase, mouseX, mouseY)) {
+							return true;
 						}
-						if (action) {
-							clicked = true;
-						}
-						break;
-					} else {
-						element.isReleasing = false;
 					}
 				}
 			}
 		}
-		return clicked;
-	}
 
+		return !getVisibleElements().isEmpty();
+	}
 }

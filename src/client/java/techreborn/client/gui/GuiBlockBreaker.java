@@ -54,8 +54,6 @@ public class GuiBlockBreaker extends GuiBase<BuiltScreenHandler> {
 		drawCentredText(drawContext, processor.getStatusEnum().getProgressText(processor.getProgress()), 40, processor.getStatusEnum().getColor(), layer);
 
 		drawOutputSlot(drawContext, 80, 60, layer);
-
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override

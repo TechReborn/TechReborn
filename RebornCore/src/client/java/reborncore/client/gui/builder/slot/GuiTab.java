@@ -71,10 +71,6 @@ public class GuiTab {
 		return builder.click.click(guiBase, mouseX, mouseY, mouseButton);
 	}
 
-	public boolean mouseReleased(double mouseX, double mouseY, int mouseButton) {
-		return builder.mouseReleased.mouseReleased(guiBase, mouseX, mouseY, mouseButton);
-	}
-
 	public boolean keyPress(int keyCode, int scanCode, int modifiers) {
 		return builder.keyPressed.keyPress(guiBase, keyCode, scanCode, modifiers);
 	}
@@ -101,7 +97,6 @@ public class GuiTab {
 		private Draw draw = (matrixStack, gui, x, y) -> {
 		};
 		private Click click = (guiBase, mouseX, mouseY, mouseButton) -> false;
-		private MouseReleased mouseReleased = (guiBase, mouseX, mouseY, state) -> false;
 		private KeyPressed keyPressed = (guiBase, keyCode, scanCode, modifiers) -> false;
 		private Consumer<List<String>> tips = strings -> {
 		};
@@ -136,11 +131,6 @@ public class GuiTab {
 			return this;
 		}
 
-		public Builder mouseReleased(MouseReleased mouseReleased) {
-			this.mouseReleased = mouseReleased;
-			return this;
-		}
-
 		public Builder keyPressed(KeyPressed keyPressed) {
 			this.keyPressed = keyPressed;
 			return this;
@@ -167,10 +157,6 @@ public class GuiTab {
 
 		public interface Click {
 			boolean click(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton);
-		}
-
-		public interface MouseReleased {
-			boolean mouseReleased(GuiBase<?> guiBase, double mouseX, double mouseY, int state);
 		}
 
 		public interface KeyPressed {

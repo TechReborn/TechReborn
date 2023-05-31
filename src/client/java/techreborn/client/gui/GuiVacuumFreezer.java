@@ -54,7 +54,6 @@ public class GuiVacuumFreezer extends GuiBase<BuiltScreenHandler> {
 		// Output slot
 		drawOutputSlot(drawContext, 101, 45, layer);
 
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}

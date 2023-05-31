@@ -54,8 +54,6 @@ public class GuiCentrifuge extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 101, 25, layer);
 		drawSlot(drawContext, 120, 44, layer);
 		drawSlot(drawContext, 101, 63, layer);
-
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override

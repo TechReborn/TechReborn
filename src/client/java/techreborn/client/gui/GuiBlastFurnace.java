@@ -61,7 +61,6 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 50, 47, layer);
 		drawOutputSlotBar(drawContext, 92, 36, 2, layer);
 
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 		if (hasMultiBlock) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}

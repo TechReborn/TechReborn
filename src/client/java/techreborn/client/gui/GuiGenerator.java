@@ -45,10 +45,7 @@ public class GuiGenerator extends GuiBase<BuiltScreenHandler> {
 		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(drawContext, 8, 72, layer);
-
 		drawSlot(drawContext, 80, 54, layer);
-
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override

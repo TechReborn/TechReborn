@@ -117,25 +117,6 @@ public class GuiBuilder {
 	}
 
 	/**
-	 * Draws button with JEI icon in the given coords.
-	 *
-	 * @param gui   {@link GuiBase} The GUI to draw on
-	 * @param x     {@code int} Top left corner where to place button
-	 * @param y     {@code int} Top left corner where to place button
-	 * @param layer {@link GuiBase.Layer} The layer to draw on
-	 */
-	public void drawJEIButton(DrawContext drawContext, GuiBase<?> gui, int x, int y, GuiBase.Layer layer) {
-		if (gui.hideGuiElements()) return;
-		if (FabricLoader.getInstance().isModLoaded("jei")) {
-			if (layer == GuiBase.Layer.BACKGROUND) {
-				x += gui.getGuiLeft();
-				y += gui.getGuiTop();
-			}
-			drawContext.drawTexture(resourceLocation, x, y, 202, 0, 12, 12);
-		}
-	}
-
-	/**
 	 * Draws lock button in either locked or unlocked state
 	 *
 	 * @param gui    {@link GuiBase} The GUI to draw on

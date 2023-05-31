@@ -52,8 +52,6 @@ public class GuiDistillationTower extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 35, 47, layer);
 		// Four output slots
 		drawOutputSlotBar(drawContext, 78, 36, 4, layer);
-		// JEI Button
-		builder.drawJEIButton(drawContext, this, 158, 5, layer);
 	}
 
 	@Override

@@ -35,14 +35,12 @@ import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.util.Color;
 
 public class SlotConfigPopupElement extends AbstractConfigPopupElement {
-	int id;
-	ConfigSlotElement slotElement;
-	boolean allowInput;
+	private final int id;
+	private final boolean allowInput;
 
-	public SlotConfigPopupElement(int slotId, int x, int y, ConfigSlotElement slotElement, boolean allowInput) {
+	public SlotConfigPopupElement(int slotId, int x, int y, boolean allowInput) {
 		super(x, y, Sprite.SLOT_CONFIG_POPUP);
 		this.id = slotId;
-		this.slotElement = slotElement;
 		this.allowInput = allowInput;
 	}
 
@@ -62,7 +60,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 		ClientNetworkManager.sendToServer(packetSlotSave);
 	}
 
-	public void updateCheckBox(CheckBoxElement checkBoxElement, String type, GuiBase<?> guiBase) {
+	public void updateCheckBox(String type, GuiBase<?> guiBase) {
 		SlotConfiguration.SlotConfigHolder configHolder = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id);
 		boolean input = configHolder.autoInput();
 		boolean output = configHolder.autoOutput();

@@ -32,47 +32,45 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import java.util.function.Predicate;
 
 public class CheckBoxElement extends ElementBase {
-	public Text label;
-	public String type;
-	public int labelColor, slotID;
-	public MachineBaseBlockEntity machineBase;
-	Predicate<CheckBoxElement> ticked;
-
+	private final Text label;
+	private final Predicate<CheckBoxElement> ticked;
+	private final Runnable onChange;
 	private final Sprite.CheckBox checkBoxSprite;
 
-	public CheckBoxElement(Text label, int labelColor, int x, int y, String type, int slotID, Sprite.CheckBox checkBoxSprite, MachineBaseBlockEntity machineBase, Predicate<CheckBoxElement> ticked) {
-		super(x, y, checkBoxSprite.normal());
-		this.checkBoxSprite = checkBoxSprite;
-		this.type = type;
-		this.slotID = slotID;
-		this.machineBase = machineBase;
+	public CheckBoxElement(Text label, int x, int y,
+						   Predicate<CheckBoxElement> ticked,
+						   Runnable onChange) {
+		super(x, y, Sprite.LIGHT_CHECK_BOX.normal());
+		this.checkBoxSprite = Sprite.LIGHT_CHECK_BOX;
 		this.label = label;
-		this.labelColor = labelColor;
 		this.ticked = ticked;
+		this.onChange = onChange;
+		updateSprites();
+	}
+
+	private void updateSprites() {
 		if (ticked.test(this)) {
-			container.setSprite(0, checkBoxSprite.ticked());
+			setSprite(checkBoxSprite.ticked());
 		} else {
-			container.setSprite(0, checkBoxSprite.normal());
+			setSprite(checkBoxSprite.normal());
 		}
-		this.addPressAction((element, gui, provider, mouseX, mouseY) -> {
-			if (ticked.test(this)) {
-				element.container.setSprite(0, checkBoxSprite.ticked());
-			} else {
-				element.container.setSprite(0, checkBoxSprite.normal());
-			}
-			return true;
-		});
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui) {
-		//	super.draw(gui);
-		ISprite sprite = checkBoxSprite.normal();
+	public boolean onClick(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
+		onChange.run();
+		updateSprites();
+		return true;
+	}
+
+	@Override
+	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+		Sprite sprite = checkBoxSprite.normal();
 		if (ticked.test(this)) {
 			sprite = checkBoxSprite.ticked();
 		}
 		drawSprite(drawContext, gui, sprite, getX(), getY()	);
-		drawText(drawContext, gui, label, getX() + checkBoxSprite.normal().width + 5, ((getY() + getHeight(gui.getMachine()) / 2) - (gui.getTextRenderer().fontHeight / 2)), labelColor);
+		drawText(drawContext, gui, label, getX() + checkBoxSprite.normal().width() + 5, ((getY() + getHeight() / 2) - (gui.getTextRenderer().fontHeight / 2)), 0xFFFFFFFF);
 	}
 
 }

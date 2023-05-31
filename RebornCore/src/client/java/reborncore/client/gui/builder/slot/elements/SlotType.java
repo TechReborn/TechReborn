@@ -41,20 +41,6 @@ public enum SlotType {
 		this.buttonHoverOverlay = buttonHoverOverlay;
 	}
 
-	SlotType(int slotOffset, Sprite sprite) {
-		this.slotOffsetX = slotOffset;
-		this.slotOffsetY = slotOffset;
-		this.sprite = sprite;
-	}
-
-	public int getSlotOffsetX() {
-		return slotOffsetX;
-	}
-
-	public int getSlotOffsetY() {
-		return slotOffsetY;
-	}
-
 	public Sprite getSprite() {
 		return sprite;
 	}

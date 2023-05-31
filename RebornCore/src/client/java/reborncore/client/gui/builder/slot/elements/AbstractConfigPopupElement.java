@@ -44,14 +44,14 @@ import reborncore.common.util.MachineFacing;
 public abstract class AbstractConfigPopupElement extends ElementBase {
 	public boolean filter = false;
 
-	public AbstractConfigPopupElement(int x, int y, ISprite... sprites) {
-		super(x, y, sprites);
+	public AbstractConfigPopupElement(int x, int y, Sprite sprite) {
+		super(x, y, sprite);
 	}
 
 	@Override
-	public final void draw(DrawContext drawContext, GuiBase<?> gui) {
+	public final void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		drawDefaultBackground(drawContext, gui, adjustX(gui, getX() - 8), adjustY(gui, getY() - 7), 84, 105 + (filter ? 15 : 0));
-		super.draw(drawContext, gui);
+		super.draw(drawContext, gui, mouseX, mouseY);
 
 		final MachineBaseBlockEntity machine = ((MachineBaseBlockEntity) gui.be);
 		final BlockState state = machine.getCachedState();
@@ -75,23 +75,28 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 	}
 
 	@Override
-	public final boolean onRelease(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
+	public final boolean onClick(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
 		if (isInBox(23, 4, 16, 16, mouseX, mouseY, gui)) {
 			cycleConfig(MachineFacing.UP.getFacing(provider), gui);
+			return true;
 		} else if (isInBox(23, 23, 16, 16, mouseX, mouseY, gui)) {
 			cycleConfig(MachineFacing.FRONT.getFacing(provider), gui);
+			return true;
 		} else if (isInBox(42, 23, 16, 16, mouseX, mouseY, gui)) {
 			cycleConfig(MachineFacing.RIGHT.getFacing(provider), gui);
+			return true;
 		} else if (isInBox(4, 23, 16, 16, mouseX, mouseY, gui)) {
 			cycleConfig(MachineFacing.LEFT.getFacing(provider), gui);
+			return true;
 		} else if (isInBox(23, 42, 16, 16, mouseX, mouseY, gui)) {
 			cycleConfig(MachineFacing.DOWN.getFacing(provider), gui);
+			return true;
 		} else if (isInBox(42, 42, 16, 16, mouseX, mouseY, gui)) {
 			cycleConfig(MachineFacing.BACK.getFacing(provider), gui);
-		} else {
-			return false;
+			return true;
 		}
-		return true;
+
+		return false;
 	}
 
 	protected abstract void cycleConfig(Direction side, GuiBase<?> guiBase);
