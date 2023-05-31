@@ -36,36 +36,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ElementBase {
-
-	public int x;
-	public int y;
+	private final int x;
+	private final int y;
 	public boolean isHovering = false;
-	public boolean isDragging = false;
 	public boolean isPressing = false;
 	public boolean isReleasing = false;
-	public boolean startPressLast = false;
-	public boolean isHoveringLast = false;
-	public boolean isDraggingLast = false;
-	public boolean isPressingLast = false;
-	public boolean isReleasingLast = false;
-	public List<ElementBase.Action> hoverActions = new ArrayList<>();
-	public List<ElementBase.Action> dragActions = new ArrayList<>();
-	public List<ElementBase.Action> startPressActions = new ArrayList<>();
 	public List<ElementBase.Action> pressActions = new ArrayList<>();
 	public List<ElementBase.Action> releaseActions = new ArrayList<>();
 	public SpriteContainer container;
-	public List<UpdateAction> updateActions = new ArrayList<>();
-	public List<UpdateAction> buttonUpdate = new ArrayList<>();
+
 	private int width;
 	private int height;
 
 	public static final Identifier MECH_ELEMENTS = new Identifier("reborncore", "textures/gui/elements.png");
-
-	public ElementBase(int x, int y, SpriteContainer container) {
-		this.container = container;
-		this.x = x;
-		this.y = y;
-	}
 
 	public ElementBase(int x, int y, ISprite... sprites) {
 		this.container = new SpriteContainer();
@@ -74,33 +57,6 @@ public class ElementBase {
 		}
 		this.x = x;
 		this.y = y;
-	}
-
-	public ElementBase(int x, int y, int width, int height) {
-		this.container = new SpriteContainer();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-	}
-
-	public ElementBase(int x, int y, int width, int height, SpriteContainer container) {
-		this.container = container;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-	}
-
-	public ElementBase(int x, int y, int width, int height, ISprite... sprites) {
-		this.container = new SpriteContainer();
-		for (ISprite sprite : sprites) {
-			container.addSprite(sprite);
-		}
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
 	}
 
 	public SpriteContainer getSpriteContainer() {
@@ -126,50 +82,12 @@ public class ElementBase {
 		}
 	}
 
-	public void renderUpdate(GuiBase<?> gui) {
-		isHoveringLast = isHovering;
-		isPressingLast = isPressing;
-		isDraggingLast = isDragging;
-		isReleasingLast = isReleasing;
-	}
-
-	public void update(GuiBase<?> gui) {
-		for (UpdateAction action : updateActions) {
-			action.update(gui, this);
-		}
-	}
-
-	public ElementBase addUpdateAction(UpdateAction action) {
-		updateActions.add(action);
-		return this;
-	}
-
-	public ElementBase setWidth(int width) {
-		this.width = width;
-		return this;
-	}
-
-	public ElementBase setHeight(int height) {
-		this.height = height;
-		return this;
-	}
-
 	public int getX() {
 		return x;
 	}
 
-	public ElementBase setX(int x) {
-		this.x = x;
-		return this;
-	}
-
 	public int getY() {
 		return y;
-	}
-
-	public ElementBase setY(int y) {
-		this.y = y;
-		return this;
 	}
 
 	public int getWidth(MachineBaseBlockEntity provider) {
@@ -182,27 +100,20 @@ public class ElementBase {
 		return height;
 	}
 
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 	public int getWidth() {
 		return width;
 	}
 
 	public int getHeight() {
 		return height;
-	}
-
-	public ElementBase addHoverAction(ElementBase.Action action) {
-		this.hoverActions.add(action);
-		return this;
-	}
-
-	public ElementBase addDragAction(ElementBase.Action action) {
-		this.dragActions.add(action);
-		return this;
-	}
-
-	public ElementBase addStartPressAction(ElementBase.Action action) {
-		this.startPressActions.add(action);
-		return this;
 	}
 
 	public ElementBase addPressAction(ElementBase.Action action) {
@@ -213,27 +124,6 @@ public class ElementBase {
 	public ElementBase addReleaseAction(ElementBase.Action action) {
 		this.releaseActions.add(action);
 		return this;
-	}
-
-	public boolean onHover(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
-		for (ElementBase.Action action : hoverActions) {
-			action.execute(this, gui, provider, mouseX, mouseY);
-		}
-		return !hoverActions.isEmpty();
-	}
-
-	public boolean onDrag(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
-		for (ElementBase.Action action : dragActions) {
-			action.execute(this, gui, provider, mouseX, mouseY);
-		}
-		return !dragActions.isEmpty();
-	}
-
-	public boolean onStartPress(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
-		for (ElementBase.Action action : startPressActions) {
-			action.execute(this, gui, provider, mouseX, mouseY);
-		}
-		return !startPressActions.isEmpty();
 	}
 
 	public boolean onRelease(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
@@ -286,17 +176,6 @@ public class ElementBase {
 				drawContext.drawItem(sprite.itemStack, x + gui.getGuiLeft(), y + gui.getGuiTop());
 			}
 		}
-	}
-
-	public int getScaledBurnTime(int scale, int burnTime, int totalBurnTime) {
-		return (int) (((float) burnTime / (float) totalBurnTime) * scale);
-	}
-
-	public int getPercentage(int MaxValue, int CurrentValue) {
-		if (CurrentValue == 0) {
-			return 0;
-		}
-		return (int) ((CurrentValue * 100.0f) / MaxValue);
 	}
 
 	public void drawDefaultBackground(DrawContext drawContext, Screen gui, int x, int y, int width, int height) {

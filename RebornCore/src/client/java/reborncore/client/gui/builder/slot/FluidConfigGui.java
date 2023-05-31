@@ -25,14 +25,11 @@
 package reborncore.client.gui.builder.slot;
 
 import com.google.common.collect.Lists;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import org.jetbrains.annotations.Nullable;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.elements.ConfigFluidElement;
 import reborncore.client.gui.builder.slot.elements.ElementBase;
 import reborncore.client.gui.builder.slot.elements.SlotType;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,16 +54,12 @@ public class FluidConfigGui {
 		if (mouseButton == 0) {
 			for (ConfigFluidElement configFluidElement : getVisibleElements()) {
 				for (ElementBase element : configFluidElement.elements) {
-					if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+					if (element.isInRect(guiBase, element.getX(), element.getY(), element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
 						element.isPressing = true;
-						boolean action = element.onStartPress(guiBase.getMachine(), guiBase, mouseX, mouseY);
 						for (ElementBase e : getVisibleElements()) {
 							if (e != element) {
 								e.isPressing = false;
 							}
-						}
-						if (action) {
-							break;
 						}
 					} else {
 						element.isPressing = false;
@@ -77,38 +70,15 @@ public class FluidConfigGui {
 		return !getVisibleElements().isEmpty();
 	}
 
-	public static void mouseClickMove(double mouseX, double mouseY, int mouseButton, long timeSinceLastClick, GuiBase<?> guiBase) {
-		if (mouseButton == 0) {
-			for (ConfigFluidElement configFluidElement : getVisibleElements()) {
-				for (ElementBase element : configFluidElement.elements) {
-					if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
-						element.isDragging = true;
-						boolean action = element.onDrag(guiBase.getMachine(), guiBase, mouseX, mouseY);
-						for (ElementBase e : getVisibleElements()) {
-							if (e != element) {
-								e.isDragging = false;
-							}
-						}
-						if (action) {
-							break;
-						}
-					} else {
-						element.isDragging = false;
-					}
-				}
-			}
-		}
-	}
-
 	public static boolean mouseReleased(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
 		boolean clicked = false;
 		if (mouseButton == 0) {
 			for (ConfigFluidElement configFluidElement : getVisibleElements()) {
-				if (configFluidElement.isInRect(guiBase, configFluidElement.x, configFluidElement.y, configFluidElement.getWidth(guiBase.getMachine()), configFluidElement.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+				if (configFluidElement.isInRect(guiBase, configFluidElement.getX(), configFluidElement.getY(), configFluidElement.getWidth(guiBase.getMachine()), configFluidElement.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
 					clicked = true;
 				}
 				for (ElementBase element : Lists.reverse(configFluidElement.elements)) {
-					if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+					if (element.isInRect(guiBase, element.getX(), element.getY(), element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
 						element.isReleasing = true;
 						boolean action = element.onRelease(guiBase.getMachine(), guiBase, mouseX, mouseY);
 						for (ElementBase e : getVisibleElements()) {
@@ -128,16 +98,4 @@ public class FluidConfigGui {
 		}
 		return clicked;
 	}
-
-	@Nullable
-	private static MachineBaseBlockEntity getMachine() {
-		if (!(MinecraftClient.getInstance().currentScreen instanceof GuiBase<?> base)) {
-			return null;
-		}
-		if (base.be instanceof MachineBaseBlockEntity machineBase) {
-			return machineBase;
-		}
-		return null;
-	}
-
 }

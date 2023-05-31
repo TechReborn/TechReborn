@@ -70,7 +70,7 @@ public class ConfigFluidElement extends ElementBase {
 	public void draw(DrawContext drawContext, GuiBase<?> gui) {
 		super.draw(drawContext, gui);
 		if (isHovering) {
-			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), x, y);
+			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
 		}
 		elements.forEach(elementBase -> elementBase.draw(drawContext, gui));
 	}

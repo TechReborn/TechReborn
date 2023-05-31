@@ -45,9 +45,9 @@ public class SlotConfigExclusionZones implements ExclusionZonesProvider<GuiBase<
 			return Collections.emptyList();
 		}
 		ConfigSlotElement element = SlotConfigGui.slotElementMap.get(SlotConfigGui.selectedSlot);
-		int slotX = element.x + screen.getGuiLeft() -50;
+		int slotX = element.getX() + screen.getGuiLeft() -50;
 		if (element.getWidth() + slotX > screen.getScreenWidth() ) {
-			int slotY = element.y + screen.getGuiTop() + 25;
+			int slotY = element.getY() + screen.getGuiTop() + 25;
 			int exclusionX = screen.getScreenWidth() + screen.getGuiLeft();
 			int exclusionY = slotY + screen.getGuiTop() - (element.getHeight()/2);
 			int exclusionWidth = element.getWidth() + slotX - screen.getScreenWidth() + 15;
