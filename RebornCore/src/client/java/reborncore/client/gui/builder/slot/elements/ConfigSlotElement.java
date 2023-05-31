@@ -102,13 +102,13 @@ public class ConfigSlotElement extends ElementBase {
 	public void draw(DrawContext drawContext, GuiBase<?> gui) {
 		super.draw(drawContext, gui);
 		ItemStack stack = inventory.getStack(id);
-		int xPos = x + 1 + gui.getGuiLeft();
-		int yPos = y + 1 + gui.getGuiTop();
+		int xPos = getX() + 1 + gui.getGuiLeft();
+		int yPos = getY() + 1 + gui.getGuiTop();
 
 		drawContext.drawItemInSlot(gui.getTextRenderer(), stack, xPos, yPos);
 
 		if (isHovering) {
-			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), x, y);
+			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
 		}
 		elements.forEach(elementBase -> elementBase.draw(drawContext, gui));
 	}

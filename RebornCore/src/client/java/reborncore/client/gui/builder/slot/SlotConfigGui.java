@@ -137,16 +137,12 @@ public class SlotConfigGui {
 		if (mouseButton == 0) {
 			for (ConfigSlotElement configSlotElement : getVisibleElements()) {
 				for (ElementBase element : configSlotElement.elements) {
-					if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+					if (element.isInRect(guiBase, element.getX(), element.getY(), element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
 						element.isPressing = true;
-						boolean action = element.onStartPress(guiBase.getMachine(), guiBase, mouseX, mouseY);
 						for (ElementBase e : getVisibleElements()) {
 							if (e != element) {
 								e.isPressing = false;
 							}
-						}
-						if (action) {
-							break;
 						}
 					} else {
 						element.isPressing = false;
@@ -170,38 +166,15 @@ public class SlotConfigGui {
 		return !getVisibleElements().isEmpty();
 	}
 
-	public static void mouseClickMove(double mouseX, double mouseY, int mouseButton, long timeSinceLastClick, GuiBase<?> guiBase) {
-		if (mouseButton == 0) {
-			for (ConfigSlotElement configSlotElement : getVisibleElements()) {
-				for (ElementBase element : configSlotElement.elements) {
-					if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
-						element.isDragging = true;
-						boolean action = element.onDrag(guiBase.getMachine(), guiBase, mouseX, mouseY);
-						for (ElementBase e : getVisibleElements()) {
-							if (e != element) {
-								e.isDragging = false;
-							}
-						}
-						if (action) {
-							break;
-						}
-					} else {
-						element.isDragging = false;
-					}
-				}
-			}
-		}
-	}
-
 	public static boolean mouseReleased(GuiBase<?> guiBase, double mouseX, double mouseY, int mouseButton) {
 		boolean clicked = false;
 		if (mouseButton == 0) {
 			for (ConfigSlotElement configSlotElement : getVisibleElements()) {
-				if (configSlotElement.isInRect(guiBase, configSlotElement.x, configSlotElement.y, configSlotElement.getWidth(guiBase.getMachine()), configSlotElement.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+				if (configSlotElement.isInRect(guiBase, configSlotElement.getX(), configSlotElement.getY(), configSlotElement.getWidth(guiBase.getMachine()), configSlotElement.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
 					clicked = true;
 				}
 				for (ElementBase element : Lists.reverse(configSlotElement.elements)) {
-					if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+					if (element.isInRect(guiBase, element.getX(), element.getY(), element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
 						element.isReleasing = true;
 						boolean action = element.onRelease(guiBase.getMachine(), guiBase, mouseX, mouseY);
 						for (ElementBase e : getVisibleElements()) {

@@ -30,14 +30,12 @@ import reborncore.RebornCore;
 import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.blockentity.FluidConfiguration;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.util.Color;
 
 public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 	ConfigFluidElement fluidElement;
-	double lastMouseX, lastMouseY;
 
 	public FluidConfigPopupElement(int x, int y, ConfigFluidElement fluidElement) {
 		super(x, y, Sprite.SLOT_CONFIG_POPUP);
@@ -68,13 +66,6 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 
 		IdentifiedPacket packetFluidIOSave = ServerBoundPackets.createPacketFluidIOSave(guiBase.be.getPos(), input, output);
 		ClientNetworkManager.sendToServer(packetFluidIOSave);
-	}
-
-	@Override
-	public boolean onHover(MachineBaseBlockEntity provider, GuiBase<?> gui, double mouseX, double mouseY) {
-		lastMouseX = mouseX;
-		lastMouseY = mouseY;
-		return super.onHover(provider, gui, mouseX, mouseY);
 	}
 
 	@Override

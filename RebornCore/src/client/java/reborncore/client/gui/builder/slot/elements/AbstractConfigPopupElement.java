@@ -115,7 +115,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 						Quaternionf quaternion) {
 		MatrixStack matrixStack = drawContext.getMatrices();
 		matrixStack.push();
-		matrixStack.translate(8 + gui.getGuiLeft() + this.x + x, 8 + gui.getGuiTop() + this.y + y, 0);
+		matrixStack.translate(8 + gui.getGuiLeft() + getX() + x, 8 + gui.getGuiTop() + getY() + y, 0);
 		matrixStack.scale(16F, 16F, 16F);
 		matrixStack.translate(0.5F, 0.5F, 0);
 		matrixStack.scale(-1, -1, 0);

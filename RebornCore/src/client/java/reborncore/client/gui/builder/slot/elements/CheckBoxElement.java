@@ -71,8 +71,8 @@ public class CheckBoxElement extends ElementBase {
 		if (ticked.test(this)) {
 			sprite = checkBoxSprite.ticked();
 		}
-		drawSprite(drawContext, gui, sprite, x, y);
-		drawText(drawContext, gui, label, x + checkBoxSprite.normal().width + 5, ((y + getHeight(gui.getMachine()) / 2) - (gui.getTextRenderer().fontHeight / 2)), labelColor);
+		drawSprite(drawContext, gui, sprite, getX(), getY()	);
+		drawText(drawContext, gui, label, getX() + checkBoxSprite.normal().width + 5, ((getY() + getHeight(gui.getMachine()) / 2) - (gui.getTextRenderer().fontHeight / 2)), labelColor);
 	}
 
 }
