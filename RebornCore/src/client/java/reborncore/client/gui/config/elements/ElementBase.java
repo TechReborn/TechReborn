@@ -25,11 +25,9 @@
 package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
-import reborncore.client.gui.GuiBuilder;
 import reborncore.client.gui.GuiSprites;
 
 public class ElementBase {
@@ -95,12 +93,5 @@ public class ElementBase {
 
 	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, SpriteIdentifier spriteIdentifier, int x, int y) {
 		GuiSprites.drawSprite(drawContext, spriteIdentifier, x + gui.getGuiLeft(), y + gui.getGuiTop());
-	}
-
-	public void drawDefaultBackground(DrawContext drawContext, Screen gui, int x, int y, int width, int height) {
-		drawContext.drawTexture(GuiBuilder.resourceLocation, x, y, 0, 0, width / 2, height / 2);
-		drawContext.drawTexture(GuiBuilder.resourceLocation, x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
-		drawContext.drawTexture(GuiBuilder.resourceLocation, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
-		drawContext.drawTexture(GuiBuilder.resourceLocation, x + width / 2, y + height / 2, 150 - width / 2, 150 - height / 2, width / 2, height / 2);
 	}
 }

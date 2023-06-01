@@ -131,7 +131,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		renderBackground(drawContext);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
-		builder.drawDefaultBackground(drawContext, this, x, y, xSize, ySize);
+		builder.drawDefaultBackground(drawContext, x, y, xSize, ySize);
 		if (drawPlayerSlots) {
 			builder.drawPlayerSlots(drawContext, this, x + backgroundWidth / 2, y + 93, true);
 		}

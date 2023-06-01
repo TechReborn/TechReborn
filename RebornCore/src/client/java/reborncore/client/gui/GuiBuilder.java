@@ -53,19 +53,23 @@ import java.util.stream.Collectors;
 
 import static reborncore.client.gui.GuiSprites.drawSprite;
 
-/**
- * Created by Gigabit101 on 08/08/2016.
- */
 public class GuiBuilder {
 	private static final Text SPACE_TEXT = Text.literal(" ");
 	public static final Identifier resourceLocation = new Identifier("reborncore", "textures/gui/guielements.png");
 
-	public void drawDefaultBackground(DrawContext drawContext, Screen gui, int x, int y, int width, int height) {
-		drawContext.drawTexture(resourceLocation, x, y, 0, 0, width / 2, height / 2);
-		drawContext.drawTexture(resourceLocation, x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
-		drawContext.drawTexture(resourceLocation, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
-		drawContext.drawTexture(resourceLocation, x + width / 2, y + height / 2, 150 - width / 2, 150 - height / 2, width / 2,
-				height / 2);
+	public void drawDefaultBackground(DrawContext drawContext, int x, int y, int width, int height) {
+		int corner = 4;
+		drawContext.drawSprite(x + 3, y + 3, 0, width - 6, height - 6, GuiBase.getSprite(GuiSprites.BACKGROUND_BODY));
+		drawContext.drawSprite(x + corner, y, 0, width - corner - corner, 3, GuiBase.getSprite(GuiSprites.BACKGROUND_EDGE_TOP));
+		drawContext.drawSprite(x + corner, y + height - corner, 0, width - corner - corner, 3, GuiBase.getSprite(GuiSprites.BACKGROUND_EDGE_BOTTOM));
+		drawContext.drawSprite(x, y + corner, 0, 3, height - corner - corner, GuiBase.getSprite(GuiSprites.BACKGROUND_EDGE_LEFT));
+		drawContext.drawSprite(x + width - corner, y + 3, 0, 3, height - corner - corner, GuiBase.getSprite(GuiSprites.BACKGROUND_EDGE_RIGHT));
+
+		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_TOP_LEFT, x, y);
+		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_TOP_RIGHT, x + width - 5, y);
+
+		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_BOTTOM_LEFT, x, y + height - 5);
+		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_BOTTOM_RIGHT, x + height - 5, y + width - 5);
 	}
 
 	public void drawPlayerSlots(DrawContext drawContext, Screen gui, int posX, int posY, boolean center) {

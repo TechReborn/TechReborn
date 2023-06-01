@@ -51,7 +51,16 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	@Override
 	public final void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		drawDefaultBackground(drawContext, gui, adjustX(gui, getX() - 8), adjustY(gui, getY() - 7), 84, 105 + (filter ? 15 : 0));
+		drawContext.getMatrices().push();
+		gui.builder.drawDefaultBackground(
+			drawContext,
+			adjustX(gui, getX() - 8),
+			adjustY(gui, getY() - 7),
+			84,
+			105 + (filter ? 15 : 0)
+		);
+		drawContext.getMatrices().pop();
+
 		super.draw(drawContext, gui, mouseX, mouseY);
 
 		final MachineBaseBlockEntity machine = ((MachineBaseBlockEntity) gui.be);
