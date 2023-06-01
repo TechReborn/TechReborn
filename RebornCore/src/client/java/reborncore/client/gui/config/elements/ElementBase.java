@@ -22,15 +22,15 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiBuilder;
 
 public class ElementBase {
 	private final int x;

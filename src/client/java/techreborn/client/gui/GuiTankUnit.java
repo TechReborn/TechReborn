@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.screen.BuiltScreenHandler;

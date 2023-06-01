@@ -22,30 +22,47 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.gui.DrawContext;
-import reborncore.client.gui.builder.GuiBase;
+import net.minecraft.text.Text;
+import reborncore.client.gui.GuiBase;
 
-public class ButtonElement extends ElementBase {
-	private final GuiSprites.Button buttonSprite;
-	private final Runnable onClicked;
+public class ConfigFluidElement extends ParentElement {
+	private final SlotType type;
 
-	public ButtonElement(int x, int y, GuiSprites.Button buttonSprite, Runnable onClicked) {
-		super(x, y, buttonSprite.normal());
-		this.buttonSprite = buttonSprite;
-		this.onClicked = onClicked;
+	public ConfigFluidElement(SlotType type, int x, int y, GuiBase<?> gui) {
+		super(x, y, type.getButtonSprite());
+		this.type = type;
+
+		FluidConfigPopupElement popupElement;
+
+		elements.add(popupElement = new FluidConfigPopupElement(x - 22, y - 22, this));
+		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, gui::closeSelectedTab));
+
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 42,
+			checkBoxElement -> gui.getMachine().fluidConfiguration.autoInput(),
+			() -> popupElement.updateCheckBox("input", gui)));
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pumpout"), x - 26, y + 57,
+			checkBoxElement -> gui.getMachine().fluidConfiguration.autoOutput(),
+			() -> popupElement.updateCheckBox("output", gui)));
 	}
 
 	@Override
-	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
-		onClicked.run();
-		return true;
+	public int getWidth() {
+		return 85;
+	}
+
+	@Override
+	public int getHeight() {
+		return 105;
 	}
 
 	@Override
 	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		setSprite(isMouseWithinRect(gui, mouseX, mouseY) ? buttonSprite.hovered() : buttonSprite.normal());
+		if (isMouseWithinRect(gui, mouseX, mouseY)) {
+			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
+		}
 		super.draw(drawContext, gui, mouseX, mouseY);
 	}
 }

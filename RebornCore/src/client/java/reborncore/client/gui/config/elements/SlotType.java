@@ -22,26 +22,36 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.widget;
+package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.util.SpriteIdentifier;
 
-public class GuiButtonSimple extends ButtonWidget {
+public enum SlotType {
+	NORMAL(1, 1, GuiSprites.SLOT_NORMAL, GuiSprites.BUTTON_SLOT_NORMAL, GuiSprites.BUTTON_HOVER_OVERLAY_SLOT_NORMAL);
 
-	/**
-	 * @deprecated Please use {@link ButtonWidget}
-	 */
-	@Deprecated
-	public GuiButtonSimple(int x, int y, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, 20, 200, buttonText, pressAction, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
+	int slotOffsetX;
+	int slotOffsetY;
+	SpriteIdentifier sprite;
+	SpriteIdentifier buttonSprite;
+	SpriteIdentifier buttonHoverOverlay;
+
+	SlotType(int slotOffsetX, int slotOffsetY, SpriteIdentifier sprite, SpriteIdentifier buttonSprite, SpriteIdentifier buttonHoverOverlay) {
+		this.slotOffsetX = slotOffsetX;
+		this.slotOffsetY = slotOffsetY;
+		this.sprite = sprite;
+		this.buttonSprite = buttonSprite;
+		this.buttonHoverOverlay = buttonHoverOverlay;
 	}
 
-	/**
-	 * @deprecated Please use {@link ButtonWidget}
-	 */
-	@Deprecated
-	public GuiButtonSimple(int x, int y, int widthIn, int heightIn, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, widthIn, heightIn, buttonText, pressAction, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
+	public SpriteIdentifier getSprite() {
+		return sprite;
+	}
+
+	public SpriteIdentifier getButtonSprite() {
+		return buttonSprite;
+	}
+
+	public SpriteIdentifier getButtonHoverOverlay() {
+		return buttonHoverOverlay;
 	}
 }

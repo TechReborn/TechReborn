@@ -37,7 +37,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiBuilder;
 import techreborn.TechReborn;
 import techreborn.client.compat.rei.ReiPlugin;
 import techreborn.init.TRContent;

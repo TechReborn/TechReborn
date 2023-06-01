@@ -1,7 +1,7 @@
 /*
  * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2021 TeamReborn
+ * Copyright (c) 2023 TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,36 +22,24 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasHolder;
+import net.minecraft.client.texture.TextureManager;
+import net.minecraft.util.Identifier;
 
-public enum SlotType {
-	NORMAL(1, 1, GuiSprites.SLOT_NORMAL, GuiSprites.BUTTON_SLOT_NORMAL, GuiSprites.BUTTON_HOVER_OVERLAY_SLOT_NORMAL);
+public class GuiSpriteAtlasHolder extends SpriteAtlasHolder {
+	public static GuiSpriteAtlasHolder INSTANCE;
 
-	int slotOffsetX;
-	int slotOffsetY;
-	SpriteIdentifier sprite;
-	SpriteIdentifier buttonSprite;
-	SpriteIdentifier buttonHoverOverlay;
+	public static final Identifier ATLAS_ID =  new Identifier("reborncore", "textures/atlas/gui.png");
 
-	SlotType(int slotOffsetX, int slotOffsetY, SpriteIdentifier sprite, SpriteIdentifier buttonSprite, SpriteIdentifier buttonHoverOverlay) {
-		this.slotOffsetX = slotOffsetX;
-		this.slotOffsetY = slotOffsetY;
-		this.sprite = sprite;
-		this.buttonSprite = buttonSprite;
-		this.buttonHoverOverlay = buttonHoverOverlay;
+	public GuiSpriteAtlasHolder(TextureManager textureManager) {
+		super(textureManager, ATLAS_ID, new Identifier("reborncore", "gui"));
 	}
 
-	public SpriteIdentifier getSprite() {
-		return sprite;
-	}
-
-	public SpriteIdentifier getButtonSprite() {
-		return buttonSprite;
-	}
-
-	public SpriteIdentifier getButtonHoverOverlay() {
-		return buttonHoverOverlay;
+	@Override
+	public Sprite getSprite(Identifier objectId) {
+		return super.getSprite(objectId);
 	}
 }

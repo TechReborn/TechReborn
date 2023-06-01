@@ -31,7 +31,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.builder.widget.GuiButtonExtended;
+import reborncore.client.gui.widget.GuiButtonExtended;
 import techreborn.config.TechRebornConfig;
 import techreborn.packets.ServerboundPackets;
 

@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.widget;
+package reborncore.client.gui.widget;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
 
 /**
  * @author drcrazy

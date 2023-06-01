@@ -27,9 +27,9 @@ package techreborn.client.compat.rei;
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZonesProvider;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.slot.SlotConfigGui;
-import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.config.SlotConfigGui;
+import reborncore.client.gui.config.elements.ConfigSlotElement;
 
 import java.util.Collection;
 import java.util.Collections;

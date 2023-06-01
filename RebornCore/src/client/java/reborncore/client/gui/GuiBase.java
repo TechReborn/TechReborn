@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder;
+package reborncore.client.gui;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
@@ -41,9 +41,8 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
-import reborncore.client.gui.builder.slot.GuiTab;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.config.GuiTab;
+import reborncore.client.gui.widget.GuiButtonHologram;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.slot.PlayerInventorySlot;
@@ -224,7 +223,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		drawText(drawContext, text, (backgroundWidth / 2 - getTextRenderer().getWidth(text) / 2), y, colour, layer);
 	}
 
-	protected void drawCentredText(DrawContext drawContext, Text text, int y, int colour, int modifier, Layer layer) {
+	public void drawCentredText(DrawContext drawContext, Text text, int y, int colour, int modifier, Layer layer) {
 		drawText(drawContext, text, (backgroundWidth / 2 - (getTextRenderer().getWidth(text)) / 2) + modifier, y, colour, layer);
 	}
 

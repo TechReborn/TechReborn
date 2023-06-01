@@ -22,15 +22,15 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot;
+package reborncore.client.gui.config;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.slot.elements.ConfigFluidElement;
-import reborncore.client.gui.builder.slot.elements.SlotType;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.config.elements.ConfigFluidElement;
+import reborncore.client.gui.config.elements.SlotType;
 
 import java.util.Objects;
 

@@ -29,8 +29,8 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.widget.GuiButtonExtended;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.widget.GuiButtonExtended;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.GreenhouseControllerBlockEntity;
 

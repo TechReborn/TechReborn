@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.config.elements;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -38,7 +38,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Quaternionf;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.MachineFacing;
 

@@ -26,8 +26,8 @@ package techreborn.client.gui;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.RecyclerBlockEntity;
 

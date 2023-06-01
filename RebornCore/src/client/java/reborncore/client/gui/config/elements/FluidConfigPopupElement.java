@@ -22,61 +22,50 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.common.blockentity.SlotConfiguration;
+import reborncore.client.gui.GuiBase;
+import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.util.Color;
 
-public class SlotConfigPopupElement extends AbstractConfigPopupElement {
-	private final int id;
-	private final boolean allowInput;
+public class FluidConfigPopupElement extends AbstractConfigPopupElement {
+	ConfigFluidElement fluidElement;
 
-	public SlotConfigPopupElement(int slotId, int x, int y, boolean allowInput) {
+	public FluidConfigPopupElement(int x, int y, ConfigFluidElement fluidElement) {
 		super(x, y, GuiSprites.SLOT_CONFIG_POPUP);
-		this.id = slotId;
-		this.allowInput = allowInput;
+		this.fluidElement = fluidElement;
 	}
 
 	@Override
-	public void cycleConfig(Direction side, GuiBase<?> guiBase) {
-		SlotConfiguration.SlotConfig currentSlot = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id).getSideDetail(side);
+	protected void cycleConfig(Direction side, GuiBase<?> guiBase) {
+		FluidConfiguration.FluidConfig config = guiBase.getMachine().fluidConfiguration.getSideDetail(side);
 
-		// A bit of a mess, in the future have a way to remove config options from this list
-		SlotConfiguration.ExtractConfig nextConfig = currentSlot.getSlotIO().getIoConfig().getNext();
-		if (!allowInput && nextConfig == SlotConfiguration.ExtractConfig.INPUT) {
-			nextConfig = SlotConfiguration.ExtractConfig.OUTPUT;
-		}
+		FluidConfiguration.ExtractConfig fluidIO = config.getIoConfig().getNext();
+		FluidConfiguration.FluidConfig newConfig = new FluidConfiguration.FluidConfig(side, fluidIO);
 
-		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(nextConfig);
-		SlotConfiguration.SlotConfig newConfig = new SlotConfiguration.SlotConfig(side, slotIO, id);
-		IdentifiedPacket packetSlotSave = ServerBoundPackets.createPacketSlotSave(guiBase.be.getPos(), newConfig);
-		ClientNetworkManager.sendToServer(packetSlotSave);
+		IdentifiedPacket packetSave = ServerBoundPackets.createPacketFluidConfigSave(guiBase.be.getPos(), newConfig);
+		ClientNetworkManager.sendToServer(packetSave);
 	}
 
 	public void updateCheckBox(String type, GuiBase<?> guiBase) {
-		SlotConfiguration.SlotConfigHolder configHolder = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id);
+		FluidConfiguration configHolder = guiBase.getMachine().fluidConfiguration;
 		boolean input = configHolder.autoInput();
 		boolean output = configHolder.autoOutput();
-		boolean filter = configHolder.filter();
 		if (type.equalsIgnoreCase("input")) {
 			input = !configHolder.autoInput();
 		}
 		if (type.equalsIgnoreCase("output")) {
 			output = !configHolder.autoOutput();
 		}
-		if (type.equalsIgnoreCase("filter")) {
-			filter = !configHolder.filter();
-		}
 
-		IdentifiedPacket packetSlotSave = ServerBoundPackets.createPacketIOSave(guiBase.be.getPos(), id, input, output, filter);
-		ClientNetworkManager.sendToServer(packetSlotSave);
+		IdentifiedPacket packetFluidIOSave = ServerBoundPackets.createPacketFluidIOSave(guiBase.be.getPos(), input, output);
+		ClientNetworkManager.sendToServer(packetFluidIOSave);
 	}
 
 	@Override
@@ -84,16 +73,17 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
-		SlotConfiguration.SlotConfigHolder slotConfigHolder = gui.getMachine().getSlotConfiguration().getSlotDetails(id);
-		if (slotConfigHolder == null) {
+		FluidConfiguration fluidConfiguration = gui.getMachine().fluidConfiguration;
+		if (fluidConfiguration == null) {
 			RebornCore.LOGGER.debug("Hmm, this isn't supposed to happen");
 			return;
 		}
-		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(side);
-		Color color = switch (slotConfig.getSlotIO().getIoConfig()) {
+		FluidConfiguration.FluidConfig fluidConfig = fluidConfiguration.getSideDetail(side);
+		Color color = switch (fluidConfig.getIoConfig()) {
+			case NONE -> new Color(0, 0, 0, 0);
 			case INPUT -> new Color(0, 0, 255, 128);
 			case OUTPUT -> new Color(255, 69, 0, 128);
-			default -> new Color(0, 0, 0, 0);
+			case ALL -> new Color(52, 255, 30, 128);
 		};
 		drawContext.fill(sx, sy, sx + 18, sy + 18, color.getColor());
 	}

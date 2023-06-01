@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;

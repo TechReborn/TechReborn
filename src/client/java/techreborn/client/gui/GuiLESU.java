@@ -28,7 +28,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;

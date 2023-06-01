@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot;
+package reborncore.client.gui.config;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -36,9 +36,9 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.client.ClientChatUtils;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
-import reborncore.client.gui.builder.slot.elements.SlotType;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.config.elements.ConfigSlotElement;
+import reborncore.client.gui.config.elements.SlotType;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;

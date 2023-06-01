@@ -22,14 +22,15 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder;
+package reborncore.client.gui.config;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.builder.slot.GuiTab;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.config.GuiTab;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.ServerBoundPackets;

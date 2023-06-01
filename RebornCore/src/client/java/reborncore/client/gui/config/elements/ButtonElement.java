@@ -22,55 +22,30 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.text.Text;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
 
-import java.util.function.Predicate;
+public class ButtonElement extends ElementBase {
+	private final GuiSprites.Button buttonSprite;
+	private final Runnable onClicked;
 
-public class CheckBoxElement extends ElementBase {
-	private final Text label;
-	private final Predicate<CheckBoxElement> ticked;
-	private final Runnable onChange;
-	private final GuiSprites.CheckBox checkBoxSprite;
-
-	public CheckBoxElement(Text label, int x, int y,
-						Predicate<CheckBoxElement> ticked,
-						Runnable onChange) {
-		super(x, y, GuiSprites.LIGHT_CHECK_BOX.normal());
-		this.checkBoxSprite = GuiSprites.LIGHT_CHECK_BOX;
-		this.label = label;
-		this.ticked = ticked;
-		this.onChange = onChange;
-		updateSprites();
-	}
-
-	private void updateSprites() {
-		if (ticked.test(this)) {
-			setSprite(checkBoxSprite.ticked());
-		} else {
-			setSprite(checkBoxSprite.normal());
-		}
+	public ButtonElement(int x, int y, GuiSprites.Button buttonSprite, Runnable onClicked) {
+		super(x, y, buttonSprite.normal());
+		this.buttonSprite = buttonSprite;
+		this.onClicked = onClicked;
 	}
 
 	@Override
 	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
-		onChange.run();
-		updateSprites();
+		onClicked.run();
 		return true;
 	}
 
 	@Override
 	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		SpriteIdentifier sprite = checkBoxSprite.normal();
-		if (ticked.test(this)) {
-			sprite = checkBoxSprite.ticked();
-		}
-		drawSprite(drawContext, gui, sprite, getX(), getY()	);
-		drawText(drawContext, gui, label, getX() + 18, ((getY() + getHeight() / 2) - (gui.getTextRenderer().fontHeight / 2)), 0xFFFFFFFF);
+		setSprite(isMouseWithinRect(gui, mouseX, mouseY) ? buttonSprite.hovered() : buttonSprite.normal());
+		super.draw(drawContext, gui, mouseX, mouseY);
 	}
-
 }

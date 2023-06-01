@@ -28,7 +28,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import reborncore.client.ClientNetworkManager;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.packets.ServerboundPackets;

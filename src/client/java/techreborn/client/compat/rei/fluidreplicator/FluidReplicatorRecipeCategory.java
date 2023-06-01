@@ -39,7 +39,7 @@ import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipeType;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.client.compat.rei.ReiPlugin;

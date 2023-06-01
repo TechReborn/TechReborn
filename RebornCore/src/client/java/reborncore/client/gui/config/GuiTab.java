@@ -22,12 +22,11 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot;
+package reborncore.client.gui.config;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.item.ItemStack;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.RedstoneConfigGui;
+import reborncore.client.gui.GuiBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 import java.util.Collections;

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.guibuilder;
+package reborncore.client.gui;
 
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
@@ -38,8 +38,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.api.IListInfoProvider;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.slot.GuiTab;
+import reborncore.client.gui.config.GuiTab;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;

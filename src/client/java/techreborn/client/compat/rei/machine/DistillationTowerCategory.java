@@ -29,7 +29,7 @@ import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import net.minecraft.text.Text;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import techreborn.client.compat.rei.MachineRecipeDisplay;

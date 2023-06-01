@@ -51,7 +51,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;

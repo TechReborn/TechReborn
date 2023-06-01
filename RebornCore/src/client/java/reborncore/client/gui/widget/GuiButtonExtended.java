@@ -1,7 +1,7 @@
 /*
  * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2023 TeamReborn
+ * Copyright (c) 2021 TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,35 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.widget;
 
-import com.google.common.collect.Lists;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.SpriteIdentifier;
-import reborncore.client.gui.builder.GuiBase;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.text.Text;
+import reborncore.common.misc.TriConsumer;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public abstract class ParentElement extends ElementBase {
-	protected final List<ElementBase> elements = new ArrayList<>();
+public class GuiButtonExtended extends ButtonWidget {
 
-	public ParentElement(int x, int y, SpriteIdentifier sprite) {
-		super(x, y, sprite);
+	private TriConsumer<GuiButtonExtended, Double, Double> clickHandler;
+
+	public GuiButtonExtended(int x, int y, Text buttonText, ButtonWidget.PressAction pressAction) {
+		super(x, y, 20, 200, buttonText, pressAction, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
+	}
+
+	public GuiButtonExtended(int x, int y, int widthIn, int heightIn, Text buttonText, ButtonWidget.PressAction pressAction) {
+		super(x, y, widthIn, heightIn, buttonText, pressAction, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
+	}
+
+	public GuiButtonExtended clickHandler(TriConsumer<GuiButtonExtended, Double, Double> consumer) {
+		clickHandler = consumer;
+		return this;
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		super.draw(drawContext, gui, mouseX, mouseY);
-		elements.forEach(elementBase -> elementBase.draw(drawContext, gui, mouseX, mouseY));
-	}
-
-	@Override
-	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
-		for (ElementBase element : Lists.reverse(elements)) {
-			if (element.isMouseWithinRect(gui, mouseX, mouseY)) {
-				if (element.onClick(gui, mouseX, mouseY)) {
-					return true;
-				}
-			}
+	public void onClick(double mouseX, double mouseY) {
+		if (clickHandler != null) {
+			clickHandler.accept(this, mouseX, mouseY);
 		}
-
-		return super.onClick(gui, mouseX, mouseY);
+		super.onClick(mouseX, mouseY);
 	}
 }

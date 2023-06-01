@@ -22,47 +22,55 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.builder.slot.elements;
+package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
 
-public class ConfigFluidElement extends ParentElement {
-	private final SlotType type;
+import java.util.function.Predicate;
 
-	public ConfigFluidElement(SlotType type, int x, int y, GuiBase<?> gui) {
-		super(x, y, type.getButtonSprite());
-		this.type = type;
+public class CheckBoxElement extends ElementBase {
+	private final Text label;
+	private final Predicate<CheckBoxElement> ticked;
+	private final Runnable onChange;
+	private final GuiSprites.CheckBox checkBoxSprite;
 
-		FluidConfigPopupElement popupElement;
+	public CheckBoxElement(Text label, int x, int y,
+						Predicate<CheckBoxElement> ticked,
+						Runnable onChange) {
+		super(x, y, GuiSprites.LIGHT_CHECK_BOX.normal());
+		this.checkBoxSprite = GuiSprites.LIGHT_CHECK_BOX;
+		this.label = label;
+		this.ticked = ticked;
+		this.onChange = onChange;
+		updateSprites();
+	}
 
-		elements.add(popupElement = new FluidConfigPopupElement(x - 22, y - 22, this));
-		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, gui::closeSelectedTab));
-
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 42,
-			checkBoxElement -> gui.getMachine().fluidConfiguration.autoInput(),
-			() -> popupElement.updateCheckBox("input", gui)));
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pumpout"), x - 26, y + 57,
-			checkBoxElement -> gui.getMachine().fluidConfiguration.autoOutput(),
-			() -> popupElement.updateCheckBox("output", gui)));
+	private void updateSprites() {
+		if (ticked.test(this)) {
+			setSprite(checkBoxSprite.ticked());
+		} else {
+			setSprite(checkBoxSprite.normal());
+		}
 	}
 
 	@Override
-	public int getWidth() {
-		return 85;
-	}
-
-	@Override
-	public int getHeight() {
-		return 105;
+	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
+		onChange.run();
+		updateSprites();
+		return true;
 	}
 
 	@Override
 	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		if (isMouseWithinRect(gui, mouseX, mouseY)) {
-			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
+		SpriteIdentifier sprite = checkBoxSprite.normal();
+		if (ticked.test(this)) {
+			sprite = checkBoxSprite.ticked();
 		}
-		super.draw(drawContext, gui, mouseX, mouseY);
+		drawSprite(drawContext, gui, sprite, getX(), getY()	);
+		drawText(drawContext, gui, label, getX() + 18, ((getY() + getHeight() / 2) - (gui.getTextRenderer().fontHeight / 2)), 0xFFFFFFFF);
 	}
+
 }
