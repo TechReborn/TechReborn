@@ -28,10 +28,8 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasHolder;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 public class GuiSpriteAtlasHolder extends SpriteAtlasHolder {
-	@Nullable
 	public static GuiSpriteAtlasHolder INSTANCE;
 
 	public static final Identifier ATLAS_ID =  new Identifier("reborncore", "textures/atlas/gui.png");

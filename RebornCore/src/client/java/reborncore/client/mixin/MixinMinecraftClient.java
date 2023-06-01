@@ -48,7 +48,7 @@ public class MixinMinecraftClient {
 	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/PaintingManager;<init>(Lnet/minecraft/client/texture/TextureManager;)V"))
 	private void init(RunArgs args, CallbackInfo ci) {
 		GuiSpriteAtlasHolder.INSTANCE = new GuiSpriteAtlasHolder(this.textureManager);
-		this.resourceManager.registerReloader(GuiSpriteAtlasHolder.INSTANCE );
+		this.resourceManager.registerReloader(GuiSpriteAtlasHolder.INSTANCE);
 	}
 
 	@Inject(method = "close", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/PaintingManager;close()V"))

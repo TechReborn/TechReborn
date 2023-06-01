@@ -70,7 +70,7 @@ public class CheckBoxElement extends ElementBase {
 			sprite = checkBoxSprite.ticked();
 		}
 		drawSprite(drawContext, gui, sprite, getX(), getY()	);
-		drawText(drawContext, gui, label, getX() + getWidth() + 5, ((getY() + getHeight() / 2) - (gui.getTextRenderer().fontHeight / 2)), 0xFFFFFFFF);
+		drawText(drawContext, gui, label, getX() + 18, ((getY() + getHeight() / 2) - (gui.getTextRenderer().fontHeight / 2)), 0xFFFFFFFF);
 	}
 
 }
