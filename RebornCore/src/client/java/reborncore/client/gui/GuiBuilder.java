@@ -32,6 +32,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -39,6 +40,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.api.IListInfoProvider;
 import reborncore.client.gui.config.GuiTab;
+import reborncore.client.gui.config.elements.GuiSprites;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
@@ -54,21 +56,8 @@ import java.util.stream.Collectors;
  * Created by Gigabit101 on 08/08/2016.
  */
 public class GuiBuilder {
-	public static final Identifier defaultTextureSheet = new Identifier("reborncore", "textures/gui/guielements.png");
 	private static final Text SPACE_TEXT = Text.literal(" ");
-	static Identifier resourceLocation;
-
-	public GuiBuilder() {
-		GuiBuilder.resourceLocation = defaultTextureSheet;
-	}
-
-	public GuiBuilder(Identifier resourceLocation) {
-		GuiBuilder.resourceLocation = resourceLocation;
-	}
-
-	public Identifier getResourceLocation() {
-		return resourceLocation;
-	}
+	public static final Identifier resourceLocation = new Identifier("reborncore", "textures/gui/guielements.png");
 
 	public void drawDefaultBackground(DrawContext drawContext, Screen gui, int x, int y, int width, int height) {
 		drawContext.drawTexture(resourceLocation, x, y, 0, 0, width / 2, height / 2);
@@ -78,6 +67,19 @@ public class GuiBuilder {
 				height / 2);
 	}
 
+	public void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {
+		final Sprite sprite = GuiBase.getSprite(spriteIdentifier);
+
+		drawContext.drawSprite(
+			x,
+			y,
+			0,
+			sprite.getContents().getWidth(),
+			sprite.getContents().getHeight(),
+			sprite
+		);
+	}
+
 	public void drawPlayerSlots(DrawContext drawContext, Screen gui, int posX, int posY, boolean center) {
 		if (center) {
 			posX -= 81;
@@ -85,17 +87,17 @@ public class GuiBuilder {
 
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
-				drawContext.drawTexture(resourceLocation, posX + x * 18, posY + y * 18, 150, 0, 18, 18);
+				drawSlot(drawContext,posX + x * 18, posY + y * 18);
 			}
 		}
 
 		for (int x = 0; x < 9; x++) {
-			drawContext.drawTexture(resourceLocation, posX + x * 18, posY + 58, 150, 0, 18, 18);
+			drawSlot(drawContext, posX + x * 18, posY + 58);
 		}
 	}
 
-	public void drawSlot(DrawContext drawContext, Screen gui, int posX, int posY) {
-		drawContext.drawTexture(resourceLocation, posX, posY, 150, 0, 18, 18);
+	public void drawSlot(DrawContext drawContext,int posX, int posY) {
+		drawSprite(drawContext, GuiSprites.SLOT, posX, posY);
 	}
 
 	public void drawText(DrawContext drawContext, GuiBase<?> gui, Text text, int x, int y, int color) {
@@ -110,8 +112,8 @@ public class GuiBuilder {
 		}
 	}
 
-	public void drawOutputSlot(DrawContext drawContext, GuiBase<?> gui, int x, int y) {
-		drawContext.drawTexture(resourceLocation, x, y, 174, 0, 26, 26);
+	public void drawOutputSlot(DrawContext drawContext, int x, int y) {
+		drawSprite(drawContext, GuiSprites.OUTPUT_SLOT, x, y);
 	}
 
 	/**
@@ -131,7 +133,8 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(resourceLocation, x, y, 174, 26 + (locked ? 12 : 0), 20, 12);
+
+		drawSprite(drawContext, locked ? GuiSprites.BUTTON_LOCKED : GuiSprites.BUTTON_UNLOCKED, x, y);
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
 			if (locked) {
@@ -160,9 +163,9 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 		if (gui.getMachine().renderMultiblock) {
-			drawContext.drawTexture(resourceLocation, x, y, 174, 62, 20, 12);
+			drawSprite(drawContext, GuiSprites.BUTTON_HOLOGRAM_ENABLED, x, y);
 		} else {
-			drawContext.drawTexture(resourceLocation, x, y, 174, 50, 20, 12);
+			drawSprite(drawContext, GuiSprites.BUTTON_HOLOGRAM_DISABLED, x, y);
 		}
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
@@ -322,7 +325,7 @@ public class GuiBuilder {
 	 * @param y   {@code int} Top left corner where to place slots
 	 */
 	public void drawUpgrades(DrawContext drawContext, GuiBase<?> gui, int x, int y) {
-		drawContext.drawTexture(resourceLocation, x, y, 217, 0, 24, 81);
+		drawSprite(drawContext, GuiSprites.UPGRADES, x, y);
 	}
 
 	/**
@@ -334,7 +337,7 @@ public class GuiBuilder {
 	 * @param stack {@link ItemStack} Item to show as tab icon
 	 */
 	public void drawSlotTab(DrawContext drawContext, GuiBase<?> gui, int x, int y, ItemStack stack) {
-		drawContext.drawTexture(resourceLocation, x, y, 217, 82, 24, 24);
+		drawSprite(drawContext, GuiSprites.SLOT_TAB, x, y);
 		drawContext.drawItem(stack, x + 5, y + 4);
 	}
 
@@ -592,11 +595,11 @@ public class GuiBuilder {
 			amount = fluid.getAmount();
 			percentage = percentage(maxCapacity.getRawValue(), amount.getRawValue());
 		}
-		drawContext.drawTexture(resourceLocation, x, y, 194, 26, 22, 56);
+		drawSprite(drawContext, GuiSprites.TANK_BACKGROUND, x, y);
 		if (!isTankEmpty) {
 			drawFluid(drawContext, gui, fluid, x + 4, y + 4, 14, 48, maxCapacity.getRawValue());
 		}
-		drawContext.drawTexture(resourceLocation, x + 3, y + 3, 194, 82, 16, 50);
+		drawSprite(drawContext, GuiSprites.TANK_FOREGROUND, x + 3, y + 3);
 
 		if (gui.isPointInRect(x, y, 22, 56, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
@@ -704,19 +707,18 @@ public class GuiBuilder {
 	/**
 	 * Draws bar containing output slots
 	 *
-	 * @param gui   {@link GuiBase} The GUI to draw on
 	 * @param x     {@code int} Top left corner where to place slots bar
 	 * @param y     {@code int} Top left corner where to place slots bar
 	 * @param count {@code int} Number of output slots
 	 */
-	public void drawOutputSlotBar(DrawContext drawContext, GuiBase<?> gui, int x, int y, int count) {
-		drawContext.drawTexture(resourceLocation, x, y, 150, 122, 3, 26);
+	public void drawOutputSlotBar(DrawContext drawContext, int x, int y, int count) {
+		drawSprite(drawContext, GuiSprites.SLOT_BAR_RIGHT, x, y);
 		x += 3;
 		for (int i = 1; i <= count; i++) {
-			drawContext.drawTexture(resourceLocation, x, y, 150 + 3, 122, 20, 26);
+			drawSprite(drawContext, GuiSprites.SLOT_BAR_CENTER, x, y);
 			x += 20;
 		}
-		drawContext.drawTexture(resourceLocation, x, y, 150 + 23, 122, 3, 26);
+		drawSprite(drawContext, GuiSprites.SLOT_BAR_LEFT, x, y);
 	}
 
 	protected int percentage(long MaxValue, long CurrentValue) {

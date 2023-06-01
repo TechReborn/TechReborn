@@ -28,7 +28,6 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 
 public final class GuiSprites {
-	public static final SpriteIdentifier SLOT_NORMAL = create("slot_normal");
 	public static final SpriteIdentifier CHARGE_SLOT_ICON = create("charge_slot_icon");
 	public static final SpriteIdentifier DISCHARGE_SLOT_ICON = create("discharge_slot_icon");
 	public static final SpriteIdentifier ENERGY_BAR = create("energy_bar");
@@ -46,6 +45,23 @@ public final class GuiSprites {
 	public static final SpriteIdentifier FAKE_SLOT = create("fake_slot");
 	public static final SpriteIdentifier BUTTON_HOVER_OVERLAY_SLOT_NORMAL = create("button_hover_overlay_slot_normal");
 	public static final SpriteIdentifier SLOT_CONFIG_POPUP = create("slot_config_popup");
+	public static final SpriteIdentifier FAST_FORWARD = create("fast_forward");
+	public static final SpriteIdentifier FORWARD = create("forward");
+	public static final SpriteIdentifier REWIND = create("rewind");
+	public static final SpriteIdentifier FAST_REWIND = create("fast_rewind");
+	public static final SpriteIdentifier SLOT = create("slot");
+	public static final SpriteIdentifier OUTPUT_SLOT = create("output_slot");
+	public static final SpriteIdentifier BUTTON_UNLOCKED = create("button_unlocked");
+	public static final SpriteIdentifier BUTTON_LOCKED = create("button_locked");
+	public static final SpriteIdentifier BUTTON_HOLOGRAM_ENABLED = create("button_hologram_enabled");
+	public static final SpriteIdentifier BUTTON_HOLOGRAM_DISABLED = create("button_hologram_disabled");
+	public static final SpriteIdentifier SLOT_TAB = create("slot_tab");
+	public static final SpriteIdentifier UPGRADES = create("upgrades");
+	public static final SpriteIdentifier TANK_BACKGROUND = create("tank_background");
+	public static final SpriteIdentifier TANK_FOREGROUND = create("tank_foreground");
+	public static final SpriteIdentifier SLOT_BAR_RIGHT = create("slot_bar_right");
+	public static final SpriteIdentifier SLOT_BAR_CENTER = create("slot_bar_center");
+	public static final SpriteIdentifier SLOT_BAR_LEFT = create("slot_bar_left");
 
 	public static final SpriteIdentifier EXIT_BUTTON_NORMAL = create("exit_button_normal");
 	public static final SpriteIdentifier EXIT_BUTTON_HOVERED = create("exit_button_hovered");

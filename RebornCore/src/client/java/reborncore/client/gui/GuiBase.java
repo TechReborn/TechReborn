@@ -32,6 +32,8 @@ import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
@@ -42,6 +44,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.config.GuiTab;
+import reborncore.client.gui.config.elements.GuiSpriteAtlasHolder;
 import reborncore.client.gui.widget.GuiButtonHologram;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -85,7 +88,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			x += this.x;
 			y += this.y;
 		}
-		builder.drawSlot(drawContext, this, x - 1, y - 1);
+		builder.drawSlot(drawContext, x - 1, y - 1);
 	}
 
 	public void drawOutputSlotBar(DrawContext drawContext, int x, int y, int count, Layer layer) {
@@ -93,7 +96,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			x += this.x;
 			y += this.y;
 		}
-		builder.drawOutputSlotBar(drawContext, this, x - 4, y - 4, count);
+		builder.drawOutputSlotBar(drawContext, x - 4, y - 4, count);
 	}
 
 	public void drawArmourSlots(DrawContext drawContext, int x, int y, Layer layer) {
@@ -101,10 +104,10 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			x += this.x;
 			y += this.y;
 		}
-		builder.drawSlot(drawContext, this, x - 1, y - 1);
-		builder.drawSlot(drawContext, this, x - 1, y - 1 + 18);
-		builder.drawSlot(drawContext, this, x - 1, y - 1 + 18 + 18);
-		builder.drawSlot(drawContext, this, x - 1, y - 1 + 18 + 18 + 18);
+		builder.drawSlot(drawContext, x - 1, y - 1);
+		builder.drawSlot(drawContext, x - 1, y - 1 + 18);
+		builder.drawSlot(drawContext, x - 1, y - 1 + 18 + 18);
+		builder.drawSlot(drawContext, x - 1, y - 1 + 18 + 18 + 18);
 	}
 
 	public void drawOutputSlot(DrawContext drawContext, int x, int y, Layer layer) {
@@ -112,7 +115,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			x += this.x;
 			y += this.y;
 		}
-		builder.drawOutputSlot(drawContext, this, x - 5, y - 5);
+		builder.drawOutputSlot(drawContext, x - 5, y - 5);
 	}
 
 	@Override
@@ -381,5 +384,22 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	public List<GuiTab> getTabs() {
 		return tabs;
+	}
+
+	public static Sprite getSprite(SpriteIdentifier spriteIdentifier) {
+		return GuiSpriteAtlasHolder.INSTANCE.getSprite(spriteIdentifier.getTextureId());
+	}
+
+	public void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {
+		final Sprite sprite = getSprite(spriteIdentifier);
+
+		drawContext.drawSprite(
+			x,
+			y,
+			0,
+			sprite.getContents().getWidth(),
+			sprite.getContents().getHeight(),
+			sprite
+		);
 	}
 }

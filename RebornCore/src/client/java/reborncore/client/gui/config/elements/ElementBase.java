@@ -26,7 +26,6 @@ package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
@@ -60,11 +59,11 @@ public class ElementBase {
 	}
 
 	public int getWidth() {
-		return getGuiSprite(sprite).getContents().getWidth();
+		return GuiBase.getSprite(sprite).getContents().getWidth();
 	}
 
 	public int getHeight() {
-		return getGuiSprite(sprite).getContents().getHeight();
+		return GuiBase.getSprite(sprite).getContents().getHeight();
 	}
 
 	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
@@ -94,26 +93,13 @@ public class ElementBase {
 	}
 
 	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, SpriteIdentifier spriteIdentifier, int x, int y) {
-		final Sprite sprite = getGuiSprite(spriteIdentifier);
-
-		drawContext.drawSprite(
-			x + gui.getGuiLeft(),
-			y + gui.getGuiTop(),
-			0,
-			sprite.getContents().getWidth(),
-			sprite.getContents().getHeight(),
-			sprite
-		);
+		gui.drawSprite(drawContext, spriteIdentifier, x + gui.getGuiLeft(), y + gui.getGuiTop());
 	}
 
 	public void drawDefaultBackground(DrawContext drawContext, Screen gui, int x, int y, int width, int height) {
-		drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, 0, 0, width / 2, height / 2);
-		drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
-		drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
-		drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x + width / 2, y + height / 2, 150 - width / 2, 150 - height / 2, width / 2, height / 2);
-	}
-
-	private Sprite getGuiSprite(SpriteIdentifier spriteIdentifier) {
-		return GuiSpriteAtlasHolder.INSTANCE.getSprite(sprite.getTextureId());
+		drawContext.drawTexture(GuiBuilder.resourceLocation, x, y, 0, 0, width / 2, height / 2);
+		drawContext.drawTexture(GuiBuilder.resourceLocation, x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
+		drawContext.drawTexture(GuiBuilder.resourceLocation, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
+		drawContext.drawTexture(GuiBuilder.resourceLocation, x + width / 2, y + height / 2, 150 - width / 2, 150 - height / 2, width / 2, height / 2);
 	}
 }

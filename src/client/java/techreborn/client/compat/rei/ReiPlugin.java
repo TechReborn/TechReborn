@@ -270,17 +270,17 @@ public class ReiPlugin implements REIClientPlugin {
 
 	public static Widget createProgressBar(int x, int y, double animationDuration, GuiBuilder.ProgressDirection direction) {
 		return Widgets.createDrawableWidget((drawContext, mouseX, mouseY, delta) -> {
-			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, direction.x, direction.y, direction.width, direction.height);
+			drawContext.drawTexture(GuiBuilder.resourceLocation, x, y, direction.x, direction.y, direction.width, direction.height);
 			int j = (int) ((System.currentTimeMillis() / animationDuration) % 1.0 * 16.0);
 			if (j < 0) {
 				j = 0;
 			}
 
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, direction.xActive, direction.yActive, j, 10);
-				case LEFT -> drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-				case UP -> drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-				case DOWN -> drawContext.drawTexture(GuiBuilder.defaultTextureSheet, x, y, direction.xActive, direction.yActive, 10, j);
+				case RIGHT -> drawContext.drawTexture(GuiBuilder.resourceLocation, x, y, direction.xActive, direction.yActive, j, 10);
+				case LEFT -> drawContext.drawTexture(GuiBuilder.resourceLocation, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+				case UP -> drawContext.drawTexture(GuiBuilder.resourceLocation, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+				case DOWN -> drawContext.drawTexture(GuiBuilder.resourceLocation, x, y, direction.xActive, direction.yActive, 10, j);
 			}
 		});
 	}
@@ -313,14 +313,14 @@ public class ReiPlugin implements REIClientPlugin {
 			int innerHeight = height - 2;
 
 			PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
-			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
+			drawContext.drawTexture(GuiBuilder.resourceLocation, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
 				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) innerHeight) % innerHeight));
 				if (animation.animationType == EntryAnimationType.DOWNWARDS)
 					innerDisplayHeight = innerHeight - innerDisplayHeight;
 			} else innerDisplayHeight = innerHeight;
-			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, bounds.x, bounds.y + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
+			drawContext.drawTexture(GuiBuilder.resourceLocation, bounds.x, bounds.y + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
 		}
 
 		@Override
@@ -344,8 +344,8 @@ public class ReiPlugin implements REIClientPlugin {
 			int width = bounds.width;
 			int height = bounds.height;
 
-			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
-			drawContext.drawTexture(GuiBuilder.defaultTextureSheet, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
+			drawContext.drawTexture(GuiBuilder.resourceLocation, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
+			drawContext.drawTexture(GuiBuilder.resourceLocation, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
 			int innerDisplayHeight;
 			if (animation.animationType != EntryAnimationType.NONE) {
 				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) height) % height));

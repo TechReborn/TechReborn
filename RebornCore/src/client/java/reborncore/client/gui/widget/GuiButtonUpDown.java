@@ -26,16 +26,17 @@ package reborncore.client.gui.widget;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.config.elements.GuiSprites;
 
 /**
  * @author drcrazy
  */
 public class GuiButtonUpDown extends GuiButtonExtended {
-
-	GuiBase<?> gui;
-	UpDownButtonType type;
+	private final GuiBase<?> gui;
+	private final UpDownButtonType type;
 
 	public GuiButtonUpDown(int x, int y, GuiBase<?> gui, ButtonWidget.PressAction pressAction, UpDownButtonType type) {
 		super(x, y, 12, 12, Text.empty(), pressAction);
@@ -46,18 +47,19 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	@Override
 	public void renderButton(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
 		if (gui.hideGuiElements()) return;
-		switch (type) {
-			case FASTFORWARD -> drawContext.drawTexture(gui.builder.getResourceLocation(), getX(), getY(), 174, 74, 12, 12);
-			case FORWARD -> drawContext.drawTexture(gui.builder.getResourceLocation(), getX(), getY(), 174, 86, 12, 12);
-			case REWIND -> drawContext.drawTexture(gui.builder.getResourceLocation(), getX(), getY(), 174, 98, 12, 12);
-			case FASTREWIND -> drawContext.drawTexture(gui.builder.getResourceLocation(), getX(), getY(), 174, 110, 12, 12);
-		}
+		gui.drawSprite(drawContext, type.spriteIdentifier, getX(), getY());
 	}
 
 	public enum UpDownButtonType {
-		FASTFORWARD,
-		FORWARD,
-		REWIND,
-		FASTREWIND
+		FASTFORWARD(GuiSprites.FAST_FORWARD),
+		FORWARD(GuiSprites.FORWARD),
+		REWIND(GuiSprites.REWIND),
+		FASTREWIND(GuiSprites.FAST_REWIND);
+
+		private final SpriteIdentifier spriteIdentifier;
+
+		UpDownButtonType(SpriteIdentifier spriteIdentifier) {
+			this.spriteIdentifier = spriteIdentifier;
+		}
 	}
 }

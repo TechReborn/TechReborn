@@ -27,7 +27,7 @@ package reborncore.client.gui.config.elements;
 import net.minecraft.client.util.SpriteIdentifier;
 
 public enum SlotType {
-	NORMAL(1, 1, GuiSprites.SLOT_NORMAL, GuiSprites.BUTTON_SLOT_NORMAL, GuiSprites.BUTTON_HOVER_OVERLAY_SLOT_NORMAL);
+	NORMAL(1, 1, GuiSprites.SLOT, GuiSprites.BUTTON_SLOT_NORMAL, GuiSprites.BUTTON_HOVER_OVERLAY_SLOT_NORMAL);
 
 	int slotOffsetX;
 	int slotOffsetY;
