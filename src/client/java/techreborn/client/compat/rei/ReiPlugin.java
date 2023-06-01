@@ -24,7 +24,6 @@
 
 package techreborn.client.compat.rei;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.architectury.event.CompoundEventResult;
 import dev.architectury.fluid.FluidStack;
 import me.shedaniel.math.Rectangle;
@@ -54,20 +53,19 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.GuiBase;
-import reborncore.client.gui.config.GuiTab;
 import reborncore.client.gui.GuiBuilder;
+import reborncore.client.gui.GuiSprites;
+import reborncore.client.gui.config.GuiTab;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.fluid.container.ItemFluidInfo;
-import reborncore.common.powerSystem.PowerSystem;
 import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.GeneratorRecipeHelper;
@@ -90,6 +88,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Stream;
+
+import static reborncore.client.gui.GuiSprites.drawSprite;
 
 public class ReiPlugin implements REIClientPlugin {
 	public static final Map<RebornRecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
@@ -270,17 +270,15 @@ public class ReiPlugin implements REIClientPlugin {
 
 	public static Widget createProgressBar(int x, int y, double animationDuration, GuiBuilder.ProgressDirection direction) {
 		return Widgets.createDrawableWidget((drawContext, mouseX, mouseY, delta) -> {
-			drawContext.drawTexture(GuiBuilder.resourceLocation, x, y, direction.x, direction.y, direction.width, direction.height);
+			drawSprite(drawContext, direction.baseSprite, x, y);
 			int j = (int) ((System.currentTimeMillis() / animationDuration) % 1.0 * 16.0);
 			if (j < 0) {
 				j = 0;
 			}
 
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(GuiBuilder.resourceLocation, x, y, direction.xActive, direction.yActive, j, 10);
-				case LEFT -> drawContext.drawTexture(GuiBuilder.resourceLocation, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-				case UP -> drawContext.drawTexture(GuiBuilder.resourceLocation, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-				case DOWN -> drawContext.drawTexture(GuiBuilder.resourceLocation, x, y, direction.xActive, direction.yActive, 10, j);
+				case RIGHT, LEFT -> drawSprite(drawContext, direction.overlaySprite, x, y, j, 10);
+				case UP, DOWN -> drawSprite(drawContext, direction.overlaySprite, x, y, 10, j);
 			}
 		});
 	}
@@ -297,105 +295,87 @@ public class ReiPlugin implements REIClientPlugin {
 		return Widgets.createSlot(bounds).entry(copy);
 	}
 
-	private static class EnergyEntryRenderer implements Renderer {
-		private final EntryAnimation animation;
-		private final Function<TooltipContext, Tooltip> tooltipBuilder;
-
-		protected EnergyEntryRenderer(EntryAnimation animation, Function<TooltipContext, Tooltip> tooltipBuilder) {
-			this.animation = animation;
-			this.tooltipBuilder = tooltipBuilder;
-		}
-
+	private record EnergyEntryRenderer(EntryAnimation animation, Function<TooltipContext, Tooltip> tooltipBuilder) implements Renderer {
 		@Override
-		public void render(DrawContext drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
-			int width = bounds.width + 2;
-			int height = bounds.height + 2;
-			int innerHeight = height - 2;
+			public void render(DrawContext drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
+				int width = bounds.width + 2;
+				int height = bounds.height + 2;
+				int innerHeight = height - 2;
 
-			PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
-			drawContext.drawTexture(GuiBuilder.resourceLocation, bounds.x - 1, bounds.y - 1, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
-			int innerDisplayHeight;
-			if (animation.animationType != EntryAnimationType.NONE) {
-				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) innerHeight) % innerHeight));
-				if (animation.animationType == EntryAnimationType.DOWNWARDS)
-					innerDisplayHeight = innerHeight - innerDisplayHeight;
-			} else innerDisplayHeight = innerHeight;
-			drawContext.drawTexture(GuiBuilder.resourceLocation, bounds.x, bounds.y + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
-		}
-
-		@Override
-		@Nullable
-		public Tooltip getTooltip(TooltipContext context) {
-			return this.tooltipBuilder.apply(context);
-		}
-	}
-
-	private static class FluidStackRenderer implements EntryRenderer<FluidStack> {
-		private final EntryAnimation animation;
-		private final EntryRenderer<FluidStack> parent;
-
-		public FluidStackRenderer(EntryAnimation animation, EntryRenderer<FluidStack> parent) {
-			this.animation = animation;
-			this.parent = parent;
-		}
-
-		@Override
-		public void render(EntryStack<FluidStack> entry, DrawContext drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
-			int width = bounds.width;
-			int height = bounds.height;
-
-			drawContext.drawTexture(GuiBuilder.resourceLocation, bounds.x - 4, bounds.y - 4, 194, 26, width + 8, height + 8);
-			drawContext.drawTexture(GuiBuilder.resourceLocation, bounds.x - 1, bounds.y - 1, 194, 82, width + 2, height + 2);
-			int innerDisplayHeight;
-			if (animation.animationType != EntryAnimationType.NONE) {
-				innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) height) % height));
-				if (animation.animationType == EntryAnimationType.DOWNWARDS)
-					innerDisplayHeight = height - innerDisplayHeight;
-			} else innerDisplayHeight = height;
-			drawFluid(drawContext, entry.getValue().getFluid(), innerDisplayHeight, bounds.x, bounds.y, width, height);
-		}
-
-		public void drawFluid(DrawContext drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
-			RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
-			y += height;
-
-			FluidRenderHandler handler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
-
-			// If registry can't find it, don't render.
-			if (handler == null) {
-				return;
+				drawSprite(drawContext, GuiSprites.POWER_BAR_BASE, bounds.x - 1, bounds.y - 1);
+				int innerDisplayHeight;
+				if (animation.animationType != EntryAnimationType.NONE) {
+					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) innerHeight) % innerHeight));
+					if (animation.animationType == EntryAnimationType.DOWNWARDS)
+						innerDisplayHeight = innerHeight - innerDisplayHeight;
+				} else innerDisplayHeight = innerHeight;
+				drawSprite(drawContext, GuiSprites.POWER_BAR_OVERLAY, bounds.x, bounds.y + innerHeight - innerDisplayHeight, width - 2, innerDisplayHeight);
 			}
 
-			final Sprite sprite = handler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
-			int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
+			@Override
+			@Nullable
+			public Tooltip getTooltip(TooltipContext context) {
+				return this.tooltipBuilder.apply(context);
+			}
+		}
 
-			final int iconHeight = sprite.getContents().getHeight();
-			int offsetHeight = drawHeight;
+	private record FluidStackRenderer(EntryAnimation animation, EntryRenderer<FluidStack> parent) implements EntryRenderer<FluidStack> {
+		@Override
+			public void render(EntryStack<FluidStack> entry, DrawContext drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
+				int width = bounds.width;
+				int height = bounds.height;
 
-			RenderSystem.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
+				drawSprite(drawContext, GuiSprites.TANK_BACKGROUND, bounds.x - 4, bounds.y - 4);
+				int innerDisplayHeight;
+				if (animation.animationType != EntryAnimationType.NONE) {
+					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) height) % height));
+					if (animation.animationType == EntryAnimationType.DOWNWARDS)
+						innerDisplayHeight = height - innerDisplayHeight;
+				} else innerDisplayHeight = height;
+				drawFluid(drawContext, entry.getValue().getFluid(), innerDisplayHeight, bounds.x, bounds.y, width, height);
+				drawSprite(drawContext, GuiSprites.TANK_FOREGROUND, bounds.x - 1, bounds.y - 1);
+			}
 
-			int iteration = 0;
-			while (offsetHeight != 0) {
-				final int curHeight = Math.min(offsetHeight, iconHeight);
+			public void drawFluid(DrawContext drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
+				y += height;
 
-				drawContext.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
-				offsetHeight -= curHeight;
-				iteration++;
-				if (iteration > 50) {
-					break;
+				FluidRenderHandler handler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
+
+				// If registry can't find it, don't render.
+				if (handler == null) {
+					return;
 				}
+
+				final Sprite sprite = handler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
+				int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
+
+				final int iconHeight = sprite.getContents().getHeight();
+				int offsetHeight = drawHeight;
+
+				drawContext.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
+
+				int iteration = 0;
+				while (offsetHeight != 0) {
+					final int curHeight = Math.min(offsetHeight, iconHeight);
+
+					drawContext.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
+					offsetHeight -= curHeight;
+					iteration++;
+					if (iteration > 50) {
+						break;
+					}
+				}
+				drawContext.setShaderColor(1, 1, 1, 1);
+			}
+
+			@Override
+			@Nullable
+			public Tooltip getTooltip(EntryStack<FluidStack> entry, TooltipContext context) {
+				return parent.getTooltip(entry, context);
 			}
 		}
-
-		@Override
-		@Nullable
-		public Tooltip getTooltip(EntryStack<FluidStack> entry, TooltipContext context) {
-			return parent.getTooltip(entry, context);
-		}
-	}
 
 	public record EntryAnimation(EntryAnimationType animationType, long duration) {
-
 		public static EntryAnimation upwards(long duration) {
 			return new EntryAnimation(EntryAnimationType.UPWARDS, duration);
 		}

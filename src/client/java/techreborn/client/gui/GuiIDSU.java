@@ -66,7 +66,7 @@ public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 				.append("/")
 				.append(PowerSystem.getLocalizedPowerNoSuffix(idsu.getMaxStoredPower()))
 				.append(" ")
-				.append(PowerSystem.getDisplayPower().abbreviation);
+				.append(PowerSystem.ABBREVIATION);
 
 		drawCentredText(drawContext, text, 35, 0, 58, layer);
 

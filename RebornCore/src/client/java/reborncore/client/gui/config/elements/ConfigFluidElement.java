@@ -27,6 +27,7 @@ package reborncore.client.gui.config.elements;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiSprites;
 
 public class ConfigFluidElement extends ParentElement {
 	private final SlotType type;

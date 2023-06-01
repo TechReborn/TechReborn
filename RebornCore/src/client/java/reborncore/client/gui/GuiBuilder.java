@@ -40,17 +40,18 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.api.IListInfoProvider;
 import reborncore.client.gui.config.GuiTab;
-import reborncore.client.gui.config.elements.GuiSprites;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PowerSystem.EnergySystem;
 import reborncore.common.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
+
+import static reborncore.client.gui.GuiSprites.drawSprite;
 
 /**
  * Created by Gigabit101 on 08/08/2016.
@@ -65,19 +66,6 @@ public class GuiBuilder {
 		drawContext.drawTexture(resourceLocation, x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
 		drawContext.drawTexture(resourceLocation, x + width / 2, y + height / 2, 150 - width / 2, 150 - height / 2, width / 2,
 				height / 2);
-	}
-
-	public void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {
-		final Sprite sprite = GuiBase.getSprite(spriteIdentifier);
-
-		drawContext.drawSprite(
-			x,
-			y,
-			0,
-			sprite.getContents().getWidth(),
-			sprite.getContents().getHeight(),
-			sprite
-		);
 	}
 
 	public void drawPlayerSlots(DrawContext drawContext, Screen gui, int posX, int posY, boolean center) {
@@ -420,7 +408,7 @@ public class GuiBuilder {
 		if (gui.hideGuiElements()) return;
 		Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(maxOutput))
 				.append(SPACE_TEXT)
-				.append(PowerSystem.getDisplayPower().abbreviation)
+				.append(PowerSystem.ABBREVIATION)
 				.append("\t");
 
 		int width = gui.getTextRenderer().getWidth(text);
@@ -452,30 +440,20 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 
-		drawContext.drawTexture(resourceLocation, x, y, direction.x, direction.y, direction.width, direction.height);
+		drawSprite(drawContext, direction.baseSprite, x, y);
 		int j = (int) ((double) progress / (double) maxProgress * 16);
 		if (j < 0) {
 			j = 0;
 		}
 
 		switch (direction) {
-			case RIGHT:
-				drawContext.drawTexture(resourceLocation, x, y, direction.xActive, direction.yActive, j, 10);
-				break;
-			case LEFT:
-				drawContext.drawTexture(resourceLocation, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-				break;
-			case UP:
-				drawContext.drawTexture(resourceLocation, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-				break;
-			case DOWN:
-				drawContext.drawTexture(resourceLocation, x, y, direction.xActive, direction.yActive, 10, j);
-				break;
-			default:
-				return;
+			case RIGHT, LEFT -> drawSprite(drawContext, direction.overlaySprite, x, y, j, 10, gui);
+			case UP, DOWN -> drawSprite(drawContext, direction.overlaySprite, x, y, 10, j, gui);
 		}
 
-		if (gui.isPointInRect(x, y, direction.width, direction.height, mouseX, mouseY)) {
+		final Sprite sprite = GuiBase.getSprite(direction.baseSprite);
+
+		if (gui.isPointInRect(x, y, sprite.getContents().getWidth(), sprite.getContents().getHeight(), mouseX, mouseY)) {
 			int percentage = percentage(maxProgress, progress);
 			List<Text> list = new ArrayList<>();
 			list.add(
@@ -512,13 +490,15 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 
-		EnergySystem displayPower = PowerSystem.getDisplayPower();
-		drawContext.drawTexture(resourceLocation, x, y, displayPower.xBar - 15, displayPower.yBar - 1, 14, 50);
-		int draw = (int) ((double) energyStored / (double) maxEnergyStored * (48));
+		drawSprite(drawContext, GuiSprites.POWER_BAR_BASE, x, y);
+
+		int barHeight = 48;
+		int draw = (int) ((double) energyStored / (double) maxEnergyStored * (barHeight));
 		if (energyStored > maxEnergyStored) {
-			draw = 48;
+			draw = barHeight;
 		}
-		drawContext.drawTexture(resourceLocation, x + 1, y + 49 - draw, displayPower.xBar, 48 + displayPower.yBar - draw, 12, draw);
+		drawSprite(drawContext, GuiSprites.POWER_BAR_OVERLAY, x + 1, y + 49 - draw, 12, draw, gui);
+
 		int percentage = percentage(maxEnergyStored, energyStored);
 		if (gui.isPointInRect(x + 1, y + 1, 11, 48, mouseX, mouseY)) {
 			List<Text> list = Lists.newArrayList();
@@ -729,24 +709,17 @@ public class GuiBuilder {
 	}
 
 	public enum ProgressDirection {
-		RIGHT(58, 150, 74, 150, 16, 10),
-		LEFT(74, 160, 58, 160, 16, 10),
-		DOWN(78, 170, 88, 170, 10, 16),
-		UP(58, 170, 68, 170, 10, 16);
-		public int x;
-		public int y;
-		public int xActive;
-		public int yActive;
-		public int width;
-		public int height;
+		RIGHT,
+		LEFT,
+		DOWN,
+		UP;
 
-		ProgressDirection(int x, int y, int xActive, int yActive, int width, int height) {
-			this.x = x;
-			this.y = y;
-			this.xActive = xActive;
-			this.yActive = yActive;
-			this.width = width;
-			this.height = height;
+		public final SpriteIdentifier baseSprite;
+		public final SpriteIdentifier overlaySprite;
+
+		ProgressDirection() {
+			baseSprite = GuiSprites.create("progress_%s_base".formatted(name().toLowerCase(Locale.ROOT)));
+			overlaySprite = GuiSprites.create("progress_%s_overlay".formatted(name().toLowerCase(Locale.ROOT)));
 		}
 	}
 }

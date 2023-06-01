@@ -29,6 +29,7 @@ import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
 import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.ServerBoundPackets;

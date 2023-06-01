@@ -22,10 +22,15 @@
  * SOFTWARE.
  */
 
-package reborncore.client.gui.config.elements;
+package reborncore.client.gui;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasHolder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
+import reborncore.client.gui.config.elements.GuiSpriteAtlasHolder;
 
 public final class GuiSprites {
 	public static final SpriteIdentifier CHARGE_SLOT_ICON = create("charge_slot_icon");
@@ -62,6 +67,8 @@ public final class GuiSprites {
 	public static final SpriteIdentifier SLOT_BAR_RIGHT = create("slot_bar_right");
 	public static final SpriteIdentifier SLOT_BAR_CENTER = create("slot_bar_center");
 	public static final SpriteIdentifier SLOT_BAR_LEFT = create("slot_bar_left");
+	public static final SpriteIdentifier POWER_BAR_BASE = create("power_bar_base");
+	public static final SpriteIdentifier POWER_BAR_OVERLAY = create("power_bar_overlay");
 
 	public static final SpriteIdentifier EXIT_BUTTON_NORMAL = create("exit_button_normal");
 	public static final SpriteIdentifier EXIT_BUTTON_HOVERED = create("exit_button_hovered");
@@ -75,13 +82,45 @@ public final class GuiSprites {
 	public static final SpriteIdentifier LIGHT_CHECK_BOX_TICKED = create("light_check_box_ticked");
 	public static final CheckBox LIGHT_CHECK_BOX = new CheckBox(LIGHT_CHECK_BOX_NORMAL, LIGHT_CHECK_BOX_TICKED);
 
-	private static SpriteIdentifier create(String name) {
+	public static SpriteIdentifier create(String name) {
 		return new SpriteIdentifier(GuiSpriteAtlasHolder.ATLAS_ID, new Identifier("reborncore", name));
 	}
 
-	record Button(SpriteIdentifier normal, SpriteIdentifier hovered) {
+	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {
+		final Sprite sprite = GuiBase.getSprite(spriteIdentifier);
+
+		drawContext.drawSprite(
+			x,
+			y,
+			0,
+			sprite.getContents().getWidth(),
+			sprite.getContents().getHeight(),
+			sprite
+		);
 	}
 
-	record CheckBox(SpriteIdentifier normal, SpriteIdentifier ticked) {
+	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height) {
+		drawSprite(drawContext, spriteIdentifier, x, y, width, height, 0, 0);
+	}
+
+	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, GuiBase<?> gui) {
+		drawSprite(drawContext, spriteIdentifier, x, y, width, height, gui.getGuiLeft(), gui.getGuiTop());
+	}
+
+	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, int sx, int sy) {
+		drawContext.enableScissor(x + sx, y + sy,  x + width+ sx, y + height+ sy);
+		drawSprite(
+			drawContext,
+			spriteIdentifier,
+			x,
+			y
+		);
+		drawContext.disableScissor();
+	}
+
+	public record Button(SpriteIdentifier normal, SpriteIdentifier hovered) {
+	}
+
+	public record CheckBox(SpriteIdentifier normal, SpriteIdentifier ticked) {
 	}
 }

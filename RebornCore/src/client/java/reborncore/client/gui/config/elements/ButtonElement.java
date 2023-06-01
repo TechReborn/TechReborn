@@ -26,6 +26,7 @@ package reborncore.client.gui.config.elements;
 
 import net.minecraft.client.gui.DrawContext;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiSprites;
 
 public class ButtonElement extends ElementBase {
 	private final GuiSprites.Button buttonSprite;

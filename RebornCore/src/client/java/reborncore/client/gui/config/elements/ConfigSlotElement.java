@@ -29,6 +29,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.screen.slot.BaseSlot;
 

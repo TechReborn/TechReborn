@@ -29,7 +29,9 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
-import reborncore.client.gui.config.elements.GuiSprites;
+import reborncore.client.gui.GuiSprites;
+
+import static reborncore.client.gui.GuiSprites.drawSprite;
 
 /**
  * @author drcrazy
@@ -47,7 +49,7 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	@Override
 	public void renderButton(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
 		if (gui.hideGuiElements()) return;
-		gui.drawSprite(drawContext, type.spriteIdentifier, getX(), getY());
+		drawSprite(drawContext, type.spriteIdentifier, getX(), getY());
 	}
 
 	public enum UpDownButtonType {

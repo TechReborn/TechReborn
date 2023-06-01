@@ -30,6 +30,7 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
+import reborncore.client.gui.GuiSprites;
 
 public class ElementBase {
 	private final int x;
@@ -93,7 +94,7 @@ public class ElementBase {
 	}
 
 	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, SpriteIdentifier spriteIdentifier, int x, int y) {
-		gui.drawSprite(drawContext, spriteIdentifier, x + gui.getGuiLeft(), y + gui.getGuiTop());
+		GuiSprites.drawSprite(drawContext, spriteIdentifier, x + gui.getGuiLeft(), y + gui.getGuiTop());
 	}
 
 	public void drawDefaultBackground(DrawContext drawContext, Screen gui, int x, int y, int width, int height) {

@@ -63,7 +63,7 @@ public class GuiLESU extends GuiBase<BuiltScreenHandler> {
 				.append("/")
 				.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
 				.append(" ")
-				.append(PowerSystem.getDisplayPower().abbreviation),
+				.append(PowerSystem.ABBREVIATION),
 				35, 0, 58, layer);
 		matrices.pop();
 

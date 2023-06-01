@@ -71,7 +71,6 @@ public class RebornCore implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		new Configuration(RebornCoreConfig.class, MOD_ID);
-		PowerSystem.init();
 		CalenderUtils.loadCalender(); // Done early as some features need this
 
 		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ic2:wrench"), true));

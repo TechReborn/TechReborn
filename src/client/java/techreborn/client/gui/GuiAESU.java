@@ -79,7 +79,7 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 					.append("/")
 					.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
 					.append(" ")
-					.append(PowerSystem.getDisplayPower().abbreviation);
+					.append(PowerSystem.ABBREVIATION);
 
 			drawCentredText(drawContext, text, 35, 0, 58, layer);
 			matrices.pop();

@@ -28,6 +28,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiSprites;
 
 import java.util.function.Predicate;
 

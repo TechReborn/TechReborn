@@ -389,17 +389,4 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	public static Sprite getSprite(SpriteIdentifier spriteIdentifier) {
 		return GuiSpriteAtlasHolder.INSTANCE.getSprite(spriteIdentifier.getTextureId());
 	}
-
-	public void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {
-		final Sprite sprite = getSprite(spriteIdentifier);
-
-		drawContext.drawSprite(
-			x,
-			y,
-			0,
-			sprite.getContents().getWidth(),
-			sprite.getContents().getHeight(),
-			sprite
-		);
-	}
 }

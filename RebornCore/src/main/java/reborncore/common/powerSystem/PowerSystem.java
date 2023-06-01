@@ -25,20 +25,17 @@
 package reborncore.common.powerSystem;
 
 import reborncore.RebornCore;
-import reborncore.common.RebornCoreConfig;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.function.Supplier;
 
 public class PowerSystem {
-	private static EnergySystem selectedSystem = EnergySystem.values()[0];
+	public static final String ABBREVIATION = "E";
 
 	private static final char[] magnitude = new char[] { 'k', 'M', 'G', 'T' };
 
 	public static String getLocalizedPower(double power) {
 
-		return getRoundedString(power, selectedSystem.abbreviation, true);
+		return getRoundedString(power, ABBREVIATION, true);
 	}
 
 	public static String getLocalizedPowerNoSuffix(double power) {
@@ -46,7 +43,7 @@ public class PowerSystem {
 	}
 
 	public static String getLocalizedPowerNoFormat(double power){
-		return getRoundedString(power, selectedSystem.abbreviation, false);
+		return getRoundedString(power, ABBREVIATION, false);
 	}
 
 	public static String getLocalizedPowerNoSuffixNoFormat(double power){
@@ -54,7 +51,7 @@ public class PowerSystem {
 	}
 
 	public static String getLocalizedPowerFull(double power){
-		return getFullPower(power, selectedSystem.abbreviation);
+		return getFullPower(power, ABBREVIATION);
 	}
 
 	public static String getLocalizedPowerFullNoSuffix(double power){
@@ -130,46 +127,5 @@ public class PowerSystem {
 		}
 
 		return ret;
-	}
-
-	public static EnergySystem getDisplayPower() {
-		if(!selectedSystem.enabled.get()){
-			bumpPowerConfig();
-		}
-		return selectedSystem;
-	}
-
-	public static void bumpPowerConfig() {
-		int value = selectedSystem.ordinal() + 1;
-		if (value == EnergySystem.values().length) {
-			value = 0;
-		}
-		selectedSystem = EnergySystem.values()[value];
-	}
-
-	public static void init(){
-		selectedSystem = Arrays.stream(EnergySystem.values()).filter(energySystem -> energySystem.abbreviation.equalsIgnoreCase(RebornCoreConfig.selectedSystem)).findFirst().orElse(EnergySystem.values()[0]);
-		if(!selectedSystem.enabled.get()){
-			bumpPowerConfig();
-		}
-	}
-
-	public enum EnergySystem {
-		EU(0xFF800600, "E", 141, 151, 0xFF670000);
-
-		public int colour;
-		public int altColour;
-		public String abbreviation;
-		public int xBar;
-		public int yBar;
-		public Supplier<Boolean> enabled = () -> true;
-
-		EnergySystem(int colour, String abbreviation, int xBar, int yBar, int altColour) {
-			this.colour = colour;
-			this.abbreviation = abbreviation;
-			this.xBar = xBar;
-			this.yBar = yBar;
-			this.altColour = altColour;
-		}
 	}
 }
