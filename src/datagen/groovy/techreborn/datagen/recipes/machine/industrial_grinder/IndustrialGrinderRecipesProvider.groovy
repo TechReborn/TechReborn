@@ -62,6 +62,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		generateAxe()
 		generatePickaxe()
 		generateTrimTemplates()
+		generateOres()
 	}
 
 	void generateBoots() {
@@ -377,6 +378,69 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			fluid ModFluids.MERCURY.getFluid()
 			source "trim_template_with_mercury"
 			criterion getCriterionName(trim), getCriterionConditions(trim)
+		}
+	}
+
+	void generateOres() {
+		offerIndustrialGrinderRecipe {
+			ingredients Items.ANCIENT_DEBRIS
+			outputs stack(Items.NETHERITE_SCRAP, 2), stack(Items.GOLD_NUGGET, 5)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "ancient_debris_with_water"
+			criterion getCriterionName(Items.ANCIENT_DEBRIS), getCriterionConditions(Items.ANCIENT_DEBRIS)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.ANCIENT_DEBRIS
+			outputs stack(Items.NETHERITE_SCRAP, 3), stack(Items.GOLD_NUGGET, 3)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "ancient_debris_with_mercury"
+			criterion getCriterionName(Items.ANCIENT_DEBRIS), getCriterionConditions(Items.ANCIENT_DEBRIS)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.BAUXITE.asTag()
+			outputs stack(TRContent.Dusts.BAUXITE, 4), TRContent.Dusts.ALUMINUM
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "bauxite_ore_with_water"
+			criterion getCriterionName(TRContent.Dusts.BAUXITE.asTag()), getCriterionConditions(TRContent.Dusts.BAUXITE.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.CINNABAR.asTag()
+			outputs stack(TRContent.Dusts.CINNABAR, 5), stack(TRContent.SmallDusts.REDSTONE, 2), TRContent.SmallDusts.GLOWSTONE
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "cinnabar_ore_with_water"
+			criterion getCriterionName(TRContent.Dusts.CINNABAR.asTag()), getCriterionConditions(TRContent.Dusts.CINNABAR.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:coal_ores")
+			outputs stack(Items.COAL, 3)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "coal_ore_with_water"
+			criterion getCriterionName(tag("c:coal_ores")), getCriterionConditions(tag("c:coal_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:coal_ores")
+			outputs stack(Items.COAL, 4)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "coal_ore_with_mercury"
+			criterion getCriterionName(tag("c:coal_ores")), getCriterionConditions(tag("c:coal_ores"))
 		}
 	}
 }
