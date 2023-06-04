@@ -410,7 +410,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			fluidAmount 1000L
 			fluid Fluids.WATER
 			source "bauxite_ore_with_water"
-			criterion getCriterionName(TRContent.Dusts.BAUXITE.asTag()), getCriterionConditions(TRContent.Dusts.BAUXITE.asTag())
+			criterion getCriterionName(TRContent.Ores.BAUXITE.asTag()), getCriterionConditions(TRContent.Ores.BAUXITE.asTag())
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.CINNABAR.asTag()
@@ -420,7 +420,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			fluidAmount 1000L
 			fluid Fluids.WATER
 			source "cinnabar_ore_with_water"
-			criterion getCriterionName(TRContent.Dusts.CINNABAR.asTag()), getCriterionConditions(TRContent.Dusts.CINNABAR.asTag())
+			criterion getCriterionName(TRContent.Ores.CINNABAR.asTag()), getCriterionConditions(TRContent.Ores.CINNABAR.asTag())
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients tag("c:coal_ores")
@@ -441,6 +441,166 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			fluid ModFluids.MERCURY.getFluid()
 			source "coal_ore_with_mercury"
 			criterion getCriterionName(tag("c:coal_ores")), getCriterionConditions(tag("c:coal_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:copper_ores")
+			outputs stack(Items.RAW_COPPER, 2), stack(Items.GOLD_NUGGET, 3)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "copper_ore_with_water"
+			criterion getCriterionName(tag("c:copper_ores")), getCriterionConditions(tag("c:copper_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:copper_ores")
+			outputs stack(Items.RAW_COPPER, 3), stack(Items.GOLD_NUGGET, 3)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "copper_ore_with_mercury"
+			criterion getCriterionName(tag("c:copper_ores")), getCriterionConditions(tag("c:copper_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:copper_ores")
+			outputs stack(Items.RAW_COPPER, 2), Items.RAW_GOLD, TRContent.Dusts.NICKEL
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
+			source "copper_ore_with_sodium_persulfate"
+			criterion getCriterionName(tag("c:copper_ores")), getCriterionConditions(tag("c:copper_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:diamond_ores")
+			outputs Items.DIAMOND, stack(TRContent.SmallDusts.DIAMOND, 6), TRContent.Dusts.COAL
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "diamond_ore_with_water"
+			criterion getCriterionName(tag("c:diamond_ores")), getCriterionConditions(tag("c:diamond_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:diamond_ores")
+			outputs stack(Items.DIAMOND, 2), stack(TRContent.SmallDusts.DIAMOND, 3)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "diamond_ore_with_mercury"
+			criterion getCriterionName(tag("c:diamond_ores")), getCriterionConditions(tag("c:diamond_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:emerald_ores")
+			outputs Items.EMERALD, stack(TRContent.SmallDusts.EMERALD, 6)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "emerald_ore_with_water"
+			criterion getCriterionName(tag("c:emerald_ores")), getCriterionConditions(tag("c:emerald_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:emerald_ores")
+			outputs stack(Items.EMERALD, 2), stack(TRContent.SmallDusts.EMERALD, 3)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "emerald_ore_with_mercury"
+			criterion getCriterionName(tag("c:emerald_ores")), getCriterionConditions(tag("c:emerald_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.GALENA.asTag()
+			outputs stack(TRContent.Dusts.GALENA, 2), TRContent.Dusts.SULFUR
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "galena_ore_with_water"
+			criterion getCriterionName(TRContent.Dusts.GALENA.asTag()), getCriterionConditions(TRContent.Dusts.GALENA.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.GALENA.asTag()
+			outputs stack(TRContent.Dusts.GALENA, 2), TRContent.Dusts.SULFUR, TRContent.RawMetals.SILVER
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "galena_ore_with_mercury"
+			criterion getCriterionName(TRContent.Ores.GALENA.asTag()), getCriterionConditions(TRContent.Ores.GALENA.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("minecraft:gold_ores")
+			outputs stack(Items.RAW_GOLD, 2), stack(TRContent.Nuggets.COPPER, 3), stack(TRContent.Nuggets.NICKEL)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "gold_ore_with_water"
+			criterion getCriterionName(tag("minecraft:gold_ores")), getCriterionConditions(tag("minecraft:gold_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:gold_ores")
+			outputs stack(Items.RAW_GOLD, 3), stack(TRContent.Nuggets.COPPER, 3), stack(TRContent.Nuggets.NICKEL)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "gold_ore_with_mercury"
+			criterion getCriterionName(tag("minecraft:gold_ores")), getCriterionConditions(tag("minecraft:gold_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:gold_ores")
+			outputs stack(Items.RAW_GOLD, 2), Items.RAW_COPPER, TRContent.Dusts.NICKEL
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
+			source "gold_ore_with_sodium_persulfate"
+			criterion getCriterionName(tag("minecraft:gold_ores")), getCriterionConditions(tag("minecraft:gold_ores"))
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.IRIDIUM.asTag()
+			outputs TRContent.RawMetals.IRIDIUM, stack(TRContent.SmallDusts.PLATINUM, 2)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "iridium_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.IRIDIUM.asTag()
+			outputs stack(TRContent.RawMetals.IRIDIUM, 2), stack(TRContent.SmallDusts.PLATINUM, 2)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "iridium_ore_with_mercury"
+			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.IRIDIUM.asTag()
+			outputs TRContent.RawMetals.IRIDIUM, TRContent.Dusts.PLATINUM
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
+			source "iridium_ore_with_sodium_persulfate"
+			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients tag("c:iron_ores")
+			outputs stack(Items.RAW_IRON, 3), stack(TRContent.Nuggets.TIN, 3), stack(TRContent.Nuggets.NICKEL, 3)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "iron_ore_with_water"
+			criterion getCriterionName(tag("c:iron_ores")), getCriterionConditions(tag("c:iron_ores"))
 		}
 	}
 }
