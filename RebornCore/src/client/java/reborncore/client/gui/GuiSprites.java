@@ -24,10 +24,8 @@
 
 package reborncore.client.gui;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasHolder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.config.elements.GuiSpriteAtlasHolder;

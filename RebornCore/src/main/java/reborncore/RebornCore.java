@@ -51,7 +51,6 @@ import reborncore.common.misc.RebornCoreTags;
 import reborncore.common.multiblock.MultiblockRegistry;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.recipes.PaddedShapedRecipe;
 import reborncore.common.screen.ServerPlayerEntityScreenHandlerHelper;
 import reborncore.common.util.CalenderUtils;
