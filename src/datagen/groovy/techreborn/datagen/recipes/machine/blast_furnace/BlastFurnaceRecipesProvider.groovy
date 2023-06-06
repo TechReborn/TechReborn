@@ -60,6 +60,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		generatePickaxe()
 		generateGlassFromGlassPane()
 		generateAnvil()
+		generateSherds()
 	}
 
 	void generateBoots() {
@@ -305,6 +306,40 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				heat 1500
 				source "anvil_gives_"+amount
 				criterion getCriterionName(anvil), getCriterionConditions(anvil)
+			}
+		}
+	}
+
+	void generateSherds() {
+		[
+			(Items.FISHING_ROD) : Items.ANGLER_POTTERY_SHERD,
+			(Items.BOW) : Items.ARCHER_POTTERY_SHERD,
+			(Items.TOTEM_OF_UNDYING) : Items.ARMS_UP_POTTERY_SHERD,
+			(Items.IRON_SWORD) : Items.BLADE_POTTERY_SHERD,
+			(Items.GLASS_BOTTLE) : Items.BREWER_POTTERY_SHERD,
+			(Items.CAMPFIRE) : Items.BURN_POTTERY_SHERD,
+			(Items.GUNPOWDER) : Items.DANGER_POTTERY_SHERD,
+			(Items.MAP) : Items.EXPLORER_POTTERY_SHERD,
+			(Items.EMERALD) : Items.FRIEND_POTTERY_SHERD,
+			(Items.HEART_OF_THE_SEA) : Items.HEART_POTTERY_SHERD,
+			// Items.HEARTBREAK_POTTERY_SHERD is special, uses grinder
+			(Items.BONE) : Items.HOWL_POTTERY_SHERD,
+			(Items.IRON_PICKAXE) : Items.MINER_POTTERY_SHERD,
+			(Items.RECOVERY_COMPASS) : Items.MOURNER_POTTERY_SHERD,
+			(Items.CHEST) : Items.PLENTY_POTTERY_SHERD,
+			(Items.DIAMOND) : Items.PRIZE_POTTERY_SHERD,
+			(Items.WHEAT) : Items.SHEAF_POTTERY_SHERD,
+			(Items.IRON_DOOR) : Items.SHELTER_POTTERY_SHERD,
+			(Items.SKELETON_SKULL) : Items.SKULL_POTTERY_SHERD,
+			(Items.SCUTE) : Items.SNORT_POTTERY_SHERD
+		].each {material, sherd ->
+			offerBlastFurnaceRecipe {
+				ingredients stack(Items.CLAY_BALL, 4), material
+				outputs sherd
+				power 128
+				time 100
+				heat 1000
+				criterion getCriterionName(material), getCriterionConditions(material)
 			}
 		}
 	}

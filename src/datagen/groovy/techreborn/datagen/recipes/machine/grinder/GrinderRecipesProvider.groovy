@@ -592,5 +592,11 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			ingredients tag("c:basalt")
 			outputs stack("techreborn:basalt_dust")
 		}
+		offerGrinderRecipe {
+			power 2
+			time 100
+			ingredients Items.HEART_POTTERY_SHERD
+			outputs Items.HEARTBREAK_POTTERY_SHERD
+		}
 	}
 }
