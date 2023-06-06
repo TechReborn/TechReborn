@@ -708,6 +708,7 @@ public class TRItemGroup {
 			TRContent.Parts.RUBBER,
 			TRContent.Parts.SCRAP);
 		entries.addBefore(Items.PRISMARINE_SHARD, TRContent.Parts.SPONGE_PIECE);
+		entries.addBefore(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE, TRContent.Parts.TEMPLATE_TEMPLATE);
 		entries.addBefore(Items.BRICK,
 			TRContent.Parts.CARBON_FIBER,
 			TRContent.Parts.CARBON_MESH);

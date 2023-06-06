@@ -86,6 +86,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		generateToolRecipes()
 		generateArmorRecipes()
 		generateUuMatterRecipes()
+		generateMisc()
 	}
 
 	def generateToolRecipes() {
@@ -237,6 +238,15 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("UUU")
 			.pattern("   ")
 			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, recipeNameString(dir, null, TRContent.RawMetals.TUNGSTEN)))
+	}
+
+	void generateMisc() {
+		createDuoShapeRecipe(Items.DIAMOND, TRContent.Nuggets.NETHERITE, TRContent.Parts.TEMPLATE_TEMPLATE,
+			'D' as char, 'N' as char)
+			.pattern("NDN")
+			.pattern("DDD")
+			.pattern("NDN")
+			.offerTo(this.exporter, new Identifier(TechReborn.MOD_ID, "crafting_table/parts/"+TRContent.Parts.TEMPLATE_TEMPLATE.name))
 	}
 
 	def static recipeNameString(String prefix, def input, def output, String source = null, String result = null) {

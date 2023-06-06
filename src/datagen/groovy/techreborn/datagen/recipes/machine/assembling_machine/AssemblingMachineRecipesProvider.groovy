@@ -43,6 +43,7 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 	@Override
 	void generateRecipes() {
 		generateBed()
+		generateSmithingTemplates()
 		generateMiscTR()
 		generateMiscVanilla()
 	}
@@ -73,6 +74,46 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 				power 25
 				time 250
 				criterion getCriterionName(wool), getCriterionConditions(wool)
+			}
+		}
+	}
+
+	void generateSmithingTemplates() {
+		[
+			(Items.COBBLESTONE) : Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.SANDSTONE) : Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.END_STONE_BRICKS) : Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.NETHERRACK) : Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
+			(Items.NETHER_BRICKS) : Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.SMOOTH_STONE) : Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.SCULK_SHRIEKER) : Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.GILDED_BLACKSTONE) : Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.PURPUR_BLOCK) : Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.PRISMARINE_BRICKS) : Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.STONE) : Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.DEEPSLATE) : Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.MOSSY_COBBLESTONE) : Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE
+		].each {material, template ->
+			offerAssemblingMachineRecipe {
+				ingredients stack(material, 2), TRContent.Parts.TEMPLATE_TEMPLATE
+				outputs template
+				power 40
+				time 1500
+				criterion getCriterionName(material), getCriterionConditions(material)
+			}
+		}
+		[
+			(Items.TERRACOTTA) : Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.BROWN_TERRACOTTA) : Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.GRAY_TERRACOTTA) : Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.LIGHT_GRAY_TERRACOTTA) : Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE
+		].each {material, template ->
+			offerAssemblingMachineRecipe {
+				ingredients stack(material, 2), TRContent.Parts.TEMPLATE_TEMPLATE
+				outputs template
+				power 40
+				time 1500
+				criterion getCriterionName(material), getCriterionConditions(material)
 			}
 		}
 	}
