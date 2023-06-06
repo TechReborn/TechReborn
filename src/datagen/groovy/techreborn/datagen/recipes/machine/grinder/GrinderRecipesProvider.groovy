@@ -25,14 +25,9 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
-import net.minecraft.registry.Registry
-import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
-import net.minecraft.registry.tag.TagKey
-import net.minecraft.util.Identifier
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
@@ -225,6 +220,12 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 200
 			ingredients tag("minecraft:trim_templates")
+			outputs stack(TRContent.SmallDusts.DIAMOND, 5)
+		}
+		offerGrinderRecipe {
+			power 5
+			time 200
+			ingredients TRContent.Parts.TEMPLATE_TEMPLATE
 			outputs stack(TRContent.SmallDusts.DIAMOND, 5)
 		}
 	}

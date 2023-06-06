@@ -26,7 +26,6 @@ package techreborn.datagen.recipes.machine.industrial_grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.fluid.Fluids
-import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -366,11 +365,31 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			time 140
 			fluidAmount 1000L
 			fluid Fluids.WATER
-			source "trim_template_with_water"
+			source "smithing_template_with_water"
 			criterion getCriterionName(trim), getCriterionConditions(trim)
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients trim
+			outputs stack(TRContent.Dusts.DIAMOND, 3), stack(TRContent.SmallDusts.DIAMOND, 2)
+			power 128
+			time 140
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "smithing_template_with_mercury"
+			criterion getCriterionName(trim), getCriterionConditions(trim)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Parts.TEMPLATE_TEMPLATE
+			outputs stack(TRContent.Dusts.DIAMOND, 2), stack(TRContent.SmallDusts.DIAMOND, 3)
+			power 128
+			time 140
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "trim_template_with_water"
+			criterion getCriterionName(trim), getCriterionConditions(trim)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Parts.TEMPLATE_TEMPLATE
 			outputs stack(TRContent.Dusts.DIAMOND, 3), stack(TRContent.SmallDusts.DIAMOND, 2)
 			power 128
 			time 140
