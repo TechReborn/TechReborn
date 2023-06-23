@@ -92,6 +92,7 @@ public class TRBlockSettings {
 
 	public static FabricBlockSettings rubberLog() {
 		return FabricBlockSettings.copyOf(Blocks.SPRUCE_LOG)
+			.ticksRandomly()
 			.mapColor(MapColor.SPRUCE_BROWN);
 	}
 
