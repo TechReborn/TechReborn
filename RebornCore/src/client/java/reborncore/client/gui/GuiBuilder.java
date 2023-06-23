@@ -55,7 +55,9 @@ import static reborncore.client.gui.GuiSprites.drawSprite;
 
 public class GuiBuilder {
 	private static final Text SPACE_TEXT = Text.literal(" ");
-	public static final Identifier resourceLocation = new Identifier("reborncore", "textures/gui/guielements.png");
+	@Deprecated
+	public static final Identifier GUI_ELEMENTS = new Identifier("reborncore", "textures/gui/guielements.png");
+	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
 	public void drawDefaultBackground(DrawContext drawContext, int x, int y, int width, int height) {
 		int corner = 4;
@@ -97,10 +99,10 @@ public class GuiBuilder {
 	}
 
 	public void drawProgressBar(DrawContext drawContext, GuiBase<?> gui, double progress, int x, int y) {
-		drawContext.drawTexture(resourceLocation, x, y, 150, 18, 22, 15);
+		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 18, 22, 15);
 		int j = (int) (progress);
 		if (j > 0) {
-			drawContext.drawTexture(resourceLocation, x, y, 150, 34, j + 1, 15);
+			drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 34, j + 1, 15);
 		}
 	}
 
@@ -186,13 +188,13 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(resourceLocation, x, y, 26, 218, 114, 18);
+		drawContext.drawTexture(GUI_ELEMENTS, x, y, 26, 218, 114, 18);
 		if (value != 0) {
 			int j = (int) ((double) value / (double) max * 106);
 			if (j < 0) {
 				j = 0;
 			}
-			drawContext.drawTexture(resourceLocation, x + 4, y + 4, 26, 246, j, 10);
+			drawContext.drawTexture(GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10);
 
 			Text text = Text.literal(String.valueOf(value))
 					.append(Text.translatable("reborncore.gui.heat"));
@@ -226,7 +228,7 @@ public class GuiBuilder {
 		if (j < 0) {
 			j = 0;
 		}
-		drawContext.drawTexture(resourceLocation, x + 4, y + 4, 0, 236, j, 10);
+		drawContext.drawTexture(GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10);
 		if (!suffix.equals("")) {
 			suffix = " " + suffix;
 		}
@@ -421,7 +423,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(resourceLocation, x, y, 150, 91, 16, 16);
+		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 91, 16, 16);
 	}
 
 	/**
@@ -450,9 +452,18 @@ public class GuiBuilder {
 			j = 0;
 		}
 
-		switch (direction) {
-			case RIGHT, LEFT -> drawSprite(drawContext, direction.overlaySprite, x, y, j, 10, gui);
-			case UP, DOWN -> drawSprite(drawContext, direction.overlaySprite, x, y, 10, j, gui);
+		if (EXPERIMENTAL_PROGRESS_BAR) {
+			switch (direction) {
+				case RIGHT, LEFT -> drawSprite(drawContext, direction.overlaySprite, x, y, j, 10, gui);
+				case UP, DOWN -> drawSprite(drawContext, direction.overlaySprite, x, y, 10, j, gui);
+			}
+		} else {
+			switch (direction) {
+				case RIGHT -> drawContext.drawTexture(GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10);
+				case LEFT -> drawContext.drawTexture(GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+				case UP -> drawContext.drawTexture(GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+				case DOWN -> drawContext.drawTexture(GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j);
+			}
 		}
 
 		final Sprite sprite = GuiBase.getSprite(direction.baseSprite);
@@ -670,10 +681,10 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(resourceLocation, x, y, 150, 64, 13, 13);
+		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 64, 13, 13);
 		int j = 13 - (int) ((double) progress / (double) maxProgress * 13);
 		if (j > 0) {
-			drawContext.drawTexture(resourceLocation, x, y + j, 150, 51 + j, 13, 13 - j);
+			drawContext.drawTexture(GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j);
 
 		}
 		if (gui.isPointInRect(x, y, 12, 12, mouseX, mouseY)) {
@@ -713,17 +724,28 @@ public class GuiBuilder {
 	}
 
 	public enum ProgressDirection {
-		RIGHT,
-		LEFT,
-		DOWN,
-		UP;
-
+		RIGHT(58, 150, 74, 150, 16, 10),
+		LEFT(74, 160, 58, 160, 16, 10),
+		DOWN(78, 170, 88, 170, 10, 16),
+		UP(58, 170, 68, 170, 10, 16);
 		public final SpriteIdentifier baseSprite;
 		public final SpriteIdentifier overlaySprite;
+		public final int x;
+		public final int y;
+		public final int xActive;
+		public final int yActive;
+		public final int width;
+		public final int height;
 
-		ProgressDirection() {
-			baseSprite = GuiSprites.create("progress_%s_base".formatted(name().toLowerCase(Locale.ROOT)));
-			overlaySprite = GuiSprites.create("progress_%s_overlay".formatted(name().toLowerCase(Locale.ROOT)));
+		ProgressDirection(int x, int y, int xActive, int yActive, int width, int height) {
+			this.baseSprite = GuiSprites.create("progress_%s_base".formatted(name().toLowerCase(Locale.ROOT)));
+			this.overlaySprite = GuiSprites.create("progress_%s_overlay".formatted(name().toLowerCase(Locale.ROOT)));
+			this.x = x;
+			this.y = y;
+			this.xActive = xActive;
+			this.yActive = yActive;
+			this.width = width;
+			this.height = height;
 		}
 	}
 }

@@ -277,8 +277,10 @@ public class ReiPlugin implements REIClientPlugin {
 			}
 
 			switch (direction) {
-				case RIGHT, LEFT -> drawSprite(drawContext, direction.overlaySprite, x, y, j, 10);
-				case UP, DOWN -> drawSprite(drawContext, direction.overlaySprite, x, y, 10, j);
+				case RIGHT -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10);
+				case LEFT -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+				case UP -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+				case DOWN -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j);
 			}
 		});
 	}
