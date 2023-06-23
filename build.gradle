@@ -325,6 +325,12 @@ task fixTranslations(dependsOn: ['renameCrowdin']) {
 	}
 }
 
+// Use to test the crowdin translations in a dev env
+task copyTranslationsToGenerated(dependsOn: ['fixTranslations'], type: Copy) {
+    from file('build/translations')
+    into file('src/main/generated')
+}
+
 import groovy.util.XmlSlurper
 
 curseforge {
