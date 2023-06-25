@@ -54,9 +54,9 @@ import java.util.Optional;
 public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
-	public RebornInventory<ElectricFurnaceBlockEntity> inventory = new RebornInventory<>(3, "ElectricFurnaceBlockEntity", 64, this);
-	int inputSlot = 0;
-	int outputSlot = 1;
+	public final RebornInventory<ElectricFurnaceBlockEntity> inventory = new RebornInventory<>(3, "ElectricFurnaceBlockEntity", 64, this);
+	final int inputSlot = 0;
+	final int outputSlot = 1;
 	int ticksSinceLastChange;
 	private SmeltingRecipe currentRecipe;
 	private int cookTime;

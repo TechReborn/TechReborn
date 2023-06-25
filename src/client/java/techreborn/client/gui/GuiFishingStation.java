@@ -32,7 +32,7 @@ import techreborn.blockentity.machine.tier2.FishingStationBlockEntity;
 
 public class GuiFishingStation extends GuiBase<BuiltScreenHandler> {
 
-	FishingStationBlockEntity blockEntity;
+	final FishingStationBlockEntity blockEntity;
 
 	public GuiFishingStation(int syncID, final PlayerEntity player, final FishingStationBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

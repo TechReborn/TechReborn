@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.SolidCanningMachineBlockEntity;
 
 public class GuiSolidCanningMachine extends GuiBase<BuiltScreenHandler> {
 
-	SolidCanningMachineBlockEntity blockEntity;
+	final SolidCanningMachineBlockEntity blockEntity;
 
 	public GuiSolidCanningMachine(int syncID, final PlayerEntity player, final SolidCanningMachineBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

@@ -33,7 +33,7 @@ import techreborn.blockentity.generator.SolarPanelBlockEntity;
 
 public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 
-	SolarPanelBlockEntity blockEntity;
+	final SolarPanelBlockEntity blockEntity;
 
 	public GuiSolar(int syncID, PlayerEntity player, SolarPanelBlockEntity panel) {
 		super(player, panel, panel.createScreenHandler(syncID, player));

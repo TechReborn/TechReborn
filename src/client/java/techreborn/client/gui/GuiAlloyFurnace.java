@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 
 public class GuiAlloyFurnace extends GuiBase<BuiltScreenHandler> {
 
-	IronAlloyFurnaceBlockEntity blockEntity;
+	final IronAlloyFurnaceBlockEntity blockEntity;
 
 	public GuiAlloyFurnace(int syncID, PlayerEntity player, IronAlloyFurnaceBlockEntity alloyFurnace) {
 		super(player, alloyFurnace, alloyFurnace.createScreenHandler(syncID, player));

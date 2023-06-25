@@ -32,7 +32,7 @@ import reborncore.common.util.ItemUtils;
 
 public class TRHoeItem extends HoeItem {
 
-	String repairOreDict;
+	final String repairOreDict;
 
 	public TRHoeItem(ToolMaterial material) {
 		this(material, "");

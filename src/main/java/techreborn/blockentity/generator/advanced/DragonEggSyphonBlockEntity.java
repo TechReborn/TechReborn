@@ -45,7 +45,7 @@ import techreborn.init.TRContent;
 public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider {
 
-	public RebornInventory<DragonEggSyphonBlockEntity> inventory = new RebornInventory<>(3, "DragonEggSyphonBlockEntity", 64, this);
+	public final RebornInventory<DragonEggSyphonBlockEntity> inventory = new RebornInventory<>(3, "DragonEggSyphonBlockEntity", 64, this);
 	private long lastOutput = 0;
 
 	public DragonEggSyphonBlockEntity(BlockPos pos, BlockState state) {

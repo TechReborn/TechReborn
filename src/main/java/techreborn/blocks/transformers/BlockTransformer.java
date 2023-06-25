@@ -50,8 +50,8 @@ import techreborn.init.TRBlockSettings;
  */
 public abstract class BlockTransformer extends BaseBlockEntityProvider {
 
-	public static DirectionProperty FACING = Properties.FACING;
-	public String name;
+	public static final DirectionProperty FACING = Properties.FACING;
+	public final String name;
 
 	public BlockTransformer(String name) {
 		super(TRBlockSettings.transformer());

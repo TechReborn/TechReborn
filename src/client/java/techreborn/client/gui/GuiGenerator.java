@@ -32,7 +32,7 @@ import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 
 public class GuiGenerator extends GuiBase<BuiltScreenHandler> {
 
-	SolidFuelGeneratorBlockEntity blockEntity;
+	final SolidFuelGeneratorBlockEntity blockEntity;
 
 	public GuiGenerator(int syncID, final PlayerEntity player, final SolidFuelGeneratorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

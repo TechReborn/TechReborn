@@ -51,7 +51,7 @@ import techreborn.init.TRContent;
 public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
-	public Tank tank;
+	public final Tank tank;
 	int ticksSinceLastChange;
 
 	public IndustrialSawmillBlockEntity(BlockPos pos, BlockState state) {

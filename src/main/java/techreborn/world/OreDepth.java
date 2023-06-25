@@ -52,7 +52,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 			TargetDimension.CODEC.fieldOf("dimension").forGetter(OreDepth::dimension)
 		).apply(instance, OreDepth::new)
 	);
-	public static Codec<List<OreDepth>> LIST_CODEC = Codec.list(OreDepth.CODEC);
+	public static final Codec<List<OreDepth>> LIST_CODEC = Codec.list(OreDepth.CODEC);
 
 	public static List<OreDepth> create(MinecraftServer server) {
 

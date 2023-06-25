@@ -71,13 +71,13 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	public static final int CRAFTING_WIDTH = 3;
 	public static final int CRAFTING_AREA = CRAFTING_HEIGHT*CRAFTING_WIDTH;
 
-	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(CRAFTING_AREA+2, "AutoCraftingTableBlockEntity", 64, this);
+	public final RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(CRAFTING_AREA+2, "AutoCraftingTableBlockEntity", 64, this);
 	private final int OUTPUT_SLOT = CRAFTING_AREA; // first slot is indexed by 0, so this is the last non crafting slot
 	private final int EXTRA_OUTPUT_SLOT = CRAFTING_AREA + 1;
 
 	public int progress;
 	public int maxProgress = 120;
-	public int euTick = 10;
+	public final int euTick = 10;
 	public int balanceSlot = 0;
 
 	CraftingInventory inventoryCrafting = null;

@@ -47,7 +47,7 @@ import techreborn.init.TRContent;
 public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
-	public RebornInventory<MatterFabricatorBlockEntity> inventory = new RebornInventory<>(12, "MatterFabricatorBlockEntity", 64, this);
+	public final RebornInventory<MatterFabricatorBlockEntity> inventory = new RebornInventory<>(12, "MatterFabricatorBlockEntity", 64, this);
 	private int amplifier = 0;
 
 	public MatterFabricatorBlockEntity(BlockPos pos, BlockState state) {

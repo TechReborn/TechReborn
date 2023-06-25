@@ -32,7 +32,7 @@ import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 
 public class GuiChargeBench extends GuiBase<BuiltScreenHandler> {
 
-	ChargeOMatBlockEntity blockEntity;
+	final ChargeOMatBlockEntity blockEntity;
 
 	public GuiChargeBench(int syncID, final PlayerEntity player, final ChargeOMatBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

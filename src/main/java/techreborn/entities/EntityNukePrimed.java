@@ -52,7 +52,7 @@ public class EntityNukePrimed extends TntEntity {
 		setFuse(TechRebornConfig.nukeFuseTime);
 	}
 
-	public EntityNukePrimed(World world, double x, double y, double z, LivingEntity owner) {
+	public EntityNukePrimed(World world, double x, double y, double z, @Nullable LivingEntity owner) {
 		this(TRContent.ENTITY_NUKE, world);
 
 		this.setPosition(x, y, z);

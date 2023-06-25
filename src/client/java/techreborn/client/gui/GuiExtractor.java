@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.ExtractorBlockEntity;
 
 public class GuiExtractor extends GuiBase<BuiltScreenHandler> {
 
-	ExtractorBlockEntity blockEntity;
+	final ExtractorBlockEntity blockEntity;
 
 	public GuiExtractor(int syncID, final PlayerEntity player, final ExtractorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

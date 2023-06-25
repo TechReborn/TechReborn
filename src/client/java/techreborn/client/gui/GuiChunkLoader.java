@@ -39,7 +39,7 @@ import techreborn.packets.ServerboundPackets;
 
 public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 
-	ChunkLoaderBlockEntity blockEntity;
+	final ChunkLoaderBlockEntity blockEntity;
 
 	public GuiChunkLoader(int syncID, PlayerEntity player, ChunkLoaderBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

@@ -35,7 +35,7 @@ import techreborn.packets.ServerboundPackets;
 
 public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 
-	RollingMachineBlockEntity rollingMachine;
+	final RollingMachineBlockEntity rollingMachine;
 
 	public GuiRollingMachine(int syncID, final PlayerEntity player, final RollingMachineBlockEntity blockEntityRollingmachine) {
 		super(player, blockEntityRollingmachine, blockEntityRollingmachine.createScreenHandler(syncID, player));

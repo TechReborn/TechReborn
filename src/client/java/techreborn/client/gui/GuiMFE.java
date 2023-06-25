@@ -35,7 +35,7 @@ import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 
 public class GuiMFE extends GuiBase<BuiltScreenHandler> {
 
-	MediumVoltageSUBlockEntity mfe;
+	final MediumVoltageSUBlockEntity mfe;
 
 	public GuiMFE(int syncID, final PlayerEntity player, final MediumVoltageSUBlockEntity mfe) {
 		super(player, mfe, mfe.createScreenHandler(syncID, player));

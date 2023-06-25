@@ -148,7 +148,7 @@ class CableTickManager {
 				// Limit max amount to the cable transfer rate.
 				long targetMaxAmount = Math.min(remainingAmount / remainingTargets, cableType.transferRate);
 
-				long localTransferred = operation.transfer(target.storage.storage, targetMaxAmount, transaction);
+				long localTransferred = operation.transfer(target.storage.storage(), targetMaxAmount, transaction);
 				if (localTransferred > 0) {
 					transferredAmount += localTransferred;
 					// Block duplicate operations.
@@ -171,7 +171,7 @@ class CableTickManager {
 		SortableStorage(TransferOperation operation, OfferedEnergyStorage storage) {
 			this.storage = storage;
 			try (Transaction tx = Transaction.openOuter()) {
-				this.simulationResult = operation.transfer(storage.storage, Long.MAX_VALUE, tx);
+				this.simulationResult = operation.transfer(storage.storage(), Long.MAX_VALUE, tx);
 			}
 		}
 	}

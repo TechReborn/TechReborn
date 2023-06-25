@@ -33,7 +33,7 @@ import techreborn.blockentity.generator.advanced.ThermalGeneratorBlockEntity;
 
 public class GuiThermalGenerator extends GuiBase<BuiltScreenHandler> {
 
-	ThermalGeneratorBlockEntity blockEntity;
+	final ThermalGeneratorBlockEntity blockEntity;
 
 	public GuiThermalGenerator(int syncID, final PlayerEntity player, final ThermalGeneratorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

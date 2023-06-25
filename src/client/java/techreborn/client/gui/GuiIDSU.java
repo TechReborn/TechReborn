@@ -35,7 +35,7 @@ import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 
 public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 
-	InterdimensionalSUBlockEntity idsu;
+	final InterdimensionalSUBlockEntity idsu;
 
 	public GuiIDSU(int syncID, PlayerEntity player, InterdimensionalSUBlockEntity blockEntityIDSU) {
 		super(player, blockEntityIDSU, blockEntityIDSU.createScreenHandler(syncID, player));

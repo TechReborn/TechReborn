@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 
 public class GuiMatterFabricator extends GuiBase<BuiltScreenHandler> {
 
-	MatterFabricatorBlockEntity blockEntity;
+	final MatterFabricatorBlockEntity blockEntity;
 
 	public GuiMatterFabricator(int syncID, final PlayerEntity player, final MatterFabricatorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

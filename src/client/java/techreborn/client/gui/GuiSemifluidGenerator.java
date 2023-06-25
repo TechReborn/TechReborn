@@ -33,7 +33,7 @@ import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
 
 public class GuiSemifluidGenerator extends GuiBase<BuiltScreenHandler> {
 
-	SemiFluidGeneratorBlockEntity blockEntity;
+	final SemiFluidGeneratorBlockEntity blockEntity;
 
 	public GuiSemifluidGenerator(int syncID, final PlayerEntity player, final SemiFluidGeneratorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

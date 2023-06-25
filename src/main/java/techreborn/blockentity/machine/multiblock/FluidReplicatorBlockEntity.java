@@ -55,7 +55,7 @@ import techreborn.init.TRContent;
 public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
-	public Tank tank;
+	public final Tank tank;
 	int ticksSinceLastChange;
 
 	public FluidReplicatorBlockEntity(BlockPos pos, BlockState state) {

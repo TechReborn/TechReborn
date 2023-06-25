@@ -61,9 +61,9 @@ import techreborn.items.tool.basic.ElectricTreetapItem;
  */
 public class BlockRubberLog extends PillarBlock {
 
-	public static DirectionProperty SAP_SIDE = Properties.HORIZONTAL_FACING;
-	public static BooleanProperty HAS_SAP = BooleanProperty.of("hassap");
-	public static BooleanProperty SHOULD_SAP = BooleanProperty.of("shouldsap");
+	public static final DirectionProperty SAP_SIDE = Properties.HORIZONTAL_FACING;
+	public static final BooleanProperty HAS_SAP = BooleanProperty.of("hassap");
+	public static final BooleanProperty SHOULD_SAP = BooleanProperty.of("shouldsap");
 
 	public BlockRubberLog() {
 		super(TRBlockSettings.rubberLog());

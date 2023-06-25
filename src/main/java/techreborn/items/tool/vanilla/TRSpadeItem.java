@@ -32,7 +32,7 @@ import reborncore.common.util.ItemUtils;
 
 public class TRSpadeItem extends ShovelItem {
 
-	String repairOreDict;
+	final String repairOreDict;
 
 	public TRSpadeItem(ToolMaterial material) {
 		this(material, "");

@@ -35,7 +35,7 @@ import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
 
 public class GuiLESU extends GuiBase<BuiltScreenHandler> {
 
-	LapotronicSUBlockEntity blockEntity;
+	final LapotronicSUBlockEntity blockEntity;
 
 	public GuiLESU(int syncID, final PlayerEntity player, final LapotronicSUBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

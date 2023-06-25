@@ -36,7 +36,7 @@ import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
  */
 public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
 
-	PlasmaGeneratorBlockEntity blockEntity;
+	final PlasmaGeneratorBlockEntity blockEntity;
 
 	public GuiPlasmaGenerator(int syncID, final PlayerEntity player, final PlasmaGeneratorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

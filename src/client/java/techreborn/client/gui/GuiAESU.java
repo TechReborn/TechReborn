@@ -39,7 +39,7 @@ import techreborn.packets.ServerboundPackets;
 
 public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 
-	AdjustableSUBlockEntity blockEntity;
+	final AdjustableSUBlockEntity blockEntity;
 
 	public GuiAESU(int syncID, final PlayerEntity player, final AdjustableSUBlockEntity aesu) {
 		super(player, aesu, aesu.createScreenHandler(syncID, player));

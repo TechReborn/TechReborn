@@ -55,7 +55,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	protected Tank tank;
 	private long serverMaxCapacity = -1;
 
-	protected RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(2, "TankInventory", 64, this);
+	protected final RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(2, "TankInventory", 64, this);
 
 	private TRContent.TankUnit type;
 

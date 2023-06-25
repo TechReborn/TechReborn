@@ -67,7 +67,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	// Client sync variables for GUI, what and how much stored
 	public int storedAmount = 0;
 
-	protected RebornInventory<StorageUnitBaseBlockEntity> inventory;
+	protected final RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private int maxCapacity;
 	private int serverCapacity = -1;
 

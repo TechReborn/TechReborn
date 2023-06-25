@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.ChemicalReactorBlockEntity;
 
 public class GuiChemicalReactor extends GuiBase<BuiltScreenHandler> {
 
-	ChemicalReactorBlockEntity blockEntity;
+	final ChemicalReactorBlockEntity blockEntity;
 
 	public GuiChemicalReactor(int syncID, final PlayerEntity player, final ChemicalReactorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

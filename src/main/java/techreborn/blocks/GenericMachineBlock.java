@@ -39,7 +39,7 @@ import java.util.function.BiFunction;
 public class GenericMachineBlock extends BlockMachineBase {
 
 	private final IMachineGuiHandler gui;
-	BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
+	final BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
 	public GenericMachineBlock(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
 		super(TRBlockSettings.genericMachine());

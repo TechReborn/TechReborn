@@ -109,9 +109,9 @@ import java.util.stream.Stream;
 
 public class TRContent {
 
-	public static Marker DATAGEN = MarkerFactory.getMarker("datagen");
-	public static BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetTypeRegistry.registerWood(new Identifier(TechReborn.MOD_ID, "rubber_wood"));
-	public static WoodType RUBBER_WOOD_TYPE = WoodTypeRegistry.register(new Identifier(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
+	public static final Marker DATAGEN = MarkerFactory.getMarker("datagen");
+	public static final BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetTypeRegistry.registerWood(new Identifier(TechReborn.MOD_ID, "rubber_wood"));
+	public static final WoodType RUBBER_WOOD_TYPE = WoodTypeRegistry.register(new Identifier(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
 
 	// Misc Blocks
 	public static Block COMPUTER_CUBE;
@@ -313,11 +313,11 @@ public class TRContent {
 		public final Block block;
 
 		// Generation of EU during Day
-		public int generationRateD;
+		public final int generationRateD;
 		// Generation of EU during Night
-		public int generationRateN;
+		public final int generationRateN;
 		// Internal EU storage of solar panel
-		public int internalCapacity;
+		public final int internalCapacity;
 		public final RcEnergyTier powerTier;
 
 		SolarPanels(RcEnergyTier tier, int generationRateD, int generationRateN) {
@@ -352,7 +352,7 @@ public class TRContent {
 		public final Item upgrader;
 
 		// How many items it can hold
-		public int capacity;
+		public final int capacity;
 
 
 		StorageUnit(int capacity, boolean upgradable) {
@@ -409,7 +409,7 @@ public class TRContent {
 		public final Block block;
 
 		// How many blocks it can hold
-		public FluidValue capacity;
+		public final FluidValue capacity;
 
 
 		TankUnit(int capacity) {
@@ -464,12 +464,12 @@ public class TRContent {
 		public final String name;
 		public final CableBlock block;
 
-		public int transferRate;
-		public int defaultTransferRate;
-		public double cableThickness;
-		public boolean canKill;
-		public boolean defaultCanKill;
-		public RcEnergyTier tier;
+		public final int transferRate;
+		public final int defaultTransferRate;
+		public final double cableThickness;
+		public final boolean canKill;
+		public final boolean defaultCanKill;
+		public final RcEnergyTier tier;
 
 
 		Cables(int transferRate, double cableThickness, boolean canKill, RcEnergyTier tier) {
@@ -1577,8 +1577,8 @@ public class TRContent {
 			blockEntity.muffle();
 		});
 
-		public String name;
-		public Item item;
+		public final String name;
+		public final Item item;
 
 		Upgrades(IUpgrade upgrade) {
 			name = this.toString().toLowerCase(Locale.ROOT);
@@ -1592,7 +1592,7 @@ public class TRContent {
 		}
 	}
 
-	public static EntityType<EntityNukePrimed> ENTITY_NUKE = FabricEntityTypeBuilder.create()
+	public static final EntityType<EntityNukePrimed> ENTITY_NUKE = FabricEntityTypeBuilder.create()
 		.entityFactory((EntityType.EntityFactory<EntityNukePrimed>) EntityNukePrimed::new)
 		.dimensions(EntityDimensions.fixed(1f, 1f))
 		.trackRangeChunks(10)

@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.CompressorBlockEntity;
 
 public class GuiCompressor extends GuiBase<BuiltScreenHandler> {
 
-	CompressorBlockEntity blockEntity;
+	final CompressorBlockEntity blockEntity;
 
 	public GuiCompressor(int syncID, final PlayerEntity player, final CompressorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

@@ -28,7 +28,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.util.Identifier;
 import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
@@ -40,10 +39,7 @@ import techreborn.packets.ServerboundPackets;
  * Created by modmuss50 on 20/06/2017.
  */
 public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
-
-	static final Identifier RECIPE_BOOK_TEXTURE = new Identifier("textures/gui/recipe_book.png");
-	boolean showGui = true;
-	AutoCraftingTableBlockEntity blockEntityAutoCraftingTable;
+	final AutoCraftingTableBlockEntity blockEntityAutoCraftingTable;
 
 	public GuiAutoCrafting(int syncID, PlayerEntity player, AutoCraftingTableBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

@@ -36,7 +36,7 @@ import techreborn.packets.ServerboundPackets;
 
 public class GuiPlayerDetector extends GuiBase<BuiltScreenHandler> {
 
-	PlayerDetectorBlockEntity blockEntity;
+	final PlayerDetectorBlockEntity blockEntity;
 
 	public GuiPlayerDetector(int syncID, final PlayerEntity player, final PlayerDetectorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

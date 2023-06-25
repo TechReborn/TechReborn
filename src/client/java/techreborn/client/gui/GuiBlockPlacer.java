@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier0.block.blockplacer.BlockPlacerProcess
 
 public class GuiBlockPlacer extends GuiBase<BuiltScreenHandler> {
 
-	BlockPlacerBlockEntity blockEntity;
+	final BlockPlacerBlockEntity blockEntity;
 
 	public GuiBlockPlacer(int syncID, final PlayerEntity player, final BlockPlacerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

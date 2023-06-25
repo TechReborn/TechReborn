@@ -32,7 +32,7 @@ import techreborn.blockentity.machine.tier1.ElevatorBlockEntity;
 
 public class GuiElevator extends GuiBase<BuiltScreenHandler> {
 
-	ElevatorBlockEntity blockEntity;
+	final ElevatorBlockEntity blockEntity;
 
 	public GuiElevator(int syncID, final PlayerEntity player, final ElevatorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

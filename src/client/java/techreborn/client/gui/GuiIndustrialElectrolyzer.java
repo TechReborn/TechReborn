@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.IndustrialElectrolyzerBlockEntity;
 
 public class GuiIndustrialElectrolyzer extends GuiBase<BuiltScreenHandler> {
 
-	IndustrialElectrolyzerBlockEntity blockEntity;
+	final IndustrialElectrolyzerBlockEntity blockEntity;
 
 	public GuiIndustrialElectrolyzer(int syncID, final PlayerEntity player, final IndustrialElectrolyzerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

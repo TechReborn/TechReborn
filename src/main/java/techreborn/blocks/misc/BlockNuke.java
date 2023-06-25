@@ -46,7 +46,7 @@ import techreborn.init.TRBlockSettings;
  * Created by Mark on 13/03/2016.
  */
 public class BlockNuke extends BaseBlock {
-	public static BooleanProperty OVERLAY = BooleanProperty.of("overlay");
+	public static final BooleanProperty OVERLAY = BooleanProperty.of("overlay");
 
 	public BlockNuke() {
 		super(TRBlockSettings.nuke());

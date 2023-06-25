@@ -35,7 +35,7 @@ import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 
 public class GuiBatbox extends GuiBase<BuiltScreenHandler> {
 
-	LowVoltageSUBlockEntity blockEntity;
+	final LowVoltageSUBlockEntity blockEntity;
 
 	public GuiBatbox(int syncID, final PlayerEntity player, final LowVoltageSUBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

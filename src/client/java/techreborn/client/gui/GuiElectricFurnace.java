@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.ElectricFurnaceBlockEntity;
 
 public class GuiElectricFurnace extends GuiBase<BuiltScreenHandler> {
 
-	ElectricFurnaceBlockEntity blockEntity;
+	final ElectricFurnaceBlockEntity blockEntity;
 
 	public GuiElectricFurnace(int syncID, final PlayerEntity player, final ElectricFurnaceBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

@@ -35,7 +35,7 @@ import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 
 public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 
-	TankUnitBaseBlockEntity tankEntity;
+	final TankUnitBaseBlockEntity tankEntity;
 
 	public GuiTankUnit(int syncID, final PlayerEntity player, final TankUnitBaseBlockEntity tankEntity) {
 		super(player, tankEntity, tankEntity.createScreenHandler(syncID, player));

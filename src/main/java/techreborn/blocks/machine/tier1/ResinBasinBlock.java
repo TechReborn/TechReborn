@@ -60,7 +60,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	public static final BooleanProperty POURING = BooleanProperty.of("pouring");
 	public static final BooleanProperty FULL = BooleanProperty.of("full");
 	protected static final VoxelShape SHAPE = Block.createCuboidShape(0d,0d, 0d, 16d, 8d, 16d);
-	BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
+	final BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
 	public ResinBasinBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
 		super(TRBlockSettings.resinBasin());
@@ -93,9 +93,8 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		if (world == null || world.isClient() || player == null || pos == null || !(world.getBlockEntity(pos) instanceof ResinBasinBlockEntity))
+		if (world == null || world.isClient() || player == null || pos == null || !(world.getBlockEntity(pos) instanceof ResinBasinBlockEntity basin))
 			return ActionResult.PASS;
-		ResinBasinBlockEntity basin = (ResinBasinBlockEntity)world.getBlockEntity(pos);
 		ItemStack sap = basin.empty();
 		if (sap.isEmpty())
 			return ActionResult.PASS;

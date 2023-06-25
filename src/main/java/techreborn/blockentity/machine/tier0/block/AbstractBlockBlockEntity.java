@@ -41,8 +41,8 @@ import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 
 public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider, BlockProcessable {
-	private final int ENERGY_SLOT = 0;
-	private final int INPUT_SLOT = 1;
+	private static final int ENERGY_SLOT = 0;
+	private static final int INPUT_SLOT = 1;
 
 	protected BlockProcessor processor;
 

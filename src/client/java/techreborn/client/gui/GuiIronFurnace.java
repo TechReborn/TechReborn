@@ -42,7 +42,7 @@ import techreborn.utils.PlayerUtils;
 import java.util.Objects;
 
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
-	IronFurnaceBlockEntity blockEntity;
+	final IronFurnaceBlockEntity blockEntity;
 	private static final Identifier EXP_BUTTON_TEXTURE = new Identifier("minecraft", "textures/item/experience_bottle.png");
 
 	public GuiIronFurnace(int syncID, PlayerEntity player, IronFurnaceBlockEntity furnace) {

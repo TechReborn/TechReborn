@@ -33,7 +33,7 @@ import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
 
 public class GuiDieselGenerator extends GuiBase<BuiltScreenHandler> {
 
-	DieselGeneratorBlockEntity blockEntity;
+	final DieselGeneratorBlockEntity blockEntity;
 
 	public GuiDieselGenerator(int syncID, final PlayerEntity player, final DieselGeneratorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

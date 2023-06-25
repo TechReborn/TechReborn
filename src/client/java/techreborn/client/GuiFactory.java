@@ -33,10 +33,10 @@ import net.minecraft.text.Text;
 import reborncore.common.screen.BuiltScreenHandler;
 
 public interface GuiFactory<T extends BlockEntity> extends HandledScreens.Provider<BuiltScreenHandler, HandledScreen<BuiltScreenHandler>> {
-	HandledScreen<?> create(int syncId, PlayerEntity playerEntity, T blockEntity);
+	HandledScreen<BuiltScreenHandler> create(int syncId, PlayerEntity playerEntity, T blockEntity);
 
 	@Override
-	default HandledScreen create(BuiltScreenHandler builtScreenHandler, PlayerInventory playerInventory, Text text) {
+	default HandledScreen<BuiltScreenHandler> create(BuiltScreenHandler builtScreenHandler, PlayerInventory playerInventory, Text text) {
 		PlayerEntity playerEntity = playerInventory.player;
 		//noinspection unchecked
 		T blockEntity = (T) builtScreenHandler.getBlockEntity();

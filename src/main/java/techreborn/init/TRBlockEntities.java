@@ -81,9 +81,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 public class TRBlockEntities {
-
 	private static final List<BlockEntityType<?>> TYPES = new ArrayList<>();
-
 
 	public static final BlockEntityType<StorageUnitBaseBlockEntity> STORAGE_UNIT = register(StorageUnitBaseBlockEntity::new, "storage_unit", TRContent.StorageUnit.values());
 	public static final BlockEntityType<TankUnitBaseBlockEntity> TANK_UNIT = register(TankUnitBaseBlockEntity::new, "tank_unit", TRContent.TankUnit.values());

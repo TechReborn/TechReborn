@@ -54,9 +54,9 @@ import techreborn.init.TRBlockSettings;
  * Created by Rushmead
  */
 public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
-	public static DirectionProperty FACING = Properties.FACING;
-	public String name;
-	public IMachineGuiHandler gui;
+	public static final DirectionProperty FACING = Properties.FACING;
+	public final String name;
+	public final IMachineGuiHandler gui;
 
 	public EnergyStorageBlock(String name, IMachineGuiHandler gui) {
 		super(TRBlockSettings.energyStorage());

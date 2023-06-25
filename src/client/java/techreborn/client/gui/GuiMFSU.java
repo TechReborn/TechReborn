@@ -35,7 +35,7 @@ import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 
 public class GuiMFSU extends GuiBase<BuiltScreenHandler> {
 
-	HighVoltageSUBlockEntity mfsu;
+	final HighVoltageSUBlockEntity mfsu;
 
 	public GuiMFSU(int syncID, final PlayerEntity player, final HighVoltageSUBlockEntity mfsu) {
 		super(player, mfsu, mfsu.createScreenHandler(syncID, player));

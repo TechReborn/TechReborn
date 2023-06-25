@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 
 public class GuiCentrifuge extends GuiBase<BuiltScreenHandler> {
 
-	IndustrialCentrifugeBlockEntity blockEntity;
+	final IndustrialCentrifugeBlockEntity blockEntity;
 
 	public GuiCentrifuge(int syncID, final PlayerEntity player, final IndustrialCentrifugeBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

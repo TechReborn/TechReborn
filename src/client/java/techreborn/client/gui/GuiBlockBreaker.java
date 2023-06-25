@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier0.block.blockbreaker.BlockBreakerProce
 
 public class GuiBlockBreaker extends GuiBase<BuiltScreenHandler> {
 
-	BlockBreakerBlockEntity blockEntity;
+	final BlockBreakerBlockEntity blockEntity;
 
 	public GuiBlockBreaker(int syncID, final PlayerEntity player, final BlockBreakerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

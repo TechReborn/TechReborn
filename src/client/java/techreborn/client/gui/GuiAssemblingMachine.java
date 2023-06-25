@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.AssemblingMachineBlockEntity;
 
 public class GuiAssemblingMachine extends GuiBase<BuiltScreenHandler> {
 
-	AssemblingMachineBlockEntity blockEntity;
+	final AssemblingMachineBlockEntity blockEntity;
 
 	public GuiAssemblingMachine(int syncID, final PlayerEntity player, final AssemblingMachineBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

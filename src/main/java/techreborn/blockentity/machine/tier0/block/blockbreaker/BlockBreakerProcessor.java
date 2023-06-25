@@ -58,14 +58,14 @@ import java.util.UUID;
  */
 public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProcessor {
 
-	private UUID processorId = UUID.randomUUID();
-	private BlockProcessable processable;
+	private final UUID processorId = UUID.randomUUID();
+	private final BlockProcessable processable;
 
-	private int outputSlot;
-	private int fakeInputSlot;
+	private final int outputSlot;
+	private final int fakeInputSlot;
 
-	private int baseBreakTime;
-	private int baseCostToBreak;
+	private final int baseBreakTime;
+	private final int baseCostToBreak;
 
 	public BlockBreakerProcessor(BlockProcessable processable, int outputSlot, int fakeInputSlot, int baseBreakTime, int baseCostToBreak) {
 		this.processable = processable;

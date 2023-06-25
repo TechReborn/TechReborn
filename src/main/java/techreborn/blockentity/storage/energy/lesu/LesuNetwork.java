@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class LesuNetwork {
 
-	public ArrayList<LSUStorageBlockEntity> storages = new ArrayList<>();
+	public final ArrayList<LSUStorageBlockEntity> storages = new ArrayList<>();
 
 	public LapotronicSUBlockEntity master;
 

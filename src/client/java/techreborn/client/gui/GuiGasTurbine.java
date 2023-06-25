@@ -33,7 +33,7 @@ import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
 
 public class GuiGasTurbine extends GuiBase<BuiltScreenHandler> {
 
-	GasTurbineBlockEntity blockEntity;
+	final GasTurbineBlockEntity blockEntity;
 
 	public GuiGasTurbine(int syncID, final PlayerEntity player, final GasTurbineBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

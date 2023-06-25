@@ -136,7 +136,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ClientGuiType<T extends BlockEntity> {
+@SuppressWarnings("unused")
+public record ClientGuiType<T extends BlockEntity>(GuiType<T> guiType, GuiFactory<T> guiFactory) {
 	public static final Map<Identifier, ClientGuiType<?>> TYPES = new HashMap<>();
 
 	public static final ClientGuiType<AdjustableSUBlockEntity> AESU = register(GuiType.AESU, GuiAESU::new);
@@ -203,23 +204,11 @@ public class ClientGuiType<T extends BlockEntity> {
 		}
 	}
 
-	private final GuiType<T> guiType;
-	private final GuiFactory<T> guiFactory;
-
 	public ClientGuiType(GuiType<T> guiType, GuiFactory<T> guiFactory) {
 		this.guiType = Objects.requireNonNull(guiType);
 		this.guiFactory = Objects.requireNonNull(guiFactory);
 
-		HandledScreens.register(guiType.getScreenHandlerType(), getGuiFactory());
-
+		HandledScreens.register(guiType.getScreenHandlerType(), guiFactory());
 		TYPES.put(guiType.getIdentifier(), this);
-	}
-
-	public GuiType<T> getGuiType() {
-		return guiType;
-	}
-
-	public GuiFactory<T> getGuiFactory() {
-		return guiFactory;
 	}
 }

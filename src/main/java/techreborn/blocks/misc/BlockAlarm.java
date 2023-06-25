@@ -68,15 +68,14 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 
 	private VoxelShape[] GenCuboidShapes(double depth, double width) {
 		double culling = (16.0D - width) / 2;
-		VoxelShape[] shapes = {
-				Block.createCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
-				Block.createCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
-				Block.createCuboidShape(culling, culling, 16.0 - depth, 16.0 - culling, 16.0 - culling, 16.0D),
-				Block.createCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
-				Block.createCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
-				Block.createCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
+		return new VoxelShape[]{
+				createCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
+				createCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
+				createCuboidShape(culling, culling, 16.0 - depth, 16.0 - culling, 16.0 - culling, 16.0D),
+				createCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
+				createCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
+				createCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
 		};
-		return shapes;
 	}
 
 	public static boolean isActive(BlockState state) {

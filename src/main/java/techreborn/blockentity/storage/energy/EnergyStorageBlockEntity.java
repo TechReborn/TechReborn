@@ -46,9 +46,9 @@ import techreborn.blocks.storage.energy.EnergyStorageBlock;
  */
 public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider {
 
-	public RebornInventory<EnergyStorageBlockEntity> inventory;
-	public String name;
-	public Block wrenchDrop;
+	public final RebornInventory<EnergyStorageBlockEntity> inventory;
+	public final String name;
+	public final Block wrenchDrop;
 	public int maxInput;
 	public int maxOutput;
 	public int maxStorage;

@@ -35,7 +35,7 @@ import techreborn.config.TechRebornConfig;
  * Created by modmuss50 on 05/11/2016.
  */
 public class ElectricTreetapItem extends Item implements RcEnergyItem {
-	public RcEnergyTier tier = RcEnergyTier.MEDIUM;
+	public final RcEnergyTier tier = RcEnergyTier.MEDIUM;
 
 	public ElectricTreetapItem() {
 		super(new Item.Settings().maxCount(1).maxDamage(-1));

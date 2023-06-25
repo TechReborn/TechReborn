@@ -38,8 +38,8 @@ import techreborn.packets.ServerboundPackets;
 public class GuiManual extends Screen {
 
 	private static final Identifier MANUAL_TEXTURE = new Identifier("techreborn", "textures/gui/manual.png");
-	int guiWidth = 207;
-	int guiHeight = 195;
+	final int guiWidth = 207;
+	final int guiHeight = 195;
 	private static final Text text1 = Text.translatable("techreborn.manual.wiki");
 	private static final Text text2 = Text.translatable("techreborn.manual.discord");
 	private static final Text text3 = Text.translatable("techreborn.manual.refund");

@@ -48,13 +48,13 @@ import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
  */
 public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcessor {
 
-	private BlockProcessable processable;
+	private final BlockProcessable processable;
 
-	private int inputSlot;
-	private int fakeOutputSlot;
+	private final int inputSlot;
+	private final int fakeOutputSlot;
 
-	private int basePlaceTime;
-	private int baseCostToPlace;
+	private final int basePlaceTime;
+	private final int baseCostToPlace;
 
 	public BlockPlacerProcessor(BlockProcessable processable, int inputSlot, int fakeOutputSlot, int basePlaceTime, int baseCostToPlace) {
 		this.processable = processable;

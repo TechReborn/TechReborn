@@ -45,7 +45,7 @@ import techreborn.init.TRContent;
 
 public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDrop {
 
-	protected Tank internalTank = new Tank("tank", FluidValue.BUCKET, this);
+	protected final Tank internalTank = new Tank("tank", FluidValue.BUCKET, this);
 
 	public DrainBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.DRAIN, pos, state);

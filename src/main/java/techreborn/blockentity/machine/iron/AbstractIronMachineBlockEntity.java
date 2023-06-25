@@ -47,8 +47,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	public int burnTime;
 	public int totalBurnTime;
 	public int progress;
-	int fuelSlot;
-	Block toolDrop;
+	final int fuelSlot;
+	final Block toolDrop;
 
 	public AbstractIronMachineBlockEntity(BlockEntityType<?> blockEntityTypeIn, BlockPos pos, BlockState state, int fuelSlot, Block toolDrop) {
 		super(blockEntityTypeIn, pos, state);

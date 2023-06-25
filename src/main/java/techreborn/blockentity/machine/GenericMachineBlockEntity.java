@@ -49,11 +49,11 @@ import reborncore.common.util.RebornInventory;
 public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IRecipeCrafterProvider {
 
-	public String name;
-	public int maxInput;
-	public int maxEnergy;
-	public Block toolDrop;
-	public int energySlot;
+	public final String name;
+	public final int maxInput;
+	public final int maxEnergy;
+	public final Block toolDrop;
+	public final int energySlot;
 	public RebornInventory<?> inventory;
 	public RecipeCrafter crafter;
 

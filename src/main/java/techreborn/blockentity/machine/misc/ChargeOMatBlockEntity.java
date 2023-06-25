@@ -46,7 +46,7 @@ import techreborn.init.TRContent;
 public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
-	public RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this);
+	public final RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this);
 
 	public ChargeOMatBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.CHARGE_O_MAT, pos, state);

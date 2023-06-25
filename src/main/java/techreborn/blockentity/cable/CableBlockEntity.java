@@ -133,7 +133,7 @@ public class CableBlockEntity extends BlockEntity
 		return energyContainer.getSideStorage(side);
 	}
 
-	public BlockState getCover() {
+	public @Nullable BlockState getCover() {
 		return cover;
 	}
 

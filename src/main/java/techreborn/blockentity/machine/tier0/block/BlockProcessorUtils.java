@@ -38,7 +38,7 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
  * @author SimonFlapse
  */
 public class BlockProcessorUtils {
-	private BlockProcessorUtils() {};
+	private BlockProcessorUtils() {}
 
 	/**
 	 * <b>Get the hardness to break of a block</b>
@@ -48,8 +48,7 @@ public class BlockProcessorUtils {
 	 * @return the hardness to break of the supplied {@link BlockState}
 	 */
 	public static float getHardness(World world, BlockState blockInFront, BlockPos positionInFront) {
-		float hardness = blockInFront.getHardness(world, positionInFront);
-		return hardness;
+		return blockInFront.getHardness(world, positionInFront);
 	}
 
 

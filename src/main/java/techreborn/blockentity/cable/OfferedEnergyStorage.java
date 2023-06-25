@@ -30,17 +30,7 @@ import team.reborn.energy.api.EnergyStorage;
 /**
  * {@link EnergyStorage} adjacent to an energy cable, with some additional info.
  */
-class OfferedEnergyStorage {
-	final CableBlockEntity sourceCable;
-	final Direction direction;
-	final EnergyStorage storage;
-
-	OfferedEnergyStorage(CableBlockEntity sourceCable, Direction direction, EnergyStorage storage) {
-		this.sourceCable = sourceCable;
-		this.direction = direction;
-		this.storage = storage;
-	}
-
+record OfferedEnergyStorage(CableBlockEntity sourceCable, Direction direction, EnergyStorage storage) {
 	void afterTransfer() {
 		// Block insertions from this side.
 		sourceCable.blockedSides |= 1 << direction.ordinal();

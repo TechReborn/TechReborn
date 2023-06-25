@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.RecyclerBlockEntity;
 
 public class GuiRecycler extends GuiBase<BuiltScreenHandler> {
 
-	RecyclerBlockEntity blockEntity;
+	final RecyclerBlockEntity blockEntity;
 
 	public GuiRecycler(int syncID, final PlayerEntity player, final RecyclerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

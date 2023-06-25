@@ -35,7 +35,7 @@ import techreborn.packets.ServerboundPackets;
 
 public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 
-	StorageUnitBaseBlockEntity storageEntity;
+	final StorageUnitBaseBlockEntity storageEntity;
 
 	public GuiStorageUnit(int syncID, final PlayerEntity player, final StorageUnitBaseBlockEntity storageEntity) {
 		super(player, storageEntity, storageEntity.createScreenHandler(syncID, player));

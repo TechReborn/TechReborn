@@ -55,14 +55,11 @@ import techreborn.utils.PoweredCraftingHandler;
 import techreborn.world.WorldGenerator;
 
 public class TechReborn implements ModInitializer {
-
 	public static final String MOD_ID = "techreborn";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static TechReborn INSTANCE;
 
 	@Override
 	public void onInitialize() {
-		INSTANCE = this;
 		new Configuration(TechRebornConfig.class, "techreborn");
 
 		// Done to force the class to load

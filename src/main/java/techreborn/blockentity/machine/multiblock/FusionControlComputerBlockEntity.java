@@ -59,9 +59,9 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	public int neededPower = 0;
 	public int size = 6;
 	public int state = -1;
-	int topStackSlot = 0;
-	int bottomStackSlot = 1;
-	int outputStackSlot = 2;
+	final int topStackSlot = 0;
+	final int bottomStackSlot = 1;
+	final int outputStackSlot = 2;
 	FusionReactorRecipe currentRecipe = null;
 	Identifier currentRecipeID = null;
 	boolean hasStartedCrafting = false;

@@ -87,10 +87,10 @@ public class TagRemapper {
 	}
 
 	private static class TagRename {
-		Path parent;
+		final Path parent;
 
-		String oldName;
-		String newName;
+		final String oldName;
+		final String newName;
 
 		public TagRename(Path tag) {
 			this.parent = tag.getParent();

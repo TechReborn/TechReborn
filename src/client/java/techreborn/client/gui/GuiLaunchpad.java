@@ -36,7 +36,7 @@ import techreborn.packets.ServerboundPackets;
 
 public class GuiLaunchpad extends GuiBase<BuiltScreenHandler> {
 
-	LaunchpadBlockEntity blockEntity;
+	final LaunchpadBlockEntity blockEntity;
 
 	public GuiLaunchpad(int syncID, final PlayerEntity player, final LaunchpadBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

@@ -37,7 +37,7 @@ public class GeneratorRecipeHelper {
 	 * value of the {@link EFluidGenerator} enum is linked to an object holding a set of
 	 * {@link FluidGeneratorRecipe}.
 	 */
-	public static EnumMap<EFluidGenerator, FluidGeneratorRecipeList> fluidRecipes = new EnumMap<>(
+	public static final EnumMap<EFluidGenerator, FluidGeneratorRecipeList> fluidRecipes = new EnumMap<>(
 			EFluidGenerator.class);
 
 	/**

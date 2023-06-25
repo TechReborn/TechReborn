@@ -32,7 +32,7 @@ import reborncore.common.util.ItemUtils;
 
 public class TRAxeItem extends AxeItem {
 
-	String repairOreDict;
+	final String repairOreDict;
 
 	public TRAxeItem(ToolMaterial material) {
 		this(material, "");

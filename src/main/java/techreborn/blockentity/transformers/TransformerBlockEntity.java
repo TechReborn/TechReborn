@@ -50,13 +50,13 @@ import java.util.List;
  */
 public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, IListInfoProvider {
 
-	public String name;
-	public Block wrenchDrop;
-	public RcEnergyTier inputTier;
-	public RcEnergyTier outputTier;
-	public int maxInput;
-	public int maxOutput;
-	public int maxStorage;
+	public final String name;
+	public final Block wrenchDrop;
+	public final RcEnergyTier inputTier;
+	public final RcEnergyTier outputTier;
+	public final int maxInput;
+	public final int maxOutput;
+	public final int maxStorage;
 
 	public TransformerBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, String name, Block wrenchDrop, RcEnergyTier tier) {
 		super(blockEntityType, pos, state);

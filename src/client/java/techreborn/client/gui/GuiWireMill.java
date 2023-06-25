@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.WireMillBlockEntity;
 
 public class GuiWireMill extends GuiBase<BuiltScreenHandler> {
 
-	WireMillBlockEntity blockEntity;
+	final WireMillBlockEntity blockEntity;
 
 	public GuiWireMill(int syncID, final PlayerEntity player, final WireMillBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

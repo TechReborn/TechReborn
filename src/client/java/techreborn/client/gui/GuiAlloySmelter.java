@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.AlloySmelterBlockEntity;
 
 public class GuiAlloySmelter extends GuiBase<BuiltScreenHandler> {
 
-	AlloySmelterBlockEntity blockEntity;
+	final AlloySmelterBlockEntity blockEntity;
 
 	public GuiAlloySmelter(int syncID, final PlayerEntity player, final AlloySmelterBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

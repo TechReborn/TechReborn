@@ -32,7 +32,7 @@ import reborncore.common.util.ItemUtils;
 
 public class TRSwordItem extends SwordItem {
 
-	String repairOreDict;
+	final String repairOreDict;
 
 	public TRSwordItem(ToolMaterial material) {
 		this(material, "");

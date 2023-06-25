@@ -33,7 +33,7 @@ import techreborn.blockentity.machine.tier1.ScrapboxinatorBlockEntity;
 
 public class GuiScrapboxinator extends GuiBase<BuiltScreenHandler> {
 
-	ScrapboxinatorBlockEntity blockEntity;
+	final ScrapboxinatorBlockEntity blockEntity;
 
 	public GuiScrapboxinator(int syncID, final PlayerEntity player, final ScrapboxinatorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));

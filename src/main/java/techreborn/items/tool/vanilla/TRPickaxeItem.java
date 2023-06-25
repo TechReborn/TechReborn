@@ -32,7 +32,7 @@ import reborncore.common.util.ItemUtils;
 
 public class TRPickaxeItem extends PickaxeItem {
 
-	String repairOreDict;
+	final String repairOreDict;
 
 	public TRPickaxeItem(ToolMaterial material) {
 		this(material, "");

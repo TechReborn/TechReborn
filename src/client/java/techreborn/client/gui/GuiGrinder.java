@@ -32,7 +32,7 @@ import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.GrinderBlockEntity;
 
 public class GuiGrinder extends GuiBase<BuiltScreenHandler> {
-	GrinderBlockEntity blockEntity;
+	final GrinderBlockEntity blockEntity;
 
 	public GuiGrinder(int syncID, final PlayerEntity player, final GrinderBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
