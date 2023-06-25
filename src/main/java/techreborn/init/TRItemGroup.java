@@ -240,6 +240,11 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.QUANTUM_LEGGINGS, entries, null, true);
 		addPoweredItem(TRContent.QUANTUM_BOOTS, entries, null, true);
 
+		addPoweredItem(TRContent.NANO_HELMET, entries, null, true);
+		addPoweredItem(TRContent.NANO_CHESTPLATE, entries, null, true);
+		addPoweredItem(TRContent.NANO_LEGGINGS, entries, null, true);
+		addPoweredItem(TRContent.NANO_BOOTS, entries, null, true);
+
 		addNanosaber(entries, null, false);
 
 		addPoweredItem(TRContent.LITHIUM_ION_BATPACK, entries, null, true);
@@ -629,6 +634,10 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.QUANTUM_CHESTPLATE, entries, Items.TURTLE_HELMET, false);
 		addPoweredItem(TRContent.QUANTUM_LEGGINGS, entries, Items.TURTLE_HELMET, false);
 		addPoweredItem(TRContent.QUANTUM_BOOTS, entries, Items.TURTLE_HELMET, false);
+		addPoweredItem(TRContent.NANO_HELMET, entries, Items.TURTLE_HELMET, false);
+		addPoweredItem(TRContent.NANO_CHESTPLATE, entries, Items.TURTLE_HELMET, false);
+		addPoweredItem(TRContent.NANO_LEGGINGS, entries, Items.TURTLE_HELMET, false);
+		addPoweredItem(TRContent.NANO_BOOTS, entries, Items.TURTLE_HELMET, false);
 		addPoweredItem(TRContent.CLOAKING_DEVICE, entries, Items.LEATHER_HORSE_ARMOR, false);
 		entries.addAfter(Items.END_CRYSTAL, TRContent.NUKE);
 	}

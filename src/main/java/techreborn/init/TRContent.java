@@ -98,6 +98,7 @@ import techreborn.events.ModRegistry;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.UpgraderItem;
+import techreborn.items.armor.NanoSuitItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.utils.InitUtils;
 import techreborn.world.OreDistribution;
@@ -184,6 +185,10 @@ public class TRContent {
 	public static QuantumSuitItem QUANTUM_LEGGINGS;
 	public static QuantumSuitItem QUANTUM_BOOTS;
 
+	public static NanoSuitItem NANO_HELMET;
+	public static NanoSuitItem NANO_CHESTPLATE;
+	public static NanoSuitItem NANO_LEGGINGS;
+	public static NanoSuitItem NANO_BOOTS;
 	// Gem armor & tools
 	@Nullable
 	public static Item BRONZE_SWORD;
