@@ -670,6 +670,10 @@
   "item.techreborn.quantum_chestplate" : "Quantum Chestplate",
   "item.techreborn.quantum_leggings" : "Quantum Leggings",
   "item.techreborn.quantum_boots" : "Quantum Boots",
+  "item.techreborn.nano_helmet" : "Nano Helmet",
+  "item.techreborn.nano_chestplate" : "Nano Chestplate",
+  "item.techreborn.nano_leggings" : "Nano Leggings",
+  "item.techreborn.nano_boots" : "Nano Boots",
 
   "_comment15": "Items-Battery",
   "item.techreborn.energy_crystal": "Energy Crystal",
@@ -852,7 +856,7 @@
   "techreborn.message.info.block.techreborn.launchpad.high": "High",
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Extreme",
   "techreborn.message.info.block.techreborn.elevator": "Teleports player up or down to the next free elevator block",
-  
+
   "keys.techreborn.category": "TechReborn Category",
   "keys.techreborn.config": "Config",
 

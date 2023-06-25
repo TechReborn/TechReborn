@@ -301,6 +301,12 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "quantumSuitDamageAbsorbCost", comment = "Quantum Suit Cost for Damage Absorbed")
 	public static double damageAbsorbCost = 10;
 
+	@Config(config = "items", category = "power", key = "nanoSuitCapacity", comment = "Nano Suit Energy Capacity")
+	public static long nanoSuitCapacity = 1_000_000;
+
+	@Config(config = "items", category = "power", key = "nanoSuitNightVisionCost", comment = "Nano Suit Breathing Cost")
+	public static long nanoSuitNightVisionCost = 2;
+
 	@Config(config = "items", category = "upgrades", key = "overclocker_speed", comment = "Overclocker behavior speed multiplier")
 	public static double overclockerSpeed = 0.25;
 

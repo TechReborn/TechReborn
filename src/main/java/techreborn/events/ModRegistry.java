@@ -41,10 +41,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.*;
 import techreborn.init.TRContent.*;
 import techreborn.items.*;
-import techreborn.items.armor.BatpackItem;
-import techreborn.items.armor.CloakingDeviceItem;
-import techreborn.items.armor.QuantumSuitItem;
-import techreborn.items.armor.TRArmourItem;
+import techreborn.items.armor.*;
 import techreborn.items.tool.*;
 import techreborn.items.tool.advanced.AdvancedJackhammerItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
@@ -129,6 +126,11 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.QUANTUM_CHESTPLATE = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorItem.Type.CHESTPLATE), "quantum_chestplate"));
 		RebornRegistry.registerItem(TRContent.QUANTUM_LEGGINGS = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorItem.Type.LEGGINGS), "quantum_leggings"));
 		RebornRegistry.registerItem(TRContent.QUANTUM_BOOTS = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorItem.Type.BOOTS), "quantum_boots"));
+
+		RebornRegistry.registerItem(TRContent.NANO_HELMET = InitUtils.setup(new NanoSuitItem(TRArmorMaterials.NANO, ArmorItem.Type.HELMET), "nano_helmet"));
+		RebornRegistry.registerItem(TRContent.NANO_CHESTPLATE = InitUtils.setup(new NanoSuitItem(TRArmorMaterials.NANO, ArmorItem.Type.CHESTPLATE), "nano_chestplate"));
+		RebornRegistry.registerItem(TRContent.NANO_LEGGINGS = InitUtils.setup(new NanoSuitItem(TRArmorMaterials.NANO, ArmorItem.Type.LEGGINGS), "nano_leggings"));
+		RebornRegistry.registerItem(TRContent.NANO_BOOTS = InitUtils.setup(new NanoSuitItem(TRArmorMaterials.NANO, ArmorItem.Type.BOOTS), "nano_boots"));
 
 		// Gem armor & tools
 		// Todo: repair with tags

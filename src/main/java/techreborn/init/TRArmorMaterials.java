@@ -56,6 +56,7 @@ public enum TRArmorMaterials implements ArmorMaterial {
 		return Ingredient.ofItems(TRContent.Ingots.STEEL.asItem());
 	}),
 	QUANTUM(75, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
+	NANO(75, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
 	CLOAKING_DEVICE(5, new int[]{0, 2, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
 	LITHIUM_BATPACK(25, new int[]{0, 5, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY),
 	LAPOTRONIC_ORBPACK(33, new int[]{0, 6, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, () -> Ingredient.EMPTY);
