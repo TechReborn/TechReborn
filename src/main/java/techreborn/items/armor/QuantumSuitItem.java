@@ -43,16 +43,6 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 
 public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
-
-	public final long flyCost = TechRebornConfig.quantumSuitFlyingCost;
-	public final long swimCost = TechRebornConfig.quantumSuitSwimmingCost;
-	public final long breathingCost = TechRebornConfig.quantumSuitBreathingCost;
-	public final long sprintingCost = TechRebornConfig.quantumSuitSprintingCost;
-	public final long fireExtinguishCost = TechRebornConfig.fireExtinguishCost;
-
-	public final boolean enableSprint = TechRebornConfig.quantumSuitEnableSprint;
-	public final boolean enableFlight = TechRebornConfig.quantumSuitEnableFlight;
-
 	public QuantumSuitItem(ArmorMaterial material, Type slot) {
 		super(material, slot, TechRebornConfig.quantumSuitCapacity, RcEnergyTier.INSANE);
 	}
@@ -74,8 +64,8 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 
 		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && enableSprint) {
-			if (getStoredEnergy(stack) > sprintingCost) {
+		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint) {
+			if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitSprintingCost) {
 				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
 		}
@@ -93,18 +83,18 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
 		switch (this.getSlotType()) {
 			case HEAD -> {
-				if (playerEntity.isSubmergedInWater() && tryUseEnergy(stack, breathingCost)) {
+				if (playerEntity.isSubmergedInWater() && tryUseEnergy(stack, TechRebornConfig.quantumSuitBreathingCost)) {
 					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 5, 1));
 				}
 			}
 			case CHEST -> {
-				if (enableFlight) {
-					if (getStoredEnergy(stack) > flyCost) {
+				if (TechRebornConfig.quantumSuitEnableFlight) {
+					if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitFlyingCost) {
 						playerEntity.getAbilities().allowFlying = true;
 						playerEntity.sendAbilitiesUpdate();
 
 						if (playerEntity.getAbilities().flying) {
-							tryUseEnergy(stack, flyCost);
+							tryUseEnergy(stack, TechRebornConfig.quantumSuitFlyingCost);
 						}
 						playerEntity.setOnGround(true);
 					} else {
@@ -113,17 +103,17 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 						playerEntity.sendAbilitiesUpdate();
 					}
 				}
-				if (playerEntity.isOnFire() && tryUseEnergy(stack, fireExtinguishCost)) {
+				if (playerEntity.isOnFire() && tryUseEnergy(stack, TechRebornConfig.fireExtinguishCost)) {
 					playerEntity.extinguish();
 				}
 			}
 			case LEGS -> {
-				if (playerEntity.isSprinting() && enableSprint) {
-					tryUseEnergy(stack, sprintingCost);
+				if (playerEntity.isSprinting() && TechRebornConfig.quantumSuitEnableSprint) {
+					tryUseEnergy(stack, TechRebornConfig.quantumSuitSprintingCost);
 				}
 			}
 			case FEET -> {
-				if (playerEntity.isSwimming() && tryUseEnergy(stack, swimCost)) {
+				if (playerEntity.isSwimming() && tryUseEnergy(stack, TechRebornConfig.quantumSuitSwimmingCost)) {
 					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 5, 1));
 				}
 			}
@@ -133,7 +123,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	// ArmorRemoveHandler
 	@Override
 	public void onRemoved(PlayerEntity playerEntity) {
-		if (this.getSlotType() == EquipmentSlot.CHEST && enableFlight) {
+		if (this.getSlotType() == EquipmentSlot.CHEST && TechRebornConfig.quantumSuitEnableFlight) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
 				playerEntity.getAbilities().allowFlying = false;
 				playerEntity.getAbilities().flying = false;

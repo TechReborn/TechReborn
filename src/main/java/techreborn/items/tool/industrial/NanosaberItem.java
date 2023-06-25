@@ -53,9 +53,6 @@ import techreborn.init.TRToolMaterials;
 import java.util.List;
 
 public class NanosaberItem extends SwordItem implements RcEnergyItem {
-	public static final int maxCharge = TechRebornConfig.nanosaberCharge;
-	public int cost = TechRebornConfig.nanosaberCost;
-
 	// 4ME max charge with 1k charge rate
 	public NanosaberItem() {
 		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().maxCount(1).maxDamage(-1));
@@ -64,7 +61,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// SwordItem
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
-		return tryUseEnergy(stack, cost);
+		return tryUseEnergy(stack, TechRebornConfig.nanosaberCost);
 	}
 
 	// ToolItem
@@ -76,14 +73,14 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		ItemUtils.checkActive(stack, cost, entityIn);
+		ItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost, entityIn);
 	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, player);
+			ItemUtils.switchActive(stack, TechRebornConfig.nanosaberCost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -107,7 +104,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// EnergyHolder
 	@Override
 	public long getEnergyCapacity() {
-		return maxCharge;
+		return TechRebornConfig.nanosaberCharge;
 	}
 
 	@Override

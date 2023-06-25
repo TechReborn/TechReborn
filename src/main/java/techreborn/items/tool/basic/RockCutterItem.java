@@ -42,10 +42,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 
 public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
-
-	public static final int maxCharge = TechRebornConfig.rockCutterCharge;
-	public int cost = TechRebornConfig.rockCutterCost;
-
 	// 10k Energy with 128 E\t charge rate
 	public RockCutterItem() {
 		// combat stats same as for diamond pickaxe. Fix for #2468
@@ -60,7 +56,7 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) < cost) {
+		if (getStoredEnergy(stack) < TechRebornConfig.rockCutterCost) {
 			return 1.0f;
 		} else {
 			return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(stack, state);
@@ -71,7 +67,7 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		if (worldIn.getRandom().nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			tryUseEnergy(stack, cost);
+			tryUseEnergy(stack, TechRebornConfig.rockCutterCost);
 		}
 		return true;
 	}
@@ -124,7 +120,7 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	// EnergyHolder
 	@Override
 	public long getEnergyCapacity() {
-		return maxCharge;
+		return TechRebornConfig.rockCutterCharge;
 	}
 
 	@Override

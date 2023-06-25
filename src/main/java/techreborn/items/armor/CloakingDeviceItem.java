@@ -33,10 +33,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterials;
 
 public class CloakingDeviceItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
-
-	public static boolean isActive;
-	public static int cost = TechRebornConfig.cloakingDeviceCost;
-
 	// 40M FE capacity with 8k FE\t charge rate
 	public CloakingDeviceItem() {
 		super(TRArmorMaterials.CLOAKING_DEVICE, Type.CHESTPLATE, TechRebornConfig.cloakingDeviceCharge, RcEnergyTier.INSANE);
@@ -49,7 +45,7 @@ public class CloakingDeviceItem extends TREnergyArmourItem implements ArmorBlock
 	// ArmorBlockEntityTicker
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
-		if (tryUseEnergy(stack, cost)) {
+		if (tryUseEnergy(stack, TechRebornConfig.cloakingDeviceCost)) {
 			playerEntity.setInvisible(true);
 		} else {
 			if (playerEntity.isInvisible()) {

@@ -35,9 +35,6 @@ import techreborn.config.TechRebornConfig;
  * Created by modmuss50 on 05/11/2016.
  */
 public class ElectricTreetapItem extends Item implements RcEnergyItem {
-
-	public final int maxCharge = TechRebornConfig.electricTreetapCharge;
-	public int cost = TechRebornConfig.electricTreetapCost;
 	public RcEnergyTier tier = RcEnergyTier.MEDIUM;
 
 	public ElectricTreetapItem() {
@@ -68,7 +65,7 @@ public class ElectricTreetapItem extends Item implements RcEnergyItem {
 	// EnergyHolder
 	@Override
 	public long getEnergyCapacity() {
-		return maxCharge;
+		return TechRebornConfig.electricTreetapCharge;
 	}
 
 	@Override

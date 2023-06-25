@@ -45,9 +45,6 @@ import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.MiningLevel;
 
 public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
-	public final int maxCharge = TechRebornConfig.omniToolCharge;
-	public int cost = TechRebornConfig.omniToolCost;
-	public int hitCost = TechRebornConfig.omniToolHitCost;
 	public final int miningLevel;
 
 	// 4M FE max charge with 1k charge rate
@@ -66,7 +63,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost) {
+		if (getStoredEnergy(stack) >= TechRebornConfig.omniToolCost) {
 			return getMaterial().getMiningSpeedMultiplier();
 		}
 		return super.getMiningSpeedMultiplier(stack, state);
@@ -75,13 +72,13 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		tryUseEnergy(stack, cost);
+		tryUseEnergy(stack, TechRebornConfig.omniToolCost);
 		return true;
 	}
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (tryUseEnergy(stack, hitCost)) {
+		if (tryUseEnergy(stack, TechRebornConfig.omniToolHitCost)) {
 			target.damage(target.getWorld().getDamageSources().playerAttack((PlayerEntity) attacker), 8F);
 		}
 		return false;
@@ -127,7 +124,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 	// EnergyHolder
 	@Override
 	public long getEnergyCapacity() {
-		return maxCharge;
+		return TechRebornConfig.omniToolCharge;
 	}
 
 	@Override
