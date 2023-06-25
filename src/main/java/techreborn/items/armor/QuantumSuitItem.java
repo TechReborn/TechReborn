@@ -101,6 +101,8 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				if (enableFlight) {
 					if (getStoredEnergy(stack) > flyCost) {
 						playerEntity.getAbilities().allowFlying = true;
+						playerEntity.sendAbilitiesUpdate();
+
 						if (playerEntity.getAbilities().flying) {
 							tryUseEnergy(stack, flyCost);
 						}
@@ -108,6 +110,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 					} else {
 						playerEntity.getAbilities().allowFlying = false;
 						playerEntity.getAbilities().flying = false;
+						playerEntity.sendAbilitiesUpdate();
 					}
 				}
 				if (playerEntity.isOnFire() && tryUseEnergy(stack, fireExtinguishCost)) {
@@ -134,6 +137,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
 				playerEntity.getAbilities().allowFlying = false;
 				playerEntity.getAbilities().flying = false;
+				playerEntity.sendAbilitiesUpdate();
 			}
 		}
 	}
