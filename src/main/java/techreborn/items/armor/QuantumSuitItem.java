@@ -114,7 +114,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 			}
 			case FEET -> {
 				if (playerEntity.isSwimming() && tryUseEnergy(stack, TechRebornConfig.quantumSuitSwimmingCost)) {
-					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 5, 1));
+					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 5, 1, true, false));
 				}
 			}
 		}
