@@ -28,7 +28,7 @@ import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
-
+	// Actual keybindings are in TechRebornClient
 	public static final String CATEGORY = "keys.techreborn.category";
 	public static final String CONFIG = "keys.techreborn.config";
 
