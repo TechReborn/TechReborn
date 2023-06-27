@@ -26,11 +26,14 @@ package techreborn;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.minecraft.client.item.ClampedModelPredicateProvider;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.model.BakedModel;
@@ -39,6 +42,7 @@ import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.world.ClientWorld;
@@ -48,8 +52,10 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
@@ -60,6 +66,7 @@ import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
 import techreborn.client.events.StackToolTipHandler;
+import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.BaseDynamicFluidBakedModel;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
@@ -85,6 +92,13 @@ import java.util.function.Supplier;
 
 public class TechRebornClient implements ClientModInitializer {
 
+	// Keybindings
+	public KeyBinding nanoSuitFlight = KeyBindingHelper.registerKeyBinding(
+		new KeyBinding("key.techreborn.nanoSuitFlight",
+			InputUtil.Type.KEYSYM,
+			GLFW.GLFW_KEY_SPACE,
+			"key.category.techreborn"));
+
 	@Override
 	public void onInitializeClient() {
 		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
@@ -96,6 +110,12 @@ public class TechRebornClient implements ClientModInitializer {
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_base"), "inventory"));
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_fluid"), "inventory"));
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_background"), "inventory"));
+
+			ClientTickEvents.END_CLIENT_TICK.register(client -> {
+				while (nanoSuitFlight.wasPressed()) {
+					client.player.sendMessage(Text.literal("Key 1 was pressed!"), false);
+				}
+			});
 		});
 
 		ModelLoadingRegistry.INSTANCE.registerVariantProvider(resourceManager -> (modelIdentifier, modelProviderContext) -> {
