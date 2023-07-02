@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CEC",
+		"C C"
+	],
+	"key": {
+		"C": {
+			"item": "techreborn:carbon_plate"
+		},
+		"E": {
+			"item": "techreborn:energy_crystal"
+		}
+	},
+	"result": {
+		"item": "techreborn:nano_helmet"
+	}
+}

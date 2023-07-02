@@ -57,6 +57,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.client.ClientJumpEvent;
+import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.powerSystem.RcEnergyItem;
@@ -83,6 +84,7 @@ import techreborn.items.FrequencyTransmitterItem;
 import techreborn.items.armor.BatpackItem;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.items.tool.industrial.NanosaberItem;
+import techreborn.packets.ServerboundPackets;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -114,6 +116,7 @@ public class TechRebornClient implements ClientModInitializer {
 			ClientTickEvents.END_CLIENT_TICK.register(client -> {
 				while (nanoSuitFlight.wasPressed()) {
 					client.player.sendMessage(Text.literal("Key 1 was pressed!"), false);
+					ClientNetworkManager.sendToServer(ServerboundPackets.createPacketNanoSuitFlight());
 				}
 			});
 		});
