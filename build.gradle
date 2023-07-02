@@ -11,10 +11,9 @@ plugins {
 	id 'idea'
 	id 'eclipse'
 	id 'maven-publish'
-	id 'com.diffplug.spotless' version '6.12.0'
-	id 'fabric-loom' version '1.2-SNAPSHOT'
+	id 'com.diffplug.spotless' version '6.19.0'
+	id 'fabric-loom' version '1.3-SNAPSHOT'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
-	id 'de.undercouch.download' version '4.1.1'
 }
 
 repositories {
@@ -82,7 +81,7 @@ allprojects {
 
     publishing {
         publications {
-            maven(MavenPublication) {
+            register("maven", MavenPublication) {
                 groupId project.name
                 artifactId project.archivesBaseName  + "-" + getBranch()
                 version project.version
@@ -269,69 +268,76 @@ jar {
     dependsOn 'runDatagen'
 }
 
-task crowdinExport() {
+tasks.register('crowdinExport') {
     description "Triggers crowdin to export the latest translations"
-	onlyIf {
-		ENV.CROWDIN_KEY
-	}
-	doLast{
-		def apiKey = ENV.CROWDIN_KEY
-		def projectId = 'techreborn'
-		def response = new URL(sprintf('https://api.crowdin.com/api/project/%1$s/export?key=%2$s', [projectId, apiKey])).text
-		def metadata = new XmlParser().parseText(response)
-		project.logger.lifecycle("crowdin export status: " + metadata.@status)
-	}
+    onlyIf {
+        ENV.CROWDIN_KEY
+    }
+    doLast {
+        def apiKey = ENV.CROWDIN_KEY
+        def projectId = 'techreborn'
+        def response = new URL(sprintf('https://api.crowdin.com/api/project/%1$s/export?key=%2$s', [projectId, apiKey])).text
+        def metadata = new XmlParser().parseText(response)
+        project.logger.lifecycle("crowdin export status: " + metadata.@status)
+    }
 }
 
-task crowdin(type: Download, dependsOn: 'crowdinExport'){
+def translationsUrl = "https://crowdin.com/backend/download/project/techreborn.zip"
+def translationsZip = file("build/translations.zip")
+
+tasks.register('crowdin') {
+    dependsOn crowdinExport
     description "Downloads translations from CrowdIn"
-	src 'https://crowdin.com/backend/download/project/techreborn.zip'
-	dest file("build/translations.zip")
-	overwrite true
+    outputs.file translationsZip
+
+    doLast {
+        translationsZip.bytes =  new URL(translationsUrl).bytes
+    }
 }
 
-task cleanCrowdin(type: Delete){
+tasks.register('cleanCrowdin', Delete) {
     description "Delete old translations"
-	delete 'build/translations'
+    delete 'build/translations'
 }
+clean.dependsOn cleanCrowdin
 
-task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
+tasks.register('renameCrowdin', Copy) {
+    dependsOn crowdin
     description "Renames the translation files to be all lower case"
-	mustRunAfter 'crowdin'
-	from zipTree(file("build/translations.zip"))
-	into file('build/translations')
-	rename {
-		String filename -> return filename.toLowerCase()
-	}
-	doFirst {
-		file('build/translations').deleteDir()
-	}
+    from zipTree(translationsZip)
+    into file('build/translations')
+    rename {
+        String filename -> return filename.toLowerCase()
+    }
+    doFirst {
+        file('build/translations').deleteDir()
+    }
 }
 
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
-task fixTranslations(dependsOn: ['renameCrowdin']) {
+tasks.register('fixTranslations') {
+    dependsOn renameCrowdin
     description "Remove all translations that do not have an entry, ensures that minecraft falls back to EN_US over writing out an empty string"
-	def jsonSlurper = new JsonSlurper()
-	doLast {
-		file('build/translations').eachFileRecurse(groovy.io.FileType.FILES) {
-			if(it.name.endsWith(".json")) {
-				def lang = jsonSlurper.parseText(it.text)
-				lang.values().removeIf { val -> val.empty}
-				it.text = JsonOutput.prettyPrint(JsonOutput.toJson(lang))
-			}
-		}
-	}
+    def jsonSlurper = new JsonSlurper()
+    doLast {
+        file('build/translations').eachFileRecurse(groovy.io.FileType.FILES) {
+            if (it.name.endsWith(".json")) {
+                def lang = jsonSlurper.parseText(it.text)
+                lang.values().removeIf { val -> val.empty }
+                it.text = JsonOutput.prettyPrint(JsonOutput.toJson(lang))
+            }
+        }
+    }
 }
 
 // Use to test the crowdin translations in a dev env
-task copyTranslationsToGenerated(dependsOn: ['fixTranslations'], type: Copy) {
+tasks.register('copyTranslationsToGenerated', Copy) {
+    dependsOn fixTranslations
     from file('build/translations')
     into file('src/main/generated')
 }
-
-import groovy.util.XmlSlurper
 
 curseforge {
 	if (ENV.CURSEFORGE_API_KEY) {
@@ -360,7 +366,7 @@ curseforge {
 	}
 }
 
-def getBranch() {
+static def getBranch() {
 	def ENV = System.getenv()
 	if (ENV.GITHUB_REF) {
 		def branch = ENV.GITHUB_REF
@@ -373,39 +379,24 @@ def getBranch() {
 import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
 
-task github(dependsOn: remapJar) {
-	onlyIf {
-		ENV.GITHUB_TOKEN
-	}
+tasks.register('github') {
+    dependsOn remapJar
+    onlyIf {
+        ENV.GITHUB_TOKEN
+    }
 
-	doLast {
-		def github = GitHub.connectUsingOAuth(ENV.GITHUB_TOKEN as String)
-		def repository = github.getRepository(ENV.GITHUB_REPOSITORY)
+    doLast {
+        def github = GitHub.connectUsingOAuth(ENV.GITHUB_TOKEN as String)
+        def repository = github.getRepository(ENV.GITHUB_REPOSITORY)
 
-		def releaseBuilder = new GHReleaseBuilder(repository, version as String)
-		releaseBuilder.name("${archivesBaseName}-${version}")
-		releaseBuilder.body(ENV.CHANGELOG)
-		releaseBuilder.commitish(getBranch())
+        def releaseBuilder = new GHReleaseBuilder(repository, version as String)
+        releaseBuilder.name("${archivesBaseName}-${version}")
+        releaseBuilder.body(ENV.CHANGELOG)
+        releaseBuilder.commitish(getBranch())
 
-		def ghRelease = releaseBuilder.create()
-		ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive")
+        def ghRelease = releaseBuilder.create()
+        ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive")
         ghRelease.uploadAsset(file("RebornCore/build/libs/RebornCore-${version}.jar"), "application/java-archive")
-	}
+    }
 }
-github.dependsOn(project(":RebornCore").getTasks().getByName("remapJar"))
-
-// A task to ensure that the version being released has not already been released.
-task checkVersion {
-	doFirst {
-		def xml = new URL("https://maven.modmuss50.me/TechReborn/TechReborn-1.17/maven-metadata.xml").text
-		def metadata = new XmlSlurper().parseText(xml)
-		def versions = metadata.versioning.versions.version*.text();
-		if (versions.contains(version)) {
-			throw new RuntimeException("${version} has already been released!")
-		}
-	}
-}
-
-github.mustRunAfter checkVersion
-publish.mustRunAfter checkVersion
-project.tasks.curseforge.mustRunAfter checkVersion
+github.dependsOn(project(":RebornCore").getTasks().named("remapJar"))
