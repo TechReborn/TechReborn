@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"C C",
+		"CEC",
+		"CAC"
+	],
+	"key": {
+		"C": {
+			"item": "techreborn:carbon_plate"
+		},
+		"A": {
+			"item": "techreborn:advanced_circuit"
+		},
+		"E": {
+			"item": "techreborn:energy_crystal"
+		}
+	},
+	"result": {
+		"item": "techreborn:nano_leggings"
+	}
+}

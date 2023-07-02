@@ -304,8 +304,11 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "nanoSuitCapacity", comment = "Nano Suit Energy Capacity")
 	public static long nanoSuitCapacity = 1_000_000;
 
-	@Config(config = "items", category = "power", key = "nanoSuitNightVisionCost", comment = "Nano Suit Breathing Cost")
+	@Config(config = "items", category = "power", key = "nanoSuitNightVisionCost", comment = "Nano Suit Night Vision Cost")
 	public static long nanoSuitNightVisionCost = 2;
+
+	@Config(config = "items", category = "power", key = "nanoSuitFlightCost", comment = "Nano Suit Flight Cost")
+	public static long nanoSuitFlightCost = 2;
 
 	@Config(config = "items", category = "upgrades", key = "overclocker_speed", comment = "Overclocker behavior speed multiplier")
 	public static double overclockerSpeed = 0.25;

@@ -25,10 +25,13 @@
 package techreborn.packets;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
@@ -44,7 +47,9 @@ import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRArmorMaterials;
 import techreborn.init.TRContent;
+import techreborn.items.armor.NanoSuitItem;
 
 public class ServerboundPackets {
 
@@ -61,6 +66,7 @@ public class ServerboundPackets {
 	public static final Identifier JUMP = new Identifier(TechReborn.MOD_ID, "jump");
 	public static final Identifier PUMP_DEPTH = new Identifier(TechReborn.MOD_ID, "pump_depth");
 	public static final Identifier PUMP_RANGE = new Identifier(TechReborn.MOD_ID, "pump_range");
+	public static final Identifier NANO_SUIT_FLIGHT = new Identifier(TechReborn.MOD_ID, "nano_suit_flight");
 
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
@@ -226,6 +232,17 @@ public class ServerboundPackets {
 			});
 		}));
 
+		NetworkManager.registerServerBoundHandler(NANO_SUIT_FLIGHT, ((server, player, handler, buf, responseSender) -> {
+			NanoSuitItem nanoSuitItem = new NanoSuitItem(TRArmorMaterials.NANO, ArmorItem.Type.BOOTS);
+			server.execute(() -> {
+				for (ItemStack stack : player.getArmorItems()) {
+					if (!stack.isEmpty() && stack.getItem().equals(TRContent.NANO_BOOTS)) {
+						nanoSuitItem.boostPlayer(stack, player);
+					}
+				}
+			});
+		}));
+
 	}
 
 	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
@@ -316,5 +333,9 @@ public class ServerboundPackets {
 			buf.writeBlockPos(blockEntity.getPos());
 			buf.writeInt(buttonAmount);
 		});
+	}
+
+	public static IdentifiedPacket createPacketNanoSuitFlight() {
+		return NetworkManager.createServerBoundPacket(NANO_SUIT_FLIGHT, buf -> {});
 	}
 }
