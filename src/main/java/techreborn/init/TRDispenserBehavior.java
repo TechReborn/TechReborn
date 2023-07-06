@@ -33,7 +33,9 @@ import net.minecraft.block.entity.DispenserBlockEntity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -41,6 +43,8 @@ import net.minecraft.util.math.Position;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.fluid.RebornBucketItem;
+import reborncore.common.fluid.RebornFluid;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
@@ -121,5 +125,30 @@ public class TRDispenserBehavior {
 				}
 			}
 		});
+
+		for (ModFluids fluid : ModFluids.values()) {
+			DispenserBlock.registerBehavior(fluid, new ItemDispenserBehavior() {
+				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+					RebornBucketItem bucket = (RebornBucketItem) stack.getItem();
+					WorldAccess iWorld = pointer.getWorld();
+					BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
+					BlockState blockState = iWorld.getBlockState(blockPos);
+					Block block = blockState.getBlock();
+
+					if (bucket.placeFluid(null, pointer.getWorld(), blockPos, null)) {
+						ItemStack emptyCell = new ItemStack(Items.BUCKET);
+						if (stack.getCount() == 1) {
+							stack = emptyCell;
+						} else {
+							stack.decrement(1);
+							if (((DispenserBlockEntity) pointer.getBlockEntity()).addToFirstFreeSlot(emptyCell) < 0) {
+								this.dispense(pointer, emptyCell);
+							}
+						}
+					}
+					return stack;
+				}
+			});
+		}
 	}
 }
