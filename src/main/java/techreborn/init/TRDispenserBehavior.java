@@ -131,13 +131,13 @@ public class TRDispenserBehavior {
 					BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
 
 					if (bucket.placeFluid(null, pointer.getWorld(), blockPos, null)) {
-						ItemStack emptyCell = new ItemStack(Items.BUCKET);
+						ItemStack emptyBucket = new ItemStack(Items.BUCKET);
 						if (stack.getCount() == 1) {
-							stack = emptyCell;
+							stack = emptyBucket;
 						} else {
 							stack.decrement(1);
-							if (((DispenserBlockEntity) pointer.getBlockEntity()).addToFirstFreeSlot(emptyCell) < 0) {
-								this.dispense(pointer, emptyCell);
+							if (((DispenserBlockEntity) pointer.getBlockEntity()).addToFirstFreeSlot(emptyBucket) < 0) {
+								this.dispense(pointer, emptyBucket);
 							}
 						}
 					}
