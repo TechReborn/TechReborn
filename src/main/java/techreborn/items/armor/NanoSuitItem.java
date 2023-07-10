@@ -37,12 +37,12 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
+
+import java.util.Objects;
 
 public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker {
 
@@ -67,7 +67,6 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 
 		if (equipmentSlot == this.getSlotType() && getStoredEnergy(stack) > 0) {
 			attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Armor modifier", 8, EntityAttributeModifier.Operation.ADDITION));
-			attributes.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
 		}
 
 		return ImmutableMultimap.copyOf(attributes);
@@ -77,35 +76,11 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
 		World world = playerEntity.getWorld();
-		switch (this.getSlotType()) {
-			case HEAD -> {
-				if ((world.isNight() || world.getLightLevel(playerEntity.getBlockPos()) <= 4) && tryUseEnergy(stack, TechRebornConfig.nanoSuitNightVisionCost)) {
-					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 1000, 1, false, false));
-				} else {
-					playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
-				}
+		// Night Vision
+		if (Objects.requireNonNull(this.getSlotType()) == EquipmentSlot.HEAD) {
+			if ((world.isNight() || world.getLightLevel(playerEntity.getBlockPos()) <= 6) && tryUseEnergy(stack, TechRebornConfig.nanoSuitNightVisionCost)) {
+				playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 220, 1, false, false));
 			}
-			case FEET -> {
-				if (tryUseEnergy(stack, TechRebornConfig.nanoSuitFlightCost)) {
-					playerEntity.setNoGravity(true);
-					playerEntity.updatePosition(playerEntity.getX(), playerEntity.getY() + 0.1, playerEntity.getZ());
-					world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, playerEntity.getX(), playerEntity.getY(),  playerEntity.getZ(), 0.0, -1.0, 0.0);
-				} else {
-					playerEntity.setNoGravity(false);
-					playerEntity.sendMessage(Text.literal("uwu"));
-				}
-			}
-		}
-	}
-
-	public void boostPlayer(ItemStack stack, PlayerEntity playerEntity) {
-		World world = playerEntity.getWorld();
-		if (tryUseEnergy(stack, TechRebornConfig.nanoSuitFlightCost)) {
-			playerEntity.setNoGravity(true);
-			playerEntity.updatePosition(playerEntity.getX(), playerEntity.getY() + 0.3, playerEntity.getZ());
-			world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, playerEntity.getX(), playerEntity.getY(),  playerEntity.getZ(), 1.0, 1.0, 1.0);
-		} else {
-			playerEntity.setNoGravity(false);
 		}
 	}
 }
