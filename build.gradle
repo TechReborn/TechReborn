@@ -13,7 +13,7 @@ plugins {
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
 	id 'fabric-loom' version '1.3-SNAPSHOT'
-    id 'me.modmuss50.mod-publish-plugin' version '0.0.1'
+    id 'me.modmuss50.mod-publish-plugin' version '0.0.3'
 }
 
 repositories {
