@@ -25,13 +25,10 @@
 package techreborn.packets;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
