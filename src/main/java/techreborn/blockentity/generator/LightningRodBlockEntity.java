@@ -97,8 +97,8 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	public float getLightningStrikeMultiplier() {
-		final float actualHeight = 256;
-		final float groundLevel = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos()).getY();
+		final float actualHeight = world.getTopY();
+		final float groundLevel = world.getSeaLevel() + 1;
 		for (int i = pos.getY() + 1; i < actualHeight; i++) {
 			if (!isValidIronFence(i)) {
 				if (groundLevel >= i)
@@ -108,7 +108,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 				return 1.2F - got / max;
 			}
 		}
-		return 4F;
+		return 0.2F;
 	}
 
 	public boolean isValidIronFence(int y) {
