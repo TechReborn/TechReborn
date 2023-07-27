@@ -34,7 +34,9 @@ import net.minecraft.item.Items;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import reborncore.api.IToolHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -44,7 +46,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.MiningLevel;
 
-public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
+public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler {
 	public final int miningLevel;
 
 	// 4M FE max charge with 1k charge rate
@@ -135,5 +137,15 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem {
 	@Override
 	public RcEnergyTier getTier() {
 		return RcEnergyTier.EXTREME;
+	}
+
+	@Override
+	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
+		if (!player.getWorld().isClient && this.getStoredEnergy(stack) > 50.0) {
+			this.tryUseEnergy(stack, (long) 5);
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
