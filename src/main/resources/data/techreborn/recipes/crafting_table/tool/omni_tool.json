@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "D  ",
+	" WD",
     " C ",
-    "  S"
+    "S  "
   ],
   "key": {
     "D": {
@@ -14,7 +14,10 @@
     },
     "S": {
       "item": "minecraft:diamond_sword"
-    }
+    },
+	"W": {
+		"item": "techreborn:wrench"
+	}
   },
   "result": {
     "item": "techreborn:omni_tool"
