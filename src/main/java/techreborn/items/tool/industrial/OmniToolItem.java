@@ -141,7 +141,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 
 	@Override
 	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
-		if (!player.getWorld().isClient && this.getStoredEnergy(stack) > 50.0) {
+		if (!player.getWorld().isClient && this.getStoredEnergy(stack) >= 5.0) {
 			this.tryUseEnergy(stack, (long) 5);
 			return true;
 		} else {
