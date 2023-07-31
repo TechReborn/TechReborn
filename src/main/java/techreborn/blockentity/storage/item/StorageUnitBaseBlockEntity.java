@@ -127,6 +127,11 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	private void populateOutput() {
+		if (isOutputBlocked()) {
+			// Don't try to fill a blocked output with our item type.
+			return;
+		}
+
 		// Set to storeItemStack to get the stack type
 		ItemStack output = storeItemStack.copy();
 
@@ -220,6 +225,16 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		return inputStack;
 	}
 
+	private boolean isOutputBlocked() {
+		ItemStack outputStack = inventory.getStack(OUTPUT_SLOT);
+		if (outputStack == ItemStack.EMPTY || outputStack.getCount() == 0) {
+			// Nothing in the output stack
+			return false;
+		}
+		// Blocked if the type isn't the same.
+		return !isSameType(outputStack);
+	}
+
 	public boolean isSameType(ItemStack inputStack) {
 		if (isLocked()) {
 			return ItemUtils.isItemEqual(lockedItemStack, inputStack, true, true);
@@ -244,7 +259,13 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	public int getCurrentCapacity() {
-		return storeItemStack.getCount() + inventory.getStack(OUTPUT_SLOT).getCount();
+		int capacity = storeItemStack.getCount();
+		ItemStack outputStack = inventory.getStack(OUTPUT_SLOT);
+		if (!isOutputBlocked()) {
+			// Only add the output slot if they're the same type.
+			capacity += outputStack.getCount();
+		}
+		return capacity;
 	}
 
 	// MachineBaseBlockEntity
