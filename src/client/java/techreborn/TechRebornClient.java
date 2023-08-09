@@ -26,7 +26,7 @@ package techreborn;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.minecraft.client.item.ClampedModelPredicateProvider;
@@ -80,7 +80,6 @@ import techreborn.items.tool.industrial.NanosaberItem;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -88,7 +87,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		PreparableModelLoadingPlugin.register((resourceManager, executor) -> CompletableFuture.completedFuture(null), (data, pluginContext) -> {
+		ModelLoadingPlugin.register((pluginContext) -> {
 			pluginContext.addModels(
 				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_base"), "inventory"),
 				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory"),
@@ -99,14 +98,16 @@ public class TechRebornClient implements ClientModInitializer {
 				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_background"), "inventory")
 			);
 
-			pluginContext.modifyModelBeforeBake().register((model, context) -> {
+			pluginContext.resolveModel().register((context) -> {
 				final Identifier id = context.id();
 
-				if (!id.getNamespace().equals(TechReborn.MOD_ID)) {
-					return model;
+				if (!id.getNamespace().equals(TechReborn.MOD_ID) || !id.getPath().startsWith("item/")) {
+					return null;
 				}
 
-				if (id.getPath().equals("cell")) {
+				String path = id.getPath().replace("item/", "");
+
+				if (path.equals("cell")) {
 					if (!RendererAccess.INSTANCE.hasRenderer()) {
 						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"techreborn:item/cell_background\"}}");
 					}
@@ -114,8 +115,8 @@ public class TechRebornClient implements ClientModInitializer {
 					return new UnbakedDynamicModel(DynamicCellBakedModel::new);
 				}
 
-				Fluid fluid = Registries.FLUID.get(new Identifier(TechReborn.MOD_ID, id.getPath().split("_bucket")[0]));
-				if (id.getPath().endsWith("_bucket") && fluid != Fluids.EMPTY) {
+				Fluid fluid = Registries.FLUID.get(new Identifier(TechReborn.MOD_ID, path.split("_bucket")[0]));
+				if (path.endsWith("_bucket") && fluid != Fluids.EMPTY) {
 					if (!RendererAccess.INSTANCE.hasRenderer()) {
 						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"minecraft:item/bucket\"}}");
 					}
@@ -123,7 +124,7 @@ public class TechRebornClient implements ClientModInitializer {
 					return new UnbakedDynamicModel(DynamicBucketBakedModel::new);
 				}
 
-				return model;
+				return null;
 			});
 		});
 
