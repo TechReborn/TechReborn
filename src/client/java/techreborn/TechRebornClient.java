@@ -26,7 +26,7 @@ package techreborn;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.minecraft.client.item.ClampedModelPredicateProvider;
@@ -80,6 +80,7 @@ import techreborn.items.tool.industrial.NanosaberItem;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -87,37 +88,45 @@ public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_base"), "inventory"));
-			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory"));
-			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_background"), "inventory"));
-			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_glass"), "inventory"));
+		PreparableModelLoadingPlugin.register((resourceManager, executor) -> CompletableFuture.completedFuture(null), (data, pluginContext) -> {
+			pluginContext.addModels(
+				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_base"), "inventory"),
+				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory"),
+				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_background"), "inventory"),
+				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_glass"), "inventory"),
+				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_base"), "inventory"),
+				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_fluid"), "inventory"),
+				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_background"), "inventory")
+			);
 
-			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_base"), "inventory"));
-			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_fluid"), "inventory"));
-			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_background"), "inventory"));
-		});
+			pluginContext.modifyModelBeforeBake().register((model, context) -> {
+				final Identifier id = context.id();
 
-		ModelLoadingRegistry.INSTANCE.registerVariantProvider(resourceManager -> (modelIdentifier, modelProviderContext) -> {
-			if (modelIdentifier.getNamespace().equals(TechReborn.MOD_ID)) {
-				if (modelIdentifier.getPath().equals("cell")) {
+				if (!id.getNamespace().equals(TechReborn.MOD_ID)) {
+					return model;
+				}
+
+				if (id.getPath().equals("cell")) {
 					if (!RendererAccess.INSTANCE.hasRenderer()) {
 						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"techreborn:item/cell_background\"}}");
 					}
 
 					return new UnbakedDynamicModel(DynamicCellBakedModel::new);
 				}
-				Fluid fluid = Registries.FLUID.get(new Identifier(TechReborn.MOD_ID, modelIdentifier.getPath().split("_bucket")[0]));
-				if (modelIdentifier.getPath().endsWith("_bucket") && fluid != Fluids.EMPTY) {
+
+				Fluid fluid = Registries.FLUID.get(new Identifier(TechReborn.MOD_ID, id.getPath().split("_bucket")[0]));
+				if (id.getPath().endsWith("_bucket") && fluid != Fluids.EMPTY) {
 					if (!RendererAccess.INSTANCE.hasRenderer()) {
 						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"minecraft:item/bucket\"}}");
 					}
 
 					return new UnbakedDynamicModel(DynamicBucketBakedModel::new);
 				}
-			}
-			return null;
+
+				return model;
+			});
 		});
+
 
 		StackToolTipHandler.setup();
 		ClientboundPacketHandlers.init();
