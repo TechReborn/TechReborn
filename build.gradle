@@ -366,6 +366,7 @@ publishMods {
         from options
         projectId = "237903"
         file = project(":RebornCore").tasks.remapJar.archiveFile
+		displayName = "RebornCore $version"
     }
 
 	github {
