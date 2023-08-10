@@ -77,7 +77,7 @@ public class GuiManual extends Screen {
 
 	@Override
 	public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(drawContext);
+		renderBackground(drawContext, mouseX, mouseY, partialTicks);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
 		drawContext.drawTexture(MANUAL_TEXTURE, centerX, centerY, 0, 0, guiWidth, guiHeight);

@@ -5,8 +5,7 @@
   "client": [
 	  "MixinDebugRenderer",
 	  "MixinGameRenderer",
-	  "MixinKeyBinding",
-	  "MixinMinecraftClient"
+	  "MixinKeyBinding"
   ],
   "injectors": {
     "defaultRequire": 1

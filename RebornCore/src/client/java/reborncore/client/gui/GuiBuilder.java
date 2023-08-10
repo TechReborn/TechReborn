@@ -363,15 +363,13 @@ public class GuiBuilder {
 			for (Text tip : tips) {
 				this.addEntry(new TipsListEntry(tip));
 			}
+
+			setRenderBackground(false);
 		}
 
 		@Override
 		public int getRowWidth() {
 			return 162;
-		}
-
-		@Override
-		protected void renderBackground(DrawContext drawContext) {
 		}
 
 		@Override

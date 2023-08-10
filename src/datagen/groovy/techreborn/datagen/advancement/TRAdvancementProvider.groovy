@@ -469,7 +469,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	private static CriterionConditions inventoryChanged(TagKey<Item> tag) {
-		return InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(tag).build())
+		return InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(tag))
 	}
 
 	private Advancement create(@DelegatesTo(value = AdvancementFactory.class) Closure closure) {

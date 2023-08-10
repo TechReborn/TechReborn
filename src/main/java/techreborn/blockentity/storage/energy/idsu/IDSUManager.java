@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.energy.idsu;
 
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
@@ -38,7 +39,7 @@ import techreborn.config.TechRebornConfig;
 import java.util.HashMap;
 
 public class IDSUManager extends PersistentState {
-
+	private static final PersistentState.Type<IDSUManager> TYPE = new Type<>(IDSUManager::new, IDSUManager::createFromTag, DataFixTypes.LEVEL);
 	private static final String KEY = "techreborn_idsu";
 
 	private IDSUManager() {
@@ -51,7 +52,7 @@ public class IDSUManager extends PersistentState {
 
 	private static IDSUManager get(MinecraftServer server) {
 		ServerWorld serverWorld = server.getWorld(World.OVERWORLD);
-		return serverWorld.getPersistentStateManager().getOrCreate(IDSUManager::createFromTag, IDSUManager::new, KEY);
+		return serverWorld.getPersistentStateManager().getOrCreate(TYPE, KEY);
 	}
 
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();

@@ -82,7 +82,7 @@ public class TRDispenserBehavior {
 				if (cell.getFluid(stack) == Fluids.EMPTY) {
 					// fill cell
 					if (block instanceof FluidDrainable) {
-						ItemStack fluidContainer = ((FluidDrainable) block).tryDrainFluid(iWorld, blockPos, blockState);
+						ItemStack fluidContainer = ((FluidDrainable) block).tryDrainFluid(null, iWorld, blockPos, blockState);
 						Fluid fluid = null;
 						if (fluidContainer.getItem() instanceof ItemFluidInfo) {
 							fluid = ((ItemFluidInfo) fluidContainer.getItem()).getFluid(fluidContainer);

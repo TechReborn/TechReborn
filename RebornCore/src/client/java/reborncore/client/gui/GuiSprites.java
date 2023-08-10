@@ -28,7 +28,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
-import reborncore.client.gui.config.elements.GuiSpriteAtlasHolder;
 
 public final class GuiSprites {
 	public static final SpriteIdentifier CHARGE_SLOT_ICON = create("charge_slot_icon");
@@ -91,7 +90,7 @@ public final class GuiSprites {
 	public static final CheckBox LIGHT_CHECK_BOX = new CheckBox(LIGHT_CHECK_BOX_NORMAL, LIGHT_CHECK_BOX_TICKED);
 
 	public static SpriteIdentifier create(String name) {
-		return new SpriteIdentifier(GuiSpriteAtlasHolder.ATLAS_ID, new Identifier("reborncore", name));
+		return new SpriteIdentifier(new Identifier("gui"), new Identifier("reborncore", name));
 	}
 
 	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {

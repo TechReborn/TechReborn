@@ -24,11 +24,16 @@
 
 package techreborn.events;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.FabricPacket;
+import net.fabricmc.fabric.api.networking.v1.PacketType;
+import net.fabricmc.fabric.api.networking.v1.ServerConfigurationConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerConfigurationNetworking;
 import net.minecraft.block.Block;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
-import reborncore.common.network.NetworkManager;
-import techreborn.packets.ClientboundPackets;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import techreborn.TechReborn;
 import techreborn.world.OreDepth;
 
 import java.util.HashMap;
@@ -37,6 +42,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("UnstableApiUsage")
 public final class OreDepthSyncHandler {
 	private static Map<Block, OreDepth> oreDepthMap = new HashMap<>();
 
@@ -44,9 +50,15 @@ public final class OreDepthSyncHandler {
 	}
 
 	public static void setup() {
-		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
-				NetworkManager.sendTo(ClientboundPackets.createPacketSyncOreDepth(OreDepth.create(server)), sender)
-		);
+		ServerConfigurationConnectionEvents.CONFIGURE.register((handler, server) -> {
+			if (ServerConfigurationNetworking.canSend(handler, OreDepthPayload.TYPE)) {
+				List<OreDepth> oreDepths = OreDepth.create(server);
+				var packet = ServerConfigurationNetworking.createS2CPacket(new OreDepthPayload(oreDepths));
+				handler.send(packet, null);
+			} else {
+				handler.disconnect(Text.literal("The TechReborn mod must be installed to play on this server."));
+			}
+		});
 	}
 
 	public static void updateDepths(List<OreDepth> list) {
@@ -59,6 +71,26 @@ public final class OreDepthSyncHandler {
 	public static Map<Block, OreDepth> getOreDepthMap() {
 		synchronized (OreDepthSyncHandler.class) {
 			return oreDepthMap;
+		}
+	}
+
+	public record OreDepthPayload(List<OreDepth> oreDepths) implements FabricPacket {
+		public static final PacketType<OreDepthPayload> TYPE = PacketType.create(new Identifier(TechReborn.MOD_ID, "ore_depth"), OreDepthPayload::new);
+
+		private OreDepthPayload(PacketByteBuf buf) {
+			this(
+				buf.decodeAsJson(OreDepth.LIST_CODEC)
+			);
+		}
+
+		@Override
+		public void write(PacketByteBuf buf) {
+			buf.encodeAsJson(OreDepth.LIST_CODEC, oreDepths);
+		}
+
+		@Override
+		public PacketType<?> getType() {
+			return TYPE;
 		}
 	}
 }

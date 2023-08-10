@@ -39,7 +39,7 @@ public class ClientNetworkManager {
 
 	public static <T> void registerClientBoundHandler(Identifier identifier, Codec<T> codec, Consumer<T> consumer) {
 		registerClientBoundHandler(identifier, (client, handler, buf, responseSender) -> {
-			T value = new ExtendedPacketBuffer(buf).readCodec(codec);
+			T value = new ExtendedPacketBuffer(buf).decodeAsJson(codec);
 			client.execute(() -> consumer.accept(value));
 		});
 	}

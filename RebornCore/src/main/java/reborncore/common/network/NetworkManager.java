@@ -61,7 +61,7 @@ public class NetworkManager {
 	}
 
 	public static <T> IdentifiedPacket createClientBoundPacket(Identifier identifier, Codec<T> codec, T value) {
-		return createClientBoundPacket(identifier, extendedPacketBuffer -> extendedPacketBuffer.writeCodec(codec, value));
+		return createClientBoundPacket(identifier, extendedPacketBuffer -> extendedPacketBuffer.encodeAsJson(codec, value));
 	}
 
 	public static void sendToAll(IdentifiedPacket packet, MinecraftServer server) {

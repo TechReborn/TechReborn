@@ -82,7 +82,7 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDro
 		Block aboveBlock = aboveBlockState.getBlock();
 
 		if (aboveBlock instanceof FluidDrainable) {
-			ItemStack fluidContainer = ((FluidDrainable) aboveBlock).tryDrainFluid(world, above, aboveBlockState);
+			ItemStack fluidContainer = ((FluidDrainable) aboveBlock).tryDrainFluid(null, world, above, aboveBlockState);
 			if (fluidContainer.getItem() instanceof ItemFluidInfo) {
 				Fluid drainFluid = ((ItemFluidInfo) fluidContainer.getItem()).getFluid(fluidContainer);
 				internalTank.setFluidInstance(new FluidInstance(drainFluid, FluidValue.BUCKET));

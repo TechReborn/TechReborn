@@ -28,17 +28,9 @@ import net.minecraft.util.Identifier;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
-import techreborn.world.OreDepth;
-
-import java.util.List;
 
 public class ClientboundPackets {
-	public static final Identifier ORE_DEPTH = new Identifier(TechReborn.MOD_ID, "ore_depth");
 	public static final Identifier OPEN_MANUAL = new Identifier(TechReborn.MOD_ID, "open_manual");
-
-	public static IdentifiedPacket createPacketSyncOreDepth(List<OreDepth> oreDepths) {
-		return NetworkManager.createClientBoundPacket(ORE_DEPTH, OreDepth.LIST_CODEC, oreDepths);
-	}
 
 	public static IdentifiedPacket createPacketOpenManual() {
 		return NetworkManager.createClientBoundPacket(OPEN_MANUAL, packetBuffer -> {

@@ -26,6 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
@@ -61,17 +62,14 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	private class XpButtonWidget extends TexturedButtonWidget {
+		private static final ButtonTextures TEXTURES = new ButtonTextures(EXP_BUTTON_TEXTURE, EXP_BUTTON_TEXTURE);
+
 		public XpButtonWidget(PressAction pressAction) {
 			super(getGuiLeft() + 116,
 				getGuiTop() + 58,
 				16,
 				16,
-				0,
-				0,
-				1,
-				EXP_BUTTON_TEXTURE,
-				16,
-				16,
+				TEXTURES,
 				pressAction,
 				Text.empty());
 		}

@@ -261,8 +261,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	public boolean canFillWithFluid(BlockView view, BlockPos pos, BlockState state, Fluid fluid) {
-		return !state.get(COVERED) && Waterloggable.super.canFillWithFluid(view, pos, state, fluid);
+	public boolean canFillWithFluid(PlayerEntity player, BlockView view, BlockPos pos, BlockState state, Fluid fluid) {
+		return !state.get(COVERED) && Waterloggable.super.canFillWithFluid(player, view, pos, state, fluid);
 	}
 
 	@SuppressWarnings("deprecation")

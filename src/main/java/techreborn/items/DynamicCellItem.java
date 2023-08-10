@@ -114,7 +114,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		BlockState blockState = world.getBlockState(pos);
 		boolean canPlace = blockState.canBucketPlace(fluid);
 
-		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable) blockState.getBlock()).canFillWithFluid(world, pos, blockState, fluid))) {
+		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable) blockState.getBlock()).canFillWithFluid(player, world, pos, blockState, fluid))) {
 			return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()), null, filledCell);
 		} else {
 			//noinspection deprecation
@@ -184,7 +184,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				return TypedActionResult.fail(stack);
 			}
 			// This will give us bucket, not a cell
-			ItemStack itemStack = fluidDrainable.tryDrainFluid(world, hitPos, hitState);
+			ItemStack itemStack = fluidDrainable.tryDrainFluid(player, world, hitPos, hitState);
 			if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemFluidInfo) {
 				Fluid drainFluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
 				fluidDrainable.getBucketFillSound().ifPresent((sound) -> player.playSound(sound, 1.0F, 1.0F));

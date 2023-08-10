@@ -44,7 +44,6 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.config.GuiTab;
-import reborncore.client.gui.config.elements.GuiSpriteAtlasHolder;
 import reborncore.client.gui.widget.GuiButtonHologram;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -128,7 +127,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	@Override
 	protected void drawBackground(DrawContext drawContext, float lastFrameDuration, int mouseX, int mouseY) {
-		renderBackground(drawContext);
+		drawContext.drawTexture(BACKGROUND_TEXTURE, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
 		builder.drawDefaultBackground(drawContext, x, y, xSize, ySize);
@@ -387,6 +386,6 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	public static Sprite getSprite(SpriteIdentifier spriteIdentifier) {
-		return GuiSpriteAtlasHolder.INSTANCE.getSprite(spriteIdentifier.getTextureId());
+		return MinecraftClient.getInstance().getGuiAtlasManager().getSprite(spriteIdentifier.getTextureId());
 	}
 }

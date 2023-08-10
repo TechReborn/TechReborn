@@ -24,18 +24,20 @@
 
 package techreborn.client;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
 import net.minecraft.client.MinecraftClient;
 import reborncore.client.ClientNetworkManager;
 import techreborn.client.gui.GuiManual;
 import techreborn.events.OreDepthSyncHandler;
-import techreborn.world.OreDepth;
 
 import static techreborn.packets.ClientboundPackets.OPEN_MANUAL;
-import static techreborn.packets.ClientboundPackets.ORE_DEPTH;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ClientboundPacketHandlers {
 	public static void init() {
-		ClientNetworkManager.registerClientBoundHandler(ORE_DEPTH, OreDepth.LIST_CODEC, OreDepthSyncHandler::updateDepths);
+		ClientConfigurationNetworking.registerGlobalReceiver(OreDepthSyncHandler.OreDepthPayload.TYPE, (packet, responseSender) -> {
+			OreDepthSyncHandler.updateDepths(packet.oreDepths());
+		});
 
 		ClientNetworkManager.registerClientBoundHandler(OPEN_MANUAL, (client, handler, buf, responseSender) ->
 			client.execute(() ->
