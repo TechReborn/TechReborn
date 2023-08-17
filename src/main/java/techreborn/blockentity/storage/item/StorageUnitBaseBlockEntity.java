@@ -533,8 +533,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@SuppressWarnings("UnstableApiUsage")
-	private Storage<ItemVariant> getInternalStoreStorage(Direction side) {
-		Objects.requireNonNull(side);
+	private Storage<ItemVariant> getInternalStoreStorage(@Nullable Direction direction) {
+		// Quick fix to handle null sides. https://github.com/TechReborn/TechReborn/issues/3175
+		final Direction side = direction != null ? direction : Direction.DOWN;
+
 		if (internalStoreStorage[side.getId()] == null) {
 			internalStoreStorage[side.getId()] = new SingleStackStorage() {
 				@Override
