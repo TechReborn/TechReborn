@@ -32,6 +32,7 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -104,7 +105,7 @@ public class RecipeUtils {
 	public static void addToastDefaults(@NotNull Advancement.Builder builder, @NotNull Identifier recipeId) {
 		Objects.requireNonNull(builder);
 		Objects.requireNonNull(recipeId);
-		builder.parent(new Identifier("recipes/root"))
+		builder.parent(CraftingRecipeJsonBuilder.ROOT)
 			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
 			.rewards(AdvancementRewards.Builder.recipe(recipeId))
 			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR);

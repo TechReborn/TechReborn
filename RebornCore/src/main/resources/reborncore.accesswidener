@@ -4,7 +4,6 @@ accessible    method    net/minecraft/recipe/ShapedRecipe    matchesPattern    (
 
 accessible    class    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder$ShapedRecipeJsonProvider
 accessible    method    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    validate    (Lnet/minecraft/util/Identifier;)V
-accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    advancementBuilder    Lnet/minecraft/advancement/Advancement$Builder;
 accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    output    Lnet/minecraft/item/Item;
 accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    count    I
 accessible    field    net/minecraft/data/server/recipe/ShapedRecipeJsonBuilder    group    Ljava/lang/String;

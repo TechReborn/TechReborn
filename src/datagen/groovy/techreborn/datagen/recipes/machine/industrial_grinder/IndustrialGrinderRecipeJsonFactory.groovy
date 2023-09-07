@@ -24,7 +24,6 @@
 
 package techreborn.datagen.recipes.machine.industrial_grinder
 
-import net.minecraft.util.Identifier
 import reborncore.common.fluid.FluidValue
 import reborncore.common.fluid.container.FluidInstance
 import techreborn.api.recipe.recipes.IndustrialGrinderRecipe
@@ -50,7 +49,7 @@ class IndustrialGrinderRecipeJsonFactory extends MachineRecipeWithFluidJsonFacto
 	}
 
 	@Override
-	protected IndustrialGrinderRecipe createRecipe(Identifier identifier) {
-		return new IndustrialGrinderRecipe(ModRecipes.INDUSTRIAL_GRINDER, identifier, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
+	protected IndustrialGrinderRecipe createRecipe() {
+		return new IndustrialGrinderRecipe(ModRecipes.INDUSTRIAL_GRINDER, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
 	}
 }

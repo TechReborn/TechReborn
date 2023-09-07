@@ -54,8 +54,8 @@ class BlastFurnaceRecipeJsonFactory extends MachineRecipeJsonFactory<BlastFurnac
 	}
 
 	@Override
-	protected BlastFurnaceRecipe createRecipe(Identifier identifier) {
-		return new BlastFurnaceRecipe(type, identifier, ingredients, outputs, power, time, heat)
+	protected BlastFurnaceRecipe createRecipe() {
+		return new BlastFurnaceRecipe(type, ingredients, outputs, power, time, heat)
 	}
 
 	@Override

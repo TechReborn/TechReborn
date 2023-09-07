@@ -181,8 +181,8 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	/**
 	 * Override this method to support custom recipe types.
 	 */
-	protected R createRecipe(Identifier identifier) {
-		return new RebornRecipe(type, identifier, ingredients, outputs, power, time) as R
+	protected R createRecipe() {
+		return new RebornRecipe(type, ingredients, outputs, power, time) as R
 	}
 
 	protected void validate() {
@@ -227,7 +227,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		RecipeUtils.addToastDefaults(builder, recipeId)
-		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), recipeId, advancementId, builder, conditions))
+		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(), recipeId, advancementId, builder, conditions))
 	}
 
 	def getIdentifier() {

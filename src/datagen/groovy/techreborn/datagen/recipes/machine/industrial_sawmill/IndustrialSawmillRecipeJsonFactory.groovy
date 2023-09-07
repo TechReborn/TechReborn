@@ -51,7 +51,7 @@ class IndustrialSawmillRecipeJsonFactory extends MachineRecipeWithFluidJsonFacto
 	}
 
 	@Override
-	protected IndustrialSawmillRecipe createRecipe(Identifier identifier) {
-		return new IndustrialSawmillRecipe(ModRecipes.INDUSTRIAL_SAWMILL, identifier, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
+	protected IndustrialSawmillRecipe createRecipe() {
+		return new IndustrialSawmillRecipe(ModRecipes.INDUSTRIAL_SAWMILL, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
 	}
 }
