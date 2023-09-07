@@ -27,6 +27,8 @@ package techreborn.datagen.advancement
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
 import net.minecraft.advancement.Advancement
+import net.minecraft.advancement.AdvancementCriterion
+import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
 import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
@@ -44,14 +46,14 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
 class TRAdvancementProvider extends FabricAdvancementProvider {
-	private Consumer<Advancement> consumer
+	private Consumer<AdvancementEntry> consumer
 
 	public TRAdvancementProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 		super(output)
 	}
 
 	@Override
-	void generateAdvancement(Consumer<Advancement> consumer) {
+	void generateAdvancement(Consumer<AdvancementEntry> consumer) {
 		this.consumer = consumer
 
 		def root = create {
@@ -67,7 +69,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		treeTapTree(root)
 	}
 
-	private void refinedIronTree(Advancement root) {
+	private void refinedIronTree(AdvancementEntry root) {
 		def refinediron = create {
 			parent root
 			name "refinediron"
@@ -139,7 +141,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		solarTree(machineBlock)
 	}
 
-	private void solarTree(Advancement root) {
+	private void solarTree(AdvancementEntry root) {
 		def basicSolar = create {
 			parent root
 			name "basicsolar"
@@ -179,7 +181,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		}
 	}
 
-	private void treeTapTree(Advancement root) {
+	private void treeTapTree(AdvancementEntry root) {
 		def treeTap = create {
 			parent root
 			name "treetap"
@@ -273,7 +275,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		}
 	}
 
-	private void machineTree(Advancement root) {
+	private void machineTree(AdvancementEntry root) {
 		def ironFurnace = create {
 			parent root
 			name "ironfurnace"
@@ -347,7 +349,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		advancedMachineTreeTree(ironFurnace)
 	}
 
-	private void advancedMachineTreeTree(Advancement root) {
+	private void advancedMachineTreeTree(AdvancementEntry root) {
 		def advancedMachineBlock = create {
 			parent root
 			name "advancedmachineblock"
@@ -460,19 +462,19 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		}
 	}
 
-	private static CriterionConditions placedBlock(Block block) {
+	private static AdvancementCriterion<ItemCriterion.Conditions> placedBlock(Block block) {
 		return ItemCriterion.Conditions.createPlacedBlock(block)
 	}
 
-	private static CriterionConditions inventoryChanged(ItemConvertible... items) {
+	private static AdvancementCriterion<InventoryChangedCriterion.Conditions> inventoryChanged(ItemConvertible... items) {
 		return InventoryChangedCriterion.Conditions.items(items)
 	}
 
-	private static CriterionConditions inventoryChanged(TagKey<Item> tag) {
+	private static AdvancementCriterion<InventoryChangedCriterion.Conditions> inventoryChanged(TagKey<Item> tag) {
 		return InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(tag))
 	}
 
-	private Advancement create(@DelegatesTo(value = AdvancementFactory.class) Closure closure) {
+	private AdvancementEntry create(@DelegatesTo(value = AdvancementFactory.class) Closure closure) {
 		def factory = new AdvancementFactory()
 		closure.setDelegate(factory)
 		closure.call(factory)

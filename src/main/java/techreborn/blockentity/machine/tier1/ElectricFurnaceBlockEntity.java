@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.util.math.BlockPos;
@@ -81,7 +82,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			resetCrafter();
 			return;
 		}
-		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, world);
+		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, world).map(RecipeEntry::value);
 		if (!testRecipe.isPresent()) {
 			resetCrafter();
 			return;
@@ -91,12 +92,12 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		}
 		currentRecipe = testRecipe.get();
 		cookTime = 0;
-		cookTimeTotal = Math.max((int) (currentRecipe.getCookTime() * (1.0 - getSpeedMultiplier())), 1);
+		cookTimeTotal = Math.max((int) (currentRecipe.getCookingTime() * (1.0 - getSpeedMultiplier())), 1);
 		updateState();
 	}
 
 	private boolean canAcceptOutput(SmeltingRecipe recipe, int slot) {
-		ItemStack recipeOutput = recipe.getOutput(getWorld().getRegistryManager());
+		ItemStack recipeOutput = recipe.getResult(getWorld().getRegistryManager());
 		if (recipeOutput.isEmpty()) {
 			return false;
 		}
@@ -119,7 +120,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (!canAcceptOutput(currentRecipe, outputSlot)) {
 			return false;
 		}
-		return !(getEnergy() < currentRecipe.getCookTime() * getEuPerTick(EnergyPerTick));
+		return !(getEnergy() < currentRecipe.getCookingTime() * getEuPerTick(EnergyPerTick));
 	}
 
 	private void resetCrafter() {
@@ -159,7 +160,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		}
 		ItemStack outputStack = inventory.getStack(outputSlot);
 		if (outputStack.isEmpty()) {
-			inventory.setStack(outputSlot, recipe.getOutput(getWorld().getRegistryManager()).copy());
+			inventory.setStack(outputSlot, recipe.getResult(getWorld().getRegistryManager()).copy());
 		} else {
 			// Just increment. We already checked stack match and stack size
 			outputStack.increment(1);

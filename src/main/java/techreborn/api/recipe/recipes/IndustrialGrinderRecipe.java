@@ -26,7 +26,6 @@ package techreborn.api.recipe.recipes;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
@@ -37,8 +36,8 @@ import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
 import java.util.List;
 
 public class IndustrialGrinderRecipe extends RebornFluidRecipe {
-	public IndustrialGrinderRecipe(RebornRecipeType<IndustrialGrinderRecipe> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
-		super(type, name, ingredients, outputs, power, time, fluid);
+	public IndustrialGrinderRecipe(RebornRecipeType<IndustrialGrinderRecipe> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
+		super(type, ingredients, outputs, power, time, fluid);
 	}
 
 	@Override

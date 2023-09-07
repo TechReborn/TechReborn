@@ -346,7 +346,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		if (recipe == null) {
 			return ItemStack.EMPTY;
 		}
-		return recipe.getOutput(getWorld().getRegistryManager());
+		return recipe.getResult(getWorld().getRegistryManager());
 	}
 
 	public RollingMachineRecipe findMatchingRecipe(CraftingInventory inv, World world) {

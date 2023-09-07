@@ -26,7 +26,6 @@ package techreborn.api.recipe.recipes.serde;
 
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
@@ -37,9 +36,9 @@ import java.util.List;
 
 public class BlastFurnaceRecipeSerde extends RebornRecipeSerde<BlastFurnaceRecipe> {
 	@Override
-	protected BlastFurnaceRecipe fromJson(JsonObject jsonObject, RebornRecipeType<BlastFurnaceRecipe> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+	protected BlastFurnaceRecipe fromJson(JsonObject jsonObject, RebornRecipeType<BlastFurnaceRecipe> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		final int heat = JsonHelper.getInt(jsonObject, "heat");
-		return new BlastFurnaceRecipe(type, name, ingredients, outputs, power, time, heat);
+		return new BlastFurnaceRecipe(type, ingredients, outputs, power, time, heat);
 	}
 
 	@Override

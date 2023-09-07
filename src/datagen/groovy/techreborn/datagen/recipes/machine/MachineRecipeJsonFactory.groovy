@@ -29,7 +29,11 @@ import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancement.Advancement.Builder
+import net.minecraft.advancement.AdvancementCriterion
+import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.criterion.CriterionConditions
+import net.minecraft.advancement.criterion.InventoryChangedCriterion
+import net.minecraft.data.server.recipe.RecipeExporter
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
@@ -199,12 +203,12 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 	}
 
-	MachineRecipeJsonFactory<R> criterion(String string, CriterionConditions criterionConditions) {
-		builder.criterion(string, criterionConditions)
+	MachineRecipeJsonFactory<R> criterion(String string, AdvancementCriterion<InventoryChangedCriterion.Conditions> criterion) {
+		builder.criterion(string, criterion)
 		return this
 	}
 
-	void offerTo(Consumer<RecipeJsonProvider> exporter) {
+	void offerTo(RecipeExporter exporter) {
 		validate()
 		def recipeId = getIdentifier()
 
@@ -223,7 +227,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		RecipeUtils.addToastDefaults(builder, recipeId)
-		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), advancementId, builder, conditions))
+		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(recipeId), recipeId, advancementId, builder, conditions))
 	}
 
 	def getIdentifier() {
@@ -246,13 +250,15 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	static class MachineRecipeJsonProvider<R extends RebornRecipe> implements RecipeJsonProvider {
 		private final RebornRecipeType<R> type
 		private final R recipe
+		private final Identifier recipeId
 		private final Identifier advancementId
 		private final Builder builder
 		private final List<ConditionJsonProvider> conditions
 
-		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe, Identifier advancementId, Builder builder, List<ConditionJsonProvider> conditions) {
+		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe, Identifier recipeId, Identifier advancementId, Builder builder, List<ConditionJsonProvider> conditions) {
 			this.type = type
 			this.recipe = recipe
+			this.recipeId = recipeId
 			this.advancementId = advancementId
 			this.builder = builder
 			this.conditions = conditions
@@ -268,8 +274,8 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 
 		@Override
-		Identifier getRecipeId() {
-			return recipe.id
+		Identifier id() {
+			return recipeId
 		}
 
 		@Override
@@ -278,20 +284,15 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 
 		@Override
-		RecipeSerializer<?> getSerializer() {
+		RecipeSerializer<?> serializer() {
 			throw new UnsupportedOperationException()
 		}
 
 		@Override
-		JsonObject toAdvancementJson() {
+		AdvancementEntry advancement() {
 			if (builder == null)
 				return null
-			return builder.toJson()
-		}
-
-		@Override
-		Identifier getAdvancementId() {
-			return advancementId
+			return builder.build(advancementId)
 		}
 	}
 }

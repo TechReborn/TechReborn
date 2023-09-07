@@ -26,7 +26,6 @@ package reborncore.common.crafting.serde;
 
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
@@ -36,16 +35,16 @@ import java.util.List;
 public abstract class RebornRecipeSerde<R extends RebornRecipe> extends AbstractRecipeSerde<R> {
 	public static final RebornRecipeSerde<RebornRecipe> BASIC = create(RebornRecipe::new);
 
-	protected abstract R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time);
+	protected abstract R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time);
 
 	@Override
-	public final R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name) {
+	public final R fromJson(JsonObject jsonObject, RebornRecipeType<R> type) {
 		final int power = getPower(jsonObject);
 		final int time = getTime(jsonObject);
 		final List<RebornIngredient> ingredients = getIngredients(jsonObject);
 		final List<ItemStack> outputs = getOutputs(jsonObject);
 
-		return fromJson(jsonObject, type, name, ingredients, outputs, power, time);
+		return fromJson(jsonObject, type, ingredients, outputs, power, time);
 	}
 
 	protected abstract void collectJsonData(R recipe, JsonObject jsonObject, boolean networkSync);
@@ -63,8 +62,8 @@ public abstract class RebornRecipeSerde<R extends RebornRecipe> extends Abstract
 	public static <R extends RebornRecipe> RebornRecipeSerde<R> create(SimpleRecipeFactory<R> factory) {
 		return new RebornRecipeSerde<R>() {
 			@Override
-			protected R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
-				return factory.create(type, name, ingredients, outputs, power, time);
+			protected R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+				return factory.create(type, ingredients, outputs, power, time);
 			}
 
 			@Override
@@ -74,6 +73,6 @@ public abstract class RebornRecipeSerde<R extends RebornRecipe> extends Abstract
 	}
 
 	public interface SimpleRecipeFactory<R extends RebornRecipe> {
-		R create(RebornRecipeType<R> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time);
+		R create(RebornRecipeType<R> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time);
 	}
 }

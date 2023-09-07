@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -105,14 +106,14 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		Recipe<?> matchingRecipe = refreshRecipe(stack);
 
 		if (matchingRecipe != null) {
-			return matchingRecipe.getOutput(getWorld().getRegistryManager()).copy();
+			return matchingRecipe.getResult(getWorld().getRegistryManager()).copy();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
 	private float getExperienceFor() {
-		Optional<SmeltingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, this, world);
+		Optional<SmeltingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, this, world).map(RecipeEntry::value);
 		return recipe.map(AbstractCookingRecipe::getExperience).orElse(0F);
 	}
 
@@ -173,7 +174,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 		if (recipe != null) {
 			try {
-				cookingTime = ((SmeltingRecipe) recipe).getCookTime();
+				cookingTime = ((SmeltingRecipe) recipe).getCookingTime();
 			} catch (ClassCastException ex) {
 				// Intentionally ignored
 				System.out.println("Not a smelting recipe!");

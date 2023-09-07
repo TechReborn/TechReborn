@@ -34,7 +34,6 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -47,16 +46,14 @@ import java.util.*;
 
 public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	private final RebornRecipeType<?> type;
-	private final Identifier name;
 
 	private final List<RebornIngredient> ingredients;
 	private final List<ItemStack> outputs;
 	protected final int power;
 	protected final int time;
 
-	public RebornRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+	public RebornRecipe(RebornRecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		this.type = type;
-		this.name = name;
 		this.ingredients = ingredients;
 		this.outputs = outputs;
 		this.power = power;
@@ -71,11 +68,6 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		else
 			RebornCore.LOGGER.warn("Missing toast icon for {}!", type.name());
 		return Recipe.super.createIcon();
-	}
-
-	@Override
-	public Identifier getId() {
-		return name;
 	}
 
 	@Override
@@ -161,7 +153,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	 */
 	@Deprecated
 	@Override
-	public ItemStack getOutput(DynamicRegistryManager dynamicRegistryManager) {
+	public ItemStack getResult(DynamicRegistryManager dynamicRegistryManager) {
 		if (outputs.isEmpty()) {
 			return ItemStack.EMPTY;
 		}

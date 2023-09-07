@@ -26,8 +26,10 @@ package techreborn.datagen.recipes
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
+import net.minecraft.advancement.AdvancementCriterion
 import net.minecraft.advancement.criterion.CriterionConditions
-import net.minecraft.data.server.recipe.RecipeJsonProvider
+import net.minecraft.advancement.criterion.InventoryChangedCriterion
+import net.minecraft.data.server.recipe.RecipeExporter
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
@@ -44,10 +46,9 @@ import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRe
 import techreborn.init.ModRecipes
 
 import java.util.concurrent.CompletableFuture
-import java.util.function.Consumer
 
 abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
-	protected Consumer<RecipeJsonProvider> exporter
+	protected RecipeExporter exporter
 	public Set<Identifier> exportedRecipes = []
 
 	TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
@@ -55,7 +56,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	final void generate(Consumer<RecipeJsonProvider> exporter) {
+	final void generate(RecipeExporter exporter) {
 		this.exporter = exporter
 		generateRecipes()
 	}
@@ -85,7 +86,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		throw new IllegalArgumentException()
 	}
 
-	static CriterionConditions getCriterionConditions(def input) {
+	static AdvancementCriterion<InventoryChangedCriterion.Conditions> getCriterionConditions(def input) {
 		if (input instanceof ItemConvertible) {
 			return conditionsFromItem(input)
 		} else if (input instanceof TagKey) {

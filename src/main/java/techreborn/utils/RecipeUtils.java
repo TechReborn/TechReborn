@@ -24,17 +24,18 @@
 
 package techreborn.utils;
 
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class RecipeUtils {
-	public static <T extends Recipe<?>> Optional<Recipe<?>> getMatchingRecipe(World world, RecipeType<T> type, ItemStack input) {
+	public static <C extends Inventory, T extends Recipe<C>> Optional<T> getMatchingRecipe(World world, RecipeType<T> type, ItemStack input) {
 		return getRecipes(world, type).stream()
 				.filter(recipe -> matchesSingleInput(recipe, input))
 				.findFirst();
@@ -44,7 +45,11 @@ public class RecipeUtils {
 		return recipe.getIngredients().size() == 1 && recipe.getIngredients().get(0).test(input);
 	}
 
-	public static <T extends Recipe<?>> List<Recipe<?>> getRecipes(World world, RecipeType<T> type) {
-		return world.getRecipeManager().values().stream().filter(iRecipe -> iRecipe.getType() == type).collect(Collectors.toList());
+	public static <C extends Inventory, T extends Recipe<C>> List<T> getRecipes(World world, RecipeType<T> type) {
+		return world.getRecipeManager().getAllOfType(type).values().stream().map(RecipeEntry::value).toList();
+	}
+
+	public static <C extends Inventory, T extends Recipe<C>> List<RecipeEntry<T>> getRecipeEntries(World world, RecipeType<T> type) {
+		return world.getRecipeManager().getAllOfType(type).values().stream().toList();
 	}
 }

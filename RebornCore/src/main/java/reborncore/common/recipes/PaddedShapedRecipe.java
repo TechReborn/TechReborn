@@ -24,7 +24,7 @@
 
 package reborncore.common.recipes;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
@@ -34,35 +34,38 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-import java.util.Map;
 
 public class PaddedShapedRecipe extends ShapedRecipe {
 	public static final Identifier ID = new Identifier("reborncore", "padded");
 	public static final RecipeSerializer<ShapedRecipe> PADDED = Registry.register(Registries.RECIPE_SERIALIZER, ID, new Serializer());
 
-	public PaddedShapedRecipe(Identifier id, String group, CraftingRecipeCategory category, int width, int height, DefaultedList<Ingredient> input, ItemStack output) {
-		super(id, group, category, width, height, input, output);
+	public PaddedShapedRecipe(String group, CraftingRecipeCategory category, int width, int height, DefaultedList<Ingredient> input, ItemStack output) {
+		super(group, category, width, height, input, output);
 	}
 
 	private static class Serializer extends ShapedRecipe.Serializer {
 		@Override
-		public PaddedShapedRecipe read(Identifier identifier, JsonObject jsonObject) {
-			String group = JsonHelper.getString(jsonObject, "group", "");
-			CraftingRecipeCategory category = CraftingRecipeCategory.CODEC.byId(JsonHelper.getString(jsonObject, "category", null), CraftingRecipeCategory.MISC);
-			Map<String, Ingredient> map = readSymbols(JsonHelper.getObject(jsonObject, "key"));
-			String[] strings = getPattern(JsonHelper.getArray(jsonObject, "pattern"));
-
-			int width = strings[0].length();
-			int height = strings.length;
-
-			DefaultedList<Ingredient> ingredients = createPatternMatrix(strings, map, width, height);
-			ItemStack output = outputFromJson(JsonHelper.getObject(jsonObject, "result"));
-			return new PaddedShapedRecipe(identifier, group, category, width, height, ingredients, output);
+		public Codec<ShapedRecipe> codec() {
+			return super.codec();
 		}
+
+//		@Override
+//		public PaddedShapedRecipe read(Identifier identifier, JsonObject jsonObject) {
+//			String group = JsonHelper.getString(jsonObject, "group", "");
+//			CraftingRecipeCategory category = CraftingRecipeCategory.CODEC.byId(JsonHelper.getString(jsonObject, "category", null), CraftingRecipeCategory.MISC);
+//			Map<String, Ingredient> map = readSymbols(JsonHelper.getObject(jsonObject, "key"));
+//			String[] strings = getPattern(JsonHelper.getArray(jsonObject, "pattern"));
+//
+//			int width = strings[0].length();
+//			int height = strings.length;
+//
+//			DefaultedList<Ingredient> ingredients = createPatternMatrix(strings, map, width, height);
+//			ItemStack output = outputFromJson(JsonHelper.getObject(jsonObject, "result"));
+//			return new PaddedShapedRecipe(identifier, group, category, width, height, ingredients, output);
+//		}
 	}
 
 	@Override

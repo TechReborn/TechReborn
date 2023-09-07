@@ -24,37 +24,34 @@
 
 package techreborn.events;
 
-import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.RecipeUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TRRecipeHandler {
 
 
 	public static void unlockTRRecipes(ServerPlayerEntity playerMP) {
-		List<Recipe<?>> recipeList = new ArrayList<>();
-		for (Recipe<?> recipe : RecipeUtils.getRecipes(playerMP.getWorld(), RecipeType.CRAFTING)) {
-			if (isRecipeValid(recipe)) {
-				recipeList.add(recipe);
-			}
-		}
+		Identifier[] recipeList = RecipeUtils.getRecipeEntries(playerMP.getWorld(), RecipeType.CRAFTING).stream()
+			.filter(TRRecipeHandler::isRecipeValid)
+			.map(RecipeEntry::id)
+			.toArray(Identifier[]::new);
 		playerMP.unlockRecipes(recipeList);
 	}
 
-	private static boolean isRecipeValid(Recipe<?> recipe) {
-		if (recipe.getId() == null) {
+	private static boolean isRecipeValid(RecipeEntry<CraftingRecipe> recipe) {
+		if (recipe.id() == null) {
 			return false;
 		}
-		if (!recipe.getId().getNamespace().equals(TechReborn.MOD_ID)) {
+		if (!recipe.id().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
-		return recipe.getIngredients().stream().noneMatch(ingredient -> ingredient.test(TRContent.Parts.UU_MATTER.getStack()));
+		return recipe.value().getIngredients().stream().noneMatch(ingredient -> ingredient.test(TRContent.Parts.UU_MATTER.getStack()));
 	}
 
 }

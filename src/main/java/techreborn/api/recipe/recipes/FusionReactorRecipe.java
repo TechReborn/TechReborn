@@ -26,7 +26,6 @@ package techreborn.api.recipe.recipes;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
@@ -42,8 +41,8 @@ public class FusionReactorRecipe extends RebornRecipe {
 	private final int startE;
 	private final int minSize;
 
-	public FusionReactorRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) {
-		super(type, name, ingredients, outputs, power, time);
+	public FusionReactorRecipe(RebornRecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) {
+		super(type, ingredients, outputs, power, time);
 		this.startE = startE;
 		this.minSize = minSize;
 	}

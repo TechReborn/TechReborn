@@ -26,7 +26,6 @@ package reborncore.common.crafting;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.fluid.container.FluidInstance;
@@ -38,8 +37,8 @@ public abstract class RebornFluidRecipe extends RebornRecipe {
 	@NotNull
 	private final FluidInstance fluidInstance;
 
-	public RebornFluidRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance) {
-		super(type, name, ingredients, outputs, power, time);
+	public RebornFluidRecipe(RebornRecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance) {
+		super(type, ingredients, outputs, power, time);
 		this.fluidInstance = fluidInstance;
 	}
 

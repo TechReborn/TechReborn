@@ -25,6 +25,8 @@
 package techreborn.datagen.advancement
 
 import net.minecraft.advancement.Advancement
+import net.minecraft.advancement.AdvancementCriterion
+import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
 import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.item.ItemConvertible
@@ -36,8 +38,8 @@ class AdvancementFactory {
 	private String name
 	private ItemStack icon
 	private AdvancementFrame frame = AdvancementFrame.TASK
-	private List<CriterionConditions> conditionsList = []
-	private Advancement parent
+	private List<AdvancementCriterion<? extends CriterionConditions>> conditionsList = []
+	private AdvancementEntry parent
 	private Identifier background
 	private boolean hidden = false
 
@@ -57,11 +59,11 @@ class AdvancementFactory {
 		this.frame = frame
 	}
 
-	void condition(CriterionConditions condition) {
+	void condition(AdvancementCriterion<? extends CriterionConditions> condition) {
 		this.conditionsList << condition
 	}
 
-	void parent(Advancement advancement) {
+	void parent(AdvancementEntry advancement) {
 		this.parent = advancement
 	}
 
@@ -73,7 +75,7 @@ class AdvancementFactory {
 		this.hidden = hidden
 	}
 
-	Advancement build() {
+	AdvancementEntry build() {
 		Objects.requireNonNull(name, "No name set")
 		assert conditionsList.size() > 0
 

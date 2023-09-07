@@ -82,7 +82,9 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 
 	@Override
 	public Optional<Identifier> getDisplayLocation() {
-		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
+		// TODO 1.20.2
+		return Optional.empty();
+//		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
 	}
 
 	@Override

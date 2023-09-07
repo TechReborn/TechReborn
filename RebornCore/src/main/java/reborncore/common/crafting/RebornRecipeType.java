@@ -24,16 +24,19 @@
 
 package reborncore.common.crafting;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.common.crafting.serde.RecipeSerde;
-import reborncore.common.crafting.serde.RecipeSerdeException;
 import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.List;
@@ -43,36 +46,33 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		Identifier name) implements RecipeType<R>, RecipeSerializer<R> {
 
 	@Override
-	public R read(Identifier recipeId, JsonObject json) {
+	public Codec<R> codec() {
+		return Codecs.fromJsonSerializer(this::read, r -> toJson(r, false));
+	}
+
+	private R read(JsonElement jsonElement) {
+		JsonObject json = JsonHelper.asObject(jsonElement, "recipe");
 		Identifier type = new Identifier(JsonHelper.getString(json, "type"));
 		if (!type.equals(name)) {
 			throw new RuntimeException("RebornRecipe type not supported!");
 		}
 
-		try {
-			return recipeSerde.fromJson(json, this, recipeId);
-		} catch (Throwable e) {
-			throw new RecipeSerdeException(recipeId, e);
-		}
+		return recipeSerde.fromJson(json, this);
 	}
 
 	public JsonObject toJson(R recipe, boolean networkSync) {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", name.toString());
 
-		try {
-			recipeSerde.toJson(recipe, jsonObject, networkSync);
-		} catch (Throwable e) {
-			throw new RecipeSerdeException(recipe.getId(), e);
-		}
+		recipeSerde.toJson(recipe, jsonObject, networkSync);
 
 		return jsonObject;
 	}
 
 	@Override
-	public R read(Identifier recipeId, PacketByteBuf buffer) {
+	public R read(PacketByteBuf buffer) {
 		String jsonSize = buffer.readString(buffer.readInt());
-		return read(recipeId, SerializationUtil.GSON_FLAT.fromJson(jsonSize, JsonObject.class));
+		return read(SerializationUtil.GSON_FLAT.fromJson(jsonSize, JsonObject.class));
 	}
 
 	@Override
@@ -81,7 +81,6 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		// Add more info to debug weird mods
 		if (output.length() > PacketByteBuf.DEFAULT_MAX_STRING_LENGTH) {
 			RebornCore.LOGGER.error("Recipe output string is too big. This breaks recipe books!");
-			RebornCore.LOGGER.error("Recipe is:" + recipe.getId().toString());
 			RebornCore.LOGGER.error("Output is:" + output);
 		}
 		buffer.writeInt(output.length());
@@ -90,5 +89,9 @@ public record RebornRecipeType<R extends RebornRecipe>(
 
 	public List<R> getRecipes(World world) {
 		return RecipeUtils.getRecipes(world, this);
+	}
+
+	public List<RecipeEntry<R>> getRecipeEntries(World world) {
+		return RecipeUtils.getRecipeEntries(world, this);
 	}
 }

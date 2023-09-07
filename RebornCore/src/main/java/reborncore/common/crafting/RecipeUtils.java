@@ -29,14 +29,15 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
-import net.minecraft.advancement.CriterionMerger;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -48,10 +49,19 @@ import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class RecipeUtils {
 	public static <T extends RebornRecipe> List<T> getRecipes(World world, RebornRecipeType<T> type) {
-		return (List<T>) world.getRecipeManager().getAllOfType(type).values().stream().toList();
+		return streamRecipeEntries(world, type).map(RecipeEntry::value).toList();
+	}
+
+	public static <T extends RebornRecipe> List<RecipeEntry<T>> getRecipeEntries(World world, RebornRecipeType<T> type) {
+		return streamRecipeEntries(world, type).toList();
+	}
+
+	private static <T extends RebornRecipe> Stream<RecipeEntry<T>> streamRecipeEntries(World world, RebornRecipeType<T> type) {
+		return world.getRecipeManager().getAllOfType(type).values().stream();
 	}
 
 	public static DefaultedList<ItemStack> deserializeItems(JsonElement jsonObject) {
@@ -97,7 +107,7 @@ public class RecipeUtils {
 		builder.parent(new Identifier("recipes/root"))
 			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
 			.rewards(AdvancementRewards.Builder.recipe(recipeId))
-			.criteriaMerger(CriterionMerger.OR);
+			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
 	}
 
 }

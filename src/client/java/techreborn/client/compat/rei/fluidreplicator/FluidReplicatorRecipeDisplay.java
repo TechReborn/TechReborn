@@ -30,7 +30,6 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.CollectionUtils;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.util.Identifier;
-import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 
@@ -88,6 +87,8 @@ public class FluidReplicatorRecipeDisplay implements Display {
 
 	@Override
 	public Optional<Identifier> getDisplayLocation() {
-		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
+		// TODO 1.20.2
+		return Optional.empty();
+//		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
 	}
 }

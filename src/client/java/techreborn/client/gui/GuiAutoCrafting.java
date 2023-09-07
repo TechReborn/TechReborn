@@ -74,7 +74,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 
 		CraftingRecipe recipe = blockEntityAutoCraftingTable.getCurrentRecipe();
 		if (recipe != null) {
-			renderItemStack(drawContext, recipe.getOutput(getMachine().getWorld().getRegistryManager()), 95 + getGuiLeft(), 42 + getGuiTop());
+			renderItemStack(drawContext, recipe.getResult(getMachine().getWorld().getRegistryManager()), 95 + getGuiLeft(), 42 + getGuiTop());
 		}
 
 		builder.drawLockButton(drawContext, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);

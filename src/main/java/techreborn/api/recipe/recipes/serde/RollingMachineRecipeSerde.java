@@ -24,14 +24,16 @@
 
 package techreborn.api.recipe.recipes.serde;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.Util;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.crafting.ShapedRecipeHelper;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.crafting.serde.RebornRecipeSerde;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
@@ -42,15 +44,19 @@ import java.util.Objects;
 
 public class RollingMachineRecipeSerde extends RebornRecipeSerde<RollingMachineRecipe> {
 	@Override
-	protected RollingMachineRecipe fromJson(JsonObject jsonObject, RebornRecipeType<RollingMachineRecipe> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+	protected RollingMachineRecipe fromJson(JsonObject jsonObject, RebornRecipeType<RollingMachineRecipe> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		final JsonObject shapedRecipeJson = JsonHelper.getObject(jsonObject, "shaped");
-		final ShapedRecipe shapedRecipe = RecipeSerializer.SHAPED.read(name, shapedRecipeJson);
-		return new RollingMachineRecipe(type, name, ingredients, outputs, power, time, shapedRecipe, shapedRecipeJson);
+		final ShapedRecipe shapedRecipe = Util.getResult(RecipeSerializer.SHAPED.codec().parse(JsonOps.INSTANCE, shapedRecipeJson), JsonParseException::new);
+		return new RollingMachineRecipe(type, ingredients, outputs, power, time, shapedRecipe, shapedRecipeJson);
 	}
 
 	@Override
 	public void collectJsonData(RollingMachineRecipe recipe, JsonObject jsonObject, boolean networkSync) {
-		final JsonObject shapedRecipeJson = networkSync ? ShapedRecipeHelper.rewriteForNetworkSync(recipe.getShapedRecipeJson()) : recipe.getShapedRecipeJson();
+		final JsonElement shapedRecipeJson = networkSync ? RecipeSerializer.SHAPED.codec()
+																.encodeStart(JsonOps.INSTANCE, recipe.getShapedRecipe())
+																.result()
+																.orElseThrow()
+														: recipe.getShapedRecipeJson();
 		jsonObject.add("shaped", Objects.requireNonNull(shapedRecipeJson));
 	}
 

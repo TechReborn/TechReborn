@@ -31,7 +31,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
@@ -45,8 +44,8 @@ public class RollingMachineRecipe extends RebornRecipe {
 	private final ShapedRecipe shapedRecipe;
 	private final JsonObject shapedRecipeJson;
 
-	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe, JsonObject shapedRecipeJson) {
-		super(type, name, ingredients, outputs, power, time);
+	public RollingMachineRecipe(RebornRecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe, JsonObject shapedRecipeJson) {
+		super(type, ingredients, outputs, power, time);
 		this.shapedRecipe = shapedRecipe;
 		this.shapedRecipeJson = shapedRecipeJson;
 	}
@@ -58,12 +57,12 @@ public class RollingMachineRecipe extends RebornRecipe {
 
 	@Override
 	public List<ItemStack> getOutputs(DynamicRegistryManager registryManager) {
-		return Collections.singletonList(shapedRecipe.getOutput(registryManager));
+		return Collections.singletonList(shapedRecipe.getResult(registryManager));
 	}
 
 	@Override
-	public ItemStack getOutput(DynamicRegistryManager registryManager) {
-		return shapedRecipe.getOutput(registryManager);
+	public ItemStack getResult(DynamicRegistryManager registryManager) {
+		return shapedRecipe.getResult(registryManager);
 	}
 
 	@Override

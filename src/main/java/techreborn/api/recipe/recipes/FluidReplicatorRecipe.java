@@ -28,7 +28,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipeType;
@@ -41,8 +40,8 @@ import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 import java.util.List;
 
 public class FluidReplicatorRecipe extends RebornFluidRecipe {
-	public FluidReplicatorRecipe(RebornRecipeType<?> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
-		super(type, name, ingredients, outputs, power, time, fluid);
+	public FluidReplicatorRecipe(RebornRecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
+		super(type, ingredients, outputs, power, time, fluid);
 	}
 
 	@Override

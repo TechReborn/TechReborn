@@ -40,10 +40,10 @@ import reborncore.common.fluid.container.FluidInstance;
 import java.util.List;
 
 public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extends RebornRecipeSerde<R> {
-	protected abstract R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance);
+	protected abstract R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance);
 
 	@Override
-	protected final R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+	protected final R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		final JsonObject tank = JsonHelper.getObject(jsonObject, "tank");
 		final Identifier identifier = new Identifier(JsonHelper.getString(tank, "fluid"));
 		final Fluid fluid = Registries.FLUID.get(identifier);
@@ -55,7 +55,7 @@ public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extend
 
 		FluidInstance fluidInstance = new FluidInstance(fluid, value);
 
-		return fromJson(jsonObject, type, name, ingredients, outputs, power, time, fluidInstance);
+		return fromJson(jsonObject, type, ingredients, outputs, power, time, fluidInstance);
 	}
 
 	@Override
@@ -73,13 +73,13 @@ public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extend
 	public static <R extends RebornFluidRecipe> RebornFluidRecipeSerde<R> create(SimpleFluidRecipeFactory<R> factory) {
 		return new RebornFluidRecipeSerde<>() {
 			@Override
-			protected R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance) {
-				return factory.create(type, name, ingredients, outputs, power, time, fluidInstance);
+			protected R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance) {
+				return factory.create(type, ingredients, outputs, power, time, fluidInstance);
 			}
 		};
 	}
 
 	public interface SimpleFluidRecipeFactory<R extends RebornFluidRecipe> {
-		R create(RebornRecipeType<R> type, Identifier name, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance);
+		R create(RebornRecipeType<R> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance);
 	}
 }

@@ -32,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
@@ -104,7 +105,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		layoutInv = currentInvLayout;
 
-		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world);
+		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
 			return lastRecipe;
@@ -160,7 +161,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!recipe.matches(crafting, world)) return false;
 
-		if (!hasOutputSpace(recipe.getOutput(getWorld().getRegistryManager()), OUTPUT_SLOT)) return false;
+		if (!hasOutputSpace(recipe.getResult(getWorld().getRegistryManager()), OUTPUT_SLOT)) return false;
 
 		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
 		for (ItemStack stack : remainingStacks) {
@@ -229,7 +230,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (output.isEmpty()) {
 			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
 		} else {
-			output.increment(recipe.getOutput(getWorld().getRegistryManager()).getCount());
+			output.increment(recipe.getResult(getWorld().getRegistryManager()).getCount());
 		}
 		return true;
 	}

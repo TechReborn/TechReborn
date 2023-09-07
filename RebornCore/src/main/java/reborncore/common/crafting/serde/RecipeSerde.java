@@ -25,12 +25,11 @@
 package reborncore.common.crafting.serde;
 
 import com.google.gson.JsonObject;
-import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 
 public interface RecipeSerde<R extends RebornRecipe> {
-	R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, Identifier name);
+	R fromJson(JsonObject jsonObject, RebornRecipeType<R> type);
 
 	void toJson(R recipe, JsonObject jsonObject, boolean networkSync);
 }
