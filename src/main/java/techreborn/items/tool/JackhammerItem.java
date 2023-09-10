@@ -39,6 +39,8 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.ToolsUtil;
+import techreborn.init.TRContent;
+
 
 public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	public final int maxCharge;
@@ -60,7 +62,8 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 		if (getStoredEnergy(stack) < cost) return unpoweredSpeed;
 		if (ToolsUtil.JackHammerSkippedBlocks(state)) return unpoweredSpeed;
 
-		if (state.isIn(BlockTags.STONE_ORE_REPLACEABLES)) {
+		if (state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
+
 			return miningSpeed;
 		} else {
 			return unpoweredSpeed;

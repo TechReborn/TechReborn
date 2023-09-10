@@ -282,6 +282,7 @@ public class TRContent {
 	public final static class BlockTags {
 		public static final TagKey<Block> RUBBER_LOGS = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
 		public static final TagKey<Block> OMNI_TOOL_MINEABLE = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "mineable/omni_tool"));
+		public static final TagKey<Block> JACKHAMMER_MINEABLE = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "mineable/jackhammer"));
 		public static final TagKey<Block> DRILL_MINEABLE = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "mineable/drill"));
 		public static final TagKey<Block> NONE_SOLID_COVERS = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "none_solid_covers"));
 

@@ -47,6 +47,11 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.PICKAXE_MINEABLE.id())
 			.addOptionalTag(BlockTags.SHOVEL_MINEABLE.id())
 
+		getOrCreateTagBuilder(TRContent.BlockTags.JACKHAMMER_MINEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_NETHER.id())
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD.id())
+			.addOptionalTag(new Identifier("c","stone"))
+
 		getOrCreateTagBuilder(TRContent.BlockTags.OMNI_TOOL_MINEABLE)
 			.addTag(TRContent.BlockTags.DRILL_MINEABLE)
 			.addOptionalTag(BlockTags.AXE_MINEABLE.id())
