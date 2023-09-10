@@ -60,7 +60,8 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 		if (getStoredEnergy(stack) < cost) return unpoweredSpeed;
 		if (ToolsUtil.JackHammerSkippedBlocks(state)) return unpoweredSpeed;
 
-		if (state.isIn(BlockTags.STONE_ORE_REPLACEABLES)) {
+		if (state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
+
 			return miningSpeed;
 		} else {
 			return unpoweredSpeed;
