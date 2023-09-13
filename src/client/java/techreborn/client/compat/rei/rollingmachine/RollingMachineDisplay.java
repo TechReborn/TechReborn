@@ -26,12 +26,13 @@ package techreborn.client.compat.rei.rollingmachine;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapedDisplay;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ShapedRecipe;
 import techreborn.init.ModRecipes;
 
 public class RollingMachineDisplay extends DefaultShapedDisplay {
 
-	public RollingMachineDisplay(ShapedRecipe recipe) {
+	public RollingMachineDisplay(RecipeEntry<ShapedRecipe> recipe) {
 		super(recipe);
 	}
 

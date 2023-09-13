@@ -29,6 +29,7 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.CollectionUtils;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
@@ -43,19 +44,21 @@ import java.util.Optional;
 public class FluidReplicatorRecipeDisplay implements Display {
 
 	private final FluidReplicatorRecipe recipe;
+	private final Identifier recipeId;
 	private final List<EntryIngredient> inputs;
 	private final List<EntryIngredient> output;
 	private final FluidInstance fluidInstance;
 	private final int energy;
 	private final int time;
 
-	public FluidReplicatorRecipeDisplay(FluidReplicatorRecipe recipe) {
-		this.recipe = recipe;
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
-		this.fluidInstance = recipe.getFluidInstance();
+	public FluidReplicatorRecipeDisplay(RecipeEntry<FluidReplicatorRecipe> recipe) {
+		this.recipe = recipe.value();
+		this.recipeId = recipe.id();
+		this.inputs = CollectionUtils.map(this.recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
+		this.fluidInstance = this.recipe.getFluidInstance();
 		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryIngredients.of(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
-		this.energy = recipe.getPower();
-		this.time = recipe.getTime();
+		this.energy = this.recipe.getPower();
+		this.time = this.recipe.getTime();
 	}
 
 	public FluidInstance getFluidInstance() {
@@ -87,8 +90,6 @@ public class FluidReplicatorRecipeDisplay implements Display {
 
 	@Override
 	public Optional<Identifier> getDisplayLocation() {
-		// TODO 1.20.2
-		return Optional.empty();
-//		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
+		return Optional.of(recipeId);
 	}
 }

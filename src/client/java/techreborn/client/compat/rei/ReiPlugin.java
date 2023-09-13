@@ -53,6 +53,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -221,14 +222,14 @@ public class ReiPlugin implements REIClientPlugin {
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
 			recipeDisplay = r -> {
 				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r;
-				return new RollingMachineDisplay(rollingMachineRecipe.getShapedRecipe());
+				return new RollingMachineDisplay(new RecipeEntry<>(new Identifier(TechReborn.MOD_ID, "dummy_shaped"), rollingMachineRecipe.getShapedRecipe()));
 			};
 		}
 
 		if (recipeType == ModRecipes.FLUID_REPLICATOR) {
 			recipeDisplay = r -> {
 				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r;
-				return new FluidReplicatorRecipeDisplay(recipe);
+				return new FluidReplicatorRecipeDisplay(new RecipeEntry<>(recipeType.name(), recipe));
 			};
 		}
 
