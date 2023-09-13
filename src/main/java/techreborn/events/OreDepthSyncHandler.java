@@ -33,6 +33,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import techreborn.TechReborn;
 import techreborn.world.OreDepth;
 
@@ -44,6 +46,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("UnstableApiUsage")
 public final class OreDepthSyncHandler {
+	private static final Logger LOGGER = LoggerFactory.getLogger(OreDepthSyncHandler.class);
 	private static Map<Block, OreDepth> oreDepthMap = new HashMap<>();
 
 	private OreDepthSyncHandler() {
@@ -56,6 +59,7 @@ public final class OreDepthSyncHandler {
 				var packet = ServerConfigurationNetworking.createS2CPacket(new OreDepthPayload(oreDepths));
 				handler.send(packet, null);
 			} else {
+				LOGGER.error("Client cannot receive ore depth packet. This may mean that TechReborn is not installed on the client.");
 				handler.disconnect(Text.literal("The TechReborn mod must be installed to play on this server."));
 			}
 		});
