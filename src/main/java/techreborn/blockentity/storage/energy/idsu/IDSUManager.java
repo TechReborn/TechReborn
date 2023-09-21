@@ -39,7 +39,7 @@ import techreborn.config.TechRebornConfig;
 import java.util.HashMap;
 
 public class IDSUManager extends PersistentState {
-	private static final PersistentState.Type<IDSUManager> TYPE = new Type<>(IDSUManager::new, IDSUManager::createFromTag, DataFixTypes.LEVEL);
+	private static final PersistentState.Type<IDSUManager> TYPE = new Type<>(IDSUManager::new, IDSUManager::createFromTag, null);
 	private static final String KEY = "techreborn_idsu";
 
 	private IDSUManager() {

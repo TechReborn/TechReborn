@@ -32,7 +32,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SkullItem;
+import net.minecraft.item.PlayerHeadItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -399,7 +399,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			return false;
 		}
 		// Do not allow player heads into storage due to lag. Fix #2888
-		if (inputStack.getItem() instanceof SkullItem) {
+		if (inputStack.getItem() instanceof PlayerHeadItem) {
 			return false;
 		}
 		// do not allow other storage units to avoid NBT overflow. Fix #2580

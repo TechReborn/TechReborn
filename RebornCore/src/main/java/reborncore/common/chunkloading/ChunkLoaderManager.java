@@ -26,7 +26,6 @@ package reborncore.common.chunkloading;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -54,7 +53,7 @@ import java.util.stream.Collectors;
 
 // This does not do the actual chunk loading, just keeps track of what chunks the chunk loader has loaded
 public class ChunkLoaderManager extends PersistentState {
-	public static final PersistentState.Type<ChunkLoaderManager> TYPE = new Type<>(ChunkLoaderManager::new, ChunkLoaderManager::fromTag, DataFixTypes.LEVEL);
+	public static final PersistentState.Type<ChunkLoaderManager> TYPE = new Type<>(ChunkLoaderManager::new, ChunkLoaderManager::fromTag, null);
 
 	public static Codec<List<LoadedChunk>> CODEC = Codec.list(LoadedChunk.CODEC);
 
