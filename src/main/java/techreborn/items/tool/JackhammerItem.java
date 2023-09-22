@@ -39,7 +39,8 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.ToolsUtil;
-import techreborn.init.TRContent
+import techreborn.init.TRContent;
+
 
 public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	public final int maxCharge;
