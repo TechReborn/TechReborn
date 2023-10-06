@@ -31,7 +31,7 @@ public class FuelRecipes {
 	public static void init() {
 		FuelRegistry registry = FuelRegistry.INSTANCE;
 
-		// Basing it off https://minecraft.gamepedia.com/Furnace/table
+		// Basing it off https://minecraft.wiki/w/Template:Smelting_table
 
 		// Rubber spam
 		registry.add(TRContent.RUBBER_BUTTON, 300);
