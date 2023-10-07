@@ -217,28 +217,28 @@ public class ReiPlugin implements REIClientPlugin {
 		if (recipeType == ModRecipes.RECYCLER) {
 			return;
 		}
-		Function<R, Display> recipeDisplay = r -> new MachineRecipeDisplay<>((RebornRecipe) r);
+
+		Function<RecipeEntry<RebornRecipe>, Display> recipeDisplay = MachineRecipeDisplay::new;
 
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
 			recipeDisplay = r -> {
-				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r;
-				return new RollingMachineDisplay(new RecipeEntry<>(new Identifier(TechReborn.MOD_ID, "dummy_shaped"), rollingMachineRecipe.getShapedRecipe()));
+				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r.value();
+				return new RollingMachineDisplay(new RecipeEntry<>(recipeType.name(), rollingMachineRecipe.getShapedRecipe()));
 			};
 		}
 
 		if (recipeType == ModRecipes.FLUID_REPLICATOR) {
 			recipeDisplay = r -> {
-				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r;
+				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r.value();
 				return new FluidReplicatorRecipeDisplay(new RecipeEntry<>(recipeType.name(), recipe));
 			};
 		}
 
-		registry.registerFiller(RebornRecipe.class, recipe -> {
-			if (recipe != null) {
-				return recipe.getRebornRecipeType() == recipeType;
-			}
-			return false;
-		}, recipeDisplay);
+		registry.registerRecipeFiller(RebornRecipe.class,
+			recipeType1 -> true,
+			recipeEntry -> recipeEntry.value().getRebornRecipeType() == recipeType,
+			recipeDisplay
+		);
 	}
 
 	@Override

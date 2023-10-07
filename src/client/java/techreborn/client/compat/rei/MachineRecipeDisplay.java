@@ -29,6 +29,7 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.CollectionUtils;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
@@ -41,6 +42,8 @@ import java.util.stream.Collectors;
 
 public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 
+	private final RecipeEntry<R> entry;
+
 	private final R recipe;
 	private final List<EntryIngredient> inputs;
 	private final List<EntryIngredient> outputs;
@@ -49,8 +52,9 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	private final int time;
 	private FluidInstance fluidInstance = null;
 
-	public MachineRecipeDisplay(R recipe) {
-		this.recipe = recipe;
+	public MachineRecipeDisplay(RecipeEntry<R> entry) {
+		this.entry = entry;
+		this.recipe = entry.value();
 		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
 		this.outputs = recipe.getOutputs(null).stream().map(EntryIngredients::of).collect(Collectors.toList());
 		this.time = recipe.getTime();
@@ -82,9 +86,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 
 	@Override
 	public Optional<Identifier> getDisplayLocation() {
-		// TODO 1.20.2
-		return Optional.empty();
-//		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
+		return Optional.of(entry.id());
 	}
 
 	@Override
