@@ -24,7 +24,6 @@
 
 package techreborn.api.recipe.recipes.serde;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.serialization.JsonOps;
@@ -40,7 +39,6 @@ import techreborn.api.recipe.recipes.RollingMachineRecipe;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class RollingMachineRecipeSerde extends RebornRecipeSerde<RollingMachineRecipe> {
 	@Override
@@ -52,12 +50,7 @@ public class RollingMachineRecipeSerde extends RebornRecipeSerde<RollingMachineR
 
 	@Override
 	public void collectJsonData(RollingMachineRecipe recipe, JsonObject jsonObject, boolean networkSync) {
-		final JsonElement shapedRecipeJson = networkSync ? RecipeSerializer.SHAPED.codec()
-																.encodeStart(JsonOps.INSTANCE, recipe.getShapedRecipe())
-																.result()
-																.orElseThrow()
-														: recipe.getShapedRecipeJson();
-		jsonObject.add("shaped", Objects.requireNonNull(shapedRecipeJson));
+		jsonObject.add("shaped", recipe.getShapedRecipeJson());
 	}
 
 	@Override
