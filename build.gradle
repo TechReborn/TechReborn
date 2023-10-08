@@ -41,7 +41,7 @@ repositories {
         }
 	}
     maven {
-        url = 'https://ladysnake.jfrog.io/artifactory/mods'
+        url = 'https://maven.ladysnake.org/releases'
         content {
             // Trinkets dependency
             includeGroup "io.github.onyxstudios.Cardinal-Components-API"
