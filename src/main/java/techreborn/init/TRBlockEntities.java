@@ -61,6 +61,7 @@ import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
+import techreborn.blockentity.machine.tier3.QuantumCartographerBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
@@ -149,6 +150,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<ElevatorBlockEntity> ELEVATOR = register(ElevatorBlockEntity::new, "elevator", TRContent.Machine.ELEVATOR);
 	public static final BlockEntityType<FishingStationBlockEntity> FISHING_STATION = register(FishingStationBlockEntity::new, "fishing_station", TRContent.Machine.FISHING_STATION);
 	public static final BlockEntityType<PumpBlockEntity> PUMP = register(PumpBlockEntity::new, "pump", TRContent.Machine.PUMP);
+	public static final BlockEntityType<QuantumCartographerBlockEntity> QUANTUM_CARTOGRAPHER = register(QuantumCartographerBlockEntity::new, "quantum_cartographer", TRContent.Machine.QUANTUM_CARTOGRAPHER);
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, ItemConvertible... items) {
 		return register(supplier, name, Arrays.stream(items).map(itemConvertible -> Block.getBlockFromItem(itemConvertible.asItem())).toArray(Block[]::new));

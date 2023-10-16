@@ -72,6 +72,7 @@ import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
+import techreborn.blockentity.machine.tier3.QuantumCartographerBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
@@ -795,6 +796,7 @@ public class TRContent {
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
 		PUMP(new GenericMachineBlock(GuiType.PUMP, PumpBlockEntity::new)),
+		QUANTUM_CARTOGRAPHER(new GenericMachineBlock(GuiType.QUANTUM_CARTOGRAPHER, QuantumCartographerBlockEntity::new)),
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(GuiType.CHARGEBENCH, ChargeOMatBlockEntity::new)),
 		INTERDIMENSIONAL_SU(new InterdimensionalSUBlock()),

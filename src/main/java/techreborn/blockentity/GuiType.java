@@ -63,6 +63,7 @@ import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
+import techreborn.blockentity.machine.tier3.QuantumCartographerBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
@@ -129,6 +130,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<ElevatorBlockEntity> ELEVATOR = register("elevator");
 	public static final GuiType<FishingStationBlockEntity> FISHING_STATION = register("fishing_station");
 	public static final GuiType<PumpBlockEntity> PUMP = register("pump");
+	public static final GuiType<QuantumCartographerBlockEntity> QUANTUM_CARTOGRAPHER = register("quantum_cartographer");
 
 	private static <T extends BlockEntity> GuiType<T> register(String id) {
 		return register(new Identifier("techreborn", id));

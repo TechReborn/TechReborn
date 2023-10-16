@@ -72,6 +72,7 @@ import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
+import techreborn.blockentity.machine.tier3.QuantumCartographerBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
@@ -120,6 +121,7 @@ import techreborn.client.gui.GuiMatterFabricator;
 import techreborn.client.gui.GuiPlasmaGenerator;
 import techreborn.client.gui.GuiPlayerDetector;
 import techreborn.client.gui.GuiPump;
+import techreborn.client.gui.GuiQuantumCartographer;
 import techreborn.client.gui.GuiRecycler;
 import techreborn.client.gui.GuiRollingMachine;
 import techreborn.client.gui.GuiScrapboxinator;
@@ -191,6 +193,7 @@ public record ClientGuiType<T extends BlockEntity>(GuiType<T> guiType, GuiFactor
 	public static final ClientGuiType<ElevatorBlockEntity> ELEVATOR = register(GuiType.ELEVATOR, GuiElevator::new);
 	public static final ClientGuiType<FishingStationBlockEntity> FISHING_STATION = register(GuiType.FISHING_STATION, GuiFishingStation::new);
 	public static final ClientGuiType<PumpBlockEntity> PUMP = register(GuiType.PUMP, GuiPump::new);
+	public static final ClientGuiType<QuantumCartographerBlockEntity> QUANTUM_CARTOGRAPHER = register(GuiType.QUANTUM_CARTOGRAPHER, GuiQuantumCartographer::new);
 
 	public static <T extends BlockEntity> ClientGuiType<T> register(GuiType<T> type, GuiFactory<T> factory) {
 		return new ClientGuiType<>(type, factory);
