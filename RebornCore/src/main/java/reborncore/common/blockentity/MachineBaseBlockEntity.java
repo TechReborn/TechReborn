@@ -24,6 +24,11 @@
 
 package reborncore.common.blockentity;
 
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -36,6 +41,7 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -62,6 +68,7 @@ import reborncore.common.util.Tank;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Created by modmuss50 on 04/11/2016.
@@ -72,11 +79,15 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private SlotConfiguration slotConfiguration;
 	public FluidConfiguration fluidConfiguration;
 	private RedstoneConfiguration redstoneConfiguration;
-
+	public InventoryStorage inventoryStorage = null;
+	private BlockApiCache<Storage<ItemVariant>, Direction>[] inventoryCacheArray = new BlockApiCache[6];
+	
 	public boolean renderMultiblock = false;
 
 	private int tickTime = 0;
-
+	private boolean toggle = false;
+	private int toggleTick = 0;
+	
 	/**
 	 * <p>
 	 *  This is used to change the speed of the crafting operation.
@@ -139,6 +150,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			}
 		}
 		redstoneConfiguration.refreshCache();
+		inventoryStorage = InventoryStorage.of(this, null);
+		tickTime = world == null? new Random().nextInt(20) : world.random.nextInt(20);
 	}
 
 	@Nullable
@@ -154,11 +167,27 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		writeNbt(compound);
 		return compound;
 	}
-
+	
+	public int getTickTime(){
+		return this.tickTime;
+	}
+	
+	public boolean getToggle(){
+		if (toggleTick == this.tickTime){
+			return toggle;
+		}
+		toggleTick = this.tickTime;
+		this.toggle = !this.toggle;
+		return toggle;
+	}
+	
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (tickTime == 0) {
 			onLoad();
+		}
+		if(this.inventoryStorage == null){
+			inventoryStorage = InventoryStorage.of(this, null);
 		}
 		tickTime++;
 		@Nullable
@@ -250,6 +279,13 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		return Optional.empty();
 	}
 
+	public Storage<ItemVariant> getItemStorage(Direction direction){
+		if(this.inventoryCacheArray[direction.ordinal()] == null){
+			this.inventoryCacheArray[direction.ordinal()] = BlockApiCache.create(ItemStorage.SIDED, (ServerWorld)this.world, this.pos.offset(direction));
+		}
+		return this.inventoryCacheArray[direction.ordinal()].find(direction.getOpposite());
+	}
+	
 	@Override
 	public void readNbt(NbtCompound tagCompound) {
 		super.readNbt(tagCompound);
@@ -393,7 +429,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	//The amount of ticks between a slot transfer attempt, less is faster
 	public int slotTransferSpeed() {
-		return 4;
+		return 2;
 	}
 
 	//The amount of fluid transferred each tick buy the fluid config

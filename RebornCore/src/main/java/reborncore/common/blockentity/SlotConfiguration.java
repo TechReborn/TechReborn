@@ -25,13 +25,18 @@
 package reborncore.common.blockentity;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +51,6 @@ import java.util.stream.Collectors;
 public class SlotConfiguration implements NBTSerializable {
 
 	List<SlotConfigHolder> slotDetails = new ArrayList<>();
-
 	@Nullable
 	Inventory inventory;
 
@@ -72,7 +76,7 @@ public class SlotConfiguration implements NBTSerializable {
 				}
 			}
 		}
-		if (!machineBase.getWorld().isClient && machineBase.getWorld().getTime() % machineBase.slotTransferSpeed() == 0) {
+		if (!machineBase.getWorld().isClient && machineBase.getTickTime() % machineBase.slotTransferSpeed() == 0) {
 			getSlotDetails().forEach(slotConfigHolder -> slotConfigHolder.handleItemIO(machineBase));
 		}
 	}
@@ -177,18 +181,29 @@ public class SlotConfiguration implements NBTSerializable {
 			if (!input && !output) {
 				return;
 			}
-			getAllSides().stream()
-				.filter(config -> config.getSlotIO().getIoConfig() != ExtractConfig.NONE)
-				.forEach(config -> {
-					if (input && config.getSlotIO().getIoConfig() == ExtractConfig.INPUT) {
-						config.handleItemInput(machineBase);
-					}
-					if (output && config.getSlotIO().getIoConfig() == ExtractConfig.OUTPUT) {
-						config.handleItemOutput(machineBase);
-					}
-				});
+			if(machineBase.getToggle()) {
+				handleItemInput(machineBase);
+			}
+			else {
+				handleItemOutput(machineBase);
+			}
 		}
-
+		private void handleItemInput(MachineBaseBlockEntity machineBase) {
+			if (!input) {
+				return;
+			}
+			getAllSides().stream()
+				.filter(config -> config.getSlotIO().getIoConfig() == ExtractConfig.INPUT)
+				.forEach(config -> config.handleItemInput(machineBase));
+		}
+		private void handleItemOutput(MachineBaseBlockEntity machineBase) {
+			if (!output) {
+				return;
+			}
+			getAllSides().stream()
+				.filter(config -> config.getSlotIO().getIoConfig() == ExtractConfig.OUTPUT)
+				.forEach(config -> config.handleItemOutput(machineBase));
+		}
 		public boolean autoInput() {
 			return input;
 		}
@@ -289,12 +304,11 @@ public class SlotConfiguration implements NBTSerializable {
 			if (targetStack.getMaxCount() == targetStack.getCount()) {
 				return;
 			}
-
 			StorageUtil.move(
-					ItemStorage.SIDED.find(machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
-					InventoryStorage.of(machineBase, null).getSlot(slotID),
+				machineBase.getItemStorage(side),
+				machineBase.inventoryStorage.getSlot(slotID),
 					iv -> true,
-					4, // Move up to 4 per tick.
+					64, // Move up to 256 per tick.
 					null
 			);
 		}
@@ -307,10 +321,10 @@ public class SlotConfiguration implements NBTSerializable {
 			}
 
 			StorageUtil.move(
-					InventoryStorage.of(machineBase, null).getSlot(slotID),
-					ItemStorage.SIDED.find(machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+					machineBase.inventoryStorage.getSlot(slotID),
+					machineBase.getItemStorage(side),
 					iv -> true,
-					Long.MAX_VALUE,
+					64,
 					null
 			);
 		}
