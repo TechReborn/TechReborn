@@ -143,12 +143,18 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	}
 
 	public ItemStack empty() {
-		int sapAmount = getSapAmount();
 		if (isFull) {
-			isFull = false;
+			int sapAmount = getSapAmount();
+
+			this.isPouring = false;
+			this.isFull = false;
+			setFullState(false);
 			setPouringState(false);
+
+			return new ItemStack(TRContent.Parts.SAP, sapAmount);
 		}
-		return new ItemStack(TRContent.Parts.SAP, sapAmount);
+
+		return new ItemStack(TRContent.Parts.SAP, 0);
 	}
 
 	@Override
