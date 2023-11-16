@@ -31,8 +31,13 @@ import net.minecraft.util.Formatting;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 
 public class ToolTipAssistUtils {
 
@@ -45,19 +50,19 @@ public class ToolTipAssistUtils {
 	private static final Formatting posColour = Formatting.GREEN;
 	private static final Formatting negColour = Formatting.RED;
 
-
+	public static double SPEED_CAP = 97.5;
 	public static List<Text> getUpgradeStats(TRContent.Upgrades upgradeType, int count, boolean shiftHeld) {
 		List<Text> tips = new ArrayList<>();
 		boolean shouldStackCalculate = count > 1;
 
 		switch (upgradeType) {
 			case OVERCLOCKER -> {
-				tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.speed_increase"), calculateValue(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%"));
-				tips.add(getNegative(I18n.translate("techreborn.tooltip.upgrade.energy_increase"), calculateValue(TechRebornConfig.overclockerPower * 100, count, shiftHeld), "%"));
+				tips.add(getStatStringUnit(I18n.translate("techreborn.tooltip.upgrade.speed_increase"), calculateSpeed(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%", true));
+				tips.add(getStatStringUnit(I18n.translate("techreborn.tooltip.upgrade.energy_increase"), calculateEnergyIncrease(TechRebornConfig.overclockerPower + 1, count, shiftHeld), "x", false));
 			}
 			case TRANSFORMER -> shouldStackCalculate = false;
-			case ENERGY_STORAGE -> tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E"));
-			case SUPERCONDUCTOR -> tips.add(getPositive(I18n.translate("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%"));
+			case ENERGY_STORAGE -> tips.add(getStatStringUnit(I18n.translate("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E", true));
+			case SUPERCONDUCTOR -> tips.add(getStatStringUnit(I18n.translate("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%", true));
 		}
 
 		// Add reminder that they can use shift to calculate the entire stack
@@ -94,7 +99,7 @@ public class ToolTipAssistUtils {
 		int calculatedVal;
 
 		if (shiftHeld) {
-			calculatedVal = (int) value * count;
+			calculatedVal = (int) value * Math.min(count, 4);
 		} else {
 			calculatedVal = (int) value;
 		}
@@ -102,15 +107,33 @@ public class ToolTipAssistUtils {
 		return calculatedVal;
 	}
 
-	private static Text getPositive(String text, int value, String unit) {
-		return Text.literal(posColour + getStatStringUnit(text, value, unit));
+	private static double calculateEnergyIncrease(double value, int count, boolean shiftHeld) {
+		double calculatedVal;
+
+		if (shiftHeld) {
+			calculatedVal = Math.pow(value, Math.min(count, 4));
+		} else {
+			calculatedVal = value;
+		}
+
+		return calculatedVal;
 	}
 
-	private static Text getNegative(String text, int value, String unit) {
-		return Text.literal(negColour + getStatStringUnit(text, value, unit));
+	private static double calculateSpeed(double value, int count, boolean shiftHeld) {
+		double calculatedVal;
+
+		if (shiftHeld) {
+			calculatedVal = Math.min(value * Math.min(count, 4), SPEED_CAP);
+		} else {
+			calculatedVal = value;
+		}
+
+		return calculatedVal;
 	}
 
-	private static String getStatStringUnit(String text, int value, String unit) {
-		return text + ": " + statColour + value + unit;
+	private static Text getStatStringUnit(String text, double value, String unit, boolean isPositive) {
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US); // Always use dot
+		NumberFormat formatter = new DecimalFormat("##.##", symbols); // Round to 2 decimal places
+		return Text.literal(statColour + text + ": " + ((isPositive) ? posColour : negColour) + formatter.format(value) + unit);
 	}
 }

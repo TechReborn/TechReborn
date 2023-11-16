@@ -77,6 +77,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private boolean markSync = false;
 	private int tickTime = 0;
 
+	public static double SPEED_CAP = 0.99;
+
 	/**
 	 * <p>
 	 *  This is used to change the speed of the crafting operation.
@@ -351,10 +353,10 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	@Override
 	public void addSpeedMultiplier(double amount) {
-		if (speedMultiplier + amount <= 0.99) {
+		if (speedMultiplier + amount <= SPEED_CAP) {
 			speedMultiplier += amount;
 		} else {
-			speedMultiplier = 0.99;
+			speedMultiplier = SPEED_CAP;
 		}
 	}
 
