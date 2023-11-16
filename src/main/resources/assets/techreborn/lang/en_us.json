@@ -897,7 +897,7 @@
   "techreborn.tooltip.inventory": "Inventory",
   "techreborn.tooltip.upgrades": "Upgrades",
   "techreborn.tooltip.upgrade.speed_increase": "Time decrease",
-  "techreborn.tooltip.upgrade.energy_increase": "Energy per tick increase",
+  "techreborn.tooltip.upgrade.energy_increase": "Energy usage",
   "techreborn.tooltip.upgrade.storage_increase": "Storage increase",
   "techreborn.tooltip.upgrade.flow_increase": "Increased flow by",
   "techreborn.tooltip.alarm": "Shift right-click to change sound",
