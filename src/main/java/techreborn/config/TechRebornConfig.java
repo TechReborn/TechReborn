@@ -176,7 +176,7 @@ public class TechRebornConfig {
 	public static int electricTreetapCharge = 10_000;
 
 	@Config(config = "items", category = "power", key = "electricTreetapCost", comment = "Energy Cost for Electric Treetap")
-	public static int electricTreetapCost = 50;
+	public static int electricTreetapCost = 20;
 
 	@Config(config = "items", category = "power", key = "basicDrillCharge", comment = "Energy Capacity for Basic Drill")
 	public static int basicDrillCharge = 10_000;
@@ -307,9 +307,6 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "nanoSuitNightVisionCost", comment = "Nano Suit Night Vision Cost")
 	public static long nanoSuitNightVisionCost = 2;
 
-	@Config(config = "items", category = "power", key = "nanoSuitFlightCost", comment = "Nano Suit Flight Cost")
-	public static long nanoSuitFlightCost = 2;
-
 	@Config(config = "items", category = "upgrades", key = "overclocker_speed", comment = "Overclocker behavior speed multiplier")
 	public static double overclockerSpeed = 0.25;
 
@@ -322,20 +319,51 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "upgrades", key = "super_conductor", comment = "Energy flow power increase")
 	public static double superConductorCount = 1;
 
-
-	// Machines
+	// Storages
 	@Config(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block")
-	public static int lesuStoragePerBlock = 1_000_000;
+	public static int lesuStoragePerBlock = 4_000_000;
 
 	@Config(config = "machines", category = "lesu", key = "LesuExtraIO", comment = "LESU Extra I/O Multiplier")
-	public static int lesuExtraIOPerBlock = 1;
+	public static int lesuExtraIOPerBlock = 64;
 
 	@Config(config = "machines", category = "lesu", key = "LesuBaseOutput", comment = "LESU Base Output")
-	public static int lesuBaseOutput = 5;
+	public static int lesuBaseOutput = 64;
 
 	@Config(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy")
 	public static int aesuMaxEnergy = 100_000_000;
 
+	@Config(config = "machines", category = "idsu", key = "IdsuMaxEnergy", comment = "IDSU Max Energy")
+	public static int idsuMaxEnergy = 1_000_000_000;
+
+	@Config(config = "machines", category = "storage", key = "CrudeStorageUnitMaxStorage", comment = "Maximum amount of items a Crude Storage Unit can store")
+	public static int crudeStorageUnitMaxStorage = 1 << 11; // 2^11, around 2,000, holds 2^5=32 64-stacks
+
+	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a Basic Storage Unit can store")
+	public static int basicStorageUnitMaxStorage = 1 << 13; // 2^13, around 8,000, holds 2^7=128 64-stacks
+
+	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a Basic Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int basicTankUnitCapacity = 1 << 7; // 2^7=128, holds 2^3=8 16-stacks cells (content only)
+
+	@Config(config = "machines", category = "storage", key = "AdvancedStorageMaxStorage", comment = "Maximum amount of items an Advanced Storage Unit can store")
+	public static int advancedStorageUnitMaxStorage = 1 << 15; // 2^15, around 32,000, holds 2^9=512 64-stacks
+
+	@Config(config = "machines", category = "storage", key = "AdvancedTankUnitMaxStorage", comment = "How much liquid an Advanced Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int advancedTankUnitMaxStorage = 1 << 9; // 2^9=512, holds 2^5=32 16-stacks cells (content only)
+
+	@Config(config = "machines", category = "storage", key = "IndustrialStorageMaxStorage", comment = "Maximum amount of items an Industrial Storage Unit can store (Compat: >= 32768)")
+	public static int industrialStorageUnitMaxStorage = 1 << 16; // 2^16, around 65,000, holds 2^10=1024 64-stacks
+
+	@Config(config = "machines", category = "storage", key = "IndustrialTankUnitCapacity", comment = "How much liquid an Industrial Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int industrialTankUnitCapacity = 1 << 10; // 2^10, around 1,000, holds 2^6=64 16-stacks cells (content only)
+
+	@Config(config = "machines", category = "storage", key = "QuantumStorageUnitMaxStorage", comment = "Maximum amount of items a Quantum Storage Unit can store (Compat: == MAX_VALUE)")
+	public static int quantumStorageUnitMaxStorage = Integer.MAX_VALUE;
+
+	@Config(config = "machines", category = "storage", key = "QuantumTankUnitCapacity", comment = "How much liquid a Quantum Tank Unit can take (Value in buckets, 1000 Mb)(Compat: == MAX_VALUE)")
+	public static int quantumTankUnitCapacity = Integer.MAX_VALUE / 1000;
+
+
+	// Machines
 	@Config(config = "machines", category = "player_detector", key = "PlayerDetectorMaxInput", comment = "Player Detector Max Input (Energy per tick)")
 	public static int playerDetectorMaxInput = 32;
 
@@ -453,33 +481,6 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy")
 	public static int electricFurnaceMaxEnergy = 1000;
 
-	@Config(config = "machines", category = "storage", key = "CrudeStorageUnitMaxStorage", comment = "Maximum amount of items a Crude Storage Unit can store")
-	public static int crudeStorageUnitMaxStorage = 1 << 11; // 2^11, around 2,000, holds 2^5=32 64-stacks
-
-	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a Basic Storage Unit can store")
-	public static int basicStorageUnitMaxStorage = 1 << 13; // 2^13, around 8,000, holds 2^7=128 64-stacks
-
-	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a Basic Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int basicTankUnitCapacity = 1 << 7; // 2^7=128, holds 2^3=8 16-stacks cells (content only)
-
-	@Config(config = "machines", category = "storage", key = "AdvancedStorageMaxStorage", comment = "Maximum amount of items an Advanced Storage Unit can store")
-	public static int advancedStorageUnitMaxStorage = 1 << 15; // 2^15, around 32,000, holds 2^9=512 64-stacks
-
-	@Config(config = "machines", category = "storage", key = "AdvancedTankUnitMaxStorage", comment = "How much liquid an Advanced Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int advancedTankUnitMaxStorage = 1 << 9; // 2^9=512, holds 2^5=32 16-stacks cells (content only)
-
-	@Config(config = "machines", category = "storage", key = "IndustrialStorageMaxStorage", comment = "Maximum amount of items an Industrial Storage Unit can store (Compat: >= 32768)")
-	public static int industrialStorageUnitMaxStorage = 1 << 16; // 2^16, around 65,000, holds 2^10=1024 64-stacks
-
-	@Config(config = "machines", category = "storage", key = "IndustrialTankUnitCapacity", comment = "How much liquid an Industrial Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int industrialTankUnitCapacity = 1 << 10; // 2^10, around 1,000, holds 2^6=64 16-stacks cells (content only)
-
-	@Config(config = "machines", category = "storage", key = "QuantumStorageUnitMaxStorage", comment = "Maximum amount of items a Quantum Storage Unit can store (Compat: == MAX_VALUE)")
-	public static int quantumStorageUnitMaxStorage = Integer.MAX_VALUE;
-
-	@Config(config = "machines", category = "storage", key = "QuantumTankUnitCapacity", comment = "How much liquid a Quantum Tank Unit can take (Value in buckets, 1000 Mb)(Compat: == MAX_VALUE)")
-	public static int quantumTankUnitCapacity = Integer.MAX_VALUE / 1000;
-
 	@Config(config = "machines", category = "charge_bench", key = "ChargeBenchMaxOutput", comment = "Charge Bench Max Output (Energy per tick)")
 	public static int chargeOMatBMaxOutput = 512;
 
@@ -506,9 +507,6 @@ public class TechRebornConfig {
 
 	@Config(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy")
 	public static int chemicalReactorMaxEnergy = 10_000;
-
-	@Config(config = "machines", category = "idsu", key = "IdsuMaxEnergy", comment = "IDSU Max Energy")
-	public static int idsuMaxEnergy = 1_000_000_000;
 
 	@Config(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxInput", comment = "Fusion Reactor Max Input (Energy per tick)")
 	public static int fusionControlComputerMaxInput = 8192;
