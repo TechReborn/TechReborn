@@ -221,7 +221,14 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		RecipeUtils.addToastDefaults(builder, recipeId)
-		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(), recipeId, advancementId, builder, conditions))
+
+		def recipe = createRecipe()
+
+		if (!conditions.isEmpty()) {
+			FabricDataGenHelper.addConditions(recipe, conditions.toArray() as ConditionJsonProvider[])
+		}
+
+		exporter.accept(recipeId, recipe, builder.build(advancementId))
 	}
 
 	def getIdentifier() {
@@ -239,54 +246,5 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 	def feature(FeatureFlag flag) {
 		condition(DefaultResourceConditions.featuresEnabled(flag))
-	}
-
-	static class MachineRecipeJsonProvider<R extends RebornRecipe> implements RecipeJsonProvider {
-		private final RebornRecipeType<R> type
-		private final R recipe
-		private final Identifier recipeId
-		private final Identifier advancementId
-		private final Builder builder
-		private final List<ConditionJsonProvider> conditions
-
-		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe, Identifier recipeId, Identifier advancementId, Builder builder, List<ConditionJsonProvider> conditions) {
-			this.type = type
-			this.recipe = recipe
-			this.recipeId = recipeId
-			this.advancementId = advancementId
-			this.builder = builder
-			this.conditions = conditions
-		}
-
-		@Override
-		JsonObject toJson() {
-			if (!conditions.isEmpty()) {
-				FabricDataGenHelper.addConditions(this, conditions.toArray() as ConditionJsonProvider[])
-			}
-
-			return type.toJson(recipe, false)
-		}
-
-		@Override
-		Identifier id() {
-			return recipeId
-		}
-
-		@Override
-		void serialize(JsonObject json) {
-			throw new UnsupportedOperationException()
-		}
-
-		@Override
-		RecipeSerializer<?> serializer() {
-			throw new UnsupportedOperationException()
-		}
-
-		@Override
-		AdvancementEntry advancement() {
-			if (builder == null)
-				return null
-			return builder.build(advancementId)
-		}
 	}
 }

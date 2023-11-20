@@ -24,11 +24,20 @@
 
 package reborncore.common.recipes;
 
+import net.minecraft.advancement.AdvancementEntry;
+import net.minecraft.advancement.AdvancementRequirements;
+import net.minecraft.advancement.AdvancementRewards;
+import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RawShapedRecipe;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.util.Identifier;
+
+import java.util.Objects;
 
 public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 
@@ -45,15 +54,30 @@ public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 	}
 	@Override
 	public void offerTo(RecipeExporter exporter, Identifier recipeId) {
-		if (true) {
-			// TODO 1.20.3
-			throw new IllegalStateException("Fix me");
-		}
-		//validate(recipeId);
-		//AdvancementEntry advancementEntry = exporter.getAdvancementBuilder().parent(ROOT).criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR).build(recipeId);
+		RawShapedRecipe raw = toRaw(recipeId);
 
-		//String group = this.group == null ? "" : this.group;
-		//exporter.accept(new PaddedShapedRecipeJsonProvider(recipeId, output, count, group, getCraftingCategory(category), pattern, inputs, advancementEntry, false));
-		//exporter.accept(recipeId, null, advancementEntry);
+		AdvancementEntry advancementEntry = exporter.getAdvancementBuilder()
+			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
+			.rewards(AdvancementRewards.Builder.recipe(recipeId))
+			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR)
+			.build(recipeId);
+
+		PaddedShapedRecipe shapedRecipe = new PaddedShapedRecipe(
+			Objects.requireNonNullElse(this.group, ""),
+			CraftingRecipeJsonBuilder.toCraftingCategory(this.category),
+			raw,
+			new ItemStack(this.output, this.count),
+			this.showNotification
+		);
+
+		exporter.accept(recipeId, shapedRecipe, advancementEntry);
+	}
+
+	private RawShapedRecipe toRaw(Identifier recipeId) {
+		if (this.criteria.isEmpty()) {
+			throw new IllegalStateException("No way of obtaining recipe " + recipeId);
+		} else {
+			return PaddedShapedRecipe.create(this.inputs, this.pattern);
+		}
 	}
 }

@@ -30,7 +30,7 @@ import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
 import net.minecraft.data.server.recipe.SingleItemRecipeJsonBuilder
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
-import net.minecraft.recipe.RecipeSerializer
+import net.minecraft.recipe.StonecuttingRecipe
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.util.Identifier
@@ -296,7 +296,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def static createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
-		return new SingleItemRecipeJsonBuilder(category, RecipeSerializer.STONECUTTING, createIngredient(input), output, outputAmount)
+		return new SingleItemRecipeJsonBuilder(category, StonecuttingRecipe.&new, createIngredient(input), output, outputAmount)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 	}
 
