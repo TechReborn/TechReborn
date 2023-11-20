@@ -80,9 +80,9 @@ public class TRCauldronBehavior {
 			return ActionResult.PASS;
 		};
 
-		CauldronBehavior.LAVA_CAULDRON_BEHAVIOR.put(TRContent.CELL, FILL_CELL_WITH_LAVA);
-		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(TRContent.CELL, FILL_CELL_WITH_WATER);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(TRContent.CELL, FILL_FROM_CELL);
+		CauldronBehavior.LAVA_CAULDRON_BEHAVIOR.map().put(TRContent.CELL, FILL_CELL_WITH_LAVA);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(TRContent.CELL, FILL_CELL_WITH_WATER);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.map().put(TRContent.CELL, FILL_FROM_CELL);
 	}
 
 	static ActionResult fillCauldronFromCell(World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, BlockState state, SoundEvent soundEvent) {

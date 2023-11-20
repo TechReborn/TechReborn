@@ -85,10 +85,12 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 
 	// Item
 	@Override
-	public void onCraft(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+	public void onCraft(ItemStack stack, World world) {
 		if (!stack.hasEnchantments()) {
 			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		}
+
+		super.onCraft(stack, world);
 	}
 
 	@Override

@@ -350,12 +350,13 @@ public class GuiBuilder {
 				.map(Text::translatable)
 				.collect(Collectors.toList());
 
-		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 54, y, y + 76, 9 + 2, tips);
-		explanation.setLeftPos(x - 81);
-		explanation.render(drawContext, mouseX, mouseY, 1.0f);
+		// TODO 1.20.3
+//		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 54, y, y + 76, 9 + 2, tips);
+//		explanation.setLeftPos(x - 81);
+//		explanation.render(drawContext, mouseX, mouseY, 1.0f);
 	}
-
-
+	// TODO 1.20.3
+	/*
 	private static class TipsListWidget extends EntryListWidget<TipsListWidget.TipsListEntry> {
 
 		public TipsListWidget(GuiBase<?> gui, int width, int height, int top, int bottom, int entryHeight, List<Text> tips) {
@@ -378,11 +379,6 @@ public class GuiBuilder {
 			super.renderList(drawContext, mouseX, mouseY, delta);
 		}
 
-		@Override
-		public void appendNarrations(NarrationMessageBuilder builder) {
-
-		}
-
 		private class TipsListEntry extends EntryListWidget.Entry<TipsListWidget.TipsListEntry> {
 			private final Text tip;
 
@@ -396,6 +392,7 @@ public class GuiBuilder {
 			}
 		}
 	}
+	*/
 
 	// TODO: change to double
 

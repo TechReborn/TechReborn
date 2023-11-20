@@ -75,8 +75,8 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 		}
 
 		@Override
-		public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-			super.render(context, mouseX, mouseY, delta);
+		public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+			super.renderButton(context, mouseX, mouseY, delta);
 
 			if (hovered) {
 				context.drawTooltip(getTextRenderer(), getTooltipText(), mouseX, mouseY);

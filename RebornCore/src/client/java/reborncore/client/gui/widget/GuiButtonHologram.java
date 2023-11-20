@@ -34,7 +34,7 @@ public class GuiButtonHologram extends GuiButtonExtended {
 	}
 
 	@Override
-	public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+	protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
 
 	}
 }

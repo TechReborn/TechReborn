@@ -43,15 +43,9 @@ import java.util.List;
  * Created by modmuss50 on 12/03/2016.
  */
 public class RebornExplosion extends Explosion {
-
-	@NotNull
-	BlockPos center;
-
-	@NotNull
-	World world;
-
-	@NotNull
-	int radius;
+	final BlockPos center;
+	final World world;
+	final int radius;
 
 	@Nullable
 	LivingEntity livingBase;
@@ -61,9 +55,8 @@ public class RebornExplosion extends Explosion {
 			BlockPos center,
 		@NotNull
 			World world,
-		@NotNull
 			int radius) {
-		super(world, null, null, null, center.getX(), center.getY(), center.getZ(), radius, false, DestructionType.DESTROY);
+		super(world, null, center.getX(), center.getY(), center.getZ(), radius, false, DestructionType.DESTROY);
 		this.center = center;
 		this.world = world;
 		this.radius = radius;

@@ -31,27 +31,21 @@ import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancement.Advancement.Builder
 import net.minecraft.advancement.AdvancementCriterion
 import net.minecraft.advancement.AdvancementEntry
-import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.data.server.recipe.RecipeExporter
-import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.registry.Registries
-import net.minecraft.registry.Registry
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlag
 import net.minecraft.util.Identifier
 import org.jetbrains.annotations.NotNull
-import org.jetbrains.annotations.Nullable
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
 import techreborn.datagen.recipes.TechRebornRecipesProvider
-
-import java.util.function.Consumer
 
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final RebornRecipeType<R> type

@@ -24,21 +24,11 @@
 
 package reborncore.common.recipes;
 
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.advancement.AdvancementRequirements;
-import net.minecraft.advancement.AdvancementRewards;
-import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.util.Identifier;
-
-import java.util.List;
-import java.util.Map;
 
 public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 
@@ -55,21 +45,15 @@ public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 	}
 	@Override
 	public void offerTo(RecipeExporter exporter, Identifier recipeId) {
-		validate(recipeId);
-		AdvancementEntry advancementEntry = exporter.getAdvancementBuilder().parent(ROOT).criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR).build(recipeId);
-
-		String group = this.group == null ? "" : this.group;
-		exporter.accept(new PaddedShapedRecipeJsonProvider(recipeId, output, count, group, getCraftingCategory(category), pattern, inputs, advancementEntry, false));
-
-		// ,
-		//			new Identifier(recipeId.getNamespace(), "recipes/" + category.getName() + "/" + recipeId.getPath())
-	}
-
-	static class PaddedShapedRecipeJsonProvider extends PaddedShapedRecipeJsonBuilder.ShapedRecipeJsonProvider {
-
-		public PaddedShapedRecipeJsonProvider(Identifier id, Item output, int resultCount, String group, CraftingRecipeCategory craftingCategory, List<String> pattern, Map<Character, Ingredient> inputs, AdvancementEntry advancement, boolean showNotification) {
-			super(id, output, resultCount, group, craftingCategory, pattern, inputs, advancement, showNotification);
+		if (true) {
+			// TODO 1.20.3
+			throw new IllegalStateException("Fix me");
 		}
-	}
+		//validate(recipeId);
+		//AdvancementEntry advancementEntry = exporter.getAdvancementBuilder().parent(ROOT).criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR).build(recipeId);
 
+		//String group = this.group == null ? "" : this.group;
+		//exporter.accept(new PaddedShapedRecipeJsonProvider(recipeId, output, count, group, getCraftingCategory(category), pattern, inputs, advancementEntry, false));
+		//exporter.accept(recipeId, null, advancementEntry);
+	}
 }

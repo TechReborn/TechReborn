@@ -43,7 +43,8 @@ public class PaddedShapedRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<ShapedRecipe> PADDED = Registry.register(Registries.RECIPE_SERIALIZER, ID, new Serializer());
 
 	public PaddedShapedRecipe(String group, CraftingRecipeCategory category, int width, int height, DefaultedList<Ingredient> input, ItemStack output) {
-		super(group, category, width, height, input, output);
+		// TODO 1.20.3
+		super(group, category, null, output);
 	}
 
 	private static class Serializer extends ShapedRecipe.Serializer {
@@ -72,9 +73,9 @@ public class PaddedShapedRecipe extends ShapedRecipe {
 	public boolean matches(RecipeInputInventory craftingInventory, World world) {
 		for(int i = 0; i <= craftingInventory.getWidth() - this.getWidth(); ++i) {
 			for(int j = 0; j <= craftingInventory.getHeight() - this.getHeight(); ++j) {
-				if (this.matchesPattern(craftingInventory, i, j, false)) {
-					return true;
-				}
+//				if (this.matchesPattern(craftingInventory, i, j, false)) {
+//					return true;
+//				}
 			}
 		}
 		return false;

@@ -26,8 +26,8 @@ package techreborn.init;
 
 import com.google.common.base.Preconditions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityDimensions;
@@ -42,6 +42,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -109,10 +110,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TRContent {
-
 	public static final Marker DATAGEN = MarkerFactory.getMarker("datagen");
-	public static final BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetTypeRegistry.registerWood(new Identifier(TechReborn.MOD_ID, "rubber_wood"));
-	public static final WoodType RUBBER_WOOD_TYPE = WoodTypeRegistry.register(new Identifier(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
+	public static final BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetTypeBuilder.copyOf(BlockSetType.OAK).build(new Identifier(TechReborn.MOD_ID, "rubber_wood"));
+	public static final WoodType RUBBER_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.OAK).register(new Identifier(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
 
 	// Misc Blocks
 	public static Block COMPUTER_CUBE;
@@ -545,16 +545,12 @@ public class TRContent {
 
 		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback, boolean industrial) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new ExperienceDroppingBlock(TRBlockSettings.ore(name.startsWith("deepslate")));
+			block = new ExperienceDroppingBlock(experienceDroppedFallback != null ? experienceDroppedFallback : ConstantIntProvider.create(1), TRBlockSettings.ore(name.startsWith("deepslate")));
 			this.industrial = industrial;
 			InitUtils.setup(block, name + "_ore");
 			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c",
 					(name.startsWith("deepslate_") ? name.substring(name.indexOf('_')+1): name) + "_ores"));
 			this.distribution = distribution;
-		}
-
-		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback) {
-			this(distribution, experienceDroppedFallback, false);
 		}
 
 		Ores(OreDistribution distribution, boolean industrial) {

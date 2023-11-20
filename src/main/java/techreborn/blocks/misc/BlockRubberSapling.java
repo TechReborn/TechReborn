@@ -26,7 +26,7 @@ package techreborn.blocks.misc;
 
 import net.minecraft.block.SaplingBlock;
 import techreborn.init.TRBlockSettings;
-import techreborn.world.RubberSaplingGenerator;
+import techreborn.world.WorldGenerator;
 
 /**
  * Created by modmuss50 on 20/02/2016.
@@ -34,6 +34,6 @@ import techreborn.world.RubberSaplingGenerator;
 public class BlockRubberSapling extends SaplingBlock {
 
 	public BlockRubberSapling() {
-		super(new RubberSaplingGenerator(), TRBlockSettings.rubberSapling());
+		super(WorldGenerator.RUBBER_TREE_SAPLING_GENERATOR, TRBlockSettings.rubberSapling());
 	}
 }
