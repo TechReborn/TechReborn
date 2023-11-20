@@ -141,7 +141,7 @@ public class BlockRubberLog extends PillarBlock {
 					return ActionResult.SUCCESS;
 				}
 				if (stack.getItem() instanceof ElectricTreetapItem item) {
-					item.tryUseEnergy(stack, 20);
+					item.tryUseEnergy(stack, TechRebornConfig.electricTreetapCost);
 				} else {
 					stack.damage(1, playerIn, player -> player.sendToolBreakStatus(hand));
 				}
