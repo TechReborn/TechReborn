@@ -31,6 +31,7 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.BlockTags
 import net.minecraft.util.Identifier
+import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
@@ -145,6 +146,11 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 		getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS)
 			.add(TRContent.RUBBER_TRAPDOOR)
+
+		ModFluids.values().each {
+			getOrCreateTagBuilder(BlockTags.REPLACEABLE)
+			.add(it.block)
+		}
 
 		getOrCreateTagBuilder(TRContent.BlockTags.NONE_SOLID_COVERS)
 			.addOptionalTag(new Identifier("ae2", "whitelisted/facades"))
