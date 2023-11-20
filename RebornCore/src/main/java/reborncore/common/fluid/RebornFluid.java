@@ -112,7 +112,8 @@ public abstract class RebornFluid extends FlowableFluid {
 
 	@Override
 	protected boolean canBeReplacedWith(FluidState fluidState, BlockView blockView, BlockPos blockPos, Fluid fluid, Direction direction) {
-		return false;
+		// Same as vanilla water
+		return direction == Direction.DOWN && !this.matchesType(fluid);
 	}
 
 	@Override
