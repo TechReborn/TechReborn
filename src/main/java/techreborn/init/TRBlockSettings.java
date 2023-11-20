@@ -27,7 +27,6 @@ package techreborn.init;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.sound.BlockSoundGroup;
 
 public class TRBlockSettings {
@@ -208,14 +207,7 @@ public class TRBlockSettings {
 	}
 
 	public static FabricBlockSettings fluid() {
-		FabricBlockSettings settings = FabricBlockSettings.copyOf(Blocks.WATER);
-
-		// Fabric doesn't copy these for fluids :(
-		settings.replaceable();
-		settings.pistonBehavior(PistonBehavior.DESTROY);
-		settings.liquid();
-
-		return settings;
+		return FabricBlockSettings.copyOf(Blocks.WATER);
 	}
 
 	public static FabricBlockSettings computerCube() {
