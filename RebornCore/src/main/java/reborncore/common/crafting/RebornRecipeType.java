@@ -29,14 +29,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.common.crafting.serde.RecipeSerde;
@@ -47,12 +46,11 @@ import java.util.List;
 public record RebornRecipeType<R extends RebornRecipe>(
 		RecipeSerde<R> recipeSerde,
 		Identifier name) implements RecipeType<R>, RecipeSerializer<R> {
-	private static final Codec<JsonElement> JSON_CODEC = Codec.PASSTHROUGH.xmap(dynamic -> dynamic.convert(JsonOps.INSTANCE).getValue(), jsonElement -> new Dynamic<>(JsonOps.INSTANCE, jsonElement));
 
 	@Override
 	public Codec<R> codec() {
 		// TODO get rid of me, this is pure laziness.
-		return JSON_CODEC.flatXmap(json -> {
+		return Codecs.JSON_ELEMENT.flatXmap(json -> {
 			try {
 				return DataResult.success(read(json));
 			} catch (JsonParseException var3) {
