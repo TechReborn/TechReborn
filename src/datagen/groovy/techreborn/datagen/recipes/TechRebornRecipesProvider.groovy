@@ -24,21 +24,34 @@
 
 package techreborn.datagen.recipes
 
+import com.google.common.collect.Sets
+import com.google.gson.JsonObject
+import com.mojang.serialization.JsonOps
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
+import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider
+import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
+import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementCriterion
-import net.minecraft.advancement.criterion.CriterionConditions
+import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
+import net.minecraft.data.DataProvider
+import net.minecraft.data.DataWriter
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder
 import net.minecraft.data.server.recipe.RecipeExporter
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.Ingredient
+import net.minecraft.recipe.Recipe
 import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
+import net.minecraft.util.Util
+import org.jetbrains.annotations.Nullable
+import reborncore.common.crafting.RebornRecipe
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
@@ -205,5 +218,46 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	@Override
 	public String getName() {
 		return "Recipes / " + getClass().name
+	}
+
+	@Override
+	CompletableFuture<?> run(DataWriter writer) {
+		Set<Identifier> generatedRecipes = Sets.newHashSet();
+		List<CompletableFuture<?>> list = new ArrayList<>();
+		generate(new RecipeExporter() {
+			@Override
+			void accept(Identifier recipeId, Recipe<?> recipe, @Nullable AdvancementEntry advancement) {
+				Identifier identifier = getRecipeIdentifier(recipeId);
+				if (!generatedRecipes.add(identifier)) {
+					throw new IllegalStateException("Duplicate recipe " + identifier);
+				}
+
+				JsonObject recipeJson
+
+				if (recipe instanceof RebornRecipe) {
+					def rebornRecipe = recipe as RebornRecipe
+					recipeJson = rebornRecipe.rebornRecipeType.toJson(rebornRecipe, false)
+				} else {
+					recipeJson = Util.getResult(Recipe.CODEC.encodeStart(JsonOps.INSTANCE, recipe), IllegalStateException::new).getAsJsonObject();
+				}
+
+				ConditionJsonProvider[] conditions = FabricDataGenHelper.consumeConditions(recipe);
+				ConditionJsonProvider.write(recipeJson, conditions);
+
+				list.add(DataProvider.writeToPath(writer, recipeJson, recipesPathResolver.resolveJson(identifier)));
+
+				if (advancement != null) {
+					JsonObject advancementJson = Util.getResult(Advancement.CODEC.encodeStart(JsonOps.INSTANCE, advancement.value()), IllegalStateException::new).getAsJsonObject();
+					ConditionJsonProvider.write(advancementJson, conditions);
+					list.add(DataProvider.writeToPath(writer, advancementJson, advancementsPathResolver.resolveJson(getRecipeIdentifier(advancement.id()))));
+				}
+			}
+
+			@Override
+			Advancement.Builder getAdvancementBuilder() {
+				return Advancement.Builder.createUntelemetered().parent(CraftingRecipeJsonBuilder.ROOT);
+			}
+		});
+		return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
 	}
 }
