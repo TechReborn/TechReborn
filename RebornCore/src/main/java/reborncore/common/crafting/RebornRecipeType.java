@@ -24,7 +24,6 @@
 
 package reborncore.common.crafting;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.serialization.Codec;
@@ -35,7 +34,6 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.common.crafting.serde.RecipeSerde;
@@ -49,24 +47,19 @@ public record RebornRecipeType<R extends RebornRecipe>(
 
 	@Override
 	public Codec<R> codec() {
-		// TODO get rid of me, this is pure laziness.
-		return Codecs.JSON_ELEMENT.flatXmap(json -> {
-			try {
-				return DataResult.success(read(json));
-			} catch (JsonParseException var3) {
-				return DataResult.error(var3::getMessage);
-			}
-		}, recipe -> {
-			try {
-				return DataResult.success(toJson(recipe, false));
-			} catch (IllegalArgumentException var3) {
-				return DataResult.error(var3::getMessage);
-			}
-		});
+		// TODO: could look into using codecs directly
+		return JsonMapCodec.INSTANCE
+			.flatXmap(json -> {
+				try {
+					return DataResult.success(read(json));
+				} catch (JsonParseException e) {
+					return DataResult.error(e::getMessage);
+				}
+			}, recipe -> DataResult.success(toJson(recipe, false)))
+			.codec();
 	}
 
-	private R read(JsonElement jsonElement) {
-		JsonObject json = JsonHelper.asObject(jsonElement, "recipe");
+	private R read(JsonObject json) {
 		Identifier type = new Identifier(JsonHelper.getString(json, "type"));
 		if (!type.equals(name)) {
 			throw new RuntimeException("RebornRecipe type not supported!");
