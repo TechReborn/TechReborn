@@ -25,9 +25,8 @@
 package reborncore.common.crafting;
 
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.registry.Registry;
 import reborncore.common.crafting.serde.RebornRecipeSerde;
 import reborncore.common.crafting.serde.RecipeSerde;
 
@@ -57,8 +56,10 @@ public class RecipeManager {
 		return type;
 	}
 
-	@Nullable
 	public static RebornRecipeType<?> getRecipeType(Identifier name) {
+		if (!recipeTypes.containsKey(name)) {
+			throw new IllegalStateException("RebornRecipe type " + name + " not found");
+		}
 		return recipeTypes.get(name);
 	}
 

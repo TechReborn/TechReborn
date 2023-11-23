@@ -7,8 +7,7 @@
     "MixinCraftingResultSlot",
     "MixinItemEntity",
     "MixinLivingEntity",
-    "MixinPlayerEntity",
-  	"MixinRecipeManager"
+    "MixinPlayerEntity"
   ],
   "injectors": {
     "defaultRequire": 1

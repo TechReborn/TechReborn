@@ -49,10 +49,23 @@ public record RebornRecipeType<R extends RebornRecipe>(
 
 	@Override
 	public Codec<R> codec() {
-		throw new UnsupportedOperationException("Not implemented");
+		// TODO get rid of me, this is pure laziness.
+		return Codecs.JSON_ELEMENT.flatXmap(json -> {
+			try {
+				return DataResult.success(read(json));
+			} catch (JsonParseException var3) {
+				return DataResult.error(var3::getMessage);
+			}
+		}, recipe -> {
+			try {
+				return DataResult.success(toJson(recipe, false));
+			} catch (IllegalArgumentException var3) {
+				return DataResult.error(var3::getMessage);
+			}
+		});
 	}
 
-	public R read(JsonElement jsonElement) {
+	private R read(JsonElement jsonElement) {
 		JsonObject json = JsonHelper.asObject(jsonElement, "recipe");
 		Identifier type = new Identifier(JsonHelper.getString(json, "type"));
 		if (!type.equals(name)) {
