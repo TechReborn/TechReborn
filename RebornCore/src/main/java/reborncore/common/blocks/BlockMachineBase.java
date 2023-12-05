@@ -144,12 +144,12 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 	}
 
 	@Override
-	public void onBreak(World world, BlockPos blockPos, BlockState blockState, PlayerEntity playerEntity) {
+	public BlockState onBreak(World world, BlockPos blockPos, BlockState blockState, PlayerEntity playerEntity) {
 		BlockEntity blockEntity = world.getBlockEntity(blockPos);
 		if (blockEntity instanceof MachineBaseBlockEntity) {
 			((MachineBaseBlockEntity) blockEntity).onBreak(world, playerEntity, blockPos, blockState);
 		}
-		super.onBreak(world, blockPos, blockState, playerEntity);
+		return super.onBreak(world, blockPos, blockState, playerEntity);
 	}
 
 	@SuppressWarnings("deprecation")

@@ -31,27 +31,21 @@ import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancement.Advancement.Builder
 import net.minecraft.advancement.AdvancementCriterion
 import net.minecraft.advancement.AdvancementEntry
-import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.data.server.recipe.RecipeExporter
-import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.registry.Registries
-import net.minecraft.registry.Registry
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlag
 import net.minecraft.util.Identifier
 import org.jetbrains.annotations.NotNull
-import org.jetbrains.annotations.Nullable
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
 import techreborn.datagen.recipes.TechRebornRecipesProvider
-
-import java.util.function.Consumer
 
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final RebornRecipeType<R> type
@@ -227,7 +221,14 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		RecipeUtils.addToastDefaults(builder, recipeId)
-		exporter.accept(new MachineRecipeJsonProvider<R>(type, createRecipe(), recipeId, advancementId, builder, conditions))
+
+		def recipe = createRecipe()
+
+		if (!conditions.isEmpty()) {
+			FabricDataGenHelper.addConditions(recipe, conditions.toArray() as ConditionJsonProvider[])
+		}
+
+		exporter.accept(recipeId, recipe, builder.build(advancementId))
 	}
 
 	def getIdentifier() {
@@ -245,54 +246,5 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 	def feature(FeatureFlag flag) {
 		condition(DefaultResourceConditions.featuresEnabled(flag))
-	}
-
-	static class MachineRecipeJsonProvider<R extends RebornRecipe> implements RecipeJsonProvider {
-		private final RebornRecipeType<R> type
-		private final R recipe
-		private final Identifier recipeId
-		private final Identifier advancementId
-		private final Builder builder
-		private final List<ConditionJsonProvider> conditions
-
-		MachineRecipeJsonProvider(RebornRecipeType<R> type, R recipe, Identifier recipeId, Identifier advancementId, Builder builder, List<ConditionJsonProvider> conditions) {
-			this.type = type
-			this.recipe = recipe
-			this.recipeId = recipeId
-			this.advancementId = advancementId
-			this.builder = builder
-			this.conditions = conditions
-		}
-
-		@Override
-		JsonObject toJson() {
-			if (!conditions.isEmpty()) {
-				FabricDataGenHelper.addConditions(this, conditions.toArray() as ConditionJsonProvider[])
-			}
-
-			return type.toJson(recipe, false)
-		}
-
-		@Override
-		Identifier id() {
-			return recipeId
-		}
-
-		@Override
-		void serialize(JsonObject json) {
-			throw new UnsupportedOperationException()
-		}
-
-		@Override
-		RecipeSerializer<?> serializer() {
-			throw new UnsupportedOperationException()
-		}
-
-		@Override
-		AdvancementEntry advancement() {
-			if (builder == null)
-				return null
-			return builder.build(advancementId)
-		}
 	}
 }

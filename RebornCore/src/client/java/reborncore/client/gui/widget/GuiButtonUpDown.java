@@ -47,7 +47,7 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	}
 
 	@Override
-	public void renderButton(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
 		if (gui.hideGuiElements()) return;
 		drawSprite(drawContext, type.spriteIdentifier, getX(), getY());
 	}

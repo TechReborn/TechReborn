@@ -165,7 +165,7 @@ dependencies {
 
     include project(":RebornCore")
 
-	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", true)
+	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", false)
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.10'
@@ -320,7 +320,7 @@ publishMods {
 
     def options = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-        minecraftVersions.add("1.20.2")
+        minecraftVersions.add("1.20.3")
 
         requires {
             slug = "fabric-api"

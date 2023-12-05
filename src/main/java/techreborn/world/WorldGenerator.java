@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
+import net.minecraft.block.SaplingGenerator;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -45,6 +46,7 @@ import techreborn.init.TRContent;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -65,6 +67,13 @@ public class WorldGenerator {
 	public static final RegistryKey<PlacedFeature> RUBBER_TREE_PATCH_PLACED_FEATURE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, RUBBER_TREE_PATCH_ID);
 
 	public static final TreeDecoratorType<RubberTreeSpikeDecorator> RUBBER_TREE_SPIKE = Registry.register(Registries.TREE_DECORATOR_TYPE, new Identifier("techreborn", "rubber_tree_spike"), new TreeDecoratorType<>(RubberTreeSpikeDecorator.CODEC));
+
+	public static final SaplingGenerator RUBBER_TREE_SAPLING_GENERATOR = new SaplingGenerator(
+		new Identifier("techreborn", "rubber_tree").toString(),
+		Optional.of(RUBBER_TREE_FEATURE),
+		Optional.empty(),
+		Optional.empty()
+	);
 
 	public static void initWorldGen() {
 		if (!TechRebornConfig.enableOreGeneration && !TechRebornConfig.enableRubberTreeGeneration && !TechRebornConfig.enableOilLakeGeneration) {

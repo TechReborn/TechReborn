@@ -33,14 +33,16 @@ import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.RecipeUtils;
 
+import java.util.List;
+
 public class TRRecipeHandler {
 
 
 	public static void unlockTRRecipes(ServerPlayerEntity playerMP) {
-		Identifier[] recipeList = RecipeUtils.getRecipeEntries(playerMP.getWorld(), RecipeType.CRAFTING).stream()
+		List<Identifier> recipeList = RecipeUtils.getRecipeEntries(playerMP.getWorld(), RecipeType.CRAFTING).stream()
 			.filter(TRRecipeHandler::isRecipeValid)
 			.map(RecipeEntry::id)
-			.toArray(Identifier[]::new);
+			.toList();
 		playerMP.unlockRecipes(recipeList);
 	}
 

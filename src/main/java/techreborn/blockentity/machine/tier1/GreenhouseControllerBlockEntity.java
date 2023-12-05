@@ -104,7 +104,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			processAgedCrop(blockState, blockPos, SweetBerryBushBlock.AGE, 3, 1);
 		} else if (block instanceof CocoaBlock) {
 			processAgedCrop(blockState, blockPos, CocoaBlock.AGE, 2, 0);
-		} else if (block instanceof GourdBlock) {
+		} else if (block instanceof PumpkinBlock) {
 			if (tryHarvestBlock(blockState, blockPos)) {
 				world.breakBlock(blockPos, false);
 			}

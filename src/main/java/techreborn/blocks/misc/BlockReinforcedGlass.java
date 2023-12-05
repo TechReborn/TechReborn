@@ -24,10 +24,10 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.GlassBlock;
+import net.minecraft.block.TransparentBlock;
 import techreborn.init.TRBlockSettings;
 
-public class BlockReinforcedGlass extends GlassBlock {
+public class BlockReinforcedGlass extends TransparentBlock {
 	public BlockReinforcedGlass() {
 		super(TRBlockSettings.reinforcedGlass());
 	}

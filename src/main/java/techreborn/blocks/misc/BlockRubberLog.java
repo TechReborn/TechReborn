@@ -92,7 +92,7 @@ public class BlockRubberLog extends PillarBlock {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onBreak(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+	public BlockState onBreak(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
 		int i = 4;
 		int j = i + 1;
 		if (worldIn instanceof ServerWorld && worldIn.isRegionLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
@@ -104,7 +104,7 @@ public class BlockRubberLog extends PillarBlock {
 				}
 			}
 		}
-		super.onBreak(worldIn, pos, state, player);
+		return super.onBreak(worldIn, pos, state, player);
 	}
 
 	@SuppressWarnings("deprecation")

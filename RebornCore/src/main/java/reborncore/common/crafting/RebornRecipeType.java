@@ -24,16 +24,16 @@
 
 package reborncore.common.crafting;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.common.crafting.serde.RecipeSerde;
@@ -47,11 +47,19 @@ public record RebornRecipeType<R extends RebornRecipe>(
 
 	@Override
 	public Codec<R> codec() {
-		return Codecs.fromJsonSerializer(this::read, r -> toJson(r, false));
+		// TODO: could look into using codecs directly
+		return JsonMapCodec.INSTANCE
+			.flatXmap(json -> {
+				try {
+					return DataResult.success(read(json));
+				} catch (JsonParseException e) {
+					return DataResult.error(e::getMessage);
+				}
+			}, recipe -> DataResult.success(toJson(recipe, false)))
+			.codec();
 	}
 
-	private R read(JsonElement jsonElement) {
-		JsonObject json = JsonHelper.asObject(jsonElement, "recipe");
+	private R read(JsonObject json) {
 		Identifier type = new Identifier(JsonHelper.getString(json, "type"));
 		if (!type.equals(name)) {
 			throw new RuntimeException("RebornRecipe type not supported!");

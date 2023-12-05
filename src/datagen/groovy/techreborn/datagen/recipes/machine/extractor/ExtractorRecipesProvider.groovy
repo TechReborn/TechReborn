@@ -302,7 +302,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			(Items.BOW) : Items.STRING,
 			(Items.CROSSBOW) : Items.STRING,
 			(Items.FERN) : Items.WHEAT_SEEDS,
-			(Items.GRASS) : Items.WHEAT_SEEDS
+			(Items.SHORT_GRASS) : Items.WHEAT_SEEDS
 		].each { input, output ->
 			offerExtractorRecipe {
 				ingredients input

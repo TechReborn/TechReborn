@@ -350,16 +350,15 @@ public class GuiBuilder {
 				.map(Text::translatable)
 				.collect(Collectors.toList());
 
-		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 54, y, y + 76, 9 + 2, tips);
-		explanation.setLeftPos(x - 81);
+		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 76, y, 9 + 2, tips);
+		explanation.setX(x - 81);
 		explanation.render(drawContext, mouseX, mouseY, 1.0f);
 	}
 
-
 	private static class TipsListWidget extends EntryListWidget<TipsListWidget.TipsListEntry> {
 
-		public TipsListWidget(GuiBase<?> gui, int width, int height, int top, int bottom, int entryHeight, List<Text> tips) {
-			super(gui.getMinecraft(), width, height, top, bottom, entryHeight);
+		public TipsListWidget(GuiBase<?> gui, int width, int height, int top, int entryHeight, List<Text> tips) {
+			super(gui.getMinecraft(), width, height, top, entryHeight);
 			for (Text tip : tips) {
 				this.addEntry(new TipsListEntry(tip));
 			}
@@ -373,14 +372,13 @@ public class GuiBuilder {
 		}
 
 		@Override
-		public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-			drawContext.fill(this.left, this.top, this.right, this.bottom, 0xff202020); //
+		public void renderList(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+			drawContext.fill(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), 0xff202020); //
 			super.renderList(drawContext, mouseX, mouseY, delta);
 		}
 
 		@Override
-		public void appendNarrations(NarrationMessageBuilder builder) {
-
+		protected void appendClickableNarrations(NarrationMessageBuilder builder) {
 		}
 
 		private class TipsListEntry extends EntryListWidget.Entry<TipsListWidget.TipsListEntry> {
