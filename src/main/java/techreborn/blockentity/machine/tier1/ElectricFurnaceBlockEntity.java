@@ -159,11 +159,11 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		ItemStack outputStack = inventory.getStack(outputSlot);
+		ItemStack result = recipe.getResult(getWorld().getRegistryManager());
 		if (outputStack.isEmpty()) {
-			inventory.setStack(outputSlot, recipe.getResult(getWorld().getRegistryManager()).copy());
+			inventory.setStack(outputSlot, result.copy());
 		} else {
-			// Just increment. We already checked stack match and stack size
-			outputStack.increment(1);
+			outputStack.increment(result.getCount());
 		}
 
 		inventory.getStack(inputSlot).decrement(1);
