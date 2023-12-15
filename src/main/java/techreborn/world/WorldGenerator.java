@@ -70,8 +70,8 @@ public class WorldGenerator {
 
 	public static final SaplingGenerator RUBBER_TREE_SAPLING_GENERATOR = new SaplingGenerator(
 		new Identifier("techreborn", "rubber_tree").toString(),
-		Optional.of(RUBBER_TREE_FEATURE),
 		Optional.empty(),
+		Optional.of(RUBBER_TREE_FEATURE),
 		Optional.empty()
 	);
 
