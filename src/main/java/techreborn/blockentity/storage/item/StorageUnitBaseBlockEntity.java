@@ -72,7 +72,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	private ItemStack storeItemStack;
 	// Fabric transfer API support for the internal stack (one per direction);
-	@SuppressWarnings("UnstableApiUsage")
 	private final SingleStackStorage[] internalStoreStorage = new SingleStackStorage[6];
 
 	private TRContent.StorageUnit type;
@@ -279,7 +278,9 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				fillToCapacity();
 			}
 			// void input items for creative storage (#2205)
-			inventory.setStack(INPUT_SLOT, ItemStack.EMPTY);
+			if (!inventory.getStack(INPUT_SLOT).isEmpty()){
+				inventory.setStack(INPUT_SLOT, ItemStack.EMPTY);
+			}
 		}
 
 		if (inventory.hasChanged()) {
@@ -531,7 +532,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		storeItemStack = ItemStack.fromNbt(tag);
 	}
 
-	@SuppressWarnings("UnstableApiUsage")
 	private Storage<ItemVariant> getInternalStoreStorage(@Nullable Direction direction) {
 		// Quick fix to handle null sides. https://github.com/TechReborn/TechReborn/issues/3175
 		final Direction side = direction != null ? direction : Direction.DOWN;
@@ -580,7 +580,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		return internalStoreStorage[side.getId()];
 	}
 
-	@SuppressWarnings("UnstableApiUsage")
 	public Storage<ItemVariant> getExposedStorage(Direction side) {
 		return new CombinedStorage<>(List.of(
 				getInternalStoreStorage(side),

@@ -34,6 +34,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
@@ -92,6 +93,16 @@ public class StorageUnitBlock extends BlockMachineBase {
 		}
 
 		return ActionResult.SUCCESS;
+	}
+
+	@Override
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
+		if (storageEntity == null){
+			return 0;
+		}
+		float delta = (float) storageEntity.getCurrentCapacity()/storageEntity.getMaxCapacity();
+		return MathHelper.lerpPositive(delta, 0, 15);
 	}
 
 	@SuppressWarnings("deprecation")

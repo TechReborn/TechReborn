@@ -216,7 +216,6 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 	}
 
 	// TODO: use the fabric one when it will be PR'ed.
-	@SuppressWarnings({"deprecation", "UnstableApiUsage"})
 	public static long insertItemStacked(InventoryStorage inventory, ItemVariant variant, long maxAmount) {
 		long inserted = 0;
 		try (Transaction tx = Transaction.openOuter()) {
