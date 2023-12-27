@@ -270,7 +270,9 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				fillToCapacity();
 			}
 			// void input items for creative storage (#2205)
-			inventory.setStack(INPUT_SLOT, ItemStack.EMPTY);
+			if (!inventory.getStack(INPUT_SLOT).isEmpty()){
+				inventory.setStack(INPUT_SLOT, ItemStack.EMPTY);
+			}
 		}
 
 		if (inventory.hasChanged()) {
