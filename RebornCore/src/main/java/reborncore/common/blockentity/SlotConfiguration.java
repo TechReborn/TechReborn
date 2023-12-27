@@ -269,13 +269,13 @@ public class SlotConfiguration implements NBTSerializable {
 
 		@NotNull
 		public Direction getSide() {
-			Validate.notNull(side);
+			Validate.notNull(side, "side is null");
 			return side;
 		}
 
 		@NotNull
 		public SlotIO getSlotIO() {
-			Validate.notNull(slotIO);
+			Validate.notNull(slotIO, "error when loading slot config");
 			return slotIO;
 		}
 

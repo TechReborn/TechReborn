@@ -44,7 +44,7 @@ public class InventoryItem extends InventoryBase {
 			@NotNull
 					ItemStack stack, int size) {
 		super(size);
-		Validate.notNull(stack);
+		Validate.notNull(stack, "Stack is empty");
 		Validate.isTrue(!stack.isEmpty());
 		this.size = size;
 		this.stack = stack;
@@ -80,7 +80,7 @@ public class InventoryItem extends InventoryBase {
 
 	public void setSlotData(int slot, NbtCompound tagCompound) {
 		validateSlotIndex(slot);
-		Validate.notNull(tagCompound);
+		Validate.notNull(tagCompound, "NBT tag is empty");
 		NbtCompound invData = getInvData();
 		invData.put("slot_" + slot, tagCompound);
 	}
