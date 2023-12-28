@@ -79,13 +79,15 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
-		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+		if (!playerIn.canModifyBlocks()){
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		}
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-
 		if (blockEntity == null) {
 			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 		}
 
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		PlayerDetectorType type = state.get(TYPE);
 		PlayerDetectorType newType = type;
 		Formatting color = Formatting.GREEN;
@@ -159,16 +161,6 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 	@SuppressWarnings("deprecation")
 	@Override
 	public int getWeakRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
-		BlockEntity entity = blockAccess.getBlockEntity(pos);
-		if (entity instanceof PlayerDetectorBlockEntity) {
-			return ((PlayerDetectorBlockEntity) entity).isProvidingPower() ? 15 : 0;
-		}
-		return 0;
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public int getStrongRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
 		BlockEntity entity = blockAccess.getBlockEntity(pos);
 		if (entity instanceof PlayerDetectorBlockEntity) {
 			return ((PlayerDetectorBlockEntity) entity).isProvidingPower() ? 15 : 0;
