@@ -35,7 +35,6 @@ import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -45,7 +44,6 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -101,11 +99,21 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (!(world instanceof ServerWorld serverWorld) || getStored() <= TechRebornConfig.fishingStationEnergyPerCatch || !isActive(RedstoneConfiguration.POWER_IO)) {
+		if (world == null || world.isClient){
 			return;
 		}
 
-		if (world.getTime() % TechRebornConfig.fishingStationInterval != 0) {
+		charge(6);
+
+		long useRequirement = getEuPerTick(TechRebornConfig.fishingStationEnergyPerCatch);
+
+		if (getStored() < useRequirement) {
+			return;
+		}
+
+		int speed = (int) Math.round(getSpeedMultiplier() / TechRebornConfig.overclockerSpeed) + 1;
+
+		if (world.getTime() % (TechRebornConfig.fishingStationInterval/speed) != 0) {
 			return;
 		}
 
@@ -115,16 +123,16 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 			return;
 		}
 
-		if (getStored() > TechRebornConfig.fishingStationEnergyPerCatch) {
-			final LootContextParameterSet lootContextParameterSet = new LootContextParameterSet.Builder(serverWorld)
-				.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(frontPos))
-				.add(LootContextParameters.TOOL, TRContent.Machine.FISHING_STATION.getStack())
-				.build(LootContextTypes.FISHING);
 
-			final LootTable lootTable = this.getWorld().getServer().getLootManager().getLootTable(LootTables.FISHING_GAMEPLAY);
-			final ObjectArrayList<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
-			insertIntoInv(list);
-			useEnergy(TechRebornConfig.fishingStationEnergyPerCatch);
+		final LootContextParameterSet lootContextParameterSet = new LootContextParameterSet.Builder((ServerWorld) world)
+			.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(frontPos))
+			.add(LootContextParameters.TOOL, TRContent.Machine.FISHING_STATION.getStack())
+			.build(LootContextTypes.FISHING);
+
+		final LootTable lootTable = world.getServer().getLootManager().getLootTable(LootTables.FISHING_GAMEPLAY);
+		final ObjectArrayList<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
+		if (insertIntoInv(list)){
+			useEnergy(useRequirement);
 		}
 	}
 
@@ -146,27 +154,6 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 	@Override
 	public long getBaseMaxInput() {
 		return TechRebornConfig.fishingStationMaxInput;
-	}
-
-	@Override
-	public void readNbt(NbtCompound tag) {
-		super.readNbt(tag);
-	}
-
-	@Override
-	public void writeNbt(NbtCompound tag) {
-		super.writeNbt(tag);
-	}
-
-	// MachineBaseBlockEntity
-	@Override
-	public boolean hasSlotConfig() {
-		return false;
-	}
-
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
 	}
 
 	// IToolDrop
