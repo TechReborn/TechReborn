@@ -89,6 +89,9 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 		redstone = false;
 		if (getStored() > TechRebornConfig.playerDetectorEuPerTick) {
 			for (PlayerEntity player : world.getPlayers()) {
+				if (player.isSpectator()){
+					continue;
+				}
 				if (MathHelper.sqrt((float)player.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ())) <= (float)radius ) {
 					PlayerDetectorType type = world.getBlockState(pos).get(PlayerDetectorBlock.TYPE);
 					if (type == PlayerDetectorType.ALL) {// ALL
