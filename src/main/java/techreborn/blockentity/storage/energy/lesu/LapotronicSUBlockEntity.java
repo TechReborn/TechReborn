@@ -41,6 +41,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
@@ -55,7 +56,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	private void setMaxStorage() {
 		maxStorage = (connectedBlocks + 1) * TechRebornConfig.lesuStoragePerBlock;
-		if (maxStorage < 0 || maxStorage > Integer.MAX_VALUE) {
+		if (maxStorage < 0) {
 			maxStorage = Integer.MAX_VALUE;
 		}
 	}
@@ -64,7 +65,9 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		maxOutput = TechRebornConfig.lesuBaseOutput + (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock);
 		if (connectedBlocks < 32) {
 			return;
-		} else if (connectedBlocks < 128) {
+        }
+
+        if (connectedBlocks < 128) {
 			maxInput = RcEnergyTier.MEDIUM.getMaxInput();
 		} else {
 			maxInput = RcEnergyTier.HIGH.getMaxInput();
@@ -72,6 +75,8 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	private void checkNetwork() {
+		Objects.requireNonNull(world, "World may not be null.");
+
 		countedNetworks.clear();
 		connectedBlocks = 0;
 		for (Direction dir : Direction.values()) {
@@ -130,29 +135,13 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 				.sync(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
 	}
 
-//	public int getOutputRate() {
-//		return maxOutput;
-//	}
-//
-//	public void setOutputRate(int output) {
-//		this.maxOutput = output;
-//	}
-//
-//	public int getInputRate(){
-//		return maxInput;
-//	}
-//
-//	public void setInputRate(int input){
-//		this.maxInput = input;
-//	}
-
 	public int getConnectedBlocksNum() {
 		return connectedBlocks;
 	}
 
 	public void setConnectedBlocksNum(int value) {
 		this.connectedBlocks = value;
-		if (world.isClient) {
+		if (world != null && world.isClient) {
 			setMaxStorage();
 			setIORate();
 		}

@@ -56,6 +56,9 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 			if (lesuStorage.network != null) {
 				lesuStorage.network.merge(network);
 			}
+			else {
+				lesuStorage.setNetwork(network);
+			}
 		}
 	}
 
@@ -96,8 +99,7 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 			findAndJoinNetwork(world, pos);
 		} else {
 			if (network.master != null
-					&& network.master.getWorld().getBlockEntity(new BlockPos(network.master.getPos().getX(),
-					network.master.getPos().getY(), network.master.getPos().getZ())) != network.master) {
+					&& network.master.getWorld().getBlockEntity(network.master.getPos()) != network.master) {
 				network.master = null;
 			}
 		}
