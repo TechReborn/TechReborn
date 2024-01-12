@@ -26,6 +26,7 @@ package techreborn.blockentity.generator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -51,6 +52,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRContent.SolarPanels;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
@@ -71,9 +73,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	private void updatePanel() {
-		if (world == null) {
-			return;
-		}
+		Objects.requireNonNull(world, "World may not be null.");
 
 		Block panelBlock = world.getBlockState(pos).getBlock();
 		if (panelBlock instanceof BlockSolarPanel solarPanelBlock) {
@@ -88,6 +88,8 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	// this ugly approach
 	public boolean isGenerating() { return generating; }
 	private void setIsGenerating(boolean isGenerating) {
+		Objects.requireNonNull(world, "World may not be null.");
+
 		if (isGenerating != isGenerating()) {
 			// Update block state if necessary
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isGenerating));
@@ -103,15 +105,15 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	private void updateState() {
-		if (world == null) {
-			return;
-		}
+		Objects.requireNonNull(world, "World may not be null.");
 
 		// Generation is only possible if sky is visible above us
 		setIsGenerating(world.isSkyVisible(pos.up()));
 	}
 
 	public int getGenerationRate() {
+		Objects.requireNonNull(world, "World may not be null.");
+
 		if (!isGenerating()) {
 			return 0;
 		}
@@ -154,6 +156,14 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		if (getPanel() == TRContent.SolarPanels.CREATIVE) {
 			checkOverfill = false;
 			setEnergy(Integer.MAX_VALUE);
+			for (Direction side : Direction.values()) {
+				BlockEntity to = world.getBlockEntity(pos.offset(side));
+				if (to instanceof PowerAcceptorBlockEntity receiver) {
+					if (receiver.getMaxInput(side.getOpposite()) > 0){
+						receiver.setStored(receiver.getMaxStoredPower());
+					}
+				}
+			}
 			return;
 		}
 
@@ -261,6 +271,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		if (world == null) {
 			// We are in BlockEntity.create method during chunk load.
 			this.checkOverfill = false;
+			return;
 		}
 		updatePanel();
 		super.readNbt(tag);
