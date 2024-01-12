@@ -115,6 +115,13 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		}
 	}
 
+	// MachineBaseBlockEntity
+	@Override
+	public void onLoad() {
+		super.onLoad();
+		checkNetwork();
+	}
+
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
