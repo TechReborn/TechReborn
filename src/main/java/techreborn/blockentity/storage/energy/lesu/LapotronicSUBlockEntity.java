@@ -64,10 +64,8 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	private void setIORate() {
 		maxOutput = TechRebornConfig.lesuBaseOutput + (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock);
 		if (connectedBlocks < 32) {
-			return;
-        }
-
-        if (connectedBlocks < 128) {
+			maxInput = RcEnergyTier.LOW.getMaxInput();
+        } else if (connectedBlocks < 128) {
 			maxInput = RcEnergyTier.MEDIUM.getMaxInput();
 		} else {
 			maxInput = RcEnergyTier.HIGH.getMaxInput();
