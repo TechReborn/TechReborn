@@ -24,7 +24,6 @@
 
 package techreborn;
 
-import dev.architectury.event.events.client.ClientTickEvent;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
