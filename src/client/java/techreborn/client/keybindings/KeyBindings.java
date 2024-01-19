@@ -29,6 +29,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
+import reborncore.client.ClientNetworkManager;
+import reborncore.common.network.NetworkManager;
+import techreborn.packets.ClientboundPackets;
+import techreborn.packets.ServerboundPackets;
 
 public class KeyBindings {
 	// Actual keybindings are in TechRebornClient
@@ -45,5 +49,9 @@ public class KeyBindings {
 				InputUtil.Type.KEYSYM,
 				GLFW.GLFW_KEY_N,
 				CATEGORY));
+	}
+
+	public static void handleNanoSuitNVToggle() {
+		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketToggleNV());
 	}
 }

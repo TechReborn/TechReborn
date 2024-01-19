@@ -24,8 +24,10 @@
 
 package techreborn;
 
+import dev.architectury.event.events.client.ClientTickEvent;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
@@ -130,6 +132,12 @@ public class TechRebornClient implements ClientModInitializer {
 		});
 
 		KeyBindings.registerKeys();
+
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			while (KeyBindings.nanoSuitNightVision.wasPressed()) {
+				KeyBindings.handleNanoSuitNVToggle();
+			}
+		});
 
 		StackToolTipHandler.setup();
 		ClientboundPacketHandlers.init();

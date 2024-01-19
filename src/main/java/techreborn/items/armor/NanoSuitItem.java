@@ -39,12 +39,14 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import reborncore.api.items.ArmorBlockEntityTicker;
+import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 
 import java.util.Objects;
 
-public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker {
+public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
 
 	public NanoSuitItem(ArmorMaterial material, Type slot) {
 		super(material, slot, TechRebornConfig.nanoSuitCapacity, RcEnergyTier.HIGH);
@@ -78,9 +80,16 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 		World world = playerEntity.getWorld();
 		// Night Vision
 		if (Objects.requireNonNull(this.getSlotType()) == EquipmentSlot.HEAD) {
-			if ((world.isNight() || world.getLightLevel(playerEntity.getBlockPos()) <= 6) && tryUseEnergy(stack, TechRebornConfig.nanoSuitNightVisionCost)) {
+			if (stack.getOrCreateNbt().getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.nanoSuitNightVisionCost)) {
 				playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 220, 1, false, false));
+			} else {
+				playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 			}
 		}
+	}
+
+	@Override
+	public void onRemoved(PlayerEntity playerEntity) {
+		playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 	}
 }
