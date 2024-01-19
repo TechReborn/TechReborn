@@ -24,14 +24,26 @@
 
 package techreborn.client.keybindings;
 
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
 	// Actual keybindings are in TechRebornClient
-	public static final String CATEGORY = "keys.techreborn.category";
-	public static final String CONFIG = "keys.techreborn.config";
+	public static final String CATEGORY = "key.techreborn.category";
+	public static final String CONFIG = "key.techreborn.config";
 
 	public static KeyBinding config = new KeyBinding(CONFIG, GLFW.GLFW_KEY_P, CATEGORY);
 
+	public static KeyBinding nanoSuitNightVision;
+
+	public static void registerKeys() {
+		nanoSuitNightVision = KeyBindingHelper.registerKeyBinding(
+			new KeyBinding("key.techreborn.nanoSuitNightVision",
+				InputUtil.Type.KEYSYM,
+				GLFW.GLFW_KEY_N,
+				CATEGORY));
+	}
 }

@@ -60,6 +60,7 @@ import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
 import techreborn.client.events.StackToolTipHandler;
+import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.BaseDynamicFluidBakedModel;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
@@ -128,6 +129,7 @@ public class TechRebornClient implements ClientModInitializer {
 			});
 		});
 
+		KeyBindings.registerKeys();
 
 		StackToolTipHandler.setup();
 		ClientboundPacketHandlers.init();
