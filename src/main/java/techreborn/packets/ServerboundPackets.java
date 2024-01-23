@@ -27,6 +27,7 @@ package techreborn.packets;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.network.IdentifiedPacket;
@@ -61,6 +62,8 @@ public class ServerboundPackets {
 	public static final Identifier JUMP = new Identifier(TechReborn.MOD_ID, "jump");
 	public static final Identifier PUMP_DEPTH = new Identifier(TechReborn.MOD_ID, "pump_depth");
 	public static final Identifier PUMP_RANGE = new Identifier(TechReborn.MOD_ID, "pump_range");
+
+	public static final Identifier NANO_SUIT_NIGHT_VISION = new Identifier(TechReborn.MOD_ID, "nano_suit_night_vision");
 
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
@@ -225,6 +228,17 @@ public class ServerboundPackets {
 				}
 			});
 		}));
+
+		NetworkManager.registerServerBoundHandler(NANO_SUIT_NIGHT_VISION, (server, player, handler, buf, responseSender) -> {
+			server.execute(() -> {
+				for (ItemStack itemStack : player.getArmorItems()) {
+					if (itemStack.isOf(TRContent.NANO_HELMET)) {
+						itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
+						break;
+					}
+				}
+			});
+		});
 	}
 
 	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
@@ -314,6 +328,11 @@ public class ServerboundPackets {
 		return NetworkManager.createServerBoundPacket(PUMP_RANGE, buf -> {
 			buf.writeBlockPos(blockEntity.getPos());
 			buf.writeInt(buttonAmount);
+		});
+	}
+
+	public static IdentifiedPacket createPacketToggleNV() {
+		return NetworkManager.createServerBoundPacket(NANO_SUIT_NIGHT_VISION, buf -> {
 		});
 	}
 }
