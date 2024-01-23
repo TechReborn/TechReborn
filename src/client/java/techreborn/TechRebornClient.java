@@ -56,7 +56,7 @@ import reborncore.client.gui.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.api.base.SimpleBatteryItem;
+import team.reborn.energy.api.base.SimpleEnergyItem;
 import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
@@ -77,7 +77,6 @@ import techreborn.items.DynamicCellItem;
 import techreborn.items.FrequencyTransmitterItem;
 import techreborn.items.armor.BatpackItem;
 import techreborn.items.tool.ChainsawItem;
-import techreborn.items.tool.industrial.IndustrialChainsawItem;
 import techreborn.items.tool.industrial.NanosaberItem;
 
 import java.util.Arrays;
@@ -182,7 +181,7 @@ public class TechRebornClient implements ClientModInitializer {
 				BatpackItem.class,
 				new Identifier("techreborn:empty"),
 				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && SimpleBatteryItem.getStoredEnergyUnchecked(stack) == 0) {
+					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) == 0) {
 						return 1.0F;
 					}
 					return 0.0F;
@@ -193,7 +192,7 @@ public class TechRebornClient implements ClientModInitializer {
 				BatteryItem.class,
 				new Identifier("techreborn:empty"),
 				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && SimpleBatteryItem.getStoredEnergyUnchecked(stack) == 0) {
+					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) == 0) {
 						return 1.0F;
 					}
 					return 0.0F;
@@ -217,7 +216,7 @@ public class TechRebornClient implements ClientModInitializer {
 				ChainsawItem.class,
 				new Identifier("techreborn:animated"),
 				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && SimpleBatteryItem.getStoredEnergyUnchecked(stack) >= item.getCost() && entity != null && entity.getMainHandStack().equals(stack)) {
+					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) >= item.getCost() && entity != null && entity.getMainHandStack().equals(stack)) {
 						return 1.0F;
 					}
 					return 0.0F;
@@ -257,6 +256,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 		@Override
 		default float unclampedCall(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
+			//noinspection unchecked
 			return call((T) stack.getItem(), stack, world, entity, seed);
 		}
 
