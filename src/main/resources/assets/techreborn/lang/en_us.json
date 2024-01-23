@@ -857,8 +857,10 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Extreme",
   "techreborn.message.info.block.techreborn.elevator": "Teleports player up or down to the next free elevator block",
 
-  "keys.techreborn.category": "TechReborn Category",
-  "keys.techreborn.config": "Config",
+  "_comment29": "Keybindings",
+  "key.techreborn.category": "TechReborn Category",
+  "key.techreborn.config": "Config",
+  "key.techreborn.nanoSuitNightVision": "Nanosuit - toggle night vision",
 
   "_comment19": "JEI Integration",
   "techreborn.jei.recipe.start.cost": "Start: %s",
