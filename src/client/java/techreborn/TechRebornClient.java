@@ -251,7 +251,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {
 		Registries.ITEM.stream()
-				.filter(item -> item.getClass().isAssignableFrom(itemClass))
+				.filter(itemClass::isInstance)
 				.forEach(item -> ModelPredicateProviderRegistry.register(item, identifier, modelPredicateProvider));
 	}
 
