@@ -77,6 +77,7 @@ import techreborn.items.DynamicCellItem;
 import techreborn.items.FrequencyTransmitterItem;
 import techreborn.items.armor.BatpackItem;
 import techreborn.items.tool.ChainsawItem;
+import techreborn.items.tool.industrial.IndustrialChainsawItem;
 import techreborn.items.tool.industrial.NanosaberItem;
 
 import java.util.Arrays;
@@ -245,7 +246,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {
 		Registries.ITEM.stream()
-				.filter(item -> item.getClass().isAssignableFrom(itemClass))
+				.filter(itemClass::isInstance)
 				.forEach(item -> ModelPredicateProviderRegistry.register(item, identifier, modelPredicateProvider));
 	}
 
