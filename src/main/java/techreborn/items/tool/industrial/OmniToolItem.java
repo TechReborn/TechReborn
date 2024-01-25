@@ -95,6 +95,15 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 	// Item
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
+		ActionResult tryUse = Items.DIAMOND_AXE.useOnBlock(context);
+		if (tryUse != ActionResult.PASS) { return tryUse; }
+
+		tryUse = Items.SHEARS.useOnBlock(context);
+		if (tryUse != ActionResult.PASS) { return tryUse; }
+
+		tryUse = Items.DIAMOND_SHOVEL.useOnBlock(context);
+		if (tryUse != ActionResult.PASS) { return tryUse; }
+
 		return TorchHelper.placeTorch(context);
 	}
 
@@ -142,7 +151,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 	@Override
 	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
 		if (!player.getWorld().isClient && this.getStoredEnergy(stack) >= 5.0) {
-			this.tryUseEnergy(stack, (long) 5);
+			this.tryUseEnergy(stack, 5);
 			return true;
 		} else {
 			return false;
