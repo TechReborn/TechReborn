@@ -17,6 +17,7 @@ public class MixinEnchantmentHelper {
 		if (item instanceof EnchantmentTargetHandler) {
 			return ((EnchantmentTargetHandler) item).modifyEnchantmentApplication(target);
 		}
-		return target.isAcceptableItem(item);
+
+		return original.call(target, item);
 	}
 }
