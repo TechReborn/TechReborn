@@ -5,6 +5,7 @@
   "mixins": [
     "MixinBucketItem",
     "MixinCraftingResultSlot",
+    "MixinEnchantmentHelper",
     "MixinItemEntity",
     "MixinLivingEntity",
     "MixinPlayerEntity"

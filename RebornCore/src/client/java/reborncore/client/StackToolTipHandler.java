@@ -60,21 +60,21 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		else if (item instanceof RcEnergyItem energyItem) {
 			MutableText line1 = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(energyItem.getStoredEnergy(itemStack)));
 			line1.append("/");
-			line1.append(PowerSystem.getLocalizedPower(energyItem.getEnergyCapacity()));
+			line1.append(PowerSystem.getLocalizedPower(energyItem.getEnergyCapacity(itemStack)));
 			line1.formatted(Formatting.GOLD);
 
 			tooltipLines.add(1, line1);
 
 			if (Screen.hasShiftDown()) {
-				int percentage = percentage(energyItem.getStoredEnergy(itemStack), energyItem.getEnergyCapacity());
+				int percentage = percentage(energyItem.getStoredEnergy(itemStack), energyItem.getEnergyCapacity(itemStack));
 				MutableText line2  = StringUtils.getPercentageText(percentage);
 				line2.append(" ");
 				line2.formatted(Formatting.GRAY);
 				line2.append(I18n.translate("reborncore.gui.tooltip.power_charged"));
 				tooltipLines.add(2, line2);
 
-				double inputRate = energyItem.getEnergyMaxInput();
-				double outputRate = energyItem.getEnergyMaxOutput();
+				double inputRate = energyItem.getEnergyMaxInput(itemStack);
+				double outputRate = energyItem.getEnergyMaxOutput(itemStack);
 
 				MutableText line3 = Text.literal("");
 				if (inputRate != 0 && inputRate == outputRate){

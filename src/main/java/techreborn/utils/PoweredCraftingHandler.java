@@ -62,7 +62,7 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 					})
 					.sum();
 
-			energyItem.setStoredEnergy(stack, Math.min(totalEnergy, energyItem.getEnergyCapacity()));
+			energyItem.setStoredEnergy(stack, Math.min(totalEnergy, energyItem.getEnergyCapacity(stack)));
 		}
 
 		if (!Registries.ITEM.getId(stack.getItem()).getNamespace().equalsIgnoreCase(TechReborn.MOD_ID)) {

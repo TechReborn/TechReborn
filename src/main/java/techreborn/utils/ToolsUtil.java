@@ -26,9 +26,9 @@ package techreborn.utils;
 
 import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
-import net.minecraft.block.*;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.RedstoneOreBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -56,11 +56,11 @@ public class ToolsUtil {
 		if (blockState.getHardness(world, pos) == -1.0F) {
 			return;
 		}
-		if (world.getRandom().nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool) + 1) == 0) {
-			if (!((RcEnergyItem) tool.getItem()).tryUseEnergy(tool, cost)) {
-				return;
-			}
+
+		if (!((RcEnergyItem) tool.getItem()).tryUseEnergy(tool, cost)) {
+			return;
 		}
+
 		blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), tool);
 		world.setBlockState(pos, Blocks.AIR.getDefaultState());
 		world.removeBlockEntity(pos);

@@ -49,7 +49,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 
 	// TREnergyArmourItem
 	@Override
-	public long getEnergyMaxOutput() { return 0; }
+	public long getEnergyMaxOutput(ItemStack stack) { return 0; }
 
 	// ArmorItem
 	@Override

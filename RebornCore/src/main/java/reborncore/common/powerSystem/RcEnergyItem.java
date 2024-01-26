@@ -25,15 +25,19 @@
 package reborncore.common.powerSystem;
 
 import net.fabricmc.fabric.api.item.v1.FabricItem;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.base.SimpleBatteryItem;
+import net.minecraft.util.math.random.Random;
+import team.reborn.energy.api.base.SimpleEnergyItem;
+
 
 /**
- * Implement on simple energy-containing items and (on top of what {@link SimpleBatteryItem} does):
+ * Implement on simple energy-containing items and (on top of what {@link SimpleEnergyItem} does):
  * <ul>
  *     <li>A tooltip will be added for the item, indicating the stored power,
  *     the max power and the extraction rates.</li>
@@ -42,19 +46,19 @@ import team.reborn.energy.api.base.SimpleBatteryItem;
  * </ul>
  * TODO: consider moving this functionality to the energy API?
  */
-public interface RcEnergyItem extends SimpleBatteryItem, FabricItem {
-	long getEnergyCapacity();
+public interface RcEnergyItem extends SimpleEnergyItem, FabricItem {
+	long getEnergyCapacity(ItemStack stack);
 
 	/**
 	 * @return {@link RcEnergyTier} the tier of this {@link EnergyStorage}, used to have standard I/O rates.
 	 */
 	RcEnergyTier getTier();
 
-	default long getEnergyMaxInput() {
+	default long getEnergyMaxInput(ItemStack stack) {
 		return getTier().getMaxInput();
 	}
 
-	default long getEnergyMaxOutput() {
+	default long getEnergyMaxOutput(ItemStack stack) {
 		return getTier().getMaxOutput();
 	}
 
@@ -66,5 +70,24 @@ public interface RcEnergyItem extends SimpleBatteryItem, FabricItem {
 	@Override
 	default boolean allowContinuingBlockBreaking(PlayerEntity player, ItemStack oldStack, ItemStack newStack) {
 		return ItemUtils.isEqualIgnoreEnergy(oldStack, newStack);
+	}
+
+	/**
+	 * Tries to use energy with honor to Unbreaking enchantment
+	 *
+	 * @param stack ItemStack representing item with Energy
+	 * @param amount Initial amount of energy to use. This will be further decreased according to level of Unbreaking
+	 *               enchantment
+	 * @return Returns true if was able to use that energy from that item
+	 */
+	@Override
+	default boolean tryUseEnergy(ItemStack stack, long amount){
+		Random random = Random.create();
+		int unbreakingLevel = EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack);
+		if (unbreakingLevel > 0) {
+			amount = amount / random.nextInt(unbreakingLevel + 1);
+		}
+
+		return SimpleEnergyItem.super.tryUseEnergy(stack, amount);
 	}
 }

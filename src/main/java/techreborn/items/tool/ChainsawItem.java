@@ -25,8 +25,7 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
+import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
@@ -35,11 +34,12 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 
-public class ChainsawItem extends AxeItem implements RcEnergyItem {
+public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTargetHandler {
 
 	public final int maxCharge;
 	public final int cost;
@@ -75,7 +75,6 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	// MiningToolItem
 	@Override
 	public boolean isSuitableFor(BlockState state) {
-		// Fix for #2860
 		if (state.isIn(BlockTags.LEAVES)){
 			return true;
 		}
@@ -84,9 +83,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	}
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		if (worldIn.getRandom().nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			tryUseEnergy(stack, cost);
-		}
+		tryUseEnergy(stack, cost);
 		return true;
 	}
 
@@ -127,9 +124,9 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
-	// EnergyHolder
+	// RcEnergyItem
 	@Override
-	public long getEnergyCapacity() {
+	public long getEnergyCapacity(ItemStack stack) {
 		return maxCharge;
 	}
 
@@ -139,7 +136,13 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	}
 
 	@Override
-	public long getEnergyMaxOutput() {
+	public long getEnergyMaxOutput(ItemStack stack) {
 		return 0;
+	}
+
+	// EnchantmentTargetHandler
+	@Override
+	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
+		return target == EnchantmentTarget.BREAKABLE;
 	}
 }

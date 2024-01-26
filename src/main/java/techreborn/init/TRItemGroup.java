@@ -783,7 +783,7 @@ public class TRItemGroup {
 		ItemStack charged = new ItemStack(item);
 		RcEnergyItem energyItem = (RcEnergyItem) item;
 
-		energyItem.setStoredEnergy(charged, energyItem.getEnergyCapacity());
+		energyItem.setStoredEnergy(charged, energyItem.getEnergyCapacity(null));
 
 		if (before == null) {
 			if (includeUncharged) {
@@ -808,7 +808,7 @@ public class TRItemGroup {
 		uncharged.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		ItemStack charged = new ItemStack(rockCutter);
 		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);
-		rockCutter.setStoredEnergy(charged, rockCutter.getEnergyCapacity());
+		rockCutter.setStoredEnergy(charged, rockCutter.getEnergyCapacity(charged));
 
 		if (before == null) {
 			if (includeUncharged) {
@@ -836,12 +836,12 @@ public class TRItemGroup {
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
 		inactiveCharged.setNbt(new NbtCompound());
 		inactiveCharged.getOrCreateNbt().putBoolean("isActive", false);
-		nanosaber.setStoredEnergy(inactiveCharged, nanosaber.getEnergyCapacity());
+		nanosaber.setStoredEnergy(inactiveCharged, nanosaber.getEnergyCapacity(inactiveCharged));
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
 		activeCharged.setNbt(new NbtCompound());
 		activeCharged.getOrCreateNbt().putBoolean("isActive", true);
-		nanosaber.setStoredEnergy(activeCharged, nanosaber.getEnergyCapacity());
+		nanosaber.setStoredEnergy(activeCharged, nanosaber.getEnergyCapacity(activeCharged));
 
 		if (before == null) {
 			if (!onlyPoweredAndActive) {

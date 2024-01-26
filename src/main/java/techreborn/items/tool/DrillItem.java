@@ -25,14 +25,8 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.MiningToolItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
@@ -87,8 +81,6 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 		if (Items.DIAMOND_SHOVEL.isSuitableFor(blockIn)) {
 			return true;
 		}
-		// More checks to fix #2225
-		// Pass stack to fix #2348
 		if (Items.DIAMOND_SHOVEL.getMiningSpeedMultiplier(new ItemStack(Items.DIAMOND_SHOVEL), blockIn) > 1.0f) {
 			return true;
 		}
@@ -98,9 +90,7 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		if (worldIn.random.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			tryUseEnergy(stack, cost);
-		}
+		tryUseEnergy(stack, cost);
 		return true;
 	}
 
@@ -136,9 +126,9 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
-	// EnergyHolder
+	// RcEnergyItem
 	@Override
-	public long getEnergyCapacity() {
+	public long getEnergyCapacity(ItemStack stack) {
 		return maxCharge;
 	}
 
@@ -148,7 +138,7 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 	}
 
 	@Override
-	public long getEnergyMaxOutput() {
+	public long getEnergyMaxOutput(ItemStack stack) {
 		return 0;
 	}
 }

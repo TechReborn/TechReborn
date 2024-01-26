@@ -40,7 +40,7 @@ public class CloakingDeviceItem extends TREnergyArmourItem implements ArmorBlock
 
 	// TREnergyArmourItem
 	@Override
-	public long getEnergyMaxOutput() { return 0; }
+	public long getEnergyMaxOutput(ItemStack stack) { return 0; }
 
 	// ArmorBlockEntityTicker
 	@Override

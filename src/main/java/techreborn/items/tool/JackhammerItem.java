@@ -25,16 +25,15 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
+import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -42,7 +41,7 @@ import techreborn.utils.ToolsUtil;
 import techreborn.init.TRContent;
 
 
-public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
+public class JackhammerItem extends PickaxeItem implements RcEnergyItem, EnchantmentTargetHandler {
 	public final int maxCharge;
 	public final RcEnergyTier tier;
 	public final int cost;
@@ -63,7 +62,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 		if (ToolsUtil.JackHammerSkippedBlocks(state)) return unpoweredSpeed;
 
 		if (state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
-
 			return miningSpeed;
 		} else {
 			return unpoweredSpeed;
@@ -86,9 +84,7 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		if (worldIn.getRandom().nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			tryUseEnergy(stack, cost);
-		}
+		tryUseEnergy(stack, cost);
 		return true;
 	}
 
@@ -114,22 +110,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 		return true;
 	}
 
-	// EnergyHolder
-	@Override
-	public long getEnergyCapacity() {
-		return maxCharge;
-	}
-
-	@Override
-	public RcEnergyTier getTier() {
-		return tier;
-	}
-
-	@Override
-	public long getEnergyMaxOutput() {
-		return 0;
-	}
-
 	@Override
 	public int getItemBarStep(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
@@ -143,5 +123,33 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	@Override
 	public int getItemBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
+	}
+
+	// RcEnergyItem
+	@Override
+	public long getEnergyCapacity(ItemStack stack) {
+		return maxCharge;
+	}
+
+	@Override
+	public RcEnergyTier getTier() {
+		return tier;
+	}
+
+	@Override
+	public long getEnergyMaxOutput(ItemStack stack) {
+		return 0;
+	}
+
+	// EnchantmentTargetHandler
+	/**
+	 * Allows to apply Unbreaking to Electric TreeTap
+	 *
+	 * @param target Enchantment target to check
+	 * @return True if proper target provided
+	 */
+	@Override
+	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
+		return target == EnchantmentTarget.BREAKABLE;
 	}
 }

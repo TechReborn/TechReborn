@@ -61,7 +61,8 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// SwordItem
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
-		return tryUseEnergy(stack, TechRebornConfig.nanosaberCost);
+		tryUseEnergy(stack, TechRebornConfig.nanosaberCost);
+		return true;
 	}
 
 	// ToolItem
@@ -101,22 +102,6 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
-	// EnergyHolder
-	@Override
-	public long getEnergyCapacity() {
-		return TechRebornConfig.nanosaberCharge;
-	}
-
-	@Override
-	public RcEnergyTier getTier() {
-		return RcEnergyTier.EXTREME;
-	}
-
-	@Override
-	public long getEnergyMaxOutput() {
-		return 0;
-	}
-
 	@Override
 	public int getItemBarStep(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
@@ -145,5 +130,21 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 		}
 
 		return ImmutableMultimap.copyOf(attributes);
+	}
+
+	// RcEnergyItem
+	@Override
+	public long getEnergyCapacity(ItemStack stack) {
+		return TechRebornConfig.nanosaberCharge;
+	}
+
+	@Override
+	public RcEnergyTier getTier() {
+		return RcEnergyTier.EXTREME;
+	}
+
+	@Override
+	public long getEnergyMaxOutput(ItemStack stack) {
+		return 0;
 	}
 }

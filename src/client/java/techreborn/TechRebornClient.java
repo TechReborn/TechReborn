@@ -229,7 +229,7 @@ public class TechRebornClient implements ClientModInitializer {
 				(item, stack, world, entity, seed) -> {
 					if (ItemUtils.isActive(stack)) {
 						RcEnergyItem energyItem = (RcEnergyItem) stack.getItem();
-						if (energyItem.getEnergyCapacity() - energyItem.getStoredEnergy(stack) >= 0.9 * item.getEnergyCapacity()) {
+						if (energyItem.getEnergyCapacity(stack) - energyItem.getStoredEnergy(stack) >= 0.9 * item.getEnergyCapacity(stack)) {
 							return 0.5F;
 						}
 						return 1.0F;

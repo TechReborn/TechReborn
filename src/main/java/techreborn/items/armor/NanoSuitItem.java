@@ -58,7 +58,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 
 	// TREnergyArmourItem
 	@Override
-	public long getEnergyMaxOutput() { return 0; }
+	public long getEnergyMaxOutput(ItemStack stack) { return 0; }
 
 	// ArmorItem
 	@Override
@@ -81,7 +81,6 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	// ArmorBlockEntityTicker
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
-		World world = playerEntity.getWorld();
 		// Night Vision
 		if (Objects.requireNonNull(this.getSlotType()) == EquipmentSlot.HEAD) {
 			if (stack.getOrCreateNbt().getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.nanoSuitNightVisionCost)) {

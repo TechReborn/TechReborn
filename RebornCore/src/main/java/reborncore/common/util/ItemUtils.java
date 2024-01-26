@@ -43,7 +43,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.recipes.IRecipeInput;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
-import team.reborn.energy.api.base.SimpleBatteryItem;
+import team.reborn.energy.api.base.SimpleEnergyItem;
 
 import java.util.List;
 import java.util.Objects;
@@ -148,7 +148,7 @@ public class ItemUtils {
 		if (blockEntityTag == null) throw new IllegalStateException("BlockEntityTag is removed during operation!");
 		if (isStackListEmpty(entityStack)) {
 			if (blockEntityTag.contains("Items")) blockEntityTag.remove("Items");
-			if (blockEntityTag.getKeys().size() == 0) {
+			if (blockEntityTag.getKeys().isEmpty()) {
 				//remove empty nbt
 				blockEntityTag = null;
 				newStack.removeSubNbt("BlockEntityTag");
@@ -190,8 +190,8 @@ public class ItemUtils {
 		}
 		NbtCompound nbt1Copy = stack1.getNbt().copy();
 		NbtCompound nbt2Copy = stack2.getNbt().copy();
-		nbt1Copy.remove(SimpleBatteryItem.ENERGY_KEY);
-		nbt2Copy.remove(SimpleBatteryItem.ENERGY_KEY);
+		nbt1Copy.remove(SimpleEnergyItem.ENERGY_KEY);
+		nbt2Copy.remove(SimpleEnergyItem.ENERGY_KEY);
 		return nbt1Copy.equals(nbt2Copy);
 	}
 
@@ -232,7 +232,7 @@ public class ItemUtils {
 			throw new UnsupportedOperationException();
 		}
 
-		return Math.round((energyItem.getStoredEnergy(stack) * 100f / energyItem.getEnergyCapacity()) * 13) / 100;
+		return Math.round((energyItem.getStoredEnergy(stack) * 100f / energyItem.getEnergyCapacity(stack)) * 13) / 100;
 	}
 
 	public static int getColorForDurabilityBar(ItemStack stack) {
