@@ -234,7 +234,6 @@ tasks.sourcesJar.dependsOn runDatagen
 jar {
 	exclude "**/*.psd"
     from file('src/main/generated')
-	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.json"} : null}
 
     // A bit of a hack to allow the generated sources when they already exist
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -243,76 +242,8 @@ jar {
     dependsOn 'runDatagen'
 }
 
-tasks.register('crowdinExport') {
-    description "Triggers crowdin to export the latest translations"
-    onlyIf {
-        ENV.CROWDIN_KEY
-    }
-    doLast {
-        def apiKey = ENV.CROWDIN_KEY
-        def projectId = 'techreborn'
-        def response = new URL(sprintf('https://api.crowdin.com/api/project/%1$s/export?key=%2$s', [projectId, apiKey])).text
-        def metadata = new XmlParser().parseText(response)
-        project.logger.lifecycle("crowdin export status: " + metadata.@status)
-    }
-}
-
-def translationsUrl = "https://crowdin.com/backend/download/project/techreborn.zip"
-def translationsZip = file("build/translations.zip")
-
-tasks.register('crowdin') {
-    dependsOn crowdinExport
-    description "Downloads translations from CrowdIn"
-    outputs.file translationsZip
-
-    doLast {
-        translationsZip.bytes =  new URL(translationsUrl).bytes
-    }
-}
-
-tasks.register('cleanCrowdin', Delete) {
-    description "Delete old translations"
-    delete 'build/translations'
-}
-clean.dependsOn cleanCrowdin
-
-tasks.register('renameCrowdin', Copy) {
-    dependsOn crowdin
-    description "Renames the translation files to be all lower case"
-    from zipTree(translationsZip)
-    into file('build/translations')
-    rename {
-        String filename -> return filename.toLowerCase()
-    }
-    doFirst {
-        file('build/translations').deleteDir()
-    }
-}
-
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
-
-tasks.register('fixTranslations') {
-    dependsOn renameCrowdin
-    description "Remove all translations that do not have an entry, ensures that minecraft falls back to EN_US over writing out an empty string"
-    def jsonSlurper = new JsonSlurper()
-    doLast {
-        file('build/translations').eachFileRecurse(groovy.io.FileType.FILES) {
-            if (it.name.endsWith(".json")) {
-                def lang = jsonSlurper.parseText(it.text)
-                lang.values().removeIf { val -> val.empty }
-                it.text = JsonOutput.prettyPrint(JsonOutput.toJson(lang))
-            }
-        }
-    }
-}
-
-// Use to test the crowdin translations in a dev env
-tasks.register('copyTranslationsToGenerated', Copy) {
-    dependsOn fixTranslations
-    from file('build/translations')
-    into file('src/main/generated')
-}
 
 publishMods {
 	changelog = providers.environmentVariable("CHANGELOG").orElse("No changelog provided")
