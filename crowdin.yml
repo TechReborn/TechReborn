@@ -1,3 +1,6 @@
+pull_request_title: Update Translations
 files:
   - source: src/main/resources/assets/techreborn/lang/en_us.json
     translation: /src/main/resources/assets/techreborn/lang/%locale_with_underscore%.json
+  - source: RebornCore/src/main/resources/assets/reborncore/lang/en_us.json
+    translation: /RebornCore/src/main/resources/assets/reborncore/lang/%locale_with_underscore%.json
