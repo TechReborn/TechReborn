@@ -238,7 +238,6 @@ jar {
     // A bit of a hack to allow the generated sources when they already exist
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-	dependsOn 'fixTranslations'
     dependsOn 'runDatagen'
 }
 
