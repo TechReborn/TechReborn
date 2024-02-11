@@ -35,7 +35,6 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CROWDIN_KEY: ${{ secrets.CROWDIN_KEY }}
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
 
       - name: Upload artifacts
