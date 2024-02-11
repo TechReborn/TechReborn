@@ -1,1 +1,19 @@
-{}
+{
+  "_comment": "Koneet",
+  "block.techreborn.pump": "Pumppu",
+  "block.techreborn.elevator": "Hissi",
+  "block.techreborn.industrial_sawmill": "Saha",
+  "block.techreborn.solid_fuel_generator": "Generaattori",
+  "block.techreborn.grinder": "Hakkuri",
+  "block.techreborn.compressor": "Kompressori",
+  "block.techreborn.nuke": "Ydinase",
+  "block.techreborn.oil": "Öljy",
+  "block.techreborn.silicon": "Pii",
+  "block.techreborn.sodium": "Natrium",
+  "fluid.fluidbiofuel": "Biopolttoaine",
+  "techreborn.message.info.block.techreborn.launchpad.high": "Korkea",
+  "techreborn.jei.recipe.heat": "Lämpö",
+  "techreborn.jei.recipe.generator.total": "E yhteensä: %s",
+  "techreborn.tooltip.tier": "Taso",
+  "techreborn.tooltip.inventory": "inventaario"
+}
