@@ -68,19 +68,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Enchant
 		}
 	}
 
-/*
-	Fabric API doesn't allow to have mining speed less than the one from vanilla ToolMaterials
-	@Override
-	public float getMiningSpeedMultiplier(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
-		if (tag.equals(FabricToolTags.PICKAXES) && stack.getItem().isEffectiveOn(state)) {
-			if (Energy.of(stack).getEnergy() >= cost) {
-				return miningSpeed;
-			}
-		}
-		return 0.5F;
-	}*/
-
-
 	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {

@@ -38,55 +38,27 @@ import techreborn.init.TRContent;
 
 public class DrillItem extends MiningToolItem implements RcEnergyItem, EnchantmentTargetHandler {
 	public final int maxCharge;
+	public final RcEnergyTier tier;
 	public final int cost;
 	public final float poweredSpeed;
-	public final float unpoweredSpeed;
-	public final int miningLevel;
-	public final RcEnergyTier tier;
+	public final float unpoweredSpeed = 0.5f;
 
-	public DrillItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, MiningLevel miningLevel) {
+
+	public DrillItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
 		super(1, -2.8F, material, TRContent.BlockTags.DRILL_MINEABLE, new Item.Settings().maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
+		this.tier = tier;
 		this.cost = cost;
 		this.poweredSpeed = poweredSpeed;
-		this.unpoweredSpeed = unpoweredSpeed;
-		this.miningLevel = miningLevel.intLevel;
-		this.tier = tier;
 	}
 
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		// Going to remain to use this ol reliable function, the fabric one is funky
-
-		if (getStoredEnergy(stack) >= cost) {
-			if (stack.getItem().isSuitableFor(state)) {
-				return poweredSpeed;
-			} else {
-				return Math.min(unpoweredSpeed * 10f, poweredSpeed); // Still be faster than unpowered when not effective
-			}
+		if (getStoredEnergy(stack) >= cost && isSuitableFor(state)) {
+			return poweredSpeed;
 		}
-
 		return unpoweredSpeed;
-	}
-
-	// PickaxeItem
-	@Override
-	public boolean isSuitableFor(BlockState blockIn) {
-		if(blockIn == null){
-			return false;
-		}
-
-		if (Items.DIAMOND_PICKAXE.isSuitableFor(blockIn)) {
-			return true;
-		}
-		if (Items.DIAMOND_SHOVEL.isSuitableFor(blockIn)) {
-			return true;
-		}
-		if (Items.DIAMOND_SHOVEL.getMiningSpeedMultiplier(new ItemStack(Items.DIAMOND_SHOVEL), blockIn) > 1.0f) {
-			return true;
-		}
-		return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(new ItemStack(Items.DIAMOND_PICKAXE), blockIn) > 1.0f;
 	}
 
 	// MiningToolItem

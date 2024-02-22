@@ -41,7 +41,6 @@ import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.DrillItem;
-import techreborn.items.tool.MiningLevel;
 import techreborn.utils.ToolsUtil;
 
 import java.util.List;
@@ -49,7 +48,7 @@ import java.util.List;
 public class IndustrialDrillItem extends DrillItem {
 
 	public IndustrialDrillItem() {
-		super(TRToolMaterials.INDUSTRIAL_DRILL, TechRebornConfig.industrialDrillCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 20.0F, 1.0F, MiningLevel.DIAMOND);
+		super(TRToolMaterials.INDUSTRIAL_DRILL, TechRebornConfig.industrialDrillCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 20.0F);
 	}
 
 	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
