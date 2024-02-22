@@ -30,7 +30,6 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -57,7 +56,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	private BlockState lastCheckedBlockState;
 
 	public IndustrialChainsawItem() {
-		super(TRToolMaterials.INDUSTRIAL_CHAINSAW, TechRebornConfig.industrialChainsawCharge, RcEnergyTier.EXTREME, TechRebornConfig.industrialChainsawCost, 20F, 0.5F, Items.DIAMOND_AXE);
+		super(TRToolMaterials.INDUSTRIAL_CHAINSAW, TechRebornConfig.industrialChainsawCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialChainsawCost, 20F);
 	}
 
 	private boolean isValidLog(BlockState state) {

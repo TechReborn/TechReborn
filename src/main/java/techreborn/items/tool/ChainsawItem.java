@@ -42,21 +42,19 @@ import reborncore.common.util.ItemUtils;
 public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTargetHandler {
 
 	public final int maxCharge;
+	public final RcEnergyTier tier;
 	public final int cost;
 	public final float poweredSpeed;
-	private final float unpoweredSpeed;
-	public final Item referenceTool;
-	public final RcEnergyTier tier;
+	protected final float unpoweredSpeed = 0.5f;
 
-	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referenceTool) {
+
+	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed) {
 		// combat stats same as for diamond axe. Fix for #2468
 		super(material, 5.0F, -3.0F, new Item.Settings().maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
 		this.poweredSpeed = poweredSpeed;
-		this.unpoweredSpeed = unpoweredSpeed;
-		this.referenceTool = referenceTool;
 	}
 
 	public int getCost() {
@@ -79,7 +77,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTa
 			return true;
 		}
 
-		return referenceTool.isSuitableFor(state);
+		return super.isSuitableFor(state);
 	}
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {

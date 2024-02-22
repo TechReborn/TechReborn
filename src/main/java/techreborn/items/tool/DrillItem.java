@@ -41,7 +41,7 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem, Enchantme
 	public final RcEnergyTier tier;
 	public final int cost;
 	public final float poweredSpeed;
-	public final float unpoweredSpeed = 0.5f;
+	protected final float unpoweredSpeed = 0.5f;
 
 
 	public DrillItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed) {
