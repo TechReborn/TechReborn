@@ -51,7 +51,22 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		getOrCreateTagBuilder(TRContent.BlockTags.JACKHAMMER_MINEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_NETHER.id())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD.id())
+			.addOptionalTag(BlockTags.DIRT.id())
+			.addOptionalTag(BlockTags.ICE.id())
+			.addOptionalTag(BlockTags.SNOW.id())
+			.addOptionalTag(BlockTags.NYLIUM.id())
+			.addOptionalTag(BlockTags.WART_BLOCKS.id())
 			.addOptionalTag(new Identifier("c","stone"))
+			.addOptional(new Identifier("minecraft", "end_stone"))
+			.addOptional(new Identifier("minecraft", "sand"))
+			.addOptional(new Identifier("minecraft", "red_sand"))
+			.addOptional(new Identifier("minecraft", "sandstone"))
+			.addOptional(new Identifier("minecraft", "red_sandstone"))
+			.addOptional(new Identifier("minecraft", "gravel"))
+			.addOptional(new Identifier("minecraft", "calcite"))
+			.addOptional(new Identifier("minecraft", "snow"))
+			.addOptional(new Identifier("minecraft", "soul_sand"))
+			.addOptional(new Identifier("minecraft", "soul_soil"))
 
 		getOrCreateTagBuilder(TRContent.BlockTags.OMNI_TOOL_MINEABLE)
 			.addTag(TRContent.BlockTags.DRILL_MINEABLE)
@@ -64,6 +79,11 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 		TRContent.Ores.values().each {
 			getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+				.add(it.block)
+		}
+
+		TRContent.Ores.values().each {
+			getOrCreateTagBuilder(ConventionalBlockTags.ORES)
 				.add(it.block)
 		}
 

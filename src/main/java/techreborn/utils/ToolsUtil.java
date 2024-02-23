@@ -25,10 +25,8 @@
 package techreborn.utils;
 
 import com.google.common.collect.ImmutableSet;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.RedstoneOreBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -163,30 +161,5 @@ public class ToolsUtil {
 			}
 		}
 		return targetBlocks;
-	}
-
-	/**
-	 * Check if JackHammer shouldn't break block. JackHammers should be good on stone, dirt, sand. And shouldn't break ores.
-	 *
-	 * @param blockState {@link BlockState} State to check
-	 * @return {@code boolean} True if block shouldn't be breakable by JackHammer
-	 */
-	public static boolean JackHammerSkippedBlocks(BlockState blockState){
-		if (blockState.isAir()) {
-			return true;
-		}
-		if (blockState.isLiquid()) {
-			return true;
-		}
-		if (blockState.isIn(ConventionalBlockTags.ORES)) {
-			return true;
-		}
-		if (blockState.isOf(Blocks.OBSIDIAN) || blockState.isOf(Blocks.CRYING_OBSIDIAN)){
-			return true;
-		}
-		if (blockState.isOf(Blocks.ANCIENT_DEBRIS)){
-			return true;
-		}
-		return blockState.getBlock() instanceof RedstoneOreBlock;
 	}
 }

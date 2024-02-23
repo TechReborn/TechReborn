@@ -37,7 +37,6 @@ import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.ToolsUtil;
 import techreborn.init.TRContent;
 
 
@@ -55,17 +54,28 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Enchant
 		this.cost = cost;
 	}
 
+	/**
+	 * Checks if block in additional BlockPos should be broken. Used for AOE mining.
+	 *
+	 * @param worldIn     World reference
+	 * @param originalPos Original mined block
+	 * @param pos         Additional block to check
+	 * @return Returns true if block should be broken by AOE mining
+	 */
+	protected boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos) {
+		if (originalPos.equals(pos)) {
+			return false;
+		}
+		return worldIn.getBlockState(pos).isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE);
+	}
+
 	// PickaxeItem
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) < cost) return unpoweredSpeed;
-		if (ToolsUtil.JackHammerSkippedBlocks(state)) return unpoweredSpeed;
-
-		if (state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
+		if (getStoredEnergy(stack) >= cost && state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
 			return miningSpeed;
-		} else {
-			return unpoweredSpeed;
 		}
+		return unpoweredSpeed;
 	}
 
 	// MiningToolItem
@@ -129,12 +139,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Enchant
 	}
 
 	// EnchantmentTargetHandler
-	/**
-	 * Allows to apply Unbreaking to Electric TreeTap
-	 *
-	 * @param target Enchantment target to check
-	 * @return True if proper target provided
-	 */
 	@Override
 	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
 		return target == EnchantmentTarget.BREAKABLE;

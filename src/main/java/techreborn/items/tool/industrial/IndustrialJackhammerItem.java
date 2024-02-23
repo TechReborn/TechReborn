@@ -80,19 +80,6 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 		}
 	}
 
-	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos, ItemStack stack) {
-		if (originalPos.equals(pos)) {
-			return false;
-		}
-		BlockState blockState = worldIn.getBlockState(pos);
-
-		if (ToolsUtil.JackHammerSkippedBlocks(blockState)){
-			return false;
-		}
-
-		return (stack.getItem().isSuitableFor(blockState));
-	}
-
 	private boolean isAOE5(ItemStack stack) {
 		return !stack.isEmpty() && stack.getOrCreateNbt().getBoolean("AOE5");
 	}
@@ -100,16 +87,20 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (!ItemUtils.isActive(stack) || !stack.getItem().isSuitableFor(stateIn)) {
+		// No AOE mining turned on OR we've broken a wrong block
+		if (!ItemUtils.isActive(stack) || !isSuitableFor(stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
+
+		// Do AoE mining except original block
 		int radius = isAOE5(stack) ? 2 : 1;
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius)) {
-			if (shouldBreak(worldIn, pos, additionalPos, stack)) {
+			if (shouldBreak(worldIn, pos, additionalPos)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}
 
+		// Do not forget to use energy for original block
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 	}
 
@@ -155,13 +146,13 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!stack.getItem().isSuitableFor(worldIn.getBlockState(pos))) {
+		if (!isSuitableFor(worldIn.getBlockState(pos))) {
 			return Collections.emptySet();
 		}
 		int radius = isAOE5(stack) ? 2 : 1;
 		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius, false)
-				.stream()
-				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
-				.collect(Collectors.toSet());
+			.stream()
+			.filter((blockPos -> shouldBreak(worldIn, pos, blockPos)))
+			.collect(Collectors.toSet());
 	}
 }

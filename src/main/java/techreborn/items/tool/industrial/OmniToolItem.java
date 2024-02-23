@@ -24,6 +24,7 @@
 
 package techreborn.items.tool.industrial;
 
+import net.fabricmc.yarn.constants.MiningLevels;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
@@ -46,7 +47,7 @@ import reborncore.common.util.TorchHelper;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
-import techreborn.items.tool.MiningLevel;
+
 
 public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler, EnchantmentTargetHandler {
 	public final int miningLevel;
@@ -54,7 +55,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
 		super(3, 1, TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings().maxCount(1).maxDamage(-1));
-		this.miningLevel = MiningLevel.DIAMOND.intLevel;
+		this.miningLevel = MiningLevels.DIAMOND;
 	}
 
 	// MiningToolItem
