@@ -56,29 +56,22 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 		super(TRToolMaterials.ADVANCED_JACKHAMMER, TechRebornConfig.advancedJackhammerCharge, RcEnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost);
 	}
 
-	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos, ItemStack stack) {
-		if (originalPos.equals(pos)) {
-			return false;
-		}
-		BlockState blockState = worldIn.getBlockState(pos);
-		if (ToolsUtil.JackHammerSkippedBlocks(blockState)){
-			return false;
-		}
-		return (stack.getItem().isSuitableFor(blockState));
-	}
-
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (!ItemUtils.isActive(stack) || !stack.getItem().isSuitableFor(stateIn)) {
+		// No AOE mining turned on OR we've broken a wrong block
+		if (!ItemUtils.isActive(stack) || !isSuitableFor(stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
+
+		// Do AoE mining except original block
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1)) {
-			if (shouldBreak(worldIn, pos, additionalPos, stack)) {
+			if (shouldBreak(worldIn, pos, additionalPos)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}
 
+		// Do not forget to use energy for original block
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 	}
 
@@ -106,12 +99,12 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!stack.getItem().isSuitableFor(worldIn.getBlockState(pos))) {
+		if (!isSuitableFor(worldIn.getBlockState(pos))) {
 			return Collections.emptySet();
 		}
 		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1, false)
-				.stream()
-				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
-				.collect(Collectors.toSet());
+			.stream()
+			.filter((blockPos -> shouldBreak(worldIn, pos, blockPos)))
+			.collect(Collectors.toSet());
 	}
 }
