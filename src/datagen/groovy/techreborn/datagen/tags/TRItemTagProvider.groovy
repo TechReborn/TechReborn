@@ -26,8 +26,11 @@ package techreborn.datagen.tags
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.ItemTagProvider
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags
+import net.minecraft.item.Item
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
+import net.minecraft.registry.tag.TagKey
 import reborncore.common.misc.RebornCoreTags
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
@@ -69,6 +72,8 @@ class TRItemTagProvider extends ItemTagProvider {
 			getOrCreateTagBuilder(ingot.asTag()).add(ingot.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.INGOTS).add(ingot.asItem())
 		}
+		getOrCreateTagBuilder(ConventionalItemTags.INGOTS)
+			.addTag(TRContent.ItemTags.INGOTS)
 		TRContent.Nuggets.values().each { nugget ->
 			getOrCreateTagBuilder(nugget.asTag()).add(nugget.asItem())
 			getOrCreateTagBuilder(TRContent.ItemTags.NUGGETS).add(nugget.asItem())
