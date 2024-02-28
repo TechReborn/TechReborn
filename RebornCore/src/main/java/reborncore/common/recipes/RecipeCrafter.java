@@ -396,7 +396,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 
 	@Override
 	public double getSpeedMultiplier() {
-		return Math.min(parentUpgradeHandler.map(IUpgradeHandler::getSpeedMultiplier).orElse(0D), 0.975);
+		return Math.min(parentUpgradeHandler.map(IUpgradeHandler::getSpeedMultiplier).orElse(0D), 0.99);
 	}
 
 	@Override
