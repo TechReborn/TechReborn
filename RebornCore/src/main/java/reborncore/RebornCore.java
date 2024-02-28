@@ -60,7 +60,7 @@ import team.reborn.energy.api.EnergyStorage;
 import java.util.Locale;
 
 public class RebornCore implements ModInitializer {
-	public static final String MOD_NAME = "Reborn Core";
+
 	public static final String MOD_ID = "reborncore";
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -72,17 +72,18 @@ public class RebornCore implements ModInitializer {
 		new Configuration(RebornCoreConfig.class, MOD_ID);
 		CalenderUtils.loadCalender(); // Done early as some features need this
 
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ic2:wrench"), true));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("forestry:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("actuallyadditions:item_laser_wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("thermalfoundation:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("charset:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("teslacorelib:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("rftools:smartwrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("intergrateddynamics:smartwrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("correlated:weldthrower"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("chiselsandbits:wrench_wood"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("redstonearsenal:tool.wrench_flux"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("intergrateddynamics:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("thermal:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("rftoolsbase:smartwrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("redstone_arsenal:flux_wrench"), false));
+
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ad_astra:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ae2:certus_quartz_wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ae2:nether_quartz_wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("bitsandchisels:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("create:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("indrev:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("modern_industialization:wrench"), false));
 
 		ModSounds.setup();
 		BlockWrenchEventHandler.setup();
@@ -102,7 +103,9 @@ public class RebornCore implements ModInitializer {
 
 		RebornCoreCommands.setup();
 
+		//noinspection ResultOfMethodCallIgnored
 		RebornCoreTags.WATER_EXPLOSION_ITEM.toString();
+		//noinspection ResultOfMethodCallIgnored
 		PaddedShapedRecipe.PADDED.toString();
 
 		/* register UnloadHandler */
@@ -134,6 +137,7 @@ public class RebornCore implements ModInitializer {
 			return null;
 		});
 
+		//noinspection ResultOfMethodCallIgnored
 		ServerPlayerEntityScreenHandlerHelper.class.getName();
 	}
 
