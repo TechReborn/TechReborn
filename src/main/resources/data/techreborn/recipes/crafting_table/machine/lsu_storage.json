@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "LLL",
+    "LSL",
     "LCL",
-    "LLL"
+    "LSL"
   ],
   "key": {
     "C": {
@@ -11,7 +11,10 @@
     },
     "L": {
       "item": "minecraft:lapis_block"
-    }
+    },
+	"S": {
+		"tag": "c:silver_plates"
+	}
   },
   "result": {
     "item": "techreborn:lsu_storage"

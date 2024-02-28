@@ -2,7 +2,7 @@
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		"EEE",
-		"PFP",
+		"YFY",
 		"PCP"
 	],
 	"key": {
@@ -17,6 +17,9 @@
 		},
 		"P": {
 			"tag": "c:zinc_plates"
+		},
+		"Y": {
+			"tag": "c:yellow_garnet_plates"
 		}
 	},
 	"result": {
