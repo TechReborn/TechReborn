@@ -747,7 +747,7 @@
   "techreborn.message.onlyYou": "Только Вы",
   "techreborn.message.panel_blocked": "Панель закрыта от неба",
   "techreborn.message.info.item.techreborn.overclocker_upgrade": "Уменьшает скорость создания за счёт большего энергопотребления в тик",
-  "techreborn.message.info.item.techreborn.transformer_upgrade": "Увеличивает уровень энергии",
+  "techreborn.message.info.item.techreborn.transformer_upgrade": "Увеличивает энергетический уровень",
   "techreborn.message.info.item.techreborn.energy_storage_upgrade": "Увеличивает количество вмещаемой энергии",
   "techreborn.message.info.item.techreborn.superconductor_upgrade": "Увеличивает скорость передачи энергии",
   "techreborn.message.info.item.techreborn.muffler_upgrade": "Заглушает машину",
