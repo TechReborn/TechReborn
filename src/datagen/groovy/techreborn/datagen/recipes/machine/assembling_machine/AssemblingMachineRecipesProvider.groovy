@@ -29,7 +29,9 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
+import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
+import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
@@ -153,6 +155,50 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 			power 20
 			time 700
 			criterion getCriterionName(TRContent.Plates.MAGNALIUM), getCriterionConditions(TRContent.Plates.MAGNALIUM)
+		}
+		offerAssemblingMachineRecipe {
+			ingredients TRConventionalTags.SILICON_PLATES
+			ingredient {
+				tag(TRConventionalTags.ELECTRUM_PLATES, 2)
+			}
+			outputs TRContent.Parts.ADVANCED_CIRCUIT
+			power 20
+			time 200
+		}
+		offerAssemblingMachineRecipe {
+			ingredients TRContent.Parts.ELECTRONIC_CIRCUIT
+			ingredient {
+				tag(TRConventionalTags.PERIDOT_PLATES, 2)
+			}
+			outputs TRContent.Parts.DATA_STORAGE_CORE
+			power 20
+			time 200
+		}
+		offerAssemblingMachineRecipe {
+			ingredients TRContent.Parts.ELECTRONIC_CIRCUIT, TRConventionalTags.EMERALD_PLATES
+			outputs TRContent.Parts.DATA_STORAGE_CORE
+			power 20
+			time 200
+		}
+		offerAssemblingMachineRecipe {
+			ingredients TRConventionalTags.SILICON_PLATES
+			ingredient {
+				tag(TRConventionalTags.COPPER_PLATES, 2)
+			}
+			outputs TRContent.Parts.ELECTRONIC_CIRCUIT
+			power 20
+			time 200
+		}
+		offerAssemblingMachineRecipe {
+			ingredient {
+				tag(TRConventionalTags.ALUMINUM_PLATES, 2)
+			}
+			ingredient {
+				fluid(ModFluids.LITHIUM, TRContent.CELL, 2)
+			}
+			outputs TRContent.LITHIUM_ION_BATTERY
+			power 20
+			time 200
 		}
 	}
 

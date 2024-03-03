@@ -39,6 +39,7 @@ import techreborn.init.TRContent
 
 class IngredientBuilder {
 	private TagKey<Item> tag
+	private Integer tagCount = -1
 	private List<ItemStack> stacks = []
 	private List<Identifier> ids = []
 	private List<FluidIngredient> fluids = []
@@ -62,7 +63,7 @@ class IngredientBuilder {
 		}
 
 		if (tag != null) {
-			return new TagIngredient(tag, Optional.empty())
+			return new TagIngredient(tag, tagCount == -1 ? Optional.empty() : Optional.of(tagCount))
 		}
 
 		if (!stacks.isEmpty()) {
@@ -86,8 +87,9 @@ class IngredientBuilder {
 		throw new IllegalStateException("No input")
 	}
 
-	def tag(TagKey<Item> tag) {
+	def tag(TagKey<Item> tag, int count = -1) {
 		this.tag = tag
+		this.tagCount = count
 		return this
 	}
 
