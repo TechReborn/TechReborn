@@ -181,6 +181,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		MachineRecipeJsonFactory.create(ModRecipes.CENTRIFUGE, this, closure).offerTo(exporter)
 	}
 
+	def offerWireMillRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		MachineRecipeJsonFactory.create(ModRecipes.WIRE_MILL, this, closure).offerTo(exporter)
+	}
+
 	def offerBlastFurnaceRecipe(@DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		BlastFurnaceRecipeJsonFactory.createBlastFurnace(this, closure).offerTo(exporter)
 	}
