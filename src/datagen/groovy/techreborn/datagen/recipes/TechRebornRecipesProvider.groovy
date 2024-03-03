@@ -27,9 +27,9 @@ package techreborn.datagen.recipes
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancement.AdvancementCriterion
-import net.minecraft.advancement.criterion.CriterionConditions
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.data.server.recipe.RecipeExporter
+import net.minecraft.fluid.Fluid
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
@@ -43,7 +43,10 @@ import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
+import techreborn.init.ModFluids
 import techreborn.init.ModRecipes
+import techreborn.init.TRContent
+import techreborn.items.DynamicCellItem
 
 import java.util.concurrent.CompletableFuture
 
@@ -138,6 +141,14 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		return new ItemStack(itemConvertible, count)
 	}
 
+	static ItemStack cellStack(ModFluids fluid, int count = 1) {
+		return cellStack(fluid.getFluid(), count)
+	}
+
+	static ItemStack cellStack(Fluid fluid, int count = 1) {
+		return DynamicCellItem.getCellWithFluid(fluid, count)
+	}
+
 	// Todo refactor me out, used to help port json recipes
 	static ItemStack stack(String id, int count = 1) {
 		def item = Registries.ITEM.get(new Identifier(id))
@@ -185,6 +196,14 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		MachineRecipeJsonFactory.create(ModRecipes.WIRE_MILL, this, closure).offerTo(exporter)
 	}
 
+	def offerImplosionCompressorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		MachineRecipeJsonFactory.create(ModRecipes.IMPLOSION_COMPRESSOR, this, closure).offerTo(exporter)
+	}
+
+	def offerVacuumFreezerRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		MachineRecipeJsonFactory.create(ModRecipes.VACUUM_FREEZER, this, closure).offerTo(exporter)
+	}
+
 	def offerBlastFurnaceRecipe(@DelegatesTo(value = BlastFurnaceRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		BlastFurnaceRecipeJsonFactory.createBlastFurnace(this, closure).offerTo(exporter)
 	}
@@ -197,9 +216,6 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		IndustrialSawmillRecipeJsonFactory.createIndustrialSawmill(this, closure).offerTo(exporter)
 	}
 
-	def offerImplosionCompressorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.IMPLOSION_COMPRESSOR, this, closure).offerTo(exporter)
-	}
 
 	@Override
 	protected Identifier getRecipeIdentifier(Identifier identifier) {

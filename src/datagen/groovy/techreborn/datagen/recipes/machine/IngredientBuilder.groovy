@@ -24,19 +24,24 @@
 
 package techreborn.datagen.recipes.machine
 
+import net.minecraft.fluid.Fluid
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
+import reborncore.common.crafting.ingredient.FluidIngredient
 import reborncore.common.crafting.ingredient.RebornIngredient
 import reborncore.common.crafting.ingredient.StackIngredient
 import reborncore.common.crafting.ingredient.TagIngredient
+import techreborn.init.ModFluids
+import techreborn.init.TRContent
 
 class IngredientBuilder {
 	private TagKey<Item> tag
 	private List<ItemStack> stacks = []
 	private List<Identifier> ids = []
+	private List<FluidIngredient> fluids = []
 
 	private IngredientBuilder() {
 	}
@@ -46,11 +51,9 @@ class IngredientBuilder {
 	}
 
 	RebornIngredient build() {
-		if (!ids.isEmpty()) {
-			if (!stacks.isEmpty() || tag != null) {
-				throw new IllegalStateException("Cannot have id ingredient with tag/stack inputs")
-			}
+		checkHasSingleInputType()
 
+		if (!ids.isEmpty()) {
 			if (ids.size() != 1) {
 				throw new IllegalStateException()
 			}
@@ -59,20 +62,28 @@ class IngredientBuilder {
 		}
 
 		if (tag != null) {
-			if (!stacks.isEmpty() || !ids.isEmpty()) {
-				throw new IllegalStateException("Cannot have ingredient with tag and stack/id inputs")
-			}
-
 			return new TagIngredient(tag, Optional.empty())
 		}
 
-		if (stacks.size() == 1) {
+		if (!stacks.isEmpty()) {
+			if (stacks.size() != 1) {
+				throw new IllegalStateException("Must have exactly one stack input")
+			}
+
 			def stack = stacks[0]
 			def count = stack.getCount() > 1 ? Optional.of(stack.getCount()) : Optional.empty()
 			return new StackIngredient(stack, count, Optional.empty(), false)
 		}
 
-		throw new IllegalStateException()
+		if (!fluids.isEmpty()) {
+			if (fluids.size() != 1) {
+				throw new IllegalStateException("Must have exactly one fluid input")
+			}
+
+			return fluids.get(0)
+		}
+
+		throw new IllegalStateException("No input")
 	}
 
 	def tag(TagKey<Item> tag) {
@@ -92,5 +103,38 @@ class IngredientBuilder {
 	def ident(Identifier identifier) {
 		ids.add(identifier)
 		return this
+	}
+
+	def fluid(Fluid fluid, Item holder = TRContent.CELL, int count = -1) {
+		fluids.add(new FluidIngredient(fluid, Optional.of([holder]), Optional.ofNullable(count == -1 ? null : count)))
+		return this
+	}
+
+	def fluid(ModFluids modFluid, Item holder = TRContent.CELL, int count = -1) {
+		return fluid(modFluid.fluid, holder, count)
+	}
+
+	def checkHasSingleInputType() {
+		int count = 0
+
+		if (!stacks.isEmpty()) {
+			count++
+		}
+
+		if (!ids.isEmpty()) {
+			count++
+		}
+
+		if (tag != null) {
+			count++
+		}
+
+		if (!fluids.isEmpty()) {
+			count++
+		}
+
+		if (count != 1) {
+			throw new IllegalStateException("Must have exactly one input type")
+		}
 	}
 }

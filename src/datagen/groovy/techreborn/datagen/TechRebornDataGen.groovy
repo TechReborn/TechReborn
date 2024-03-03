@@ -44,6 +44,7 @@ import techreborn.datagen.recipes.machine.grinder.GrinderRecipesProvider
 import techreborn.datagen.recipes.machine.implosion_compressor.ImplosionCompressorRecipesProvider
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipesProvider
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipesProvider
+import techreborn.datagen.recipes.machine.vacuum_freezer.VacuumFreezerRecipesProvider
 import techreborn.datagen.recipes.machine.wire_mill.WireMillRecipesProvider
 import techreborn.datagen.recipes.smelting.SmeltingRecipesProvider
 import techreborn.datagen.tags.TRBlockTagProvider
@@ -86,6 +87,7 @@ class TechRebornDataGen implements DataGeneratorEntrypoint {
 		add IndustrialSawmillRecipesProvider::new
 		add ImplosionCompressorRecipesProvider::new
 		add AlloySmelterRecipesProvider::new
+		add VacuumFreezerRecipesProvider::new
 		add WireMillRecipesProvider::new
 
 		add ModelProvider::new
