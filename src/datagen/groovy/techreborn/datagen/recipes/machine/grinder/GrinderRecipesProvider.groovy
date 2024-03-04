@@ -118,79 +118,79 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			power 2
 			time 200
 			ingredients tag("c:coal_ores")
-			outputs stack("minecraft:coal", 2)
+			outputs stack(Items.COAL, 2)
 		}
 		offerGrinderRecipe {
 			power 2
 			time 230
-			ingredients stack("minecraft:coal")
-			outputs stack("techreborn:coal_dust")
+			ingredients stack(Items.COAL)
+			outputs stack(TRContent.Dusts.COAL)
 		}
 		offerGrinderRecipe {
 			power 2
 			time 400
-			ingredients stack("minecraft:coal_block")
-			outputs stack("techreborn:coal_dust", 9)
+			ingredients stack( Items.COAL_BLOCK)
+			outputs stack(TRContent.Dusts.COAL, 9)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 230
-			ingredients stack("minecraft:charcoal")
-			outputs stack("techreborn:charcoal_dust")
+			ingredients stack(Items.CHARCOAL)
+			outputs stack(TRContent.Dusts.CHARCOAL)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 270
 			ingredients tag("c:redstone_ores")
-			outputs stack("minecraft:redstone", 8)
+			outputs stack(Items.REDSTONE, 8)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients stack("minecraft:nether_quartz_ore")
-			outputs stack("minecraft:quartz", 2)
+			ingredients stack(Items.NETHER_QUARTZ_ORE)
+			outputs stack(Items.QUARTZ, 2)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients stack("minecraft:quartz")
-			outputs stack("techreborn:quartz_dust")
+			ingredients stack(Items.QUARTZ)
+			outputs stack(TRContent.Dusts.QUARTZ)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 1080
-			ingredients stack("minecraft:quartz_block")
-			outputs stack("techreborn:quartz_dust", 4)
+			ingredients stack(Items.QUARTZ_BLOCK)
+			outputs stack(TRContent.Dusts.QUARTZ, 4)
 		}
 		offerGrinderRecipe {
 			power 2
 			time 200
 			ingredients tag("c:lapis_ores")
-			outputs stack("minecraft:lapis_lazuli", 10)
+			outputs stack(Items.LAPIS_LAZULI, 10)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 270
 			ingredients tag("c:emerald_ores")
-			outputs stack("minecraft:emerald")
+			outputs stack(Items.EMERALD)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients stack("minecraft:emerald")
-			outputs stack("techreborn:emerald_dust")
+			ingredients stack(Items.EMERALD)
+			outputs stack(TRContent.Dusts.EMERALD)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 270
 			ingredients tag("c:diamond_ores")
-			outputs stack("minecraft:diamond")
+			outputs stack(Items.DIAMOND)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients stack("minecraft:diamond")
-			outputs stack("techreborn:diamond_dust")
+			ingredients stack(Items.DIAMOND)
+			outputs stack(TRContent.Dusts.DIAMOND)
 		}
 	}
 
@@ -598,5 +598,18 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			ingredients Items.HEART_POTTERY_SHERD
 			outputs Items.HEARTBREAK_POTTERY_SHERD
 		}
+//  	This stuff will not work without having AE2 in dev env
+//		And count in tags is not supported. Have to add CERTUS_QUARTZ to TR C tags.
+//
+//		ConditionJsonProvider recipeCondition = DefaultResourceConditions.allModsLoaded("ae2")
+//		offerGrinderRecipe {
+//			power 2
+//			time 300
+//			ingredient{
+//				tag(TRConventionalTags.CERTUS_QUARTZ, 2)
+//			}
+//			outputs stack("ae2:certus_quartz_dust")
+//			condition recipeCondition
+//		}
 	}
 }

@@ -47,6 +47,7 @@ class TRConventionalTags {
 	public static final TagKey<Item> BRONZE_INGOTS = register("bronze_ingots")
 	public static final TagKey<Item> CALCITE_DUSTS = register("calcite_dusts")
 	public static final TagKey<Item> CALCITE_SMALL_DUSTS = register("calcite_small_dusts")
+	public static final TagKey<Item> CERTUS_QUARTZ = register("certus_quartz")
 	public static final TagKey<Item> CHROMIUM_BLOCKS = register("chromium_blocks")
 	public static final TagKey<Item> CHROMIUM_INGOTS = register("chromium_ingots")
 	public static final TagKey<Item> CINNABAR_ORES = register("cinnabar_ores")
