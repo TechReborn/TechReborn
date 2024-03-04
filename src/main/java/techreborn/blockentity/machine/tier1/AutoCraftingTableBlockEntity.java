@@ -56,23 +56,20 @@ import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Created by modmuss50 on 20/06/2017.
  */
 public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
+	implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public static final int CRAFTING_HEIGHT = 3;
 	public static final int CRAFTING_WIDTH = 3;
-	public static final int CRAFTING_AREA = CRAFTING_HEIGHT*CRAFTING_WIDTH;
+	public static final int CRAFTING_AREA = CRAFTING_HEIGHT * CRAFTING_WIDTH;
 
-	public final RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(CRAFTING_AREA+2, "AutoCraftingTableBlockEntity", 64, this);
+	public final RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(CRAFTING_AREA + 2, "AutoCraftingTableBlockEntity", 64, this);
 	private final int OUTPUT_SLOT = CRAFTING_AREA; // first slot is indexed by 0, so this is the last non crafting slot
 	private final int EXTRA_OUTPUT_SLOT = CRAFTING_AREA + 1;
 
@@ -95,17 +92,17 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Nullable
 	public CraftingRecipe getCurrentRecipe() {
 		if (world == null) return null;
-		CraftingInventory crafting = getCraftingInventory();
-		if (crafting.isEmpty()) return null;
+		CraftingInventory craftingInventory = getCraftingInventory();
+		if (craftingInventory.isEmpty()) return null;
 
-		if (lastRecipe != null && lastRecipe.matches(crafting, world)) return lastRecipe;
+		if (lastRecipe != null && lastRecipe.matches(craftingInventory, world)) return lastRecipe;
 
-		Item[] currentInvLayout = getCraftingLayout(crafting);
-		if(Arrays.equals(layoutInv, currentInvLayout)) return null;
+		Item[] currentInvLayout = getCraftingLayout(craftingInventory);
+		if (Arrays.equals(layoutInv, currentInvLayout)) return null;
 
 		layoutInv = currentInvLayout;
 
-		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world).map(RecipeEntry::value);
+		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craftingInventory, world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
 			return lastRecipe;
@@ -114,7 +111,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return null;
 	}
 
-	private Item[] getCraftingLayout(CraftingInventory craftingInventory){
+	private Item[] getCraftingLayout(CraftingInventory craftingInventory) {
 		Item[] layout = new Item[CRAFTING_AREA];
 		for (int i = 0; i < CRAFTING_AREA; i++) {
 			layout[i] = craftingInventory.getStack(i).getItem();
@@ -152,8 +149,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		// Don't allow recipe to change (Keep at least one of each slot stocked, assuming it's actually a recipe)
 		if (locked) {
-			for(int i = 0; i < CRAFTING_AREA; i++){
-				if(crafting.getStack(i).getCount() == 1){
+			for (int i = 0; i < CRAFTING_AREA; i++) {
+				if (crafting.getStack(i).getCount() == 1) {
 					return false;
 				}
 			}
@@ -161,22 +158,34 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!recipe.matches(crafting, world)) return false;
 
-		if (!hasOutputSpace(recipe.getResult(getWorld().getRegistryManager()), OUTPUT_SLOT)) return false;
+		if (!hasOutputSpace(recipe.getResult(world.getRegistryManager()), OUTPUT_SLOT)) return false;
 
 		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
-		for (ItemStack stack : remainingStacks) {
-			if (!stack.isEmpty() && !hasRoomForExtraItem(stack)) return false;
+
+		// Need to check whole list in case of several different reminders
+		boolean canFitReminder = true;
+		ItemStack recipeReminder = ItemStack.EMPTY;
+		for (ItemStack reminderStack : remainingStacks) {
+			// No crafting reminder
+			if (reminderStack.isEmpty()) continue;
+
+			if (!recipeReminder.isEmpty() && !ItemUtils.isItemEqual(recipeReminder, reminderStack, true, false)){
+				// We've got different reminder, excluding case of no reminder from current ingredient
+				canFitReminder = false;
+				break;
+			}
+
+			// Create a copy to avoid changes of original ItemStack
+			recipeReminder = reminderStack.copy();
+
+			recipeReminder.setCount((int) remainingStacks.stream().filter(reminder -> ItemUtils.isItemEqual(reminder, reminderStack, true, false)).count());
+			if (!hasOutputSpace(recipeReminder, EXTRA_OUTPUT_SLOT)) {
+				canFitReminder = false;
+				break;
+			}
 		}
 
-		return true;
-	}
-
-	private boolean hasRoomForExtraItem(ItemStack stack) {
-		ItemStack extraOutputSlot = inventory.getStack(EXTRA_OUTPUT_SLOT);
-		if (extraOutputSlot.isEmpty()) {
-			return true;
-		}
-		return hasOutputSpace(stack, EXTRA_OUTPUT_SLOT);
+		return canFitReminder;
 	}
 
 	private boolean hasOutputSpace(ItemStack output, int slot) {
@@ -185,7 +194,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			return true;
 		}
 		if (ItemUtils.isItemEqual(stack, output, true, true)) {
-			return stack.getMaxCount() > stack.getCount() + output.getCount();
+			return stack.getMaxCount() >= stack.getCount() + output.getCount();
 		}
 		return false;
 	}
@@ -226,18 +235,18 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 		ItemStack output = inventory.getStack(OUTPUT_SLOT);
-		ItemStack outputStack = recipe.craft(getCraftingInventory(), getWorld().getRegistryManager());
+		ItemStack outputStack = recipe.craft(getCraftingInventory(), world.getRegistryManager());
 		if (output.isEmpty()) {
 			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
 		} else {
-			output.increment(recipe.getResult(getWorld().getRegistryManager()).getCount());
+			output.increment(recipe.getResult(world.getRegistryManager()).getCount());
 		}
 		return true;
 	}
 
-	private void moveExtraOutput(ItemStack stack){
+	private void moveExtraOutput(ItemStack stack) {
 		ItemStack currentExtraOutput = inventory.getStack(EXTRA_OUTPUT_SLOT);
-		if (currentExtraOutput.isEmpty()){
+		if (currentExtraOutput.isEmpty()) {
 			inventory.setStack(EXTRA_OUTPUT_SLOT, stack.copy());
 		} else {
 			currentExtraOutput.increment(stack.getCount());
@@ -290,7 +299,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!possibleSlots.isEmpty()) {
 			int totalItems = possibleSlots.stream()
-					.mapToInt(value -> inventory.getStack(value).getCount()).sum();
+				.mapToInt(value -> inventory.getStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
 			//This makes an array of ints with the best possible slot distribution
@@ -307,8 +316,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 
 			List<Integer> slotDistribution = possibleSlots.stream()
-					.mapToInt(value -> inventory.getStack(value).getCount())
-					.boxed().collect(Collectors.toList());
+				.mapToInt(value -> inventory.getStack(value).getCount())
+				.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
 			for (int required : split) {
@@ -340,9 +349,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 		if (bestSlot.getLeft() == balanceSlot
-				|| bestSlot.getRight() == sourceStack.getCount()
-				|| inventory.getStack(bestSlot.getLeft()).isEmpty()
-				|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
+			|| bestSlot.getRight() == sourceStack.getCount()
+			|| inventory.getStack(bestSlot.getLeft()).isEmpty()
+			|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
 			return Optional.empty();
 		}
 		sourceStack.decrement(1);
@@ -378,7 +387,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 					progress++;
 					if (progress == 1) {
 						world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
-								SoundCategory.BLOCKS, 0.3F, 0.8F);
+							SoundCategory.BLOCKS, 0.3F, 0.8F);
 					}
 					useEnergy(euTick);
 				}
@@ -428,11 +437,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
-	@Override
-	public boolean hasSlotConfig() {
-		return true;
-	}
-
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity playerIn) {
@@ -449,15 +453,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("autocraftingtable").player(player.getInventory()).inventory().hotbar().addInventory()
-				.blockEntity(this)
-				.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
-				.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)
-				.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
-				.outputSlot(OUTPUT_SLOT, 145, 42)
-				.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
-				.syncEnergyValue().sync(this::getProgress, this::setProgress)
-				.sync(this::getMaxProgress, this::setMaxProgress)
-				.sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+			.blockEntity(this)
+			.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
+			.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)
+			.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
+			.outputSlot(OUTPUT_SLOT, 145, 42)
+			.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
+			.syncEnergyValue().sync(this::getProgress, this::setProgress)
+			.sync(this::getMaxProgress, this::setMaxProgress)
+			.sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
 	public int getProgress() {
