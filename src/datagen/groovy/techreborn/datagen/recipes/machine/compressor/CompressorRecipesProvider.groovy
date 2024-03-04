@@ -25,9 +25,12 @@
 package techreborn.datagen.recipes.machine.compressor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import reborncore.common.misc.TagConvertible
+import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
+import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
@@ -70,8 +73,76 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 		offerCompressorRecipe {
 			power 10
 			time 300
-			ingredients stack("minecraft:blaze_powder", 4)
-			outputs stack("minecraft:blaze_rod")
+			ingredients stack(Items.BLAZE_POWDER, 4)
+			outputs Items.BLAZE_ROD
+		}
+
+		offerCompressorRecipe {
+			power 10
+			time 300
+			ingredients stack(Items.PRISMARINE, 2)
+			outputs Items.PRISMARINE_BRICKS
+		}
+
+		offerCompressorRecipe {
+			power 10
+			time 180
+			ingredients Items.PRISMARINE_CRYSTALS
+			outputs Items.PRISMARINE_SHARD
+		}
+
+		offerCompressorRecipe {
+			power 10
+			time 300
+			ingredients stack(Items.SCULK_VEIN, 16)
+			outputs Items.SCULK
+		}
+
+		offerCompressorRecipe {
+			power 10
+			time 300
+			ingredients tag("minecraft:planks")
+			outputs TRContent.Plates.WOOD
+		}
+
+		offerCompressorRecipe {
+			power 10
+			time 300
+			ingredient {
+				tag(TRConventionalTags.SAW_DUSTS, 2)
+			}
+			outputs TRContent.Plates.WOOD
+			source "dust"
+		}
+
+		offerCompressorRecipe {
+			power 10
+			time 300
+			ingredients TRContent.Dusts.CALCITE
+			outputs Items.CALCITE
+		}
+
+		offerCompressorRecipe {
+			power 2
+			time 400
+			ingredients TRContent.Parts.PLANTBALL
+			outputs TRContent.Parts.COMPRESSED_PLANTBALL
+		}
+
+		offerCompressorRecipe {
+			power 2
+			time 400
+			ingredients stack(Items.MELON_SLICE, 64)
+			outputs TRContent.Parts.COMPRESSED_PLANTBALL
+			source "melon"
+		}
+
+		offerCompressorRecipe {
+			power 10
+			time 250
+			ingredients TRContent.CELL
+			outputs cellStack(ModFluids.COMPRESSED_AIR)
+			id "compressor/compressed_air_cell"
 		}
 	}
 }

@@ -107,6 +107,7 @@ public class TagIngredient extends RebornIngredient {
 
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("tag", tag.id().toString());
+		count.ifPresent(integer -> jsonObject.addProperty("count", integer));
 		return jsonObject;
 	}
 
