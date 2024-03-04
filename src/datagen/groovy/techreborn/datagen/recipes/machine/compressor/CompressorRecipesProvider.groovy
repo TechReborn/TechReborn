@@ -25,7 +25,6 @@
 package techreborn.datagen.recipes.machine.compressor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.item.ItemStack
 import net.minecraft.registry.RegistryWrapper
 import reborncore.common.misc.TagConvertible
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -66,6 +65,13 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 					criterion getCriterionName(ingredient), getCriterionConditions(ingredient)
 				}
 			}
+		}
+
+		offerCompressorRecipe {
+			power 10
+			time 300
+			ingredients stack("minecraft:blaze_powder", 4)
+			outputs stack("minecraft:blaze_rod")
 		}
 	}
 }
