@@ -423,13 +423,27 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			outputs TRContent.Ingots.LEAD, TRContent.Ingots.SILVER
 			source("galena_small_dust")
 		}
-//		offerBlastFurnaceRecipe {
-//			power 128
-//			time 100
-//			heat 1000
-//			ingredients TRConventionalTags.IRON_ORES, cellStack(ModFluids.CALCIUM_CARBONATE)
-//			outputs stack(TRContent.Ingots.REFINED_IRON, 3), TRContent.CELL
-//		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 100
+			heat 1000
+			ingredients TRConventionalTags.IRON_ORES
+			ingredient {
+				fluid(ModFluids.CALCIUM_CARBONATE, TRContent.CELL)
+			}
+			outputs stack(TRContent.Ingots.REFINED_IRON, 3), TRContent.CELL
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 100
+			heat 1500
+			ingredients TRConventionalTags.PYRITE_ORES
+			ingredient {
+				fluid(ModFluids.CALCIUM_CARBONATE, TRContent.CELL)
+			}
+			outputs stack(TRContent.Ingots.REFINED_IRON, 2), TRContent.CELL
+			source("pyrite_ore")
+		}
 		offerBlastFurnaceRecipe {
 			power 128
 			time 100
@@ -474,6 +488,58 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			ingredients stack(TRContent.SmallDusts.TUNGSTEN, 4)
 			outputs TRContent.Ingots.TUNGSTEN
 			source("small_dust")
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 1000
+			heat 1500
+			ingredients stack(TRContent.Dusts.QUARTZ, 2)
+			ingredient {
+				fluid(ModFluids.CARBON, TRContent.CELL, 4)
+			}
+			outputs cellStack(ModFluids.SILICON, 2), cellStack(ModFluids.COMPRESSED_AIR, 2)
+			id "blast_furnace/silicon_cell"
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 1000
+			heat 1500
+			ingredient {
+				fluid(ModFluids.SILICON, TRContent.CELL, 2)
+			}
+			outputs TRContent.Plates.SILICON, stack(TRContent.CELL, 2)
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 1000
+			heat 1500
+			ingredients stack(Items.RED_SAND, 8)
+			ingredient {
+				fluid(ModFluids.CARBON, TRContent.CELL, 5)
+			}
+			outputs stack(Items.SOUL_SAND, 8)
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 500
+			heat 1000
+			ingredients TRContent.Ingots.REFINED_IRON
+			ingredient {
+				tag(TRConventionalTags.COAL_DUSTS, 4)
+			}
+			outputs TRContent.Ingots.STEEL, stack(TRContent.Dusts.DARK_ASHES, 2)
+			source("refined_iron")
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 500
+			heat 1000
+			ingredients TRContent.Ingots.REFINED_IRON
+			ingredient {
+				fluid(ModFluids.CARBON, TRContent.CELL, 2)
+			}
+			outputs TRContent.Ingots.STEEL, stack(TRContent.CELL, 2)
+			source("refined_iron_and_carbon")
 		}
 	}
 }
