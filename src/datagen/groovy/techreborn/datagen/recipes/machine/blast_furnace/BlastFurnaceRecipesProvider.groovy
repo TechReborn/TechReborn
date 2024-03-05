@@ -25,10 +25,11 @@
 package techreborn.datagen.recipes.machine.blast_furnace
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
+import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
+import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
@@ -61,6 +62,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		generateGlassFromGlassPane()
 		generateAnvil()
 		generateSherds()
+		generateMisc()
 	}
 
 	void generateBoots() {
@@ -341,6 +343,137 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				heat 1000
 				criterion getCriterionName(material), getCriterionConditions(material)
 			}
+		}
+	}
+
+	void generateMisc() {
+		offerBlastFurnaceRecipe {
+			power 128
+			time 200
+			heat 1700
+			ingredient {
+				tag(TRConventionalTags.ALUMINUM_DUSTS)
+			}
+			outputs TRContent.Ingots.ALUMINUM
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 100
+			heat 3000
+			ingredients Items.COBBLESTONE
+			outputs Items.BLACKSTONE
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 800
+			heat 1700
+			ingredients TRContent.Dusts.CHROME
+			outputs TRContent.Ingots.CHROME
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 800
+			heat 1700
+			ingredients stack(TRContent.SmallDusts.CHROME, 4)
+			outputs TRContent.Ingots.CHROME
+			source("small_dust")
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 2000
+			heat 3000
+			ingredients TRConventionalTags.STEEL_INGOTS, TRConventionalTags.TUNGSTEN_INGOTS
+			outputs TRContent.Ingots.HOT_TUNGSTENSTEEL, stack(TRContent.Dusts.DARK_ASHES, 4)
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 800
+			heat 2000
+			ingredients TRContent.RawMetals.IRIDIUM
+			outputs TRContent.Ingots.IRIDIUM
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 200
+			heat 1000
+			ingredients stack(Items.IRON_BARS, 5)
+			outputs Items.IRON_INGOT
+			source("from_bars")
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 140
+			heat 1000
+			ingredients stack(Items.RAIL, 12), Items.SAND
+			outputs stack(Items.IRON_INGOT, 3), TRContent.Dusts.DARK_ASHES
+			source("from_rails")
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 20
+			heat 1500
+			ingredients stack(TRContent.Dusts.GALENA, 2)
+			outputs TRContent.Ingots.LEAD, TRContent.Ingots.SILVER
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 20
+			heat 1500
+			ingredients stack(TRContent.SmallDusts.GALENA, 8)
+			outputs TRContent.Ingots.LEAD, TRContent.Ingots.SILVER
+			source("galena_small_dust")
+		}
+//		offerBlastFurnaceRecipe {
+//			power 128
+//			time 100
+//			heat 1000
+//			ingredients TRConventionalTags.IRON_ORES, cellStack(ModFluids.CALCIUM_CARBONATE)
+//			outputs stack(TRContent.Ingots.REFINED_IRON, 3), TRContent.CELL
+//		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 100
+			heat 1000
+			ingredients TRConventionalTags.STEEL_DUSTS
+			outputs TRContent.Ingots.STEEL
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 100
+			heat 1000
+			ingredients stack(TRContent.SmallDusts.STEEL, 4)
+			outputs TRContent.Ingots.STEEL
+			source("small_dust")
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 3600
+			heat 1500
+			ingredients TRConventionalTags.TITANIUM_DUSTS
+			outputs TRContent.Ingots.TITANIUM
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 3600
+			heat 1500
+			ingredients stack(TRContent.SmallDusts.TITANIUM, 4)
+			outputs TRContent.Ingots.TITANIUM
+			source("small_dust")
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 2000
+			heat 2500
+			ingredients TRConventionalTags.RAW_TUNGSTEN_ORES
+			outputs TRContent.Ingots.TUNGSTEN
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 2000
+			heat 2500
+			ingredients stack(TRContent.SmallDusts.TUNGSTEN, 4)
+			outputs TRContent.Ingots.TUNGSTEN
+			source("small_dust")
 		}
 	}
 }
