@@ -124,6 +124,13 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			id("centrifuge/basalt_dust")
 		}
 		offerCentrifugeRecipe {
+			power 5
+			time 500
+			ingredients stack(Items.BRAIN_CORAL_BLOCK, 12), TRContent.CELL
+			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_BRAIN_CORAL, 24), stack(Items.DEAD_BRAIN_CORAL_FAN, 12), stack(Items.PINK_DYE, 16)
+			id("centrifuge/brain_coral_block")
+		}
+		offerCentrifugeRecipe {
 			power 10
 			time 6000
 			ingredient {
@@ -138,6 +145,13 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			ingredients stack(TRContent.Dusts.BRONZE, 4)
 			outputs stack(TRContent.Nuggets.COPPER, 27), stack(TRContent.Nuggets.TIN, 9)
 			id("centrifuge/bronze_dust")
+		}
+		offerCentrifugeRecipe {
+			power 5
+			time 500
+			ingredients stack(Items.BUBBLE_CORAL_BLOCK, 12), TRContent.CELL
+			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_BUBBLE_CORAL, 24), stack(Items.DEAD_BUBBLE_CORAL_FAN, 12), stack(Items.PURPLE_DYE, 16)
+			id("centrifuge/bubble_coral_block")
 		}
 		offerCentrifugeRecipe {
 			power 10
@@ -185,6 +199,56 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			outputs stack(Items.SAND, 8), Items.CLAY_BALL, stack(Items.GRAVEL, 2)
 			id("centrifuge/dirt")
 		}
-
+		offerCentrifugeRecipe {
+			power 10
+			time 7200
+			ingredient{
+				tag(TRConventionalTags.ELECTRUM_DUSTS, 2)
+			}
+			outputs stack(Items.GOLD_NUGGET, 9), stack(TRContent.Nuggets.SILVER, 9)
+			id("centrifuge/electrum_dust")
+		}
+		offerCentrifugeRecipe {
+			power 5
+			time 500
+			ingredients Items.ENCHANTED_GOLDEN_APPLE, stack(TRContent.CELL, 2)
+			outputs stack(Items.GOLD_INGOT, 64), cellStack(ModFluids.METHANE, 2)
+			id("centrifuge/enchanted_golden_apple")
+		}
+		offerCentrifugeRecipe {
+			power 5
+			time 1840
+			ingredients stack(TRContent.Dusts.ENDER_EYE, 2)
+			outputs stack(TRContent.Dusts.ENDER_PEARL, 2), Items.BLAZE_POWDER
+			id("centrifuge/ender_eye_dust")
+		}
+		offerCentrifugeRecipe {
+			power 5
+			time 4800
+			ingredients stack(TRContent.Dusts.ENDSTONE, 16), stack(TRContent.CELL, 2)
+			outputs cellStack(ModFluids.HELIUM3), cellStack(ModFluids.HELIUM), TRContent.SmallDusts.TUNGSTEN, stack(Items.SAND, 12)
+			id("centrifuge/endstone_dust")
+		}
+		offerCentrifugeRecipe {
+			power 5
+			time 500
+			ingredients stack(Items.FIRE_CORAL_BLOCK, 12), TRContent.CELL
+			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_FIRE_CORAL, 24), stack(Items.DEAD_FIRE_CORAL_FAN, 12), stack(Items.RED_DYE, 16)
+			id("centrifuge/fire_coral_block")
+		}
+		offerCentrifugeRecipe {
+			power 5
+			time 500
+			ingredients stack(Items.GLISTERING_MELON_SLICE, 8), TRContent.CELL
+			outputs stack(Items.GOLD_NUGGET, 6), cellStack(ModFluids.METHANE)
+			id("centrifuge/glistering_melon_slice")
+		}
+		offerCentrifugeRecipe {
+			power 5
+			time 500
+			ingredients stack(Items.GLOW_BERRIES, 32), TRContent.CELL
+			outputs stack(Items.ORANGE_DYE, 2), cellStack(ModFluids.METHANE), stack(Items.GLOWSTONE_DUST, 2)
+			id("centrifuge/glow_berries")
+		}
 	}
 }
