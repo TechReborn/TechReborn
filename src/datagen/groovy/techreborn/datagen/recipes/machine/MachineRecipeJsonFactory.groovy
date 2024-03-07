@@ -46,6 +46,7 @@ import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.RecipeUtils
 import reborncore.common.crafting.ingredient.RebornIngredient
 import techreborn.datagen.recipes.TechRebornRecipesProvider
+import techreborn.init.ModRecipes
 
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final RebornRecipeType<R> type
@@ -180,7 +181,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	}
 
 	protected void validate() {
-		if (ingredients.isEmpty()) {
+		if (ingredients.isEmpty() && type != ModRecipes.RECYCLER) {
 			throw new IllegalStateException("recipe has no ingredients")
 		}
 
