@@ -24,12 +24,14 @@
 
 package techreborn.datagen
 
+import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.registry.RegistryBuilder
 import net.minecraft.registry.RegistryKeys
 import techreborn.TechReborn
 import techreborn.datagen.advancement.TRAdvancementProvider
+import techreborn.datagen.compat.Ae2
 import techreborn.datagen.loottables.BlockLootTableProvider
 import techreborn.datagen.models.ModelProvider
 import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
@@ -54,7 +56,11 @@ import techreborn.datagen.tags.TRPointOfInterestTagProvider
 import techreborn.datagen.dynamic.TRDynamicContent
 import techreborn.datagen.dynamic.TRDynamicProvider
 
-class TechRebornDataGen implements DataGeneratorEntrypoint {
+class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
+	@Override
+	void onInitialize() {
+		Ae2.setup()
+	}
 
 	@Override
 	void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {

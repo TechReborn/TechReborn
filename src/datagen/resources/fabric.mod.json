@@ -7,6 +7,9 @@
 	"entrypoints": {
 		"fabric-datagen": [
 			"techreborn.datagen.TechRebornDataGen"
+		],
+		"main": [
+			"techreborn.datagen.TechRebornDataGen"
 		]
 	},
 	"mixins": [

@@ -25,10 +25,12 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.TRConventionalTags
+import techreborn.datagen.compat.Ae2
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -598,18 +600,28 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			ingredients Items.HEART_POTTERY_SHERD
 			outputs Items.HEARTBREAK_POTTERY_SHERD
 		}
-//  	This stuff will not work without having AE2 in dev env
-//		And count in tags is not supported. Have to add CERTUS_QUARTZ to TR C tags.
-//
-//		ConditionJsonProvider recipeCondition = DefaultResourceConditions.allModsLoaded("ae2")
-//		offerGrinderRecipe {
-//			power 2
-//			time 300
-//			ingredient{
-//				tag(TRConventionalTags.CERTUS_QUARTZ, 2)
-//			}
-//			outputs stack("ae2:certus_quartz_dust")
-//			condition recipeCondition
-//		}
+		offerGrinderRecipe {
+			power 2
+			time 300
+			ingredient{
+				tag(TRConventionalTags.CERTUS_QUARTZ, 2)
+			}
+			outputs Ae2.certusQuartzDust
+			condition DefaultResourceConditions.allModsLoaded("ae2")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 300
+			ingredients TRConventionalTags.CERTUS_QUARTZ_ORES
+			outputs stack(Ae2.certusQuartzDust, 5)
+			condition DefaultResourceConditions.allModsLoaded("ae2")
+		}
+		offerGrinderRecipe {
+			power 2
+			time 300
+			ingredients stack(Ae2.fluixCrystal, 2)
+			outputs Ae2.fluixDust
+			condition DefaultResourceConditions.allModsLoaded("ae2")
+		}
 	}
 }
