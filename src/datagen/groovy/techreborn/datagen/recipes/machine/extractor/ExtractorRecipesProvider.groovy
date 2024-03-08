@@ -374,6 +374,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs TRContent.Parts.RUBBER
 			source("log")
+			criterion getCriterionName(TRContent.ItemTags.RUBBER_LOGS), getCriterionConditions(TRContent.ItemTags.RUBBER_LOGS)
 		}
 		offerExtractorRecipe {
 			power 10
@@ -383,6 +384,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs stack(Items.STRING, 5)
 			source("banner")
+			criterion getCriterionName(ItemTags.BANNERS), getCriterionConditions(ItemTags.BANNERS)
 		}
 		offerExtractorRecipe {
 			power 10
@@ -392,6 +394,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs stack(Items.STRING, 3)
 			source("bed")
+			criterion getCriterionName(ItemTags.BEDS), getCriterionConditions(ItemTags.BEDS)
 		}
 	}
 
