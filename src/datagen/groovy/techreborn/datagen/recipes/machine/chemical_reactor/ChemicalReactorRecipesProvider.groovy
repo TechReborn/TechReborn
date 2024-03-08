@@ -27,11 +27,7 @@ package techreborn.datagen.recipes.machine.chemical_reactor
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.fluid.Fluids
 import net.minecraft.item.Items
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.predicate.NumberRange
-import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.entry.RegistryEntryList
 import reborncore.common.util.ColoredItem
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -194,7 +190,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs cellStack(ModFluids.CALCIUM_CARBONATE, 2)
 			id("chemical_reactor/calcium_carbonate")
-			//criterion "has_carbon_cell", getCriterionConditions(new ItemPredicate(Optional.empty(), Optional.of(RegistryEntryList.of(TRContent.CELL.asItem().getRegistryEntry())), NumberRange.IntRange.ANY, NumberRange.IntRange.ANY, List.of(), List.of(), Optional.empty(), Optional.of(new NbtCompound().putString("fluid", "techreborn:carbon"))))
+			criterion "has_carbon_cell", getCriterionConditions(getCellItemPredicate(ModFluids.CARBON))
+			criterion "has_calcium_cell", getCriterionConditions(getCellItemPredicate(ModFluids.CALCIUM))
 		}
 		offerChemicalReactorRecipe {
 			power 30
@@ -254,6 +251,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs cellStack(ModFluids.GLYCERYL, 2)
 			id("chemical_reactor/glyceryl")
+			criterion "has_nitro_carbon_cell", getCriterionConditions(getCellItemPredicate(ModFluids.NITRO_CARBON))
 		}
 		offerChemicalReactorRecipe {
 			power 30
@@ -295,6 +293,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs cellStack(ModFluids.METHANE, 5)
 			id("chemical_reactor/methane")
+			criterion "has_carbon_cell", getCriterionConditions(getCellItemPredicate(ModFluids.CARBON))
+			criterion "has_hydrogen_cell", getCriterionConditions(getCellItemPredicate(ModFluids.HYDROGEN))
 		}
 		offerChemicalReactorRecipe {
 			power 30
@@ -307,6 +307,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs cellStack(ModFluids.NITRO_CARBON, 2)
 			id("chemical_reactor/nitro_carbon")
+			criterion "has_carbon_cell", getCriterionConditions(getCellItemPredicate(ModFluids.CARBON))
+			criterion "has_nitrogen_cell", getCriterionConditions(getCellItemPredicate(ModFluids.NITROGEN))
 		}
 		offerChemicalReactorRecipe {
 			power 30
@@ -319,6 +321,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs cellStack(ModFluids.NITRO_DIESEL, 2)
 			id("chemical_reactor/nitro_diesel")
+			criterion "has_glyrecyl_cell", getCriterionConditions(getCellItemPredicate(ModFluids.GLYCERYL))
+			criterion "has_diesel_cell", getCriterionConditions(getCellItemPredicate(ModFluids.DIESEL))
 		}
 		offerChemicalReactorRecipe {
 			power 30
@@ -331,6 +335,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs cellStack(ModFluids.NITROCOAL_FUEL, 2)
 			id("chemical_reactor/nitrocoal_fuel")
+			criterion "has_glyceryl_cell", getCriterionConditions(getCellItemPredicate(ModFluids.GLYCERYL))
+			criterion "has_carbon_cell", getCriterionConditions(getCellItemPredicate(ModFluids.CARBON))
 		}
 		offerChemicalReactorRecipe {
 			power 30
@@ -343,6 +349,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs cellStack(ModFluids.NITROFUEL, 2)
 			id("chemical_reactor/nitrofuel")
+			criterion "has_oil_cell", getCriterionConditions(getCellItemPredicate(ModFluids.OIL))
+			criterion "has_nitrogen_cell", getCriterionConditions(getCellItemPredicate(ModFluids.NITROGEN))
 		}
 		offerChemicalReactorRecipe {
 			power 30
@@ -355,6 +363,8 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs cellStack(ModFluids.NITROGEN_DIOXIDE, 2)
 			id("chemical_reactor/nitrogen_dioxide")
+			criterion "has_compressed_air_cell", getCriterionConditions(getCellItemPredicate(ModFluids.COMPRESSED_AIR))
+			criterion "has_nitrogen_cell", getCriterionConditions(getCellItemPredicate(ModFluids.NITROGEN))
 		}
 
 	}

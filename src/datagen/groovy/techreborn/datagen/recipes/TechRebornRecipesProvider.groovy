@@ -33,11 +33,15 @@ import net.minecraft.fluid.Fluid
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NbtCompound
+import net.minecraft.predicate.NbtPredicate
+import net.minecraft.predicate.NumberRange
 import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.recipe.Ingredient
 import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.entry.RegistryEntryList
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
@@ -46,6 +50,7 @@ import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRe
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
 import techreborn.init.ModFluids
 import techreborn.init.ModRecipes
+import techreborn.init.TRContent
 import techreborn.items.DynamicCellItem
 
 import java.util.concurrent.CompletableFuture
@@ -98,6 +103,13 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 			return conditionsFromItemPredicates(input)
 
 		throw new IllegalArgumentException()
+	}
+
+	static ItemPredicate getCellItemPredicate(ModFluids fluid){
+		RegistryEntryList itemEntry = RegistryEntryList.of(TRContent.CELL.asItem().getRegistryEntry())
+		NbtCompound nbt = new NbtCompound()
+		nbt.putString("fluid", fluid.getIdentifier().toString())
+		return new ItemPredicate(Optional.empty(), Optional.of(itemEntry), NumberRange.IntRange.ANY, NumberRange.IntRange.ANY, List.of(), List.of(), Optional.empty(), Optional.of(new NbtPredicate(nbt)))
 	}
 
 	static String getInputPath(def input) {
