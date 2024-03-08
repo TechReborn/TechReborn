@@ -26,7 +26,6 @@ package techreborn.datagen.recipes.machine.centrifuge
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.fluid.Fluids
-import net.minecraft.item.Item
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import techreborn.datagen.TRConventionalTags

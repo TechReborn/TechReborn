@@ -25,10 +25,9 @@
 package techreborn.datagen.recipes.machine.extractor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
-import net.minecraft.resource.featuretoggle.FeatureFlags
+import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -366,6 +365,33 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			power 10
 			time 150
 			criterion getCriterionName(TRContent.PAINTING_TOOL), getCriterionConditions(TRContent.PAINTING_TOOL)
+		}
+		offerExtractorRecipe {
+			power 10
+			time 300
+			ingredient {
+				tag(TRContent.ItemTags.RUBBER_LOGS)
+			}
+			outputs TRContent.Parts.RUBBER
+			source("log")
+		}
+		offerExtractorRecipe {
+			power 10
+			time 300
+			ingredient {
+				tag(ItemTags.BANNERS)
+			}
+			outputs stack(Items.STRING, 5)
+			source("banner")
+		}
+		offerExtractorRecipe {
+			power 10
+			time 300
+			ingredient {
+				tag(ItemTags.BEDS)
+			}
+			outputs stack(Items.STRING, 3)
+			source("bed")
 		}
 	}
 
