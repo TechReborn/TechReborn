@@ -25,10 +25,18 @@
 package techreborn.datagen.recipes.machine.chemical_reactor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.item.ItemStack
+import net.minecraft.fluid.Fluids
+import net.minecraft.item.Items
+import net.minecraft.nbt.NbtCompound
+import net.minecraft.predicate.NumberRange
+import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.entry.RegistryEntryList
 import reborncore.common.util.ColoredItem
+import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
+import techreborn.init.ModFluids
+import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
 
@@ -50,6 +58,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		generateGlass()
 		generateGlassPane()
 		generateTerracotta()
+		generateMisc()
 	}
 
 	void generateWool() {
@@ -162,5 +171,192 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 
 	// no recipes for beds and banners since the chemical reactor cannot color partially
 	// and glazed terracotta is too special to be recolored
+
+	void generateMisc() {
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredient {
+				tag(TRConventionalTags.CALCITE_DUSTS, 3)
+			}
+			ingredients Items.SLIME_BALL
+			outputs Items.BONE
+			criterion getCriterionName(Items.BONE), getCriterionConditions(Items.BONE)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 800
+			ingredient {
+				fluid(ModFluids.CARBON, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.CALCIUM, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.CALCIUM_CARBONATE, 2)
+			id("chemical_reactor/calcium_carbonate")
+			//criterion "has_carbon_cell", getCriterionConditions(new ItemPredicate(Optional.empty(), Optional.of(RegistryEntryList.of(TRContent.CELL.asItem().getRegistryEntry())), NumberRange.IntRange.ANY, NumberRange.IntRange.ANY, List.of(), List.of(), Optional.empty(), Optional.of(new NbtCompound().putString("fluid", "techreborn:carbon"))))
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.PRISMARINE, 2), Items.BLACK_DYE
+			outputs Items.DARK_PRISMARINE
+			criterion getCriterionName(Items.BLACK_DYE), getCriterionConditions(Items.BLACK_DYE)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.GOLD_BLOCK, 8), Items.APPLE
+			outputs Items.ENCHANTED_GOLDEN_APPLE
+			criterion getCriterionName(Items.GOLD_BLOCK), getCriterionConditions(Items.GOLD_BLOCK)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients Items.BLAZE_POWDER, Items.ENDER_PEARL
+			outputs stack(Items.ENDER_EYE, 2)
+			criterion getCriterionName(Items.BLAZE_POWDER), getCriterionConditions(Items.BLAZE_POWDER)
+			criterion getCriterionName(Items.ENDER_PEARL), getCriterionConditions(Items.ENDER_PEARL)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 500
+			ingredients stack(Items.GOLD_NUGGET, 8), Items.MELON_SLICE
+			outputs Items.GLISTERING_MELON_SLICE
+			criterion getCriterionName(Items.MELON_SLICE), getCriterionConditions(Items.MELON_SLICE)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.INK_SAC, 3), stack(Items.PRISMARINE_CRYSTALS, 2)
+			outputs stack(Items.GLOW_INK_SAC, 3)
+			criterion getCriterionName(Items.INK_SAC), getCriterionConditions(Items.INK_SAC)
+			criterion getCriterionName(Items.PRISMARINE_CRYSTALS), getCriterionConditions(Items.PRISMARINE_CRYSTALS)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredient{
+				tag(TRConventionalTags.GLOWSTONE_SMALL_DUSTS, 6)
+			}
+			ingredients Items.SEA_LANTERN
+			outputs Items.GLOWSTONE
+			criterion getCriterionName(Items.SEA_LANTERN), getCriterionConditions(Items.SEA_LANTERN)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 600
+			ingredient {
+				fluid(ModFluids.NITRO_CARBON, TRContent.CELL)
+			}
+			ingredient {
+				fluid(Fluids.WATER, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.GLYCERYL, 2)
+			id("chemical_reactor/glyceryl")
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.GOLD_INGOT, 6), Items.APPLE
+			outputs Items.GOLDEN_APPLE
+			criterion getCriterionName(Items.APPLE), getCriterionConditions(Items.APPLE)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.GOLD_NUGGET, 8), Items.CARROT
+			outputs Items.GOLDEN_CARROT
+			criterion getCriterionName(Items.CARROT), getCriterionConditions(Items.CARROT)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 300
+			ingredients stack(Items.ROTTEN_FLESH, 3), TRContent.Dusts.ASHES
+			outputs stack(Items.LEATHER, 2)
+			criterion getCriterionName(Items.ROTTEN_FLESH), getCriterionConditions(Items.ROTTEN_FLESH)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients Items.BLAZE_POWDER, Items.SLIME_BALL
+			outputs stack(Items.MAGMA_CREAM, 2)
+			criterion getCriterionName(Items.BLAZE_POWDER), getCriterionConditions(Items.BLAZE_POWDER)
+			criterion getCriterionName(Items.SLIME_BALL), getCriterionConditions(Items.SLIME_BALL)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 2000
+			ingredient {
+				fluid(ModFluids.CARBON, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.HYDROGEN, TRContent.CELL, 4)
+			}
+			outputs cellStack(ModFluids.METHANE, 5)
+			id("chemical_reactor/methane")
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 1000
+			ingredient {
+				fluid(ModFluids.CARBON, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.NITROGEN, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.NITRO_CARBON, 2)
+			id("chemical_reactor/nitro_carbon")
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 1000
+			ingredient {
+				fluid(ModFluids.GLYCERYL, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.DIESEL, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.NITRO_DIESEL, 2)
+			id("chemical_reactor/nitro_diesel")
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 300
+			ingredient {
+				fluid(ModFluids.GLYCERYL, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.CARBON, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.NITROCOAL_FUEL, 2)
+			id("chemical_reactor/nitrocoal_fuel")
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 800
+			ingredient {
+				fluid(ModFluids.OIL, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.NITROGEN, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.NITROFUEL, 2)
+			id("chemical_reactor/nitrofuel")
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredient {
+				fluid(ModFluids.COMPRESSED_AIR, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.NITROGEN, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.NITROGEN_DIOXIDE, 2)
+			id("chemical_reactor/nitrogen_dioxide")
+		}
+
+	}
 
 }

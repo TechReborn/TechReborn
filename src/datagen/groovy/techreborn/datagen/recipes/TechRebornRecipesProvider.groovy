@@ -33,6 +33,7 @@ import net.minecraft.fluid.Fluid
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
+import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.recipe.Ingredient
 import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryKeys
@@ -93,7 +94,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 			return conditionsFromItem(input)
 		} else if (input instanceof TagKey) {
 			return conditionsFromTag(input)
-		}
+		} else if (input instanceof ItemPredicate)
+			return conditionsFromItemPredicates(input)
 
 		throw new IllegalArgumentException()
 	}
