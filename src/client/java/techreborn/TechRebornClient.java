@@ -138,6 +138,12 @@ public class TechRebornClient implements ClientModInitializer {
 			}
 		});
 
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			while (KeyBindings.quantumSuitSprint.wasPressed()) {
+				KeyBindings.handleQuantumSuitSprintToggle();
+			}
+		});
+
 		StackToolTipHandler.setup();
 		ClientboundPacketHandlers.init();
 
