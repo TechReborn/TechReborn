@@ -27,7 +27,6 @@ package techreborn.datagen.recipes.machine.implosion_compressor
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
