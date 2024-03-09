@@ -55,6 +55,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		generateGlassPane()
 		generateTerracotta()
 		generateMisc()
+		generateWarped()
 	}
 
 	void generateWool() {
@@ -366,7 +367,207 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			criterion "has_compressed_air_cell", getCriterionConditions(getCellItemPredicate(ModFluids.COMPRESSED_AIR))
 			criterion "has_nitrogen_cell", getCriterionConditions(getCellItemPredicate(ModFluids.NITROGEN))
 		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredient {
+				tag(TRConventionalTags.CALCITE_SMALL_DUSTS, 3)
+			}
+			ingredients Items.SLIME_BALL
+			outputs Items.POINTED_DRIPSTONE
+			criterion getCriterionName(TRContent.Dusts.CALCITE), getCriterionConditions(TRContent.Dusts.CALCITE)
+			criterion getCriterionName(Items.SLIME_BALL), getCriterionConditions(Items.SLIME_BALL)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 300
+			ingredients stack(Items.REDSTONE, 16), Items.SCULK
+			outputs stack(Items.SCULK_SENSOR, 2)
+			criterion getCriterionName(Items.SCULK), getCriterionConditions(Items.SCULK)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 300
+			ingredients stack(Items.SCULK_CATALYST, 3), Items.NETHER_STAR
+			outputs Items.SCULK_SHRIEKER
+			criterion getCriterionName(Items.SCULK_CATALYST), getCriterionConditions(Items.SCULK_CATALYST)
+			criterion getCriterionName(Items.NETHER_STAR), getCriterionConditions(Items.NETHER_STAR)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.PRISMARINE_CRYSTALS, 6), Items.GLOWSTONE
+			outputs Items.SEA_LANTERN
+			criterion getCriterionName(Items.PRISMARINE_CRYSTALS), getCriterionConditions(Items.PRISMARINE_CRYSTALS)
+			criterion getCriterionName(Items.GLOWSTONE), getCriterionConditions(Items.GLOWSTONE)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 4
+			ingredients stack(Items.GLOWSTONE_DUST, 4), Items.BROWN_MUSHROOM_BLOCK
+			outputs Items.SHROOMLIGHT
+			source("brown_mushroom")
+			criterion getCriterionName(Items.GLOWSTONE_DUST), getCriterionConditions(Items.GLOWSTONE_DUST)
+			criterion getCriterionName(Items.BROWN_MUSHROOM_BLOCK), getCriterionConditions(Items.BROWN_MUSHROOM_BLOCK)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.GLOWSTONE_DUST, 4), Items.NETHER_WART_BLOCK
+			outputs Items.SHROOMLIGHT
+			source("nether_wart_block")
+			criterion getCriterionName(Items.GLOWSTONE_DUST), getCriterionConditions(Items.GLOWSTONE_DUST)
+			criterion getCriterionName(Items.NETHER_WART_BLOCK), getCriterionConditions(Items.NETHER_WART_BLOCK)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.GLOWSTONE_DUST, 4), Items.RED_MUSHROOM_BLOCK
+			outputs Items.SHROOMLIGHT
+			source("red_mushroom")
+			criterion getCriterionName(Items.GLOWSTONE_DUST), getCriterionConditions(Items.GLOWSTONE_DUST)
+			criterion getCriterionName(Items.RED_MUSHROOM_BLOCK), getCriterionConditions(Items.RED_MUSHROOM_BLOCK)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients stack(Items.GLOWSTONE_DUST, 4), Items.WARPED_WART_BLOCK
+			outputs Items.SHROOMLIGHT
+			source("warped_wart_block")
+			criterion getCriterionName(Items.GLOWSTONE_DUST), getCriterionConditions(Items.GLOWSTONE_DUST)
+			criterion getCriterionName(Items.WARPED_WART_BLOCK), getCriterionConditions(Items.WARPED_WART_BLOCK)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 800
+			ingredient {
+				fluid(ModFluids.SODIUM_SULFIDE, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.COMPRESSED_AIR, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.SODIUM_PERSULFATE, 2)
+			id("chemical_reactor/sodium_persulfate")
+			criterion "has_compressed_air_cell", getCriterionConditions(getCellItemPredicate(ModFluids.COMPRESSED_AIR))
+			criterion "has_sodium_sulfide_cell", getCriterionConditions(getCellItemPredicate(ModFluids.SODIUM_SULFIDE))
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 800
+			ingredient {
+				fluid(ModFluids.SULFUR, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.SODIUM, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.SODIUM_SULFIDE, 2)
+			id("chemical_reactor/sodium_sulfide")
+			criterion "has_sulfur_cell", getCriterionConditions(getCellItemPredicate(ModFluids.SULFUR))
+			criterion "has_sodium_cell", getCriterionConditions(getCellItemPredicate(ModFluids.SODIUM))
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 500
+			ingredients Items.STRIPPED_CRIMSON_HYPHAE
+			ingredient {
+				tag(TRConventionalTags.ENDER_PEARL_DUSTS, 2)
+			}
+			outputs Items.STRIPPED_WARPED_HYPHAE
+			criterion getCriterionName(Items.STRIPPED_CRIMSON_HYPHAE), getCriterionConditions(Items.STRIPPED_CRIMSON_HYPHAE)
+			criterion getCriterionName(TRConventionalTags.ENDER_PEARL_DUSTS), getCriterionConditions(TRConventionalTags.ENDER_PEARL_DUSTS)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 500
+			ingredients Items.STRIPPED_CRIMSON_STEM
+			ingredient {
+				tag(TRConventionalTags.ENDER_PEARL_DUSTS, 2)
+			}
+			outputs Items.STRIPPED_WARPED_STEM
+			criterion getCriterionName(Items.STRIPPED_CRIMSON_STEM), getCriterionConditions(Items.STRIPPED_CRIMSON_STEM)
+			criterion getCriterionName(TRConventionalTags.ENDER_PEARL_DUSTS), getCriterionConditions(TRConventionalTags.ENDER_PEARL_DUSTS)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 1200
+			ingredient {
+				fluid(ModFluids.SULFUR, TRContent.CELL)
+			}
+			ingredient {
+				fluid(Fluids.WATER, TRContent.CELL)
+			}
+			outputs cellStack(ModFluids.SULFURIC_ACID, 2)
+			id("chemical_reactor/sulfuric_acid")
+			criterion "has_sulfur_cell", getCriterionConditions(getCellItemPredicate(ModFluids.SULFUR))
+		}
+		offerChemicalReactorRecipe {
+			power 50
+			time 1200
+			ingredients stack(Items.REDSTONE, 32), Items.DIAMOND
+			outputs TRContent.Parts.SYNTHETIC_REDSTONE_CRYSTAL
+			criterion getCriterionName(Items.REDSTONE), getCriterionConditions(Items.REDSTONE)
+			criterion getCriterionName(Items.DIAMOND), getCriterionConditions(Items.DIAMOND)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients Items.BLUE_DYE, Items.OCHRE_FROGLIGHT
+			outputs Items.VERDANT_FROGLIGHT
+			criterion getCriterionName(Items.BLUE_DYE), getCriterionConditions(Items.BLUE_DYE)
+			criterion getCriterionName(Items.OCHRE_FROGLIGHT), getCriterionConditions(Items.OCHRE_FROGLIGHT)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredient {
+				fluid(ModFluids.COMPRESSED_AIR, TRContent.CELL)
+			}
+			ingredient {
+				fluid(ModFluids.HYDROGEN, TRContent.CELL)
+			}
+			outputs cellStack(Fluids.WATER, 2)
+			id("chemical_reactor/water")
+			criterion "has_compressed_air_cell", getCriterionConditions(getCellItemPredicate(ModFluids.COMPRESSED_AIR))
+			criterion "has_hydrogen_cell", getCriterionConditions(getCellItemPredicate(ModFluids.HYDROGEN))
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients Items.WITHER_ROSE, stack(Items.SKELETON_SKULL, 8)
+			outputs stack(Items.WITHER_SKELETON_SKULL, 8)
+			criterion getCriterionName(Items.WITHER_ROSE), getCriterionConditions(Items.WITHER_ROSE)
+			criterion getCriterionName(Items.SKELETON_SKULL), getCriterionConditions(Items.SKELETON_SKULL)
+		}
 
+	}
+	void generateWarped(){
+		[
+			(Items.CRIMSON_BUTTON) : Items.WARPED_BUTTON,
+			(Items.CRIMSON_DOOR) : Items.WARPED_DOOR,
+			(Items.CRIMSON_FENCE) : Items.WARPED_FENCE,
+			(Items.CRIMSON_FENCE_GATE) : Items.WARPED_FENCE_GATE,
+			(Items.CRIMSON_HYPHAE) : Items.WARPED_HYPHAE,
+			(Items.CRIMSON_PLANKS) : Items.WARPED_PLANKS,
+			(Items.CRIMSON_PRESSURE_PLATE) : Items.WARPED_PRESSURE_PLATE,
+			(Items.CRIMSON_SIGN) : Items.WARPED_SIGN,
+			(Items.CRIMSON_SLAB) : Items.WARPED_SLAB,
+			(Items.CRIMSON_STAIRS) : Items.WARPED_STAIRS,
+			(Items.CRIMSON_STEM) : Items.WARPED_STEM,
+			(Items.CRIMSON_TRAPDOOR) : Items.WARPED_TRAPDOOR,
+			(Items.NETHER_WART_BLOCK) : Items.WARPED_WART_BLOCK
+		].each {source, result ->
+			offerChemicalReactorRecipe {
+				power 30
+				time 400
+				ingredients stack(source, 2)
+				ingredient {
+					tag(TRConventionalTags.ENDER_PEARL_DUSTS)
+				}
+				outputs result
+				criterion getCriterionName(source), getCriterionConditions(source)
+				criterion getCriterionName(TRConventionalTags.ENDER_PEARL_DUSTS), getCriterionConditions(TRConventionalTags.ENDER_PEARL_DUSTS)
+			}
+		}
 	}
 
 }
