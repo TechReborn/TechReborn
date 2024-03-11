@@ -823,7 +823,7 @@
   "_comment29": "Горячие клавиши",
   "key.techreborn.category": "Раздел TechReborn",
   "key.techreborn.config": "Конфиг",
-  "key.techreborn.nanoSuitNightVision": "Нанокостюм - переключение ночного видения",
+  "key.techreborn.suitNightVision": "Нанокостюм - переключение ночного видения",
   "_comment19": "Интеграция JEI",
   "techreborn.jei.recipe.start.cost": "Начало: %s",
   "techreborn.jei.recipe.running.cost": "%s/t: %s",
