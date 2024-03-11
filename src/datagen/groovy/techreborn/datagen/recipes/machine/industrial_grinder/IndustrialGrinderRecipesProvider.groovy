@@ -357,7 +357,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	void generateTrimTemplates() {
-		var trim = tag("minecraft:trim_templates");
+		var trim = tag("minecraft:trim_templates")
 		offerIndustrialGrinderRecipe {
 			ingredients trim
 			outputs stack(TRContent.Dusts.DIAMOND, 2), stack(TRContent.SmallDusts.DIAMOND, 3)
@@ -703,6 +703,96 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			fluid Fluids.WATER
 			source "sapphire_ore_with_water"
 			criterion getCriterionName(TRContent.Ores.SAPPHIRE.asTag()), getCriterionConditions(TRContent.Ores.SAPPHIRE.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.SHELDONITE.asTag()
+			outputs stack(TRContent.Dusts.PLATINUM, 2), TRContent.Dusts.NICKEL, stack(TRContent.Nuggets.IRIDIUM, 2)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "sheldonite_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.SHELDONITE.asTag()), getCriterionConditions(TRContent.Ores.SHELDONITE.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.SHELDONITE.asTag()
+			outputs stack(TRContent.Dusts.PLATINUM, 3), TRContent.Dusts.NICKEL, stack(TRContent.Nuggets.IRIDIUM, 2)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "sheldonite_ore_with_mercury"
+			criterion getCriterionName(TRContent.Ores.SHELDONITE.asTag()), getCriterionConditions(TRContent.Ores.SHELDONITE.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.SILVER.asTag()
+			outputs stack(TRContent.RawMetals.SILVER, 2), stack(TRContent.SmallDusts.GALENA, 2)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "silver_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.SILVER.asTag()), getCriterionConditions(TRContent.Ores.SILVER.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.SODALITE.asTag()
+			outputs stack(TRContent.Dusts.SODALITE, 12), stack(TRContent.Dusts.ALUMINUM, 3)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "sodalite_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.SODALITE.asTag()), getCriterionConditions(TRContent.Ores.SODALITE.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.SPHALERITE.asTag()
+			outputs stack(TRContent.Dusts.SPHALERITE, 5), TRContent.Dusts.ZINC, TRContent.SmallDusts.YELLOW_GARNET
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "sphalerite_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.SPHALERITE.asTag()), getCriterionConditions(TRContent.Ores.SPHALERITE.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.SPHALERITE.asTag()
+			outputs stack(TRContent.Dusts.SPHALERITE, 5), stack(TRContent.Dusts.ZINC, 3), TRContent.Dusts.YELLOW_GARNET
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
+			source "sphalerite_ore_with_sodium_persulfate"
+			criterion getCriterionName(TRContent.Ores.SPHALERITE.asTag()), getCriterionConditions(TRContent.Ores.SPHALERITE.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.TIN.asTag()
+			outputs stack(TRContent.RawMetals.TIN, 2), stack(Items.IRON_NUGGET, 3), stack(TRContent.Nuggets.ZINC, 3)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "tin_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.TIN.asTag()), getCriterionConditions(TRContent.Ores.TIN.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.TIN.asTag()
+			outputs stack(TRContent.RawMetals.TIN, 2), Items.RAW_IRON, TRContent.Dusts.ZINC
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
+			source "tin_ore_with_sodium_persulfate"
+			criterion getCriterionName(TRContent.Ores.TIN.asTag()), getCriterionConditions(TRContent.Ores.TIN.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.TUNGSTEN.asTag()
+			outputs stack(TRContent.RawMetals.TUNGSTEN, 2), stack(Items.IRON_NUGGET, 7), stack(TRContent.SmallDusts.MANGANESE, 3)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "tungsten_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.TUNGSTEN.asTag()), getCriterionConditions(TRContent.Ores.TUNGSTEN.asTag())
 		}
 	}
 }
