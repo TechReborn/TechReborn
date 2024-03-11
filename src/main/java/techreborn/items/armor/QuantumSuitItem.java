@@ -28,6 +28,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -37,10 +38,16 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
+
+import java.util.List;
 
 public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
 	public QuantumSuitItem(ArmorMaterial material, Type slot) {
@@ -83,8 +90,16 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
 		switch (this.getSlotType()) {
 			case HEAD -> {
+				// Water Breathing
 				if (playerEntity.isSubmergedInWater() && tryUseEnergy(stack, TechRebornConfig.quantumSuitBreathingCost)) {
 					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 5, 1));
+				}
+
+				// Night Vision
+				if (stack.getOrCreateNbt().getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
+					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 220, 1, false, false));
+				} else {
+					playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 				}
 			}
 			case CHEST -> {
@@ -129,6 +144,15 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				playerEntity.getAbilities().flying = false;
 				playerEntity.sendAbilitiesUpdate();
 			}
+		} else if (this.getSlotType() == EquipmentSlot.HEAD) {
+			playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
+		}
+	}
+
+	@Override
+	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		if (this.getSlotType() == EquipmentSlot.HEAD) {
+			ItemUtils.buildActiveTooltip(stack, tooltip);
 		}
 	}
 }

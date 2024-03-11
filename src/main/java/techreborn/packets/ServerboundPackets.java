@@ -63,7 +63,7 @@ public class ServerboundPackets {
 	public static final Identifier PUMP_DEPTH = new Identifier(TechReborn.MOD_ID, "pump_depth");
 	public static final Identifier PUMP_RANGE = new Identifier(TechReborn.MOD_ID, "pump_range");
 
-	public static final Identifier NANO_SUIT_NIGHT_VISION = new Identifier(TechReborn.MOD_ID, "nano_suit_night_vision");
+	public static final Identifier SUIT_NIGHT_VISION = new Identifier(TechReborn.MOD_ID, "suit_night_vision");
 
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
@@ -229,10 +229,10 @@ public class ServerboundPackets {
 			});
 		}));
 
-		NetworkManager.registerServerBoundHandler(NANO_SUIT_NIGHT_VISION, (server, player, handler, buf, responseSender) -> {
+		NetworkManager.registerServerBoundHandler(SUIT_NIGHT_VISION, (server, player, handler, buf, responseSender) -> {
 			server.execute(() -> {
 				for (ItemStack itemStack : player.getArmorItems()) {
-					if (itemStack.isOf(TRContent.NANO_HELMET)) {
+					if (itemStack.isOf(TRContent.NANO_HELMET) || itemStack.isOf(TRContent.QUANTUM_HELMET)) {
 						itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
 						break;
 					}
@@ -332,7 +332,7 @@ public class ServerboundPackets {
 	}
 
 	public static IdentifiedPacket createPacketToggleNV() {
-		return NetworkManager.createServerBoundPacket(NANO_SUIT_NIGHT_VISION, buf -> {
+		return NetworkManager.createServerBoundPacket(SUIT_NIGHT_VISION, buf -> {
 		});
 	}
 }

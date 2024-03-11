@@ -304,8 +304,8 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "nanoSuitCapacity", comment = "Nano Suit Energy Capacity")
 	public static long nanoSuitCapacity = 1_000_000;
 
-	@Config(config = "items", category = "power", key = "nanoSuitNightVisionCost", comment = "Nano Suit Night Vision Cost")
-	public static long nanoSuitNightVisionCost = 1;
+	@Config(config = "items", category = "power", key = "suitNightVisionCost", comment = "Nano/Quantum Suit Night Vision Cost")
+	public static long suitNightVisionCost = 1;
 
 	@Config(config = "items", category = "power", key = "nanoSuitFlightCost", comment = "Nano Suit Flight Cost")
 	public static long nanoSuitFlightCost = 2;

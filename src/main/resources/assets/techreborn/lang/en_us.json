@@ -860,7 +860,7 @@
   "_comment29": "Keybindings",
   "key.techreborn.category": "TechReborn Category",
   "key.techreborn.config": "Config",
-  "key.techreborn.nanoSuitNightVision": "Nanosuit - toggle night vision",
+  "key.techreborn.suitNightVision": "Helmet - toggle night vision",
 
   "_comment19": "JEI Integration",
   "techreborn.jei.recipe.start.cost": "Start: %s",

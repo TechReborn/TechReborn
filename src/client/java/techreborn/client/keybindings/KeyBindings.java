@@ -38,17 +38,17 @@ public class KeyBindings {
 
 	public static KeyBinding config = new KeyBinding(CONFIG, GLFW.GLFW_KEY_P, CATEGORY);
 
-	public static KeyBinding nanoSuitNightVision;
+	public static KeyBinding suitNightVision;
 
 	public static void registerKeys() {
-		nanoSuitNightVision = KeyBindingHelper.registerKeyBinding(
-			new KeyBinding("key.techreborn.nanoSuitNightVision",
+		suitNightVision = KeyBindingHelper.registerKeyBinding(
+			new KeyBinding("key.techreborn.suitNightVision",
 				InputUtil.Type.KEYSYM,
 				GLFW.GLFW_KEY_N,
 				CATEGORY));
 	}
 
-	public static void handleNanoSuitNVToggle() {
+	public static void handleSuitNVToggle() {
 		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketToggleNV());
 	}
 }

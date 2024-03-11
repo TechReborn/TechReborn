@@ -84,7 +84,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 		World world = playerEntity.getWorld();
 		// Night Vision
 		if (Objects.requireNonNull(this.getSlotType()) == EquipmentSlot.HEAD) {
-			if (stack.getOrCreateNbt().getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.nanoSuitNightVisionCost)) {
+			if (stack.getOrCreateNbt().getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
 				playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 220, 1, false, false));
 			} else {
 				playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
