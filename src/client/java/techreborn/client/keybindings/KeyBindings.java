@@ -39,6 +39,7 @@ public class KeyBindings {
 	public static KeyBinding config = new KeyBinding(CONFIG, GLFW.GLFW_KEY_P, CATEGORY);
 
 	public static KeyBinding suitNightVision;
+	public static KeyBinding quantumSuitSprint;
 
 	public static void registerKeys() {
 		suitNightVision = KeyBindingHelper.registerKeyBinding(
@@ -46,9 +47,19 @@ public class KeyBindings {
 				InputUtil.Type.KEYSYM,
 				GLFW.GLFW_KEY_N,
 				CATEGORY));
+
+		quantumSuitSprint = KeyBindingHelper.registerKeyBinding(
+			new KeyBinding("key.techreborn.quantumSuitSprint",
+				InputUtil.Type.KEYSYM,
+				GLFW.GLFW_KEY_B,
+				CATEGORY));
 	}
 
 	public static void handleSuitNVToggle() {
 		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketToggleNV());
+	}
+
+	public static void handleQuantumSuitSprintToggle() {
+		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketToggleQuantumSprint());
 	}
 }

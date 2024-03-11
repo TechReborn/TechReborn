@@ -71,7 +71,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 
 		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint) {
+		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && stack.getOrCreateNbt().getBoolean("isActive") && TechRebornConfig.quantumSuitEnableSprint) {
 			if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitSprintingCost) {
 				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
@@ -123,7 +123,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				}
 			}
 			case LEGS -> {
-				if (playerEntity.isSprinting() && TechRebornConfig.quantumSuitEnableSprint) {
+				if (playerEntity.isSprinting() && stack.getOrCreateNbt().getBoolean("isActive") && TechRebornConfig.quantumSuitEnableSprint) {
 					tryUseEnergy(stack, TechRebornConfig.quantumSuitSprintingCost);
 				}
 			}
@@ -152,6 +152,11 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		if (this.getSlotType() == EquipmentSlot.HEAD) {
+			ItemUtils.buildActiveTooltip(stack, tooltip);
+		}
+
+		// Will only add Inactive/Active tooltip if sprint is enabled
+		if (this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint) {
 			ItemUtils.buildActiveTooltip(stack, tooltip);
 		}
 	}

@@ -64,6 +64,7 @@ public class ServerboundPackets {
 	public static final Identifier PUMP_RANGE = new Identifier(TechReborn.MOD_ID, "pump_range");
 
 	public static final Identifier SUIT_NIGHT_VISION = new Identifier(TechReborn.MOD_ID, "suit_night_vision");
+	public static final Identifier QUANTUM_SUIT_SPRINT = new Identifier(TechReborn.MOD_ID, "quantum_suit_sprint");
 
 	public static void init() {
 		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
@@ -239,6 +240,17 @@ public class ServerboundPackets {
 				}
 			});
 		});
+
+		NetworkManager.registerServerBoundHandler(QUANTUM_SUIT_SPRINT, (server, player, handler, buf, responseSender) -> {
+			server.execute(() -> {
+				for (ItemStack itemStack : player.getArmorItems()) {
+					if (itemStack.isOf(TRContent.QUANTUM_LEGGINGS)) {
+						itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
+						break;
+					}
+				}
+			});
+		});
 	}
 
 	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
@@ -334,5 +346,9 @@ public class ServerboundPackets {
 	public static IdentifiedPacket createPacketToggleNV() {
 		return NetworkManager.createServerBoundPacket(SUIT_NIGHT_VISION, buf -> {
 		});
+	}
+
+	public static IdentifiedPacket createPacketToggleQuantumSprint() {
+		return NetworkManager.createServerBoundPacket(QUANTUM_SUIT_SPRINT, buf -> { }); 
 	}
 }

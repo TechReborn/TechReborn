@@ -861,6 +861,7 @@
   "key.techreborn.category": "TechReborn Category",
   "key.techreborn.config": "Config",
   "key.techreborn.suitNightVision": "Helmet - toggle night vision",
+  "key.techreborn.quantumSuitSprint": "Quantum suit - toggle sprint speed",
 
   "_comment19": "JEI Integration",
   "techreborn.jei.recipe.start.cost": "Start: %s",
