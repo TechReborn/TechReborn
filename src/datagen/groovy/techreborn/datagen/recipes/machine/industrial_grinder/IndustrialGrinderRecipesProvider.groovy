@@ -25,9 +25,12 @@
 package techreborn.datagen.recipes.machine.industrial_grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
 import net.minecraft.fluid.Fluids
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
+import techreborn.datagen.TRConventionalTags
+import techreborn.datagen.compat.Ae2
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
@@ -62,6 +65,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		generatePickaxe()
 		generateTrimTemplates()
 		generateOres()
+		generateMisc()
 	}
 
 	void generateBoots() {
@@ -794,5 +798,130 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			source "tungsten_ore_with_water"
 			criterion getCriterionName(TRContent.Ores.TUNGSTEN.asTag()), getCriterionConditions(TRContent.Ores.TUNGSTEN.asTag())
 		}
+	}
+	void generateMisc(){
+		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.CERTUS_QUARTZ_ORES
+			outputs stack(Ae2.certusQuartzCrystal, 2), stack(Ae2.certusQuartzDust, 5)
+			power 128
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "certus_quartz_ore_with_water"
+			criterion getCriterionName(TRConventionalTags.CERTUS_QUARTZ_ORES), getCriterionConditions(TRConventionalTags.CERTUS_QUARTZ_ORES)
+			condition DefaultResourceConditions.allModsLoaded("ae2")
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.END_STONE_BRICKS
+			outputs stack(TRContent.Dusts.ENDSTONE, 4)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "end_stone_bricks_with_water"
+			criterion getCriterionName(Items.END_STONE_BRICKS), getCriterionConditions(Items.END_STONE_BRICKS)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.END_STONE
+			outputs stack(TRContent.Dusts.ENDSTONE, 2)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "end_stone_with_water"
+			criterion getCriterionName(Items.END_STONE), getCriterionConditions(Items.END_STONE)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.ENDER_CHEST
+			outputs stack(TRContent.Dusts.OBSIDIAN, 4), stack(TRContent.SmallDusts.ENDER_EYE, 2)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "ender_chest_with_water"
+			criterion getCriterionName(Items.ENDER_CHEST), getCriterionConditions(Items.ENDER_CHEST)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.ENDER_CHEST
+			outputs stack(TRContent.Dusts.OBSIDIAN, 7), TRContent.Dusts.ENDER_EYE
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "ender_chest_with_mercury"
+			criterion getCriterionName(Items.ENDER_CHEST), getCriterionConditions(Items.ENDER_CHEST)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.FROGLIGHTS
+			outputs stack(Items.PRISMARINE_CRYSTALS, 3), Items.SLIME_BALL
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "froglight_with_water"
+			criterion getCriterionName(TRConventionalTags.FROGLIGHTS), getCriterionConditions(TRConventionalTags.FROGLIGHTS)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.HEART_OF_THE_SEA
+			outputs stack(TRContent.SmallDusts.DIAMOND, 3), stack(TRContent.SmallDusts.TITANIUM, 3), stack(TRContent.SmallDusts.PLATINUM, 2), stack(TRContent.Nuggets.IRIDIUM, 3)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "heart_of_the_sea_with_water"
+			criterion getCriterionName(Items.HEART_OF_THE_SEA), getCriterionConditions(Items.HEART_OF_THE_SEA)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.HEART_OF_THE_SEA
+			outputs stack(TRContent.Dusts.DIAMOND, 2), stack(TRContent.Dusts.TITANIUM, 2), TRContent.Dusts.PLATINUM, TRContent.RawMetals.IRIDIUM
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "heart_of_the_sea_with_mercury"
+			criterion getCriterionName(Items.HEART_OF_THE_SEA), getCriterionConditions(Items.HEART_OF_THE_SEA)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients stack(Items.MAGMA_BLOCK, 5)
+			outputs stack(TRContent.Dusts.OBSIDIAN, 4), Items.MAGMA_CREAM
+			power 64
+			time 250
+			fluidAmount 2000L
+			fluid Fluids.WATER
+			source "magma_block_with_water"
+			criterion getCriterionName(Items.MAGMA_BLOCK), getCriterionConditions(Items.MAGMA_BLOCK)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.NETHERITE_INGOT
+			outputs stack(TRContent.Nuggets.NETHERITE, 9)
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.LAVA
+			source "netherite_ingot_with_lava"
+			criterion getCriterionName(Items.NETHERITE_INGOT), getCriterionConditions(Items.NETHERITE_INGOT)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients stack(Items.NETHERRACK, 16)
+			outputs stack(TRContent.Dusts.NETHERRACK, 16), Items.GOLD_NUGGET
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid Fluids.WATER
+			source "netherrack_with_water"
+			criterion getCriterionName(Items.NETHERRACK), getCriterionConditions(Items.NETHERRACK)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients stack(Items.NETHERRACK, 8)
+			outputs stack(TRContent.Dusts.NETHERRACK, 8), Items.GOLD_NUGGET
+			power 64
+			time 100
+			fluidAmount 1000L
+			fluid ModFluids.MERCURY.getFluid()
+			source "netherrack_with_mercury"
+			criterion getCriterionName(Items.NETHERRACK), getCriterionConditions(Items.NETHERRACK)
+		}
+
+
 	}
 }

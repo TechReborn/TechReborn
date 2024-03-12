@@ -33,8 +33,10 @@ import net.minecraft.util.Identifier
 class Ae2 {
 	static String AE2_MOD_ID = "ae2"
 	static Identifier CERTUS_QUARTZ_DUST = new Identifier(AE2_MOD_ID, "certus_quartz_dust")
+	static Identifier CERTUS_QUARTZ_CRYSTAL = new Identifier(AE2_MOD_ID, "certus_quartz_crystal")
 	static Identifier FLUIX_CRYSTAL = new Identifier(AE2_MOD_ID, "fluix_crystal")
 	static Identifier FLUIX_DUST = new Identifier(AE2_MOD_ID, "fluix_dust")
+
 
 	static void setup() {
 		if (FabricLoader.getInstance().isModLoaded(AE2_MOD_ID)) {
@@ -42,12 +44,17 @@ class Ae2 {
 		}
 
 		registerItem(CERTUS_QUARTZ_DUST)
+		registerItem(CERTUS_QUARTZ_CRYSTAL)
 		registerItem(FLUIX_CRYSTAL)
 		registerItem(FLUIX_DUST)
 	}
 
 	static Item getCertusQuartzDust() {
 		return getItem(CERTUS_QUARTZ_DUST)
+	}
+
+	static Item getCertusQuartzCrystal() {
+		return getItem(CERTUS_QUARTZ_CRYSTAL)
 	}
 
 	static Item getFluixCrystal() {
