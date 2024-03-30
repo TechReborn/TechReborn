@@ -32,6 +32,16 @@ allprojects {
     apply plugin: "fabric-loom"
     apply plugin: "maven-publish"
 
+    repositories {
+        maven {
+            name "Ladysnake Mods"
+            url "https://maven.ladysnake.org/releases"
+            content {
+                includeGroup "io.github.ladysnake"
+            }
+        }
+    }
+
     loom {
         runtimeOnlyLog4j = true
         splitEnvironmentSourceSets()
@@ -50,6 +60,10 @@ allprojects {
         modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
 
         include(modApi("teamreborn:energy:${project.energy_version}")) {
+            transitive = false
+        }
+
+        include(modApi("io.github.ladysnake:PlayerAbilityLib:${project.pal_version}")) {
             transitive = false
         }
     }

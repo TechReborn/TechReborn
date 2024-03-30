@@ -28,6 +28,9 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import io.github.ladysnake.pal.AbilitySource;
+import io.github.ladysnake.pal.Pal;
+import io.github.ladysnake.pal.VanillaAbilities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -38,6 +41,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -45,11 +49,14 @@ import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 
 import java.util.List;
 
 public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
+	private static final AbilitySource QUANTUM_CHESTPLATE_FLIGHT = Pal.getAbilitySource(new Identifier(TechReborn.MOD_ID, "quantum_chestplate_flight"), AbilitySource.CONSUMABLE);
+
 	public QuantumSuitItem(ArmorMaterial material, Type slot) {
 		super(material, slot, TechRebornConfig.quantumSuitCapacity, RcEnergyTier.INSANE);
 	}
@@ -103,19 +110,18 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				}
 			}
 			case CHEST -> {
-				if (TechRebornConfig.quantumSuitEnableFlight) {
+				if (TechRebornConfig.quantumSuitEnableFlight && !playerEntity.getWorld().isClient) {
 					if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitFlyingCost) {
-						playerEntity.getAbilities().allowFlying = true;
-						playerEntity.sendAbilitiesUpdate();
+						if (!QUANTUM_CHESTPLATE_FLIGHT.grants(playerEntity, VanillaAbilities.ALLOW_FLYING))
+							QUANTUM_CHESTPLATE_FLIGHT.grantTo(playerEntity, VanillaAbilities.ALLOW_FLYING);
 
-						if (playerEntity.getAbilities().flying) {
+						if (playerEntity.getAbilities().flying && QUANTUM_CHESTPLATE_FLIGHT.isActivelyGranting(playerEntity, VanillaAbilities.ALLOW_FLYING)) {
 							tryUseEnergy(stack, TechRebornConfig.quantumSuitFlyingCost);
 						}
 						playerEntity.setOnGround(true);
 					} else {
-						playerEntity.getAbilities().allowFlying = false;
-						playerEntity.getAbilities().flying = false;
-						playerEntity.sendAbilitiesUpdate();
+						if (QUANTUM_CHESTPLATE_FLIGHT.grants(playerEntity, VanillaAbilities.ALLOW_FLYING))
+							QUANTUM_CHESTPLATE_FLIGHT.revokeFrom(playerEntity, VanillaAbilities.ALLOW_FLYING);
 					}
 				}
 				if (playerEntity.isOnFire() && tryUseEnergy(stack, TechRebornConfig.fireExtinguishCost)) {
@@ -139,11 +145,8 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	@Override
 	public void onRemoved(PlayerEntity playerEntity) {
 		if (this.getSlotType() == EquipmentSlot.CHEST && TechRebornConfig.quantumSuitEnableFlight) {
-			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
-				playerEntity.getAbilities().allowFlying = false;
-				playerEntity.getAbilities().flying = false;
-				playerEntity.sendAbilitiesUpdate();
-			}
+			if (QUANTUM_CHESTPLATE_FLIGHT.grants(playerEntity, VanillaAbilities.ALLOW_FLYING))
+				QUANTUM_CHESTPLATE_FLIGHT.revokeFrom(playerEntity, VanillaAbilities.ALLOW_FLYING);
 		} else if (this.getSlotType() == EquipmentSlot.HEAD) {
 			playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 		}
