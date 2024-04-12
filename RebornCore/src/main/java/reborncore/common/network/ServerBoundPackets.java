@@ -24,12 +24,9 @@
 
 package reborncore.common.network;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.blockentity.FluidConfiguration;
@@ -37,186 +34,87 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.chunkloading.ChunkLoaderManager;
+import reborncore.common.network.serverbound.*;
 
 public class ServerBoundPackets {
 
 	public static void init() {
-		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "fluid_config_save"), (server, player, handler, packetBuffer, responseSender) -> {
-			BlockPos pos = packetBuffer.readBlockPos();
-			NbtCompound compoundTag = packetBuffer.readNbt();
+		ServerPlayNetworking.registerGlobalReceiver(FluidConfigSavePayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			legacyMachineBase.fluidConfiguration.updateFluidConfig(payload.fluidConfiguration());
+			legacyMachineBase.markDirty();
 
-			server.execute(() -> {
-				FluidConfiguration.FluidConfig fluidConfiguration = new FluidConfiguration.FluidConfig(compoundTag);
-				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
-				legacyMachineBase.fluidConfiguration.updateFluidConfig(fluidConfiguration);
-				legacyMachineBase.markDirty();
+			IdentifiedPacket packetFluidConfigSync = ClientBoundPackets.createPacketFluidConfigSync(payload.pos(), legacyMachineBase.fluidConfiguration);
+			NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
 
-				IdentifiedPacket packetFluidConfigSync = ClientBoundPackets.createPacketFluidConfigSync(pos, legacyMachineBase.fluidConfiguration);
-				NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
-
-				// We update the block to allow pipes that are connecting to detect the update and change their
-				// connection status if needed
-				World world = legacyMachineBase.getWorld();
-				BlockState blockState = world.getBlockState(legacyMachineBase.getPos());
-				world.updateNeighborsAlways(legacyMachineBase.getPos(), blockState.getBlock());
-			});
+			// We update the block to allow pipes that are connecting to detect the update and change their
+			// connection status if needed
+			World world = legacyMachineBase.getWorld();
+			BlockState blockState = world.getBlockState(legacyMachineBase.getPos());
+			world.updateNeighborsAlways(legacyMachineBase.getPos(), blockState.getBlock());
 		});
 
-		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "config_save"), (server, player, handler, packetBuffer, responseSender) -> {
-			BlockPos pos = packetBuffer.readBlockPos();
-			NbtCompound tagCompound = packetBuffer.readNbt();
+		ServerPlayNetworking.registerGlobalReceiver(ConfigSavePayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			for (SlotConfiguration.SlotConfigHolder slotDetail : payload.slotConfig().getSlotDetails()) {
+				legacyMachineBase.getSlotConfiguration().updateSlotDetails(slotDetail);
+			}
+			legacyMachineBase.markDirty();
 
-			server.execute(() -> {
-				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
-				legacyMachineBase.getSlotConfiguration().read(tagCompound);
-				legacyMachineBase.markDirty();
-
-				IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(pos, legacyMachineBase.getSlotConfiguration());
-				NetworkManager.sendToWorld(packetSlotSync, (ServerWorld) legacyMachineBase.getWorld());
-			});
+			IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(payload.pos(), legacyMachineBase.getSlotConfiguration());
+			NetworkManager.sendToWorld(packetSlotSync, (ServerWorld) legacyMachineBase.getWorld());
 		});
 
-		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "fluid_io_save"), (server, player, handler, packetBuffer, responseSender) -> {
-			BlockPos pos = packetBuffer.readBlockPos();
-			boolean input = packetBuffer.readBoolean();
-			boolean output = packetBuffer.readBoolean();
+		ServerPlayNetworking.registerGlobalReceiver(FluidIoSavePayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			FluidConfiguration config = legacyMachineBase.fluidConfiguration;
+			if (config == null) {
+				return;
+			}
+			config.setInput(payload.input());
+			config.setOutput(payload.output());
 
-			server.execute(() -> {
-				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
-				FluidConfiguration config = legacyMachineBase.fluidConfiguration;
-				if (config == null) {
-					return;
-				}
-				config.setInput(input);
-				config.setOutput(output);
-
-				// Syncs back to the client
-				IdentifiedPacket packetFluidConfigSync = ClientBoundPackets.createPacketFluidConfigSync(pos, legacyMachineBase.fluidConfiguration);
-				NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
-			});
+			// Syncs back to the client
+			IdentifiedPacket packetFluidConfigSync = ClientBoundPackets.createPacketFluidConfigSync(payload.pos(), legacyMachineBase.fluidConfiguration);
+			NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
 		});
 
-		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "io_save"), (server, player, handler, packetBuffer, responseSender) -> {
-			BlockPos pos = packetBuffer.readBlockPos();
-			int slotID = packetBuffer.readInt();
-			boolean input = packetBuffer.readBoolean();
-			boolean output = packetBuffer.readBoolean();
-			boolean filter = packetBuffer.readBoolean();
+		ServerPlayNetworking.registerGlobalReceiver(IoSavePayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			Validate.notNull(machineBase, "machine cannot be null");
+			SlotConfiguration.SlotConfigHolder holder = machineBase.getSlotConfiguration().getSlotDetails(payload.slotID());
+			if (holder == null) {
+				return;
+			}
 
-			server.execute(() -> {
-				MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
-				Validate.notNull(machineBase, "machine cannot be null");
-				SlotConfiguration.SlotConfigHolder holder = machineBase.getSlotConfiguration().getSlotDetails(slotID);
-				if (holder == null) {
-					return;
-				}
+			holder.setInput(payload.input());
+			holder.setOutput(payload.output());
+			holder.setFilter(payload.filter());
 
-				holder.setInput(input);
-				holder.setOutput(output);
-				holder.setFilter(filter);
-
-				//Syncs back to the client
-				IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(pos, machineBase.getSlotConfiguration());
-				NetworkManager.sendToAll(packetSlotSync, player.getServer());
-			});
+			//Syncs back to the client
+			IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(payload.pos(), machineBase.getSlotConfiguration());
+			NetworkManager.sendToAll(packetSlotSync, context.player().getServer());
 		});
 
-		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "slot_save"), (server, player, handler, packetBuffer, responseSender) -> {
-			BlockPos pos = packetBuffer.readBlockPos();
-			NbtCompound compoundTag = packetBuffer.readNbt();
+		ServerPlayNetworking.registerGlobalReceiver(SlotSavePayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			legacyMachineBase.getSlotConfiguration().getSlotDetails(payload.slotConfig().getSlotID()).updateSlotConfig(payload.slotConfig());
+			legacyMachineBase.markDirty();
 
-			server.execute(() -> {
-				SlotConfiguration.SlotConfig slotConfig = new SlotConfiguration.SlotConfig(compoundTag);
-				MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
-				legacyMachineBase.getSlotConfiguration().getSlotDetails(slotConfig.getSlotID()).updateSlotConfig(slotConfig);
-				legacyMachineBase.markDirty();
-
-				IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(pos, legacyMachineBase.getSlotConfiguration());
-				NetworkManager.sendToWorld(packetSlotSync, (ServerWorld) legacyMachineBase.getWorld());
-			});
+			IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(payload.pos(), legacyMachineBase.getSlotConfiguration());
+			NetworkManager.sendToWorld(packetSlotSync, (ServerWorld) legacyMachineBase.getWorld());
 		});
 
-		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "chunk_loader_request"), (server, player, handler, packetBuffer, responseSender) -> {
-			BlockPos pos = packetBuffer.readBlockPos();
-			server.execute(() -> {
-				Validate.isInstanceOf(ServerPlayerEntity.class, player, "something very very bad has happened");
-				ChunkLoaderManager chunkLoaderManager = ChunkLoaderManager.get(player.getWorld());
-				chunkLoaderManager.syncChunkLoaderToClient((ServerPlayerEntity) player, pos);
-			});
+		ServerPlayNetworking.registerGlobalReceiver(ChunkLoaderRequestPayload.ID, (payload, context) -> {
+			ChunkLoaderManager chunkLoaderManager = ChunkLoaderManager.get(context.player().getWorld());
+			chunkLoaderManager.syncChunkLoaderToClient(context.player(), payload.pos());
 		});
 
-		NetworkManager.registerServerBoundHandler(new Identifier("reborncore", "set_redstone_state"), (server, player, handler, packetBuffer, responseSender) -> {
-			BlockPos pos = packetBuffer.readBlockPos();
-			String elementName = packetBuffer.readString(packetBuffer.readInt());
-			int stateId = packetBuffer.readInt();
-
-			RedstoneConfiguration.Element element = RedstoneConfiguration.getElementByName(elementName);
-			if (element == null) return;
-
-			if (stateId < 0 || stateId >= RedstoneConfiguration.State.values().length) return;
-			RedstoneConfiguration.State state = RedstoneConfiguration.State.values()[stateId];
-
-			server.execute(() -> {
-				MachineBaseBlockEntity blockEntity = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
-				if (blockEntity == null) return;
-
-				blockEntity.getRedstoneConfiguration().setState(element, state);
-			});
-		});
-	}
-
-
-	public static IdentifiedPacket createPacketFluidConfigSave(BlockPos pos, FluidConfiguration.FluidConfig fluidConfiguration) {
-		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "fluid_config_save"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeNbt(fluidConfiguration.write());
-		});
-	}
-
-	public static IdentifiedPacket createPacketConfigSave(BlockPos pos, SlotConfiguration slotConfig) {
-		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "config_save"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeNbt(slotConfig.write());
-		});
-	}
-
-	public static IdentifiedPacket createPacketFluidIOSave(BlockPos pos, boolean input, boolean output) {
-		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "fluid_io_save"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeBoolean(input);
-			packetBuffer.writeBoolean(output);
-		});
-	}
-
-	public static IdentifiedPacket createPacketIOSave(BlockPos pos, int slotID, boolean input, boolean output, boolean filter) {
-		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "io_save"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeInt(slotID);
-			packetBuffer.writeBoolean(input);
-			packetBuffer.writeBoolean(output);
-			packetBuffer.writeBoolean(filter);
-		});
-	}
-
-	public static IdentifiedPacket createPacketSlotSave(BlockPos pos, SlotConfiguration.SlotConfig slotConfig) {
-		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "slot_save"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeNbt(slotConfig.write());
-		});
-	}
-
-	public static IdentifiedPacket requestChunkLoaderChunks(BlockPos pos) {
-		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "chunk_loader_request"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-		});
-	}
-
-	public static IdentifiedPacket createPacketSetRedstoneSate(BlockPos pos, RedstoneConfiguration.Element element, RedstoneConfiguration.State state) {
-		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "set_redstone_state"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeInt(element.getName().length());
-			packetBuffer.writeString(element.getName());
-			packetBuffer.writeInt(state.ordinal());
+		ServerPlayNetworking.registerGlobalReceiver(SetRedstoneStatePayload.ID, (payload, context) -> {
+			RedstoneConfiguration.Element element = RedstoneConfiguration.getElementByName(payload.elementName());
+			MachineBaseBlockEntity blockEntity = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (blockEntity == null) return;
+			blockEntity.getRedstoneConfiguration().setState(element, payload.state());
 		});
 	}
 }

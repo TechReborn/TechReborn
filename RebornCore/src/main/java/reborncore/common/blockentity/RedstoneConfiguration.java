@@ -24,10 +24,13 @@
 
 package reborncore.common.blockentity;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
@@ -247,6 +250,9 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 	public enum State {
 		IGNORED,
 		ENABLED_ON,
-		ENABLED_OFF
+		ENABLED_OFF;
+
+		public static final PacketCodec<ByteBuf, State> PACKET_CODEC = PacketCodecs.INTEGER
+			.xmap(integer -> State.values()[integer], Enum::ordinal);
 	}
 }

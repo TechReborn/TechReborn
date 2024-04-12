@@ -27,6 +27,7 @@ package reborncore.common.util;
 import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.NotNull;
 
+@Deprecated
 public interface NBTSerializable {
 
 	@NotNull
