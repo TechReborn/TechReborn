@@ -24,10 +24,10 @@
 
 package techreborn.items.tool;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -45,7 +45,7 @@ public class WrenchItem extends Item implements IToolHandler {
 	@Override
 	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
 		if (!player.getWorld().isClient && damage) {
-			stack.damage(1, player.getWorld().random, (ServerPlayerEntity) player);
+			stack.damage(1, player, EquipmentSlot.MAINHAND);
 		}
 		return true;
 	}

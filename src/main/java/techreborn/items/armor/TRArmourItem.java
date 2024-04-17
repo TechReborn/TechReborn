@@ -27,6 +27,7 @@ package techreborn.items.armor;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.registry.entry.RegistryEntry;
 
 import java.util.UUID;
 
@@ -43,11 +44,11 @@ public class TRArmourItem extends ArmorItem {
 			UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")
 	};
 
-	public TRArmourItem(ArmorMaterial material, Type slot) {
+	public TRArmourItem(RegistryEntry<ArmorMaterial> material, Type slot) {
 		this(material, slot, new Item.Settings());
 	}
 
-	public TRArmourItem(ArmorMaterial material, Type slot, Item.Settings settings) {
+	public TRArmourItem(RegistryEntry<ArmorMaterial> material, Type slot, Item.Settings settings) {
 		super(material, slot, settings);
 	}
 }

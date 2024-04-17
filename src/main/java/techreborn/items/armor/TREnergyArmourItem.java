@@ -27,6 +27,7 @@ package techreborn.items.armor;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -35,7 +36,7 @@ public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnerg
 	public final long maxCharge;
 	private final RcEnergyTier energyTier;
 
-	public TREnergyArmourItem(ArmorMaterial material, Type slot, long maxCharge, RcEnergyTier energyTier) {
+	public TREnergyArmourItem(RegistryEntry<ArmorMaterial> material, Type slot, long maxCharge, RcEnergyTier energyTier) {
 		super(material, slot, new Item.Settings().maxDamage(-1).maxCount(1));
 		this.maxCharge = maxCharge;
 		this.energyTier = energyTier;
@@ -48,7 +49,7 @@ public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnerg
 	}
 
 	// Item
-	@Override
+	//@Override
 	public boolean isDamageable() {
 		return false;
 	}

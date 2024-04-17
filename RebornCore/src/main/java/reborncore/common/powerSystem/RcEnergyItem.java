@@ -63,7 +63,7 @@ public interface RcEnergyItem extends SimpleEnergyItem, FabricItem {
 	}
 
 	@Override
-	default boolean allowNbtUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
+	default boolean allowComponentsUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
 		return !ItemUtils.isEqualIgnoreEnergy(oldStack, newStack);
 	}
 

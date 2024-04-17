@@ -39,7 +39,7 @@ public class TRHoeItem extends HoeItem {
 	}
 
 	public TRHoeItem(ToolMaterial material, String repairOreDict) {
-		super(material, 0, 0F, new Item.Settings());
+		super(material, new Item.Settings());
 		this.repairOreDict = repairOreDict;
 	}
 
