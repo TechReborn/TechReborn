@@ -35,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -215,20 +216,20 @@ public class CableBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public NbtCompound toInitialChunkDataNbt() {
-		return createNbt();
+	public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+		return createNbt(registryLookup);
 	}
 
 	@Override
 	public BlockEntityUpdateS2CPacket toUpdatePacket() {
 		NbtCompound nbtTag = new NbtCompound();
-		writeNbt(nbtTag);
+		// writeNbt(nbtTag);
 		return BlockEntityUpdateS2CPacket.create(this);
 	}
 
 	@Override
-	public void readNbt(NbtCompound compound) {
-		super.readNbt(compound);
+	public void readNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(compound, registryLookup);
 		if (compound.contains("energy")) {
 			energyContainer.amount = compound.getLong("energy");
 		}
@@ -240,8 +241,8 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public void writeNbt(NbtCompound compound) {
-		super.writeNbt(compound);
+	public void writeNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(compound, registryLookup);
 		compound.putLong("energy", energyContainer.amount);
 		if (cover != null) {
 			compound.put("cover", NbtHelper.fromBlockState(cover));
