@@ -24,16 +24,14 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 
-public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnergyItem, EnchantmentTargetHandler {
+public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnergyItem {
 	public final long maxCharge;
 	private final RcEnergyTier energyTier;
 
@@ -86,9 +84,4 @@ public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnerg
 		return energyTier;
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

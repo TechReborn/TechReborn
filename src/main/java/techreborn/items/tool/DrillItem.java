@@ -25,18 +25,16 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRContent;
 
-public class DrillItem extends MiningToolItem implements RcEnergyItem, EnchantmentTargetHandler {
+public class DrillItem extends MiningToolItem implements RcEnergyItem {
 	public final int maxCharge;
 	public final RcEnergyTier tier;
 	public final int cost;
@@ -116,9 +114,4 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem, Enchantme
 		return 0;
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

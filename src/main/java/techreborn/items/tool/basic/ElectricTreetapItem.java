@@ -24,10 +24,8 @@
 
 package techreborn.items.tool.basic;
 
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -36,7 +34,7 @@ import techreborn.config.TechRebornConfig;
 /**
  * Created by modmuss50 on 05/11/2016.
  */
-public class ElectricTreetapItem extends Item implements RcEnergyItem, EnchantmentTargetHandler {
+public class ElectricTreetapItem extends Item implements RcEnergyItem {
 	public final RcEnergyTier tier = RcEnergyTier.MEDIUM;
 
 	public ElectricTreetapItem() {
@@ -75,15 +73,4 @@ public class ElectricTreetapItem extends Item implements RcEnergyItem, Enchantme
 		return tier;
 	}
 
-	// EnchantmentTargetHandler
-	/**
-	 * Allows to apply Unbreaking to Electric TreeTap
-	 *
-	 * @param target Enchantment target to check
-	 * @return True if proper target provided
-	 */
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

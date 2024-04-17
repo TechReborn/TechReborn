@@ -25,7 +25,6 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,14 +32,13 @@ import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRContent;
 
 
-public class JackhammerItem extends PickaxeItem implements RcEnergyItem, EnchantmentTargetHandler {
+public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	public final int maxCharge;
 	public final RcEnergyTier tier;
 	public final int cost;
@@ -138,9 +136,4 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Enchant
 		return 0;
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

@@ -25,7 +25,6 @@
 package techreborn.items;
 
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -36,14 +35,13 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 
 import java.util.List;
 
-public class BatteryItem extends Item implements RcEnergyItem, EnchantmentTargetHandler {
+public class BatteryItem extends Item implements RcEnergyItem {
 
 	private final int maxEnergy;
 	private final RcEnergyTier tier;
@@ -112,16 +110,4 @@ public class BatteryItem extends Item implements RcEnergyItem, EnchantmentTarget
 		return tier;
 	}
 
-
-	// EnchantmentTargetHandler
-	/**
-	 * Allows to apply Unbreaking to Battery
-	 *
-	 * @param target Enchantment target to check
-	 * @return True if proper target provided
-	 */
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

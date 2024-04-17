@@ -28,7 +28,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -45,7 +44,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -54,7 +52,7 @@ import techreborn.init.TRToolMaterials;
 
 import java.util.List;
 
-public class NanosaberItem extends SwordItem implements RcEnergyItem, EnchantmentTargetHandler {
+public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem() {
 		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().maxCount(1).maxDamage(-1));
@@ -150,9 +148,4 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, Enchantmen
 		return 0;
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

@@ -26,7 +26,6 @@ package techreborn.items.tool.industrial;
 
 import net.fabricmc.yarn.constants.MiningLevels;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -39,7 +38,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.IToolHandler;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -49,7 +47,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
 
 
-public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler, EnchantmentTargetHandler {
+public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler {
 	public final int miningLevel;
 
 	// 4M FE max charge with 1k charge rate
@@ -161,9 +159,4 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 		}
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-        return target == EnchantmentTarget.BREAKABLE || target == EnchantmentTarget.DIGGER || target == EnchantmentTarget.WEAPON;
-    }
 }
