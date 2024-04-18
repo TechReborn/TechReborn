@@ -30,6 +30,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.component.ComponentMap;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -50,9 +51,9 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 			return Optional.empty();
 		}
 		ItemStack newStack = stack.copy();
-		NbtCompound blockEntityData = blockEntity.createNbt();
+		NbtCompound blockEntityData = blockEntity.createNbt(world.getRegistryManager());
 		stripLocationData(blockEntityData);
-		if (!newStack.hasNbt()) {
+		if (newStack.getComponents() == ComponentMap.EMPTY) {
 			newStack.setNbt(new NbtCompound());
 		}
 		newStack.getOrCreateNbt().put("blockEntity_data", blockEntityData);

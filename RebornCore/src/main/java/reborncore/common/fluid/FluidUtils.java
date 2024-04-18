@@ -172,7 +172,7 @@ public class FluidUtils {
 	}
 
 	@Deprecated
-	public static boolean interactWithFluidHandler(PlayerEntity playerIn, Hand hand, Tank tank) {
+	public static boolean interactWithFluidHandler(PlayerEntity playerIn, Tank tank) {
 		// TODO
 		return false;
 	}
