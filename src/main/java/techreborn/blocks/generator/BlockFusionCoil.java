@@ -27,8 +27,9 @@ package techreborn.blocks.generator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -37,9 +38,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockSettings;
@@ -52,10 +51,9 @@ public class BlockFusionCoil extends Block {
 		super(TRBlockSettings.fusionCoil());
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
-							Hand hand, BlockHitResult hitResult) {
+							BlockHitResult hitResult) {
 
 		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (tool.isEmpty()) return ActionResult.PASS;
@@ -77,8 +75,8 @@ public class BlockFusionCoil extends Block {
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		super.appendTooltip(stack, worldIn, tooltip, flagIn);
+	public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
+		super.appendTooltip(stack, context, tooltip, options);
 		tooltip.add(Text.translatable("techreborn.tooltip.fusion_coil").formatted(Formatting.BLUE));
 	}
 }

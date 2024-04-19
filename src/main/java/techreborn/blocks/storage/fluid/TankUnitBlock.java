@@ -64,9 +64,9 @@ public class TankUnitBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		if (unitType == TRContent.TankUnit.CREATIVE || worldIn.isClient) {
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		final TankUnitBaseBlockEntity tankUnitEntity = (TankUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
@@ -149,7 +149,7 @@ public class TankUnitBlock extends BlockMachineBase {
 		}
 
 
-		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hitResult);
 	}
 
 	boolean isSameItemFluid(ItemStack i1, ItemStack i2){

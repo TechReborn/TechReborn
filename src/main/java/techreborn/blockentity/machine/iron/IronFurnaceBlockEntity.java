@@ -34,6 +34,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -190,14 +191,14 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public void readNbt(NbtCompound compoundTag) {
-		super.readNbt(compoundTag);
+	public void readNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(compoundTag, registryLookup);
 		experience = compoundTag.getFloat("Experience");
 	}
 
 	@Override
-	public void writeNbt(NbtCompound compoundTag) {
-		super.writeNbt(compoundTag);
+	public void writeNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(compoundTag, registryLookup);
 		compoundTag.putFloat("Experience", experience);
 	}
 

@@ -34,6 +34,7 @@ import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.collection.DefaultedList;
@@ -418,17 +419,17 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag) {
+	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		tag.putBoolean("locked", locked);
-		super.writeNbt(tag);
+		super.writeNbt(tag, registryLookup);
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag) {
+	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.readNbt(tag);
+		super.readNbt(tag, registryLookup);
 	}
 
 	// MachineBaseBlockEntity

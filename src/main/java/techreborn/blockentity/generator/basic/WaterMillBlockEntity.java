@@ -51,13 +51,30 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 		super(TRBlockEntities.WATER_MILL, pos, state);
 	}
 
+	/**
+	 *  Recount surrounding blocks of water
+	 */
+	private void checkForWater() {
+		if (world == null) {
+			return;
+		}
+		waterBlocks = 0;
+		for (Direction facing : Direction.values()) {
+			if (!facing.getAxis().isHorizontal()) {
+				continue;
+			}
+			if (world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
+				waterBlocks++;
+			}
+		}
+	}
+
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
 		if (world.isClient) {
 			return;
 		}
-
 		if (world.getTime() % 20 == 0) {
 			checkForWater();
 		}
@@ -66,15 +83,6 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 		} else {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
-		}
-	}
-
-	public void checkForWater() {
-		waterBlocks = 0;
-		for (Direction facing : Direction.values()) {
-			if (facing.getAxis().isHorizontal() && world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
-				waterBlocks++;
-			}
 		}
 	}
 

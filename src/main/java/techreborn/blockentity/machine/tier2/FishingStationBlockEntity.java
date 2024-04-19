@@ -129,7 +129,7 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 			.add(LootContextParameters.TOOL, TRContent.Machine.FISHING_STATION.getStack())
 			.build(LootContextTypes.FISHING);
 
-		final LootTable lootTable = world.getServer().getLootManager().getLootTable(LootTables.FISHING_GAMEPLAY);
+		final LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(LootTables.FISHING_GAMEPLAY);
 		final ObjectArrayList<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
 		if (insertIntoInv(list)){
 			useEnergy(useRequirement);

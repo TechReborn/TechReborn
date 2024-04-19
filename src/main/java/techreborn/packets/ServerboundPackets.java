@@ -193,7 +193,7 @@ public class ServerboundPackets {
 	}
 
 	public static IdentifiedPacket createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
-		return NetworkManager.createServerBoundPacket(AESU, buf -> {
+		return NetworkManager.createServerBoundPacket(AESUConfigPayload.getId(), buf -> {
 			buf.writeBlockPos(blockEntity.getPos());
 			buf.writeInt(buttonID);
 			buf.writeBoolean(shift);

@@ -30,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -151,12 +152,12 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	/**
 	 * Validates if reactor has all inputs and can output result
 	 *
-	 * @param recipe {@link FusionReactorRecipe} Recipe to validate
+	 * @param entry {@link FusionReactorRecipe} Recipe to validate
 	 * @return {@code boolean} True if we have all inputs and can fit output
 	 */
 	private boolean validateRecipe(RecipeEntry<FusionReactorRecipe> entry) {
 		FusionReactorRecipe recipe = entry.value();
-		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs(getWorld().getRegistryManager()).get(0), outputStackSlot, true);
+		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs(getWorld().getRegistryManager()).getFirst(), outputStackSlot, true);
 	}
 
 	/**
@@ -305,7 +306,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 					}
 				}
 			} else if (craftingTickTime >= currentRecipe.getTime()) {
-				ItemStack result = currentRecipe.getOutputs(getWorld().getRegistryManager()).get(0);
+				ItemStack result = currentRecipe.getOutputs(getWorld().getRegistryManager()).getFirst();
 				if (canFitStack(result, outputStackSlot, true)) {
 					if (inventory.getStack(outputStackSlot).isEmpty()) {
 						inventory.setStack(outputStackSlot, result.copy());
@@ -340,8 +341,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
+	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
 		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
@@ -356,8 +357,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
+	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound,registryLookup);
 		tagCompound.putInt("craftingTickTime", this.craftingTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
 		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);

@@ -78,13 +78,13 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		if (!playerIn.canModifyBlocks()){
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 		if (blockEntity == null) {
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);

@@ -31,7 +31,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
@@ -74,7 +74,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	}
 
 	@Override
-	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Text> tooltipLines) {
+	public void getTooltip(ItemStack stack, Item.TooltipContext tooltipContext, TooltipType tooltipType, List<Text> lines) {
 		Item item = stack.getItem();
 
 		// Can currently be executed by a ForkJoinPool.commonPool-worker when REI is in async search mode
@@ -89,45 +89,45 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		Block block = Block.getBlockFromItem(item);
 
 		if (block instanceof BaseBlockEntityProvider) {
-			ToolTipAssistUtils.addInfo(item.getTranslationKey(), tooltipLines);
+			ToolTipAssistUtils.addInfo(item.getTranslationKey(), lines);
 		}
 
 		if (block instanceof CableBlock cable) {
 			BlockEntity blockEntity = cable.createBlockEntity(BlockPos.ORIGIN, block.getDefaultState());
 			if (blockEntity != null) {
-				((IListInfoProvider) blockEntity).addInfo(tooltipLines, false, false);
+				((IListInfoProvider) blockEntity).addInfo(lines, false, false);
 			}
 		}
 
 		if (item instanceof UpgradeItem upgrade) {
-			ToolTipAssistUtils.addInfo(item.getTranslationKey(), tooltipLines, false);
-			tooltipLines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
+			ToolTipAssistUtils.addInfo(item.getTranslationKey(), lines, false);
+			lines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
 		}
 
 		if (item instanceof DynamicCellItem cell) {
 			Fluid fluid = cell.getFluid(stack);
 			if (!(fluid instanceof FlowableFluid) && fluid != Fluids.EMPTY)
-				ToolTipAssistUtils.addInfo("unplaceable_fluid", tooltipLines, false);
+				ToolTipAssistUtils.addInfo("unplaceable_fluid", lines, false);
 		}
 
 		if (item == TRContent.Upgrades.SUPERCONDUCTOR.item && Screen.hasControlDown()) {
-			tooltipLines.add(Text.literal(Formatting.GOLD + "Blame obstinate_3 for this"));
+			lines.add(Text.literal(Formatting.GOLD + "Blame obstinate_3 for this"));
 		}
 
 		if (item == TRContent.OMNI_TOOL) {
-			tooltipLines.add(Text.literal(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
+			lines.add(Text.literal(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
 		}
 
 		if (block == TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block && Screen.hasControlDown()) {
-			tooltipLines.add(Text.literal("Round and round it goes"));
+			lines.add(Text.literal("Round and round it goes"));
 		}
 
 		if (UNOBTAINABLE_ORES.contains(block)) {
-			tooltipLines.add(Text.translatable("techreborn.tooltip.unobtainable").formatted(Formatting.AQUA));
+			lines.add(Text.translatable("techreborn.tooltip.unobtainable").formatted(Formatting.AQUA));
 		} else if (OreDepthSyncHandler.getOreDepthMap().containsKey(block)) {
 			OreDepth oreDepth = OreDepthSyncHandler.getOreDepthMap().get(block);
 			Text text = getOreDepthText(oreDepth);
-			tooltipLines.add(text.copy().formatted(Formatting.AQUA));
+			lines.add(text.copy().formatted(Formatting.AQUA));
 		}
 	}
 

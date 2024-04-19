@@ -134,7 +134,6 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 		builder.add(FACING, ACTIVE);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
@@ -152,13 +151,11 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 		return super.onBreak(world, blockPos, blockState, playerEntity);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		return ScreenHandler.calculateComparatorOutput(getInventory(state, world, pos));
@@ -238,7 +235,6 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 		return inserted;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState rotate(BlockState state, BlockRotation rotation) {
 		return state.with(FACING, rotation.rotate(state.get(FACING)));

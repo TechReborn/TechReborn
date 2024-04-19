@@ -44,11 +44,6 @@ public class GenericGeneratorBlock extends GenericMachineBlock {
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
-		return true;
-	}
-
-	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
 	}

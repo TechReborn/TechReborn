@@ -38,7 +38,6 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -70,7 +69,6 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 				this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(POURING, false).with(FULL, false));
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return SHAPE;
@@ -90,9 +88,8 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 		return state.get(FACING);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if (world == null || world.isClient() || player == null || pos == null || !(world.getBlockEntity(pos) instanceof ResinBasinBlockEntity basin))
 			return ActionResult.PASS;
 		ItemStack sap = basin.empty();

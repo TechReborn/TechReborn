@@ -93,9 +93,8 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 		builder.add(FACING);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
@@ -115,10 +114,9 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 			return ActionResult.SUCCESS;
 		}
 
-		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hitResult);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
@@ -127,19 +125,16 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState rotate(BlockState state, BlockRotation rotation) {
 		return state.with(FACING, rotation.rotate(state.get(FACING)));

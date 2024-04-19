@@ -134,9 +134,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	// Block
-	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
@@ -146,7 +145,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		}
 
 		if (stack.isEmpty()) {
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		if (ToolManager.INSTANCE.canHandleTool(stack)) {
@@ -175,7 +174,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			return ActionResult.SUCCESS;
 		}
 
-		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hitResult);
 	}
 
 	@Override
@@ -189,7 +188,6 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 				.with(WATERLOGGED, context.getWorld().getFluidState(context.getBlockPos()).getFluid() == Fluids.WATER);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction direction, BlockState otherState,
 												WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
@@ -199,7 +197,6 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		return ourState;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
 		if (world.getBlockEntity(pos) instanceof CableBlockEntity cable) {
@@ -208,7 +205,6 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		super.neighborUpdate(state, world, pos, block, fromPos, notify);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext shapeContext) {
 		if (state.get(COVERED)) {
@@ -217,13 +213,11 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		return CableShapeUtil.getShape(state);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
 		return CableShapeUtil.getShape(state);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		super.onEntityCollision(state, world, pos, entity);
@@ -277,7 +271,6 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		return !state.get(COVERED) && Waterloggable.super.canFillWithFluid(player, view, pos, state, fluid);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public FluidState getFluidState(BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
