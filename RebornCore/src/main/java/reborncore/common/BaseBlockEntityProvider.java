@@ -50,27 +50,29 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 		if (blockEntity == null) {
 			return Optional.empty();
 		}
+
 		ItemStack newStack = stack.copy();
-		NbtCompound blockEntityData = blockEntity.createNbt(world.getRegistryManager());
-		stripLocationData(blockEntityData);
-		if (newStack.getComponents() == ComponentMap.EMPTY) {
-			newStack.setNbt(new NbtCompound());
-		}
-		newStack.getOrCreateNbt().put("blockEntity_data", blockEntityData);
+		newStack.applyComponentsFrom(blockEntity.createComponentMap());
+//		NbtCompound blockEntityData = blockEntity.createNbt(world.getRegistryManager());
+//		stripLocationData(blockEntityData);
+//		if (newStack.getComponents() == ComponentMap.EMPTY) {
+//			newStack.setNbt(new NbtCompound());
+//		}
+//		newStack.getOrCreateNbt().put("blockEntity_data", blockEntityData);
 		return Optional.of(newStack);
 	}
 
-	@Override
-	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (stack.hasNbt() && stack.getOrCreateNbt().contains("blockEntity_data")) {
-			BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-			if (blockEntity == null) { return; }
-			NbtCompound nbt = stack.getOrCreateNbt().getCompound("blockEntity_data");
-			injectLocationData(nbt, pos);
-			blockEntity.readNbt(nbt);
-			blockEntity.markDirty();
-		}
-	}
+//	@Override
+//	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+//		if (stack.hasNbt() && stack.getOrCreateNbt().contains("blockEntity_data")) {
+//			BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+//			if (blockEntity == null) { return; }
+//			NbtCompound nbt = stack.getOrCreateNbt().getCompound("blockEntity_data");
+//			injectLocationData(nbt, pos);
+//			blockEntity.readNbt(nbt);
+//			blockEntity.markDirty();
+//		}
+//	}
 
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
 		return (world1, pos, state1, blockEntity) -> {

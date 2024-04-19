@@ -34,6 +34,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -136,8 +137,9 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		throw new UnsupportedOperationException();
 	}
 
+
 	@Override
-	public ItemStack craft(Inventory inventory, @Nullable DynamicRegistryManager dynamicRegistryManager) {
+	public ItemStack craft(Inventory inventory, RegistryWrapper.WrapperLookup lookup) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -147,13 +149,14 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		throw new UnsupportedOperationException();
 	}
 
+
 	/**
 	 * Do not call directly, this is implemented only as a fallback.
 	 * {@link RebornRecipe#getOutputs(DynamicRegistryManager)} will return all the outputs
 	 */
 	@Deprecated
 	@Override
-	public ItemStack getResult(DynamicRegistryManager dynamicRegistryManager) {
+	public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
 		if (outputs.isEmpty()) {
 			return ItemStack.EMPTY;
 		}

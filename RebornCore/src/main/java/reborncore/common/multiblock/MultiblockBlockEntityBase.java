@@ -30,6 +30,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
@@ -112,8 +113,8 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	// /// Overrides from base BlockEntity methods
 
 	@Override
-	public void readNbt(NbtCompound data) {
-		super.readNbt(data);
+	public void readNbt(NbtCompound data, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(data, registryLookup);
 
 		// We can't directly initialize a multiblock controller yet, so we cache
 		// the data here until
@@ -125,8 +126,8 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	@Override
-	public void writeNbt(NbtCompound data) {
-		super.writeNbt(data);
+	public void writeNbt(NbtCompound data, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(data, registryLookup);
 
 		if (isMultiblockSaveDelegate() && isConnected()) {
 			NbtCompound multiblockData = new NbtCompound();

@@ -30,6 +30,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerChunkManager;
@@ -71,7 +72,7 @@ public class ChunkLoaderManager extends PersistentState {
 
 	private final List<LoadedChunk> loadedChunks = new ArrayList<>();
 
-	public static ChunkLoaderManager fromTag(NbtCompound tag) {
+	public static ChunkLoaderManager fromTag(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		ChunkLoaderManager chunkLoaderManager = new ChunkLoaderManager();
 
 		chunkLoaderManager.loadedChunks.clear();
@@ -86,7 +87,7 @@ public class ChunkLoaderManager extends PersistentState {
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound compoundTag) {
+	public NbtCompound writeNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
 		CODEC.encodeStart(NbtOps.INSTANCE, loadedChunks)
 				.result()
 				.ifPresent(tag -> compoundTag.put("loadedchunks", tag));

@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
@@ -61,8 +62,8 @@ public class RollingMachineRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public ItemStack getResult(DynamicRegistryManager registryManager) {
-		return shapedRecipe.getResult(registryManager);
+	public ItemStack getResult(RegistryWrapper.WrapperLookup lookup) {
+		return shapedRecipe.getResult(lookup);
 	}
 
 	@Override
@@ -76,8 +77,8 @@ public class RollingMachineRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public ItemStack craft(Inventory inv, DynamicRegistryManager registryManager) {
-		return shapedRecipe.craft((CraftingInventory) inv, registryManager);
+	public ItemStack craft(Inventory inv, RegistryWrapper.WrapperLookup lookup) {
+		return shapedRecipe.craft((CraftingInventory) inv, lookup);
 	}
 
 	@Override

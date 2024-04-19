@@ -29,6 +29,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.component.ComponentMap;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -101,7 +102,7 @@ public class StackIngredient extends RebornIngredient {
 		}
 
 		if (nbt.isPresent()) {
-			if (!itemStack.hasNbt()) {
+			if (itemStack.getComponents() == ComponentMap.EMPTY) {
 				return false;
 			}
 

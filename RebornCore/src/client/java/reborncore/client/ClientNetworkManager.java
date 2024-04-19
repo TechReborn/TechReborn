@@ -26,6 +26,7 @@ package reborncore.client;
 
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.IdentifiedPacket;
@@ -33,8 +34,8 @@ import reborncore.common.network.IdentifiedPacket;
 import java.util.function.Consumer;
 
 public class ClientNetworkManager {
-	public static void registerClientBoundHandler(Identifier identifier, ClientPlayNetworking.PlayChannelHandler handler) {
-		ClientPlayNetworking.registerGlobalReceiver(identifier, handler);
+	public static <T extends CustomPayload> void registerClientBoundHandler(CustomPayload.Id<T> type, ClientPlayNetworking.PlayPayloadHandler<T> handler) {
+		ClientPlayNetworking.registerGlobalReceiver(type, handler);
 	}
 
 	public static <T> void registerClientBoundHandler(Identifier identifier, Codec<T> codec, Consumer<T> consumer) {
@@ -44,7 +45,7 @@ public class ClientNetworkManager {
 		});
 	}
 
-	public static void sendToServer(IdentifiedPacket packet) {
-		ClientPlayNetworking.send(packet.channel(), packet.packetByteBuf());
+	public static void sendToServer(CustomPayload payload) {
+		ClientPlayNetworking.send(payload);
 	}
 }

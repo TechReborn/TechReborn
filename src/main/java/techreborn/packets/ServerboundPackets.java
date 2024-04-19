@@ -24,12 +24,14 @@
 
 package techreborn.packets;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
@@ -46,16 +48,17 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.packets.serverbound.*;
 
 public class ServerboundPackets {
 
-	public static final Identifier AESU = new Identifier(TechReborn.MOD_ID, "aesu");
-	public static final Identifier AUTO_CRAFTING_LOCK = new Identifier(TechReborn.MOD_ID, "auto_crafting_lock");
-	public static final Identifier ROLLING_MACHINE_LOCK = new Identifier(TechReborn.MOD_ID, "rolling_machine_lock");
-	public static final Identifier STORAGE_UNIT_LOCK = new Identifier(TechReborn.MOD_ID, "storage_unit_lock");
-	public static final Identifier FUSION_CONTROL_SIZE = new Identifier(TechReborn.MOD_ID, "fusion_control_size");
-	public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
-	public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
+	//public static final Identifier AESU = new Identifier(TechReborn.MOD_ID, "aesu");
+	//public static final Identifier AUTO_CRAFTING_LOCK = new Identifier(TechReborn.MOD_ID, "auto_crafting_lock");
+	// public static final Identifier ROLLING_MACHINE_LOCK = new Identifier(TechReborn.MOD_ID, "rolling_machine_lock");
+	//public static final Identifier STORAGE_UNIT_LOCK = new Identifier(TechReborn.MOD_ID, "storage_unit_lock");
+	//public static final Identifier FUSION_CONTROL_SIZE = new Identifier(TechReborn.MOD_ID, "fusion_control_size");
+	//public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
+	//public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
 	public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
 	public static final Identifier DETECTOR_RADIUS = new Identifier(TechReborn.MOD_ID, "detector_radius");
 	public static final Identifier LAUNCH_SPEED = new Identifier(TechReborn.MOD_ID, "launch_speed");
@@ -67,98 +70,65 @@ public class ServerboundPackets {
 	public static final Identifier QUANTUM_SUIT_SPRINT = new Identifier(TechReborn.MOD_ID, "quantum_suit_sprint");
 
 	public static void init() {
-		NetworkManager.registerServerBoundHandler(AESU, (server, player, handler, buf, responseSender) -> {
-			BlockPos pos = buf.readBlockPos();
-			int buttonID = buf.readInt();
-			boolean shift = buf.readBoolean();
-			boolean ctrl = buf.readBoolean();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-				if (blockEntity instanceof AdjustableSUBlockEntity) {
-					((AdjustableSUBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, shift, ctrl);
-				}
-			});
+		ServerPlayNetworking.registerGlobalReceiver(AESUConfigPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof AdjustableSUBlockEntity) {
+				((AdjustableSUBlockEntity) legacyMachineBase).handleGuiInputFromClient(payload.buttonID(), payload.shift(), payload.ctrl());
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(AUTO_CRAFTING_LOCK, (server, player, handler, buf, responseSender) -> {
-			BlockPos machinePos = buf.readBlockPos();
-			boolean locked = buf.readBoolean();
 
-			server.execute(() -> {
-				BlockEntity BlockEntity = player.getWorld().getBlockEntity(machinePos);
-				if (BlockEntity instanceof AutoCraftingTableBlockEntity) {
-					((AutoCraftingTableBlockEntity) BlockEntity).locked = locked;
-				}
-			});
+		NetworkManager.registerServerBoundHandler(AutoCraftingLockPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof AutoCraftingTableBlockEntity) {
+				((AutoCraftingTableBlockEntity) legacyMachineBase).locked = payload.locked();
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(FUSION_CONTROL_SIZE, (server, player, handler, buf, responseSender) -> {
-			int sizeDelta = buf.readInt();
-			BlockPos pos = buf.readBlockPos();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-				if (blockEntity instanceof FusionControlComputerBlockEntity) {
-					((FusionControlComputerBlockEntity) blockEntity).changeSize(sizeDelta);
-				}
-			});
+		NetworkManager.registerServerBoundHandler(RollingMachineLockPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof RollingMachineBlockEntity) {
+				((RollingMachineBlockEntity) legacyMachineBase).locked = payload.locked();
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(ROLLING_MACHINE_LOCK, (server, player, handler, buf, responseSender) -> {
-			BlockPos machinePos = buf.readBlockPos();
-			boolean locked = buf.readBoolean();
-
-			server.execute(() -> {
-				BlockEntity BlockEntity = player.getWorld().getBlockEntity(machinePos);
-				if (BlockEntity instanceof RollingMachineBlockEntity) {
-					((RollingMachineBlockEntity) BlockEntity).locked = locked;
-				}
-			});
+		NetworkManager.registerServerBoundHandler(StorageUnitLockPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof StorageUnitBaseBlockEntity) {
+				((StorageUnitBaseBlockEntity) legacyMachineBase).setLocked(payload.locked());
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(STORAGE_UNIT_LOCK, (server, player, handler, buf, responseSender) -> {
-			BlockPos machinePos = buf.readBlockPos();
-			boolean locked = buf.readBoolean();
-
-			server.execute(() -> {
-				BlockEntity BlockEntity = player.getWorld().getBlockEntity(machinePos);
-				if (BlockEntity instanceof StorageUnitBaseBlockEntity) {
-					((StorageUnitBaseBlockEntity) BlockEntity).setLocked(locked);
-				}
-			});
+		NetworkManager.registerServerBoundHandler(FusionControlSizePayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof FusionControlComputerBlockEntity) {
+				((FusionControlComputerBlockEntity) legacyMachineBase).changeSize(payload.sizeDelta());
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(REFUND, (server, player, handler, buf, responseSender) -> {
+		NetworkManager.registerServerBoundHandler(RefundPayload.ID, (payload, context) -> {
 			if (!TechRebornConfig.allowManualRefund) {
 				return;
 			}
-			server.execute(() -> {
-				for (int i = 0; i < player.getInventory().size(); i++) {
-					ItemStack stack = player.getInventory().getStack(i);
-					if (stack.getItem() == TRContent.MANUAL) {
-						player.getInventory().removeStack(i);
-						player.getInventory().insertStack(new ItemStack(Items.BOOK));
-						player.getInventory().insertStack(TRContent.Ingots.REFINED_IRON.getStack());
-						return;
-					}
+			PlayerInventory inventory = context.player().getInventory();
+			for (int i=0; i < inventory.size(); i++){
+				ItemStack stack = inventory.getStack(i);
+				if (stack.getItem() == TRContent.MANUAL) {
+					inventory.removeStack(i);
+					inventory.insertStack(new ItemStack(Items.BOOK));
+					inventory.insertStack(TRContent.Ingots.REFINED_IRON.getStack());
+					return;
 				}
-			});
-
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(CHUNKLOADER, (server, player, handler, buf, responseSender) -> {
-			BlockPos pos = buf.readBlockPos();
-			int buttonID = buf.readInt();
-			boolean sync = buf.readBoolean();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-				if (blockEntity instanceof ChunkLoaderBlockEntity) {
-					((ChunkLoaderBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, sync ? player : null);
-				}
-			});
+		NetworkManager.registerServerBoundHandler(ChunkloaderPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof ChunkLoaderBlockEntity) {
+				((ChunkLoaderBlockEntity) legacyMachineBase).handleGuiInputFromClient(payload.buttonID(), payload.sync() ? context.player() : null);
+			}
 		});
+
 
 		NetworkManager.registerServerBoundHandler(EXPERIENCE, (server, player, handler, buf, responseSender) -> {
 			BlockPos pos = buf.readBlockPos();

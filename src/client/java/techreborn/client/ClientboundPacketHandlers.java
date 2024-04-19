@@ -35,8 +35,8 @@ import static techreborn.packets.ClientboundPackets.OPEN_MANUAL;
 @SuppressWarnings("UnstableApiUsage")
 public class ClientboundPacketHandlers {
 	public static void init() {
-		ClientConfigurationNetworking.registerGlobalReceiver(OreDepthSyncHandler.OreDepthPayload.TYPE, (packet, responseSender) -> {
-			OreDepthSyncHandler.updateDepths(packet.oreDepths());
+		ClientConfigurationNetworking.registerGlobalReceiver(OreDepthSyncHandler.OreDepthPayload.TYPE, (payload, context) -> {
+			OreDepthSyncHandler.updateDepths(payload.oreDepths());
 		});
 
 		ClientNetworkManager.registerClientBoundHandler(OPEN_MANUAL, (client, handler, buf, responseSender) ->
