@@ -59,15 +59,15 @@ public class ServerboundPackets {
 	//public static final Identifier FUSION_CONTROL_SIZE = new Identifier(TechReborn.MOD_ID, "fusion_control_size");
 	//public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
 	//public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
-	public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
-	public static final Identifier DETECTOR_RADIUS = new Identifier(TechReborn.MOD_ID, "detector_radius");
-	public static final Identifier LAUNCH_SPEED = new Identifier(TechReborn.MOD_ID, "launch_speed");
-	public static final Identifier JUMP = new Identifier(TechReborn.MOD_ID, "jump");
-	public static final Identifier PUMP_DEPTH = new Identifier(TechReborn.MOD_ID, "pump_depth");
-	public static final Identifier PUMP_RANGE = new Identifier(TechReborn.MOD_ID, "pump_range");
+	// public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
+	// public static final Identifier DETECTOR_RADIUS = new Identifier(TechReborn.MOD_ID, "detector_radius");
+	//public static final Identifier LAUNCH_SPEED = new Identifier(TechReborn.MOD_ID, "launch_speed");
+	// public static final Identifier JUMP = new Identifier(TechReborn.MOD_ID, "jump");
+	//public static final Identifier PUMP_DEPTH = new Identifier(TechReborn.MOD_ID, "pump_depth");
+	//public static final Identifier PUMP_RANGE = new Identifier(TechReborn.MOD_ID, "pump_range");
 
-	public static final Identifier SUIT_NIGHT_VISION = new Identifier(TechReborn.MOD_ID, "suit_night_vision");
-	public static final Identifier QUANTUM_SUIT_SPRINT = new Identifier(TechReborn.MOD_ID, "quantum_suit_sprint");
+	// public static final Identifier SUIT_NIGHT_VISION = new Identifier(TechReborn.MOD_ID, "suit_night_vision");
+	//public static final Identifier QUANTUM_SUIT_SPRINT = new Identifier(TechReborn.MOD_ID, "quantum_suit_sprint");
 
 	public static void init() {
 		ServerPlayNetworking.registerGlobalReceiver(AESUConfigPayload.ID, (payload, context) -> {
@@ -129,97 +129,66 @@ public class ServerboundPackets {
 			}
 		});
 
-
-		NetworkManager.registerServerBoundHandler(EXPERIENCE, (server, player, handler, buf, responseSender) -> {
-			BlockPos pos = buf.readBlockPos();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-				if (blockEntity instanceof IronFurnaceBlockEntity) {
-					((IronFurnaceBlockEntity) blockEntity).handleGuiInputFromClient(player);
-				}
-			});
+		NetworkManager.registerServerBoundHandler(ExperiencePayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof IronFurnaceBlockEntity) {
+				((IronFurnaceBlockEntity) legacyMachineBase).handleGuiInputFromClient(context.player());
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(DETECTOR_RADIUS, ((server, player, handler, buf, responseSender) -> {
-			BlockPos pos = buf.readBlockPos();
-			int buttonAmount = buf.readInt();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-				if (blockEntity instanceof PlayerDetectorBlockEntity) {
-					((PlayerDetectorBlockEntity) blockEntity).handleGuiInputFromClient(buttonAmount);
-				}
-			});
-		}));
-
-		NetworkManager.registerServerBoundHandler(LAUNCH_SPEED, ((server, player, handler, buf, responseSender) -> {
-			BlockPos pos = buf.readBlockPos();
-			int buttonAmount = buf.readInt();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-				if (blockEntity instanceof LaunchpadBlockEntity) {
-					((LaunchpadBlockEntity) blockEntity).handleGuiInputFromClient(buttonAmount);
-				}
-			});
-		}));
-
-		NetworkManager.registerServerBoundHandler(JUMP, (server, player, handler, buf, responseSender) -> {
-			BlockPos pos = buf.readBlockPos();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos.down());
-				if (blockEntity instanceof ElevatorBlockEntity elevator) {
-					elevator.teleportUp(player);
-				}
-			});
+		NetworkManager.registerServerBoundHandler(DetectorRadiusPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof PlayerDetectorBlockEntity) {
+				((PlayerDetectorBlockEntity) legacyMachineBase).handleGuiInputFromClient(payload.buttonAmount());
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(PUMP_DEPTH, ((server, player, handler, buf, responseSender) -> {
-			BlockPos pos = buf.readBlockPos();
-			int buttonAmount = buf.readInt();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-				if (blockEntity instanceof PumpBlockEntity) {
-					((PumpBlockEntity) blockEntity).handleDepthGuiInputFromClient(buttonAmount);
-				}
-			});
-		}));
-
-		NetworkManager.registerServerBoundHandler(PUMP_RANGE, ((server, player, handler, buf, responseSender) -> {
-			BlockPos pos = buf.readBlockPos();
-			int buttonAmount = buf.readInt();
-
-			server.execute(() -> {
-				BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-				if (blockEntity instanceof PumpBlockEntity) {
-					((PumpBlockEntity) blockEntity).handleRangeGuiInputFromClient(buttonAmount);
-				}
-			});
-		}));
-
-		NetworkManager.registerServerBoundHandler(SUIT_NIGHT_VISION, (server, player, handler, buf, responseSender) -> {
-			server.execute(() -> {
-				for (ItemStack itemStack : player.getArmorItems()) {
-					if (itemStack.isOf(TRContent.NANO_HELMET) || itemStack.isOf(TRContent.QUANTUM_HELMET)) {
-						itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
-						break;
-					}
-				}
-			});
+		NetworkManager.registerServerBoundHandler(LaunchSpeedPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof LaunchpadBlockEntity) {
+				((LaunchpadBlockEntity) legacyMachineBase).handleGuiInputFromClient(payload.buttonAmount());
+			}
 		});
 
-		NetworkManager.registerServerBoundHandler(QUANTUM_SUIT_SPRINT, (server, player, handler, buf, responseSender) -> {
-			server.execute(() -> {
-				for (ItemStack itemStack : player.getArmorItems()) {
-					if (itemStack.isOf(TRContent.QUANTUM_LEGGINGS)) {
-						itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
-						break;
-					}
+		NetworkManager.registerServerBoundHandler(PumpDepthPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof PumpBlockEntity) {
+				((PumpBlockEntity) legacyMachineBase).handleDepthGuiInputFromClient(payload.buttonAmount());
+			}
+		});
+
+		NetworkManager.registerServerBoundHandler(PumpRangePayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof PumpBlockEntity) {
+				((PumpBlockEntity) legacyMachineBase).handleRangeGuiInputFromClient(payload.buttonAmount());
+			}
+		});
+
+		NetworkManager.registerServerBoundHandler(JumpPayload.ID, (payload, context) -> {
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			if (legacyMachineBase instanceof ElevatorBlockEntity) {
+				((ElevatorBlockEntity) legacyMachineBase).teleportUp(context.player());
+			}
+		});
+
+		NetworkManager.registerServerBoundHandler(SuitNightVisionPayload.ID, (payload, context) -> {
+			for (ItemStack itemStack : context.player().getArmorItems()) {
+				if (itemStack.isOf(TRContent.NANO_HELMET) || itemStack.isOf(TRContent.QUANTUM_HELMET)) {
+					// TODO 1.20.5 Use component
+					// itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
+					break;
 				}
-			});
+			}
+		});
+
+		NetworkManager.registerServerBoundHandler(QuantumSuitSprintPayload.ID, (payload, context) -> {
+			for (ItemStack itemStack : context.player().getArmorItems()) {
+				if (itemStack.isOf(TRContent.QUANTUM_LEGGINGS)) {
+					// TODO 1.20.5 Use component
+					// itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
+					break;
+				}
+			}
 		});
 	}
 

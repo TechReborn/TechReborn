@@ -45,6 +45,7 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 		super(builder);
 	}
 
+	// TODO 1.20.5 Still use NBT to store BE data?
 	public Optional<ItemStack> getDropWithContents(World world, BlockPos pos, ItemStack stack) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity == null) {
@@ -61,6 +62,7 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 //		newStack.getOrCreateNbt().put("blockEntity_data", blockEntityData);
 		return Optional.of(newStack);
 	}
+//TODO 1.20.5: Verify that itemBlock will restore inventory properly
 
 //	@Override
 //	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
