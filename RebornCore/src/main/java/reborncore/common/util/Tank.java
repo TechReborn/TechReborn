@@ -154,7 +154,8 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 				if (currentVariant.isBlank()) fluidInstance.setAmount(FluidValue.EMPTY);
 
 				fluidInstance.setFluid(insertedVariant.getFluid());
-				fluidInstance.setTag(insertedVariant.getNbt());
+				// TODO 1.20.5 Do we need tags for fluids?
+				// fluidInstance.setTag(insertedVariant.getNbt());
 				fluidInstance.addAmount(FluidValue.fromRaw(insertedAmount));
 			}
 

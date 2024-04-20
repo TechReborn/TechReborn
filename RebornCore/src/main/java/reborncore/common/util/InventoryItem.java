@@ -24,6 +24,7 @@
 
 package reborncore.common.util;
 
+import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import org.apache.commons.lang3.Validate;
@@ -40,9 +41,7 @@ public class InventoryItem extends InventoryBase {
 	ItemStack stack;
 	int size;
 
-	private InventoryItem(
-			@NotNull
-					ItemStack stack, int size) {
+	private InventoryItem(@NotNull ItemStack stack, int size) {
 		super(size);
 		Validate.notNull(stack, "Stack is empty");
 		Validate.isTrue(!stack.isEmpty());
@@ -54,12 +53,13 @@ public class InventoryItem extends InventoryBase {
 		return new InventoryItem(stack, size);
 	}
 
-	public ItemStack getStack() {
+	public @NotNull ItemStack getStack() {
 		return stack;
 	}
 
 	public NbtCompound getInvData() {
 		Validate.isTrue(!stack.isEmpty());
+
 		if (!stack.hasNbt()) {
 			stack.setNbt(new NbtCompound());
 		}
@@ -86,9 +86,7 @@ public class InventoryItem extends InventoryBase {
 	}
 
 	public List<ItemStack> getAllStacks() {
-		return IntStream.range(0, size)
-				.mapToObj(this::getStack)
-				.collect(Collectors.toList());
+		return IntStream.range(0, size).mapToObj(this::getStack).collect(Collectors.toList());
 	}
 
 	public int getSlots() {
@@ -102,9 +100,7 @@ public class InventoryItem extends InventoryBase {
 	}
 
 	@Override
-	public void setStack(int slot,
-						@NotNull
-								ItemStack stack) {
+	public void setStack(int slot, @NotNull ItemStack stack) {
 		setSlotData(slot, stack.writeNbt(new NbtCompound()));
 	}
 
@@ -119,9 +115,7 @@ public class InventoryItem extends InventoryBase {
 
 	}
 
-	public int getStackLimit(int slot,
-							@NotNull
-									ItemStack stack) {
+	public int getStackLimit(int slot, @NotNull ItemStack stack) {
 		return Math.min(getSlotLimit(slot), stack.getMaxCount());
 	}
 

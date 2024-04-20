@@ -25,6 +25,7 @@
 package reborncore.common.fluid.container;
 
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.minecraft.component.ComponentChanges;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
@@ -142,6 +143,7 @@ public class FluidInstance implements NBTSerializable {
 
 	public FluidVariant getVariant() {
 		if (isEmpty()) return FluidVariant.blank();
-		else return FluidVariant.of(fluid, tag);
+		// TODO 1.20.5 Tag or Components?
+		else return FluidVariant.of(fluid, ComponentChanges. EMPTY);
 	}
 }
