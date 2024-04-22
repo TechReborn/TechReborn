@@ -37,7 +37,7 @@ public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnerg
 	private final RcEnergyTier energyTier;
 
 	public TREnergyArmourItem(RegistryEntry<ArmorMaterial> material, Type slot, long maxCharge, RcEnergyTier energyTier) {
-		super(material, slot, new Item.Settings().maxDamage(-1).maxCount(1));
+		super(material, slot, new Item.Settings().maxDamage(0));
 		this.maxCharge = maxCharge;
 		this.energyTier = energyTier;
 	}
@@ -49,11 +49,6 @@ public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnerg
 	}
 
 	// Item
-	//@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	@Override
 	public int getItemBarStep(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);

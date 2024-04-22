@@ -26,6 +26,7 @@ package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -88,7 +89,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
 		// No AOE mining turned on OR we've broken a wrong block
-		if (!ItemUtils.isActive(stack) || !isSuitableFor(stateIn)) {
+		if (!ItemUtils.isActive(stack) || !isCorrectForDrops(stack, stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 
@@ -132,7 +133,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
 		if (ItemUtils.isActive(stack)) {
 			if (isAOE5(stack)) {
@@ -146,7 +147,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!isSuitableFor(worldIn.getBlockState(pos))) {
+		if (!isCorrectForDrops(stack, worldIn.getBlockState(pos))) {
 			return Collections.emptySet();
 		}
 		int radius = isAOE5(stack) ? 2 : 1;

@@ -39,7 +39,7 @@ public class TRPickaxeItem extends PickaxeItem {
 	}
 
 	public TRPickaxeItem(ToolMaterial material, String repairOreDict) {
-		super(material, 1, -2.8F, new Item.Settings());
+		super(material, new Item.Settings());
 		this.repairOreDict = repairOreDict;
 	}
 

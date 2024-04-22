@@ -35,6 +35,7 @@ import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.GuiType;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ApplyArmorToDamageHandler;
 import techreborn.events.OreDepthSyncHandler;
@@ -65,6 +66,7 @@ public class TechReborn implements ModInitializer {
 		// Done to force the class to load
 		//noinspection ResultOfMethodCallIgnored
 		ModRecipes.GRINDER.hashCode();
+		TRDataComponentTypes.init();
 		TRContent.SCRAP_BOX.asItem();
 
 		ServerboundPackets.init();

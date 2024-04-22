@@ -47,8 +47,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 
 	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed) {
-		// combat stats same as for diamond axe. Fix for #2468
-		super(material, 5.0F, -3.0F, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(material, new Settings().maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -62,7 +61,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	// AxeItem
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost && isSuitableFor(state)) {
+		if (getStoredEnergy(stack) >= cost && isCorrectForDrops(stack, state)) {
 			return poweredSpeed;
 		}
 		return unpoweredSpeed;
@@ -70,12 +69,12 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 	// MiningToolItem
 	@Override
-	public boolean isSuitableFor(BlockState state) {
+	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
 		if (state.isIn(BlockTags.LEAVES)){
 			return true;
 		}
 
-		return super.isSuitableFor(state);
+		return super.isCorrectForDrops(stack, state);
 	}
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
@@ -95,11 +94,6 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	}
 
 	// Item
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;

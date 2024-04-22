@@ -44,7 +44,7 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 
 	public DrillItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(1, -2.8F, material, TRContent.BlockTags.DRILL_MINEABLE, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(1, -2.8F, material, TRContent.BlockTags.DRILL_MINEABLE, new Item.Settings().maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -73,11 +73,6 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 	}
 
 	//Item
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;

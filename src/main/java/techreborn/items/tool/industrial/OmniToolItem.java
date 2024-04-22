@@ -52,16 +52,16 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(3, 1, TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(3, 1, TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings().maxDamage(0));
 		this.miningLevel = MiningLevels.DIAMOND;
 	}
 
 	// MiningToolItem
 	@Override
-	public boolean isSuitableFor(BlockState state) {
-		return Items.DIAMOND_AXE.isSuitableFor(state) || Items.DIAMOND_SWORD.isSuitableFor(state)
-				|| Items.DIAMOND_PICKAXE.isSuitableFor(state) || Items.DIAMOND_SHOVEL.isSuitableFor(state)
-				|| Items.SHEARS.isSuitableFor(state);
+	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+		return Items.DIAMOND_AXE.isCorrectForDrops(stack, state) || Items.DIAMOND_SWORD.isCorrectForDrops(stack, state)
+				|| Items.DIAMOND_PICKAXE.isCorrectForDrops(stack, state) || Items.DIAMOND_SHOVEL.isCorrectForDrops(stack, state)
+				|| Items.SHEARS.isCorrectForDrops(stack, state);
 	}
 
 	@Override
@@ -105,11 +105,6 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 		if (tryUse != ActionResult.PASS) { return tryUse; }
 
 		return TorchHelper.placeTorch(context);
-	}
-
-	@Override
-	public boolean isDamageable() {
-		return false;
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class TRSpadeItem extends ShovelItem {
 	}
 
 	public TRSpadeItem(ToolMaterial material, String repairOreDict) {
-		super(material, 1.5F, -3.0F, new Item.Settings());
+		super(material, new Item.Settings());
 		this.repairOreDict = repairOreDict;
 	}
 

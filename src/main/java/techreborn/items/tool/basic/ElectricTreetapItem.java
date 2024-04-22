@@ -38,15 +38,10 @@ public class ElectricTreetapItem extends Item implements RcEnergyItem {
 	public final RcEnergyTier tier = RcEnergyTier.MEDIUM;
 
 	public ElectricTreetapItem() {
-		super(new Item.Settings().maxCount(1).maxDamage(-1));
+		super(new Item.Settings().maxDamage(0));
 	}
 
 	// Item
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	@Override
 	public int getItemBarStep(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);

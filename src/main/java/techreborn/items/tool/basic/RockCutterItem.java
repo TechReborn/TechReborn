@@ -43,13 +43,13 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	// 10k Energy with 128 E\t charge rate
 	public RockCutterItem() {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(TRToolMaterials.ROCK_CUTTER, 1, -2.8f, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(TRToolMaterials.ROCK_CUTTER, 1, -2.8f, new Item.Settings().maxDamage(0));
 	}
 
 	// PickaxeItem
 	@Override
-	public boolean isSuitableFor(BlockState state) {
-		return Items.DIAMOND_PICKAXE.isSuitableFor(state);
+	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+		return Items.DIAMOND_PICKAXE.isCorrectForDrops(stack, state);
 	}
 
 	@Override
@@ -87,11 +87,6 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 		}
 
 		super.onCraft(stack, world);
-	}
-
-	@Override
-	public boolean isDamageable() {
-		return false;
 	}
 
 	@Override

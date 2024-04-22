@@ -39,7 +39,7 @@ public class TRSwordItem extends SwordItem {
 	}
 
 	public TRSwordItem(ToolMaterial material, String repairOreDict) {
-		super(material, 3, -2.4F, new Item.Settings());
+		super(material, new Item.Settings());
 		this.repairOreDict = repairOreDict;
 	}
 

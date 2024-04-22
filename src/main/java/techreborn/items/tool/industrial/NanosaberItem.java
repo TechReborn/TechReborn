@@ -28,6 +28,8 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -55,7 +57,7 @@ import java.util.List;
 public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem() {
-		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().maxDamage(0));
 	}
 
 	// SwordItem
@@ -88,17 +90,12 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	}
 
 	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
-	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
@@ -118,8 +115,8 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	}
 
 	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
-		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, slot));
+	public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
+		var attributes = super.getAttributeModifiers(stack);
 
 		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_SPEED);

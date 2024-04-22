@@ -46,7 +46,7 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 
 	public JackhammerItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(material, 1, -2.8F, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(material, 1, -2.8F, new Item.Settings().maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -95,11 +95,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	}
 
 	// Item
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;

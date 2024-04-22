@@ -29,6 +29,6 @@ import net.minecraft.item.Item;
 public class TreeTapItem extends Item {
 
 	public TreeTapItem() {
-		super(new Item.Settings().maxCount(1).maxDamageIfAbsent(20));
+		super(new Item.Settings().maxDamage(20));
 	}
 }

@@ -49,7 +49,7 @@ import java.util.List;
 public class PaintingToolItem extends Item {
 
 	public PaintingToolItem() {
-		super(new Item.Settings().maxCount(1).maxDamageIfAbsent(64));
+		super(new Item.Settings().maxDamage(64));
 	}
 
 	public ActionResult useOnBlock(ItemUsageContext context) {
