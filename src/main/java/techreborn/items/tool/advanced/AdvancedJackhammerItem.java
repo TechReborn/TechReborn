@@ -43,6 +43,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.JackhammerItem;
+import techreborn.utils.TRItemUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Collections;
@@ -60,7 +61,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
 		// No AOE mining turned on OR we've broken a wrong block
-		if (!ItemUtils.isActive(stack) || !isCorrectForDrops(stack, stateIn)) {
+		if (!TRItemUtils.isActive(stack) || !isCorrectForDrops(stack, stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 
@@ -80,7 +81,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, player);
+			TRItemUtils.switchActive(stack, cost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -88,12 +89,12 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		ItemUtils.checkActive(stack, cost, entity);
+		TRItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
 	// MultiBlockBreakingTool

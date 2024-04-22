@@ -40,9 +40,8 @@ import net.minecraft.text.Text;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
-import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
+import techreborn.utils.TRItemUtils;
 
 import java.util.List;
 
@@ -75,7 +74,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
 		// Night Vision
 		if (this.getSlotType() == EquipmentSlot.HEAD) {
-			if (ItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
+			if (TRItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
 				playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 220, 1, false, false));
 			} else {
 				playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
@@ -90,6 +89,6 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 }

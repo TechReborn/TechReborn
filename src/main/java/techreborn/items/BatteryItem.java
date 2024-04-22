@@ -37,6 +37,7 @@ import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
+import techreborn.utils.TRItemUtils;
 
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class BatteryItem extends Item implements RcEnergyItem {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, 1, player);
+			TRItemUtils.switchActive(stack, 1, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -64,11 +65,11 @@ public class BatteryItem extends Item implements RcEnergyItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		ItemUtils.checkActive(stack, 1, entity);
+		TRItemUtils.checkActive(stack, 1, entity);
 		if (world.isClient) {
 			return;
 		}
-		if (!ItemUtils.isActive(stack)){
+		if (!TRItemUtils.isActive(stack)){
 			return;
 		}
 		if (entity instanceof PlayerEntity) {
@@ -78,7 +79,7 @@ public class BatteryItem extends Item implements RcEnergyItem {
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
 

@@ -43,6 +43,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.ChainsawItem;
+import techreborn.utils.TRItemUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		List<BlockPos> wood = new ArrayList<>();
 		List<BlockPos> leaves = new ArrayList<>();
-		if (ItemUtils.isActive(stack) && (lastCheckedBlockState == null || isValidStartBlock(lastCheckedBlockState))) {
+		if (TRItemUtils.isActive(stack) && (lastCheckedBlockState == null || isValidStartBlock(lastCheckedBlockState))) {
 			findWood(worldIn, pos, wood, leaves);
 			wood.remove(pos);
 			wood.stream()
@@ -124,7 +125,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, player);
+			TRItemUtils.switchActive(stack, cost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -132,11 +133,11 @@ public class IndustrialChainsawItem extends ChainsawItem {
 
 	@Override
 	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
-		ItemUtils.checkActive(stack, cost, entity);
+		TRItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 }

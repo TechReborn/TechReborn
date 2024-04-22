@@ -24,15 +24,10 @@
 
 package techreborn.items.armor;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -42,14 +37,11 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
-import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
+import techreborn.utils.TRItemUtils;
 
 import java.util.List;
 
@@ -70,7 +62,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 
 		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && ItemUtils.isActive(stack) && TechRebornConfig.quantumSuitEnableSprint) {
+		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && TRItemUtils.isActive(stack) && TechRebornConfig.quantumSuitEnableSprint) {
 			if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitSprintingCost) {
 				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
@@ -95,7 +87,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				}
 
 				// Night Vision
-				if (ItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
+				if (TRItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
 					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 220, 1, false, false));
 				} else {
 					playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
@@ -122,7 +114,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				}
 			}
 			case LEGS -> {
-				if (playerEntity.isSprinting() && ItemUtils.isActive(stack) && TechRebornConfig.quantumSuitEnableSprint) {
+				if (playerEntity.isSprinting() && TRItemUtils.isActive(stack) && TechRebornConfig.quantumSuitEnableSprint) {
 					tryUseEnergy(stack, TechRebornConfig.quantumSuitSprintingCost);
 				}
 			}
@@ -151,12 +143,12 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 		if (this.getSlotType() == EquipmentSlot.HEAD) {
-			ItemUtils.buildActiveTooltip(stack, tooltip);
+			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}
 
 		// Will only add Inactive/Active tooltip if sprint is enabled
 		if (this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint) {
-			ItemUtils.buildActiveTooltip(stack, tooltip);
+			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}
 	}
 }

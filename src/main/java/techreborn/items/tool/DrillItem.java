@@ -53,7 +53,7 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost && isSuitableFor(state)) {
+		if (getStoredEnergy(stack) >= cost && isCorrectForDrops(stack, state)) {
 			return poweredSpeed;
 		}
 		return unpoweredSpeed;

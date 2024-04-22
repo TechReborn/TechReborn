@@ -51,6 +51,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
+import techreborn.utils.TRItemUtils;
 
 import java.util.List;
 
@@ -76,14 +77,14 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		ItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost, entityIn);
+		TRItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost, entityIn);
 	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, TechRebornConfig.nanosaberCost, player);
+			TRItemUtils.switchActive(stack, TechRebornConfig.nanosaberCost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -96,7 +97,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
 	@Override
