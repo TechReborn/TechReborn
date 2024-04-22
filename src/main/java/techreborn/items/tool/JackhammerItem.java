@@ -45,8 +45,7 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	protected final float unpoweredSpeed = 0.5F;
 
 	public JackhammerItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost) {
-		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(material, 1, -2.8F, new Item.Settings().maxDamage(0));
+		super(material, new Item.Settings().maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -67,26 +66,11 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 		return worldIn.getBlockState(pos).isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE);
 	}
 
-	// PickaxeItem
-	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost && state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
-			return miningSpeed;
-		}
-		return unpoweredSpeed;
-	}
-
 	// MiningToolItem
 	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		tryUseEnergy(stack, cost);
-		return true;
-	}
-
-	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		return true;
-	}
+			return true;
+		}
 
 	// ToolItem
 	@Override
@@ -95,6 +79,20 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	}
 
 	// Item
+	@Override
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		if (getStoredEnergy(stack) >= cost && state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
+			return super.getMiningSpeed(stack, state);
+		}
+		return unpoweredSpeed;
+	}
+
+	@Override
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+		tryUseEnergy(stack, cost);
+		return true;
+	}
+
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;

@@ -24,8 +24,10 @@
 
 package techreborn.init;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.tag.TagKey;
 import techreborn.TechReborn;
 
 import static net.minecraft.item.ToolMaterials.*;
@@ -40,7 +42,7 @@ public class TRToolMaterials {
 
 	public static final ToolMaterial ADVANCED_CHAINSAW = copy(DIAMOND, "advanced_chainsaw");
 	public static final ToolMaterial ADVANCED_DRILL = copy(DIAMOND, "advanced_drill");
-	public static final ToolMaterial ADVANCED_JACKHAMMER = copy(DIAMOND, "advanced_jackhammer");
+	public static final ToolMaterial ADVANCED_JACKHAMMER = copy(NETHERITE, "advanced_jackhammer");
 
 	public static final ToolMaterial INDUSTRIAL_CHAINSAW = copy(NETHERITE, "industrial_chainsaw");
 	public static final ToolMaterial INDUSTRIAL_DRILL = copy(NETHERITE, "industrial_drill");
@@ -68,9 +70,7 @@ public class TRToolMaterials {
 			}
 
 			@Override
-			public int getMiningLevel() {
-				return material.getMiningLevel();
-			}
+			public TagKey<Block> getInverseTag() { return material.getInverseTag(); }
 
 			@Override
 			public int getEnchantability() {

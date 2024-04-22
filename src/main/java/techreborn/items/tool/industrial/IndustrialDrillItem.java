@@ -36,7 +36,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.DrillItem;

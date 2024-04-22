@@ -27,7 +27,6 @@ package techreborn.items.tool;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.BlockTags;
@@ -58,30 +57,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 		return cost;
 	}
 
-	// AxeItem
-	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost && isCorrectForDrops(stack, state)) {
-			return poweredSpeed;
-		}
-		return unpoweredSpeed;
-	}
-
 	// MiningToolItem
-	@Override
-	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
-		if (state.isIn(BlockTags.LEAVES)){
-			return true;
-		}
-
-		return super.isCorrectForDrops(stack, state);
-	}
-	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		tryUseEnergy(stack, cost);
-		return true;
-	}
-
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return true;
@@ -95,9 +71,25 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 	// Item
 	@Override
-	public boolean isEnchantable(ItemStack stack) {
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		if (getStoredEnergy(stack) >= cost && isCorrectForDrops(stack, state)) { return poweredSpeed; }
+		return unpoweredSpeed;
+	}
+
+	@Override
+	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+		if (state.isIn(BlockTags.LEAVES)){ return true; }
+		return super.isCorrectForDrops(stack, state);
+	}
+
+	@Override
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+		tryUseEnergy(stack, cost);
 		return true;
 	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) { return true; }
 
 	@Override
 	public int getItemBarStep(ItemStack stack) {
@@ -105,9 +97,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	}
 
 	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
-		return true;
-	}
+	public boolean isItemBarVisible(ItemStack stack) { return true;	}
 
 	@Override
 	public int getItemBarColor(ItemStack stack) {
@@ -116,9 +106,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 	// RcEnergyItem
 	@Override
-	public long getEnergyCapacity(ItemStack stack) {
-		return maxCharge;
-	}
+	public long getEnergyCapacity(ItemStack stack) { return maxCharge; }
 
 	@Override
 	public RcEnergyTier getTier() {

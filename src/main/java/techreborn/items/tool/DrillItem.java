@@ -43,27 +43,11 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 
 
 	public DrillItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed) {
-		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(1, -2.8F, material, TRContent.BlockTags.DRILL_MINEABLE, new Item.Settings().maxDamage(0));
+		super(material, TRContent.BlockTags.DRILL_MINEABLE, new Item.Settings().maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
 		this.poweredSpeed = poweredSpeed;
-	}
-
-	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost && isCorrectForDrops(stack, state)) {
-			return poweredSpeed;
-		}
-		return unpoweredSpeed;
-	}
-
-	// MiningToolItem
-	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		tryUseEnergy(stack, cost);
-		return true;
 	}
 
 	// ToolItem
@@ -73,6 +57,20 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 	}
 
 	//Item
+	@Override
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		if (getStoredEnergy(stack) >= cost && isCorrectForDrops(stack, state)) {
+			return poweredSpeed;
+		}
+		return unpoweredSpeed;
+	}
+
+	@Override
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+		tryUseEnergy(stack, cost);
+		return true;
+	}
+
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
@@ -108,5 +106,4 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 	public long getEnergyMaxOutput(ItemStack stack) {
 		return 0;
 	}
-
 }

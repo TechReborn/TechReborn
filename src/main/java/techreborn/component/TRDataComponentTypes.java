@@ -13,10 +13,13 @@ public class TRDataComponentTypes {
 	public static final DataComponentType<Boolean> IS_ACTIVE =
 		DataComponentType.<Boolean>builder().codec(PrimitiveCodec.BOOL).packetCodec(PacketCodecs.BOOL).build();
 
+	public static final DataComponentType<Boolean> AOE5 =
+		DataComponentType.<Boolean>builder().codec(PrimitiveCodec.BOOL).packetCodec(PacketCodecs.BOOL).build();
 
 
 	public static void init(){
 		Registry.register(Registries.DATA_COMPONENT_TYPE, new Identifier(TechReborn.MOD_ID, "is_active"), IS_ACTIVE);
+		Registry.register(Registries.DATA_COMPONENT_TYPE, new Identifier(TechReborn.MOD_ID, "aoe5"), AOE5);
 	}
 
 

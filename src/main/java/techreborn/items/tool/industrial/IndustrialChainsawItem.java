@@ -39,7 +39,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.ChainsawItem;
@@ -96,12 +95,6 @@ public class IndustrialChainsawItem extends ChainsawItem {
 		}
 	}
 
-	@Override
-	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
-		lastCheckedBlockState = state;
-		return super.canMine(state, world, pos, miner);
-	}
-
 	//ChainsawItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
@@ -120,6 +113,11 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	}
 
 	// Item
+	@Override
+	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
+		lastCheckedBlockState = state;
+		return super.canMine(state, world, pos, miner);
+	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {

@@ -39,7 +39,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.JackhammerItem;

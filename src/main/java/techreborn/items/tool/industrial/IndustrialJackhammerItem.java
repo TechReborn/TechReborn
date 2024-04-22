@@ -25,7 +25,6 @@
 package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -42,7 +41,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.JackhammerItem;
@@ -65,16 +64,16 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 		TRItemUtils.checkActive(stack, cost, entity);
 		if (!TRItemUtils.isActive(stack)) {
 			TRItemUtils.switchActive(stack, cost, entity);
-			stack.getOrCreateNbt().putBoolean("AOE5", false);
+			stack.set(TRDataComponentTypes.AOE5, false);
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
 				serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("3*3").formatted(Formatting.GOLD)), true);
 			}
 		} else {
 			if (isAOE5(stack)) {
 				TRItemUtils.switchActive(stack, cost, entity);
-				stack.getOrCreateNbt().putBoolean("AOE5", false);
+				stack.set(TRDataComponentTypes.AOE5, false);
 			} else {
-				stack.getOrCreateNbt().putBoolean("AOE5", true);
+				stack.set(TRDataComponentTypes.AOE5, true);
 				if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
 					serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("5*5").formatted(Formatting.GOLD)), true);
 				}
@@ -83,7 +82,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	private boolean isAOE5(ItemStack stack) {
-		return !stack.isEmpty() && stack.getOrCreateNbt().getBoolean("AOE5");
+		return !stack.isEmpty() && Boolean.TRUE.equals(stack.get(TRDataComponentTypes.AOE5));
 	}
 
 	// JackhammerItem
@@ -107,11 +106,11 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		float speed = super.getMiningSpeedMultiplier(stack, state);
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		float speed = super.getMiningSpeed(stack, state);
 
 		if (speed > unpoweredSpeed) {
-			return miningSpeed * 4;
+			return speed * 4;
 		}
 
 		return speed;
