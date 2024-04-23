@@ -28,6 +28,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.Registries;
@@ -78,8 +79,8 @@ public abstract class AbstractRecipeSerde<R extends RebornRecipe> implements Rec
 				stackObject.addProperty("count", stack.getCount());
 			}
 
-			if (stack.hasNbt()) {
-				stackObject.add("nbt", Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, stack.getNbt()));
+			if (stack.get(DataComponentTypes.CUSTOM_DATA) != null) {
+				stackObject.add("nbt", Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, stack.get(DataComponentTypes.CUSTOM_DATA).getNbt()));
 			}
 			resultsArray.add(stackObject);
 		}

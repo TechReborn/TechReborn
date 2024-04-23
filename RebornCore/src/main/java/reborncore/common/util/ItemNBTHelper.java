@@ -24,6 +24,8 @@
 
 package reborncore.common.util;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -34,7 +36,7 @@ public class ItemNBTHelper {
 	 * Checks if an {@link ItemStack} has an {@link NbtCompound}
 	 **/
 	public static boolean detectNBT(ItemStack stack) {
-		return stack.hasNbt();
+		return stack.get(DataComponentTypes.CUSTOM_DATA) != null;
 	}
 
 	/**
@@ -52,7 +54,7 @@ public class ItemNBTHelper {
 	 * previously
 	 **/
 	public static void injectNBT(ItemStack stack, NbtCompound nbt) {
-		stack.setNbt(nbt);
+		stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
 	}
 
 	/**
@@ -61,7 +63,7 @@ public class ItemNBTHelper {
 	 **/
 	public static NbtCompound getNBT(ItemStack stack) {
 		initNBT(stack);
-		return stack.getNbt();
+		return stack.get(DataComponentTypes.CUSTOM_DATA).getNbt();
 	}
 
 	// SETTERS
