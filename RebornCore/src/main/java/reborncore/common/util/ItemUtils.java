@@ -29,25 +29,18 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.minecraft.component.ComponentMap;
-import net.minecraft.entity.Entity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
-import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.recipes.IRecipeInput;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
-import team.reborn.energy.api.base.SimpleEnergyItem;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -75,7 +68,7 @@ public class ItemUtils {
 	public static boolean canExtractAnyFromShulker(ItemStack shulkerStack, ItemStack targetStack) {
 		//bundle method
 		List<ItemStack> stacks = getBlockEntityStacks(shulkerStack);
-		if (stacks == null) return false;
+
 		for (ItemStack stack : stacks) {
 			if (ItemStack.areItemsAndComponentsEqual(targetStack, stack)) {
 				return true;
@@ -124,40 +117,26 @@ public class ItemUtils {
 	public static Pair<Integer, ItemStack> extractFromShulker(ItemStack shulkerStack, DefaultedList<ItemStack> entityStack, ItemStack targetStack, int capacity) {
 		ItemStack newStack = shulkerStack.copy();
 		if (entityStack == null) {
-			entityStack = getBlockEntityStacks(newStack);
-		}
-		if (entityStack == null) {
 			return new Pair<>(0, shulkerStack);
 		}
+
 		int extracted = extractableFromCachedShulker(entityStack, targetStack, capacity);
 		if (extracted == 0) {
 			return new Pair<>(0, shulkerStack);
 		}
-		NbtCompound blockEntityTag = newStack.getSubNbt("BlockEntityTag");
-		if (blockEntityTag == null) throw new IllegalStateException("BlockEntityTag is removed during operation!");
+
 		if (isStackListEmpty(entityStack)) {
-			if (blockEntityTag.contains("Items")) blockEntityTag.remove("Items");
-			if (blockEntityTag.getKeys().isEmpty()) {
-				//remove empty nbt
-				blockEntityTag = null;
-				newStack.removeSubNbt("BlockEntityTag");
-			}
+			newStack.set(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT);
 			return new Pair<>(extracted, newStack);
 		}
-		Inventories.writeNbt(blockEntityTag, entityStack);
 		return new Pair<>(extracted, newStack);
 	}
 
-	public static @Nullable DefaultedList<ItemStack> getBlockEntityStacks(ItemStack targetStack) {
+	public static DefaultedList<ItemStack> getBlockEntityStacks(ItemStack targetStack) {
 		int maxSize = 128; // theorical max is 255
-		NbtCompound compound = targetStack.getSubNbt("BlockEntityTag");
-		if (compound == null) {
-			return null;
-		}
 		DefaultedList<ItemStack> returnStacks = DefaultedList.ofSize(maxSize, ItemStack.EMPTY);
-		if (compound.contains("Items")) {
-			Inventories.readNbt(compound, returnStacks);
-		}
+		targetStack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyTo(returnStacks);
+
 		return returnStacks;
 	}
 
@@ -198,20 +177,6 @@ public class ItemUtils {
 			}
 		}
 		return false;
-	}
-
-	public static void writeItemToNBT(ItemStack stack, NbtCompound data) {
-		if (stack.isEmpty() || stack.getCount() <= 0) {
-			return;
-		}
-		if (stack.getCount() > 127) {
-			stack.setCount(127);
-		}
-		stack.writeNbt(data);
-	}
-
-	public static ItemStack readItemFromNBT(NbtCompound data) {
-		return ItemStack.fromNbt(data);
 	}
 
 	public static int getPowerForDurabilityBar(ItemStack stack) {
