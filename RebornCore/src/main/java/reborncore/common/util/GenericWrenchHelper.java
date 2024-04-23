@@ -28,8 +28,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -54,7 +52,7 @@ public class GenericWrenchHelper implements ICustomToolHandler {
 	@Override
 	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
 		if (this.damage && damage && !world.isClient) {
-			stack.damage(1, (ServerPlayerEntity) player, EquipmentSlot.MAINHAND);
+			stack.damage(1, player, EquipmentSlot.MAINHAND);
 		}
 		return true;
 	}

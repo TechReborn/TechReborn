@@ -38,51 +38,29 @@ public enum ObjectBufferUtils {
 	STRING(String.class, (string, buffer) -> {
 		buffer.writeInt(string.length());
 		buffer.writeString(string);
-	}, buffer -> {
-		return buffer.readString(buffer.readInt());
-	}),
+	}, buffer -> buffer.readString(buffer.readInt())),
 
-	INT(Integer.class, (value, buffer) -> {
-		buffer.writeInt(value);
-	}, PacketByteBuf::readInt),
+	INT(Integer.class, (value, buffer) -> buffer.writeInt(value), PacketByteBuf::readInt),
 
-	LONG(Long.class, (pos, buffer) -> {
-		buffer.writeLong(pos);
-	}, ExtendedPacketBuffer::readLong),
+	LONG(Long.class, (pos, buffer) -> buffer.writeLong(pos), ExtendedPacketBuffer::readLong),
 
-	DOUBLE(Double.class, (pos, buffer) -> {
-		buffer.writeDouble(pos);
-	}, ExtendedPacketBuffer::readDouble),
+	DOUBLE(Double.class, (pos, buffer) -> buffer.writeDouble(pos), ExtendedPacketBuffer::readDouble),
 
-	FLOAT(Float.class, (pos, buffer) -> {
-		buffer.writeFloat(pos);
-	}, ExtendedPacketBuffer::readFloat),
+	FLOAT(Float.class, (pos, buffer) -> buffer.writeFloat(pos), ExtendedPacketBuffer::readFloat),
 
-	BOOLEAN(Boolean.class, (value, buffer) -> {
-		buffer.writeBoolean(value);
-	}, ExtendedPacketBuffer::readBoolean),
+	BOOLEAN(Boolean.class, (value, buffer) -> buffer.writeBoolean(value), ExtendedPacketBuffer::readBoolean),
 
-	BLOCK_POS(BlockPos.class, (pos, buffer) -> {
-		buffer.writeBlockPos(pos);
-	}, PacketByteBuf::readBlockPos),
+	BLOCK_POS(BlockPos.class, (pos, buffer) -> buffer.writeBlockPos(pos), buffer -> PacketByteBuf.readBlockPos(buffer)),
 
 	ID(Identifier.class, (id, buffer) -> {
 		String string = id.toString();
 		buffer.writeInt(string.length());
 		buffer.writeString(string);
-	}, buffer -> {
-		return new Identifier(buffer.readString(buffer.readInt()));
-	}),
+	}, buffer -> new Identifier(buffer.readString(buffer.readInt()))),
 
-	FLUID_VALUE(FluidValue.class, (value, buffer) -> {
-		buffer.writeLong(value.getRawValue());
-	}, buffer -> {
-		return FluidValue.fromRaw(buffer.readLong());
-	}),
+	FLUID_VALUE(FluidValue.class, (value, buffer) -> buffer.writeLong(value.getRawValue()), buffer -> FluidValue.fromRaw(buffer.readLong())),
 
-	COMPOUND_TAG(NbtCompound.class, (value, buffer) -> {
-		buffer.writeNbt(value);
-	}, PacketByteBuf::readNbt);
+	COMPOUND_TAG(NbtCompound.class, (value, buffer) -> buffer.writeNbt(value), buffer -> PacketByteBuf.readNbt(buffer));
 
 	Class clazz;
 	ObjectWriter writer;
