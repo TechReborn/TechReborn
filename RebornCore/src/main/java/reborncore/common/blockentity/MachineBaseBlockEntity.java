@@ -54,6 +54,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
+import reborncore.common.network.clientbound.CustomDescriptionPayload;
 import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -127,7 +128,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		if (this.markSync && this.tickTime % syncCoolDown == 0) {
 			this.markSync = false;
 			if (world == null || world.isClient) { return; }
-			NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
+			NetworkManager.sendToTracking(new CustomDescriptionPayload(this.pos, this.createNbt(world.getRegistryManager())), this);
 		}
 	}
 

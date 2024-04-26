@@ -27,4 +27,5 @@ package reborncore.common.network;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
+@Deprecated(forRemoval = true)
 public record IdentifiedPacket(Identifier channel, PacketByteBuf packetByteBuf) { }

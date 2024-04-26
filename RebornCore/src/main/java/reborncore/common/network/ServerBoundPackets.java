@@ -34,6 +34,8 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.chunkloading.ChunkLoaderManager;
+import reborncore.common.network.clientbound.FluidConfigSyncPayload;
+import reborncore.common.network.clientbound.SlotSyncPayload;
 import reborncore.common.network.serverbound.*;
 
 public class ServerBoundPackets {
@@ -44,8 +46,7 @@ public class ServerBoundPackets {
 			legacyMachineBase.fluidConfiguration.updateFluidConfig(payload.fluidConfiguration());
 			legacyMachineBase.markDirty();
 
-			IdentifiedPacket packetFluidConfigSync = ClientBoundPackets.createPacketFluidConfigSync(payload.pos(), legacyMachineBase.fluidConfiguration);
-			NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
+			NetworkManager.sendToTracking(new FluidConfigSyncPayload(payload.pos(), legacyMachineBase.fluidConfiguration), legacyMachineBase);
 
 			// We update the block to allow pipes that are connecting to detect the update and change their
 			// connection status if needed
@@ -61,8 +62,7 @@ public class ServerBoundPackets {
 			}
 			legacyMachineBase.markDirty();
 
-			IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(payload.pos(), legacyMachineBase.getSlotConfiguration());
-			NetworkManager.sendToWorld(packetSlotSync, (ServerWorld) legacyMachineBase.getWorld());
+			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), legacyMachineBase.getSlotConfiguration()), (ServerWorld) legacyMachineBase.getWorld());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(FluidIoSavePayload.ID, (payload, context) -> {
@@ -75,8 +75,7 @@ public class ServerBoundPackets {
 			config.setOutput(payload.output());
 
 			// Syncs back to the client
-			IdentifiedPacket packetFluidConfigSync = ClientBoundPackets.createPacketFluidConfigSync(payload.pos(), legacyMachineBase.fluidConfiguration);
-			NetworkManager.sendToTracking(packetFluidConfigSync, legacyMachineBase);
+			NetworkManager.sendToTracking(new FluidConfigSyncPayload(payload.pos(), legacyMachineBase.fluidConfiguration), legacyMachineBase);
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(IoSavePayload.ID, (payload, context) -> {
@@ -92,8 +91,7 @@ public class ServerBoundPackets {
 			holder.setFilter(payload.filter());
 
 			//Syncs back to the client
-			IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(payload.pos(), machineBase.getSlotConfiguration());
-			NetworkManager.sendToAll(packetSlotSync, context.player().getServer());
+			NetworkManager.sendToAll(new SlotSyncPayload(payload.pos(), machineBase.getSlotConfiguration()), context.player().getServer());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SlotSavePayload.ID, (payload, context) -> {
@@ -101,8 +99,7 @@ public class ServerBoundPackets {
 			legacyMachineBase.getSlotConfiguration().getSlotDetails(payload.slotConfig().getSlotID()).updateSlotConfig(payload.slotConfig());
 			legacyMachineBase.markDirty();
 
-			IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(payload.pos(), legacyMachineBase.getSlotConfiguration());
-			NetworkManager.sendToWorld(packetSlotSync, (ServerWorld) legacyMachineBase.getWorld());
+			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), legacyMachineBase.getSlotConfiguration()), (ServerWorld) legacyMachineBase.getWorld());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(ChunkLoaderRequestPayload.ID, (payload, context) -> {

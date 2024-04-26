@@ -58,8 +58,8 @@ public class ClientChunkManager {
 
 	public static boolean hasChunksForLoader(BlockPos pos) {
 		return loadedChunks.stream()
-				.filter(loadedChunk -> loadedChunk.getChunkLoader().equals(pos))
-				.anyMatch(loadedChunk -> loadedChunk.getWorld().equals(ChunkLoaderManager.getWorldName(MinecraftClient.getInstance().world)));
+				.filter(loadedChunk -> loadedChunk.chunkLoader().equals(pos))
+				.anyMatch(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(MinecraftClient.getInstance().world)));
 	}
 
 	public static void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, double x, double y, double z) {
@@ -85,10 +85,10 @@ public class ClientChunkManager {
 		bufferBuilder.begin(VertexFormat.DrawMode.LINE_STRIP, VertexFormats.POSITION_COLOR);
 
 		loadedChunks.stream()
-				.filter(loadedChunk -> loadedChunk.getWorld().equals(ChunkLoaderManager.getWorldName(minecraftClient.world)))
+				.filter(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(minecraftClient.world)))
 				.forEach(loadedChunk -> {
-					double chunkX = (double) loadedChunk.getChunk().getStartX() - x;
-					double chunkY = (double) loadedChunk.getChunk().getStartZ() - z;
+					double chunkX = (double) loadedChunk.chunk().getStartX() - x;
+					double chunkY = (double) loadedChunk.chunk().getStartZ() - z;
 
 					bufferBuilder.vertex(chunkX + 8, 0.0D - y, chunkY + 8).color(1.0F, 0.0F, 0.0F, 0.0F).next();
 					bufferBuilder.vertex(chunkX + 8, 0.0D - y, chunkY + 8).color(1.0F, 0.0F, 0.0F, 0.5F).next();

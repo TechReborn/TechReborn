@@ -46,9 +46,8 @@ import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.world.chunk.ChunkStatus;
-import reborncore.common.network.ClientBoundPackets;
-import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.NetworkManager;
+import reborncore.common.network.clientbound.QueueItemStacksPayload;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -181,7 +180,6 @@ public class RebornCoreCommands {
 	}
 
 	private static void queueRender(List<ItemStack> stacks, CommandContext<ServerCommandSource> ctx) {
-		IdentifiedPacket packet = ClientBoundPackets.createPacketQueueItemStacksToRender(stacks);
-		NetworkManager.sendToPlayer(packet, ctx.getSource().getPlayer());
+		NetworkManager.sendToPlayer(new QueueItemStacksPayload(stacks), ctx.getSource().getPlayer());
 	}
 }

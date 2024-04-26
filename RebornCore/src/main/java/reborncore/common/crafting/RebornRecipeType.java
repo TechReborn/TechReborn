@@ -28,7 +28,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -46,7 +49,7 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		Identifier name) implements RecipeType<R>, RecipeSerializer<R> {
 
 	@Override
-	public Codec<R> codec() {
+	public MapCodec<R> codec() {
 		// TODO: could look into using codecs directly
 		return JsonMapCodec.INSTANCE
 			.flatXmap(json -> {
@@ -55,8 +58,13 @@ public record RebornRecipeType<R extends RebornRecipe>(
 				} catch (JsonParseException e) {
 					return DataResult.error(e::getMessage);
 				}
-			}, recipe -> DataResult.success(toJson(recipe, false)))
-			.codec();
+			}, recipe -> DataResult.success(toJson(recipe, false)));
+	}
+
+	@Override
+	public PacketCodec<RegistryByteBuf, R> packetCodec() {
+		// TODO 1.20.5
+		return null;
 	}
 
 	private R read(JsonObject json) {
@@ -77,13 +85,11 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		return jsonObject;
 	}
 
-	@Override
 	public R read(PacketByteBuf buffer) {
 		String jsonSize = buffer.readString(buffer.readInt());
 		return read(SerializationUtil.GSON_FLAT.fromJson(jsonSize, JsonObject.class));
 	}
 
-	@Override
 	public void write(PacketByteBuf buffer, R recipe) {
 		String output = SerializationUtil.GSON_FLAT.toJson(toJson(recipe, true));
 		// Add more info to debug weird mods

@@ -24,47 +24,11 @@
 
 package reborncore.common.network;
 
-import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import reborncore.common.blockentity.FluidConfiguration;
-import reborncore.common.blockentity.SlotConfiguration;
-import reborncore.common.chunkloading.ChunkLoaderManager;
-
-import java.util.List;
 
 public class ClientBoundPackets {
-
-	public static IdentifiedPacket createCustomDescriptionPacket(BlockEntity blockEntity) {
-		return createCustomDescriptionPacket(blockEntity.getPos(), blockEntity.createNbt());
-	}
-
-	public static IdentifiedPacket createCustomDescriptionPacket(BlockPos blockPos, NbtCompound nbt) {
-		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "custom_description"), packetBuffer -> {
-			packetBuffer.writeBlockPos(blockPos);
-			packetBuffer.writeNbt(nbt);
-		});
-	}
-
-	public static IdentifiedPacket createPacketFluidConfigSync(BlockPos pos, FluidConfiguration fluidConfiguration) {
-		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "fluid_config_sync"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeNbt(fluidConfiguration.write());
-		});
-	}
-
-	public static IdentifiedPacket createPacketSlotSync(BlockPos pos, SlotConfiguration slotConfig) {
-		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "slot_sync"), packetBuffer -> {
-			packetBuffer.writeBlockPos(pos);
-			packetBuffer.writeNbt(slotConfig.write());
-		});
-	}
-
 	public static IdentifiedPacket createPacketSendObject(ScreenHandler screenHandler, Int2ObjectMap<Object> updatedValues) {
 		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "send_object"), packetBuffer -> {
 			packetBuffer.writeInt(updatedValues.size());
@@ -75,13 +39,5 @@ public class ClientBoundPackets {
 			packetBuffer.writeInt(screenHandler.getClass().getName().length());
 			packetBuffer.writeString(screenHandler.getClass().getName());
 		});
-	}
-
-	public static IdentifiedPacket createPacketSyncLoadedChunks(List<ChunkLoaderManager.LoadedChunk> chunks) {
-		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "sync_chunks"), ChunkLoaderManager.CODEC, chunks);
-	}
-
-	public static IdentifiedPacket createPacketQueueItemStacksToRender(List<ItemStack> stacks) {
-		return NetworkManager.createClientBoundPacket(new Identifier("reborncore", "stacks_to_render"), Codec.list(ItemStack.CODEC), stacks);
 	}
 }
