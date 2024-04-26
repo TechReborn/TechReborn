@@ -25,6 +25,8 @@
 package techreborn.blockentity.storage.fluid;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -33,6 +35,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
@@ -73,15 +76,6 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	private void configureEntity(TRContent.TankUnit type) {
 		this.type = type;
 		this.tank = new Tank("TankStorage", serverMaxCapacity == -1 ? type.capacity : FluidValue.fromRaw(serverMaxCapacity), this);
-	}
-
-	public ItemStack getDropWithNBT() {
-		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final NbtCompound blockEntity = new NbtCompound();
-		this.writeNbt(blockEntity);
-		dropStack.setNbt(new NbtCompound());
-		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
-		return dropStack;
 	}
 
 	protected boolean canDrainTransfer(){
@@ -167,7 +161,14 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity playerEntity) {
-		return getDropWithNBT();
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
+		final NbtCompound nbt = new NbtCompound();
+		if (world != null){
+			writeNbt(nbt, world.getRegistryManager());
+			dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(nbt));
+		}
+
+		return dropStack;
 	}
 
 	// IListInfoProvider

@@ -25,6 +25,8 @@
 package techreborn.blockentity.storage.energy;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -80,15 +82,6 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		}
 	}
 
-	public ItemStack getDropWithNBT() {
-		NbtCompound blockEntity = new NbtCompound();
-		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
-		writeNbt(blockEntity);
-		dropStack.setNbt(new NbtCompound());
-		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
-		return dropStack;
-	}
-
 	// EnergyStorageBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
@@ -112,7 +105,14 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
-		return getDropWithNBT();
+		NbtCompound nbt = new NbtCompound();
+		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
+		if (world != null){
+			writeNbt(nbt, world.getRegistryManager());
+			dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(nbt));
+		}
+
+		return dropStack;
 	}
 
 	@Override
