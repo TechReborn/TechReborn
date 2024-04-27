@@ -26,7 +26,6 @@ package reborncore.common.crafting;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.network.PacketByteBuf;
@@ -63,8 +62,19 @@ public record RebornRecipeType<R extends RebornRecipe>(
 
 	@Override
 	public PacketCodec<RegistryByteBuf, R> packetCodec() {
-		// TODO 1.20.5
-		return null;
+		return PacketCodec.of((recipe, buffer) -> {
+			String output = SerializationUtil.GSON_FLAT.toJson(toJson(recipe, true));
+			// Add more info to debug weird mods
+			if (output.length() > PacketByteBuf.DEFAULT_MAX_STRING_LENGTH) {
+				RebornCore.LOGGER.error("Recipe output string is too big. This breaks recipe books!");
+				RebornCore.LOGGER.error("Output is:" + output);
+			}
+			buffer.writeInt(output.length());
+			buffer.writeString(output);
+		}, buffer -> {
+			String jsonSize = buffer.readString(buffer.readInt());
+			return read(SerializationUtil.GSON_FLAT.fromJson(jsonSize, JsonObject.class));
+		});
 	}
 
 	private R read(JsonObject json) {
@@ -83,22 +93,6 @@ public record RebornRecipeType<R extends RebornRecipe>(
 		recipeSerde.toJson(recipe, jsonObject, networkSync);
 
 		return jsonObject;
-	}
-
-	public R read(PacketByteBuf buffer) {
-		String jsonSize = buffer.readString(buffer.readInt());
-		return read(SerializationUtil.GSON_FLAT.fromJson(jsonSize, JsonObject.class));
-	}
-
-	public void write(PacketByteBuf buffer, R recipe) {
-		String output = SerializationUtil.GSON_FLAT.toJson(toJson(recipe, true));
-		// Add more info to debug weird mods
-		if (output.length() > PacketByteBuf.DEFAULT_MAX_STRING_LENGTH) {
-			RebornCore.LOGGER.error("Recipe output string is too big. This breaks recipe books!");
-			RebornCore.LOGGER.error("Output is:" + output);
-		}
-		buffer.writeInt(output.length());
-		buffer.writeString(output);
 	}
 
 	public List<R> getRecipes(World world) {
