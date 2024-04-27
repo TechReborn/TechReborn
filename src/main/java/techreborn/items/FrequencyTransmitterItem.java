@@ -24,7 +24,8 @@
 
 package techreborn.items;
 
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.DataComponentType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,6 +44,7 @@ import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.chunkloading.ChunkLoaderManager;
+import techreborn.component.TRDataComponentTypes;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,8 +63,7 @@ public class FrequencyTransmitterItem extends Item {
 
 		GlobalPos globalPos = GlobalPos.create(ChunkLoaderManager.getDimensionRegistryKey(world), pos);
 
-		GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, globalPos).result()
-				.ifPresent(tag -> stack.getOrCreateNbt().put("pos", tag));
+		stack.set(TRDataComponentTypes.FREQUENCY_TRANSMITTER, globalPos);
 
 		if (context.getPlayer() instanceof ServerPlayerEntity serverPlayerEntity) {
 			serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo")
@@ -75,17 +76,14 @@ public class FrequencyTransmitterItem extends Item {
 											.append(" ")
 											.append(Text.translatable("techreborn.message.in").formatted(Formatting.GRAY))
 											.append(" ")
-											.append(Text.literal(getDimName(globalPos.getDimension()).toString()).formatted(Formatting.GOLD)), true);
+											.append(Text.literal(getDimName(globalPos.dimension()).toString()).formatted(Formatting.GOLD)), true);
 		}
 
 		return ActionResult.SUCCESS;
 	}
 
 	public static Optional<GlobalPos> getPos(ItemStack stack) {
-		if (!stack.hasNbt() || !stack.getOrCreateNbt().contains("pos")) {
-			return Optional.empty();
-		}
-		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, stack.getOrCreateNbt().getCompound("pos")).result();
+		return Optional.ofNullable(stack.get(TRDataComponentTypes.FREQUENCY_TRANSMITTER));
 	}
 
 	@Override
@@ -93,7 +91,7 @@ public class FrequencyTransmitterItem extends Item {
 											Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			stack.setNbt(null);
+			stack.remove(TRDataComponentTypes.FREQUENCY_TRANSMITTER);
 
 			if (player instanceof ServerPlayerEntity serverPlayerEntity) {
 				serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.coordsHaveBeen")
@@ -110,14 +108,15 @@ public class FrequencyTransmitterItem extends Item {
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+		super.appendTooltip(stack, context, tooltip, type);
 		getPos(stack)
-				.ifPresent(globalPos -> {
-					tooltip.add(Text.literal(Formatting.GRAY + "X: " + Formatting.GOLD + globalPos.getPos().getX()));
-					tooltip.add(Text.literal(Formatting.GRAY + "Y: " + Formatting.GOLD + globalPos.getPos().getY()));
-					tooltip.add(Text.literal(Formatting.GRAY + "Z: " + Formatting.GOLD + globalPos.getPos().getZ()));
-					tooltip.add(Text.literal(Formatting.DARK_GRAY + getDimName(globalPos.getDimension()).toString()));
-				});
+			.ifPresent(globalPos -> {
+				tooltip.add(Text.literal(Formatting.GRAY + "X: " + Formatting.GOLD + globalPos.pos().getX()));
+				tooltip.add(Text.literal(Formatting.GRAY + "Y: " + Formatting.GOLD + globalPos.pos().getY()));
+				tooltip.add(Text.literal(Formatting.GRAY + "Z: " + Formatting.GOLD + globalPos.pos().getZ()));
+				tooltip.add(Text.literal(Formatting.DARK_GRAY + getDimName(globalPos.dimension()).toString()));
+			});
 	}
 
 	private static Identifier getDimName(RegistryKey<World> dimensionRegistryKey) {

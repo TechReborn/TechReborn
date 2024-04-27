@@ -24,12 +24,15 @@
 
 package techreborn.blockentity;
 
+import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
@@ -147,15 +150,15 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 
 	private GuiType(Identifier identifier) {
 		this.identifier = identifier;
-		this.screenHandlerType = Registry.register(Registries.SCREEN_HANDLER, identifier, new ExtendedScreenHandlerType<>(getScreenHandlerFactory()));
+		this.screenHandlerType = Registry.register(Registries.SCREEN_HANDLER, identifier, new ExtendedScreenHandlerType<>(getScreenHandlerFactory(), ScreenHandlerData.PACKET_CODEC));
 
 		TYPES.put(identifier, this);
 	}
 
-	private ExtendedScreenHandlerType.ExtendedFactory<BuiltScreenHandler> getScreenHandlerFactory() {
+	private ExtendedScreenHandlerType.ExtendedFactory<BuiltScreenHandler, ScreenHandlerData> getScreenHandlerFactory() {
 		return (syncId, playerInventory, packetByteBuf) -> {
 
-			final BlockEntity blockEntity = playerInventory.player.getWorld().getBlockEntity(packetByteBuf.readBlockPos());
+			final BlockEntity blockEntity = playerInventory.player.getWorld().getBlockEntity(packetByteBuf.pos());
 			BuiltScreenHandler screenHandler = ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncId, playerInventory.player);
 
 			//Set the screen handler type, not ideal but works lol
@@ -169,10 +172,10 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public void open(PlayerEntity player, BlockPos pos, World world) {
 		if (!world.isClient) {
 			//This is awful
-			player.openHandledScreen(new ExtendedScreenHandlerFactory() {
+			player.openHandledScreen(new ExtendedScreenHandlerFactory<ScreenHandlerData>() {
 				@Override
-				public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-					packetByteBuf.writeBlockPos(pos);
+				public ScreenHandlerData getScreenOpeningData(ServerPlayerEntity player) {
+					return new ScreenHandlerData(pos);
 				}
 
 				@Override
@@ -190,6 +193,13 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 				}
 			});
 		}
+	}
+
+	record ScreenHandlerData(BlockPos pos) {
+		public static final PacketCodec<RegistryByteBuf, ScreenHandlerData> PACKET_CODEC = PacketCodec.tuple(
+			BlockPos.PACKET_CODEC, ScreenHandlerData::pos,
+			ScreenHandlerData::new
+		);
 	}
 
 	public Identifier getIdentifier() {

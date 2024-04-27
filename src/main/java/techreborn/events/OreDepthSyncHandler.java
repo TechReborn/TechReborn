@@ -24,12 +24,11 @@
 
 package techreborn.events;
 
-import net.fabricmc.fabric.api.networking.v1.FabricPacket;
-import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.ServerConfigurationConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerConfigurationNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -78,23 +77,12 @@ public final class OreDepthSyncHandler {
 		}
 	}
 
-	public record OreDepthPayload(List<OreDepth> oreDepths) implements FabricPacket {
-		public static final PacketType<OreDepthPayload> TYPE = PacketType.create(new Identifier(TechReborn.MOD_ID, "ore_depth"), OreDepthPayload::new);
-
-		private OreDepthPayload(PacketByteBuf buf) {
-			this(
-				buf.decodeAsJson(OreDepth.LIST_CODEC)
-			);
-		}
+	public record OreDepthPayload(List<OreDepth> oreDepths) implements CustomPayload {
+		public static final CustomPayload.Id<OreDepthPayload> ID = new CustomPayload.Id<>(new Identifier(TechReborn.MOD_ID, "ore_depth"));
 
 		@Override
-		public void write(PacketByteBuf buf) {
-			buf.encodeAsJson(OreDepth.LIST_CODEC, oreDepths);
-		}
-
-		@Override
-		public PacketType<?> getType() {
-			return TYPE;
+		public Id<? extends CustomPayload> getId() {
+			return ID;
 		}
 	}
 }

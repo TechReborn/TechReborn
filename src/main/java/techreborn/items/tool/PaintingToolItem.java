@@ -26,7 +26,6 @@ package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,6 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
 
 import java.util.List;
@@ -65,6 +65,7 @@ public class PaintingToolItem extends Item {
 
 			if (opaqueFullCube || blockState.isIn(TRContent.BlockTags.NONE_SOLID_COVERS)) {
 				context.getStack().getOrCreateNbt().put("cover", NbtHelper.fromBlockState(blockState));
+				context.getStack().set(TRDataComponentTypes.PAINTING_COVER, blockState);
 				return ActionResult.SUCCESS;
 			}
 			return ActionResult.FAIL;
