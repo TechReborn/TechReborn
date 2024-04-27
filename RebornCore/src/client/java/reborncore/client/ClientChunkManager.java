@@ -25,6 +25,7 @@
 package reborncore.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
@@ -35,6 +36,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.network.ServerBoundPackets;
+import reborncore.common.network.serverbound.ChunkLoaderRequestPayload;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +51,8 @@ public class ClientChunkManager {
 	}
 
 	public static void toggleLoadedChunks(BlockPos chunkLoader) {
-		if (loadedChunks.size() == 0) {
-			ClientNetworkManager.sendToServer(ServerBoundPackets.requestChunkLoaderChunks(chunkLoader));
+		if (loadedChunks.isEmpty()) {
+			ClientPlayNetworking.send(new ChunkLoaderRequestPayload(chunkLoader));
 		} else {
 			loadedChunks.clear();
 		}

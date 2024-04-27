@@ -55,7 +55,7 @@ public class ServerBoundPackets {
 			world.updateNeighborsAlways(legacyMachineBase.getPos(), blockState.getBlock());
 		});
 
-		ServerPlayNetworking.registerGlobalReceiver(ConfigSavePayload.ID, (payload, context) -> {
+		ServerPlayNetworking.registerGlobalReceiver(SlotConfigSavePayload.ID, (payload, context) -> {
 			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
 			for (SlotConfiguration.SlotConfigHolder slotDetail : payload.slotConfig().getSlotDetails()) {
 				legacyMachineBase.getSlotConfiguration().updateSlotDetails(slotDetail);

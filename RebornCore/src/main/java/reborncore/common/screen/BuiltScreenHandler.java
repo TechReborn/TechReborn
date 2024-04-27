@@ -42,6 +42,7 @@ import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
+import reborncore.common.network.clientbound.ScreenHandlerUpdatePayload;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RangeUtil;
 
@@ -161,7 +162,7 @@ public class BuiltScreenHandler extends ScreenHandler {
 		}
 
 		ServerPlayerEntityScreenHandlerHelper.getServerPlayerEntity(screenHandlerListener)
-			.ifPresent(serverPlayerEntity -> NetworkManager.sendToPlayer(ClientBoundPackets.createPacketSendObject(screenHandler, updatedValues), serverPlayerEntity));
+			.ifPresent(serverPlayerEntity -> NetworkManager.sendToPlayer(new ScreenHandlerUpdatePayload(updatedValues), serverPlayerEntity));
 	}
 
 	@Override

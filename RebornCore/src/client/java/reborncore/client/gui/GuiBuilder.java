@@ -362,8 +362,6 @@ public class GuiBuilder {
 			for (Text tip : tips) {
 				this.addEntry(new TipsListEntry(tip));
 			}
-
-			setRenderBackground(false);
 		}
 
 		@Override

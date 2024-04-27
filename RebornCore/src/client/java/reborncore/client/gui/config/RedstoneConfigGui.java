@@ -24,15 +24,16 @@
 
 package reborncore.client.gui.config;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.ServerBoundPackets;
+import reborncore.common.network.serverbound.SetRedstoneStatePayload;
 
 import java.util.Locale;
 
@@ -98,8 +99,7 @@ public class RedstoneConfigGui extends GuiTab {
 					ns = 0;
 				}
 				RedstoneConfiguration.State nextState = RedstoneConfiguration.State.values()[ns];
-				IdentifiedPacket packet = ServerBoundPackets.createPacketSetRedstoneSate(guiBase.getMachine().getPos(), element, nextState);
-				ClientNetworkManager.sendToServer(packet);
+				ClientPlayNetworking.send(new SetRedstoneStatePayload(guiBase.getMachine().getPos(), element.getName(), nextState));
 				return true;
 			}
 			i++;

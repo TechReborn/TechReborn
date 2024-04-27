@@ -44,6 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class FluidConfiguration implements NBTSerializable {
+	public static final PacketCodec<ByteBuf, FluidConfiguration> PACKET_CODEC = null;
 
 	HashMap<Direction, FluidConfig> sideMap;
 	boolean input, output;

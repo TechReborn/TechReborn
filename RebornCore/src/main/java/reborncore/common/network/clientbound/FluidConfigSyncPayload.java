@@ -7,11 +7,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.FluidConfiguration;
 
-public record FluidConfigSyncPayload(BlockPos pos, FluidConfiguration.FluidConfig fluidConfiguration) implements CustomPayload {
+public record FluidConfigSyncPayload(BlockPos pos, FluidConfiguration fluidConfiguration) implements CustomPayload {
 	public static final Id<FluidConfigSyncPayload> ID = new Id<>(new Identifier("reborncore:fluid_config_sync"));
 	public static final PacketCodec<RegistryByteBuf, FluidConfigSyncPayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, FluidConfigSyncPayload::pos,
-		FluidConfiguration.FluidConfig.PACKET_CODEC, FluidConfigSyncPayload::fluidConfiguration,
+		FluidConfiguration.PACKET_CODEC, FluidConfigSyncPayload::fluidConfiguration,
 		FluidConfigSyncPayload::new
 	);
 

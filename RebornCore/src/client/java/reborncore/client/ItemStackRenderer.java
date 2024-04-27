@@ -68,7 +68,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 
 		Matrix4f matrix4f = new Matrix4f().setOrtho(0, 16, 16, 0, 1000, 3000);
 		RenderSystem.setProjectionMatrix(matrix4f, VertexSorter.BY_Z);
-		MatrixStack stack = RenderSystem.getModelViewStack();
+		MatrixStack stack = new MatrixStack();
 		stack.push();
 		stack.loadIdentity();
 		stack.translate(0, 0, -2000);
