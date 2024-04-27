@@ -24,29 +24,26 @@
 
 package techreborn.init;
 
+import com.google.common.base.Suppliers;
+import net.minecraft.block.Block;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Lazy;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.TagKey;
 
 import java.util.function.Supplier;
 
-// TODO: Use tags
 public enum TRToolTier implements ToolMaterial {
-	BRONZE(2, 375, 7.0F, 2.25f, 6, () -> {
-		return Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem());
-	}), RUBY(2, 750, 6.0F, 1.5F, 10, () -> {
-		return Ingredient.ofItems(TRContent.Gems.RUBY.asItem());
-	}), SAPPHIRE(3, 1000, 7.0F, 1.5F, 12, () -> {
-		return Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem());
-	}), PERIDOT(2, 750, 7.0F, 1.5F, 12, () -> {
-		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
-	});
+	BRONZE(BlockTags.INCORRECT_FOR_IRON_TOOL, 375, 7.0F, 2.25f, 6, () -> Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem())),
+	RUBY(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 6.0F, 1.5F, 10, () -> Ingredient.ofItems(TRContent.Gems.RUBY.asItem())),
+	SAPPHIRE(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 7.0F, 1.5F, 12, () -> Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem())),
+	PERIDOT(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 7.0F, 1.5F, 12, () -> Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem()));
 
 	/**
-	 * The level of material this tool can harvest (3 = DIAMOND, 2 = IRON, 1 =
-	 * STONE, 0 = WOOD/GOLD)
+	 * BlockTags for blocks which shouldn't be mined with this material.
 	 */
-	private final int miningLevel;
+	private final TagKey<Block> inverseTag;
+
 	/**
 	 * The number of uses this material allows. (wood = 59, stone = 131, iron = 250,
 	 * diamond = 1561, gold = 32)
@@ -65,16 +62,18 @@ public enum TRToolTier implements ToolMaterial {
 	 * Defines the natural enchantability factor of the material.
 	 */
 	private final int enchantability;
-	private final Lazy<Ingredient> repairMaterial;
+	/**
+	 * Ingredient which can repair this material.
+	 */
+	private final Supplier<Ingredient> repairMaterial;
 
-	TRToolTier(int miningLevel, int itemDurability, float miningSpeed, float attackDamage,
-			int enchantability, Supplier<Ingredient> repairMaterialIn) {
-		this.miningLevel = miningLevel;
+	TRToolTier(TagKey<Block> inverseTag, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Supplier<Ingredient> repairIngredient) {
+		this.inverseTag = inverseTag;
 		this.itemDurability = itemDurability;
 		this.miningSpeed = miningSpeed;
 		this.attackDamage = attackDamage;
 		this.enchantability = enchantability;
-		this.repairMaterial = new Lazy<>(repairMaterialIn);
+		this.repairMaterial = Suppliers.memoize(repairIngredient::get);
 	}
 
 	@Override
@@ -93,9 +92,7 @@ public enum TRToolTier implements ToolMaterial {
 	}
 
 	@Override
-	public int getMiningLevel() {
-		return miningLevel;
-	}
+	public TagKey<Block> getInverseTag() { return this.inverseTag; }
 
 	@Override
 	public int getEnchantability() {

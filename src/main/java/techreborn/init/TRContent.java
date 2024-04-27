@@ -650,13 +650,13 @@ public class TRContent {
 			InitUtils.setup(block, name + "_storage_block");
 			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_blocks"));
 
-			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block));
+			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), AbstractBlock.Settings.copy(block));
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
 
-			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block));
+			slabBlock = new SlabBlock(AbstractBlock.Settings.copy(block));
 			InitUtils.setup(slabBlock, name + "_storage_block_slab");
 
-			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block));
+			wallBlock = new WallBlock(AbstractBlock.Settings.copy(block));
 			InitUtils.setup(wallBlock, name + "_storage_block_wall");
 		}
 

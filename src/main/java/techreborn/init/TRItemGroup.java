@@ -30,7 +30,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -40,6 +39,7 @@ import net.minecraft.util.Identifier;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.industrial.NanosaberItem;
@@ -830,18 +830,15 @@ public class TRItemGroup {
 		NanosaberItem nanosaber = (NanosaberItem) TRContent.NANOSABER;
 
 		ItemStack inactiveUncharged = new ItemStack(nanosaber);
-		inactiveUncharged.setNbt(new NbtCompound());
-		inactiveUncharged.getOrCreateNbt().putBoolean("isActive", false);
+		inactiveUncharged.set(TRDataComponentTypes.IS_ACTIVE, false);
 
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
-		inactiveCharged.setNbt(new NbtCompound());
-		inactiveCharged.getOrCreateNbt().putBoolean("isActive", false);
 		nanosaber.setStoredEnergy(inactiveCharged, nanosaber.getEnergyCapacity(inactiveCharged));
+		inactiveCharged.set(TRDataComponentTypes.IS_ACTIVE, false);
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
-		activeCharged.setNbt(new NbtCompound());
-		activeCharged.getOrCreateNbt().putBoolean("isActive", true);
 		nanosaber.setStoredEnergy(activeCharged, nanosaber.getEnergyCapacity(activeCharged));
+		activeCharged.set(TRDataComponentTypes.IS_ACTIVE, false);
 
 		if (before == null) {
 			if (!onlyPoweredAndActive) {
