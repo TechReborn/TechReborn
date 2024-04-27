@@ -29,6 +29,7 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
@@ -221,10 +222,10 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		return new ScreenHandlerBuilder("ironfurnace").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
-				.sync(this::getBurnTime, this::setBurnTime)
-				.sync(this::getProgress, this::setProgress)
-				.sync(this::getTotalBurnTime, this::setTotalBurnTime)
-				.sync(this::getExperience, this::setExperience)
+				.sync(PacketCodecs.INTEGER, this::getBurnTime, this::setBurnTime)
+				.sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
+				.sync(PacketCodecs.INTEGER, this::getTotalBurnTime, this::setTotalBurnTime)
+				.sync(PacketCodecs.FLOAT, this::getExperience, this::setExperience)
 				.addInventory().create(this, syncID);
 	}
 }

@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
@@ -136,7 +137,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 		return new ScreenHandlerBuilder("blastfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
-				.sync(this::getHeat, this::setHeat).addInventory().create(this, syncID);
+				.sync(PacketCodecs.INTEGER, this::getHeat, this::setHeat).addInventory().create(this, syncID);
 	}
 
 }

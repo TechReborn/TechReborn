@@ -30,6 +30,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -295,7 +296,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("solar_panel").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
-				.sync(this::isGenerating, this::setIsGenerating)
+				.sync(PacketCodecs.BOOL, this::isGenerating, this::setIsGenerating)
 				.addInventory().create(this, syncID);
 	}
 }

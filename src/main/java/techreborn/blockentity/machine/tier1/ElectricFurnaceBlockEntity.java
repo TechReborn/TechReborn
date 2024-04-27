@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
@@ -272,6 +273,6 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("electricfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.sync(this::getCookTime, this::setCookTime).sync(this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
+				.sync(PacketCodecs.INTEGER, this::getCookTime, this::setCookTime).sync(PacketCodecs.INTEGER, this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
 	}
 }

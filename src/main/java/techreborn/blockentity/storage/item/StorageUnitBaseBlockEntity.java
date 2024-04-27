@@ -36,6 +36,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PlayerHeadItem;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -488,10 +489,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				.blockEntity(this)
 				.slot(INPUT_SLOT, 100, 53)
 				.outputSlot(OUTPUT_SLOT, 140, 53)
-				.sync(this::isLockedInt, this::setLockedInt)
-				.sync(this::getStoredStackNBT, this::setStoredStackFromNBT)
-				.sync(this::getStoredAmount, this::setStoredAmount)
-				.sync(this::getMaxCapacity, this::setMaxCapacity)
+				.sync(PacketCodecs.INTEGER, this::isLockedInt, this::setLockedInt)
+				.sync(PacketCodecs.NBT_COMPOUND, this::getStoredStackNBT, this::setStoredStackFromNBT)
+				.sync(PacketCodecs.INTEGER, this::getStoredAmount, this::setStoredAmount)
+				.sync(PacketCodecs.INTEGER, this::getMaxCapacity, this::setMaxCapacity)
 				.addInventory().create(this, syncID);
 
 		// Note that inventory is synced, and it gets the stack from that

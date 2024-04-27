@@ -27,6 +27,9 @@ package reborncore.client;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +43,7 @@ import reborncore.common.network.clientbound.FluidConfigSyncPayload;
 import reborncore.common.network.clientbound.QueueItemStacksPayload;
 import reborncore.common.network.clientbound.ScreenHandlerUpdatePayload;
 import reborncore.common.network.clientbound.SlotSyncPayload;
+import reborncore.common.screen.BuiltScreenHandler;
 
 public class ClientBoundPacketHandlers {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientBoundPacketHandlers.class);
@@ -84,34 +88,13 @@ public class ClientBoundPacketHandlers {
 		});
 
 		ClientPlayNetworking.registerGlobalReceiver(ScreenHandlerUpdatePayload.ID, (payload, context) -> {
-			// TODO 1.20.5
-//			int size = packetBuffer.readInt();
-//			ExtendedPacketBuffer epb = new ExtendedPacketBuffer(packetBuffer);
-//			Int2ObjectMap<Object> updatedValues = new Int2ObjectOpenHashMap<>();
-//
-//			for (int i = 0; i < size; i++) {
-//				int id = packetBuffer.readInt();
-//				Object value =  epb.readObject();
-//				updatedValues.put(id, value);
-//			}
-//
-//			String name = packetBuffer.readString(packetBuffer.readInt());
-//
-//			client.execute(() -> {
-//				Screen gui = MinecraftClient.getInstance().currentScreen;
-//				if (gui instanceof HandledScreen handledScreen) {
-//					ScreenHandler screenHandler = handledScreen.getScreenHandler();
-//					if (screenHandler instanceof BuiltScreenHandler builtScreenHandler) {
-//						String shName = screenHandler.getClass().getName();
-//						if (!shName.equals(name)) {
-//							LOGGER.warn("Received packet for {} but screen handler {} is open!", name, shName);
-//							return;
-//						}
-//
-//						builtScreenHandler.handleUpdateValues(updatedValues);
-//					}
-//				}
-//			});
+			Screen gui = MinecraftClient.getInstance().currentScreen;
+			if (gui instanceof HandledScreen handledScreen) {
+				ScreenHandler screenHandler = handledScreen.getScreenHandler();
+				if (screenHandler instanceof BuiltScreenHandler builtScreenHandler) {
+					builtScreenHandler.applyScreenHandlerData(payload.data());
+				}
+			}
 		});
 
 		ClientPlayNetworking.registerGlobalReceiver(ChunkSyncPayload.ID, (payload, context) -> ClientChunkManager.setLoadedChunks(payload.chunks()));

@@ -30,6 +30,7 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -199,7 +200,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		return new ScreenHandlerBuilder("tank").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
 				.sync(tank)
-				.sync(this::getMaxCapacity, this::setMaxCapacity)
+				.sync(PacketCodecs.VAR_LONG, this::getMaxCapacity, this::setMaxCapacity)
 
 				.addInventory().create(this, syncID);
 	}

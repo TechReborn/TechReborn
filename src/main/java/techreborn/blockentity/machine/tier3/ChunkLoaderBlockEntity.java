@@ -29,6 +29,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -160,7 +161,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("chunkloader").player(player.getInventory()).inventory().hotbar().addInventory()
-				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
+				.blockEntity(this).sync(PacketCodecs.INTEGER, this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 
 	public int getRadius() {

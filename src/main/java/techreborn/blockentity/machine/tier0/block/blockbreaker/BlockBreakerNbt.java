@@ -25,6 +25,7 @@
 package techreborn.blockentity.machine.tier0.block.blockbreaker;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
 
@@ -54,9 +55,9 @@ class BlockBreakerNbt {
 	}
 
 	public BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder) {
-		return builder.sync(this::getBreakTime, this::setBreakTime)
-			.sync(this::getCurrentBreakTime, this::setCurrentBreakTime)
-			.sync(this::getStatus, this::setStatus);
+		return builder.sync(PacketCodecs.INTEGER, this::getBreakTime, this::setBreakTime)
+			.sync(PacketCodecs.INTEGER, this::getCurrentBreakTime, this::setCurrentBreakTime)
+			.sync(PacketCodecs.INTEGER, this::getStatus, this::setStatus);
 	}
 
 	protected int getBreakTime() {

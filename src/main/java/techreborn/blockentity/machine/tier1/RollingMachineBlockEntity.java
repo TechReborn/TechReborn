@@ -30,6 +30,7 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
@@ -433,8 +434,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			.onCraft(inv -> this.inventory.setStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
-			.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt)
-			.sync(this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getBurnTime, this::setBurnTime).sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt)
+			.sync(PacketCodecs.INTEGER, this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentRecipeTime() {

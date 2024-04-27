@@ -29,6 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
@@ -389,11 +390,11 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("fusionreactor").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
-				.sync(this::getCraftingTickTime, this::setCraftingTickTime)
-				.sync(this::getSize, this::setSize)
-				.sync(this::getState, this::setState)
-				.sync(this::getNeededPower, this::setNeededPower)
-				.sync(this::getCurrentRecipeID, this::setCurrentRecipeID)
+				.sync(PacketCodecs.INTEGER, this::getCraftingTickTime, this::setCraftingTickTime)
+				.sync(PacketCodecs.INTEGER, this::getSize, this::setSize)
+				.sync(PacketCodecs.INTEGER, this::getState, this::setState)
+				.sync(PacketCodecs.INTEGER, this::getNeededPower, this::setNeededPower)
+				.sync(Identifier.PACKET_CODEC, this::getCurrentRecipeID, this::setCurrentRecipeID)
 				.addInventory()
 				.create(this, syncID);
 	}

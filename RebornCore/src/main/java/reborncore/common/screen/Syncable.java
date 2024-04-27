@@ -24,14 +24,17 @@
 
 package reborncore.common.screen;
 
-import org.apache.commons.lang3.tuple.Pair;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public interface Syncable {
 
-	void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList);
+	void configureSync(Context context);
 
+	interface Context {
+		<T> void sync(PacketCodec<? super RegistryByteBuf, T> codec, Supplier<T> supplier, Consumer<T> setter);
+	}
 }

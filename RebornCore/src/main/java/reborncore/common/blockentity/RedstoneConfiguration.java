@@ -49,7 +49,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class RedstoneConfiguration implements NBTSerializable, Syncable {
-
 	// Set in TR to be a better item such as a battery or a cell
 	public static ItemStack powerStack = new ItemStack(Items.CARROT_ON_A_STICK);
 	public static ItemStack fluidStack = new ItemStack(Items.BUCKET);
@@ -180,8 +179,9 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 	}
 
 	@Override
-	public void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList) {
-		pairList.add(Pair.of(this::write, (Consumer<NbtCompound>) this::read));
+	public void configureSync(Context context) {
+		// TODO 1.20.5 sync
+		// pairList.add(Pair.of(this::write, (Consumer<NbtCompound>) this::read));
 	}
 
 	public static Element getElementByName(String name) {

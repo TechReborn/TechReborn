@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -175,7 +176,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.syncEnergyValue()
-				.sync(this::getCurrentRadius, this::setCurrentRadius)
+				.sync(PacketCodecs.INTEGER, this::getCurrentRadius, this::setCurrentRadius)
 				.addInventory().create(this, syncID);
 	}
 

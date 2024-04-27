@@ -35,6 +35,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
@@ -179,9 +180,9 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			.energySlot(0, 8, 72)
 			.sync(getTank())
 			.syncEnergyValue()
-			.sync(this::getDepth, this::setDepth)
-			.sync(this::getRange, this::setRange)
-			.sync(this::getExhausted, this::setExhausted)
+			.sync(PacketCodecs.INTEGER, this::getDepth, this::setDepth)
+			.sync(PacketCodecs.INTEGER, this::getRange, this::setRange)
+			.sync(PacketCodecs.BOOL, this::getExhausted, this::setExhausted)
 			.addInventory()
 			.create(this, syncID);
 	}

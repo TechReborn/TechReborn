@@ -30,6 +30,7 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -164,7 +165,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("aesu").player(player.getInventory()).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().sync(this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentOutput() {

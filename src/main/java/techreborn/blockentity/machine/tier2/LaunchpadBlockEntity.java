@@ -29,6 +29,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -189,7 +190,7 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.syncEnergyValue()
-				.sync(this::getSelection, this::setSelection)
+				.sync(PacketCodecs.INTEGER, this::getSelection, this::setSelection)
 				.addInventory().create(this, syncID);
 	}
 

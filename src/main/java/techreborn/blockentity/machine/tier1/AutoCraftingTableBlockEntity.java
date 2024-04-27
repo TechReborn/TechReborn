@@ -30,6 +30,7 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
@@ -460,9 +461,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
 			.outputSlot(OUTPUT_SLOT, 145, 42)
 			.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
-			.syncEnergyValue().sync(this::getProgress, this::setProgress)
-			.sync(this::getMaxProgress, this::setMaxProgress)
-			.sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
+			.sync(PacketCodecs.INTEGER, this::getMaxProgress, this::setMaxProgress)
+			.sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
 	public int getProgress() {

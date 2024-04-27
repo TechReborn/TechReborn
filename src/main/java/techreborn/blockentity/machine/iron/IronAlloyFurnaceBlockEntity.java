@@ -27,6 +27,7 @@ package techreborn.blockentity.machine.iron;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
@@ -161,9 +162,9 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 				.slot(0, 47, 17)
 				.slot(1, 65, 17)
 				.outputSlot(2, 116, 35).fuelSlot(3, 56, 53)
-				.sync(this::getBurnTime, this::setBurnTime)
-				.sync(this::getProgress, this::setProgress)
-				.sync(this::getTotalBurnTime, this::setTotalBurnTime)
+				.sync(PacketCodecs.INTEGER, this::getBurnTime, this::setBurnTime)
+				.sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
+				.sync(PacketCodecs.INTEGER, this::getTotalBurnTime, this::setTotalBurnTime)
 				.addInventory().create(this, syncID);
 	}
 

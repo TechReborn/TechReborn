@@ -32,19 +32,14 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryKeys;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.screen.Syncable;
-
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 @SuppressWarnings({"deprecation", "UnstableApiUsage"})
 public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable, SingleSlotStorage<FluidVariant> {
@@ -122,9 +117,9 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 	}
 
 	@Override
-	public void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList) {
-		pairList.add(Pair.of(() -> Registries.FLUID.getId(fluidInstance.getFluid()).toString(), (Consumer<String>) o -> fluidInstance.setFluid(Registries.FLUID.get(new Identifier(o)))));
-		pairList.add(Pair.of(() -> fluidInstance.getAmount(), o -> fluidInstance.setAmount((FluidValue) o)));
+	public void configureSync(Context context) {
+		context.sync(PacketCodecs.registryValue(RegistryKeys.FLUID), fluidInstance::getFluid, fluidInstance::setFluid);
+		context.sync(FluidValue.PACKET_CODEC, fluidInstance::getAmount, fluidInstance::setAmount);
 	}
 
 	public FluidValue getFluidAmount() {

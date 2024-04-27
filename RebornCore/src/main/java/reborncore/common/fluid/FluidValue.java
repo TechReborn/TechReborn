@@ -28,15 +28,22 @@ import com.google.common.base.Objects;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.util.FluidTextHelper;
 
 public final class FluidValue {
-
 	public static final FluidValue EMPTY = new FluidValue(0);
 	public static final FluidValue BUCKET_QUARTER = new FluidValue(FluidConstants.BUCKET / 4);
 	public static final FluidValue BUCKET = new FluidValue(FluidConstants.BUCKET);
+
+	public static final PacketCodec<ByteBuf, FluidValue> PACKET_CODEC = PacketCodec.tuple(
+		PacketCodecs.VAR_LONG, FluidValue::getRawValue,
+		FluidValue::new
+	);
 
 	private final long rawValue;
 

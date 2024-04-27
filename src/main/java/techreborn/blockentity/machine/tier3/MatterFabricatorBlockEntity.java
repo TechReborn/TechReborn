@@ -27,6 +27,7 @@ package techreborn.blockentity.machine.tier3;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -186,6 +187,6 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 				.blockEntity(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20).slot(4, 110, 20)
 				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
 				.outputSlot(9, 100, 66).outputSlot(10, 120, 66).energySlot(11, 8, 72).syncEnergyValue()
-				.sync(this::getProgress, this::setProgress).addInventory().create(this, syncID);
+				.sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress).addInventory().create(this, syncID);
 	}
 }
