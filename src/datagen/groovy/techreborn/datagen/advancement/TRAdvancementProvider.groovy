@@ -53,7 +53,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	@Override
-	void generateAdvancement(Consumer<AdvancementEntry> consumer) {
+	void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
 		this.consumer = consumer
 
 		def root = create {

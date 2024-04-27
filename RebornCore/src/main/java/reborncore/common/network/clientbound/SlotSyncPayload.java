@@ -9,7 +9,7 @@ import reborncore.common.blockentity.SlotConfiguration;
 
 public record SlotSyncPayload(BlockPos pos, SlotConfiguration slotConfig) implements CustomPayload {
 	public static final Id<SlotSyncPayload> ID = new Id<>(new Identifier("reborncore:slot_sync"));
-	public static final PacketCodec<RegistryByteBuf, SlotSyncPayload> CODEC = PacketCodec.tuple(
+	public static final PacketCodec<RegistryByteBuf, SlotSyncPayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, SlotSyncPayload::pos,
 		SlotConfiguration.PACKET_CODEC, SlotSyncPayload::slotConfig,
 		SlotSyncPayload::new

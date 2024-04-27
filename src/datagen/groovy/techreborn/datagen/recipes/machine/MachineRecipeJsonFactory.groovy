@@ -24,18 +24,14 @@
 
 package techreborn.datagen.recipes.machine
 
-import com.google.gson.JsonObject
-import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider
-import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancement.Advancement.Builder
 import net.minecraft.advancement.AdvancementCriterion
-import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.data.server.recipe.RecipeExporter
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
-import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.registry.Registries
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlag
@@ -59,7 +55,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected int time = -1
 	protected Identifier customId = null
 	protected String source = null
-	protected List<ConditionJsonProvider> conditions = []
+	protected List<ResourceCondition> conditions = []
 
 	protected MachineRecipeJsonFactory(RebornRecipeType<R> type, TechRebornRecipesProvider provider) {
 		this.type = type
@@ -158,7 +154,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
-	def condition(ConditionJsonProvider conditionJsonProvider) {
+	def condition(ResourceCondition conditionJsonProvider) {
 		this.conditions.add(conditionJsonProvider)
 		return this
 	}
@@ -226,7 +222,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		def recipe = createRecipe()
 
 		if (!conditions.isEmpty()) {
-			FabricDataGenHelper.addConditions(recipe, conditions.toArray() as ConditionJsonProvider[])
+			FabricDataGenHelper.addConditions(recipe, conditions.toArray() as ResourceCondition[])
 		}
 
 		exporter.accept(recipeId, recipe, builder.build(advancementId))

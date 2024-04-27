@@ -3,12 +3,15 @@ package techreborn.component;
 import com.mojang.serialization.codecs.PrimitiveCodec;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.GlobalPos;
 import techreborn.TechReborn;
@@ -27,6 +30,9 @@ public class TRDataComponentTypes {
 
 	public static final DataComponentType<BlockState> PAINTING_COVER =
 		DataComponentType.<BlockState>builder().codec(BlockState.CODEC).packetCodec(BLOCK_STATE_PACKET_CODEC).build();
+
+	public static final DataComponentType<RegistryEntry<Fluid>> FLUID =
+		DataComponentType.<RegistryEntry<Fluid>>builder().codec(Registries.FLUID.getEntryCodec()).packetCodec(PacketCodecs.registryEntry(RegistryKeys.FLUID)).build();
 
 	public static void init(){
 		Registry.register(Registries.DATA_COMPONENT_TYPE, new Identifier(TechReborn.MOD_ID, "is_active"), IS_ACTIVE);

@@ -26,6 +26,7 @@ package techreborn.items.tool.industrial;
 
 import com.google.common.collect.ImmutableMultimap;
 import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -35,6 +36,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.SwordItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -44,6 +46,7 @@ import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.utils.TRItemUtils;
@@ -53,7 +56,10 @@ import java.util.List;
 public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem() {
-		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().maxDamage(0));
+		super(TRToolMaterials.NANOSABER, new Item.Settings()
+			.maxDamage(0)
+			.attributeModifiers(PickaxeItem.createAttributeModifiers(TRToolMaterials.NANOSABER, 1, 1))
+		);
 	}
 
 	// SwordItem
@@ -114,15 +120,16 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
 		var attributes = super.getAttributeModifiers(stack);
 
-		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_SPEED);
+		// TODO 1.20.5
+//		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+//		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_SPEED);
 
-		if (slot == EquipmentSlot.MAINHAND && ItemUtils.isActive(stack)) {
-			attributes.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADDITION));
-			attributes.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADDITION));
+		if (stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE) {
+			attributes = attributes.with(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND);
+			attributes = attributes.with(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND);
 		}
 
-		return ImmutableMultimap.copyOf(attributes);
+		return attributes;
 	}
 
 	// RcEnergyItem

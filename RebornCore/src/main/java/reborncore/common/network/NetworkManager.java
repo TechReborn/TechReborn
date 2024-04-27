@@ -24,47 +24,18 @@
 
 package reborncore.common.network;
 
-import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.function.Consumer;
 
 public class NetworkManager {
-
-
-	public static IdentifiedPacket createServerBoundPacket(Identifier identifier, Consumer<ExtendedPacketBuffer> packetBufferConsumer) {
-		PacketByteBuf buf = PacketByteBufs.create();
-		packetBufferConsumer.accept(new ExtendedPacketBuffer(buf));
-		return new IdentifiedPacket(identifier, buf);
-	}
-
-	public static <T extends CustomPayload> void registerServerBoundHandler(CustomPayload.Id<T> type, ServerPlayNetworking.PlayPayloadHandler<T> handler) {
-		ServerPlayNetworking.registerGlobalReceiver(type, handler);
-	}
-
-	public static IdentifiedPacket createClientBoundPacket(Identifier identifier, Consumer<ExtendedPacketBuffer> packetBufferConsumer) {
-		PacketByteBuf buf = PacketByteBufs.create();
-		packetBufferConsumer.accept(new ExtendedPacketBuffer(buf));
-		return new IdentifiedPacket(identifier, buf);
-	}
-
-	public static <T> IdentifiedPacket createClientBoundPacket(Identifier identifier, Codec<T> codec, T value) {
-		return createClientBoundPacket(identifier, extendedPacketBuffer -> extendedPacketBuffer.encodeAsJson(codec, value));
-	}
-
 	public static void sendToAll(CustomPayload payload, MinecraftServer server) {
 		send(payload, PlayerLookup.all(server));
 	}
@@ -87,10 +58,4 @@ public class NetworkManager {
 			ServerPlayNetworking.send(player, payload);
 		}
 	}
-
-	public static void sendTo(CustomPayload payload, PacketSender sender) {
-		Packet<?> s2CPacket = ServerPlayNetworking.createS2CPacket(payload);
-		sender.sendPacket(s2CPacket);
-	}
-
 }

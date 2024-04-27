@@ -25,12 +25,16 @@
 package techreborn.utils;
 
 import com.google.common.collect.Maps;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import reborncore.api.events.ItemCraftCallback;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
@@ -68,16 +72,26 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 		if (!Registries.ITEM.getId(stack.getItem()).getNamespace().equalsIgnoreCase(TechReborn.MOD_ID)) {
 			return;
 		}
-		Map<Enchantment, Integer> map = Maps.newLinkedHashMap();
+
+		ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(ItemEnchantmentsComponent.DEFAULT);
+
+		boolean didEnchant = false;
+
 		for (int i = 0; i < craftingInventory.size(); i++) {
 			ItemStack ingredient = craftingInventory.getStack(i);
 			if (ingredient.isEmpty()) {
 				continue;
 			}
-			EnchantmentHelper.get(ingredient).forEach((key, value) -> map.merge(key, value, (v1, v2) -> v1 > v2 ? v1 : v2));
+			ItemEnchantmentsComponent existing = stack.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+
+			for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : existing.getEnchantmentsMap()) {
+				builder.add(entry.getKey().value(), entry.getIntValue());
+				didEnchant = true;
+			}
 		}
-		if (!map.isEmpty()) {
-			EnchantmentHelper.set(map, stack);
+
+		if (didEnchant) {
+			EnchantmentHelper.set(stack, builder.build());
 		}
 	}
 

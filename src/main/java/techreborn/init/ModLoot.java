@@ -86,8 +86,8 @@ public class ModLoot {
 				.with(industrialFrame).with(industrialCircuit).with(energyFlowChip).rolls(UniformLootNumberProvider.create(1.0f, 3.0f))
 				.build();
 
-		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-			String stringId = id.toString();
+		LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+			String stringId = key.getValue().toString();
 			if (!stringId.startsWith("minecraft:gameplay") && !stringId.startsWith("minecraft:chests")) {
 				return;
 			}

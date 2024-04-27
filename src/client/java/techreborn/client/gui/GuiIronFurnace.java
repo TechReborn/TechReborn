@@ -24,6 +24,7 @@
 
 package techreborn.client.gui;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
@@ -32,12 +33,11 @@ import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
-import techreborn.packets.ServerboundPackets;
+import techreborn.packets.serverbound.ExperiencePayload;
 import techreborn.utils.PlayerUtils;
 
 import java.util.Objects;
@@ -52,7 +52,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void onClick(ButtonWidget buttonWidget) {
-		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketExperience(blockEntity));
+		ClientPlayNetworking.send(new ExperiencePayload(blockEntity.getPos()));
 	}
 
 	@Override

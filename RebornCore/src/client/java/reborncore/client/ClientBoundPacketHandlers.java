@@ -24,19 +24,9 @@
 
 package reborncore.client;
 
-import com.mojang.serialization.Codec;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,10 +34,12 @@ import reborncore.RebornCore;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
-import reborncore.common.chunkloading.ChunkLoaderManager;
-import reborncore.common.network.ExtendedPacketBuffer;
-import reborncore.common.network.clientbound.*;
-import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.network.clientbound.ChunkSyncPayload;
+import reborncore.common.network.clientbound.CustomDescriptionPayload;
+import reborncore.common.network.clientbound.FluidConfigSyncPayload;
+import reborncore.common.network.clientbound.QueueItemStacksPayload;
+import reborncore.common.network.clientbound.ScreenHandlerUpdatePayload;
+import reborncore.common.network.clientbound.SlotSyncPayload;
 
 public class ClientBoundPacketHandlers {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientBoundPacketHandlers.class);

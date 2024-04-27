@@ -52,7 +52,6 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
-import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.clientbound.CustomDescriptionPayload;
 import reborncore.common.recipes.IUpgradeHandler;

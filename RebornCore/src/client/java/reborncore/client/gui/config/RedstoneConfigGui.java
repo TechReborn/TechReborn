@@ -31,8 +31,6 @@ import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.blockentity.RedstoneConfiguration;
-import reborncore.common.network.IdentifiedPacket;
-import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.network.serverbound.SetRedstoneStatePayload;
 
 import java.util.Locale;

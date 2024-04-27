@@ -25,7 +25,6 @@
 package techreborn.datagen.recipes.machine.industrial_grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
 import net.minecraft.fluid.Fluids
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper

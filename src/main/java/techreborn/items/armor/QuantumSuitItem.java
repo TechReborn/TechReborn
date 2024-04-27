@@ -26,6 +26,7 @@ package techreborn.items.armor;
 
 import com.google.common.collect.ImmutableMultimap;
 import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -60,20 +61,20 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
 		AttributeModifiersComponent attributes = super.getAttributeModifiers(stack);
 
-		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-
-		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && TRItemUtils.isActive(stack) && TechRebornConfig.quantumSuitEnableSprint) {
+		if (TRItemUtils.isActive(stack) && TechRebornConfig.quantumSuitEnableSprint) {
 			if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitSprintingCost) {
-				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
+				attributes = attributes.with(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("Movement Speed", 0.15, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.LEGS);
 			}
 		}
 
-		if (equipmentSlot == this.getSlotType() && getStoredEnergy(stack) > 0) {
-			attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Armor modifier", 20, EntityAttributeModifier.Operation.ADDITION));
-			attributes.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
+		AttributeModifierSlot modifierSlot = AttributeModifierSlot.forEquipmentSlot(this.getSlotType());
+
+		if (getStoredEnergy(stack) > 0) {
+			attributes = attributes.with(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier("Armor modifier", 20, EntityAttributeModifier.Operation.ADD_VALUE), modifierSlot);
+			attributes = attributes.with(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier("Knockback modifier", 2, EntityAttributeModifier.Operation.ADD_VALUE), modifierSlot);
 		}
 
-		return ImmutableMultimap.copyOf(attributes);
+		return attributes;
 	}
 
 	// ArmorBlockEntityTicker

@@ -28,11 +28,7 @@ import net.fabricmc.yarn.constants.MiningLevels;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.Items;
-import net.minecraft.item.MiningToolItem;
+import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -52,7 +48,10 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(3, 1, TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings().maxDamage(0));
+		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings()
+			.maxDamage(0)
+			.attributeModifiers(PickaxeItem.createAttributeModifiers(TRToolMaterials.OMNI_TOOL, 3, 1)
+		));
 		this.miningLevel = MiningLevels.DIAMOND;
 	}
 
@@ -65,11 +64,11 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 	}
 
 	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
 		if (getStoredEnergy(stack) >= TechRebornConfig.omniToolCost) {
 			return getMaterial().getMiningSpeedMultiplier();
 		}
-		return super.getMiningSpeedMultiplier(stack, state);
+		return super.getMiningSpeed(stack, state);
 	}
 
 	@Override

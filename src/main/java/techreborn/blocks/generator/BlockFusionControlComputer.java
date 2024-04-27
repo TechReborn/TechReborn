@@ -29,9 +29,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -52,32 +54,31 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
-							BlockHitResult hitResult) {
-		final FusionControlComputerBlockEntity blockEntityFusionControlComputer = (FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos);
-		if (!playerIn.getStackInHand(hand).isEmpty() && (playerIn.getStackInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())) {
+	protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		final FusionControlComputerBlockEntity blockEntityFusionControlComputer = (FusionControlComputerBlockEntity) world.getBlockEntity(pos);
+		if (!player.getStackInHand(hand).isEmpty() && (player.getStackInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())) {
 			List<BlockPos> coils = Torus.generate(blockEntityFusionControlComputer.getPos(), blockEntityFusionControlComputer.size);
 			boolean placed = false;
 			for (BlockPos coil : coils) {
-				if (playerIn.getStackInHand(hand).isEmpty()) {
-					return ActionResult.SUCCESS;
+				if (player.getStackInHand(hand).isEmpty()) {
+					return ItemActionResult.SUCCESS;
 				}
-				if (worldIn.getBlockState(coil).canReplace(new ItemPlacementContext(new ItemUsageContext(playerIn, hand, hitResult)))
-						&& worldIn.getBlockState(pos).getBlock() != TRContent.Machine.FUSION_COIL.block) {
-					worldIn.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
-					if (!playerIn.isCreative()) {
-						playerIn.getStackInHand(hand).decrement(1);
+				if (world.getBlockState(coil).canReplace(new ItemPlacementContext(new ItemUsageContext(player, hand, hit)))
+					&& world.getBlockState(pos).getBlock() != TRContent.Machine.FUSION_COIL.block) {
+					world.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
+					if (!player.isCreative()) {
+						player.getStackInHand(hand).decrement(1);
 					}
 					placed = true;
 				}
 			}
 			if (placed) {
-				return ActionResult.SUCCESS;
+				return ItemActionResult.SUCCESS;
 			}
 
 		}
 		blockEntityFusionControlComputer.isMultiblockValid();
-		return super.onUse(state, worldIn, pos, playerIn, hitResult);
+		return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
 	}
 
 	@Override

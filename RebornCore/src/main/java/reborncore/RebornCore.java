@@ -49,6 +49,7 @@ import reborncore.common.config.Configuration;
 import reborncore.common.misc.ModSounds;
 import reborncore.common.misc.RebornCoreTags;
 import reborncore.common.multiblock.MultiblockRegistry;
+import reborncore.common.network.Packets;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.PaddedShapedRecipe;
@@ -87,6 +88,7 @@ public class RebornCore implements ModInitializer {
 
 		ModSounds.setup();
 		BlockWrenchEventHandler.setup();
+		Packets.register();
 
 		/*
 		This is a generic multiblock tick handler. If you are using this code on your

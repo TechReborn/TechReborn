@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 
 public record IoSavePayload(BlockPos pos, int slotID, boolean input, boolean output, boolean filter) implements CustomPayload {
 	public static final CustomPayload.Id<IoSavePayload> ID = new CustomPayload.Id<>(new Identifier("reborncore:io_save"));
-	public static final PacketCodec<RegistryByteBuf, IoSavePayload> CODEC = PacketCodec.tuple(
+	public static final PacketCodec<RegistryByteBuf, IoSavePayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, IoSavePayload::pos,
 		PacketCodecs.INTEGER, IoSavePayload::slotID,
 		PacketCodecs.BOOL, IoSavePayload::input,

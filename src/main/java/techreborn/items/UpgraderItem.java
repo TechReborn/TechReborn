@@ -75,18 +75,18 @@ public class UpgraderItem extends Item {
 			return ActionResult.PASS;
 		}
 
-		NbtCompound data = oldBlockEntity.createNbt();
+		NbtCompound data = oldBlockEntity.createNbt(world.getRegistryManager());
 		data.putString("unitType", newType);
 
 		// empty storage to prevent item spill
-		oldBlockEntity.readNbt(new NbtCompound());
+		oldBlockEntity.read(new NbtCompound(), world.getRegistryManager());
 
 		world.setBlockState(blockPos, newBlockState);
 
 		// restore content and set a new storage type
 		BlockEntity newBlockEntity = world.getBlockEntity(blockPos);
 		if (newBlockEntity != null){
-			newBlockEntity.readNbt(data);
+			newBlockEntity.read(data, world.getRegistryManager());
 			((MachineBaseBlockEntity) newBlockEntity).syncWithAll();
 		}
 

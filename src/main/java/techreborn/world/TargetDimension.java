@@ -24,10 +24,11 @@
 
 package techreborn.world;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 
 import java.util.function.Predicate;
 
@@ -36,11 +37,8 @@ public enum TargetDimension {
 	NETHER(BiomeSelectors.foundInTheNether()),
 	END(BiomeSelectors.foundInTheEnd());
 
-	public static final Codec<TargetDimension> CODEC = RecordCodecBuilder.create(instance ->
-		instance.group(
-			Codec.STRING.fieldOf("name").forGetter(TargetDimension::name)
-		).apply(instance, TargetDimension::valueOf)
-	);
+	public static final PacketCodec<ByteBuf, TargetDimension> PACKET_CODEC = PacketCodecs.INTEGER
+		.xmap(integer -> TargetDimension.values()[integer], Enum::ordinal);
 
 	public final Predicate<BiomeSelectionContext> biomeSelector;
 

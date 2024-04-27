@@ -46,10 +46,10 @@ public class RecipeUtils {
 	}
 
 	public static <C extends Inventory, T extends Recipe<C>> List<T> getRecipes(World world, RecipeType<T> type) {
-		return world.getRecipeManager().getAllOfType(type).values().stream().map(RecipeEntry::value).toList();
+		return world.getRecipeManager().getAllOfType(type).stream().map(RecipeEntry::value).toList();
 	}
 
 	public static <C extends Inventory, T extends Recipe<C>> List<RecipeEntry<T>> getRecipeEntries(World world, RecipeType<T> type) {
-		return world.getRecipeManager().getAllOfType(type).values().stream().toList();
+		return world.getRecipeManager().getAllOfType(type).stream().toList();
 	}
 }

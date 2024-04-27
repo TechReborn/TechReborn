@@ -42,13 +42,13 @@ public enum ObjectBufferUtils {
 
 	INT(Integer.class, (value, buffer) -> buffer.writeInt(value), PacketByteBuf::readInt),
 
-	LONG(Long.class, (pos, buffer) -> buffer.writeLong(pos), ExtendedPacketBuffer::readLong),
+	LONG(Long.class, (pos, buffer) -> buffer.writeLong(pos), PacketByteBuf::readLong),
 
-	DOUBLE(Double.class, (pos, buffer) -> buffer.writeDouble(pos), ExtendedPacketBuffer::readDouble),
+	DOUBLE(Double.class, (pos, buffer) -> buffer.writeDouble(pos), PacketByteBuf::readDouble),
 
-	FLOAT(Float.class, (pos, buffer) -> buffer.writeFloat(pos), ExtendedPacketBuffer::readFloat),
+	FLOAT(Float.class, (pos, buffer) -> buffer.writeFloat(pos), PacketByteBuf::readFloat),
 
-	BOOLEAN(Boolean.class, (value, buffer) -> buffer.writeBoolean(value), ExtendedPacketBuffer::readBoolean),
+	BOOLEAN(Boolean.class, (value, buffer) -> buffer.writeBoolean(value), PacketByteBuf::readBoolean),
 
 	BLOCK_POS(BlockPos.class, (pos, buffer) -> buffer.writeBlockPos(pos), buffer -> PacketByteBuf.readBlockPos(buffer)),
 
@@ -72,25 +72,25 @@ public enum ObjectBufferUtils {
 		this.reader = reader;
 	}
 
-	public static void writeObject(Object object, ExtendedPacketBuffer buffer) {
+	public static void writeObject(Object object, PacketByteBuf buffer) {
 		ObjectBufferUtils utils = Arrays.stream(values()).filter(objectBufferUtils -> objectBufferUtils.clazz == object.getClass()).findFirst().orElse(null);
 		Objects.requireNonNull(utils, "No support found for " + object.getClass());
 		buffer.writeInt(utils.ordinal());
 		utils.writer.write(object, buffer);
 	}
 
-	public static Object readObject(ExtendedPacketBuffer buffer) {
+	public static Object readObject(PacketByteBuf buffer) {
 		ObjectBufferUtils utils = values()[buffer.readInt()];
 		Objects.requireNonNull(utils, "Could not find reader");
 		return utils.reader.read(buffer);
 	}
 
 	private interface ObjectWriter<T> {
-		void write(T object, ExtendedPacketBuffer buffer);
+		void write(T object, PacketByteBuf buffer);
 	}
 
 	private interface ObjectReader<T> {
-		T read(ExtendedPacketBuffer buffer);
+		T read(PacketByteBuf buffer);
 	}
 
 }

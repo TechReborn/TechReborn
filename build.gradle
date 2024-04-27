@@ -171,8 +171,8 @@ dependencies {
 	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", false)
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
-    gametestImplementation 'org.apache.groovy:groovy:4.0.10'
-    datagenImplementation 'org.apache.groovy:groovy:4.0.10'
+    gametestImplementation 'org.apache.groovy:groovy:4.0.21'
+    datagenImplementation 'org.apache.groovy:groovy:4.0.21'
 
     gametestImplementation ("com.google.truth:truth:1.1.3") {
         exclude module: "guava"

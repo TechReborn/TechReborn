@@ -63,7 +63,7 @@ public class RecipeUtils {
 	}
 
 	private static <T extends RebornRecipe> Stream<RecipeEntry<T>> streamRecipeEntries(World world, RebornRecipeType<T> type) {
-		return world.getRecipeManager().getAllOfType(type).values().stream();
+		return world.getRecipeManager().getAllOfType(type).stream();
 	}
 
 	public static DefaultedList<ItemStack> deserializeItems(JsonElement jsonObject) {

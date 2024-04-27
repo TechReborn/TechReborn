@@ -44,6 +44,7 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -65,7 +66,11 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.ItemNBTHelper;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
+
+import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * Created by modmuss50 on 17/05/2016.
@@ -230,14 +235,8 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
-		return getFluid(itemStack.getNbt());
-	}
-
-	private Fluid getFluid(@Nullable NbtCompound tag) {
-		if (tag != null && tag.contains("fluid")) {
-			return Registries.FLUID.get(new Identifier(tag.getString("fluid")));
-		}
-		return Fluids.EMPTY;
+		RegistryEntry<Fluid> fluidEntry = itemStack.getOrDefault(TRDataComponentTypes.FLUID, Fluids.EMPTY.getRegistryEntry());
+		return fluidEntry.value();
 	}
 
 	@SuppressWarnings("UnstableApiUsage")
@@ -258,7 +257,13 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 		@Override
 		protected FluidVariant getResource(ItemVariant currentVariant) {
-			return FluidVariant.of(getFluid(currentVariant.getNbt()));
+			Optional<? extends RegistryEntry<Fluid>> registryEntry = currentVariant.getComponents().get(TRDataComponentTypes.FLUID);
+
+			if (registryEntry != null && registryEntry.isPresent()) {
+				return FluidVariant.of((Fluid) registryEntry.get());
+			}
+
+			return FluidVariant.of(Fluids.EMPTY);
 		}
 
 		@Override

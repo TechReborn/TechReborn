@@ -51,6 +51,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRDispenserBehavior;
 import techreborn.init.template.TechRebornTemplates;
 import techreborn.items.DynamicCellItem;
+import techreborn.packets.Packets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PoweredCraftingHandler;
 import techreborn.world.WorldGenerator;
@@ -69,6 +70,7 @@ public class TechReborn implements ModInitializer {
 		TRDataComponentTypes.init();
 		TRContent.SCRAP_BOX.asItem();
 
+		Packets.register();;
 		ServerboundPackets.init();
 		OreDepthSyncHandler.setup();
 
@@ -90,6 +92,7 @@ public class TechReborn implements ModInitializer {
 		UseBlockHandler.init();
 		ApplyArmorToDamageHandler.init();
 		FuelRecipes.init();
+
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 

@@ -24,16 +24,17 @@
 
 package techreborn.client.gui;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.widget.GuiButtonExtended;
 import techreborn.config.TechRebornConfig;
 import techreborn.packets.ServerboundPackets;
+import techreborn.packets.serverbound.RefundPayload;
 
 public class GuiManual extends Screen {
 
@@ -69,7 +70,7 @@ public class GuiManual extends Screen {
 
 		if (TechRebornConfig.allowManualRefund) {
 			addSelectableChild(new GuiButtonExtended((width / 2 - 30), y + 140, 60, 20, Text.translatable("techreborn.manual.refundbtn"), var1 -> {
-				ClientNetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
+				ClientPlayNetworking.send(new RefundPayload());
 				this.client.setScreen(null);
 			}));
 		}

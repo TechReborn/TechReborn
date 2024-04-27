@@ -50,6 +50,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.GlobalPos;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
@@ -69,6 +70,7 @@ import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
 import techreborn.client.render.entitys.TurbineRenderer;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -209,9 +211,8 @@ public class TechRebornClient implements ClientModInitializer {
 				FrequencyTransmitterItem.class,
 				new Identifier("techreborn:coords"),
 				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && stack.hasNbt() && stack.getOrCreateNbt().contains("x")
-							&& stack.getOrCreateNbt().contains("y") && stack.getOrCreateNbt().contains("z")
-							&& stack.getOrCreateNbt().contains("dim")) {
+					GlobalPos globalPos = stack.getOrDefault(TRDataComponentTypes.FREQUENCY_TRANSMITTER, null);
+					if (globalPos != null) {
 						return 1.0F;
 					}
 					return 0.0F;
@@ -233,7 +234,7 @@ public class TechRebornClient implements ClientModInitializer {
 				NanosaberItem.class,
 				new Identifier("techreborn:active"),
 				(item, stack, world, entity, seed) -> {
-					if (ItemUtils.isActive(stack)) {
+					if (stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE) {
 						RcEnergyItem energyItem = (RcEnergyItem) stack.getItem();
 						if (energyItem.getEnergyCapacity(stack) - energyItem.getStoredEnergy(stack) >= 0.9 * item.getEnergyCapacity(stack)) {
 							return 0.5F;

@@ -45,8 +45,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
-import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
+import reborncore.common.network.clientbound.CustomDescriptionPayload;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import reborncore.common.util.WorldUtils;
@@ -141,7 +141,7 @@ public class CableBlockEntity extends BlockEntity
 	public void setCover(BlockState cover) {
 		this.cover = cover;
 		if (world != null && !world.isClient) {
-			NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
+			NetworkManager.sendToTracking(new CustomDescriptionPayload(getPos(), this.createNbt(world.getRegistryManager())), this);
 		}
 	}
 
