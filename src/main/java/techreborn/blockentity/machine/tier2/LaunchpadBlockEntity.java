@@ -108,7 +108,7 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
+		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 

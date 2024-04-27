@@ -333,7 +333,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		if (getStored() <= 0) {
 			return;
 		}
-		if (!isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 
@@ -400,7 +400,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	public long getMaxOutput(@Nullable Direction face) {
-		if (!isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return 0;
 		}
 		if(!canProvideEnergy(face)) {
@@ -413,7 +413,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	public long getMaxInput(@Nullable Direction face) {
-		if (!isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return 0;
 		}
 		if (!canAcceptEnergy(face)) {

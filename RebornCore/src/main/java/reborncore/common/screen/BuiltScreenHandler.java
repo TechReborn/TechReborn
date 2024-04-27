@@ -41,8 +41,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.Range;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.clientbound.ScreenHandlerUpdatePayload;
@@ -55,11 +53,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class BuiltScreenHandler extends ScreenHandler {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BuiltScreenHandler.class);
-
 	private final String name;
 
 	private final Predicate<PlayerEntity> canInteract;
@@ -71,7 +66,6 @@ public class BuiltScreenHandler extends ScreenHandler {
 	private final Int2ObjectMap<IdentifiedSyncedObject<?>> syncPairIdLookup = new Int2ObjectOpenHashMap<>();
 
 	private List<Consumer<CraftingInventory>> craftEvents;
-	private Integer[] integerParts;
 
 	private final MachineBaseBlockEntity blockEntity;
 

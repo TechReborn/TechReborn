@@ -108,10 +108,9 @@ public class ServerBoundPackets {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SetRedstoneStatePayload.ID, (payload, context) -> {
-			RedstoneConfiguration.Element element = RedstoneConfiguration.getElementByName(payload.elementName());
 			MachineBaseBlockEntity blockEntity = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
 			if (blockEntity == null) return;
-			blockEntity.getRedstoneConfiguration().setState(element, payload.state());
+			blockEntity.setRedstoneConfiguration(blockEntity.getRedstoneConfiguration().withState(payload.element(), payload.state()));
 		});
 	}
 }

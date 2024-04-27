@@ -142,7 +142,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		if (!StringUtils.isBlank(ownerUdid)) {
 			nbtCompound.putString("ownerUdid", this.ownerUdid);
 		}
-		inventory.read(nbtCompound);
+		inventory.read(nbtCompound, registryLookup);
 	}
 
 	// IToolDrop

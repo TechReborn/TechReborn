@@ -172,7 +172,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (!(world instanceof ServerWorld) || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!(world instanceof ServerWorld) || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 

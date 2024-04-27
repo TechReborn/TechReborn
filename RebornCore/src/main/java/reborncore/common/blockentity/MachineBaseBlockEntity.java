@@ -35,6 +35,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
@@ -72,6 +73,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private SlotConfiguration slotConfiguration;
 	public FluidConfiguration fluidConfiguration;
 	private RedstoneConfiguration redstoneConfiguration;
+	private final List<RedstoneConfiguration.Element> redstoneElements;
 
 	public boolean renderMultiblock = false;
 	private final static int syncCoolDown = 20;
@@ -114,7 +116,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	public MachineBaseBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
-		redstoneConfiguration = new RedstoneConfiguration(this);
+		redstoneConfiguration = new RedstoneConfiguration();
+		redstoneElements = RedstoneConfiguration.getValidElements(this);
 	}
 
 	public boolean isMultiblockValid() {
@@ -148,7 +151,6 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 				fluidConfiguration = new FluidConfiguration();
 			}
 		}
-		redstoneConfiguration.refreshCache();
 	}
 
 	@Nullable
@@ -189,13 +191,13 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		if (world == null || world.isClient) {
 			return;
 		}
-		if (crafter != null && isActive(RedstoneConfiguration.RECIPE_PROCESSING)) {
+		if (crafter != null && isActive(RedstoneConfiguration.Element.RECIPE_PROCESSING)) {
 			crafter.updateEntity();
 		}
-		if (slotConfiguration != null && isActive(RedstoneConfiguration.ITEM_IO)) {
+		if (slotConfiguration != null && isActive(RedstoneConfiguration.Element.ITEM_IO)) {
 			slotConfiguration.update(this);
 		}
-		if (fluidConfiguration != null && isActive(RedstoneConfiguration.FLUID_IO)) {
+		if (fluidConfiguration != null && isActive(RedstoneConfiguration.Element.FLUID_IO)) {
 			fluidConfiguration.update(this);
 		}
 		syncIfNecessary();
@@ -265,7 +267,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
 		if (getOptionalInventory().isPresent()) {
-			getOptionalInventory().get().read(tagCompound);
+			getOptionalInventory().get().read(tagCompound, registryLookup);
 		}
 		if (getOptionalCrafter().isPresent()) {
 			getOptionalCrafter().get().read(tagCompound);
@@ -281,10 +283,10 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			fluidConfiguration = new FluidConfiguration(tagCompound.getCompound("fluidConfig"));
 		}
 		if (tagCompound.contains("redstoneConfig")) {
-			redstoneConfiguration.refreshCache();
-			redstoneConfiguration.read(tagCompound.getCompound("redstoneConfig"));
+			NbtCompound redstoneConfig = tagCompound.getCompound("redstoneConfig");
+			redstoneConfiguration = RedstoneConfiguration.CODEC.codec().parse(NbtOps.INSTANCE, redstoneConfig).getOrThrow();
 		}
-		upgradeInventory.read(tagCompound, "Upgrades");
+		upgradeInventory.read(tagCompound, "Upgrades", registryLookup);
 	}
 
 	@Override
@@ -303,7 +305,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			tagCompound.put("fluidConfig", fluidConfiguration.write());
 		}
 		upgradeInventory.write(tagCompound, "Upgrades");
-		tagCompound.put("redstoneConfig", redstoneConfiguration.write());
+		tagCompound.put("redstoneConfig", RedstoneConfiguration.CODEC.codec()
+			.encodeStart(NbtOps.INSTANCE, redstoneConfiguration).result().get());
 	}
 
 	// Inventory end
@@ -548,8 +551,16 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		return redstoneConfiguration;
 	}
 
+	public void setRedstoneConfiguration(RedstoneConfiguration redstoneConfiguration) {
+		this.redstoneConfiguration = redstoneConfiguration;
+	}
+
 	@Override
 	public boolean isActive(RedstoneConfiguration.Element element) {
-		return redstoneConfiguration.isActive(element);
+		return redstoneConfiguration.isActive(element, this);
+	}
+
+	public List<RedstoneConfiguration.Element> getRedstoneElements() {
+		return redstoneElements;
 	}
 }

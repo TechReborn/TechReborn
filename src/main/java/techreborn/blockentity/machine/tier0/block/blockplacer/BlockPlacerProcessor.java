@@ -125,7 +125,7 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 	}
 
 	private boolean ensureRedstoneEnabled() {
-		if (!processable.isActive(RedstoneConfiguration.RECIPE_PROCESSING)) {
+		if (!processable.isActive(RedstoneConfiguration.Element.RECIPE_PROCESSING)) {
 			return breakControlFlow(BlockPlacerStatus.IDLE_PAUSED);
 		}
 

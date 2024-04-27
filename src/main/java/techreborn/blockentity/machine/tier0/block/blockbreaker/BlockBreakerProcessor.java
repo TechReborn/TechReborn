@@ -143,7 +143,7 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 	}
 
 	private boolean ensureRedstoneEnabled() {
-		if (!processable.isActive(RedstoneConfiguration.RECIPE_PROCESSING)) {
+		if (!processable.isActive(RedstoneConfiguration.Element.RECIPE_PROCESSING)) {
 			return breakControlFlow(BlockBreakerStatus.IDLE_PAUSED);
 		}
 

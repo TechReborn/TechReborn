@@ -44,6 +44,7 @@ import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.Syncable;
@@ -73,8 +74,8 @@ public class BlockEntityScreenHandlerBuilder {
 		if (inventory instanceof IUpgradeable) {
 			upgradeSlots((IUpgradeable) inventory);
 		}
-		if (blockEntity instanceof MachineBaseBlockEntity) {
-			sync(((MachineBaseBlockEntity) blockEntity).getRedstoneConfiguration());
+		if (blockEntity instanceof MachineBaseBlockEntity machineBaseBlockEntity) {
+			sync(RedstoneConfiguration.PACKET_CODEC, machineBaseBlockEntity::getRedstoneConfiguration, machineBaseBlockEntity::setRedstoneConfiguration);
 		}
 	}
 
