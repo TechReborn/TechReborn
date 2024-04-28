@@ -131,7 +131,7 @@ public class BuiltScreenHandler extends ScreenHandler {
 		this.syncPairCache.replaceAll((identifiedSyncedObject, cached) -> {
 			final Object value = identifiedSyncedObject.get();
 
-			if (value != cached) {
+			if (!value.equals(cached)) {
 				updatedValues.put(identifiedSyncedObject, value);
 				return value;
 			}

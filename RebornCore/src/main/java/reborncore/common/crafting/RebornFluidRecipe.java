@@ -54,7 +54,7 @@ public abstract class RebornFluidRecipe extends RebornRecipe {
 		if (tankFluid.isEmpty()) {
 			return false;
 		}
-		if (tankFluid.getFluid().equals(recipeFluid.getFluid())) {
+		if (tankFluid.fluid().equals(recipeFluid.fluid())) {
 			if (tankFluid.getAmount().equalOrMoreThan(recipeFluid.getAmount())) {
 				return true;
 			}
@@ -72,9 +72,9 @@ public abstract class RebornFluidRecipe extends RebornRecipe {
 		if (tankFluid.isEmpty()) {
 			return false;
 		}
-		if (tankFluid.getFluid().equals(recipeFluid.getFluid())) {
+		if (tankFluid.fluid().equals(recipeFluid.fluid())) {
 			if (tankFluid.getAmount().equalOrMoreThan(recipeFluid.getAmount())) {
-				tankFluid.subtractAmount(recipeFluid.getAmount());
+				getTank(be).modifyFluid(fluid -> fluid.subtractAmount(recipeFluid.getAmount()));
 				return true;
 			}
 		}

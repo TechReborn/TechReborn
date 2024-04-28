@@ -630,12 +630,12 @@ public class GuiBuilder {
 	 * @param maxCapacity {@code int} Maximum capacity of tank
 	 */
 	public void drawFluid(DrawContext drawContext, GuiBase<?> gui, FluidInstance fluid, int x, int y, int width, int height, long maxCapacity) {
-		if (fluid.getFluid() == Fluids.EMPTY) {
+		if (fluid.fluid() == Fluids.EMPTY) {
 			return;
 		}
 		y += height;
-		final Sprite sprite = FluidVariantRendering.getSprite(fluid.getVariant());
-		int color = FluidVariantRendering.getColor(fluid.getVariant());
+		final Sprite sprite = FluidVariantRendering.getSprite(fluid.fluidVariant());
+		int color = FluidVariantRendering.getColor(fluid.fluidVariant());
 
 		final int drawHeight = (int) (fluid.getAmount().getRawValue() / (maxCapacity * 1F) * height);
 		final int iconHeight = sprite.getContents().getHeight();

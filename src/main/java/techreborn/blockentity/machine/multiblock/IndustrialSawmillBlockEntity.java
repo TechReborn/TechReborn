@@ -61,7 +61,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 		final int[] outputs = new int[]{2, 3, 4};
 		this.inventory = new RebornInventory<>(7, "SawmillBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_SAWMILL, this, 1, 3, this.inventory, inputs, outputs);
-		this.tank = new Tank("SawmillBlockEntity", IndustrialSawmillBlockEntity.TANK_CAPACITY, this);
+		this.tank = new Tank("SawmillBlockEntity", IndustrialSawmillBlockEntity.TANK_CAPACITY);
 		this.ticksSinceLastChange = 0;
 	}
 
@@ -98,13 +98,13 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
-		tank.read(tagCompound);
+		tank.read(tagCompound, registryLookup);
 	}
 
 	@Override
 	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.writeNbt(tagCompound, registryLookup);
-		tank.write(tagCompound);
+		tank.write(tagCompound, registryLookup);
 	}
 
 	// TileMachineBase

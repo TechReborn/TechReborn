@@ -69,7 +69,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		super(blockEntityType, pos, state);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		Validate.notNull(recipes, "null recipe list for " + type.getRecipeID());
-		tank = new Tank(blockEntityName, tankCapacity, this);
+		tank = new Tank(blockEntityName, tankCapacity);
 		inventory = new RebornInventory<>(3, blockEntityName, 64, this);
 		this.euTick = euTick;
 		this.ticksSinceLastChange = 0;
@@ -113,7 +113,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 					pendingWithdraw += fluidPerTick;
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
-					tank.getFluidInstance().subtractAmount(FluidValue.fromRaw(currentWithdraw));
+					tank.modifyFluid(fluidInstance -> fluidInstance.subtractAmount(FluidValue.fromRaw(currentWithdraw)));
 					lastOutput = world.getTime();
 				}
 			}
@@ -169,13 +169,13 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	@Override
 	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
-		tank.read(tagCompound);
+		tank.read(tagCompound, registryLookup);
 	}
 
 	@Override
 	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.writeNbt(tagCompound, registryLookup);
-		tank.write(tagCompound);
+		tank.write(tagCompound, registryLookup);
 	}
 
 	@Override

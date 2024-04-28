@@ -61,7 +61,7 @@ public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extend
 	@Override
 	public void collectJsonData(R recipe, JsonObject jsonObject, boolean networkSync) {
 		final JsonObject tankObject = new JsonObject();
-		tankObject.addProperty("fluid", Registries.FLUID.getId(recipe.getFluidInstance().getFluid()).toString());
+		tankObject.addProperty("fluid", Registries.FLUID.getId(recipe.getFluidInstance().fluid()).toString());
 
 		var amountObject = new JsonObject();
 		amountObject.addProperty("droplets", recipe.getFluidInstance().getAmount().getRawValue());

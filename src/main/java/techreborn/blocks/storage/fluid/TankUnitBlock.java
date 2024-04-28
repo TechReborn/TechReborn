@@ -124,8 +124,8 @@ public class TankUnitBlock extends BlockMachineBase {
 					}
 
 					// Remove from tank
-					tankInstance.getFluidInstance().setAmount(tankInstance.getFluidAmount().subtract(
-							FluidValue.BUCKET.multiply(amountTransferBuckets)));
+					tankInstance.setFluidAmount(tankInstance.getFluidAmount().subtract(
+						FluidValue.BUCKET.multiply(amountTransferBuckets)));
 				}else{
 					return ActionResult.FAIL;
 				}
@@ -135,7 +135,7 @@ public class TankUnitBlock extends BlockMachineBase {
 					if (tankInstance.getFluidInstance().isEmpty()) {
 						tankInstance.setFluidInstance(new FluidInstance(fluid, fluidValue));
 					} else {
-						tankInstance.getFluidInstance().addAmount(fluidValue);
+						tankInstance.modifyFluid(fluidInstance -> fluidInstance.withAmount(fluidValue));
 					}
 
 					// Give players the empty stuff back

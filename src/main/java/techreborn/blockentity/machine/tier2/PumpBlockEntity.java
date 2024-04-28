@@ -148,7 +148,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	private Tank createTank() {
-		return new Tank("PumpBlockEntity", TANK_CAPACITY, this);
+		return new Tank("PumpBlockEntity", TANK_CAPACITY);
 	}
 
 	@Override
@@ -159,7 +159,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	@Override
 	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
-		getTank().read(tagCompound);
+		getTank().read(tagCompound, registryLookup);
 		this.range = tagCompound.getInt("range");
 		this.depth = tagCompound.getInt("depth");
 		finder = null;
@@ -168,7 +168,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	@Override
 	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.writeNbt(tagCompound, registryLookup);
-		getTank().write(tagCompound);
+		getTank().write(tagCompound, registryLookup);
 		tagCompound.putInt("range", range);
 		tagCompound.putInt("depth", depth);
 	}
@@ -232,7 +232,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				if (getTank().getFluidInstance().isEmpty()) {
 					getTank().setFluidInstance(new FluidInstance(fluid, FluidValue.BUCKET));
 				} else {
-					getTank().getFluidInstance().addAmount(FluidValue.BUCKET);
+					getTank().modifyFluid(fluidInstance -> fluidInstance.addAmount(FluidValue.BUCKET));
 				}
 				//play sound
 				if (!isMuffled()) {

@@ -76,7 +76,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	private void configureEntity(TRContent.TankUnit type) {
 		this.type = type;
-		this.tank = new Tank("TankStorage", serverMaxCapacity == -1 ? type.capacity : FluidValue.fromRaw(serverMaxCapacity), this);
+		this.tank = new Tank("TankStorage", serverMaxCapacity == -1 ? type.capacity : FluidValue.fromRaw(serverMaxCapacity));
 	}
 
 	protected boolean canDrainTransfer(){
@@ -136,7 +136,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
-			tank.read(tagCompound);
+			tank.read(tagCompound, registryLookup);
 		}
 	}
 
@@ -144,7 +144,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.writeNbt(tagCompound, registryLookup);
 		tagCompound.putString("unitType", this.type.name());
-		tank.write(tagCompound);
+		tank.write(tagCompound, registryLookup);
 	}
 
 	@Override
@@ -212,7 +212,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	public void setMaxCapacity(long maxCapacity) {
 		FluidInstance instance = tank.getFluidInstance();
-		this.tank = new Tank("TankStorage", FluidValue.fromRaw(maxCapacity), this);
+		this.tank = new Tank("TankStorage", FluidValue.fromRaw(maxCapacity));
 		this.tank.setFluidInstance(instance);
 		this.serverMaxCapacity = maxCapacity;
 	}

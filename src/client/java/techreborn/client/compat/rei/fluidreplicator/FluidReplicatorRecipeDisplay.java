@@ -56,7 +56,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 		this.recipeId = recipe.id();
 		this.inputs = CollectionUtils.map(this.recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
 		this.fluidInstance = this.recipe.getFluidInstance();
-		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryIngredients.of(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
+		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryIngredients.of(fluidInstance.fluid(), fluidInstance.getAmount().getRawValue()));
 		this.energy = this.recipe.getPower();
 		this.time = this.recipe.getTime();
 	}

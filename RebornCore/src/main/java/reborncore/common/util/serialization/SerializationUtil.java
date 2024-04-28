@@ -28,13 +28,24 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.RegistryOps;
+import net.minecraft.registry.RegistryWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class SerializationUtil {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SerializationUtil.class);
 
 	public static final Gson GSON = new GsonBuilder()
 			.setPrettyPrinting()
@@ -58,5 +69,23 @@ public class SerializationUtil {
 		JsonArray array = new JsonArray();
 		elements.forEach(array::add);
 		return array;
+	}
+
+	public static <T> T parseNbt(Codec<T> codec, NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup, Supplier<T> fallback, String fallbackMessage) {
+		final RegistryOps<NbtElement> ops = wrapperLookup.getOps(NbtOps.INSTANCE);
+		DataResult<T> result = codec.parse(ops, nbt);
+
+		if (result.isSuccess()) {
+			return result.getOrThrow();
+		}
+
+		LOGGER.debug("Failed to read {} from NBT: {}", fallbackMessage, result.error().get());
+		return fallback.get();
+	}
+
+	public static <T> NbtCompound writeNbt(Codec<T> codec, T value, RegistryWrapper.WrapperLookup wrapperLookup) {
+		final RegistryOps<NbtElement> ops = wrapperLookup.getOps(NbtOps.INSTANCE);
+		NbtCompound nbtCompound = new NbtCompound();
+		return (NbtCompound) codec.encode(value, ops, nbtCompound).getOrThrow();
 	}
 }

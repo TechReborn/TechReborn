@@ -28,6 +28,8 @@ import com.google.common.base.Objects;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.network.codec.PacketCodec;
@@ -40,6 +42,9 @@ public final class FluidValue {
 	public static final FluidValue BUCKET_QUARTER = new FluidValue(FluidConstants.BUCKET / 4);
 	public static final FluidValue BUCKET = new FluidValue(FluidConstants.BUCKET);
 
+	public static final Codec<FluidValue> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		Codec.LONG.fieldOf("value").forGetter(FluidValue::getRawValue)
+	).apply(instance, FluidValue::fromRaw));
 	public static final PacketCodec<ByteBuf, FluidValue> PACKET_CODEC = PacketCodec.tuple(
 		PacketCodecs.VAR_LONG, FluidValue::getRawValue,
 		FluidValue::new

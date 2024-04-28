@@ -24,80 +24,66 @@
 
 package reborncore.common.fluid.container;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.minecraft.component.ComponentChanges;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import reborncore.common.fluid.FluidValue;
-import reborncore.common.util.NBTSerializable;
 
-public class FluidInstance implements NBTSerializable {
-	public static final String FLUID_KEY = "Fluid";
-	public static final String AMOUNT_KEY = "Amount";
-	public static final String TAG_KEY = "Tag";
-
+public record FluidInstance(FluidVariant fluidVariant, FluidValue amount) {
 	public static final FluidInstance EMPTY = new FluidInstance(Fluids.EMPTY, FluidValue.EMPTY);
 
-	// TODO: move to FluidVariant
-	protected Fluid fluid;
-	protected FluidValue amount;
-	protected NbtCompound tag;
-
-	public FluidInstance(Fluid fluid, FluidValue amount) {
-		this.fluid = fluid;
-		this.amount = amount;
-	}
+	public static final Codec<FluidInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		FluidVariant.CODEC.fieldOf("fluid").forGetter(FluidInstance::fluidVariant),
+		FluidValue.CODEC.fieldOf("amount").forGetter(FluidInstance::getAmount)
+	).apply(instance, FluidInstance::new));
+	public static final PacketCodec<RegistryByteBuf, FluidInstance> PACKET_CODEC = PacketCodec.tuple(
+		FluidVariant.PACKET_CODEC, FluidInstance::fluidVariant,
+		FluidValue.PACKET_CODEC, FluidInstance::getAmount,
+		FluidInstance::new
+	);
 
 	public FluidInstance(Fluid fluid) {
-		this(fluid, FluidValue.EMPTY);
+		this(FluidVariant.of(fluid), FluidValue.EMPTY);
+	}
+
+	public FluidInstance(Fluid fluid, FluidValue fluidValue) {
+		this(FluidVariant.of(fluid), fluidValue);
 	}
 
 	public FluidInstance() {
 		this(Fluids.EMPTY);
 	}
 
-	public FluidInstance(NbtCompound tag) {
-		this();
-		read(tag);
+	public FluidVariant fluidVariant() {
+		return fluidVariant;
 	}
 
-	public Fluid getFluid() {
-		return fluid;
+	public Fluid fluid() {
+		return fluidVariant.getFluid();
 	}
 
 	public FluidValue getAmount() {
 		return amount;
 	}
 
-	public NbtCompound getTag() {
-		return tag;
+	public FluidInstance withFluid(Fluid fluid) {
+		return new FluidInstance(fluid, this.amount);
 	}
 
-	public FluidInstance setFluid(Fluid fluid) {
-		this.fluid = fluid;
-		return this;
-	}
-
-	public FluidInstance setAmount(FluidValue value) {
-		this.amount = value;
-		return this;
+	public FluidInstance withAmount(FluidValue amount) {
+		return new FluidInstance(this.fluidVariant, amount);
 	}
 
 	public FluidInstance subtractAmount(FluidValue amount) {
-		this.amount = this.amount.subtract(amount);
-		return this;
+		return new FluidInstance(this.fluidVariant, this.amount.subtract(amount));
 	}
 
 	public FluidInstance addAmount(FluidValue amount) {
-		this.amount = this.amount.add(amount);
-		return this;
-	}
-
-	public void setTag(NbtCompound tag) {
-		this.tag = tag;
+		return new FluidInstance(this.fluidVariant, this.amount.add(amount));
 	}
 
 	public boolean isEmpty() {
@@ -105,45 +91,12 @@ public class FluidInstance implements NBTSerializable {
 	}
 
 	public boolean isEmptyFluid() {
-		return this.getFluid() == Fluids.EMPTY;
-	}
-
-	public FluidInstance copy() {
-		return new FluidInstance().setFluid(fluid).setAmount(amount);
-	}
-
-	@Override
-	public NbtCompound write() {
-		NbtCompound tag = new NbtCompound();
-		tag.putString(FLUID_KEY, Registries.FLUID.getId(fluid).toString());
-		tag.putLong(AMOUNT_KEY, amount.getRawValue());
-		if (this.tag != null && !this.tag.isEmpty()) {
-			tag.put(TAG_KEY, this.tag);
-		}
-		return tag;
-	}
-
-	@Override
-	public void read(NbtCompound tag) {
-		fluid = Registries.FLUID.get(new Identifier(tag.getString(FLUID_KEY)));
-		amount = FluidValue.fromRaw(tag.getLong(AMOUNT_KEY));
-		if (tag.contains(TAG_KEY)) {
-			this.tag = tag.getCompound(TAG_KEY);
-		}
+		return this.fluid() == Fluids.EMPTY;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof FluidInstance && fluid == ((FluidInstance) obj).getFluid() && amount.equals(((FluidInstance) obj).getAmount());
+		return obj instanceof FluidInstance && fluidVariant == ((FluidInstance) obj).fluid() && amount.equals(((FluidInstance) obj).getAmount());
 	}
 
-	public boolean isFluidEqual(FluidInstance instance) {
-		return (isEmpty() && instance.isEmpty()) || fluid.equals(instance.getFluid());
-	}
-
-	public FluidVariant getVariant() {
-		if (isEmpty()) return FluidVariant.blank();
-		// TODO 1.20.5 Tag or Components?
-		else return FluidVariant.of(fluid, ComponentChanges. EMPTY);
-	}
 }
