@@ -30,22 +30,24 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.component.ComponentMap;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public abstract class BaseBlockEntityProvider extends Block implements BlockEntityProvider {
+
 	protected BaseBlockEntityProvider(Settings builder) {
 		super(builder);
 	}
 
-	// TODO 1.20.5 Still use NBT to store BE data?
 	public Optional<ItemStack> getDropWithContents(World world, BlockPos pos, ItemStack stack) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity == null) {
@@ -54,27 +56,22 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 
 		ItemStack newStack = stack.copy();
 		newStack.applyComponentsFrom(blockEntity.createComponentMap());
-//		NbtCompound blockEntityData = blockEntity.createNbt(world.getRegistryManager());
-//		stripLocationData(blockEntityData);
-//		if (newStack.getComponents() == ComponentMap.EMPTY) {
-//			newStack.setNbt(new NbtCompound());
-//		}
-//		newStack.getOrCreateNbt().put("blockEntity_data", blockEntityData);
+		NbtCompound blockEntityData = blockEntity.createNbtWithId(world.getRegistryManager());
+		newStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(blockEntityData));
 		return Optional.of(newStack);
 	}
-//TODO 1.20.5: Verify that itemBlock will restore inventory properly
 
-//	@Override
-//	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-//		if (stack.hasNbt() && stack.getOrCreateNbt().contains("blockEntity_data")) {
-//			BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-//			if (blockEntity == null) { return; }
-//			NbtCompound nbt = stack.getOrCreateNbt().getCompound("blockEntity_data");
-//			injectLocationData(nbt, pos);
-//			blockEntity.readNbt(nbt);
-//			blockEntity.markDirty();
-//		}
-//	}
+	@Override
+	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+		super.onPlaced(world, pos, state, placer, itemStack);
+
+		NbtComponent nbtComponent = itemStack.get(DataComponentTypes.BLOCK_ENTITY_DATA);
+		if (nbtComponent == null) {
+			return;
+		}
+
+		nbtComponent.applyToBlockEntity(world.getBlockEntity(pos), world.getRegistryManager());
+	}
 
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
 		return (world1, pos, state1, blockEntity) -> {

@@ -40,6 +40,7 @@ import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.packets.serverbound.AESUConfigPayload;
@@ -164,8 +165,7 @@ public class ServerboundPackets {
 		ServerPlayNetworking.registerGlobalReceiver(SuitNightVisionPayload.ID, (payload, context) -> {
 			for (ItemStack itemStack : context.player().getArmorItems()) {
 				if (itemStack.isOf(TRContent.NANO_HELMET) || itemStack.isOf(TRContent.QUANTUM_HELMET)) {
-					// TODO 1.20.5 Use component
-					// itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
+					itemStack.set(TRDataComponentTypes.IS_ACTIVE, !itemStack.getOrDefault(TRDataComponentTypes.IS_ACTIVE, false));
 					break;
 				}
 			}
@@ -174,8 +174,7 @@ public class ServerboundPackets {
 		ServerPlayNetworking.registerGlobalReceiver(QuantumSuitSprintPayload.ID, (payload, context) -> {
 			for (ItemStack itemStack : context.player().getArmorItems()) {
 				if (itemStack.isOf(TRContent.QUANTUM_LEGGINGS)) {
-					// TODO 1.20.5 Use component
-					// itemStack.getOrCreateNbt().putBoolean("isActive", !itemStack.getOrCreateNbt().getBoolean("isActive"));
+					itemStack.set(TRDataComponentTypes.IS_ACTIVE, !itemStack.getOrDefault(TRDataComponentTypes.IS_ACTIVE, false));
 					break;
 				}
 			}
