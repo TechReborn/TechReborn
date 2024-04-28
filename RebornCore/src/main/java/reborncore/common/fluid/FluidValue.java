@@ -24,7 +24,6 @@
 
 package reborncore.common.fluid;
 
-import com.google.common.base.Objects;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -37,7 +36,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.util.FluidTextHelper;
 
-public final class FluidValue {
+public record FluidValue(long rawValue) {
 	public static final FluidValue EMPTY = new FluidValue(0);
 	public static final FluidValue BUCKET_QUARTER = new FluidValue(FluidConstants.BUCKET / 4);
 	public static final FluidValue BUCKET = new FluidValue(FluidConstants.BUCKET);
@@ -50,14 +49,8 @@ public final class FluidValue {
 		FluidValue::new
 	);
 
-	private final long rawValue;
-
 	public static FluidValue fromMillibuckets(long millibuckets) {
 		return new FluidValue(millibuckets * 81);
-	}
-
-	private FluidValue(long rawValue) {
-		this.rawValue = rawValue;
 	}
 
 	public FluidValue multiply(long value) {
@@ -107,19 +100,6 @@ public final class FluidValue {
 	@Deprecated
 	public long getRawValue() {
 		return rawValue;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		FluidValue that = (FluidValue) o;
-		return rawValue == that.rawValue;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(rawValue);
 	}
 
 	@Deprecated

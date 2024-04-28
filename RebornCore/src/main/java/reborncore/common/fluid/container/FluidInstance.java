@@ -93,10 +93,4 @@ public record FluidInstance(FluidVariant fluidVariant, FluidValue amount) {
 	public boolean isEmptyFluid() {
 		return this.fluid() == Fluids.EMPTY;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return obj instanceof FluidInstance && fluidVariant == ((FluidInstance) obj).fluid() && amount.equals(((FluidInstance) obj).getAmount());
-	}
-
 }
