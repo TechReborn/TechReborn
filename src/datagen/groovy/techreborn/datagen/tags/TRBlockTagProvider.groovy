@@ -70,8 +70,9 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		getOrCreateTagBuilder(TRContent.BlockTags.OMNI_TOOL_MINEABLE)
 			.addTag(TRContent.BlockTags.DRILL_MINEABLE)
 			.addOptionalTag(BlockTags.AXE_MINEABLE.id())
-			.addOptionalTag(FabricMineableTags.SHEARS_MINEABLE.id())
-			.addOptionalTag(FabricMineableTags.SWORD_MINEABLE.id())
+		// TODO 1.20.5
+//			.addOptionalTag(FabricMineableTags.SHEARS_MINEABLE.id())
+//			.addOptionalTag(FabricMineableTags.SWORD_MINEABLE.id())
 
 		getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
 			.add(TRContent.RUBBER_LEAVES)

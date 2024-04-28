@@ -25,6 +25,7 @@
 package techreborn.datagen.recipes.machine.industrial_grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions
 import net.minecraft.fluid.Fluids
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
@@ -808,7 +809,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			fluid Fluids.WATER
 			source "certus_quartz_ore_with_water"
 			criterion getCriterionName(TRConventionalTags.CERTUS_QUARTZ_ORES), getCriterionConditions(TRConventionalTags.CERTUS_QUARTZ_ORES)
-			condition DefaultResourceConditions.allModsLoaded("ae2")
+			condition ResourceConditions.allModsLoaded("ae2")
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients Items.END_STONE_BRICKS

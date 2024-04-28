@@ -49,7 +49,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 	private Consumer<AdvancementEntry> consumer
 
 	public TRAdvancementProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-		super(output)
+		super(output, registriesFuture)
 	}
 
 	@Override

@@ -39,5 +39,6 @@ public class TRDataComponentTypes {
 		Registry.register(Registries.DATA_COMPONENT_TYPE, new Identifier(TechReborn.MOD_ID, "aoe5"), AOE5);
 		Registry.register(Registries.DATA_COMPONENT_TYPE, new Identifier(TechReborn.MOD_ID, "frequency_transmitter"), FREQUENCY_TRANSMITTER);
 		Registry.register(Registries.DATA_COMPONENT_TYPE, new Identifier(TechReborn.MOD_ID, "painting_cover"), PAINTING_COVER);
+		Registry.register(Registries.DATA_COMPONENT_TYPE, new Identifier(TechReborn.MOD_ID, "fluid"), FLUID);
 	}
 }

@@ -34,7 +34,7 @@ import java.util.concurrent.CompletableFuture
 class BlockLootTableProvider extends FabricBlockLootTableProvider{
 
 	BlockLootTableProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-		super(output)
+		super(output, registriesFuture)
 	}
 
 	@Override

@@ -25,6 +25,8 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
@@ -606,21 +608,21 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				tag(TRConventionalTags.CERTUS_QUARTZ, 2)
 			}
 			outputs Ae2.certusQuartzDust
-			condition DefaultResourceConditions.allModsLoaded("ae2")
+			condition ResourceConditions.allModsLoaded("ae2")
 		}
 		offerGrinderRecipe {
 			power 2
 			time 300
 			ingredients TRConventionalTags.CERTUS_QUARTZ_ORES
 			outputs stack(Ae2.certusQuartzDust, 5)
-			condition DefaultResourceConditions.allModsLoaded("ae2")
+			condition ResourceConditions.allModsLoaded("ae2")
 		}
 		offerGrinderRecipe {
 			power 2
 			time 300
 			ingredients stack(Ae2.fluixCrystal, 2)
 			outputs Ae2.fluixDust
-			condition DefaultResourceConditions.allModsLoaded("ae2")
+			condition ResourceConditions.allModsLoaded("ae2")
 		}
 	}
 }
