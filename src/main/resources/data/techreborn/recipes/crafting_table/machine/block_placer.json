@@ -20,6 +20,6 @@
 		}
 	},
 	"result": {
-		"item": "techreborn:block_placer"
+		"id": "techreborn:block_placer"
 	}
 }

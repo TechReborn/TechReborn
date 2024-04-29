@@ -23,6 +23,6 @@
 		}
 	},
 	"result": {
-		"item": "techreborn:fishing_station"
+		"id": "techreborn:fishing_station"
 	}
 }

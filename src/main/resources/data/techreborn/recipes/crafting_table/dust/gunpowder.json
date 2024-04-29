@@ -15,7 +15,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:gunpowder",
+    "id": "minecraft:gunpowder",
 	"count": 2
   }
 }
