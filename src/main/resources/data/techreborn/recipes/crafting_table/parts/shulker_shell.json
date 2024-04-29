@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "minecraft:shulker_shell"
+    "id": "minecraft:shulker_shell"
   }
 }

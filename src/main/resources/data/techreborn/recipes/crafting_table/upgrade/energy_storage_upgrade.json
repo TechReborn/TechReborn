@@ -23,6 +23,6 @@
 		}
 	},
 	"result": {
-		"item": "techreborn:energy_storage_upgrade"
+		"id": "techreborn:energy_storage_upgrade"
 	}
 }
