@@ -12,7 +12,7 @@
       }
     },
     "result": {
-      "item": "minecraft:iron_door",
+      "id": "minecraft:iron_door",
       "count": 4
     }
   },

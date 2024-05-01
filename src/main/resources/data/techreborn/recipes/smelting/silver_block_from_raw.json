@@ -3,7 +3,9 @@
   "ingredient": {
 	"item": "techreborn:raw_silver_storage_block"
   },
-  "result": "techreborn:silver_storage_block",
+  "result": {
+	  "id": "techreborn:silver_storage_block"
+  },
   "experience": 4.5,
   "cookingtime": 1500
 }

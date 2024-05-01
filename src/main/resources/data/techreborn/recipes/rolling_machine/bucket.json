@@ -12,7 +12,7 @@
       }
     },
     "result": {
-      "item": "minecraft:bucket",
+      "id": "minecraft:bucket",
       "count": 2
     }
   },

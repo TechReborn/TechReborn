@@ -3,7 +3,9 @@
   "ingredient": {
 	"item": "minecraft:raw_gold_block"
   },
-  "result": "minecraft:gold_block",
+  "result": {
+	  "id": "minecraft:gold_block"
+  },
   "experience": 4.5,
   "cookingtime": 750
 }

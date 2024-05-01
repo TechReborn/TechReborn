@@ -3,5 +3,7 @@
   "ingredient": {
 	"item": "minecraft:copper_block"
   },
-  "result": "techreborn:copper_wall"
+  "result": {
+	  "id": "techreborn:copper_wall"
+  }
 }

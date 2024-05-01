@@ -18,7 +18,7 @@
       }
     },
     "result": {
-      "item": "minecraft:detector_rail",
+      "id": "minecraft:detector_rail",
       "count": 8
     }
   },
