@@ -10,7 +10,7 @@
       "item": "techreborn:electronic_circuit"
     },
     "D": {
-      "tag": "c:coal_dusts"
+      "tag": "c:dusts/coal"
     },
     "G": {
       "item": "techreborn:solid_fuel_generator"

@@ -11,7 +11,7 @@
       "item": "techreborn:basic_machine_casing"
     },
     "R": {
-      "tag": "c:steel_plates"
+      "tag": "c:plates/steel"
     },
     "C": {
       "item": "techreborn:advanced_circuit"

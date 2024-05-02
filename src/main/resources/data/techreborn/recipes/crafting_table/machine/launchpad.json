@@ -13,13 +13,13 @@
 			"item": "techreborn:advanced_machine_frame"
 		},
 		"M": {
-			"tag": "c:magnalium_plates"
+			"tag": "c:plates/magnalium"
 		},
 		"P": {
 			"item": "minecraft:piston"
 		},
 		"Z": {
-			"tag": "c:zinc_plates"
+			"tag": "c:plates/zinc"
 		}
 	},
 	"result": {

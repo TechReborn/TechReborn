@@ -8,7 +8,7 @@
   ],
   "key": {
 	"P": {
-	  "tag": "c:tungsten_plates"
+	  "tag": "c:plates/tungsten"
 	},
 	"B": {
 	  "item": "techreborn:industrial_machine_frame"

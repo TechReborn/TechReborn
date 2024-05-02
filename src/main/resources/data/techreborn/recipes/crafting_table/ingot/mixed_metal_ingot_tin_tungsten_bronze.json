@@ -8,13 +8,13 @@
   ],
   "key": {
     "B": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     },
     "T": {
-      "tag": "c:tungsten_ingots"
+      "tag": "c:ingots/tungsten"
     },
     "M": {
-      "tag": "c:bronze_ingots"
+      "tag": "c:ingots/bronze"
     }
   },
   "result": {

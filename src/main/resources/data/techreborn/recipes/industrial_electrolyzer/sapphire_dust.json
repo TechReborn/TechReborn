@@ -5,7 +5,7 @@
   "ingredients": [
     {
       "count": 8,
-      "tag": "c:sapphire_dusts"
+      "tag": "c:dusts/sapphire"
     },
     {
       "item": "techreborn:cell",

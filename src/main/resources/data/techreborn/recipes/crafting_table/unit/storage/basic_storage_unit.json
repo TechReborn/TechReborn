@@ -13,7 +13,7 @@
       "item": "techreborn:basic_machine_frame"
     },
     "P": {
-      "tag": "c:refined_iron_plates"
+      "tag": "c:plates/refined_iron"
     },
     "D": {
       "item": "techreborn:basic_display"

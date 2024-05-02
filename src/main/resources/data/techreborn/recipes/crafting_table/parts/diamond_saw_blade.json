@@ -7,10 +7,10 @@
   ],
   "key": {
     "S": {
-      "tag": "c:steel_ingots"
+      "tag": "c:ingots/steel"
     },
     "D": {
-      "tag": "c:diamond_dusts"
+      "tag": "c:dusts/diamond"
     }
   },
   "result": {

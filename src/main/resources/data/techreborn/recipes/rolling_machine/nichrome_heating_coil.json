@@ -8,10 +8,10 @@
     ],
     "key": {
       "N": {
-        "tag": "c:nickel_ingots"
+        "tag": "c:ingots/nickel"
       },
       "C": {
-        "tag": "c:chromium_ingots"
+        "tag": "c:ingots/chromium"
       }
     },
     "result": {

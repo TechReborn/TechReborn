@@ -7,13 +7,13 @@
   ],
   "key": {
     "P": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "C": {
-      "tag": "c:coal_dusts"
+      "tag": "c:dusts/coal"
     },
     "T": {
-      "tag": "c:tin_plates"
+      "tag": "c:plates/tin"
     }
   },
   "result": {

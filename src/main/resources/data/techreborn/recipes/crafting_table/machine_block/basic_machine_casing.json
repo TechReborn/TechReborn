@@ -11,7 +11,7 @@
       "item": "techreborn:basic_machine_frame"
     },
     "R": {
-      "tag": "c:refined_iron_ingots"
+      "tag": "c:ingots/refined_iron"
     },
     "C": {
       "item": "techreborn:electronic_circuit"

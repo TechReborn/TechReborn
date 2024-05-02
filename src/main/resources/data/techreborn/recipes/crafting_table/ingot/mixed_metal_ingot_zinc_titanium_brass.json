@@ -8,13 +8,13 @@
   ],
   "key": {
     "B": {
-      "tag": "c:zinc_ingots"
+      "tag": "c:ingots/zinc"
     },
     "T": {
-      "tag": "c:titanium_ingots"
+      "tag": "c:ingots/titanium"
     },
     "M": {
-      "tag": "c:brass_ingots"
+      "tag": "c:ingots/brass"
     }
   },
   "result": {

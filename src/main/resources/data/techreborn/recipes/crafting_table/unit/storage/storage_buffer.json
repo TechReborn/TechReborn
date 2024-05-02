@@ -10,7 +10,7 @@
       "item": "minecraft:paper"
     },
     "W": {
-      "tag": "c:wood_plates"
+      "tag": "c:plates/wood"
     }
   },
   "result": {

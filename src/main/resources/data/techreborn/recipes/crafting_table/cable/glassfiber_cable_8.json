@@ -11,10 +11,10 @@
       "item": "minecraft:glass"
     },
     "E": {
-      "tag": "c:electrum_dusts"
+      "tag": "c:dusts/electrum"
     },
     "D": {
-      "tag": "c:diamond_dusts"
+      "tag": "c:dusts/diamond"
     }
   },
   "result": {

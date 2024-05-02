@@ -10,7 +10,7 @@
       "item": "techreborn:helium_coolant_cell_60k"
     },
     "T": {
-      "tag": "c:tungsten_ingots"
+      "tag": "c:ingots/tungsten"
     },
     "E": {
       "item": "techreborn:energy_flow_chip"

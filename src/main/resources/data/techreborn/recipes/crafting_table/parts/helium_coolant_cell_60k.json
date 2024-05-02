@@ -7,7 +7,7 @@
   ],
   "key": {
     "T": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     },
     "C": {
       "item": "techreborn:helium_bucket"

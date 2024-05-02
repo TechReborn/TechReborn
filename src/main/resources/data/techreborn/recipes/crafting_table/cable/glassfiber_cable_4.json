@@ -14,7 +14,7 @@
       "item": "minecraft:redstone"
     },
     "D": {
-      "tag": "c:diamond_dusts"
+      "tag": "c:dusts/diamond"
     }
   },
   "result": {

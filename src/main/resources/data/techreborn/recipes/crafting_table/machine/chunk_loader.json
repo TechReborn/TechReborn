@@ -7,31 +7,31 @@
   ],
   "key": {
 	"B": {
-	  "tag": "c:bronze_plates"
+	  "tag": "c:plates/bronze"
 	},
 	"C": {
-	  "tag": "c:coal_plates"
+	  "tag": "c:plates/coal"
 	},
 	"G": {
-	  "tag": "c:gold_plates"
+	  "tag": "c:plates/gold"
 	},
 	"L": {
-	  "tag": "c:lapis_plates"
+	  "tag": "c:plates/lapis"
 	},
 	"F": {
 	  "item": "techreborn:industrial_machine_frame"
 	},
 	"N": {
-	  "tag": "c:nickel_plates"
+	  "tag": "c:plates/nickel"
 	},
 	"O": {
-	  "tag": "c:obsidian_plates"
+	  "tag": "c:plates/obsidian"
 	},
 	"Q": {
-	  "tag": "c:quartz_plates"
+	  "tag": "c:plates/quartz"
 	},
 	"R": {
-	  "tag": "c:redstone_plates"
+	  "tag": "c:plates/redstone"
 	}
   },
   "result": {

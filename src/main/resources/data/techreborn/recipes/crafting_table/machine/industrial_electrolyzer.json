@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "C": {
       "item": "techreborn:advanced_circuit"

@@ -16,7 +16,7 @@
       "item": "minecraft:dirt"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     }
   },
   "result": {

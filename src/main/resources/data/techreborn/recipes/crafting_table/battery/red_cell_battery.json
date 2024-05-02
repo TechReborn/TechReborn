@@ -13,7 +13,7 @@
       "item": "minecraft:redstone"
     },
     "T": {
-      "tag": "c:lead_ingots"
+      "tag": "c:ingots/lead"
     }
   },
   "result": {

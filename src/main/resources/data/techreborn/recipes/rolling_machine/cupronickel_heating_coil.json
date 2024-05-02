@@ -8,7 +8,7 @@
     ],
     "key": {
       "N": {
-        "tag": "c:nickel_ingots"
+        "tag": "c:ingots/nickel"
       },
       "C": {
         "item": "minecraft:copper_ingot"
