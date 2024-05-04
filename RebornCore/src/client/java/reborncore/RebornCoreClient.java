@@ -27,15 +27,12 @@ package reborncore;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import reborncore.api.blockentity.UnloadHandler;
-import reborncore.client.BlockOutlineRenderer;
-import reborncore.client.ClientBoundPacketHandlers;
-import reborncore.client.ItemStackRenderer;
-import reborncore.client.RebornFluidRenderManager;
-import reborncore.client.StackToolTipHandler;
+import reborncore.client.*;
 
 import java.util.Locale;
 
@@ -57,6 +54,12 @@ public class RebornCoreClient implements ClientModInitializer {
 		ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
 			String strangeMcLang = client.getLanguageManager().getLanguage();
 			RebornCore.locale = Locale.forLanguageTag(strangeMcLang.substring(0, 2));
+		});
+
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			if (client.options.jumpKey.isPressed()) {
+				ClientJumpEvent.EVENT.invoker().jump();
+			}
 		});
 	}
 }
