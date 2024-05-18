@@ -1,8 +1,8 @@
-{{ :mods:techreborn:tungsten_dust.png?nolink&200\|Tungsten Dust }}
+![Tungsten Dust ](/mods/techreborn/tungsten_dust.png)
 
-###### Tungsten Dust {#tungsten_dust}
+###### Tungsten Dust
 
--   -   Tungsten Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Tungsten Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:tungsten_ingot`</mcitem>`{=html}.
 

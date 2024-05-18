@@ -1,8 +1,8 @@
-{{ :mods:techreborn:gold_dust.png?nolink&200\|}}
+![](/mods/techreborn/gold_dust.png)
 
-###### Gold Dust {#gold_dust}
+###### Gold Dust
 
--   -   Gold Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Gold Dust** is a dust added by TechReborn. It is used to
         produce `<mcitem>`{=html}minecraft:gold_ingot`</mcitem>`{=html}
         and some alloys.
 

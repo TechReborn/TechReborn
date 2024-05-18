@@ -1,13 +1,13 @@
 \~\~NOTOC\~\~ {{
-:mods:techreborn:diesel_generator.png?nolink&200\|Diesel Generator}}
+:mods:techreborn:diesel_generator.png|Diesel Generator}}
 
-###### Diesel Generator {#diesel_generator}
+###### Diesel Generator
 
-The \*\*Diesel Generator\*\* produces energy from various fluids. It has
-an internal \*\*[Tank](mods:techreborn:basic_tank_unit "wikilink")\*\*
+The **Diesel Generator** produces energy from various fluids. It has
+an internal **[Tank](mods:techreborn:basic_tank_unit "wikilink")**
 that can hold 10k mB of fluid (10
-\*\*[Buckets](mods:minecraft:bucket "wikilink")\*\* or
-\*\*[Cells](items:fluid:empty_cell "wikilink")\*\* worth) which is
+**[Buckets](mods:minecraft:bucket "wikilink")** or
+**[Cells](items:fluid:empty_cell "wikilink")** worth) which is
 consumed as it is converted to energy.
 
 \^ Tier \^ Generation Rate \^ Output \^ Storage \^ \| Low \| 20 E/t \|
@@ -40,7 +40,7 @@ techreborn:electronic_circuit output techreborn:diesel_generator
 ` * Outputs energy on all sides`\
 ` * `
 
-#### Related Items {#related_items}
+#### Related Items
 
 ` * ``<mcitem>`{=html}`techreborn:nitrofuel_cell``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:nitrocoalfuel_cell``</mcitem>`{=html}\

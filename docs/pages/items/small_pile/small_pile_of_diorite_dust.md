@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_diorite_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_diorite_dust.png)
 
-###### Small Pile of Diorite Dust {#small_pile_of_diorite_dust}
+###### Small Pile of Diorite Dust
 
--   -   Small Pile of Diorite Dust\*\* is a small dust added by
+-   -   Small Pile of Diorite Dust** is a small dust added by
         TechReborn.
 
 \\\\

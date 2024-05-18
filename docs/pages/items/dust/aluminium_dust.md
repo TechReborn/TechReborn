@@ -1,8 +1,8 @@
-{{ :mods:techreborn:aluminum_dust.png?nolink&200\|Aluminum Dust}}
+![Aluminum Dust](/mods/techreborn/aluminum_dust.png)
 
-###### Aluminum Dust {#aluminum_dust}
+###### Aluminum Dust
 
--   -   Aluminum Dust\*\* used to produce
+-   -   Aluminum Dust** used to produce
         `<mcitem>`{=html}techreborn:aluminum_ingot`</mcitem>`{=html}
         which is widely used in crafting.
 
@@ -112,7 +112,7 @@ air input air air air output techreborn:aluminum_small_dust,4
 `<mcitem>`{=html}techreborn:blast_furnace`</mcitem>`{=html} recipe: \\\\
 `<mcitem>`{=html}techreborn:aluminum_dust`</mcitem>`{=html} -\>
 `<mcitem>`{=html}techreborn:aluminum_ingot`</mcitem>`{=html}. Requires
-\*\*Industrial Blast Furnace\*\* to have 1700 heat.
+**Industrial Blast Furnace** to have 1700 heat.
 
 ##### History
 

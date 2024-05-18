@@ -1,8 +1,8 @@
-{{ :mods:techreborn:aluminum_ingot.png?nolink&200\|Aluminum Ingot}}
+![Aluminum Ingot](/mods/techreborn/aluminum_ingot.png)
 
-###### Aluminum Ingot {#aluminum_ingot}
+###### Aluminum Ingot
 
--   -   Aluminum Ingot\*\* used to craft
+-   -   Aluminum Ingot** used to craft
         `<mcitem>`{=html}techreborn:mixed_metal_ingot`</mcitem>`{=html}
         and for further processing.
 
@@ -26,7 +26,7 @@ recipe requires 1700 heat
 
 ##### Usage
 
--   -   Aluminum Ingot\*\* used in the following
+-   -   Aluminum Ingot** used in the following
         `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}
         recipes:
 

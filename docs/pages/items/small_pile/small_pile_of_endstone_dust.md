@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_endstone_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_endstone_dust.png)
 
-###### Small Pile of Endstone Dust {#small_pile_of_endstone_dust}
+###### Small Pile of Endstone Dust
 
--   -   Small Pile of Endstone Dust\*\* is a small dust added by
+-   -   Small Pile of Endstone Dust** is a small dust added by
         TechReborn.
 
 \\\\

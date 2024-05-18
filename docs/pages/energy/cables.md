@@ -1,4 +1,4 @@
-{{ :mods:techreborn:insulated_copper_cable.png?nolink&200\|Cables}}
+![Cables](/mods/techreborn/insulated_copper_cable.png)
 =======Cables======= Cables transfer energy across blocks. For an
 explanation of how cables interact with power, read [general information
 about energy](energy: "wikilink").
@@ -20,7 +20,7 @@ Extreme \| 2,048 E/t \| 8,182 E \| \|
 `<mcitem>`{=html}techreborn:superconductor_cable`</mcitem>`{=html} \|
 Infinite \| 536 mE/t \| 2.1 gE \|
 
-#### Usage Notes {#usage_notes}
+#### Usage Notes
 
 ` * Copper, Gold, and HV cables can be insulated using ``<mcitem>`{=html}`techreborn:rubber``</mcitem>`{=html}`. Uninsulated cables can cause damaging shocks!`\
 ` * Cables can be dismantled instantly by shift-right-clicking with the ``<mcitem>`{=html}`techreborn:wrench``</mcitem>`{=html}

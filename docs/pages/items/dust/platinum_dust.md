@@ -1,8 +1,8 @@
-{{ :mods:techreborn:platinum_dust.png?nolink&200\|}}
+![](/mods/techreborn/platinum_dust.png)
 
-###### Platinum Dust {#platinum_dust}
+###### Platinum Dust
 
--   -   Platinum Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Platinum Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:platinum_ingot`</mcitem>`{=html}.
 

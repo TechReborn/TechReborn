@@ -1,15 +1,15 @@
-{{ :mods:techreborn:lava_cell.png?nolink&200\|}}
+![](/mods/techreborn/lava_cell.png)
 
 ###### Fluids
 
--   -   Fluids\*\* are essential part of TechReborn mod. Thay are widely
+-   -   Fluids** are essential part of TechReborn mod. Thay are widely
         used for powering
-        \*\*[generators](energy:generators "wikilink")\*\*, producing
+        **[generators](energy:generators "wikilink")**, producing
         other fluids or items.
 
 \\\\ \\\\
 
-##### List of fluids {#list_of_fluids}
+##### List of fluids
 
 ` * ``<mcitem>`{=html}`techreborn:empty_cell``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:beryllium_cell``</mcitem>`{=html}\

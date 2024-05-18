@@ -1,8 +1,8 @@
-{{ :mods:techreborn:bauxite_dust.png?nolink&200\|}}
+![](/mods/techreborn/bauxite_dust.png)
 
-###### Bauxite Dust {#bauxite_dust}
+###### Bauxite Dust
 
--   -   Bauxite Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Bauxite Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:aluminium_dust`</mcitem>`{=html} in
         `<mcitem>`{=html}techreborn:industrial_electrolyzer`</mcitem>`{=html}.

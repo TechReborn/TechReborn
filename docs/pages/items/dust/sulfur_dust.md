@@ -1,8 +1,8 @@
-{{ :mods:techreborn:sulfur_dust.png?nolink&200\|Sulfur Dust}}
+![Sulfur Dust](/mods/techreborn/sulfur_dust.png)
 
-###### Sulfur Dust {#sulfur_dust}
+###### Sulfur Dust
 
--   -   Sulfur Dust\*\* is a byproduct from several recipes.
+-   -   Sulfur Dust** is a byproduct from several recipes.
 
 \\\\
 
@@ -49,7 +49,7 @@ recipe: \\\\ `<mcitem>`{=html}minecraft:blaze_powder`</mcitem>`{=html}
 
 ##### Usage
 
--   -   Sulfur Dust\*\* could be split into small piles using
+-   -   Sulfur Dust** could be split into small piles using
         `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}:
 
 `<recipe>`{=html} input air air air input air techreborn:sulfur_dust air

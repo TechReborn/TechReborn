@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_calcite_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_calcite_dust.png)
 
-###### Small Pile of Calcite Dust {#small_pile_of_calcite_dust}
+###### Small Pile of Calcite Dust
 
--   -   Small Pile of Calcite Dust\*\* is an small dust added by
+-   -   Small Pile of Calcite Dust** is an small dust added by
         TechReborn.
 
 \\\\

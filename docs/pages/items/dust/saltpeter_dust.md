@@ -1,8 +1,8 @@
-{{ :mods:techreborn:saltpeter_dust.png?nolink&200\|Saltpeter Dust}}
+![Saltpeter Dust](/mods/techreborn/saltpeter_dust.png)
 
-###### Saltpeter Dust {#saltpeter_dust}
+###### Saltpeter Dust
 
--   -   Saltpeter Dust\*\* is an itermediate material used for further
+-   -   Saltpeter Dust** is an itermediate material used for further
         processing.
 
 \\\\

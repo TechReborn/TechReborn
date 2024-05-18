@@ -1,8 +1,8 @@
-{{ :mods:techreborn:platinum_nugget.png?nolink&200\|}}
+![](/mods/techreborn/platinum_nugget.png)
 
-###### Platinum Nugget {#platinum_nugget}
+###### Platinum Nugget
 
--   -   Platinum Nugget\*\* made from
+-   -   Platinum Nugget** made from
         `<mcitem>`{=html}techreborn:platinum_ingot`</mcitem>`{=html} and
         9 nuggets could be formed back to ingot.
 

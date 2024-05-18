@@ -1,8 +1,8 @@
-{{ :mods:techreborn:chrome_plate.png?nolink&200\|Chrome Plate}}
+![Chrome Plate](/mods/techreborn/chrome_plate.png)
 
-###### Chrome Plate {#chrome_plate}
+###### Chrome Plate
 
--   -   Chrome Plate\*\* is a crafting ingredient and used in several
+-   -   Chrome Plate** is a crafting ingredient and used in several
         late game crafting recipes.
 
 ##### Recipe
@@ -16,7 +16,7 @@
 
 ##### Usage
 
--   -   Chrome Plate\*\* used in several crafting recipes:
+-   -   Chrome Plate** used in several crafting recipes:
 
 `<recipe>`{=html} input techreborn:chrome_plate techreborn:chrome_plate
 techreborn:chrome_plate input techreborn:data_storage_core

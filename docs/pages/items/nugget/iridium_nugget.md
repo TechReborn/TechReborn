@@ -1,8 +1,8 @@
-{{ :mods:techreborn:iridium_nugget.png?nolink&200\|}}
+![](/mods/techreborn/iridium_nugget.png)
 
-###### Iridium Nugget {#iridium_nugget}
+###### Iridium Nugget
 
--   -   Iridium Nugget\*\* made from The End ores like
+-   -   Iridium Nugget** made from The End ores like
         `<mcitem>`{=html}techreborn:sheldonite_ore`</mcitem>`{=html} and
         used to make some tools.
 

@@ -1,7 +1,7 @@
-{{ :mods:techreborn:industrial_jackhammer.png?nolink&200\|Industrial
+{{ :mods:techreborn:industrial_jackhammer.png|Industrial
 Jackhammer}} =======Industrial Jackhammer=======
 
--   -   Industrial Jackhammer\*\* is a top tier JackHammer item
+-   -   Industrial Jackhammer** is a top tier JackHammer item
         available from Tech Reborn. It has 1M energy storage. One can
         charge it using energy storage blocks, like
         `<mcitem>`{=html}techreborn:battery_box`</mcitem>`{=html}.
@@ -9,10 +9,10 @@ Jackhammer}} =======Industrial Jackhammer=======
         stone based blocks, like
         `<mcitem>`{=html}minecraft:stone`</mcitem>`{=html} or
         `<mcitem>`{=html}minecraft:cobblestone`</mcitem>`{=html} with a
-        4x speed of a Diamond Pickaxe. \*\*Industrial Jackhammer\*\* is
+        4x speed of a Diamond Pickaxe. **Industrial Jackhammer** is
         capable of 3x3 and 5x5 AoE mining when set to active. It will
         cost 150 energy to break one block. It has iron mining level so
-        most of ores could be mined by \*\*Industrial Jackhammer\*\* but
+        most of ores could be mined by **Industrial Jackhammer** but
         with very low speed, nevertheless AoE mining will skip non-stone
         blocks.
 

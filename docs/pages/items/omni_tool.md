@@ -1,7 +1,7 @@
-{{ :mods:techreborn:omni-tool.png?nolink&200\|Omni-Tool}}
+![Omni-Tool](/mods/techreborn/omni-tool.png)
 =======Omni-Tool=======
 
--   -   Omni-Tool\*\* is an universal tool that combines Pickaxe, Axe,
+-   -   Omni-Tool** is an universal tool that combines Pickaxe, Axe,
         Showel, Sheers and even Sword in one simple rod. It has 1M
         energy storage. One can charge it using
         `<mcitem>`{=html}techreborn:battery_box`</mcitem>`{=html}. It\'s

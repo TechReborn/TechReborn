@@ -1,8 +1,8 @@
-{{ :mods:techreborn:zinc_dust.png?nolink&200\|}}
+![](/mods/techreborn/zinc_dust.png)
 
-###### Zinc Dust {#zinc_dust}
+###### Zinc Dust
 
--   -   Zinc Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Zinc Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:zinc_ingot`</mcitem>`{=html}.
 

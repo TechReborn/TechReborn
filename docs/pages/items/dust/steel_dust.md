@@ -1,8 +1,8 @@
-{{ :mods:techreborn:steel_dust.png?nolink&200\|Steel Dust }}
+![Steel Dust ](/mods/techreborn/steel_dust.png)
 
-###### Steel Dust {#steel_dust}
+###### Steel Dust
 
--   -   Steel Dust\*\* is a greatest dust ever. You can keep your
+-   -   Steel Dust** is a greatest dust ever. You can keep your
         `<mcitem>`{=html}techreborn:grinder`</mcitem>`{=html} and
         `<mcitem>`{=html}techreborn:blast_furnace`</mcitem>`{=html} busy
         by grinding ingot to dust and then back smelting dust to ingot!

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_sphalerite_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_sphalerite_dust.png)
 
-###### Small Pile of Sphalerite Dust {#small_pile_of_sphalerite_dust}
+###### Small Pile of Sphalerite Dust
 
--   -   Small Pile of Sphalerite Dust\*\* is a small dust added by
+-   -   Small Pile of Sphalerite Dust** is a small dust added by
         TechReborn.
 
 \\\\

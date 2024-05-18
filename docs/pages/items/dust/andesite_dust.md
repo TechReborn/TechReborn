@@ -1,8 +1,8 @@
-{{ :mods:techreborn:andesite_dust.png?nolink&200\|Andesite Dust}}
+![Andesite Dust](/mods/techreborn/andesite_dust.png)
 
-###### Andesite Dust {#andesite_dust}
+###### Andesite Dust
 
--   -   Andesite Dust\*\* is a useless dust added by TechReborn. Maybe
+-   -   Andesite Dust** is a useless dust added by TechReborn. Maybe
         in future if will see some bright days.
 
 \\\\

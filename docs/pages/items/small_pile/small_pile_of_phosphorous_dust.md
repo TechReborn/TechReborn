@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_phosphorous_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_phosphorous_dust.png)
 
-###### Small Pile of Phosphorous Dust {#small_pile_of_phosphorous_dust}
+###### Small Pile of Phosphorous Dust
 
--   -   Small Pile of Phosphorous Dust\*\* is a small dust added by
+-   -   Small Pile of Phosphorous Dust** is a small dust added by
         TechReborn.
 
 \\\\

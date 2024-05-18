@@ -1,8 +1,8 @@
-{{ :mods:techreborn:calcite_dust.png?nolink&200\|Calcite Dust}}
+![Calcite Dust](/mods/techreborn/calcite_dust.png)
 
-###### Calcite Dust {#calcite_dust}
+###### Calcite Dust
 
--   -   Calcite Dust\*\* is an itermediate material used for further
+-   -   Calcite Dust** is an itermediate material used for further
         processing.
 
 \\\\

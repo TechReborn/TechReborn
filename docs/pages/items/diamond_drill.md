@@ -1,7 +1,7 @@
-{{ :mods:techreborn:diamond_drill.png?nolink&200\|Diamond Drill}}
+![Diamond Drill](/mods/techreborn/diamond_drill.png)
 =======Diamond Drill=======
 
--   -   Diamond Drill\*\* is a more advanced drill compare to
+-   -   Diamond Drill** is a more advanced drill compare to
         `<mcitem>`{=html}techreborn:steel_drill`</mcitem>`{=html}
         available from TechReborn. It has 400k FE energy storage. One
         can charge it using energy storage blocks, like

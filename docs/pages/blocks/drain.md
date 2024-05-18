@@ -1,8 +1,8 @@
-{{ :mods:techreborn:drain.png?nolink&200\|Drain}}
+![Drain](/mods/techreborn/drain.png)
 
 ###### Drain
 
-The \*\*Drain\*\* is a simple contraption that is used to automate the
+The **Drain** is a simple contraption that is used to automate the
 gathering of fluid (Mostly water). It works in a simple fashion, any
 source fluid directly above it is put into its internal tank (Can only
 hold a bucket worth of liquid). This can then be pumped out, either by

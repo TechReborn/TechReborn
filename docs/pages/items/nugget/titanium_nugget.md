@@ -1,8 +1,8 @@
-{{ :mods:techreborn:titanium_nugget.png?nolink&200\|}}
+![](/mods/techreborn/titanium_nugget.png)
 
-###### Titanium Nugget {#titanium_nugget}
+###### Titanium Nugget
 
--   -   Titanium Nugget\*\* made from
+-   -   Titanium Nugget** made from
         `<mcitem>`{=html}techreborn:titanium_ingot`</mcitem>`{=html} and
         9 nuggets could be formed back to ingot.
 

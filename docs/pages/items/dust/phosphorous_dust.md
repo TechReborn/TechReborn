@@ -1,8 +1,8 @@
-{{ :mods:techreborn:phosphorous_dust.png?nolink&200\|Phosphorous Dust}}
+![Phosphorous Dust](/mods/techreborn/phosphorous_dust.png)
 
-###### Phosphorous Dust {#phosphorous_dust}
+###### Phosphorous Dust
 
--   -   Phosphorous Dust\*\* is a useless dust added by TechReborn.
+-   -   Phosphorous Dust** is a useless dust added by TechReborn.
         Maybe in future if will see some bright days.
 
 \\\\

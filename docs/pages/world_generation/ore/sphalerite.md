@@ -1,8 +1,8 @@
-{{ :mods:techreborn:sphalerite_ore.png?nolink&200\|Sphalerite ore}}
+![Sphalerite ore](/mods/techreborn/sphalerite_ore.png)
 
-##### Sphalerite Ore {#sphalerite_ore}
+##### Sphalerite Ore
 
--   -   Sphalerite ore\*\* is a common ore found in The Nether on layers
+-   -   Sphalerite ore** is a common ore found in The Nether on layers
         10-126. It will drop
         `<mcitem>`{=html}techreborn:sphalerite_dust`</mcitem>`{=html} if
         mined normally, and block itself if mined with Silk Touch

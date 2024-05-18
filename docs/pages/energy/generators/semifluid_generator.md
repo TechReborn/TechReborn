@@ -1,12 +1,12 @@
-{{ :mods:techreborn:semifluid_generator.png?nolink&200\|}}
+![](/mods/techreborn/semifluid_generator.png)
 
-###### Semifluid Generator {#semifluid_generator}
+###### Semifluid Generator
 
-The \*\*Semifluid Generator\*\* produces energy from various fluids. It
+The **Semifluid Generator** produces energy from various fluids. It
 has an internal
-\*\*[Tank](mods:techreborn:basic_tank_unit "wikilink")\*\* that can hold
-10k mB of fluid (10 \*\*[Buckets](mods:minecraft:bucket "wikilink")\*\*
-or \*\*[Cells](items:fluid:empty_cell "wikilink")\*\* worth) which is
+**[Tank](mods:techreborn:basic_tank_unit "wikilink")** that can hold
+10k mB of fluid (10 **[Buckets](mods:minecraft:bucket "wikilink")**
+or **[Cells](items:fluid:empty_cell "wikilink")** worth) which is
 consumed as it is converted to energy.
 
 \^ Tier \^ Generation Rate \^ Output \^ Storage \^ \| Medium \| 8 E/t \|

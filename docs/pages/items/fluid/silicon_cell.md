@@ -1,5 +1,5 @@
-{{ :mods:techreborn:silicon_cell.png?nolink&200\|Silicon Cell}}
-=======Silicon Cell======= The \*\*Silicon Cell\*\* is a fluid cell
+![Silicon Cell](/mods/techreborn/silicon_cell.png)
+=======Silicon Cell======= The **Silicon Cell** is a fluid cell
 added by Tech Reborn. It is used to create
 `<mcitem>`{=html}techreborn:silicon_plate`</mcitem>`{=html}.
 

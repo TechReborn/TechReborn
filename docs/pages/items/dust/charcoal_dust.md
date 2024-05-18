@@ -1,8 +1,8 @@
-{{ :mods:techreborn:charcoal_dust.png?nolink&200\|}}
+![](/mods/techreborn/charcoal_dust.png)
 
-###### Charcoal Dust {#charcoal_dust}
+###### Charcoal Dust
 
--   -   Charcoal Dust\*\* is an itermediate material used for further
+-   -   Charcoal Dust** is an itermediate material used for further
         processing.
 
 \\\\

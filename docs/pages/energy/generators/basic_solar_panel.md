@@ -1,8 +1,8 @@
-{{ :mods:techreborn:basic_solar_panel.png?200\|}}
+![](/mods/techreborn/basic_solar_panel.png)
 
-###### Basic Solar Panel {#basic_solar_panel}
+###### Basic Solar Panel
 
-The \*\*Basic Solar Panel\*\* produces energy from sunlight. For more
+The **Basic Solar Panel** produces energy from sunlight. For more
 details and how to use, read [general information about Solar
 Panels](energy:generators:solar_panels "wikilink").
 
@@ -19,5 +19,5 @@ techreborn:basic_solar_panel `</recipe>`{=html}
 
 #### Usage
 
--   -   Basic Solar Panel\*\* can be used to craft
+-   -   Basic Solar Panel** can be used to craft
         `<mcitem>`{=html}techreborn:advanced_solar_panel`</mcitem>`{=html}

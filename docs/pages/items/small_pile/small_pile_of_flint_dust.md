@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_flint_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_flint_dust.png)
 
-###### Small Pile of Flint Dust {#small_pile_of_flint_dust}
+###### Small Pile of Flint Dust
 
--   -   Small Pile of Flint Dust\*\* is a small dust added by
+-   -   Small Pile of Flint Dust** is a small dust added by
         TechReborn.
 
 \\\\

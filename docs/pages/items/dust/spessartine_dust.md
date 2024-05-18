@@ -1,8 +1,8 @@
-{{ :mods:techreborn:spessartine_dust.png?nolink&200\|Spessartine Dust }}
+![Spessartine Dust ](/mods/techreborn/spessartine_dust.png)
 
-###### Spessartine Dust {#spessartine_dust}
+###### Spessartine Dust
 
--   -   Spessartine Dust\*\* is an intermediate product received by
+-   -   Spessartine Dust** is an intermediate product received by
         processing
         `<mcitem>`{=html}techreborn:red_garnet_dust`</mcitem>`{=html} in
         `<mcitem>`{=html}techreborn:industrial_centrifuge`</mcitem>`{=html}.
@@ -26,7 +26,7 @@ recipe: \\\\
 
 ##### Usage
 
--   -   Spessartine Dust\*\* could be further processed in
+-   -   Spessartine Dust** could be further processed in
         `<mcitem>`{=html}techreborn:industrial_electrolyzer`</mcitem>`{=html}.
 
 \\\\ 20x`<mcitem>`{=html}techreborn:spessartine_dust`</mcitem>`{=html} +
@@ -35,7 +35,7 @@ recipe: \\\\
 3x`<mcitem>`{=html}techreborn:manganese_dust`</mcitem>`{=html} +
 3x`<mcitem>`{=html}techreborn:silicon_cell`</mcitem>`{=html} +
 6x`<mcitem>`{=html}techreborn:compressed_air_cell`</mcitem>`{=html} \\\\
-\\\\ Besides that \*\*spessartine Dust\*\* could be split into small
+\\\\ Besides that **spessartine Dust** could be split into small
 piles using `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}:
 `<recipe>`{=html} input air air air input air
 techreborn:spessartine_dust air input air air air output

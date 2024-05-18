@@ -1,23 +1,23 @@
 \~\~NOTOC\~\~ {{
-:mods:techreborn:industrial_centrifuge.png?nolink&200\|Round and round
+:mods:techreborn:industrial_centrifuge.png|Round and round
 it goes!}}
 
-###### Industrial Centrifuge {#industrial_centrifuge}
+###### Industrial Centrifuge
 
--   -   Industrial Centrifuge\*\* used to produce
-        `{{:mods:techreborn:lava_cell.png?nolink&24|}}`{=mediawiki}
-        \*\*[Fluids](items:fluid "wikilink")\*\* and
-        `{{:mods:techreborn:copper_dust.png?nolink&24|}}`{=mediawiki}
-        \*\*[Dusts](items:dust "wikilink")\*\* from various items. It is
+-   -   Industrial Centrifuge** used to produce
+        `![](/mods/techreborn/lava_cell.png)`{=mediawiki}
+        **[Fluids](items:fluid "wikilink")** and
+        `![](/mods/techreborn/copper_dust.png)`{=mediawiki}
+        **[Dusts](items:dust "wikilink")** from various items. It is
         a Low tier machine with input rate of 128FE and internal buffer
         of 40.000FE.
 
 ##### Recipe
 
--   -   Industrial Centrifuge\*\* can be crafted with either
-        `{{:mods:techreborn:refined_iron_ingot.png?nolink&24|Refined Iron Ingot}}`{=mediawiki}
-        \*\*[Refined Iron
-        Ingot](items:ingot:refined_iron_ingot "wikilink")\*\* or
+-   -   Industrial Centrifuge** can be crafted with either
+        `![Refined Iron Ingot](/mods/techreborn/refined_iron_ingot.png)`{=mediawiki}
+        **[Refined Iron
+        Ingot](items:ingot:refined_iron_ingot "wikilink")** or
         `<mcitem>`{=html}techreborn:aluminium_plate`</mcitem>`{=html}.
         The second one is more expensive in terms of time and materials.
 
@@ -36,7 +36,7 @@ techreborn:industrial_centrifuge `</recipe>`{=html} \\\\
 
 ##### Usage
 
--   -   Industrial Centrifuge\*\* used to craft
+-   -   Industrial Centrifuge** used to craft
         `<mcitem>`{=html}techreborn:distillation_tower`</mcitem>`{=html}.
 
 `<recipe>`{=html} input techreborn:industrial_centrifuge
@@ -46,7 +46,7 @@ techreborn:extractor input techreborn:industrial_electrolyzer
 techreborn:energy_flow_circuit techreborn:industrial_electrolyzer output
 techreborn:distillation_tower `</recipe>`{=html} \\\\
 
--   -   Industrial Centrifuge\*\* recipes:
+-   -   Industrial Centrifuge** recipes:
 
 \|`<mcitem>`{=html}minecraft:magma_cream`</mcitem>`{=html} -\>
 `<mcitem>`{=html}minecraft:blaze_powder`</mcitem>`{=html} +

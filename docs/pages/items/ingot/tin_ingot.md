@@ -1,13 +1,13 @@
-{{ :mods:techreborn:tin_ingot.png?nolink&200\|Tin Ingot}}
+![Tin Ingot](/mods/techreborn/tin_ingot.png)
 
-###### Tin Ingot {#tin_ingot}
+###### Tin Ingot
 
--   -   Tin Ingot\*\* is an ingot added by Tech Reborn and used in
+-   -   Tin Ingot** is an ingot added by Tech Reborn and used in
         several crafting recipes.
 
 ##### Recipe
 
-### Crafting Table Recipe {#crafting_table_recipe}
+### Crafting Table Recipe
 
 `<recipe>`{=html} input techreborn:tin_nugget techreborn:tin_nugget
 techreborn:tin_nugget input techreborn:tin_nugget techreborn:tin_nugget
@@ -17,9 +17,9 @@ techreborn:tin_nugget output techreborn:tin_ingot `</recipe>`{=html}
 techreborn:tin_storage_block air input air air air output
 techreborn:tin_ingot,9 `</recipe>`{=html}
 
-### Smelting Recipe {#smelting_recipe}
+### Smelting Recipe
 
-Main source of \*\*Tin Ingot\*\* is smelting
+Main source of **Tin Ingot** is smelting
 `<mcitem>`{=html}techreborn:tin_dust`</mcitem>`{=html} in any kind of
 Furnaces, including vanilla Furnace,
 `<mcitem>`{=html}techreborn:iron_furnace`</mcitem>`{=html} or
@@ -35,7 +35,7 @@ techreborn:tin_ingot tool techreborn:electric_furnace `</recipe>`{=html}
 
 ##### Usage
 
--   -   Tin Ingot\*\* used in a several crafting recipes:
+-   -   Tin Ingot** used in a several crafting recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:tin_cable``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:empty_cell``</mcitem>`{=html}\

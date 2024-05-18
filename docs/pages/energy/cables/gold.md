@@ -1,8 +1,8 @@
-{{ :mods:techreborn:gold_cable.png?nolink&200\|Gold Cable}}
+![Gold Cable](/mods/techreborn/gold_cable.png)
 
-###### Gold Cable {#gold_cable}
+###### Gold Cable
 
--   -   Gold Cable\*\* transfers energy through it. For more details and
+-   -   Gold Cable** transfers energy through it. For more details and
         how to use, read [general information about
         Cables](energy:cables "wikilink").
 

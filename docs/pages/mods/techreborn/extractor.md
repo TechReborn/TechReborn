@@ -1,1 +1,0 @@
-\~\~REDIRECT\>blocks:extractor\~\~

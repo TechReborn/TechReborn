@@ -1,14 +1,14 @@
-{{ :mods:techreborn:adjustable_su.png?nolink&200\|AESU}}
+![AESU](/mods/techreborn/adjustable_su.png)
 
 ###### AESU
 
-The \*\*AESU\*\* aka Adjustable SU is an energy storage with adjustable
+The **AESU** aka Adjustable SU is an energy storage with adjustable
 output rate. It also charge items which use energy to function, for
 example, the
 `<mcitem>`{=html}techreborn:red_cell_battery`</mcitem>`{=html}. It is an
 Insane tier machine with an input rate of 8192 Energy/tick, an internal
 storage of 100M Energy and output rate from 64 E\\t to 8192 E\\tick.
-\*\*AESU\*\* accepts energy from all sides except dotted one, and
+**AESU** accepts energy from all sides except dotted one, and
 provides energy from dotted side.
 
 ##### Recipe

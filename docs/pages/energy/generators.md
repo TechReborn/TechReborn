@@ -1,4 +1,4 @@
-{{ :mods:techreborn:generator.png?nolink&200\|Generator}}
+![Generator](/mods/techreborn/generator.png)
 
 ###### Generators
 

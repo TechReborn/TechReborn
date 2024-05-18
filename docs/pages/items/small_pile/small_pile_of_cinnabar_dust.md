@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_cinnabar_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_cinnabar_dust.png)
 
-###### Small Pile of Cinnabar Dust {#small_pile_of_cinnabar_dust}
+###### Small Pile of Cinnabar Dust
 
--   -   Small Pile of Cinnabar Dust\*\* is a small dust added by
+-   -   Small Pile of Cinnabar Dust** is a small dust added by
         TechReborn.
 
 \\\\

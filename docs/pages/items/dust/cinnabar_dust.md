@@ -1,8 +1,8 @@
-{{ :mods:techreborn:Cinnabar_dust.png?nolink&200\|Cinnabar Dust}}
+![Cinnabar Dust](/mods/techreborn/Cinnabar_dust.png)
 
-###### Cinnabar Dust {#cinnabar_dust}
+###### Cinnabar Dust
 
--   -   Cinnabar Dust\*\* is an itermediate material used for further
+-   -   Cinnabar Dust** is an itermediate material used for further
         processing.
 
 \\\\

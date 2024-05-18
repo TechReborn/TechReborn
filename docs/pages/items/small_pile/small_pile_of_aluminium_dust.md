@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_aluminium_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_aluminium_dust.png)
 
-###### Small Pile of Aluminium Dust {#small_pile_of_aluminium_dust}
+###### Small Pile of Aluminium Dust
 
--   -   Small Pile of Aluminium Dust\*\* is an small dust added by
+-   -   Small Pile of Aluminium Dust** is an small dust added by
         TechReborn.
 
 \\\\

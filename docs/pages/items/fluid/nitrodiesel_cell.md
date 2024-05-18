@@ -1,5 +1,5 @@
-{{ :mods:techreborn:nitrodiesel_cell.png?nolink&200\|Nitro Diesel Cell}}
-=======Nitro Diesel Cell======= The \*\*Nitro Diesel Cell\*\* is a fluid
+![Nitro Diesel Cell](/mods/techreborn/nitrodiesel_cell.png)
+=======Nitro Diesel Cell======= The **Nitro Diesel Cell** is a fluid
 cell added by Tech Reborn. It is used to generate energy in
 `<mcitem>`{=html}techreborn:diesel_generator`</mcitem>`{=html}.
 

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:copper_dust.png?nolink&200\|Copper Dust}}
+![Copper Dust](/mods/techreborn/copper_dust.png)
 
-###### Copper Dust {#copper_dust}
+###### Copper Dust
 
--   -   Copper Dust\*\* is a dust added by TechReborn. It is mainly used
+-   -   Copper Dust** is a dust added by TechReborn. It is mainly used
         to produce
         `<mcitem>`{=html}techreborn:copper_ingot`</mcitem>`{=html} or
         some alloys.

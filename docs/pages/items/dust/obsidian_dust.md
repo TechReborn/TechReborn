@@ -1,8 +1,8 @@
-{{ :mods:techreborn:obsidian_dust.png?nolink&200\|Obsidian Dust}}
+![Obsidian Dust](/mods/techreborn/obsidian_dust.png)
 
-###### Obsidian Dust {#obsidian_dust}
+###### Obsidian Dust
 
--   -   Obsidian Dust\*\* is an intermediate product used for further
+-   -   Obsidian Dust** is an intermediate product used for further
         processing.
 
 \\\\

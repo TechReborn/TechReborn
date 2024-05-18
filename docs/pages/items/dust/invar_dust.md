@@ -1,8 +1,8 @@
-{{ :mods:techreborn:invar_dust.png?nolink&200\|}}
+![](/mods/techreborn/invar_dust.png)
 
-###### Invar Dust {#invar_dust}
+###### Invar Dust
 
--   -   Invar Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Invar Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:invar_ingot`</mcitem>`{=html}.
 

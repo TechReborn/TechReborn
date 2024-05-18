@@ -1,8 +1,8 @@
-{{ :mods:techreborn:electrum_nugget.png?nolink&200\|}}
+![](/mods/techreborn/electrum_nugget.png)
 
-###### Electrum Nugget {#electrum_nugget}
+###### Electrum Nugget
 
--   -   Electrum Nugget\*\* made from
+-   -   Electrum Nugget** made from
         `<mcitem>`{=html}techreborn:electrum_ingot`</mcitem>`{=html} and
         9 nuggets could be formed back to ingot.
 

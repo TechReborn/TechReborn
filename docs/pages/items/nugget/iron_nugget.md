@@ -1,8 +1,8 @@
-{{ :mods:techreborn:iron_nugget.png?nolink&200\|}}
+![](/mods/techreborn/iron_nugget.png)
 
-###### Iron Nugget {#iron_nugget}
+###### Iron Nugget
 
--   -   Iron Nugget\*\* made from
+-   -   Iron Nugget** made from
         `<mcitem>`{=html}minecraft:iron_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

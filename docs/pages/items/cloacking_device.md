@@ -1,8 +1,8 @@
-{{ :mods:techreborn:cloaking_device.png?nolink&200\|Cloaking Device}}
+![Cloaking Device](/mods/techreborn/cloaking_device.png)
 
-###### Cloaking Device {#cloaking_device}
+###### Cloaking Device
 
-A \*\*Cloaking Device\*\* is capable of hiding a player when placed in
+A **Cloaking Device** is capable of hiding a player when placed in
 one\'s chest slot. It can store up to 40M Energy units. It does not
 provide any armour points therefore it will not provide additional
 protection. While the device is on, it will make you invisible to other

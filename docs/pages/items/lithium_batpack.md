@@ -1,5 +1,5 @@
-{{ :mods:techreborn:lithium_batpack.png?nolink&200\|Lithium Batpack}}
-=======Lithium Batpack======= A \*\*Lithium Batpack\*\* is a chest slot
+![Lithium Batpack](/mods/techreborn/lithium_batpack.png)
+=======Lithium Batpack======= A **Lithium Batpack** is a chest slot
 worn item which can charge powered items in player inventory. It is
 capable of storing 600k Energy.
 
@@ -14,5 +14,5 @@ techreborn:lithium_ion_battery output techreborn:lithium_batpack
 
 ##### Usage
 
-A \*\*Lithium Batpack\*\* can be used as a chest armor capable of
+A **Lithium Batpack** can be used as a chest armor capable of
 charging other powered items in inventory.

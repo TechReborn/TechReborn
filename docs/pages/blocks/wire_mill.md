@@ -1,6 +1,6 @@
-{{ :mods:techreborn:wire_mill.png?nolink&200\|Wire Mill}} =======Wire
-Mill======= The \*\*Wire Mill\*\* is a machine that is used to produce
-more cables per ingot. The \*\*Wire Mill\*\* requires a power input of
+![Wire Mill](/mods/techreborn/wire_mill.png) =======Wire
+Mill======= The **Wire Mill** is a machine that is used to produce
+more cables per ingot. The **Wire Mill** requires a power input of
 32 E/tick to work and has internal buffer of 1k E.
 
 ##### Recipe

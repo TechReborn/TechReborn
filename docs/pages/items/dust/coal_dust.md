@@ -1,8 +1,8 @@
-{{ :mods:techreborn:coal_dust.png?nolink&200\|Coal Dust}}
+![Coal Dust](/mods/techreborn/coal_dust.png)
 
-###### Coal Dust {#coal_dust}
+###### Coal Dust
 
--   -   Coal Dust\*\* is an intermediate material used for further
+-   -   Coal Dust** is an intermediate material used for further
         processing.
 
 \\\\

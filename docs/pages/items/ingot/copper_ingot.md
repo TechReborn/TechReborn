@@ -1,16 +1,16 @@
-{{ :mods:techreborn:copper_ingot.png?nolink&200\|Copper Ingot}}
+![Copper Ingot](/mods/techreborn/copper_ingot.png)
 
-###### Copper Ingot {#copper_ingot}
+###### Copper Ingot
 
--   -   Copper Ingot\*\* used to craft wires, alloys, etc. Main source
+-   -   Copper Ingot** used to craft wires, alloys, etc. Main source
         for copper is
         `<mcitem>`{=html}techreborn:copper_ore`</mcitem>`{=html}.
 
 ##### Recipe
 
-### Smelting Recipe {#smelting_recipe}
+### Smelting Recipe
 
-Main source of \*\*Copper Ingot\*\* is smelting
+Main source of **Copper Ingot** is smelting
 `<mcitem>`{=html}techreborn:copper_dust`</mcitem>`{=html} in any kind of
 Furnaces, including vanilla Furnace,
 `<mcitem>`{=html}techreborn:iron_furnace`</mcitem>`{=html} or
@@ -28,7 +28,7 @@ techreborn:copper_ingot tool techreborn:electric_furnace
 
 \\\\
 
-### Crafting Table Recipe {#crafting_table_recipe}
+### Crafting Table Recipe
 
 `<recipe>`{=html} input techreborn:copper_nugget
 techreborn:copper_nugget techreborn:copper_nugget input
@@ -41,7 +41,7 @@ air output techreborn:copper_ingot,9 `</recipe>`{=html}
 
 \\\\
 
-### Industrial Centrifuge Recipe {#industrial_centrifuge_recipe}
+### Industrial Centrifuge Recipe
 
 16x `<mcitem>`{=html}techreborn:lava_cell`</mcitem>`{=html} -\> 6x
 `<mcitem>`{=html}techreborn:tin_ingot`</mcitem>`{=html} + 4x
@@ -51,7 +51,7 @@ air output techreborn:copper_ingot,9 `</recipe>`{=html}
 
 ##### Usage
 
--   -   Copper Ingot\*\* used in the following
+-   -   Copper Ingot** used in the following
         `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}
         recipes:
 

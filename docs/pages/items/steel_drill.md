@@ -1,7 +1,7 @@
-{{ :mods:techreborn:steel_drill.png?nolink&200\|Steel Drill}}
+![Steel Drill](/mods/techreborn/steel_drill.png)
 =======Steel Drill=======
 
--   -   Steel Drill\*\* is a basic drill available from TechReborn. It
+-   -   Steel Drill** is a basic drill available from TechReborn. It
         has 40k FE energy storage. One can charge it using
         `<mcitem>`{=html}techreborn:battery_box`</mcitem>`{=html}. Drill
         could be used as a replacement for Iron Pickaxe and Iron Shovel.
@@ -19,7 +19,7 @@ techreborn:steel_ingot output techreborn:steel_drill `</recipe>`{=html}
 
 ##### Usage
 
-Besides main usage as a mining tool \*\*Steel Drill\*\* could be used in
+Besides main usage as a mining tool **Steel Drill** could be used in
 crafting. `<recipe>`{=html} input air minecraft:diamond air input
 minecraft:diamond techreborn:advanced_electronic_circuit
 minecraft:diamond input techreborn:titanium_ingot techreborn:steel_drill

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:sphalerite_dust.png?nolink&200\|Sphalerite Dust }}
+![Sphalerite Dust ](/mods/techreborn/sphalerite_dust.png)
 
-###### Sphalerite Dust {#sphalerite_dust}
+###### Sphalerite Dust
 
--   -   Sphalerite Dust\*\* is an intermediate product used to produce
+-   -   Sphalerite Dust** is an intermediate product used to produce
         `<mcitem>`{=html}techreborn:zinc_dust`</mcitem>`{=html}.
 
 \\\\

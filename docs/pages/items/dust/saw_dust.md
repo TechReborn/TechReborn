@@ -1,8 +1,8 @@
-{{ :mods:techreborn:Saw_dust.png?nolink&200\|Saw Dust}}
+![Saw Dust](/mods/techreborn/Saw_dust.png)
 
-###### Saw Dust {#saw_dust}
+###### Saw Dust
 
--   -   Saw Dust\*\* is a byproduct received from
+-   -   Saw Dust** is a byproduct received from
         `<mcitem>`{=html}techreborn:saw_mill`</mcitem>`{=html}.
 
 \\\\

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:bronze_ingot.png?nolink&200\|Bronze Ingot}}
+![Bronze Ingot](/mods/techreborn/bronze_ingot.png)
 
-###### Bronze Ingot {#bronze_ingot}
+###### Bronze Ingot
 
--   -   Bronze Ingot\*\* is an alloy used to craft several recipes. Tech
+-   -   Bronze Ingot** is an alloy used to craft several recipes. Tech
         Reborn doesn\'t have Bronze ore.
 
 ##### Recipe
@@ -25,7 +25,7 @@ output techreborn:bronze_ingot tool techreborn:iron_furnace
 
 ##### Usage
 
--   -   Bronze Ingot\*\* used in several crafting recipes:
+-   -   Bronze Ingot** used in several crafting recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:wrench``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:painting_tool``</mcitem>`{=html}\

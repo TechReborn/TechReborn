@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_ashes.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_ashes.png)
 
-###### Small Pile of Ashes {#small_pile_of_ashes}
+###### Small Pile of Ashes
 
--   -   Small Pile of Ashes\*\* is a small dust added by TechReborn.
+-   -   Small Pile of Ashes** is a small dust added by TechReborn.
 
 \\\\
 

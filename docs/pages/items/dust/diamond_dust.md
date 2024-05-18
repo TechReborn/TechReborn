@@ -1,8 +1,8 @@
-{{ :mods:techreborn:diamond_dust.png?nolink&200\|Diamond Dust}}
+![Diamond Dust](/mods/techreborn/diamond_dust.png)
 
-###### Diamond Dust {#diamond_dust}
+###### Diamond Dust
 
--   -   Diamond Dust\*\* is a dust added by TechReborn. It is used in
+-   -   Diamond Dust** is a dust added by TechReborn. It is used in
         crafting recipes.
 
 \\\\

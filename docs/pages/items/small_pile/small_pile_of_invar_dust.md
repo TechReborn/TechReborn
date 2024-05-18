@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_invar_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_invar_dust.png)
 
-###### Small Pile of Invar Dust {#small_pile_of_invar_dust}
+###### Small Pile of Invar Dust
 
--   -   Small Pile of Invar Dust\*\* is a small dust added by
+-   -   Small Pile of Invar Dust** is a small dust added by
         TechReborn.
 
 \\\\

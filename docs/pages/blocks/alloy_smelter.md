@@ -1,8 +1,8 @@
-\~\~NOTOC\~\~ {{ :mods:techreborn:alloy_smelter.png?nolink&200\|}}
+\~\~NOTOC\~\~ ![](/mods/techreborn/alloy_smelter.png)
 
-###### Alloy Smelter {#alloy_smelter}
+###### Alloy Smelter
 
--   -   Alloy Smelter\*\* is a Low tier machine which allows you to make
+-   -   Alloy Smelter** is a Low tier machine which allows you to make
         alloys from ingots or dusts. It consumes energy at 128FE rate
         and has internal buffer of 4000FE. It is introduced in 1.12
         instead of
@@ -10,7 +10,7 @@
 
 \\\\ \\\\ \<WRAP round tip 60%\> Sneak-Use
 `<mcitem>`{=html}techreborn:wrench`</mcitem>`{=html} to dismantle
-\*\*Alloy Smelter\*\*. Pickaxe will give you
+**Alloy Smelter**. Pickaxe will give you
 `<mcitem>`{=html}techreborn:machine_block`</mcitem>`{=html} instead of
 machine. `</WRAP>`{=html} \\\\
 

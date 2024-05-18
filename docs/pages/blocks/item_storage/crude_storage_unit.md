@@ -1,5 +1,5 @@
-{{ :mods:techreborn:crude_storage_unit.png?nolink&200\|Crude Storage
-Unit}} =======Crude Storage Unit======= The \*\*Crude Storage Unit\*\*
+{{ :mods:techreborn:crude_storage_unit.png|Crude Storage
+Unit}} =======Crude Storage Unit======= The **Crude Storage Unit**
 is a very basic storage unit with capacity to store 2048 items.
 
 ##### Recipe
@@ -12,7 +12,7 @@ minecraft:wood_planks output techreborn:crude_storage_unit
 
 ##### Usage
 
-Besides storing of 2k items \*\*Crude Storage Unit\*\* used in crafting
+Besides storing of 2k items **Crude Storage Unit** used in crafting
 recipe. `<recipe>`{=html} input techreborn:refined_iron_plate
 techreborn:refined_iron_plate techreborn:refined_iron_plate input
 techreborn:crude_storage_unit techreborn:basic_machine_frame

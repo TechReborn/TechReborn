@@ -1,8 +1,8 @@
-{{ :mods:techreborn:bronze_dust.png?nolink&200\|Bronze Dust}}
+![Bronze Dust](/mods/techreborn/bronze_dust.png)
 
-###### Bronze Dust {#bronze_dust}
+###### Bronze Dust
 
--   -   Bronze Dust\*\* is a dust added by TechReborn.
+-   -   Bronze Dust** is a dust added by TechReborn.
 
 \\\\
 

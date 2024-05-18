@@ -1,7 +1,7 @@
-{{ :mods:techreborn:iridium_ore.png?nolink&200\|Iridium ore}}
+![Iridium ore](/mods/techreborn/iridium_ore.png)
 
-##### Iridium Ore {#iridium_ore}
+##### Iridium Ore
 
--   -   Iridium Ore\*\* is a rare ore found in The Overworld on layers
+-   -   Iridium Ore** is a rare ore found in The Overworld on layers
         5-60. It will have up to 3 veins per chunk with up to 3 blocks
         of ore per vein.

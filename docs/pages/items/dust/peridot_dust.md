@@ -1,8 +1,8 @@
-{{ :mods:techreborn:peridot_dust.png?nolink&200\|Peridot Dust}}
+![Peridot Dust](/mods/techreborn/peridot_dust.png)
 
-###### Peridot Dust {#peridot_dust}
+###### Peridot Dust
 
--   -   Peridot Dust\*\* is an intermediate product received by
+-   -   Peridot Dust** is an intermediate product received by
         processing `<mcitem>`{=html}techreborn:peridot`</mcitem>`{=html}
         or `<mcitem>`{=html}techreborn:peridot_ore`</mcitem>`{=html}.
 
@@ -30,7 +30,7 @@ recipe: \\\\
 
 ##### Usage
 
--   -   Peridot Dust\*\* could be further processed in
+-   -   Peridot Dust** could be further processed in
         `<mcitem>`{=html}techreborn:industrial_electrolyzer`</mcitem>`{=html}.
 
 \\\\ 9x`<mcitem>`{=html}techreborn:peridot_dust`</mcitem>`{=html} +
@@ -39,11 +39,11 @@ recipe: \\\\
 2x`<mcitem>`{=html}techreborn:iron_dust`</mcitem>`{=html} +
 `<mcitem>`{=html}techreborn:silicon_cell`</mcitem>`{=html} +
 2x`<mcitem>`{=html}techreborn:compressed_air_cell`</mcitem>`{=html} \\\\
-\\\\ \\\\ Besides that \*\*Peridot Dust\*\* could be split into small
+\\\\ \\\\ Besides that **Peridot Dust** could be split into small
 piles using `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}:
 `<recipe>`{=html} input air air air input air techreborn:peridot_dust
 air input air air air output techreborn:small_pile_of_peridot,4
-`</recipe>`{=html} \\\\ Also \*\*Peridot Dust\*\* could be compressed
+`</recipe>`{=html} \\\\ Also **Peridot Dust** could be compressed
 back into gem using raw power of TNT in
 `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}: \\\\
 4x`<mcitem>`{=html}techreborn:peridot_dust`</mcitem>`{=html} +

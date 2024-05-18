@@ -1,8 +1,8 @@
-\~\~NOTOC\~\~ {{ :mods:techreborn:basic_storage_unit.png?nolink&200\|}}
+\~\~NOTOC\~\~ ![](/mods/techreborn/basic_storage_unit.png)
 
-###### Storage Unit {#storage_unit}
+###### Storage Unit
 
--   -   Storage Unit(s)\*\* are used to store a vast amount of singular
+-   -   Storage Unit(s)** are used to store a vast amount of singular
         items. It\'s a tiered block with each increment increasing the
         amount of capacity it\'s able to store.
 

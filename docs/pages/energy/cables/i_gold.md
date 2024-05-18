@@ -1,10 +1,10 @@
-{{ :mods:techreborn:insulated_gold_cable.png?nolink&200\|Insulated Gold
+{{ :mods:techreborn:insulated_gold_cable.png|Insulated Gold
 Cable}}
 
-###### Insulated Gold Cable {#insulated_gold_cable}
+###### Insulated Gold Cable
 
 The insulated version of
-\*\*[energy:cables:gold](energy:cables:gold "wikilink")\*\*.
+**[energy:cables:gold](energy:cables:gold "wikilink")**.
 
 #### Recipe
 

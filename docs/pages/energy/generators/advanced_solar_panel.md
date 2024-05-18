@@ -1,8 +1,8 @@
-{{ :mods:techreborn:advanced_solar_panel.png?200\|}}
+![](/mods/techreborn/advanced_solar_panel.png)
 
-###### Advanced Solar Panel {#advanced_solar_panel}
+###### Advanced Solar Panel
 
-The \*\*Advanced Solar Panel\*\* produces energy from sunlight. For more
+The **Advanced Solar Panel** produces energy from sunlight. For more
 details and how to use, read [general information about Solar
 Panels](energy:generators:solar_panels "wikilink").
 
@@ -24,5 +24,5 @@ techreborn:advanced_solar_panel `</recipe>`{=html}
 
 #### Usage
 
--   -   Advanced Solar Panel\*\* can be used to craft
+-   -   Advanced Solar Panel** can be used to craft
         `<mcitem>`{=html}techreborn:industrial_solar_panel`</mcitem>`{=html}

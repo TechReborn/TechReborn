@@ -1,8 +1,8 @@
-{{ :mods:techreborn:uvarovite_dust.png?nolink&200\|Uvarovite Dust}}
+![Uvarovite Dust](/mods/techreborn/uvarovite_dust.png)
 
-###### Uvarovite Dust {#uvarovite_dust}
+###### Uvarovite Dust
 
--   -   Uvarovite Dust\*\* is an intermediate product received by
+-   -   Uvarovite Dust** is an intermediate product received by
         processing
         `<mcitem>`{=html}techreborn:yellow_garnet_dust`</mcitem>`{=html}
         in
@@ -27,7 +27,7 @@ recipe: \\\\
 
 ##### Usage
 
--   -   Uvarovite Dust\*\* could be further processed in
+-   -   Uvarovite Dust** could be further processed in
         `<mcitem>`{=html}techreborn:industrial_electrolyzer`</mcitem>`{=html}.\\\\
 
 20x`<mcitem>`{=html}techreborn:uvarovite_dust`</mcitem>`{=html} +
@@ -36,7 +36,7 @@ recipe: \\\\
 2x`<mcitem>`{=html}techreborn:chrome_dust`</mcitem>`{=html} +
 3x`<mcitem>`{=html}techreborn:silicon_cell`</mcitem>`{=html} +
 6x`<mcitem>`{=html}techreborn:compressed_air_cell`</mcitem>`{=html} \\\\
-\\\\ Besides that \*\*Uvarovite Dust\*\* could be split into small piles
+\\\\ Besides that **Uvarovite Dust** could be split into small piles
 using `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}:
 `<recipe>`{=html} input air air air input air techreborn:uvarovite_dust
 air input air air air output techreborn:small_pile_of_uvarovite_dust,4

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:aluminum_plate.png?nolink&200\|Aluminum Plate}}
+![Aluminum Plate](/mods/techreborn/aluminum_plate.png)
 
-###### Aluminum Plate {#aluminum_plate}
+###### Aluminum Plate
 
--   -   Aluminum Plate\*\* is a crafting ingredient and used in several
+-   -   Aluminum Plate** is a crafting ingredient and used in several
         crafting recipes.
 
 ##### Recipe
@@ -16,7 +16,7 @@
 
 ##### Usage
 
--   -   Aluminum Plate\*\* used in these crafting recipes:
+-   -   Aluminum Plate** used in these crafting recipes:
 
 `<recipe>`{=html} input techreborn:lithium_ion_battery
 techreborn:advanced_circuit techreborn:lithium_ion_battery input
@@ -59,7 +59,7 @@ input minecraft:black_dye minecraft:glass_pane minecraft:black_dye input
 techreborn:aluminum_plate minecraft:black_dye techreborn:aluminum_plate
 output techreborn:digital_display `</recipe>`{=html} \\\\
 
-Also \*\*Aluminum Plate\*\* used in
+Also **Aluminum Plate** used in
 `<mcitem>`{=html}techreborn:assembling_machine`</mcitem>`{=html} recipe:
 \\\\ 2x`<mcitem>`{=html}techreborn:aluminum_plate`</mcitem>`{=html} +
 2x`<mcitem>`{=html}techreborn:lithium_cell`</mcitem>`{=html} -\>

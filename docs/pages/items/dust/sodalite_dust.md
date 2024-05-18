@@ -1,8 +1,8 @@
-{{ :mods:techreborn:sodalite_dust.png?nolink&200\|Sodalite Dust}}
+![Sodalite Dust](/mods/techreborn/sodalite_dust.png)
 
-###### Sodalite Dust {#sodalite_dust}
+###### Sodalite Dust
 
--   -   Sodalite Dust\*\* is an intermediate material used for further
+-   -   Sodalite Dust** is an intermediate material used for further
         processing.
 
 \\\\

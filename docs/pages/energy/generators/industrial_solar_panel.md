@@ -1,8 +1,8 @@
-{{ :mods:techreborn:industrial_solar_panel.png?200\|}}
+![](/mods/techreborn/industrial_solar_panel.png)
 
-###### Industrial Solar Panel {#industrial_solar_panel}
+###### Industrial Solar Panel
 
-The \*\*Industrial Solar Panel\*\* produces energy from sunlight. For
+The **Industrial Solar Panel** produces energy from sunlight. For
 more details and how to use, read [general information about Solar
 Panels](energy:generators:solar_panels "wikilink").
 
@@ -24,5 +24,5 @@ techreborn:industrial_solar_panel `</recipe>`{=html}
 
 #### Usage
 
--   -   Industrial Solar Panel\*\* can be used to craft
+-   -   Industrial Solar Panel** can be used to craft
         `<mcitem>`{=html}techreborn:ultimate_solar_panel`</mcitem>`{=html}

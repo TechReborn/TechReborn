@@ -1,8 +1,8 @@
-{{ :mods:techreborn:sapphire_ore.png?nolink&200\|Sapphire ore}}
+![Sapphire ore](/mods/techreborn/sapphire_ore.png)
 
-###### Sapphire ore {#sapphire_ore}
+###### Sapphire ore
 
--   -   Sapphire ore\*\* is rare ore generated in The Overworld on
+-   -   Sapphire ore** is rare ore generated in The Overworld on
         layers 10-60. It will drop
         `<mcitem>`{=html}techreborn:sapphire`</mcitem>`{=html} and
         `<mcitem>`{=html}techreborn:peridot`</mcitem>`{=html} if mined

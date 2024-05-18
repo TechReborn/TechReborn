@@ -25,6 +25,9 @@ const config: DocsThemeConfig = {
   navigation: {
     prev: true,
     next: true,
+  },
+  sidebar: {
+    defaultMenuCollapseLevel: 0,
   }
 }
 

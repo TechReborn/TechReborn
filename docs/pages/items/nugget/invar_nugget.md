@@ -1,8 +1,8 @@
-{{ :mods:techreborn:invar_nugget.png?nolink&200\|}}
+![](/mods/techreborn/invar_nugget.png)
 
-###### Invar Nugget {#invar_nugget}
+###### Invar Nugget
 
--   -   Invar Nugget\*\* made from
+-   -   Invar Nugget** made from
         `<mcitem>`{=html}techreborn:invar_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

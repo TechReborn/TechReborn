@@ -1,8 +1,8 @@
-{{ :mods:techreborn:ender_pearl_dust.png?nolink&200\|Ender Pearl Dust}}
+![Ender Pearl Dust](/mods/techreborn/ender_pearl_dust.png)
 
-###### Ender Pearl Dust {#ender_pearl_dust}
+###### Ender Pearl Dust
 
--   -   Ender Pearl Dust\*\* is a dust added by TechReborn. It is used
+-   -   Ender Pearl Dust** is a dust added by TechReborn. It is used
         for further processing.
 
 \\\\

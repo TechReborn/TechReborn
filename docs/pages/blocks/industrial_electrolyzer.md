@@ -1,13 +1,13 @@
 \~\~NOTOC\~\~ {{
-:mods:techreborn:industrial_electrolyzer.png?nolink&200\|}}
+:mods:techreborn:industrial_electrolyzer.png|}}
 
-###### Industrial Electrolyzer {#industrial_electrolyzer}
+###### Industrial Electrolyzer
 
--   -   Industrial Electrolyzer\*\* used to produce
-        `{{:mods:techreborn:lava_cell.png?nolink&24|}}`{=mediawiki}
-        \*\*[Fluids](items:fluid "wikilink")\*\* and
-        `{{:mods:techreborn:copper_dust.png?nolink&24|}}`{=mediawiki}
-        \*\*[Dusts](items:dust "wikilink")\*\* from different items. It
+-   -   Industrial Electrolyzer** used to produce
+        `![](/mods/techreborn/lava_cell.png)`{=mediawiki}
+        **[Fluids](items:fluid "wikilink")** and
+        `![](/mods/techreborn/copper_dust.png)`{=mediawiki}
+        **[Dusts](items:dust "wikilink")** from different items. It
         has an input rate of 512 FE/tick and internal buffer of 4000 FE.
 
 \\\\ \\\\

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:uu-matter.png?nolink&200\|}}
+![](/mods/techreborn/uu-matter.png)
 
-###### UU-Matter {#uu_matter}
+###### UU-Matter
 
--   -   UU-Matter\*\* is an item added by Tech Reborn. It is produced
+-   -   UU-Matter** is an item added by Tech Reborn. It is produced
         when the
         `<mcitem>`{=html}techreborn:matter_fabricator`</mcitem>`{=html}
         is provided with adequate power and

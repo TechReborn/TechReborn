@@ -1,9 +1,9 @@
-{{ :mods:techreborn:dragon_egg_energy_siphon.png?nolink&200\|}}
+![](/mods/techreborn/dragon_egg_energy_siphon.png)
 
-###### Dragon Egg Energy Siphon {#dragon_egg_energy_siphon}
+###### Dragon Egg Energy Siphon
 
-The \*\*Dragon Egg Energy Siphon\*\* is a \*\*[passive
-generator](energy:generators:passive_generators "wikilink")\*\* that
+The **Dragon Egg Energy Siphon** is a **[passive
+generator](energy:generators:passive_generators "wikilink")** that
 produces energy from the
 `<mcitem>`{=html}minecraft:dragon_egg`</mcitem>`{=html}.
 

@@ -1,4 +1,4 @@
-{{ :mods:techreborn:wrench.png?nolink&200\|}} =======Setting up a
+![](/mods/techreborn/wrench.png) =======Setting up a
 development environment=======
 
 This guide is intended for people wishing to help with the creation of
@@ -11,7 +11,7 @@ the mod. It assumes you know the basics of git and java.
 ` * Git (https://git-scm.com/download/win)`\
 ` * This guide covers MS Windows setup. Sorry.`
 
-##### Setup Reborn Core {#setup_reborn_core}
+##### Setup Reborn Core
 
 If you are not planning to make changes to Reborn Core just skip this
 section
@@ -23,7 +23,7 @@ section
 ` - Open the `*`Gradle Settings`*` dialog from the Gradle tab. Change the `*`Build and run using`*` and `*`Run tests using`*` fields to 'IntelliJ IDEA'.`\
 ` - Go to `*`File → Project Structure → Project`*` and set `*`Project compiler output`*` to $PROJECT_DIR$/out`
 
-##### Setup Tech Reborn {#setup_tech_reborn}
+##### Setup Tech Reborn
 
 Steps are same as for RC.
 
@@ -34,7 +34,7 @@ Steps are same as for RC.
 ` - Open the `*`Gradle Settings`*` dialog from the Gradle tab. Change the `*`Build and run using`*` and `*`Run tests using`*` fields to 'IntelliJ IDEA'.`\
 ` - Go to `*`File → Project Structure → Project`*` and set `*`Project compiler output`*` to $PROJECT_DIR$/out`
 
-##### Setup RC as TR module {#setup_rc_as_tr_module}
+##### Setup RC as TR module
 
 Skip this section if you are not going to make changes to RC
 

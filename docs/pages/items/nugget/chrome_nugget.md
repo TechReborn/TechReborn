@@ -1,8 +1,8 @@
-{{ :mods:techreborn:chrome_nugget.png?nolink&200\|}}
+![](/mods/techreborn/chrome_nugget.png)
 
-###### Chrome Nugget {#chrome_nugget}
+###### Chrome Nugget
 
--   -   Chrome Nugget\*\* made from
+-   -   Chrome Nugget** made from
         `<mcitem>`{=html}techreborn:chrome_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_diamond_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_diamond_dust.png)
 
-###### Small Pile of Diamond Dust {#small_pile_of_diamond_dust}
+###### Small Pile of Diamond Dust
 
--   -   Small Pile of Diamond Dust\*\* is a small dust added by
+-   -   Small Pile of Diamond Dust** is a small dust added by
         TechReborn.
 
 \\\\

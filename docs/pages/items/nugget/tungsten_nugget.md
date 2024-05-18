@@ -1,8 +1,8 @@
-{{ :mods:techreborn:tungsten_nugget.png?nolink&200\|}}
+![](/mods/techreborn/tungsten_nugget.png)
 
-###### Tungsten Nugget {#tungsten_nugget}
+###### Tungsten Nugget
 
--   -   Tungsten Nugget\*\* made from
+-   -   Tungsten Nugget** made from
         `<mcitem>`{=html}techreborn:tungsten_ingot`</mcitem>`{=html} and
         9 nuggets could be formed back to ingot.
 

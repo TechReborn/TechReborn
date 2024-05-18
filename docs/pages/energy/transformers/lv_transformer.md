@@ -1,8 +1,8 @@
-\~\~NOTOC\~\~ {{ :mods:techreborn:lv_transformer.png?nolink&200\|}}
+\~\~NOTOC\~\~ ![](/mods/techreborn/lv_transformer.png)
 
-###### LV Transformer {#lv_transformer}
+###### LV Transformer
 
--   -   LV Transformer\*\* transforms energy from Medium to Low tier. By
+-   -   LV Transformer** transforms energy from Medium to Low tier. By
         default it will input from single-dot sides and will output from
         multi-dot sides. This behavior could be reversed via config.
 
@@ -10,7 +10,7 @@
 
 ##### Recipe
 
--   -   LV Transformer\*\* could be created using recipe below.
+-   -   LV Transformer** could be created using recipe below.
 
 \\\\ `<recipe>`{=html} input minecraft:wood_planks
 techreborn:insulated_copper_cable minecraft:wood_planks input

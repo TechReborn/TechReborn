@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_copper_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_copper_dust.png)
 
-###### Small Pile of Copper Dust {#small_pile_of_copper_dust}
+###### Small Pile of Copper Dust
 
--   -   Small Pile of Copper Dust\*\* is an small dust added by
+-   -   Small Pile of Copper Dust** is an small dust added by
         TechReborn.
 
 \\\\

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_granite_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_granite_dust.png)
 
-###### Small Pile of Granite Dust {#small_pile_of_granite_dust}
+###### Small Pile of Granite Dust
 
--   -   Small Pile of Granite Dust\*\* is a small dust added by
+-   -   Small Pile of Granite Dust** is a small dust added by
         TechReborn.
 
 \\\\

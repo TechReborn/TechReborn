@@ -1,8 +1,8 @@
-{{ :mods:techreborn:zinc_nugget.png?nolink&200\|}}
+![](/mods/techreborn/zinc_nugget.png)
 
-###### Zinc Nugget {#zinc_nugget}
+###### Zinc Nugget
 
--   -   Zinc Nugget\*\* made from
+-   -   Zinc Nugget** made from
         `<mcitem>`{=html}techreborn:zinc_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

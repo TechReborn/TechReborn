@@ -1,12 +1,12 @@
-{{ :mods:techreborn:gas_turbine.png?nolink&200\|}}
+![](/mods/techreborn/gas_turbine.png)
 
-###### Gas Turbine {#gas_turbine}
+###### Gas Turbine
 
-The \*\*Gas Turbine\*\* produces energy from various gases. It has an
-internal \*\*[Tank](mods:techreborn:basic_tank_unit "wikilink")\*\* that
+The **Gas Turbine** produces energy from various gases. It has an
+internal **[Tank](mods:techreborn:basic_tank_unit "wikilink")** that
 can hold 10k mB of fluid (10
-\*\*[Buckets](mods:minecraft:bucket "wikilink")\*\* or
-\*\*[Cells](items:fluid:empty_cell "wikilink")\*\* worth) which is
+**[Buckets](mods:minecraft:bucket "wikilink")** or
+**[Cells](items:fluid:empty_cell "wikilink")** worth) which is
 consumed as it is converted to energy.
 
 \^ Tier \^ Generation Rate \^ Output \^ Storage \^ \| Medium \| 16 E/t
@@ -36,7 +36,7 @@ techreborn:aluminum_plate output techreborn:gas_turbine
 ` * Can also be filled by an external **`[`Tank`](mods:techreborn:basic_tank_unit "wikilink")`**`\
 ` * Outputs energy on all sides`
 
-#### Related Items {#related_items}
+#### Related Items
 
 ` * ``<mcitem>`{=html}`techreborn:hydrogen_cell``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:methane_cell``</mcitem>`{=html}

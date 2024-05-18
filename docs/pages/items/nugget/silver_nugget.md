@@ -1,8 +1,8 @@
-{{ :mods:techreborn:silver_nugget.png?nolink&200\|}}
+![](/mods/techreborn/silver_nugget.png)
 
-###### Silver Nugget {#silver_nugget}
+###### Silver Nugget
 
--   -   Silver Nugget\*\* made from
+-   -   Silver Nugget** made from
         `<mcitem>`{=html}techreborn:silver_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

@@ -1,6 +1,6 @@
-{{ :mods:techreborn:electronic_circuit.png?nolink&200\|Carbon Fiber}}
+![Carbon Fiber](/mods/techreborn/electronic_circuit.png)
 
-###### Electronic Circuit {#electronic_circuit}
+###### Electronic Circuit
 
 An Electronic Circuit is a [part](items:part "wikilink") used in
 crafting the basic machines, tools, and their component parts. It\'s

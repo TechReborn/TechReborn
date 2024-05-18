@@ -1,8 +1,8 @@
-{{ :mods:techreborn:tin_nugget.png?nolink&200\|}}
+![](/mods/techreborn/tin_nugget.png)
 
-###### Tin Nugget {#tin_nugget}
+###### Tin Nugget
 
--   -   Tin Nugget\*\* made from
+-   -   Tin Nugget** made from
         `<mcitem>`{=html}techreborn:tin_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

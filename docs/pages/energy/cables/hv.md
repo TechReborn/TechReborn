@@ -1,8 +1,8 @@
-{{ :mods:techreborn:hv_cable.png?nolink&200\|HV Cable}}
+![HV Cable](/mods/techreborn/hv_cable.png)
 
-###### HV Cable {#hv_cable}
+###### HV Cable
 
--   -   HV (High Voltage) Cable\*\* transfers energy through it. For
+-   -   HV (High Voltage) Cable** transfers energy through it. For
         more details and how to use, read [general information about
         Cables](energy:cables "wikilink").
 

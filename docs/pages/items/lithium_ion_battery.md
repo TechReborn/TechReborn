@@ -1,9 +1,9 @@
-{{ :mods:techreborn:lithium_ion_battery.png?nolink&200\|Lithium-Ion
-Battery}} =======Lithium-Ion Battery======= A \*\* Lithium-Ion
-battery\*\* is the second tier of portable energy storage added by Tech
+{{ :mods:techreborn:lithium_ion_battery.png|Lithium-Ion
+Battery}} =======Lithium-Ion Battery======= A ** Lithium-Ion
+battery** is the second tier of portable energy storage added by Tech
 Reborn. It has the second lowest energy capacity of portable energy
 storage devices, capable of storing 100k Energy. Sneak-Use
-\*\*Lithium-Ion battery\*\* to make it active. It will charge other
+**Lithium-Ion battery** to make it active. It will charge other
 items in inventory while active.
 
 ##### Recipe
@@ -17,7 +17,7 @@ recipe:\\\\
 
 ##### Usage
 
--   -   Lithium-Ion batteries\*\* are used in these recipes:
+-   -   Lithium-Ion batteries** are used in these recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:lithium_ion_batpack``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:advanced_chainsaw``</mcitem>`{=html}\

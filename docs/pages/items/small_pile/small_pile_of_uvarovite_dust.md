@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_uvarovite_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_uvarovite_dust.png)
 
-###### Small Pile of Uvarovite Dust {#small_pile_of_uvarovite_dust}
+###### Small Pile of Uvarovite Dust
 
--   -   Small Pile of Uvarovite Dust\*\* is a small dust added by
+-   -   Small Pile of Uvarovite Dust** is a small dust added by
         TechReborn.
 
 \\\\

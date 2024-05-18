@@ -1,14 +1,14 @@
-{{ :mods:techreborn:industrial_machine_casing.png?nolink&200\|}}
+![](/mods/techreborn/industrial_machine_casing.png)
 
-###### Industrial Machine Casing {#industrial_machine_casing}
+###### Industrial Machine Casing
 
--   -   Industrial Machine Casing\*\* are used to build multi-block
+-   -   Industrial Machine Casing** are used to build multi-block
         machines like the
         `<mcitem>`{=html}techreborn:blast_furnace`</mcitem>`{=html}.
 
 ##### Recipe
 
--   -   Industrial Machine Casing\*\* could be created using recipes
+-   -   Industrial Machine Casing** could be created using recipes
         below.
 
 `<recipe>`{=html} input techreborn:chrome_plate techreborn:chrome_plate

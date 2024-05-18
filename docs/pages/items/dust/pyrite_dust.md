@@ -1,8 +1,8 @@
-{{ :mods:techreborn:pyrite_dust.png?nolink&200\|Pyrite Dust}}
+![Pyrite Dust](/mods/techreborn/pyrite_dust.png)
 
-###### Pyrite Dust {#pyrite_dust}
+###### Pyrite Dust
 
--   -   Pyrite Dust\*\* is an intermediate product received by mining or
+-   -   Pyrite Dust** is an intermediate product received by mining or
         processing
         `<mcitem>`{=html}techreborn:pyrite_ore`</mcitem>`{=html}.
 
@@ -34,13 +34,13 @@ recipe: \\\\ 32x`<mcitem>`{=html}minecraft:redstone`</mcitem>`{=html} +
 
 ##### Usage
 
--   -   Pyrite Dust\*\* could be further processed in
+-   -   Pyrite Dust** could be further processed in
         `<mcitem>`{=html}techreborn:industrial_electrolyzer`</mcitem>`{=html}.
 
 \\\\ 3x`<mcitem>`{=html}techreborn:pyrite_dust`</mcitem>`{=html} -\>
 `<mcitem>`{=html}techreborn:iron_dust`</mcitem>`{=html} +
 2x`<mcitem>`{=html}techreborn:sulfur_dust`</mcitem>`{=html} \\\\ \\\\
-Besides that \*\*pyrite Dust\*\* could be split into small piles using
+Besides that **pyrite Dust** could be split into small piles using
 `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}:
 `<recipe>`{=html} input air air air input air techreborn:pyrite_dust air
 input air air air output techreborn:small_pile_of_pyrite_dust,4

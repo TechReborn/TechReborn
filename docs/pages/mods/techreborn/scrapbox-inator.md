@@ -1,1 +1,0 @@
-\~\~REDIRECT\>blocks:scrapbox-inator\~\~

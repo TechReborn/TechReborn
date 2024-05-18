@@ -1,8 +1,8 @@
-{{ :mods:techreborn:nickel_ingot.png?nolink&200\|}}
+![](/mods/techreborn/nickel_ingot.png)
 
-###### Nickel Ingot {#nickel_ingot}
+###### Nickel Ingot
 
--   -   Nickel Ingot\*\* used to craft several recipes. Tech Reborn
+-   -   Nickel Ingot** used to craft several recipes. Tech Reborn
         doesn\'t have Nickel ore. It could be obtained either by
         processing several ores in
         `<mcitem>`{=html}techreborn:industrial_grinder`</mcitem>`{=html}
@@ -30,7 +30,7 @@ recipe: \\\\ `<mcitem>`{=html}techreborn:nickel_dust`</mcitem>`{=html}
 
 ##### Usage
 
--   -   Crafting\*\* recipes:
+-   -   Crafting** recipes:
 
 `<recipe>`{=html} input techreborn:nickel_ingot techreborn:nickel_ingot
 techreborn:nickel_ingot input techreborn:nickel_ingot
@@ -51,7 +51,7 @@ air input air air air output techreborn:nickel_nugget,9
 `<mcitem>`{=html}techreborn:nickel_ingot`</mcitem>`{=html} -\>
 `<mcitem>`{=html}techreborn:nickel_dust`</mcitem>`{=html} \\\\ \\\\
 
--   -   Plate Bending Machine\*\* recipe: \\\\
+-   -   Plate Bending Machine** recipe: \\\\
 
 `<mcitem>`{=html}techreborn:nickel_ingot`</mcitem>`{=html} -\>
 `<mcitem>`{=html}techreborn:nickel_plate`</mcitem>`{=html} \\\\ \\\\

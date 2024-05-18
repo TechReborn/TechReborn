@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_chrome_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_chrome_dust.png)
 
-###### Small Pile of Chrome Dust {#small_pile_of_chrome_dust}
+###### Small Pile of Chrome Dust
 
--   -   Small Pile of Chrome Dust\*\* is an small dust added by
+-   -   Small Pile of Chrome Dust** is an small dust added by
         TechReborn.
 
 \\\\

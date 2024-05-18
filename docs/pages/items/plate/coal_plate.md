@@ -1,8 +1,8 @@
-{{ :mods:techreborn:coal_plate.png?nolink&200\|Coal Plate}}
+![Coal Plate](/mods/techreborn/coal_plate.png)
 
-###### Coal Plate {#coal_plate}
+###### Coal Plate
 
--   -   Coal Plate\*\* is a crafting ingredient.
+-   -   Coal Plate** is a crafting ingredient.
 
 ##### Recipe
 
@@ -15,7 +15,7 @@
 
 ##### Usage
 
--   -   Coal Plate\*\* used in this crafting recipe:
+-   -   Coal Plate** used in this crafting recipe:
 
 `<recipe>`{=html} input techreborn:bronze_plate techreborn:coal_plate
 techreborn:gold_plate input techreborn:lapis_plate

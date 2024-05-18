@@ -1,1 +1,1 @@
-###### Invar Ingot {#invar_ingot}
+###### Invar Ingot

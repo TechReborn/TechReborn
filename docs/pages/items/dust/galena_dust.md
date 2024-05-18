@@ -1,8 +1,8 @@
-{{ :mods:techreborn:galena_dust.png?nolink&200\|Galena Dust}}
+![Galena Dust](/mods/techreborn/galena_dust.png)
 
-###### Galena Dust {#galena_dust}
+###### Galena Dust
 
--   -   Galena Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Galena Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:silver_ingot`</mcitem>`{=html},
         `<mcitem>`{=html}techreborn:lead_ingot`</mcitem>`{=html} and

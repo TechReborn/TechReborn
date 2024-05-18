@@ -1,8 +1,8 @@
-{{ :mods:techreborn:sapphire.png?nolink&200\|Sapphire}}
+![Sapphire](/mods/techreborn/sapphire.png)
 
 ###### Sapphire
 
--   -   Sapphire \*\* is a gem added by TechReborn. It is used to craft
+-   -   Sapphire ** is a gem added by TechReborn. It is used to craft
         sapphire armor set and also it could be grinded to
         `<mcitem>`{=html}techreborn:sapphire_dust`</mcitem>`{=html} for
         further processing.
@@ -16,7 +16,7 @@
 techreborn:block_of_sapphire air input air air air output
 techreborn:sapphire,9 `</recipe>`{=html} \\\\
 
--   -   Sapphire\*\* could be made back from dust using raw power of TNT
+-   -   Sapphire** could be made back from dust using raw power of TNT
         in
         `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}:
         \\\\

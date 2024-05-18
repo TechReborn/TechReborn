@@ -1,8 +1,8 @@
-{{ :mods:techreborn:glassfiber_cable.png?nolink&200\|Glass Fiber Cable}}
+![Glass Fiber Cable](/mods/techreborn/glassfiber_cable.png)
 
-###### Glass Fiber Cable {#glass_fiber_cable}
+###### Glass Fiber Cable
 
--   -   Glass Fiber Cable\*\* transfers energy through it. For more
+-   -   Glass Fiber Cable** transfers energy through it. For more
         details and how to use, read [general information about
         Cables](energy:cables "wikilink").
 

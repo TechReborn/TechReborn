@@ -1,9 +1,9 @@
-{{ :mods:techreborn:superconductor_cable.png?nolink&200\|Superconductor
+{{ :mods:techreborn:superconductor_cable.png|Superconductor
 Cable}}
 
-###### Superconductor Cable {#superconductor_cable}
+###### Superconductor Cable
 
--   -   Superconductor Cable\*\* transfers energy through it. For more
+-   -   Superconductor Cable** transfers energy through it. For more
         details and how to use, read [general information about
         Cables](energy:cables "wikilink").
 

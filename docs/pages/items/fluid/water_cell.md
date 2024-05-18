@@ -1,5 +1,5 @@
-{{ :mods:techreborn:water_cell.png?nolink&200\|Water Cell}} =======Water
-Cell======= The \*\*Water Cell\*\* is a fluid cell added by TechReborn.
+![Water Cell](/mods/techreborn/water_cell.png) =======Water
+Cell======= The **Water Cell** is a fluid cell added by TechReborn.
 You can get by using empty cell on water block.
 
 ##### Recipe

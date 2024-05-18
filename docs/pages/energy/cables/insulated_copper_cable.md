@@ -1,10 +1,10 @@
-{{ :mods:techreborn:insulated_copper_cable.png?nolink&200\|Insulated
+{{ :mods:techreborn:insulated_copper_cable.png|Insulated
 Copper Cable}}
 
-###### Insulated Copper Cable {#insulated_copper_cable}
+###### Insulated Copper Cable
 
 The insulated version of
-\*\*[energy:cables:copper](energy:cables:copper "wikilink")\*\*.
+**[energy:cables:copper](energy:cables:copper "wikilink")**.
 
 #### Recipes
 

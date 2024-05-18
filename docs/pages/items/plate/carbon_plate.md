@@ -1,8 +1,8 @@
-{{ :mods:techreborn:carbon_plate.png?nolink&200\|Carbon Plate}}
+![Carbon Plate](/mods/techreborn/carbon_plate.png)
 
-###### Carbon Plate {#carbon_plate}
+###### Carbon Plate
 
--   -   Carbon Plate\*\* is a crafting ingredient used in several
+-   -   Carbon Plate** is a crafting ingredient used in several
         crafting recipes.
 
 ##### Recipe
@@ -14,7 +14,7 @@
 
 ##### Usage
 
--   -   Carbon Plate\*\* used in these crafting recipes:
+-   -   Carbon Plate** used in these crafting recipes:
 
 `<recipe>`{=html} input air techreborn:carbon_plate air input
 techreborn:advanced_alloy_plate techreborn:basic_machine_frame

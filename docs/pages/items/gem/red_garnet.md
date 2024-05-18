@@ -1,8 +1,8 @@
-{{ :mods:techreborn:red_garnet.png?nolink&200\|Red Garnet}}
+![Red Garnet](/mods/techreborn/red_garnet.png)
 
-###### Red Garnet {#red_garnet}
+###### Red Garnet
 
--   -   Red Garnet \*\* is a gem added by TechReborn. It is used for
+-   -   Red Garnet ** is a gem added by TechReborn. It is used for
         further processing.
 
 \\\\
@@ -14,7 +14,7 @@
 techreborn:block_of_red_garnet air input air air air output
 techreborn:red_garnet,9 `</recipe>`{=html} \\\\
 
--   -   Red Garnet\*\* could be made back from dust using raw power of
+-   -   Red Garnet** could be made back from dust using raw power of
         TNT in
         `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}:
         \\\\

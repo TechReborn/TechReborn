@@ -1,8 +1,8 @@
-\~\~NOTOC\~\~ {{ :mods:techreborn:blast_furnace.png?nolink&200\|}}
+\~\~NOTOC\~\~ ![](/mods/techreborn/blast_furnace.png)
 
-###### Blast Furnace {#blast_furnace}
+###### Blast Furnace
 
-The \*\*Blast furnace\*\* is a multi-block machine used to smelt tough
+The **Blast furnace** is a multi-block machine used to smelt tough
 metals. It has an input rate of 512 FE/tick and an internal buffer for
 40.000 FE. The smelting abilities depends on the casings used for the
 multi-block. \\\\ \\\\
@@ -16,9 +16,9 @@ techreborn:cupronickel_heating_coil input techreborn:electric_furnace
 techreborn:cupronickel_heating_coil techreborn:electric_furnace output
 techreborn:blast_furnace `</recipe>`{=html} \\\\ \\\\
 
-##### Building instructions {#building_instructions}
+##### Building instructions
 
-The \*\*Blast Furnace\*\* requires a 3x4 multi-block with a hole in the
+The **Blast Furnace** requires a 3x4 multi-block with a hole in the
 center. The Multi-block can be built from different machine casings.
 Possible options are:
 
@@ -38,7 +38,7 @@ third layer again contains 8x casings with a hole in the middle.
 `{{gallery>:blocks:blast_furnace_layer3.png?lightbox}}`{=mediawiki} The
 last layer is made with 9x casings.
 `{{gallery>:blocks:blast_furnace_layer4.png?lightbox}}`{=mediawiki}
-Place the \*\*Blast Furnace\*\* in the center bottom block and connect
+Place the **Blast Furnace** in the center bottom block and connect
 it to a power source. The multi-block made from
 `<mcitem>`{=html}techreborn:basic_machine_casing`</mcitem>`{=html} will
 allow the furnace to produce 1360 heat.
@@ -52,5 +52,5 @@ of lava in the center of multi-block will add 500 heat. \\\\ \\\\
 ##### Video
 
 ```{=mediawiki}
-{{https://cached_fileserver.modmuss50.me/videos/blastFurnace.mp4|1280x720}}
+![1280x720](/https://cached_fileserver.modmuss50.me/videos/blastFurnace.mp4)
 ```

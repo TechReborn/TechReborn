@@ -1,11 +1,11 @@
-{{ :mods:techreborn:treetap.png?nolink&200\|Treetap}}
-=======Treetap======= The \*\*Treetap\*\* is an item that is used to
+![Treetap](/mods/techreborn/treetap.png)
+=======Treetap======= The **Treetap** is an item that is used to
 extract sap from rubber trees. The
 `<mcitem>`{=html}techreborn:sap`</mcitem>`{=html} is placed into the
 inventory of the player that is using it.
 
 `<mcitem>`{=html}techreborn:electric_treetap`</mcitem>`{=html} is an
-advanced version of \*\*Treetap\*\*, which uses energy rather than
+advanced version of **Treetap**, which uses energy rather than
 durability. \\\\
 
 ##### Recipe
@@ -20,7 +20,7 @@ minecraft:wood_planks air air output techreborn:treetap
 Click on sap spot on rubber tree to get
 `<mcitem>`{=html}techreborn:sap`</mcitem>`{=html}. \\\\ \\\\
 
--   -   TreeTap\*\* used in the following crafting recipes:
+-   -   TreeTap** used in the following crafting recipes:
 
 `<recipe>`{=html} input techreborn:treetap techreborn:red_cell_battery
 input air input air output techreborn:electric_treetap
@@ -37,7 +37,7 @@ techreborn:resin_basin `</recipe>`{=html}
 ##### Video
 
 ```{=mediawiki}
-{{https://cached_fileserver.modmuss50.me/videos/treeTap.mp4|1280x720}}
+![1280x720](/https://cached_fileserver.modmuss50.me/videos/treeTap.mp4)
 ```
 ###### History
 

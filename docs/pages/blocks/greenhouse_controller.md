@@ -1,9 +1,9 @@
-{{ :mods:techreborn:greenhouse_controller.png?nolink&200\|Greenhouse
+{{ :mods:techreborn:greenhouse_controller.png|Greenhouse
 Controller}}
 
-###### Greenhouse Controller {#greenhouse_controller}
+###### Greenhouse Controller
 
--   -   Greenhouse Controller\*\* is a machines that harvest and replant
+-   -   Greenhouse Controller** is a machines that harvest and replant
         crops in 9x9 area behind it. It is a Low tier machine with input
         rate of 32E and internal buffer for 5kE.
 
@@ -22,11 +22,11 @@ techreborn:advanced_circuit output techreborn:greenhouse_controller
 
 ##### Usage
 
-Place \*\*Greenhouse Controller\*\* on the ground, provide energy and
+Place **Greenhouse Controller** on the ground, provide energy and
 put some crops behind it. Standard Minecraft requirements applies to
 crops, like watered and tilled dirt for wheat or nearby water for sugar
 cane. Powered lamps above crops will speed-up grow.
 
 ```{=mediawiki}
-{{:blocks:greenhouse_controller.png?400|}}
+![](/blocks:greenhouse_controller.png?400)
 ```

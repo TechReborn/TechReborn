@@ -1,8 +1,8 @@
-{{ :mods:techreborn:nickel_nugget.png?nolink&200\|}}
+![](/mods/techreborn/nickel_nugget.png)
 
-###### Nickel Nugget {#nickel_nugget}
+###### Nickel Nugget
 
--   -   Nickel Nugget\*\* made from
+-   -   Nickel Nugget** made from
         `<mcitem>`{=html}techreborn:nickel_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

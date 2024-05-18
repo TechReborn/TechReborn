@@ -1,8 +1,8 @@
-{{ :mods:techreborn:brass_ingot.png?nolink&200\|Brass Ingot}}
+![Brass Ingot](/mods/techreborn/brass_ingot.png)
 
-###### Brass Ingot {#brass_ingot}
+###### Brass Ingot
 
--   -   Brass Ingot\*\* is an alloy used to craft several recipes. Tech
+-   -   Brass Ingot** is an alloy used to craft several recipes. Tech
         Reborn doesn\'t have brass ore.
 
 ##### Recipe
@@ -27,7 +27,7 @@ output techreborn:brass_ingot tool techreborn:iron_furnace
 
 ##### Usage
 
--   -   Brass Ingot\*\* used in several crafting recipes:
+-   -   Brass Ingot** used in several crafting recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:brass_nugget``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:brass_storage_block``</mcitem>`{=html}\

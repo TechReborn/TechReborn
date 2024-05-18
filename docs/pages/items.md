@@ -5,7 +5,7 @@ Tech Reborn adds a lot of items, that have special uses.
 ```{=mediawiki}
 {{page>items:armor}}
 ```
-#### Portable Batteries {#portable_batteries}
+#### Portable Batteries
 
 ```{=mediawiki}
 {{section>:energy:batteries#portable batteries&noheader}}
@@ -17,7 +17,7 @@ example, Drills or Wrench
 
 ` * ``<mcitem>`{=html}`techreborn:treetap``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:electric_treetap``</mcitem>`{=html}\
-` * ``{{:mods:techreborn:nanosaber_3.png?nolink&24|}}`{=mediawiki}` **`[`Nano Saber`](items:nanosaber "wikilink")`**`\
+` * ``![](/mods/techreborn/nanosaber_3.png)`{=mediawiki}` **`[`Nano Saber`](items:nanosaber "wikilink")`**`\
 ` * ``<mcitem>`{=html}`techreborn:basic_drill``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:advanced_drill``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:industrial_drill``</mcitem>`{=html}\
@@ -36,14 +36,14 @@ Ingredients are used either to craft other ingredients, for example
 Small Pile of Dust used to craft Dust. Also ingredients are used to
 craft parts for machines.
 
-` *``{{:mods:techreborn:lava_cell.png?nolink&24|}}`{=mediawiki}` **`[`Fluids`](items:fluid "wikilink")`**`\
-` *``{{:mods:techreborn:ruby.png?nolink&24|}}`{=mediawiki}` **`[`Gems`](items:gem "wikilink")`**`\
-` *``{{:mods:techreborn:small_pile_of_copper_dust.png?nolink&24|}}`{=mediawiki}` **`[`Small Piles`](items:small_pile "wikilink")`**`\
-` *``{{:mods:techreborn:copper_dust.png?nolink&24|}}`{=mediawiki}` **`[`Dusts`](items:dust "wikilink")`**`\
-` *``{{:mods:techreborn:copper_nugget.png?nolink&24|}}`{=mediawiki}` **`[`Nuggets`](items:nugget "wikilink")`**`\
-` *``{{:mods:techreborn:copper_ingot.png?nolink&24|}}`{=mediawiki}` **`[`Ingots`](items:ingot "wikilink")`**`\
-` *``{{:mods:techreborn:copper_plate.png?nolink&24|}}`{=mediawiki}` **`[`Plates`](items:plate "wikilink")`**`\
-` *``{{:mods:techreborn:advanced_circuit.png?nolink&24|}}`{=mediawiki}` **`[`Parts`](items:part "wikilink")`**`\
-` *``{{:mods:techreborn:scrap.png?32|}}`{=mediawiki}`**`[`Scrap`](items:scrap "wikilink")`**`\
-` *``{{:mods:techreborn:scrap_box.png?32|}}`{=mediawiki}`**`[`Scrap Boxes`](items:scrap_box "wikilink")`**`\
-` *``{{:mods:techreborn:uu-matter.png?32|}}`{=mediawiki}`**`[`UU-Matter`](items:uu-matter "wikilink")`**`
+` *``![](/mods/techreborn/lava_cell.png)`{=mediawiki}` **`[`Fluids`](items:fluid "wikilink")`**`\
+` *``![](/mods/techreborn/ruby.png)`{=mediawiki}` **`[`Gems`](items:gem "wikilink")`**`\
+` *``![](/mods/techreborn/small_pile_of_copper_dust.png)`{=mediawiki}` **`[`Small Piles`](items:small_pile "wikilink")`**`\
+` *``![](/mods/techreborn/copper_dust.png)`{=mediawiki}` **`[`Dusts`](items:dust "wikilink")`**`\
+` *``![](/mods/techreborn/copper_nugget.png)`{=mediawiki}` **`[`Nuggets`](items:nugget "wikilink")`**`\
+` *``![](/mods/techreborn/copper_ingot.png)`{=mediawiki}` **`[`Ingots`](items:ingot "wikilink")`**`\
+` *``![](/mods/techreborn/copper_plate.png)`{=mediawiki}` **`[`Plates`](items:plate "wikilink")`**`\
+` *``![](/mods/techreborn/advanced_circuit.png)`{=mediawiki}` **`[`Parts`](items:part "wikilink")`**`\
+` *``![](/mods/techreborn/scrap.png?32)`{=mediawiki}`**`[`Scrap`](items:scrap "wikilink")`**`\
+` *``![](/mods/techreborn/scrap_box.png?32)`{=mediawiki}`**`[`Scrap Boxes`](items:scrap_box "wikilink")`**`\
+` *``![](/mods/techreborn/uu-matter.png?32)`{=mediawiki}`**`[`UU-Matter`](items:uu-matter "wikilink")`**`

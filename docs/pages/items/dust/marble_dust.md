@@ -1,8 +1,8 @@
-{{ :mods:techreborn:marble_dust.png?nolink&200\|Marble Dust}}
+![Marble Dust](/mods/techreborn/marble_dust.png)
 
-###### Marble Dust {#marble_dust}
+###### Marble Dust
 
--   -   Marble Dust\*\* is a dust added by TechReborn. It is used for
+-   -   Marble Dust** is a dust added by TechReborn. It is used for
         further processing in
         `<mcitem>`{=html}techreborn:industrial_centrifuge`</mcitem>`{=html}.
 

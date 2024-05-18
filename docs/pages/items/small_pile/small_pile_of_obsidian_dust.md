@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_obsidian_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_obsidian_dust.png)
 
-###### Small Pile of Obsidian Dust {#small_pile_of_obsidian_dust}
+###### Small Pile of Obsidian Dust
 
--   -   Small Pile of Obsidian Dust\*\* is a small dust added by
+-   -   Small Pile of Obsidian Dust** is a small dust added by
         TechReborn.
 
 \\\\

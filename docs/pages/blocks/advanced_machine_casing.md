@@ -1,14 +1,14 @@
-{{ :mods:techreborn:advanced_machine_casing.png?nolink&200\|}}
+![](/mods/techreborn/advanced_machine_casing.png)
 
-###### Advanced Machine Casing {#advanced_machine_casing}
+###### Advanced Machine Casing
 
--   -   Advanced Machine Casing\*\* used to build multi-block machines
+-   -   Advanced Machine Casing** used to build multi-block machines
         like the
         `<mcitem>`{=html}techreborn:industrial_grinder`</mcitem>`{=html}.
 
 ##### Recipe
 
--   -   Advanced Machine Casing\*\* can be crafted using following
+-   -   Advanced Machine Casing** can be crafted using following
         recipes.
 
 `<recipe>`{=html} input techreborn:steel_plate techreborn:steel_plate
@@ -24,7 +24,7 @@ output techreborn:advanced_machine_casing `</recipe>`{=html}
 
 ##### Usage
 
--   -   Advanced Machine Casing\*\* can be used in the following
+-   -   Advanced Machine Casing** can be used in the following
         recipes.
 
 `<recipe>`{=html} input techreborn:chrome_plate techreborn:chrome_plate

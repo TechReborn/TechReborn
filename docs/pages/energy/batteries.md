@@ -1,10 +1,10 @@
-{{ :mods:techreborn:battery_box.png?nolink&200\|Battery Box}}
+![Battery Box](/mods/techreborn/battery_box.png)
 
 ###### Batteries
 
 //This page is under construction!//
 
-#### Portable Batteries {#portable_batteries}
+#### Portable Batteries
 
 Portable batteries are used to store energy and power tools and armors
 from the inventory.
@@ -16,7 +16,7 @@ from the inventory.
 ` * ``<mcitem>`{=html}`techreborn:lapotronic_energy_orb``</mcitem>`{=html}\
 `     `
 
-#### Battery Blocks {#battery_blocks}
+#### Battery Blocks
 
 Battery blocks are used to store energy and charge items.
 
@@ -25,5 +25,5 @@ Battery blocks are used to store energy and charge items.
 ` * ``<mcitem>`{=html}`techreborn:MFSU``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:Adjustable_SU``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:Interdimensional_SU``</mcitem>`{=html}\
-` * ``{{:mods:techreborn:lapotronic_su.png?nolink&24|LESU Controller}}`{=mediawiki}`**`[`LESU Controller`](energy:storage:lesu "wikilink")`**`\
-`   * ``{{:mods:techreborn:lsu_storage.png?nolink&24|LESU Storage}}`{=mediawiki}`**`[`LESU Storage`](energy:storage:lesu_block "wikilink")`**`
+` * ``![LESU Controller](/mods/techreborn/lapotronic_su.png)`{=mediawiki}`**`[`LESU Controller`](energy:storage:lesu "wikilink")`**`\
+`   * ``![LESU Storage](/mods/techreborn/lsu_storage.png)`{=mediawiki}`**`[`LESU Storage`](energy:storage:lesu_block "wikilink")`**`

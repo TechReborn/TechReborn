@@ -1,4 +1,4 @@
-###### Development workspace setup for Minecraft 1.17 {#development_workspace_setup_for_minecraft_1.17}
+###### Development workspace setup for Minecraft 1.17
 
 This guide is intended for people wishing to help with the creation of
 the mod. It assumes you know the basics of git and java. Guide aimed on
@@ -12,7 +12,7 @@ similar.
 ` * Git (https://git-scm.com/download/win)`\
 ` * This guide covers MS Windows setup. Sorry.`
 
-##### Setup Tech Reborn {#setup_tech_reborn}
+##### Setup Tech Reborn
 
 RebornCore is now part of Tech Reborn repository. Thus there is no need
 for a separate step for RC setup anymore.

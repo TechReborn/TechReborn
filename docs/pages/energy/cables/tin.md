@@ -1,8 +1,8 @@
-{{ :mods:techreborn:tin_cable.png?nolink&200\|Tin Cable}}
+![Tin Cable](/mods/techreborn/tin_cable.png)
 
-###### Tin Cable {#tin_cable}
+###### Tin Cable
 
--   -   Tin Cable\*\* transfers energy through it. For more details and
+-   -   Tin Cable** transfers energy through it. For more details and
         how to use, read [general information about
         Cables](energy:cables "wikilink").
 

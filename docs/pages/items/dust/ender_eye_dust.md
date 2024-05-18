@@ -1,8 +1,8 @@
-{{ :mods:techreborn:ender_eye_dust.png?nolink&200\|Ender Eye Dust}}
+![Ender Eye Dust](/mods/techreborn/ender_eye_dust.png)
 
-###### Ender Eye Dust {#ender_eye_dust}
+###### Ender Eye Dust
 
--   -   Ender Eye Dust\*\* is a dust added by TechReborn. It is used for
+-   -   Ender Eye Dust** is a dust added by TechReborn. It is used for
         further processing.
 
 \\\\

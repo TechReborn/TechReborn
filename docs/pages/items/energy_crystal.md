@@ -1,8 +1,8 @@
-{{ :mods:techreborn:energy_crystal.png?nolink&200\|Energy Crystal}}
-=======Energy Crystal======= An \*\*Energy Crystal\*\* is the third and
+![Energy Crystal](/mods/techreborn/energy_crystal.png)
+=======Energy Crystal======= An **Energy Crystal** is the third and
 middle tier of portable energy storage added by Tech Reborn. It has a
 moderate energy storage capacity, capable of storing 1M Energy.
-Sneak-Use \*\*Energy Crystal\*\* to make it active. It will charge other
+Sneak-Use **Energy Crystal** to make it active. It will charge other
 items in inventory while active.
 
 ##### Recipe
@@ -15,7 +15,7 @@ recipe:\\\\
 
 ##### Usage
 
--   -   Energy Crystals\*\* are used as crafting ingredient in the
+-   -   Energy Crystals** are used as crafting ingredient in the
         following crafting recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:lapotron_crystal``</mcitem>`{=html}\

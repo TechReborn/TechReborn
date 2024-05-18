@@ -1,8 +1,8 @@
-{{ :mods:techreborn:copper_cable.png?nolink&200\|Copper Cable}}
+![Copper Cable](/mods/techreborn/copper_cable.png)
 
-###### Copper Cable {#copper_cable}
+###### Copper Cable
 
--   -   Copper Cable\*\* transfers energy through it. For more details
+-   -   Copper Cable** transfers energy through it. For more details
         and how to use, read [general information about
         Cables](energy:cables "wikilink").
 

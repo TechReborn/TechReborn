@@ -1,3 +1,3 @@
-{{ :mods:techreborn:iron_plate.png?nolink&200\|}}
+![](/mods/techreborn/iron_plate.png)
 
-###### Iron Plate {#iron_plate}
+###### Iron Plate

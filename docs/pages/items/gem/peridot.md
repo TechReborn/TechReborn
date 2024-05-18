@@ -1,8 +1,8 @@
-{{ :mods:techreborn:peridot_gem.png?nolink&200\|Peridot}}
+![Peridot](/mods/techreborn/peridot_gem.png)
 
 ###### Peridot
 
--   -   Peridot \*\* is a gem added by TechReborn. It is used to craft
+-   -   Peridot ** is a gem added by TechReborn. It is used to craft
         peridot armor set and also it could be grinded to
         `<mcitem>`{=html}techreborn:peridot_dust`</mcitem>`{=html} for
         further processing.
@@ -14,7 +14,7 @@
 techreborn:peridot_storage_block air input air air air output
 techreborn:peridot_gem,9 `</recipe>`{=html}
 
--   -   Peridot\*\* could be made back from dust using raw power of TNT
+-   -   Peridot** could be made back from dust using raw power of TNT
         in
         `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}:
         \\\\

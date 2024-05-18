@@ -1,8 +1,8 @@
-{{ :mods:techreborn:tin_dust.png?nolink&200\|}}
+![](/mods/techreborn/tin_dust.png)
 
-###### Tin Dust {#tin_dust}
+###### Tin Dust
 
--   -   Tin Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Tin Dust** is a dust added by TechReborn. It is used to
         produce `<mcitem>`{=html}techreborn:tin_ingot`</mcitem>`{=html}.
 
 \\\\

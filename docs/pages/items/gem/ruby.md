@@ -1,8 +1,8 @@
-{{ :mods:techreborn:ruby.png?nolink&200\|Ruby}}
+![Ruby](/mods/techreborn/ruby.png)
 
 ###### Ruby
 
--   -   Ruby \*\* is a gem added by TechReborn. It is used to craft ruby
+-   -   Ruby ** is a gem added by TechReborn. It is used to craft ruby
         armor set and also it could be grinded to
         `<mcitem>`{=html}techreborn:ruby_dust`</mcitem>`{=html} for
         further processing.
@@ -15,7 +15,7 @@
 `<recipe>`{=html} input air air air input air techreborn:block_of_ruby
 air input air air air output techreborn:ruby,9 `</recipe>`{=html} \\\\
 
--   -   Ruby\*\* could be made back from dust using raw power of TNT in
+-   -   Ruby** could be made back from dust using raw power of TNT in
         `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}:\\\\
 
 4x`<mcitem>`{=html}techreborn:ruby_dust`</mcitem>`{=html} +

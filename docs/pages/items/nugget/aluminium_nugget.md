@@ -1,8 +1,8 @@
-{{ :mods:techreborn:aluminium_nugget.png?nolink&200\|}}
+![](/mods/techreborn/aluminium_nugget.png)
 
-###### Aluminium Nugget {#aluminium_nugget}
+###### Aluminium Nugget
 
--   -   Aluminium Nugget\*\* made from
+-   -   Aluminium Nugget** made from
         `<mcitem>`{=html}techreborn:aluminium_ingot`</mcitem>`{=html}
         and 9 nuggets could be formed back to ingot.
 

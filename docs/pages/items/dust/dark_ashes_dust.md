@@ -1,8 +1,8 @@
-{{ :mods:techreborn:dark_ashes.png?nolink&200\|Dark Ashes}}
+![Dark Ashes](/mods/techreborn/dark_ashes.png)
 
-###### Dark Ashes {#dark_ashes}
+###### Dark Ashes
 
--   -   Dark Ashes\*\* is a dust added by TechReborn. It is a byproduct
+-   -   Dark Ashes** is a dust added by TechReborn. It is a byproduct
         from several recipes.
 
 \\\\
@@ -41,7 +41,7 @@ recipe: \\\\ 4x
 `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}
 recipe: \\\\
 
--   -   Dark Ashes\*\* is a byproduct from every recipe with
+-   -   Dark Ashes** is a byproduct from every recipe with
         `<mcitem>`{=html}minecraft:tnt`</mcitem>`{=html} usage.
 
 ##### Usage

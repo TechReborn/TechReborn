@@ -1,8 +1,8 @@
-{{ :mods:techreborn:refined_iron_nugget.png?nolink&200\|}}
+![](/mods/techreborn/refined_iron_nugget.png)
 
-###### Refined Iron Nugget {#refined_iron_nugget}
+###### Refined Iron Nugget
 
--   -   Refined Iron Nugget\*\* made from
+-   -   Refined Iron Nugget** made from
         `<mcitem>`{=html}techreborn:refined_iron_ingot`</mcitem>`{=html}
         and 9 nuggets could be formed back to ingot.
 

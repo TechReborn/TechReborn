@@ -1,8 +1,8 @@
-{{ :mods:techreborn:chrome_dust.png?nolink&200\|}}
+![](/mods/techreborn/chrome_dust.png)
 
-###### Chrome Dust {#chrome_dust}
+###### Chrome Dust
 
--   -   Chrome Dust\*\* is a dust added by TechReborn. It is mainly used
+-   -   Chrome Dust** is a dust added by TechReborn. It is mainly used
         to produce
         `<mcitem>`{=html}techreborn:chrome_ingot`</mcitem>`{=html} or
         some alloys.

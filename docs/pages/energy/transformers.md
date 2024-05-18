@@ -1,4 +1,4 @@
-{{ :mods:techreborn:lv_transformer.png?nolink&200\|}}
+![](/mods/techreborn/lv_transformer.png)
 
 ###### Transformers
 

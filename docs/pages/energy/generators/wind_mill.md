@@ -1,9 +1,9 @@
-{{ :mods:techreborn:wind_mill.png?200\|}}
+![](/mods/techreborn/wind_mill.png)
 
-###### Wind Mill {#wind_mill}
+###### Wind Mill
 
--   -   Wind Mill\*\* is a \*\*[passive
-        generator](energy:generators:passive_generators "wikilink")\*\*
+-   -   Wind Mill** is a **[passive
+        generator](energy:generators:passive_generators "wikilink")**
         that produces energy from wind.
 
 \^ Tier \^ Generation Rate \^ Output \^ Storage \^ \| Advanced \| 2-2.5

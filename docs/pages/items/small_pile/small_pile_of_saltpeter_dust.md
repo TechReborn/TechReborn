@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_saltpeter_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_saltpeter_dust.png)
 
-###### Small Pile of Saltpeter Dust {#small_pile_of_saltpeter_dust}
+###### Small Pile of Saltpeter Dust
 
--   -   Small Pile of Saltpeter Dust\*\* is a small dust added by
+-   -   Small Pile of Saltpeter Dust** is a small dust added by
         TechReborn.
 
 \\\\

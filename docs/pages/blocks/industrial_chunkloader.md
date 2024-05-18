@@ -1,16 +1,16 @@
-{{ :mods:techreborn:chunk_loader.png?nolink&200\|Industrial
+{{ :mods:techreborn:chunk_loader.png|Industrial
 Chunkloader}}
 
-###### Industrial Chunkloader {#industrial_chunkloader}
+###### Industrial Chunkloader
 
-The \*\*Industrial Chunkloader\*\* should keep the chunk they are in
+The **Industrial Chunkloader** should keep the chunk they are in
 loaded so machines will continue to work even if the player is far away.
 It requires no energy. You can change radius of chunks loaded around
-\*\*Industrial Chunkloader\*\*
+**Industrial Chunkloader**
 
 ##### Recipe
 
--   -   Industrial Chunkloader\*\* can be crafted using the following
+-   -   Industrial Chunkloader** can be crafted using the following
         recipes.
 
 `<recipe>`{=html} input techreborn:bronze_plate techreborn:coal_plate

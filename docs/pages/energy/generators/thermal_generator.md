@@ -1,11 +1,11 @@
-{{ :mods:techreborn:thermal_generator.png?200\|}}
+![](/mods/techreborn/thermal_generator.png)
 
-###### Thermal Generator {#thermal_generator}
+###### Thermal Generator
 
-The \*\*Thermal Generator\*\* produces energy from lava. It has an
-internal \*\*[Tank](mods:techreborn:basic_tank_unit "wikilink")\*\* that
-can hold 10k mB (10 \*\*[Buckets](mods:minecraft:bucket "wikilink")\*\*
-or \*\*[Cells](items:fluid:empty_cell "wikilink")\*\*) of lava which is
+The **Thermal Generator** produces energy from lava. It has an
+internal **[Tank](mods:techreborn:basic_tank_unit "wikilink")** that
+can hold 10k mB (10 **[Buckets](mods:minecraft:bucket "wikilink")**
+or **[Cells](items:fluid:empty_cell "wikilink")**) of lava which is
 consumed as it is converted to energy.
 
 \^ Tier \^ Generation Rate \^ Output \^ Storage \^ \| Industrial \| 16

@@ -1,7 +1,7 @@
-{{ :mods:techreborn:advanced_jackhammer.png?nolink&200\|Advanced
+{{ :mods:techreborn:advanced_jackhammer.png|Advanced
 Jackhammer}} =======Advanced Jackhammer=======
 
--   -   Advanced Jackhammer\*\* is a more advanced version of
+-   -   Advanced Jackhammer** is a more advanced version of
         `<mcitem>`{=html}techreborn:basic_jackhammer`</mcitem>`{=html}
         available from TechReborn. It has 100k energy storage. One can
         charge it using energy storage blocks, like
@@ -10,10 +10,10 @@ Jackhammer}} =======Advanced Jackhammer=======
         stone based blocks, like
         `<mcitem>`{=html}minecraft:stone`</mcitem>`{=html} or
         `<mcitem>`{=html}minecraft:cobblestone`</mcitem>`{=html} with a
-        speed of a Diamond Pickaxe. \*\*Advanced Jackhammer\*\* is
+        speed of a Diamond Pickaxe. **Advanced Jackhammer** is
         capable of 3x3 mining when set to active. It will cost 100
         energy to break one block. It has iron mining level so most of
-        ores could be mined by \*\*Advanced Jackhammer\*\* but with very
+        ores could be mined by **Advanced Jackhammer** but with very
         low speed, nevertheless AoE mining will skip non-stone blocks.
 
 ##### Recipe
@@ -31,7 +31,7 @@ mining.
 
 \\\\
 
-Besides main usage as stone chewer \*\*Advanced Jackhammer\*\* could be
+Besides main usage as stone chewer **Advanced Jackhammer** could be
 used in crafting. `<recipe>`{=html} input techreborn:iridium_nugget
 techreborn:advanced_jackhammer techreborn:iridium_nugget input
 techreborn:overclocker_upgrade techreborn:energy_flow_chip

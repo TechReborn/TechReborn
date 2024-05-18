@@ -1,8 +1,8 @@
-{{ :mods:techreborn:silver_dust.png?nolink&200\|Silver Dust}}
+![Silver Dust](/mods/techreborn/silver_dust.png)
 
-###### Silver Dust {#silver_dust}
+###### Silver Dust
 
--   -   Silver Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Silver Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:silver_ingot`</mcitem>`{=html}.
 

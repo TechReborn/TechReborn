@@ -1,4 +1,4 @@
-{{ :mods:techreborn:wrench.png?nolink&200\|}} =======Setting up a
+![](/mods/techreborn/wrench.png) =======Setting up a
 development environment for MC 1.12 =======
 
 This guide is intended for people wishing to help with the creation of
@@ -10,7 +10,7 @@ the mod. It assumes you know the basics of git and java.
 ` * Intelij Idea, you can also use eclipse but that isnt covered.`\
 ` * Git`
 
-##### Setting up using gradle {#setting_up_using_gradle}
+##### Setting up using gradle
 
 ` - Fork the repo and clone to your computer`\
 ` - Browse to the folder that you cloned down.`\

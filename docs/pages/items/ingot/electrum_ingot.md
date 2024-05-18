@@ -1,8 +1,8 @@
-{{ :mods:techreborn:electrum_ingot.png?nolink&200\|}}
+![](/mods/techreborn/electrum_ingot.png)
 
-###### Electrum Ingot {#electrum_ingot}
+###### Electrum Ingot
 
--   -   Electrum Ingot\*\* is an alloy used to craft several recipes.
+-   -   Electrum Ingot** is an alloy used to craft several recipes.
         Tech Reborn doesn\'t have Electum ore.
 
 ##### Usage

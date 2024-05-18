@@ -26,7 +26,7 @@ information about cables](energy:cables "wikilink").
 ```{=mediawiki}
 {{section>:energy:transformers&noheader}}
 ```
-##### Battery Blocks {#battery_blocks}
+##### Battery Blocks
 
 ```{=mediawiki}
 {{section>:energy:batteries#battery blocks&noheader}}
@@ -49,13 +49,13 @@ Tech Reborn has several tiers of different kind of machines:
 `   * ``<mcitem>`{=html}`techreborn:greenhouse_controller``</mcitem>`{=html}\
 `   * ``<mcitem>`{=html}`techreborn:wire_mill``</mcitem>`{=html}\
 ` * Medium`\
-`   * ``{{:mods:techreborn:implosion_compressor.png?nolink&24|Implosion Compressor}}`{=mediawiki}` **`[`Implosion Compressor`](blocks:implosion_compressor "wikilink")`**`\
-`   * ``{{:mods:techreborn:blast_furnace.png?nolink&24|Blast Furnace}}`{=mediawiki}` **`[`Industrial Blast Furnace`](blocks:blast_furnace "wikilink")`**`\
+`   * ``![Implosion Compressor](/mods/techreborn/implosion_compressor.png)`{=mediawiki}` **`[`Implosion Compressor`](blocks:implosion_compressor "wikilink")`**`\
+`   * ``![Blast Furnace](/mods/techreborn/blast_furnace.png)`{=mediawiki}` **`[`Industrial Blast Furnace`](blocks:blast_furnace "wikilink")`**`\
 `   * ``<mcitem>`{=html}`techreborn:industrial_grinder``</mcitem>`{=html}\
 `   * ``<mcitem>`{=html}`techreborn:industrial_electrolyzer``</mcitem>`{=html}\
 `   * ``<mcitem>`{=html}`techreborn:chemical_reactor``</mcitem>`{=html}\
-`   * ``{{:mods:techreborn:vacuum_freezer.png?nolink&24|Vacuum Freezer}}`{=mediawiki}` **`[`Vacuum Freezer`](blocks:vacuum_freezer "wikilink")`**`\
-`   * ``{{:mods:techreborn:saw_mill.png?nolink&24|Saw Mill}}`{=mediawiki}` **`[`Saw Mill`](blocks:saw_mill "wikilink")`**`\
+`   * ``![Vacuum Freezer](/mods/techreborn/vacuum_freezer.png)`{=mediawiki}` **`[`Vacuum Freezer`](blocks:vacuum_freezer "wikilink")`**`\
+`   * ``![Saw Mill](/mods/techreborn/saw_mill.png)`{=mediawiki}` **`[`Saw Mill`](blocks:saw_mill "wikilink")`**`\
 `   * ``<mcitem>`{=html}`techreborn:assembling_machine``</mcitem>`{=html}\
 `   * ``<mcitem>`{=html}`techreborn:distillation_tower``</mcitem>`{=html}\
 ` * High`\
@@ -67,7 +67,7 @@ Tech Reborn has several tiers of different kind of machines:
 `   * ``<mcitem>`{=html}`techreborn:matter_fabricator``</mcitem>`{=html}\
 `   * ``<mcitem>`{=html}`techreborn:fusion_control_computer``</mcitem>`{=html}
 
-##### Item Storage {#item_storage}
+##### Item Storage
 
 ` * ``<mcitem>`{=html}`techreborn:crude_storage_unit``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:basic_storage_unit``</mcitem>`{=html}\
@@ -76,7 +76,7 @@ Tech Reborn has several tiers of different kind of machines:
 ` * ``<mcitem>`{=html}`techreborn:quantum_storage_unit``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:creative_storage_unit``</mcitem>`{=html}
 
-##### Fluid Storage {#fluid_storage}
+##### Fluid Storage
 
 ` * ``<mcitem>`{=html}`techreborn:basic_tank_unit``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:advanced_tank_unit``</mcitem>`{=html}\
@@ -93,7 +93,7 @@ Tech Reborn has several tiers of different kind of machines:
 ` * ``<mcitem>`{=html}`techreborn:alarm``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:player_detector``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:drain``</mcitem>`{=html}\
-` * ``{{:mods:techreborn:chunk_loader.png?nolink&24|Industrial Chunkloader}}`{=mediawiki}` **`[`Industrial Chunkloader`](blocks:industrial_chunkloader "wikilink")`**`\
+` * ``![Industrial Chunkloader](/mods/techreborn/chunk_loader.png)`{=mediawiki}` **`[`Industrial Chunkloader`](blocks:industrial_chunkloader "wikilink")`**`\
 ` * ``<mcitem>`{=html}`techreborn:resin_basin``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:basic_machine_frame``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:advanced_machine_frame``</mcitem>`{=html}\

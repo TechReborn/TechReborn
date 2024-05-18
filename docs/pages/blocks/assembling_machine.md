@@ -1,6 +1,6 @@
-{{ :mods:techreborn:assembling_machine.png?nolink&200\|}}
+![](/mods/techreborn/assembling_machine.png)
 
-###### Assembling Machine {#assembling_machine}
+###### Assembling Machine
 
 ##### Recipe
 

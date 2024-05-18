@@ -1,8 +1,8 @@
-{{ :mods:techreborn:refined_iron_ingot.png?nolink&200\|}}
+![](/mods/techreborn/refined_iron_ingot.png)
 
-###### Refined Iron Ingot {#refined_iron_ingot}
+###### Refined Iron Ingot
 
--   -   Refined Iron Ingot\*\* is an ingot used in many TR recipes. It
+-   -   Refined Iron Ingot** is an ingot used in many TR recipes. It
         could be acquired by smelting vanilla
         `<mcitem>`{=html}minecraft:iron_ingot`</mcitem>`{=html}.
 
@@ -10,7 +10,7 @@
 
 ##### Recipe
 
-### Crafting Table Recipe {#crafting_table_recipe}
+### Crafting Table Recipe
 
 `<recipe>`{=html} input techreborn:refined_iron_nugget
 techreborn:refined_iron_nugget techreborn:refined_iron_nugget input
@@ -19,9 +19,9 @@ techreborn:refined_iron_nugget input techreborn:refined_iron_nugget
 techreborn:refined_iron_nugget techreborn:refined_iron_nugget output
 techreborn:refined_iron_ingot `</recipe>`{=html} \\\\
 
-### Smelting Recipe {#smelting_recipe}
+### Smelting Recipe
 
-Main source of \*\*Refined Iron Ingot\*\* is smelting
+Main source of **Refined Iron Ingot** is smelting
 `<mcitem>`{=html}minecraft:iron_ingot`</mcitem>`{=html} in any kind of
 Furnaces, including vanilla Furnace,
 `<mcitem>`{=html}techreborn:iron_furnace`</mcitem>`{=html} or

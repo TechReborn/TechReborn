@@ -1,8 +1,8 @@
-{{ :mods:techreborn:charge_o_mat.png?nolink&200\|}}
+![](/mods/techreborn/charge_o_mat.png)
 
-###### Charge-O-Mat {#charge_o_mat}
+###### Charge-O-Mat
 
-The \*\*Charge-O-Mat\*\* charges batteries and tools, like the advanced
+The **Charge-O-Mat** charges batteries and tools, like the advanced
 drill. It can charge up to six items at the same time. It has an input
 rate of 2048 FE/tick and an internal buffer of 400K FE.
 
@@ -17,5 +17,5 @@ techreborn:energy_flow_circuit output techreborn:charge_o_mat
 
 ##### Usage
 
-Connect power source to \*\*Charge-O-Mat\*\* and put items into slot in
+Connect power source to **Charge-O-Mat** and put items into slot in
 machine GUI.

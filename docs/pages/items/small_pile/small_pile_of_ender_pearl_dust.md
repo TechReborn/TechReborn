@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_ender_pearl_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_ender_pearl_dust.png)
 
-###### Small Pile of Ender Pearl Dust {#small_pile_of_ender_pearl_dust}
+###### Small Pile of Ender Pearl Dust
 
--   -   Small Pile of Ender Pearl Dust\*\* is a small dust added by
+-   -   Small Pile of Ender Pearl Dust** is a small dust added by
         TechReborn.
 
 \\\\

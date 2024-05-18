@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_almandine_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_almandine_dust.png)
 
-###### Small Pile of Almandine Dust {#small_pile_of_almandine_dust}
+###### Small Pile of Almandine Dust
 
--   -   Small Pile of Almandine Dust\*\* is an small dust added by
+-   -   Small Pile of Almandine Dust** is an small dust added by
         TechReborn.
 
 \\\\

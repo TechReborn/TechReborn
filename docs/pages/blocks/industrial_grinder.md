@@ -1,6 +1,6 @@
-{{ :mods:techreborn:industrial_grinder.png?nolink&200\|Industrial
-Grinder}} ======= Industrial Grinder ======= The \*\*Industrial
-Grinder\*\* is a multi-block machine that allows better grinding of
+{{ :mods:techreborn:industrial_grinder.png|Industrial
+Grinder}} ======= Industrial Grinder ======= The **Industrial
+Grinder** is a multi-block machine that allows better grinding of
 items. It is a medium tier machine with 40000FE internal energy buffer
 and 256FE input. Also it has internal tank for 16 buckets which store
 fluid used to grind ore.
@@ -14,9 +14,9 @@ techreborn:diamond_grinding_head input techreborn:advanced_circuit
 techreborn:advanced_machine_block techreborn:advanced_circuit output
 techreborn:industrial_grinder `</recipe>`{=html} \\\\
 
-##### Building instructions {#building_instructions}
+##### Building instructions
 
-The \*\*Industrial Grinder\*\* multi-block has 3 layers. The first layer
+The **Industrial Grinder** multi-block has 3 layers. The first layer
 consists of 9x
 `<mcitem>`{=html}techreborn:basic_machine_casing`</mcitem>`{=html}
 `{{gallery>:blocks:industrial_grinder_layer1.png?lightbox}}`{=mediawiki}
@@ -27,17 +27,17 @@ will central hole filled with water.
 The third layer again contains 9x
 `<mcitem>`{=html}techreborn:basic_machine_casing`</mcitem>`{=html}
 `{{gallery>:blocks:industrial_grinder_layer3.png?lightbox}}`{=mediawiki}
-Attach the \*\*Industrial Grinder\*\* to the middle layer centre and
+Attach the **Industrial Grinder** to the middle layer centre and
 connect it to a power source.
 `{{gallery>:blocks:industrial_grinder.png?lightbox}}`{=mediawiki} \\\\
 
-#### Machine GUI {#machine_gui}
+#### Machine GUI
 
--   -   Industrial Grinder\*\* has the following elements on machine
+-   -   Industrial Grinder** has the following elements on machine
         GUI:
 
 `<WRAP group>`{=html} `<WRAP half column>`{=html}
-`{{:blocks:guiindustrialgrinder.png?nolink|columns}}`{=mediawiki}
+`![columns](/blocks:guiindustrialgrinder.png?nolink)`{=mediawiki}
 `</WRAP>`{=html} `<WRAP half column>`{=html}
 
 ` - Four slots for upgrades`\

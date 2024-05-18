@@ -1,8 +1,8 @@
-{{ :mods:techreborn:diamond_nugget.png?nolink&200\|}}
+![](/mods/techreborn/diamond_nugget.png)
 
-###### Diamond Nugget {#diamond_nugget}
+###### Diamond Nugget
 
--   -   Diamond Nugget\*\* made from
+-   -   Diamond Nugget** made from
         `<mcitem>`{=html}minecraft:diamond`</mcitem>`{=html} and 9
         nuggets could be formed back to gem.
 

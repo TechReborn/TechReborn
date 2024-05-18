@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_lazurite_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_lazurite_dust.png)
 
-###### Small Pile of Lazurite Dust {#small_pile_of_lazurite_dust}
+###### Small Pile of Lazurite Dust
 
--   -   Small Pile of Lazurite Dust\*\* is a small dust added by
+-   -   Small Pile of Lazurite Dust** is a small dust added by
         TechReborn.
 
 \\\\

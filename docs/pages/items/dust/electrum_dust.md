@@ -1,8 +1,8 @@
-{{ :mods:techreborn:electrum_dust.png?nolink&200\|}}
+![](/mods/techreborn/electrum_dust.png)
 
-###### Electrum Dust {#electrum_dust}
+###### Electrum Dust
 
--   -   Electrum Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Electrum Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:electrum_ingot`</mcitem>`{=html}.
 

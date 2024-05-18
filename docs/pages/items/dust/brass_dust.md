@@ -1,8 +1,8 @@
-{{ :mods:techreborn:brass_dust.png?nolink&200\|}}
+![](/mods/techreborn/brass_dust.png)
 
-###### Brass Dust {#brass_dust}
+###### Brass Dust
 
--   -   Brass Dust\*\* is a dust added by TechReborn.
+-   -   Brass Dust** is a dust added by TechReborn.
 
 \\\\
 

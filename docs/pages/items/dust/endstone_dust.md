@@ -1,8 +1,8 @@
-{{ :mods:techreborn:endstone_dust.png?nolink&200\|Endstone Dust}}
+![Endstone Dust](/mods/techreborn/endstone_dust.png)
 
-###### Endstone Dust {#endstone_dust}
+###### Endstone Dust
 
--   -   Endstone Dust\*\* is a dust added by TechReborn. It is used for
+-   -   Endstone Dust** is a dust added by TechReborn. It is used for
         further processing.
 
 \\\\

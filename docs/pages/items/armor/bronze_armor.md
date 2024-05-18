@@ -1,1 +1,1 @@
-###### Bronze Armor {#bronze_armor}
+###### Bronze Armor

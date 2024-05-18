@@ -1,8 +1,8 @@
-{{ :mods:techreborn:diorite_dust.png?nolink&200\|Diorite Dust}}
+![Diorite Dust](/mods/techreborn/diorite_dust.png)
 
-###### Diorite Dust {#diorite_dust}
+###### Diorite Dust
 
--   -   Diorite Dust\*\* is a useless dust added by TechReborn. Maybe in
+-   -   Diorite Dust** is a useless dust added by TechReborn. Maybe in
         future if will see some bright days.
 
 \\\\

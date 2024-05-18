@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_brass_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_brass_dust.png)
 
-###### Small Pile of Brass Dust {#small_pile_of_brass_dust}
+###### Small Pile of Brass Dust
 
--   -   Small Pile of Brass Dust\*\* is an small dust added by
+-   -   Small Pile of Brass Dust** is an small dust added by
         TechReborn.
 
 \\\\

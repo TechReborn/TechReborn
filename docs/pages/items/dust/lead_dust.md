@@ -1,8 +1,8 @@
-{{ :mods:techreborn:lead_dust.png?nolink&200\|Lead Dust}}
+![Lead Dust](/mods/techreborn/lead_dust.png)
 
-###### Lead Dust {#lead_dust}
+###### Lead Dust
 
--   -   Lead Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Lead Dust** is a dust added by TechReborn. It is used to
         produce
         `<mcitem>`{=html}techreborn:lead_ingot`</mcitem>`{=html}.
 

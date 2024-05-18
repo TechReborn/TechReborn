@@ -1,7 +1,7 @@
-{{ :mods:techreborn:industrial_chainsaw.png?nolink&200\|Industrial
+{{ :mods:techreborn:industrial_chainsaw.png|Industrial
 Сhainsaw}} =======Industrial Chainsaw=======
 
--   -   Industrial Chainsaw\*\* is a top tier chainsaw available from
+-   -   Industrial Chainsaw** is a top tier chainsaw available from
         Tech Reborn. It has 1M Energy storage. One can charge it using
         energy storage blocks, like
         `<mcitem>`{=html}techreborn:battery_box`</mcitem>`{=html}.

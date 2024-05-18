@@ -1,6 +1,6 @@
-{{ :mods:techreborn:carbon_mesh.png?nolink&200\|Carbon Mesh}}
+![Carbon Mesh](/mods/techreborn/carbon_mesh.png)
 
-###### Carbon Mesh {#carbon_mesh}
+###### Carbon Mesh
 
 Carbon mesh is a [part](items:part "wikilink") used in crafting [Carbon
 plate](techreborn:carbon_plate "wikilink") with a

@@ -1,9 +1,9 @@
-{{ :mods:techreborn:basic_machine_frame.png?nolink&200\|Basic Machine
+{{ :mods:techreborn:basic_machine_frame.png|Basic Machine
 Frame}}
 
-###### Basic Machine Frame {#basic_machine_frame}
+###### Basic Machine Frame
 
--   -   Basic Machine Frame\*\* is a part used to build different kind
+-   -   Basic Machine Frame** is a part used to build different kind
         of machines from various tiers.
 
 ##### Recipe
@@ -17,12 +17,12 @@ techreborn:refined_iron_ingot output techreborn:basic_machine_frame
 
 ##### Usage
 
--   -   Basic Machine Frame\*\* used as a part to build the following
+-   -   Basic Machine Frame** used as a part to build the following
         machines and blocks:
 
 ` * ``<mcitem>`{=html}`techreborn:basic_machine_casing``</mcitem>`{=html}\
-` * ``{{:mods:techreborn:mv_transformer.png?nolink&24|MV Transformer}}`{=mediawiki}` **`[`MV Transformer`](blocks:mv_transformer "wikilink")`**`\
-` * ``{{:mods:techreborn:mfe.png?nolink&24|MFE}}`{=mediawiki}` **`[`MFE`](blocks:mfe "wikilink")`**`\
+` * ``![MV Transformer](/mods/techreborn/mv_transformer.png)`{=mediawiki}` **`[`MV Transformer`](blocks:mv_transformer "wikilink")`**`\
+` * ``![MFE](/mods/techreborn/mfe.png)`{=mediawiki}` **`[`MFE`](blocks:mfe "wikilink")`**`\
 ` * ``<mcitem>`{=html}`techreborn:compressor``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:extractor``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:advanced_machine_frame``</mcitem>`{=html}\

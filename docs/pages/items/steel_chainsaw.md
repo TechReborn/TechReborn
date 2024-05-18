@@ -1,7 +1,7 @@
-{{ :mods:techreborn:steel_chainsaw.png?nolink&200\|Steel Сhainsaw}}
+![Steel Сhainsaw](/mods/techreborn/steel_chainsaw.png)
 =======Steel Chainsaw=======
 
--   -   Steel Chainsaw\*\* is a basic chainsaw available from
+-   -   Steel Chainsaw** is a basic chainsaw available from
         TechReborn. It has 40k FE energy storage. One can charge it
         using energy storage blocks, like
         `<mcitem>`{=html}techreborn:battery_box`</mcitem>`{=html}.
@@ -20,7 +20,7 @@ techreborn:steel_chainsaw `</recipe>`{=html} \\\\ \\\\
 
 ##### Usage
 
-Besides main usage as an axe \*\*Steel Chainsaw\*\* could be used in
+Besides main usage as an axe **Steel Chainsaw** could be used in
 crafting. `<recipe>`{=html} input air minecraft:diamond
 minecraft:diamond input techreborn:titanium_ingot
 techreborn:advanced_electronic_circuit minecraft:diamond input

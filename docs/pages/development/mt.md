@@ -1,4 +1,4 @@
-###### Minetweaker support {#minetweaker_support}
+###### Minetweaker support
 
 TechReborn has built in support for minetweaker.
 
@@ -10,7 +10,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Alloy Smelter {#alloy_smelter}
+##### Alloy Smelter
 
 `mods.techreborn.alloySmelter.addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick)`
 
@@ -22,7 +22,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Assembling Machine {#assembling_machine}
+##### Assembling Machine
 
 `mods.techreborn.assemblingMachine.addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick)`
 
@@ -34,7 +34,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Blast Furnace {#blast_furnace}
+##### Blast Furnace
 
 `mods.techreborn.blastFurnace.addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick, int neededHeat)`
 
@@ -58,7 +58,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Chemical Reactor {#chemical_reactor}
+##### Chemical Reactor
 
 `mods.techreborn.chemicalReactor.addRecipe(IItemStack output1, IIngredient input1, IIngredient input2, int ticktime, int euTick)`
 
@@ -82,7 +82,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Distillation Tower {#distillation_tower}
+##### Distillation Tower
 
 `mods.techreborn.distillationTower.addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick)`
 
@@ -106,7 +106,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Fluid Generators, aka Thermal, Gas, Plasma, Semi and Diesel {#fluid_generators_aka_thermal_gas_plasma_semi_and_diesel}
+##### Fluid Generators, aka Thermal, Gas, Plasma, Semi and Diesel
 
 `mods.techreborn.fluidGen.addThermalFluid(ILiquidStack fluid, int energyPerMb)`
 
@@ -130,7 +130,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Fusion Reactor {#fusion_reactor}
+##### Fusion Reactor
 
 `mods.techreborn.fusionReactor.addRecipe(IIngredient topInput, IIngredient bottomInput, IItemStack output, int startEU, int euTick, int tickTime)`
 
@@ -156,7 +156,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Implosion Compressor {#implosion_compressor}
+##### Implosion Compressor
 
 `mods.techreborn.implosionCompressor.addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick)`
 
@@ -168,7 +168,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Industrial Electrolyzer {#industrial_electrolyzer}
+##### Industrial Electrolyzer
 
 `mods.techreborn.industrialElectrolyzer.addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient cells, IIngredient input2, int ticktime, int euTick)`
 
@@ -180,7 +180,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Industrial Grinder {#industrial_grinder}
+##### Industrial Grinder
 
 `mods.techreborn.industrialGrinder.addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick)`
 
@@ -194,7 +194,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Industrial Sawmill {#industrial_sawmill}
+##### Industrial Sawmill
 
 `mods.techreborn.industrialSawmill.addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, ILiquidStack fluid, int ticktime, int euTick)`
 
@@ -212,7 +212,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Plate Bending Machine {#plate_bending_machine}
+##### Plate Bending Machine
 
 `mods.techreborn.plateBendingMachine.addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick)`
 
@@ -224,7 +224,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Rolling Machine {#rolling_machine}
+##### Rolling Machine
 
 `mods.techreborn.rollingMachine.addShaped(IItemStack output, IIngredient[][] ingredients)`
 
@@ -236,7 +236,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Solid Canning Machine {#solid_canning_machine}
+##### Solid Canning Machine
 
 `mods.techreborn.solidCanningMachine.addRecipe(IItemStack output1, IIngredient input1, IIngredient input2, int ticktime, int euTick)`
 
@@ -258,7 +258,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Vacuum Freezer {#vacuum_freezer}
+##### Vacuum Freezer
 
 `mods.techreborn.vacuumFreezer.addRecipe(IItemStack output, IIngredient input, int ticktime, int euTick)`
 
@@ -270,7 +270,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Wire Mill {#wire_mill}
+##### Wire Mill
 
 `mods.techreborn.wireMill.addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick)`
 
@@ -282,7 +282,7 @@ added a recipe. An example:
 
 ------------------------------------------------------------------------
 
-##### Fluid Replicator {#fluid_replicator}
+##### Fluid Replicator
 
 `mods.techreborn.fluidReplicator.addRecipe(int input, ILiquidStack output, int ticks, int euPerTick)`
 `mods.techreborn.fluidReplicator.removeRecipe(ILiquidStack fluid)`

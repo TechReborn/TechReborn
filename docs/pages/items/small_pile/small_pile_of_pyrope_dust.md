@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_pyrope_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_pyrope_dust.png)
 
-###### Small Pile of Pyrope Dust {#small_pile_of_pyrope_dust}
+###### Small Pile of Pyrope Dust
 
--   -   Small Pile of Pyrope Dust\*\* is a small dust added by
+-   -   Small Pile of Pyrope Dust** is a small dust added by
         TechReborn.
 
 \\\\

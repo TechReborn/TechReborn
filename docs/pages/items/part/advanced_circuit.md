@@ -1,6 +1,6 @@
-{{ :mods:techreborn:advanced_circuit.png?nolink&200\|Advanced Circuit}}
+![Advanced Circuit](/mods/techreborn/advanced_circuit.png)
 
-###### Advanced Circuit {#advanced_circuit}
+###### Advanced Circuit
 
 The Advanced Circuit is a [part](items:part "wikilink") used in crafting
 the advanced machines, tools, and their component parts.

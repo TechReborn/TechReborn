@@ -1,5 +1,5 @@
-{{ :mods:techreborn:beryllium_cell.png?nolink&200\|Beryllium Cell}}
-=======Beryllium Cell======= The \*\*Beryllium Cell\*\* is a fluid cell
+![Beryllium Cell](/mods/techreborn/beryllium_cell.png)
+=======Beryllium Cell======= The **Beryllium Cell** is a fluid cell
 added by TechReborn. You can get by using empty cell on Beryllium fluid
 block or from several machine recipes.
 
@@ -26,7 +26,7 @@ recipe: \\\\
 
 ##### Usage
 
--   -   Beryllium Cell\*\* used in the following crafting recipe:
+-   -   Beryllium Cell** used in the following crafting recipe:
 
 `<recipe>`{=html} input air techreborn:neutron_reflector air input
 techreborn:neutron_reflector techreborn:beryllium_cell
@@ -35,7 +35,7 @@ output techreborn:thick_neutron_reflector `</recipe>`{=html}
 
 \\\\
 
--   -   Beryllium Cell\*\* used in the following
+-   -   Beryllium Cell** used in the following
         `<mcitem>`{=html}techreborn:fusion_reactor`</mcitem>`{=html}
         recipe: \\\\
 

@@ -1,9 +1,9 @@
-{{ :mods:techreborn:ender_eye_small_dust.png?nolink&200\|Small Pile of
+{{ :mods:techreborn:ender_eye_small_dust.png|Small Pile of
 Ender Eye Dust}}
 
-###### Small Pile of Ender Eye Dust {#small_pile_of_ender_eye_dust}
+###### Small Pile of Ender Eye Dust
 
--   -   Small Pile of Ender Eye Dust\*\* is a small dust added by
+-   -   Small Pile of Ender Eye Dust** is a small dust added by
         TechReborn.
 
 ##### Recipe
@@ -11,7 +11,7 @@ Ender Eye Dust}}
 `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html} recipe:
 `<recipe>`{=html} input air air air input air techreborn:ender_eye_dust
 air input air air air output techreborn:ender_eye_small_dust,4
-`</recipe>`{=html} \\\\ Also \*\*Small Pile of Ender Eye Dust\*\* is a
+`</recipe>`{=html} \\\\ Also **Small Pile of Ender Eye Dust** is a
 byproduct of
 `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}
 recipes with `<mcitem>`{=html}minecraft:end_crystal`</mcitem>`{=html}.

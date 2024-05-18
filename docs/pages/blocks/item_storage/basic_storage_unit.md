@@ -1,5 +1,5 @@
-{{ :mods:techreborn:basic_storage_unit.png?nolink&200\|Basic Storage
-Unit}} =======Basic Storage Unit======= The \*\*Basic Storage Unit\*\*
+{{ :mods:techreborn:basic_storage_unit.png|Basic Storage
+Unit}} =======Basic Storage Unit======= The **Basic Storage Unit**
 is a storage unit with capacity to store 8192 items.
 
 ##### Recipe
@@ -13,7 +13,7 @@ techreborn:basic_storage_unit `</recipe>`{=html}
 
 ##### Usage
 
-Besides storing 8192 items \*\*Basic Storage Unit\*\* used in crafting
+Besides storing 8192 items **Basic Storage Unit** used in crafting
 recipes. `<recipe>`{=html} input techreborn:electrum_plate
 techreborn:electrum_plate techreborn:electrum_plate input
 techreborn:basic_storage_unit techreborn:advanced_machine_frame

@@ -1,7 +1,7 @@
-{{ :mods:techreborn:diamond_chainsaw.png?nolink&200\|Diamond Сhainsaw}}
+![Diamond Сhainsaw](/mods/techreborn/diamond_chainsaw.png)
 =======Diamond Chainsaw=======
 
--   -   Diamond Chainsaw\*\* is a more advanced chainsaw compare to
+-   -   Diamond Chainsaw** is a more advanced chainsaw compare to
         `<mcitem>`{=html}techreborn:steel_chainsaw`</mcitem>`{=html}
         available from TechReborn. It has 400k FE energy storage. One
         can charge it using energy storage blocks, like
@@ -21,7 +21,7 @@ techreborn:titanium_ingot air output techreborn:diamond_chainsaw
 
 ##### Usage
 
-Besides main usage as an axe \*\*Diamond Chainsaw\*\* could be used in
+Besides main usage as an axe **Diamond Chainsaw** could be used in
 crafting. `<recipe>`{=html} input air techreborn:iridium_nugget
 techreborn:iridium_alloy_plate input techreborn:overclocker_upgrade
 techreborn:energy_flow_circuit techreborn:iridium_nugget input

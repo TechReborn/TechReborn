@@ -1,8 +1,8 @@
-{{ :mods:techreborn:bronze_plate.png?nolink&200\|Bronze Plate}}
+![Bronze Plate](/mods/techreborn/bronze_plate.png)
 
-###### Bronze Plate {#bronze_plate}
+###### Bronze Plate
 
--   -   Bronze Plate\*\* is a crafting ingredient.
+-   -   Bronze Plate** is a crafting ingredient.
 
 ##### Recipe
 
@@ -15,7 +15,7 @@
 
 ##### Usage
 
--   -   Bronze Plate\*\* used in this crafting recipe:
+-   -   Bronze Plate** used in this crafting recipe:
 
 `<recipe>`{=html} input techreborn:bronze_plate techreborn:coal_plate
 techreborn:gold_plate input techreborn:lapis_plate

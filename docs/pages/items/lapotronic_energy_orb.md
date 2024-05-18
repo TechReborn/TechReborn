@@ -1,8 +1,8 @@
-{{ :mods:techreborn:lapotronic_energy_orb.png?nolink&200\|Lapotronic
-Energy Orb}} =======Lapotronic Energy Orb======= A \*\*Lapotronic Energy
-Orb\*\* is the highest tier of portable energy storage added by Tech
+{{ :mods:techreborn:lapotronic_energy_orb.png|Lapotronic
+Energy Orb}} =======Lapotronic Energy Orb======= A **Lapotronic Energy
+Orb** is the highest tier of portable energy storage added by Tech
 Reborn. It has the highest energy storage capacity, capable of storing
-100M Energy. Sneak-Use \*\*Lapotronic Energy Orb\*\* to make it active.
+100M Energy. Sneak-Use **Lapotronic Energy Orb** to make it active.
 It will charge other items in inventory while active. \\\\ \\\\
 
 ##### Recipe
@@ -16,7 +16,7 @@ techreborn:lapotronic_energy_orb `</recipe>`{=html}
 
 ##### Usage
 
--   -   Lapotronic Energy Orbs\*\* are used as crafting ingredient in
+-   -   Lapotronic Energy Orbs** are used as crafting ingredient in
         the following crafting recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:cloaking_device``</mcitem>`{=html}\

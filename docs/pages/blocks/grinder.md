@@ -1,9 +1,9 @@
-{{ :mods:techreborn:grinder.png?nolink&200\|Grinder}}
+![Grinder](/mods/techreborn/grinder.png)
 
 ###### Grinder
 
--   -   Grinder\*\* is one of the starting machines one should build.
-        Major usage for \*\*Grinder\*\* is to grind ores and other
+-   -   Grinder** is one of the starting machines one should build.
+        Major usage for **Grinder** is to grind ores and other
         materials into dusts. This is especially useful for ores because
         it will double ingot production from single piece of ore. It is
         a Low tier machine with input rate of 32E and internal buffer
@@ -18,7 +18,7 @@ techreborn:grinder `</recipe>`{=html}
 
 ##### Usage
 
-Main usage of \*\*Grinder\*\* is to grind materials. \|2x
+Main usage of **Grinder** is to grind materials. \|2x
 `<mcitem>`{=html}minecraft:bone`</mcitem>`{=html} -\> 6x
 `<mcitem>`{=html}minecraft:bone_meal`</mcitem>`{=html} \| 1x
 `<mcitem>`{=html}minecraft:cobblestone`</mcitem>`{=html} -\> 1x
@@ -29,18 +29,18 @@ Main usage of \*\*Grinder\*\* is to grind materials. \|2x
 `<mcitem>`{=html}techreborn:netherrack_dust`</mcitem>`{=html} \| 1x
 `<mcitem>`{=html}minecraft:coal_ore`</mcitem>`{=html} -\> 2x
 `<mcitem>`{=html}techreborn:coal_dust`</mcitem>`{=html} \| 1x
-`{{:mods:minecraft:coal.png?nolink&24|Coal}}`{=mediawiki}\*\*[Coal](mods:minecraft:coal "wikilink")\*\*
+`![Coal](/mods:minecraft:coal.png)`{=mediawiki}**[Coal](mods:minecraft:coal "wikilink")**
 -\> 1x `<mcitem>`{=html}techreborn:coal_dust`</mcitem>`{=html} \| \| 1x
-`{{:mods:minecraft:clay_item.png?nolink&24|Clay}}`{=mediawiki}\*\*[Clay](mods:minecraft:clay_item "wikilink")\*\*
+`![Clay](/mods:minecraft:clay_item.png)`{=mediawiki}**[Clay](mods:minecraft:clay_item "wikilink")**
 -\> 1x
-`{{:mods:techreborn:clay_dust.png?nolink&24|Clay Dust}}`{=mediawiki}\*\*[Clay
-Dust](mods:techreborn:clay_dust "wikilink")\*\* \| 1x
-`{{:mods:minecraft:gold_ore.png?nolink&24|Gold Ore}}`{=mediawiki}\*\*[Gold
-Ore](mods:minecraft:gold_ore "wikilink")\*\* -\> 2x
+`![Clay Dust](/mods/techreborn/clay_dust.png)`{=mediawiki}**[Clay
+Dust](mods:techreborn:clay_dust "wikilink")** \| 1x
+`![Gold Ore](/mods:minecraft:gold_ore.png)`{=mediawiki}**[Gold
+Ore](mods:minecraft:gold_ore "wikilink")** -\> 2x
 `<mcitem>`{=html}techreborn:gold_dust`</mcitem>`{=html} \| 1x
 `<mcitem>`{=html}minecraft:iron_ore`</mcitem>`{=html} -\> 2x
-`{{:mods:techreborn:iron_dust.png?nolink&24|Iron Dust}}`{=mediawiki}\*\*[Iron
-Dust](items:dust:iron_dust "wikilink")\*\* \|
+`![Iron Dust](/mods/techreborn/iron_dust.png)`{=mediawiki}**[Iron
+Dust](items:dust:iron_dust "wikilink")** \|
 \|1x`<mcitem>`{=html}minecraft:diamond_ore`</mcitem>`{=html} -\> 1x
 `<mcitem>`{=html}minecraft:diamond`</mcitem>`{=html}\|1x`<mcitem>`{=html}minecraft:redstone_ore`</mcitem>`{=html}
 -\> 8x `<mcitem>`{=html}minecraft:redstone`</mcitem>`{=html}\|1x
@@ -48,42 +48,42 @@ Dust](items:dust:iron_dust "wikilink")\*\* \|
 `<mcitem>`{=html}minecraft:emerald`</mcitem>`{=html}\| \|1x
 `<mcitem>`{=html}minecraft:lapis_lazuli_ore`</mcitem>`{=html} -\>
 10x`<mcitem>`{=html}minecraft:lapis_lazuli`</mcitem>`{=html}\|1x
-`{{:mods:minecraft:iron_ingot.png?nolink&24|Iron Ingot}}`{=mediawiki}\*\*[Iron
-Ingot](mods:minecraft:iron_ingot "wikilink")\*\* -\> 1x
-`{{:mods:techreborn:iron_dust.png?nolink&24|Iron Dust}}`{=mediawiki}\*\*[Iron
-Dust](items:dust:iron_dust "wikilink")\*\*\|1x
-`{{:mods:minecraft:gold_ingot.png?nolink&24|Gold Ingot}}`{=mediawiki}\*\*[Gold
-Ingot](mods:minecraft:gold_ingot "wikilink")\*\* -\> 1x
-`{{:mods:techreborn:gold_dust.png?nolink&24|Gold Dust}}`{=mediawiki}\*\*[Gold
-Dust](items:dust:gold_dust "wikilink")\*\*\| \|1x
-`{{:mods:minecraft:diamond.png?nolink&24|Diamond}}`{=mediawiki}\*\*[Diamond](mods:minecraft:diamond "wikilink")\*\*
+`![Iron Ingot](/mods:minecraft:iron_ingot.png)`{=mediawiki}**[Iron
+Ingot](mods:minecraft:iron_ingot "wikilink")** -\> 1x
+`![Iron Dust](/mods/techreborn/iron_dust.png)`{=mediawiki}**[Iron
+Dust](items:dust:iron_dust "wikilink")**\|1x
+`![Gold Ingot](/mods:minecraft:gold_ingot.png)`{=mediawiki}**[Gold
+Ingot](mods:minecraft:gold_ingot "wikilink")** -\> 1x
+`![Gold Dust](/mods/techreborn/gold_dust.png)`{=mediawiki}**[Gold
+Dust](items:dust:gold_dust "wikilink")**\| \|1x
+`![Diamond](/mods:minecraft:diamond.png)`{=mediawiki}**[Diamond](mods:minecraft:diamond "wikilink")**
 -\> 1x
-`{{:mods:techreborn:diamond_dust.png?nolink&24|Diamond Dust}}`{=mediawiki}\*\*[Diamond
-Dust](items:dust:diamond_dust "wikilink")\*\*\|1x
-`{{:mods:minecraft:emerald.png?nolink&24|Emerald}}`{=mediawiki}\*\*[Emerald](mods:minecraft:emerald "wikilink")\*\*
+`![Diamond Dust](/mods/techreborn/diamond_dust.png)`{=mediawiki}**[Diamond
+Dust](items:dust:diamond_dust "wikilink")**\|1x
+`![Emerald](/mods:minecraft:emerald.png)`{=mediawiki}**[Emerald](mods:minecraft:emerald "wikilink")**
 -\> 1x
-`{{:mods:techreborn:emerald_dust.png?nolink&24|Emerald Dust}}`{=mediawiki}\*\*[Emerald
-Dust](items:dust:emerald_dust "wikilink")\*\*\|1x
-`{{:mods:techreborn:copper_ingot.png?nolink&24|Copper Ingot}}`{=mediawiki}\*\*[Copper
-Ingot](items:ingot:copper_ingot "wikilink")\*\* -\> 1x
-`{{:mods:techreborn:copper_dust.png?nolink&24|Copper Dust}}`{=mediawiki}\*\*[Copper
-Dust](items:dust:copper_dust "wikilink")\*\*\| \|1x
-`{{:mods:techreborn:silver_ingot.png?nolink&24|Silver Ingot}}`{=mediawiki}\*\*[Silver
-Ingot](items:ingot:silver_ingot "wikilink")\*\* -\> 1x
-`{{:mods:techreborn:silver_dust.png?nolink&24|Silver Dust}}`{=mediawiki}\*\*[Silver
-Dust](items:dust:silver_dust "wikilink")\*\*\|1x
-`{{:mods:techreborn:galena_ore.png?nolink&25|Galena ore}}`{=mediawiki}\*\*[Galena
-Ore](world_generation:ore:galena "wikilink")\*\* -\> 2x
-`{{:mods:techreborn:galena_dust.png?nolink&24|Galena Dust}}`{=mediawiki}\*\*[Galena
-Dust](items:dust:galena_dust "wikilink")\*\*\|1x
-`{{:mods:techreborn:ruby_ore.png?nolink&25|Ruby ore}}`{=mediawiki}\*\*[Ruby
-Ore](world_generation:ore:ruby "wikilink")\*\* -\> 2x
-`{{:mods:techreborn:ruby_dust.png?nolink&24|Ruby Dust}}`{=mediawiki}\*\*[Ruby
-Dust](items:dust:ruby_dust "wikilink")\*\*\| \|1x
-`{{:mods:techreborn:sapphire_ore.png?nolink&25|Sapphire ore}}`{=mediawiki}\*\*[Sapphire
-Ore](world_generation:ore:sapphire "wikilink")\*\* -\> 2x
-`{{:mods:techreborn:sapphire_dust.png?nolink&24|Sapphire Dust}}`{=mediawiki}\*\*[Sapphire
-Dust](items:dust:sapphire_dust "wikilink")\*\*\|1x
+`![Emerald Dust](/mods/techreborn/emerald_dust.png)`{=mediawiki}**[Emerald
+Dust](items:dust:emerald_dust "wikilink")**\|1x
+`![Copper Ingot](/mods/techreborn/copper_ingot.png)`{=mediawiki}**[Copper
+Ingot](items:ingot:copper_ingot "wikilink")** -\> 1x
+`![Copper Dust](/mods/techreborn/copper_dust.png)`{=mediawiki}**[Copper
+Dust](items:dust:copper_dust "wikilink")**\| \|1x
+`![Silver Ingot](/mods/techreborn/silver_ingot.png)`{=mediawiki}**[Silver
+Ingot](items:ingot:silver_ingot "wikilink")** -\> 1x
+`![Silver Dust](/mods/techreborn/silver_dust.png)`{=mediawiki}**[Silver
+Dust](items:dust:silver_dust "wikilink")**\|1x
+`![Galena ore](/mods/techreborn/galena_ore.png?nolink&25)`{=mediawiki}**[Galena
+Ore](world_generation:ore:galena "wikilink")** -\> 2x
+`![Galena Dust](/mods/techreborn/galena_dust.png)`{=mediawiki}**[Galena
+Dust](items:dust:galena_dust "wikilink")**\|1x
+`![Ruby ore](/mods/techreborn/ruby_ore.png?nolink&25)`{=mediawiki}**[Ruby
+Ore](world_generation:ore:ruby "wikilink")** -\> 2x
+`![Ruby Dust](/mods/techreborn/ruby_dust.png)`{=mediawiki}**[Ruby
+Dust](items:dust:ruby_dust "wikilink")**\| \|1x
+`![Sapphire ore](/mods/techreborn/sapphire_ore.png?nolink&25)`{=mediawiki}**[Sapphire
+Ore](world_generation:ore:sapphire "wikilink")** -\> 2x
+`![Sapphire Dust](/mods/techreborn/sapphire_dust.png)`{=mediawiki}**[Sapphire
+Dust](items:dust:sapphire_dust "wikilink")**\|1x
 `<mcitem>`{=html}techreborn:bauxite_ore`</mcitem>`{=html} -\> 2x
 `<mcitem>`{=html}techreborn:bauxite_dust`</mcitem>`{=html}\|1x
 `<mcitem>`{=html}minecraft:prismarine_shard`</mcitem>`{=html} -\> 1x
@@ -177,7 +177,7 @@ Dust](items:dust:sapphire_dust "wikilink")\*\*\|1x
 `<mcitem>`{=html}minecraft:white_wool`</mcitem>`{=html} -\> 4x
 `<mcitem>`{=html}minercaft:string`</mcitem>`{=html}\|\|
 
-Besides main function \*\*Grinder\*\* is used in this crafting recipe:
+Besides main function **Grinder** is used in this crafting recipe:
 `<recipe>`{=html} input techreborn:industrial_electrolyzer
 techreborn:advanced_circuit techreborn:grinder input
 techreborn:diamond_grinding_head techreborn:diamond_grinding_head

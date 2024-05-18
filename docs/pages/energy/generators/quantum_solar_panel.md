@@ -1,8 +1,8 @@
-{{ :mods:techreborn:quantum_solar_panel.png?200\|}}
+![](/mods/techreborn/quantum_solar_panel.png)
 
-###### Quantum Solar Panel {#quantum_solar_panel}
+###### Quantum Solar Panel
 
-The \*\*Quantum Solar Panel\*\* produces energy from sunlight. For more
+The **Quantum Solar Panel** produces energy from sunlight. For more
 details and how to use, read [general information about Solar
 Panels](energy:generators:solar_panels "wikilink").
 

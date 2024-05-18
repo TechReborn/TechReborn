@@ -1,8 +1,8 @@
-{{ :mods:techreborn:lead_nugget.png?nolink&200\|}}
+![](/mods/techreborn/lead_nugget.png)
 
-###### Lead Nugget {#lead_nugget}
+###### Lead Nugget
 
--   -   Lead Nugget\*\* made from
+-   -   Lead Nugget** made from
         `<mcitem>`{=html}techreborn:lead_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

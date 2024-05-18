@@ -1,12 +1,12 @@
-\~\~NOTOC\~\~ {{ :mods:techreborn:lightning_rod.png?nolink&200\|}}
+\~\~NOTOC\~\~ ![](/mods/techreborn/lightning_rod.png)
 
-###### Lightning Rod {#lightning_rod}
+###### Lightning Rod
 
--   -   Lightning Rod\*\* is a \*\*[passive
-        generator](energy:generators:passive_generators "wikilink")\*\*
+-   -   Lightning Rod** is a **[passive
+        generator](energy:generators:passive_generators "wikilink")**
         that produces energy from lightning strikes during
         [thunderstorms](http://minecraft.gamepedia.com/Thunderstorm "wikilink").
-        Attaching more than one \*\*Iron Fence\*\* on top of machine
+        Attaching more than one **Iron Fence** on top of machine
         will increase chance of lightning.
 
 \^ Tier \^ Generation Rate \^ Output \^ Storage \^ \| Extreme \| 256

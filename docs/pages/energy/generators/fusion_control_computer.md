@@ -1,9 +1,9 @@
-{{ :mods:techreborn:fusion_control_computer.png?nolink&200\|Fusion
+{{ :mods:techreborn:fusion_control_computer.png|Fusion
 Control Computer}}
 
-###### Fusion Control Computer {#fusion_control_computer}
+###### Fusion Control Computer
 
-The \*\*Fusion Control Computer\*\* is part of a multi-block generator
+The **Fusion Control Computer** is part of a multi-block generator
 that produces energy from various fluids. It is unique in that it does
 not consume the fuel, but instead processes them into a new item. It is
 also used as a machine to produce
@@ -18,7 +18,7 @@ usable fusion reactor.
 generation rate. Can be many multiples of this depending on the size of
 the reactor; see Power Generation table below//\\\\ ^2^//Scales with the
 generation multiplier. Ex. 1.74x = 174 mE storage. Capped at 2.1 gE.
-\*\*Note to wiki editors:\*\* these values are the only values on this
+**Note to wiki editors:** these values are the only values on this
 page that are not powers of two and will need to be updated//
 
 #### Fuel/Input
@@ -41,7 +41,7 @@ Output \^ \|
 `<mcitem>`{=html}techreborn:lithium_cell`</mcitem>`{=html} \| = \|
 `<mcitem>`{=html}techreborn:iridium_ore`</mcitem>`{=html} \|
 
-#### Power Generation {#power_generation}
+#### Power Generation
 
 \^ Size \^ Fusion Coils Required \^ Generation Multiplier \^ Generation
 Rate^3^ \^ \| 6 \| 16 \| 1x \| 16 kE/t \| \| 7 \| 16 \| 1.74x \| 27.8

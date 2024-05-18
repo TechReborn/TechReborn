@@ -1,1 +1,0 @@
-\~\~REDIRECT\>energy:cables:copper\~\~

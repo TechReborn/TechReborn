@@ -3,16 +3,16 @@
 Energy is the cornerstone of Tech Reborn. Machines require energy to
 run, the same as any electric machines used IRL.
 
-#### How it Works {#how_it_works}
+#### How it Works
 
 At its core, Tech Reborn's energy is very simple. Energy is created by
-`{{:mods:techreborn:generator.png?nolink&24|}}`{=mediawiki}
-\*\*[energy:generators](energy:generators "wikilink")\*\*; passed
+`![](/mods/techreborn/generator.png)`{=mediawiki}
+**[energy:generators](energy:generators "wikilink")**; passed
 through
-`{{:mods:techreborn:insulated_copper_cable.png?nolink&24|}}`{=mediawiki}
-\*\*[energy:cables](energy:cables "wikilink")\*\*; stored in
-`{{:mods:techreborn:mfe.png?nolink&24|}}`{=mediawiki}
-\*\*[energy:batteries](energy:batteries "wikilink")\*\*; and consumed by
+`![](/mods/techreborn/insulated_copper_cable.png)`{=mediawiki}
+**[energy:cables](energy:cables "wikilink")**; stored in
+`![](/mods/techreborn/mfe.png)`{=mediawiki}
+**[energy:batteries](energy:batteries "wikilink")**; and consumed by
 machines.
 
 ` - Generators produce energy each tick—then they;`\
@@ -23,11 +23,11 @@ machines.
 `   - average out any leftover energy across all connected cables`
 
 The result of this implementation is that energy transfer is
-\*\*inefficient over long distances\*\*. To mitigate this, it is best to
+**inefficient over long distances**. To mitigate this, it is best to
 place buffers (energy storage blocks) every 10 or 15 blocks to direct
 the flow of energy.
 
-#### Energy Tiers {#energy_tiers}
+#### Energy Tiers
 
 Unlike other tech-based mods, there is no concept of voltage in Tech
 Reborn. Instead, energy is divided into categories based on the I/O

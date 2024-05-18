@@ -1,9 +1,9 @@
-{{ :mods:techreborn:small_pile_of_nickel_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_nickel_dust.png)
 
-###### Small Pile of Nickel Dust {#small_pile_of_nickel_dust}
+###### Small Pile of Nickel Dust
 
--   -   Small pile of nickel dust\*\* is a dust added by TechReborn. It
-        is the \*\*primary way\*\* of acquiring
+-   -   Small pile of nickel dust** is a dust added by TechReborn. It
+        is the **primary way** of acquiring
         `<mcitem>`{=html}techreborn:nickel_ingot`</mcitem>`{=html}
         before the player builds an
         `<mcitem>`{=html}techreborn:industrial_grinder`</mcitem>`{=html}.

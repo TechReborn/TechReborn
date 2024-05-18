@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_netherrack_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_netherrack_dust.png)
 
-###### Small Pile of Netherrack Dust {#small_pile_of_netherrack_dust}
+###### Small Pile of Netherrack Dust
 
--   -   Small Pile of Netherrack Dust\*\* is a small dust added by
+-   -   Small Pile of Netherrack Dust** is a small dust added by
         TechReborn.
 
 \\\\

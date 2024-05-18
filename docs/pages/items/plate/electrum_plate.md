@@ -1,8 +1,8 @@
-{{ :mods:techreborn:electrum_plate.png?nolink&200\|Electrum Plate}}
+![Electrum Plate](/mods/techreborn/electrum_plate.png)
 
-###### Electrum Plate {#electrum_plate}
+###### Electrum Plate
 
--   -   Electrum Plate\*\* is a crafting ingredient and used in several
+-   -   Electrum Plate** is a crafting ingredient and used in several
         late game crafting recipes.
 
 ##### Recipe

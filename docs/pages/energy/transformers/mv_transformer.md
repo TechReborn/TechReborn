@@ -1,21 +1,21 @@
-\~\~NOTOC\~\~ {{ :mods:techreborn:mv_transformer.png?nolink&200\|}}
+\~\~NOTOC\~\~ ![](/mods/techreborn/mv_transformer.png)
 
-###### MV Transformer {#mv_transformer}
+###### MV Transformer
 
--   -   MV Transformer\*\* transforms energy from High to Medium tier.
+-   -   MV Transformer** transforms energy from High to Medium tier.
         By default it will input from single-dot sides and will output
         from multi-dot sides. This behavior could be reversed via
         config. Besides that it is used as crafting ingredient.
 
 \<WRAP round tip 60%\> Sneak-Use
-`<mcitem>`{=html}techreborn:wrench`</mcitem>`{=html} to dismantle \*\*MV
-Transformer\*\*. Pickaxe will give you
+`<mcitem>`{=html}techreborn:wrench`</mcitem>`{=html} to dismantle **MV
+Transformer**. Pickaxe will give you
 `<mcitem>`{=html}techreborn:machine_block`</mcitem>`{=html} instead of
 machine. `</WRAP>`{=html} \\\\
 
 ##### Recipe
 
--   -   MV Transformer\*\* could be created using recipe below.
+-   -   MV Transformer** could be created using recipe below.
 
 \\\\ `<recipe>`{=html} input air techreborn:insulated_gold_cable air
 input air techreborn:basic_machine_frame air input air

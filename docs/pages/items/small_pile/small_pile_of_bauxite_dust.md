@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_bauxite_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_bauxite_dust.png)
 
-###### Small Pile of Bauxite Dust {#small_pile_of_bauxite_dust}
+###### Small Pile of Bauxite Dust
 
--   -   Small Pile of Bauxite Dust\*\* is an small dust added by
+-   -   Small Pile of Bauxite Dust** is an small dust added by
         TechReborn.
 
 \\\\

@@ -1,9 +1,9 @@
-{{ :mods:techreborn:water_mill.png?200\|}}
+![](/mods/techreborn/water_mill.png)
 
-###### Water Mill {#water_mill}
+###### Water Mill
 
-The \*\*Water Mill\*\* is a \*\*[passive
-generator](energy:generators:passive_generators "wikilink")\*\* that
+The **Water Mill** is a **[passive
+generator](energy:generators:passive_generators "wikilink")** that
 produces energy from water.
 
 \^ Tier \^ Generation Rate \^ Output \^ Storage \^ \| Basic \| 0.1-0.4

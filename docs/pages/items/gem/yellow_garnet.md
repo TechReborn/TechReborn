@@ -1,8 +1,8 @@
-{{ :mods:techreborn:yellow_garnet.png?nolink&200\|Yellow Garnet}}
+![Yellow Garnet](/mods/techreborn/yellow_garnet.png)
 
-###### Yellow Garnet {#yellow_garnet}
+###### Yellow Garnet
 
--   -   Yellow Garnet \*\* is a gem added by TechReborn. It is used for
+-   -   Yellow Garnet ** is a gem added by TechReborn. It is used for
         further processing.
 
 \\\\
@@ -14,7 +14,7 @@
 techreborn:block_of_yellow_garnet air input air air air output
 techreborn:yellow_garnet,9 `</recipe>`{=html} \\\\
 
--   -   Yellow Garnet\*\* could be made back from dust using raw power
+-   -   Yellow Garnet** could be made back from dust using raw power
         of TNT in
         `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}:
         \\\\

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:basalt_dust.png?nolink&200\|}}
+![](/mods/techreborn/basalt_dust.png)
 
-###### Basalt Dust {#basalt_dust}
+###### Basalt Dust
 
--   -   Basalt Dust\*\* is a dust added by TechReborn. It is used for
+-   -   Basalt Dust** is a dust added by TechReborn. It is used for
         further processing in
         `<mcitem>`{=html}techreborn:industrial_centrifuge`</mcitem>`{=html}.
 

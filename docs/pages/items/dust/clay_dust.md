@@ -1,8 +1,8 @@
-{{ :mods:techreborn:clay_dust.png?nolink&200\|Clay Dust}}
+![Clay Dust](/mods/techreborn/clay_dust.png)
 
-###### Clay Dust {#clay_dust}
+###### Clay Dust
 
--   -   Clay Dust\*\* is an itermediate material used for further
+-   -   Clay Dust** is an itermediate material used for further
         processing.
 
 \\\\

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:ultimate_solar_panel.png?200\|}}
+![](/mods/techreborn/ultimate_solar_panel.png)
 
-###### Ultimate Solar Panel {#ultimate_solar_panel}
+###### Ultimate Solar Panel
 
-The \*\*Ultimate Solar Panel\*\* produces energy from sunlight. For more
+The **Ultimate Solar Panel** produces energy from sunlight. For more
 details and how to use, read [general information about Solar
 Panels](energy:generators:solar_panels "wikilink").
 
@@ -26,5 +26,5 @@ techreborn:ultimate_solar_panel `</recipe>`{=html}
 
 #### Usage
 
--   -   Ultimate Solar Panel\*\* can be used to craft
+-   -   Ultimate Solar Panel** can be used to craft
         `<mcitem>`{=html}techreborn:quantum_solar_panel`</mcitem>`{=html}

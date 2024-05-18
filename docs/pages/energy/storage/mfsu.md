@@ -1,13 +1,13 @@
-{{ :mods:techreborn:mfsu.png?nolink&200\|MFSU}}
+![MFSU](/mods/techreborn/mfsu.png)
 
 ###### MFSU
 
-The \*\*MFSU\*\* can be used to charge items which use energy to
+The **MFSU** can be used to charge items which use energy to
 function. For example, the
 `<mcitem>`{=html}techreborn:red_cell_battery`</mcitem>`{=html}. Besides
 charging items, you can also use the MFSU as an energy storage due to
 it\'s capacity. It is a High tier machine with an input and output rate
-of 512 Energy/tick and an internal storage of 4M Energy. \*\*MFSU\*\*
+of 512 Energy/tick and an internal storage of 4M Energy. **MFSU**
 accepts energy from all sides except dotted one, and provides energy
 from dotted side.
 

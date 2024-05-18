@@ -1,8 +1,8 @@
-{{ :mods:techreborn:titanium_dust.png?nolink&200\|Titanium Dust }}
+![Titanium Dust ](/mods/techreborn/titanium_dust.png)
 
-###### Titanium Dust {#titanium_dust}
+###### Titanium Dust
 
--   -   Titanium Dust\*\* is a source for
+-   -   Titanium Dust** is a source for
         `<mcitem>`{=html}techreborn:titanium_ingot`</mcitem>`{=html},
         needed for many of the endgame machines.
 

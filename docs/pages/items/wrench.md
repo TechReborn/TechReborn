@@ -1,8 +1,8 @@
-{{ :mods:techreborn:wrench.png?nolink&200\|Wrench}}
+![Wrench](/mods/techreborn/wrench.png)
 
 ###### Wrench
 
--   -   Wrench\*\* is a tool added by TechReborn and used to rotate or
+-   -   Wrench** is a tool added by TechReborn and used to rotate or
         dismantle machines.
 
 \\\\

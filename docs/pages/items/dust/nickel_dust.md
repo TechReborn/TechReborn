@@ -1,8 +1,8 @@
-{{ :mods:techreborn:nickel_dust.png?nolink&200\|}}
+![](/mods/techreborn/nickel_dust.png)
 
-###### Nickel Dust {#nickel_dust}
+###### Nickel Dust
 
--   -   Nickel Dust\*\* is a dust added by TechReborn, and is an
+-   -   Nickel Dust** is a dust added by TechReborn, and is an
         important stepping stone to the more complicated machinery added
         by the mod. It is used to produce
         `<mcitem>`{=html}techreborn:nickel_ingot`</mcitem>`{=html}.

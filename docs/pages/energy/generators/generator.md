@@ -1,8 +1,8 @@
-{{ :mods:techreborn:generator.png?nolink&200\|Generator}}
+![Generator](/mods/techreborn/generator.png)
 
 ###### Generator
 
-The \*\*Generator\*\* is the most basic power generator in the mod and
+The **Generator** is the most basic power generator in the mod and
 produces energy by burning coal or wood. It will power adjacent blocks
 or remote blocks using [cables](energy:cables "wikilink"). It is also
 used as an ingredient for more advanced machines.

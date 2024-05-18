@@ -1,8 +1,8 @@
-{{ :mods:techreborn:brass_plate.png?nolink&200\|Brass Plate}}
+![Brass Plate](/mods/techreborn/brass_plate.png)
 
-###### Brass Plate {#brass_plate}
+###### Brass Plate
 
--   -   Brass Plate\*\* is a crafting ingredient.
+-   -   Brass Plate** is a crafting ingredient.
 
 ##### Recipe
 
@@ -15,7 +15,7 @@
 
 ##### Usage
 
--   -   Brass Plate\*\* used in this crafting recipe:
+-   -   Brass Plate** used in this crafting recipe:
 
 `<recipe>`{=html} input techreborn:brass_plate techreborn:extractor
 techreborn:brass_plate input techreborn:electronic_circuit

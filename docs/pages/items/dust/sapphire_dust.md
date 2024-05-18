@@ -1,8 +1,8 @@
-{{ :mods:techreborn:sapphire_dust.png?nolink&200\|Sapphire Dust}}
+![Sapphire Dust](/mods/techreborn/sapphire_dust.png)
 
-###### Sapphire Dust {#sapphire_dust}
+###### Sapphire Dust
 
--   -   Sapphire Dust\*\* is an intermediate material used for further
+-   -   Sapphire Dust** is an intermediate material used for further
         processing.
 
 \\\\
@@ -28,7 +28,7 @@ techreborn:sapphire_dust `</recipe>`{=html} \\\\
 air input air air air output techreborn:small_pile_of_sapphire_dust,4
 `</recipe>`{=html} \\\\ \\\\
 
--   -   Sapphire Dust\*\* could be compressed back into gem using raw
+-   -   Sapphire Dust** could be compressed back into gem using raw
         power of TNT in
         `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}:
         \\\\

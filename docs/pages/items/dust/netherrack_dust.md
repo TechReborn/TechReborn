@@ -1,13 +1,13 @@
 \~\~NOTOC\~\~ {{
-:mods:techreborn:netherrack_dust.png?nolink&200\|Netherrack Dust}}
+:mods:techreborn:netherrack_dust.png|Netherrack Dust}}
 
-###### Netherrack Dust {#netherrack_dust}
+###### Netherrack Dust
 
--   -   Netherrack Dust\*\* grinded from
+-   -   Netherrack Dust** grinded from
         `<mcitem>`{=html}minecraft:netherrack`</mcitem>`{=html} using
         either `<mcitem>`{=html}techreborn:grinder`</mcitem>`{=html} or
         `<mcitem>`{=html}techreborn:industrial_grinder`</mcitem>`{=html}.
-        Also \*\*Netherrack Dust\*\* could be crafted from
+        Also **Netherrack Dust** could be crafted from
         4x`<mcitem>`{=html}techreborn:small_pile_of_netherrack_dust`</mcitem>`{=html}
         on the
         `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}.

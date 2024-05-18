@@ -1,8 +1,8 @@
-{{ :mods:techreborn:red_garnet_dust.png?nolink&200\|Red Garnet Dust}}
+![Red Garnet Dust](/mods/techreborn/red_garnet_dust.png)
 
-###### Red Garnet Dust {#red_garnet_dust}
+###### Red Garnet Dust
 
--   -   Red Garnet Dust\*\* is an intermediate product received by
+-   -   Red Garnet Dust** is an intermediate product received by
         processing
         `<mcitem>`{=html}techreborn:red_garnet`</mcitem>`{=html}.
 
@@ -28,18 +28,18 @@ recipe: \\\\
 
 ##### Usage
 
--   -   Red Garnet Dust\*\* could be further processed in
+-   -   Red Garnet Dust** could be further processed in
         `<mcitem>`{=html}techreborn:industrial_centrifuge`</mcitem>`{=html}.
 
 \\\\ 16x`<mcitem>`{=html}techreborn:red_garnet_dust`</mcitem>`{=html}
 -\> 3x`<mcitem>`{=html}techreborn:pyrope_dust`</mcitem>`{=html} +
 5x`<mcitem>`{=html}techreborn:almandine_dust`</mcitem>`{=html} +
 8x`<mcitem>`{=html}techreborn:spessartine_dust`</mcitem>`{=html} \\\\
-\\\\ Besides that \*\*Red Garnet Dust\*\* could be split into small
+\\\\ Besides that **Red Garnet Dust** could be split into small
 piles using `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}:
 `<recipe>`{=html} input air air air input air techreborn:red_garnet_dust
 air input air air air output techreborn:small_pile_of_red_garnet_dust,4
-`</recipe>`{=html} \\\\ Also \*\*Red Garnet Dust\*\* could be compressed
+`</recipe>`{=html} \\\\ Also **Red Garnet Dust** could be compressed
 back into gem using raw power of TNT in
 `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}: \\\\
 4x`<mcitem>`{=html}techreborn:red_garnet_dust`</mcitem>`{=html} +

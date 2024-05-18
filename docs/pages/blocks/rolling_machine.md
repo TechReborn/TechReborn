@@ -1,20 +1,20 @@
 \~\~NOTOC\~\~ {{
-:mods:techreborn:rolling_machine.png?nolink&200\|Rolling Machine}}
+:mods:techreborn:rolling_machine.png|Rolling Machine}}
 
-###### Rolling Machine {#rolling_machine}
+###### Rolling Machine
 
--   -   Rolling Machine\*\* used to produce various coils, like
-        `{{:mods:techreborn:cupronickel_heating_coil.png?nolink&24|Cupronickel Heating Coil}}`{=mediawiki}
-        \*\*[Cupronickel Heating
-        Coils](items:part:cupronickel_heating_coil "wikilink")\*\*. Also
+-   -   Rolling Machine** used to produce various coils, like
+        `![Cupronickel Heating Coil](/mods/techreborn/cupronickel_heating_coil.png)`{=mediawiki}
+        **[Cupronickel Heating
+        Coils](items:part:cupronickel_heating_coil "wikilink")**. Also
         this machine used for intense crafting of vanilla items such as
-        rails and carts. The \*\*Rolling Machine\*\* is a Low tier
+        rails and carts. The **Rolling Machine** is a Low tier
         machine with input rate of 256FE and internal storage of
         40.000FE.
 
 \<WRAP round tip 60%\> Sneak-Use
 `<mcitem>`{=html}techreborn:wrench`</mcitem>`{=html} to dismantle
-\*\*Rolling Machine\*\*. Pickaxe will give you
+**Rolling Machine**. Pickaxe will give you
 `<mcitem>`{=html}techreborn:machine_block`</mcitem>`{=html} instead of
 machine. `</WRAP>`{=html} \\\\
 
@@ -28,7 +28,7 @@ minecraft:piston output techreborn:rolling_machine `</recipe>`{=html}
 
 ##### Usage
 
--   -   Rolling Machine\*\* has the following recipes:
+-   -   Rolling Machine** has the following recipes:
 
 `<recipe>`{=html} input techreborn:nickel_ingot techreborn:copper_ingot
 techreborn:nickel_ingot input techreborn:copper_ingot air

@@ -1,7 +1,7 @@
-{{ :mods:techreborn:distillation_tower.png?nolink&200\|Distillation
-Tower}} =======Distillation Tower======= The \*\*Distillation Tower\*\*
+{{ :mods:techreborn:distillation_tower.png|Distillation
+Tower}} =======Distillation Tower======= The **Distillation Tower**
 is a multiblock machine that used to crack oil into components. The
-\*\*Distillation Tower\*\* is a medium tier machine with 128 E\\t input
+**Distillation Tower** is a medium tier machine with 128 E\\t input
 rate and has an internal buffer of 10k Energy.
 
 ##### Recipe
@@ -15,16 +15,16 @@ techreborn:distillation_tower `</recipe>`{=html}
 
 ##### Usage
 
-The only recipe for \*\*Distillation Tower\*\* provided by Tech Reborn
+The only recipe for **Distillation Tower** provided by Tech Reborn
 is: \\\\ 16x`<mcitem>`{=html}techreborn:oil_cell`</mcitem>`{=html} +
 16x`<mcitem>`{=html}techreborn:empty_cell`</mcitem>`{=html} -\>
 16x`<mcitem>`{=html}techreborn:diesel_cell`</mcitem>`{=html} +
 15x`<mcitem>`{=html}techreborn:sulfuric_acid_cell`</mcitem>`{=html} +
 `<mcitem>`{=html}techreborn:glyceryl_cell`</mcitem>`{=html}
 
-##### Building instructions {#building_instructions}
+##### Building instructions
 
--   -   Distillation tower\*\* requires 3x3x4 multi-block with hallow in
+-   -   Distillation tower** requires 3x3x4 multi-block with hallow in
         the center.
 
 \\\\ First layer is made of

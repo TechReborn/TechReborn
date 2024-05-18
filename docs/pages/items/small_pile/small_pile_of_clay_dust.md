@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_clay_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_clay_dust.png)
 
-###### Small Pile of Clay Dust {#small_pile_of_clay_dust}
+###### Small Pile of Clay Dust
 
--   -   Small Pile of Clay Dust\*\* is a small dust added by TechReborn.
+-   -   Small Pile of Clay Dust** is a small dust added by TechReborn.
 
 \\\\
 

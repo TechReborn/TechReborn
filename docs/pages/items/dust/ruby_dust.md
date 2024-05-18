@@ -1,8 +1,8 @@
-{{ :mods:techreborn:ruby_dust.png?nolink&200\|Ruby Dust}}
+![Ruby Dust](/mods/techreborn/ruby_dust.png)
 
-###### Ruby Dust {#ruby_dust}
+###### Ruby Dust
 
--   -   Ruby Dust\*\* is an intermediate material used for further
+-   -   Ruby Dust** is an intermediate material used for further
         processing.
 
 \\\\
@@ -34,7 +34,7 @@ recipe: \\\\ 32x`<mcitem>`{=html}minecraft:redstone`</mcitem>`{=html} +
 input air air air output techreborn:small_pile_of_ruby_dust,4
 `</recipe>`{=html} \\\\ \\\\
 
--   -   Ruby Dust\*\* could be compressed back into gem using raw power
+-   -   Ruby Dust** could be compressed back into gem using raw power
         of TNT in
         `<mcitem>`{=html}techreborn:implosion_compressor`</mcitem>`{=html}:
         \\\\

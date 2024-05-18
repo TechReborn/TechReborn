@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_grossular_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_grossular_dust.png)
 
-###### Small Pile of Grossular Dust {#small_pile_of_grossular_dust}
+###### Small Pile of Grossular Dust
 
--   -   Small Pile of Grossular Dust\*\* is a small dust added by
+-   -   Small Pile of Grossular Dust** is a small dust added by
         TechReborn.
 
 \\\\

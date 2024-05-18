@@ -1,8 +1,8 @@
-{{ :mods:techreborn:granite_dust.png?nolink&200\|Granite Dust}}
+![Granite Dust](/mods/techreborn/granite_dust.png)
 
-###### Granite Dust {#granite_dust}
+###### Granite Dust
 
--   -   Granite Dust\*\* is a useless dust added by TechReborn. Maybe in
+-   -   Granite Dust** is a useless dust added by TechReborn. Maybe in
         future if will see some bright days.
 
 \\\\

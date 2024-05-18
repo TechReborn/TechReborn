@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_andradite_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_andradite_dust.png)
 
-###### Small Pile of Andradite Dust {#small_pile_of_andradite_dust}
+###### Small Pile of Andradite Dust
 
--   -   Small Pile of Andradite Dust\*\* is a small dust added by
+-   -   Small Pile of Andradite Dust** is a small dust added by
         TechReborn.
 
 \\\\

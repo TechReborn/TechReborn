@@ -1,10 +1,10 @@
-###### Wiki guideline for editors {#wiki_guideline_for_editors}
+###### Wiki guideline for editors
 
 First of all, thank you for your efforts to make this wiki better.
 Seriously, with a lot of blocks and items it is near to impossible for
 developers to keep wiki up-to-date. \\\\
 
-##### Wiki Structure {#wiki_structure}
+##### Wiki Structure
 
 In order to have breadcrumbs we have 3 major sections: Items, Blocks and
 Energy. While Energy section contains information about blocks it
@@ -14,7 +14,7 @@ twice. First page - with content with one of above mentioned major
 section. Second page is redirect required by plugins used to help with
 items and recipes.
 
-##### MC specific plugins {#mc_specific_plugins}
+##### MC specific plugins
 
 Couple words about these specific plugins we use:
 

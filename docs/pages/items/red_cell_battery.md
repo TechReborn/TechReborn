@@ -1,7 +1,7 @@
-{{ :mods:techreborn:red_cell_battery.png?nolink&200\|Red Cell Battery}}
-=======Red Cell Battery======= A \*\*Red Cell Battery\*\* is the lowest
+![Red Cell Battery](/mods/techreborn/red_cell_battery.png)
+=======Red Cell Battery======= A **Red Cell Battery** is the lowest
 tier of portable energy storage added by Tech Reborn. It is capable of
-storing only 10k Energy. Sneak-Use \*\*Red Cell Battery\*\* to make it
+storing only 10k Energy. Sneak-Use **Red Cell Battery** to make it
 active. It will charge other items in inventory while active.
 
 ##### Recipe
@@ -13,7 +13,7 @@ techreborn:battery `</recipe>`{=html}
 
 ##### Usage
 
--   -   Red Cell Batteries\*\* are used as crafting ingredient in the
+-   -   Red Cell Batteries** are used as crafting ingredient in the
         following crafting recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:battery_box``</mcitem>`{=html}\

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_electrum_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_electrum_dust.png)
 
-###### Small Pile of Electrum Dust {#small_pile_of_electrum_dust}
+###### Small Pile of Electrum Dust
 
--   -   Small Pile of Electrum Dust\*\* is a small dust added by
+-   -   Small Pile of Electrum Dust** is a small dust added by
         TechReborn.
 
 \\\\

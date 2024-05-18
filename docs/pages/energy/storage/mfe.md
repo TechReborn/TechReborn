@@ -1,14 +1,14 @@
-{{ :mods:techreborn:mfe.png?nolink&200\|MFE}}
+![MFE](/mods/techreborn/mfe.png)
 
 ###### MFE
 
-The \*\*MFE\*\* can be used to charge items which use energy to
+The **MFE** can be used to charge items which use energy to
 function. For example, the
 `<mcitem>`{=html}techreborn:lithium_ion_battery`</mcitem>`{=html}.
 Besides charging items, you can also use the MFE as an energy storage
 due to it\'s, quite large, capacity. It is a Medium tier machine with an
 input and output rate of 128 Energy/tick and an internal storage of 300k
-Energy. \*\*MFE\*\* accepts energy from all sides except dotted one, and
+Energy. **MFE** accepts energy from all sides except dotted one, and
 provides energy from dotted side.
 
 ##### Recipe
@@ -22,7 +22,7 @@ techreborn:mfe `</recipe>`{=html}
 
 ##### Usage
 
--   -   MFE\*\* used as crafting ingredient in the following crafting
+-   -   MFE** used as crafting ingredient in the following crafting
         recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:MFSU``</mcitem>`{=html}\

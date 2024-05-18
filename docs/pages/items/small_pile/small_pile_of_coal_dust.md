@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_coal_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_coal_dust.png)
 
-###### Small Pile of Coal Dust {#small_pile_of_coal_dust}
+###### Small Pile of Coal Dust
 
--   -   Small Pile of Coal Dust\*\* is a small dust added by TechReborn.
+-   -   Small Pile of Coal Dust** is a small dust added by TechReborn.
 
 \\\\
 

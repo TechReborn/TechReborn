@@ -1,8 +1,8 @@
-{{ :mods:techreborn:lazurite_dust.png?nolink&200\|Lazurite Dust}}
+![Lazurite Dust](/mods/techreborn/lazurite_dust.png)
 
-###### Lazurite Dust {#lazurite_dust}
+###### Lazurite Dust
 
--   -   Lazurite Dust\*\* is an itermediate material used for further
+-   -   Lazurite Dust** is an itermediate material used for further
         processing.
 
 \\\\

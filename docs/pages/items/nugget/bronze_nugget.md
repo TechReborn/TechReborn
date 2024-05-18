@@ -1,8 +1,8 @@
-{{ :mods:techreborn:bronze_nugget.png?nolink&200\|}}
+![](/mods/techreborn/bronze_nugget.png)
 
-###### Bronze Nugget {#bronze_nugget}
+###### Bronze Nugget
 
--   -   Bronze Nugget\*\* made from
+-   -   Bronze Nugget** made from
         `<mcitem>`{=html}techreborn:bronze_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

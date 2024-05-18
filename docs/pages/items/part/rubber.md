@@ -1,5 +1,5 @@
-{{ :mods:techreborn:rubber.png?nolink&200\|Rubber}}
+![Rubber](/mods/techreborn/rubber.png)
 
 ###### Rubber
 
--   -   Rubber\*\* is used to produce insulated wires
+-   -   Rubber** is used to produce insulated wires

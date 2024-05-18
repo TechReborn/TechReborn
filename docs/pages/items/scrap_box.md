@@ -1,8 +1,8 @@
-{{ :mods:techreborn:scrap_box.png?nolink&200\|}}
+![](/mods/techreborn/scrap_box.png)
 
-###### Scrap Box {#scrap_box}
+###### Scrap Box
 
--   -   Scrap boxes\*\* are items added by Tech Reborn. They are crafted
+-   -   Scrap boxes** are items added by Tech Reborn. They are crafted
         using nine scrap in a crafting table. When used, it will present
         the player with a random item. It can also be placed in a
         `<mcitem>`{=html}techreborn:scrapbox-inator`</mcitem>`{=html} to
@@ -17,7 +17,7 @@ techreborn:scrap input techreborn:scrap techreborn:scrap
 techreborn:scrap input techreborn:scrap techreborn:scrap
 techreborn:scrap output techreborn:scrap_box `</recipe>`{=html}
 
-##### Used in {#used_in}
+##### Used in
 
 Scrapboxes are used to craft the
 `<mcitem>`{=html}techreborn:scrapbox-inator`</mcitem>`{=html}

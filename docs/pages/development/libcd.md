@@ -1,4 +1,4 @@
-###### LibCD support {#libcd_support}
+###### LibCD support
 
 TechReborn has built in support for
 [libcd](https://www.curseforge.com/minecraft/mc-mods/libcd "wikilink")
@@ -7,7 +7,7 @@ contributing the support.
 
 ------------------------------------------------------------------------
 
-##### Alloy Smelter {#alloy_smelter}
+##### Alloy Smelter
 
 Add an alloy smelter recipe that takes 8 coal and 2 obsidian -\> 2
 diamonds
@@ -16,7 +16,7 @@ diamonds
 
 ------------------------------------------------------------------------
 
-##### Assembling Machine {#assembling_machine}
+##### Assembling Machine
 
 Add an assembling machine recipe that takes 3 diamonds and 2 sticks -\>
 1 diamond pickaxe
@@ -25,7 +25,7 @@ Add an assembling machine recipe that takes 3 diamonds and 2 sticks -\>
 
 ------------------------------------------------------------------------
 
-##### Blast Furnace {#blast_furnace}
+##### Blast Furnace
 
 Add a blast furnace recipe that takes 64 of any item in the
 minecraft:coals tag -\> 8 diamonds
@@ -42,7 +42,7 @@ Add a centrifuge recipe that takes any potion -\> a water bottle
 
 ------------------------------------------------------------------------
 
-##### Chemical Reactor {#chemical_reactor}
+##### Chemical Reactor
 
 Add a chemical reactor recipe that takes a water bottle and a can of
 methane -\> a potion of fire resistance
@@ -60,7 +60,7 @@ obsidian
 
 ------------------------------------------------------------------------
 
-##### Distillation Tower {#distillation_tower}
+##### Distillation Tower
 
 Add a distillation tower recipe that takes a potion of regneration -\> a
 strong potion of regeneration
@@ -85,7 +85,7 @@ Add a grinder recipe of 1 sugar cane -\> 3 sugar
 
 ------------------------------------------------------------------------
 
-##### Fusion Reactor {#fusion_reactor}
+##### Fusion Reactor
 
 Add a fluid replicator recipe of 2 uu matter and 1 bucket of wulframium
 -\> 2 buckets of wolframium
@@ -99,7 +99,7 @@ Add a fusion reactor recipe of 3 wither skeleton skulls and 4 soul sand
 
 ------------------------------------------------------------------------
 
-##### Implosion Compressor {#implosion_compressor}
+##### Implosion Compressor
 
 Add an implosion compressor recipe of 32 coal and 16 flint -\> 16
 diamonds
@@ -108,7 +108,7 @@ diamonds
 
 ------------------------------------------------------------------------
 
-##### Industrial Electrolyzer {#industrial_electrolyzer}
+##### Industrial Electrolyzer
 
 Add an industrial electrolyzer recipe of 1 skeleton skull -\> 1 wither
 skeleton skull
@@ -117,7 +117,7 @@ skeleton skull
 
 ------------------------------------------------------------------------
 
-##### Industrial Grinder {#industrial_grinder}
+##### Industrial Grinder
 
 Add an industrial electrolyzer recipe of 1 sea lantern -\> 5 prismarine
 crystals and 4 prismarine shards
@@ -131,7 +131,7 @@ electrolyzed water -\> 9 prismarine crystals
 
 ------------------------------------------------------------------------
 
-##### Industrial Sawmill {#industrial_sawmill}
+##### Industrial Sawmill
 
 Add an industrial sawmill recipe of 3 sugar cane -\> 18 paper
 
@@ -144,7 +144,7 @@ water -\> 16 nautilus shells
 
 ------------------------------------------------------------------------
 
-##### Rolling Machine {#rolling_machine}
+##### Rolling Machine
 
 `TRTweaker.addRollingMachine([["minecraft:stick", "minecraft:oak_planks"], ["minecraft:stone", "minecraft:oak_planks"]], TweakerUtils.createItemStack("minecraft:crafting_table", 1));`
 
@@ -175,14 +175,14 @@ Add a scrapbox recipe of 1 scrap box -\> 1 shulker box
 
 ------------------------------------------------------------------------
 
-##### Vacuum Freezer {#vacuum_freezer}
+##### Vacuum Freezer
 
 Add a scrapbox recipe of 1 cell of water -\> 1 blue ice
 `TRTweaker.addVacuumFreezer([TRTweaker.createFluidIngredient("minecraft:water", ["techreborn:cell"], -1)], [TweakerUtils.createItemStack("minecraft:blue_ice", 1)], 60, 440);`
 
 ------------------------------------------------------------------------
 
-##### Fluid Replicator {#fluid_replicator}
+##### Fluid Replicator
 
 Add a fluid replicator recipe of 2 uu matter and 1 bucket of wulframium
 -\> 2 buckets of wolframium
@@ -190,7 +190,7 @@ Add a fluid replicator recipe of 2 uu matter and 1 bucket of wulframium
 
 ------------------------------------------------------------------------
 
-##### Fluid Generators, aka Thermal, Gas, Plasma, Semi and Diesel {#fluid_generators_aka_thermal_gas_plasma_semi_and_diesel}
+##### Fluid Generators, aka Thermal, Gas, Plasma, Semi and Diesel
 
 Add a plasma fluid generator recipe for 1 mB of wolframium -\> 300 EU
 

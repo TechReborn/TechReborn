@@ -1,9 +1,9 @@
 \~\~NOTOC\~\~ {{
-:mods:techreborn:electric_alloy_furnace.png?nolink&200\|}}
+:mods:techreborn:electric_alloy_furnace.png|}}
 
-###### Electric Alloy Furnace {#electric_alloy_furnace}
+###### Electric Alloy Furnace
 
--   -   Electric Alloy Furnace\*\* allows you to make alloys from
+-   -   Electric Alloy Furnace** allows you to make alloys from
         ingots. It consumes energy at 128FE rate and has internal buffer
         of 4000FE.
 

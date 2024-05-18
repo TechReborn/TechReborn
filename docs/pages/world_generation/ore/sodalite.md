@@ -1,8 +1,8 @@
-{{ :mods:techreborn:sodalite_ore.png?nolink&200\|Sodalite ore}}
+![Sodalite ore](/mods/techreborn/sodalite_ore.png)
 
-##### Sodalite Ore {#sodalite_ore}
+##### Sodalite Ore
 
--   -   Sodalite Ore\*\* is an ore of medium rarity found in The End on
+-   -   Sodalite Ore** is an ore of medium rarity found in The End on
         layers 10-250. It will drop
         `<mcitem>`{=html}techreborn:sodalite_dust`</mcitem>`{=html} and
         may drop

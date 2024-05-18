@@ -1,8 +1,8 @@
-{{ :mods:techreborn:emerald_dust.png?nolink&200\|Emerald Dust}}
+![Emerald Dust](/mods/techreborn/emerald_dust.png)
 
-###### Emerald Dust {#emerald_dust}
+###### Emerald Dust
 
--   -   Emerald Dust\*\* is a dust added by TechReborn. It is used for
+-   -   Emerald Dust** is a dust added by TechReborn. It is used for
         further processing.
 
 \\\\

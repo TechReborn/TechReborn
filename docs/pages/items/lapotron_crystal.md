@@ -1,8 +1,8 @@
-{{ :mods:techreborn:lapotron_crystal.png?nolink&200\|Lapotron Crystal}}
-=======Lapotron Crystal======= A \*\*Lapotron Crystal\*\* is the fourth
+![Lapotron Crystal](/mods/techreborn/lapotron_crystal.png)
+=======Lapotron Crystal======= A **Lapotron Crystal** is the fourth
 tier of portable energy storage added by Tech Reborn. It has a high
 energy storage capacity, capable of storing 10M Energy. Sneak-Use
-\*\*Lapotron Crystal\*\* to make it active. It will charge other items
+**Lapotron Crystal** to make it active. It will charge other items
 in inventory while active.
 
 ##### Recipe
@@ -16,7 +16,7 @@ techreborn:lapotron_crystal `</recipe>`{=html}
 
 ##### Usage
 
--   -   Lapotron Crystals\*\* are used as crafting ingredient in the
+-   -   Lapotron Crystals** are used as crafting ingredient in the
         following crafting recipes:
 
 ` * ``<mcitem>`{=html}`techreborn:lapotronic_energy_orb``</mcitem>`{=html}\

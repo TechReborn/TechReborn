@@ -1,14 +1,14 @@
-{{ :mods:techreborn:basic_machine_casing.png?nolink&200\|}}
+![](/mods/techreborn/basic_machine_casing.png)
 
-###### Basic Machine Casing {#basic_machine_casing}
+###### Basic Machine Casing
 
--   -   Basic Machine Casing\*\* used to build multi-block machines like
+-   -   Basic Machine Casing** used to build multi-block machines like
         the
         `<mcitem>`{=html}techreborn:industrial_grinder`</mcitem>`{=html}.
 
 ##### Recipe
 
--   -   Basic Machine Casing\*\* can be crafted using the following
+-   -   Basic Machine Casing** can be crafted using the following
         recipes.
 
 `<recipe>`{=html} input techreborn:refined_iron_ingot
@@ -31,7 +31,7 @@ techreborn:basic_machine_casing,4 `</recipe>`{=html}
 
 ##### Usage
 
-Besides being part of multi-block structure \*\*Basic Machine Casing\*\*
+Besides being part of multi-block structure **Basic Machine Casing**
 can be used in the following recipe. `<recipe>`{=html} input
 techreborn:steel_plate techreborn:steel_plate techreborn:steel_plate
 input techreborn:advanced_circuit techreborn:basic_machine_casing

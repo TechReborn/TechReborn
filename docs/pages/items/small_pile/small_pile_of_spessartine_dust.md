@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_spessartine_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_spessartine_dust.png)
 
-###### Small Pile of Spessartine Dust {#small_pile_of_spessartine_dust}
+###### Small Pile of Spessartine Dust
 
--   -   Small Pile of Spessartine Dust\*\* is a small dust added by
+-   -   Small Pile of Spessartine Dust** is a small dust added by
         TechReborn.
 
 \\\\

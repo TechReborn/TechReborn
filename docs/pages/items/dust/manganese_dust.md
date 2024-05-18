@@ -1,8 +1,8 @@
-{{ :mods:techreborn:manganese_dust.png?nolink&200\|Manganese Dust}}
+![Manganese Dust](/mods/techreborn/manganese_dust.png)
 
-###### Manganese Dust {#manganese_dust}
+###### Manganese Dust
 
--   -   Manganese Dust\*\* is an itermediate material that will be used
+-   -   Manganese Dust** is an itermediate material that will be used
         for further processing in future ).
 
 \\\\

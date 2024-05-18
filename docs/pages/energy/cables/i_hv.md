@@ -1,10 +1,10 @@
-{{ :mods:techreborn:insulated_hv_cable.png?nolink&200\|Insulated HV
+{{ :mods:techreborn:insulated_hv_cable.png|Insulated HV
 Cable}}
 
-###### Insulated HV Cable {#insulated_hv_cable}
+###### Insulated HV Cable
 
 The insulated version of
-\*\*[energy:cables:hv](energy:cables:hv "wikilink")\*\*.
+**[energy:cables:hv](energy:cables:hv "wikilink")**.
 
 ##### Recipes
 

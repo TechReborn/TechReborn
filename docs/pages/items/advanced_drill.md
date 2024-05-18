@@ -1,7 +1,7 @@
-{{ :mods:techreborn:advanced_drill.png?nolink&200\|Advanced Drill}}
+![Advanced Drill](/mods/techreborn/advanced_drill.png)
 =======Advanced Drill=======
 
--   -   Advanced Drill\*\* is an advanced version of
+-   -   Advanced Drill** is an advanced version of
         `<mcitem>`{=html}techreborn:basic_drill`</mcitem>`{=html} and
         works same as Diamond Pickaxe or Diamond Shovel. It has 100k
         energy storage. One can charge it using
@@ -20,7 +20,7 @@ techreborn:titanium_ingot output techreborn:advanced_drill
 
 ##### Usage
 
-Besides use as a mining tool \*\*Advanced Drill\*\* could be used in
+Besides use as a mining tool **Advanced Drill** could be used in
 crafting. `<recipe>`{=html} input air techreborn:iridium_alloy_plate air
 input techreborn:iridium_nugget techreborn:energy_flow_chip
 techreborn:iridium_nugget input techreborn:overclocker_upgrade

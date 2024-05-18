@@ -1,9 +1,9 @@
-{{ :mods:techreborn:fluid_replicator.png?nolink&200\|Fluid Replicator}}
-=======Fluid Replicator======= The \*\*Fluid Replicator\*\* is an
+![Fluid Replicator](/mods/techreborn/fluid_replicator.png)
+=======Fluid Replicator======= The **Fluid Replicator** is an
 advanced machine capable of replicating fluid placed inside hallow in
 multiblock structure using energy and
-`<mcitem>`{=html}techreborn:UU-Matter`</mcitem>`{=html}. The \*\*Fluid
-Replicator\*\* is a high tier machine with 1024FE input rate and has an
+`<mcitem>`{=html}techreborn:UU-Matter`</mcitem>`{=html}. The **Fluid
+Replicator** is a high tier machine with 1024FE input rate and has an
 internal buffer of 1.6M FE. \\\\ \\\\
 
 ##### Recipe
@@ -15,9 +15,9 @@ techreborn:energy_flow_circuit input techreborn:industrial_electrolyzer
 techreborn:superconductor techreborn:chemical_reactor output
 techreborn:fluid_replicator `</recipe>`{=html} \\\\
 
-##### Building instructions {#building_instructions}
+##### Building instructions
 
--   -   Fluid Replicator\*\* requires 3x3x1 multi-block with hallow in
+-   -   Fluid Replicator** requires 3x3x1 multi-block with hallow in
         the center.
 
 \\\\ First layer is made of

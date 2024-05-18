@@ -1,5 +1,5 @@
-{{ :mods:techreborn:diesel_cell.png?nolink&200\|Diesel Cell}}
-=======Diesel Cell======= The \*\*Diesel Cell\*\* is a fluid cell added
+![Diesel Cell](/mods/techreborn/diesel_cell.png)
+=======Diesel Cell======= The **Diesel Cell** is a fluid cell added
 by Tech Reborn. It is used to produce energy in
 `<mcitem>`{=html}techreborn:diesel_generator`</mcitem>`{=html} or for
 further processing into

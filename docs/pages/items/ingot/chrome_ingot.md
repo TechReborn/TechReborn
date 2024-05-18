@@ -1,8 +1,8 @@
-{{ :mods:techreborn:chrome_ingot.png?nolink&200\|Chrome Ingot}}
+![Chrome Ingot](/mods/techreborn/chrome_ingot.png)
 
-###### Chrome Ingot {#chrome_ingot}
+###### Chrome Ingot
 
--   -   Chrome Ingot\*\* used in several late game crafting recipes.
+-   -   Chrome Ingot** used in several late game crafting recipes.
 
 ##### Recipe
 
@@ -24,7 +24,7 @@ recipe requires 1700 heat
 
 ##### Usage
 
--   -   Chrome Ingot\*\* used in several machine and crafting recipes.
+-   -   Chrome Ingot** used in several machine and crafting recipes.
 
 `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html} recipe:
 `<recipe>`{=html} input techreborn:chrome_ingot

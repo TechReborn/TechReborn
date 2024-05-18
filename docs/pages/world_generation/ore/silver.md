@@ -1,8 +1,8 @@
-{{ :mods:techreborn:silver_ore.png?nolink&200\|Silver ore}}
+![Silver ore](/mods/techreborn/silver_ore.png)
 
-##### Silver Ore {#silver_ore}
+##### Silver Ore
 
--   -   Silver Ore\*\* is a rare ore found in the Overworld on layers
+-   -   Silver Ore** is a rare ore found in the Overworld on layers
         20-60. When smelted, it produces one
         `<mcitem>`{=html}techreborn:silver_ingot`</mcitem>`{=html}. When
         put in a `<mcitem>`{=html}techreborn:grinder`</mcitem>`{=html},

@@ -1,12 +1,12 @@
-{{ :mods:techreborn:battery_box.png?nolink&200\|Battery Box}}
+![Battery Box](/mods/techreborn/battery_box.png)
 
-###### Battery Box {#battery_box}
+###### Battery Box
 
-The \*\*Battery Box\*\* can be used to charge items which use energy to
+The **Battery Box** can be used to charge items which use energy to
 function. For example, the
 `<mcitem>`{=html}techreborn:electric_treetap`</mcitem>`{=html}. It is a
 Low tier machine with an input and output rate of 32 Energy per tick and
-an internal storage of 40k Energy. \*\*Battery Box\*\* accepts energy
+an internal storage of 40k Energy. **Battery Box** accepts energy
 from all sides except dotted one, and provides energy from dotted side.
 
 ##### Recipe
@@ -20,7 +20,7 @@ techreborn:battery_box `</recipe>`{=html}
 
 ##### Usage
 
--   -   Battery Box\*\* is not used in crafting recipes. Thus main usage
+-   -   Battery Box** is not used in crafting recipes. Thus main usage
         is to be a part of energy network. Concentrate inputs from
         several Low Tier energy sources, provide energy buffer for 40k
         Energy and charge items put into it.

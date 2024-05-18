@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_saw_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_saw_dust.png)
 
-###### Small Pile of Saw Dust {#small_pile_of_saw_dust}
+###### Small Pile of Saw Dust
 
--   -   Small Pile of Saw Dust\*\* is a small dust added by TechReborn.
+-   -   Small Pile of Saw Dust** is a small dust added by TechReborn.
 
 \\\\
 

@@ -1,7 +1,7 @@
-{{ :mods:techreborn:basic_drill.png?nolink&200\|Basic Drill}}
+![Basic Drill](/mods/techreborn/basic_drill.png)
 =======Basic Drill=======
 
--   -   Basic Drill\*\* is a basic drill available from TechReborn. It
+-   -   Basic Drill** is a basic drill available from TechReborn. It
         has 10k Energy storage. One can charge it using
         `<mcitem>`{=html}techreborn:battery_box`</mcitem>`{=html}. Drill
         could be used as a replacement for Iron Pickaxe and Iron Shovel.
@@ -17,7 +17,7 @@ techreborn:basic_drill `</recipe>`{=html}
 
 ##### Usage
 
-Besides main usage as a mining tool \*\*Basic Drill\*\* could be used in
+Besides main usage as a mining tool **Basic Drill** could be used in
 crafting. `<recipe>`{=html} input air minecraft:diamond air input
 minecraft:diamond techreborn:advanced_circuit minecraft:diamond input
 techreborn:titanium_ingot techreborn:basic_drill

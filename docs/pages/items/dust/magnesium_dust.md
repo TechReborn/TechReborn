@@ -1,8 +1,8 @@
-{{ :mods:techreborn:magnesium_dust.png?nolink&200\|Magnesium Dust}}
+![Magnesium Dust](/mods/techreborn/magnesium_dust.png)
 
-###### Magnesium Dust {#magnesium_dust}
+###### Magnesium Dust
 
--   -   Magnesium Dust\*\* could be used to craft
+-   -   Magnesium Dust** could be used to craft
         `<mcitem>`{=html}techreborn:magnalium_plate`</mcitem>`{=html}.
 
 \\\\

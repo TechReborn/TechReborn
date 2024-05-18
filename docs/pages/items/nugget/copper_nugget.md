@@ -1,8 +1,8 @@
-{{ :mods:techreborn:copper_nugget.png?nolink&200\|}}
+![](/mods/techreborn/copper_nugget.png)
 
-###### Copper Nugget {#copper_nugget}
+###### Copper Nugget
 
--   -   Copper Nugget\*\* made from
+-   -   Copper Nugget** made from
         `<mcitem>`{=html}techreborn:copper_ingot`</mcitem>`{=html} and 9
         nuggets could be formed back to ingot.
 

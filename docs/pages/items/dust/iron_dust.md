@@ -1,8 +1,8 @@
-{{ :mods:techreborn:iron_dust.png?nolink&200\|}}
+![](/mods/techreborn/iron_dust.png)
 
-###### Iron Dust {#iron_dust}
+###### Iron Dust
 
--   -   Iron Dust\*\* is a dust added by TechReborn. It is used to
+-   -   Iron Dust** is a dust added by TechReborn. It is used to
         produce `<mcitem>`{=html}minecraft:iron_ingot`</mcitem>`{=html}.
 
 \\\\

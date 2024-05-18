@@ -1,12 +1,12 @@
-{{ :mods:techreborn:electric_treetap.png?nolink&200\|Electric Treetap}}
+![Electric Treetap](/mods/techreborn/electric_treetap.png)
 =======Electric Treetap=======
 
--   -   Electric Treetap\*\* is an advanced version of
+-   -   Electric Treetap** is an advanced version of
         `<mcitem>`{=html}techreborn:treetap`</mcitem>`{=html} used to
         collect `<mcitem>`{=html}techreborn:sap`</mcitem>`{=html} from
         Rubber Trees. It has 10k Energy storage. One can charge it using
         `<mcitem>`{=html}techreborn:battery_box`</mcitem>`{=html}. One
-        use of \*\*Electric Treetap\*\* will consume 50 Energy.
+        use of **Electric Treetap** will consume 50 Energy.
 
 \\\\ \\\\
 

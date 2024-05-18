@@ -1,9 +1,9 @@
-{{ :mods:techreborn:advanced_machine_frame.png?nolink&200\|Advanced
+{{ :mods:techreborn:advanced_machine_frame.png|Advanced
 Machine Frame}}
 
-###### Advanced Machine Frame {#advanced_machine_frame}
+###### Advanced Machine Frame
 
--   -   Advanced Machine Frame\*\* is a crafting ingredient used to
+-   -   Advanced Machine Frame** is a crafting ingredient used to
         build different kind of machines from advanced tiers.
 
 ##### Recipe
@@ -15,14 +15,14 @@ output techreborn:advanced_machine_frame `</recipe>`{=html}
 
 ##### Usage
 
--   -   Advanced Machine Frame\*\* used as a part to build the following
+-   -   Advanced Machine Frame** used as a part to build the following
         machines and blocks:
 
 ` * ``<mcitem>`{=html}`techreborn:superconductor_cable``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:assembly_machine``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:charge_o_mat``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:greenhouse_controller``</mcitem>`{=html}\
-` * ``{{:mods:techreborn:high_voltage_su.png?nolink&24|MFSU}}`{=mediawiki}` **`[`MFSU`](energy:storage:mfsu "wikilink")`**`\
+` * ``![MFSU](/mods/techreborn/high_voltage_su.png)`{=mediawiki}` **`[`MFSU`](energy:storage:mfsu "wikilink")`**`\
 ` * ``<mcitem>`{=html}`techreborn:implosion_compressor``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:industrial_blast_furnace``</mcitem>`{=html}\
 ` * ``<mcitem>`{=html}`techreborn:industrial_centrifuge``</mcitem>`{=html}\

@@ -1,8 +1,8 @@
-{{ :mods:techreborn:player_detector.png?200\|Player Detector}}
+![Player Detector](/mods/techreborn/player_detector.png)
 
-###### Player Detector {#player_detector}
+###### Player Detector
 
-The \*\*Player Detector\*\* is an utility block added by Tech Reborn.
+The **Player Detector** is an utility block added by Tech Reborn.
 It\'s main purpose is to emit redstone signal if there are players
 nearby. Use `<mcitem>`{=html}techreborn:wrench`</mcitem>`{=html} on it
 to change whan kind of players to detect. Possible options are: you,
@@ -18,5 +18,5 @@ output techreborn:player_detector `</recipe>`{=html}
 
 ##### Usage
 
-Place \*\*Player Detector\*\* in the world, provide it with energy and
+Place **Player Detector** in the world, provide it with energy and
 set necessary detection option.

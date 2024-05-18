@@ -1,6 +1,6 @@
-{{ :mods:techreborn:carbon_fiber.png?nolink&200\|Carbon Fiber}}
+![Carbon Fiber](/mods/techreborn/carbon_fiber.png)
 
-###### Carbon fiber {#carbon_fiber}
+###### Carbon fiber
 
 Carbon fiber is a [part](items:part "wikilink") used in crafting [Carbon
 mesh](items:part:carbon_mesh "wikilink").

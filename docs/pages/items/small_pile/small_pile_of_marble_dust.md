@@ -1,8 +1,8 @@
-{{ :mods:techreborn:small_pile_of_marble_dust.png?nolink&200\|}}
+![](/mods/techreborn/small_pile_of_marble_dust.png)
 
-###### Small Pile of Marble Dust {#small_pile_of_marble_dust}
+###### Small Pile of Marble Dust
 
--   -   Small Pile of Marble Dust\*\* is a small dust added by
+-   -   Small Pile of Marble Dust** is a small dust added by
         TechReborn.
 
 \\\\

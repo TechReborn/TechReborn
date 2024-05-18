@@ -1,8 +1,8 @@
-{{ :mods:techreborn:andradite_dust.png?nolink&200\|}}
+![](/mods/techreborn/andradite_dust.png)
 
-###### Andradite Dust {#andradite_dust}
+###### Andradite Dust
 
--   -   Andradite Dust\*\* is an intermediate product received by
+-   -   Andradite Dust** is an intermediate product received by
         processing
         `<mcitem>`{=html}techreborn:yellow_garnet_dust`</mcitem>`{=html}
         in
@@ -27,7 +27,7 @@ recipe: \\\\
 
 ##### Usage
 
--   -   Andradite Dust\*\* could be further processed in
+-   -   Andradite Dust** could be further processed in
         `<mcitem>`{=html}techreborn:industrial_electrolyzer`</mcitem>`{=html}.
 
 \\\\ 20x`<mcitem>`{=html}techreborn:andradite_dust`</mcitem>`{=html} +
@@ -36,7 +36,7 @@ recipe: \\\\
 2x`<mcitem>`{=html}techreborn:iron_dust`</mcitem>`{=html} +
 3x`<mcitem>`{=html}techreborn:silicon_cell`</mcitem>`{=html} +
 6x`<mcitem>`{=html}techreborn:compressed_air_cell`</mcitem>`{=html} \\\\
-\\\\ Besides that \*\*Andradite Dust\*\* could be split into small piles
+\\\\ Besides that **Andradite Dust** could be split into small piles
 using `<mcitem>`{=html}minecraft:crafting_table`</mcitem>`{=html}:
 `<recipe>`{=html} input air air air input air techreborn:andradite_dust
 air input air air air output techreborn:small_pile_of_andradite_dust,4
