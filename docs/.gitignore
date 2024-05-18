@@ -4,6 +4,7 @@
 # Folders
 !/pages
 !/public
+!/src
 
 # Files
 !/.gitignore
