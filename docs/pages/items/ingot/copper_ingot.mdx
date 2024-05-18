@@ -2,6 +2,9 @@
 
 ###### Copper Ingot
 
+import Mcitem from '/src/mcitem.mdx'
+import Recipe from '/src/recipe.mdx'
+
 - Copper Ingot** used to craft wires, alloys, etc. Main source
         for copper is
         <Mcitem id="techreborn:copper_ore"/>.
@@ -16,28 +19,28 @@ Furnaces, including vanilla Furnace,
 <Mcitem id="techreborn:iron_furnace"/> or
 <Mcitem id="techreborn:electric_furnace"/>.
 
-`<recipe>` size 1x1 input techreborn:copper_dust output
+<Recipe recipe=" size 1x1 input techreborn:copper_dust output
 techreborn:copper_ingot tool techreborn:electric_furnace
-`</recipe>`
+"/>
 
 \\\\
 
-`<recipe>` size 1x1 input techreborn:copper_ore output
+<Recipe recipe=" size 1x1 input techreborn:copper_ore output
 techreborn:copper_ingot tool techreborn:electric_furnace
-`</recipe>`
+"/>
 
 \\\\
 
 ### Crafting Table Recipe
 
-`<recipe>` input techreborn:copper_nugget
+<Recipe recipe=" input techreborn:copper_nugget
 techreborn:copper_nugget techreborn:copper_nugget input
 techreborn:copper_nugget techreborn:copper_nugget
 techreborn:copper_nugget input techreborn:copper_nugget
 techreborn:copper_nugget techreborn:copper_nugget output
-techreborn:copper_ingot `</recipe>` \\\\ `<recipe>` input
+techreborn:copper_ingot "/> <Recipe recipe=" input
 air air air input air techreborn:copper_storage_block air input air air
-air output techreborn:copper_ingot,9 `</recipe>`
+air output techreborn:copper_ingot,9 "/>
 
 \\\\
 
@@ -68,30 +71,30 @@ air output techreborn:copper_ingot,9 `</recipe>`
 <Mcitem id="techreborn:alloy_smelter"/> recipe: \\\\
 3x<Mcitem id="techreborn:copper_ingot"/> +
 <Mcitem id="techreborn:zinc_ingot"/> -\> 4x
-<Mcitem id="techreborn:brass_ingot"/> \\\\
+<Mcitem id="techreborn:brass_ingot"/>
 3x<Mcitem id="techreborn:copper_ingot"/> +
 <Mcitem id="techreborn:zinc_dust"/> -\> 4x
-<Mcitem id="techreborn:brass_ingot"/> \\\\
+<Mcitem id="techreborn:brass_ingot"/>
 3x<Mcitem id="techreborn:copper_ingot"/> +
 <Mcitem id="techreborn:tin_ingot"/> -\> 4x
-<Mcitem id="techreborn:bronze_ingot"/> \\\\
+<Mcitem id="techreborn:bronze_ingot"/>
 3x<Mcitem id="techreborn:copper_ingot"/> +
 <Mcitem id="techreborn:tin_dust"/> -\> 4x
-<Mcitem id="techreborn:bronze_ingot"/> \\\\
+<Mcitem id="techreborn:bronze_ingot"/>
 
 \\\\ <Mcitem id="techreborn:compressor"/> recipe:
 \\\\ <Mcitem id="techreborn:copper_ingot"/> -\>
-<Mcitem id="techreborn:copper_plate"/> \\\\ \\\\
+<Mcitem id="techreborn:copper_plate"/> \\\\
 <Mcitem id="techreborn:grinder"/> recipe: \\\\
 <Mcitem id="techreborn:copper_ingot"/> -\>
-<Mcitem id="techreborn:copper_dust"/> \\\\ \\\\
+<Mcitem id="techreborn:copper_dust"/> \\\\
 <Mcitem id="techreborn:rolling_machine"/> recipe:
-\\\\ `<recipe>` input techreborn:nickel_ingot
+\\\\ <Recipe recipe=" input techreborn:nickel_ingot
 techreborn:copper_ingot techreborn:nickel_ingot input
 techreborn:copper_ingot air techreborn:copper_ingot input
 techreborn:nickel_ingot techreborn:copper_ingot techreborn:nickel_ingot
 output techreborn:cupronickel_heating_coil,3 tool
-techreborn:rolling_machine `</recipe>` \\\\ \\\\
+techreborn:rolling_machine "/> \\\\
 <Mcitem id="techreborn:wire_mill"/> recipe: \\\\
 <Mcitem id="techreborn:copper_ingot"/> -\> 6x
 <Mcitem id="techreborn:copper_cable"/>

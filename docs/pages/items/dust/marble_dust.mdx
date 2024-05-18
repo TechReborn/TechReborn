@@ -2,6 +2,9 @@
 
 ###### Marble Dust
 
+import Mcitem from '/src/mcitem.mdx'
+import Recipe from '/src/recipe.mdx'
+
 - Marble Dust** is a dust added by TechReborn. It is used for
         further processing in
         <Mcitem id="techreborn:industrial_centrifuge"/>.
@@ -11,11 +14,11 @@
 ##### Recipe
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input techreborn:small_pile_of_marble_dust
+<Recipe recipe=" input techreborn:small_pile_of_marble_dust
 techreborn:small_pile_of_marble_dust air input
 techreborn:small_pile_of_marble_dust
 techreborn:small_pile_of_marble_dust air input air air air output
-techreborn:marble_dust `</recipe>` \\\\
+techreborn:marble_dust "/>
 <Mcitem id="techreborn:grinder"/> recipe: \\\\
 Recipe for grinding marble Block into dust registered by TechReborn if
 there are such blocks provided by other mods. \\\\ \\\\
@@ -23,9 +26,9 @@ there are such blocks provided by other mods. \\\\ \\\\
 ##### Usage
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input air air air input air techreborn:marble_dust air
+<Recipe recipe=" input air air air input air techreborn:marble_dust air
 input air air air output techreborn:small_pile_of_marble_dust,4
-`</recipe>` \\\\ \\\\
+"/> \\\\
 <Mcitem id="techreborn:industrial_centrifuge"/>
 recipe: \\\\ <Mcitem id="techreborn:marble_dust"/>
 -\> <Mcitem id="techreborn:magnesium_dust"/> +

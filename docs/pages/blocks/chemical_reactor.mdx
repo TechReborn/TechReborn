@@ -1,4 +1,7 @@
- ![](/mods/techreborn/chemical_reactor.png)
+![](/mods/techreborn/chemical_reactor.png)
+
+import Mcitem from '/src/mcitem.mdx'
+import Recipe from '/src/recipe.mdx'
 
 ###### Chemical Reactor
 
@@ -7,16 +10,18 @@
         **[Fluids](items:fluid "wikilink")** into a third. It has
         input rate of 512 FE/tick and internal buffer of 40.000 FE.
 
-\\\\ \\\\
-
 ##### Recipe
 
-`<recipe>` input techreborn:invar_ingot techreborn:extractor
+<Recipe recipe=" input techreborn:invar_ingot techreborn:extractor
 techreborn:invar_ingot input techreborn:advanced_circuit
 techreborn:compressor techreborn:advanced_circuit input
 techreborn:invar_ingot techreborn:extractor techreborn:invar_ingot
-output techreborn:chemical_reactor `</recipe>` \\\\ \\\\
+output techreborn:chemical_reactor "/> \\\\
 
 ##### Usage
 
-* ``![Calciumcarbonate Cell](/mods/techreborn/calcium_cell.png|Calcium Cell}} **`[`Calcium Cell`](items:fluid:calcium_cell "wikilink")`** + ``![Carbon Cell](/:mods:techreborn:carbon_cell.png) **`[`Carbon Cell`](items:fluid:carbon_cell "wikilink")`** -> 2x ``{{:mods:techreborn:calciumcarbonate_cell.png) **`[`Calciumcarbonate Cell`](items:fluid:calciumcarbonate_cell "wikilink")`**`
+* ``![Calciumcarbonate Cell](/mods/techreborn/calcium_cell.png|Calcium Cell}}
+* `[`Calcium Cell`](items:fluid:calcium_cell "wikilink")`** + ``![Carbon Cell](/:mods:techreborn:carbon_cell.png) 
+* `[`Carbon Cell`](items:fluid:carbon_cell "wikilink")`** -> 2x ``![](/:mods:techreborn:calciumcarbonate_cell.png)
+*`[`Calciumcarbonate Cell`](items:fluid:calciumcarbonate_cell "wikilink")`*
+

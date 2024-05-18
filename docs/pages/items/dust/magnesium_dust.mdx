@@ -2,6 +2,9 @@
 
 ###### Magnesium Dust
 
+import Mcitem from '/src/mcitem.mdx'
+import Recipe from '/src/recipe.mdx'
+
 - Magnesium Dust** could be used to craft
         <Mcitem id="techreborn:magnalium_plate"/>.
 
@@ -10,15 +13,15 @@
 ##### Recipe
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input techreborn:small_pile_of_magnesium_dust
+<Recipe recipe=" input techreborn:small_pile_of_magnesium_dust
 techreborn:small_pile_of_magnesium_dust air input
 techreborn:small_pile_of_magnesium_dust
 techreborn:small_pile_of_magnesium_dust air input air air air output
-techreborn:magnesium_dust `</recipe>` \\\\
+techreborn:magnesium_dust "/>
 <Mcitem id="techreborn:industrial_centrifuge"/>
 recipe: \\\\ <Mcitem id="techreborn:marble_dust"/>
 -\> <Mcitem id="techreborn:magnesium_dust"/> +
-7x<Mcitem id="techreborn:calcite_dust"/> \\\\ \\\\
+7x<Mcitem id="techreborn:calcite_dust"/> \\\\
 \\\\
 <Mcitem id="techreborn:industrial_electrolyzer"/>
 recipe: \\\\
@@ -27,25 +30,25 @@ recipe: \\\\
 2x<Mcitem id="techreborn:magnesium_dust"/> +
 2x<Mcitem id="techreborn:iron_dust"/> +
 <Mcitem id="techreborn:silicon_cell"/> +
-2x<Mcitem id="techreborn:compressed_air_cell"/> \\\\
+2x<Mcitem id="techreborn:compressed_air_cell"/>
 20x<Mcitem id="techreborn:pyrope_dust"/> +
 9x<Mcitem id="techreborn:empty_cell"/> -\>
 3x<Mcitem id="techreborn:magnesium_dust"/> +
 2x<Mcitem id="techreborn:aluminium_dust"/> +
 3x<Mcitem id="techreborn:silicon_cell"/> +
-6x<Mcitem id="techreborn:compressed_air_cell"/> \\\\
+6x<Mcitem id="techreborn:compressed_air_cell"/>
 
 ##### Usage
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input air air air input air techreborn:magnesium_dust
+<Recipe recipe=" input air air air input air techreborn:magnesium_dust
 air input air air air output techreborn:small_pile_of_magnesium_dust,4
-`</recipe>` \\\\ \\\\
+"/> \\\\
 <Mcitem id="techreborn:rolling_machine"/> recipe:
-\\\\ `<recipe>` tool techreborn:rolling_machine input
+\\\\ <Recipe recipe=" tool techreborn:rolling_machine input
 techreborn:aluminium_ingot techreborn:aluminium_ingot
 techreborn:aluminium_ingot input techreborn:magnesium_dust
 techreborn:magnesium_dust techreborn:magnesium_dust input
 techreborn:aluminium_ingot techreborn:aluminium_ingot
 techreborn:aluminium_ingot output techreborn:magnalium_plate,3
-`</recipe>`
+"/>

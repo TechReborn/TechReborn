@@ -2,6 +2,9 @@
 
 ###### Obsidian Dust
 
+import Mcitem from '/src/mcitem.mdx'
+import Recipe from '/src/recipe.mdx'
+
 - Obsidian Dust** is an intermediate product used for further
         processing.
 
@@ -10,11 +13,11 @@
 ##### Recipe
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input techreborn:small_pile_of_obsidian_dust
+<Recipe recipe=" input techreborn:small_pile_of_obsidian_dust
 techreborn:small_pile_of_obsidian_dust air input
 techreborn:small_pile_of_obsidian_dust
 techreborn:small_pile_of_obsidian_dust air input air air air output
-techreborn:obsidian_dust `</recipe>` \\\\
+techreborn:obsidian_dust "/>
 <Mcitem id="techreborn:grinder"/> recipe: \\\\
 <Mcitem id="minecraft:obsidian"/> -\>
 4x<Mcitem id="techreborn:obsidian_dust"/>
@@ -22,9 +25,9 @@ techreborn:obsidian_dust `</recipe>` \\\\
 ##### Usage
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input air air air input air techreborn:obsidian_dust
+<Recipe recipe=" input air air air input air techreborn:obsidian_dust
 air input air air air output techreborn:small_pile_of_obsidian_dust,4
-`</recipe>` \\\\ \\\\
+"/> \\\\
 <Mcitem id="techreborn:industrial_electrolyzer"/>
 recipe: \\\\
 4x<Mcitem id="techreborn:obsidian_dust"/> +
@@ -32,4 +35,4 @@ recipe: \\\\
 2x<Mcitem id="techreborn:small_pile_of_magnesium_dust"/> +
 2x<Mcitem id="techreborn:small_pile_of_iron_dust"/> +
 <Mcitem id="techreborn:silicon_cell"/> +
-2x<Mcitem id="techreborn:compressed_air_cell"/> \\\\
+2x<Mcitem id="techreborn:compressed_air_cell"/>

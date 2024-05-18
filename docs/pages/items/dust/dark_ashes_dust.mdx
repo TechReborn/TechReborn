@@ -2,6 +2,9 @@
 
 ###### Dark Ashes
 
+import Mcitem from '/src/mcitem.mdx'
+import Recipe from '/src/recipe.mdx'
+
 - Dark Ashes** is a dust added by TechReborn. It is a byproduct
         from several recipes.
 
@@ -10,15 +13,15 @@
 ##### Recipe
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input techreborn:small_pile_of_dark_ashes
+<Recipe recipe=" input techreborn:small_pile_of_dark_ashes
 techreborn:small_pile_of_dark_ashes air input
 techreborn:small_pile_of_dark_ashes techreborn:small_pile_of_dark_ashes
-air input air air air output techreborn:dark_ashes `</recipe>`
+air input air air air output techreborn:dark_ashes "/>
 \\\\ <Mcitem id="techreborn:blast_furnace"/> recipe:
 \\\\ <Mcitem id="minecraft:iron_ingot"/> +
 2x<Mcitem id="techreborn:coal_dust"/> -\>
 <Mcitem id="techreborn:steel_ingot"/> +
-2x<Mcitem id="techreborn:dark_ashes"/> \\\\
+2x<Mcitem id="techreborn:dark_ashes"/>
 <Mcitem id="techreborn:steel_ingot"/> +
 <Mcitem id="techreborn:tungsten_ingot"/> -\>
 <Mcitem id="techreborn:hot_tungstensteel_ingot"/> +
@@ -47,9 +50,9 @@ recipe: \\\\
 ##### Usage
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input air air air input air techreborn:dark_ashes air
+<Recipe recipe=" input air air air input air techreborn:dark_ashes air
 input air air air output techreborn:small_pile_of_dark_ashes,4
-`</recipe>` \\\\ \\\\
+"/> \\\\
 <Mcitem id="techreborn:industrial_centrifuge"/>
 recipe: \\\\ 2x<Mcitem id="techreborn:dark_ashes"/>
 -\> 2x<Mcitem id="techreborn:ashes"/>

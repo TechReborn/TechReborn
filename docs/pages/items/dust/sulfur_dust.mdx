@@ -2,6 +2,9 @@
 
 ###### Sulfur Dust
 
+import Mcitem from '/src/mcitem.mdx'
+import Recipe from '/src/recipe.mdx'
+
 - Sulfur Dust** is a byproduct from several recipes.
 
 \\\\
@@ -9,11 +12,11 @@
 ##### Recipe
 
 <Mcitem id="minecraft:crafting_table"/> recipe: \\\\
-`<recipe>` input techreborn:small_pile_of_sulfur_dust
+<Recipe recipe=" input techreborn:small_pile_of_sulfur_dust
 techreborn:small_pile_of_sulfur_dust air input
 techreborn:small_pile_of_sulfur_dust
 techreborn:small_pile_of_sulfur_dust air input air air air output
-techreborn:sulfur_dust `</recipe>` \\\\
+techreborn:sulfur_dust "/>
 <Mcitem id="techreborn:industrial_grinder"/>
 recipe:\\\\ <Mcitem id="techreborn:galena_ore"/> +
 <Mcitem id="techreborn:water_cell"/> -\>
@@ -27,18 +30,18 @@ recipe:\\\\ <Mcitem id="techreborn:galena_ore"/> +
 <Mcitem id="techreborn:pyrite_ore"/> +
 <Mcitem id="techreborn:water_cell"/> -\>
 5x<Mcitem id="techreborn:pyrite_dust"/> +
-2x<Mcitem id="techreborn:sulfur_dust"/> \\\\ \\\\
+2x<Mcitem id="techreborn:sulfur_dust"/> \\\\
 <Mcitem id="techreborn:industrial_centrifuge"/>
 recipe: \\\\ <Mcitem id="techreborn:sulfur_cell"/>
 -\> <Mcitem id="techreborn:sulfur_dust"/> +
-<Mcitem id="techreborn:empty_cell"/> \\\\ \\\\
+<Mcitem id="techreborn:empty_cell"/> \\\\
 <Mcitem id="techreborn:industrial_electrolyzer"/>
 recipe: \\\\ <Mcitem id="minecraft:blaze_powder"/>
 -\> <Mcitem id="techreborn:dark_ashes"/> +
 <Mcitem id="techreborn:sulfur_dust"/>\\\\
 3x<Mcitem id="techreborn:pyrite_dust"/> -\>
 <Mcitem id="techreborn:iron_dust"/> +
-2x<Mcitem id="techreborn:sulfur_dust"/> \\\\
+2x<Mcitem id="techreborn:sulfur_dust"/>
 <Mcitem id="techreborn:cinnabar_dust"/> +
 <Mcitem id="techreborn:empty_cell"/> -\>
 <Mcitem id="techreborn:mercury_cell"/> +
@@ -52,6 +55,6 @@ recipe: \\\\ <Mcitem id="minecraft:blaze_powder"/>
 - Sulfur Dust** could be split into small piles using
         <Mcitem id="minecraft:crafting_table"/>:
 
-`<recipe>` input air air air input air techreborn:sulfur_dust air
+<Recipe recipe=" input air air air input air techreborn:sulfur_dust air
 input air air air output techreborn:small_pile_of_sulfur_dust,4
-`</recipe>`
+"/>

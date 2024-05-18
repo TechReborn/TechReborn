@@ -2,6 +2,9 @@
 
 ###### Iron Dust
 
+import Mcitem from '/src/mcitem.mdx'
+import Recipe from '/src/recipe.mdx'
+
 - Iron Dust** is a dust added by TechReborn. It is used to
         produce <Mcitem id="minecraft:iron_ingot"/>.
 
@@ -10,15 +13,15 @@
 ##### Recipe
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input techreborn:small_pile_of_iron_dust
+<Recipe recipe=" input techreborn:small_pile_of_iron_dust
 techreborn:small_pile_of_iron_dust air input
 techreborn:small_pile_of_iron_dust techreborn:small_pile_of_iron_dust
-air input air air air output techreborn:iron_dust `</recipe>`
+air input air air air output techreborn:iron_dust "/>
 \\\\ <Mcitem id="techreborn:grinder"/> recipe: \\\\
 <Mcitem id="minecraft:iron_ore"/> -\>
-2x<Mcitem id="techreborn:iron_dust"/> \\\\
+2x<Mcitem id="techreborn:iron_dust"/>
 <Mcitem id="minecraft:iron_ingot"/> -\>
-<Mcitem id="techreborn:iron_dust"/> \\\\ \\\\
+<Mcitem id="techreborn:iron_dust"/> \\\\
 <Mcitem id="techreborn:industrial_grinder"/> recipe:
 \\\\ <Mcitem id="minecraft:iron_ore"/> +
 <Mcitem id="techreborn:water_cell"/>-\>
@@ -28,19 +31,19 @@ air input air air air output techreborn:iron_dust `</recipe>`
 <Mcitem id="techreborn:industrial_electrolyzer"/>
 recipe: \\\\ 3x<Mcitem id="techreborn:pyrite_dust"/>
 -\> <Mcitem id="techreborn:iron_dust"/> +
-2x<Mcitem id="techreborn:sulfur_dust"/> \\\\
+2x<Mcitem id="techreborn:sulfur_dust"/>
 9x<Mcitem id="techreborn:peridot_dust"/> +
 <Mcitem id="techreborn:empty_cell"/> -\>
 2x<Mcitem id="techreborn:magnesium_dust"/> +
 2x<Mcitem id="techreborn:iron_dust"/> +
 <Mcitem id="techreborn:silicon_cell"/> +
-2x<Mcitem id="techreborn:compressed_air_cell"/> \\\\
+2x<Mcitem id="techreborn:compressed_air_cell"/>
 20x<Mcitem id="techreborn:almandine_dust"/> +
 9x<Mcitem id="techreborn:empty_cell"/> -\>
 3x<Mcitem id="techreborn:iron_dust"/> +
 2x<Mcitem id="techreborn:aluminium_dust"/> +
 3x<Mcitem id="techreborn:silicon_cell"/> +
-6x<Mcitem id="techreborn:compressed_air_cell"/> \\\\
+6x<Mcitem id="techreborn:compressed_air_cell"/>
 20x<Mcitem id="techreborn:andradite_dust"/> +
 12x<Mcitem id="techreborn:empty_cell"/> -\>
 3x<Mcitem id="techreborn:calcium_cell"/> +
@@ -51,11 +54,11 @@ recipe: \\\\ 3x<Mcitem id="techreborn:pyrite_dust"/>
 ##### Usage
 
 <Mcitem id="minecraft:crafting_table"/> recipe:
-`<recipe>` input air air air input air techreborn:iron_dust air
+<Recipe recipe=" input air air air input air techreborn:iron_dust air
 input air air air output techreborn:small_pile_of_iron_dust,4
-`</recipe>` \\\\ \\\\ Smelting recipe: \\\\
+"/> \\\\ Smelting recipe: \\\\
 <Mcitem id="techreborn:iron_dust"/> -\>
-<Mcitem id="minecraft:iron_ingot"/> \\\\ \\\\
+<Mcitem id="minecraft:iron_ingot"/> \\\\
 <Mcitem id="techreborn:industrial_centrifuge"/>
 recipe: \\\\ 2x<Mcitem id="techreborn:iron_dust"/>
 -\>
