@@ -1,0 +1,31 @@
+{{ :mods:techreborn:cloaking_device.png?nolink&200\|Cloaking Device}}
+
+###### Cloaking Device {#cloaking_device}
+
+A \*\*Cloaking Device\*\* is capable of hiding a player when placed in
+one\'s chest slot. It can store up to 40M Energy units. It does not
+provide any armour points therefore it will not provide additional
+protection. While the device is on, it will make you invisible to other
+players and mobs, however mobs will still get agressive if you come too
+close to them. Usage cost is 10E/tick (200E/sec, 12KE/min and 720KE/hour
+accordingly). Its charge/discharge rate is 8192E/t which means it will
+fully charge/discharge in ≈ 4 minutes if Adjustable or Interdimensional
+SU is used.
+
+###### Recipe
+
+`<recipe>`{=html} input techreborn:chrome_ingot
+techreborn:iridium_alloy_plate techreborn:chrome_ingot input
+techreborn:iridium_alloy_plate techreborn:lapotronic_energy_orb
+techreborn:iridium_alloy_plate input techreborn:chrome_ingot
+techreborn:iridium_alloy_plate techreborn:chrome_ingot output
+techreborn:cloaking_device `</recipe>`{=html}
+
+###### Usage
+
+A Cloaking Device can be used as a chest armor capable of hiding player
+wearing it.
+
+##### History
+
+Updated for 1.16 version Updated for 1.15 version

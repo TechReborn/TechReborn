@@ -1,0 +1,34 @@
+###### Wiki guideline for editors {#wiki_guideline_for_editors}
+
+First of all, thank you for your efforts to make this wiki better.
+Seriously, with a lot of blocks and items it is near to impossible for
+developers to keep wiki up-to-date. \\\\
+
+##### Wiki Structure {#wiki_structure}
+
+In order to have breadcrumbs we have 3 major sections: Items, Blocks and
+Energy. While Energy section contains information about blocks it
+servers purpose to not bloat Blocks section too much. This approach
+introduce kind of burden to create page for a particular block or item
+twice. First page - with content with one of above mentioned major
+section. Second page is redirect required by plugins used to help with
+items and recipes.
+
+##### MC specific plugins {#mc_specific_plugins}
+
+Couple words about these specific plugins we use:
+
+1\) Minecraft item plugin allows you to insert fancy link to block or
+item. Syntax: `<mcitem>`{=html}`namespace:item_name``</mcitem>`{=html}
+namespace is either \"minecraft\" for vanilla items or \"techreborn\"
+for TR items and in general stands from mod name. \\\\ item_name is a
+registry name for an item. Same as in .json recipes, for example. Or in
+advanced tooltip withing MC. \\\\ Plugin will automatically generate
+link to a page like mods:techreborn:item_name. That page should have
+redirect to a page with real content. Redirect syntax for items is:
+`~~REDIRECT>items:item_name~~` Replace \"items\" with \"blocks\" or
+\"energy\" to redirect to a proper section.
+
+2\) Minecraft recipe plugin Syntax:
+`<recipe>`{=html}` size 1x1 input minecraft:cobblestone output minecraft:stone tool minecraft:furnace ``</recipe>`{=html}
+where size and tool are optional

@@ -1,0 +1,38 @@
+{{ :mods:techreborn:lesu.png?nolink&200\|}}
+
+###### LESU
+
+The \*\*LESU\*\* or Lapotronic Energy Storage Unit can be used to store
+energy and charge items which use energy to function. For example, the
+`<mcitem>`{=html}techreborn:electric_treetap`</mcitem>`{=html}. LESU
+block can store up to 1M energy with 32 E\\t input and 5 E\\t output.
+Input and output rates could be improved by building multiblock machine
+from \*\*LESU\*\* and adjusted \*\*LESU Storage\*\* blocks. \*\*LESU\*\*
+accepts energy from all sides except dotted one, and provides energy
+from dotted side.
+
+##### Recipe
+
+`<recipe>`{=html} input air techreborn:lv_transformer air input
+techreborn:advanced_circuit techreborn:lsu_storage
+techreborn:advanced_circuit input air techreborn:mv_transformer air
+output techreborn:lapotronic_su `</recipe>`{=html}
+
+##### Usage
+
+While LESU itself is not very impressive the true power comes by adding
+`{{:mods:techreborn:lsu_storage.png?nolink&24|LESU Storage}}`{=mediawiki}
+\*\*[LESU Storage](energy:storage:lesu_block "wikilink")\*\* to form a
+multiblock structure. Each \*\*LESU Storage\*\* will contribute
+additional 1M energy to LESU and additional 1 E\\t to I\\O rates.
+
+While output rate will grow linear, input rate has a little bit
+different logic. If multiblock has at least 32 \*\*LESU Storage\*\*
+blocks connected input rate will increase to 128 E\\t and if multiblock
+structure has at least 128 \*\*LESU Storage\*\* blocks connected input
+rate will increase to 512 E\\t. Between these numbers it will increase
+linear, same as output rate.
+
+##### History
+
+` * Updated for 1.16 version`

@@ -1,0 +1,31 @@
+{{ :mods:techreborn:lithium_ion_batpack.png?nolink&200\|Lithium-Ion
+Batpack}} =======Lithium-Ion Batpack======= A \*\*Lithium-Ion
+Batpack\*\* is a chest slot worn item which can charge powered items in
+player inventory. It is capable of storing 600k Energy.
+
+##### Recipe
+
+`<recipe>`{=html} input techreborn:lithium_ion_battery
+techreborn:advanced_circuit techreborn:lithium_ion_battery input
+techreborn:lithium_ion_battery techreborn:aluminum_plate
+techreborn:lithium_ion_battery input techreborn:lithium_ion_battery air
+techreborn:lithium_ion_battery output techreborn:lithium_ion_batpack
+`</recipe>`{=html}
+
+##### Usage
+
+A \*\*Lithium-Ion Batpack\*\* can be used as a chest armor capable of
+charging other powered items in inventory. Besides that it is used as
+ingredient to craft
+`<mcitem>`{=html}techreborn:lapotronic_orbpack`</mcitem>`{=html}
+`<recipe>`{=html} input techreborn:energy_flow_chip
+techreborn:lapotronic_orb techreborn:energy_flow_chip input
+techreborn:superconductor techreborn:lithium_ion_batpack
+techreborn:superconductor input techreborn:energy_flow_chip
+techreborn:iridium_ingot techreborn:energy_flow_chip output
+techreborn:lapotronic_orbpack `</recipe>`{=html}
+
+###### History
+
+` * Updated for 1.16 version`\
+` * Updated for 1.15 version`

@@ -1,0 +1,47 @@
+###### Energy
+
+Energy is the cornerstone of Tech Reborn. Machines require energy to
+run, the same as any electric machines used IRL.
+
+#### How it Works {#how_it_works}
+
+At its core, Tech Reborn's energy is very simple. Energy is created by
+`{{:mods:techreborn:generator.png?nolink&24|}}`{=mediawiki}
+\*\*[energy:generators](energy:generators "wikilink")\*\*; passed
+through
+`{{:mods:techreborn:insulated_copper_cable.png?nolink&24|}}`{=mediawiki}
+\*\*[energy:cables](energy:cables "wikilink")\*\*; stored in
+`{{:mods:techreborn:mfe.png?nolink&24|}}`{=mediawiki}
+\*\*[energy:batteries](energy:batteries "wikilink")\*\*; and consumed by
+machines.
+
+` - Generators produce energy each tick—then they;`\
+`   - push energy into any directly connected machines or wire network—or if those are full;`\
+`   - store the energy in their own storage`\
+` - Cables have an internal buffer (which depends on their tier)—Cables will;`\
+`   - empty their buffer into any connected machines (at random)—or if those are full;`\
+`   - average out any leftover energy across all connected cables`
+
+The result of this implementation is that energy transfer is
+\*\*inefficient over long distances\*\*. To mitigate this, it is best to
+place buffers (energy storage blocks) every 10 or 15 blocks to direct
+the flow of energy.
+
+#### Energy Tiers {#energy_tiers}
+
+Unlike other tech-based mods, there is no concept of voltage in Tech
+Reborn. Instead, energy is divided into categories based on the I/O
+capabilities, which translate into the tiers of machinery the player
+should be able to construct by that point:
+
+\^ Energy Tier \^ I/O Rate (E/t) \^ Machine Tier \^ Min. Cable
+Requirement \| \| Micro \| 8 \| Basic \| Tin \| \| Low \| 32 \| Advanced
+\| Tin \| \| Medium \| 128 \| Industrial \| Copper / Insulated Copper \|
+\| High \| 512 \| Ultimate \| Gold \| \| Extreme \| 2,048 \| Quantum \|
+HV / Insulated HV \| \| Insane \| 8,192 \| - \| Glass Fiber \| \|
+Infinite \| 2,147,483,647 \| Creative \| - \|
+
+#### Compatibility
+
+` * 1.14 and above use `[`Energy`](https://github.com/TechReborn/Energy "wikilink")\
+` * 1.12.2 and below is compatible with `[`Forge Energy`](energy:forge_energy "wikilink")`, `[`EU`](energy:eu "wikilink")` and `[`RF`](energy:rf "wikilink")

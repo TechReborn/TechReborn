@@ -1,0 +1,15 @@
+# Ignore everything
+/*
+
+# Folders
+!/pages
+!/public
+
+# Files
+!/.gitignore
+!/next.config.js
+!/next-env.d.ts
+!/package.json
+!/package-lock.json
+!/theme.config.tsx
+!/tsconfig.json

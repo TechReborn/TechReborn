@@ -1,0 +1,16 @@
+{{ :mods:techreborn:nanosaber_3.png?nolink&200\|Nano Saber}} =======Nano
+Saber======= The \*\*NanoSaber\*\* is an advanced weapon that can be
+used against hostile mobs, or players. The Saber requires power to work,
+every hit done to an entity will cost 150 Energy.
+
+The nano saber requires being active to work. To toggle the active state
+the user must shift-right click. A chat message will appear saying the
+new mod that the weapon is in.
+
+##### Recipe
+
+`<recipe>`{=html} input techreborn:diamond_plate techreborn:carbon_plate
+air input techreborn:diamond_plate techreborn:carbon_plate air input
+techreborn:small_pile_of_glowstone_dust techreborn:lapotron_crystal
+techreborn:small_pile_of_glowstone_dust output techreborn:nanosaber
+`</recipe>`{=html}

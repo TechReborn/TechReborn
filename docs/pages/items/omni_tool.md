@@ -1,0 +1,15 @@
+{{ :mods:techreborn:omni-tool.png?nolink&200\|Omni-Tool}}
+=======Omni-Tool=======
+
+-   -   Omni-Tool\*\* is an universal tool that combines Pickaxe, Axe,
+        Showel, Sheers and even Sword in one simple rod. It has 1M
+        energy storage. One can charge it using
+        `<mcitem>`{=html}techreborn:battery_box`</mcitem>`{=html}. It\'s
+        mining level on par with diamond made tools. One mined block
+        will cost 100 Energy and it will use 125 Energy on entity hit.
+
+##### Recipe
+
+`<recipe>`{=html} input techreborn:advanced_drill air air input air
+techreborn:advanced_chainsaw air input air air minecraft:diamond_sword
+output techreborn:omni-tool `</recipe>`{=html}

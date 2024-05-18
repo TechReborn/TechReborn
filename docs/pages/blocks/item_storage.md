@@ -1,0 +1,24 @@
+\~\~NOTOC\~\~ {{ :mods:techreborn:basic_storage_unit.png?nolink&200\|}}
+
+###### Storage Unit {#storage_unit}
+
+-   -   Storage Unit(s)\*\* are used to store a vast amount of singular
+        items. It\'s a tiered block with each increment increasing the
+        amount of capacity it\'s able to store.
+
+Ability to lock items using top right lock icon (By right-clicking
+unit).
+
+Configurable input/outputs by using side menu (Blue - input, Green -
+both and Orange - output). Click faces to change them. Can also opt for
+auto input and output (Pull/push).
+
+Currently stored item is shown on the front-panel
+
+No power is required.
+
+##### Tiers:
+
+```{=mediawiki}
+{{section>:blocks#istlist&noheader}}
+```

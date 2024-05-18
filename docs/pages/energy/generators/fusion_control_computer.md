@@ -1,0 +1,88 @@
+{{ :mods:techreborn:fusion_control_computer.png?nolink&200\|Fusion
+Control Computer}}
+
+###### Fusion Control Computer {#fusion_control_computer}
+
+The \*\*Fusion Control Computer\*\* is part of a multi-block generator
+that produces energy from various fluids. It is unique in that it does
+not consume the fuel, but instead processes them into a new item. It is
+also used as a machine to produce
+`<mcitem>`{=html}techreborn:platinum_dust`</mcitem>`{=html} and
+`<mcitem>`{=html}techreborn:iridium_ore`</mcitem>`{=html}.\\\\ It must
+be combined with a minimum of 16
+`<mcitem>`{=html}techreborn:fusion_coil`</mcitem>`{=html}s to create a
+usable fusion reactor.
+
+\^ Tier \^ Generation Rate \^ Input \^ Output \^ Storage \^ \| Insane \|
+16 kE/t^1^ \| 8 kE/t \| 100,000 E/t \| 100 mE - 2.1 gE^2^ \| ^1^//Base
+generation rate. Can be many multiples of this depending on the size of
+the reactor; see Power Generation table below//\\\\ ^2^//Scales with the
+generation multiplier. Ex. 1.74x = 174 mE storage. Capped at 2.1 gE.
+\*\*Note to wiki editors:\*\* these values are the only values on this
+page that are not powers of two and will need to be updated//
+
+#### Fuel/Input
+
+These recipes generate power based on the reactor size, as shown below
+in the Power Generation table. \^ Input A \^\^ Input B \^\^ Output \^ \|
+`<mcitem>`{=html}techreborn:deuterium_cell`</mcitem>`{=html} \| + \|
+`<mcitem>`{=html}techreborn:tritium_cell`</mcitem>`{=html} \| = \|
+`<mcitem>`{=html}techreborn:helium3_cell`</mcitem>`{=html} \| \|
+`<mcitem>`{=html}techreborn:deuterium_cell`</mcitem>`{=html} \| + \|
+`<mcitem>`{=html}techreborn:helium3_cell`</mcitem>`{=html} \| = \|
+`<mcitem>`{=html}techreborn:heliumplasma_cell`</mcitem>`{=html} \|
+
+These recipes consume power at 2048 E/t. \^ Input A \^\^ Input B \^\^
+Output \^ \|
+`<mcitem>`{=html}techreborn:wolframium_cell`</mcitem>`{=html} \| + \|
+`<mcitem>`{=html}techreborn:beryllium_cell`</mcitem>`{=html} \| = \|
+`<mcitem>`{=html}techreborn:platinum_dust`</mcitem>`{=html} \| \|
+`<mcitem>`{=html}techreborn:wolframium_cell`</mcitem>`{=html} \| + \|
+`<mcitem>`{=html}techreborn:lithium_cell`</mcitem>`{=html} \| = \|
+`<mcitem>`{=html}techreborn:iridium_ore`</mcitem>`{=html} \|
+
+#### Power Generation {#power_generation}
+
+\^ Size \^ Fusion Coils Required \^ Generation Multiplier \^ Generation
+Rate^3^ \^ \| 6 \| 16 \| 1x \| 16 kE/t \| \| 7 \| 16 \| 1.74x \| 27.8
+kE/t \| \| 8 \| 24 \| 3.61x \| 57.8 kE/t \| \| 9 \| 24 \| 6.06x \| 97
+kE/t \| \| 10 \| 28 \| 9.06x \| 145 kE/t \| \| 11 \| 36 \| 12.58x \|
+201.3 kE/t \| \| 12 \| 40 \| 16.6x \| 265.6 kE/t \| \| 13 \| 48 \|
+21.11x \| 337.8 kE/t \| \| 14 \| 64 \| 26.1x \| 417.6 kE/t \| \| 15 \|
+64 \| 31.55x \| 504 kE/t \| \| 16 \| 70 \| 37.45x \| 599.2 kE/t \| \| 17
+\| 70 \| 43.8x \| 700.8 kE/t \| \| 18 \| 92 \| 50.59x \| 809.4 kE/t \|
+\| 19 \| 108 \| 57.81x \| 925 kE/t \| \| 20 \| 120 \| 65.45x \| 1.02
+mE/t \| \| 21 \| 232 \| 73.52x \| 1.15 mE/t \| \| 22 \| 304 \| 81.99x \|
+1.28 mE/t \| \| 23 \| 324 \| 90.88x \| 1.42 mE/t \| \| 24 \| 388 \|
+100.17x \| 1.57 mE/t \| \| 25 \| 412 \| 109.86x \| 1.72 mE/t \| \| 26 \|
+452 \| 119.94x \| 1.87 mE/t \| \| 27 \| 508 \| 130.42x \| 2.04 mE/t \|
+\| 28 \| 588 \| 141.28x \| 2.21 mE/t \| \| 29 \| 652 \| 152.53x \| 2.38
+mE/t \| \| 30 \| 708 \| 164.16x \| 2.57 mE/t \| \| 31 \| 764 \| 176.17x
+\| 2.75 mE/t \| \| 32 \| 852 \| 188.55x \| 2.95 mE/t \| \| 33 \| 868 \|
+201.3x \| 3.15 mE/t \| \| 34 \| 928 \| 214.43x \| 3.35 mE/t \| \| 35 \|
+984 \| 227.92x \| 3.56 mE/t \| \| 36 \| 1080 \| 241.78x \| 3.78 mE/t \|
+\| 37 \| 1112 \| 256x \| 4 mE/t \| \| 38 \| 1252 \| 270.58x \| 4.23 mE/t
+\| \| 39 \| 1260 \| 285.52x \| 4.46 mE/t \| \| 40 \| 1368 \| 300.81x \|
+4.7 mE/t \| \| 41 \| 1632 \| 316.46x \| 4.94 mE/t \| \| 42 \| 1896 \|
+332.46x \| 5.19 mE/t \| \| 43 \| 2000 \| 348.8x \| 5.45 mE/t \| \| 44 \|
+2192 \| 365.5x \| 5.71 mE/t \| \| 45 \| 2332 \| 382.54x \| 5.98 mE/t \|
+\| 46 \| 2560 \| 399.93x \| 6.25 mE/t \| \| 47 \| 2696 \| 417.66x \|
+6.53 mE/t \| \| 48 \| 2888 \| 435.73x \| 6.81 mE/t \| \| 49 \| 2944 \|
+454.13x \| 7.1 mE/t \| \| 50 \| 3172 \| 472.88x \| 7.39 mE/t \|
+^3^//These values are based in powers of 2.\\\\ 1024 E = 1 kE\\\\ 1024
+kE = 1 mE\\\\ 1024 mE = 1 gE//
+
+#### Recipe
+
+`<recipe>`{=html} input techreborn:energy_flow_circuit
+techreborn:energy_flow_circuit techreborn:energy_flow_circuit input
+techreborn:energy_crystal techreborn:fusion_coil
+techreborn:energy_crystal input techreborn:energy_flow_circuit
+techreborn:energy_flow_circuit techreborn:energy_flow_circuit output
+techreborn:fusion_control_computer `</recipe>`{=html}
+
+#### Usage
+
+` * It provides an adjustable hologram of the various sizes of multi-block.`\
+` * Outputs energy on the top and bottom`\
+` * Inputs energy on the sides`

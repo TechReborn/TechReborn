@@ -1,0 +1,25 @@
+###### Development workspace setup for Minecraft 1.17 {#development_workspace_setup_for_minecraft_1.17}
+
+This guide is intended for people wishing to help with the creation of
+the mod. It assumes you know the basics of git and java. Guide aimed on
+InteliJ IDEA. Sorry, Eclipse is not covered but should be pretty
+similar.
+
+##### Requirements
+
+` * Java Development Kit version 16 (https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)`\
+` * InteliJ IDEA, you can also use Eclipse but that isn't covered. (https://www.jetbrains.com/idea/download/#section=windows)`\
+` * Git (https://git-scm.com/download/win)`\
+` * This guide covers MS Windows setup. Sorry.`
+
+##### Setup Tech Reborn {#setup_tech_reborn}
+
+RebornCore is now part of Tech Reborn repository. Thus there is no need
+for a separate step for RC setup anymore.
+
+` - Open InteliJ IDEA and Create a new project from Source control ``{{gallery>development:step1.png?lightbox}}`{=mediawiki}`  `\
+` - Clone Tech Reborn repo (https://github.com/TechReborn/TechReborn.git). 1.17 branch is default at the time of writing. Change branch if it is not so.`\
+` - Gradle refresh will fail if you haven't update Gradle setting to use Java 16 yet. Change Gradle JVM and refresh Gradle project. Gradle project refresh will take several minutes, so you can grab a cup of coffee while it is working. You may also need to invalidate cache in IDEA after that step.`\
+` - Generate sources for dependencies ``{{gallery>development:step3-117.png?lightbox}}`{=mediawiki}\
+` - Open the `*`Gradle Settings`*` dialog from the Gradle tab. Change the `*`Build and run using`*` and `*`Run tests using`*` fields to 'IntelliJ IDEA'.`\
+` - Go to `*`File → Project Structure → Project`*` and set `*`Project compiler output`*` to 'out' folder inside project folder `

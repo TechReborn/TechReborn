@@ -1,0 +1,9 @@
+{{ :mods:techreborn:pyrite_ore.png?nolink&200\|Pyrite ore}}
+
+##### Pyrite Ore {#pyrite_ore}
+
+-   -   Pyrite ore\*\* is a common ore found in The Nether on layers
+        10-126. It will drop
+        `<mcitem>`{=html}techreborn:pyrite_dust`</mcitem>`{=html}
+        affected by Fortune enchant if mined normally. And will drop
+        block itself if mined with SilkTouch enchant.

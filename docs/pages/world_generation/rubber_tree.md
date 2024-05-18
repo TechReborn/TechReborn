@@ -1,0 +1,10 @@
+{{ :mods:techreborn:rubber_sapling.png?nolink&200\|}}
+
+###### Rubber tree {#rubber_tree}
+
+-   -   Rubber tree\*\* is a newly generated tree in Tech Reborn. It
+        could be found almost everywhere in The Overworld dimension with
+        higher chances for Swamp biome.
+
+They are distinctive as they have a spike of leaves at the top. \\\\
+\\\\ `{{:mods:techreborn:rubber_tree_gen.png?500|}}`{=mediawiki}

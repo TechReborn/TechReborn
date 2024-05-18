@@ -1,0 +1,46 @@
+{{ :mods:techreborn:wrench.png?nolink&200\|}} =======Setting up a
+development environment=======
+
+This guide is intended for people wishing to help with the creation of
+the mod. It assumes you know the basics of git and java.
+
+##### Requirements
+
+` * Java Development Kit version 8 (https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)`\
+` * Intelij Idea, you can also use eclipse but that isn't covered. (https://www.jetbrains.com/idea/download/#section=windows)`\
+` * Git (https://git-scm.com/download/win)`\
+` * This guide covers MS Windows setup. Sorry.`
+
+##### Setup Reborn Core {#setup_reborn_core}
+
+If you are not planning to make changes to Reborn Core just skip this
+section
+
+` - Open InteliJ IDEA and Create a new project from Source control ``{{gallery>development:step1.png?lightbox}}`{=mediawiki}`  `\
+` - Clone Reborn Core repo (https://github.com/TechReborn/RebornCore.git)`\
+` - Refresh Gradle project ``{{gallery>development:step2.png?lightbox}}`{=mediawiki}\
+` - Generate sources for dependencies ``{{gallery>development:step3.png?lightbox}}`{=mediawiki}\
+` - Open the `*`Gradle Settings`*` dialog from the Gradle tab. Change the `*`Build and run using`*` and `*`Run tests using`*` fields to 'IntelliJ IDEA'.`\
+` - Go to `*`File → Project Structure → Project`*` and set `*`Project compiler output`*` to $PROJECT_DIR$/out`
+
+##### Setup Tech Reborn {#setup_tech_reborn}
+
+Steps are same as for RC.
+
+` - Open InteliJ IDEA and Create a new project from Source control ``{{gallery>development:step2-1.png?lightbox}}`{=mediawiki}\
+` - Clone Reborn Core repo (https://github.com/TechReborn/TechReborn.git)`\
+` - Refresh Gradle project `\
+` - Generate sources for dependencies `\
+` - Open the `*`Gradle Settings`*` dialog from the Gradle tab. Change the `*`Build and run using`*` and `*`Run tests using`*` fields to 'IntelliJ IDEA'.`\
+` - Go to `*`File → Project Structure → Project`*` and set `*`Project compiler output`*` to $PROJECT_DIR$/out`
+
+##### Setup RC as TR module {#setup_rc_as_tr_module}
+
+Skip this section if you are not going to make changes to RC
+
+` - Go to `*`File → Project Structure → Modules`*` then click on + button and select `*`Import Module`*` ``{{gallery>development:step3-1.png?lightbox}}`{=mediawiki}` `\
+` - Select RebornCore folder and then `*`Import module from external model`*` and choose Gradle`\
+` - Close `*`Project Structure`*` and refresh Gradle project`\
+` - Reopen `*`File → Project Structure → Modules`*` then select `*`main`*` module of TR and go to `*`Dependencies`*` tab`\
+` - Remove RebornCore dependency from Gradle and add RebornCore dependency from module ``{{gallery>development:step3-2.png?lightbox}}`{=mediawiki}\
+` - You will have to repeat step above if you will refresh TR Gradle project. `

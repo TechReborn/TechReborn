@@ -1,0 +1,30 @@
+{{ :mods:techreborn:ultimate_solar_panel.png?200\|}}
+
+###### Ultimate Solar Panel {#ultimate_solar_panel}
+
+The \*\*Ultimate Solar Panel\*\* produces energy from sunlight. For more
+details and how to use, read [general information about Solar
+Panels](energy:generators:solar_panels "wikilink").
+
+\^ Tier \^ Day Gen. \^ Night Gen. \^ Storage \^ \| High \| 16 E/t \| 4
+E/t \| 32 kE \|
+
+#### Recipes
+
+`<recipe>`{=html} input techreborn:diamond_dust
+techreborn:reinforced_glass techreborn:diamond_dust input
+techreborn:reinforced_glass techreborn:diamond_dust
+techreborn:reinforced_glass input techreborn:advanced_circuit
+techreborn:industrial_solar_panel techreborn:advanced_circuit output
+techreborn:ultimate_solar_panel `</recipe>`{=html} \\\\
+`<recipe>`{=html} input techreborn:diamond_dust
+techreborn:reinforced_glass techreborn:diamond_dust input
+techreborn:reinforced_glass techreborn:diamond_dust
+techreborn:reinforced_glass input techreborn:advanced_circuit
+techreborn:advanced_machine_frame techreborn:advanced_circuit output
+techreborn:ultimate_solar_panel `</recipe>`{=html}
+
+#### Usage
+
+-   -   Ultimate Solar Panel\*\* can be used to craft
+        `<mcitem>`{=html}techreborn:quantum_solar_panel`</mcitem>`{=html}
