@@ -149,22 +149,22 @@ water -\> 16 nautilus shells
 `TRTweaker.addRollingMachine([["minecraft:stick", "minecraft:oak_planks"], ["minecraft:stone", "minecraft:oak_planks"]], TweakerUtils.createItemStack("minecraft:crafting_table", 1));`
 
 Add a rolling machine recipe for sticks on the sides and any wooden slab
-in the middle -\> six ladders `<code>`{=html} //Create a
+in the middle -\> six ladders `<code>` //Create a
 pattern/dictionary set for a shaped recipe var pattern = \[ \'/ /\',
 
-`               '/_/',`\
-`               '/ /'];`
+`               '/_/',`\
+`               '/ /'];`
 
 var dict = {
 
-`   "/": "minecraft:stick",`\
-`   "_": "#minecraft:wooden_slabs"`
+`   "/": "minecraft:stick",`\
+`   "_": "#minecraft:wooden_slabs"`
 
 };
 
 TRTweaker.addRollingMachine(pattern, dict,
 TweakerUtils.createItemStack(\"minecraft:ladder\", 12));
-`</code>`{=html}
+`</code>`
 
 ------------------------------------------------------------------------
 
