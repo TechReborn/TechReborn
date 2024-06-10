@@ -168,7 +168,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	// Todo refactor me out, used to help port json recipes
 	static ItemStack stack(String id, int count = 1) {
-		def item = Registries.ITEM.get(new Identifier(id))
+		def item = Registries.ITEM.get(Identifier.of(id))
 		return new ItemStack(item, count)
 	}
 
@@ -178,7 +178,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 			throw new UnsupportedOperationException()
 		}
 
-		return TagKey.of(RegistryKeys.ITEM, new Identifier(id))
+		return TagKey.of(RegistryKeys.ITEM, Identifier.of(id))
 	}
 
 	def offerAlloySmelterRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
@@ -248,7 +248,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	@Override
 	protected Identifier getRecipeIdentifier(Identifier identifier) {
-		return new Identifier("techreborn", super.getRecipeIdentifier(identifier).path)
+		return Identifier.of("techreborn", super.getRecipeIdentifier(identifier).path)
 	}
 
 	@Override

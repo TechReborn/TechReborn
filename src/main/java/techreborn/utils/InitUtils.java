@@ -35,17 +35,17 @@ import techreborn.TechReborn;
 
 public class InitUtils {
 	public static <I extends Item> I setup(I item, String name) {
-		RebornRegistry.registerIdent(item, new Identifier(TechReborn.MOD_ID, name));
+		RebornRegistry.registerIdent(item, Identifier.of(TechReborn.MOD_ID, name));
 		return item;
 	}
 
 	public static <B extends Block> B setup(B block, String name) {
-		RebornRegistry.registerIdent(block, new Identifier(TechReborn.MOD_ID, name));
+		RebornRegistry.registerIdent(block, Identifier.of(TechReborn.MOD_ID, name));
 		return block;
 	}
 
 	public static SoundEvent setup(String name) {
-		Identifier identifier = new Identifier(TechReborn.MOD_ID, name);
+		Identifier identifier = Identifier.of(TechReborn.MOD_ID, name);
 		return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
 	}
 

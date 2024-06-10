@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import techreborn.TechReborn;
 
 public record ChunkloaderPayload(BlockPos pos, int buttonID, boolean sync) implements CustomPayload {
-	public static final CustomPayload.Id<ChunkloaderPayload> ID = new CustomPayload.Id<>(new Identifier(TechReborn.MOD_ID, "chunkloader"));
+	public static final CustomPayload.Id<ChunkloaderPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "chunkloader"));
 	public static final PacketCodec<RegistryByteBuf, ChunkloaderPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, ChunkloaderPayload::pos,
 		PacketCodecs.INTEGER, ChunkloaderPayload::buttonID,

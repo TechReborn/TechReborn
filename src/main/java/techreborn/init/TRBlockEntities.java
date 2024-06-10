@@ -156,12 +156,12 @@ public class TRBlockEntities {
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, Block... blocks) {
 		Validate.isTrue(blocks.length > 0, "no blocks for blockEntity entity type!");
-		return register(new Identifier(TechReborn.MOD_ID, name).toString(), FabricBlockEntityTypeBuilder.create(supplier::apply, blocks));
+		return register(Identifier.of(TechReborn.MOD_ID, name).toString(), FabricBlockEntityTypeBuilder.create(supplier::apply, blocks));
 	}
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(String id, FabricBlockEntityTypeBuilder<T> builder) {
 		BlockEntityType<T> blockEntityType = builder.build(null);
-		Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(id), blockEntityType);
+		Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(id), blockEntityType);
 		TRBlockEntities.TYPES.add(blockEntityType);
 		return blockEntityType;
 	}

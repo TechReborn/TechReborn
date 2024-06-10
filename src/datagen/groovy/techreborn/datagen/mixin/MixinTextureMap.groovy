@@ -41,14 +41,14 @@ class MixinTextureMap {
 	private static void getId(Item item, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.blockPaths.each {
 			if (it.key.asItem() == item) {
-				cir.setReturnValue(new Identifier("techreborn", "item/${it.value}"))
+				cir.setReturnValue(Identifier.of("techreborn", "item/${it.value}"))
 			}
 		}
 
 		def itemPath = TexturePaths.itemPaths.get(item)
 
 		if (itemPath) {
-			cir.setReturnValue(new Identifier("techreborn", "item/${itemPath}"))
+			cir.setReturnValue(Identifier.of("techreborn", "item/${itemPath}"))
 		}
 	}
 
@@ -56,7 +56,7 @@ class MixinTextureMap {
 	private static void getId(Block block, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.blockPaths.each {
 			if (it.key == block) {
-				cir.setReturnValue(new Identifier("techreborn", "block/${it.value}"))
+				cir.setReturnValue(Identifier.of("techreborn", "block/${it.value}"))
 			}
 		}
 	}

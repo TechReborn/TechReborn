@@ -35,6 +35,7 @@ import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
@@ -97,14 +98,14 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		CraftingInventory craftingInventory = getCraftingInventory();
 		if (craftingInventory.isEmpty()) return null;
 
-		if (lastRecipe != null && lastRecipe.matches(craftingInventory, world)) return lastRecipe;
+		if (lastRecipe != null && lastRecipe.matches(getRecipeInput(), world)) return lastRecipe;
 
 		Item[] currentInvLayout = getCraftingLayout(craftingInventory);
 		if (Arrays.equals(layoutInv, currentInvLayout)) return null;
 
 		layoutInv = currentInvLayout;
 
-		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craftingInventory, world).map(RecipeEntry::value);
+		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, getRecipeInput(), world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
 			return lastRecipe;
@@ -158,11 +159,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 
-		if (!recipe.matches(crafting, world)) return false;
+		if (!recipe.matches(getRecipeInput(), world)) return false;
 
 		if (!hasOutputSpace(recipe.getResult(world.getRegistryManager()), OUTPUT_SLOT)) return false;
 
-		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
+		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(getRecipeInput());
 
 		// Need to check whole list in case of several different reminders
 		boolean canFitReminder = true;
@@ -237,7 +238,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 		ItemStack output = inventory.getStack(OUTPUT_SLOT);
-		ItemStack outputStack = recipe.craft(getCraftingInventory(), world.getRegistryManager());
+		ItemStack outputStack = recipe.craft(getRecipeInput(), world.getRegistryManager());
 		if (output.isEmpty()) {
 			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
 		} else {
@@ -493,4 +494,12 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		locked = lockedInt == 1;
 	}
 
+	private CraftingRecipeInput getRecipeInput() {
+		CraftingInventory craftingInventory = getCraftingInventory();
+		List<ItemStack> stacks = new ArrayList<>(craftingInventory.size());
+		for (int i = 0; i < craftingInventory.size(); i++) {
+			stacks.add(craftingInventory.getStack(i));
+		}
+		return CraftingRecipeInput.create(craftingInventory.getWidth(), craftingInventory.getHeight(), stacks);
+	}
 }

@@ -47,7 +47,7 @@ import java.util.Set;
 public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity> {
 	private static final Set<Direction> ALL_DIRECTIONS = EnumSet.allOf(Direction.class);
 	private static final TurbineModel MODEL = new TurbineModel();
-	public static final Identifier TEXTURE = new Identifier("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
+	public static final Identifier TEXTURE = Identifier.of("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
 
 	public TurbineRenderer(BlockEntityRendererFactory.Context ctx) {
 	}
@@ -66,7 +66,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 
 		float spin = blockEntity.bladeAngle + tickDelta * blockEntity.spinSpeed;
 		MODEL.setSpin(spin);
-		MODEL.render(matrixStack, vertexConsumer, renderLight, overlay, 1F, 1F, 1F, 1F);
+		MODEL.render(matrixStack, vertexConsumer, renderLight, overlay);
 
 		matrixStack.pop();
 	}
@@ -124,8 +124,8 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 		}
 
 		@Override
-		public void render(MatrixStack matrixStack, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-			base.render(matrixStack, vertexConsumer, light, overlay);
+		public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+			base.render(matrices, vertices, light, overlay);
 		}
 	}
 }

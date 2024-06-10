@@ -24,8 +24,6 @@
 
 package techreborn.items.armor;
 
-import com.google.common.collect.ImmutableMultimap;
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -36,6 +34,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import reborncore.api.items.ArmorBlockEntityTicker;
@@ -57,6 +56,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 
 
 	// FabricItem
+	/* TODO 1.21
 	@Override
 	public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
 		AttributeModifiersComponent attributes = super.getAttributeModifiers(stack);
@@ -76,6 +76,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 
 		return attributes;
 	}
+	*/
 
 	// ArmorBlockEntityTicker
 	@Override

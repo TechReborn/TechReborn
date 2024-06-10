@@ -154,6 +154,6 @@ class TRConventionalTags {
 	public static final TagKey<Item> ZINC_INGOTS = register("ingots/zinc")
 
 	private static TagKey<Item> register(String name) {
-		return TagKey.of(RegistryKeys.ITEM, new Identifier("c", name))
+		return TagKey.of(RegistryKeys.ITEM, Identifier.of("c", name))
 	}
 }

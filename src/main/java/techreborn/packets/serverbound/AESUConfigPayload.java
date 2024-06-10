@@ -10,7 +10,7 @@ import techreborn.TechReborn;
 
 
 public record AESUConfigPayload (BlockPos pos, int buttonID, boolean shift, boolean ctrl) implements CustomPayload {
-	public static final CustomPayload.Id<AESUConfigPayload> ID = new CustomPayload.Id<>(new Identifier(TechReborn.MOD_ID, "aesu"));
+	public static final CustomPayload.Id<AESUConfigPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "aesu"));
 	public static final PacketCodec<RegistryByteBuf, AESUConfigPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, AESUConfigPayload::pos,
 		PacketCodecs.INTEGER, AESUConfigPayload::buttonID,

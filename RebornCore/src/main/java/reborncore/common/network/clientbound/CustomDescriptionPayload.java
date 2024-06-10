@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.SlotConfiguration;
 
 public record CustomDescriptionPayload(BlockPos pos, NbtCompound nbt) implements CustomPayload {
-	public static final Id<CustomDescriptionPayload> ID = new Id<>(new Identifier("reborncore:custom_description"));
+	public static final Id<CustomDescriptionPayload> ID = new Id<>(Identifier.of("reborncore:custom_description"));
 	public static final PacketCodec<RegistryByteBuf, CustomDescriptionPayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, CustomDescriptionPayload::pos,
 		PacketCodecs.NBT_COMPOUND, CustomDescriptionPayload::nbt,

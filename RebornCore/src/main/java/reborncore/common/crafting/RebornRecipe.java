@@ -45,7 +45,7 @@ import reborncore.common.util.DefaultedListCollector;
 
 import java.util.*;
 
-public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
+public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputRecipe {
 	private final RebornRecipeType<?> type;
 
 	private final List<RebornIngredient> ingredients;
@@ -133,13 +133,13 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 
 	@Deprecated
 	@Override
-	public boolean matches(Inventory inv, World worldIn) {
+	public boolean matches(RebornRecipeInput inv, World worldIn) {
 		throw new UnsupportedOperationException();
 	}
 
 
 	@Override
-	public ItemStack craft(Inventory inventory, RegistryWrapper.WrapperLookup lookup) {
+	public ItemStack craft(RebornRecipeInput inventory, RegistryWrapper.WrapperLookup lookup) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -164,7 +164,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	}
 
 	@Override
-	public DefaultedList<ItemStack> getRemainder(Inventory p_179532_1_) {
+	public DefaultedList<ItemStack> getRemainder(RebornRecipeInput input) {
 		throw new UnsupportedOperationException();
 	}
 

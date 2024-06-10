@@ -88,7 +88,7 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 				quad.spriteColor(0, color, color, color, color);
 				// Some modded fluids doesn't have sprites. Fix for #2429
 				if (fluidSprite == null) {
-					quad.spriteBake(0, RenderUtil.getSprite(new Identifier("minecraft", "missingno")), MutableQuadView.BAKE_LOCK_UV);
+					quad.spriteBake(0, RenderUtil.getSprite(Identifier.of("minecraft", "missingno")), MutableQuadView.BAKE_LOCK_UV);
 				}
 				else {
 					quad.spriteBake(0, fluidSprite, MutableQuadView.BAKE_LOCK_UV);

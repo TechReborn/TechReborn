@@ -96,7 +96,7 @@ public class TRDispenserBehavior {
 								stack = filledCell;
 							} else {
 								stack.decrement(1);
-								if (pointer.blockEntity().addToFirstFreeSlot(filledCell) < 0) {
+								if (pointer.blockEntity().addToFirstFreeSlot(filledCell).getCount() < 0) {
 									this.dispense(pointer, filledCell);
 								}
 							}
@@ -113,7 +113,7 @@ public class TRDispenserBehavior {
 							stack = emptyCell;
 						} else {
 							stack.decrement(1);
-							if (pointer.blockEntity().addToFirstFreeSlot(emptyCell) < 0) {
+							if (pointer.blockEntity().addToFirstFreeSlot(emptyCell).getCount() < 0) {
 								this.dispense(pointer, emptyCell);
 							}
 						}
@@ -135,7 +135,7 @@ public class TRDispenserBehavior {
 							stack = emptyBucket;
 						} else {
 							stack.decrement(1);
-							if (pointer.blockEntity().addToFirstFreeSlot(emptyBucket) < 0) {
+							if (pointer.blockEntity().addToFirstFreeSlot(emptyBucket).getCount() < 0) {
 								this.dispense(pointer, emptyBucket);
 							}
 						}

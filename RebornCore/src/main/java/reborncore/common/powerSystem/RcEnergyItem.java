@@ -83,10 +83,11 @@ public interface RcEnergyItem extends SimpleEnergyItem, FabricItem {
 	@Override
 	default boolean tryUseEnergy(ItemStack stack, long amount){
 		Random random = Random.create();
-		int unbreakingLevel = EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack);
-		if (unbreakingLevel > 0) {
-			amount = amount / (random.nextInt(unbreakingLevel) + 1);
-		}
+		// TODO 1.21
+//		int unbreakingLevel = EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack);
+//		if (unbreakingLevel > 0) {
+//			amount = amount / (random.nextInt(unbreakingLevel) + 1);
+//		}
 
 		return SimpleEnergyItem.super.tryUseEnergy(stack, amount);
 	}

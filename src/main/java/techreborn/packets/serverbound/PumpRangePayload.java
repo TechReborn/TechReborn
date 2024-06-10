@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import techreborn.TechReborn;
 
 public record PumpRangePayload (BlockPos pos, int buttonAmount) implements CustomPayload {
-	public static final CustomPayload.Id<PumpRangePayload> ID = new CustomPayload.Id<>(new Identifier(TechReborn.MOD_ID, "pump_range"));
+	public static final CustomPayload.Id<PumpRangePayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "pump_range"));
 	public static final PacketCodec<RegistryByteBuf, PumpRangePayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, PumpRangePayload::pos,
 		PacketCodecs.INTEGER, PumpRangePayload::buttonAmount,

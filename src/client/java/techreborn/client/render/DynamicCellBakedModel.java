@@ -39,10 +39,10 @@ import java.util.function.Supplier;
 
 public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 
-	private static final ModelIdentifier CELL_BASE = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_base"), "inventory");
-	private static final ModelIdentifier CELL_BACKGROUND = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_background"), "inventory");
-	private static final ModelIdentifier CELL_FLUID = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory");
-	private static final ModelIdentifier CELL_GLASS = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_glass"), "inventory");
+	private static final ModelIdentifier CELL_BASE = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "cell_base"), "inventory");
+	private static final ModelIdentifier CELL_BACKGROUND = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "cell_background"), "inventory");
+	private static final ModelIdentifier CELL_FLUID = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "cell_fluid"), "inventory");
+	private static final ModelIdentifier CELL_GLASS = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "cell_glass"), "inventory");
 
 	@Override
 	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
@@ -56,7 +56,7 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 	public Sprite getParticleSprite() {
 		return MinecraftClient.getInstance()
 				.getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE)
-				.apply(new Identifier("techreborn:item/cell_base"));
+				.apply(Identifier.of("techreborn:item/cell_base"));
 	}
 
 	@Override

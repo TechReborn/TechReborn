@@ -30,5 +30,5 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class RebornCoreTags {
-	public static final TagKey<Item> WATER_EXPLOSION_ITEM = TagKey.of(RegistryKeys.ITEM, new Identifier("reborncore", "water_explosion"));
+	public static final TagKey<Item> WATER_EXPLOSION_ITEM = TagKey.of(RegistryKeys.ITEM, Identifier.of("reborncore", "water_explosion"));
 }

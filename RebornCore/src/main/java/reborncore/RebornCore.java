@@ -73,18 +73,18 @@ public class RebornCore implements ModInitializer {
 		new Configuration(RebornCoreConfig.class, MOD_ID);
 		CalenderUtils.loadCalender(); // Done early as some features need this
 
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("intergrateddynamics:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("thermal:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("rftoolsbase:smartwrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("redstone_arsenal:flux_wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("intergrateddynamics:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("thermal:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("rftoolsbase:smartwrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("redstone_arsenal:flux_wrench"), false));
 
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ad_astra:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ae2:certus_quartz_wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("ae2:nether_quartz_wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("bitsandchisels:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("create:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("indrev:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(new Identifier("modern_industialization:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("ad_astra:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("ae2:certus_quartz_wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("ae2:nether_quartz_wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("bitsandchisels:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("create:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("indrev:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("modern_industialization:wrench"), false));
 
 		ModSounds.setup();
 		BlockWrenchEventHandler.setup();

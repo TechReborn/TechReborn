@@ -27,8 +27,8 @@ import net.minecraft.util.Identifier;
 import reborncore.RebornCore;
 
 public class ScreenIcons {
-	public static Identifier HEAD = new Identifier(RebornCore.MOD_ID, "gui/slot_sprites/armour_head");
-	public static Identifier CHEST = new Identifier(RebornCore.MOD_ID, "gui/slot_sprites/armour_chest");
-	public static Identifier LEGS = new Identifier(RebornCore.MOD_ID, "gui/slot_sprites/armour_legs");
-	public static Identifier FEET = new Identifier(RebornCore.MOD_ID, "gui/slot_sprites/armour_feet");
+	public static Identifier HEAD = Identifier.of(RebornCore.MOD_ID, "gui/slot_sprites/armour_head");
+	public static Identifier CHEST = Identifier.of(RebornCore.MOD_ID, "gui/slot_sprites/armour_chest");
+	public static Identifier LEGS = Identifier.of(RebornCore.MOD_ID, "gui/slot_sprites/armour_legs");
+	public static Identifier FEET = Identifier.of(RebornCore.MOD_ID, "gui/slot_sprites/armour_feet");
 }

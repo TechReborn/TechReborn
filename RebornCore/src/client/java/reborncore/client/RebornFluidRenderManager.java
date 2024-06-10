@@ -67,7 +67,7 @@ public class RebornFluidRenderManager implements SimpleSynchronousResourceReload
 
 	@Override
 	public Identifier getFabricId() {
-		return new Identifier("reborncore", "fluid_render_manager");
+		return Identifier.of("reborncore", "fluid_render_manager");
 	}
 
 	@Override

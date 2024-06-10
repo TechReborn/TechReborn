@@ -48,7 +48,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class PaddedShapedRecipe extends ShapedRecipe {
-	public static final Identifier ID = new Identifier("reborncore", "padded");
+	public static final Identifier ID = Identifier.of("reborncore", "padded");
 	public static final RecipeSerializer<PaddedShapedRecipe> PADDED = Registry.register(Registries.RECIPE_SERIALIZER, ID, new Serializer());
 
 	final RawShapedRecipe raw;

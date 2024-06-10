@@ -55,17 +55,17 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addOptionalTag(BlockTags.SNOW.id())
 			.addOptionalTag(BlockTags.NYLIUM.id())
 			.addOptionalTag(BlockTags.WART_BLOCKS.id())
-			.addOptionalTag(new Identifier("c","stone"))
-			.addOptional(new Identifier("minecraft", "end_stone"))
-			.addOptional(new Identifier("minecraft", "sand"))
-			.addOptional(new Identifier("minecraft", "red_sand"))
-			.addOptional(new Identifier("minecraft", "sandstone"))
-			.addOptional(new Identifier("minecraft", "red_sandstone"))
-			.addOptional(new Identifier("minecraft", "gravel"))
-			.addOptional(new Identifier("minecraft", "calcite"))
-			.addOptional(new Identifier("minecraft", "snow"))
-			.addOptional(new Identifier("minecraft", "soul_sand"))
-			.addOptional(new Identifier("minecraft", "soul_soil"))
+			.addOptionalTag(Identifier.of("c","stone"))
+			.addOptional(Identifier.of("minecraft", "end_stone"))
+			.addOptional(Identifier.of("minecraft", "sand"))
+			.addOptional(Identifier.of("minecraft", "red_sand"))
+			.addOptional(Identifier.of("minecraft", "sandstone"))
+			.addOptional(Identifier.of("minecraft", "red_sandstone"))
+			.addOptional(Identifier.of("minecraft", "gravel"))
+			.addOptional(Identifier.of("minecraft", "calcite"))
+			.addOptional(Identifier.of("minecraft", "snow"))
+			.addOptional(Identifier.of("minecraft", "soul_sand"))
+			.addOptional(Identifier.of("minecraft", "soul_soil"))
 
 		getOrCreateTagBuilder(TRContent.BlockTags.OMNI_TOOL_MINEABLE)
 			.addTag(TRContent.BlockTags.DRILL_MINEABLE)
@@ -173,7 +173,7 @@ class TRBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		}
 
 		getOrCreateTagBuilder(TRContent.BlockTags.NONE_SOLID_COVERS)
-			.addOptionalTag(new Identifier("ae2", "whitelisted/facades"))
+			.addOptionalTag(Identifier.of("ae2", "whitelisted/facades"))
 			.forceAddTag(ConventionalBlockTags.GLASS_BLOCKS)
 	}
 }

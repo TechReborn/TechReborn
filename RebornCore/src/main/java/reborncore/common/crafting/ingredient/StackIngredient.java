@@ -63,7 +63,7 @@ public class StackIngredient extends RebornIngredient {
 	}
 
 	public static RebornIngredient deserialize(JsonObject json) {
-		Identifier identifier = new Identifier(JsonHelper.getString(json, "item"));
+		Identifier identifier = Identifier.of(JsonHelper.getString(json, "item"));
 		Item item = Registries.ITEM.getOrEmpty(identifier).orElseThrow(() -> new JsonSyntaxException("Unknown item '" + identifier + "'"));
 
 		Optional<Integer> stackSize = Optional.empty();

@@ -38,7 +38,7 @@ import techreborn.packets.serverbound.RefundPayload;
 
 public class GuiManual extends Screen {
 
-	private static final Identifier MANUAL_TEXTURE = new Identifier("techreborn", "textures/gui/manual.png");
+	private static final Identifier MANUAL_TEXTURE = Identifier.of("techreborn", "textures/gui/manual.png");
 	final int guiWidth = 207;
 	final int guiHeight = 195;
 	private static final Text text1 = Text.translatable("techreborn.manual.wiki");

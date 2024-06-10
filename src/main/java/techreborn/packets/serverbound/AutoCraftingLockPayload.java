@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import techreborn.TechReborn;
 
 public record AutoCraftingLockPayload(BlockPos pos, boolean locked) implements CustomPayload {
-	public static final CustomPayload.Id<AutoCraftingLockPayload> ID = new CustomPayload.Id<>(new Identifier(TechReborn.MOD_ID, "auto_crafting_lock"));
+	public static final CustomPayload.Id<AutoCraftingLockPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "auto_crafting_lock"));
 	public static final PacketCodec<RegistryByteBuf, AutoCraftingLockPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, AutoCraftingLockPayload::pos,
 		PacketCodecs.BOOL, AutoCraftingLockPayload::locked,

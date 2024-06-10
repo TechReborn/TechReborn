@@ -75,7 +75,7 @@ public class RecipeUtils {
 	}
 
 	private static ItemStack deserializeItem(JsonObject jsonObject) {
-		Identifier resourceLocation = new Identifier(JsonHelper.getString(jsonObject, "item"));
+		Identifier resourceLocation = Identifier.of(JsonHelper.getString(jsonObject, "item"));
 		Item item = Registries.ITEM.get(resourceLocation);
 		if (item == Items.AIR) {
 			throw new IllegalStateException(resourceLocation + " did not exist");

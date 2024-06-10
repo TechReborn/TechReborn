@@ -33,8 +33,8 @@ import net.minecraft.world.World;
 import techreborn.TechReborn;
 
 public final class TRDamageTypes {
-	public static final RegistryKey<DamageType> ELECTRIC_SHOCK = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(TechReborn.MOD_ID, "electric_shock"));
-	public static final RegistryKey<DamageType> FUSION = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(TechReborn.MOD_ID, "fusion"));
+	public static final RegistryKey<DamageType> ELECTRIC_SHOCK = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(TechReborn.MOD_ID, "electric_shock"));
+	public static final RegistryKey<DamageType> FUSION = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(TechReborn.MOD_ID, "fusion"));
 
 	public static DamageSource create(World world, RegistryKey<DamageType> key) {
 		return new DamageSource(

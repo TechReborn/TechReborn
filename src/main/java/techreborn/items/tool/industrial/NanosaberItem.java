@@ -25,7 +25,6 @@
 package techreborn.items.tool.industrial;
 
 import com.google.common.collect.ImmutableMultimap;
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.Entity;
@@ -38,6 +37,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.SwordItem;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -116,6 +116,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
+	/* TODO 1.21
 	@Override
 	public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
 		var attributes = super.getAttributeModifiers(stack);
@@ -131,6 +132,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 
 		return attributes;
 	}
+	 */
 
 	// RcEnergyItem
 	@Override

@@ -33,6 +33,7 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.DiffuseLighting;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
@@ -53,7 +54,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 	private static final int SIZE = 512;
 
 	@Override
-	public void onHudRender(DrawContext drawContext, float v) {
+	public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
 			ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.remove();
 			Identifier id = Registries.ITEM.getId(itemStack.getItem());

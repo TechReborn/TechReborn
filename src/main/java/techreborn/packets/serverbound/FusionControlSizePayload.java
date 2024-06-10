@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import techreborn.TechReborn;
 
 public record FusionControlSizePayload(BlockPos pos, int sizeDelta) implements CustomPayload {
-	public static final CustomPayload.Id<FusionControlSizePayload> ID = new CustomPayload.Id<>(new Identifier(TechReborn.MOD_ID, "fusion_control_size"));
+	public static final CustomPayload.Id<FusionControlSizePayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "fusion_control_size"));
 	public static final PacketCodec<RegistryByteBuf, FusionControlSizePayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, FusionControlSizePayload::pos,
 		PacketCodecs.INTEGER, FusionControlSizePayload::sizeDelta,

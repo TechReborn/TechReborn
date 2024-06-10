@@ -82,7 +82,7 @@ public final class OreDepthSyncHandler {
 	}
 
 	public record OreDepthPayload(List<OreDepth> oreDepths) implements CustomPayload {
-		public static final CustomPayload.Id<OreDepthPayload> ID = new CustomPayload.Id<>(new Identifier(TechReborn.MOD_ID, "ore_depth"));
+		public static final CustomPayload.Id<OreDepthPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "ore_depth"));
 		public static final PacketCodec<PacketByteBuf, OreDepthPayload> PACKET_CODEC = PacketCodec.tuple(
 			OreDepth.PACKET_CODEC.collect(PacketCodecs.toList()), OreDepthPayload::oreDepths,
 			OreDepthPayload::new

@@ -45,7 +45,7 @@ public abstract class RebornFluidRecipeSerde<R extends RebornFluidRecipe> extend
 	@Override
 	protected final R fromJson(JsonObject jsonObject, RebornRecipeType<R> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		final JsonObject tank = JsonHelper.getObject(jsonObject, "tank");
-		final Identifier identifier = new Identifier(JsonHelper.getString(tank, "fluid"));
+		final Identifier identifier = Identifier.of(JsonHelper.getString(tank, "fluid"));
 		final Fluid fluid = Registries.FLUID.get(identifier);
 
 		FluidValue value = FluidValue.BUCKET;

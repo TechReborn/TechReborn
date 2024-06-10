@@ -78,7 +78,7 @@ public class FluidGeneratorRecipeCategory implements DisplayCategory<FluidGenera
 			list.add(Text.of("Energy"));
 			list.add(Text.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getTotalEnergy()).formatted(Formatting.GRAY));
 			list.add(Text.of(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(new Identifier("techreborn", "")));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.of("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 		widgets.add(ReiPlugin.createFluidDisplay(new Rectangle(bounds.x + 16, bounds.y + 8, 16, 50), recipeDisplay.getInputEntries().get(0).get(0).cast(), ReiPlugin.EntryAnimation.downwards(5000)));

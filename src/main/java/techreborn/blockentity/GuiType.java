@@ -134,7 +134,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<PumpBlockEntity> PUMP = register("pump");
 
 	private static <T extends BlockEntity> GuiType<T> register(String id) {
-		return register(new Identifier("techreborn", id));
+		return register(Identifier.of("techreborn", id));
 	}
 
 	public static <T extends BlockEntity> GuiType<T> register(Identifier identifier) {

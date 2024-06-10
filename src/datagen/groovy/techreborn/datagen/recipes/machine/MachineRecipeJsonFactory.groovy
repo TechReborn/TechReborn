@@ -93,7 +93,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				}
 			} else if (object instanceof String) {
 				ingredient {
-					ident(new Identifier(object))
+					ident(Identifier.of(object))
 				}
 			} else {
 				throw new IllegalArgumentException()
@@ -127,7 +127,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			return new ItemStack(object.asItem())
 		} else if (object instanceof String) {
 			// TODO remove me, done to aid porting from json files
-			def item = Registries.ITEM.get(new Identifier(object))
+			def item = Registries.ITEM.get(Identifier.of(object))
 			return new ItemStack(item)
 		} else {
 			throw new UnsupportedOperationException()
@@ -166,7 +166,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	}
 
 	MachineRecipeJsonFactory id(String path) {
-		return id(new Identifier("techreborn", path))
+		return id(Identifier.of("techreborn", path))
 	}
 
 	/**
@@ -208,7 +208,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			def id
 			do {
 				i++
-				id = new Identifier(recipeId.toString() + "_" + i)
+				id = Identifier.of(recipeId.toString() + "_" + i)
 			} while (provider.exportedRecipes.contains(id))
 
 			recipeId = id
@@ -216,7 +216,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		provider.exportedRecipes.add(recipeId)
 
-		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
+		Identifier advancementId = Identifier.of(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		RecipeUtils.addToastDefaults(builder, recipeId)
 
 		def recipe = createRecipe()
@@ -238,7 +238,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 
 		def outputId = Registries.ITEM.getId(outputs[0].item)
-		return new Identifier("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
+		return Identifier.of("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	def feature(FeatureFlag flag) {

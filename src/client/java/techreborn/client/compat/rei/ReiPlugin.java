@@ -207,7 +207,7 @@ public class ReiPlugin implements REIClientPlugin {
 	}
 
 	private void registerFluidGeneratorDisplays(DisplayRegistry registry, EFluidGenerator generator, Machine machine) {
-		Identifier identifier = new Identifier(TechReborn.MOD_ID, machine.name);
+		Identifier identifier = Identifier.of(TechReborn.MOD_ID, machine.name);
 		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe ->
 			registry.add(new FluidGeneratorRecipeDisplay(recipe, identifier))
 		);

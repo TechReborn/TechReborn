@@ -78,7 +78,7 @@ public record RebornRecipeType<R extends RebornRecipe>(
 	}
 
 	private R read(JsonObject json) {
-		Identifier type = new Identifier(JsonHelper.getString(json, "type"));
+		Identifier type = Identifier.of(JsonHelper.getString(json, "type"));
 		if (!type.equals(name)) {
 			throw new RuntimeException("RebornRecipe type not supported!");
 		}

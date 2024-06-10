@@ -84,8 +84,8 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 			}
 			ItemEnchantmentsComponent existing = stack.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
 
-			for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : existing.getEnchantmentsMap()) {
-				builder.add(entry.getKey().value(), entry.getIntValue());
+			for (RegistryEntry<Enchantment> enchantment : existing.getEnchantments()) {
+				builder.add(enchantment, existing.getLevel(enchantment));
 				didEnchant = true;
 			}
 		}

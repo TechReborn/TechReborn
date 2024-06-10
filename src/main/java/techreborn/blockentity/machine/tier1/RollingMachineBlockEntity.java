@@ -32,8 +32,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -119,7 +121,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			if (world.getTime() % 2 == 0) {
 				balanceRecipe(craftMatrix);
 			}
-			currentRecipeOutput = currentRecipe.craft(craftMatrix, getWorld().getRegistryManager());
+			currentRecipeOutput = currentRecipe.getShapedRecipe().craft(recipeInput(craftMatrix), getWorld().getRegistryManager());
 		} else {
 			currentRecipeOutput = ItemStack.EMPTY;
 		}
@@ -356,8 +358,9 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			return lastRecipe;
 		}
 		cachedInventoryStructure = fastIntlayout();
+		CraftingRecipeInput input = recipeInput(inv);
 		for (RollingMachineRecipe recipe : getAllRecipe(world)) {
-			if (recipe.matches(inv, world)) {
+			if (recipe.getShapedRecipe().matches(input, world)) {
 				lastRecipe = recipe;
 				return recipe;
 			}
@@ -488,5 +491,13 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public boolean canBeUpgraded() {
 		return true;
+	}
+
+	private static CraftingRecipeInput recipeInput(CraftingInventory inventory) {
+		List<ItemStack> stacks = new ArrayList<>(inventory.size());
+		for (int i = 0; i < inventory.size(); i++) {
+			stacks.add(inventory.getStack(i));
+		}
+		return CraftingRecipeInput.create(inventory.getWidth(), inventory.getHeight(), stacks);
 	}
 }

@@ -59,7 +59,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		def root = create {
 			name "root"
 			icon TRContent.MANUAL
-			background new Identifier("techreborn:textures/block/storage/steel_storage_block.png")
+			background Identifier.of("techreborn:textures/block/storage/steel_storage_block.png")
 			condition inventoryChanged(TRContent.ItemTags.ORES)
 			condition inventoryChanged(TRContent.ItemTags.RAW_METALS)
 			condition inventoryChanged(TRContent.ItemTags.GEMS)

@@ -49,8 +49,8 @@ import java.util.List;
 
 public class TRVillager {
 
-	public static final Identifier METALLURGIST_ID = new Identifier(TechReborn.MOD_ID, "metallurgist");
-	public static final Identifier ELECTRICIAN_ID = new Identifier(TechReborn.MOD_ID, "electrician");
+	public static final Identifier METALLURGIST_ID = Identifier.of(TechReborn.MOD_ID, "metallurgist");
+	public static final Identifier ELECTRICIAN_ID = Identifier.of(TechReborn.MOD_ID, "electrician");
 
 	public static final PointOfInterestType METALLURGIST_POI = PointOfInterestHelper.register(
 		METALLURGIST_ID, 1, 1, TRContent.Machine.IRON_ALLOY_FURNACE.block
@@ -146,7 +146,7 @@ public class TRVillager {
 		for (String type : types) {
 			DynamicRegistrySetupCallback.EVENT.register(registryManager ->
 				registryManager.registerEntryAdded(RegistryKeys.TEMPLATE_POOL, ((rawId, id, pool) -> {
-					if (id.equals(new Identifier("minecraft", "village/"+type+"/houses"))) {
+					if (id.equals(Identifier.of("minecraft", "village/"+type+"/houses"))) {
 						if (TechRebornConfig.enableMetallurgistGeneration) {
 							pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_metallurgist").apply(StructurePool.Projection.RIGID));
 						}

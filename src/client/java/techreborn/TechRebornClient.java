@@ -93,13 +93,13 @@ public class TechRebornClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ModelLoadingPlugin.register((pluginContext) -> {
 			pluginContext.addModels(
-				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_base"), "inventory"),
-				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory"),
-				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_background"), "inventory"),
-				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_glass"), "inventory"),
-				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_base"), "inventory"),
-				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_fluid"), "inventory"),
-				new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_background"), "inventory")
+				Identifier.of(TechReborn.MOD_ID, "cell_base"),
+				Identifier.of(TechReborn.MOD_ID, "cell_fluid"),
+				Identifier.of(TechReborn.MOD_ID, "cell_background"),
+				Identifier.of(TechReborn.MOD_ID, "cell_glass"),
+				Identifier.of(TechReborn.MOD_ID, "bucket_base"),
+				Identifier.of(TechReborn.MOD_ID, "bucket_fluid"),
+				Identifier.of(TechReborn.MOD_ID, "bucket_background")
 			);
 
 			pluginContext.resolveModel().register((context) -> {
@@ -119,7 +119,7 @@ public class TechRebornClient implements ClientModInitializer {
 					return new UnbakedDynamicModel(DynamicCellBakedModel::new);
 				}
 
-				Fluid fluid = Registries.FLUID.get(new Identifier(TechReborn.MOD_ID, path.split("_bucket")[0]));
+				Fluid fluid = Registries.FLUID.get(Identifier.of(TechReborn.MOD_ID, path.split("_bucket")[0]));
 				if (path.endsWith("_bucket") && fluid != Fluids.EMPTY) {
 					if (!RendererAccess.INSTANCE.hasRenderer()) {
 						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"minecraft:item/bucket\"}}");
@@ -187,7 +187,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 		registerPredicateProvider(
 				BatpackItem.class,
-				new Identifier("techreborn:empty"),
+				Identifier.of("techreborn:empty"),
 				(item, stack, world, entity, seed) -> {
 					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) == 0) {
 						return 1.0F;
@@ -198,7 +198,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 		registerPredicateProvider(
 				BatteryItem.class,
-				new Identifier("techreborn:empty"),
+				Identifier.of("techreborn:empty"),
 				(item, stack, world, entity, seed) -> {
 					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) == 0) {
 						return 1.0F;
@@ -209,7 +209,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 		registerPredicateProvider(
 				FrequencyTransmitterItem.class,
-				new Identifier("techreborn:coords"),
+				Identifier.of("techreborn:coords"),
 				(item, stack, world, entity, seed) -> {
 					GlobalPos globalPos = stack.getOrDefault(TRDataComponentTypes.FREQUENCY_TRANSMITTER, null);
 					if (globalPos != null) {
@@ -221,7 +221,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 		registerPredicateProvider(
 				ChainsawItem.class,
-				new Identifier("techreborn:animated"),
+				Identifier.of("techreborn:animated"),
 				(item, stack, world, entity, seed) -> {
 					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) >= item.getCost() && entity != null && entity.getMainHandStack().equals(stack)) {
 						return 1.0F;
@@ -232,7 +232,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 		registerPredicateProvider(
 				NanosaberItem.class,
-				new Identifier("techreborn:active"),
+				Identifier.of("techreborn:active"),
 				(item, stack, world, entity, seed) -> {
 					if (stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE) {
 						RcEnergyItem energyItem = (RcEnergyItem) stack.getItem();
@@ -282,7 +282,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 		@Nullable
 		@Override
-		public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+		public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer) {
 			return supplier.get();
 		}
 	}

@@ -25,12 +25,15 @@
 package techreborn.items.tool.basic;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.PickaxeItem;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
@@ -86,7 +89,8 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	@Override
 	public void onCraft(ItemStack stack, World world) {
 		if (!stack.hasEnchantments()) {
-			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
+			RegistryWrapper.Impl<Enchantment> registry = world.getRegistryManager().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+			stack.addEnchantment(registry.getOrThrow(Enchantments.SILK_TOUCH), 1);
 		}
 
 		super.onCraft(stack, world);

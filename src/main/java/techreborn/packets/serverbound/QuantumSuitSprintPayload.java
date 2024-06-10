@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import techreborn.TechReborn;
 
 public record QuantumSuitSprintPayload() implements CustomPayload {
-	public static final CustomPayload.Id<QuantumSuitSprintPayload> ID = new CustomPayload.Id<>(new Identifier(TechReborn.MOD_ID, "quantum_suit_sprint"));
+	public static final CustomPayload.Id<QuantumSuitSprintPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "quantum_suit_sprint"));
 	public static final PacketCodec<RegistryByteBuf, QuantumSuitSprintPayload> CODEC = PacketCodec.unit(new QuantumSuitSprintPayload());
 
 	@Override

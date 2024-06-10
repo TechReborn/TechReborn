@@ -56,7 +56,7 @@ import static reborncore.client.gui.GuiSprites.drawSprite;
 public class GuiBuilder {
 	private static final Text SPACE_TEXT = Text.literal(" ");
 	@Deprecated
-	public static final Identifier GUI_ELEMENTS = new Identifier("reborncore", "textures/gui/guielements.png");
+	public static final Identifier GUI_ELEMENTS = Identifier.of("reborncore", "textures/gui/guielements.png");
 	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
 	public void drawDefaultBackground(DrawContext drawContext, int x, int y, int width, int height) {

@@ -31,13 +31,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
@@ -45,9 +46,7 @@ import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.utils.RecipeUtils;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements BuiltScreenHandlerProvider {
@@ -59,7 +58,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	public float experience;
 	private boolean previousValid = false;
 	private ItemStack previousStack = ItemStack.EMPTY;
-	private Recipe<?> lastRecipe = null;
+	private RecipeEntry<SmeltingRecipe> lastRecipe = null;
 
 	public IronFurnaceBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.IRON_FURNACE, pos, state, FUEL_SLOT, TRContent.Machine.IRON_FURNACE.block);
@@ -79,14 +78,14 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Nullable
-	private Recipe<?> refreshRecipe(ItemStack stack) {
+	private RecipeEntry<SmeltingRecipe> refreshRecipe(ItemStack stack) {
 		// Check the previous recipe to see if it still applies to the current inv, saves rechecking the whole recipe list
-		if (lastRecipe != null && RecipeUtils.matchesSingleInput(lastRecipe, stack)) {
+		if (lastRecipe != null && lastRecipe.value().matches(new SingleStackRecipeInput(stack), world)) {
 			return lastRecipe;
 		} else {
 			// If the previous recipe does not apply anymore, reset the progress
 			progress = 0;
-			Recipe<?> matchingRecipe = RecipeUtils.getMatchingRecipe(world, RecipeType.SMELTING, stack).orElse(null);
+			RecipeEntry<SmeltingRecipe> matchingRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).orElse(null);
 			if (matchingRecipe != null) {
 				lastRecipe = matchingRecipe;
 			}
@@ -105,17 +104,17 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 			return ItemStack.EMPTY;
 		}
 
-		Recipe<?> matchingRecipe = refreshRecipe(stack);
+		RecipeEntry<SmeltingRecipe> matchingRecipe = refreshRecipe(stack);
 
 		if (matchingRecipe != null) {
-			return matchingRecipe.getResult(getWorld().getRegistryManager()).copy();
+			return matchingRecipe.value().getResult(getWorld().getRegistryManager()).copy();
 		}
 
 		return ItemStack.EMPTY;
 	}
 
 	private float getExperienceFor() {
-		Optional<SmeltingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, this, world).map(RecipeEntry::value);
+		Optional<SmeltingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(inventory.getStack(0)), world).map(RecipeEntry::value);
 		return recipe.map(AbstractCookingRecipe::getExperience).orElse(0F);
 	}
 
@@ -172,11 +171,11 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		// default value for vanilla smelting recipes is 200
 		int cookingTime = 200;
 
-		Recipe<?> recipe = refreshRecipe(inventory.getStack(INPUT_SLOT));
+		RecipeEntry<SmeltingRecipe> recipe = refreshRecipe(inventory.getStack(INPUT_SLOT));
 
 		if (recipe != null) {
 			try {
-				cookingTime = ((SmeltingRecipe) recipe).getCookingTime();
+				cookingTime = recipe.value().getCookingTime();
 			} catch (ClassCastException ex) {
 				// Intentionally ignored
 				System.out.println("Not a smelting recipe!");

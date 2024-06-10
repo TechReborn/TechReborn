@@ -32,10 +32,10 @@ import net.minecraft.util.Identifier
 
 class Ae2 {
 	static String AE2_MOD_ID = "ae2"
-	static Identifier CERTUS_QUARTZ_DUST = new Identifier(AE2_MOD_ID, "certus_quartz_dust")
-	static Identifier CERTUS_QUARTZ_CRYSTAL = new Identifier(AE2_MOD_ID, "certus_quartz_crystal")
-	static Identifier FLUIX_CRYSTAL = new Identifier(AE2_MOD_ID, "fluix_crystal")
-	static Identifier FLUIX_DUST = new Identifier(AE2_MOD_ID, "fluix_dust")
+	static Identifier CERTUS_QUARTZ_DUST = Identifier.of(AE2_MOD_ID, "certus_quartz_dust")
+	static Identifier CERTUS_QUARTZ_CRYSTAL = Identifier.of(AE2_MOD_ID, "certus_quartz_crystal")
+	static Identifier FLUIX_CRYSTAL = Identifier.of(AE2_MOD_ID, "fluix_crystal")
+	static Identifier FLUIX_DUST = Identifier.of(AE2_MOD_ID, "fluix_dust")
 
 
 	static void setup() {

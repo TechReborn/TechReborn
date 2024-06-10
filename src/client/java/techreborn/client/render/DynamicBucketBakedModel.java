@@ -33,15 +33,15 @@ import techreborn.TechReborn;
 
 public class DynamicBucketBakedModel extends BaseDynamicFluidBakedModel {
 
-	private static final ModelIdentifier BUCKET_BASE = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_base"), "inventory");
-	private static final ModelIdentifier BUCKET_BACKGROUND = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_background"), "inventory");
-	private static final ModelIdentifier BUCKET_FLUID = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_fluid"), "inventory");
+	private static final ModelIdentifier BUCKET_BASE = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "bucket_base"), "inventory");
+	private static final ModelIdentifier BUCKET_BACKGROUND = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "bucket_background"), "inventory");
+	private static final ModelIdentifier BUCKET_FLUID = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "bucket_fluid"), "inventory");
 
 	@Override
 	public Sprite getParticleSprite() {
 		return MinecraftClient.getInstance()
 				.getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE)
-				.apply(new Identifier("minecraft:item/bucket"));
+				.apply(Identifier.of("minecraft:item/bucket"));
 	}
 
 	@Override

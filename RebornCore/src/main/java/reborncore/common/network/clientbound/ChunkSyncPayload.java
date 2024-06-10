@@ -10,7 +10,7 @@ import reborncore.common.chunkloading.ChunkLoaderManager;
 import java.util.List;
 
 public record ChunkSyncPayload(List<ChunkLoaderManager.LoadedChunk> chunks) implements CustomPayload {
-	public static final Id<ChunkSyncPayload> ID = new Id<>(new Identifier("reborncore:sync_chunks"));
+	public static final Id<ChunkSyncPayload> ID = new Id<>(Identifier.of("reborncore:sync_chunks"));
 	public static final PacketCodec<RegistryByteBuf, ChunkSyncPayload> PACKET_CODEC = PacketCodec.tuple(
 		ChunkLoaderManager.LoadedChunk.PACKET_CODEC.collect(PacketCodecs.toList()), ChunkSyncPayload::chunks,
 		ChunkSyncPayload::new

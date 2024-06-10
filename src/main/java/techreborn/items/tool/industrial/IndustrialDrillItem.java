@@ -25,7 +25,7 @@
 package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.item.TooltipType;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

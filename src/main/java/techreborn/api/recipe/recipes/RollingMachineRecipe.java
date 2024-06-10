@@ -72,16 +72,6 @@ public class RollingMachineRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public boolean matches(Inventory inv, World worldIn) {
-		return shapedRecipe.matches((CraftingInventory) inv, worldIn);
-	}
-
-	@Override
-	public ItemStack craft(Inventory inv, RegistryWrapper.WrapperLookup lookup) {
-		return shapedRecipe.craft((CraftingInventory) inv, lookup);
-	}
-
-	@Override
 	public boolean fits(int width, int height) {
 		return shapedRecipe.fits(width, height);
 	}

@@ -24,7 +24,6 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -35,6 +34,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import reborncore.api.items.ArmorBlockEntityTicker;
@@ -56,6 +56,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	public long getEnergyMaxOutput(ItemStack stack) { return 0; }
 
 	// FabricItem
+	/* TODO 1.21
 	@Override
 	public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
 
@@ -68,6 +69,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 
 		return super.getAttributeModifiers(stack);
 	}
+	 */
 
 	// ArmorBlockEntityTicker
 	@Override

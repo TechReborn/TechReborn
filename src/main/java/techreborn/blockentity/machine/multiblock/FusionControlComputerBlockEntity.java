@@ -439,7 +439,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	public Identifier getCurrentRecipeID() {
 		if (currentRecipeEntry == null) {
-			return new Identifier("null", "null");
+			return Identifier.of("null", "null");
 		}
 
 		return currentRecipeEntry.id();
