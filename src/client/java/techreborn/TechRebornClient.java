@@ -93,13 +93,13 @@ public class TechRebornClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ModelLoadingPlugin.register((pluginContext) -> {
 			pluginContext.addModels(
-				Identifier.of(TechReborn.MOD_ID, "cell_base"),
-				Identifier.of(TechReborn.MOD_ID, "cell_fluid"),
-				Identifier.of(TechReborn.MOD_ID, "cell_background"),
-				Identifier.of(TechReborn.MOD_ID, "cell_glass"),
-				Identifier.of(TechReborn.MOD_ID, "bucket_base"),
-				Identifier.of(TechReborn.MOD_ID, "bucket_fluid"),
-				Identifier.of(TechReborn.MOD_ID, "bucket_background")
+				DynamicCellBakedModel.CELL_BASE,
+				DynamicCellBakedModel.CELL_BACKGROUND,
+				DynamicCellBakedModel.CELL_FLUID,
+				DynamicCellBakedModel.CELL_GLASS,
+				DynamicBucketBakedModel.BUCKET_BASE,
+				DynamicBucketBakedModel.BUCKET_FLUID,
+				DynamicBucketBakedModel.BUCKET_BACKGROUND
 			);
 
 			pluginContext.resolveModel().register((context) -> {

@@ -38,18 +38,17 @@ import techreborn.TechReborn;
 import java.util.function.Supplier;
 
 public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
-
-	private static final ModelIdentifier CELL_BASE = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "cell_base"), "inventory");
-	private static final ModelIdentifier CELL_BACKGROUND = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "cell_background"), "inventory");
-	private static final ModelIdentifier CELL_FLUID = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "cell_fluid"), "inventory");
-	private static final ModelIdentifier CELL_GLASS = new ModelIdentifier(Identifier.of(TechReborn.MOD_ID, "cell_glass"), "inventory");
+	public static final Identifier CELL_BASE = Identifier.of(TechReborn.MOD_ID, "item/cell_base");
+	public static final Identifier CELL_BACKGROUND = Identifier.of(TechReborn.MOD_ID, "item/cell_background");
+	public static final Identifier CELL_FLUID = Identifier.of(TechReborn.MOD_ID, "item/cell_fluid");
+	public static final Identifier CELL_GLASS = Identifier.of(TechReborn.MOD_ID, "item/cell_glass");
 
 	@Override
 	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
 		super.emitItemQuads(stack, randomSupplier, context);
 
 		BakedModelManager bakedModelManager = MinecraftClient.getInstance().getBakedModelManager();
-		context.fallbackConsumer().accept(bakedModelManager.getModel(CELL_GLASS));
+		bakedModelManager.getModel(CELL_GLASS).emitItemQuads(stack, randomSupplier, context);
 	}
 
 	@Override
@@ -60,17 +59,17 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 	}
 
 	@Override
-	public ModelIdentifier getBaseModel() {
+	public Identifier getBaseModel() {
 		return CELL_BASE;
 	}
 
 	@Override
-	public ModelIdentifier getBackgroundModel() {
+	public Identifier getBackgroundModel() {
 		return CELL_BACKGROUND;
 	}
 
 	@Override
-	public ModelIdentifier getFluidModel() {
+	public Identifier getFluidModel() {
 		return CELL_FLUID;
 	}
 }
