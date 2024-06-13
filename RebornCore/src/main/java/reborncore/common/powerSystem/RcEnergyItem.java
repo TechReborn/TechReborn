@@ -25,14 +25,17 @@
 package reborncore.common.powerSystem;
 
 import net.fabricmc.fabric.api.item.v1.FabricItem;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.random.Random;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.api.EnergyStorage;
-import net.minecraft.util.math.random.Random;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 
 
@@ -83,12 +86,22 @@ public interface RcEnergyItem extends SimpleEnergyItem, FabricItem {
 	@Override
 	default boolean tryUseEnergy(ItemStack stack, long amount){
 		Random random = Random.create();
-		// TODO 1.21
-//		int unbreakingLevel = EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack);
-//		if (unbreakingLevel > 0) {
-//			amount = amount / (random.nextInt(unbreakingLevel) + 1);
-//		}
 
+		int unbreakingLevel = getUnbreakingLevel(stack);
+		if (unbreakingLevel > 0) {
+			amount = amount / (random.nextInt(unbreakingLevel) + 1);
+		}
 		return SimpleEnergyItem.super.tryUseEnergy(stack, amount);
+	}
+
+	// A hack to do this without context of the DRM
+	private int getUnbreakingLevel(ItemStack stack) {
+		ItemEnchantmentsComponent enchantments = stack.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+		for (RegistryEntry<Enchantment> entry : enchantments.getEnchantments()) {
+			if (entry.getKey().equals(Enchantments.UNBREAKING)) {
+				return enchantments.getLevel(entry);
+			}
+		}
+		return 0;
 	}
 }
