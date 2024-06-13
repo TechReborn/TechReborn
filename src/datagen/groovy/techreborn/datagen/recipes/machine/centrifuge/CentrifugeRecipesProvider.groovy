@@ -27,6 +27,7 @@ package techreborn.datagen.recipes.machine.centrifuge
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.fluid.Fluids
 import net.minecraft.item.Items
+import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryWrapper
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -73,7 +74,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			offerCentrifugeRecipe {
 				ingredients stack(item, count), TRContent.CELL
 				outputs cellStack(ModFluids.METHANE)
-				id("centrifuge/methan_cell_from_" + item.toString())
+				id("centrifuge/methan_cell_from_" + Registries.ITEM.getId(item).path)
 				power 5
 				time 100
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -87,7 +88,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			offerCentrifugeRecipe {
 				ingredients stack(item, count), TRContent.CELL
 				outputs cellStack(ModFluids.METHANE), TRContent.Dusts.CALCITE
-				id("centrifuge/methan_cell_from_" + item.toString())
+				id("centrifuge/methan_cell_from_" + Registries.ITEM.getId(item).path)
 				power 5
 				time 500
 				criterion getCriterionName(item), getCriterionConditions(item)

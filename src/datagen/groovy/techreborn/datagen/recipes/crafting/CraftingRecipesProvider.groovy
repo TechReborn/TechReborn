@@ -27,6 +27,7 @@ package techreborn.datagen.recipes.crafting
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
+import net.minecraft.data.server.recipe.StonecuttingRecipeJsonBuilder
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
 import net.minecraft.recipe.StonecuttingRecipe
@@ -295,7 +296,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def static createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
-		return new SingleItemRecipeJsonBuilder(category, StonecuttingRecipe.&new, createIngredient(input), output, outputAmount)
+		return new StonecuttingRecipeJsonBuilder(category, StonecuttingRecipe.&new, createIngredient(input), output, outputAmount)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 	}
 

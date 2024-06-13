@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions
 import net.minecraft.item.Items
+import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.TRConventionalTags
@@ -251,7 +252,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				outputs stack(Items.SAND, count)
 				power count
 				time 200
-				source item.toString()
+				source item
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}
@@ -275,7 +276,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				outputs stack(Items.RED_SAND, count)
 				power count
 				time 200
-				source item.toString()
+				source item
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}
@@ -342,7 +343,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				outputs stack(TRContent.SmallDusts.SAW, count)
 				power 3
 				time 180
-				source item.toString()
+				source Registries.ITEM.getId(item).path
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}

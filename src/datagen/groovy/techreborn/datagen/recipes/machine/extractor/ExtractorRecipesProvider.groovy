@@ -25,7 +25,9 @@
 package techreborn.datagen.recipes.machine.extractor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
+import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -76,7 +78,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients item
 				outputs stack(dye, 2)
-				source item.toString()
+				source item
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -96,7 +98,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients item
 				outputs stack(dye, 4)
-				source item.toString()
+				source item
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -119,7 +121,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients item
 				outputs stack(dye, 5)
-				source item.toString()
+				source item
 				power 10
 				time 400
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -153,7 +155,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients item
 				outputs dye
-				source item.toString()
+				source item
 				power 10
 				time 200
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -171,7 +173,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients stack(item, 3)
 				outputs dye
-				source item.toString()
+				source item
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -187,7 +189,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients item
 				outputs dye
-				source item.asItem().toString()
+				source Registries.ITEM.getId(item.asItem()).path
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -200,7 +202,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients stack(item, 4)
 				outputs dye
-				source item.toString()
+				source item
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -209,7 +211,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		offerExtractorRecipe {
 			ingredients stack(Items.CARROT, 3)
 			outputs Items.ORANGE_DYE
-			source Items.CARROT.toString()
+			source Items.CARROT
 			power 10
 			time 300
 			criterion getCriterionName(Items.CARROT), getCriterionConditions(Items.CARROT)
@@ -217,7 +219,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		offerExtractorRecipe {
 			ingredients Items.BEETROOT
 			outputs stack(Items.RED_DYE, 2)
-			source Items.BEETROOT.toString()
+			source Items.BEETROOT
 			power 10
 			time 300
 			criterion getCriterionName(Items.BEETROOT), getCriterionConditions(Items.BEETROOT)
@@ -225,7 +227,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		offerExtractorRecipe {
 			ingredients Items.SHULKER_SHELL
 			outputs stack(Items.PURPLE_DYE, 4)
-			source Items.SHULKER_SHELL.toString()
+			source Items.SHULKER_SHELL
 			power 10
 			time 300
 			criterion getCriterionName(Items.SHULKER_SHELL), getCriterionConditions(Items.SHULKER_SHELL)
@@ -236,7 +238,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		offerExtractorRecipe {
 			ingredients Items.CONDUIT
 			outputs Items.HEART_OF_THE_SEA
-			source Items.CONDUIT.toString()
+			source Items.CONDUIT
 			power 10
 			time 1000
 			criterion getCriterionName(Items.CONDUIT), getCriterionConditions(Items.CONDUIT)
@@ -248,7 +250,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients stack(input, amount)
 				outputs TRContent.Parts.SPONGE_PIECE
-				source input.asItem().toString()
+				source input.asItem()
 				power 10
 				time 1000
 				criterion getCriterionName(input), getCriterionConditions(input)
@@ -261,7 +263,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients input
 				outputs stack(output, 4)
-				source input.asItem().toString()
+				source input.asItem()
 				power 10
 				time 300
 				criterion getCriterionName(input), getCriterionConditions(input)
@@ -274,7 +276,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients input
 				outputs stack(output, 3)
-				source input.asItem().toString()
+				source input.asItem()
 				power 10
 				time 300
 				criterion getCriterionName(TRContent.Parts.SAP), getCriterionConditions(TRContent.Parts.SAP)
@@ -289,7 +291,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients input
 				outputs stack(output, 2)
-				source input.asItem().toString()
+				source input
 				power 10
 				time 300
 				criterion getCriterionName(input), getCriterionConditions(input)
@@ -306,7 +308,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients input
 				outputs output
-				source input.asItem().toString()
+				source input as ItemConvertible
 				power 10
 				time 300
 				criterion getCriterionName(input), getCriterionConditions(input)
@@ -322,7 +324,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients item
 				outputs stack(Items.PAPER, 2)
-				source item.toString()
+				source item
 				power 10
 				time 200
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -331,7 +333,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		offerExtractorRecipe {
 			ingredients Items.SCULK_CATALYST
 			outputs Items.SCULK
-			source Items.SCULK_CATALYST.toString()
+			source Items.SCULK_CATALYST
 			power 10
 			time 200
 			criterion getCriterionName(Items.SCULK_CATALYST), getCriterionConditions(Items.SCULK_CATALYST)
@@ -344,7 +346,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients input
 				outputs output
-				source input.toString()
+				source input
 				power 2
 				time 200
 				criterion getCriterionName(input), getCriterionConditions(input)
@@ -353,7 +355,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		offerExtractorRecipe {
 			ingredients stack(Items.SUGAR_CANE, 2)
 			outputs stack(Items.SUGAR, 3)
-			source Items.SUGAR_CANE.toString()
+			source Items.SUGAR_CANE
 			power 2
 			time 200
 			criterion getCriterionName(Items.SUGAR_CANE), getCriterionConditions(Items.SUGAR_CANE)
@@ -361,7 +363,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		offerExtractorRecipe {
 			ingredients TRContent.PAINTING_TOOL
 			outputs Items.STRING
-			source TRContent.PAINTING_TOOL.toString()
+			source TRContent.PAINTING_TOOL
 			power 10
 			time 150
 			criterion getCriterionName(TRContent.PAINTING_TOOL), getCriterionConditions(TRContent.PAINTING_TOOL)
@@ -411,7 +413,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients bucket
 				outputs Items.BUCKET
-				source bucket.toString()
+				source bucket
 				power exPower
 				time exTime
 				criterion getCriterionName(bucket), getCriterionConditions(bucket)
@@ -428,7 +430,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients bottle
 				outputs Items.GLASS_BOTTLE
-				source bottle.toString()
+				source bottle
 				power exPower
 				time exTime
 				criterion getCriterionName(bottle), getCriterionConditions(bottle)

@@ -26,7 +26,9 @@ package techreborn.datagen.recipes.machine.chemical_reactor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.fluid.Fluids
+import net.minecraft.item.Item
 import net.minecraft.item.Items
+import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryWrapper
 import reborncore.common.util.ColoredItem
 import techreborn.datagen.TRConventionalTags
@@ -64,7 +66,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 				offerChemicalReactorRecipe {
 					ingredients color.getDye(), stack(pair.getLeft().getWool(), 4)
 					outputs stack(pair.getRight().getWool(), 4)
-					source pair.getLeft().getWool().toString() + "_with_" + color.getDye().toString()
+					source getColorSource(pair.getLeft().getWool(), color)
 					power DYE_POWER
 					time DYE_TIME
 					criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
@@ -78,7 +80,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 				offerChemicalReactorRecipe {
 					ingredients color.getDye(), stack(pair.getLeft().getCarpet(), 8)
 					outputs stack(pair.getRight().getCarpet(), 8)
-					source pair.getLeft().getCarpet().toString() + "_with_" + color.getDye().toString()
+					source getColorSource(pair.getLeft().getCarpet(), color)
 					power DYE_POWER
 					time DYE_TIME
 					criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
@@ -92,7 +94,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 				offerChemicalReactorRecipe {
 					ingredients color.getDye(), stack(pair.getLeft().getConcretePowder(), 8)
 					outputs stack(pair.getRight().getConcretePowder(), 8)
-					source pair.getLeft().getConcretePowder().toString() + "_with_" + color.getDye().toString()
+					source getColorSource(pair.getLeft().getConcretePowder(), color)
 					power DYE_POWER
 					time DYE_TIME
 					criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
@@ -109,7 +111,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 					offerChemicalReactorRecipe {
 						ingredients color.getDye(), stack(pair.getLeft().getCandle(), 2)
 						outputs stack(pair.getRight().getCandle(), 2)
-						source pair.getLeft().getCandle().toString() + "_with_" + color.getDye().toString()
+						source getColorSource(pair.getLeft().getCandle(), color)
 						power DYE_POWER
 						time DYE_TIME
 						criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
@@ -125,7 +127,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 					offerChemicalReactorRecipe {
 						ingredients color.getDye(), stack(pair.getLeft().getGlass(), 12)
 						outputs stack(pair.getRight().getGlass(), 12)
-						source pair.getLeft().getGlass().toString() + "_with_" + color.getDye().toString()
+						source getColorSource(pair.getLeft().getGlass(), color)
 						power DYE_POWER
 						time DYE_TIME
 						criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
@@ -141,7 +143,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 					offerChemicalReactorRecipe {
 						ingredients color.getDye(), stack(pair.getLeft().getGlassPane(), 16)
 						outputs stack(pair.getRight().getGlassPane(), 16)
-						source pair.getLeft().getGlassPane().toString() + "_with_" + color.getDye().toString()
+						source getColorSource(pair.getLeft().getGlassPane(), color)
 						power DYE_POWER
 						time DYE_TIME
 						criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
@@ -157,13 +159,17 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 					offerChemicalReactorRecipe {
 						ingredients color.getDye(), stack(pair.getLeft().getTerracotta(), 8)
 						outputs stack(pair.getRight().getTerracotta(), 8)
-						source pair.getLeft().getTerracotta().toString() + "_with_" + color.getDye().toString()
+						source getColorSource(pair.getLeft().getTerracotta(), color)
 						power DYE_POWER
 						time DYE_TIME
 						criterion getCriterionName(color.getDye()), getCriterionConditions(color.getDye())
 					}
 				)
 		}
+	}
+
+	static def getColorSource(Item item, ColoredItem color) {
+		return Registries.ITEM.getId(item).path + "_with_" + Registries.ITEM.getId(color.getDye()).path
 	}
 
 	// no recipes for beds and banners since the chemical reactor cannot color partially

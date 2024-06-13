@@ -149,7 +149,12 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
+	def source(ItemConvertible item) {
+		return source(Registries.ITEM.getId(item.asItem()).getPath())
+	}
+
 	def source(String s) {
+		Identifier.ofVanilla(s) // Just to validate that it is a valid identifier path
 		this.source = s
 		return this
 	}
