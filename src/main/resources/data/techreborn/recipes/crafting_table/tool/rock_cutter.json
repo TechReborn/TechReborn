@@ -7,7 +7,7 @@
   ],
   "key": {
     "D": {
-      "tag": "c:diamond_dusts"
+      "tag": "c:dusts/diamond"
     },
     "N": {
       "item": "minecraft:gold_nugget"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "techreborn:rock_cutter"
+    "id": "techreborn:rock_cutter"
   }
 }

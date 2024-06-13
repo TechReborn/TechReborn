@@ -11,7 +11,7 @@
       "item": "techreborn:advanced_machine_frame"
     },
     "R": {
-      "tag": "c:aluminum_plates"
+      "tag": "c:plates/aluminum"
     },
     "C": {
       "item": "techreborn:advanced_circuit"
@@ -21,6 +21,6 @@
     }
   },
   "result": {
-    "item": "techreborn:industrial_centrifuge"
+    "id": "techreborn:industrial_centrifuge"
   }
 }

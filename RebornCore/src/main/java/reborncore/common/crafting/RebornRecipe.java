@@ -34,6 +34,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -44,7 +45,7 @@ import reborncore.common.util.DefaultedListCollector;
 
 import java.util.*;
 
-public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
+public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputRecipe {
 	private final RebornRecipeType<?> type;
 
 	private final List<RebornIngredient> ingredients;
@@ -132,12 +133,13 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 
 	@Deprecated
 	@Override
-	public boolean matches(Inventory inv, World worldIn) {
+	public boolean matches(RebornRecipeInput inv, World worldIn) {
 		throw new UnsupportedOperationException();
 	}
 
+
 	@Override
-	public ItemStack craft(Inventory inventory, @Nullable DynamicRegistryManager dynamicRegistryManager) {
+	public ItemStack craft(RebornRecipeInput inventory, RegistryWrapper.WrapperLookup lookup) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -147,13 +149,14 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 		throw new UnsupportedOperationException();
 	}
 
+
 	/**
 	 * Do not call directly, this is implemented only as a fallback.
 	 * {@link RebornRecipe#getOutputs(DynamicRegistryManager)} will return all the outputs
 	 */
 	@Deprecated
 	@Override
-	public ItemStack getResult(DynamicRegistryManager dynamicRegistryManager) {
+	public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
 		if (outputs.isEmpty()) {
 			return ItemStack.EMPTY;
 		}
@@ -161,7 +164,7 @@ public class RebornRecipe implements Recipe<Inventory>, CustomOutputRecipe {
 	}
 
 	@Override
-	public DefaultedList<ItemStack> getRemainder(Inventory p_179532_1_) {
+	public DefaultedList<ItemStack> getRemainder(RebornRecipeInput input) {
 		throw new UnsupportedOperationException();
 	}
 

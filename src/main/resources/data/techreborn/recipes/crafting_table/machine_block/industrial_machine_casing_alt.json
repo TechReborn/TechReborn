@@ -11,13 +11,13 @@
       "item": "techreborn:advanced_machine_casing"
     },
     "R": {
-      "tag": "c:chromium_plates"
+      "tag": "c:plates/chromium"
     },
     "C": {
       "item": "techreborn:data_storage_core"
     }
   },
   "result": {
-    "item": "techreborn:industrial_machine_casing"
+    "id": "techreborn:industrial_machine_casing"
   }
 }

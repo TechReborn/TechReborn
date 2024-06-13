@@ -7,14 +7,14 @@
   ],
   "key": {
     "T": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     },
     "W": {
       "item": "minecraft:water_bucket"
     }
   },
   "result": {
-    "item": "techreborn:water_coolant_cell_10k",
+    "id": "techreborn:water_coolant_cell_10k",
     "count": 2
   }
 }

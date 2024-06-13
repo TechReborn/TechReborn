@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -60,7 +61,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(8, "IndustrialGrinderBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_GRINDER, this, 1, 4, this.inventory, inputs, outputs);
-		this.tank = new Tank("IndustrialGrinderBlockEntity", IndustrialGrinderBlockEntity.TANK_CAPACITY, this);
+		this.tank = new Tank("IndustrialGrinderBlockEntity", IndustrialGrinderBlockEntity.TANK_CAPACITY);
 		this.ticksSinceLastChange = 0;
 	}
 
@@ -94,15 +95,15 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
-		tank.read(tagCompound);
+	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
+		tank.read(tagCompound, registryLookup);
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
-		tank.write(tagCompound);
+	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
+		tank.write(tagCompound, registryLookup);
 	}
 
 	// TileMachineBase

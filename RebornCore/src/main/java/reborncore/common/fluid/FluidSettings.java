@@ -28,8 +28,8 @@ import net.minecraft.util.Identifier;
 
 public class FluidSettings {
 
-	private Identifier flowingTexture = new Identifier("reborncore:nope");
-	private Identifier stillTexture = new Identifier("reborncore:nope");
+	private Identifier flowingTexture = Identifier.of("reborncore:nope");
+	private Identifier stillTexture = Identifier.of("reborncore:nope");
 
 	public FluidSettings setFlowingTexture(Identifier flowingTexture) {
 		this.flowingTexture = flowingTexture;

@@ -37,7 +37,7 @@ public class ModSounds {
 	public static SoundEvent BLOCK_DISMANTLE;
 
 	public static void setup() {
-		BLOCK_DISMANTLE = createSoundEvent(new Identifier("reborncore", "block_dismantle"));
+		BLOCK_DISMANTLE = createSoundEvent(Identifier.of("reborncore", "block_dismantle"));
 
 	}
 

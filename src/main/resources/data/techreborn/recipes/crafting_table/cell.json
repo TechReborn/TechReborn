@@ -7,11 +7,11 @@
   ],
   "key": {
     "T": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     }
   },
   "result": {
-    "item": "techreborn:cell",
+    "id": "techreborn:cell",
     "count": 4
   }
 }

@@ -41,16 +41,14 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -64,8 +62,10 @@ import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.ItemFluidInfo;
-import reborncore.common.util.ItemNBTHelper;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
+
+import java.util.Optional;
 
 /**
  * Created by modmuss50 on 17/05/2016.
@@ -73,7 +73,7 @@ import techreborn.init.TRContent;
 public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	public DynamicCellItem() {
-		super(new Item.Settings().maxCount(16));
+		super(new Item.Settings().maxCount(16).component(TRDataComponentTypes.FLUID, Fluids.EMPTY.getRegistryEntry()));
 	}
 
 	// Thanks vanilla :)
@@ -85,8 +85,8 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid, "Can't get cell with NULL fluid");
-		ItemStack stack = new ItemStack(TRContent.CELL);
-		ItemNBTHelper.getNBT(stack).putString("fluid", Registries.FLUID.getId(fluid).toString());
+		ItemStack stack = new ItemStack(TRContent.CELL, stackSize);
+		stack.set(TRDataComponentTypes.FLUID, fluid.getRegistryEntry());
 		stack.setCount(stackSize);
 		return stack;
 	}
@@ -230,22 +230,14 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
-		return getFluid(itemStack.getNbt());
+		RegistryEntry<Fluid> fluidEntry = itemStack.getOrDefault(TRDataComponentTypes.FLUID, Fluids.EMPTY.getRegistryEntry());
+		return fluidEntry.value();
 	}
 
-	private Fluid getFluid(@Nullable NbtCompound tag) {
-		if (tag != null && tag.contains("fluid")) {
-			return Registries.FLUID.get(new Identifier(tag.getString("fluid")));
-		}
-		return Fluids.EMPTY;
-	}
-
-	@SuppressWarnings("UnstableApiUsage")
 	public void registerFluidApi() {
 		FluidStorage.ITEM.registerForItems((stack, ctx) -> new CellStorage(ctx), this);
 	}
 
-	@SuppressWarnings("UnstableApiUsage")
 	public class CellStorage extends SingleVariantItemStorage<FluidVariant> {
 		public CellStorage(ContainerItemContext context) {
 			super(context);
@@ -258,7 +250,13 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 		@Override
 		protected FluidVariant getResource(ItemVariant currentVariant) {
-			return FluidVariant.of(getFluid(currentVariant.getNbt()));
+			Optional<? extends RegistryEntry<Fluid>> registryEntry = currentVariant.getComponents().get(TRDataComponentTypes.FLUID);
+
+			if (registryEntry != null && registryEntry.isPresent()) {
+				return FluidVariant.of(registryEntry.get().value());
+			}
+
+			return FluidVariant.of(Fluids.EMPTY);
 		}
 
 		@Override

@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
@@ -72,9 +73,7 @@ public class UseBlockHandler implements UseBlockCallback{
 				world.setBlockState(pos, strippedBlock.getDefaultState().with(PillarBlock.AXIS, hitState.get(PillarBlock.AXIS)), 11);
 
 				// Damage axe
-				stack.damage(1, playerEntity, playerX ->
-						playerX.sendToolBreakStatus(hand)
-				);
+				stack.damage(1, playerEntity, EquipmentSlot.MAINHAND);
 				return ActionResult.SUCCESS;
 			}
 		}

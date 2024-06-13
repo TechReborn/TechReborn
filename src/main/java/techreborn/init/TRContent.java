@@ -111,8 +111,8 @@ import java.util.stream.Stream;
 
 public class TRContent {
 	public static final Marker DATAGEN = MarkerFactory.getMarker("datagen");
-	public static final BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetTypeBuilder.copyOf(BlockSetType.OAK).build(new Identifier(TechReborn.MOD_ID, "rubber_wood"));
-	public static final WoodType RUBBER_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.OAK).register(new Identifier(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
+	public static final BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetTypeBuilder.copyOf(BlockSetType.OAK).build(Identifier.of(TechReborn.MOD_ID, "rubber_wood"));
+	public static final WoodType RUBBER_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.OAK).register(Identifier.of(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
 
 	// Misc Blocks
 	public static Block COMPUTER_CUBE;
@@ -280,28 +280,28 @@ public class TRContent {
 	public static Item STEEL_BOOTS;
 
 	public final static class BlockTags {
-		public static final TagKey<Block> RUBBER_LOGS = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
-		public static final TagKey<Block> OMNI_TOOL_MINEABLE = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "mineable/omni_tool"));
-		public static final TagKey<Block> JACKHAMMER_MINEABLE = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "mineable/jackhammer"));
-		public static final TagKey<Block> DRILL_MINEABLE = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "mineable/drill"));
-		public static final TagKey<Block> NONE_SOLID_COVERS = TagKey.of(RegistryKeys.BLOCK, new Identifier(TechReborn.MOD_ID, "none_solid_covers"));
+		public static final TagKey<Block> RUBBER_LOGS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(TechReborn.MOD_ID, "rubber_logs"));
+		public static final TagKey<Block> OMNI_TOOL_MINEABLE = TagKey.of(RegistryKeys.BLOCK, Identifier.of(TechReborn.MOD_ID, "mineable/omni_tool"));
+		public static final TagKey<Block> JACKHAMMER_MINEABLE = TagKey.of(RegistryKeys.BLOCK, Identifier.of(TechReborn.MOD_ID, "mineable/jackhammer"));
+		public static final TagKey<Block> DRILL_MINEABLE = TagKey.of(RegistryKeys.BLOCK, Identifier.of(TechReborn.MOD_ID, "mineable/drill"));
+		public static final TagKey<Block> NONE_SOLID_COVERS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(TechReborn.MOD_ID, "none_solid_covers"));
 
 		private BlockTags() {
 		}
 	}
 
 	public final static class ItemTags {
-		public static final TagKey<Item> RUBBER_LOGS = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "rubber_logs"));
-		public static final TagKey<Item> INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "ingots"));
-		public static final TagKey<Item> ORES = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "ores"));
-		public static final TagKey<Item> STORAGE_BLOCK = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "storage_blocks"));
-		public static final TagKey<Item> DUSTS = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "dusts"));
-		public static final TagKey<Item> RAW_METALS = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "raw_metals"));
-		public static final TagKey<Item> SMALL_DUSTS = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "small_dusts"));
-		public static final TagKey<Item> GEMS = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "gems"));
-		public static final TagKey<Item> NUGGETS = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "nuggets"));
-		public static final TagKey<Item> PLATES = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "plates"));
-		public static final TagKey<Item> STORAGE_UNITS = TagKey.of(RegistryKeys.ITEM, new Identifier(TechReborn.MOD_ID, "storage_units"));
+		public static final TagKey<Item> RUBBER_LOGS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "rubber_logs"));
+		public static final TagKey<Item> INGOTS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "ingots"));
+		public static final TagKey<Item> ORES = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "ores"));
+		public static final TagKey<Item> STORAGE_BLOCK = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "storage_blocks"));
+		public static final TagKey<Item> DUSTS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "dusts"));
+		public static final TagKey<Item> RAW_METALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "raw_metals"));
+		public static final TagKey<Item> SMALL_DUSTS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "small_dusts"));
+		public static final TagKey<Item> GEMS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "gems"));
+		public static final TagKey<Item> NUGGETS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "nuggets"));
+		public static final TagKey<Item> PLATES = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "plates"));
+		public static final TagKey<Item> STORAGE_UNITS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "storage_units"));
 
 		private ItemTags() {
 		}
@@ -548,7 +548,7 @@ public class TRContent {
 			block = new ExperienceDroppingBlock(experienceDroppedFallback != null ? experienceDroppedFallback : ConstantIntProvider.create(1), TRBlockSettings.ore(name.startsWith("deepslate")));
 			this.industrial = industrial;
 			InitUtils.setup(block, name + "_ore");
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c",
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c",
 					(name.startsWith("deepslate_") ? name.substring(name.indexOf('_')+1): name) + "_ores"));
 			this.distribution = distribution;
 		}
@@ -648,15 +648,15 @@ public class TRContent {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new BlockStorage(isHot, hardness, resistance);
 			InitUtils.setup(block, name + "_storage_block");
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_blocks"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_blocks"));
 
-			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block));
+			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), AbstractBlock.Settings.copy(block));
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
 
-			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block));
+			slabBlock = new SlabBlock(AbstractBlock.Settings.copy(block));
 			InitUtils.setup(slabBlock, name + "_storage_block_slab");
 
-			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block));
+			wallBlock = new WallBlock(AbstractBlock.Settings.copy(block));
 			InitUtils.setup(wallBlock, name + "_storage_block_wall");
 		}
 
@@ -844,7 +844,7 @@ public class TRContent {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings());
 			InitUtils.setup(item, name + "_dust");
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_dusts"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_dusts"));
 		}
 
 		Dusts() {
@@ -901,7 +901,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, "raw_" + name);
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "raw_" + name + "_ores"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "raw_" + name + "_ores"));
 		}
 
 		@Override
@@ -973,7 +973,7 @@ public class TRContent {
 				}
 			dust = dustVariant;
 			InitUtils.setup(item, name + "_small_dust");
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_small_dusts"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_small_dusts"));
 		}
 
 		SmallDusts(String tagNameBase) {
@@ -1066,7 +1066,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_gem");
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", tagPlural == null ? name + "_gems" : tagPlural));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", tagPlural == null ? name + "_gems" : tagPlural));
 		}
 
 		Gems() {
@@ -1168,7 +1168,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_ingot");
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_ingots"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_ingots"));
 		}
 
 		Ingots() {
@@ -1252,7 +1252,7 @@ public class TRContent {
 			ingot = ingotVariant;
 			this.ofGem = ofGem;
 			InitUtils.setup(item, name + "_nugget");
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_nuggets"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_nuggets"));
 		}
 
 		Nuggets(ItemConvertible ingotVariant, boolean ofGem) {
@@ -1479,7 +1479,7 @@ public class TRContent {
 				tagNameBase = name;
 			}
 
-			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c", Objects.requireNonNullElse(tagNameBase, name) + "_plates"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_plates"));
 		}
 
 		Plates(String tagNameBase) {
@@ -1604,6 +1604,6 @@ public class TRContent {
 		ModRegistry.register();
 		TRItemGroup.register();
 
-		Registry.register(Registries.ENTITY_TYPE, new Identifier(TechReborn.MOD_ID, "nuke"), ENTITY_NUKE);
+		Registry.register(Registries.ENTITY_TYPE, Identifier.of(TechReborn.MOD_ID, "nuke"), ENTITY_NUKE);
 	}
 }

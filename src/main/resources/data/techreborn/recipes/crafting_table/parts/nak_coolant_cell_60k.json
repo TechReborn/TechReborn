@@ -11,7 +11,7 @@
       "item": "techreborn:water_coolant_cell_10k"
     },
     "T": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     },
     "S": {
       "item": "techreborn:sodium_bucket"
@@ -21,6 +21,6 @@
     }
   },
   "result": {
-    "item": "techreborn:nak_coolant_cell_60k"
+    "id": "techreborn:nak_coolant_cell_60k"
   }
 }

@@ -28,6 +28,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -136,15 +138,15 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag) {
-		super.readNbt(tag);
+	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tag, registryLookup);
 		ownerUdid = tag.getString("ownerID");
 		radius = tag.getInt("radius");
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag) {
-		super.writeNbt(tag);
+	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tag, registryLookup);
 		tag.putString("ownerID", ownerUdid);
 		tag.putInt("radius", radius);
 	}
@@ -174,7 +176,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.syncEnergyValue()
-				.sync(this::getCurrentRadius, this::setCurrentRadius)
+				.sync(PacketCodecs.INTEGER, this::getCurrentRadius, this::setCurrentRadius)
 				.addInventory().create(this, syncID);
 	}
 

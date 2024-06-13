@@ -24,18 +24,18 @@
 
 package techreborn.client.gui;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonUpDown;
 import reborncore.client.gui.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.packets.ServerboundPackets;
+import techreborn.packets.serverbound.AESUConfigPayload;
 
 public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 
@@ -89,6 +89,6 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void onClick(int amount) {
-		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketAesu(amount, hasShiftDown(), hasControlDown(), blockEntity));
+		ClientPlayNetworking.send(new AESUConfigPayload(blockEntity.getPos(), amount, hasShiftDown(), hasControlDown()));
 	}
 }

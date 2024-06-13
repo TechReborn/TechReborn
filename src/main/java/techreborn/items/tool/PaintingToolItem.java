@@ -26,7 +26,7 @@ package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,11 +37,13 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
 
 import java.util.List;
@@ -49,7 +51,7 @@ import java.util.List;
 public class PaintingToolItem extends Item {
 
 	public PaintingToolItem() {
-		super(new Item.Settings().maxCount(1).maxDamageIfAbsent(64));
+		super(new Item.Settings().maxDamage(64));
 	}
 
 	public ActionResult useOnBlock(ItemUsageContext context) {
@@ -64,12 +66,13 @@ public class PaintingToolItem extends Item {
 				&& blockState.getBlock().getDefaultState().isOpaqueFullCube(context.getWorld(), context.getBlockPos());
 
 			if (opaqueFullCube || blockState.isIn(TRContent.BlockTags.NONE_SOLID_COVERS)) {
-				context.getStack().getOrCreateNbt().put("cover", NbtHelper.fromBlockState(blockState));
+				context.getStack().set(TRDataComponentTypes.PAINTING_COVER, blockState);
+				context.getStack().set(TRDataComponentTypes.PAINTING_COVER, blockState);
 				return ActionResult.SUCCESS;
 			}
 			return ActionResult.FAIL;
 		} else {
-			BlockState cover = getCover(context.getWorld(), context.getStack());
+			BlockState cover = getCover(context.getStack());
 			if (cover != null && blockState.getBlock() instanceof CableBlock && blockState.get(CableBlock.COVERED)) {
 				BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
 				if (blockEntity == null) {
@@ -79,7 +82,7 @@ public class PaintingToolItem extends Item {
 
 				context.getWorld().playSound(player, context.getBlockPos(), SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 0.6F, 1.0F);
 				if (!context.getWorld().isClient) {
-					context.getStack().damage(1, player, playerCb -> playerCb.sendToolBreakStatus(context.getHand()));
+					context.getStack().damage(1, player, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
 				}
 
 				return ActionResult.SUCCESS;
@@ -89,15 +92,12 @@ public class PaintingToolItem extends Item {
 		return ActionResult.FAIL;
 	}
 
-	public static BlockState getCover(World world, ItemStack stack) {
-		if (stack.hasNbt() && stack.getOrCreateNbt().contains("cover")) {
-			return NbtHelper.toBlockState(WorldUtils.getBlockRegistryWrapper(world), stack.getOrCreateNbt().getCompound("cover"));
-		}
-		return null;
+	public static BlockState getCover(ItemStack stack) {
+		return stack.getOrDefault(TRDataComponentTypes.PAINTING_COVER, null);
 	}
 
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		BlockState blockState = getCover(world, stack);
+		BlockState blockState = getCover(stack);
 		if (blockState != null) {
 			tooltip.add((Text.translatable(blockState.getBlock().getTranslationKey())).formatted(Formatting.GRAY));
 			tooltip.add((Text.translatable("techreborn.tooltip.painting_tool.apply")).formatted(Formatting.GOLD));

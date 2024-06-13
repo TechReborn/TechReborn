@@ -13,13 +13,13 @@
       "item": "techreborn:lithium_ion_battery"
     },
     "T": {
-      "tag": "c:titanium_ingots"
+      "tag": "c:ingots/titanium"
     },
     "S": {
       "item": "techreborn:basic_drill"
     }
   },
   "result": {
-    "item": "techreborn:advanced_drill"
+    "id": "techreborn:advanced_drill"
   }
 }

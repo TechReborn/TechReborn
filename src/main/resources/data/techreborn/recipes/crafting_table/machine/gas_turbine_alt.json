@@ -17,10 +17,10 @@
       "item": "techreborn:reinforced_glass"
     },
     "I": {
-      "tag": "c:aluminum_plates"
+      "tag": "c:plates/aluminum"
     }
   },
   "result": {
-    "item": "techreborn:gas_turbine"
+    "id": "techreborn:gas_turbine"
   }
 }

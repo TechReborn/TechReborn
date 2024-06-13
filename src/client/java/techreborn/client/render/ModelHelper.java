@@ -39,8 +39,8 @@ import java.io.Reader;
 
 public class ModelHelper {
 
-	public static final ModelTransformation DEFAULT_ITEM_TRANSFORMS = loadTransformFromJson(new Identifier("minecraft:models/item/generated"));
-	public static final ModelTransformation HANDHELD_ITEM_TRANSFORMS = loadTransformFromJson(new Identifier("minecraft:models/item/handheld"));
+	public static final ModelTransformation DEFAULT_ITEM_TRANSFORMS = loadTransformFromJson(Identifier.of("minecraft:models/item/generated"));
+	public static final ModelTransformation HANDHELD_ITEM_TRANSFORMS = loadTransformFromJson(Identifier.of("minecraft:models/item/handheld"));
 
 	public static ModelTransformation loadTransformFromJson(Identifier location) {
 		try {
@@ -54,7 +54,7 @@ public class ModelHelper {
 	}
 
 	public static Reader getReaderForResource(Identifier location) throws IOException {
-		Identifier file = new Identifier(location.getNamespace(), location.getPath() + ".json");
+		Identifier file = Identifier.of(location.getNamespace(), location.getPath() + ".json");
 		Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(file).orElseThrow();
 		return new BufferedReader(new InputStreamReader(resource.getInputStream(), Charsets.UTF_8));
 	}

@@ -10,10 +10,10 @@
       "item": "minecraft:paper"
     },
     "W": {
-      "tag": "c:wood_plates"
+      "tag": "c:plates/wood"
     }
   },
   "result": {
-    "item": "techreborn:storage_buffer"
+    "id": "techreborn:storage_buffer"
   }
 }

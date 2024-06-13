@@ -13,13 +13,13 @@
       "item": "techreborn:advanced_circuit"
     },
     "D": {
-      "tag": "c:coal_dusts"
+      "tag": "c:dusts/coal"
     },
     "L": {
       "item": "minecraft:glass"
     }
   },
   "result": {
-    "item": "techreborn:advanced_solar_panel"
+    "id": "techreborn:advanced_solar_panel"
   }
 }

@@ -7,7 +7,7 @@
   ],
   "key": {
 	"P": {
-	  "tag": "c:tungsten_plates"
+	  "tag": "c:plates/tungsten"
 	},
 	"B": {
 	  "item": "techreborn:industrial_machine_frame"
@@ -23,6 +23,6 @@
 	}
   },
   "result": {
-	"item": "techreborn:industrial_unit_upgrader"
+	"id": "techreborn:industrial_unit_upgrader"
   }
 }

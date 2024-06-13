@@ -24,8 +24,8 @@
 
 package techreborn.blockentity.storage.energy.idsu;
 
-import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
@@ -62,7 +62,7 @@ public class IDSUManager extends PersistentState {
 		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer());
 	}
 
-	public static IDSUManager createFromTag(NbtCompound tag) {
+	public static IDSUManager createFromTag(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		IDSUManager	idsuManager = new IDSUManager();
 		idsuManager.fromTag(tag);
 		return idsuManager;
@@ -75,7 +75,7 @@ public class IDSUManager extends PersistentState {
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound tag) {
+	public NbtCompound writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		playerHashMap.forEach((uuid, player) -> tag.put(uuid, player.write()));
 		return tag;
 	}

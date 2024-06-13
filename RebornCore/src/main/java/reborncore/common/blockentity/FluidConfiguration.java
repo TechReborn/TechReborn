@@ -24,11 +24,14 @@
 
 package reborncore.common.blockentity;
 
+import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class FluidConfiguration implements NBTSerializable {
+	public static final PacketCodec<ByteBuf, FluidConfiguration> PACKET_CODEC = null;
 
 	HashMap<Direction, FluidConfig> sideMap;
 	boolean input, output;
@@ -140,6 +144,12 @@ public class FluidConfiguration implements NBTSerializable {
 	}
 
 	public static class FluidConfig implements NBTSerializable {
+		public static final PacketCodec<ByteBuf, FluidConfig> PACKET_CODEC = PacketCodec.tuple(
+			Direction.PACKET_CODEC, FluidConfig::getSide,
+			ExtractConfig.PACKET_CODEC, FluidConfig::getIoConfig,
+			FluidConfig::new
+		);
+
 		Direction side;
 		FluidConfiguration.ExtractConfig ioConfig;
 
@@ -186,6 +196,9 @@ public class FluidConfiguration implements NBTSerializable {
 		INPUT(false, true),
 		OUTPUT(true, false),
 		ALL(true, true);
+
+		public static final PacketCodec<ByteBuf, ExtractConfig> PACKET_CODEC = PacketCodecs.INTEGER
+			.xmap(integer -> ExtractConfig.values()[integer], Enum::ordinal);
 
 		boolean extract;
 		boolean insert;

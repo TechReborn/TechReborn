@@ -7,7 +7,7 @@
 	],
 	"key": {
 		"L": {
-			"tag": "c:lazurite_plates"
+			"tag": "c:plates/lazurite"
 		},
 		"C": {
 			"item": "techreborn:industrial_circuit"
@@ -17,6 +17,6 @@
 		}
 	},
 	"result": {
-		"item": "techreborn:lapotron_crystal"
+		"id": "techreborn:lapotron_crystal"
 	}
 }

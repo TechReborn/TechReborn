@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "tag": "c:aluminum_plates"
+      "tag": "c:plates/aluminum"
     },
     "C": {
 	  "item": "techreborn:advanced_circuit"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "techreborn:digital_display"
+    "id": "techreborn:digital_display"
   }
 }

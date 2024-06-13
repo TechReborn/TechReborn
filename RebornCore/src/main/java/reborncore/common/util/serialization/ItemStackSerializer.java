@@ -26,6 +26,8 @@ package reborncore.common.util.serialization;
 
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
@@ -68,9 +70,12 @@ public class ItemStackSerializer implements JsonSerializer<ItemStack>, JsonDeser
 				}
 			}
 
-			if (name != null && Registries.ITEM.get(new Identifier(name)) != null) {
-				ItemStack itemStack = new ItemStack(Registries.ITEM.get(new Identifier(name)), stackSize);
-				itemStack.setNbt(tagCompound);
+			if (name != null && Registries.ITEM.get(Identifier.of(name)) != null) {
+				ItemStack itemStack = new ItemStack(Registries.ITEM.get(Identifier.of(name)), stackSize);
+				if (tagCompound != null) {
+					NbtComponent nbtData = NbtComponent.of(tagCompound);
+					itemStack.set(DataComponentTypes.CUSTOM_DATA, nbtData);
+				}
 				return itemStack;
 			}
 		}
@@ -86,14 +91,13 @@ public class ItemStackSerializer implements JsonSerializer<ItemStack>, JsonDeser
 
 			if (Registries.ITEM.getId(src.getItem()) != null) {
 				jsonObject.addProperty(NAME, Registries.ITEM.getId(src.getItem()).toString());
-			} else {
-				return JsonNull.INSTANCE;
 			}
 
 			jsonObject.addProperty(STACK_SIZE, src.getCount());
 
-			if (src.getNbt() != null) {
-				jsonObject.addProperty(TAG_COMPOUND, src.getNbt().toString());
+			var nbtData = src.get(DataComponentTypes.CUSTOM_DATA);
+			if (nbtData != null) {
+				jsonObject.addProperty(TAG_COMPOUND, nbtData.toString());
 			}
 
 			return jsonObject;

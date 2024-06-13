@@ -56,7 +56,7 @@ import static reborncore.client.gui.GuiSprites.drawSprite;
 public class GuiBuilder {
 	private static final Text SPACE_TEXT = Text.literal(" ");
 	@Deprecated
-	public static final Identifier GUI_ELEMENTS = new Identifier("reborncore", "textures/gui/guielements.png");
+	public static final Identifier GUI_ELEMENTS = Identifier.of("reborncore", "textures/gui/guielements.png");
 	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
 	public void drawDefaultBackground(DrawContext drawContext, int x, int y, int width, int height) {
@@ -362,8 +362,6 @@ public class GuiBuilder {
 			for (Text tip : tips) {
 				this.addEntry(new TipsListEntry(tip));
 			}
-
-			setRenderBackground(false);
 		}
 
 		@Override
@@ -632,12 +630,12 @@ public class GuiBuilder {
 	 * @param maxCapacity {@code int} Maximum capacity of tank
 	 */
 	public void drawFluid(DrawContext drawContext, GuiBase<?> gui, FluidInstance fluid, int x, int y, int width, int height, long maxCapacity) {
-		if (fluid.getFluid() == Fluids.EMPTY) {
+		if (fluid.fluid() == Fluids.EMPTY) {
 			return;
 		}
 		y += height;
-		final Sprite sprite = FluidVariantRendering.getSprite(fluid.getVariant());
-		int color = FluidVariantRendering.getColor(fluid.getVariant());
+		final Sprite sprite = FluidVariantRendering.getSprite(fluid.fluidVariant());
+		int color = FluidVariantRendering.getColor(fluid.fluidVariant());
 
 		final int drawHeight = (int) (fluid.getAmount().getRawValue() / (maxCapacity * 1F) * height);
 		final int iconHeight = sprite.getContents().getHeight();

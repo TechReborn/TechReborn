@@ -7,13 +7,13 @@
   ],
   "key": {
     "C": {
-      "tag": "c:calcite_dusts"
+      "tag": "c:dusts/calcite"
     },
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:nautilus_shell"
+    "id": "minecraft:nautilus_shell"
   }
 }

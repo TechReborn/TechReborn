@@ -25,9 +25,13 @@
 package techreborn.blockentity.storage.energy;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -79,15 +83,6 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		}
 	}
 
-	public ItemStack getDropWithNBT() {
-		NbtCompound blockEntity = new NbtCompound();
-		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
-		writeNbt(blockEntity);
-		dropStack.setNbt(new NbtCompound());
-		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
-		return dropStack;
-	}
-
 	// EnergyStorageBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
@@ -111,7 +106,14 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
-		return getDropWithNBT();
+		NbtCompound nbt = new NbtCompound();
+		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
+		if (world != null){
+			writeNbt(nbt, world.getRegistryManager());
+			dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(nbt));
+		}
+
+		return dropStack;
 	}
 
 	@Override
@@ -141,14 +143,14 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
+	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
 		tagCompound.putInt("output", OUTPUT);
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbtCompound) {
-		super.readNbt(nbtCompound);
+	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(nbtCompound, registryLookup);
 		this.OUTPUT = nbtCompound.getInt("output");
 	}
 
@@ -163,7 +165,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("aesu").player(player.getInventory()).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().sync(this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentOutput() {

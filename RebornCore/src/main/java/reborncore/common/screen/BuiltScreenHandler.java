@@ -24,24 +24,27 @@
 
 package reborncore.common.screen;
 
+import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
+import reborncore.common.network.clientbound.ScreenHandlerUpdatePayload;
+import reborncore.common.screen.builder.SyncedObject;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RangeUtil;
 
@@ -50,11 +53,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class BuiltScreenHandler extends ScreenHandler {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BuiltScreenHandler.class);
-
 	private final String name;
 
 	private final Predicate<PlayerEntity> canInteract;
@@ -62,11 +62,10 @@ public class BuiltScreenHandler extends ScreenHandler {
 	private final List<Range<Integer>> blockEntitySlotRanges;
 
 	// Holds the SyncPair along with the last value
-	private final Map<SyncPair, Object> syncPairCache = new HashMap<>();
-	private final Int2ObjectMap<SyncPair> syncPairIdLookup = new Int2ObjectOpenHashMap<>();
+	private final Map<IdentifiedSyncedObject<?>, Object> syncPairCache = new HashMap<>();
+	private final Int2ObjectMap<IdentifiedSyncedObject<?>> syncPairIdLookup = new Int2ObjectOpenHashMap<>();
 
 	private List<Consumer<CraftingInventory>> craftEvents;
-	private Integer[] integerParts;
 
 	private final MachineBaseBlockEntity blockEntity;
 
@@ -84,11 +83,11 @@ public class BuiltScreenHandler extends ScreenHandler {
 		this.blockEntity = blockEntity;
 	}
 
-	public void addObjectSync(final List<Pair<Supplier<?>, Consumer<?>>> syncables) {
-		for (final Pair<Supplier<?>, Consumer<?>> syncable : syncables) {
+	public void addObjectSync(final List<SyncedObject<?>> syncedObjects) {
+		for (final SyncedObject<?> syncedObject : syncedObjects) {
 			// Add a new sync pair to the cache with a null value
 			int id = syncPairCache.size() + 1;
-			var syncPair = new SyncPair(syncable.getLeft(), syncable.getRight(), id);
+			var syncPair = new IdentifiedSyncedObject(syncedObject, id);
 			this.syncPairCache.put(syncPair, null);
 			this.syncPairIdLookup.put(id, syncPair);
 		}
@@ -127,41 +126,52 @@ public class BuiltScreenHandler extends ScreenHandler {
 	}
 
 	private void sendContentUpdatePacketToListener(final ScreenHandlerListener listener) {
-		Int2ObjectMap<Object> updatedValues = new Int2ObjectOpenHashMap<>();
+		Map<IdentifiedSyncedObject<?>, Object> updatedValues = new HashMap<>();
 
-		this.syncPairCache.replaceAll((syncPair, cached) -> {
-			final Object value = syncPair.supplier().get();
+		this.syncPairCache.replaceAll((identifiedSyncedObject, cached) -> {
+			final Object value = identifiedSyncedObject.get();
 
-			if (value != cached) {
-				updatedValues.put(syncPair.id, value);
+			if (!value.equals(cached)) {
+				updatedValues.put(identifiedSyncedObject, value);
 				return value;
 			}
 			return null;
 		});
 
-		sendUpdatedValues(listener, this, updatedValues);
-	}
-
-	public void handleUpdateValues(Int2ObjectMap<Object> updatedValues) {
-		updatedValues.int2ObjectEntrySet().forEach(entry -> {
-			SyncPair syncPair = syncPairIdLookup.get(entry.getIntKey());
-			if (syncPair == null) {
-				LOGGER.warn("Unknown sync pair id: " + entry.getIntKey());
-				return;
-			}
-
-			// TODO check the object type here?
-			syncPair.consumer().accept(entry.getValue());
-		});
-	}
-
-	private void sendUpdatedValues(ScreenHandlerListener screenHandlerListener, ScreenHandler screenHandler, Int2ObjectMap<Object> updatedValues) {
 		if (updatedValues.isEmpty()) {
 			return;
 		}
 
-		ServerPlayerEntityScreenHandlerHelper.getServerPlayerEntity(screenHandlerListener)
-			.ifPresent(serverPlayerEntity -> NetworkManager.sendToPlayer(ClientBoundPackets.createPacketSendObject(screenHandler, updatedValues), serverPlayerEntity));
+		byte[] data = writeScreenHandlerData(updatedValues);
+		ServerPlayerEntityScreenHandlerHelper.getServerPlayerEntity(listener)
+			.ifPresent(serverPlayerEntity -> NetworkManager.sendToPlayer(new ScreenHandlerUpdatePayload(data), serverPlayerEntity));
+	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	private byte[] writeScreenHandlerData(Map<IdentifiedSyncedObject<?>, Object> updatedValues) {
+		RegistryByteBuf byteBuf = new RegistryByteBuf(PacketByteBufs.create(), blockEntity.getWorld().getRegistryManager());
+
+		byteBuf.writeInt(updatedValues.size());
+		for (Map.Entry<IdentifiedSyncedObject<?>, Object> entry : updatedValues.entrySet()) {
+			PacketCodec codec = entry.getKey().object().codec();
+			byteBuf.writeInt(entry.getKey().id());
+			codec.encode(byteBuf, entry.getValue());
+		}
+
+		return byteBuf.array();
+	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public void applyScreenHandlerData(byte[] data) {
+		RegistryByteBuf byteBuf = new RegistryByteBuf(new PacketByteBuf(Unpooled.wrappedBuffer(data)), blockEntity.getWorld().getRegistryManager());
+		int size = byteBuf.readInt();
+
+		for (int i = 0; i < size; i++) {
+			int id = byteBuf.readInt();
+			IdentifiedSyncedObject syncedObject = syncPairIdLookup.get(id);
+			Object value = syncedObject.object().codec().decode(byteBuf);
+			syncedObject.set(value);
+		}
 	}
 
 	@Override
@@ -312,7 +322,13 @@ public class BuiltScreenHandler extends ScreenHandler {
 		return type;
 	}
 
-	private record SyncPair(Supplier supplier, Consumer consumer, int id) {
+	private record IdentifiedSyncedObject<T>(SyncedObject<T> object, int id) {
+		public T get() {
+			return object.getter().get();
+		}
 
+		public void set(T value) {
+			object.setter().accept(value);
+		}
 	}
 }

@@ -24,13 +24,10 @@
 
 package techreborn.items.armor;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -38,21 +35,23 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.Identifier;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
+import techreborn.utils.TRItemUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
+	private static final EntityAttributeModifier POWERED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_suit_armor"), 8, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final EntityAttributeModifier DEPLETED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_suit_armor"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
 
-	public NanoSuitItem(ArmorMaterial material, Type slot) {
+	public NanoSuitItem(RegistryEntry<ArmorMaterial> material, Type slot) {
 		super(material, slot, TechRebornConfig.nanoSuitCapacity, RcEnergyTier.HIGH);
 	}
 
@@ -60,35 +59,22 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	@Override
 	public long getEnergyMaxOutput(ItemStack stack) { return 0; }
 
-	// ArmorItem
-	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-		return HashMultimap.create();
-	}
-
-	// FabricItem
-	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot equipmentSlot) {
-		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, getSlotType()));
-
-		if (equipmentSlot == this.getSlotType() && getStoredEnergy(stack) > 0) {
-			attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Armor modifier", 8, EntityAttributeModifier.Operation.ADDITION));
-		}
-
-		return ImmutableMultimap.copyOf(attributes);
-	}
-
 	// ArmorBlockEntityTicker
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
 		// Night Vision
-		if (Objects.requireNonNull(this.getSlotType()) == EquipmentSlot.HEAD) {
-			if (stack.getOrCreateNbt().getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
+		if (this.getSlotType() == EquipmentSlot.HEAD) {
+			if (TRItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
 				playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 220, 1, false, false));
 			} else {
 				playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 			}
 		}
+
+		boolean hasEnergy = getStoredEnergy(stack) > 0;
+		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
+		attributes = attributes.with(EntityAttributes.GENERIC_ARMOR, hasEnergy ? POWERED_ATTRIBUTE_MODIFIER : DEPLETED_ATTRIBUTE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(this.getSlotType()));
+		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 
 	@Override
@@ -97,7 +83,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 }

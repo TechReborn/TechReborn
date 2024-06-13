@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -68,7 +69,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		super(blockEntityType, pos, state);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		Validate.notNull(recipes, "null recipe list for " + type.getRecipeID());
-		tank = new Tank(blockEntityName, tankCapacity, this);
+		tank = new Tank(blockEntityName, tankCapacity);
 		inventory = new RebornInventory<>(3, blockEntityName, 64, this);
 		this.euTick = euTick;
 		this.ticksSinceLastChange = 0;
@@ -112,7 +113,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 					pendingWithdraw += fluidPerTick;
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
-					tank.getFluidInstance().subtractAmount(FluidValue.fromRaw(currentWithdraw));
+					tank.modifyFluid(fluidInstance -> fluidInstance.subtractAmount(FluidValue.fromRaw(currentWithdraw)));
 					lastOutput = world.getTime();
 				}
 			}
@@ -166,15 +167,15 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	@Override
-	public void readNbt(NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
-		tank.read(tagCompound);
+	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
+		tank.read(tagCompound, registryLookup);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
-		tank.write(tagCompound);
+	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
+		tank.write(tagCompound, registryLookup);
 	}
 
 	@Override

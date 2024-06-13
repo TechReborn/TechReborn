@@ -29,7 +29,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.block.entity.DispenserBlockEntity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -61,7 +60,7 @@ public class TRDispenserBehavior {
 				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 					List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(pointer.world());
 					int random = Random.create().nextInt(scrapboxRecipeList.size());
-					ItemStack out = scrapboxRecipeList.get(random).getOutputs(null).get(0).copy();
+					ItemStack out = scrapboxRecipeList.get(random).getOutputs(null).getFirst().copy();
 					stack.split(1);
 
 					Direction facing = pointer.state().get(DispenserBlock.FACING);
@@ -97,7 +96,7 @@ public class TRDispenserBehavior {
 								stack = filledCell;
 							} else {
 								stack.decrement(1);
-								if (((DispenserBlockEntity) pointer.blockEntity()).addToFirstFreeSlot(filledCell) < 0) {
+								if (pointer.blockEntity().addToFirstFreeSlot(filledCell).getCount() < 0) {
 									this.dispense(pointer, filledCell);
 								}
 							}
@@ -114,7 +113,7 @@ public class TRDispenserBehavior {
 							stack = emptyCell;
 						} else {
 							stack.decrement(1);
-							if (pointer.blockEntity().addToFirstFreeSlot(emptyCell) < 0) {
+							if (pointer.blockEntity().addToFirstFreeSlot(emptyCell).getCount() < 0) {
 								this.dispense(pointer, emptyCell);
 							}
 						}
@@ -136,7 +135,7 @@ public class TRDispenserBehavior {
 							stack = emptyBucket;
 						} else {
 							stack.decrement(1);
-							if (((DispenserBlockEntity) pointer.blockEntity()).addToFirstFreeSlot(emptyBucket) < 0) {
+							if (pointer.blockEntity().addToFirstFreeSlot(emptyBucket).getCount() < 0) {
 								this.dispense(pointer, emptyBucket);
 							}
 						}

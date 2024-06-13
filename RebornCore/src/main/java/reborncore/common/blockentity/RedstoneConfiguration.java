@@ -24,110 +24,65 @@
 
 package reborncore.common.blockentity;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.util.StringIdentifiable;
 import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.common.screen.Syncable;
-import reborncore.common.util.BooleanFunction;
-import reborncore.common.util.NBTSerializable;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class RedstoneConfiguration implements NBTSerializable, Syncable {
-
+public record RedstoneConfiguration(Map<Element, State> stateMap) {
 	// Set in TR to be a better item such as a battery or a cell
 	public static ItemStack powerStack = new ItemStack(Items.CARROT_ON_A_STICK);
 	public static ItemStack fluidStack = new ItemStack(Items.BUCKET);
 
-	private static List<Element> ELEMENTS = new ArrayList<>();
-	private static Map<String, Element> ELEMENT_MAP = new HashMap<>();
+	public static final MapCodec<RedstoneConfiguration> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.unboundedMap(Element.CODEC, State.CODEC).fieldOf("elements").forGetter(RedstoneConfiguration::stateMap)
+	).apply(instance, RedstoneConfiguration::new));
+	private static final PacketCodec<ByteBuf, Map<Element, State>> STATE_MAP_CODEC = PacketCodecs.map(HashMap::new, Element.PACKET_CODEC, State.PACKET_CODEC);
+	public static final PacketCodec<ByteBuf, RedstoneConfiguration> PACKET_CODEC = STATE_MAP_CODEC.xmap(RedstoneConfiguration::new, RedstoneConfiguration::stateMap);
 
-	public static Element ITEM_IO = newBuilder()
-										.name("item_io")
-										.icon(() -> new ItemStack(Blocks.HOPPER))
-										.build();
-
-	public static Element POWER_IO = newBuilder()
-										.name("power_io")
-										.icon(() -> powerStack)
-										.build();
-
-	public static Element FLUID_IO = newBuilder()
-										.name("fluid_io")
-										.canApply(type -> type.getTank() != null)
-										.icon(() -> fluidStack)
-										.build();
-
-	public static Element RECIPE_PROCESSING = newBuilder()
-										.name("recipe_processing")
-										.canApply(type -> type instanceof IRecipeCrafterProvider)
-										.icon(() -> new ItemStack(Blocks.CRAFTING_TABLE))
-										.build();
-
-
-	private static Element.Builder newBuilder() {
-		return Element.Builder.getInstance();
+	public RedstoneConfiguration() {
+		this(Collections.emptyMap());
 	}
 
-	private final MachineBaseBlockEntity blockEntity;
-	private List<Element> activeElements;
-	private Map<Element, State> stateMap;
-
-	public RedstoneConfiguration(MachineBaseBlockEntity blockEntity) {
-		this.blockEntity = blockEntity;
-	}
-
-	public List<Element> getElements() {
-		if (activeElements != null) {
-			return activeElements;
-		}
-		return activeElements = ELEMENTS.stream()
-				.filter(element -> element.isApplicable(blockEntity))
-				.collect(Collectors.toList());
-	}
-
-	public void refreshCache() {
-		activeElements = null;
-
-		if (stateMap != null) {
-			for (Element element : getElements()) {
-				if (!stateMap.containsKey(element)) {
-					stateMap.put(element, State.IGNORED);
-				}
-			}
-		}
+	public static List<Element> getValidElements(MachineBaseBlockEntity blockEntity) {
+		return Element.ELEMENTS.stream()
+			.filter(element -> element.isApplicable(blockEntity))
+			.collect(Collectors.toList());
 	}
 
 	public State getState(Element element) {
-		if (stateMap == null) {
-			populateStateMap();
-		}
 		State state = stateMap.get(element);
-		Validate.notNull(state, "Unsupported element " + element.getName() + " for machine: " + blockEntity.getClass().getName());
+
+		if (state == null) {
+			return State.IGNORED;
+		}
+
 		return state;
 	}
 
-	public void setState(Element element, State state) {
-		if (stateMap == null) {
-			populateStateMap();
-		}
-		Validate.isTrue(stateMap.containsKey(element));
-		stateMap.replace(element, state);
+	public RedstoneConfiguration withState(Element element, State state) {
+		Map<Element, State> elements = new HashMap<>(this.stateMap);
+		elements.put(element, state);
+		return new RedstoneConfiguration(Collections.unmodifiableMap(elements));
 	}
 
-	public boolean isActive(Element element) {
+	public boolean isActive(Element element, MachineBaseBlockEntity blockEntity) {
 		State state = getState(element);
 		if (state == State.IGNORED) {
 			return true;
@@ -137,116 +92,47 @@ public class RedstoneConfiguration implements NBTSerializable, Syncable {
 		return enabledState == hasRedstonePower;
 	}
 
-	private void populateStateMap() {
-		Validate.isTrue(stateMap == null);
-		stateMap = new HashMap<>();
-		for (Element element : getElements()) {
-			stateMap.put(element, State.IGNORED);
-		}
-	}
-
-	@NotNull
-	@Override
-	public NbtCompound write() {
-		NbtCompound tag = new NbtCompound();
-		for (Element element : getElements()) {
-			tag.putInt(element.getName(), getState(element).ordinal());
-		}
-		return tag;
-	}
-
-	@Override
-	public void read(@NotNull NbtCompound tag) {
-		stateMap = new HashMap<>();
-		for (String key : tag.getKeys()) {
-			Element element = ELEMENT_MAP.get(key);
-			if (element == null) {
-				System.out.println("Unknown element type: " + key);
-				continue;
-			}
-			State state = State.values()[tag.getInt(key)];
-			stateMap.put(element, state);
-		}
-
-		// Ensure all active states are in the map, will happen if a new state is added when the world is upgraded
-		for (Element element : getElements()) {
-			if (!stateMap.containsKey(element)) {
-				stateMap.put(element, State.IGNORED);
-			}
-		}
-	}
-
-	@Override
-	public void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList) {
-		pairList.add(Pair.of(this::write, (Consumer<NbtCompound>) this::read));
-	}
-
-	public static Element getElementByName(String name) {
-		return ELEMENT_MAP.get(name);
-	}
-
 	// Could be power input/output, item/fluid io, machine processing
-	public static class Element {
-		private final String name;
-		private final BooleanFunction<MachineBaseBlockEntity> isApplicable;
-		private final Supplier<ItemStack> icon;
+	public record Element(String name, Predicate<MachineBaseBlockEntity> isApplicable, Supplier<ItemStack> icon) implements StringIdentifiable {
+		public static Element ITEM_IO = new Element("item_io", () -> new ItemStack(Blocks.HOPPER));
+		public static Element POWER_IO = new Element("power_io", () -> powerStack);
+		public static Element FLUID_IO = new Element("fluid_io", type -> type.getTank() != null, () -> fluidStack);
+		public static Element RECIPE_PROCESSING = new Element("recipe_processing", type -> type instanceof IRecipeCrafterProvider, () -> new ItemStack(Blocks.CRAFTING_TABLE));
+		private static final List<Element> ELEMENTS = List.of(
+			ITEM_IO, POWER_IO, FLUID_IO, RECIPE_PROCESSING
+		);
+		private static final Map<String, Element> ELEMENT_MAP = ELEMENTS.stream()
+			.collect(Collectors.toMap(Element::name, Function.identity()));
 
-		public Element(String name, BooleanFunction<MachineBaseBlockEntity> isApplicable, Supplier<ItemStack> icon) {
-			this.name = name;
-			this.isApplicable = isApplicable;
-			this.icon = icon;
+		public static final Codec<Element> CODEC = StringIdentifiable.createBasicCodec(() -> ELEMENTS.toArray(Element[]::new));
+		public static final PacketCodec<ByteBuf, Element> PACKET_CODEC = PacketCodecs.STRING
+			.xmap(ELEMENT_MAP::get, Element::name);
+
+		public Element(String name, Supplier<ItemStack> icon) {
+			this(name, (be) -> true, icon);
 		}
 
 		public boolean isApplicable(MachineBaseBlockEntity blockEntity) {
-			return isApplicable.get(blockEntity);
+			return isApplicable.test(blockEntity);
 		}
 
-		public String getName() {
+		@Override
+		public String asString() {
 			return name;
-		}
-
-		public ItemStack getIcon() {
-			return icon.get();
-		}
-
-		public static class Builder {
-
-			private String name;
-			private BooleanFunction<MachineBaseBlockEntity> isApplicable = (be) -> true;
-			private Supplier<ItemStack> icon = () -> ItemStack.EMPTY;
-
-			public Builder name(String name) {
-				this.name = name;
-				return this;
-			}
-
-			public Builder canApply(BooleanFunction<MachineBaseBlockEntity> isApplicable) {
-				this.isApplicable = isApplicable;
-				return this;
-			}
-
-			public Builder icon(Supplier<ItemStack> stack) {
-				this.icon = stack;
-				return this;
-			}
-
-			public Element build() {
-				Validate.isTrue(!StringUtils.isEmpty(name));
-				Element element = new Element(name, isApplicable, icon);
-				ELEMENTS.add(element);
-				ELEMENT_MAP.put(element.getName(), element);
-				return element;
-			}
-
-			public static Builder getInstance() {
-				return new Builder();
-			}
 		}
 	}
 
-	public enum State {
+	public enum State implements StringIdentifiable {
 		IGNORED,
 		ENABLED_ON,
-		ENABLED_OFF
+		ENABLED_OFF;
+		public static final Codec<State> CODEC = StringIdentifiable.createCodec(State::values);
+		public static final PacketCodec<ByteBuf, State> PACKET_CODEC = PacketCodecs.INTEGER
+			.xmap(integer -> State.values()[integer], Enum::ordinal);
+
+		@Override
+		public String asString() {
+			return name();
+		}
 	}
 }

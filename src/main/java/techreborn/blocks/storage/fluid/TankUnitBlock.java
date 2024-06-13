@@ -64,9 +64,9 @@ public class TankUnitBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		if (unitType == TRContent.TankUnit.CREATIVE || worldIn.isClient) {
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		final TankUnitBaseBlockEntity tankUnitEntity = (TankUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
@@ -124,8 +124,8 @@ public class TankUnitBlock extends BlockMachineBase {
 					}
 
 					// Remove from tank
-					tankInstance.getFluidInstance().setAmount(tankInstance.getFluidAmount().subtract(
-							FluidValue.BUCKET.multiply(amountTransferBuckets)));
+					tankInstance.setFluidAmount(tankInstance.getFluidAmount().subtract(
+						FluidValue.BUCKET.multiply(amountTransferBuckets)));
 				}else{
 					return ActionResult.FAIL;
 				}
@@ -135,7 +135,7 @@ public class TankUnitBlock extends BlockMachineBase {
 					if (tankInstance.getFluidInstance().isEmpty()) {
 						tankInstance.setFluidInstance(new FluidInstance(fluid, fluidValue));
 					} else {
-						tankInstance.getFluidInstance().addAmount(fluidValue);
+						tankInstance.modifyFluid(fluidInstance -> fluidInstance.withAmount(fluidValue));
 					}
 
 					// Give players the empty stuff back
@@ -149,7 +149,7 @@ public class TankUnitBlock extends BlockMachineBase {
 		}
 
 
-		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hitResult);
 	}
 
 	boolean isSameItemFluid(ItemStack i1, ItemStack i2){

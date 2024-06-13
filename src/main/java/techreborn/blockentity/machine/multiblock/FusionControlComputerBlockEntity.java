@@ -29,7 +29,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -151,12 +153,12 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	/**
 	 * Validates if reactor has all inputs and can output result
 	 *
-	 * @param recipe {@link FusionReactorRecipe} Recipe to validate
+	 * @param entry {@link FusionReactorRecipe} Recipe to validate
 	 * @return {@code boolean} True if we have all inputs and can fit output
 	 */
 	private boolean validateRecipe(RecipeEntry<FusionReactorRecipe> entry) {
 		FusionReactorRecipe recipe = entry.value();
-		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs(getWorld().getRegistryManager()).get(0), outputStackSlot, true);
+		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs(getWorld().getRegistryManager()).getFirst(), outputStackSlot, true);
 	}
 
 	/**
@@ -305,7 +307,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 					}
 				}
 			} else if (craftingTickTime >= currentRecipe.getTime()) {
-				ItemStack result = currentRecipe.getOutputs(getWorld().getRegistryManager()).get(0);
+				ItemStack result = currentRecipe.getOutputs(getWorld().getRegistryManager()).getFirst();
 				if (canFitStack(result, outputStackSlot, true)) {
 					if (inventory.getStack(outputStackSlot).isEmpty()) {
 						inventory.setStack(outputStackSlot, result.copy());
@@ -340,8 +342,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
+	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
 		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
@@ -356,8 +358,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
+	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound,registryLookup);
 		tagCompound.putInt("craftingTickTime", this.craftingTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
 		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
@@ -388,11 +390,11 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("fusionreactor").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
-				.sync(this::getCraftingTickTime, this::setCraftingTickTime)
-				.sync(this::getSize, this::setSize)
-				.sync(this::getState, this::setState)
-				.sync(this::getNeededPower, this::setNeededPower)
-				.sync(this::getCurrentRecipeID, this::setCurrentRecipeID)
+				.sync(PacketCodecs.INTEGER, this::getCraftingTickTime, this::setCraftingTickTime)
+				.sync(PacketCodecs.INTEGER, this::getSize, this::setSize)
+				.sync(PacketCodecs.INTEGER, this::getState, this::setState)
+				.sync(PacketCodecs.INTEGER, this::getNeededPower, this::setNeededPower)
+				.sync(Identifier.PACKET_CODEC, this::getCurrentRecipeID, this::setCurrentRecipeID)
 				.addInventory()
 				.create(this, syncID);
 	}
@@ -437,7 +439,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	public Identifier getCurrentRecipeID() {
 		if (currentRecipeEntry == null) {
-			return new Identifier("null", "null");
+			return Identifier.of("null", "null");
 		}
 
 		return currentRecipeEntry.id();

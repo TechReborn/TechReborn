@@ -333,7 +333,8 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			(Items.WHEAT) : Items.SHEAF_POTTERY_SHERD,
 			(Items.IRON_DOOR) : Items.SHELTER_POTTERY_SHERD,
 			(Items.SKELETON_SKULL) : Items.SKULL_POTTERY_SHERD,
-			(Items.SCUTE) : Items.SNORT_POTTERY_SHERD
+			(Items.TURTLE_SCUTE) : Items.SNORT_POTTERY_SHERD,
+			(Items.ARMADILLO_SCUTE) : Items.SNORT_POTTERY_SHERD
 		].each {material, sherd ->
 			offerBlastFurnaceRecipe {
 				ingredients stack(Items.CLAY_BALL, 4), material

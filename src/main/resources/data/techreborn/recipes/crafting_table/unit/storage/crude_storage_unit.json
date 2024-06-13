@@ -7,7 +7,7 @@
   ],
   "key": {
     "B": {
-      "tag": "c:wooden_barrels"
+      "tag": "c:barrels/wooden"
     },
     "P": {
       "item": "minecraft:paper"
@@ -17,6 +17,6 @@
     }
   },
   "result": {
-    "item": "techreborn:crude_storage_unit"
+    "id": "techreborn:crude_storage_unit"
   }
 }

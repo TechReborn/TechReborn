@@ -24,13 +24,13 @@
 
 package techreborn.client.events;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import reborncore.client.ClientJumpEvent;
-import reborncore.client.ClientNetworkManager;
 import techreborn.blockentity.machine.tier1.ElevatorBlockEntity;
-import techreborn.packets.ServerboundPackets;
+import techreborn.packets.serverbound.JumpPayload;
 
 public class ClientJumpHandler implements ClientJumpEvent {
 	@Override
@@ -44,7 +44,7 @@ public class ClientJumpHandler implements ClientJumpEvent {
 		BlockEntity blockEntity = player.getWorld().getBlockEntity(player.getBlockPos().down());
 
 		if (blockEntity instanceof ElevatorBlockEntity) {
-			ClientNetworkManager.sendToServer(ServerboundPackets.createPacketJump(player.getBlockPos()));
+			ClientPlayNetworking.send(new JumpPayload(player.getBlockPos()));
 		}
 	}
 }

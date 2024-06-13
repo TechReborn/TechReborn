@@ -24,23 +24,24 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.widget.ButtonWidget;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiBuilder;
 import reborncore.client.gui.widget.GuiButtonExtended;
 import reborncore.client.gui.widget.GuiButtonUpDown;
 import reborncore.client.gui.widget.GuiButtonUpDown.UpDownButtonType;
-import reborncore.client.gui.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.packets.ServerboundPackets;
+import techreborn.packets.serverbound.FusionControlSizePayload;
 
 import java.util.Optional;
 
@@ -122,7 +123,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	private void sendSizeChange(int sizeDelta) {
-		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, blockEntity.getPos()));
+		ClientPlayNetworking.send(new FusionControlSizePayload(blockEntity.getPos(), sizeDelta));
 	}
 
 	public Optional<Pair<Integer, Integer>> getCoilStackCount() {

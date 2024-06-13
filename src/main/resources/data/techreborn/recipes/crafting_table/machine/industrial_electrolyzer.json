@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "C": {
       "item": "techreborn:advanced_circuit"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "techreborn:industrial_electrolyzer"
+    "id": "techreborn:industrial_electrolyzer"
   }
 }

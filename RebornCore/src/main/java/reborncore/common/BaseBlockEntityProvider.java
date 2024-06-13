@@ -30,16 +30,20 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public abstract class BaseBlockEntityProvider extends Block implements BlockEntityProvider {
+
 	protected BaseBlockEntityProvider(Settings builder) {
 		super(builder);
 	}
@@ -49,26 +53,24 @@ public abstract class BaseBlockEntityProvider extends Block implements BlockEnti
 		if (blockEntity == null) {
 			return Optional.empty();
 		}
+
 		ItemStack newStack = stack.copy();
-		NbtCompound blockEntityData = blockEntity.createNbt();
-		stripLocationData(blockEntityData);
-		if (!newStack.hasNbt()) {
-			newStack.setNbt(new NbtCompound());
-		}
-		newStack.getOrCreateNbt().put("blockEntity_data", blockEntityData);
+		newStack.applyComponentsFrom(blockEntity.createComponentMap());
+		NbtCompound blockEntityData = blockEntity.createNbtWithId(world.getRegistryManager());
+		newStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(blockEntityData));
 		return Optional.of(newStack);
 	}
 
 	@Override
-	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (stack.hasNbt() && stack.getOrCreateNbt().contains("blockEntity_data")) {
-			BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-			if (blockEntity == null) { return; }
-			NbtCompound nbt = stack.getOrCreateNbt().getCompound("blockEntity_data");
-			injectLocationData(nbt, pos);
-			blockEntity.readNbt(nbt);
-			blockEntity.markDirty();
+	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+		super.onPlaced(world, pos, state, placer, itemStack);
+
+		NbtComponent nbtComponent = itemStack.get(DataComponentTypes.BLOCK_ENTITY_DATA);
+		if (nbtComponent == null) {
+			return;
 		}
+
+		nbtComponent.applyToBlockEntity(world.getBlockEntity(pos), world.getRegistryManager());
 	}
 
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {

@@ -25,11 +25,11 @@
 package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -41,10 +41,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.JackhammerItem;
+import techreborn.utils.TRItemUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Collections;
@@ -60,19 +61,19 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 
 	// Cycle Inactive, Active 3*3 and Active 5*5
 	private void switchAOE(ItemStack stack, int cost, Entity entity) {
-		ItemUtils.checkActive(stack, cost, entity);
-		if (!ItemUtils.isActive(stack)) {
-			ItemUtils.switchActive(stack, cost, entity);
-			stack.getOrCreateNbt().putBoolean("AOE5", false);
+		TRItemUtils.checkActive(stack, cost, entity);
+		if (!TRItemUtils.isActive(stack)) {
+			TRItemUtils.switchActive(stack, cost, entity);
+			stack.set(TRDataComponentTypes.AOE5, false);
 			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
 				serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("3*3").formatted(Formatting.GOLD)), true);
 			}
 		} else {
 			if (isAOE5(stack)) {
-				ItemUtils.switchActive(stack, cost, entity);
-				stack.getOrCreateNbt().putBoolean("AOE5", false);
+				TRItemUtils.switchActive(stack, cost, entity);
+				stack.set(TRDataComponentTypes.AOE5, false);
 			} else {
-				stack.getOrCreateNbt().putBoolean("AOE5", true);
+				stack.set(TRDataComponentTypes.AOE5, true);
 				if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
 					serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("5*5").formatted(Formatting.GOLD)), true);
 				}
@@ -81,14 +82,14 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	private boolean isAOE5(ItemStack stack) {
-		return !stack.isEmpty() && stack.getOrCreateNbt().getBoolean("AOE5");
+		return !stack.isEmpty() && Boolean.TRUE.equals(stack.get(TRDataComponentTypes.AOE5));
 	}
 
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
 		// No AOE mining turned on OR we've broken a wrong block
-		if (!ItemUtils.isActive(stack) || !isSuitableFor(stateIn)) {
+		if (!TRItemUtils.isActive(stack) || !isCorrectForDrops(stack, stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 
@@ -105,11 +106,11 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		float speed = super.getMiningSpeedMultiplier(stack, state);
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		float speed = super.getMiningSpeed(stack, state);
 
 		if (speed > unpoweredSpeed) {
-			return miningSpeed * 4;
+			return speed * 4;
 		}
 
 		return speed;
@@ -128,13 +129,13 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		ItemUtils.checkActive(stack, cost, entity);
+		TRItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
-		if (ItemUtils.isActive(stack)) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
+		if (TRItemUtils.isActive(stack)) {
 			if (isAOE5(stack)) {
 				tooltip.add(Text.literal("5*5").formatted(Formatting.RED));
 			} else {
@@ -146,7 +147,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!isSuitableFor(worldIn.getBlockState(pos))) {
+		if (!isCorrectForDrops(stack, worldIn.getBlockState(pos))) {
 			return Collections.emptySet();
 		}
 		int radius = isAOE5(stack) ? 2 : 1;

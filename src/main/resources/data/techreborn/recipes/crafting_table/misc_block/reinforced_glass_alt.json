@@ -8,14 +8,14 @@
   ],
   "key": {
     "A": {
-      "tag": "c:lead_plates"
+      "tag": "c:plates/lead"
     },
     "G": {
       "item": "minecraft:glass"
     }
   },
   "result": {
-    "item": "techreborn:reinforced_glass",
+    "id": "techreborn:reinforced_glass",
     "count": 7
   }
 }

@@ -19,10 +19,10 @@
       "item": "techreborn:lithium_ion_batpack"
     },
     "I": {
-      "tag": "c:iridium_ingots"
+      "tag": "c:ingots/iridium"
     }
   },
   "result": {
-    "item": "techreborn:lapotronic_orbpack"
+    "id": "techreborn:lapotronic_orbpack"
   }
 }

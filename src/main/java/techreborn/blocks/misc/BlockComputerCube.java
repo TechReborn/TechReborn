@@ -55,7 +55,7 @@ public class BlockComputerCube extends BlockMachineBase {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 
 		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {

@@ -55,15 +55,16 @@ import reborncore.common.util.Color;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBakedModel {
 
-	public abstract ModelIdentifier getBaseModel();
+	public abstract Identifier getBaseModel();
 
-	public abstract ModelIdentifier getBackgroundModel();
+	public abstract Identifier getBackgroundModel();
 
-	public abstract ModelIdentifier getFluidModel();
+	public abstract Identifier getFluidModel();
 
 	@Override
 	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
@@ -73,11 +74,11 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 
 		}
 		BakedModelManager bakedModelManager = MinecraftClient.getInstance().getBakedModelManager();
-		context.fallbackConsumer().accept(bakedModelManager.getModel(getBaseModel()));
-		context.fallbackConsumer().accept(bakedModelManager.getModel(getBackgroundModel()));
+		bakedModelManager.getModel(getBaseModel()).emitItemQuads(stack, randomSupplier, context);
+		bakedModelManager.getModel(getBackgroundModel()).emitItemQuads(stack, randomSupplier, context);
 
 		if (fluid != Fluids.EMPTY) {
-			FluidRenderHandler fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
+			FluidRenderHandler fluidRenderHandler = Objects.requireNonNull(FluidRenderHandlerRegistry.INSTANCE.get(fluid));
 			BakedModel fluidModel = bakedModelManager.getModel(getFluidModel());
 			int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getBlockPos(), fluid.getDefaultState());
 			Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
@@ -88,7 +89,7 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 				quad.spriteColor(0, color, color, color, color);
 				// Some modded fluids doesn't have sprites. Fix for #2429
 				if (fluidSprite == null) {
-					quad.spriteBake(0, RenderUtil.getSprite(new Identifier("minecraft", "missingno")), MutableQuadView.BAKE_LOCK_UV);
+					quad.spriteBake(0, RenderUtil.getSprite(Identifier.of("minecraft", "missingno")), MutableQuadView.BAKE_LOCK_UV);
 				}
 				else {
 					quad.spriteBake(0, fluidSprite, MutableQuadView.BAKE_LOCK_UV);

@@ -26,10 +26,11 @@ package techreborn.blocks.misc;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -121,9 +122,8 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
@@ -144,17 +144,15 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 
 		}
 
-		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hitResult);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.MODEL;
 	}
 
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext shapeContext) {
 		return shape[getFacing(state).ordinal()];
@@ -162,7 +160,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
 		tooltip.add(Text.translatable("techreborn.tooltip.alarm").formatted(Formatting.GRAY));
 	}
 

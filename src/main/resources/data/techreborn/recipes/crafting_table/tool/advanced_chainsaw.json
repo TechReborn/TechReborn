@@ -13,13 +13,13 @@
       "item": "techreborn:lithium_ion_battery"
     },
     "T": {
-      "tag": "c:titanium_ingots"
+      "tag": "c:ingots/titanium"
     },
     "S": {
       "item": "techreborn:basic_chainsaw"
     }
   },
   "result": {
-    "item": "techreborn:advanced_chainsaw"
+    "id": "techreborn:advanced_chainsaw"
   }
 }

@@ -90,7 +90,7 @@ public final class GuiSprites {
 	public static final CheckBox LIGHT_CHECK_BOX = new CheckBox(LIGHT_CHECK_BOX_NORMAL, LIGHT_CHECK_BOX_TICKED);
 
 	public static SpriteIdentifier create(String name) {
-		return new SpriteIdentifier(new Identifier("gui"), new Identifier("reborncore", name));
+		return new SpriteIdentifier(Identifier.of("gui"), Identifier.of("reborncore", name));
 	}
 
 	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {

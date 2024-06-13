@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -107,7 +108,6 @@ public class BlockRubberLog extends PillarBlock {
 		return super.onBreak(worldIn, pos, state, player);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 		super.randomTick(state, worldIn, pos, random);
@@ -124,10 +124,8 @@ public class BlockRubberLog extends PillarBlock {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
-							Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (stack.isEmpty()) {
 			return ActionResult.PASS;
@@ -143,7 +141,7 @@ public class BlockRubberLog extends PillarBlock {
 				if (stack.getItem() instanceof ElectricTreetapItem item) {
 					item.tryUseEnergy(stack, TechRebornConfig.electricTreetapCost);
 				} else {
-					stack.damage(1, playerIn, player -> player.sendToolBreakStatus(hand));
+					stack.damage(1, playerIn, EquipmentSlot.MAINHAND);
 				}
 				if (!playerIn.getInventory().insertStack(TRContent.Parts.SAP.getStack())) {
 					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));

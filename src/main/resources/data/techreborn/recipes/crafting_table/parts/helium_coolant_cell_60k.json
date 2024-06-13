@@ -7,13 +7,13 @@
   ],
   "key": {
     "T": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     },
     "C": {
       "item": "techreborn:helium_bucket"
     }
   },
   "result": {
-    "item": "techreborn:helium_coolant_cell_60k"
+    "id": "techreborn:helium_coolant_cell_60k"
   }
 }

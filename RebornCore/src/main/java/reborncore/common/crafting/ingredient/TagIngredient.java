@@ -80,7 +80,7 @@ public class TagIngredient extends RebornIngredient {
 		}
 
 		if (json.has("tag_server_sync")) {
-			Identifier tagIdent = new Identifier(JsonHelper.getString(json, "tag_identifier"));
+			Identifier tagIdent = Identifier.of(JsonHelper.getString(json, "tag_identifier"));
 
 			List<Item> items = new ArrayList<>();
 			final JsonArray itemsArray = JsonHelper.getArray(json, "items");
@@ -93,7 +93,7 @@ public class TagIngredient extends RebornIngredient {
 			return new Synced(TagKey.of(RegistryKeys.ITEM, tagIdent), count, items);
 		}
 
-		Identifier identifier = new Identifier(JsonHelper.getString(json, "tag"));
+		Identifier identifier = Identifier.of(JsonHelper.getString(json, "tag"));
 
 		TagKey<Item> tagKey = TagKey.of(RegistryKeys.ITEM, identifier);
 		return new TagIngredient(tagKey, count);

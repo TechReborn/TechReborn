@@ -43,7 +43,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
@@ -172,14 +171,14 @@ public class FluidUtils {
 	}
 
 	@Deprecated
-	public static boolean interactWithFluidHandler(PlayerEntity playerIn, Hand hand, Tank tank) {
+	public static boolean interactWithFluidHandler(PlayerEntity playerIn, Tank tank) {
 		// TODO
 		return false;
 	}
 
 	public static String getFluidName(@NotNull FluidInstance fluidInstance) {
 		// TODO: use FluidVariantRendering
-		return getFluidName(fluidInstance.getFluid());
+		return getFluidName(fluidInstance.fluid());
 	}
 
 	public static String getFluidName(@NotNull Fluid fluid) {

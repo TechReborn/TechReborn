@@ -36,7 +36,7 @@ import java.util.function.Predicate;
 
 public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, RegistryKey<ConfiguredFeature<?, ?>> configuredFeature, RegistryKey<PlacedFeature> placedFeature) {
 	public static TROreFeatureConfig of(TRContent.Ores ore) {
-		Identifier id = new Identifier("techreborn", ore.name + "_ore");
+		Identifier id = Identifier.of("techreborn", ore.name + "_ore");
 		return new TROreFeatureConfig(
 			id,
 			ore,

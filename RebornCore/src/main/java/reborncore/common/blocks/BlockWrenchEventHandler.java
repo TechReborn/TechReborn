@@ -48,7 +48,7 @@ public class BlockWrenchEventHandler {
 			if (ToolManager.INSTANCE.canHandleTool(playerEntity.getStackInHand(Hand.MAIN_HAND))) {
 				BlockState state = world.getBlockState(blockHitResult.getBlockPos());
 				if (wrenchableBlocks.contains(state.getBlock())) {
-					state.onUse(world, playerEntity, hand, blockHitResult);
+					state.onUse(world, playerEntity, blockHitResult);
 					return ActionResult.SUCCESS;
 				}
 			}

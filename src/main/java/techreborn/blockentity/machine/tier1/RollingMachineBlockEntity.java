@@ -30,8 +30,12 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.input.CraftingRecipeInput;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -117,7 +121,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			if (world.getTime() % 2 == 0) {
 				balanceRecipe(craftMatrix);
 			}
-			currentRecipeOutput = currentRecipe.craft(craftMatrix, getWorld().getRegistryManager());
+			currentRecipeOutput = currentRecipe.getShapedRecipe().craft(recipeInput(craftMatrix), getWorld().getRegistryManager());
 		} else {
 			currentRecipeOutput = ItemStack.EMPTY;
 		}
@@ -354,8 +358,9 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			return lastRecipe;
 		}
 		cachedInventoryStructure = fastIntlayout();
+		CraftingRecipeInput input = recipeInput(inv);
 		for (RollingMachineRecipe recipe : getAllRecipe(world)) {
-			if (recipe.matches(inv, world)) {
+			if (recipe.getShapedRecipe().matches(input, world)) {
 				lastRecipe = recipe;
 				return recipe;
 			}
@@ -386,16 +391,16 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
+	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
 		this.isRunning = tagCompound.getBoolean("isRunning");
 		this.tickTime = tagCompound.getInt("tickTime");
 		this.locked = tagCompound.getBoolean("locked");
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
+	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
 		tagCompound.putBoolean("isRunning", this.isRunning);
 		tagCompound.putInt("tickTime", this.tickTime);
 		tagCompound.putBoolean("locked", locked);
@@ -432,8 +437,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			.onCraft(inv -> this.inventory.setStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
-			.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt)
-			.sync(this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getBurnTime, this::setBurnTime).sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt)
+			.sync(PacketCodecs.INTEGER, this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentRecipeTime() {
@@ -486,5 +491,13 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public boolean canBeUpgraded() {
 		return true;
+	}
+
+	private static CraftingRecipeInput recipeInput(CraftingInventory inventory) {
+		List<ItemStack> stacks = new ArrayList<>(inventory.size());
+		for (int i = 0; i < inventory.size(); i++) {
+			stacks.add(inventory.getStack(i));
+		}
+		return CraftingRecipeInput.create(inventory.getWidth(), inventory.getHeight(), stacks);
 	}
 }

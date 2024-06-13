@@ -13,10 +13,10 @@
       "item": "techreborn:data_storage_core"
     },
     "I": {
-      "tag": "c:iridium_ingots"
+      "tag": "c:ingots/iridium"
     }
   },
   "result": {
-    "item": "techreborn:data_storage_chip"
+    "id": "techreborn:data_storage_chip"
   }
 }

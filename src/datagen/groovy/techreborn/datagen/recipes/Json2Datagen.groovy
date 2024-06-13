@@ -43,7 +43,7 @@ class Json2Datagen {
 
 		new File("../../src/main/resources/data/techreborn/recipes/grinder").eachFile {
 			def json = GSON.fromJson(it.text, JsonObject.class)
-			def recipe = ModRecipes.GRINDER.read(new Identifier("techreborn:convert"), json)
+			def recipe = ModRecipes.GRINDER.read(Identifier.of("techreborn:convert"), json)
 			sj.add process(recipe)
 		}
 

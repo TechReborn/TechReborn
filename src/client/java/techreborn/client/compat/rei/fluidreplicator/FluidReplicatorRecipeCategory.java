@@ -81,7 +81,7 @@ public class FluidReplicatorRecipeCategory implements DisplayCategory<FluidRepli
 			list.add(Text.of("Energy"));
 			list.add(Text.translatable("techreborn.jei.recipe.running.cost", "E", recipeDisplay.getEnergy()).formatted(Formatting.GRAY));
 			list.add(Text.of(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(new Identifier("techreborn", "")));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.of("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 

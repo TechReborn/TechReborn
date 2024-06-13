@@ -10,10 +10,10 @@
       "item": "techreborn:thick_neutron_reflector"
     },
     "I": {
-      "tag": "c:iridium_ingots"
+      "tag": "c:ingots/iridium"
     }
   },
   "result": {
-    "item": "techreborn:iridium_neutron_reflector"
+    "id": "techreborn:iridium_neutron_reflector"
   }
 }

@@ -28,25 +28,19 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
-import net.minecraft.entity.Entity;
+import net.minecraft.component.ComponentMap;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
-import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.recipes.IRecipeInput;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
-import team.reborn.energy.api.base.SimpleEnergyItem;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -54,27 +48,15 @@ import java.util.function.Predicate;
  */
 public class ItemUtils {
 
-	public static boolean isItemEqual(final ItemStack a, final ItemStack b,
-									final boolean matchNBT) {
-		if (a.isEmpty() || b.isEmpty()) {
-			return false;
-		}
-		if (a.getItem() != b.getItem()) {
-			return false;
-		}
-		return !matchNBT || Objects.equals(a.getNbt(), b.getNbt());
-	}
-
-	public static boolean isItemEqual(ItemStack a, ItemStack b, boolean matchNBT,
-									boolean useTags) {
+	public static boolean isItemEqual(ItemStack a, ItemStack b, boolean matchComponent, boolean useTags) {
 		if (a.isEmpty() && b.isEmpty()) {
 			return true;
 		}
-		if (isItemEqual(a, b, matchNBT)) {
-			return true;
-		}
 		if (a.isEmpty() || b.isEmpty()) {
 			return false;
+		}
+		if (matchComponent && ItemStack.areItemsAndComponentsEqual(a, b)) {
+			return true;
 		}
 		if (useTags) {
 
@@ -86,9 +68,9 @@ public class ItemUtils {
 	public static boolean canExtractAnyFromShulker(ItemStack shulkerStack, ItemStack targetStack) {
 		//bundle method
 		List<ItemStack> stacks = getBlockEntityStacks(shulkerStack);
-		if (stacks == null) return false;
+
 		for (ItemStack stack : stacks) {
-			if (isItemEqual(targetStack, stack, true)) {
+			if (ItemStack.areItemsAndComponentsEqual(targetStack, stack)) {
 				return true;
 			}
 		}
@@ -99,7 +81,7 @@ public class ItemUtils {
 		if (stacks == null) return 0;
 		int defaultValue = 0;
 		for (ItemStack stack : stacks) {
-			if (isItemEqual(targetStack, stack, true)) {
+			if (ItemStack.areItemsAndComponentsEqual(targetStack, stack)) {
 				defaultValue += stack.getCount();
 			}
 		}
@@ -119,7 +101,7 @@ public class ItemUtils {
 		int extracted = 0;
 		for (ItemStack stack : stacks) {
 			if (stack.isEmpty()) continue;
-			if (isItemEqual(targetStack, stack, true)) {
+			if (ItemStack.areItemsAndComponentsEqual(targetStack, stack)) {
 				int count = stack.getCount();
 				int toExtract = Math.min(maxAmount, count);
 				stack.decrement(toExtract);
@@ -135,40 +117,26 @@ public class ItemUtils {
 	public static Pair<Integer, ItemStack> extractFromShulker(ItemStack shulkerStack, DefaultedList<ItemStack> entityStack, ItemStack targetStack, int capacity) {
 		ItemStack newStack = shulkerStack.copy();
 		if (entityStack == null) {
-			entityStack = getBlockEntityStacks(newStack);
-		}
-		if (entityStack == null) {
 			return new Pair<>(0, shulkerStack);
 		}
+
 		int extracted = extractableFromCachedShulker(entityStack, targetStack, capacity);
 		if (extracted == 0) {
 			return new Pair<>(0, shulkerStack);
 		}
-		NbtCompound blockEntityTag = newStack.getSubNbt("BlockEntityTag");
-		if (blockEntityTag == null) throw new IllegalStateException("BlockEntityTag is removed during operation!");
+
 		if (isStackListEmpty(entityStack)) {
-			if (blockEntityTag.contains("Items")) blockEntityTag.remove("Items");
-			if (blockEntityTag.getKeys().isEmpty()) {
-				//remove empty nbt
-				blockEntityTag = null;
-				newStack.removeSubNbt("BlockEntityTag");
-			}
+			newStack.set(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT);
 			return new Pair<>(extracted, newStack);
 		}
-		Inventories.writeNbt(blockEntityTag, entityStack);
 		return new Pair<>(extracted, newStack);
 	}
 
-	public static @Nullable DefaultedList<ItemStack> getBlockEntityStacks(ItemStack targetStack) {
+	public static DefaultedList<ItemStack> getBlockEntityStacks(ItemStack targetStack) {
 		int maxSize = 128; // theorical max is 255
-		NbtCompound compound = targetStack.getSubNbt("BlockEntityTag");
-		if (compound == null) {
-			return null;
-		}
 		DefaultedList<ItemStack> returnStacks = DefaultedList.ofSize(maxSize, ItemStack.EMPTY);
-		if (compound.contains("Items")) {
-			Inventories.readNbt(compound, returnStacks);
-		}
+		targetStack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyTo(returnStacks);
+
 		return returnStacks;
 	}
 
@@ -176,23 +144,21 @@ public class ItemUtils {
 		if (stack1 == stack2) {
 			return true;
 		}
-		if (!stack1.isOf(stack2.getItem())) {
-			return false;
-		}
 		if (stack1.getCount() != stack2.getCount()) {
 			return false;
 		}
-		if (stack1.getNbt() == stack2.getNbt()) {
+		if (ItemStack.areItemsAndComponentsEqual(stack1, stack2)) {
 			return true;
 		}
-		if (stack1.getNbt() == null || stack2.getNbt() == null) {
+		if (stack1.getComponents() == ComponentMap.EMPTY || stack2.getComponents() == ComponentMap.EMPTY) {
 			return false;
 		}
-		NbtCompound nbt1Copy = stack1.getNbt().copy();
-		NbtCompound nbt2Copy = stack2.getNbt().copy();
-		nbt1Copy.remove(SimpleEnergyItem.ENERGY_KEY);
-		nbt2Copy.remove(SimpleEnergyItem.ENERGY_KEY);
-		return nbt1Copy.equals(nbt2Copy);
+		ItemStack stack1Copy = stack1.copy();
+		stack1Copy.remove(EnergyStorage.ENERGY_COMPONENT);
+		ItemStack stack2Copy = stack2.copy();
+		stack2Copy.remove(EnergyStorage.ENERGY_COMPONENT);
+
+		return ItemStack.areItemsAndComponentsEqual(stack1Copy, stack2Copy);
 	}
 
 	//TODO tags
@@ -213,20 +179,6 @@ public class ItemUtils {
 		return false;
 	}
 
-	public static void writeItemToNBT(ItemStack stack, NbtCompound data) {
-		if (stack.isEmpty() || stack.getCount() <= 0) {
-			return;
-		}
-		if (stack.getCount() > 127) {
-			stack.setCount(127);
-		}
-		stack.writeNbt(data);
-	}
-
-	public static ItemStack readItemFromNBT(NbtCompound data) {
-		return ItemStack.fromNbt(data);
-	}
-
 	public static int getPowerForDurabilityBar(ItemStack stack) {
 		if (!(stack.getItem() instanceof RcEnergyItem energyItem)) {
 			throw new UnsupportedOperationException();
@@ -239,91 +191,7 @@ public class ItemUtils {
 		return 0xff8006;
 	}
 
-	/**
-	 * Checks if powered item is active
-	 *
-	 * @param stack {@link ItemStack} Stack to check
-	 * @return {@code boolean} True if powered item is active
-	 */
-	public static boolean isActive(ItemStack stack) {
-		return !stack.isEmpty() && stack.getNbt() != null && stack.getNbt().getBoolean("isActive");
-	}
 
-	/**
-	 * Check if powered item has enough energy to continue being in active state
-	 *
-	 * @param stack     {@link ItemStack} Stack to check
-	 * @param cost      {@link int} Cost of operation performed by tool
-	 */
-	public static void checkActive(ItemStack stack, int cost, Entity player) {
-		if (!ItemUtils.isActive(stack)) {
-			return;
-		}
-		if (((RcEnergyItem) stack.getItem()).getStoredEnergy(stack) >= cost) {
-			return;
-		}
-
-		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
-			serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.energyError")
-								.formatted(Formatting.GRAY)
-								.append(" ")
-								.append(
-									Text.translatable("reborncore.message.deactivating")
-										.formatted(Formatting.GOLD)
-								), true);
-		}
-
-		stack.getOrCreateNbt().putBoolean("isActive", false);
-	}
-
-	/**
-	 * Switch active\inactive state for powered item
-	 *
-	 * @param stack     {@link ItemStack} Stack to switch state
-	 * @param cost      {@code int} Cost of operation performed by tool
-	 */
-	public static void switchActive(ItemStack stack, int cost, Entity entity) {
-		ItemUtils.checkActive(stack, cost, entity);
-
-		if (!ItemUtils.isActive(stack)) {
-			stack.getOrCreateNbt().putBoolean("isActive", true);
-
-			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.setTo")
-												.formatted(Formatting.GRAY)
-												.append(" ")
-												.append(
-													Text.translatable("reborncore.message.active")
-														.formatted(Formatting.GOLD)
-												), true);
-			}
-		} else {
-			stack.getOrCreateNbt().putBoolean("isActive", false);
-			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.setTo")
-												.formatted(Formatting.GRAY)
-												.append(" ")
-												.append(
-													Text.translatable("reborncore.message.inactive")
-														.formatted(Formatting.GOLD)
-												), true);
-			}
-		}
-	}
-
-	/**
-	 * Adds active\inactive state to powered item tooltip
-	 *
-	 * @param stack   {@link ItemStack} Stack to check
-	 * @param tooltip {@link List} List of {@link Text} tooltip strings
-	 */
-	public static void buildActiveTooltip(ItemStack stack, List<Text> tooltip) {
-		if (!ItemUtils.isActive(stack)) {
-			tooltip.add(Text.translatable("reborncore.message.inactive").formatted(Formatting.RED));
-		} else {
-			tooltip.add(Text.translatable("reborncore.message.active").formatted(Formatting.GREEN));
-		}
-	}
 
 	/**
 	 * Output energy from item to other items in inventory

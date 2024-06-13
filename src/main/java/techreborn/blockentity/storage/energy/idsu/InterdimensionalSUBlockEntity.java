@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.StringUtils;
@@ -115,8 +116,6 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		}
 
 		setStored(energy - extract);
-
-		return;
 	}
 
 	@Override
@@ -125,14 +124,14 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbtCompound) {
-		super.readNbt(nbtCompound);
+	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(nbtCompound, registryLookup);
 		this.ownerUdid = nbtCompound.getString("ownerUdid");
 	}
 
 	@Override
-	public void writeNbt(NbtCompound nbtCompound) {
-		super.writeNbt(nbtCompound);
+	public void writeNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(nbtCompound, registryLookup);
 		if (ownerUdid == null || StringUtils.isEmpty(ownerUdid)) {
 			return;
 		}

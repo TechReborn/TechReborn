@@ -8,14 +8,14 @@
     ],
     "key": {
       "N": {
-        "tag": "c:nickel_ingots"
+        "tag": "c:ingots/nickel"
       },
       "C": {
         "item": "minecraft:copper_ingot"
       }
     },
     "result": {
-      "item": "techreborn:cupronickel_heating_coil",
+      "id": "techreborn:cupronickel_heating_coil",
       "count": 3
     }
   },

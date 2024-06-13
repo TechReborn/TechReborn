@@ -8,17 +8,17 @@
   ],
   "key": {
     "B": {
-      "tag": "c:aluminum_ingots"
+      "tag": "c:ingots/aluminum"
     },
     "T": {
-      "tag": "c:nickel_ingots"
+      "tag": "c:ingots/nickel"
     },
     "M": {
-      "tag": "c:brass_ingots"
+      "tag": "c:ingots/brass"
     }
   },
   "result": {
-    "item": "techreborn:mixed_metal_ingot",
+    "id": "techreborn:mixed_metal_ingot",
     "count": 4
   }
 }

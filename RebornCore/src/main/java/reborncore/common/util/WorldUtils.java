@@ -73,10 +73,6 @@ public class WorldUtils {
 		ItemEntity entityItem = new ItemEntity(world, pos.getX() + dX, pos.getY() + dY, pos.getZ() + dZ,
 				itemStack.copy());
 
-		if (itemStack.hasNbt()) {
-			entityItem.getStack().setNbt(itemStack.getNbt().copy());
-		}
-
 		float factor = 0.05F;
 		entityItem.setVelocity(new Vec3d(rand.nextGaussian() * factor, rand.nextGaussian() * factor + 0.2F, rand.nextGaussian() * factor));
 		if (!world.isClient) {

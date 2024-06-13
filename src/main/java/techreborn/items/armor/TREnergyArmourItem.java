@@ -24,21 +24,20 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import reborncore.api.items.EnchantmentTargetHandler;
+import net.minecraft.registry.entry.RegistryEntry;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 
-public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnergyItem, EnchantmentTargetHandler {
+public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnergyItem {
 	public final long maxCharge;
 	private final RcEnergyTier energyTier;
 
-	public TREnergyArmourItem(ArmorMaterial material, Type slot, long maxCharge, RcEnergyTier energyTier) {
-		super(material, slot, new Item.Settings().maxDamage(-1).maxCount(1));
+	public TREnergyArmourItem(RegistryEntry<ArmorMaterial> material, Type slot, long maxCharge, RcEnergyTier energyTier) {
+		super(material, slot, new Item.Settings().maxDamage(0));
 		this.maxCharge = maxCharge;
 		this.energyTier = energyTier;
 	}
@@ -50,11 +49,6 @@ public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnerg
 	}
 
 	// Item
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	@Override
 	public int getItemBarStep(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
@@ -86,9 +80,4 @@ public abstract class TREnergyArmourItem extends TRArmourItem implements RcEnerg
 		return energyTier;
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

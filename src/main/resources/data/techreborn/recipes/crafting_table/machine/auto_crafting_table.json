@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "C": {
       "tag": "c:workbench"
@@ -17,6 +17,6 @@
     }
   },
   "result": {
-    "item": "techreborn:auto_crafting_table"
+    "id": "techreborn:auto_crafting_table"
   }
 }

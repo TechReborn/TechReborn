@@ -101,6 +101,6 @@ class AdvancementFactory {
 			builder.parent(parent)
 		}
 
-		return builder.build(new Identifier("techreborn:${name}"))
+		return builder.build(Identifier.of("techreborn:${name}"))
 	}
 }

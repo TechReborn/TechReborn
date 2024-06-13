@@ -24,15 +24,15 @@
 
 package reborncore.client.gui.config.elements;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.SlotConfiguration;
-import reborncore.common.network.IdentifiedPacket;
-import reborncore.common.network.ServerBoundPackets;
+import reborncore.common.network.serverbound.IoSavePayload;
+import reborncore.common.network.serverbound.SlotSavePayload;
 import reborncore.common.util.Color;
 
 public class SlotConfigPopupElement extends AbstractConfigPopupElement {
@@ -57,8 +57,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 
 		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(nextConfig);
 		SlotConfiguration.SlotConfig newConfig = new SlotConfiguration.SlotConfig(side, slotIO, id);
-		IdentifiedPacket packetSlotSave = ServerBoundPackets.createPacketSlotSave(guiBase.be.getPos(), newConfig);
-		ClientNetworkManager.sendToServer(packetSlotSave);
+		ClientPlayNetworking.send(new SlotSavePayload(guiBase.be.getPos(), newConfig));
 	}
 
 	public void updateCheckBox(String type, GuiBase<?> guiBase) {
@@ -76,8 +75,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			filter = !configHolder.filter();
 		}
 
-		IdentifiedPacket packetSlotSave = ServerBoundPackets.createPacketIOSave(guiBase.be.getPos(), id, input, output, filter);
-		ClientNetworkManager.sendToServer(packetSlotSave);
+		ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, input, output, filter));
 	}
 
 	@Override

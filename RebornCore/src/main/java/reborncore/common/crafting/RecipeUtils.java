@@ -32,7 +32,8 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -62,7 +63,7 @@ public class RecipeUtils {
 	}
 
 	private static <T extends RebornRecipe> Stream<RecipeEntry<T>> streamRecipeEntries(World world, RebornRecipeType<T> type) {
-		return world.getRecipeManager().getAllOfType(type).values().stream();
+		return world.getRecipeManager().getAllOfType(type).stream();
 	}
 
 	public static DefaultedList<ItemStack> deserializeItems(JsonElement jsonObject) {
@@ -74,7 +75,7 @@ public class RecipeUtils {
 	}
 
 	private static ItemStack deserializeItem(JsonObject jsonObject) {
-		Identifier resourceLocation = new Identifier(JsonHelper.getString(jsonObject, "item"));
+		Identifier resourceLocation = Identifier.of(JsonHelper.getString(jsonObject, "item"));
 		Item item = Registries.ITEM.get(resourceLocation);
 		if (item == Items.AIR) {
 			throw new IllegalStateException(resourceLocation + " did not exist");
@@ -86,7 +87,8 @@ public class RecipeUtils {
 		ItemStack stack = new ItemStack(item, count);
 		if (jsonObject.has("nbt")) {
 			NbtCompound tag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject.get("nbt"));
-			stack.setNbt(tag);
+			NbtComponent nbtData = NbtComponent.of(tag);
+			stack.set(DataComponentTypes.CUSTOM_DATA, nbtData);
 		}
 		return stack;
 	}
@@ -105,7 +107,7 @@ public class RecipeUtils {
 	public static void addToastDefaults(@NotNull Advancement.Builder builder, @NotNull Identifier recipeId) {
 		Objects.requireNonNull(builder);
 		Objects.requireNonNull(recipeId);
-		builder.parent(CraftingRecipeJsonBuilder.ROOT)
+		builder
 			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
 			.rewards(AdvancementRewards.Builder.recipe(recipeId))
 			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR);

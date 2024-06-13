@@ -62,7 +62,7 @@ record HologramRenderer(World view, MatrixStack matrix, VertexConsumerProvider v
 
 
 		if (state.getBlock() instanceof FluidBlock) {
-			FluidState fluidState = ((FluidBlock) state.getBlock()).getFluidState(state);
+			FluidState fluidState = state.getFluidState();
 			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ModelTransformationMode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, view, 0);
 		} else {
 			matrix.translate(-0.5, -0.5, -0.5);

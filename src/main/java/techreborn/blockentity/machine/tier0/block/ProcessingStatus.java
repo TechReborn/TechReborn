@@ -29,7 +29,7 @@ import net.minecraft.text.Text;
 /**
  * <b>Interface describing different statuses of a Processing Machine</b>
  * <br>
- * Used to define {@link TranslatableText} for UI elements based on the positive, neutral or negative status of a machine
+ * Used to define {@link Text} for UI elements based on the positive, neutral or negative status of a machine
  *
  * @author SimonFlapse
  */

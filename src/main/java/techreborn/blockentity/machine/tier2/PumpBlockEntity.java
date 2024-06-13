@@ -35,7 +35,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ItemScatterer;
@@ -146,7 +148,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	private Tank createTank() {
-		return new Tank("PumpBlockEntity", TANK_CAPACITY, this);
+		return new Tank("PumpBlockEntity", TANK_CAPACITY);
 	}
 
 	@Override
@@ -155,18 +157,18 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
-		getTank().read(tagCompound);
+	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
+		getTank().read(tagCompound, registryLookup);
 		this.range = tagCompound.getInt("range");
 		this.depth = tagCompound.getInt("depth");
 		finder = null;
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
-		getTank().write(tagCompound);
+	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
+		getTank().write(tagCompound, registryLookup);
 		tagCompound.putInt("range", range);
 		tagCompound.putInt("depth", depth);
 	}
@@ -178,9 +180,9 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			.energySlot(0, 8, 72)
 			.sync(getTank())
 			.syncEnergyValue()
-			.sync(this::getDepth, this::setDepth)
-			.sync(this::getRange, this::setRange)
-			.sync(this::getExhausted, this::setExhausted)
+			.sync(PacketCodecs.INTEGER, this::getDepth, this::setDepth)
+			.sync(PacketCodecs.INTEGER, this::getRange, this::setRange)
+			.sync(PacketCodecs.BOOL, this::getExhausted, this::setExhausted)
 			.addInventory()
 			.create(this, syncID);
 	}
@@ -230,7 +232,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				if (getTank().getFluidInstance().isEmpty()) {
 					getTank().setFluidInstance(new FluidInstance(fluid, FluidValue.BUCKET));
 				} else {
-					getTank().getFluidInstance().addAmount(FluidValue.BUCKET);
+					getTank().modifyFluid(fluidInstance -> fluidInstance.addAmount(FluidValue.BUCKET));
 				}
 				//play sound
 				if (!isMuffled()) {

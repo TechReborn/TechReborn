@@ -28,9 +28,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -78,11 +80,12 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private void updateCurrentRecipe() {
-		if (inventory.getStack(inputSlot).isEmpty()) {
+		ItemStack stack = inventory.getStack(inputSlot);
+		if (stack.isEmpty()) {
 			resetCrafter();
 			return;
 		}
-		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, world).map(RecipeEntry::value);
+		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).map(RecipeEntry::value);
 		if (!testRecipe.isPresent()) {
 			resetCrafter();
 			return;
@@ -144,11 +147,12 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (recipe == null) {
 			return false;
 		}
-		if (inventory.getStack(inputSlot).isEmpty()) {
+		ItemStack stack = inventory.getStack(inputSlot);
+		if (stack.isEmpty()) {
 			return false;
 		}
 
-		return recipe.matches(inventory, world);
+		return recipe.matches(new SingleStackRecipeInput(stack), world);
 	}
 
 	private void craftRecipe(SmeltingRecipe recipe) {
@@ -272,6 +276,6 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("electricfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.sync(this::getCookTime, this::setCookTime).sync(this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
+				.sync(PacketCodecs.INTEGER, this::getCookTime, this::setCookTime).sync(PacketCodecs.INTEGER, this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
 	}
 }

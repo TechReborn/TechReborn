@@ -10,7 +10,7 @@
       "item": "techreborn:iridium_alloy_plate"
     },
     "N": {
-      "tag": "c:iridium_nuggets"
+      "tag": "c:nuggets/iridium"
     },
     "C": {
       "item": "techreborn:energy_flow_chip"
@@ -23,6 +23,6 @@
     }
   },
   "result": {
-    "item": "techreborn:industrial_chainsaw"
+    "id": "techreborn:industrial_chainsaw"
   }
 }

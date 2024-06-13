@@ -30,6 +30,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -89,14 +90,14 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag) {
-		super.writeNbt(tag);
+	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tag, registryLookup);
 		processor.writeNbt(tag);
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag) {
-		super.readNbt(tag);
+	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tag, registryLookup);
 		processor.readNbt(tag);
 	}
 

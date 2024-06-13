@@ -26,6 +26,7 @@ package reborncore.common.screen.builder;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.CraftingInventory;
@@ -34,13 +35,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.tuple.Pair;
 import reborncore.RebornCore;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.Syncable;
@@ -70,8 +74,8 @@ public class BlockEntityScreenHandlerBuilder {
 		if (inventory instanceof IUpgradeable) {
 			upgradeSlots((IUpgradeable) inventory);
 		}
-		if (blockEntity instanceof MachineBaseBlockEntity) {
-			sync(((MachineBaseBlockEntity) blockEntity).getRedstoneConfiguration());
+		if (blockEntity instanceof MachineBaseBlockEntity machineBaseBlockEntity) {
+			sync(RedstoneConfiguration.PACKET_CODEC, machineBaseBlockEntity::getRedstoneConfiguration, machineBaseBlockEntity::setRedstoneConfiguration);
 		}
 	}
 
@@ -140,18 +144,18 @@ public class BlockEntityScreenHandlerBuilder {
 	 * @param setter   {@link Consumer<T>} The setter to call when the variable has been updated.
 	 * @return {@link BlockEntityScreenHandlerBuilder} Inventory which will do the sync
 	 */
-	public <T> BlockEntityScreenHandlerBuilder sync(final Supplier<T> supplier, final Consumer<T> setter) {
-		this.parent.objectValues.add(Pair.of(supplier, setter));
+	public <T> BlockEntityScreenHandlerBuilder sync(PacketCodec<? super RegistryByteBuf, T> codec, Supplier<T> supplier, Consumer<T> setter) {
+		this.parent.objectValues.add(new SyncedObject<>(codec, supplier, setter));
 		return this;
 	}
 
 	public BlockEntityScreenHandlerBuilder sync(Syncable syncable) {
-		syncable.getSyncPair(this.parent.objectValues);
+		syncable.configureSync(this::sync);
 		return this;
 	}
 
 	public <T> BlockEntityScreenHandlerBuilder sync(Codec<T> codec) {
-		return sync(() -> {
+		return sync(PacketCodecs.NBT_COMPOUND, () -> {
 			DataResult<NbtElement> dataResult = codec.encodeStart(NbtOps.INSTANCE, (T) blockEntity);
 			if (dataResult.error().isPresent()) {
 				throw new RuntimeException("Failed to encode: " + dataResult.error().get().message() + " " + blockEntity);
@@ -168,10 +172,9 @@ public class BlockEntityScreenHandlerBuilder {
 
 	public BlockEntityScreenHandlerBuilder syncEnergyValue() {
 		if (this.blockEntity instanceof PowerAcceptorBlockEntity powerAcceptor) {
-
-			return this.sync(powerAcceptor::getEnergy, powerAcceptor::setEnergy)
-					.sync(powerAcceptor::getExtraPowerStorage, powerAcceptor::setExtraPowerStorage)
-					.sync(powerAcceptor::getPowerChange, powerAcceptor::setPowerChange);
+			return this.sync(PacketCodecs.VAR_LONG, powerAcceptor::getEnergy, powerAcceptor::setEnergy)
+					.sync(PacketCodecs.VAR_LONG, powerAcceptor::getExtraPowerStorage, powerAcceptor::setExtraPowerStorage)
+					.sync(PacketCodecs.VAR_LONG, powerAcceptor::getPowerChange, powerAcceptor::setPowerChange);
 		}
 
 		RebornCore.LOGGER.error(this.inventory + " is not an instance of TilePowerAcceptor! Energy cannot be synced.");
@@ -181,8 +184,8 @@ public class BlockEntityScreenHandlerBuilder {
 	public BlockEntityScreenHandlerBuilder syncCrafterValue() {
 		if (this.blockEntity instanceof IRecipeCrafterProvider recipeCrafter) {
 			return this
-					.sync(() -> recipeCrafter.getRecipeCrafter().currentTickTime, (time) -> recipeCrafter.getRecipeCrafter().currentTickTime = time)
-					.sync(() -> recipeCrafter.getRecipeCrafter().currentNeededTicks, (ticks) -> recipeCrafter.getRecipeCrafter().currentNeededTicks = ticks);
+					.sync(PacketCodecs.INTEGER, () -> recipeCrafter.getRecipeCrafter().currentTickTime, (time) -> recipeCrafter.getRecipeCrafter().currentTickTime = time)
+					.sync(PacketCodecs.INTEGER, () -> recipeCrafter.getRecipeCrafter().currentNeededTicks, (ticks) -> recipeCrafter.getRecipeCrafter().currentNeededTicks = ticks);
 		}
 
 		RebornCore.LOGGER.error(this.inventory + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");

@@ -61,27 +61,27 @@ public class StorageUnitBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		if (unitType == TRContent.StorageUnit.CREATIVE || worldIn.isClient) {
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
 		if (storageEntity == null) {
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 		if (storageEntity.isFull()) {
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (!storageEntity.isValid(StorageUnitBaseBlockEntity.INPUT_SLOT, stackInHand)) {
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		Item itemInHand = stackInHand.getItem();
 		if (itemInHand instanceof WrenchItem){
-			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		// Add item which is the same type (in users inventory) into storage
@@ -105,7 +105,6 @@ public class StorageUnitBlock extends BlockMachineBase {
 		return MathHelper.lerpPositive(delta, 0, 15);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
 		super.onBlockBreakStart(state, world, pos, player);

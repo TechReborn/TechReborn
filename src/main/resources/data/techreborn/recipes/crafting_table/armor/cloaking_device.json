@@ -7,7 +7,7 @@
 	],
 	"key": {
 		"C": {
-			"tag": "c:chromium_ingots"
+			"tag": "c:ingots/chromium"
 		},
 		"I": {
 			"item": "techreborn:iridium_alloy_plate"
@@ -17,6 +17,6 @@
 		}
 	},
 	"result": {
-		"item": "techreborn:cloaking_device"
+		"id": "techreborn:cloaking_device"
 	}
 }

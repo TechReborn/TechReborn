@@ -134,7 +134,6 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 		builder.add(FACING, ACTIVE);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
@@ -152,27 +151,27 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 		return super.onBreak(world, blockPos, blockState, playerEntity);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		return ScreenHandler.calculateComparatorOutput(getInventory(state, world, pos));
 	}
 
-	/*
-	 *  Right-click should open GUI for all non-wrench items
-	 *  Shift-Right-click should apply special action, like fill\drain bucket, install behavior, etc.
-	 */
-	@SuppressWarnings("deprecation")
-	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 
-		ItemStack stack = playerIn.getStackInHand(hand);
+	/**
+	 *
+	 * 	Right-click should open GUI for all non-wrench items
+	 * 	Shift-Right-click should apply special action, like fill\drain bucket, install behavior, etc.
+	 *
+	 */
+	@Override
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
+
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
 		// We extended BlockTileBase. Thus, we should always have blockEntity entity. I hope.
@@ -182,7 +181,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 
 		if (blockEntity instanceof MachineBaseBlockEntity) {
 			Tank tank = ((MachineBaseBlockEntity) blockEntity).getTank();
-			if (tank != null && FluidUtils.interactWithFluidHandler(playerIn, hand, tank)) {
+			if (tank != null && FluidUtils.interactWithFluidHandler(playerIn, tank)) {
 				return ActionResult.SUCCESS;
 			}
 		}
@@ -212,7 +211,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 			return ActionResult.SUCCESS;
 		}
 
-		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hitResult);
 	}
 
 	// TODO: use the fabric one when it will be PR'ed.
@@ -236,7 +235,6 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 		return inserted;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState rotate(BlockState state, BlockRotation rotation) {
 		return state.with(FACING, rotation.rotate(state.get(FACING)));

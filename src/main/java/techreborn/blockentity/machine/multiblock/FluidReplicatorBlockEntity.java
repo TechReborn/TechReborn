@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -62,7 +63,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 		super(TRBlockEntities.FLUID_REPLICATOR, pos, state, "FluidReplicator", TechRebornConfig.fluidReplicatorMaxInput, TechRebornConfig.fluidReplicatorMaxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
 		this.inventory = new RebornInventory<>(4, "FluidReplicatorBlockEntity", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(ModRecipes.FLUID_REPLICATOR, this, 1, 0, this.inventory, new int[]{0}, null);
-		this.tank = new Tank("FluidReplicatorBlockEntity", FluidReplicatorBlockEntity.TANK_CAPACITY, this);
+		this.tank = new Tank("FluidReplicatorBlockEntity", FluidReplicatorBlockEntity.TANK_CAPACITY);
 	}
 
 	@Override
@@ -94,22 +95,17 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 		}
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return crafter;
-	}
-
 	// TilePowerAcceptor
 	@Override
-	public void readNbt(final NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
-		tank.read(tagCompound);
+	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
+		tank.read(tagCompound, registryLookup);
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
-		tank.write(tagCompound);
+	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
+		tank.write(tagCompound, registryLookup);
 	}
 
 	private static IInventoryAccess<FluidReplicatorBlockEntity> getInventoryAccess() {

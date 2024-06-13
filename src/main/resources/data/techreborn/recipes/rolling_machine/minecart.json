@@ -11,7 +11,7 @@
       }
     },
     "result": {
-      "item": "minecraft:minecart",
+      "id": "minecraft:minecart",
       "count": 1
     }
   },

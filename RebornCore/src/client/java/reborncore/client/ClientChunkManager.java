@@ -25,16 +25,21 @@
 package reborncore.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
+import org.joml.Matrix4f;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.network.ServerBoundPackets;
+import reborncore.common.network.serverbound.ChunkLoaderRequestPayload;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +54,8 @@ public class ClientChunkManager {
 	}
 
 	public static void toggleLoadedChunks(BlockPos chunkLoader) {
-		if (loadedChunks.size() == 0) {
-			ClientNetworkManager.sendToServer(ServerBoundPackets.requestChunkLoaderChunks(chunkLoader));
+		if (loadedChunks.isEmpty()) {
+			ClientPlayNetworking.send(new ChunkLoaderRequestPayload(chunkLoader));
 		} else {
 			loadedChunks.clear();
 		}
@@ -58,47 +63,30 @@ public class ClientChunkManager {
 
 	public static boolean hasChunksForLoader(BlockPos pos) {
 		return loadedChunks.stream()
-				.filter(loadedChunk -> loadedChunk.getChunkLoader().equals(pos))
-				.anyMatch(loadedChunk -> loadedChunk.getWorld().equals(ChunkLoaderManager.getWorldName(MinecraftClient.getInstance().world)));
+				.filter(loadedChunk -> loadedChunk.chunkLoader().equals(pos))
+				.anyMatch(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(MinecraftClient.getInstance().world)));
 	}
 
 	public static void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, double x, double y, double z) {
-		if (loadedChunks.size() == 0) {
+		if (loadedChunks.isEmpty()) {
 			return;
 		}
 		final MinecraftClient minecraftClient = MinecraftClient.getInstance();
 
-		RenderSystem.enableDepthTest();
-
-		// FIXME 1.17
-
-		/*RenderSystem.shadeModel(7425);
-		RenderSystem.enableAlphaTest();
-		RenderSystem.defaultAlphaFunc();*/
-
-		final Tessellator tessellator = Tessellator.getInstance();
-		final BufferBuilder bufferBuilder = tessellator.getBuffer();
-
-		RenderSystem.disableBlend();
-		RenderSystem.lineWidth(5.0F);
-
-		bufferBuilder.begin(VertexFormat.DrawMode.LINE_STRIP, VertexFormats.POSITION_COLOR);
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getDebugLineStrip(1.0));
+		Matrix4f matrix4f = matrices.peek().getPositionMatrix();
 
 		loadedChunks.stream()
-				.filter(loadedChunk -> loadedChunk.getWorld().equals(ChunkLoaderManager.getWorldName(minecraftClient.world)))
+				.filter(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(minecraftClient.world)))
 				.forEach(loadedChunk -> {
-					double chunkX = (double) loadedChunk.getChunk().getStartX() - x;
-					double chunkY = (double) loadedChunk.getChunk().getStartZ() - z;
+					float chunkX = (float)((double) loadedChunk.chunk().getStartX() - x);
+					float chunkY = (float)((double) loadedChunk.chunk().getStartZ() - z);
 
-					bufferBuilder.vertex(chunkX + 8, 0.0D - y, chunkY + 8).color(1.0F, 0.0F, 0.0F, 0.0F).next();
-					bufferBuilder.vertex(chunkX + 8, 0.0D - y, chunkY + 8).color(1.0F, 0.0F, 0.0F, 0.5F).next();
-					bufferBuilder.vertex(chunkX + 8, 256.0D - y, chunkY + 8).color(1.0F, 0.0F, 0.0F, 0.5F).next();
-					bufferBuilder.vertex(chunkX + 8, 256.0D - y, chunkY + 8).color(1.0F, 0.0F, 0.0F, 0.0F).next();
+					vertexConsumer.vertex(matrix4f, chunkX + 8F, 0.0F - (float) y, chunkY + 8F).color(1.0F, 0.0F, 0.0F, 0.0F);
+					vertexConsumer.vertex(matrix4f,chunkX + 8F, 0.0F - (float) y, chunkY + 8F).color(1.0F, 0.0F, 0.0F, 0.5F);
+					vertexConsumer.vertex(matrix4f,chunkX + 8F, 256.0F - (float) y, chunkY + 8F).color(1.0F, 0.0F, 0.0F, 0.5F);
+					vertexConsumer.vertex(matrix4f,chunkX + 8F, 256.0F - (float) y, chunkY + 8F).color(1.0F, 0.0F, 0.0F, 0.0F);
 				});
-
-		tessellator.draw();
-		RenderSystem.lineWidth(1.0F);
-		RenderSystem.enableBlend();
 	}
 
 }

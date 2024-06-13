@@ -31,6 +31,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -70,19 +71,15 @@ public class AlarmBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public void writeNbt(NbtCompound compound) {
-		if (compound == null) {
-			compound = new NbtCompound();
-		}
+	public void writeNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(compound, registryLookup);
 		compound.putInt("selectedSound", this.selectedSound);
 	}
 
 	@Override
-	public void readNbt(NbtCompound compound) {
-		if (compound != null && compound.contains("selectedSound")) {
-			selectedSound = compound.getInt("selectedSound");
-		}
-		super.readNbt(compound);
+	public void readNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(compound,registryLookup);
+		selectedSound = compound.getInt("selectedSound");
 	}
 
 	// Tickable

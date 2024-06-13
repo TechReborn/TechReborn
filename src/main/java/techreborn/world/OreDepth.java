@@ -24,13 +24,14 @@
 
 package techreborn.world;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.HeightContext;
 import org.jetbrains.annotations.Nullable;
@@ -44,15 +45,13 @@ import java.util.List;
  * Client synced DTO for ore depth
  */
 public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimension dimension) {
-	public static final Codec<OreDepth> CODEC = RecordCodecBuilder.create(instance ->
-		instance.group(
-			Identifier.CODEC.fieldOf("identifier").forGetter(OreDepth::identifier),
-			Codec.INT.fieldOf("minY").forGetter(OreDepth::minY),
-			Codec.INT.fieldOf("maxY").forGetter(OreDepth::maxY),
-			TargetDimension.CODEC.fieldOf("dimension").forGetter(OreDepth::dimension)
-		).apply(instance, OreDepth::new)
+	public static final PacketCodec<ByteBuf, OreDepth> PACKET_CODEC = PacketCodec.tuple(
+		Identifier.PACKET_CODEC, OreDepth::identifier,
+		PacketCodecs.INTEGER, OreDepth::minY,
+		PacketCodecs.INTEGER, OreDepth::maxY,
+		TargetDimension.PACKET_CODEC, OreDepth::dimension,
+		OreDepth::new
 	);
-	public static final Codec<List<OreDepth>> LIST_CODEC = Codec.list(OreDepth.CODEC);
 
 	public static List<OreDepth> create(MinecraftServer server) {
 

@@ -31,6 +31,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -332,7 +333,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		if (getStored() <= 0) {
 			return;
 		}
-		if (!isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 
@@ -350,8 +351,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag) {
-		super.readNbt(tag);
+	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tag, registryLookup);
 		NbtCompound data = tag.getCompound("PowerAcceptor");
 		if (shouldHandleEnergyNBT()) {
 			// Bypass overfill check in setStored() because upgrades have not yet been applied.
@@ -360,8 +361,8 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag) {
-		super.writeNbt(tag);
+	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tag, registryLookup);
 		NbtCompound data = new NbtCompound();
 		data.putLong("energy", getStored());
 		tag.put("PowerAcceptor", data);
@@ -399,7 +400,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	public long getMaxOutput(@Nullable Direction face) {
-		if (!isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return 0;
 		}
 		if(!canProvideEnergy(face)) {
@@ -412,7 +413,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	public long getMaxInput(@Nullable Direction face) {
-		if (!isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return 0;
 		}
 		if (!canAcceptEnergy(face)) {

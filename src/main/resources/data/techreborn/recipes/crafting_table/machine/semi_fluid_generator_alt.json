@@ -17,10 +17,10 @@
       "item": "techreborn:reinforced_glass"
     },
     "I": {
-      "tag": "c:aluminum_plates"
+      "tag": "c:plates/aluminum"
     }
   },
   "result": {
-    "item": "techreborn:semi_fluid_generator"
+    "id": "techreborn:semi_fluid_generator"
   }
 }

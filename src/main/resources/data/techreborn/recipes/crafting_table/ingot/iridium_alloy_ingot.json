@@ -10,13 +10,13 @@
       "item": "techreborn:advanced_alloy_plate"
     },
     "D": {
-      "tag": "c:diamond_dusts"
+      "tag": "c:dusts/diamond"
     },
     "I": {
-      "tag": "c:iridium_plates"
+      "tag": "c:plates/iridium"
     }
   },
   "result": {
-    "item": "techreborn:iridium_alloy_ingot"
+    "id": "techreborn:iridium_alloy_ingot"
   }
 }

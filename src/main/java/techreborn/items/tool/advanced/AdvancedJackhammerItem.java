@@ -25,11 +25,11 @@
 package techreborn.items.tool.advanced;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -39,10 +39,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
 import techreborn.items.tool.JackhammerItem;
+import techreborn.utils.TRItemUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Collections;
@@ -60,7 +60,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
 		// No AOE mining turned on OR we've broken a wrong block
-		if (!ItemUtils.isActive(stack) || !isSuitableFor(stateIn)) {
+		if (!TRItemUtils.isActive(stack) || !isCorrectForDrops(stack, stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 
@@ -80,7 +80,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, cost, player);
+			TRItemUtils.switchActive(stack, cost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -88,18 +88,18 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		ItemUtils.checkActive(stack, cost, entity);
+		TRItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!isSuitableFor(worldIn.getBlockState(pos))) {
+		if (!isCorrectForDrops(stack, worldIn.getBlockState(pos))) {
 			return Collections.emptySet();
 		}
 		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1, false)

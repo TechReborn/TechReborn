@@ -10,13 +10,13 @@
       "item": "techreborn:advanced_machine_frame"
     },
     "C": {
-      "tag": "c:chromium_plates"
+      "tag": "c:plates/chromium"
     },
     "T": {
-      "tag": "c:titanium_plates"
+      "tag": "c:plates/titanium"
     }
   },
   "result": {
-    "item": "techreborn:industrial_machine_frame"
+    "id": "techreborn:industrial_machine_frame"
   }
 }

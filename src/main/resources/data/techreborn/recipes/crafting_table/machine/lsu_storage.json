@@ -13,10 +13,10 @@
       "item": "minecraft:lapis_block"
     },
 	"S": {
-		"tag": "c:silver_plates"
+		"tag": "c:plates/silver"
 	}
   },
   "result": {
-    "item": "techreborn:lsu_storage"
+    "id": "techreborn:lsu_storage"
   }
 }

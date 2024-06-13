@@ -8,14 +8,14 @@
     ],
     "key": {
       "N": {
-        "tag": "c:nickel_ingots"
+        "tag": "c:ingots/nickel"
       },
       "C": {
-        "tag": "c:chromium_ingots"
+        "tag": "c:ingots/chromium"
       }
     },
     "result": {
-      "item": "techreborn:nichrome_heating_coil",
+      "id": "techreborn:nichrome_heating_coil",
       "count": 2
     }
   },

@@ -25,7 +25,6 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
@@ -34,12 +33,11 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 
-public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTargetHandler {
+public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 	public final int maxCharge;
 	public final RcEnergyTier tier;
@@ -49,8 +47,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTa
 
 
 	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed) {
-		// combat stats same as for diamond axe. Fix for #2468
-		super(material, 5.0F, -3.0F, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(material, new Item.Settings().maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -61,30 +58,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTa
 		return cost;
 	}
 
-	// AxeItem
-	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost && isSuitableFor(state)) {
-			return poweredSpeed;
-		}
-		return unpoweredSpeed;
-	}
-
 	// MiningToolItem
-	@Override
-	public boolean isSuitableFor(BlockState state) {
-		if (state.isIn(BlockTags.LEAVES)){
-			return true;
-		}
-
-		return super.isSuitableFor(state);
-	}
-	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		tryUseEnergy(stack, cost);
-		return true;
-	}
-
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return true;
@@ -98,14 +72,25 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTa
 
 	// Item
 	@Override
-	public boolean isDamageable() {
-		return false;
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		if (getStoredEnergy(stack) >= cost && isCorrectForDrops(stack, state)) { return poweredSpeed; }
+		return unpoweredSpeed;
 	}
 
 	@Override
-	public boolean isEnchantable(ItemStack stack) {
+	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+		if (state.isIn(BlockTags.LEAVES)){ return true; }
+		return super.isCorrectForDrops(stack, state);
+	}
+
+	@Override
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+		tryUseEnergy(stack, cost);
 		return true;
 	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) { return true; }
 
 	@Override
 	public int getItemBarStep(ItemStack stack) {
@@ -113,9 +98,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTa
 	}
 
 	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
-		return true;
-	}
+	public boolean isItemBarVisible(ItemStack stack) { return true;	}
 
 	@Override
 	public int getItemBarColor(ItemStack stack) {
@@ -124,9 +107,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTa
 
 	// RcEnergyItem
 	@Override
-	public long getEnergyCapacity(ItemStack stack) {
-		return maxCharge;
-	}
+	public long getEnergyCapacity(ItemStack stack) { return maxCharge; }
 
 	@Override
 	public RcEnergyTier getTier() {
@@ -138,9 +119,4 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem, EnchantmentTa
 		return 0;
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

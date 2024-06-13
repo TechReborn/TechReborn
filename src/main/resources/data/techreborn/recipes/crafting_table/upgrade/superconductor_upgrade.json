@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "techreborn:superconductor_upgrade"
+    "id": "techreborn:superconductor_upgrade"
   }
 }

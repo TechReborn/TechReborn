@@ -5,11 +5,11 @@
   ],
   "key": {
     "I": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     }
   },
   "result": {
-    "item": "techreborn:tin_cable",
+    "id": "techreborn:tin_cable",
     "count": 9
   }
 }

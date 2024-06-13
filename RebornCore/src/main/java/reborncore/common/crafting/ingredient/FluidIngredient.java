@@ -71,7 +71,7 @@ public class FluidIngredient extends RebornIngredient {
 	}
 
 	public static RebornIngredient deserialize(JsonObject json) {
-		Identifier identifier = new Identifier(JsonHelper.getString(json, "fluid"));
+		Identifier identifier = Identifier.of(JsonHelper.getString(json, "fluid"));
 		Fluid fluid = Registries.FLUID.get(identifier);
 		if (fluid == Fluids.EMPTY) {
 			throw new JsonParseException("Fluid could not be found: " + JsonHelper.getString(json, "fluid"));
@@ -82,7 +82,7 @@ public class FluidIngredient extends RebornIngredient {
 		if (json.has("holder")) {
 			if (json.get("holder").isJsonPrimitive()) {
 				String ident = JsonHelper.getString(json, "holder");
-				Item item = Registries.ITEM.get(new Identifier(ident));
+				Item item = Registries.ITEM.get(Identifier.of(ident));
 				if (item == Items.AIR) {
 					throw new JsonParseException("could not find item:" + ident);
 				}
@@ -92,7 +92,7 @@ public class FluidIngredient extends RebornIngredient {
 				List<Item> itemList = new ArrayList<>();
 				for (int i = 0; i < jsonArray.size(); i++) {
 					String ident = jsonArray.get(i).getAsString();
-					Item item = Registries.ITEM.get(new Identifier(ident));
+					Item item = Registries.ITEM.get(Identifier.of(ident));
 					if (item == Items.AIR) {
 						throw new JsonParseException("could not find item:" + ident);
 					}

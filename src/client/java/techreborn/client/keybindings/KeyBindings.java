@@ -25,11 +25,12 @@
 package techreborn.client.keybindings;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
-import reborncore.client.ClientNetworkManager;
-import techreborn.packets.ServerboundPackets;
+import techreborn.packets.serverbound.QuantumSuitSprintPayload;
+import techreborn.packets.serverbound.SuitNightVisionPayload;
 
 public class KeyBindings {
 	// Actual keybindings are in TechRebornClient
@@ -56,10 +57,10 @@ public class KeyBindings {
 	}
 
 	public static void handleSuitNVToggle() {
-		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketToggleNV());
+		ClientPlayNetworking.send(new SuitNightVisionPayload());
 	}
 
 	public static void handleQuantumSuitSprintToggle() {
-		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketToggleQuantumSprint());
+		ClientPlayNetworking.send(new QuantumSuitSprintPayload());
 	}
 }

@@ -24,72 +24,38 @@
 
 package reborncore.common.network;
 
-import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.function.Consumer;
 
 public class NetworkManager {
-
-
-	public static IdentifiedPacket createServerBoundPacket(Identifier identifier, Consumer<ExtendedPacketBuffer> packetBufferConsumer) {
-		PacketByteBuf buf = PacketByteBufs.create();
-		packetBufferConsumer.accept(new ExtendedPacketBuffer(buf));
-		return new IdentifiedPacket(identifier, buf);
+	public static void sendToAll(CustomPayload payload, MinecraftServer server) {
+		send(payload, PlayerLookup.all(server));
 	}
 
-	public static void registerServerBoundHandler(Identifier identifier, ServerPlayNetworking.PlayChannelHandler handler) {
-		ServerPlayNetworking.registerGlobalReceiver(identifier, handler);
+	public static void sendToPlayer(CustomPayload payload, ServerPlayerEntity serverPlayerEntity) {
+		send(payload, Collections.singletonList(serverPlayerEntity));
 	}
 
-	public static IdentifiedPacket createClientBoundPacket(Identifier identifier, Consumer<ExtendedPacketBuffer> packetBufferConsumer) {
-		PacketByteBuf buf = PacketByteBufs.create();
-		packetBufferConsumer.accept(new ExtendedPacketBuffer(buf));
-		return new IdentifiedPacket(identifier, buf);
-	}
-
-	public static <T> IdentifiedPacket createClientBoundPacket(Identifier identifier, Codec<T> codec, T value) {
-		return createClientBoundPacket(identifier, extendedPacketBuffer -> extendedPacketBuffer.encodeAsJson(codec, value));
-	}
-
-	public static void sendToAll(IdentifiedPacket packet, MinecraftServer server) {
-		send(packet, PlayerLookup.all(server));
-	}
-
-	public static void sendToPlayer(IdentifiedPacket packet, ServerPlayerEntity serverPlayerEntity) {
-		send(packet, Collections.singletonList(serverPlayerEntity));
-	}
-
-	public static void sendToWorld(IdentifiedPacket packet, ServerWorld world) {
-		send(packet, PlayerLookup.world(world));
+	public static void sendToWorld(CustomPayload payload, ServerWorld world) {
+		send(payload, PlayerLookup.world(world));
 	}
 
 
-	public static void sendToTracking(IdentifiedPacket packet, BlockEntity blockEntity) {
-		send(packet, PlayerLookup.tracking(blockEntity));
+	public static void sendToTracking(CustomPayload payload, BlockEntity blockEntity) {
+		send(payload, PlayerLookup.tracking(blockEntity));
 	}
 
-	public static void send(IdentifiedPacket packet, Collection<ServerPlayerEntity> players) {
+	public static void send(CustomPayload payload, Collection<ServerPlayerEntity> players) {
 		for (ServerPlayerEntity player : players) {
-			ServerPlayNetworking.send(player, packet.channel(), packet.packetByteBuf());
+			ServerPlayNetworking.send(player, payload);
 		}
 	}
-
-	public static void sendTo(IdentifiedPacket packet, PacketSender sender) {
-		Packet<?> s2CPacket = ServerPlayNetworking.createS2CPacket(packet.channel(), packet.packetByteBuf());
-		sender.sendPacket(s2CPacket);
-	}
-
 }

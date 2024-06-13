@@ -3,20 +3,20 @@
   "group": "gravel",
   "ingredients": [
     {
-      "tag": "c:andesite_dusts"
+      "tag": "c:dusts/andesite"
     },
     {
-      "tag": "c:diorite_dusts"
+      "tag": "c:dusts/diorite"
     },
     {
-      "tag": "c:granite_dusts"
+      "tag": "c:dusts/granite"
     },
     {
       "item": "minecraft:flint"
     }
   ],
   "result": {
-    "item": "minecraft:gravel",
+    "id": "minecraft:gravel",
 	"count": 4
   }
 }

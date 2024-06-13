@@ -88,9 +88,8 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 		builder.add(FACING);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
@@ -105,6 +104,6 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 			}
 		}
 
-		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hitResult);
 	}
 }

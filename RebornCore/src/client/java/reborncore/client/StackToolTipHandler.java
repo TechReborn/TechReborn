@@ -28,12 +28,14 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -50,7 +52,7 @@ import java.util.List;
 public class StackToolTipHandler implements ItemTooltipCallback {
 
 	@Override
-	public void getTooltip(ItemStack itemStack, TooltipContext tooltipContext, List<Text> tooltipLines) {
+	public void getTooltip(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipType tooltipType, List<Text> tooltipLines) {
 		Item item = itemStack.getItem();
 		Block block = Block.getBlockFromItem(item);
 
@@ -106,13 +108,11 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 				if ((block instanceof BaseBlockEntityProvider)) {
 					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(BlockPos.ORIGIN, block.getDefaultState());
 					boolean hasData = false;
-					if (itemStack.hasNbt() && itemStack.getOrCreateNbt().contains("blockEntity_data")) {
-						NbtCompound blockEntityData = itemStack.getOrCreateNbt().getCompound("blockEntity_data");
-						if (blockEntity != null) {
-							blockEntity.readNbt(blockEntityData);
-							hasData = true;
-							tooltipLines.add(Text.literal(I18n.translate("reborncore.tooltip.has_data")).formatted(Formatting.DARK_GREEN));
-						}
+					NbtComponent nbtComponent = itemStack.get(DataComponentTypes.BLOCK_ENTITY_DATA);
+					if (nbtComponent != null) {
+						nbtComponent.applyToBlockEntity(blockEntity, MinecraftClient.getInstance().world.getRegistryManager());
+						hasData = true;
+						tooltipLines.add(Text.literal(I18n.translate("reborncore.tooltip.has_data")).formatted(Formatting.DARK_GREEN));
 					}
 					if (blockEntity instanceof IListInfoProvider) {
 						((IListInfoProvider) blockEntity).addInfo(tooltipLines, false, hasData);

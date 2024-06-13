@@ -24,40 +24,47 @@
 
 package techreborn.items.tool.industrial;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.enchantment.EnchantmentTarget;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.SwordItem;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
+import techreborn.utils.TRItemUtils;
 
 import java.util.List;
 
-public class NanosaberItem extends SwordItem implements RcEnergyItem, EnchantmentTargetHandler {
+public class NanosaberItem extends SwordItem implements RcEnergyItem {
+	private static final EntityAttributeModifier ENABLED_ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_damage"), TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final EntityAttributeModifier ENABLED_ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_speed"), 3, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final EntityAttributeModifier DISABLED_ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_damage"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final EntityAttributeModifier DISABLED_ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_speed"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
+
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem() {
-		super(TRToolMaterials.NANOSABER, 1, 1, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(TRToolMaterials.NANOSABER, new Item.Settings()
+			.maxDamage(0)
+			.attributeModifiers(PickaxeItem.createAttributeModifiers(TRToolMaterials.NANOSABER, 1, 1))
+		);
 	}
 
 	// SwordItem
@@ -76,22 +83,23 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, Enchantmen
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		ItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost, entityIn);
+		TRItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost, entityIn);
+
+		boolean isActive = stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE;
+		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
+		attributes.with(EntityAttributes.GENERIC_ATTACK_DAMAGE, isActive ? ENABLED_ATTACK_DAMAGE_MODIFIER : DISABLED_ATTACK_DAMAGE_MODIFIER, AttributeModifierSlot.MAINHAND)
+			.with(EntityAttributes.GENERIC_ATTACK_SPEED, isActive ? ENABLED_ATTACK_SPEED_MODIFIER : DISABLED_ATTACK_SPEED_MODIFIER, AttributeModifierSlot.MAINHAND);
+		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, TechRebornConfig.nanosaberCost, player);
+			TRItemUtils.switchActive(stack, TechRebornConfig.nanosaberCost, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
-	}
-
-	@Override
-	public boolean isDamageable() {
-		return false;
 	}
 
 	@Override
@@ -100,8 +108,8 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, Enchantmen
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
 	@Override
@@ -117,21 +125,6 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, Enchantmen
 	@Override
 	public int getItemBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
-	}
-
-	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
-		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, slot));
-
-		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_SPEED);
-
-		if (slot == EquipmentSlot.MAINHAND && ItemUtils.isActive(stack)) {
-			attributes.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADDITION));
-			attributes.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADDITION));
-		}
-
-		return ImmutableMultimap.copyOf(attributes);
 	}
 
 	// RcEnergyItem
@@ -150,9 +143,4 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem, Enchantmen
 		return 0;
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

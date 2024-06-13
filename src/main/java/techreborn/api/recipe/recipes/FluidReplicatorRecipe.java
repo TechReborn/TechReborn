@@ -61,22 +61,21 @@ public class FluidReplicatorRecipe extends RebornFluidRecipe {
 		if (fluid == Fluids.EMPTY) {
 			return false;
 		}
-		if (!FluidUtils.fluidEquals(fluid, getFluidInstance().getFluid())) {
+		if (!FluidUtils.fluidEquals(fluid, getFluidInstance().fluid())) {
 			return false;
 		}
 		final Fluid tankFluid = blockEntity.tank.getFluid();
 		if (tankFluid != Fluids.EMPTY && !FluidUtils.fluidEquals(tankFluid, fluid)) {
 			return false;
 		}
-		return blockEntity.tank.canFit(getFluidInstance().getFluid(), getFluidInstance().getAmount());
+		return blockEntity.tank.canFit(getFluidInstance().fluid(), getFluidInstance().getAmount());
 	}
 
 	@Override
 	public boolean onCraft(BlockEntity be) {
 		FluidReplicatorBlockEntity blockEntity = (FluidReplicatorBlockEntity) be;
-		if (blockEntity.tank.canFit(getFluidInstance().getFluid(), getFluidInstance().getAmount())) {
-			blockEntity.tank.setFluid(getFluidInstance().getFluid());
-			blockEntity.tank.getFluidInstance().addAmount(getFluidInstance().getAmount());
+		if (blockEntity.tank.canFit(getFluidInstance().fluid(), getFluidInstance().getAmount())) {
+			blockEntity.tank.setFluidInstance(getFluidInstance());
 		}
 		return true;
 	}

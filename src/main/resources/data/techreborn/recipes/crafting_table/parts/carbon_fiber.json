@@ -8,10 +8,10 @@
   ],
   "key": {
     "C": {
-      "tag": "c:coal_dusts"
+      "tag": "c:dusts/coal"
     }
   },
   "result": {
-    "item": "techreborn:carbon_fiber"
+    "id": "techreborn:carbon_fiber"
   }
 }

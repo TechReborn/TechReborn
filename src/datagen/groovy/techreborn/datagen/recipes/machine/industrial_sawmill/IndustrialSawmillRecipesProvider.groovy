@@ -187,7 +187,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				power 30
 				time 100
 				fluidAmount 100 // in millibuckets
-				source item.toString()
+				source item
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}

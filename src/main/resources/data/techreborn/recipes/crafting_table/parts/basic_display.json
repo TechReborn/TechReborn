@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "tag": "c:refined_iron_plates"
+      "tag": "c:plates/refined_iron"
     },
     "D": {
       "item": "minecraft:black_dye"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "techreborn:basic_display"
+    "id": "techreborn:basic_display"
   }
 }

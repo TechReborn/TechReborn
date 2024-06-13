@@ -14,11 +14,11 @@
       "item": "techreborn:raw_silver"
     },
     "D": {
-      "tag": "c:diamond_dusts"
+      "tag": "c:dusts/diamond"
     }
   },
   "result": {
-    "item": "techreborn:glassfiber_cable",
+    "id": "techreborn:glassfiber_cable",
     "count": 6
   }
 }

@@ -25,6 +25,7 @@
 package techreborn.world;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +37,7 @@ import techreborn.init.TRContent;
 import java.util.Comparator;
 
 public class RubberTreeSpikeDecorator  extends TreeDecorator {
-	public static final Codec<RubberTreeSpikeDecorator> CODEC = RecordCodecBuilder.create(instance ->
+	public static final MapCodec<RubberTreeSpikeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		instance.group(
 			Codec.INT.fieldOf("spire_height").forGetter(RubberTreeSpikeDecorator::getSpireHeight),
 			BlockStateProvider.TYPE_CODEC.fieldOf("provider").forGetter(RubberTreeSpikeDecorator::getProvider)

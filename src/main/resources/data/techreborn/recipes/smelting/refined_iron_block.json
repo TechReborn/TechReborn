@@ -3,7 +3,9 @@
   "ingredient": {
 	"item": "minecraft:iron_block"
   },
-  "result": "techreborn:refined_iron_storage_block",
+  "result": {
+	  "id": "techreborn:refined_iron_storage_block"
+  },
   "experience": 4.5,
   "cookingtime": 1500
 }

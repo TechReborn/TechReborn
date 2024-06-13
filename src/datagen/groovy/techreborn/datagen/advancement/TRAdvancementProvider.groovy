@@ -49,17 +49,17 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 	private Consumer<AdvancementEntry> consumer
 
 	public TRAdvancementProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-		super(output)
+		super(output, registriesFuture)
 	}
 
 	@Override
-	void generateAdvancement(Consumer<AdvancementEntry> consumer) {
+	void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
 		this.consumer = consumer
 
 		def root = create {
 			name "root"
 			icon TRContent.MANUAL
-			background new Identifier("techreborn:textures/block/storage/steel_storage_block.png")
+			background Identifier.of("techreborn:textures/block/storage/steel_storage_block.png")
 			condition inventoryChanged(TRContent.ItemTags.ORES)
 			condition inventoryChanged(TRContent.ItemTags.RAW_METALS)
 			condition inventoryChanged(TRContent.ItemTags.GEMS)

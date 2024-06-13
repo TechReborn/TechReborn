@@ -7,14 +7,14 @@
   ],
   "key": {
     "S": {
-      "tag": "c:steel_ingots"
+      "tag": "c:ingots/steel"
     },
     "D": {
-      "tag": "c:diamond_dusts"
+      "tag": "c:dusts/diamond"
     }
   },
   "result": {
-    "item": "techreborn:diamond_saw_blade",
+    "id": "techreborn:diamond_saw_blade",
     "count": 4
   }
 }

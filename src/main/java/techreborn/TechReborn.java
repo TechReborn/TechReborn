@@ -35,6 +35,7 @@ import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.GuiType;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ApplyArmorToDamageHandler;
 import techreborn.events.OreDepthSyncHandler;
@@ -50,6 +51,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRDispenserBehavior;
 import techreborn.init.template.TechRebornTemplates;
 import techreborn.items.DynamicCellItem;
+import techreborn.packets.Packets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PoweredCraftingHandler;
 import techreborn.world.WorldGenerator;
@@ -65,8 +67,10 @@ public class TechReborn implements ModInitializer {
 		// Done to force the class to load
 		//noinspection ResultOfMethodCallIgnored
 		ModRecipes.GRINDER.hashCode();
+		TRDataComponentTypes.init();
 		TRContent.SCRAP_BOX.asItem();
 
+		Packets.register();;
 		ServerboundPackets.init();
 		OreDepthSyncHandler.setup();
 
@@ -88,6 +92,7 @@ public class TechReborn implements ModInitializer {
 		UseBlockHandler.init();
 		ApplyArmorToDamageHandler.init();
 		FuelRecipes.init();
+
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 

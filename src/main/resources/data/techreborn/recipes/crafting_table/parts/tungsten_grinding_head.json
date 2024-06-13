@@ -10,14 +10,14 @@
             "tag": "c:steel_blocks"
         },
         "S": {
-            "tag": "c:steel_ingots"
+            "tag": "c:ingots/steel"
         },
         "T": {
-            "tag": "c:tungsten_ingots"
+            "tag": "c:ingots/tungsten"
         }
     },
     "result": {
-        "item": "techreborn:tungsten_grinding_head",
+        "id": "techreborn:tungsten_grinding_head",
         "count": 2
     }
 }

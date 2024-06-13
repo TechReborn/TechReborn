@@ -10,7 +10,7 @@
       "item": "techreborn:extractor"
     },
     "S": {
-      "tag": "c:steel_plates"
+      "tag": "c:plates/steel"
     },
     "C": {
       "item": "techreborn:advanced_circuit"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "techreborn:vacuum_freezer"
+    "id": "techreborn:vacuum_freezer"
   }
 }

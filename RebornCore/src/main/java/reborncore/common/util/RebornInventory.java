@@ -27,10 +27,13 @@ package reborncore.common.util;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import org.jetbrains.annotations.NotNull;
 import reborncore.api.items.InventoryBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
+
+import java.util.Objects;
 
 public class RebornInventory<T extends MachineBaseBlockEntity> extends InventoryBase {
 
@@ -94,13 +97,13 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 		return stack;
 	}
 
-	public void read(NbtCompound data) {
-		read(data, "Items");
+	public void read(NbtCompound data, RegistryWrapper.WrapperLookup registryLookup) {
+		read(data, "Items", registryLookup);
 	}
 
-	public void read(NbtCompound data, String tag) {
+	public void read(NbtCompound data, String tag, RegistryWrapper.WrapperLookup registryLookup) {
 		NbtCompound nbtTagList = data.getCompound(tag);
-		deserializeNBT(nbtTagList);
+		deserializeNBT(nbtTagList, registryLookup);
 		hasChanged = true;
 	}
 
@@ -109,7 +112,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	}
 
 	public void write(NbtCompound data, String tag) {
-		data.put(tag, serializeNBT());
+		data.put(tag, serializeNBT(Objects.requireNonNull(blockEntity.getWorld()).getRegistryManager()));
 	}
 
 

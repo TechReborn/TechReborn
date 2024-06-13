@@ -25,7 +25,6 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,22 +32,20 @@ import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRContent;
 
 
-public class JackhammerItem extends PickaxeItem implements RcEnergyItem, EnchantmentTargetHandler {
+public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	public final int maxCharge;
 	public final RcEnergyTier tier;
 	public final int cost;
 	protected final float unpoweredSpeed = 0.5F;
 
 	public JackhammerItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost) {
-		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(material, 1, -2.8F, new Item.Settings().maxCount(1).maxDamage(-1));
+		super(material, new Item.Settings().maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -69,26 +66,11 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Enchant
 		return worldIn.getBlockState(pos).isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE);
 	}
 
-	// PickaxeItem
-	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost && state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
-			return miningSpeed;
-		}
-		return unpoweredSpeed;
-	}
-
 	// MiningToolItem
 	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		tryUseEnergy(stack, cost);
-		return true;
-	}
-
-	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		return true;
-	}
+			return true;
+		}
 
 	// ToolItem
 	@Override
@@ -98,8 +80,17 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Enchant
 
 	// Item
 	@Override
-	public boolean isDamageable() {
-		return false;
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		if (getStoredEnergy(stack) >= cost && state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
+			return super.getMiningSpeed(stack, state);
+		}
+		return unpoweredSpeed;
+	}
+
+	@Override
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+		tryUseEnergy(stack, cost);
+		return true;
 	}
 
 	@Override
@@ -138,9 +129,4 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem, Enchant
 		return 0;
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

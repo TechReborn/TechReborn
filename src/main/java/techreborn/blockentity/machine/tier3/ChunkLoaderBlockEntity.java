@@ -29,6 +29,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -123,8 +125,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
+	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
 		tagCompound.putInt("radius", radius);
 		if (ownerUdid != null && !ownerUdid.isEmpty()){
 			tagCompound.putString("ownerUdid", ownerUdid);
@@ -133,14 +135,14 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbtCompound) {
-		super.readNbt(nbtCompound);
+	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(nbtCompound, registryLookup);
 		this.radius = nbtCompound.getInt("radius");
 		this.ownerUdid = nbtCompound.getString("ownerUdid");
 		if (!StringUtils.isBlank(ownerUdid)) {
 			nbtCompound.putString("ownerUdid", this.ownerUdid);
 		}
-		inventory.read(nbtCompound);
+		inventory.read(nbtCompound, registryLookup);
 	}
 
 	// IToolDrop
@@ -159,7 +161,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("chunkloader").player(player.getInventory()).inventory().hotbar().addInventory()
-				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
+				.blockEntity(this).sync(PacketCodecs.INTEGER, this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 
 	public int getRadius() {

@@ -24,15 +24,17 @@
 
 package techreborn.client.gui;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonUpDown;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.packets.ServerboundPackets;
+import techreborn.packets.serverbound.PumpDepthPayload;
+import techreborn.packets.serverbound.PumpRangePayload;
 
 public class GuiPump extends GuiBase<BuiltScreenHandler> {
 
@@ -59,11 +61,11 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 	}
 
 	private void onClickDepth(int amount) {
-		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketPumpDepth(amount, blockEntity));
+		ClientPlayNetworking.send(new PumpDepthPayload(blockEntity.getPos(), amount));
 	}
 
 	private void onClick(int amount) {
-		ClientNetworkManager.sendToServer(ServerboundPackets.createPacketPumpRange(amount, blockEntity));
+		ClientPlayNetworking.send(new PumpRangePayload(blockEntity.getPos(), amount));
 	}
 
 	@Override

@@ -10,16 +10,16 @@
       "item": "minecraft:purpur_block"
     },
 	"E": {
-	  "tag": "c:endstone_small_dusts"
+	  "tag": "c:dusts/endstone_small"
 	},
     "P": {
       "item": "minecraft:purpur_pillar"
     },
     "T": {
-      "tag": "c:ender_pearl_dusts"
+      "tag": "c:dusts/ender_pearl"
     }
   },
   "result": {
-    "item": "minecraft:shulker_shell"
+    "id": "minecraft:shulker_shell"
   }
 }

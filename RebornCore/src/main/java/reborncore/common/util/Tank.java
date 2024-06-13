@@ -32,35 +32,26 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryWrapper;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.screen.Syncable;
+import reborncore.common.util.serialization.SerializationUtil;
 
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
-@SuppressWarnings({"deprecation", "UnstableApiUsage"})
 public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable, SingleSlotStorage<FluidVariant> {
-
 	private final String name;
-	@NotNull
 	private FluidInstance fluidInstance = new FluidInstance();
 	private final FluidValue capacity;
 
-	private final MachineBaseBlockEntity blockEntity;
-
-	public Tank(String name, FluidValue capacity, MachineBaseBlockEntity blockEntity) {
+	public Tank(String name, FluidValue capacity) {
 		super();
 		this.name = name;
 		this.capacity = capacity;
-		this.blockEntity = blockEntity;
 	}
 
 	@NotNull
@@ -70,7 +61,7 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 
 	@NotNull
 	public Fluid getFluid() {
-		return getFluidInstance().getFluid();
+		return getFluidInstance().fluid();
 	}
 
 	public FluidValue getFluidValueCapacity() {
@@ -93,46 +84,44 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 		return !getFluidInstance().isEmpty() && getFluidInstance().getAmount().equalOrMoreThan(getFluidValueCapacity());
 	}
 
-	public final NbtCompound write(NbtCompound nbt) {
-		NbtCompound tankData = fluidInstance.write();
+	public final NbtCompound write(NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
+		NbtCompound tankData = SerializationUtil.writeNbt(FluidInstance.CODEC, fluidInstance, wrapperLookup);
 		nbt.put(name, tankData);
 		return nbt;
 	}
 
 	public void setFluidAmount(FluidValue amount) {
 		if (!fluidInstance.isEmptyFluid()) {
-			fluidInstance.setAmount(amount);
+			modifyFluid(fluidInstance -> fluidInstance.withAmount(amount));
 		}
 	}
 
-	public final Tank read(NbtCompound nbt) {
+	public final Tank read(NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
 		if (nbt.contains(name)) {
 			// allow reading empty tanks
 			setFluid(Fluids.EMPTY);
 
 			NbtCompound tankData = nbt.getCompound(name);
-			fluidInstance = new FluidInstance(tankData);
+			fluidInstance = SerializationUtil.parseNbt(FluidInstance.CODEC, tankData, wrapperLookup, () -> FluidInstance.EMPTY, "tank data");
 		}
 		return this;
 	}
 
 	public void setFluid(@NotNull Fluid f) {
-		Validate.notNull(f);
-		fluidInstance.setFluid(f);
+		modifyFluid(fluidInstance -> fluidInstance.withFluid(f));
 	}
 
 	@Override
-	public void getSyncPair(List<Pair<Supplier<?>, Consumer<?>>> pairList) {
-		pairList.add(Pair.of(() -> Registries.FLUID.getId(fluidInstance.getFluid()).toString(), (Consumer<String>) o -> fluidInstance.setFluid(Registries.FLUID.get(new Identifier(o)))));
-		pairList.add(Pair.of(() -> fluidInstance.getAmount(), o -> fluidInstance.setAmount((FluidValue) o)));
+	public void configureSync(Context context) {
+		context.sync(FluidInstance.PACKET_CODEC, this::getFluidInstance, this::setFluidInstance);
 	}
 
 	public FluidValue getFluidAmount() {
 		return getFluidInstance().getAmount();
 	}
 
-	public void setFluid(@NotNull FluidInstance instance) {
-		fluidInstance = instance;
+	public void modifyFluid(UnaryOperator<FluidInstance> operator) {
+		setFluidInstance(operator.apply(fluidInstance));
 	}
 
 	public void setFluidInstance(@NotNull FluidInstance fluidInstance) {
@@ -151,11 +140,11 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 				updateSnapshots(transaction);
 
 				// Just in case.
-				if (currentVariant.isBlank()) fluidInstance.setAmount(FluidValue.EMPTY);
+				if (currentVariant.isBlank()) {
+					modifyFluid(fluidInstance -> fluidInstance.withAmount(FluidValue.EMPTY));
+				}
 
-				fluidInstance.setFluid(insertedVariant.getFluid());
-				fluidInstance.setTag(insertedVariant.getNbt());
-				fluidInstance.addAmount(FluidValue.fromRaw(insertedAmount));
+				modifyFluid(fluidInstance -> fluidInstance.withFluid(insertedVariant.getFluid()).addAmount(FluidValue.fromRaw(insertedAmount)));
 			}
 
 			return insertedAmount;
@@ -175,7 +164,7 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 			if (extractedAmount > 0) {
 				updateSnapshots(transaction);
 
-				fluidInstance.subtractAmount(FluidValue.fromRaw(extractedAmount));
+				modifyFluid(fluidInstance -> fluidInstance.subtractAmount(FluidValue.fromRaw(extractedAmount)));
 			}
 
 			return extractedAmount;
@@ -191,22 +180,24 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 
 	@Override
 	public FluidVariant getResource() {
-		return fluidInstance.getVariant();
+		return fluidInstance.fluidVariant();
 	}
 
 	@Override
+	@SuppressWarnings({"deprecation"})
 	public long getAmount() {
 		return fluidInstance.getAmount().getRawValue();
 	}
 
 	@Override
+	@SuppressWarnings({"deprecation"})
 	public long getCapacity() {
 		return getFluidValueCapacity().getRawValue();
 	}
 
 	@Override
 	protected FluidInstance createSnapshot() {
-		return fluidInstance.copy();
+		return fluidInstance;
 	}
 
 	@Override

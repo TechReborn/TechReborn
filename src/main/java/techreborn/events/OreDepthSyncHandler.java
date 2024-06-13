@@ -24,12 +24,14 @@
 
 package techreborn.events;
 
-import net.fabricmc.fabric.api.networking.v1.FabricPacket;
-import net.fabricmc.fabric.api.networking.v1.PacketType;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerConfigurationConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerConfigurationNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -44,7 +46,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("UnstableApiUsage")
 public final class OreDepthSyncHandler {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OreDepthSyncHandler.class);
 	private static Map<Block, OreDepth> oreDepthMap = new HashMap<>();
@@ -53,8 +54,10 @@ public final class OreDepthSyncHandler {
 	}
 
 	public static void setup() {
+		PayloadTypeRegistry.configurationS2C().register(OreDepthPayload.ID, OreDepthPayload.PACKET_CODEC);
+
 		ServerConfigurationConnectionEvents.CONFIGURE.register((handler, server) -> {
-			if (ServerConfigurationNetworking.canSend(handler, OreDepthPayload.TYPE)) {
+			if (ServerConfigurationNetworking.canSend(handler, OreDepthPayload.ID)) {
 				List<OreDepth> oreDepths = OreDepth.create(server);
 				var packet = ServerConfigurationNetworking.createS2CPacket(new OreDepthPayload(oreDepths));
 				handler.send(packet, null);
@@ -78,23 +81,16 @@ public final class OreDepthSyncHandler {
 		}
 	}
 
-	public record OreDepthPayload(List<OreDepth> oreDepths) implements FabricPacket {
-		public static final PacketType<OreDepthPayload> TYPE = PacketType.create(new Identifier(TechReborn.MOD_ID, "ore_depth"), OreDepthPayload::new);
-
-		private OreDepthPayload(PacketByteBuf buf) {
-			this(
-				buf.decodeAsJson(OreDepth.LIST_CODEC)
-			);
-		}
+	public record OreDepthPayload(List<OreDepth> oreDepths) implements CustomPayload {
+		public static final CustomPayload.Id<OreDepthPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "ore_depth"));
+		public static final PacketCodec<PacketByteBuf, OreDepthPayload> PACKET_CODEC = PacketCodec.tuple(
+			OreDepth.PACKET_CODEC.collect(PacketCodecs.toList()), OreDepthPayload::oreDepths,
+			OreDepthPayload::new
+		);
 
 		@Override
-		public void write(PacketByteBuf buf) {
-			buf.encodeAsJson(OreDepth.LIST_CODEC, oreDepths);
-		}
-
-		@Override
-		public PacketType<?> getType() {
-			return TYPE;
+		public Id<? extends CustomPayload> getId() {
+			return ID;
 		}
 	}
 }

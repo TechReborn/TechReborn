@@ -39,7 +39,7 @@ public class TRAxeItem extends AxeItem {
 	}
 
 	public TRAxeItem(ToolMaterial material, String repairOreDict) {
-		super(material, material.getAttackDamage(), -3.0F, new Item.Settings());
+		super(material, new Item.Settings());
 		this.repairOreDict = repairOreDict;
 	}
 

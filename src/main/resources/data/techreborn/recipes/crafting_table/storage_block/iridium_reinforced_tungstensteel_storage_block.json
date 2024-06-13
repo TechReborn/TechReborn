@@ -6,10 +6,10 @@
             "tag": "c:tungstensteel_blocks"
         },
         {
-            "tag": "c:iridium_plates"
+            "tag": "c:plates/iridium"
         }
     ],
     "result": {
-        "item": "techreborn:iridium_reinforced_tungstensteel_storage_block"
+        "id": "techreborn:iridium_reinforced_tungstensteel_storage_block"
     }
 }

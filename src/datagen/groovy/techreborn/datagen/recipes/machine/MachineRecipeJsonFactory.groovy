@@ -24,18 +24,14 @@
 
 package techreborn.datagen.recipes.machine
 
-import com.google.gson.JsonObject
-import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider
-import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancement.Advancement.Builder
 import net.minecraft.advancement.AdvancementCriterion
-import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.data.server.recipe.RecipeExporter
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
-import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.registry.Registries
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlag
@@ -59,7 +55,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected int time = -1
 	protected Identifier customId = null
 	protected String source = null
-	protected List<ConditionJsonProvider> conditions = []
+	protected List<ResourceCondition> conditions = []
 
 	protected MachineRecipeJsonFactory(RebornRecipeType<R> type, TechRebornRecipesProvider provider) {
 		this.type = type
@@ -97,7 +93,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				}
 			} else if (object instanceof String) {
 				ingredient {
-					ident(new Identifier(object))
+					ident(Identifier.of(object))
 				}
 			} else {
 				throw new IllegalArgumentException()
@@ -131,7 +127,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			return new ItemStack(object.asItem())
 		} else if (object instanceof String) {
 			// TODO remove me, done to aid porting from json files
-			def item = Registries.ITEM.get(new Identifier(object))
+			def item = Registries.ITEM.get(Identifier.of(object))
 			return new ItemStack(item)
 		} else {
 			throw new UnsupportedOperationException()
@@ -153,12 +149,17 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
+	def source(ItemConvertible item) {
+		return source(Registries.ITEM.getId(item.asItem()).getPath())
+	}
+
 	def source(String s) {
+		Identifier.ofVanilla(s) // Just to validate that it is a valid identifier path
 		this.source = s
 		return this
 	}
 
-	def condition(ConditionJsonProvider conditionJsonProvider) {
+	def condition(ResourceCondition conditionJsonProvider) {
 		this.conditions.add(conditionJsonProvider)
 		return this
 	}
@@ -170,7 +171,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	}
 
 	MachineRecipeJsonFactory id(String path) {
-		return id(new Identifier("techreborn", path))
+		return id(Identifier.of("techreborn", path))
 	}
 
 	/**
@@ -212,7 +213,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			def id
 			do {
 				i++
-				id = new Identifier(recipeId.toString() + "_" + i)
+				id = Identifier.of(recipeId.toString() + "_" + i)
 			} while (provider.exportedRecipes.contains(id))
 
 			recipeId = id
@@ -220,13 +221,13 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		provider.exportedRecipes.add(recipeId)
 
-		Identifier advancementId = new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
+		Identifier advancementId = Identifier.of(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		RecipeUtils.addToastDefaults(builder, recipeId)
 
 		def recipe = createRecipe()
 
 		if (!conditions.isEmpty()) {
-			FabricDataGenHelper.addConditions(recipe, conditions.toArray() as ConditionJsonProvider[])
+			FabricDataGenHelper.addConditions(recipe, conditions.toArray() as ResourceCondition[])
 		}
 
 		exporter.accept(recipeId, recipe, builder.build(advancementId))
@@ -242,7 +243,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 
 		def outputId = Registries.ITEM.getId(outputs[0].item)
-		return new Identifier("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
+		return Identifier.of("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	def feature(FeatureFlag flag) {

@@ -32,6 +32,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -152,15 +154,15 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag) {
-		super.readNbt(tag);
+	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tag, registryLookup);
 		burnTime = tag.getInt("BurnTime");
 		totalBurnTime = tag.getInt("TotalBurnTime");
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag) {
-		super.writeNbt(tag);
+	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tag, registryLookup);
 		tag.putInt("BurnTime", burnTime);
 		tag.putInt("TotalBurnTime", totalBurnTime);
 	}
@@ -208,7 +210,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("generator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
-				.sync(this::getBurnTime, this::setBurnTime)
-				.sync(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
+				.sync(PacketCodecs.INTEGER, this::getBurnTime, this::setBurnTime)
+				.sync(PacketCodecs.INTEGER, this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
 	}
 }

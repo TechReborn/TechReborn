@@ -37,8 +37,8 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -49,7 +49,7 @@ public class TRCauldronBehavior {
 	public static void init() {
 		CauldronBehavior FILL_CELL_WITH_LAVA = (state, world, pos, player, hand, stack) -> {
 			if (!FluidUtils.isContainerEmpty(stack)) {
-				return ActionResult.PASS;
+				return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 			}
 
 			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack,
@@ -58,7 +58,7 @@ public class TRCauldronBehavior {
 
 		CauldronBehavior FILL_CELL_WITH_WATER = (state, world, pos, player, hand, stack) -> {
 			if (!FluidUtils.isContainerEmpty(stack)) {
-				return ActionResult.PASS;
+				return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 			}
 
 			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack,
@@ -77,7 +77,7 @@ public class TRCauldronBehavior {
 						SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
 			}
 
-			return ActionResult.PASS;
+			return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		};
 
 		CauldronBehavior.LAVA_CAULDRON_BEHAVIOR.map().put(TRContent.CELL, FILL_CELL_WITH_LAVA);
@@ -85,7 +85,7 @@ public class TRCauldronBehavior {
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.map().put(TRContent.CELL, FILL_FROM_CELL);
 	}
 
-	static ActionResult fillCauldronFromCell(World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, BlockState state, SoundEvent soundEvent) {
+	static ItemActionResult fillCauldronFromCell(World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack stack, BlockState state, SoundEvent soundEvent) {
 		if (!world.isClient) {
 			player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(TRContent.CELL)));
 			player.incrementStat(Stats.FILL_CAULDRON);
@@ -94,6 +94,6 @@ public class TRCauldronBehavior {
 			world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
 		}
 
-		return ActionResult.success(world.isClient);
+		return ItemActionResult.success(world.isClient);
 	}
 }

@@ -8,7 +8,7 @@
   ],
   "key": {
 	"P": {
-	  "tag": "c:electrum_plates"
+	  "tag": "c:plates/electrum"
 	},
 	"B": {
 	  "item": "techreborn:advanced_machine_frame"
@@ -24,6 +24,6 @@
 	}
   },
   "result": {
-	"item": "techreborn:advanced_tank_unit"
+	"id": "techreborn:advanced_tank_unit"
   }
 }

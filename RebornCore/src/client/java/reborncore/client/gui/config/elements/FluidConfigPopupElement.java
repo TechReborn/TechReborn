@@ -24,15 +24,16 @@
 
 package reborncore.client.gui.config.elements;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.FluidConfiguration;
-import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.ServerBoundPackets;
+import reborncore.common.network.serverbound.FluidConfigSavePayload;
+import reborncore.common.network.serverbound.FluidIoSavePayload;
 import reborncore.common.util.Color;
 
 public class FluidConfigPopupElement extends AbstractConfigPopupElement {
@@ -50,8 +51,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 		FluidConfiguration.ExtractConfig fluidIO = config.getIoConfig().getNext();
 		FluidConfiguration.FluidConfig newConfig = new FluidConfiguration.FluidConfig(side, fluidIO);
 
-		IdentifiedPacket packetSave = ServerBoundPackets.createPacketFluidConfigSave(guiBase.be.getPos(), newConfig);
-		ClientNetworkManager.sendToServer(packetSave);
+		ClientPlayNetworking.send(new FluidConfigSavePayload(guiBase.be.getPos(), newConfig));
 	}
 
 	public void updateCheckBox(String type, GuiBase<?> guiBase) {
@@ -65,8 +65,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 			output = !configHolder.autoOutput();
 		}
 
-		IdentifiedPacket packetFluidIOSave = ServerBoundPackets.createPacketFluidIOSave(guiBase.be.getPos(), input, output);
-		ClientNetworkManager.sendToServer(packetFluidIOSave);
+		ClientPlayNetworking.send(new FluidIoSavePayload(guiBase.be.getPos(), input, output));
 	}
 
 	@Override

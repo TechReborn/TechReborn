@@ -81,12 +81,12 @@ public enum ModFluids implements ItemConvertible {
 	private final Identifier identifier;
 
 	ModFluids() {
-		this.identifier = new Identifier(TechReborn.MOD_ID, this.toString().toLowerCase(Locale.ROOT));
+		this.identifier = Identifier.of(TechReborn.MOD_ID, this.toString().toLowerCase(Locale.ROOT));
 
 		FluidSettings fluidSettings = FluidSettings.create();
 
-		Identifier texture_still = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_still");
-		Identifier texture_flowing = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_flowing");
+		Identifier texture_still = Identifier.of(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_still");
+		Identifier texture_flowing = Identifier.of(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_flowing");
 
 		fluidSettings.setStillTexture(texture_still);
 		fluidSettings.setFlowingTexture(texture_flowing);
@@ -102,10 +102,10 @@ public enum ModFluids implements ItemConvertible {
 
 	public void register() {
 		RebornFluidManager.register(stillFluid, identifier);
-		RebornFluidManager.register(flowingFluid, new Identifier(TechReborn.MOD_ID, identifier.getPath() + "_flowing"));
+		RebornFluidManager.register(flowingFluid, Identifier.of(TechReborn.MOD_ID, identifier.getPath() + "_flowing"));
 
 		Registry.register(Registries.BLOCK, identifier, block);
-		Registry.register(Registries.ITEM, new Identifier(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
+		Registry.register(Registries.ITEM, Identifier.of(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
 	}
 
 	public RebornFluid getFluid() {

@@ -27,19 +27,21 @@ package techreborn.init;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
+import techreborn.component.TRDataComponentTypes;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.industrial.NanosaberItem;
@@ -49,9 +51,10 @@ import techreborn.utils.MaterialTypeComparator;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public class TRItemGroup {
-	private static final RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(TechReborn.MOD_ID, "item_group"));
+	private static final RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, Identifier.of(TechReborn.MOD_ID, "item_group"));
 
 	public static void register() {
 		Registry.register(Registries.ITEM_GROUP, ITEM_GROUP, FabricItemGroup.builder()
@@ -802,12 +805,13 @@ public class TRItemGroup {
 	}
 
 	private static void addRockCutter(FabricItemGroupEntries entries, ItemConvertible before, boolean includeUncharged) {
+		RegistryWrapper.Impl<Enchantment> enchantmentRegistry = entries.getContext().lookup().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
 		RockCutterItem rockCutter = (RockCutterItem) TRContent.ROCK_CUTTER;
 
 		ItemStack uncharged = new ItemStack(rockCutter);
-		uncharged.addEnchantment(Enchantments.SILK_TOUCH, 1);
+		uncharged.addEnchantment(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), 1);
 		ItemStack charged = new ItemStack(rockCutter);
-		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);
+		charged.addEnchantment(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), 1);
 		rockCutter.setStoredEnergy(charged, rockCutter.getEnergyCapacity(charged));
 
 		if (before == null) {
@@ -830,18 +834,15 @@ public class TRItemGroup {
 		NanosaberItem nanosaber = (NanosaberItem) TRContent.NANOSABER;
 
 		ItemStack inactiveUncharged = new ItemStack(nanosaber);
-		inactiveUncharged.setNbt(new NbtCompound());
-		inactiveUncharged.getOrCreateNbt().putBoolean("isActive", false);
+		inactiveUncharged.set(TRDataComponentTypes.IS_ACTIVE, false);
 
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
-		inactiveCharged.setNbt(new NbtCompound());
-		inactiveCharged.getOrCreateNbt().putBoolean("isActive", false);
 		nanosaber.setStoredEnergy(inactiveCharged, nanosaber.getEnergyCapacity(inactiveCharged));
+		inactiveCharged.set(TRDataComponentTypes.IS_ACTIVE, false);
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
-		activeCharged.setNbt(new NbtCompound());
-		activeCharged.getOrCreateNbt().putBoolean("isActive", true);
 		nanosaber.setStoredEnergy(activeCharged, nanosaber.getEnergyCapacity(activeCharged));
+		activeCharged.set(TRDataComponentTypes.IS_ACTIVE, false);
 
 		if (before == null) {
 			if (!onlyPoweredAndActive) {

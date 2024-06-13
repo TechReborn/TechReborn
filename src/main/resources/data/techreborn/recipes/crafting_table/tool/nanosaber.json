@@ -7,7 +7,7 @@
   ],
   "key": {
     "D": {
-      "tag": "c:diamond_plates"
+      "tag": "c:plates/diamond"
     },
     "C": {
       "item": "techreborn:carbon_plate"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "techreborn:nanosaber"
+    "id": "techreborn:nanosaber"
   }
 }

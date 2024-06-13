@@ -3,7 +3,9 @@
   "ingredient": {
     "item": "techreborn:sap"
   },
-  "result": "techreborn:rubber",
+  "result": {
+	  "id": "techreborn:rubber"
+  },
   "experience": 0.5,
   "cookingtime": 200
 }

@@ -11,14 +11,14 @@
       "item": "techreborn:basic_machine_frame"
     },
     "R": {
-      "tag": "c:aluminum_plates"
+      "tag": "c:plates/aluminum"
     },
     "C": {
       "item": "techreborn:electronic_circuit"
     }
   },
   "result": {
-    "item": "techreborn:basic_machine_casing",
+    "id": "techreborn:basic_machine_casing",
     "count": 4
   }
 }

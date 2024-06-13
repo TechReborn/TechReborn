@@ -24,26 +24,24 @@
 
 package techreborn.items;
 
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
+import techreborn.utils.TRItemUtils;
 
 import java.util.List;
 
-public class BatteryItem extends Item implements RcEnergyItem, EnchantmentTargetHandler {
+public class BatteryItem extends Item implements RcEnergyItem {
 
 	private final int maxEnergy;
 	private final RcEnergyTier tier;
@@ -59,7 +57,7 @@ public class BatteryItem extends Item implements RcEnergyItem, EnchantmentTarget
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			ItemUtils.switchActive(stack, 1, player);
+			TRItemUtils.switchActive(stack, 1, player);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -67,11 +65,11 @@ public class BatteryItem extends Item implements RcEnergyItem, EnchantmentTarget
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		ItemUtils.checkActive(stack, 1, entity);
+		TRItemUtils.checkActive(stack, 1, entity);
 		if (world.isClient) {
 			return;
 		}
-		if (!ItemUtils.isActive(stack)){
+		if (!TRItemUtils.isActive(stack)){
 			return;
 		}
 		if (entity instanceof PlayerEntity) {
@@ -80,8 +78,8 @@ public class BatteryItem extends Item implements RcEnergyItem, EnchantmentTarget
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
 
@@ -112,16 +110,4 @@ public class BatteryItem extends Item implements RcEnergyItem, EnchantmentTarget
 		return tier;
 	}
 
-
-	// EnchantmentTargetHandler
-	/**
-	 * Allows to apply Unbreaking to Battery
-	 *
-	 * @param target Enchantment target to check
-	 * @return True if proper target provided
-	 */
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-		return target == EnchantmentTarget.BREAKABLE;
-	}
 }

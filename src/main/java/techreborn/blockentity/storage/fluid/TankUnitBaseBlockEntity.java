@@ -25,13 +25,18 @@
 package techreborn.blockentity.storage.fluid;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.Nullable;
@@ -71,16 +76,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	private void configureEntity(TRContent.TankUnit type) {
 		this.type = type;
-		this.tank = new Tank("TankStorage", serverMaxCapacity == -1 ? type.capacity : FluidValue.fromRaw(serverMaxCapacity), this);
-	}
-
-	public ItemStack getDropWithNBT() {
-		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final NbtCompound blockEntity = new NbtCompound();
-		this.writeNbt(blockEntity);
-		dropStack.setNbt(new NbtCompound());
-		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
-		return dropStack;
+		this.tank = new Tank("TankStorage", serverMaxCapacity == -1 ? type.capacity : FluidValue.fromRaw(serverMaxCapacity));
 	}
 
 	protected boolean canDrainTransfer(){
@@ -135,20 +131,20 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
+	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
-			tank.read(tagCompound);
+			tank.read(tagCompound, registryLookup);
 		}
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
+	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
 		tagCompound.putString("unitType", this.type.name());
-		tank.write(tagCompound);
+		tank.write(tagCompound, registryLookup);
 	}
 
 	@Override
@@ -166,7 +162,14 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity playerEntity) {
-		return getDropWithNBT();
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
+		final NbtCompound nbt = new NbtCompound();
+		if (world != null){
+			writeNbt(nbt, world.getRegistryManager());
+			dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(nbt));
+		}
+
+		return dropStack;
 	}
 
 	// IListInfoProvider
@@ -197,7 +200,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		return new ScreenHandlerBuilder("tank").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
 				.sync(tank)
-				.sync(this::getMaxCapacity, this::setMaxCapacity)
+				.sync(PacketCodecs.VAR_LONG, this::getMaxCapacity, this::setMaxCapacity)
 
 				.addInventory().create(this, syncID);
 	}
@@ -209,7 +212,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	public void setMaxCapacity(long maxCapacity) {
 		FluidInstance instance = tank.getFluidInstance();
-		this.tank = new Tank("TankStorage", FluidValue.fromRaw(maxCapacity), this);
+		this.tank = new Tank("TankStorage", FluidValue.fromRaw(maxCapacity));
 		this.tank.setFluidInstance(instance);
 		this.serverMaxCapacity = maxCapacity;
 	}

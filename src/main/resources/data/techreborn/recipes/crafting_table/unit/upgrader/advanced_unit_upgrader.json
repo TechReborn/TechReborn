@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "tag": "c:steel_plates"
+      "tag": "c:plates/steel"
     },
     "B": {
       "item": "techreborn:industrial_machine_frame"
@@ -23,6 +23,6 @@
 	}
   },
   "result": {
-    "item": "techreborn:advanced_unit_upgrader"
+    "id": "techreborn:advanced_unit_upgrader"
   }
 }

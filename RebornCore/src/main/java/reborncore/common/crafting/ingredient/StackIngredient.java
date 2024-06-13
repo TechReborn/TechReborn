@@ -29,6 +29,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -61,7 +63,7 @@ public class StackIngredient extends RebornIngredient {
 	}
 
 	public static RebornIngredient deserialize(JsonObject json) {
-		Identifier identifier = new Identifier(JsonHelper.getString(json, "item"));
+		Identifier identifier = Identifier.of(JsonHelper.getString(json, "item"));
 		Item item = Registries.ITEM.getOrEmpty(identifier).orElseThrow(() -> new JsonSyntaxException("Unknown item '" + identifier + "'"));
 
 		Optional<Integer> stackSize = Optional.empty();
@@ -101,14 +103,14 @@ public class StackIngredient extends RebornIngredient {
 		}
 
 		if (nbt.isPresent()) {
-			if (!itemStack.hasNbt()) {
+			if (itemStack.getComponents() == DataComponentTypes.DEFAULT_ITEM_COMPONENTS) {
 				return false;
 			}
 
 			// A bit of a meme here, as DataFixer likes to use the most basic primitive type over using an int.
 			// So we have to go to json and back on the incoming stack to be sure it's using types that match our input.
 
-			NbtCompound compoundTag = itemStack.getNbt();
+			NbtCompound compoundTag = stack.get(DataComponentTypes.CUSTOM_DATA).getNbt();
 			JsonElement jsonElement = Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag);
 			compoundTag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonElement);
 
@@ -117,7 +119,7 @@ public class StackIngredient extends RebornIngredient {
 			}
 		}
 
-		return !requireEmptyNbt || !itemStack.hasNbt();
+		return !requireEmptyNbt || (itemStack.get(DataComponentTypes.CUSTOM_DATA) == null);
 	}
 
 	@Override
@@ -129,7 +131,7 @@ public class StackIngredient extends RebornIngredient {
 	public List<ItemStack> getPreviewStacks() {
 		ItemStack copy = stack.copy();
 		copy.setCount(count.orElse(1));
-		copy.setNbt(nbt.orElse(null));
+		nbt.ifPresent(nbtCompound -> copy.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbtCompound)));
 		return Collections.singletonList(copy);
 	}
 

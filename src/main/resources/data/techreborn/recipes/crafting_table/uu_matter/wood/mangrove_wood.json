@@ -7,13 +7,13 @@
   ],
   "key": {
 	"S": {
-      "tag": "c:saw_dusts"
+      "tag": "c:dusts/saw"
 	},
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:mangrove_wood"
+    "id": "minecraft:mangrove_wood"
   }
 }

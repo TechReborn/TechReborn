@@ -30,10 +30,13 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.CraftingRecipeInput;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.collection.DefaultedList;
@@ -95,14 +98,14 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		CraftingInventory craftingInventory = getCraftingInventory();
 		if (craftingInventory.isEmpty()) return null;
 
-		if (lastRecipe != null && lastRecipe.matches(craftingInventory, world)) return lastRecipe;
+		if (lastRecipe != null && lastRecipe.matches(getRecipeInput(), world)) return lastRecipe;
 
 		Item[] currentInvLayout = getCraftingLayout(craftingInventory);
 		if (Arrays.equals(layoutInv, currentInvLayout)) return null;
 
 		layoutInv = currentInvLayout;
 
-		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craftingInventory, world).map(RecipeEntry::value);
+		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, getRecipeInput(), world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
 			return lastRecipe;
@@ -156,11 +159,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 
-		if (!recipe.matches(crafting, world)) return false;
+		if (!recipe.matches(getRecipeInput(), world)) return false;
 
 		if (!hasOutputSpace(recipe.getResult(world.getRegistryManager()), OUTPUT_SLOT)) return false;
 
-		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(crafting);
+		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(getRecipeInput());
 
 		// Need to check whole list in case of several different reminders
 		boolean canFitReminder = true;
@@ -235,7 +238,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 		ItemStack output = inventory.getStack(OUTPUT_SLOT);
-		ItemStack outputStack = recipe.craft(getCraftingInventory(), world.getRegistryManager());
+		ItemStack outputStack = recipe.craft(getRecipeInput(), world.getRegistryManager());
 		if (output.isEmpty()) {
 			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
 		} else {
@@ -418,17 +421,17 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag) {
+	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		tag.putBoolean("locked", locked);
-		super.writeNbt(tag);
+		super.writeNbt(tag, registryLookup);
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag) {
+	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.readNbt(tag);
+		super.readNbt(tag, registryLookup);
 	}
 
 	// MachineBaseBlockEntity
@@ -459,9 +462,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
 			.outputSlot(OUTPUT_SLOT, 145, 42)
 			.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
-			.syncEnergyValue().sync(this::getProgress, this::setProgress)
-			.sync(this::getMaxProgress, this::setMaxProgress)
-			.sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
+			.sync(PacketCodecs.INTEGER, this::getMaxProgress, this::setMaxProgress)
+			.sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
 	public int getProgress() {
@@ -491,4 +494,12 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		locked = lockedInt == 1;
 	}
 
+	private CraftingRecipeInput getRecipeInput() {
+		CraftingInventory craftingInventory = getCraftingInventory();
+		List<ItemStack> stacks = new ArrayList<>(craftingInventory.size());
+		for (int i = 0; i < craftingInventory.size(); i++) {
+			stacks.add(craftingInventory.getStack(i));
+		}
+		return CraftingRecipeInput.create(craftingInventory.getWidth(), craftingInventory.getHeight(), stacks);
+	}
 }

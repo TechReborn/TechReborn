@@ -8,10 +8,10 @@
   ],
   "key": {
     "A": {
-      "tag": "c:refined_iron_ingots"
+      "tag": "c:ingots/refined_iron"
     }
   },
   "result": {
-    "item": "techreborn:basic_machine_frame"
+    "id": "techreborn:basic_machine_frame"
   }
 }

@@ -33,6 +33,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -166,16 +167,6 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 			ItemStack out = new ItemStack(TRContent.Parts.SAP, getSapAmount());
 			WorldUtils.dropItem(out, world, pos);
 		}
-	}
-
-	@Override
-	public void writeNbt(NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
-	}
-
-	@Override
-	public void readNbt(NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
 	}
 
 	@Override

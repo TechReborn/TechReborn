@@ -24,7 +24,6 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +31,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -142,8 +145,15 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 			return false;
 		}
 		playTeleportSoundAt(getPos());
-		FabricDimensions.teleport(player, (ServerWorld)getWorld(),
-			new TeleportTarget(Vec3d.ofBottomCenter(new Vec3i(targetPos.getX(), targetPos.getY(), targetPos.getZ())), Vec3d.ZERO, player.getYaw(), player.getPitch()));
+		player.teleportTo(new TeleportTarget(
+			(ServerWorld)getWorld(),
+			Vec3d.ofBottomCenter(new Vec3i(targetPos.getX(), targetPos.getY(), targetPos.getZ())),
+			Vec3d.ZERO,
+			player.getYaw(),
+			player.getPitch(),
+			TeleportTarget.NO_OP
+		));
+
 		useEnergy(energy);
 		playTeleportSoundAt(targetPos);
 		return true;
@@ -172,7 +182,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (!(world instanceof ServerWorld) || getStored() <= 0 || !isActive(RedstoneConfiguration.POWER_IO)) {
+		if (!(world instanceof ServerWorld) || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 

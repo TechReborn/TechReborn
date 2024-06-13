@@ -31,7 +31,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Util;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.crafting.serde.RebornRecipeSerde;
@@ -44,7 +43,7 @@ public class RollingMachineRecipeSerde extends RebornRecipeSerde<RollingMachineR
 	@Override
 	protected RollingMachineRecipe fromJson(JsonObject jsonObject, RebornRecipeType<RollingMachineRecipe> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		final JsonObject shapedRecipeJson = JsonHelper.getObject(jsonObject, "shaped");
-		final ShapedRecipe shapedRecipe = Util.getResult(RecipeSerializer.SHAPED.codec().parse(JsonOps.INSTANCE, shapedRecipeJson), JsonParseException::new);
+		final ShapedRecipe shapedRecipe = RecipeSerializer.SHAPED.codec().decoder().parse(JsonOps.INSTANCE, shapedRecipeJson).getOrThrow(JsonParseException::new);
 		return new RollingMachineRecipe(type, ingredients, outputs, power, time, shapedRecipe, shapedRecipeJson);
 	}
 

@@ -27,105 +27,118 @@ package techreborn.init;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Lazy;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 
-import java.util.Locale;
+import java.util.EnumMap;
+import java.util.List;
 import java.util.function.Supplier;
 
 
-public enum TRArmorMaterials implements ArmorMaterial {
+public class TRArmorMaterials {
 
-	BRONZE(17, new int[]{3, 6, 5, 2}, 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, () -> {
-		return Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem());
-	}),
-	RUBY(16, new int[]{2, 7, 5, 2}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
-		return Ingredient.ofItems(TRContent.Gems.RUBY.asItem());
-	}),
-	SAPPHIRE(19, new int[]{4, 4, 4, 4}, 8, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
-		return Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem());
-	}),
-	PERIDOT(17, new int[]{3, 8, 3, 2}, 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
-		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
-	}),
-	SILVER(14, new int[]{1, 3, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> {
-		return Ingredient.ofItems(TRContent.Ingots.SILVER.asItem());
-	}),
-	STEEL(24, new int[]{3, 5, 6, 2}, 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.75F, 0.1F, () -> {
-		return Ingredient.ofItems(TRContent.Ingots.STEEL.asItem());
-	}),
-	QUANTUM(75, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
-	NANO(75, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
-	CLOAKING_DEVICE(5, new int[]{0, 2, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
-	LITHIUM_BATPACK(25, new int[]{0, 5, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY),
-	LAPOTRONIC_ORBPACK(33, new int[]{0, 6, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, () -> Ingredient.EMPTY);
+	public static final RegistryEntry<ArmorMaterial> BRONZE = TRArmorMaterials.register("bronze", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 2);
+		map.put(ArmorItem.Type.LEGGINGS, 5);
+		map.put(ArmorItem.Type.CHESTPLATE, 6);
+		map.put(ArmorItem.Type.HELMET, 3);
+		map.put(ArmorItem.Type.BODY, 7);
+	}), 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f, 0.1f, () -> Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem()));
 
-	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
-	private final int maxDamageFactor;
-	private final int[] damageReductionAmountArray;
-	private final int enchantability;
-	private final SoundEvent soundEvent;
-	private final float toughness;
-	private final float knockbackResistance;
-	private final Lazy<Ingredient> repairMaterial;
+	public static final RegistryEntry<ArmorMaterial> SILVER = TRArmorMaterials.register("silver", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 2);
+		map.put(ArmorItem.Type.LEGGINGS, 5);
+		map.put(ArmorItem.Type.CHESTPLATE, 3);
+		map.put(ArmorItem.Type.HELMET, 1);
+		map.put(ArmorItem.Type.BODY, 5);
+	}), 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f, 0.0f, () -> Ingredient.ofItems(TRContent.Ingots.SILVER.asItem()));
 
-	private final String name;
+	public static final RegistryEntry<ArmorMaterial> STEEL = TRArmorMaterials.register("steel", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 2);
+		map.put(ArmorItem.Type.LEGGINGS, 6);
+		map.put(ArmorItem.Type.CHESTPLATE, 5);
+		map.put(ArmorItem.Type.HELMET, 3);
+		map.put(ArmorItem.Type.BODY, 11);
+	}), 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.75f, 0.1f, () -> Ingredient.ofItems(TRContent.Ingots.STEEL.asItem()));
 
-	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-					SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairMaterialIn) {
-		this.maxDamageFactor = maxDamageFactor;
-		this.damageReductionAmountArray = damageReductionAmountArray;
-		this.enchantability = enchantability;
-		this.soundEvent = soundEvent;
-		this.toughness = toughness;
-		this.knockbackResistance = knockbackResistance;
-		this.repairMaterial = new Lazy<>(repairMaterialIn);
-		this.name = "techreborn:" + this.toString().toLowerCase(Locale.ROOT);
+	public static final RegistryEntry<ArmorMaterial> RUBY = TRArmorMaterials.register("ruby", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 2);
+		map.put(ArmorItem.Type.LEGGINGS, 5);
+		map.put(ArmorItem.Type.CHESTPLATE, 7);
+		map.put(ArmorItem.Type.HELMET, 2);
+		map.put(ArmorItem.Type.BODY, 7);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, () -> Ingredient.ofItems(TRContent.Gems.RUBY.asItem()));
+
+	public static final RegistryEntry<ArmorMaterial> SAPPHIRE = TRArmorMaterials.register("sapphire", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 4);
+		map.put(ArmorItem.Type.LEGGINGS, 4);
+		map.put(ArmorItem.Type.CHESTPLATE, 4);
+		map.put(ArmorItem.Type.HELMET, 4);
+		map.put(ArmorItem.Type.BODY, 7);
+	}), 8, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, () -> Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem()));
+
+	public static final RegistryEntry<ArmorMaterial> PERIDOT = TRArmorMaterials.register("peridot", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 2);
+		map.put(ArmorItem.Type.LEGGINGS, 3);
+		map.put(ArmorItem.Type.CHESTPLATE, 8);
+		map.put(ArmorItem.Type.HELMET, 3);
+		map.put(ArmorItem.Type.BODY, 7);
+	}), 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, () -> Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem()));
+
+	public static final RegistryEntry<ArmorMaterial> QUANTUM = TRArmorMaterials.register("quantum", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 3);
+		map.put(ArmorItem.Type.LEGGINGS, 8);
+		map.put(ArmorItem.Type.CHESTPLATE, 6);
+		map.put(ArmorItem.Type.HELMET, 3);
+		map.put(ArmorItem.Type.BODY, 11);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f, 0.1f, () -> Ingredient.EMPTY);
+
+	public static final RegistryEntry<ArmorMaterial> NANO = TRArmorMaterials.register("nano", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 3);
+		map.put(ArmorItem.Type.LEGGINGS, 8);
+		map.put(ArmorItem.Type.CHESTPLATE, 6);
+		map.put(ArmorItem.Type.HELMET, 3);
+		map.put(ArmorItem.Type.BODY, 11);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0.1f, () -> Ingredient.EMPTY);
+
+	public static final RegistryEntry<ArmorMaterial> CLOAKING_DEVICE = TRArmorMaterials.register("cloaking_device", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 0);
+		map.put(ArmorItem.Type.LEGGINGS, 0);
+		map.put(ArmorItem.Type.CHESTPLATE, 2);
+		map.put(ArmorItem.Type.HELMET, 0);
+		map.put(ArmorItem.Type.BODY, 0);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f, 0.0f, () -> Ingredient.EMPTY);
+
+	public static final RegistryEntry<ArmorMaterial> LITHIUM_BATPACK = TRArmorMaterials.register("lithium_batpack", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 0);
+		map.put(ArmorItem.Type.LEGGINGS, 0);
+		map.put(ArmorItem.Type.CHESTPLATE, 5);
+		map.put(ArmorItem.Type.HELMET, 0);
+		map.put(ArmorItem.Type.BODY, 0);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0f, 0.0f, () -> Ingredient.EMPTY);
+
+	public static final RegistryEntry<ArmorMaterial> LAPOTRONIC_ORBPACK = TRArmorMaterials.register("lapotronic_orbpack", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+		map.put(ArmorItem.Type.BOOTS, 0);
+		map.put(ArmorItem.Type.LEGGINGS, 0);
+		map.put(ArmorItem.Type.CHESTPLATE, 6);
+		map.put(ArmorItem.Type.HELMET, 0);
+		map.put(ArmorItem.Type.BODY, 0);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0.0f, () -> Ingredient.EMPTY);
+
+	private static RegistryEntry<ArmorMaterial> register(String id, EnumMap<ArmorItem.Type, Integer> defense, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(Identifier.of("techreborn:" + id)));
+		return TRArmorMaterials.register(id, defense, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, list);
 	}
-
-	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-					SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
-		this(maxDamageFactor, damageReductionAmountArray, enchantability, soundEvent, toughness, 0.0F, repairMaterialIn);
-	}
-
-	@Override
-	public int getDurability(ArmorItem.Type type) {
-		return MAX_DAMAGE_ARRAY[type.getEquipmentSlot().getEntitySlotId()] * maxDamageFactor;
-	}
-
-	@Override
-	public int getProtection(ArmorItem.Type type) {
-		return damageReductionAmountArray[type.getEquipmentSlot().getEntitySlotId()];
-	}
-
-	@Override
-	public int getEnchantability() {
-		return enchantability;
-	}
-
-	@Override
-	public SoundEvent getEquipSound() {
-		return soundEvent;
-	}
-
-	@Override
-	public Ingredient getRepairIngredient() {
-		return repairMaterial.get();
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public float getToughness() {
-		return toughness;
-	}
-
-	@Override
-	public float getKnockbackResistance() {
-		return knockbackResistance;
+	private static RegistryEntry<ArmorMaterial> register(String id, EnumMap<ArmorItem.Type, Integer> defense, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient, List<ArmorMaterial.Layer> layers) {
+		EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap<ArmorItem.Type, Integer>(ArmorItem.Type.class);
+		for (ArmorItem.Type type : ArmorItem.Type.values()) {
+			enumMap.put(type, defense.get(type));
+		}
+		return Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of("techreborn:" + id), new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance));
 	}
 }

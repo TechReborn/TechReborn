@@ -24,22 +24,15 @@
 
 package techreborn.items.tool.industrial;
 
-import net.fabricmc.yarn.constants.MiningLevels;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.Items;
-import net.minecraft.item.MiningToolItem;
+import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.IToolHandler;
-import reborncore.api.items.EnchantmentTargetHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -49,29 +42,29 @@ import techreborn.init.TRContent;
 import techreborn.init.TRToolMaterials;
 
 
-public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler, EnchantmentTargetHandler {
-	public final int miningLevel;
-
+public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler {
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(3, 1, TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings().maxCount(1).maxDamage(-1));
-		this.miningLevel = MiningLevels.DIAMOND;
+		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings()
+			.maxDamage(0)
+			.attributeModifiers(PickaxeItem.createAttributeModifiers(TRToolMaterials.OMNI_TOOL, 3, 1)
+		));
 	}
 
 	// MiningToolItem
 	@Override
-	public boolean isSuitableFor(BlockState state) {
-		return Items.DIAMOND_AXE.isSuitableFor(state) || Items.DIAMOND_SWORD.isSuitableFor(state)
-				|| Items.DIAMOND_PICKAXE.isSuitableFor(state) || Items.DIAMOND_SHOVEL.isSuitableFor(state)
-				|| Items.SHEARS.isSuitableFor(state);
+	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+		return Items.DIAMOND_AXE.isCorrectForDrops(stack, state) || Items.DIAMOND_SWORD.isCorrectForDrops(stack, state)
+				|| Items.DIAMOND_PICKAXE.isCorrectForDrops(stack, state) || Items.DIAMOND_SHOVEL.isCorrectForDrops(stack, state)
+				|| Items.SHEARS.isCorrectForDrops(stack, state);
 	}
 
 	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
 		if (getStoredEnergy(stack) >= TechRebornConfig.omniToolCost) {
 			return getMaterial().getMiningSpeedMultiplier();
 		}
-		return super.getMiningSpeedMultiplier(stack, state);
+		return super.getMiningSpeed(stack, state);
 	}
 
 	@Override
@@ -107,11 +100,6 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 		if (tryUse != ActionResult.PASS) { return tryUse; }
 
 		return TorchHelper.placeTorch(context);
-	}
-
-	@Override
-	public boolean isDamageable() {
-		return false;
 	}
 
 	@Override
@@ -161,9 +149,4 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 		}
 	}
 
-	// EnchantmentTargetHandler
-	@Override
-	public boolean modifyEnchantmentApplication(EnchantmentTarget target) {
-        return target == EnchantmentTarget.BREAKABLE || target == EnchantmentTarget.DIGGER || target == EnchantmentTarget.WEAPON;
-    }
 }

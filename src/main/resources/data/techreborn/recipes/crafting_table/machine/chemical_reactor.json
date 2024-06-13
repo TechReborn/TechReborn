@@ -16,10 +16,10 @@
       "item": "techreborn:extractor"
     },
     "I": {
-      "tag": "c:invar_plates"
+      "tag": "c:plates/invar"
     }
   },
   "result": {
-    "item": "techreborn:chemical_reactor"
+    "id": "techreborn:chemical_reactor"
   }
 }

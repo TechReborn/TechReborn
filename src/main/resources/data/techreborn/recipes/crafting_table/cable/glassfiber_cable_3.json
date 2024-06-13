@@ -14,11 +14,11 @@
       "item": "minecraft:redstone"
     },
     "U": {
-      "tag": "c:ruby_dusts"
+      "tag": "c:dusts/ruby"
     }
   },
   "result": {
-    "item": "techreborn:glassfiber_cable",
+    "id": "techreborn:glassfiber_cable",
     "count": 3
   }
 }

@@ -30,10 +30,14 @@ import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PlayerHeadItem;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Pair;
@@ -213,7 +217,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 						amount = amount -1;
 					}
 					addStoredItemCount(amount);
-					inputStack.setNbt(pair.getRight().getNbt());
+					inputStack = pair.getRight().copy();
 					inventory.setHashChanged();
 				}
 				return inputStack;
@@ -300,8 +304,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@Override
-	public void readNbt(NbtCompound tagCompound) {
-		super.readNbt(tagCompound);
+	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(tagCompound, registryLookup);
 
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
@@ -313,7 +317,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		storeItemStack = ItemStack.EMPTY;
 
 		if (tagCompound.contains("storedStack")) {
-			storeItemStack = ItemStack.fromNbt(tagCompound.getCompound("storedStack"));
+			storeItemStack = ItemStack.fromNbt(registryLookup, tagCompound.getCompound("storedStack")).orElseThrow();
 		}
 
 		if (!storeItemStack.isEmpty()) {
@@ -326,13 +330,13 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		}
 
 		if (tagCompound.contains("lockedItem")) {
-			lockedItemStack = ItemStack.fromNbt(tagCompound.getCompound("lockedItem"));
+			lockedItemStack = ItemStack.fromNbt(registryLookup, tagCompound.getCompound("lockedItem")).orElseThrow();
 		}
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound) {
-		super.writeNbt(tagCompound);
+	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(tagCompound, registryLookup);
 
 		tagCompound.putString("unitType", this.type.name());
 
@@ -341,7 +345,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			if (storeItemStack.getCount() > storeItemStack.getMaxCount()) {
 				temp.setCount(storeItemStack.getMaxCount());
 			}
-			tagCompound.put("storedStack", temp.writeNbt(new NbtCompound()));
+			tagCompound.put("storedStack", temp.encode(registryLookup, new NbtCompound()));
 			tagCompound.putInt("storedQuantity", Math.min(storeItemStack.getCount(), maxCapacity));
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
@@ -351,7 +355,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		tagCompound.putInt("totalStoredAmount", getCurrentCapacity());
 
 		if (isLocked()) {
-			tagCompound.put("lockedItem", lockedItemStack.writeNbt(new NbtCompound()));
+			tagCompound.put("lockedItem", lockedItemStack.encode(registryLookup));
 		}
 	}
 
@@ -404,8 +408,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		}
 		// do not allow other storage units to avoid NBT overflow. Fix #2580
 		if (inputStack.isIn(TRContent.ItemTags.STORAGE_UNITS)) {
-			NbtCompound tagCompound = inputStack.getNbt();
-			return (tagCompound == null || tagCompound.getSize() == 0) && (getStoredStack().isEmpty() || ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true));
+			return false;
 		}
 
 		if (isLocked()) {
@@ -438,11 +441,11 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final NbtCompound blockEntity = new NbtCompound();
-
-		this.writeNbt(blockEntity);
-		dropStack.setNbt(new NbtCompound());
-		dropStack.getOrCreateNbt().put("blockEntity", blockEntity);
+		final NbtCompound nbt = new NbtCompound();
+		if (world != null){
+			writeNbt(nbt, world.getRegistryManager());
+			dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(nbt));
+		}
 
 		return dropStack;
 	}
@@ -486,10 +489,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				.blockEntity(this)
 				.slot(INPUT_SLOT, 100, 53)
 				.outputSlot(OUTPUT_SLOT, 140, 53)
-				.sync(this::isLockedInt, this::setLockedInt)
-				.sync(this::getStoredStackNBT, this::setStoredStackFromNBT)
-				.sync(this::getStoredAmount, this::setStoredAmount)
-				.sync(this::getMaxCapacity, this::setMaxCapacity)
+				.sync(PacketCodecs.INTEGER, this::isLockedInt, this::setLockedInt)
+				.sync(PacketCodecs.NBT_COMPOUND, this::getStoredStackNBT, this::setStoredStackFromNBT)
+				.sync(PacketCodecs.INTEGER, this::getStoredAmount, this::setStoredAmount)
+				.sync(PacketCodecs.INTEGER, this::getMaxCapacity, this::setMaxCapacity)
 				.addInventory().create(this, syncID);
 
 		// Note that inventory is synced, and it gets the stack from that
@@ -524,12 +527,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public NbtCompound getStoredStackNBT() {
 		NbtCompound tag = new NbtCompound();
-		getStoredStack().writeNbt(tag);
+		getStoredStack().encode(world.getRegistryManager(), tag);
 		return tag;
 	}
 
 	public void setStoredStackFromNBT(NbtCompound tag) {
-		storeItemStack = ItemStack.fromNbt(tag);
+		storeItemStack = ItemStack.fromNbt(world.getRegistryManager(), tag).orElseThrow();
 	}
 
 	private Storage<ItemVariant> getInternalStoreStorage(@Nullable Direction direction) {

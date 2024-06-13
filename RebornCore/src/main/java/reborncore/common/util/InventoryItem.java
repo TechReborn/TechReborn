@@ -24,110 +24,51 @@
 
 package reborncore.common.util;
 
+import net.minecraft.component.*;
+import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 import reborncore.api.items.InventoryBase;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+public class InventoryItem extends InventoryBase implements ComponentHolder {
 
-public class InventoryItem extends InventoryBase {
-
+	// ItemStack of InventoryItem
 	@NotNull
 	ItemStack stack;
-	int size;
+	private final ComponentMap components = ComponentMap.EMPTY;
 
-	private InventoryItem(
-			@NotNull
-					ItemStack stack, int size) {
+	private InventoryItem(@NotNull ItemStack stack, int size) {
 		super(size);
 		Validate.notNull(stack, "Stack is empty");
 		Validate.isTrue(!stack.isEmpty());
-		this.size = size;
 		this.stack = stack;
 	}
 
-	public static InventoryItem getItemInventory(ItemStack stack, int size) {
-		return new InventoryItem(stack, size);
-	}
-
-	public ItemStack getStack() {
+	public @NotNull ItemStack getContainerStack() {
 		return stack;
 	}
 
-	public NbtCompound getInvData() {
-		Validate.isTrue(!stack.isEmpty());
-		if (!stack.hasNbt()) {
-			stack.setNbt(new NbtCompound());
-		}
-		if (!stack.getNbt().contains("inventory")) {
-			stack.getNbt().put("inventory", new NbtCompound());
-		}
-		return stack.getNbt().getCompound("inventory");
+	/**
+	 * Copy inventory stacks from ContainerComponent to inventory. Call this in screenhandler.
+	 */
+	public final void readComponents(){
+		components.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyTo(this.getStacks());
 	}
 
-	public NbtCompound getSlotData(int slot) {
-		validateSlotIndex(slot);
-		NbtCompound invData = getInvData();
-		if (!invData.contains("slot_" + slot)) {
-			invData.put("slot_" + slot, new NbtCompound());
-		}
-		return invData.getCompound("slot_" + slot);
-	}
-
-	public void setSlotData(int slot, NbtCompound tagCompound) {
-		validateSlotIndex(slot);
-		Validate.notNull(tagCompound, "NBT tag is empty");
-		NbtCompound invData = getInvData();
-		invData.put("slot_" + slot, tagCompound);
-	}
-
-	public List<ItemStack> getAllStacks() {
-		return IntStream.range(0, size)
-				.mapToObj(this::getStack)
-				.collect(Collectors.toList());
-	}
-
-	public int getSlots() {
-		return size;
-	}
-
-	@NotNull
+	/**
+	 *  Save {@link net.minecraft.inventory.Inventory} to ContainerComponent
+	 *
+	 **/
 	@Override
-	public ItemStack getStack(int slot) {
-		return ItemStack.fromNbt(getSlotData(slot));
+	public void markDirty() {
+		ComponentMap.Builder builder = ComponentMap.builder();
+		builder.add(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(this.getStacks()));
+		this.getContainerStack().applyComponentsFrom(builder.build());
 	}
 
 	@Override
-	public void setStack(int slot,
-						@NotNull
-								ItemStack stack) {
-		setSlotData(slot, stack.writeNbt(new NbtCompound()));
+	public ComponentMap getComponents() {
+		return !this.isEmpty() ? this.components : ComponentMap.EMPTY;
 	}
-
-	public int getSlotLimit(int slot) {
-		return 64;
-	}
-
-	public void validateSlotIndex(int slot) {
-		if (slot < 0 || slot >= size) {
-			throw new RuntimeException("Slot " + slot + " not in valid range - [0," + size + ")");
-		}
-
-	}
-
-	public int getStackLimit(int slot,
-							@NotNull
-									ItemStack stack) {
-		return Math.min(getSlotLimit(slot), stack.getMaxCount());
-	}
-
-	@Override
-	public boolean isValid(int slot, ItemStack stack) {
-		return true;
-	}
-
 }

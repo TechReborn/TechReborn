@@ -10,13 +10,13 @@
       "item": "minecraft:copper_ingot"
     },
     "T": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     },
     "H": {
       "item": "techreborn:helium_coolant_cell_180k"
     }
   },
   "result": {
-    "item": "techreborn:helium_coolant_cell_360k"
+    "id": "techreborn:helium_coolant_cell_360k"
   }
 }

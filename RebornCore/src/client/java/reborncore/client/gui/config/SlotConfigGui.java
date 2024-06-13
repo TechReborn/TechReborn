@@ -26,6 +26,7 @@ package reborncore.client.gui.config;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -35,11 +36,10 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.client.ClientChatUtils;
-import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.config.elements.ConfigSlotElement;
 import reborncore.client.gui.config.elements.SlotType;
-import reborncore.common.network.ServerBoundPackets;
+import reborncore.common.network.serverbound.SlotConfigSavePayload;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
 
@@ -179,7 +179,7 @@ public class SlotConfigGui extends GuiTab {
 		String json = MinecraftClient.getInstance().keyboard.getClipboard();
 		try {
 			machine.getSlotConfiguration().readJson(json, machine.getClass().getCanonicalName());
-			ClientNetworkManager.sendToServer(ServerBoundPackets.createPacketConfigSave(machine.getPos(), machine.getSlotConfiguration()));
+			ClientPlayNetworking.send(new SlotConfigSavePayload(machine.getPos(), machine.getSlotConfiguration()));
 			ClientChatUtils.addHudMessage(Text.literal("Slot configuration loaded from clipboard"));
 		} catch (UnsupportedOperationException e) {
 			ClientChatUtils.addHudMessage(Text.literal(e.getMessage()));

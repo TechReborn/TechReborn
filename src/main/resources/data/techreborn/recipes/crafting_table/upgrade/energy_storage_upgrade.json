@@ -19,10 +19,10 @@
 			"item": "techreborn:insulated_copper_cable"
 		},
 		"R": {
-			"tag": "c:red_garnet_plates"
+			"tag": "c:plates/red_garnet"
 		}
 	},
 	"result": {
-		"item": "techreborn:energy_storage_upgrade"
+		"id": "techreborn:energy_storage_upgrade"
 	}
 }

@@ -7,13 +7,13 @@
   ],
   "key": {
 	"S": {
-      "tag": "c:saw_dusts"
+      "tag": "c:dusts/saw"
 	},
     "U": {
       "item": "techreborn:uu_matter"
     }
   },
   "result": {
-    "item": "minecraft:warped_hyphae"
+    "id": "minecraft:warped_hyphae"
   }
 }

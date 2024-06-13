@@ -7,17 +7,17 @@
   ],
   "key": {
     "S": {
-      "tag": "c:steel_ingots"
+      "tag": "c:ingots/steel"
     },
     "D": {
-      "tag": "c:diamond_dusts"
+      "tag": "c:dusts/diamond"
     },
     "G": {
       "item": "minecraft:diamond"
     }
   },
   "result": {
-    "item": "techreborn:diamond_grinding_head",
+    "id": "techreborn:diamond_grinding_head",
     "count": 3
   }
 }

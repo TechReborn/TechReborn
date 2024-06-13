@@ -11,14 +11,14 @@
       "item": "techreborn:advanced_machine_frame"
     },
     "R": {
-      "tag": "c:steel_plates"
+      "tag": "c:plates/steel"
     },
     "C": {
       "item": "techreborn:advanced_circuit"
     }
   },
   "result": {
-    "item": "techreborn:advanced_machine_casing",
+    "id": "techreborn:advanced_machine_casing",
     "count": 4
   }
 }

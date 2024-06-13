@@ -10,19 +10,19 @@
 			"item": "techreborn:electronic_circuit"
 		},
 		"E": {
-			"tag": "c:ender_pearl_dusts"
+			"tag": "c:dusts/ender_pearl"
 		},
 		"F": {
 			"item": "techreborn:basic_machine_frame"
 		},
 		"P": {
-			"tag": "c:zinc_plates"
+			"tag": "c:plates/zinc"
 		},
 		"Y": {
-			"tag": "c:yellow_garnet_plates"
+			"tag": "c:plates/yellow_garnet"
 		}
 	},
 	"result": {
-		"item": "techreborn:elevator"
+		"id": "techreborn:elevator"
 	}
 }

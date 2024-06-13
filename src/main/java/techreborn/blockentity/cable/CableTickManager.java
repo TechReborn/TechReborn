@@ -33,7 +33,6 @@ import techreborn.init.TRContent;
 
 import java.util.*;
 
-@SuppressWarnings("UnstableApiUsage")
 class CableTickManager {
 	private static final List<CableBlockEntity> cableList = new ArrayList<>();
 	private static final List<OfferedEnergyStorage> targetStorages = new ArrayList<>();
@@ -49,7 +48,7 @@ class CableTickManager {
 
 		try {
 			gatherCables(startingCable);
-			if (cableList.size() == 0) return;
+			if (cableList.isEmpty()) return;
 
 			// Group all energy into the network.
 			long networkCapacity = 0;

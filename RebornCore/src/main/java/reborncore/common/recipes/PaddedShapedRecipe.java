@@ -31,7 +31,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.chars.CharArraySet;
 import it.unimi.dsi.fastutil.chars.CharSet;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RawShapedRecipe;
 import net.minecraft.recipe.RecipeSerializer;
@@ -40,16 +41,14 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.dynamic.Codecs;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public class PaddedShapedRecipe extends ShapedRecipe {
-	public static final Identifier ID = new Identifier("reborncore", "padded");
+	public static final Identifier ID = Identifier.of("reborncore", "padded");
 	public static final RecipeSerializer<PaddedShapedRecipe> PADDED = Registry.register(Registries.RECIPE_SERIALIZER, ID, new Serializer());
 
 	final RawShapedRecipe raw;
@@ -63,7 +62,7 @@ public class PaddedShapedRecipe extends ShapedRecipe {
 
 	public static RawShapedRecipe create(Map<Character, Ingredient> key, List<String> pattern) {
 		RawShapedRecipe.Data data = new RawShapedRecipe.Data(key, pattern);
-		return Util.getResult(fromData(data), IllegalArgumentException::new);
+		return fromData(data).getOrThrow();
 	}
 
 	// Basically a copy of ShapedRecipe.fromData
@@ -111,42 +110,41 @@ public class PaddedShapedRecipe extends ShapedRecipe {
 	}
 
 	private static class Serializer implements RecipeSerializer<PaddedShapedRecipe> {
-		private static final MapCodec<RawShapedRecipe> PADDED_RAW_CODEC = RawShapedRecipe.Data.CODEC.flatXmap(
-			PaddedShapedRecipe::fromData,
-			(recipe) -> recipe.data()
-				.map(DataResult::success)
-				.orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe"))
-		);
 
-		public static final Codec<PaddedShapedRecipe> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			Codecs.createStrictOptionalFieldCodec(Codec.STRING, "group", "").forGetter(ShapedRecipe::getGroup),
-			CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC).forGetter(ShapedRecipe::getCategory),
-			PADDED_RAW_CODEC.forGetter(PaddedShapedRecipe::getRaw),
-			ItemStack.RECIPE_RESULT_CODEC.fieldOf("result").forGetter(PaddedShapedRecipe::getResult),
-			Codecs.createStrictOptionalFieldCodec(Codec.BOOL, "show_notification", true).forGetter(ShapedRecipe::showNotification)
-		).apply(instance, PaddedShapedRecipe::new));
+		public static final MapCodec<PaddedShapedRecipe> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(Codec.STRING.optionalFieldOf("group", "").forGetter(PaddedShapedRecipe::getGroup),
+					CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC).forGetter(PaddedShapedRecipe::getCategory),
+					RawShapedRecipe.CODEC.forGetter(PaddedShapedRecipe::getRaw),
+					ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(PaddedShapedRecipe::getResult),
+					Codec.BOOL.optionalFieldOf("show_notification", true).forGetter(PaddedShapedRecipe::showNotification))
+				.apply(instance, PaddedShapedRecipe::new));
+
+		public static final PacketCodec<RegistryByteBuf, PaddedShapedRecipe> PACKET_CODEC = PacketCodec.ofStatic(PaddedShapedRecipe.Serializer::write, PaddedShapedRecipe.Serializer::read);
 
 		@Override
-		public Codec<PaddedShapedRecipe> codec() {
+		public MapCodec<PaddedShapedRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public PaddedShapedRecipe read(PacketByteBuf buf) {
+		public PacketCodec<RegistryByteBuf, PaddedShapedRecipe> packetCodec() {
+			return PACKET_CODEC;
+		}
+
+		private static PaddedShapedRecipe read(RegistryByteBuf buf) {
 			String string = buf.readString();
 			CraftingRecipeCategory craftingRecipeCategory = buf.readEnumConstant(CraftingRecipeCategory.class);
-			RawShapedRecipe rawShapedRecipe = RawShapedRecipe.readFromBuf(buf);
-			ItemStack itemStack = buf.readItemStack();
+			RawShapedRecipe rawShapedRecipe = RawShapedRecipe.PACKET_CODEC.decode(buf);
+			ItemStack itemStack = ItemStack.PACKET_CODEC.decode(buf);
 			boolean showNotification = buf.readBoolean();
 			return new PaddedShapedRecipe(string, craftingRecipeCategory, rawShapedRecipe, itemStack, showNotification);
 		}
 
-		@Override
-		public void write(PacketByteBuf buf, PaddedShapedRecipe recipe) {
+		private static void write(RegistryByteBuf buf, PaddedShapedRecipe recipe) {
 			buf.writeString(recipe.getGroup());
 			buf.writeEnumConstant(recipe.getCategory());
-			recipe.getRaw().writeToBuf(buf);
-			buf.writeItemStack(recipe.result);
+			RawShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
+			ItemStack.PACKET_CODEC.encode(buf, recipe.result);
 			buf.writeBoolean(recipe.showNotification());
 		}
 	}

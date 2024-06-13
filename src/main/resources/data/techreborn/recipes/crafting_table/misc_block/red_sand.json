@@ -3,13 +3,13 @@
   "group": "red_sand",
   "ingredients": [
     {
-      "tag": "c:netherrack_dusts"
+      "tag": "c:dusts/netherrack"
     },
     {
       "item": "minecraft:sand"
     }
   ],
   "result": {
-    "item": "minecraft:red_sand"
+    "id": "minecraft:red_sand"
   }
 }
