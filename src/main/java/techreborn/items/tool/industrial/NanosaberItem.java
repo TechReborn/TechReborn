@@ -24,11 +24,10 @@
 
 package techreborn.items.tool.industrial;
 
-import com.google.common.collect.ImmutableMultimap;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -41,6 +40,7 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
@@ -54,6 +54,11 @@ import techreborn.utils.TRItemUtils;
 import java.util.List;
 
 public class NanosaberItem extends SwordItem implements RcEnergyItem {
+	private static final EntityAttributeModifier ENABLED_ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_damage"), TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final EntityAttributeModifier ENABLED_ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_speed"), 3, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final EntityAttributeModifier DISABLED_ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_damage"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final EntityAttributeModifier DISABLED_ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_speed"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
+
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem() {
 		super(TRToolMaterials.NANOSABER, new Item.Settings()
@@ -79,6 +84,12 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		TRItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost, entityIn);
+
+		boolean isActive = stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE;
+		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
+		attributes.with(EntityAttributes.GENERIC_ATTACK_DAMAGE, isActive ? ENABLED_ATTACK_DAMAGE_MODIFIER : DISABLED_ATTACK_DAMAGE_MODIFIER, AttributeModifierSlot.MAINHAND)
+			.with(EntityAttributes.GENERIC_ATTACK_SPEED, isActive ? ENABLED_ATTACK_SPEED_MODIFIER : DISABLED_ATTACK_SPEED_MODIFIER, AttributeModifierSlot.MAINHAND);
+		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 
 	@Override
@@ -115,24 +126,6 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	public int getItemBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
-
-	/* TODO 1.21
-	@Override
-	public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
-		var attributes = super.getAttributeModifiers(stack);
-
-		// TODO 1.20.5
-//		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-//		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_SPEED);
-
-		if (stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE) {
-			attributes = attributes.with(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND);
-			attributes = attributes.with(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND);
-		}
-
-		return attributes;
-	}
-	 */
 
 	// RcEnergyItem
 	@Override

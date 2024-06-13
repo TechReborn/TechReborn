@@ -24,6 +24,7 @@
 
 package techreborn.items.armor;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -37,6 +38,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -46,6 +48,8 @@ import techreborn.utils.TRItemUtils;
 import java.util.List;
 
 public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
+	private static final EntityAttributeModifier POWERED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_suit_armor"), 8, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final EntityAttributeModifier DEPLETED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_suit_armor"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
 
 	public NanoSuitItem(RegistryEntry<ArmorMaterial> material, Type slot) {
 		super(material, slot, TechRebornConfig.nanoSuitCapacity, RcEnergyTier.HIGH);
@@ -54,22 +58,6 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	// TREnergyArmourItem
 	@Override
 	public long getEnergyMaxOutput(ItemStack stack) { return 0; }
-
-	// FabricItem
-	/* TODO 1.21
-	@Override
-	public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
-
-		if (getStoredEnergy(stack) > 0) {
-			return AttributeModifiersComponent.builder().add(
-				EntityAttributes.GENERIC_ARMOR,
-				new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Armor modifier", 8, EntityAttributeModifier.Operation.ADD_VALUE),
-				AttributeModifierSlot.ARMOR).build();
-		}
-
-		return super.getAttributeModifiers(stack);
-	}
-	 */
 
 	// ArmorBlockEntityTicker
 	@Override
@@ -82,6 +70,11 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 				playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 			}
 		}
+
+		boolean hasEnergy = getStoredEnergy(stack) > 0;
+		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
+		attributes = attributes.with(EntityAttributes.GENERIC_ARMOR, hasEnergy ? POWERED_ATTRIBUTE_MODIFIER : DEPLETED_ATTRIBUTE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(this.getSlotType()));
+		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 
 	@Override
