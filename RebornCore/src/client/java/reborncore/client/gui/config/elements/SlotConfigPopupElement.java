@@ -32,7 +32,7 @@ import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.serverbound.IoSavePayload;
-import reborncore.common.network.serverbound.SlotConfigSavePayload;
+import reborncore.common.network.serverbound.SlotSavePayload;
 import reborncore.common.util.Color;
 
 public class SlotConfigPopupElement extends AbstractConfigPopupElement {
@@ -57,8 +57,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 
 		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(nextConfig);
 		SlotConfiguration.SlotConfig newConfig = new SlotConfiguration.SlotConfig(side, slotIO, id);
-		// TODO 1.20.5
-		ClientPlayNetworking.send(new SlotConfigSavePayload(guiBase.be.getPos(), null));
+		ClientPlayNetworking.send(new SlotSavePayload(guiBase.be.getPos(), newConfig));
 	}
 
 	public void updateCheckBox(String type, GuiBase<?> guiBase) {
