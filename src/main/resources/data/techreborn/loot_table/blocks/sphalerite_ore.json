@@ -29,7 +29,7 @@
 						{
 							"type": "minecraft:loot_table",
 							"weight": 100,
-							"name": "techreborn:blocks/ore_drop/sphalerite_ore"
+							"value": "techreborn:blocks/ore_drop/sphalerite_ore"
 						}
 					]
 				}
