@@ -548,8 +548,8 @@ public class TRContent {
 			block = new ExperienceDroppingBlock(experienceDroppedFallback != null ? experienceDroppedFallback : ConstantIntProvider.create(1), TRBlockSettings.ore(name.startsWith("deepslate")));
 			this.industrial = industrial;
 			InitUtils.setup(block, name + "_ore");
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c",
-					(name.startsWith("deepslate_") ? name.substring(name.indexOf('_')+1): name) + "_ores"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "ores/" +
+					(name.startsWith("deepslate_") ? name.substring(name.indexOf('_')+1): name)));
 			this.distribution = distribution;
 		}
 
@@ -648,7 +648,7 @@ public class TRContent {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new BlockStorage(isHot, hardness, resistance);
 			InitUtils.setup(block, name + "_storage_block");
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_blocks"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "storage_blocks/" + Objects.requireNonNullElse(tagNameBase, name)));
 
 			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), AbstractBlock.Settings.copy(block));
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
@@ -844,7 +844,7 @@ public class TRContent {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings());
 			InitUtils.setup(item, name + "_dust");
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_dusts"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "dusts/" + Objects.requireNonNullElse(tagNameBase, name)));
 		}
 
 		Dusts() {
@@ -901,7 +901,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, "raw_" + name);
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "raw_" + name + "_ores"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "raw_materials/" + name));
 		}
 
 		@Override
@@ -973,7 +973,7 @@ public class TRContent {
 				}
 			dust = dustVariant;
 			InitUtils.setup(item, name + "_small_dust");
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_small_dusts"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "small_dusts/" + Objects.requireNonNullElse(tagNameBase, name)));
 		}
 
 		SmallDusts(String tagNameBase) {
@@ -1027,7 +1027,7 @@ public class TRContent {
 	}
 
 	public enum Gems implements ItemConvertible, TagConvertible<Item> {
-		PERIDOT, RED_GARNET, RUBY("rubies"), SAPPHIRE("sapphires"), YELLOW_GARNET;
+		PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
 
 		private final String name;
 		private final Item item;
@@ -1036,7 +1036,7 @@ public class TRContent {
 		private final StorageBlocks storageBlock;
 		private final TagKey<Item> tag;
 
-		Gems(String tagPlural) {
+		Gems() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings());
 			Dusts dustVariant = null;
@@ -1066,11 +1066,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_gem");
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", tagPlural == null ? name + "_gems" : tagPlural));
-		}
-
-		Gems() {
-			this(null);
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "gems/" + name));
 		}
 
 		public ItemStack getStack() {
@@ -1168,7 +1164,7 @@ public class TRContent {
 			}
 			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_ingot");
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_ingots"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "ingots/" + Objects.requireNonNullElse(tagNameBase, name)));
 		}
 
 		Ingots() {
@@ -1252,7 +1248,7 @@ public class TRContent {
 			ingot = ingotVariant;
 			this.ofGem = ofGem;
 			InitUtils.setup(item, name + "_nugget");
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_nuggets"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "nuggets/" + Objects.requireNonNullElse(tagNameBase, name)));
 		}
 
 		Nuggets(ItemConvertible ingotVariant, boolean ofGem) {
@@ -1479,7 +1475,7 @@ public class TRContent {
 				tagNameBase = name;
 			}
 
-			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", Objects.requireNonNullElse(tagNameBase, name) + "_plates"));
+			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "plates/" + tagNameBase));
 		}
 
 		Plates(String tagNameBase) {

@@ -148,7 +148,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 			name = input.id().toString()
 			if (name.contains(":"))
 				name = name.substring(name.indexOf(":")+1)
-			return name.substring(0,name.indexOf("_"))
+			return name.substring(name.indexOf("/"))
 		}
 
 		throw new IllegalArgumentException()

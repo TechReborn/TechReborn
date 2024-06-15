@@ -27,9 +27,11 @@ package techreborn.datagen.tags
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.ItemTagProvider
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
+import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
 import reborncore.common.misc.RebornCoreTags
+import techreborn.datagen.TRConventionalTags
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
@@ -226,5 +228,10 @@ class TRItemTagProvider extends ItemTagProvider {
 
 		getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
 			.add(TRContent.OMNI_TOOL)
+
+		getOrCreateTagBuilder(TRConventionalTags.FROGLIGHTS)
+			.add(Items.OCHRE_FROGLIGHT)
+			.add(Items.VERDANT_FROGLIGHT)
+			.add(Items.PEARLESCENT_FROGLIGHT)
 	}
 }

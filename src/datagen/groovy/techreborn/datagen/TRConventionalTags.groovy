@@ -26,6 +26,7 @@ package techreborn.datagen
 
 import net.minecraft.item.Item
 import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.tag.BlockTags
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 
@@ -53,37 +54,37 @@ class TRConventionalTags {
 	public static final TagKey<Item> CHROMIUM_INGOTS = register("ingots/chromium")
 	public static final TagKey<Item> CINNABAR_ORES = register("ores/cinnabar")
 	public static final TagKey<Item> COAL_DUSTS = register("dusts/coal")
-	public static final TagKey<Item> COAL_ORES = register("ores/coal")
+	public static final TagKey<Item> COAL_ORES = BlockTags.COAL_ORES
 	public static final TagKey<Item> COOKED_MEAT = register("foods/cooked_meats")
-	public static final TagKey<Item> COPPER_ORES = register("ores/copper")
+	public static final TagKey<Item> COPPER_ORES = BlockTags.COPPER_ORES
 	public static final TagKey<Item> COPPER_PLATES = register("plates/copper")
 	public static final TagKey<Item> DEAD_CORAL_BLOCKS = register("storage_blocks/dead_coral")
 	public static final TagKey<Item> DIAMOND_DUSTS = register("dusts/diamond")
-	public static final TagKey<Item> DIAMOND_ORES = register("ores/diamond")
+	public static final TagKey<Item> DIAMOND_ORES = BlockTags.DIAMOND_ORES
 	public static final TagKey<Item> ELECTRUM_BLOCKS = register("storage_blocks/electrum")
 	public static final TagKey<Item> ELECTRUM_DUSTS = register("dusts/electrum")
 	public static final TagKey<Item> ELECTRUM_INGOTS = register("ingots/electrum")
 	public static final TagKey<Item> ELECTRUM_PLATES = register("plates/electrum")
 	public static final TagKey<Item> EMERALD_DUSTS = register("dusts/emerald")
-	public static final TagKey<Item> EMERALD_ORES = register("ores/emerald")
+	public static final TagKey<Item> EMERALD_ORES = BlockTags.EMERALD_ORES
 	public static final TagKey<Item> EMERALD_PLATES = register("plates/emerald")
 	public static final TagKey<Item> ENDER_PEARL_DUSTS = register("dusts/ender_pearl")
 	public static final TagKey<Item> FROGLIGHTS = register("froglights")
 	public static final TagKey<Item> GALENA_ORES = register("ores/galena")
 	public static final TagKey<Item> GLOWSTONE_SMALL_DUSTS = register("dusts/glowstone_small")
-	public static final TagKey<Item> GOLD_ORES = register("ores/gold")
+	public static final TagKey<Item> GOLD_ORES = BlockTags.GOLD_ORES
 	public static final TagKey<Item> INVAR_BLOCKS = register("storage_blocks/invar")
 	public static final TagKey<Item> INVAR_INGOTS = register("ingots/invar")
 	public static final TagKey<Item> IRIDIUM_BLOCKS = register("storage_blocks/iridium")
 	public static final TagKey<Item> IRIDIUM_INGOTS = register("ingots/iridium")
 	public static final TagKey<Item> IRIDIUM_ORES = register("ores/iridium")
-	public static final TagKey<Item> IRON_ORES = register("ores/iron")
-	public static final TagKey<Item> LAPIS_ORES = register("ores/lapis")
+	public static final TagKey<Item> IRON_ORES = BlockTags.IRON_ORES
+	public static final TagKey<Item> LAPIS_ORES = BlockTags.LAPIS_ORES
 	public static final TagKey<Item> LAZURITE_DUSTS = register("dusts/lazurite")
 	public static final TagKey<Item> LEAD_BLOCKS = register("storage_blocks/lead")
 	public static final TagKey<Item> LEAD_INGOTS = register("ingots/lead")
 	public static final TagKey<Item> LEAD_ORES = register("ores/lead")
-	public static final TagKey<Item> NETHERITE_NUGGETS = register("netherite_nuggets")
+	public static final TagKey<Item> NETHERITE_NUGGETS = register("nuggets/netherite")
 	public static final TagKey<Item> NICKEL_BLOCKS = register("storage_blocks/nickel")
 	public static final TagKey<Item> NICKEL_INGOTS = register("ingots/nickel")
 	public static final TagKey<Item> OBSIDIAN_DUSTS = register("dusts/obsidian")
@@ -106,7 +107,7 @@ class TRConventionalTags {
 	public static final TagKey<Item> RED_GARNET_BLOCKS = register("storage_blocks/red_garnet")
 	public static final TagKey<Item> RED_GARNET_DUSTS = register("dusts/red_garnet")
 	public static final TagKey<Item> RED_GARNET_GEMS = register("gems/red_garnet")
-	public static final TagKey<Item> REDSTONE_ORES = register("ores/redstone")
+	public static final TagKey<Item> REDSTONE_ORES = BlockTags.REDSTONE_ORES
 	public static final TagKey<Item> REFINED_IRON_BLOCKS = register("storage_blocks/refined_iron")
 	public static final TagKey<Item> REFINED_IRON_INGOTS = register("ingots/refined_iron")
 	public static final TagKey<Item> RUBIES = register("rubies")

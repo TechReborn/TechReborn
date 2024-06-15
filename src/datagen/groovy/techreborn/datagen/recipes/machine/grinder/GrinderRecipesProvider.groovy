@@ -121,7 +121,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 200
-			ingredients tag("c:coal_ores")
+			ingredients TRConventionalTags.COAL_ORES
 			outputs stack(Items.COAL, 2)
 		}
 		offerGrinderRecipe {
