@@ -26,12 +26,24 @@ package techreborn.datagen.loottables
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
+import net.minecraft.block.Block
+import net.minecraft.enchantment.Enchantment
+import net.minecraft.enchantment.Enchantments
+import net.minecraft.item.Items
+import net.minecraft.loot.LootPool
+import net.minecraft.loot.LootTable
+import net.minecraft.loot.entry.ItemEntry
+import net.minecraft.loot.function.ApplyBonusLootFunction
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider
+import net.minecraft.loot.provider.number.UniformLootNumberProvider
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
+import java.util.function.Function
 
-class BlockLootTableProvider extends FabricBlockLootTableProvider{
+class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
 	BlockLootTableProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 		super(output, registriesFuture)
@@ -94,6 +106,18 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider{
 		addOreDrop(TRContent.Ores.BAUXITE)
 		addOreDrop(TRContent.Ores.GALENA)
 		addOreDrop(TRContent.Ores.SHELDONITE)
+		addOreDrop(TRContent.Ores.IRIDIUM, block -> oreDrops(block, TRContent.RawMetals.IRIDIUM.asItem()))
+		addOreDrop(TRContent.Ores.LEAD, block -> oreDrops(block, TRContent.RawMetals.LEAD.asItem()))
+		addOreDrop(TRContent.Ores.SILVER, block -> oreDrops(block, TRContent.RawMetals.SILVER.asItem()))
+		addOreDrop(TRContent.Ores.TIN, block -> oreDrops(block, TRContent.RawMetals.TIN.asItem()))
+		addOreDrop(TRContent.Ores.TUNGSTEN, block -> oreDrops(block, TRContent.RawMetals.TUNGSTEN.asItem()))
+		addOreDrop(TRContent.Ores.CINNABAR, this::cinnabarOreDrops)
+		addOreDrop(TRContent.Ores.RUBY, this::rubyOreDrops)
+		addOreDrop(TRContent.Ores.SAPPHIRE, this::sapphireOreDrops)
+		addOreDrop(TRContent.Ores.SODALITE, this::sodaliteOreDrops)
+		addOreDrop(TRContent.Ores.SPHALERITE, this::sphaleriteOreDrops)
+		addOreDrop(TRContent.Ores.PYRITE, block -> oreDrops(block, TRContent.Dusts.PYRITE.asItem()))
+		addOreDrop(TRContent.Ores.PERIDOT, block -> drops(block, TRContent.Gems.PERIDOT.asItem(), UniformLootNumberProvider.create(1.0F, 2.0F)))
 	}
 
 	private void addOreDrop(TRContent.Ores ore) {
@@ -102,5 +126,153 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider{
 		if (deepslate != null) {
 			addDrop(deepslate.block)
 		}
+	}
+
+	private void addOreDrop(TRContent.Ores ore, Function<Block, LootTable.Builder> lootTableFunction) {
+		addDrop(ore.block, lootTableFunction)
+		def deepslate = ore.getDeepslate()
+		if (deepslate != null) {
+			addDrop(deepslate.block, lootTableFunction)
+		}
+	}
+
+	private LootTable.Builder cinnabarOreDrops(Block drop) {
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		return this.applyExplosionDecay(
+			drop,
+			LootTable.builder()
+				.pool(
+					LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1.0F))
+						.with(ItemEntry.builder(TRContent.Dusts.CINNABAR.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(UniformLootNumberProvider.create(0.0F, 1.0F))
+						.with(ItemEntry.builder(Items.REDSTONE))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1.0F))
+						.with(ItemEntry.builder(drop))
+						.conditionally(this.createSilkTouchCondition())
+				)
+		)
+	}
+
+	private LootTable.Builder rubyOreDrops(Block drop) {
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		return this.applyExplosionDecay(
+			drop,
+			LootTable.builder()
+				.pool(
+					LootPool.builder()
+						.rolls(UniformLootNumberProvider.create(1.0F, 2.0F))
+						.with(ItemEntry.builder(TRContent.Gems.RUBY.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(UniformLootNumberProvider.create(0.0F, 1.0F))
+						.with(ItemEntry.builder(TRContent.Gems.RED_GARNET.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1.0F))
+						.with(ItemEntry.builder(drop))
+						.conditionally(this.createSilkTouchCondition())
+				)
+		)
+	}
+
+	private LootTable.Builder sapphireOreDrops(Block drop) {
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		return this.applyExplosionDecay(
+			drop,
+			LootTable.builder()
+				.pool(
+					LootPool.builder()
+						.rolls(UniformLootNumberProvider.create(1.0F, 2.0F))
+						.with(ItemEntry.builder(TRContent.Gems.SAPPHIRE.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(UniformLootNumberProvider.create(0.0F, 1.0F))
+						.with(ItemEntry.builder(TRContent.Gems.PERIDOT.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1.0F))
+						.with(ItemEntry.builder(drop))
+						.conditionally(this.createSilkTouchCondition())
+				)
+		)
+	}
+
+	private LootTable.Builder sodaliteOreDrops(Block drop) {
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		return this.applyExplosionDecay(
+			drop,
+			LootTable.builder()
+				.pool(
+					LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1.0F))
+						.with(ItemEntry.builder(TRContent.Dusts.SODALITE.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(UniformLootNumberProvider.create(0.0F, 1.0F))
+						.with(ItemEntry.builder(TRContent.Dusts.ALUMINUM.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1.0F))
+						.with(ItemEntry.builder(drop))
+						.conditionally(this.createSilkTouchCondition())
+				)
+		)
+	}
+
+	private LootTable.Builder sphaleriteOreDrops(Block drop) {
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		return this.applyExplosionDecay(
+			drop,
+			LootTable.builder()
+				.pool(
+					LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1.0F))
+						.with(ItemEntry.builder(TRContent.Dusts.SPHALERITE.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(UniformLootNumberProvider.create(0.0F, 1.0F))
+						.with(ItemEntry.builder(TRContent.Gems.YELLOW_GARNET.asItem()))
+						.apply(ApplyBonusLootFunction.uniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+						.conditionally(this.createSilkTouchCondition().invert())
+				)
+				.pool(
+					LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1.0F))
+						.with(ItemEntry.builder(drop))
+						.conditionally(this.createSilkTouchCondition())
+				)
+		)
 	}
 }
