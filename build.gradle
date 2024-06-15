@@ -5,8 +5,8 @@ plugins {
 	id 'idea'
 	id 'eclipse'
 	id 'maven-publish'
-	id 'fabric-loom' version '1.6-SNAPSHOT'
-    id 'me.modmuss50.mod-publish-plugin' version '0.3.3'
+	id 'fabric-loom' version '1.7-SNAPSHOT'
+    id 'me.modmuss50.mod-publish-plugin' version '0.5.1'
 }
 
 repositories {
