@@ -527,12 +527,28 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public NbtCompound getStoredStackNBT() {
 		NbtCompound tag = new NbtCompound();
-		getStoredStack().encode(world.getRegistryManager(), tag);
+		ItemStack stack = getStoredStack();
+
+		tag.putInt("count", stack.getCount());
+
+		if (!stack.isEmpty()) {
+			// We are not allowed to serialize empty or large stacks
+			ItemStack singleStack = stack.copy();
+			singleStack.setCount(1);
+			tag.put("item", singleStack.encode(world.getRegistryManager(), new NbtCompound()));
+		}
+
 		return tag;
 	}
 
 	public void setStoredStackFromNBT(NbtCompound tag) {
-		storeItemStack = ItemStack.fromNbt(world.getRegistryManager(), tag).orElseThrow();
+		if (!tag.contains("item")) {
+			storeItemStack = ItemStack.EMPTY;
+		} else {
+			storeItemStack = ItemStack.fromNbt(world.getRegistryManager(), tag.getCompound("item")).orElseThrow();
+		}
+
+		storeItemStack.setCount(tag.getInt("count"));
 	}
 
 	private Storage<ItemVariant> getInternalStoreStorage(@Nullable Direction direction) {
