@@ -203,7 +203,7 @@ public class ReiPlugin implements REIClientPlugin {
 
 	@Override
 	public void registerItemComparators(ItemComparatorRegistry registry) {
-		registry.registerNbt(TRContent.CELL);
+		registry.registerComponents(TRContent.CELL);
 	}
 
 	private void registerFluidGeneratorDisplays(DisplayRegistry registry, EFluidGenerator generator, Machine machine) {
@@ -294,7 +294,7 @@ public class ReiPlugin implements REIClientPlugin {
 
 	public static Widget createFluidDisplay(Rectangle bounds, EntryStack<FluidStack> fluid, EntryAnimation animation) {
 		EntryStack<FluidStack> copy = fluid.copy();
-		ClientEntryStacks.setRenderer(copy, new FluidStackRenderer(animation, copy.getRenderer()));
+		fluid.withRenderer(new FluidStackRenderer(animation, copy.getRenderer()));
 		return Widgets.createSlot(bounds).entry(copy);
 	}
 
