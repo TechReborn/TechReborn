@@ -110,7 +110,13 @@ public class StackIngredient extends RebornIngredient {
 			// A bit of a meme here, as DataFixer likes to use the most basic primitive type over using an int.
 			// So we have to go to json and back on the incoming stack to be sure it's using types that match our input.
 
-			NbtCompound compoundTag = stack.get(DataComponentTypes.CUSTOM_DATA).getNbt();
+			NbtComponent component = stack.get(DataComponentTypes.CUSTOM_DATA);
+
+			if (component == null) {
+				return false;
+			}
+
+			NbtCompound compoundTag = component.getNbt();
 			JsonElement jsonElement = Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag);
 			compoundTag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonElement);
 
