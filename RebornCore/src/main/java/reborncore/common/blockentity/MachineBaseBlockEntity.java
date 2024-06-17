@@ -24,6 +24,7 @@
 
 package reborncore.common.blockentity;
 
+import com.mojang.serialization.DataResult;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -284,7 +285,14 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		}
 		if (tagCompound.contains("redstoneConfig")) {
 			NbtCompound redstoneConfig = tagCompound.getCompound("redstoneConfig");
-			redstoneConfiguration = RedstoneConfiguration.CODEC.codec().parse(NbtOps.INSTANCE, redstoneConfig).getOrThrow();
+			DataResult<RedstoneConfiguration> result = RedstoneConfiguration.CODEC.codec().parse(NbtOps.INSTANCE, redstoneConfig);
+
+			if (result.isSuccess()) {
+				redstoneConfiguration = result.getOrThrow();
+			} else {
+				// If the redstone configuration is invalid, reset it
+				redstoneConfiguration = new RedstoneConfiguration();
+			}
 		}
 		upgradeInventory.read(tagCompound, "Upgrades", registryLookup);
 	}
