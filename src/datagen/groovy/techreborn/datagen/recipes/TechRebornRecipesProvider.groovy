@@ -33,16 +33,12 @@ import net.minecraft.fluid.Fluid
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NbtCompound
 import net.minecraft.predicate.ComponentPredicate
-import net.minecraft.predicate.NbtPredicate
-import net.minecraft.predicate.NumberRange
 import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.recipe.Ingredient
 import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.entry.RegistryEntryList
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import techreborn.component.TRDataComponentTypes
@@ -50,6 +46,7 @@ import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
+import techreborn.datagen.recipes.machine.fluid_replicator.FluidReplicatorRecipeJsonFactory
 import techreborn.init.ModFluids
 import techreborn.init.ModRecipes
 import techreborn.init.TRContent
@@ -249,6 +246,9 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		IndustrialSawmillRecipeJsonFactory.createIndustrialSawmill(this, closure).offerTo(exporter)
 	}
 
+	def offerFluidReplicatorRecipe(@DelegatesTo(value = FluidReplicatorRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		FluidReplicatorRecipeJsonFactory.createFluidReplicator(this, closure).offerTo(exporter)
+	}
 
 	@Override
 	protected Identifier getRecipeIdentifier(Identifier identifier) {

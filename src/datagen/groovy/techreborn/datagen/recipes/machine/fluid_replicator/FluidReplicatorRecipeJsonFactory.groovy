@@ -22,34 +22,42 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.recipes.machine.industrial_sawmill
+package techreborn.datagen.recipes.machine.fluid_replicator
 
+import net.minecraft.registry.Registries
+import net.minecraft.util.Identifier
 import reborncore.common.fluid.FluidValue
 import reborncore.common.fluid.container.FluidInstance
+import techreborn.api.recipe.recipes.FluidReplicatorRecipe
 import techreborn.api.recipe.recipes.IndustrialSawmillRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
 import techreborn.init.ModRecipes
 
-class IndustrialSawmillRecipeJsonFactory extends MachineRecipeWithFluidJsonFactory<IndustrialSawmillRecipe> {
-
-	protected IndustrialSawmillRecipeJsonFactory(TechRebornRecipesProvider provider) {
-		super(ModRecipes.INDUSTRIAL_SAWMILL, provider)
+class FluidReplicatorRecipeJsonFactory extends MachineRecipeWithFluidJsonFactory<FluidReplicatorRecipe> {
+	private FluidReplicatorRecipeJsonFactory(TechRebornRecipesProvider provider) {
+		super(ModRecipes.FLUID_REPLICATOR, provider)
 	}
 
-	static IndustrialSawmillRecipeJsonFactory create(TechRebornRecipesProvider provider) {
-		return new IndustrialSawmillRecipeJsonFactory(provider)
+	static FluidReplicatorRecipeJsonFactory create(TechRebornRecipesProvider provider) {
+		return new FluidReplicatorRecipeJsonFactory(provider)
 	}
 
-	static IndustrialSawmillRecipeJsonFactory createIndustrialSawmill(TechRebornRecipesProvider provider, @DelegatesTo(value = IndustrialSawmillRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		def factory = new IndustrialSawmillRecipeJsonFactory(provider)
+	static FluidReplicatorRecipeJsonFactory createFluidReplicator(TechRebornRecipesProvider provider, @DelegatesTo(value = FluidReplicatorRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		def factory = new FluidReplicatorRecipeJsonFactory(provider)
 		closure.setDelegate(factory)
 		closure.call(factory)
 		return factory
 	}
 
 	@Override
-	protected IndustrialSawmillRecipe createRecipe() {
-		return new IndustrialSawmillRecipe(ModRecipes.INDUSTRIAL_SAWMILL, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
+	protected FluidReplicatorRecipe createRecipe() {
+		return new FluidReplicatorRecipe(ModRecipes.FLUID_REPLICATOR, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
+	}
+
+	@Override
+	def getIdentifier() {
+		def outputId = Registries.FLUID.getId(fluid)
+		return Identifier.of("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
 	}
 }

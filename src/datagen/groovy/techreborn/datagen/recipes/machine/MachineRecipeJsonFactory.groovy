@@ -186,7 +186,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			throw new IllegalStateException("recipe has no ingredients")
 		}
 
-		if (outputs.isEmpty()) {
+		if (outputs.isEmpty() && type != ModRecipes.FLUID_REPLICATOR) {
 			throw new IllegalStateException("recipe has no outputs")
 		}
 
