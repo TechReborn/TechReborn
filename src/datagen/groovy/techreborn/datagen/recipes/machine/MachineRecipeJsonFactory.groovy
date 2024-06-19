@@ -190,7 +190,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			throw new IllegalStateException("recipe has no outputs")
 		}
 
-		if (power < 0) {
+		if (power < 0 && type != ModRecipes.FUSION_REACTOR) {
 			throw new IllegalStateException("recipe has no power value")
 		}
 

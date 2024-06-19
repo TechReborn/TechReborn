@@ -44,6 +44,7 @@ import net.minecraft.util.Identifier
 import techreborn.component.TRDataComponentTypes
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
+import techreborn.datagen.recipes.machine.fusion_reactor.FusionReactorRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
 import techreborn.datagen.recipes.machine.fluid_replicator.FluidReplicatorRecipeJsonFactory
@@ -257,6 +258,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	def offerRollingMachineRecipe(@DelegatesTo(value = RollingMachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		RollingMachineRecipeJsonFactory.createRollingMachine(this, closure).offerTo(exporter)
+	}
+
+	def offerFusionReactorRecipe(@DelegatesTo(value = FusionReactorRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		FusionReactorRecipeJsonFactory.createFusionReactor(this, closure).offerTo(exporter)
 	}
 
 	@Override

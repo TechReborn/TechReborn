@@ -44,6 +44,7 @@ import techreborn.datagen.recipes.machine.compressor.CompressorRecipesProvider
 import techreborn.datagen.recipes.machine.distillation_tower.DistillationTowerRecipesProvider
 import techreborn.datagen.recipes.machine.extractor.ExtractorRecipesProvider
 import techreborn.datagen.recipes.machine.fluid_replicator.FluidReplicatorRecipesProvider
+import techreborn.datagen.recipes.machine.fusion_reactor.FusionReactorRecipesProvider
 import techreborn.datagen.recipes.machine.grinder.GrinderRecipesProvider
 import techreborn.datagen.recipes.machine.implosion_compressor.ImplosionCompressorRecipesProvider
 import techreborn.datagen.recipes.machine.industrial_electrolyzer.IndustrialElectrolyzerRecipesProvider
@@ -109,6 +110,7 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 		add WireMillRecipesProvider::new
 		add RollingMachineRecipesProvider::new
 		add DistillationTowerRecipesProvider::new
+		add FusionReactorRecipesProvider::new
 
 		add ModelProvider::new
 		add BlockLootTableProvider::new
