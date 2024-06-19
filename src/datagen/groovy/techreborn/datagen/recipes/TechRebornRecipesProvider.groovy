@@ -47,6 +47,7 @@ import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFa
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
 import techreborn.datagen.recipes.machine.fluid_replicator.FluidReplicatorRecipeJsonFactory
+import techreborn.datagen.recipes.machine.rolling_machine.RollingMachineRecipeJsonFactory
 import techreborn.init.ModFluids
 import techreborn.init.ModRecipes
 import techreborn.init.TRContent
@@ -250,13 +251,17 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		FluidReplicatorRecipeJsonFactory.createFluidReplicator(this, closure).offerTo(exporter)
 	}
 
+	def offerRollingMachineRecipe(@DelegatesTo(value = RollingMachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		RollingMachineRecipeJsonFactory.createRollingMachine(this, closure).offerTo(exporter)
+	}
+
 	@Override
 	protected Identifier getRecipeIdentifier(Identifier identifier) {
 		return Identifier.of("techreborn", super.getRecipeIdentifier(identifier).path)
 	}
 
 	@Override
-	public String getName() {
+	String getName() {
 		return "Recipes / " + getClass().name
 	}
 }
