@@ -26,20 +26,19 @@ package reborncore.common.crafting;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.Dynamic;
+import com.google.gson.JsonParseException;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
+import net.minecraft.component.ComponentChanges;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -84,12 +83,23 @@ public class RecipeUtils {
 		if (jsonObject.has("count")) {
 			count = JsonHelper.getInt(jsonObject, "count");
 		}
+
 		ItemStack stack = new ItemStack(item, count);
+
 		if (jsonObject.has("nbt")) {
-			NbtCompound tag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonObject.get("nbt"));
-			NbtComponent nbtData = NbtComponent.of(tag);
-			stack.set(DataComponentTypes.CUSTOM_DATA, nbtData);
+			throw new JsonParseException("nbt is no longer supported");
 		}
+
+		if (jsonObject.has("components")) {
+			DataResult<ComponentChanges> result = ComponentChanges.CODEC.parse(DynamicRegistryManager.of(Registries.REGISTRIES).getOps(JsonOps.INSTANCE), jsonObject.get("components"));
+
+			if (result.error().isPresent()) {
+				throw new JsonParseException("Failed to parse components: " + result.error().get());
+			}
+
+			stack.applyChanges(result.getOrThrow());
+		}
+
 		return stack;
 	}
 

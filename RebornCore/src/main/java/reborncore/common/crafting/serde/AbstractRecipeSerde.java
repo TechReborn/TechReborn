@@ -25,12 +25,13 @@
 package reborncore.common.crafting.serde;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.ComponentChanges;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipe;
@@ -79,9 +80,11 @@ public abstract class AbstractRecipeSerde<R extends RebornRecipe> implements Rec
 				stackObject.addProperty("count", stack.getCount());
 			}
 
-			if (stack.get(DataComponentTypes.CUSTOM_DATA) != null) {
-				stackObject.add("nbt", Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, stack.get(DataComponentTypes.CUSTOM_DATA).getNbt()));
+			if (!stack.getComponentChanges().isEmpty()) {
+				DataResult<JsonElement> result = ComponentChanges.CODEC.encodeStart(DynamicRegistryManager.of(Registries.REGISTRIES).getOps(JsonOps.INSTANCE), stack.getComponentChanges());
+				stackObject.add("components", result.getOrThrow());
 			}
+
 			resultsArray.add(stackObject);
 		}
 

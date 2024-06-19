@@ -24,6 +24,7 @@
 
 package techreborn.datagen.recipes.machine
 
+import net.minecraft.component.ComponentChanges
 import net.minecraft.fluid.Fluid
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
@@ -34,6 +35,7 @@ import reborncore.common.crafting.ingredient.FluidIngredient
 import reborncore.common.crafting.ingredient.RebornIngredient
 import reborncore.common.crafting.ingredient.StackIngredient
 import reborncore.common.crafting.ingredient.TagIngredient
+import techreborn.component.TRDataComponentTypes
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
@@ -73,7 +75,16 @@ class IngredientBuilder {
 
 			def stack = stacks[0]
 			def count = stack.getCount() > 1 ? Optional.of(stack.getCount()) : Optional.empty()
-			return new StackIngredient(stack, count, Optional.empty(), false)
+			def components = stack.getComponentChanges()
+
+			// A bit of a hack to force the component changes to require the specified fluid, especially if empty
+			if (stack.item == TRContent.CELL) {
+				def builder = ComponentChanges.builder()
+				builder.add(TRDataComponentTypes.FLUID, stack.get(TRDataComponentTypes.FLUID))
+				components = builder.build()
+			}
+
+			return new StackIngredient(stack, count, components)
 		}
 
 		if (!fluids.isEmpty()) {

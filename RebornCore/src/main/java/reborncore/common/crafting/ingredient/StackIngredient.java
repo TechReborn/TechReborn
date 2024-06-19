@@ -26,16 +26,16 @@ package reborncore.common.crafting.ingredient;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
+import net.minecraft.component.ComponentChanges;
+import net.minecraft.component.ComponentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -43,22 +43,20 @@ import org.apache.commons.lang3.Validate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 public class StackIngredient extends RebornIngredient {
-
 	private final ItemStack stack;
 
 	private final Optional<Integer> count;
-	private final Optional<NbtCompound> nbt;
-	private final boolean requireEmptyNbt;
+	private final ComponentChanges components;
 
-	public StackIngredient(ItemStack stack, Optional<Integer> count, Optional<NbtCompound> nbt, boolean requireEmptyNbt) {
+	public StackIngredient(ItemStack stack, Optional<Integer> count, ComponentChanges components) {
 		this.stack = stack;
 		this.count = Objects.requireNonNull(count);
-		this.nbt = Objects.requireNonNull(nbt);
-		this.requireEmptyNbt = requireEmptyNbt;
+		this.components = Objects.requireNonNull(components);
 		Validate.isTrue(!stack.isEmpty(), "ingredient must not empty");
 	}
 
@@ -71,20 +69,23 @@ public class StackIngredient extends RebornIngredient {
 			stackSize = Optional.of(JsonHelper.getInt(json, "count"));
 		}
 
-		Optional<NbtCompound> tag = Optional.empty();
-		boolean requireEmptyTag = false;
-
 		if (json.has("nbt")) {
-			if (!json.get("nbt").isJsonObject()) {
-				if (json.get("nbt").getAsString().equals("empty")) {
-					requireEmptyTag = true;
-				}
-			} else {
-				tag = Optional.of((NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, json.get("nbt")));
-			}
+			throw new JsonParseException("nbt is no longer supported");
 		}
 
-		return new StackIngredient(new ItemStack(item), stackSize, tag, requireEmptyTag);
+		ComponentChanges componentChanges = ComponentChanges.EMPTY;
+
+		if (json.has("components")) {
+			DataResult<ComponentChanges> result = ComponentChanges.CODEC.parse(DynamicRegistryManager.of(Registries.REGISTRIES).getOps(JsonOps.INSTANCE), json.get("components"));
+
+			if (result.error().isPresent()) {
+				throw new JsonParseException("Failed to parse components: " + result.error().get());
+			}
+
+			componentChanges = result.getOrThrow();
+		}
+
+		return new StackIngredient(new ItemStack(item), stackSize, componentChanges);
 	}
 
 
@@ -102,30 +103,28 @@ public class StackIngredient extends RebornIngredient {
 			return false;
 		}
 
-		if (nbt.isPresent()) {
-			if (itemStack.getComponents() == DataComponentTypes.DEFAULT_ITEM_COMPONENTS) {
-				return false;
-			}
+		for (Map.Entry<ComponentType<?>, Optional<?>> entry : components.entrySet()) {
+			final ComponentType<?> type = entry.getKey();
+			final Optional<?> value = entry.getValue();
 
-			// A bit of a meme here, as DataFixer likes to use the most basic primitive type over using an int.
-			// So we have to go to json and back on the incoming stack to be sure it's using types that match our input.
+			if (value.isPresent()) {
+				// Expect the stack to contain a matching component
+				if (!itemStack.contains(type)) {
+					return false;
+				}
 
-			NbtComponent component = stack.get(DataComponentTypes.CUSTOM_DATA);
-
-			if (component == null) {
-				return false;
-			}
-
-			NbtCompound compoundTag = component.getNbt();
-			JsonElement jsonElement = Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag);
-			compoundTag = (NbtCompound) Dynamic.convert(JsonOps.INSTANCE, NbtOps.INSTANCE, jsonElement);
-
-			if (!nbt.get().equals(compoundTag)) {
-				return false;
+				if (!Objects.equals(value.get(), itemStack.get(type))) {
+					return false;
+				}
+			} else {
+				// Expect the target stack to not contain this component
+				if (itemStack.contains(type)) {
+					return false;
+				}
 			}
 		}
 
-		return !requireEmptyNbt || (itemStack.get(DataComponentTypes.CUSTOM_DATA) == null);
+		return true;
 	}
 
 	@Override
@@ -137,7 +136,7 @@ public class StackIngredient extends RebornIngredient {
 	public List<ItemStack> getPreviewStacks() {
 		ItemStack copy = stack.copy();
 		copy.setCount(count.orElse(1));
-		nbt.ifPresent(nbtCompound -> copy.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbtCompound)));
+		copy.applyChanges(components);
 		return Collections.singletonList(copy);
 	}
 
@@ -148,10 +147,9 @@ public class StackIngredient extends RebornIngredient {
 		jsonObject.addProperty("item", Registries.ITEM.getId(stack.getItem()).toString());
 		count.ifPresent(integer -> jsonObject.addProperty("count", integer));
 
-		if (requireEmptyNbt) {
-			jsonObject.addProperty("nbt", "empty");
-		} else {
-			nbt.ifPresent(compoundTag -> jsonObject.add("nbt", Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, compoundTag)));
+		if (!components.isEmpty()) {
+			DataResult<JsonElement> result = ComponentChanges.CODEC.encodeStart(DynamicRegistryManager.of(Registries.REGISTRIES).getOps(JsonOps.INSTANCE), components);
+			jsonObject.add("components", result.getOrThrow());
 		}
 
 		return jsonObject;
@@ -164,13 +162,5 @@ public class StackIngredient extends RebornIngredient {
 
 	public ItemStack getStack() {
 		return stack;
-	}
-
-	public Optional<NbtCompound> getNbt() {
-		return nbt;
-	}
-
-	public boolean isRequireEmptyNbt() {
-		return requireEmptyNbt;
 	}
 }
