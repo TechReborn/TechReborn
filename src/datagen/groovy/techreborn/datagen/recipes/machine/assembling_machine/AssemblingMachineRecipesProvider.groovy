@@ -194,7 +194,7 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 				tag(TRConventionalTags.ALUMINUM_PLATES, 2)
 			}
 			ingredient {
-				fluid(ModFluids.LITHIUM, TRContent.CELL, 2)
+				cellStack(ModFluids.LITHIUM, 2)
 			}
 			outputs TRContent.LITHIUM_ION_BATTERY
 			power 20

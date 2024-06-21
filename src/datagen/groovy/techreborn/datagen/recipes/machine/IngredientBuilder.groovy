@@ -24,27 +24,23 @@
 
 package techreborn.datagen.recipes.machine
 
+import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient
 import net.minecraft.component.ComponentChanges
-import net.minecraft.fluid.Fluid
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
+import net.minecraft.recipe.Ingredient
+import net.minecraft.registry.Registries
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
-import reborncore.common.crafting.ingredient.FluidIngredient
-import reborncore.common.crafting.ingredient.RebornIngredient
-import reborncore.common.crafting.ingredient.StackIngredient
-import reborncore.common.crafting.ingredient.TagIngredient
+import reborncore.common.crafting.RebornIngredient
 import techreborn.component.TRDataComponentTypes
-import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
 class IngredientBuilder {
 	private TagKey<Item> tag
 	private Integer tagCount = -1
 	private List<ItemStack> stacks = []
-	private List<Identifier> ids = []
-	private List<FluidIngredient> fluids = []
 
 	private IngredientBuilder() {
 	}
@@ -56,16 +52,8 @@ class IngredientBuilder {
 	RebornIngredient build() {
 		checkHasSingleInputType()
 
-		if (!ids.isEmpty()) {
-			if (ids.size() != 1) {
-				throw new IllegalStateException()
-			}
-
-			return new StackIdIngredient(ids.get(0))
-		}
-
 		if (tag != null) {
-			return new TagIngredient(tag, tagCount == -1 ? Optional.empty() : Optional.of(tagCount))
+			return new RebornIngredient(tagCount == -1 ? 1 : tagCount, Ingredient.fromTag(tag))
 		}
 
 		if (!stacks.isEmpty()) {
@@ -74,7 +62,6 @@ class IngredientBuilder {
 			}
 
 			def stack = stacks[0]
-			def count = stack.getCount() > 1 ? Optional.of(stack.getCount()) : Optional.empty()
 			def components = stack.getComponentChanges()
 
 			// A bit of a hack to force the component changes to require the specified fluid, especially if empty
@@ -84,7 +71,13 @@ class IngredientBuilder {
 				components = builder.build()
 			}
 
-			return new StackIngredient(stack, count, components)
+			Ingredient ingredient = Ingredient.ofStacks(stack)
+
+			if (!components.isEmpty()) {
+				ingredient = new ComponentsIngredient(ingredient, components).toVanilla()
+			}
+
+			return new RebornIngredient(stack.getCount(), ingredient)
 		}
 
 		if (!fluids.isEmpty()) {
@@ -113,18 +106,9 @@ class IngredientBuilder {
 		return this
 	}
 
+	@Deprecated
 	def ident(Identifier identifier) {
-		ids.add(identifier)
-		return this
-	}
-
-	def fluid(Fluid fluid, Item holder = TRContent.CELL, int count = -1) {
-		fluids.add(new FluidIngredient(fluid, Optional.of([holder]), Optional.ofNullable(count == -1 ? null : count)))
-		return this
-	}
-
-	def fluid(ModFluids modFluid, Item holder = TRContent.CELL, int count = -1) {
-		return fluid(modFluid.fluid, holder, count)
+		return item(Registries.ITEM.get(identifier))
 	}
 
 	def checkHasSingleInputType() {

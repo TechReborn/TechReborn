@@ -27,6 +27,7 @@ package techreborn.api.recipe;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
@@ -44,7 +45,7 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 	@Override
 	public void updateCurrentRecipe() {
 		currentTickTime = 0;
-		List<RebornRecipe> recipeList = ModRecipes.RECYCLER.getRecipes(blockEntity.getWorld());
+		List<RebornRecipe> recipeList = RecipeUtils.getRecipes(blockEntity.getWorld(), ModRecipes.RECYCLER);
 		if (recipeList.isEmpty() || !hasAllInputs()) {
 			setCurrentRecipe(null);
 			currentNeededTicks = 0;

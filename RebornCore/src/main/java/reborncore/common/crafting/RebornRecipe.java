@@ -24,36 +24,59 @@
 
 package reborncore.common.crafting;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.cottonmc.libcd.api.CustomOutputRecipe;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.util.DefaultedListCollector;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
 
 public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputRecipe {
-	private final RebornRecipeType<?> type;
+	public static Function<RecipeType<RebornRecipe>, MapCodec<RebornRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.list(RebornIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getRebornIngredients),
+		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
+		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
+		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime)
+	).apply(instance, (ingredients, outputs, power, time) -> new RebornRecipe(type, ingredients, outputs, power, time)));
+	public static Function<RecipeType<RebornRecipe>, PacketCodec<RegistryByteBuf, RebornRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
+		RebornIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getRebornIngredients,
+		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
+		PacketCodecs.INTEGER, RebornRecipe::getPower,
+		PacketCodecs.INTEGER, RebornRecipe::getTime,
+		(ingredients, outputs, power, time) -> new RebornRecipe(type, ingredients, outputs, power, time)
+	);
+
+	private final RecipeType<?> type;
 
 	private final List<RebornIngredient> ingredients;
 	private final List<ItemStack> outputs;
 	protected final int power;
 	protected final int time;
 
-	public RebornRecipe(RebornRecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+	public RebornRecipe(RecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		this.type = type;
 		this.ingredients = ingredients;
 		this.outputs = outputs;
@@ -63,25 +86,21 @@ public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputReci
 
 	@Override
 	public ItemStack createIcon() {
-		Optional<Item> catalyst = Registries.ITEM.getOrEmpty(type.name());
-		if (catalyst.isPresent())
-			return new ItemStack(catalyst.get());
-		else
-			RebornCore.LOGGER.warn("Missing toast icon for {}!", type.name());
+//		Optional<Item> catalyst = Registries.ITEM.getOrEmpty(type.name());
+//		if (catalyst.isPresent())
+//			return new ItemStack(catalyst.get());
+//		else
+//			RebornCore.LOGGER.warn("Missing toast icon for {}!", type.name());
 		return Recipe.super.createIcon();
 	}
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return type;
+		return Registries.RECIPE_SERIALIZER.get(Registries.RECIPE_TYPE.getId(getType()));
 	}
 
 	@Override
-	public net.minecraft.recipe.RecipeType<?> getType() {
-		return type;
-	}
-
-	public RebornRecipeType<?> getRebornRecipeType() {
+	public RecipeType<?> getType() {
 		return type;
 	}
 
@@ -91,7 +110,7 @@ public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputReci
 	@Deprecated
 	@Override
 	public DefaultedList<Ingredient> getIngredients() {
-		return ingredients.stream().map(RebornIngredient::getPreview).collect(DefaultedListCollector.toList());
+		return ingredients.stream().map(RebornIngredient::ingredient).collect(DefaultedListCollector.toList());
 	}
 
 	public List<RebornIngredient> getRebornIngredients() {
@@ -99,6 +118,10 @@ public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputReci
 	}
 
 	public List<ItemStack> getOutputs(@Nullable DynamicRegistryManager registryManager) {
+		return Collections.unmodifiableList(outputs);
+	}
+
+	public List<ItemStack> getOutputs() {
 		return Collections.unmodifiableList(outputs);
 	}
 

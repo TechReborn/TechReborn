@@ -30,7 +30,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
@@ -72,7 +73,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 	}
 
 	private RebornRecipe getRecipe() {
-		for (RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+		for (RebornRecipe recipeType : RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER)) {
 			if (hasAllInputs(recipeType)) {
 				return recipeType;
 			}
@@ -87,7 +88,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 			return false;
 		}
 		ItemStack itemstack = null;
-		for (RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+		for (RebornRecipe recipeType : RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER)) {
 			if (hasAllInputs(recipeType)) {
 				List<ItemStack> outputs = recipeType.getOutputs(getWorld().getRegistryManager());
 
@@ -135,7 +136,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
 			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 				if (ingredient.test(inventory.getStack(inputSlot))) {
-					inventory.shrinkSlot(inputSlot, ingredient.getCount());
+					inventory.shrinkSlot(inputSlot, ingredient.count());
 					break;
 				}
 			}
@@ -170,7 +171,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 
 	@Override
 	public boolean isStackValid(int slotID, ItemStack stack) {
-		return ModRecipes.ALLOY_SMELTER.getRecipes(world).stream()
+		return RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER).stream()
 				.anyMatch(rebornRecipe -> rebornRecipe.getRebornIngredients().stream()
 						.anyMatch(rebornIngredient -> rebornIngredient.test(stack))
 				);

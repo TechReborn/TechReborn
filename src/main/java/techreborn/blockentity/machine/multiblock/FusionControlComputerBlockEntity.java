@@ -41,7 +41,8 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
@@ -139,7 +140,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 * Tries to set current recipe based in inputs in reactor
 	 */
 	private void updateCurrentRecipe() {
-		for (RecipeEntry<FusionReactorRecipe> entry : ModRecipes.FUSION_REACTOR.getRecipeEntries(getWorld())) {
+		for (RecipeEntry<FusionReactorRecipe> entry : RecipeUtils.getRecipeEntries(world, ModRecipes.FUSION_REACTOR)) {
 			if (validateRecipe(entry)) {
 				currentRecipeEntry = entry;
 				craftingTickTime = 0;
@@ -192,7 +193,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		}
 		for (RebornIngredient ingredient : currentRecipeEntry.value().getRebornIngredients()) {
 			if (ingredient.test(inventory.getStack(slot))) {
-				inventory.shrinkSlot(slot, ingredient.getCount());
+				inventory.shrinkSlot(slot, ingredient.count());
 				break;
 			}
 		}
@@ -247,7 +248,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		// Move this to here from the nbt read method, as it now requires the world as of 1.14
 		if (checkNBTRecipe) {
 			checkNBTRecipe = false;
-			for (RecipeEntry<FusionReactorRecipe> entry : ModRecipes.FUSION_REACTOR.getRecipeEntries(getWorld())) {
+			for (RecipeEntry<FusionReactorRecipe> entry : RecipeUtils.getRecipeEntries(world, ModRecipes.FUSION_REACTOR)) {
 				if (validateRecipe(entry)) {
 					this.currentRecipeEntry = entry;
 				}
@@ -455,7 +456,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	private RecipeEntry<FusionReactorRecipe> getRecipeFromID(Identifier identifier) {
-		return ModRecipes.FUSION_REACTOR.getRecipeEntries(world).stream()
+		return RecipeUtils.getRecipeEntries(world, ModRecipes.FUSION_REACTOR).stream()
 			.filter(recipe -> recipe.id().equals(identifier))
 			.findFirst()
 			.orElse(null);

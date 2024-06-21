@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
@@ -35,8 +36,8 @@ import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
@@ -53,7 +54,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	/**
 	 * This is the recipe type to use
 	 */
-	public RebornRecipeType<?> recipeType;
+	public RecipeType<? extends RebornRecipe> recipeType;
 
 	/**
 	 * This is the parent blockEntity
@@ -105,7 +106,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	public static ICrafterSoundHandler soundHandler = (firstRun, blockEntity) -> {
 	};
 
-	public RecipeCrafter(RebornRecipeType<?> recipeType, BlockEntity blockEntity, int inputs, int outputs, RebornInventory<?> inventory,
+	public RecipeCrafter(RecipeType<? extends RebornRecipe> recipeType, BlockEntity blockEntity, int inputs, int outputs, RebornInventory<?> inventory,
 						int[] inputSlots, int[] outputSlots) {
 		this.recipeType = recipeType;
 		this.blockEntity = blockEntity;
@@ -206,7 +207,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	 */
 	public void updateCurrentRecipe() {
 		currentTickTime = 0;
-		for (RebornRecipe recipe : recipeType.getRecipes(blockEntity.getWorld())) {
+		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
 			// This checks to see if it has all the inputs
 			if (!hasAllInputs(recipe)) continue;
 			if (!recipe.canCraft(blockEntity)) continue;
@@ -261,7 +262,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
 			for (int inputSlot : inputSlots) {// Uses all the inputs
 				if (ingredient.test(inventory.getStack(inputSlot))) {
-					inventory.shrinkSlot(inputSlot, ingredient.getCount());
+					inventory.shrinkSlot(inputSlot, ingredient.count());
 					break;
 				}
 			}
@@ -327,7 +328,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	public boolean canCraftAgain() {
-		for (RebornRecipe recipe : recipeType.getRecipes(blockEntity.getWorld())) {
+		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
 			if (recipe.canCraft(blockEntity) && hasAllInputs(recipe)) {
 				final List<ItemStack> outputs = recipe.getOutputs(getDynamicRegistryManager());
 
@@ -379,7 +380,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		// A bit of a hack but should work.
 		ItemStack largeStack = stack.copy();
 		largeStack.setCount(largeStack.getMaxCount());
-		for (RebornRecipe recipe : recipeType.getRecipes(blockEntity.getWorld())) {
+		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
 			for (RebornIngredient ingredient : recipe.getRebornIngredients()) {
 				if (ingredient.test(largeStack)) {
 					return true;

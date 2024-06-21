@@ -27,7 +27,7 @@ class VacuumFreezerRecipesProvider extends TechRebornRecipesProvider {
 			power 60
 			time 400
 			ingredient {
-				fluid ModFluids.HELIUMPLASMA
+				cellStack ModFluids.HELIUMPLASMA
 			}
 			outputs cellStack(ModFluids.HELIUM)
 		}

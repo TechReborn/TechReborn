@@ -32,20 +32,20 @@ import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.data.server.recipe.RecipeExporter
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
+import net.minecraft.recipe.RecipeType
 import net.minecraft.registry.Registries
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlag
 import net.minecraft.util.Identifier
 import org.jetbrains.annotations.NotNull
+import reborncore.common.crafting.RebornIngredient
 import reborncore.common.crafting.RebornRecipe
-import reborncore.common.crafting.RebornRecipeType
 import reborncore.common.crafting.RecipeUtils
-import reborncore.common.crafting.ingredient.RebornIngredient
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.ModRecipes
 
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
-	protected final RebornRecipeType<R> type
+	protected final RecipeType<R> type
 	protected final TechRebornRecipesProvider provider
 	protected final Builder builder = Builder.create()
 
@@ -57,16 +57,16 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected String source = null
 	protected List<ResourceCondition> conditions = []
 
-	protected MachineRecipeJsonFactory(RebornRecipeType<R> type, TechRebornRecipesProvider provider) {
+	protected MachineRecipeJsonFactory(RecipeType<R> type, TechRebornRecipesProvider provider) {
 		this.type = type
 		this.provider = provider
 	}
 
-	static <R extends RebornRecipe> MachineRecipeJsonFactory<R> create(RebornRecipeType<R> type, TechRebornRecipesProvider provider) {
+	static <R extends RebornRecipe> MachineRecipeJsonFactory<R> create(RecipeType<R> type, TechRebornRecipesProvider provider) {
 		return new MachineRecipeJsonFactory<R>(type, provider)
 	}
 
-	static <R extends RebornRecipe> MachineRecipeJsonFactory<R> create(RebornRecipeType<R> type, TechRebornRecipesProvider provider, @DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+	static <R extends RebornRecipe> MachineRecipeJsonFactory<R> create(RecipeType<R> type, TechRebornRecipesProvider provider, @DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		def factory = new MachineRecipeJsonFactory<R>(type, provider)
 		closure.setDelegate(factory)
 		closure.call(factory)

@@ -28,7 +28,10 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapedDisplay;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.registry.Registries;
 import techreborn.init.ModRecipes;
+
+import java.util.Objects;
 
 public class RollingMachineDisplay extends DefaultShapedDisplay {
 
@@ -38,6 +41,6 @@ public class RollingMachineDisplay extends DefaultShapedDisplay {
 
 	@Override
 	public CategoryIdentifier<?> getCategoryIdentifier() {
-		return CategoryIdentifier.of(ModRecipes.ROLLING_MACHINE.name());
+		return CategoryIdentifier.of(Objects.requireNonNull(Registries.RECIPE_TYPE.getId(ModRecipes.ROLLING_MACHINE)));
 	}
 }

@@ -54,6 +54,8 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -64,7 +66,6 @@ import reborncore.client.gui.GuiBuilder;
 import reborncore.client.gui.GuiSprites;
 import reborncore.client.gui.config.GuiTab;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
@@ -87,13 +88,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static reborncore.client.gui.GuiSprites.drawSprite;
 
 public class ReiPlugin implements REIClientPlugin {
-	public static final Map<RebornRecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
+	public static final Map<RecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
 
 	public ReiPlugin() {
 		iconMap.put(ModRecipes.ALLOY_SMELTER, Machine.ALLOY_SMELTER);
@@ -147,25 +149,25 @@ public class ReiPlugin implements REIClientPlugin {
 		registry.add(new FluidGeneratorRecipeCategory(Machine.SEMI_FLUID_GENERATOR));
 		registry.add(new FluidGeneratorRecipeCategory(Machine.PLASMA_GENERATOR));
 
-		addWorkstations(ModRecipes.ALLOY_SMELTER.name(), EntryStacks.of(Machine.ALLOY_SMELTER), EntryStacks.of(Machine.IRON_ALLOY_FURNACE));
-		addWorkstations(ModRecipes.ASSEMBLING_MACHINE.name(), EntryStacks.of(Machine.ASSEMBLY_MACHINE));
-		addWorkstations(ModRecipes.BLAST_FURNACE.name(), EntryStacks.of(Machine.INDUSTRIAL_BLAST_FURNACE));
-		addWorkstations(ModRecipes.CENTRIFUGE.name(), EntryStacks.of(Machine.INDUSTRIAL_CENTRIFUGE));
-		addWorkstations(ModRecipes.CHEMICAL_REACTOR.name(), EntryStacks.of(Machine.CHEMICAL_REACTOR));
-		addWorkstations(ModRecipes.COMPRESSOR.name(), EntryStacks.of(Machine.COMPRESSOR));
-		addWorkstations(ModRecipes.DISTILLATION_TOWER.name(), EntryStacks.of(Machine.DISTILLATION_TOWER));
-		addWorkstations(ModRecipes.EXTRACTOR.name(), EntryStacks.of(Machine.EXTRACTOR));
-		addWorkstations(ModRecipes.FLUID_REPLICATOR.name(), EntryStacks.of(Machine.FLUID_REPLICATOR));
-		addWorkstations(ModRecipes.FUSION_REACTOR.name(), EntryStacks.of(Machine.FUSION_CONTROL_COMPUTER));
-		addWorkstations(ModRecipes.GRINDER.name(), EntryStacks.of(Machine.GRINDER));
-		addWorkstations(ModRecipes.IMPLOSION_COMPRESSOR.name(), EntryStacks.of(Machine.IMPLOSION_COMPRESSOR));
-		addWorkstations(ModRecipes.INDUSTRIAL_ELECTROLYZER.name(), EntryStacks.of(Machine.INDUSTRIAL_ELECTROLYZER));
-		addWorkstations(ModRecipes.INDUSTRIAL_GRINDER.name(), EntryStacks.of(Machine.INDUSTRIAL_GRINDER));
-		addWorkstations(ModRecipes.INDUSTRIAL_SAWMILL.name(), EntryStacks.of(Machine.INDUSTRIAL_SAWMILL));
-		addWorkstations(ModRecipes.ROLLING_MACHINE.name(), EntryStacks.of(Machine.ROLLING_MACHINE));
-		addWorkstations(ModRecipes.SOLID_CANNING_MACHINE.name(), EntryStacks.of(Machine.SOLID_CANNING_MACHINE));
-		addWorkstations(ModRecipes.VACUUM_FREEZER.name(), EntryStacks.of(Machine.VACUUM_FREEZER));
-		addWorkstations(ModRecipes.WIRE_MILL.name(), EntryStacks.of(Machine.WIRE_MILL));
+		addWorkstations(ModRecipes.ALLOY_SMELTER, EntryStacks.of(Machine.ALLOY_SMELTER), EntryStacks.of(Machine.IRON_ALLOY_FURNACE));
+		addWorkstations(ModRecipes.ASSEMBLING_MACHINE, EntryStacks.of(Machine.ASSEMBLY_MACHINE));
+		addWorkstations(ModRecipes.BLAST_FURNACE, EntryStacks.of(Machine.INDUSTRIAL_BLAST_FURNACE));
+		addWorkstations(ModRecipes.CENTRIFUGE, EntryStacks.of(Machine.INDUSTRIAL_CENTRIFUGE));
+		addWorkstations(ModRecipes.CHEMICAL_REACTOR, EntryStacks.of(Machine.CHEMICAL_REACTOR));
+		addWorkstations(ModRecipes.COMPRESSOR, EntryStacks.of(Machine.COMPRESSOR));
+		addWorkstations(ModRecipes.DISTILLATION_TOWER, EntryStacks.of(Machine.DISTILLATION_TOWER));
+		addWorkstations(ModRecipes.EXTRACTOR, EntryStacks.of(Machine.EXTRACTOR));
+		addWorkstations(ModRecipes.FLUID_REPLICATOR, EntryStacks.of(Machine.FLUID_REPLICATOR));
+		addWorkstations(ModRecipes.FUSION_REACTOR, EntryStacks.of(Machine.FUSION_CONTROL_COMPUTER));
+		addWorkstations(ModRecipes.GRINDER, EntryStacks.of(Machine.GRINDER));
+		addWorkstations(ModRecipes.IMPLOSION_COMPRESSOR, EntryStacks.of(Machine.IMPLOSION_COMPRESSOR));
+		addWorkstations(ModRecipes.INDUSTRIAL_ELECTROLYZER, EntryStacks.of(Machine.INDUSTRIAL_ELECTROLYZER));
+		addWorkstations(ModRecipes.INDUSTRIAL_GRINDER, EntryStacks.of(Machine.INDUSTRIAL_GRINDER));
+		addWorkstations(ModRecipes.INDUSTRIAL_SAWMILL, EntryStacks.of(Machine.INDUSTRIAL_SAWMILL));
+		addWorkstations(ModRecipes.ROLLING_MACHINE, EntryStacks.of(Machine.ROLLING_MACHINE));
+		addWorkstations(ModRecipes.SOLID_CANNING_MACHINE, EntryStacks.of(Machine.SOLID_CANNING_MACHINE));
+		addWorkstations(ModRecipes.VACUUM_FREEZER, EntryStacks.of(Machine.VACUUM_FREEZER));
+		addWorkstations(ModRecipes.WIRE_MILL, EntryStacks.of(Machine.WIRE_MILL));
 		registry.addWorkstations(CategoryIdentifier.of(TechReborn.MOD_ID, Machine.THERMAL_GENERATOR.name), EntryStacks.of(Machine.THERMAL_GENERATOR));
 		registry.addWorkstations(CategoryIdentifier.of(TechReborn.MOD_ID, Machine.GAS_TURBINE.name), EntryStacks.of(Machine.GAS_TURBINE));
 		registry.addWorkstations(CategoryIdentifier.of(TechReborn.MOD_ID, Machine.DIESEL_GENERATOR.name), EntryStacks.of(Machine.DIESEL_GENERATOR));
@@ -175,6 +177,14 @@ public class ReiPlugin implements REIClientPlugin {
 
 	private void addWorkstations(Identifier identifier, EntryStack<?>... stacks) {
 		CategoryRegistry.getInstance().addWorkstations(CategoryIdentifier.of(identifier), stacks);
+	}
+
+	private void addWorkstations(RecipeType<?> type, EntryStack<?>... stacks) {
+		CategoryRegistry.getInstance().addWorkstations(CategoryIdentifier.of(getTypeId(type)), stacks);
+	}
+
+	private static Identifier getTypeId(RecipeType<?> type) {
+		return Objects.requireNonNull(Registries.RECIPE_TYPE.getId(type));
 	}
 
 	@Override
@@ -213,7 +223,7 @@ public class ReiPlugin implements REIClientPlugin {
 		);
 	}
 
-	private <R extends RebornRecipe> void registerMachineRecipe(DisplayRegistry registry, RebornRecipeType<R> recipeType) {
+	private <R extends RebornRecipe> void registerMachineRecipe(DisplayRegistry registry, RecipeType<R> recipeType) {
 		if (recipeType == ModRecipes.RECYCLER) {
 			return;
 		}
@@ -223,20 +233,20 @@ public class ReiPlugin implements REIClientPlugin {
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
 			recipeDisplay = r -> {
 				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r.value();
-				return new RollingMachineDisplay(new RecipeEntry<>(recipeType.name(), rollingMachineRecipe.getShapedRecipe()));
+				return new RollingMachineDisplay(new RecipeEntry<>(getTypeId(recipeType), rollingMachineRecipe.getShapedRecipe()));
 			};
 		}
 
 		if (recipeType == ModRecipes.FLUID_REPLICATOR) {
 			recipeDisplay = r -> {
 				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r.value();
-				return new FluidReplicatorRecipeDisplay(new RecipeEntry<>(recipeType.name(), recipe));
+				return new FluidReplicatorRecipeDisplay(new RecipeEntry<>(getTypeId(recipeType), recipe));
 			};
 		}
 
 		registry.registerRecipeFiller(RebornRecipe.class,
 			recipeType1 -> true,
-			recipeEntry -> recipeEntry.value().getRebornRecipeType() == recipeType,
+			recipeEntry -> recipeEntry.value().getType() == recipeType,
 			recipeDisplay
 		);
 	}

@@ -24,9 +24,9 @@
 
 package techreborn.api.recipe;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.entity.BlockEntity;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.init.ModRecipes;
@@ -37,7 +37,7 @@ import java.util.List;
  * @author drcrazy
  */
 public class ScrapboxRecipeCrafter extends RecipeCrafter {
-	private static ImmutableList<RebornRecipe> RecipeListCache = null;
+	private static List<RebornRecipe> RecipeListCache = null;
 
 	/**
 	 * @param parent      {@link BlockEntity} Tile having this crafter
@@ -52,7 +52,7 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 	@Override
 	public void updateCurrentRecipe() {
 		if(RecipeListCache == null){
-			RecipeListCache = ImmutableList.copyOf(ModRecipes.SCRAPBOX.getRecipes(blockEntity.getWorld()));
+			RecipeListCache = RecipeUtils.getRecipes(blockEntity.getWorld(), ModRecipes.SCRAPBOX);
 		}
 		List<RebornRecipe> scrapboxRecipeList = RecipeListCache;
 		if (scrapboxRecipeList.isEmpty()) {

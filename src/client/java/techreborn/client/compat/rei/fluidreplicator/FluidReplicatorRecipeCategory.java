@@ -36,11 +36,12 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.GuiBuilder;
-import reborncore.common.crafting.RebornRecipeType;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.client.compat.rei.ReiPlugin;
 
@@ -49,25 +50,29 @@ import java.util.List;
 
 public class FluidReplicatorRecipeCategory implements DisplayCategory<FluidReplicatorRecipeDisplay> {
 
-	private final RebornRecipeType<FluidReplicatorRecipe> rebornRecipeType;
+	private final RecipeType<FluidReplicatorRecipe> recipeType;
 
-	public FluidReplicatorRecipeCategory(RebornRecipeType<FluidReplicatorRecipe> recipeType) {
-		this.rebornRecipeType = recipeType;
+	public FluidReplicatorRecipeCategory(RecipeType<FluidReplicatorRecipe> recipeType) {
+		this.recipeType = recipeType;
+	}
+
+	private Identifier id() {
+		return Registries.RECIPE_TYPE.getId(recipeType);
 	}
 
 	@Override
 	public CategoryIdentifier<? extends FluidReplicatorRecipeDisplay> getCategoryIdentifier() {
-		return CategoryIdentifier.of(rebornRecipeType.name());
+		return CategoryIdentifier.of(id());
 	}
 
 	@Override
 	public Text getTitle() {
-		return Text.translatable(rebornRecipeType.name().toString());
+		return Text.translatable(id().toString());
 	}
 
 	@Override
 	public Renderer getIcon() {
-		return EntryStacks.of(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
+		return EntryStacks.of(ReiPlugin.iconMap.getOrDefault(recipeType, () -> Items.DIAMOND_SHOVEL));
 	}
 
 	@Override

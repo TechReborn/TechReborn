@@ -26,8 +26,8 @@ package techreborn.datagen.recipes.machine
 
 import net.minecraft.fluid.Fluid
 import net.minecraft.fluid.Fluids
+import net.minecraft.recipe.RecipeType
 import reborncore.common.crafting.RebornFluidRecipe
-import reborncore.common.crafting.RebornRecipeType
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.ModFluids
 
@@ -50,7 +50,7 @@ abstract class MachineRecipeWithFluidJsonFactory<R extends RebornFluidRecipe> ex
 		return this
 	}
 
-	protected MachineRecipeWithFluidJsonFactory(RebornRecipeType<R> type, TechRebornRecipesProvider provider) {
+	protected MachineRecipeWithFluidJsonFactory(RecipeType<R> type, TechRebornRecipesProvider provider) {
 		super(type, provider)
 	}
 

@@ -28,10 +28,10 @@ import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornRecipeType;
 import techreborn.client.compat.rei.MachineRecipeDisplay;
 import techreborn.client.compat.rei.ReiPlugin;
 
@@ -39,7 +39,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class IndustrialCentrifugeCategory<R extends RebornRecipe> extends AbstractEnergyConsumingMachineCategory<R> {
-	public IndustrialCentrifugeCategory(RebornRecipeType<R> rebornRecipeType) {
+	public IndustrialCentrifugeCategory(RecipeType<R> rebornRecipeType) {
 		super(rebornRecipeType);
 	}
 
