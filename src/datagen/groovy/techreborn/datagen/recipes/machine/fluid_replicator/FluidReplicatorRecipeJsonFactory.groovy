@@ -57,6 +57,7 @@ class FluidReplicatorRecipeJsonFactory extends MachineRecipeWithFluidJsonFactory
 	@Override
 	def getIdentifier() {
 		def outputId = Registries.FLUID.getId(fluid)
-		return Identifier.of("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
+		def recipeId = Registries.RECIPE_TYPE.getId(type)
+		return Identifier.of("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 }

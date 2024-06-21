@@ -80,14 +80,6 @@ class IngredientBuilder {
 			return new RebornIngredient(stack.getCount(), ingredient)
 		}
 
-		if (!fluids.isEmpty()) {
-			if (fluids.size() != 1) {
-				throw new IllegalStateException("Must have exactly one fluid input")
-			}
-
-			return fluids.get(0)
-		}
-
 		throw new IllegalStateException("No input")
 	}
 
@@ -118,15 +110,7 @@ class IngredientBuilder {
 			count++
 		}
 
-		if (!ids.isEmpty()) {
-			count++
-		}
-
 		if (tag != null) {
-			count++
-		}
-
-		if (!fluids.isEmpty()) {
 			count++
 		}
 

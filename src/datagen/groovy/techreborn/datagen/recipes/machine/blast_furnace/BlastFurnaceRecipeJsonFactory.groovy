@@ -24,7 +24,6 @@
 
 package techreborn.datagen.recipes.machine.blast_furnace
 
-import net.minecraft.util.Identifier
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory

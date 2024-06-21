@@ -430,7 +430,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			heat 1000
 			ingredients TRConventionalTags.IRON_ORES
 			ingredient {
-				cellStack(ModFluids.CALCIUM_CARBONATE)
+				stack cellStack(ModFluids.CALCIUM_CARBONATE)
 			}
 			outputs stack(TRContent.Ingots.REFINED_IRON, 3), TRContent.CELL
 		}
@@ -440,7 +440,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			heat 1500
 			ingredients TRConventionalTags.PYRITE_ORES
 			ingredient {
-				cellStack(ModFluids.CALCIUM_CARBONATE)
+				stack cellStack(ModFluids.CALCIUM_CARBONATE)
 			}
 			outputs stack(TRContent.Ingots.REFINED_IRON, 2), TRContent.CELL
 			source("pyrite_ore")
@@ -496,7 +496,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			heat 1500
 			ingredients stack(TRContent.Dusts.QUARTZ, 2)
 			ingredient {
-				cellStack(ModFluids.CARBON, 4)
+				stack cellStack(ModFluids.CARBON, 4)
 			}
 			outputs cellStack(ModFluids.SILICON, 2), cellStack(ModFluids.COMPRESSED_AIR, 2)
 			id "blast_furnace/silicon_cell"
@@ -506,7 +506,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			time 1000
 			heat 1500
 			ingredient {
-				cellStack(ModFluids.SILICON, 2)
+				stack cellStack(ModFluids.SILICON, 2)
 			}
 			outputs TRContent.Plates.SILICON, stack(TRContent.CELL, 2)
 		}
@@ -516,7 +516,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			heat 1500
 			ingredients stack(Items.RED_SAND, 8)
 			ingredient {
-				cellStack(ModFluids.CARBON, 5)
+				stack cellStack(ModFluids.CARBON, 5)
 			}
 			outputs stack(Items.SOUL_SAND, 8)
 		}
@@ -537,7 +537,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			heat 1000
 			ingredients TRContent.Ingots.REFINED_IRON
 			ingredient {
-				cellStack(ModFluids.CARBON, 2)
+				stack cellStack(ModFluids.CARBON, 2)
 			}
 			outputs TRContent.Ingots.STEEL, stack(TRContent.CELL, 2)
 			source("refined_iron_and_carbon")

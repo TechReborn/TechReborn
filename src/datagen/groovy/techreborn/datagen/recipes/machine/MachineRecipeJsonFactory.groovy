@@ -243,7 +243,8 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 
 		def outputId = Registries.ITEM.getId(outputs[0].item)
-		return Identifier.of("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
+		def recipeId = Registries.RECIPE_TYPE.getId(type)
+		return Identifier.of("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	def feature(FeatureFlag flag) {

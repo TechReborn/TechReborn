@@ -190,10 +190,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 800
 			ingredient {
-				cellStack(ModFluids.CARBON)
+				stack cellStack(ModFluids.CARBON)
 			}
 			ingredient {
-				cellStack(ModFluids.CALCIUM)
+				stack cellStack(ModFluids.CALCIUM)
 			}
 			outputs cellStack(ModFluids.CALCIUM_CARBONATE, 2)
 			id("chemical_reactor/calcium_carbonate")
@@ -251,10 +251,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 600
 			ingredient {
-				cellStack(ModFluids.NITRO_CARBON)
+				stack cellStack(ModFluids.NITRO_CARBON)
 			}
 			ingredient {
-				cellStack(Fluids.WATER)
+				stack cellStack(Fluids.WATER)
 			}
 			outputs cellStack(ModFluids.GLYCERYL, 2)
 			id("chemical_reactor/glyceryl")
@@ -293,10 +293,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 2000
 			ingredient {
-				cellStack(ModFluids.CARBON)
+				stack cellStack(ModFluids.CARBON)
 			}
 			ingredient {
-				cellStack(ModFluids.HYDROGEN, 4)
+				stack cellStack(ModFluids.HYDROGEN, 4)
 			}
 			outputs cellStack(ModFluids.METHANE, 5)
 			id("chemical_reactor/methane")
@@ -307,10 +307,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 1000
 			ingredient {
-				cellStack(ModFluids.CARBON)
+				stack cellStack(ModFluids.CARBON)
 			}
 			ingredient {
-				cellStack(ModFluids.NITROGEN)
+				stack cellStack(ModFluids.NITROGEN)
 			}
 			outputs cellStack(ModFluids.NITRO_CARBON, 2)
 			id("chemical_reactor/nitro_carbon")
@@ -321,10 +321,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 1000
 			ingredient {
-				cellStack(ModFluids.GLYCERYL)
+				stack cellStack(ModFluids.GLYCERYL)
 			}
 			ingredient {
-				cellStack(ModFluids.DIESEL)
+				stack cellStack(ModFluids.DIESEL)
 			}
 			outputs cellStack(ModFluids.NITRO_DIESEL, 2)
 			id("chemical_reactor/nitro_diesel")
@@ -335,10 +335,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 300
 			ingredient {
-				cellStack(ModFluids.GLYCERYL)
+				stack cellStack(ModFluids.GLYCERYL)
 			}
 			ingredient {
-				cellStack(ModFluids.CARBON)
+				stack cellStack(ModFluids.CARBON)
 			}
 			outputs cellStack(ModFluids.NITROCOAL_FUEL, 2)
 			id("chemical_reactor/nitrocoal_fuel")
@@ -349,10 +349,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 800
 			ingredient {
-				cellStack(ModFluids.OIL)
+				stack cellStack(ModFluids.OIL)
 			}
 			ingredient {
-				cellStack(ModFluids.NITROGEN)
+				stack cellStack(ModFluids.NITROGEN)
 			}
 			outputs cellStack(ModFluids.NITROFUEL, 2)
 			id("chemical_reactor/nitrofuel")
@@ -363,10 +363,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 400
 			ingredient {
-				cellStack(ModFluids.COMPRESSED_AIR)
+				stack cellStack(ModFluids.COMPRESSED_AIR)
 			}
 			ingredient {
-				cellStack(ModFluids.NITROGEN)
+				stack cellStack(ModFluids.NITROGEN)
 			}
 			outputs cellStack(ModFluids.NITROGEN_DIOXIDE, 2)
 			id("chemical_reactor/nitrogen_dioxide")
@@ -447,10 +447,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 800
 			ingredient {
-				cellStack(ModFluids.SODIUM_SULFIDE)
+				stack cellStack(ModFluids.SODIUM_SULFIDE)
 			}
 			ingredient {
-				cellStack(ModFluids.COMPRESSED_AIR)
+				stack cellStack(ModFluids.COMPRESSED_AIR)
 			}
 			outputs cellStack(ModFluids.SODIUM_PERSULFATE, 2)
 			id("chemical_reactor/sodium_persulfate")
@@ -461,10 +461,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 800
 			ingredient {
-				cellStack(ModFluids.SULFUR)
+				stack cellStack(ModFluids.SULFUR)
 			}
 			ingredient {
-				cellStack(ModFluids.SODIUM)
+				stack cellStack(ModFluids.SODIUM)
 			}
 			outputs cellStack(ModFluids.SODIUM_SULFIDE, 2)
 			id("chemical_reactor/sodium_sulfide")
@@ -497,10 +497,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 1200
 			ingredient {
-				cellStack(ModFluids.SULFUR)
+				stack cellStack(ModFluids.SULFUR)
 			}
 			ingredient {
-				cellStack(Fluids.WATER)
+				stack cellStack(Fluids.WATER)
 			}
 			outputs cellStack(ModFluids.SULFURIC_ACID, 2)
 			id("chemical_reactor/sulfuric_acid")
@@ -526,10 +526,10 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			power 30
 			time 400
 			ingredient {
-				cellStack(ModFluids.COMPRESSED_AIR)
+				stack cellStack(ModFluids.COMPRESSED_AIR)
 			}
 			ingredient {
-				cellStack(ModFluids.HYDROGEN)
+				stack cellStack(ModFluids.HYDROGEN)
 			}
 			outputs cellStack(Fluids.WATER, 2)
 			id("chemical_reactor/water")
