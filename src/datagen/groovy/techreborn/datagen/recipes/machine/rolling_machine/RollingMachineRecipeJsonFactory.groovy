@@ -62,14 +62,14 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 			new ItemStack(builder.output, builder.count),
 			builder.showNotification
 		)
-		JsonObject recipeJson = Recipe.CODEC.encodeStart(DynamicRegistryManager.of(Registries.REGISTRIES).getOps(JsonOps.INSTANCE), shapedRecipe).getOrThrow() as JsonObject
-		return new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, [], [], power, time, shapedRecipe, recipeJson)
+		return new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, [], [], power, time, shapedRecipe)
 	}
 
 	@Override
 	def getIdentifier() {
 		def outputId = Registries.ITEM.getId(shapedRecipeFactory.output.item)
-		return Identifier.of("techreborn", "${type.name().path}/${outputId.path}${getSourceAppendix()}")
+		def recipeId = Registries.RECIPE_TYPE.getId(type)
+		return Identifier.of("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	@Override

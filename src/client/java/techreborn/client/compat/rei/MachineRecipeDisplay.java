@@ -30,6 +30,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.CollectionUtils;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
@@ -37,6 +38,7 @@ import reborncore.common.fluid.container.FluidInstance;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -55,7 +57,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	public MachineRecipeDisplay(RecipeEntry<R> entry) {
 		this.entry = entry;
 		this.recipe = entry.value();
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
+		this.inputs = CollectionUtils.map(recipe.getSizedIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
 		this.outputs = recipe.getOutputs(null).stream().map(EntryIngredients::of).collect(Collectors.toList());
 		this.time = recipe.getTime();
 		this.energy = recipe.getPower();
@@ -101,6 +103,6 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 
 	@Override
 	public CategoryIdentifier<?> getCategoryIdentifier() {
-		return CategoryIdentifier.of(recipe.getRebornRecipeType().name());
+		return CategoryIdentifier.of(Objects.requireNonNull(Registries.RECIPE_TYPE.getId(recipe.getType())));
 	}
 }

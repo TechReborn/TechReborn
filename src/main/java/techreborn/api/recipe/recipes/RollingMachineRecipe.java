@@ -24,35 +24,54 @@
 
 package techreborn.api.recipe.recipes;
 
-import com.google.gson.JsonObject;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.Inventory;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.util.dynamic.Codecs;
+import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.crafting.ingredient.RebornIngredient;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 public class RollingMachineRecipe extends RebornRecipe {
+	public static Function<RecipeType<RollingMachineRecipe>, MapCodec<RollingMachineRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
+		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
+		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
+		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
+		RecipeSerializer.SHAPED.codec().forGetter(RollingMachineRecipe::getShapedRecipe)
+	).apply(instance, (ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, ingredients, outputs, power, time, shaped)));
+	public static Function<RecipeType<RollingMachineRecipe>, PacketCodec<RegistryByteBuf, RollingMachineRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
+		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
+		PacketCodecs.INTEGER, RebornRecipe::getPower,
+		PacketCodecs.INTEGER, RebornRecipe::getTime,
+		RecipeSerializer.SHAPED.packetCodec(), RollingMachineRecipe::getShapedRecipe,
+		(ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, ingredients, outputs, power, time, shaped)
+	);
+	
 	private final ShapedRecipe shapedRecipe;
-	private final JsonObject shapedRecipeJson;
 
-	public RollingMachineRecipe(RebornRecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe, JsonObject shapedRecipeJson) {
+	public RollingMachineRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe) {
 		super(type, ingredients, outputs, power, time);
 		this.shapedRecipe = shapedRecipe;
-		this.shapedRecipeJson = shapedRecipeJson;
 	}
 
 	@Override
-	public DefaultedList<RebornIngredient> getRebornIngredients() {
+	public DefaultedList<SizedIngredient> getSizedIngredients() {
 		return DefaultedList.of();
 	}
 
@@ -78,9 +97,5 @@ public class RollingMachineRecipe extends RebornRecipe {
 
 	public ShapedRecipe getShapedRecipe() {
 		return shapedRecipe;
-	}
-
-	public JsonObject getShapedRecipeJson() {
-		return shapedRecipeJson;
 	}
 }

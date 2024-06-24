@@ -30,18 +30,18 @@ import me.shedaniel.rei.api.client.ClientHelper;
 import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornRecipeType;
 import techreborn.client.compat.rei.MachineRecipeDisplay;
 import techreborn.client.compat.rei.ReiPlugin;
 
 import java.util.List;
 
 public abstract class AbstractEnergyConsumingMachineCategory<R extends RebornRecipe> extends AbstractMachineCategory<R> {
-	public AbstractEnergyConsumingMachineCategory(RebornRecipeType<R> rebornRecipeType) {
+	public AbstractEnergyConsumingMachineCategory(RecipeType<R> rebornRecipeType) {
 		super(rebornRecipeType);
 	}
 

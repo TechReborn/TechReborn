@@ -22,24 +22,43 @@
  * SOFTWARE.
  */
 
-package reborncore.common.crafting.ingredient;
+package reborncore.common.crafting;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-public abstract class RebornIngredient implements Predicate<ItemStack> {
+/**
+ * An ingredient with a specific item stack count
+ * @param count The count of the ingredient
+ * @param ingredient The ingredient
+ */
+public record SizedIngredient(int count, Ingredient ingredient) implements Predicate<ItemStack> {
+	public static MapCodec<SizedIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.INT.optionalFieldOf("count", 1).forGetter(SizedIngredient::count),
+		MapCodec.assumeMapUnsafe(Ingredient.DISALLOW_EMPTY_CODEC).forGetter(SizedIngredient::ingredient)
+	).apply(instance, SizedIngredient::new));
+	public static PacketCodec<RegistryByteBuf, SizedIngredient> PACKET_CODEC = PacketCodec.tuple(
+		PacketCodecs.INTEGER, SizedIngredient::count,
+		Ingredient.PACKET_CODEC, SizedIngredient::ingredient,
+		SizedIngredient::new
+	);
+
 	@Override
-	public abstract boolean test(ItemStack itemStack);
+	public boolean test(ItemStack itemStack) {
+		return ingredient.test(itemStack);
+	}
 
-	public abstract Ingredient getPreview();
-
-	public abstract List<ItemStack> getPreviewStacks();
-
-	public abstract JsonObject toJson(boolean networkSync);
-
-	public abstract int getCount();
+	public List<ItemStack> getPreviewStacks() {
+		return Arrays.asList(ingredient.getMatchingStacks());
+	}
 }

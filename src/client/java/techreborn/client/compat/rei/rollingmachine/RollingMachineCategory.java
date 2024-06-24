@@ -30,32 +30,39 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.client.categories.crafting.DefaultCraftingCategory;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCraftingDisplay;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
-import reborncore.common.crafting.RebornRecipeType;
+import net.minecraft.util.Identifier;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.client.compat.rei.ReiPlugin;
 
 public class RollingMachineCategory extends DefaultCraftingCategory {
 
-	private final RebornRecipeType<RollingMachineRecipe> rebornRecipeType;
+	private final RecipeType<RollingMachineRecipe> recipeType;
 
-	public RollingMachineCategory(RebornRecipeType<RollingMachineRecipe> rebornRecipeType) {
-		this.rebornRecipeType = rebornRecipeType;
+	public RollingMachineCategory(RecipeType<RollingMachineRecipe> recipeType) {
+		this.recipeType = recipeType;
 	}
+
+	private Identifier id() {
+		return Registries.RECIPE_TYPE.getId(recipeType);
+	}
+
 
 	@Override
 	public CategoryIdentifier<? extends DefaultCraftingDisplay<?>> getCategoryIdentifier() {
-		return CategoryIdentifier.of(rebornRecipeType.name());
+		return CategoryIdentifier.of(id());
 	}
 
 	@Override
 	public Text getTitle() {
-		return Text.translatable(rebornRecipeType.name().toString());
+		return Text.translatable(id().toString());
 	}
 
 	@Override
 	public Renderer getIcon() {
-		return EntryStacks.of(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
+		return EntryStacks.of(ReiPlugin.iconMap.getOrDefault(recipeType, () -> Items.DIAMOND_SHOVEL));
 	}
 
 }

@@ -24,83 +24,31 @@
 
 package reborncore.common.crafting;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.component.ComponentChanges;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registries;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import reborncore.common.util.DefaultedListCollector;
-import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
 public class RecipeUtils {
-	public static <T extends RebornRecipe> List<T> getRecipes(World world, RebornRecipeType<T> type) {
+	public static <T extends RebornRecipe> List<T> getRecipes(World world, RecipeType<T> type) {
 		return streamRecipeEntries(world, type).map(RecipeEntry::value).toList();
 	}
 
-	public static <T extends RebornRecipe> List<RecipeEntry<T>> getRecipeEntries(World world, RebornRecipeType<T> type) {
+	public static <T extends RebornRecipe> List<RecipeEntry<T>> getRecipeEntries(World world, RecipeType<T> type) {
 		return streamRecipeEntries(world, type).toList();
 	}
 
-	private static <T extends RebornRecipe> Stream<RecipeEntry<T>> streamRecipeEntries(World world, RebornRecipeType<T> type) {
+	private static <T extends RebornRecipe> Stream<RecipeEntry<T>> streamRecipeEntries(World world, RecipeType<T> type) {
 		return world.getRecipeManager().getAllOfType(type).stream();
-	}
-
-	public static DefaultedList<ItemStack> deserializeItems(JsonElement jsonObject) {
-		if (jsonObject.isJsonArray()) {
-			return SerializationUtil.stream(jsonObject.getAsJsonArray()).map(entry -> deserializeItem(entry.getAsJsonObject())).collect(DefaultedListCollector.toList());
-		} else {
-			return DefaultedList.copyOf(deserializeItem(jsonObject.getAsJsonObject()));
-		}
-	}
-
-	private static ItemStack deserializeItem(JsonObject jsonObject) {
-		Identifier resourceLocation = Identifier.of(JsonHelper.getString(jsonObject, "item"));
-		Item item = Registries.ITEM.get(resourceLocation);
-		if (item == Items.AIR) {
-			throw new IllegalStateException(resourceLocation + " did not exist");
-		}
-		int count = 1;
-		if (jsonObject.has("count")) {
-			count = JsonHelper.getInt(jsonObject, "count");
-		}
-
-		ItemStack stack = new ItemStack(item, count);
-
-		if (jsonObject.has("nbt")) {
-			throw new JsonParseException("nbt is no longer supported");
-		}
-
-		if (jsonObject.has("components")) {
-			DataResult<ComponentChanges> result = ComponentChanges.CODEC.parse(DynamicRegistryManager.of(Registries.REGISTRIES).getOps(JsonOps.INSTANCE), jsonObject.get("components"));
-
-			if (result.error().isPresent()) {
-				throw new JsonParseException("Failed to parse components: " + result.error().get());
-			}
-
-			stack.applyChanges(result.getOrThrow());
-		}
-
-		return stack;
 	}
 
 	/**

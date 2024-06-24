@@ -43,7 +43,9 @@ import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import techreborn.component.TRDataComponentTypes
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
+import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
+import techreborn.datagen.recipes.machine.centrifuge.CentrifugeRecipeJsonFactory
 import techreborn.datagen.recipes.machine.fusion_reactor.FusionReactorRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
@@ -204,12 +206,12 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		MachineRecipeJsonFactory.create(ModRecipes.CHEMICAL_REACTOR, this, closure).offerTo(exporter)
 	}
 
-	def offerAssemblingMachineRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.ASSEMBLING_MACHINE, this, closure).offerTo(exporter)
+	def offerAssemblingMachineRecipe(@DelegatesTo(value = AssemblingMachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		AssemblingMachineRecipeJsonFactory.createAssemblingMachine(this, closure).offerTo(exporter)
 	}
 
 	def offerCentrifugeRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		MachineRecipeJsonFactory.create(ModRecipes.CENTRIFUGE, this, closure).offerTo(exporter)
+		CentrifugeRecipeJsonFactory.createCentrifuge(this, closure).offerTo(exporter)
 	}
 
 	def offerWireMillRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {

@@ -45,6 +45,7 @@ import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -342,7 +343,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public List<RollingMachineRecipe> getAllRecipe(World world) {
-		return ModRecipes.ROLLING_MACHINE.getRecipes(world);
+		return RecipeUtils.getRecipes(world, ModRecipes.ROLLING_MACHINE);
 	}
 
 	public ItemStack findMatchingRecipeOutput(CraftingInventory inv, World world) {

@@ -31,12 +31,12 @@ import me.shedaniel.rei.api.client.ClientHelper;
 import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornRecipeType;
 import techreborn.client.compat.rei.MachineRecipeDisplay;
 import techreborn.client.compat.rei.ReiPlugin;
 
@@ -44,7 +44,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class GrinderCategory<R extends RebornRecipe> extends AbstractMachineCategory<R> {
-	public GrinderCategory(RebornRecipeType<R> rebornRecipeType) {
+	public GrinderCategory(RecipeType<R> rebornRecipeType) {
 		super(rebornRecipeType);
 	}
 

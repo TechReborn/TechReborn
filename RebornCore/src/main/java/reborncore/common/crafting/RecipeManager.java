@@ -24,46 +24,47 @@
 
 package reborncore.common.crafting;
 
+import com.mojang.serialization.MapCodec;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
-import reborncore.common.crafting.serde.RebornRecipeSerde;
-import reborncore.common.crafting.serde.RecipeSerde;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class RecipeManager {
-
-	private static final Map<Identifier, RebornRecipeType<?>> recipeTypes = new HashMap<>();
-
-	public static RebornRecipeType<reborncore.common.crafting.RebornRecipe> newRecipeType(Identifier name) {
-		return newRecipeType(RebornRecipeSerde.BASIC, name);
+	public static RecipeType<RebornRecipe> newRecipeType(Identifier name) {
+		return newRecipeType(name, RebornRecipe.CODEC, RebornRecipe.PACKET_CODEC);
 	}
 
-	public static <R extends RebornRecipe> RebornRecipeType<R> newRecipeType(RecipeSerde<R> recipeSerde, Identifier name) {
-		if (recipeTypes.containsKey(name)) {
-			throw new IllegalStateException("RebornRecipe type with this name already registered");
-		}
-		RebornRecipeType<R> type = new RebornRecipeType<>(recipeSerde, name);
-		recipeTypes.put(name, type);
-
+	public static <R extends RebornRecipe> RecipeType<R> newRecipeType(Identifier name, Function<RecipeType<R>, MapCodec<R>> codec, Function<RecipeType<R>, PacketCodec<RegistryByteBuf, R>> packetCodec) {
+		RecipeType<R> type = new RecipeType<R>() {
+			@Override
+			public String toString() {
+				return name.toString();
+			}
+		};
 		Registry.register(Registries.RECIPE_TYPE, name, type);
-		Registry.register(Registries.RECIPE_SERIALIZER, name, type);
+
+		record Serializer<R extends RebornRecipe>(MapCodec<R> codec, PacketCodec<RegistryByteBuf, R> packetCodec) implements RecipeSerializer<R> {}
+		Serializer<R> serializer = new Serializer<>(codec.apply(type), packetCodec.apply(type));
+		Registry.register(Registries.RECIPE_SERIALIZER, name, serializer);
 
 		return type;
 	}
 
-	public static RebornRecipeType<?> getRecipeType(Identifier name) {
-		if (!recipeTypes.containsKey(name)) {
-			throw new IllegalStateException("RebornRecipe type " + name + " not found");
-		}
-		return recipeTypes.get(name);
-	}
-
-	public static List<RebornRecipeType<?>> getRecipeTypes(String namespace) {
-		return recipeTypes.values().stream().filter(rebornRecipeType -> rebornRecipeType.name().getNamespace().equals(namespace)).collect(Collectors.toList());
+	public static List<RecipeType<?>> getRecipeTypes(String namespace) {
+		//noinspection unchecked
+		return Registries.RECIPE_TYPE.getKeys().stream()
+			.filter(key -> key.getValue().getNamespace().startsWith(namespace))
+			.map((Function<RegistryKey<RecipeType<?>>, RecipeType<?>>) key -> Registries.RECIPE_TYPE.get(key.getValue()))
+			.toList();
 	}
 }

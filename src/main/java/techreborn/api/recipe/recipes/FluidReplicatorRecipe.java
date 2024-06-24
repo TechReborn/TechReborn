@@ -24,23 +24,48 @@
 
 package techreborn.api.recipe.recipes;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.crafting.RebornFluidRecipe;
-import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.SizedIngredient;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class FluidReplicatorRecipe extends RebornFluidRecipe {
-	public FluidReplicatorRecipe(RebornRecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
+	public static final Function<RecipeType<FluidReplicatorRecipe>, MapCodec<FluidReplicatorRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
+		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
+		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
+		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
+		FluidInstance.CODEC.fieldOf("fluid").forGetter(RebornFluidRecipe::getFluidInstance)
+	).apply(instance, (ingredients, outputs, power, time, fluid) -> new FluidReplicatorRecipe(type, ingredients, outputs, power, time, fluid)));
+	public static final Function<RecipeType<FluidReplicatorRecipe>, PacketCodec<RegistryByteBuf, FluidReplicatorRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
+		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
+		PacketCodecs.INTEGER, RebornRecipe::getPower,
+		PacketCodecs.INTEGER, RebornRecipe::getTime,
+		FluidInstance.PACKET_CODEC, RebornFluidRecipe::getFluidInstance,
+		(ingredients, outputs, power, time, fluid) -> new FluidReplicatorRecipe(type, ingredients, outputs, power, time, fluid)
+	);
+	
+	public FluidReplicatorRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
 		super(type, ingredients, outputs, power, time, fluid);
 	}
 

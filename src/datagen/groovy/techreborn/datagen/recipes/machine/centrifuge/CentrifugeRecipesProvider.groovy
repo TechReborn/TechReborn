@@ -159,7 +159,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 10
 			time 4000
 			ingredient {
-				fluid(ModFluids.CALCIUM_CARBONATE, TRContent.CELL)
+				stack cellStack(ModFluids.CALCIUM_CARBONATE)
 			}
 			outputs TRContent.Dusts.CALCITE, TRContent.CELL
 			id("centrifuge/calcium_carbonate_cell")
@@ -189,7 +189,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 10
 			time 3000
 			ingredient {
-				fluid(ModFluids.DEUTERIUM, TRContent.CELL, 4)
+				stack cellStack(ModFluids.DEUTERIUM, 4)
 			}
 			outputs cellStack(ModFluids.TRITIUM), stack(TRContent.CELL, 3)
 			id("centrifuge/deuterium_cell")
@@ -284,7 +284,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 6000
 			ingredient {
-				fluid(ModFluids.HELIUM, TRContent.CELL, 16)
+				stack cellStack(ModFluids.HELIUM, 16)
 			}
 			outputs cellStack(ModFluids.HELIUM3), stack(TRContent.CELL, 15)
 			id("centrifuge/helium_cell")
@@ -300,7 +300,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 10
 			time 4000
 			ingredient {
-				fluid(ModFluids.HYDROGEN, TRContent.CELL, 4)
+				stack cellStack(ModFluids.HYDROGEN, 4)
 			}
 			outputs cellStack(ModFluids.DEUTERIUM), stack(TRContent.CELL, 3)
 			id("centrifuge/hydrogen_cell")
@@ -316,7 +316,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 1500
 			ingredient {
-				fluid(Fluids.LAVA, TRContent.CELL, 16)
+				stack cellStack(Fluids.LAVA, 16)
 			}
 			outputs stack(TRContent.CELL, 16), stack(Items.COPPER_INGOT, 4), TRContent.Ingots.ELECTRUM, TRContent.SmallDusts.TUNGSTEN
 			id("centrifuge/lava_cell")
@@ -487,7 +487,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 10
 			time 4000
 			ingredient{
-				fluid(ModFluids.SULFUR, TRContent.CELL)
+				stack cellStack(ModFluids.SULFUR)
 			}
 			outputs TRContent.Dusts.SULFUR, TRContent.CELL
 			id("centrifuge/sulfur_cell")
