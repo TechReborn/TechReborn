@@ -25,37 +25,24 @@
 package reborncore.common.crafting;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
-import org.jetbrains.annotations.NotNull;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 
-import java.util.List;
-
-public abstract class RebornFluidRecipe extends RebornRecipe {
-	@NotNull
-	private final FluidInstance fluidInstance;
-
-	public RebornFluidRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance) {
-		super(type, ingredients, outputs, power, time);
-		this.fluidInstance = fluidInstance;
-	}
-
-	public abstract Tank getTank(BlockEntity be);
+public interface RebornFluidRecipe extends RebornRecipe {
+	FluidInstance fluid();
+	Tank getTank(BlockEntity be);
 
 	@Override
-	public boolean canCraft(BlockEntity be) {
-		final FluidInstance recipeFluid = fluidInstance;
+	default boolean canCraft(BlockEntity be) {
 		final FluidInstance tankFluid = getTank(be).getFluidInstance();
-		if (fluidInstance.isEmpty()) {
+		if (fluid().isEmpty()) {
 			return true;
 		}
 		if (tankFluid.isEmpty()) {
 			return false;
 		}
-		if (tankFluid.fluid().equals(recipeFluid.fluid())) {
-			if (tankFluid.getAmount().equalOrMoreThan(recipeFluid.getAmount())) {
+		if (tankFluid.fluid().equals(fluid().fluid())) {
+			if (tankFluid.getAmount().equalOrMoreThan(fluid().getAmount())) {
 				return true;
 			}
 		}
@@ -63,26 +50,20 @@ public abstract class RebornFluidRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public boolean onCraft(BlockEntity be) {
-		final FluidInstance recipeFluid = fluidInstance;
+	default boolean onCraft(BlockEntity be) {
 		final FluidInstance tankFluid = getTank(be).getFluidInstance();
-		if (fluidInstance.isEmpty()) {
+		if (fluid().isEmpty()) {
 			return true;
 		}
 		if (tankFluid.isEmpty()) {
 			return false;
 		}
-		if (tankFluid.fluid().equals(recipeFluid.fluid())) {
-			if (tankFluid.getAmount().equalOrMoreThan(recipeFluid.getAmount())) {
-				getTank(be).modifyFluid(fluid -> fluid.subtractAmount(recipeFluid.getAmount()));
+		if (tankFluid.fluid().equals(fluid().fluid())) {
+			if (tankFluid.getAmount().equalOrMoreThan(fluid().getAmount())) {
+				getTank(be).modifyFluid(fluid -> fluid.subtractAmount(fluid().getAmount()));
 				return true;
 			}
 		}
 		return false;
-	}
-
-	@NotNull
-	public FluidInstance getFluidInstance() {
-		return fluidInstance;
 	}
 }

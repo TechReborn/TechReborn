@@ -103,7 +103,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 				currentRecipe = getRecipeForFluid(tank.getFluid());
 
 			if (currentRecipe != null) {
-				final int euPerBucket = currentRecipe.getPower();
+				final int euPerBucket = currentRecipe.power();
 
 				// Make sure to calculate the fluid used per tick based on the underlying fluid unit (droplets)
 				final float fluidPerTick = (euTick / (euPerBucket / (float)FluidValue.BUCKET.getRawValue()));

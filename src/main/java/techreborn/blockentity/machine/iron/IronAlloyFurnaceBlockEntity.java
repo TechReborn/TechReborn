@@ -59,7 +59,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		if (recipeType == null) {
 			return false;
 		}
-		for (SizedIngredient ingredient : recipeType.getSizedIngredients()) {
+		for (SizedIngredient ingredient : recipeType.ingredients()) {
 			boolean hasItem = false;
 			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 				if (ingredient.test(inventory.getStack(inputSlot))) {
@@ -90,7 +90,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		ItemStack itemstack = null;
 		for (RebornRecipe recipeType : RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER)) {
 			if (hasAllInputs(recipeType)) {
-				List<ItemStack> outputs = recipeType.getOutputs(getWorld().getRegistryManager());
+				List<ItemStack> outputs = recipeType.outputs();
 
 				if(outputs.isEmpty()){
 					continue;
@@ -123,7 +123,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 			return;
 		}
 
-		ItemStack outputStack = currentRecipe.getOutputs(getWorld().getRegistryManager()).get(0);
+		ItemStack outputStack = currentRecipe.outputs().get(0);
 		if (outputStack.isEmpty()) {
 			return;
 		}
@@ -133,7 +133,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 			inventory.shrinkSlot(OUTPUT_SLOT, -outputStack.getCount());
 		}
 
-		for (SizedIngredient ingredient : currentRecipe.getSizedIngredients()) {
+		for (SizedIngredient ingredient : currentRecipe.ingredients()) {
 			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 				if (ingredient.test(inventory.getStack(inputSlot))) {
 					inventory.shrinkSlot(inputSlot, ingredient.count());
@@ -150,7 +150,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 
 		RebornRecipe recipe = getRecipe();
 		if (recipe != null) {
-			cookingTime = recipe.getTime();
+			cookingTime = recipe.time();
 		}
 
 		return (int) (cookingTime / TechRebornConfig.cookingScale);
@@ -172,7 +172,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 	@Override
 	public boolean isStackValid(int slotID, ItemStack stack) {
 		return RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER).stream()
-				.anyMatch(rebornRecipe -> rebornRecipe.getSizedIngredients().stream()
+				.anyMatch(rebornRecipe -> rebornRecipe.ingredients().stream()
 						.anyMatch(ingredient -> ingredient.test(stack))
 				);
 	}

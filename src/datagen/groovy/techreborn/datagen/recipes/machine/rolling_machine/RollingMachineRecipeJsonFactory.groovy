@@ -81,7 +81,7 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 			new ItemStack(builder.output, builder.count),
 			builder.showNotification
 		)
-		return new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, [], [], power, time, shapedRecipe)
+		return new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, power, time, shapedRecipe)
 	}
 
 	@Override

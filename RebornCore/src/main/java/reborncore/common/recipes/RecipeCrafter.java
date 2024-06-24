@@ -157,7 +157,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 			}
 			// If it has reached the recipe tick time
 			if (currentRecipe != null && currentTickTime >= currentNeededTicks && hasAllInputs()) {
-				final List<ItemStack> outputs = currentRecipe.getOutputs(getDynamicRegistryManager());
+				final List<ItemStack> outputs = currentRecipe.outputs();
 
 				boolean canGiveInvAll = true;
 				// Checks to see if it can fit the output
@@ -189,7 +189,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 					}
 				}
 			} else if (currentRecipe != null && currentTickTime < currentNeededTicks) {
-				long useRequirement = getEuPerTick(currentRecipe.getPower());
+				long useRequirement = getEuPerTick(currentRecipe.power());
 				if (energy.tryUseExact(useRequirement)) {
 					currentTickTime++;
 					if ((currentTickTime == 1 || currentTickTime % 20 == 0 && cachedWorldTime > lastSoundTime+ 10) && soundHandler != null && !isMuffled()) {
@@ -212,7 +212,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 			if (!hasAllInputs(recipe)) continue;
 			if (!recipe.canCraft(blockEntity)) continue;
 
-			final List<ItemStack> outputs = recipe.getOutputs(getDynamicRegistryManager());
+			final List<ItemStack> outputs = recipe.outputs();
 
 			// This checks to see if it can fit all the outputs
 			boolean hasOutputSpace = true;
@@ -224,7 +224,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 			if (!hasOutputSpace) continue;
 			// Sets the current recipe then syncs
 			setCurrentRecipe(recipe);
-			this.currentNeededTicks = Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
+			this.currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
 			setIsActive();
 			return;
 		}
@@ -241,7 +241,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		if (recipeType == null) {
 			return false;
 		}
-		for (SizedIngredient ingredient : recipeType.getSizedIngredients()) {
+		for (SizedIngredient ingredient : recipeType.ingredients()) {
 			boolean hasItem = false;
 			for (int slot : inputSlots) {
 				if (ingredient.test(inventory.getStack(slot))) {
@@ -259,7 +259,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		if (currentRecipe == null) {
 			return;
 		}
-		for (SizedIngredient ingredient : currentRecipe.getSizedIngredients()) {
+		for (SizedIngredient ingredient : currentRecipe.ingredients()) {
 			for (int inputSlot : inputSlots) {// Uses all the inputs
 				if (ingredient.test(inventory.getStack(inputSlot))) {
 					inventory.shrinkSlot(inputSlot, ingredient.count());
@@ -324,20 +324,20 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	private boolean isActive() {
-		return currentRecipe != null && energy.getEnergy() >= currentRecipe.getPower();
+		return currentRecipe != null && energy.getEnergy() >= currentRecipe.power();
 	}
 
 	public boolean canCraftAgain() {
 		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
 			if (recipe.canCraft(blockEntity) && hasAllInputs(recipe)) {
-				final List<ItemStack> outputs = recipe.getOutputs(getDynamicRegistryManager());
+				final List<ItemStack> outputs = recipe.outputs();
 
 				for (int i = 0; i < outputs.size(); i++) {
 					if (!canFitOutput(outputs.get(i), outputSlots[i])) {
 						return false;
 					}
 				}
-				return !(energy.getEnergy() < recipe.getPower());
+				return !(energy.getEnergy() < recipe.power());
 			}
 		}
 		return false;
@@ -381,7 +381,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		ItemStack largeStack = stack.copy();
 		largeStack.setCount(largeStack.getMaxCount());
 		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
-			for (SizedIngredient ingredient : recipe.getSizedIngredients()) {
+			for (SizedIngredient ingredient : recipe.ingredients()) {
 				if (ingredient.test(largeStack)) {
 					return true;
 				}

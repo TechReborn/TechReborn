@@ -33,31 +33,27 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.dynamic.Codecs;
-import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.SizedIngredient;
 import techreborn.init.TRContent;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class CentrifugeRecipe extends RebornRecipe {
+public record CentrifugeRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) implements RebornRecipe {
 	public static Function<RecipeType<CentrifugeRecipe>, MapCodec<CentrifugeRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
-		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
-		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
-		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime)
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
+		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
+		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
+		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time)
 	).apply(instance, (ingredients, outputs, power, time) -> new CentrifugeRecipe(type, ingredients, outputs, power, time)));
 	public static Function<RecipeType<CentrifugeRecipe>, PacketCodec<RegistryByteBuf, CentrifugeRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
-		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
-		PacketCodecs.INTEGER, RebornRecipe::getPower,
-		PacketCodecs.INTEGER, RebornRecipe::getTime,
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::ingredients,
+		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::outputs,
+		PacketCodecs.INTEGER, RebornRecipe::power,
+		PacketCodecs.INTEGER, RebornRecipe::time,
 		(ingredients, outputs, power, time) -> new CentrifugeRecipe(type, ingredients, outputs, power, time)
 	);
-
-	public CentrifugeRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
-		super(type, ingredients, outputs, power, time);
-	}
 
 	@Override
 	public ItemStack createIcon() {

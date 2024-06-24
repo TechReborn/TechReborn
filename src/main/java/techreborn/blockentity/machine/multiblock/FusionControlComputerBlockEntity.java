@@ -159,7 +159,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 */
 	private boolean validateRecipe(RecipeEntry<FusionReactorRecipe> entry) {
 		FusionReactorRecipe recipe = entry.value();
-		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs(getWorld().getRegistryManager()).getFirst(), outputStackSlot, true);
+		return hasAllInputs(recipe) && canFitStack(recipe.outputs().getFirst(), outputStackSlot, true);
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 * @return {@code boolean} True if reactor has all inputs for recipe
 	 */
 	private boolean hasAllInputs(RebornRecipe recipeType) {
-		for (SizedIngredient ingredient : recipeType.getSizedIngredients()) {
+		for (SizedIngredient ingredient : recipeType.ingredients()) {
 			boolean hasItem = false;
 			if (ingredient.test(inventory.getStack(topStackSlot))
 					|| ingredient.test(inventory.getStack(bottomStackSlot))) {
@@ -191,7 +191,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		if (currentRecipeEntry == null) {
 			return;
 		}
-		for (SizedIngredient ingredient : currentRecipeEntry.value().getSizedIngredients()) {
+		for (SizedIngredient ingredient : currentRecipeEntry.value().ingredients()) {
 			if (ingredient.test(inventory.getStack(slot))) {
 				inventory.shrinkSlot(slot, ingredient.count());
 				break;
@@ -209,8 +209,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	// GenericMachineBlockEntity
 	@Override
 	public int getProgressScaled(int scale) {
-		if (craftingTickTime != 0 && currentRecipeEntry != null && currentRecipeEntry.value().getTime() != 0) {
-			return craftingTickTime * scale / currentRecipeEntry.value().getTime();
+		if (craftingTickTime != 0 && currentRecipeEntry != null && currentRecipeEntry.value().time() != 0) {
+			return craftingTickTime * scale / currentRecipeEntry.value().time();
 		}
 		return 0;
 	}
@@ -293,22 +293,22 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 					useInput(bottomStackSlot);
 				}
 			}
-			if (hasStartedCrafting && craftingTickTime < currentRecipe.getTime()) {
+			if (hasStartedCrafting && craftingTickTime < currentRecipe.time()) {
 				// Power gen
-				if (currentRecipe.getPower() > 0) {
+				if (currentRecipe.power() > 0) {
 					// Waste power if it has nowhere to go
-					long power = (long) (Math.abs(currentRecipe.getPower()) * getPowerMultiplier());
+					long power = (long) (Math.abs(currentRecipe.power()) * getPowerMultiplier());
 					addEnergy(power);
 					powerChange = (power);
 					craftingTickTime++;
 				} else { // Power user
-					if (getStored() > currentRecipe.getPower()) {
-						setEnergy(getEnergy() - currentRecipe.getPower());
+					if (getStored() > currentRecipe.power()) {
+						setEnergy(getEnergy() - currentRecipe.power());
 						craftingTickTime++;
 					}
 				}
-			} else if (craftingTickTime >= currentRecipe.getTime()) {
-				ItemStack result = currentRecipe.getOutputs(getWorld().getRegistryManager()).getFirst();
+			} else if (craftingTickTime >= currentRecipe.time()) {
+				ItemStack result = currentRecipe.outputs().getFirst();
 				if (canFitStack(result, outputStackSlot, true)) {
 					if (inventory.getStack(outputStackSlot).isEmpty()) {
 						inventory.setStack(outputStackSlot, result.copy());

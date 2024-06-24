@@ -178,7 +178,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	 * Override this method to support custom recipe types.
 	 */
 	protected R createRecipe() {
-		return new RebornRecipe(type, ingredients, outputs, power, time) as R
+		return new RebornRecipe.Default(type, ingredients, outputs, power, time) as R
 	}
 
 	protected void validate() {

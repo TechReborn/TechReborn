@@ -44,26 +44,22 @@ import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
 import java.util.List;
 import java.util.function.Function;
 
-public class IndustrialGrinderRecipe extends RebornFluidRecipe {
+public record IndustrialGrinderRecipe(RecipeType<IndustrialGrinderRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) implements RebornFluidRecipe {
 	public static final Function<RecipeType<IndustrialGrinderRecipe>, MapCodec<IndustrialGrinderRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
-		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
-		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
-		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
-		FluidInstance.CODEC.fieldOf("fluid").forGetter(RebornFluidRecipe::getFluidInstance)
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
+		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
+		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
+		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
+		FluidInstance.CODEC.fieldOf("fluid").forGetter(RebornFluidRecipe::fluid)
 	).apply(instance, (ingredients, outputs, power, time, fluid) -> new IndustrialGrinderRecipe(type, ingredients, outputs, power, time, fluid)));
 	public static final Function<RecipeType<IndustrialGrinderRecipe>, PacketCodec<RegistryByteBuf, IndustrialGrinderRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
-		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
-		PacketCodecs.INTEGER, RebornRecipe::getPower,
-		PacketCodecs.INTEGER, RebornRecipe::getTime,
-		FluidInstance.PACKET_CODEC, RebornFluidRecipe::getFluidInstance,
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::ingredients,
+		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::outputs,
+		PacketCodecs.INTEGER, RebornRecipe::power,
+		PacketCodecs.INTEGER, RebornRecipe::time,
+		FluidInstance.PACKET_CODEC, RebornFluidRecipe::fluid,
 		(ingredients, outputs, power, time, fluid) -> new IndustrialGrinderRecipe(type, ingredients, outputs, power, time, fluid)
 	);
-
-	public IndustrialGrinderRecipe(RecipeType<IndustrialGrinderRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
-		super(type, ingredients, outputs, power, time, fluid);
-	}
 
 	@Override
 	public Tank getTank(BlockEntity be) {
@@ -77,7 +73,6 @@ public class IndustrialGrinderRecipe extends RebornFluidRecipe {
 		if (!blockEntity.isMultiblockValid()) {
 			return false;
 		}
-		return super.canCraft(be);
+		return RebornFluidRecipe.super.canCraft(be);
 	}
-
 }

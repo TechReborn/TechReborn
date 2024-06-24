@@ -53,7 +53,7 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 			return;
 		}
 		setCurrentRecipe(recipeList.get(0));
-		currentNeededTicks = Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
+		currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
 		setIsActive();
 	}
 

@@ -57,15 +57,15 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	public MachineRecipeDisplay(RecipeEntry<R> entry) {
 		this.entry = entry;
 		this.recipe = entry.value();
-		this.inputs = CollectionUtils.map(recipe.getSizedIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
-		this.outputs = recipe.getOutputs(null).stream().map(EntryIngredients::of).collect(Collectors.toList());
-		this.time = recipe.getTime();
-		this.energy = recipe.getPower();
+		this.inputs = CollectionUtils.map(recipe.ingredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
+		this.outputs = recipe.outputs().stream().map(EntryIngredients::of).collect(Collectors.toList());
+		this.time = recipe.time();
+		this.energy = recipe.power();
 		if (recipe instanceof BlastFurnaceRecipe) {
 			this.heat = ((BlastFurnaceRecipe) recipe).getHeat();
 		}
 		if (recipe instanceof RebornFluidRecipe) {
-			this.fluidInstance = ((RebornFluidRecipe) recipe).getFluidInstance();
+			this.fluidInstance = ((RebornFluidRecipe) recipe).fluid();
 			inputs.add(EntryIngredients.of(fluidInstance.fluid(), fluidInstance.getAmount().getRawValue()));
 		}
 	}

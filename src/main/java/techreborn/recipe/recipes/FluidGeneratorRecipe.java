@@ -37,32 +37,41 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.SizedIngredient;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
-public class FluidGeneratorRecipe extends RebornRecipe {
+public record FluidGeneratorRecipe(RecipeType<?> type, int power, Fluid fluid) implements RebornRecipe {
 	public static Function<RecipeType<FluidGeneratorRecipe>, MapCodec<FluidGeneratorRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
+		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
 		Registries.FLUID.getEntryCodec().fieldOf("fluid").forGetter(FluidGeneratorRecipe::fluidRegistryEntry)
 	).apply(instance, (power, fluid) -> new FluidGeneratorRecipe(type, power, fluid)));
 	public static Function<RecipeType<FluidGeneratorRecipe>, PacketCodec<RegistryByteBuf, FluidGeneratorRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		PacketCodecs.INTEGER, RebornRecipe::getPower,
+		PacketCodecs.INTEGER, RebornRecipe::power,
 		PacketCodecs.registryEntry(RegistryKeys.FLUID), FluidGeneratorRecipe::fluidRegistryEntry,
 		(power, fluid) -> new FluidGeneratorRecipe(type, power, fluid)
 	);
 
-	private final Fluid fluid;
-
-	public FluidGeneratorRecipe(RecipeType<?> type, int power, Fluid fluid) {
-		super(type, Collections.emptyList(), Collections.emptyList(), power, 0);
-		this.fluid = fluid;
-	}
-
 	public FluidGeneratorRecipe(RecipeType<?> type, int power, RegistryEntry<Fluid> fluid) {
 		this(type, power, fluid.value());
+	}
+
+	@Override
+	public List<SizedIngredient> ingredients() {
+		return List.of();
+	}
+
+	@Override
+	public List<ItemStack> outputs() {
+		return List.of();
+	}
+
+	@Override
+	public int time() {
+		return 0;
 	}
 
 	@Override
@@ -81,7 +90,7 @@ public class FluidGeneratorRecipe extends RebornRecipe {
 			return new ItemStack(TRContent.Machine.PLASMA_GENERATOR);
 		}
 
-		return super.createIcon();
+		return RebornRecipe.super.createIcon();
 	}
 
 	public Fluid getFluid() {

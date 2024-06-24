@@ -24,7 +24,6 @@
 
 package techreborn.recipe.recipes;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
@@ -35,54 +34,44 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
-import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.SizedIngredient;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
-public class RollingMachineRecipe extends RebornRecipe {
+public record RollingMachineRecipe(RecipeType<?> type, int power, int time, ShapedRecipe shapedRecipe) implements RebornRecipe {
 	public static Function<RecipeType<RollingMachineRecipe>, MapCodec<RollingMachineRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
-		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
-		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
-		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
+		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
+		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
 		RecipeSerializer.SHAPED.codec().forGetter(RollingMachineRecipe::getShapedRecipe)
-	).apply(instance, (ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, ingredients, outputs, power, time, shaped)));
+	).apply(instance, (power, time, shaped) -> new RollingMachineRecipe(type, power, time, shaped)));
 	public static Function<RecipeType<RollingMachineRecipe>, PacketCodec<RegistryByteBuf, RollingMachineRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
-		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
-		PacketCodecs.INTEGER, RebornRecipe::getPower,
-		PacketCodecs.INTEGER, RebornRecipe::getTime,
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::ingredients,
+		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::outputs,
+		PacketCodecs.INTEGER, RebornRecipe::power,
+		PacketCodecs.INTEGER, RebornRecipe::time,
 		RecipeSerializer.SHAPED.packetCodec(), RollingMachineRecipe::getShapedRecipe,
-		(ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, ingredients, outputs, power, time, shaped)
+		(ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, power, time, shaped)
 	);
 
-	private final ShapedRecipe shapedRecipe;
-
-	public RollingMachineRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe) {
-		super(type, ingredients, outputs, power, time);
-		this.shapedRecipe = shapedRecipe;
-	}
-
 	@Override
-	public DefaultedList<SizedIngredient> getSizedIngredients() {
-		return DefaultedList.of();
-	}
-
-	@Override
-	public List<ItemStack> getOutputs(DynamicRegistryManager registryManager) {
-		return Collections.singletonList(shapedRecipe.getResult(registryManager));
+	public List<ItemStack> outputs() {
+		return Collections.singletonList(shapedRecipe.getResult(null));
 	}
 
 	@Override
 	public ItemStack getResult(RegistryWrapper.WrapperLookup lookup) {
 		return shapedRecipe.getResult(lookup);
+	}
+
+	@Override
+	public List<SizedIngredient> ingredients() {
+		return List.of();
 	}
 
 	@Override

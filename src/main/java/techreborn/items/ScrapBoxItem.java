@@ -50,7 +50,7 @@ public class ScrapBoxItem extends Item {
 		if (!world.isClient) {
 			List<RebornRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(world, ModRecipes.SCRAPBOX);
 			int random = world.random.nextInt(scrapboxRecipeList.size());
-			ItemStack out = scrapboxRecipeList.get(random).getOutputs(world.getRegistryManager()).get(0);
+			ItemStack out = scrapboxRecipeList.get(random).outputs().get(0);
 			WorldUtils.dropItem(out, world, player.getBlockPos());
 			stack.decrement(1);
 		}

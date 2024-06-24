@@ -134,11 +134,11 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		// Now we ensured we can make something. Check energy state.
-		if (getStored() > getEuPerTick(currentRecipe.getPower())
-			&& tickTime < Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)
+		if (getStored() > getEuPerTick(currentRecipe.power())
+			&& tickTime < Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1)
 			&& canMake(craftMatrix)) {
 			setIsActive(true);
-			useEnergy(getEuPerTick(currentRecipe.getPower()));
+			useEnergy(getEuPerTick(currentRecipe.power()));
 			tickTime++;
 		} else {
 			setIsActive(false);
@@ -146,7 +146,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		// Cached recipe or valid recipe exists.
 		// checked if we can make at least one.
-		if (tickTime >= Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)) {
+		if (tickTime >= Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1)) {
 			//craft one
 			if (inventory.getStack(outputSlot).isEmpty()) {
 				inventory.setStack(outputSlot, currentRecipeOutput.copy());
@@ -420,10 +420,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getBurnTimeRemainingScaled(final int scale) {
-		if (tickTime == 0 || Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1) == 0) {
+		if (tickTime == 0 || Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1) == 0) {
 			return 0;
 		}
-		return tickTime * scale / Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
+		return tickTime * scale / Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
 	}
 
 	@Override
@@ -443,7 +443,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	public int getCurrentRecipeTime() {
 		if (currentRecipe != null) {
-			return currentRecipe.getTime();
+			return currentRecipe.time();
 		}
 
 		return 0;
