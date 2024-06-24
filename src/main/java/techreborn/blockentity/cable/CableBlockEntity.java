@@ -127,6 +127,10 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	private boolean allowTransfer(Direction side) {
+		if (side == null) {
+			return true;
+		}
+
 		return !ioBlocked && (blockedSides & (1 << side.ordinal())) == 0;
 	}
 
