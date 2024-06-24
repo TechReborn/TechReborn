@@ -41,4 +41,9 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 			blockEntity.writeMultiblock(new HologramRenderer(blockEntity.getWorld(), matrixStack, vertexConsumerProvider, 0.4F).rotate(blockEntity.getFacing().getOpposite()));
 		}
 	}
+
+	@Override
+	public boolean rendersOutsideBoundingBox(T blockEntity) {
+		return true;
+	}
 }
