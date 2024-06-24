@@ -36,6 +36,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.predicate.ComponentPredicate
 import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.recipe.Ingredient
+import net.minecraft.recipe.RecipeType
 import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
@@ -46,6 +47,7 @@ import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
 import techreborn.datagen.recipes.machine.centrifuge.CentrifugeRecipeJsonFactory
+import techreborn.datagen.recipes.machine.fluid_generator.FluidGeneratorRecipeJsonFactory
 import techreborn.datagen.recipes.machine.fusion_reactor.FusionReactorRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
@@ -55,6 +57,7 @@ import techreborn.init.ModFluids
 import techreborn.init.ModRecipes
 import techreborn.init.TRContent
 import techreborn.items.DynamicCellItem
+import techreborn.recipe.recipes.FluidGeneratorRecipe
 
 import java.util.concurrent.CompletableFuture
 
@@ -264,6 +267,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	def offerFusionReactorRecipe(@DelegatesTo(value = FusionReactorRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		FusionReactorRecipeJsonFactory.createFusionReactor(this, closure).offerTo(exporter)
+	}
+
+	def offerFluidGeneratorRecipe(RecipeType<FluidGeneratorRecipe> type, @DelegatesTo(value = FluidGeneratorRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		FluidGeneratorRecipeJsonFactory.createFluidGenerator(type, this, closure).offerTo(exporter)
 	}
 
 	@Override

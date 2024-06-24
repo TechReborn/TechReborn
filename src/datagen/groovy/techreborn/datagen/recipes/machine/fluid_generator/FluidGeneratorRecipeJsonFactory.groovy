@@ -22,36 +22,59 @@
  * SOFTWARE.
  */
 
-package techreborn.datagen.recipes.machine.fluid_replicator
+package techreborn.datagen.recipes.machine.fluid_generator
 
+import net.minecraft.fluid.Fluid
+import net.minecraft.fluid.Fluids
+import net.minecraft.recipe.RecipeType
 import net.minecraft.registry.Registries
 import net.minecraft.util.Identifier
-import reborncore.common.fluid.FluidValue
-import reborncore.common.fluid.container.FluidInstance
-import techreborn.recipe.recipes.FluidReplicatorRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
-import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
-import techreborn.init.ModRecipes
+import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
+import techreborn.init.ModFluids
+import techreborn.recipe.recipes.FluidGeneratorRecipe
 
-class FluidReplicatorRecipeJsonFactory extends MachineRecipeWithFluidJsonFactory<FluidReplicatorRecipe> {
-	private FluidReplicatorRecipeJsonFactory(TechRebornRecipesProvider provider) {
-		super(ModRecipes.FLUID_REPLICATOR, provider)
+class FluidGeneratorRecipeJsonFactory extends MachineRecipeJsonFactory<FluidGeneratorRecipe> {
+	private Fluid fluid = Fluids.EMPTY
+
+	def fluid(Fluid fluid) {
+		this.fluid = fluid
+		return this
 	}
 
-	static FluidReplicatorRecipeJsonFactory create(TechRebornRecipesProvider provider) {
-		return new FluidReplicatorRecipeJsonFactory(provider)
+	def fluid(ModFluids fluids) {
+		return fluid(fluids.getFluid())
 	}
 
-	static FluidReplicatorRecipeJsonFactory createFluidReplicator(TechRebornRecipesProvider provider, @DelegatesTo(value = FluidReplicatorRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		def factory = new FluidReplicatorRecipeJsonFactory(provider)
+	protected FluidGeneratorRecipeJsonFactory(RecipeType<FluidGeneratorRecipe> type, TechRebornRecipesProvider provider) {
+		super(type, provider)
+	}
+
+	static FluidGeneratorRecipeJsonFactory create(RecipeType<FluidGeneratorRecipe> type, TechRebornRecipesProvider provider) {
+		return new FluidGeneratorRecipeJsonFactory(type, provider)
+	}
+
+	static FluidGeneratorRecipeJsonFactory createFluidGenerator(RecipeType<FluidGeneratorRecipe> type, TechRebornRecipesProvider provider, @DelegatesTo(value = FluidGeneratorRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		def factory = new FluidGeneratorRecipeJsonFactory(type, provider)
 		closure.setDelegate(factory)
 		closure.call(factory)
 		return factory
 	}
 
 	@Override
-	protected FluidReplicatorRecipe createRecipe() {
-		return new FluidReplicatorRecipe(ModRecipes.FLUID_REPLICATOR, ingredients, outputs, power, time, new FluidInstance(fluid, FluidValue.fromMillibuckets(fluidAmount)))
+	protected FluidGeneratorRecipe createRecipe() {
+		return new FluidGeneratorRecipe(type, power, fluid)
+	}
+
+	@Override
+	protected void validate() {
+		if (fluid == Fluids.EMPTY) {
+			throw new IllegalStateException("recipe has no fluid variant")
+		}
+
+		if (power < 0) {
+			throw new IllegalStateException("recipe has no power value")
+		}
 	}
 
 	@Override

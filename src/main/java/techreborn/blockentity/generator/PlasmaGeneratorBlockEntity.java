@@ -33,15 +33,15 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
-import techreborn.api.generator.EFluidGenerator;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public PlasmaGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.PLASMA_GENERATOR, pos, state, EFluidGenerator.PLASMA, "PlasmaGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.plasmaGeneratorEnergyPerTick);
+		super(TRBlockEntities.PLASMA_GENERATOR, pos, state, ModRecipes.PLASMA_GENERATOR, "PlasmaGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.plasmaGeneratorEnergyPerTick);
 	}
 
 	@Override

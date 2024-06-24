@@ -24,18 +24,13 @@
 
 package techreborn.datagen.recipes.machine.rolling_machine
 
-import com.google.gson.JsonObject
-import com.mojang.serialization.JsonOps
 import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder
-import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RawShapedRecipe
-import net.minecraft.recipe.Recipe
 import net.minecraft.recipe.ShapedRecipe
-import net.minecraft.registry.DynamicRegistryManager
 import net.minecraft.registry.Registries
 import net.minecraft.util.Identifier
-import techreborn.api.recipe.recipes.RollingMachineRecipe
+import techreborn.recipe.recipes.RollingMachineRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.crafting.ShapedRecipeFactory
 import techreborn.datagen.recipes.machine.IngredientBuilder

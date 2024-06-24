@@ -35,7 +35,7 @@ import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
+import techreborn.recipe.recipes.BlastFurnaceRecipe;
 
 import java.util.List;
 import java.util.Objects;

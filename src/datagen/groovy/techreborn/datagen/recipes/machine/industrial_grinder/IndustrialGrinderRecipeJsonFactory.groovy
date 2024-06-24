@@ -26,7 +26,7 @@ package techreborn.datagen.recipes.machine.industrial_grinder
 
 import reborncore.common.fluid.FluidValue
 import reborncore.common.fluid.container.FluidInstance
-import techreborn.api.recipe.recipes.IndustrialGrinderRecipe
+import techreborn.recipe.recipes.IndustrialGrinderRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
 import techreborn.init.ModRecipes

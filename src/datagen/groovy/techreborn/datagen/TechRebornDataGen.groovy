@@ -43,6 +43,7 @@ import techreborn.datagen.recipes.machine.chemical_reactor.ChemicalReactorRecipe
 import techreborn.datagen.recipes.machine.compressor.CompressorRecipesProvider
 import techreborn.datagen.recipes.machine.distillation_tower.DistillationTowerRecipesProvider
 import techreborn.datagen.recipes.machine.extractor.ExtractorRecipesProvider
+import techreborn.datagen.recipes.machine.fluid_generator.FluidGeneratorRecipeProvider
 import techreborn.datagen.recipes.machine.fluid_replicator.FluidReplicatorRecipesProvider
 import techreborn.datagen.recipes.machine.fusion_reactor.FusionReactorRecipesProvider
 import techreborn.datagen.recipes.machine.grinder.GrinderRecipesProvider
@@ -71,11 +72,6 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 
 	@Override
 	void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-//		if (true) {
-//			Json2Datagen.processAll()
-//			return
-//		}
-
 		def pack = fabricDataGenerator.createPack()
 
 		def add = { FabricDataGenerator.Pack.RegistryDependentFactory factory ->
@@ -111,6 +107,7 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 		add RollingMachineRecipesProvider::new
 		add DistillationTowerRecipesProvider::new
 		add FusionReactorRecipesProvider::new
+		add FluidGeneratorRecipeProvider::new
 
 		add ModelProvider::new
 		add BlockLootTableProvider::new

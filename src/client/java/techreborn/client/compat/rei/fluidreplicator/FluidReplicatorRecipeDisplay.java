@@ -33,7 +33,7 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
+import techreborn.recipe.recipes.FluidReplicatorRecipe;
 
 import java.util.Collections;
 import java.util.List;

@@ -26,37 +26,37 @@ package techreborn.blockentity.generator;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import techreborn.api.generator.EFluidGenerator;
-import techreborn.api.generator.FluidGeneratorRecipe;
-import techreborn.api.generator.FluidGeneratorRecipeList;
-import techreborn.api.generator.GeneratorRecipeHelper;
+import techreborn.recipe.recipes.FluidGeneratorRecipe;
+
+import java.util.List;
 
 public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider {
-
-	private final FluidGeneratorRecipeList recipes;
 	private final int euTick;
-	private FluidGeneratorRecipe currentRecipe;
+	private final RecipeType<FluidGeneratorRecipe> recipeType;
 	private int ticksSinceLastChange;
 	public final Tank tank;
 	public final RebornInventory<?> inventory;
 	protected long lastOutput = 0;
+	private FluidGeneratorRecipe currentRecipe = null;
 
 	/*
 	 * We use this to keep track of fractional fluid units, allowing us to hit
@@ -65,13 +65,12 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	 */
 	double pendingWithdraw = 0.0;
 
-	public BaseFluidGeneratorBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, EFluidGenerator type, String blockEntityName, FluidValue tankCapacity, int euTick) {
+	public BaseFluidGeneratorBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, RecipeType<FluidGeneratorRecipe> type, String blockEntityName, FluidValue tankCapacity, int euTick) {
 		super(blockEntityType, pos, state);
-		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
-		Validate.notNull(recipes, "null recipe list for " + type.getRecipeID());
 		tank = new Tank(blockEntityName, tankCapacity);
 		inventory = new RebornInventory<>(3, blockEntityName, 64, this);
 		this.euTick = euTick;
+		this.recipeType = type;
 		this.ticksSinceLastChange = 0;
 	}
 
@@ -89,7 +88,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		if (ticksSinceLastChange >= 10) {
 			ItemStack inputStack = inventory.getStack(0);
 			if (!inputStack.isEmpty()) {
-				if (FluidUtils.containsMatchingFluid(inputStack, f -> getRecipes().getRecipeForFluid(f).isPresent())) {
+				if (FluidUtils.containsMatchingFluid(inputStack, f -> getRecipeForFluid(f) != null)) {
 					FluidUtils.drainContainers(tank, inventory, 0, 1);
 				} else {
 					FluidUtils.fillContainers(tank, inventory, 0, 1);
@@ -100,11 +99,11 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		}
 
 		if (!tank.getFluidAmount().isEmpty()) {
-			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.fluid(), tank.getFluid()))
-				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluid()).orElse(null);
+			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.getFluid(), tank.getFluid()))
+				currentRecipe = getRecipeForFluid(tank.getFluid());
 
 			if (currentRecipe != null) {
-				final int euPerBucket = currentRecipe.getEnergyPerBucket();
+				final int euPerBucket = currentRecipe.getPower();
 
 				// Make sure to calculate the fluid used per tick based on the underlying fluid unit (droplets)
 				final float fluidPerTick = (euTick / (euPerBucket / (float)FluidValue.BUCKET.getRawValue()));
@@ -142,8 +141,19 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		return false;
 	}
 
-	public FluidGeneratorRecipeList getRecipes() {
-		return recipes;
+	public List<FluidGeneratorRecipe> getRecipes() {
+		return RecipeUtils.getRecipes(world, recipeType);
+	}
+
+	@Nullable
+	public FluidGeneratorRecipe getRecipeForFluid(Fluid fluid) {
+		for (FluidGeneratorRecipe recipe : getRecipes()) {
+			if (recipe.getFluid() == fluid) {
+				return recipe;
+			}
+		}
+
+		return null;
 	}
 
 	@Override

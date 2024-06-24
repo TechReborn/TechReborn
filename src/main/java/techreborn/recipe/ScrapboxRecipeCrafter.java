@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.api.recipe;
+package techreborn.recipe;
 
 import net.minecraft.block.entity.BlockEntity;
 import reborncore.common.crafting.RebornRecipe;

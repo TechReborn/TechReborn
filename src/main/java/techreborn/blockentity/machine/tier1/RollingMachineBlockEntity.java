@@ -51,7 +51,7 @@ import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.recipe.recipes.RollingMachineRecipe;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;

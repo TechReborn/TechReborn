@@ -40,7 +40,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.events.ApplyArmorToDamageHandler;
 import techreborn.events.OreDepthSyncHandler;
 import techreborn.events.UseBlockHandler;
-import techreborn.init.FluidGeneratorRecipes;
 import techreborn.init.FuelRecipes;
 import techreborn.init.ModLoot;
 import techreborn.init.ModRecipes;
@@ -80,7 +79,6 @@ public class TechReborn implements ModInitializer {
 		}
 		ModLoot.init();
 		WorldGenerator.initWorldGen();
-		FluidGeneratorRecipes.init();
 		//Force loads the block entities at the right time
 		//noinspection ResultOfMethodCallIgnored
 		TRBlockEntities.THERMAL_GEN.toString();

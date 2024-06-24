@@ -28,14 +28,15 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeManager;
-import techreborn.api.recipe.recipes.AssemblingMachineRecipe;
-import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
-import techreborn.api.recipe.recipes.CentrifugeRecipe;
-import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
-import techreborn.api.recipe.recipes.FusionReactorRecipe;
-import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
-import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
-import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.recipe.recipes.AssemblingMachineRecipe;
+import techreborn.recipe.recipes.BlastFurnaceRecipe;
+import techreborn.recipe.recipes.CentrifugeRecipe;
+import techreborn.recipe.recipes.FluidGeneratorRecipe;
+import techreborn.recipe.recipes.FluidReplicatorRecipe;
+import techreborn.recipe.recipes.FusionReactorRecipe;
+import techreborn.recipe.recipes.IndustrialGrinderRecipe;
+import techreborn.recipe.recipes.IndustrialSawmillRecipe;
+import techreborn.recipe.recipes.RollingMachineRecipe;
 
 public class ModRecipes {
 	public static final RecipeType<RebornRecipe> ALLOY_SMELTER = RecipeManager.newRecipeType(Identifier.of("techreborn:alloy_smelter"));
@@ -59,4 +60,9 @@ public class ModRecipes {
 	public static final RecipeType<RollingMachineRecipe> ROLLING_MACHINE = RecipeManager.newRecipeType(Identifier.of("techreborn:rolling_machine"), RollingMachineRecipe.CODEC, RollingMachineRecipe.PACKET_CODEC);
 	public static final RecipeType<RebornRecipe> SOLID_CANNING_MACHINE = RecipeManager.newRecipeType(Identifier.of("techreborn:solid_canning_machine"));
 	public static final RecipeType<RebornRecipe> WIRE_MILL = RecipeManager.newRecipeType(Identifier.of("techreborn:wire_mill"));
+	public static final RecipeType<FluidGeneratorRecipe> THERMAL_GENERATOR = RecipeManager.newRecipeType(Identifier.of("techreborn:thermal_generator"), FluidGeneratorRecipe.CODEC, FluidGeneratorRecipe.PACKET_CODEC);
+	public static final RecipeType<FluidGeneratorRecipe> GAS_GENERATOR = RecipeManager.newRecipeType(Identifier.of("techreborn:gas_generator"), FluidGeneratorRecipe.CODEC, FluidGeneratorRecipe.PACKET_CODEC);
+	public static final RecipeType<FluidGeneratorRecipe> DIESEL_GENERATOR = RecipeManager.newRecipeType(Identifier.of("techreborn:diesel_generator"), FluidGeneratorRecipe.CODEC, FluidGeneratorRecipe.PACKET_CODEC);
+	public static final RecipeType<FluidGeneratorRecipe> SEMI_FLUID_GENERATOR = RecipeManager.newRecipeType(Identifier.of("techreborn:semi_fluid_generator"), FluidGeneratorRecipe.CODEC, FluidGeneratorRecipe.PACKET_CODEC);
+	public static final RecipeType<FluidGeneratorRecipe> PLASMA_GENERATOR = RecipeManager.newRecipeType(Identifier.of("techreborn:plasma_generator"), FluidGeneratorRecipe.CODEC, FluidGeneratorRecipe.PACKET_CODEC);
 }

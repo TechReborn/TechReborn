@@ -35,7 +35,7 @@ import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
-import techreborn.api.recipe.RecyclerRecipeCrafter;
+import techreborn.recipe.RecyclerRecipeCrafter;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;

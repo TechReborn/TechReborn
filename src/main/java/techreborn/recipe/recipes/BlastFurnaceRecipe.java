@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.api.recipe.recipes;
+package techreborn.recipe.recipes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -34,50 +34,53 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.dynamic.Codecs;
-import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.fluid.container.FluidInstance;
-import reborncore.common.util.Tank;
-import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
+import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
+import techreborn.init.TRContent;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class IndustrialGrinderRecipe extends RebornFluidRecipe {
-	public static final Function<RecipeType<IndustrialGrinderRecipe>, MapCodec<IndustrialGrinderRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
+public class BlastFurnaceRecipe extends RebornRecipe {
+	public static Function<RecipeType<BlastFurnaceRecipe>, MapCodec<BlastFurnaceRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
 		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
 		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
-		FluidInstance.CODEC.fieldOf("fluid").forGetter(RebornFluidRecipe::getFluidInstance)
-	).apply(instance, (ingredients, outputs, power, time, fluid) -> new IndustrialGrinderRecipe(type, ingredients, outputs, power, time, fluid)));
-	public static final Function<RecipeType<IndustrialGrinderRecipe>, PacketCodec<RegistryByteBuf, IndustrialGrinderRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
+		Codecs.POSITIVE_INT.fieldOf("heat").forGetter(BlastFurnaceRecipe::getHeat)
+	).apply(instance, (ingredients, outputs, power, time, heat) -> new BlastFurnaceRecipe(type, ingredients, outputs, power, time, heat)));
+	public static Function<RecipeType<BlastFurnaceRecipe>, PacketCodec<RegistryByteBuf, BlastFurnaceRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
 		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
 		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
 		PacketCodecs.INTEGER, RebornRecipe::getPower,
 		PacketCodecs.INTEGER, RebornRecipe::getTime,
-		FluidInstance.PACKET_CODEC, RebornFluidRecipe::getFluidInstance,
-		(ingredients, outputs, power, time, fluid) -> new IndustrialGrinderRecipe(type, ingredients, outputs, power, time, fluid)
+		PacketCodecs.INTEGER, BlastFurnaceRecipe::getHeat,
+		(ingredients, outputs, power, time, heat) -> new BlastFurnaceRecipe(type, ingredients, outputs, power, time, heat)
 	);
 
-	public IndustrialGrinderRecipe(RecipeType<IndustrialGrinderRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
-		super(type, ingredients, outputs, power, time, fluid);
+	private final int heat;
+
+	public BlastFurnaceRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, int heat) {
+		super(type, ingredients, outputs, power, time);
+		this.heat = heat;
 	}
 
 	@Override
-	public Tank getTank(BlockEntity be) {
-		IndustrialGrinderBlockEntity blockEntity = (IndustrialGrinderBlockEntity) be;
-		return blockEntity.getTank();
+	public ItemStack createIcon() {
+		return new ItemStack(TRContent.Machine.INDUSTRIAL_BLAST_FURNACE);
+	}
+
+	public int getHeat() {
+		return heat;
 	}
 
 	@Override
-	public boolean canCraft(BlockEntity be) {
-		IndustrialGrinderBlockEntity blockEntity = (IndustrialGrinderBlockEntity) be;
-		if (!blockEntity.isMultiblockValid()) {
-			return false;
+	public boolean canCraft(final BlockEntity blockEntity) {
+		if (blockEntity instanceof final IndustrialBlastFurnaceBlockEntity blastFurnace) {
+			return blastFurnace.getHeat() >= heat;
 		}
-		return super.canCraft(be);
+		return false;
 	}
 
 }

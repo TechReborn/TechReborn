@@ -26,7 +26,7 @@ package techreborn.datagen.recipes.machine.industrial_sawmill
 
 import reborncore.common.fluid.FluidValue
 import reborncore.common.fluid.container.FluidInstance
-import techreborn.api.recipe.recipes.IndustrialSawmillRecipe
+import techreborn.recipe.recipes.IndustrialSawmillRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeWithFluidJsonFactory
 import techreborn.init.ModRecipes

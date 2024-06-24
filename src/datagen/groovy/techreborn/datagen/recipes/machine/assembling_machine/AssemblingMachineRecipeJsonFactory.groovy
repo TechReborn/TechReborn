@@ -24,8 +24,7 @@
 
 package techreborn.datagen.recipes.machine.assembling_machine
 
-import techreborn.api.recipe.recipes.AssemblingMachineRecipe
-import techreborn.api.recipe.recipes.BlastFurnaceRecipe
+import techreborn.recipe.recipes.AssemblingMachineRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.init.ModRecipes

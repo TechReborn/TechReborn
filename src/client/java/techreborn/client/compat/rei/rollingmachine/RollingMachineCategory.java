@@ -34,7 +34,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.recipe.recipes.RollingMachineRecipe;
 import techreborn.client.compat.rei.ReiPlugin;
 
 public class RollingMachineCategory extends DefaultCraftingCategory {

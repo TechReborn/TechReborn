@@ -50,7 +50,7 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
-import techreborn.api.recipe.recipes.FusionReactorRecipe;
+import techreborn.recipe.recipes.FusionReactorRecipe;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;

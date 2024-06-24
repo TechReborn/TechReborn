@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.fusion_reactor
 
-import techreborn.api.recipe.recipes.FusionReactorRecipe
+import techreborn.recipe.recipes.FusionReactorRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.init.ModRecipes

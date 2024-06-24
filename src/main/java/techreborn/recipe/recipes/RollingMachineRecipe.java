@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.api.recipe.recipes;
+package techreborn.recipe.recipes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

@@ -33,16 +33,16 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
-import techreborn.api.generator.EFluidGenerator;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public ThermalGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.THERMAL_GEN, pos, state, EFluidGenerator.THERMAL, "ThermalGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.thermalGeneratorEnergyPerTick);
+		super(TRBlockEntities.THERMAL_GEN, pos, state, ModRecipes.THERMAL_GENERATOR, "ThermalGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.thermalGeneratorEnergyPerTick);
 	}
 
 	@Override

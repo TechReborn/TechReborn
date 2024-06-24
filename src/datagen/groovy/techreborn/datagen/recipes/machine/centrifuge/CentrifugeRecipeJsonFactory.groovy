@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.centrifuge
 
-import techreborn.api.recipe.recipes.CentrifugeRecipe
+import techreborn.recipe.recipes.CentrifugeRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.init.ModRecipes

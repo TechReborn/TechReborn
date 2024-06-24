@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) 2022 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,12 +22,11 @@
  * SOFTWARE.
  */
 
-package techreborn.api.recipe.recipes;
+package techreborn.recipe.recipes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -36,51 +35,33 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
-import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
 import techreborn.init.TRContent;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class BlastFurnaceRecipe extends RebornRecipe {
-	public static Function<RecipeType<BlastFurnaceRecipe>, MapCodec<BlastFurnaceRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
+public class CentrifugeRecipe extends RebornRecipe {
+	public static Function<RecipeType<CentrifugeRecipe>, MapCodec<CentrifugeRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
 		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
-		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
-		Codecs.POSITIVE_INT.fieldOf("heat").forGetter(BlastFurnaceRecipe::getHeat)
-	).apply(instance, (ingredients, outputs, power, time, heat) -> new BlastFurnaceRecipe(type, ingredients, outputs, power, time, heat)));
-	public static Function<RecipeType<BlastFurnaceRecipe>, PacketCodec<RegistryByteBuf, BlastFurnaceRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
+		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime)
+	).apply(instance, (ingredients, outputs, power, time) -> new CentrifugeRecipe(type, ingredients, outputs, power, time)));
+	public static Function<RecipeType<CentrifugeRecipe>, PacketCodec<RegistryByteBuf, CentrifugeRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
 		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
 		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
 		PacketCodecs.INTEGER, RebornRecipe::getPower,
 		PacketCodecs.INTEGER, RebornRecipe::getTime,
-		PacketCodecs.INTEGER, BlastFurnaceRecipe::getHeat,
-		(ingredients, outputs, power, time, heat) -> new BlastFurnaceRecipe(type, ingredients, outputs, power, time, heat)
+		(ingredients, outputs, power, time) -> new CentrifugeRecipe(type, ingredients, outputs, power, time)
 	);
 
-	private final int heat;
-
-	public BlastFurnaceRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, int heat) {
+	public CentrifugeRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		super(type, ingredients, outputs, power, time);
-		this.heat = heat;
 	}
 
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(TRContent.Machine.INDUSTRIAL_BLAST_FURNACE);
-	}
-
-	public int getHeat() {
-		return heat;
-	}
-
-	@Override
-	public boolean canCraft(final BlockEntity blockEntity) {
-		if (blockEntity instanceof final IndustrialBlastFurnaceBlockEntity blastFurnace) {
-			return blastFurnace.getHeat() >= heat;
-		}
-		return false;
+		return new ItemStack(TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
 	}
 
 }

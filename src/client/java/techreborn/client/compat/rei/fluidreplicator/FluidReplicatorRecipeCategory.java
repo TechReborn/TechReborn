@@ -42,7 +42,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.GuiBuilder;
-import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
+import techreborn.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.client.compat.rei.ReiPlugin;
 
 import java.text.DecimalFormat;

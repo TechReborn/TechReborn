@@ -33,16 +33,16 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
-import techreborn.api.generator.EFluidGenerator;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public DieselGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.DIESEL_GENERATOR, pos, state, EFluidGenerator.DIESEL, "DieselGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.dieselGeneratorEnergyPerTick);
+		super(TRBlockEntities.DIESEL_GENERATOR, pos, state, ModRecipes.DIESEL_GENERATOR, "DieselGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.dieselGeneratorEnergyPerTick);
 	}
 
 	@Override

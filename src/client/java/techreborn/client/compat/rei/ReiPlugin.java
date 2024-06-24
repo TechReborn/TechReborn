@@ -69,10 +69,9 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
-import techreborn.api.generator.EFluidGenerator;
-import techreborn.api.generator.GeneratorRecipeHelper;
-import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
-import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.recipe.recipes.FluidGeneratorRecipe;
+import techreborn.recipe.recipes.FluidReplicatorRecipe;
+import techreborn.recipe.recipes.RollingMachineRecipe;
 import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeCategory;
 import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeDisplay;
 import techreborn.client.compat.rei.fluidreplicator.FluidReplicatorRecipeCategory;
@@ -191,11 +190,11 @@ public class ReiPlugin implements REIClientPlugin {
 	public void registerDisplays(DisplayRegistry registry) {
 		RecipeManager.getRecipeTypes("techreborn").forEach(rebornRecipeType -> registerMachineRecipe(registry, rebornRecipeType));
 
-		registerFluidGeneratorDisplays(registry, EFluidGenerator.THERMAL, Machine.THERMAL_GENERATOR);
-		registerFluidGeneratorDisplays(registry, EFluidGenerator.GAS, Machine.GAS_TURBINE);
-		registerFluidGeneratorDisplays(registry, EFluidGenerator.DIESEL, Machine.DIESEL_GENERATOR);
-		registerFluidGeneratorDisplays(registry, EFluidGenerator.SEMIFLUID, Machine.SEMI_FLUID_GENERATOR);
-		registerFluidGeneratorDisplays(registry, EFluidGenerator.PLASMA, Machine.PLASMA_GENERATOR);
+		registerFluidGeneratorDisplays(registry, ModRecipes.THERMAL_GENERATOR, Machine.THERMAL_GENERATOR);
+		registerFluidGeneratorDisplays(registry, ModRecipes.GAS_GENERATOR, Machine.GAS_TURBINE);
+		registerFluidGeneratorDisplays(registry, ModRecipes.DIESEL_GENERATOR, Machine.DIESEL_GENERATOR);
+		registerFluidGeneratorDisplays(registry, ModRecipes.SEMI_FLUID_GENERATOR, Machine.SEMI_FLUID_GENERATOR);
+		registerFluidGeneratorDisplays(registry, ModRecipes.PLASMA_GENERATOR, Machine.PLASMA_GENERATOR);
 	}
 
 	@Override
@@ -216,11 +215,9 @@ public class ReiPlugin implements REIClientPlugin {
 		registry.registerComponents(TRContent.CELL);
 	}
 
-	private void registerFluidGeneratorDisplays(DisplayRegistry registry, EFluidGenerator generator, Machine machine) {
+	private void registerFluidGeneratorDisplays(DisplayRegistry registry, RecipeType<FluidGeneratorRecipe> generator, Machine machine) {
 		Identifier identifier = Identifier.of(TechReborn.MOD_ID, machine.name);
-		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe ->
-			registry.add(new FluidGeneratorRecipeDisplay(recipe, identifier))
-		);
+		registry.registerRecipeFiller(FluidGeneratorRecipe.class, recipeType -> recipeType == generator, recipe -> new FluidGeneratorRecipeDisplay(recipe.value(), identifier));
 	}
 
 	private void registerMachineRecipe(DisplayRegistry registry, RecipeType<?> recipeType) {
