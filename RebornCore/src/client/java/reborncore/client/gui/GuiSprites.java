@@ -67,15 +67,7 @@ public final class GuiSprites {
 	public static final SpriteIdentifier POWER_BAR_BASE = create("power_bar_base");
 	public static final SpriteIdentifier POWER_BAR_OVERLAY = create("power_bar_overlay");
 
-	public static final SpriteIdentifier BACKGROUND_BODY = create("background_body");
-	public static final SpriteIdentifier BACKGROUND_EDGE_BOTTOM = create("background_edge_bottom");
-	public static final SpriteIdentifier BACKGROUND_EDGE_LEFT = create("background_edge_left");
-	public static final SpriteIdentifier BACKGROUND_EDGE_RIGHT = create("background_edge_right");
-	public static final SpriteIdentifier BACKGROUND_EDGE_TOP = create("background_edge_top");
-	public static final SpriteIdentifier BACKGROUND_CORNER_TOP_LEFT= create("background_corner_top_left");
-	public static final SpriteIdentifier BACKGROUND_CORNER_TOP_RIGHT = create("background_corner_top_right");
-	public static final SpriteIdentifier BACKGROUND_CORNER_BOTTOM_LEFT= create("background_corner_bottom_left");
-	public static final SpriteIdentifier BACKGROUND_CORNER_BOTTOM_RIGHT = create("background_corner_bottom_right");
+	public static final SpriteIdentifier BACKGROUND = create("background");
 
 	public static final SpriteIdentifier EXIT_BUTTON_NORMAL = create("exit_button_normal");
 	public static final SpriteIdentifier EXIT_BUTTON_HOVERED = create("exit_button_hovered");

@@ -60,18 +60,7 @@ public class GuiBuilder {
 	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
 	public void drawDefaultBackground(DrawContext drawContext, int x, int y, int width, int height) {
-		int corner = 4;
-		drawContext.drawSprite(x + 3, y + 3, 0, width - 6, height - 6, GuiBase.getSprite(GuiSprites.BACKGROUND_BODY));
-		drawContext.drawSprite(x + corner, y, 0, width - corner - corner, 3, GuiBase.getSprite(GuiSprites.BACKGROUND_EDGE_TOP));
-		drawContext.drawSprite(x + corner, y + height - corner, 0, width - corner - corner, 3, GuiBase.getSprite(GuiSprites.BACKGROUND_EDGE_BOTTOM));
-		drawContext.drawSprite(x, y + corner, 0, 3, height - corner - corner, GuiBase.getSprite(GuiSprites.BACKGROUND_EDGE_LEFT));
-		drawContext.drawSprite(x + width - corner, y + 3, 0, 3, height - corner - corner, GuiBase.getSprite(GuiSprites.BACKGROUND_EDGE_RIGHT));
-
-		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_TOP_LEFT, x, y);
-		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_TOP_RIGHT, x + width - 5, y);
-
-		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_BOTTOM_LEFT, x, y + height - 5);
-		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_BOTTOM_RIGHT, x + height - 5, y + width - 5);
+		drawContext.drawGuiTexture(GuiSprites.BACKGROUND.getTextureId(), x, y, width, height);
 	}
 
 	public void drawPlayerSlots(DrawContext drawContext, Screen gui, int posX, int posY, boolean center) {

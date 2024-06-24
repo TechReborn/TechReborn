@@ -61,5 +61,9 @@ public class RebornCoreClient implements ClientModInitializer {
 				ClientJumpEvent.EVENT.invoker().jump();
 			}
 		});
+
+		// Enable to register the dark mode resource pack.
+		// Work in progress
+		// ResourceManagerHelper.registerBuiltinResourcePack(Identifier.of("reborncore", "reborncore_darkmode"), FabricLoader.getInstance().getModContainer("reborncore").get(), ResourcePackActivationType.NORMAL);
 	}
 }
