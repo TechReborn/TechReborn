@@ -34,7 +34,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.dynamic.Codecs;
-import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.init.TRContent;
@@ -47,7 +47,7 @@ import java.util.function.Function;
  */
 public class FusionReactorRecipe extends RebornRecipe {
 	public static Function<RecipeType<FusionReactorRecipe>, MapCodec<FusionReactorRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.list(RebornIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getRebornIngredients),
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
 		Codec.INT.fieldOf("power").forGetter(RebornRecipe::getPower),
 		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
@@ -55,7 +55,7 @@ public class FusionReactorRecipe extends RebornRecipe {
 		Codecs.POSITIVE_INT.fieldOf("minSize").forGetter(FusionReactorRecipe::getMinSize)
 	).apply(instance, (ingredients, outputs, power, time, startE, minSize) -> new FusionReactorRecipe(type, ingredients, outputs, power, time, startE, minSize)));
 	public static Function<RecipeType<FusionReactorRecipe>, PacketCodec<RegistryByteBuf, FusionReactorRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		RebornIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getRebornIngredients,
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
 		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
 		PacketCodecs.INTEGER, RebornRecipe::getPower,
 		PacketCodecs.INTEGER, RebornRecipe::getTime,
@@ -67,7 +67,7 @@ public class FusionReactorRecipe extends RebornRecipe {
 	private final int startE;
 	private final int minSize;
 
-	public FusionReactorRecipe(RecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) {
+	public FusionReactorRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) {
 		super(type, ingredients, outputs, power, time);
 		this.startE = startE;
 		this.minSize = minSize;

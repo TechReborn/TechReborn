@@ -36,7 +36,7 @@ import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
@@ -241,7 +241,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		if (recipeType == null) {
 			return false;
 		}
-		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
+		for (SizedIngredient ingredient : recipeType.getSizedIngredients()) {
 			boolean hasItem = false;
 			for (int slot : inputSlots) {
 				if (ingredient.test(inventory.getStack(slot))) {
@@ -259,7 +259,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		if (currentRecipe == null) {
 			return;
 		}
-		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
+		for (SizedIngredient ingredient : currentRecipe.getSizedIngredients()) {
 			for (int inputSlot : inputSlots) {// Uses all the inputs
 				if (ingredient.test(inventory.getStack(inputSlot))) {
 					inventory.shrinkSlot(inputSlot, ingredient.count());
@@ -381,7 +381,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		ItemStack largeStack = stack.copy();
 		largeStack.setCount(largeStack.getMaxCount());
 		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
-			for (RebornIngredient ingredient : recipe.getRebornIngredients()) {
+			for (SizedIngredient ingredient : recipe.getSizedIngredients()) {
 				if (ingredient.test(largeStack)) {
 					return true;
 				}

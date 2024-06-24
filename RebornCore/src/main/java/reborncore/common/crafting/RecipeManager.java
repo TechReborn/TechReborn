@@ -60,10 +60,11 @@ public class RecipeManager {
 		return type;
 	}
 
-	public static List<RecipeType<? extends RebornRecipe>> getRecipeTypes(String namespace) {
+	public static List<RecipeType<?>> getRecipeTypes(String namespace) {
 		//noinspection unchecked
-		return (List<RecipeType<? extends RebornRecipe>>) Registries.RECIPE_TYPE.getKeys().stream()
+		return Registries.RECIPE_TYPE.getKeys().stream()
 			.filter(key -> key.getValue().getNamespace().startsWith(namespace))
-			.map((Function<RegistryKey<RecipeType<?>>, RecipeType<?>>) key -> Registries.RECIPE_TYPE.get(key.getValue()));
+			.map((Function<RegistryKey<RecipeType<?>>, RecipeType<?>>) key -> Registries.RECIPE_TYPE.get(key.getValue()))
+			.toList();
 	}
 }

@@ -30,7 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -59,7 +59,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		if (recipeType == null) {
 			return false;
 		}
-		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
+		for (SizedIngredient ingredient : recipeType.getSizedIngredients()) {
 			boolean hasItem = false;
 			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 				if (ingredient.test(inventory.getStack(inputSlot))) {
@@ -133,7 +133,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 			inventory.shrinkSlot(OUTPUT_SLOT, -outputStack.getCount());
 		}
 
-		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
+		for (SizedIngredient ingredient : currentRecipe.getSizedIngredients()) {
 			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 				if (ingredient.test(inventory.getStack(inputSlot))) {
 					inventory.shrinkSlot(inputSlot, ingredient.count());
@@ -172,8 +172,8 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 	@Override
 	public boolean isStackValid(int slotID, ItemStack stack) {
 		return RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER).stream()
-				.anyMatch(rebornRecipe -> rebornRecipe.getRebornIngredients().stream()
-						.anyMatch(rebornIngredient -> rebornIngredient.test(stack))
+				.anyMatch(rebornRecipe -> rebornRecipe.getSizedIngredients().stream()
+						.anyMatch(ingredient -> ingredient.test(stack))
 				);
 	}
 

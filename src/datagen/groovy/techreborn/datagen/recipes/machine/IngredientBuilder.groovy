@@ -33,7 +33,7 @@ import net.minecraft.recipe.Ingredient
 import net.minecraft.registry.Registries
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
-import reborncore.common.crafting.RebornIngredient
+import reborncore.common.crafting.SizedIngredient
 import techreborn.component.TRDataComponentTypes
 import techreborn.init.TRContent
 
@@ -49,11 +49,11 @@ class IngredientBuilder {
 		return new IngredientBuilder()
 	}
 
-	RebornIngredient build() {
+	SizedIngredient build() {
 		checkHasSingleInputType()
 
 		if (tag != null) {
-			return new RebornIngredient(tagCount == -1 ? 1 : tagCount, Ingredient.fromTag(tag))
+			return new SizedIngredient(tagCount == -1 ? 1 : tagCount, Ingredient.fromTag(tag))
 		}
 
 		if (!stacks.isEmpty()) {
@@ -77,7 +77,7 @@ class IngredientBuilder {
 				ingredient = new ComponentsIngredient(ingredient, components).toVanilla()
 			}
 
-			return new RebornIngredient(stack.getCount(), ingredient)
+			return new SizedIngredient(stack.getCount(), ingredient)
 		}
 
 		throw new IllegalStateException("No input")

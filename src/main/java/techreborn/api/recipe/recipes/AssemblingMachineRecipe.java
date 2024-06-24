@@ -33,7 +33,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.dynamic.Codecs;
-import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.init.TRContent;
 
@@ -42,20 +42,20 @@ import java.util.function.Function;
 
 public class AssemblingMachineRecipe extends RebornRecipe {
 	public static Function<RecipeType<AssemblingMachineRecipe>, MapCodec<AssemblingMachineRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.list(RebornIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getRebornIngredients),
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
 		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
 		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime)
 	).apply(instance, (ingredients, outputs, power, time) -> new AssemblingMachineRecipe(type, ingredients, outputs, power, time)));
 	public static Function<RecipeType<AssemblingMachineRecipe>, PacketCodec<RegistryByteBuf, AssemblingMachineRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		RebornIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getRebornIngredients,
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
 		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
 		PacketCodecs.INTEGER, RebornRecipe::getPower,
 		PacketCodecs.INTEGER, RebornRecipe::getTime,
 		(ingredients, outputs, power, time) -> new AssemblingMachineRecipe(type, ingredients, outputs, power, time)
 	);
 
-	public AssemblingMachineRecipe(RecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+	public AssemblingMachineRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		super(type, ingredients, outputs, power, time);
 	}
 

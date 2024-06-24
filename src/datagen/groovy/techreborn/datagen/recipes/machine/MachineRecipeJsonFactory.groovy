@@ -38,7 +38,7 @@ import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlag
 import net.minecraft.util.Identifier
 import org.jetbrains.annotations.NotNull
-import reborncore.common.crafting.RebornIngredient
+import reborncore.common.crafting.SizedIngredient
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RecipeUtils
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -49,7 +49,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final TechRebornRecipesProvider provider
 	protected final Builder builder = Builder.create()
 
-	protected final List<RebornIngredient> ingredients = new ArrayList<>()
+	protected final List<SizedIngredient> ingredients = new ArrayList<>()
 	protected final List<ItemStack> outputs = new ArrayList<>()
 	protected int power = -1
 	protected int time = -1

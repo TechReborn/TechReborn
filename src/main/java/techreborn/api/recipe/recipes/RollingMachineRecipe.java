@@ -39,7 +39,7 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
-import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
 
 import java.util.Collections;
@@ -48,14 +48,14 @@ import java.util.function.Function;
 
 public class RollingMachineRecipe extends RebornRecipe {
 	public static Function<RecipeType<RollingMachineRecipe>, MapCodec<RollingMachineRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.list(RebornIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getRebornIngredients),
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
 		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
 		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
 		RecipeSerializer.SHAPED.codec().forGetter(RollingMachineRecipe::getShapedRecipe)
 	).apply(instance, (ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, ingredients, outputs, power, time, shaped)));
 	public static Function<RecipeType<RollingMachineRecipe>, PacketCodec<RegistryByteBuf, RollingMachineRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		RebornIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getRebornIngredients,
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
 		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
 		PacketCodecs.INTEGER, RebornRecipe::getPower,
 		PacketCodecs.INTEGER, RebornRecipe::getTime,
@@ -65,13 +65,13 @@ public class RollingMachineRecipe extends RebornRecipe {
 	
 	private final ShapedRecipe shapedRecipe;
 
-	public RollingMachineRecipe(RecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe) {
+	public RollingMachineRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe) {
 		super(type, ingredients, outputs, power, time);
 		this.shapedRecipe = shapedRecipe;
 	}
 
 	@Override
-	public DefaultedList<RebornIngredient> getRebornIngredients() {
+	public DefaultedList<SizedIngredient> getSizedIngredients() {
 		return DefaultedList.of();
 	}
 

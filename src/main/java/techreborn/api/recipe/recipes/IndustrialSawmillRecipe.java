@@ -35,7 +35,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornFluidRecipe;
-import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
@@ -46,14 +46,14 @@ import java.util.function.Function;
 
 public class IndustrialSawmillRecipe extends RebornFluidRecipe {
 	public static final Function<RecipeType<IndustrialSawmillRecipe>, MapCodec<IndustrialSawmillRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.list(RebornIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getRebornIngredients),
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
 		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
 		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime),
 		FluidInstance.CODEC.fieldOf("fluid").forGetter(RebornFluidRecipe::getFluidInstance)
 	).apply(instance, (ingredients, outputs, power, time, fluid) -> new IndustrialSawmillRecipe(type, ingredients, outputs, power, time, fluid)));
 	public static final Function<RecipeType<IndustrialSawmillRecipe>, PacketCodec<RegistryByteBuf, IndustrialSawmillRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		RebornIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getRebornIngredients,
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
 		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
 		PacketCodecs.INTEGER, RebornRecipe::getPower,
 		PacketCodecs.INTEGER, RebornRecipe::getTime,
@@ -61,7 +61,7 @@ public class IndustrialSawmillRecipe extends RebornFluidRecipe {
 		(ingredients, outputs, power, time, fluid) -> new IndustrialSawmillRecipe(type, ingredients, outputs, power, time, fluid)
 	);
 	
-	public IndustrialSawmillRecipe(RecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
+	public IndustrialSawmillRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
 		super(type, ingredients, outputs, power, time, fluid);
 	}
 

@@ -223,7 +223,7 @@ public class ReiPlugin implements REIClientPlugin {
 		);
 	}
 
-	private <R extends RebornRecipe> void registerMachineRecipe(DisplayRegistry registry, RecipeType<R> recipeType) {
+	private void registerMachineRecipe(DisplayRegistry registry, RecipeType<?> recipeType) {
 		if (recipeType == ModRecipes.RECYCLER) {
 			return;
 		}

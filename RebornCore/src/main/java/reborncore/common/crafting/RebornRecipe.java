@@ -41,10 +41,12 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.util.DefaultedListCollector;
 
@@ -52,17 +54,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputRecipe {
 	public static Function<RecipeType<RebornRecipe>, MapCodec<RebornRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.list(RebornIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getRebornIngredients),
+		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::getSizedIngredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::getOutputs),
 		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::getPower),
 		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::getTime)
 	).apply(instance, (ingredients, outputs, power, time) -> new RebornRecipe(type, ingredients, outputs, power, time)));
 	public static Function<RecipeType<RebornRecipe>, PacketCodec<RegistryByteBuf, RebornRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		RebornIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getRebornIngredients,
+		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getSizedIngredients,
 		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::getOutputs,
 		PacketCodecs.INTEGER, RebornRecipe::getPower,
 		PacketCodecs.INTEGER, RebornRecipe::getTime,
@@ -71,26 +74,32 @@ public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputReci
 
 	private final RecipeType<?> type;
 
-	private final List<RebornIngredient> ingredients;
+	private final List<SizedIngredient> ingredients;
 	private final List<ItemStack> outputs;
 	protected final int power;
 	protected final int time;
 
-	public RebornRecipe(RecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
+	private final DefaultedList<Ingredient> baseIngredients;
+
+	public RebornRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) {
 		this.type = type;
 		this.ingredients = ingredients;
 		this.outputs = outputs;
 		this.power = power;
 		this.time = time;
+		this.baseIngredients = ingredients.stream().map(SizedIngredient::ingredient).collect(DefaultedListCollector.toList());
 	}
 
 	@Override
 	public ItemStack createIcon() {
-//		Optional<Item> catalyst = Registries.ITEM.getOrEmpty(type.name());
-//		if (catalyst.isPresent())
-//			return new ItemStack(catalyst.get());
-//		else
-//			RebornCore.LOGGER.warn("Missing toast icon for {}!", type.name());
+		Identifier typeId = Registries.RECIPE_TYPE.getId(this.type);
+		Optional<Item> catalyst = Registries.ITEM.getOrEmpty(typeId);
+
+		if (catalyst.isPresent()) {
+			return new ItemStack(catalyst.get());
+		}
+
+		RebornCore.LOGGER.warn("Missing toast icon for {}!", typeId);
 		return Recipe.super.createIcon();
 	}
 
@@ -105,15 +114,15 @@ public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputReci
 	}
 
 	/**
-	 * use the {@link RebornIngredient} version to ensure stack sizes are checked
+	 * use the {@link SizedIngredient} version to ensure stack sizes are checked
 	 */
 	@Deprecated
 	@Override
 	public DefaultedList<Ingredient> getIngredients() {
-		return ingredients.stream().map(RebornIngredient::ingredient).collect(DefaultedListCollector.toList());
+		return baseIngredients;
 	}
 
-	public List<RebornIngredient> getRebornIngredients() {
+	public List<SizedIngredient> getSizedIngredients() {
 		return ingredients;
 	}
 
@@ -153,7 +162,6 @@ public class RebornRecipe implements Recipe<RebornRecipeInput>, CustomOutputReci
 	}
 
 	// Done as our recipes do not support these functions, hopefully nothing blindly calls them
-
 	@Deprecated
 	@Override
 	public boolean matches(RebornRecipeInput inv, World worldIn) {

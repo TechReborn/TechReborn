@@ -57,7 +57,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	public MachineRecipeDisplay(RecipeEntry<R> entry) {
 		this.entry = entry;
 		this.recipe = entry.value();
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
+		this.inputs = CollectionUtils.map(recipe.getSizedIngredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
 		this.outputs = recipe.getOutputs(null).stream().map(EntryIngredients::of).collect(Collectors.toList());
 		this.time = recipe.getTime();
 		this.energy = recipe.getPower();

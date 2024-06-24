@@ -37,7 +37,7 @@ public abstract class RebornFluidRecipe extends RebornRecipe {
 	@NotNull
 	private final FluidInstance fluidInstance;
 
-	public RebornFluidRecipe(RecipeType<?> type, List<RebornIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance) {
+	public RebornFluidRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, @NotNull FluidInstance fluidInstance) {
 		super(type, ingredients, outputs, power, time);
 		this.fluidInstance = fluidInstance;
 	}

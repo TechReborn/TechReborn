@@ -37,24 +37,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-public record RebornIngredient(int count, Ingredient ingredient) implements Predicate<ItemStack> {
-	public static MapCodec<RebornIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.INT.optionalFieldOf("count", 1).forGetter(RebornIngredient::count),
-		MapCodec.assumeMapUnsafe(Ingredient.DISALLOW_EMPTY_CODEC).forGetter(RebornIngredient::ingredient)
-	).apply(instance, RebornIngredient::new));
-	public static PacketCodec<RegistryByteBuf, RebornIngredient> PACKET_CODEC = PacketCodec.tuple(
-		PacketCodecs.INTEGER, RebornIngredient::count,
-		Ingredient.PACKET_CODEC, RebornIngredient::ingredient,
-		RebornIngredient::new
+/**
+ * An ingredient with a specific item stack count
+ * @param count The count of the ingredient
+ * @param ingredient The ingredient
+ */
+public record SizedIngredient(int count, Ingredient ingredient) implements Predicate<ItemStack> {
+	public static MapCodec<SizedIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.INT.optionalFieldOf("count", 1).forGetter(SizedIngredient::count),
+		MapCodec.assumeMapUnsafe(Ingredient.DISALLOW_EMPTY_CODEC).forGetter(SizedIngredient::ingredient)
+	).apply(instance, SizedIngredient::new));
+	public static PacketCodec<RegistryByteBuf, SizedIngredient> PACKET_CODEC = PacketCodec.tuple(
+		PacketCodecs.INTEGER, SizedIngredient::count,
+		Ingredient.PACKET_CODEC, SizedIngredient::ingredient,
+		SizedIngredient::new
 	);
 
 	@Override
 	public boolean test(ItemStack itemStack) {
 		return ingredient.test(itemStack);
-	}
-
-	public Ingredient getPreview() {
-		return ingredient;
 	}
 
 	public List<ItemStack> getPreviewStacks() {

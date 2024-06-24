@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -169,7 +169,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 * @return {@code boolean} True if reactor has all inputs for recipe
 	 */
 	private boolean hasAllInputs(RebornRecipe recipeType) {
-		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
+		for (SizedIngredient ingredient : recipeType.getSizedIngredients()) {
 			boolean hasItem = false;
 			if (ingredient.test(inventory.getStack(topStackSlot))
 					|| ingredient.test(inventory.getStack(bottomStackSlot))) {
@@ -191,7 +191,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		if (currentRecipeEntry == null) {
 			return;
 		}
-		for (RebornIngredient ingredient : currentRecipeEntry.value().getRebornIngredients()) {
+		for (SizedIngredient ingredient : currentRecipeEntry.value().getSizedIngredients()) {
 			if (ingredient.test(inventory.getStack(slot))) {
 				inventory.shrinkSlot(slot, ingredient.count());
 				break;
