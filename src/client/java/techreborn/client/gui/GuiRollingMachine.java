@@ -31,7 +31,6 @@ import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
-import techreborn.packets.ServerboundPackets;
 import techreborn.packets.serverbound.RollingMachineLockPayload;
 
 public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {

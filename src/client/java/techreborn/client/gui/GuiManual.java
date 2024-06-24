@@ -33,7 +33,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import reborncore.client.gui.widget.GuiButtonExtended;
 import techreborn.config.TechRebornConfig;
-import techreborn.packets.ServerboundPackets;
 import techreborn.packets.serverbound.RefundPayload;
 
 public class GuiManual extends Screen {

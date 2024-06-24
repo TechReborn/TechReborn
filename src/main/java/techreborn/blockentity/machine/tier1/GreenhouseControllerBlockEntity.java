@@ -155,7 +155,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		if (tryHarvestBlock(blockState, blockPos)) {
-            world.setBlockState(blockPos, blockState.with(ageProperty, newAge), 2);
+			world.setBlockState(blockPos, blockState.with(ageProperty, newAge), 2);
 		}
 	}
 

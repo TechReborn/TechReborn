@@ -40,7 +40,6 @@ import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
-import techreborn.packets.ServerboundPackets;
 import techreborn.packets.serverbound.FusionControlSizePayload;
 
 import java.util.Optional;

@@ -35,7 +35,6 @@ import reborncore.client.gui.widget.GuiButtonUpDown;
 import reborncore.client.gui.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
-import techreborn.packets.ServerboundPackets;
 import techreborn.packets.serverbound.ChunkloaderPayload;
 
 public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {

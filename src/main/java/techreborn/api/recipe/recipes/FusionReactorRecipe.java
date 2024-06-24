@@ -63,7 +63,7 @@ public class FusionReactorRecipe extends RebornRecipe {
 		PacketCodecs.INTEGER, FusionReactorRecipe::getMinSize,
 		(ingredients, outputs, power, time, startE, minSize) -> new FusionReactorRecipe(type, ingredients, outputs, power, time, startE, minSize)
 	);
-	
+
 	private final int startE;
 	private final int minSize;
 

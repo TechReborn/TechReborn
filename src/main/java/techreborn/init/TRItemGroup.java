@@ -51,7 +51,6 @@ import techreborn.utils.MaterialTypeComparator;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 public class TRItemGroup {
 	private static final RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, Identifier.of(TechReborn.MOD_ID, "item_group"));

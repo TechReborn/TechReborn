@@ -31,7 +31,6 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.Vec3d;
 import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.tuple.Pair;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 
@@ -39,7 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class ScreenHandlerBuilder {
 

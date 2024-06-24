@@ -24,8 +24,6 @@
 
 package techreborn.utils;
 
-import com.google.common.collect.Maps;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
@@ -39,7 +37,6 @@ import reborncore.api.events.ItemCraftCallback;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
 
-import java.util.Map;
 import java.util.stream.IntStream;
 
 public final class PoweredCraftingHandler implements ItemCraftCallback {

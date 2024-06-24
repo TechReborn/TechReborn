@@ -62,7 +62,7 @@ public class RollingMachineRecipe extends RebornRecipe {
 		RecipeSerializer.SHAPED.packetCodec(), RollingMachineRecipe::getShapedRecipe,
 		(ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, ingredients, outputs, power, time, shaped)
 	);
-	
+
 	private final ShapedRecipe shapedRecipe;
 
 	public RollingMachineRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, ShapedRecipe shapedRecipe) {

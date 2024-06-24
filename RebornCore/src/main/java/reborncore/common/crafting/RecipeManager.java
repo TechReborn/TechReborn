@@ -32,12 +32,10 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class RecipeManager {
 	public static RecipeType<RebornRecipe> newRecipeType(Identifier name) {

@@ -31,7 +31,6 @@ import reborncore.RebornCore;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.FluidConfiguration;
-import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.network.serverbound.FluidConfigSavePayload;
 import reborncore.common.network.serverbound.FluidIoSavePayload;
 import reborncore.common.util.Color;

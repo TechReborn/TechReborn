@@ -64,7 +64,7 @@ public class FluidReplicatorRecipe extends RebornFluidRecipe {
 		FluidInstance.PACKET_CODEC, RebornFluidRecipe::getFluidInstance,
 		(ingredients, outputs, power, time, fluid) -> new FluidReplicatorRecipe(type, ingredients, outputs, power, time, fluid)
 	);
-	
+
 	public FluidReplicatorRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) {
 		super(type, ingredients, outputs, power, time, fluid);
 	}

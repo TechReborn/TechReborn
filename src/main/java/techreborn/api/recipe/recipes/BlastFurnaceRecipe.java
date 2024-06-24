@@ -58,7 +58,7 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 		PacketCodecs.INTEGER, BlastFurnaceRecipe::getHeat,
 		(ingredients, outputs, power, time, heat) -> new BlastFurnaceRecipe(type, ingredients, outputs, power, time, heat)
 	);
-	
+
 	private final int heat;
 
 	public BlastFurnaceRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, int heat) {

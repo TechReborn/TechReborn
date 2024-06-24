@@ -31,7 +31,6 @@ import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
-import techreborn.packets.ServerboundPackets;
 import techreborn.packets.serverbound.StorageUnitLockPayload;
 
 public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
