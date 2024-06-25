@@ -27,6 +27,7 @@ package techreborn.datagen.recipes.machine.compressor
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.tag.ItemTags
 import reborncore.common.misc.TagConvertible
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -101,7 +102,7 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 		offerCompressorRecipe {
 			power 10
 			time 300
-			ingredients tag("minecraft:planks")
+			ingredients ItemTags.PLANKS
 			outputs TRContent.Plates.WOOD
 		}
 

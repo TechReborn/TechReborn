@@ -120,6 +120,7 @@ class TRConventionalTags {
 	public static final TagKey<Item> SAPPHIRES = register("sapphires")
 	public static final TagKey<Item> SAW_DUSTS = register("dusts/saw")
 	public static final TagKey<Item> SHELDONITE_ORES = register("ores/sheldonite")
+	public static final TagKey<Item> SULFUR_ORES = register("ores/sulfur")
 	public static final TagKey<Item> SILICON_PLATES = register("plates/silicon")
 	public static final TagKey<Item> SILVER_BLOCKS = register("storage_blocks/silver")
 	public static final TagKey<Item> SILVER_INGOTS = register("ingots/silver")

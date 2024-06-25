@@ -27,7 +27,6 @@ package reborncore.common.crafting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.cottonmc.libcd.api.CustomOutputRecipe;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -49,13 +48,11 @@ import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.util.DefaultedListCollector;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public interface RebornRecipe extends Recipe<RebornRecipeInput>, CustomOutputRecipe {
+public interface RebornRecipe extends Recipe<RebornRecipeInput> {
 	Function<RecipeType<RebornRecipe>, MapCodec<RebornRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
@@ -173,14 +170,5 @@ public interface RebornRecipe extends Recipe<RebornRecipeInput>, CustomOutputRec
 	@Override
 	default boolean isIgnoredInRecipeBook() {
 		return true;
-	}
-
-	@Override
-	default Collection<Item> getOutputItems() {
-		List<Item> items = new ArrayList<>();
-		for (ItemStack stack : outputs()) {
-			items.add(stack.getItem());
-		}
-		return items;
 	}
 }

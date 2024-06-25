@@ -145,7 +145,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients tag("c:redstone_ores")
+			ingredients TRConventionalTags.REDSTONE_ORES
 			outputs stack(Items.REDSTONE, 8)
 		}
 		offerGrinderRecipe {
@@ -169,13 +169,13 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 200
-			ingredients tag("c:lapis_ores")
+			ingredients TRConventionalTags.LAPIS_ORES
 			outputs stack(Items.LAPIS_LAZULI, 10)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients tag("c:emerald_ores")
+			ingredients TRConventionalTags.EMERALD_ORES
 			outputs stack(Items.EMERALD)
 		}
 		offerGrinderRecipe {
@@ -187,7 +187,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients tag("c:diamond_ores")
+			ingredients TRConventionalTags.DIAMOND_ORES
 			outputs stack(Items.DIAMOND)
 		}
 		offerGrinderRecipe {
@@ -223,7 +223,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 5
 			time 200
-			ingredients tag("minecraft:trim_templates")
+			ingredients ItemTags.TRIM_TEMPLATES
 			outputs stack(TRContent.SmallDusts.DIAMOND, 5)
 		}
 		offerGrinderRecipe {
@@ -371,13 +371,13 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 220
-			ingredients tag("c:sphalerite_ores")
+			ingredients TRConventionalTags.SPHALERITE_ORES
 			outputs stack("techreborn:sphalerite_dust", 2)
 		}
 		offerGrinderRecipe {
 			power 2
 			time 100
-			ingredients tag("techreborn:calcite_small_dust_material")
+			ingredients TRConventionalTags.CALCITE_SMALL_DUSTS
 			outputs stack("techreborn:calcite_small_dust")
 		}
 		offerGrinderRecipe {
@@ -401,13 +401,13 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 3
 			time 300
-			ingredients tag("minecraft:wool")
+			ingredients ItemTags.WOOL
 			outputs stack("minecraft:string", 4)
 		}
 		offerGrinderRecipe {
 			power 2
 			time 400
-			ingredients tag("c:froglights")
+			ingredients TRConventionalTags.FROGLIGHTS
 			outputs stack("minecraft:prismarine_crystals", 2)
 		}
 		offerGrinderRecipe {
@@ -425,7 +425,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients tag("c:pyrite_ores")
+			ingredients TRConventionalTags.PYRITE_ORES
 			outputs stack("techreborn:pyrite_dust", 2)
 		}
 		offerGrinderRecipe {
@@ -449,13 +449,13 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 270
-			ingredients tag("c:cinnabar_ores")
+			ingredients TRConventionalTags.CINNABAR_ORES
 			outputs stack("techreborn:cinnabar_dust", 2)
 		}
 		offerGrinderRecipe {
 			power 4
 			time 220
-			ingredients tag("c:sodalite_ores")
+			ingredients TRConventionalTags.SODALITE_ORES
 			outputs stack("techreborn:sodalite_dust", 2)
 		}
 		offerGrinderRecipe {
@@ -473,7 +473,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 4
 			time 200
-			ingredients tag("c:sponges")
+			ingredients TRConventionalTags.SPONGES
 			outputs stack("techreborn:sponge_piece", 5)
 		}
 		offerGrinderRecipe {
@@ -485,7 +485,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 400
-			ingredients tag("techreborn:calcite_dust_material")
+			ingredients TRConventionalTags.CALCITE_DUSTS
 			outputs stack("techreborn:calcite_dust")
 		}
 		offerGrinderRecipe {
@@ -503,7 +503,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 4
 			time 270
-			ingredients tag("c:bauxite_ores")
+			ingredients TRConventionalTags.BAUXITE_ORES
 			outputs stack("techreborn:bauxite_dust", 2)
 		}
 		offerGrinderRecipe {
@@ -527,13 +527,13 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 270
-			ingredients tag("c:galena_ores")
+			ingredients TRConventionalTags.GALENA_ORES
 			outputs stack("techreborn:galena_dust", 2)
 		}
 		offerGrinderRecipe {
 			power 2
 			time 220
-			ingredients tag("c:sulfur_ores")
+			ingredients TRConventionalTags.SULFUR_ORES
 			outputs stack("techreborn:sulfur_dust", 2)
 		}
 		offerGrinderRecipe {
@@ -593,7 +593,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 180
-			ingredients tag("c:basalt")
+			ingredients TRConventionalTags.BASALT
 			outputs stack("techreborn:basalt_dust")
 		}
 		offerGrinderRecipe {

@@ -560,14 +560,14 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRContent.Ores.GALENA.asTag()), getCriterionConditions(TRContent.Ores.GALENA.asTag())
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients tag("minecraft:gold_ores")
+			ingredients TRConventionalTags.GOLD_ORES
 			outputs stack(Items.RAW_GOLD, 2), stack(TRContent.Nuggets.COPPER, 3), stack(TRContent.Nuggets.NICKEL)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
 			fluid Fluids.WATER
 			source "gold_ore_with_water"
-			criterion getCriterionName(tag("minecraft:gold_ores")), getCriterionConditions(tag("minecraft:gold_ores"))
+			criterion getCriterionName(TRConventionalTags.GOLD_ORES), getCriterionConditions(TRConventionalTags.GOLD_ORES)
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients BlockTags.GOLD_ORES
