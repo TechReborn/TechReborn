@@ -55,6 +55,11 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 
 	@Override
 	public boolean test(ItemStack itemStack) {
+		if (itemStack.isEmpty()) {
+			// Never match empty stacks.
+			return false;
+		}
+
 		return ingredient.test(itemStack);
 	}
 
