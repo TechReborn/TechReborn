@@ -60,10 +60,17 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 			return false;
 		}
 
+		if (itemStack.getCount() < count) {
+			return false;
+		}
+
 		return ingredient.test(itemStack);
 	}
 
 	public List<ItemStack> getPreviewStacks() {
-		return Arrays.asList(ingredient.getMatchingStacks());
+		return Arrays.stream(ingredient.getMatchingStacks())
+			.map(ItemStack::copy)
+			.peek(itemStack -> itemStack.setCount(count))
+			.toList();
 	}
 }
