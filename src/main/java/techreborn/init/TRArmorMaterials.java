@@ -41,8 +41,7 @@ import java.util.function.Supplier;
 
 
 public class TRArmorMaterials {
-
-	public static final RegistryEntry<ArmorMaterial> BRONZE = TRArmorMaterials.register("bronze", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> BRONZE = TRArmorMaterials.register("bronze", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 2);
 		map.put(ArmorItem.Type.LEGGINGS, 5);
 		map.put(ArmorItem.Type.CHESTPLATE, 6);
@@ -50,7 +49,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 7);
 	}), 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f, 0.1f, () -> Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem()));
 
-	public static final RegistryEntry<ArmorMaterial> SILVER = TRArmorMaterials.register("silver", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> SILVER = TRArmorMaterials.register("silver", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 2);
 		map.put(ArmorItem.Type.LEGGINGS, 5);
 		map.put(ArmorItem.Type.CHESTPLATE, 3);
@@ -58,7 +57,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 5);
 	}), 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f, 0.0f, () -> Ingredient.ofItems(TRContent.Ingots.SILVER.asItem()));
 
-	public static final RegistryEntry<ArmorMaterial> STEEL = TRArmorMaterials.register("steel", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> STEEL = TRArmorMaterials.register("steel", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 2);
 		map.put(ArmorItem.Type.LEGGINGS, 6);
 		map.put(ArmorItem.Type.CHESTPLATE, 5);
@@ -66,7 +65,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 11);
 	}), 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.75f, 0.1f, () -> Ingredient.ofItems(TRContent.Ingots.STEEL.asItem()));
 
-	public static final RegistryEntry<ArmorMaterial> RUBY = TRArmorMaterials.register("ruby", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> RUBY = TRArmorMaterials.register("ruby", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 2);
 		map.put(ArmorItem.Type.LEGGINGS, 5);
 		map.put(ArmorItem.Type.CHESTPLATE, 7);
@@ -74,7 +73,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 7);
 	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, () -> Ingredient.ofItems(TRContent.Gems.RUBY.asItem()));
 
-	public static final RegistryEntry<ArmorMaterial> SAPPHIRE = TRArmorMaterials.register("sapphire", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> SAPPHIRE = TRArmorMaterials.register("sapphire", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 4);
 		map.put(ArmorItem.Type.LEGGINGS, 4);
 		map.put(ArmorItem.Type.CHESTPLATE, 4);
@@ -82,7 +81,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 7);
 	}), 8, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, () -> Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem()));
 
-	public static final RegistryEntry<ArmorMaterial> PERIDOT = TRArmorMaterials.register("peridot", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> PERIDOT = TRArmorMaterials.register("peridot", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 2);
 		map.put(ArmorItem.Type.LEGGINGS, 3);
 		map.put(ArmorItem.Type.CHESTPLATE, 8);
@@ -90,7 +89,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 7);
 	}), 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, () -> Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem()));
 
-	public static final RegistryEntry<ArmorMaterial> QUANTUM = TRArmorMaterials.register("quantum", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> QUANTUM = TRArmorMaterials.register("quantum", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 3);
 		map.put(ArmorItem.Type.LEGGINGS, 8);
 		map.put(ArmorItem.Type.CHESTPLATE, 6);
@@ -98,7 +97,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 11);
 	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f, 0.1f, () -> Ingredient.EMPTY);
 
-	public static final RegistryEntry<ArmorMaterial> NANO = TRArmorMaterials.register("nano", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> NANO = TRArmorMaterials.register("nano", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 3);
 		map.put(ArmorItem.Type.LEGGINGS, 8);
 		map.put(ArmorItem.Type.CHESTPLATE, 6);
@@ -106,7 +105,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 11);
 	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0.1f, () -> Ingredient.EMPTY);
 
-	public static final RegistryEntry<ArmorMaterial> CLOAKING_DEVICE = TRArmorMaterials.register("cloaking_device", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> CLOAKING_DEVICE = TRArmorMaterials.register("cloaking_device", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 0);
 		map.put(ArmorItem.Type.LEGGINGS, 0);
 		map.put(ArmorItem.Type.CHESTPLATE, 2);
@@ -114,7 +113,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 0);
 	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f, 0.0f, () -> Ingredient.EMPTY);
 
-	public static final RegistryEntry<ArmorMaterial> LITHIUM_BATPACK = TRArmorMaterials.register("lithium_batpack", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> LITHIUM_BATPACK = TRArmorMaterials.register("lithium_batpack", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 0);
 		map.put(ArmorItem.Type.LEGGINGS, 0);
 		map.put(ArmorItem.Type.CHESTPLATE, 5);
@@ -122,7 +121,7 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.BODY, 0);
 	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0f, 0.0f, () -> Ingredient.EMPTY);
 
-	public static final RegistryEntry<ArmorMaterial> LAPOTRONIC_ORBPACK = TRArmorMaterials.register("lapotronic_orbpack", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> LAPOTRONIC_ORBPACK = TRArmorMaterials.register("lapotronic_orbpack", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 0);
 		map.put(ArmorItem.Type.LEGGINGS, 0);
 		map.put(ArmorItem.Type.CHESTPLATE, 6);
