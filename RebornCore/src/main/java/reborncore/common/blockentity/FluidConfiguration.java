@@ -38,15 +38,22 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.NBTSerializable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class FluidConfiguration implements NBTSerializable {
-	public static final PacketCodec<ByteBuf, FluidConfiguration> PACKET_CODEC = null;
+	private static final PacketCodec<ByteBuf, Map<Direction, FluidConfig>> SIDE_MAP_PACKET_CODEC = PacketCodecs.map(
+		HashMap::new,
+		Direction.PACKET_CODEC,
+		FluidConfig.PACKET_CODEC
+	);
+	public static final PacketCodec<ByteBuf, FluidConfiguration> PACKET_CODEC = PacketCodec.tuple(
+		SIDE_MAP_PACKET_CODEC, FluidConfiguration::getSideMap,
+		PacketCodecs.BOOL, FluidConfiguration::autoInput,
+		PacketCodecs.BOOL, FluidConfiguration::autoOutput,
+		FluidConfiguration::new
+	);
 
-	HashMap<Direction, FluidConfig> sideMap;
+	Map<Direction, FluidConfig> sideMap;
 	boolean input, output;
 
 	public FluidConfiguration() {
@@ -59,6 +66,12 @@ public class FluidConfiguration implements NBTSerializable {
 		read(tagCompound);
 	}
 
+	private FluidConfiguration(Map<Direction, FluidConfig> sideMap, boolean input, boolean output) {
+		this.sideMap = sideMap;
+		this.input = input;
+		this.output = output;
+	}
+
 	public FluidConfig getSideDetail(Direction side) {
 		if (side == null) {
 			return sideMap.get(Direction.NORTH);
@@ -68,6 +81,10 @@ public class FluidConfiguration implements NBTSerializable {
 
 	public List<FluidConfig> getAllSides() {
 		return new ArrayList<>(sideMap.values());
+	}
+
+	public Map<Direction, FluidConfig> getSideMap() {
+		return sideMap;
 	}
 
 	public void updateFluidConfig(FluidConfig config) {
