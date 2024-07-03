@@ -188,13 +188,20 @@ public class ReiPlugin implements REIClientPlugin {
 
 	@Override
 	public void registerDisplays(DisplayRegistry registry) {
-		RecipeManager.getRecipeTypes("techreborn").forEach(rebornRecipeType -> registerMachineRecipe(registry, rebornRecipeType));
+		final Map<RecipeType<FluidGeneratorRecipe>, Machine> fluidGenRecipes = Map.of(
+			ModRecipes.THERMAL_GENERATOR, Machine.THERMAL_GENERATOR,
+			ModRecipes.GAS_GENERATOR, Machine.GAS_TURBINE,
+			ModRecipes.DIESEL_GENERATOR, Machine.DIESEL_GENERATOR,
+			ModRecipes.SEMI_FLUID_GENERATOR, Machine.SEMI_FLUID_GENERATOR,
+			ModRecipes.PLASMA_GENERATOR, Machine.PLASMA_GENERATOR
+		);
 
-		registerFluidGeneratorDisplays(registry, ModRecipes.THERMAL_GENERATOR, Machine.THERMAL_GENERATOR);
-		registerFluidGeneratorDisplays(registry, ModRecipes.GAS_GENERATOR, Machine.GAS_TURBINE);
-		registerFluidGeneratorDisplays(registry, ModRecipes.DIESEL_GENERATOR, Machine.DIESEL_GENERATOR);
-		registerFluidGeneratorDisplays(registry, ModRecipes.SEMI_FLUID_GENERATOR, Machine.SEMI_FLUID_GENERATOR);
-		registerFluidGeneratorDisplays(registry, ModRecipes.PLASMA_GENERATOR, Machine.PLASMA_GENERATOR);
+		RecipeManager.getRecipeTypes("techreborn")
+			.stream()
+			.filter(recipeType -> !fluidGenRecipes.containsKey(recipeType))
+			.forEach(rebornRecipeType -> registerMachineRecipe(registry, rebornRecipeType));
+
+		fluidGenRecipes.forEach((recipeType, machine) -> registerFluidGeneratorDisplays(registry, recipeType, machine));
 	}
 
 	@Override
