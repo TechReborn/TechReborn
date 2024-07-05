@@ -26,6 +26,7 @@ package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.util.ColorCode;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
 import reborncore.client.gui.GuiBase;
@@ -33,7 +34,6 @@ import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.serverbound.IoSavePayload;
 import reborncore.common.network.serverbound.SlotSavePayload;
-import reborncore.common.util.Color;
 
 public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 	private final int id;
@@ -89,11 +89,11 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			return;
 		}
 		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(side);
-		Color color = switch (slotConfig.getSlotIO().getIoConfig()) {
-			case INPUT -> new Color(0, 0, 255, 128);
-			case OUTPUT -> new Color(255, 69, 0, 128);
-			default -> new Color(0, 0, 0, 0);
+		ColorCode color = switch (slotConfig.getSlotIO().getIoConfig()) {
+			case INPUT -> theme.ioInputColor();
+			case OUTPUT -> theme.ioOutputColor();
+			default -> new ColorCode(0);
 		};
-		drawContext.fill(sx, sy, sx + 18, sy + 18, color.getColor());
+		drawContext.fill(sx, sy, sx + 18, sy + 18, color.rgba());
 	}
 }

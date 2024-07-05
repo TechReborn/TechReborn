@@ -26,6 +26,7 @@ package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.util.ColorCode;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
 import reborncore.client.gui.GuiBase;
@@ -33,7 +34,6 @@ import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.network.serverbound.FluidConfigSavePayload;
 import reborncore.common.network.serverbound.FluidIoSavePayload;
-import reborncore.common.util.Color;
 
 public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 	ConfigFluidElement fluidElement;
@@ -78,12 +78,12 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 			return;
 		}
 		FluidConfiguration.FluidConfig fluidConfig = fluidConfiguration.getSideDetail(side);
-		Color color = switch (fluidConfig.getIoConfig()) {
-			case NONE -> new Color(0, 0, 0, 0);
-			case INPUT -> new Color(0, 0, 255, 128);
-			case OUTPUT -> new Color(255, 69, 0, 128);
-			case ALL -> new Color(52, 255, 30, 128);
+		ColorCode color = switch (fluidConfig.getIoConfig()) {
+			case NONE -> new ColorCode(0);
+			case INPUT -> theme.ioInputColor();
+			case OUTPUT -> theme.ioOutputColor();
+			case ALL -> theme.ioBothColor();
 		};
-		drawContext.fill(sx, sy, sx + 18, sy + 18, color.getColor());
+		drawContext.fill(sx, sy, sx + 18, sy + 18, color.rgba());
 	}
 }

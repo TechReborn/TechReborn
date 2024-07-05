@@ -31,8 +31,14 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.resource.ResourceType;
+import net.minecraft.util.Identifier;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.client.*;
+import reborncore.client.gui.ThemeManager;
 
 import java.util.Locale;
 
@@ -62,8 +68,13 @@ public class RebornCoreClient implements ClientModInitializer {
 			}
 		});
 
-		// Enable to register the dark mode resource pack.
-		// Work in progress
-		// ResourceManagerHelper.registerBuiltinResourcePack(Identifier.of("reborncore", "reborncore_darkmode"), FabricLoader.getInstance().getModContainer("reborncore").get(), ResourcePackActivationType.NORMAL);
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES)
+			.registerReloadListener(new ThemeManager());
+
+		ResourceManagerHelper.registerBuiltinResourcePack(
+			Identifier.of("reborncore", "reborncore_darkmode"),
+			FabricLoader.getInstance().getModContainer("reborncore").get(),
+			ResourcePackActivationType.NORMAL
+		);
 	}
 }

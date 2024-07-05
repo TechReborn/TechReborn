@@ -65,7 +65,7 @@ public class GuiPlayerDetector extends GuiBase<BuiltScreenHandler> {
 		if (hideGuiElements()) return;
 
 		Text text = Text.literal("Radius: ").append(String.valueOf(blockEntity.getCurrentRadius()));
-		drawCentredText(drawContext, text, 25, 4210752, layer);
+		drawCentredText(drawContext, text, 25, theme.titleColor().rgba(), layer);
 	}
 
 	@Override

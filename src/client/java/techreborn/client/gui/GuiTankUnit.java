@@ -57,27 +57,27 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(drawContext, mouseX, mouseY);
 
 		// Draw input/out
-		builder.drawText(drawContext, this, Text.translatable("gui.techreborn.unit.in"), 100, 43, 4210752);
-		builder.drawText(drawContext, this, Text.translatable("gui.techreborn.unit.out"), 140, 43, 4210752);
+		builder.drawText(drawContext, this, Text.translatable("gui.techreborn.unit.in"), 100, 43, theme.titleColor().rgba());
+		builder.drawText(drawContext, this, Text.translatable("gui.techreborn.unit.out"), 140, 43, theme.titleColor().rgba());
 
 
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
 
 		if (fluid.isEmpty()) {
-			drawContext.drawText(textRenderer, Text.translatable("techreborn.tooltip.unit.empty"), 10, 20, 4210752, false);
+			drawContext.drawText(textRenderer, Text.translatable("techreborn.tooltip.unit.empty"), 10, 20, theme.titleColor().rgba(), false);
 		} else {
-			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.tank.type"), 10, 20, 4210752, false);
-			drawContext.drawText(textRenderer, FluidUtils.getFluidName(fluid).replace("_", " "), 10, 30, 4210752, false);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.tank.type"), 10, 20, theme.titleColor().rgba(), false);
+			drawContext.drawText(textRenderer, FluidUtils.getFluidName(fluid).replace("_", " "), 10, 30, theme.titleColor().rgba(), false);
 
 
-			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.tank.amount"), 10, 50, 4210752, false);
-			drawContext.drawText(textRenderer, fluid.getAmount().toString(), 10, 60, 4210752, false);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.tank.amount"), 10, 50, theme.titleColor().rgba(), false);
+			drawContext.drawText(textRenderer, fluid.getAmount().toString(), 10, 60, theme.titleColor().rgba(), false);
 
 			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getFluidValueCapacity().getRawValue() * 100));
 
-			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752, false);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, theme.titleColor().rgba(), false);
 
-			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680, false);
+			drawContext.drawText(textRenderer, Text.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, theme.warningTextColor().rgba(), false);
 		}
 	}
 

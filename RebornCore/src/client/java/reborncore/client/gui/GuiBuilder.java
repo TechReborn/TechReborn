@@ -345,12 +345,14 @@ public class GuiBuilder {
 	}
 
 	private static class TipsListWidget extends EntryListWidget<TipsListWidget.TipsListEntry> {
+		private final Theme theme;
 
 		public TipsListWidget(GuiBase<?> gui, int width, int height, int top, int entryHeight, List<Text> tips) {
 			super(gui.getMinecraft(), width, height, top, entryHeight);
 			for (Text tip : tips) {
 				this.addEntry(new TipsListEntry(tip));
 			}
+			theme = gui.theme;
 		}
 
 		@Override
@@ -360,7 +362,7 @@ public class GuiBuilder {
 
 		@Override
 		public void renderList(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-			drawContext.fill(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), 0xff202020); //
+			drawContext.fill(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), 0xff202020);
 			super.renderList(drawContext, mouseX, mouseY, delta);
 		}
 
@@ -377,7 +379,7 @@ public class GuiBuilder {
 
 			@Override
 			public void render(DrawContext drawContext, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
-				drawContext.drawTextWrapped(MinecraftClient.getInstance().textRenderer, tip, x, y, width, 11184810);
+				drawContext.drawTextWrapped(MinecraftClient.getInstance().textRenderer, tip, x, y, width, theme.subtitleColor().rgba());
 			}
 		}
 	}

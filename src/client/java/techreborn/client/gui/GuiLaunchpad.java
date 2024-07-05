@@ -65,7 +65,7 @@ public class GuiLaunchpad extends GuiBase<BuiltScreenHandler> {
 		if (hideGuiElements()) return;
 
 		Text text = Text.literal("Launch Speed: ").append(Text.translatable(blockEntity.selectedTranslationKey()));
-		drawCentredText(drawContext, text, 25, 4210752, layer);
+		drawCentredText(drawContext, text, 25, theme.titleColor().rgba(), layer);
 	}
 
 	@Override

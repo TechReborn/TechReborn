@@ -68,7 +68,7 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 
 		Text text = Text.literal("Radius: ")
 				.append(String.valueOf(blockEntity.getRadius()));
-		drawCentredText(drawContext, text, 25, 4210752, layer);
+		drawCentredText(drawContext, text, 25, theme.titleColor().rgba(), layer);
 	}
 
 	public void onClick(int amount) {

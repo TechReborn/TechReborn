@@ -29,16 +29,20 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
+import reborncore.client.gui.Theme;
+import reborncore.client.gui.ThemeManager;
 
 public class ElementBase {
 	private final int x;
 	private final int y;
 	private SpriteIdentifier sprite;
+	protected final Theme theme;
 
 	public ElementBase(int x, int y, SpriteIdentifier sprite) {
 		this.sprite = sprite;
 		this.x = x;
 		this.y = y;
+		theme = ThemeManager.getTheme();
 	}
 
 	protected void setSprite(SpriteIdentifier sprite) {

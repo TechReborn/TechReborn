@@ -65,6 +65,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	@Nullable
 	private GuiTab selectedTab = null;
 	private final List<GuiTab> tabs;
+	protected final Theme theme;
 
 	public boolean upgrades;
 
@@ -76,6 +77,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			.map(factory -> factory.create(this))
 			.filter(GuiTab::enabled)
 			.toList();
+		theme = ThemeManager.getTheme();
 	}
 
 	public int getScreenWidth() {
@@ -218,7 +220,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	protected void drawTitle(DrawContext drawContext) {
-		drawCentredText(drawContext, Text.translatable(be.getCachedState().getBlock().getTranslationKey()), 6, 4210752, Layer.FOREGROUND);
+		drawCentredText(drawContext, Text.translatable(be.getCachedState().getBlock().getTranslationKey()), 6, theme.titleColor().rgba(), Layer.FOREGROUND);
 	}
 
 	public void drawCentredText(DrawContext drawContext, Text text, int y, int colour, Layer layer) {
