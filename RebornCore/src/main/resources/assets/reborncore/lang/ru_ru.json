@@ -34,7 +34,7 @@
   "reborncore.gui.slotconfigtip.side2": "Синяя сторона означает вход.",
   "reborncore.gui.slotconfigtip.side3": "Зелёная сторона означает и то и другое.",
   "reborncore.gui.slotconfigtip.copy1": "Ctrl+C для копирования конфигурации слота.",
-  "reborncore.gui.slotconfigtip.copy2": "Ctrl+V для вставки конфигурации слотов.",
+  "reborncore.gui.slotconfigtip.copy2": "Ctrl+V для вставки конфигурации слота.",
   "reborncore.gui.fluidconfig.pullin": "Втянуть",
   "reborncore.gui.fluidconfig.pumpout": "Вывести",
   "reborncore.gui.fluidconfig.item_io": "Предметный ввод\\вывод",
