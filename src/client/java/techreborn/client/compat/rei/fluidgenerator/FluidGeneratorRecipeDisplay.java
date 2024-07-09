@@ -43,7 +43,7 @@ public class FluidGeneratorRecipeDisplay implements Display {
 	public FluidGeneratorRecipeDisplay(FluidGeneratorRecipe recipe, Identifier category) {
 		this.category = CategoryIdentifier.of(category);
 		this.inputs = Lists.newArrayList();
-		this.totalEnergy = recipe.power();
+		this.totalEnergy = recipe.power() * 1000;
 		inputs.add(EntryIngredients.of(recipe.getFluid(), 1000));
 	}
 
