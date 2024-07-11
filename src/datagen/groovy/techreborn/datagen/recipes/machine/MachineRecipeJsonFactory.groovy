@@ -111,6 +111,10 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
+	def addCustomIngredient(SizedIngredient ingredient) {
+		ingredients.add(ingredient)
+	}
+
 	def outputs(Object... objects) {
 		for (object in objects) {
 			def stack = ofStack(object)
