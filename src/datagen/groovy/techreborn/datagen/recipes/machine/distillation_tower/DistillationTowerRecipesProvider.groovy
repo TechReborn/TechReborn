@@ -43,7 +43,7 @@ class DistillationTowerRecipesProvider extends TechRebornRecipesProvider {
 			power 20
 			time 400
 			ingredients cellStack(Fluids.EMPTY, 16), cellStack(ModFluids.OIL, 16)
-			outputs cellStack(ModFluids.SULFURIC_ACID, 16), cellStack(ModFluids.GLYCERYL, 16)
+			outputs cellStack(ModFluids.DIESEL, 16), cellStack(ModFluids.SULFURIC_ACID, 15), cellStack(ModFluids.GLYCERYL, 1)
 		}
 	}
 }
