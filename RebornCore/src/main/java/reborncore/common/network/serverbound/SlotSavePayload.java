@@ -30,8 +30,9 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.SlotConfiguration;
+import reborncore.common.network.BlockPosPayload;
 
-public record SlotSavePayload(BlockPos pos, SlotConfiguration.SlotConfig slotConfig) implements CustomPayload {
+public record SlotSavePayload(BlockPos pos, SlotConfiguration.SlotConfig slotConfig) implements CustomPayload, BlockPosPayload {
 	public static final CustomPayload.Id<SlotSavePayload> ID = new CustomPayload.Id<>(Identifier.of("reborncore:slot_save"));
 	public static final PacketCodec<RegistryByteBuf, SlotSavePayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, SlotSavePayload::pos,

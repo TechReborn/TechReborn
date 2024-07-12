@@ -41,32 +41,32 @@ public class ServerBoundPackets {
 
 	public static void init() {
 		ServerPlayNetworking.registerGlobalReceiver(FluidConfigSavePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			legacyMachineBase.fluidConfiguration.updateFluidConfig(payload.fluidConfiguration());
-			legacyMachineBase.markDirty();
+			var machine = payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
+			machine.fluidConfiguration.updateFluidConfig(payload.fluidConfiguration());
+			machine.markDirty();
 
-			NetworkManager.sendToTracking(new FluidConfigSyncPayload(payload.pos(), legacyMachineBase.fluidConfiguration), legacyMachineBase);
+			NetworkManager.sendToTracking(new FluidConfigSyncPayload(payload.pos(), machine.fluidConfiguration), machine);
 
 			// We update the block to allow pipes that are connecting to detect the update and change their
 			// connection status if needed
-			World world = legacyMachineBase.getWorld();
-			BlockState blockState = world.getBlockState(legacyMachineBase.getPos());
-			world.updateNeighborsAlways(legacyMachineBase.getPos(), blockState.getBlock());
+			World world = machine.getWorld();
+			BlockState blockState = world.getBlockState(machine.getPos());
+			world.updateNeighborsAlways(machine.getPos(), blockState.getBlock());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SlotConfigSavePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			var machine = payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
 			for (SlotConfiguration.SlotConfigHolder slotDetail : payload.slotConfig().getSlotDetails()) {
-				legacyMachineBase.getSlotConfiguration().updateSlotDetails(slotDetail);
+				machine.getSlotConfiguration().updateSlotDetails(slotDetail);
 			}
-			legacyMachineBase.markDirty();
+			machine.markDirty();
 
-			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), legacyMachineBase.getSlotConfiguration()), (ServerWorld) legacyMachineBase.getWorld());
+			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), (ServerWorld) machine.getWorld());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(FluidIoSavePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			FluidConfiguration config = legacyMachineBase.fluidConfiguration;
+			var machine = payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
+			FluidConfiguration config = machine.fluidConfiguration;
 			if (config == null) {
 				return;
 			}
@@ -74,13 +74,13 @@ public class ServerBoundPackets {
 			config.setOutput(payload.output());
 
 			// Syncs back to the client
-			NetworkManager.sendToTracking(new FluidConfigSyncPayload(payload.pos(), legacyMachineBase.fluidConfiguration), legacyMachineBase);
+			NetworkManager.sendToTracking(new FluidConfigSyncPayload(payload.pos(), machine.fluidConfiguration), machine);
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(IoSavePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			Validate.notNull(machineBase, "machine cannot be null");
-			SlotConfiguration.SlotConfigHolder holder = machineBase.getSlotConfiguration().getSlotDetails(payload.slotID());
+			var machine = payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
+			Validate.notNull(machine, "machine cannot be null");
+			SlotConfiguration.SlotConfigHolder holder = machine.getSlotConfiguration().getSlotDetails(payload.slotID());
 			if (holder == null) {
 				return;
 			}
@@ -90,26 +90,26 @@ public class ServerBoundPackets {
 			holder.setFilter(payload.filter());
 
 			//Syncs back to the client
-			NetworkManager.sendToAll(new SlotSyncPayload(payload.pos(), machineBase.getSlotConfiguration()), context.player().getServer());
+			NetworkManager.sendToAll(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), context.player().getServer());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SlotSavePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			legacyMachineBase.getSlotConfiguration().getSlotDetails(payload.slotConfig().getSlotID()).updateSlotConfig(payload.slotConfig());
-			legacyMachineBase.markDirty();
+			var machine = payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
+			machine.getSlotConfiguration().getSlotDetails(payload.slotConfig().getSlotID()).updateSlotConfig(payload.slotConfig());
+			machine.markDirty();
 
-			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), legacyMachineBase.getSlotConfiguration()), (ServerWorld) legacyMachineBase.getWorld());
+			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), (ServerWorld) machine.getWorld());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(ChunkLoaderRequestPayload.ID, (payload, context) -> {
+			payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
 			ChunkLoaderManager chunkLoaderManager = ChunkLoaderManager.get(context.player().getWorld());
 			chunkLoaderManager.syncChunkLoaderToClient(context.player(), payload.pos());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SetRedstoneStatePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity blockEntity = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (blockEntity == null) return;
-			blockEntity.setRedstoneConfiguration(blockEntity.getRedstoneConfiguration().withState(payload.element(), payload.state()));
+			var machine = payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
+			machine.setRedstoneConfiguration(machine.getRedstoneConfiguration().withState(payload.element(), payload.state()));
 		});
 	}
 }

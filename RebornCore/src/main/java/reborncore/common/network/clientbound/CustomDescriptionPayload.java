@@ -31,8 +31,9 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import reborncore.common.network.BlockPosPayload;
 
-public record CustomDescriptionPayload(BlockPos pos, NbtCompound nbt) implements CustomPayload {
+public record CustomDescriptionPayload(BlockPos pos, NbtCompound nbt) implements CustomPayload, BlockPosPayload {
 	public static final Id<CustomDescriptionPayload> ID = new Id<>(Identifier.of("reborncore:custom_description"));
 	public static final PacketCodec<RegistryByteBuf, CustomDescriptionPayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, CustomDescriptionPayload::pos,

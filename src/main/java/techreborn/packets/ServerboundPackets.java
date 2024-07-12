@@ -29,19 +29,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
-import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
-import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
+import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.tier1.ElevatorBlockEntity;
-import techreborn.blockentity.machine.tier1.PlayerDetectorBlockEntity;
-import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
-import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
-import techreborn.blockentity.machine.tier2.PumpBlockEntity;
-import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
-import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.packets.serverbound.AESUConfigPayload;
 import techreborn.packets.serverbound.AutoCraftingLockPayload;
@@ -62,39 +54,29 @@ import techreborn.packets.serverbound.SuitNightVisionPayload;
 public class ServerboundPackets {
 	public static void init() {
 		ServerPlayNetworking.registerGlobalReceiver(AESUConfigPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof AdjustableSUBlockEntity) {
-				((AdjustableSUBlockEntity) legacyMachineBase).handleGuiInputFromClient(payload.buttonID(), payload.shift(), payload.ctrl());
-			}
+			var aesu = GuiType.AESU.getBlockEntity(context, payload, TRBlockEntities.ADJUSTABLE_SU);
+			aesu.handleGuiInputFromClient(payload.buttonID(), payload.shift(), payload.ctrl());
 		});
 
 
 		ServerPlayNetworking.registerGlobalReceiver(AutoCraftingLockPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof AutoCraftingTableBlockEntity) {
-				((AutoCraftingTableBlockEntity) legacyMachineBase).locked = payload.locked();
-			}
+			var autoCraftingTable = GuiType.AUTO_CRAFTING_TABLE.getBlockEntity(context, payload, TRBlockEntities.AUTO_CRAFTING_TABLE);
+			autoCraftingTable.locked = payload.locked();
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(RollingMachineLockPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof RollingMachineBlockEntity) {
-				((RollingMachineBlockEntity) legacyMachineBase).locked = payload.locked();
-			}
+			var rollingMachine = GuiType.ROLLING_MACHINE.getBlockEntity(context, payload, TRBlockEntities.ROLLING_MACHINE);
+			rollingMachine.locked = payload.locked();
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(StorageUnitLockPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof StorageUnitBaseBlockEntity) {
-				((StorageUnitBaseBlockEntity) legacyMachineBase).setLocked(payload.locked());
-			}
+			var storageUnit = GuiType.STORAGE_UNIT.getBlockEntity(context, payload, TRBlockEntities.STORAGE_UNIT);
+			storageUnit.setLocked(payload.locked());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(FusionControlSizePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof FusionControlComputerBlockEntity) {
-				((FusionControlComputerBlockEntity) legacyMachineBase).changeSize(payload.sizeDelta());
-			}
+			var fusionControlComputer = GuiType.FUSION_CONTROLLER.getBlockEntity(context, payload, TRBlockEntities.FUSION_CONTROL_COMPUTER);
+			fusionControlComputer.changeSize(payload.sizeDelta());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(RefundPayload.ID, (payload, context) -> {
@@ -114,45 +96,33 @@ public class ServerboundPackets {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(ChunkloaderPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof ChunkLoaderBlockEntity) {
-				((ChunkLoaderBlockEntity) legacyMachineBase).handleGuiInputFromClient(payload.buttonID(), payload.sync() ? context.player() : null);
-			}
+			var chunkLoader = GuiType.CHUNK_LOADER.getBlockEntity(context, payload, TRBlockEntities.CHUNK_LOADER);
+			chunkLoader.handleGuiInputFromClient(payload.buttonID(), payload.sync() ? context.player() : null);
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(ExperiencePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof IronFurnaceBlockEntity) {
-				((IronFurnaceBlockEntity) legacyMachineBase).handleGuiInputFromClient(context.player());
-			}
+			var ironFurnace = GuiType.IRON_FURNACE.getBlockEntity(context, payload, TRBlockEntities.IRON_FURNACE);
+			ironFurnace.handleGuiInputFromClient(context.player());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(DetectorRadiusPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof PlayerDetectorBlockEntity) {
-				((PlayerDetectorBlockEntity) legacyMachineBase).handleGuiInputFromClient(payload.buttonAmount());
-			}
+			var playerDetector = GuiType.PLAYER_DETECTOR.getBlockEntity(context, payload, TRBlockEntities.PLAYER_DETECTOR);
+			playerDetector.handleGuiInputFromClient(payload.buttonAmount());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(LaunchSpeedPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof LaunchpadBlockEntity) {
-				((LaunchpadBlockEntity) legacyMachineBase).handleGuiInputFromClient(payload.buttonAmount());
-			}
+			var launchpad = GuiType.LAUNCHPAD.getBlockEntity(context, payload, TRBlockEntities.LAUNCHPAD);
+			launchpad.handleGuiInputFromClient(payload.buttonAmount());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(PumpDepthPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof PumpBlockEntity) {
-				((PumpBlockEntity) legacyMachineBase).handleDepthGuiInputFromClient(payload.buttonAmount());
-			}
+			var pump = GuiType.PUMP.getBlockEntity(context, payload, TRBlockEntities.PUMP);
+			pump.handleDepthGuiInputFromClient(payload.buttonAmount());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(PumpRangePayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
-			if (legacyMachineBase instanceof PumpBlockEntity) {
-				((PumpBlockEntity) legacyMachineBase).handleRangeGuiInputFromClient(payload.buttonAmount());
-			}
+			var pump = GuiType.PUMP.getBlockEntity(context, payload, TRBlockEntities.PUMP);
+			pump.handleRangeGuiInputFromClient(payload.buttonAmount());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(JumpPayload.ID, (payload, context) -> {

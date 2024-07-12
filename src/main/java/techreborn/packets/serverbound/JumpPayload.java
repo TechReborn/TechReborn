@@ -29,9 +29,10 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
-public record JumpPayload (BlockPos pos) implements CustomPayload {
+public record JumpPayload (BlockPos pos) implements CustomPayload, BlockPosPayload {
 	public static final CustomPayload.Id<JumpPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "jump"));
 	public static final PacketCodec<RegistryByteBuf, JumpPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, JumpPayload::pos,

@@ -243,7 +243,7 @@ public class TechRebornClient implements ClientModInitializer {
 				}
 		);
 
-		ClientGuiType.validate();
+		ClientGuiType.AESU.toString();
 
 		ClientJumpEvent.EVENT.register(new ClientJumpHandler());
 	}

@@ -30,9 +30,10 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
-public record PumpDepthPayload(BlockPos pos, int buttonAmount) implements CustomPayload {
+public record PumpDepthPayload(BlockPos pos, int buttonAmount) implements CustomPayload, BlockPosPayload {
 	public static final CustomPayload.Id<PumpDepthPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "pump_depth"));
 	public static final PacketCodec<RegistryByteBuf, PumpDepthPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, PumpDepthPayload::pos,

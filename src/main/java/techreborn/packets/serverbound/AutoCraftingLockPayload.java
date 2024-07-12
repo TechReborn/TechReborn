@@ -30,9 +30,10 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
-public record AutoCraftingLockPayload(BlockPos pos, boolean locked) implements CustomPayload {
+public record AutoCraftingLockPayload(BlockPos pos, boolean locked) implements CustomPayload, BlockPosPayload {
 	public static final CustomPayload.Id<AutoCraftingLockPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "auto_crafting_lock"));
 	public static final PacketCodec<RegistryByteBuf, AutoCraftingLockPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, AutoCraftingLockPayload::pos,

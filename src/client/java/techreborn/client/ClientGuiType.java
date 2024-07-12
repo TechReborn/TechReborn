@@ -26,8 +26,6 @@ package techreborn.client;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.util.Identifier;
-import techreborn.TechReborn;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
@@ -132,14 +130,10 @@ import techreborn.client.gui.GuiThermalGenerator;
 import techreborn.client.gui.GuiVacuumFreezer;
 import techreborn.client.gui.GuiWireMill;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
 public record ClientGuiType<T extends BlockEntity>(GuiType<T> guiType, GuiFactory<T> guiFactory) {
-	public static final Map<Identifier, ClientGuiType<?>> TYPES = new HashMap<>();
-
 	public static final ClientGuiType<AdjustableSUBlockEntity> AESU = register(GuiType.AESU, GuiAESU::new);
 	public static final ClientGuiType<IronAlloyFurnaceBlockEntity> ALLOY_FURNACE = register(GuiType.ALLOY_FURNACE, GuiAlloyFurnace::new);
 	public static final ClientGuiType<AlloySmelterBlockEntity> ALLOY_SMELTER = register(GuiType.ALLOY_SMELTER, GuiAlloySmelter::new);
@@ -196,19 +190,10 @@ public record ClientGuiType<T extends BlockEntity>(GuiType<T> guiType, GuiFactor
 		return new ClientGuiType<>(type, factory);
 	}
 
-	public static void validate() {
-		// Ensure all gui types also have a client version.
-		for (Identifier identifier : GuiType.TYPES.keySet()) {
-			if (!identifier.getNamespace().equals(TechReborn.MOD_ID)) continue;
-			Objects.requireNonNull(TYPES.get(identifier), "No ClientGuiType for " + identifier);
-		}
-	}
-
 	public ClientGuiType(GuiType<T> guiType, GuiFactory<T> guiFactory) {
 		this.guiType = Objects.requireNonNull(guiType);
 		this.guiFactory = Objects.requireNonNull(guiFactory);
 
 		HandledScreens.register(guiType.getScreenHandlerType(), guiFactory());
-		TYPES.put(guiType.getIdentifier(), this);
 	}
 }

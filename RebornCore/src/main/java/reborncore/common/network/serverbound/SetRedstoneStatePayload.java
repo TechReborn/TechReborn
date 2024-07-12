@@ -30,8 +30,9 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.RedstoneConfiguration;
+import reborncore.common.network.BlockPosPayload;
 
-public record SetRedstoneStatePayload(BlockPos pos, RedstoneConfiguration.Element element, RedstoneConfiguration.State state) implements CustomPayload {
+public record SetRedstoneStatePayload(BlockPos pos, RedstoneConfiguration.Element element, RedstoneConfiguration.State state) implements CustomPayload, BlockPosPayload {
 	public static final CustomPayload.Id<SetRedstoneStatePayload> ID = new CustomPayload.Id<>(Identifier.of("reborncore:set_redstone_state"));
 	public static final PacketCodec<RegistryByteBuf, SetRedstoneStatePayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, SetRedstoneStatePayload::pos,

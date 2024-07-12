@@ -30,8 +30,9 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.FluidConfiguration;
+import reborncore.common.network.BlockPosPayload;
 
-public record FluidConfigSyncPayload(BlockPos pos, FluidConfiguration fluidConfiguration) implements CustomPayload {
+public record FluidConfigSyncPayload(BlockPos pos, FluidConfiguration fluidConfiguration) implements CustomPayload, BlockPosPayload {
 	public static final Id<FluidConfigSyncPayload> ID = new Id<>(Identifier.of("reborncore:fluid_config_sync"));
 	public static final PacketCodec<RegistryByteBuf, FluidConfigSyncPayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, FluidConfigSyncPayload::pos,
