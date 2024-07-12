@@ -189,93 +189,49 @@ public class TRContent {
 	public static NanoSuitItem NANO_LEGGINGS;
 	public static NanoSuitItem NANO_BOOTS;
 	// Gem armor & tools
-	@Nullable
 	public static Item BRONZE_SWORD;
-	@Nullable
 	public static Item BRONZE_PICKAXE;
-	@Nullable
 	public static Item BRONZE_SPADE;
-	@Nullable
 	public static Item BRONZE_AXE;
-	@Nullable
 	public static Item BRONZE_HOE;
-	@Nullable
 	public static Item BRONZE_HELMET;
-	@Nullable
 	public static Item BRONZE_CHESTPLATE;
-	@Nullable
 	public static Item BRONZE_LEGGINGS;
-	@Nullable
 	public static Item BRONZE_BOOTS;
-	@Nullable
 	public static Item RUBY_SWORD;
-	@Nullable
 	public static Item RUBY_PICKAXE;
-	@Nullable
 	public static Item RUBY_SPADE;
-	@Nullable
 	public static Item RUBY_AXE;
-	@Nullable
 	public static Item RUBY_HOE;
-	@Nullable
 	public static Item RUBY_HELMET;
-	@Nullable
 	public static Item RUBY_CHESTPLATE;
-	@Nullable
 	public static Item RUBY_LEGGINGS;
-	@Nullable
 	public static Item RUBY_BOOTS;
-	@Nullable
 	public static Item SAPPHIRE_SWORD;
-	@Nullable
 	public static Item SAPPHIRE_PICKAXE;
-	@Nullable
 	public static Item SAPPHIRE_SPADE;
-	@Nullable
 	public static Item SAPPHIRE_AXE;
-	@Nullable
 	public static Item SAPPHIRE_HOE;
-	@Nullable
 	public static Item SAPPHIRE_HELMET;
-	@Nullable
 	public static Item SAPPHIRE_CHESTPLATE;
-	@Nullable
 	public static Item SAPPHIRE_LEGGINGS;
-	@Nullable
 	public static Item SAPPHIRE_BOOTS;
-	@Nullable
 	public static Item PERIDOT_SWORD;
-	@Nullable
 	public static Item PERIDOT_PICKAXE;
-	@Nullable
 	public static Item PERIDOT_SPADE;
-	@Nullable
 	public static Item PERIDOT_AXE;
-	@Nullable
 	public static Item PERIDOT_HOE;
-	@Nullable
 	public static Item PERIDOT_HELMET;
-	@Nullable
 	public static Item PERIDOT_CHESTPLATE;
-	@Nullable
 	public static Item PERIDOT_LEGGINGS;
-	@Nullable
 	public static Item PERIDOT_BOOTS;
-	@Nullable
 	public static Item SILVER_HELMET;
-	@Nullable
 	public static Item SILVER_CHESTPLATE;
-	@Nullable
 	public static Item SILVER_LEGGINGS;
-	@Nullable
 	public static Item SILVER_BOOTS;
-	@Nullable
 	public static Item STEEL_HELMET;
-	@Nullable
 	public static Item STEEL_CHESTPLATE;
-	@Nullable
 	public static Item STEEL_LEGGINGS;
-	@Nullable
 	public static Item STEEL_BOOTS;
 
 	public final static class BlockTags {
