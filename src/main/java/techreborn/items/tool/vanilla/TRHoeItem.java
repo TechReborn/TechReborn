@@ -27,19 +27,19 @@ package techreborn.items.tool.vanilla;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
+import techreborn.init.TRToolTier;
 
 public class TRHoeItem extends HoeItem {
 
 	final String repairOreDict;
 
-	public TRHoeItem(ToolMaterial material) {
+	public TRHoeItem(TRToolTier material) {
 		this(material, "");
 	}
 
-	public TRHoeItem(ToolMaterial material, String repairOreDict) {
-		super(material, new Item.Settings());
+	public TRHoeItem(TRToolTier material, String repairOreDict) {
+		super(material, new Item.Settings().attributeModifiers(material.createAttributeModifiers(TRToolTier.ToolType.HOE)));
 		this.repairOreDict = repairOreDict;
 	}
 

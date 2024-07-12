@@ -27,19 +27,19 @@ package techreborn.items.tool.vanilla;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
+import techreborn.init.TRToolTier;
 
 public class TRAxeItem extends AxeItem {
 
 	final String repairOreDict;
 
-	public TRAxeItem(ToolMaterial material) {
+	public TRAxeItem(TRToolTier material) {
 		this(material, "");
 	}
 
-	public TRAxeItem(ToolMaterial material, String repairOreDict) {
-		super(material, new Item.Settings());
+	public TRAxeItem(TRToolTier material, String repairOreDict) {
+		super(material, new Item.Settings().attributeModifiers(material.createAttributeModifiers(TRToolTier.ToolType.AXE)));
 		this.repairOreDict = repairOreDict;
 	}
 

@@ -27,19 +27,19 @@ package techreborn.items.tool.vanilla;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
+import techreborn.init.TRToolTier;
 
 public class TRPickaxeItem extends PickaxeItem {
 
 	final String repairOreDict;
 
-	public TRPickaxeItem(ToolMaterial material) {
+	public TRPickaxeItem(TRToolTier material) {
 		this(material, "");
 	}
 
-	public TRPickaxeItem(ToolMaterial material, String repairOreDict) {
-		super(material, new Item.Settings());
+	public TRPickaxeItem(TRToolTier material, String repairOreDict) {
+		super(material, new Item.Settings().attributeModifiers(material.createAttributeModifiers(TRToolTier.ToolType.PICKAXE)));
 		this.repairOreDict = repairOreDict;
 	}
 

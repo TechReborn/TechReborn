@@ -26,6 +26,11 @@ package techreborn.init;
 
 import com.google.common.base.Suppliers;
 import net.minecraft.block.Block;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
@@ -34,10 +39,10 @@ import net.minecraft.registry.tag.TagKey;
 import java.util.function.Supplier;
 
 public enum TRToolTier implements ToolMaterial {
-	BRONZE(BlockTags.INCORRECT_FOR_IRON_TOOL, 375, 7.0F, 2.25f, 6, () -> Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem())),
-	RUBY(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 6.0F, 1.5F, 10, () -> Ingredient.ofItems(TRContent.Gems.RUBY.asItem())),
-	SAPPHIRE(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 7.0F, 1.5F, 12, () -> Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem())),
-	PERIDOT(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 7.0F, 1.5F, 12, () -> Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem()));
+	BRONZE(BlockTags.INCORRECT_FOR_IRON_TOOL, 375, 7.0F, 6, 6, () -> Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem())),
+	RUBY(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 6.0F, 5, 10, () -> Ingredient.ofItems(TRContent.Gems.RUBY.asItem())),
+	SAPPHIRE(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 7.0F, 5, 12, () -> Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem())),
+	PERIDOT(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 7.0F, 5, 12, () -> Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem()));
 
 	/**
 	 * BlockTags for blocks which shouldn't be mined with this material.
@@ -102,5 +107,30 @@ public enum TRToolTier implements ToolMaterial {
 	@Override
 	public Ingredient getRepairIngredient() {
 		return repairMaterial.get();
+	}
+
+	public AttributeModifiersComponent createAttributeModifiers(ToolType toolType) {
+		return AttributeModifiersComponent.builder()
+			.add(
+				EntityAttributes.GENERIC_ATTACK_DAMAGE,
+				new EntityAttributeModifier(
+					Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, toolType.baseAttackDamage + getAttackDamage(), EntityAttributeModifier.Operation.ADD_VALUE
+				),
+				AttributeModifierSlot.MAINHAND
+			)
+			.add(
+				EntityAttributes.GENERIC_ATTACK_SPEED,
+				new EntityAttributeModifier(Item.BASE_ATTACK_SPEED_MODIFIER_ID, toolType.attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE),
+				AttributeModifierSlot.MAINHAND
+			)
+			.build();
+	}
+
+	public record ToolType(float baseAttackDamage, float attackSpeed) {
+		public static final ToolType SWORD = new ToolType(0, -2F);
+		public static final ToolType PICKAXE = new ToolType(-2, -2.8F);
+		public static final ToolType AXE = new ToolType(3, -2.9F);
+		public static final ToolType SHOVEL = new ToolType(-2, -3.0F);
+		public static final ToolType HOE = new ToolType(-4, 0.0F);
 	}
 }

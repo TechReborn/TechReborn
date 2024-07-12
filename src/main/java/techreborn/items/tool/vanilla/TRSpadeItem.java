@@ -27,19 +27,19 @@ package techreborn.items.tool.vanilla;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShovelItem;
-import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
+import techreborn.init.TRToolTier;
 
 public class TRSpadeItem extends ShovelItem {
 
 	final String repairOreDict;
 
-	public TRSpadeItem(ToolMaterial material) {
+	public TRSpadeItem(TRToolTier material) {
 		this(material, "");
 	}
 
-	public TRSpadeItem(ToolMaterial material, String repairOreDict) {
-		super(material, new Item.Settings());
+	public TRSpadeItem(TRToolTier material, String repairOreDict) {
+		super(material, new Item.Settings().attributeModifiers(material.createAttributeModifiers(TRToolTier.ToolType.SHOVEL)));
 		this.repairOreDict = repairOreDict;
 	}
 

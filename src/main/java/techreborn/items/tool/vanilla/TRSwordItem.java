@@ -27,19 +27,19 @@ package techreborn.items.tool.vanilla;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
+import techreborn.init.TRToolTier;
 
 public class TRSwordItem extends SwordItem {
 
 	final String repairOreDict;
 
-	public TRSwordItem(ToolMaterial material) {
+	public TRSwordItem(TRToolTier material) {
 		this(material, "");
 	}
 
-	public TRSwordItem(ToolMaterial material, String repairOreDict) {
-		super(material, new Item.Settings());
+	public TRSwordItem(TRToolTier material, String repairOreDict) {
+		super(material, new Item.Settings().attributeModifiers(material.createAttributeModifiers(TRToolTier.ToolType.SWORD)));
 		this.repairOreDict = repairOreDict;
 	}
 
