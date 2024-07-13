@@ -71,8 +71,8 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
 		boolean hasEnergy = getStoredEnergy(stack) > 0;
 
-		attributes.with(EntityAttributes.GENERIC_ARMOR, hasEnergy ? ENABLED_ARMOR_MODIFIER : DISABLED_ARMOR_MODIFIER, AttributeModifierSlot.forEquipmentSlot(slotType));
-		attributes.with(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, hasEnergy ? ENABLED_KNOCKBACK_RESISTANCE_MODIFIER : DISABLED_KNOCKBACK_RESISTANCE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(slotType));
+		attributes = attributes.with(EntityAttributes.GENERIC_ARMOR, hasEnergy ? ENABLED_ARMOR_MODIFIER : DISABLED_ARMOR_MODIFIER, AttributeModifierSlot.forEquipmentSlot(slotType));
+		attributes = attributes.with(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, hasEnergy ? ENABLED_KNOCKBACK_RESISTANCE_MODIFIER : DISABLED_KNOCKBACK_RESISTANCE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(slotType));
 
 		switch (slotType) {
 			case HEAD -> {
@@ -113,7 +113,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 					tryUseEnergy(stack, TechRebornConfig.quantumSuitSprintingCost);
 				}
 				boolean quantumSprint = TRItemUtils.isActive(stack) && TechRebornConfig.quantumSuitEnableSprint && getStoredEnergy(stack) > TechRebornConfig.quantumSuitSprintingCost;
-				attributes.with(EntityAttributes.GENERIC_MOVEMENT_SPEED, quantumSprint ? ENABLED_MOVEMENT_SPEED_MODIFIER : DISABLED_MOVEMENT_SPEED_MODIFIER, AttributeModifierSlot.LEGS);
+				attributes = attributes.with(EntityAttributes.GENERIC_MOVEMENT_SPEED, quantumSprint ? ENABLED_MOVEMENT_SPEED_MODIFIER : DISABLED_MOVEMENT_SPEED_MODIFIER, AttributeModifierSlot.LEGS);
 			}
 			case FEET -> {
 				if (playerEntity.isSwimming() && tryUseEnergy(stack, TechRebornConfig.quantumSuitSwimmingCost)) {
@@ -121,6 +121,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				}
 			}
 		}
+
 		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 
