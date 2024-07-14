@@ -11,6 +11,14 @@ plugins {
 }
 
 repositories {
+    maven {
+        name "TerraformersMC"
+        url "https://maven.terraformersmc.com/releases/"
+        content {
+            includeGroup "dev.emi"
+        }
+    }
+
 	maven {
         name "REI"
 		url "https://maven.shedaniel.me/"
@@ -189,7 +197,8 @@ dependencies {
 
     include project(":RebornCore")
 
-	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", true)
+	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", false)
+    optionalClientDependency("dev.emi:emi-fabric:${project.emi_version}", true)
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.21'

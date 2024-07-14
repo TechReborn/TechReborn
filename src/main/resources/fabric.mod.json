@@ -21,7 +21,10 @@
     ],
     "rei_client": [
 		"techreborn.client.compat.rei.ReiPlugin"
-    ]
+    ],
+  	"emi": [
+	  	"techreborn.client.compat.emi.EMIPlugin"
+  	]
   },
   "custom": {
 	"dashloader:customobject": [
