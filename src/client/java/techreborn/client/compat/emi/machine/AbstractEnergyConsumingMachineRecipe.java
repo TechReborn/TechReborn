@@ -74,18 +74,10 @@ public abstract class AbstractEnergyConsumingMachineRecipe<R extends RebornRecip
 	}
 
 	protected EmiIngredient getInput(int index) {
-		if (index >= inputs.size()) {
-			return EmiStack.EMPTY;
-		}
-
-		return inputs.get(index);
+		return inputs.size() > index ? inputs.get(index) : EmiStack.EMPTY;
 	}
 
 	protected EmiStack getOutput(int index) {
-		if (index >= outputs.size()) {
-			return EmiStack.EMPTY;
-		}
-
-		return outputs.get(index);
+		return outputs.size() > index ? outputs.get(index) : EmiStack.EMPTY;
 	}
 }
