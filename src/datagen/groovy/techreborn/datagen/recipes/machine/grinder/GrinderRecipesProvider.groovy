@@ -485,7 +485,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 400
-			ingredients TRConventionalTags.CALCITE_DUSTS
+			ingredients stack("minecraft:calcite")
 			outputs stack("techreborn:calcite_dust")
 		}
 		offerGrinderRecipe {
