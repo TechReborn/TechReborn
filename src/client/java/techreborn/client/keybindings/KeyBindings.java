@@ -52,7 +52,7 @@ public class KeyBindings {
 		quantumSuitSprint = KeyBindingHelper.registerKeyBinding(
 			new KeyBinding("key.techreborn.quantumSuitSprint",
 				InputUtil.Type.KEYSYM,
-				GLFW.GLFW_KEY_B,
+				GLFW.GLFW_KEY_R,
 				CATEGORY));
 	}
 

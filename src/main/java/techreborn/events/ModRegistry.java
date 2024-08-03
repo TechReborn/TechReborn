@@ -150,10 +150,10 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.RUBY_AXE = InitUtils.setup(new TRAxeItem(TRToolTier.RUBY), "ruby_axe"));
 		RebornRegistry.registerItem(TRContent.RUBY_HOE = InitUtils.setup(new TRHoeItem(TRToolTier.RUBY), "ruby_hoe"));
 
-		RebornRegistry.registerItem(TRContent.RUBY_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.RUBY, ArmorItem.Type.HELMET, new Item.Settings()), "ruby_helmet"));
-		RebornRegistry.registerItem(TRContent.RUBY_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.RUBY, ArmorItem.Type.CHESTPLATE, new Item.Settings()), "ruby_chestplate"));
-		RebornRegistry.registerItem(TRContent.RUBY_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.RUBY, ArmorItem.Type.LEGGINGS, new Item.Settings()), "ruby_leggings"));
-		RebornRegistry.registerItem(TRContent.RUBY_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.RUBY, ArmorItem.Type.BOOTS, new Item.Settings()), "ruby_boots"));
+		RebornRegistry.registerItem(TRContent.RUBY_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.RUBY, ArmorItem.Type.HELMET, new Item.Settings().maxCount(1)), "ruby_helmet"));
+		RebornRegistry.registerItem(TRContent.RUBY_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.RUBY, ArmorItem.Type.CHESTPLATE, new Item.Settings().maxCount(1)), "ruby_chestplate"));
+		RebornRegistry.registerItem(TRContent.RUBY_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.RUBY, ArmorItem.Type.LEGGINGS, new Item.Settings().maxCount(1)), "ruby_leggings"));
+		RebornRegistry.registerItem(TRContent.RUBY_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.RUBY, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1)), "ruby_boots"));
 
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_SWORD = InitUtils.setup(new TRSwordItem(TRToolTier.SAPPHIRE), "sapphire_sword"));
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_PICKAXE = InitUtils.setup(new TRPickaxeItem(TRToolTier.SAPPHIRE), "sapphire_pickaxe"));
@@ -161,10 +161,10 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_AXE = InitUtils.setup(new TRAxeItem(TRToolTier.SAPPHIRE), "sapphire_axe"));
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_HOE = InitUtils.setup(new TRHoeItem(TRToolTier.SAPPHIRE), "sapphire_hoe"));
 
-		RebornRegistry.registerItem(TRContent.SAPPHIRE_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.SAPPHIRE, ArmorItem.Type.HELMET, new Item.Settings()), "sapphire_helmet"));
-		RebornRegistry.registerItem(TRContent.SAPPHIRE_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.SAPPHIRE, ArmorItem.Type.CHESTPLATE, new Item.Settings()), "sapphire_chestplate"));
-		RebornRegistry.registerItem(TRContent.SAPPHIRE_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.SAPPHIRE, ArmorItem.Type.LEGGINGS, new Item.Settings()), "sapphire_leggings"));
-		RebornRegistry.registerItem(TRContent.SAPPHIRE_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.SAPPHIRE, ArmorItem.Type.BOOTS, new Item.Settings()), "sapphire_boots"));
+		RebornRegistry.registerItem(TRContent.SAPPHIRE_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.SAPPHIRE, ArmorItem.Type.HELMET, new Item.Settings().maxCount(1)), "sapphire_helmet"));
+		RebornRegistry.registerItem(TRContent.SAPPHIRE_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.SAPPHIRE, ArmorItem.Type.CHESTPLATE, new Item.Settings().maxCount(1)), "sapphire_chestplate"));
+		RebornRegistry.registerItem(TRContent.SAPPHIRE_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.SAPPHIRE, ArmorItem.Type.LEGGINGS, new Item.Settings().maxCount(1)), "sapphire_leggings"));
+		RebornRegistry.registerItem(TRContent.SAPPHIRE_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.SAPPHIRE, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1)), "sapphire_boots"));
 
 		RebornRegistry.registerItem(TRContent.PERIDOT_SWORD = InitUtils.setup(new TRSwordItem(TRToolTier.PERIDOT), "peridot_sword"));
 		RebornRegistry.registerItem(TRContent.PERIDOT_PICKAXE = InitUtils.setup(new TRPickaxeItem(TRToolTier.PERIDOT), "peridot_pickaxe"));
@@ -172,20 +172,20 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.PERIDOT_AXE = InitUtils.setup(new TRAxeItem(TRToolTier.PERIDOT), "peridot_axe"));
 		RebornRegistry.registerItem(TRContent.PERIDOT_HOE = InitUtils.setup(new TRHoeItem(TRToolTier.PERIDOT), "peridot_hoe"));
 
-		RebornRegistry.registerItem(TRContent.PERIDOT_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.PERIDOT, ArmorItem.Type.HELMET, new Item.Settings()), "peridot_helmet"));
-		RebornRegistry.registerItem(TRContent.PERIDOT_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.PERIDOT, ArmorItem.Type.CHESTPLATE, new Item.Settings()), "peridot_chestplate"));
-		RebornRegistry.registerItem(TRContent.PERIDOT_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.PERIDOT, ArmorItem.Type.LEGGINGS, new Item.Settings()), "peridot_leggings"));
-		RebornRegistry.registerItem(TRContent.PERIDOT_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.PERIDOT, ArmorItem.Type.BOOTS, new Item.Settings()), "peridot_boots"));
+		RebornRegistry.registerItem(TRContent.PERIDOT_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.PERIDOT, ArmorItem.Type.HELMET, new Item.Settings().maxCount(1)), "peridot_helmet"));
+		RebornRegistry.registerItem(TRContent.PERIDOT_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.PERIDOT, ArmorItem.Type.CHESTPLATE, new Item.Settings().maxCount(1)), "peridot_chestplate"));
+		RebornRegistry.registerItem(TRContent.PERIDOT_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.PERIDOT, ArmorItem.Type.LEGGINGS, new Item.Settings().maxCount(1)), "peridot_leggings"));
+		RebornRegistry.registerItem(TRContent.PERIDOT_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.PERIDOT, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1)), "peridot_boots"));
 
-		RebornRegistry.registerItem(TRContent.SILVER_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.SILVER, ArmorItem.Type.HELMET, new Item.Settings()), "silver_helmet"));
-		RebornRegistry.registerItem(TRContent.SILVER_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.SILVER, ArmorItem.Type.CHESTPLATE, new Item.Settings()), "silver_chestplate"));
-		RebornRegistry.registerItem(TRContent.SILVER_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.SILVER, ArmorItem.Type.LEGGINGS, new Item.Settings()), "silver_leggings"));
-		RebornRegistry.registerItem(TRContent.SILVER_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.SILVER, ArmorItem.Type.BOOTS, new Item.Settings()), "silver_boots"));
+		RebornRegistry.registerItem(TRContent.SILVER_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.SILVER, ArmorItem.Type.HELMET, new Item.Settings().maxCount(1)), "silver_helmet"));
+		RebornRegistry.registerItem(TRContent.SILVER_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.SILVER, ArmorItem.Type.CHESTPLATE, new Item.Settings().maxCount(1)), "silver_chestplate"));
+		RebornRegistry.registerItem(TRContent.SILVER_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.SILVER, ArmorItem.Type.LEGGINGS, new Item.Settings().maxCount(1)), "silver_leggings"));
+		RebornRegistry.registerItem(TRContent.SILVER_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.SILVER, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1)), "silver_boots"));
 
-		RebornRegistry.registerItem(TRContent.STEEL_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.STEEL, ArmorItem.Type.HELMET, new Item.Settings()), "steel_helmet"));
-		RebornRegistry.registerItem(TRContent.STEEL_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.STEEL, ArmorItem.Type.CHESTPLATE, new Item.Settings()), "steel_chestplate"));
-		RebornRegistry.registerItem(TRContent.STEEL_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.STEEL, ArmorItem.Type.LEGGINGS, new Item.Settings()), "steel_leggings"));
-		RebornRegistry.registerItem(TRContent.STEEL_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.STEEL, ArmorItem.Type.BOOTS, new Item.Settings()), "steel_boots"));
+		RebornRegistry.registerItem(TRContent.STEEL_HELMET = InitUtils.setup(new ArmorItem(TRArmorMaterials.STEEL, ArmorItem.Type.HELMET, new Item.Settings().maxCount(1)), "steel_helmet"));
+		RebornRegistry.registerItem(TRContent.STEEL_CHESTPLATE = InitUtils.setup(new ArmorItem(TRArmorMaterials.STEEL, ArmorItem.Type.CHESTPLATE, new Item.Settings().maxCount(1)), "steel_chestplate"));
+		RebornRegistry.registerItem(TRContent.STEEL_LEGGINGS = InitUtils.setup(new ArmorItem(TRArmorMaterials.STEEL, ArmorItem.Type.LEGGINGS, new Item.Settings().maxCount(1)), "steel_leggings"));
+		RebornRegistry.registerItem(TRContent.STEEL_BOOTS = InitUtils.setup(new ArmorItem(TRArmorMaterials.STEEL, ArmorItem.Type.BOOTS, new Item.Settings().maxCount(1)), "steel_boots"));
 
 		// Battery
 		RebornRegistry.registerItem(TRContent.RED_CELL_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.redCellBatteryMaxCharge, RcEnergyTier.LOW), "red_cell_battery"));
