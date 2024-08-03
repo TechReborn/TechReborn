@@ -81,7 +81,6 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	// ArmorBlockEntityTicker
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
-		World world = playerEntity.getWorld();
 		// Night Vision
 		if (Objects.requireNonNull(this.getSlotType()) == EquipmentSlot.HEAD) {
 			if (stack.getOrCreateNbt().getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
@@ -99,6 +98,8 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		ItemUtils.buildActiveTooltip(stack, tooltip);
+		if (this.type == Type.HELMET) {
+			ItemUtils.buildActiveTooltip(stack, tooltip);
+		}
 	}
 }

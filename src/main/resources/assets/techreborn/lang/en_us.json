@@ -860,8 +860,8 @@
   "_comment29": "Keybindings",
   "key.techreborn.category": "TechReborn Category",
   "key.techreborn.config": "Config",
-  "key.techreborn.suitNightVision": "Helmet - toggle night vision",
-  "key.techreborn.quantumSuitSprint": "Quantum suit - toggle sprint speed",
+  "key.techreborn.suitNightVision": "Nano/Quantum Suit Helmet - Toggle Night Vision",
+  "key.techreborn.quantumSuitSprint": "Quantum Suit Leggings - Toggle Sprint Speed",
 
   "_comment19": "JEI Integration",
   "techreborn.jei.recipe.start.cost": "Start: %s",
