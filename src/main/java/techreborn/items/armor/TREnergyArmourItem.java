@@ -38,7 +38,7 @@ public abstract class TREnergyArmourItem extends ArmorItem implements RcEnergyIt
 	private final RcEnergyTier energyTier;
 
 	public TREnergyArmourItem(RegistryEntry<ArmorMaterial> material, Type slot, long maxCharge, RcEnergyTier energyTier) {
-		super(material, slot, new Item.Settings());
+		super(material, slot, new Item.Settings().maxCount(1));
 		this.maxCharge = maxCharge;
 		this.energyTier = energyTier;
 	}
@@ -80,5 +80,4 @@ public abstract class TREnergyArmourItem extends ArmorItem implements RcEnergyIt
 	public RcEnergyTier getTier() {
 		return energyTier;
 	}
-
 }

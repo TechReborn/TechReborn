@@ -38,7 +38,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.world.World;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -137,6 +140,17 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		} else if (this.getSlotType() == EquipmentSlot.HEAD) {
 			playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 		}
+	}
+
+	@Override
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+		ItemStack thisStack = user.getStackInHand(hand);
+		EquipmentSlot slotType = this.getSlotType();
+		if (user.isSneaking() && (slotType == EquipmentSlot.HEAD || slotType == EquipmentSlot.LEGS)) {
+			TRItemUtils.switchActive(thisStack, 1, user);
+			return TypedActionResult.success(thisStack);
+		}
+		return super.use(world, user, hand);
 	}
 
 	@Override
