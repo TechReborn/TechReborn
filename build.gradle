@@ -274,7 +274,8 @@ publishMods {
 
     def options = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-        minecraftVersions.add("1.21")
+		minecraftVersions.add("1.21")
+        minecraftVersions.add("1.21.1")
 
         requires {
             slug = "fabric-api"
