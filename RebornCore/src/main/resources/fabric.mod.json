@@ -32,7 +32,7 @@
 		"fabric-api": ">=0.100.4",
 		"team_reborn_energy": ">=4.1.0",
 		"fabric-biome-api-v1": ">=3.0.0",
-		"minecraft": ">=1.21.0- <1.21.1-"
+		"minecraft": ">=1.21.0- <1.21.2-"
 	},
 	"authors": [
 		"Team Reborn",
