@@ -857,13 +857,13 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Extreme",
   "techreborn.message.info.block.techreborn.elevator": "Teleports player up or down to the next free elevator block",
 
-  "_comment29": "Keybindings",
+  "_comment19": "Keybindings",
   "key.techreborn.category": "TechReborn Category",
   "key.techreborn.config": "Config",
   "key.techreborn.suitNightVision": "Nano/Quantum Suit Helmet - Toggle Night Vision",
   "key.techreborn.quantumSuitSprint": "Quantum Suit Leggings - Toggle Sprint Speed",
 
-  "_comment19": "JEI Integration",
+  "_comment20": "JEI Integration",
   "techreborn.jei.recipe.start.cost": "Start: %s",
   "techreborn.jei.recipe.running.cost": "%s/t: %s",
   "techreborn.jei.recipe.processing.time.1": "Time: %s ticks",
@@ -884,14 +884,16 @@
   "techreborn.jei.category.generator.thermal": "Thermal Generator",
   "techreborn.jei.category.generator.plasma": "Plasma Generator",
 
-  "_comment20": "Death Messages",
+  "_comment21": "EMI Integration",
+
+  "_comment22": "Death Messages",
   "death.attack.electric_shock": "%s was electrocuted",
   "death.attack.electric_shock.player": "%s was electrocuted trying to outrun %s",
 
-  "_comment21": "Entities",
+  "_comment23": "Entities",
   "entity.nuke": "Nuke",
 
-  "_comment22": "Tooltips",
+  "_comment24": "Tooltips",
   "techreborn.tooltip.transferRate": "Transfer Rate",
   "techreborn.tooltip.tier": "Tier",
   "techreborn.tooltip.input_tier": "Input Tier",
@@ -925,7 +927,7 @@
   "techreborn.tooltip.ores.end" : "Can be found in the end",
   "techreborn.tooltip.unobtainable": "Unobtainable in Survival Mode",
 
-  "_comment23": "ManualUI",
+  "_comment25": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",
   "techreborn.manual.discord": "Our discord",
   "techreborn.manual.wikibtn": "Open",
@@ -933,7 +935,7 @@
   "techreborn.manual.refund": "I want a refund",
   "techreborn.manual.refundbtn": "Refund",
 
-  "_comment24": "Advancements",
+  "_comment26": "Advancements",
   "advancements.techreborn.root": "Tech Reborn",
   "advancements.techreborn.root.desc": "Acquire Tech Reborn ore",
   "advancements.techreborn.treetap": "Tapping Time",
@@ -1037,9 +1039,7 @@
   "advancements.techreborn.quantumtank": "Some Serious Tankage",
   "advancements.techreborn.quantumtank.desc": "Place a quantum tank down",
 
-
-
-  "_comment25": "REI Integration",
+  "_comment27": "REI Integration",
   "techreborn:alloy_smelter": "Alloy Smelter",
   "techreborn:assembling_machine": "Assembling Machine",
   "techreborn:blast_furnace": "Blast Furnace",
@@ -1067,7 +1067,7 @@
   "techreborn:thermal_generator": "Thermal Generator",
   "techreborn:plasma_generator": "Plasma Generator",
 
-  "_comment26": "Fluid buckets",
+  "_comment28": "Fluid buckets",
   "item.techreborn.beryllium_bucket": "Beryllium",
   "item.techreborn.calcium_bucket": "Calcium",
   "item.techreborn.calcium_carbonate_bucket": "Calcium Carbonate",
@@ -1104,7 +1104,7 @@
   "item.techreborn.wolframium_bucket": "Wolframium",
   "item.techreborn.biofuel_bucket": "Biofuel",
 
-  "_comment27": "Gui",
+  "_comment29": "Gui",
   "gui.techreborn.unit.wrenchtip": "Wrench unit to retain contents",
   "gui.techreborn.unit.in": "IN",
   "gui.techreborn.unit.out": "OUT",
@@ -1138,7 +1138,7 @@
   "gui.techreborn.pump.range": "Range (%s..%s):",
   "gui.techreborn.pump.exhausted": "Exhausted!",
 
-  "_comment28": "Villagers",
+  "_comment30": "Villagers",
   "entity.minecraft.villager.techreborn.metallurgist": "Metallurgist",
   "entity.minecraft.villager.metallurgist": "Metallurgist",
   "entity.minecraft.villager.techreborn.electrician": "Electrician",
