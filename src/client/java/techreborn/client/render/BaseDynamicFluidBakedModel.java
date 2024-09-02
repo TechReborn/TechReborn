@@ -33,6 +33,7 @@ import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.fabricmc.fabric.impl.client.indigo.renderer.helper.GeometryHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.BakedQuad;
@@ -54,7 +55,6 @@ import reborncore.common.util.Color;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBakedModel {
@@ -70,39 +70,52 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 		Fluid fluid = Fluids.EMPTY;
 		if (stack.getItem() instanceof ItemFluidInfo fluidInfo) {
 			fluid = fluidInfo.getFluid(stack);
-
 		}
+
 		BakedModelManager bakedModelManager = MinecraftClient.getInstance().getBakedModelManager();
 		bakedModelManager.getModel(getBaseModel()).emitItemQuads(stack, randomSupplier, context);
 		bakedModelManager.getModel(getBackgroundModel()).emitItemQuads(stack, randomSupplier, context);
 
-		if (fluid != Fluids.EMPTY) {
-			FluidRenderHandler fluidRenderHandler = Objects.requireNonNull(FluidRenderHandlerRegistry.INSTANCE.get(fluid));
-			BakedModel fluidModel = bakedModelManager.getModel(getFluidModel());
-			int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getBlockPos(), fluid.getDefaultState());
-			Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
-			int color = new Color((float) (fluidColor >> 16 & 255) / 255.0F, (float) (fluidColor >> 8 & 255) / 255.0F, (float) (fluidColor & 255) / 255.0F).getColor();
-
-			context.pushTransform(quad -> {
-				quad.nominalFace(GeometryHelper.lightFace(quad));
-				quad.spriteColor(0, color, color, color, color);
-				// Some modded fluids doesn't have sprites. Fix for #2429
-				if (fluidSprite == null) {
-					quad.spriteBake(0, RenderUtil.getSprite(Identifier.of("minecraft", "missingno")), MutableQuadView.BAKE_LOCK_UV);
-				}
-				else {
-					quad.spriteBake(0, fluidSprite, MutableQuadView.BAKE_LOCK_UV);
-				}
-
-				return true;
-			});
-			final QuadEmitter emitter = context.getEmitter();
-			fluidModel.getQuads(null, null, randomSupplier.get()).forEach(q -> {
-				emitter.fromVanilla(q.getVertexData(), 0, false);
-				emitter.emit();
-			});
-			context.popTransform();
+		if (fluid == Fluids.EMPTY) {
+			return;
 		}
+
+		FluidRenderHandler fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
+		if (fluidRenderHandler == null) {
+			// do nothing. Yet another broken fluid. Fix for #3290
+			return;
+		}
+
+		ClientPlayerEntity player = MinecraftClient.getInstance().player;
+		if (player == null){
+			return;
+		}
+
+		int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, player.getBlockPos(), fluid.getDefaultState());
+		Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
+		BakedModel fluidModel = bakedModelManager.getModel(getFluidModel());
+
+		int color = new Color((float) (fluidColor >> 16 & 255) / 255.0F, (float) (fluidColor >> 8 & 255) / 255.0F, (float) (fluidColor & 255) / 255.0F).getColor();
+
+		context.pushTransform(quad -> {
+			quad.nominalFace(GeometryHelper.lightFace(quad));
+			quad.color(color, color, color, color);
+			// Some modded fluids doesn't have sprites. Fix for #2429
+			if (fluidSprite == null) {
+				quad.spriteBake(RenderUtil.getSprite(Identifier.of("minecraft", "missingno")), MutableQuadView.BAKE_LOCK_UV);
+			}
+			else {
+				quad.spriteBake(fluidSprite, MutableQuadView.BAKE_LOCK_UV);
+			}
+
+			return true;
+		});
+		final QuadEmitter emitter = context.getEmitter();
+		fluidModel.getQuads(null, null, randomSupplier.get()).forEach(q -> {
+			emitter.fromVanilla(q.getVertexData(), 0);
+			emitter.emit();
+		});
+		context.popTransform();
 	}
 
 	@Override
