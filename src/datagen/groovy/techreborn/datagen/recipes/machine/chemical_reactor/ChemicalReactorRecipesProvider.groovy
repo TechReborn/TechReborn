@@ -409,7 +409,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerChemicalReactorRecipe {
 			power 30
-			time 4
+			time 400
 			ingredients stack(Items.GLOWSTONE_DUST, 4), Items.BROWN_MUSHROOM_BLOCK
 			outputs Items.SHROOMLIGHT
 			source("brown_mushroom")
