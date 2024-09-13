@@ -63,6 +63,7 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 				(Items.IRON_INGOT)                     : TRContent.Ingots.REFINED_IRON,
 				(TRContent.Plates.IRON.asTag())        : TRContent.Plates.REFINED_IRON,
 				(TRContent.Ores.SILVER.asTag())        : TRContent.Ingots.SILVER,
+				(TRContent.Ores.NICKEL.asTag())        : TRContent.Ingots.NICKEL,
 				(TRContent.RawMetals.SILVER.asTag())   : TRContent.Ingots.SILVER,
 				(TRContent.Ores.TIN.asTag())           : TRContent.Ingots.TIN,
 				(TRContent.RawMetals.TIN.asTag())      : TRContent.Ingots.TIN,

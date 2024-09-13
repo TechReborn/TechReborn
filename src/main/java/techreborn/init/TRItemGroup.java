@@ -406,7 +406,7 @@ public class TRItemGroup {
 	}
 
 	private static void addNaturalBlocks(FabricItemGroupEntries entries) {
-		entries.addBefore(Items.IRON_ORE, TRContent.Ores.TIN, TRContent.Ores.DEEPSLATE_TIN);
+		entries.addBefore(Items.IRON_ORE, TRContent.Ores.TIN, TRContent.Ores.NICKEL, TRContent.Ores.DEEPSLATE_TIN);
 		entries.addAfter(Items.DEEPSLATE_COPPER_ORE,
 			TRContent.Ores.LEAD, TRContent.Ores.DEEPSLATE_LEAD,
 			TRContent.Ores.SILVER, TRContent.Ores.DEEPSLATE_SILVER);

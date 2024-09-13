@@ -196,6 +196,12 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			ingredients stack(Items.DIAMOND)
 			outputs stack(TRContent.Dusts.DIAMOND)
 		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients stack(TRContent.Ores.NICKEL)
+			outputs stack(TRContent.Dusts.NICKEL, 2)
+		}
 	}
 
 	void generateTRIngots() {
