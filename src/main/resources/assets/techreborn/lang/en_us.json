@@ -135,8 +135,9 @@
   "block.techreborn.sphalerite_ore": "Sphalerite Ore",
   "block.techreborn.tin_ore": "Tin Ore",
   "block.techreborn.tungsten_ore": "Tungsten Ore",
+  "block.techreborn.nickel_ore": "Вольфрамовая руда",
 
-  "_comment2.2": "Ores",
+	"_comment2.2": "Ores",
   "block.techreborn.deepslate_bauxite_ore": "Deepslate Bauxite Ore",
   "block.techreborn.deepslate_cinnabar_ore": "Deepslate Cinnabar Ore",
   "block.techreborn.deepslate_copper_ore": "Deepslate Copper Ore",
