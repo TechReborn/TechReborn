@@ -118,6 +118,7 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider {
 		addOreDrop(TRContent.Ores.SPHALERITE, this::sphaleriteOreDrops)
 		addOreDrop(TRContent.Ores.PYRITE, block -> oreDrops(block, TRContent.Dusts.PYRITE.asItem()))
 		addOreDrop(TRContent.Ores.PERIDOT, block -> drops(block, TRContent.Gems.PERIDOT.asItem(), UniformLootNumberProvider.create(1.0F, 2.0F)))
+		addOreDrop(TRContent.Ores.NICKEL)
 	}
 
 	private void addOreDrop(TRContent.Ores ore) {

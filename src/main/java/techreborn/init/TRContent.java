@@ -478,6 +478,7 @@ public class TRContent {
 		SPHALERITE(OreDistribution.SPHALERITE),
 		TIN(OreDistribution.TIN),
 		TUNGSTEN(OreDistribution.TUNGSTEN, true),
+		NICKEL(OreDistribution.NICKEL),
 
 		DEEPSLATE_BAUXITE(BAUXITE),
 		DEEPSLATE_GALENA(GALENA),
@@ -490,7 +491,8 @@ public class TRContent {
 		DEEPSLATE_SILVER(SILVER),
 		DEEPSLATE_SODALITE(SODALITE),
 		DEEPSLATE_TIN(TIN),
-		DEEPSLATE_TUNGSTEN(TUNGSTEN);
+		DEEPSLATE_TUNGSTEN(TUNGSTEN),
+		DEEPSLATE_NICKEL(NICKEL);
 
 		public final String name;
 		public final Block block;
