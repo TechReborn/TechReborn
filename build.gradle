@@ -6,8 +6,8 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
-	id 'fabric-loom' version '1.7-SNAPSHOT'
-    id 'me.modmuss50.mod-publish-plugin' version '0.5.1'
+	id 'fabric-loom' version '1.8-SNAPSHOT'
+    id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
 }
 
 repositories {
