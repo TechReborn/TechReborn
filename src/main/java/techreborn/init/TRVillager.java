@@ -37,7 +37,7 @@ import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import reborncore.common.util.TradeUtils;
@@ -128,16 +128,16 @@ public class TRVillager {
 	}
 
 	public static void registerWanderingTraderTrades() {
-		List<TradeOffer> extraCommonTrades = new LinkedList<>();
-		List<TradeOffer> extraRareTrades = new LinkedList<>();
+		List<TradeOffers.Factory> extraCommonTrades = new LinkedList<>();
+		List<TradeOffers.Factory> extraRareTrades = new LinkedList<>();
 		// specify extra trades below here
 		extraCommonTrades.add(TradeUtils.createSell(TRContent.RUBBER_SAPLING, 5, 1, 8, 1));
 		// registration of the trades, no changes necessary for new trades
 		TradeOfferHelper.registerWanderingTraderOffers(1, allTradesList -> allTradesList.addAll(
-			extraCommonTrades.stream().map(TradeUtils::asFactory).toList()
+			extraCommonTrades
 		));
 		TradeOfferHelper.registerWanderingTraderOffers(2, allTradesList -> allTradesList.addAll(
-			extraRareTrades.stream().map(TradeUtils::asFactory).toList()
+			extraRareTrades
 		));
 	}
 

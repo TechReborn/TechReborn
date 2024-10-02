@@ -26,19 +26,9 @@ package reborncore.common.util;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
-import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Arrays;
 
 public final class TradeUtils {
 
@@ -58,43 +48,22 @@ public final class TradeUtils {
 
 	private TradeUtils() {/* No instantiation. */}
 
-	public static TradeOffer createSell(ItemConvertible item, int price, int count, int maxUses, int experience) {
-		return new TradeOffer(new TradedItem(Items.EMERALD, price), new ItemStack(item, count), maxUses, experience, 0.05F);
+	public static TradeOffers.Factory createSell(ItemConvertible item, int price, int count, int maxUses, int experience) {
+		return new TradeOffers.SellItemFactory(item.asItem(), price, count, maxUses, experience);
 	}
 
-	public static TradeOffer createBuy(ItemConvertible item, int price, int count, int maxUses, int experience) {
-		return new TradeOffer(new TradedItem(item, count), new ItemStack(Items.EMERALD, price), maxUses, experience, 0.05F);
+	public static TradeOffers.Factory createBuy(ItemConvertible item, int price, int count, int maxUses, int experience) {
+		return new TradeOffers.BuyItemFactory(item, count, maxUses, experience, price);
 	}
 
-	@Contract("null -> null; !null -> new")
-	public static TradeOffer copy(TradeOffer tradeOffer) {
-		if (tradeOffer == null)
-			return null;
-		return tradeOffer.copy();
-	}
-
-	public static TradeOffers.Factory asFactory(TradeOffer tradeOffer) {
-		return new TradeOffers.Factory() {
-			private final TradeOffer offer = copy(tradeOffer);
-
-			@Nullable
-			@Override
-			public TradeOffer create(Entity entity, Random random) {
-				return copy(offer);
-			}
-		};
-	}
-
-	public static void registerTradesForLevel(VillagerProfession profession, Level level, boolean replace, TradeOffer... tradeOffers) {
+	public static void registerTradesForLevel(VillagerProfession profession, Level level, boolean replace, TradeOffers.Factory... newLevelTrades) {
 		ExceptionUtils.requireNonNull(profession, "profession");
 		ExceptionUtils.requireNonNull(level, "level");
-		ExceptionUtils.requireNonNull(tradeOffers, "tradeOffers");
-		ExceptionUtils.requireNonNullEntries(tradeOffers, "tradeOffers");
+		ExceptionUtils.requireNonNull(newLevelTrades, "newLevelTrades");
+		ExceptionUtils.requireNonNullEntries(newLevelTrades, "newLevelTrades");
 
 		Int2ObjectMap<TradeOffers.Factory[]> allTrades = TradeOffers.PROFESSION_TO_LEVELED_TRADE.getOrDefault(profession, new Int2ObjectArrayMap<>(Level.SIZE));
 		TradeOffers.Factory[] oldLevelTrades = allTrades.getOrDefault(level.asInt(), new TradeOffers.Factory[0]);
-		TradeOffers.Factory[] newLevelTrades = new TradeOffers.Factory[tradeOffers.length];
-		newLevelTrades = Arrays.stream(tradeOffers).map(TradeUtils::asFactory).toList().toArray(newLevelTrades);
 		TradeOffers.Factory[] allLevelTrades;
 
 		if (replace)
