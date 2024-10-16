@@ -740,6 +740,16 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRContent.Ores.SILVER.asTag()), getCriterionConditions(TRContent.Ores.SILVER.asTag())
 		}
 		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.NICKEL.asTag()
+			outputs stack(TRContent.Dusts.NICKEL, 4)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "nickel_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.NICKEL.asTag()), getCriterionConditions(TRContent.Ores.SILVER.asTag())
+		}
+		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.SODALITE.asTag()
 			outputs stack(TRContent.Dusts.SODALITE, 12), stack(TRContent.Dusts.ALUMINUM, 3)
 			power orePower

@@ -765,6 +765,9 @@ public class TechRebornConfig {
 	@Config(config = "world", category = "generation", key = "enableTinOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, tin ores will generate in the world")
 	public static boolean enableTinOreGeneration = true;
 
+	@Config(config = "world", category = "generation", key = "enableNickelOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, nickel ores will generate in the world")
+	public static boolean enableNickelOreGeneration = true;
+
 	@Config(config = "world", category = "generation", key = "enableTungstenOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, tungsten ores will generate in the world")
 	public static boolean enableTungstenOreGeneration = true;
 
