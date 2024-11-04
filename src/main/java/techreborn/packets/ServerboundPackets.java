@@ -126,7 +126,7 @@ public class ServerboundPackets {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(JumpPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos());
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos().down());
 			if (legacyMachineBase instanceof ElevatorBlockEntity) {
 				((ElevatorBlockEntity) legacyMachineBase).teleportUp(context.player());
 			}
