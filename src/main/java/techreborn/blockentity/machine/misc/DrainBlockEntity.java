@@ -29,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -115,5 +116,17 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDro
 	@Override
 	public ItemStack getToolDrop(PlayerEntity p0) {
 		return TRContent.Machine.DRAIN.getStack();
+	}
+
+	@Override
+	public void writeNbt(NbtCompound tagCompound) {
+		super.writeNbt(tagCompound);
+		internalTank.write(tagCompound);
+	}
+
+	@Override
+	public void readNbt(NbtCompound tagCompound) {
+		super.readNbt(tagCompound);
+		internalTank.read(tagCompound);
 	}
 }
