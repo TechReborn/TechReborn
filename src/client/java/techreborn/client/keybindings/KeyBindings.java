@@ -34,9 +34,6 @@ import techreborn.packets.ServerboundPackets;
 public class KeyBindings {
 	// Actual keybindings are in TechRebornClient
 	public static final String CATEGORY = "key.techreborn.category";
-	public static final String CONFIG = "key.techreborn.config";
-
-	public static KeyBinding config = new KeyBinding(CONFIG, GLFW.GLFW_KEY_P, CATEGORY);
 
 	public static KeyBinding suitNightVision;
 	public static KeyBinding quantumSuitSprint;
