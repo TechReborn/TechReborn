@@ -26,7 +26,16 @@ package techreborn.blocks.storage.energy;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import reborncore.api.ToolManager;
+import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
 
@@ -37,8 +46,50 @@ public class LapotronicSUBlock extends EnergyStorageBlock {
 	}
 
 	@Override
+	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+		if (state.getBlock() == newState.getBlock()) {
+			return;
+		}
+		if (worldIn.getBlockEntity(pos) instanceof LapotronicSUBlockEntity blockEntity) {
+			blockEntity.disconnectNetwork();
+		}
+		super.onStateReplaced(state, worldIn, pos, newState, isMoving);
+	}
+
+	@Override
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new LapotronicSUBlockEntity(pos, state);
+	}
+
+	@Override
+	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
+		super.onPlaced(world, pos, state, player, itemstack);
+		if (!world.isClient && world.getBlockEntity(pos) instanceof LapotronicSUBlockEntity blockEntity) {
+			blockEntity.checkNeighbors();
+		}
+	}
+
+	// Block
+	@SuppressWarnings("deprecation")
+	@Override
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+
+		if (blockEntity == null) {
+			return ActionResult.FAIL;
+		}
+
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
+				if (!worldIn.isClient && blockEntity instanceof LapotronicSUBlockEntity target) {
+					target.disconnectNetwork();
+				}
+				return ActionResult.PASS;
+			}
+		}
+
+		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
 }

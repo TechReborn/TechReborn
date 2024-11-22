@@ -58,7 +58,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 			return;
 		}
 		if (worldIn.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
-			blockEntity.removeFromNetwork();
+			blockEntity.disconnectNeighbors();
 		}
 		super.onStateReplaced(state, worldIn, pos, newState, isMoving);
 	}
@@ -71,8 +71,8 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
 		super.onPlaced(world, pos, state, player, itemstack);
-		if (world.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
-			blockEntity.rebuildNetwork();
+		if (!world.isClient && world.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
+			blockEntity.connectNeighbors();
 		}
 	}
 
@@ -90,6 +90,9 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
+				if (!worldIn.isClient && blockEntity instanceof LSUStorageBlockEntity target) {
+					target.disconnectNeighbors();
+				}
 				return ActionResult.PASS;
 			}
 		}
