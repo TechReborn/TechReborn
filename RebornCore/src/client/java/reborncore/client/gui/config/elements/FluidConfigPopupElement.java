@@ -38,8 +38,8 @@ import reborncore.common.util.Color;
 public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 	ConfigFluidElement fluidElement;
 
-	public FluidConfigPopupElement(int x, int y, ConfigFluidElement fluidElement) {
-		super(x, y, GuiSprites.SLOT_CONFIG_POPUP);
+	public FluidConfigPopupElement(int x, int y, int height, ConfigFluidElement fluidElement) {
+		super(x, y, height, GuiSprites.SLOT_CONFIG_POPUP);
 		this.fluidElement = fluidElement;
 	}
 

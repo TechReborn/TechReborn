@@ -46,10 +46,11 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.MachineFacing;
 
 public abstract class AbstractConfigPopupElement extends ElementBase {
-	public boolean filter = false;
+	private final int height;
 
-	public AbstractConfigPopupElement(int x, int y, SpriteIdentifier sprite) {
+	public AbstractConfigPopupElement(int x, int y, int height, SpriteIdentifier sprite) {
 		super(x, y, sprite);
+		this.height = height;
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 			adjustX(gui, getX() - 8),
 			adjustY(gui, getY() - 7),
 			84,
-			105 + (filter ? 15 : 0)
+			height
 		);
 		drawContext.getMatrices().pop();
 

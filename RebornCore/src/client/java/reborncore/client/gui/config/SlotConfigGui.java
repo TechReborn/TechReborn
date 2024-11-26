@@ -41,6 +41,7 @@ import reborncore.client.gui.config.elements.ConfigSlotElement;
 import reborncore.client.gui.config.elements.SlotType;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.slot.BaseSlot;
 import reborncore.common.util.Color;
 
 import java.util.List;
@@ -84,7 +85,7 @@ public class SlotConfigGui extends GuiTab {
 
 			ConfigSlotElement slotElement = new ConfigSlotElement(
 				guiBase.getMachine().getOptionalInventory().get(),
-				slot.getIndex(),
+				(BaseSlot) slot,
 				SlotType.NORMAL,
 				slot.x - guiBase.getGuiLeft() + 50,
 				slot.y - guiBase.getGuiTop() - 25,

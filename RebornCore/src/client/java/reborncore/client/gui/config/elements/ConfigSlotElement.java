@@ -34,16 +34,15 @@ import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.screen.slot.BaseSlot;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class ConfigSlotElement extends ParentElement {
 	private final SlotType type;
 	private final Inventory inventory;
 	private final int id;
-	private final boolean filter;
+	private final int height;
 
 	public ConfigSlotElement(Inventory slotInventory,
-							int slotId,
+							BaseSlot slot,
 							SlotType type,
 							int x,
 							int y,
@@ -52,40 +51,33 @@ public class ConfigSlotElement extends ParentElement {
 		super(x, y, type.getButtonSprite());
 		this.type = type;
 		this.inventory = slotInventory;
-		this.id = slotId;
-		this.filter = gui.getMachine() instanceof SlotConfiguration.SlotFilter;
+		this.id = slot.getIndex();
 
 		SlotConfigPopupElement popupElement;
 
-		boolean inputEnabled = gui.builtScreenHandler.slots.stream()
-				.filter(Objects::nonNull)
-				.filter(slot -> slot.inventory == inventory)
-				.filter(slot -> slot instanceof BaseSlot)
-				.map(slot -> (BaseSlot) slot)
-				.filter(baseSlot -> baseSlot.getIndex() == slotId)
-				.allMatch(BaseSlot::canWorldBlockInsert);
+		boolean inputEnabled = slot.canWorldBlockInsert();
+		boolean filterEnabled = gui.getMachine() instanceof SlotConfiguration.SlotFilter slotFilter
+								&& Arrays.stream(slotFilter.getInputSlots()).anyMatch(value -> value == id);
+		this.height = 90 + (inputEnabled ? 15 : 0) + (filterEnabled ? 15 : 0);
 
-
-		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, inputEnabled));
+		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, height, inputEnabled));
 		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, closeConfig));
 
+		int checkboxY = y + 27;
 		if (inputEnabled) {
-			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), x - 26, y + 42,
-				checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(slotId).autoInput(),
+			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), x - 26, checkboxY += 15,
+				checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(id).autoInput(),
 				() -> popupElement.updateCheckBox("input", gui)));
 		}
 
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autooutput"), x - 26, y + 57,
-			checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(slotId).autoOutput(),
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autooutput"), x - 26, checkboxY += 15,
+			checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(id).autoOutput(),
 			() -> popupElement.updateCheckBox("output", gui)));
 
-		if (gui.getMachine() instanceof SlotConfiguration.SlotFilter slotFilter) {
-			if (Arrays.stream(slotFilter.getInputSlots()).anyMatch(value -> value == slotId)) {
-				elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.filter_input"), x - 26, y + 72,
-					checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(slotId).filter(),
-					() -> popupElement.updateCheckBox("filter", gui)));
-				popupElement.filter = true;
-			}
+		if (filterEnabled) {
+			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.filter_input"), x - 26, checkboxY + 15,
+				checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(id).filter(),
+				() -> popupElement.updateCheckBox("filter", gui)));
 		}
 	}
 
@@ -96,7 +88,7 @@ public class ConfigSlotElement extends ParentElement {
 
 	@Override
 	public int getHeight() {
-		return 105 + (filter ? 15 : 0);
+		return height;
 	}
 
 	@Override
