@@ -152,6 +152,7 @@ public class GuiBuilder {
 	 */
 	public void drawHologramButton(DrawContext drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (gui.isTabOpen()) return;
+		boolean hasTooltip = gui.isPointInRect(x, y, 20, 12, mouseX, mouseY);
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -161,7 +162,7 @@ public class GuiBuilder {
 		} else {
 			drawSprite(drawContext, GuiSprites.BUTTON_HOLOGRAM_DISABLED, x, y);
 		}
-		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
+		if (hasTooltip) {
 			List<Text> list = new ArrayList<>();
 			list.add(Text.translatable("reborncore.gui.tooltip.hologram"));
 			if (layer == GuiBase.Layer.FOREGROUND) {
