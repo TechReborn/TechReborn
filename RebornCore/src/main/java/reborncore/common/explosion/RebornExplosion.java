@@ -64,7 +64,8 @@ public class RebornExplosion extends ExplosionImpl {
 		return livingBase;
 	}
 
-	public void applyExplosion() {
+	@Override
+	public void explode() {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		for (int tx = -radius; tx < radius + 1; tx++) {
@@ -91,8 +92,7 @@ public class RebornExplosion extends ExplosionImpl {
 		return livingBase;
 	}
 
-	@Override
-	public List<BlockPos> getBlocksToDestroy() {
+	public List<BlockPos> getAffectedBlocks() {
 		List<BlockPos> poses = new ArrayList<>();
 		for (int tx = -radius; tx < radius + 1; tx++) {
 			for (int ty = -radius; ty < radius + 1; ty++) {

@@ -104,7 +104,7 @@ public class EntityNukePrimed extends TntEntity {
 		}
 		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), (ServerWorld)getWorld(), TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getOwner());
-		nukeExplosion.applyExplosion();
+		nukeExplosion.explode();
 	}
 
 	@Override
