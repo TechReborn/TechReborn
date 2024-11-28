@@ -31,7 +31,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -53,7 +53,7 @@ import java.util.function.ToIntFunction;
 
 public class LampBlock extends BaseBlockEntityProvider {
 
-	public static final DirectionProperty FACING = Properties.FACING;
+	public static final EnumProperty<Direction> FACING = Properties.FACING;
 	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
 	protected final VoxelShape[] shape;
 

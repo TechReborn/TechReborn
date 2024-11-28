@@ -31,7 +31,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockRotation;
@@ -54,7 +54,7 @@ import techreborn.init.TRBlockSettings;
  * Created by Rushmead
  */
 public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
-	public static final DirectionProperty FACING = Properties.FACING;
+	public static final EnumProperty<Direction> FACING = Properties.FACING;
 	public final String name;
 	public final IMachineGuiHandler gui;
 

@@ -38,7 +38,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -62,7 +62,7 @@ import techreborn.items.tool.basic.ElectricTreetapItem;
  */
 public class BlockRubberLog extends PillarBlock {
 
-	public static final DirectionProperty SAP_SIDE = Properties.HORIZONTAL_FACING;
+	public static final EnumProperty<Direction> SAP_SIDE = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty HAS_SAP = BooleanProperty.of("hassap");
 	public static final BooleanProperty SHOULD_SAP = BooleanProperty.of("shouldsap");
 

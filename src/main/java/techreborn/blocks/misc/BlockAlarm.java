@@ -33,7 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -56,7 +56,7 @@ import techreborn.init.TRBlockSettings;
 import java.util.List;
 
 public class BlockAlarm extends BaseBlockEntityProvider {
-	public static final DirectionProperty FACING = Properties.FACING;
+	public static final EnumProperty<Direction> FACING = Properties.FACING;
 	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
 	protected final VoxelShape[] shape;
 
