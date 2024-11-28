@@ -296,7 +296,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("solar_panel").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
-				.sync(PacketCodecs.BOOL, this::isGenerating, this::setIsGenerating)
+				.sync(PacketCodecs.BOOLEAN, this::isGenerating, this::setIsGenerating)
 				.addInventory().create(this, syncID);
 	}
 }

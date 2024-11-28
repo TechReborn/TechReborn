@@ -37,7 +37,7 @@ public record StorageUnitLockPayload(BlockPos pos, boolean locked) implements Cu
 	public static final CustomPayload.Id<StorageUnitLockPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "storage_unit_lock"));
 	public static final PacketCodec<RegistryByteBuf, StorageUnitLockPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, StorageUnitLockPayload::pos,
-		PacketCodecs.BOOL, StorageUnitLockPayload::locked,
+		PacketCodecs.BOOLEAN, StorageUnitLockPayload::locked,
 		StorageUnitLockPayload::new
 	);
 

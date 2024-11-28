@@ -37,7 +37,7 @@ public record AutoCraftingLockPayload(BlockPos pos, boolean locked) implements C
 	public static final CustomPayload.Id<AutoCraftingLockPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "auto_crafting_lock"));
 	public static final PacketCodec<RegistryByteBuf, AutoCraftingLockPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, AutoCraftingLockPayload::pos,
-		PacketCodecs.BOOL, AutoCraftingLockPayload::locked,
+		PacketCodecs.BOOLEAN, AutoCraftingLockPayload::locked,
 		AutoCraftingLockPayload::new
 	);
 

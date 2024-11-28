@@ -39,8 +39,8 @@ public record AESUConfigPayload (BlockPos pos, int buttonID, boolean shift, bool
 	public static final PacketCodec<RegistryByteBuf, AESUConfigPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, AESUConfigPayload::pos,
 		PacketCodecs.INTEGER, AESUConfigPayload::buttonID,
-		PacketCodecs.BOOL, AESUConfigPayload::shift,
-		PacketCodecs.BOOL, AESUConfigPayload::ctrl,
+		PacketCodecs.BOOLEAN, AESUConfigPayload::shift,
+		PacketCodecs.BOOLEAN, AESUConfigPayload::ctrl,
 		AESUConfigPayload::new
 	);
 
