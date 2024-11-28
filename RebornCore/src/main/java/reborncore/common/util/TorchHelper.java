@@ -43,7 +43,7 @@ public class TorchHelper {
 
 		for (int i = 0; i < player.getInventory().main.size(); i++) {
 			ItemStack torchStack = player.getInventory().getStack(i);
-			if (torchStack.isEmpty() || !torchStack.getTranslationKey().toLowerCase(Locale.ROOT).contains("torch")) {
+			if (torchStack.isEmpty() || !torchStack.getItem().getTranslationKey().toLowerCase(Locale.ROOT).contains("torch")) {
 				continue;
 			}
 			if (!(torchStack.getItem() instanceof BlockItem)) {
