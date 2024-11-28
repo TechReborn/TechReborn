@@ -24,9 +24,7 @@
 
 package reborncore.common.screen.slot;
 
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +50,7 @@ public class SpriteSlot extends FilteredSlot {
 
 	@Override
 	@Nullable
-	public Pair<Identifier, Identifier> getBackgroundSprite() {
-		return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, spriteName);
+	public Identifier getBackgroundSprite() {
+		return spriteName;
 	}
 }
