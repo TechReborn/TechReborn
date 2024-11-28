@@ -36,7 +36,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
@@ -84,7 +83,7 @@ public class FrequencyTransmitterItem extends Item {
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player,
+	public ActionResult use(World world, PlayerEntity player,
 											Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
@@ -101,7 +100,7 @@ public class FrequencyTransmitterItem extends Item {
 			}
 		}
 
-		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+		return ActionResult.SUCCESS;
 	}
 
 	@Override

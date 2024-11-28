@@ -30,7 +30,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.clientbound.OpenManualPayload;
@@ -42,11 +41,11 @@ public class ManualItem extends Item {
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
+	public ActionResult use(final World world, final PlayerEntity player, final Hand hand) {
 		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
 			NetworkManager.sendToPlayer(new OpenManualPayload(), serverPlayerEntity);
 		}
 
-		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
+		return ActionResult.SUCCESS;
 	}
 }

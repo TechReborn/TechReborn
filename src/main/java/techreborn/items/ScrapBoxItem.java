@@ -29,7 +29,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeUtils;
@@ -45,7 +44,7 @@ public class ScrapBoxItem extends Item {
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+	public ActionResult use(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getMainHandStack();
 		if (!world.isClient) {
 			List<RebornRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(world, ModRecipes.SCRAPBOX);
@@ -54,6 +53,6 @@ public class ScrapBoxItem extends Item {
 			WorldUtils.dropItem(out, world, player.getBlockPos());
 			stack.decrement(1);
 		}
-		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+		return ActionResult.SUCCESS;
 	}
 }
