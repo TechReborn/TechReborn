@@ -35,19 +35,44 @@ import reborncore.common.network.IdentifiedPacket;
 import reborncore.common.network.ServerBoundPackets;
 import reborncore.common.util.Color;
 
+import java.util.Arrays;
+
 public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 	ConfigFluidElement fluidElement;
 
 	public FluidConfigPopupElement(int x, int y, int height, ConfigFluidElement fluidElement) {
-		super(x, y, height, GuiSprites.SLOT_CONFIG_POPUP);
+		super(
+			x, y, height, GuiSprites.SLOT_CONFIG_POPUP,
+			Arrays.stream(FluidConfiguration.ExtractConfig.values()).map(Enum::name).toArray(String[]::new)
+		);
 		this.fluidElement = fluidElement;
 	}
 
 	@Override
-	protected void cycleConfig(Direction side, GuiBase<?> guiBase) {
-		FluidConfiguration.FluidConfig config = guiBase.getMachine().fluidConfiguration.getSideDetail(side);
+	public int getPencilColor(String pencil) {
+		return switch (pencil) {
+			case "INPUT" -> new Color(0, 0, 255, 128).getColor();
+			case "OUTPUT" -> new Color(255, 69, 0, 128).getColor();
+			case "ALL" -> new Color(52, 255, 30, 128).getColor();
+			default -> new Color(255, 0, 0, 128).getColor();
+		};
+	}
 
-		FluidConfiguration.ExtractConfig fluidIO = config.getIoConfig().getNext();
+	@Override
+	protected void cycleConfig(Direction side, GuiBase<?> guiBase) {
+		FluidConfiguration.ExtractConfig fluidIO;
+		if (pencil != null) {
+			fluidIO = switch (pencil) {
+				case "INPUT" -> FluidConfiguration.ExtractConfig.INPUT;
+				case "OUTPUT" -> FluidConfiguration.ExtractConfig.OUTPUT;
+				case "ALL" -> FluidConfiguration.ExtractConfig.ALL;
+				default -> FluidConfiguration.ExtractConfig.NONE;
+			};
+		} else {
+			FluidConfiguration.FluidConfig config = guiBase.getMachine().fluidConfiguration.getSideDetail(side);
+
+			fluidIO = config.getIoConfig().getNext();
+		}
 		FluidConfiguration.FluidConfig newConfig = new FluidConfiguration.FluidConfig(side, fluidIO);
 
 		IdentifiedPacket packetSave = ServerBoundPackets.createPacketFluidConfigSave(guiBase.be.getPos(), newConfig);

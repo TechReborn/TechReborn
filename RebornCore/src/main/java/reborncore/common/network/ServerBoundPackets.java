@@ -102,6 +102,7 @@ public class ServerBoundPackets {
 			boolean input = packetBuffer.readBoolean();
 			boolean output = packetBuffer.readBoolean();
 			boolean filter = packetBuffer.readBoolean();
+			int priority = packetBuffer.readInt();
 
 			server.execute(() -> {
 				MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) player.getWorld().getBlockEntity(pos);
@@ -114,6 +115,7 @@ public class ServerBoundPackets {
 				holder.setInput(input);
 				holder.setOutput(output);
 				holder.setFilter(filter);
+				holder.setPriority(priority);
 
 				//Syncs back to the client
 				IdentifiedPacket packetSlotSync = ClientBoundPackets.createPacketSlotSync(pos, machineBase.getSlotConfiguration());
@@ -188,14 +190,19 @@ public class ServerBoundPackets {
 		});
 	}
 
-	public static IdentifiedPacket createPacketIOSave(BlockPos pos, int slotID, boolean input, boolean output, boolean filter) {
+	public static IdentifiedPacket createPacketIOSave(BlockPos pos, int slotID, boolean input, boolean output, boolean filter, int priority) {
 		return NetworkManager.createServerBoundPacket(new Identifier("reborncore", "io_save"), packetBuffer -> {
 			packetBuffer.writeBlockPos(pos);
 			packetBuffer.writeInt(slotID);
 			packetBuffer.writeBoolean(input);
 			packetBuffer.writeBoolean(output);
 			packetBuffer.writeBoolean(filter);
+			packetBuffer.writeInt(priority);
 		});
+	}
+
+	public static IdentifiedPacket createPacketIOSave(BlockPos pos, int slotID, SlotConfiguration.SlotConfigHolder config) {
+		return createPacketIOSave(pos, slotID, config.autoInput(), config.autoOutput(), config.filter(), config.getPriority());
 	}
 
 	public static IdentifiedPacket createPacketSlotSave(BlockPos pos, SlotConfiguration.SlotConfig slotConfig) {

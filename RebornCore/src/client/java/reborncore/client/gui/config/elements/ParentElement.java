@@ -57,4 +57,13 @@ public abstract class ParentElement extends ElementBase {
 
 		return super.onClick(gui, mouseX, mouseY);
 	}
+
+	public boolean mouseReleased(double mouseX, double mouseY, int state) {
+		for (ElementBase element : Lists.reverse(elements)) {
+			if (element.mouseReleased(mouseX, mouseY, state)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

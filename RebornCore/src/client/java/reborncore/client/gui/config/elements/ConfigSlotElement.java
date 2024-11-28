@@ -58,12 +58,12 @@ public class ConfigSlotElement extends ParentElement {
 		boolean inputEnabled = slot.canWorldBlockInsert();
 		boolean filterEnabled = gui.getMachine() instanceof SlotConfiguration.SlotFilter slotFilter
 								&& Arrays.stream(slotFilter.getInputSlots()).anyMatch(value -> value == id);
-		this.height = 90 + (inputEnabled ? 15 : 0) + (filterEnabled ? 15 : 0);
+		this.height = 107 + (inputEnabled ? 15 : 0) + (filterEnabled ? 15 : 0);
 
 		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, height, inputEnabled));
 		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, closeConfig));
 
-		int checkboxY = y + 27;
+		int checkboxY = y + 44;
 		if (inputEnabled) {
 			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), x - 26, checkboxY += 15,
 				checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(id).autoInput(),

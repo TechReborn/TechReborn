@@ -69,6 +69,10 @@ public class ElementBase {
 		return false;
 	}
 
+	public boolean mouseReleased(double mouseX, double mouseY, int state) {
+		return false;
+	}
+
 	public int adjustX(GuiBase<?> gui, int x) {
 		return gui.getGuiLeft() + x;
 	}

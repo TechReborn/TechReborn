@@ -41,10 +41,10 @@ public class ConfigFluidElement extends ParentElement {
 		elements.add(popupElement = new FluidConfigPopupElement(x - 22, y - 22, getHeight(), this));
 		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, gui::closeSelectedTab));
 
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 42,
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 59,
 			checkBoxElement -> gui.getMachine().fluidConfiguration.autoInput(),
 			() -> popupElement.updateCheckBox("input", gui)));
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pumpout"), x - 26, y + 57,
+		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pumpout"), x - 26, y + 74,
 			checkBoxElement -> gui.getMachine().fluidConfiguration.autoOutput(),
 			() -> popupElement.updateCheckBox("output", gui)));
 	}
@@ -56,7 +56,7 @@ public class ConfigFluidElement extends ParentElement {
 
 	@Override
 	public int getHeight() {
-		return 105;
+		return 122;
 	}
 
 	@Override

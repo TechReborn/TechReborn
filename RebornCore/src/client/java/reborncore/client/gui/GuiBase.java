@@ -257,6 +257,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int state) {
+		getTab().ifPresent(guiTab -> guiTab.mouseReleased(mouseX, mouseY, state));
 		int offset = 0;
 		if (!upgrades) {
 			offset = 80;

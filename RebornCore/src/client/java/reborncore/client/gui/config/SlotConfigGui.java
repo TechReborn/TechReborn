@@ -141,6 +141,13 @@ public class SlotConfigGui extends GuiTab {
 	}
 
 	@Override
+	public void mouseReleased(double mouseX, double mouseY, int state) {
+		if (selectedSlot != null) {
+			selectedSlot.mouseReleased(mouseX, mouseY, state);
+		}
+	}
+
+	@Override
 	public boolean keyPress(int keyCode, int scanCode, int modifiers) {
 		if (Screen.hasControlDown() && keyCode == GLFW.GLFW_KEY_C) {
 			copyToClipboard();
