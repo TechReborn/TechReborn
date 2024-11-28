@@ -24,6 +24,8 @@
 
 package reborncore.common.screen.builder;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ArmorItem;
@@ -106,7 +108,8 @@ public final class PlayerScreenHandlerBuilder {
 			this.parent.parent.slots.add(new SpriteSlot(this.parent.player, index, xStart, yStart, sprite, 1)
 					.setFilter(stack -> {
 						if (stack.getItem() instanceof ArmorItem) {
-							return ((ArmorItem) stack.getItem()).getSlotType() == slotType;
+							EquippableComponent equippableComponent = stack.get(DataComponentTypes.EQUIPPABLE);
+							return equippableComponent != null && equippableComponent.slot() == slotType;
 						}
 						return false;
 					}));
