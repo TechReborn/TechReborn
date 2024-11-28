@@ -32,6 +32,7 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -79,7 +80,7 @@ public abstract class RebornFluid extends FlowableFluid {
 	}
 
 	@Override
-	protected boolean isInfinite(World world) {
+	protected boolean isInfinite(ServerWorld world) {
 		return false;
 	}
 
