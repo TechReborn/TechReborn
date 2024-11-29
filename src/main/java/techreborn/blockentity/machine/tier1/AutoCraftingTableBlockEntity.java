@@ -257,8 +257,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private ItemStack getRemainderItem(ItemStack stack) {
-		if (stack.getItem().hasRecipeRemainder()) {
-			return new ItemStack(stack.getItem().getRecipeRemainder());
+		ItemStack remainderStack = stack.getItem().getRecipeRemainder();
+		if (!remainderStack.isEmpty()) {
+			return remainderStack;
 		}
 
 		return ItemStack.EMPTY;

@@ -166,8 +166,9 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 			if (burnTime > 0) {
 				// Fuel slot
 				ItemStack fuelStack = inventory.getStack(fuelSlot);
-				if (fuelStack.getItem().hasRecipeRemainder()) {
-					inventory.setStack(fuelSlot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
+				ItemStack remainderStack = fuelStack.getItem().getRecipeRemainder();
+				if (!remainderStack.isEmpty()) {
+					inventory.setStack(fuelSlot, remainderStack);
 				} else if (fuelStack.getCount() > 1) {
 					inventory.shrinkSlot(fuelSlot, 1);
 				} else if (fuelStack.getCount() == 1) {
