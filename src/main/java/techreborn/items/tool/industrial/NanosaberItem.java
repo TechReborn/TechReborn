@@ -73,12 +73,6 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 		return true;
 	}
 
-	// ToolItem
-	@Override
-	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-		return false;
-	}
-
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {

@@ -72,12 +72,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 			return true;
 		}
 
-	// ToolItem
-	@Override
-	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-		return false;
-	}
-
 	// Item
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {

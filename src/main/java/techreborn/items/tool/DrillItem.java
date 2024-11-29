@@ -50,12 +50,6 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 		this.poweredSpeed = poweredSpeed;
 	}
 
-	// ToolItem
-	@Override
-	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-		return false;
-	}
-
 	//Item
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {

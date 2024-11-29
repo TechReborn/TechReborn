@@ -3,6 +3,7 @@ Tests:
 - Nuke behavior
 - non isolated cable blocks
 - wrench behavior
+- check items can be repaired
 
 TODOs:
 - map colors of storage blocks

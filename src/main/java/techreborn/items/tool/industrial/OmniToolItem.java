@@ -81,12 +81,6 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 		return true;
 	}
 
-	// ToolItem
-	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
-		return false;
-	}
-
 	// Item
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {

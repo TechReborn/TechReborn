@@ -47,12 +47,6 @@ public abstract class TREnergyArmourItem extends ArmorItem implements RcEnergyIt
 		this.energyTier = energyTier;
 	}
 
-	// ArmorItem
-	@Override
-	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-		return false;
-	}
-
 	// Item
 	@Override
 	public int getItemBarStep(ItemStack stack) {
