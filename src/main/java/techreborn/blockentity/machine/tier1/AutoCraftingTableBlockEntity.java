@@ -38,6 +38,8 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -105,7 +107,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		layoutInv = currentInvLayout;
 
-		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, getRecipeInput(), world).map(RecipeEntry::value);
+		MinecraftServer server = world.getServer();
+		if (server == null) return null;
+		Optional<CraftingRecipe> testRecipe = server.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, getRecipeInput(), world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
 			return lastRecipe;

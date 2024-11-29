@@ -33,6 +33,7 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -85,7 +86,10 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			resetCrafter();
 			return;
 		}
-		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).map(RecipeEntry::value);
+		if (world == null) return;
+		MinecraftServer server = world.getServer();
+		if (server == null) return;
+		Optional<SmeltingRecipe> testRecipe = server.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).map(RecipeEntry::value);
 		if (!testRecipe.isPresent()) {
 			resetCrafter();
 			return;

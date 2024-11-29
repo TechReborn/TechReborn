@@ -36,6 +36,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
@@ -79,13 +80,17 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 	@Nullable
 	private RecipeEntry<SmeltingRecipe> refreshRecipe(ItemStack stack) {
+		if (world == null) return lastRecipe;
 		// Check the previous recipe to see if it still applies to the current inv, saves rechecking the whole recipe list
 		if (lastRecipe != null && lastRecipe.value().matches(new SingleStackRecipeInput(stack), world)) {
 			return lastRecipe;
 		} else {
+			MinecraftServer server = world.getServer();
+			if (server == null) return lastRecipe;
+
 			// If the previous recipe does not apply anymore, reset the progress
 			progress = 0;
-			RecipeEntry<SmeltingRecipe> matchingRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).orElse(null);
+			RecipeEntry<SmeltingRecipe> matchingRecipe = server.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).orElse(null);
 			if (matchingRecipe != null) {
 				lastRecipe = matchingRecipe;
 			}
@@ -114,7 +119,10 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	private float getExperienceFor() {
-		Optional<SmeltingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(inventory.getStack(0)), world).map(RecipeEntry::value);
+		if (world == null) return 0F;
+		MinecraftServer server = world.getServer();
+		if (server == null) return 0F;
+		Optional<SmeltingRecipe> recipe = server.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(inventory.getStack(0)), world).map(RecipeEntry::value);
 		return recipe.map(AbstractCookingRecipe::getExperience).orElse(0F);
 	}
 
