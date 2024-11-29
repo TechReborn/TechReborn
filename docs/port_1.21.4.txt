@@ -4,6 +4,7 @@ Tests:
 - non isolated cable blocks
 - wrench behavior
 - check items can be repaired
+- check items fuel time
 
 TODOs:
 - map colors of storage blocks
