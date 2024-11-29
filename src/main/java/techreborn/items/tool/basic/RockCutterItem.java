@@ -83,7 +83,7 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	@Override
 	public void onCraft(ItemStack stack, World world) {
 		if (!stack.hasEnchantments()) {
-			RegistryWrapper.Impl<Enchantment> registry = world.getRegistryManager().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+			RegistryWrapper.Impl<Enchantment> registry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
 			stack.addEnchantment(registry.getOrThrow(Enchantments.SILK_TOUCH), 1);
 		}
 
