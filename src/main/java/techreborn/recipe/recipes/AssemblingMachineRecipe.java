@@ -32,8 +32,11 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeDisplay;
 import reborncore.common.crafting.SizedIngredient;
 import techreborn.init.TRContent;
 
@@ -55,9 +58,10 @@ public record AssemblingMachineRecipe(RecipeType<? extends AssemblingMachineReci
 		(ingredients, outputs, power, time) -> new AssemblingMachineRecipe(type, ingredients, outputs, power, time)
 	);
 
-	// TODO
-//	@Override
-//	public ItemStack createIcon() {
-//		return new ItemStack(TRContent.Machine.ASSEMBLY_MACHINE);
-//	}
+	@Override
+	public List<RecipeDisplay> getDisplays() {
+		ItemStack stack = new ItemStack(TRContent.Machine.ASSEMBLY_MACHINE);
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
+	}
+
 }

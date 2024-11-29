@@ -11,5 +11,5 @@ Tests:
 
 TODOs:
 - map colors of storage blocks
-- figure out getDisplays for RebornRecipe and implementing classes
+- fix RebornRecipeDisplay unlockedItem
 - TREnergyArmourItem -> TREnergyArmorItem

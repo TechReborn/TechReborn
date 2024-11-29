@@ -33,7 +33,10 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.util.dynamic.Codecs;
+import reborncore.common.crafting.RebornRecipeDisplay;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
@@ -64,10 +67,11 @@ public record FusionReactorRecipe(RecipeType<? extends FusionReactorRecipe> type
 		(ingredients, outputs, power, time, startE, minSize) -> new FusionReactorRecipe(type, ingredients, outputs, power, time, startE, minSize)
 	);
 
-//	@Override
-//	public ItemStack createIcon() {
-//		return new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER);
-//	}
+	@Override
+	public List<RecipeDisplay> getDisplays() {
+		ItemStack stack = new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER);
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
+	}
 
 	public int getStartEnergy() {
 		return startE;

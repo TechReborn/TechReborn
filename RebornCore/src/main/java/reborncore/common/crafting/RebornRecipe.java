@@ -39,6 +39,8 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
@@ -79,19 +81,19 @@ public interface RebornRecipe extends Recipe<RebornRecipeInput> {
 	int power();
 	int time();
 
-	// TODO figure out getDisplays
-//	@Override
-//	default ItemStack createIcon() {
-//		Identifier typeId = Registries.RECIPE_TYPE.getId(type());
-//		Optional<Item> catalyst = Registries.ITEM.getOptionalValue(typeId);
-//
-//		if (catalyst.isPresent()) {
-//			return new ItemStack(catalyst.get());
-//		}
-//
-//		RebornCore.LOGGER.warn("Missing toast icon for {}!", typeId);
-//		return Recipe.super.createIcon();
-//	}
+	@Override
+	default List<RecipeDisplay> getDisplays() {
+		Identifier typeId = Registries.RECIPE_TYPE.getId(type());
+		Optional<Item> catalyst = Registries.ITEM.getOptionalValue(typeId);
+
+		if (catalyst.isPresent()) {
+			ItemStack stack = new ItemStack(catalyst.get());
+			return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
+		}
+
+		RebornCore.LOGGER.warn("Missing toast icon for {}!", typeId);
+		return Recipe.super.getDisplays();
+	}
 
 	@Override
 	default RecipeSerializer<? extends RebornRecipe> getSerializer() {

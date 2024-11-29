@@ -32,11 +32,14 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeDisplay;
 import reborncore.common.crafting.SizedIngredient;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
@@ -74,24 +77,28 @@ public record FluidGeneratorRecipe(RecipeType<? extends FluidGeneratorRecipe> ty
 		return 0;
 	}
 
-//	@Override
-//	public ItemStack createIcon() {
-//		final RecipeType<?> type =getType();
-//
-//		if (type == ModRecipes.THERMAL_GENERATOR) {
-//			return new ItemStack(TRContent.Machine.THERMAL_GENERATOR);
-//		} else if (type == ModRecipes.GAS_GENERATOR) {
-//			return new ItemStack(TRContent.Machine.GAS_TURBINE);
-//		} else if (type == ModRecipes.DIESEL_GENERATOR) {
-//			return new ItemStack(TRContent.Machine.DIESEL_GENERATOR);
-//		} else if (type == ModRecipes.SEMI_FLUID_GENERATOR) {
-//			return new ItemStack(TRContent.Machine.SEMI_FLUID_GENERATOR);
-//		} else if (type == ModRecipes.PLASMA_GENERATOR) {
-//			return new ItemStack(TRContent.Machine.PLASMA_GENERATOR);
-//		}
-//
-//		return RebornRecipe.super.createIcon();
-//	}
+	@Override
+	public List<RecipeDisplay> getDisplays() {
+		final RecipeType<?> type = getType();
+		ItemStack stack = null;
+
+		if (type == ModRecipes.THERMAL_GENERATOR) {
+			stack = new ItemStack(TRContent.Machine.THERMAL_GENERATOR);
+		} else if (type == ModRecipes.GAS_GENERATOR) {
+			stack = new ItemStack(TRContent.Machine.GAS_TURBINE);
+		} else if (type == ModRecipes.DIESEL_GENERATOR) {
+			stack = new ItemStack(TRContent.Machine.DIESEL_GENERATOR);
+		} else if (type == ModRecipes.SEMI_FLUID_GENERATOR) {
+			stack = new ItemStack(TRContent.Machine.SEMI_FLUID_GENERATOR);
+		} else if (type == ModRecipes.PLASMA_GENERATOR) {
+			stack = new ItemStack(TRContent.Machine.PLASMA_GENERATOR);
+		}
+		if (stack != null) {
+			return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
+		}
+
+		return RebornRecipe.super.getDisplays();
+	}
 
 	public Fluid getFluid() {
 		return fluid;
