@@ -31,6 +31,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -91,7 +92,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 		if (worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity) {
 			if (((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).craftingTickTime != 0
 					&& ((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).isMultiblockValid()) {
-				entityIn.damage(TRDamageTypes.create(worldIn, TRDamageTypes.FUSION), 200F);
+				entityIn.damage((ServerWorld) worldIn, TRDamageTypes.create(worldIn, TRDamageTypes.FUSION), 200F);
 			}
 		}
 	}
