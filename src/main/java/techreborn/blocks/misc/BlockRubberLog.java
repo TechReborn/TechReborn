@@ -116,7 +116,7 @@ public class BlockRubberLog extends PillarBlock {
 		if (state.get(HAS_SAP)) return;
 
 		if (random.nextInt(50) == 0) {
-			Direction facing = Direction.fromHorizontal(random.nextInt(4));
+			Direction facing = Direction.fromHorizontalQuarterTurns(random.nextInt(4));
 			if (worldIn.getBlockState(pos.offset(Direction.DOWN, 1)).getBlock() == this
 					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
@@ -133,7 +133,7 @@ public class BlockRubberLog extends PillarBlock {
 
 		if ((stack.getItem() instanceof ElectricTreetapItem item && item.getStoredEnergy(stack) > 20) || stack.getItem() instanceof TreeTapItem) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
-				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
+				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontalQuarterTurns(0)));
 				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F);
 				if (worldIn.isClient) {
 					return ActionResult.SUCCESS;

@@ -59,7 +59,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Item rendering
 		matrices.push();
 		Direction direction = storage.getFacing();
-		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((direction.getHorizontal() - 2) * 90F));
+		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((direction.getHorizontalQuarterTurns() - 2) * 90F));
 		matrices.scale(0.5F, 0.5F, 0.5F);
 		switch (direction) {
 			case NORTH, WEST -> matrices.translate(1, 1, 0);
