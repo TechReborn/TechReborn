@@ -24,13 +24,13 @@
 
 package reborncore.client;
 
+import com.mojang.blaze3d.systems.ProjectionType;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.systems.VertexSorter;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.gl.SimpleFramebuffer;
+import net.minecraft.client.gl.WindowFramebuffer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.RenderTickCounter;
@@ -68,19 +68,18 @@ public class ItemStackRenderer implements HudRenderCallback {
 		MinecraftClient client = MinecraftClient.getInstance();
 
 		Matrix4f matrix4f = new Matrix4f().setOrtho(0, 16, 16, 0, 1000, 3000);
-		RenderSystem.setProjectionMatrix(matrix4f, VertexSorter.BY_Z);
+		RenderSystem.setProjectionMatrix(matrix4f, ProjectionType.ORTHOGRAPHIC);
 		MatrixStack stack = new MatrixStack();
 		stack.push();
 		stack.loadIdentity();
 		stack.translate(0, 0, -2000);
 		DiffuseLighting.enableGuiDepthLighting();
-		RenderSystem.applyModelViewMatrix();
 
-		Framebuffer framebuffer = new SimpleFramebuffer(SIZE, SIZE, true, MinecraftClient.IS_SYSTEM_MAC);
+		Framebuffer framebuffer = new WindowFramebuffer(SIZE, SIZE);
 
 		try (NativeImage nativeImage = new NativeImage(SIZE, SIZE, true)) {
 			framebuffer.setClearColor(0, 0, 0, 0);
-			framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+			framebuffer.clear();
 
 			{
 				framebuffer.beginWrite(true);
@@ -108,6 +107,5 @@ public class ItemStackRenderer implements HudRenderCallback {
 
 		framebuffer.delete();
 		stack.pop();
-		RenderSystem.applyModelViewMatrix();
 	}
 }
