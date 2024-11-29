@@ -42,9 +42,9 @@ public class MixinGameRenderer {
 	@Final
 	private MinecraftClient client;
 
-	@Redirect(method = "updateFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getFovMultiplier()F"))
-	private float updateFovMultiplier(AbstractClientPlayerEntity playerEntity) {
-		float playerSpeed = playerEntity.getFovMultiplier();
+	@Redirect(method = "updateFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getFovMultiplier(ZF)F"))
+	private float updateFovMultiplier(AbstractClientPlayerEntity playerEntity, boolean firstPerson, float fovEffectScale) {
+		float playerSpeed = playerEntity.getFovMultiplier(firstPerson, fovEffectScale);
 		for (ItemStack stack : playerEntity.getArmorItems()) {
 			if (stack.getItem() instanceof ArmorFovHandler) {
 				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, client.player);
