@@ -83,10 +83,10 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	 * @return {@code int} Number of ticks
 	 */
 	private int getItemBurnTime(ItemStack stack) {
-		if (stack.isEmpty()) {
+		if (stack.isEmpty() || world == null) {
 			return 0;
 		}
-		return (int) (AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0) * TechRebornConfig.fuelScale);
+		return (int) (world.getFuelRegistry().getFuelTicks(stack) * TechRebornConfig.fuelScale);
 	}
 
 	/**
