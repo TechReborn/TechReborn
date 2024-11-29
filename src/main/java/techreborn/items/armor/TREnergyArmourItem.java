@@ -24,11 +24,15 @@
 
 package techreborn.items.armor;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.EquippableComponent;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentType;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -37,7 +41,7 @@ public abstract class TREnergyArmourItem extends ArmorItem implements RcEnergyIt
 	public final long maxCharge;
 	private final RcEnergyTier energyTier;
 
-	public TREnergyArmourItem(RegistryEntry<ArmorMaterial> material, Type slot, long maxCharge, RcEnergyTier energyTier) {
+	public TREnergyArmourItem(ArmorMaterial material, EquipmentType slot, long maxCharge, RcEnergyTier energyTier) {
 		super(material, slot, new Item.Settings().maxCount(1));
 		this.maxCharge = maxCharge;
 		this.energyTier = energyTier;
@@ -79,5 +83,11 @@ public abstract class TREnergyArmourItem extends ArmorItem implements RcEnergyIt
 	@Override
 	public RcEnergyTier getTier() {
 		return energyTier;
+	}
+
+	@Nullable
+	public EquipmentSlot getSlotType() {
+		EquippableComponent equippableComponent = this.getComponents().get(DataComponentTypes.EQUIPPABLE);
+		return equippableComponent != null ? equippableComponent.slot() : null;
 	}
 }

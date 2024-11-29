@@ -33,10 +33,10 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -59,7 +59,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	private static final EntityAttributeModifier DISABLED_KNOCKBACK_RESISTANCE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "quantum_knockback_resistance"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
 	private static final EntityAttributeModifier DISABLED_MOVEMENT_SPEED_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "quantum_movement_speed"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
 
-	public QuantumSuitItem(RegistryEntry<ArmorMaterial> material, Type slot) {
+	public QuantumSuitItem(ArmorMaterial material, EquipmentType slot) {
 		super(material, slot, TechRebornConfig.quantumSuitCapacity, RcEnergyTier.INSANE);
 	}
 
@@ -131,13 +131,14 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	// ArmorRemoveHandler
 	@Override
 	public void onRemoved(PlayerEntity playerEntity) {
-		if (this.getSlotType() == EquipmentSlot.CHEST && TechRebornConfig.quantumSuitEnableFlight) {
+		EquipmentSlot slotType = this.getSlotType();
+		if (slotType == EquipmentSlot.CHEST && TechRebornConfig.quantumSuitEnableFlight) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
 				playerEntity.getAbilities().allowFlying = false;
 				playerEntity.getAbilities().flying = false;
 				playerEntity.sendAbilitiesUpdate();
 			}
-		} else if (this.getSlotType() == EquipmentSlot.HEAD) {
+		} else if (slotType == EquipmentSlot.HEAD) {
 			playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 		}
 	}

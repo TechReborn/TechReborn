@@ -26,9 +26,9 @@ package techreborn.items.armor;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -36,8 +36,8 @@ import reborncore.common.util.ItemUtils;
 
 public class BatpackItem extends TREnergyArmourItem implements RcEnergyItem {
 
-	public BatpackItem(long maxCharge, RegistryEntry<ArmorMaterial> material, RcEnergyTier tier) {
-		super(material, Type.CHESTPLATE, maxCharge, tier);
+	public BatpackItem(long maxCharge, ArmorMaterial material, RcEnergyTier tier) {
+		super(material, EquipmentType.CHESTPLATE, maxCharge, tier);
 	}
 
 	// Item

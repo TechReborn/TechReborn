@@ -27,16 +27,17 @@ package techreborn.items.armor;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -55,7 +56,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	private static final EntityAttributeModifier POWERED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of(TechReborn.MOD_ID, "nano_suit_armor"), 14, EntityAttributeModifier.Operation.ADD_VALUE);
 	private static final EntityAttributeModifier DEPLETED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of(TechReborn.MOD_ID, "nano_suit_armor"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
 
-	public NanoSuitItem(RegistryEntry<ArmorMaterial> material, Type slot) {
+	public NanoSuitItem(ArmorMaterial material, EquipmentType slot) {
 		super(material, slot, TechRebornConfig.nanoSuitCapacity, RcEnergyTier.HIGH);
 	}
 
@@ -98,7 +99,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-		if (this.type == Type.HELMET) {
+		if (this.getSlotType() == EquipmentSlot.HEAD) {
 			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}
 	}
