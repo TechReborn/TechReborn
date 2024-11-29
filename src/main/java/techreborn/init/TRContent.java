@@ -27,17 +27,17 @@ package techreborn.init;
 import com.google.common.base.Preconditions;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.tag.convention.v2.TagUtil;
 import net.minecraft.block.*;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -1550,11 +1550,10 @@ public class TRContent {
 		}
 	}
 
-	public static final EntityType<EntityNukePrimed> ENTITY_NUKE = FabricEntityTypeBuilder.create()
-		.entityFactory((EntityType.EntityFactory<EntityNukePrimed>) EntityNukePrimed::new)
-		.dimensions(EntityDimensions.fixed(1f, 1f))
-		.trackRangeChunks(10)
-		.build();
+	public static final EntityType<EntityNukePrimed> ENTITY_NUKE = EntityType.Builder.create((EntityType.EntityFactory<EntityNukePrimed>) EntityNukePrimed::new, SpawnGroup.MISC)
+		.dimensions(1f, 1f)
+		.maxTrackingRange(10)
+		.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(TechReborn.MOD_ID, "nuke")));
 
 	static {
 		ModRegistry.register();
