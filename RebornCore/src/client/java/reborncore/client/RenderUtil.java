@@ -34,6 +34,6 @@ import net.minecraft.util.Identifier;
  */
 public class RenderUtil {
 	public static Sprite getSprite(Identifier identifier) {
-		return MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(identifier);
+		return MinecraftClient.getInstance().getGuiAtlasManager().getSprite(identifier);
 	}
 }
