@@ -10,6 +10,4 @@ Tests:
 TODOs:
 - map colors of storage blocks
 - figure out getDisplays for RebornRecipe and implementing classes
-- figure out setShaderColor replacement for GuiBuilder
-- figure out drawShapeOutline replacement for BlockOutlineRenderer
 - TREnergyArmourItem -> TREnergyArmorItem

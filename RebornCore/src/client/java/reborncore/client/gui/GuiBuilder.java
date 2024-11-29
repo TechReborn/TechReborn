@@ -381,7 +381,7 @@ public class GuiBuilder {
 
 			@Override
 			public void render(DrawContext drawContext, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
-				drawContext.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, tip, x, y, theme.subtitleColor().rgba());
+				drawContext.drawWrappedTextWithShadow(MinecraftClient.getInstance().textRenderer, tip, x, y, width, theme.subtitleColor().rgba());
 			}
 		}
 	}
@@ -634,21 +634,17 @@ public class GuiBuilder {
 		final int iconHeight = sprite.getContents().getHeight();
 		int offsetHeight = drawHeight;
 
-		// TODO find replacement
-		// drawContext.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
-
 		int iteration = 0;
 		while (offsetHeight != 0) {
 			final int curHeight = Math.min(offsetHeight, iconHeight);
 
-			drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight);
+			drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight, color);
 			offsetHeight -= curHeight;
 			iteration++;
 			if (iteration > 50) {
 				break;
 			}
 		}
-//		drawContext.setShaderColor(1, 1, 1, 1);
 	}
 
 	/**
