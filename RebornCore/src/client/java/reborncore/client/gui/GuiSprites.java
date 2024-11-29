@@ -94,7 +94,6 @@ public final class GuiSprites {
 			sprite,
 			x,
 			y,
-			0,
 			sprite.getContents().getWidth(),
 			sprite.getContents().getHeight()
 		);
