@@ -804,7 +804,7 @@ public class TRItemGroup {
 	}
 
 	private static void addRockCutter(FabricItemGroupEntries entries, ItemConvertible before, boolean includeUncharged) {
-		RegistryWrapper.Impl<Enchantment> enchantmentRegistry = entries.getContext().lookup().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+		RegistryWrapper.Impl<Enchantment> enchantmentRegistry = entries.getContext().lookup().getOrThrow(RegistryKeys.ENCHANTMENT);
 		RockCutterItem rockCutter = (RockCutterItem) TRContent.ROCK_CUTTER;
 
 		ItemStack uncharged = new ItemStack(rockCutter);
