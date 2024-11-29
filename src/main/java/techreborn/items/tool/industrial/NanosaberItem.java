@@ -86,8 +86,8 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 
 		boolean isActive = stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE;
 		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-		attributes = attributes.with(EntityAttributes.GENERIC_ATTACK_DAMAGE, isActive ? ENABLED_ATTACK_DAMAGE_MODIFIER : DISABLED_ATTACK_DAMAGE_MODIFIER, AttributeModifierSlot.MAINHAND)
-			.with(EntityAttributes.GENERIC_ATTACK_SPEED, isActive ? ENABLED_ATTACK_SPEED_MODIFIER : DISABLED_ATTACK_SPEED_MODIFIER, AttributeModifierSlot.MAINHAND);
+		attributes = attributes.with(EntityAttributes.ATTACK_DAMAGE, isActive ? ENABLED_ATTACK_DAMAGE_MODIFIER : DISABLED_ATTACK_DAMAGE_MODIFIER, AttributeModifierSlot.MAINHAND)
+			.with(EntityAttributes.ATTACK_SPEED, isActive ? ENABLED_ATTACK_SPEED_MODIFIER : DISABLED_ATTACK_SPEED_MODIFIER, AttributeModifierSlot.MAINHAND);
 		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 

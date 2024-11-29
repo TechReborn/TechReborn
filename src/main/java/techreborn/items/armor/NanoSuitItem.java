@@ -76,7 +76,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 		}
 
 		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-		attributes = attributes.with(EntityAttributes.GENERIC_ARMOR, getStoredEnergy(stack) > 0 ? POWERED_ATTRIBUTE_MODIFIER : DEPLETED_ATTRIBUTE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(this.getSlotType()));
+		attributes = attributes.with(EntityAttributes.ARMOR, getStoredEnergy(stack) > 0 ? POWERED_ATTRIBUTE_MODIFIER : DEPLETED_ATTRIBUTE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(this.getSlotType()));
 		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 

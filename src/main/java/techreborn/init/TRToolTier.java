@@ -112,14 +112,14 @@ public enum TRToolTier implements ToolMaterial {
 	public AttributeModifiersComponent createAttributeModifiers(ToolType toolType) {
 		return AttributeModifiersComponent.builder()
 			.add(
-				EntityAttributes.GENERIC_ATTACK_DAMAGE,
+				EntityAttributes.ATTACK_DAMAGE,
 				new EntityAttributeModifier(
 					Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, toolType.baseAttackDamage + getAttackDamage(), EntityAttributeModifier.Operation.ADD_VALUE
 				),
 				AttributeModifierSlot.MAINHAND
 			)
 			.add(
-				EntityAttributes.GENERIC_ATTACK_SPEED,
+				EntityAttributes.ATTACK_SPEED,
 				new EntityAttributeModifier(Item.BASE_ATTACK_SPEED_MODIFIER_ID, toolType.attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE),
 				AttributeModifierSlot.MAINHAND
 			)
