@@ -43,10 +43,11 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.function.Function;
 
 public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity> {
 	private static final Set<Direction> ALL_DIRECTIONS = EnumSet.allOf(Direction.class);
-	private static final TurbineModel MODEL = new TurbineModel();
+	private static final TurbineModel MODEL = TurbineModel.create();
 	public static final Identifier TEXTURE = Identifier.of("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
 
 	public TurbineRenderer(BlockEntityRendererFactory.Context ctx) {
@@ -71,19 +72,16 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 		matrixStack.pop();
 	}
 
+
+
 	private static class TurbineModel extends Model {
-
-		private final ModelPart base;
-
-		public TurbineModel() {
-			super(RenderLayer::getEntityCutoutNoCull);
-
+		private static TurbineModel create() {
 			ModelPart.Cuboid[] baseCuboids = {
 					new ModelPart.Cuboid(0, 0, -2.0F, -2.0F, -1.0F, 4F, 4F, 2F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS),
 					new ModelPart.Cuboid(0, 6, -1.0F, -1.0F, -2.0F, 2F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 			};
 
-			base = new ModelPart(Arrays.asList(baseCuboids), new HashMap<>() {
+			ModelPart base = new ModelPart(Arrays.asList(baseCuboids), new HashMap<>() {
 				{
 					ModelPart.Cuboid[] blade1Cuboids = {
 							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
@@ -111,21 +109,27 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 				}
 			});
 			base.setPivot(0.0F, 24.0F, 0.0F);
+
+			return new TurbineModel(base, RenderLayer::getEntityCutoutNoCull);
 		}
 
-		private void setRotation(ModelPart model, float x, float y, float z) {
+		private static void setRotation(ModelPart model, float x, float y, float z) {
 			model.pitch = x;
 			model.yaw = y;
 			model.roll = z;
 		}
 
+		public TurbineModel(ModelPart root, Function<Identifier, RenderLayer> layerFactory) {
+			super(root, layerFactory);
+		}
+
 		private void setSpin(float z) {
-			base.roll = z;
+			root.roll = z;
 		}
 
 		@Override
 		public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-			base.render(matrices, vertices, light, overlay);
+			root.render(matrices, vertices, light, overlay);
 		}
 	}
 }
