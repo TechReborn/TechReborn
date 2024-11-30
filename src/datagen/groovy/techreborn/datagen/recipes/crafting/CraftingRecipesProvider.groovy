@@ -264,7 +264,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def offerMonoShapelessRecipe(def input, int inputSize, ItemConvertible output, int outputSize, String source, prefix = "", String result = null, RecipeCategory category = RecipeCategory.MISC) {
-		new ShapelessRecipeJsonBuilder(category, output, outputSize).input(createIngredient(input), inputSize)
+		ShapelessRecipeJsonBuilder.create(itemLookup, category, output, outputSize).input(createIngredient(input), inputSize)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 				.offerTo(this.exporter, Identifier.of(TechReborn.MOD_ID, recipeNameString(prefix, input, output, source, result)))
 	}
@@ -279,13 +279,13 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def createMonoShapeRecipe(def input, ItemConvertible output, char character, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
-		return new ShapedRecipeJsonBuilder(category, output, outputAmount)
+		return ShapedRecipeJsonBuilder.create(itemLookup, category, output, outputAmount)
 				.input(character, createIngredient(input))
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 	}
 
 	def createDuoShapeRecipe(def input1, def input2, ItemConvertible output, char char1, char char2, boolean crit1 = true, boolean crit2 = false, RecipeCategory category = RecipeCategory.MISC) {
-		ShapedRecipeJsonBuilder factory = ShapedRecipeJsonBuilder.create(category, output)
+		ShapedRecipeJsonBuilder factory = ShapedRecipeJsonBuilder.create(itemLookup, category, output)
 				.input(char1, createIngredient(input1))
 				.input(char2, createIngredient(input2))
 		if (crit1)
@@ -413,7 +413,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 
 	def createPureUuMatterPaddedRecipe(RecipeCategory category, ItemConvertible output) {
 		var input = TRContent.Parts.UU_MATTER
-		return PaddedShapedRecipeJsonBuilder.create(category, output, 1)
+		return PaddedShapedRecipeJsonBuilder.create(itemLookup, category, output, 1)
 			.input('U' as char, createIngredient(input))
 			.criterion(getCriterionName(input), getCriterionConditions(input))
 	}
