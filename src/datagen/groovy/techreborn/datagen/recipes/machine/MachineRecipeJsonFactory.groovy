@@ -32,8 +32,11 @@ import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.data.recipe.RecipeExporter
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
+import net.minecraft.recipe.Recipe
 import net.minecraft.recipe.RecipeType
 import net.minecraft.registry.Registries
+import net.minecraft.registry.RegistryKey
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlag
 import net.minecraft.util.Identifier
@@ -226,7 +229,8 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		provider.exportedRecipes.add(recipeId)
 
 		Identifier advancementId = Identifier.of(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
-		RecipeUtils.addToastDefaults(builder, recipeId)
+		RegistryKey<Recipe> key = RegistryKey.of(RegistryKeys.RECIPE, recipeId)
+		RecipeUtils.addToastDefaults(builder, key)
 
 		def recipe = createRecipe()
 
@@ -234,7 +238,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			FabricDataGenHelper.addConditions(recipe, conditions.toArray() as ResourceCondition[])
 		}
 
-		exporter.accept(recipeId, recipe, builder.build(advancementId))
+		exporter.accept(key, recipe, builder.build(advancementId))
 	}
 
 	def getIdentifier() {
