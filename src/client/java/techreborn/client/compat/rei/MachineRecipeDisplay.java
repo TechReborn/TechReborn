@@ -32,17 +32,14 @@ import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.CollectionUtils;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import me.shedaniel.rei.plugin.common.displays.anvil.DefaultAnvilDisplay;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeDisplay;
 import techreborn.recipe.recipes.BlastFurnaceRecipe;
 
 import java.util.List;
