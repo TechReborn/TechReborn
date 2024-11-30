@@ -28,7 +28,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.CraftingRecipe;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -44,10 +43,6 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	public GuiAutoCrafting(int syncID, PlayerEntity player, AutoCraftingTableBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntityAutoCraftingTable = blockEntity;
-	}
-
-	public void renderItemStack(DrawContext drawContext, ItemStack stack, int x, int y) {
-		drawContext.drawItem(stack, x, y);
 	}
 
 	@Override
@@ -72,9 +67,9 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 		drawOutputSlot(drawContext, 145, 42, layer);
 		drawOutputSlot(drawContext, 145, 70, layer);
 
-		CraftingRecipe recipe = blockEntityAutoCraftingTable.getCurrentRecipe();
-		if (recipe != null) {
-			renderItemStack(drawContext, recipe.getResult(getMachine().getWorld().getRegistryManager()), 95 + getGuiLeft(), 42 + getGuiTop());
+		ItemStack result = blockEntityAutoCraftingTable.getCurrentResult();
+		if (result != null) {
+			drawContext.drawItem(result, 95 + getGuiLeft(), 42 + getGuiTop());
 		}
 
 		builder.drawLockButton(drawContext, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);

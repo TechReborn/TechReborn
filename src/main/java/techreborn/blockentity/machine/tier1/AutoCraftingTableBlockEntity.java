@@ -99,10 +99,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Nullable
 	public CraftingRecipe getCurrentRecipe() {
 		if (world == null) return null;
+		return getCurrentRecipe(getRecipeInput());
+	}
+
+	@Nullable
+	public CraftingRecipe getCurrentRecipe(CraftingRecipeInput input) {
 		CraftingInventory craftingInventory = getCraftingInventory();
 		if (craftingInventory.isEmpty()) return null;
 
-		if (lastRecipe != null && lastRecipe.matches(getRecipeInput(), world)) return lastRecipe;
+		if (lastRecipe != null && lastRecipe.matches(input, world)) return lastRecipe;
 
 		Item[] currentInvLayout = getCraftingLayout(craftingInventory);
 		if (Arrays.equals(layoutInv, currentInvLayout)) return null;
@@ -111,13 +116,22 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		MinecraftServer server = world.getServer();
 		if (server == null) return null;
-		Optional<CraftingRecipe> testRecipe = server.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, getRecipeInput(), world).map(RecipeEntry::value);
+		Optional<CraftingRecipe> testRecipe = server.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, input, world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
 			return lastRecipe;
 		}
 
 		return null;
+	}
+
+	@Nullable
+	public ItemStack getCurrentResult() {
+		if (world == null) return null;
+		CraftingRecipeInput input = getRecipeInput();
+		CraftingRecipe recipe = getCurrentRecipe(input);
+		if (recipe == null) return null;
+		return recipe.craft(input, world.getRegistryManager());
 	}
 
 	private Item[] getCraftingLayout(CraftingInventory craftingInventory) {
