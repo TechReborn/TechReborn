@@ -39,6 +39,7 @@ import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.recipe.Ingredient
 import net.minecraft.recipe.RecipeType
 import net.minecraft.registry.Registries
+import net.minecraft.registry.RegistryEntryLookup
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.TagKey
@@ -65,6 +66,8 @@ import java.util.concurrent.CompletableFuture
 abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	protected RecipeExporter exporter
 	public Set<Identifier> exportedRecipes = []
+	public RegistryEntryLookup<Item> itemLookup
+	public RecipeGenerator generator
 
 	TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 		super(output, registriesFuture)
@@ -72,8 +75,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	@Override
 	protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup wrapperLookup, RecipeExporter recipeExporter) {
-		this.exporter = exporter
-		generateRecipes()
+		itemLookup = wrapperLookup.getOrThrow(RegistryKeys.ITEM)
+		exporter = recipeExporter
+		generator = new TechRebornRecipeGenerator(wrapperLookup, recipeExporter)
+		return generator
 	}
 
 	abstract void generateRecipes()
@@ -282,5 +287,16 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	@Override
 	String getName() {
 		return "Recipes / " + getClass().name
+	}
+
+	class TechRebornRecipeGenerator extends RecipeGenerator {
+		protected TechRebornRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
+			super(registries, exporter)
+		}
+
+		@Override
+		void generate() {
+			TechRebornRecipesProvider.this.generateRecipes()
+		}
 	}
 }
