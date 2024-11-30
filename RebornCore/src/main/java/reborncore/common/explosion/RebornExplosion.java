@@ -92,7 +92,8 @@ public class RebornExplosion extends ExplosionImpl {
 		return livingBase;
 	}
 
-	public List<BlockPos> getAffectedBlocks() {
+	@Override
+	public List<BlockPos> getBlocksToDestroy() {
 		List<BlockPos> poses = new ArrayList<>();
 		for (int tx = -radius; tx < radius + 1; tx++) {
 			for (int ty = -radius; ty < radius + 1; ty++) {
