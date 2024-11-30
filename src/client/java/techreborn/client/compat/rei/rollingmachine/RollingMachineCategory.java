@@ -51,7 +51,7 @@ public class RollingMachineCategory extends DefaultCraftingCategory {
 
 
 	@Override
-	public CategoryIdentifier<? extends DefaultCraftingDisplay<?>> getCategoryIdentifier() {
+	public CategoryIdentifier<? extends DefaultCraftingDisplay> getCategoryIdentifier() {
 		return CategoryIdentifier.of(id());
 	}
 
