@@ -29,7 +29,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import techreborn.TechReborn;
@@ -53,7 +53,7 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 	@Override
 	public Sprite getParticleSprite() {
 		return MinecraftClient.getInstance()
-				.getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE)
+				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)
 				.apply(Identifier.of("techreborn:item/cell_base"));
 	}
 
