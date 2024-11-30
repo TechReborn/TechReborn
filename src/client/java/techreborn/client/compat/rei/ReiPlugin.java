@@ -49,6 +49,7 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemConvertible;
@@ -292,10 +293,10 @@ public class ReiPlugin implements REIClientPlugin {
 			}
 
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10);
-				case LEFT -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-				case UP -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-				case DOWN -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j);
+				case RIGHT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		});
 	}
