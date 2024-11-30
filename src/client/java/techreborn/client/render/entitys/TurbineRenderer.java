@@ -61,7 +61,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 
 		matrixStack.push();
 		matrixStack.translate(0.5, 0, 0.5);
-		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-facing.rotateYCounterclockwise().asRotation() + 90));
+		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-facing.rotateYCounterclockwise().getPositiveHorizontalDegrees() + 90));
 		matrixStack.translate(0, -1, -0.56);
 
 		float spin = blockEntity.bladeAngle + tickDelta * blockEntity.spinSpeed;

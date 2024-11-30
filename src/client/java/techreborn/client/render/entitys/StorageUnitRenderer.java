@@ -78,7 +78,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Render item only on horizontal facing #2183
 		if (Direction.Type.HORIZONTAL.test(facing) ){
 			matrices.translate(0.5, 0.5, 0.5); // Translate center
-			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
+			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-facing.rotateYCounterclockwise().getPositiveHorizontalDegrees() + 90)); // Rotate depending on face
 			matrices.translate(0, 0, -0.505); // Translate forward
 		}
 
