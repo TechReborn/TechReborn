@@ -278,13 +278,13 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		return s.toString()
 	}
 
-	def static createMonoShapeRecipe(def input, ItemConvertible output, char character, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
+	def createMonoShapeRecipe(def input, ItemConvertible output, char character, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
 		return new ShapedRecipeJsonBuilder(category, output, outputAmount)
 				.input(character, createIngredient(input))
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 	}
 
-	def static createDuoShapeRecipe(def input1, def input2, ItemConvertible output, char char1, char char2, boolean crit1 = true, boolean crit2 = false, RecipeCategory category = RecipeCategory.MISC) {
+	def createDuoShapeRecipe(def input1, def input2, ItemConvertible output, char char1, char char2, boolean crit1 = true, boolean crit2 = false, RecipeCategory category = RecipeCategory.MISC) {
 		ShapedRecipeJsonBuilder factory = ShapedRecipeJsonBuilder.create(category, output)
 				.input(char1, createIngredient(input1))
 				.input(char2, createIngredient(input2))
@@ -295,7 +295,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		return factory
 	}
 
-	def static createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
+	def createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
 		return new StonecuttingRecipeJsonBuilder(category, StonecuttingRecipe.&new, createIngredient(input), output, outputAmount)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 	}
@@ -411,7 +411,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.offerTo(this.exporter, Identifier.of(TechReborn.MOD_ID, materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def static createPureUuMatterPaddedRecipe(RecipeCategory category, ItemConvertible output) {
+	def createPureUuMatterPaddedRecipe(RecipeCategory category, ItemConvertible output) {
 		var input = TRContent.Parts.UU_MATTER
 		return PaddedShapedRecipeJsonBuilder.create(category, output, 1)
 			.input('U' as char, createIngredient(input))

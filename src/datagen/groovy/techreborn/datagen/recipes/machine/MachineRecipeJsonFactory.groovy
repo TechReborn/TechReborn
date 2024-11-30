@@ -104,7 +104,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	}
 
 	def ingredient(@DelegatesTo(value = IngredientBuilder.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-		def builder = IngredientBuilder.create()
+		def builder = IngredientBuilder.create(provider.itemLookup)
 		closure.setDelegate(builder)
 		closure.call(builder)
 		ingredients.add(builder.build())

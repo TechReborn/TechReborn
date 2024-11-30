@@ -31,6 +31,7 @@ import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.recipe.Ingredient
 import net.minecraft.registry.Registries
+import net.minecraft.registry.RegistryEntryLookup
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import reborncore.common.crafting.SizedIngredient
@@ -38,22 +39,24 @@ import techreborn.component.TRDataComponentTypes
 import techreborn.init.TRContent
 
 class IngredientBuilder {
+	public RegistryEntryLookup<Item> itemLookup
 	private TagKey<Item> tag
 	private Integer tagCount = -1
 	private List<ItemStack> stacks = []
 
-	private IngredientBuilder() {
+	private IngredientBuilder(RegistryEntryLookup<Item> itemLookup) {
+		this.itemLookup = itemLookup;
 	}
 
-	static IngredientBuilder create() {
-		return new IngredientBuilder()
+	static IngredientBuilder create(RegistryEntryLookup<Item> itemLookup) {
+		return new IngredientBuilder(itemLookup)
 	}
 
 	SizedIngredient build() {
 		checkHasSingleInputType()
 
 		if (tag != null) {
-			return new SizedIngredient(tagCount == -1 ? 1 : tagCount, Ingredient.fromTag(tag))
+			return new SizedIngredient(tagCount == -1 ? 1 : tagCount, Ingredient.fromTag(itemLookup.getOrThrow(tag)))
 		}
 
 		if (!stacks.isEmpty()) {
