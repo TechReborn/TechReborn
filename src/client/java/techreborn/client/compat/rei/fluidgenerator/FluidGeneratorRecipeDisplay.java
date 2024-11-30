@@ -25,20 +25,48 @@
 package techreborn.client.compat.rei.fluidgenerator;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
 import techreborn.recipe.recipes.FluidGeneratorRecipe;
 
 import java.util.List;
+import java.util.Optional;
 
 public class FluidGeneratorRecipeDisplay implements Display {
+	public static final DisplaySerializer<FluidGeneratorRecipeDisplay> SERIALIZER = DisplaySerializer.of(
+		RecordCodecBuilder.mapCodec(instance -> instance.group(
+			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(FluidGeneratorRecipeDisplay::getInputEntries),
+			Codec.STRING.fieldOf("category").forGetter(d -> d.category.getIdentifier().toString()),
+			Codec.INT.fieldOf("totalEnergy").forGetter(FluidGeneratorRecipeDisplay::getTotalEnergy)
+		).apply(instance, FluidGeneratorRecipeDisplay::new)),
+		PacketCodec.tuple(
+			EntryIngredient.streamCodec().collect(PacketCodecs.toList()),
+			FluidGeneratorRecipeDisplay::getInputEntries,
+			PacketCodecs.STRING,
+			d -> d.category.getIdentifier().toString(),
+			PacketCodecs.INTEGER,
+			FluidGeneratorRecipeDisplay::getTotalEnergy,
+			FluidGeneratorRecipeDisplay::new
+		)
+	);
 
 	private final List<EntryIngredient> inputs;
 	private final CategoryIdentifier<?> category;
 	private final int totalEnergy;
+
+	public FluidGeneratorRecipeDisplay(List<EntryIngredient> inputs, String category, int totalEnergy) {
+		this.inputs = inputs;
+		this.category = CategoryIdentifier.of(category);
+		this.totalEnergy = totalEnergy;
+	}
 
 	public FluidGeneratorRecipeDisplay(FluidGeneratorRecipe recipe, Identifier category) {
 		this.category = CategoryIdentifier.of(category);
@@ -60,6 +88,16 @@ public class FluidGeneratorRecipeDisplay implements Display {
 	@Override
 	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return category;
+	}
+
+	@Override
+	public Optional<Identifier> getDisplayLocation() {
+		return Optional.empty();
+	}
+
+	@Override
+	public DisplaySerializer<? extends Display> getSerializer() {
+		return SERIALIZER;
 	}
 
 	public int getTotalEnergy() {
