@@ -370,20 +370,17 @@ public class ReiPlugin implements REIClientPlugin {
 				final int iconHeight = sprite.getContents().getHeight();
 				int offsetHeight = drawHeight;
 
-				drawContext.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
-
 				int iteration = 0;
 				while (offsetHeight != 0) {
 					final int curHeight = Math.min(offsetHeight, iconHeight);
 
-					drawContext.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
+					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight, color);
 					offsetHeight -= curHeight;
 					iteration++;
 					if (iteration > 50) {
 						break;
 					}
 				}
-				drawContext.setShaderColor(1, 1, 1, 1);
 			}
 
 			@Override
