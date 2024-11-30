@@ -99,7 +99,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	static String getCriterionName(def input) {
 		if (input instanceof ItemConvertible) {
-			return hasItem(input)
+			return RecipeGenerator.hasItem(input)
 		} else if (input instanceof TagKey) {
 			return "has_tag_" + input.id().toUnderscoreSeparatedString()
 		}
@@ -107,13 +107,13 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		throw new IllegalArgumentException()
 	}
 
-	static AdvancementCriterion<InventoryChangedCriterion.Conditions> getCriterionConditions(def input) {
+	AdvancementCriterion<InventoryChangedCriterion.Conditions> getCriterionConditions(def input) {
 		if (input instanceof ItemConvertible) {
-			return conditionsFromItem(input)
+			return generator.conditionsFromItem(input)
 		} else if (input instanceof TagKey) {
-			return conditionsFromTag(input)
+			return generator.conditionsFromTag(input)
 		} else if (input instanceof ItemPredicate)
-			return conditionsFromItemPredicates(input)
+			return RecipeGenerator.conditionsFromItemPredicates(input)
 
 		throw new IllegalArgumentException()
 	}
@@ -129,7 +129,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	static String getInputPath(def input) {
 		if (input instanceof ItemConvertible) {
-			return getItemPath(input)
+			return RecipeGenerator.getItemPath(input)
 		} else if (input instanceof TagKey) {
 			return input.id().toString().replace(":", "_")
 		}
@@ -139,7 +139,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	static String getName(def input) {
 		if (input instanceof ItemConvertible) {
-			return getItemPath(input)
+			return RecipeGenerator.getItemPath(input)
 		} else if (input instanceof TagKey) {
 			String name = input.id().toString()
 			if (name.contains(":"))
@@ -153,7 +153,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	static String getNamePart1(def input) {
 		String name
 		if (input instanceof ItemConvertible) {
-			name = getItemPath(input)
+			name = RecipeGenerator.getItemPath(input)
 			return name.substring(0,name.indexOf("_"))
 		} else if (input instanceof TagKey) {
 			name = input.id().toString()
