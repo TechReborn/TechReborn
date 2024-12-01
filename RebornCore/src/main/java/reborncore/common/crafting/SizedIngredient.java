@@ -33,7 +33,6 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
