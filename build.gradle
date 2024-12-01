@@ -57,6 +57,7 @@ allprojects {
     }
 
     processResources {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
         inputs.property "version", project.version
 
         filesMatching("fabric.mod.json") {
@@ -130,6 +131,10 @@ processResources {
             it.text = JsonOutput.toJson(modJson)
         }
     }
+}
+
+tasks.sourcesJar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 loom {
