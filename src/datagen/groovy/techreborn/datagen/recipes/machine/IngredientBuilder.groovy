@@ -32,6 +32,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.recipe.Ingredient
 import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryEntryLookup
+import net.minecraft.registry.entry.RegistryEntryList
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import reborncore.common.crafting.SizedIngredient
@@ -74,7 +75,7 @@ class IngredientBuilder {
 				components = builder.build()
 			}
 
-			Ingredient ingredient = Ingredient.ofStacks(stack)
+			Ingredient ingredient = Ingredient.fromTag(RegistryEntryList.of(stack.getRegistryEntry()))
 
 			if (!components.isEmpty()) {
 				ingredient = new ComponentsIngredient(ingredient, components).toVanilla()
