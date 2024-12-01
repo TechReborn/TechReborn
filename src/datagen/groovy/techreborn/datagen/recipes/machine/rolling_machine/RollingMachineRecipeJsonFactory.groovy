@@ -40,7 +40,7 @@ import techreborn.init.ModRecipes
 class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMachineRecipe> {
 	def _ = null
 
-	protected ShapedRecipeFactory shapedRecipeFactory = new ShapedRecipeFactory(3, 3)
+	protected ShapedRecipeFactory shapedRecipeFactory = new ShapedRecipeFactory(provider.generator, provider.itemLookup, 3, 3)
 
 	protected RollingMachineRecipeJsonFactory(TechRebornRecipesProvider provider) {
 		super(ModRecipes.ROLLING_MACHINE, provider)

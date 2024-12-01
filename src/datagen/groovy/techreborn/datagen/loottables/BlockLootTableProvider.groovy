@@ -137,7 +137,7 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider {
 	}
 
 	private LootTable.Builder cinnabarOreDrops(Block drop) {
-		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT)
 		return this.applyExplosionDecay(
 			drop,
 			LootTable.builder()
@@ -165,7 +165,7 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider {
 	}
 
 	private LootTable.Builder rubyOreDrops(Block drop) {
-		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT)
 		return this.applyExplosionDecay(
 			drop,
 			LootTable.builder()
@@ -193,7 +193,7 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider {
 	}
 
 	private LootTable.Builder sapphireOreDrops(Block drop) {
-		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT)
 		return this.applyExplosionDecay(
 			drop,
 			LootTable.builder()
@@ -221,7 +221,7 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider {
 	}
 
 	private LootTable.Builder sodaliteOreDrops(Block drop) {
-		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT)
 		return this.applyExplosionDecay(
 			drop,
 			LootTable.builder()
@@ -249,7 +249,7 @@ class BlockLootTableProvider extends FabricBlockLootTableProvider {
 	}
 
 	private LootTable.Builder sphaleriteOreDrops(Block drop) {
-		RegistryWrapper.Impl<Enchantment> enchantments = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT)
+		RegistryWrapper.Impl<Enchantment> enchantments = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT)
 		return this.applyExplosionDecay(
 			drop,
 			LootTable.builder()

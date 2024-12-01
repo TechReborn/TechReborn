@@ -118,9 +118,9 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		throw new IllegalArgumentException()
 	}
 
-	static ItemPredicate getCellItemPredicate(ModFluids fluid){
+	ItemPredicate getCellItemPredicate(ModFluids fluid){
 		return ItemPredicate.Builder.create()
-			.items(TRContent.CELL.asItem())
+			.items(itemLookup, TRContent.CELL.asItem())
 			.component(ComponentPredicate.builder()
 				.add(TRDataComponentTypes.FLUID, fluid.fluid.registryEntry)
 				.build())

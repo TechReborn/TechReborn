@@ -37,6 +37,8 @@ import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.predicate.item.ItemPredicate
+import net.minecraft.registry.RegistryEntryLookup
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
@@ -46,6 +48,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
 class TRAdvancementProvider extends FabricAdvancementProvider {
+	public RegistryEntryLookup<Item> itemLookup
 	private Consumer<AdvancementEntry> consumer
 
 	public TRAdvancementProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
@@ -54,6 +57,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 
 	@Override
 	void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
+		this.itemLookup = registryLookup.getOrThrow(RegistryKeys.ITEM)
 		this.consumer = consumer
 
 		def root = create {
@@ -470,8 +474,8 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		return InventoryChangedCriterion.Conditions.items(items)
 	}
 
-	private static AdvancementCriterion<InventoryChangedCriterion.Conditions> inventoryChanged(TagKey<Item> tag) {
-		return InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(tag))
+	private AdvancementCriterion<InventoryChangedCriterion.Conditions> inventoryChanged(TagKey<Item> tag) {
+		return InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(itemLookup, tag))
 	}
 
 	private AdvancementEntry create(@DelegatesTo(value = AdvancementFactory.class) Closure closure) {
