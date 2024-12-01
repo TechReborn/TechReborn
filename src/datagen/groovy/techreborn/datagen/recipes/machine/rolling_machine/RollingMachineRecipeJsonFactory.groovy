@@ -29,6 +29,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.recipe.RawShapedRecipe
 import net.minecraft.recipe.ShapedRecipe
 import net.minecraft.registry.Registries
+import net.minecraft.registry.RegistryKey
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.util.Identifier
 import techreborn.recipe.recipes.RollingMachineRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -73,7 +75,7 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 	@SuppressWarnings('GroovyAccessibility')
 	protected RollingMachineRecipe createRecipe() {
 		def builder = shapedRecipeFactory.build()
-		RawShapedRecipe rawShapedRecipe = builder.validate(Identifier.of("dummy"))
+		RawShapedRecipe rawShapedRecipe = builder.validate(RegistryKey.of(RegistryKeys.RECIPE, Identifier.of("dummy")))
 		ShapedRecipe shapedRecipe = new ShapedRecipe(
 			Objects.requireNonNullElse(builder.group, ""),
 			CraftingRecipeJsonBuilder.toCraftingCategory(builder.category),
