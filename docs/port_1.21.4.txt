@@ -14,3 +14,4 @@ TODOs:
 - map colors of storage blocks
 - fix RebornRecipeDisplay unlockedItem
 - TREnergyArmourItem -> TREnergyArmorItem
+- find a replacement for ItemTags.TRIM_TEMPLATES

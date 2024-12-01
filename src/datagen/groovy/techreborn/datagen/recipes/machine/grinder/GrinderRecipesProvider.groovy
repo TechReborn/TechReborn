@@ -220,12 +220,12 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	void generateTrimTemplates() {
-		offerGrinderRecipe {
-			power 5
-			time 200
-			ingredients ItemTags.TRIM_TEMPLATES
-			outputs stack(TRContent.SmallDusts.DIAMOND, 5)
-		}
+//		offerGrinderRecipe {
+//			power 5
+//			time 200
+//			ingredients ItemTags.TRIM_TEMPLATES
+//			outputs stack(TRContent.SmallDusts.DIAMOND, 5)
+//		}
 		offerGrinderRecipe {
 			power 5
 			time 200
