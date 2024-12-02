@@ -6,7 +6,7 @@
         "TST"
     ],
     "key": {
-        "B": "#c:steel_blocks",
+        "B": "#c:storage_blocks/steel",
         "S": "#c:ingots/steel",
         "T": "#c:ingots/tungsten"
     },

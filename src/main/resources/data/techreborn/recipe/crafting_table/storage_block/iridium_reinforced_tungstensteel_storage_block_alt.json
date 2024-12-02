@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "group": "iridium_reinforced_tungstensteel_storage_block",
     "ingredients": [
-        "#c:iridium_reinforced_stone_blocks",
+        "#c:storage_blocks/iridium_reinforced_stone",
         "techreborn:tungstensteel_ingot"
     ],
     "result": {

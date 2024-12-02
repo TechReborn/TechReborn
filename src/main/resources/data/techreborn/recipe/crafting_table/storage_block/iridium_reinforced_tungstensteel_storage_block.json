@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "group": "iridium_reinforced_tungstensteel_storage_block",
     "ingredients": [
-        "#c:tungstensteel_blocks",
+        "#c:storage_blocks/tungstensteel",
         "#c:plates/iridium"
     ],
     "result": {

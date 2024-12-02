@@ -11,7 +11,7 @@
 	  "conditions": {
 		"items": [
 		  {
-			"tag": "c:iridium_reinforced_stone_blocks"
+			"tag": "c:storage_blocks/iridium_reinforced_stone"
 		  }
 		]
 	  }

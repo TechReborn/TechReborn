@@ -263,6 +263,8 @@ public class TRContent {
 		public static final TagKey<Item> SAPPHIRE_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TagUtil.C_TAG_NAMESPACE, "sapphire_tool_materials"));
 		public static final TagKey<Item> PERIDOT_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TagUtil.C_TAG_NAMESPACE, "peridot_tool_materials"));
 
+		// Fix missing tags
+		public static final TagKey<Item> TRIM_TEMPLATES = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "trim_templates"));
 		private ItemTags() {
 		}
 	}

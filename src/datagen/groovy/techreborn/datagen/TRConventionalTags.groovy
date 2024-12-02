@@ -69,6 +69,7 @@ class TRConventionalTags {
 	public static final TagKey<Item> EMERALD_ORES = BlockTags.EMERALD_ORES
 	public static final TagKey<Item> EMERALD_PLATES = register("plates/emerald")
 	public static final TagKey<Item> ENDER_PEARL_DUSTS = register("dusts/ender_pearl")
+	public static final TagKey<Item> ENDSTONE_SMALL_DUSTS = register("dusts/endstone_small")
 	public static final TagKey<Item> FROGLIGHTS = register("froglights")
 	public static final TagKey<Item> GALENA_ORES = register("ores/galena")
 	public static final TagKey<Item> GLOWSTONE_SMALL_DUSTS = register("dusts/glowstone_small")
@@ -154,6 +155,11 @@ class TRConventionalTags {
 	public static final TagKey<Item> ZINC_BLOCKS = register("storage_blocks/zinc")
 	public static final TagKey<Item> ZINC_DUSTS = register("dusts/zinc")
 	public static final TagKey<Item> ZINC_INGOTS = register("ingots/zinc")
+
+	// Fix missing tags
+	public static final TagKey<Item> LIMESTORE = register("limestone")
+	public static final TagKey<Item> MARBLE = register("marble")
+	public static final TagKey<Item> SULFURS = register("sulfurs")
 
 	private static TagKey<Item> register(String name) {
 		return TagKey.of(RegistryKeys.ITEM, Identifier.of("c", name))

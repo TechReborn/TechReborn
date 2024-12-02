@@ -362,7 +362,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	void generateTrimTemplates() {
-		var trim = tag("minecraft:trim_templates")
+		var trim = TRContent.ItemTags.TRIM_TEMPLATES
 		offerIndustrialGrinderRecipe {
 			ingredients trim
 			outputs stack(TRContent.Dusts.DIAMOND, 2), stack(TRContent.SmallDusts.DIAMOND, 3)
