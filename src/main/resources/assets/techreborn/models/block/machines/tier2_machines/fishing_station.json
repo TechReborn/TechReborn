@@ -10,7 +10,14 @@
 		"6": "techreborn:block/machines/tier2_machines/fishing_station",
 		"7": "techreborn:block/machines/tier2_machines/fishing_station_net",
 		"8": "techreborn:block/machines/tier2_machines/fishing_station_net_side",
-		"particle": "techreborn:block/machines/tier2_machines/machine_top"
+		"particle": "techreborn:block/machines/tier2_machines/machine_top",
+		"top": "#0",
+		"east": "#1",
+		"west": "#2",
+		"bottom": "#4",
+		"south": "#5",
+		"north": "#6",
+		"missing": "minecraft:missingno"
 	},
 	"elements": [
 		{
