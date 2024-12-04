@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "techreborn:item/cell_base"
+    "layer0": "techreborn:item/cell_base",
+    "particle": "#layer0"
   }
 }

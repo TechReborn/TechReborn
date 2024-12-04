@@ -27,11 +27,10 @@ package techreborn;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.model.*;
+import net.minecraft.client.render.item.model.ItemModelTypes;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
@@ -49,6 +48,7 @@ import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
 import techreborn.client.events.StackToolTipHandler;
 import techreborn.client.keybindings.KeyBindings;
+import techreborn.client.render.*;
 import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
@@ -70,50 +70,8 @@ public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		ModelLoadingPlugin.register((pluginContext) -> {
-			/*
-			pluginContext.addModels(
-				DynamicCellBakedModel.CELL_BASE,
-				DynamicCellBakedModel.CELL_BACKGROUND,
-				DynamicCellBakedModel.CELL_FLUID,
-				DynamicCellBakedModel.CELL_GLASS,
-				DynamicBucketBakedModel.BUCKET_BASE,
-				DynamicBucketBakedModel.BUCKET_FLUID,
-				DynamicBucketBakedModel.BUCKET_BACKGROUND
-			);
-			*/
-
-			/*
-			pluginContext.resolveModel().register((context) -> {
-				final Identifier id = context.id();
-
-				if (!id.getNamespace().equals(TechReborn.MOD_ID) || !id.getPath().startsWith("item/")) {
-					return null;
-				}
-
-				String path = id.getPath().replace("item/", "");
-
-				if (path.equals("cell")) {
-					if (!RendererAccess.INSTANCE.hasRenderer()) {
-						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"techreborn:item/cell_background\"}}");
-					}
-
-					return new UnbakedDynamicModel(DynamicCellBakedModel::new);
-				}
-
-				Fluid fluid = Registries.FLUID.get(Identifier.of(TechReborn.MOD_ID, path.split("_bucket")[0]));
-				if (path.endsWith("_bucket") && fluid != Fluids.EMPTY) {
-					if (!RendererAccess.INSTANCE.hasRenderer()) {
-						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"minecraft:item/bucket\"}}");
-					}
-
-					return new UnbakedDynamicModel(DynamicBucketBakedModel::new);
-				}
-
-				return null;
-			});
-			*/
-		});
+		ItemModelTypes.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
+		ItemModelTypes.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
 
 		KeyBindings.registerKeys();
 
@@ -250,18 +208,4 @@ public class TechRebornClient implements ClientModInitializer {
 		}
 
 	}
-
-	/*
-	private record UnbakedDynamicModel(Supplier<BaseDynamicFluidBakedModel> supplier) implements UnbakedModel {
-		@Override
-		public BakedModel bake(ModelTextures textures, Baker baker, ModelBakeSettings settings, boolean ambientOcclusion, boolean isSideLit, ModelTransformation transformation) {
-			return supplier.get();
-		}
-
-		@Override
-		public void resolve(Resolver resolver) {
-
-		}
-	}
-	*/
 }

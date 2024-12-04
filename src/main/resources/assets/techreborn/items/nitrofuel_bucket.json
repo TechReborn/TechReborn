@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "techreborn:model/bucket",
+    "fluid": "techreborn:nitrofuel"
+  }
+}

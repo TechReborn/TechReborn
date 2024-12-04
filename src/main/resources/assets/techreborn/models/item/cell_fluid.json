@@ -1,6 +1,7 @@
 {
 	"parent": "techreborn:item/cell_fluid_template",
 	"textures": {
-		"texture": "techreborn:item/cell_background"
+		"texture": "techreborn:item/cell_background",
+		"particle": "#texture"
 	}
 }

@@ -24,13 +24,12 @@
 
 package techreborn.client.render;
 
-/*
-import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.model.BakedModelManager;
+import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.item.ItemStack;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import techreborn.TechReborn;
@@ -42,13 +41,17 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 	public static final Identifier CELL_BACKGROUND = Identifier.of(TechReborn.MOD_ID, "item/cell_background");
 	public static final Identifier CELL_FLUID = Identifier.of(TechReborn.MOD_ID, "item/cell_fluid");
 	public static final Identifier CELL_GLASS = Identifier.of(TechReborn.MOD_ID, "item/cell_glass");
+	private final BakedModel glassModel;
+
+	public DynamicCellBakedModel(BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel, BakedModel glassModel) {
+		super(Fluids.EMPTY, baseModel, fluidModel, backgroundModel);
+		this.glassModel = glassModel;
+	}
 
 	@Override
-	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-		super.emitItemQuads(stack, randomSupplier, context);
-
-		BakedModelManager bakedModelManager = MinecraftClient.getInstance().getBakedModelManager();
-		bakedModelManager.getModel(CELL_GLASS).emitItemQuads(stack, randomSupplier, context);
+	public void emitItemQuads(QuadEmitter emitter, Supplier<Random> randomSupplier) {
+		super.emitItemQuads(emitter, randomSupplier);
+		glassModel.emitItemQuads(emitter, randomSupplier);
 	}
 
 	@Override
@@ -57,20 +60,4 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)
 				.apply(Identifier.of("techreborn:item/cell_base"));
 	}
-
-	@Override
-	public Identifier getBaseModel() {
-		return CELL_BASE;
-	}
-
-	@Override
-	public Identifier getBackgroundModel() {
-		return CELL_BACKGROUND;
-	}
-
-	@Override
-	public Identifier getFluidModel() {
-		return CELL_FLUID;
-	}
 }
-*/
