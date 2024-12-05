@@ -41,6 +41,7 @@ import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.fluid.FluidUtils;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
@@ -95,8 +96,16 @@ public record FluidReplicatorRecipe(RecipeType<? extends FluidReplicatorRecipe> 
 	@Override
 	public boolean onCraft(BlockEntity be) {
 		FluidReplicatorBlockEntity blockEntity = (FluidReplicatorBlockEntity) be;
-		if (blockEntity.tank.canFit(fluid().fluid(), fluid().getAmount())) {
-			blockEntity.tank.setFluidInstance(fluid());
+		FluidInstance fluid = fluid();
+		if (blockEntity.tank.isEmpty()) {
+			blockEntity.tank.setFluidInstance(fluid);
+		} else if (blockEntity.tank.getFluid() == fluid.fluid()) {
+			FluidValue amount = fluid.getAmount();
+			if (blockEntity.tank.getFreeSpace().equalOrMoreThan(amount)) {
+				blockEntity.tank.modifyFluid(value -> value.addAmount(amount));
+			} else {
+				return false;
+			}
 		}
 		return true;
 	}
