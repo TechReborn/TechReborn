@@ -87,6 +87,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	CraftingInventory inventoryCrafting = null;
 	CraftingRecipe lastRecipe = null;
+	ItemStack outputPreview = ItemStack.EMPTY;
 
 	Item[] layoutInv = new Item[CRAFTING_AREA];
 
@@ -99,15 +100,17 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Nullable
 	public CraftingRecipe getCurrentRecipe() {
 		if (world == null) return null;
-		return getCurrentRecipe(getRecipeInput());
-	}
-
-	@Nullable
-	public CraftingRecipe getCurrentRecipe(CraftingRecipeInput input) {
 		CraftingInventory craftingInventory = getCraftingInventory();
 		if (craftingInventory.isEmpty()) return null;
 
-		if (lastRecipe != null && lastRecipe.matches(input, world)) return lastRecipe;
+		CraftingRecipeInput input = getRecipeInput();
+		if (lastRecipe != null && lastRecipe.matches(input, world)) {
+			if (outputPreview == ItemStack.EMPTY) {
+				layoutInv = getCraftingLayout(craftingInventory);
+				outputPreview = lastRecipe.craft(input, world.getRegistryManager());
+			}
+			return lastRecipe;
+		}
 
 		Item[] currentInvLayout = getCraftingLayout(craftingInventory);
 		if (Arrays.equals(layoutInv, currentInvLayout)) return null;
@@ -119,7 +122,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		Optional<CraftingRecipe> testRecipe = server.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, input, world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
+			outputPreview = lastRecipe.craft(input, server.getRegistryManager());
 			return lastRecipe;
+		} else {
+			outputPreview = ItemStack.EMPTY;
 		}
 
 		return null;
@@ -127,11 +133,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	@Nullable
 	public ItemStack getCurrentResult() {
-		if (world == null) return null;
-		CraftingRecipeInput input = getRecipeInput();
-		CraftingRecipe recipe = getCurrentRecipe(input);
-		if (recipe == null) return null;
-		return recipe.craft(input, world.getRegistryManager());
+		return outputPreview;
 	}
 
 	private Item[] getCraftingLayout(CraftingInventory craftingInventory) {
@@ -485,7 +487,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
 			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
 			.sync(PacketCodecs.INTEGER, this::getMaxProgress, this::setMaxProgress)
-			.sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+			.sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt)
+			.sync(ItemStack.OPTIONAL_PACKET_CODEC, this::getOutputPreview, this::setOutputPreview)
+			.addInventory().create(this, syncID);
 	}
 
 	public int getProgress() {
@@ -513,6 +517,14 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	public void setLockedInt(int lockedInt) {
 		locked = lockedInt == 1;
+	}
+
+	public ItemStack getOutputPreview() {
+		return outputPreview;
+	}
+
+	public void setOutputPreview(ItemStack stack) {
+		outputPreview = stack;
 	}
 
 	private CraftingRecipeInput getRecipeInput() {
