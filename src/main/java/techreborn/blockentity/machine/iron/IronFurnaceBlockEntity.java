@@ -60,6 +60,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	private boolean previousValid = false;
 	private ItemStack previousStack = ItemStack.EMPTY;
 	private RecipeEntry<SmeltingRecipe> lastRecipe = null;
+	private int recipeCookingTime = 200;
 
 	public IronFurnaceBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.IRON_FURNACE, pos, state, FUEL_SLOT, TRContent.Machine.IRON_FURNACE.block);
@@ -93,6 +94,10 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 			RecipeEntry<SmeltingRecipe> matchingRecipe = server.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).orElse(null);
 			if (matchingRecipe != null) {
 				lastRecipe = matchingRecipe;
+				recipeCookingTime = matchingRecipe.value().getCookingTime();
+			} else {
+				// default value for vanilla smelting recipes is 200
+				recipeCookingTime = 200;
 			}
 		}
 
@@ -176,21 +181,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 
 	@Override
 	protected int cookingTime() {
-		// default value for vanilla smelting recipes is 200
-		int cookingTime = 200;
-
-		RecipeEntry<SmeltingRecipe> recipe = refreshRecipe(inventory.getStack(INPUT_SLOT));
-
-		if (recipe != null) {
-			try {
-				cookingTime = recipe.value().getCookingTime();
-			} catch (ClassCastException ex) {
-				// Intentionally ignored
-				System.out.println("Not a smelting recipe!");
-			}
-		}
-
-		return (int) (cookingTime / TechRebornConfig.cookingScale);
+		return (int) (recipeCookingTime / TechRebornConfig.cookingScale);
 	}
 
 	@Override
@@ -224,6 +215,14 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		return new int[]{INPUT_SLOT};
 	}
 
+	public int getRecipeCookingTime() {
+		return recipeCookingTime;
+	}
+
+	public void setRecipeCookingTime(int recipeCookingTime) {
+		this.recipeCookingTime = recipeCookingTime;
+	}
+
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("ironfurnace").player(player.getInventory()).inventory().hotbar()
@@ -233,6 +232,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 				.sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
 				.sync(PacketCodecs.INTEGER, this::getTotalBurnTime, this::setTotalBurnTime)
 				.sync(PacketCodecs.FLOAT, this::getExperience, this::setExperience)
+				.sync(PacketCodecs.INTEGER, this::getRecipeCookingTime, this::setRecipeCookingTime)
 				.addInventory().create(this, syncID);
 	}
 }
