@@ -160,7 +160,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 			--burnTime;
 		}
 
-		if (!isBurning && canSmelt()) {
+		boolean canSmelt = canSmelt();
+		if (!isBurning && canSmelt) {
 			burnTime = totalBurnTime = getItemBurnTime(inventory.getStack(fuelSlot));
 			if (burnTime > 0) {
 				// Fuel slot
@@ -176,13 +177,13 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 			}
 		}
 
-		if (isBurning() && canSmelt()) {
+		if (isBurning() && canSmelt) {
 			++progress;
 			if (progress == cookingTime()) {
 				progress = 0;
 				smelt();
 			}
-		} else if (!canSmelt()) {
+		} else if (!canSmelt) {
 			progress = 0;
 		}
 
