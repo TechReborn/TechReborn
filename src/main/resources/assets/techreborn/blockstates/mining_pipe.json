@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"pipe_type=pipe": {"model": "techreborn:block/mining_pipe/pipe"},
+		"pipe_type=drill": {"model": "techreborn:block/mining_pipe/drill"}
+	}
+}

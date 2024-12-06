@@ -1,0 +1,11 @@
+{
+	"parent": "minecraft:block/orientable",
+	"textures": {
+		"top": "techreborn:block/machines/tier2_machines/machine_top",
+		"down": "techreborn:block/machines/tier2_machines/machine_bottom",
+		"east": "techreborn:block/machines/tier2_machines/machine_east",
+		"west": "techreborn:block/machines/tier2_machines/machine_west",
+		"front": "techreborn:block/machines/tier2_machines/miner_front_off",
+		"south": "techreborn:block/machines/tier2_machines/machine_back"
+	}
+}

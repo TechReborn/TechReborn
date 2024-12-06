@@ -85,6 +85,7 @@ import techreborn.blockentity.machine.tier1.SolidCanningMachineBlockEntity;
 import techreborn.blockentity.machine.tier1.WireMillBlockEntity;
 import techreborn.blockentity.machine.tier2.FishingStationBlockEntity;
 import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
+import techreborn.blockentity.machine.tier2.MinerBlockEntity;
 import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -151,6 +152,7 @@ public record GuiType<T extends BlockEntity>(Identifier identifier, ScreenHandle
 	public static final GuiType<ElevatorBlockEntity> ELEVATOR = register("elevator");
 	public static final GuiType<FishingStationBlockEntity> FISHING_STATION = register("fishing_station");
 	public static final GuiType<PumpBlockEntity> PUMP = register("pump");
+	public static final GuiType<MinerBlockEntity> MINER = register("miner");
 
 
 	private static <T extends BlockEntity> GuiType<T> register(String path) {

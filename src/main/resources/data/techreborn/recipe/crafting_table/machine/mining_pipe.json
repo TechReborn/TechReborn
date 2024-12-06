@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"P P",
+		"P P",
+		"PTP"
+	],
+	"key": {
+		"P": {
+			"item": "techreborn:refined_iron_plate"
+		},
+		"T": {
+			"item": "techreborn:treetap"
+		}
+	},
+	"result": {
+		"id": "techreborn:mining_pipe"
+	}
+}

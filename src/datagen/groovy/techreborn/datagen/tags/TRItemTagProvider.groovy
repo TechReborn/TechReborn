@@ -85,6 +85,14 @@ class TRItemTagProvider extends ItemTagProvider {
 		TRContent.StorageUnit.values().each {unit ->
 			getOrCreateTagBuilder(TRContent.ItemTags.STORAGE_UNITS).add(unit.asItem())
 		}
+		getOrCreateTagBuilder(TRContent.ItemTags.MINER_ACCEPTED_TOOLS)
+			.add(TRContent.BASIC_DRILL.asItem())
+			.add(TRContent.ADVANCED_DRILL.asItem())
+			.add(TRContent.INDUSTRIAL_DRILL.asItem())
+			.add(TRContent.BASIC_JACKHAMMER.asItem())
+			.add(TRContent.ADVANCED_JACKHAMMER.asItem())
+			.add(TRContent.INDUSTRIAL_JACKHAMMER.asItem())
+			.add(TRContent.ROCK_CUTTER.asItem())
 
 		getOrCreateTagBuilder(TRContent.ItemTags.RUBBER_LOGS)
 			.add(TRContent.RUBBER_LOG.asItem())

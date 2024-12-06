@@ -66,6 +66,7 @@ import techreborn.blockentity.machine.tier1.SolidCanningMachineBlockEntity;
 import techreborn.blockentity.machine.tier1.WireMillBlockEntity;
 import techreborn.blockentity.machine.tier2.FishingStationBlockEntity;
 import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
+import techreborn.blockentity.machine.tier2.MinerBlockEntity;
 import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -129,6 +130,7 @@ import techreborn.client.gui.GuiTankUnit;
 import techreborn.client.gui.GuiThermalGenerator;
 import techreborn.client.gui.GuiVacuumFreezer;
 import techreborn.client.gui.GuiWireMill;
+import techreborn.client.gui.GuiMiner;
 
 import java.util.Objects;
 
@@ -185,6 +187,7 @@ public record ClientGuiType<T extends BlockEntity>(GuiType<T> guiType, GuiFactor
 	public static final ClientGuiType<ElevatorBlockEntity> ELEVATOR = register(GuiType.ELEVATOR, GuiElevator::new);
 	public static final ClientGuiType<FishingStationBlockEntity> FISHING_STATION = register(GuiType.FISHING_STATION, GuiFishingStation::new);
 	public static final ClientGuiType<PumpBlockEntity> PUMP = register(GuiType.PUMP, GuiPump::new);
+	public static final ClientGuiType<MinerBlockEntity> MINER = register(GuiType.MINER, GuiMiner::new);
 
 	public static <T extends BlockEntity> ClientGuiType<T> register(GuiType<T> type, GuiFactory<T> factory) {
 		return new ClientGuiType<>(type, factory);

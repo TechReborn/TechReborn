@@ -68,6 +68,7 @@ import techreborn.blockentity.machine.tier0.block.BlockPlacerBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier2.FishingStationBlockEntity;
 import techreborn.blockentity.machine.tier2.LaunchpadBlockEntity;
+import techreborn.blockentity.machine.tier2.MinerBlockEntity;
 import techreborn.blockentity.machine.tier2.PumpBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -135,6 +136,8 @@ public class TRContent {
 	public static Block STRIPPED_RUBBER_WOOD;
 	public static Block POTTED_RUBBER_SAPLING;
 	public static Block COPPER_WALL;
+
+	public static Block MINING_PIPE;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -257,6 +260,7 @@ public class TRContent {
 		public static final TagKey<Item> NUGGETS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "nuggets"));
 		public static final TagKey<Item> PLATES = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "plates"));
 		public static final TagKey<Item> STORAGE_UNITS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "storage_units"));
+		public static final TagKey<Item> MINER_ACCEPTED_TOOLS = TagKey.of(RegistryKeys.ITEM, Identifier.of(TechReborn.MOD_ID, "miner/accepted_tools"));
 
 		private ItemTags() {
 		}
@@ -746,6 +750,7 @@ public class TRContent {
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
 		PUMP(new GenericMachineBlock(GuiType.PUMP, PumpBlockEntity::new)),
+		MINER(new GenericMachineBlock(GuiType.MINER, MinerBlockEntity::new)),
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(GuiType.CHARGEBENCH, ChargeOMatBlockEntity::new)),
 		INTERDIMENSIONAL_SU(new InterdimensionalSUBlock()),

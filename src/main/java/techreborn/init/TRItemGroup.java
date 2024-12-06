@@ -480,6 +480,7 @@ public class TRItemGroup {
 		entries.addAfter(Items.CAULDRON,
 			TRContent.Machine.DRAIN,
 			TRContent.Machine.PUMP,
+			TRContent.Machine.MINER,
 			TRContent.Machine.FLUID_REPLICATOR,
 			TRContent.Machine.FISHING_STATION);
 		entries.addAfter(Items.LODESTONE, TRContent.Machine.CHUNK_LOADER);

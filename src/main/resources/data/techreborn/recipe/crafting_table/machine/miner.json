@@ -1,0 +1,31 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CFC",
+		"BNP",
+		"INI"
+	],
+	"key": {
+		"I": {
+			"item": "c:plates/invar"
+		},
+		"B": {
+			"item": "techreborn:block_breaker"
+		},
+		"P": {
+			"item": "techreborn:block_placer"
+		},
+		"N": {
+			"item": "techreborn:advanced_alloy_ingot"
+		},
+		"F": {
+			"item": "techreborn:advanced_machine_frame"
+		},
+		"C": {
+			"item": "techreborn:advanced_circuit"
+		}
+	},
+	"result": {
+		"id": "techreborn:miner"
+	}
+}

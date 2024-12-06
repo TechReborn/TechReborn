@@ -3,6 +3,8 @@
   "itemGroup.techreborn.item_group": "Tech Reborn",
 
   "_comment": "Machines",
+  "block.techreborn.miner": "Miner",
+  "block.techreborn.mining_pipe": "Mining Pipe",
   "block.techreborn.pump": "Pump",
   "block.techreborn.gas_turbine": "Gas Turbine",
   "block.techreborn.thermal_generator": "Thermal Generator",
@@ -1137,6 +1139,17 @@
   "gui.techreborn.pump.depth": "Depth (%s..%s):",
   "gui.techreborn.pump.range": "Range (%s..%s):",
   "gui.techreborn.pump.exhausted": "Exhausted!",
+
+  "gui.techreborn.block.miner.no_energy": "No Energy!",
+  "gui.techreborn.block.miner.no_tool": "Missing Mining Tool!",
+  "gui.techreborn.block.miner.no_pipe": "Missing Pipe!",
+  "gui.techreborn.block.miner.ready": "Ready",
+  "gui.techreborn.block.miner.probing": "Probing",
+  "gui.techreborn.block.miner.drilling": "Drilling down",
+  "gui.techreborn.block.miner.prospecting": "Prospecting",
+  "gui.techreborn.block.miner.drilling_ore": "Drilling Ore",
+  "gui.techreborn.block.miner.retracting": "Retracting Pipe",
+  "gui.techreborn.block.miner.done": "Done",
 
   "_comment28": "Villagers",
   "entity.minecraft.villager.techreborn.metallurgist": "Metallurgist",
