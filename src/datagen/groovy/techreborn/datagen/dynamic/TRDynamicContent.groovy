@@ -24,6 +24,7 @@
 
 package techreborn.datagen.dynamic
 
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.entity.damage.DamageEffects
@@ -41,6 +42,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.math.intprovider.ConstantIntProvider
 import net.minecraft.world.Heightmap
+import net.minecraft.world.biome.BiomeKeys
 import net.minecraft.world.gen.YOffset
 import net.minecraft.world.gen.blockpredicate.BlockPredicate
 import net.minecraft.world.gen.feature.*
@@ -51,6 +53,7 @@ import net.minecraft.world.gen.placementmodifier.*
 import net.minecraft.world.gen.stateprovider.BlockStateProvider
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer
+import org.spongepowered.include.com.google.common.collect.ImmutableList
 import techreborn.blocks.misc.BlockRubberLog
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
@@ -69,7 +72,7 @@ class TRDynamicContent {
 	static void configuredFeatures(Registerable<ConfiguredFeature> registry) {
 		def placedFeatureLookup = registry.getRegistryLookup(RegistryKeys.PLACED_FEATURE)
 
-		WorldGenerator.ORE_FEATURES.forEach {
+		WorldGenerator.GetOreFeatures().forEach {
 			registry.register(it.configuredFeature(), createOreConfiguredFeature(it))
 		}
 
@@ -81,7 +84,7 @@ class TRDynamicContent {
 	static void placedFeatures(Registerable<PlacedFeature> registry) {
 		def configuredFeatureLookup = registry.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE)
 
-		WorldGenerator.ORE_FEATURES.forEach {
+		WorldGenerator.GetOreFeatures().forEach {
 			registry.register(it.placedFeature(), createOrePlacedFeature(configuredFeatureLookup, it))
 		}
 
@@ -94,11 +97,19 @@ class TRDynamicContent {
 	private static ConfiguredFeature createOreConfiguredFeature(TROreFeatureConfig config) {
 		def oreFeatureConfig = switch (config.ore().distribution.dimension) {
 			case TargetDimension.OVERWORLD -> createOverworldOreFeatureConfig(config)
-			case TargetDimension.NETHER -> createSimpleOreFeatureConfig(new BlockMatchRuleTest(Blocks.NETHERRACK), config)
+			case TargetDimension.NETHER -> createNetherOreFeatureConfig(config)
 			case TargetDimension.END -> createSimpleOreFeatureConfig(new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState()), config)
 		}
-
 		return new ConfiguredFeature<>(Feature.ORE, oreFeatureConfig)
+	}
+
+	private static OreFeatureConfig createNetherOreFeatureConfig(TROreFeatureConfig config) {
+		return new OreFeatureConfig(List.of(
+			// most likely this doesnt work, need more simple solution like last time
+			OreFeatureConfig.createTarget(new BlockMatchRuleTest(Blocks.NETHERRACK), config.ore().block.getDefaultState()),
+			OreFeatureConfig.createTarget(new BlockMatchRuleTest(Blocks.BASALT), config.ore().block.getDefaultState()),
+			OreFeatureConfig.createTarget(new TagMatchRuleTest(BlockTags.BASE_STONE_NETHER), config.ore().block.getDefaultState()),
+		), config.ore().distribution.veinSize);
 	}
 
 	private static OreFeatureConfig createOverworldOreFeatureConfig(TROreFeatureConfig config) {

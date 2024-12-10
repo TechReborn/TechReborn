@@ -34,18 +34,19 @@ import techreborn.init.TRContent;
 
 import java.util.function.Predicate;
 
-public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, RegistryKey<ConfiguredFeature<?, ?>> configuredFeature, RegistryKey<PlacedFeature> placedFeature) {
+public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, RegistryKey<ConfiguredFeature<?, ?>> configuredFeature, RegistryKey<PlacedFeature> placedFeature, boolean isOn) {
 	public static TROreFeatureConfig of(TRContent.Ores ore) {
 		Identifier id = Identifier.of("techreborn", ore.name + "_ore");
 		return new TROreFeatureConfig(
 			id,
 			ore,
 			RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, id),
-			RegistryKey.of(RegistryKeys.PLACED_FEATURE, id)
+			RegistryKey.of(RegistryKeys.PLACED_FEATURE, id),
+			ore.distribution.isGenerating().get()
 		);
 	}
 
 	public Predicate<BiomeSelectionContext> biomeSelector() {
-		return ore.distribution.dimension.biomeSelector;
+		return ore.distribution.GetBiomeSelector();
 	}
 }

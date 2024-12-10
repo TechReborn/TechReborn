@@ -83,6 +83,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	private long timeToPump;
 	private int range;
 	private int depth;
+	private boolean hadSuccessfulRun = true;
 
 	public PumpBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.PUMP, pos, state, "Pump", TechRebornConfig.pumpMaxInput, TechRebornConfig.pumpMaxEnergy, TRContent.Machine.PUMP.block, 0);
@@ -228,35 +229,51 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 					timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;
 				}
+				FluidState fluidState = blockState.getFluidState();
+				int fluidLevel = fluidState.getLevel();
+				// Calculate fluid amount based on level (level/8 of a bucket)
+				FluidValue fluidAmount = FluidValue.BUCKET.multiply(fluidLevel).fraction(8);
 				//fill tank
 				if (getTank().getFluidInstance().isEmpty()) {
-					getTank().setFluidInstance(new FluidInstance(fluid, FluidValue.BUCKET));
+					getTank().setFluidInstance(new FluidInstance(fluid, fluidAmount));
 				} else {
-					getTank().modifyFluid(fluidInstance -> fluidInstance.addAmount(FluidValue.BUCKET));
+					getTank().modifyFluid(fluidInstance -> fluidInstance.addAmount(fluidAmount));
 				}
 				//play sound
 				if (!isMuffled()) {
 					world.playSound(null, this.pos, getTank().getFluid().getBucketFillSound().orElse(SoundEvents.ITEM_BUCKET_FILL), SoundCategory.BLOCKS, 1.0f, 1.0f);
 				}
 				//consume energy
-				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier()));
+				double energyMultiplier = (double) fluidLevel / 8.0;
+				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier() * energyMultiplier));
 				//extract drops
 				DefaultedList<ItemStack> drops = getDrops(blockState);
 				if (!drops.isEmpty()) ItemScatterer.spawn(world, pumpedTargetBlockPos, drops);
 				//replace target with solid based on dimension
 				final Block replacementBlock;
-				final RegistryKey<World> worldRegistryKey = world.getRegistryKey();
-				if (worldRegistryKey == World.NETHER) replacementBlock = Blocks.BLACKSTONE;
-				else if (worldRegistryKey == World.END) replacementBlock = Blocks.END_STONE;
-				else replacementBlock = Blocks.COBBLESTONE;
+				if(TechRebornConfig.replacePumpedFluids) {
+					final RegistryKey<World> worldRegistryKey = world.getRegistryKey();
+					if (worldRegistryKey == World.NETHER) replacementBlock = Blocks.BLACKSTONE;
+					else if (worldRegistryKey == World.END) replacementBlock = Blocks.END_STONE;
+					else replacementBlock = Blocks.COBBLESTONE;
+				}
+				else
+				{
+					replacementBlock = Blocks.AIR;
+				}
 				world.setBlockState(pumpedTargetBlockPos, replacementBlock.getDefaultState());
 				pumpedTargetBlockPos = null;
+				hadSuccessfulRun = true;
 			}
 		} else if (!getTank().isFull()) {
 			//find next target
 			findNextToPump(world);
 			if (pumpedTargetBlockPos != null) {
 				timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+			} else if (hadSuccessfulRun) {
+				// do the second check in case we have finite fluids, to pump agian refilled blocsk.
+				hadSuccessfulRun = false;
+				reset();
 			} else {
 				//else - consider exhausted
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
@@ -288,9 +305,10 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	private Fluid getFluid(BlockState blockState) {
 		FluidState fluidState = blockState.getFluidState();
 		Fluid fluid = fluidState.getFluid();
-		if (fluidState.getLevel() == 8) return fluid;
-		else return Fluids.EMPTY;
-
+		if (!fluidState.isEmpty() && (fluidState.getLevel() > 0)) {
+			return fluid;
+		}
+		return Fluids.EMPTY;
 	}
 
 	@NotNull

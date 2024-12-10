@@ -309,6 +309,7 @@ class ScrapboxRecipesProvider extends TechRebornRecipesProvider {
 		"techreborn:sodalite_small_dust",
 		"techreborn:yellow_garnet_dust",
 		"techreborn:raw_tungsten",
+		"techreborn:raw_nickel",
 		"minecraft:dark_oak_leaves",
 		"minecraft:wheat",
 		"techreborn:pyrope_small_dust",

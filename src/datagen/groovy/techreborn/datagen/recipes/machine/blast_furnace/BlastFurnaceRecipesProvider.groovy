@@ -403,6 +403,13 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerBlastFurnaceRecipe {
 			power 128
+			time 100
+			heat 900
+			ingredients TRConventionalTags.RAW_NICKEL_ORES
+			outputs TRContent.Ingots.NICKEL
+		}
+		offerBlastFurnaceRecipe {
+			power 128
 			time 140
 			heat 1000
 			ingredients stack(Items.RAIL, 12), Items.SAND

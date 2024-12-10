@@ -24,53 +24,87 @@
 
 package techreborn.world;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.YOffset;
-import org.jetbrains.annotations.NotNull;
-import techreborn.config.TechRebornConfig;
 
 import java.util.Objects;
+import java.util.function.Supplier;
+
+import static techreborn.config.TechRebornConfig.*;
+import static techreborn.world.TargetDimension.*;
+
+import java.util.function.Predicate;
 
 public enum OreDistribution {
-	BAUXITE(6, 12, YOffset.aboveBottom(0), 20, TargetDimension.OVERWORLD, TechRebornConfig.enableBauxiteOreGeneration),
-	CINNABAR(6, 5, YOffset.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enableCinnabarOreGeneration),
-	GALENA(8, 12, YOffset.aboveBottom(25), 40, TargetDimension.OVERWORLD, TechRebornConfig.enableGalenaOreGeneration),
-	IRIDIUM(3, 4, YOffset.aboveBottom(0), 0, TargetDimension.OVERWORLD, TechRebornConfig.enableIridiumOreGeneration),
-	LEAD(6, 16, YOffset.aboveBottom(40), 40, TargetDimension.OVERWORLD, TechRebornConfig.enableLeadOreGeneration),
-	PERIDOT(6, 6, YOffset.aboveBottom(0), 360, TargetDimension.END, UniformIntProvider.create(2,6), TechRebornConfig.enablePeridotOreGeneration),
-	PYRITE(6, 6, YOffset.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enablePyriteOreGeneration),
-	RUBY(6, 8, YOffset.fixed(20), 120, TargetDimension.OVERWORLD, UniformIntProvider.create(2,6), TechRebornConfig.enableRubyOreGeneration),
-	SAPPHIRE(6, 7, YOffset.fixed(20), 120, TargetDimension.OVERWORLD, UniformIntProvider.create(2,6), TechRebornConfig.enableSapphireOreGeneration),
-	SHELDONITE(6, 4, YOffset.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableSheldoniteOreGeneration),
-	SILVER(6, 16, YOffset.aboveBottom(40), 60,TargetDimension.OVERWORLD, TechRebornConfig.enableSilverOreGeneration),
-	SODALITE(6, 4, YOffset.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableSodaliteOreGeneration),
-	SPHALERITE(6, 4, YOffset.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enableSphaleriteOreGeneration),
-	TIN(8, 16, YOffset.fixed(25), 80, TargetDimension.OVERWORLD, TechRebornConfig.enableTinOreGeneration),
-	TUNGSTEN(6, 3, YOffset.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableTungstenOreGeneration);
+	BAUXITE(6, 12, YOffset.aboveBottom(0), 20, OVERWORLD, () -> enableBauxiteOreGeneration),
+	CINNABAR(6, 5, YOffset.aboveBottom(0), 100, NETHER, () -> enableCinnabarOreGeneration),
+	GALENA(8, 12, YOffset.aboveBottom(25), 40, OVERWORLD, () -> enableGalenaOreGeneration),
+	IRIDIUM(3, 4, YOffset.aboveBottom(0), 0, OVERWORLD, () -> enableIridiumOreGeneration),
+	LEAD(6, 16, YOffset.aboveBottom(40), 40, OVERWORLD, () -> enableLeadOreGeneration),
+
+	PERIDOT_END(6, 6, YOffset.aboveBottom(0), 360, END, UniformIntProvider.create(2, 6), () -> (enablePeridotOreGeneration && enableOresInEnd)),
+	PERIDOT_NETHER(7, 4, YOffset.aboveBottom(3), 40, NETHER, UniformIntProvider.create(2, 6), () -> (enablePeridotOreGeneration && !enableOresInEnd)),
+
+	PYRITE(6, 6, YOffset.aboveBottom(80), 128, NETHER, () -> enablePyriteOreGeneration),
+	RUBY(6, 8, YOffset.fixed(20), 110, OVERWORLD, UniformIntProvider.create(2, 6), () -> enableRubyOreGeneration),
+	SAPPHIRE(6, 7, YOffset.fixed(40), 110, OVERWORLD, UniformIntProvider.create(2, 6), () -> enableSapphireOreGeneration),
+	SILVER(6, 16, YOffset.aboveBottom(40), 60, OVERWORLD, () -> enableSilverOreGeneration),
+
+	SPHALERITE(6, 4, YOffset.aboveBottom(40), 90, NETHER, () -> enableSphaleriteOreGeneration),
+	TIN(8, 16, YOffset.fixed(25), 80, OVERWORLD, () -> enableTinOreGeneration),
+
+	TUNGSTEN_END(6, 3, YOffset.aboveBottom(0), 360, END, () -> (enableTungstenOreGeneration && enableOresInEnd)),
+	TUNGSTEN_NETHER(4, 10, YOffset.aboveBottom(7), 50, NETHER, () -> (enableTungstenOreGeneration && !enableOresInEnd)), // why this is always false if ore gen is true and enableOresInEnd is false?
+
+	NICKEL(7, 10, YOffset.fixed(110), 200, OVERWORLD, () -> enableNickelOreGeneration),
+
+	SODALITE_END(6, 4, YOffset.aboveBottom(0), 360, END, () -> (enableSodaliteOreGeneration && enableOresInEnd)),
+	SODALITE_OVERWORLD(5, 7, YOffset.aboveBottom(5), -15, OVERWORLD, () -> (enableSodaliteOreGeneration && !enableOresInEnd)),
+
+	SHELDONITE_END(6, 4, YOffset.aboveBottom(0), 360, END, () -> (enableSheldoniteOreGeneration && enableOresInEnd)),
+	SHELDONITE_NETHER(4, 9, YOffset.belowTop(45), 300, NETHER, () -> (enableSheldoniteOreGeneration && !enableOresInEnd)),
+	DUMMY_NONE(4, 9, YOffset.belowTop(45), 300, OVERWORLD, () -> false);
+
+	static {
+		TUNGSTEN_NETHER.biomeSelector = BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS);
+		// next line wont work in nether because of block replacements. Do later.
+		// LEAD.biomeSelector = LEAD.dimension.biomeSelector.or(BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS));
+	}
 
 	public final int veinSize;
 	public final int veinsPerChunk;
 	public final YOffset minOffset;
 	public final int maxY; // Max height of ore in numbers of blocks from the bottom of the world
-	public @NotNull final UniformIntProvider experienceDropped;
+	public final UniformIntProvider experienceDropped;
 	public final TargetDimension dimension;
-	private final boolean generating;
+	private final Supplier<Boolean> generating;
+	private Predicate<BiomeSelectionContext> biomeSelector = null;
 
-	OreDistribution(int veinSize, int veinsPerChunk, YOffset minOffset, int maxY, TargetDimension dimension, UniformIntProvider experienceDropped, boolean generating) {
+	OreDistribution(int veinSize, int veinsPerChunk, YOffset minOffset, int maxY, TargetDimension dimension, UniformIntProvider experienceDropped, Supplier<Boolean> generating) {
 		this.veinSize = veinSize;
 		this.veinsPerChunk = veinsPerChunk;
 		this.minOffset = minOffset;
 		this.maxY = maxY;
-		this.experienceDropped = Objects.requireNonNullElse(experienceDropped, UniformIntProvider.create(0,0));
+		this.experienceDropped = Objects.requireNonNullElse(experienceDropped, UniformIntProvider.create(0, 0));
 		this.dimension = dimension;
 		this.generating = generating;
 	}
 
-	OreDistribution(int veinSize, int veinsPerChunk, YOffset minOffset, int maxY, TargetDimension dimension, boolean generating) {
+	OreDistribution(int veinSize, int veinsPerChunk, YOffset minOffset, int maxY, TargetDimension dimension, Supplier<Boolean> generating) {
 		this(veinSize, veinsPerChunk, minOffset, maxY, dimension, null, generating);
 	}
 
-	public boolean isGenerating() {
+	public Supplier<Boolean> isGenerating() {
 		return generating;
+	}
+
+	public Predicate<BiomeSelectionContext> GetBiomeSelector() {
+		if (biomeSelector == null)
+			return this.dimension.biomeSelector;
+		else
+			return biomeSelector;
 	}
 }

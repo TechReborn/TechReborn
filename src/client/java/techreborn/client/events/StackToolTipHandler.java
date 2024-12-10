@@ -50,7 +50,6 @@ import techreborn.init.TRContent;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.world.OreDepth;
-import techreborn.world.TargetDimension;
 
 import java.util.List;
 import java.util.Locale;
@@ -67,9 +66,11 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		for (TRContent.Ores ore : TRContent.Ores.values()) {
 			if (ore.isDeepslate()) {
 				TRContent.Ores normal = ore.getUnDeepslate();
-				if (normal.distribution != null && normal.distribution.dimension != TargetDimension.OVERWORLD)
+				if (normal.distribution != null && !normal.distribution.isGenerating().get())
 					UNOBTAINABLE_ORES.add(ore.block);
 			}
+			else if (!ore.distribution.isGenerating().get())
+				UNOBTAINABLE_ORES.add(ore.block);
 		}
 	}
 
@@ -137,8 +138,8 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 	private static Text getOreDepthText(OreDepth depth) {
 		return Text.translatable("techreborn.tooltip.ores.%s".formatted(depth.dimension().name().toLowerCase(Locale.ROOT)),
-				Text.literal(String.valueOf(depth.minY())).formatted(Formatting.YELLOW),
-				Text.literal(String.valueOf(depth.maxY())).formatted(Formatting.YELLOW)
+			Text.literal(String.valueOf(depth.minY())).formatted(Formatting.YELLOW),
+			Text.literal(String.valueOf(depth.maxY())).formatted(Formatting.YELLOW)
 		);
 	}
 }

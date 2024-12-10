@@ -63,11 +63,13 @@ import techreborn.datagen.tags.TRItemTagProvider
 import techreborn.datagen.tags.TRPointOfInterestTagProvider
 import techreborn.datagen.dynamic.TRDynamicContent
 import techreborn.datagen.dynamic.TRDynamicProvider
+import techreborn.world.WorldGenerator
 
 class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 	@Override
 	void onInitialize() {
 		Ae2.setup()
+
 	}
 
 	@Override
@@ -77,7 +79,7 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 		def add = { FabricDataGenerator.Pack.RegistryDependentFactory factory ->
 			pack.addProvider factory
 		}
-
+		WorldGenerator.GetOreFeatures();
 		add TRItemTagProvider::new
 		add TRPointOfInterestTagProvider::new
 
