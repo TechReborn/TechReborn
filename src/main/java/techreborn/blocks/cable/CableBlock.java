@@ -88,12 +88,12 @@ import java.util.Map;
  */
 public class CableBlock extends BlockWithEntity implements Waterloggable {
 
-	public static final BooleanProperty EAST = BooleanProperty.of("east");
-	public static final BooleanProperty WEST = BooleanProperty.of("west");
-	public static final BooleanProperty NORTH = BooleanProperty.of("north");
-	public static final BooleanProperty SOUTH = BooleanProperty.of("south");
-	public static final BooleanProperty UP = BooleanProperty.of("up");
-	public static final BooleanProperty DOWN = BooleanProperty.of("down");
+	public static final BooleanProperty EAST = Properties.EAST;
+	public static final BooleanProperty WEST = Properties.WEST;
+	public static final BooleanProperty NORTH = Properties.NORTH;
+	public static final BooleanProperty SOUTH = Properties.SOUTH;
+	public static final BooleanProperty UP = Properties.UP;
+	public static final BooleanProperty DOWN = Properties.DOWN;
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	public static final BooleanProperty COVERED = BooleanProperty.of("covered");
 

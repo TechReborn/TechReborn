@@ -37,10 +37,11 @@ import techreborn.TechReborn;
 import java.util.function.Supplier;
 
 public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
-	public static final Identifier CELL_BASE = Identifier.of(TechReborn.MOD_ID, "item/cell_base");
-	public static final Identifier CELL_BACKGROUND = Identifier.of(TechReborn.MOD_ID, "item/cell_background");
-	public static final Identifier CELL_FLUID = Identifier.of(TechReborn.MOD_ID, "item/cell_fluid");
-	public static final Identifier CELL_GLASS = Identifier.of(TechReborn.MOD_ID, "item/cell_glass");
+	public static final Identifier CELL = Identifier.of(TechReborn.MOD_ID, "item/cell");
+	public static final Identifier CELL_BASE = CELL.withSuffixedPath("_base");
+	public static final Identifier CELL_BACKGROUND = CELL.withSuffixedPath("_background");
+	public static final Identifier CELL_FLUID = CELL.withSuffixedPath("_fluid");
+	public static final Identifier CELL_GLASS = CELL.withSuffixedPath("_glass");
 	private final BakedModel glassModel;
 
 	public DynamicCellBakedModel(BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel, BakedModel glassModel) {

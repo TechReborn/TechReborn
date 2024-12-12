@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) 2024 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,28 +24,23 @@
 
 package techreborn.client.render;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.util.Identifier;
-import techreborn.TechReborn;
+import com.mojang.serialization.Codec;
+import net.minecraft.util.StringIdentifiable;
 
-public class DynamicBucketBakedModel extends BaseDynamicFluidBakedModel {
-	public static final Identifier BUCKET = Identifier.of(TechReborn.MOD_ID, "item/bucket");
-	public static final Identifier BUCKET_BASE = BUCKET.withSuffixedPath("_base");
-	public static final Identifier BUCKET_BACKGROUND = BUCKET.withSuffixedPath("_background");
-	public static final Identifier BUCKET_FLUID = BUCKET.withSuffixedPath("_fluid");
+public enum PowerType implements StringIdentifiable {
+	OFF("off"),
+	ON("on"),
+	LOW("low");
 
-	DynamicBucketBakedModel(Fluid fluid, BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel) {
-		super(fluid, baseModel, fluidModel, backgroundModel);
+	public static final Codec<PowerType> CODEC = StringIdentifiable.createCodec(PowerType::values);
+	private final String name;
+
+	PowerType(final String name) {
+		this.name = name;
 	}
 
 	@Override
-	public Sprite getParticleSprite() {
-		return MinecraftClient.getInstance()
-				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)
-				.apply(Identifier.of("minecraft:item/bucket"));
+	public String asString() {
+		return this.name;
 	}
 }

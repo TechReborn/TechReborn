@@ -44,6 +44,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.lighting.LampBlockEntity;
@@ -54,7 +55,7 @@ import java.util.function.ToIntFunction;
 public class LampBlock extends BaseBlockEntityProvider {
 
 	public static final EnumProperty<Direction> FACING = Properties.FACING;
-	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+	public static final BooleanProperty ACTIVE = BlockMachineBase.ACTIVE;
 	protected final VoxelShape[] shape;
 
 	private final int cost;

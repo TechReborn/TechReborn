@@ -31,18 +31,15 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.item.model.ItemModelTypes;
+import net.minecraft.client.render.item.property.select.SelectProperties;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.GlobalPos;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
-import reborncore.common.powerSystem.RcEnergyItem;
-import team.reborn.energy.api.base.SimpleEnergyItem;
 import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
@@ -53,16 +50,10 @@ import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
 import techreborn.client.render.entitys.TurbineRenderer;
-import techreborn.component.TRDataComponentTypes;
 import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.items.BatteryItem;
 import techreborn.items.DynamicCellItem;
-import techreborn.items.FrequencyTransmitterItem;
-import techreborn.items.armor.BatpackItem;
-import techreborn.items.tool.ChainsawItem;
-import techreborn.items.tool.industrial.NanosaberItem;
 
 import java.util.Arrays;
 
@@ -72,6 +63,7 @@ public class TechRebornClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ItemModelTypes.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
 		ItemModelTypes.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
+		SelectProperties.ID_MAPPER.put(ActiveProperty.ID, ActiveProperty.TYPE);
 
 		KeyBindings.registerKeys();
 
@@ -126,75 +118,9 @@ public class TechRebornClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(TRContent.ENTITY_NUKE, NukeRenderer::new);
 
-		registerPredicateProvider(
-				BatpackItem.class,
-				Identifier.of("techreborn:empty"),
-				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) == 0) {
-						return 1.0F;
-					}
-					return 0.0F;
-				}
-		);
-
-		registerPredicateProvider(
-				BatteryItem.class,
-				Identifier.of("techreborn:empty"),
-				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) == 0) {
-						return 1.0F;
-					}
-					return 0.0F;
-				}
-		);
-
-		registerPredicateProvider(
-				FrequencyTransmitterItem.class,
-				Identifier.of("techreborn:coords"),
-				(item, stack, world, entity, seed) -> {
-					GlobalPos globalPos = stack.getOrDefault(TRDataComponentTypes.FREQUENCY_TRANSMITTER, null);
-					if (globalPos != null) {
-						return 1.0F;
-					}
-					return 0.0F;
-				}
-		);
-
-		registerPredicateProvider(
-				ChainsawItem.class,
-				Identifier.of("techreborn:animated"),
-				(item, stack, world, entity, seed) -> {
-					if (!stack.isEmpty() && SimpleEnergyItem.getStoredEnergyUnchecked(stack) >= item.getCost() && entity != null && entity.getMainHandStack().equals(stack)) {
-						return 1.0F;
-					}
-					return 0.0F;
-				}
-		);
-
-		registerPredicateProvider(
-				NanosaberItem.class,
-				Identifier.of("techreborn:active"),
-				(item, stack, world, entity, seed) -> {
-					if (stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE) {
-						RcEnergyItem energyItem = (RcEnergyItem) stack.getItem();
-						if (energyItem.getEnergyCapacity(stack) - energyItem.getStoredEnergy(stack) >= 0.9 * item.getEnergyCapacity(stack)) {
-							return 0.5F;
-						}
-						return 1.0F;
-					}
-					return 0.0F;
-				}
-		);
-
 		ClientGuiType.AESU.toString();
 
 		ClientJumpEvent.EVENT.register(new ClientJumpHandler());
-	}
-
-	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {
-//		Registries.ITEM.stream()
-//				.filter(itemClass::isInstance)
-//				.forEach(item -> ModelPredicateProviderRegistry.register(item, identifier, modelPredicateProvider));
 	}
 
 	//Need the item instance in a few places, this makes it easier
