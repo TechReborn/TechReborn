@@ -25,7 +25,7 @@
 package techreborn.datagen.mixin
 
 import net.minecraft.block.Block
-import net.minecraft.client.data.TextureMap
+import net.minecraft.client.data.ModelIds
 import net.minecraft.item.Item
 import net.minecraft.util.Identifier
 import org.spongepowered.asm.mixin.Mixin
@@ -34,25 +34,24 @@ import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import techreborn.datagen.models.TexturePaths
 
-// Do as I say, not as I do. Only write mixins in Java!
-@Mixin(TextureMap.class)
-class MixinTextureMap {
-	@Inject(method = "getId(Lnet/minecraft/item/Item;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
-	private static void getId(Item item, CallbackInfoReturnable<Identifier> cir) {
+@Mixin(ModelIds.class)
+class MixinModelIds {
+	@Inject(method = "getItemModelId(Lnet/minecraft/item/Item;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getItemModelId(Item item, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.ifPresent(item, cir::setReturnValue)
 	}
 
-	@Inject(method = "getSubId(Lnet/minecraft/item/Item;Ljava/lang/String;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "getItemSubModelId(Lnet/minecraft/item/Item;Ljava/lang/String;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
 	private static void getItemSubModelId(Item item, String suffix, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.ifPresent(item, suffix, cir::setReturnValue)
 	}
 
-	@Inject(method = "getId(Lnet/minecraft/block/Block;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
-	private static void getId(Block block, CallbackInfoReturnable<Identifier> cir) {
-		TexturePaths.ifPresentOrAlias(block, cir::setReturnValue)
+	@Inject(method = "getBlockModelId(Lnet/minecraft/block/Block;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getBlockModelId(Block block, CallbackInfoReturnable<Identifier> cir) {
+		TexturePaths.ifPresent(block, cir::setReturnValue)
 	}
 
-	@Inject(method = "getSubId(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "getBlockSubModelId(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
 	private static void getBlockSubModelId(Block block, String suffix, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.ifPresent(block, suffix, cir::setReturnValue)
 	}

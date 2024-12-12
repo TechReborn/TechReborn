@@ -269,7 +269,28 @@ public class TRContent {
 		}
 	}
 
-	public enum SolarPanels implements ItemConvertible {
+	public interface ItemInfo extends ItemConvertible {
+		String getName();
+	}
+
+	public interface BlockInfo extends ItemConvertible {
+		String getName();
+		Block getBlock();
+	}
+
+	public interface FamilyBlockInfo extends BlockInfo {
+		Block getSlabBlock();
+		Block getStairsBlock();
+		Block getWallBlock();
+	}
+
+	public interface MachineBlockInfo {
+		String getName();
+		Block getFrame();
+		Block getCasing();
+	}
+
+	public enum SolarPanels implements BlockInfo {
 		BASIC(RcEnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
 		ADVANCED(RcEnergyTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
 		INDUSTRIAL(RcEnergyTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
@@ -289,7 +310,7 @@ public class TRContent {
 		public final RcEnergyTier powerTier;
 
 		SolarPanels(RcEnergyTier tier, int generationRateD, int generationRateN) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			powerTier = tier;
 			block = new BlockSolarPanel(this, name + "_solar_panel");
 			this.generationRateD = generationRateD;
@@ -301,12 +322,22 @@ public class TRContent {
 		}
 
 		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
 		public Item asItem() {
 			return block.asItem();
 		}
+
+		@Override
+		public Block getBlock() {
+			return block;
+		}
 	}
 
-	public enum StorageUnit implements ItemConvertible {
+	public enum StorageUnit implements BlockInfo {
 		BUFFER(1, false),
 		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage, true),
 		BASIC(TechRebornConfig.basicStorageUnitMaxStorage, true),
@@ -324,7 +355,7 @@ public class TRContent {
 
 
 		StorageUnit(int capacity, boolean upgradable) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			block = new StorageUnitBlock(this, name.equals("buffer") ? "storage_buffer" : name + "_storage_unit");
 			this.capacity = capacity;
 
@@ -340,6 +371,16 @@ public class TRContent {
 			}
 			else
 				upgrader = null;
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public Block getBlock() {
+			return block;
 		}
 
 		public Block asBlock() {
@@ -366,7 +407,7 @@ public class TRContent {
 		}
 	}
 
-	public enum TankUnit implements ItemConvertible {
+	public enum TankUnit implements BlockInfo {
 		BASIC(TechRebornConfig.basicTankUnitCapacity),
 		ADVANCED(TechRebornConfig.advancedTankUnitMaxStorage),
 		INDUSTRIAL(TechRebornConfig.industrialTankUnitCapacity),
@@ -381,11 +422,21 @@ public class TRContent {
 
 
 		TankUnit(int capacity) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			block = new TankUnitBlock(this, name + "_tank_unit");
 			this.capacity = FluidValue.BUCKET.multiply(capacity);
 
 			InitUtils.setup(block, name + "_tank_unit");
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public Block getBlock() {
+			return block;
 		}
 
 		public Block asBlock() {
@@ -417,7 +468,7 @@ public class TRContent {
 		}
 	}
 
-	public enum Cables implements ItemConvertible {
+	public enum Cables implements BlockInfo {
 		COPPER(128, 12.0, true, RcEnergyTier.MEDIUM),
 		TIN(32, 12.0, true, RcEnergyTier.LOW),
 		GOLD(512, 12.0, true, RcEnergyTier.HIGH),
@@ -441,7 +492,7 @@ public class TRContent {
 
 
 		Cables(int transferRate, double cableThickness, boolean canKill, RcEnergyTier tier) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
 			this.cableThickness = cableThickness / 2 / 16;
@@ -450,6 +501,16 @@ public class TRContent {
 			this.tier = tier;
 			this.block = new CableBlock(this, name + "_cable");
 			InitUtils.setup(block, name + "_cable");
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public CableBlock getBlock() {
+			return block;
 		}
 
 		public ItemStack getStack() {
@@ -468,7 +529,7 @@ public class TRContent {
 
 	private final static Map<Ores, Ores> unDeepslateMap = new HashMap<>();
 
-	public enum Ores implements ItemConvertible, TagConvertible<Item> {
+	public enum Ores implements BlockInfo, TagConvertible<Item> {
 		// when changing ores also change data/minecraft/tags/blocks for correct mining level
 		BAUXITE(OreDistribution.BAUXITE),
 		CINNABAR(OreDistribution.CINNABAR),
@@ -506,7 +567,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback, boolean industrial) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			block = new ExperienceDroppingBlock(experienceDroppedFallback != null ? experienceDroppedFallback : ConstantIntProvider.create(1), TRBlockSettings.ore(name.startsWith("deepslate"), name + "_ore"));
 			this.industrial = industrial;
 			InitUtils.setup(block, name + "_ore");
@@ -530,8 +591,18 @@ public class TRContent {
 		}
 
 		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
 		public Item asItem() {
 			return block.asItem();
+		}
+
+		@Override
+		public Block getBlock() {
+			return block;
 		}
 
 		public boolean isIndustrial() {
@@ -565,7 +636,7 @@ public class TRContent {
 	 */
 	public static final String CHROME_TAG_NAME_BASE = "chromium";
 
-	public enum StorageBlocks implements ItemConvertible, TagConvertible<Item> {
+	public enum StorageBlocks implements FamilyBlockInfo, TagConvertible<Item> {
 		ADVANCED_ALLOY(5f, 6f),
 		ALUMINUM(),
 		BRASS(),
@@ -599,7 +670,7 @@ public class TRContent {
 		YELLOW_GARNET(5f, 6f),
 		ZINC(5f, 6f);
 
-		private final String name;
+		public final String name;
 		private final Block block;
 		private final StairsBlock stairsBlock;
 		private final SlabBlock slabBlock;
@@ -607,7 +678,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		StorageBlocks(boolean isHot, float hardness, float resistance, String tagNameBase) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			block = new BlockStorage(isHot, hardness, resistance, name + "_storage_block");
 			InitUtils.setup(block, name + "_storage_block");
 			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "storage_blocks/" + Objects.requireNonNullElse(tagNameBase, name)));
@@ -635,6 +706,11 @@ public class TRContent {
 		}
 
 		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
 		public Item asItem() {
 			return block.asItem();
 		}
@@ -644,18 +720,22 @@ public class TRContent {
 			return tag;
 		}
 
+		@Override
 		public Block getBlock() {
 			return block;
 		}
 
+		@Override
 		public StairsBlock getStairsBlock() {
 			return stairsBlock;
 		}
 
+		@Override
 		public SlabBlock getSlabBlock() {
 			return slabBlock;
 		}
 
+		@Override
 		public WallBlock getWallBlock() {
 			return wallBlock;
 		}
@@ -671,7 +751,7 @@ public class TRContent {
 		}
 	}
 
-	public enum MachineBlocks {
+	public enum MachineBlocks implements MachineBlockInfo {
 		BASIC(1020 / 25),
 		ADVANCED(1700 / 25),
 		INDUSTRIAL(2380 / 25);
@@ -681,17 +761,24 @@ public class TRContent {
 		public final Block casing;
 
 		MachineBlocks(int casingHeatCapacity) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			frame = new BlockMachineFrame(name + "_machine_frame");
 			InitUtils.setup(frame, name + "_machine_frame");
 			casing = new BlockMachineCasing(casingHeatCapacity, name + "_machine_casing");
 			InitUtils.setup(casing, name + "_machine_casing");
 		}
 
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
 		public Block getFrame() {
 			return frame;
 		}
 
+		@Override
 		public Block getCasing() {
 			return casing;
 		}
@@ -704,7 +791,7 @@ public class TRContent {
 	}
 
 
-	public enum Machine implements ItemConvertible {
+	public enum Machine implements BlockInfo {
 		ALLOY_SMELTER(new GenericMachineBlock(GuiType.ALLOY_SMELTER, AlloySmelterBlockEntity::new, "alloy_smelter")),
 		ASSEMBLY_MACHINE(new GenericMachineBlock(GuiType.ASSEMBLING_MACHINE, AssemblingMachineBlockEntity::new, "assembly_machine")),
 		AUTO_CRAFTING_TABLE(new GenericMachineBlock(GuiType.AUTO_CRAFTING_TABLE, AutoCraftingTableBlockEntity::new, "auto_crafting_table")),
@@ -776,9 +863,14 @@ public class TRContent {
 		public final Block block;
 
 		<B extends Block> Machine(B block) {
-			this.name = this.toString().toLowerCase(Locale.ROOT);
+			this.name = this.toString().toLowerCase();
 			this.block = block;
 			InitUtils.setup(block, name);
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		public ItemStack getStack() {
@@ -789,21 +881,26 @@ public class TRContent {
 		public Item asItem() {
 			return block.asItem();
 		}
+
+		@Override
+		public Block getBlock() {
+			return block;
+		}
 	}
 
-	public enum Dusts implements ItemConvertible, TagConvertible<Item> {
+	public enum Dusts implements ItemInfo, TagConvertible<Item> {
 		ALMANDINE, ALUMINUM, AMETHYST, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME(CHROME_TAG_NAME_BASE),
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
 		NICKEL, OBSIDIAN, OLIVINE, PERIDOT, PHOSPHOROUS, PLATINUM, PYRITE, PYROPE, QUARTZ, RED_GARNET, RUBY, SALTPETER,
 		SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM, UVAROVITE, YELLOW_GARNET, ZINC;
 
-		private final String name;
+		public final String name;
 		private final Item item;
 		private final TagKey<Item> tag;
 
 		Dusts(String tagNameBase) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new Item(TRItemSettings.item(name + "_dust"));
 			InitUtils.setup(item, name + "_dust");
 			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "dusts/" + Objects.requireNonNullElse(tagNameBase, name)));
@@ -811,6 +908,11 @@ public class TRContent {
 
 		Dusts() {
 			this(null);
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		public ItemStack getStack() {
@@ -832,17 +934,17 @@ public class TRContent {
 		}
 	}
 
-	public enum RawMetals implements ItemConvertible, TagConvertible<Item> {
+	public enum RawMetals implements ItemInfo, TagConvertible<Item> {
 		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN;
 
-		private final String name;
+		public final String name;
 		private final Item item;
 		private final Ores ore;
 		private final StorageBlocks storageBlock;
 		private final TagKey<Item> tag;
 
 		RawMetals() {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new Item(TRItemSettings.item("raw_" + name));
 			Ores oreVariant = null;
 			try {
@@ -864,6 +966,11 @@ public class TRContent {
 			storageBlock = blockVariant;
 			InitUtils.setup(item, "raw_" + name);
 			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "raw_materials/" + name));
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		@Override
@@ -909,7 +1016,7 @@ public class TRContent {
 		}
 	}
 
-	public enum SmallDusts implements ItemConvertible, TagConvertible<Item> {
+	public enum SmallDusts implements ItemInfo, TagConvertible<Item> {
 		ALMANDINE, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, CALCITE, CHARCOAL, CHROME(CHROME_TAG_NAME_BASE),
 		CINNABAR, CLAY, COAL, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GLOWSTONE(Items.GLOWSTONE_DUST), GRANITE, GROSSULAR, INVAR, LAZURITE, MAGNESIUM, MANGANESE, MARBLE,
@@ -917,13 +1024,13 @@ public class TRContent {
 		RED_GARNET, RUBY, SALTPETER, SAPPHIRE, SAW, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TITANIUM,
 		TUNGSTEN(RawMetals.TUNGSTEN), UVAROVITE, YELLOW_GARNET, ZINC;
 
-		private final String name;
+		public final String name;
 		private final Item item;
 		private final ItemConvertible dust;
 		private final TagKey<Item> tag;
 
 		SmallDusts(String tagNameBase, ItemConvertible dustVariant) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new Item(TRItemSettings.item(name + "_small_dust"));
 			if (dustVariant == null)
 				try {
@@ -948,6 +1055,11 @@ public class TRContent {
 
 		SmallDusts() {
 			this(null, null);
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		public ItemStack getStack() {
@@ -988,10 +1100,10 @@ public class TRContent {
 		}
 	}
 
-	public enum Gems implements ItemConvertible, TagConvertible<Item> {
+	public enum Gems implements ItemInfo, TagConvertible<Item> {
 		PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
 
-		private final String name;
+		public final String name;
 		private final Item item;
 		private final Dusts dust;
 		private final Ores ore;
@@ -999,7 +1111,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Gems() {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new Item(TRItemSettings.item(name + "_gem"));
 			Dusts dustVariant = null;
 			try {
@@ -1029,6 +1141,11 @@ public class TRContent {
 			storageBlock = blockVariant;
 			InitUtils.setup(item, name + "_gem");
 			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "gems/" + name));
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		public ItemStack getStack() {
@@ -1087,18 +1204,18 @@ public class TRContent {
 	}
 
 
-	public enum Ingots implements ItemConvertible, TagConvertible<Item> {
+	public enum Ingots implements ItemInfo, TagConvertible<Item> {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME(CHROME_TAG_NAME_BASE), ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
-		private final String name;
+		public final String name;
 		private final Item item;
 		private final Dusts dust;
 		private final StorageBlocks storageBlock;
 		private final TagKey<Item> tag;
 
 		Ingots(String tagNameBase) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new Item(TRItemSettings.item(name + "_ingot"));
 			Dusts dustVariant = null;
 			try {
@@ -1131,6 +1248,11 @@ public class TRContent {
 
 		Ingots() {
 			this(null);
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		public ItemStack getStack() {
@@ -1184,20 +1306,20 @@ public class TRContent {
 		}
 	}
 
-	public enum Nuggets implements ItemConvertible, TagConvertible<Item> {
+	public enum Nuggets implements ItemInfo, TagConvertible<Item> {
 		ALUMINUM, BRASS, BRONZE, CHROME(CHROME_TAG_NAME_BASE), COPPER(Items.COPPER_INGOT, false), DIAMOND(Items.DIAMOND, true),
 		ELECTRUM, EMERALD(Items.EMERALD, true), HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD,
 		NETHERITE, /* We do NOT link to the netherite ingot here, because we want custom conversion recipes! */
 		NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
-		private final String name;
+		public final String name;
 		private final Item item;
 		private final ItemConvertible ingot;
 		private final boolean ofGem;
 		private final TagKey<Item> tag;
 
 		Nuggets(String tagNameBase, ItemConvertible ingotVariant, boolean ofGem) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new Item(TRItemSettings.item(name + "_nugget"));
 			if (ingotVariant == null)
 				try {
@@ -1223,6 +1345,11 @@ public class TRContent {
 
 		Nuggets() {
 			this(null, false);
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		public ItemStack getStack() {
@@ -1266,7 +1393,7 @@ public class TRContent {
 		}
 	}
 
-	public enum Parts implements ItemConvertible {
+	public enum Parts implements ItemInfo {
 		CARBON_FIBER,
 		CARBON_MESH,
 
@@ -1323,9 +1450,14 @@ public class TRContent {
 		public final Item item;
 
 		Parts() {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new Item(TRItemSettings.item(name));
 			InitUtils.setup(item, name);
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		public ItemStack getStack() {
@@ -1342,7 +1474,7 @@ public class TRContent {
 		}
 	}
 
-	public enum Plates implements ItemConvertible, TagConvertible<Item> {
+	public enum Plates implements ItemInfo, TagConvertible<Item> {
 		ADVANCED_ALLOY,
 		ALUMINUM,
 		BRASS,
@@ -1384,7 +1516,7 @@ public class TRContent {
 		YELLOW_GARNET,
 		ZINC;
 
-		private final String name;
+		public final String name;
 		private final Item item;
 		private final ItemConvertible source;
 		private final ItemConvertible sourceBlock;
@@ -1392,7 +1524,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Plates(ItemConvertible source, ItemConvertible sourceBlock, boolean industrial, String tagNameBase) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new Item(TRItemSettings.item(name + "_plate"));
 			ItemConvertible sourceVariant = null;
 			if (source != null) {
@@ -1460,6 +1592,11 @@ public class TRContent {
 			this(null, null, false, null);
 		}
 
+		@Override
+		public String getName() {
+			return name;
+		}
+
 		public ItemStack getStack() {
 			return new ItemStack(item);
 		}
@@ -1491,7 +1628,7 @@ public class TRContent {
 		}
 	}
 
-	public enum Upgrades implements ItemConvertible {
+	public enum Upgrades implements ItemInfo {
 		OVERCLOCKER((blockEntity, handler, stack) -> {
 			PowerAcceptorBlockEntity powerAcceptor = null;
 			if (blockEntity instanceof PowerAcceptorBlockEntity) {
@@ -1541,9 +1678,14 @@ public class TRContent {
 		public final Item item;
 
 		Upgrades(IUpgrade upgrade) {
-			name = this.toString().toLowerCase(Locale.ROOT);
+			name = this.toString().toLowerCase();
 			item = new UpgradeItem(name + "_upgrade", upgrade);
 			InitUtils.setup(item, name + "_upgrade");
+		}
+
+		@Override
+		public String getName() {
+			return name;
 		}
 
 		@Override

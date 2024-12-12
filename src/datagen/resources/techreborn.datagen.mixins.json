@@ -3,7 +3,8 @@
   "package": "techreborn.datagen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MixinTextureMap"
+    "MixinTextureMap",
+    "MixinModelIds"
   ],
   "injectors": {
     "defaultRequire": 1

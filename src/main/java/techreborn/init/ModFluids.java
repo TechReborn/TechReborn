@@ -26,17 +26,15 @@ package techreborn.init;
 
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.*;
 import techreborn.TechReborn;
+import techreborn.init.TRContent.BlockInfo;
 
-import java.util.Locale;
-
-public enum ModFluids implements ItemConvertible {
+public enum ModFluids implements BlockInfo {
 	BERYLLIUM,
 	CALCIUM,
 	CALCIUM_CARBONATE,
@@ -73,6 +71,7 @@ public enum ModFluids implements ItemConvertible {
 	WOLFRAMIUM,
 	BIOFUEL;
 
+	public final String name;
 	private RebornFluid stillFluid;
 	private RebornFluid flowingFluid;
 
@@ -81,12 +80,13 @@ public enum ModFluids implements ItemConvertible {
 	private final Identifier identifier;
 
 	ModFluids() {
-		this.identifier = Identifier.of(TechReborn.MOD_ID, this.toString().toLowerCase(Locale.ROOT));
+		name = this.toString().toLowerCase();
+		this.identifier = Identifier.of(TechReborn.MOD_ID, name);
 
 		FluidSettings fluidSettings = FluidSettings.create();
 
-		Identifier texture_still = Identifier.of(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_still");
-		Identifier texture_flowing = Identifier.of(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_flowing");
+		Identifier texture_still = Identifier.of(TechReborn.MOD_ID, "block/fluids/" + name + "_still");
+		Identifier texture_flowing = Identifier.of(TechReborn.MOD_ID, "block/fluids/" + name + "_flowing");
 
 		fluidSettings.setStillTexture(texture_still);
 		fluidSettings.setFlowingTexture(texture_flowing);
@@ -108,6 +108,11 @@ public enum ModFluids implements ItemConvertible {
 		Registry.register(Registries.ITEM, Identifier.of(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
 	}
 
+	@Override
+	public String getName() {
+		return name;
+	}
+
 	public RebornFluid getFluid() {
 		return stillFluid;
 	}
@@ -116,6 +121,7 @@ public enum ModFluids implements ItemConvertible {
 		return flowingFluid;
 	}
 
+	@Override
 	public RebornFluidBlock getBlock() {
 		return block;
 	}
