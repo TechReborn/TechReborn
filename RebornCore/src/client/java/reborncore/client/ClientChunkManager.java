@@ -56,6 +56,10 @@ public class ClientChunkManager {
 		}
 	}
 
+	public static boolean isShow() {
+		return !loadedChunks.isEmpty();
+	}
+
 	public static boolean hasChunksForLoader(BlockPos pos) {
 		return loadedChunks.stream()
 				.filter(loadedChunk -> loadedChunk.getChunkLoader().equals(pos))
