@@ -846,6 +846,8 @@
   "_comment20": "死亡信息",
   "death.attack.electric_shock": "%s因触电而死",
   "death.attack.electric_shock.player": "%s在试图逃离%s时因触电而死",
+  "death.attack.fusion": "%s因遭遇急性放射而死",
+  "death.attack.fusion.player": "%s在试图逃离%s时因遭遇急性放射而死",
   "_comment21": "实体",
   "entity.nuke": "核弹",
   "_comment22": "工具提示",

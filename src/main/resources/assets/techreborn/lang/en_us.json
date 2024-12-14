@@ -887,6 +887,8 @@
   "_comment20": "Death Messages",
   "death.attack.electric_shock": "%s was electrocuted",
   "death.attack.electric_shock.player": "%s was electrocuted trying to outrun %s",
+  "death.attack.fusion": "%s suffered from acute radiation sickness",
+  "death.attack.fusion.player": "%s suffered from acute radiation sickness trying to outrun %s",
 
   "_comment21": "Entities",
   "entity.nuke": "Nuke",
