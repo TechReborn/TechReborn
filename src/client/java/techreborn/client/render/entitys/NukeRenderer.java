@@ -34,6 +34,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import techreborn.entities.EntityNukePrimed;
+import techreborn.init.TRContent;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -67,8 +68,16 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntEntityRend
 
 		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
-		TntMinecartEntityRenderer.renderFlashingBlock(blockRenderManager, state.blockState, matrixStack, vertexConsumerProvider, light, state.fuse / 5 % 2 == 0);
+		if (state.blockState != null) {
+			TntMinecartEntityRenderer.renderFlashingBlock(blockRenderManager, state.blockState, matrixStack, vertexConsumerProvider, light, (int) state.fuse / 5 % 2 == 0);
+		}
 		matrixStack.pop();
 		super.render(state, matrixStack, vertexConsumerProvider, light);
+	}
+
+	public void updateRenderState(EntityNukePrimed entity, TntEntityRenderState state, float f) {
+		super.updateRenderState(entity, state, f);
+		state.fuse = (float) entity.getFuse() - f + 1.0F;
+		state.blockState = TRContent.NUKE.getDefaultState();
 	}
 }
