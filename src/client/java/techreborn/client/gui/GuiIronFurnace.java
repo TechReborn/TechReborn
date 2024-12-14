@@ -44,7 +44,7 @@ import java.util.Objects;
 
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	final IronFurnaceBlockEntity blockEntity;
-	private static final Identifier EXP_BUTTON_TEXTURE = Identifier.ofVanilla("container/enchanting_table/level_1");
+	private static final Identifier EXP_BUTTON_TEXTURE = Identifier.ofVanilla("item/experience_bottle");
 
 	public GuiIronFurnace(int syncID, PlayerEntity player, IronFurnaceBlockEntity furnace) {
 		super(player, furnace, furnace.createScreenHandler(syncID, player));
@@ -86,7 +86,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 		private Text getTooltipText() {
 			PlayerEntity player = MinecraftClient.getInstance().player;
 			Objects.requireNonNull(player);
-			String message = "Experience: ";
+			String message = ": ";
 
 			float furnaceExp = blockEntity.experience;
 			if (furnaceExp <= 0) {
@@ -109,7 +109,8 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 				}
 			}
 
-			return Text.literal(message);
+			return Text.translatable("techreborn.tooltip.experience")
+				.append(message);
 		}
 	}
 
