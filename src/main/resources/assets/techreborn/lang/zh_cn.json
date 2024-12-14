@@ -1087,6 +1087,7 @@
   "gui.techreborn.chunk.radius": "范围",
   "gui.techreborn.chunk.hide_loaded_chunks": "隐藏已加载的块",
   "gui.techreborn.chunk.show_loaded_chunks": "显示已加载的块",
+  "gui.techreborn.launchpad.launch_speed": "发射速度",
   "_comment28": "村民",
   "entity.minecraft.villager.techreborn.metallurgist": "冶金学家",
   "entity.minecraft.villager.metallurgist": "冶金学家",
