@@ -1141,6 +1141,10 @@
   "gui.techreborn.pump.range": "Range (%s..%s):",
   "gui.techreborn.pump.exhausted": "Exhausted!",
 
+  "gui.techreborn.chunk.radius": "Radius",
+  "gui.techreborn.chunk.hide_loaded_chunks": "Hide Loaded Chunks",
+  "gui.techreborn.chunk.show_loaded_chunks": "Show Loaded Chunks",
+
   "_comment28": "Villagers",
   "entity.minecraft.villager.techreborn.metallurgist": "Metallurgist",
   "entity.minecraft.villager.metallurgist": "Metallurgist",
