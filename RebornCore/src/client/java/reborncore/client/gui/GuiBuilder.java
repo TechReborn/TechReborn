@@ -401,7 +401,7 @@ public class GuiBuilder {
 		Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(maxOutput))
 				.append(SPACE_TEXT)
 				.append(PowerSystem.ABBREVIATION)
-				.append("\t");
+				.append(" ");
 
 		int width = gui.getTextRenderer().getWidth(text);
 		gui.drawText(drawContext, text, x - width - 2, y + 5, 0, layer);
