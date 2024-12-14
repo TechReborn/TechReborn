@@ -1,0 +1,20 @@
+{
+	"sources": [
+		{
+			"type": "single",
+			"resource": "reborncore:gui/slot_sprites/armour_head"
+		},
+		{
+			"type": "single",
+			"resource": "reborncore:gui/slot_sprites/armour_chest"
+		},
+		{
+			"type": "single",
+			"resource": "reborncore:gui/slot_sprites/armour_legs"
+		},
+		{
+			"type": "single",
+			"resource": "reborncore:gui/slot_sprites/armour_feet"
+		}
+	]
+}
