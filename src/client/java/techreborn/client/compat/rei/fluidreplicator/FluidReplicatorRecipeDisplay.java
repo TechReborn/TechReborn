@@ -55,7 +55,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(FluidReplicatorRecipeDisplay::getInputEntries),
 			EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(FluidReplicatorRecipeDisplay::getOutputEntries),
 			Identifier.CODEC.optionalFieldOf("location").forGetter(FluidReplicatorRecipeDisplay::getDisplayLocation),
-			FluidInstance.CODEC.fieldOf("fluidInstance").forGetter(FluidReplicatorRecipeDisplay::getFluidInstance),
+			FluidInstance.CODEC.optionalFieldOf("fluidInstance").forGetter(d -> Optional.ofNullable(d.fluidInstance)),
 			Codec.INT.fieldOf("energy").forGetter(FluidReplicatorRecipeDisplay::getEnergy),
 			Codec.INT.fieldOf("time").forGetter(FluidReplicatorRecipeDisplay::getTime)
 		).apply(instance, FluidReplicatorRecipeDisplay::new)),
@@ -68,8 +68,8 @@ public class FluidReplicatorRecipeDisplay implements Display {
 			FluidReplicatorRecipeDisplay::getOutputEntries,
 			PacketCodecs.optional(Identifier.PACKET_CODEC),
 			FluidReplicatorRecipeDisplay::getDisplayLocation,
-			FluidInstance.PACKET_CODEC,
-			FluidReplicatorRecipeDisplay::getFluidInstance,
+			PacketCodecs.optional(FluidInstance.PACKET_CODEC),
+			d -> Optional.ofNullable(d.fluidInstance),
 			PacketCodecs.INTEGER,
 			FluidReplicatorRecipeDisplay::getEnergy,
 			PacketCodecs.INTEGER,
@@ -91,7 +91,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 		List<EntryIngredient> inputs,
 		List<EntryIngredient> outputs,
 		Optional<Identifier> location,
-		FluidInstance fluidInstance,
+		Optional<FluidInstance> fluidInstance,
 		int energy,
 		int time
 	) {
@@ -99,7 +99,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 		this.inputs = inputs;
 		this.outputs = outputs;
 		this.location = location;
-		this.fluidInstance = fluidInstance;
+		this.fluidInstance = fluidInstance.orElse(null);
 		this.energy = energy;
 		this.time = time;
 	}

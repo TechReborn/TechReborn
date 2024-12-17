@@ -57,7 +57,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 			Codec.INT.fieldOf("energy").forGetter(MachineRecipeDisplay::getEnergy),
 			Codec.INT.fieldOf("heat").forGetter(MachineRecipeDisplay::getHeat),
 			Codec.INT.fieldOf("time").forGetter(MachineRecipeDisplay::getTime),
-			FluidInstance.CODEC.fieldOf("fluidInstance").forGetter(MachineRecipeDisplay::getFluidInstance)
+			FluidInstance.CODEC.optionalFieldOf("fluidInstance").forGetter(d -> Optional.ofNullable(d.fluidInstance))
 		).apply(instance, MachineRecipeDisplay::new)),
 		PacketCodec.tuple(
 			PacketCodecs.STRING,
@@ -74,8 +74,8 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 			MachineRecipeDisplay::getHeat,
 			PacketCodecs.INTEGER,
 			MachineRecipeDisplay::getTime,
-			FluidInstance.PACKET_CODEC,
-			MachineRecipeDisplay::getFluidInstance,
+			PacketCodecs.optional(FluidInstance.PACKET_CODEC),
+			d -> Optional.ofNullable(d.fluidInstance),
 			MachineRecipeDisplay::new
 		)
 	);
@@ -97,7 +97,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 		int energy,
 		int heat,
 		int time,
-		FluidInstance fluidInstance
+		Optional<FluidInstance> fluidInstance
 	) {
 		this.category = CategoryIdentifier.of(category);
 		this.inputs = inputs;
@@ -106,7 +106,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 		this.energy = energy;
 		this.heat = heat;
 		this.time = time;
-		this.fluidInstance = fluidInstance;
+		this.fluidInstance = fluidInstance.orElse(null);
 	}
 
 	public MachineRecipeDisplay(RecipeEntry<R> entry) {
