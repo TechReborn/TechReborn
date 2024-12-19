@@ -59,8 +59,8 @@ public class ReiCommonPlugin implements REICommonPlugin {
 	public void registerFluidSupport(FluidSupportProvider support) {
 		support.register(stack -> {
 			ItemStack itemStack = stack.getValue();
-			if (itemStack.getItem() instanceof ItemFluidInfo) {
-				Fluid fluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
+			if (itemStack.getItem() instanceof ItemFluidInfo fluidInfo) {
+				Fluid fluid = fluidInfo.getFluid(itemStack);
 				if (fluid != null)
 					return CompoundEventResult.interruptTrue(Stream.of(EntryStacks.of(fluid)));
 			}

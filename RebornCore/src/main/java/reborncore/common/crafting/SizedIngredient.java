@@ -27,14 +27,17 @@ package reborncore.common.crafting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.display.SlotDisplay;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * An ingredient with a specific item stack count
@@ -67,6 +70,14 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 	}
 
 	public List<ItemStack> getPreviewStacks() {
-		return ingredient().entries.stream().map(entry -> new ItemStack(entry.value())).toList();
+		CustomIngredient customIngredient = ingredient.getCustomIngredient();
+		Stream<ItemStack> stacks;
+		if (customIngredient != null) {
+			stacks = ((SlotDisplay.CompositeSlotDisplay) customIngredient.toDisplay()).contents().stream()
+				.map(display -> ((SlotDisplay.StackSlotDisplay) display).stack());
+		} else {
+			stacks = ingredient.entries.stream().map(entry -> new ItemStack(entry.value()));
+		}
+		return stacks.peek(itemStack -> itemStack.setCount(count)).toList();
 	}
 }
