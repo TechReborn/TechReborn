@@ -79,21 +79,17 @@ class TemplateState {
 	}
 	static TriFunction<Identifier, Identifier, Identifier, StateModel> RESIN_BASIN = (Identifier empty, Identifier flowing, Identifier full) -> {
 		new StateModel().add(NORTH_DEFAULT_H_FACING).add(
-			BlockStateVariantMap.create(ResinBasinBlock.POURING)
-				.register(false, BlockStateVariant.create().put(VariantSettings.MODEL, empty))
-				.register(true, BlockStateVariant.create().put(VariantSettings.MODEL, flowing))
+			BlockStateVariantMap.create(ResinBasinBlock.POURING).register(false, model(empty)).register(true, model(flowing))
 		).add(
-			BlockStateVariantMap.create(ResinBasinBlock.FULL)
-				.register(false, BlockStateVariant.create())
-				.register(true, BlockStateVariant.create().put(VariantSettings.MODEL, full))
+			BlockStateVariantMap.create(ResinBasinBlock.FULL).register(false, BlockStateVariant.create()).register(true, model(full))
 		)
 	}
 	static TriFunction<Identifier, Identifier, Identifier, StateModel> PLAYER_DETECTOR = (Identifier all, Identifier others, Identifier you) -> {
 		new StateModel().add(
 			BlockStateVariantMap.create(PlayerDetectorBlock.TYPE)
-				.register(PlayerDetectorBlock.PlayerDetectorType.ALL, BlockStateVariant.create().put(VariantSettings.MODEL, all))
-				.register(PlayerDetectorBlock.PlayerDetectorType.OTHERS, BlockStateVariant.create().put(VariantSettings.MODEL, others))
-				.register(PlayerDetectorBlock.PlayerDetectorType.YOU, BlockStateVariant.create().put(VariantSettings.MODEL, you))
+				.register(PlayerDetectorBlock.PlayerDetectorType.ALL, model(all))
+				.register(PlayerDetectorBlock.PlayerDetectorType.OTHERS, model(others))
+				.register(PlayerDetectorBlock.PlayerDetectorType.YOU, model(you))
 		)
 	}
 	static TriFunction<Identifier, Identifier, Identifier, StateModel> RUBBER_LOG = (Identifier vertical, Identifier horizontal, Identifier with_sap) -> {
@@ -102,9 +98,9 @@ class TemplateState {
 		for (Direction.Axis axis : Direction.Axis.VALUES) {
 			for (Direction direction : Direction.Type.HORIZONTAL) {
 				for (boolean has_sap : [false, true]) {
-					BlockStateVariant variant = BlockStateVariant.create()
+					BlockStateVariant variant
 					if (axis == Direction.Axis.Y) {
-						variant.put(VariantSettings.MODEL, has_sap ? with_sap : vertical)
+						variant = model(has_sap ? with_sap : vertical)
 						if (has_sap) {
 							switch (direction) {
 								case Direction.EAST:
@@ -119,7 +115,7 @@ class TemplateState {
 							}
 						}
 					} else {
-						variant.put(VariantSettings.MODEL, horizontal).put(VariantSettings.X, VariantSettings.Rotation.R90)
+						variant = model(horizontal).put(VariantSettings.X, VariantSettings.Rotation.R90)
 						if (axis == Direction.Axis.X) {
 							variant.put(VariantSettings.Y, VariantSettings.Rotation.R90)
 						}
@@ -131,24 +127,23 @@ class TemplateState {
 		return new StateModel().add(map)
 	}
 	static BiFunction<Identifier, Identifier, StateModel> CABLE = (Identifier core, Identifier side) -> {
-		new StateModel().multipart().add(BlockStateVariant.create().put(VariantSettings.MODEL, core))
+		new StateModel().multipart().add(model(core))
+			.add(When.create().set(Properties.NORTH, true), model(side))
 			.add(
-				When.create().set(Properties.NORTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, side)
-			).add(
 				When.create().set(Properties.EAST, true),
-				BlockStateVariant.create().put(VariantSettings.MODEL, side).put(VariantSettings.Y, VariantSettings.Rotation.R90)
+				model(side).put(VariantSettings.Y, VariantSettings.Rotation.R90)
 			).add(
 				When.create().set(Properties.SOUTH, true),
-				BlockStateVariant.create().put(VariantSettings.MODEL, side).put(VariantSettings.Y, VariantSettings.Rotation.R180)
+				model(side).put(VariantSettings.Y, VariantSettings.Rotation.R180)
 			).add(
 				When.create().set(Properties.WEST, true),
-				BlockStateVariant.create().put(VariantSettings.MODEL, side).put(VariantSettings.Y, VariantSettings.Rotation.R270)
+				model(side).put(VariantSettings.Y, VariantSettings.Rotation.R270)
 			).add(
 				When.create().set(Properties.UP, true),
-				BlockStateVariant.create().put(VariantSettings.MODEL, side).put(VariantSettings.X, VariantSettings.Rotation.R270)
+				model(side).put(VariantSettings.X, VariantSettings.Rotation.R270)
 			).add(
 				When.create().set(Properties.DOWN, true),
-				BlockStateVariant.create().put(VariantSettings.MODEL, side).put(VariantSettings.X, VariantSettings.Rotation.R90)
+				model(side).put(VariantSettings.X, VariantSettings.Rotation.R90)
 			)
 	}
 	static BlockStateVariant model(Identifier id) {
