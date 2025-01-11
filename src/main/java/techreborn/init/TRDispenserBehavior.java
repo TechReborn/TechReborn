@@ -40,13 +40,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
-import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.fluid.RebornBucketItem;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.DynamicCellItem;
+import techreborn.recipe.recipes.ScrapBoxRecipe;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class TRDispenserBehavior {
 		if (TechRebornConfig.dispenseScrapboxes) {
 			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new ItemDispenserBehavior() {
 				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-					List<RebornRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(pointer.world(), ModRecipes.SCRAPBOX);
+					List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(pointer.world(), ModRecipes.SCRAPBOX);
 					int random = Random.create().nextInt(scrapboxRecipeList.size());
 					ItemStack out = scrapboxRecipeList.get(random).outputs().getFirst().copy();
 					stack.split(1);

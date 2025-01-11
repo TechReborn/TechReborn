@@ -71,7 +71,7 @@ public class PaddedShapedRecipe extends ShapedRecipe {
 		int width = strings[0].length();
 		int height = strings.length;
 
-		DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(width * height, Ingredient.EMPTY);
+		DefaultedList<Optional<Ingredient>> ingredients = DefaultedList.ofSize(width * height, Optional.empty());
 		CharSet charSet = new CharArraySet(data.key().keySet());
 
 		for(int i = 0; i < strings.length; ++i) {
@@ -79,13 +79,14 @@ public class PaddedShapedRecipe extends ShapedRecipe {
 
 			for(int l = 0; l < string.length(); ++l) {
 				char c = string.charAt(l);
-				Ingredient ingredient = c == ' ' ? Ingredient.EMPTY : data.key().get(c);
-				if (ingredient == null) {
+				try {
+					Optional<Ingredient> ingredient = c == ' ' ? Optional.empty() : Optional.of(data.key().get(c));
+					charSet.remove(c);
+					ingredients.set(l + width * i, ingredient);
+				}
+				catch (NullPointerException ex) {
 					return DataResult.error(() -> "Pattern references symbol '" + c + "' but it's not defined in the key");
 				}
-
-				charSet.remove(c);
-				ingredients.set(l + width * i, ingredient);
 			}
 		}
 
@@ -97,7 +98,7 @@ public class PaddedShapedRecipe extends ShapedRecipe {
 	}
 
 	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<? extends PaddedShapedRecipe> getSerializer() {
 		return PADDED;
 	}
 

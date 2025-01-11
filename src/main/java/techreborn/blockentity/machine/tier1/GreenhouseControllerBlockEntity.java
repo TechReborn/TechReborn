@@ -132,7 +132,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 						&& insertIntoInv(Collections.singletonList(TRContent.Parts.SAP.getStack()))
 				) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-					world.setBlockState(blockPos.up(y), blockState.with(BlockRubberLog.HAS_SAP, false).with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontal(0)));
+					world.setBlockState(blockPos.up(y), blockState.with(BlockRubberLog.HAS_SAP, false).with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontalQuarterTurns(0)));
 				}
 			}
 		} else if (block instanceof CaveVines){

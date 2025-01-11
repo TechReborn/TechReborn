@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "G",
-    "M",
-    "G"
-  ],
-  "key": {
-    "G": {
-      "item": "techreborn:insulated_gold_cable"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "G",
+        "M",
+        "G"
+    ],
+    "key": {
+        "G": "techreborn:insulated_gold_cable",
+        "M": "techreborn:basic_machine_frame"
     },
-    "M": {
-      "item": "techreborn:basic_machine_frame"
+    "result": {
+        "id": "techreborn:mv_transformer"
     }
-  },
-  "result": {
-    "id": "techreborn:mv_transformer"
-  }
 }

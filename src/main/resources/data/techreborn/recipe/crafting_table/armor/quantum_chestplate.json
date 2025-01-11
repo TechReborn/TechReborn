@@ -1,28 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "P P",
-    "SLS",
-    "DID"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:tungstensteel_plate"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "P P",
+        "SLS",
+        "DID"
+    ],
+    "key": {
+        "P": "techreborn:tungstensteel_plate",
+        "S": "techreborn:superconductor",
+        "L": "techreborn:lapotron_crystal",
+        "D": "techreborn:data_storage_chip",
+        "I": "techreborn:iridium_neutron_reflector"
     },
-    "S": {
-      "item": "techreborn:superconductor"
-    },
-    "L": {
-      "item": "techreborn:lapotron_crystal"
-    },
-    "D": {
-      "item": "techreborn:data_storage_chip"
-    },
-    "I": {
-      "item": "techreborn:iridium_neutron_reflector"
+    "result": {
+        "id": "techreborn:quantum_chestplate"
     }
-  },
-  "result": {
-    "id": "techreborn:quantum_chestplate"
-  }
 }

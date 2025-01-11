@@ -29,19 +29,17 @@ import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.TntMinecartEntityRenderer;
+import net.minecraft.client.render.entity.state.TntEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.Nullable;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
 
 /**
  * Created by Mark on 13/03/2016.
  */
-public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
+public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntEntityRenderState> {
 	private final BlockRenderManager blockRenderManager;
 
 	public NukeRenderer(EntityRendererFactory.Context ctx) {
@@ -50,18 +48,17 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 		this.blockRenderManager = ctx.getBlockRenderManager();
 	}
 
-	@Nullable
 	@Override
-	public Identifier getTexture(EntityNukePrimed entityNukePrimed) {
-		return PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
+	public TntEntityRenderState createRenderState() {
+		return new TntEntityRenderState();
 	}
 
 	@Override
-	public void render(EntityNukePrimed entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+	public void render(TntEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
 		matrixStack.push();
 		matrixStack.translate(1D, 0.5D, 0);
-		if ((float) entity.getFuse() - g + 1.0F < 10.0F) {
-			float h = 1.0F - ((float) entity.getFuse() - g + 1.0F) / 10.0F;
+		if (state.fuse < 10.0F) {
+			float h = 1.0F - state.fuse / 10.0F;
 			h = MathHelper.clamp(h, 0.0F, 1.0F);
 			h *= h;
 			h *= h;
@@ -71,8 +68,16 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 
 		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
-		TntMinecartEntityRenderer.renderFlashingBlock(blockRenderManager, TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuse() / 5 % 2 == 0);
+		if (state.blockState != null) {
+			TntMinecartEntityRenderer.renderFlashingBlock(blockRenderManager, state.blockState, matrixStack, vertexConsumerProvider, light, (int) state.fuse / 5 % 2 == 0);
+		}
 		matrixStack.pop();
-		super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
+		super.render(state, matrixStack, vertexConsumerProvider, light);
+	}
+
+	public void updateRenderState(EntityNukePrimed entity, TntEntityRenderState state, float f) {
+		super.updateRenderState(entity, state, f);
+		state.fuse = (float) entity.getFuse() - f + 1.0F;
+		state.blockState = TRContent.NUKE.getDefaultState();
 	}
 }

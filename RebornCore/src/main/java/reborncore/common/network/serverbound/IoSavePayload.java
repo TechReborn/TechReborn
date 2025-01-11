@@ -30,18 +30,24 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.BlockPosPayload;
 
-public record IoSavePayload(BlockPos pos, int slotID, boolean input, boolean output, boolean filter) implements CustomPayload, BlockPosPayload {
+public record IoSavePayload(BlockPos pos, int slotID, boolean input, boolean output, boolean filter, int priority) implements CustomPayload, BlockPosPayload {
 	public static final CustomPayload.Id<IoSavePayload> ID = new CustomPayload.Id<>(Identifier.of("reborncore:io_save"));
 	public static final PacketCodec<RegistryByteBuf, IoSavePayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, IoSavePayload::pos,
 		PacketCodecs.INTEGER, IoSavePayload::slotID,
-		PacketCodecs.BOOL, IoSavePayload::input,
-		PacketCodecs.BOOL, IoSavePayload::output,
-		PacketCodecs.BOOL, IoSavePayload::filter,
+		PacketCodecs.BOOLEAN, IoSavePayload::input,
+		PacketCodecs.BOOLEAN, IoSavePayload::output,
+		PacketCodecs.BOOLEAN, IoSavePayload::filter,
+		PacketCodecs.INTEGER, IoSavePayload::priority,
 		IoSavePayload::new
 	);
+
+	public IoSavePayload(BlockPos pos, int slotID, SlotConfiguration.SlotConfigHolder config) {
+		this(pos, slotID, config.autoInput(), config.autoOutput(), config.filter(), config.getPriority());
+	}
 
 	@Override
 	public Id<? extends CustomPayload> getId() {

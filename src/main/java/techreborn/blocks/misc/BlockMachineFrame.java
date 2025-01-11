@@ -29,7 +29,7 @@ import techreborn.init.TRBlockSettings;
 
 public class BlockMachineFrame extends BaseBlock {
 
-	public BlockMachineFrame() {
-		super(TRBlockSettings.machineFrame());
+	public BlockMachineFrame(String name) {
+		super(TRBlockSettings.machineFrame(name));
 	}
 }

@@ -53,10 +53,23 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 		addDrawableChild(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
 		addDrawableChild(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
 
-		addDrawableChild(ButtonWidget.builder(Text.literal("Toggle Loaded Chunks"), b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos()))
-							.position(x + 10, y + 70)
-							.size(155, 20)
-							.build());
+		addDrawableChild(
+			ButtonWidget.builder(getToogleText(ClientChunkManager.isShow()), button -> {
+				button.setMessage(getToogleText(!ClientChunkManager.isShow()));
+				ClientChunkManager.toggleLoadedChunks(blockEntity.getPos());
+			})
+			.position(x + 10, y + 70)
+			.size(155, 20)
+			.build()
+		);
+	}
+
+	private Text getToogleText(Boolean show) {
+		if (show) {
+			return Text.translatable("gui.techreborn.chunk.hide_loaded_chunks");
+		} else {
+			return Text.translatable("gui.techreborn.chunk.show_loaded_chunks");
+		}
 	}
 
 	@Override
@@ -66,7 +79,8 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 
 		if (hideGuiElements()) return;
 
-		Text text = Text.literal("Radius: ")
+		Text text = Text.translatable("gui.techreborn.chunk.radius")
+				.append(": ")
 				.append(String.valueOf(blockEntity.getRadius()));
 		drawCentredText(drawContext, text, 25, theme.titleColor().rgba(), layer);
 	}

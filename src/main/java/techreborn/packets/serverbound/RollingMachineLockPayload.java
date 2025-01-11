@@ -37,7 +37,7 @@ public record RollingMachineLockPayload(BlockPos pos, boolean locked) implements
 	public static final CustomPayload.Id<RollingMachineLockPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "rolling_machine_lock"));
 	public static final PacketCodec<RegistryByteBuf, RollingMachineLockPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, RollingMachineLockPayload::pos,
-		PacketCodecs.BOOL, RollingMachineLockPayload::locked,
+		PacketCodecs.BOOLEAN, RollingMachineLockPayload::locked,
 		RollingMachineLockPayload::new
 	);
 

@@ -1,17 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "W  ",
-    "WW ",
-    "WWW"
-  ],
-  "key": {
-    "W": {
-      "item": "techreborn:rubber_planks"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "W  ",
+        "WW ",
+        "WWW"
+    ],
+    "key": {
+        "W": "techreborn:rubber_planks"
+    },
+    "result": {
+        "id": "techreborn:rubber_stair",
+        "count": 4
     }
-  },
-  "result": {
-    "id": "techreborn:rubber_stair",
-    "count": 4
-  }
 }

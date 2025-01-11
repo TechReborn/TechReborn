@@ -31,7 +31,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
+import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
@@ -59,7 +59,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Item rendering
 		matrices.push();
 		Direction direction = storage.getFacing();
-		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((direction.getHorizontal() - 2) * 90F));
+		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((direction.getHorizontalQuarterTurns() - 2) * 90F));
 		matrices.scale(0.5F, 0.5F, 0.5F);
 		switch (direction) {
 			case NORTH, WEST -> matrices.translate(1, 1, 0);
@@ -78,7 +78,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Render item only on horizontal facing #2183
 		if (Direction.Type.HORIZONTAL.test(facing) ){
 			matrices.translate(0.5, 0.5, 0.5); // Translate center
-			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
+			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-facing.rotateYCounterclockwise().getPositiveHorizontalDegrees() + 90)); // Rotate depending on face
 			matrices.translate(0, 0, -0.505); // Translate forward
 		}
 

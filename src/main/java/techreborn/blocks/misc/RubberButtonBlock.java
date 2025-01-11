@@ -33,7 +33,7 @@ import techreborn.init.TRContent;
  */
 public class RubberButtonBlock extends ButtonBlock {
 
-	public RubberButtonBlock() {
-		super(TRContent.RUBBER_WOOD_SET_TYPE, 30, TRBlockSettings.rubberButton());
+	public RubberButtonBlock(String name) {
+		super(TRContent.RUBBER_WOOD_SET_TYPE, 30, TRBlockSettings.rubberButton(name));
 	}
 }

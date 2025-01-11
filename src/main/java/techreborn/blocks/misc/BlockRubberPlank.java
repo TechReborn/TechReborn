@@ -33,8 +33,8 @@ import techreborn.init.TRBlockSettings;
  */
 public class BlockRubberPlank extends Block {
 
-	public BlockRubberPlank() {
-		super(TRBlockSettings.rubberWood());
+	public BlockRubberPlank(String name) {
+		super(TRBlockSettings.rubberWood(name));
 		FlammableBlockRegistry.getDefaultInstance().add(this, 5, 20);
 	}
 }

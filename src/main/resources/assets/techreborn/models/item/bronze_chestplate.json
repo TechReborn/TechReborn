@@ -1,6 +1,0 @@
-{
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "techreborn:item/armor/bronze_chestplate"
-    }
-}

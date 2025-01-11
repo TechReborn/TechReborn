@@ -6,15 +6,9 @@
         "TST"
     ],
     "key": {
-        "B": {
-            "tag": "c:steel_blocks"
-        },
-        "S": {
-            "tag": "c:ingots/steel"
-        },
-        "T": {
-            "tag": "c:ingots/tungsten"
-        }
+        "B": "#c:storage_blocks/steel",
+        "S": "#c:ingots/steel",
+        "T": "#c:ingots/tungsten"
     },
     "result": {
         "id": "techreborn:tungsten_grinding_head",

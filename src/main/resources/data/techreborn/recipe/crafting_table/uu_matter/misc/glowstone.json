@@ -1,16 +1,14 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "UU ",
-    "   ",
-    "   "
-  ],
-  "key": {
-    "U": {
-      "item": "techreborn:uu_matter"
+    "type": "reborncore:padded",
+    "pattern": [
+        "UU ",
+        "   ",
+        "   "
+    ],
+    "key": {
+        "U": "techreborn:uu_matter"
+    },
+    "result": {
+        "id": "minecraft:glowstone"
     }
-  },
-  "result": {
-    "id": "minecraft:glowstone"
-  }
 }

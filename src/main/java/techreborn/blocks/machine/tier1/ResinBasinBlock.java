@@ -32,9 +32,10 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -55,14 +56,14 @@ import java.util.function.BiFunction;
 
 public class ResinBasinBlock extends BaseBlockEntityProvider {
 
-	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+	public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty POURING = BooleanProperty.of("pouring");
 	public static final BooleanProperty FULL = BooleanProperty.of("full");
 	protected static final VoxelShape SHAPE = Block.createCuboidShape(0d,0d, 0d, 16d, 8d, 16d);
 	final BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
-	public ResinBasinBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
-		super(TRBlockSettings.resinBasin());
+	public ResinBasinBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass, String name) {
+		super(TRBlockSettings.resinBasin(name));
 		this.blockEntityClass = blockEntityClass;
 
 		this.setDefaultState(
@@ -111,7 +112,9 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 		if (worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() != TRContent.RUBBER_LOG) {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 			WorldUtils.dropItem(this.asItem(), worldIn, pos);
-			placer.sendMessage(Text.translatable("techreborn.tooltip.invalid_basin_placement"));
+			if (placer instanceof ServerPlayerEntity player) {
+				player.sendMessage(Text.translatable("techreborn.tooltip.invalid_basin_placement"));
+			}
 		}
 	}
 

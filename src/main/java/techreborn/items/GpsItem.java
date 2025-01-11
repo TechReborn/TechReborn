@@ -26,25 +26,23 @@ package techreborn.items;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import techreborn.init.TRItemSettings;
 
 public class GpsItem extends Item {
 
-	public GpsItem() {
-		super(new Settings());
+	public GpsItem(String name) {
+		super(TRItemSettings.item(name));
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public ActionResult use(World world, PlayerEntity player, Hand hand) {
 		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
 			BlockPos pos = player.getBlockPos();
 			serverPlayerEntity.sendMessage(Text.literal(" X:").formatted(Formatting.GRAY)
@@ -53,8 +51,8 @@ public class GpsItem extends Item {
 											.append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
 											.append(Text.literal(" Z:").formatted(Formatting.GRAY))
 											.append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD)), true);
-			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+			return ActionResult.SUCCESS;
 		}
-		return new TypedActionResult<>(ActionResult.PASS, stack);
+		return ActionResult.PASS;
 	}
 }

@@ -41,6 +41,11 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 
 	@Override
 	void generateRecipes() {
+		generateMisc()
+		generateCopper()
+	}
+
+	void generateMisc() {
 		offerIndustrialElectrolyzerRecipe {
 			power 50
 			time 1640
@@ -250,6 +255,66 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 			time 200
 			ingredients cellStack(Fluids.WATER)
 			outputs cellStack(ModFluids.ELECTROLYZED_WATER)
+		}
+	}
+
+	void generateCopper(){
+		[
+			(Items.COPPER_BLOCK) : Items.EXPOSED_COPPER,
+			(Items.CHISELED_COPPER) : Items.EXPOSED_CHISELED_COPPER,
+			(Items.COPPER_GRATE) : Items.EXPOSED_COPPER_GRATE,
+			(Items.CUT_COPPER) : Items.EXPOSED_CUT_COPPER,
+			(Items.CUT_COPPER_STAIRS) : Items.EXPOSED_CUT_COPPER_STAIRS,
+			(Items.CUT_COPPER_SLAB) : Items.EXPOSED_CUT_COPPER_SLAB,
+			(Items.COPPER_DOOR) : Items.EXPOSED_COPPER_DOOR,
+			(Items.COPPER_TRAPDOOR) : Items.EXPOSED_COPPER_TRAPDOOR,
+			(Items.COPPER_BULB) : Items.EXPOSED_COPPER_BULB
+		].each {source, result ->
+			offerIndustrialElectrolyzerRecipe {
+				power 30
+				time 200
+				ingredients source
+				outputs result
+				criterion getCriterionName(source), getCriterionConditions(source)
+			}
+		}
+		[
+			(Items.EXPOSED_COPPER) : Items.WEATHERED_COPPER,
+			(Items.EXPOSED_CHISELED_COPPER) : Items.WEATHERED_CHISELED_COPPER,
+			(Items.EXPOSED_COPPER_GRATE) : Items.WEATHERED_COPPER_GRATE,
+			(Items.EXPOSED_CUT_COPPER) : Items.WEATHERED_CUT_COPPER,
+			(Items.EXPOSED_CUT_COPPER_STAIRS) : Items.WEATHERED_CUT_COPPER_STAIRS,
+			(Items.EXPOSED_CUT_COPPER_SLAB) : Items.WEATHERED_CUT_COPPER_SLAB,
+			(Items.EXPOSED_COPPER_DOOR) : Items.WEATHERED_COPPER_DOOR,
+			(Items.EXPOSED_COPPER_TRAPDOOR) : Items.WEATHERED_COPPER_TRAPDOOR,
+			(Items.EXPOSED_COPPER_BULB) : Items.WEATHERED_COPPER_BULB
+		].each {source, result ->
+			offerIndustrialElectrolyzerRecipe {
+				power 30
+				time 200
+				ingredients source
+				outputs result
+				criterion getCriterionName(source), getCriterionConditions(source)
+			}
+		}
+		[
+			(Items.WEATHERED_COPPER) : Items.OXIDIZED_COPPER,
+			(Items.WEATHERED_CHISELED_COPPER) : Items.OXIDIZED_CHISELED_COPPER,
+			(Items.WEATHERED_COPPER_GRATE) : Items.OXIDIZED_COPPER_GRATE,
+			(Items.WEATHERED_CUT_COPPER) : Items.OXIDIZED_CUT_COPPER,
+			(Items.WEATHERED_CUT_COPPER_STAIRS) : Items.OXIDIZED_CUT_COPPER_STAIRS,
+			(Items.WEATHERED_CUT_COPPER_SLAB) : Items.OXIDIZED_CUT_COPPER_SLAB,
+			(Items.WEATHERED_COPPER_DOOR) : Items.OXIDIZED_COPPER_DOOR,
+			(Items.WEATHERED_COPPER_TRAPDOOR) : Items.OXIDIZED_COPPER_TRAPDOOR,
+			(Items.WEATHERED_COPPER_BULB) : Items.OXIDIZED_COPPER_BULB
+		].each {source, result ->
+			offerIndustrialElectrolyzerRecipe {
+				power 30
+				time 200
+				ingredients source
+				outputs result
+				criterion getCriterionName(source), getCriterionConditions(source)
+			}
 		}
 	}
 }

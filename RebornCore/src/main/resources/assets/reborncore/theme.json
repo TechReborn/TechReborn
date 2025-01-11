@@ -3,6 +3,6 @@
 	"subtitleColor": "#AAAAAA",
 	"warningTextColor": "#FF0000",
 	"ioInputColor": "#800000FF",
-	"ioOutputColor": "#8000FF00",
-	"ioBothColor": "#80001AFF"
+	"ioOutputColor": "#80FF4500",
+	"ioBothColor": "#8034FF1E"
 }

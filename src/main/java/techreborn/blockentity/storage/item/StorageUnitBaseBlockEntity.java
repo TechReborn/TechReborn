@@ -336,7 +336,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			if (storeItemStack.getCount() > storeItemStack.getMaxCount()) {
 				temp.setCount(storeItemStack.getMaxCount());
 			}
-			tagCompound.put("storedStack", temp.encode(registryLookup, new NbtCompound()));
+			tagCompound.put("storedStack", temp.toNbt(registryLookup, new NbtCompound()));
 			tagCompound.putInt("storedQuantity", Math.min(storeItemStack.getCount(), maxCapacity));
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
@@ -346,7 +346,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		tagCompound.putInt("totalStoredAmount", getCurrentCapacity());
 
 		if (isLocked()) {
-			tagCompound.put("lockedItem", lockedItemStack.encode(registryLookup));
+			tagCompound.put("lockedItem", lockedItemStack.toNbt(registryLookup));
 		}
 	}
 
@@ -526,7 +526,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			// We are not allowed to serialize empty or large stacks
 			ItemStack singleStack = stack.copy();
 			singleStack.setCount(1);
-			tag.put("item", singleStack.encode(world.getRegistryManager(), new NbtCompound()));
+			tag.put("item", singleStack.toNbt(world.getRegistryManager(), new NbtCompound()));
 		}
 
 		return tag;

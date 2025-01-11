@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "wooden_pressure_plate",
-  "pattern": [
-    "##"
-  ],
-  "key": {
-    "#": {
-      "item": "techreborn:rubber_planks"
+    "type": "minecraft:crafting_shaped",
+    "group": "wooden_pressure_plate",
+    "pattern": [
+        "##"
+    ],
+    "key": {
+        "#": "techreborn:rubber_planks"
+    },
+    "result": {
+        "id": "techreborn:rubber_pressure_plate"
     }
-  },
-  "result": {
-    "id": "techreborn:rubber_pressure_plate"
-  }
 }

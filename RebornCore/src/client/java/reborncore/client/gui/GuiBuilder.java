@@ -31,6 +31,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.EntryListWidget;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.fluid.Fluids;
@@ -60,7 +61,7 @@ public class GuiBuilder {
 	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
 	public void drawDefaultBackground(DrawContext drawContext, int x, int y, int width, int height) {
-		drawContext.drawGuiTexture(GuiSprites.BACKGROUND.getTextureId(), x, y, width, height);
+		drawContext.drawGuiTexture(RenderLayer::getGuiTextured, GuiSprites.BACKGROUND.getTextureId(), x, y, width, height);
 	}
 
 	public void drawPlayerSlots(DrawContext drawContext, Screen gui, int posX, int posY, boolean center) {
@@ -88,10 +89,10 @@ public class GuiBuilder {
 	}
 
 	public void drawProgressBar(DrawContext drawContext, GuiBase<?> gui, double progress, int x, int y) {
-		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 18, 22, 15);
+		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 150, 18, 22, 15, 256, 256);
 		int j = (int) (progress);
 		if (j > 0) {
-			drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 34, j + 1, 15);
+			drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 150, 34, j + 1, 15, 256, 256);
 		}
 	}
 
@@ -141,6 +142,7 @@ public class GuiBuilder {
 	 */
 	public void drawHologramButton(DrawContext drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (gui.isTabOpen()) return;
+		boolean hasTooltip = gui.isPointInRect(x, y, 20, 12, mouseX, mouseY);
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -150,7 +152,7 @@ public class GuiBuilder {
 		} else {
 			drawSprite(drawContext, GuiSprites.BUTTON_HOLOGRAM_DISABLED, x, y);
 		}
-		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
+		if (hasTooltip) {
 			List<Text> list = new ArrayList<>();
 			list.add(Text.translatable("reborncore.gui.tooltip.hologram"));
 			if (layer == GuiBase.Layer.FOREGROUND) {
@@ -177,13 +179,13 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(GUI_ELEMENTS, x, y, 26, 218, 114, 18);
+		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 26, 218, 114, 18, 256, 256);
 		if (value != 0) {
 			int j = (int) ((double) value / (double) max * 106);
 			if (j < 0) {
 				j = 0;
 			}
-			drawContext.drawTexture(GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10);
+			drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10, 256, 256);
 
 			Text text = Text.literal(String.valueOf(value))
 					.append(Text.translatable("reborncore.gui.heat"));
@@ -217,7 +219,7 @@ public class GuiBuilder {
 		if (j < 0) {
 			j = 0;
 		}
-		drawContext.drawTexture(GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10);
+		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10, 256, 256);
 		if (!suffix.equals("")) {
 			suffix = " " + suffix;
 		}
@@ -379,7 +381,7 @@ public class GuiBuilder {
 
 			@Override
 			public void render(DrawContext drawContext, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
-				drawContext.drawTextWrapped(MinecraftClient.getInstance().textRenderer, tip, x, y, width, theme.subtitleColor().rgba());
+				drawContext.drawWrappedTextWithShadow(MinecraftClient.getInstance().textRenderer, tip, x, y, width, theme.subtitleColor().rgba());
 			}
 		}
 	}
@@ -400,7 +402,7 @@ public class GuiBuilder {
 		Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(maxOutput))
 				.append(SPACE_TEXT)
 				.append(PowerSystem.ABBREVIATION)
-				.append("\t");
+				.append(" ");
 
 		int width = gui.getTextRenderer().getWidth(text);
 		gui.drawText(drawContext, text, x - width - 2, y + 5, 0, layer);
@@ -408,7 +410,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 91, 16, 16);
+		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 150, 91, 16, 16, 256, 256);
 	}
 
 	/**
@@ -444,10 +446,10 @@ public class GuiBuilder {
 			}
 		} else {
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10);
-				case LEFT -> drawContext.drawTexture(GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-				case UP -> drawContext.drawTexture(GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-				case DOWN -> drawContext.drawTexture(GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j);
+				case RIGHT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		}
 
@@ -497,7 +499,7 @@ public class GuiBuilder {
 		if (energyStored > maxEnergyStored) {
 			draw = barHeight;
 		}
-		drawSprite(drawContext, GuiSprites.POWER_BAR_OVERLAY, x + 1, y + 49 - draw, 12, draw, gui);
+		drawSprite(drawContext, GuiSprites.POWER_BAR_OVERLAY, x + 1, y + 49 - draw, 12, draw);
 
 		int percentage = percentage(maxEnergyStored, energyStored);
 		if (gui.isPointInRect(x + 1, y + 1, 11, 48, mouseX, mouseY)) {
@@ -632,20 +634,17 @@ public class GuiBuilder {
 		final int iconHeight = sprite.getContents().getHeight();
 		int offsetHeight = drawHeight;
 
-		drawContext.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
-
 		int iteration = 0;
 		while (offsetHeight != 0) {
-			final int curHeight = offsetHeight < iconHeight ? offsetHeight : iconHeight;
+			final int curHeight = Math.min(offsetHeight, iconHeight);
 
-			drawContext.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
+			drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight, color);
 			offsetHeight -= curHeight;
 			iteration++;
 			if (iteration > 50) {
 				break;
 			}
 		}
-		drawContext.setShaderColor(1, 1, 1, 1);
 	}
 
 	/**
@@ -666,10 +665,10 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 64, 13, 13);
+		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 150, 64, 13, 13, 256, 256);
 		int j = 13 - (int) ((double) progress / (double) maxProgress * 13);
 		if (j > 0) {
-			drawContext.drawTexture(GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j);
+			drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j, 256, 256);
 
 		}
 		if (gui.isPointInRect(x, y, 12, 12, mouseX, mouseY)) {

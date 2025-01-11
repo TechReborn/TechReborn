@@ -887,6 +887,8 @@
   "_comment20": "Death Messages",
   "death.attack.electric_shock": "%s was electrocuted",
   "death.attack.electric_shock.player": "%s was electrocuted trying to outrun %s",
+  "death.attack.fusion": "%s suffered from acute radiation sickness",
+  "death.attack.fusion.player": "%s suffered from acute radiation sickness trying to outrun %s",
 
   "_comment21": "Entities",
   "entity.nuke": "Nuke",
@@ -924,6 +926,7 @@
   "techreborn.tooltip.ores.nether" : "Can be found in the nether",
   "techreborn.tooltip.ores.end" : "Can be found in the end",
   "techreborn.tooltip.unobtainable": "Unobtainable in Survival Mode",
+  "techreborn.tooltip.experience": "Experience",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",
@@ -1137,6 +1140,12 @@
   "gui.techreborn.pump.depth": "Depth (%s..%s):",
   "gui.techreborn.pump.range": "Range (%s..%s):",
   "gui.techreborn.pump.exhausted": "Exhausted!",
+
+  "gui.techreborn.chunk.radius": "Radius",
+  "gui.techreborn.chunk.hide_loaded_chunks": "Hide Loaded Chunks",
+  "gui.techreborn.chunk.show_loaded_chunks": "Show Loaded Chunks",
+
+  "gui.techreborn.launchpad.launch_speed": "Launch Speed",
 
   "_comment28": "Villagers",
   "entity.minecraft.villager.techreborn.metallurgist": "Metallurgist",

@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DC ",
-    "DC ",
-    "GLG"
-  ],
-  "key": {
-    "D": {
-      "tag": "c:plates/diamond"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "DC ",
+        "DC ",
+        "GLG"
+    ],
+    "key": {
+        "D": "#c:plates/diamond",
+        "C": "techreborn:carbon_plate",
+        "G": "techreborn:glowstone_small_dust",
+        "L": "techreborn:lapotron_crystal"
     },
-    "C": {
-      "item": "techreborn:carbon_plate"
-    },
-    "G": {
-      "item": "techreborn:glowstone_small_dust"
-    },
-    "L": {
-      "item": "techreborn:lapotron_crystal"
+    "result": {
+        "id": "techreborn:nanosaber"
     }
-  },
-  "result": {
-    "id": "techreborn:nanosaber"
-  }
 }

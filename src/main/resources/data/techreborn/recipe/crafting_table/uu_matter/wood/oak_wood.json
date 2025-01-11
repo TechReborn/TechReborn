@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    " U ",
-    " S ",
-    "   "
-  ],
-  "key": {
-	"S": {
-      "tag": "c:dusts/saw"
-	},
-    "U": {
-      "item": "techreborn:uu_matter"
+    "type": "reborncore:padded",
+    "pattern": [
+        " U ",
+        " S ",
+        "   "
+    ],
+    "key": {
+        "S": "#c:dusts/saw",
+        "U": "techreborn:uu_matter"
+    },
+    "result": {
+        "id": "minecraft:oak_wood"
     }
-  },
-  "result": {
-    "id": "minecraft:oak_wood"
-  }
 }

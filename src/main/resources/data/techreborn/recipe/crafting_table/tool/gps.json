@@ -1,18 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "B",
-    "C"
-  ],
-  "key": {
-    "B": {
-      "item": "techreborn:basic_display"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "B",
+        "C"
+    ],
+    "key": {
+        "B": "techreborn:basic_display",
+        "C": "minecraft:compass"
     },
-    "C": {
-      "item": "minecraft:compass"
+    "result": {
+        "id": "techreborn:gps"
     }
-  },
-  "result": {
-    "id": "techreborn:gps"
-  }
 }

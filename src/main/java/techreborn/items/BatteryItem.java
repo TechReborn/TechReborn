@@ -32,11 +32,11 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
+import techreborn.init.TRItemSettings;
 import techreborn.utils.TRItemUtils;
 
 import java.util.List;
@@ -46,21 +46,21 @@ public class BatteryItem extends Item implements RcEnergyItem {
 	private final int maxEnergy;
 	private final RcEnergyTier tier;
 
-	public BatteryItem(int maxEnergy, RcEnergyTier tier) {
-		super(new Item.Settings().maxCount(1));
+	public BatteryItem(int maxEnergy, RcEnergyTier tier, String name) {
+		super(TRItemSettings.item(name).maxCount(1));
 		this.maxEnergy = maxEnergy;
 		this.tier = tier;
 	}
 
 	// Item
 	@Override
-	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
+	public ActionResult use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			TRItemUtils.switchActive(stack, 1, player);
-			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+			return ActionResult.SUCCESS;
 		}
-		return new TypedActionResult<>(ActionResult.PASS, stack);
+		return ActionResult.PASS;
 	}
 
 	@Override

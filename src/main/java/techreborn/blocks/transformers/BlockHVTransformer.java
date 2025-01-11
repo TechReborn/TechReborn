@@ -34,8 +34,8 @@ import techreborn.blockentity.transformers.HVTransformerBlockEntity;
  */
 public class BlockHVTransformer extends BlockTransformer {
 
-	public BlockHVTransformer() {
-		super("hv_transformer");
+	public BlockHVTransformer(String name) {
+		super(name);
 	}
 
 	@Override

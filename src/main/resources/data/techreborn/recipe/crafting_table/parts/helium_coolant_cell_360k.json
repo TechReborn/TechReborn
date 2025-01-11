@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "THT",
-    "TCT",
-    "THT"
-  ],
-  "key": {
-    "C": {
-      "item": "minecraft:copper_ingot"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "THT",
+        "TCT",
+        "THT"
+    ],
+    "key": {
+        "C": "minecraft:copper_ingot",
+        "T": "#c:ingots/tin",
+        "H": "techreborn:helium_coolant_cell_180k"
     },
-    "T": {
-      "tag": "c:ingots/tin"
-    },
-    "H": {
-      "item": "techreborn:helium_coolant_cell_180k"
+    "result": {
+        "id": "techreborn:helium_coolant_cell_360k"
     }
-  },
-  "result": {
-    "id": "techreborn:helium_coolant_cell_360k"
-  }
 }

@@ -26,7 +26,6 @@ package techreborn.blockentity.machine.iron;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -83,10 +82,10 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	 * @return {@code int} Number of ticks
 	 */
 	private int getItemBurnTime(ItemStack stack) {
-		if (stack.isEmpty()) {
+		if (stack.isEmpty() || world == null) {
 			return 0;
 		}
-		return (int) (AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0) * TechRebornConfig.fuelScale);
+		return (int) (world.getFuelRegistry().getFuelTicks(stack) * TechRebornConfig.fuelScale);
 	}
 
 	/**
@@ -161,13 +160,15 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 			--burnTime;
 		}
 
-		if (!isBurning && canSmelt()) {
+		boolean canSmelt = canSmelt();
+		if (!isBurning && canSmelt) {
 			burnTime = totalBurnTime = getItemBurnTime(inventory.getStack(fuelSlot));
 			if (burnTime > 0) {
 				// Fuel slot
 				ItemStack fuelStack = inventory.getStack(fuelSlot);
-				if (fuelStack.getItem().hasRecipeRemainder()) {
-					inventory.setStack(fuelSlot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
+				ItemStack remainderStack = fuelStack.getItem().getRecipeRemainder();
+				if (!remainderStack.isEmpty()) {
+					inventory.setStack(fuelSlot, remainderStack);
 				} else if (fuelStack.getCount() > 1) {
 					inventory.shrinkSlot(fuelSlot, 1);
 				} else if (fuelStack.getCount() == 1) {
@@ -176,13 +177,13 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 			}
 		}
 
-		if (isBurning() && canSmelt()) {
+		if (isBurning() && canSmelt) {
 			++progress;
 			if (progress == cookingTime()) {
 				progress = 0;
 				smelt();
 			}
-		} else if (!canSmelt()) {
+		} else if (!canSmelt) {
 			progress = 0;
 		}
 

@@ -1,29 +1,19 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "advanced_tank_unit",
-  "pattern": [
-	"PPP",
-	"XBX",
-	"CDC"
-  ],
-  "key": {
-	"P": {
-	  "tag": "c:plates/electrum"
-	},
-	"B": {
-	  "item": "techreborn:advanced_machine_frame"
-	},
-	"D": {
-	  "item": "techreborn:digital_display"
-	},
-	"X": {
-	  "item": "techreborn:basic_tank_unit"
-	},
-	"C": {
-	  "item": "techreborn:advanced_circuit"
-	}
-  },
-  "result": {
-	"id": "techreborn:advanced_tank_unit"
-  }
+    "type": "minecraft:crafting_shaped",
+    "group": "advanced_tank_unit",
+    "pattern": [
+        "PPP",
+        "XBX",
+        "CDC"
+    ],
+    "key": {
+        "P": "#c:plates/electrum",
+        "B": "techreborn:advanced_machine_frame",
+        "D": "techreborn:digital_display",
+        "X": "techreborn:basic_tank_unit",
+        "C": "techreborn:advanced_circuit"
+    },
+    "result": {
+        "id": "techreborn:advanced_tank_unit"
+    }
 }

@@ -38,7 +38,7 @@ public record ChunkloaderPayload(BlockPos pos, int buttonID, boolean sync) imple
 	public static final PacketCodec<RegistryByteBuf, ChunkloaderPayload> CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, ChunkloaderPayload::pos,
 		PacketCodecs.INTEGER, ChunkloaderPayload::buttonID,
-		PacketCodecs.BOOL, ChunkloaderPayload::sync,
+		PacketCodecs.BOOLEAN, ChunkloaderPayload::sync,
 		ChunkloaderPayload::new
 	);
 

@@ -1,28 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PAP",
-    "HSH",
-    "ACA"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:refined_iron_ingot"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PAP",
+        "HSH",
+        "ACA"
+    ],
+    "key": {
+        "P": "techreborn:refined_iron_ingot",
+        "A": "techreborn:advanced_circuit",
+        "S": "techreborn:diamond_saw_blade",
+        "C": "techreborn:advanced_machine_frame",
+        "H": "minecraft:iron_hoe"
     },
-    "A": {
-      "item": "techreborn:advanced_circuit"
-    },
-    "S": {
-      "item": "techreborn:diamond_saw_blade"
-    },
-    "C": {
-      "item": "techreborn:advanced_machine_frame"
-    },
-    "H": {
-      "item": "minecraft:iron_hoe"
+    "result": {
+        "id": "techreborn:greenhouse_controller"
     }
-  },
-  "result": {
-    "id": "techreborn:greenhouse_controller"
-  }
 }

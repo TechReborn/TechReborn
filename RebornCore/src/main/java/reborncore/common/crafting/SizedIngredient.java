@@ -27,15 +27,17 @@ package reborncore.common.crafting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.display.SlotDisplay;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * An ingredient with a specific item stack count
@@ -45,7 +47,7 @@ import java.util.function.Predicate;
 public record SizedIngredient(int count, Ingredient ingredient) implements Predicate<ItemStack> {
 	public static MapCodec<SizedIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.INT.optionalFieldOf("count", 1).forGetter(SizedIngredient::count),
-		MapCodec.assumeMapUnsafe(Ingredient.DISALLOW_EMPTY_CODEC).forGetter(SizedIngredient::ingredient)
+		Ingredient.CODEC.fieldOf("ingredient").forGetter(SizedIngredient::ingredient)
 	).apply(instance, SizedIngredient::new));
 	public static PacketCodec<RegistryByteBuf, SizedIngredient> PACKET_CODEC = PacketCodec.tuple(
 		PacketCodecs.INTEGER, SizedIngredient::count,
@@ -68,9 +70,14 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 	}
 
 	public List<ItemStack> getPreviewStacks() {
-		return Arrays.stream(ingredient.getMatchingStacks())
-			.map(ItemStack::copy)
-			.peek(itemStack -> itemStack.setCount(count))
-			.toList();
+		CustomIngredient customIngredient = ingredient.getCustomIngredient();
+		Stream<ItemStack> stacks;
+		if (customIngredient != null) {
+			stacks = ((SlotDisplay.CompositeSlotDisplay) customIngredient.toDisplay()).contents().stream()
+				.map(display -> ((SlotDisplay.StackSlotDisplay) display).stack());
+		} else {
+			stacks = ingredient.entries.stream().map(entry -> new ItemStack(entry.value()));
+		}
+		return stacks.peek(itemStack -> itemStack.setCount(count)).toList();
 	}
 }

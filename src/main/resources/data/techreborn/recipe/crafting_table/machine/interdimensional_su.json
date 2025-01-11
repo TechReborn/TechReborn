@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PAP",
-    "ACA",
-    "PAP"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:iridium_alloy_plate"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PAP",
+        "ACA",
+        "PAP"
+    ],
+    "key": {
+        "P": "techreborn:iridium_alloy_plate",
+        "A": "techreborn:adjustable_su",
+        "C": "minecraft:ender_chest"
     },
-    "A": {
-      "item": "techreborn:adjustable_su"
-    },
-    "C": {
-      "item": "minecraft:ender_chest"
+    "result": {
+        "id": "techreborn:interdimensional_su"
     }
-  },
-  "result": {
-    "id": "techreborn:interdimensional_su"
-  }
 }

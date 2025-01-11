@@ -38,11 +38,12 @@ import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.init.TRContent.StorageUnit;
 import techreborn.init.TRContent.TankUnit;
+import techreborn.init.TRItemSettings;
 
 public class UpgraderItem extends Item {
 
-	public UpgraderItem() {
-		super(new Item.Settings());
+	public UpgraderItem(String name) {
+		super(TRItemSettings.item(name));
 	}
 
 	@Override

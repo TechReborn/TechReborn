@@ -39,6 +39,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
 import reborncore.common.powerSystem.PowerSystem;
 import team.reborn.energy.api.EnergyStorage;
+import techreborn.init.TRItemSettings;
 
 import java.util.Map.Entry;
 
@@ -47,8 +48,8 @@ import java.util.Map.Entry;
  */
 public class DebugToolItem extends Item {
 
-	public DebugToolItem() {
-		super(new Item.Settings());
+	public DebugToolItem(String name) {
+		super(TRItemSettings.item(name));
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class DebugToolItem extends Item {
 		if (context.getWorld().isClient || context.getPlayer() == null) {
 			return;
 		}
-		context.getPlayer().sendMessage(message);
+		context.getPlayer().sendMessage(message, false); // TODO check if this is correct boolean
 	}
 
 	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {

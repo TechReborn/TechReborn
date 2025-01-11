@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "GU ",
-    " U ",
-    "   "
-  ],
-  "key": {
-    "G": {
-      "item":  "techreborn:plantball"
+    "type": "reborncore:padded",
+    "pattern": [
+        "GU ",
+        " U ",
+        "   "
+    ],
+    "key": {
+        "G": "techreborn:plantball",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:vine"
     }
-  },
-  "result": {
-    "id": "minecraft:vine"
-  }
 }

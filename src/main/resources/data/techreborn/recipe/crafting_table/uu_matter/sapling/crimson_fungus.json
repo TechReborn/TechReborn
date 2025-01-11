@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "   ",
-    " U ",
-    " P "
-  ],
-  "key": {
-    "P": {
-      "item": "minecraft:nether_wart_block"
+    "type": "reborncore:padded",
+    "pattern": [
+        "   ",
+        " U ",
+        " P "
+    ],
+    "key": {
+        "P": "minecraft:nether_wart_block",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:crimson_fungus"
     }
-  },
-  "result": {
-    "id": "minecraft:crimson_fungus"
-  }
 }

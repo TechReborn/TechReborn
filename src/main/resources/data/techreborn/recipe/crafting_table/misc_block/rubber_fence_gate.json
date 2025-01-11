@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "wooden_fence_gate",
-  "pattern": [
-    "#W#",
-    "#W#"
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:stick"
+    "type": "minecraft:crafting_shaped",
+    "group": "wooden_fence_gate",
+    "pattern": [
+        "#W#",
+        "#W#"
+    ],
+    "key": {
+        "#": "minecraft:stick",
+        "W": "techreborn:rubber_planks"
     },
-    "W": {
-      "item": "techreborn:rubber_planks"
+    "result": {
+        "id": "techreborn:rubber_fence_gate"
     }
-  },
-  "result": {
-    "id": "techreborn:rubber_fence_gate"
-  }
 }

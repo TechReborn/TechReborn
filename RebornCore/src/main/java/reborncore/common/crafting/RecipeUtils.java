@@ -28,9 +28,11 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,7 +50,13 @@ public class RecipeUtils {
 	}
 
 	private static <T extends RebornRecipe> Stream<RecipeEntry<T>> streamRecipeEntries(World world, RecipeType<T> type) {
-		return world.getRecipeManager().getAllOfType(type).stream();
+		if (!(world instanceof ServerWorld serverWorld)) {
+			throw new IllegalArgumentException("World must be a ServerWorld");
+		}
+
+		return serverWorld.getRecipeManager().values().stream()
+			.filter(recipe -> recipe.value().getType() == type)
+			.map(recipe -> (RecipeEntry<T>) recipe);
 	}
 
 	/**
@@ -59,15 +67,15 @@ public class RecipeUtils {
 	 *     <li>reward: the specified recipe</li>
 	 * </ul>
 	 * @param builder the advancement task builder to expand
-	 * @param recipeId the ID of the recipe
+	 * @param registryKey the key of the recipe
 	 * @throws NullPointerException If any parameter refers to <code>null</code>.
 	 */
-	public static void addToastDefaults(@NotNull Advancement.Builder builder, @NotNull Identifier recipeId) {
+	public static void addToastDefaults(@NotNull Advancement.Builder builder, @NotNull RegistryKey<Recipe<?>> registryKey) {
 		Objects.requireNonNull(builder);
-		Objects.requireNonNull(recipeId);
+		Objects.requireNonNull(registryKey);
 		builder
-			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
-			.rewards(AdvancementRewards.Builder.recipe(recipeId))
+			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(registryKey))
+			.rewards(AdvancementRewards.Builder.recipe(registryKey))
 			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
 	}
 

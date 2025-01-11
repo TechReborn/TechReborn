@@ -33,14 +33,14 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
@@ -55,8 +55,8 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	private static final EntityAttributeModifier POWERED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of(TechReborn.MOD_ID, "nano_suit_armor"), 14, EntityAttributeModifier.Operation.ADD_VALUE);
 	private static final EntityAttributeModifier DEPLETED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of(TechReborn.MOD_ID, "nano_suit_armor"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
 
-	public NanoSuitItem(RegistryEntry<ArmorMaterial> material, Type slot) {
-		super(material, slot, TechRebornConfig.nanoSuitCapacity, RcEnergyTier.HIGH);
+	public NanoSuitItem(ArmorMaterial material, EquipmentType slot, String name) {
+		super(material, slot, TechRebornConfig.nanoSuitCapacity, RcEnergyTier.HIGH, name);
 	}
 
 	// TREnergyArmourItem
@@ -76,17 +76,17 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 		}
 
 		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-		attributes = attributes.with(EntityAttributes.GENERIC_ARMOR, getStoredEnergy(stack) > 0 ? POWERED_ATTRIBUTE_MODIFIER : DEPLETED_ATTRIBUTE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(this.getSlotType()));
+		attributes = attributes.with(EntityAttributes.ARMOR, getStoredEnergy(stack) > 0 ? POWERED_ATTRIBUTE_MODIFIER : DEPLETED_ATTRIBUTE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(this.getSlotType()));
 		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+	public ActionResult use(World world, PlayerEntity user, Hand hand) {
 		ItemStack thisStack = user.getStackInHand(hand);
 		EquipmentSlot slotType = this.getSlotType();
 		if (user.isSneaking() && slotType == EquipmentSlot.HEAD) {
 			TRItemUtils.switchActive(thisStack, 1, user);
-			return TypedActionResult.success(thisStack);
+			return ActionResult.SUCCESS;
 		}
 		return super.use(world, user, hand);
 	}
@@ -98,7 +98,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-		if (this.type == Type.HELMET) {
+		if (this.getSlotType() == EquipmentSlot.HEAD) {
 			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}
 	}

@@ -1,29 +1,19 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "quantum_tank_unit",
-  "pattern": [
-	"PPP",
-	"XBX",
-	"CDC"
-  ],
-  "key": {
-	"P": {
-	  "tag": "c:plates/tungsten"
-	},
-	"B": {
-	  "item": "techreborn:industrial_machine_frame"
-	},
-	"X": {
-	  "item": "techreborn:industrial_tank_unit"
-	},
-	"D": {
-	  "item": "techreborn:digital_display"
-	},
-	"C": {
-	  "item": "techreborn:data_storage_chip"
-	}
-  },
-  "result": {
-    "id": "techreborn:quantum_tank_unit"
-  }
+    "type": "minecraft:crafting_shaped",
+    "group": "quantum_tank_unit",
+    "pattern": [
+        "PPP",
+        "XBX",
+        "CDC"
+    ],
+    "key": {
+        "P": "#c:plates/tungsten",
+        "B": "techreborn:industrial_machine_frame",
+        "X": "techreborn:industrial_tank_unit",
+        "D": "techreborn:digital_display",
+        "C": "techreborn:data_storage_chip"
+    },
+    "result": {
+        "id": "techreborn:quantum_tank_unit"
+    }
 }

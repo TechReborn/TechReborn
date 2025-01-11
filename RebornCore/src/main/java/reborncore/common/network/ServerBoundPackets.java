@@ -88,6 +88,7 @@ public class ServerBoundPackets {
 			holder.setInput(payload.input());
 			holder.setOutput(payload.output());
 			holder.setFilter(payload.filter());
+			holder.setPriority(payload.priority());
 
 			//Syncs back to the client
 			NetworkManager.sendToAll(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), context.player().getServer());

@@ -32,15 +32,18 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeDisplay;
 import reborncore.common.crafting.SizedIngredient;
 import techreborn.init.TRContent;
 
 import java.util.List;
 import java.util.function.Function;
 
-public record CentrifugeRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) implements RebornRecipe {
+public record CentrifugeRecipe(RecipeType<? extends CentrifugeRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) implements RebornRecipe {
 	public static Function<RecipeType<CentrifugeRecipe>, MapCodec<CentrifugeRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
@@ -56,8 +59,9 @@ public record CentrifugeRecipe(RecipeType<?> type, List<SizedIngredient> ingredi
 	);
 
 	@Override
-	public ItemStack createIcon() {
-		return new ItemStack(TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
+	public List<RecipeDisplay> getDisplays() {
+		ItemStack stack = new ItemStack(TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
 	}
 
 }

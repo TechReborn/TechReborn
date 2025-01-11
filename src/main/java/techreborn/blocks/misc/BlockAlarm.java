@@ -33,7 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -48,6 +48,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.machine.misc.AlarmBlockEntity;
@@ -56,12 +57,12 @@ import techreborn.init.TRBlockSettings;
 import java.util.List;
 
 public class BlockAlarm extends BaseBlockEntityProvider {
-	public static final DirectionProperty FACING = Properties.FACING;
-	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+	public static final EnumProperty<Direction> FACING = Properties.FACING;
+	public static final BooleanProperty ACTIVE = BlockMachineBase.ACTIVE;
 	protected final VoxelShape[] shape;
 
-	public BlockAlarm() {
-		super(TRBlockSettings.alarm());
+	public BlockAlarm(String name) {
+		super(TRBlockSettings.alarm(name));
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		this.shape = GenCuboidShapes(3, 10);
 		BlockWrenchEventHandler.wrenchableBlocks.add(this);

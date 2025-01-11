@@ -39,8 +39,8 @@ import java.util.function.BiFunction;
  * for generators, like comparator output based on energy.
  */
 public class GenericGeneratorBlock extends GenericMachineBlock {
-	public GenericGeneratorBlock(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
-		super(gui, blockEntityClass);
+	public GenericGeneratorBlock(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass, String name) {
+		super(gui, blockEntityClass, name);
 	}
 
 	@Override

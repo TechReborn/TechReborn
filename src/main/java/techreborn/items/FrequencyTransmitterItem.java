@@ -36,20 +36,20 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import techreborn.component.TRDataComponentTypes;
+import techreborn.init.TRItemSettings;
 
 import java.util.List;
 import java.util.Optional;
 
 public class FrequencyTransmitterItem extends Item {
 
-	public FrequencyTransmitterItem() {
-		super(new Item.Settings().maxCount(1));
+	public FrequencyTransmitterItem(String name) {
+		super(TRItemSettings.item(name).maxCount(1));
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class FrequencyTransmitterItem extends Item {
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player,
+	public ActionResult use(World world, PlayerEntity player,
 											Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
@@ -101,7 +101,7 @@ public class FrequencyTransmitterItem extends Item {
 			}
 		}
 
-		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+		return ActionResult.SUCCESS;
 	}
 
 	@Override

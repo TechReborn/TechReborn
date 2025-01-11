@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WTW",
-    "WDW",
-    "WBW"
-  ],
-  "key": {
-    "T": {
-      "item": "techreborn:treetap"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WTW",
+        "WDW",
+        "WBW"
+    ],
+    "key": {
+        "T": "techreborn:treetap",
+        "W": "techreborn:rubber_planks",
+        "D": "techreborn:drain",
+        "B": "techreborn:rubber_trapdoor"
     },
-    "W": {
-      "item": "techreborn:rubber_planks"
-    },
-    "D": {
-      "item": "techreborn:drain"
-    },
-    "B": {
-      "item": "techreborn:rubber_trapdoor"
+    "result": {
+        "id": "techreborn:resin_basin"
     }
-  },
-  "result": {
-    "id": "techreborn:resin_basin"
-  }
 }

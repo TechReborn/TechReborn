@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GGG",
-    "WTW",
-    "GCG"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "GGG",
+        "WTW",
+        "GCG"
+    ],
+    "key": {
+        "C": "techreborn:electronic_circuit",
+        "T": "techreborn:mv_transformer",
+        "G": "minecraft:glass",
+        "W": "techreborn:insulated_gold_cable"
     },
-    "T": {
-      "item": "techreborn:mv_transformer"
-    },
-    "G": {
-      "item": "minecraft:glass"
-    },
-    "W": {
-      "item": "techreborn:insulated_gold_cable"
+    "result": {
+        "id": "techreborn:transformer_upgrade"
     }
-  },
-  "result": {
-    "id": "techreborn:transformer_upgrade"
-  }
 }

@@ -30,6 +30,12 @@
   "reborncore.gui.tooltip.unlock_items": "Unlock Items",
   "reborncore.gui.tooltip.upgrades": "Machine upgrades",
 
+  "reborncore.gui.slotconfig.NONE": "None",
+  "reborncore.gui.slotconfig.INPUT": "Input",
+  "reborncore.gui.slotconfig.OUTPUT": "Output",
+  "reborncore.gui.slotconfig.FIRST": "First",
+  "reborncore.gui.slotconfig.LAST": "Last",
+  "reborncore.gui.slotconfig.ALL": "ALL",
   "reborncore.gui.slotconfig.autoinput": "Auto Input",
   "reborncore.gui.slotconfig.autooutput": "Auto Output",
   "reborncore.gui.slotconfig.filter_input": "Filter Input",

@@ -57,8 +57,8 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 
 	public static final EnumProperty<PlayerDetectorType> TYPE = EnumProperty.of("type", PlayerDetectorType.class);
 
-	public PlayerDetectorBlock() {
-		super(TRBlockSettings.playerDetector(), true);
+	public PlayerDetectorBlock(String name) {
+		super(TRBlockSettings.playerDetector(name), true);
 		this.setDefaultState(this.getStateManager().getDefaultState().with(TYPE, PlayerDetectorType.ALL));
 	}
 

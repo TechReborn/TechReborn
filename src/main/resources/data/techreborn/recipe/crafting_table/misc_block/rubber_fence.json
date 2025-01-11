@@ -1,20 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "wooden_fence",
-  "pattern": [
-    "W#W",
-    "W#W"
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:stick"
+    "type": "minecraft:crafting_shaped",
+    "group": "wooden_fence",
+    "pattern": [
+        "W#W",
+        "W#W"
+    ],
+    "key": {
+        "#": "minecraft:stick",
+        "W": "techreborn:rubber_planks"
     },
-    "W": {
-      "item": "techreborn:rubber_planks"
+    "result": {
+        "id": "techreborn:rubber_fence",
+        "count": 3
     }
-  },
-  "result": {
-    "id": "techreborn:rubber_fence",
-    "count": 3
-  }
 }

@@ -1,26 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "industrial_centrifuge",
-  "pattern": [
-    "RCR",
-    "AEA",
-    "RCR"
-  ],
-  "key": {
-    "A": {
-      "item": "techreborn:advanced_machine_frame"
+    "type": "minecraft:crafting_shaped",
+    "group": "industrial_centrifuge",
+    "pattern": [
+        "RCR",
+        "AEA",
+        "RCR"
+    ],
+    "key": {
+        "A": "techreborn:advanced_machine_frame",
+        "R": "#c:plates/aluminum",
+        "C": "techreborn:advanced_circuit",
+        "E": "techreborn:extractor"
     },
-    "R": {
-      "tag": "c:plates/aluminum"
-    },
-    "C": {
-      "item": "techreborn:advanced_circuit"
-    },
-    "E": {
-      "item": "techreborn:extractor"
+    "result": {
+        "id": "techreborn:industrial_centrifuge"
     }
-  },
-  "result": {
-    "id": "techreborn:industrial_centrifuge"
-  }
 }

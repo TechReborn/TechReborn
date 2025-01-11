@@ -26,7 +26,6 @@ package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterial;
@@ -36,6 +35,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRContent;
+import techreborn.init.TRItemSettings;
 
 
 public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
@@ -44,8 +44,8 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	public final int cost;
 	protected final float unpoweredSpeed = 0.5F;
 
-	public JackhammerItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost) {
-		super(material, new Item.Settings().maxDamage(0));
+	public JackhammerItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, String name) {
+		super(material, -2f, -2.8f, TRItemSettings.item(name).maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -72,12 +72,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 			return true;
 		}
 
-	// ToolItem
-	@Override
-	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-		return false;
-	}
-
 	// Item
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {
@@ -90,11 +84,6 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		tryUseEnergy(stack, cost);
-		return true;
-	}
-
-	@Override
-	public boolean isEnchantable(ItemStack stack) {
 		return true;
 	}
 

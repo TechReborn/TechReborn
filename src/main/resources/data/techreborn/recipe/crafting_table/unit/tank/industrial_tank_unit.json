@@ -1,23 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "industrial_tank_unit",
-  "pattern": [
-    " C ",
-    "RBR",
-    " C "
-  ],
-  "key": {
-    "B": {
-      "item": "techreborn:industrial_storage_unit"
+    "type": "minecraft:crafting_shaped",
+    "group": "industrial_tank_unit",
+    "pattern": [
+        " C ",
+        "RBR",
+        " C "
+    ],
+    "key": {
+        "B": "techreborn:industrial_storage_unit",
+        "R": "techreborn:rubber",
+        "C": "techreborn:cell"
     },
-    "R": {
-      "item": "techreborn:rubber"
-    },
-    "C": {
-      "item": "techreborn:cell"
+    "result": {
+        "id": "techreborn:industrial_tank_unit"
     }
-  },
-  "result": {
-    "id": "techreborn:industrial_tank_unit"
-  }
 }

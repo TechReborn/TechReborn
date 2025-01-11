@@ -31,6 +31,7 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -101,9 +102,9 @@ public class EntityNukePrimed extends TntEntity {
 		if (!TechRebornConfig.nukeEnabled) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), getWorld(), TechRebornConfig.nukeRadius);
+		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), (ServerWorld)getWorld(), TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getOwner());
-		nukeExplosion.applyExplosion();
+		nukeExplosion.explode();
 	}
 
 	@Override

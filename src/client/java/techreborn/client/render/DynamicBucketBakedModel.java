@@ -25,35 +25,27 @@
 package techreborn.client.render;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.Identifier;
 import techreborn.TechReborn;
 
 public class DynamicBucketBakedModel extends BaseDynamicFluidBakedModel {
-	public static final Identifier BUCKET_BASE = Identifier.of(TechReborn.MOD_ID, "item/bucket_base");
-	public static final Identifier BUCKET_BACKGROUND = Identifier.of(TechReborn.MOD_ID, "item/bucket_background");
-	public static final Identifier BUCKET_FLUID = Identifier.of(TechReborn.MOD_ID, "item/bucket_fluid");
+	public static final Identifier BUCKET = Identifier.of(TechReborn.MOD_ID, "item/bucket");
+	public static final Identifier BUCKET_BASE = BUCKET.withSuffixedPath("_base");
+	public static final Identifier BUCKET_BACKGROUND = BUCKET.withSuffixedPath("_background");
+	public static final Identifier BUCKET_FLUID = BUCKET.withSuffixedPath("_fluid");
+
+	DynamicBucketBakedModel(Fluid fluid, BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel) {
+		super(fluid, baseModel, fluidModel, backgroundModel);
+	}
 
 	@Override
 	public Sprite getParticleSprite() {
 		return MinecraftClient.getInstance()
-				.getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE)
+				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)
 				.apply(Identifier.of("minecraft:item/bucket"));
-	}
-
-	@Override
-	public Identifier getBaseModel() {
-		return BUCKET_BASE;
-	}
-
-	@Override
-	public Identifier getBackgroundModel() {
-		return BUCKET_BACKGROUND;
-	}
-
-	@Override
-	public Identifier getFluidModel() {
-		return BUCKET_FLUID;
 	}
 }

@@ -24,40 +24,49 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
+import techreborn.TechReborn;
 
 public class TRBlockSettings {
-	private static FabricBlockSettings metal() {
-		return FabricBlockSettings.create()
+	private static AbstractBlock.Settings metal(String name) {
+		return AbstractBlock.Settings.create()
 			.sounds(BlockSoundGroup.METAL)
 			.mapColor(MapColor.IRON_GRAY)
-			.strength(2f, 2f);
+			.strength(2f, 2f)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings machine() {
-		return metal();
+	public static AbstractBlock.Settings machine(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings nuke() {
-		return FabricBlockSettings.create()
+	public static AbstractBlock.Settings nuke(String name) {
+		return AbstractBlock.Settings.create()
 			.strength(2F, 2F)
-			.mapColor(MapColor.BRIGHT_RED);
+			.mapColor(MapColor.BRIGHT_RED)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings reinforcedGlass() {
-		return FabricBlockSettings.copyOf(Blocks.GLASS)
+	public static AbstractBlock.Settings reinforcedGlass(String name) {
+		return AbstractBlock.Settings.copy(Blocks.GLASS)
 			.strength(4f, 60f)
-			.sounds(BlockSoundGroup.STONE);
+			.sounds(BlockSoundGroup.STONE)
+			.registryKey(key(name));
 	}
 
-	private static FabricBlockSettings rubber(boolean noCollision, float hardness, float resistance) {
-		var settings = FabricBlockSettings.create()
+	private static AbstractBlock.Settings rubber(boolean noCollision, float hardness, float resistance, String name) {
+		var settings = AbstractBlock.Settings.create()
 			.mapColor(MapColor.SPRUCE_BROWN)
 			.strength(hardness, resistance)
-			.sounds(BlockSoundGroup.WOOD);
+			.sounds(BlockSoundGroup.WOOD)
+			.registryKey(key(name));
 
 		if (noCollision) {
 			settings.noCollision();
@@ -66,187 +75,202 @@ public class TRBlockSettings {
 		return settings;
 	}
 
-	private static FabricBlockSettings rubber(float hardness, float resistance) {
-		return rubber(false, hardness, resistance);
+	private static AbstractBlock.Settings rubber(float hardness, float resistance, String name) {
+		return rubber(false, hardness, resistance, name);
 	}
 
-	public static FabricBlockSettings rubberWood() {
-		return rubber(2f, 2f)
+	public static AbstractBlock.Settings rubberWood(String name) {
+		return rubber(2f, 2f, name)
 			.burnable();
 	}
 
-	public static FabricBlockSettings rubberWoodStripped() {
-		return rubberWood()
+	public static AbstractBlock.Settings rubberWoodStripped(String name) {
+		return rubberWood(name)
 			.strength(2.0F, 15.0F);
 	}
 
-	public static FabricBlockSettings rubberLeaves() {
-		return FabricBlockSettings.copyOf(Blocks.SPRUCE_LEAVES)
-			.mapColor(MapColor.SPRUCE_BROWN);
+	public static AbstractBlock.Settings rubberLeaves(String name) {
+		return AbstractBlock.Settings.copy(Blocks.SPRUCE_LEAVES)
+			.mapColor(MapColor.SPRUCE_BROWN)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings rubberSapling() {
-		return FabricBlockSettings.copyOf(Blocks.SPRUCE_SAPLING)
-			.mapColor(MapColor.SPRUCE_BROWN);
+	public static AbstractBlock.Settings rubberSapling(String name) {
+		return AbstractBlock.Settings.copy(Blocks.SPRUCE_SAPLING)
+			.mapColor(MapColor.SPRUCE_BROWN)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings rubberLog() {
-		return FabricBlockSettings.copyOf(Blocks.SPRUCE_LOG)
+	public static AbstractBlock.Settings rubberLog(String name) {
+		return AbstractBlock.Settings.copy(Blocks.SPRUCE_LOG)
 			.ticksRandomly()
-			.mapColor(MapColor.SPRUCE_BROWN);
+			.mapColor(MapColor.SPRUCE_BROWN)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings rubberLogStripped() {
-		return rubberLog().strength(2.0F, 15.0F);
+	public static AbstractBlock.Settings rubberLogStripped(String name) {
+		return rubberLog(name).strength(2.0F, 15.0F);
 	}
 
-	public static FabricBlockSettings rubberSlab() {
-		return rubberLog();
+	public static AbstractBlock.Settings rubberSlab(String name) {
+		return rubberLog(name);
 	}
 
-	public static FabricBlockSettings rubberFence() {
-		return rubberLog();
+	public static AbstractBlock.Settings rubberFence(String name) {
+		return rubberLog(name);
 	}
 
-	public static FabricBlockSettings rubberFenceGate() {
-		return rubberLog();
+	public static AbstractBlock.Settings rubberFenceGate(String name) {
+		return rubberLog(name);
 	}
 
-	public static FabricBlockSettings pottedRubberSapling() {
-		return FabricBlockSettings.copyOf(Blocks.POTTED_SPRUCE_SAPLING);
+	public static AbstractBlock.Settings pottedRubberSapling(String name) {
+		return AbstractBlock.Settings.copy(Blocks.POTTED_SPRUCE_SAPLING)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings copperWall() {
-		return FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK)
-			.strength(2f, 2f);
+	public static AbstractBlock.Settings copperWall(String name) {
+		return AbstractBlock.Settings.copy(Blocks.COPPER_BLOCK)
+			.strength(2f, 2f)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings rubberTrapdoor() {
-		return rubber(3.0F, 3.0F);
+	public static AbstractBlock.Settings rubberTrapdoor(String name) {
+		return rubber(3.0F, 3.0F, name);
 	}
 
-	public static FabricBlockSettings rubberDoor() {
-		return rubber(3.0F, 3.0F);
+	public static AbstractBlock.Settings rubberDoor(String name) {
+		return rubber(3.0F, 3.0F, name);
 	}
 
-	public static FabricBlockSettings rubberButton() {
-		return rubber(true, 0.5F, 0.5F);
+	public static AbstractBlock.Settings rubberButton(String name) {
+		return rubber(true, 0.5F, 0.5F, name);
 	}
 
-	public static FabricBlockSettings rubberPressurePlate() {
-		return rubber(true, 0.5F, 0.5F);
+	public static AbstractBlock.Settings rubberPressurePlate(String name) {
+		return rubber(true, 0.5F, 0.5F, name);
 	}
 
-	public static FabricBlockSettings refinedIronFence() {
-		return metal()
+	public static AbstractBlock.Settings refinedIronFence(String name) {
+		return metal(name)
 			.strength(2.0F, 3.0F);
 	}
 
-	public static FabricBlockSettings storageBlock(boolean isHot, float hardness, float resistance) {
-		FabricBlockSettings settings = FabricBlockSettings.create()
+	public static AbstractBlock.Settings storageBlock(boolean isHot, float hardness, float resistance, String name) {
+		AbstractBlock.Settings settings = AbstractBlock.Settings.create()
 			.strength(hardness, resistance)
 			.mapColor(MapColor.IRON_GRAY) // TODO 1.20 maybe set the color based off the block?
-			.sounds(BlockSoundGroup.METAL);
+			.sounds(BlockSoundGroup.METAL)
+			.registryKey(key(name));
 
 		if (isHot) {
-			settings = settings.luminance(15)
+			settings = settings.luminance(state -> 15)
 				.nonOpaque();
 		}
 
 		return settings;
 	}
 
-	public static FabricBlockSettings ore(boolean deepslate) {
-		return FabricBlockSettings.create()
+	public static AbstractBlock.Settings ore(boolean deepslate, String name) {
+		return AbstractBlock.Settings.create()
 			.requiresTool()
 			.sounds(deepslate ? BlockSoundGroup.DEEPSLATE : BlockSoundGroup.STONE)
 			.hardness(deepslate ? 4.5f : 3f)
-			.resistance(3f);
+			.resistance(3f)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings machineFrame() {
-		return metal()
+	public static AbstractBlock.Settings machineFrame(String name) {
+		return metal(name)
 			.strength(1f, 1f);
 	}
 
-	public static FabricBlockSettings machineCasing() {
-		return metal()
+	public static AbstractBlock.Settings machineCasing(String name) {
+		return metal(name)
 			.strength(2f, 2f)
 			.requiresTool();
 	}
 
-	public static FabricBlockSettings energyStorage() {
-		return metal();
+	public static AbstractBlock.Settings energyStorage(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings lsuStorage() {
-		return metal();
+	public static AbstractBlock.Settings lsuStorage(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings storageUnit(boolean wooden) {
+	public static AbstractBlock.Settings storageUnit(boolean wooden, String name) {
 		if (!wooden) {
-			return metal();
+			return metal(name);
 		}
 
-		return FabricBlockSettings.create()
+		return AbstractBlock.Settings.create()
 			.sounds(BlockSoundGroup.WOOD)
 			.mapColor(MapColor.OAK_TAN)
-			.strength(2f, 2f);
+			.strength(2f, 2f)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings fusionCoil() {
-		return metal();
+	public static AbstractBlock.Settings fusionCoil(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings transformer() {
-		return metal();
+	public static AbstractBlock.Settings transformer(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings playerDetector() {
-		return metal();
+	public static AbstractBlock.Settings playerDetector(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings fluid() {
-		return FabricBlockSettings.copyOf(Blocks.WATER);
+	public static AbstractBlock.Settings fluid(String name) {
+		return AbstractBlock.Settings.copy(Blocks.WATER)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings computerCube() {
-		return metal();
+	public static AbstractBlock.Settings computerCube(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings alarm() {
-		return metal();
+	public static AbstractBlock.Settings alarm(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings genericMachine() {
-		return metal();
+	public static AbstractBlock.Settings genericMachine(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings tankUnit() {
-		return metal();
+	public static AbstractBlock.Settings tankUnit(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings fusionControlComputer() {
-		return metal();
+	public static AbstractBlock.Settings fusionControlComputer(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings solarPanel() {
-		return metal();
+	public static AbstractBlock.Settings solarPanel(String name) {
+		return metal(name);
 	}
 
-	public static FabricBlockSettings cable() {
-		return metal().strength(1f, 8f);
+	public static AbstractBlock.Settings cable(String name) {
+		return metal(name).strength(1f, 8f);
 	}
 
-	public static FabricBlockSettings resinBasin() {
-		return FabricBlockSettings.create()
+	public static AbstractBlock.Settings resinBasin(String name) {
+		return AbstractBlock.Settings.create()
 			.mapColor(MapColor.OAK_TAN)
 			.sounds(BlockSoundGroup.WOOD)
-			.strength(2F, 2F);
+			.strength(2F, 2F)
+			.registryKey(key(name));
 	}
 
-	public static FabricBlockSettings lightBlock() {
-		return FabricBlockSettings.copyOf(Blocks.REDSTONE_BLOCK)
-			.strength(2f, 2f);
+	public static AbstractBlock.Settings lightBlock(String name) {
+		return AbstractBlock.Settings.copy(Blocks.REDSTONE_BLOCK)
+			.strength(2f, 2f)
+			.registryKey(key(name));
+	}
+
+	public static RegistryKey<Block> key(String name) {
+		return RegistryKey.of(Registries.BLOCK.getKey(), Identifier.of(TechReborn.MOD_ID, name));
 	}
 }

@@ -38,8 +38,8 @@ import techreborn.blocks.GenericMachineBlock;
 
 public class IronFurnaceBlock extends GenericMachineBlock {
 
-	public IronFurnaceBlock() {
-		super(GuiType.IRON_FURNACE, IronFurnaceBlockEntity::new);
+	public IronFurnaceBlock(String name) {
+		super(GuiType.IRON_FURNACE, IronFurnaceBlockEntity::new, name);
 	}
 
 	// Block

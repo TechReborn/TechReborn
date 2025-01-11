@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    " U ",
-    " UG",
-    "   "
-  ],
-  "key": {
-    "G": {
-      "item":  "techreborn:plantball"
+    "type": "reborncore:padded",
+    "pattern": [
+        " U ",
+        " UG",
+        "   "
+    ],
+    "key": {
+        "G": "techreborn:plantball",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:twisting_vines"
     }
-  },
-  "result": {
-    "id": "minecraft:twisting_vines"
-  }
 }

@@ -1,21 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "insulated_gold_cable",
-  "pattern": [
-    "RRR",
-    "RIR",
-    "RRR"
-  ],
-  "key": {
-    "I": {
-      "item": "minecraft:gold_ingot"
+    "type": "minecraft:crafting_shaped",
+    "group": "insulated_gold_cable",
+    "pattern": [
+        "RRR",
+        "RIR",
+        "RRR"
+    ],
+    "key": {
+        "I": "minecraft:gold_ingot",
+        "R": "techreborn:rubber"
     },
-    "R": {
-      "item": "techreborn:rubber"
+    "result": {
+        "id": "techreborn:insulated_gold_cable",
+        "count": 4
     }
-  },
-  "result": {
-    "id": "techreborn:insulated_gold_cable",
-    "count": 4
-  }
 }

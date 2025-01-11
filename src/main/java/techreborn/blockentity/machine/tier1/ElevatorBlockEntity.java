@@ -102,8 +102,8 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 			if (!TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(upPos)) {
 				return Optional.empty();
 			}
-		} while (upPos.getY() <= getWorld().getTopY() && !isValidTarget(upPos));
-		if (upPos.getY() < getWorld().getTopY() || isValidTarget(upPos)) {
+		} while (upPos.getY() <= getWorld().getTopYInclusive() && !isValidTarget(upPos));
+		if (upPos.getY() < getWorld().getTopYInclusive() || isValidTarget(upPos)) {
 			return Optional.of(upPos);
 		}
 		return Optional.empty();

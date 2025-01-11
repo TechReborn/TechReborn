@@ -546,6 +546,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		}
 
 	}
+
 	void generateWarped(){
 		[
 			(Items.CRIMSON_BUTTON) : Items.WARPED_BUTTON,

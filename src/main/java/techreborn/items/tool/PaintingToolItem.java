@@ -43,13 +43,14 @@ import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
+import techreborn.init.TRItemSettings;
 
 import java.util.List;
 
 public class PaintingToolItem extends Item {
 
-	public PaintingToolItem() {
-		super(new Item.Settings().maxDamage(64));
+	public PaintingToolItem(String name) {
+		super(TRItemSettings.item(name).maxDamage(64));
 	}
 
 	public ActionResult useOnBlock(ItemUsageContext context) {
@@ -60,8 +61,8 @@ public class PaintingToolItem extends Item {
 
 		BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
 		if (player.isSneaking()) {
-			boolean opaqueFullCube = blockState.isOpaqueFullCube(context.getWorld(), context.getBlockPos())
-				&& blockState.getBlock().getDefaultState().isOpaqueFullCube(context.getWorld(), context.getBlockPos());
+			boolean opaqueFullCube = blockState.isOpaqueFullCube()
+				&& blockState.getBlock().getDefaultState().isOpaqueFullCube();
 
 			if (opaqueFullCube || blockState.isIn(TRContent.BlockTags.NONE_SOLID_COVERS)) {
 				context.getStack().set(TRDataComponentTypes.PAINTING_COVER, blockState);

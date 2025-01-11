@@ -1,20 +1,12 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "techreborn:obsidian_small_dust"
-    },
-    {
-      "item": "techreborn:diorite_dust"
-    },
-    {
-      "item": "techreborn:diorite_dust"
-    },
-    {
-      "item": "techreborn:diorite_dust"
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        "techreborn:obsidian_small_dust",
+        "techreborn:diorite_dust",
+        "techreborn:diorite_dust",
+        "techreborn:diorite_dust"
+    ],
+    "result": {
+        "id": "techreborn:marble_dust"
     }
-  ],
-  "result": {
-    "id": "techreborn:marble_dust"
-  }
 }

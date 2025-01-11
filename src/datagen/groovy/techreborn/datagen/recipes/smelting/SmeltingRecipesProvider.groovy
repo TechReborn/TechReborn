@@ -25,12 +25,11 @@
 package techreborn.datagen.recipes.smelting
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder
+import net.minecraft.data.recipe.CookingRecipeJsonBuilder
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.Items
 import net.minecraft.recipe.AbstractCookingRecipe
 import net.minecraft.recipe.BlastingRecipe
-import net.minecraft.recipe.CookingRecipeSerializer
 import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.recipe.SmeltingRecipe
 import net.minecraft.recipe.book.RecipeCategory
@@ -81,7 +80,7 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 		offerCookingRecipe(input, output, experience, cookingTime, RecipeSerializer.BLASTING, BlastingRecipe.&new, "blasting/")
 	}
 
-	<T extends AbstractCookingRecipe> void offerCookingRecipe(def input, ItemConvertible output, float experience, int cookingTime, CookingRecipeSerializer<T> serializer, AbstractCookingRecipe.RecipeFactory<T> recipeFactory, String prefix = "", RecipeCategory category = RecipeCategory.MISC) {
+	<T extends AbstractCookingRecipe> void offerCookingRecipe(def input, ItemConvertible output, float experience, int cookingTime, RecipeSerializer<T> serializer, AbstractCookingRecipe.RecipeFactory<T> recipeFactory, String prefix = "", RecipeCategory category = RecipeCategory.MISC) {
 		CookingRecipeJsonBuilder.create(createIngredient(input), category, output, experience, cookingTime, serializer, recipeFactory)
 				.criterion(getCriterionName(input), getCriterionConditions(input))
 				.offerTo(this.exporter, TechReborn.MOD_ID + ":" + prefix + getInputPath(output) + "_from_" + getInputPath(input))

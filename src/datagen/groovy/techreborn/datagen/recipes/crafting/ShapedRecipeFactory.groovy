@@ -24,16 +24,20 @@
 
 package techreborn.datagen.recipes.crafting
 
-import net.minecraft.data.server.recipe.RecipeProvider
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
+import net.minecraft.data.recipe.RecipeGenerator
+import net.minecraft.data.recipe.ShapedRecipeJsonBuilder
+import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.recipe.Ingredient
 import net.minecraft.recipe.book.RecipeCategory
+import net.minecraft.registry.RegistryEntryLookup
 import net.minecraft.registry.tag.TagKey
 
 class ShapedRecipeFactory {
+	public RecipeGenerator generator
+	public RegistryEntryLookup<Item> itemLookup
 	int width
 	int height
 
@@ -41,7 +45,9 @@ class ShapedRecipeFactory {
 	ItemStack output
 	RecipeCategory category = RecipeCategory.MISC
 
-	ShapedRecipeFactory(int width, int height) {
+	ShapedRecipeFactory(RecipeGenerator generator, RegistryEntryLookup<Item> itemLookup, int width, int height) {
+		this.generator = generator
+		this.itemLookup = itemLookup
 		this.width = width
 		this.height = height
 	}
@@ -78,7 +84,7 @@ class ShapedRecipeFactory {
 		Objects.requireNonNull(output, "Output not set")
 		Objects.requireNonNull(pattern, "Pattern not set")
 
-		ShapedRecipeJsonBuilder builder = ShapedRecipeJsonBuilder.create(category, output.item, output.count)
+		ShapedRecipeJsonBuilder builder = ShapedRecipeJsonBuilder.create(itemLookup, category, output.item, output.count)
 
 		List<String> rows = []
 		Map<Object, Character> ingredients = makeIngredients()
@@ -100,7 +106,7 @@ class ShapedRecipeFactory {
 		ingredients.each { builder.input(it.value, toIngredient(it.key)) }
 
 		// TODO, this is just to make the validation pass
-		builder.criterion(RecipeProvider.hasItem(Items.AIR), RecipeProvider.conditionsFromItem(Items.AIR))
+		builder.criterion(RecipeGenerator.hasItem(Items.AIR), generator.conditionsFromItem(Items.AIR))
 
 		return builder
 	}
@@ -129,7 +135,7 @@ class ShapedRecipeFactory {
 		return pattern.collate(width)
 	}
 
-	private static toIngredient(Object object) {
+	private toIngredient(Object object) {
 		if (object instanceof Ingredient) {
 			return object
 		} else if (object instanceof ItemStack) {
@@ -137,7 +143,7 @@ class ShapedRecipeFactory {
 		} else if (object instanceof ItemConvertible) {
 			return Ingredient.ofItems(object)
 		} else if (object instanceof TagKey) {
-			return Ingredient.fromTag(object)
+			return Ingredient.fromTag(itemLookup.getOrThrow(object))
 		} else {
 			throw new IllegalArgumentException("Invalid pattern element: $object")
 		}

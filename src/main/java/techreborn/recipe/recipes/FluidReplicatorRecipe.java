@@ -41,6 +41,7 @@ import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.fluid.FluidUtils;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
@@ -48,7 +49,7 @@ import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 import java.util.List;
 import java.util.function.Function;
 
-public record FluidReplicatorRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) implements RebornFluidRecipe {
+public record FluidReplicatorRecipe(RecipeType<? extends FluidReplicatorRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) implements RebornFluidRecipe {
 	public static final Function<RecipeType<FluidReplicatorRecipe>, MapCodec<FluidReplicatorRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
@@ -95,8 +96,16 @@ public record FluidReplicatorRecipe(RecipeType<?> type, List<SizedIngredient> in
 	@Override
 	public boolean onCraft(BlockEntity be) {
 		FluidReplicatorBlockEntity blockEntity = (FluidReplicatorBlockEntity) be;
-		if (blockEntity.tank.canFit(fluid().fluid(), fluid().getAmount())) {
-			blockEntity.tank.setFluidInstance(fluid());
+		FluidInstance fluid = fluid();
+		if (blockEntity.tank.isEmpty()) {
+			blockEntity.tank.setFluidInstance(fluid);
+		} else if (blockEntity.tank.getFluid() == fluid.fluid()) {
+			FluidValue amount = fluid.getAmount();
+			if (blockEntity.tank.getFreeSpace().equalOrMoreThan(amount)) {
+				blockEntity.tank.modifyFluid(value -> value.addAmount(amount));
+			} else {
+				return false;
+			}
 		}
 		return true;
 	}

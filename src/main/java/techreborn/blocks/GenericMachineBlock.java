@@ -41,8 +41,8 @@ public class GenericMachineBlock extends BlockMachineBase {
 	private final IMachineGuiHandler gui;
 	final BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
-	public GenericMachineBlock(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass) {
-		super(TRBlockSettings.genericMachine());
+	public GenericMachineBlock(IMachineGuiHandler gui, BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass, String name) {
+		super(TRBlockSettings.genericMachine(name));
 		this.blockEntityClass = blockEntityClass;
 		this.gui = gui;
 	}

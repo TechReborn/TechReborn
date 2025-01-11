@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WWW"
-  ],
-  "key": {
-    "W": {
-      "item": "techreborn:rubber_planks"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WWW"
+    ],
+    "key": {
+        "W": "techreborn:rubber_planks"
+    },
+    "result": {
+        "id": "techreborn:rubber_slab",
+        "count": 6
     }
-  },
-  "result": {
-    "id": "techreborn:rubber_slab",
-    "count": 6
-  }
 }

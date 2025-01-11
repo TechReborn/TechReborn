@@ -34,8 +34,8 @@ import techreborn.blockentity.transformers.MVTransformerBlockEntity;
  */
 public class BlockMVTransformer extends BlockTransformer {
 
-	public BlockMVTransformer() {
-		super("mv_transformer");
+	public BlockMVTransformer(String name) {
+		super(name);
 	}
 
 	@Override

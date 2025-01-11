@@ -30,8 +30,8 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.Vec3d;
@@ -91,7 +91,7 @@ public class WorldUtils {
 		}
 	}
 
-	public static RegistryWrapper<Block> getBlockRegistryWrapper(@Nullable World world) {
-		return world != null ? world.createCommandRegistryWrapper(RegistryKeys.BLOCK) : Registries.BLOCK.getReadOnlyWrapper();
+	public static RegistryEntryLookup<Block> getBlockRegistryWrapper(@Nullable World world) {
+		return world != null ? world.createCommandRegistryWrapper(RegistryKeys.BLOCK) : Registries.BLOCK;
 	}
 }

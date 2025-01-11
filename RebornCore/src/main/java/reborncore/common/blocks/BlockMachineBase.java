@@ -39,7 +39,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockRotation;
@@ -62,7 +62,7 @@ import reborncore.common.util.WrenchUtils;
 
 public abstract class BlockMachineBase extends BaseBlockEntityProvider implements InventoryProvider {
 
-	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+	public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
 
 	boolean hasCustomStates;
@@ -200,7 +200,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 					);
 					if (inserted > 0) {
 						stack.decrement(inserted);
-						return ActionResult.success(worldIn.isClient());
+						return ActionResult.SUCCESS;
 					}
 				}
 			}

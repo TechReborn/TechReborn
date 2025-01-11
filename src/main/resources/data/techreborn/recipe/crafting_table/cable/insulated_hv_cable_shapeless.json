@@ -1,18 +1,12 @@
 {
-	"type": "minecraft:crafting_shapeless",
-	"group": "insulated_hv_cable",
-	"ingredients": [
-		{
-			"item": "techreborn:rubber"
-		},
-		{
-			"item": "techreborn:rubber"
-		},
-		{
-			"item": "techreborn:hv_cable"
-		}
-	],
-	"result": {
-		"id": "techreborn:insulated_hv_cable"
-	}
+    "type": "minecraft:crafting_shapeless",
+    "group": "insulated_hv_cable",
+    "ingredients": [
+        "techreborn:rubber",
+        "techreborn:rubber",
+        "techreborn:hv_cable"
+    ],
+    "result": {
+        "id": "techreborn:insulated_hv_cable"
+    }
 }

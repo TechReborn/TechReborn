@@ -1,6 +1,0 @@
-{
-    "parent": "minecraft:block/cube_all",
-    "textures": {
-        "all": "techreborn:block/machines/structure/tier2_machine_block"
-    }
-}

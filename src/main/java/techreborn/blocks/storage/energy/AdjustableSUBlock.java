@@ -32,8 +32,8 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 
 public class AdjustableSUBlock extends EnergyStorageBlock {
 
-	public AdjustableSUBlock() {
-		super("AESU", GuiType.AESU);
+	public AdjustableSUBlock(String name) {
+		super(GuiType.AESU, name);
 	}
 
 	@Override

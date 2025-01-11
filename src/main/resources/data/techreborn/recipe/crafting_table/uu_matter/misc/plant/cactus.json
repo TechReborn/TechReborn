@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "U  ",
-    " GU",
-    "   "
-  ],
-  "key": {
-    "G": {
-      "item":  "techreborn:plantball"
-	},
-    "U": {
-      "item": "techreborn:uu_matter"
+    "type": "reborncore:padded",
+    "pattern": [
+        "U  ",
+        " GU",
+        "   "
+    ],
+    "key": {
+        "G": "techreborn:plantball",
+        "U": "techreborn:uu_matter"
+    },
+    "result": {
+        "id": "minecraft:cactus"
     }
-  },
-  "result": {
-    "id": "minecraft:cactus"
-  }
 }

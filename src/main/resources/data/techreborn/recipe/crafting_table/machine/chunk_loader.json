@@ -1,40 +1,22 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-	"BCG",
-	"LFN",
-	"OQR"
-  ],
-  "key": {
-	"B": {
-	  "tag": "c:plates/bronze"
-	},
-	"C": {
-	  "tag": "c:plates/coal"
-	},
-	"G": {
-	  "tag": "c:plates/gold"
-	},
-	"L": {
-	  "tag": "c:plates/lapis"
-	},
-	"F": {
-	  "item": "techreborn:industrial_machine_frame"
-	},
-	"N": {
-	  "tag": "c:plates/nickel"
-	},
-	"O": {
-	  "tag": "c:plates/obsidian"
-	},
-	"Q": {
-	  "tag": "c:plates/quartz"
-	},
-	"R": {
-	  "tag": "c:plates/redstone"
-	}
-  },
-  "result": {
-	"id": "techreborn:chunk_loader"
-  }
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "BCG",
+        "LFN",
+        "OQR"
+    ],
+    "key": {
+        "B": "#c:plates/bronze",
+        "C": "#c:plates/coal",
+        "G": "#c:plates/gold",
+        "L": "#c:plates/lapis",
+        "F": "techreborn:industrial_machine_frame",
+        "N": "#c:plates/nickel",
+        "O": "#c:plates/obsidian",
+        "Q": "#c:plates/quartz",
+        "R": "#c:plates/redstone"
+    },
+    "result": {
+        "id": "techreborn:chunk_loader"
+    }
 }

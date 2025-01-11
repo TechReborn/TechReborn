@@ -35,8 +35,8 @@ import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
  */
 public class MediumVoltageSUBlock extends EnergyStorageBlock {
 
-	public MediumVoltageSUBlock() {
-		super("medium_voltage_su", GuiType.MEDIUM_VOLTAGE_SU);
+	public MediumVoltageSUBlock(String name) {
+		super(GuiType.MEDIUM_VOLTAGE_SU, name);
 	}
 
 	@Override

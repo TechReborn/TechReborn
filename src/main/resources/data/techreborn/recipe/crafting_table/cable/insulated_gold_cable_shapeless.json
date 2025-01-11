@@ -1,18 +1,12 @@
 {
-	"type": "minecraft:crafting_shapeless",
-	"group": "insulated_gold_cable",
-	"ingredients": [
-		{
-			"item": "techreborn:rubber"
-		},
-		{
-			"item": "techreborn:rubber"
-		},
-		{
-			"item": "techreborn:gold_cable"
-		}
-	],
-	"result": {
-		"id": "techreborn:insulated_gold_cable"
-	}
+    "type": "minecraft:crafting_shapeless",
+    "group": "insulated_gold_cable",
+    "ingredients": [
+        "techreborn:rubber",
+        "techreborn:rubber",
+        "techreborn:gold_cable"
+    ],
+    "result": {
+        "id": "techreborn:insulated_gold_cable"
+    }
 }

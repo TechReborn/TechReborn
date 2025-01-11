@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "RGR",
-    "LCL",
-    "RGR"
-  ],
-  "key": {
-    "R": {
-      "item": "minecraft:redstone"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RGR",
+        "LCL",
+        "RGR"
+    ],
+    "key": {
+        "R": "minecraft:redstone",
+        "C": "techreborn:electronic_circuit",
+        "G": "minecraft:glowstone_dust",
+        "L": "minecraft:lapis_lazuli"
     },
-    "C": {
-      "item": "techreborn:electronic_circuit"
-    },
-    "G": {
-      "item": "minecraft:glowstone_dust"
-    },
-    "L": {
-      "item": "minecraft:lapis_lazuli"
+    "result": {
+        "id": "techreborn:advanced_circuit"
     }
-  },
-  "result": {
-    "id": "techreborn:advanced_circuit"
-  }
 }

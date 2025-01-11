@@ -509,7 +509,9 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 		offerCentrifugeRecipe {
 			power 5
 			time 2500
-			ingredients stack(Items.TUFF, 16)
+			ingredient {
+				tag(TRConventionalTags.TUFF, 16)
+			}
 			outputs stack(TRContent.Dusts.DARK_ASHES, 18), stack(TRContent.Dusts.ASHES, 12)
 			id("centrifuge/tuff")
 		}

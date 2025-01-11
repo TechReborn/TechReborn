@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "AAA",
-    "ABA",
-    "AAA"
-  ],
-  "key": {
-    "A": {
-      "item": "techreborn:ultimate_solar_panel"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "AAA",
+        "ABA",
+        "AAA"
+    ],
+    "key": {
+        "A": "techreborn:ultimate_solar_panel",
+        "B": "techreborn:uu_matter"
     },
-    "B": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "techreborn:quantum_solar_panel"
     }
-  },
-  "result": {
-    "id": "techreborn:quantum_solar_panel"
-  }
 }

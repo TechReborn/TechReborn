@@ -1,16 +1,14 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "U  ",
-    " U ",
-    "  U"
-  ],
-  "key": {
-    "U": {
-      "item": "techreborn:uu_matter"
+    "type": "reborncore:padded",
+    "pattern": [
+        "U  ",
+        " U ",
+        "  U"
+    ],
+    "key": {
+        "U": "techreborn:uu_matter"
+    },
+    "result": {
+        "id": "minecraft:tnt"
     }
-  },
-  "result": {
-    "id": "minecraft:tnt"
-  }
 }

@@ -30,6 +30,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRItemSettings;
 
 /**
  * Created by modmuss50 on 05/11/2016.
@@ -37,8 +38,8 @@ import techreborn.config.TechRebornConfig;
 public class ElectricTreetapItem extends Item implements RcEnergyItem {
 	public final RcEnergyTier tier = RcEnergyTier.MEDIUM;
 
-	public ElectricTreetapItem() {
-		super(new Item.Settings().maxDamage(0));
+	public ElectricTreetapItem(String name) {
+		super(TRItemSettings.item(name).maxDamage(0));
 	}
 
 	// Item

@@ -63,6 +63,8 @@ public abstract class GuiTab {
 		return false;
 	}
 
+	public void mouseReleased(double mouseX, double mouseY, int state) {}
+
 	public boolean keyPress(int keyCode, int scanCode, int modifiers) {
 		return false;
 	}

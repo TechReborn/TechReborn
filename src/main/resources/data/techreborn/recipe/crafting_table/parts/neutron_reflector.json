@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "TCT",
-    "CPC",
-    "TCT"
-  ],
-  "key": {
-    "P": {
-      "tag": "c:plates/copper"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "TCT",
+        "CPC",
+        "TCT"
+    ],
+    "key": {
+        "P": "#c:plates/copper",
+        "C": "#c:dusts/coal",
+        "T": "#c:plates/tin"
     },
-    "C": {
-      "tag": "c:dusts/coal"
-    },
-    "T": {
-      "tag": "c:plates/tin"
+    "result": {
+        "id": "techreborn:neutron_reflector"
     }
-  },
-  "result": {
-    "id": "techreborn:neutron_reflector"
-  }
 }

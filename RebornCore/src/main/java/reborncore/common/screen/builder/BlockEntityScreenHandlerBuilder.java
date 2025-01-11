@@ -26,7 +26,6 @@ package reborncore.common.screen.builder;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
@@ -37,6 +36,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.Range;
 import reborncore.RebornCore;
 import reborncore.api.blockentity.IUpgrade;
@@ -60,6 +60,7 @@ public class BlockEntityScreenHandlerBuilder {
 	private final BlockEntity blockEntity;
 	private final ScreenHandlerBuilder parent;
 	private final int rangeStart;
+	private final World world;
 
 	BlockEntityScreenHandlerBuilder(final ScreenHandlerBuilder parent, final BlockEntity blockEntity) {
 		if (blockEntity instanceof Inventory) {
@@ -68,6 +69,7 @@ public class BlockEntityScreenHandlerBuilder {
 			throw new RuntimeException(blockEntity.getClass().getName() + " is not an inventory");
 		}
 		this.blockEntity = blockEntity;
+		this.world = blockEntity.getWorld();
 		this.parent = parent;
 		this.rangeStart = parent.slots.size();
 		if (inventory instanceof IUpgradeable) {
@@ -116,7 +118,9 @@ public class BlockEntityScreenHandlerBuilder {
 	}
 
 	public BlockEntityScreenHandlerBuilder fuelSlot(final int index, final int x, final int y) {
-		this.parent.slots.add(new FilteredSlot(this.inventory, index, x, y).setFilter(AbstractFurnaceBlockEntity::canUseAsFuel));
+		this.parent.slots.add(new FilteredSlot(this.inventory, index, x, y).setFilter(
+			(stack) -> this.world.getFuelRegistry().isFuel(stack)
+		));
 		return this;
 	}
 

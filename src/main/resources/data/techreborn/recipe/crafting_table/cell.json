@@ -1,17 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " T ",
-    "T T",
-    " T "
-  ],
-  "key": {
-    "T": {
-      "tag": "c:ingots/tin"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " T ",
+        "T T",
+        " T "
+    ],
+    "key": {
+        "T": "#c:ingots/tin"
+    },
+    "result": {
+        "id": "techreborn:cell",
+        "count": 4
     }
-  },
-  "result": {
-    "id": "techreborn:cell",
-    "count": 4
-  }
 }

@@ -33,7 +33,7 @@ import techreborn.init.TRContent;
  */
 public class RubberDoorBlock extends DoorBlock {
 
-	public RubberDoorBlock() {
-		super(TRContent.RUBBER_WOOD_SET_TYPE, TRBlockSettings.rubberDoor());
+	public RubberDoorBlock(String name) {
+		super(TRContent.RUBBER_WOOD_SET_TYPE, TRBlockSettings.rubberDoor(name));
 	}
 }

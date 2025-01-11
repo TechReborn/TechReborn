@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DLD",
-    "LDL",
-    "CPC"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:industrial_solar_panel"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "DLD",
+        "LDL",
+        "CPC"
+    ],
+    "key": {
+        "P": "techreborn:industrial_solar_panel",
+        "C": "techreborn:advanced_circuit",
+        "D": "#c:dusts/diamond",
+        "L": "techreborn:reinforced_glass"
     },
-    "C": {
-      "item": "techreborn:advanced_circuit"
-    },
-    "D": {
-      "tag": "c:dusts/diamond"
-    },
-    "L": {
-      "item": "techreborn:reinforced_glass"
+    "result": {
+        "id": "techreborn:ultimate_solar_panel"
     }
-  },
-  "result": {
-    "id": "techreborn:ultimate_solar_panel"
-  }
 }

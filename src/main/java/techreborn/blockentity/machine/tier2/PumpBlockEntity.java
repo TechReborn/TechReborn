@@ -182,7 +182,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			.syncEnergyValue()
 			.sync(PacketCodecs.INTEGER, this::getDepth, this::setDepth)
 			.sync(PacketCodecs.INTEGER, this::getRange, this::setRange)
-			.sync(PacketCodecs.BOOL, this::getExhausted, this::setExhausted)
+			.sync(PacketCodecs.BOOLEAN, this::getExhausted, this::setExhausted)
 			.addInventory()
 			.create(this, syncID);
 	}

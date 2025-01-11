@@ -1,26 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ATA",
-    "LIL",
-    "ATA"
-  ],
-  "key": {
-    "A": {
-      "item": "techreborn:advanced_circuit"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ATA",
+        "LIL",
+        "ATA"
+    ],
+    "key": {
+        "A": "techreborn:advanced_circuit",
+        "T": "#c:ingots/tungsten",
+        "I": "techreborn:iridium_alloy_plate",
+        "L": "techreborn:lapotron_crystal"
     },
-    "T": {
-      "tag": "c:ingots/tungsten"
-    },
-    "I": {
-      "item": "techreborn:iridium_alloy_plate"
-    },
-    "L": {
-      "item": "techreborn:lapotron_crystal"
+    "result": {
+        "id": "techreborn:energy_flow_chip",
+        "count": 4
     }
-  },
-  "result": {
-    "id": "techreborn:energy_flow_chip",
-    "count": 4
-  }
 }

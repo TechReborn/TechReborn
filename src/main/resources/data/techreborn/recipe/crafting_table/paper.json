@@ -1,21 +1,13 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-	{
-	  "tag": "c:dusts/saw"
-	},
-	{
-	  "tag": "c:dusts/saw"
-	},
-	{
-	  "tag": "c:dusts/saw"
-	},
-	{
-	  "item": "minecraft:water_bucket"
-	}
-  ],
-  "result": {
-	"id": "minecraft:paper",
-	"count": 3
-  }
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        "#c:dusts/saw",
+        "#c:dusts/saw",
+        "#c:dusts/saw",
+        "minecraft:water_bucket"
+    ],
+    "result": {
+        "id": "minecraft:paper",
+        "count": 3
+    }
 }

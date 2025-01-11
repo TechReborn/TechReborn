@@ -32,11 +32,14 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeDisplay;
 import reborncore.common.crafting.SizedIngredient;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
@@ -44,7 +47,7 @@ import techreborn.init.TRContent;
 import java.util.List;
 import java.util.function.Function;
 
-public record FluidGeneratorRecipe(RecipeType<?> type, int power, Fluid fluid) implements RebornRecipe {
+public record FluidGeneratorRecipe(RecipeType<? extends FluidGeneratorRecipe> type, int power, Fluid fluid) implements RebornRecipe {
 	public static Function<RecipeType<FluidGeneratorRecipe>, MapCodec<FluidGeneratorRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
 		Registries.FLUID.getEntryCodec().fieldOf("fluid").forGetter(FluidGeneratorRecipe::fluidRegistryEntry)
@@ -55,7 +58,7 @@ public record FluidGeneratorRecipe(RecipeType<?> type, int power, Fluid fluid) i
 		(power, fluid) -> new FluidGeneratorRecipe(type, power, fluid)
 	);
 
-	public FluidGeneratorRecipe(RecipeType<?> type, int power, RegistryEntry<Fluid> fluid) {
+	public FluidGeneratorRecipe(RecipeType<? extends FluidGeneratorRecipe> type, int power, RegistryEntry<Fluid> fluid) {
 		this(type, power, fluid.value());
 	}
 
@@ -75,22 +78,26 @@ public record FluidGeneratorRecipe(RecipeType<?> type, int power, Fluid fluid) i
 	}
 
 	@Override
-	public ItemStack createIcon() {
-		final RecipeType<?> type =getType();
+	public List<RecipeDisplay> getDisplays() {
+		final RecipeType<?> type = getType();
+		ItemStack stack = null;
 
 		if (type == ModRecipes.THERMAL_GENERATOR) {
-			return new ItemStack(TRContent.Machine.THERMAL_GENERATOR);
+			stack = new ItemStack(TRContent.Machine.THERMAL_GENERATOR);
 		} else if (type == ModRecipes.GAS_GENERATOR) {
-			return new ItemStack(TRContent.Machine.GAS_TURBINE);
+			stack = new ItemStack(TRContent.Machine.GAS_TURBINE);
 		} else if (type == ModRecipes.DIESEL_GENERATOR) {
-			return new ItemStack(TRContent.Machine.DIESEL_GENERATOR);
+			stack = new ItemStack(TRContent.Machine.DIESEL_GENERATOR);
 		} else if (type == ModRecipes.SEMI_FLUID_GENERATOR) {
-			return new ItemStack(TRContent.Machine.SEMI_FLUID_GENERATOR);
+			stack = new ItemStack(TRContent.Machine.SEMI_FLUID_GENERATOR);
 		} else if (type == ModRecipes.PLASMA_GENERATOR) {
-			return new ItemStack(TRContent.Machine.PLASMA_GENERATOR);
+			stack = new ItemStack(TRContent.Machine.PLASMA_GENERATOR);
+		}
+		if (stack != null) {
+			return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
 		}
 
-		return RebornRecipe.super.createIcon();
+		return RebornRecipe.super.getDisplays();
 	}
 
 	public Fluid getFluid() {

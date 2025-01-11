@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "UU ",
-    "UUU",
-    "US "
-  ],
-  "key": {
-    "S": {
-      "item": "minecraft:stone"
+    "type": "reborncore:padded",
+    "pattern": [
+        "UU ",
+        "UUU",
+        "US "
+    ],
+    "key": {
+        "S": "minecraft:stone",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:diamond_ore"
     }
-  },
-  "result": {
-    "id": "minecraft:diamond_ore"
-  }
 }

@@ -28,7 +28,7 @@ import net.minecraft.block.TransparentBlock;
 import techreborn.init.TRBlockSettings;
 
 public class BlockReinforcedGlass extends TransparentBlock {
-	public BlockReinforcedGlass() {
-		super(TRBlockSettings.reinforcedGlass());
+	public BlockReinforcedGlass(String name) {
+		super(TRBlockSettings.reinforcedGlass(name));
 	}
 }

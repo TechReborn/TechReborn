@@ -41,6 +41,7 @@ import reborncore.client.gui.config.elements.ConfigSlotElement;
 import reborncore.client.gui.config.elements.SlotType;
 import reborncore.common.network.serverbound.SlotConfigSavePayload;
 import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.common.screen.slot.BaseSlot;
 import reborncore.common.util.Color;
 
 import java.util.List;
@@ -84,7 +85,7 @@ public class SlotConfigGui extends GuiTab {
 
 			ConfigSlotElement slotElement = new ConfigSlotElement(
 				guiBase.getMachine().getOptionalInventory().get(),
-				slot.getIndex(),
+				(BaseSlot) slot,
 				SlotType.NORMAL,
 				slot.x - guiBase.getGuiLeft() + 50,
 				slot.y - guiBase.getGuiTop() - 25,
@@ -137,6 +138,13 @@ public class SlotConfigGui extends GuiTab {
 		}
 
 		return false;
+	}
+
+	@Override
+	public void mouseReleased(double mouseX, double mouseY, int state) {
+		if (selectedSlot != null) {
+			selectedSlot.mouseReleased(mouseX, mouseY, state);
+		}
 	}
 
 	@Override

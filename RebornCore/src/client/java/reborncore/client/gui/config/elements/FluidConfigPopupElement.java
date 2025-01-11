@@ -35,19 +35,44 @@ import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.network.serverbound.FluidConfigSavePayload;
 import reborncore.common.network.serverbound.FluidIoSavePayload;
 
+import java.util.Arrays;
+
 public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 	ConfigFluidElement fluidElement;
 
-	public FluidConfigPopupElement(int x, int y, ConfigFluidElement fluidElement) {
-		super(x, y, GuiSprites.SLOT_CONFIG_POPUP);
+	public FluidConfigPopupElement(int x, int y, int height, ConfigFluidElement fluidElement) {
+		super(
+			x, y, height, GuiSprites.SLOT_CONFIG_POPUP,
+			Arrays.stream(FluidConfiguration.ExtractConfig.values()).map(Enum::name).toArray(String[]::new)
+		);
 		this.fluidElement = fluidElement;
 	}
 
 	@Override
-	protected void cycleConfig(Direction side, GuiBase<?> guiBase) {
-		FluidConfiguration.FluidConfig config = guiBase.getMachine().fluidConfiguration.getSideDetail(side);
+	public int getPencilColor(String pencil) {
+		return switch (pencil) {
+			case "INPUT" -> theme.ioInputColor().rgba();
+			case "OUTPUT" -> theme.ioOutputColor().rgba();
+			case "ALL" -> theme.ioBothColor().rgba();
+			default -> 0x80000000 | theme.warningTextColor().rgba();
+		};
+	}
 
-		FluidConfiguration.ExtractConfig fluidIO = config.getIoConfig().getNext();
+	@Override
+	protected void cycleConfig(Direction side, GuiBase<?> guiBase) {
+		FluidConfiguration.ExtractConfig fluidIO;
+		if (pencil != null) {
+			fluidIO = switch (pencil) {
+				case "INPUT" -> FluidConfiguration.ExtractConfig.INPUT;
+				case "OUTPUT" -> FluidConfiguration.ExtractConfig.OUTPUT;
+				case "ALL" -> FluidConfiguration.ExtractConfig.ALL;
+				default -> FluidConfiguration.ExtractConfig.NONE;
+			};
+		} else {
+			FluidConfiguration.FluidConfig config = guiBase.getMachine().fluidConfiguration.getSideDetail(side);
+
+			fluidIO = config.getIoConfig().getNext();
+		}
 		FluidConfiguration.FluidConfig newConfig = new FluidConfiguration.FluidConfig(side, fluidIO);
 
 		ClientPlayNetworking.send(new FluidConfigSavePayload(guiBase.be.getPos(), newConfig));

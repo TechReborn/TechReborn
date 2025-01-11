@@ -1,28 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PPP",
-    "XBX",
-    "CDC"
-  ],
-  "key": {
-    "X": {
-      "item": "techreborn:crude_storage_unit"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PPP",
+        "XBX",
+        "CDC"
+    ],
+    "key": {
+        "X": "techreborn:crude_storage_unit",
+        "B": "techreborn:basic_machine_frame",
+        "P": "#c:plates/refined_iron",
+        "D": "techreborn:basic_display",
+        "C": "techreborn:electronic_circuit"
     },
-    "B": {
-      "item": "techreborn:basic_machine_frame"
-    },
-    "P": {
-      "tag": "c:plates/refined_iron"
-    },
-    "D": {
-      "item": "techreborn:basic_display"
-    },
-	"C": {
-	  "item": "techreborn:electronic_circuit"
-	}
-  },
-  "result": { 
-    "id": "techreborn:basic_storage_unit"
-  }
+    "result": {
+        "id": "techreborn:basic_storage_unit"
+    }
 }

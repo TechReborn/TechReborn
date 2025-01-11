@@ -34,8 +34,8 @@ import techreborn.blockentity.transformers.LVTransformerBlockEntity;
  */
 public class BlockLVTransformer extends BlockTransformer {
 
-	public BlockLVTransformer() {
-		super("lv_transformer");
+	public BlockLVTransformer(String name) {
+		super(name);
 	}
 
 	@Override

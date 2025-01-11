@@ -31,8 +31,8 @@ import techreborn.init.TRBlockSettings;
 
 public class BlockRubberLeaves extends LeavesBlock {
 
-	public BlockRubberLeaves() {
-		super(TRBlockSettings.rubberLeaves());
+	public BlockRubberLeaves(String name) {
+		super(TRBlockSettings.rubberLeaves(name));
 		FlammableBlockRegistry.getDefaultInstance().add(this, 30, 60);
 	}
 

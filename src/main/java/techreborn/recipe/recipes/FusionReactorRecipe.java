@@ -33,7 +33,10 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.util.dynamic.Codecs;
+import reborncore.common.crafting.RebornRecipeDisplay;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
@@ -45,7 +48,7 @@ import java.util.function.Function;
 /**
  * @author drcrazy
  */
-public record FusionReactorRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) implements RebornRecipe {
+public record FusionReactorRecipe(RecipeType<? extends FusionReactorRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) implements RebornRecipe {
 	public static Function<RecipeType<FusionReactorRecipe>, MapCodec<FusionReactorRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
@@ -65,8 +68,9 @@ public record FusionReactorRecipe(RecipeType<?> type, List<SizedIngredient> ingr
 	);
 
 	@Override
-	public ItemStack createIcon() {
-		return new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER);
+	public List<RecipeDisplay> getDisplays() {
+		ItemStack stack = new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER);
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
 	}
 
 	public int getStartEnergy() {

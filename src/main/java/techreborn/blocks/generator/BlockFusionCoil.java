@@ -47,8 +47,8 @@ import java.util.List;
 
 public class BlockFusionCoil extends Block {
 
-	public BlockFusionCoil() {
-		super(TRBlockSettings.fusionCoil());
+	public BlockFusionCoil(String name) {
+		super(TRBlockSettings.fusionCoil(name));
 	}
 
 	@Override

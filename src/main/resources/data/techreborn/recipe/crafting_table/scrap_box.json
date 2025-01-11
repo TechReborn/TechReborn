@@ -1,16 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "III",
-    "III",
-    "III"
-  ],
-  "key": {
-    "I": {
-      "item": "techreborn:scrap"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "III",
+        "III",
+        "III"
+    ],
+    "key": {
+        "I": "techreborn:scrap"
+    },
+    "result": {
+        "id": "techreborn:scrap_box"
     }
-  },
-  "result": {
-    "id": "techreborn:scrap_box"
-  }
 }

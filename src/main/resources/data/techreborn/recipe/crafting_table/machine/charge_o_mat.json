@@ -1,28 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ETE",
-    "COC",
-    "EAE"
-  ],
-  "key": {
-    "A": {
-      "item": "techreborn:advanced_machine_frame"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ETE",
+        "COC",
+        "EAE"
+    ],
+    "key": {
+        "A": "techreborn:advanced_machine_frame",
+        "C": "minecraft:chest",
+        "T": "techreborn:energy_crystal",
+        "E": "techreborn:energy_flow_chip",
+        "O": "techreborn:lapotronic_orb"
     },
-    "C": {
-      "item": "minecraft:chest"
-    },
-    "T": {
-      "item": "techreborn:energy_crystal"
-    },
-    "E": {
-      "item": "techreborn:energy_flow_chip"
-    },
-    "O": {
-      "item": "techreborn:lapotronic_orb"
+    "result": {
+        "id": "techreborn:charge_o_mat"
     }
-  },
-  "result": {
-    "id": "techreborn:charge_o_mat"
-  }
 }

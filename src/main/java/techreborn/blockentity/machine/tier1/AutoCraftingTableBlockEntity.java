@@ -38,6 +38,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -59,7 +60,10 @@ import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -83,6 +87,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	CraftingInventory inventoryCrafting = null;
 	CraftingRecipe lastRecipe = null;
+	ItemStack outputPreview = ItemStack.EMPTY;
 
 	Item[] layoutInv = new Item[CRAFTING_AREA];
 
@@ -98,20 +103,37 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		CraftingInventory craftingInventory = getCraftingInventory();
 		if (craftingInventory.isEmpty()) return null;
 
-		if (lastRecipe != null && lastRecipe.matches(getRecipeInput(), world)) return lastRecipe;
+		CraftingRecipeInput input = getRecipeInput();
+		if (lastRecipe != null && lastRecipe.matches(input, world)) {
+			if (outputPreview == ItemStack.EMPTY) {
+				layoutInv = getCraftingLayout(craftingInventory);
+				outputPreview = lastRecipe.craft(input, world.getRegistryManager());
+			}
+			return lastRecipe;
+		}
 
 		Item[] currentInvLayout = getCraftingLayout(craftingInventory);
 		if (Arrays.equals(layoutInv, currentInvLayout)) return null;
 
 		layoutInv = currentInvLayout;
 
-		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, getRecipeInput(), world).map(RecipeEntry::value);
+		MinecraftServer server = world.getServer();
+		if (server == null) return null;
+		Optional<CraftingRecipe> testRecipe = server.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, input, world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
+			outputPreview = lastRecipe.craft(input, server.getRegistryManager());
 			return lastRecipe;
+		} else {
+			outputPreview = ItemStack.EMPTY;
 		}
 
 		return null;
+	}
+
+	@Nullable
+	public ItemStack getCurrentResult() {
+		return outputPreview;
 	}
 
 	private Item[] getCraftingLayout(CraftingInventory craftingInventory) {
@@ -161,9 +183,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!recipe.matches(getRecipeInput(), world)) return false;
 
-		if (!hasOutputSpace(recipe.getResult(world.getRegistryManager()), OUTPUT_SLOT)) return false;
+		if (!hasOutputSpace(recipe.craft(getRecipeInput(), world.getRegistryManager()), OUTPUT_SLOT)) return false;
 
-		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(getRecipeInput());
+		DefaultedList<ItemStack> remainingStacks = recipe.getRecipeRemainders(getRecipeInput());
 
 		// Need to check whole list in case of several different reminders
 		boolean canFitReminder = true;
@@ -206,11 +228,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (recipe == null || !canMake(recipe)) {
 			return false;
 		}
-		DefaultedList<Ingredient> ingredients = recipe.getIngredients();
+		List<Ingredient> ingredients = recipe.getIngredientPlacement().getIngredients();
 		// each slot can only be used once because in canMake we only checked if decrement by 1 still retains the recipe
 		// otherwise recipes can break when an ingredient is used multiple times
 		boolean[] slotUsed = new boolean[CRAFTING_AREA];
-		for (int i = 0; i < recipe.getIngredients().size(); i++) {
+		for (int i = 0; i < ingredients.size(); i++) {
 			Ingredient ingredient = ingredients.get(i);
 			// Looks for the best slot to take it from
 			ItemStack bestSlot = inventory.getStack(i);
@@ -242,7 +264,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (output.isEmpty()) {
 			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
 		} else {
-			output.increment(recipe.getResult(world.getRegistryManager()).getCount());
+			output.increment(recipe.craft(getRecipeInput(), world.getRegistryManager()).getCount());
 		}
 		return true;
 	}
@@ -257,8 +279,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private ItemStack getRemainderItem(ItemStack stack) {
-		if (stack.getItem().hasRecipeRemainder()) {
-			return new ItemStack(stack.getItem().getRecipeRemainder());
+		ItemStack remainderStack = stack.getItem().getRecipeRemainder();
+		if (!remainderStack.isEmpty()) {
+			return remainderStack;
 		}
 
 		return ItemStack.EMPTY;
@@ -283,14 +306,14 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			return Optional.empty();
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
-		for (int s = 0; s < currentRecipe.getIngredients().size(); s++) {
+		for (int s = 0; s < currentRecipe.getIngredientPlacement().getIngredients().size(); s++) {
 			for (int i = 0; i < CRAFTING_AREA; i++) {
 				if (possibleSlots.contains(i)) {
 					continue;
 				}
 				ItemStack stackInSlot = inventory.getStack(i);
-				Ingredient ingredient = currentRecipe.getIngredients().get(s);
-				if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
+				Ingredient ingredient = currentRecipe.getIngredientPlacement().getIngredients().get(s);
+				if (ingredient != null && ingredient.test(sourceStack)) {
 					if (stackInSlot.getItem() == sourceStack.getItem()) {
 						possibleSlots.add(i);
 						break;
@@ -464,7 +487,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
 			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
 			.sync(PacketCodecs.INTEGER, this::getMaxProgress, this::setMaxProgress)
-			.sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+			.sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt)
+			.sync(ItemStack.OPTIONAL_PACKET_CODEC, this::getOutputPreview, this::setOutputPreview)
+			.addInventory().create(this, syncID);
 	}
 
 	public int getProgress() {
@@ -492,6 +517,14 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	public void setLockedInt(int lockedInt) {
 		locked = lockedInt == 1;
+	}
+
+	public ItemStack getOutputPreview() {
+		return outputPreview;
+	}
+
+	public void setOutputPreview(ItemStack stack) {
+		outputPreview = stack;
 	}
 
 	private CraftingRecipeInput getRecipeInput() {

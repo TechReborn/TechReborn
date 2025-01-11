@@ -33,7 +33,7 @@ import techreborn.world.WorldGenerator;
  */
 public class BlockRubberSapling extends SaplingBlock {
 
-	public BlockRubberSapling() {
-		super(WorldGenerator.RUBBER_TREE_SAPLING_GENERATOR, TRBlockSettings.rubberSapling());
+	public BlockRubberSapling(String name) {
+		super(WorldGenerator.RUBBER_TREE_SAPLING_GENERATOR, TRBlockSettings.rubberSapling(name));
 	}
 }

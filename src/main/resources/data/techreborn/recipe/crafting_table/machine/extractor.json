@@ -1,21 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "TMT",
-    "TCT"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "TMT",
+        "TCT"
+    ],
+    "key": {
+        "C": "techreborn:electronic_circuit",
+        "T": "techreborn:treetap",
+        "M": "techreborn:basic_machine_frame"
     },
-    "T": {
-      "item": "techreborn:treetap"
-    },
-    "M": {
-      "item": "techreborn:basic_machine_frame"
+    "result": {
+        "id": "techreborn:extractor"
     }
-  },
-  "result": {
-    "id": "techreborn:extractor"
-  }
 }

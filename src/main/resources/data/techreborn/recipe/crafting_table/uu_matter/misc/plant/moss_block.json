@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "G G",
-    " U ",
-    "G G"
-  ],
-  "key": {
-    "G": {
-      "item":  "techreborn:plantball"
+    "type": "reborncore:padded",
+    "pattern": [
+        "G G",
+        " U ",
+        "G G"
+    ],
+    "key": {
+        "G": "techreborn:plantball",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:moss_block"
     }
-  },
-  "result": {
-    "id": "minecraft:moss_block"
-  }
 }

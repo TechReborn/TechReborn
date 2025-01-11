@@ -46,12 +46,12 @@ public class RebornRegistry {
 	 * Registers {@link Block} and {@link BlockItem} in vanilla registries
 	 *
 	 * @param block   {@link Block} Block to register
-	 * @param builder {@link Item.Settings} Settings builder for {@link BlockItem}
+	 * @param settings {@link Item.Settings} Settings settings for {@link BlockItem}
 	 * @param name    {@link Identifier} Registry name for block and item
 	 */
-	public static void registerBlock(Block block, Item.Settings builder, Identifier name) {
+	public static void registerBlock(Block block, Item.Settings settings, Identifier name) {
 		Registry.register(Registries.BLOCK, name, block);
-		BlockItem itemBlock = new BlockItem(block, builder);
+		BlockItem itemBlock = new BlockItem(block, settings);
 		Registry.register(Registries.ITEM, name, itemBlock);
 	}
 
@@ -66,7 +66,7 @@ public class RebornRegistry {
 	 * Block should have registered identifier in RebornRegistry via {@link #registerIdent registerIdent} method
 	 *
 	 * @param block     {@link Block} Block to register
-	 * @param itemGroup {@link Item.Settings} Settings builder for {@link BlockItem}
+	 * @param itemGroup {@link Item.Settings} Settings settings for {@link BlockItem}
 	 */
 	public static void registerBlock(Block block, Item.Settings itemGroup) {
 		Validate.isTrue(objIdentMap.containsKey(block));

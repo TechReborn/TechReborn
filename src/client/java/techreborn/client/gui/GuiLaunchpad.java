@@ -64,7 +64,7 @@ public class GuiLaunchpad extends GuiBase<BuiltScreenHandler> {
 
 		if (hideGuiElements()) return;
 
-		Text text = Text.literal("Launch Speed: ").append(Text.translatable(blockEntity.selectedTranslationKey()));
+		Text text = Text.translatable("gui.techreborn.launchpad.launch_speed").append(": ").append(Text.translatable(blockEntity.selectedTranslationKey()));
 		drawCentredText(drawContext, text, 25, theme.titleColor().rgba(), layer);
 	}
 

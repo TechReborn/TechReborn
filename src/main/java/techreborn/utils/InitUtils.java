@@ -24,23 +24,47 @@
 
 package techreborn.utils;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import reborncore.RebornRegistry;
 import techreborn.TechReborn;
 
 public class InitUtils {
 	public static <I extends Item> I setup(I item, String name) {
 		RebornRegistry.registerIdent(item, Identifier.of(TechReborn.MOD_ID, name));
+
+		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+			String expect = Util.createTranslationKey("item", Identifier.of(TechReborn.MOD_ID, name));
+			String actual = item.getTranslationKey();
+
+			if (!expect.equals(actual)) {
+				// This happens when the item settings registry key does not match key used to register the item
+				throw new IllegalStateException("Item translation key mismatch: expected " + expect + ", got " + actual);
+			}
+		}
+
 		return item;
 	}
 
 	public static <B extends Block> B setup(B block, String name) {
 		RebornRegistry.registerIdent(block, Identifier.of(TechReborn.MOD_ID, name));
+
+		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+			String expect = Util.createTranslationKey("block", Identifier.of(TechReborn.MOD_ID, name));
+			String actual = block.getTranslationKey();
+
+			if (!expect.equals(actual)) {
+				// This happens when the block settings registry key does not match key used to register the block
+				throw new IllegalStateException("Block translation key mismatch: expected " + expect + ", got " + actual);
+			}
+		}
+
 		return block;
 	}
 

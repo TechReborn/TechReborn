@@ -25,10 +25,8 @@
 package techreborn.blockentity.generator.basic;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -52,8 +50,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import java.util.Map;
-
 public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public final RebornInventory<SolidFuelGeneratorBlockEntity> inventory = new RebornInventory<>(2, "SolidFuelGeneratorBlockEntity", 64, this);
@@ -68,15 +64,11 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		super(TRBlockEntities.SOLID_FUEL_GENERATOR, pos, state);
 	}
 
-	public static int getItemBurnTime(@NotNull ItemStack stack) {
+	public static int getItemBurnTime(World world, @NotNull ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
 		}
-		Map<Item, Integer> burnMap = AbstractFurnaceBlockEntity.createFuelTimeMap();
-		if (burnMap.containsKey(stack.getItem())) {
-			return burnMap.get(stack.getItem()) / 4;
-		}
-		return 0;
+		return world.getFuelRegistry().getFuelTicks(stack) / 4;
 	}
 
 	private void updateState() {
@@ -113,7 +105,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 		if (burnTime == 0) {
 			updateState();
-			burnTime = totalBurnTime = SolidFuelGeneratorBlockEntity.getItemBurnTime(inventory.getStack(fuelSlot));
+			burnTime = totalBurnTime = SolidFuelGeneratorBlockEntity.getItemBurnTime(world, inventory.getStack(fuelSlot));
 			if (burnTime > 0) {
 				updateState();
 				burnItem = inventory.getStack(fuelSlot);

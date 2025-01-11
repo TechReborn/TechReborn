@@ -35,8 +35,8 @@ import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
  */
 public class LowVoltageSUBlock extends EnergyStorageBlock {
 
-	public LowVoltageSUBlock() {
-		super("low_voltage_su", GuiType.LOW_VOLTAGE_SU);
+	public LowVoltageSUBlock(String name) {
+		super(GuiType.LOW_VOLTAGE_SU, name);
 	}
 
 	@Override

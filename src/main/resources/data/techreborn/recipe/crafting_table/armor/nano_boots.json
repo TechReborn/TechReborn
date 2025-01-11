@@ -1,18 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "E E",
-    "C C"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:carbon_plate"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "E E",
+        "C C"
+    ],
+    "key": {
+        "C": "techreborn:carbon_plate",
+        "E": "techreborn:energy_crystal"
     },
-    "E": {
-      "item": "techreborn:energy_crystal"
+    "result": {
+        "id": "techreborn:nano_boots"
     }
-  },
-  "result": {
-    "id": "techreborn:nano_boots"
-  }
 }

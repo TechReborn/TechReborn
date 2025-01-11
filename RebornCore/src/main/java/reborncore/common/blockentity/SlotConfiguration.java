@@ -148,22 +148,26 @@ public class SlotConfiguration implements NBTSerializable {
 		public static final PacketCodec<ByteBuf, SlotConfigHolder> PACKET_CODEC = PacketCodec.tuple(
 			PacketCodecs.INTEGER, SlotConfigHolder::getSlotID,
 			PacketCodecs.map(HashMap::new, Direction.PACKET_CODEC, SlotConfig.PACKET_CODEC), SlotConfigHolder::getSideMap,
-			PacketCodecs.BOOL, SlotConfigHolder::autoInput,
-			PacketCodecs.BOOL, SlotConfigHolder::autoOutput,
-			PacketCodecs.BOOL, SlotConfigHolder::filter,
+			PacketCodecs.BOOLEAN, SlotConfigHolder::autoInput,
+			PacketCodecs.BOOLEAN, SlotConfigHolder::autoOutput,
+			PacketCodecs.BOOLEAN, SlotConfigHolder::filter,
+			PacketCodecs.INTEGER, SlotConfigHolder::getPriority,
 			SlotConfigHolder::new
 		);
 
 		int slotID;
 		HashMap<Direction, SlotConfig> sideMap;
 		boolean input, output, filter;
+		@Nullable
+		public Direction first, last;
 
-		private SlotConfigHolder(int slotID, HashMap<Direction, SlotConfig> sideMap, boolean input, boolean output, boolean filter) {
+		private SlotConfigHolder(int slotID, HashMap<Direction, SlotConfig> sideMap, boolean input, boolean output, boolean filter, int priority) {
 			this.slotID = slotID;
 			this.sideMap = sideMap;
 			this.input = input;
 			this.output = output;
 			this.filter = filter;
+			setPriority(priority);
 		}
 
 		public SlotConfigHolder(int slotID) {
@@ -189,10 +193,6 @@ public class SlotConfiguration implements NBTSerializable {
 			return slotConfig;
 		}
 
-		public List<SlotConfig> getAllSides() {
-			return new ArrayList<>(sideMap.values());
-		}
-
 		public void updateSlotConfig(SlotConfig config) {
 			SlotConfig toEdit = sideMap.get(config.side);
 			toEdit.slotIO = config.slotIO;
@@ -202,16 +202,27 @@ public class SlotConfiguration implements NBTSerializable {
 			if (!input && !output) {
 				return;
 			}
-			getAllSides().stream()
-				.filter(config -> config.getSlotIO().getIoConfig() != ExtractConfig.NONE)
-				.forEach(config -> {
-					if (input && config.getSlotIO().getIoConfig() == ExtractConfig.INPUT) {
-						config.handleItemInput(machineBase);
-					}
-					if (output && config.getSlotIO().getIoConfig() == ExtractConfig.OUTPUT) {
-						config.handleItemOutput(machineBase);
-					}
-				});
+			if (first != null) {
+				handleItemSideIo(machineBase, sideMap.get(first));
+			}
+			sideMap.forEach((key, config) -> {
+				if (key == first || key == last) return;
+				handleItemSideIo(machineBase, config);
+			});
+			if (last != null) {
+				handleItemSideIo(machineBase, sideMap.get(last));
+			}
+		}
+
+		private void handleItemSideIo(MachineBaseBlockEntity machineBase, SlotConfig config) {
+			switch (config.getSlotIO().getIoConfig()) {
+				case INPUT -> {
+					if (input) config.handleItemInput(machineBase);
+				}
+				case OUTPUT -> {
+					if (output) config.handleItemOutput(machineBase);
+				}
+			}
 		}
 
 		public boolean autoInput() {
@@ -224,6 +235,20 @@ public class SlotConfiguration implements NBTSerializable {
 
 		public boolean filter() {
 			return filter;
+		}
+
+		public int getPriority() {
+			int first = this.first == null ? 6 : this.first.ordinal();
+			int last = this.last == null ? 6 : this.last.ordinal();
+			return first * 10 + last;
+		}
+
+		public void setPriority(int priority) {
+			int first = priority / 10;
+			int last = priority % 10;
+			Direction[] directions = Direction.values();
+			this.first = first == 6 ? null : directions[first];
+			this.last = last == 6 ? null : directions[last];
 		}
 
 		public void setInput(boolean input) {
@@ -254,6 +279,9 @@ public class SlotConfiguration implements NBTSerializable {
 			compound.putBoolean("input", input);
 			compound.putBoolean("output", output);
 			compound.putBoolean("filter", filter);
+			if (this.first != null || this.last != null) {
+				compound.putInt("priority", getPriority());
+			}
 			return compound;
 		}
 
@@ -270,6 +298,12 @@ public class SlotConfiguration implements NBTSerializable {
 			output = nbt.getBoolean("output");
 			if (nbt.contains("filter")) { // Was added later, this allows old saves to be upgraded
 				filter = nbt.getBoolean("filter");
+			}
+			if (nbt.contains("priority")) {
+				setPriority(nbt.getInt("priority"));
+			} else {
+				first = null;
+				last = null;
 			}
 		}
 	}

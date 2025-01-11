@@ -32,14 +32,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.IToolHandler;
+import techreborn.init.TRItemSettings;
 
 /**
  * Created by modmuss50 on 26/02/2016.
  */
 public class WrenchItem extends Item implements IToolHandler {
 
-	public WrenchItem() {
-		super(new Item.Settings().maxCount(1));
+	public WrenchItem(String name) {
+		super(TRItemSettings.item(name).maxCount(1));
 	}
 
 	@Override

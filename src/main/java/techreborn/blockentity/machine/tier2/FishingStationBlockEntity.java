@@ -32,9 +32,9 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
-import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -124,7 +124,7 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 		}
 
 
-		final LootContextParameterSet lootContextParameterSet = new LootContextParameterSet.Builder((ServerWorld) world)
+		final LootWorldContext lootContextParameterSet = new LootWorldContext.Builder((ServerWorld) world)
 			.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(frontPos))
 			.add(LootContextParameters.TOOL, TRContent.Machine.FISHING_STATION.getStack())
 			.build(LootContextTypes.FISHING);

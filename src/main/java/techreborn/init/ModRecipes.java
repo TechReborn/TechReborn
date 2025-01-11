@@ -37,6 +37,7 @@ import techreborn.recipe.recipes.FusionReactorRecipe;
 import techreborn.recipe.recipes.IndustrialGrinderRecipe;
 import techreborn.recipe.recipes.IndustrialSawmillRecipe;
 import techreborn.recipe.recipes.RollingMachineRecipe;
+import techreborn.recipe.recipes.ScrapBoxRecipe;
 
 public class ModRecipes {
 	public static final RecipeType<RebornRecipe> ALLOY_SMELTER = RecipeManager.newRecipeType(Identifier.of("techreborn:alloy_smelter"));
@@ -53,7 +54,7 @@ public class ModRecipes {
 	public static final RecipeType<IndustrialGrinderRecipe> INDUSTRIAL_GRINDER = RecipeManager.newRecipeType(Identifier.of("techreborn:industrial_grinder"), IndustrialGrinderRecipe.CODEC, IndustrialGrinderRecipe.PACKET_CODEC);
 	public static final RecipeType<IndustrialSawmillRecipe> INDUSTRIAL_SAWMILL = RecipeManager.newRecipeType(Identifier.of("techreborn:industrial_sawmill"), IndustrialSawmillRecipe.CODEC, IndustrialSawmillRecipe.PACKET_CODEC);
 	public static final RecipeType<RebornRecipe> RECYCLER = RecipeManager.newRecipeType(Identifier.of("techreborn:recycler"));
-	public static final RecipeType<RebornRecipe> SCRAPBOX = RecipeManager.newRecipeType(Identifier.of("techreborn:scrapbox"));
+	public static final RecipeType<ScrapBoxRecipe> SCRAPBOX = RecipeManager.newRecipeType(Identifier.of("techreborn:scrapbox"), ScrapBoxRecipe.CODEC, ScrapBoxRecipe.PACKET_CODEC);
 	public static final RecipeType<RebornRecipe> VACUUM_FREEZER = RecipeManager.newRecipeType(Identifier.of("techreborn:vacuum_freezer"));
 	public static final RecipeType<FluidReplicatorRecipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(Identifier.of("techreborn:fluid_replicator"), FluidReplicatorRecipe.CODEC, FluidReplicatorRecipe.PACKET_CODEC);
 	public static final RecipeType<FusionReactorRecipe> FUSION_REACTOR = RecipeManager.newRecipeType(Identifier.of("techreborn:fusion_reactor"), FusionReactorRecipe.CODEC, FusionReactorRecipe.PACKET_CODEC);

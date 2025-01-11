@@ -1,29 +1,19 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "industrial_tank_unit",
-  "pattern": [
-	"PPP",
-	"XBX",
-	"CDC"
-  ],
-  "key": {
-	"P": {
-	  "tag": "c:plates/steel"
-	},
-	"B": {
-	  "item": "techreborn:industrial_machine_frame"
-	},
-	"D": {
-	  "item": "techreborn:digital_display"
-	},
-	"X": {
-	  "item": "techreborn:advanced_tank_unit"
-	},
-	"C": {
-	  "item": "techreborn:industrial_circuit"
-	}
-  },
-  "result": {
-    "id": "techreborn:industrial_tank_unit"
-  }
+    "type": "minecraft:crafting_shaped",
+    "group": "industrial_tank_unit",
+    "pattern": [
+        "PPP",
+        "XBX",
+        "CDC"
+    ],
+    "key": {
+        "P": "#c:plates/steel",
+        "B": "techreborn:industrial_machine_frame",
+        "D": "techreborn:digital_display",
+        "X": "techreborn:advanced_tank_unit",
+        "C": "techreborn:industrial_circuit"
+    },
+    "result": {
+        "id": "techreborn:industrial_tank_unit"
+    }
 }

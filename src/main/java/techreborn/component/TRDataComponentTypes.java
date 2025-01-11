@@ -41,13 +41,13 @@ import net.minecraft.util.math.GlobalPos;
 import techreborn.TechReborn;
 
 public class TRDataComponentTypes {
-	private static final PacketCodec<RegistryByteBuf, BlockState> BLOCK_STATE_PACKET_CODEC = PacketCodec.of((value, buf) -> buf.writeNbt(NbtHelper.fromBlockState(value)), buf -> NbtHelper.toBlockState(Registries.BLOCK.getReadOnlyWrapper(), buf.readNbt()));
+	private static final PacketCodec<RegistryByteBuf, BlockState> BLOCK_STATE_PACKET_CODEC = PacketCodec.of((value, buf) -> buf.writeNbt(NbtHelper.fromBlockState(value)), buf -> NbtHelper.toBlockState(Registries.BLOCK, buf.readNbt()));
 
 	public static final ComponentType<Boolean> IS_ACTIVE =
-		ComponentType.<Boolean>builder().codec(PrimitiveCodec.BOOL).packetCodec(PacketCodecs.BOOL).build();
+		ComponentType.<Boolean>builder().codec(PrimitiveCodec.BOOL).packetCodec(PacketCodecs.BOOLEAN).build();
 
 	public static final ComponentType<Boolean> AOE5 =
-		ComponentType.<Boolean>builder().codec(PrimitiveCodec.BOOL).packetCodec(PacketCodecs.BOOL).build();
+		ComponentType.<Boolean>builder().codec(PrimitiveCodec.BOOL).packetCodec(PacketCodecs.BOOLEAN).build();
 
 	public static final ComponentType<GlobalPos> FREQUENCY_TRANSMITTER =
 		ComponentType.<GlobalPos>builder().codec(GlobalPos.CODEC).packetCodec(GlobalPos.PACKET_CODEC).build();

@@ -121,7 +121,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 
 				if (targetRubber != null) {
 					// We have a valid sap log, harvest it
-					world.setBlockState(targetRubber, world.getBlockState(targetRubber).with(BlockRubberLog.HAS_SAP, false).with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontal(0)));
+					world.setBlockState(targetRubber, world.getBlockState(targetRubber).with(BlockRubberLog.HAS_SAP, false).with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontalQuarterTurns(0)));
 					isPouring = true;
 					pouringTimer = TechRebornConfig.sapTimeTicks;
 					shouldUpdateState = true;

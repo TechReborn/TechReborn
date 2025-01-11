@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ICI",
-    "SRS",
-    "ICI"
-  ],
-  "key": {
-    "R": {
-      "item": "minecraft:redstone_block"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ICI",
+        "SRS",
+        "ICI"
+    ],
+    "key": {
+        "R": "minecraft:redstone_block",
+        "C": "techreborn:copper_cable",
+        "S": "techreborn:insulated_copper_cable",
+        "I": "techreborn:refined_iron_ingot"
     },
-    "C": {
-      "item": "techreborn:copper_cable"
-    },
-    "S": {
-      "item": "techreborn:insulated_copper_cable"
-    },
-    "I": {
-      "item": "techreborn:refined_iron_ingot"
+    "result": {
+        "id": "techreborn:alarm"
     }
-  },
-  "result": {
-    "id": "techreborn:alarm"
-  }
 }

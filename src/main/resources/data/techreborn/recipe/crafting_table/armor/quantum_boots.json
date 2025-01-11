@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "L L",
-    "D D",
-    "S S"
-  ],
-  "key": {
-    "S": {
-      "item": "techreborn:superconductor"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "L L",
+        "D D",
+        "S S"
+    ],
+    "key": {
+        "S": "techreborn:superconductor",
+        "L": "techreborn:lapotron_crystal",
+        "D": "techreborn:data_storage_chip"
     },
-    "L": {
-      "item": "techreborn:lapotron_crystal"
-    },
-    "D": {
-      "item": "techreborn:data_storage_chip"
+    "result": {
+        "id": "techreborn:quantum_boots"
     }
-  },
-  "result": {
-    "id": "techreborn:quantum_boots"
-  }
 }

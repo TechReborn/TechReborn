@@ -1,37 +1,19 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "group": "plantball",
-  "ingredients": [
-	{
-	  "tag": "minecraft:saplings"
-	},
-	{
-	  "tag": "minecraft:saplings"
-	},
-	{
-	  "tag": "minecraft:saplings"
-	},
-	{
-	  "tag": "minecraft:saplings"
-	},
-	{
-	  "tag": "minecraft:saplings"
-	},
-	{
-	  "tag": "minecraft:saplings"
-	},
-	{
-	  "tag": "minecraft:saplings"
-	},
-	{
-	  "tag": "minecraft:saplings"
-	},
-	{
-	  "tag": "minecraft:saplings"
-	}
-  ],
-  "result": {
-	"id": "techreborn:plantball",
-	"count": 4
-  }
+    "type": "minecraft:crafting_shapeless",
+    "group": "plantball",
+    "ingredients": [
+        "#minecraft:saplings",
+        "#minecraft:saplings",
+        "#minecraft:saplings",
+        "#minecraft:saplings",
+        "#minecraft:saplings",
+        "#minecraft:saplings",
+        "#minecraft:saplings",
+        "#minecraft:saplings",
+        "#minecraft:saplings"
+    ],
+    "result": {
+        "id": "techreborn:plantball",
+        "count": 4
+    }
 }

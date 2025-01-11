@@ -101,7 +101,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 		if (item instanceof UpgradeItem upgrade) {
 			ToolTipAssistUtils.addInfo(item.getTranslationKey(), lines, false);
-			lines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
+			lines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.fromItem(upgrade), stack.getCount(), Screen.hasShiftDown()));
 		}
 
 		if (item instanceof DynamicCellItem cell) {

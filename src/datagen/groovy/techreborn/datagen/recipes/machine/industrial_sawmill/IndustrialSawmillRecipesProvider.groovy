@@ -53,6 +53,8 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(ItemTags.CRIMSON_STEMS): Items.CRIMSON_PLANKS,
 			(ItemTags.WARPED_STEMS): Items.WARPED_PLANKS,
 			(ItemTags.MANGROVE_LOGS): Items.MANGROVE_PLANKS,
+			(ItemTags.CHERRY_LOGS): Items.CHERRY_PLANKS,
+			(ItemTags.PALE_OAK_LOGS): Items.PALE_OAK_PLANKS,
 			(TRContent.ItemTags.RUBBER_LOGS): TRContent.RUBBER_PLANKS
 		].each {logs, planks ->
 			offerIndustrialSawmillRecipe {
@@ -62,13 +64,6 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				time 200
 				fluidAmount 1000 // in millibuckets
 			}
-		}
-		offerIndustrialSawmillRecipe {
-			ingredients ItemTags.CHERRY_LOGS
-			outputs stack(Items.CHERRY_PLANKS,4), stack(TRContent.Dusts.SAW, 3)
-			power 40
-			time 200
-			fluidAmount 1000 // in millibuckets
 		}
 		offerIndustrialSawmillRecipe {
 			ingredients ItemTags.BAMBOO_BLOCKS
@@ -87,22 +82,11 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(Items.CRIMSON_STAIRS): Items.CRIMSON_SLAB,
 			(Items.WARPED_STAIRS): Items.WARPED_SLAB,
 			(Items.MANGROVE_STAIRS): Items.MANGROVE_SLAB,
-			(TRContent.RUBBER_STAIR): TRContent.RUBBER_SLAB
-		].each { stairs, slab ->
-			offerIndustrialSawmillRecipe {
-				ingredients stairs
-				outputs slab, stack(TRContent.Dusts.SAW, 2)
-				power 30
-				time 100
-				fluidAmount 250 // in millibuckets
-				source "stairs"
-				criterion getCriterionName(stairs), getCriterionConditions(stairs)
-			}
-		}
-		[
 			(Items.CHERRY_STAIRS): Items.CHERRY_SLAB,
 			(Items.BAMBOO_STAIRS): Items.BAMBOO_SLAB,
-			(Items.BAMBOO_MOSAIC_STAIRS): Items.BAMBOO_MOSAIC_SLAB
+			(Items.BAMBOO_MOSAIC_STAIRS): Items.BAMBOO_MOSAIC_SLAB,
+			(Items.PALE_OAK_STAIRS): Items.PALE_OAK_SLAB,
+			(TRContent.RUBBER_STAIR): TRContent.RUBBER_SLAB
 		].each { stairs, slab ->
 			offerIndustrialSawmillRecipe {
 				ingredients stairs
@@ -124,6 +108,10 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 			(Items.CRIMSON_SLAB): Items.CRIMSON_PRESSURE_PLATE,
 			(Items.WARPED_SLAB): Items.WARPED_PRESSURE_PLATE,
 			(Items.MANGROVE_SLAB): Items.MANGROVE_PRESSURE_PLATE,
+			(Items.CHERRY_SLAB): Items.CHERRY_PRESSURE_PLATE,
+			(Items.BAMBOO_SLAB): Items.BAMBOO_PRESSURE_PLATE,
+			(Items.BAMBOO_MOSAIC_SLAB): Items.BAMBOO_PRESSURE_PLATE,
+			(Items.PALE_OAK_SLAB): Items.PALE_OAK_PRESSURE_PLATE,
 			(TRContent.RUBBER_SLAB): TRContent.RUBBER_PRESSURE_PLATE
 		].each { slab, plate ->
 			offerIndustrialSawmillRecipe {
@@ -133,21 +121,6 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				time 200
 				fluidAmount 250 // in millibuckets
 				source "slab"
-				criterion getCriterionName(slab), getCriterionConditions(slab)
-			}
-		}
-		[
-			(Items.CHERRY_SLAB): Items.CHERRY_PRESSURE_PLATE,
-			(Items.BAMBOO_SLAB): Items.BAMBOO_PRESSURE_PLATE,
-			(Items.BAMBOO_MOSAIC_SLAB): Items.BAMBOO_PRESSURE_PLATE
-		].each { slab, plate ->
-			offerIndustrialSawmillRecipe {
-				ingredients slab
-				outputs stack(plate, 2), stack(TRContent.Dusts.SAW, 2)
-				power 30
-				time 200
-				fluidAmount 250 // in millibuckets
-				source ((slab == Items.BAMBOO_MOSAIC_SLAB ? "mosaic_" : "") + "slab")
 				criterion getCriterionName(slab), getCriterionConditions(slab)
 			}
 		}

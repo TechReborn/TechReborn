@@ -1,8 +1,6 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "techreborn:sap"
-  },
+  "ingredient": "techreborn:sap",
   "result": {
 	  "id": "techreborn:rubber"
   },

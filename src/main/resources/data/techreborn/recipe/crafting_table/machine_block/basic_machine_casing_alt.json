@@ -1,24 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "basic_machine_casing",
-  "pattern": [
-    "RRR",
-    "CAC",
-    "RRR"
-  ],
-  "key": {
-    "A": {
-      "item": "techreborn:basic_machine_frame"
+    "type": "minecraft:crafting_shaped",
+    "group": "basic_machine_casing",
+    "pattern": [
+        "RRR",
+        "CAC",
+        "RRR"
+    ],
+    "key": {
+        "A": "techreborn:basic_machine_frame",
+        "R": "#c:plates/iron",
+        "C": "techreborn:electronic_circuit"
     },
-    "R": {
-      "tag": "c:plates/iron"
-    },
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "result": {
+        "id": "techreborn:basic_machine_casing",
+        "count": 4
     }
-  },
-  "result": {
-    "id": "techreborn:basic_machine_casing",
-    "count": 4
-  }
 }

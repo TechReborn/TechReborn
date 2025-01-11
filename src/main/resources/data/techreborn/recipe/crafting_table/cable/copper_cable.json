@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "III"
-  ],
-  "key": {
-    "I": {
-      "item": "minecraft:copper_ingot"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "III"
+    ],
+    "key": {
+        "I": "minecraft:copper_ingot"
+    },
+    "result": {
+        "id": "techreborn:copper_cable",
+        "count": 6
     }
-  },
-  "result": {
-    "id": "techreborn:copper_cable",
-    "count": 6
-  }
 }

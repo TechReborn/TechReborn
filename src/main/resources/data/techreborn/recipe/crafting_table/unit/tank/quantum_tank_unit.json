@@ -1,23 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "quantum_tank_unit",
-  "pattern": [
-    " C ",
-    "RBR",
-    " C "
-  ],
-  "key": {
-    "B": {
-      "item": "techreborn:quantum_storage_unit"
+    "type": "minecraft:crafting_shaped",
+    "group": "quantum_tank_unit",
+    "pattern": [
+        " C ",
+        "RBR",
+        " C "
+    ],
+    "key": {
+        "B": "techreborn:quantum_storage_unit",
+        "C": "techreborn:cell",
+        "R": "techreborn:rubber"
     },
-    "C": {
-      "item": "techreborn:cell"
-    },
-	"R": {
-	  "item": "techreborn:rubber"
-	}
-  },
-  "result": {
-    "id": "techreborn:quantum_tank_unit"
-  }
+    "result": {
+        "id": "techreborn:quantum_tank_unit"
+    }
 }

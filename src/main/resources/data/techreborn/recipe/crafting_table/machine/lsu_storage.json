@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "LSL",
-    "LCL",
-    "LSL"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "LSL",
+        "LCL",
+        "LSL"
+    ],
+    "key": {
+        "C": "techreborn:electronic_circuit",
+        "L": "minecraft:lapis_block",
+        "S": "#c:plates/silver"
     },
-    "L": {
-      "item": "minecraft:lapis_block"
-    },
-	"S": {
-		"tag": "c:plates/silver"
-	}
-  },
-  "result": {
-    "id": "techreborn:lsu_storage"
-  }
+    "result": {
+        "id": "techreborn:lsu_storage"
+    }
 }

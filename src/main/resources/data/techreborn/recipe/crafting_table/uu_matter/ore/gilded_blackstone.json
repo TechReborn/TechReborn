@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "   ",
-    "UUU",
-    " S "
-  ],
-  "key": {
-    "S": {
-      "item": "minecraft:blackstone"
+    "type": "reborncore:padded",
+    "pattern": [
+        "   ",
+        "UUU",
+        " S "
+    ],
+    "key": {
+        "S": "minecraft:blackstone",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:gilded_blackstone"
     }
-  },
-  "result": {
-    "id": "minecraft:gilded_blackstone"
-  }
 }

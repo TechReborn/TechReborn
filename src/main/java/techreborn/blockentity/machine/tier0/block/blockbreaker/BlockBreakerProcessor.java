@@ -29,8 +29,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
@@ -100,7 +100,7 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		final List<ItemStack> blockDrops;
 
 		if (world instanceof ServerWorld serverWorld) {
-			LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder(serverWorld)
+			LootWorldContext.Builder builder = new LootWorldContext.Builder(serverWorld)
 				.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(positionInFront))
 				.add(LootContextParameters.TOOL, TRContent.Machine.BLOCK_BREAKER.getStack());
 			blockDrops = blockInFront.getDroppedStacks(builder);
@@ -108,7 +108,7 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 			blockDrops = Collections.singletonList(item);
 		}
 
-		ItemStack blockDrop = blockDrops.isEmpty() ? null : blockDrops.get(0);
+		ItemStack blockDrop = blockDrops.isEmpty() ? null : blockDrops.getFirst();
 		if (blockDrop != null) {
 			blockDrop.setCount(1);
 		}

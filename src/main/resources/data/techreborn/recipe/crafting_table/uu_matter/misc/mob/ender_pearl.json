@@ -1,16 +1,14 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "UUU",
-    "   ",
-    "   "
-  ],
-  "key": {
-    "U": {
-      "item": "techreborn:uu_matter"
+    "type": "reborncore:padded",
+    "pattern": [
+        "UUU",
+        "   ",
+        "   "
+    ],
+    "key": {
+        "U": "techreborn:uu_matter"
+    },
+    "result": {
+        "id": "minecraft:ender_pearl"
     }
-  },
-  "result": {
-    "id": "minecraft:ender_pearl"
-  }
 }

@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -85,7 +86,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 					return;
 				}
 
-				LightningEntity lightningBolt = EntityType.LIGHTNING_BOLT.create(world);
+				LightningEntity lightningBolt = EntityType.LIGHTNING_BOLT.create(world, SpawnReason.TRIGGERED);
 				lightningBolt.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos())));
 				world.spawnEntity(lightningBolt);
 				addEnergy((long) (TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength)));
@@ -97,7 +98,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	public float getLightningStrikeMultiplier() {
-		final float actualHeight = world.getTopY();
+		final float actualHeight = world.getTopYInclusive();
 		final float groundLevel = world.getSeaLevel() + 1;
 		for (int i = pos.getY() + 1; i < actualHeight; i++) {
 			if (!isValidIronFence(i)) {

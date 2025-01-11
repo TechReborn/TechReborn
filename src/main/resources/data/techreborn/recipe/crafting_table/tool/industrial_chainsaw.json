@@ -1,28 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " NI",
-    "OCN",
-    "DO "
-  ],
-  "key": {
-    "I": {
-      "item": "techreborn:iridium_alloy_plate"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " NI",
+        "OCN",
+        "DO "
+    ],
+    "key": {
+        "I": "techreborn:iridium_alloy_plate",
+        "N": "#c:nuggets/iridium",
+        "C": "techreborn:energy_flow_chip",
+        "O": "techreborn:overclocker_upgrade",
+        "D": "techreborn:advanced_chainsaw"
     },
-    "N": {
-      "tag": "c:nuggets/iridium"
-    },
-    "C": {
-      "item": "techreborn:energy_flow_chip"
-    },
-    "O": {
-      "item": "techreborn:overclocker_upgrade"
-    },
-    "D": {
-      "item": "techreborn:advanced_chainsaw"
+    "result": {
+        "id": "techreborn:industrial_chainsaw"
     }
-  },
-  "result": {
-    "id": "techreborn:industrial_chainsaw"
-  }
 }

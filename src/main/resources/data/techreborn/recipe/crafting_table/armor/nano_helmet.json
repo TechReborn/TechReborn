@@ -1,18 +1,14 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"CEC",
-		"C C"
-	],
-	"key": {
-		"C": {
-			"item": "techreborn:carbon_plate"
-		},
-		"E": {
-			"item": "techreborn:energy_crystal"
-		}
-	},
-	"result": {
-		"id": "techreborn:nano_helmet"
-	}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "CEC",
+        "C C"
+    ],
+    "key": {
+        "C": "techreborn:carbon_plate",
+        "E": "techreborn:energy_crystal"
+    },
+    "result": {
+        "id": "techreborn:nano_helmet"
+    }
 }

@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " S ",
-    "PPP",
-    "P  "
-  ],
-  "key": {
-    "S": {
-      "item": "minecraft:stick"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " S ",
+        "PPP",
+        "P  "
+    ],
+    "key": {
+        "S": "minecraft:stick",
+        "P": "#minecraft:planks"
     },
-    "P": {
-      "tag": "minecraft:planks"
+    "result": {
+        "id": "techreborn:treetap"
     }
-  },
-  "result": {
-    "id": "techreborn:treetap"
-  }
 }

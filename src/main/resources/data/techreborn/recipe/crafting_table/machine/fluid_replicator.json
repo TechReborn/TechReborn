@@ -1,31 +1,19 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PCP",
-    "CFC",
-    "ESR"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:tungstensteel_plate"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PCP",
+        "CFC",
+        "ESR"
+    ],
+    "key": {
+        "P": "techreborn:tungstensteel_plate",
+        "R": "techreborn:chemical_reactor",
+        "C": "techreborn:energy_flow_chip",
+        "S": "techreborn:superconductor",
+        "E": "techreborn:industrial_electrolyzer",
+        "F": "techreborn:industrial_machine_frame"
     },
-    "R": {
-      "item": "techreborn:chemical_reactor"
-    },
-    "C": {
-      "item": "techreborn:energy_flow_chip"
-    },
-    "S": {
-      "item": "techreborn:superconductor"
-    },
-    "E": {
-      "item": "techreborn:industrial_electrolyzer"
-    },
-    "F": {
-      "item": "techreborn:industrial_machine_frame"
+    "result": {
+        "id": "techreborn:fluid_replicator"
     }
-  },
-  "result": {
-    "id": "techreborn:fluid_replicator"
-  }
 }

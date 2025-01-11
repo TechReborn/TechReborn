@@ -35,7 +35,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -55,8 +54,8 @@ import java.util.stream.Collectors;
 
 public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
-	public IndustrialJackhammerItem() {
-		super(TRToolMaterials.INDUSTRIAL_JACKHAMMER, TechRebornConfig.industrialJackhammerCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
+	public IndustrialJackhammerItem(String name) {
+		super(TRToolMaterials.INDUSTRIAL_JACKHAMMER, TechRebornConfig.industrialJackhammerCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost, name);
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5
@@ -118,13 +117,13 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 
 	// Item
 	@Override
-	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
+	public ActionResult use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			switchAOE(stack, cost, player);
-			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+			return ActionResult.SUCCESS;
 		}
-		return new TypedActionResult<>(ActionResult.PASS, stack);
+		return ActionResult.PASS;
 	}
 
 	@Override

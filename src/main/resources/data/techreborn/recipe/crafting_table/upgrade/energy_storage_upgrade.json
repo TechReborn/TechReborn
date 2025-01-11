@@ -1,28 +1,18 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"PRP",
-		"WBW",
-		"PCP"
-	],
-	"key": {
-		"P": {
-			"tag": "minecraft:planks"
-		},
-		"B": {
-			"item": "techreborn:red_cell_battery"
-		},
-		"C": {
-			"item": "techreborn:electronic_circuit"
-		},
-		"W": {
-			"item": "techreborn:insulated_copper_cable"
-		},
-		"R": {
-			"tag": "c:plates/red_garnet"
-		}
-	},
-	"result": {
-		"id": "techreborn:energy_storage_upgrade"
-	}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PRP",
+        "WBW",
+        "PCP"
+    ],
+    "key": {
+        "P": "#minecraft:planks",
+        "B": "techreborn:red_cell_battery",
+        "C": "techreborn:electronic_circuit",
+        "W": "techreborn:insulated_copper_cable",
+        "R": "#c:plates/red_garnet"
+    },
+    "result": {
+        "id": "techreborn:energy_storage_upgrade"
+    }
 }

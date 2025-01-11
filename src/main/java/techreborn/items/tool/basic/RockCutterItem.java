@@ -28,7 +28,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.PickaxeItem;
@@ -40,16 +39,14 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRItemSettings;
 import techreborn.init.TRToolMaterials;
 
 public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	// 10k Energy with 128 E\t charge rate
-	public RockCutterItem() {
+	public RockCutterItem(String name) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(TRToolMaterials.ROCK_CUTTER, new Item.Settings()
-			.maxDamage(0)
-			.attributeModifiers(PickaxeItem.createAttributeModifiers(TRToolMaterials.ROCK_CUTTER, 1.0f, -2.8f)
-		));
+		super(TRToolMaterials.ROCK_CUTTER,  1f, -2.8f, TRItemSettings.item(name).maxDamage(0));
 	}
 
 	// PickaxeItem
@@ -79,26 +76,15 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 		return true;
 	}
 
-	// ToolItem
-	@Override
-	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-		return false;
-	}
-
 	// Item
 	@Override
 	public void onCraft(ItemStack stack, World world) {
 		if (!stack.hasEnchantments()) {
-			RegistryWrapper.Impl<Enchantment> registry = world.getRegistryManager().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+			RegistryWrapper.Impl<Enchantment> registry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
 			stack.addEnchantment(registry.getOrThrow(Enchantments.SILK_TOUCH), 1);
 		}
 
 		super.onCraft(stack, world);
-	}
-
-	@Override
-	public boolean isEnchantable(ItemStack stack) {
-		return true;
 	}
 
 	@Override

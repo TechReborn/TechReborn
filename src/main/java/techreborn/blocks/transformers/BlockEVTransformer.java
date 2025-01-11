@@ -34,8 +34,8 @@ import techreborn.blockentity.transformers.EVTransformerBlockEntity;
  */
 public class BlockEVTransformer extends BlockTransformer {
 
-	public BlockEVTransformer() {
-		super("ev_transformer");
+	public BlockEVTransformer(String name) {
+		super(name);
 	}
 
 	@Override

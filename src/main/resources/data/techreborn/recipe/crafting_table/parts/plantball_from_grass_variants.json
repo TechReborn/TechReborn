@@ -1,36 +1,18 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "group": "plantball",
-  "ingredients": [
-	{
-	  "tag": "c:grass_variants"
-	},
-	{
-	  "tag": "c:grass_variants"
-	},
-	{
-	  "tag": "c:grass_variants"
-	},
-	{
-	  "tag": "c:grass_variants"
-	},
-	{
-	  "tag": "c:grass_variants"
-	},
-	{
-	  "tag": "c:grass_variants"
-	},
-	{
-	  "tag": "c:grass_variants"
-	},
-	{
-	  "tag": "c:grass_variants"
-	},
-	{
-	  "tag": "c:grass_variants"
-	}
-  ],
-  "result": {
-	"id": "techreborn:plantball"
-  }
+    "type": "minecraft:crafting_shapeless",
+    "group": "plantball",
+    "ingredients": [
+        "#c:grass_variants",
+        "#c:grass_variants",
+        "#c:grass_variants",
+        "#c:grass_variants",
+        "#c:grass_variants",
+        "#c:grass_variants",
+        "#c:grass_variants",
+        "#c:grass_variants",
+        "#c:grass_variants"
+    ],
+    "result": {
+        "id": "techreborn:plantball"
+    }
 }

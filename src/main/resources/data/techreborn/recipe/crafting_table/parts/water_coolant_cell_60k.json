@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "TCT",
-    "TPT",
-    "TCT"
-  ],
-  "key": {
-    "P": {
-      "tag": "c:plates/copper"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "TCT",
+        "TPT",
+        "TCT"
+    ],
+    "key": {
+        "P": "#c:plates/copper",
+        "C": "techreborn:water_coolant_cell_30k",
+        "T": "#c:ingots/tin"
     },
-    "C": {
-      "item": "techreborn:water_coolant_cell_30k"
-    },
-    "T": {
-      "tag": "c:ingots/tin"
+    "result": {
+        "id": "techreborn:water_coolant_cell_60k"
     }
-  },
-  "result": {
-    "id": "techreborn:water_coolant_cell_60k"
-  }
 }

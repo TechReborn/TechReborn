@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "LLL",
-    "LCL",
-    "LLL"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:energy_crystal"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "LLL",
+        "LCL",
+        "LLL"
+    ],
+    "key": {
+        "C": "techreborn:energy_crystal",
+        "L": "techreborn:lapotronic_orb"
     },
-    "L": {
-     "item": "techreborn:lapotronic_orb"
+    "result": {
+        "id": "techreborn:adjustable_su"
     }
-  },
-  "result": {
-    "id": "techreborn:adjustable_su"
-  }
 }

@@ -31,7 +31,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -44,6 +44,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.lighting.LampBlockEntity;
@@ -53,15 +54,15 @@ import java.util.function.ToIntFunction;
 
 public class LampBlock extends BaseBlockEntityProvider {
 
-	public static final DirectionProperty FACING = Properties.FACING;
-	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+	public static final EnumProperty<Direction> FACING = Properties.FACING;
+	public static final BooleanProperty ACTIVE = BlockMachineBase.ACTIVE;
 	protected final VoxelShape[] shape;
 
 	private final int cost;
 	private static final int brightness = 15;
 
-	public LampBlock(int cost, double depth, double width) {
-		super(TRBlockSettings.lightBlock().luminance(createLightLevelFromBlockState()));
+	public LampBlock(int cost, double depth, double width, String name) {
+		super(TRBlockSettings.lightBlock(name).luminance(createLightLevelFromBlockState()));
 		this.shape = genCuboidShapes(depth, width);
 		this.cost = cost;
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));

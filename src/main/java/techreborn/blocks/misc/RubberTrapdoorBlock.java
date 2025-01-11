@@ -33,7 +33,7 @@ import techreborn.init.TRContent;
  */
 public class RubberTrapdoorBlock extends TrapdoorBlock {
 
-	public RubberTrapdoorBlock() {
-		super(TRContent.RUBBER_WOOD_SET_TYPE, TRBlockSettings.rubberTrapdoor());
+	public RubberTrapdoorBlock(String name) {
+		super(TRContent.RUBBER_WOOD_SET_TYPE, TRBlockSettings.rubberTrapdoor(name));
 	}
 }

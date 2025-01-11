@@ -1,23 +1,17 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"group": "advanced_tank_unit",
-	"pattern": [
-		" C ",
-		"RBR",
-		" C "
-	],
-	"key": {
-		"B": {
-			"item": "techreborn:advanced_storage_unit"
-		},
-		"R": {
-			"item": "techreborn:rubber"
-		},
-		"C": {
-			"item": "techreborn:cell"
-		}
-	},
-	"result": {
-		"id": "techreborn:advanced_tank_unit"
-	}
+    "type": "minecraft:crafting_shaped",
+    "group": "advanced_tank_unit",
+    "pattern": [
+        " C ",
+        "RBR",
+        " C "
+    ],
+    "key": {
+        "B": "techreborn:advanced_storage_unit",
+        "R": "techreborn:rubber",
+        "C": "techreborn:cell"
+    },
+    "result": {
+        "id": "techreborn:advanced_tank_unit"
+    }
 }

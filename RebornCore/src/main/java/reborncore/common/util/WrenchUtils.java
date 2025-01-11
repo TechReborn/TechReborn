@@ -97,7 +97,7 @@ public class WrenchUtils {
 					return false;
 				}
 				worldIn.setBlockState(pos, newState);
-				worldIn.updateNeighbor(pos, newState.getBlock(), pos);
+				worldIn.updateNeighbor(pos, newState.getBlock(), null);
 			}
 			return true;
 		}

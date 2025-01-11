@@ -1,15 +1,11 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "group": "red_sand",
-  "ingredients": [
-    {
-      "tag": "c:dusts/netherrack"
-    },
-    {
-      "item": "minecraft:sand"
+    "type": "minecraft:crafting_shapeless",
+    "group": "red_sand",
+    "ingredients": [
+        "#c:dusts/netherrack",
+        "minecraft:sand"
+    ],
+    "result": {
+        "id": "minecraft:red_sand"
     }
-  ],
-  "result": {
-    "id": "minecraft:red_sand"
-  }
 }

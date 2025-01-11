@@ -1,8 +1,6 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-	"item": "techreborn:raw_tin_storage_block"
-  },
+  "ingredient": "techreborn:raw_tin_storage_block",
   "result": {
 	  "id": "techreborn:tin_storage_block"
   },

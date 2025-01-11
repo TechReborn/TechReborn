@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SPS",
-    "CGC",
-    "SPS"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:extractor"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "SPS",
+        "CGC",
+        "SPS"
+    ],
+    "key": {
+        "P": "techreborn:extractor",
+        "S": "#c:plates/steel",
+        "C": "techreborn:advanced_circuit",
+        "G": "techreborn:reinforced_glass"
     },
-    "S": {
-      "tag": "c:plates/steel"
-    },
-    "C": {
-      "item": "techreborn:advanced_circuit"
-    },
-    "G": {
-      "item": "techreborn:reinforced_glass"
+    "result": {
+        "id": "techreborn:vacuum_freezer"
     }
-  },
-  "result": {
-    "id": "techreborn:vacuum_freezer"
-  }
 }

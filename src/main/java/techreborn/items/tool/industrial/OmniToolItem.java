@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -39,16 +40,14 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.init.TRItemSettings;
 import techreborn.init.TRToolMaterials;
 
 
 public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler {
 	// 4M FE max charge with 1k charge rate
-	public OmniToolItem() {
-		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings()
-			.maxDamage(0)
-			.attributeModifiers(PickaxeItem.createAttributeModifiers(TRToolMaterials.OMNI_TOOL, 3, 1)
-		));
+	public OmniToolItem(String name) {
+		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, 3f, 1f, TRItemSettings.item(name).maxDamage(0));
 	}
 
 	// MiningToolItem
@@ -62,7 +61,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {
 		if (getStoredEnergy(stack) >= TechRebornConfig.omniToolCost) {
-			return getMaterial().getMiningSpeedMultiplier();
+			return TRToolMaterials.OMNI_TOOL.speed();
 		}
 		return super.getMiningSpeed(stack, state);
 	}
@@ -75,16 +74,10 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (tryUseEnergy(stack, TechRebornConfig.omniToolHitCost)) {
-			target.damage(target.getWorld().getDamageSources().playerAttack((PlayerEntity) attacker), 8F);
+		if (tryUseEnergy(stack, TechRebornConfig.omniToolHitCost) && target.getWorld() instanceof ServerWorld serverWorld) {
+			target.damage(serverWorld, serverWorld.getDamageSources().playerAttack((PlayerEntity) attacker), 8F);
 		}
 		return true;
-	}
-
-	// ToolItem
-	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
-		return false;
 	}
 
 	// Item
@@ -100,11 +93,6 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 		if (tryUse != ActionResult.PASS) { return tryUse; }
 
 		return TorchHelper.placeTorch(context);
-	}
-
-	@Override
-	public boolean isEnchantable(ItemStack stack) {
-		return true;
 	}
 
 	@Override

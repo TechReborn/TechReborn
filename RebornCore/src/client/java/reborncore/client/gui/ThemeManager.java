@@ -30,7 +30,6 @@ import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
 
 import java.io.InputStreamReader;
 import java.util.Objects;
@@ -47,7 +46,7 @@ public class ThemeManager implements SimpleResourceReloadListener<Theme> {
 	}
 
 	@Override
-	public CompletableFuture<Theme> load(ResourceManager manager, Profiler profiler, Executor executor) {
+	public CompletableFuture<Theme> load(ResourceManager manager, Executor executor) {
 		return CompletableFuture.supplyAsync(() -> {
 			Optional<Resource> theme = manager.getResource(Identifier.of("reborncore", "theme.json"));
 
@@ -65,7 +64,7 @@ public class ThemeManager implements SimpleResourceReloadListener<Theme> {
 	}
 
 	@Override
-	public CompletableFuture<Void> apply(Theme theme, ResourceManager manager, Profiler profiler, Executor executor) {
+	public CompletableFuture<Void> apply(Theme theme, ResourceManager manager, Executor executor) {
 		// Set the theme instance on the main thread.
 		return CompletableFuture.runAsync(() -> ThemeManager.theme = theme, executor);
 	}

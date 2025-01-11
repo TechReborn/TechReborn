@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ETE",
-    "AOA",
-    "ETE"
-  ],
-  "key": {
-    "A": {
-      "item": "techreborn:industrial_machine_frame"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ETE",
+        "AOA",
+        "ETE"
+    ],
+    "key": {
+        "A": "techreborn:industrial_machine_frame",
+        "T": "techreborn:extractor",
+        "E": "techreborn:energy_flow_chip",
+        "O": "techreborn:lapotronic_orb"
     },
-    "T": {
-      "item": "techreborn:extractor"
-    },
-    "E": {
-      "item": "techreborn:energy_flow_chip"
-    },
-    "O": {
-      "item": "techreborn:lapotronic_orb"
+    "result": {
+        "id": "techreborn:matter_fabricator"
     }
-  },
-  "result": {
-    "id": "techreborn:matter_fabricator"
-  }
 }

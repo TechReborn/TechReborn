@@ -80,4 +80,11 @@ public class FluidConfigGui extends GuiTab {
 
 		return false;
 	}
+
+	@Override
+	public void mouseReleased(double mouseX, double mouseY, int state) {
+		if (fluidConfigElement != null) {
+			fluidConfigElement.mouseReleased(mouseX, mouseY, state);
+		}
+	}
 }

@@ -45,6 +45,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -57,12 +58,16 @@ import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.block.WireOrientation;
+import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
@@ -83,12 +88,12 @@ import java.util.Map;
  */
 public class CableBlock extends BlockWithEntity implements Waterloggable {
 
-	public static final BooleanProperty EAST = BooleanProperty.of("east");
-	public static final BooleanProperty WEST = BooleanProperty.of("west");
-	public static final BooleanProperty NORTH = BooleanProperty.of("north");
-	public static final BooleanProperty SOUTH = BooleanProperty.of("south");
-	public static final BooleanProperty UP = BooleanProperty.of("up");
-	public static final BooleanProperty DOWN = BooleanProperty.of("down");
+	public static final BooleanProperty EAST = Properties.EAST;
+	public static final BooleanProperty WEST = Properties.WEST;
+	public static final BooleanProperty NORTH = Properties.NORTH;
+	public static final BooleanProperty SOUTH = Properties.SOUTH;
+	public static final BooleanProperty UP = Properties.UP;
+	public static final BooleanProperty DOWN = Properties.DOWN;
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	public static final BooleanProperty COVERED = BooleanProperty.of("covered");
 
@@ -103,8 +108,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 	public final TRContent.Cables type;
 
-	public CableBlock(TRContent.Cables type) {
-		super(TRBlockSettings.cable());
+	public CableBlock(TRContent.Cables type, String name) {
+		super(TRBlockSettings.cable(name));
 		this.type = type;
 		setDefaultState(this.getStateManager().getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
 				.with(SOUTH, false).with(UP, false).with(DOWN, false).with(WATERLOGGED, false).with(COVERED, false));
@@ -189,20 +194,19 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction direction, BlockState otherState,
-												WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
-		if (ourState.get(WATERLOGGED)) {
-			worldIn.scheduleFluidTick(ourPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+	public BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+		if (state.get(WATERLOGGED) && world instanceof WorldAccess worldIn) {
+			worldIn.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
-		return ourState;
+		return state;
 	}
 
 	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, @Nullable WireOrientation wireOrientation, boolean notify) {
 		if (world.getBlockEntity(pos) instanceof CableBlockEntity cable) {
 			cable.neighborUpdate();
 		}
-		super.neighborUpdate(state, world, pos, block, fromPos, notify);
+		super.neighborUpdate(state, world, pos, block, wireOrientation, notify);
 	}
 
 	@Override
@@ -214,7 +218,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+	public VoxelShape getCullingShape(BlockState state) {
 		return CableShapeUtil.getShape(state);
 	}
 
@@ -249,7 +253,9 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 				entity.setOnFireFor(1);
 			}
 
-			entity.damage(TRDamageTypes.create(world, TRDamageTypes.ELECTRIC_SHOCK), 1F);
+			if (world instanceof ServerWorld serverWorld) {
+				entity.damage(serverWorld, TRDamageTypes.create(world, TRDamageTypes.ELECTRIC_SHOCK), 1F);
+			}
 			blockEntityCable.setEnergy(0);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionSound) {

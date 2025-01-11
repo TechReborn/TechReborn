@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " W ",
-    "WCW",
-    " W "
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " W ",
+        "WCW",
+        " W "
+    ],
+    "key": {
+        "C": "techreborn:electronic_circuit",
+        "W": "#minecraft:wool"
     },
-    "W": {
-      "tag": "minecraft:wool"
+    "result": {
+        "id": "techreborn:muffler_upgrade"
     }
-  },
-  "result": {
-    "id": "techreborn:muffler_upgrade"
-  }
 }

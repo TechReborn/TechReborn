@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "OMC",
-    "MFM",
-    "CMO"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:energy_flow_chip"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "OMC",
+        "MFM",
+        "CMO"
+    ],
+    "key": {
+        "C": "techreborn:energy_flow_chip",
+        "F": "techreborn:advanced_machine_frame",
+        "M": "techreborn:digital_display",
+        "O": "techreborn:data_storage_chip"
     },
-    "F": {
-      "item": "techreborn:advanced_machine_frame"
-    },
-    "M": {
-      "item": "techreborn:digital_display"
-    },
-    "O": {
-      "item": "techreborn:data_storage_chip"
+    "result": {
+        "id": "techreborn:computer_cube"
     }
-  },
-  "result": {
-    "id": "techreborn:computer_cube"
-  }
 }

@@ -1,17 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "carbon_fiber",
-  "pattern": [
-    "CCC",
-    "C C",
-    "CCC"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:carbon_bucket"
+    "type": "minecraft:crafting_shaped",
+    "group": "carbon_fiber",
+    "pattern": [
+        "CCC",
+        "C C",
+        "CCC"
+    ],
+    "key": {
+        "C": "techreborn:carbon_bucket"
+    },
+    "result": {
+        "id": "techreborn:carbon_fiber"
     }
-  },
-  "result": {
-    "id": "techreborn:carbon_fiber"
-  }
 }

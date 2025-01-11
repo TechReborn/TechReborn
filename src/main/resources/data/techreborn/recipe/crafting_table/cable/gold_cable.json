@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "III"
-  ],
-  "key": {
-    "I": {
-      "item": "minecraft:gold_ingot"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "III"
+    ],
+    "key": {
+        "I": "minecraft:gold_ingot"
+    },
+    "result": {
+        "id": "techreborn:gold_cable",
+        "count": 12
     }
-  },
-  "result": {
-    "id": "techreborn:gold_cable",
-    "count": 12
-  }
 }

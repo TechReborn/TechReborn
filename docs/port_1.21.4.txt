@@ -1,0 +1,16 @@
+
+Tests:
+- Nuke behavior
+- non isolated cable blocks
+- wrench behavior
+- check items can be repaired
+- check items fuel time
+- Lightning Rod behavior
+- check TR tool speed and attack damage
+- AutoCraftingTable
+- see TODO in DebugToolItem
+
+TODOs:
+- map colors of storage blocks
+- fix RebornRecipeDisplay unlockedItem
+- TREnergyArmourItem -> TREnergyArmorItem

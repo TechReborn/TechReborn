@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ADA",
-    "DCD",
-    "AGA"
-  ],
-  "key": {
-    "A": {
-      "tag": "c:plates/refined_iron"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ADA",
+        "DCD",
+        "AGA"
+    ],
+    "key": {
+        "A": "#c:plates/refined_iron",
+        "D": "minecraft:black_dye",
+        "G": "minecraft:glass_pane",
+        "C": "techreborn:electronic_circuit"
     },
-    "D": {
-      "item": "minecraft:black_dye"
-    },
-    "G": {
-      "item": "minecraft:glass_pane"
-    },
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "result": {
+        "id": "techreborn:basic_display"
     }
-  },
-  "result": {
-    "id": "techreborn:basic_display"
-  }
 }

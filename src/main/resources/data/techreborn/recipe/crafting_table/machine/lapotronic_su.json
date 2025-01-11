@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " L ",
-    "CBC",
-    " M "
-  ],
-  "key": {
-    "B": {
-      "item": "techreborn:lsu_storage"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " L ",
+        "CBC",
+        " M "
+    ],
+    "key": {
+        "B": "techreborn:lsu_storage",
+        "C": "techreborn:advanced_circuit",
+        "L": "techreborn:lv_transformer",
+        "M": "techreborn:mv_transformer"
     },
-    "C": {
-      "item": "techreborn:advanced_circuit"
-    },
-    "L": {
-      "item": "techreborn:lv_transformer"
-    },
-    "M": {
-      "item": "techreborn:mv_transformer"
+    "result": {
+        "id": "techreborn:lapotronic_su"
     }
-  },
-  "result": {
-    "id": "techreborn:lapotronic_su"
-  }
 }

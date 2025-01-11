@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "techreborn:block/machines/tier0_machines/storage_buffer" },
-        "facing=south": { "model": "techreborn:block/machines/tier0_machines/storage_buffer", "y": 180 },
-        "facing=west":  { "model": "techreborn:block/machines/tier0_machines/storage_buffer", "y": 270 },
-        "facing=east":  { "model": "techreborn:block/machines/tier0_machines/storage_buffer", "y": 90 }
-    }
-}

@@ -1,24 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "glassfiber_cable",
-  "pattern": [
-    "GGG",
-    "RDR",
-    "GGG"
-  ],
-  "key": {
-    "G": {
-      "item": "minecraft:glass"
+    "type": "minecraft:crafting_shaped",
+    "group": "glassfiber_cable",
+    "pattern": [
+        "GGG",
+        "RDR",
+        "GGG"
+    ],
+    "key": {
+        "G": "minecraft:glass",
+        "R": "minecraft:redstone",
+        "D": "#c:dusts/diamond"
     },
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "D": {
-      "tag": "c:dusts/diamond"
+    "result": {
+        "id": "techreborn:glassfiber_cable",
+        "count": 4
     }
-  },
-  "result": {
-    "id": "techreborn:glassfiber_cable",
-    "count": 4
-  }
 }

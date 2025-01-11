@@ -1,13 +1,9 @@
 {
     "type": "minecraft:crafting_shapeless",
-	"group": "iridium_reinforced_tungstensteel_storage_block",
+    "group": "iridium_reinforced_tungstensteel_storage_block",
     "ingredients": [
-        {
-            "tag": "c:tungstensteel_blocks"
-        },
-        {
-            "tag": "c:plates/iridium"
-        }
+        "#c:storage_blocks/tungstensteel",
+        "#c:plates/iridium"
     ],
     "result": {
         "id": "techreborn:iridium_reinforced_tungstensteel_storage_block"

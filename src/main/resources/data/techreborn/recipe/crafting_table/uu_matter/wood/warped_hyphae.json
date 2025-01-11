@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "   ",
-    "   ",
-    " SU"
-  ],
-  "key": {
-	"S": {
-      "tag": "c:dusts/saw"
-	},
-    "U": {
-      "item": "techreborn:uu_matter"
+    "type": "reborncore:padded",
+    "pattern": [
+        "   ",
+        "   ",
+        " SU"
+    ],
+    "key": {
+        "S": "#c:dusts/saw",
+        "U": "techreborn:uu_matter"
+    },
+    "result": {
+        "id": "minecraft:warped_hyphae"
     }
-  },
-  "result": {
-    "id": "minecraft:warped_hyphae"
-  }
 }

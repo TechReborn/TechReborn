@@ -31,15 +31,13 @@ import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.recipes.IUpgradeHandler;
+import techreborn.init.TRItemSettings;
 
 public class UpgradeItem extends Item implements IUpgrade {
-
-	public final String name;
 	public final IUpgrade behavior;
 
 	public UpgradeItem(String name, IUpgrade process) {
-		super(new Item.Settings().maxCount(16));
-		this.name = name;
+		super(TRItemSettings.item(name).maxCount(16));
 		this.behavior = process;
 	}
 

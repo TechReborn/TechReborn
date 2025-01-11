@@ -25,7 +25,7 @@
 package techreborn.datagen.mixin
 
 import net.minecraft.block.Block
-import net.minecraft.data.client.TextureMap
+import net.minecraft.client.data.TextureMap
 import net.minecraft.item.Item
 import net.minecraft.util.Identifier
 import org.spongepowered.asm.mixin.Mixin
@@ -39,25 +39,21 @@ import techreborn.datagen.models.TexturePaths
 class MixinTextureMap {
 	@Inject(method = "getId(Lnet/minecraft/item/Item;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
 	private static void getId(Item item, CallbackInfoReturnable<Identifier> cir) {
-		TexturePaths.blockPaths.each {
-			if (it.key.asItem() == item) {
-				cir.setReturnValue(Identifier.of("techreborn", "item/${it.value}"))
-			}
-		}
+		TexturePaths.ifPresent(item, cir::setReturnValue)
+	}
 
-		def itemPath = TexturePaths.itemPaths.get(item)
-
-		if (itemPath) {
-			cir.setReturnValue(Identifier.of("techreborn", "item/${itemPath}"))
-		}
+	@Inject(method = "getSubId(Lnet/minecraft/item/Item;Ljava/lang/String;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getItemSubModelId(Item item, String suffix, CallbackInfoReturnable<Identifier> cir) {
+		TexturePaths.ifPresent(item, suffix, cir::setReturnValue)
 	}
 
 	@Inject(method = "getId(Lnet/minecraft/block/Block;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
 	private static void getId(Block block, CallbackInfoReturnable<Identifier> cir) {
-		TexturePaths.blockPaths.each {
-			if (it.key == block) {
-				cir.setReturnValue(Identifier.of("techreborn", "block/${it.value}"))
-			}
-		}
+		TexturePaths.ifPresentOrAlias(block, cir::setReturnValue)
+	}
+
+	@Inject(method = "getSubId(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getBlockSubModelId(Block block, String suffix, CallbackInfoReturnable<Identifier> cir) {
+		TexturePaths.ifPresent(block, suffix, cir::setReturnValue)
 	}
 }

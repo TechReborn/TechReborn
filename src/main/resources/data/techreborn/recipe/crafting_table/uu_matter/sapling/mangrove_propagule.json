@@ -1,22 +1,16 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "U  ",
-    " P ",
-    " S "
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:plantball"
+    "type": "reborncore:padded",
+    "pattern": [
+        "U  ",
+        " P ",
+        " S "
+    ],
+    "key": {
+        "P": "techreborn:plantball",
+        "S": "#c:dusts/saw",
+        "U": "techreborn:uu_matter"
     },
-	"S": {
-      "tag": "c:dusts/saw"
-	},
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:mangrove_propagule"
     }
-  },
-  "result": {
-    "id": "minecraft:mangrove_propagule"
-  }
 }

@@ -31,8 +31,8 @@ import techreborn.init.TRBlockSettings;
 
 public class BlockRefinedIronFence extends FenceBlock {
 
-	public BlockRefinedIronFence() {
-		super(TRBlockSettings.refinedIronFence());
+	public BlockRefinedIronFence(String name) {
+		super(TRBlockSettings.refinedIronFence(name));
 	}
 
 	@Override

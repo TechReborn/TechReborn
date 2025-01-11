@@ -24,113 +24,16 @@
 
 package techreborn.init;
 
-import com.google.common.base.Suppliers;
-import net.minecraft.block.Block;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
 
-import java.util.function.Supplier;
+public class TRToolTier {
+	public static final ToolMaterial BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 375, 7.0F, 6, 6, TRContent.ItemTags.BRONZE_TOOL_MATERIALS);
+	public static final ToolMaterial RUBY = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 6.0F, 5, 10, TRContent.ItemTags.RUBY_TOOL_MATERIALS);
+	public static final ToolMaterial SAPPHIRE = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 7.0F, 5, 12, TRContent.ItemTags.SAPPHIRE_TOOL_MATERIALS);
+	public static final ToolMaterial PERIDOT = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 7.0F, 5, 12, TRContent.ItemTags.PERIDOT_TOOL_MATERIALS);
 
-public enum TRToolTier implements ToolMaterial {
-	BRONZE(BlockTags.INCORRECT_FOR_IRON_TOOL, 375, 7.0F, 6, 6, () -> Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem())),
-	RUBY(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 6.0F, 5, 10, () -> Ingredient.ofItems(TRContent.Gems.RUBY.asItem())),
-	SAPPHIRE(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 7.0F, 5, 12, () -> Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem())),
-	PERIDOT(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 7.0F, 5, 12, () -> Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem()));
-
-	/**
-	 * BlockTags for blocks which shouldn't be mined with this material.
-	 */
-	private final TagKey<Block> inverseTag;
-
-	/**
-	 * The number of uses this material allows. (wood = 59, stone = 131, iron = 250,
-	 * diamond = 1561, gold = 32)
-	 */
-	private final int itemDurability;
-	/**
-	 * The strength of this tool material against blocks which it is effective
-	 * against.
-	 */
-	private final float miningSpeed;
-	/**
-	 * Damage versus entities.
-	 */
-	private final float attackDamage;
-	/**
-	 * Defines the natural enchantability factor of the material.
-	 */
-	private final int enchantability;
-	/**
-	 * Ingredient which can repair this material.
-	 */
-	private final Supplier<Ingredient> repairMaterial;
-
-	TRToolTier(TagKey<Block> inverseTag, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Supplier<Ingredient> repairIngredient) {
-		this.inverseTag = inverseTag;
-		this.itemDurability = itemDurability;
-		this.miningSpeed = miningSpeed;
-		this.attackDamage = attackDamage;
-		this.enchantability = enchantability;
-		this.repairMaterial = Suppliers.memoize(repairIngredient::get);
-	}
-
-	@Override
-	public int getDurability() {
-		return itemDurability;
-	}
-
-	@Override
-	public float getMiningSpeedMultiplier() {
-		return miningSpeed;
-	}
-
-	@Override
-	public float getAttackDamage() {
-		return attackDamage;
-	}
-
-	@Override
-	public TagKey<Block> getInverseTag() { return this.inverseTag; }
-
-	@Override
-	public int getEnchantability() {
-		return enchantability;
-	}
-
-	@Override
-	public Ingredient getRepairIngredient() {
-		return repairMaterial.get();
-	}
-
-	public AttributeModifiersComponent createAttributeModifiers(ToolType toolType) {
-		return AttributeModifiersComponent.builder()
-			.add(
-				EntityAttributes.GENERIC_ATTACK_DAMAGE,
-				new EntityAttributeModifier(
-					Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, toolType.baseAttackDamage + getAttackDamage(), EntityAttributeModifier.Operation.ADD_VALUE
-				),
-				AttributeModifierSlot.MAINHAND
-			)
-			.add(
-				EntityAttributes.GENERIC_ATTACK_SPEED,
-				new EntityAttributeModifier(Item.BASE_ATTACK_SPEED_MODIFIER_ID, toolType.attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE),
-				AttributeModifierSlot.MAINHAND
-			)
-			.build();
-	}
-
-	public record ToolType(float baseAttackDamage, float attackSpeed) {
-		public static final ToolType SWORD = new ToolType(0, -2F);
-		public static final ToolType PICKAXE = new ToolType(-2, -2.8F);
-		public static final ToolType AXE = new ToolType(3, -2.9F);
-		public static final ToolType SHOVEL = new ToolType(-2, -3.0F);
-		public static final ToolType HOE = new ToolType(-4, 0.0F);
+	private TRToolTier() {
+		// No instantiation
 	}
 }

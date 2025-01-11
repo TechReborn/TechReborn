@@ -30,13 +30,16 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
 import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.BaseBlock;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
@@ -48,8 +51,8 @@ import techreborn.init.TRBlockSettings;
 public class BlockNuke extends BaseBlock {
 	public static final BooleanProperty OVERLAY = BooleanProperty.of("overlay");
 
-	public BlockNuke() {
-		super(TRBlockSettings.nuke());
+	public BlockNuke(String name) {
+		super(TRBlockSettings.nuke(name));
 		this.setDefaultState(this.getStateManager().getDefaultState().with(OVERLAY, false));
 	}
 
@@ -64,13 +67,11 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	@Override
-	public void onDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
-		if (!worldIn.isClient) {
-			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (float) pos.getX() + 0.5F,
-					pos.getY(), (float) pos.getZ() + 0.5F, explosionIn.getCausingEntity());
-			entitynukeprimed.setFuse(worldIn.random.nextInt(TechRebornConfig.nukeFuseTime / 4) + TechRebornConfig.nukeFuseTime / 8);
-			worldIn.spawnEntity(entitynukeprimed);
-		}
+	public void onDestroyedByExplosion(ServerWorld worldIn, BlockPos pos, Explosion explosionIn) {
+		EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (float) pos.getX() + 0.5F,
+				pos.getY(), (float) pos.getZ() + 0.5F, explosionIn.getCausingEntity());
+		entitynukeprimed.setFuse(worldIn.random.nextInt(TechRebornConfig.nukeFuseTime / 4) + TechRebornConfig.nukeFuseTime / 8);
+		worldIn.spawnEntity(entitynukeprimed);
 	}
 
 	@Override
@@ -97,10 +98,10 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	@Override
-	public void neighborUpdate(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean bo) {
-		if (worldIn.isReceivingRedstonePower(pos)) {
-			ignite(worldIn, pos, state, null);
-			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
+		if (world.isReceivingRedstonePower(pos)) {
+			ignite(world, pos, state, null);
+			world.setBlockState(pos, Blocks.AIR.getDefaultState());
 		}
 	}
 

@@ -1,18 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "wooden_door",
-  "pattern": [
-    "##",
-    "##",
-    "##"
-  ],
-  "key": {
-    "#": {
-      "item": "techreborn:rubber_planks"
+    "type": "minecraft:crafting_shaped",
+    "group": "wooden_door",
+    "pattern": [
+        "##",
+        "##",
+        "##"
+    ],
+    "key": {
+        "#": "techreborn:rubber_planks"
+    },
+    "result": {
+        "id": "techreborn:rubber_door",
+        "count": 3
     }
-  },
-  "result": {
-    "id": "techreborn:rubber_door",
-    "count": 3
-  }
 }

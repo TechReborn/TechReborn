@@ -32,7 +32,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -46,8 +45,8 @@ import java.util.List;
 
 public class IndustrialDrillItem extends DrillItem {
 
-	public IndustrialDrillItem() {
-		super(TRToolMaterials.INDUSTRIAL_DRILL, TechRebornConfig.industrialDrillCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 20.0F);
+	public IndustrialDrillItem(String name) {
+		super(TRToolMaterials.INDUSTRIAL_DRILL, TechRebornConfig.industrialDrillCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 20.0F, name);
 	}
 
 	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
@@ -89,13 +88,13 @@ public class IndustrialDrillItem extends DrillItem {
 
 	// Item
 	@Override
-	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
+	public ActionResult use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			TRItemUtils.switchActive(stack, cost, player);
-			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+			return ActionResult.SUCCESS;
 		}
-		return new TypedActionResult<>(ActionResult.PASS, stack);
+		return ActionResult.PASS;
 	}
 
 	@Override

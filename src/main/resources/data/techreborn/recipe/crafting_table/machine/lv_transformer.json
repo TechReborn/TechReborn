@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PWP",
-    "CCC",
-    "PPP"
-  ],
-  "key": {
-    "P": {
-      "tag": "minecraft:planks"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PWP",
+        "CCC",
+        "PPP"
+    ],
+    "key": {
+        "P": "#minecraft:planks",
+        "C": "minecraft:copper_ingot",
+        "W": "techreborn:insulated_copper_cable"
     },
-    "C": {
-      "item": "minecraft:copper_ingot"
-    },
-    "W": {
-      "item": "techreborn:insulated_copper_cable"
+    "result": {
+        "id": "techreborn:lv_transformer"
     }
-  },
-  "result": {
-    "id": "techreborn:lv_transformer"
-  }
 }

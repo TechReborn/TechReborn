@@ -29,20 +29,16 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
-import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.fabricmc.fabric.impl.client.indigo.renderer.helper.GeometryHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -50,31 +46,30 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.RenderUtil;
-import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Color;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBakedModel {
+	public Fluid fluid;
+	public BakedModel baseModel;
+	public BakedModel backgroundModel;
+	public BakedModel fluidModel;
 
-	public abstract Identifier getBaseModel();
-
-	public abstract Identifier getBackgroundModel();
-
-	public abstract Identifier getFluidModel();
+	BaseDynamicFluidBakedModel(Fluid fluid, BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel) {
+		this.fluid = fluid;
+		this.baseModel = baseModel;
+		this.backgroundModel = backgroundModel;
+		this.fluidModel = fluidModel;
+	}
 
 	@Override
-	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-		Fluid fluid = Fluids.EMPTY;
-		if (stack.getItem() instanceof ItemFluidInfo fluidInfo) {
-			fluid = fluidInfo.getFluid(stack);
-		}
-
-		BakedModelManager bakedModelManager = MinecraftClient.getInstance().getBakedModelManager();
-		bakedModelManager.getModel(getBaseModel()).emitItemQuads(stack, randomSupplier, context);
-		bakedModelManager.getModel(getBackgroundModel()).emitItemQuads(stack, randomSupplier, context);
+	public void emitItemQuads(QuadEmitter emitter, Supplier<Random> randomSupplier) {
+		baseModel.emitItemQuads(emitter, randomSupplier);
+		backgroundModel.emitItemQuads(emitter, randomSupplier);
 
 		if (fluid == Fluids.EMPTY) {
 			return;
@@ -93,11 +88,10 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 
 		int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, player.getBlockPos(), fluid.getDefaultState());
 		Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
-		BakedModel fluidModel = bakedModelManager.getModel(getFluidModel());
 
 		int color = new Color((float) (fluidColor >> 16 & 255) / 255.0F, (float) (fluidColor >> 8 & 255) / 255.0F, (float) (fluidColor & 255) / 255.0F).getColor();
 
-		context.pushTransform(quad -> {
+		emitter.pushTransform(quad -> {
 			quad.nominalFace(GeometryHelper.lightFace(quad));
 			quad.color(color, color, color, color);
 			// Some modded fluids doesn't have sprites. Fix for #2429
@@ -110,16 +104,15 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 
 			return true;
 		});
-		final QuadEmitter emitter = context.getEmitter();
 		fluidModel.getQuads(null, null, randomSupplier.get()).forEach(q -> {
 			emitter.fromVanilla(q.getVertexData(), 0);
 			emitter.emit();
 		});
-		context.popTransform();
+		emitter.popTransform();
 	}
 
 	@Override
-	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+	public void emitBlockQuads(QuadEmitter emitter, BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, Predicate<@Nullable Direction> cullTest) {
 
 	}
 
@@ -144,18 +137,8 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 	}
 
 	@Override
-	public boolean isBuiltin() {
-		return false;
-	}
-
-	@Override
 	public ModelTransformation getTransformation() {
 		return ModelHelper.DEFAULT_ITEM_TRANSFORMS;
-	}
-
-	@Override
-	public ModelOverrideList getOverrides() {
-		return ModelOverrideList.EMPTY;
 	}
 
 	@Override

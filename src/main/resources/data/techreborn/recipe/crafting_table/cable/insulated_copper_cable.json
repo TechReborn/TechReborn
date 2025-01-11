@@ -1,21 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "insulated_copper_cable",
-  "pattern": [
-    "RRR",
-    "III",
-    "RRR"
-  ],
-  "key": {
-    "I": {
-      "item": "minecraft:copper_ingot"
+    "type": "minecraft:crafting_shaped",
+    "group": "insulated_copper_cable",
+    "pattern": [
+        "RRR",
+        "III",
+        "RRR"
+    ],
+    "key": {
+        "I": "minecraft:copper_ingot",
+        "R": "techreborn:rubber"
     },
-    "R": {
-      "item": "techreborn:rubber"
+    "result": {
+        "id": "techreborn:insulated_copper_cable",
+        "count": 6
     }
-  },
-  "result": {
-    "id": "techreborn:insulated_copper_cable",
-    "count": 6
-  }
 }

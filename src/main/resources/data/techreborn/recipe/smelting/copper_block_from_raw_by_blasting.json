@@ -1,8 +1,6 @@
 {
   "type": "minecraft:blasting",
-  "ingredient": {
-	"item": "minecraft:raw_copper_block"
-  },
+  "ingredient": "minecraft:raw_copper_block",
 	"result": {
 		"id":  "minecraft:copper_block"
 	},

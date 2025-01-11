@@ -25,7 +25,9 @@
 package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.text.Text;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
@@ -35,24 +37,99 @@ import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.serverbound.IoSavePayload;
 import reborncore.common.network.serverbound.SlotSavePayload;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 	private final int id;
 	private final boolean allowInput;
 
-	public SlotConfigPopupElement(int slotId, int x, int y, boolean allowInput) {
-		super(x, y, GuiSprites.SLOT_CONFIG_POPUP);
+	public SlotConfigPopupElement(int slotId, int x, int y, int height, boolean allowInput) {
+		super(
+			x, y, height, GuiSprites.SLOT_CONFIG_POPUP,
+			Stream.concat(
+				Arrays.stream(SlotConfiguration.ExtractConfig.values())
+					.filter(config -> allowInput || config != SlotConfiguration.ExtractConfig.INPUT)
+					.map(Enum::name),
+				Stream.of("FIRST", "LAST")
+			).toArray(String[]::new)
+		);
 		this.id = slotId;
 		this.allowInput = allowInput;
 	}
 
 	@Override
-	public void cycleConfig(Direction side, GuiBase<?> guiBase) {
-		SlotConfiguration.SlotConfig currentSlot = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id).getSideDetail(side);
+	public int getPencilColor(String pencil) {
+		return switch (pencil) {
+			case "INPUT" -> theme.ioInputColor().rgba();
+			case "OUTPUT" -> theme.ioOutputColor().rgba();
+			case "FIRST", "LAST" -> (allowInput ? theme.ioInputColor() : theme.ioOutputColor()).rgba();
+			default -> 0x80000000 | theme.warningTextColor().rgba();
+		};
+	}
 
-		// A bit of a mess, in the future have a way to remove config options from this list
-		SlotConfiguration.ExtractConfig nextConfig = currentSlot.getSlotIO().getIoConfig().getNext();
-		if (!allowInput && nextConfig == SlotConfiguration.ExtractConfig.INPUT) {
-			nextConfig = SlotConfiguration.ExtractConfig.OUTPUT;
+	@Override
+	public void cycleConfig(Direction side, GuiBase<?> guiBase) {
+		SlotConfiguration.ExtractConfig nextConfig;
+		if (pencil != null) {
+			switch (pencil) {
+				case "INPUT":
+					nextConfig = SlotConfiguration.ExtractConfig.INPUT;
+					break;
+				case "OUTPUT":
+					nextConfig = SlotConfiguration.ExtractConfig.OUTPUT;
+					break;
+				case "FIRST":
+				case "LAST": {
+					SlotConfiguration.SlotConfigHolder configHolder = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id);
+					if (configHolder != null) {
+						if (pencil.equals("FIRST")) {
+							configHolder.first = side;
+							if (configHolder.last == side) {
+								configHolder.last = null;
+							}
+						} else {
+							configHolder.last = side;
+							if (configHolder.first == side) {
+								configHolder.first = null;
+							}
+						}
+						ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, configHolder));
+
+						if (configHolder.getSideDetail(side).getSlotIO().getIoConfig() != SlotConfiguration.ExtractConfig.NONE) {
+							return;
+						}
+					} else {
+						int priority = pencil.equals("FIRST") ? side.ordinal() * 10 + 6 : 60 + side.ordinal();
+						ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, true, true, false, priority));
+					}
+					nextConfig = allowInput ? SlotConfiguration.ExtractConfig.INPUT : SlotConfiguration.ExtractConfig.OUTPUT;
+					break;
+				}
+				default: {
+					SlotConfiguration.SlotConfigHolder configHolder = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id);
+
+					if (configHolder != null) {
+						if (configHolder.first == side) {
+							configHolder.first = null;
+							ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, configHolder));
+						} else if (configHolder.last == side) {
+							configHolder.last = null;
+							ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, configHolder));
+						}
+					}
+
+					nextConfig = SlotConfiguration.ExtractConfig.NONE;
+				}
+			}
+		} else {
+			SlotConfiguration.SlotConfig currentSlot = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id).getSideDetail(side);
+
+			// A bit of a mess, in the future have a way to remove config options from this list
+			nextConfig = currentSlot.getSlotIO().getIoConfig().getNext();
+			if (!allowInput && nextConfig == SlotConfiguration.ExtractConfig.INPUT) {
+				nextConfig = SlotConfiguration.ExtractConfig.OUTPUT;
+			}
 		}
 
 		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(nextConfig);
@@ -62,20 +139,21 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 
 	public void updateCheckBox(String type, GuiBase<?> guiBase) {
 		SlotConfiguration.SlotConfigHolder configHolder = guiBase.getMachine().getSlotConfiguration().getSlotDetails(id);
-		boolean input = configHolder.autoInput();
-		boolean output = configHolder.autoOutput();
-		boolean filter = configHolder.filter();
-		if (type.equalsIgnoreCase("input")) {
-			input = !configHolder.autoInput();
-		}
-		if (type.equalsIgnoreCase("output")) {
-			output = !configHolder.autoOutput();
-		}
-		if (type.equalsIgnoreCase("filter")) {
-			filter = !configHolder.filter();
+		if (configHolder == null) {
+			return;
 		}
 
-		ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, input, output, filter));
+		if (type.equalsIgnoreCase("input")) {
+			configHolder.setInput(!configHolder.autoInput());
+		}
+		if (type.equalsIgnoreCase("output")) {
+			configHolder.setOutput(!configHolder.autoOutput());
+		}
+		if (type.equalsIgnoreCase("filter")) {
+			configHolder.setFilter(!configHolder.filter());
+		}
+
+		ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, configHolder));
 	}
 
 	@Override
@@ -95,5 +173,16 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			default -> new ColorCode(0);
 		};
 		drawContext.fill(sx, sy, sx + 18, sy + 18, color.rgba());
+		if (side == slotConfigHolder.first) {
+			drawTag(drawContext, gui, sx, sy, "F");
+		} else if (side == slotConfigHolder.last) {
+			drawTag(drawContext, gui, sx, sy, "L");
+		}
+	}
+
+	protected void drawTag(DrawContext drawContext, GuiBase<?> gui, int sx, int sy, String tag) {
+		TextRenderer textRenderer = gui.getTextRenderer();
+		Text text = Text.of(tag);
+		drawContext.drawText(textRenderer, text, sx + 10 - textRenderer.getWidth(tag) / 2, sy + 6, -1, false);
 	}
 }

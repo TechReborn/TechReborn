@@ -24,35 +24,35 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 
 // Class containing definitions of burnable materials
 public class FuelRecipes {
 	public static void init() {
-		FuelRegistry registry = FuelRegistry.INSTANCE;
-
-		// Basing it off https://minecraft.wiki/w/Template:Smelting_table
-
-		// Rubber spam
-		registry.add(TRContent.RUBBER_BUTTON, 300);
-		registry.add(TRContent.RUBBER_LOG, 300);
-		registry.add(TRContent.RUBBER_LOG_STRIPPED, 300);
-		registry.add(TRContent.RUBBER_WOOD, 300);
-		registry.add(TRContent.STRIPPED_RUBBER_WOOD, 300);
-		registry.add(TRContent.RUBBER_PLANKS, 300);
-		registry.add(TRContent.RUBBER_SLAB, 150);
-		registry.add(TRContent.RUBBER_FENCE, 300);
-		registry.add(TRContent.RUBBER_FENCE_GATE, 300);
-		registry.add(TRContent.RUBBER_STAIR, 300);
-		registry.add(TRContent.RUBBER_TRAPDOOR, 300);
-		registry.add(TRContent.RUBBER_PRESSURE_PLATE, 300);
-		registry.add(TRContent.RUBBER_DOOR, 200);
-		registry.add(TRContent.RUBBER_SAPLING, 100);
-
-
-		// Other stuff
-		registry.add(TRContent.Machine.RESIN_BASIN, 300);
-		registry.add(TRContent.Plates.WOOD, 300);
-		registry.add(TRContent.TREE_TAP, 200);
+		FuelRegistryEvents.BUILD.register( (builder, context) -> {
+			// Basing it off https://minecraft.wiki/w/Template:Smelting_table
+			// one and a half smelt time
+			final int oneAndAHalf = context.baseSmeltTime() * 3 / 2;
+			// Rubber spam
+			builder.add(TRContent.RUBBER_BUTTON, oneAndAHalf);
+			builder.add(TRContent.RUBBER_LOG, oneAndAHalf);
+			builder.add(TRContent.RUBBER_LOG_STRIPPED, oneAndAHalf);
+			builder.add(TRContent.RUBBER_WOOD, oneAndAHalf);
+			builder.add(TRContent.STRIPPED_RUBBER_WOOD, oneAndAHalf);
+			builder.add(TRContent.RUBBER_PLANKS, oneAndAHalf);
+			builder.add(TRContent.RUBBER_SLAB, oneAndAHalf / 2);
+			builder.add(TRContent.RUBBER_FENCE, oneAndAHalf);
+			builder.add(TRContent.RUBBER_FENCE_GATE, oneAndAHalf);
+			builder.add(TRContent.RUBBER_STAIR, oneAndAHalf);
+			builder.add(TRContent.RUBBER_TRAPDOOR, oneAndAHalf);
+			builder.add(TRContent.RUBBER_PRESSURE_PLATE, oneAndAHalf);
+			builder.add(TRContent.RUBBER_DOOR, context.baseSmeltTime());
+			builder.add(TRContent.RUBBER_SAPLING, context.baseSmeltTime() / 2);
+			// Other stuff
+			builder.add(TRContent.Machine.RESIN_BASIN, oneAndAHalf);
+			builder.add(TRContent.Plates.WOOD, oneAndAHalf);
+			builder.add(TRContent.TREE_TAP, context.baseSmeltTime());
+			}
+		);
 	}
 }

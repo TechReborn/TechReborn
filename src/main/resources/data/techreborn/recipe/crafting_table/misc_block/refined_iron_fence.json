@@ -1,16 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "RRR",
-    "RRR",
-    " R "
-  ],
-  "key": {
-    "R": {
-      "item": "techreborn:refined_iron_ingot"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RRR",
+        "RRR",
+        " R "
+    ],
+    "key": {
+        "R": "techreborn:refined_iron_ingot"
+    },
+    "result": {
+        "id": "techreborn:refined_iron_fence"
     }
-  },
-  "result": {
-    "id": "techreborn:refined_iron_fence"
-  }
 }

@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-	" WD",
-    " C ",
-    "S  "
-  ],
-  "key": {
-    "D": {
-      "item": "techreborn:advanced_drill"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " WD",
+        " C ",
+        "S  "
+    ],
+    "key": {
+        "D": "techreborn:advanced_drill",
+        "C": "techreborn:advanced_chainsaw",
+        "S": "minecraft:diamond_sword",
+        "W": "techreborn:wrench"
     },
-    "C": {
-      "item": "techreborn:advanced_chainsaw"
-    },
-    "S": {
-      "item": "minecraft:diamond_sword"
-    },
-	"W": {
-		"item": "techreborn:wrench"
-	}
-  },
-  "result": {
-    "id": "techreborn:omni_tool"
-  }
+    "result": {
+        "id": "techreborn:omni_tool"
+    }
 }

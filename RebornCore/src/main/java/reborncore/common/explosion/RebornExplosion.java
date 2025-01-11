@@ -28,9 +28,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.explosion.ExplosionImpl;
 import org.apache.commons.lang3.time.StopWatch;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,39 +42,30 @@ import java.util.List;
 /**
  * Created by modmuss50 on 12/03/2016.
  */
-public class RebornExplosion extends Explosion {
+public class RebornExplosion extends ExplosionImpl {
 	final BlockPos center;
-	final World world;
 	final int radius;
 
 	@Nullable
 	LivingEntity livingBase;
 
-	public RebornExplosion(
-		@NotNull
-			BlockPos center,
-		@NotNull
-			World world,
-			int radius) {
-		super(world, null, center.getX(), center.getY(), center.getZ(), radius, false, DestructionType.DESTROY);
+	public RebornExplosion(@NotNull BlockPos center, @NotNull ServerWorld world, int radius) {
+		super(world, null, null, null, center.toCenterPos(), radius, false, DestructionType.DESTROY);
 		this.center = center;
-		this.world = world;
 		this.radius = radius;
 	}
 
-	public void setLivingBase(
-		@Nullable
-			LivingEntity livingBase) {
+	public void setLivingBase(@Nullable LivingEntity livingBase) {
 		this.livingBase = livingBase;
 	}
 
-	public
 	@Nullable
-	LivingEntity getLivingBase() {
+	public LivingEntity getLivingBase() {
 		return livingBase;
 	}
 
-	public void applyExplosion() {
+	@Override
+	public void explode() {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		for (int tx = -radius; tx < radius + 1; tx++) {
@@ -82,11 +73,11 @@ public class RebornExplosion extends Explosion {
 				for (int tz = -radius; tz < radius + 1; tz++) {
 					if (Math.sqrt(Math.pow(tx, 2) + Math.pow(ty, 2) + Math.pow(tz, 2)) <= radius - 2) {
 						BlockPos pos = center.add(tx, ty, tz);
-						BlockState state = world.getBlockState(pos);
+						BlockState state = getWorld().getBlockState(pos);
 						Block block = state.getBlock();
 						if (block != Blocks.BEDROCK && !state.isAir()) {
-							block.onDestroyedByExplosion(world, pos, this);
-							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+							block.onDestroyedByExplosion(getWorld(), pos, this);
+							getWorld().setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 						}
 					}
 				}
@@ -95,32 +86,21 @@ public class RebornExplosion extends Explosion {
 		RebornCore.LOGGER.info("The explosion took" + watch + " to explode");
 	}
 
-	@Override
-	public void collectBlocksAndDamageEntities() {
-		applyExplosion();
-	}
-
-	@Override
-	public void affectWorld(boolean spawnParticles) {
-		applyExplosion();
-	}
-
-	@Override
-	public
 	@Nullable
-	LivingEntity getCausingEntity() {
+	@Override
+	public LivingEntity getCausingEntity() {
 		return livingBase;
 	}
 
 	@Override
-	public List<BlockPos> getAffectedBlocks() {
+	public List<BlockPos> getBlocksToDestroy() {
 		List<BlockPos> poses = new ArrayList<>();
 		for (int tx = -radius; tx < radius + 1; tx++) {
 			for (int ty = -radius; ty < radius + 1; ty++) {
 				for (int tz = -radius; tz < radius + 1; tz++) {
 					if (Math.sqrt(Math.pow(tx, 2) + Math.pow(ty, 2) + Math.pow(tz, 2)) <= radius - 2) {
 						BlockPos pos = center.add(tx, ty, tz);
-						BlockState state = world.getBlockState(pos);
+						BlockState state = getWorld().getBlockState(pos);
 						Block block = state.getBlock();
 						if (block != Blocks.BEDROCK && !state.isAir()) {
 							poses.add(pos);

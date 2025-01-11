@@ -1,23 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DSD",
-    "SGS",
-    "DSD"
-  ],
-  "key": {
-    "S": {
-      "tag": "c:ingots/steel"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "DSD",
+        "SGS",
+        "DSD"
+    ],
+    "key": {
+        "S": "#c:ingots/steel",
+        "D": "#c:dusts/diamond",
+        "G": "minecraft:diamond"
     },
-    "D": {
-      "tag": "c:dusts/diamond"
-    },
-    "G": {
-      "item": "minecraft:diamond"
+    "result": {
+        "id": "techreborn:diamond_grinding_head",
+        "count": 3
     }
-  },
-  "result": {
-    "id": "techreborn:diamond_grinding_head",
-    "count": 3
-  }
 }

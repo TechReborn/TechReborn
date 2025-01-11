@@ -1,16 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-	"###",
-	"###",
-    "###"
-  ],
-  "key": {
-    "#": {
-      "item": "techreborn:sponge_piece"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": "techreborn:sponge_piece"
+    },
+    "result": {
+        "id": "minecraft:sponge"
     }
-  },
-  "result": {
-    "id": "minecraft:sponge"
-  }
 }

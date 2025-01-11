@@ -25,11 +25,11 @@
 package techreborn.recipe;
 
 import net.minecraft.block.entity.BlockEntity;
-import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.init.ModRecipes;
+import techreborn.recipe.recipes.ScrapBoxRecipe;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ import java.util.List;
  * @author drcrazy
  */
 public class ScrapboxRecipeCrafter extends RecipeCrafter {
-	private static List<RebornRecipe> RecipeListCache = null;
+	private static List<ScrapBoxRecipe> RecipeListCache = null;
 
 	/**
 	 * @param parent      {@link BlockEntity} Tile having this crafter
@@ -54,7 +54,7 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 		if(RecipeListCache == null){
 			RecipeListCache = RecipeUtils.getRecipes(blockEntity.getWorld(), ModRecipes.SCRAPBOX);
 		}
-		List<RebornRecipe> scrapboxRecipeList = RecipeListCache;
+		List<ScrapBoxRecipe> scrapboxRecipeList = RecipeListCache;
 		if (scrapboxRecipeList.isEmpty()) {
 			setCurrentRecipe(null);
 			return;

@@ -48,8 +48,8 @@ public class FluidConfiguration implements NBTSerializable {
 	);
 	public static final PacketCodec<ByteBuf, FluidConfiguration> PACKET_CODEC = PacketCodec.tuple(
 		SIDE_MAP_PACKET_CODEC, FluidConfiguration::getSideMap,
-		PacketCodecs.BOOL, FluidConfiguration::autoInput,
-		PacketCodecs.BOOL, FluidConfiguration::autoOutput,
+		PacketCodecs.BOOLEAN, FluidConfiguration::autoInput,
+		PacketCodecs.BOOLEAN, FluidConfiguration::autoOutput,
 		FluidConfiguration::new
 	);
 

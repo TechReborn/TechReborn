@@ -1,26 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "semi_fluid_generator",
-  "pattern": [
-    "III",
-    "IHI",
-    "CGC"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "type": "minecraft:crafting_shaped",
+    "group": "semi_fluid_generator",
+    "pattern": [
+        "III",
+        "IHI",
+        "CGC"
+    ],
+    "key": {
+        "C": "techreborn:electronic_circuit",
+        "G": "techreborn:solid_fuel_generator",
+        "H": "techreborn:reinforced_glass",
+        "I": "#c:plates/aluminum"
     },
-    "G": {
-      "item": "techreborn:solid_fuel_generator"
-    },
-    "H": {
-      "item": "techreborn:reinforced_glass"
-    },
-    "I": {
-      "tag": "c:plates/aluminum"
+    "result": {
+        "id": "techreborn:semi_fluid_generator"
     }
-  },
-  "result": {
-    "id": "techreborn:semi_fluid_generator"
-  }
 }

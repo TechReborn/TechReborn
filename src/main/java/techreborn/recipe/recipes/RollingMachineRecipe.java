@@ -30,21 +30,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.IngredientPlacement;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeInput;
 import reborncore.common.crafting.SizedIngredient;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
-public record RollingMachineRecipe(RecipeType<?> type, int power, int time, ShapedRecipe shapedRecipe) implements RebornRecipe {
+public record RollingMachineRecipe(RecipeType<? extends RollingMachineRecipe> type, int power, int time, ShapedRecipe shapedRecipe) implements RebornRecipe {
 	public static Function<RecipeType<RollingMachineRecipe>, MapCodec<RollingMachineRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
 		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
@@ -61,12 +61,14 @@ public record RollingMachineRecipe(RecipeType<?> type, int power, int time, Shap
 
 	@Override
 	public List<ItemStack> outputs() {
-		return Collections.singletonList(shapedRecipe.getResult(null));
+		// Input does not affect the result
+		return Collections.singletonList(shapedRecipe.craft(null, null));
 	}
 
 	@Override
-	public ItemStack getResult(RegistryWrapper.WrapperLookup lookup) {
-		return shapedRecipe.getResult(lookup);
+	public ItemStack craft(RebornRecipeInput inventory, RegistryWrapper.WrapperLookup lookup) {
+		// Input does not affect the result
+		return shapedRecipe.craft(null, lookup);
 	}
 
 	@Override
@@ -75,13 +77,8 @@ public record RollingMachineRecipe(RecipeType<?> type, int power, int time, Shap
 	}
 
 	@Override
-	public DefaultedList<Ingredient> getIngredients() {
-		return shapedRecipe.getIngredients();
-	}
-
-	@Override
-	public boolean fits(int width, int height) {
-		return shapedRecipe.fits(width, height);
+	public IngredientPlacement getIngredientPlacement() {
+		return shapedRecipe.getIngredientPlacement();
 	}
 
 	public ShapedRecipe getShapedRecipe() {

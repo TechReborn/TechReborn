@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "UUU",
-    "U U",
-    "US "
-  ],
-  "key": {
-    "S": {
-      "item": "minecraft:stone"
+    "type": "reborncore:padded",
+    "pattern": [
+        "UUU",
+        "U U",
+        "US "
+    ],
+    "key": {
+        "S": "minecraft:stone",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:emerald_ore"
     }
-  },
-  "result": {
-    "id": "minecraft:emerald_ore"
-  }
 }

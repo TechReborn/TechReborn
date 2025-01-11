@@ -44,7 +44,7 @@ import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
 import java.util.List;
 import java.util.function.Function;
 
-public record IndustrialSawmillRecipe(RecipeType<?> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) implements RebornFluidRecipe {
+public record IndustrialSawmillRecipe(RecipeType<? extends IndustrialSawmillRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) implements RebornFluidRecipe {
 	public static final Function<RecipeType<IndustrialSawmillRecipe>, MapCodec<IndustrialSawmillRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),

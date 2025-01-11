@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WWW",
-    "WPW",
-    "WWW"
-  ],
-  "key": {
-    "P": {
-      "item": "minecraft:paper"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WWW",
+        "WPW",
+        "WWW"
+    ],
+    "key": {
+        "P": "minecraft:paper",
+        "W": "#c:plates/wood"
     },
-    "W": {
-      "tag": "c:plates/wood"
+    "result": {
+        "id": "techreborn:storage_buffer"
     }
-  },
-  "result": {
-    "id": "techreborn:storage_buffer"
-  }
 }

@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PXP",
-    "PHP",
-    "PBP"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:refined_iron_plate"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PXP",
+        "PHP",
+        "PBP"
+    ],
+    "key": {
+        "P": "techreborn:refined_iron_plate",
+        "B": "minecraft:bucket",
+        "H": "minecraft:hopper",
+        "X": "minecraft:iron_bars"
     },
-    "B": {
-     "item": "minecraft:bucket"
-    },
-	"H": {
-	  "item": "minecraft:hopper"
-	},
-	"X": {
-	  "item": "minecraft:iron_bars"
-	}
-  },
-  "result": {
-    "id": "techreborn:drain"
-  }
+    "result": {
+        "id": "techreborn:drain"
+    }
 }

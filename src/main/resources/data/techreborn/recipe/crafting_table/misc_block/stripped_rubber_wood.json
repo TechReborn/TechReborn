@@ -1,16 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##",
-    "##"
-  ],
-  "key": {
-    "#": {
-      "item": "techreborn:rubber_log_stripped"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "##",
+        "##"
+    ],
+    "key": {
+        "#": "techreborn:rubber_log_stripped"
+    },
+    "result": {
+        "id": "techreborn:stripped_rubber_wood",
+        "count": 3
     }
-  },
-  "result": {
-    "id": "techreborn:stripped_rubber_wood",
-    "count": 3
-  }
 }

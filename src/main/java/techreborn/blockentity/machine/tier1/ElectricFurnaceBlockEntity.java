@@ -33,6 +33,7 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -85,7 +86,10 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			resetCrafter();
 			return;
 		}
-		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).map(RecipeEntry::value);
+		if (world == null) return;
+		MinecraftServer server = world.getServer();
+		if (server == null) return;
+		Optional<SmeltingRecipe> testRecipe = server.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).map(RecipeEntry::value);
 		if (!testRecipe.isPresent()) {
 			resetCrafter();
 			return;
@@ -100,7 +104,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private boolean canAcceptOutput(SmeltingRecipe recipe, int slot) {
-		ItemStack recipeOutput = recipe.getResult(getWorld().getRegistryManager());
+		ItemStack recipeOutput = recipe.craft(new SingleStackRecipeInput(inventory.getStack(slot)), getWorld().getRegistryManager());
 		if (recipeOutput.isEmpty()) {
 			return false;
 		}
@@ -163,7 +167,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		ItemStack outputStack = inventory.getStack(outputSlot);
-		ItemStack result = recipe.getResult(getWorld().getRegistryManager());
+		ItemStack result = recipe.craft(new SingleStackRecipeInput(inventory.getStack(outputSlot)), getWorld().getRegistryManager());
 		if (outputStack.isEmpty()) {
 			inventory.setStack(outputSlot, result.copy());
 		} else {

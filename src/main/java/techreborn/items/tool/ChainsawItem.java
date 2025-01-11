@@ -27,7 +27,6 @@ package techreborn.items.tool;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.BlockTags;
@@ -36,6 +35,7 @@ import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
+import techreborn.init.TRItemSettings;
 
 public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
@@ -46,8 +46,8 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	protected final float unpoweredSpeed = 0.5f;
 
 
-	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed) {
-		super(material, new Item.Settings().maxDamage(0));
+	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, String name) {
+		super(material, 3f, -2.9f, TRItemSettings.item(name).maxDamage(0));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
@@ -62,12 +62,6 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return true;
-	}
-
-	// ToolItem
-	@Override
-	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-		return false;
 	}
 
 	// Item
@@ -88,9 +82,6 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 		tryUseEnergy(stack, cost);
 		return true;
 	}
-
-	@Override
-	public boolean isEnchantable(ItemStack stack) { return true; }
 
 	@Override
 	public int getItemBarStep(ItemStack stack) {

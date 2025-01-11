@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "III"
-  ],
-  "key": {
-    "I": {
-      "tag": "c:ingots/tin"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "III"
+    ],
+    "key": {
+        "I": "#c:ingots/tin"
+    },
+    "result": {
+        "id": "techreborn:tin_cable",
+        "count": 9
     }
-  },
-  "result": {
-    "id": "techreborn:tin_cable",
-    "count": 9
-  }
 }

@@ -1,6 +1,0 @@
-{
-	"parent": "techreborn:item/bucket_fluid_template",
-	"textures": {
-		"texture": "techreborn:item/bucket_background"
-	}
-}

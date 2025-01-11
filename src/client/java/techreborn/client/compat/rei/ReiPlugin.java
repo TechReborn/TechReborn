@@ -24,7 +24,6 @@
 
 package techreborn.client.compat.rei;
 
-import dev.architectury.event.CompoundEventResult;
 import dev.architectury.fluid.FluidStack;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.entry.renderer.EntryRenderer;
@@ -35,25 +34,20 @@ import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
-import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.client.util.ClientEntryStacks;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryStack;
-import me.shedaniel.rei.api.common.entry.comparison.ItemComparatorRegistry;
-import me.shedaniel.rei.api.common.fluid.FluidSupportProvider;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -65,20 +59,8 @@ import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.client.gui.GuiSprites;
 import reborncore.client.gui.config.GuiTab;
-import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RecipeManager;
-import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
-import techreborn.recipe.recipes.FluidGeneratorRecipe;
-import techreborn.recipe.recipes.FluidReplicatorRecipe;
-import techreborn.recipe.recipes.RollingMachineRecipe;
-import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeCategory;
-import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeDisplay;
-import techreborn.client.compat.rei.fluidreplicator.FluidReplicatorRecipeCategory;
-import techreborn.client.compat.rei.fluidreplicator.FluidReplicatorRecipeDisplay;
 import techreborn.client.compat.rei.machine.*;
-import techreborn.client.compat.rei.rollingmachine.RollingMachineCategory;
-import techreborn.client.compat.rei.rollingmachine.RollingMachineDisplay;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
@@ -89,7 +71,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import static reborncore.client.gui.GuiSprites.drawSprite;
 
@@ -187,75 +168,6 @@ public class ReiPlugin implements REIClientPlugin {
 	}
 
 	@Override
-	public void registerDisplays(DisplayRegistry registry) {
-		final Map<RecipeType<FluidGeneratorRecipe>, Machine> fluidGenRecipes = Map.of(
-			ModRecipes.THERMAL_GENERATOR, Machine.THERMAL_GENERATOR,
-			ModRecipes.GAS_GENERATOR, Machine.GAS_TURBINE,
-			ModRecipes.DIESEL_GENERATOR, Machine.DIESEL_GENERATOR,
-			ModRecipes.SEMI_FLUID_GENERATOR, Machine.SEMI_FLUID_GENERATOR,
-			ModRecipes.PLASMA_GENERATOR, Machine.PLASMA_GENERATOR
-		);
-
-		RecipeManager.getRecipeTypes("techreborn")
-			.stream()
-			.filter(recipeType -> !fluidGenRecipes.containsKey(recipeType))
-			.forEach(rebornRecipeType -> registerMachineRecipe(registry, rebornRecipeType));
-
-		fluidGenRecipes.forEach((recipeType, machine) -> registerFluidGeneratorDisplays(registry, recipeType, machine));
-	}
-
-	@Override
-	public void registerFluidSupport(FluidSupportProvider support) {
-		support.register(stack -> {
-			ItemStack itemStack = stack.getValue();
-			if (itemStack.getItem() instanceof ItemFluidInfo) {
-				Fluid fluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
-				if (fluid != null)
-					return CompoundEventResult.interruptTrue(Stream.of(EntryStacks.of(fluid)));
-			}
-			return CompoundEventResult.pass();
-		});
-	}
-
-	@Override
-	public void registerItemComparators(ItemComparatorRegistry registry) {
-		registry.registerComponents(TRContent.CELL);
-	}
-
-	private void registerFluidGeneratorDisplays(DisplayRegistry registry, RecipeType<FluidGeneratorRecipe> generator, Machine machine) {
-		Identifier identifier = Identifier.of(TechReborn.MOD_ID, machine.name);
-		registry.registerRecipeFiller(FluidGeneratorRecipe.class, recipeType -> recipeType == generator, recipe -> new FluidGeneratorRecipeDisplay(recipe.value(), identifier));
-	}
-
-	private void registerMachineRecipe(DisplayRegistry registry, RecipeType<?> recipeType) {
-		if (recipeType == ModRecipes.RECYCLER) {
-			return;
-		}
-
-		Function<RecipeEntry<RebornRecipe>, Display> recipeDisplay = MachineRecipeDisplay::new;
-
-		if (recipeType == ModRecipes.ROLLING_MACHINE) {
-			recipeDisplay = r -> {
-				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r.value();
-				return new RollingMachineDisplay(new RecipeEntry<>(getTypeId(recipeType), rollingMachineRecipe.getShapedRecipe()));
-			};
-		}
-
-		if (recipeType == ModRecipes.FLUID_REPLICATOR) {
-			recipeDisplay = r -> {
-				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r.value();
-				return new FluidReplicatorRecipeDisplay(new RecipeEntry<>(getTypeId(recipeType), recipe));
-			};
-		}
-
-		registry.registerRecipeFiller(RebornRecipe.class,
-			recipeType1 -> true,
-			recipeEntry -> recipeEntry.value().getType() == recipeType,
-			recipeDisplay
-		);
-	}
-
-	@Override
 	public void registerScreens(ScreenRegistry registry) {
 		ExclusionZones exclusionZones = registry.exclusionZones();
 		exclusionZones.register(GuiBase.class, guiBase -> {
@@ -292,10 +204,10 @@ public class ReiPlugin implements REIClientPlugin {
 			}
 
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10);
-				case LEFT -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-				case UP -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-				case DOWN -> drawContext.drawTexture(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j);
+				case RIGHT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		});
 	}
@@ -369,20 +281,17 @@ public class ReiPlugin implements REIClientPlugin {
 				final int iconHeight = sprite.getContents().getHeight();
 				int offsetHeight = drawHeight;
 
-				drawContext.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
-
 				int iteration = 0;
 				while (offsetHeight != 0) {
 					final int curHeight = Math.min(offsetHeight, iconHeight);
 
-					drawContext.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
+					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight, color);
 					offsetHeight -= curHeight;
 					iteration++;
 					if (iteration > 50) {
 						break;
 					}
 				}
-				drawContext.setShaderColor(1, 1, 1, 1);
 			}
 
 			@Override

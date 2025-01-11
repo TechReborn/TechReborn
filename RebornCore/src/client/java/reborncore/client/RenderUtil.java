@@ -26,7 +26,7 @@ package reborncore.client;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 
 /**
@@ -34,6 +34,6 @@ import net.minecraft.util.Identifier;
  */
 public class RenderUtil {
 	public static Sprite getSprite(Identifier identifier) {
-		return MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).apply(identifier);
+		return MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).apply(identifier);
 	}
 }

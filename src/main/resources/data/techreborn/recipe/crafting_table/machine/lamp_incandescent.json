@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GGG",
-    "TCT",
-    "GGG"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:carbon_fiber"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "GGG",
+        "TCT",
+        "GGG"
+    ],
+    "key": {
+        "C": "techreborn:carbon_fiber",
+        "T": "techreborn:copper_cable",
+        "G": "minecraft:glass_pane"
     },
-    "T": {
-      "item": "techreborn:copper_cable"
-    },
-    "G": {
-      "item": "minecraft:glass_pane"
+    "result": {
+        "id": "techreborn:lamp_incandescent"
     }
-  },
-  "result": {
-    "id": "techreborn:lamp_incandescent"
-  }
 }

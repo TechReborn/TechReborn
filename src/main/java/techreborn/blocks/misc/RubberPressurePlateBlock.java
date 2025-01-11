@@ -33,8 +33,8 @@ import techreborn.init.TRContent;
  */
 public class RubberPressurePlateBlock extends PressurePlateBlock {
 
-	public RubberPressurePlateBlock() {
-		super(TRContent.RUBBER_WOOD_SET_TYPE, TRBlockSettings.rubberPressurePlate());
+	public RubberPressurePlateBlock(String name) {
+		super(TRContent.RUBBER_WOOD_SET_TYPE, TRBlockSettings.rubberPressurePlate(name));
 	}
 
 }

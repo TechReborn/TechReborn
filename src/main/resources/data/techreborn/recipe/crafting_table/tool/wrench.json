@@ -1,16 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "B B",
-    " B ",
-    " B "
-  ],
-  "key": {
-    "B": {
-      "tag": "c:ingots/bronze"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "B B",
+        " B ",
+        " B "
+    ],
+    "key": {
+        "B": "#c:ingots/bronze"
+    },
+    "result": {
+        "id": "techreborn:wrench"
     }
-  },
-  "result": {
-    "id": "techreborn:wrench"
-  }
 }

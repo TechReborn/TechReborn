@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ABA",
-    "CPC",
-    "ABA"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:compressor"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ABA",
+        "CPC",
+        "ABA"
+    ],
+    "key": {
+        "P": "techreborn:compressor",
+        "A": "techreborn:advanced_alloy_ingot",
+        "B": "techreborn:advanced_machine_frame",
+        "C": "techreborn:advanced_circuit"
     },
-    "A": {
-      "item": "techreborn:advanced_alloy_ingot"
-    },
-    "B": {
-      "item": "techreborn:advanced_machine_frame"
-    },
-    "C": {
-      "item": "techreborn:advanced_circuit"
+    "result": {
+        "id": "techreborn:implosion_compressor"
     }
-  },
-  "result": {
-    "id": "techreborn:implosion_compressor"
-  }
 }

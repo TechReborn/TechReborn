@@ -6,7 +6,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
-	id 'fabric-loom' version '1.8-SNAPSHOT'
+	id 'fabric-loom' version '1.9-SNAPSHOT'
     id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
 }
 
@@ -57,6 +57,7 @@ allprojects {
     }
 
     processResources {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
         inputs.property "version", project.version
 
         filesMatching("fabric.mod.json") {
@@ -132,19 +133,23 @@ processResources {
     }
 }
 
+tasks.sourcesJar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 loom {
     accessWidenerPath = file("src/main/resources/techreborn.accesswidener")
 }
 
-sourceSets {
-    // Add a data gen sourceset
-    datagen {
-        compileClasspath += main.compileClasspath
-        runtimeClasspath += main.runtimeClasspath
-        compileClasspath += main.output
-        runtimeClasspath += main.output
+fabricApi {
+    configureDataGeneration {
+        client = true
+        createSourceSet = true
+        modId = "techreborn-datagen"
     }
+}
 
+sourceSets {
     gametest {
         compileClasspath += main.compileClasspath
         runtimeClasspath += main.runtimeClasspath
@@ -152,12 +157,11 @@ sourceSets {
         runtimeClasspath += main.output
     }
 
-    main {
-        resources {
-            srcDirs += [
-                'src/main/generated'
-            ]
-        }
+    datagen {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        compileClasspath += main.output
+        runtimeClasspath += main.output
     }
 }
 
@@ -171,9 +175,6 @@ allprojects {
             techreborn {
                 sourceSet project(":").sourceSets.main
                 sourceSet project(":").sourceSets.client
-            }
-            "techreborn-datagen" {
-                sourceSet project(":").sourceSets.datagen
             }
             "techreborn-gametest" {
                 sourceSet project(":").sourceSets.gametest
@@ -189,7 +190,7 @@ dependencies {
 
     include project(":RebornCore")
 
-	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", true)
+	optionalREIDependency(true)
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.21'
@@ -201,12 +202,14 @@ dependencies {
     }
 }
 
-def optionalClientDependency(String dep, runtime = true) {
+def optionalREIDependency(runtime = true) {
 	def exclude = {
 		exclude group: "net.fabricmc.fabric-api"
 		exclude group: "net.fabricmc"
 	}
+	String dep = "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 	dependencies.modClientCompileOnly(dep, exclude)
+	dependencies.modCompileOnly(dep, exclude)
 
 	if (runtime) {
 		dependencies.modClientRuntimeOnly(dep, exclude)
@@ -215,17 +218,6 @@ def optionalClientDependency(String dep, runtime = true) {
 
 loom {
     runs {
-        // Add a data gen run config
-        datagen {
-            server()
-            name "Data Generation"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=techreborn-datagen"
-            runDir "build/datagen"
-            source sourceSets.datagen
-        }
-
         // Use to run the tests
         gametest {
             server()
@@ -243,11 +235,6 @@ loom {
             source sourceSets.gametest
         }
     }
-}
-
-runDatagen {
-    // Doesn't re-run the task when its up-to date
-    outputs.dir('src/main/generated')
 }
 
 tasks.sourcesJar.dependsOn runDatagen
@@ -274,8 +261,7 @@ publishMods {
 
     def options = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-		minecraftVersions.add("1.21")
-        minecraftVersions.add("1.21.1")
+        minecraftVersions.add("1.21.4")
 
         requires {
             slug = "fabric-api"

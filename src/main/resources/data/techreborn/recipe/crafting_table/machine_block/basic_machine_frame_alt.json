@@ -1,18 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "basic_machine_frame",
-  "pattern": [
-    "AAA",
-    "A A",
-    "AAA"
-  ],
-  "key": {
-    "A": {
-      "item": "techreborn:refined_iron_storage_block"
+    "type": "minecraft:crafting_shaped",
+    "group": "basic_machine_frame",
+    "pattern": [
+        "AAA",
+        "A A",
+        "AAA"
+    ],
+    "key": {
+        "A": "techreborn:refined_iron_storage_block"
+    },
+    "result": {
+        "id": "techreborn:basic_machine_frame",
+        "count": 9
     }
-  },
-  "result": {
-    "id": "techreborn:basic_machine_frame",
-	"count": 9
-  }
 }

@@ -1,24 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "mixed_metal_ingot",
-  "pattern": [
-    "TTT",
-    "MMM",
-    "BBB"
-  ],
-  "key": {
-    "B": {
-      "tag": "c:ingots/aluminum"
+    "type": "minecraft:crafting_shaped",
+    "group": "mixed_metal_ingot",
+    "pattern": [
+        "TTT",
+        "MMM",
+        "BBB"
+    ],
+    "key": {
+        "B": "#c:ingots/aluminum",
+        "T": "#c:ingots/nickel",
+        "M": "#c:ingots/bronze"
     },
-    "T": {
-      "tag": "c:ingots/nickel"
-    },
-    "M": {
-      "tag": "c:ingots/bronze"
+    "result": {
+        "id": "techreborn:mixed_metal_ingot",
+        "count": 4
     }
-  },
-  "result": {
-    "id": "techreborn:mixed_metal_ingot",
-    "count": 4
-  }
 }

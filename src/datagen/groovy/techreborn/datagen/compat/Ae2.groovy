@@ -28,6 +28,7 @@ import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.item.Item
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
+import net.minecraft.registry.RegistryKey
 import net.minecraft.util.Identifier
 
 class Ae2 {
@@ -74,6 +75,6 @@ class Ae2 {
 	}
 
 	private static void registerItem(Identifier name) {
-		Registry.register(Registries.ITEM, name, new Item(new Item.Settings()))
+		Registry.register(Registries.ITEM, name, new Item(new Item.Settings().registryKey(RegistryKey.of(Registries.ITEM.key, name))))
 	}
 }

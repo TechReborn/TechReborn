@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GEG",
-    "EME",
-    "GEG"
-  ],
-  "key": {
-    "E": {
-      "item": "techreborn:energy_crystal"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "GEG",
+        "EME",
+        "GEG"
+    ],
+    "key": {
+        "E": "techreborn:energy_crystal",
+        "G": "techreborn:insulated_gold_cable",
+        "M": "techreborn:basic_machine_frame"
     },
-    "G": {
-      "item": "techreborn:insulated_gold_cable"
-    },
-    "M": {
-      "item": "techreborn:basic_machine_frame"
+    "result": {
+        "id": "techreborn:medium_voltage_su"
     }
-  },
-  "result": {
-    "id": "techreborn:medium_voltage_su"
-  }
 }

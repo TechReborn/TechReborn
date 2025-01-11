@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "MPM",
-    "PCP",
-    "MPM"
-  ],
-  "key": {
-    "P": {
-      "tag": "c:plates/iron"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "MPM",
+        "PCP",
+        "MPM"
+    ],
+    "key": {
+        "P": "#c:plates/iron",
+        "C": "minecraft:crafter",
+        "M": "techreborn:advanced_circuit"
     },
-    "C": {
-      "tag": "c:workbench"
-    },
-    "M": {
-      "item": "techreborn:advanced_circuit"
+    "result": {
+        "id": "techreborn:auto_crafting_table"
     }
-  },
-  "result": {
-    "id": "techreborn:auto_crafting_table"
-  }
 }

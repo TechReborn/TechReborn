@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    " U ",
-    " G ",
-    "U  "
-  ],
-  "key": {
-    "G": {
-      "item":  "techreborn:plantball"
+    "type": "reborncore:padded",
+    "pattern": [
+        " U ",
+        " G ",
+        "U  "
+    ],
+    "key": {
+        "G": "techreborn:plantball",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:sugar_cane"
     }
-  },
-  "result": {
-    "id": "minecraft:sugar_cane"
-  }
 }

@@ -28,11 +28,14 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.15.11",
-		"fabric-api": ">=0.100.4",
+		"fabricloader": ">=0.16.9",
+		"fabric-api": ">=0.110.2",
 		"team_reborn_energy": ">=4.1.0",
 		"fabric-biome-api-v1": ">=3.0.0",
-		"minecraft": ">=1.21.0- <1.21.2-"
+		"minecraft": ">=1.21.4- <1.21.5-"
+	},
+	"breaks": {
+		"quilt_loader": "*"
 	},
 	"authors": [
 		"Team Reborn",

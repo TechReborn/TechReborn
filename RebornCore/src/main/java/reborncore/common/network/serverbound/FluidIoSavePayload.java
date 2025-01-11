@@ -36,8 +36,8 @@ public record FluidIoSavePayload(BlockPos pos, boolean input, boolean output) im
 	public static final Id<FluidIoSavePayload> ID = new Id<>(Identifier.of("reborncore:fluid_io_save"));
 	public static final PacketCodec<RegistryByteBuf, FluidIoSavePayload> PACKET_CODEC = PacketCodec.tuple(
 		BlockPos.PACKET_CODEC, FluidIoSavePayload::pos,
-		PacketCodecs.BOOL, FluidIoSavePayload::input,
-		PacketCodecs.BOOL, FluidIoSavePayload::output,
+		PacketCodecs.BOOLEAN, FluidIoSavePayload::input,
+		PacketCodecs.BOOLEAN, FluidIoSavePayload::output,
 		FluidIoSavePayload::new
 	);
 

@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "LAL",
-    "LML",
-    "LOL"
-  ],
-  "key": {
-    "A": {
-      "item": "techreborn:advanced_circuit"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "LAL",
+        "LML",
+        "LOL"
+    ],
+    "key": {
+        "A": "techreborn:advanced_circuit",
+        "L": "techreborn:lapotron_crystal",
+        "M": "techreborn:medium_voltage_su",
+        "O": "techreborn:advanced_machine_frame"
     },
-    "L": {
-      "item": "techreborn:lapotron_crystal"
-    },
-    "M": {
-      "item": "techreborn:medium_voltage_su"
-    },
-    "O": {
-      "item": "techreborn:advanced_machine_frame"
+    "result": {
+        "id": "techreborn:high_voltage_su"
     }
-  },
-  "result": {
-    "id": "techreborn:high_voltage_su"
-  }
 }

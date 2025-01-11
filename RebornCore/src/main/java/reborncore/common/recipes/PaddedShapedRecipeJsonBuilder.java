@@ -28,39 +28,42 @@ import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
+import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RawShapedRecipe;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
 
 import java.util.Objects;
 
 public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 
-	public PaddedShapedRecipeJsonBuilder(RecipeCategory category, ItemConvertible output, int outputCount) {
-		super(category, output, outputCount);
+	public PaddedShapedRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemConvertible output, int outputCount) {
+		super(registryLookup, category, output, outputCount);
 	}
 
-	public static PaddedShapedRecipeJsonBuilder create(RecipeCategory category, ItemConvertible output) {
-		return create(category, output, 1);
+	public static PaddedShapedRecipeJsonBuilder create(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemConvertible output) {
+		return create(registryLookup, category, output, 1);
 	}
 
-	public static PaddedShapedRecipeJsonBuilder create(RecipeCategory category, ItemConvertible output, int outputCount) {
-		return new PaddedShapedRecipeJsonBuilder(category, output, outputCount);
+	public static PaddedShapedRecipeJsonBuilder create(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemConvertible output, int outputCount) {
+		return new PaddedShapedRecipeJsonBuilder(registryLookup, category, output, outputCount);
 	}
 	@Override
-	public void offerTo(RecipeExporter exporter, Identifier recipeId) {
-		RawShapedRecipe raw = toRaw(recipeId);
+	public void offerTo(RecipeExporter exporter, RegistryKey<Recipe<?>> recipeKey) {
+		RawShapedRecipe raw = toRaw(recipeKey);
 
 		AdvancementEntry advancementEntry = exporter.getAdvancementBuilder()
-			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
-			.rewards(AdvancementRewards.Builder.recipe(recipeId))
+			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey))
+			.rewards(AdvancementRewards.Builder.recipe(recipeKey))
 			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR)
-			.build(recipeId);
+			.build(recipeKey.getValue());
 
 		PaddedShapedRecipe shapedRecipe = new PaddedShapedRecipe(
 			Objects.requireNonNullElse(this.group, ""),
@@ -70,12 +73,12 @@ public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
 			this.showNotification
 		);
 
-		exporter.accept(recipeId, shapedRecipe, advancementEntry);
+		exporter.accept(recipeKey, shapedRecipe, advancementEntry);
 	}
 
-	private RawShapedRecipe toRaw(Identifier recipeId) {
+	private RawShapedRecipe toRaw(RegistryKey<Recipe<?>> recipeKey) {
 		if (this.criteria.isEmpty()) {
-			throw new IllegalStateException("No way of obtaining recipe " + recipeId);
+			throw new IllegalStateException("No way of obtaining recipe " + recipeKey.getValue());
 		} else {
 			return PaddedShapedRecipe.create(this.inputs, this.pattern);
 		}

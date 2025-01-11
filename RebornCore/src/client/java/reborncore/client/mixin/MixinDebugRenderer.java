@@ -24,6 +24,7 @@
 
 package reborncore.client.mixin;
 
+import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.debug.DebugRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -37,7 +38,7 @@ import reborncore.client.ClientChunkManager;
 public class MixinDebugRenderer {
 
 	@Inject(method = "render", at = @At("RETURN"))
-	public void render(MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers, double cameraX, double cameraY, double cameraZ, CallbackInfo info) {
+	public void render(MatrixStack matrices, Frustum frustum, VertexConsumerProvider.Immediate vertexConsumers, double cameraX, double cameraY, double cameraZ, CallbackInfo ci) {
 		ClientChunkManager.render(matrices, vertexConsumers, cameraX, cameraY, cameraZ);
 	}
 }

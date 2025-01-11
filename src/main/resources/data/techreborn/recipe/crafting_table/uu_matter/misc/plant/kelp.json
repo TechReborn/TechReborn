@@ -1,19 +1,15 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    " U ",
-    " U ",
-    " G "
-  ],
-  "key": {
-    "G": {
-      "item":  "techreborn:plantball"
+    "type": "reborncore:padded",
+    "pattern": [
+        " U ",
+        " U ",
+        " G "
+    ],
+    "key": {
+        "G": "techreborn:plantball",
+        "U": "techreborn:uu_matter"
     },
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:kelp"
     }
-  },
-  "result": {
-    "id": "minecraft:kelp"
-  }
 }

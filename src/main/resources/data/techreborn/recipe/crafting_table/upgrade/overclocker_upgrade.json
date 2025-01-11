@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "overclocker_upgrade",
-  "pattern": [
-    "TTT",
-    "WCW"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "type": "minecraft:crafting_shaped",
+    "group": "overclocker_upgrade",
+    "pattern": [
+        "TTT",
+        "WCW"
+    ],
+    "key": {
+        "C": "techreborn:electronic_circuit",
+        "T": "techreborn:water_coolant_cell_10k",
+        "W": "techreborn:insulated_copper_cable"
     },
-    "T": {
-      "item": "techreborn:water_coolant_cell_10k"
-    },
-    "W": {
-      "item": "techreborn:insulated_copper_cable"
+    "result": {
+        "id": "techreborn:overclocker_upgrade"
     }
-  },
-  "result": {
-    "id": "techreborn:overclocker_upgrade"
-  }
 }

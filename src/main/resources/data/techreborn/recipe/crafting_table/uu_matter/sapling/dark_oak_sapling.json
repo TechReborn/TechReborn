@@ -1,22 +1,16 @@
 {
-  "type": "reborncore:padded",
-  "pattern": [
-    "   ",
-    " P ",
-    " SU"
-  ],
-  "key": {
-    "P": {
-      "item": "techreborn:plantball"
+    "type": "reborncore:padded",
+    "pattern": [
+        "   ",
+        " P ",
+        " SU"
+    ],
+    "key": {
+        "P": "techreborn:plantball",
+        "S": "#c:dusts/saw",
+        "U": "techreborn:uu_matter"
     },
-	"S": {
-      "tag": "c:dusts/saw"
-	},
-    "U": {
-      "item": "techreborn:uu_matter"
+    "result": {
+        "id": "minecraft:dark_oak_sapling"
     }
-  },
-  "result": {
-    "id": "minecraft:dark_oak_sapling"
-  }
 }

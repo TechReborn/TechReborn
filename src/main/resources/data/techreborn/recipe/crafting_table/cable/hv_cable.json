@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "III"
-  ],
-  "key": {
-    "I": {
-      "item": "techreborn:refined_iron_ingot"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "III"
+    ],
+    "key": {
+        "I": "techreborn:refined_iron_ingot"
+    },
+    "result": {
+        "id": "techreborn:hv_cable",
+        "count": 12
     }
-  },
-  "result": {
-    "id": "techreborn:hv_cable",
-    "count": 12
-  }
 }

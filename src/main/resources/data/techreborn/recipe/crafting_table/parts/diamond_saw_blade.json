@@ -1,20 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DSD",
-    "S S",
-    "DSD"
-  ],
-  "key": {
-    "S": {
-      "tag": "c:ingots/steel"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "DSD",
+        "S S",
+        "DSD"
+    ],
+    "key": {
+        "S": "#c:ingots/steel",
+        "D": "#c:dusts/diamond"
     },
-    "D": {
-      "tag": "c:dusts/diamond"
+    "result": {
+        "id": "techreborn:diamond_saw_blade",
+        "count": 4
     }
-  },
-  "result": {
-    "id": "techreborn:diamond_saw_blade",
-    "count": 4
-  }
 }

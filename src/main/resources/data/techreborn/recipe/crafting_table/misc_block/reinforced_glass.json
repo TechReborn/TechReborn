@@ -1,21 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "reinforced_glass",
-  "pattern": [
-    "GAG",
-    "GGG",
-    "GAG"
-  ],
-  "key": {
-    "A": {
-      "tag": "c:plates/lead"
+    "type": "minecraft:crafting_shaped",
+    "group": "reinforced_glass",
+    "pattern": [
+        "GAG",
+        "GGG",
+        "GAG"
+    ],
+    "key": {
+        "A": "#c:plates/lead",
+        "G": "minecraft:glass"
     },
-    "G": {
-      "item": "minecraft:glass"
+    "result": {
+        "id": "techreborn:reinforced_glass",
+        "count": 7
     }
-  },
-  "result": {
-    "id": "techreborn:reinforced_glass",
-    "count": 7
-  }
 }

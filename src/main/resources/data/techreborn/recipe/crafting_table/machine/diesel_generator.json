@@ -1,22 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "III",
-    "I I",
-    "CGC"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:electronic_circuit"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "III",
+        "I I",
+        "CGC"
+    ],
+    "key": {
+        "C": "techreborn:electronic_circuit",
+        "G": "techreborn:solid_fuel_generator",
+        "I": "techreborn:refined_iron_ingot"
     },
-    "G": {
-      "item": "techreborn:solid_fuel_generator"
-    },
-    "I": {
-      "item": "techreborn:refined_iron_ingot"
+    "result": {
+        "id": "techreborn:diesel_generator"
     }
-  },
-  "result": {
-    "id": "techreborn:diesel_generator"
-  }
 }

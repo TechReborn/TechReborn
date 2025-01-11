@@ -1,28 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "RGR",
-    "LCL",
-    "EEE"
-  ],
-  "key": {
-    "R": {
-      "item": "minecraft:redstone"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RGR",
+        "LCL",
+        "EEE"
+    ],
+    "key": {
+        "R": "minecraft:redstone",
+        "C": "techreborn:electronic_circuit",
+        "E": "#c:plates/peridot",
+        "G": "minecraft:glowstone_dust",
+        "L": "minecraft:lapis_lazuli"
     },
-    "C": {
-      "item": "techreborn:electronic_circuit"
-    },
-    "E": {
-      "tag": "c:plates/peridot"
-    },
-    "G": {
-      "item": "minecraft:glowstone_dust"
-    },
-    "L": {
-      "item": "minecraft:lapis_lazuli"
+    "result": {
+        "id": "techreborn:data_storage_core"
     }
-  },
-  "result": {
-    "id": "techreborn:data_storage_core"
-  }
 }
