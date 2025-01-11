@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.fluidreplicator;
+package techreborn.client.compat.rei.machine;
 
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Point;
@@ -42,6 +42,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.GuiBuilder;
+import techreborn.compat.rei.FluidReplicatorRecipeDisplay;
 import techreborn.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.client.compat.rei.ReiPlugin;
 

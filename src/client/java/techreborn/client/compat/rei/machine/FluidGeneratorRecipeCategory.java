@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.fluidgenerator;
+package techreborn.client.compat.rei.machine;
 
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Rectangle;
@@ -40,6 +40,7 @@ import net.minecraft.util.Identifier;
 import reborncore.client.gui.GuiBuilder;
 import techreborn.TechReborn;
 import techreborn.client.compat.rei.ReiPlugin;
+import techreborn.compat.rei.FluidGeneratorRecipeDisplay;
 import techreborn.init.TRContent;
 
 import java.util.List;

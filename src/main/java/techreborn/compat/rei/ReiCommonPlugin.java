@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei;
+package techreborn.compat.rei;
 
 import dev.architectury.event.CompoundEventResult;
 import me.shedaniel.rei.api.common.display.Display;
@@ -41,9 +41,6 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
-import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeDisplay;
-import techreborn.client.compat.rei.fluidreplicator.FluidReplicatorRecipeDisplay;
-import techreborn.client.compat.rei.rollingmachine.RollingMachineDisplay;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.recipe.recipes.FluidGeneratorRecipe;

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.fluidgenerator;
+package techreborn.compat.rei;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;

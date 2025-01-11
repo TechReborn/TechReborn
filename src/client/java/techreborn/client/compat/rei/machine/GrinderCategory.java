@@ -37,7 +37,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
-import techreborn.client.compat.rei.MachineRecipeDisplay;
+import techreborn.compat.rei.MachineRecipeDisplay;
 import techreborn.client.compat.rei.ReiPlugin;
 
 import java.text.DecimalFormat;

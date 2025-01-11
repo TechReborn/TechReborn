@@ -190,7 +190,7 @@ dependencies {
 
     include project(":RebornCore")
 
-	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", true)
+	optionalREIDependency(true)
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.21'
@@ -202,12 +202,14 @@ dependencies {
     }
 }
 
-def optionalClientDependency(String dep, runtime = true) {
+def optionalREIDependency(runtime = true) {
 	def exclude = {
 		exclude group: "net.fabricmc.fabric-api"
 		exclude group: "net.fabricmc"
 	}
+	String dep = "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 	dependencies.modClientCompileOnly(dep, exclude)
+	dependencies.modCompileOnly(dep, exclude)
 
 	if (runtime) {
 		dependencies.modClientRuntimeOnly(dep, exclude)

@@ -23,7 +23,7 @@
 		"techreborn.client.compat.rei.ReiPlugin"
     ],
     "rei_common": [
-		"techreborn.client.compat.rei.ReiCommonPlugin"
+		"techreborn.compat.rei.ReiCommonPlugin"
     ]
   },
   "custom": {

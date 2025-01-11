@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei;
+package techreborn.compat.rei;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -37,114 +37,94 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import reborncore.common.crafting.RebornFluidRecipe;
-import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.recipe.recipes.BlastFurnaceRecipe;
+import techreborn.recipe.recipes.FluidReplicatorRecipe;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
-	public static final DisplaySerializer<MachineRecipeDisplay<?>> SERIALIZER = DisplaySerializer.of(
+/**
+ * @author drcrazy
+ */
+public class FluidReplicatorRecipeDisplay implements Display {
+	public static final DisplaySerializer<FluidReplicatorRecipeDisplay> SERIALIZER = DisplaySerializer.of(
 		RecordCodecBuilder.mapCodec(instance -> instance.group(
 			Codec.STRING.fieldOf("category").forGetter(d -> d.category.getIdentifier().toString()),
-			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(MachineRecipeDisplay::getInputEntries),
-			EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(MachineRecipeDisplay::getOutputEntries),
-			Identifier.CODEC.optionalFieldOf("location").forGetter(MachineRecipeDisplay::getDisplayLocation),
-			Codec.INT.fieldOf("energy").forGetter(MachineRecipeDisplay::getEnergy),
-			Codec.INT.fieldOf("heat").forGetter(MachineRecipeDisplay::getHeat),
-			Codec.INT.fieldOf("time").forGetter(MachineRecipeDisplay::getTime),
-			FluidInstance.CODEC.optionalFieldOf("fluidInstance").forGetter(d -> Optional.ofNullable(d.fluidInstance))
-		).apply(instance, MachineRecipeDisplay::new)),
+			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(FluidReplicatorRecipeDisplay::getInputEntries),
+			EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(FluidReplicatorRecipeDisplay::getOutputEntries),
+			Identifier.CODEC.optionalFieldOf("location").forGetter(FluidReplicatorRecipeDisplay::getDisplayLocation),
+			FluidInstance.CODEC.optionalFieldOf("fluidInstance").forGetter(d -> Optional.ofNullable(d.fluidInstance)),
+			Codec.INT.fieldOf("energy").forGetter(FluidReplicatorRecipeDisplay::getEnergy),
+			Codec.INT.fieldOf("time").forGetter(FluidReplicatorRecipeDisplay::getTime)
+		).apply(instance, FluidReplicatorRecipeDisplay::new)),
 		PacketCodec.tuple(
 			PacketCodecs.STRING,
 			d -> d.category.getIdentifier().toString(),
 			EntryIngredient.streamCodec().collect(PacketCodecs.toList()),
-			MachineRecipeDisplay::getInputEntries,
+			FluidReplicatorRecipeDisplay::getInputEntries,
 			EntryIngredient.streamCodec().collect(PacketCodecs.toList()),
-			MachineRecipeDisplay::getOutputEntries,
+			FluidReplicatorRecipeDisplay::getOutputEntries,
 			PacketCodecs.optional(Identifier.PACKET_CODEC),
-			MachineRecipeDisplay::getDisplayLocation,
-			PacketCodecs.INTEGER,
-			MachineRecipeDisplay::getEnergy,
-			PacketCodecs.INTEGER,
-			MachineRecipeDisplay::getHeat,
-			PacketCodecs.INTEGER,
-			MachineRecipeDisplay::getTime,
+			FluidReplicatorRecipeDisplay::getDisplayLocation,
 			PacketCodecs.optional(FluidInstance.PACKET_CODEC),
 			d -> Optional.ofNullable(d.fluidInstance),
-			MachineRecipeDisplay::new
+			PacketCodecs.INTEGER,
+			FluidReplicatorRecipeDisplay::getEnergy,
+			PacketCodecs.INTEGER,
+			FluidReplicatorRecipeDisplay::getTime,
+			FluidReplicatorRecipeDisplay::new
 		)
 	);
 
 	private final CategoryIdentifier<?> category;
+	private final Optional<Identifier> location;
 	private final List<EntryIngredient> inputs;
 	private final List<EntryIngredient> outputs;
-	private final Optional<Identifier> location;
+	private final FluidInstance fluidInstance;
 	private final int energy;
-	private int heat = 0;
 	private final int time;
-	private FluidInstance fluidInstance = null;
 
-	public MachineRecipeDisplay(
+	public FluidReplicatorRecipeDisplay(
 		String category,
 		List<EntryIngredient> inputs,
 		List<EntryIngredient> outputs,
 		Optional<Identifier> location,
+		Optional<FluidInstance> fluidInstance,
 		int energy,
-		int heat,
-		int time,
-		Optional<FluidInstance> fluidInstance
+		int time
 	) {
 		this.category = CategoryIdentifier.of(category);
 		this.inputs = inputs;
 		this.outputs = outputs;
 		this.location = location;
-		this.energy = energy;
-		this.heat = heat;
-		this.time = time;
 		this.fluidInstance = fluidInstance.orElse(null);
+		this.energy = energy;
+		this.time = time;
 	}
 
-	public MachineRecipeDisplay(RecipeEntry<R> entry) {
-		R recipe = entry.value();
+	public FluidReplicatorRecipeDisplay(RecipeEntry<FluidReplicatorRecipe> entry) {
+		FluidReplicatorRecipe recipe = entry.value();
 		this.category = CategoryIdentifier.of(Objects.requireNonNull(Registries.RECIPE_TYPE.getId(recipe.getType())));
-		this.inputs = CollectionUtils.map(recipe.ingredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
-		this.outputs = recipe.outputs().stream().map(EntryIngredients::of).collect(Collectors.toList());
 		this.location = Optional.of(entry.id().getValue());
-		this.time = recipe.time();
+		this.inputs = CollectionUtils.map(recipe.ingredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
+		this.fluidInstance = recipe.fluid();
+		this.outputs = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryIngredients.of(fluidInstance.fluid(), fluidInstance.getAmount().getRawValue()));
 		this.energy = recipe.power();
-		if (recipe instanceof BlastFurnaceRecipe) {
-			this.heat = ((BlastFurnaceRecipe) recipe).getHeat();
-		}
-		if (recipe instanceof RebornFluidRecipe) {
-			this.fluidInstance = ((RebornFluidRecipe) recipe).fluid();
-			inputs.add(EntryIngredients.of(fluidInstance.fluid(), fluidInstance.getAmount().getRawValue()));
-		}
-	}
-
-	public int getEnergy() {
-		return energy;
-	}
-
-	public int getHeat() {
-		return heat;
-	}
-
-	public int getTime() {
-		return time;
+		this.time = recipe.time();
 	}
 
 	public FluidInstance getFluidInstance() {
 		return fluidInstance;
 	}
 
-	@Override
-	public Optional<Identifier> getDisplayLocation() {
-		return location;
+	public int getEnergy() {
+		return energy;
+	}
+
+	public int getTime() {
+		return time;
 	}
 
 	@Override
@@ -160,6 +140,11 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	@Override
 	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return category;
+	}
+
+	@Override
+	public Optional<Identifier> getDisplayLocation() {
+		return location;
 	}
 
 	@Override
