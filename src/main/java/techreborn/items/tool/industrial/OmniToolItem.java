@@ -47,7 +47,7 @@ import techreborn.init.TRToolMaterials;
 public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler {
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem(String name) {
-		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, 3f, 1f, TRItemSettings.item(name).maxDamage(0));
+		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, 3f, 1f, TRItemSettings.item(name));
 	}
 
 	// MiningToolItem

@@ -47,6 +47,6 @@ public class TRToolMaterials {
 	public static final ToolMaterial OMNI_TOOL = copy(ToolMaterial.NETHERITE, "omni_tool");
 
 	public static ToolMaterial copy(ToolMaterial material, String id) {
-		return new ToolMaterial(material.incorrectBlocksForDrops(), material.durability(), material.speed(), material.attackDamageBonus(), material.enchantmentValue(), material.repairItems());
+		return new ToolMaterial(material.incorrectBlocksForDrops(), 0, material.speed(), material.attackDamageBonus(), material.enchantmentValue(), material.repairItems());
 	}
 }

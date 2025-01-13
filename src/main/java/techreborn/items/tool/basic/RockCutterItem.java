@@ -46,7 +46,7 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	// 10k Energy with 128 E\t charge rate
 	public RockCutterItem(String name) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(TRToolMaterials.ROCK_CUTTER,  1f, -2.8f, TRItemSettings.item(name).maxDamage(0));
+		super(TRToolMaterials.ROCK_CUTTER,  1f, -2.8f, TRItemSettings.item(name));
 	}
 
 	// PickaxeItem
