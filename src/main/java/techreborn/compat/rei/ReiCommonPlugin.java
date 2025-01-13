@@ -27,11 +27,15 @@ package techreborn.compat.rei;
 import dev.architectury.event.CompoundEventResult;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
+import me.shedaniel.rei.api.common.entry.comparison.ComparisonContext;
 import me.shedaniel.rei.api.common.entry.comparison.ItemComparatorRegistry;
+import me.shedaniel.rei.api.common.entry.type.EntryTypeRegistry;
+import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.fluid.FluidSupportProvider;
 import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
 import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import me.shedaniel.rei.plugin.client.entry.ItemEntryDefinition;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
@@ -52,6 +56,26 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class ReiCommonPlugin implements REICommonPlugin {
+	@Override
+	public double getPriority() {
+		return 1;
+	}
+
+	@Override
+	public void registerEntryTypes(EntryTypeRegistry registry) {
+		registry.register(VanillaEntryTypes.ITEM, new ItemEntryDefinition() {
+			@Override
+			public boolean equals(ItemStack left, ItemStack right, ComparisonContext context) {
+				if (context != ComparisonContext.FUZZY
+					|| !(left.getItem() instanceof ItemFluidInfo leftInfo)
+					|| !(right.getItem() instanceof ItemFluidInfo rightInfo)) {
+					return super.equals(left, right, context);
+				}
+				return leftInfo.getFluid(left) == rightInfo.getFluid(right);
+			}
+		});
+	}
+
 	@Override
 	public void registerFluidSupport(FluidSupportProvider support) {
 		support.register(stack -> {
