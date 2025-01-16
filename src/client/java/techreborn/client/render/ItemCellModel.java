@@ -44,12 +44,14 @@ import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
 
 import java.util.HashMap;
+import java.util.function.Function;
 
 public class ItemCellModel implements ItemModel {
 	public static final Identifier ID = Identifier.of(TechReborn.MOD_ID, "model/cell");
-	private final DynamicCellBakedModel model;
+	private static final HashMap<Fluid, BakedModel> CACHE = new HashMap<>();
+	private final Function<Fluid, BakedModel> bakeModel;
 	ItemCellModel(BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel, BakedModel glassModel) {
-		model = new DynamicCellBakedModel(baseModel, fluidModel, backgroundModel, glassModel);
+		this.bakeModel = (Fluid fluid) -> new DynamicCellBakedModel(fluid, baseModel, fluidModel, backgroundModel, glassModel);
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class ItemCellModel implements ItemModel {
 		if (stack.getItem() instanceof ItemFluidInfo fluidInfo) {
 			fluid = fluidInfo.getFluid(stack);
 		}
-		model.fluid = fluid;
+		BakedModel model = CACHE.computeIfAbsent(fluid, this.bakeModel);
 
 		RenderLayer renderLayer = RenderLayers.getItemLayer(stack);
 		layerRenderState.setModel(model, renderLayer);

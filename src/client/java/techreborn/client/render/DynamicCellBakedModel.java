@@ -29,7 +29,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import techreborn.TechReborn;
@@ -44,8 +44,8 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 	public static final Identifier CELL_GLASS = CELL.withSuffixedPath("_glass");
 	private final BakedModel glassModel;
 
-	public DynamicCellBakedModel(BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel, BakedModel glassModel) {
-		super(Fluids.EMPTY, baseModel, fluidModel, backgroundModel);
+	public DynamicCellBakedModel(Fluid fluid, BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel, BakedModel glassModel) {
+		super(fluid, baseModel, fluidModel, backgroundModel);
 		this.glassModel = glassModel;
 	}
 
