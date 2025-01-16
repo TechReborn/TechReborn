@@ -21,7 +21,7 @@
   "reborncore.gui.tooltip.power_charged": "Заряжено",
   "reborncore.gui.tooltip.power_moreinfo": "подробнее",
   "reborncore.gui.tooltip.dsu_fullness": "Полный",
-  "reborncore.gui.tooltip.tank_amount": "%s / %s",
+  "reborncore.gui.tooltip.tank_amount": "%s/%s",
   "reborncore.gui.tooltip.tank_empty": "Пустой резервуар",
   "reborncore.gui.tooltip.tank_fullness": "Полный",
   "reborncore.gui.tooltip.unlock_items": "Открепить предметы",
