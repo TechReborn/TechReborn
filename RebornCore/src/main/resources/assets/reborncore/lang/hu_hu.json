@@ -35,7 +35,7 @@
   "reborncore.gui.slotconfig.autoinput": "Auto bemenet",
   "reborncore.gui.slotconfig.autooutput": "Auto kimenet",
   "reborncore.gui.slotconfig.filter_input": "Szűrő bemenet",
-  "reborncore.gui.slotconfigtip.slot": "Kattints egy mezőre a konfiguráláshoz.",
+  "reborncore.gui.slotconfigtip.slot": "Kattints egy rekeszre a konfiguráláshoz.",
   "reborncore.gui.slotconfigtip.side1": "A narancs oldal kimenetet jelent.",
   "reborncore.gui.slotconfigtip.side2": "A kék oldal bemenetet jelent.",
   "reborncore.gui.slotconfigtip.side3": "A zöld oldal mind a kettőt jelenti.",
