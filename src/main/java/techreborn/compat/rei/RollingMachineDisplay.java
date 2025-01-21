@@ -24,23 +24,138 @@
 
 package techreborn.compat.rei;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapedDisplay;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.display.DisplaySerializer;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.CollectionUtils;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.plugin.common.displays.crafting.CraftingDisplay;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
+import reborncore.common.crafting.RebornRecipe;
 import techreborn.init.ModRecipes;
+import techreborn.recipe.recipes.RollingMachineRecipe;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-public class RollingMachineDisplay extends DefaultShapedDisplay {
+public class RollingMachineDisplay implements CraftingDisplay {
+	public static final DisplaySerializer<RollingMachineDisplay> SERIALIZER = DisplaySerializer.of(
+		RecordCodecBuilder.mapCodec(instance -> instance.group(
+			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(RollingMachineDisplay::getInputEntries),
+			EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(RollingMachineDisplay::getOutputEntries),
+			Identifier.CODEC.optionalFieldOf("location").forGetter(RollingMachineDisplay::getDisplayLocation),
+			Codec.INT.fieldOf("width").forGetter(RollingMachineDisplay::getWidth),
+			Codec.INT.fieldOf("height").forGetter(RollingMachineDisplay::getHeight),
+			Codec.INT.fieldOf("energy").forGetter(RollingMachineDisplay::getEnergy),
+			Codec.INT.fieldOf("time").forGetter(RollingMachineDisplay::getTime)
+		).apply(instance, RollingMachineDisplay::new)),
+		PacketCodec.tuple(
+			EntryIngredient.streamCodec().collect(PacketCodecs.toList()), RollingMachineDisplay::getInputEntries,
+			EntryIngredient.streamCodec().collect(PacketCodecs.toList()), RollingMachineDisplay::getOutputEntries,
+			PacketCodecs.optional(Identifier.PACKET_CODEC), RollingMachineDisplay::getDisplayLocation,
+			PacketCodecs.INTEGER, RollingMachineDisplay::getWidth,
+			PacketCodecs.INTEGER, RollingMachineDisplay::getHeight,
+			PacketCodecs.INTEGER, RollingMachineDisplay::getEnergy,
+			PacketCodecs.INTEGER, RollingMachineDisplay::getTime,
+			RollingMachineDisplay::new
+		)
+	);
 
-	public RollingMachineDisplay(RecipeEntry<ShapedRecipe> recipe) {
-		super(recipe);
+	private final List<EntryIngredient> inputs;
+	private final List<EntryIngredient> outputs;
+	private final Optional<Identifier> location;
+	private final int width;
+	private final int height;
+	private final int energy;
+	private final int time;
+
+	public RollingMachineDisplay(
+		List<EntryIngredient> inputs,
+		List<EntryIngredient> outputs,
+		Optional<Identifier> location,
+		int width,
+		int height,
+		int energy,
+		int time
+	) {
+		this.inputs = inputs;
+		this.outputs = outputs;
+		this.location = location;
+		this.width = width;
+		this.height = height;
+		this.energy = energy;
+		this.time = time;
+	}
+
+	public RollingMachineDisplay(RecipeEntry<RebornRecipe> entry) {
+		RollingMachineRecipe recipe = (RollingMachineRecipe) entry.value();
+		this.energy = recipe.power();
+		this.time = recipe.time();
+		ShapedRecipe shapedRecipe = recipe.getShapedRecipe();
+		this.inputs = CollectionUtils.map(
+			shapedRecipe.getIngredients(),
+			opt -> opt.map(EntryIngredients::ofIngredient).orElse(EntryIngredient.empty())
+		);
+		this.outputs = List.of(EntryIngredients.of(shapedRecipe.craft(null, null)));
+		this.location = Optional.of(entry.id().getValue());
+		this.width = shapedRecipe.getWidth();
+		this.height = shapedRecipe.getHeight();
+	}
+
+	public int getEnergy() {
+		return energy;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	@Override
+	public boolean isShapeless() {
+		return false;
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+	@Override
+	public Optional<Identifier> getDisplayLocation() {
+		return location;
+	}
+
+	@Override
+	public List<EntryIngredient> getInputEntries() {
+		return inputs;
+	}
+
+	@Override
+	public List<EntryIngredient> getOutputEntries() {
+		return outputs;
 	}
 
 	@Override
 	public CategoryIdentifier<?> getCategoryIdentifier() {
 		return CategoryIdentifier.of(Objects.requireNonNull(Registries.RECIPE_TYPE.getId(ModRecipes.ROLLING_MACHINE)));
+	}
+
+	@Override
+	public DisplaySerializer<? extends Display> getSerializer() {
+		return SERIALIZER;
 	}
 }

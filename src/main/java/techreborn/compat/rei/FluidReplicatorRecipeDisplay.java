@@ -37,6 +37,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.recipe.recipes.FluidReplicatorRecipe;
 
@@ -104,8 +105,8 @@ public class FluidReplicatorRecipeDisplay implements Display {
 		this.time = time;
 	}
 
-	public FluidReplicatorRecipeDisplay(RecipeEntry<FluidReplicatorRecipe> entry) {
-		FluidReplicatorRecipe recipe = entry.value();
+	public FluidReplicatorRecipeDisplay(RecipeEntry<RebornRecipe> entry) {
+		FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) entry.value();
 		this.category = CategoryIdentifier.of(Objects.requireNonNull(Registries.RECIPE_TYPE.getId(recipe.getType())));
 		this.location = Optional.of(entry.id().getValue());
 		this.inputs = CollectionUtils.map(recipe.ingredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));

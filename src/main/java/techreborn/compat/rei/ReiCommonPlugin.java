@@ -48,8 +48,6 @@ import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.recipe.recipes.FluidGeneratorRecipe;
-import techreborn.recipe.recipes.FluidReplicatorRecipe;
-import techreborn.recipe.recipes.RollingMachineRecipe;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -127,17 +125,11 @@ public class ReiCommonPlugin implements REICommonPlugin {
 		Function<RecipeEntry<RebornRecipe>, Display> recipeDisplay = MachineRecipeDisplay::new;
 
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
-			recipeDisplay = r -> {
-				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r.value();
-				return new RollingMachineDisplay(new RecipeEntry<>(r.id(), rollingMachineRecipe.getShapedRecipe()));
-			};
+			recipeDisplay = RollingMachineDisplay::new;
 		}
 
 		if (recipeType == ModRecipes.FLUID_REPLICATOR) {
-			recipeDisplay = r -> {
-				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r.value();
-				return new FluidReplicatorRecipeDisplay(new RecipeEntry<>(r.id(), recipe));
-			};
+			recipeDisplay = FluidReplicatorRecipeDisplay::new;
 		}
 
 		registry.beginRecipeFiller(RebornRecipe.class)
@@ -148,6 +140,7 @@ public class ReiCommonPlugin implements REICommonPlugin {
 	@Override
 	public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
 		registry.register(Identifier.of(TechReborn.MOD_ID, "machine"), MachineRecipeDisplay.SERIALIZER);
+		registry.register(Identifier.of(TechReborn.MOD_ID, "rolling_machine"), RollingMachineDisplay.SERIALIZER);
 		registry.register(Identifier.of(TechReborn.MOD_ID, "fluid_generator"), FluidGeneratorRecipeDisplay.SERIALIZER);
 		registry.register(Identifier.of(TechReborn.MOD_ID, "fluid_replicator"), FluidReplicatorRecipeDisplay.SERIALIZER);
 	}
