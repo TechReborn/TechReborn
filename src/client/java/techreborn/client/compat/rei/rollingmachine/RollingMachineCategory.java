@@ -24,20 +24,34 @@
 
 package techreborn.client.compat.rei.rollingmachine;
 
+import me.shedaniel.math.Point;
+import me.shedaniel.math.Rectangle;
+import me.shedaniel.rei.api.client.ClientHelper;
 import me.shedaniel.rei.api.client.gui.Renderer;
+import me.shedaniel.rei.api.client.gui.widgets.Slot;
+import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
+import me.shedaniel.rei.api.client.gui.widgets.Widget;
+import me.shedaniel.rei.api.client.gui.widgets.Widgets;
+import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.entry.InputIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.plugin.client.categories.crafting.DefaultCraftingCategory;
-import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCraftingDisplay;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import reborncore.client.gui.GuiBuilder;
 import techreborn.recipe.recipes.RollingMachineRecipe;
 import techreborn.client.compat.rei.ReiPlugin;
 
-public class RollingMachineCategory extends DefaultCraftingCategory {
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+public class RollingMachineCategory implements DisplayCategory<RollingMachineDisplay> {
 
 	private final RecipeType<RollingMachineRecipe> recipeType;
 
@@ -51,7 +65,7 @@ public class RollingMachineCategory extends DefaultCraftingCategory {
 
 
 	@Override
-	public CategoryIdentifier<? extends DefaultCraftingDisplay<?>> getCategoryIdentifier() {
+	public CategoryIdentifier<? extends RollingMachineDisplay> getCategoryIdentifier() {
 		return CategoryIdentifier.of(id());
 	}
 
@@ -65,4 +79,37 @@ public class RollingMachineCategory extends DefaultCraftingCategory {
 		return EntryStacks.of(ReiPlugin.iconMap.getOrDefault(recipeType, () -> Items.DIAMOND_SHOVEL));
 	}
 
+	@Override
+	public List<Widget> setupDisplay(RollingMachineDisplay display, Rectangle bounds) {
+		Point startPoint = new Point(bounds.getCenterX() - 58, bounds.getCenterY() - 27);
+		List<Widget> widgets = new ArrayList<>();
+		widgets.add(Widgets.createRecipeBase(bounds));
+		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 8, bounds.y + 8, 14, 50), display.getEnergy(), ReiPlugin.EntryAnimation.downwards(5000), tooltipContext -> {
+			List<Text> list = new ArrayList<>();
+			list.add(Text.translatable("techreborn.jei.recipe.energy"));
+			list.add(Text.translatable("techreborn.jei.recipe.running.cost", "E", display.getEnergy()).formatted(Formatting.GRAY));
+			list.add(Text.translatable("techreborn.jei.recipe.generator.total", display.getEnergy() * display.getTime()).formatted(Formatting.GRAY));
+			list.add(Text.of(""));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.of("techreborn", "")));
+			return Tooltip.create(tooltipContext.getPoint(), list);
+		}));
+		widgets.add(ReiPlugin.createProgressBar(startPoint.x + 68, startPoint.y + 22, display.getTime() * 50, GuiBuilder.ProgressDirection.RIGHT));
+		widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x + 95, startPoint.y + 19)));
+		List<InputIngredient<EntryStack<?>>> input = display.getInputIngredients(3, 3);
+		List<Slot> slots = new ArrayList<>();
+		for (int y = 0; y < 3; y++)
+			for (int x = 0; x < 3; x++)
+				slots.add(Widgets.createSlot(new Point(startPoint.x + 10 + x * 18, startPoint.y + 1 + y * 18)).markInput());
+		for (InputIngredient<EntryStack<?>> ingredient : input) {
+			slots.get(ingredient.getIndex()).entries(ingredient.get());
+		}
+		widgets.addAll(slots);
+		widgets.add(Widgets.createSlot(new Point(startPoint.x + 95, startPoint.y + 19)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());
+		widgets.add(Widgets.createLabel(new Point(bounds.getMaxX() - 5, bounds.y + 5), Text.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(display.getTime() / 20.0)))
+			.shadow(false)
+			.rightAligned()
+			.color(0xFF404040, 0xFFBBBBBB)
+		);
+		return widgets;
+	}
 }

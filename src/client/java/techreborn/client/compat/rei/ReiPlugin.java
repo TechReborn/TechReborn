@@ -70,8 +70,6 @@ import reborncore.common.crafting.RecipeManager;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
 import techreborn.recipe.recipes.FluidGeneratorRecipe;
-import techreborn.recipe.recipes.FluidReplicatorRecipe;
-import techreborn.recipe.recipes.RollingMachineRecipe;
 import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeCategory;
 import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeDisplay;
 import techreborn.client.compat.rei.fluidreplicator.FluidReplicatorRecipeCategory;
@@ -235,17 +233,11 @@ public class ReiPlugin implements REIClientPlugin {
 		Function<RecipeEntry<RebornRecipe>, Display> recipeDisplay = MachineRecipeDisplay::new;
 
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
-			recipeDisplay = r -> {
-				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r.value();
-				return new RollingMachineDisplay(new RecipeEntry<>(getTypeId(recipeType), rollingMachineRecipe.getShapedRecipe()));
-			};
+			recipeDisplay = RollingMachineDisplay::new;
 		}
 
 		if (recipeType == ModRecipes.FLUID_REPLICATOR) {
-			recipeDisplay = r -> {
-				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r.value();
-				return new FluidReplicatorRecipeDisplay(new RecipeEntry<>(getTypeId(recipeType), recipe));
-			};
+			recipeDisplay = FluidReplicatorRecipeDisplay::new;
 		}
 
 		registry.registerRecipeFiller(RebornRecipe.class,

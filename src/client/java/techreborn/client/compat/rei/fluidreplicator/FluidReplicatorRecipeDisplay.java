@@ -32,6 +32,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.recipe.recipes.FluidReplicatorRecipe;
 
@@ -53,8 +54,8 @@ public class FluidReplicatorRecipeDisplay implements Display {
 	private final int energy;
 	private final int time;
 
-	public FluidReplicatorRecipeDisplay(RecipeEntry<FluidReplicatorRecipe> recipe) {
-		this.recipe = recipe.value();
+	public FluidReplicatorRecipeDisplay(RecipeEntry<RebornRecipe> recipe) {
+		this.recipe = (FluidReplicatorRecipe) recipe.value();
 		this.recipeId = recipe.id();
 		this.inputs = CollectionUtils.map(this.recipe.ingredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
 		this.fluidInstance = this.recipe.fluid();
