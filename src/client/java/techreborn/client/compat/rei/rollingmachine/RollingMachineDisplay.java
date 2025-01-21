@@ -25,14 +25,53 @@
 package techreborn.client.compat.rei.rollingmachine;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapedDisplay;
+import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCraftingDisplay;
 import net.minecraft.recipe.ShapedRecipe;
+import reborncore.common.crafting.RebornRecipe;
+import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.init.ModRecipes;
 
-public class RollingMachineDisplay extends DefaultShapedDisplay {
+import java.util.Collections;
+import java.util.Optional;
 
-	public RollingMachineDisplay(ShapedRecipe recipe) {
-		super(recipe);
+public class RollingMachineDisplay extends DefaultCraftingDisplay<RebornRecipe> {
+
+	private final int width;
+	private final int height;
+	private final int energy;
+	private final int time;
+
+	public RollingMachineDisplay(RollingMachineRecipe recipe) {
+		super(
+			EntryIngredients.ofIngredients(recipe.getIngredients()),
+			Collections.singletonList(EntryIngredients.of(recipe.getOutput(BasicDisplay.registryAccess()))),
+			Optional.of(recipe)
+		);
+		ShapedRecipe shapedRecipe = recipe.getShapedRecipe();
+		this.energy = recipe.getPower();
+		this.time = recipe.getTime();
+		this.width = shapedRecipe.getWidth();
+		this.height = shapedRecipe.getHeight();
+	}
+
+	public int getEnergy() {
+		return energy;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	@Override
+	public int getWidth() {
+		return this.width;
+	}
+
+	@Override
+	public int getHeight() {
+		return this.height;
 	}
 
 	@Override

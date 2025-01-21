@@ -219,25 +219,14 @@ public class ReiPlugin implements REIClientPlugin {
 		Function<R, Display> recipeDisplay = r -> new MachineRecipeDisplay<>((RebornRecipe) r);
 
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
-			recipeDisplay = r -> {
-				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r;
-				return new RollingMachineDisplay(rollingMachineRecipe.getShapedRecipe());
-			};
+			recipeDisplay = r -> new RollingMachineDisplay((RollingMachineRecipe) r);
 		}
 
 		if (recipeType == ModRecipes.FLUID_REPLICATOR) {
-			recipeDisplay = r -> {
-				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r;
-				return new FluidReplicatorRecipeDisplay(recipe);
-			};
+			recipeDisplay = r -> new FluidReplicatorRecipeDisplay((FluidReplicatorRecipe) r);
 		}
 
-		registry.registerFiller(RebornRecipe.class, recipe -> {
-			if (recipe != null) {
-				return recipe.getRebornRecipeType() == recipeType;
-			}
-			return false;
-		}, recipeDisplay);
+		registry.registerFiller(RebornRecipe.class, recipe -> recipe != null && recipe.getRebornRecipeType() == recipeType, recipeDisplay);
 	}
 
 	@Override
