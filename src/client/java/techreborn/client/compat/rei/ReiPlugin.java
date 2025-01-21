@@ -285,7 +285,7 @@ public class ReiPlugin implements REIClientPlugin {
 				while (offsetHeight != 0) {
 					final int curHeight = Math.min(offsetHeight, iconHeight);
 
-					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight, color);
+					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight, color | 0xFF000000);
 					offsetHeight -= curHeight;
 					iteration++;
 					if (iteration > 50) {
