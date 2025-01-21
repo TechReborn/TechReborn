@@ -266,8 +266,7 @@ public class ReiPlugin implements REIClientPlugin {
 			}
 
 			public void drawFluid(DrawContext drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
-				y += height;
-
+				y += height - drawHeight;
 				FluidRenderHandler handler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
 
 				// If registry can't find it, don't render.
@@ -277,20 +276,17 @@ public class ReiPlugin implements REIClientPlugin {
 
 				final Sprite sprite = handler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
 				int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
-
-				final int iconHeight = sprite.getContents().getHeight();
-				int offsetHeight = drawHeight;
-
-				int iteration = 0;
-				while (offsetHeight != 0) {
-					final int curHeight = Math.min(offsetHeight, iconHeight);
-
-					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight, color | 0xFF000000);
-					offsetHeight -= curHeight;
-					iteration++;
-					if (iteration > 50) {
-						break;
-					}
+				int shaderColor = color | 0xFF000000;
+				int count = drawHeight / width;
+				int remainder = drawHeight % width;
+				for (int i = 0; i < count; i++) {
+					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y, width, width, shaderColor);
+					y += width;
+				}
+				if (remainder != 0) {
+					drawContext.enableScissor(x, y, x + width, y + remainder);
+					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y, width, width, shaderColor);
+					drawContext.disableScissor();
 				}
 			}
 

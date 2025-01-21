@@ -626,24 +626,21 @@ public class GuiBuilder {
 		if (fluid.fluid() == Fluids.EMPTY) {
 			return;
 		}
-		y += height;
 		final Sprite sprite = FluidVariantRendering.getSprite(fluid.fluidVariant());
 		int color = FluidVariantRendering.getColor(fluid.fluidVariant());
 
 		final int drawHeight = (int) (fluid.getAmount().getRawValue() / (maxCapacity * 1F) * height);
-		final int iconHeight = sprite.getContents().getHeight();
-		int offsetHeight = drawHeight;
-
-		int iteration = 0;
-		while (offsetHeight != 0) {
-			final int curHeight = Math.min(offsetHeight, iconHeight);
-
-			drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, curHeight, color);
-			offsetHeight -= curHeight;
-			iteration++;
-			if (iteration > 50) {
-				break;
-			}
+		y += height - drawHeight;
+		int count = drawHeight / width;
+		int remainder = drawHeight % width;
+		for (int i = 0; i < count; i++) {
+			drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y, width, width, color);
+			y += width;
+		}
+		if (remainder != 0) {
+			drawContext.enableScissor(x, y, x + width, y + remainder);
+			drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y, width, width, color);
+			drawContext.disableScissor();
 		}
 	}
 
