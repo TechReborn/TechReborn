@@ -322,7 +322,7 @@ public class ReiPlugin implements REIClientPlugin {
 				drawSprite(drawContext, GuiSprites.POWER_BAR_BASE, bounds.x - 1, bounds.y - 1);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
-					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) innerHeight) % innerHeight));
+					innerDisplayHeight = MathHelper.ceil(System.currentTimeMillis() / (Math.round(animation.duration * 1000.0 / innerHeight) / 1000.0) % innerHeight);
 					if (animation.animationType == EntryAnimationType.DOWNWARDS)
 						innerDisplayHeight = innerHeight - innerDisplayHeight;
 				} else innerDisplayHeight = innerHeight;
@@ -345,7 +345,7 @@ public class ReiPlugin implements REIClientPlugin {
 				drawSprite(drawContext, GuiSprites.TANK_BACKGROUND, bounds.x - 4, bounds.y - 4);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
-					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / (float) height) % height));
+					innerDisplayHeight = MathHelper.ceil(System.currentTimeMillis() / (Math.round(animation.duration * 1000.0 / height) / 1000.0) % height);
 					if (animation.animationType == EntryAnimationType.DOWNWARDS)
 						innerDisplayHeight = height - innerDisplayHeight;
 				} else innerDisplayHeight = height;
