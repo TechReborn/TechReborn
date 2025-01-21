@@ -76,7 +76,7 @@ public class FluidGeneratorRecipeCategory implements DisplayCategory<FluidGenera
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 108, bounds.y + 8, 14, 50), recipeDisplay.getTotalEnergy(), ReiPlugin.EntryAnimation.upwards(5000), tooltipContext -> {
 			List<Text> list = Lists.newArrayList();
-			list.add(Text.of("Energy"));
+			list.add(Text.translatable("techreborn.jei.recipe.energy"));
 			list.add(Text.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getTotalEnergy()).formatted(Formatting.GRAY));
 			list.add(Text.of(""));
 			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.of("techreborn", "")));

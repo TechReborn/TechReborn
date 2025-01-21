@@ -833,6 +833,7 @@
   "techreborn.jei.recipe.processing.time.3": "%s秒",
   "techreborn.jei.recipe.heat": "热量",
   "techreborn.jei.recipe.generator.total": "总能量： %s",
+  "techreborn.jei.recipe.energy": "能量",
   "techreborn.jei.desc.rubberSap": "要获得黏性树脂，你需要找一棵橡胶树，或者找到一棵橡胶树苗并种下它。当你找到了一棵橡胶树后，看看树干有没有黄点。如果没有，那么稍等一小会就会出现。要收集黏性树脂，你需要用一个木龙头对着黄点右击。",
   "techreborn.jei.desc.scrapBox": "废料盒可以简单地用手打开，也可以用拆包器打开。没错，只要把你的废料盒扔进拆包器并且提供一个红石信号，然后boom的一声，随机的物品就出现了！",
   "techreborn.jei.desc.scrapBoxNoDispenser": "废料盒可以很简单地用手打开。",

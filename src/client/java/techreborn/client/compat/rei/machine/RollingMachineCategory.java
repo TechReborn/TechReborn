@@ -87,8 +87,9 @@ public class RollingMachineCategory implements DisplayCategory<RollingMachineDis
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 8, bounds.y + 8, 14, 50), display.getEnergy(), ReiPlugin.EntryAnimation.downwards(5000), tooltipContext -> {
 			List<Text> list = new ArrayList<>();
-			list.add(Text.of("Energy"));
+			list.add(Text.translatable("techreborn.jei.recipe.energy"));
 			list.add(Text.translatable("techreborn.jei.recipe.running.cost", "E", display.getEnergy()).formatted(Formatting.GRAY));
+			list.add(Text.translatable("techreborn.jei.recipe.generator.total", display.getEnergy() * display.getTime()).formatted(Formatting.GRAY));
 			list.add(Text.of(""));
 			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.of("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
