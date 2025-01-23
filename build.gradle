@@ -287,7 +287,7 @@ publishMods {
         projectId = "233564"
         file = remapJar.archiveFile
 
-        requires {
+        embeds {
             slug = "reborncore"
         }
         optional {
