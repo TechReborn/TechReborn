@@ -120,7 +120,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 		return new ScreenHandlerBuilder("industrialgrinder").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
 				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
-				.sync(tank).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
+				.sync(tank).syncEnergyValue().syncCrafterValue().syncShapeValue().addInventory().create(this, syncID);
 	}
 
 }

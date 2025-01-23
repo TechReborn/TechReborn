@@ -129,7 +129,8 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("fluidreplicator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isOf(TRContent.Parts.UU_MATTER.getStack().getItem()))
-				.outputSlot(2, 124, 55).energySlot(3, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue().addInventory()
+				.outputSlot(2, 124, 55).energySlot(3, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue().syncShapeValue()
+			.addInventory()
 				.create(this, syncID);
 	}
 }

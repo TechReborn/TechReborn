@@ -1,7 +1,7 @@
 /*
  * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2021 TeamReborn
+ * Copyright (c) 2024 TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,33 +22,14 @@
  * SOFTWARE.
  */
 
-package reborncore.client.multiblock;
+package reborncore.common.misc.world;
 
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.util.math.MatrixStack;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
+import net.minecraft.util.math.BlockPos;
 
-public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements BlockEntityRenderer<T> {
+public interface ChunkEventListener {
+	void onBlockUpdate(BlockPos pos);
 
-	public MultiblockRenderer(BlockEntityRendererFactory.Context ctx) {
-	}
+	void onUnloadChunk();
 
-	@Override
-	public void render(T blockEntity, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay) {
-		if (blockEntity.renderMultiblock && !blockEntity.isShapeValid()) {
-			blockEntity.writeMultiblock(new HologramRenderer(blockEntity.getWorld(), matrixStack, vertexConsumerProvider, 0.4F).rotate(blockEntity.getFacing().getOpposite()));
-		}
-	}
-
-	@Override
-	public boolean rendersOutsideBoundingBox(T blockEntity) {
-		return true;
-	}
-
-	@Override
-	public int getRenderDistance() {
-		return 256;
-	}
+	void onLoadChunk();
 }

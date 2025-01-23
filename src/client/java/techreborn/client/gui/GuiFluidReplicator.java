@@ -56,7 +56,7 @@ public class GuiFluidReplicator extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 124, 35, layer);
 		// Liquid output slot
 		drawSlot(drawContext, 124, 55, layer);
-		if (blockEntity.isMultiblockValid()) {
+		if (blockEntity.isShapeValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}
 	}
@@ -68,7 +68,7 @@ public class GuiFluidReplicator extends GuiBase<BuiltScreenHandler> {
 
 		builder.drawTank(drawContext, this, 99, 25, mouseX, mouseY, blockEntity.tank.getFluidInstance(), blockEntity.tank.getFluidValueCapacity(), blockEntity.tank.isEmpty(), layer);
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (blockEntity.isMultiblockValid()) {
+		if (blockEntity.isShapeValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(drawContext, this, layer);

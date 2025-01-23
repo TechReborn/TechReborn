@@ -71,7 +71,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 126, 47, layer);
 		drawOutputSlot(drawContext, 80, 47, layer);
 
-		if (blockEntity.isMultiblockValid()) {
+		if (blockEntity.isShapeValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}
 
@@ -84,7 +84,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
-		if (blockEntity.isMultiblockValid()) {
+		if (blockEntity.isShapeValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
 			drawCentredText(drawContext, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
 			if (blockEntity.state == 2) {

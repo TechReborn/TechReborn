@@ -54,7 +54,7 @@ public class GuiVacuumFreezer extends GuiBase<BuiltScreenHandler> {
 		// Output slot
 		drawOutputSlot(drawContext, 101, 45, layer);
 
-		if (blockEntity.isMultiblockValid()) {
+		if (blockEntity.isShapeValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}
 	}
@@ -65,7 +65,7 @@ public class GuiVacuumFreezer extends GuiBase<BuiltScreenHandler> {
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (blockEntity.isMultiblockValid()) {
+		if (blockEntity.isShapeValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(drawContext, this, layer);

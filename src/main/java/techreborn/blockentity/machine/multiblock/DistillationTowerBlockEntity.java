@@ -65,12 +65,12 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("Distillationtower").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 35, 27).slot(1, 35, 47).outputSlot(2, 79, 37).outputSlot(3, 99, 37)
-				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
+				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().syncShapeValue()
 				.addInventory().create(this, syncID);
 	}
 
 	@Override
 	public boolean canCraft(RebornRecipe rebornRecipe) {
-		return isMultiblockValid();
+		return isShapeValid();
 	}
 }

@@ -70,7 +70,7 @@ public record IndustrialGrinderRecipe(RecipeType<IndustrialGrinderRecipe> type, 
 	@Override
 	public boolean canCraft(BlockEntity be) {
 		IndustrialGrinderBlockEntity blockEntity = (IndustrialGrinderBlockEntity) be;
-		if (!blockEntity.isMultiblockValid()) {
+		if (!blockEntity.isShapeValid()) {
 			return false;
 		}
 		return RebornFluidRecipe.super.canCraft(be);

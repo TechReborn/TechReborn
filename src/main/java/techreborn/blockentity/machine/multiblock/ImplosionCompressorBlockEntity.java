@@ -64,11 +64,11 @@ public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity im
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("implosioncompressor").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
-				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
+				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().syncShapeValue().addInventory().create(this, syncID);
 	}
 
 	@Override
 	public boolean canCraft(RebornRecipe rebornRecipe) {
-		return isMultiblockValid();
+		return isShapeValid();
 	}
 }

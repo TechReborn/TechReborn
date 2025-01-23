@@ -87,7 +87,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 	}
 
 	public int getHeat() {
-		if (!isMultiblockValid()) {
+		if (!isShapeValid()) {
 			return 0;
 		}
 
@@ -137,7 +137,8 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 		return new ScreenHandlerBuilder("blastfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
-				.sync(PacketCodecs.INTEGER, this::getHeat, this::setHeat).addInventory().create(this, syncID);
+				.sync(PacketCodecs.INTEGER, this::getHeat, this::setHeat)
+				.syncShapeValue().addInventory().create(this, syncID);
 	}
 
 }

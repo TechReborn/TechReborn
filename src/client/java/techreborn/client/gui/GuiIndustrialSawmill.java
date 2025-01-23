@@ -59,7 +59,7 @@ public class GuiIndustrialSawmill extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 126, 43, layer);
 		drawSlot(drawContext, 126, 61, layer);
 
-		if (blockEntity.isMultiblockValid()) {
+		if (blockEntity.isShapeValid()) {
 			builder.drawHologramButton(drawContext, this, 6, 4, mouseX, mouseY, layer);
 		}
 	}
@@ -71,7 +71,7 @@ public class GuiIndustrialSawmill extends GuiBase<BuiltScreenHandler> {
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawTank(drawContext, this, 53, 25, mouseX, mouseY, blockEntity.tank.getFluidInstance(), blockEntity.tank.getFluidValueCapacity(), blockEntity.tank.isEmpty(), layer);
-		if (blockEntity.isMultiblockValid()) {
+		if (blockEntity.isShapeValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(drawContext, this, layer);

@@ -119,7 +119,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("industrialsawmill").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
-				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue()
+				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue().syncShapeValue()
 				.addInventory().create(this, syncID);
 	}
 

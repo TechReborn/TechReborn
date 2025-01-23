@@ -216,7 +216,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		if (--ticksToNextMultiblockCheck < 0) {
-			growthBoost = isMultiblockValid();
+			growthBoost = isShapeValid();
 			ticksToNextMultiblockCheck = 200;
 		}
 

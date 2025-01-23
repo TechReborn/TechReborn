@@ -48,6 +48,7 @@ import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.config.Configuration;
 import reborncore.common.misc.ModSounds;
 import reborncore.common.misc.RebornCoreTags;
+import reborncore.common.misc.world.ChunkEventListeners;
 import reborncore.common.multiblock.MultiblockRegistry;
 import reborncore.common.network.Packets;
 import reborncore.common.network.ServerBoundPackets;
@@ -141,6 +142,8 @@ public class RebornCore implements ModInitializer {
 
 		//noinspection ResultOfMethodCallIgnored
 		ServerPlayerEntityScreenHandlerHelper.class.getName();
+
+		ChunkEventListeners.init();
 	}
 
 	public static EnvType getSide() {

@@ -42,6 +42,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
@@ -54,6 +55,8 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
+import reborncore.common.misc.world.ChunkEventListener;
+import reborncore.common.misc.world.ChunkEventListeners;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.clientbound.CustomDescriptionPayload;
 import reborncore.common.recipes.IUpgradeHandler;
@@ -61,14 +64,12 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by modmuss50 on 04/11/2016.
  */
-public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTicker<MachineBaseBlockEntity>, IUpgradeable, IUpgradeHandler, IListInfoProvider, Inventory, SidedInventory, RedstoneConfigurable {
+public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTicker<MachineBaseBlockEntity>, IUpgradeable, IUpgradeHandler, IListInfoProvider, Inventory, SidedInventory, RedstoneConfigurable, ChunkEventListener {
 
 	public RebornInventory<MachineBaseBlockEntity> upgradeInventory = new RebornInventory<>(getUpgradeSlotCount(), "upgrades", 1, this, (slotID, stack, face, direction, blockEntity) -> true);
 	private SlotConfiguration slotConfiguration;
@@ -77,6 +78,13 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private final List<RedstoneConfiguration.Element> redstoneElements;
 
 	public boolean renderMultiblock = false;
+
+	private boolean shapeValid = false;
+	private boolean shapeFormed = false;
+	private boolean needsRematch = true;
+	private boolean matchSuccessful = false;
+	private Set<BlockPos> shape = new HashSet<>();
+
 	private final static int syncCoolDown = 20;
 	private boolean markSync = false;
 	private int tickTime = 0;
@@ -121,10 +129,120 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		redstoneElements = RedstoneConfiguration.getValidElements(this);
 	}
 
-	public boolean isMultiblockValid() {
+	public void rematch() {
+		matchSuccessful = true;
+
+		Direction direction = getFacing().getOpposite();
 		MultiblockWriter.MultiblockVerifier verifier = new MultiblockWriter.MultiblockVerifier(getPos(), getWorld());
-		writeMultiblock(verifier.rotate(getFacing().getOpposite()));
-		return verifier.isValid();
+		writeMultiblock(verifier.rotate(direction));
+
+		if (!verifier.isValid()) {
+			matchSuccessful = false;
+		}
+
+		needsRematch = false;
+	}
+
+	public boolean isShapeValid() {
+		return shapeValid;
+	}
+
+	public void setShapeValid(boolean shapeValid) {
+		this.shapeValid = shapeValid;
+	}
+
+	public boolean needsRematch() {
+		return needsRematch;
+	}
+
+	public boolean isMatchSuccessful() {
+		return matchSuccessful && !needsRematch;
+	}
+
+	public void link() {
+		if (!shapeFormed) {
+			registerListeners(world);
+			formShape();
+			shapeFormed = true;
+		}
+
+		if (needsRematch()) {
+			setShapeValid(false);
+			rematch();
+
+			if (isMatchSuccessful()) {
+				setShapeValid(true);
+			}
+
+			syncWithAll();
+		}
+	}
+
+	public void unlink() {
+		if (shapeFormed) {
+			unregisterListeners(world);
+			shape.clear();
+			shapeFormed = false;
+		}
+	}
+
+	public void formShape() {
+		Direction direction = getFacing().getOpposite();
+		MultiblockWriter.MultiblockShapeFormer writer = new MultiblockWriter.MultiblockShapeFormer(getPos());
+		writeMultiblock(writer.rotate(direction));
+
+		shape = writer.getPos();
+	}
+
+	public Set<ChunkPos> getSpannedChunks() {
+		Set<ChunkPos> spannedChunks = new HashSet<>();
+
+		for (BlockPos pos : shape) {
+			spannedChunks.add(new ChunkPos(pos));
+		}
+
+		return spannedChunks;
+	}
+
+	public void registerListeners(World world) {
+		for (ChunkPos chunkPos : getSpannedChunks()) {
+			ChunkEventListeners.listeners.add(world, chunkPos, this);
+		}
+	}
+
+	public void unregisterListeners(World world) {
+		for (ChunkPos chunkPos : getSpannedChunks()) {
+			ChunkEventListeners.listeners.remove(world, chunkPos, this);
+		}
+	}
+
+	@Override
+	public void onBlockUpdate(BlockPos pos) {
+		for (BlockPos posMember : shape) {
+			if (posMember.equals(pos)) {
+				needsRematch = true;
+				return;
+			}
+		}
+	}
+
+	@Override
+	public void onUnloadChunk() {
+		needsRematch = true;
+	}
+
+	@Override
+	public void onLoadChunk() {
+		needsRematch = true;
+	}
+
+	@Override
+	public final void markRemoved() {
+		super.markRemoved();
+
+		if (!world.isClient) {
+			unlink();
+		}
 	}
 
 	private void syncIfNecessary(){
@@ -192,6 +310,9 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		if (world == null || world.isClient) {
 			return;
 		}
+
+		link();
+
 		if (crafter != null && isActive(RedstoneConfiguration.Element.RECIPE_PROCESSING)) {
 			crafter.updateEntity();
 		}

@@ -63,7 +63,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 30, gridYPos + 36, layer);
 		drawSlot(drawContext, 48, gridYPos + 36, layer);
 
-		if (!blockEntity.isMultiblockValid()) {
+		if (!blockEntity.isShapeValid()) {
 			drawContext.drawTexture(RenderLayer::getGuiTextured, Identifier.of("techreborn", "textures/item/part/digital_display.png"), x + 68, y + 22, 0, 0, 16, 16, 16, 16);
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
 				List<Text> list = Arrays.stream(I18n.translate("techreborn.tooltip.greenhouse.upgrade_available")
@@ -85,7 +85,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 		addHologramButton(90, 24, 212, layer).clickHandler(this::onClick);
 		builder.drawHologramButton(drawContext, this, 90, 24, mouseX, mouseY, layer);
 
-		if (!blockEntity.isMultiblockValid()) {
+		if (!blockEntity.isShapeValid()) {
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
 				List<Text> list = Arrays.stream(I18n.translate("techreborn.tooltip.greenhouse.upgrade_available")
 						.split("\\r?\\n"))

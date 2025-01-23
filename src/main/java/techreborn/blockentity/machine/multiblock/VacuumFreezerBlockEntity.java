@@ -67,12 +67,12 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("vacuumfreezer").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.syncCrafterValue().addInventory().create(this, syncID);
+				.syncCrafterValue().syncShapeValue().addInventory().create(this, syncID);
 	}
 
 	@Override
 	public boolean canCraft(RebornRecipe rebornRecipe) {
-		if (!this.isMultiblockValid()) {
+		if (!this.isShapeValid()) {
 			return false;
 		}
 

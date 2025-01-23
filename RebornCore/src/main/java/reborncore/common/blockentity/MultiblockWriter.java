@@ -30,6 +30,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.BiPredicate;
 
 /**
@@ -223,4 +225,23 @@ public interface MultiblockWriter {
 		}
 	}
 
+	class MultiblockShapeFormer implements MultiblockWriter {
+		private final BlockPos relative;
+		private final Set<BlockPos> pos = new HashSet<>();
+
+		public MultiblockShapeFormer(BlockPos relative) {
+			this.relative = relative;
+		}
+
+		@Override
+		public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
+			pos.add(relative.add(x, y, z));
+
+			return this;
+		}
+
+		public Set<BlockPos> getPos() {
+			return pos;
+		}
+	}
 }
