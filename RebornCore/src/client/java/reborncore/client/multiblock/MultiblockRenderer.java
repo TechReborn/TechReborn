@@ -46,9 +46,4 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 	public boolean rendersOutsideBoundingBox(T blockEntity) {
 		return true;
 	}
-
-	@Override
-	public int getRenderDistance() {
-		return 256;
-	}
 }

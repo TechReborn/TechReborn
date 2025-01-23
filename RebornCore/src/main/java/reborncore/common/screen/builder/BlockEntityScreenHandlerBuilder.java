@@ -186,7 +186,7 @@ public class BlockEntityScreenHandlerBuilder {
 
 	public BlockEntityScreenHandlerBuilder syncShapeValue() {
 		if (this.blockEntity instanceof MachineBaseBlockEntity baseBlockEntity) {
-			return this.sync(PacketCodecs.BOOL, baseBlockEntity::isShapeValid, baseBlockEntity::setShapeValid);
+			return this.sync(PacketCodecs.BOOLEAN, baseBlockEntity::isShapeValid, baseBlockEntity::setShapeValid);
 		}
 
 		throw new IllegalStateException(this.inventory + " is not an instance of MachineBaseBlockEntity! Shape cannot be synced.");

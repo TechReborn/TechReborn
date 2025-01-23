@@ -67,6 +67,11 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	}
 
 	@Override
+	public boolean hasMultiblock() {
+		return true;
+	}
+
+	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState state = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 		writer.translate(1, 0, -1)

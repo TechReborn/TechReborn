@@ -76,6 +76,11 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		this.inventory = new RebornInventory<>(3, "FusionControlComputerBlockEntity", 64, this);
 	}
 
+	@Override
+	public boolean hasMultiblock() {
+		return true;
+	}
+
 	public Text getStateText() {
 		if (state == -1) {
 			return Text.empty();

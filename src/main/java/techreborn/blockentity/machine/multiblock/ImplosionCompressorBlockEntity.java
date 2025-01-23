@@ -52,6 +52,11 @@ public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity im
 	}
 
 	@Override
+	public boolean hasMultiblock() {
+		return true;
+	}
+
+	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		writer.translate(-1, -3, -1)
 				.fill(0, 0, 0, 3, 1, 3, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState())

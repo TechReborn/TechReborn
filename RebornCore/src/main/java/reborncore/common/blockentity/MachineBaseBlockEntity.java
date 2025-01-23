@@ -80,10 +80,9 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public boolean renderMultiblock = false;
 
 	private boolean shapeValid = false;
-	private boolean shapeFormed = false;
-	private boolean needsRematch = true;
-	private boolean matchSuccessful = false;
-	private Set<BlockPos> shape = new HashSet<>();
+	private boolean needsRematch = false;
+	@Nullable
+	private Set<BlockPos> shape = null;
 
 	private final static int syncCoolDown = 20;
 	private boolean markSync = false;
@@ -130,16 +129,9 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	public void rematch() {
-		matchSuccessful = true;
-
-		Direction direction = getFacing().getOpposite();
 		MultiblockWriter.MultiblockVerifier verifier = new MultiblockWriter.MultiblockVerifier(getPos(), getWorld());
-		writeMultiblock(verifier.rotate(direction));
-
-		if (!verifier.isValid()) {
-			matchSuccessful = false;
-		}
-
+		writeMultiblock(verifier.rotate(getFacing().getOpposite()));
+		shapeValid = verifier.isValid();
 		needsRematch = false;
 	}
 
@@ -151,52 +143,33 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		this.shapeValid = shapeValid;
 	}
 
-	public boolean needsRematch() {
-		return needsRematch;
-	}
-
-	public boolean isMatchSuccessful() {
-		return matchSuccessful && !needsRematch;
-	}
-
 	public void link() {
-		if (!shapeFormed) {
-			registerListeners(world);
-			formShape();
-			shapeFormed = true;
-		}
-
-		if (needsRematch()) {
-			setShapeValid(false);
+		if (needsRematch) {
 			rematch();
-
-			if (isMatchSuccessful()) {
-				setShapeValid(true);
-			}
-
 			syncWithAll();
 		}
 	}
 
 	public void unlink() {
-		if (shapeFormed) {
+		if (shape != null) {
 			unregisterListeners(world);
-			shape.clear();
-			shapeFormed = false;
+			shape = null;
 		}
 	}
 
-	public void formShape() {
-		Direction direction = getFacing().getOpposite();
+	public void registerMultiblockVerify() {
 		MultiblockWriter.MultiblockShapeFormer writer = new MultiblockWriter.MultiblockShapeFormer(getPos());
-		writeMultiblock(writer.rotate(direction));
+		writeMultiblock(writer.rotate(getFacing().getOpposite()));
 
 		shape = writer.getPos();
+		registerListeners(world);
+		needsRematch = true;
 	}
 
 	public Set<ChunkPos> getSpannedChunks() {
 		Set<ChunkPos> spannedChunks = new HashSet<>();
 
+		assert shape != null;
 		for (BlockPos pos : shape) {
 			spannedChunks.add(new ChunkPos(pos));
 		}
@@ -218,11 +191,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	@Override
 	public void onBlockUpdate(BlockPos pos) {
-		for (BlockPos posMember : shape) {
-			if (posMember.equals(pos)) {
-				needsRematch = true;
-				return;
-			}
+		if (shape != null && shape.contains(pos)) {
+			needsRematch = true;
 		}
 	}
 
@@ -255,6 +225,10 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	public void writeMultiblock(MultiblockWriter writer) {}
 
+	public boolean hasMultiblock() {
+		return false;
+	}
+
 	public void syncWithAll() {
 		this.markSync = true;
 	}
@@ -269,6 +243,9 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			if (fluidConfiguration == null) {
 				fluidConfiguration = new FluidConfiguration();
 			}
+		}
+		if (hasMultiblock() && world != null && !world.isClient) {
+			registerMultiblockVerify();
 		}
 	}
 

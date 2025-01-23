@@ -52,6 +52,11 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	@Override
+	public boolean hasMultiblock() {
+		return true;
+	}
+
+	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		writer.translate(1, 0, -1)
 				.fill(0, 0, 0, 3, 1, 3, TRContent.MachineBlocks.BASIC.getCasing().getDefaultState())

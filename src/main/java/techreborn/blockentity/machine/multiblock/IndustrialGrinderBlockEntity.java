@@ -66,6 +66,11 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	}
 
 	@Override
+	public boolean hasMultiblock() {
+		return true;
+	}
+
+	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState basic = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
 		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();

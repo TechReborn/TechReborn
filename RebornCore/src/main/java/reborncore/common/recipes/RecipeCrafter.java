@@ -150,7 +150,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		}
 		if (currentRecipe != null) {
 			// If it doesn't have all the inputs reset
-			if (isInvDirty() && !hasAllInputs()) {
+			if (isInvDirty() && !hasAllInputs() || energy.hasMultiblock() && !energy.isShapeValid()) {
 				currentRecipe = null;
 				currentTickTime = 0;
 				setIsActive();

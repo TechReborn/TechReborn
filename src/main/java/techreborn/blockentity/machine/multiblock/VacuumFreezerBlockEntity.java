@@ -52,6 +52,11 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 	}
 
 	@Override
+	public boolean hasMultiblock() {
+		return true;
+	}
+
+	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 		BlockState industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
