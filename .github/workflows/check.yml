@@ -11,17 +11,17 @@ jobs:
     strategy:
       matrix:
         java: [ 21-jdk ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     container:
       image: eclipse-temurin:${{ matrix.java }}
       options: --user root
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: ./gradlew runDatagen --stacktrace
       - run: ./gradlew build --stacktrace -x runDatagen
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: build/libs/
