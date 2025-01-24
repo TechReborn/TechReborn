@@ -61,6 +61,7 @@ public class TechReborn implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		TRContent.register();
 		new Configuration(TechRebornConfig.class, "techreborn");
 
 		// Done to force the class to load

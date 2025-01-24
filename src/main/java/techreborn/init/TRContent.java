@@ -1707,7 +1707,7 @@ public class TRContent {
 		.maxTrackingRange(10)
 		.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(TechReborn.MOD_ID, "nuke")));
 
-	static {
+	public static void register() {
 		ModRegistry.register();
 		TRItemGroup.register();
 
