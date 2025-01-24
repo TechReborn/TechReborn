@@ -1604,7 +1604,7 @@ public class TRContent {
 		.trackRangeChunks(10)
 		.build();
 
-	static {
+	public static void register() {
 		ModRegistry.register();
 		TRItemGroup.register();
 
