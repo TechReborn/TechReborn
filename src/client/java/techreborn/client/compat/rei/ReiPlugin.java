@@ -94,7 +94,7 @@ public class ReiPlugin implements REIClientPlugin {
 		iconMap.put(ModRecipes.INDUSTRIAL_GRINDER, Machine.INDUSTRIAL_GRINDER);
 		iconMap.put(ModRecipes.INDUSTRIAL_SAWMILL, Machine.INDUSTRIAL_SAWMILL);
 		iconMap.put(ModRecipes.ROLLING_MACHINE, Machine.ROLLING_MACHINE);
-		iconMap.put(ModRecipes.SCRAPBOX, TRContent.SCRAP_BOX);
+		iconMap.put(ModRecipes.SCRAPBOX, () -> TRContent.SCRAP_BOX);
 		iconMap.put(ModRecipes.SOLID_CANNING_MACHINE, Machine.SOLID_CANNING_MACHINE);
 		iconMap.put(ModRecipes.VACUUM_FREEZER, Machine.VACUUM_FREEZER);
 		iconMap.put(ModRecipes.WIRE_MILL, Machine.WIRE_MILL);
