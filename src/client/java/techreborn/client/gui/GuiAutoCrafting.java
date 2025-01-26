@@ -67,9 +67,12 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 		drawOutputSlot(drawContext, 145, 42, layer);
 		drawOutputSlot(drawContext, 145, 70, layer);
 
-		ItemStack result = blockEntityAutoCraftingTable.getCurrentResult();
+		ItemStack result = blockEntityAutoCraftingTable.getOutputPreview();
 		if (result != null) {
-			drawContext.drawItem(result, 95 + getGuiLeft(), 42 + getGuiTop());
+			int x = 95 + getGuiLeft();
+			int y = 42 + getGuiTop();
+			drawContext.drawItem(result, x, y);
+			drawContext.drawStackOverlay(getTextRenderer(), result, x, y, null);
 		}
 
 		builder.drawLockButton(drawContext, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);
