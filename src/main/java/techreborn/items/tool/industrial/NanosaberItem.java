@@ -59,7 +59,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem(String name) {
-		super(TRToolMaterials.NANOSABER, 1f, 1f, TRItemSettings.item(name));
+		super(TRToolMaterials.NANOSABER, 1f, 1f, TRItemSettings.unbreakable(name));
 	}
 
 	// SwordItem

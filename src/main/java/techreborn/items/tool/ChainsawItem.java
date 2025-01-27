@@ -47,7 +47,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 
 	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, String name) {
-		super(material, 3f, -2.9f, TRItemSettings.item(name));
+		super(material, 3f, -2.9f, TRItemSettings.unbreakable(name));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;
