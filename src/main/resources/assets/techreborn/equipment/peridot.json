@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "techreborn:peridot"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "techreborn:peridot"
+      }
+    ]
+  }
+}

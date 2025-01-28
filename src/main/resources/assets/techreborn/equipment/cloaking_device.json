@@ -1,0 +1,9 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "techreborn:cloaking_device"
+      }
+    ]
+  }
+}

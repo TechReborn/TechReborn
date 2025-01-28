@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "techreborn:ruby"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "techreborn:ruby"
+      }
+    ]
+  }
+}
