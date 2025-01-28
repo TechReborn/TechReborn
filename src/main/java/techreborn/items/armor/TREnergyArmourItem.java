@@ -42,7 +42,7 @@ public abstract class TREnergyArmourItem extends ArmorItem implements RcEnergyIt
 	private final RcEnergyTier energyTier;
 
 	public TREnergyArmourItem(ArmorMaterial material, EquipmentType slot, long maxCharge, RcEnergyTier energyTier, String name) {
-		super(material, slot, TRItemSettings.item(name).maxCount(1));
+		super(material, slot, TRItemSettings.unbreakable(name).maxCount(1));
 		this.maxCharge = maxCharge;
 		this.energyTier = energyTier;
 	}
