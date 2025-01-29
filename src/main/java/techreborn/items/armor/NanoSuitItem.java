@@ -49,11 +49,14 @@ import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.utils.TRItemUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
-	private static final EntityAttributeModifier POWERED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of(TechReborn.MOD_ID, "nano_suit_armor"), 14, EntityAttributeModifier.Operation.ADD_VALUE);
-	private static final EntityAttributeModifier DEPLETED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of(TechReborn.MOD_ID, "nano_suit_armor"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
+	private static final Identifier ATTRIBUTE_ID = Identifier.of(TechReborn.MOD_ID, "nano_suit_armor");
+	private static final int ARMOR_VALUE = 14;
+	private static final HashMap<EquipmentSlot, EntityAttributeModifier> ATTRIBUTE_MODIFIERS = new HashMap<>();
+	private static final EntityAttributeModifier DEPLETED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(ATTRIBUTE_ID, 0, EntityAttributeModifier.Operation.ADD_VALUE);
 
 	public NanoSuitItem(RegistryEntry<ArmorMaterial> material, Type slot) {
 		super(material, slot, TechRebornConfig.nanoSuitCapacity, RcEnergyTier.HIGH);
@@ -76,7 +79,8 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 		}
 
 		AttributeModifiersComponent attributes = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-		attributes = attributes.with(EntityAttributes.GENERIC_ARMOR, getStoredEnergy(stack) > 0 ? POWERED_ATTRIBUTE_MODIFIER : DEPLETED_ATTRIBUTE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(this.getSlotType()));
+		EntityAttributeModifier poweredAttributeModifier = ATTRIBUTE_MODIFIERS.computeIfAbsent(this.getSlotType(), (slot) -> new EntityAttributeModifier(ATTRIBUTE_ID.withSuffixedPath(slot.getName()), ARMOR_VALUE, EntityAttributeModifier.Operation.ADD_VALUE));
+		attributes = attributes.with(EntityAttributes.GENERIC_ARMOR, getStoredEnergy(stack) > 0 ? poweredAttributeModifier : DEPLETED_ATTRIBUTE_MODIFIER, AttributeModifierSlot.forEquipmentSlot(this.getSlotType()));
 		stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, attributes);
 	}
 
