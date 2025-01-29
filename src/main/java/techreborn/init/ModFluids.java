@@ -34,6 +34,8 @@ import reborncore.common.fluid.*;
 import techreborn.TechReborn;
 import techreborn.init.TRContent.BlockInfo;
 
+import java.util.Locale;
+
 public enum ModFluids implements BlockInfo {
 	BERYLLIUM,
 	CALCIUM,
@@ -80,7 +82,7 @@ public enum ModFluids implements BlockInfo {
 	private final Identifier identifier;
 
 	ModFluids() {
-		name = this.toString().toLowerCase();
+		name = this.toString().toLowerCase(Locale.ROOT);
 		this.identifier = Identifier.of(TechReborn.MOD_ID, name);
 
 		FluidSettings fluidSettings = FluidSettings.create();

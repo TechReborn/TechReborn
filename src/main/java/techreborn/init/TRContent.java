@@ -308,7 +308,7 @@ public class TRContent {
 		public final RcEnergyTier powerTier;
 
 		SolarPanels(RcEnergyTier tier, int generationRateD, int generationRateN) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			powerTier = tier;
 			block = new BlockSolarPanel(this, name + "_solar_panel");
 			this.generationRateD = generationRateD;
@@ -353,7 +353,7 @@ public class TRContent {
 
 
 		StorageUnit(int capacity, boolean upgradable) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new StorageUnitBlock(this, name.equals("buffer") ? "storage_buffer" : name + "_storage_unit");
 			this.capacity = capacity;
 
@@ -420,7 +420,7 @@ public class TRContent {
 
 
 		TankUnit(int capacity) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new TankUnitBlock(this, name + "_tank_unit");
 			this.capacity = FluidValue.BUCKET.multiply(capacity);
 
@@ -490,7 +490,7 @@ public class TRContent {
 
 
 		Cables(int transferRate, double cableThickness, boolean canKill, RcEnergyTier tier) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
 			this.cableThickness = cableThickness / 2 / 16;
@@ -565,7 +565,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback, boolean industrial) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new ExperienceDroppingBlock(experienceDroppedFallback != null ? experienceDroppedFallback : ConstantIntProvider.create(1), TRBlockSettings.ore(name.startsWith("deepslate"), name + "_ore"));
 			this.industrial = industrial;
 			InitUtils.setup(block, name + "_ore");
@@ -676,7 +676,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		StorageBlocks(boolean isHot, float hardness, float resistance, String tagNameBase) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new BlockStorage(isHot, hardness, resistance, name + "_storage_block");
 			InitUtils.setup(block, name + "_storage_block");
 			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "storage_blocks/" + Objects.requireNonNullElse(tagNameBase, name)));
@@ -759,7 +759,7 @@ public class TRContent {
 		public final Block casing;
 
 		MachineBlocks(int casingHeatCapacity) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			frame = new BlockMachineFrame(name + "_machine_frame");
 			InitUtils.setup(frame, name + "_machine_frame");
 			casing = new BlockMachineCasing(casingHeatCapacity, name + "_machine_casing");
@@ -861,7 +861,7 @@ public class TRContent {
 		public final Block block;
 
 		<B extends Block> Machine(B block) {
-			this.name = this.toString().toLowerCase();
+			this.name = this.toString().toLowerCase(Locale.ROOT);
 			this.block = block;
 			InitUtils.setup(block, name);
 		}
@@ -898,7 +898,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Dusts(String tagNameBase) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_dust"));
 			InitUtils.setup(item, name + "_dust");
 			tag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "dusts/" + Objects.requireNonNullElse(tagNameBase, name)));
@@ -942,7 +942,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		RawMetals() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item("raw_" + name));
 			Ores oreVariant = null;
 			try {
@@ -1028,7 +1028,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		SmallDusts(String tagNameBase, ItemConvertible dustVariant) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_small_dust"));
 			if (dustVariant == null)
 				try {
@@ -1109,7 +1109,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Gems() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_gem"));
 			Dusts dustVariant = null;
 			try {
@@ -1213,7 +1213,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Ingots(String tagNameBase) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_ingot"));
 			Dusts dustVariant = null;
 			try {
@@ -1317,7 +1317,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Nuggets(String tagNameBase, ItemConvertible ingotVariant, boolean ofGem) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_nugget"));
 			if (ingotVariant == null)
 				try {
@@ -1448,7 +1448,7 @@ public class TRContent {
 		public final Item item;
 
 		Parts() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name));
 			InitUtils.setup(item, name);
 		}
@@ -1522,7 +1522,7 @@ public class TRContent {
 		private final TagKey<Item> tag;
 
 		Plates(ItemConvertible source, ItemConvertible sourceBlock, boolean industrial, String tagNameBase) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_plate"));
 			ItemConvertible sourceVariant = null;
 			if (source != null) {
@@ -1676,7 +1676,7 @@ public class TRContent {
 		public final Item item;
 
 		Upgrades(IUpgrade upgrade) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new UpgradeItem(name + "_upgrade", upgrade);
 			InitUtils.setup(item, name + "_upgrade");
 		}
