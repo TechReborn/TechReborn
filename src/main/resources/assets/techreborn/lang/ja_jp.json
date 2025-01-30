@@ -833,6 +833,7 @@
   "techreborn.jei.recipe.processing.time.3": "%s 秒",
   "techreborn.jei.recipe.heat": "熱量",
   "techreborn.jei.recipe.generator.total": "E合計: %s",
+  "techreborn.jei.recipe.energy": "エネルギー",
   "techreborn.jei.desc.rubberSap": "樹液を得るためには、あなたはゴムノキを見つけるか苗木を入手して育てる必要があります。ゴムノキを入手したら、木の周囲に小さな黄色い斑点を探します。見つけられなかった場合は、その黄色い”樹液”の斑点が出てくるまで待ちましょう。樹液を回収するには原木に木の蛇口を使用します。",
   "techreborn.jei.desc.scrapBox": "スクラップボックスは手に持って使用するか、ディスペンサーから放出して開けることができます。そうです！ディスペンサーにスクラップボックスを詰め込んでレッドストーン信号を出すだけで、ドカン！ランダムアイテム！",
   "techreborn.jei.desc.scrapBoxNoDispenser": "スクラップボックスは手に持って使用することで開けることができます！",
