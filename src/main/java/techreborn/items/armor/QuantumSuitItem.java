@@ -32,6 +32,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.ArmorMaterial;
@@ -46,6 +47,7 @@ import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRAbility;
 import techreborn.utils.TRItemUtils;
 
 import java.util.List;
@@ -94,17 +96,16 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 			case CHEST -> {
 				if (TechRebornConfig.quantumSuitEnableFlight) {
 					if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitFlyingCost) {
-						playerEntity.getAbilities().allowFlying = true;
-						playerEntity.sendAbilitiesUpdate();
-
-						if (playerEntity.getAbilities().flying) {
-							tryUseEnergy(stack, TechRebornConfig.quantumSuitFlyingCost);
+						PlayerAbilities abilities = playerEntity.getAbilities();
+						if (abilities.allowFlying) {
+							if (abilities.flying && TRAbility.hasFlyingCost(playerEntity)) {
+								tryUseEnergy(stack, TechRebornConfig.quantumSuitFlyingCost);
+							}
+						} else {
+							TRAbility.allowFlying(playerEntity);
 						}
-						playerEntity.setOnGround(true);
 					} else {
-						playerEntity.getAbilities().allowFlying = false;
-						playerEntity.getAbilities().flying = false;
-						playerEntity.sendAbilitiesUpdate();
+						TRAbility.dontAllowFlying(playerEntity);
 					}
 				}
 				if (playerEntity.isOnFire() && tryUseEnergy(stack, TechRebornConfig.fireExtinguishCost)) {
@@ -134,9 +135,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		EquipmentSlot slotType = this.getSlotType();
 		if (slotType == EquipmentSlot.CHEST && TechRebornConfig.quantumSuitEnableFlight) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
-				playerEntity.getAbilities().allowFlying = false;
-				playerEntity.getAbilities().flying = false;
-				playerEntity.sendAbilitiesUpdate();
+				TRAbility.dontAllowFlying(playerEntity);
 			}
 		} else if (slotType == EquipmentSlot.HEAD) {
 			playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);

@@ -26,6 +26,9 @@
 		"techreborn.compat.rei.ReiCommonPlugin"
     ]
   },
+  "mixins": [
+	  "techreborn.pal.mixins.json"
+  ],
   "custom": {
 	"dashloader:customobject": [
 	  "techreborn.client.compat.dashloader.DashDynamicBucketBakedModel",

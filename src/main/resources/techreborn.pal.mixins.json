@@ -1,0 +1,9 @@
+{
+	"required": false,
+	"package": "techreborn.compat.pal",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"MixinSimpleAbilityTracker",
+		"MixinVanillaAbilityTracker"
+	]
+}

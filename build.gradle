@@ -20,6 +20,14 @@ repositories {
             includeGroup "dev.architectury"
         }
 	}
+	maven {
+		name = 'Ladysnake Mods'
+		url = 'https://maven.ladysnake.org/releases'
+		content {
+			includeGroup 'io.github.ladysnake'
+			includeGroupByRegex 'org\\.ladysnake.*'
+		}
+	}
 	mavenCentral()
 }
 
@@ -190,7 +198,11 @@ dependencies {
 
     include project(":RebornCore")
 
-	optionalREIDependency(true)
+    optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", true)
+    optionalMainDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}")
+
+    // Mixin only
+    optionalMainDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.21'
@@ -202,18 +214,24 @@ dependencies {
     }
 }
 
-def optionalREIDependency(runtime = true) {
+def optionalClientDependency(String dep, runtime = true) {
 	def exclude = {
 		exclude group: "net.fabricmc.fabric-api"
 		exclude group: "net.fabricmc"
 	}
-	String dep = "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 	dependencies.modClientCompileOnly(dep, exclude)
-	dependencies.modCompileOnly(dep, exclude)
 
 	if (runtime) {
 		dependencies.modClientRuntimeOnly(dep, exclude)
 	}
+}
+
+def optionalMainDependency(String dep) {
+    def exclude = {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc"
+    }
+    dependencies.modCompileOnly(dep, exclude)
 }
 
 loom {
