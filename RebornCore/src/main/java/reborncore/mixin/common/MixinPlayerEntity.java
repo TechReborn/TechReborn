@@ -48,7 +48,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
-		if (((PlayerEntity) (Object) this).isSpectator()) return;
+		if (((PlayerEntity) (Object) this).isSpectator() || ((PlayerEntity) (Object) this).getWorld().isClient) return;
 		for (ItemStack stack : getArmorItems()) {
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorBlockEntityTicker) {
 				((ArmorBlockEntityTicker) stack.getItem()).tickArmor(stack, (PlayerEntity) (Object) this);
