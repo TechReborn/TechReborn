@@ -55,12 +55,16 @@ public abstract class MixinSimpleAbilityTracker {
 
 	@ModifyReturnValue(method = "shouldBeEnabled()Z", at = @At("TAIL"))
 	boolean checkAllowFlying(boolean enabled) {
-		if (enabled) {
-			TRAbility.allowFreeFlying(player);
+		if (isAbilityAllowFlying) {
+			if (enabled) {
+				TRAbility.allowFreeFlying(player);
+			} else {
+				TRAbility.dontAllowFreeFlying(player);
+			}
+			return TRAbility.ALLOW_FLYING.containsKey(player);
 		} else {
-			TRAbility.dontAllowFreeFlying(player);
+			return false;
 		}
-		return this.isAbilityAllowFlying && TRAbility.ALLOW_FLYING.containsKey(player);
 	}
 
 	@ModifyExpressionValue(method = "addSource(Lio/github/ladysnake/pal/AbilitySource;)V", at = @At(value = "INVOKE", target = "Lio/github/ladysnake/pal/PlayerAbilityEnableCallback;allow(Lnet/minecraft/entity/player/PlayerEntity;Lio/github/ladysnake/pal/PlayerAbility;Lio/github/ladysnake/pal/AbilitySource;)Z"))
