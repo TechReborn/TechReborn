@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) 2024 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,51 +22,14 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool.basic;
+package techreborn.init;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import reborncore.common.powerSystem.RcEnergyItem;
-import reborncore.common.powerSystem.RcEnergyTier;
-import reborncore.common.util.ItemUtils;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRItemSettings;
 
-/**
- * Created by modmuss50 on 05/11/2016.
- */
-public class ElectricTreetapItem extends Item implements RcEnergyItem {
-	public final RcEnergyTier tier = RcEnergyTier.MEDIUM;
-
-	public ElectricTreetapItem() {
-		super(TRItemSettings.unbreakable());
+public class TRItemSettings {
+	public static Item.Settings unbreakable() {
+		return new Item.Settings().component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(false));
 	}
-
-	// Item
-	@Override
-	public int getItemBarStep(ItemStack stack) {
-		return ItemUtils.getPowerForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getItemBarColor(ItemStack stack) {
-		return ItemUtils.getColorForDurabilityBar(stack);
-	}
-
-	// RcEnergyItem
-	@Override
-	public long getEnergyCapacity(ItemStack stack) {
-		return TechRebornConfig.electricTreetapCharge;
-	}
-
-	@Override
-	public RcEnergyTier getTier() {
-		return tier;
-	}
-
 }

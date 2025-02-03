@@ -26,7 +26,6 @@ package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterial;
@@ -36,6 +35,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRContent;
+import techreborn.init.TRItemSettings;
 
 
 public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
@@ -45,7 +45,7 @@ public class JackhammerItem extends PickaxeItem implements RcEnergyItem {
 	protected final float unpoweredSpeed = 0.5F;
 
 	public JackhammerItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost) {
-		super(material, new Item.Settings().maxDamage(0));
+		super(material, TRItemSettings.unbreakable());
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;

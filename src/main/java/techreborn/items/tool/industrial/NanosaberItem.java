@@ -32,7 +32,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.SwordItem;
@@ -48,6 +47,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.component.TRDataComponentTypes;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRItemSettings;
 import techreborn.init.TRToolMaterials;
 import techreborn.utils.TRItemUtils;
 
@@ -61,8 +61,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem() {
-		super(TRToolMaterials.NANOSABER, new Item.Settings()
-			.maxDamage(0)
+		super(TRToolMaterials.NANOSABER, TRItemSettings.unbreakable()
 			.attributeModifiers(PickaxeItem.createAttributeModifiers(TRToolMaterials.NANOSABER, 1, 1))
 		);
 	}

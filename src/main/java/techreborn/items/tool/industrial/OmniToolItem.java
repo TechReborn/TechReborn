@@ -39,14 +39,14 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.init.TRItemSettings;
 import techreborn.init.TRToolMaterials;
 
 
 public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler {
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, new Item.Settings()
-			.maxDamage(0)
+		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, TRItemSettings.unbreakable()
 			.attributeModifiers(PickaxeItem.createAttributeModifiers(TRToolMaterials.OMNI_TOOL, 3, 1)
 		));
 	}
