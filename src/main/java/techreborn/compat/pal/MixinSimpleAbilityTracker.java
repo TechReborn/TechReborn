@@ -53,17 +53,18 @@ public abstract class MixinSimpleAbilityTracker {
 		isAbilityAllowFlying = ability == VanillaAbilities.ALLOW_FLYING;
 	}
 
-	@ModifyReturnValue(method = "shouldBeEnabled()Z", at = @At("TAIL"))
+	@ModifyReturnValue(method = "shouldBeEnabled()Z", at = @At("RETURN"))
 	boolean checkAllowFlying(boolean enabled) {
 		if (isAbilityAllowFlying) {
 			if (enabled) {
 				TRAbility.allowFreeFlying(player);
+				return true;
 			} else {
 				TRAbility.dontAllowFreeFlying(player);
+				return TRAbility.ALLOW_FLYING.containsKey(player);
 			}
-			return TRAbility.ALLOW_FLYING.containsKey(player);
 		} else {
-			return false;
+			return enabled;
 		}
 	}
 
