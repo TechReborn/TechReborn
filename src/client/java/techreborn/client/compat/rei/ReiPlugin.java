@@ -27,6 +27,7 @@ package techreborn.client.compat.rei;
 import dev.architectury.event.CompoundEventResult;
 import dev.architectury.fluid.FluidStack;
 import me.shedaniel.math.Rectangle;
+import me.shedaniel.rei.api.client.config.ConfigObject;
 import me.shedaniel.rei.api.client.entry.renderer.EntryRenderer;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
@@ -42,9 +43,15 @@ import me.shedaniel.rei.api.client.util.ClientEntryStacks;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.entry.comparison.ComparisonContext;
 import me.shedaniel.rei.api.common.entry.comparison.ItemComparatorRegistry;
+import me.shedaniel.rei.api.common.entry.type.EntryTypeRegistry;
+import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.fluid.FluidSupportProvider;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import me.shedaniel.rei.impl.client.config.ConfigObjectImpl;
+import me.shedaniel.rei.impl.client.gui.config.options.AllREIConfigOptions;
+import me.shedaniel.rei.plugin.client.entry.ItemEntryDefinition;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
@@ -115,6 +122,8 @@ public class ReiPlugin implements REIClientPlugin {
 		iconMap.put(ModRecipes.SOLID_CANNING_MACHINE, Machine.SOLID_CANNING_MACHINE);
 		iconMap.put(ModRecipes.VACUUM_FREEZER, Machine.VACUUM_FREEZER);
 		iconMap.put(ModRecipes.WIRE_MILL, Machine.WIRE_MILL);
+		// Fix cell equals bucket
+		AllREIConfigOptions.CACHED_DISPLAY_LOOKUP.getSave().accept((ConfigObjectImpl) ConfigObject.getInstance(), false);
 	}
 
 	@Override
@@ -203,11 +212,31 @@ public class ReiPlugin implements REIClientPlugin {
 	}
 
 	@Override
+	public double getPriority() {
+		return 1;
+	}
+
+	@Override
+	public void registerEntryTypes(EntryTypeRegistry registry) {
+		registry.register(VanillaEntryTypes.ITEM, new ItemEntryDefinition() {
+			@Override
+			public boolean equals(ItemStack left, ItemStack right, ComparisonContext context) {
+				if (context != ComparisonContext.FUZZY
+					|| !(left.getItem() instanceof ItemFluidInfo leftInfo)
+					|| !(right.getItem() instanceof ItemFluidInfo rightInfo)) {
+					return super.equals(left, right, context);
+				}
+				return leftInfo.getFluid(left) == rightInfo.getFluid(right);
+			}
+		});
+	}
+
+	@Override
 	public void registerFluidSupport(FluidSupportProvider support) {
 		support.register(stack -> {
 			ItemStack itemStack = stack.getValue();
-			if (itemStack.getItem() instanceof ItemFluidInfo) {
-				Fluid fluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
+			if (itemStack.getItem() instanceof ItemFluidInfo fluidInfo) {
+				Fluid fluid = fluidInfo.getFluid(itemStack);
 				if (fluid != null)
 					return CompoundEventResult.interruptTrue(Stream.of(EntryStacks.of(fluid)));
 			}
