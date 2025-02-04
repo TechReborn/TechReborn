@@ -36,6 +36,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.CraftingRecipeInput;
+import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
@@ -83,6 +84,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	CraftingInventory inventoryCrafting = null;
 	CraftingRecipe lastRecipe = null;
+	ItemStack outputPreview = ItemStack.EMPTY;
 
 	Item[] layoutInv = new Item[CRAFTING_AREA];
 
@@ -93,22 +95,33 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Nullable
-	public CraftingRecipe getCurrentRecipe() {
-		if (world == null) return null;
-		CraftingInventory craftingInventory = getCraftingInventory();
-		if (craftingInventory.isEmpty()) return null;
-
-		if (lastRecipe != null && lastRecipe.matches(getRecipeInput(), world)) return lastRecipe;
+	public CraftingRecipe getCurrentRecipe(CraftingInventory craftingInventory, CraftingRecipeInput input) {
+		if (lastRecipe != null && lastRecipe.matches(input, world)) {
+			if (outputPreview == ItemStack.EMPTY) {
+				layoutInv = getCraftingLayout(craftingInventory);
+				outputPreview = lastRecipe.craft(input, world.getRegistryManager());
+			} else if (lastRecipe instanceof SpecialCraftingRecipe) {
+				Item[] currentInvLayout = getCraftingLayout(craftingInventory);
+				if (!Arrays.equals(layoutInv, currentInvLayout)) {
+					layoutInv = currentInvLayout;
+					outputPreview = lastRecipe.craft(input, world.getRegistryManager());
+				}
+			}
+			return lastRecipe;
+		}
 
 		Item[] currentInvLayout = getCraftingLayout(craftingInventory);
 		if (Arrays.equals(layoutInv, currentInvLayout)) return null;
 
 		layoutInv = currentInvLayout;
 
-		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, getRecipeInput(), world).map(RecipeEntry::value);
+		Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, input, world).map(RecipeEntry::value);
 		if (testRecipe.isPresent()) {
 			lastRecipe = testRecipe.get();
+			outputPreview = lastRecipe.craft(input, world.getRegistryManager());
 			return lastRecipe;
+		} else {
+			outputPreview = ItemStack.EMPTY;
 		}
 
 		return null;
@@ -143,27 +156,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	// Check if we have recipe, inputs and space for outputs
-	private boolean canMake(CraftingRecipe recipe) {
-		if (world == null) return false;
-		if (recipe == null) return false;
+	private boolean canMake(CraftingRecipe recipe, CraftingRecipeInput input) {
+		if (!hasOutputSpace(outputPreview, OUTPUT_SLOT)) return false;
 
-		CraftingInventory crafting = getCraftingInventory();
-		if (crafting.isEmpty()) return false;
-
-		// Don't allow recipe to change (Keep at least one of each slot stocked, assuming it's actually a recipe)
-		if (locked) {
-			for (int i = 0; i < CRAFTING_AREA; i++) {
-				if (crafting.getStack(i).getCount() == 1) {
-					return false;
-				}
-			}
-		}
-
-		if (!recipe.matches(getRecipeInput(), world)) return false;
-
-		if (!hasOutputSpace(recipe.getResult(world.getRegistryManager()), OUTPUT_SLOT)) return false;
-
-		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(getRecipeInput());
+		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(input);
 
 		// Need to check whole list in case of several different reminders
 		boolean canFitReminder = true;
@@ -202,57 +198,55 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
-	private boolean make(CraftingRecipe recipe) {
-		if (recipe == null || !canMake(recipe)) {
+	private boolean make(CraftingRecipe recipe, CraftingRecipeInput input) {
+		if (recipe == null || !canMake(recipe, input)) {
 			return false;
 		}
 		DefaultedList<Ingredient> ingredients = recipe.getIngredients();
-		// each slot can only be used once because in canMake we only checked if decrement by 1 still retains the recipe
-		// otherwise recipes can break when an ingredient is used multiple times
-		boolean[] slotUsed = new boolean[CRAFTING_AREA];
-		for (int i = 0; i < recipe.getIngredients().size(); i++) {
-			Ingredient ingredient = ingredients.get(i);
-			// Looks for the best slot to take it from
-			ItemStack bestSlot = inventory.getStack(i);
-			if (ingredient.test(bestSlot) && !slotUsed[i]) {
-				slotUsed[i] = true;
-				ItemStack remainderStack = getRemainderItem(bestSlot);
-				bestSlot.decrement(1);
-				if (!remainderStack.isEmpty()) {
-					moveExtraOutput(remainderStack);
-				}
+		if (ingredients.isEmpty()) {
+			input.getStacks().forEach(stack -> stack.decrement(1));
+		} else {
+			// each slot can only be used once because in canMake we only checked if decrement by 1 still retains the recipe
+			// otherwise recipes can break when an ingredient is used multiple times
+			boolean[] slotUsed = new boolean[CRAFTING_AREA];
+			for (int i = 0; i < ingredients.size(); i++) {
+				Ingredient ingredient = ingredients.get(i);
+				// Looks for the best slot to take it from
+				ItemStack bestSlot = inventory.getStack(i);
+				if (ingredient.test(bestSlot) && !slotUsed[i]) {
+					slotUsed[i] = true;
+					ItemStack remainderStack = getRemainderItem(bestSlot);
+					bestSlot.decrement(1);
+					if (!remainderStack.isEmpty()) {
+						moveOutput(remainderStack, EXTRA_OUTPUT_SLOT);
+					}
 
-			} else {
-				// check all slots in search of the ingredient
-				for (int j = 0; j < CRAFTING_AREA; j++) {
-					ItemStack stack = inventory.getStack(j);
-					if (ingredient.test(stack) && !slotUsed[j]) {
-						slotUsed[j] = true;
-						ItemStack remainderStack = getRemainderItem(stack);
-						stack.decrement(1);
-						if (!remainderStack.isEmpty()) {
-							moveExtraOutput(remainderStack);
+				} else {
+					// check all slots in search of the ingredient
+					for (int j = 0; j < CRAFTING_AREA; j++) {
+						ItemStack stack = inventory.getStack(j);
+						if (ingredient.test(stack) && !slotUsed[j]) {
+							slotUsed[j] = true;
+							ItemStack remainderStack = getRemainderItem(stack);
+							stack.decrement(1);
+							if (!remainderStack.isEmpty()) {
+								moveOutput(remainderStack, EXTRA_OUTPUT_SLOT);
+							}
 						}
 					}
 				}
 			}
 		}
-		ItemStack output = inventory.getStack(OUTPUT_SLOT);
-		ItemStack outputStack = recipe.craft(getRecipeInput(), world.getRegistryManager());
-		if (output.isEmpty()) {
-			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
-		} else {
-			output.increment(recipe.getResult(world.getRegistryManager()).getCount());
-		}
+		moveOutput(outputPreview, OUTPUT_SLOT);
 		return true;
 	}
 
-	private void moveExtraOutput(ItemStack stack) {
-		ItemStack currentExtraOutput = inventory.getStack(EXTRA_OUTPUT_SLOT);
-		if (currentExtraOutput.isEmpty()) {
-			inventory.setStack(EXTRA_OUTPUT_SLOT, stack.copy());
+	private void moveOutput(ItemStack stack, int slot) {
+		ItemStack currentOutput = inventory.getStack(slot);
+		if (currentOutput.isEmpty()) {
+			inventory.setStack(slot, stack.copy());
 		} else {
-			currentExtraOutput.increment(stack.getCount());
+			currentOutput.increment(stack.getCount());
 		}
 	}
 
@@ -264,15 +258,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return ItemStack.EMPTY;
 	}
 
-	private Optional<CraftingInventory> balanceRecipe(CraftingInventory craftCache) {
-		if (world == null || world.isClient) return Optional.empty();
-		if (craftCache.isEmpty()) return Optional.empty();
-
-		CraftingRecipe currentRecipe = getCurrentRecipe();
-		if (currentRecipe == null) {
-			return Optional.empty();
-		}
-
+	private Optional<CraftingInventory> balanceRecipe(CraftingInventory craftCache, CraftingRecipe currentRecipe) {
 		balanceSlot++;
 		if (balanceSlot > craftCache.size()) {
 			balanceSlot = 0;
@@ -371,21 +357,38 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (world == null || world.isClient) {
 			return;
 		}
-		CraftingRecipe recipe = getCurrentRecipe();
+		CraftingInventory inventory = getCraftingInventory();
+		if (inventory.isEmpty()) {
+			if (progress == 0) return;
+			progress = 0;
+			outputPreview = ItemStack.EMPTY;
+			return;
+		}
+		CraftingRecipeInput input = getRecipeInput(inventory);
+		CraftingRecipe recipe = getCurrentRecipe(inventory, input);
 		if (recipe == null) {
 			progress = 0;
 			return;
 		}
 
-		Optional<CraftingInventory> balanceResult = balanceRecipe(getCraftingInventory());
+		Optional<CraftingInventory> balanceResult = balanceRecipe(inventory, recipe);
 		balanceResult.ifPresent(craftingInventory -> inventoryCrafting = craftingInventory);
 
+		// Don't allow recipe to change (Keep at least one of each slot stocked, assuming it's actually a recipe)
+		if (locked) {
+			for (ItemStack stack : input.getStacks()) {
+				if (stack.getCount() == 1) {
+					return;
+				}
+			}
+		}
+
 		if (progress >= maxProgress) {
-			if (make(recipe)) {
+			if (make(recipe, input)) {
 				progress = 0;
 			}
 		} else {
-			if (canMake(recipe)) {
+			if (canMake(recipe, input)) {
 				if (getStored() > euTick) {
 					progress++;
 					if (progress == 1) {
@@ -464,7 +467,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
 			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
 			.sync(PacketCodecs.INTEGER, this::getMaxProgress, this::setMaxProgress)
-			.sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+			.sync(PacketCodecs.INTEGER, this::getLockedInt, this::setLockedInt)
+			.sync(ItemStack.OPTIONAL_PACKET_CODEC, this::getOutputPreview, this::setOutputPreview)
+			.addInventory().create(this, syncID);
 	}
 
 	public int getProgress() {
@@ -494,8 +499,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		locked = lockedInt == 1;
 	}
 
-	private CraftingRecipeInput getRecipeInput() {
-		CraftingInventory craftingInventory = getCraftingInventory();
+	public ItemStack getOutputPreview() {
+		return outputPreview;
+	}
+
+	public void setOutputPreview(ItemStack stack) {
+		outputPreview = stack;
+	}
+
+	private CraftingRecipeInput getRecipeInput(CraftingInventory craftingInventory) {
 		List<ItemStack> stacks = new ArrayList<>(craftingInventory.size());
 		for (int i = 0; i < craftingInventory.size(); i++) {
 			stacks.add(craftingInventory.getStack(i));
