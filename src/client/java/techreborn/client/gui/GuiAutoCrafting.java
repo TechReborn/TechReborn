@@ -27,7 +27,6 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.CraftingRecipe;
 import reborncore.client.ClientNetworkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
@@ -72,9 +71,12 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 		drawOutputSlot(drawContext, 145, 42, layer);
 		drawOutputSlot(drawContext, 145, 70, layer);
 
-		CraftingRecipe recipe = blockEntityAutoCraftingTable.getCurrentRecipe();
-		if (recipe != null) {
-			renderItemStack(drawContext, recipe.getOutput(getMachine().getWorld().getRegistryManager()), 95 + getGuiLeft(), 42 + getGuiTop());
+		ItemStack result = blockEntityAutoCraftingTable.getOutputPreview();
+		if (result != null) {
+			int x = 95 + getGuiLeft();
+			int y = 42 + getGuiTop();
+			drawContext.drawItem(result, x, y);
+			drawContext.drawItemInSlot(getTextRenderer(), result, x, y, null);
 		}
 
 		builder.drawLockButton(drawContext, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);

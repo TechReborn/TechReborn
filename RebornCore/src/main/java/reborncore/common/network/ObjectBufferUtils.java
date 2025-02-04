@@ -24,6 +24,7 @@
 
 package reborncore.common.network;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
@@ -82,7 +83,11 @@ public enum ObjectBufferUtils {
 
 	COMPOUND_TAG(NbtCompound.class, (value, buffer) -> {
 		buffer.writeNbt(value);
-	}, PacketByteBuf::readNbt);
+	}, PacketByteBuf::readNbt),
+
+	ITEM_STACK(ItemStack.class, (value, buffer) -> {
+		buffer.writeItemStack(value);
+	}, PacketByteBuf::readItemStack);
 
 	Class clazz;
 	ObjectWriter writer;
