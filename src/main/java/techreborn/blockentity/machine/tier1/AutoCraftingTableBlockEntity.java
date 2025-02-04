@@ -151,8 +151,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (!(world instanceof ServerWorld serverWorld)) return false;
 
 		if (lastRecipe != null && lastRecipe.matches(input, world)) {
-			if (lastRecipe instanceof SpecialCraftingRecipe || outputPreview == ItemStack.EMPTY) {
+			if (outputPreview == ItemStack.EMPTY) {
 				balanceTable.updateLayout(input);
+				outputPreview = lastRecipe.craft(input, world.getRegistryManager());
+			} else if (lastRecipe instanceof SpecialCraftingRecipe && balanceTable.updateLayout(input)) {
 				outputPreview = lastRecipe.craft(input, world.getRegistryManager());
 			}
 			return true;
@@ -248,6 +250,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			if (progress == 0) return;
 			progress = 0;
 			outputPreview = ItemStack.EMPTY;
+			return;
 		}
 		CraftingRecipeInput.Positioned positioned = inventoryCrafting.createPositionedRecipeInput();
 		CraftingRecipeInput input = positioned.input();
