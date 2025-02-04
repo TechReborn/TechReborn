@@ -10,7 +10,7 @@
       "item": "minecraft:purpur_block"
     },
 	"E": {
-	  "tag": "c:dusts/endstone_small"
+	  "tag": "c:small_dusts/endstone"
 	},
     "P": {
       "item": "minecraft:purpur_pillar"

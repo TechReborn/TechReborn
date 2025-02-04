@@ -3,7 +3,7 @@
 	"group": "iridium_reinforced_tungstensteel_storage_block",
     "ingredients": [
         {
-            "tag": "c:tungstensteel_blocks"
+            "tag": "c:storage_blocks/tungstensteel"
         },
         {
             "tag": "c:plates/iridium"

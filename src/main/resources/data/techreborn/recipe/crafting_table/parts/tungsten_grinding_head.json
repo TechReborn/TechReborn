@@ -7,7 +7,7 @@
     ],
     "key": {
         "B": {
-            "tag": "c:steel_blocks"
+            "tag": "c:storage_blocks/steel"
         },
         "S": {
             "tag": "c:ingots/steel"

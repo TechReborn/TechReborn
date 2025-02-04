@@ -3,7 +3,7 @@
 	"group": "iridium_reinforced_tungstensteel_storage_block",
     "ingredients": [
         {
-            "tag": "c:iridium_reinforced_stone_blocks"
+            "tag": "c:storage_blocks/iridium_reinforced_stone"
         },
         {
             "item": "techreborn:tungstensteel_ingot"

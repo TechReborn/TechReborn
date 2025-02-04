@@ -11,7 +11,7 @@
 	  "conditions": {
 		"items": [
 		  {
-			"tag": "c:steel_blocks"
+			"tag": "c:storage_blocks/steel"
 		  }
 		]
 	  }
