@@ -328,7 +328,7 @@ public class ReiPlugin implements REIClientPlugin {
 			}
 
 			public void drawFluid(DrawContext drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
-				y += height;
+				y += height - drawHeight;
 
 				FluidRenderHandler handler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
 
@@ -338,23 +338,19 @@ public class ReiPlugin implements REIClientPlugin {
 				}
 
 				final Sprite sprite = handler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
-				int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
-
-				final int iconHeight = sprite.getContents().getHeight();
-				int offsetHeight = drawHeight;
-
+				int color = handler.getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
 				drawContext.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
 
-				int iteration = 0;
-				while (offsetHeight != 0) {
-					final int curHeight = Math.min(offsetHeight, iconHeight);
-
-					drawContext.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
-					offsetHeight -= curHeight;
-					iteration++;
-					if (iteration > 50) {
-						break;
-					}
+				int count = drawHeight / width;
+				int remainder = drawHeight % width;
+				for (int i = 0; i < count; i++) {
+					drawContext.drawSprite(x, y, 0, width, width, sprite);
+					y += width;
+				}
+				if (remainder != 0) {
+					drawContext.enableScissor(x, y, x + width, y + remainder);
+					drawContext.drawSprite(x, y, 0, width, width, sprite);
+					drawContext.disableScissor();
 				}
 				drawContext.setShaderColor(1, 1, 1, 1);
 			}

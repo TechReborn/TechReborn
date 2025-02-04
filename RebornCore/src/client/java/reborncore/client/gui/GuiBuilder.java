@@ -640,26 +640,24 @@ public class GuiBuilder {
 		if (fluid.getFluid() == Fluids.EMPTY) {
 			return;
 		}
-		y += height;
 		final Sprite sprite = FluidVariantRendering.getSprite(fluid.getVariant());
 		int color = FluidVariantRendering.getColor(fluid.getVariant());
-
 		final int drawHeight = (int) (fluid.getAmount().getRawValue() / (maxCapacity * 1F) * height);
-		final int iconHeight = sprite.getContents().getHeight();
-		int offsetHeight = drawHeight;
+		y += height - drawHeight;
+		int count = drawHeight / width;
+		int remainder = drawHeight % width;
 
 		drawContext.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
-
-		int iteration = 0;
-		while (offsetHeight != 0) {
-			final int curHeight = offsetHeight < iconHeight ? offsetHeight : iconHeight;
-
-			drawContext.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
-			offsetHeight -= curHeight;
-			iteration++;
-			if (iteration > 50) {
-				break;
-			}
+		for (int i = 0; i < count; i++) {
+			drawContext.drawSprite(x, y, 0, width, width, sprite);
+			y += width;
+		}
+		if (remainder != 0) {
+			int x2 = x + gui.getGuiLeft();
+			int y2 = y + gui.getGuiTop();
+			drawContext.enableScissor(x2, y2, x2 + width, y2 + remainder);
+			drawContext.drawSprite(x, y, 0, width, width, sprite);
+			drawContext.disableScissor();
 		}
 		drawContext.setShaderColor(1, 1, 1, 1);
 	}
