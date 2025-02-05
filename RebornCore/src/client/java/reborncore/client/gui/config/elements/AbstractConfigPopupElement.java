@@ -36,8 +36,11 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.MachineFacing;
@@ -69,12 +72,12 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 		final BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
 		final BakedModel model = dispatcher.getModels().getModel(defaultState);
 
-		drawState(drawContext, gui, model, defaultState, dispatcher, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //left
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F)); //top
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 23, null); //centre
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F)); //bottom
-		drawState(drawContext, gui, model, defaultState, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //right
-		drawState(drawContext, gui, model, defaultState, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F)); //back
+		drawState(drawContext, gui, model, defaultState, dispatcher, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), 0, 0); //left
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F), 0, 0); //top
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 23, null, 0, 0); //centre
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F), 0, 16); //bottom
+		drawState(drawContext, gui, model, defaultState, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), 0, 0); //right
+		drawState(drawContext, gui, model, defaultState, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F), 16, 0); //back
 
 		drawSateColor(drawContext, gui, MachineFacing.UP.getFacing(machine), 22, -1);
 		drawSateColor(drawContext, gui, MachineFacing.FRONT.getFacing(machine), 22, 18);
@@ -127,10 +130,19 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 						BlockRenderManager dispatcher,
 						int x,
 						int y,
-						Quaternionf quaternion) {
+						Quaternionf quaternion,
+						int paddingLeft,
+						int paddingTop) {
 		MatrixStack matrixStack = drawContext.getMatrices();
+		Matrix4f positionMatrix = matrixStack.peek().getPositionMatrix();
+		int left = gui.getGuiLeft() + getX() + x;
+		int top = gui.getGuiTop() + getY() + y;
+		Vector3f vector3f = positionMatrix.transformPosition(left + paddingLeft, top + paddingTop, 0.0F, new Vector3f());
+		Vector3f vector3f2 = positionMatrix.transformPosition(left + paddingLeft + 16, top + paddingTop + 16, 0.0F, new Vector3f());
+		drawContext.enableScissor(MathHelper.floor(vector3f.x), MathHelper.floor(vector3f.y), MathHelper.floor(vector3f2.x), MathHelper.floor(vector3f2.y));
+
 		matrixStack.push();
-		matrixStack.translate(8 + gui.getGuiLeft() + getX() + x, 8 + gui.getGuiTop() + getY() + y, 0);
+		matrixStack.translate(left + 8, top + 8, 0);
 		matrixStack.scale(16F, 16F, 16F);
 		matrixStack.translate(0.5F, 0.5F, 0);
 		matrixStack.scale(-1, -1, 0);
@@ -143,5 +155,6 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 		dispatcher.getModelRenderer().render(matrixStack.peek(), immediate.getBuffer(RenderLayer.getSolid()), actualState, model, 1F, 1F, 1F, OverlayTexture.getU(15F), OverlayTexture.DEFAULT_UV);
 		immediate.draw();
 		matrixStack.pop();
+		drawContext.disableScissor();
 	}
 }
