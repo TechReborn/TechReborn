@@ -27,7 +27,6 @@ package techreborn.packets;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.network.IdentifiedPacket;
@@ -349,6 +348,6 @@ public class ServerboundPackets {
 	}
 
 	public static IdentifiedPacket createPacketToggleQuantumSprint() {
-		return NetworkManager.createServerBoundPacket(QUANTUM_SUIT_SPRINT, buf -> { }); 
+		return NetworkManager.createServerBoundPacket(QUANTUM_SUIT_SPRINT, buf -> { });
 	}
 }
