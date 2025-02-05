@@ -71,7 +71,7 @@ public class GuiBuilder {
 		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_TOP_RIGHT, x + width - 5, y);
 
 		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_BOTTOM_LEFT, x, y + height - 5);
-		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_BOTTOM_RIGHT, x + height - 5, y + width - 5);
+		drawSprite(drawContext, GuiSprites.BACKGROUND_CORNER_BOTTOM_RIGHT, x + width - 5, y + height - 5);
 	}
 
 	public void drawPlayerSlots(DrawContext drawContext, Screen gui, int posX, int posY, boolean center) {
