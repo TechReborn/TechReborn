@@ -68,9 +68,9 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	private CraftingInventory craftCache;
 	public final RebornInventory<RollingMachineBlockEntity> inventory = new RebornInventory<>(12, "RollingMachineBlockEntity", 64, this);
 	public boolean isRunning;
-	public int tickTime;
+	public int tickTime = 0;
 	// Only synced to the client
-	public int currentRecipeTime;
+	public int currentRecipeTime = 0;
 	public ItemStack currentRecipeOutput = ItemStack.EMPTY;
 	public RollingMachineRecipe currentRecipe;
 	private final int outputSlot;
@@ -131,7 +131,6 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		// Now we ensured we can make something. Check energy state.
 		if (getStored() > getEuPerTick(currentRecipe.getPower())
-			&& tickTime < Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)
 			&& canMake(craftMatrix)) {
 			setIsActive(true);
 			useEnergy(getEuPerTick(currentRecipe.getPower()));
@@ -142,7 +141,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		// Cached recipe or valid recipe exists.
 		// checked if we can make at least one.
-		if (tickTime >= Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1)) {
+		if (tickTime >= currentRecipeTime) {
 			//craft one
 			if (inventory.getStack(outputSlot).isEmpty()) {
 				inventory.setStack(outputSlot, currentRecipeOutput.copy());
@@ -152,6 +151,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 				inventory.getStack(outputSlot).increment(currentRecipeOutput.getCount());
 			}
 			tickTime = 0;
+			currentRecipeTime = Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
 			for (int i = 0; i < craftMatrix.size(); i++) {
 				inventory.shrinkSlot(i, 1);
 			}
@@ -357,10 +357,12 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		for (RollingMachineRecipe recipe : getAllRecipe(world)) {
 			if (recipe.matches(inv, world)) {
 				lastRecipe = recipe;
+				currentRecipeTime = Math.max((int) (recipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
 				return recipe;
 			}
 		}
 		lastRecipe = null;
+		currentRecipeTime = 0;
 		return null;
 	}
 
@@ -437,11 +439,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getCurrentRecipeTime() {
-		if (currentRecipe != null) {
-			return currentRecipe.getTime();
-		}
-
-		return 0;
+		return currentRecipeTime;
 	}
 
 	public RollingMachineBlockEntity setCurrentRecipeTime(int currentRecipeTime) {
@@ -459,8 +457,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getProgressScaled(final int scale) {
-		if (tickTime != 0 && Math.max((int) (currentRecipeTime * (1.0 - getSpeedMultiplier())), 1) != 0) {
-			return tickTime * scale / Math.max((int) (currentRecipeTime * (1.0 - getSpeedMultiplier())), 1);
+		if (tickTime != 0 && currentRecipeTime != 0) {
+			return tickTime * scale / currentRecipeTime;
 		}
 		return 0;
 	}
