@@ -112,12 +112,12 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 		final BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
 		final BakedModel model = dispatcher.getModels().getModel(defaultState);
 
-		drawState(drawContext, gui, model, defaultState, dispatcher, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //left
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F)); //top
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 23, null); //centre
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F)); //bottom
-		drawState(drawContext, gui, model, defaultState, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //right
-		drawState(drawContext, gui, model, defaultState, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F)); //back
+		drawState(drawContext, gui, model, defaultState, dispatcher, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), 0, 0); //left
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F), 0, 0); //top
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 23, null, 0, 0); //centre
+		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F), 0, 16); //bottom
+		drawState(drawContext, gui, model, defaultState, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), 0, 0); //right
+		drawState(drawContext, gui, model, defaultState, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F), 16, 0); //back
 
 		if (mouseDown) {
 			for (int i = 0; i < 6; i++) {
@@ -188,10 +188,15 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 						BlockRenderManager dispatcher,
 						int x,
 						int y,
-						Quaternionf quaternion) {
+						Quaternionf quaternion,
+						int paddingLeft,
+						int paddingTop) {
+		int left = gui.getGuiLeft() + getX() + x;
+		int top = gui.getGuiTop() + getY() + y;
+		drawContext.enableScissor(left + paddingLeft, top + paddingTop, left + paddingLeft + 16, top + paddingTop + 16);
 		MatrixStack matrixStack = drawContext.getMatrices();
 		matrixStack.push();
-		matrixStack.translate(8 + gui.getGuiLeft() + getX() + x, 8 + gui.getGuiTop() + getY() + y, 0);
+		matrixStack.translate(left + 8, top + 8, 0);
 		matrixStack.scale(16F, 16F, 16F);
 		matrixStack.translate(0.5F, 0.5F, 0);
 		matrixStack.scale(-1, -1, 0);
@@ -204,6 +209,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 			dispatcher.getModelRenderer().render(matrixStack.peek(), vertexConsumers.getBuffer(RenderLayer.getSolid()), actualState, model, 1F, 1F, 1F, OverlayTexture.getU(15F), OverlayTexture.DEFAULT_UV);
 		});
 		matrixStack.pop();
+		drawContext.disableScissor();
 	}
 
 	protected abstract int getPencilColor(String pencil);
