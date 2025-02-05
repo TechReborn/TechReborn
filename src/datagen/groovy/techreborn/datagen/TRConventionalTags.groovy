@@ -150,6 +150,10 @@ class TRConventionalTags {
 	public static final TagKey<Item> ZINC_BLOCKS = register("zinc_blocks")
 	public static final TagKey<Item> ZINC_DUSTS = register("zinc_dusts")
 	public static final TagKey<Item> ZINC_INGOTS = register("zinc_ingots")
+	public static final TagKey<Item> SULFUR_ORES = register("sulfur_ores")
+	public static final TagKey<Item> LIMESTORE = register("limestone")
+	public static final TagKey<Item> MARBLE = register("marble")
+	public static final TagKey<Item> SULFURS = register("sulfurs")
 
 	private static TagKey<Item> register(String name) {
 		return TagKey.of(RegistryKeys.ITEM, new Identifier("c", name))

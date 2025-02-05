@@ -25,6 +25,7 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.ItemTags
@@ -529,14 +530,16 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 220
-			ingredients tag("c:sulfur_ores")
+			ingredients TRConventionalTags.SULFUR_ORES
 			outputs stack("techreborn:sulfur_dust", 2)
+			condition DefaultResourceConditions.tagsPopulated(TRConventionalTags.SULFUR_ORES)
 		}
 		offerGrinderRecipe {
 			power 2
 			time 200
-			ingredients tag("c:sulfurs")
+			ingredients TRConventionalTags.SULFURS
 			outputs stack("techreborn:sulfur_dust")
+			condition DefaultResourceConditions.tagsPopulated(TRConventionalTags.SULFURS)
 		}
 		offerGrinderRecipe {
 			power 2
@@ -547,8 +550,9 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 180
-			ingredients tag("c:limestone")
+			ingredients TRConventionalTags.LIMESTORE
 			outputs stack("techreborn:marble_dust")
+			condition DefaultResourceConditions.tagsPopulated(TRConventionalTags.LIMESTORE)
 		}
 		offerGrinderRecipe {
 			power 4
@@ -559,8 +563,9 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 180
-			ingredients tag("c:marble")
+			ingredients TRConventionalTags.MARBLE
 			outputs stack("techreborn:marble_dust")
+			condition DefaultResourceConditions.tagsPopulated(TRConventionalTags.MARBLE)
 		}
 		offerGrinderRecipe {
 			power 6
