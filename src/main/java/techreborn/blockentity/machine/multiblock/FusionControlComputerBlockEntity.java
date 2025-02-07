@@ -305,18 +305,17 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 				}
 			}
 			if (hasStartedCrafting && craftingTickTime < currentRecipe.getTime()) {
+				int recipePower = currentRecipe.getPower();
 				// Power gen
-				if (currentRecipe.getPower() > 0) {
+				if (recipePower > 0) {
 					// Waste power if it has nowhere to go
-					long power = (long) (Math.abs(currentRecipe.getPower()) * getPowerMultiplier());
+					long power = (long) (Math.abs(recipePower) * getPowerMultiplier());
 					addEnergy(power);
 					powerChange = (power);
 					craftingTickTime++;
-				} else { // Power user
-					if (getStored() > currentRecipe.getPower()) {
-						setEnergy(getEnergy() - currentRecipe.getPower());
-						craftingTickTime++;
-					}
+				} else if (getStored() > -recipePower) { // Power user
+					setEnergy(getEnergy() + recipePower);
+					craftingTickTime++;
 				}
 			} else if (craftingTickTime >= currentRecipe.getTime()) {
 				ItemStack result = currentRecipe.getOutputs(getWorld().getRegistryManager()).get(0);
