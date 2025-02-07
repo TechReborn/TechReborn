@@ -155,36 +155,28 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return inventoryCrafting;
 	}
 
-	// Check if we have recipe, inputs and space for outputs
-	private boolean canMake(CraftingRecipe recipe, CraftingRecipeInput input) {
-		if (!hasOutputSpace(outputPreview, OUTPUT_SLOT)) return false;
-
+	@Nullable
+	private ItemStack getRecipeRemainder(CraftingRecipe recipe, CraftingRecipeInput input) {
 		DefaultedList<ItemStack> remainingStacks = recipe.getRemainder(input);
-
-		// Need to check whole list in case of several different reminders
-		boolean canFitReminder = true;
-		ItemStack recipeReminder = ItemStack.EMPTY;
-		for (ItemStack reminderStack : remainingStacks) {
-			// No crafting reminder
-			if (reminderStack.isEmpty()) continue;
-
-			if (!recipeReminder.isEmpty() && !ItemUtils.isItemEqual(recipeReminder, reminderStack, true, false)){
-				// We've got different reminder, excluding case of no reminder from current ingredient
-				canFitReminder = false;
-				break;
-			}
-
-			// Create a copy to avoid changes of original ItemStack
-			recipeReminder = reminderStack.copy();
-
-			recipeReminder.setCount((int) remainingStacks.stream().filter(reminder -> ItemUtils.isItemEqual(reminder, reminderStack, true, false)).count());
-			if (!hasOutputSpace(recipeReminder, EXTRA_OUTPUT_SLOT)) {
-				canFitReminder = false;
+		ItemStack reminderStack, recipeReminder = ItemStack.EMPTY;
+		for (int slot = 0, size = remainingStacks.size(); slot < size; slot++) {
+			reminderStack = remainingStacks.get(slot);
+			if (!reminderStack.isEmpty()) {
+				recipeReminder = reminderStack.copy();
+				for (slot = slot + 1; slot < size; slot++) {
+					reminderStack = remainingStacks.get(slot);
+					if (!reminderStack.isEmpty()) {
+						if (ItemUtils.isItemEqual(recipeReminder, reminderStack, true, true)) {
+							recipeReminder.increment(reminderStack.getCount());
+						} else {
+							return null;
+						}
+					}
+				}
 				break;
 			}
 		}
-
-		return canFitReminder;
+		return recipeReminder;
 	}
 
 	private boolean hasOutputSpace(ItemStack output, int slot) {
@@ -198,13 +190,13 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
-	private boolean make(CraftingRecipe recipe, CraftingRecipeInput input) {
-		if (recipe == null || !canMake(recipe, input)) {
-			return false;
-		}
+	private boolean make(CraftingRecipe recipe, CraftingRecipeInput input, ItemStack recipeReminder) {
 		DefaultedList<Ingredient> ingredients = recipe.getIngredients();
 		if (ingredients.isEmpty()) {
 			input.getStacks().forEach(stack -> stack.decrement(1));
+			if (!recipeReminder.isEmpty()) {
+				moveOutput(recipeReminder, EXTRA_OUTPUT_SLOT);
+			}
 		} else {
 			// each slot can only be used once because in canMake we only checked if decrement by 1 still retains the recipe
 			// otherwise recipes can break when an ingredient is used multiple times
@@ -251,11 +243,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private ItemStack getRemainderItem(ItemStack stack) {
-		if (stack.getItem().hasRecipeRemainder()) {
-			return new ItemStack(stack.getItem().getRecipeRemainder());
-		}
-
-		return ItemStack.EMPTY;
+		return stack.getItem().getRecipeRemainder(stack);
 	}
 
 	private Optional<CraftingInventory> balanceRecipe(CraftingInventory craftCache, CraftingRecipe currentRecipe) {
@@ -354,7 +342,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient) {
+		if (world == null || world.isClient || getStored() < euTick) {
 			return;
 		}
 		CraftingInventory inventory = getCraftingInventory();
@@ -366,7 +354,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 		CraftingRecipeInput input = getRecipeInput(inventory);
 		CraftingRecipe recipe = getCurrentRecipe(inventory, input);
-		if (recipe == null) {
+		if (recipe == null || !hasOutputSpace(outputPreview, OUTPUT_SLOT)) {
 			progress = 0;
 			return;
 		}
@@ -383,23 +371,21 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 
+		ItemStack recipeReminder = getRecipeRemainder(recipe, input);
+		if (recipeReminder == null || !hasOutputSpace(recipeReminder, EXTRA_OUTPUT_SLOT)) {
+			return;
+		}
+
 		if (progress >= maxProgress) {
-			if (make(recipe, input)) {
-				progress = 0;
-			}
+			progress = 0;
+			make(recipe, input, recipeReminder);
 		} else {
-			if (canMake(recipe, input)) {
-				if (getStored() > euTick) {
-					progress++;
-					if (progress == 1) {
-						world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
-							SoundCategory.BLOCKS, 0.3F, 0.8F);
-					}
-					useEnergy(euTick);
-				}
-			} else {
-				progress = 0;
+			progress++;
+			if (progress == 1) {
+				world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
+					SoundCategory.BLOCKS, 0.3F, 0.8F);
 			}
+			useEnergy(euTick);
 		}
 	}
 
