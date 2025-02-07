@@ -27,8 +27,9 @@ package techreborn.blockentity.storage.item;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.SlottedStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedSlottedStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -522,7 +523,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	}
 
 	@SuppressWarnings("UnstableApiUsage")
-	private Storage<ItemVariant> getInternalStoreStorage(@Nullable Direction direction) {
+	private SlottedStorage<ItemVariant> getInternalStoreStorage(@Nullable Direction direction) {
 		// Quick fix to handle null sides. https://github.com/TechReborn/TechReborn/issues/3175
 		final Direction side = direction != null ? direction : Direction.DOWN;
 
@@ -572,7 +573,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	@SuppressWarnings("UnstableApiUsage")
 	public Storage<ItemVariant> getExposedStorage(Direction side) {
-		return new CombinedStorage<>(List.of(
+		return new CombinedSlottedStorage<>(List.of(
 				getInternalStoreStorage(side),
 				InventoryStorage.of(this, side)
 		));
