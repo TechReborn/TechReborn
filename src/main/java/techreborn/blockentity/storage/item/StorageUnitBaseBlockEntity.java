@@ -188,53 +188,43 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			return inputStack;
 		}
 
-		if (getDisplayedStack().isEmpty()) {
-			// Check if storage is empty, including the output slot and locked stack
-			storeItemStack = inputStack.copy();
-
-			if (inputStack.getCount() <= maxCapacity) {
-				inputStack = ItemStack.EMPTY;
-			} else {
-				// Stack is higher than capacity
-				storeItemStack.setCount(maxCapacity);
-				inputStack.decrement(maxCapacity);
+		// Amount of items that can be added before reaching capacity
+		int reminder = maxCapacity - getCurrentCapacity();
+		DefaultedList<ItemStack> optionalShulkerStack = ItemUtils.getBlockEntityStacks(inputStack);
+		if (isLocked() && ItemUtils.canExtractFromCachedShulker(optionalShulkerStack, lockedItemStack) > 0 ) {
+			Pair<Integer, ItemStack> pair = ItemUtils.extractFromShulker(inputStack, optionalShulkerStack, lockedItemStack, reminder);
+			if (pair.getLeft() != 0) {
+				int amount = pair.getLeft();
+				if (storeItemStack.isEmpty()) {
+					storeItemStack = lockedItemStack.copy();
+					amount = amount -1;
+				}
+				addStoredItemCount(amount);
+				inputStack.setNbt(pair.getRight().getNbt());
+				inventory.setHashChanged();
 			}
+			return inputStack;
+		}
+		if (inputStack.getCount() <= reminder) {
+			// Add full stack
+			if (storeItemStack == ItemStack.EMPTY){
+				// copy input stack into stored if everything is in OUTPUT_SLOT
+				storeItemStack = inputStack.copy();
+			}
+			else {
+				addStoredItemCount(inputStack.getCount());
+			}
+
+			inputStack = ItemStack.EMPTY;
 		} else {
-			// Not empty but same type
-
-			// Amount of items that can be added before reaching capacity
-			int reminder = maxCapacity - getCurrentCapacity();
-			DefaultedList<ItemStack> optionalShulkerStack = ItemUtils.getBlockEntityStacks(inputStack);
-			if (isLocked() && ItemUtils.canExtractFromCachedShulker(optionalShulkerStack, lockedItemStack) > 0 ) {
-				Pair<Integer, ItemStack> pair = ItemUtils.extractFromShulker(inputStack, optionalShulkerStack, lockedItemStack, reminder);
-				if (pair.getLeft() != 0) {
-					int amount = pair.getLeft();
-					if (storeItemStack.isEmpty()) {
-						storeItemStack = lockedItemStack.copy();
-						amount = amount -1;
-					}
-					addStoredItemCount(amount);
-					inputStack.setNbt(pair.getRight().getNbt());
-					inventory.setHashChanged();
-				}
-				return inputStack;
-			}
-			if (inputStack.getCount() <= reminder) {
-				// Add full stack
-				if (storeItemStack == ItemStack.EMPTY){
-					// copy input stack into stored if everything is in OUTPUT_SLOT
-					storeItemStack = inputStack.copy();
-				}
-				else {
-					addStoredItemCount(inputStack.getCount());
-				}
-
-				inputStack = ItemStack.EMPTY;
+			// Add only what is needed to reach max capacity
+			if (storeItemStack == ItemStack.EMPTY) {
+				storeItemStack = inputStack.copy();
+				storeItemStack.setCount(reminder);
 			} else {
-				// Add only what is needed to reach max capacity
 				addStoredItemCount(reminder);
-				inputStack.decrement(reminder);
 			}
+			inputStack.decrement(reminder);
 		}
 
 		inventory.setHashChanged();
