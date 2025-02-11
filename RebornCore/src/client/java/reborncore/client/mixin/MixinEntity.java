@@ -24,6 +24,8 @@
 
 package reborncore.client.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -32,18 +34,17 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import reborncore.common.EntityAccessor;
 import reborncore.common.fluid.RebornFluid;
 
 @Mixin(Entity.class)
 public class MixinEntity {
-	@Redirect(method = "onSwimmingStart()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
-	private void addParticle(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+	@WrapOperation(method = "onSwimmingStart()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
+	private void addParticle(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original) {
 		if (!(world instanceof ClientWorld clientWorld)) return;
 		int color = ((EntityAccessor) this).reborncore$getParticleColor();
 		if (color == -1) {
-			world.addParticle(parameters, x, y, z, velocityX, velocityY, velocityZ);
+			original.call(world, parameters, x, y, z, velocityX, velocityY, velocityZ);
 			return;
 		}
 

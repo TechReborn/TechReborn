@@ -24,23 +24,27 @@
 
 package reborncore.client.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import reborncore.client.CameraAccessor;
 
 @Mixin(BackgroundRenderer.class)
 public class MixinBackgroundRenderer {
-	@Redirect(method = "getFogColor(Lnet/minecraft/client/render/Camera;FLnet/minecraft/client/world/ClientWorld;IF)Lorg/joml/Vector4f;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/Biome;getWaterFogColor()I"))
-	private static int getWaterFogColor(Biome biome, @Local(argsOnly = true) Camera camera) {
+	@WrapOperation(
+		method = "getFogColor(Lnet/minecraft/client/render/Camera;FLnet/minecraft/client/world/ClientWorld;IF)Lorg/joml/Vector4f;",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/Biome;getWaterFogColor()I")
+	)
+	private static int getWaterFogColor(Biome biome, Operation<Integer> original, @Local(argsOnly = true) Camera camera) {
 		int color = ((CameraAccessor) camera).reborncore$getFogColor();
 		if (color != -1) {
 			return color;
 		}
-		return biome.getWaterFogColor();
+		return original.call(biome);
 	}
 }

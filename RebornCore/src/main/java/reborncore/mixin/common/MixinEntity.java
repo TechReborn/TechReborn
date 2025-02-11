@@ -24,17 +24,18 @@
 
 package reborncore.mixin.common;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import reborncore.common.EntityAccessor;
 import reborncore.common.fluid.RebornFluid;
 
@@ -49,19 +50,20 @@ public class MixinEntity implements EntityAccessor {
 		return particleColor;
 	}
 
-	@Inject(method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z", at = @At(value = "NEW", target = "Lnet/minecraft/util/math/BlockPos$Mutable;"))
-	private void resetParticleColor(TagKey<Fluid> tag, double speed, CallbackInfoReturnable<Boolean> cir) {
+	@WrapOperation(method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z", at = @At(value = "NEW", target = "Lnet/minecraft/util/math/BlockPos$Mutable;"))
+	private BlockPos.Mutable resetParticleColor(Operation<BlockPos.Mutable> original, @Local(argsOnly = true) TagKey<Fluid> tag) {
 		if (tag == FluidTags.WATER) {
 			particleColor = -1;
 		}
+		return original.call();
 	}
 
-	@Redirect(method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
-	private boolean isIn(FluidState fluidState, TagKey<Fluid> tag) {
-		if (fluidState.isIn(tag)) {
+	@WrapOperation(method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
+	private boolean isIn(FluidState fluidState, TagKey<Fluid> tag, Operation<Boolean> original) {
+		if (original.call(fluidState, tag)) {
 			return true;
 		}
-		if (tag == FluidTags.WATER && fluidState.isIn(RebornFluid.WATER)) {
+		if (tag == FluidTags.WATER && original.call(fluidState, RebornFluid.WATER)) {
 			if (particleColor == -1) {
 				particleColor = ((RebornFluid) fluidState.getFluid()).getColor();
 			}
@@ -70,13 +72,13 @@ public class MixinEntity implements EntityAccessor {
 		return false;
 	}
 
-	@Redirect(method = "updateSwimming()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
-	private boolean isInWater(FluidState fluidState, TagKey<Fluid> tag) {
-		return fluidState.isIn(tag) || fluidState.isIn(RebornFluid.WATER);
+	@WrapOperation(method = "updateSwimming()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
+	private boolean isInWater(FluidState fluidState, TagKey<Fluid> tag, Operation<Boolean> original) {
+		return original.call(fluidState, tag) || original.call(fluidState, RebornFluid.WATER);
 	}
 
-	@Redirect(method = "isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z", at = @At(value = "INVOKE", target = "Ljava/util/Set;contains(Ljava/lang/Object;)Z"))
-	private boolean isSubmergedIn(Set<TagKey<Fluid>> submergedFluidTag, Object tag) {
-		return submergedFluidTag.contains(tag) || (tag == FluidTags.WATER && submergedFluidTag.contains(RebornFluid.WATER));
+	@WrapOperation(method = "isSubmergedIn(Lnet/minecraft/registry/tag/TagKey;)Z", at = @At(value = "INVOKE", target = "Ljava/util/Set;contains(Ljava/lang/Object;)Z"))
+	private boolean isSubmergedIn(Set<TagKey<Fluid>> submergedFluidTag, Object tag, Operation<Boolean> original) {
+		return original.call(submergedFluidTag, tag) || (tag == FluidTags.WATER && original.call(submergedFluidTag, RebornFluid.WATER));
 	}
 }

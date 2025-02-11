@@ -24,19 +24,20 @@
 
 package reborncore.client.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.particle.WaterBubbleParticle;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.tag.TagKey;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import reborncore.common.fluid.RebornFluid;
 
 @Mixin(WaterBubbleParticle.class)
 public class MixinWaterBubbleParticle {
-	@Redirect(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
-	private boolean isInWater(FluidState fluidState, TagKey<Fluid> tag) {
-		return fluidState.isIn(tag) || fluidState.isIn(RebornFluid.WATER);
+	@WrapOperation(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
+	private boolean isInWater(FluidState fluidState, TagKey<Fluid> tag, Operation<Boolean> original) {
+		return original.call(fluidState, tag) || original.call(fluidState, RebornFluid.WATER);
 	}
 }
