@@ -740,7 +740,7 @@ class TemplateModel {
 		))
 	}
 	static def FLUID = wrapperBlock { block, id ->
-		new JsonModel().id(block).add(TextureMap.particle(id.withSuffixedPath("_still")))
+		new JsonModel().id(block).add(TextureMap.particle(id))
 	}
 	static BiFunction<Block, Identifier, JsonModel> CABLE_CORE_BASE = { Block block, Identifier id ->
 		new JsonModel().id(block).suffix("_core").add(texture(id))
