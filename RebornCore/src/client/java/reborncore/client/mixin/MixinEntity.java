@@ -32,6 +32,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -67,10 +68,14 @@ public class MixinEntity {
 			int minZ = MathHelper.floor(box.minZ);
 			int maxZ = MathHelper.ceil(box.maxZ);
 			BlockPos.Mutable mutable = new BlockPos.Mutable();
+			setColor:
 			for(int x = minX; x < maxX; ++x) {
 				for(int z = minZ; z < maxZ; ++z) {
 					mutable.set(x, y, z);
 					FluidState fluidState = world.getFluidState(mutable);
+					if (fluidState.isIn(FluidTags.WATER)) {
+						break setColor;
+					}
 					if (fluidState.isIn(RebornFluid.WATER)) {
 						int color = ((RebornFluid) fluidState.getFluid()).getColor();
 						if (color != -1) {
@@ -79,6 +84,7 @@ public class MixinEntity {
 							particleBlue = (color & 0xFF) / 255.0F;
 							return;
 						}
+						break setColor;
 					}
 				}
 			}
