@@ -29,16 +29,20 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.particle.WaterBubbleParticle;
+import net.minecraft.client.particle.WaterSplashParticle;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.client.*;
 import reborncore.client.gui.ThemeManager;
+import reborncore.common.fluid.RebornFluid;
 
 import java.util.Locale;
 
@@ -76,5 +80,8 @@ public class RebornCoreClient implements ClientModInitializer {
 			FabricLoader.getInstance().getModContainer("reborncore").get(),
 			ResourcePackActivationType.NORMAL
 		);
+
+		ParticleFactoryRegistry.getInstance().register(RebornFluid.SPLASH, WaterSplashParticle.SplashFactory::new);
+		ParticleFactoryRegistry.getInstance().register(RebornFluid.BUBBLE, WaterBubbleParticle.Factory::new);
 	}
 }

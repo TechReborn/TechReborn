@@ -24,6 +24,7 @@
 
 package reborncore.common.fluid;
 
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
@@ -32,6 +33,7 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
@@ -51,6 +53,8 @@ import java.util.function.Supplier;
 
 public abstract class RebornFluid extends FlowableFluid {
 	public static final TagKey<Fluid> WATER = TagKey.of(RegistryKeys.FLUID, Identifier.of(RebornCore.MOD_ID, "water"));
+	public static final SimpleParticleType SPLASH = FabricParticleTypes.simple();
+	public static final SimpleParticleType BUBBLE = FabricParticleTypes.simple();
 
 	private final boolean still;
 	private final int color;
