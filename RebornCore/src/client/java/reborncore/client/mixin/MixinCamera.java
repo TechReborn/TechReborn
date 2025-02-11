@@ -31,30 +31,13 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.tag.TagKey;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import reborncore.client.CameraAccessor;
 import reborncore.common.fluid.RebornFluid;
 
 @Mixin(Camera.class)
-public class MixinCamera implements CameraAccessor {
-	@Unique
-	private int fogColor = -1;
-	@Override
-	public int reborncore$getFogColor() {
-		return fogColor;
-	}
-
+public class MixinCamera {
 	@WrapOperation(method = "getSubmersionType()Lnet/minecraft/block/enums/CameraSubmersionType;", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z", ordinal = 0))
 	private boolean isInWater(FluidState fluidState, TagKey<Fluid> tag, Operation<Boolean> original) {
-		fogColor = -1;
-		if (original.call(fluidState, tag)) {
-			return true;
-		}
-		if (original.call(fluidState, RebornFluid.WATER)) {
-			fogColor = ((RebornFluid) fluidState.getFluid()).getColor();
-			return true;
-		}
-		return false;
+		return original.call(fluidState, tag) || original.call(fluidState, RebornFluid.WATER);
 	}
 }

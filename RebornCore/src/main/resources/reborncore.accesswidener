@@ -34,3 +34,4 @@ accessible field net/minecraft/block/AbstractBlock$Settings registryKey Lnet/min
 accessible    field    net/minecraft/client/data/TextureMap    entries           Ljava/util/Map;
 accessible field net/minecraft/client/world/ClientWorld worldRenderer Lnet/minecraft/client/render/WorldRenderer;
 accessible method net/minecraft/client/render/WorldRenderer spawnParticle (Lnet/minecraft/particle/ParticleEffect;ZDDDDDD)Lnet/minecraft/client/particle/Particle;
+accessible field net/minecraft/client/render/Camera area Lnet/minecraft/world/BlockView;

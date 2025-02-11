@@ -26,50 +26,22 @@ package reborncore.mixin.common;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import reborncore.common.EntityAccessor;
 import reborncore.common.fluid.RebornFluid;
 
 import java.util.Set;
 
 @Mixin(Entity.class)
-public class MixinEntity implements EntityAccessor {
-	@Unique
-	private int particleColor = -1;
-	@Override
-	public int reborncore$getParticleColor() {
-		return particleColor;
-	}
-
-	@WrapOperation(method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z", at = @At(value = "NEW", target = "Lnet/minecraft/util/math/BlockPos$Mutable;"))
-	private BlockPos.Mutable resetParticleColor(Operation<BlockPos.Mutable> original, @Local(argsOnly = true) TagKey<Fluid> tag) {
-		if (tag == FluidTags.WATER) {
-			particleColor = -1;
-		}
-		return original.call();
-	}
-
+public class MixinEntity {
 	@WrapOperation(method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
 	private boolean isIn(FluidState fluidState, TagKey<Fluid> tag, Operation<Boolean> original) {
-		if (original.call(fluidState, tag)) {
-			return true;
-		}
-		if (tag == FluidTags.WATER && original.call(fluidState, RebornFluid.WATER)) {
-			if (particleColor == -1) {
-				particleColor = ((RebornFluid) fluidState.getFluid()).getColor();
-			}
-			return true;
-		}
-		return false;
+		return original.call(fluidState, tag) || (tag == FluidTags.WATER && original.call(fluidState, RebornFluid.WATER));
 	}
 
 	@WrapOperation(method = "updateSwimming()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))

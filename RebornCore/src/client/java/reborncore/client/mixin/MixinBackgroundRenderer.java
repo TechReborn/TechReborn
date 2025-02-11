@@ -29,10 +29,11 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import reborncore.client.CameraAccessor;
+import reborncore.common.fluid.RebornFluid;
 
 @Mixin(BackgroundRenderer.class)
 public class MixinBackgroundRenderer {
@@ -41,9 +42,12 @@ public class MixinBackgroundRenderer {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/Biome;getWaterFogColor()I")
 	)
 	private static int getWaterFogColor(Biome biome, Operation<Integer> original, @Local(argsOnly = true) Camera camera) {
-		int color = ((CameraAccessor) camera).reborncore$getFogColor();
-		if (color != -1) {
-			return color;
+		FluidState fluidState = camera.area.getFluidState(camera.getBlockPos());
+		if (fluidState.isIn(RebornFluid.WATER)) {
+			int color = ((RebornFluid) fluidState.getFluid()).getColor();
+			if (color != -1) {
+				return color;
+			}
 		}
 		return original.call(biome);
 	}
