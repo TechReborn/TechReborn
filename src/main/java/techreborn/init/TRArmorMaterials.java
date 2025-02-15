@@ -49,7 +49,7 @@ public class TRArmorMaterials {
 		map.put(EquipmentType.CHESTPLATE, 6);
 		map.put(EquipmentType.HELMET, 3);
 		map.put(EquipmentType.BODY, 7);
-	}), 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f, 0.1f, 15, TRContent.Ingots.BRONZE.asTag());
+	}), 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f, 0.1f, 17, TRContent.Ingots.BRONZE.asTag());
 
 	public static final ArmorMaterial SILVER = register("silver", Util.make(new EnumMap<>(EquipmentType.class), map -> {
 		map.put(EquipmentType.BOOTS, 2);
@@ -57,7 +57,7 @@ public class TRArmorMaterials {
 		map.put(EquipmentType.CHESTPLATE, 3);
 		map.put(EquipmentType.HELMET, 1);
 		map.put(EquipmentType.BODY, 5);
-	}), 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f, 0.0f, 33, TRContent.Ingots.SILVER.asTag());
+	}), 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f, 0.0f, 14, TRContent.Ingots.SILVER.asTag());
 
 	public static final ArmorMaterial STEEL = register("steel", Util.make(new EnumMap<>(EquipmentType.class), map -> {
 		map.put(EquipmentType.BOOTS, 2);
@@ -65,7 +65,7 @@ public class TRArmorMaterials {
 		map.put(EquipmentType.CHESTPLATE, 5);
 		map.put(EquipmentType.HELMET, 3);
 		map.put(EquipmentType.BODY, 11);
-	}), 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.75f, 0.1f, 33, TRContent.Ingots.STEEL.asTag());
+	}), 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.75f, 0.1f, 24, TRContent.Ingots.STEEL.asTag());
 
 	public static final ArmorMaterial RUBY = register("ruby", Util.make(new EnumMap<>(EquipmentType.class), map -> {
 		map.put(EquipmentType.BOOTS, 2);
@@ -73,7 +73,7 @@ public class TRArmorMaterials {
 		map.put(EquipmentType.CHESTPLATE, 7);
 		map.put(EquipmentType.HELMET, 2);
 		map.put(EquipmentType.BODY, 7);
-	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, 33, TRContent.Gems.RUBY.asTag());
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, 16, TRContent.Gems.RUBY.asTag());
 
 	public static final ArmorMaterial SAPPHIRE = register("sapphire", Util.make(new EnumMap<>(EquipmentType.class), map -> {
 		map.put(EquipmentType.BOOTS, 4);
@@ -81,7 +81,7 @@ public class TRArmorMaterials {
 		map.put(EquipmentType.CHESTPLATE, 4);
 		map.put(EquipmentType.HELMET, 4);
 		map.put(EquipmentType.BODY, 7);
-	}), 8, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, 33, TRContent.Gems.SAPPHIRE.asTag());
+	}), 8, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, 19, TRContent.Gems.SAPPHIRE.asTag());
 
 	public static final ArmorMaterial PERIDOT = register("peridot", Util.make(new EnumMap<>(EquipmentType.class), map -> {
 		map.put(EquipmentType.BOOTS, 2);
@@ -89,7 +89,7 @@ public class TRArmorMaterials {
 		map.put(EquipmentType.CHESTPLATE, 8);
 		map.put(EquipmentType.HELMET, 3);
 		map.put(EquipmentType.BODY, 7);
-	}), 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, 33, TRContent.Gems.PERIDOT.asTag());
+	}), 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, 17, TRContent.Gems.PERIDOT.asTag());
 
 	public static final ArmorMaterial QUANTUM = register("quantum", Util.make(new EnumMap<>(EquipmentType.class), map -> {
 		map.put(EquipmentType.BOOTS, 3);
