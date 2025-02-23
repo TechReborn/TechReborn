@@ -76,8 +76,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	private final int OUTPUT_SLOT = CRAFTING_AREA; // first slot is indexed by 0, so this is the last non crafting slot
 	private final int EXTRA_OUTPUT_SLOT = CRAFTING_AREA + 1;
 
-	public int progress;
-	public int maxProgress = 120;
+	public int progress = 0;
+	public final int defaultMaxProgress = 120;
+	public int maxProgress = defaultMaxProgress; // changes based on speed upgrades
 	public final int euTick = 10;
 
 	CraftingInventory inventoryCrafting;
@@ -243,12 +244,13 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient || getStored() < euTick) {
+		if (world == null || world.isClient || getStored() < getEuPerTick(euTick)) {
 			return;
 		}
 		if (inventoryCrafting.isEmpty()) {
 			if (progress == 0) return;
 			progress = 0;
+			maxProgress = Math.max((int) (defaultMaxProgress * (1.0 - getSpeedMultiplier())), 1);
 			outputPreview = ItemStack.EMPTY;
 			return;
 		}
@@ -256,6 +258,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		CraftingRecipeInput input = positioned.input();
 		if (!updateCurrentRecipe(input) || !hasOutputSpace(outputPreview, OUTPUT_SLOT)) {
 			progress = 0;
+			maxProgress = Math.max((int) (defaultMaxProgress * (1.0 - getSpeedMultiplier())), 1);
 			return;
 		}
 
@@ -277,14 +280,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if (progress >= maxProgress) {
 			progress = 0;
+			maxProgress = Math.max((int) (defaultMaxProgress * (1.0 - getSpeedMultiplier())), 1);
 			make(positioned, outputPreview, recipeReminder);
 		} else {
 			progress++;
-			if (progress == 1) {
+			if (progress == 1 && !isMuffled()) {
 				world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
 					SoundCategory.BLOCKS, 0.3F, 0.8F);
 			}
-			useEnergy(euTick);
+			useEnergy(getEuPerTick(euTick));
 		}
 	}
 
@@ -325,7 +329,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	// MachineBaseBlockEntity
 	@Override
 	public boolean canBeUpgraded() {
-		return false;
+		return true;
 	}
 
 	// IToolDrop
