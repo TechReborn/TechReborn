@@ -70,15 +70,18 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	public static final int CRAFTING_HEIGHT = 3;
 	public static final int CRAFTING_WIDTH = 3;
 	public static final int CRAFTING_AREA = CRAFTING_HEIGHT * CRAFTING_WIDTH;
+	public static final int RECIPE_TIME = 120;
+	public static final int EU_TICK = 10;
 
 	public final RebornInventory<AutoCraftingTableBlockEntity> inventory;
 	private final BalanceTable balanceTable = new BalanceTable();
 	private final int OUTPUT_SLOT = CRAFTING_AREA; // first slot is indexed by 0, so this is the last non crafting slot
 	private final int EXTRA_OUTPUT_SLOT = CRAFTING_AREA + 1;
 
-	public int progress;
-	public int maxProgress = 120;
-	public final int euTick = 10;
+	public int progress = 0;
+	public int maxProgress = RECIPE_TIME;
+	public long euTick = EU_TICK;
+	public long lastSoundTime = 0;
 
 	CraftingInventory inventoryCrafting;
 	CraftingRecipe lastRecipe = null;
@@ -146,10 +149,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		};
 	}
 
-	@Nullable
-	public boolean updateCurrentRecipe(CraftingRecipeInput input) {
-		if (!(world instanceof ServerWorld serverWorld)) return false;
-
+	public boolean updateCurrentRecipe(ServerWorld world, CraftingRecipeInput input) {
 		if (lastRecipe != null && lastRecipe.matches(input, world)) {
 			if (outputPreview == ItemStack.EMPTY) {
 				balanceTable.updateLayout(input);
@@ -161,7 +161,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		if (balanceTable.updateLayout(input)) {
-			Optional<CraftingRecipe> testRecipe = serverWorld.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, input, world).map(RecipeEntry::value);
+			Optional<CraftingRecipe> testRecipe = world.getRecipeManager()
+				.getFirstMatch(RecipeType.CRAFTING, input, world).map(RecipeEntry::value);
 			if (testRecipe.isPresent()) {
 				lastRecipe = testRecipe.get();
 				outputPreview = lastRecipe.craft(input, world.getRegistryManager());
@@ -214,9 +215,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			moveOutput(remainderStack, EXTRA_OUTPUT_SLOT);
 		}
 		inventory.resetHasChanged();
-		if (inventoryCrafting.isEmpty()) {
-			outputPreview = ItemStack.EMPTY;
-		}
 	}
 
 	private boolean hasOutputSpace(ItemStack output, int slot) {
@@ -247,15 +245,17 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		if (inventoryCrafting.isEmpty()) {
-			if (progress == 0) return;
 			progress = 0;
 			outputPreview = ItemStack.EMPTY;
 			return;
 		}
 		CraftingRecipeInput.Positioned positioned = inventoryCrafting.createPositionedRecipeInput();
 		CraftingRecipeInput input = positioned.input();
-		if (!updateCurrentRecipe(input) || !hasOutputSpace(outputPreview, OUTPUT_SLOT)) {
+		if (!updateCurrentRecipe((ServerWorld) world, input)) {
 			progress = 0;
+			return;
+		}
+		if (!hasOutputSpace(outputPreview, OUTPUT_SLOT)) {
 			return;
 		}
 
@@ -278,11 +278,25 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (progress >= maxProgress) {
 			progress = 0;
 			make(positioned, outputPreview, recipeReminder);
+			if (inventoryCrafting.isEmpty()) {
+				outputPreview = ItemStack.EMPTY;
+			}
 		} else {
+			if (progress == 0) {
+				maxProgress = Math.max((int) (RECIPE_TIME * (1.0 - getSpeedMultiplier())), 1);
+				euTick = getEuPerTick(EU_TICK);
+				if (getStored() < euTick) {
+					return;
+				}
+			}
 			progress++;
-			if (progress == 1) {
-				world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
-					SoundCategory.BLOCKS, 0.3F, 0.8F);
+			if (!isMuffled()) {
+				long time = world.getTime();
+				if (time - lastSoundTime > RECIPE_TIME) {
+					lastSoundTime = time;
+					world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
+						SoundCategory.BLOCKS, 0.3F, 0.8F);
+				}
 			}
 			useEnergy(euTick);
 		}
@@ -320,12 +334,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			locked = tag.getBoolean("locked");
 		}
 		super.readNbt(tag, registryLookup);
-	}
-
-	// MachineBaseBlockEntity
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
 	}
 
 	// IToolDrop
