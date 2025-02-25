@@ -196,8 +196,9 @@ public class BlockEntityScreenHandlerBuilder {
 		return this;
 	}
 
+	@SuppressWarnings("deprecation")
 	public ScreenHandlerBuilder addInventory() {
-		this.parent.blockEntityInventoryRanges.add(Range.of(this.rangeStart, this.parent.slots.size() - 1));
+		this.parent.blockEntityInventoryRanges.add(Range.between(this.rangeStart, this.parent.slots.size() - 1));
 		return this.parent;
 	}
 }

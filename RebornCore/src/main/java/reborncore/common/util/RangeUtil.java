@@ -35,6 +35,7 @@ public final class RangeUtil {
 	private RangeUtil() {
 	}
 
+	@SuppressWarnings("deprecation")
 	public static List<Range<Integer>> joinAdjacent(List<Range<Integer>> list) {
 		var in = list.stream().sorted(Comparator.comparing(Range::getMinimum)).toList();
 		var out = new LinkedList<Range<Integer>>();
@@ -48,7 +49,7 @@ public final class RangeUtil {
 			var last = out.getLast();
 			if (last.getMaximum() >= range.getMinimum() -1) {
 				out.removeLast();
-				out.add(Range.of(last.getMinimum(), Math.max(last.getMaximum(), range.getMaximum())));
+				out.add(Range.between(last.getMinimum(), Math.max(last.getMaximum(), range.getMaximum())));
 			} else {
 				out.add(range);
 			}

@@ -46,6 +46,7 @@ public final class PlayerScreenHandlerBuilder {
 		this.parent = parent;
 	}
 
+	@SuppressWarnings("deprecation")
 	public PlayerScreenHandlerBuilder inventory(final int xStart, final int yStart) {
 		final int startIndex = this.parent.slots.size();
 		for (int i = 0; i < 3; ++i) {
@@ -53,16 +54,17 @@ public final class PlayerScreenHandlerBuilder {
 				this.parent.slots.add(new PlayerInventorySlot(this.player, j + i * 9 + 9, xStart + j * 18, yStart + i * 18));
 			}
 		}
-		this.main = Range.of(startIndex, this.parent.slots.size() - 1);
+		this.main = Range.between(startIndex, this.parent.slots.size() - 1);
 		return this;
 	}
 
+	@SuppressWarnings("deprecation")
 	public PlayerScreenHandlerBuilder hotbar(final int xStart, final int yStart) {
 		final int startIndex = this.parent.slots.size();
 		for (int i = 0; i < 9; ++i) {
 			this.parent.slots.add(new PlayerInventorySlot(this.player, i, xStart + i * 18, yStart));
 		}
-		this.hotbar = Range.of(startIndex, this.parent.slots.size() - 1);
+		this.hotbar = Range.between(startIndex, this.parent.slots.size() - 1);
 		return this;
 	}
 
@@ -134,8 +136,9 @@ public final class PlayerScreenHandlerBuilder {
 					.boots(xStart, yStart + 18 + 18 + 18);
 		}
 
+		@SuppressWarnings("deprecation")
 		public PlayerScreenHandlerBuilder addArmor() {
-			this.parent.armor = Range.of(this.startIndex - 1, this.parent.parent.slots.size() - 2);
+			this.parent.armor = Range.between(this.startIndex - 1, this.parent.parent.slots.size() - 2);
 			return this.parent;
 		}
 	}
