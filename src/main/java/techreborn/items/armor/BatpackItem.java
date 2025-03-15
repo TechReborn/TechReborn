@@ -25,11 +25,13 @@
 package techreborn.items.armor;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.world.World;
+import net.minecraft.server.world.ServerWorld;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -42,7 +44,7 @@ public class BatpackItem extends TREnergyArmourItem implements RcEnergyItem {
 
 	// Item
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, ServerWorld worldIn, Entity entityIn, @Nullable EquipmentSlot slot) {
 		if (worldIn.isClient) {
 			return;
 		}
