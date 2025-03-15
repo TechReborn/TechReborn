@@ -115,9 +115,9 @@ public class IndustrialChainsawItem extends ChainsawItem {
 
 	// Item
 	@Override
-	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
+	public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity miner) {
 		lastCheckedBlockState = state;
-		return super.canMine(state, world, pos, miner);
+		return super.canMine(stack, state, world, pos, miner);
 	}
 
 	@Override
