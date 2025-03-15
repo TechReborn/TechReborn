@@ -29,7 +29,6 @@ import net.minecraft.block.*;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.equipment.EquipmentType;
@@ -149,7 +148,7 @@ public class ModRegistry {
 		// Gem armor & tools
 		// Todo: repair with tags
 		RebornRegistry.registerItem(TRContent.BRONZE_SWORD = InitUtils.setup(new SwordItem(TRToolTier.BRONZE, 0f, -2f, TRItemSettings.item("bronze_sword")), "bronze_sword"));
-		RebornRegistry.registerItem(TRContent.BRONZE_PICKAXE = InitUtils.setup(new PickaxeItem(TRToolTier.BRONZE, -2f, -2.8f, TRItemSettings.item("bronze_pickaxe")), "bronze_pickaxe"));
+		RebornRegistry.registerItem(TRContent.BRONZE_PICKAXE = InitUtils.setup(new Item(TRItemSettings.item("bronze_pickaxe").pickaxe(TRToolTier.BRONZE, -2f, -2.8f)), "bronze_pickaxe"));
 		RebornRegistry.registerItem(TRContent.BRONZE_SPADE = InitUtils.setup(new ShovelItem(TRToolTier.BRONZE, -2f, -3f, TRItemSettings.item("bronze_spade")), "bronze_spade"));
 		RebornRegistry.registerItem(TRContent.BRONZE_AXE = InitUtils.setup(new AxeItem(TRToolTier.BRONZE, 3f, -2.9f, TRItemSettings.item("bronze_axe")), "bronze_axe"));
 		RebornRegistry.registerItem(TRContent.BRONZE_HOE = InitUtils.setup(new HoeItem(TRToolTier.BRONZE, -4f, 0f, TRItemSettings.item("bronze_hoe")), "bronze_hoe"));
@@ -160,7 +159,7 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.BRONZE_BOOTS = InitUtils.setup(new Item(TRItemSettings.item("bronze_boots").armor(TRArmorMaterials.BRONZE, EquipmentType.BOOTS)), "bronze_boots"));
 
 		RebornRegistry.registerItem(TRContent.RUBY_SWORD = InitUtils.setup(new SwordItem(TRToolTier.RUBY, 0f, -2f, TRItemSettings.item("ruby_sword")), "ruby_sword"));
-		RebornRegistry.registerItem(TRContent.RUBY_PICKAXE = InitUtils.setup(new PickaxeItem(TRToolTier.RUBY, -2f, -2.8f, TRItemSettings.item("ruby_pickaxe")), "ruby_pickaxe"));
+		RebornRegistry.registerItem(TRContent.RUBY_PICKAXE = InitUtils.setup(new Item(TRItemSettings.item("ruby_pickaxe").pickaxe(TRToolTier.RUBY, -2f, -2.8f)), "ruby_pickaxe"));
 		RebornRegistry.registerItem(TRContent.RUBY_SPADE = InitUtils.setup(new ShovelItem(TRToolTier.RUBY, -2f, -3f, TRItemSettings.item("ruby_spade")), "ruby_spade"));
 		RebornRegistry.registerItem(TRContent.RUBY_AXE = InitUtils.setup(new AxeItem(TRToolTier.RUBY, 3f, -2.9f, TRItemSettings.item("ruby_axe")), "ruby_axe"));
 		RebornRegistry.registerItem(TRContent.RUBY_HOE = InitUtils.setup(new HoeItem(TRToolTier.RUBY, -4f, 0f, TRItemSettings.item("ruby_hoe")), "ruby_hoe"));
@@ -171,7 +170,7 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.RUBY_BOOTS = InitUtils.setup(new Item(TRItemSettings.item("ruby_boots").maxCount(1).armor(TRArmorMaterials.RUBY, EquipmentType.BOOTS)), "ruby_boots"));
 
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_SWORD = InitUtils.setup(new SwordItem(TRToolTier.SAPPHIRE, 0f, -2f, TRItemSettings.item("sapphire_sword")), "sapphire_sword"));
-		RebornRegistry.registerItem(TRContent.SAPPHIRE_PICKAXE = InitUtils.setup(new PickaxeItem(TRToolTier.SAPPHIRE, -2f, -2.8f, TRItemSettings.item("sapphire_pickaxe")), "sapphire_pickaxe"));
+		RebornRegistry.registerItem(TRContent.SAPPHIRE_PICKAXE = InitUtils.setup(new Item(TRItemSettings.item("sapphire_pickaxe").pickaxe(TRToolTier.SAPPHIRE, -2f, -2.8f)), "sapphire_pickaxe"));
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_SPADE = InitUtils.setup(new ShovelItem(TRToolTier.SAPPHIRE, -2f, -3f, TRItemSettings.item("sapphire_spade")), "sapphire_spade"));
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_AXE = InitUtils.setup(new AxeItem(TRToolTier.SAPPHIRE, 3f, -2.9f, TRItemSettings.item("sapphire_axe")), "sapphire_axe"));
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_HOE = InitUtils.setup(new HoeItem(TRToolTier.SAPPHIRE, -4f, 0f, TRItemSettings.item("sapphire_hoe")), "sapphire_hoe"));
@@ -182,7 +181,7 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.SAPPHIRE_BOOTS = InitUtils.setup(new Item(TRItemSettings.item("sapphire_boots").maxCount(1).armor(TRArmorMaterials.SAPPHIRE, EquipmentType.BOOTS)), "sapphire_boots"));
 
 		RebornRegistry.registerItem(TRContent.PERIDOT_SWORD = InitUtils.setup(new SwordItem(TRToolTier.PERIDOT, 0f, -2f, TRItemSettings.item("peridot_sword")), "peridot_sword"));
-		RebornRegistry.registerItem(TRContent.PERIDOT_PICKAXE = InitUtils.setup(new PickaxeItem(TRToolTier.PERIDOT, -2f, -2.8f, TRItemSettings.item("peridot_pickaxe")), "peridot_pickaxe"));
+		RebornRegistry.registerItem(TRContent.PERIDOT_PICKAXE = InitUtils.setup(new Item(TRItemSettings.item("peridot_pickaxe").pickaxe(TRToolTier.PERIDOT, -2f, -2.8f)), "peridot_pickaxe"));
 		RebornRegistry.registerItem(TRContent.PERIDOT_SPADE = InitUtils.setup(new ShovelItem(TRToolTier.PERIDOT, -2f, -3f, TRItemSettings.item("peridot_spade")), "peridot_spade"));
 		RebornRegistry.registerItem(TRContent.PERIDOT_AXE = InitUtils.setup(new AxeItem(TRToolTier.PERIDOT, 3f, -2.9f, TRItemSettings.item("peridot_axe")), "peridot_axe"));
 		RebornRegistry.registerItem(TRContent.PERIDOT_HOE = InitUtils.setup(new HoeItem(TRToolTier.PERIDOT, -4f, 0f, TRItemSettings.item("peridot_hoe")), "peridot_hoe"));
