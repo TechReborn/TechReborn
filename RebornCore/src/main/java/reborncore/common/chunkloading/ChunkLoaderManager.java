@@ -47,7 +47,6 @@ import reborncore.common.network.clientbound.ChunkSyncPayload;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,7 +57,7 @@ public class ChunkLoaderManager extends PersistentState {
 	public static Codec<ChunkLoaderManager> CODEC = Codec.list(LoadedChunk.CODEC).xmap(ChunkLoaderManager::fromChunks, ChunkLoaderManager::getLoadedChunks);
 	public static final PersistentStateType<ChunkLoaderManager> TYPE = new PersistentStateType<>("chunk_loader", ChunkLoaderManager::new, CODEC, null);
 
-	private static final ChunkTicketType<ChunkPos> CHUNK_LOADER = ChunkTicketType.create("reborncore:chunk_loader", Comparator.comparingLong(ChunkPos::toLong));
+	private static final ChunkTicketType CHUNK_LOADER = ChunkTicketType.register("reborncore:chunk_loader", 0L, true, ChunkTicketType.Use.LOADING_AND_SIMULATION);
 	private static final String KEY = "reborncore_chunk_loader";
 	private static final int RADIUS = 1;
 
@@ -141,7 +140,7 @@ public class ChunkLoaderManager extends PersistentState {
 
 		if(!isChunkLoaded(world, loadedChunk.chunk())){
 			final ServerChunkManager serverChunkManager = ((ServerWorld) world).getChunkManager();
-			serverChunkManager.removeTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.chunk(), RADIUS, loadedChunk.chunk());
+			serverChunkManager.removeTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.chunk(), RADIUS);
 		}
 		markDirty();
 	}
@@ -182,7 +181,7 @@ public class ChunkLoaderManager extends PersistentState {
 
 	private void loadChunk(ServerWorld world, LoadedChunk loadedChunk) {
 		ChunkPos chunkPos = loadedChunk.chunk();
-		world.getChunkManager().addTicket(ChunkLoaderManager.CHUNK_LOADER, chunkPos, RADIUS, chunkPos);
+		world.getChunkManager().addTicket(ChunkLoaderManager.CHUNK_LOADER, chunkPos, RADIUS);
 	}
 
 	public record LoadedChunk(ChunkPos chunk, Identifier world, String player, BlockPos chunkLoader) {
