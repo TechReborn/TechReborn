@@ -37,6 +37,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -135,11 +136,9 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 	}
 
 	@Override
-	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
-			ItemHandlerUtils.dropContainedItems(worldIn, pos);
-			super.onStateReplaced(state, worldIn, pos, newState, isMoving);
-		}
+	protected void onStateReplaced(BlockState state, ServerWorld worldIn, BlockPos pos, boolean isMoving) {
+		ItemHandlerUtils.dropContainedItems(worldIn, pos);
+		super.onStateReplaced(state, worldIn, pos, isMoving);
 	}
 
 	@Override
