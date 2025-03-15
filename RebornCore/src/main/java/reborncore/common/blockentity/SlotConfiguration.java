@@ -477,7 +477,7 @@ public class SlotConfiguration implements NBTSerializable {
 	public void readJson(String json, String machineIdent) throws UnsupportedOperationException {
 		NbtCompound compound;
 		try {
-			compound = StringNbtReader.parse(json);
+			compound = StringNbtReader.readCompound(json);
 		} catch (CommandSyntaxException e) {
 			throw new UnsupportedOperationException("Clipboard contents isn't a valid slot configuration");
 		}
