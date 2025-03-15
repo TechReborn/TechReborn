@@ -35,7 +35,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.init.TRContent;
 import techreborn.init.TRItemSettings;
 
-public class DrillItem extends MiningToolItem implements RcEnergyItem {
+public class DrillItem extends Item implements RcEnergyItem {
 	public final int maxCharge;
 	public final RcEnergyTier tier;
 	public final int cost;
@@ -44,7 +44,7 @@ public class DrillItem extends MiningToolItem implements RcEnergyItem {
 
 
 	public DrillItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, String name) {
-		super(material, TRContent.BlockTags.DRILL_MINEABLE, -2f, -2.8f, TRItemSettings.unbreakable(name));
+		super(TRItemSettings.unbreakable(name).tool(material, TRContent.BlockTags.DRILL_MINEABLE, -2f, -2.8f, 0.0F));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;

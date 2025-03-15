@@ -26,10 +26,10 @@ package techreborn.blocks.storage.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.MiningToolItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -122,7 +122,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 		ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
 
 		// Let's assume that player is trying to break this block, rather than get an item from storage
-		if (stackInHand.getItem() instanceof MiningToolItem) {
+		if (stackInHand.contains(DataComponentTypes.WEAPON)) {
 			return;
 		}
 		RebornInventory<StorageUnitBaseBlockEntity> inventory = storageEntity.getInventory();
