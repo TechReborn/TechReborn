@@ -46,7 +46,7 @@ public class ModelHelper {
 	public static ModelTransformation loadTransformFromJson(Identifier location) {
 		try {
 
-			return UnbakedModel.getTransformations(JsonUnbakedModel.deserialize(getReaderForResource(location)));
+			return JsonUnbakedModel.deserialize(getReaderForResource(location)).transformations();
 		} catch (IOException exception) {
 			TechReborn.LOGGER.warn("Can't load resource " + location);
 			exception.printStackTrace();
