@@ -32,8 +32,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -51,7 +51,7 @@ import techreborn.utils.TRItemUtils;
 
 import java.util.List;
 
-public class NanosaberItem extends SwordItem implements RcEnergyItem {
+public class NanosaberItem extends Item implements RcEnergyItem {
 	private static final EntityAttributeModifier ENABLED_ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_damage"), TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADD_VALUE);
 	private static final EntityAttributeModifier ENABLED_ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_speed"), 3, EntityAttributeModifier.Operation.ADD_VALUE);
 	private static final EntityAttributeModifier DISABLED_ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_damage"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
@@ -59,7 +59,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem(String name) {
-		super(TRToolMaterials.NANOSABER, 1f, 1f, TRItemSettings.unbreakable(name));
+		super(TRItemSettings.unbreakable(name).sword(TRToolMaterials.NANOSABER, 1f, 1f));
 	}
 
 	// SwordItem
