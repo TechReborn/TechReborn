@@ -25,15 +25,41 @@
 package techreborn.blocks.misc;
 
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.particle.EntityEffectParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.ParticleUtil;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import techreborn.init.TRBlockSettings;
 
 public class BlockRubberLeaves extends LeavesBlock {
+	public static final MapCodec<BlockRubberLeaves> CODEC = RecordCodecBuilder.mapCodec(
+		instance -> instance.group(createSettingsCodec()).apply(instance, BlockRubberLeaves::new)
+	);
 
 	public BlockRubberLeaves(String name) {
-		super(TRBlockSettings.rubberLeaves(name));
+		super(0.01F, TRBlockSettings.rubberLeaves(name));
 		FlammableBlockRegistry.getDefaultInstance().add(this, 30, 60);
 	}
 
+	public BlockRubberLeaves(AbstractBlock.Settings settings) {
+		super(0.01F, settings);
+	}
+
+	@Override
+	public MapCodec<BlockRubberLeaves> getCodec() {
+		return CODEC;
+	}
+
+	@Override
+	protected void spawnLeafParticle(World world, BlockPos pos, Random random) {
+		EntityEffectParticleEffect entityEffectParticleEffect = EntityEffectParticleEffect.create(ParticleTypes.TINTED_LEAVES, world.getBlockColor(pos));
+		ParticleUtil.spawnParticle(world, pos, random, entityEffectParticleEffect);
+	}
 }
