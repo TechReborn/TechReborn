@@ -36,6 +36,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 /**
@@ -47,7 +48,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 	}
 
 	@Override
-	public void render(StorageUnitBaseBlockEntity storage, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+	public void render(StorageUnitBaseBlockEntity storage, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
 		if (storage.getWorld() == null) {
 			return;
 		}

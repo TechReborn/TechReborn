@@ -36,6 +36,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 
 import java.util.Arrays;
@@ -54,7 +55,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 	}
 
 	@Override
-	public void render(WindMillBlockEntity blockEntity, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay) {
+	public void render(WindMillBlockEntity blockEntity, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay, Vec3d cameraPos) {
 		Direction facing = blockEntity.getFacing();
 		int renderLight = WorldRenderer.getLightmapCoordinates(blockEntity.getWorld(), blockEntity.getPos().offset(facing));
 
