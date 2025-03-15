@@ -57,9 +57,13 @@ public class ChunkLoaderManager extends PersistentState {
 	public static Codec<ChunkLoaderManager> CODEC = Codec.list(LoadedChunk.CODEC).xmap(ChunkLoaderManager::fromChunks, ChunkLoaderManager::getLoadedChunks);
 	public static final PersistentStateType<ChunkLoaderManager> TYPE = new PersistentStateType<>("chunk_loader", ChunkLoaderManager::new, CODEC, null);
 
-	private static final ChunkTicketType CHUNK_LOADER = ChunkTicketType.register("reborncore:chunk_loader", 0L, true, ChunkTicketType.Use.LOADING_AND_SIMULATION);
+	private static ChunkTicketType CHUNK_LOADER;
 	private static final String KEY = "reborncore_chunk_loader";
 	private static final int RADIUS = 1;
+
+	public static void register() {
+		CHUNK_LOADER = ChunkTicketType.register("reborncore:chunk_loader", 0L, true, ChunkTicketType.Use.LOADING_AND_SIMULATION);
+	}
 
 	public ChunkLoaderManager() {
 	}
