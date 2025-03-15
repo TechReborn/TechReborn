@@ -264,7 +264,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 					0.6F, 1F);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionParticles) {
-			world.addParticle(ParticleTypes.CRIT, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
+			world.addParticleClient(ParticleTypes.CRIT, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
 		}
 	}
 

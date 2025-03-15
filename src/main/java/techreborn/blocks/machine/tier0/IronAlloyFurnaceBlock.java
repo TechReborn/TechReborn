@@ -61,7 +61,7 @@ public class IronAlloyFurnaceBlock extends GenericMachineBlock {
 		double double_5 = rand.nextDouble() * 0.6D - 0.3D;
 		double deltaX = facing$Axis == Direction.Axis.X ? (double) facing.getOffsetX() * 0.52D : double_5;
 		double deltaZ = facing$Axis == Direction.Axis.Z ? (double) facing.getOffsetZ() * 0.52D : double_5;
-		worldIn.addParticle(ParticleTypes.SMOKE, x + deltaX, y, z + deltaZ, 0.0D, 0.0D, 0.0D);
-		worldIn.addParticle(ParticleTypes.FLAME, x + deltaX, y, z + deltaZ, 0.0D, 0.0D, 0.0D);
+		worldIn.addParticleClient(ParticleTypes.SMOKE, x + deltaX, y, z + deltaZ, 0.0D, 0.0D, 0.0D);
+		worldIn.addParticleClient(ParticleTypes.FLAME, x + deltaX, y, z + deltaZ, 0.0D, 0.0D, 0.0D);
 	}
 }
