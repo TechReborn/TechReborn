@@ -27,7 +27,7 @@ package techreborn.items.armor;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentType;
@@ -37,12 +37,12 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRItemSettings;
 
-public abstract class TREnergyArmourItem extends ArmorItem implements RcEnergyItem {
+public abstract class TREnergyArmourItem extends Item implements RcEnergyItem {
 	public final long maxCharge;
 	private final RcEnergyTier energyTier;
 
 	public TREnergyArmourItem(ArmorMaterial material, EquipmentType slot, long maxCharge, RcEnergyTier energyTier, String name) {
-		super(material, slot, TRItemSettings.unbreakable(name).maxCount(1));
+		super(TRItemSettings.unbreakable(name).maxCount(1).armor(material, slot));
 		this.maxCharge = maxCharge;
 		this.energyTier = energyTier;
 	}
