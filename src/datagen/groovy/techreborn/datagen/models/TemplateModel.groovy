@@ -27,15 +27,14 @@ package techreborn.datagen.models
 import net.minecraft.block.Block
 import net.minecraft.client.data.TextureKey
 import net.minecraft.client.data.TextureMap
-import net.minecraft.client.render.model.MissingModel
 import net.minecraft.client.render.model.json.ModelElement
 import net.minecraft.client.render.model.json.ModelElementFace
-import net.minecraft.client.render.model.json.ModelElementTexture
 import net.minecraft.client.render.model.json.ModelRotation
 import net.minecraft.client.render.model.json.Transformation
 import net.minecraft.item.Item
 import net.minecraft.item.ItemDisplayContext
 import net.minecraft.util.Identifier
+import net.minecraft.util.math.AxisRotation
 import net.minecraft.util.math.Direction
 import org.apache.commons.lang3.function.TriFunction
 import org.apache.commons.lang3.tuple.Pair
@@ -90,10 +89,10 @@ class TemplateModel {
 	))
 	static ModelElementFace CABLE_FACE_1 = face(TextureKey.TEXTURE, uvs(1, 1, 5, 5))
 	static ModelElementFace CABLE_FACE_2 = face(TextureKey.TEXTURE, uvs(0, 7, 6, 11))
-	static ModelElementFace CABLE_FACE_3 = face(TextureKey.TEXTURE, uvs(0, 7, 6, 11), 90)
+	static ModelElementFace CABLE_FACE_3 = face(TextureKey.TEXTURE, uvs(0, 7, 6, 11), AxisRotation.R90)
 	static ModelElementFace CABLE_FACE_4 = face(TextureKey.TEXTURE, uvs(0, 0, 6, 6))
 	static ModelElementFace CABLE_FACE_5 = face(TextureKey.TEXTURE, uvs(0, 6, 5, 12))
-	static ModelElementFace CABLE_FACE_6 = face(TextureKey.TEXTURE, uvs(0, 6, 6, 12), 90)
+	static ModelElementFace CABLE_FACE_6 = face(TextureKey.TEXTURE, uvs(0, 6, 6, 12), AxisRotation.R90)
 	static List<ModelElement> CABLE_CORE_ELEMENT = List.of(
 		new ModelElement(new Vector3f(6, 6, 6), new Vector3f(10, 10, 10), Map.of(
 			Direction.NORTH, CABLE_FACE_1, Direction.EAST, CABLE_FACE_1, Direction.SOUTH, CABLE_FACE_1,
@@ -105,7 +104,7 @@ class TemplateModel {
 			Direction.NORTH, CABLE_FACE_1, Direction.EAST, CABLE_FACE_2,
 			Direction.SOUTH, new ModelElementFace(
 				Direction.SOUTH, -1, TextureKey.TEXTURE.toString(),
-				new ModelElementTexture(uvs(1, 1, 5, 5), 0)
+				uvs(1, 1, 5, 5), AxisRotation.R0
 			),
 			Direction.WEST, CABLE_FACE_2, Direction.UP, CABLE_FACE_3, Direction.DOWN, CABLE_FACE_3
 		))
@@ -121,7 +120,7 @@ class TemplateModel {
 			Direction.NORTH, CABLE_FACE_4, Direction.EAST, CABLE_FACE_5,
 			Direction.SOUTH, new ModelElementFace(
 				Direction.SOUTH, -1, TextureKey.TEXTURE.toString(),
-				new ModelElementTexture(uvs(0, 0, 6, 6), 0)
+				uvs(0, 0, 6, 6), AxisRotation.R0
 			),
 			Direction.WEST, CABLE_FACE_5, Direction.UP, CABLE_FACE_6, Direction.DOWN, CABLE_FACE_6
 		))
@@ -144,15 +143,14 @@ class TemplateModel {
 		Direction.WEST, LIGHT_FACE_3,
 		Direction.EAST, LIGHT_FACE_3,
 	)
-	static ModelElementTexture EMPTY_TEXTURE_MODEL = new ModelElementTexture(null, 0)
 	static List<ModelElement> CUBE_CTMH_BASE = List.of(
 		new ModelElement(new Vector3f(0, 0, 0), new Vector3f(16, 16, 16), Map.of(
-			Direction.DOWN, new ModelElementFace(Direction.DOWN, -1, TextureKey.DOWN.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.UP, new ModelElementFace(Direction.UP, -1, TextureKey.UP.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.NORTH, new ModelElementFace(Direction.NORTH, 0, TextureKey.NORTH.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.SOUTH, new ModelElementFace(Direction.SOUTH, 0, TextureKey.SOUTH.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.WEST, new ModelElementFace(Direction.WEST, 0, TextureKey.WEST.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.EAST, new ModelElementFace(Direction.EAST, 0, TextureKey.EAST.toString(), EMPTY_TEXTURE_MODEL),
+			Direction.DOWN, new ModelElementFace(Direction.DOWN, -1, TextureKey.DOWN.toString(), null, AxisRotation.R0),
+			Direction.UP, new ModelElementFace(Direction.UP, -1, TextureKey.UP.toString(), null, AxisRotation.R0),
+			Direction.NORTH, new ModelElementFace(Direction.NORTH, 0, TextureKey.NORTH.toString(), null, AxisRotation.R0),
+			Direction.SOUTH, new ModelElementFace(Direction.SOUTH, 0, TextureKey.SOUTH.toString(), null, AxisRotation.R0),
+			Direction.WEST, new ModelElementFace(Direction.WEST, 0, TextureKey.WEST.toString(), null, AxisRotation.R0),
+			Direction.EAST, new ModelElementFace(Direction.EAST, 0, TextureKey.EAST.toString(), null, AxisRotation.R0),
 		))
 	)
 	static JsonModel.DisplayMap RESIN_BASIN_DISPLAY = new JsonModel.DisplayMap()
@@ -265,18 +263,18 @@ class TemplateModel {
 	)
 	static ModelRotation FISHING_STATION_ROTATION_1 = new ModelRotation(new Vector3f(1, 0, 4), Direction.Axis.X, 22.5, false)
 	static Map<Direction, ModelElementFace> FISHING_STATION_FACE_MAP_1 = Map.of(
-		Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 1, 1), 180),
-		Direction.EAST, face(KEY_ZERO, uvs(0, 0, 1, 14), 90),
+		Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 1, 1), AxisRotation.R180),
+		Direction.EAST, face(KEY_ZERO, uvs(0, 0, 1, 14), AxisRotation.R90),
 		Direction.SOUTH, face(KEY_ZERO, uvs(0, 0, 1, 1)),
-		Direction.WEST, face(KEY_ZERO, uvs(0, 0, 1, 14), 270),
+		Direction.WEST, face(KEY_ZERO, uvs(0, 0, 1, 14), AxisRotation.R270),
 		Direction.UP, face(KEY_ZERO, uvs(0, 0, 1, 14)),
-		Direction.DOWN, face(KEY_ZERO, uvs(0, 0, 1, 14), 180),
+		Direction.DOWN, face(KEY_ZERO, uvs(0, 0, 1, 14), AxisRotation.R180),
 	)
 	static ModelRotation FISHING_STATION_ROTATION_2 = new ModelRotation(new Vector3f(1, 0, 4), Direction.Axis.X, -22.5, false)
 	static ModelElementFace MISSING_FACE = face(KEY_MISSING, uvs(0, 0, 0, 9))
 	static Map<Direction, ModelElementFace> FISHING_STATION_FACE_MAP_2 = Map.of(
 		Direction.NORTH, MISSING_FACE, Direction.EAST, face(KEY_ONE, uvs(7, 0, 16, 9)),
-		Direction.SOUTH, MISSING_FACE, Direction.WEST, face(KEY_ONE, uvs(7, 0, 16, 9), 90),
+		Direction.SOUTH, MISSING_FACE, Direction.WEST, face(KEY_ONE, uvs(7, 0, 16, 9), AxisRotation.R90),
 		Direction.UP, MISSING_FACE, Direction.DOWN, MISSING_FACE,
 	)
 	static List<ModelElement> FISHING_STATION_ELEMENTS = List.of(
@@ -299,12 +297,12 @@ class TemplateModel {
 		new ModelElement(
 			new Vector3f(2, 0.5, -9.5), new Vector3f(14, 0.5, 4.5),
 			Map.of(
-				Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 12, 0), 180),
-				Direction.EAST, face(KEY_ZERO, uvs(0, 0, 0, 14), 90),
+				Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 12, 0), AxisRotation.R180),
+				Direction.EAST, face(KEY_ZERO, uvs(0, 0, 0, 14), AxisRotation.R90),
 				Direction.SOUTH, face(KEY_ZERO, uvs(0, 0, 12, 0)),
-				Direction.WEST, face(KEY_ZERO, uvs(0, 0, 0, 14), 270),
+				Direction.WEST, face(KEY_ZERO, uvs(0, 0, 0, 14), AxisRotation.R270),
 				Direction.UP, face(KEY_ZERO, uvs(4, 0, 16, 14)),
-				Direction.DOWN, face(KEY_ZERO, uvs(4, 0, 16, 14), 180),
+				Direction.DOWN, face(KEY_ZERO, uvs(4, 0, 16, 14), AxisRotation.R180),
 			),
 			FISHING_STATION_ROTATION_1, true, 0
 		),
@@ -812,16 +810,16 @@ class TemplateModel {
 		return new TextureMap().put(TextureKey.TEXTURE, id).put(TextureKey.PARTICLE, id)
 	}
 
-	static float[] uvs(float x1, float y1, float x2, float y2) {
-		return new float[]{ x1, y1, x2, y2 }
+	static ModelElementFace.UV uvs(float x1, float y1, float x2, float y2) {
+		return new ModelElementFace.UV(x1, y1, x2, y2)
 	}
 
-	static ModelElementFace face(TextureKey texture, float[] uvs) {
-		return new ModelElementFace(null, -1, texture.toString(), new ModelElementTexture(uvs, 0))
+	static ModelElementFace face(TextureKey texture, ModelElementFace.UV uvs) {
+		return new ModelElementFace(null, -1, texture.toString(), uvs, AxisRotation.R0)
 	}
 
-	static ModelElementFace face(TextureKey texture, float[] uvs, int rotation) {
-		return new ModelElementFace(null, -1, texture.toString(), new ModelElementTexture(uvs, rotation))
+	static ModelElementFace face(TextureKey texture, ModelElementFace.UV uvs, AxisRotation rotation) {
+		return new ModelElementFace(null, -1, texture.toString(), uvs, rotation)
 	}
 
 	static Transformation transformation(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {
