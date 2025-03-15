@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -75,7 +76,7 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+	protected void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn, EntityCollisionHandler handler) {
 		if (!worldIn.isClient && entityIn instanceof ProjectileEntity projectileEntity) {
 			LivingEntity shooter = null;
 			if (projectileEntity.getOwner() instanceof LivingEntity) {
