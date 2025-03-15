@@ -88,7 +88,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade1 = new ModelPart(Arrays.asList(blade1Cuboids), Collections.emptyMap());
-					blade1.setPivot(0.0F, 0.0F, 0.0F);
+					blade1.setOrigin(0.0F, 0.0F, 0.0F);
 					setRotation(blade1, -0.5236F, 0.0F, 0.0F);
 					put("blade1", blade1);
 
@@ -96,7 +96,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 							new ModelPart.Cuboid(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade2 = new ModelPart(Arrays.asList(blade2Cuboids), Collections.emptyMap());
-					blade2.setPivot(0.0F, 0.0F, 0.0F);
+					blade2.setOrigin(0.0F, 0.0F, 0.0F);
 					setRotation(blade2, -0.5236F, 0.0F, 2.0944F);
 					put("blade2", blade2);
 
@@ -104,12 +104,12 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 							new ModelPart.Cuboid(0, 9, -24.0F, -2.0F, -1.075F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade3 = new ModelPart(Arrays.asList(blade3Cuboids), Collections.emptyMap());
-					blade3.setPivot(0.0F, 0.0F, 0.0F);
+					blade3.setOrigin(0.0F, 0.0F, 0.0F);
 					setRotation(blade3, -0.5236F, 0.0F, -2.0944F);
 					put("blade3", blade3);
 				}
 			});
-			base.setPivot(0.0F, 24.0F, 0.0F);
+			base.setOrigin(0.0F, 24.0F, 0.0F);
 
 			return new TurbineModel(base, RenderLayer::getEntityCutoutNoCull);
 		}
