@@ -49,9 +49,9 @@ class BlockBreakerNbt {
 	}
 
 	public void readNbt(NbtCompound tag) {
-		this.breakTime = tag.getInt("breakTime");
-		this.currentBreakTime = tag.getInt("currentBreakTime");
-		setStatus(tag.getInt("blockBreakerStatus"));
+		this.breakTime = tag.getInt("breakTime").orElse(0);
+		this.currentBreakTime = tag.getInt("currentBreakTime").orElse(0);
+		setStatus(tag.getInt("blockBreakerStatus").orElse(0));
 	}
 
 	public BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder) {

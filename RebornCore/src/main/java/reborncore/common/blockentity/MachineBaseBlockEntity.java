@@ -372,17 +372,17 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			getOptionalCrafter().get().read(tagCompound);
 		}
 		if (tagCompound.contains("slotConfig")) {
-			slotConfiguration = new SlotConfiguration(tagCompound.getCompound("slotConfig"));
+			slotConfiguration = new SlotConfiguration(tagCompound.getCompound("slotConfig").orElseThrow());
 		} else {
 			if (getOptionalInventory().isPresent()) {
 				slotConfiguration = new SlotConfiguration(getOptionalInventory().get());
 			}
 		}
 		if (tagCompound.contains("fluidConfig")) {
-			fluidConfiguration = new FluidConfiguration(tagCompound.getCompound("fluidConfig"));
+			fluidConfiguration = new FluidConfiguration(tagCompound.getCompound("fluidConfig").orElseThrow());
 		}
 		if (tagCompound.contains("redstoneConfig")) {
-			NbtCompound redstoneConfig = tagCompound.getCompound("redstoneConfig");
+			NbtCompound redstoneConfig = tagCompound.getCompound("redstoneConfig").orElseThrow();
 			DataResult<RedstoneConfiguration> result = RedstoneConfiguration.CODEC.codec().parse(NbtOps.INSTANCE, redstoneConfig);
 
 			if (result.isSuccess()) {

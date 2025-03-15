@@ -301,10 +301,10 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	public void read(NbtCompound tag) {
-		NbtCompound data = tag.getCompound("Crater");
+		NbtCompound data = tag.getCompoundOrEmpty("Crater");
 
 		if (data.contains("currentTickTime")) {
-			currentTickTime = data.getInt("currentTickTime");
+			currentTickTime = data.getInt("currentTickTime").orElseThrow();
 		}
 
 		if (blockEntity != null && blockEntity.getWorld() != null && blockEntity.getWorld().isClient) {

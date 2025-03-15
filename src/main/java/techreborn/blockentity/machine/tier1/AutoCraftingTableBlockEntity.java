@@ -331,7 +331,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		if (tag.contains("locked")) {
-			locked = tag.getBoolean("locked");
+			locked = tag.getBoolean("locked").orElse(false);
 		}
 		super.readNbt(tag, registryLookup);
 	}

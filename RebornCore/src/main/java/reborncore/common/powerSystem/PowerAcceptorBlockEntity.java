@@ -353,10 +353,10 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	@Override
 	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tag, registryLookup);
-		NbtCompound data = tag.getCompound("PowerAcceptor");
+		NbtCompound data = tag.getCompoundOrEmpty("PowerAcceptor");
 		if (shouldHandleEnergyNBT()) {
 			// Bypass overfill check in setStored() because upgrades have not yet been applied.
-			this.energyContainer.amount = data.getLong("energy");
+			this.energyContainer.amount = data.getLong("energy").orElse(0L);
 		}
 	}
 

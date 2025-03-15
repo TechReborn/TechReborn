@@ -79,7 +79,7 @@ public class AlarmBlockEntity extends BlockEntity
 	@Override
 	public void readNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(compound,registryLookup);
-		selectedSound = compound.getInt("selectedSound");
+		selectedSound = compound.getInt("selectedSound").orElse(0);
 	}
 
 	// Tickable

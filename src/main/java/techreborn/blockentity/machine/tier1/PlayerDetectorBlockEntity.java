@@ -140,8 +140,8 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 	@Override
 	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tag, registryLookup);
-		ownerUdid = tag.getString("ownerID");
-		radius = tag.getInt("radius");
+		ownerUdid = tag.getString("ownerID").orElse("");
+		radius = tag.getInt("radius").orElse(0);
 	}
 
 	@Override

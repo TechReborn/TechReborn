@@ -151,7 +151,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(nbtCompound, registryLookup);
-		this.OUTPUT = nbtCompound.getInt("output");
+		this.OUTPUT = nbtCompound.getInt("output").orElse(0);
 	}
 
 	// MachineBaseBlockEntity

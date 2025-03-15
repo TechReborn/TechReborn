@@ -136,9 +136,9 @@ public class SlotConfiguration implements NBTSerializable {
 
 	@Override
 	public void read(NbtCompound nbt) {
-		int size = nbt.getInt("size");
+		int size = nbt.getInt("size").orElse(0);
 		for (int i = 0; i < size; i++) {
-			NbtCompound tagCompound = nbt.getCompound("slot_" + i);
+			NbtCompound tagCompound = nbt.getCompoundOrEmpty("slot_" + i);
 			SlotConfigHolder slotConfigHolder = new SlotConfigHolder(tagCompound);
 			updateSlotDetails(slotConfigHolder);
 		}
@@ -288,19 +288,19 @@ public class SlotConfiguration implements NBTSerializable {
 		@Override
 		public void read(NbtCompound nbt) {
 			sideMap.clear();
-			slotID = nbt.getInt("slotID");
+			slotID = nbt.getInt("slotID").orElse(0);
 			Arrays.stream(Direction.values()).forEach(facing -> {
-				NbtCompound compound = nbt.getCompound("side_" + facing.ordinal());
+				NbtCompound compound = nbt.getCompoundOrEmpty("side_" + facing.ordinal());
 				SlotConfig config = new SlotConfig(compound);
 				sideMap.put(facing, config);
 			});
-			input = nbt.getBoolean("input");
-			output = nbt.getBoolean("output");
+			input = nbt.getBoolean("input").orElse(false);
+			output = nbt.getBoolean("output").orElse(false);
 			if (nbt.contains("filter")) { // Was added later, this allows old saves to be upgraded
-				filter = nbt.getBoolean("filter");
+				filter = nbt.getBoolean("filter").orElseThrow();
 			}
 			if (nbt.contains("priority")) {
-				setPriority(nbt.getInt("priority"));
+				setPriority(nbt.getInt("priority").orElseThrow());
 			} else {
 				first = null;
 				last = null;
@@ -395,9 +395,9 @@ public class SlotConfiguration implements NBTSerializable {
 
 		@Override
 		public void read(NbtCompound nbt) {
-			side = Direction.values()[nbt.getInt("side")];
-			slotIO = new SlotIO(nbt.getCompound("config"));
-			slotID = nbt.getInt("slot");
+			side = Direction.values()[nbt.getInt("side").orElse(0)];
+			slotIO = new SlotIO(nbt.getCompoundOrEmpty("config"));
+			slotID = nbt.getInt("slot").orElse(0);
 		}
 	}
 
@@ -430,7 +430,7 @@ public class SlotConfiguration implements NBTSerializable {
 
 		@Override
 		public void read(NbtCompound nbt) {
-			ioConfig = ExtractConfig.values()[nbt.getInt("config")];
+			ioConfig = ExtractConfig.values()[nbt.getInt("config").orElse(0)];
 		}
 	}
 
@@ -481,10 +481,10 @@ public class SlotConfiguration implements NBTSerializable {
 		} catch (CommandSyntaxException e) {
 			throw new UnsupportedOperationException("Clipboard contents isn't a valid slot configuration");
 		}
-		if (!compound.contains("machine") || !compound.getString("machine").equals(machineIdent)) {
+		if (!compound.contains("machine") || !compound.getString("machine").orElseThrow().equals(machineIdent)) {
 			throw new UnsupportedOperationException("Machine config is not for this machine.");
 		}
-		read(compound.getCompound("data"));
+		read(compound.getCompoundOrEmpty("data"));
 	}
 
 	// DO NOT CALL THIS, use the inventory access on the inventory

@@ -160,8 +160,8 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
 		getTank().read(tagCompound, registryLookup);
-		this.range = tagCompound.getInt("range");
-		this.depth = tagCompound.getInt("depth");
+		this.range = tagCompound.getInt("range").orElse(0);
+		this.depth = tagCompound.getInt("depth").orElse(0);
 		finder = null;
 	}
 

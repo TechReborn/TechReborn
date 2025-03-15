@@ -121,7 +121,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 		// we receive a "validate()" call, which creates the controller and hands
 		// off the cached data.
 		if (data.contains("multiblockData")) {
-			this.cachedMultiblockData = data.getCompound("multiblockData");
+			this.cachedMultiblockData = data.getCompound("multiblockData").orElseThrow();
 		}
 	}
 
@@ -209,7 +209,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	 */
 	protected void decodeDescriptionPacket(NbtCompound packetData) {
 		if (packetData.contains("multiblockData")) {
-			NbtCompound tag = packetData.getCompound("multiblockData");
+			NbtCompound tag = packetData.getCompoundOrEmpty("multiblockData");
 			if (isConnected()) {
 				getMultiblockController().decodeDescriptionPacket(tag);
 			} else {

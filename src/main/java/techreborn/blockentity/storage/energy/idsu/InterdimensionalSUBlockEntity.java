@@ -126,7 +126,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	@Override
 	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(nbtCompound, registryLookup);
-		this.ownerUdid = nbtCompound.getString("ownerUdid");
+		this.ownerUdid = nbtCompound.getString("ownerUdid").orElse("");
 	}
 
 	@Override

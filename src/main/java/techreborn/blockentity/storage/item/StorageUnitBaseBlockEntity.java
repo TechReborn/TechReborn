@@ -299,7 +299,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		super.readNbt(tagCompound, registryLookup);
 
 		if (tagCompound.contains("unitType")) {
-			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
+			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType").orElseThrow());
 			configureEntity(type);
 		} else {
 			this.type = TRContent.StorageUnit.QUANTUM;
@@ -308,20 +308,20 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		storeItemStack = ItemStack.EMPTY;
 
 		if (tagCompound.contains("storedStack")) {
-			storeItemStack = ItemStack.fromNbt(registryLookup, tagCompound.getCompound("storedStack")).orElseThrow();
+			storeItemStack = ItemStack.fromNbt(registryLookup, tagCompound.getCompound("storedStack").orElseThrow()).orElseThrow();
 		}
 
 		if (!storeItemStack.isEmpty()) {
-			storeItemStack.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
+			storeItemStack.setCount(Math.min(tagCompound.getInt("storedQuantity").orElse(0), this.maxCapacity));
 		}
 
 		// Renderer only
 		if (tagCompound.contains("totalStoredAmount")) {
-			storedAmount = tagCompound.getInt("totalStoredAmount");
+			storedAmount = tagCompound.getInt("totalStoredAmount").orElseThrow();
 		}
 
 		if (tagCompound.contains("lockedItem")) {
-			lockedItemStack = ItemStack.fromNbt(registryLookup, tagCompound.getCompound("lockedItem")).orElseThrow();
+			lockedItemStack = ItemStack.fromNbt(registryLookup, tagCompound.getCompound("lockedItem").orElseThrow()).orElseThrow();
 		}
 	}
 
@@ -536,10 +536,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		if (!tag.contains("item")) {
 			storeItemStack = ItemStack.EMPTY;
 		} else {
-			storeItemStack = ItemStack.fromNbt(world.getRegistryManager(), tag.getCompound("item")).orElseThrow();
+			storeItemStack = ItemStack.fromNbt(world.getRegistryManager(), tag.getCompound("item").orElseThrow()).orElseThrow();
 		}
 
-		storeItemStack.setCount(tag.getInt("count"));
+		storeItemStack.setCount(tag.getInt("count").orElse(0));
 	}
 
 	private SlottedStorage<ItemVariant> getInternalStoreStorage(@Nullable Direction direction) {

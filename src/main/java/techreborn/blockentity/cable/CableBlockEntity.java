@@ -235,10 +235,10 @@ public class CableBlockEntity extends BlockEntity
 	public void readNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(compound, registryLookup);
 		if (compound.contains("energy")) {
-			energyContainer.amount = compound.getLong("energy");
+			energyContainer.amount = compound.getLong("energy").orElseThrow();
 		}
 		if (compound.contains("cover")) {
-			cover = NbtHelper.toBlockState(WorldUtils.getBlockRegistryWrapper(world), compound.getCompound("cover"));
+			cover = NbtHelper.toBlockState(WorldUtils.getBlockRegistryWrapper(world), compound.getCompound("cover").orElseThrow());
 		} else {
 			cover = null;
 		}

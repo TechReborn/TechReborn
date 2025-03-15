@@ -49,9 +49,9 @@ class BlockPlacerNbt {
 	}
 
 	public void readNbt(NbtCompound tag) {
-		this.placeTime = tag.getInt("placeTime");
-		this.currentPlaceTime = tag.getInt("currentPlaceTime");
-		setStatus(tag.getInt("blockPlacerStatus"));
+		this.placeTime = tag.getInt("placeTime").orElse(0);
+		this.currentPlaceTime = tag.getInt("currentPlaceTime").orElse(0);
+		setStatus(tag.getInt("blockPlacerStatus").orElse(0));
 	}
 
 	public BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder) {

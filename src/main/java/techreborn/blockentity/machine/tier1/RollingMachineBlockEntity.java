@@ -395,9 +395,9 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
-		this.isRunning = tagCompound.getBoolean("isRunning");
-		this.tickTime = tagCompound.getInt("tickTime");
-		this.locked = tagCompound.getBoolean("locked");
+		this.isRunning = tagCompound.getBoolean("isRunning").orElse(false);
+		this.tickTime = tagCompound.getInt("tickTime").orElse(0);
+		this.locked = tagCompound.getBoolean("locked").orElse(false);
 	}
 
 	@Override

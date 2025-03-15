@@ -152,12 +152,12 @@ public class FluidConfiguration implements NBTSerializable {
 	public void read(@NotNull NbtCompound nbt) {
 		sideMap.clear();
 		Arrays.stream(Direction.values()).forEach(facing -> {
-			NbtCompound compound = nbt.getCompound("side_" + facing.ordinal());
+			NbtCompound compound = nbt.getCompoundOrEmpty("side_" + facing.ordinal());
 			FluidConfig config = new FluidConfig(compound);
 			sideMap.put(facing, config);
 		});
-		input = nbt.getBoolean("input");
-		output = nbt.getBoolean("output");
+		input = nbt.getBoolean("input").orElse(false);
+		output = nbt.getBoolean("output").orElse(false);
 	}
 
 	public static class FluidConfig implements NBTSerializable {
@@ -203,8 +203,8 @@ public class FluidConfiguration implements NBTSerializable {
 
 		@Override
 		public void read(@NotNull NbtCompound nbt) {
-			side = Direction.values()[nbt.getInt("side")];
-			ioConfig = FluidConfiguration.ExtractConfig.values()[nbt.getInt("config")];
+			side = Direction.values()[nbt.getInt("side").orElse(0)];
+			ioConfig = FluidConfiguration.ExtractConfig.values()[nbt.getInt("config").orElse(0)];
 		}
 	}
 

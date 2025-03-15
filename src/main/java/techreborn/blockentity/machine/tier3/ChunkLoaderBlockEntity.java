@@ -137,8 +137,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	@Override
 	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(nbtCompound, registryLookup);
-		this.radius = nbtCompound.getInt("radius");
-		this.ownerUdid = nbtCompound.getString("ownerUdid");
+		this.radius = nbtCompound.getInt("radius").orElse(0);
+		this.ownerUdid = nbtCompound.getString("ownerUdid").orElse("");
 		if (!StringUtils.isBlank(ownerUdid)) {
 			nbtCompound.putString("ownerUdid", this.ownerUdid);
 		}

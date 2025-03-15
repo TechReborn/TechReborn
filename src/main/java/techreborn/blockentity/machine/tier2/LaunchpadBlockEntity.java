@@ -156,7 +156,7 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 	@Override
 	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tag, registryLookup);
-		selection = tag.getInt("selection");
+		selection = tag.getInt("selection").orElse(0);
 	}
 
 	@Override
