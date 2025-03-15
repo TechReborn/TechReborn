@@ -24,16 +24,19 @@
 
 package techreborn.init;
 
+import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -46,6 +49,7 @@ import techreborn.config.TechRebornConfig;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class TRVillager {
 
@@ -59,21 +63,9 @@ public class TRVillager {
 		ELECTRICIAN_ID, 1, 1, TRContent.Machine.SOLID_FUEL_GENERATOR.block
 	);
 
-	public static final VillagerProfession METALLURGIST_PROFESSION = Registry.register(Registries.VILLAGER_PROFESSION, METALLURGIST_ID,
-		VillagerProfessionBuilder.create()
-			.id(METALLURGIST_ID)
-			.workstation(RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, METALLURGIST_ID))
-			.workSound(SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH)
-			.build()
-	);
+	public static final RegistryKey<VillagerProfession> METALLURGIST_PROFESSION = registerVillagerProfession(METALLURGIST_ID, SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH);
 
-	public static final VillagerProfession ELECTRICIAN_PROFESSION = Registry.register(Registries.VILLAGER_PROFESSION, ELECTRICIAN_ID,
-		VillagerProfessionBuilder.create()
-			.id(ELECTRICIAN_ID)
-			.workstation(RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, ELECTRICIAN_ID))
-			.workSound(ModSounds.CABLE_SHOCK)
-			.build()
-	);
+	public static final RegistryKey<VillagerProfession> ELECTRICIAN_PROFESSION = registerVillagerProfession(ELECTRICIAN_ID, ModSounds.CABLE_SHOCK);
 
 	private TRVillager() {/* No instantiation. */}
 
@@ -157,5 +149,24 @@ public class TRVillager {
 				}))
 			);
 		}
+	}
+
+	private static RegistryKey<VillagerProfession> registerVillagerProfession(Identifier id, SoundEvent event) {
+		RegistryKey<VillagerProfession> key = RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, id);
+		RegistryKey<PointOfInterestType> heldWorkstation = RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, id);
+		Predicate<RegistryEntry<PointOfInterestType>> match = entry -> entry.matchesKey(heldWorkstation);
+		Registry.register(
+			Registries.VILLAGER_PROFESSION,
+			key,
+			new VillagerProfession(
+				Text.translatable("entity.minecraft.villager." + id.getPath()),
+				match,
+				match,
+				ImmutableSet.of(),
+				ImmutableSet.of(),
+				event
+			)
+		);
+		return key;
 	}
 }
