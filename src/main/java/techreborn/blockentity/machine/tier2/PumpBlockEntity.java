@@ -61,7 +61,6 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * @author maxvar (coding), ashendi (textures)
@@ -75,7 +74,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	public static final int MIN_DEPTH = 1;
 	public static final int MAX_RANGE = 50;
 	public static final int MAX_DEPTH = 50;
-	private Iterator<BlockPos> finder;
+	private java.util.Iterator<BlockPos> finder;
 	@Nullable
 	private Tank tank;
 	private boolean exhausted;
@@ -337,8 +336,8 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		 */
 		@NotNull
 		@Override
-		public Iterator<BlockPos> iterator() {
-			return new Iterator<>() {
+		public java.util.Iterator<BlockPos> iterator() {
+			return new java.util.Iterator<>() {
 				@Override
 				public boolean hasNext() {
 					return index < m;

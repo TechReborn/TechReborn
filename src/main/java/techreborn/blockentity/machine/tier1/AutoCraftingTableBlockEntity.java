@@ -404,7 +404,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		private Item[] layout = new Item[0];
 		private BalanceEntry entry = new BalanceEntry();
 		private final Map<BalanceEntry, ArrayList<Integer>> ingredients = new HashMap<>();
-		private Iterator<BalanceEntry> iterator = null;
+		private java.util.Iterator<BalanceEntry> iterator = null;
 		private boolean empty = true;
 		private boolean needsMatch = false;
 
