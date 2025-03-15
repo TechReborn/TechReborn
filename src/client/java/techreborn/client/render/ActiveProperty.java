@@ -24,6 +24,7 @@
 
 package techreborn.client.render;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.render.item.property.select.SelectProperty;
 import net.minecraft.client.world.ClientWorld;
@@ -43,6 +44,7 @@ import techreborn.items.tool.industrial.NanosaberItem;
 
 public record ActiveProperty() implements SelectProperty<PowerType> {
 	public static Identifier ID = Identifier.of(TechReborn.MOD_ID, "active");
+	public static Codec<PowerType> VALUE_CODEC = PowerType.CODEC;
 	public static final SelectProperty.Type<ActiveProperty, PowerType> TYPE = SelectProperty.Type.create(
 		MapCodec.unit(new ActiveProperty()), PowerType.CODEC
 	);
@@ -71,5 +73,10 @@ public record ActiveProperty() implements SelectProperty<PowerType> {
 	@Override
 	public SelectProperty.Type<ActiveProperty, PowerType> getType() {
 		return TYPE;
+	}
+
+	@Override
+	public Codec<PowerType> valueCodec() {
+		return VALUE_CODEC;
 	}
 }
