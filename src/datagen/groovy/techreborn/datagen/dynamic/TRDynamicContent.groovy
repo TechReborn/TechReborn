@@ -36,7 +36,7 @@ import net.minecraft.structure.rule.BlockMatchRuleTest
 import net.minecraft.structure.rule.BlockStateMatchRuleTest
 import net.minecraft.structure.rule.RuleTest
 import net.minecraft.structure.rule.TagMatchRuleTest
-import net.minecraft.util.collection.DataPool
+import net.minecraft.util.collection.Pool
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.math.intprovider.ConstantIntProvider
@@ -157,7 +157,7 @@ class TRDynamicContent {
 
 	// Rubber tree
 	private static ConfiguredFeature createRubberTreeConfiguredFeature() {
-		final DataPool.Builder<BlockState> logDataPool = DataPool.<BlockState>builder()
+		final Pool.Builder<BlockState> logDataPool = Pool.<BlockState>builder()
 			.add(TRContent.RUBBER_LOG.getDefaultState(), 6)
 
 		Arrays.stream(Direction.values())
