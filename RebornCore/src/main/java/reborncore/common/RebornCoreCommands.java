@@ -174,7 +174,7 @@ public class RebornCoreCommands {
 	}
 
 	private static int handRenderer(CommandContext<ServerCommandSource> ctx) {
-		queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getMainHandStack()), ctx);
+		queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getSelectedStack()), ctx);
 
 		return Command.SINGLE_SUCCESS;
 	}
