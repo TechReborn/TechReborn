@@ -24,22 +24,24 @@
 
 package techreborn.blockentity.storage.energy.idsu;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import reborncore.common.util.NBTSerializable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 import techreborn.config.TechRebornConfig;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class IDSUManager extends PersistentState {
-	private static final PersistentState.Type<IDSUManager> TYPE = new Type<>(IDSUManager::new, IDSUManager::createFromTag, null);
+	public static Codec<IDSUManager> CODEC = Codec.list(IDSUPlayer.CODEC).xmap(IDSUManager::fromIDSUPlayers, IDSUManager::getPlayers);
+	private static final PersistentStateType<IDSUManager> TYPE = new PersistentStateType<>("techreborn_idsu", IDSUManager::new, CODEC, null);
 	private static final String KEY = "techreborn_idsu";
 
 	private IDSUManager() {
@@ -52,61 +54,59 @@ public class IDSUManager extends PersistentState {
 
 	private static IDSUManager get(MinecraftServer server) {
 		ServerWorld serverWorld = server.getWorld(World.OVERWORLD);
-		return serverWorld.getPersistentStateManager().getOrCreate(TYPE, KEY);
+		return serverWorld.getPersistentStateManager().getOrCreate(TYPE);
 	}
 
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
 
 	@NotNull
 	public IDSUPlayer getPlayer(String uuid) {
-		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer());
+		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer(uuid, this::markDirty));
 	}
 
-	public static IDSUManager createFromTag(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+	public static IDSUManager fromIDSUPlayers(List<IDSUPlayer> list) {
 		IDSUManager	idsuManager = new IDSUManager();
-		idsuManager.fromTag(tag);
+		for (IDSUPlayer player : list) {
+			player.setMarkDirty(idsuManager::markDirty);
+			idsuManager.playerHashMap.put(player.getUUID(), player);
+		}
 		return idsuManager;
 	}
 
-	public void fromTag(NbtCompound tag) {
-		for (String uuid : tag.getKeys()) {
-			playerHashMap.put(uuid, new IDSUPlayer(tag.getCompound(uuid)));
-		}
+	public List<IDSUPlayer> getPlayers() {
+		return playerHashMap.values().stream().toList();
 	}
 
-	@Override
-	public NbtCompound writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		playerHashMap.forEach((uuid, player) -> tag.put(uuid, player.write()));
-		return tag;
-	}
 
-	public class IDSUPlayer implements NBTSerializable {
+	public static class IDSUPlayer {
+		public static Codec<IDSUPlayer> CODEC = RecordCodecBuilder.create(instance ->
+			instance.group(
+				Codec.STRING.fieldOf("uuid").forGetter(IDSUPlayer::getUUID),
+				Codec.LONG.fieldOf("energy").forGetter(IDSUPlayer::getEnergy)
+				)
+				.apply(instance, IDSUPlayer::new));
+		private String uuid;
+		private Runnable markDirty = () -> {};
 		// This storage is never exposed directly, it's always wrapped behind getMaxInput()/getMaxOutput() checks
 		private final SimpleEnergyStorage storage = new SimpleEnergyStorage(TechRebornConfig.idsuMaxEnergy, Long.MAX_VALUE, Long.MAX_VALUE) {
 			@Override
 			protected void onFinalCommit() {
-				markDirty();
+				markDirty.run();
 			}
 		};
 
-		private IDSUPlayer() {
+		private IDSUPlayer(String uuid, Runnable markDirty) {
+			this.uuid = uuid;
+			this.markDirty = markDirty;
 		}
 
-		private IDSUPlayer(NbtCompound compoundTag) {
-			read(compoundTag);
+		public IDSUPlayer(String uuid, Long energy) {
+			this.uuid = uuid;
+			storage.amount = energy;
 		}
 
-		@NotNull
-		@Override
-		public NbtCompound write() {
-			NbtCompound tag = new NbtCompound();
-			tag.putLong("energy", storage.amount);
-			return tag;
-		}
-
-		@Override
-		public void read(@NotNull NbtCompound tag) {
-			storage.amount = tag.getLong("energy");
+		public void setMarkDirty(Runnable markDirty) {
+			this.markDirty = markDirty;
 		}
 
 		public EnergyStorage getStorage() {
@@ -117,9 +117,13 @@ public class IDSUManager extends PersistentState {
 			return storage.amount;
 		}
 
+		public String getUUID() {
+			return uuid;
+		}
+
 		public void setEnergy(long energy) {
 			storage.amount = energy;
-			markDirty();
+			markDirty.run();
 		}
 	}
 
