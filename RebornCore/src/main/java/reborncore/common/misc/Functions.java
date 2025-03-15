@@ -46,6 +46,6 @@ public class Functions {
 			case 3 -> 5;
 			default -> 0;
 		};
-		return Direction.byId(metaDataToSet);
+		return Direction.byIndex(metaDataToSet);
 	}
 }
