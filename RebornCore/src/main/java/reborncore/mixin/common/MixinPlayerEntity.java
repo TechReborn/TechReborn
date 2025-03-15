@@ -24,13 +24,14 @@
 
 package reborncore.mixin.common;
 
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -38,20 +39,18 @@ import reborncore.api.items.ArmorBlockEntityTicker;
 
 @Mixin(PlayerEntity.class)
 public abstract class MixinPlayerEntity extends LivingEntity {
-
-	@Shadow
-	public abstract Iterable<ItemStack> getArmorItems();
-
 	protected MixinPlayerEntity(EntityType<? extends LivingEntity> type, World world) {
 		super(type, world);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
-		if (((PlayerEntity) (Object) this).isSpectator() || ((PlayerEntity) (Object) this).getWorld().isClient) return;
-		for (ItemStack stack : getArmorItems()) {
+		PlayerEntity playerEntity = (PlayerEntity) (Object) this;
+		if (playerEntity.isSpectator() || playerEntity.getWorld().isClient) return;
+		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+			ItemStack stack = playerEntity.getEquippedStack(equipmentSlot);
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorBlockEntityTicker) {
-				((ArmorBlockEntityTicker) stack.getItem()).tickArmor(stack, (PlayerEntity) (Object) this);
+				((ArmorBlockEntityTicker) stack.getItem()).tickArmor(stack, playerEntity);
 			}
 		}
 	}
