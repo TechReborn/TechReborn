@@ -25,6 +25,7 @@
 package reborncore.common.util;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -41,7 +42,7 @@ public class TorchHelper {
 			return ActionResult.FAIL;
 		}
 
-		for (int i = 0; i < player.getInventory().main.size(); i++) {
+		for (int i = 0; i < PlayerInventory.MAIN_SIZE; i++) {
 			ItemStack torchStack = player.getInventory().getStack(i);
 			if (torchStack.isEmpty() || !torchStack.getItem().getTranslationKey().toLowerCase(Locale.ROOT).contains("torch")) {
 				continue;
