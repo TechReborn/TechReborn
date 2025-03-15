@@ -314,7 +314,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public int getFacingInt() {
 		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockMachineBase) {
-			return ((BlockMachineBase) block).getFacing(world.getBlockState(pos)).getId();
+			return ((BlockMachineBase) block).getFacing(world.getBlockState(pos)).getIndex();
 		}
 		return 0;
 	}

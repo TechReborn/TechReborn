@@ -546,8 +546,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		// Quick fix to handle null sides. https://github.com/TechReborn/TechReborn/issues/3175
 		final Direction side = direction != null ? direction : Direction.DOWN;
 
-		if (internalStoreStorage[side.getId()] == null) {
-			internalStoreStorage[side.getId()] = new SingleStackStorage() {
+		if (internalStoreStorage[side.getIndex()] == null) {
+			internalStoreStorage[side.getIndex()] = new SingleStackStorage() {
 				@Override
 				protected ItemStack getStack() {
 					return storeItemStack;
@@ -587,7 +587,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				}
 			};
 		}
-		return internalStoreStorage[side.getId()];
+		return internalStoreStorage[side.getIndex()];
 	}
 
 	public Storage<ItemVariant> getExposedStorage(Direction side) {
