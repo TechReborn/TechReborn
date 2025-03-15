@@ -170,7 +170,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		}
 
 		BlockPos hitPos = hitResult.getBlockPos();
-		if (!world.canPlayerModifyAt(player, hitPos)) {
+		if (!world.canEntityModifyAt(player, hitPos)) {
 			return ActionResult.FAIL;
 		}
 
