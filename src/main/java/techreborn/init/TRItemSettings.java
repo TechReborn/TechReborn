@@ -25,11 +25,11 @@
 package techreborn.init;
 
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 import techreborn.TechReborn;
 
 public class TRItemSettings {
@@ -38,7 +38,7 @@ public class TRItemSettings {
 	}
 
 	public static Item.Settings unbreakable(String name) {
-		return item(name).component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(false));
+		return item(name).component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
 	}
 
 	public static RegistryKey<Item> key(String name) {
