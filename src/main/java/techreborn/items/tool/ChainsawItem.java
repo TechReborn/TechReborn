@@ -58,12 +58,6 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 		return cost;
 	}
 
-	// MiningToolItem
-	@Override
-	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		return true;
-	}
-
 	// Item
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {

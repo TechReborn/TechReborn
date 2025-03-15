@@ -64,9 +64,8 @@ public class NanosaberItem extends Item implements RcEnergyItem {
 
 	// SwordItem
 	@Override
-	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
+	public void postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
 		tryUseEnergy(stack, TechRebornConfig.nanosaberCost);
-		return true;
 	}
 
 	// Item

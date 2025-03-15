@@ -71,11 +71,6 @@ public class RockCutterItem extends Item implements RcEnergyItem {
 		return true;
 	}
 
-	@Override
-	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		return true;
-	}
-
 	// Item
 	@Override
 	public void onCraft(ItemStack stack, World world) {

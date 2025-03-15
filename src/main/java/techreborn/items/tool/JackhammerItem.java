@@ -66,12 +66,6 @@ public class JackhammerItem extends Item implements RcEnergyItem {
 		return worldIn.getBlockState(pos).isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE);
 	}
 
-	// MiningToolItem
-	@Override
-	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-			return true;
-		}
-
 	// Item
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {

@@ -73,11 +73,10 @@ public class OmniToolItem extends Item implements RcEnergyItem, IToolHandler {
 	}
 
 	@Override
-	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+	public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		if (tryUseEnergy(stack, TechRebornConfig.omniToolHitCost) && target.getWorld() instanceof ServerWorld serverWorld) {
 			target.damage(serverWorld, serverWorld.getDamageSources().playerAttack((PlayerEntity) attacker), 8F);
 		}
-		return true;
 	}
 
 	// Item
