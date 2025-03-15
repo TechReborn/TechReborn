@@ -36,7 +36,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -52,7 +52,7 @@ public class ItemBucketModel implements ItemModel {
 	}
 
 	@Override
-	public void update(ItemRenderState state, ItemStack stack, ItemModelManager resolver, ModelTransformationMode transformationMode, @Nullable ClientWorld world, @Nullable LivingEntity user, int seed) {
+	public void update(ItemRenderState state, ItemStack stack, ItemModelManager resolver, ItemDisplayContext transformationMode, @Nullable ClientWorld world, @Nullable LivingEntity user, int seed) {
 		ItemRenderState.LayerRenderState layerRenderState = state.newLayer();
 		RenderLayer renderLayer = RenderLayers.getItemLayer(stack);
 		layerRenderState.setModel(model, renderLayer);

@@ -36,7 +36,7 @@ import net.minecraft.client.render.model.json.ModelElementTexture
 import net.minecraft.client.render.model.json.ModelRotation
 import net.minecraft.client.render.model.json.Transformation
 import net.minecraft.item.Item
-import net.minecraft.item.ModelTransformationMode
+import net.minecraft.item.ItemDisplayContext
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.Direction
 import org.jetbrains.annotations.Nullable
@@ -153,13 +153,13 @@ class JsonModel {
 	}
 
 	static class DisplayMap {
-		final Map<ModelTransformationMode, Transformation> entries = new HashMap<>()
+		final Map<ItemDisplayContext, Transformation> entries = new HashMap<>()
 		DisplayMap create() {
 			DisplayMap display = new DisplayMap()
 			display.entries.putAll(entries)
 			return display
 		}
-		DisplayMap put(ModelTransformationMode mode, Transformation transformation) {
+		DisplayMap put(ItemDisplayContext mode, Transformation transformation) {
 			entries.put(mode, transformation)
 			return this
 		}

@@ -30,7 +30,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.util.Identifier;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 import techreborn.TechReborn;
@@ -47,8 +47,9 @@ public record ActiveProperty() implements SelectProperty<PowerType> {
 		MapCodec.unit(new ActiveProperty()), PowerType.CODEC
 	);
 
+	@Override
 	public PowerType getValue(
-		ItemStack stack, ClientWorld world, LivingEntity entity, int seed, ModelTransformationMode mode
+		ItemStack stack, ClientWorld world, LivingEntity entity, int seed, ItemDisplayContext mode
 	) {
 		Item item = stack.getItem();
 		if (item instanceof NanosaberItem nanosaber) {

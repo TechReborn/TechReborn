@@ -32,7 +32,7 @@ import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
@@ -63,7 +63,7 @@ record HologramRenderer(World view, MatrixStack matrix, VertexConsumerProvider v
 
 		if (state.getBlock() instanceof FluidBlock) {
 			FluidState fluidState = state.getFluidState();
-			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ModelTransformationMode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, view, 0);
+			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ItemDisplayContext.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, view, 0);
 		} else {
 			matrix.translate(-0.5, -0.5, -0.5);
 			VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayers.getBlockLayer(state));

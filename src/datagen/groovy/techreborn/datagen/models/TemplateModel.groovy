@@ -34,7 +34,7 @@ import net.minecraft.client.render.model.json.ModelElementTexture
 import net.minecraft.client.render.model.json.ModelRotation
 import net.minecraft.client.render.model.json.Transformation
 import net.minecraft.item.Item
-import net.minecraft.item.ModelTransformationMode
+import net.minecraft.item.ItemDisplayContext
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.Direction
 import org.apache.commons.lang3.function.TriFunction
@@ -59,11 +59,11 @@ class TemplateModel {
 	static Uploadable CUBE_ALL = (Block block) -> new JsonModel()
 		.add(Identifier.ofVanilla("block/cube_all")).id(block).add(TextureMap.all(block), TextureKey.ALL)
 	static JsonModel.DisplayMap CELL_DISPLAY = new JsonModel.DisplayMap()
-		.put(ModelTransformationMode.GROUND, transformation(0, 0, 0, 0, 2, 0, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.HEAD, transformation(0, 180, 0, 0, 13, 7, 1, 1, 1))
-		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 1, 0.55, 0.55, 0.55))
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, -90, 25, 1.13, 3.2, 1.13, 0.68, 0.68, 0.68))
-		.put(ModelTransformationMode.FIXED, transformation(0, 180, 0, 0, 0, 0, 1, 1, 1))
+		.put(ItemDisplayContext.GROUND, transformation(0, 0, 0, 0, 2, 0, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.HEAD, transformation(0, 180, 0, 0, 13, 7, 1, 1, 1))
+		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 1, 0.55, 0.55, 0.55))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, -90, 25, 1.13, 3.2, 1.13, 0.68, 0.68, 0.68))
+		.put(ItemDisplayContext.FIXED, transformation(0, 180, 0, 0, 0, 0, 1, 1, 1))
 	static JsonModel CELL_TEMPLATE = new JsonModel().add(CELL_DISPLAY).add(List.of(
 		new ModelElement(new Vector3f(7, 4, 7.5), new Vector3f(10, 12, 8.5), Map.of(
 			Direction.NORTH, face(TextureKey.TEXTURE, uvs(7, 4, 10, 12)),
@@ -127,12 +127,12 @@ class TemplateModel {
 		))
 	)
 	static JsonModel.DisplayMap LIGHT_DISPLAY_BASE = new JsonModel.DisplayMap()
-		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(75, 45, 0, 0, 2.5, 2, 0.375, 0.375, 0.375))
-		.put(ModelTransformationMode.FIRST_PERSON_LEFT_HAND, transformation(0, 225, 0, 0, 4.2, 0, 0.40, 0.40, 0.40))
+		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(75, 45, 0, 0, 2.5, 2, 0.375, 0.375, 0.375))
+		.put(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, transformation(0, 225, 0, 0, 4.2, 0, 0.40, 0.40, 0.40))
 	static JsonModel.DisplayMap LIGHT_DISPLAY_1 = LIGHT_DISPLAY_BASE.create()
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 5.5, 0, 0.60, 0.60, 0.60))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 5.5, 0, 0.60, 0.60, 0.60))
 	static JsonModel.DisplayMap LIGHT_DISPLAY_2 = LIGHT_DISPLAY_BASE.create()
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 4.3, 0, 0.60, 0.60, 0.60))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 4.3, 0, 0.60, 0.60, 0.60))
 	static ModelElementFace LIGHT_FACE_1 = face(KEY_ZERO, uvs(0.0, 0.0, 1.0, 1.0))
 	static ModelElementFace LIGHT_FACE_2 = face(KEY_ZERO, uvs(1.0,1.0,15.0,15.0))
 	static ModelElementFace LIGHT_FACE_3 = face(KEY_ZERO, uvs(1.0,2.0,15.0,0.0))
@@ -156,14 +156,14 @@ class TemplateModel {
 		))
 	)
 	static JsonModel.DisplayMap RESIN_BASIN_DISPLAY = new JsonModel.DisplayMap()
-		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(50, 45, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
-		.put(ModelTransformationMode.THIRD_PERSON_LEFT_HAND, transformation(50, -16, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, -225, 0, 0, 1.25, 0, 0.4, 0.4, 0.4))
-		.put(ModelTransformationMode.FIRST_PERSON_LEFT_HAND, transformation(0, 135, 0, 0, 1.25, 0, 0.4, 0.4, 0.4))
-		.put(ModelTransformationMode.GUI, transformation(30, 225, 0, 0, 0, 0, 0.625, 0.625, 0.625))
-		.put(ModelTransformationMode.GROUND, transformation(0, 0, 0, 0, 3, 0, 0.25, 0.25, 0.25))
-		.put(ModelTransformationMode.FIXED, transformation(0, -90, 0, 0, 0, 0, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.HEAD, transformation(0, 0, 0, 0, 11.75, 0, 1, 1, 1))
+		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(50, 45, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
+		.put(ItemDisplayContext.THIRD_PERSON_LEFT_HAND, transformation(50, -16, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, -225, 0, 0, 1.25, 0, 0.4, 0.4, 0.4))
+		.put(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, transformation(0, 135, 0, 0, 1.25, 0, 0.4, 0.4, 0.4))
+		.put(ItemDisplayContext.GUI, transformation(30, 225, 0, 0, 0, 0, 0.625, 0.625, 0.625))
+		.put(ItemDisplayContext.GROUND, transformation(0, 0, 0, 0, 3, 0, 0.25, 0.25, 0.25))
+		.put(ItemDisplayContext.FIXED, transformation(0, -90, 0, 0, 0, 0, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.HEAD, transformation(0, 0, 0, 0, 11.75, 0, 1, 1, 1))
 	static ModelElementFace RESIN_BASIN_FACE_1 = face(KEY_ONE, uvs(0, 8, 16, 16))
 	static ModelElementFace RESIN_BASIN_FACE_2 = face(KEY_TWO, uvs(0, 0, 14, 1))
 	static ModelElementFace RESIN_BASIN_FACE_3 = face(KEY_THREE, uvs(0, 0, 1, 6))
@@ -261,7 +261,7 @@ class TemplateModel {
 		),
 	)
 	static JsonModel.DisplayMap FISHING_STATION_DISPLAY = new JsonModel.DisplayMap().put(
-		ModelTransformationMode.GUI, transformation(30, 225, 0, -1, 0, 0, 0.5, 0.5, 0.5)
+		ItemDisplayContext.GUI, transformation(30, 225, 0, -1, 0, 0, 0.5, 0.5, 0.5)
 	)
 	static ModelRotation FISHING_STATION_ROTATION_1 = new ModelRotation(new Vector3f(1, 0, 4), Direction.Axis.X, 22.5, false)
 	static Map<Direction, ModelElementFace> FISHING_STATION_FACE_MAP_1 = Map.of(
@@ -318,13 +318,13 @@ class TemplateModel {
 		),
 	)
 	static JsonModel.DisplayMap NANOSABER_DISPLAY = new JsonModel.DisplayMap()
-		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 0, 1, 1, 1))
-		.put(ModelTransformationMode.THIRD_PERSON_LEFT_HAND, transformation(0, 0, 0, 0, 3, 0, 1, 1, 1))
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, 0, -5, 0, 4, 2, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.FIRST_PERSON_LEFT_HAND, transformation(0, 0, -5, 0, 4, 2, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.GUI, transformation(90, 45, -90, -3.75, -3.75, 0, 0.65, 0.65, 0.65))
-		.put(ModelTransformationMode.GROUND, transformation(45, 0, 0, 0, 3, -2, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.FIXED, transformation(0, 90, 0, 0, -4, 0, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 0, 1, 1, 1))
+		.put(ItemDisplayContext.THIRD_PERSON_LEFT_HAND, transformation(0, 0, 0, 0, 3, 0, 1, 1, 1))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, 0, -5, 0, 4, 2, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, transformation(0, 0, -5, 0, 4, 2, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.GUI, transformation(90, 45, -90, -3.75, -3.75, 0, 0.65, 0.65, 0.65))
+		.put(ItemDisplayContext.GROUND, transformation(45, 0, 0, 0, 3, -2, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.FIXED, transformation(0, 90, 0, 0, -4, 0, 0.5, 0.5, 0.5))
 	static List<ModelElement> NANOSABER_ELEMENT = List.of(
 		new ModelElement(new Vector3f(7, 0, 7), new Vector3f(9, 5, 9), Map.of(
 			Direction.NORTH, face(TextureKey.TEXTURE, uvs(5, 4, 6, 6.5)),
