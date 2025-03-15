@@ -42,11 +42,13 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCore;
 import reborncore.api.IListInfoProvider;
+import reborncore.common.BaseBlock;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StackToolTipHandler implements ItemTooltipCallback {
@@ -55,6 +57,11 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	public void getTooltip(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipType tooltipType, List<Text> tooltipLines) {
 		Item item = itemStack.getItem();
 		Block block = Block.getBlockFromItem(item);
+		if (block instanceof BaseBlock baseBlock) {
+			List<Text> list = new ArrayList<>();
+			baseBlock.appendTooltip(itemStack, tooltipContext, list, tooltipType);
+			tooltipLines.addAll(1, list);
+		}
 
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(tooltipLines, false, false);

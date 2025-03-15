@@ -26,6 +26,7 @@ package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,6 +47,7 @@ import techreborn.utils.ToolsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class IndustrialChainsawItem extends ChainsawItem {
 
@@ -134,7 +136,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 }

@@ -25,6 +25,7 @@
 package techreborn.items.tool.advanced;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,8 +46,8 @@ import techreborn.utils.TRItemUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
@@ -91,7 +92,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 

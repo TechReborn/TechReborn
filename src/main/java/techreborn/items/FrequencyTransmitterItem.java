@@ -24,6 +24,7 @@
 
 package techreborn.items;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,8 +44,8 @@ import reborncore.common.chunkloading.ChunkLoaderManager;
 import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRItemSettings;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class FrequencyTransmitterItem extends Item {
 
@@ -105,14 +106,13 @@ public class FrequencyTransmitterItem extends Item {
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-		super.appendTooltip(stack, context, tooltip, type);
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		getPos(stack)
 			.ifPresent(globalPos -> {
-				tooltip.add(Text.literal(Formatting.GRAY + "X: " + Formatting.GOLD + globalPos.pos().getX()));
-				tooltip.add(Text.literal(Formatting.GRAY + "Y: " + Formatting.GOLD + globalPos.pos().getY()));
-				tooltip.add(Text.literal(Formatting.GRAY + "Z: " + Formatting.GOLD + globalPos.pos().getZ()));
-				tooltip.add(Text.literal(Formatting.DARK_GRAY + getDimName(globalPos.dimension()).toString()));
+				tooltip.accept(Text.literal(Formatting.GRAY + "X: " + Formatting.GOLD + globalPos.pos().getX()));
+				tooltip.accept(Text.literal(Formatting.GRAY + "Y: " + Formatting.GOLD + globalPos.pos().getY()));
+				tooltip.accept(Text.literal(Formatting.GRAY + "Z: " + Formatting.GOLD + globalPos.pos().getZ()));
+				tooltip.accept(Text.literal(Formatting.DARK_GRAY + getDimName(globalPos.dimension()).toString()));
 			});
 	}
 

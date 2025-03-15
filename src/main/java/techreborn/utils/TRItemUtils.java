@@ -33,6 +33,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.component.TRDataComponentTypes;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TRItemUtils {
 
@@ -114,11 +115,11 @@ public class TRItemUtils {
 	 * @param stack   {@link ItemStack} Stack to check
 	 * @param tooltip {@link List} List of {@link Text} tooltip strings
 	 */
-	public static void buildActiveTooltip(ItemStack stack, List<Text> tooltip) {
+	public static void buildActiveTooltip(ItemStack stack, Consumer<Text> tooltip) {
 		if (!TRItemUtils.isActive(stack)) {
-			tooltip.add(Text.translatable("reborncore.message.inactive").formatted(Formatting.RED));
+			tooltip.accept(Text.translatable("reborncore.message.inactive").formatted(Formatting.RED));
 		} else {
-			tooltip.add(Text.translatable("reborncore.message.active").formatted(Formatting.GREEN));
+			tooltip.accept(Text.translatable("reborncore.message.active").formatted(Formatting.GREEN));
 		}
 	}
 }

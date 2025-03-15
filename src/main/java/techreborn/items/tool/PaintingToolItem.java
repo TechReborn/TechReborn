@@ -26,26 +26,26 @@ package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
 import techreborn.init.TRItemSettings;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class PaintingToolItem extends Item {
 
@@ -95,13 +95,14 @@ public class PaintingToolItem extends Item {
 		return stack.getOrDefault(TRDataComponentTypes.PAINTING_COVER, null);
 	}
 
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+	@Override
+	public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		BlockState blockState = getCover(stack);
 		if (blockState != null) {
-			tooltip.add((Text.translatable(blockState.getBlock().getTranslationKey())).formatted(Formatting.GRAY));
-			tooltip.add((Text.translatable("techreborn.tooltip.painting_tool.apply")).formatted(Formatting.GOLD));
+			tooltip.accept((Text.translatable(blockState.getBlock().getTranslationKey())).formatted(Formatting.GRAY));
+			tooltip.accept((Text.translatable("techreborn.tooltip.painting_tool.apply")).formatted(Formatting.GOLD));
 		} else {
-			tooltip.add((Text.translatable("techreborn.tooltip.painting_tool.select")).formatted(Formatting.GOLD));
+			tooltip.accept((Text.translatable("techreborn.tooltip.painting_tool.select")).formatted(Formatting.GOLD));
 		}
 	}
 

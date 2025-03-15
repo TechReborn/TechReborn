@@ -24,7 +24,6 @@
 
 package reborncore.common;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -42,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public abstract class BaseBlockEntityProvider extends Block implements BlockEntityProvider {
+public abstract class BaseBlockEntityProvider extends BaseBlock implements BlockEntityProvider {
 
 	protected BaseBlockEntityProvider(Settings builder) {
 		super(builder);

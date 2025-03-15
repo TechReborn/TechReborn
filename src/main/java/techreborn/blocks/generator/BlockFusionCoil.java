@@ -24,7 +24,6 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.tooltip.TooltipType;
@@ -40,12 +39,13 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
+import reborncore.common.BaseBlock;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockSettings;
 
 import java.util.List;
 
-public class BlockFusionCoil extends Block {
+public class BlockFusionCoil extends BaseBlock {
 
 	public BlockFusionCoil(String name) {
 		super(TRBlockSettings.fusionCoil(name));

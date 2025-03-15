@@ -25,6 +25,7 @@
 package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,8 +49,8 @@ import techreborn.utils.TRItemUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
@@ -132,13 +133,13 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		TRItemUtils.buildActiveTooltip(stack, tooltip);
 		if (TRItemUtils.isActive(stack)) {
 			if (isAOE5(stack)) {
-				tooltip.add(Text.literal("5*5").formatted(Formatting.RED));
+				tooltip.accept(Text.literal("5*5").formatted(Formatting.RED));
 			} else {
-				tooltip.add(Text.literal("3*3").formatted(Formatting.RED));
+				tooltip.accept(Text.literal("3*3").formatted(Formatting.RED));
 			}
 		}
 	}

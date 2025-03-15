@@ -27,6 +27,7 @@ package techreborn.items.armor;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -48,7 +49,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.utils.TRItemUtils;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
 	private static final EntityAttributeModifier ENABLED_ARMOR_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "quantum_armor") , 20, EntityAttributeModifier.Operation.ADD_VALUE);
@@ -155,7 +156,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		if (this.getSlotType() == EquipmentSlot.HEAD) {
 			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}
