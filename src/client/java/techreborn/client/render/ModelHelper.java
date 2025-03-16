@@ -26,7 +26,6 @@ package techreborn.client.render;
 
 import com.google.common.base.Charsets;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.resource.Resource;
