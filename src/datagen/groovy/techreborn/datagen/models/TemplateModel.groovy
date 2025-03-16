@@ -63,13 +63,13 @@ class TemplateModel {
 		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 1, 0.55, 0.55, 0.55))
 		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, -90, 25, 1.13, 3.2, 1.13, 0.68, 0.68, 0.68))
 		.put(ItemDisplayContext.FIXED, transformation(0, 180, 0, 0, 0, 0, 1, 1, 1))
-	static JsonModel CELL_TEMPLATE = new JsonModel().add(CELL_DISPLAY).add(List.of(
+	static JsonModel CELL_TEMPLATE = new JsonModel().add(List.of(
 		new ModelElement(new Vector3f(7, 4, 7.5), new Vector3f(10, 12, 8.5), Map.of(
 			Direction.NORTH, face(TextureKey.TEXTURE, uvs(7, 4, 10, 12)),
 			Direction.SOUTH, face(TextureKey.TEXTURE, uvs(7, 4, 10, 12)),
 		))
 	))
-	static JsonModel BUCKET_TEMPLATE = new JsonModel().add(CELL_DISPLAY).add(List.of(
+	static JsonModel BUCKET_TEMPLATE = new JsonModel().add(List.of(
 		new ModelElement(new Vector3f(4, 11, 7.5), new Vector3f(12, 13, 8.5), Map.of(
 			Direction.NORTH, face(TextureKey.TEXTURE, uvs(4, 3, 12, 5)),
 			Direction.SOUTH, face(TextureKey.TEXTURE, uvs(4, 3, 12, 5)),
@@ -757,25 +757,25 @@ class TemplateModel {
 	static Uploadable<Item> NANOSABER_ON = { Item item -> NANOSABER_BASE.apply(item).suffix("_on") }
 	static Uploadable<Item> NANOSABER_LOW = { Item item -> NANOSABER_BASE.apply(item).suffix("_low") }
 	static def CELL_BASE = wrapperItem { item, id ->
-		GENERATED.create(item).suffix("_base").add(TextureMap.layer0(id), TextureKey.LAYER0)
+		GENERATED.create(item).suffix("_base").add(CELL_DISPLAY).add(
+			TextureMap.layer0(id).put(TextureKey.PARTICLE, id),
+			TextureKey.LAYER0, TextureKey.PARTICLE
+		)
 	}
 	static def CELL_BACKGROUND = wrapperItem { item, id ->
-		CELL_TEMPLATE.create(item).suffix("_background").add(texture(id.withSuffixedPath("_background")))
-	}
-	static def CELL_FLUID = wrapperItem { item, id ->
-		CELL_TEMPLATE.create(item).suffix("_fluid").add(texture(id.withSuffixedPath("_background")))
+		CELL_TEMPLATE.create(item).suffix("_background").add(TextureMap.texture(id), TextureKey.TEXTURE)
 	}
 	static def CELL_GLASS = wrapperItem { item, id ->
-		CELL_TEMPLATE.create(item).suffix("_glass").add(texture(id.withSuffixedPath("_glass")))
+		CELL_TEMPLATE.create(item).suffix("_glass").add(TextureMap.texture(id), TextureKey.TEXTURE)
 	}
 	static Uploadable<Identifier> BUCKET_BASE = { Identifier id ->
-		GENERATED.create(id).suffix("_base").add(TextureMap.layer0(id), TextureKey.LAYER0)
+		GENERATED.create(id).suffix("_base").add(CELL_DISPLAY).add(
+			TextureMap.layer0(id).put(TextureKey.PARTICLE, id),
+			TextureKey.LAYER0, TextureKey.PARTICLE
+		)
 	}
 	static Uploadable<Identifier> BUCKET_BACKGROUND = { Identifier id ->
-		BUCKET_TEMPLATE.create(id).suffix("_background").add(texture(id.withSuffixedPath("_background")))
-	}
-	static Uploadable<Identifier> BUCKET_FLUID = { Identifier id ->
-		BUCKET_TEMPLATE.create(id).suffix("_fluid").add(texture(id.withSuffixedPath("_background")))
+		BUCKET_TEMPLATE.create(id).suffix("_background").add(TextureMap.texture(id), TextureKey.TEXTURE)
 	}
 
 	static TextureMap orientable(Identifier top, Identifier front, Identifier side) {
