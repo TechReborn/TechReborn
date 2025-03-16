@@ -78,23 +78,23 @@ public class ItemStackRenderer implements HudRenderCallback {
 		Framebuffer framebuffer = new WindowFramebuffer(SIZE, SIZE);
 
 		try (NativeImage nativeImage = new NativeImage(SIZE, SIZE, true)) {
-			framebuffer.setClearColor(0, 0, 0, 0);
-			framebuffer.clear();
-
-			{
-				framebuffer.beginWrite(true);
-				DrawContext drawContext = new DrawContext(client, client.getBufferBuilders().getEntityVertexConsumers());
-				drawContext.drawItem(item, 0, 0);
-				drawContext.draw();
-				framebuffer.endWrite();
-			}
-
-			{
-				framebuffer.beginRead();
-				nativeImage.loadFromTextureImage(0, false);
-				nativeImage.mirrorVertically();
-				framebuffer.endRead();
-			}
+//			framebuffer.setClearColor(0, 0, 0, 0);
+//			framebuffer.clear();
+//
+//			{
+//				framebuffer.beginWrite(true);
+//				DrawContext drawContext = new DrawContext(client, client.getBufferBuilders().getEntityVertexConsumers());
+//				drawContext.drawItem(item, 0, 0);
+//				drawContext.draw();
+//				framebuffer.endWrite();
+//			}
+//
+//			{
+//				framebuffer.beginRead();
+//				nativeImage.loadFromTextureImage(0, false);
+//				nativeImage.mirrorVertically();
+//				framebuffer.endRead();
+//			}
 
 			try {
 				Path path = FabricLoader.getInstance().getGameDir().resolve("item_renderer").resolve(identifier.getNamespace()).resolve(identifier.getPath() + ".png");
