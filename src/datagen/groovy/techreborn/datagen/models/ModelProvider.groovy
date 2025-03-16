@@ -506,8 +506,8 @@ class ModelProvider extends FabricModelProvider {
 		add TRContent.COPPER_WALL, toWall
 
 		generator.registerFlowerPotPlantAndItem(TRContent.RUBBER_SAPLING, TRContent.POTTED_RUBBER_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED)
-		generator.registerLog(TRContent.RUBBER_LOG).wood(TRContent.RUBBER_WOOD)
-		generator.registerLog(TRContent.RUBBER_LOG_STRIPPED).log(TRContent.RUBBER_LOG_STRIPPED).wood(TRContent.STRIPPED_RUBBER_WOOD)
+		generator.createLogTexturePool(TRContent.RUBBER_LOG).wood(TRContent.RUBBER_WOOD)
+		generator.createLogTexturePool(TRContent.RUBBER_LOG_STRIPPED).log(TRContent.RUBBER_LOG_STRIPPED).wood(TRContent.STRIPPED_RUBBER_WOOD)
 		generator.registerSingleton(TRContent.RUBBER_LEAVES, TexturedModel.LEAVES)
 		BlockFamily family = BlockFamilies.register(TRContent.RUBBER_PLANKS)
 			.button(TRContent.RUBBER_BUTTON)
