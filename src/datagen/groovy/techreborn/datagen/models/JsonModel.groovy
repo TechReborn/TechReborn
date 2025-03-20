@@ -40,7 +40,7 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.math.AxisRotation
 import net.minecraft.util.math.Direction
 import org.jetbrains.annotations.Nullable
-import org.joml.Vector3f
+import org.joml.Vector3fc
 
 class JsonModel {
 	@Nullable
@@ -195,23 +195,23 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonArray toJson(Vector3f vector) {
+	private static JsonArray toJson(Vector3fc vector) {
 		JsonArray data = new JsonArray()
-		data.add(vector.x)
-		data.add(vector.y)
-		data.add(vector.z)
+		data.add(vector.x())
+		data.add(vector.y())
+		data.add(vector.z())
 		return data
 	}
 
 	private static JsonObject toJson(Transformation transformation) {
 		JsonObject json = new JsonObject()
-		if (transformation.rotation().x != 0 || transformation.rotation().y != 0 || transformation.rotation().z != 0) {
+		if (transformation.rotation().x() != 0 || transformation.rotation().y() != 0 || transformation.rotation().z() != 0) {
 			json.add("rotation", toJson(transformation.rotation()))
 		}
-		if (transformation.translation().x != 0 || transformation.translation().y != 0 || transformation.translation().z != 0) {
+		if (transformation.translation().x() != 0 || transformation.translation().y() != 0 || transformation.translation().z() != 0) {
 			json.add("translation", toJson(transformation.translation()))
 		}
-		if (transformation.scale().x != 1 || transformation.translation().y != 1 || transformation.translation().z != 1) {
+		if (transformation.scale().x() != 1 || transformation.translation().y() != 1 || transformation.translation().z() != 1) {
 			json.add("scale", toJson(transformation.scale()))
 		}
 		return json
