@@ -26,6 +26,7 @@ package techreborn.client.events;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import techreborn.config.TechRebornConfig;
@@ -35,6 +36,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -83,11 +85,9 @@ public class ToolTipAssistUtils {
 		if (I18n.hasTranslation(key)) {
 			if (!hidden || Screen.hasShiftDown()) {
 				String info = I18n.translate(key);
-				String[] infoLines = info.split("\\r?\\n");
-
-				for (String infoLine : infoLines) {
-					list.add(1, Text.literal(infoColour + infoLine));
-				}
+				List<MutableText> infoLines = Arrays.stream(info.split("\\r?\\n"))
+					.map(infoLine -> Text.literal(infoColour + infoLine)).toList();
+				list.addAll(1, infoLines);
 			} else {
 				list.add(Text.literal(instructColour + I18n.translate("techreborn.tooltip.more_info")));
 			}

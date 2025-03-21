@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Vyrábí energii ze spalovatelných předmětů\nFunguje s palivem, které jsi používal v peci",
   "techreborn.message.info.block.techreborn.thermal_generator": "Přeměňuje lávu a ostatní zdroje tepla na energii",
   "techreborn.message.info.block.techreborn.water_mill": "Využívá energii vodních zdrojů pro výrobu energie",
-  "techreborn.message.info.block.techreborn.wind_mill": "Vyrábí energii, když je položen ve výšce 64 bloků od vzduchu\n25% účinnější při bouřkách",
+  "techreborn.message.info.block.techreborn.wind_mill": "Vyrábí energii, když je položen ve výšce 64 bloků od vzduchu\n25%% účinnější při bouřkách",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Nabíjí až 6 předmětů najednou",
   "techreborn.message.info.block.techreborn.chunk_loader": "Nechává načtené chunky a umožňuje strojům běžet, když nejsi u nich",
   "techreborn.message.info.block.techreborn.drain": "Tlačí kapalinu nad ní a dobře se spojuje s nádrží pod",

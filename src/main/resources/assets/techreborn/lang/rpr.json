@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Производит энергию из сжигаемого топлива\nИспользует то, что вы обычно используете в качестве топлива для печи",
   "techreborn.message.info.block.techreborn.thermal_generator": "Преобразует лаву и другие источники тепла в энергию",
   "techreborn.message.info.block.techreborn.water_mill": "Использует силу любого соседнего источника воды для производства энергии",
-  "techreborn.message.info.block.techreborn.wind_mill": "Производит энергию из воздуха, когда размещен выше 64-го блока\nНа 25% эффективнее во время грозы",
+  "techreborn.message.info.block.techreborn.wind_mill": "Производит энергию из воздуха, когда размещен выше 64-го блока\nНа 25%% эффективнее во время грозы",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Заряжает до 6 предметов одновременно",
   "techreborn.message.info.block.techreborn.chunk_loader": "Подгружает чанки, позволяя машинам работать, если вас нет рядом",
   "techreborn.message.info.block.techreborn.drain": "Вытягивает любую жидкость, прекрасно сочетается с резервуаром под ним",

@@ -844,7 +844,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Produces energy from the burnables\nWorks with what you would normally use to fuel a furnace",
   "techreborn.message.info.block.techreborn.thermal_generator": "Converts lava and other heat sources into energy",
   "techreborn.message.info.block.techreborn.water_mill": "Uses the power of any water source adjacent to it to generate energy",
-  "techreborn.message.info.block.techreborn.wind_mill": "Produces energy when placed above the height of 64 blocks from air\n25% more efficient in thunderstorms",
+  "techreborn.message.info.block.techreborn.wind_mill": "Produces energy when placed above the height of 64 blocks from air\n25%% more efficient in thunderstorms",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Charges up to 6 items simultaneously",
   "techreborn.message.info.block.techreborn.chunk_loader": "Keeps chunks loaded, allows machines to run when you're not nearby",
   "techreborn.message.info.block.techreborn.drain": "Pulls any fluid directly above it, pairs nicely with a tank unit underneath",
