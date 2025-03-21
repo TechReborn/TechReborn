@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Produce energía a partir de los quemables\nFunciona con lo que normalmente usarías para alimentar un horno",
   "techreborn.message.info.block.techreborn.thermal_generator": "Convierte lava y otras fuentes de calor en energía",
   "techreborn.message.info.block.techreborn.water_mill": "Usa la potencia de cualquier fuente de agua adyacente a ella para generar energía",
-  "techreborn.message.info.block.techreborn.wind_mill": "Produce energía del aire cuando se coloca por encima de una altura de 64 bloques\n25% más eficiente en tormentas",
+  "techreborn.message.info.block.techreborn.wind_mill": "Produce energía del aire cuando se coloca por encima de una altura de 64 bloques\n25%% más eficiente en tormentas",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Carga hasta 6 objetos simultáneamente",
   "techreborn.message.info.block.techreborn.chunk_loader": "Los mantiene cargados de chatarra, permite que las máquinas funcionen cuando no esté cerca",
   "techreborn.message.info.block.techreborn.drain": "Tira de cualquier flujo directamente sobre ello, combina bien con una unidad de tanque por debajo",

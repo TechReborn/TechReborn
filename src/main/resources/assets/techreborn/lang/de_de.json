@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Erzeugt Energie aus Brennstoffen\nArbeitet mit dem, was man normalerweise im Ofen verbrennen würde",
   "techreborn.message.info.block.techreborn.thermal_generator": "Verwandelt Lava und andere Wärmequellen in Energie",
   "techreborn.message.info.block.techreborn.water_mill": "Verwendet die Energie von angrenzenden Wasserquellen um Energie zu erzeugen",
-  "techreborn.message.info.block.techreborn.wind_mill": "Erzeugt Energie, wenn sie über 64 Blöcke hoch platziert wird\n25% effizienter bei Gewittern",
+  "techreborn.message.info.block.techreborn.wind_mill": "Erzeugt Energie, wenn sie über 64 Blöcke hoch platziert wird\n25%% effizienter bei Gewittern",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Lädt bis zu 6 Elemente gleichzeitig auf",
   "techreborn.message.info.block.techreborn.chunk_loader": "Hält Chunks geladen, erlaubt Maschinen zu laufen, wenn niemand in der Nähe ist",
   "techreborn.message.info.block.techreborn.drain": "Zieht alle Flüssigkeiten direkt über sich, funktioniert gut über einer Tankeinheit ",

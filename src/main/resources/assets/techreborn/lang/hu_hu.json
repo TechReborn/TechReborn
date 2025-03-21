@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Éghető anyagokból energiát állít elő\nMinden olyan dologgal működik, amit üzemanyagként használsz kemencében",
   "techreborn.message.info.block.techreborn.thermal_generator": "Láva és egyéb hőforrást energiává alakít",
   "techreborn.message.info.block.techreborn.water_mill": "A mellette levő vízforrásokból generál energiát",
-  "techreborn.message.info.block.techreborn.wind_mill": "Energiát termel, ha a levegőtől 64 blokknál magasabban van\nViharban 25%-kal hatékonyabb",
+  "techreborn.message.info.block.techreborn.wind_mill": "Energiát termel, ha a levegőtől 64 blokknál magasabban van\nViharban 25%%-kal hatékonyabb",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Képes akár hat tárgyat egyszerre tölteni",
   "techreborn.message.info.block.techreborn.chunk_loader": "Betöltve tart chunkokat; akkor is futnak a gépek, ha nem vagy a közelben",
   "techreborn.message.info.block.techreborn.drain": "Felülről bármilyen folyadékot kiszív. Tökéletes párost alkot egy alatta lévő tartállyal.",

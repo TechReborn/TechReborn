@@ -746,7 +746,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Produce energia grazie alla combustione\nFunziona con gli stessi combustibili utilizzati dalla fornace",
   "techreborn.message.info.block.techreborn.thermal_generator": "Utilizza la lava e altre fonti di calore per produrre energia",
   "techreborn.message.info.block.techreborn.water_mill": "Utilizza qualsiasi fonte di acqua adiacente per produrre energia",
-  "techreborn.message.info.block.techreborn.wind_mill": "Produce energia se piazzata ad un altezza maggiore di 64\nEfficienza aumentata del 25% durante i temporali",
+  "techreborn.message.info.block.techreborn.wind_mill": "Produce energia se piazzata ad un altezza maggiore di 64\nEfficienza aumentata del 25%% durante i temporali",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Ricarica fino a 6 oggetti contemporaneamenti",
   "techreborn.message.info.block.techreborn.chunk_loader": "Mantiene in memoria il chunk in cui è piazzato per permettere alle macchine di continuare a funzionare anche quando i giocatori non sono nei paraggi",
   "techreborn.jei.recipe.start.cost": "Inizio: %s",
