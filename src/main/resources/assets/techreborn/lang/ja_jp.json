@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "可燃物を燃焼することで発電する\nかまどの燃料で動作可能",
   "techreborn.message.info.block.techreborn.thermal_generator": "溶岩などの熱源をエネルギーに変換する",
   "techreborn.message.info.block.techreborn.water_mill": "隣接する水源の力を利用して発電する",
-  "techreborn.message.info.block.techreborn.wind_mill": "高度64以上に設置すると発電する\n雷雨時には25%効率が上がる",
+  "techreborn.message.info.block.techreborn.wind_mill": "高度64以上に設置すると発電する\n雷雨時には25%%効率が上がる",
   "techreborn.message.info.block.techreborn.charge_o_mat": "同時に6つのアイテムを充電できる",
   "techreborn.message.info.block.techreborn.chunk_loader": "チャンクを読み込み続け、近くにいない時に機械を動作させ続けることができる",
   "techreborn.message.info.block.techreborn.drain": "真上の液体を吸引して直下のタンクユニットに搬出できる",

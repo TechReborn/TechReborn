@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Wytwarza energię z materiałów palnych\nDziała podobnie jak Piec",
   "techreborn.message.info.block.techreborn.thermal_generator": "Zamienia Lawę i inne Źródła Ciepła w Energię\n",
   "techreborn.message.info.block.techreborn.water_mill": "Wykorzystuje Moc Dowolnie Sąsiadującego Źródła Wody do Generowania Energii\n",
-  "techreborn.message.info.block.techreborn.wind_mill": "Wytwarza Energię po Umieszczeniu na wysokości y = 64\n25% Wydajniejszy Podczas Burzy",
+  "techreborn.message.info.block.techreborn.wind_mill": "Wytwarza Energię po Umieszczeniu na wysokości y = 64\n25%% Wydajniejszy Podczas Burzy",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Ładuje do 6 Przedmiotów Jednocześnie\n",
   "techreborn.message.info.block.techreborn.chunk_loader": "Utrzymuje załadowany Świat, \nPozwala maszynom działać, gdy nie ma Cię w pobliżu",
   "techreborn.message.info.block.techreborn.drain": "Ciągnie płyn bezpośrednio nad nim, ładnie łączy się z jednostką zbiornika pod spodem",
