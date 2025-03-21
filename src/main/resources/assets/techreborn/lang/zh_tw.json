@@ -758,7 +758,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "用可燃物提供能量\n使用燃料和平時能放進熔爐的一樣",
   "techreborn.message.info.block.techreborn.thermal_generator": "將岩漿和其他熱源轉換為能量",
   "techreborn.message.info.block.techreborn.water_mill": "使用附近任何水源的能量來發電",
-  "techreborn.message.info.block.techreborn.wind_mill": "放在 64 格以上的高處時提供能量\n在暴風雨天氣下效率增加 25%",
+  "techreborn.message.info.block.techreborn.wind_mill": "放在 64 格以上的高處時提供能量\n在暴風雨天氣下效率增加 25%%",
   "techreborn.message.info.block.techreborn.charge_o_mat": "可同時為 6 個物品進行充電",
   "techreborn.message.info.block.techreborn.chunk_loader": "當玩家不在該區塊時機器可以正常運作",
   "techreborn.message.info.block.techreborn.drain": "從上方抽取任意流體，可與下方儲罐運作得很好",
