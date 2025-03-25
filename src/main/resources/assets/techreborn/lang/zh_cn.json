@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "用可燃物提供能量\n可燃物就是能作为熔炉的燃料",
   "techreborn.message.info.block.techreborn.thermal_generator": "将熔岩和其他热源转换为能量",
   "techreborn.message.info.block.techreborn.water_mill": "使用任何相邻水源的能量来发电",
-  "techreborn.message.info.block.techreborn.wind_mill": "放在64格空气之上时提供能量\n在雷暴天气下效率增加25%",
+  "techreborn.message.info.block.techreborn.wind_mill": "放在64格空气之上时提供能量\n在雷暴天气下效率增加25%%",
   "techreborn.message.info.block.techreborn.charge_o_mat": "可同时给6个物品充电",
   "techreborn.message.info.block.techreborn.chunk_loader": "保持区块加载，可以在你远行的时候让机器持续工作",
   "techreborn.message.info.block.techreborn.drain": "从上方抽取任意流体，可与下方储罐单元协同工作",

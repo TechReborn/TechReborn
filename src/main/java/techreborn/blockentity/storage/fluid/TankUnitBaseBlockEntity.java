@@ -134,7 +134,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
 		if (tagCompound.contains("unitType")) {
-			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
+			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType").orElseThrow());
 			configureEntity(type);
 			tank.read(tagCompound, registryLookup);
 		}

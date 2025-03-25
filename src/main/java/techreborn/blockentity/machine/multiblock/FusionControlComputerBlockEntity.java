@@ -349,14 +349,14 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	@Override
 	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
-		this.craftingTickTime = tagCompound.getInt("craftingTickTime");
-		this.neededPower = tagCompound.getInt("neededPower");
-		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
-		if (tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipeEntry == null) {
+		this.craftingTickTime = tagCompound.getInt("craftingTickTime").orElse(0);
+		this.neededPower = tagCompound.getInt("neededPower").orElse(0);
+		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting").orElse(false);
+		if (tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe").orElseThrow() && this.currentRecipeEntry == null) {
 			checkNBTRecipe = true;
 		}
 		if (tagCompound.contains("size")) {
-			this.size = tagCompound.getInt("size");
+			this.size = tagCompound.getInt("size").orElseThrow();
 		}
 		//Done here to force the smaller size, will be useful if people lag out on a large one.
 		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize);

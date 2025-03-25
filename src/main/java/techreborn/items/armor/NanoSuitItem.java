@@ -27,6 +27,7 @@ package techreborn.items.armor;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -49,7 +50,7 @@ import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.utils.TRItemUtils;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
 	private static final EntityAttributeModifier POWERED_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(Identifier.of(TechReborn.MOD_ID, "nano_suit_armor"), 14, EntityAttributeModifier.Operation.ADD_VALUE);
@@ -97,7 +98,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		if (this.getSlotType() == EquipmentSlot.HEAD) {
 			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}

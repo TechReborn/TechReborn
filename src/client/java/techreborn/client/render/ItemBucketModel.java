@@ -24,38 +24,64 @@
 
 package techreborn.client.render;
 
+import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.item.ItemRenderState;
 import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.*;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 import techreborn.TechReborn;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.function.Supplier;
 
 public class ItemBucketModel implements ItemModel {
 	public static final Identifier ID = Identifier.of(TechReborn.MOD_ID, "model/bucket");
-	private final DynamicBucketBakedModel model;
-	ItemBucketModel(Fluid fluid, BakedModel baseModel, BakedModel fluidModel, BakedModel backgroundModel) {
-		model = new DynamicBucketBakedModel(fluid, baseModel, fluidModel, backgroundModel);
+	public static final Identifier BUCKET = Identifier.of(TechReborn.MOD_ID, "item/bucket");
+	public static final Identifier BUCKET_BASE = BUCKET.withSuffixedPath("_base");
+	public static final Identifier BUCKET_BACKGROUND = BUCKET.withSuffixedPath("_background");
+	private final RenderLayer layer;
+	private final ModelSettings settings;
+	private final Supplier<Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bake;
+
+	public ItemBucketModel(ModelSettings modelSettings, Supplier<Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> quadsProvider) {
+		layer = TexturedRenderLayers.getItemEntityTranslucentCull();
+		settings = modelSettings;
+		bake = Suppliers.memoize(quadsProvider::get);
 	}
 
 	@Override
-	public void update(ItemRenderState state, ItemStack stack, ItemModelManager resolver, ModelTransformationMode transformationMode, @Nullable ClientWorld world, @Nullable LivingEntity user, int seed) {
+	public void update(
+		ItemRenderState state,
+		ItemStack stack,
+		ItemModelManager resolver,
+		ItemDisplayContext displayContext,
+		@Nullable ClientWorld world,
+		@Nullable LivingEntity user,
+		int seed
+	) {
 		ItemRenderState.LayerRenderState layerRenderState = state.newLayer();
-		RenderLayer renderLayer = RenderLayers.getItemLayer(stack);
-		layerRenderState.setModel(model, renderLayer);
+		layerRenderState.setRenderLayer(layer);
+		Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer> baked = bake.get();
+		layerRenderState.getQuads().addAll(baked.getLeft());
+		layerRenderState.setVector(baked.getMiddle());
+		layerRenderState.initTints(1)[0] = baked.getRight();
+		settings.addSettings(layerRenderState, displayContext);
 	}
 
 	public record Unbaked(Fluid fluid) implements ItemModel.Unbaked {
@@ -66,21 +92,34 @@ public class ItemBucketModel implements ItemModel {
 			)
 			.apply(instance, ItemBucketModel.Unbaked::new)
 		);
-		private static final HashMap<Identifier, BakedModel> CACHE = new HashMap<>();
 
 		@Override
 		public void resolve(Resolver resolver) {
-			resolver.resolve(DynamicBucketBakedModel.BUCKET_BASE);
-			resolver.resolve(DynamicBucketBakedModel.BUCKET_FLUID);
-			resolver.resolve(DynamicBucketBakedModel.BUCKET_BACKGROUND);
+			resolver.markDependency(BUCKET_BASE);
+			resolver.markDependency(BUCKET_BACKGROUND);
 		}
 
 		@Override
 		public ItemModel bake(BakeContext context) {
-			BakedModel baseModel = CACHE.computeIfAbsent(DynamicBucketBakedModel.BUCKET_BASE, context::bake);
-			BakedModel fluidModel = CACHE.computeIfAbsent(DynamicBucketBakedModel.BUCKET_FLUID, context::bake);
-			BakedModel backgroundModel = CACHE.computeIfAbsent(DynamicBucketBakedModel.BUCKET_BACKGROUND, context::bake);
-			return new ItemBucketModel(fluid, baseModel, fluidModel, backgroundModel);
+			Baker baker = context.blockModelBaker();
+			BakedSimpleModel backgroundModel = baker.getModel(BUCKET_BACKGROUND);
+			List<BakedQuad> backgroundQuads = backgroundModel.bakeGeometry(backgroundModel.getTextures(), baker, ModelRotation.X0_Y0).getAllQuads();
+			BakedSimpleModel baseModel = baker.getModel(BUCKET_BASE);
+			ModelTextures modelTextures = baseModel.getTextures();
+			List<BakedQuad> baseQuads = baseModel.bakeGeometry(modelTextures, baker, ModelRotation.X0_Y0).getAllQuads();
+			ModelSettings modelSettings = ModelSettings.resolveSettings(baker, baseModel, modelTextures);
+			return new ItemBucketModel(modelSettings, () -> {
+				List<BakedQuad> list = new ArrayList<>(backgroundQuads);
+				Pair<Sprite, Integer> pair = ItemCellModel.Unbaked.parseFluid(fluid);
+				if (pair != null) {
+					list.addAll(ItemCellModel.Unbaked.bakeFluidQuads(baker, backgroundModel, pair.getLeft()));
+					list.addAll(ItemCellModel.Unbaked.replaceTint(baseQuads, -1));
+					return Triple.of(list, ItemCellModel.Unbaked.bakeVector(list), pair.getRight());
+				} else {
+					list.addAll(baseQuads);
+					return Triple.of(list, ItemCellModel.Unbaked.bakeVector(list), -1);
+				}
+			});
 		}
 
 		@Override

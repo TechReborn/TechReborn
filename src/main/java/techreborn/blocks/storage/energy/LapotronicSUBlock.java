@@ -29,6 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -46,14 +47,11 @@ public class LapotronicSUBlock extends EnergyStorageBlock {
 	}
 
 	@Override
-	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() == newState.getBlock()) {
-			return;
-		}
+	protected void onStateReplaced(BlockState state, ServerWorld worldIn, BlockPos pos, boolean isMoving) {
 		if (worldIn.getBlockEntity(pos) instanceof LapotronicSUBlockEntity blockEntity) {
 			blockEntity.disconnectNetwork();
 		}
-		super.onStateReplaced(state, worldIn, pos, newState, isMoving);
+		super.onStateReplaced(state, worldIn, pos, isMoving);
 	}
 
 	@Override

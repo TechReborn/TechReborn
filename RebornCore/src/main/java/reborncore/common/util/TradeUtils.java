@@ -27,6 +27,7 @@ package reborncore.common.util;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 
@@ -56,7 +57,7 @@ public final class TradeUtils {
 		return new TradeOffers.BuyItemFactory(item, count, maxUses, experience, price);
 	}
 
-	public static void registerTradesForLevel(VillagerProfession profession, Level level, boolean replace, TradeOffers.Factory... newLevelTrades) {
+	public static void registerTradesForLevel(RegistryKey<VillagerProfession> profession, Level level, boolean replace, TradeOffers.Factory... newLevelTrades) {
 		ExceptionUtils.requireNonNull(profession, "profession");
 		ExceptionUtils.requireNonNull(level, "level");
 		ExceptionUtils.requireNonNull(newLevelTrades, "newLevelTrades");

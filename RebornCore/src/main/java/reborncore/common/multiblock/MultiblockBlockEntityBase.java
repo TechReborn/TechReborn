@@ -33,6 +33,7 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.block.OrientationHelper;
 import reborncore.RebornCore;
 import reborncore.api.blockentity.UnloadHandler;
 
@@ -121,7 +122,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 		// we receive a "validate()" call, which creates the controller and hands
 		// off the cached data.
 		if (data.contains("multiblockData")) {
-			this.cachedMultiblockData = data.getCompound("multiblockData");
+			this.cachedMultiblockData = data.getCompound("multiblockData").orElseThrow();
 		}
 	}
 
@@ -209,7 +210,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	 */
 	protected void decodeDescriptionPacket(NbtCompound packetData) {
 		if (packetData.contains("multiblockData")) {
-			NbtCompound tag = packetData.getCompound("multiblockData");
+			NbtCompound tag = packetData.getCompoundOrEmpty("multiblockData");
 			if (isConnected()) {
 				getMultiblockController().decodeDescriptionPacket(tag);
 			} else {
@@ -342,11 +343,11 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 
 	// /// Helper functions for notifying neighboring blocks
 	protected void notifyNeighborsOfBlockChange() {
-		world.updateNeighborsAlways(getPos(), getCachedState().getBlock());
+		world.updateNeighborsAlways(getPos(), getCachedState().getBlock(), OrientationHelper.getEmissionOrientation(world, null, null));
 	}
 
 	protected void notifyNeighborsOfBlockEntityChange() {
-		world.updateNeighborsAlways(getPos(), getCachedState().getBlock());
+		world.updateNeighborsAlways(getPos(), getCachedState().getBlock(), OrientationHelper.getEmissionOrientation(world, null, null));
 	}
 
 	// /// Private/Protected Logic Helpers

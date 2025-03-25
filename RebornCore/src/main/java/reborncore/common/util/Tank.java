@@ -99,7 +99,7 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 			// allow reading empty tanks
 			setFluid(Fluids.EMPTY);
 
-			NbtCompound tankData = nbt.getCompound(name);
+			NbtCompound tankData = nbt.getCompound(name).orElseThrow();
 			fluidInstance = SerializationUtil.parseNbt(FluidInstance.CODEC, tankData, wrapperLookup, () -> FluidInstance.EMPTY, "tank data");
 		}
 		return this;

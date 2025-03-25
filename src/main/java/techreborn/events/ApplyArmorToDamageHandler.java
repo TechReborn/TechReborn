@@ -24,6 +24,8 @@
 
 package techreborn.events;
 
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -40,7 +42,8 @@ public class ApplyArmorToDamageHandler implements ApplyArmorToDamageCallback {
 	@Override
 	public float applyArmorToDamage(PlayerEntity player, DamageSource source, float amount) {
 		double damageAbsorbed = 0.0d;
-		for (ItemStack stack : player.getArmorItems()) {
+		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+			ItemStack stack = player.getEquippedStack(equipmentSlot);
 			if (!(stack.getItem() instanceof QuantumSuitItem item)) {
 				continue;
 			}

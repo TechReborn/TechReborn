@@ -222,7 +222,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
 		if (tagCompound.contains("neighbors")) {
-			neighbors = tagCompound.getByte("neighbors");
+			neighbors = tagCompound.getByte("neighbors").orElseThrow();
 		} else {
 			// Compatible with older versions: judge not initialized
 			neighbors = 0b111111;

@@ -27,13 +27,9 @@ package reborncore.common.chunkloading;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerChunkManager;
@@ -42,6 +38,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -50,51 +47,46 @@ import reborncore.common.network.clientbound.ChunkSyncPayload;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 // This does not do the actual chunk loading, just keeps track of what chunks the chunk loader has loaded
 public class ChunkLoaderManager extends PersistentState {
-	public static final PersistentState.Type<ChunkLoaderManager> TYPE = new Type<>(ChunkLoaderManager::new, ChunkLoaderManager::fromTag, null);
 
-	public static Codec<List<LoadedChunk>> CODEC = Codec.list(LoadedChunk.CODEC);
+	public static Codec<ChunkLoaderManager> CODEC = Codec.list(LoadedChunk.CODEC).xmap(ChunkLoaderManager::fromChunks, ChunkLoaderManager::getLoadedChunks);
+	public static final PersistentStateType<ChunkLoaderManager> TYPE = new PersistentStateType<>("chunk_loader", ChunkLoaderManager::new, CODEC, null);
 
-	private static final ChunkTicketType<ChunkPos> CHUNK_LOADER = ChunkTicketType.create("reborncore:chunk_loader", Comparator.comparingLong(ChunkPos::toLong));
+	private static ChunkTicketType CHUNK_LOADER;
 	private static final String KEY = "reborncore_chunk_loader";
 	private static final int RADIUS = 1;
+
+	public static void register() {
+		CHUNK_LOADER = ChunkTicketType.register("reborncore:chunk_loader", 0L, true, ChunkTicketType.Use.LOADING_AND_SIMULATION);
+	}
 
 	public ChunkLoaderManager() {
 	}
 
 	public static ChunkLoaderManager get(World world) {
 		ServerWorld serverWorld = (ServerWorld) world;
-		return serverWorld.getPersistentStateManager().getOrCreate(TYPE, KEY);
+		return serverWorld.getPersistentStateManager().getOrCreate(TYPE);
 	}
 
 	private final List<LoadedChunk> loadedChunks = new ArrayList<>();
 
-	public static ChunkLoaderManager fromTag(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+	public static ChunkLoaderManager fromChunks(List<LoadedChunk> chunks) {
 		ChunkLoaderManager chunkLoaderManager = new ChunkLoaderManager();
 
 		chunkLoaderManager.loadedChunks.clear();
-
-		List<LoadedChunk> chunks = CODEC.parse(NbtOps.INSTANCE, tag.getList("loadedchunks", NbtElement.COMPOUND_TYPE))
-				.result()
-				.orElse(Collections.emptyList());
 
 		chunkLoaderManager.loadedChunks.addAll(chunks);
 
 		return chunkLoaderManager;
 	}
 
-	@Override
-	public NbtCompound writeNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
-		CODEC.encodeStart(NbtOps.INSTANCE, loadedChunks)
-				.result()
-				.ifPresent(tag -> compoundTag.put("loadedchunks", tag));
-		return compoundTag;
+	public List<LoadedChunk> getLoadedChunks() {
+		return loadedChunks;
 	}
 
 	public Optional<LoadedChunk> getLoadedChunk(World world, ChunkPos chunkPos, BlockPos chunkLoader){
@@ -152,7 +144,7 @@ public class ChunkLoaderManager extends PersistentState {
 
 		if(!isChunkLoaded(world, loadedChunk.chunk())){
 			final ServerChunkManager serverChunkManager = ((ServerWorld) world).getChunkManager();
-			serverChunkManager.removeTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.chunk(), RADIUS, loadedChunk.chunk());
+			serverChunkManager.removeTicket(ChunkLoaderManager.CHUNK_LOADER, loadedChunk.chunk(), RADIUS);
 		}
 		markDirty();
 	}
@@ -193,7 +185,7 @@ public class ChunkLoaderManager extends PersistentState {
 
 	private void loadChunk(ServerWorld world, LoadedChunk loadedChunk) {
 		ChunkPos chunkPos = loadedChunk.chunk();
-		world.getChunkManager().addTicket(ChunkLoaderManager.CHUNK_LOADER, chunkPos, RADIUS, chunkPos);
+		world.getChunkManager().addTicket(ChunkLoaderManager.CHUNK_LOADER, chunkPos, RADIUS);
 	}
 
 	public record LoadedChunk(ChunkPos chunk, Identifier world, String player, BlockPos chunkLoader) {

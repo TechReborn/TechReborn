@@ -331,7 +331,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		if (tag.contains("locked")) {
-			locked = tag.getBoolean("locked");
+			locked = tag.getBoolean("locked").orElse(false);
 		}
 		super.readNbt(tag, registryLookup);
 	}
@@ -404,7 +404,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		private Item[] layout = new Item[0];
 		private BalanceEntry entry = new BalanceEntry();
 		private final Map<BalanceEntry, ArrayList<Integer>> ingredients = new HashMap<>();
-		private Iterator<BalanceEntry> iterator = null;
+		private java.util.Iterator<BalanceEntry> iterator = null;
 		private boolean empty = true;
 		private boolean needsMatch = false;
 

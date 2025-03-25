@@ -25,6 +25,8 @@
 package techreborn.packets;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -133,7 +135,8 @@ public class ServerboundPackets {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SuitNightVisionPayload.ID, (payload, context) -> {
-			for (ItemStack itemStack : context.player().getArmorItems()) {
+			for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+				ItemStack itemStack = context.player().getEquippedStack(equipmentSlot);
 				if (itemStack.isOf(TRContent.NANO_HELMET) || itemStack.isOf(TRContent.QUANTUM_HELMET)) {
 					itemStack.set(TRDataComponentTypes.IS_ACTIVE, !itemStack.getOrDefault(TRDataComponentTypes.IS_ACTIVE, false));
 					break;
@@ -142,7 +145,8 @@ public class ServerboundPackets {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(QuantumSuitSprintPayload.ID, (payload, context) -> {
-			for (ItemStack itemStack : context.player().getArmorItems()) {
+			for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+				ItemStack itemStack = context.player().getEquippedStack(equipmentSlot);
 				if (itemStack.isOf(TRContent.QUANTUM_LEGGINGS)) {
 					itemStack.set(TRDataComponentTypes.IS_ACTIVE, !itemStack.getOrDefault(TRDataComponentTypes.IS_ACTIVE, false));
 					break;

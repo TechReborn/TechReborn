@@ -34,6 +34,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.block.OrientationHelper;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -113,7 +114,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 		}
 		if (lastRedstone != redstone) {
 			WorldUtils.updateBlock(world, pos);
-			world.updateNeighborsAlways(pos, world.getBlockState(pos).getBlock());
+			world.updateNeighborsAlways(pos, world.getBlockState(pos).getBlock(), OrientationHelper.getEmissionOrientation(world, null, null));
 		}
 	}
 
@@ -140,8 +141,8 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 	@Override
 	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tag, registryLookup);
-		ownerUdid = tag.getString("ownerID");
-		radius = tag.getInt("radius");
+		ownerUdid = tag.getString("ownerID").orElse("");
+		radius = tag.getInt("radius").orElse(0);
 	}
 
 	@Override

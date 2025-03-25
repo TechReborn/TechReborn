@@ -28,7 +28,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.Range;
 import reborncore.common.screen.ScreenIcons;
@@ -107,11 +106,8 @@ public final class PlayerScreenHandlerBuilder {
 													final EquipmentSlot slotType, final Identifier sprite) {
 			this.parent.parent.slots.add(new SpriteSlot(this.parent.player, index, xStart, yStart, sprite, 1)
 					.setFilter(stack -> {
-						if (stack.getItem() instanceof ArmorItem) {
-							EquippableComponent equippableComponent = stack.get(DataComponentTypes.EQUIPPABLE);
-							return equippableComponent != null && equippableComponent.slot() == slotType;
-						}
-						return false;
+						EquippableComponent equippableComponent = stack.get(DataComponentTypes.EQUIPPABLE);
+						return equippableComponent != null && equippableComponent.slot() == slotType;
 					}));
 			return this;
 		}

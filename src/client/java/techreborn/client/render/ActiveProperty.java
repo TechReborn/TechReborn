@@ -24,13 +24,14 @@
 
 package techreborn.client.render;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.render.item.property.select.SelectProperty;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.util.Identifier;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 import techreborn.TechReborn;
@@ -43,12 +44,14 @@ import techreborn.items.tool.industrial.NanosaberItem;
 
 public record ActiveProperty() implements SelectProperty<PowerType> {
 	public static Identifier ID = Identifier.of(TechReborn.MOD_ID, "active");
+	public static Codec<PowerType> VALUE_CODEC = PowerType.CODEC;
 	public static final SelectProperty.Type<ActiveProperty, PowerType> TYPE = SelectProperty.Type.create(
 		MapCodec.unit(new ActiveProperty()), PowerType.CODEC
 	);
 
+	@Override
 	public PowerType getValue(
-		ItemStack stack, ClientWorld world, LivingEntity entity, int seed, ModelTransformationMode mode
+		ItemStack stack, ClientWorld world, LivingEntity entity, int seed, ItemDisplayContext mode
 	) {
 		Item item = stack.getItem();
 		if (item instanceof NanosaberItem nanosaber) {
@@ -70,5 +73,10 @@ public record ActiveProperty() implements SelectProperty<PowerType> {
 	@Override
 	public SelectProperty.Type<ActiveProperty, PowerType> getType() {
 		return TYPE;
+	}
+
+	@Override
+	public Codec<PowerType> valueCodec() {
+		return VALUE_CODEC;
 	}
 }

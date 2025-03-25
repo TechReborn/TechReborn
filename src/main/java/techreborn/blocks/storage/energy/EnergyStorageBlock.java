@@ -30,6 +30,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
@@ -117,11 +118,9 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 	}
 
 	@Override
-	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
-			ItemHandlerUtils.dropContainedItems(worldIn, pos);
-			super.onStateReplaced(state, worldIn, pos, newState, isMoving);
-		}
+	protected void onStateReplaced(BlockState state, ServerWorld worldIn, BlockPos pos, boolean isMoving) {
+		ItemHandlerUtils.dropContainedItems(worldIn, pos);
+		super.onStateReplaced(state, worldIn, pos, isMoving);
 	}
 
 	@Override

@@ -395,7 +395,7 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tagCompound, registryLookup);
 		if (tagCompound.contains("neighbors")) {
-			neighbors = tagCompound.getByte("neighbors");
+			neighbors = tagCompound.getByte("neighbors").orElseThrow();
 		} else {
 			// Compatible with older versions: judge not initialized
 			neighbors = (byte) 0b10111111;

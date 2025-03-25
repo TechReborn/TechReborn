@@ -148,8 +148,8 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	@Override
 	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(tag, registryLookup);
-		burnTime = tag.getInt("BurnTime");
-		totalBurnTime = tag.getInt("TotalBurnTime");
+		burnTime = tag.getInt("BurnTime").orElse(0);
+		totalBurnTime = tag.getInt("TotalBurnTime").orElse(0);
 	}
 
 	@Override

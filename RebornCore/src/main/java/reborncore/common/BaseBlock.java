@@ -25,11 +25,20 @@
 package reborncore.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.text.Text;
+
+import java.util.List;
 
 public abstract class BaseBlock extends Block {
 
 	public BaseBlock(Settings builder) {
 		super(builder);
+	}
+
+	public void appendTooltip(ItemStack itemStack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
 	}
 
 	public int getRenderType() {

@@ -31,11 +31,12 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 /**
@@ -47,7 +48,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 	}
 
 	@Override
-	public void render(StorageUnitBaseBlockEntity storage, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+	public void render(StorageUnitBaseBlockEntity storage, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
 		if (storage.getWorld() == null) {
 			return;
 		}
@@ -67,7 +68,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 			case EAST -> matrices.translate(-1, 1, 2);
 		}
 		int lightAbove = WorldRenderer.getLightmapCoordinates(storage.getWorld(), storage.getPos().offset(storage.getFacing()));
-		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformationMode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, storage.getWorld(), 0);
+		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ItemDisplayContext.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, storage.getWorld(), 0);
 		matrices.pop();
 
 		// Text rendering

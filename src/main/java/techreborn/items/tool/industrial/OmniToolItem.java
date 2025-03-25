@@ -44,10 +44,10 @@ import techreborn.init.TRItemSettings;
 import techreborn.init.TRToolMaterials;
 
 
-public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolHandler {
+public class OmniToolItem extends Item implements RcEnergyItem, IToolHandler {
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem(String name) {
-		super(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, 3f, 1f, TRItemSettings.unbreakable(name));
+		super(TRItemSettings.unbreakable(name).tool(TRToolMaterials.OMNI_TOOL, TRContent.BlockTags.OMNI_TOOL_MINEABLE, 3f, 1f, 0.0F));
 	}
 
 	// MiningToolItem
@@ -73,11 +73,10 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 	}
 
 	@Override
-	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+	public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		if (tryUseEnergy(stack, TechRebornConfig.omniToolHitCost) && target.getWorld() instanceof ServerWorld serverWorld) {
 			target.damage(serverWorld, serverWorld.getDamageSources().playerAttack((PlayerEntity) attacker), 8F);
 		}
-		return true;
 	}
 
 	// Item

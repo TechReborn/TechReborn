@@ -25,14 +25,15 @@
 package techreborn.datagen.models
 
 import net.minecraft.block.Block
-import net.minecraft.client.data.BlockStateModelGenerator
-import net.minecraft.client.data.BlockStateVariant
 import net.minecraft.client.data.BlockStateVariantMap
 import net.minecraft.client.data.TextureMap
-import net.minecraft.client.data.VariantSettings
-import net.minecraft.client.data.When
+import net.minecraft.client.render.model.json.ModelVariant
+import net.minecraft.client.render.model.json.ModelVariantOperator
+import net.minecraft.client.render.model.json.MultipartModelConditionBuilder
+import net.minecraft.client.render.model.json.WeightedVariant
 import net.minecraft.state.property.Properties
 import net.minecraft.util.Identifier
+import net.minecraft.util.collection.Pool
 import net.minecraft.util.math.Direction
 import org.apache.commons.lang3.function.TriFunction
 import org.apache.commons.lang3.tuple.Pair
@@ -44,22 +45,34 @@ import techreborn.blocks.misc.BlockRubberLog
 import java.util.function.BiFunction
 import java.util.function.Function
 
+import static net.minecraft.client.data.BlockStateModelGenerator.NO_OP;
+import static net.minecraft.client.data.BlockStateModelGenerator.ROTATE_X_90;
+import static net.minecraft.client.data.BlockStateModelGenerator.ROTATE_X_180;
+import static net.minecraft.client.data.BlockStateModelGenerator.ROTATE_X_270;
+import static net.minecraft.client.data.BlockStateModelGenerator.ROTATE_Y_90;
+import static net.minecraft.client.data.BlockStateModelGenerator.ROTATE_Y_180;
+import static net.minecraft.client.data.BlockStateModelGenerator.ROTATE_Y_270;
+
 class TemplateState {
-	static BlockStateVariantMap NORTH_DEFAULT_FACING = BlockStateModelGenerator.createNorthDefaultRotationStates()
-	static BlockStateVariantMap NORTH_DEFAULT_H_FACING = BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()
-	static BlockStateVariantMap UP_DEFAULT_FACING = BlockStateVariantMap.create(Properties.FACING)
-		.register(Direction.DOWN, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180))
-		.register(Direction.UP, BlockStateVariant.create())
-		.register(Direction.NORTH, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90))
-		.register(Direction.SOUTH, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R270))
-		.register(
-			Direction.WEST,
-			BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.Y, VariantSettings.Rotation.R270)
-		)
-		.register(
-			Direction.EAST,
-			BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.Y, VariantSettings.Rotation.R90)
-		)
+	static BlockStateVariantMap<ModelVariantOperator> NORTH_DEFAULT_FACING = BlockStateVariantMap.operations(Properties.FACING)
+		.register(Direction.DOWN, ROTATE_X_90)
+		.register(Direction.UP, ROTATE_X_270)
+		.register(Direction.NORTH, NO_OP)
+		.register(Direction.SOUTH, ROTATE_Y_180)
+		.register(Direction.WEST, ROTATE_Y_270)
+		.register(Direction.EAST, ROTATE_Y_90);
+	static BlockStateVariantMap<ModelVariantOperator> NORTH_DEFAULT_H_FACING = BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING)
+		.register(Direction.EAST, ROTATE_Y_90)
+		.register(Direction.SOUTH, ROTATE_Y_180)
+		.register(Direction.WEST, ROTATE_Y_270)
+		.register(Direction.NORTH, NO_OP);
+	static BlockStateVariantMap<ModelVariantOperator> UP_DEFAULT_FACING = BlockStateVariantMap.operations(Properties.FACING)
+		.register(Direction.DOWN, ROTATE_X_180)
+		.register(Direction.UP, NO_OP)
+		.register(Direction.NORTH, ROTATE_X_90)
+		.register(Direction.SOUTH, ROTATE_X_270)
+		.register(Direction.WEST, ROTATE_X_90.then(ROTATE_Y_270))
+		.register(Direction.EAST, ROTATE_X_90.then(ROTATE_Y_90))
 
 	@FunctionalInterface
 	interface Uploadable {
@@ -69,7 +82,7 @@ class TemplateState {
 	static Uploadable SINGLE_NORTH_DEFAULT_FACING = (Block block) -> new StateModel().add(model(block)).add(NORTH_DEFAULT_FACING).upload(block)
 	static Uploadable SINGLE_NORTH_DEFAULT_H_FACING = (Block block) -> new StateModel().add(model(block)).add(NORTH_DEFAULT_H_FACING).upload(block)
 	static Function<Pair<Identifier, Identifier>, StateModel> ACTIVE = (Pair<Identifier, Identifier> pair) -> new StateModel().add(
-		BlockStateVariantMap.create(BlockMachineBase.ACTIVE).register(false, model(pair.left)).register(true, model(pair.right))
+		BlockStateVariantMap.models(BlockMachineBase.ACTIVE).register(false, model(pair.left)).register(true, model(pair.right))
 	)
 	static Function<Pair<Identifier, Identifier>, StateModel> ACTIVE_NORTH_DEFAULT_H_FACING = (Pair<Identifier, Identifier> pair) -> {
 		ACTIVE.apply(pair).add(NORTH_DEFAULT_H_FACING)
@@ -78,46 +91,48 @@ class TemplateState {
 		ACTIVE.apply(pair).add(UP_DEFAULT_FACING)
 	}
 	static TriFunction<Identifier, Identifier, Identifier, StateModel> RESIN_BASIN = (Identifier empty, Identifier flowing, Identifier full) -> {
-		new StateModel().add(NORTH_DEFAULT_H_FACING).add(
-			BlockStateVariantMap.create(ResinBasinBlock.POURING).register(false, model(empty)).register(true, model(flowing))
-		).add(
-			BlockStateVariantMap.create(ResinBasinBlock.FULL).register(false, BlockStateVariant.create()).register(true, model(full))
-		)
+		new StateModel().add(
+			BlockStateVariantMap.models(ResinBasinBlock.POURING, ResinBasinBlock.FULL)
+				.register(false, false, model(empty))
+				.register(true, false, model(flowing))
+				.register(false, true, model(full))
+				.register(true, true, model(full))
+		).add(NORTH_DEFAULT_H_FACING)
 	}
 	static TriFunction<Identifier, Identifier, Identifier, StateModel> PLAYER_DETECTOR = (Identifier all, Identifier others, Identifier you) -> {
 		new StateModel().add(
-			BlockStateVariantMap.create(PlayerDetectorBlock.TYPE)
+			BlockStateVariantMap.models(PlayerDetectorBlock.TYPE)
 				.register(PlayerDetectorBlock.PlayerDetectorType.ALL, model(all))
 				.register(PlayerDetectorBlock.PlayerDetectorType.OTHERS, model(others))
 				.register(PlayerDetectorBlock.PlayerDetectorType.YOU, model(you))
 		)
 	}
 	static TriFunction<Identifier, Identifier, Identifier, StateModel> RUBBER_LOG = (Identifier vertical, Identifier horizontal, Identifier with_sap) -> {
-		BlockStateVariantMap.TripleProperty<Direction.Axis, Direction, Boolean> map = BlockStateVariantMap
-			.create(Properties.AXIS, Properties.HORIZONTAL_FACING, BlockRubberLog.HAS_SAP)
+		BlockStateVariantMap.TripleProperty<WeightedVariant, Direction.Axis, Direction, Boolean> map = BlockStateVariantMap
+			.models(Properties.AXIS, Properties.HORIZONTAL_FACING, BlockRubberLog.HAS_SAP)
 		for (Direction.Axis axis : Direction.Axis.VALUES) {
 			for (Direction direction : Direction.Type.HORIZONTAL) {
 				for (boolean has_sap : [false, true]) {
-					BlockStateVariant variant
+					WeightedVariant variant
 					if (axis == Direction.Axis.Y) {
 						variant = model(has_sap ? with_sap : vertical)
 						if (has_sap) {
 							switch (direction) {
 								case Direction.EAST:
-									variant.put(VariantSettings.Y, VariantSettings.Rotation.R90)
+									variant = variant.apply(ROTATE_Y_90)
 									break
 								case Direction.SOUTH:
-									variant.put(VariantSettings.Y, VariantSettings.Rotation.R180)
+									variant = variant.apply(ROTATE_Y_180)
 									break
 								case Direction.WEST:
-									variant.put(VariantSettings.Y, VariantSettings.Rotation.R270)
+									variant = variant.apply(ROTATE_Y_270)
 									break
 							}
 						}
 					} else {
-						variant = model(horizontal).put(VariantSettings.X, VariantSettings.Rotation.R90)
+						variant = model(horizontal).apply(ROTATE_X_90)
 						if (axis == Direction.Axis.X) {
-							variant.put(VariantSettings.Y, VariantSettings.Rotation.R90)
+							variant = variant.apply(ROTATE_Y_90)
 						}
 					}
 					map.register(axis, direction, has_sap, variant)
@@ -128,28 +143,31 @@ class TemplateState {
 	}
 	static BiFunction<Identifier, Identifier, StateModel> CABLE = (Identifier core, Identifier side) -> {
 		new StateModel().multipart().add(model(core))
-			.add(When.create().set(Properties.NORTH, true), model(side))
+			.add(when().put(Properties.NORTH, true), model(side))
 			.add(
-				When.create().set(Properties.EAST, true),
-				model(side).put(VariantSettings.Y, VariantSettings.Rotation.R90)
+				when().put(Properties.EAST, true),
+				model(side).apply(ROTATE_Y_90)
 			).add(
-				When.create().set(Properties.SOUTH, true),
-				model(side).put(VariantSettings.Y, VariantSettings.Rotation.R180)
+				when().put(Properties.SOUTH, true),
+				model(side).apply(ROTATE_Y_180)
 			).add(
-				When.create().set(Properties.WEST, true),
-				model(side).put(VariantSettings.Y, VariantSettings.Rotation.R270)
+				when().put(Properties.WEST, true),
+				model(side).apply(ROTATE_Y_270)
 			).add(
-				When.create().set(Properties.UP, true),
-				model(side).put(VariantSettings.X, VariantSettings.Rotation.R270)
+				when().put(Properties.UP, true),
+				model(side).apply(ROTATE_X_270)
 			).add(
-				When.create().set(Properties.DOWN, true),
-				model(side).put(VariantSettings.X, VariantSettings.Rotation.R90)
+				when().put(Properties.DOWN, true),
+				model(side).apply(ROTATE_X_90)
 			)
 	}
-	static BlockStateVariant model(Identifier id) {
-		return BlockStateVariant.create().put(VariantSettings.MODEL, id)
+	static MultipartModelConditionBuilder when() {
+		return new MultipartModelConditionBuilder();
 	}
-	static BlockStateVariant model(Block block) {
+	static WeightedVariant model(Identifier id) {
+		return new WeightedVariant(Pool.of(new ModelVariant(id)));
+	}
+	static WeightedVariant model(Block block) {
 		return model(TextureMap.getId(block))
 	}
 }

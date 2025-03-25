@@ -69,7 +69,6 @@ import techreborn.init.TRContent.RawMetals
 import techreborn.init.TRContent.Gems
 import techreborn.init.TRContent.Upgrades
 import techreborn.init.TRContent.Cables
-import techreborn.client.render.DynamicBucketBakedModel
 
 import java.util.concurrent.CompletableFuture
 import java.util.function.BiConsumer
@@ -506,8 +505,8 @@ class ModelProvider extends FabricModelProvider {
 		add TRContent.COPPER_WALL, toWall
 
 		generator.registerFlowerPotPlantAndItem(TRContent.RUBBER_SAPLING, TRContent.POTTED_RUBBER_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED)
-		generator.registerLog(TRContent.RUBBER_LOG).wood(TRContent.RUBBER_WOOD)
-		generator.registerLog(TRContent.RUBBER_LOG_STRIPPED).log(TRContent.RUBBER_LOG_STRIPPED).wood(TRContent.STRIPPED_RUBBER_WOOD)
+		generator.createLogTexturePool(TRContent.RUBBER_LOG).wood(TRContent.RUBBER_WOOD)
+		generator.createLogTexturePool(TRContent.RUBBER_LOG_STRIPPED).log(TRContent.RUBBER_LOG_STRIPPED).wood(TRContent.STRIPPED_RUBBER_WOOD)
 		generator.registerSingleton(TRContent.RUBBER_LEAVES, TexturedModel.LEAVES)
 		BlockFamily family = BlockFamilies.register(TRContent.RUBBER_PLANKS)
 			.button(TRContent.RUBBER_BUTTON)
@@ -569,7 +568,6 @@ class ModelProvider extends FabricModelProvider {
 			generator.output.accept(item, new ItemCellModel.Unbaked())
 			TemplateModel.CELL_BASE.upload(item)
 			TemplateModel.CELL_BACKGROUND.upload(item)
-			TemplateModel.CELL_FLUID.upload(item)
 			TemplateModel.CELL_GLASS.upload(item)
 		}
 		def toFluidBucket = { ModFluids modFluids ->
@@ -578,7 +576,6 @@ class ModelProvider extends FabricModelProvider {
 		def toBucket = { Identifier id ->
 			TemplateModel.BUCKET_BASE.upload(id)
 			TemplateModel.BUCKET_BACKGROUND.upload(id)
-			TemplateModel.BUCKET_FLUID.upload(id)
 		}
 
 		add Dusts, toGenerated
@@ -685,6 +682,6 @@ class ModelProvider extends FabricModelProvider {
 		add TRContent.NANOSABER, toNanosaber
 		add TRContent.CELL, toCell
 		add ModFluids, toFluidBucket
-		add DynamicBucketBakedModel.BUCKET, toBucket
+		add ItemBucketModel.BUCKET, toBucket
 	}
 }

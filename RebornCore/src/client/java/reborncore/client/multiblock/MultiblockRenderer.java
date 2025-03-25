@@ -28,6 +28,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.Vec3d;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements BlockEntityRenderer<T> {
@@ -36,7 +37,7 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 	}
 
 	@Override
-	public void render(T blockEntity, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay) {
+	public void render(T blockEntity, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay, Vec3d cameraPos) {
 		if (blockEntity.renderMultiblock && !blockEntity.isShapeValid()) {
 			blockEntity.writeMultiblock(new HologramRenderer(blockEntity.getWorld(), matrixStack, vertexConsumerProvider, 0.4F).rotate(blockEntity.getFacing().getOpposite()));
 		}

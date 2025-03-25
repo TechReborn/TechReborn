@@ -27,19 +27,23 @@ package techreborn.items.tool.industrial;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -49,9 +53,9 @@ import techreborn.init.TRItemSettings;
 import techreborn.init.TRToolMaterials;
 import techreborn.utils.TRItemUtils;
 
-import java.util.List;
+import java.util.function.Consumer;
 
-public class NanosaberItem extends SwordItem implements RcEnergyItem {
+public class NanosaberItem extends Item implements RcEnergyItem {
 	private static final EntityAttributeModifier ENABLED_ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_damage"), TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADD_VALUE);
 	private static final EntityAttributeModifier ENABLED_ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_speed"), 3, EntityAttributeModifier.Operation.ADD_VALUE);
 	private static final EntityAttributeModifier DISABLED_ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(Identifier.of("techreborn", "nano_saber_attack_damage"), 0, EntityAttributeModifier.Operation.ADD_VALUE);
@@ -59,19 +63,18 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem(String name) {
-		super(TRToolMaterials.NANOSABER, 1f, 1f, TRItemSettings.unbreakable(name));
+		super(TRItemSettings.unbreakable(name).sword(TRToolMaterials.NANOSABER, 1f, 1f));
 	}
 
 	// SwordItem
 	@Override
-	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
+	public void postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
 		tryUseEnergy(stack, TechRebornConfig.nanosaberCost);
-		return true;
 	}
 
 	// Item
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, ServerWorld worldIn, Entity entityIn, @Nullable EquipmentSlot slot) {
 		TRItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost, entityIn);
 
 		boolean isActive = stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE;
@@ -92,7 +95,7 @@ public class NanosaberItem extends SwordItem implements RcEnergyItem {
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 

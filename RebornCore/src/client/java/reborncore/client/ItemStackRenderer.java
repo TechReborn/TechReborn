@@ -24,23 +24,25 @@
 
 package reborncore.client;
 
-import com.mojang.blaze3d.systems.ProjectionType;
+import com.mojang.blaze3d.buffers.BufferType;
+import com.mojang.blaze3d.buffers.BufferUsage;
+import com.mojang.blaze3d.buffers.GpuBuffer;
+import com.mojang.blaze3d.systems.CommandEncoder;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.GpuTexture;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.gl.WindowFramebuffer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.client.render.*;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import org.joml.Matrix4f;
 
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -57,55 +59,107 @@ public class ItemStackRenderer implements HudRenderCallback {
 	public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
 			ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.remove();
-			Identifier id = Registries.ITEM.getId(itemStack.getItem());
-			drawContext.drawText(MinecraftClient.getInstance().textRenderer, "Rendering " + id, 5, 5, -1, false);
-			drawContext.drawText(MinecraftClient.getInstance().textRenderer, ItemStackRenderManager.RENDER_QUEUE.size() + " items left", 5, 15, -1, false);
-			export(id, itemStack);
+			export(drawContext, itemStack, ItemStackRenderManager.RENDER_QUEUE.size());
 		}
 	}
 
-	private void export(Identifier identifier, ItemStack item) {
+	private void export(DrawContext drawContext, ItemStack stack, int queue) {
 		MinecraftClient client = MinecraftClient.getInstance();
-
-		Matrix4f matrix4f = new Matrix4f().setOrtho(0, 16, 16, 0, 1000, 3000);
-		RenderSystem.setProjectionMatrix(matrix4f, ProjectionType.ORTHOGRAPHIC);
-		MatrixStack stack = new MatrixStack();
-		stack.push();
-		stack.loadIdentity();
-		stack.translate(0, 0, -2000);
-		DiffuseLighting.enableGuiDepthLighting();
-
-		Framebuffer framebuffer = new WindowFramebuffer(SIZE, SIZE);
-
-		try (NativeImage nativeImage = new NativeImage(SIZE, SIZE, true)) {
-			framebuffer.setClearColor(0, 0, 0, 0);
-			framebuffer.clear();
-
-			{
-				framebuffer.beginWrite(true);
-				DrawContext drawContext = new DrawContext(client, client.getBufferBuilders().getEntityVertexConsumers());
-				drawContext.drawItem(item, 0, 0);
-				drawContext.draw();
-				framebuffer.endWrite();
-			}
-
-			{
-				framebuffer.beginRead();
-				nativeImage.loadFromTextureImage(0, false);
-				nativeImage.mirrorVertically();
-				framebuffer.endRead();
-			}
-
-			try {
-				Path path = FabricLoader.getInstance().getGameDir().resolve("item_renderer").resolve(identifier.getNamespace()).resolve(identifier.getPath() + ".png");
-				Files.createDirectories(path.getParent());
-				nativeImage.writeTo(path);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		Framebuffer framebuffer = client.getFramebuffer();
+		GpuTexture gpuTexture = framebuffer.getColorAttachment();
+		if (gpuTexture == null) {
+			return;
 		}
+		// clear background
+		RenderSystem.getDevice().createCommandEncoder().clearColorAndDepthTextures(gpuTexture, 0, framebuffer.getDepthAttachment(), 1);
 
-		framebuffer.delete();
-		stack.pop();
+		// draw info
+		double scaleFactor = client.getWindow().getScaleFactor();
+		final int drawSize = Math.min(framebuffer.textureHeight, SIZE);
+		int left = (int) (drawSize / scaleFactor) + 5;
+		Identifier identifier = Registries.ITEM.getId(stack.getItem());
+		drawContext.drawText(client.textRenderer, "Rendering " + identifier, left, 5, -1, false);
+		drawContext.drawText(client.textRenderer, queue + " items left", left, 15, -1, false);
+
+		// draw item stack
+		MatrixStack matrices = drawContext.getMatrices();
+		matrices.push();
+		float drawScale = drawSize / (float) (16 * scaleFactor);
+		matrices.scale(drawScale, drawScale, drawScale);
+		drawContext.drawItem(stack, 0, 0);
+		matrices.pop();
+
+		// export image
+		int pixelSize = gpuTexture.getFormat().pixelSize();
+		final GpuBuffer gpuBuffer = RenderSystem.getDevice().createBuffer(
+			() -> "Export buffer",
+			BufferType.PIXEL_PACK,
+			BufferUsage.STATIC_READ,
+			framebuffer.textureWidth * framebuffer.textureHeight * pixelSize
+		);
+		final CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
+		commandEncoder.copyTextureToBuffer(
+			gpuTexture,
+			gpuBuffer,
+			0,
+			() -> {
+				try (GpuBuffer.ReadView readView = commandEncoder.readBuffer(gpuBuffer)) {
+					ByteBuffer imageData = readView.data();
+					NativeImage nativeImage = null;
+					try {
+						int scale = drawSize < SIZE ? 2 : 1;
+						int imageSize = drawSize * scale;
+						nativeImage = new NativeImage(imageSize, imageSize, false);
+						for (int rowIndex = 0, maxRowIndex = imageSize - 1, scaledRowIndex; rowIndex < drawSize; rowIndex++) {
+							scaledRowIndex = rowIndex * scale;
+							for (int colIndex = 0, scaledColIndex; colIndex < drawSize; colIndex++) {
+								scaledColIndex = colIndex * scale;
+								int color = imageData.getInt((colIndex + rowIndex * drawSize) * pixelSize);
+								for (int x = 0; x < scale; x++) {
+									for (int y = 0; y < scale; y++) {
+										nativeImage.setColor(scaledColIndex + x, maxRowIndex - scaledRowIndex - y, color);
+									}
+								}
+							}
+						}
+						if (drawSize < SIZE) {
+							NativeImage destroy = null;
+							try {
+								NativeImage resizedImage = new NativeImage(SIZE, SIZE, false);
+								destroy = resizedImage;
+								nativeImage.resizeSubRectTo(0, 0, imageSize, imageSize, resizedImage);
+								destroy = nativeImage;
+								nativeImage = resizedImage;
+							} catch(Exception ignored) {}
+							finally {
+								if (destroy != null) {
+									try {
+										destroy.close();
+									} catch(Exception ignored) {}
+								}
+							}
+						}
+						Path path = FabricLoader.getInstance().getGameDir().resolve("item_renderer")
+							.resolve(identifier.getNamespace()).resolve(identifier.getPath() + ".png");
+						Files.createDirectories(path.getParent());
+						nativeImage.writeTo(path);
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if (nativeImage != null) {
+							try {
+								nativeImage.close();
+							} catch(Exception ignored) {}
+						}
+					}
+				}
+				gpuBuffer.close();
+			},
+			0,
+			0,
+			framebuffer.textureHeight - drawSize,
+			drawSize,
+			drawSize
+		);
 	}
 }

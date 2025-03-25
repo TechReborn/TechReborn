@@ -64,7 +64,7 @@ public class ItemStackSerializer implements JsonSerializer<ItemStack>, JsonDeser
 
 			if (jsonObject.has(TAG_COMPOUND) && jsonObject.get(TAG_COMPOUND).isJsonPrimitive()) {
 				try {
-					tagCompound = StringNbtReader.parse(jsonObject.getAsJsonPrimitive(TAG_COMPOUND).getAsString());
+					tagCompound = StringNbtReader.readCompound(jsonObject.getAsJsonPrimitive(TAG_COMPOUND).getAsString());
 				} catch (CommandSyntaxException e) {
 
 				}

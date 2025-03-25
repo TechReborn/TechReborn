@@ -144,6 +144,7 @@ public class RebornCore implements ModInitializer {
 		ServerPlayerEntityScreenHandlerHelper.class.getName();
 
 		ChunkEventListeners.init();
+		ChunkLoaderManager.register();
 	}
 
 	public static EnvType getSide() {

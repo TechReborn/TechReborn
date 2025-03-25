@@ -192,7 +192,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	@Override
 	public void readNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(compoundTag, registryLookup);
-		experience = compoundTag.getFloat("Experience");
+		experience = compoundTag.getFloat("Experience").orElse(0F);
 	}
 
 	@Override

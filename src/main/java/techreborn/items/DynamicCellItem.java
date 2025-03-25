@@ -127,7 +127,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				world.playSound(player, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
 
 				for (int l = 0; l < 8; ++l) {
-					world.addParticle(ParticleTypes.LARGE_SMOKE, (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
+					world.addParticleClient(ParticleTypes.LARGE_SMOKE, (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
 				}
 			} else if (blockState.getBlock() instanceof FluidFillable && fluid == Fluids.WATER) {
 				if (((FluidFillable) blockState.getBlock()).tryFillWithFluid(world, pos, blockState, ((FlowableFluid) fluid).getStill(false))) {
@@ -170,7 +170,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		}
 
 		BlockPos hitPos = hitResult.getBlockPos();
-		if (!world.canPlayerModifyAt(player, hitPos)) {
+		if (!world.canEntityModifyAt(player, hitPos)) {
 			return ActionResult.FAIL;
 		}
 

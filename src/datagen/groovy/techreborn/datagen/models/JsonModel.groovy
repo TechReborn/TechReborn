@@ -32,15 +32,15 @@ import net.minecraft.client.data.TextureKey
 import net.minecraft.client.data.TextureMap
 import net.minecraft.client.render.model.json.ModelElement
 import net.minecraft.client.render.model.json.ModelElementFace
-import net.minecraft.client.render.model.json.ModelElementTexture
 import net.minecraft.client.render.model.json.ModelRotation
 import net.minecraft.client.render.model.json.Transformation
 import net.minecraft.item.Item
-import net.minecraft.item.ModelTransformationMode
+import net.minecraft.item.ItemDisplayContext
 import net.minecraft.util.Identifier
+import net.minecraft.util.math.AxisRotation
 import net.minecraft.util.math.Direction
 import org.jetbrains.annotations.Nullable
-import org.joml.Vector3f
+import org.joml.Vector3fc
 
 class JsonModel {
 	@Nullable
@@ -153,13 +153,13 @@ class JsonModel {
 	}
 
 	static class DisplayMap {
-		final Map<ModelTransformationMode, Transformation> entries = new HashMap<>()
+		final Map<ItemDisplayContext, Transformation> entries = new HashMap<>()
 		DisplayMap create() {
 			DisplayMap display = new DisplayMap()
 			display.entries.putAll(entries)
 			return display
 		}
-		DisplayMap put(ModelTransformationMode mode, Transformation transformation) {
+		DisplayMap put(ItemDisplayContext mode, Transformation transformation) {
 			entries.put(mode, transformation)
 			return this
 		}
@@ -195,24 +195,24 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonArray toJson(Vector3f vector) {
+	private static JsonArray toJson(Vector3fc vector) {
 		JsonArray data = new JsonArray()
-		data.add(vector.x)
-		data.add(vector.y)
-		data.add(vector.z)
+		data.add(vector.x())
+		data.add(vector.y())
+		data.add(vector.z())
 		return data
 	}
 
 	private static JsonObject toJson(Transformation transformation) {
 		JsonObject json = new JsonObject()
-		if (transformation.rotation.x != 0 || transformation.rotation.y != 0 || transformation.rotation.z != 0) {
-			json.add("rotation", toJson(transformation.rotation))
+		if (transformation.rotation().x() != 0 || transformation.rotation().y() != 0 || transformation.rotation().z() != 0) {
+			json.add("rotation", toJson(transformation.rotation()))
 		}
-		if (transformation.translation.x != 0 || transformation.translation.y != 0 || transformation.translation.z != 0) {
-			json.add("translation", toJson(transformation.translation))
+		if (transformation.translation().x() != 0 || transformation.translation().y() != 0 || transformation.translation().z() != 0) {
+			json.add("translation", toJson(transformation.translation()))
 		}
-		if (transformation.scale.x != 1 || transformation.translation.y != 1 || transformation.translation.z != 1) {
-			json.add("scale", toJson(transformation.scale))
+		if (transformation.scale().x() != 1 || transformation.translation().y() != 1 || transformation.translation().z() != 1) {
+			json.add("scale", toJson(transformation.scale()))
 		}
 		return json
 	}
@@ -236,11 +236,12 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonArray toJson(float[] uvs) {
+	private static JsonArray toJson(ModelElementFace.UV uv) {
 		JsonArray json = new JsonArray()
-		for (final float uv in uvs) {
-			json.add(uv)
-		}
+		json.add(uv.minU())
+		json.add(uv.minV())
+		json.add(uv.maxU())
+		json.add(uv.maxV())
 		return json
 	}
 
@@ -255,12 +256,17 @@ class JsonModel {
 		if (tintIndex != -1) {
 			json.addProperty("tintindex", tintIndex)
 		}
-		ModelElementTexture textureData = face.textureData()
-		if (textureData.uvs != null) {
-			json.add("uv", toJson(textureData.uvs))
+		ModelElementFace.UV uv = face.uvs();
+		if (uv != null) {
+			json.add("uv", toJson(uv))
 		}
-		if (textureData.rotation != 0) {
-			json.addProperty("rotation", textureData.rotation)
+		if (face.rotation() != AxisRotation.R0) {
+			json.addProperty("rotation", switch (face.rotation()) {
+				case AxisRotation.R90 -> 90
+				case AxisRotation.R180 -> 180
+				case AxisRotation.R270 -> 270
+				default -> 0
+			})
 		}
 		return json
 	}
@@ -275,12 +281,12 @@ class JsonModel {
 
 	private static JsonObject toJson(ModelElement element) {
 		JsonObject json = new JsonObject()
-		json.add("from", toJson(element.from))
-		json.add("to", toJson(element.to))
-		if (element.rotation != null) {
-			json.add("rotation", toJson(element.rotation))
+		json.add("from", toJson(element.from()))
+		json.add("to", toJson(element.to()))
+		if (element.rotation() != null) {
+			json.add("rotation", toJson(element.rotation()))
 		}
-		json.add("faces", toJson(element.faces))
+		json.add("faces", toJson(element.faces()))
 		return json
 	}
 

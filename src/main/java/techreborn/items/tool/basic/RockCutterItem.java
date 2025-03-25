@@ -28,9 +28,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
@@ -42,11 +42,11 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRItemSettings;
 import techreborn.init.TRToolMaterials;
 
-public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
+public class RockCutterItem extends Item implements RcEnergyItem {
 	// 10k Energy with 128 E\t charge rate
 	public RockCutterItem(String name) {
 		// combat stats same as for diamond pickaxe. Fix for #2468
-		super(TRToolMaterials.ROCK_CUTTER,  1f, -2.8f, TRItemSettings.unbreakable(name));
+		super(TRItemSettings.unbreakable(name).pickaxe(TRToolMaterials.ROCK_CUTTER,  1f, -2.8f));
 	}
 
 	// PickaxeItem
@@ -68,11 +68,6 @@ public class RockCutterItem extends PickaxeItem implements RcEnergyItem {
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		tryUseEnergy(stack, TechRebornConfig.rockCutterCost);
-		return true;
-	}
-
-	@Override
-	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return true;
 	}
 

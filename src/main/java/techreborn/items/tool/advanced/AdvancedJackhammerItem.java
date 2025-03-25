@@ -25,11 +25,14 @@
 package techreborn.items.tool.advanced;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -45,8 +48,8 @@ import techreborn.utils.TRItemUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
@@ -86,12 +89,12 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+	public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
 		TRItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
 		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 

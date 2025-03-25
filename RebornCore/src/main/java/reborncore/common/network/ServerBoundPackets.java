@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.block.OrientationHelper;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -51,7 +52,7 @@ public class ServerBoundPackets {
 			// connection status if needed
 			World world = machine.getWorld();
 			BlockState blockState = world.getBlockState(machine.getPos());
-			world.updateNeighborsAlways(machine.getPos(), blockState.getBlock());
+			world.updateNeighborsAlways(machine.getPos(), blockState.getBlock(), OrientationHelper.getEmissionOrientation(world, null, null));
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SlotConfigSavePayload.ID, (payload, context) -> {

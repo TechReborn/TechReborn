@@ -27,6 +27,8 @@ package reborncore.client.mixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,7 +47,8 @@ public class MixinGameRenderer {
 	@Redirect(method = "updateFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getFovMultiplier(ZF)F"))
 	private float updateFovMultiplier(AbstractClientPlayerEntity playerEntity, boolean firstPerson, float fovEffectScale) {
 		float playerSpeed = playerEntity.getFovMultiplier(firstPerson, fovEffectScale);
-		for (ItemStack stack : playerEntity.getArmorItems()) {
+		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+			ItemStack stack = playerEntity.getEquippedStack(equipmentSlot);
 			if (stack.getItem() instanceof ArmorFovHandler) {
 				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, client.player);
 			}

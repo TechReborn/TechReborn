@@ -60,9 +60,9 @@ public class EntityNukePrimed extends TntEntity {
 		double d = world.random.nextDouble() * 6.2831854820251465;
 		this.setVelocity(-Math.sin(d) * 0.02, 0.2f, -Math.cos(d) * 0.02);
 		this.setFuse(80);
-		this.prevX = x;
-		this.prevY = y;
-		this.prevZ = z;
+		this.lastX = x;
+		this.lastY = y;
+		this.lastZ = z;
 		this.owner = owner;
 		setFuse(TechRebornConfig.nukeFuseTime);
 	}

@@ -32,7 +32,8 @@ import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.client.render.model.BlockModelPart;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
@@ -42,6 +43,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.common.blockentity.MultiblockWriter;
 
+import java.util.List;
 import java.util.function.BiPredicate;
 
 /**
@@ -63,11 +65,12 @@ record HologramRenderer(World view, MatrixStack matrix, VertexConsumerProvider v
 
 		if (state.getBlock() instanceof FluidBlock) {
 			FluidState fluidState = state.getFluidState();
-			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ModelTransformationMode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, view, 0);
+			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ItemDisplayContext.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, view, 0);
 		} else {
 			matrix.translate(-0.5, -0.5, -0.5);
 			VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayers.getBlockLayer(state));
-			blockRenderManager.renderBlock(state, OUT_OF_WORLD_POS, view, matrix, consumer, false, Random.create());
+			List<BlockModelPart> parts = blockRenderManager.getModel(state).getParts(Random.create());
+			blockRenderManager.renderBlock(state, OUT_OF_WORLD_POS, view, matrix, consumer, false, parts);
 		}
 
 		matrix.pop();

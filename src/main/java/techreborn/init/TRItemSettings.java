@@ -25,20 +25,29 @@
 package techreborn.init;
 
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.UnbreakableComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 import techreborn.TechReborn;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 public class TRItemSettings {
+	public static TooltipDisplayComponent UNBREAKABLE_HIDE = new TooltipDisplayComponent(
+		false, new LinkedHashSet<>(Set.of(DataComponentTypes.UNBREAKABLE))
+	);
+
 	public static Item.Settings item(String name) {
 		return new Item.Settings().registryKey(key(name));
 	}
 
 	public static Item.Settings unbreakable(String name) {
-		return item(name).component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(false));
+		return item(name).component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE)
+			.component(DataComponentTypes.TOOLTIP_DISPLAY, UNBREAKABLE_HIDE);
 	}
 
 	public static RegistryKey<Item> key(String name) {

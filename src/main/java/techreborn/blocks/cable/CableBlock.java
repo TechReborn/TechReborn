@@ -37,6 +37,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -223,8 +224,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		super.onEntityCollision(state, world, pos, entity);
+	protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+		super.onEntityCollision(state, world, pos, entity, handler);
 		if (!type.canKill) {
 			return;
 		}
@@ -263,7 +264,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 					0.6F, 1F);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionParticles) {
-			world.addParticle(ParticleTypes.CRIT, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
+			world.addParticleClient(ParticleTypes.CRIT, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
 		}
 	}
 
@@ -273,7 +274,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	public boolean canFillWithFluid(PlayerEntity player, BlockView view, BlockPos pos, BlockState state, Fluid fluid) {
+	public boolean canFillWithFluid(LivingEntity player, BlockView view, BlockPos pos, BlockState state, Fluid fluid) {
 		return !state.get(COVERED) && Waterloggable.super.canFillWithFluid(player, view, pos, state, fluid);
 	}
 

@@ -27,15 +27,14 @@ package techreborn.datagen.models
 import net.minecraft.block.Block
 import net.minecraft.client.data.TextureKey
 import net.minecraft.client.data.TextureMap
-import net.minecraft.client.render.model.MissingModel
 import net.minecraft.client.render.model.json.ModelElement
 import net.minecraft.client.render.model.json.ModelElementFace
-import net.minecraft.client.render.model.json.ModelElementTexture
 import net.minecraft.client.render.model.json.ModelRotation
 import net.minecraft.client.render.model.json.Transformation
 import net.minecraft.item.Item
-import net.minecraft.item.ModelTransformationMode
+import net.minecraft.item.ItemDisplayContext
 import net.minecraft.util.Identifier
+import net.minecraft.util.math.AxisRotation
 import net.minecraft.util.math.Direction
 import org.apache.commons.lang3.function.TriFunction
 import org.apache.commons.lang3.tuple.Pair
@@ -59,18 +58,18 @@ class TemplateModel {
 	static Uploadable CUBE_ALL = (Block block) -> new JsonModel()
 		.add(Identifier.ofVanilla("block/cube_all")).id(block).add(TextureMap.all(block), TextureKey.ALL)
 	static JsonModel.DisplayMap CELL_DISPLAY = new JsonModel.DisplayMap()
-		.put(ModelTransformationMode.GROUND, transformation(0, 0, 0, 0, 2, 0, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.HEAD, transformation(0, 180, 0, 0, 13, 7, 1, 1, 1))
-		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 1, 0.55, 0.55, 0.55))
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, -90, 25, 1.13, 3.2, 1.13, 0.68, 0.68, 0.68))
-		.put(ModelTransformationMode.FIXED, transformation(0, 180, 0, 0, 0, 0, 1, 1, 1))
-	static JsonModel CELL_TEMPLATE = new JsonModel().add(CELL_DISPLAY).add(List.of(
+		.put(ItemDisplayContext.GROUND, transformation(0, 0, 0, 0, 2, 0, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.HEAD, transformation(0, 180, 0, 0, 13, 7, 1, 1, 1))
+		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 1, 0.55, 0.55, 0.55))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, -90, 25, 1.13, 3.2, 1.13, 0.68, 0.68, 0.68))
+		.put(ItemDisplayContext.FIXED, transformation(0, 180, 0, 0, 0, 0, 1, 1, 1))
+	static JsonModel CELL_TEMPLATE = new JsonModel().add(List.of(
 		new ModelElement(new Vector3f(7, 4, 7.5), new Vector3f(10, 12, 8.5), Map.of(
 			Direction.NORTH, face(TextureKey.TEXTURE, uvs(7, 4, 10, 12)),
 			Direction.SOUTH, face(TextureKey.TEXTURE, uvs(7, 4, 10, 12)),
 		))
 	))
-	static JsonModel BUCKET_TEMPLATE = new JsonModel().add(CELL_DISPLAY).add(List.of(
+	static JsonModel BUCKET_TEMPLATE = new JsonModel().add(List.of(
 		new ModelElement(new Vector3f(4, 11, 7.5), new Vector3f(12, 13, 8.5), Map.of(
 			Direction.NORTH, face(TextureKey.TEXTURE, uvs(4, 3, 12, 5)),
 			Direction.SOUTH, face(TextureKey.TEXTURE, uvs(4, 3, 12, 5)),
@@ -90,10 +89,10 @@ class TemplateModel {
 	))
 	static ModelElementFace CABLE_FACE_1 = face(TextureKey.TEXTURE, uvs(1, 1, 5, 5))
 	static ModelElementFace CABLE_FACE_2 = face(TextureKey.TEXTURE, uvs(0, 7, 6, 11))
-	static ModelElementFace CABLE_FACE_3 = face(TextureKey.TEXTURE, uvs(0, 7, 6, 11), 90)
+	static ModelElementFace CABLE_FACE_3 = face(TextureKey.TEXTURE, uvs(0, 7, 6, 11), AxisRotation.R90)
 	static ModelElementFace CABLE_FACE_4 = face(TextureKey.TEXTURE, uvs(0, 0, 6, 6))
 	static ModelElementFace CABLE_FACE_5 = face(TextureKey.TEXTURE, uvs(0, 6, 5, 12))
-	static ModelElementFace CABLE_FACE_6 = face(TextureKey.TEXTURE, uvs(0, 6, 6, 12), 90)
+	static ModelElementFace CABLE_FACE_6 = face(TextureKey.TEXTURE, uvs(0, 6, 6, 12), AxisRotation.R90)
 	static List<ModelElement> CABLE_CORE_ELEMENT = List.of(
 		new ModelElement(new Vector3f(6, 6, 6), new Vector3f(10, 10, 10), Map.of(
 			Direction.NORTH, CABLE_FACE_1, Direction.EAST, CABLE_FACE_1, Direction.SOUTH, CABLE_FACE_1,
@@ -105,7 +104,7 @@ class TemplateModel {
 			Direction.NORTH, CABLE_FACE_1, Direction.EAST, CABLE_FACE_2,
 			Direction.SOUTH, new ModelElementFace(
 				Direction.SOUTH, -1, TextureKey.TEXTURE.toString(),
-				new ModelElementTexture(uvs(1, 1, 5, 5), 0)
+				uvs(1, 1, 5, 5), AxisRotation.R0
 			),
 			Direction.WEST, CABLE_FACE_2, Direction.UP, CABLE_FACE_3, Direction.DOWN, CABLE_FACE_3
 		))
@@ -121,18 +120,18 @@ class TemplateModel {
 			Direction.NORTH, CABLE_FACE_4, Direction.EAST, CABLE_FACE_5,
 			Direction.SOUTH, new ModelElementFace(
 				Direction.SOUTH, -1, TextureKey.TEXTURE.toString(),
-				new ModelElementTexture(uvs(0, 0, 6, 6), 0)
+				uvs(0, 0, 6, 6), AxisRotation.R0
 			),
 			Direction.WEST, CABLE_FACE_5, Direction.UP, CABLE_FACE_6, Direction.DOWN, CABLE_FACE_6
 		))
 	)
 	static JsonModel.DisplayMap LIGHT_DISPLAY_BASE = new JsonModel.DisplayMap()
-		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(75, 45, 0, 0, 2.5, 2, 0.375, 0.375, 0.375))
-		.put(ModelTransformationMode.FIRST_PERSON_LEFT_HAND, transformation(0, 225, 0, 0, 4.2, 0, 0.40, 0.40, 0.40))
+		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(75, 45, 0, 0, 2.5, 2, 0.375, 0.375, 0.375))
+		.put(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, transformation(0, 225, 0, 0, 4.2, 0, 0.40, 0.40, 0.40))
 	static JsonModel.DisplayMap LIGHT_DISPLAY_1 = LIGHT_DISPLAY_BASE.create()
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 5.5, 0, 0.60, 0.60, 0.60))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 5.5, 0, 0.60, 0.60, 0.60))
 	static JsonModel.DisplayMap LIGHT_DISPLAY_2 = LIGHT_DISPLAY_BASE.create()
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 4.3, 0, 0.60, 0.60, 0.60))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 4.3, 0, 0.60, 0.60, 0.60))
 	static ModelElementFace LIGHT_FACE_1 = face(KEY_ZERO, uvs(0.0, 0.0, 1.0, 1.0))
 	static ModelElementFace LIGHT_FACE_2 = face(KEY_ZERO, uvs(1.0,1.0,15.0,15.0))
 	static ModelElementFace LIGHT_FACE_3 = face(KEY_ZERO, uvs(1.0,2.0,15.0,0.0))
@@ -144,26 +143,25 @@ class TemplateModel {
 		Direction.WEST, LIGHT_FACE_3,
 		Direction.EAST, LIGHT_FACE_3,
 	)
-	static ModelElementTexture EMPTY_TEXTURE_MODEL = new ModelElementTexture(null, 0)
 	static List<ModelElement> CUBE_CTMH_BASE = List.of(
 		new ModelElement(new Vector3f(0, 0, 0), new Vector3f(16, 16, 16), Map.of(
-			Direction.DOWN, new ModelElementFace(Direction.DOWN, -1, TextureKey.DOWN.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.UP, new ModelElementFace(Direction.UP, -1, TextureKey.UP.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.NORTH, new ModelElementFace(Direction.NORTH, 0, TextureKey.NORTH.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.SOUTH, new ModelElementFace(Direction.SOUTH, 0, TextureKey.SOUTH.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.WEST, new ModelElementFace(Direction.WEST, 0, TextureKey.WEST.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.EAST, new ModelElementFace(Direction.EAST, 0, TextureKey.EAST.toString(), EMPTY_TEXTURE_MODEL),
+			Direction.DOWN, new ModelElementFace(Direction.DOWN, -1, TextureKey.DOWN.toString(), null, AxisRotation.R0),
+			Direction.UP, new ModelElementFace(Direction.UP, -1, TextureKey.UP.toString(), null, AxisRotation.R0),
+			Direction.NORTH, new ModelElementFace(Direction.NORTH, 0, TextureKey.NORTH.toString(), null, AxisRotation.R0),
+			Direction.SOUTH, new ModelElementFace(Direction.SOUTH, 0, TextureKey.SOUTH.toString(), null, AxisRotation.R0),
+			Direction.WEST, new ModelElementFace(Direction.WEST, 0, TextureKey.WEST.toString(), null, AxisRotation.R0),
+			Direction.EAST, new ModelElementFace(Direction.EAST, 0, TextureKey.EAST.toString(), null, AxisRotation.R0),
 		))
 	)
 	static JsonModel.DisplayMap RESIN_BASIN_DISPLAY = new JsonModel.DisplayMap()
-		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(50, 45, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
-		.put(ModelTransformationMode.THIRD_PERSON_LEFT_HAND, transformation(50, -16, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, -225, 0, 0, 1.25, 0, 0.4, 0.4, 0.4))
-		.put(ModelTransformationMode.FIRST_PERSON_LEFT_HAND, transformation(0, 135, 0, 0, 1.25, 0, 0.4, 0.4, 0.4))
-		.put(ModelTransformationMode.GUI, transformation(30, 225, 0, 0, 0, 0, 0.625, 0.625, 0.625))
-		.put(ModelTransformationMode.GROUND, transformation(0, 0, 0, 0, 3, 0, 0.25, 0.25, 0.25))
-		.put(ModelTransformationMode.FIXED, transformation(0, -90, 0, 0, 0, 0, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.HEAD, transformation(0, 0, 0, 0, 11.75, 0, 1, 1, 1))
+		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(50, 45, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
+		.put(ItemDisplayContext.THIRD_PERSON_LEFT_HAND, transformation(50, -16, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, -225, 0, 0, 1.25, 0, 0.4, 0.4, 0.4))
+		.put(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, transformation(0, 135, 0, 0, 1.25, 0, 0.4, 0.4, 0.4))
+		.put(ItemDisplayContext.GUI, transformation(30, 225, 0, 0, 0, 0, 0.625, 0.625, 0.625))
+		.put(ItemDisplayContext.GROUND, transformation(0, 0, 0, 0, 3, 0, 0.25, 0.25, 0.25))
+		.put(ItemDisplayContext.FIXED, transformation(0, -90, 0, 0, 0, 0, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.HEAD, transformation(0, 0, 0, 0, 11.75, 0, 1, 1, 1))
 	static ModelElementFace RESIN_BASIN_FACE_1 = face(KEY_ONE, uvs(0, 8, 16, 16))
 	static ModelElementFace RESIN_BASIN_FACE_2 = face(KEY_TWO, uvs(0, 0, 14, 1))
 	static ModelElementFace RESIN_BASIN_FACE_3 = face(KEY_THREE, uvs(0, 0, 1, 6))
@@ -261,22 +259,22 @@ class TemplateModel {
 		),
 	)
 	static JsonModel.DisplayMap FISHING_STATION_DISPLAY = new JsonModel.DisplayMap().put(
-		ModelTransformationMode.GUI, transformation(30, 225, 0, -1, 0, 0, 0.5, 0.5, 0.5)
+		ItemDisplayContext.GUI, transformation(30, 225, 0, -1, 0, 0, 0.5, 0.5, 0.5)
 	)
 	static ModelRotation FISHING_STATION_ROTATION_1 = new ModelRotation(new Vector3f(1, 0, 4), Direction.Axis.X, 22.5, false)
 	static Map<Direction, ModelElementFace> FISHING_STATION_FACE_MAP_1 = Map.of(
-		Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 1, 1), 180),
-		Direction.EAST, face(KEY_ZERO, uvs(0, 0, 1, 14), 90),
+		Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 1, 1), AxisRotation.R180),
+		Direction.EAST, face(KEY_ZERO, uvs(0, 0, 1, 14), AxisRotation.R90),
 		Direction.SOUTH, face(KEY_ZERO, uvs(0, 0, 1, 1)),
-		Direction.WEST, face(KEY_ZERO, uvs(0, 0, 1, 14), 270),
+		Direction.WEST, face(KEY_ZERO, uvs(0, 0, 1, 14), AxisRotation.R270),
 		Direction.UP, face(KEY_ZERO, uvs(0, 0, 1, 14)),
-		Direction.DOWN, face(KEY_ZERO, uvs(0, 0, 1, 14), 180),
+		Direction.DOWN, face(KEY_ZERO, uvs(0, 0, 1, 14), AxisRotation.R180),
 	)
 	static ModelRotation FISHING_STATION_ROTATION_2 = new ModelRotation(new Vector3f(1, 0, 4), Direction.Axis.X, -22.5, false)
 	static ModelElementFace MISSING_FACE = face(KEY_MISSING, uvs(0, 0, 0, 9))
 	static Map<Direction, ModelElementFace> FISHING_STATION_FACE_MAP_2 = Map.of(
 		Direction.NORTH, MISSING_FACE, Direction.EAST, face(KEY_ONE, uvs(7, 0, 16, 9)),
-		Direction.SOUTH, MISSING_FACE, Direction.WEST, face(KEY_ONE, uvs(7, 0, 16, 9), 90),
+		Direction.SOUTH, MISSING_FACE, Direction.WEST, face(KEY_ONE, uvs(7, 0, 16, 9), AxisRotation.R90),
 		Direction.UP, MISSING_FACE, Direction.DOWN, MISSING_FACE,
 	)
 	static List<ModelElement> FISHING_STATION_ELEMENTS = List.of(
@@ -299,12 +297,12 @@ class TemplateModel {
 		new ModelElement(
 			new Vector3f(2, 0.5, -9.5), new Vector3f(14, 0.5, 4.5),
 			Map.of(
-				Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 12, 0), 180),
-				Direction.EAST, face(KEY_ZERO, uvs(0, 0, 0, 14), 90),
+				Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 12, 0), AxisRotation.R180),
+				Direction.EAST, face(KEY_ZERO, uvs(0, 0, 0, 14), AxisRotation.R90),
 				Direction.SOUTH, face(KEY_ZERO, uvs(0, 0, 12, 0)),
-				Direction.WEST, face(KEY_ZERO, uvs(0, 0, 0, 14), 270),
+				Direction.WEST, face(KEY_ZERO, uvs(0, 0, 0, 14), AxisRotation.R270),
 				Direction.UP, face(KEY_ZERO, uvs(4, 0, 16, 14)),
-				Direction.DOWN, face(KEY_ZERO, uvs(4, 0, 16, 14), 180),
+				Direction.DOWN, face(KEY_ZERO, uvs(4, 0, 16, 14), AxisRotation.R180),
 			),
 			FISHING_STATION_ROTATION_1, true, 0
 		),
@@ -318,13 +316,13 @@ class TemplateModel {
 		),
 	)
 	static JsonModel.DisplayMap NANOSABER_DISPLAY = new JsonModel.DisplayMap()
-		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 0, 1, 1, 1))
-		.put(ModelTransformationMode.THIRD_PERSON_LEFT_HAND, transformation(0, 0, 0, 0, 3, 0, 1, 1, 1))
-		.put(ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, transformation(0, 0, -5, 0, 4, 2, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.FIRST_PERSON_LEFT_HAND, transformation(0, 0, -5, 0, 4, 2, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.GUI, transformation(90, 45, -90, -3.75, -3.75, 0, 0.65, 0.65, 0.65))
-		.put(ModelTransformationMode.GROUND, transformation(45, 0, 0, 0, 3, -2, 0.5, 0.5, 0.5))
-		.put(ModelTransformationMode.FIXED, transformation(0, 90, 0, 0, -4, 0, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, transformation(0, 0, 0, 0, 3, 0, 1, 1, 1))
+		.put(ItemDisplayContext.THIRD_PERSON_LEFT_HAND, transformation(0, 0, 0, 0, 3, 0, 1, 1, 1))
+		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, 0, -5, 0, 4, 2, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, transformation(0, 0, -5, 0, 4, 2, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.GUI, transformation(90, 45, -90, -3.75, -3.75, 0, 0.65, 0.65, 0.65))
+		.put(ItemDisplayContext.GROUND, transformation(45, 0, 0, 0, 3, -2, 0.5, 0.5, 0.5))
+		.put(ItemDisplayContext.FIXED, transformation(0, 90, 0, 0, -4, 0, 0.5, 0.5, 0.5))
 	static List<ModelElement> NANOSABER_ELEMENT = List.of(
 		new ModelElement(new Vector3f(7, 0, 7), new Vector3f(9, 5, 9), Map.of(
 			Direction.NORTH, face(TextureKey.TEXTURE, uvs(5, 4, 6, 6.5)),
@@ -759,25 +757,25 @@ class TemplateModel {
 	static Uploadable<Item> NANOSABER_ON = { Item item -> NANOSABER_BASE.apply(item).suffix("_on") }
 	static Uploadable<Item> NANOSABER_LOW = { Item item -> NANOSABER_BASE.apply(item).suffix("_low") }
 	static def CELL_BASE = wrapperItem { item, id ->
-		GENERATED.create(item).suffix("_base").add(TextureMap.layer0(id), TextureKey.LAYER0)
+		GENERATED.create(item).suffix("_base").add(CELL_DISPLAY).add(
+			TextureMap.layer0(id).put(TextureKey.PARTICLE, id),
+			TextureKey.LAYER0, TextureKey.PARTICLE
+		)
 	}
 	static def CELL_BACKGROUND = wrapperItem { item, id ->
-		CELL_TEMPLATE.create(item).suffix("_background").add(texture(id.withSuffixedPath("_background")))
-	}
-	static def CELL_FLUID = wrapperItem { item, id ->
-		CELL_TEMPLATE.create(item).suffix("_fluid").add(texture(id.withSuffixedPath("_background")))
+		CELL_TEMPLATE.create(item).suffix("_background").add(TextureMap.texture(id), TextureKey.TEXTURE)
 	}
 	static def CELL_GLASS = wrapperItem { item, id ->
-		CELL_TEMPLATE.create(item).suffix("_glass").add(texture(id.withSuffixedPath("_glass")))
+		CELL_TEMPLATE.create(item).suffix("_glass").add(TextureMap.texture(id), TextureKey.TEXTURE)
 	}
 	static Uploadable<Identifier> BUCKET_BASE = { Identifier id ->
-		GENERATED.create(id).suffix("_base").add(TextureMap.layer0(id), TextureKey.LAYER0)
+		GENERATED.create(id).suffix("_base").add(CELL_DISPLAY).add(
+			TextureMap.layer0(id).put(TextureKey.PARTICLE, id),
+			TextureKey.LAYER0, TextureKey.PARTICLE
+		)
 	}
 	static Uploadable<Identifier> BUCKET_BACKGROUND = { Identifier id ->
-		BUCKET_TEMPLATE.create(id).suffix("_background").add(texture(id.withSuffixedPath("_background")))
-	}
-	static Uploadable<Identifier> BUCKET_FLUID = { Identifier id ->
-		BUCKET_TEMPLATE.create(id).suffix("_fluid").add(texture(id.withSuffixedPath("_background")))
+		BUCKET_TEMPLATE.create(id).suffix("_background").add(TextureMap.texture(id), TextureKey.TEXTURE)
 	}
 
 	static TextureMap orientable(Identifier top, Identifier front, Identifier side) {
@@ -812,16 +810,16 @@ class TemplateModel {
 		return new TextureMap().put(TextureKey.TEXTURE, id).put(TextureKey.PARTICLE, id)
 	}
 
-	static float[] uvs(float x1, float y1, float x2, float y2) {
-		return new float[]{ x1, y1, x2, y2 }
+	static ModelElementFace.UV uvs(float x1, float y1, float x2, float y2) {
+		return new ModelElementFace.UV(x1, y1, x2, y2)
 	}
 
-	static ModelElementFace face(TextureKey texture, float[] uvs) {
-		return new ModelElementFace(null, -1, texture.toString(), new ModelElementTexture(uvs, 0))
+	static ModelElementFace face(TextureKey texture, ModelElementFace.UV uvs) {
+		return new ModelElementFace(null, -1, texture.toString(), uvs, AxisRotation.R0)
 	}
 
-	static ModelElementFace face(TextureKey texture, float[] uvs, int rotation) {
-		return new ModelElementFace(null, -1, texture.toString(), new ModelElementTexture(uvs, rotation))
+	static ModelElementFace face(TextureKey texture, ModelElementFace.UV uvs, AxisRotation rotation) {
+		return new ModelElementFace(null, -1, texture.toString(), uvs, rotation)
 	}
 
 	static Transformation transformation(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {

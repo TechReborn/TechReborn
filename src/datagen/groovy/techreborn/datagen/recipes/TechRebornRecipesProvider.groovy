@@ -34,7 +34,8 @@ import net.minecraft.fluid.Fluid
 import net.minecraft.item.Item
 import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
-import net.minecraft.predicate.ComponentPredicate
+import net.minecraft.predicate.component.ComponentMapPredicate
+import net.minecraft.predicate.component.ComponentsPredicate
 import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.recipe.Ingredient
 import net.minecraft.recipe.RecipeType
@@ -122,8 +123,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	ItemPredicate getCellItemPredicate(ModFluids fluid){
 		return ItemPredicate.Builder.create()
 			.items(itemLookup, TRContent.CELL.asItem())
-			.component(ComponentPredicate.builder()
-				.add(TRDataComponentTypes.FLUID, fluid.fluid.registryEntry)
+			.components(ComponentsPredicate.Builder.create()
+				.exact(ComponentMapPredicate.of(TRDataComponentTypes.FLUID, fluid.fluid.registryEntry))
 				.build())
 			.build()
 	}

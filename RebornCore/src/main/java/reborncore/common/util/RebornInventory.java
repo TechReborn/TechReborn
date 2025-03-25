@@ -101,7 +101,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	}
 
 	public void read(NbtCompound data, String tag, RegistryWrapper.WrapperLookup registryLookup) {
-		NbtCompound nbtTagList = data.getCompound(tag);
+		NbtCompound nbtTagList = data.getCompoundOrEmpty(tag);
 		deserializeNBT(nbtTagList, registryLookup);
 		hasChanged = true;
 	}

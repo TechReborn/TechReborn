@@ -158,10 +158,10 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	private BlockApiCache<EnergyStorage, Direction> getAdjacentCache(Direction direction) {
-		if (adjacentCaches[direction.getId()] == null) {
-			adjacentCaches[direction.getId()] = BlockApiCache.create(EnergyStorage.SIDED, (ServerWorld) world, pos.offset(direction));
+		if (adjacentCaches[direction.getIndex()] == null) {
+			adjacentCaches[direction.getIndex()] = BlockApiCache.create(EnergyStorage.SIDED, (ServerWorld) world, pos.offset(direction));
 		}
-		return adjacentCaches[direction.getId()];
+		return adjacentCaches[direction.getIndex()];
 	}
 
 	@Nullable
@@ -235,10 +235,10 @@ public class CableBlockEntity extends BlockEntity
 	public void readNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(compound, registryLookup);
 		if (compound.contains("energy")) {
-			energyContainer.amount = compound.getLong("energy");
+			energyContainer.amount = compound.getLong("energy").orElseThrow();
 		}
 		if (compound.contains("cover")) {
-			cover = NbtHelper.toBlockState(WorldUtils.getBlockRegistryWrapper(world), compound.getCompound("cover"));
+			cover = NbtHelper.toBlockState(WorldUtils.getBlockRegistryWrapper(world), compound.getCompound("cover").orElseThrow());
 		} else {
 			cover = null;
 		}

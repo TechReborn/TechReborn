@@ -59,7 +59,7 @@ public abstract class WorldChunkMixin extends Chunk {
 
 	@SuppressWarnings("rawtypes")
 	@Inject(method = "setBlockState", at = @At("HEAD"))
-	private void onSetBlockState(BlockPos pos, BlockState state, boolean moved, CallbackInfoReturnable cir) {
+	private void onSetBlockState(BlockPos pos, BlockState state, int flags, CallbackInfoReturnable cir) {
 		if (!world.isClient()) {
 			ChunkEventListeners.onBlockStateChange(world, this.pos, pos);
 		}

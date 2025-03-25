@@ -25,37 +25,38 @@
 package techreborn.datagen.models
 
 import net.minecraft.block.Block
-import net.minecraft.client.data.BlockStateVariant
 import net.minecraft.client.data.BlockStateVariantMap
-import net.minecraft.client.data.MultipartBlockStateSupplier
-import net.minecraft.client.data.VariantsBlockStateSupplier
-import net.minecraft.client.data.When
+import net.minecraft.client.data.MultipartBlockModelDefinitionCreator
+import net.minecraft.client.data.VariantsBlockModelDefinitionCreator
+import net.minecraft.client.render.model.json.ModelVariantOperator
+import net.minecraft.client.render.model.json.MultipartModelConditionBuilder
+import net.minecraft.client.render.model.json.WeightedVariant
 import org.jetbrains.annotations.Nullable
 
 class StateModel {
-	List<BlockStateVariant> variants = new ArrayList<>()
-	List<BlockStateVariantMap> variantMaps = new ArrayList<>()
+	List<WeightedVariant> variants = new ArrayList<>()
+	List<BlockStateVariantMap<?>> variantMaps = new ArrayList<>()
 	@Nullable
-	List<When> conditions
+	List<MultipartModelConditionBuilder> conditions
 
 	StateModel multipart() {
 		conditions = new ArrayList<>()
 		return this
 	}
 
-	StateModel add(BlockStateVariant variant) {
+	StateModel add(WeightedVariant variant) {
 		variants.add(variant)
 		if (conditions != null) conditions.add(null)
 		return this
 	}
 
-	StateModel add(When condition, BlockStateVariant variant) {
+	StateModel add(MultipartModelConditionBuilder condition, WeightedVariant variant) {
 		variants.add(variant)
 		conditions.add(condition)
 		return this
 	}
 
-	StateModel add(BlockStateVariantMap map) {
+	StateModel add(BlockStateVariantMap<?> map) {
 		variantMaps.add(map)
 		return this
 	}
@@ -68,15 +69,27 @@ class StateModel {
 
 	void upload(Block block) {
 		if (conditions == null) {
-			VariantsBlockStateSupplier supplier = variants.size() == 0
-				? VariantsBlockStateSupplier.create(block)
-				: VariantsBlockStateSupplier.create(block, variants.toArray() as BlockStateVariant[])
-			variantMaps.forEach(supplier::coordinate)
+			VariantsBlockModelDefinitionCreator supplier
+			if (variants.isEmpty()) {
+				VariantsBlockModelDefinitionCreator.Empty empty = VariantsBlockModelDefinitionCreator.of(block)
+				if (variantMaps.isEmpty()) {
+					throw new IllegalStateException("No target specified")
+				}
+				supplier = empty.with(variantMaps.get(0) as BlockStateVariantMap<WeightedVariant>)
+				for (int i = 1, len = variantMaps.size(); i < len; i++) {
+					supplier = supplier.coordinate(variantMaps.get(i) as BlockStateVariantMap<ModelVariantOperator>)
+				}
+			} else {
+				supplier = VariantsBlockModelDefinitionCreator.of(block, variants.get(0))
+				for (BlockStateVariantMap<?> map : variantMaps) {
+					supplier = supplier.coordinate(map as BlockStateVariantMap<ModelVariantOperator>)
+				}
+			}
 			ModelProvider.stateGenerator.blockStateCollector.accept(supplier)
 		} else {
-			MultipartBlockStateSupplier supplier = MultipartBlockStateSupplier.create(block)
+			MultipartBlockModelDefinitionCreator supplier = MultipartBlockModelDefinitionCreator.create(block)
 			for (int i = 0, len = conditions.size(); i < len; i++) {
-				When condition = conditions.get(i)
+				MultipartModelConditionBuilder condition = conditions.get(i)
 				if (condition == null) {
 					supplier.with(variants.get(i))
 				} else {

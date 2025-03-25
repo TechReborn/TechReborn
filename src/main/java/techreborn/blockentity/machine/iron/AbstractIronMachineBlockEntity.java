@@ -136,9 +136,9 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	@Override
 	public void readNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
 		super.readNbt(compoundTag, registryLookup);
-		burnTime = compoundTag.getInt("BurnTime");
-		totalBurnTime = compoundTag.getInt("TotalBurnTime");
-		progress = compoundTag.getInt("Progress");
+		burnTime = compoundTag.getInt("BurnTime").orElse(0);
+		totalBurnTime = compoundTag.getInt("TotalBurnTime").orElse(0);
+		progress = compoundTag.getInt("Progress").orElse(0);
 	}
 
 	@Override

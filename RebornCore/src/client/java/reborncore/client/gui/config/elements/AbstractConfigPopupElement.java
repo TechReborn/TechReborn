@@ -30,8 +30,9 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BlockStateModel;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -110,14 +111,14 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 		final BlockState state = machine.getCachedState();
 		final BlockState defaultState = state.getBlock().getDefaultState();
 		final BlockRenderManager dispatcher = MinecraftClient.getInstance().getBlockRenderManager();
-		final BakedModel model = dispatcher.getModels().getModel(defaultState);
+		final BlockStateModel model = dispatcher.getModels().getModel(defaultState);
 
-		drawState(drawContext, gui, model, defaultState, dispatcher, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), 0, 0); //left
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F), 0, 0); //top
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 23, null, 0, 0); //centre
-		drawState(drawContext, gui, model, defaultState, dispatcher, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F), 0, 16); //bottom
-		drawState(drawContext, gui, model, defaultState, dispatcher, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), 0, 0); //right
-		drawState(drawContext, gui, model, defaultState, dispatcher, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F), 16, 0); //back
+		drawState(drawContext, gui, model, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), 0, 0); //left
+		drawState(drawContext, gui, model, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F), 0, 0); //top
+		drawState(drawContext, gui, model, 23, 23, null, 0, 0); //centre
+		drawState(drawContext, gui, model, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F), 0, 16); //bottom
+		drawState(drawContext, gui, model, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), 0, 0); //right
+		drawState(drawContext, gui, model, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F), 16, 0); //back
 
 		if (mouseDown) {
 			for (int i = 0; i < 6; i++) {
@@ -183,9 +184,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	protected void drawState(DrawContext drawContext,
 						GuiBase<?> gui,
-						BakedModel model,
-						BlockState actualState,
-						BlockRenderManager dispatcher,
+						BlockStateModel model,
 						int x,
 						int y,
 						Quaternionf quaternion,
@@ -206,7 +205,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 		}
 
 		drawContext.draw((vertexConsumers) -> {
-			dispatcher.getModelRenderer().render(matrixStack.peek(), vertexConsumers.getBuffer(RenderLayer.getSolid()), actualState, model, 1F, 1F, 1F, OverlayTexture.getU(15F), OverlayTexture.DEFAULT_UV);
+			BlockModelRenderer.render(matrixStack.peek(), vertexConsumers.getBuffer(RenderLayer.getSolid()), model, 1F, 1F, 1F, OverlayTexture.getU(15F), OverlayTexture.DEFAULT_UV);
 		});
 		matrixStack.pop();
 		drawContext.disableScissor();
