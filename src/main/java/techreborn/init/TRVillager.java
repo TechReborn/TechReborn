@@ -125,12 +125,16 @@ public class TRVillager {
 		// specify extra trades below here
 		extraCommonTrades.add(TradeUtils.createSell(TRContent.RUBBER_SAPLING, 5, 1, 8, 1));
 		// registration of the trades, no changes necessary for new trades
-		TradeOfferHelper.registerWanderingTraderOffers(1, allTradesList -> allTradesList.addAll(
-			extraCommonTrades
-		));
-		TradeOfferHelper.registerWanderingTraderOffers(2, allTradesList -> allTradesList.addAll(
-			extraRareTrades
-		));
+		TradeOfferHelper.registerWanderingTraderOffers(builder -> {
+			builder.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				extraCommonTrades
+			);
+			builder.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL,
+				extraRareTrades
+			);
+		});
 	}
 
 	public static void registerVillagerHouses() {
