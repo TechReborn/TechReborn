@@ -86,7 +86,7 @@ public final class GuiSprites {
 		return new SpriteIdentifier(Identifier.of("gui"), Identifier.of("reborncore", name));
 	}
 
-	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {
+	public static void drawSpriteStretched(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int textureWidth, int textureHeight) {
 		final Sprite sprite = GuiBase.getSprite(spriteIdentifier);
 
 		drawContext.drawSpriteStretched(
@@ -94,26 +94,28 @@ public final class GuiSprites {
 			sprite,
 			x,
 			y,
-			sprite.getContents().getWidth(),
-			sprite.getContents().getHeight()
+			textureWidth,
+			textureHeight
 		);
 	}
 
-	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height) {
-		drawSprite(drawContext, spriteIdentifier, x, y, width, height, 0, 0);
+	public static void drawSpriteStretched(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, int textureWidth, int textureHeight, GuiBase<?> gui) {
+		drawSpriteStretched(drawContext, spriteIdentifier, x, y, width, height, textureWidth, textureHeight, gui.getGuiLeft(), gui.getGuiTop());
 	}
 
-	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, GuiBase<?> gui) {
-		drawSprite(drawContext, spriteIdentifier, x, y, width, height, gui.getGuiLeft(), gui.getGuiTop());
+	public static void drawSpriteStretched(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, int textureWidth, int textureHeight) {
+		drawSpriteStretched(drawContext, spriteIdentifier, x, y, width, height, textureWidth, textureHeight, 0, 0);
 	}
 
-	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, int sx, int sy) {
+	public static void drawSpriteStretched(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, int textureWidth, int textureHeight, int sx, int sy) {
 		drawContext.enableScissor(x + sx, y + sy,  x + width+ sx, y + height+ sy);
-		drawSprite(
+		drawSpriteStretched(
 			drawContext,
 			spriteIdentifier,
 			x,
-			y
+			y,
+			textureWidth,
+			textureHeight
 		);
 		drawContext.disableScissor();
 	}

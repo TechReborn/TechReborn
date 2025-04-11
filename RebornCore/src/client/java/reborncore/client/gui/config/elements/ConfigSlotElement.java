@@ -48,7 +48,7 @@ public class ConfigSlotElement extends ParentElement {
 							int y,
 							GuiBase<?> gui,
 							Runnable closeConfig) {
-		super(x, y, type.getButtonSprite());
+		super(x, y, type.getButtonSprite(), type.getTextureWidth(), type.getTextureHeight());
 		this.type = type;
 		this.inventory = slotInventory;
 		this.id = slot.getIndex();
@@ -61,7 +61,7 @@ public class ConfigSlotElement extends ParentElement {
 		this.height = 107 + (inputEnabled ? 15 : 0) + (filterEnabled ? 15 : 0);
 
 		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, height, inputEnabled));
-		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, closeConfig));
+		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, 13, 13, closeConfig));
 
 		int checkboxY = y + 44;
 		if (inputEnabled) {
@@ -100,7 +100,7 @@ public class ConfigSlotElement extends ParentElement {
 		drawContext.drawItem(stack, xPos, yPos);
 
 		if (isMouseWithinRect(gui, mouseX, mouseY)) {
-			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
+			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY(), type.getTextureWidth(), type.getTextureHeight());
 		}
 		super.draw(drawContext, gui, mouseX, mouseY);
 	}
