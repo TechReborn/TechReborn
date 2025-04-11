@@ -29,5 +29,5 @@ import net.minecraft.item.ItemStack;
 
 public interface ArmorBlockEntityTicker {
 
-	void tickArmor(ItemStack stack, PlayerEntity playerEntity);
+	void tickArmor(ItemStack stack, boolean hasFullSuit, PlayerEntity playerEntity);
 }
