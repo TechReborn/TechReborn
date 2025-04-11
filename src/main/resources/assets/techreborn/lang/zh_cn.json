@@ -1,5 +1,8 @@
 {
   "itemGroup.techreborn.item_group": "科技复兴",
+  "item.modifiers.power": "装备通电时：",
+  "item.modifiers.all_equipment": "集齐套装时：",
+  "item.modifiers.full_suit": "套装效果：",
   "_comment": "机器",
   "block.techreborn.pump": "泵",
   "block.techreborn.gas_turbine": "燃气发电机",
