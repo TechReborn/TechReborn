@@ -32,8 +32,8 @@ public class ButtonElement extends ElementBase {
 	private final GuiSprites.Button buttonSprite;
 	private final Runnable onClicked;
 
-	public ButtonElement(int x, int y, GuiSprites.Button buttonSprite, Runnable onClicked) {
-		super(x, y, buttonSprite.normal());
+	public ButtonElement(int x, int y, GuiSprites.Button buttonSprite, int textureWidth, int textureHeight, Runnable onClicked) {
+		super(x, y, buttonSprite.normal(), textureWidth, textureHeight);
 		this.buttonSprite = buttonSprite;
 		this.onClicked = onClicked;
 	}

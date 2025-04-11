@@ -35,8 +35,8 @@ import java.util.List;
 public abstract class ParentElement extends ElementBase {
 	protected final List<ElementBase> elements = new ArrayList<>();
 
-	public ParentElement(int x, int y, SpriteIdentifier sprite) {
-		super(x, y, sprite);
+	public ParentElement(int x, int y, SpriteIdentifier sprite, int textureWidth, int textureHeight) {
+		super(x, y, sprite, textureWidth, textureHeight);
 	}
 
 	@Override
