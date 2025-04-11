@@ -96,7 +96,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static reborncore.client.gui.GuiSprites.drawSprite;
+import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
 
 public class ReiPlugin implements REIClientPlugin {
 	public static final Map<RecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
@@ -306,7 +306,7 @@ public class ReiPlugin implements REIClientPlugin {
 
 	public static Widget createProgressBar(int x, int y, double animationDuration, GuiBuilder.ProgressDirection direction) {
 		return Widgets.createDrawableWidget((drawContext, mouseX, mouseY, delta) -> {
-			drawSprite(drawContext, direction.baseSprite, x, y);
+			drawSpriteStretched(drawContext, direction.baseSprite, x, y, direction.width, direction.height);
 			int j = (int) ((System.currentTimeMillis() / animationDuration) % 1.0 * 16.0);
 			if (j < 0) {
 				j = 0;
@@ -340,14 +340,14 @@ public class ReiPlugin implements REIClientPlugin {
 				int height = bounds.height + 2;
 				int innerHeight = height - 2;
 
-				drawSprite(drawContext, GuiSprites.POWER_BAR_BASE, bounds.x - 1, bounds.y - 1);
+				drawSpriteStretched(drawContext, GuiSprites.POWER_BAR_BASE, bounds.x - 1, bounds.y - 1, 14, 50);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
 					innerDisplayHeight = MathHelper.ceil(System.currentTimeMillis() / (Math.round(animation.duration * 1000.0 / innerHeight) / 1000.0) % innerHeight);
 					if (animation.animationType == EntryAnimationType.DOWNWARDS)
 						innerDisplayHeight = innerHeight - innerDisplayHeight;
 				} else innerDisplayHeight = innerHeight;
-				drawSprite(drawContext, GuiSprites.POWER_BAR_OVERLAY, bounds.x, bounds.y + innerHeight - innerDisplayHeight, width - 2, innerDisplayHeight);
+				drawSpriteStretched(drawContext, GuiSprites.POWER_BAR_OVERLAY, bounds.x, bounds.y + innerHeight - innerDisplayHeight, width - 2, innerDisplayHeight, 12, 48);
 			}
 
 			@Override
@@ -363,7 +363,7 @@ public class ReiPlugin implements REIClientPlugin {
 				int width = bounds.width;
 				int height = bounds.height;
 
-				drawSprite(drawContext, GuiSprites.TANK_BACKGROUND, bounds.x - 4, bounds.y - 4);
+				drawSpriteStretched(drawContext, GuiSprites.TANK_BACKGROUND, bounds.x - 4, bounds.y - 4, 22, 56);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
 					innerDisplayHeight = MathHelper.ceil(System.currentTimeMillis() / (Math.round(animation.duration * 1000.0 / height) / 1000.0) % height);
@@ -371,7 +371,7 @@ public class ReiPlugin implements REIClientPlugin {
 						innerDisplayHeight = height - innerDisplayHeight;
 				} else innerDisplayHeight = height;
 				drawFluid(drawContext, entry.getValue().getFluid(), innerDisplayHeight, bounds.x, bounds.y, width, height);
-				drawSprite(drawContext, GuiSprites.TANK_FOREGROUND, bounds.x - 1, bounds.y - 1);
+				drawSpriteStretched(drawContext, GuiSprites.TANK_FOREGROUND, bounds.x - 1, bounds.y - 1, 16, 50);
 			}
 
 			public void drawFluid(DrawContext drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {

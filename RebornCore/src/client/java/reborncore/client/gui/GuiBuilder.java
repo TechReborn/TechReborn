@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static reborncore.client.gui.GuiSprites.drawSprite;
+import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
 
 public class GuiBuilder {
 	private static final Text SPACE_TEXT = Text.literal(" ");
@@ -80,7 +80,7 @@ public class GuiBuilder {
 	}
 
 	public void drawSlot(DrawContext drawContext,int posX, int posY) {
-		drawSprite(drawContext, GuiSprites.SLOT, posX, posY);
+		drawSpriteStretched(drawContext, GuiSprites.SLOT, posX, posY, 18, 18);
 	}
 
 	public void drawText(DrawContext drawContext, GuiBase<?> gui, Text text, int x, int y, int color) {
@@ -88,15 +88,15 @@ public class GuiBuilder {
 	}
 
 	public void drawProgressBar(DrawContext drawContext, GuiBase<?> gui, double progress, int x, int y) {
-		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 18, 22, 15);
+		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 18, 22, 15, 256, 256);
 		int j = (int) (progress);
 		if (j > 0) {
-			drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 34, j + 1, 15);
+			drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 34, j + 1, 15, 256, 256);
 		}
 	}
 
 	public void drawOutputSlot(DrawContext drawContext, int x, int y) {
-		drawSprite(drawContext, GuiSprites.OUTPUT_SLOT, x, y);
+		drawSpriteStretched(drawContext, GuiSprites.OUTPUT_SLOT, x, y, 26, 26);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 
-		drawSprite(drawContext, locked ? GuiSprites.BUTTON_LOCKED : GuiSprites.BUTTON_UNLOCKED, x, y);
+		drawSpriteStretched(drawContext, locked ? GuiSprites.BUTTON_LOCKED : GuiSprites.BUTTON_UNLOCKED, x, y, 20, 12);
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
 			if (locked) {
@@ -147,9 +147,9 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 		if (gui.getMachine().renderMultiblock) {
-			drawSprite(drawContext, GuiSprites.BUTTON_HOLOGRAM_ENABLED, x, y);
+			drawSpriteStretched(drawContext, GuiSprites.BUTTON_HOLOGRAM_ENABLED, x, y, 20, 12);
 		} else {
-			drawSprite(drawContext, GuiSprites.BUTTON_HOLOGRAM_DISABLED, x, y);
+			drawSpriteStretched(drawContext, GuiSprites.BUTTON_HOLOGRAM_DISABLED, x, y, 20, 12);
 		}
 		if (hasTooltip) {
 			List<Text> list = new ArrayList<>();
@@ -178,13 +178,13 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(GUI_ELEMENTS, x, y, 26, 218, 114, 18);
+		drawContext.drawTexture(GUI_ELEMENTS, x, y, 26, 218, 114, 18, 256, 256);
 		if (value != 0) {
 			int j = (int) ((double) value / (double) max * 106);
 			if (j < 0) {
 				j = 0;
 			}
-			drawContext.drawTexture(GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10);
+			drawContext.drawTexture(GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10, 256, 256);
 
 			Text text = Text.literal(String.valueOf(value))
 					.append(Text.translatable("reborncore.gui.heat"));
@@ -218,7 +218,7 @@ public class GuiBuilder {
 		if (j < 0) {
 			j = 0;
 		}
-		drawContext.drawTexture(GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10);
+		drawContext.drawTexture(GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10, 256, 256);
 		if (!suffix.equals("")) {
 			suffix = " " + suffix;
 		}
@@ -309,7 +309,7 @@ public class GuiBuilder {
 	 * @param y   {@code int} Top left corner where to place slots
 	 */
 	public void drawUpgrades(DrawContext drawContext, GuiBase<?> gui, int x, int y) {
-		drawSprite(drawContext, GuiSprites.UPGRADES, x, y);
+		drawSpriteStretched(drawContext, GuiSprites.UPGRADES, x, y, 24, 81);
 	}
 
 	/**
@@ -321,7 +321,7 @@ public class GuiBuilder {
 	 * @param stack {@link ItemStack} Item to show as tab icon
 	 */
 	public void drawSlotTab(DrawContext drawContext, GuiBase<?> gui, int x, int y, ItemStack stack) {
-		drawSprite(drawContext, GuiSprites.SLOT_TAB, x, y);
+		drawSpriteStretched(drawContext, GuiSprites.SLOT_TAB, x, y, 24, 24);
 		drawContext.drawItem(stack, x + 5, y + 4);
 	}
 
@@ -409,7 +409,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 91, 16, 16);
+		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 91, 16, 16, 256, 256);
 	}
 
 	/**
@@ -432,7 +432,7 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 
-		drawSprite(drawContext, direction.baseSprite, x, y);
+		drawSpriteStretched(drawContext, direction.baseSprite, x, y, direction.width, direction.height);
 		int j = (int) ((double) progress / (double) maxProgress * 16);
 		if (j < 0) {
 			j = 0;
@@ -440,21 +440,21 @@ public class GuiBuilder {
 
 		if (EXPERIMENTAL_PROGRESS_BAR) {
 			switch (direction) {
-				case RIGHT, LEFT -> drawSprite(drawContext, direction.overlaySprite, x, y, j, 10, gui);
-				case UP, DOWN -> drawSprite(drawContext, direction.overlaySprite, x, y, 10, j, gui);
+				case RIGHT, LEFT -> drawSpriteStretched(drawContext, direction.overlaySprite, x, y, j, 10, direction.width, direction.height, gui);
+				case UP, DOWN -> drawSpriteStretched(drawContext, direction.overlaySprite, x, y, 10, j, direction.width, direction.height, gui);
 			}
 		} else {
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10);
-				case LEFT -> drawContext.drawTexture(GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-				case UP -> drawContext.drawTexture(GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-				case DOWN -> drawContext.drawTexture(GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j);
+				case RIGHT -> drawContext.drawTexture(GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.drawTexture(GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.drawTexture(GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.drawTexture(GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		}
 
 		final Sprite sprite = GuiBase.getSprite(direction.baseSprite);
 
-		if (gui.isPointInRect(x, y, sprite.getContents().getWidth(), sprite.getContents().getHeight(), mouseX, mouseY)) {
+		if (gui.isPointInRect(x, y, direction.width, direction.height, mouseX, mouseY)) {
 			int percentage = percentage(maxProgress, progress);
 			List<Text> list = new ArrayList<>();
 			list.add(
@@ -491,14 +491,14 @@ public class GuiBuilder {
 			y += gui.getGuiTop();
 		}
 
-		drawSprite(drawContext, GuiSprites.POWER_BAR_BASE, x, y);
+		drawSpriteStretched(drawContext, GuiSprites.POWER_BAR_BASE, x, y, 14, 50);
 
 		int barHeight = 48;
 		int draw = (int) ((double) energyStored / (double) maxEnergyStored * (barHeight));
 		if (energyStored > maxEnergyStored) {
 			draw = barHeight;
 		}
-		drawSprite(drawContext, GuiSprites.POWER_BAR_OVERLAY, x + 1, y + 49 - draw, 12, draw, gui);
+		drawSpriteStretched(drawContext, GuiSprites.POWER_BAR_OVERLAY, x + 1, y + 49 - draw, 12, draw, 12, 48, gui);
 
 		int percentage = percentage(maxEnergyStored, energyStored);
 		if (gui.isPointInRect(x + 1, y + 1, 11, 48, mouseX, mouseY)) {
@@ -576,11 +576,11 @@ public class GuiBuilder {
 			amount = fluid.getAmount();
 			percentage = percentage(maxCapacity.getRawValue(), amount.getRawValue());
 		}
-		drawSprite(drawContext, GuiSprites.TANK_BACKGROUND, x, y);
+		drawSpriteStretched(drawContext, GuiSprites.TANK_BACKGROUND, x, y, 22, 56);
 		if (!isTankEmpty) {
 			drawFluid(drawContext, gui, fluid, x + 4, y + 4, 14, 48, maxCapacity.getRawValue());
 		}
-		drawSprite(drawContext, GuiSprites.TANK_FOREGROUND, x + 3, y + 3);
+		drawSpriteStretched(drawContext, GuiSprites.TANK_FOREGROUND, x + 3, y + 3, 16, 50);
 
 		if (gui.isPointInRect(x, y, 22, 56, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
@@ -665,10 +665,10 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 64, 13, 13);
+		drawContext.drawTexture(GUI_ELEMENTS, x, y, 150, 64, 13, 13, 256, 256);
 		int j = 13 - (int) ((double) progress / (double) maxProgress * 13);
 		if (j > 0) {
-			drawContext.drawTexture(GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j);
+			drawContext.drawTexture(GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j, 256, 256);
 
 		}
 		if (gui.isPointInRect(x, y, 12, 12, mouseX, mouseY)) {
@@ -691,13 +691,13 @@ public class GuiBuilder {
 	 * @param count {@code int} Number of output slots
 	 */
 	public void drawOutputSlotBar(DrawContext drawContext, int x, int y, int count) {
-		drawSprite(drawContext, GuiSprites.SLOT_BAR_RIGHT, x, y);
+		drawSpriteStretched(drawContext, GuiSprites.SLOT_BAR_RIGHT, x, y, 3, 26);
 		x += 3;
 		for (int i = 1; i <= count; i++) {
-			drawSprite(drawContext, GuiSprites.SLOT_BAR_CENTER, x, y);
+			drawSpriteStretched(drawContext, GuiSprites.SLOT_BAR_CENTER, x, y, 20, 26);
 			x += 20;
 		}
-		drawSprite(drawContext, GuiSprites.SLOT_BAR_LEFT, x, y);
+		drawSpriteStretched(drawContext, GuiSprites.SLOT_BAR_LEFT, x, y, 3, 26);
 	}
 
 	protected int percentage(long MaxValue, long CurrentValue) {

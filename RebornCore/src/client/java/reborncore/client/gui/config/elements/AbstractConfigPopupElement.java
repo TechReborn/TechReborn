@@ -76,8 +76,8 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 	@Nullable
 	public String pencil;
 
-	public AbstractConfigPopupElement(int x, int y, int height, SpriteIdentifier sprite, String[] pencils) {
-		super(x, y, sprite);
+	public AbstractConfigPopupElement(int x, int y, int height, SpriteIdentifier sprite, int textureWidth, int textureHeight, String[] pencils) {
+		super(x, y, sprite, textureWidth, textureHeight);
 		this.height = height;
 		this.pencils = pencils;
 		int space = 75 - pencils.length;

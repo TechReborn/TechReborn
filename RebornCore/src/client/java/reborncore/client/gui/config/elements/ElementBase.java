@@ -36,10 +36,14 @@ public class ElementBase {
 	private final int x;
 	private final int y;
 	private SpriteIdentifier sprite;
+	private final int textureWidth;
+	private final int textureHeight;
 	protected final Theme theme;
 
-	public ElementBase(int x, int y, SpriteIdentifier sprite) {
+	public ElementBase(int x, int y, SpriteIdentifier sprite, int textureWidth, int textureHeight) {
 		this.sprite = sprite;
+		this.textureWidth = textureWidth;
+		this.textureHeight = textureHeight;
 		this.x = x;
 		this.y = y;
 		theme = ThemeManager.getTheme();
@@ -50,7 +54,7 @@ public class ElementBase {
 	}
 
 	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		drawSprite(drawContext, gui, sprite, x, y);
+		drawSprite(drawContext, gui, sprite, x, y, textureWidth, textureHeight);
 	}
 
 	public int getX() {
@@ -62,11 +66,11 @@ public class ElementBase {
 	}
 
 	public int getWidth() {
-		return GuiBase.getSprite(sprite).getContents().getWidth();
+		return textureWidth;
 	}
 
 	public int getHeight() {
-		return GuiBase.getSprite(sprite).getContents().getHeight();
+		return textureHeight;
 	}
 
 	public boolean onClick(GuiBase<?> gui, double mouseX, double mouseY) {
@@ -99,7 +103,7 @@ public class ElementBase {
 		drawContext.drawText(gui.getTextRenderer(), text, x, y, color, false);
 	}
 
-	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, SpriteIdentifier spriteIdentifier, int x, int y) {
-		GuiSprites.drawSprite(drawContext, spriteIdentifier, x + gui.getGuiLeft(), y + gui.getGuiTop());
+	public void drawSprite(DrawContext drawContext, GuiBase<?> gui, SpriteIdentifier spriteIdentifier, int x, int y, int textureWidth, int textureHeight) {
+		GuiSprites.drawSpriteStretched(drawContext, spriteIdentifier, x + gui.getGuiLeft(), y + gui.getGuiTop(), textureWidth, textureHeight);
 	}
 }
