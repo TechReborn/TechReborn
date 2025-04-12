@@ -307,6 +307,9 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "suitNightVisionCost", comment = "Nano/Quantum Suit Night Vision Cost")
 	public static long suitNightVisionCost = 1;
 
+	@Config(config = "items", category = "power", key = "nanoSuitNightVisionCost", comment = "suitNightVisionCost Compatible with other old mods")
+	public static long nanoSuitNightVisionCost = 1;
+
 	@Config(config = "items", category = "power", key = "nanoSuitFlightCost", comment = "Nano Suit Flight Cost")
 	public static long nanoSuitFlightCost = 2;
 
