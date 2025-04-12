@@ -24,6 +24,7 @@
 
 package reborncore.common.fluid;
 
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
@@ -32,22 +33,31 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
+import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import reborncore.RebornCore;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
 public abstract class RebornFluid extends FlowableFluid {
+	public static final TagKey<Fluid> WATER = TagKey.of(RegistryKeys.FLUID, Identifier.of(RebornCore.MOD_ID, "water"));
+	public static final SimpleParticleType SPLASH = FabricParticleTypes.simple();
+	public static final SimpleParticleType BUBBLE = FabricParticleTypes.simple();
 
 	private final boolean still;
+	private final int color;
 
 	private final FluidSettings fluidSettings;
 	private final Supplier<RebornFluidBlock> fluidBlockSupplier;
@@ -55,13 +65,22 @@ public abstract class RebornFluid extends FlowableFluid {
 	private final Supplier<RebornFluid> flowingSuppler;
 	private final Supplier<RebornFluid> stillSuppler;
 
-	public RebornFluid(boolean still, FluidSettings fluidSettings, Supplier<RebornFluidBlock> fluidBlockSupplier, Supplier<RebornBucketItem> bucketItemSuppler, Supplier<RebornFluid> flowingSuppler, Supplier<RebornFluid> stillSuppler) {
+	public RebornFluid(boolean still, FluidSettings fluidSettings, Supplier<RebornFluidBlock> fluidBlockSupplier, Supplier<RebornBucketItem> bucketItemSuppler, Supplier<RebornFluid> flowingSuppler, Supplier<RebornFluid> stillSuppler, int color) {
 		this.still = still;
 		this.fluidSettings = fluidSettings;
 		this.fluidBlockSupplier = fluidBlockSupplier;
 		this.bucketItemSuppler = bucketItemSuppler;
 		this.flowingSuppler = flowingSuppler;
 		this.stillSuppler = stillSuppler;
+		this.color = color;
+	}
+
+	public RebornFluid(boolean still, FluidSettings fluidSettings, Supplier<RebornFluidBlock> fluidBlockSupplier, Supplier<RebornBucketItem> bucketItemSuppler, Supplier<RebornFluid> flowingSuppler, Supplier<RebornFluid> stillSuppler) {
+		this(still, fluidSettings, fluidBlockSupplier, bucketItemSuppler, flowingSuppler, stillSuppler, -1);
+	}
+
+	public int getColor() {
+		return this.color;
 	}
 
 	public FluidSettings getFluidSettings() {

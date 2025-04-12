@@ -59,6 +59,7 @@ import techreborn.datagen.recipes.machine.vacuum_freezer.VacuumFreezerRecipesPro
 import techreborn.datagen.recipes.machine.wire_mill.WireMillRecipesProvider
 import techreborn.datagen.recipes.smelting.SmeltingRecipesProvider
 import techreborn.datagen.tags.TRBlockTagProvider
+import techreborn.datagen.tags.TRFluidTagProvider
 import techreborn.datagen.tags.TRItemTagProvider
 import techreborn.datagen.tags.TRPointOfInterestTagProvider
 import techreborn.datagen.dynamic.TRDynamicContent
@@ -82,6 +83,7 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 		add TRPointOfInterestTagProvider::new
 
 		add TRBlockTagProvider::new
+		add TRFluidTagProvider::new
 		// tags before all else, very important!!
 		add SmeltingRecipesProvider::new
 		add CraftingRecipesProvider::new

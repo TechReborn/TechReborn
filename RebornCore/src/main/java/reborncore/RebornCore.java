@@ -34,6 +34,8 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +48,7 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.config.Configuration;
+import reborncore.common.fluid.RebornFluid;
 import reborncore.common.misc.ModSounds;
 import reborncore.common.misc.RebornCoreTags;
 import reborncore.common.misc.world.ChunkEventListeners;
@@ -144,6 +147,9 @@ public class RebornCore implements ModInitializer {
 		ServerPlayerEntityScreenHandlerHelper.class.getName();
 
 		ChunkEventListeners.init();
+
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(RebornCore.MOD_ID, "splash"), RebornFluid.SPLASH);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(RebornCore.MOD_ID, "bubble"), RebornFluid.BUBBLE);
 	}
 
 	public static EnvType getSide() {

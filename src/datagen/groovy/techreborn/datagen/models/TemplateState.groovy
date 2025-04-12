@@ -28,7 +28,7 @@ import net.minecraft.block.Block
 import net.minecraft.client.data.BlockStateModelGenerator
 import net.minecraft.client.data.BlockStateVariant
 import net.minecraft.client.data.BlockStateVariantMap
-import net.minecraft.client.data.TextureMap
+import net.minecraft.client.data.ModelIds
 import net.minecraft.client.data.VariantSettings
 import net.minecraft.client.data.When
 import net.minecraft.state.property.Properties
@@ -150,6 +150,6 @@ class TemplateState {
 		return BlockStateVariant.create().put(VariantSettings.MODEL, id)
 	}
 	static BlockStateVariant model(Block block) {
-		return model(TextureMap.getId(block))
+		return model(ModelIds.getBlockModelId(block))
 	}
 }

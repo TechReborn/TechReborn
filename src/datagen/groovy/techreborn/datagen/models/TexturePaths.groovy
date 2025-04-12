@@ -29,6 +29,7 @@ import net.minecraft.block.Blocks
 import net.minecraft.client.data.TextureMap
 import net.minecraft.item.Item
 import net.minecraft.util.Identifier
+import reborncore.client.RebornFluidRenderManager
 import techreborn.TechReborn
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
@@ -160,7 +161,10 @@ class TexturePaths {
 		add Upgrades, { "upgrade/${it.name}_upgrade" }
 		add SolarPanels, { "machines/generators/${it.name}_solar_panel" }
 		add MachineBlocks, { "machines/structure/${it.name}_machine" }
-		add ModFluids, { "fluids/${it.name}" }
+		ModFluids.values().each {
+			add it.block, "fluids/${it.name}"
+			alias it.block, RebornFluidRenderManager.WATER_STILL
+		}
 		add Cables, { "cables/${it.name}_cable" }
 		add List.of(
 			Machine.ADJUSTABLE_SU,

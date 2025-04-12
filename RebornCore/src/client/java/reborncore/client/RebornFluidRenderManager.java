@@ -25,6 +25,7 @@
 package reborncore.client;
 
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourceReloadListenerKeys;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -33,6 +34,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
+import reborncore.RebornCore;
 import reborncore.common.fluid.FluidSettings;
 import reborncore.common.fluid.RebornFluid;
 import reborncore.common.fluid.RebornFluidManager;
@@ -44,6 +46,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RebornFluidRenderManager implements SimpleSynchronousResourceReloadListener {
+	public static final Identifier WATER_STILL = Identifier.of(RebornCore.MOD_ID, "block/water_still");
+	public static final Identifier WATER_FLOWING = Identifier.of(RebornCore.MOD_ID, "block/water_flow");
+	public static final Identifier WATER_OVERLAY = Identifier.of(RebornCore.MOD_ID, "block/water_overlay");
 
 	private static final Map<Fluid, TemporaryLazy<Sprite[]>> spriteMap = new HashMap<>();
 
@@ -54,6 +59,11 @@ public class RebornFluidRenderManager implements SimpleSynchronousResourceReload
 	}
 
 	private static void setupFluidRenderer(RebornFluid fluid) {
+		int color = fluid.getColor();
+		if (color != -1) {
+			FluidRenderHandlerRegistry.INSTANCE.register(fluid, new SimpleFluidRenderHandler(WATER_STILL, WATER_FLOWING, WATER_OVERLAY, color));
+			return;
+		}
 		// Done lazy as we want to ensure we get the sprite at the correct time,
 		// but also don't want to be making these calls every time its required.
 		TemporaryLazy<Sprite[]> sprites = new TemporaryLazy<>(() -> {

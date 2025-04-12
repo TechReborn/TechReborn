@@ -4,7 +4,11 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
 	  "MixinDebugRenderer",
-	  "MixinGameRenderer"
+	  "MixinGameRenderer",
+	  "MixinCamera",
+	  "MixinBackgroundRenderer",
+	  "MixinEntity",
+	  "MixinWaterBubbleParticle"
   ],
   "injectors": {
     "defaultRequire": 1
