@@ -64,6 +64,7 @@ import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.BaseDynamicFluidBakedModel;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
+import techreborn.client.render.MachineCasingModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
@@ -90,6 +91,9 @@ public class TechRebornClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		ModelLoadingPlugin.register((pluginContext) -> {
+			for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
+				pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
+			}
 			pluginContext.addModels(
 				DynamicCellBakedModel.CELL_BASE,
 				DynamicCellBakedModel.CELL_BACKGROUND,

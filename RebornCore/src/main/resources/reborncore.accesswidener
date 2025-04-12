@@ -28,3 +28,4 @@ accessible    field    net/minecraft/screen/ScreenHandler    listeners    Ljava/
 accessible    field    net/minecraft/structure/pool/StructurePool    elements    Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
 
 accessible method net/minecraft/block/CropBlock getAgeProperty ()Lnet/minecraft/state/property/IntProperty;
+accessible field net/minecraft/client/render/model/json/JsonUnbakedModel textureMap Ljava/util/Map;
