@@ -27,7 +27,6 @@ package techreborn.items.armor;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -65,14 +64,14 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		switch (slot) {
 			case HELMET, BOOTS:
 				noPowerAttributes = new AttributeModifierBuilder(slot).armor(3).toughness(2).build();
-				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(3).toughness(2).knockback(1).build();
-				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(5).toughness(5).knockback(2).build();
+				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(3).toughness(3).knockback(1).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(5).toughness(5).knockback(2).tooltip(false).build();
 				hasPowerSprintAttributes = fullSuitSprintAttributes = null;
 				break;
 			case CHESTPLATE:
 				noPowerAttributes = new AttributeModifierBuilder(slot).armor(6).toughness(2).build();
-				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(6).toughness(2).knockback(1).build();
-				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(5).knockback(3).build();
+				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(6).toughness(3).knockback(1).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(5).knockback(3).tooltip(false).build();
 				hasPowerSprintAttributes = fullSuitSprintAttributes = null;
 				break;
 			case LEGGINGS: {
@@ -82,9 +81,9 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 					EntityAttributeModifier.Operation.ADD_VALUE
 				);
 				noPowerAttributes = new AttributeModifierBuilder(slot).armor(8).toughness(2).build();
-				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(8).toughness(2).knockback(1).build();
+				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(8).toughness(3).knockback(1).build();
 				hasPowerSprintAttributes = hasPowerAttributes.with(EntityAttributes.MOVEMENT_SPEED, modifier, AttributeModifierSlot.LEGS);
-				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(5).knockback(3).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(5).knockback(3).tooltip(false).build();
 				fullSuitSprintAttributes = fullSuitAttributes.with(EntityAttributes.MOVEMENT_SPEED, modifier, AttributeModifierSlot.LEGS);
 				break;
 			}
@@ -100,11 +99,6 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	// ArmorBlockEntityTicker
 	@Override
 	public void tickArmor(ItemStack stack, boolean hasFullSuit, PlayerEntity playerEntity) {
-		// mark tick
-		if (!stack.contains(DataComponentTypes.CUSTOM_DATA)) {
-			stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-		}
-
 		switch (getSlotType()) {
 			case HEAD -> {
 				// Water Breathing
@@ -227,42 +221,42 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		}
 
 		// Will only add Inactive/Active tooltip if sprint is enabled
-		boolean sprintEnable = this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint;
-		if (sprintEnable) {
+		if (this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint) {
 			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}
+	}
 
+	public void appendArmorTooltip(ItemStack stack, List<Text> tooltip, boolean shift) {
 		AttributeModifiersComponent attributes = stack.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-		tooltip.add(Text.empty());
-		tooltip.add(AttributeModifierBuilder.text(getSlotType()));
 		if (AttributeModifierBuilder.equals(attributes, hasPowerAttributes)) {
-			(sprintEnable && TRItemUtils.isActive(stack) ? hasPowerSprintAttributes : hasPowerAttributes).modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
+			if (shift) {
+				tooltip.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
+				AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.BLUE);
+			}
 		} else if (AttributeModifierBuilder.equals(attributes, fullSuitAttributes)) {
-			(sprintEnable && TRItemUtils.isActive(stack) ? hasPowerSprintAttributes : hasPowerAttributes).modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
 			tooltip.add(Text.empty());
-			tooltip.add(Text.translatable("item.modifiers.full_suit").formatted(Formatting.YELLOW));
-			FULL_SUIT.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.YELLOW));
-			});
+			tooltip.add(AttributeModifierBuilder.text(getSlotType()).formatted(Formatting.GRAY));
+			if (shift) {
+				AttributeModifierBuilder.appendText(tooltip, attributes, Formatting.BLUE);
+			} else {
+				AttributeModifierBuilder.appendText(
+					tooltip,
+					this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint && TRItemUtils.isActive(stack) ?
+						hasPowerSprintAttributes : hasPowerAttributes,
+					Formatting.BLUE
+				);
+				tooltip.add(Text.empty());
+				tooltip.add(Text.translatable("item.modifiers.full_suit").formatted(Formatting.YELLOW));
+				AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.YELLOW);
+			}
 		} else {
-			noPowerAttributes.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
-			if (stack.contains(DataComponentTypes.CUSTOM_DATA)) {
+			if (!shift && stack.contains(DataComponentTypes.CUSTOM_DATA)) {
 				return;
 			}
 			tooltip.add(Text.translatable("item.modifiers.power").formatted(Formatting.GRAY));
-			hasPowerAttributes.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
+			AttributeModifierBuilder.appendDiffText(tooltip, attributes, hasPowerAttributes, Formatting.BLUE);
 			tooltip.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
-			FULL_SUIT.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
+			AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.BLUE);
 		}
 	}
 }

@@ -26,7 +26,6 @@ package techreborn.items.armor;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -60,17 +59,17 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 			case HELMET, BOOTS:
 				noPowerAttributes = new AttributeModifierBuilder(slot).armor(1).build();
 				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(3).toughness(2).knockback(1).build();
-				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(5).toughness(3).knockback(1).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(5).toughness(3).knockback(1).tooltip(false).build();
 				break;
 			case CHESTPLATE:
 				noPowerAttributes = new AttributeModifierBuilder(slot).armor(2).build();
 				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(6).toughness(2).knockback(1).build();
-				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(3).knockback(1).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(3).knockback(1).tooltip(false).build();
 				break;
 			case LEGGINGS:
 				noPowerAttributes = new AttributeModifierBuilder(slot).armor(3).build();
 				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(8).toughness(2).knockback(1).build();
-				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(3).knockback(1).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(3).knockback(1).tooltip(false).build();
 				break;
 			default:
 				throw new IllegalArgumentException("Invalid slot type");
@@ -91,11 +90,6 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 			} else {
 				playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 			}
-		}
-
-		// mark tick
-		if (!stack.contains(DataComponentTypes.CUSTOM_DATA)) {
-			stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
 		}
 		applyModifier(stack, hasFullSuit);
 	}
@@ -152,37 +146,34 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 		if (this.getSlotType() == EquipmentSlot.HEAD) {
 			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}
+	}
+
+	public void appendArmorTooltip(ItemStack stack, List<Text> tooltip, boolean shift) {
 		AttributeModifiersComponent attributes = stack.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-		tooltip.add(Text.empty());
-		tooltip.add(AttributeModifierBuilder.text(getSlotType()));
 		if (AttributeModifierBuilder.equals(attributes, hasPowerAttributes)) {
-			hasPowerAttributes.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
+			if (shift) {
+				tooltip.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
+				AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.BLUE);
+			}
 		} else if (AttributeModifierBuilder.equals(attributes, fullSuitAttributes)) {
-			hasPowerAttributes.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
 			tooltip.add(Text.empty());
-			tooltip.add(Text.translatable("item.modifiers.full_suit").formatted(Formatting.YELLOW));
-			FULL_SUIT.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.YELLOW));
-			});
+			tooltip.add(AttributeModifierBuilder.text(getSlotType()).formatted(Formatting.GRAY));
+			if (shift) {
+				AttributeModifierBuilder.appendText(tooltip, attributes, Formatting.BLUE);
+			} else {
+				AttributeModifierBuilder.appendText(tooltip, hasPowerAttributes, Formatting.BLUE);
+				tooltip.add(Text.empty());
+				tooltip.add(Text.translatable("item.modifiers.full_suit").formatted(Formatting.YELLOW));
+				AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.YELLOW);
+			}
 		} else {
-			noPowerAttributes.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
-			if (stack.contains(DataComponentTypes.CUSTOM_DATA)) {
+			if (!shift && stack.contains(DataComponentTypes.CUSTOM_DATA)) {
 				return;
 			}
 			tooltip.add(Text.translatable("item.modifiers.power").formatted(Formatting.GRAY));
-			hasPowerAttributes.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
+			AttributeModifierBuilder.appendDiffText(tooltip, attributes, hasPowerAttributes, Formatting.BLUE);
 			tooltip.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
-			FULL_SUIT.modifiers().forEach(entry -> {
-				tooltip.add(AttributeModifierBuilder.text(entry).formatted(Formatting.BLUE));
-			});
+			AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.BLUE);
 		}
 	}
 }

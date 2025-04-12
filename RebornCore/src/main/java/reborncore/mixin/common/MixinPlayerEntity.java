@@ -24,6 +24,8 @@
 
 package reborncore.mixin.common;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,7 +37,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import reborncore.api.items.ArmorBlockEntityTicker;
-import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyItem;
 
 @Mixin(PlayerEntity.class)
@@ -53,8 +54,10 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 		PlayerEntity player = (PlayerEntity) (Object) this;
 		if (player.isSpectator()) return;
 		if (!player.playerScreenHandler.onServer) {
-			if (player.playerScreenHandler.getCursorStack().getItem() instanceof ArmorRemoveHandler) {
-				player.playerScreenHandler.syncState();
+			ItemStack stack = player.playerScreenHandler.getCursorStack();
+			if (stack.getItem() instanceof ArmorBlockEntityTicker ticker) {
+				stack.remove(DataComponentTypes.CUSTOM_DATA);
+				ticker.tickArmor(stack, false, player);
 			}
 			return;
 		}
@@ -78,6 +81,10 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 
 		for (ItemStack stack : getArmorItems()) {
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorBlockEntityTicker ticker) {
+				// mark tick
+				if (!stack.contains(DataComponentTypes.CUSTOM_DATA)) {
+					stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+				}
 				ticker.tickArmor(stack, count == 4, player);
 			}
 		}

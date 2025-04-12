@@ -47,6 +47,7 @@ import static techreborn.TechReborn.MOD_ID;
 public class AttributeModifierBuilder {
 	private final AttributeModifiersComponent.Builder builder;
 	private final AttributeModifierSlot target;
+	private boolean tooltip = true;
 
 	public AttributeModifierBuilder() {
 		this(null);
@@ -77,8 +78,14 @@ public class AttributeModifierBuilder {
 		return this;
 	}
 
+	public AttributeModifierBuilder tooltip(boolean show) {
+		tooltip = show;
+		return this;
+	}
+
 	public AttributeModifiersComponent build() {
-		return builder.build().withShowInTooltip(false);
+		AttributeModifiersComponent component = builder.build();
+		return tooltip ? component : component.withShowInTooltip(false);
 	}
 
 	public static boolean equals(@Nullable AttributeModifiersComponent attributes, AttributeModifiersComponent target) {
@@ -100,9 +107,32 @@ public class AttributeModifierBuilder {
 		return true;
 	}
 
-	public static MutableText text(AttributeModifiersComponent.Entry entry) {
+	public static void appendText(List<Text> tooltip, AttributeModifiersComponent attributes, Formatting formatting) {
+		attributes.modifiers().forEach(entry -> {
+			tooltip.add(AttributeModifierBuilder.text(entry, entry.modifier().value()).formatted(formatting));
+		});
+	}
+
+	public static void appendDiffText(
+		List<Text> tooltip,
+		@Nullable AttributeModifiersComponent attributes,
+		AttributeModifiersComponent target,
+		Formatting formatting
+	) {
+		Map<Identifier, Double> map = new HashMap<>();
+		if (attributes != null) {
+			attributes.modifiers().forEach(entry -> map.put(entry.modifier().id(), entry.modifier().value()));
+		}
+		target.modifiers().forEach(entry -> {
+			double value = entry.modifier().value() - map.getOrDefault(entry.modifier().id(), 0d);
+			if (value != 0) {
+				tooltip.add(AttributeModifierBuilder.text(entry, value).formatted(formatting));
+			}
+		});
+	}
+
+	private static MutableText text(AttributeModifiersComponent.Entry entry, double value) {
 		RegistryEntry<EntityAttribute> attribute = entry.attribute();
-		double value = entry.modifier().value();
 		if (EntityAttributes.KNOCKBACK_RESISTANCE.matchesKey(attribute.getKey().orElseThrow())) {
 			value *= 10;
 		}
@@ -114,6 +144,6 @@ public class AttributeModifierBuilder {
 	}
 
 	public static MutableText text(EquipmentSlot slotType) {
-		return Text.translatable("item.modifiers." + AttributeModifierSlot.forEquipmentSlot(slotType).asString()).formatted(Formatting.GRAY);
+		return Text.translatable("item.modifiers." + AttributeModifierSlot.forEquipmentSlot(slotType).asString());
 	}
 }
