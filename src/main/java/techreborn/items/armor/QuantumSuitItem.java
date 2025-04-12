@@ -37,6 +37,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -53,6 +54,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
+	public static QuantumSuitFlightHandler HANDLER = new VanillaQuantumSuitFlightHandler();
+
 	private static final AttributeModifiersComponent FULL_SUIT = new AttributeModifierBuilder().armor(10).toughness(8).knockback(6).build();
 	private final AttributeModifiersComponent noPowerAttributes;
 	private final AttributeModifiersComponent hasPowerAttributes;
@@ -115,19 +118,16 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				}
 			}
 			case CHEST -> {
-				if (TechRebornConfig.quantumSuitEnableFlight) {
+				if (TechRebornConfig.quantumSuitEnableFlight && playerEntity instanceof ServerPlayerEntity && !playerEntity.isCreative()) {
 					if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitFlyingCost) {
-						playerEntity.getAbilities().allowFlying = true;
-						playerEntity.sendAbilitiesUpdate();
+						HANDLER.setAllowFlight(playerEntity, true);
 
-						if (playerEntity.getAbilities().flying) {
+						if (HANDLER.isFlying(playerEntity)) {
 							tryUseEnergy(stack, TechRebornConfig.quantumSuitFlyingCost);
 						}
 						playerEntity.setOnGround(true);
 					} else {
-						playerEntity.getAbilities().allowFlying = false;
-						playerEntity.getAbilities().flying = false;
-						playerEntity.sendAbilitiesUpdate();
+						HANDLER.setAllowFlight(playerEntity, false);
 					}
 				}
 				if (playerEntity.isOnFire() && tryUseEnergy(stack, TechRebornConfig.fireExtinguishCost)) {
@@ -183,9 +183,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		EquipmentSlot slotType = this.getSlotType();
 		if (slotType == EquipmentSlot.CHEST && TechRebornConfig.quantumSuitEnableFlight) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
-				playerEntity.getAbilities().allowFlying = false;
-				playerEntity.getAbilities().flying = false;
-				playerEntity.sendAbilitiesUpdate();
+				HANDLER.setAllowFlight(playerEntity, false);
 			}
 		} else if (slotType == EquipmentSlot.HEAD) {
 			playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
