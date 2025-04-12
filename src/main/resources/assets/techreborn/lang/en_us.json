@@ -1,6 +1,9 @@
 {
 
   "itemGroup.techreborn.item_group": "Tech Reborn",
+  "item.modifiers.power": "When on Power:",
+  "item.modifiers.all_equipment": "When on All Equipment:",
+  "item.modifiers.full_suit": "Set Effect:",
 
   "_comment": "Machines",
   "block.techreborn.pump": "Pump",

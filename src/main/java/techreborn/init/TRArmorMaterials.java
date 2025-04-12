@@ -95,15 +95,15 @@ public class TRArmorMaterials {
 		map.put(ArmorItem.Type.CHESTPLATE, 6);
 		map.put(ArmorItem.Type.HELMET, 3);
 		map.put(ArmorItem.Type.BODY, 11);
-	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f, 0.1f, () -> Ingredient.EMPTY);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0, () -> Ingredient.EMPTY);
 
 	public static final RegistryEntry<ArmorMaterial> NANO = TRArmorMaterials.register("nano", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-		map.put(ArmorItem.Type.BOOTS, 3);
-		map.put(ArmorItem.Type.LEGGINGS, 8);
-		map.put(ArmorItem.Type.CHESTPLATE, 6);
-		map.put(ArmorItem.Type.HELMET, 3);
-		map.put(ArmorItem.Type.BODY, 11);
-	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0.1f, () -> Ingredient.EMPTY);
+		map.put(ArmorItem.Type.BOOTS, 1);
+		map.put(ArmorItem.Type.LEGGINGS, 3);
+		map.put(ArmorItem.Type.CHESTPLATE, 2);
+		map.put(ArmorItem.Type.HELMET, 1);
+		map.put(ArmorItem.Type.BODY, 3);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0, 0, () -> Ingredient.EMPTY);
 
 	public static final RegistryEntry<ArmorMaterial> CLOAKING_DEVICE = TRArmorMaterials.register("cloaking_device", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 0);

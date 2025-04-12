@@ -49,6 +49,8 @@ import techreborn.events.OreDepthSyncHandler;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
+import techreborn.items.armor.NanoSuitItem;
+import techreborn.items.armor.QuantumSuitItem;
 import techreborn.world.OreDepth;
 import techreborn.world.TargetDimension;
 
@@ -128,6 +130,12 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			OreDepth oreDepth = OreDepthSyncHandler.getOreDepthMap().get(block);
 			Text text = getOreDepthText(oreDepth);
 			lines.add(text.copy().formatted(Formatting.AQUA));
+		}
+
+		if (item instanceof NanoSuitItem suit) {
+			suit.appendArmorTooltip(stack, lines, Screen.hasShiftDown());
+		} else if (item instanceof QuantumSuitItem suit) {
+			suit.appendArmorTooltip(stack, lines, Screen.hasShiftDown());
 		}
 	}
 
