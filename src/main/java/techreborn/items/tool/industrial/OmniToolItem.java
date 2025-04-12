@@ -68,7 +68,7 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 		if (getStoredEnergy(stack) >= TechRebornConfig.omniToolCost) {
 			return getMaterial().getMiningSpeedMultiplier();
 		}
-		return super.getMiningSpeedMultiplier(stack, state);
+		return 1.0F;
 	}
 
 	// MiningToolItem
