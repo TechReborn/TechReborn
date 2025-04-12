@@ -25,6 +25,8 @@
 package techreborn.items.tool.industrial;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ToolComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -64,7 +66,8 @@ public class OmniToolItem extends MiningToolItem implements RcEnergyItem, IToolH
 		if (getStoredEnergy(stack) >= TechRebornConfig.omniToolCost) {
 			return getMaterial().getMiningSpeedMultiplier();
 		}
-		return super.getMiningSpeed(stack, state);
+		ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
+		return toolComponent != null ? toolComponent.defaultMiningSpeed() : 1.0F;
 	}
 
 	@Override
