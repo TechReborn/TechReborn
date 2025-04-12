@@ -33,13 +33,13 @@ public class ConfigFluidElement extends ParentElement {
 	private final SlotType type;
 
 	public ConfigFluidElement(SlotType type, int x, int y, GuiBase<?> gui) {
-		super(x, y, type.getButtonSprite());
+		super(x, y, type.getButtonSprite(), type.getTextureWidth(), type.getTextureHeight());
 		this.type = type;
 
 		FluidConfigPopupElement popupElement;
 
 		elements.add(popupElement = new FluidConfigPopupElement(x - 22, y - 22, getHeight(), this));
-		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, gui::closeSelectedTab));
+		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, 13, 13, gui::closeSelectedTab));
 
 		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 59,
 			checkBoxElement -> gui.getMachine().fluidConfiguration.autoInput(),
@@ -62,7 +62,7 @@ public class ConfigFluidElement extends ParentElement {
 	@Override
 	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		if (isMouseWithinRect(gui, mouseX, mouseY)) {
-			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY());
+			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY(), type.getTextureWidth(), type.getTextureHeight());
 		}
 		super.draw(drawContext, gui, mouseX, mouseY);
 	}

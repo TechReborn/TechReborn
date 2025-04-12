@@ -46,7 +46,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 
 	public SlotConfigPopupElement(int slotId, int x, int y, int height, boolean allowInput) {
 		super(
-			x, y, height, GuiSprites.SLOT_CONFIG_POPUP,
+			x, y, height, GuiSprites.SLOT_CONFIG_POPUP, 62, 62,
 			Stream.concat(
 				Arrays.stream(SlotConfiguration.ExtractConfig.values())
 					.filter(config -> allowInput || config != SlotConfiguration.ExtractConfig.INPUT)

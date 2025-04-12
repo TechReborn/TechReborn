@@ -28,20 +28,32 @@ import net.minecraft.client.util.SpriteIdentifier;
 import reborncore.client.gui.GuiSprites;
 
 public enum SlotType {
-	NORMAL(1, 1, GuiSprites.SLOT, GuiSprites.BUTTON_SLOT_NORMAL, GuiSprites.BUTTON_HOVER_OVERLAY_SLOT_NORMAL);
+	NORMAL(1, 1, 18, 18, GuiSprites.SLOT, GuiSprites.BUTTON_SLOT_NORMAL, GuiSprites.BUTTON_HOVER_OVERLAY_SLOT_NORMAL);
 
 	int slotOffsetX;
 	int slotOffsetY;
+	int textureWidth;
+	int textureHeight;
 	SpriteIdentifier sprite;
 	SpriteIdentifier buttonSprite;
 	SpriteIdentifier buttonHoverOverlay;
 
-	SlotType(int slotOffsetX, int slotOffsetY, SpriteIdentifier sprite, SpriteIdentifier buttonSprite, SpriteIdentifier buttonHoverOverlay) {
+	SlotType(int slotOffsetX, int slotOffsetY, int textureWidth, int textureHeight, SpriteIdentifier sprite, SpriteIdentifier buttonSprite, SpriteIdentifier buttonHoverOverlay) {
 		this.slotOffsetX = slotOffsetX;
 		this.slotOffsetY = slotOffsetY;
 		this.sprite = sprite;
+		this.textureWidth  = textureWidth;
+		this.textureHeight = textureHeight;
 		this.buttonSprite = buttonSprite;
 		this.buttonHoverOverlay = buttonHoverOverlay;
+	}
+
+	public int getTextureWidth() {
+		return textureWidth;
+	}
+
+	public int getTextureHeight() {
+		return textureHeight;
 	}
 
 	public SpriteIdentifier getSprite() {

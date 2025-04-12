@@ -42,7 +42,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 
 	public FluidConfigPopupElement(int x, int y, int height, ConfigFluidElement fluidElement) {
 		super(
-			x, y, height, GuiSprites.SLOT_CONFIG_POPUP,
+			x, y, height, GuiSprites.SLOT_CONFIG_POPUP, 62, 62,
 			Arrays.stream(FluidConfiguration.ExtractConfig.values()).map(Enum::name).toArray(String[]::new)
 		);
 		this.fluidElement = fluidElement;

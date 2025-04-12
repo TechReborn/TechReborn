@@ -41,7 +41,7 @@ public class CheckBoxElement extends ElementBase {
 	public CheckBoxElement(Text label, int x, int y,
 						Predicate<CheckBoxElement> ticked,
 						Runnable onChange) {
-		super(x, y, GuiSprites.LIGHT_CHECK_BOX.normal());
+		super(x, y, GuiSprites.LIGHT_CHECK_BOX.normal(), 13, 13);
 		this.checkBoxSprite = GuiSprites.LIGHT_CHECK_BOX;
 		this.label = label;
 		this.ticked = ticked;
@@ -67,10 +67,13 @@ public class CheckBoxElement extends ElementBase {
 	@Override
 	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		SpriteIdentifier sprite = checkBoxSprite.normal();
+		int textureWidth = getWidth();
+		int textureHeight = getHeight();
 		if (ticked.test(this)) {
+			textureWidth = 16;
 			sprite = checkBoxSprite.ticked();
 		}
-		drawSprite(drawContext, gui, sprite, getX(), getY()	);
+		drawSprite(drawContext, gui, sprite, getX(), getY(), textureWidth, textureHeight);
 		drawText(drawContext, gui, label, getX() + 18, ((getY() + getHeight() / 2) - (gui.getTextRenderer().fontHeight / 2)), 0xFFFFFFFF);
 	}
 
