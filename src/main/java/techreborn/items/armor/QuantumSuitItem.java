@@ -24,10 +24,7 @@
 
 package techreborn.items.armor;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.*;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -38,7 +35,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.items.ArmorBlockEntityTicker;
@@ -47,11 +46,51 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
+	private static final Multimap<EntityAttribute, EntityAttributeModifier> FULL_SUIT = new AttributeModifierBuilder().armor(10).toughness(8).knockback(6).build();
+	private final Multimap<EntityAttribute, EntityAttributeModifier> noPowerAttributes;
+	private final Multimap<EntityAttribute, EntityAttributeModifier> hasPowerAttributes;
+	private final Multimap<EntityAttribute, EntityAttributeModifier> fullSuitAttributes;
+	private final Multimap<EntityAttribute, EntityAttributeModifier> hasPowerSprintAttributes;
+	private final Multimap<EntityAttribute, EntityAttributeModifier> fullSuitSprintAttributes;
+
 	public QuantumSuitItem(ArmorMaterial material, Type slot) {
 		super(material, slot, TechRebornConfig.quantumSuitCapacity, RcEnergyTier.INSANE);
+		switch (slot) {
+			case HELMET, BOOTS:
+				noPowerAttributes = new AttributeModifierBuilder(slot).armor(3).toughness(2).build();
+				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(3).toughness(3).knockback(1).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(5).toughness(5).knockback(2).build();
+				hasPowerSprintAttributes = fullSuitSprintAttributes = null;
+				break;
+			case CHESTPLATE:
+				noPowerAttributes = new AttributeModifierBuilder(slot).armor(6).toughness(2).build();
+				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(6).toughness(3).knockback(1).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(5).knockback(3).build();
+				hasPowerSprintAttributes = fullSuitSprintAttributes = null;
+				break;
+			case LEGGINGS: {
+				EntityAttributeModifier modifier = new EntityAttributeModifier(
+					TRArmourItem.MODIFIERS[1],
+					"Movement Speed",
+					0.15,
+					EntityAttributeModifier.Operation.ADDITION
+				);
+				noPowerAttributes = new AttributeModifierBuilder(slot).armor(8).toughness(2).build();
+				hasPowerAttributes = new AttributeModifierBuilder(slot).armor(8).toughness(3).knockback(1).build();
+				hasPowerSprintAttributes = ImmutableListMultimap.<EntityAttribute, EntityAttributeModifier>builder()
+					.putAll(hasPowerAttributes).put(EntityAttributes.GENERIC_MOVEMENT_SPEED, modifier).build();
+				fullSuitAttributes = new AttributeModifierBuilder(slot).armor(10).toughness(5).knockback(3).build();
+				fullSuitSprintAttributes = ImmutableListMultimap.<EntityAttribute, EntityAttributeModifier>builder()
+					.putAll(fullSuitAttributes).put(EntityAttributes.GENERIC_MOVEMENT_SPEED, modifier).build();
+				break;
+			}
+			default:
+				throw new IllegalArgumentException("Invalid slot type");
+		}
 	}
 
 	// TREnergyArmourItem
@@ -67,27 +106,32 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	// FabricItem
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot equipmentSlot) {
-		var attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, getSlotType()));
-
-		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-
-		if (this.getSlotType() == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS && stack.getOrCreateNbt().getBoolean("isActive") && TechRebornConfig.quantumSuitEnableSprint) {
-			if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitSprintingCost) {
-				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
+		if (equipmentSlot != this.getSlotType()) {
+			return ImmutableMultimap.of();
+		}
+		long energy = getStoredEnergy(stack);
+		if (energy > 0) {
+			NbtCompound nbt = stack.getOrCreateNbt();
+			if (equipmentSlot == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint && nbt.getBoolean("isActive") && energy >= TechRebornConfig.quantumSuitSprintingCost) {
+				if (nbt.contains("HideFlags")) {
+					return fullSuitSprintAttributes;
+				} else {
+					return hasPowerSprintAttributes;
+				}
+			} else if (nbt.contains("HideFlags")) {
+				return fullSuitAttributes;
+			} else {
+				return hasPowerAttributes;
 			}
+		} else {
+			return noPowerAttributes;
 		}
-
-		if (equipmentSlot == this.getSlotType() && getStoredEnergy(stack) > 0) {
-			attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Armor modifier", 20, EntityAttributeModifier.Operation.ADDITION));
-			attributes.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
-		}
-
-		return ImmutableMultimap.copyOf(attributes);
 	}
 
 	// ArmorBlockEntityTicker
 	@Override
-	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
+	public void tickArmor(ItemStack stack, boolean hasFullSuit, PlayerEntity playerEntity) {
+		final NbtCompound nbt = stack.getOrCreateNbt();
 		switch (this.getSlotType()) {
 			case HEAD -> {
 				// Water Breathing
@@ -96,7 +140,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				}
 
 				// Night Vision
-				if (stack.getOrCreateNbt().getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
+				if (nbt.getBoolean("isActive") && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
 					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 220, 1, false, false));
 				} else {
 					playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
@@ -123,7 +167,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				}
 			}
 			case LEGS -> {
-				if (playerEntity.isSprinting() && stack.getOrCreateNbt().getBoolean("isActive") && TechRebornConfig.quantumSuitEnableSprint) {
+				if (playerEntity.isSprinting() && nbt.getBoolean("isActive") && TechRebornConfig.quantumSuitEnableSprint) {
 					tryUseEnergy(stack, TechRebornConfig.quantumSuitSprintingCost);
 				}
 			}
@@ -132,6 +176,13 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 					playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 5, 1, true, false));
 				}
 			}
+		}
+		if (nbt.contains("HideFlags")) {
+			if (!hasFullSuit) {
+				nbt.remove("HideFlags");
+			}
+		} else if (hasFullSuit) {
+			nbt.putInt("HideFlags", ItemStack.TooltipSection.MODIFIERS.getFlag());
 		}
 	}
 
@@ -147,6 +198,20 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		} else if (this.getSlotType() == EquipmentSlot.HEAD) {
 			playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
 		}
+		ItemStack stack = playerEntity.playerScreenHandler.getCursorStack();
+		if (stack.getItem() instanceof QuantumSuitItem) {
+			NbtCompound nbt = stack.getOrCreateNbt();
+			nbt.remove("HideFlags");
+			nbt.remove("isTicking");
+		} else {
+			playerEntity.getInventory().main.forEach(itemStack -> {
+				if (itemStack.getItem() instanceof QuantumSuitItem) {
+					NbtCompound nbt = itemStack.getOrCreateNbt();
+					nbt.remove("HideFlags");
+					nbt.remove("isTicking");
+				}
+			});
+		}
 	}
 
 	@Override
@@ -159,5 +224,41 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		if (this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint) {
 			ItemUtils.buildActiveTooltip(stack, tooltip);
 		}
+	}
+
+	public void appendArmorTooltip(ItemStack stack, List<Text> tooltip, boolean shift) {
+		List<Text> buffer = new ArrayList<>();
+		NbtCompound nbt = stack.getOrCreateNbt();
+		if (getStoredEnergy(stack) > 0) {
+			if (nbt.contains("HideFlags")) {
+				buffer.add(Text.empty());
+				buffer.add(AttributeModifierBuilder.text(getSlotType()).formatted(Formatting.GRAY));
+				if (shift) {
+					AttributeModifierBuilder.appendText(buffer, fullSuitAttributes, Formatting.BLUE);
+				} else {
+					AttributeModifierBuilder.appendText(
+						buffer,
+						this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint && nbt.getBoolean("isActive") ?
+							hasPowerSprintAttributes : hasPowerAttributes,
+						Formatting.BLUE
+					);
+					buffer.add(Text.empty());
+					buffer.add(Text.translatable("item.modifiers.full_suit").formatted(Formatting.YELLOW));
+					AttributeModifierBuilder.appendText(buffer, FULL_SUIT, Formatting.YELLOW);
+				}
+			} else if (shift) {
+				buffer.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
+				AttributeModifierBuilder.appendText(buffer, FULL_SUIT, Formatting.BLUE);
+			}
+		} else {
+			if (!shift && nbt.contains("isTicking")) {
+				return;
+			}
+			buffer.add(Text.translatable("item.modifiers.power").formatted(Formatting.GRAY));
+			AttributeModifierBuilder.appendDiffText(buffer, noPowerAttributes, hasPowerAttributes, Formatting.BLUE);
+			buffer.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
+			AttributeModifierBuilder.appendText(buffer, FULL_SUIT, Formatting.BLUE);
+		}
+		AttributeModifierBuilder.appendEnd(tooltip, buffer);
 	}
 }

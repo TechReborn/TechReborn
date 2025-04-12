@@ -28,6 +28,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,6 +36,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import reborncore.api.items.ArmorBlockEntityTicker;
+import reborncore.common.powerSystem.RcEnergyItem;
 
 @Mixin(PlayerEntity.class)
 public abstract class MixinPlayerEntity extends LivingEntity {
@@ -48,10 +50,41 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
-		if (((PlayerEntity) (Object) this).isSpectator()) return;
+		PlayerEntity player = (PlayerEntity) (Object) this;
+		if (player.isSpectator()) return;
+		if (!player.playerScreenHandler.onServer) {
+			ItemStack stack = player.playerScreenHandler.getCursorStack();
+			if (stack.getItem() instanceof ArmorBlockEntityTicker ticker) {
+				stack.getOrCreateNbt().remove("isTicking");
+				ticker.tickArmor(stack, false, player);
+			}
+			return;
+		}
+
+		Class<?> suit = null;
+		int count = 0;
+		for (ItemStack stack : getArmorItems()) {
+			if (!(stack.getItem() instanceof RcEnergyItem item)) {
+				break;
+			}
+			if (item.getStoredEnergy(stack) == 0) {
+				break;
+			}
+			if (suit == null) {
+				suit = item.getClass();
+			} else if (suit != item.getClass()) {
+				break;
+			}
+			count++;
+		}
+
 		for (ItemStack stack : getArmorItems()) {
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorBlockEntityTicker) {
-				((ArmorBlockEntityTicker) stack.getItem()).tickArmor(stack, (PlayerEntity) (Object) this);
+				NbtCompound nbt = stack.getOrCreateNbt();
+				if (!nbt.contains("isTicking")) {
+					nbt.putBoolean("isTicking", true);
+				}
+				((ArmorBlockEntityTicker) stack.getItem()).tickArmor(stack, count == 4, player);
 			}
 		}
 	}
