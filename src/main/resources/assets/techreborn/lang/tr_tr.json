@@ -808,7 +808,7 @@
   "techreborn.message.info.block.techreborn.solid_fuel_generator": "Yakılabilir maddelerden enerji üretir\nNormalde bir ocağı beslemek için kullandığınız yakıtla çalışır",
   "techreborn.message.info.block.techreborn.thermal_generator": "Lav ve diğer ısı kaynaklarını enerjiye dönüştürür",
   "techreborn.message.info.block.techreborn.water_mill": "Enerji üretmek için yakınındaki herhangi bir su kaynağının gücünü kullanır",
-  "techreborn.message.info.block.techreborn.wind_mill": "Havadan 64 blok yüksekliğe yerleştirildiğinde enerji üretir\nFırtınalarda %25 daha verimli",
+  "techreborn.message.info.block.techreborn.wind_mill": "Havadan 64 blok yüksekliğe yerleştirildiğinde enerji üretir\nFırtınalarda 25%% daha verimli",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Aynı anda 6 eşyaya kadar şarj eder",
   "techreborn.message.info.block.techreborn.chunk_loader": "Yığınları yüklü tutar, yakınlarda olmadığınızda makinelerin çalışmasını sağlar",
   "techreborn.message.info.block.techreborn.drain": "Doğrudan üzerindeki herhangi bir sıvıyı çeker, altındaki bir tank ünitesi ile güzel bir şekilde eşleşir",
