@@ -20,6 +20,13 @@ repositories {
             includeGroup "dev.architectury"
         }
 	}
+    maven {
+        name "Ladysnake Mods"
+        url "https://maven.ladysnake.org/releases"
+        content {
+            includeGroup "io.github.ladysnake"
+        }
+    }
 	mavenCentral()
 }
 
@@ -190,6 +197,7 @@ dependencies {
     include project(":RebornCore")
 
 	optionalClientDependency("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}", true)
+	optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
     // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
     gametestImplementation 'org.apache.groovy:groovy:4.0.21'
@@ -199,6 +207,14 @@ dependencies {
         exclude module: "guava"
         exclude module: "asm"
     }
+}
+
+def optionalDependency(String dep) {
+    def exclude = {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc"
+    }
+    dependencies.modCompileOnly(dep, exclude)
 }
 
 def optionalClientDependency(String dep, runtime = true) {
