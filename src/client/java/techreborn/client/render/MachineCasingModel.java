@@ -1,3 +1,27 @@
+/*
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
+ *
+ * Copyright (c) 2025 TechReborn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package techreborn.client.render;
 
 import net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver;
@@ -10,13 +34,12 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
-import org.jetbrains.annotations.Nullable;
 import techreborn.blocks.misc.BlockMachineCasing;
 import techreborn.utils.DirectionUtils;
 
 import java.util.List;
 
-public record MachineCasingModel(BakedGeometry quads, boolean useAmbientOcclusion, Sprite particleSprite) implements BlockStateModel, BlockModelPart {
+public record MachineCasingModel(BlockModelPart part) implements BlockStateModel {
 	public static final String MODEL_PATH = "block/machines/structure/";
 	@SuppressWarnings("deprecation")
 	public static void resolveBlockStates(BlockStateResolver.Context context) {
@@ -44,13 +67,13 @@ public record MachineCasingModel(BakedGeometry quads, boolean useAmbientOcclusio
 	}
 
 	@Override
-	public List<BakedQuad> getQuads(@Nullable Direction side) {
-		return quads.getQuads(side);
+	public void addParts(Random random, List<BlockModelPart> parts) {
+		parts.add(part);
 	}
 
 	@Override
-	public void addParts(Random random, List<BlockModelPart> parts) {
-		parts.add(this);
+	public Sprite particleSprite() {
+		return part.particleSprite();
 	}
 
 	public record Unbaked(Identifier id, ModelTextures textures, SpriteIdentifier particle) implements BlockStateModel.UnbakedGrouped {
@@ -58,7 +81,7 @@ public record MachineCasingModel(BakedGeometry quads, boolean useAmbientOcclusio
 		public BlockStateModel bake(BlockState state, Baker baker) {
 			BakedSimpleModel model = baker.getModel(id);
 			BakedGeometry baked = model.getGeometry().bake(textures, baker, ModelRotation.X0_Y0, model);
-			return new MachineCasingModel(baked, model.getAmbientOcclusion(), baker.getSpriteGetter().get(particle, model));
+			return new MachineCasingModel(new GeometryBakedModel(baked, model.getAmbientOcclusion(), baker.getSpriteGetter().get(particle, model)));
 		}
 
 		@Override
