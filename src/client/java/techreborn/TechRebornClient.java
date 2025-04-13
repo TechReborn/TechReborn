@@ -27,6 +27,7 @@ package techreborn;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
@@ -61,6 +62,11 @@ public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		ModelLoadingPlugin.register((pluginContext) -> {
+			for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
+				pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
+			}
+		});
 		ItemModelTypes.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
 		ItemModelTypes.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
 		SelectProperties.ID_MAPPER.put(ActiveProperty.ID, ActiveProperty.TYPE);

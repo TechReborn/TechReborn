@@ -207,8 +207,7 @@ class ModelProvider extends FabricModelProvider {
 		}
 		def toMachineBlock = { MachineBlockInfo info ->
 			generator.registerSimpleCubeAll(info.frame)
-			TemplateModel.MACHINE_BLOCK.upload(info.casing)
-			TemplateState.SINGLE.upload(info.casing)
+			generator.registerSimpleCubeAll(info.casing)
 		}
 		def toBasicTankUnit = { BlockInfo info ->
 			TemplateModel.BASIC_TANK_UNIT.upload(info.block)
