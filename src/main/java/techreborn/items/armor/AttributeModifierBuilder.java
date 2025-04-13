@@ -34,6 +34,7 @@ import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -129,6 +130,16 @@ public class AttributeModifierBuilder {
 				tooltip.add(AttributeModifierBuilder.text(entry, value).formatted(formatting));
 			}
 		});
+	}
+
+	public static void appendEnd(List<Text> tooltip, List<Text> buffer) {
+		TextColor skip = TextColor.fromFormatting(Formatting.DARK_GRAY);
+		for (int i = tooltip.size() - 1; i >= 0; i--) {
+			if (tooltip.get(i).getStyle().getColor() != skip) {
+				tooltip.addAll(i + 1, buffer);
+				break;
+			}
+		}
 	}
 
 	private static MutableText text(AttributeModifiersComponent.Entry entry, double value) {

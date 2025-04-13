@@ -49,6 +49,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.utils.TRItemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
@@ -227,36 +228,38 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	}
 
 	public void appendArmorTooltip(ItemStack stack, List<Text> tooltip, boolean shift) {
+		List<Text> buffer = new ArrayList<>();
 		AttributeModifiersComponent attributes = stack.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
 		if (AttributeModifierBuilder.equals(attributes, hasPowerAttributes)) {
 			if (shift) {
-				tooltip.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
-				AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.BLUE);
+				buffer.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
+				AttributeModifierBuilder.appendText(buffer, FULL_SUIT, Formatting.BLUE);
 			}
 		} else if (AttributeModifierBuilder.equals(attributes, fullSuitAttributes)) {
-			tooltip.add(Text.empty());
-			tooltip.add(AttributeModifierBuilder.text(getSlotType()).formatted(Formatting.GRAY));
+			buffer.add(Text.empty());
+			buffer.add(AttributeModifierBuilder.text(getSlotType()).formatted(Formatting.GRAY));
 			if (shift) {
-				AttributeModifierBuilder.appendText(tooltip, attributes, Formatting.BLUE);
+				AttributeModifierBuilder.appendText(buffer, attributes, Formatting.BLUE);
 			} else {
 				AttributeModifierBuilder.appendText(
-					tooltip,
+					buffer,
 					this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint && TRItemUtils.isActive(stack) ?
 						hasPowerSprintAttributes : hasPowerAttributes,
 					Formatting.BLUE
 				);
-				tooltip.add(Text.empty());
-				tooltip.add(Text.translatable("item.modifiers.full_suit").formatted(Formatting.YELLOW));
-				AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.YELLOW);
+				buffer.add(Text.empty());
+				buffer.add(Text.translatable("item.modifiers.full_suit").formatted(Formatting.YELLOW));
+				AttributeModifierBuilder.appendText(buffer, FULL_SUIT, Formatting.YELLOW);
 			}
 		} else {
 			if (!shift && stack.contains(DataComponentTypes.CUSTOM_DATA)) {
 				return;
 			}
-			tooltip.add(Text.translatable("item.modifiers.power").formatted(Formatting.GRAY));
-			AttributeModifierBuilder.appendDiffText(tooltip, attributes, hasPowerAttributes, Formatting.BLUE);
-			tooltip.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
-			AttributeModifierBuilder.appendText(tooltip, FULL_SUIT, Formatting.BLUE);
+			buffer.add(Text.translatable("item.modifiers.power").formatted(Formatting.GRAY));
+			AttributeModifierBuilder.appendDiffText(buffer, noPowerAttributes, hasPowerAttributes, Formatting.BLUE);
+			buffer.add(Text.translatable("item.modifiers.all_equipment").formatted(Formatting.GRAY));
+			AttributeModifierBuilder.appendText(buffer, FULL_SUIT, Formatting.BLUE);
 		}
+		AttributeModifierBuilder.appendEnd(tooltip, buffer);
 	}
 }
