@@ -145,16 +145,6 @@ class TemplateModel {
 		Direction.EAST, LIGHT_FACE_3,
 	)
 	static ModelElementTexture EMPTY_TEXTURE_MODEL = new ModelElementTexture(null, 0)
-	static List<ModelElement> CUBE_CTMH_BASE = List.of(
-		new ModelElement(new Vector3f(0, 0, 0), new Vector3f(16, 16, 16), Map.of(
-			Direction.DOWN, new ModelElementFace(Direction.DOWN, -1, TextureKey.DOWN.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.UP, new ModelElementFace(Direction.UP, -1, TextureKey.UP.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.NORTH, new ModelElementFace(Direction.NORTH, 0, TextureKey.NORTH.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.SOUTH, new ModelElementFace(Direction.SOUTH, 0, TextureKey.SOUTH.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.WEST, new ModelElementFace(Direction.WEST, 0, TextureKey.WEST.toString(), EMPTY_TEXTURE_MODEL),
-			Direction.EAST, new ModelElementFace(Direction.EAST, 0, TextureKey.EAST.toString(), EMPTY_TEXTURE_MODEL),
-		))
-	)
 	static JsonModel.DisplayMap RESIN_BASIN_DISPLAY = new JsonModel.DisplayMap()
 		.put(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, transformation(50, 45, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
 		.put(ModelTransformationMode.THIRD_PERSON_LEFT_HAND, transformation(50, -16, 0, 0, 1.7, 1.2, 0.325, 0.325, 0.325))
@@ -649,11 +639,6 @@ class TemplateModel {
 				)
 			),
 		))
-	}
-	static def MACHINE_BLOCK = wrapperBlock { block, id ->
-		CUBE_ALL.apply(block).add(CUBE_CTMH_BASE).add(
-			new JsonModel.CtmMap().put(KEY_ZERO, id.withSuffixedPath("_ctmh"))
-		)
 	}
 	static BiFunction<Block, Identifier, JsonModel> RESIN_BASIN_BASE = (Block block, Identifier id) -> new JsonModel().id(block).add(
 		new TextureMap().put(TextureKey.PARTICLE, id.withSuffixedPath("_sap_flowing"))

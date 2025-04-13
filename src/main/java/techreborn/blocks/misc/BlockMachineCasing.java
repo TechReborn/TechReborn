@@ -27,10 +27,16 @@ package techreborn.blocks.misc;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
 import techreborn.init.TRBlockSettings;
+import techreborn.utils.DirectionUtils;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
 
@@ -38,7 +44,28 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 
 	public BlockMachineCasing(int heatCapacity, String name) {
 		super(TRBlockSettings.machineCasing(name));
+		setDefaultState(getDefaultState().with(DirectionUtils.HORIZONTAL_NEIGHBORS, 0));
 		this.heatCapacity = heatCapacity;
+	}
+
+	@Override
+	public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+		builder.add(DirectionUtils.HORIZONTAL_NEIGHBORS);
+	}
+
+	@Override
+	public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+		if (state.getBlock() != newState.getBlock()) {
+			DirectionUtils.removeHorizontalNeighbor(world, pos, state, block -> block instanceof BlockMachineCasing);
+		}
+		super.onStateReplaced(state, world, pos, newState, moved);
+	}
+
+	@Override
+	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+		super.onPlaced(world, pos, state, placer, itemStack);
+		DirectionUtils.addHorizontalNeighbor(world, pos, state, block -> block instanceof BlockMachineCasing);
 	}
 
 	public static int getHeatFromState(BlockState state) {

@@ -32,3 +32,5 @@ extendable method net/minecraft/data/recipe/RecipeGenerator$RecipeProvider run (
 
 accessible field net/minecraft/block/AbstractBlock$Settings registryKey Lnet/minecraft/registry/RegistryKey;
 accessible    field    net/minecraft/client/data/TextureMap    entries           Ljava/util/Map;
+accessible class net/minecraft/client/render/model/ModelBaker$BakerImpl
+accessible method net/minecraft/client/render/model/ModelBaker$BakerImpl getModel (Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/model/UnbakedModel;
