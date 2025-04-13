@@ -37,6 +37,7 @@ import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.client.entry.ItemEntryDefinition;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
@@ -69,7 +70,12 @@ public class ReiCommonPlugin implements REICommonPlugin {
 					|| !(right.getItem() instanceof ItemFluidInfo rightInfo)) {
 					return super.equals(left, right, context);
 				}
-				return leftInfo.getFluid(left) == rightInfo.getFluid(right);
+				Fluid leftFluid = leftInfo.getFluid(left);
+				if (leftFluid == rightInfo.getFluid(right)) {
+					return leftFluid != Fluids.EMPTY || leftInfo == rightInfo;
+				} else {
+					return false;
+				}
 			}
 		});
 	}
