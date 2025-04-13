@@ -45,7 +45,7 @@ public class CloakingDeviceItem extends TREnergyArmourItem implements ArmorBlock
 
 	// ArmorBlockEntityTicker
 	@Override
-	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
+	public void tickArmor(ItemStack stack, boolean hasFullSuit, PlayerEntity playerEntity) {
 		if (tryUseEnergy(stack, TechRebornConfig.cloakingDeviceCost)) {
 			playerEntity.setInvisible(true);
 		} else {

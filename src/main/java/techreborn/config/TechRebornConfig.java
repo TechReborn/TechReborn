@@ -307,6 +307,9 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "suitNightVisionCost", comment = "Nano/Quantum Suit Night Vision Cost")
 	public static long suitNightVisionCost = 1;
 
+	@Config(config = "items", category = "power", key = "nanoArmorEnergyCost", comment = "Nano Suit Energy Cost")
+	public static long nanoArmorEnergyCost = 100;
+
 	@Config(config = "items", category = "upgrades", key = "overclocker_speed", comment = "Overclocker behavior speed multiplier")
 	public static double overclockerSpeed = 0.25;
 

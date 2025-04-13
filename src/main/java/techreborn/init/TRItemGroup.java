@@ -43,6 +43,8 @@ import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
 import techreborn.component.TRDataComponentTypes;
 import techreborn.items.DynamicCellItem;
+import techreborn.items.armor.NanoSuitItem;
+import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.tool.basic.RockCutterItem;
 import techreborn.items.tool.industrial.NanosaberItem;
 import techreborn.utils.MaterialComparator;
@@ -786,6 +788,13 @@ public class TRItemGroup {
 		RcEnergyItem energyItem = (RcEnergyItem) item;
 
 		energyItem.setStoredEnergy(charged, energyItem.getEnergyCapacity(null));
+		if (item instanceof NanoSuitItem nanoSuitItem) {
+			nanoSuitItem.applyModifier(uncharged, false);
+			nanoSuitItem.applyModifier(charged, false);
+		} else if (item instanceof QuantumSuitItem quantumSuitItem) {
+			quantumSuitItem.applyModifier(uncharged, false, false);
+			quantumSuitItem.applyModifier(charged, false, false);
+		}
 
 		if (before == null) {
 			if (includeUncharged) {

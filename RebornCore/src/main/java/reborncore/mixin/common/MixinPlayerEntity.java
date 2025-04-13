@@ -24,7 +24,9 @@
 
 package reborncore.mixin.common;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -36,6 +38,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import reborncore.api.items.ArmorBlockEntityTicker;
+import reborncore.common.powerSystem.RcEnergyItem;
 
 @Mixin(PlayerEntity.class)
 public abstract class MixinPlayerEntity extends LivingEntity {
@@ -46,11 +49,44 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
 		PlayerEntity playerEntity = (PlayerEntity) (Object) this;
-		if (playerEntity.isSpectator() || playerEntity.getWorld().isClient) return;
+		if (playerEntity.isSpectator()) return;
+		if (!playerEntity.playerScreenHandler.onServer) {
+			ItemStack stack = playerEntity.playerScreenHandler.getCursorStack();
+			if (stack.getItem() instanceof ArmorBlockEntityTicker ticker) {
+				stack.remove(DataComponentTypes.CUSTOM_DATA);
+				ticker.tickArmor(stack, false, playerEntity);
+			}
+			return;
+		}
+
+		Class<?> suit = null;
+		int count = 0;
 		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+			if (equipmentSlot == EquipmentSlot.BODY) continue;
 			ItemStack stack = playerEntity.getEquippedStack(equipmentSlot);
-			if (!stack.isEmpty() && stack.getItem() instanceof ArmorBlockEntityTicker) {
-				((ArmorBlockEntityTicker) stack.getItem()).tickArmor(stack, playerEntity);
+			if (!(stack.getItem() instanceof RcEnergyItem item)) {
+				break;
+			}
+			if (item.getStoredEnergy(stack) == 0) {
+				break;
+			}
+			if (suit == null) {
+				suit = item.getClass();
+			} else if (suit != item.getClass()) {
+				break;
+			}
+			count++;
+		}
+
+		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+			if (equipmentSlot == EquipmentSlot.BODY) continue;
+			ItemStack stack = playerEntity.getEquippedStack(equipmentSlot);
+			if (stack.getItem() instanceof ArmorBlockEntityTicker ticker) {
+				// mark tick
+				if (!stack.contains(DataComponentTypes.CUSTOM_DATA)) {
+					stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+				}
+				ticker.tickArmor(stack, count == 4, playerEntity);
 			}
 		}
 	}

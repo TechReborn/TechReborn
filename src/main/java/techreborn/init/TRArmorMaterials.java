@@ -97,15 +97,15 @@ public class TRArmorMaterials {
 		map.put(EquipmentType.CHESTPLATE, 6);
 		map.put(EquipmentType.HELMET, 3);
 		map.put(EquipmentType.BODY, 11);
-	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0f, 0.1f, 33, EMPTY);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0, 33, EMPTY);
 
 	public static final ArmorMaterial NANO = register("nano", Util.make(new EnumMap<>(EquipmentType.class), map -> {
-		map.put(EquipmentType.BOOTS, 3);
-		map.put(EquipmentType.LEGGINGS, 8);
-		map.put(EquipmentType.CHESTPLATE, 6);
-		map.put(EquipmentType.HELMET, 3);
-		map.put(EquipmentType.BODY, 11);
-	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0f, 0.1f, 33, EMPTY);
+		map.put(EquipmentType.BOOTS, 1);
+		map.put(EquipmentType.LEGGINGS, 3);
+		map.put(EquipmentType.CHESTPLATE, 2);
+		map.put(EquipmentType.HELMET, 1);
+		map.put(EquipmentType.BODY, 3);
+	}), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0, 0, 33, EMPTY);
 
 	public static final ArmorMaterial CLOAKING_DEVICE = register("cloaking_device", Util.make(new EnumMap<>(EquipmentType.class), map -> {
 		map.put(EquipmentType.BOOTS, 0);

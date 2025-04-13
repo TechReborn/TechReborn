@@ -28,9 +28,11 @@ import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import reborncore.api.events.ApplyArmorToDamageCallback;
 import techreborn.config.TechRebornConfig;
+import techreborn.items.armor.NanoSuitItem;
 import techreborn.items.armor.QuantumSuitItem;
 
 public class ApplyArmorToDamageHandler implements ApplyArmorToDamageCallback {
@@ -43,8 +45,19 @@ public class ApplyArmorToDamageHandler implements ApplyArmorToDamageCallback {
 	public float applyArmorToDamage(PlayerEntity player, DamageSource source, float amount) {
 		double damageAbsorbed = 0.0d;
 		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+			if (equipmentSlot == EquipmentSlot.BODY) continue;
 			ItemStack stack = player.getEquippedStack(equipmentSlot);
-			if (!(stack.getItem() instanceof QuantumSuitItem item)) {
+			Item stackItem = stack.getItem();
+			if (stackItem instanceof NanoSuitItem item) {
+				long energy = item.getStoredEnergy(stack);
+				if (energy > TechRebornConfig.nanoArmorEnergyCost) {
+					item.setStoredEnergy(stack, energy - TechRebornConfig.nanoArmorEnergyCost);
+				} else if (energy != 0) {
+					item.setStoredEnergy(stack, 0);
+				}
+				continue;
+			}
+			if (!(stackItem instanceof QuantumSuitItem item)) {
 				continue;
 			}
 
