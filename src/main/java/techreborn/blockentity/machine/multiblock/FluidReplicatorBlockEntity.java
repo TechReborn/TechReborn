@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
@@ -73,9 +74,9 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
-		BlockState state = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+		Block block = TRContent.MachineBlocks.ADVANCED.getCasing();
 		writer.translate(1, 0, -1)
-				.ring(Direction.Axis.Y, 3, 0, 3, (v, p) -> v.getBlockState(p) == state, state, null, null);
+				.ring(Direction.Axis.Y, 3, 0, 3, (v, p) -> v.getBlockState(p).isOf(block), block.getDefaultState(), null, null);
 	}
 
 	// TileGenericMachine

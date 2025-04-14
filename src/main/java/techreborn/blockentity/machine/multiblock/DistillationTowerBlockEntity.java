@@ -59,10 +59,10 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		writer.translate(1, 0, -1)
-				.fill(0, 0, 0, 3, 1, 3, TRContent.MachineBlocks.BASIC.getCasing().getDefaultState())
-				.ringWithAir(Direction.Axis.Y, 3, 1, 3, TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState())
-				.ringWithAir(Direction.Axis.Y, 3, 2, 3, TRContent.MachineBlocks.BASIC.getCasing().getDefaultState())
-				.fill(0, 3, 0, 3, 4, 3, TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState());
+				.fill(0, 0, 0, 3, 1, 3, TRContent.MachineBlocks.BASIC.getCasing())
+				.ringWithAir(Direction.Axis.Y, 3, 1, 3, TRContent.MachineBlocks.INDUSTRIAL.getCasing())
+				.ringWithAir(Direction.Axis.Y, 3, 2, 3, TRContent.MachineBlocks.BASIC.getCasing())
+				.fill(0, 3, 0, 3, 4, 3, TRContent.MachineBlocks.INDUSTRIAL.getCasing());
 	}
 
 	// IContainerProvider
