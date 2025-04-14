@@ -54,9 +54,9 @@ public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity im
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		writer.translate(-1, -3, -1)
-				.fill(0, 0, 0, 3, 1, 3, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState())
-				.ringWithAir(Direction.Axis.Y, 3, 1, 3, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState())
-				.fill(0, 2, 0, 3, 3, 3, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState());
+				.fill(0, 0, 0, 3, 1, 3, TRContent.MachineBlocks.ADVANCED.getCasing())
+				.ringWithAir(Direction.Axis.Y, 3, 1, 3, TRContent.MachineBlocks.ADVANCED.getCasing())
+				.fill(0, 2, 0, 3, 3, 3, TRContent.MachineBlocks.ADVANCED.getCasing());
 	}
 
 	// IContainerProvider

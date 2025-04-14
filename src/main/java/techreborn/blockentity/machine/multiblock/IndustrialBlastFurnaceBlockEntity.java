@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -64,14 +65,14 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
-		BlockState basic = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
-		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-		BlockState industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
+		Block basic = TRContent.MachineBlocks.BASIC.getCasing();
+		Block advanced = TRContent.MachineBlocks.ADVANCED.getCasing();
+		Block industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing();
 		BlockState lava = Blocks.LAVA.getDefaultState();
 
 		BiPredicate<BlockView, BlockPos> casing = (view, pos) -> {
-			BlockState state = view.getBlockState(pos);
-			return basic == state || advanced == state || industrial == state;
+			Block block = view.getBlockState(pos).getBlock();
+			return basic == block || advanced == block || industrial == block;
 		};
 
 		BiPredicate<BlockView, BlockPos> maybeLava = (view, pos) -> {
@@ -79,11 +80,12 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 			return state == lava || state.getBlock() == Blocks.AIR;
 		};
 
+		BlockState state = basic.getDefaultState();
 		writer.translate(1, 0, -1)
-				.fill(0, 0, 0, 3, 1, 3, casing, basic)
-				.ring(Direction.Axis.Y, 3, 1, 3, casing, basic, maybeLava, lava)
-				.ring(Direction.Axis.Y, 3, 2, 3, casing, basic, maybeLava, lava)
-				.fill(0, 3, 0, 3, 4, 3, casing, basic);
+				.fill(0, 0, 0, 3, 1, 3, casing, state)
+				.ring(Direction.Axis.Y, 3, 1, 3, casing, state, maybeLava, lava)
+				.ring(Direction.Axis.Y, 3, 2, 3, casing, state, maybeLava, lava)
+				.fill(0, 3, 0, 3, 4, 3, casing, state);
 	}
 
 	public int getHeat() {

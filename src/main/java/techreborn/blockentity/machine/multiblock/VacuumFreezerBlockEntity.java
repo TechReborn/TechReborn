@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -53,8 +54,8 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
-		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-		BlockState industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
+		Block advanced = TRContent.MachineBlocks.ADVANCED.getCasing();
+		Block industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing();
 
 		writer.translate(-1, -3, -1)
 				.fill(0, 0, 0, 3, 1, 3, advanced)
