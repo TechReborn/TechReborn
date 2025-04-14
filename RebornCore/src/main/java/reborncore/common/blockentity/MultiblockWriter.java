@@ -24,6 +24,7 @@
 
 package reborncore.common.blockentity;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -147,12 +148,20 @@ public interface MultiblockWriter {
 		return fill(ax, ay, az, bx, by, bz, (view, pos) -> view.getBlockState(pos) == state, state);
 	}
 
+	default MultiblockWriter fill(int ax, int ay, int az, int bx, int by, int bz, Block block) {
+		return fill(ax, ay, az, bx, by, bz, (view, pos) -> view.getBlockState(pos).isOf(block), block.getDefaultState());
+	}
+
 	default MultiblockWriter ring(Direction.Axis through, int x, int y, int z, BlockState state, BlockState holeState) {
 		return ring(through, x, y, z, (view, pos) -> view.getBlockState(pos) == state, state, (view, pos) -> view.getBlockState(pos) == holeState, holeState);
 	}
 
 	default MultiblockWriter ringWithAir(Direction.Axis through, int x, int y, int z, BlockState state) {
 		return ringWithAir(through, x, y, z, (view, pos) -> view.getBlockState(pos) == state, state);
+	}
+
+	default MultiblockWriter ringWithAir(Direction.Axis through, int x, int y, int z, Block block) {
+		return ringWithAir(through, x, y, z, (view, pos) -> view.getBlockState(pos).isOf(block), block.getDefaultState());
 	}
 
 	default MultiblockWriter translate(int offsetX, int offsetY, int offsetZ) {
