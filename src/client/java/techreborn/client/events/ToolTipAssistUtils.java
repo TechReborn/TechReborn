@@ -29,6 +29,7 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
@@ -52,7 +53,6 @@ public class ToolTipAssistUtils {
 	private static final Formatting posColour = Formatting.GREEN;
 	private static final Formatting negColour = Formatting.RED;
 
-	public static double SPEED_CAP = 97.5;
 	public static List<Text> getUpgradeStats(TRContent.Upgrades upgradeType, int count, boolean shiftHeld) {
 		List<Text> tips = new ArrayList<>();
 		boolean shouldStackCalculate = count > 1;
@@ -123,7 +123,7 @@ public class ToolTipAssistUtils {
 		double calculatedVal;
 
 		if (shiftHeld) {
-			calculatedVal = Math.min(value * Math.min(count, 4), SPEED_CAP);
+			calculatedVal = Math.min(value * Math.min(count, 4), MachineBaseBlockEntity.SPEED_CAP * 100);
 		} else {
 			calculatedVal = value;
 		}
