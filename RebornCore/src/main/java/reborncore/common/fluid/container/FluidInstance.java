@@ -72,7 +72,7 @@ public class FluidInstance implements NBTSerializable {
 	}
 
 	public NbtCompound getTag() {
-		return tag;
+		return tag == null ? new NbtCompound() : tag;
 	}
 
 	public FluidInstance setFluid(Fluid fluid) {
