@@ -80,7 +80,7 @@ public record FluidGeneratorRecipe(Fluid fluid, int energyPerMb,
 
 	@Override
 	public ItemStack getOutput(DynamicRegistryManager registryManager) {
-		throw new UnsupportedOperationException();
+		return ItemStack.EMPTY;
 	}
 
 	@Override
