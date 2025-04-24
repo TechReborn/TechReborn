@@ -25,7 +25,6 @@
 package techreborn.init;
 
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.GeneratorRecipeHelper;
 
@@ -34,22 +33,6 @@ import techreborn.api.generator.GeneratorRecipeHelper;
  */
 public class FluidGeneratorRecipes {
 	public static void init() {
-		register(EFluidGenerator.DIESEL, ModFluids.NITROFUEL.getFluid(), 24);
-		register(EFluidGenerator.DIESEL, ModFluids.NITROCOAL_FUEL.getFluid(), 48);
-		register(EFluidGenerator.DIESEL, ModFluids.DIESEL.getFluid(), 128);
-		register(EFluidGenerator.DIESEL, ModFluids.NITRO_DIESEL.getFluid(), 400);
-
-		register(EFluidGenerator.SEMIFLUID, ModFluids.SODIUM.getFluid(), 30);
-		register(EFluidGenerator.SEMIFLUID, ModFluids.LITHIUM.getFluid(), 60);
-		register(EFluidGenerator.SEMIFLUID, ModFluids.OIL.getFluid(), 16);
-		register(EFluidGenerator.SEMIFLUID, ModFluids.BIOFUEL.getFluid(), 6);
-
-		register(EFluidGenerator.THERMAL, Fluids.LAVA, 60);
-
-		register(EFluidGenerator.GAS, ModFluids.HYDROGEN.getFluid(), 15);
-		register(EFluidGenerator.GAS, ModFluids.METHANE.getFluid(), 45);
-
-		register(EFluidGenerator.PLASMA, ModFluids.HELIUMPLASMA.getFluid(), 8192);
 	}
 
 	static void register(EFluidGenerator generator, Fluid fluid, int euPerMB) {

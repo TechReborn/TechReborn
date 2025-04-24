@@ -26,12 +26,13 @@ package techreborn.blockentity.generator;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -44,12 +45,10 @@ import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
-import techreborn.api.generator.FluidGeneratorRecipeList;
-import techreborn.api.generator.GeneratorRecipeHelper;
 
 public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider {
 
-	private final FluidGeneratorRecipeList recipes;
+	private final RecipeType<FluidGeneratorRecipe> recipeType;
 	private final int euTick;
 	private FluidGeneratorRecipe currentRecipe;
 	private int ticksSinceLastChange;
@@ -66,8 +65,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 	public BaseFluidGeneratorBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, EFluidGenerator type, String blockEntityName, FluidValue tankCapacity, int euTick) {
 		super(blockEntityType, pos, state);
-		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
-		Validate.notNull(recipes, "null recipe list for " + type.getRecipeID());
+		recipeType = type.getType();
 		tank = new Tank(blockEntityName, tankCapacity, this);
 		inventory = new RebornInventory<>(3, blockEntityName, 64, this);
 		this.euTick = euTick;
@@ -88,7 +86,10 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		if (ticksSinceLastChange >= 10) {
 			ItemStack inputStack = inventory.getStack(0);
 			if (!inputStack.isEmpty()) {
-				if (FluidUtils.containsMatchingFluid(inputStack, f -> getRecipes().getRecipeForFluid(f).isPresent())) {
+				if (FluidUtils.containsMatchingFluid(
+					inputStack,
+					f -> world.getRecipeManager().getAllOfType(recipeType).values().stream().anyMatch(recipe -> recipe.fluid() == f)
+				)) {
 					FluidUtils.drainContainers(tank, inventory, 0, 1);
 				} else {
 					FluidUtils.fillContainers(tank, inventory, 0, 1);
@@ -99,8 +100,11 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		}
 
 		if (!tank.getFluidAmount().isEmpty()) {
-			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.fluid(), tank.getFluid()))
-				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluid()).orElse(null);
+			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.fluid(), tank.getFluid())) {
+				Fluid fluid = tank.getFluid();
+				currentRecipe = world.getRecipeManager().getAllOfType(recipeType).values().stream().filter(recipe -> recipe.fluid() == fluid)
+					.findAny().orElse(null);
+			}
 
 			if (currentRecipe != null) {
 				final int euPerBucket = currentRecipe.getEnergyPerBucket();
@@ -139,10 +143,6 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		}
 
 		return false;
-	}
-
-	public FluidGeneratorRecipeList getRecipes() {
-		return recipes;
 	}
 
 	@Override

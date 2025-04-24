@@ -37,10 +37,12 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
+import techreborn.api.generator.EFluidGenerator
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_grinder.IndustrialGrinderRecipeJsonFactory
 import techreborn.datagen.recipes.machine.industrial_sawmill.IndustrialSawmillRecipeJsonFactory
+import techreborn.datagen.recipes.machine.fluid_generator.FluidGeneratorRecipeJsonFactory
 import techreborn.init.ModRecipes
 
 import java.util.concurrent.CompletableFuture
@@ -194,6 +196,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	def offerImplosionCompressorRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
 		MachineRecipeJsonFactory.create(ModRecipes.IMPLOSION_COMPRESSOR, this, closure).offerTo(exporter)
+	}
+
+	def offerFluidGeneratorRecipe(EFluidGenerator type, @DelegatesTo(value = FluidGeneratorRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+		FluidGeneratorRecipeJsonFactory.createFluidGenerator(type, this, closure).offerTo(exporter)
 	}
 
 	@Override

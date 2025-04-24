@@ -26,10 +26,19 @@ package techreborn.api.generator;
 
 
 import net.minecraft.fluid.Fluid;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import reborncore.common.fluid.FluidUtils;
 
 public record FluidGeneratorRecipe(Fluid fluid, int energyPerMb,
-								EFluidGenerator generatorType) {
+								EFluidGenerator generatorType) implements Recipe<Inventory> {
 
 	public int getEnergyPerBucket() {
 		return energyPerMb * 1000;
@@ -52,5 +61,46 @@ public record FluidGeneratorRecipe(Fluid fluid, int energyPerMb,
 		} else if (!FluidUtils.fluidEquals(other.fluid, fluid))
 			return false;
 		return generatorType == other.generatorType;
+	}
+
+	@Override
+	public boolean matches(Inventory inventory, World world) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean fits(int width, int height) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public ItemStack getOutput(DynamicRegistryManager registryManager) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Identifier getId() {
+		return GeneratorRecipeHelper.recipeIds.computeIfAbsent(
+			this,
+			recipe -> {
+				String path = Registries.FLUID.getId(recipe.fluid).getPath();
+				return recipe.generatorType.getId().withSuffixedPath("/" + path);
+			}
+		);
+	}
+
+	@Override
+	public RecipeSerializer<?> getSerializer() {
+		return generatorType.getSerializer();
+	}
+
+	@Override
+	public RecipeType<?> getType() {
+		return generatorType.getType();
 	}
 }

@@ -24,24 +24,97 @@
 
 package techreborn.api.generator;
 
+import com.google.gson.JsonObject;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import org.jetbrains.annotations.NotNull;
 
+import static techreborn.TechReborn.MOD_ID;
+
 public enum EFluidGenerator {
-	THERMAL("TechReborn.ThermalGenerator"),
-	GAS("TechReborn.GasGenerator"),
-	DIESEL("TechReborn.DieselGenerator"),
-	SEMIFLUID("TechReborn.SemifluidGenerator"),
-	PLASMA("TechReborn.PlasmaGenerator");
+	THERMAL("TechReborn.ThermalGenerator", "thermal_generator"),
+	GAS("TechReborn.GasGenerator", "gas_generator"),
+	DIESEL("TechReborn.DieselGenerator", "diesel_generator"),
+	SEMIFLUID("TechReborn.SemifluidGenerator", "semi_fluid_generator"),
+	PLASMA("TechReborn.PlasmaGenerator", "plasma_generator");
 
 	@NotNull
 	private final String recipeID;
+	private final Identifier id;
+	private final RecipeType<FluidGeneratorRecipe> type;
+	private final Serializer serializer;
 
-	EFluidGenerator(@NotNull String recipeID) {
+	EFluidGenerator(@NotNull String recipeID, String type) {
 		this.recipeID = recipeID;
+		this.id = Identifier.of(MOD_ID, type);
+		this.type = new RecipeType<>() {
+			@Override
+			public String toString() {
+				return type;
+			}
+		};
+		this.serializer = new Serializer(this);
+	}
+
+	public static void register() {
+		for (EFluidGenerator generator : EFluidGenerator.values()) {
+			Registry.register(Registries.RECIPE_TYPE, generator.id, generator.type);
+			Registry.register(Registries.RECIPE_SERIALIZER, generator.id, generator.serializer);
+		}
 	}
 
 	@NotNull
 	public String getRecipeID() {
 		return recipeID;
+	}
+
+	@NotNull
+	public Identifier getId() {
+		return id;
+	}
+
+	public RecipeType<FluidGeneratorRecipe> getType() {
+		return type;
+	}
+
+	public Serializer getSerializer() {
+		return serializer;
+	}
+
+	public static class Serializer implements RecipeSerializer<FluidGeneratorRecipe> {
+		private final EFluidGenerator type;
+		public Serializer(EFluidGenerator type) {
+			this.type = type;
+		}
+
+		@Override
+		public FluidGeneratorRecipe read(Identifier id, JsonObject json) {
+			Fluid fluid = Registries.FLUID.get(new Identifier(JsonHelper.getString(json, "fluid")));
+			int power = JsonHelper.getInt(json, "power");
+			FluidGeneratorRecipe recipe = new FluidGeneratorRecipe(fluid, power, type);
+			GeneratorRecipeHelper.recipeIds.put(recipe, id);
+			return recipe;
+		}
+
+		@Override
+		public FluidGeneratorRecipe read(Identifier id, PacketByteBuf buf) {
+			Fluid fluid = Registries.FLUID.get(buf.readInt());
+			int power = buf.readInt();
+			FluidGeneratorRecipe recipe = new FluidGeneratorRecipe(fluid, power, type);
+			GeneratorRecipeHelper.recipeIds.put(recipe, id);
+			return recipe;
+		}
+
+		@Override
+		public void write(PacketByteBuf buf, FluidGeneratorRecipe recipe) {
+			buf.writeInt(Registries.FLUID.getRawId(recipe.fluid()));
+			buf.writeInt(recipe.energyPerMb());
+		}
 	}
 }

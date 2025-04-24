@@ -26,8 +26,11 @@ package techreborn.api.generator;
 
 
 import net.minecraft.fluid.Fluid;
+import net.minecraft.util.Identifier;
 
 import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class GeneratorRecipeHelper {
@@ -39,6 +42,7 @@ public class GeneratorRecipeHelper {
 	 */
 	public static final EnumMap<EFluidGenerator, FluidGeneratorRecipeList> fluidRecipes = new EnumMap<>(
 			EFluidGenerator.class);
+	public static final Map<FluidGeneratorRecipe, Identifier> recipeIds = new HashMap<>();
 
 	/**
 	 * Register a {@link Fluid} energy recipe.

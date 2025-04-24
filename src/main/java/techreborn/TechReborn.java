@@ -25,6 +25,7 @@
 package techreborn;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -34,12 +35,14 @@ import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
+import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.FluidGeneratorRecipeList;
+import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.blockentity.GuiType;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ApplyArmorToDamageHandler;
 import techreborn.events.OreDepthSyncHandler;
 import techreborn.events.UseBlockHandler;
-import techreborn.init.FluidGeneratorRecipes;
 import techreborn.init.FuelRecipes;
 import techreborn.init.ModLoot;
 import techreborn.init.ModRecipes;
@@ -77,7 +80,14 @@ public class TechReborn implements ModInitializer {
 		}
 		ModLoot.init();
 		WorldGenerator.initWorldGen();
-		FluidGeneratorRecipes.init();
+		EFluidGenerator.register();
+		// Compat recipe viewer
+		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+			for (EFluidGenerator generator : EFluidGenerator.values()) {
+				FluidGeneratorRecipeList list = GeneratorRecipeHelper.fluidRecipes.computeIfAbsent(generator, g -> new FluidGeneratorRecipeList());
+				server.getRecipeManager().getAllOfType(generator.getType()).values().forEach(list::addRecipe);
+			}
+		});
 		//Force loads the block entities at the right time
 		//noinspection ResultOfMethodCallIgnored
 		TRBlockEntities.THERMAL_GEN.toString();
