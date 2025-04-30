@@ -26,6 +26,8 @@ package techreborn.recipe;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.recipes.RecipeCrafter;
@@ -84,9 +86,11 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 
 	@Override
 	public void fitStack(ItemStack stack, int slot) {
-		// Dirtier hack for chance based crafting
-		final int randomChance = Objects.requireNonNull(blockEntity.getWorld()).random.nextInt(TechRebornConfig.recyclerChance + 1);
-		if (randomChance == 1) {
+		final World world = Objects.requireNonNull(blockEntity.getWorld());
+		final Random random = world.random;
+
+		final int randomChance = random.nextInt(TechRebornConfig.recyclerChance);
+		if (randomChance == 0) {
 			super.fitStack(stack, slot);
 		}
 	}
