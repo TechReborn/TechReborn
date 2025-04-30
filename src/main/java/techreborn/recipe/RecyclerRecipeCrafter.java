@@ -84,8 +84,8 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 
 	@Override
 	public void fitStack(ItemStack stack, int slot) {
-		// Dirty hack for chance based crafting
-		final int randomChance = Objects.requireNonNull(blockEntity.getWorld()).random.nextInt(TechRebornConfig.recyclerChance);
+		// Dirtier hack for chance based crafting
+		final int randomChance = Objects.requireNonNull(blockEntity.getWorld()).random.nextInt(TechRebornConfig.recyclerChance + 1);
 		if (randomChance == 1) {
 			super.fitStack(stack, slot);
 		}
