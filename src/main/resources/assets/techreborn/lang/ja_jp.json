@@ -1,5 +1,8 @@
 {
   "itemGroup.techreborn.item_group": "Tech Reborn",
+  "item.modifiers.power": "電源オン時:",
+  "item.modifiers.all_equipment": "全セット装備時:",
+  "item.modifiers.full_suit": "セット効果:",
   "_comment": "機械",
   "block.techreborn.pump": "ポンプ",
   "block.techreborn.gas_turbine": "ガスタービン",
@@ -735,7 +738,7 @@
   "item.techreborn.steel_boots": "鋼鉄のブーツ",
   "_comment18": "メッセージ",
   "techreborn.message.missingmultiblock": "組立が完成していません",
-  "techreborn.message.setTo": "に設定",
+  "techreborn.message.setTo": "設定:",
   "techreborn.message.in": "に",
   "techreborn.message.noCoordsSet": "座標が設定されていません",
   "techreborn.message.coordsHaveBeen": "座標は",

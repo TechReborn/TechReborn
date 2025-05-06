@@ -1,5 +1,8 @@
 {
   "itemGroup.techreborn.item_group": "Tech Reborn",
+  "item.modifiers.power": "Güç varken:",
+  "item.modifiers.all_equipment": "Tüm Ekipmanlarda olduğunda:",
+  "item.modifiers.full_suit": "Takım Etkisi:",
   "_comment": "Makineler",
   "block.techreborn.pump": "Pompa",
   "block.techreborn.gas_turbine": "Gaz Türbini",
