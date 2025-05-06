@@ -58,6 +58,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
@@ -226,7 +227,12 @@ public class ReiPlugin implements REIClientPlugin {
 					|| !(right.getItem() instanceof ItemFluidInfo rightInfo)) {
 					return super.equals(left, right, context);
 				}
-				return leftInfo.getFluid(left) == rightInfo.getFluid(right);
+				Fluid leftFluid = leftInfo.getFluid(left);
+				if (leftFluid == rightInfo.getFluid(right)) {
+					return leftFluid != Fluids.EMPTY || leftInfo == rightInfo;
+				} else {
+					return false;
+				}
 			}
 		});
 	}
