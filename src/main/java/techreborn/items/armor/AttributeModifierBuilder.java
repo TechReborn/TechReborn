@@ -26,17 +26,21 @@ package techreborn.items.armor;
 
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -110,8 +114,30 @@ public class AttributeModifierBuilder {
 
 	public static void appendText(List<Text> tooltip, AttributeModifiersComponent attributes, Formatting formatting) {
 		attributes.modifiers().forEach(entry -> {
-			tooltip.add(AttributeModifierBuilder.text(entry, entry.modifier().value()).formatted(formatting));
+			tooltip.add(AttributeModifierBuilder.text(entry.attribute(), entry.modifier(), entry.modifier().value()).formatted(formatting));
 		});
+	}
+
+	public static void appendEnchantmentText(List<Text> tooltip, ItemStack stack, EquipmentSlot slotType, Formatting formatting) {
+		EnchantmentHelper.applyAttributeModifiers(
+			stack, AttributeModifierSlot.forEquipmentSlot(slotType), (entry, modifier) -> {
+				tooltip.add(AttributeModifierBuilder.text(entry, modifier, modifier.value()).formatted(formatting));
+			}
+		);
+	}
+
+	public static void appendArmorEnchantmentText(List<Text> tooltip, ItemStack stack, Formatting formatting) {
+		MutableBoolean mutableBoolean = new MutableBoolean(true);
+		EnchantmentHelper.applyAttributeModifiers(
+			stack, AttributeModifierSlot.ARMOR, (entry, modifier) -> {
+				if (mutableBoolean.isTrue()) {
+					tooltip.add(ScreenTexts.EMPTY);
+					tooltip.add(Text.translatable("item.modifiers.armor").formatted(Formatting.GRAY));
+					mutableBoolean.setFalse();
+				}
+				tooltip.add(AttributeModifierBuilder.text(entry, modifier, modifier.value()).formatted(formatting));
+			}
+		);
 	}
 
 	public static void appendDiffText(
@@ -127,7 +153,7 @@ public class AttributeModifierBuilder {
 		target.modifiers().forEach(entry -> {
 			double value = entry.modifier().value() - map.getOrDefault(entry.modifier().id(), 0d);
 			if (value != 0) {
-				tooltip.add(AttributeModifierBuilder.text(entry, value).formatted(formatting));
+				tooltip.add(AttributeModifierBuilder.text(entry.attribute(), entry.modifier(), value).formatted(formatting));
 			}
 		});
 	}
@@ -142,14 +168,16 @@ public class AttributeModifierBuilder {
 		}
 	}
 
-	private static MutableText text(AttributeModifiersComponent.Entry entry, double value) {
-		RegistryEntry<EntityAttribute> attribute = entry.attribute();
-		if (EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE.matchesKey(attribute.getKey().orElseThrow())) {
+	private static MutableText text(RegistryEntry<EntityAttribute> attribute, EntityAttributeModifier modifier, double value) {
+		EntityAttributeModifier.Operation operation = modifier.operation();
+		if (operation == EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE || operation == EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) {
+			value = value * 100.0;
+		} else if (EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE.matchesKey(attribute.getKey().orElseThrow())) {
 			value *= 10;
 		}
 		return Text.translatable(
-			"attribute.modifier.plus." + entry.modifier().operation().getId(),
-			AttributeModifiersComponent.DECIMAL_FORMAT.format(value),
+			(value > 0 ? "attribute.modifier.plus." : "attribute.modifier.take.") + operation.getId(),
+			AttributeModifiersComponent.DECIMAL_FORMAT.format(value > 0 ? value : -value),
 			Text.translatable(attribute.value().getTranslationKey())
 		);
 	}

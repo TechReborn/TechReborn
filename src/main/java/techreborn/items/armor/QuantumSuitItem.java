@@ -37,6 +37,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -234,18 +235,22 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				AttributeModifierBuilder.appendText(buffer, FULL_SUIT, Formatting.BLUE);
 			}
 		} else if (AttributeModifierBuilder.equals(attributes, fullSuitAttributes)) {
-			buffer.add(Text.empty());
-			buffer.add(AttributeModifierBuilder.text(getSlotType()).formatted(Formatting.GRAY));
+			buffer.add(ScreenTexts.EMPTY);
+			EquipmentSlot slotType = getSlotType();
+			buffer.add(AttributeModifierBuilder.text(slotType).formatted(Formatting.GRAY));
 			if (shift) {
 				AttributeModifierBuilder.appendText(buffer, attributes, Formatting.BLUE);
 			} else {
 				AttributeModifierBuilder.appendText(
 					buffer,
-					this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint && TRItemUtils.isActive(stack) ?
-						hasPowerSprintAttributes : hasPowerAttributes,
+					slotType == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint && TRItemUtils.isActive(stack) ? hasPowerSprintAttributes : hasPowerAttributes,
 					Formatting.BLUE
 				);
-				buffer.add(Text.empty());
+			}
+			AttributeModifierBuilder.appendEnchantmentText(buffer, stack, slotType, Formatting.BLUE);
+			AttributeModifierBuilder.appendArmorEnchantmentText(buffer, stack, Formatting.BLUE);
+			if (!shift) {
+				buffer.add(ScreenTexts.EMPTY);
 				buffer.add(Text.translatable("item.modifiers.full_suit").formatted(Formatting.YELLOW));
 				AttributeModifierBuilder.appendText(buffer, FULL_SUIT, Formatting.YELLOW);
 			}
