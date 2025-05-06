@@ -119,6 +119,42 @@ public final class GuiSprites {
 		drawContext.disableScissor();
 	}
 
+	@Deprecated
+	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y) {
+		final Sprite sprite = GuiBase.getSprite(spriteIdentifier);
+
+		drawContext.drawSprite(
+			x,
+			y,
+			0,
+			sprite.getContents().getWidth(),
+			sprite.getContents().getHeight(),
+			sprite
+		);
+	}
+
+	@Deprecated
+	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height) {
+		drawSprite(drawContext, spriteIdentifier, x, y, width, height, 0, 0);
+	}
+
+	@Deprecated
+	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, GuiBase<?> gui) {
+		drawSprite(drawContext, spriteIdentifier, x, y, width, height, gui.getGuiLeft(), gui.getGuiTop());
+	}
+
+	@Deprecated
+	public static void drawSprite(DrawContext drawContext, SpriteIdentifier spriteIdentifier, int x, int y, int width, int height, int sx, int sy) {
+		drawContext.enableScissor(x + sx, y + sy,  x + width+ sx, y + height+ sy);
+		drawSprite(
+			drawContext,
+			spriteIdentifier,
+			x,
+			y
+		);
+		drawContext.disableScissor();
+	}
+
 	public record Button(SpriteIdentifier normal, SpriteIdentifier hovered) {
 	}
 
