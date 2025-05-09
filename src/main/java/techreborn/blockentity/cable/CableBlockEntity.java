@@ -209,6 +209,7 @@ public class CableBlockEntity extends BlockEntity
 				// Schedule a rebuild next tick.
 				// This is just a reference change, the iterator remains valid.
 				targets = null;
+				break;
 			} else {
 				targetStorages.add(new OfferedEnergyStorage(this, target.directionTo, storage));
 			}
