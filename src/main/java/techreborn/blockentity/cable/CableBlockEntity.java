@@ -57,6 +57,7 @@ import techreborn.init.TRContent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CableBlockEntity extends BlockEntity
 	implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop, RenderAttachmentBlockEntity {
@@ -84,7 +85,7 @@ public class CableBlockEntity extends BlockEntity
 	private BlockState cover = null;
 	long lastTick = 0;
 	// null means that it needs to be re-queried
-	List<CableTarget> targets = null;
+	List<CableTarget> targets = new CopyOnWriteArrayList<>();
 	/**
 	 * Adjacent caches, used to quickly query adjacent cable block entities.
 	 */
@@ -171,10 +172,10 @@ public class CableBlockEntity extends BlockEntity
 		}
 
 		// Update our targets if necessary.
-		if (targets == null) {
+		if (targets.isEmpty()) {
 			BlockState newBlockState = getCachedState();
 
-			targets = new ArrayList<>();
+			List<CableTarget> list = new ArrayList<>();
 			for (Direction direction : Direction.values()) {
 				boolean foundSomething = false;
 
@@ -187,26 +188,31 @@ public class CableBlockEntity extends BlockEntity
 					}
 				} else if (adjCache.find(direction.getOpposite()) != null) {
 					foundSomething = true;
-					targets.add(new CableTarget(direction, adjCache));
+					list.add(new CableTarget(direction, adjCache));
 				}
 
 				newBlockState = newBlockState.with(CableBlock.PROPERTY_MAP.get(direction), foundSomething);
 			}
+			targets.clear();
+			targets.addAll(list);
 
 			serverWorld.setBlockState(getPos(), newBlockState);
 		}
 
 		// Fill the list.
+		boolean rebuild = false;
 		for (CableTarget target : targets) {
 			EnergyStorage storage = target.find();
 
 			if (storage == null) {
-				// Schedule a rebuild next tick.
-				// This is just a reference change, the iterator remains valid.
-				targets = null;
+				rebuild = true;
 			} else {
 				targetStorages.add(new OfferedEnergyStorage(this, target.directionTo, storage));
 			}
+		}
+		if (rebuild) {
+			// Schedule a rebuild next tick.
+			targets.clear();
 		}
 
 		// Reset blocked sides.
@@ -249,7 +255,7 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	public void neighborUpdate() {
-		targets = null;
+		targets.clear();
 	}
 
 	// BlockEntityTicker
