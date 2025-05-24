@@ -92,7 +92,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 				if (player.isSpectator()){
 					continue;
 				}
-				if (MathHelper.sqrt((float)player.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ())) <= (float)radius ) {
+				if (MathHelper.sqrt((float)player.squaredDistanceTo(pos.getX() +0.5f, pos.getY() +0.5f, pos.getZ() +0.5f)) <= (float)radius ) {
 					PlayerDetectorType type = world.getBlockState(pos).get(PlayerDetectorBlock.TYPE);
 					if (type == PlayerDetectorType.ALL) {// ALL
 						redstone = true;
