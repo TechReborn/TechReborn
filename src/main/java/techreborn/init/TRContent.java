@@ -545,7 +545,7 @@ public class TRContent {
 
 		Ores(OreDistribution distribution, UniformIntProvider experienceDroppedFallback, boolean industrial) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new ExperienceDroppingBlock(TRBlockSettings.ore(name.startsWith("deepslate")));
+			block = new ExperienceDroppingBlock(TRBlockSettings.ore(name.startsWith("deepslate")), distribution != null ? distribution.experienceDropped : experienceDroppedFallback);
 			this.industrial = industrial;
 			InitUtils.setup(block, name + "_ore");
 			tag = TagKey.of(RegistryKeys.ITEM, new Identifier("c",
