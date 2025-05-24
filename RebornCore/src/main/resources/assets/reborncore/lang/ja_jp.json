@@ -8,7 +8,7 @@
   "reborncore.tooltip.energy.inputRate": "入力レート",
   "reborncore.tooltip.energy.outputRate": "出力レート",
   "reborncore.tooltip.energy.tier": "等級",
-  "reborncore.tooltip.energy.change": "エネルギー変換率",
+  "reborncore.tooltip.energy.change": "エネルギー量の変化",
   "reborncore.tooltip.energy": "エネルギー保存量",
   "reborncore.tooltip.has_data": "データ保存済み",
   "reborncore.gui.heat": "熱量",
