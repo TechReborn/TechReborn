@@ -31,13 +31,12 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.screen.Syncable;
-import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.function.UnaryOperator;
 
@@ -82,10 +81,8 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 		return !getFluidInstance().isEmpty() && getFluidInstance().getAmount().equalOrMoreThan(getFluidValueCapacity());
 	}
 
-	public final NbtCompound write(NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
-		NbtCompound tankData = SerializationUtil.writeNbt(FluidInstance.CODEC, fluidInstance, wrapperLookup);
-		nbt.put(name, tankData);
-		return nbt;
+	public final void write(WriteView view) {
+		view.put(name, FluidInstance.CODEC, fluidInstance);
 	}
 
 	public void setFluidAmount(FluidValue amount) {
@@ -94,15 +91,12 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 		}
 	}
 
-	public final Tank read(NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
-		if (nbt.contains(name)) {
+	public final void read(ReadView view) {
+		view.read(name, FluidInstance.CODEC).ifPresent(fluid -> {
 			// allow reading empty tanks
 			setFluid(Fluids.EMPTY);
-
-			NbtCompound tankData = nbt.getCompound(name).orElseThrow();
-			fluidInstance = SerializationUtil.parseNbt(FluidInstance.CODEC, tankData, wrapperLookup, () -> FluidInstance.EMPTY, "tank data");
-		}
-		return this;
+			fluidInstance = fluid;
+		});
 	}
 
 	public void setFluid(@NotNull Fluid f) {

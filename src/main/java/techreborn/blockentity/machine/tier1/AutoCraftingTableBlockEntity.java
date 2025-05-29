@@ -31,14 +31,14 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -110,8 +110,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 
 			@Override
-			public void deserializeNBT(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-				super.deserializeNBT(tag, registryLookup);
+			public void readData(ReadView view) {
+				super.readData(view);
 				for (int i = 0; i < CRAFTING_AREA; i++) {
 					inventoryCrafting.setStack(i, inventory.getStack(i));
 				}
@@ -323,17 +323,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		tag.putBoolean("locked", locked);
-		super.writeNbt(tag, registryLookup);
+	public void writeData(WriteView view) {
+		view.putBoolean("locked", locked);
+		super.writeData(view);
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		if (tag.contains("locked")) {
-			locked = tag.getBoolean("locked").orElse(false);
-		}
-		super.readNbt(tag, registryLookup);
+	public void readData(ReadView view) {
+		locked = view.getBoolean("locked", false);
+		super.readData(view);
 	}
 
 	// IToolDrop

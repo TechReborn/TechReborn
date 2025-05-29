@@ -26,9 +26,9 @@ package techreborn.blockentity.storage.energy.lesu;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -213,19 +213,14 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		tagCompound.putByte("neighbors", neighbors);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putByte("neighbors", neighbors);
 	}
 
 	@Override
-	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
-		if (tagCompound.contains("neighbors")) {
-			neighbors = tagCompound.getByte("neighbors").orElseThrow();
-		} else {
-			// Compatible with older versions: judge not initialized
-			neighbors = 0b111111;
-		}
+	public void readData(ReadView view) {
+		super.readData(view);
+		neighbors = view.getByte("neighbors", (byte) 0b111111);
 	}
 }

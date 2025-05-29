@@ -27,8 +27,8 @@ package techreborn.blockentity.storage.energy.idsu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.StringUtils;
@@ -124,18 +124,18 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(nbtCompound, registryLookup);
-		this.ownerUdid = nbtCompound.getString("ownerUdid").orElse("");
+	public void readData(ReadView view) {
+		super.readData(view);
+		this.ownerUdid = view.getString("ownerUdid", null);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(nbtCompound, registryLookup);
+	public void writeData(WriteView view) {
+		super.writeData(view);
 		if (ownerUdid == null || StringUtils.isEmpty(ownerUdid)) {
 			return;
 		}
-		nbtCompound.putString("ownerUdid", this.ownerUdid);
+		view.putString("ownerUdid", this.ownerUdid);
 	}
 
 	@Override

@@ -29,12 +29,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -393,19 +393,19 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
-		this.isRunning = tagCompound.getBoolean("isRunning").orElse(false);
-		this.tickTime = tagCompound.getInt("tickTime").orElse(0);
-		this.locked = tagCompound.getBoolean("locked").orElse(false);
+	public void readData(ReadView view) {
+		super.readData(view);
+		this.isRunning = view.getBoolean("isRunning", false);
+		this.tickTime = view.getInt("tickTime", 0);
+		this.locked = view.getBoolean("locked", false);
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		tagCompound.putBoolean("isRunning", this.isRunning);
-		tagCompound.putInt("tickTime", this.tickTime);
-		tagCompound.putBoolean("locked", locked);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putBoolean("isRunning", this.isRunning);
+		view.putInt("tickTime", this.tickTime);
+		view.putBoolean("locked", locked);
 	}
 
 	@Override

@@ -29,8 +29,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -90,15 +90,15 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tag, registryLookup);
-		processor.writeNbt(tag);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		processor.writeData(view);
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tag, registryLookup);
-		processor.readNbt(tag);
+	public void readData(ReadView view) {
+		super.readData(view);
+		processor.readData(view);
 	}
 
 	public BlockProcessor getProcessor() {

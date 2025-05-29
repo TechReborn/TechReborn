@@ -176,17 +176,19 @@ public class SlotConfigGui extends GuiTab {
 
 	private void copyToClipboard() {
 		machine.getSlotConfiguration();
-		String json = machine.getSlotConfiguration().toJson(machine.getClass().getCanonicalName());
-		MinecraftClient.getInstance().keyboard.setClipboard(json);
+		MinecraftClient client = MinecraftClient.getInstance();
+		String json = machine.getSlotConfiguration().toJson(machine.getClass().getCanonicalName(), client.world.getRegistryManager());
+		client.keyboard.setClipboard(json);
 		ClientChatUtils.addHudMessage(Text.literal("Slot configuration copied to clipboard"));
 	}
 
 	private void pasteFromClipboard() {
 		machine.getSlotConfiguration();
 
-		String json = MinecraftClient.getInstance().keyboard.getClipboard();
+		MinecraftClient client = MinecraftClient.getInstance();
+		String json = client.keyboard.getClipboard();
 		try {
-			machine.getSlotConfiguration().readJson(json, machine.getClass().getCanonicalName());
+			machine.getSlotConfiguration().readJson(json, machine.getClass().getCanonicalName(), client.world.getRegistryManager());
 			ClientPlayNetworking.send(new SlotConfigSavePayload(machine.getPos(), machine.getSlotConfiguration()));
 			ClientChatUtils.addHudMessage(Text.literal("Slot configuration loaded from clipboard"));
 		} catch (UnsupportedOperationException e) {

@@ -29,10 +29,12 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.NbtWriteView;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -56,6 +58,8 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.List;
+
+import static techreborn.TechReborn.LOGGER;
 
 public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 	protected Tank tank;
@@ -131,20 +135,20 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
-		if (tagCompound.contains("unitType")) {
-			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType").orElseThrow());
+	public void readData(ReadView view) {
+		super.readData(view);
+		view.getOptionalString("unitType").ifPresent(name -> {
+			this.type = TRContent.TankUnit.valueOf(name);
 			configureEntity(type);
-			tank.read(tagCompound, registryLookup);
-		}
+			tank.read(view);
+		});
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		tagCompound.putString("unitType", this.type.name());
-		tank.write(tagCompound, registryLookup);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putString("unitType", this.type.name());
+		tank.write(view);
 	}
 
 	@Override
@@ -163,10 +167,12 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	@Override
 	public ItemStack getToolDrop(PlayerEntity playerEntity) {
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final NbtCompound nbt = new NbtCompound();
 		if (world != null){
-			writeNbt(nbt, world.getRegistryManager());
-			dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(nbt));
+			try (ErrorReporter.Logging logging = new ErrorReporter.Logging(getReporterContext(), LOGGER)) {
+				NbtWriteView view = NbtWriteView.create(logging, world.getRegistryManager());
+				writeData(view);
+				dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(view.getNbt()));
+			}
 		}
 
 		return dropStack;

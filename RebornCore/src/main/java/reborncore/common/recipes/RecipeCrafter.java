@@ -27,9 +27,10 @@ package reborncore.common.recipes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import reborncore.RebornCore;
@@ -300,12 +301,10 @@ public class RecipeCrafter implements IUpgradeHandler {
 		}
 	}
 
-	public void read(NbtCompound tag) {
-		NbtCompound data = tag.getCompoundOrEmpty("Crater");
-
-		if (data.contains("currentTickTime")) {
-			currentTickTime = data.getInt("currentTickTime").orElseThrow();
-		}
+	public void read(ReadView view) {
+		view.getOptionalReadView("Crater").ifPresent(data -> {
+			currentTickTime = data.getInt("currentTickTime", 0);
+		});
 
 		if (blockEntity != null && blockEntity.getWorld() != null && blockEntity.getWorld().isClient) {
 			blockEntity.getWorld().updateListeners(blockEntity.getPos(),
@@ -314,13 +313,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 		}
 	}
 
-	public void write(NbtCompound tag) {
-
-		NbtCompound data = new NbtCompound();
-
-		data.putDouble("currentTickTime", currentTickTime);
-
-		tag.put("Crater", data);
+	public void write(WriteView view) {
+		view.get("Crater").putDouble("currentTickTime", currentTickTime);
 	}
 
 	private boolean isActive() {

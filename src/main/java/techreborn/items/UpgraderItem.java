@@ -30,7 +30,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.storage.NbtReadView;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -39,6 +41,8 @@ import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.init.TRContent.StorageUnit;
 import techreborn.init.TRContent.TankUnit;
 import techreborn.init.TRItemSettings;
+
+import static techreborn.TechReborn.LOGGER;
 
 public class UpgraderItem extends Item {
 
@@ -79,16 +83,18 @@ public class UpgraderItem extends Item {
 		NbtCompound data = oldBlockEntity.createNbt(world.getRegistryManager());
 		data.putString("unitType", newType);
 
-		// empty storage to prevent item spill
-		oldBlockEntity.read(new NbtCompound(), world.getRegistryManager());
+		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(() -> "UpgraderItem", LOGGER)) {
+			// empty storage to prevent item spill
+			oldBlockEntity.read(NbtReadView.create(logging, world.getRegistryManager(), new NbtCompound()));
 
-		world.setBlockState(blockPos, newBlockState);
+			world.setBlockState(blockPos, newBlockState);
 
-		// restore content and set a new storage type
-		BlockEntity newBlockEntity = world.getBlockEntity(blockPos);
-		if (newBlockEntity != null){
-			newBlockEntity.read(data, world.getRegistryManager());
-			((MachineBaseBlockEntity) newBlockEntity).syncWithAll();
+			// restore content and set a new storage type
+			BlockEntity newBlockEntity = world.getBlockEntity(blockPos);
+			if (newBlockEntity != null){
+				newBlockEntity.read(NbtReadView.create(logging, world.getRegistryManager(), data));
+				((MachineBaseBlockEntity) newBlockEntity).syncWithAll();
+			}
 		}
 
 		ItemStack stack = context.getStack();

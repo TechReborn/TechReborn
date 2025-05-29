@@ -28,11 +28,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -154,15 +154,15 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tag, registryLookup);
-		selection = tag.getInt("selection").orElse(0);
+	public void readData(ReadView view) {
+		super.readData(view);
+		selection = view.getInt("selection", 0);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tag,registryLookup);
-		tag.putInt("selection", selection);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putInt("selection", selection);
 	}
 
 	// MachineBaseBlockEntity

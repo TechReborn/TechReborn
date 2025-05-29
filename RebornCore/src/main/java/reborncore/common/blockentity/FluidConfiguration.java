@@ -29,9 +29,10 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
@@ -61,9 +62,9 @@ public class FluidConfiguration implements NBTSerializable {
 		Arrays.stream(Direction.values()).forEach(facing -> sideMap.put(facing, new FluidConfig(facing)));
 	}
 
-	public FluidConfiguration(NbtCompound tagCompound) {
+	public FluidConfiguration(ReadView view) {
 		sideMap = new HashMap<>();
-		read(tagCompound);
+		read(view);
 	}
 
 	private FluidConfiguration(Map<Direction, FluidConfig> sideMap, boolean input, boolean output) {
@@ -138,26 +139,23 @@ public class FluidConfiguration implements NBTSerializable {
 		this.output = output;
 	}
 
-	@NotNull
 	@Override
-	public NbtCompound write() {
-		NbtCompound compound = new NbtCompound();
-		Arrays.stream(Direction.values()).forEach(facing -> compound.put("side_" + facing.ordinal(), sideMap.get(facing).write()));
-		compound.putBoolean("input", input);
-		compound.putBoolean("output", output);
-		return compound;
+	public void write(WriteView view) {
+		Arrays.stream(Direction.values()).forEach(facing -> sideMap.get(facing).write(view.get("side_" + facing.ordinal())));
+		view.putBoolean("input", input);
+		view.putBoolean("output", output);
 	}
 
 	@Override
-	public void read(@NotNull NbtCompound nbt) {
+	public void read(@NotNull ReadView view) {
 		sideMap.clear();
 		Arrays.stream(Direction.values()).forEach(facing -> {
-			NbtCompound compound = nbt.getCompoundOrEmpty("side_" + facing.ordinal());
-			FluidConfig config = new FluidConfig(compound);
-			sideMap.put(facing, config);
+			view.getOptionalReadView("side_" + facing.ordinal()).ifPresent(config -> {
+				sideMap.put(facing, new FluidConfig(config));
+			});
 		});
-		input = nbt.getBoolean("input").orElse(false);
-		output = nbt.getBoolean("output").orElse(false);
+		input = view.getBoolean("input", false);
+		output = view.getBoolean("output", false);
 	}
 
 	public static class FluidConfig implements NBTSerializable {
@@ -180,8 +178,8 @@ public class FluidConfiguration implements NBTSerializable {
 			this.ioConfig = ioConfig;
 		}
 
-		public FluidConfig(NbtCompound tagCompound) {
-			read(tagCompound);
+		public FluidConfig(ReadView view) {
+			read(view);
 		}
 
 		public Direction getSide() {
@@ -192,19 +190,16 @@ public class FluidConfiguration implements NBTSerializable {
 			return ioConfig;
 		}
 
-		@NotNull
 		@Override
-		public NbtCompound write() {
-			NbtCompound tagCompound = new NbtCompound();
-			tagCompound.putInt("side", side.ordinal());
-			tagCompound.putInt("config", ioConfig.ordinal());
-			return tagCompound;
+		public void write(WriteView view) {
+			view.putInt("side", side.ordinal());
+			view.putInt("config", ioConfig.ordinal());
 		}
 
 		@Override
-		public void read(@NotNull NbtCompound nbt) {
-			side = Direction.values()[nbt.getInt("side").orElse(0)];
-			ioConfig = FluidConfiguration.ExtractConfig.values()[nbt.getInt("config").orElse(0)];
+		public void read(@NotNull ReadView view) {
+			side = Direction.values()[view.getInt("side", 0)];
+			ioConfig = FluidConfiguration.ExtractConfig.values()[view.getInt("config", 0)];
 		}
 	}
 

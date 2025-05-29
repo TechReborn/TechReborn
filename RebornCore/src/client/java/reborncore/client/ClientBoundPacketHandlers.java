@@ -30,6 +30,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.storage.NbtReadView;
+import net.minecraft.util.ErrorReporter;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +56,9 @@ public class ClientBoundPacketHandlers {
 			if (world.isChunkLoaded(payload.pos())) {
 				BlockEntity blockentity = world.getBlockEntity(payload.pos());
 				if (blockentity != null && payload.nbt() != null) {
-					blockentity.read(payload.nbt(), world.getRegistryManager());
+					try (ErrorReporter.Logging logging = new ErrorReporter.Logging(blockentity.getReporterContext(), LOGGER)) {
+						blockentity.read(NbtReadView.create(logging, world.getRegistryManager(), payload.nbt()));
+					}
 				}
 			}
 		});

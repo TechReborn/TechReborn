@@ -34,12 +34,12 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -156,20 +156,20 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	@Override
-	public void readNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
-		getTank().read(tagCompound, registryLookup);
-		this.range = tagCompound.getInt("range").orElse(0);
-		this.depth = tagCompound.getInt("depth").orElse(0);
+	public void readData(ReadView view) {
+		super.readData(view);
+		getTank().read(view);
+		this.range = view.getInt("range", 0);
+		this.depth = view.getInt("depth", 0);
 		finder = null;
 	}
 
 	@Override
-	public void writeNbt(final NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		getTank().write(tagCompound, registryLookup);
-		tagCompound.putInt("range", range);
-		tagCompound.putInt("depth", depth);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		getTank().write(view);
+		view.putInt("range", range);
+		view.putInt("depth", depth);
 	}
 
 	@Override

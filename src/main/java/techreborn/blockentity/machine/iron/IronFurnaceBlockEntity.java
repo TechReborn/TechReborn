@@ -28,16 +28,16 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -190,15 +190,15 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public void readNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(compoundTag, registryLookup);
-		experience = compoundTag.getFloat("Experience").orElse(0F);
+	public void readData(ReadView view) {
+		super.readData(view);
+		experience = view.getFloat("Experience", 0);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(compoundTag, registryLookup);
-		compoundTag.putFloat("Experience", experience);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putFloat("Experience", experience);
 	}
 
 	// IContainerProvider

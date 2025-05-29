@@ -24,8 +24,9 @@
 
 package techreborn.blockentity.machine.tier0.block.blockplacer;
 
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
 
@@ -42,16 +43,16 @@ class BlockPlacerNbt {
 	protected int currentPlaceTime;
 	protected ProcessingStatus status = BlockPlacerStatus.IDLE;
 
-	public void writeNbt(NbtCompound tag) {
-		tag.putInt("placeTime", this.placeTime);
-		tag.putInt("currentPlaceTime", this.currentPlaceTime);
-		tag.putInt("blockPlacerStatus", getStatus());
+	public void writeData(WriteView view) {
+		view.putInt("placeTime", this.placeTime);
+		view.putInt("currentPlaceTime", this.currentPlaceTime);
+		view.putInt("blockPlacerStatus", getStatus());
 	}
 
-	public void readNbt(NbtCompound tag) {
-		this.placeTime = tag.getInt("placeTime").orElse(0);
-		this.currentPlaceTime = tag.getInt("currentPlaceTime").orElse(0);
-		setStatus(tag.getInt("blockPlacerStatus").orElse(0));
+	public void readData(ReadView view) {
+		this.placeTime = view.getInt("placeTime", 0);
+		this.currentPlaceTime = view.getInt("currentPlaceTime", 0);
+		setStatus(view.getInt("blockPlacerStatus", 0));
 	}
 
 	public BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder) {
