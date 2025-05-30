@@ -73,6 +73,10 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 
 			@Override
 			public long extract(long maxAmount, TransactionContext transaction) {
+				if (maxAmount <= 0) {
+					// Ignored if other mods return negative values
+					return 0;
+				}
 				return backingStorage.get().extract(Math.min(maxAmount, getMaxOutput(side)), transaction);
 			}
 		};
