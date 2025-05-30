@@ -25,7 +25,6 @@
 package techreborn.blockentity.cable;
 
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -60,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CableBlockEntity extends BlockEntity
-	implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop, RenderAttachmentBlockEntity {
+	implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop {
 	// Can't use SimpleEnergyStorage because the cable type is not available when the BE is constructed.
 	final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
 		@Override
@@ -295,7 +294,7 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public @Nullable BlockState getRenderAttachmentData() {
+	public @Nullable BlockState getRenderData() {
 		return cover;
 	}
 
