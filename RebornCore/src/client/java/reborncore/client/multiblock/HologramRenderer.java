@@ -68,7 +68,7 @@ record HologramRenderer(World view, MatrixStack matrix, VertexConsumerProvider v
 			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ItemDisplayContext.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, view, 0);
 		} else {
 			matrix.translate(-0.5, -0.5, -0.5);
-			VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayers.getBlockLayer(state));
+			VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayers.getEntityBlockLayer(state));
 			List<BlockModelPart> parts = blockRenderManager.getModel(state).getParts(Random.create());
 			blockRenderManager.renderBlock(state, OUT_OF_WORLD_POS, view, matrix, consumer, false, parts);
 		}
