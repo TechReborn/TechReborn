@@ -185,10 +185,10 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		super.render(drawContext, mouseX, mouseY, partialTicks);
 		this.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
-		drawContext.getMatrices().push();
-		drawContext.getMatrices().translate(this.x, this.y, 900);
+		drawContext.getMatrices().pushMatrix();
+		drawContext.getMatrices().translate(this.x, this.y);
 		getTab().ifPresent(guiTab -> guiTab.draw(drawContext, mouseX, mouseY));
-		drawContext.getMatrices().pop();
+		drawContext.getMatrices().popMatrix();
 	}
 
 	@Override

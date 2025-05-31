@@ -93,7 +93,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	@Override
 	public final void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		drawContext.getMatrices().push();
+		drawContext.getMatrices().pushMatrix();
 		int x = adjustX(gui, getX() - 8);
 		int y = adjustY(gui, getY() - 7);
 		gui.builder.drawDefaultBackground(
@@ -103,7 +103,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 			84,
 			height
 		);
-		drawContext.getMatrices().pop();
+		drawContext.getMatrices().popMatrix();
 
 		super.draw(drawContext, gui, mouseX, mouseY);
 

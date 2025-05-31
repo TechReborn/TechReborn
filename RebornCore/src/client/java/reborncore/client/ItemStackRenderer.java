@@ -37,10 +37,10 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
 import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import org.joml.Matrix3x2fStack;
 
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -82,12 +82,12 @@ public class ItemStackRenderer implements HudRenderCallback {
 		drawContext.drawText(client.textRenderer, queue + " items left", left, 15, -1, false);
 
 		// draw item stack
-		MatrixStack matrices = drawContext.getMatrices();
-		matrices.push();
+		Matrix3x2fStack matrices = drawContext.getMatrices();
+		matrices.pushMatrix();
 		float drawScale = drawSize / (float) (16 * scaleFactor);
-		matrices.scale(drawScale, drawScale, drawScale);
+		matrices.scale(drawScale, drawScale);
 		drawContext.drawItem(stack, 0, 0);
-		matrices.pop();
+		matrices.popMatrix();
 
 		// export image
 		int pixelSize = gpuTexture.getFormat().pixelSize();

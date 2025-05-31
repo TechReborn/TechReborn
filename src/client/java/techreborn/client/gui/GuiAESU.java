@@ -26,9 +26,9 @@ package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import org.joml.Matrix3x2fStack;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonUpDown;
 import reborncore.client.gui.widget.GuiButtonUpDown.UpDownButtonType;
@@ -72,17 +72,17 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 		final Layer layer = Layer.FOREGROUND;
 
 		if (!hideGuiElements()) {
-			final MatrixStack matrices = drawContext.getMatrices();
-			matrices.push();
-			matrices.scale(0.6f, 0.6f, 1.0f);
+			final Matrix3x2fStack matrices = drawContext.getMatrices();
+			matrices.pushMatrix();
+			matrices.scale(0.6f, 0.6f);
 			Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
 					.append("/")
 					.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
 					.append(" ")
 					.append(PowerSystem.ABBREVIATION);
 
-			matrices.pop();
 			drawCentredText(drawContext, text, 35, 0xff000000, 58, layer);
+			matrices.popMatrix();
 		}
 
 		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

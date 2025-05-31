@@ -25,9 +25,9 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import org.joml.Matrix3x2fStack;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -57,10 +57,10 @@ public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		MatrixStack matrices = drawContext.getMatrices();
+		Matrix3x2fStack matrices = drawContext.getMatrices();
 
-		matrices.push();
-		matrices.scale(0.6f, 0.6f, 1.0f);
+		matrices.pushMatrix();
+		matrices.scale(0.6f, 0.6f);
 
 		Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(idsu.getEnergy()))
 				.append("/")
@@ -70,7 +70,7 @@ public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 
 		drawCentredText(drawContext, text, 35, 0xff000000, 58, layer);
 
-		matrices.pop();
+		matrices.popMatrix();
 
 		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) idsu.getEnergy(), (int) idsu.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
