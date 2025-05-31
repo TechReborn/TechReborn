@@ -57,7 +57,7 @@ class IngredientBuilder {
 		checkHasSingleInputType()
 
 		if (tag != null) {
-			return new SizedIngredient(tagCount == -1 ? 1 : tagCount, Ingredient.fromTag(itemLookup.getOrThrow(tag)))
+			return new SizedIngredient(tagCount == -1 ? 1 : tagCount, Ingredient.ofTag(itemLookup.getOrThrow(tag)))
 		}
 
 		if (!stacks.isEmpty()) {
@@ -75,7 +75,7 @@ class IngredientBuilder {
 				components = builder.build()
 			}
 
-			Ingredient ingredient = Ingredient.fromTag(RegistryEntryList.of(stack.getRegistryEntry()))
+			Ingredient ingredient = Ingredient.ofTag(RegistryEntryList.of(stack.getRegistryEntry()))
 
 			if (!components.isEmpty()) {
 				ingredient = new ComponentsIngredient(ingredient, components).toVanilla()
