@@ -54,7 +54,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 			case "INPUT" -> theme.ioInputColor().rgba();
 			case "OUTPUT" -> theme.ioOutputColor().rgba();
 			case "ALL" -> theme.ioBothColor().rgba();
-			default -> 0x80000000 | theme.warningTextColor().rgba();
+			default -> theme.warningTextColor().rgba() & 0xffffff | 0x80000000;
 		};
 	}
 

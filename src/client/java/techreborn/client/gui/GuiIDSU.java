@@ -68,7 +68,7 @@ public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 				.append(" ")
 				.append(PowerSystem.ABBREVIATION);
 
-		drawCentredText(drawContext, text, 35, 0, 58, layer);
+		drawCentredText(drawContext, text, 35, 0xff000000, 58, layer);
 
 		matrices.pop();
 

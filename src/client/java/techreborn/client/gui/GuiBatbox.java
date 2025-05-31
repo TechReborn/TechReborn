@@ -64,8 +64,8 @@ public class GuiBatbox extends GuiBase<BuiltScreenHandler> {
 					.append("/")
 					.append(PowerSystem.getLocalizedPower(blockEntity.getMaxStoredPower()));
 
-			drawCentredText(drawContext, text, 35, 0, 58, layer);
 			matrices.pop();
+			drawCentredText(drawContext, text, 35, 0xff000000, 58, layer);
 		}
 
 		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

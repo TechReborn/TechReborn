@@ -64,7 +64,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			case "INPUT" -> theme.ioInputColor().rgba();
 			case "OUTPUT" -> theme.ioOutputColor().rgba();
 			case "FIRST", "LAST" -> (allowInput ? theme.ioInputColor() : theme.ioOutputColor()).rgba();
-			default -> 0x80000000 | theme.warningTextColor().rgba();
+			default -> theme.warningTextColor().rgba() & 0xffffff | 0x80000000;
 		};
 	}
 

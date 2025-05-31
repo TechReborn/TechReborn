@@ -65,7 +65,7 @@ public class GuiMFE extends GuiBase<BuiltScreenHandler> {
 			drawCentredText(drawContext, Text.literal(PowerSystem.getLocalizedPowerNoSuffix(mfe.getEnergy()))
 							.append("/")
 							.append(PowerSystem.getLocalizedPower(mfe.getMaxStoredPower()))
-					, 35, 0, 58, layer);
+					, 35, 0xff000000, 58, layer);
 
 			matrices.pop();
 		}
