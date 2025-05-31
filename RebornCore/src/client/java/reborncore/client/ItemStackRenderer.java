@@ -24,8 +24,6 @@
 
 package reborncore.client;
 
-import com.mojang.blaze3d.buffers.BufferType;
-import com.mojang.blaze3d.buffers.BufferUsage;
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.systems.CommandEncoder;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -93,8 +91,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 		int pixelSize = gpuTexture.getFormat().pixelSize();
 		final GpuBuffer gpuBuffer = RenderSystem.getDevice().createBuffer(
 			() -> "Export buffer",
-			BufferType.PIXEL_PACK,
-			BufferUsage.STATIC_READ,
+			9,
 			framebuffer.textureWidth * framebuffer.textureHeight * pixelSize
 		);
 		final CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
@@ -103,7 +100,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 			gpuBuffer,
 			0,
 			() -> {
-				try (GpuBuffer.ReadView readView = commandEncoder.readBuffer(gpuBuffer)) {
+				try (GpuBuffer.MappedView readView = commandEncoder.mapBuffer(gpuBuffer, true, false)) {
 					ByteBuffer imageData = readView.data();
 					NativeImage nativeImage = null;
 					try {
