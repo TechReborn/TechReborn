@@ -266,7 +266,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 			if (pencil.equals(this.pencil)) {
 				color = getPencilColor(pencil);
 			} else if ((mx >= x && mx <= x2) && (my >= y && my < y2)) {
-				drawContext.drawTooltip(textRenderer, Text.translatable("reborncore.gui.slotconfig." + pencil), mx, my);
+				drawContext.drawTooltip(textRenderer, Text.translatable("reborncore.gui.slotconfig." + pencil), mouseX, mouseY + 10);
 				color = mx != x2 ? 0xff8b8b8b : 0x668b8b8b;
 			} else {
 				color = 0x668b8b8b;

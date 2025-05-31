@@ -113,12 +113,13 @@ public class GuiBuilder {
 	 */
 	public void drawLockButton(DrawContext drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer, boolean locked) {
 		if (gui.hideGuiElements()) return;
+		int x2 = x, y2 = y;
 		if (layer == GuiBase.Layer.BACKGROUND) {
-			x += gui.getGuiLeft();
-			y += gui.getGuiTop();
+			x2 += gui.getGuiLeft();
+			y2 += gui.getGuiTop();
 		}
 
-		drawSpriteStretched(drawContext, locked ? GuiSprites.BUTTON_LOCKED : GuiSprites.BUTTON_UNLOCKED, x, y, 20, 12);
+		drawSpriteStretched(drawContext, locked ? GuiSprites.BUTTON_LOCKED : GuiSprites.BUTTON_UNLOCKED, x2, y2, 20, 12);
 		if (gui.isPointInRect(x, y, 20, 12, mouseX, mouseY)) {
 			List<Text> list = new ArrayList<>();
 			if (locked) {
@@ -155,10 +156,6 @@ public class GuiBuilder {
 		if (hasTooltip) {
 			List<Text> list = new ArrayList<>();
 			list.add(Text.translatable("reborncore.gui.tooltip.hologram"));
-			if (layer == GuiBase.Layer.FOREGROUND) {
-				mouseX -= gui.getGuiLeft();
-				mouseY -= gui.getGuiTop();
-			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
 		}
 	}
@@ -463,10 +460,6 @@ public class GuiBuilder {
 							.formatted(StringUtils.getPercentageColour(percentage))
 							.append("%")
 			);
-			if (layer == GuiBase.Layer.FOREGROUND) {
-				mouseX -= gui.getGuiLeft();
-				mouseY -= gui.getGuiTop();
-			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
 		}
 	}
@@ -543,10 +536,6 @@ public class GuiBuilder {
 					);
 				}
 			}
-			if (layer == GuiBase.Layer.FOREGROUND) {
-				mouseX -= gui.getGuiLeft();
-				mouseY -= gui.getGuiTop();
-			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
 		}
 	}
@@ -603,10 +592,6 @@ public class GuiBuilder {
 							.append(Text.translatable("reborncore.gui.tooltip.tank_fullness"))
 			);
 
-			if (layer == GuiBase.Layer.FOREGROUND) {
-				mouseX -= gui.getGuiLeft();
-				mouseY -= gui.getGuiTop();
-			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
 		}
 	}
@@ -672,10 +657,6 @@ public class GuiBuilder {
 			int percentage = percentage(maxProgress, progress);
 			List<Text> list = new ArrayList<>();
 			list.add(StringUtils.getPercentageText(percentage));
-			if (layer == GuiBase.Layer.FOREGROUND) {
-				mouseX -= gui.getGuiLeft();
-				mouseY -= gui.getGuiTop();
-			}
 			drawContext.drawTooltip(gui.getTextRenderer(), list, mouseX, mouseY);
 		}
 	}

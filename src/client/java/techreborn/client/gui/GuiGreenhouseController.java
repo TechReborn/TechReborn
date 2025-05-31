@@ -85,17 +85,6 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 		addHologramButton(90, 24, 212, layer).clickHandler(this::onClick);
 		builder.drawHologramButton(drawContext, this, 90, 24, mouseX, mouseY, layer);
 
-		if (!blockEntity.isShapeValid()) {
-			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
-				List<Text> list = Arrays.stream(I18n.translate("techreborn.tooltip.greenhouse.upgrade_available")
-						.split("\\r?\\n"))
-						.map(Text::literal)
-						.collect(Collectors.toList());
-
-				drawContext.drawTooltip(getTextRenderer(), list, mouseX - getGuiLeft(), mouseY - getGuiTop());
-			}
-		}
-
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
 
