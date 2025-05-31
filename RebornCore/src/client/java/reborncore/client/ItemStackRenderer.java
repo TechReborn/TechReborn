@@ -26,6 +26,7 @@ package reborncore.client;
 
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.systems.CommandEncoder;
+import com.mojang.blaze3d.systems.ProjectionType;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.GpuTexture;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -34,11 +35,15 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.item.ItemRenderState;
 import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.util.Window;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import org.joml.Matrix3x2fStack;
+import org.joml.Matrix4fStack;
 
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -50,12 +55,15 @@ import java.nio.file.Path;
  * Thanks 2xsaiko for fixing the lighting + odd issues above
  */
 public class ItemStackRenderer implements HudRenderCallback {
-
+	private static ProjectionMatrix2 guiProjectionMatrix;
 	private static final int SIZE = 512;
 
 	@Override
 	public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
+			if (guiProjectionMatrix == null) {
+				guiProjectionMatrix = new ProjectionMatrix2("gui", 1000.0F, 11000.0F, true);
+			}
 			ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.remove();
 			export(drawContext, itemStack, ItemStackRenderManager.RENDER_QUEUE.size());
 		}
@@ -72,7 +80,8 @@ public class ItemStackRenderer implements HudRenderCallback {
 		RenderSystem.getDevice().createCommandEncoder().clearColorAndDepthTextures(gpuTexture, 0, framebuffer.getDepthAttachment(), 1);
 
 		// draw info
-		double scaleFactor = client.getWindow().getScaleFactor();
+		Window window = client.getWindow();
+		float scaleFactor = window.getScaleFactor();
 		final int drawSize = Math.min(framebuffer.textureHeight, SIZE);
 		int left = (int) (drawSize / scaleFactor) + 5;
 		Identifier identifier = Registries.ITEM.getId(stack.getItem());
@@ -80,12 +89,34 @@ public class ItemStackRenderer implements HudRenderCallback {
 		drawContext.drawText(client.textRenderer, queue + " items left", left, 15, -1, false);
 
 		// draw item stack
-		Matrix3x2fStack matrices = drawContext.getMatrices();
-		matrices.pushMatrix();
-		float drawScale = drawSize / (float) (16 * scaleFactor);
-		matrices.scale(drawScale, drawScale);
-		drawContext.drawItem(stack, 0, 0);
-		matrices.popMatrix();
+		RenderSystem.backupProjectionMatrix();
+		RenderSystem.setProjectionMatrix(
+			guiProjectionMatrix.set(window.getFramebufferWidth() / scaleFactor, window.getFramebufferHeight() / scaleFactor),
+			ProjectionType.ORTHOGRAPHIC
+		);
+		Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
+		matrix4fStack.pushMatrix();
+		matrix4fStack.translate(0, 0, -11000);
+		VertexConsumerProvider.Immediate vertexConsumers = client.getBufferBuilders().getEntityVertexConsumers();
+		MatrixStack matrices = new MatrixStack();
+		matrices.push();
+		float drawScale = drawSize / (16 * scaleFactor);
+		matrices.scale(drawScale, drawScale, drawScale);
+		ItemRenderState itemRenderState = new ItemRenderState();
+		client.getItemModelManager().clearAndUpdate(itemRenderState, stack, ItemDisplayContext.GUI, client.world, client.player, 0);
+		matrices.translate(8, 8, 150);
+		matrices.scale(16.0F, -16.0F, 16.0F);
+		boolean bl = !itemRenderState.isSideLit();
+		DiffuseLighting diffuseLighting = MinecraftClient.getInstance().gameRenderer.getDiffuseLighting();
+		if (bl) {
+			diffuseLighting.setShaderLights(DiffuseLighting.Type.ITEMS_FLAT);
+		} else {
+			diffuseLighting.setShaderLights(DiffuseLighting.Type.ITEMS_3D);
+		}
+		itemRenderState.render(matrices, vertexConsumers, 15728880, OverlayTexture.DEFAULT_UV);
+		vertexConsumers.draw();
+		matrix4fStack.popMatrix();
+		RenderSystem.restoreProjectionMatrix();
 
 		// export image
 		int pixelSize = gpuTexture.getFormat().pixelSize();
