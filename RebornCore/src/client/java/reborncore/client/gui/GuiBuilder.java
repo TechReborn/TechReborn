@@ -27,11 +27,11 @@ package reborncore.client.gui;
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.EntryListWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.fluid.Fluids;
@@ -61,7 +61,7 @@ public class GuiBuilder {
 	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
 	public void drawDefaultBackground(DrawContext drawContext, int x, int y, int width, int height) {
-		drawContext.drawGuiTexture(RenderLayer::getGuiTextured, GuiSprites.BACKGROUND.getTextureId(), x, y, width, height);
+		drawContext.drawGuiTexture(RenderPipelines.GUI_TEXTURED, GuiSprites.BACKGROUND.getTextureId(), x, y, width, height);
 	}
 
 	public void drawPlayerSlots(DrawContext drawContext, Screen gui, int posX, int posY, boolean center) {
@@ -89,10 +89,10 @@ public class GuiBuilder {
 	}
 
 	public void drawProgressBar(DrawContext drawContext, GuiBase<?> gui, double progress, int x, int y) {
-		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 150, 18, 22, 15, 256, 256);
+		drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 18, 22, 15, 256, 256);
 		int j = (int) (progress);
 		if (j > 0) {
-			drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 150, 34, j + 1, 15, 256, 256);
+			drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 34, j + 1, 15, 256, 256);
 		}
 	}
 
@@ -179,13 +179,13 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 26, 218, 114, 18, 256, 256);
+		drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 26, 218, 114, 18, 256, 256);
 		if (value != 0) {
 			int j = (int) ((double) value / (double) max * 106);
 			if (j < 0) {
 				j = 0;
 			}
-			drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10, 256, 256);
+			drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10, 256, 256);
 
 			Text text = Text.literal(String.valueOf(value))
 					.append(Text.translatable("reborncore.gui.heat"));
@@ -219,7 +219,7 @@ public class GuiBuilder {
 		if (j < 0) {
 			j = 0;
 		}
-		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10, 256, 256);
+		drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10, 256, 256);
 		if (!suffix.equals("")) {
 			suffix = " " + suffix;
 		}
@@ -410,7 +410,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 150, 91, 16, 16, 256, 256);
+		drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 91, 16, 16, 256, 256);
 	}
 
 	/**
@@ -446,10 +446,10 @@ public class GuiBuilder {
 			}
 		} else {
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
-				case LEFT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
-				case UP -> drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
-				case DOWN -> drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
+				case RIGHT -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		}
 
@@ -634,12 +634,12 @@ public class GuiBuilder {
 		int count = drawHeight / width;
 		int remainder = drawHeight % width;
 		for (int i = 0; i < count; i++) {
-			drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y, width, width, color);
+			drawContext.drawSpriteStretched(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, color);
 			y += width;
 		}
 		if (remainder != 0) {
 			drawContext.enableScissor(x, y, x + width, y + remainder);
-			drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y, width, width, color);
+			drawContext.drawSpriteStretched(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, color);
 			drawContext.disableScissor();
 		}
 	}
@@ -662,10 +662,10 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y, 150, 64, 13, 13, 256, 256);
+		drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 64, 13, 13, 256, 256);
 		int j = 13 - (int) ((double) progress / (double) maxProgress * 13);
 		if (j > 0) {
-			drawContext.drawTexture(RenderLayer::getGuiTextured, GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j, 256, 256);
+			drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j, 256, 256);
 
 		}
 		if (gui.isPointInRect(x, y, 12, 12, mouseX, mouseY)) {

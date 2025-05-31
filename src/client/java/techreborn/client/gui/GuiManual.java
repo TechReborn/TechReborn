@@ -25,11 +25,11 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -95,7 +95,7 @@ public class GuiManual extends Screen {
 		super.renderBackground(drawContext, mouseX, mouseY, delta);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
-		drawContext.drawTexture(RenderLayer::getGuiTextured, MANUAL_TEXTURE, centerX, centerY, 0, 0, guiWidth, guiHeight, 256, 256);
+		drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MANUAL_TEXTURE, centerX, centerY, 0, 0, guiWidth, guiHeight, 256, 256);
 	}
 
 	@Override
