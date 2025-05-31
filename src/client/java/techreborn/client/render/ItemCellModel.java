@@ -83,9 +83,11 @@ public class ItemCellModel implements ItemModel {
 		@Nullable LivingEntity user,
 		int seed
 	) {
+		state.addModelKey(this);
 		ItemRenderState.LayerRenderState layerRenderState = state.newLayer();
 		layerRenderState.setRenderLayer(layer);
 		Fluid fluid = stack.getItem() instanceof ItemFluidInfo fluidInfo ? fluidInfo.getFluid(stack) : Fluids.EMPTY;
+		state.addModelKey(fluid);
 		Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer> baked = CACHE_BAKED.computeIfAbsent(fluid, bake);
 		layerRenderState.getQuads().addAll(baked.getLeft());
 		layerRenderState.setVector(baked.getMiddle());
