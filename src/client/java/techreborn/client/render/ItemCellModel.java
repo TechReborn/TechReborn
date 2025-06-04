@@ -90,7 +90,7 @@ public class ItemCellModel implements ItemModel {
 		state.addModelKey(fluid);
 		Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer> baked = CACHE_BAKED.computeIfAbsent(fluid, bake);
 		layerRenderState.getQuads().addAll(baked.getLeft());
-		layerRenderState.setVector(baked.getMiddle());
+		layerRenderState.setVertices(baked.getMiddle());
 		layerRenderState.initTints(1)[0] = baked.getRight();
 		settings.addSettings(layerRenderState, displayContext);
 	}
