@@ -149,6 +149,12 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		setIORate();
 	}
 
+	@Override
+	public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+		disconnectNetwork();
+		super.onBlockReplaced(pos, oldState);
+	}
+
 	public void disconnectNetwork() {
 		if (world == null) return;
 
