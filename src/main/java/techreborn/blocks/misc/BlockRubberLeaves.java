@@ -59,7 +59,7 @@ public class BlockRubberLeaves extends LeavesBlock {
 
 	@Override
 	protected void spawnLeafParticle(World world, BlockPos pos, Random random) {
-		EntityEffectParticleEffect entityEffectParticleEffect = EntityEffectParticleEffect.create(ParticleTypes.TINTED_LEAVES, world.getBlockColor(pos));
+		EntityEffectParticleEffect entityEffectParticleEffect = EntityEffectParticleEffect.create(ParticleTypes.TINTED_LEAVES, 0xff4d6148);
 		ParticleUtil.spawnParticle(world, pos, random, entityEffectParticleEffect);
 	}
 }
