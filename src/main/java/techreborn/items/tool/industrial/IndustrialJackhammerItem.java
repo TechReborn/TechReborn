@@ -146,7 +146,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!isSuitableFor(worldIn.getBlockState(pos))) {
+		if (!isSuitableFor(worldIn.getBlockState(pos)) || !ItemUtils.isActive(stack)) {
 			return Collections.emptySet();
 		}
 		int radius = isAOE5(stack) ? 2 : 1;

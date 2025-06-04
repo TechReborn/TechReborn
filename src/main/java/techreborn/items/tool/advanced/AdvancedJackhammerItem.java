@@ -99,7 +99,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	// MultiBlockBreakingTool
 	@Override
 	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!isSuitableFor(worldIn.getBlockState(pos))) {
+		if (!isSuitableFor(worldIn.getBlockState(pos)) || !ItemUtils.isActive(stack)) {
 			return Collections.emptySet();
 		}
 		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1, false)
