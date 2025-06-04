@@ -55,6 +55,12 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 		super(TRBlockEntities.LSU_STORAGE, pos, state);
 	}
 
+	@Override
+	public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+		disconnectNeighbors();
+		super.onBlockReplaced(pos, oldState);
+	}
+
 	public final void connectNeighbors() {
 		if (world == null) return;
 
