@@ -102,9 +102,9 @@ public final class PlayerScreenHandlerBuilder {
 			this.startIndex = parent.parent.slots.size();
 		}
 
-		private PlayerArmorScreenHandlerBuilder armor(final int index, final int xStart, final int yStart,
+		private PlayerArmorScreenHandlerBuilder armor(final int xStart, final int yStart,
 													final EquipmentSlot slotType, final Identifier sprite) {
-			this.parent.parent.slots.add(new SpriteSlot(this.parent.player, index, xStart, yStart, sprite, 1)
+			this.parent.parent.slots.add(new SpriteSlot(this.parent.player, slotType.getOffsetEntitySlotId(PlayerInventory.MAIN_SIZE), xStart, yStart, sprite, 1)
 					.setFilter(stack -> {
 						EquippableComponent equippableComponent = stack.get(DataComponentTypes.EQUIPPABLE);
 						return equippableComponent != null && equippableComponent.slot() == slotType;
@@ -113,19 +113,19 @@ public final class PlayerScreenHandlerBuilder {
 		}
 
 		public PlayerArmorScreenHandlerBuilder helmet(final int xStart, final int yStart) {
-			return this.armor(this.parent.player.size() - 2, xStart, yStart, EquipmentSlot.HEAD, ScreenIcons.HEAD);
+			return this.armor(xStart, yStart, EquipmentSlot.HEAD, ScreenIcons.HEAD);
 		}
 
 		public PlayerArmorScreenHandlerBuilder chestplate(final int xStart, final int yStart) {
-			return this.armor(this.parent.player.size() - 3, xStart, yStart, EquipmentSlot.CHEST, ScreenIcons.CHEST);
+			return this.armor(xStart, yStart, EquipmentSlot.CHEST, ScreenIcons.CHEST);
 		}
 
 		public PlayerArmorScreenHandlerBuilder leggings(final int xStart, final int yStart) {
-			return this.armor(this.parent.player.size() - 4, xStart, yStart, EquipmentSlot.LEGS, ScreenIcons.LEGS);
+			return this.armor(xStart, yStart, EquipmentSlot.LEGS, ScreenIcons.LEGS);
 		}
 
 		public PlayerArmorScreenHandlerBuilder boots(final int xStart, final int yStart) {
-			return this.armor(this.parent.player.size() - 5, xStart, yStart, EquipmentSlot.FEET, ScreenIcons.FEET);
+			return this.armor(xStart, yStart, EquipmentSlot.FEET, ScreenIcons.FEET);
 		}
 
 		public PlayerArmorScreenHandlerBuilder complete(final int xStart, final int yStart) {
