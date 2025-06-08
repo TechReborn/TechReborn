@@ -79,14 +79,14 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 		drawText(drawContext,
 			Text.translatable("gui.techreborn.pump.depth", Integer.toString(PumpBlockEntity.MIN_DEPTH), Integer.toString(PumpBlockEntity.MAX_DEPTH))
 				.append(Integer.toString(blockEntity.getDepth())),
-			80, 20, 0x404040, layer);
+			80, 20, 0xff404040, layer);
 		drawText(drawContext,
 			Text.translatable("gui.techreborn.pump.range", Integer.toString(PumpBlockEntity.MIN_RANGE), Integer.toString(PumpBlockEntity.MAX_RANGE))
 				.append(Integer.toString(blockEntity.getRange())),
-			80, 45, 0x404040, layer);
+			80, 45, 0xff404040, layer);
 
 		if (blockEntity.getExhausted()) {
-			drawText(drawContext, Text.translatable("gui.techreborn.pump.exhausted"), 80, 75, 0x800000, layer);
+			drawText(drawContext, Text.translatable("gui.techreborn.pump.exhausted"), 80, 75, 0xff800000, layer);
 		}
 	}
 

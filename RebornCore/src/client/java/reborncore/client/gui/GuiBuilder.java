@@ -187,7 +187,7 @@ public class GuiBuilder {
 			Text text = Text.literal(String.valueOf(value))
 					.append(Text.translatable("reborncore.gui.heat"));
 
-			gui.drawCentredText(drawContext, text, y + 5, 0xFFFFFF, layer);
+			gui.drawCentredText(drawContext, text, y + 5, 0xFFFFFFFF, layer);
 		}
 	}
 
@@ -220,7 +220,7 @@ public class GuiBuilder {
 		if (!suffix.equals("")) {
 			suffix = " " + suffix;
 		}
-		gui.drawCentredText(drawContext, Text.literal(format).append(suffix), y + 5, 0xFFFFFF, layer);
+		gui.drawCentredText(drawContext, Text.literal(format).append(suffix), y + 5, 0xFFFFFFFF, layer);
 		if (gui.isPointInRect(x, y, 114, 18, mouseX, mouseY)) {
 			int percentage = percentage(max, value);
 			List<Text> list = new ArrayList<>();
@@ -295,7 +295,7 @@ public class GuiBuilder {
 		drawContext.fillGradient(x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
 		drawContext.fillGradient(x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
 
-		gui.drawCentredText(drawContext, Text.translatable("reborncore.gui.missingmultiblock"), 43, 0xFFFFFF, layer);
+		gui.drawCentredText(drawContext, Text.translatable("reborncore.gui.missingmultiblock"), 43, 0xFFFFFFFF, layer);
 	}
 
 	/**
@@ -402,7 +402,7 @@ public class GuiBuilder {
 				.append(" ");
 
 		int width = gui.getTextRenderer().getWidth(text);
-		gui.drawText(drawContext, text, x - width - 2, y + 5, 0, layer);
+		gui.drawText(drawContext, text, x - width - 2, y + 5, 0xff000000, layer);
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
