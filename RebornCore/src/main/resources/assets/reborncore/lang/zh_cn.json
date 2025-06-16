@@ -49,5 +49,5 @@
   "reborncore.gui.fluidconfig.recipe_processing": "合成中",
   "reborncore.gui.fluidconfig.ignored": "忽略",
   "reborncore.gui.fluidconfig.enabled_on": "§c红石 §a开",
-  "reborncore.gui.fluidconfig.enabled_off": "§红石 §4关"
+  "reborncore.gui.fluidconfig.enabled_off": "§c红石 §4关"
 }
