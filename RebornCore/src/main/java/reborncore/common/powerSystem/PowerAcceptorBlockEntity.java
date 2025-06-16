@@ -69,6 +69,14 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 			}
 			return 0;
 		}
+
+		@Override
+		@SuppressWarnings("UnstableApiUsage")
+		protected void onFinalCommit() {
+			if (world != null) {
+				world.updateComparators(pos, PowerAcceptorBlockEntity.this.getCachedState().getBlock());
+			}
+		}
 	};
 	private RcEnergyTier blockEntityPowerTier;
 
