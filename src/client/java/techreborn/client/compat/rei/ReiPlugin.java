@@ -43,8 +43,8 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemConvertible;
@@ -204,10 +204,10 @@ public class ReiPlugin implements REIClientPlugin {
 			}
 
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
-				case LEFT -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
-				case UP -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
-				case DOWN -> drawContext.drawTexture(RenderLayer::getGuiTextured, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
+				case RIGHT -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		});
 	}
@@ -280,12 +280,12 @@ public class ReiPlugin implements REIClientPlugin {
 				int count = drawHeight / width;
 				int remainder = drawHeight % width;
 				for (int i = 0; i < count; i++) {
-					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y, width, width, shaderColor);
+					drawContext.drawSpriteStretched(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, shaderColor);
 					y += width;
 				}
 				if (remainder != 0) {
 					drawContext.enableScissor(x, y, x + width, y + remainder);
-					drawContext.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y, width, width, shaderColor);
+					drawContext.drawSpriteStretched(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, shaderColor);
 					drawContext.disableScissor();
 				}
 			}

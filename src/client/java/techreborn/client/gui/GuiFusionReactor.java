@@ -104,15 +104,15 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 									.append(String.valueOf(stackSize.get().getLeft()))
 									.append("x64 +")
 									.append(String.valueOf(stackSize.get().getRight()))
-							, 25, 0xFFFFFF, layer);
+							, 25, 0xFFFFFFFF, layer);
 				} else {
-					drawCentredText(drawContext, Text.literal("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFF, layer);
+					drawCentredText(drawContext, Text.literal("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFFFF, layer);
 				}
 
 			}
 		}
-		drawContext.drawText(this.textRenderer, Text.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF, true);
-		drawContext.drawText(this.textRenderer, Text.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF, true);
+		drawContext.drawText(this.textRenderer, Text.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFFFF, true);
+		drawContext.drawText(this.textRenderer, Text.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFFFF, true);
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, this.blockEntity.getEnergy(), this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}

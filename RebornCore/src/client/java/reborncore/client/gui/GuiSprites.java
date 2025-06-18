@@ -24,8 +24,8 @@
 
 package reborncore.client.gui;
 
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
@@ -90,7 +90,7 @@ public final class GuiSprites {
 		final Sprite sprite = GuiBase.getSprite(spriteIdentifier);
 
 		drawContext.drawSpriteStretched(
-			RenderLayer::getGuiTextured,
+			RenderPipelines.GUI_TEXTURED,
 			sprite,
 			x,
 			y,

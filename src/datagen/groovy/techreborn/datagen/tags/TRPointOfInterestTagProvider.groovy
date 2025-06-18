@@ -41,8 +41,8 @@ class TRPointOfInterestTagProvider extends FabricTagProvider<PointOfInterestType
 
 	@Override
 	protected void configure(RegistryWrapper.WrapperLookup arg) {
-		getOrCreateTagBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE)
-			.add(TRVillager.METALLURGIST_POI)
-			.add(TRVillager.ELECTRICIAN_POI)
+		builder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE)
+			.add(TRVillager.METALLURGIST_POI_KEY)
+			.add(TRVillager.ELECTRICIAN_POI_KEY)
 	}
 }

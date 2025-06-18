@@ -24,7 +24,6 @@
 
 package reborncore.common.blockentity;
 
-import com.mojang.serialization.DataResult;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -36,10 +35,13 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.NbtWriteView;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -63,6 +65,8 @@ import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
+
+import static reborncore.RebornCore.LOGGER;
 
 import java.util.*;
 
@@ -257,9 +261,13 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	@Override
 	public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
-		NbtCompound compound = new NbtCompound();
-		super.writeNbt(compound, registryLookup);
-		writeNbt(compound, registryLookup);
+		NbtCompound compound;
+		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(getReporterContext(), LOGGER)) {
+			NbtWriteView view = NbtWriteView.create(logging, registryLookup);
+			super.writeData(view);
+			writeData(view);
+			compound = view.getNbt();
+		}
 		return compound;
 	}
 
@@ -363,56 +371,45 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
+	public void readData(ReadView view) {
+		super.readData(view);
 		if (getOptionalInventory().isPresent()) {
-			getOptionalInventory().get().read(tagCompound, registryLookup);
+			getOptionalInventory().get().read(view);
 		}
 		if (getOptionalCrafter().isPresent()) {
-			getOptionalCrafter().get().read(tagCompound);
+			getOptionalCrafter().get().read(view);
 		}
-		if (tagCompound.contains("slotConfig")) {
-			slotConfiguration = new SlotConfiguration(tagCompound.getCompound("slotConfig").orElseThrow());
-		} else {
+		view.getOptionalReadView("slotConfig").ifPresentOrElse(config -> {
+			slotConfiguration = new SlotConfiguration(config);
+		}, () -> {
 			if (getOptionalInventory().isPresent()) {
 				slotConfiguration = new SlotConfiguration(getOptionalInventory().get());
 			}
-		}
-		if (tagCompound.contains("fluidConfig")) {
-			fluidConfiguration = new FluidConfiguration(tagCompound.getCompound("fluidConfig").orElseThrow());
-		}
-		if (tagCompound.contains("redstoneConfig")) {
-			NbtCompound redstoneConfig = tagCompound.getCompound("redstoneConfig").orElseThrow();
-			DataResult<RedstoneConfiguration> result = RedstoneConfiguration.CODEC.codec().parse(NbtOps.INSTANCE, redstoneConfig);
-
-			if (result.isSuccess()) {
-				redstoneConfiguration = result.getOrThrow();
-			} else {
-				// If the redstone configuration is invalid, reset it
-				redstoneConfiguration = new RedstoneConfiguration();
-			}
-		}
-		upgradeInventory.read(tagCompound, "Upgrades", registryLookup);
+		});
+		view.getOptionalReadView("fluidConfig").ifPresent(config -> {
+			fluidConfiguration = new FluidConfiguration(config);
+		});
+		redstoneConfiguration = view.read("redstoneConfig", RedstoneConfiguration.CODEC.codec()).orElseGet(RedstoneConfiguration::new);
+		upgradeInventory.read(view, "Upgrades");
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
+	public void writeData(WriteView view) {
+		super.writeData(view);
 		if (getOptionalInventory().isPresent()) {
-			getOptionalInventory().get().write(tagCompound, registryLookup);
+			getOptionalInventory().get().write(view);
 		}
 		if (getOptionalCrafter().isPresent()) {
-			getOptionalCrafter().get().write(tagCompound);
+			getOptionalCrafter().get().write(view);
 		}
 		if (slotConfiguration != null) {
-			tagCompound.put("slotConfig", slotConfiguration.write());
+			slotConfiguration.write(view.get("slotConfig"));
 		}
 		if (fluidConfiguration != null) {
-			tagCompound.put("fluidConfig", fluidConfiguration.write());
+			fluidConfiguration.write(view.get("fluidConfig"));
 		}
-		upgradeInventory.write(tagCompound, "Upgrades", registryLookup);
-		tagCompound.put("redstoneConfig", RedstoneConfiguration.CODEC.codec()
-			.encodeStart(NbtOps.INSTANCE, redstoneConfiguration).result().get());
+		upgradeInventory.write(view, "Upgrades");
+		view.put("redstoneConfig", RedstoneConfiguration.CODEC.codec(), redstoneConfiguration);
 	}
 
 	// Inventory end

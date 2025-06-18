@@ -1,7 +1,7 @@
 {
-	"titleColor": "#404040",
-	"subtitleColor": "#AAAAAA",
-	"warningTextColor": "#FF0000",
+	"titleColor": "#FF404040",
+	"subtitleColor": "#FFAAAAAA",
+	"warningTextColor": "#FFFF0000",
 	"ioInputColor": "#800000FF",
 	"ioOutputColor": "#80FF4500",
 	"ioBothColor": "#8034FF1E"

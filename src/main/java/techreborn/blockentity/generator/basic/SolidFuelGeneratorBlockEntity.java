@@ -29,9 +29,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -146,17 +146,17 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tag, registryLookup);
-		burnTime = tag.getInt("BurnTime").orElse(0);
-		totalBurnTime = tag.getInt("TotalBurnTime").orElse(0);
+	public void readData(ReadView view) {
+		super.readData(view);
+		burnTime = view.getInt("BurnTime", 0);
+		totalBurnTime = view.getInt("TotalBurnTime", 0);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tag, registryLookup);
-		tag.putInt("BurnTime", burnTime);
-		tag.putInt("TotalBurnTime", totalBurnTime);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putInt("BurnTime", burnTime);
+		view.putInt("TotalBurnTime", totalBurnTime);
 	}
 
 	// MachineBaseBlockEntity

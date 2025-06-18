@@ -25,11 +25,11 @@
 package techreborn;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.item.model.ItemModelTypes;
 import net.minecraft.client.render.item.property.select.SelectProperties;
@@ -91,22 +91,22 @@ public class TechRebornClient implements ClientModInitializer {
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
 
-		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.INSTANCE.putBlock(cable.block, RenderLayer.getCutout()));
+		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.putBlock(cable.block, BlockRenderLayer.CUTOUT));
 
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.LAMP_LED.block, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.ALARM.block, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.RUBBER_SAPLING, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.REINFORCED_GLASS, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.RESIN_BASIN.block, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.POTTED_RUBBER_SAPLING, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.FISHING_STATION.block, RenderLayer.getCutout());
+		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_LED.block, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.ALARM.block, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.RUBBER_SAPLING, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.REINFORCED_GLASS, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.RESIN_BASIN.block, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.POTTED_RUBBER_SAPLING, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.FISHING_STATION.block, BlockRenderLayer.CUTOUT);
 
-		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.RUBBER_LEAVES, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.putBlock(TRContent.RUBBER_LEAVES, BlockRenderLayer.CUTOUT_MIPPED);
 
 		for (ModFluids fluid : ModFluids.values()) {
-			BlockRenderLayerMap.INSTANCE.putFluid(fluid.getFluid(), RenderLayer.getTranslucent());
-			BlockRenderLayerMap.INSTANCE.putFluid(fluid.getFlowingFluid(), RenderLayer.getTranslucent());
+			BlockRenderLayerMap.putFluid(fluid.getFluid(), BlockRenderLayer.TRANSLUCENT);
+			BlockRenderLayerMap.putFluid(fluid.getFlowingFluid(), BlockRenderLayer.TRANSLUCENT);
 		}
 
 		BlockEntityRendererFactories.register(TRBlockEntities.INDUSTRIAL_GRINDER, MultiblockRenderer::new);

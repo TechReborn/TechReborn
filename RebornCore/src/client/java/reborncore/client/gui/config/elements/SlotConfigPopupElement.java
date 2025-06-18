@@ -26,7 +26,8 @@ package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.math.Direction;
@@ -64,7 +65,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			case "INPUT" -> theme.ioInputColor().rgba();
 			case "OUTPUT" -> theme.ioOutputColor().rgba();
 			case "FIRST", "LAST" -> (allowInput ? theme.ioInputColor() : theme.ioOutputColor()).rgba();
-			default -> 0x80000000 | theme.warningTextColor().rgba();
+			default -> theme.warningTextColor().rgba() & 0xffffff | 0x80000000;
 		};
 	}
 
@@ -157,7 +158,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 	}
 
 	@Override
-	protected void drawSateColor(DrawContext drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
+	protected void drawSateColor(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, GuiBase<?> gui, Direction side, int inx, int iny) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -172,17 +173,17 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			case OUTPUT -> theme.ioOutputColor();
 			default -> new ColorCode(0);
 		};
-		drawContext.fill(sx, sy, sx + 18, sy + 18, color.rgba());
+		fill(matrixStack, vertexConsumers, sx, sy, sx + 18, sy + 18, color.rgba());
 		if (side == slotConfigHolder.first) {
-			drawTag(drawContext, gui, sx, sy, "F");
+			drawTag(matrixStack, vertexConsumers, gui, sx, sy, "F");
 		} else if (side == slotConfigHolder.last) {
-			drawTag(drawContext, gui, sx, sy, "L");
+			drawTag(matrixStack, vertexConsumers, gui, sx, sy, "L");
 		}
 	}
 
-	protected void drawTag(DrawContext drawContext, GuiBase<?> gui, int sx, int sy, String tag) {
+	protected void drawTag(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, GuiBase<?> gui, int sx, int sy, String tag) {
 		TextRenderer textRenderer = gui.getTextRenderer();
 		Text text = Text.of(tag);
-		drawContext.drawText(textRenderer, text, sx + 10 - textRenderer.getWidth(tag) / 2, sy + 6, -1, false);
+		drawText(matrixStack, vertexConsumers, textRenderer, text, sx + 10 - (float) textRenderer.getWidth(tag) / 2, sy + 6, -1, false);
 	}
 }

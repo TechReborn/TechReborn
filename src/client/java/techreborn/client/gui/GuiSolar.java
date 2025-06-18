@@ -48,10 +48,10 @@ public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 		builder.drawMultiEnergyBar(drawContext, this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 
 		if (!blockEntity.isGenerating()) {
-			builder.drawText(drawContext, this, Text.translatable("techreborn.message.panel_blocked"), 10, 20, 12066591);
+			builder.drawText(drawContext, this, Text.translatable("techreborn.message.panel_blocked"), 10, 20, 0xffb81f1f);
 		}
 
-		builder.drawText(drawContext, this, Text.literal("Generating: " + blockEntity.getGenerationRate() + " E/t"), 10, 30, 0);
+		builder.drawText(drawContext, this, Text.literal("Generating: " + blockEntity.getGenerationRate() + " E/t"), 10, 30, 0xff000000);
 
 	}
 }

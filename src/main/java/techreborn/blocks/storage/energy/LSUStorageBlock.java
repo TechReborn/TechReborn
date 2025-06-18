@@ -29,7 +29,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -50,15 +49,6 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 	public LSUStorageBlock(String name) {
 		super(TRBlockSettings.lsuStorage(name));
 		BlockWrenchEventHandler.wrenchableBlocks.add(this);
-	}
-
-	// BaseTileBlock
-	@Override
-	protected void onStateReplaced(BlockState state, ServerWorld worldIn, BlockPos pos, boolean isMoving) {
-		if (worldIn.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
-			blockEntity.disconnectNeighbors();
-		}
-		super.onStateReplaced(state, worldIn, pos, isMoving);
 	}
 
 	@Override

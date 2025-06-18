@@ -24,15 +24,15 @@
 
 package reborncore.common.util;
 
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import org.jetbrains.annotations.NotNull;
 
 @Deprecated
 public interface NBTSerializable {
 
-	@NotNull
-	NbtCompound write();
+	void write(@NotNull WriteView view);
 
-	void read(@NotNull NbtCompound tag);
+	void read(@NotNull ReadView view);
 
 }

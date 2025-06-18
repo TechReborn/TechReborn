@@ -75,11 +75,12 @@ public class ItemBucketModel implements ItemModel {
 		@Nullable LivingEntity user,
 		int seed
 	) {
+		state.addModelKey(this);
 		ItemRenderState.LayerRenderState layerRenderState = state.newLayer();
 		layerRenderState.setRenderLayer(layer);
 		Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer> baked = bake.get();
 		layerRenderState.getQuads().addAll(baked.getLeft());
-		layerRenderState.setVector(baked.getMiddle());
+		layerRenderState.setVertices(baked.getMiddle());
 		layerRenderState.initTints(1)[0] = baked.getRight();
 		settings.addSettings(layerRenderState, displayContext);
 	}

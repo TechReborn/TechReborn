@@ -27,11 +27,11 @@ package reborncore.client.gui;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -130,7 +130,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	@Override
 	protected void drawBackground(DrawContext drawContext, float lastFrameDuration, int mouseX, int mouseY) {
-		drawContext.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+		drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
 		builder.drawDefaultBackground(drawContext, x, y, xSize, ySize);
@@ -185,10 +185,10 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		super.render(drawContext, mouseX, mouseY, partialTicks);
 		this.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
-		drawContext.getMatrices().push();
-		drawContext.getMatrices().translate(this.x, this.y, 900);
+		drawContext.getMatrices().pushMatrix();
+		drawContext.getMatrices().translate(this.x, this.y);
 		getTab().ifPresent(guiTab -> guiTab.draw(drawContext, mouseX, mouseY));
-		drawContext.getMatrices().pop();
+		drawContext.getMatrices().popMatrix();
 	}
 
 	@Override

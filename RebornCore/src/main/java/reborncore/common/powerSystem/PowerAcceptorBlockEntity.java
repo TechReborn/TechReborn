@@ -30,8 +30,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -68,6 +68,14 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 				return PowerAcceptorBlockEntity.this.getMaxOutput(side);
 			}
 			return 0;
+		}
+
+		@Override
+		@SuppressWarnings("UnstableApiUsage")
+		protected void onFinalCommit() {
+			if (world != null) {
+				world.updateComparators(pos, PowerAcceptorBlockEntity.this.getCachedState().getBlock());
+			}
 		}
 	};
 	private RcEnergyTier blockEntityPowerTier;
@@ -351,21 +359,20 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	}
 
 	@Override
-	public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tag, registryLookup);
-		NbtCompound data = tag.getCompoundOrEmpty("PowerAcceptor");
+	public void readData(ReadView view) {
+		super.readData(view);
 		if (shouldHandleEnergyNBT()) {
 			// Bypass overfill check in setStored() because upgrades have not yet been applied.
-			this.energyContainer.amount = data.getLong("energy").orElse(0L);
+			view.getOptionalReadView("PowerAcceptor").ifPresent(data -> {
+				this.energyContainer.amount = data.getLong("energy", 0);
+			});
 		}
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tag, registryLookup);
-		NbtCompound data = new NbtCompound();
-		data.putLong("energy", getStored());
-		tag.put("PowerAcceptor", data);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.get("PowerAcceptor").putLong("energy", getStored());
 	}
 
 	@Override

@@ -26,8 +26,8 @@ package reborncore.common.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import org.jetbrains.annotations.NotNull;
 import reborncore.api.items.InventoryBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -96,22 +96,23 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 		return stack;
 	}
 
-	public void read(NbtCompound data, RegistryWrapper.WrapperLookup registryLookup) {
-		read(data, "Items", registryLookup);
+	public void read(ReadView view) {
+		read(view, "Items");
 	}
 
-	public void read(NbtCompound data, String tag, RegistryWrapper.WrapperLookup registryLookup) {
-		NbtCompound nbtTagList = data.getCompoundOrEmpty(tag);
-		deserializeNBT(nbtTagList, registryLookup);
-		hasChanged = true;
+	public void read(ReadView view, String tag) {
+		view.getOptionalReadView(tag).ifPresent(data -> {
+			readData(data);
+			hasChanged = true;
+		});
 	}
 
-	public void write(NbtCompound data, RegistryWrapper.WrapperLookup registryLookup) {
-		write(data, "Items", registryLookup);
+	public void write(WriteView view) {
+		write(view, "Items");
 	}
 
-	public void write(NbtCompound data, String tag, RegistryWrapper.WrapperLookup registryLookup) {
-		data.put(tag, serializeNBT(registryLookup));
+	public void write(WriteView view, String tag) {
+		writeData(view.get(tag));
 	}
 
 

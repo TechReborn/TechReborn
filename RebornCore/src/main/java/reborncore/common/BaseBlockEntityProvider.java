@@ -34,10 +34,14 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.storage.NbtWriteView;
+import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import static reborncore.RebornCore.LOGGER;
 
 import java.util.Optional;
 
@@ -55,8 +59,12 @@ public abstract class BaseBlockEntityProvider extends BaseBlock implements Block
 
 		ItemStack newStack = stack.copy();
 		newStack.applyComponentsFrom(blockEntity.createComponentMap());
-		NbtCompound blockEntityData = blockEntity.createNbtWithId(world.getRegistryManager());
-		newStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(blockEntityData));
+		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(() -> "BaseBlockEntityProvider", LOGGER)) {
+			NbtWriteView view = NbtWriteView.create(logging, world.getRegistryManager());
+			blockEntity.writeDataWithId(view);
+			NbtCompound blockEntityData = view.getNbt();
+			newStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(blockEntityData));
+		}
 		return Optional.of(newStack);
 	}
 

@@ -25,7 +25,6 @@
 package techreborn.blocks.cable;
 
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -288,7 +287,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		if (state.get(COVERED)) {
 			final BlockState cover;
 
-			if (((RenderAttachedBlockView) renderView).getBlockEntityRenderAttachment(pos) instanceof BlockState blockState) {
+			if (renderView.getBlockEntityRenderData(pos) instanceof BlockState blockState) {
 				cover = blockState;
 			} else {
 				cover = Blocks.OAK_PLANKS.getDefaultState();

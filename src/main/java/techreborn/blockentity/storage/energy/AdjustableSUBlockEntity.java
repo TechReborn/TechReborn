@@ -29,9 +29,11 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.NbtWriteView;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -46,6 +48,8 @@ import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
+
+import static techreborn.TechReborn.LOGGER;
 
 public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
@@ -106,11 +110,13 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
-		NbtCompound nbt = new NbtCompound();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
 		if (world != null){
-			writeNbt(nbt, world.getRegistryManager());
-			dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(nbt));
+			try (ErrorReporter.Logging logging = new ErrorReporter.Logging(getReporterContext(), LOGGER)) {
+				NbtWriteView view = NbtWriteView.create(logging, world.getRegistryManager());
+				writeData(view);
+				dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(view.getNbt()));
+			}
 		}
 
 		return dropStack;
@@ -143,15 +149,15 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		tagCompound.putInt("output", OUTPUT);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putInt("output", OUTPUT);
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(nbtCompound, registryLookup);
-		this.OUTPUT = nbtCompound.getInt("output").orElse(0);
+	public void readData(ReadView view) {
+		super.readData(view);
+		this.OUTPUT = view.getInt("output", 0);
 	}
 
 	// MachineBaseBlockEntity

@@ -30,7 +30,8 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.block.OrientationHelper;
@@ -114,26 +115,26 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	// /// Overrides from base BlockEntity methods
 
 	@Override
-	public void readNbt(NbtCompound data, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(data, registryLookup);
+	public void readData(ReadView view) {
+		super.readData(view);
 
 		// We can't directly initialize a multiblock controller yet, so we cache
 		// the data here until
 		// we receive a "validate()" call, which creates the controller and hands
 		// off the cached data.
-		if (data.contains("multiblockData")) {
-			this.cachedMultiblockData = data.getCompound("multiblockData").orElseThrow();
-		}
+		view.read("multiblockData", NbtCompound.CODEC).ifPresent(data -> {
+			this.cachedMultiblockData = data;
+		});
 	}
 
 	@Override
-	public void writeNbt(NbtCompound data, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(data, registryLookup);
+	public void writeData(WriteView view) {
+		super.writeData(view);
 
 		if (isMultiblockSaveDelegate() && isConnected()) {
 			NbtCompound multiblockData = new NbtCompound();
 			this.controller.write(multiblockData);
-			data.put("multiblockData", multiblockData);
+			view.put("multiblockData", NbtCompound.CODEC, multiblockData);
 		}
 	}
 

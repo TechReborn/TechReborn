@@ -28,8 +28,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -103,15 +103,15 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	// TilePowerAcceptor
 	@Override
-	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
-		tank.read(tagCompound, registryLookup);
+	public void readData(ReadView view) {
+		super.readData(view);
+		tank.read(view);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		tank.write(tagCompound, registryLookup);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		tank.write(view);
 	}
 
 	private static IInventoryAccess<FluidReplicatorBlockEntity> getInventoryAccess() {

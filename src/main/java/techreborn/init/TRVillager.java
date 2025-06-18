@@ -62,10 +62,12 @@ public class TRVillager {
 	public static final PointOfInterestType ELECTRICIAN_POI = PointOfInterestHelper.register(
 		ELECTRICIAN_ID, 1, 1, TRContent.Machine.SOLID_FUEL_GENERATOR.block
 	);
+	public static final RegistryKey<PointOfInterestType> METALLURGIST_POI_KEY = RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, METALLURGIST_ID);
+	public static final RegistryKey<PointOfInterestType> ELECTRICIAN_POI_KEY = RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, ELECTRICIAN_ID);
 
-	public static final RegistryKey<VillagerProfession> METALLURGIST_PROFESSION = registerVillagerProfession(METALLURGIST_ID, SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH);
+	public static final RegistryKey<VillagerProfession> METALLURGIST_PROFESSION = registerVillagerProfession(METALLURGIST_ID, METALLURGIST_POI_KEY, SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH);
 
-	public static final RegistryKey<VillagerProfession> ELECTRICIAN_PROFESSION = registerVillagerProfession(ELECTRICIAN_ID, ModSounds.CABLE_SHOCK);
+	public static final RegistryKey<VillagerProfession> ELECTRICIAN_PROFESSION = registerVillagerProfession(ELECTRICIAN_ID, ELECTRICIAN_POI_KEY, ModSounds.CABLE_SHOCK);
 
 	private TRVillager() {/* No instantiation. */}
 
@@ -155,9 +157,8 @@ public class TRVillager {
 		}
 	}
 
-	private static RegistryKey<VillagerProfession> registerVillagerProfession(Identifier id, SoundEvent event) {
+	private static RegistryKey<VillagerProfession> registerVillagerProfession(Identifier id, RegistryKey<PointOfInterestType> heldWorkstation, SoundEvent event) {
 		RegistryKey<VillagerProfession> key = RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, id);
-		RegistryKey<PointOfInterestType> heldWorkstation = RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, id);
 		Predicate<RegistryEntry<PointOfInterestType>> match = entry -> entry.matchesKey(heldWorkstation);
 		Registry.register(
 			Registries.VILLAGER_PROFESSION,

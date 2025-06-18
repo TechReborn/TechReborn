@@ -28,14 +28,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -125,24 +124,21 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		tagCompound.putInt("radius", radius);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putInt("radius", radius);
 		if (ownerUdid != null && !ownerUdid.isEmpty()){
-			tagCompound.putString("ownerUdid", ownerUdid);
+			view.putString("ownerUdid", ownerUdid);
 		}
-		inventory.write(tagCompound, registryLookup);
+		inventory.write(view);
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(nbtCompound, registryLookup);
-		this.radius = nbtCompound.getInt("radius").orElse(0);
-		this.ownerUdid = nbtCompound.getString("ownerUdid").orElse("");
-		if (!StringUtils.isBlank(ownerUdid)) {
-			nbtCompound.putString("ownerUdid", this.ownerUdid);
-		}
-		inventory.read(nbtCompound, registryLookup);
+	public void readData(ReadView view) {
+		super.readData(view);
+		this.radius = view.getInt("radius", 0);
+		this.ownerUdid = view.getString("ownerUdid", "");
+		inventory.read(view);
 	}
 
 	// IToolDrop

@@ -29,8 +29,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
@@ -134,19 +134,19 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	// MachineBaseBlockEntity
 	@Override
-	public void readNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(compoundTag, registryLookup);
-		burnTime = compoundTag.getInt("BurnTime").orElse(0);
-		totalBurnTime = compoundTag.getInt("TotalBurnTime").orElse(0);
-		progress = compoundTag.getInt("Progress").orElse(0);
+	public void readData(ReadView view) {
+		super.readData(view);
+		burnTime = view.getInt("BurnTime", 0);
+		totalBurnTime = view.getInt("TotalBurnTime", 0);
+		progress = view.getInt("Progress", 0);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound compoundTag, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(compoundTag, registryLookup);
-		compoundTag.putInt("BurnTime", burnTime);
-		compoundTag.putInt("TotalBurnTime", totalBurnTime);
-		compoundTag.putInt("Progress", progress);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putInt("BurnTime", burnTime);
+		view.putInt("TotalBurnTime", totalBurnTime);
+		view.putInt("Progress", progress);
 	}
 
 	@Override

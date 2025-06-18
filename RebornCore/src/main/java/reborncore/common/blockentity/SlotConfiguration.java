@@ -35,15 +35,22 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.NbtReadView;
+import net.minecraft.storage.NbtWriteView;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
-import reborncore.RebornCore;
 import reborncore.common.util.NBTSerializable;
 import reborncore.common.util.RebornInventory;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static reborncore.RebornCore.LOGGER;
 
 public class SlotConfiguration implements NBTSerializable {
 	public static final PacketCodec<ByteBuf, SlotConfiguration> PACKET_CODEC = SlotConfigHolder.PACKET_CODEC
@@ -76,7 +83,7 @@ public class SlotConfiguration implements NBTSerializable {
 			for (int i = 0; i < inventory.size(); i++) {
 				SlotConfigHolder holder = getSlotDetails(i);
 				if (holder == null) {
-					RebornCore.LOGGER.debug("Fixed slot " + i + " in " + machineBase);
+					LOGGER.debug("Fixed slot " + i + " in " + machineBase);
 					// hmm, something has gone wrong
 					updateSlotDetails(new SlotConfigHolder(i));
 				}
@@ -87,8 +94,8 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 	}
 
-	public SlotConfiguration(NbtCompound tagCompound) {
-		read(tagCompound);
+	public SlotConfiguration(ReadView view) {
+		read(view);
 	}
 
 	public List<SlotConfigHolder> getSlotDetails() {
@@ -125,22 +132,20 @@ public class SlotConfiguration implements NBTSerializable {
 	}
 
 	@Override
-	public NbtCompound write() {
-		NbtCompound tagCompound = new NbtCompound();
-		tagCompound.putInt("size", slotDetails.size());
+	public void write(WriteView view) {
+		view.putInt("size", slotDetails.size());
 		for (int i = 0; i < slotDetails.size(); i++) {
-			tagCompound.put("slot_" + i, slotDetails.get(i).write());
+			slotDetails.get(i).write(view.get("slot_" + i));
 		}
-		return tagCompound;
 	}
 
 	@Override
-	public void read(NbtCompound nbt) {
-		int size = nbt.getInt("size").orElse(0);
+	public void read(ReadView view) {
+		int size = view.getInt("size", 0);
 		for (int i = 0; i < size; i++) {
-			NbtCompound tagCompound = nbt.getCompoundOrEmpty("slot_" + i);
-			SlotConfigHolder slotConfigHolder = new SlotConfigHolder(tagCompound);
-			updateSlotDetails(slotConfigHolder);
+			view.getOptionalReadView("slot_" + i).ifPresent(slot -> {
+				updateSlotDetails(new SlotConfigHolder(slot));
+			});
 		}
 	}
 
@@ -176,9 +181,9 @@ public class SlotConfiguration implements NBTSerializable {
 			Arrays.stream(Direction.values()).forEach(facing -> sideMap.put(facing, new SlotConfig(facing, slotID)));
 		}
 
-		public SlotConfigHolder(NbtCompound tagCompound) {
+		public SlotConfigHolder(ReadView view) {
 			sideMap = new HashMap<>();
-			read(tagCompound);
+			read(view);
 			Validate.isTrue(Arrays.stream(Direction.values())
 								.map(enumFacing -> sideMap.get(enumFacing))
 								.noneMatch(Objects::isNull),
@@ -272,39 +277,33 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public NbtCompound write() {
-			NbtCompound compound = new NbtCompound();
-			compound.putInt("slotID", slotID);
-			Arrays.stream(Direction.values()).forEach(facing -> compound.put("side_" + facing.ordinal(), sideMap.get(facing).write()));
-			compound.putBoolean("input", input);
-			compound.putBoolean("output", output);
-			compound.putBoolean("filter", filter);
+		public void write(WriteView view) {
+			view.putInt("slotID", slotID);
+			Arrays.stream(Direction.values()).forEach(facing -> sideMap.get(facing).write(view.get("side_" + facing.ordinal())));
+			view.putBoolean("input", input);
+			view.putBoolean("output", output);
+			view.putBoolean("filter", filter);
 			if (this.first != null || this.last != null) {
-				compound.putInt("priority", getPriority());
+				view.putInt("priority", getPriority());
 			}
-			return compound;
 		}
 
 		@Override
-		public void read(NbtCompound nbt) {
+		public void read(ReadView view) {
 			sideMap.clear();
-			slotID = nbt.getInt("slotID").orElse(0);
+			slotID = view.getInt("slotID", 0);
 			Arrays.stream(Direction.values()).forEach(facing -> {
-				NbtCompound compound = nbt.getCompoundOrEmpty("side_" + facing.ordinal());
-				SlotConfig config = new SlotConfig(compound);
-				sideMap.put(facing, config);
+				view.getOptionalReadView("side_" + facing.ordinal()).ifPresent(config -> {
+					sideMap.put(facing, new SlotConfig(config));
+				});
 			});
-			input = nbt.getBoolean("input").orElse(false);
-			output = nbt.getBoolean("output").orElse(false);
-			if (nbt.contains("filter")) { // Was added later, this allows old saves to be upgraded
-				filter = nbt.getBoolean("filter").orElseThrow();
-			}
-			if (nbt.contains("priority")) {
-				setPriority(nbt.getInt("priority").orElseThrow());
-			} else {
+			input = view.getBoolean("input", false);
+			output = view.getBoolean("output", false);
+			filter = view.getBoolean("filter", false);
+			view.getOptionalInt("priority").ifPresentOrElse(this::setPriority, () -> {
 				first = null;
 				last = null;
-			}
+			});
 		}
 	}
 
@@ -332,8 +331,8 @@ public class SlotConfiguration implements NBTSerializable {
 			this.slotID = slotID;
 		}
 
-		public SlotConfig(NbtCompound tagCompound) {
-			read(tagCompound);
+		public SlotConfig(ReadView view) {
+			read(view);
 			Validate.notNull(side, "error when loading slot config");
 			Validate.notNull(slotIO, "error when loading slot config");
 		}
@@ -385,19 +384,19 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public NbtCompound write() {
-			NbtCompound tagCompound = new NbtCompound();
-			tagCompound.putInt("side", side.ordinal());
-			tagCompound.put("config", slotIO.write());
-			tagCompound.putInt("slot", slotID);
-			return tagCompound;
+		public void write(WriteView view) {
+			view.putInt("side", side.ordinal());
+			slotIO.write(view.get("config"));
+			view.putInt("slot", slotID);
 		}
 
 		@Override
-		public void read(NbtCompound nbt) {
-			side = Direction.values()[nbt.getInt("side").orElse(0)];
-			slotIO = new SlotIO(nbt.getCompoundOrEmpty("config"));
-			slotID = nbt.getInt("slot").orElse(0);
+		public void read(ReadView view) {
+			side = Direction.values()[view.getInt("side", 0)];
+			view.getOptionalReadView("config").ifPresent(config -> {
+				slotIO = new SlotIO(config);
+			});
+			slotID = view.getInt("slot", 0);
 		}
 	}
 
@@ -409,8 +408,8 @@ public class SlotConfiguration implements NBTSerializable {
 
 		ExtractConfig ioConfig;
 
-		public SlotIO(NbtCompound tagCompound) {
-			read(tagCompound);
+		public SlotIO(ReadView view) {
+			read(view);
 		}
 
 		public SlotIO(ExtractConfig ioConfig) {
@@ -422,15 +421,13 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public NbtCompound write() {
-			NbtCompound compound = new NbtCompound();
-			compound.putInt("config", ioConfig.ordinal());
-			return compound;
+		public void write(WriteView view) {
+			view.putInt("config", ioConfig.ordinal());
 		}
 
 		@Override
-		public void read(NbtCompound nbt) {
-			ioConfig = ExtractConfig.values()[nbt.getInt("config").orElse(0)];
+		public void read(ReadView view) {
+			ioConfig = ExtractConfig.values()[view.getInt("config", 0)];
 		}
 	}
 
@@ -467,14 +464,16 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 	}
 
-	public String toJson(String machineIdent) {
-		NbtCompound tagCompound = new NbtCompound();
-		tagCompound.put("data", write());
-		tagCompound.putString("machine", machineIdent);
-		return tagCompound.toString();
+	public String toJson(String machineIdent, RegistryWrapper.WrapperLookup registryLookup) {
+		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(() -> "SlotConfiguration", LOGGER)) {
+			NbtWriteView view = NbtWriteView.create(logging, registryLookup);
+			write(view.get("data"));
+			view.putString("machine", machineIdent);
+			return view.getNbt().toString();
+		}
 	}
 
-	public void readJson(String json, String machineIdent) throws UnsupportedOperationException {
+	public void readJson(String json, String machineIdent, RegistryWrapper.WrapperLookup registryLookup) throws UnsupportedOperationException {
 		NbtCompound compound;
 		try {
 			compound = StringNbtReader.readCompound(json);
@@ -484,7 +483,9 @@ public class SlotConfiguration implements NBTSerializable {
 		if (!compound.contains("machine") || !compound.getString("machine").orElseThrow().equals(machineIdent)) {
 			throw new UnsupportedOperationException("Machine config is not for this machine.");
 		}
-		read(compound.getCompoundOrEmpty("data"));
+		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(() -> "SlotConfiguration", LOGGER)) {
+			read(NbtReadView.create(logging, registryLookup, compound.getCompoundOrEmpty("data")));
+		}
 	}
 
 	// DO NOT CALL THIS, use the inventory access on the inventory

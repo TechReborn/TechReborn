@@ -25,7 +25,6 @@
 package techreborn.blockentity.cable;
 
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -33,10 +32,11 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -49,7 +49,6 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.network.clientbound.CustomDescriptionPayload;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
-import reborncore.common.util.WorldUtils;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleSidedEnergyContainer;
 import techreborn.blocks.cable.CableBlock;
@@ -60,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CableBlockEntity extends BlockEntity
-	implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop, RenderAttachmentBlockEntity {
+	implements BlockEntityTicker<CableBlockEntity>, IListInfoProvider, IToolDrop {
 	// Can't use SimpleEnergyStorage because the cable type is not available when the BE is constructed.
 	final SimpleSidedEnergyContainer energyContainer = new SimpleSidedEnergyContainer() {
 		@Override
@@ -232,24 +231,18 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public void readNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(compound, registryLookup);
-		if (compound.contains("energy")) {
-			energyContainer.amount = compound.getLong("energy").orElseThrow();
-		}
-		if (compound.contains("cover")) {
-			cover = NbtHelper.toBlockState(WorldUtils.getBlockRegistryWrapper(world), compound.getCompound("cover").orElseThrow());
-		} else {
-			cover = null;
-		}
+	public void readData(ReadView view) {
+		super.readData(view);
+		energyContainer.amount = view.getLong("energy", 0);
+		cover = view.read("cover", BlockState.CODEC).orElse(null);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound compound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(compound, registryLookup);
-		compound.putLong("energy", energyContainer.amount);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putLong("energy", energyContainer.amount);
 		if (cover != null) {
-			compound.put("cover", NbtHelper.fromBlockState(cover));
+			view.put("cover", BlockState.CODEC, cover);
 		}
 	}
 
@@ -301,7 +294,7 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public @Nullable BlockState getRenderAttachmentData() {
+	public @Nullable BlockState getRenderData() {
 		return cover;
 	}
 

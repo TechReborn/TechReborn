@@ -54,9 +54,9 @@ public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity>
 		}
 
 		final BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-		final BlockState renderData = blockEntity.getRenderAttachmentData();
+		final BlockState renderData = blockEntity.getRenderData();
 		final BlockState coverState = renderData != null ? renderData : Blocks.OAK_PLANKS.getDefaultState();
-		final VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayers.getBlockLayer(coverState));
+		final VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayers.getEntityBlockLayer(coverState));
 		List<BlockModelPart> parts = blockRenderManager.getModel(coverState).getParts(Random.create());
 		blockRenderManager.renderBlock(coverState, blockEntity.getPos(), blockEntity.getWorld(), matrices, consumer, true, parts);
 	}

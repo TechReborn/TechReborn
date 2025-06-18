@@ -143,7 +143,7 @@ class ShapedRecipeFactory {
 		} else if (object instanceof ItemConvertible) {
 			return Ingredient.ofItems(object)
 		} else if (object instanceof TagKey) {
-			return Ingredient.fromTag(itemLookup.getOrThrow(object))
+			return Ingredient.ofTag(itemLookup.getOrThrow(object))
 		} else {
 			throw new IllegalArgumentException("Invalid pattern element: $object")
 		}

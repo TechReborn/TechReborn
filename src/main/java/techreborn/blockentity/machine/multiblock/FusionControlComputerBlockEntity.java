@@ -28,10 +28,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -347,29 +347,27 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	}
 
 	@Override
-	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
-		this.craftingTickTime = tagCompound.getInt("craftingTickTime").orElse(0);
-		this.neededPower = tagCompound.getInt("neededPower").orElse(0);
-		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting").orElse(false);
-		if (tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe").orElseThrow() && this.currentRecipeEntry == null) {
+	public void readData(ReadView view) {
+		super.readData(view);
+		this.craftingTickTime = view.getInt("craftingTickTime", 0);
+		this.neededPower = view.getInt("neededPower", 0);
+		this.hasStartedCrafting = view.getBoolean("hasStartedCrafting", false);
+		if (view.getBoolean("hasActiveRecipe", false) && this.currentRecipeEntry == null) {
 			checkNBTRecipe = true;
 		}
-		if (tagCompound.contains("size")) {
-			this.size = tagCompound.getInt("size").orElseThrow();
-		}
+		this.size = view.getInt("size", 0);
 		//Done here to force the smaller size, will be useful if people lag out on a large one.
 		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize);
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound,registryLookup);
-		tagCompound.putInt("craftingTickTime", this.craftingTickTime);
-		tagCompound.putInt("neededPower", this.neededPower);
-		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
-		tagCompound.putBoolean("hasActiveRecipe", this.currentRecipeEntry != null);
-		tagCompound.putInt("size", size);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putInt("craftingTickTime", this.craftingTickTime);
+		view.putInt("neededPower", this.neededPower);
+		view.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
+		view.putBoolean("hasActiveRecipe", this.currentRecipeEntry != null);
+		view.putInt("size", size);
 	}
 
 	// MachineBaseBlockEntity

@@ -29,8 +29,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -120,14 +120,14 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDro
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		internalTank.write(tagCompound, registryLookup);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		internalTank.write(view);
 	}
 
 	@Override
-	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
-		internalTank.read(tagCompound, registryLookup);
+	public void readData(ReadView view) {
+		super.readData(view);
+		internalTank.read(view);
 	}
 }

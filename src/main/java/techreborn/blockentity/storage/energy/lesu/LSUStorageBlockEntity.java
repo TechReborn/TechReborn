@@ -27,8 +27,8 @@ package techreborn.blockentity.storage.energy.lesu;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.tuple.Pair;
@@ -53,6 +53,12 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 
 	public LSUStorageBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.LSU_STORAGE, pos, state);
+	}
+
+	@Override
+	public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+		disconnectNeighbors();
+		super.onBlockReplaced(pos, oldState);
 	}
 
 	public final void connectNeighbors() {
@@ -386,20 +392,15 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 	}
 
 	@Override
-	public void writeNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(tagCompound, registryLookup);
-		tagCompound.putByte("neighbors", neighbors);
+	public void writeData(WriteView view) {
+		super.writeData(view);
+		view.putByte("neighbors", neighbors);
 	}
 
 	@Override
-	public void readNbt(NbtCompound tagCompound, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(tagCompound, registryLookup);
-		if (tagCompound.contains("neighbors")) {
-			neighbors = tagCompound.getByte("neighbors").orElseThrow();
-		} else {
-			// Compatible with older versions: judge not initialized
-			neighbors = (byte) 0b10111111;
-		}
+	public void readData(ReadView view) {
+		super.readData(view);
+		neighbors = view.getByte("neighbors", (byte) 0b10111111);
 	}
 
 	// MachineBaseBlockEntity

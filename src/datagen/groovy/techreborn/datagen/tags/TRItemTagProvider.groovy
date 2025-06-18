@@ -45,99 +45,99 @@ class TRItemTagProvider extends ItemTagProvider {
 	@Override
 	protected void configure(RegistryWrapper.WrapperLookup arg) {
 		TRContent.Ores.values().each { ore ->
-			getOrCreateTagBuilder(ore.asTag()).add(ore.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.ORES).add(ore.asItem())
+			valueLookupBuilder(ore.asTag()).add(ore.asItem())
+			valueLookupBuilder(TRContent.ItemTags.ORES).add(ore.asItem())
 		}
 		TRContent.StorageBlocks.values().each { block ->
-			getOrCreateTagBuilder(block.asTag()).add(block.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.STORAGE_BLOCK).add(block.asItem())
+			valueLookupBuilder(block.asTag()).add(block.asItem())
+			valueLookupBuilder(TRContent.ItemTags.STORAGE_BLOCK).add(block.asItem())
 		}
 		TRContent.Dusts.values().each { dust ->
-			getOrCreateTagBuilder(dust.asTag()).add(dust.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.DUSTS).add(dust.asItem())
+			valueLookupBuilder(dust.asTag()).add(dust.asItem())
+			valueLookupBuilder(TRContent.ItemTags.DUSTS).add(dust.asItem())
 		}
 		TRContent.RawMetals.values().each { raw ->
-			getOrCreateTagBuilder(raw.asTag()).add(raw.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.RAW_METALS).add(raw.asItem())
+			valueLookupBuilder(raw.asTag()).add(raw.asItem())
+			valueLookupBuilder(TRContent.ItemTags.RAW_METALS).add(raw.asItem())
 		}
 		TRContent.SmallDusts.values().each { smallDust ->
-			getOrCreateTagBuilder(smallDust.asTag()).add(smallDust.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.SMALL_DUSTS).add(smallDust.asItem())
+			valueLookupBuilder(smallDust.asTag()).add(smallDust.asItem())
+			valueLookupBuilder(TRContent.ItemTags.SMALL_DUSTS).add(smallDust.asItem())
 		}
 		TRContent.Gems.values().each { gem ->
-			getOrCreateTagBuilder(gem.asTag()).add(gem.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.GEMS).add(gem.asItem())
+			valueLookupBuilder(gem.asTag()).add(gem.asItem())
+			valueLookupBuilder(TRContent.ItemTags.GEMS).add(gem.asItem())
 		}
 		TRContent.Ingots.values().each { ingot ->
-			getOrCreateTagBuilder(ingot.asTag()).add(ingot.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.INGOTS).add(ingot.asItem())
+			valueLookupBuilder(ingot.asTag()).add(ingot.asItem())
+			valueLookupBuilder(TRContent.ItemTags.INGOTS).add(ingot.asItem())
 		}
-		getOrCreateTagBuilder(ConventionalItemTags.INGOTS)
+		valueLookupBuilder(ConventionalItemTags.INGOTS)
 			.addTag(TRContent.ItemTags.INGOTS)
 		TRContent.Nuggets.values().each { nugget ->
-			getOrCreateTagBuilder(nugget.asTag()).add(nugget.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.NUGGETS).add(nugget.asItem())
+			valueLookupBuilder(nugget.asTag()).add(nugget.asItem())
+			valueLookupBuilder(TRContent.ItemTags.NUGGETS).add(nugget.asItem())
 		}
 		TRContent.Plates.values().each { plate ->
-			getOrCreateTagBuilder(plate.asTag()).add(plate.asItem())
-			getOrCreateTagBuilder(TRContent.ItemTags.PLATES).add(plate.asItem())
+			valueLookupBuilder(plate.asTag()).add(plate.asItem())
+			valueLookupBuilder(TRContent.ItemTags.PLATES).add(plate.asItem())
 		}
 		TRContent.StorageUnit.values().each {unit ->
-			getOrCreateTagBuilder(TRContent.ItemTags.STORAGE_UNITS).add(unit.asItem())
+			valueLookupBuilder(TRContent.ItemTags.STORAGE_UNITS).add(unit.asItem())
 		}
 
-		getOrCreateTagBuilder(TRContent.ItemTags.RUBBER_LOGS)
+		valueLookupBuilder(TRContent.ItemTags.RUBBER_LOGS)
 			.add(TRContent.RUBBER_LOG.asItem())
 			.add(TRContent.RUBBER_LOG_STRIPPED.asItem())
 			.add(TRContent.RUBBER_WOOD.asItem())
 			.add(TRContent.STRIPPED_RUBBER_WOOD.asItem())
 
-		getOrCreateTagBuilder(TRContent.ItemTags.BRONZE_TOOL_MATERIALS)
+		valueLookupBuilder(TRContent.ItemTags.BRONZE_TOOL_MATERIALS)
 			.addTag(TRContent.Ingots.BRONZE.asTag())
-		getOrCreateTagBuilder(TRContent.ItemTags.RUBY_TOOL_MATERIALS)
+		valueLookupBuilder(TRContent.ItemTags.RUBY_TOOL_MATERIALS)
 			.addTag(TRContent.Gems.RUBY.asTag())
-		getOrCreateTagBuilder(TRContent.ItemTags.SAPPHIRE_TOOL_MATERIALS)
+		valueLookupBuilder(TRContent.ItemTags.SAPPHIRE_TOOL_MATERIALS)
 			.addTag(TRContent.Gems.SAPPHIRE.asTag())
-		getOrCreateTagBuilder(TRContent.ItemTags.PERIDOT_TOOL_MATERIALS)
+		valueLookupBuilder(TRContent.ItemTags.PERIDOT_TOOL_MATERIALS)
 			.addTag(TRContent.Gems.PERIDOT.asTag())
 
-		getOrCreateTagBuilder(TRConventionalTags.TUFF)
+		valueLookupBuilder(TRConventionalTags.TUFF)
 			.add(Items.TUFF)
 			.add(Items.CHISELED_TUFF)
 			.add(Items.TUFF_BRICKS)
 			.add(Items.POLISHED_TUFF)
 			.add(Items.CHISELED_TUFF_BRICKS)
 
-		getOrCreateTagBuilder(ItemTags.BEACON_PAYMENT_ITEMS)
+		valueLookupBuilder(ItemTags.BEACON_PAYMENT_ITEMS)
 			.addTag(TRContent.ItemTags.INGOTS)
 
-		getOrCreateTagBuilder(ItemTags.CLUSTER_MAX_HARVESTABLES)
+		valueLookupBuilder(ItemTags.CLUSTER_MAX_HARVESTABLES)
 			.add(TRContent.BASIC_DRILL)
 			.add(TRContent.ADVANCED_DRILL)
 			.add(TRContent.INDUSTRIAL_DRILL)
 			.add(TRContent.OMNI_TOOL)
 
-		getOrCreateTagBuilder(ItemTags.FENCES)
+		valueLookupBuilder(ItemTags.FENCES)
 			.add(TRContent.RUBBER_FENCE.asItem())
 			.add(TRContent.REFINED_IRON_FENCE.asItem())
 
-		getOrCreateTagBuilder(ItemTags.FREEZE_IMMUNE_WEARABLES)
+		valueLookupBuilder(ItemTags.FREEZE_IMMUNE_WEARABLES)
 			.add(TRContent.QUANTUM_BOOTS)
 			.add(TRContent.QUANTUM_CHESTPLATE)
 			.add(TRContent.QUANTUM_LEGGINGS)
 			.add(TRContent.QUANTUM_BOOTS)
 
-		getOrCreateTagBuilder(ItemTags.IGNORED_BY_PIGLIN_BABIES)
+		valueLookupBuilder(ItemTags.IGNORED_BY_PIGLIN_BABIES)
 			.add(TRContent.Nuggets.ELECTRUM.asItem())
 			.add(TRContent.Ingots.ELECTRUM.asItem())
 
-		getOrCreateTagBuilder(ItemTags.LEAVES)
+		valueLookupBuilder(ItemTags.LEAVES)
 			.add(TRContent.RUBBER_LEAVES.asItem())
 
-		getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN)
+		valueLookupBuilder(ItemTags.LOGS_THAT_BURN)
 			.forceAddTag(TRContent.ItemTags.RUBBER_LOGS)
 
-		getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED)
+		valueLookupBuilder(ItemTags.PIGLIN_LOVED)
 			.add(TRContent.Plates.GOLD.asItem())
 			.add(TRContent.Cables.GOLD.asItem())
 			.add(TRContent.Cables.INSULATED_GOLD.asItem())
@@ -145,64 +145,64 @@ class TRItemTagProvider extends ItemTagProvider {
 			.add(TRContent.Plates.ELECTRUM.asItem())
 			.add(TRContent.StorageBlocks.ELECTRUM.asItem())
 
-		getOrCreateTagBuilder(ItemTags.PLANKS)
+		valueLookupBuilder(ItemTags.PLANKS)
 			.add(TRContent.RUBBER_PLANKS.asItem())
 
-		getOrCreateTagBuilder(ItemTags.SAPLINGS)
+		valueLookupBuilder(ItemTags.SAPLINGS)
 			.add(TRContent.RUBBER_SAPLING.asItem())
 
-		getOrCreateTagBuilder(ItemTags.SLABS)
+		valueLookupBuilder(ItemTags.SLABS)
 			.add(TRContent.RUBBER_SLAB.asItem())
 
-		getOrCreateTagBuilder(ItemTags.SLABS)
+		valueLookupBuilder(ItemTags.SLABS)
 			.add(TRContent.RUBBER_SLAB.asItem())
 
 		TRContent.StorageBlocks.values().each {
-			getOrCreateTagBuilder(ItemTags.SLABS)
+			valueLookupBuilder(ItemTags.SLABS)
 				.add(it.slabBlock.asItem())
 		}
 
-		getOrCreateTagBuilder(ItemTags.STAIRS)
+		valueLookupBuilder(ItemTags.STAIRS)
 			.add(TRContent.RUBBER_STAIR.asItem())
 
 		TRContent.StorageBlocks.values().each {
-			getOrCreateTagBuilder(ItemTags.STAIRS)
+			valueLookupBuilder(ItemTags.STAIRS)
 				.add(it.stairsBlock.asItem())
 		}
 
 		TRContent.StorageBlocks.values().each {
-			getOrCreateTagBuilder(ItemTags.WALLS)
+			valueLookupBuilder(ItemTags.WALLS)
 				.add(it.wallBlock.asItem())
 		}
 
-		getOrCreateTagBuilder(ItemTags.WALLS)
+		valueLookupBuilder(ItemTags.WALLS)
 			.add(TRContent.COPPER_WALL.asItem())
 
-		getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS)
+		valueLookupBuilder(ItemTags.WOODEN_BUTTONS)
 			.add(TRContent.RUBBER_BUTTON.asItem())
 
-		getOrCreateTagBuilder(ItemTags.WOODEN_DOORS)
+		valueLookupBuilder(ItemTags.WOODEN_DOORS)
 			.add(TRContent.RUBBER_DOOR.asItem())
 
-		getOrCreateTagBuilder(ItemTags.WOODEN_FENCES)
+		valueLookupBuilder(ItemTags.WOODEN_FENCES)
 			.add(TRContent.RUBBER_FENCE.asItem())
 
-		getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES)
+		valueLookupBuilder(ItemTags.WOODEN_PRESSURE_PLATES)
 			.add(TRContent.RUBBER_PRESSURE_PLATE.asItem())
 
-		getOrCreateTagBuilder(ItemTags.WOODEN_SLABS)
+		valueLookupBuilder(ItemTags.WOODEN_SLABS)
 			.add(TRContent.RUBBER_SLAB.asItem())
 
-		getOrCreateTagBuilder(ItemTags.WOODEN_STAIRS)
+		valueLookupBuilder(ItemTags.WOODEN_STAIRS)
 			.add(TRContent.RUBBER_STAIR.asItem())
 
-		getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS)
+		valueLookupBuilder(ItemTags.WOODEN_TRAPDOORS)
 			.add(TRContent.RUBBER_TRAPDOOR.asItem())
 
-		getOrCreateTagBuilder(RebornCoreTags.WATER_EXPLOSION_ITEM)
+		valueLookupBuilder(RebornCoreTags.WATER_EXPLOSION_ITEM)
 			.add(ModFluids.SODIUM.getBucket())
 
-		getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
 			.add(TRContent.RED_CELL_BATTERY)
 			.add(TRContent.LITHIUM_ION_BATTERY)
 			.add(TRContent.ENERGY_CRYSTAL)
@@ -233,21 +233,21 @@ class TRItemTagProvider extends ItemTagProvider {
 			.add(TRContent.QUANTUM_LEGGINGS)
 			.add(TRContent.QUANTUM_BOOTS)
 
-		getOrCreateTagBuilder(ItemTags.MINING_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.MINING_ENCHANTABLE)
 			.add(TRContent.OMNI_TOOL)
 
-		getOrCreateTagBuilder(ItemTags.MINING_LOOT_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.MINING_LOOT_ENCHANTABLE)
 			.add(TRContent.OMNI_TOOL)
 
-		getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.SWORD_ENCHANTABLE)
 			.add(TRContent.OMNI_TOOL)
 
-		getOrCreateTagBuilder(TRConventionalTags.FROGLIGHTS)
+		valueLookupBuilder(TRConventionalTags.FROGLIGHTS)
 			.add(Items.OCHRE_FROGLIGHT)
 			.add(Items.VERDANT_FROGLIGHT)
 			.add(Items.PEARLESCENT_FROGLIGHT)
 
-		getOrCreateTagBuilder(TRContent.ItemTags.TRIM_TEMPLATES)
+		valueLookupBuilder(TRContent.ItemTags.TRIM_TEMPLATES)
 			.add(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE)
@@ -267,7 +267,7 @@ class TRItemTagProvider extends ItemTagProvider {
 			.add(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE)
 
-		getOrCreateTagBuilder(ItemTags.HEAD_ARMOR_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.HEAD_ARMOR_ENCHANTABLE)
 			.add(TRContent.BRONZE_HELMET)
 			.add(TRContent.RUBY_HELMET)
 			.add(TRContent.SAPPHIRE_HELMET)
@@ -277,7 +277,7 @@ class TRItemTagProvider extends ItemTagProvider {
 			.add(TRContent.NANO_HELMET)
 			.add(TRContent.QUANTUM_HELMET)
 
-		getOrCreateTagBuilder(ItemTags.CHEST_ARMOR_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.CHEST_ARMOR_ENCHANTABLE)
 			.add(TRContent.BRONZE_CHESTPLATE)
 			.add(TRContent.RUBY_CHESTPLATE)
 			.add(TRContent.SAPPHIRE_CHESTPLATE)
@@ -287,7 +287,7 @@ class TRItemTagProvider extends ItemTagProvider {
 			.add(TRContent.NANO_CHESTPLATE)
 			.add(TRContent.QUANTUM_CHESTPLATE)
 
-		getOrCreateTagBuilder(ItemTags.LEG_ARMOR_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.LEG_ARMOR_ENCHANTABLE)
 			.add(TRContent.BRONZE_LEGGINGS)
 			.add(TRContent.RUBY_LEGGINGS)
 			.add(TRContent.SAPPHIRE_LEGGINGS)
@@ -297,7 +297,7 @@ class TRItemTagProvider extends ItemTagProvider {
 			.add(TRContent.NANO_LEGGINGS)
 			.add(TRContent.QUANTUM_LEGGINGS)
 
-		getOrCreateTagBuilder(ItemTags.FOOT_ARMOR_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.FOOT_ARMOR_ENCHANTABLE)
 			.add(TRContent.BRONZE_BOOTS)
 			.add(TRContent.RUBY_BOOTS)
 			.add(TRContent.SAPPHIRE_BOOTS)

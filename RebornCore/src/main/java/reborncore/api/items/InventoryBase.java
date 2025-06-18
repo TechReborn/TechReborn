@@ -28,9 +28,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.collection.DefaultedList;
 
 public abstract class InventoryBase implements Inventory {
@@ -43,15 +42,13 @@ public abstract class InventoryBase implements Inventory {
 		stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
 	}
 
-	public NbtElement serializeNBT(RegistryWrapper.WrapperLookup registryLookup) {
-		NbtCompound tag = new NbtCompound();
-		Inventories.writeNbt(tag, stacks, registryLookup);
-		return tag;
+	public void writeData(WriteView view) {
+		Inventories.writeData(view, stacks);
 	}
 
-	public void deserializeNBT(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+	public void readData(ReadView view) {
 		stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
-		Inventories.readNbt(tag, stacks, registryLookup);
+		Inventories.readData(view, stacks);
 	}
 
 	@Override
