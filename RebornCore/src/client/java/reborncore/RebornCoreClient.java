@@ -30,6 +30,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.SpecialGuiElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
@@ -39,6 +40,7 @@ import net.minecraft.util.Identifier;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.client.*;
 import reborncore.client.gui.ThemeManager;
+import reborncore.client.gui.element.MachineFaceElementRenderer;
 
 import java.util.Locale;
 
@@ -51,6 +53,7 @@ public class RebornCoreClient implements ClientModInitializer {
 		HudRenderCallback.EVENT.register(new ItemStackRenderer());
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
 		WorldRenderEvents.BLOCK_OUTLINE.register(new BlockOutlineRenderer());
+		SpecialGuiElementRegistry.register(MachineFaceElementRenderer::new);
 
 		/* register UnloadHandler */
 		ClientBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {

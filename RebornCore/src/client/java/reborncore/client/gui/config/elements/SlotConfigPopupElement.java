@@ -26,8 +26,7 @@ package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.math.Direction;
@@ -158,7 +157,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 	}
 
 	@Override
-	protected void drawSateColor(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, GuiBase<?> gui, Direction side, int inx, int iny) {
+	protected void drawSateColor(DrawContext drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -173,17 +172,17 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			case OUTPUT -> theme.ioOutputColor();
 			default -> new ColorCode(0);
 		};
-		fill(matrixStack, vertexConsumers, sx, sy, sx + 18, sy + 18, color.rgba());
+		drawContext.fill(sx, sy, sx + 18, sy + 18, color.rgba());
 		if (side == slotConfigHolder.first) {
-			drawTag(matrixStack, vertexConsumers, gui, sx, sy, "F");
+			drawTag(drawContext, gui, sx, sy, "F");
 		} else if (side == slotConfigHolder.last) {
-			drawTag(matrixStack, vertexConsumers, gui, sx, sy, "L");
+			drawTag(drawContext, gui, sx, sy, "L");
 		}
 	}
 
-	protected void drawTag(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, GuiBase<?> gui, int sx, int sy, String tag) {
+	protected void drawTag(DrawContext drawContext, GuiBase<?> gui, int sx, int sy, String tag) {
 		TextRenderer textRenderer = gui.getTextRenderer();
 		Text text = Text.of(tag);
-		drawText(matrixStack, vertexConsumers, textRenderer, text, sx + 10 - (float) textRenderer.getWidth(tag) / 2, sy + 6, -1, false);
+		drawContext.drawText(textRenderer, text, sx + 10 - textRenderer.getWidth(tag) / 2, sy + 6, -1, false);
 	}
 }

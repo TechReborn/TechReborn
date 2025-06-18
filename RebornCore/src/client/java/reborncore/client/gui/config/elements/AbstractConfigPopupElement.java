@@ -24,38 +24,25 @@
 
 package reborncore.client.gui.config.elements;
 
-import com.mojang.blaze3d.systems.ProjectionType;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.ScreenRect;
-import net.minecraft.client.render.*;
-import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.BlockStateModel;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.Window;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
-import org.joml.Matrix4f;
-import org.joml.Matrix4fStack;
-import org.joml.Matrix3x2fStack;
+import org.joml.Matrix3x2f;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.element.MachineFaceState;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.MachineFacing;
 
 import java.util.Arrays;
 
 public abstract class AbstractConfigPopupElement extends ElementBase {
-	private static final ProjectionMatrix2 guiProjectionMatrix = new ProjectionMatrix2("gui", 1000.0F, 11000.0F, true);
-	private static final RenderLayer guiLayer = RenderLayer.of("gui", 786432, RenderPipelines.GUI, RenderLayer.MultiPhaseParameters.builder().build(false));
 	private final int height;
 	private final String[] pencils;
 	private int pencilWidth;
@@ -123,29 +110,12 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 		final BlockRenderManager dispatcher = client.getBlockRenderManager();
 		final BlockStateModel model = dispatcher.getModels().getModel(defaultState);
 
-		RenderSystem.backupProjectionMatrix();
-		Window window = client.getWindow();
-		int height = window.getFramebufferHeight();
-		int factor = window.getScaleFactor();
-		RenderSystem.setProjectionMatrix(
-			guiProjectionMatrix.set((float)window.getFramebufferWidth() / factor, (float) height / factor),
-			ProjectionType.ORTHOGRAPHIC
-		);
-		Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
-		matrix4fStack.pushMatrix();
-		matrix4fStack.translate(0, 0, -11000);
-		VertexConsumerProvider.Immediate vertexConsumers = client.getBufferBuilders().getEntityVertexConsumers();
-		Matrix3x2fStack matrices = drawContext.getMatrices();
-		MatrixStack matrixStack = new MatrixStack();
-		matrixStack.translate(matrices.m20, matrices.m21, 900);
-		RenderLayer layer = RenderLayer.getSolid();
-		drawState(matrices, matrixStack, gui, model, vertexConsumers, layer, 4, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), height, factor, 0, 0); //left
-		drawState(matrices, matrixStack, gui, model, vertexConsumers, layer, 23, 4, RotationAxis.NEGATIVE_X.rotationDegrees(90F), height, factor, 0, 0); //top
-		drawState(matrices, matrixStack, gui, model, vertexConsumers, layer, 23, 23, null, height, factor, 0, 0); //centre
-		drawState(matrices, matrixStack, gui, model, vertexConsumers, layer, 23, 26, RotationAxis.POSITIVE_X.rotationDegrees(90F), height, factor, 0, 16); //bottom
-		drawState(matrices, matrixStack, gui, model, vertexConsumers, layer, 42, 23, RotationAxis.POSITIVE_Y.rotationDegrees(90F), height, factor, 0, 0); //right
-		drawState(matrices, matrixStack, gui, model, vertexConsumers, layer, 26, 42, RotationAxis.POSITIVE_Y.rotationDegrees(180F), height, factor, 16, 0); //back
-		RenderSystem.disableScissorForRenderTypeDraws();
+		drawContext.state.addSpecialElement(new MachineFaceState(
+			new Matrix3x2f(drawContext.getMatrices()),
+			model,
+			gui.getGuiLeft() + getX(),
+			gui.getGuiTop() + getY()
+		));
 
 		if (mouseDown) {
 			for (int i = 0; i < 6; i++) {
@@ -159,15 +129,12 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 			}
 		}
 
-		drawSateColor(matrixStack, vertexConsumers, gui, MachineFacing.UP.getFacing(machine), 22, -1);
-		drawSateColor(matrixStack, vertexConsumers, gui, MachineFacing.FRONT.getFacing(machine), 22, 18);
-		drawSateColor(matrixStack, vertexConsumers, gui, MachineFacing.DOWN.getFacing(machine), 22, 37);
-		drawSateColor(matrixStack, vertexConsumers, gui, MachineFacing.RIGHT.getFacing(machine), 41, 18);
-		drawSateColor(matrixStack, vertexConsumers, gui, MachineFacing.BACK.getFacing(machine), 41, 37);
-		drawSateColor(matrixStack, vertexConsumers, gui, MachineFacing.LEFT.getFacing(machine), 3, 18);
-		vertexConsumers.draw();
-		matrix4fStack.popMatrix();
-		RenderSystem.restoreProjectionMatrix();
+		drawSateColor(drawContext, gui, MachineFacing.UP.getFacing(machine), 22, -1);
+		drawSateColor(drawContext, gui, MachineFacing.FRONT.getFacing(machine), 22, 18);
+		drawSateColor(drawContext, gui, MachineFacing.DOWN.getFacing(machine), 22, 37);
+		drawSateColor(drawContext, gui, MachineFacing.RIGHT.getFacing(machine), 41, 18);
+		drawSateColor(drawContext, gui, MachineFacing.BACK.getFacing(machine), 41, 37);
+		drawSateColor(drawContext, gui, MachineFacing.LEFT.getFacing(machine), 3, 18);
 
 		drawPencil(drawContext, gui, mouseX, mouseY, x, y + 71);
 	}
@@ -203,51 +170,13 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	protected abstract void cycleConfig(Direction side, GuiBase<?> guiBase);
 
-	protected abstract void drawSateColor(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, GuiBase<?> gui, Direction side, int inx, int iny);
+	protected abstract void drawSateColor(DrawContext drawContext, GuiBase<?> gui, Direction side, int inx, int iny);
 
 	protected boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY, GuiBase<?> guiBase) {
 		rectX += getX();
 		rectY += getY();
 		return isInRect(guiBase, rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 		//return (pointX - guiBase.getGuiLeft()) >= rectX - 1 && (pointX - guiBase.getGuiLeft()) < rectX + rectWidth + 1 && (pointY - guiBase.getGuiTop()) >= rectY - 1 && (pointY - guiBase.getGuiTop()) < rectY + rectHeight + 1;
-	}
-
-	protected void drawState(Matrix3x2fStack matrix3x2fStack,
-						MatrixStack matrixStack,
-						GuiBase<?> gui,
-						BlockStateModel model,
-						VertexConsumerProvider.Immediate vertexConsumers,
-						RenderLayer layer,
-						int x,
-						int y,
-						Quaternionf quaternion,
-						int height,
-						int factor,
-						int paddingLeft,
-						int paddingTop) {
-		int left = gui.getGuiLeft() + getX() + x;
-		int top = gui.getGuiTop() + getY() + y;
-		ScreenRect scissorArea = new ScreenRect(left + paddingLeft, top + paddingTop, 16, 16).transform(matrix3x2fStack);
-		int scissorLeft = scissorArea.getLeft() * factor;
-		int scissorTop = height - scissorArea.getBottom() * factor;
-		int scissorWidth = Math.max(0, scissorArea.width() * factor);
-		int scissorHeight = Math.max(0, scissorArea.height() * factor);
-		RenderSystem.enableScissorForRenderTypeDraws(scissorLeft, scissorTop, scissorWidth, scissorHeight);
-
-		matrixStack.push();
-		matrixStack.translate(left + 8, top + 8, 0);
-		matrixStack.scale(16F, 16F, 16F);
-		matrixStack.translate(0.5F, 0.5F, 0);
-		matrixStack.scale(-1, -1, 0);
-
-		if (quaternion != null) {
-			matrixStack.multiply(quaternion);
-		}
-
-		VertexConsumer buffer = vertexConsumers.getBuffer(layer);
-		BlockModelRenderer.render(matrixStack.peek(), buffer, model, 1F, 1F, 1F, OverlayTexture.getU(15F), OverlayTexture.DEFAULT_UV);
-		vertexConsumers.draw(layer);
-		matrixStack.pop();
 	}
 
 	protected abstract int getPencilColor(String pencil);
@@ -277,21 +206,5 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 			drawContext.drawText(textRenderer, letter, x3, y3, -1, false);
 			x = x2 + 1;
 		}
-	}
-
-	protected void fill(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, float x2, float y2, float x1, float y1, int color) {
-		Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
-		float z = 0;
-		VertexConsumer buffer = vertexConsumers.getBuffer(guiLayer);
-		buffer.vertex(matrix4f, x1, y1, z).color(color);
-		buffer.vertex(matrix4f, x1, y2, z).color(color);
-		buffer.vertex(matrix4f, x2, y2, z).color(color);
-		buffer.vertex(matrix4f, x2, y1, z).color(color);
-	}
-
-	protected void drawText(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, TextRenderer textRenderer, Text text, float x, float y, int color, boolean shadow) {
-		textRenderer.draw(
-			text.asOrderedText(), x, y, color, shadow, matrixStack.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, 15728880
-		);
 	}
 }

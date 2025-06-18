@@ -25,8 +25,7 @@
 package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCore;
@@ -94,7 +93,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 	}
 
 	@Override
-	protected void drawSateColor(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, GuiBase<?> gui, Direction side, int inx, int iny) {
+	protected void drawSateColor(DrawContext drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -110,6 +109,6 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 			case OUTPUT -> theme.ioOutputColor();
 			case ALL -> theme.ioBothColor();
 		};
-		fill(matrixStack, vertexConsumers, sx, sy, sx + 18, sy + 18, color.rgba());
+		drawContext.fill(sx, sy, sx + 18, sy + 18, color.rgba());
 	}
 }

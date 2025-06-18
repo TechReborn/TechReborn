@@ -37,9 +37,11 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.element.MachineFaceElementRenderer;
 import reborncore.client.multiblock.MultiblockRenderer;
 import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
@@ -127,6 +129,10 @@ public class TechRebornClient implements ClientModInitializer {
 		ClientGuiType.AESU.toString();
 
 		ClientJumpEvent.EVENT.register(new ClientJumpHandler());
+
+		// Skip error sprite
+		MachineFaceElementRenderer.BLACKLIST.add(Identifier.of("techreborn", "block/machines/tier2_machines/fishing_station_net"));
+		MachineFaceElementRenderer.BLACKLIST.add(Identifier.of("techreborn", "block/machines/tier2_machines/fishing_station_net_side"));
 	}
 
 	//Need the item instance in a few places, this makes it easier
