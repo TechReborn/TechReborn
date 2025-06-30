@@ -39,7 +39,7 @@
     "reborncore": "*",
 	"team_reborn_energy": ">=4.2.0",
 	"fabric-biome-api-v1": ">=16.0.10",
-  	"minecraft": ">=1.21.6- <1.21.7-"
+  	"minecraft": ">=1.21.7- <1.21.8-"
   },
   "accessWidener": "techreborn.accesswidener",
   "authors": [
