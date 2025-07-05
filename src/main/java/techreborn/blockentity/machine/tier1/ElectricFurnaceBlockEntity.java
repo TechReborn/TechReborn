@@ -225,7 +225,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 				if (getStored() > getEuPerTick(EnergyPerTick)) {
 					useEnergy(getEuPerTick(EnergyPerTick));
 					cookTime++;
-					if (cookTime == 1 || cookTime % 20 == 0 && RecipeCrafter.soundHandler != null) {
+					if (!isMuffled() && (cookTime == 1 || cookTime % 20 == 0 && RecipeCrafter.soundHandler != null)) {
 						RecipeCrafter.soundHandler.playSound(false, this);
 					}
 				}
