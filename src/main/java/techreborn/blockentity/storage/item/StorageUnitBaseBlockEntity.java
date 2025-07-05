@@ -37,7 +37,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PlayerHeadItem;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryOps;
 import net.minecraft.storage.NbtWriteView;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -523,6 +526,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public NbtCompound getStoredStackNBT() {
 		NbtCompound tag = new NbtCompound();
+		RegistryOps<NbtElement> ops = world.getRegistryManager().getOps(NbtOps.INSTANCE);
 		ItemStack stack = getStoredStack();
 
 		tag.putInt("count", stack.getCount());
@@ -531,7 +535,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			// We are not allowed to serialize empty or large stacks
 			ItemStack singleStack = stack.copy();
 			singleStack.setCount(1);
-			tag.put("item", ItemStack.CODEC, singleStack);
+			tag.put("item", ItemStack.CODEC, ops, singleStack);
 		}
 
 		return tag;
@@ -541,7 +545,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		if (!tag.contains("item")) {
 			storeItemStack = ItemStack.EMPTY;
 		} else {
-			storeItemStack = tag.get("item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+			RegistryOps<NbtElement> ops = world.getRegistryManager().getOps(NbtOps.INSTANCE);
+			storeItemStack = tag.get("item", ItemStack.CODEC, ops).orElse(ItemStack.EMPTY);
 		}
 
 		storeItemStack.setCount(tag.getInt("count").orElse(0));
