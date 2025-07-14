@@ -72,17 +72,17 @@ public class AttributeModifierBuilder {
 	}
 
 	public AttributeModifierBuilder armor(int i) {
-		builder.add(EntityAttributes.ARMOR, modifier("nano_suit_armor", i), target);
+		builder.add(EntityAttributes.ARMOR, modifier("suit_armor", i), target);
 		return this;
 	}
 
 	public AttributeModifierBuilder toughness(int i) {
-		builder.add(EntityAttributes.ARMOR_TOUGHNESS, modifier("nano_suit_armor_toughness", i), target);
+		builder.add(EntityAttributes.ARMOR_TOUGHNESS, modifier("suit_armor_toughness", i), target);
 		return this;
 	}
 
 	public AttributeModifierBuilder knockback(double i) {
-		builder.add(EntityAttributes.KNOCKBACK_RESISTANCE, modifier("nano_suit_knockback_resistance", i / 10), target);
+		builder.add(EntityAttributes.KNOCKBACK_RESISTANCE, modifier("suit_knockback_resistance", i / 10), target);
 		return this;
 	}
 
