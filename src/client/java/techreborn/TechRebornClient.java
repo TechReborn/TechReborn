@@ -28,6 +28,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.minecraft.client.item.ClampedModelPredicateProvider;
@@ -57,6 +58,7 @@ import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.api.base.SimpleBatteryItem;
+import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
@@ -251,6 +253,11 @@ public class TechRebornClient implements ClientModInitializer {
 		ClientGuiType.validate();
 
 		ClientJumpEvent.EVENT.register(new ClientJumpHandler());
+
+		// Compat recipe viewer
+		ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+			GeneratorRecipeHelper.updateRecipeManager(handler.getRecipeManager());
+		});
 	}
 
 	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {

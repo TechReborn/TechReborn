@@ -26,7 +26,9 @@ package techreborn.api.generator;
 
 
 import net.minecraft.fluid.Fluid;
+import net.minecraft.recipe.RecipeManager;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -34,6 +36,12 @@ import java.util.Map;
 import java.util.Optional;
 
 public class GeneratorRecipeHelper {
+	// Compat recipe viewer
+	@Nullable
+	private static RecipeManager recipeManager = null;
+	public static void updateRecipeManager(RecipeManager manager) {
+		recipeManager = manager;
+	}
 
 	/**
 	 * This {@link EnumMap} store all the energy recipes for the fluid generators. Each
@@ -67,8 +75,19 @@ public class GeneratorRecipeHelper {
 	 * @return {@link FluidGeneratorRecipeList} An object holding a set of available recipes
 	 * for this type of {@link EFluidGenerator}.
 	 */
+	@Deprecated
 	public static FluidGeneratorRecipeList getFluidRecipesForGenerator(EFluidGenerator generatorType) {
-		return fluidRecipes.get(generatorType);
+		FluidGeneratorRecipeList list = fluidRecipes.get(generatorType);
+		if (list == null) {
+			list = new FluidGeneratorRecipeList();
+			fluidRecipes.put(generatorType, list);
+		}
+		// Compat recipe viewer
+		if (!list.initialized && recipeManager != null) {
+			recipeManager.getAllOfType(generatorType.getType()).values().forEach(list::addRecipe);
+			list.initialized = true;
+		}
+		return list;
 	}
 
 	/**
@@ -78,6 +97,7 @@ public class GeneratorRecipeHelper {
 	 *                      which we should remove recipe
 	 * @param fluidType     {@link Fluid} Fluid to remove from generator recipes
 	 */
+	@Deprecated
 	public static void removeFluidRecipe(EFluidGenerator generatorType, Fluid fluidType) {
 		FluidGeneratorRecipeList recipeList = getFluidRecipesForGenerator(generatorType);
 		Optional<FluidGeneratorRecipe> recipe = recipeList.getRecipeForFluid(fluidType);

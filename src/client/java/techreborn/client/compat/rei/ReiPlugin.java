@@ -76,7 +76,7 @@ import reborncore.common.crafting.RecipeManager;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
-import techreborn.api.generator.GeneratorRecipeHelper;
+import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.client.compat.rei.fluidgenerator.FluidGeneratorRecipeCategory;
@@ -245,8 +245,10 @@ public class ReiPlugin implements REIClientPlugin {
 
 	private void registerFluidGeneratorDisplays(DisplayRegistry registry, EFluidGenerator generator, Machine machine) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, machine.name);
-		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe ->
-			registry.add(new FluidGeneratorRecipeDisplay(recipe, identifier))
+		registry.registerFiller(
+			FluidGeneratorRecipe.class,
+			recipe -> recipe.generatorType() == generator,
+			recipe -> new FluidGeneratorRecipeDisplay(recipe, identifier)
 		);
 	}
 

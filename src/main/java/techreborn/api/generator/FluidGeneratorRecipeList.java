@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.Optional;
 
 public class FluidGeneratorRecipeList {
+	public boolean initialized = false;
 	private HashSet<FluidGeneratorRecipe> recipes;
 
 	public FluidGeneratorRecipeList(FluidGeneratorRecipe... recipes) {
