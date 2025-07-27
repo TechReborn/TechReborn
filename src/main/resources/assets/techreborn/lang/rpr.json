@@ -1,5 +1,8 @@
 {
   "itemGroup.techreborn.item_group": "Tech Reborn",
+  "item.modifiers.power": "При питании от сети:",
+  "item.modifiers.all_equipment": "Во всеоружии:",
+  "item.modifiers.full_suit": "Установить эффект:",
   "_comment": "Машины",
   "block.techreborn.pump": "Насосъ",
   "block.techreborn.gas_turbine": "Дуговая турбинаъ",
@@ -833,6 +836,7 @@
   "techreborn.jei.recipe.processing.time.3": "%s сек",
   "techreborn.jei.recipe.heat": "Тепло",
   "techreborn.jei.recipe.generator.total": "E всего: %s",
+  "techreborn.jei.recipe.energy": "Энергия",
   "techreborn.jei.desc.rubberSap": "Чтобы добыть каучук, нужно найти специальное дерево - гевею, или же раздобыть ее саженец и вырастить у себя. После того, как у вас появится гевея, поищите на ней небольшие желтые пятна. Если никаких пятен не видно, просто подождите некоторое время, пока они не появятся. Чтобы собрать каучук, используйте на пятнышке краник.",
   "techreborn.jei.desc.scrapBox": "Коробки с утильсырьем можно как открывать вручную, так и помещать в раздатчики, чтобы выпадала рандомная вещь! Класс!",
   "techreborn.jei.desc.scrapBoxNoDispenser": "Открыть коробку с утильсырьем можно просто кликнув правой кнопкой мыши!",
