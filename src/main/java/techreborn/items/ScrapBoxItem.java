@@ -33,6 +33,7 @@ import net.minecraft.world.World;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.util.WorldUtils;
 import techreborn.init.ModRecipes;
+import techreborn.init.TRContent;
 import techreborn.init.TRItemSettings;
 import techreborn.recipe.recipes.ScrapBoxRecipe;
 
@@ -46,14 +47,19 @@ public class ScrapBoxItem extends Item {
 
 	@Override
 	public ActionResult use(World world, PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getMainHandStack();
-		if (!world.isClient) {
+		ItemStack stack = player.getStackInHand(hand);
+		if (stack.isOf(TRContent.SCRAP_BOX)) {
+			if (world.isClient) {
+				return ActionResult.SUCCESS;
+			}
 			List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(world, ModRecipes.SCRAPBOX);
 			int random = world.random.nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).outputs().get(0);
 			WorldUtils.dropItem(out, world, player.getBlockPos());
-			stack.decrement(1);
+			ItemStack copy = stack.copy();
+			copy.decrement(1);
+			return ActionResult.SUCCESS.withNewHandStack(copy);
 		}
-		return ActionResult.SUCCESS;
+		return ActionResult.PASS;
 	}
 }
