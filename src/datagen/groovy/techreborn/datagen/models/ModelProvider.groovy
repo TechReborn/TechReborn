@@ -252,7 +252,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toAutoCraftingTable = { BlockInfo info ->
-			TemplateModel.AUTO_CRAFTING_TABLE.upload(info.block)
+			TemplateModel.ADVANCED_MACHINE_WITH_TOP.upload(info.block)
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toElevator = { BlockInfo info ->
@@ -265,7 +265,7 @@ class ModelProvider extends FabricModelProvider {
 		}
 		def toGrinder = { BlockInfo info ->
 			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
-				TemplateModel.GRINDER.apply(info.block)
+				TemplateModel.ADVANCED_MACHINE_WITH_TOP.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}

@@ -516,8 +516,9 @@ class TemplateModel {
 		ORIENTABLE.create(block).add(
 			orientable(
 				base.withSuffixedPath("machine_top"),
-				id.withSuffixedPath("_front"),
+				base.withSuffixedPath("machine_bottom"),
 				base.withSuffixedPath("machine_side"),
+				id.withSuffixedPath("_front"),
 			),
 			TextureKey.FRONT
 		)
@@ -527,26 +528,20 @@ class TemplateModel {
 	static def COMPUTER_CUBE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
 			TexturePaths.machineTier2Top,
-			id.withSuffixedPath("_front"),
+			TexturePaths.machineTier1Bottom,
 			id.withSuffixedPath("_side"),
+			id.withSuffixedPath("_front"),
 		))
 	}
 	static def PLAYER_DETECTOR_OTHERS = wrapperBlock { block, id -> CUBE_ALL.apply(block).suffix("_others") }
 	static def PLAYER_DETECTOR_YOU = wrapperBlock { block, id -> CUBE_ALL.apply(block).suffix("_you") }
-	static def AUTO_CRAFTING_TABLE = wrapperBlock { block, id ->
-		ORIENTABLE.create(block).add(orientable(
-			id.withSuffixedPath("_top"),
-			TexturePaths.machineTier1Bottom,
-			TexturePaths.machineTier1Side,
-			id.withSuffixedPath("_front"),
-		))
-	}
-	static def GRINDER = wrapperBlock { block, id ->
+	static def ADVANCED_MACHINE_WITH_TOP = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				id.withSuffixedPath("_top"),
-				id.withSuffixedPath("_front"),
+				TexturePaths.machineTier1Bottom,
 				TexturePaths.machineTier1Side,
+				id.withSuffixedPath("_front")
 			),
 			TextureKey.TOP, TextureKey.FRONT
 		)
@@ -617,7 +612,7 @@ class TemplateModel {
 	}
 	static def LAMP_LED_LIGHT = wrapperBlock { block, id ->
 		LIGHT_BLOCK.apply(block, id).add(LIGHT_DISPLAY_1).add(List.of(
-			new ModelElement(new Vector3f(2, 0, 2), new Vector3f(14, 1, 14), LIGHT_BASE_ELEMENT)
+			new ModelElement(new Vector3f(2, 0, 2), new Vector3f(14, 2, 14), LIGHT_BASE_ELEMENT)
 		))
 	}
 	static def LAMP_INCANDESCENT_LIGHT = wrapperBlock { block, id ->
