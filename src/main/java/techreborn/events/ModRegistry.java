@@ -24,6 +24,7 @@
 
 package techreborn.events;
 
+import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.*;
 import net.minecraft.item.AxeItem;
@@ -40,6 +41,7 @@ import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
+import techreborn.blocks.cable.CableBlock;
 import techreborn.blocks.misc.*;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.*;
@@ -54,6 +56,7 @@ import techreborn.items.tool.industrial.*;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -84,7 +87,24 @@ public class ModRegistry {
 		Arrays.stream(StorageUnit.values()).forEach(value -> RebornRegistry.registerBlock(value.block, settings(value.block)));
 		Arrays.stream(StorageUnit.values()).map(StorageUnit::getUpgrader).filter(Optional::isPresent).forEach(value -> RebornRegistry.registerItem(value.get()));
 		Arrays.stream(TankUnit.values()).forEach(value -> RebornRegistry.registerBlock(value.block, settings(value.block)));
-		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, settings(value.block)));
+		Arrays.stream(Cables.values()).filter(value -> !value.oxidizable).forEach(value -> RebornRegistry.registerBlock(value.block, settings(value.block)));
+		Arrays.stream(Cables.values()).filter(value -> value.oxidizable).forEach(value -> {
+			List<CableBlock> list = List.of(value.block, value.exposed, value.weathered, value.oxidized);
+			int size = list.size();
+			for (int i = 0, last = size - 1; i < size; i++) {
+				CableBlock block = list.get(i);
+				RebornRegistry.registerBlock(block, settings(block));
+				if (i != last) {
+					OxidizableBlocksRegistry.registerOxidizableBlockPair(block, list.get(i + 1));
+				}
+			}
+			List<CableBlock> waxedList = List.of(value.waxedBlock, value.waxedExposed, value.waxedWeathered, value.waxedOxidized);
+			for (int i = 0; i < size; i++) {
+				CableBlock block = waxedList.get(i);
+				RebornRegistry.registerBlock(block, settings(block));
+				OxidizableBlocksRegistry.registerWaxableBlockPair(list.get(i), block);
+			}
+		});
 		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, settings(value.block)));
 
 		// Misc. blocks

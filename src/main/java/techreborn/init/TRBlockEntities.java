@@ -79,6 +79,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
 public class TRBlockEntities {
 	private static final List<BlockEntityType<?>> TYPES = new ArrayList<>();
@@ -97,7 +98,9 @@ public class TRBlockEntities {
 	public static final BlockEntityType<ChunkLoaderBlockEntity> CHUNK_LOADER = register(ChunkLoaderBlockEntity::new, "chunk_loader", TRContent.Machine.CHUNK_LOADER);
 	public static final BlockEntityType<ChargeOMatBlockEntity> CHARGE_O_MAT = register(ChargeOMatBlockEntity::new, "charge_o_mat", TRContent.Machine.CHARGE_O_MAT);
 	public static final BlockEntityType<PlayerDetectorBlockEntity> PLAYER_DETECTOR = register(PlayerDetectorBlockEntity::new, "player_detector", TRContent.Machine.PLAYER_DETECTOR);
-	public static final BlockEntityType<CableBlockEntity> CABLE = register(CableBlockEntity::new, "cable", TRContent.Cables.values());
+	public static final BlockEntityType<CableBlockEntity> CABLE = register(CableBlockEntity::new, "cable", Arrays.stream(TRContent.Cables.values()).flatMap(
+		i -> i.oxidizable ? Stream.of(i.block, i.exposed, i.weathered, i.oxidized, i.waxedBlock, i.waxedExposed, i.waxedWeathered, i.waxedOxidized) : Stream.of(i.block)).toArray(Block[]::new)
+	);
 	public static final BlockEntityType<MachineCasingBlockEntity> MACHINE_CASINGS = register(MachineCasingBlockEntity::new, "machine_casing", TRContent.MachineBlocks.getCasings());
 	public static final BlockEntityType<DragonEggSyphonBlockEntity> DRAGON_EGG_SYPHON = register(DragonEggSyphonBlockEntity::new, "dragon_egg_syphon", TRContent.Machine.DRAGON_EGG_SYPHON);
 	public static final BlockEntityType<AssemblingMachineBlockEntity> ASSEMBLY_MACHINE = register(AssemblingMachineBlockEntity::new, "assembly_machine", TRContent.Machine.ASSEMBLY_MACHINE);

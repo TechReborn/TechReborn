@@ -162,6 +162,11 @@ class TexturePaths {
 		add MachineBlocks, { "machines/structure/${it.name}_machine" }
 		add ModFluids, { "fluids/${it.name}" }
 		add Cables, { "cables/${it.name}_cable" }
+		List.of(Cables.COPPER, Cables.INSULATED_COPPER).each {
+			add it.exposed, "cables/${it.name}_exposed_cable"
+			add it.weathered, "cables/${it.name}_weathered_cable"
+			add it.oxidized, "cables/${it.name}_oxidized_cable"
+		}
 		add List.of(
 			Machine.ADJUSTABLE_SU,
 			Machine.EV_TRANSFORMER,

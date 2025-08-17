@@ -388,6 +388,11 @@ class TemplateModel {
 	static Uploadable<Item> ENERGY_ITEM_ACTIVE = (Item item) -> ENERGY_ITEM.apply(item).suffix("_active")
 	static Uploadable<Item> ENERGY_ITEM_HANDHELD = (Item item) -> ENERGY_ITEM.apply(item).add(HANDHELD)
 	static Uploadable<Item> ENERGY_ITEM_HANDHELD_ACTIVE = (Item item) -> ENERGY_ITEM_ACTIVE.apply(item).add(HANDHELD)
+	static Uploadable<Identifier> PARENT_ONLY = (Identifier id) -> new JsonModel().add(id)
+	static Uploadable<Identifier> CABLE_CORE_TEMPLATE = (Identifier id) -> new JsonModel().id(id).add(CABLE_CORE_ELEMENT)
+	static Uploadable<Identifier> CABLE_SIDE_TEMPLATE = (Identifier id) -> new JsonModel().id(id).add(CABLE_SIDE_ELEMENT)
+	static Uploadable<Identifier> CABLE_THICK_CORE_TEMPLATE = (Identifier id) -> new JsonModel().id(id).add(CABLE_THICK_CORE_ELEMENT)
+	static Uploadable<Identifier> CABLE_THICK_SIDE_TEMPLATE = (Identifier id) -> new JsonModel().id(id).add(CABLE_THICK_SIDE_ELEMENT)
 	static def SOLAR_PANEL = wrapperBlock { block, id ->
 		CUBE_BOTTOM_TOP.create(block).add(
 			cubeBottomTop(
@@ -726,10 +731,22 @@ class TemplateModel {
 	static BiFunction<Block, Identifier, JsonModel> CABLE_SIDE_BASE = { Block block, Identifier id ->
 		new JsonModel().id(block).suffix("_side").add(texture(id))
 	}
-	static def CABLE_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_CORE_ELEMENT) }
-	static def CABLE_SIDE = wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(CABLE_SIDE_ELEMENT) }
-	static def CABLE_THICK_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_THICK_CORE_ELEMENT) }
-	static def CABLE_THICK_SIDE = wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(CABLE_THICK_SIDE_ELEMENT) }
+	static Function<Identifier, Uploadable<Block>> CABLE_CORE = { Identifier parent ->
+		CABLE_CORE_TEMPLATE.upload(parent)
+		return wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(parent) }
+	}
+	static Function<Identifier, Uploadable<Block>> CABLE_SIDE = { Identifier parent ->
+		CABLE_SIDE_TEMPLATE.upload(parent)
+		return wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(parent) }
+	}
+	static Function<Identifier, Uploadable<Block>> CABLE_THICK_CORE = { Identifier parent ->
+		CABLE_THICK_CORE_TEMPLATE.upload(parent)
+		return wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(parent) }
+	}
+	static Function<Identifier, Uploadable<Block>> CABLE_THICK_SIDE = { Identifier parent ->
+		CABLE_THICK_SIDE_TEMPLATE.upload(parent)
+		return wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(parent) }
+	}
 	static def NANOSABER_BASE = wrapperItem { item, id ->
 		new JsonModel().add(NANOSABER_DISPLAY).add(NANOSABER_ELEMENT).id(item).add(texture(id), TextureKey.TEXTURE, TextureKey.PARTICLE)
 	}
@@ -804,6 +821,10 @@ class TemplateModel {
 
 	static Transformation transformation(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {
 		return new Transformation(new Vector3f(x1, y1, z1), new Vector3f(x2, y2, z2), new Vector3f(x3, y3, z3))
+	}
+
+	static Function<Identifier, Uploadable<Block>> wrapperFunc(TriFunction<Block, Identifier, Identifier, JsonModel> fun) {
+		return (Identifier id) -> (Block block) -> fun.apply(block, TextureMap.getId(block), id)
 	}
 
 	static Uploadable<Block> wrapperBlock(BiFunction<Block, Identifier, JsonModel> fun) {

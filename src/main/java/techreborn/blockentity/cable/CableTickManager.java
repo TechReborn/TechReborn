@@ -54,9 +54,14 @@ class CableTickManager {
 			long networkCapacity = 0;
 			long networkAmount = 0;
 
+			int cableCount = cableList.size();
 			for (CableBlockEntity cable : cableList) {
-				networkAmount += cable.energyContainer.amount;
-				networkCapacity += cable.energyContainer.getCapacity();
+				if (cable.noOxidized) {
+					networkAmount += cable.energyContainer.amount;
+					networkCapacity += cable.energyContainer.getCapacity();
+				} else {
+					cableCount--;
+				}
 
 				// Update cable connections.
 				cable.appendTargets(targetStorages);
@@ -77,12 +82,13 @@ class CableTickManager {
 			networkAmount -= dispatchTransfer(startingCable.getCableType(), EnergyStorage::insert, networkAmount);
 
 			// Split energy evenly across cables.
-			int cableCount = cableList.size();
 			for (CableBlockEntity cable : cableList) {
-				cable.energyContainer.amount = networkAmount / cableCount;
-				networkAmount -= cable.energyContainer.amount;
-				cableCount--;
-				cable.markDirty();
+				if (cable.noOxidized) {
+					cable.energyContainer.amount = networkAmount / cableCount;
+					networkAmount -= cable.energyContainer.amount;
+					cableCount--;
+					cable.markDirty();
+				}
 				cable.ioBlocked = false;
 			}
 		} finally {
@@ -108,6 +114,10 @@ class CableTickManager {
 		bfsQueue.add(start);
 		start.lastTick = tickCounter;
 		cableList.add(start);
+		if (!start.noOxidized) {
+			bfsQueue.removeFirst();
+			return;
+		}
 
 		while (!bfsQueue.isEmpty()) {
 			CableBlockEntity current = bfsQueue.removeFirst();
@@ -115,8 +125,10 @@ class CableTickManager {
 			for (Direction direction : Direction.values()) {
 				if (current.getAdjacentBlockEntity(direction) instanceof CableBlockEntity adjCable && current.getCableType().transferRate == adjCable.getCableType().transferRate) {
 					if (shouldTickCable(adjCable)) {
-						bfsQueue.add(adjCable);
-						adjCable.lastTick = tickCounter;
+						if (adjCable.noOxidized) {
+							bfsQueue.add(adjCable);
+							adjCable.lastTick = tickCounter;
+						}
 						cableList.add(adjCable);
 					}
 				}
