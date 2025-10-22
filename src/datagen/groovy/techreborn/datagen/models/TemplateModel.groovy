@@ -92,7 +92,7 @@ class TemplateModel {
 	static ModelElementFace CABLE_FACE_3 = face(TextureKey.TEXTURE, uvs(0, 7, 6, 11), AxisRotation.R90)
 	static ModelElementFace CABLE_FACE_4 = face(TextureKey.TEXTURE, uvs(0, 0, 6, 6))
 	static ModelElementFace CABLE_FACE_5 = face(TextureKey.TEXTURE, uvs(0, 6, 5, 12))
-	static ModelElementFace CABLE_FACE_6 = face(TextureKey.TEXTURE, uvs(0, 6, 6, 12), AxisRotation.R90)
+	static ModelElementFace CABLE_FACE_6 = face(TextureKey.TEXTURE, uvs(0, 6, 5, 12), AxisRotation.R90)
 	static List<ModelElement> CABLE_CORE_ELEMENT = List.of(
 		new ModelElement(new Vector3f(6, 6, 6), new Vector3f(10, 10, 10), Map.of(
 			Direction.NORTH, CABLE_FACE_1, Direction.EAST, CABLE_FACE_1, Direction.SOUTH, CABLE_FACE_1,
