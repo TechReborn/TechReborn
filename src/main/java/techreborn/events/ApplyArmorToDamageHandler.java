@@ -26,7 +26,6 @@ package techreborn.events;
 
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,7 +41,7 @@ public class ApplyArmorToDamageHandler implements ApplyArmorToDamageCallback {
 	}
 
 	@Override
-	public float applyArmorToDamage(PlayerEntity player, DamageSource source, float amount) {
+	public float applyArmorToDamage(PlayerEntity player, float amount) {
 		double damageAbsorbed = 0.0d;
 		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
 			if (equipmentSlot == EquipmentSlot.BODY) continue;
