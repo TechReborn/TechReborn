@@ -24,18 +24,18 @@
 
 package techreborn.packets.clientbound;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import techreborn.TechReborn;
 
-public record OpenManualPayload() implements CustomPayload {
-	public static final CustomPayload.Id<OpenManualPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "open_manual"));
-	public static final PacketCodec<RegistryByteBuf, OpenManualPayload> CODEC = PacketCodec.unit(new OpenManualPayload());
+public record OpenManualPayload() implements CustomPacketPayload {
+	public static final CustomPacketPayload.Type<OpenManualPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "open_manual"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, OpenManualPayload> CODEC = StreamCodec.unit(new OpenManualPayload());
 
 	@Override
-	public Id<? extends CustomPayload> getId() {
+	public Type<? extends CustomPacketPayload> type() {
 		return ID;
 	}
 }

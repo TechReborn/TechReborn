@@ -24,35 +24,35 @@
 
 package reborncore.api.items;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
-public abstract class InventoryBase implements Inventory {
+public abstract class InventoryBase implements Container {
 
 	private final int size;
-	private DefaultedList<ItemStack> stacks;
+	private NonNullList<ItemStack> stacks;
 
 	public InventoryBase(int size) {
 		this.size = size;
-		stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
+		stacks = NonNullList.withSize(size, ItemStack.EMPTY);
 	}
 
-	public void writeData(WriteView view) {
-		Inventories.writeData(view, stacks);
+	public void writeData(ValueOutput view) {
+		ContainerHelper.saveAllItems(view, stacks);
 	}
 
-	public void readData(ReadView view) {
-		stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
-		Inventories.readData(view, stacks);
+	public void readData(ValueInput view) {
+		stacks = NonNullList.withSize(size, ItemStack.EMPTY);
+		ContainerHelper.loadAllItems(view, stacks);
 	}
 
 	@Override
-	public int size() {
+	public int getContainerSize() {
 		return size;
 	}
 
@@ -62,50 +62,50 @@ public abstract class InventoryBase implements Inventory {
 	}
 
 	@Override
-	public ItemStack getStack(int i) {
+	public ItemStack getItem(int i) {
 		return stacks.get(i);
 	}
 
 	@Override
-	public ItemStack removeStack(int i, int i1) {
-		ItemStack stack = Inventories.splitStack(stacks, i, i1);
+	public ItemStack removeItem(int i, int i1) {
+		ItemStack stack = ContainerHelper.removeItem(stacks, i, i1);
 		if (!stack.isEmpty()) {
-			this.markDirty();
+			this.setChanged();
 		}
 		return stack;
 	}
 
 	@Override
-	public ItemStack removeStack(int i) {
-		return Inventories.removeStack(stacks, i);
+	public ItemStack removeItemNoUpdate(int i) {
+		return ContainerHelper.takeItem(stacks, i);
 	}
 
 	@Override
-	public void setStack(int i, ItemStack itemStack) {
+	public void setItem(int i, ItemStack itemStack) {
 		stacks.set(i, itemStack);
-		if (itemStack.getCount() > this.getMaxCountPerStack()) {
-			itemStack.setCount(this.getMaxCountPerStack());
+		if (itemStack.getCount() > this.getMaxStackSize()) {
+			itemStack.setCount(this.getMaxStackSize());
 		}
 
-		this.markDirty();
+		this.setChanged();
 	}
 
 	@Override
-	public void markDirty() {
+	public void setChanged() {
 		// Stuff happens in the super methods
 	}
 
 	@Override
-	public boolean canPlayerUse(PlayerEntity playerEntity) {
+	public boolean stillValid(Player playerEntity) {
 		return true;
 	}
 
 	@Override
-	public void clear() {
+	public void clearContent() {
 		stacks.clear();
 	}
 
-	public DefaultedList<ItemStack> getStacks() {
+	public NonNullList<ItemStack> getStacks() {
 		return stacks;
 	}
 }

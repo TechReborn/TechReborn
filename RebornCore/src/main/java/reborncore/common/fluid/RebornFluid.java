@@ -24,28 +24,27 @@
 
 package reborncore.common.fluid;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.Item;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-
 import java.util.Optional;
 import java.util.function.Supplier;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 
-public abstract class RebornFluid extends FlowableFluid {
+public abstract class RebornFluid extends FlowingFluid {
 
 	private final boolean still;
 
@@ -74,83 +73,83 @@ public abstract class RebornFluid extends FlowableFluid {
 	}
 
 	@Override
-	public RebornFluid getStill() {
+	public RebornFluid getSource() {
 		return stillSuppler.get();
 	}
 
 	@Override
-	protected boolean isInfinite(ServerWorld world) {
+	protected boolean canConvertToSource(ServerLevel world) {
 		return false;
 	}
 
 	@Override
-	public boolean isStill(FluidState fluidState) {
+	public boolean isSource(FluidState fluidState) {
 		return still;
 	}
 
 	@Override
-	protected void beforeBreakingBlock(WorldAccess world, BlockPos pos, BlockState state) {
+	protected void beforeDestroyingBlock(LevelAccessor world, BlockPos pos, BlockState state) {
 		// Should behave same as water
 		BlockEntity blockEntity = state.hasBlockEntity() ? world.getBlockEntity(pos) : null;
-		Block.dropStacks(state, world, pos, blockEntity);
+		Block.dropResources(state, world, pos, blockEntity);
 	}
 
 	@Override
-	protected int getMaxFlowDistance(WorldView world) {
+	protected int getSlopeFindDistance(LevelReader world) {
 		return 4;
 	}
 
 	@Override
-	protected int getLevelDecreasePerBlock(WorldView world) {
+	protected int getDropOff(LevelReader world) {
 		return 1;
 	}
 
 	@Override
-	public Item getBucketItem() {
+	public Item getBucket() {
 		return bucketItemSuppler.get();
 	}
 
 	@Override
-	protected boolean canBeReplacedWith(FluidState fluidState, BlockView blockView, BlockPos blockPos, Fluid fluid, Direction direction) {
+	protected boolean canBeReplacedWith(FluidState fluidState, BlockGetter blockView, BlockPos blockPos, Fluid fluid, Direction direction) {
 		// Same as vanilla water
-		return direction == Direction.DOWN && !this.matchesType(fluid);
+		return direction == Direction.DOWN && !this.isSame(fluid);
 	}
 
 	@Override
-	public boolean matchesType(Fluid fluid) {
-		return getFlowing() == fluid || getStill() == fluid;
+	public boolean isSame(Fluid fluid) {
+		return getFlowing() == fluid || getSource() == fluid;
 	}
 
 	@Override
-	public int getTickRate(WorldView world) {
+	public int getTickDelay(LevelReader world) {
 		return 10;
 	}
 
 	@Override
-	protected float getBlastResistance() {
+	protected float getExplosionResistance() {
 		return 100F;
 	}
 
 	@Override
-	protected BlockState toBlockState(FluidState fluidState) {
-		return fluidBlockSupplier.get().getDefaultState().with(FluidBlock.LEVEL, getBlockStateLevel(fluidState));
+	protected BlockState createLegacyBlock(FluidState fluidState) {
+		return fluidBlockSupplier.get().defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(fluidState));
 	}
 
 	@Override
-	public int getLevel(FluidState fluidState) {
-		return still ? 8 : fluidState.get(LEVEL);
+	public int getAmount(FluidState fluidState) {
+		return still ? 8 : fluidState.getValue(LEVEL);
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Fluid, FluidState> stateBuilder) {
-		super.appendProperties(stateBuilder);
+	protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> stateBuilder) {
+		super.createFluidStateDefinition(stateBuilder);
 		if (!still) {
 			stateBuilder.add(LEVEL);
 		}
 	}
 	@Override
-	public Optional<SoundEvent> getBucketFillSound() {
-		return Optional.of(SoundEvents.ITEM_BUCKET_FILL);
+	public Optional<SoundEvent> getPickupSound() {
+		return Optional.of(SoundEvents.BUCKET_FILL);
 	}
 
 }

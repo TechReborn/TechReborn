@@ -24,14 +24,6 @@
 
 package reborncore.common.recipes;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -46,6 +38,14 @@ import reborncore.common.util.RebornInventory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Use this in your blockEntity entity to craft things
@@ -131,12 +131,12 @@ public class RecipeCrafter implements IUpgradeHandler {
 	 * Call this on the blockEntity tick
 	 */
 	public void updateEntity() {
-		if (blockEntity.getWorld() == null || blockEntity.getWorld().isClient) {
+		if (blockEntity.getLevel() == null || blockEntity.getLevel().isClientSide) {
 			return;
 		}
 		ticksSinceLastChange++;
 		if (cachedWorldTime == 0){
-			cachedWorldTime = blockEntity.getWorld().getTime();
+			cachedWorldTime = blockEntity.getLevel().getGameTime();
 		}
 		cachedWorldTime++;
 		// Force a has chanced every second
@@ -208,7 +208,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	 */
 	public void updateCurrentRecipe() {
 		currentTickTime = 0;
-		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
+		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getLevel(), recipeType)) {
 			// This checks to see if it has all the inputs
 			if (!hasAllInputs(recipe)) continue;
 			if (!recipe.canCraft(blockEntity)) continue;
@@ -245,7 +245,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		for (SizedIngredient ingredient : recipeType.ingredients()) {
 			boolean hasItem = false;
 			for (int slot : inputSlots) {
-				if (ingredient.test(inventory.getStack(slot))) {
+				if (ingredient.test(inventory.getItem(slot))) {
 					hasItem = true;
 				}
 			}
@@ -262,7 +262,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 		}
 		for (SizedIngredient ingredient : currentRecipe.ingredients()) {
 			for (int inputSlot : inputSlots) {// Uses all the inputs
-				if (ingredient.test(inventory.getStack(inputSlot))) {
+				if (ingredient.test(inventory.getItem(inputSlot))) {
 					inventory.shrinkSlot(inputSlot, ingredient.count());
 					break;
 				}
@@ -274,11 +274,11 @@ public class RecipeCrafter implements IUpgradeHandler {
 		if (stack.isEmpty()) {
 			return true;
 		}
-		if (inventory.getStack(slot).isEmpty()) {
+		if (inventory.getItem(slot).isEmpty()) {
 			return true;
 		}
-		if (ItemUtils.isItemEqual(inventory.getStack(slot), stack, true, true)) {
-			return stack.getCount() + inventory.getStack(slot).getCount() <= stack.getMaxCount();
+		if (ItemUtils.isItemEqual(inventory.getItem(slot), stack, true, true)) {
+			return stack.getCount() + inventory.getItem(slot).getCount() <= stack.getMaxStackSize();
 		}
 		return false;
 	}
@@ -287,34 +287,34 @@ public class RecipeCrafter implements IUpgradeHandler {
 		if (stack.isEmpty()) {
 			return;
 		}
-		if (inventory.getStack(slot).isEmpty()) {// If the slot is empty set the contents
-			inventory.setStack(slot, stack);
+		if (inventory.getItem(slot).isEmpty()) {// If the slot is empty set the contents
+			inventory.setItem(slot, stack);
 			return;
 		}
-		if (ItemStack.areItemsAndComponentsEqual(inventory.getStack(slot), stack)) {// If the slot has stuff in
-			if (stack.getCount() + inventory.getStack(slot).getCount() <= stack.getMaxCount()) {// Check to see if it fits
+		if (ItemStack.isSameItemSameComponents(inventory.getItem(slot), stack)) {// If the slot has stuff in
+			if (stack.getCount() + inventory.getItem(slot).getCount() <= stack.getMaxStackSize()) {// Check to see if it fits
 				ItemStack newStack = stack.copy();
 				// Sets the new stack size
-				newStack.setCount(inventory.getStack(slot).getCount() + stack.getCount());
-				inventory.setStack(slot, newStack);
+				newStack.setCount(inventory.getItem(slot).getCount() + stack.getCount());
+				inventory.setItem(slot, newStack);
 			}
 		}
 	}
 
-	public void read(ReadView view) {
-		view.getOptionalReadView("Crater").ifPresent(data -> {
-			currentTickTime = data.getInt("currentTickTime", 0);
+	public void read(ValueInput view) {
+		view.child("Crater").ifPresent(data -> {
+			currentTickTime = data.getIntOr("currentTickTime", 0);
 		});
 
-		if (blockEntity != null && blockEntity.getWorld() != null && blockEntity.getWorld().isClient) {
-			blockEntity.getWorld().updateListeners(blockEntity.getPos(),
-					blockEntity.getWorld().getBlockState(blockEntity.getPos()),
-					blockEntity.getWorld().getBlockState(blockEntity.getPos()), 3);
+		if (blockEntity != null && blockEntity.getLevel() != null && blockEntity.getLevel().isClientSide) {
+			blockEntity.getLevel().sendBlockUpdated(blockEntity.getBlockPos(),
+					blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()),
+					blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()), 3);
 		}
 	}
 
-	public void write(WriteView view) {
-		view.get("Crater").putDouble("currentTickTime", currentTickTime);
+	public void write(ValueOutput view) {
+		view.child("Crater").putDouble("currentTickTime", currentTickTime);
 	}
 
 	private boolean isActive() {
@@ -322,7 +322,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	public boolean canCraftAgain() {
-		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
+		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getLevel(), recipeType)) {
 			if (recipe.canCraft(blockEntity) && hasAllInputs(recipe)) {
 				final List<ItemStack> outputs = recipe.outputs();
 
@@ -338,18 +338,18 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	public void setIsActive() {
-		BlockPos pos = blockEntity.getPos();
-		if (blockEntity.getWorld() == null) return;
-		BlockState oldState  = blockEntity.getWorld().getBlockState(pos);
+		BlockPos pos = blockEntity.getBlockPos();
+		if (blockEntity.getLevel() == null) return;
+		BlockState oldState  = blockEntity.getLevel().getBlockState(pos);
 		if (oldState.getBlock() instanceof BlockMachineBase blockMachineBase) {
 			boolean isActive = isActive() || canCraftAgain();
 
-			if (isActive == oldState.get(BlockMachineBase.ACTIVE)) {
+			if (isActive == oldState.getValue(BlockMachineBase.ACTIVE)) {
 				return;
 			}
 
-			blockMachineBase.setActive(isActive, blockEntity.getWorld(), pos);
-			blockEntity.getWorld().updateListeners(pos, oldState, blockEntity.getWorld().getBlockState(pos), 3);
+			blockMachineBase.setActive(isActive, blockEntity.getLevel(), pos);
+			blockEntity.getLevel().sendBlockUpdated(pos, oldState, blockEntity.getLevel().getBlockState(pos), 3);
 		}
 	}
 
@@ -373,8 +373,8 @@ public class RecipeCrafter implements IUpgradeHandler {
 		// Test with a stack with the max stack size as some independents will check the stack size.
 		// A bit of a hack but should work.
 		ItemStack largeStack = stack.copy();
-		largeStack.setCount(largeStack.getMaxCount());
-		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getWorld(), recipeType)) {
+		largeStack.setCount(largeStack.getMaxStackSize());
+		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getLevel(), recipeType)) {
 			for (SizedIngredient ingredient : recipe.ingredients()) {
 				if (ingredient.test(largeStack)) {
 					return true;
@@ -436,7 +436,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	@Nullable
-	private DynamicRegistryManager getDynamicRegistryManager() {
-		return blockEntity.getWorld().getRegistryManager();
+	private RegistryAccess getDynamicRegistryManager() {
+		return blockEntity.getLevel().registryAccess();
 	}
 }

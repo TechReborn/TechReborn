@@ -25,11 +25,11 @@
 package techreborn.packets;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.tier1.ElevatorBlockEntity;
@@ -85,13 +85,13 @@ public class ServerboundPackets {
 			if (!TechRebornConfig.allowManualRefund) {
 				return;
 			}
-			PlayerInventory inventory = context.player().getInventory();
-			for (int i=0; i < inventory.size(); i++){
-				ItemStack stack = inventory.getStack(i);
+			Inventory inventory = context.player().getInventory();
+			for (int i=0; i < inventory.getContainerSize(); i++){
+				ItemStack stack = inventory.getItem(i);
 				if (stack.getItem() == TRContent.MANUAL) {
-					inventory.removeStack(i);
-					inventory.insertStack(new ItemStack(Items.BOOK));
-					inventory.insertStack(TRContent.Ingots.REFINED_IRON.getStack());
+					inventory.removeItemNoUpdate(i);
+					inventory.add(new ItemStack(Items.BOOK));
+					inventory.add(TRContent.Ingots.REFINED_IRON.getStack());
 					return;
 				}
 			}
@@ -128,16 +128,16 @@ public class ServerboundPackets {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(JumpPayload.ID, (payload, context) -> {
-			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().getWorld().getBlockEntity(payload.pos().down());
+			MachineBaseBlockEntity legacyMachineBase = (MachineBaseBlockEntity) context.player().level().getBlockEntity(payload.pos().below());
 			if (legacyMachineBase instanceof ElevatorBlockEntity) {
 				((ElevatorBlockEntity) legacyMachineBase).teleportUp(context.player());
 			}
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SuitNightVisionPayload.ID, (payload, context) -> {
-			for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
-				ItemStack itemStack = context.player().getEquippedStack(equipmentSlot);
-				if (itemStack.isOf(TRContent.NANO_HELMET) || itemStack.isOf(TRContent.QUANTUM_HELMET)) {
+			for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
+				ItemStack itemStack = context.player().getItemBySlot(equipmentSlot);
+				if (itemStack.is(TRContent.NANO_HELMET) || itemStack.is(TRContent.QUANTUM_HELMET)) {
 					itemStack.set(TRDataComponentTypes.IS_ACTIVE, !itemStack.getOrDefault(TRDataComponentTypes.IS_ACTIVE, false));
 					break;
 				}
@@ -145,9 +145,9 @@ public class ServerboundPackets {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(QuantumSuitSprintPayload.ID, (payload, context) -> {
-			for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
-				ItemStack itemStack = context.player().getEquippedStack(equipmentSlot);
-				if (itemStack.isOf(TRContent.QUANTUM_LEGGINGS)) {
+			for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
+				ItemStack itemStack = context.player().getItemBySlot(equipmentSlot);
+				if (itemStack.is(TRContent.QUANTUM_LEGGINGS)) {
 					itemStack.set(TRDataComponentTypes.IS_ACTIVE, !itemStack.getOrDefault(TRDataComponentTypes.IS_ACTIVE, false));
 					break;
 				}

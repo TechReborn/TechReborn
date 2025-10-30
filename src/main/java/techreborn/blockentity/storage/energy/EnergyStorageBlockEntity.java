@@ -24,14 +24,14 @@
 
 package techreborn.blockentity.storage.energy;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -67,16 +67,16 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
-		if (!inventory.getStack(0).isEmpty()) {
+		if (!inventory.getItem(0).isEmpty()) {
 			discharge(0);
 		}
-		if (!inventory.getStack(1).isEmpty()) {
+		if (!inventory.getItem(1).isEmpty()) {
 			charge(1);
 		}
 	}
@@ -110,20 +110,20 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 	// MachineBaseBlockEntity
 	@Override
 	public void setFacing(Direction enumFacing) {
-		if (world == null) {
+		if (level == null) {
 			return;
 		}
-		world.setBlockState(pos, world.getBlockState(pos).with(EnergyStorageBlock.FACING, enumFacing));
+		level.setBlockAndUpdate(worldPosition, level.getBlockState(worldPosition).setValue(EnergyStorageBlock.FACING, enumFacing));
 	}
 
 	@Override
 	public Direction getFacingEnum() {
-		if (world == null) {
+		if (level == null) {
 			return null;
 		}
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = level.getBlockState(worldPosition).getBlock();
 		if (block instanceof EnergyStorageBlock) {
-			return ((EnergyStorageBlock) block).getFacing(world.getBlockState(pos));
+			return ((EnergyStorageBlock) block).getFacing(level.getBlockState(worldPosition));
 		}
 		return null;
 	}
@@ -135,7 +135,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity implement
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(Player entityPlayer) {
 		return new ItemStack(wrenchDrop);
 	}
 

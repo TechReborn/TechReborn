@@ -24,17 +24,17 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.block.OrientationHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.ExperimentalRedstoneUtils;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -77,34 +77,34 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
 
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
-		if (world.getTime() % 20 != 0) {
+		if (world.getGameTime() % 20 != 0) {
 			return;
 		}
 
 		boolean lastRedstone = redstone;
 		redstone = false;
 		if (getStored() > TechRebornConfig.playerDetectorEuPerTick) {
-			for (PlayerEntity player : world.getPlayers()) {
+			for (Player player : world.players()) {
 				if (player.isSpectator()){
 					continue;
 				}
-				if (MathHelper.sqrt((float)player.squaredDistanceTo(pos.getX() +0.5f, pos.getY() +0.5f, pos.getZ() +0.5f)) <= (float)radius ) {
-					PlayerDetectorType type = world.getBlockState(pos).get(PlayerDetectorBlock.TYPE);
+				if (Mth.sqrt((float)player.distanceToSqr(pos.getX() +0.5f, pos.getY() +0.5f, pos.getZ() +0.5f)) <= (float)radius ) {
+					PlayerDetectorType type = world.getBlockState(pos).getValue(PlayerDetectorBlock.TYPE);
 					if (type == PlayerDetectorType.ALL) {// ALL
 						redstone = true;
 					} else if (type == PlayerDetectorType.OTHERS) {// Others
-						if (!ownerUdid.isEmpty() && !ownerUdid.equals(player.getUuid().toString())) {
+						if (!ownerUdid.isEmpty() && !ownerUdid.equals(player.getUUID().toString())) {
 							redstone = true;
 						}
 					} else {// You
-						if (!ownerUdid.isEmpty() && ownerUdid.equals(player.getUuid().toString())) {
+						if (!ownerUdid.isEmpty() && ownerUdid.equals(player.getUUID().toString())) {
 							redstone = true;
 						}
 					}
@@ -114,7 +114,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 		}
 		if (lastRedstone != redstone) {
 			WorldUtils.updateBlock(world, pos);
-			world.updateNeighborsAlways(pos, world.getBlockState(pos).getBlock(), OrientationHelper.getEmissionOrientation(world, null, null));
+			world.updateNeighborsAt(pos, world.getBlockState(pos).getBlock(), ExperimentalRedstoneUtils.initialOrientation(world, null, null));
 		}
 	}
 
@@ -139,15 +139,15 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
-		ownerUdid = view.getString("ownerID", "");
-		radius = view.getInt("radius", 0);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
+		ownerUdid = view.getStringOr("ownerID", "");
+		radius = view.getIntOr("radius", 0);
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		view.putString("ownerID", ownerUdid);
 		view.putInt("radius", radius);
 	}
@@ -165,19 +165,19 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity p0) {
+	public ItemStack getToolDrop(Player p0) {
 		return TRContent.Machine.PLAYER_DETECTOR.getStack();
 	}
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("player_detector")
 				.player(player.getInventory())
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.syncEnergyValue()
-				.sync(PacketCodecs.INTEGER, this::getCurrentRadius, this::setCurrentRadius)
+				.sync(ByteBufCodecs.INT, this::getCurrentRadius, this::setCurrentRadius)
 				.addInventory().create(this, syncID);
 	}
 

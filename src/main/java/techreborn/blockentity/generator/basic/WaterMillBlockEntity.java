@@ -24,13 +24,13 @@
 
 package techreborn.blockentity.generator.basic;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -55,7 +55,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 	 *  Recount surrounding blocks of water
 	 */
 	private void checkForWater() {
-		if (world == null) {
+		if (level == null) {
 			return;
 		}
 		waterBlocks = 0;
@@ -63,26 +63,26 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 			if (!facing.getAxis().isHorizontal()) {
 				continue;
 			}
-			if (world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
+			if (level.getBlockState(worldPosition.relative(facing)).getBlock() == Blocks.WATER) {
 				waterBlocks++;
 			}
 		}
 	}
 
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world.isClient) {
+		if (world.isClientSide) {
 			return;
 		}
-		if (world.getTime() % 20 == 0) {
+		if (world.getGameTime() % 20 == 0) {
 			checkForWater();
 		}
 		if (waterBlocks > 0) {
 			addEnergyProbabilistic(waterBlocks * TechRebornConfig.waterMillEnergyMultiplier);
-			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
+			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
 		} else {
-			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
+			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 		}
 	}
 
@@ -107,7 +107,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 	}
 
 	@Override
-	public ItemStack getToolDrop(PlayerEntity playerIn) {
+	public ItemStack getToolDrop(Player playerIn) {
 		return TRContent.Machine.WATER_MILL.getStack();
 	}
 }

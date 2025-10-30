@@ -27,14 +27,14 @@ package techreborn.events;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerConfigurationConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerConfigurationNetworking;
-import net.minecraft.block.Block;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import techreborn.TechReborn;
@@ -63,7 +63,7 @@ public final class OreDepthSyncHandler {
 				handler.send(packet, null);
 			} else {
 				LOGGER.error("Client cannot receive ore depth packet. This may mean that TechReborn is not installed on the client.");
-				handler.disconnect(Text.literal("The TechReborn mod must be installed to play on this server."));
+				handler.disconnect(Component.literal("The TechReborn mod must be installed to play on this server."));
 			}
 		});
 	}
@@ -71,7 +71,7 @@ public final class OreDepthSyncHandler {
 	public static void updateDepths(List<OreDepth> list) {
 		synchronized (OreDepthSyncHandler.class) {
 			oreDepthMap = list.stream()
-				.collect(Collectors.toMap(oreDepth -> Registries.BLOCK.get(oreDepth.identifier()), Function.identity()));
+				.collect(Collectors.toMap(oreDepth -> BuiltInRegistries.BLOCK.getValue(oreDepth.identifier()), Function.identity()));
 		}
 	}
 
@@ -81,15 +81,15 @@ public final class OreDepthSyncHandler {
 		}
 	}
 
-	public record OreDepthPayload(List<OreDepth> oreDepths) implements CustomPayload {
-		public static final CustomPayload.Id<OreDepthPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "ore_depth"));
-		public static final PacketCodec<PacketByteBuf, OreDepthPayload> PACKET_CODEC = PacketCodec.tuple(
-			OreDepth.PACKET_CODEC.collect(PacketCodecs.toList()), OreDepthPayload::oreDepths,
+	public record OreDepthPayload(List<OreDepth> oreDepths) implements CustomPacketPayload {
+		public static final CustomPacketPayload.Type<OreDepthPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "ore_depth"));
+		public static final StreamCodec<FriendlyByteBuf, OreDepthPayload> PACKET_CODEC = StreamCodec.composite(
+			OreDepth.PACKET_CODEC.apply(ByteBufCodecs.list()), OreDepthPayload::oreDepths,
 			OreDepthPayload::new
 		);
 
 		@Override
-		public Id<? extends CustomPayload> getId() {
+		public Type<? extends CustomPacketPayload> type() {
 			return ID;
 		}
 	}

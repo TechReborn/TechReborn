@@ -33,12 +33,12 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.CollectionUtils;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.plugin.common.displays.crafting.CraftingDisplay;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.init.ModRecipes;
 import techreborn.recipe.recipes.RollingMachineRecipe;
@@ -52,27 +52,27 @@ public class RollingMachineDisplay implements CraftingDisplay {
 		RecordCodecBuilder.mapCodec(instance -> instance.group(
 			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(RollingMachineDisplay::getInputEntries),
 			EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(RollingMachineDisplay::getOutputEntries),
-			Identifier.CODEC.optionalFieldOf("location").forGetter(RollingMachineDisplay::getDisplayLocation),
+			ResourceLocation.CODEC.optionalFieldOf("location").forGetter(RollingMachineDisplay::getDisplayLocation),
 			Codec.INT.fieldOf("width").forGetter(RollingMachineDisplay::getWidth),
 			Codec.INT.fieldOf("height").forGetter(RollingMachineDisplay::getHeight),
 			Codec.INT.fieldOf("energy").forGetter(RollingMachineDisplay::getEnergy),
 			Codec.INT.fieldOf("time").forGetter(RollingMachineDisplay::getTime)
 		).apply(instance, RollingMachineDisplay::new)),
-		PacketCodec.tuple(
-			EntryIngredient.streamCodec().collect(PacketCodecs.toList()), RollingMachineDisplay::getInputEntries,
-			EntryIngredient.streamCodec().collect(PacketCodecs.toList()), RollingMachineDisplay::getOutputEntries,
-			PacketCodecs.optional(Identifier.PACKET_CODEC), RollingMachineDisplay::getDisplayLocation,
-			PacketCodecs.INTEGER, RollingMachineDisplay::getWidth,
-			PacketCodecs.INTEGER, RollingMachineDisplay::getHeight,
-			PacketCodecs.INTEGER, RollingMachineDisplay::getEnergy,
-			PacketCodecs.INTEGER, RollingMachineDisplay::getTime,
+		StreamCodec.composite(
+			EntryIngredient.streamCodec().apply(ByteBufCodecs.list()), RollingMachineDisplay::getInputEntries,
+			EntryIngredient.streamCodec().apply(ByteBufCodecs.list()), RollingMachineDisplay::getOutputEntries,
+			ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC), RollingMachineDisplay::getDisplayLocation,
+			ByteBufCodecs.INT, RollingMachineDisplay::getWidth,
+			ByteBufCodecs.INT, RollingMachineDisplay::getHeight,
+			ByteBufCodecs.INT, RollingMachineDisplay::getEnergy,
+			ByteBufCodecs.INT, RollingMachineDisplay::getTime,
 			RollingMachineDisplay::new
 		)
 	);
 
 	private final List<EntryIngredient> inputs;
 	private final List<EntryIngredient> outputs;
-	private final Optional<Identifier> location;
+	private final Optional<ResourceLocation> location;
 	private final int width;
 	private final int height;
 	private final int energy;
@@ -81,7 +81,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 	public RollingMachineDisplay(
 		List<EntryIngredient> inputs,
 		List<EntryIngredient> outputs,
-		Optional<Identifier> location,
+		Optional<ResourceLocation> location,
 		int width,
 		int height,
 		int energy,
@@ -96,7 +96,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 		this.time = time;
 	}
 
-	public RollingMachineDisplay(RecipeEntry<RebornRecipe> entry) {
+	public RollingMachineDisplay(RecipeHolder<RebornRecipe> entry) {
 		RollingMachineRecipe recipe = (RollingMachineRecipe) entry.value();
 		this.energy = recipe.power();
 		this.time = recipe.time();
@@ -105,8 +105,8 @@ public class RollingMachineDisplay implements CraftingDisplay {
 			shapedRecipe.getIngredients(),
 			opt -> opt.map(EntryIngredients::ofIngredient).orElse(EntryIngredient.empty())
 		);
-		this.outputs = List.of(EntryIngredients.of(shapedRecipe.craft(null, null)));
-		this.location = Optional.of(entry.id().getValue());
+		this.outputs = List.of(EntryIngredients.of(shapedRecipe.assemble(null, null)));
+		this.location = Optional.of(entry.id().location());
 		this.width = shapedRecipe.getWidth();
 		this.height = shapedRecipe.getHeight();
 	}
@@ -135,7 +135,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 	}
 
 	@Override
-	public Optional<Identifier> getDisplayLocation() {
+	public Optional<ResourceLocation> getDisplayLocation() {
 		return location;
 	}
 
@@ -151,7 +151,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 
 	@Override
 	public CategoryIdentifier<?> getCategoryIdentifier() {
-		return CategoryIdentifier.of(Objects.requireNonNull(Registries.RECIPE_TYPE.getId(ModRecipes.ROLLING_MACHINE)));
+		return CategoryIdentifier.of(Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.getKey(ModRecipes.ROLLING_MACHINE)));
 	}
 
 	@Override

@@ -24,10 +24,10 @@
 
 package techreborn.blockentity.machine.tier0.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
@@ -57,18 +57,18 @@ public class BlockBreakerBlockEntity extends AbstractBlockBlockEntity implements
 		processor = new BlockBreakerProcessor(this, OUTPUT_SLOT, FAKE_INPUT_SLOT, TechRebornConfig.blockBreakerBaseBreakTime, TechRebornConfig.blockBreakerEnergyPerTick);
 		inventory = new RebornInventory<>(3, "BlockBreakerBlockEntity", 64, this){
 			@Override
-			public ItemStack getStack(int i) {
+			public ItemStack getItem(int i) {
 				if (i == FAKE_INPUT_SLOT) {
 					return ItemStack.EMPTY;
 				}
-				return super.getStack(i);
+				return super.getItem(i);
 			}
 		};
 	}
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		BlockEntityScreenHandlerBuilder builder = new ScreenHandlerBuilder("blockbreaker")
 			.player(player.getInventory())
 			.inventory()

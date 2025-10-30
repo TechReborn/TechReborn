@@ -24,21 +24,21 @@
 
 package reborncore.client.gui.widget;
 
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.Component;
 import reborncore.common.misc.TriConsumer;
 
 
-public class GuiButtonExtended extends ButtonWidget {
+public class GuiButtonExtended extends Button {
 
 	private TriConsumer<GuiButtonExtended, Double, Double> clickHandler;
 
-	public GuiButtonExtended(int x, int y, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, 20, 200, buttonText, pressAction, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
+	public GuiButtonExtended(int x, int y, Component buttonText, Button.OnPress pressAction) {
+		super(x, y, 20, 200, buttonText, pressAction, Button.DEFAULT_NARRATION);
 	}
 
-	public GuiButtonExtended(int x, int y, int widthIn, int heightIn, Text buttonText, ButtonWidget.PressAction pressAction) {
-		super(x, y, widthIn, heightIn, buttonText, pressAction, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);
+	public GuiButtonExtended(int x, int y, int widthIn, int heightIn, Component buttonText, Button.OnPress pressAction) {
+		super(x, y, widthIn, heightIn, buttonText, pressAction, Button.DEFAULT_NARRATION);
 	}
 
 	public GuiButtonExtended clickHandler(TriConsumer<GuiButtonExtended, Double, Double> consumer) {

@@ -25,28 +25,28 @@
 package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.WorldUtils;
 import techreborn.config.TechRebornConfig;
@@ -60,29 +60,29 @@ import techreborn.items.tool.basic.ElectricTreetapItem;
 /**
  * Created by modmuss50 on 19/02/2016.
  */
-public class BlockRubberLog extends PillarBlock {
+public class BlockRubberLog extends RotatedPillarBlock {
 
-	public static final EnumProperty<Direction> SAP_SIDE = Properties.HORIZONTAL_FACING;
-	public static final BooleanProperty HAS_SAP = BooleanProperty.of("hassap");
-	public static final BooleanProperty SHOULD_SAP = BooleanProperty.of("shouldsap");
+	public static final EnumProperty<Direction> SAP_SIDE = BlockStateProperties.HORIZONTAL_FACING;
+	public static final BooleanProperty HAS_SAP = BooleanProperty.create("hassap");
+	public static final BooleanProperty SHOULD_SAP = BooleanProperty.create("shouldsap");
 
 	public BlockRubberLog(String name) {
 		super(TRBlockSettings.rubberLog(name));
-		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(SHOULD_SAP, true).with(AXIS, Direction.Axis.Y));
+		this.registerDefaultState(this.defaultBlockState().setValue(SAP_SIDE, Direction.NORTH).setValue(HAS_SAP, false).setValue(SHOULD_SAP, true).setValue(AXIS, Direction.Axis.Y));
 		FlammableBlockRegistry.getDefaultInstance().add(this, 5, 5);
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(SAP_SIDE, HAS_SAP, SHOULD_SAP);
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-		super.onPlaced(world, pos, state, placer, itemStack);
-		if (placer instanceof PlayerEntity) {
-			world.setBlockState(pos, state.with(SHOULD_SAP, false));
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+		super.setPlacedBy(world, pos, state, placer, itemStack);
+		if (placer instanceof Player) {
+			world.setBlockAndUpdate(pos, state.setValue(SHOULD_SAP, false));
 		}
 	}
 
@@ -93,65 +93,65 @@ public class BlockRubberLog extends PillarBlock {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public BlockState onBreak(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+	public BlockState playerWillDestroy(Level worldIn, BlockPos pos, BlockState state, Player player) {
 		int i = 4;
 		int j = i + 1;
-		if (worldIn instanceof ServerWorld && worldIn.isRegionLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
-			for (BlockPos blockpos : BlockPos.iterate(pos.add(-i, -i, -i), pos.add(i, i, i))) {
+		if (worldIn instanceof ServerLevel && worldIn.hasChunksAt(pos.offset(-j, -j, -j), pos.offset(j, j, j))) {
+			for (BlockPos blockpos : BlockPos.betweenClosed(pos.offset(-i, -i, -i), pos.offset(i, i, i))) {
 				BlockState state1 = worldIn.getBlockState(blockpos);
-				if (state1.isIn(BlockTags.LEAVES)) {
-					state1.scheduledTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
-					state1.randomTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
+				if (state1.is(BlockTags.LEAVES)) {
+					state1.tick((ServerLevel) worldIn, blockpos, worldIn.getRandom());
+					state1.randomTick((ServerLevel) worldIn, blockpos, worldIn.getRandom());
 				}
 			}
 		}
-		return super.onBreak(worldIn, pos, state, player);
+		return super.playerWillDestroy(worldIn, pos, state, player);
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
 		super.randomTick(state, worldIn, pos, random);
-		if (state.get(AXIS) != Direction.Axis.Y) return;
-		if (!state.get(SHOULD_SAP)) return;
-		if (state.get(HAS_SAP)) return;
+		if (state.getValue(AXIS) != Direction.Axis.Y) return;
+		if (!state.getValue(SHOULD_SAP)) return;
+		if (state.getValue(HAS_SAP)) return;
 
 		if (random.nextInt(50) == 0) {
-			Direction facing = Direction.fromHorizontalQuarterTurns(random.nextInt(4));
-			if (worldIn.getBlockState(pos.offset(Direction.DOWN, 1)).getBlock() == this
-					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
-				worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
+			Direction facing = Direction.from2DDataValue(random.nextInt(4));
+			if (worldIn.getBlockState(pos.relative(Direction.DOWN, 1)).getBlock() == this
+					&& worldIn.getBlockState(pos.above()).getBlock() == this) {
+				worldIn.setBlockAndUpdate(pos, state.setValue(HAS_SAP, true).setValue(SAP_SIDE, facing));
 			}
 		}
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
-		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hitResult) {
+		ItemStack stack = playerIn.getItemInHand(InteractionHand.MAIN_HAND);
 		if (stack.isEmpty()) {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 
 		if ((stack.getItem() instanceof ElectricTreetapItem item && item.getStoredEnergy(stack) > 20) || stack.getItem() instanceof TreeTapItem) {
-			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
-				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontalQuarterTurns(0)));
-				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F);
-				if (worldIn.isClient) {
-					return ActionResult.SUCCESS;
+			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == hitResult.getDirection()) {
+				worldIn.setBlockAndUpdate(pos, state.setValue(HAS_SAP, false).setValue(SAP_SIDE, Direction.from2DDataValue(0)));
+				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundSource.BLOCKS, 0.6F, 1F);
+				if (worldIn.isClientSide) {
+					return InteractionResult.SUCCESS;
 				}
 				if (stack.getItem() instanceof ElectricTreetapItem item) {
 					item.tryUseEnergy(stack, TechRebornConfig.electricTreetapCost);
 				} else {
-					stack.damage(1, playerIn, EquipmentSlot.MAINHAND);
+					stack.hurtAndBreak(1, playerIn, EquipmentSlot.MAINHAND);
 				}
-				if (!playerIn.getInventory().insertStack(TRContent.Parts.SAP.getStack())) {
-					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));
+				if (!playerIn.getInventory().add(TRContent.Parts.SAP.getStack())) {
+					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.relative(hitResult.getDirection()));
 				}
-				if (playerIn instanceof ServerPlayerEntity && !TechRebornConfig.vanillaUnlockRecipes) {
-					TRRecipeHandler.unlockTRRecipes((ServerPlayerEntity) playerIn);
+				if (playerIn instanceof ServerPlayer && !TechRebornConfig.vanillaUnlockRecipes) {
+					TRRecipeHandler.unlockTRRecipes((ServerPlayer) playerIn);
 				}
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 }

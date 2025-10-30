@@ -36,12 +36,12 @@ import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
 import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.client.entry.ItemEntryDefinition;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -117,7 +117,7 @@ public class ReiCommonPlugin implements REICommonPlugin {
 	}
 
 	private void registerFluidGeneratorDisplays(ServerDisplayRegistry registry, RecipeType<FluidGeneratorRecipe> generator, TRContent.Machine machine) {
-		Identifier identifier = Identifier.of(TechReborn.MOD_ID, machine.name);
+		ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, machine.name);
 		registry.beginRecipeFiller(FluidGeneratorRecipe.class)
 			.filterType(generator)
 			.fill(recipe -> new FluidGeneratorRecipeDisplay(recipe.value(), identifier));
@@ -128,7 +128,7 @@ public class ReiCommonPlugin implements REICommonPlugin {
 			return;
 		}
 
-		Function<RecipeEntry<RebornRecipe>, Display> recipeDisplay = MachineRecipeDisplay::new;
+		Function<RecipeHolder<RebornRecipe>, Display> recipeDisplay = MachineRecipeDisplay::new;
 
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
 			recipeDisplay = RollingMachineDisplay::new;
@@ -145,9 +145,9 @@ public class ReiCommonPlugin implements REICommonPlugin {
 
 	@Override
 	public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
-		registry.register(Identifier.of(TechReborn.MOD_ID, "machine"), MachineRecipeDisplay.SERIALIZER);
-		registry.register(Identifier.of(TechReborn.MOD_ID, "rolling_machine"), RollingMachineDisplay.SERIALIZER);
-		registry.register(Identifier.of(TechReborn.MOD_ID, "fluid_generator"), FluidGeneratorRecipeDisplay.SERIALIZER);
-		registry.register(Identifier.of(TechReborn.MOD_ID, "fluid_replicator"), FluidReplicatorRecipeDisplay.SERIALIZER);
+		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "machine"), MachineRecipeDisplay.SERIALIZER);
+		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "rolling_machine"), RollingMachineDisplay.SERIALIZER);
+		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid_generator"), FluidGeneratorRecipeDisplay.SERIALIZER);
+		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid_replicator"), FluidReplicatorRecipeDisplay.SERIALIZER);
 	}
 }

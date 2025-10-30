@@ -27,16 +27,16 @@ package techreborn.compat.pal;
 import io.github.ladysnake.pal.AbilitySource;
 import io.github.ladysnake.pal.Pal;
 import io.github.ladysnake.pal.VanillaAbilities;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import techreborn.TechReborn;
 import techreborn.items.armor.QuantumSuitFlightHandler;
 
 public class PalQuantumSuitFlightHandler extends QuantumSuitFlightHandler {
-	private static final AbilitySource QUANTUM_CHESTPLATE_FLIGHT = Pal.getAbilitySource(Identifier.of(TechReborn.MOD_ID, "quantum_chestplate_flight"), AbilitySource.CONSUMABLE);
+	private static final AbilitySource QUANTUM_CHESTPLATE_FLIGHT = Pal.getAbilitySource(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "quantum_chestplate_flight"), AbilitySource.CONSUMABLE);
 
 	@Override
-	public void setAllowFlight(PlayerEntity playerEntity, boolean allowed) {
+	public void setAllowFlight(Player playerEntity, boolean allowed) {
 		if (allowed) {
 			if (!QUANTUM_CHESTPLATE_FLIGHT.grants(playerEntity, VanillaAbilities.ALLOW_FLYING)) {
 				QUANTUM_CHESTPLATE_FLIGHT.grantTo(playerEntity, VanillaAbilities.ALLOW_FLYING);
@@ -49,7 +49,7 @@ public class PalQuantumSuitFlightHandler extends QuantumSuitFlightHandler {
 	}
 
 	@Override
-	public boolean isFlying(PlayerEntity playerEntity) {
+	public boolean isFlying(Player playerEntity) {
 		return playerEntity.getAbilities().flying && QUANTUM_CHESTPLATE_FLIGHT.isActivelyGranting(playerEntity, VanillaAbilities.ALLOW_FLYING);
 	}
 }

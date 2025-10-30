@@ -24,15 +24,15 @@
 
 package reborncore.common.misc;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public interface MultiBlockBreakingTool {
 
-	Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving);
+	Set<BlockPos> getBlocksToBreak(ItemStack stack, Level worldIn, BlockPos pos, @Nullable LivingEntity entityLiving);
 }

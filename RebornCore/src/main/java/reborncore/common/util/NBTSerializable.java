@@ -24,15 +24,15 @@
 
 package reborncore.common.util;
 
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 @Deprecated
 public interface NBTSerializable {
 
-	void write(@NotNull WriteView view);
+	void write(@NotNull ValueOutput view);
 
-	void read(@NotNull ReadView view);
+	void read(@NotNull ValueInput view);
 
 }

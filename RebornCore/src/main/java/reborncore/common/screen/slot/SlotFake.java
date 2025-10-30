@@ -24,8 +24,8 @@
 
 package reborncore.common.screen.slot;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 
 public class SlotFake extends BaseSlot {
 
@@ -33,7 +33,7 @@ public class SlotFake extends BaseSlot {
 	public boolean mCanStackItem;
 	public int mMaxStackSize = 127;
 
-	public SlotFake(Inventory itemHandler, int par2, int par3, int par4, boolean aCanInsertItem,
+	public SlotFake(Container itemHandler, int par2, int par3, int par4, boolean aCanInsertItem,
 					boolean aCanStackItem, int aMaxStackSize) {
 		super(itemHandler, par2, par3, par4);
 		this.mCanInsertItem = aCanInsertItem;
@@ -42,23 +42,23 @@ public class SlotFake extends BaseSlot {
 	}
 
 	@Override
-	public boolean canInsert(ItemStack par1ItemStack) {
+	public boolean mayPlace(ItemStack par1ItemStack) {
 		return this.mCanInsertItem;
 	}
 
 	@Override
-	public int getMaxItemCount() {
+	public int getMaxStackSize() {
 		return this.mMaxStackSize;
 	}
 
 	@Override
-	public boolean hasStack() {
+	public boolean hasItem() {
 		return false;
 	}
 
 	@Override
-	public ItemStack takeStack(int par1) {
-		return !this.mCanStackItem ? ItemStack.EMPTY : super.takeStack(par1);
+	public ItemStack remove(int par1) {
+		return !this.mCanStackItem ? ItemStack.EMPTY : super.remove(par1);
 	}
 
 	@Override

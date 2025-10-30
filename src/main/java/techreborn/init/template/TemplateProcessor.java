@@ -29,9 +29,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.block.Block;
-import net.minecraft.registry.Registries;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,6 +38,8 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
 
 public class TemplateProcessor {
 
@@ -55,7 +54,7 @@ public class TemplateProcessor {
 	public void processSimpleBlocks(String template, List<Block> blocks) throws IOException {
 		for (Block block : blocks) {
 			Map<String, String> values = new HashMap<>();
-			values.put("name", Registries.BLOCK.getId(block).getPath());
+			values.put("name", BuiltInRegistries.BLOCK.getKey(block).getPath());
 
 			process(template, values);
 		}

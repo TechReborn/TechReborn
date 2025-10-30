@@ -24,7 +24,7 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.SaplingBlock;
+import net.minecraft.world.level.block.SaplingBlock;
 import techreborn.init.TRBlockSettings;
 import techreborn.world.WorldGenerator;
 

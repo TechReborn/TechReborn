@@ -24,16 +24,16 @@
 
 package techreborn.entities;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MovementType;
-import net.minecraft.entity.TntEntity;
-import net.minecraft.entity.boss.BossBar;
-import net.minecraft.entity.boss.ServerBossBar;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.BossEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.explosion.RebornExplosion;
 import techreborn.config.TechRebornConfig;
@@ -42,27 +42,27 @@ import techreborn.init.TRContent;
 /**
  * Created by Mark on 13/03/2016.
  */
-public class EntityNukePrimed extends TntEntity {
+public class EntityNukePrimed extends PrimedTnt {
 	@Nullable LivingEntity owner;
 
-	private final ServerBossBar bossBar = new ServerBossBar(Text.translatable("block.techreborn.nuke"), BossBar.Color.RED, BossBar.Style.PROGRESS);
+	private final ServerBossEvent bossBar = new ServerBossEvent(Component.translatable("block.techreborn.nuke"), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS);
 
 
-	public EntityNukePrimed(EntityType<? extends EntityNukePrimed> type, World world) {
+	public EntityNukePrimed(EntityType<? extends EntityNukePrimed> type, Level world) {
 		super(type, world);
 		setFuse(TechRebornConfig.nukeFuseTime);
 	}
 
-	public EntityNukePrimed(World world, double x, double y, double z, @Nullable LivingEntity owner) {
+	public EntityNukePrimed(Level world, double x, double y, double z, @Nullable LivingEntity owner) {
 		this(TRContent.ENTITY_NUKE, world);
 
-		this.setPosition(x, y, z);
+		this.setPos(x, y, z);
 		double d = world.random.nextDouble() * 6.2831854820251465;
-		this.setVelocity(-Math.sin(d) * 0.02, 0.2f, -Math.cos(d) * 0.02);
+		this.setDeltaMovement(-Math.sin(d) * 0.02, 0.2f, -Math.cos(d) * 0.02);
 		this.setFuse(80);
-		this.lastX = x;
-		this.lastY = y;
-		this.lastZ = z;
+		this.xo = x;
+		this.yo = y;
+		this.zo = z;
 		this.owner = owner;
 		setFuse(TechRebornConfig.nukeFuseTime);
 	}
@@ -75,26 +75,26 @@ public class EntityNukePrimed extends TntEntity {
 
 	@Override
 	public void tick() {
-		if (!this.hasNoGravity()) {
-			this.setVelocity(this.getVelocity().add(0.0D, -0.04D, 0.0D));
+		if (!this.isNoGravity()) {
+			this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.04D, 0.0D));
 		}
 
-		this.move(MovementType.SELF, this.getVelocity());
-		this.setVelocity(this.getVelocity().multiply(0.98D));
-		if (this.isOnGround()) {
-			this.setVelocity(this.getVelocity().multiply(0.7D, -0.5D, 0.7D));
+		this.move(MoverType.SELF, this.getDeltaMovement());
+		this.setDeltaMovement(this.getDeltaMovement().scale(0.98D));
+		if (this.onGround()) {
+			this.setDeltaMovement(this.getDeltaMovement().multiply(0.7D, -0.5D, 0.7D));
 		}
 
 		setFuse(getFuse() - 1);
-		bossBar.setPercent((float) getFuse() / TechRebornConfig.nukeFuseTime);
+		bossBar.setProgress((float) getFuse() / TechRebornConfig.nukeFuseTime);
 
 		if (this.getFuse() <= 0) {
 			this.remove(RemovalReason.KILLED);
-			if (!this.getWorld().isClient) {
+			if (!this.level().isClientSide) {
 				this.explodeNuke();
 			}
 		} else {
-			this.updateWaterState();
+			this.updateInWaterStateAndDoFluidPushing();
 		}
 	}
 
@@ -102,20 +102,20 @@ public class EntityNukePrimed extends TntEntity {
 		if (!TechRebornConfig.nukeEnabled) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), (ServerWorld)getWorld(), TechRebornConfig.nukeRadius);
+		RebornExplosion nukeExplosion = new RebornExplosion(blockPosition(), (ServerLevel)level(), TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getOwner());
 		nukeExplosion.explode();
 	}
 
 	@Override
-	public void onStartedTrackingBy(ServerPlayerEntity player) {
-		super.onStartedTrackingBy(player);
+	public void startSeenByPlayer(ServerPlayer player) {
+		super.startSeenByPlayer(player);
 		this.bossBar.addPlayer(player);
 	}
 
 	@Override
-	public void onStoppedTrackingBy(ServerPlayerEntity player) {
-		super.onStoppedTrackingBy(player);
+	public void stopSeenByPlayer(ServerPlayer player) {
+		super.stopSeenByPlayer(player);
 		this.bossBar.removePlayer(player);
 	}
 }

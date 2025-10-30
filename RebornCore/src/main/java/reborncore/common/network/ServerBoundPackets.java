@@ -25,10 +25,10 @@
 package reborncore.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.BlockState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.block.OrientationHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.ExperimentalRedstoneUtils;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -44,15 +44,15 @@ public class ServerBoundPackets {
 		ServerPlayNetworking.registerGlobalReceiver(FluidConfigSavePayload.ID, (payload, context) -> {
 			var machine = payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
 			machine.fluidConfiguration.updateFluidConfig(payload.fluidConfiguration());
-			machine.markDirty();
+			machine.setChanged();
 
 			NetworkManager.sendToTracking(new FluidConfigSyncPayload(payload.pos(), machine.fluidConfiguration), machine);
 
 			// We update the block to allow pipes that are connecting to detect the update and change their
 			// connection status if needed
-			World world = machine.getWorld();
-			BlockState blockState = world.getBlockState(machine.getPos());
-			world.updateNeighborsAlways(machine.getPos(), blockState.getBlock(), OrientationHelper.getEmissionOrientation(world, null, null));
+			Level world = machine.getLevel();
+			BlockState blockState = world.getBlockState(machine.getBlockPos());
+			world.updateNeighborsAt(machine.getBlockPos(), blockState.getBlock(), ExperimentalRedstoneUtils.initialOrientation(world, null, null));
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SlotConfigSavePayload.ID, (payload, context) -> {
@@ -60,9 +60,9 @@ public class ServerBoundPackets {
 			for (SlotConfiguration.SlotConfigHolder slotDetail : payload.slotConfig().getSlotDetails()) {
 				machine.getSlotConfiguration().updateSlotDetails(slotDetail);
 			}
-			machine.markDirty();
+			machine.setChanged();
 
-			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), (ServerWorld) machine.getWorld());
+			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), (ServerLevel) machine.getLevel());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(FluidIoSavePayload.ID, (payload, context) -> {
@@ -98,14 +98,14 @@ public class ServerBoundPackets {
 		ServerPlayNetworking.registerGlobalReceiver(SlotSavePayload.ID, (payload, context) -> {
 			var machine = payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
 			machine.getSlotConfiguration().getSlotDetails(payload.slotConfig().getSlotID()).updateSlotConfig(payload.slotConfig());
-			machine.markDirty();
+			machine.setChanged();
 
-			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), (ServerWorld) machine.getWorld());
+			NetworkManager.sendToWorld(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), (ServerLevel) machine.getLevel());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(ChunkLoaderRequestPayload.ID, (payload, context) -> {
 			payload.getBlockEntity(MachineBaseBlockEntity.class, context.player());
-			ChunkLoaderManager chunkLoaderManager = ChunkLoaderManager.get(context.player().getWorld());
+			ChunkLoaderManager chunkLoaderManager = ChunkLoaderManager.get(context.player().level());
 			chunkLoaderManager.syncChunkLoaderToClient(context.player(), payload.pos());
 		});
 

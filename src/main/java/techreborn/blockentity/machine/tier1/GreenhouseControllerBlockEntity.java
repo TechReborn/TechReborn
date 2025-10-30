@@ -24,16 +24,29 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BambooStalkBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.CactusBlock;
+import net.minecraft.world.level.block.CaveVines;
+import net.minecraft.world.level.block.CocoaBlock;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.NetherWartBlock;
+import net.minecraft.world.level.block.PumpkinBlock;
+import net.minecraft.world.level.block.SugarCaneBlock;
+import net.minecraft.world.level.block.SweetBerryBushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -71,27 +84,27 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private void workCycle() {
-		if (world == null){
+		if (level == null){
 			return;
 		}
 
 		int size = range * 2 + 1;
 		int offsetX = workingIndex % size;
 		int offsetZ = workingIndex / size;
-		BlockPos corner = multiblockCenter.add(-range, 0, -range);
-		BlockPos blockPos = corner.add(offsetX, 0, offsetZ);
+		BlockPos corner = multiblockCenter.offset(-range, 0, -range);
+		BlockPos blockPos = corner.offset(offsetX, 0, offsetZ);
 
 		workingIndex = (workingIndex + 1) % (size * size);
-		BlockState blockState = world.getBlockState(blockPos);
+		BlockState blockState = level.getBlockState(blockPos);
 		Block block = blockState.getBlock();
 
 		if (growthBoost) {
-			if (block instanceof Fertilizable || block instanceof PlantBlock
+			if (block instanceof BonemealableBlock || block instanceof VegetationBlock
 					|| block instanceof SugarCaneBlock	|| block instanceof CactusBlock
 			) {
 				if (getStored() > TechRebornConfig.greenhouseControllerEnergyPerBonemeal) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerBonemeal);
-					blockState.randomTick((ServerWorld) world, blockPos, world.random);
+					blockState.randomTick((ServerLevel) level, blockPos, level.random);
 				}
 			}
 		}
@@ -110,57 +123,57 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			processAgedCrop(blockState, blockPos, CocoaBlock.AGE, 2, 0);
 		} else if (block instanceof PumpkinBlock) {
 			if (tryHarvestBlock(blockState, blockPos)) {
-				world.breakBlock(blockPos, false);
+				level.destroyBlock(blockPos, false);
 			}
 		} else if (block instanceof SugarCaneBlock
 				|| block instanceof CactusBlock
-				|| block instanceof BambooBlock
+				|| block instanceof BambooStalkBlock
 		) {
 			// If we can break bottom block we should at least remove all of them up to top, so they don't break automatically
 			boolean breakBlocks = false;
-			for (int y = 1; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block; y++) {
+			for (int y = 1; (blockState = level.getBlockState(blockPos.above(y))).getBlock() == block; y++) {
 				if (y == 1) {
-					breakBlocks = tryHarvestBlock(blockState, blockPos.up(y));
+					breakBlocks = tryHarvestBlock(blockState, blockPos.above(y));
 				} else {
-					tryHarvestBlock(blockState, blockPos.up(y));
+					tryHarvestBlock(blockState, blockPos.above(y));
 				}
-				if (breakBlocks) world.breakBlock(blockPos.up(y), false);
+				if (breakBlocks) level.destroyBlock(blockPos.above(y), false);
 			}
 		} else if (block instanceof BlockRubberLog) {
-			for (int y = 0; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block && y < 10; y++) {
-				if (blockState.get(BlockRubberLog.HAS_SAP)
+			for (int y = 0; (blockState = level.getBlockState(blockPos.above(y))).getBlock() == block && y < 10; y++) {
+				if (blockState.getValue(BlockRubberLog.HAS_SAP)
 						&& insertIntoInv(Collections.singletonList(TRContent.Parts.SAP.getStack()))
 				) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-					world.setBlockState(blockPos.up(y), blockState.with(BlockRubberLog.HAS_SAP, false).with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontalQuarterTurns(0)));
+					level.setBlockAndUpdate(blockPos.above(y), blockState.setValue(BlockRubberLog.HAS_SAP, false).setValue(BlockRubberLog.SAP_SIDE, Direction.from2DDataValue(0)));
 				}
 			}
 		} else if (block instanceof CaveVines){
-			for (int y=0; (blockState = world.getBlockState(blockPos.up(y))).getBlock() instanceof CaveVines; y++){
-				if (blockState.get(Properties.BERRIES)
+			for (int y=0; (blockState = level.getBlockState(blockPos.above(y))).getBlock() instanceof CaveVines; y++){
+				if (blockState.getValue(BlockStateProperties.BERRIES)
 					&& insertIntoInv(Collections.singletonList(new ItemStack(Items.GLOW_BERRIES, 1)))
 				){
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-					world.setBlockState(blockPos.up(y), blockState.with(Properties.BERRIES, false));
+					level.setBlockAndUpdate(blockPos.above(y), blockState.setValue(BlockStateProperties.BERRIES, false));
 				}
 			}
 		}
 	}
 
-	private void processAgedCrop(BlockState blockState, BlockPos blockPos, IntProperty ageProperty, int maxAge, int newAge) {
-		if (world == null) {
+	private void processAgedCrop(BlockState blockState, BlockPos blockPos, IntegerProperty ageProperty, int maxAge, int newAge) {
+		if (level == null) {
 			return;
 		}
-		if (blockState.get(ageProperty) < maxAge) {
+		if (blockState.getValue(ageProperty) < maxAge) {
 			return;
 		}
 		if (tryHarvestBlock(blockState, blockPos)) {
-			world.setBlockState(blockPos, blockState.with(ageProperty, newAge), 2);
+			level.setBlock(blockPos, blockState.setValue(ageProperty, newAge), 2);
 		}
 	}
 
 	private boolean tryHarvestBlock(BlockState blockState, BlockPos blockPos) {
-		if (insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null))) {
+		if (insertIntoInv(Block.getDrops(blockState, (ServerLevel) level, blockPos, null))) {
 			useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
 			return true;
 		}
@@ -179,18 +192,18 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private boolean insertIntoInv(int slot, ItemStack stack) {
-		ItemStack targetStack = inventory.getStack(slot);
+		ItemStack targetStack = inventory.getItem(slot);
 		if (targetStack.isEmpty()) {
-			inventory.setStack(slot, stack.copy());
-			stack.decrement(stack.getCount());
+			inventory.setItem(slot, stack.copy());
+			stack.shrink(stack.getCount());
 			return true;
 		} else {
 			if (ItemUtils.isItemEqual(stack, targetStack, true, false)) {
-				int freeStackSpace = targetStack.getMaxCount() - targetStack.getCount();
+				int freeStackSpace = targetStack.getMaxStackSize() - targetStack.getCount();
 				if (freeStackSpace > 0) {
 					int transferAmount = Math.min(freeStackSpace, stack.getCount());
-					targetStack.increment(transferAmount);
-					stack.decrement(transferAmount);
+					targetStack.grow(transferAmount);
+					stack.shrink(transferAmount);
 					return true;
 				}
 			}
@@ -200,13 +213,13 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient){
+		if (world == null || world.isClientSide){
 			return;
 		}
 		if (multiblockCenter == null) {
-			multiblockCenter = pos.offset(getFacing().getOpposite(), range + 1);
+			multiblockCenter = pos.relative(getFacing().getOpposite(), range + 1);
 		}
 
 		charge(6);
@@ -220,7 +233,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			ticksToNextMultiblockCheck = 200;
 		}
 
-		if (world.getTime() % 20 == 0) {
+		if (world.getGameTime() % 20 == 0) {
 			double cyclesLimit = getSpeedMultiplier() * 4 + 1;
 			while (cyclesLimit-- > 0) {
 				workCycle();
@@ -251,8 +264,8 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	// MachineBaseBlockEntity
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
-		BlockState lamp = TRContent.Machine.LAMP_INCANDESCENT.block.getDefaultState().with(Properties.FACING, Direction.DOWN);
-		BlockState crop = Blocks.CACTUS.getDefaultState();
+		BlockState lamp = TRContent.Machine.LAMP_INCANDESCENT.block.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN);
+		BlockState crop = Blocks.CACTUS.defaultBlockState();
 
 		for (int i = 0; i < 3; i++) {
 			for (int j = -1; j < 2; j++) {
@@ -269,7 +282,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(Player entityPlayer) {
 		return TRContent.Machine.GREENHOUSE_CONTROLLER.getStack();
 	}
 
@@ -281,7 +294,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("greenhousecontroller").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.outputSlot(0, 30, 22).outputSlot(1, 48, 22)

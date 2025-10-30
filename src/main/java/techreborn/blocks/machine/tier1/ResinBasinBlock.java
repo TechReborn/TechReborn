@@ -24,27 +24,6 @@
 
 package techreborn.blocks.machine.tier1;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.WorldUtils;
@@ -53,73 +32,94 @@ import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 
 import java.util.function.BiFunction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ResinBasinBlock extends BaseBlockEntityProvider {
 
-	public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
-	public static final BooleanProperty POURING = BooleanProperty.of("pouring");
-	public static final BooleanProperty FULL = BooleanProperty.of("full");
-	protected static final VoxelShape SHAPE = Block.createCuboidShape(0d,0d, 0d, 16d, 8d, 16d);
+	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+	public static final BooleanProperty POURING = BooleanProperty.create("pouring");
+	public static final BooleanProperty FULL = BooleanProperty.create("full");
+	protected static final VoxelShape SHAPE = Block.box(0d,0d, 0d, 16d, 8d, 16d);
 	final BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass;
 
 	public ResinBasinBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntityClass, String name) {
 		super(TRBlockSettings.resinBasin(name));
 		this.blockEntityClass = blockEntityClass;
 
-		this.setDefaultState(
-				this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(POURING, false).with(FULL, false));
+		this.registerDefaultState(
+				this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(POURING, false).setValue(FULL, false));
 	}
 
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
-	public void setFacing(Direction facing, World world, BlockPos pos) {
-		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
+	public void setFacing(Direction facing, Level world, BlockPos pos) {
+		world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(FACING, facing));
 	}
 
 	// Block
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, POURING, FULL);
 	}
 
 	public Direction getFacing(BlockState state) {
-		return state.get(FACING);
+		return state.getValue(FACING);
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-		if (world == null || world.isClient() || player == null || pos == null || !(world.getBlockEntity(pos) instanceof ResinBasinBlockEntity basin))
-			return ActionResult.PASS;
+	public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+		if (world == null || world.isClientSide() || player == null || pos == null || !(world.getBlockEntity(pos) instanceof ResinBasinBlockEntity basin))
+			return InteractionResult.PASS;
 		ItemStack sap = basin.empty();
 		if (sap.isEmpty())
-			return ActionResult.PASS;
-		player.getInventory().offerOrDrop(sap);
-		return ActionResult.SUCCESS;
+			return InteractionResult.PASS;
+		player.getInventory().placeItemBackInInventory(sap);
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		super.onPlaced(worldIn, pos, state, placer, stack);
-		if (worldIn.isClient) return;
+	public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		super.setPlacedBy(worldIn, pos, state, placer, stack);
+		if (worldIn.isClientSide) return;
 
-		Direction facing = placer.getHorizontalFacing().getOpposite();
+		Direction facing = placer.getDirection().getOpposite();
 		setFacing(facing, worldIn, pos);
 
 		// Drop item if not next to log and yell at user
-		if (worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() != TRContent.RUBBER_LOG) {
-			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+		if (worldIn.getBlockState(pos.relative(facing.getOpposite())).getBlock() != TRContent.RUBBER_LOG) {
+			worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 			WorldUtils.dropItem(this.asItem(), worldIn, pos);
-			if (placer instanceof ServerPlayerEntity player) {
-				player.sendMessage(Text.translatable("techreborn.tooltip.invalid_basin_placement"));
+			if (placer instanceof ServerPlayer player) {
+				player.sendSystemMessage(Component.translatable("techreborn.tooltip.invalid_basin_placement"));
 			}
 		}
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		if (blockEntityClass == null) {
 			return null;
 		}
@@ -127,12 +127,12 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	}
 
 	@Override
-	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+	public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof MachineBaseBlockEntity) {
 			((MachineBaseBlockEntity) blockEntity).onBreak(world, player, pos, state);
 		}
 
-		return super.onBreak(world, pos, state, player);
+		return super.playerWillDestroy(world, pos, state, player);
 	}
 }

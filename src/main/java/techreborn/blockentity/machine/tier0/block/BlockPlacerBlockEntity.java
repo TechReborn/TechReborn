@@ -24,9 +24,9 @@
 
 package techreborn.blockentity.machine.tier0.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
@@ -59,7 +59,7 @@ public class BlockPlacerBlockEntity extends AbstractBlockBlockEntity implements 
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		BlockEntityScreenHandlerBuilder builder = new ScreenHandlerBuilder("blockplacer")
 			.player(player.getInventory())
 			.inventory()

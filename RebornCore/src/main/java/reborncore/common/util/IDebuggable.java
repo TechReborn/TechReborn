@@ -24,7 +24,7 @@
 
 package reborncore.common.util;
 
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
 
 public interface IDebuggable {
 
@@ -33,9 +33,9 @@ public interface IDebuggable {
 
 	// Formatting helpers
 	static String propertyFormat(String property, String info){
-		String s = "" + Formatting.GREEN;
+		String s = "" + ChatFormatting.GREEN;
 		s += property + ": ";
-		s += Formatting.RED;
+		s += ChatFormatting.RED;
 		s += info;
 
 		return s;

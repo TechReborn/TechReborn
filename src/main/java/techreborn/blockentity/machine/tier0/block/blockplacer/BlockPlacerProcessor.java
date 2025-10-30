@@ -24,13 +24,13 @@
 
 package techreborn.blockentity.machine.tier0.block.blockplacer;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import techreborn.blockentity.machine.tier0.block.BlockProcessable;
 import techreborn.blockentity.machine.tier0.block.BlockProcessor;
@@ -40,7 +40,7 @@ import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
 /**
  * <b>Class handling the process of placing a block</b>
  * <br>
- * The main purpose of this class is to implement the {@link #onTick(World, BlockPos)}.
+ * The main purpose of this class is to implement the {@link #onTick(Level, BlockPos)}.
  * This method defines the logic for placing a block
  *
  * @author SimonFlapse
@@ -80,12 +80,12 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 		return getPlaceTime();
 	}
 
-	public ProcessingStatus onTick(World world, BlockPos positionInFront) {
+	public ProcessingStatus onTick(Level world, BlockPos positionInFront) {
 		if (!ensureRedstoneEnabled()) return status;
 
 		if (!handleInterrupted()) return status;
 
-		ItemStack inputItemStack = processable.getInventory().getStack(inputSlot);
+		ItemStack inputItemStack = processable.getInventory().getItem(inputSlot);
 
 		if (!handleInputSlotEmptied(inputItemStack)) return status;
 
@@ -95,17 +95,17 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 
 		if (!ensureBlockCanBePlaced(blockInFront, inputItemStack, 1)) return status;
 
-		Item currentPlacingItem = processable.getInventory().getStack(fakeOutputSlot).getItem();
+		Item currentPlacingItem = processable.getInventory().getItem(fakeOutputSlot).getItem();
 
 		ItemStack fakeItem = inputItemStack.copy();
 
-		if (fakeItem.isOf(Items.AIR)) {
+		if (fakeItem.is(Items.AIR)) {
 			currentPlacingItem = null;
 		}
 
-		processable.getInventory().setStack(fakeOutputSlot, fakeItem);
+		processable.getInventory().setItem(fakeOutputSlot, fakeItem);
 
-		BlockState resultingBlockState = Block.getBlockFromItem(inputItemStack.getItem()).getDefaultState();
+		BlockState resultingBlockState = Block.byItem(inputItemStack.getItem()).defaultBlockState();
 
 		float hardness = BlockProcessorUtils.getHardness(world, resultingBlockState, positionInFront);
 
@@ -146,8 +146,8 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 
 	private boolean handleInputSlotEmptied(ItemStack inputStack) {
 		//Makes sure that if the input slot is emptied, the processing resets
-		if (inputStack.isOf(ItemStack.EMPTY.getItem())) {
-			processable.getInventory().setStack(fakeOutputSlot, ItemStack.EMPTY);
+		if (inputStack.is(ItemStack.EMPTY.getItem())) {
+			processable.getInventory().setItem(fakeOutputSlot, ItemStack.EMPTY);
 			resetProcessing(0);
 		}
 
@@ -167,7 +167,7 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 		//Checks if the block can be placed
 		//Items for which the default BlockState is an air block should not be placed, that will just destroy the item
 		//Blocks with hardness below 0 can not be broken, and thus should not be placed
-		BlockState blockState = Block.getBlockFromItem(fakeItem.getItem()).getDefaultState();
+		BlockState blockState = Block.byItem(fakeItem.getItem()).defaultBlockState();
 		if (blockState.isAir() || hardness < 0) {
 			return breakControlFlow(BlockPlacerStatus.IDLE);
 		}
@@ -182,7 +182,7 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 
 	private boolean ensureItemNotReplaced(Item currentPlacingItem, ItemStack item) {
 		//Ensures that a smart replace of item, will cause the processing to restart
-		if (currentPlacingItem != null && !ItemStack.EMPTY.isOf(currentPlacingItem) && !item.isOf(currentPlacingItem)) {
+		if (currentPlacingItem != null && !ItemStack.EMPTY.is(currentPlacingItem) && !item.is(currentPlacingItem)) {
 			return breakControlFlow(BlockPlacerStatus.INTERRUPTED);
 		}
 
@@ -198,11 +198,11 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 		return true;
 	}
 
-	private void placeBlock(World world, BlockPos positionInFront, ItemStack currentStack) {
+	private void placeBlock(Level world, BlockPos positionInFront, ItemStack currentStack) {
 		if (currentPlaceTime >= placeTime) {
-			ItemStack itemStack = processable.getInventory().getStack(inputSlot);
+			ItemStack itemStack = processable.getInventory().getItem(inputSlot);
 
-			world.setBlockState(positionInFront, Block.getBlockFromItem(currentStack.getItem()).getDefaultState());
+			world.setBlockAndUpdate(positionInFront, Block.byItem(currentStack.getItem()).defaultBlockState());
 			itemStack.setCount(itemStack.getCount() - 1);
 
 			resetProcessing(0);
@@ -212,7 +212,7 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 	private void resetProcessing(int tick) {
 		this.currentPlaceTime = tick;
 		this.placeTime = basePlaceTime;
-		this.processable.getInventory().setStack(fakeOutputSlot, ItemStack.EMPTY);
+		this.processable.getInventory().setItem(fakeOutputSlot, ItemStack.EMPTY);
 	}
 
 	private boolean breakControlFlow(ProcessingStatus status) {

@@ -24,22 +24,6 @@
 
 package techreborn.init;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.FluidDrainable;
-import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Position;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.fluid.RebornBucketItem;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -49,6 +33,22 @@ import techreborn.items.DynamicCellItem;
 import techreborn.recipe.recipes.ScrapBoxRecipe;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 
 /**
  * Created by drcrazy on 10-Jan-20 for TechReborn-1.15.
@@ -57,64 +57,64 @@ public class TRDispenserBehavior {
 
 	public static void init() {
 		if (TechRebornConfig.dispenseScrapboxes) {
-			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new ItemDispenserBehavior() {
-				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-					List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(pointer.world(), ModRecipes.SCRAPBOX);
-					int random = Random.create().nextInt(scrapboxRecipeList.size());
+			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new DefaultDispenseItemBehavior() {
+				public ItemStack execute(BlockSource pointer, ItemStack stack) {
+					List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(pointer.level(), ModRecipes.SCRAPBOX);
+					int random = RandomSource.create().nextInt(scrapboxRecipeList.size());
 					ItemStack out = scrapboxRecipeList.get(random).outputs().getFirst().copy();
 					stack.split(1);
 
-					Direction facing = pointer.state().get(DispenserBlock.FACING);
-					Position position = DispenserBlock.getOutputLocation(pointer);
-					spawnItem(pointer.world(), out, 6, facing, position);
+					Direction facing = pointer.state().getValue(DispenserBlock.FACING);
+					Position position = DispenserBlock.getDispensePosition(pointer);
+					spawnItem(pointer.level(), out, 6, facing, position);
 					return stack;
 				}
 			});
 		}
 
-		DispenserBlock.registerBehavior(TRContent.CELL, new ItemDispenserBehavior() {
-			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+		DispenserBlock.registerBehavior(TRContent.CELL, new DefaultDispenseItemBehavior() {
+			public ItemStack execute(BlockSource pointer, ItemStack stack) {
 				DynamicCellItem cell = (DynamicCellItem) stack.getItem();
-				WorldAccess iWorld = pointer.world();
-				BlockPos blockPos = pointer.pos().offset(pointer.state().get(DispenserBlock.FACING));
+				LevelAccessor iWorld = pointer.level();
+				BlockPos blockPos = pointer.pos().relative(pointer.state().getValue(DispenserBlock.FACING));
 				BlockState blockState = iWorld.getBlockState(blockPos);
 				Block block = blockState.getBlock();
 				if (cell.getFluid(stack) == Fluids.EMPTY) {
 					// fill cell
-					if (block instanceof FluidDrainable) {
-						ItemStack fluidContainer = ((FluidDrainable) block).tryDrainFluid(null, iWorld, blockPos, blockState);
+					if (block instanceof BucketPickup) {
+						ItemStack fluidContainer = ((BucketPickup) block).pickupBlock(null, iWorld, blockPos, blockState);
 						Fluid fluid = null;
 						if (fluidContainer.getItem() instanceof ItemFluidInfo) {
 							fluid = ((ItemFluidInfo) fluidContainer.getItem()).getFluid(fluidContainer);
 						} else {
 							TechReborn.LOGGER.debug("Could not get Fluid from ItemStack " + fluidContainer.getItem());
 						}
-						if (!(fluid instanceof FlowableFluid)) {
-							return super.dispenseSilently(pointer, stack);
+						if (!(fluid instanceof FlowingFluid)) {
+							return super.execute(pointer, stack);
 						} else {
 							ItemStack filledCell = DynamicCellItem.getCellWithFluid(fluid, 1);
 							if (stack.getCount() == 1) {
 								stack = filledCell;
 							} else {
-								stack.decrement(1);
-								if (pointer.blockEntity().addToFirstFreeSlot(filledCell).getCount() < 0) {
+								stack.shrink(1);
+								if (pointer.blockEntity().insertItem(filledCell).getCount() < 0) {
 									this.dispense(pointer, filledCell);
 								}
 							}
 							return stack;
 						}
 					} else {
-						return super.dispenseSilently(pointer, stack);
+						return super.execute(pointer, stack);
 					}
 				} else {
 					// drain cell
-					if (cell.placeFluid(null, pointer.world(), blockPos, null, stack)) {
+					if (cell.placeFluid(null, pointer.level(), blockPos, null, stack)) {
 						ItemStack emptyCell = cell.getEmpty();
 						if (stack.getCount() == 1) {
 							stack = emptyCell;
 						} else {
-							stack.decrement(1);
-							if (pointer.blockEntity().addToFirstFreeSlot(emptyCell).getCount() < 0) {
+							stack.shrink(1);
+							if (pointer.blockEntity().insertItem(emptyCell).getCount() < 0) {
 								this.dispense(pointer, emptyCell);
 							}
 						}
@@ -125,18 +125,18 @@ public class TRDispenserBehavior {
 		});
 
 		for (ModFluids fluid : ModFluids.values()) {
-			DispenserBlock.registerBehavior(fluid, new ItemDispenserBehavior() {
-				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+			DispenserBlock.registerBehavior(fluid, new DefaultDispenseItemBehavior() {
+				public ItemStack execute(BlockSource pointer, ItemStack stack) {
 					RebornBucketItem bucket = (RebornBucketItem) stack.getItem();
-					BlockPos blockPos = pointer.pos().offset(pointer.state().get(DispenserBlock.FACING));
+					BlockPos blockPos = pointer.pos().relative(pointer.state().getValue(DispenserBlock.FACING));
 
-					if (bucket.placeFluid(null, pointer.world(), blockPos, null)) {
+					if (bucket.emptyContents(null, pointer.level(), blockPos, null)) {
 						ItemStack emptyBucket = new ItemStack(Items.BUCKET);
 						if (stack.getCount() == 1) {
 							stack = emptyBucket;
 						} else {
-							stack.decrement(1);
-							if (pointer.blockEntity().addToFirstFreeSlot(emptyBucket).getCount() < 0) {
+							stack.shrink(1);
+							if (pointer.blockEntity().insertItem(emptyBucket).getCount() < 0) {
 								this.dispense(pointer, emptyBucket);
 							}
 						}

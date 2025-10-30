@@ -25,20 +25,20 @@
 package techreborn.events;
 
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import techreborn.init.TRContent;
 
 public class UseBlockHandler implements UseBlockCallback{
@@ -48,8 +48,8 @@ public class UseBlockHandler implements UseBlockCallback{
 	}
 
 	@Override
-	public ActionResult interact(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
-		ItemStack stack = playerEntity.getStackInHand(hand);
+	public InteractionResult interact(Player playerEntity, Level world, InteractionHand hand, BlockHitResult blockHitResult) {
+		ItemStack stack = playerEntity.getItemInHand(hand);
 
 		if (stack.getItem() instanceof AxeItem) {
 			BlockPos pos = blockHitResult.getBlockPos();
@@ -65,19 +65,19 @@ public class UseBlockHandler implements UseBlockCallback{
 
 			if (strippedBlock != null) {
 				// Play stripping sound
-				world.playSound(playerEntity, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-				if (world.isClient) {
-					return ActionResult.SUCCESS;
+				world.playSound(playerEntity, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+				if (world.isClientSide) {
+					return InteractionResult.SUCCESS;
 				}
 
-				world.setBlockState(pos, strippedBlock.getDefaultState().with(PillarBlock.AXIS, hitState.get(PillarBlock.AXIS)), 11);
+				world.setBlock(pos, strippedBlock.defaultBlockState().setValue(RotatedPillarBlock.AXIS, hitState.getValue(RotatedPillarBlock.AXIS)), 11);
 
 				// Damage axe
-				stack.damage(1, playerEntity, EquipmentSlot.MAINHAND);
-				return ActionResult.SUCCESS;
+				stack.hurtAndBreak(1, playerEntity, EquipmentSlot.MAINHAND);
+				return InteractionResult.SUCCESS;
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 }

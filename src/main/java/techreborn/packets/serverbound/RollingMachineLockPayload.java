@@ -24,25 +24,25 @@
 
 package techreborn.packets.serverbound;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
-public record RollingMachineLockPayload(BlockPos pos, boolean locked) implements CustomPayload, BlockPosPayload {
-	public static final CustomPayload.Id<RollingMachineLockPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "rolling_machine_lock"));
-	public static final PacketCodec<RegistryByteBuf, RollingMachineLockPayload> CODEC = PacketCodec.tuple(
-		BlockPos.PACKET_CODEC, RollingMachineLockPayload::pos,
-		PacketCodecs.BOOLEAN, RollingMachineLockPayload::locked,
+public record RollingMachineLockPayload(BlockPos pos, boolean locked) implements CustomPacketPayload, BlockPosPayload {
+	public static final CustomPacketPayload.Type<RollingMachineLockPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "rolling_machine_lock"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, RollingMachineLockPayload> CODEC = StreamCodec.composite(
+		BlockPos.STREAM_CODEC, RollingMachineLockPayload::pos,
+		ByteBufCodecs.BOOL, RollingMachineLockPayload::locked,
 		RollingMachineLockPayload::new
 	);
 
 	@Override
-	public Id<? extends CustomPayload> getId() {
+	public Type<? extends CustomPacketPayload> type() {
 		return ID;
 	}
 }

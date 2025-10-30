@@ -24,19 +24,6 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.Torus;
@@ -47,6 +34,19 @@ import techreborn.init.TRContent;
 import techreborn.init.TRDamageTypes;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class BlockFusionControlComputer extends BlockMachineBase {
 	public BlockFusionControlComputer(String name) {
@@ -54,30 +54,30 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		final FusionControlComputerBlockEntity blockEntityFusionControlComputer = (FusionControlComputerBlockEntity) world.getBlockEntity(pos);
-		if (!player.getStackInHand(hand).isEmpty() && (player.getStackInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())) {
-			List<BlockPos> coils = Torus.generate(blockEntityFusionControlComputer.getPos(), blockEntityFusionControlComputer.size);
+		if (!player.getItemInHand(hand).isEmpty() && (player.getItemInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())) {
+			List<BlockPos> coils = Torus.generate(blockEntityFusionControlComputer.getBlockPos(), blockEntityFusionControlComputer.size);
 			boolean placed = false;
 			for (BlockPos coil : coils) {
-				if (player.getStackInHand(hand).isEmpty()) {
-					return ActionResult.SUCCESS;
+				if (player.getItemInHand(hand).isEmpty()) {
+					return InteractionResult.SUCCESS;
 				}
-				if (world.getBlockState(coil).canReplace(new ItemPlacementContext(new ItemUsageContext(player, hand, hit)))
+				if (world.getBlockState(coil).canBeReplaced(new BlockPlaceContext(new UseOnContext(player, hand, hit)))
 					&& world.getBlockState(pos).getBlock() != TRContent.Machine.FUSION_COIL.block) {
-					world.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
+					world.setBlockAndUpdate(coil, TRContent.Machine.FUSION_COIL.block.defaultBlockState());
 					if (!player.isCreative()) {
-						player.getStackInHand(hand).decrement(1);
+						player.getItemInHand(hand).shrink(1);
 					}
 					placed = true;
 				}
 			}
 			if (placed) {
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 
 		}
-		return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+		return super.useItemOn(stack, state, world, pos, player, hand, hit);
 	}
 
 	@Override
@@ -86,17 +86,17 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	public void onSteppedOn(final World worldIn, final BlockPos pos, final BlockState state,  final Entity entityIn) {
-		super.onSteppedOn(worldIn, pos, state, entityIn);
-		if (!worldIn.isClient && worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity blockEntity) {
+	public void stepOn(final Level worldIn, final BlockPos pos, final BlockState state,  final Entity entityIn) {
+		super.stepOn(worldIn, pos, state, entityIn);
+		if (!worldIn.isClientSide && worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity blockEntity) {
 			if (blockEntity.craftingTickTime != 0 && blockEntity.isShapeValid()) {
-				entityIn.damage((ServerWorld) worldIn, TRDamageTypes.create(worldIn, TRDamageTypes.FUSION), 200F);
+				entityIn.hurtServer((ServerLevel) worldIn, TRDamageTypes.create(worldIn, TRDamageTypes.FUSION), 200F);
 			}
 		}
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new FusionControlComputerBlockEntity(pos, state);
 	}
 

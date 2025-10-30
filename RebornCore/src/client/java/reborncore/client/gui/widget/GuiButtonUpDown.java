@@ -24,14 +24,15 @@
 
 package reborncore.client.gui.widget;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 
 import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.network.chat.Component;
 
 /**
  * @author drcrazy
@@ -40,14 +41,14 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	private final GuiBase<?> gui;
 	private final UpDownButtonType type;
 
-	public GuiButtonUpDown(int x, int y, GuiBase<?> gui, ButtonWidget.PressAction pressAction, UpDownButtonType type) {
-		super(x, y, 12, 12, Text.empty(), pressAction);
+	public GuiButtonUpDown(int x, int y, GuiBase<?> gui, Button.OnPress pressAction, UpDownButtonType type) {
+		super(x, y, 12, 12, Component.empty(), pressAction);
 		this.gui = gui;
 		this.type = type;
 	}
 
 	@Override
-	public void renderWidget(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
 		if (gui.hideGuiElements()) return;
 		drawSpriteStretched(drawContext, type.spriteIdentifier, getX(), getY(), getWidth(), getHeight());
 	}
@@ -58,9 +59,9 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 		REWIND(GuiSprites.REWIND),
 		FASTREWIND(GuiSprites.FAST_REWIND);
 
-		private final SpriteIdentifier spriteIdentifier;
+		private final Material spriteIdentifier;
 
-		UpDownButtonType(SpriteIdentifier spriteIdentifier) {
+		UpDownButtonType(Material spriteIdentifier) {
 			this.spriteIdentifier = spriteIdentifier;
 		}
 	}

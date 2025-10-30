@@ -24,10 +24,10 @@
 
 package techreborn.blockentity.machine.multiblock;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
@@ -66,7 +66,7 @@ public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity im
 
 	// IContainerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("implosioncompressor").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().syncShapeValue().addInventory().create(this, syncID);

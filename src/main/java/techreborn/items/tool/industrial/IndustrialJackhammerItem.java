@@ -24,22 +24,6 @@
 
 package techreborn.items.tool.industrial;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -54,6 +38,22 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
@@ -67,8 +67,8 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 		if (!TRItemUtils.isActive(stack)) {
 			TRItemUtils.switchActive(stack, cost, entity);
 			stack.set(TRDataComponentTypes.AOE5, false);
-			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("3*3").formatted(Formatting.GOLD)), true);
+			if (entity instanceof ServerPlayer serverPlayerEntity) {
+				serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.setTo").withStyle(ChatFormatting.GRAY).append(" ").append(Component.literal("3*3").withStyle(ChatFormatting.GOLD)), true);
 			}
 		} else {
 			if (isAOE5(stack)) {
@@ -76,8 +76,8 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 				stack.set(TRDataComponentTypes.AOE5, false);
 			} else {
 				stack.set(TRDataComponentTypes.AOE5, true);
-				if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-					serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(Text.literal("5*5").formatted(Formatting.GOLD)), true);
+				if (entity instanceof ServerPlayer serverPlayerEntity) {
+					serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.setTo").withStyle(ChatFormatting.GRAY).append(" ").append(Component.literal("5*5").withStyle(ChatFormatting.GOLD)), true);
 				}
 			}
 		}
@@ -89,10 +89,10 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 
 	// JackhammerItem
 	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean mineBlock(ItemStack stack, Level worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
 		// No AOE mining turned on OR we've broken a wrong block
-		if (!TRItemUtils.isActive(stack) || !isCorrectForDrops(stack, stateIn)) {
-			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+		if (!TRItemUtils.isActive(stack) || !isCorrectToolForDrops(stack, stateIn)) {
+			return super.mineBlock(stack, worldIn, stateIn, pos, entityLiving);
 		}
 
 		// Do AoE mining except original block
@@ -104,12 +104,12 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 		}
 
 		// Do not forget to use energy for original block
-		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+		return super.mineBlock(stack, worldIn, stateIn, pos, entityLiving);
 	}
 
 	@Override
-	public float getMiningSpeed(ItemStack stack, BlockState state) {
-		float speed = super.getMiningSpeed(stack, state);
+	public float getDestroySpeed(ItemStack stack, BlockState state) {
+		float speed = super.getDestroySpeed(stack, state);
 
 		if (speed > unpoweredSpeed) {
 			return speed * 4;
@@ -120,36 +120,36 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 
 	// Item
 	@Override
-	public ActionResult use(final World world, final PlayerEntity player, final Hand hand) {
-		final ItemStack stack = player.getStackInHand(hand);
-		if (player.isSneaking()) {
+	public InteractionResult use(final Level world, final Player player, final InteractionHand hand) {
+		final ItemStack stack = player.getItemInHand(hand);
+		if (player.isShiftKeyDown()) {
 			switchAOE(stack, cost, player);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
+	public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, @Nullable EquipmentSlot slot) {
 		TRItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
 		TRItemUtils.buildActiveTooltip(stack, tooltip);
 		if (TRItemUtils.isActive(stack)) {
 			if (isAOE5(stack)) {
-				tooltip.accept(Text.literal("5*5").formatted(Formatting.RED));
+				tooltip.accept(Component.literal("5*5").withStyle(ChatFormatting.RED));
 			} else {
-				tooltip.accept(Text.literal("3*3").formatted(Formatting.RED));
+				tooltip.accept(Component.literal("3*3").withStyle(ChatFormatting.RED));
 			}
 		}
 	}
 
 	// MultiBlockBreakingTool
 	@Override
-	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!isCorrectForDrops(stack, worldIn.getBlockState(pos)) || !TRItemUtils.isActive(stack)) {
+	public Set<BlockPos> getBlocksToBreak(ItemStack stack, Level worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
+		if (!isCorrectToolForDrops(stack, worldIn.getBlockState(pos)) || !TRItemUtils.isActive(stack)) {
 			return Collections.emptySet();
 		}
 		int radius = isAOE5(stack) ? 2 : 1;

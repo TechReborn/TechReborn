@@ -24,14 +24,14 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 
 /**
  * @author drcrazy
  */
-public class RubberTrapdoorBlock extends TrapdoorBlock {
+public class RubberTrapdoorBlock extends TrapDoorBlock {
 
 	public RubberTrapdoorBlock(String name) {
 		super(TRContent.RUBBER_WOOD_SET_TYPE, TRBlockSettings.rubberTrapdoor(name));

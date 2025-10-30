@@ -24,9 +24,9 @@
 
 package techreborn.blockentity.machine.tier0.block.blockplacer;
 
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
 
@@ -43,22 +43,22 @@ class BlockPlacerNbt {
 	protected int currentPlaceTime;
 	protected ProcessingStatus status = BlockPlacerStatus.IDLE;
 
-	public void writeData(WriteView view) {
+	public void writeData(ValueOutput view) {
 		view.putInt("placeTime", this.placeTime);
 		view.putInt("currentPlaceTime", this.currentPlaceTime);
 		view.putInt("blockPlacerStatus", getStatus());
 	}
 
-	public void readData(ReadView view) {
-		this.placeTime = view.getInt("placeTime", 0);
-		this.currentPlaceTime = view.getInt("currentPlaceTime", 0);
-		setStatus(view.getInt("blockPlacerStatus", 0));
+	public void readData(ValueInput view) {
+		this.placeTime = view.getIntOr("placeTime", 0);
+		this.currentPlaceTime = view.getIntOr("currentPlaceTime", 0);
+		setStatus(view.getIntOr("blockPlacerStatus", 0));
 	}
 
 	public BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder) {
-		return builder.sync(PacketCodecs.INTEGER, this::getPlaceTime, this::setPlaceTime)
-			.sync(PacketCodecs.INTEGER, this::getCurrentPlaceTime, this::setCurrentPlaceTime)
-			.sync(PacketCodecs.INTEGER, this::getStatus, this::setStatus);
+		return builder.sync(ByteBufCodecs.INT, this::getPlaceTime, this::setPlaceTime)
+			.sync(ByteBufCodecs.INT, this::getCurrentPlaceTime, this::setCurrentPlaceTime)
+			.sync(ByteBufCodecs.INT, this::getStatus, this::setStatus);
 	}
 
 	protected int getPlaceTime() {

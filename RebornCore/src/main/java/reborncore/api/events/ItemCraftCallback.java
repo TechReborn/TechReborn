@@ -26,9 +26,9 @@ package reborncore.api.events;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.RecipeInputInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
 
 
 public interface ItemCraftCallback {
@@ -39,6 +39,6 @@ public interface ItemCraftCallback {
 		}
 	});
 
-	void onCraft(ItemStack stack, RecipeInputInventory craftingInventory, PlayerEntity playerEntity);
+	void onCraft(ItemStack stack, CraftingContainer craftingInventory, Player playerEntity);
 
 }

@@ -24,63 +24,62 @@
 
 package reborncore.common.recipes;
 
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.advancement.AdvancementRequirements;
-import net.minecraft.advancement.AdvancementRewards;
-import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RawShapedRecipe;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
-
 import java.util.Objects;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
+import net.minecraft.world.level.ItemLike;
 
-public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeJsonBuilder {
+public class PaddedShapedRecipeJsonBuilder extends ShapedRecipeBuilder {
 
-	public PaddedShapedRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemConvertible output, int outputCount) {
+	public PaddedShapedRecipeJsonBuilder(HolderGetter<Item> registryLookup, RecipeCategory category, ItemLike output, int outputCount) {
 		super(registryLookup, category, output, outputCount);
 	}
 
-	public static PaddedShapedRecipeJsonBuilder create(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemConvertible output) {
-		return create(registryLookup, category, output, 1);
+	public static PaddedShapedRecipeJsonBuilder shaped(HolderGetter<Item> registryLookup, RecipeCategory category, ItemLike output) {
+		return shaped(registryLookup, category, output, 1);
 	}
 
-	public static PaddedShapedRecipeJsonBuilder create(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemConvertible output, int outputCount) {
+	public static PaddedShapedRecipeJsonBuilder shaped(HolderGetter<Item> registryLookup, RecipeCategory category, ItemLike output, int outputCount) {
 		return new PaddedShapedRecipeJsonBuilder(registryLookup, category, output, outputCount);
 	}
 	@Override
-	public void offerTo(RecipeExporter exporter, RegistryKey<Recipe<?>> recipeKey) {
-		RawShapedRecipe raw = toRaw(recipeKey);
+	public void save(RecipeOutput exporter, ResourceKey<Recipe<?>> recipeKey) {
+		ShapedRecipePattern raw = toRaw(recipeKey);
 
-		AdvancementEntry advancementEntry = exporter.getAdvancementBuilder()
-			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey))
+		AdvancementHolder advancementEntry = exporter.advancement()
+			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeKey))
 			.rewards(AdvancementRewards.Builder.recipe(recipeKey))
-			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR)
-			.build(recipeKey.getValue());
+			.requirements(AdvancementRequirements.Strategy.OR)
+			.build(recipeKey.location());
 
 		PaddedShapedRecipe shapedRecipe = new PaddedShapedRecipe(
 			Objects.requireNonNullElse(this.group, ""),
-			CraftingRecipeJsonBuilder.toCraftingCategory(this.category),
+			RecipeBuilder.determineBookCategory(this.category),
 			raw,
-			new ItemStack(this.output, this.count),
+			new ItemStack(this.result, this.count),
 			this.showNotification
 		);
 
 		exporter.accept(recipeKey, shapedRecipe, advancementEntry);
 	}
 
-	private RawShapedRecipe toRaw(RegistryKey<Recipe<?>> recipeKey) {
+	private ShapedRecipePattern toRaw(ResourceKey<Recipe<?>> recipeKey) {
 		if (this.criteria.isEmpty()) {
-			throw new IllegalStateException("No way of obtaining recipe " + recipeKey.getValue());
+			throw new IllegalStateException("No way of obtaining recipe " + recipeKey.location());
 		} else {
-			return PaddedShapedRecipe.create(this.inputs, this.pattern);
+			return PaddedShapedRecipe.create(this.key, this.rows);
 		}
 	}
 }

@@ -24,13 +24,12 @@
 
 package reborncore.common.multiblock;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
-
 import java.util.Set;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Basic interface for a multiblock machine part. This is defined as an abstract
@@ -244,10 +243,10 @@ public abstract class IMultiblockPart extends BlockEntity {
 	public abstract boolean hasMultiblockSaveData();
 
 	/**
-	 * @return {@link NbtCompound} The part's saved multiblock game-data in NBT format, or null if
+	 * @return {@link CompoundTag} The part's saved multiblock game-data in NBT format, or null if
 	 * there isn't any.
 	 */
-	public abstract NbtCompound getMultiblockSaveData();
+	public abstract CompoundTag getMultiblockSaveData();
 
 	/**
 	 * Called after a block is added and the controller has incorporated the

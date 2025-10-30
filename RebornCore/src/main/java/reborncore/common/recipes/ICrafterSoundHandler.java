@@ -24,7 +24,7 @@
 
 package reborncore.common.recipes;
 
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * Created by Mark on 01/07/2017.

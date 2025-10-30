@@ -24,10 +24,10 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 public abstract class QuantumSuitFlightHandler {
-	public abstract void setAllowFlight(PlayerEntity playerEntity, boolean allowed);
+	public abstract void setAllowFlight(Player playerEntity, boolean allowed);
 
-	public abstract boolean isFlying(PlayerEntity playerEntity);
+	public abstract boolean isFlying(Player playerEntity);
 }

@@ -28,18 +28,18 @@ import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerListener;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerListener;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.TransientCraftingContainer;
+import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.Range;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.NetworkManager;
@@ -54,10 +54,10 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class BuiltScreenHandler extends ScreenHandler {
+public class BuiltScreenHandler extends AbstractContainerMenu {
 	private final String name;
 
-	private final Predicate<PlayerEntity> canInteract;
+	private final Predicate<Player> canInteract;
 	private final List<Range<Integer>> playerSlotRanges;
 	private final List<Range<Integer>> blockEntitySlotRanges;
 
@@ -65,11 +65,11 @@ public class BuiltScreenHandler extends ScreenHandler {
 	private final Map<IdentifiedSyncedObject<?>, Object> syncPairCache = new HashMap<>();
 	private final Int2ObjectMap<IdentifiedSyncedObject<?>> syncPairIdLookup = new Int2ObjectOpenHashMap<>();
 
-	private List<Consumer<CraftingInventory>> craftEvents;
+	private List<Consumer<TransientCraftingContainer>> craftEvents;
 
 	private final MachineBaseBlockEntity blockEntity;
 
-	public BuiltScreenHandler(int syncID, final String name, final Predicate<PlayerEntity> canInteract,
+	public BuiltScreenHandler(int syncID, final String name, final Predicate<Player> canInteract,
 							final List<Range<Integer>> playerSlotRange,
 							final List<Range<Integer>> blockEntitySlotRange, MachineBaseBlockEntity blockEntity) {
 		super(null, syncID);
@@ -93,39 +93,39 @@ public class BuiltScreenHandler extends ScreenHandler {
 		}
 	}
 
-	public void addCraftEvents(final List<Consumer<CraftingInventory>> craftEvents) {
+	public void addCraftEvents(final List<Consumer<TransientCraftingContainer>> craftEvents) {
 		this.craftEvents = craftEvents;
 	}
 
 	@Override
-	public boolean canUse(final PlayerEntity playerIn) {
+	public boolean stillValid(final Player playerIn) {
 		return this.canInteract.test(playerIn);
 	}
 
 	@Override
-	public final void onContentChanged(final Inventory inv) {
+	public final void slotsChanged(final Container inv) {
 		if (!this.craftEvents.isEmpty()) {
-			this.craftEvents.forEach(consumer -> consumer.accept((CraftingInventory) inv));
+			this.craftEvents.forEach(consumer -> consumer.accept((TransientCraftingContainer) inv));
 		}
 	}
 
 	@Override
-	public void sendContentUpdates() {
-		super.sendContentUpdates();
+	public void broadcastChanges() {
+		super.broadcastChanges();
 
-		for (final ScreenHandlerListener listener : listeners) {
+		for (final ContainerListener listener : containerListeners) {
 			sendContentUpdatePacketToListener(listener);
 		}
 	}
 
 	@Override
-	public void addListener(final ScreenHandlerListener listener) {
-		super.addListener(listener);
+	public void addSlotListener(final ContainerListener listener) {
+		super.addSlotListener(listener);
 
 		sendContentUpdatePacketToListener(listener);
 	}
 
-	private void sendContentUpdatePacketToListener(final ScreenHandlerListener listener) {
+	private void sendContentUpdatePacketToListener(final ContainerListener listener) {
 		Map<IdentifiedSyncedObject<?>, Object> updatedValues = new HashMap<>();
 
 		this.syncPairCache.replaceAll((identifiedSyncedObject, cached) -> {
@@ -149,11 +149,11 @@ public class BuiltScreenHandler extends ScreenHandler {
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private byte[] writeScreenHandlerData(Map<IdentifiedSyncedObject<?>, Object> updatedValues) {
-		RegistryByteBuf byteBuf = new RegistryByteBuf(PacketByteBufs.create(), blockEntity.getWorld().getRegistryManager());
+		RegistryFriendlyByteBuf byteBuf = new RegistryFriendlyByteBuf(PacketByteBufs.create(), blockEntity.getLevel().registryAccess());
 
 		byteBuf.writeInt(updatedValues.size());
 		for (Map.Entry<IdentifiedSyncedObject<?>, Object> entry : updatedValues.entrySet()) {
-			PacketCodec codec = entry.getKey().object().codec();
+			StreamCodec codec = entry.getKey().object().codec();
 			byteBuf.writeInt(entry.getKey().id());
 			codec.encode(byteBuf, entry.getValue());
 		}
@@ -163,7 +163,7 @@ public class BuiltScreenHandler extends ScreenHandler {
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void applyScreenHandlerData(byte[] data) {
-		RegistryByteBuf byteBuf = new RegistryByteBuf(new PacketByteBuf(Unpooled.wrappedBuffer(data)), blockEntity.getWorld().getRegistryManager());
+		RegistryFriendlyByteBuf byteBuf = new RegistryFriendlyByteBuf(new FriendlyByteBuf(Unpooled.wrappedBuffer(data)), blockEntity.getLevel().registryAccess());
 		int size = byteBuf.readInt();
 
 		for (int i = 0; i < size; i++) {
@@ -175,15 +175,15 @@ public class BuiltScreenHandler extends ScreenHandler {
 	}
 
 	@Override
-	public ItemStack quickMove(final PlayerEntity player, final int index) {
+	public ItemStack quickMoveStack(final Player player, final int index) {
 
 		ItemStack originalStack = ItemStack.EMPTY;
 
 		final Slot slot = this.slots.get(index);
 
-		if (slot != null && slot.hasStack()) {
+		if (slot != null && slot.hasItem()) {
 
-			final ItemStack stackInSlot = slot.getStack();
+			final ItemStack stackInSlot = slot.getItem();
 			originalStack = stackInSlot.copy();
 
 			boolean shifted = false;
@@ -209,16 +209,16 @@ public class BuiltScreenHandler extends ScreenHandler {
 				}
 			}
 
-			slot.onQuickTransfer(stackInSlot, originalStack);
+			slot.onQuickCraft(stackInSlot, originalStack);
 			if (stackInSlot.getCount() <= 0) {
-				slot.setStack(ItemStack.EMPTY);
+				slot.setByPlayer(ItemStack.EMPTY);
 			} else {
-				slot.markDirty();
+				slot.setChanged();
 			}
 			if (stackInSlot.getCount() == originalStack.getCount()) {
 				return ItemStack.EMPTY;
 			}
-			slot.onTakeItem(player, stackInSlot);
+			slot.onTake(player, stackInSlot);
 		}
 		return originalStack;
 
@@ -233,17 +233,17 @@ public class BuiltScreenHandler extends ScreenHandler {
 		// First lets see if we have the same item in a slot to merge with
 		for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++) {
 			final Slot slot = this.slots.get(slotIndex);
-			final ItemStack stackInSlot = slot.getStack();
-			int maxCount = Math.min(stackToShift.getMaxCount(), slot.getMaxItemCount());
+			final ItemStack stackInSlot = slot.getItem();
+			int maxCount = Math.min(stackToShift.getMaxStackSize(), slot.getMaxStackSize());
 
-			if (!stackToShift.isEmpty() && slot.canInsert(stackToShift)) {
+			if (!stackToShift.isEmpty() && slot.mayPlace(stackToShift)) {
 				if (ItemUtils.isItemEqual(stackInSlot, stackToShift, true, false)) {
 					// Got 2 stacks that need merging
 					int freeStackSpace = maxCount - stackInSlot.getCount();
 					if (freeStackSpace > 0) {
 						int transferAmount = Math.min(freeStackSpace, stackToShift.getCount());
-						stackInSlot.increment(transferAmount);
-						stackToShift.decrement(transferAmount);
+						stackInSlot.grow(transferAmount);
+						stackToShift.shrink(transferAmount);
 					}
 				}
 			}
@@ -252,16 +252,16 @@ public class BuiltScreenHandler extends ScreenHandler {
 		// If not lets go find the next free slot to insert our remaining stack
 		for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++) {
 			final Slot slot = this.slots.get(slotIndex);
-			final ItemStack stackInSlot = slot.getStack();
+			final ItemStack stackInSlot = slot.getItem();
 
-			if (stackInSlot.isEmpty() && slot.canInsert(stackToShift)) {
-				int maxCount = Math.min(stackToShift.getMaxCount(), slot.getMaxItemCount());
+			if (stackInSlot.isEmpty() && slot.mayPlace(stackToShift)) {
+				int maxCount = Math.min(stackToShift.getMaxStackSize(), slot.getMaxStackSize());
 
 				int moveCount = Math.min(maxCount, stackToShift.getCount());
 				ItemStack moveStack = stackToShift.copy();
 				moveStack.setCount(moveCount);
-				slot.setStack(moveStack);
-				stackToShift.decrement(moveCount);
+				slot.setByPlayer(moveStack);
+				stackToShift.shrink(moveCount);
 			}
 		}
 
@@ -308,17 +308,17 @@ public class BuiltScreenHandler extends ScreenHandler {
 	}
 
 	public BlockPos getPos() {
-		return getBlockEntity().getPos();
+		return getBlockEntity().getBlockPos();
 	}
 
-	ScreenHandlerType<BuiltScreenHandler> type = null;
+	MenuType<BuiltScreenHandler> type = null;
 
-	public void setType(ScreenHandlerType<BuiltScreenHandler> type) {
+	public void setType(MenuType<BuiltScreenHandler> type) {
 		this.type = type;
 	}
 
 	@Override
-	public ScreenHandlerType<BuiltScreenHandler> getType() {
+	public MenuType<BuiltScreenHandler> getType() {
 		return type;
 	}
 

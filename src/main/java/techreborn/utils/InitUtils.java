@@ -25,23 +25,23 @@
 package techreborn.utils;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import reborncore.RebornRegistry;
 import techreborn.TechReborn;
 
 public class InitUtils {
 	public static <I extends Item> I setup(I item, String name) {
-		RebornRegistry.registerIdent(item, Identifier.of(TechReborn.MOD_ID, name));
+		RebornRegistry.registerIdent(item, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 
 		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-			String expect = Util.createTranslationKey("item", Identifier.of(TechReborn.MOD_ID, name));
-			String actual = item.getTranslationKey();
+			String expect = Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+			String actual = item.getDescriptionId();
 
 			if (!expect.equals(actual)) {
 				// This happens when the item settings registry key does not match key used to register the item
@@ -53,11 +53,11 @@ public class InitUtils {
 	}
 
 	public static <B extends Block> B setup(B block, String name) {
-		RebornRegistry.registerIdent(block, Identifier.of(TechReborn.MOD_ID, name));
+		RebornRegistry.registerIdent(block, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 
 		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-			String expect = Util.createTranslationKey("block", Identifier.of(TechReborn.MOD_ID, name));
-			String actual = block.getTranslationKey();
+			String expect = Util.makeDescriptionId("block", ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+			String actual = block.getDescriptionId();
 
 			if (!expect.equals(actual)) {
 				// This happens when the block settings registry key does not match key used to register the block
@@ -69,8 +69,8 @@ public class InitUtils {
 	}
 
 	public static SoundEvent setup(String name) {
-		Identifier identifier = Identifier.of(TechReborn.MOD_ID, name);
-		return Registry.register(Registries.SOUND_EVENT, identifier, SoundEvent.of(identifier));
+		ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name);
+		return Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier));
 	}
 
 	public static boolean isDatagenRunning() {

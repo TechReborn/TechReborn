@@ -25,9 +25,9 @@
 package reborncore.common.crafting;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
-public record RebornRecipeSerializer<R extends RebornRecipe>(MapCodec<R> codec, PacketCodec<RegistryByteBuf, R> packetCodec) implements RecipeSerializer<R> {
+public record RebornRecipeSerializer<R extends RebornRecipe>(MapCodec<R> codec, StreamCodec<RegistryFriendlyByteBuf, R> streamCodec) implements RecipeSerializer<R> {
 }

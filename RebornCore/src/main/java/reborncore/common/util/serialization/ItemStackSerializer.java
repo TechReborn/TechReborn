@@ -26,15 +26,14 @@ package reborncore.common.util.serialization;
 
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.StringNbtReader;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-
 import java.lang.reflect.Type;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 
 // Based from ee3's code
 public class ItemStackSerializer implements JsonSerializer<ItemStack>, JsonDeserializer<ItemStack> {
@@ -52,7 +51,7 @@ public class ItemStackSerializer implements JsonSerializer<ItemStack>, JsonDeser
 
 			String name = null;
 			int stackSize = 1;
-			NbtCompound tagCompound = null;
+			CompoundTag tagCompound = null;
 
 			if (jsonObject.has(NAME) && jsonObject.get(NAME).isJsonPrimitive()) {
 				name = jsonObject.getAsJsonPrimitive(NAME).getAsString();
@@ -64,17 +63,17 @@ public class ItemStackSerializer implements JsonSerializer<ItemStack>, JsonDeser
 
 			if (jsonObject.has(TAG_COMPOUND) && jsonObject.get(TAG_COMPOUND).isJsonPrimitive()) {
 				try {
-					tagCompound = StringNbtReader.readCompound(jsonObject.getAsJsonPrimitive(TAG_COMPOUND).getAsString());
+					tagCompound = TagParser.parseCompoundFully(jsonObject.getAsJsonPrimitive(TAG_COMPOUND).getAsString());
 				} catch (CommandSyntaxException e) {
 
 				}
 			}
 
-			if (name != null && Registries.ITEM.get(Identifier.of(name)) != null) {
-				ItemStack itemStack = new ItemStack(Registries.ITEM.get(Identifier.of(name)), stackSize);
+			if (name != null && BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(name)) != null) {
+				ItemStack itemStack = new ItemStack(BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(name)), stackSize);
 				if (tagCompound != null) {
-					NbtComponent nbtData = NbtComponent.of(tagCompound);
-					itemStack.set(DataComponentTypes.CUSTOM_DATA, nbtData);
+					CustomData nbtData = CustomData.of(tagCompound);
+					itemStack.set(DataComponents.CUSTOM_DATA, nbtData);
 				}
 				return itemStack;
 			}
@@ -89,13 +88,13 @@ public class ItemStackSerializer implements JsonSerializer<ItemStack>, JsonDeser
 		if (src != null && src.getItem() != null) {
 			JsonObject jsonObject = new JsonObject();
 
-			if (Registries.ITEM.getId(src.getItem()) != null) {
-				jsonObject.addProperty(NAME, Registries.ITEM.getId(src.getItem()).toString());
+			if (BuiltInRegistries.ITEM.getKey(src.getItem()) != null) {
+				jsonObject.addProperty(NAME, BuiltInRegistries.ITEM.getKey(src.getItem()).toString());
 			}
 
 			jsonObject.addProperty(STACK_SIZE, src.getCount());
 
-			var nbtData = src.get(DataComponentTypes.CUSTOM_DATA);
+			var nbtData = src.get(DataComponents.CUSTOM_DATA);
 			if (nbtData != null) {
 				jsonObject.addProperty(TAG_COMPOUND, nbtData.toString());
 			}

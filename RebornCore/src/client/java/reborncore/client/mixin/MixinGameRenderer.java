@@ -24,12 +24,12 @@
 
 package reborncore.client.mixin;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -42,13 +42,13 @@ public class MixinGameRenderer {
 
 	@Shadow
 	@Final
-	private MinecraftClient client;
+	private Minecraft client;
 
 	@Redirect(method = "updateFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getFovMultiplier(ZF)F"))
-	private float updateFovMultiplier(AbstractClientPlayerEntity playerEntity, boolean firstPerson, float fovEffectScale) {
-		float playerSpeed = playerEntity.getFovMultiplier(firstPerson, fovEffectScale);
-		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
-			ItemStack stack = playerEntity.getEquippedStack(equipmentSlot);
+	private float updateFovMultiplier(AbstractClientPlayer playerEntity, boolean firstPerson, float fovEffectScale) {
+		float playerSpeed = playerEntity.getFieldOfViewModifier(firstPerson, fovEffectScale);
+		for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
+			ItemStack stack = playerEntity.getItemBySlot(equipmentSlot);
 			if (stack.getItem() instanceof ArmorFovHandler) {
 				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, client.player);
 			}

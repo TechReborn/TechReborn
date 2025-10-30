@@ -24,8 +24,8 @@
 
 package techreborn.init;
 
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.ToolMaterial;
 
 public class TRToolTier {
 	public static final ToolMaterial BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 375, 7.0F, 6, 6, TRContent.ItemTags.BRONZE_TOOL_MATERIALS);

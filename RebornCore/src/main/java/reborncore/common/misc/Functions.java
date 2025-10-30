@@ -24,7 +24,7 @@
 
 package reborncore.common.misc;
 
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
 
 public class Functions {
 	public static int getIntDirFromDirection(Direction dir) {
@@ -46,6 +46,6 @@ public class Functions {
 			case 3 -> 5;
 			default -> 0;
 		};
-		return Direction.byIndex(metaDataToSet);
+		return Direction.from3DDataValue(metaDataToSet);
 	}
 }

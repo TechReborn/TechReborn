@@ -24,20 +24,6 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.TeleportTarget;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -52,6 +38,20 @@ import techreborn.init.TRContent;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.portal.TeleportTransition;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
@@ -64,7 +64,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	 */
 	public boolean isRunning(final BlockPos targetPos) {
 		// null-safe because of the following instanceof
-		final BlockEntity entity = getWorld().getBlockEntity(targetPos);
+		final BlockEntity entity = getLevel().getBlockEntity(targetPos);
 		if (!(entity instanceof ElevatorBlockEntity)) {
 			return false;
 		}
@@ -75,14 +75,14 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	 * @param targetPos the position will be checked to be an elevator or air
 	 */
 	public boolean isAirOrElevator(final BlockPos targetPos) {
-		return getWorld().isAir(targetPos) || getWorld().getBlockEntity(targetPos) instanceof ElevatorBlockEntity;
+		return getLevel().isEmptyBlock(targetPos) || getLevel().getBlockEntity(targetPos) instanceof ElevatorBlockEntity;
 	}
 
 	/**
 	 * @param targetPos the position of another elevator
 	 */
 	public boolean isFree(final BlockPos targetPos) {
-		return getWorld().getBlockState(targetPos.up()).isAir() && getWorld().getBlockState(targetPos.up().up()).isAir();
+		return getLevel().getBlockState(targetPos.above()).isAir() && getLevel().getBlockState(targetPos.above().above()).isAir();
 	}
 
 	/**
@@ -93,34 +93,34 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	public Optional<BlockPos> nextUpElevator() {
-		BlockPos upPos = getPos().up().up();
-		if (!TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getPos().up()) || !isAirOrElevator(getPos().up().up()))) {
+		BlockPos upPos = getBlockPos().above().above();
+		if (!TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getBlockPos().above()) || !isAirOrElevator(getBlockPos().above().above()))) {
 			return Optional.empty();
 		}
 		do {
-			upPos = upPos.up();
+			upPos = upPos.above();
 			if (!TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(upPos)) {
 				return Optional.empty();
 			}
-		} while (upPos.getY() <= getWorld().getTopYInclusive() && !isValidTarget(upPos));
-		if (upPos.getY() < getWorld().getTopYInclusive() || isValidTarget(upPos)) {
+		} while (upPos.getY() <= getLevel().getMaxY() && !isValidTarget(upPos));
+		if (upPos.getY() < getLevel().getMaxY() || isValidTarget(upPos)) {
 			return Optional.of(upPos);
 		}
 		return Optional.empty();
 	}
 
 	public Optional<BlockPos> nextDownElevator() {
-		BlockPos downPos = getPos().down().down();
-		if (!TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getPos().down()) || !isAirOrElevator(getPos().down().down()))) {
+		BlockPos downPos = getBlockPos().below().below();
+		if (!TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getBlockPos().below()) || !isAirOrElevator(getBlockPos().below().below()))) {
 			return Optional.empty();
 		}
 		do {
-			downPos = downPos.down();
+			downPos = downPos.below();
 			if (!TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(downPos)) {
 				return Optional.empty();
 			}
-		} while (downPos.getY() >= getWorld().getBottomY() && !isValidTarget(downPos));
-		if (downPos.getY() > getWorld().getBottomY() || isValidTarget(downPos)) {
+		} while (downPos.getY() >= getLevel().getMinY() && !isValidTarget(downPos));
+		if (downPos.getY() > getLevel().getMinY() || isValidTarget(downPos)) {
 			return Optional.of(downPos);
 		}
 		return Optional.empty();
@@ -130,28 +130,28 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	 * @param targetPos the position of another elevator
 	 */
 	public int energyCost(final BlockPos targetPos) {
-		return Math.max(Math.abs(targetPos.getY()-getPos().getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
+		return Math.max(Math.abs(targetPos.getY()-getBlockPos().getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
 	}
 
 	/**
 	 * @param targetPos the position <strong>over</strong> another elevator
 	 */
-	protected boolean teleport(final PlayerEntity player, final BlockPos targetPos) {
-		if (!(getWorld() instanceof ServerWorld)) {
+	protected boolean teleport(final Player player, final BlockPos targetPos) {
+		if (!(getLevel() instanceof ServerLevel)) {
 			return false;
 		}
 		final int energy = energyCost(targetPos);
 		if (getStored() < energy) {
 			return false;
 		}
-		playTeleportSoundAt(getPos());
-		player.teleportTo(new TeleportTarget(
-			(ServerWorld)getWorld(),
-			Vec3d.ofBottomCenter(new Vec3i(targetPos.getX(), targetPos.getY(), targetPos.getZ())),
-			Vec3d.ZERO,
-			player.getYaw(),
-			player.getPitch(),
-			TeleportTarget.NO_OP
+		playTeleportSoundAt(getBlockPos());
+		player.teleport(new TeleportTransition(
+			(ServerLevel)getLevel(),
+			Vec3.atBottomCenterOf(new Vec3i(targetPos.getX(), targetPos.getY(), targetPos.getZ())),
+			Vec3.ZERO,
+			player.getYRot(),
+			player.getXRot(),
+			TeleportTransition.DO_NOTHING
 		));
 
 		useEnergy(energy);
@@ -160,11 +160,11 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	protected void playTeleportSoundAt(final BlockPos targetPos) {
-		getWorld().playSound(null, targetPos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
+		getLevel().playSound(null, targetPos, SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS, 1f, 1f);
 	}
 
-	public void teleportUp(final PlayerEntity player) {
-		if (!this.pos.isWithinDistance(player.getPos(), 5) && player.getWorld() == this.world) {
+	public void teleportUp(final Player player) {
+		if (!this.worldPosition.closerToCenterThan(player.position(), 5) && player.level() == this.level) {
 			// Ensure the player is close to the elevator and in the same world.
 			return;
 		}
@@ -173,36 +173,36 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		if (upTarget.isEmpty()) {
 			return;
 		}
-		if (teleport(player, upTarget.get().up())) {
+		if (teleport(player, upTarget.get().above())) {
 			player.setJumping(false);
 		}
 	}
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (!(world instanceof ServerWorld) || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
+		if (!(world instanceof ServerLevel) || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 
 		// teleporting up must be done via mixin for now
 		Optional<BlockPos> downTarget = null;
 
-		List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
+		List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(0d,1d,0d,1d,2d,1d).move(pos));
 		if (players.size() == 0) {
 			return;
 		}
-		for (PlayerEntity player : players) {
-			if (player.isSneaking()) {
+		for (Player player : players) {
+			if (player.isShiftKeyDown()) {
 				if (downTarget == null) {
 					downTarget = nextDownElevator();
 				}
 				if (downTarget.isEmpty()) {
 					continue;
 				}
-				if (teleport(player, downTarget.get().up())) {
-					player.setSneaking(false);
+				if (teleport(player, downTarget.get().above())) {
+					player.setShiftKeyDown(false);
 				}
 			}
 		}
@@ -240,13 +240,13 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity p0) {
+	public ItemStack getToolDrop(Player p0) {
 		return TRContent.Machine.ELEVATOR.getStack();
 	}
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("elevator")
 				.player(player.getInventory())
 				.inventory().hotbar().addInventory()

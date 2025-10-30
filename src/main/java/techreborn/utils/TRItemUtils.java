@@ -24,16 +24,16 @@
 
 package techreborn.utils;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.component.TRDataComponentTypes;
 
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
 
 public class TRItemUtils {
 
@@ -61,13 +61,13 @@ public class TRItemUtils {
 			return;
 		}
 
-		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
-			serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.energyError")
-				.formatted(Formatting.GRAY)
+		if (player instanceof ServerPlayer serverPlayerEntity) {
+			serverPlayerEntity.displayClientMessage(Component.translatable("reborncore.message.energyError")
+				.withStyle(ChatFormatting.GRAY)
 				.append(" ")
 				.append(
-					Text.translatable("reborncore.message.deactivating")
-						.formatted(Formatting.GOLD)
+					Component.translatable("reborncore.message.deactivating")
+						.withStyle(ChatFormatting.GOLD)
 				), true);
 		}
 
@@ -86,24 +86,24 @@ public class TRItemUtils {
 		if (!TRItemUtils.isActive(stack)) {
 			stack.set(TRDataComponentTypes.IS_ACTIVE, true);
 
-			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.setTo")
-					.formatted(Formatting.GRAY)
+			if (entity instanceof ServerPlayer serverPlayerEntity) {
+				serverPlayerEntity.displayClientMessage(Component.translatable("reborncore.message.setTo")
+					.withStyle(ChatFormatting.GRAY)
 					.append(" ")
 					.append(
-						Text.translatable("reborncore.message.active")
-							.formatted(Formatting.GOLD)
+						Component.translatable("reborncore.message.active")
+							.withStyle(ChatFormatting.GOLD)
 					), true);
 			}
 		} else {
 			stack.set(TRDataComponentTypes.IS_ACTIVE, false);
-			if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-				serverPlayerEntity.sendMessage(Text.translatable("reborncore.message.setTo")
-					.formatted(Formatting.GRAY)
+			if (entity instanceof ServerPlayer serverPlayerEntity) {
+				serverPlayerEntity.displayClientMessage(Component.translatable("reborncore.message.setTo")
+					.withStyle(ChatFormatting.GRAY)
 					.append(" ")
 					.append(
-						Text.translatable("reborncore.message.inactive")
-							.formatted(Formatting.GOLD)
+						Component.translatable("reborncore.message.inactive")
+							.withStyle(ChatFormatting.GOLD)
 					), true);
 			}
 		}
@@ -113,13 +113,13 @@ public class TRItemUtils {
 	 * Adds active\inactive state to powered item tooltip
 	 *
 	 * @param stack   {@link ItemStack} Stack to check
-	 * @param tooltip {@link List} List of {@link Text} tooltip strings
+	 * @param tooltip {@link List} List of {@link Component} tooltip strings
 	 */
-	public static void buildActiveTooltip(ItemStack stack, Consumer<Text> tooltip) {
+	public static void buildActiveTooltip(ItemStack stack, Consumer<Component> tooltip) {
 		if (!TRItemUtils.isActive(stack)) {
-			tooltip.accept(Text.translatable("reborncore.message.inactive").formatted(Formatting.RED));
+			tooltip.accept(Component.translatable("reborncore.message.inactive").withStyle(ChatFormatting.RED));
 		} else {
-			tooltip.accept(Text.translatable("reborncore.message.active").formatted(Formatting.GREEN));
+			tooltip.accept(Component.translatable("reborncore.message.active").withStyle(ChatFormatting.GREEN));
 		}
 	}
 }

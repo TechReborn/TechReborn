@@ -24,13 +24,13 @@
 
 package techreborn.blockentity.generator.advanced;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -63,22 +63,22 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
 		if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
 				.getBlock() == Blocks.DRAGON_EGG) {
 			if (tryAddingEnergy(TechRebornConfig.dragonEggSyphonEnergyPerTick))
-				lastOutput = world.getTime();
+				lastOutput = world.getGameTime();
 		}
 
-		if (world.getTime() - lastOutput < 30 && !isActive()) {
-			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
-		} else if (world.getTime() - lastOutput > 30 && isActive()) {
-			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
+		if (world.getGameTime() - lastOutput < 30 && !isActive()) {
+			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
+		} else if (world.getGameTime() - lastOutput > 30 && isActive()) {
+			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 		}
 	}
 
@@ -104,7 +104,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(Player entityPlayer) {
 		return TRContent.Machine.DRAGON_EGG_SYPHON.getStack();
 	}
 

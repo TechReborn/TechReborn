@@ -24,8 +24,8 @@
 
 package techreborn.items.tool.basic;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -39,22 +39,22 @@ public class ElectricTreetapItem extends Item implements RcEnergyItem {
 	public final RcEnergyTier tier = RcEnergyTier.MEDIUM;
 
 	public ElectricTreetapItem(String name) {
-		super(TRItemSettings.item(name).maxDamage(0));
+		super(TRItemSettings.item(name).durability(0));
 	}
 
 	// Item
 	@Override
-	public int getItemBarStep(ItemStack stack) {
+	public int getBarWidth(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
+	public boolean isBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getItemBarColor(ItemStack stack) {
+	public int getBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 

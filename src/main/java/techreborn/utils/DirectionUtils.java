@@ -24,16 +24,15 @@
 
 package techreborn.utils;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
-
 import java.util.Map;
 import java.util.function.Predicate;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class DirectionUtils {
 	public enum HORIZONTAL_PART {
@@ -75,63 +74,63 @@ public class DirectionUtils {
 		Direction.WEST, new byte[]{FLAG_SOUTH, FLAG_SOUTH | FLAG_NORTH, FLAG_NORTH},
 		Direction.EAST, new byte[]{FLAG_NORTH, FLAG_SOUTH | FLAG_NORTH, FLAG_SOUTH}
 	);
-	public static final IntProperty HORIZONTAL_NEIGHBORS = IntProperty.of(
+	public static final IntegerProperty HORIZONTAL_NEIGHBORS = IntegerProperty.create(
 		"neighbors", 0, FLAG_NORTH | FLAG_SOUTH | FLAG_WEST | FLAG_EAST
 	);
 
-	private static int addNeighbor(World world, BlockPos pos, IntProperty property, int length, Predicate<Block> predicate) {
+	private static int addNeighbor(Level world, BlockPos pos, IntegerProperty property, int length, Predicate<Block> predicate) {
 		int neighbors = 0;
-		BlockPos.Mutable neighborPos = new BlockPos.Mutable();
+		BlockPos.MutableBlockPos neighborPos = new BlockPos.MutableBlockPos();
 		for (int i = 0; i < length; i++) {
-			neighborPos.set(pos, POSITIONS[i]);
+			neighborPos.setWithOffset(pos, POSITIONS[i]);
 			BlockState neighborState = world.getBlockState(neighborPos);
 			if (predicate.test(neighborState.getBlock())) {
-				int flags = neighborState.get(property) | OPP_FLAGS[i];
-				world.setBlockState(neighborPos, neighborState.with(property, flags));
+				int flags = neighborState.getValue(property) | OPP_FLAGS[i];
+				world.setBlockAndUpdate(neighborPos, neighborState.setValue(property, flags));
 				neighbors |= FLAGS[i];
 			}
 		}
 		return neighbors;
 	}
 
-	private static void removeNeighbor(World world, BlockPos pos, BlockState state, IntProperty property, int length, Predicate<Block> predicate) {
-		int neighbors = state.get(property);
+	private static void removeNeighbor(Level world, BlockPos pos, BlockState state, IntegerProperty property, int length, Predicate<Block> predicate) {
+		int neighbors = state.getValue(property);
 		if (neighbors != 0) {
-			BlockPos.Mutable neighborPos = new BlockPos.Mutable();
+			BlockPos.MutableBlockPos neighborPos = new BlockPos.MutableBlockPos();
 			for (int i = 0; i < length; i++) {
 				if ((neighbors & FLAGS[i]) != 0) {
-					neighborPos.set(pos, POSITIONS[i]);
+					neighborPos.setWithOffset(pos, POSITIONS[i]);
 					BlockState neighborState = world.getBlockState(neighborPos);
 					if (predicate.test(neighborState.getBlock())) {
-						int flags = neighborState.get(property) & ~OPP_FLAGS[i];
-						world.setBlockState(neighborPos, neighborState.with(property, flags));
+						int flags = neighborState.getValue(property) & ~OPP_FLAGS[i];
+						world.setBlockAndUpdate(neighborPos, neighborState.setValue(property, flags));
 					}
 				}
 			}
 		}
 	}
 
-	private static void loadNeighbors(World world, BlockPos pos, BlockState state, IntProperty property, int length, Predicate<Block> predicate) {
+	private static void loadNeighbors(Level world, BlockPos pos, BlockState state, IntegerProperty property, int length, Predicate<Block> predicate) {
 		int neighbors = 0;
-		BlockPos.Mutable neighborPos = new BlockPos.Mutable();
+		BlockPos.MutableBlockPos neighborPos = new BlockPos.MutableBlockPos();
 		for (int i = 0; i < length; i++) {
-			neighborPos.set(pos, POSITIONS[i]);
+			neighborPos.setWithOffset(pos, POSITIONS[i]);
 			if (predicate.test(world.getBlockState(neighborPos).getBlock())) {
 				neighbors |= FLAGS[i];
 			}
 		}
-		world.setBlockState(pos, state.with(property, neighbors));
+		world.setBlockAndUpdate(pos, state.setValue(property, neighbors));
 	}
 
-	public static void addHorizontalNeighbor(World world, BlockPos pos, BlockState state, Predicate<Block> predicate) {
-		world.setBlockState(pos, state.with(HORIZONTAL_NEIGHBORS, addNeighbor(world, pos, HORIZONTAL_NEIGHBORS, HORIZONTAL_LENGTH, predicate)));
+	public static void addHorizontalNeighbor(Level world, BlockPos pos, BlockState state, Predicate<Block> predicate) {
+		world.setBlockAndUpdate(pos, state.setValue(HORIZONTAL_NEIGHBORS, addNeighbor(world, pos, HORIZONTAL_NEIGHBORS, HORIZONTAL_LENGTH, predicate)));
 	}
 
-	public static void removeHorizontalNeighbor(World world, BlockPos pos, BlockState state, Predicate<Block> predicate) {
+	public static void removeHorizontalNeighbor(Level world, BlockPos pos, BlockState state, Predicate<Block> predicate) {
 		removeNeighbor(world, pos, state, HORIZONTAL_NEIGHBORS, HORIZONTAL_LENGTH, predicate);
 	}
 
-	public static void loadHorizontalNeighbors(World world, BlockPos pos, BlockState state, Predicate<Block> predicate) {
+	public static void loadHorizontalNeighbors(Level world, BlockPos pos, BlockState state, Predicate<Block> predicate) {
 		loadNeighbors(world, pos, state, HORIZONTAL_NEIGHBORS, HORIZONTAL_LENGTH, predicate);
 	}
 

@@ -24,21 +24,21 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 
 import java.util.function.Predicate;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.network.chat.Component;
 
 public class CheckBoxElement extends ElementBase {
-	private final Text label;
+	private final Component label;
 	private final Predicate<CheckBoxElement> ticked;
 	private final Runnable onChange;
 	private final GuiSprites.CheckBox checkBoxSprite;
 
-	public CheckBoxElement(Text label, int x, int y,
+	public CheckBoxElement(Component label, int x, int y,
 						Predicate<CheckBoxElement> ticked,
 						Runnable onChange) {
 		super(x, y, GuiSprites.LIGHT_CHECK_BOX.normal(), 13, 13);
@@ -65,8 +65,8 @@ public class CheckBoxElement extends ElementBase {
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		SpriteIdentifier sprite = checkBoxSprite.normal();
+	public void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+		Material sprite = checkBoxSprite.normal();
 		int textureWidth = getWidth();
 		int textureHeight = getHeight();
 		if (ticked.test(this)) {
@@ -74,7 +74,7 @@ public class CheckBoxElement extends ElementBase {
 			sprite = checkBoxSprite.ticked();
 		}
 		drawSprite(drawContext, gui, sprite, getX(), getY(), textureWidth, textureHeight);
-		drawText(drawContext, gui, label, getX() + 18, ((getY() + getHeight() / 2) - (gui.getTextRenderer().fontHeight / 2)), 0xFFFFFFFF);
+		drawText(drawContext, gui, label, getX() + 18, ((getY() + getHeight() / 2) - (gui.getFont().lineHeight / 2)), 0xFFFFFFFF);
 	}
 
 }

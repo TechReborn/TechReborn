@@ -24,19 +24,21 @@
 
 package reborncore.common.util;
 
-import net.minecraft.component.*;
-import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.component.DataComponentHolder;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 import reborncore.api.items.InventoryBase;
 
-public class InventoryItem extends InventoryBase implements ComponentHolder {
+public class InventoryItem extends InventoryBase implements DataComponentHolder {
 
 	// ItemStack of InventoryItem
 	@NotNull
 	ItemStack stack;
-	private final ComponentMap components = ComponentMap.EMPTY;
+	private final DataComponentMap components = DataComponentMap.EMPTY;
 
 	private InventoryItem(@NotNull ItemStack stack, int size) {
 		super(size);
@@ -53,22 +55,22 @@ public class InventoryItem extends InventoryBase implements ComponentHolder {
 	 * Copy inventory stacks from ContainerComponent to inventory. Call this in screenhandler.
 	 */
 	public final void readComponents(){
-		components.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyTo(this.getStacks());
+		components.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(this.getStacks());
 	}
 
 	/**
-	 *  Save {@link net.minecraft.inventory.Inventory} to ContainerComponent
+	 *  Save {@link net.minecraft.world.Container} to ContainerComponent
 	 *
 	 **/
 	@Override
-	public void markDirty() {
-		ComponentMap.Builder builder = ComponentMap.builder();
-		builder.add(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(this.getStacks()));
-		this.getContainerStack().applyComponentsFrom(builder.build());
+	public void setChanged() {
+		DataComponentMap.Builder builder = DataComponentMap.builder();
+		builder.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(this.getStacks()));
+		this.getContainerStack().applyComponents(builder.build());
 	}
 
 	@Override
-	public ComponentMap getComponents() {
-		return !this.isEmpty() ? this.components : ComponentMap.EMPTY;
+	public DataComponentMap getComponents() {
+		return !this.isEmpty() ? this.components : DataComponentMap.EMPTY;
 	}
 }

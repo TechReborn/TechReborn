@@ -24,17 +24,17 @@
 
 package techreborn.items.tool.basic;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -51,49 +51,49 @@ public class RockCutterItem extends Item implements RcEnergyItem {
 
 	// PickaxeItem
 	@Override
-	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
-		return Items.DIAMOND_PICKAXE.isCorrectForDrops(stack, state);
+	public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
+		return Items.DIAMOND_PICKAXE.isCorrectToolForDrops(stack, state);
 	}
 
 	@Override
-	public float getMiningSpeed(ItemStack stack, BlockState state) {
+	public float getDestroySpeed(ItemStack stack, BlockState state) {
 		if (getStoredEnergy(stack) < TechRebornConfig.rockCutterCost) {
 			return 1.0f;
 		} else {
-			return Items.DIAMOND_PICKAXE.getMiningSpeed(stack, state);
+			return Items.DIAMOND_PICKAXE.getDestroySpeed(stack, state);
 		}
 	}
 
 	// MiningToolItem
 	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean mineBlock(ItemStack stack, Level worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		tryUseEnergy(stack, TechRebornConfig.rockCutterCost);
 		return true;
 	}
 
 	// Item
 	@Override
-	public void onCraft(ItemStack stack, World world) {
-		if (!stack.hasEnchantments()) {
-			RegistryWrapper.Impl<Enchantment> registry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
-			stack.addEnchantment(registry.getOrThrow(Enchantments.SILK_TOUCH), 1);
+	public void onCraftedPostProcess(ItemStack stack, Level world) {
+		if (!stack.isEnchanted()) {
+			HolderLookup.RegistryLookup<Enchantment> registry = world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+			stack.enchant(registry.getOrThrow(Enchantments.SILK_TOUCH), 1);
 		}
 
-		super.onCraft(stack, world);
+		super.onCraftedPostProcess(stack, world);
 	}
 
 	@Override
-	public int getItemBarStep(ItemStack stack) {
+	public int getBarWidth(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
+	public boolean isBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getItemBarColor(ItemStack stack) {
+	public int getBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 

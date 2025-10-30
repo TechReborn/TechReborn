@@ -24,7 +24,7 @@
 
 package reborncore.common.crafting;
 
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 

@@ -24,13 +24,13 @@
 
 package techreborn.blocks.storage.energy;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 
@@ -41,25 +41,25 @@ public class InterdimensionalSUBlock extends EnergyStorageBlock {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new InterdimensionalSUBlockEntity(pos, state);
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext context) {
-		final BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		final BlockEntity blockEntity = context.getLevel().getBlockEntity(context.getClickedPos());
 		if (blockEntity instanceof InterdimensionalSUBlockEntity) {
-			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = context.getPlayer().getUuid().toString();
+			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = context.getPlayer().getUUID().toString();
 		}
-		return this.getDefaultState();
+		return this.defaultBlockState();
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		super.onPlaced(world, pos, state, placer, stack);
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		super.setPlacedBy(world, pos, state, placer, stack);
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof InterdimensionalSUBlockEntity) {
-			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = placer.getUuid().toString();
+			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = placer.getUUID().toString();
 		}
 	}
 

@@ -25,9 +25,9 @@
 package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.util.ColorCode;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Direction;
+import net.minecraft.util.ColorRGBA;
 import reborncore.RebornCore;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
@@ -75,7 +75,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 		}
 		FluidConfiguration.FluidConfig newConfig = new FluidConfiguration.FluidConfig(side, fluidIO);
 
-		ClientPlayNetworking.send(new FluidConfigSavePayload(guiBase.be.getPos(), newConfig));
+		ClientPlayNetworking.send(new FluidConfigSavePayload(guiBase.be.getBlockPos(), newConfig));
 	}
 
 	public void updateCheckBox(String type, GuiBase<?> guiBase) {
@@ -89,11 +89,11 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 			output = !configHolder.autoOutput();
 		}
 
-		ClientPlayNetworking.send(new FluidIoSavePayload(guiBase.be.getPos(), input, output));
+		ClientPlayNetworking.send(new FluidIoSavePayload(guiBase.be.getBlockPos(), input, output));
 	}
 
 	@Override
-	protected void drawSateColor(DrawContext drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
+	protected void drawSateColor(GuiGraphics drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -103,8 +103,8 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 			return;
 		}
 		FluidConfiguration.FluidConfig fluidConfig = fluidConfiguration.getSideDetail(side);
-		ColorCode color = switch (fluidConfig.getIoConfig()) {
-			case NONE -> new ColorCode(0);
+		ColorRGBA color = switch (fluidConfig.getIoConfig()) {
+			case NONE -> new ColorRGBA(0);
 			case INPUT -> theme.ioInputColor();
 			case OUTPUT -> theme.ioOutputColor();
 			case ALL -> theme.ioBothColor();

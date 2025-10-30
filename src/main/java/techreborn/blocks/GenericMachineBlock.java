@@ -24,14 +24,14 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.init.TRBlockSettings;
 
 import java.util.function.BiFunction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * @author drcrazy
@@ -48,7 +48,7 @@ public class GenericMachineBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		if (blockEntityClass == null) {
 			return null;
 		}

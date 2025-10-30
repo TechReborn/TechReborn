@@ -24,16 +24,16 @@
 
 package techreborn.blocks.storage.energy;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
@@ -52,39 +52,39 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new LSUStorageBlockEntity(pos, state);
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
-		super.onPlaced(world, pos, state, player, itemstack);
-		if (!world.isClient && world.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
+		super.setPlacedBy(world, pos, state, player, itemstack);
+		if (!world.isClientSide && world.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
 			blockEntity.connectNeighbors();
 		}
 	}
 
 	// Block
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
-		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hitResult) {
+		ItemStack stack = playerIn.getItemInHand(InteractionHand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
 		// We extended BaseTileBlock. Thus, we should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
-			return ActionResult.FAIL;
+			return InteractionResult.FAIL;
 		}
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
-			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
-				if (!worldIn.isClient && blockEntity instanceof LSUStorageBlockEntity target) {
+			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getDirection())) {
+				if (!worldIn.isClientSide && blockEntity instanceof LSUStorageBlockEntity target) {
 					target.disconnectNeighbors();
 				}
-				return ActionResult.PASS;
+				return InteractionResult.PASS;
 			}
 		}
 
-		return super.onUse(state, worldIn, pos, playerIn, hitResult);
+		return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 	}
 
 }

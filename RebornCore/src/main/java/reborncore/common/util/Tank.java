@@ -29,10 +29,10 @@ import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
@@ -81,8 +81,8 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 		return !getFluidInstance().isEmpty() && getFluidInstance().getAmount().equalOrMoreThan(getFluidValueCapacity());
 	}
 
-	public final void write(WriteView view) {
-		view.put(name, FluidInstance.CODEC, fluidInstance);
+	public final void write(ValueOutput view) {
+		view.store(name, FluidInstance.CODEC, fluidInstance);
 	}
 
 	public void setFluidAmount(FluidValue amount) {
@@ -91,7 +91,7 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 		}
 	}
 
-	public final void read(ReadView view) {
+	public final void read(ValueInput view) {
 		view.read(name, FluidInstance.CODEC).ifPresent(fluid -> {
 			// allow reading empty tanks
 			setFluid(Fluids.EMPTY);

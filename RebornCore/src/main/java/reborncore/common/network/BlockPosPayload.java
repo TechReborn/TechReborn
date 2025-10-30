@@ -24,25 +24,24 @@
 
 package reborncore.common.network;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.Registries;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-
 import java.util.function.Predicate;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public interface BlockPosPayload {
 	BlockPos pos();
 
-	default boolean isWithinDistance(PlayerEntity player, double distance) {
-		return player.getBlockPos().isWithinDistance(pos(), distance);
+	default boolean isWithinDistance(Player player, double distance) {
+		return player.blockPosition().closerThan(pos(), distance);
 	}
 
-	default boolean canUse(ServerPlayerEntity player, Predicate<ScreenHandler> screenHandlerPredicate) {
-		ScreenHandler currentScreenHandler = player.currentScreenHandler;
+	default boolean canUse(ServerPlayer player, Predicate<AbstractContainerMenu> screenHandlerPredicate) {
+		AbstractContainerMenu currentScreenHandler = player.containerMenu;
 
 		if (currentScreenHandler == null) {
 			return false;
@@ -52,10 +51,10 @@ public interface BlockPosPayload {
 			return false;
 		}
 
-		return currentScreenHandler.canUse(player);
+		return currentScreenHandler.stillValid(player);
 	}
 
-	default <T extends BlockEntity> T getBlockEntity(BlockEntityType<T> type, PlayerEntity player) {
+	default <T extends BlockEntity> T getBlockEntity(BlockEntityType<T> type, Player player) {
 		if (!isWithinDistance(player, 64)) {
 			throw new IllegalStateException("Player cannot use this block entity as its too far away");
 		}
@@ -63,14 +62,14 @@ public interface BlockPosPayload {
 		BlockEntity blockEntity = getBlockEntity(player);
 
 		if (type != blockEntity.getType()) {
-			throw new IllegalStateException("Block entity is not of the correct type. Expected: " + Registries.BLOCK_ENTITY_TYPE.getId(type) + " but got: " + Registries.BLOCK_ENTITY_TYPE.getId(blockEntity.getType()));
+			throw new IllegalStateException("Block entity is not of the correct type. Expected: " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type) + " but got: " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity.getType()));
 		}
 
 		//noinspection unchecked
 		return (T) blockEntity;
 	}
 
-	default <T extends BlockEntity> T getBlockEntity(Class<T> baseClass, PlayerEntity player) {
+	default <T extends BlockEntity> T getBlockEntity(Class<T> baseClass, Player player) {
 		if (!isWithinDistance(player, 64)) {
 			throw new IllegalStateException("Player cannot use this block entity as its too far away");
 		}
@@ -85,12 +84,12 @@ public interface BlockPosPayload {
 		return (T) blockEntity;
 	}
 
-	default BlockEntity getBlockEntity(PlayerEntity player) {
+	default BlockEntity getBlockEntity(Player player) {
 		if (!isWithinDistance(player, 64)) {
 			throw new IllegalStateException("Player cannot use this block entity as its too far away");
 		}
 
-		BlockEntity blockEntity = player.getWorld().getBlockEntity(pos());
+		BlockEntity blockEntity = player.level().getBlockEntity(pos());
 
 		if (blockEntity == null) {
 			throw new IllegalStateException("Block entity is null");

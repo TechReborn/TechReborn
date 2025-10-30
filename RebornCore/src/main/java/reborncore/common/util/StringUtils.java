@@ -24,11 +24,10 @@
 
 package reborncore.common.util;
 
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
 import java.util.Locale;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 /**
  * @author Prospector on 11/05/16
@@ -55,21 +54,21 @@ public class StringUtils {
 	 * Returns red-yellow-green text formatting depending on percentage
 	 *
 	 * @param percentage {@code int} percentage amount
-	 * @return {@link Formatting} Red or Yellow or Green
+	 * @return {@link ChatFormatting} Red or Yellow or Green
 	 */
-	public static Formatting getPercentageColour(int percentage) {
+	public static ChatFormatting getPercentageColour(int percentage) {
 		if (percentage <= 10) {
-			return Formatting.RED;
+			return ChatFormatting.RED;
 		} else if (percentage >= 75) {
-			return Formatting.GREEN;
+			return ChatFormatting.GREEN;
 		} else {
-			return Formatting.YELLOW;
+			return ChatFormatting.YELLOW;
 		}
 	}
 
-	public static MutableText getPercentageText(int percentage) {
-		return Text.literal(String.valueOf(percentage))
-				.formatted(getPercentageColour(percentage))
+	public static MutableComponent getPercentageText(int percentage) {
+		return Component.literal(String.valueOf(percentage))
+				.withStyle(getPercentageColour(percentage))
 				.append("%");
 	}
 

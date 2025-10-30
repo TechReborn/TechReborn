@@ -24,19 +24,6 @@
 
 package techreborn.blockentity.storage.energy;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.storage.NbtWriteView;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ErrorReporter;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -50,6 +37,20 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import static techreborn.TechReborn.LOGGER;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
@@ -89,16 +90,16 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	// EnergyStorageBlockEntity
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
 		if (OUTPUT > getMaxConfigOutput()) {
 			OUTPUT = getMaxConfigOutput();
 		}
-		if (world.getTime() % 20 == 0) {
+		if (world.getGameTime() % 20 == 0) {
 			checkTier();
 		}
 	}
@@ -109,13 +110,13 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(Player entityPlayer) {
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
-		if (world != null){
-			try (ErrorReporter.Logging logging = new ErrorReporter.Logging(getReporterContext(), LOGGER)) {
-				NbtWriteView view = NbtWriteView.create(logging, world.getRegistryManager());
-				writeData(view);
-				dropStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(view.getNbt()));
+		if (level != null){
+			try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(problemPath(), LOGGER)) {
+				TagValueOutput view = TagValueOutput.createWithContext(logging, level.registryAccess());
+				saveAdditional(view);
+				dropStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(view.buildResult()));
 			}
 		}
 
@@ -149,29 +150,29 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		view.putInt("output", OUTPUT);
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
-		this.OUTPUT = view.getInt("output", 0);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
+		this.OUTPUT = view.getIntOr("output", 0);
 	}
 
 	// MachineBaseBlockEntity
 	@Override
 	public boolean isUpgradeValid(IUpgrade upgrade, ItemStack stack) {
-		return stack.isOf(TRContent.Upgrades.SUPERCONDUCTOR.item);
+		return stack.is(TRContent.Upgrades.SUPERCONDUCTOR.item);
 	}
 
 	// IContainerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("aesu").player(player.getInventory()).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().sync(PacketCodecs.INTEGER, this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(ByteBufCodecs.INT, this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentOutput() {

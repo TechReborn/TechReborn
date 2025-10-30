@@ -49,7 +49,7 @@ allprojects {
     // Shared deps between TR and RC
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
-        mappings "net.fabricmc:yarn:${project.yarn_version}:v2"
+        mappings loom.officialMojangMappings()
         modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         //Fabric api

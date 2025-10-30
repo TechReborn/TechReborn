@@ -24,10 +24,10 @@
 
 package reborncore.api.items;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public interface ArmorBlockEntityTicker {
 
-	void tickArmor(ItemStack stack, boolean hasFullSuit, PlayerEntity playerEntity);
+	void tickArmor(ItemStack stack, boolean hasFullSuit, Player playerEntity);
 }

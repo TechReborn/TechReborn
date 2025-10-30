@@ -27,10 +27,10 @@ package techreborn.blockentity.storage.energy.idsu;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.PersistentState;
-import net.minecraft.world.PersistentStateType;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
@@ -39,9 +39,9 @@ import techreborn.config.TechRebornConfig;
 import java.util.HashMap;
 import java.util.List;
 
-public class IDSUManager extends PersistentState {
+public class IDSUManager extends SavedData {
 	public static Codec<IDSUManager> CODEC = Codec.list(IDSUPlayer.CODEC).xmap(IDSUManager::fromIDSUPlayers, IDSUManager::getPlayers);
-	private static final PersistentStateType<IDSUManager> TYPE = new PersistentStateType<>("techreborn_idsu", IDSUManager::new, CODEC, null);
+	private static final SavedDataType<IDSUManager> TYPE = new SavedDataType<>("techreborn_idsu", IDSUManager::new, CODEC, null);
 	private static final String KEY = "techreborn_idsu";
 
 	private IDSUManager() {
@@ -53,21 +53,21 @@ public class IDSUManager extends PersistentState {
 	}
 
 	private static IDSUManager get(MinecraftServer server) {
-		ServerWorld serverWorld = server.getWorld(World.OVERWORLD);
-		return serverWorld.getPersistentStateManager().getOrCreate(TYPE);
+		ServerLevel serverWorld = server.getLevel(Level.OVERWORLD);
+		return serverWorld.getDataStorage().computeIfAbsent(TYPE);
 	}
 
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
 
 	@NotNull
 	public IDSUPlayer getPlayer(String uuid) {
-		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer(uuid, this::markDirty));
+		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer(uuid, this::setDirty));
 	}
 
 	public static IDSUManager fromIDSUPlayers(List<IDSUPlayer> list) {
 		IDSUManager	idsuManager = new IDSUManager();
 		for (IDSUPlayer player : list) {
-			player.setMarkDirty(idsuManager::markDirty);
+			player.setMarkDirty(idsuManager::setDirty);
 			idsuManager.playerHashMap.put(player.getUUID(), player);
 		}
 		return idsuManager;

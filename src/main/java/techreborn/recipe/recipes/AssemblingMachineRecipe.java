@@ -27,14 +27,6 @@ package techreborn.recipe.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.display.RecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
-import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeDisplay;
 import reborncore.common.crafting.SizedIngredient;
@@ -42,26 +34,34 @@ import techreborn.init.TRContent;
 
 import java.util.List;
 import java.util.function.Function;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 
 public record AssemblingMachineRecipe(RecipeType<? extends AssemblingMachineRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) implements RebornRecipe {
 	public static Function<RecipeType<AssemblingMachineRecipe>, MapCodec<AssemblingMachineRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
-		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
-		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time)
+		ExtraCodecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
+		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time)
 	).apply(instance, (ingredients, outputs, power, time) -> new AssemblingMachineRecipe(type, ingredients, outputs, power, time)));
-	public static Function<RecipeType<AssemblingMachineRecipe>, PacketCodec<RegistryByteBuf, AssemblingMachineRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::ingredients,
-		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::outputs,
-		PacketCodecs.INTEGER, RebornRecipe::power,
-		PacketCodecs.INTEGER, RebornRecipe::time,
+	public static Function<RecipeType<AssemblingMachineRecipe>, StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
+		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
+		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ByteBufCodecs.INT, RebornRecipe::power,
+		ByteBufCodecs.INT, RebornRecipe::time,
 		(ingredients, outputs, power, time) -> new AssemblingMachineRecipe(type, ingredients, outputs, power, time)
 	);
 
 	@Override
-	public List<RecipeDisplay> getDisplays() {
+	public List<RecipeDisplay> display() {
 		ItemStack stack = new ItemStack(TRContent.Machine.ASSEMBLY_MACHINE);
-		return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(stack)));
 	}
 
 }

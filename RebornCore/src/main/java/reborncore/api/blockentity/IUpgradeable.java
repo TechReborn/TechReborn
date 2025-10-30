@@ -24,8 +24,8 @@
 
 package reborncore.api.blockentity;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 
 public interface IUpgradeable {
 
@@ -33,7 +33,7 @@ public interface IUpgradeable {
 		return true;
 	}
 
-	Inventory getUpgradeInventory();
+	Container getUpgradeInventory();
 
 	int getUpgradeSlotCount();
 

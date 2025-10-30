@@ -24,25 +24,29 @@
 
 package reborncore.client;
 
+import com.mojang.blaze3d.ProjectionType;
 import com.mojang.blaze3d.buffers.GpuBuffer;
+import com.mojang.blaze3d.pipeline.RenderTarget;
+import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.platform.NativeImage;
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.CommandEncoder;
-import com.mojang.blaze3d.systems.ProjectionType;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.GpuTexture;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.*;
-import net.minecraft.client.render.item.ItemRenderState;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.util.Window;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.CachedOrthoProjectionMatrixBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4fStack;
 
 import java.nio.ByteBuffer;
@@ -55,66 +59,66 @@ import java.nio.file.Path;
  * Thanks 2xsaiko for fixing the lighting + odd issues above
  */
 public class ItemStackRenderer implements HudRenderCallback {
-	private static ProjectionMatrix2 guiProjectionMatrix;
+	private static CachedOrthoProjectionMatrixBuffer guiProjectionMatrix;
 	private static final int SIZE = 512;
 
 	@Override
-	public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
+	public void onHudRender(GuiGraphics drawContext, DeltaTracker tickCounter) {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
 			if (guiProjectionMatrix == null) {
-				guiProjectionMatrix = new ProjectionMatrix2("gui", 1000.0F, 11000.0F, true);
+				guiProjectionMatrix = new CachedOrthoProjectionMatrixBuffer("gui", 1000.0F, 11000.0F, true);
 			}
 			ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.remove();
 			export(drawContext, itemStack, ItemStackRenderManager.RENDER_QUEUE.size());
 		}
 	}
 
-	private void export(DrawContext drawContext, ItemStack stack, int queue) {
-		MinecraftClient client = MinecraftClient.getInstance();
-		Framebuffer framebuffer = client.getFramebuffer();
-		GpuTexture gpuTexture = framebuffer.getColorAttachment();
+	private void export(GuiGraphics drawContext, ItemStack stack, int queue) {
+		Minecraft client = Minecraft.getInstance();
+		RenderTarget framebuffer = client.getMainRenderTarget();
+		GpuTexture gpuTexture = framebuffer.getColorTexture();
 		if (gpuTexture == null) {
 			return;
 		}
 		// clear background
-		RenderSystem.getDevice().createCommandEncoder().clearColorAndDepthTextures(gpuTexture, 0, framebuffer.getDepthAttachment(), 1);
+		RenderSystem.getDevice().createCommandEncoder().clearColorAndDepthTextures(gpuTexture, 0, framebuffer.getDepthTexture(), 1);
 
 		// draw info
 		Window window = client.getWindow();
-		float scaleFactor = window.getScaleFactor();
-		final int drawSize = Math.min(framebuffer.textureHeight, SIZE);
+		float scaleFactor = window.getGuiScale();
+		final int drawSize = Math.min(framebuffer.height, SIZE);
 		int left = (int) (drawSize / scaleFactor) + 5;
-		Identifier identifier = Registries.ITEM.getId(stack.getItem());
-		drawContext.drawText(client.textRenderer, "Rendering " + identifier, left, 5, -1, false);
-		drawContext.drawText(client.textRenderer, queue + " items left", left, 15, -1, false);
+		ResourceLocation identifier = BuiltInRegistries.ITEM.getKey(stack.getItem());
+		drawContext.drawString(client.font, "Rendering " + identifier, left, 5, -1, false);
+		drawContext.drawString(client.font, queue + " items left", left, 15, -1, false);
 
 		// draw item stack
 		RenderSystem.backupProjectionMatrix();
 		RenderSystem.setProjectionMatrix(
-			guiProjectionMatrix.set(window.getFramebufferWidth() / scaleFactor, window.getFramebufferHeight() / scaleFactor),
+			guiProjectionMatrix.getBuffer(window.getWidth() / scaleFactor, window.getHeight() / scaleFactor),
 			ProjectionType.ORTHOGRAPHIC
 		);
 		Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
 		matrix4fStack.pushMatrix();
 		matrix4fStack.translate(0, 0, -11000);
-		VertexConsumerProvider.Immediate vertexConsumers = client.getBufferBuilders().getEntityVertexConsumers();
-		MatrixStack matrices = new MatrixStack();
-		matrices.push();
+		MultiBufferSource.BufferSource vertexConsumers = client.renderBuffers().bufferSource();
+		PoseStack matrices = new PoseStack();
+		matrices.pushPose();
 		float drawScale = drawSize / (16 * scaleFactor);
 		matrices.scale(drawScale, drawScale, drawScale);
-		ItemRenderState itemRenderState = new ItemRenderState();
-		client.getItemModelManager().clearAndUpdate(itemRenderState, stack, ItemDisplayContext.GUI, client.world, client.player, 0);
+		ItemStackRenderState itemRenderState = new ItemStackRenderState();
+		client.getItemModelResolver().updateForTopItem(itemRenderState, stack, ItemDisplayContext.GUI, client.level, client.player, 0);
 		matrices.translate(8, 8, 150);
 		matrices.scale(16.0F, -16.0F, 16.0F);
-		boolean bl = !itemRenderState.isSideLit();
-		DiffuseLighting diffuseLighting = MinecraftClient.getInstance().gameRenderer.getDiffuseLighting();
+		boolean bl = !itemRenderState.usesBlockLight();
+		Lighting diffuseLighting = Minecraft.getInstance().gameRenderer.getLighting();
 		if (bl) {
-			diffuseLighting.setShaderLights(DiffuseLighting.Type.ITEMS_FLAT);
+			diffuseLighting.setupFor(Lighting.Entry.ITEMS_FLAT);
 		} else {
-			diffuseLighting.setShaderLights(DiffuseLighting.Type.ITEMS_3D);
+			diffuseLighting.setupFor(Lighting.Entry.ITEMS_3D);
 		}
-		itemRenderState.render(matrices, vertexConsumers, 15728880, OverlayTexture.DEFAULT_UV);
-		vertexConsumers.draw();
+		itemRenderState.render(matrices, vertexConsumers, 15728880, OverlayTexture.NO_OVERLAY);
+		vertexConsumers.endBatch();
 		matrix4fStack.popMatrix();
 		RenderSystem.restoreProjectionMatrix();
 
@@ -123,7 +127,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 		final GpuBuffer gpuBuffer = RenderSystem.getDevice().createBuffer(
 			() -> "Export buffer",
 			9,
-			framebuffer.textureWidth * framebuffer.textureHeight * pixelSize
+			framebuffer.width * framebuffer.height * pixelSize
 		);
 		final CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
 		commandEncoder.copyTextureToBuffer(
@@ -145,7 +149,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 								int color = imageData.getInt((colIndex + rowIndex * drawSize) * pixelSize);
 								for (int x = 0; x < scale; x++) {
 									for (int y = 0; y < scale; y++) {
-										nativeImage.setColor(scaledColIndex + x, maxRowIndex - scaledRowIndex - y, color);
+										nativeImage.setPixelABGR(scaledColIndex + x, maxRowIndex - scaledRowIndex - y, color);
 									}
 								}
 							}
@@ -170,7 +174,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 						Path path = FabricLoader.getInstance().getGameDir().resolve("item_renderer")
 							.resolve(identifier.getNamespace()).resolve(identifier.getPath() + ".png");
 						Files.createDirectories(path.getParent());
-						nativeImage.writeTo(path);
+						nativeImage.writeToFile(path);
 					} catch (Exception e) {
 						e.printStackTrace();
 					} finally {
@@ -185,7 +189,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 			},
 			0,
 			0,
-			framebuffer.textureHeight - drawSize,
+			framebuffer.height - drawSize,
 			drawSize,
 			drawSize
 		);

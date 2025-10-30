@@ -24,17 +24,6 @@
 
 package techreborn.items;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.storage.NbtReadView;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ErrorReporter;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
@@ -44,6 +33,18 @@ import techreborn.init.TRItemSettings;
 
 import static techreborn.TechReborn.LOGGER;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueInput;
+
 public class UpgraderItem extends Item {
 
 	public UpgraderItem(String name) {
@@ -51,55 +52,55 @@ public class UpgraderItem extends Item {
 	}
 
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext context) {
-		World world = context.getWorld();
-		BlockPos blockPos = context.getBlockPos();
+	public InteractionResult useOn(UseOnContext context) {
+		Level world = context.getLevel();
+		BlockPos blockPos = context.getClickedPos();
 		BlockEntity oldBlockEntity = world.getBlockEntity(blockPos);
 		if (oldBlockEntity == null){
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 		if (!(oldBlockEntity instanceof StorageUnitBaseBlockEntity) && !(oldBlockEntity instanceof TankUnitBaseBlockEntity)){
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 		BlockState oldBlockState = world.getBlockState(blockPos);
 		BlockState newBlockState = null;
 		String newType = "";
 		// if no storage upgrader, the isOf compares with null and returns false
-		if (oldBlockState.isOf(StorageUnit.getUpgradableFor(this).map(StorageUnit::asBlock).orElse(null))) {
+		if (oldBlockState.is(StorageUnit.getUpgradableFor(this).map(StorageUnit::asBlock).orElse(null))) {
 			// upgradable is now guaranteed to be present, or something is seriously wrong
 			// we want to get the next unit in the enum, hence ordinal()+1
-			newBlockState = StorageUnit.values()[StorageUnit.getUpgradableFor(this).orElseThrow().ordinal()+1].asBlock().getStateWithProperties(oldBlockState);
+			newBlockState = StorageUnit.values()[StorageUnit.getUpgradableFor(this).orElseThrow().ordinal()+1].asBlock().withPropertiesOf(oldBlockState);
 			newType = StorageUnit.values()[StorageUnit.getUpgradableFor(this).orElseThrow().ordinal()+1].name();
 		}
 		// same for the tank
-		else if (oldBlockState.isOf(TankUnit.getUpgradableFor(this).map(TankUnit::asBlock).orElse(null))) {
-			newBlockState = TankUnit.values()[TankUnit.getUpgradableFor(this).orElseThrow().ordinal()+1].asBlock().getDefaultState();
+		else if (oldBlockState.is(TankUnit.getUpgradableFor(this).map(TankUnit::asBlock).orElse(null))) {
+			newBlockState = TankUnit.values()[TankUnit.getUpgradableFor(this).orElseThrow().ordinal()+1].asBlock().defaultBlockState();
 			newType = TankUnit.values()[TankUnit.getUpgradableFor(this).orElseThrow().ordinal()+1].name();
 		}
 		if (newBlockState == null) {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 
-		NbtCompound data = oldBlockEntity.createNbt(world.getRegistryManager());
+		CompoundTag data = oldBlockEntity.saveWithoutMetadata(world.registryAccess());
 		data.putString("unitType", newType);
 
-		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(() -> "UpgraderItem", LOGGER)) {
+		try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(() -> "UpgraderItem", LOGGER)) {
 			// empty storage to prevent item spill
-			oldBlockEntity.read(NbtReadView.create(logging, world.getRegistryManager(), new NbtCompound()));
+			oldBlockEntity.loadWithComponents(TagValueInput.create(logging, world.registryAccess(), new CompoundTag()));
 
-			world.setBlockState(blockPos, newBlockState);
+			world.setBlockAndUpdate(blockPos, newBlockState);
 
 			// restore content and set a new storage type
 			BlockEntity newBlockEntity = world.getBlockEntity(blockPos);
 			if (newBlockEntity != null){
-				newBlockEntity.read(NbtReadView.create(logging, world.getRegistryManager(), data));
+				newBlockEntity.loadWithComponents(TagValueInput.create(logging, world.registryAccess(), data));
 				((MachineBaseBlockEntity) newBlockEntity).syncWithAll();
 			}
 		}
 
-		ItemStack stack = context.getStack();
-		stack.decrement(1);
+		ItemStack stack = context.getItemInHand();
+		stack.shrink(1);
 
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 }

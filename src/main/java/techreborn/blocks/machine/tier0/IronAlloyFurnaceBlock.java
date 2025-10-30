@@ -24,14 +24,14 @@
 
 package techreborn.blocks.machine.tier0;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
@@ -44,7 +44,7 @@ public class IronAlloyFurnaceBlock extends GenericMachineBlock {
 
 	// Block
 	@Override
-	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+	public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand) {
 		if (!isActive(stateIn)) {
 			return;
 		}
@@ -53,15 +53,15 @@ public class IronAlloyFurnaceBlock extends GenericMachineBlock {
 		final double y = (double) pos.getY() + 2.0D / 16.0D + rand.nextDouble() * 5.0D / 16.0D;
 		final double z = (double) pos.getZ() + 0.5D;
 		if (rand.nextDouble() < 0.1D) {
-			worldIn.playSoundClient(x, y, z, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+			worldIn.playLocalSound(x, y, z, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
 		}
 
-		Direction facing = stateIn.get(FACING);
+		Direction facing = stateIn.getValue(FACING);
 		Direction.Axis facing$Axis = facing.getAxis();
 		double double_5 = rand.nextDouble() * 0.6D - 0.3D;
-		double deltaX = facing$Axis == Direction.Axis.X ? (double) facing.getOffsetX() * 0.52D : double_5;
-		double deltaZ = facing$Axis == Direction.Axis.Z ? (double) facing.getOffsetZ() * 0.52D : double_5;
-		worldIn.addParticleClient(ParticleTypes.SMOKE, x + deltaX, y, z + deltaZ, 0.0D, 0.0D, 0.0D);
-		worldIn.addParticleClient(ParticleTypes.FLAME, x + deltaX, y, z + deltaZ, 0.0D, 0.0D, 0.0D);
+		double deltaX = facing$Axis == Direction.Axis.X ? (double) facing.getStepX() * 0.52D : double_5;
+		double deltaZ = facing$Axis == Direction.Axis.Z ? (double) facing.getStepZ() * 0.52D : double_5;
+		worldIn.addParticle(ParticleTypes.SMOKE, x + deltaX, y, z + deltaZ, 0.0D, 0.0D, 0.0D);
+		worldIn.addParticle(ParticleTypes.FLAME, x + deltaX, y, z + deltaZ, 0.0D, 0.0D, 0.0D);
 	}
 }

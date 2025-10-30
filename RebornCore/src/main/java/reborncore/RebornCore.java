@@ -32,9 +32,9 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.api.ToolManager;
@@ -74,18 +74,18 @@ public class RebornCore implements ModInitializer {
 		new Configuration(RebornCoreConfig.class, MOD_ID);
 		CalenderUtils.loadCalender(); // Done early as some features need this
 
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("intergrateddynamics:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("thermal:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("rftoolsbase:smartwrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("redstone_arsenal:flux_wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("intergrateddynamics:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("thermal:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("rftoolsbase:smartwrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("redstone_arsenal:flux_wrench"), false));
 
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("ad_astra:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("ae2:certus_quartz_wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("ae2:nether_quartz_wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("bitsandchisels:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("create:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("indrev:wrench"), false));
-		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.of("modern_industialization:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("ad_astra:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("ae2:certus_quartz_wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("ae2:nether_quartz_wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("bitsandchisels:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("create:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("indrev:wrench"), false));
+		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(ResourceLocation.parse("modern_industialization:wrench"), false));
 
 		ModSounds.setup();
 		BlockWrenchEventHandler.setup();
@@ -120,9 +120,9 @@ public class RebornCore implements ModInitializer {
 		ServerTickEvents.START_WORLD_TICK.register(world -> ChunkLoaderManager.get(world).onServerWorldTick(world));
 
 		ServerEntityEvents.EQUIPMENT_CHANGE.register((livingEntity, equipmentSlot, previousStack, currentStack) -> {
-			if (livingEntity instanceof PlayerEntity playerEntity
+			if (livingEntity instanceof Player playerEntity
 				&& previousStack.getItem() instanceof ArmorRemoveHandler armorRemoveHandler
-				&& !ItemStack.areItemsEqual(previousStack, currentStack)) {
+				&& !ItemStack.isSameItem(previousStack, currentStack)) {
 				armorRemoveHandler.onRemoved(playerEntity);
 			}
 		});

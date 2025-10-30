@@ -24,12 +24,12 @@
 
 package reborncore.client;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 
 public class ClientChatUtils {
-	public static void addHudMessage(Text text) {
-		final MinecraftClient client = MinecraftClient.getInstance();
-		client.inGameHud.getChatHud().addMessage(text);
+	public static void addHudMessage(Component text) {
+		final Minecraft client = Minecraft.getInstance();
+		client.gui.getChat().addMessage(text);
 	}
 }

@@ -24,10 +24,10 @@
 
 package reborncore.api.blockentity;
 
-import net.minecraft.inventory.Inventory;
+import net.minecraft.world.Container;
 
 public interface InventoryProvider {
 
-	Inventory getInventory();
+	Container getInventory();
 
 }

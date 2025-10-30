@@ -24,26 +24,6 @@
 
 package techreborn.blockentity.machine.tier2;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -61,6 +41,26 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * @author maxvar (coding), ashendi (textures)
@@ -129,11 +129,11 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		finder = null;
 		exhausted = false;
 		pumpedTargetBlockPos = null;
-		world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
+		level.setBlockAndUpdate(worldPosition, level.getBlockState(worldPosition).setValue(BlockMachineBase.ACTIVE, false));
 	}
 
 	private void setupFinder() {
-		this.finder = new BlockPosIterable(pos, range, depth).iterator();
+		this.finder = new BlockPosIterable(worldPosition, range, depth).iterator();
 	}
 
 	@Override
@@ -151,46 +151,46 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	@Override
-	public ItemStack getToolDrop(PlayerEntity p0) {
+	public ItemStack getToolDrop(Player p0) {
 		return TRContent.Machine.PUMP.getStack();
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
 		getTank().read(view);
-		this.range = view.getInt("range", 0);
-		this.depth = view.getInt("depth", 0);
+		this.range = view.getIntOr("range", 0);
+		this.depth = view.getIntOr("depth", 0);
 		finder = null;
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		getTank().write(view);
 		view.putInt("range", range);
 		view.putInt("depth", depth);
 	}
 
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("pump")
 			.player(player.getInventory()).inventory().hotbar().addInventory().blockEntity(this)
 			.energySlot(0, 8, 72)
 			.sync(getTank())
 			.syncEnergyValue()
-			.sync(PacketCodecs.INTEGER, this::getDepth, this::setDepth)
-			.sync(PacketCodecs.INTEGER, this::getRange, this::setRange)
-			.sync(PacketCodecs.BOOLEAN, this::getExhausted, this::setExhausted)
+			.sync(ByteBufCodecs.INT, this::getDepth, this::setDepth)
+			.sync(ByteBufCodecs.INT, this::getRange, this::setRange)
+			.sync(ByteBufCodecs.BOOL, this::getExhausted, this::setExhausted)
 			.addInventory()
 			.create(this, syncID);
 	}
 
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
 
-		if (world == null || world.isClient) return;
+		if (world == null || world.isClientSide) return;
 
 		//do nothing if all liquids have been exhausted
 		if (this.exhausted) return;
@@ -200,11 +200,11 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			//pumping time completed?
 			//has space to store?
 			//has enough energy to pump?
-			if ((world.getTime() >= timeToPump)) {
+			if ((world.getGameTime() >= timeToPump)) {
 				//not enough energy to pump?
 				if (getEnergy() < (long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier())) {
 					//don't drop target, retry it again later
-					timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+					timeToPump = world.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;
 				}
 				//recheck the target
@@ -214,17 +214,17 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				if (fluid == Fluids.EMPTY) {
 					//play oops
 					if (!isMuffled()) {
-						world.playSound(null, this.pos, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0f, 1.0f);
+						world.playSound(null, this.worldPosition, SoundEvents.DISPENSER_FAIL, SoundSource.BLOCKS, 1.0f, 1.0f);
 					}
 					//drop target (and find the next)
 					pumpedTargetBlockPos = null;
-					world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
+					world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 					return;
 				}
 				//cannot fit fluid into the tank?
 				if (!getTank().canFit(fluid, FluidValue.BUCKET)) {
 					//don't drop target, retry it again later
-					timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+					timeToPump = world.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;
 				}
 				//fill tank
@@ -235,37 +235,37 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				}
 				//play sound
 				if (!isMuffled()) {
-					world.playSound(null, this.pos, getTank().getFluid().getBucketFillSound().orElse(SoundEvents.ITEM_BUCKET_FILL), SoundCategory.BLOCKS, 1.0f, 1.0f);
+					world.playSound(null, this.worldPosition, getTank().getFluid().getPickupSound().orElse(SoundEvents.BUCKET_FILL), SoundSource.BLOCKS, 1.0f, 1.0f);
 				}
 				//consume energy
 				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier()));
 				//extract drops
-				DefaultedList<ItemStack> drops = getDrops(blockState);
-				if (!drops.isEmpty()) ItemScatterer.spawn(world, pumpedTargetBlockPos, drops);
+				NonNullList<ItemStack> drops = getDrops(blockState);
+				if (!drops.isEmpty()) Containers.dropContents(world, pumpedTargetBlockPos, drops);
 				//replace target with solid based on dimension
 				final Block replacementBlock;
-				final RegistryKey<World> worldRegistryKey = world.getRegistryKey();
-				if (worldRegistryKey == World.NETHER) replacementBlock = Blocks.BLACKSTONE;
-				else if (worldRegistryKey == World.END) replacementBlock = Blocks.END_STONE;
+				final ResourceKey<Level> worldRegistryKey = world.dimension();
+				if (worldRegistryKey == Level.NETHER) replacementBlock = Blocks.BLACKSTONE;
+				else if (worldRegistryKey == Level.END) replacementBlock = Blocks.END_STONE;
 				else replacementBlock = Blocks.COBBLESTONE;
-				world.setBlockState(pumpedTargetBlockPos, replacementBlock.getDefaultState());
+				world.setBlockAndUpdate(pumpedTargetBlockPos, replacementBlock.defaultBlockState());
 				pumpedTargetBlockPos = null;
 			}
 		} else if (!getTank().isFull()) {
 			//find next target
 			findNextToPump(world);
 			if (pumpedTargetBlockPos != null) {
-				timeToPump = world.getTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+				timeToPump = world.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 			} else {
 				//else - consider exhausted
-				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
+				world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 				this.exhausted = true;
 			}
 		}
 
 	}
 
-	private void findNextToPump(World world) {
+	private void findNextToPump(Level world) {
 		if (finder == null) {
 			setupFinder();
 		}
@@ -276,7 +276,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			Fluid fluid = getFluid(blockState);
 			if (fluid != Fluids.EMPTY && (fluid == getTank().getFluid() || getTank().getFluid() == Fluids.EMPTY)) {
 				//if any found - start pumping
-				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
+				world.setBlockAndUpdate(worldPosition, world.getBlockState(worldPosition).setValue(BlockMachineBase.ACTIVE, true));
 				pumpedTargetBlockPos = blockPos;
 				return;
 			}
@@ -286,21 +286,21 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	@NotNull
 	private Fluid getFluid(BlockState blockState) {
 		FluidState fluidState = blockState.getFluidState();
-		Fluid fluid = fluidState.getFluid();
-		if (fluidState.getLevel() == 8) return fluid;
+		Fluid fluid = fluidState.getType();
+		if (fluidState.getAmount() == 8) return fluid;
 		else return Fluids.EMPTY;
 
 	}
 
 	@NotNull
-	private DefaultedList<ItemStack> getDrops(BlockState blockState) {
+	private NonNullList<ItemStack> getDrops(BlockState blockState) {
 		Block block = blockState.getBlock();
 		Item item = block.asItem();
 		if (item == Items.AIR) {
-			return DefaultedList.ofSize(0);
+			return NonNullList.createWithCapacity(0);
 		} else {
-			ItemStack itemStack = item.getDefaultStack();
-			return DefaultedList.ofSize(1, itemStack);
+			ItemStack itemStack = item.getDefaultInstance();
+			return NonNullList.withSize(1, itemStack);
 		}
 	}
 
@@ -325,7 +325,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			layer = new ArrayList<>(layerSize);
 			for (int i = centerTop.getX() - range; i <= centerTop.getX() + range; i++)
 				for (int j = centerTop.getZ() - range; j <= centerTop.getZ() + range; j++)
-					layer.add(new MeasuredPos(i, centerTop.getY(), j, centerTop.getSquaredDistance(i, centerTop.getY(), j)));
+					layer.add(new MeasuredPos(i, centerTop.getY(), j, centerTop.distToLowCornerSqr(i, centerTop.getY(), j)));
 			layer.sort((o1, o2) -> (int) (o1.weight - o2.weight));
 		}
 
@@ -347,9 +347,9 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				public BlockPos next() {
 					final BlockPos pos;
 					if (TechRebornConfig.pumpIterateOutwards) {
-						pos = layer.get(index % layerSize).down(1 + index / layerSize);
+						pos = layer.get(index % layerSize).below(1 + index / layerSize);
 					} else {
-						pos = layer.get((m - index - 1) % layerSize).down(1 + (m - index - 1) / layerSize);
+						pos = layer.get((m - index - 1) % layerSize).below(1 + (m - index - 1) / layerSize);
 					}
 					index++;
 					return pos;

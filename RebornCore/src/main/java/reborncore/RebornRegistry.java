@@ -24,41 +24,41 @@
 
 package reborncore;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
 import org.apache.commons.lang3.Validate;
 
 import java.util.HashMap;
 import java.util.function.Function;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 /**
  * Created by Gigabit101 on 16/08/2016.
  */
 public class RebornRegistry {
 	//Yeah, this is horrible
-	private static final HashMap<Object, Identifier> objIdentMap = new HashMap<>();
+	private static final HashMap<Object, ResourceLocation> objIdentMap = new HashMap<>();
 
 	/**
 	 * Registers {@link Block} and {@link BlockItem} in vanilla registries
 	 *
 	 * @param block   {@link Block} Block to register
-	 * @param settings {@link Item.Settings} Settings settings for {@link BlockItem}
-	 * @param name    {@link Identifier} Registry name for block and item
+	 * @param settings {@link Item.Properties} Settings settings for {@link BlockItem}
+	 * @param name    {@link ResourceLocation} Registry name for block and item
 	 */
-	public static void registerBlock(Block block, Item.Settings settings, Identifier name) {
-		Registry.register(Registries.BLOCK, name, block);
+	public static void registerBlock(Block block, Item.Properties settings, ResourceLocation name) {
+		Registry.register(BuiltInRegistries.BLOCK, name, block);
 		BlockItem itemBlock = new BlockItem(block, settings);
-		Registry.register(Registries.ITEM, name, itemBlock);
+		Registry.register(BuiltInRegistries.ITEM, name, itemBlock);
 	}
 
-	public static void registerBlock(Block block, Function<Block, BlockItem> blockItemFunction, Identifier name) {
-		Registry.register(Registries.BLOCK, name, block);
+	public static void registerBlock(Block block, Function<Block, BlockItem> blockItemFunction, ResourceLocation name) {
+		Registry.register(BuiltInRegistries.BLOCK, name, block);
 		BlockItem itemBlock = blockItemFunction.apply(block);
-		Registry.register(Registries.ITEM, name, itemBlock);
+		Registry.register(BuiltInRegistries.ITEM, name, itemBlock);
 	}
 
 	/**
@@ -66,9 +66,9 @@ public class RebornRegistry {
 	 * Block should have registered identifier in RebornRegistry via {@link #registerIdent registerIdent} method
 	 *
 	 * @param block     {@link Block} Block to register
-	 * @param itemGroup {@link Item.Settings} Settings settings for {@link BlockItem}
+	 * @param itemGroup {@link Item.Properties} Settings settings for {@link BlockItem}
 	 */
-	public static void registerBlock(Block block, Item.Settings itemGroup) {
+	public static void registerBlock(Block block, Item.Properties itemGroup) {
 		Validate.isTrue(objIdentMap.containsKey(block));
 		registerBlock(block, itemGroup, objIdentMap.get(block));
 	}
@@ -87,7 +87,7 @@ public class RebornRegistry {
 	 */
 	public static void registerBlockNoItem(Block block) {
 		Validate.isTrue(objIdentMap.containsKey(block));
-		Registry.register(Registries.BLOCK, objIdentMap.get(block), block);
+		Registry.register(BuiltInRegistries.BLOCK, objIdentMap.get(block), block);
 	}
 
 
@@ -95,10 +95,10 @@ public class RebornRegistry {
 	 * Register {@link Item} in vanilla registries
 	 *
 	 * @param item {@link Item} Item to register
-	 * @param name {@link Identifier} Registry name for item
+	 * @param name {@link ResourceLocation} Registry name for item
 	 */
-	public static void registerItem(Item item, Identifier name) {
-		Registry.register(Registries.ITEM, name, item);
+	public static void registerItem(Item item, ResourceLocation name) {
+		Registry.register(BuiltInRegistries.ITEM, name, item);
 	}
 
 	/**
@@ -116,12 +116,12 @@ public class RebornRegistry {
 	}
 
 	/**
-	 * Registers {@link Identifier} in internal RebornCore map
+	 * Registers {@link ResourceLocation} in internal RebornCore map
 	 *
 	 * @param object     {@link Object}, {@link Item}, {@link Block} or whatever to be put into map
-	 * @param identifier {@link Identifier} Registry name for object
+	 * @param identifier {@link ResourceLocation} Registry name for object
 	 */
-	public static void registerIdent(Object object, Identifier identifier){
+	public static void registerIdent(Object object, ResourceLocation identifier){
 		objIdentMap.put(object, identifier);
 	}
 }

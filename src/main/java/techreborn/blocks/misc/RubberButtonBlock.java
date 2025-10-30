@@ -24,7 +24,7 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.ButtonBlock;
+import net.minecraft.world.level.block.ButtonBlock;
 import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 

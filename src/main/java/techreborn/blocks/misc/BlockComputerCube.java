@@ -24,18 +24,18 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.api.blockentity.IMachineGuiHandler;
@@ -55,32 +55,32 @@ public class BlockComputerCube extends BlockMachineBase {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
+	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hitResult) {
 
-		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
+		ItemStack tool = playerIn.getItemInHand(InteractionHand.MAIN_HAND);
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
-			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, hitResult.getSide(), false)) {
-				if (playerIn.isSneaking()) {
+			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, hitResult.getDirection(), false)) {
+				if (playerIn.isShiftKeyDown()) {
 					ItemStack drop = new ItemStack(TRContent.COMPUTER_CUBE, 1);
-					dropStack(worldIn, pos, drop);
+					popResource(worldIn, pos, drop);
 					worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSounds.BLOCK_DISMANTLE,
-							SoundCategory.BLOCKS, 0.6F, 1F);
-					if (!worldIn.isClient) {
-						worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+							SoundSource.BLOCKS, 0.6F, 1F);
+					if (!worldIn.isClientSide) {
+						worldIn.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 					}
-					return ActionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				} else {
-					rotate(worldIn.getBlockState(pos), BlockRotation.CLOCKWISE_90);
-					return ActionResult.SUCCESS;
+					rotate(worldIn.getBlockState(pos), Rotation.CLOCKWISE_90);
+					return InteractionResult.SUCCESS;
 				}
 			}
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Nullable
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return null;
 	}
 }

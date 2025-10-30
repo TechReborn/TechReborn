@@ -24,13 +24,13 @@
 
 package techreborn.blockentity.lighting;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -49,9 +49,9 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 		Block b = state.getBlock();
@@ -98,19 +98,19 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 	// MachineBaseBlockEntity
 	@Override
 	public Direction getFacing(){
-		if (world == null){
+		if (level == null){
 			return Direction.NORTH;
 		}
-		return LampBlock.getFacing(world.getBlockState(pos));
+		return LampBlock.getFacing(level.getBlockState(worldPosition));
 	}
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(final Player entityPlayer) {
 		// I know it is weird. But world is nullable
-		if (world == null) {
+		if (level == null) {
 			return new ItemStack(TRContent.Machine.LAMP_INCANDESCENT.block);
 		}
-		return new ItemStack(world.getBlockState(pos).getBlock());
+		return new ItemStack(level.getBlockState(worldPosition).getBlock());
 	}
 }

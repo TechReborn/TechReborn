@@ -24,10 +24,10 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -49,7 +49,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new SolarPanelBlockEntity(pos, state, panelType);
 	}
 
@@ -62,7 +62,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
 	}
 }

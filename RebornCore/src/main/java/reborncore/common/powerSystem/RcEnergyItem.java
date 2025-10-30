@@ -25,15 +25,15 @@
 package reborncore.common.powerSystem;
 
 import net.fabricmc.fabric.api.item.v1.FabricItem;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyItem;
@@ -66,12 +66,12 @@ public interface RcEnergyItem extends SimpleEnergyItem, FabricItem {
 	}
 
 	@Override
-	default boolean allowComponentsUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
+	default boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		return !ItemUtils.isEqualIgnoreEnergy(oldStack, newStack);
 	}
 
 	@Override
-	default boolean allowContinuingBlockBreaking(PlayerEntity player, ItemStack oldStack, ItemStack newStack) {
+	default boolean allowContinuingBlockBreaking(Player player, ItemStack oldStack, ItemStack newStack) {
 		return ItemUtils.isEqualIgnoreEnergy(oldStack, newStack);
 	}
 
@@ -85,7 +85,7 @@ public interface RcEnergyItem extends SimpleEnergyItem, FabricItem {
 	 */
 	@Override
 	default boolean tryUseEnergy(ItemStack stack, long amount){
-		Random random = Random.create();
+		RandomSource random = RandomSource.create();
 
 		int unbreakingLevel = getUnbreakingLevel(stack);
 		if (unbreakingLevel > 0) {
@@ -96,9 +96,9 @@ public interface RcEnergyItem extends SimpleEnergyItem, FabricItem {
 
 	// A hack to do this without context of the DRM
 	private int getUnbreakingLevel(ItemStack stack) {
-		ItemEnchantmentsComponent enchantments = stack.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
-		for (RegistryEntry<Enchantment> entry : enchantments.getEnchantments()) {
-			if (entry.getKey().equals(Enchantments.UNBREAKING)) {
+		ItemEnchantments enchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+		for (Holder<Enchantment> entry : enchantments.keySet()) {
+			if (entry.unwrapKey().equals(Enchantments.UNBREAKING)) {
 				return enchantments.getLevel(entry);
 			}
 		}

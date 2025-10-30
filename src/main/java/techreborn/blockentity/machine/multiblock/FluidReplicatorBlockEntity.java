@@ -24,15 +24,15 @@
 
 package techreborn.blockentity.machine.multiblock;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
@@ -76,21 +76,21 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	public void writeMultiblock(MultiblockWriter writer) {
 		Block block = TRContent.MachineBlocks.ADVANCED.getCasing();
 		writer.translate(1, 0, -1)
-				.ring(Direction.Axis.Y, 3, 0, 3, (v, p) -> v.getBlockState(p).isOf(block), block.getDefaultState(), null, null);
+				.ring(Direction.Axis.Y, 3, 0, 3, (v, p) -> v.getBlockState(p).is(block), block.defaultBlockState(), null, null);
 	}
 
 	// TileGenericMachine
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient){
+		if (world == null || world.isClientSide){
 			return;
 		}
 
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
 		if (ticksSinceLastChange >= 10) {
-			if (!inventory.getStack(1).isEmpty()) {
+			if (!inventory.getItem(1).isEmpty()) {
 				FluidUtils.fillContainers(tank, inventory, 1, 2);
 				if (tank.isEmpty()){
 					// need to set to empty fluid due to #2352
@@ -103,21 +103,21 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	// TilePowerAcceptor
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
 		tank.read(view);
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		tank.write(view);
 	}
 
 	private static IInventoryAccess<FluidReplicatorBlockEntity> getInventoryAccess() {
 		return (slotID, stack, face, direction, blockEntity) -> {
 			if (slotID == 0) {
-				return stack.isOf(TRContent.Parts.UU_MATTER.getStack().getItem());
+				return stack.is(TRContent.Parts.UU_MATTER.getStack().getItem());
 			}
 			return true;
 		};
@@ -132,9 +132,9 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	// IContainerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("fluidreplicator").player(player.getInventory()).inventory().hotbar().addInventory()
-				.blockEntity(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isOf(TRContent.Parts.UU_MATTER.getStack().getItem()))
+				.blockEntity(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.is(TRContent.Parts.UU_MATTER.getStack().getItem()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue().syncShapeValue()
 			.addInventory()
 				.create(this, syncID);

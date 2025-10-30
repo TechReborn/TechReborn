@@ -24,18 +24,18 @@
 
 package reborncore.common.util;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
@@ -46,14 +46,14 @@ import reborncore.common.misc.ModSounds;
  */
 public class WrenchUtils {
 
-	public static boolean handleWrench(ItemStack stack, World worldIn, BlockPos pos, PlayerEntity playerIn, Direction side) {
+	public static boolean handleWrench(ItemStack stack, Level worldIn, BlockPos pos, Player playerIn, Direction side) {
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 		if (blockEntity == null) {
 			return false;
 		}
 
 		if (ToolManager.INSTANCE.handleTool(stack, pos, worldIn, playerIn, side, true)) {
-			if (playerIn.isSneaking()) {
+			if (playerIn.isShiftKeyDown()) {
 				if (blockEntity instanceof IToolDrop) {
 					ItemStack drop = ((IToolDrop) blockEntity).getToolDrop(playerIn);
 					if (drop == null) {
@@ -61,7 +61,7 @@ public class WrenchUtils {
 					}
 
 					boolean dropContents = true;
-					Block block = blockEntity.getCachedState().getBlock();
+					Block block = blockEntity.getBlockState().getBlock();
 					if (block instanceof BaseBlockEntityProvider) {
 						ItemStack blockEntityDrop = ((BaseBlockEntityProvider) block).getDropWithContents(worldIn, pos, drop).orElse(ItemStack.EMPTY);
 						if (!blockEntityDrop.isEmpty()) {
@@ -70,34 +70,34 @@ public class WrenchUtils {
 						}
 					}
 
-					if (!worldIn.isClient) {
+					if (!worldIn.isClientSide) {
 						if (dropContents) {
 							ItemHandlerUtils.dropContainedItems(worldIn, pos);
 						}
 						if (!drop.isEmpty()) {
-							net.minecraft.util.ItemScatterer.spawn(worldIn, pos.getX(), pos.getY(), pos.getZ(), drop);
+							net.minecraft.world.Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), drop);
 						}
 						worldIn.removeBlockEntity(pos);
-						worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+						worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 					}
 					worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSounds.BLOCK_DISMANTLE,
-							SoundCategory.BLOCKS, 0.6F, 1F);
+							SoundSource.BLOCKS, 0.6F, 1F);
 				}
 			} else {
 				BlockState oldState = worldIn.getBlockState(pos);
 				BlockState newState;
-				if (oldState.contains(Properties.FACING)) {
+				if (oldState.hasProperty(BlockStateProperties.FACING)) {
 					// Machine can face all 6 directions. Let's move face to hit side.
-					newState = oldState.with(Properties.FACING, side);
+					newState = oldState.setValue(BlockStateProperties.FACING, side);
 				} else {
-					newState = oldState.rotate(BlockRotation.CLOCKWISE_90);
+					newState = oldState.rotate(Rotation.CLOCKWISE_90);
 				}
 
-				if (!newState.canPlaceAt(worldIn, pos)) {
+				if (!newState.canSurvive(worldIn, pos)) {
 					return false;
 				}
-				worldIn.setBlockState(pos, newState);
-				worldIn.updateNeighbor(pos, newState.getBlock(), null);
+				worldIn.setBlockAndUpdate(pos, newState);
+				worldIn.neighborChanged(pos, newState.getBlock(), null);
 			}
 			return true;
 		}

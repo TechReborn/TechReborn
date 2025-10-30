@@ -24,23 +24,22 @@
 
 package reborncore.common.fluid;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
-
 import java.util.HashMap;
 import java.util.stream.Stream;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 
 public class RebornFluidManager {
 
-	private static final HashMap<Identifier, RebornFluid> fluids = new HashMap<>();
+	private static final HashMap<ResourceLocation, RebornFluid> fluids = new HashMap<>();
 
-	public static void register(RebornFluid rebornFluid, Identifier identifier) {
+	public static void register(RebornFluid rebornFluid, ResourceLocation identifier) {
 		fluids.put(identifier, rebornFluid);
-		Registry.register(Registries.FLUID, identifier, rebornFluid);
+		Registry.register(BuiltInRegistries.FLUID, identifier, rebornFluid);
 	}
 
-	public static HashMap<Identifier, RebornFluid> getFluids() {
+	public static HashMap<ResourceLocation, RebornFluid> getFluids() {
 		return fluids;
 	}
 

@@ -24,17 +24,17 @@
 
 package reborncore.common.multiblock;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.WorldChunk;
 import reborncore.RebornCore;
 import reborncore.common.util.WorldUtils;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 /**
  * This class contains the base logic for "multiblock controllers".
@@ -49,7 +49,7 @@ public abstract class MultiblockControllerBase {
 	public static final short DIMENSION_UNBOUNDED = -1;
 
 	// Multiblock stuff - do not mess with
-	protected World worldObj;
+	protected Level worldObj;
 
 	// Disassembled -> Assembled; Assembled -> Disassembled OR Paused; Paused ->
 	// Assembled
@@ -95,7 +95,7 @@ public abstract class MultiblockControllerBase {
 
 	protected boolean debugMode;
 
-	protected MultiblockControllerBase(World world) {
+	protected MultiblockControllerBase(Level world) {
 		// Multiblock stuff
 		worldObj = world;
 		connectedParts = new HashSet<>();
@@ -126,9 +126,9 @@ public abstract class MultiblockControllerBase {
 	 * this call completes.
 	 *
 	 * @param part {@link IMultiblockPart} Attached part
-	 * @param data {@link NbtCompound} The NBT tag containing this controller's data.
+	 * @param data {@link CompoundTag} The NBT tag containing this controller's data.
 	 */
-	public abstract void onAttachedPartWithMultiblockData(IMultiblockPart part, NbtCompound data);
+	public abstract void onAttachedPartWithMultiblockData(IMultiblockPart part, CompoundTag data);
 
 	/**
 	 * Check if a block is being tracked by this machine.
@@ -153,14 +153,14 @@ public abstract class MultiblockControllerBase {
 		if (!connectedParts.add(part)) {
 			RebornCore.LOGGER.warn(
 				String.format("[%s] Controller %s is double-adding part %d @ %s. This is unusual. If you encounter odd behavior, please tear down the machine and rebuild it.",
-					(worldObj.isClient ? "CLIENT" : "SERVER"), hashCode(), part.hashCode(), coord));
+					(worldObj.isClientSide ? "CLIENT" : "SERVER"), hashCode(), part.hashCode(), coord));
 		}
 
 		part.onAttached(this);
 		this.onBlockAdded(part);
 
 		if (part.hasMultiblockSaveData()) {
-			NbtCompound savedData = part.getMultiblockSaveData();
+			CompoundTag savedData = part.getMultiblockSaveData();
 			onAttachedPartWithMultiblockData(part, savedData);
 			part.onMultiblockDataAssimilated();
 		}
@@ -179,7 +179,7 @@ public abstract class MultiblockControllerBase {
 		}
 
 		boolean updateRequired = false;
-		BlockPos partPos = part.getPos();
+		BlockPos partPos = part.getBlockPos();
 
 		if (minimumCoord != null) {
 
@@ -268,7 +268,7 @@ public abstract class MultiblockControllerBase {
 
 		minimumCoord = maximumCoord = null;
 
-		if (referenceCoord != null && referenceCoord.equals(part.getPos())) {
+		if (referenceCoord != null && referenceCoord.equals(part.getBlockPos())) {
 			referenceCoord = null;
 		}
 
@@ -294,8 +294,8 @@ public abstract class MultiblockControllerBase {
 		if (!connectedParts.remove(part)) {
 			RebornCore.LOGGER.warn(
 				String.format("[%s] Double-removing part (%d) @ %d, %d, %d, this is unexpected and may cause problems. If you encounter anomalies, please tear down the reactor and rebuild it.",
-					worldObj.isClient ? "CLIENT" : "SERVER", part.hashCode(), part.getPos().getX(),
-					part.getPos().getY(), part.getPos().getZ()));
+					worldObj.isClientSide ? "CLIENT" : "SERVER", part.hashCode(), part.getBlockPos().getX(),
+					part.getBlockPos().getY(), part.getBlockPos().getZ()));
 		}
 
 		if (connectedParts.isEmpty()) {
@@ -544,14 +544,14 @@ public abstract class MultiblockControllerBase {
 			return;
 		}
 
-		if (worldObj.isClient) {
+		if (worldObj.isClientSide) {
 			updateClient();
 		} else if (updateServer()) {
 			// If this returns true, the server has changed its internal data.
 			// If our chunks are loaded (they should be), we must mark our
 			// chunks as dirty.
 			if (minimumCoord != null && maximumCoord != null
-				&& this.worldObj.isRegionLoaded(this.minimumCoord, this.maximumCoord)) {
+				&& this.worldObj.hasChunksAt(this.minimumCoord, this.maximumCoord)) {
 				int minChunkX = minimumCoord.getX() >> 4;
 				int minChunkZ = minimumCoord.getZ() >> 4;
 				int maxChunkX = maximumCoord.getX() >> 4;
@@ -561,8 +561,8 @@ public abstract class MultiblockControllerBase {
 					for (int z = minChunkZ; z <= maxChunkZ; z++) {
 						// Ensure that we save our data, even if our save
 						// delegate is in has no TEs.
-						WorldChunk chunkToSave = this.worldObj.getChunk(x, z);
-						chunkToSave.needsSaving();
+						LevelChunk chunkToSave = this.worldObj.getChunk(x, z);
+						chunkToSave.isUnsaved();
 					}
 				}
 			}
@@ -592,14 +592,14 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The "frame" consists of the outer edges of the machine, plus the corners.
 	 *
-	 * @param world {@link World} The object for the world in which this controller is
+	 * @param world {@link Level} The object for the world in which this controller is
 	 *              located.
 	 * @param x     {@code int} X coordinate of the block being tested
 	 * @param y     {@code int} Y coordinate of the block being tested
 	 * @param z     {@code int} Z coordinate of the block being tested
 	 * @throws MultiblockValidationException if the tested block is not allowed on the machine's frame
 	 */
-	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException {
+	protected void isBlockGoodForFrame(Level world, int x, int y, int z) throws MultiblockValidationException {
 		throw new MultiblockValidationException(
 			String.format("%d, %d, %d - Block is not valid for use in the machine's interior", x, y, z));
 	}
@@ -607,14 +607,14 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The top consists of the top face, minus the edges.
 	 *
-	 * @param world {@link World} The object for the world in which this controller is
+	 * @param world {@link Level} The object for the world in which this controller is
 	 *              located.
 	 * @param x     {@code int} X coordinate of the block being tested
 	 * @param y     {@code int} Y coordinate of the block being tested
 	 * @param z     {@code int} Z coordinate of the block being tested
 	 * @throws MultiblockValidationException if the tested block is not allowed on the machine's top face
 	 */
-	protected void isBlockGoodForTop(World world, int x, int y, int z) throws MultiblockValidationException {
+	protected void isBlockGoodForTop(Level world, int x, int y, int z) throws MultiblockValidationException {
 		throw new MultiblockValidationException(
 			String.format("%d, %d, %d - Block is not valid for use in the machine's interior", x, y, z));
 	}
@@ -622,7 +622,7 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The bottom consists of the bottom face, minus the edges.
 	 *
-	 * @param world {@link World} The object for the world in which this controller is
+	 * @param world {@link Level} The object for the world in which this controller is
 	 *              located.
 	 * @param x     {@code int} X coordinate of the block being tested
 	 * @param y     {@code int} Y coordinate of the block being tested
@@ -630,7 +630,7 @@ public abstract class MultiblockControllerBase {
 	 * @throws MultiblockValidationException if the tested block is not allowed on the machine's bottom
 	 *                                       face
 	 */
-	protected void isBlockGoodForBottom(World world, int x, int y, int z) throws MultiblockValidationException {
+	protected void isBlockGoodForBottom(Level world, int x, int y, int z) throws MultiblockValidationException {
 		throw new MultiblockValidationException(
 			String.format("%d, %d, %d - Block is not valid for use in the machine's interior", x, y, z));
 	}
@@ -638,7 +638,7 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The sides consist of the N/E/S/W-facing faces, minus the edges.
 	 *
-	 * @param world {@link World} The object for the world in which this controller is
+	 * @param world {@link Level} The object for the world in which this controller is
 	 *              located.
 	 * @param x     {@code int} X coordinate of the block being tested
 	 * @param y     {@code int} Y coordinate of the block being tested
@@ -646,7 +646,7 @@ public abstract class MultiblockControllerBase {
 	 * @throws MultiblockValidationException if the tested block is not allowed on the machine's side
 	 *                                       faces
 	 */
-	protected void isBlockGoodForSides(World world, int x, int y, int z) throws MultiblockValidationException {
+	protected void isBlockGoodForSides(Level world, int x, int y, int z) throws MultiblockValidationException {
 		throw new MultiblockValidationException(
 			String.format("%d, %d, %d - Block is not valid for use in the machine's interior", x, y, z));
 	}
@@ -654,14 +654,14 @@ public abstract class MultiblockControllerBase {
 	/**
 	 * The interior is any block that does not touch blocks outside the machine.
 	 *
-	 * @param world {@link World} The object for the world in which this controller is
+	 * @param world {@link Level} The object for the world in which this controller is
 	 *              located.
 	 * @param x     {@code int} X coordinate of the block being tested
 	 * @param y     {@code int} Y coordinate of the block being tested
 	 * @param z     {@code int} Z coordinate of the block being tested
 	 * @throws MultiblockValidationException if the tested block is not allowed in the machine's interior
 	 */
-	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException {
+	protected void isBlockGoodForInterior(Level world, int x, int y, int z) throws MultiblockValidationException {
 		throw new MultiblockValidationException(
 			String.format("%d, %d, %d - Block is not valid for use in the machine's interior", x, y, z));
 	}
@@ -684,9 +684,9 @@ public abstract class MultiblockControllerBase {
 		return connectedParts.size();
 	}
 
-	public abstract void write(NbtCompound data);
+	public abstract void write(CompoundTag data);
 
-	public abstract void read(NbtCompound data);
+	public abstract void read(CompoundTag data);
 
 	/**
 	 * Force this multiblock to recalculate its minimum and maximum coordinates
@@ -699,7 +699,7 @@ public abstract class MultiblockControllerBase {
 		maxX = maxY = maxZ = Integer.MIN_VALUE;
 
 		for (IMultiblockPart part : connectedParts) {
-			BlockPos pos = part.getPos();
+			BlockPos pos = part.getBlockPos();
 			if (pos.getX() < minX) {
 				minX = pos.getX();
 			}
@@ -749,17 +749,17 @@ public abstract class MultiblockControllerBase {
 	 * Called when the save delegate's {@link BlockEntity} entity is being asked for its
 	 * description packet
 	 *
-	 * @param data {@link NbtCompound} A fresh compound tag to write your multiblock data into
+	 * @param data {@link CompoundTag} A fresh compound tag to write your multiblock data into
 	 */
-	public abstract void formatDescriptionPacket(NbtCompound data);
+	public abstract void formatDescriptionPacket(CompoundTag data);
 
 	/**
 	 * Called when the save delegate's {@link BlockEntity} entity receiving a description
 	 * packet
 	 *
-	 * @param data {@link NbtCompound} A compound tag containing multiblock data to import
+	 * @param data {@link CompoundTag} A compound tag containing multiblock data to import
 	 */
-	public abstract void decodeDescriptionPacket(NbtCompound data);
+	public abstract void decodeDescriptionPacket(CompoundTag data);
 
 	/**
 	 * @return {@code boolean} True if this controller has no associated blocks, false otherwise
@@ -799,7 +799,7 @@ public abstract class MultiblockControllerBase {
 			// Strip dead parts from both and retry
 			RebornCore.LOGGER.warn(
 				String.format("[%s] Encountered two controllers with the same reference coordinate. Auditing connected parts and retrying.",
-					worldObj.isClient ? "CLIENT" : "SERVER"));
+					worldObj.isClientSide ? "CLIENT" : "SERVER"));
 			auditParts();
 			otherController.auditParts();
 
@@ -813,7 +813,7 @@ public abstract class MultiblockControllerBase {
 					getPartsListString()));
 				RebornCore.LOGGER.error(String.format("Other Controller (%d): size (%d), coords: %s", otherController.hashCode(),
 					otherController.connectedParts.size(), otherController.getPartsListString()));
-				throw new IllegalArgumentException("[" + (worldObj.isClient ? "CLIENT" : "SERVER")
+				throw new IllegalArgumentException("[" + (worldObj.isClientSide ? "CLIENT" : "SERVER")
 					+ "] Two controllers with the same reference coord that somehow both have valid parts - this should never happen!");
 			}
 
@@ -840,8 +840,8 @@ public abstract class MultiblockControllerBase {
 			if (!first) {
 				sb.append(", ");
 			}
-			sb.append(String.format("(%d: %d, %d, %d)", part.hashCode(), part.getPos().getX(), part.getPos().getY(),
-				part.getPos().getZ()));
+			sb.append(String.format("(%d: %d, %d, %d)", part.hashCode(), part.getBlockPos().getX(), part.getBlockPos().getY(),
+				part.getBlockPos().getZ()));
 			first = false;
 		}
 
@@ -855,7 +855,7 @@ public abstract class MultiblockControllerBase {
 	private void auditParts() {
 		HashSet<IMultiblockPart> deadParts = new HashSet<>();
 		for (IMultiblockPart part : connectedParts) {
-			if (part.isInvalid() || worldObj.getBlockEntity(part.getPos()) != part) {
+			if (part.isInvalid() || worldObj.getBlockEntity(part.getBlockPos()) != part) {
 				onDetachBlock(part);
 				deadParts.add(part);
 			}
@@ -863,7 +863,7 @@ public abstract class MultiblockControllerBase {
 
 		connectedParts.removeAll(deadParts);
 		RebornCore.LOGGER.warn(String.format("[%s] Controller found %d dead parts during an audit, %d parts remain attached",
-			worldObj.isClient ? "CLIENT" : "SERVER", deadParts.size(), connectedParts.size()));
+			worldObj.isClientSide ? "CLIENT" : "SERVER", deadParts.size(), connectedParts.size()));
 	}
 
 	/**
@@ -1071,7 +1071,7 @@ public abstract class MultiblockControllerBase {
 	 * @see MultiblockControllerBase#markReferenceCoordForUpdate()
 	 */
 	protected void markReferenceCoordDirty() {
-		if (worldObj == null || worldObj.isClient) {
+		if (worldObj == null || worldObj.isClientSide) {
 			return;
 		}
 
@@ -1080,7 +1080,7 @@ public abstract class MultiblockControllerBase {
 			return;
 		}
 
-		worldObj.markDirty(referenceCoord);
+		worldObj.blockEntityChanged(referenceCoord);
 	}
 
 }

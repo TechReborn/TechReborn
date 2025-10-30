@@ -29,12 +29,12 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.NBTSerializable;
@@ -42,15 +42,15 @@ import reborncore.common.util.NBTSerializable;
 import java.util.*;
 
 public class FluidConfiguration implements NBTSerializable {
-	private static final PacketCodec<ByteBuf, Map<Direction, FluidConfig>> SIDE_MAP_PACKET_CODEC = PacketCodecs.map(
+	private static final StreamCodec<ByteBuf, Map<Direction, FluidConfig>> SIDE_MAP_PACKET_CODEC = ByteBufCodecs.map(
 		HashMap::new,
-		Direction.PACKET_CODEC,
+		Direction.STREAM_CODEC,
 		FluidConfig.PACKET_CODEC
 	);
-	public static final PacketCodec<ByteBuf, FluidConfiguration> PACKET_CODEC = PacketCodec.tuple(
+	public static final StreamCodec<ByteBuf, FluidConfiguration> PACKET_CODEC = StreamCodec.composite(
 		SIDE_MAP_PACKET_CODEC, FluidConfiguration::getSideMap,
-		PacketCodecs.BOOLEAN, FluidConfiguration::autoInput,
-		PacketCodecs.BOOLEAN, FluidConfiguration::autoOutput,
+		ByteBufCodecs.BOOL, FluidConfiguration::autoInput,
+		ByteBufCodecs.BOOL, FluidConfiguration::autoOutput,
 		FluidConfiguration::new
 	);
 
@@ -62,7 +62,7 @@ public class FluidConfiguration implements NBTSerializable {
 		Arrays.stream(Direction.values()).forEach(facing -> sideMap.put(facing, new FluidConfig(facing)));
 	}
 
-	public FluidConfiguration(ReadView view) {
+	public FluidConfiguration(ValueInput view) {
 		sideMap = new HashMap<>();
 		read(view);
 	}
@@ -97,7 +97,7 @@ public class FluidConfiguration implements NBTSerializable {
 		if (!input && !output) {
 			return;
 		}
-		if (machineBase.getTank() == null || machineBase.getWorld().getTime() % machineBase.slotTransferSpeed() != 0) {
+		if (machineBase.getTank() == null || machineBase.getLevel().getGameTime() % machineBase.slotTransferSpeed() != 0) {
 			return;
 		}
 		for (Direction facing : Direction.values()) {
@@ -119,8 +119,8 @@ public class FluidConfiguration implements NBTSerializable {
 
 	@Nullable
 	private Storage<FluidVariant> getTank(MachineBaseBlockEntity machine, Direction facing) {
-		BlockPos pos = machine.getPos().offset(facing);
-		return FluidStorage.SIDED.find(machine.getWorld(), pos, facing.getOpposite());
+		BlockPos pos = machine.getBlockPos().relative(facing);
+		return FluidStorage.SIDED.find(machine.getLevel(), pos, facing.getOpposite());
 	}
 
 	public boolean autoInput() {
@@ -140,27 +140,27 @@ public class FluidConfiguration implements NBTSerializable {
 	}
 
 	@Override
-	public void write(WriteView view) {
-		Arrays.stream(Direction.values()).forEach(facing -> sideMap.get(facing).write(view.get("side_" + facing.ordinal())));
+	public void write(ValueOutput view) {
+		Arrays.stream(Direction.values()).forEach(facing -> sideMap.get(facing).write(view.child("side_" + facing.ordinal())));
 		view.putBoolean("input", input);
 		view.putBoolean("output", output);
 	}
 
 	@Override
-	public void read(@NotNull ReadView view) {
+	public void read(@NotNull ValueInput view) {
 		sideMap.clear();
 		Arrays.stream(Direction.values()).forEach(facing -> {
-			view.getOptionalReadView("side_" + facing.ordinal()).ifPresent(config -> {
+			view.child("side_" + facing.ordinal()).ifPresent(config -> {
 				sideMap.put(facing, new FluidConfig(config));
 			});
 		});
-		input = view.getBoolean("input", false);
-		output = view.getBoolean("output", false);
+		input = view.getBooleanOr("input", false);
+		output = view.getBooleanOr("output", false);
 	}
 
 	public static class FluidConfig implements NBTSerializable {
-		public static final PacketCodec<ByteBuf, FluidConfig> PACKET_CODEC = PacketCodec.tuple(
-			Direction.PACKET_CODEC, FluidConfig::getSide,
+		public static final StreamCodec<ByteBuf, FluidConfig> PACKET_CODEC = StreamCodec.composite(
+			Direction.STREAM_CODEC, FluidConfig::getSide,
 			ExtractConfig.PACKET_CODEC, FluidConfig::getIoConfig,
 			FluidConfig::new
 		);
@@ -178,7 +178,7 @@ public class FluidConfiguration implements NBTSerializable {
 			this.ioConfig = ioConfig;
 		}
 
-		public FluidConfig(ReadView view) {
+		public FluidConfig(ValueInput view) {
 			read(view);
 		}
 
@@ -191,15 +191,15 @@ public class FluidConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public void write(WriteView view) {
+		public void write(ValueOutput view) {
 			view.putInt("side", side.ordinal());
 			view.putInt("config", ioConfig.ordinal());
 		}
 
 		@Override
-		public void read(@NotNull ReadView view) {
-			side = Direction.values()[view.getInt("side", 0)];
-			ioConfig = FluidConfiguration.ExtractConfig.values()[view.getInt("config", 0)];
+		public void read(@NotNull ValueInput view) {
+			side = Direction.values()[view.getIntOr("side", 0)];
+			ioConfig = FluidConfiguration.ExtractConfig.values()[view.getIntOr("config", 0)];
 		}
 	}
 
@@ -209,8 +209,8 @@ public class FluidConfiguration implements NBTSerializable {
 		OUTPUT(true, false),
 		ALL(true, true);
 
-		public static final PacketCodec<ByteBuf, ExtractConfig> PACKET_CODEC = PacketCodecs.INTEGER
-			.xmap(integer -> ExtractConfig.values()[integer], Enum::ordinal);
+		public static final StreamCodec<ByteBuf, ExtractConfig> PACKET_CODEC = ByteBufCodecs.INT
+			.map(integer -> ExtractConfig.values()[integer], Enum::ordinal);
 
 		boolean extract;
 		boolean insert;

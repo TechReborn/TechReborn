@@ -24,56 +24,55 @@
 
 package reborncore.client.multiblock;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.client.render.model.BlockModelPart;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import reborncore.common.blockentity.MultiblockWriter;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.List;
 import java.util.function.BiPredicate;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 
 /**
  * Renders a hologram
  */
 public
-record HologramRenderer(World view, MatrixStack matrix, VertexConsumerProvider vertexConsumerProvider,
+record HologramRenderer(Level view, PoseStack matrix, MultiBufferSource vertexConsumerProvider,
 						float scale) implements MultiblockWriter {
 	private static final BlockPos OUT_OF_WORLD_POS = new BlockPos(0, 260, 0); // Bad hack; disables lighting
 
 	@Override
-	public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
-		final BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-		matrix.push();
+	public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
+		final BlockRenderDispatcher blockRenderManager = Minecraft.getInstance().getBlockRenderer();
+		matrix.pushPose();
 		matrix.translate(x, y, z);
 		matrix.translate(0.5, 0.5, 0.5);
 		matrix.scale(scale, scale, scale);
 
 
-		if (state.getBlock() instanceof FluidBlock) {
+		if (state.getBlock() instanceof LiquidBlock) {
 			FluidState fluidState = state.getFluidState();
-			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(fluidState.getFluid().getBucketItem()), ItemDisplayContext.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrix, vertexConsumerProvider, view, 0);
+			Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(fluidState.getType().getBucket()), ItemDisplayContext.FIXED, 15728880, OverlayTexture.NO_OVERLAY, matrix, vertexConsumerProvider, view, 0);
 		} else {
 			matrix.translate(-0.5, -0.5, -0.5);
-			VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayers.getEntityBlockLayer(state));
-			List<BlockModelPart> parts = blockRenderManager.getModel(state).getParts(Random.create());
-			blockRenderManager.renderBlock(state, OUT_OF_WORLD_POS, view, matrix, consumer, false, parts);
+			VertexConsumer consumer = vertexConsumerProvider.getBuffer(ItemBlockRenderTypes.getRenderType(state));
+			List<BlockModelPart> parts = blockRenderManager.getBlockModel(state).collectParts(RandomSource.create());
+			blockRenderManager.renderBatched(state, OUT_OF_WORLD_POS, view, matrix, consumer, false, parts);
 		}
 
-		matrix.pop();
+		matrix.popPose();
 		return this;
 	}
 }

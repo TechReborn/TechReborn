@@ -24,15 +24,15 @@
 
 package techreborn.blockentity.machine.tier0.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -64,7 +64,7 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		BlockEntityScreenHandlerBuilder builder = new ScreenHandlerBuilder("blockplacer")
 			.player(player.getInventory())
 			.inventory()
@@ -80,9 +80,9 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 	}
 
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
@@ -90,14 +90,14 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		processor.writeData(view);
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
 		processor.readData(view);
 	}
 

@@ -24,11 +24,6 @@
 
 package techreborn.blockentity.machine.iron;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.math.BlockPos;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RecipeUtils;
@@ -42,6 +37,11 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements BuiltScreenHandlerProvider {
 
@@ -63,7 +63,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		for (SizedIngredient ingredient : recipeType.ingredients()) {
 			boolean hasItem = false;
 			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-				if (ingredient.test(inventory.getStack(inputSlot))) {
+				if (ingredient.test(inventory.getItem(inputSlot))) {
 					hasItem = true;
 				}
 			}
@@ -74,7 +74,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 	}
 
 	private RebornRecipe getRecipe() {
-		for (RebornRecipe recipeType : RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER)) {
+		for (RebornRecipe recipeType : RecipeUtils.getRecipes(level, ModRecipes.ALLOY_SMELTER)) {
 			if (hasAllInputs(recipeType)) {
 				return recipeType;
 			}
@@ -85,11 +85,11 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 
 	@Override
 	protected boolean canSmelt() {
-		if (inventory.getStack(INPUT_SLOT_1).isEmpty() || inventory.getStack(INPUT_SLOT_2).isEmpty()) {
+		if (inventory.getItem(INPUT_SLOT_1).isEmpty() || inventory.getItem(INPUT_SLOT_2).isEmpty()) {
 			return false;
 		}
 		ItemStack itemstack = null;
-		for (RebornRecipe recipeType : RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER)) {
+		for (RebornRecipe recipeType : RecipeUtils.getRecipes(level, ModRecipes.ALLOY_SMELTER)) {
 			if (hasAllInputs(recipeType)) {
 				List<ItemStack> outputs = recipeType.outputs();
 				recipeCookingTime = recipeType.time();
@@ -106,12 +106,12 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 
 		if (itemstack == null)
 			return false;
-		if (inventory.getStack(OUTPUT_SLOT).isEmpty())
+		if (inventory.getItem(OUTPUT_SLOT).isEmpty())
 			return true;
-		if (!inventory.getStack(OUTPUT_SLOT).isOf(itemstack.getItem()))
+		if (!inventory.getItem(OUTPUT_SLOT).is(itemstack.getItem()))
 			return false;
-		int result = inventory.getStack(OUTPUT_SLOT).getCount() + itemstack.getCount();
-		return result <= inventory.getStackLimit() && result <= inventory.getStack(OUTPUT_SLOT).getMaxCount();
+		int result = inventory.getItem(OUTPUT_SLOT).getCount() + itemstack.getCount();
+		return result <= inventory.getStackLimit() && result <= inventory.getItem(OUTPUT_SLOT).getMaxStackSize();
 	}
 
 	@Override
@@ -129,15 +129,15 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		if (outputStack.isEmpty()) {
 			return;
 		}
-		if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
-			inventory.setStack(OUTPUT_SLOT, outputStack.copy());
-		} else if (inventory.getStack(OUTPUT_SLOT).getItem() == outputStack.getItem()) {
+		if (inventory.getItem(OUTPUT_SLOT).isEmpty()) {
+			inventory.setItem(OUTPUT_SLOT, outputStack.copy());
+		} else if (inventory.getItem(OUTPUT_SLOT).getItem() == outputStack.getItem()) {
 			inventory.shrinkSlot(OUTPUT_SLOT, -outputStack.getCount());
 		}
 
 		for (SizedIngredient ingredient : currentRecipe.ingredients()) {
 			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-				if (ingredient.test(inventory.getStack(inputSlot))) {
+				if (ingredient.test(inventory.getItem(inputSlot))) {
 					inventory.shrinkSlot(inputSlot, ingredient.count());
 					break;
 				}
@@ -159,22 +159,22 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 	}
 
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("alloyfurnace").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.slot(0, 47, 17)
 				.slot(1, 65, 17)
 				.outputSlot(2, 116, 35).fuelSlot(3, 56, 53)
-				.sync(PacketCodecs.INTEGER, this::getBurnTime, this::setBurnTime)
-				.sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress)
-				.sync(PacketCodecs.INTEGER, this::getTotalBurnTime, this::setTotalBurnTime)
-				.sync(PacketCodecs.INTEGER, this::getRecipeCookingTime, this::setRecipeCookingTime)
+				.sync(ByteBufCodecs.INT, this::getBurnTime, this::setBurnTime)
+				.sync(ByteBufCodecs.INT, this::getProgress, this::setProgress)
+				.sync(ByteBufCodecs.INT, this::getTotalBurnTime, this::setTotalBurnTime)
+				.sync(ByteBufCodecs.INT, this::getRecipeCookingTime, this::setRecipeCookingTime)
 				.addInventory().create(this, syncID);
 	}
 
 	@Override
 	public boolean isStackValid(int slotID, ItemStack stack) {
-		return RecipeUtils.getRecipes(world, ModRecipes.ALLOY_SMELTER).stream()
+		return RecipeUtils.getRecipes(level, ModRecipes.ALLOY_SMELTER).stream()
 				.anyMatch(rebornRecipe -> rebornRecipe.ingredients().stream()
 						.anyMatch(ingredient -> ingredient.test(stack))
 				);

@@ -24,8 +24,8 @@
 
 package reborncore.common.screen.slot;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
 
 /**
  * Created by drcrazy on 31-Dec-19 for TechReborn-1.15.
@@ -34,13 +34,13 @@ public class PlayerInventorySlot extends Slot {
 
 	public boolean doDraw;
 
-	public PlayerInventorySlot(Inventory inventory, int index, int xPosition, int yPosition) {
+	public PlayerInventorySlot(Container inventory, int index, int xPosition, int yPosition) {
 		super(inventory, index, xPosition, yPosition);
 		this.doDraw = true;
 	}
 
 	@Override
-	public boolean isEnabled() {
+	public boolean isActive() {
 		return doDraw;
 	}
 }

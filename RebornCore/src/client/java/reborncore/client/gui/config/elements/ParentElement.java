@@ -25,22 +25,22 @@
 package reborncore.client.gui.config.elements;
 
 import com.google.common.collect.Lists;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.SpriteIdentifier;
 import reborncore.client.gui.GuiBase;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.resources.model.Material;
 
 public abstract class ParentElement extends ElementBase {
 	protected final List<ElementBase> elements = new ArrayList<>();
 
-	public ParentElement(int x, int y, SpriteIdentifier sprite, int textureWidth, int textureHeight) {
+	public ParentElement(int x, int y, Material sprite, int textureWidth, int textureHeight) {
 		super(x, y, sprite, textureWidth, textureHeight);
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+	public void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		super.draw(drawContext, gui, mouseX, mouseY);
 		elements.forEach(elementBase -> elementBase.draw(drawContext, gui, mouseX, mouseY));
 	}

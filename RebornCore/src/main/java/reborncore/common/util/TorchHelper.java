@@ -24,27 +24,26 @@
 
 package reborncore.common.util;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-
 import java.util.Locale;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class TorchHelper {
 
-	public static ActionResult placeTorch(ItemUsageContext itemUsageContext) {
-		PlayerEntity player = itemUsageContext.getPlayer();
+	public static InteractionResult placeTorch(UseOnContext itemUsageContext) {
+		Player player = itemUsageContext.getPlayer();
 		if (player == null) {
-			return ActionResult.FAIL;
+			return InteractionResult.FAIL;
 		}
 
-		for (int i = 0; i < PlayerInventory.MAIN_SIZE; i++) {
-			ItemStack torchStack = player.getInventory().getStack(i);
-			if (torchStack.isEmpty() || !torchStack.getItem().getTranslationKey().toLowerCase(Locale.ROOT).contains("torch")) {
+		for (int i = 0; i < Inventory.INVENTORY_SIZE; i++) {
+			ItemStack torchStack = player.getInventory().getItem(i);
+			if (torchStack.isEmpty() || !torchStack.getItem().getDescriptionId().toLowerCase(Locale.ROOT).contains("torch")) {
 				continue;
 			}
 			if (!(torchStack.getItem() instanceof BlockItem)) {
@@ -52,17 +51,17 @@ public class TorchHelper {
 			}
 
 			int oldSize = torchStack.getCount();
-			ItemUsageContext context = new ItemUsageContextCustomStack(itemUsageContext.getWorld(), player, itemUsageContext.getHand(), torchStack, new BlockHitResult(itemUsageContext.getHitPos(), itemUsageContext.getSide(), itemUsageContext.getBlockPos(), true));
-			ActionResult result = torchStack.useOnBlock(context);
+			UseOnContext context = new ItemUsageContextCustomStack(itemUsageContext.getLevel(), player, itemUsageContext.getHand(), torchStack, new BlockHitResult(itemUsageContext.getClickLocation(), itemUsageContext.getClickedFace(), itemUsageContext.getClickedPos(), true));
+			InteractionResult result = torchStack.useOn(context);
 			if (player.isCreative()) {
 				torchStack.setCount(oldSize);
 			} else if (torchStack.getCount() <= 0) {
-				player.getInventory().setStack(i, ItemStack.EMPTY);
+				player.getInventory().setItem(i, ItemStack.EMPTY);
 			}
-			if (result == ActionResult.SUCCESS) {
-				return ActionResult.SUCCESS;
+			if (result == InteractionResult.SUCCESS) {
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return ActionResult.FAIL;
+		return InteractionResult.FAIL;
 	}
 }

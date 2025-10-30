@@ -24,15 +24,15 @@
 
 package reborncore.common.multiblock.rectangular;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
 
 public abstract class RectangularMultiblockControllerBase extends MultiblockControllerBase {
 
-	protected RectangularMultiblockControllerBase(World world) {
+	protected RectangularMultiblockControllerBase(Level world) {
 		super(world);
 	}
 

@@ -24,63 +24,63 @@
 
 package reborncore.common;
 
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.storage.NbtWriteView;
-import net.minecraft.util.ErrorReporter;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import static reborncore.RebornCore.LOGGER;
 
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
 
-public abstract class BaseBlockEntityProvider extends BaseBlock implements BlockEntityProvider {
+public abstract class BaseBlockEntityProvider extends BaseBlock implements EntityBlock {
 
-	protected BaseBlockEntityProvider(Settings builder) {
+	protected BaseBlockEntityProvider(Properties builder) {
 		super(builder);
 	}
 
-	public Optional<ItemStack> getDropWithContents(World world, BlockPos pos, ItemStack stack) {
+	public Optional<ItemStack> getDropWithContents(Level world, BlockPos pos, ItemStack stack) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity == null) {
 			return Optional.empty();
 		}
 
 		ItemStack newStack = stack.copy();
-		newStack.applyComponentsFrom(blockEntity.createComponentMap());
-		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(() -> "BaseBlockEntityProvider", LOGGER)) {
-			NbtWriteView view = NbtWriteView.create(logging, world.getRegistryManager());
-			blockEntity.writeDataWithId(view);
-			NbtCompound blockEntityData = view.getNbt();
-			newStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(blockEntityData));
+		newStack.applyComponents(blockEntity.collectComponents());
+		try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(() -> "BaseBlockEntityProvider", LOGGER)) {
+			TagValueOutput view = TagValueOutput.createWithContext(logging, world.registryAccess());
+			blockEntity.saveWithId(view);
+			CompoundTag blockEntityData = view.buildResult();
+			newStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(blockEntityData));
 		}
 		return Optional.of(newStack);
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-		super.onPlaced(world, pos, state, placer, itemStack);
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+		super.setPlacedBy(world, pos, state, placer, itemStack);
 
-		NbtComponent nbtComponent = itemStack.get(DataComponentTypes.BLOCK_ENTITY_DATA);
+		CustomData nbtComponent = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
 		if (nbtComponent == null) {
 			return;
 		}
 
-		nbtComponent.applyToBlockEntity(world.getBlockEntity(pos), world.getRegistryManager());
+		nbtComponent.loadInto(world.getBlockEntity(pos), world.registryAccess());
 	}
 
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
 		return (world1, pos, state1, blockEntity) -> {
 			if (blockEntity instanceof BlockEntityTicker) {
 				((BlockEntityTicker) blockEntity).tick(world1, pos, state1, blockEntity);
@@ -88,19 +88,19 @@ public abstract class BaseBlockEntityProvider extends BaseBlock implements Block
 		};
 	}
 
-	private void stripLocationData(NbtCompound compound) {
+	private void stripLocationData(CompoundTag compound) {
 		compound.remove("x");
 		compound.remove("y");
 		compound.remove("z");
 	}
 
-	private void injectLocationData(NbtCompound compound, BlockPos pos) {
+	private void injectLocationData(CompoundTag compound, BlockPos pos) {
 		compound.putInt("x", pos.getX());
 		compound.putInt("y", pos.getY());
 		compound.putInt("z", pos.getZ());
 	}
 
-	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune){
+	public void getDrops(BlockState state, NonNullList<ItemStack> drops, Level world, BlockPos pos, int fortune){
 
 	}
 }

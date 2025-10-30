@@ -30,12 +30,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.registry.RegistryOps;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,8 +71,8 @@ public class SerializationUtil {
 		return array;
 	}
 
-	public static <T> T parseNbt(Codec<T> codec, NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup, Supplier<T> fallback, String fallbackMessage) {
-		final RegistryOps<NbtElement> ops = wrapperLookup.getOps(NbtOps.INSTANCE);
+	public static <T> T parseNbt(Codec<T> codec, CompoundTag nbt, HolderLookup.Provider wrapperLookup, Supplier<T> fallback, String fallbackMessage) {
+		final RegistryOps<Tag> ops = wrapperLookup.createSerializationContext(NbtOps.INSTANCE);
 		DataResult<T> result = codec.parse(ops, nbt);
 
 		if (result.isSuccess()) {
@@ -83,9 +83,9 @@ public class SerializationUtil {
 		return fallback.get();
 	}
 
-	public static <T> NbtCompound writeNbt(Codec<T> codec, T value, RegistryWrapper.WrapperLookup wrapperLookup) {
-		final RegistryOps<NbtElement> ops = wrapperLookup.getOps(NbtOps.INSTANCE);
-		NbtCompound nbtCompound = new NbtCompound();
-		return (NbtCompound) codec.encode(value, ops, nbtCompound).getOrThrow();
+	public static <T> CompoundTag writeNbt(Codec<T> codec, T value, HolderLookup.Provider wrapperLookup) {
+		final RegistryOps<Tag> ops = wrapperLookup.createSerializationContext(NbtOps.INSTANCE);
+		CompoundTag nbtCompound = new CompoundTag();
+		return (CompoundTag) codec.encode(value, ops, nbtCompound).getOrThrow();
 	}
 }

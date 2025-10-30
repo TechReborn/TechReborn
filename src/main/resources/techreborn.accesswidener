@@ -1,38 +1,39 @@
 accessWidener	v2	named
 
 
-accessible    field    net/minecraft/data/recipe/ShapedRecipeJsonBuilder    output           Lnet/minecraft/item/Item;
-accessible    field    net/minecraft/data/recipe/ShapedRecipeJsonBuilder    count            I
-accessible    field    net/minecraft/data/recipe/ShapedRecipeJsonBuilder    showNotification Z
-accessible    field    net/minecraft/data/recipe/ShapedRecipeJsonBuilder    group            Ljava/lang/String;
-accessible    field    net/minecraft/data/recipe/ShapedRecipeJsonBuilder    pattern          Ljava/util/List;
-accessible    field    net/minecraft/data/recipe/ShapedRecipeJsonBuilder    inputs           Ljava/util/Map;
-accessible    field    net/minecraft/data/recipe/ShapedRecipeJsonBuilder    category         Lnet/minecraft/recipe/book/RecipeCategory;
-accessible 	  field    net/minecraft/data/recipe/ShapedRecipeJsonBuilder    criteria         Ljava/util/Map;
-accessible    method   net/minecraft/data/recipe/ShapedRecipeJsonBuilder    <init> (Lnet/minecraft/registry/RegistryEntryLookup;Lnet/minecraft/recipe/book/RecipeCategory;Lnet/minecraft/item/ItemConvertible;I)V
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder items Lnet/minecraft/core/HolderGetter;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder category Lnet/minecraft/data/recipes/RecipeCategory;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder result Lnet/minecraft/world/item/Item;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder count I
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder rows Ljava/util/List;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder key Ljava/util/Map;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder criteria Ljava/util/Map;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder group Ljava/lang/String;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder showNotification Z
+accessible method net/minecraft/data/recipes/ShapedRecipeBuilder <init> (Lnet/minecraft/core/HolderGetter;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;I)V
 
-accessible    field    net/minecraft/recipe/Ingredient entries Lnet/minecraft/registry/entry/RegistryEntryList;
+accessible field net/minecraft/world/item/crafting/Ingredient values Lnet/minecraft/core/HolderSet;
 
-accessible    field    net/minecraft/recipe/ServerRecipeManager preparedRecipes Lnet/minecraft/recipe/PreparedRecipes;
+accessible field net/minecraft/world/item/crafting/RecipeManager recipes Lnet/minecraft/world/item/crafting/RecipeMap;
 
-accessible    method    net/minecraft/client/gui/screen/ingame/HandledScreen    getSlotAt     (DD)Lnet/minecraft/screen/slot/Slot;
+accessible method net/minecraft/client/gui/screens/inventory/AbstractContainerScreen getHoveredSlot (DD)Lnet/minecraft/world/inventory/Slot;
 
-accessible    field    net/minecraft/client/gui/screen/Screen    selectables    Ljava/util/List;
-accessible    field    net/minecraft/block/FluidBlock    fluid    Lnet/minecraft/fluid/FlowableFluid;
-accessible    field    net/minecraft/screen/ScreenHandler    listeners    Ljava/util/List;
+accessible field net/minecraft/client/gui/screens/Screen narratables Ljava/util/List;
+accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid;
+accessible field net/minecraft/world/inventory/AbstractContainerMenu containerListeners Ljava/util/List;
 
-accessible    field    net/minecraft/structure/pool/StructurePool    elements    Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
+accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool templates Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
 
-accessible    method   net/minecraft/block/CropBlock getAgeProperty ()Lnet/minecraft/state/property/IntProperty;
+accessible method net/minecraft/world/level/block/CropBlock getAgeProperty ()Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
 
-extendable    method   net/minecraft/world/explosion/ExplosionImpl getBlocksToDestroy ()Ljava/util/List;
+extendable method net/minecraft/world/level/ServerExplosion calculateExplodedPositions ()Ljava/util/List;
 extendable    method   net/minecraft/client/model/Model render (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;III)V
 
 extendable method net/minecraft/data/recipe/RecipeGenerator$RecipeProvider run (Lnet/minecraft/data/DataWriter;)Ljava/util/concurrent/CompletableFuture;
 
-accessible field net/minecraft/block/AbstractBlock$Settings registryKey Lnet/minecraft/registry/RegistryKey;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties id Lnet/minecraft/resources/ResourceKey;
 accessible    field    net/minecraft/client/data/TextureMap    entries           Ljava/util/Map;
-accessible method net/minecraft/server/world/ChunkTicketType register (Ljava/lang/String;JZLnet/minecraft/server/world/ChunkTicketType$Use;)Lnet/minecraft/server/world/ChunkTicketType;
-accessible field net/minecraft/client/gui/render/SpecialGuiElementRenderer textureView Lcom/mojang/blaze3d/textures/GpuTextureView;
+accessible method net/minecraft/server/level/TicketType register (Ljava/lang/String;JZLnet/minecraft/server/level/TicketType$TicketUse;)Lnet/minecraft/server/level/TicketType;
+accessible field net/minecraft/client/gui/render/pip/PictureInPictureRenderer textureView Lcom/mojang/blaze3d/textures/GpuTextureView;
 
 # DO NOT EDIT THIS FILE, edit the RebornCore AW, it will automatically be coped to this one.

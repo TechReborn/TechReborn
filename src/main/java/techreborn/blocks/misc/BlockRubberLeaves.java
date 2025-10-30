@@ -28,19 +28,19 @@ package techreborn.blocks.misc;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.ParticleUtil;
-import net.minecraft.particle.TintedParticleEffect;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import techreborn.init.TRBlockSettings;
 
 public class BlockRubberLeaves extends LeavesBlock {
 	public static final MapCodec<BlockRubberLeaves> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(createSettingsCodec()).apply(instance, BlockRubberLeaves::new)
+		instance -> instance.group(propertiesCodec()).apply(instance, BlockRubberLeaves::new)
 	);
 
 	public BlockRubberLeaves(String name) {
@@ -48,18 +48,18 @@ public class BlockRubberLeaves extends LeavesBlock {
 		FlammableBlockRegistry.getDefaultInstance().add(this, 30, 60);
 	}
 
-	public BlockRubberLeaves(AbstractBlock.Settings settings) {
+	public BlockRubberLeaves(BlockBehaviour.Properties settings) {
 		super(0.01F, settings);
 	}
 
 	@Override
-	public MapCodec<BlockRubberLeaves> getCodec() {
+	public MapCodec<BlockRubberLeaves> codec() {
 		return CODEC;
 	}
 
 	@Override
-	protected void spawnLeafParticle(World world, BlockPos pos, Random random) {
-		TintedParticleEffect entityEffectParticleEffect = TintedParticleEffect.create(ParticleTypes.TINTED_LEAVES, 0xff4d6148);
-		ParticleUtil.spawnParticle(world, pos, random, entityEffectParticleEffect);
+	protected void spawnFallingLeavesParticle(Level world, BlockPos pos, RandomSource random) {
+		ColorParticleOption entityEffectParticleEffect = ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xff4d6148);
+		ParticleUtils.spawnParticleBelow(world, pos, random, entityEffectParticleEffect);
 	}
 }

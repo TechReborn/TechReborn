@@ -24,15 +24,6 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.client.render.model.BlockStateModel;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2f;
 import reborncore.client.gui.GuiBase;
@@ -41,6 +32,15 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.MachineFacing;
 
 import java.util.Arrays;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class AbstractConfigPopupElement extends ElementBase {
 	private final int height;
@@ -69,7 +69,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 	@Nullable
 	public String pencil;
 
-	public AbstractConfigPopupElement(int x, int y, int height, SpriteIdentifier sprite, int textureWidth, int textureHeight, String[] pencils) {
+	public AbstractConfigPopupElement(int x, int y, int height, Material sprite, int textureWidth, int textureHeight, String[] pencils) {
 		super(x, y, sprite, textureWidth, textureHeight);
 		this.height = height;
 		this.pencils = pencils;
@@ -88,8 +88,8 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 	}
 
 	@Override
-	public final void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		drawContext.getMatrices().pushMatrix();
+	public final void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+		drawContext.pose().pushMatrix();
 		int x = adjustX(gui, getX() - 8);
 		int y = adjustY(gui, getY() - 7);
 		gui.builder.drawDefaultBackground(
@@ -99,19 +99,19 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 			84,
 			height
 		);
-		drawContext.getMatrices().popMatrix();
+		drawContext.pose().popMatrix();
 
 		super.draw(drawContext, gui, mouseX, mouseY);
 
-		MinecraftClient client = MinecraftClient.getInstance();
+		Minecraft client = Minecraft.getInstance();
 		final MachineBaseBlockEntity machine = ((MachineBaseBlockEntity) gui.be);
-		final BlockState state = machine.getCachedState();
-		final BlockState defaultState = state.getBlock().getDefaultState();
-		final BlockRenderManager dispatcher = client.getBlockRenderManager();
-		final BlockStateModel model = dispatcher.getModels().getModel(defaultState);
+		final BlockState state = machine.getBlockState();
+		final BlockState defaultState = state.getBlock().defaultBlockState();
+		final BlockRenderDispatcher dispatcher = client.getBlockRenderer();
+		final BlockStateModel model = dispatcher.getBlockModelShaper().getBlockModel(defaultState);
 
-		drawContext.state.addSpecialElement(new MachineFaceState(
-			new Matrix3x2f(drawContext.getMatrices()),
+		drawContext.guiRenderState.submitPicturesInPictureState(new MachineFaceState(
+			new Matrix3x2f(drawContext.pose()),
 			model,
 			gui.getGuiLeft() + getX(),
 			gui.getGuiTop() + getY()
@@ -170,7 +170,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	protected abstract void cycleConfig(Direction side, GuiBase<?> guiBase);
 
-	protected abstract void drawSateColor(DrawContext drawContext, GuiBase<?> gui, Direction side, int inx, int iny);
+	protected abstract void drawSateColor(GuiGraphics drawContext, GuiBase<?> gui, Direction side, int inx, int iny);
 
 	protected boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY, GuiBase<?> guiBase) {
 		rectX += getX();
@@ -181,29 +181,29 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	protected abstract int getPencilColor(String pencil);
 
-	protected void drawPencil(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY, int x, int y) {
+	protected void drawPencil(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY, int x, int y) {
 		int mx = mouseX - gui.getGuiLeft();
 		int my = mouseY - gui.getGuiTop();
 		x += 5;
 		int color, x2, y2 = y + 13, x3, y3 = y + 3;
-		TextRenderer textRenderer = gui.getTextRenderer();
+		Font textRenderer = gui.getFont();
 		String pencil;
-		Text letter;
+		Component letter;
 		for (int i = 0, len = pencils.length; i < len; i++) {
 			pencil = pencils[i];
 			x2 = x + (i >= fixIndex ? pencilWidth - 1 : pencilWidth);
 			if (pencil.equals(this.pencil)) {
 				color = getPencilColor(pencil);
 			} else if ((mx >= x && mx <= x2) && (my >= y && my < y2)) {
-				drawContext.drawTooltip(textRenderer, Text.translatable("reborncore.gui.slotconfig." + pencil), mouseX, mouseY + 10);
+				drawContext.setTooltipForNextFrame(textRenderer, Component.translatable("reborncore.gui.slotconfig." + pencil), mouseX, mouseY + 10);
 				color = mx != x2 ? 0xff8b8b8b : 0x668b8b8b;
 			} else {
 				color = 0x668b8b8b;
 			}
 			drawContext.fill(x, y, x2, y2, color);
-			letter = Text.of(pencil.substring(0, 1));
-			x3 = x + (pencilWidth - textRenderer.getWidth(letter)) / 2;
-			drawContext.drawText(textRenderer, letter, x3, y3, -1, false);
+			letter = Component.nullToEmpty(pencil.substring(0, 1));
+			x3 = x + (pencilWidth - textRenderer.width(letter)) / 2;
+			drawContext.drawString(textRenderer, letter, x3, y3, -1, false);
 			x = x2 + 1;
 		}
 	}

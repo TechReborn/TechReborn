@@ -28,11 +28,11 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourceReloadListenerKeys;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.level.material.Fluid;
 import reborncore.common.fluid.FluidSettings;
 import reborncore.common.fluid.RebornFluid;
 import reborncore.common.fluid.RebornFluidManager;
@@ -45,20 +45,20 @@ import java.util.Map;
 
 public class RebornFluidRenderManager implements SimpleSynchronousResourceReloadListener {
 
-	private static final Map<Fluid, TemporaryLazy<Sprite[]>> spriteMap = new HashMap<>();
+	private static final Map<Fluid, TemporaryLazy<TextureAtlasSprite[]>> spriteMap = new HashMap<>();
 
 	public static void setupClient() {
 		RebornFluidRenderManager rebornFluidRenderManager = new RebornFluidRenderManager();
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(rebornFluidRenderManager);
+		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(rebornFluidRenderManager);
 		RebornFluidManager.getFluidStream().forEach(RebornFluidRenderManager::setupFluidRenderer);
 	}
 
 	private static void setupFluidRenderer(RebornFluid fluid) {
 		// Done lazy as we want to ensure we get the sprite at the correct time,
 		// but also don't want to be making these calls every time its required.
-		TemporaryLazy<Sprite[]> sprites = new TemporaryLazy<>(() -> {
+		TemporaryLazy<TextureAtlasSprite[]> sprites = new TemporaryLazy<>(() -> {
 			FluidSettings fluidSettings = fluid.getFluidSettings();
-			return new Sprite[]{RenderUtil.getSprite(fluidSettings.getStillTexture()), RenderUtil.getSprite(fluidSettings.getFlowingTexture())};
+			return new TextureAtlasSprite[]{RenderUtil.getSprite(fluidSettings.getStillTexture()), RenderUtil.getSprite(fluidSettings.getFlowingTexture())};
 		});
 
 		spriteMap.put(fluid, sprites);
@@ -66,18 +66,18 @@ public class RebornFluidRenderManager implements SimpleSynchronousResourceReload
 	}
 
 	@Override
-	public Identifier getFabricId() {
-		return Identifier.of("reborncore", "fluid_render_manager");
+	public ResourceLocation getFabricId() {
+		return ResourceLocation.fromNamespaceAndPath("reborncore", "fluid_render_manager");
 	}
 
 	@Override
-	public void reload(ResourceManager manager) {
+	public void onResourceManagerReload(ResourceManager manager) {
 		// Reset the cached fluid sprites
 		spriteMap.forEach((key, value) -> value.reset());
 	}
 
 	@Override
-	public Collection<Identifier> getFabricDependencies() {
+	public Collection<ResourceLocation> getFabricDependencies() {
 		return Collections.singletonList(ResourceReloadListenerKeys.TEXTURES);
 	}
 }

@@ -24,10 +24,10 @@
 
 package techreborn.blockentity.machine.multiblock.casing;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockBlockEntityBase;
 import techreborn.blocks.misc.BlockMachineCasing;
@@ -54,7 +54,7 @@ public class MachineCasingBlockEntity extends RectangularMultiblockBlockEntityBa
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new MultiBlockCasing(world);
+		return new MultiBlockCasing(level);
 	}
 
 	@Override
@@ -93,11 +93,11 @@ public class MachineCasingBlockEntity extends RectangularMultiblockBlockEntityBa
 	}
 
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
 		// Compatible with old versions
 		if (firstLoad) {
 			firstLoad = false;
-			if (state.get(DirectionUtils.HORIZONTAL_NEIGHBORS) == 0) {
+			if (state.getValue(DirectionUtils.HORIZONTAL_NEIGHBORS) == 0) {
 				DirectionUtils.loadHorizontalNeighbors(world, pos, state, block -> block instanceof BlockMachineCasing);
 			}
 		}

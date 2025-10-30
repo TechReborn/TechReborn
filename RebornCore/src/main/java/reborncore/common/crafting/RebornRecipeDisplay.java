@@ -26,29 +26,29 @@ package reborncore.common.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.display.RecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 
 public record RebornRecipeDisplay(SlotDisplay result, SlotDisplay craftingStation) implements RecipeDisplay {
 	public static final MapCodec<RebornRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(SlotDisplay.CODEC.fieldOf("result").forGetter(RebornRecipeDisplay::result), SlotDisplay.CODEC.fieldOf("crafting_station").forGetter(RebornRecipeDisplay::craftingStation)).apply(instance, RebornRecipeDisplay::new));
-	public static final PacketCodec<RegistryByteBuf, RebornRecipeDisplay> PACKET_CODEC;
-	public static final RecipeDisplay.Serializer<RebornRecipeDisplay> SERIALIZER;
+	public static final StreamCodec<RegistryFriendlyByteBuf, RebornRecipeDisplay> STREAM_CODEC;
+	public static final RecipeDisplay.Type<RebornRecipeDisplay> SERIALIZER;
 
 	public RebornRecipeDisplay(SlotDisplay craftingStation) {
 		// TODO unlockedItem
-		this(new SlotDisplay.StackSlotDisplay(ItemStack.EMPTY), craftingStation);
+		this(new SlotDisplay.ItemStackSlotDisplay(ItemStack.EMPTY), craftingStation);
 	}
 
 	@Override
-	public Serializer<? extends RecipeDisplay> serializer() {
+	public Type<? extends RecipeDisplay> type() {
 		return SERIALIZER;
 	}
 
 	static {
-		PACKET_CODEC = PacketCodec.tuple(SlotDisplay.PACKET_CODEC, RebornRecipeDisplay::result, SlotDisplay.PACKET_CODEC, RebornRecipeDisplay::craftingStation, RebornRecipeDisplay::new);
-		SERIALIZER = new RecipeDisplay.Serializer<>(CODEC, PACKET_CODEC);
+		STREAM_CODEC = StreamCodec.composite(SlotDisplay.STREAM_CODEC, RebornRecipeDisplay::result, SlotDisplay.STREAM_CODEC, RebornRecipeDisplay::craftingStation, RebornRecipeDisplay::new);
+		SERIALIZER = new RecipeDisplay.Type<>(CODEC, STREAM_CODEC);
 	}
 }

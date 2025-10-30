@@ -25,7 +25,7 @@
 package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import techreborn.init.TRBlockSettings;
 
 /**

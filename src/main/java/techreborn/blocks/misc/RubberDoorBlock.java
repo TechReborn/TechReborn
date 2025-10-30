@@ -24,7 +24,7 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.DoorBlock;
+import net.minecraft.world.level.block.DoorBlock;
 import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 

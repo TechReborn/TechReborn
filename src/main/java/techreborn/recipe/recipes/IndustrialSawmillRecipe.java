@@ -27,13 +27,6 @@ package techreborn.recipe.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.SizedIngredient;
@@ -43,20 +36,27 @@ import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
 
 import java.util.List;
 import java.util.function.Function;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public record IndustrialSawmillRecipe(RecipeType<? extends IndustrialSawmillRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, FluidInstance fluid) implements RebornFluidRecipe {
 	public static final Function<RecipeType<IndustrialSawmillRecipe>, MapCodec<IndustrialSawmillRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
-		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
-		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
+		ExtraCodecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
+		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
 		FluidInstance.CODEC.fieldOf("fluid").forGetter(RebornFluidRecipe::fluid)
 	).apply(instance, (ingredients, outputs, power, time, fluid) -> new IndustrialSawmillRecipe(type, ingredients, outputs, power, time, fluid)));
-	public static final Function<RecipeType<IndustrialSawmillRecipe>, PacketCodec<RegistryByteBuf, IndustrialSawmillRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::ingredients,
-		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::outputs,
-		PacketCodecs.INTEGER, RebornRecipe::power,
-		PacketCodecs.INTEGER, RebornRecipe::time,
+	public static final Function<RecipeType<IndustrialSawmillRecipe>, StreamCodec<RegistryFriendlyByteBuf, IndustrialSawmillRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
+		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
+		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ByteBufCodecs.INT, RebornRecipe::power,
+		ByteBufCodecs.INT, RebornRecipe::time,
 		FluidInstance.PACKET_CODEC, RebornFluidRecipe::fluid,
 		(ingredients, outputs, power, time, fluid) -> new IndustrialSawmillRecipe(type, ingredients, outputs, power, time, fluid)
 	);

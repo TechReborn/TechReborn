@@ -26,16 +26,6 @@ package techreborn.recipe.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.IngredientPlacement;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeInput;
 import reborncore.common.crafting.SizedIngredient;
@@ -43,32 +33,42 @@ import reborncore.common.crafting.SizedIngredient;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
 public record RollingMachineRecipe(RecipeType<? extends RollingMachineRecipe> type, int power, int time, ShapedRecipe shapedRecipe) implements RebornRecipe {
 	public static Function<RecipeType<RollingMachineRecipe>, MapCodec<RollingMachineRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
-		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
-		RecipeSerializer.SHAPED.codec().forGetter(RollingMachineRecipe::getShapedRecipe)
+		ExtraCodecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
+		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
+		RecipeSerializer.SHAPED_RECIPE.codec().forGetter(RollingMachineRecipe::getShapedRecipe)
 	).apply(instance, (power, time, shaped) -> new RollingMachineRecipe(type, power, time, shaped)));
-	public static Function<RecipeType<RollingMachineRecipe>, PacketCodec<RegistryByteBuf, RollingMachineRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::ingredients,
-		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::outputs,
-		PacketCodecs.INTEGER, RebornRecipe::power,
-		PacketCodecs.INTEGER, RebornRecipe::time,
-		RecipeSerializer.SHAPED.packetCodec(), RollingMachineRecipe::getShapedRecipe,
+	public static Function<RecipeType<RollingMachineRecipe>, StreamCodec<RegistryFriendlyByteBuf, RollingMachineRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
+		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
+		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ByteBufCodecs.INT, RebornRecipe::power,
+		ByteBufCodecs.INT, RebornRecipe::time,
+		RecipeSerializer.SHAPED_RECIPE.streamCodec(), RollingMachineRecipe::getShapedRecipe,
 		(ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, power, time, shaped)
 	);
 
 	@Override
 	public List<ItemStack> outputs() {
 		// Input does not affect the result
-		return Collections.singletonList(shapedRecipe.craft(null, null));
+		return Collections.singletonList(shapedRecipe.assemble(null, null));
 	}
 
 	@Override
-	public ItemStack craft(RebornRecipeInput inventory, RegistryWrapper.WrapperLookup lookup) {
+	public ItemStack assemble(RebornRecipeInput inventory, HolderLookup.Provider lookup) {
 		// Input does not affect the result
-		return shapedRecipe.craft(null, lookup);
+		return shapedRecipe.assemble(null, lookup);
 	}
 
 	@Override
@@ -77,8 +77,8 @@ public record RollingMachineRecipe(RecipeType<? extends RollingMachineRecipe> ty
 	}
 
 	@Override
-	public IngredientPlacement getIngredientPlacement() {
-		return shapedRecipe.getIngredientPlacement();
+	public PlacementInfo placementInfo() {
+		return shapedRecipe.placementInfo();
 	}
 
 	public ShapedRecipe getShapedRecipe() {

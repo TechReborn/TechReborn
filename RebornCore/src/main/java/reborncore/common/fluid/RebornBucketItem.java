@@ -24,11 +24,11 @@
 
 package reborncore.common.fluid;
 
-import net.minecraft.item.BucketItem;
+import net.minecraft.world.item.BucketItem;
 
 public class RebornBucketItem extends BucketItem {
 
-	public RebornBucketItem(RebornFluid fluid, Settings settings) {
+	public RebornBucketItem(RebornFluid fluid, Properties settings) {
 		super(fluid, settings);
 	}
 }

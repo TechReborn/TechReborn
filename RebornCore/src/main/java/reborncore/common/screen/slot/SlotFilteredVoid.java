@@ -24,39 +24,38 @@
 
 package reborncore.common.screen.slot;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 
 public class SlotFilteredVoid extends BaseSlot {
 
 	private final List<ItemStack> filter = new ArrayList<>();
 
-	public SlotFilteredVoid(Inventory itemHandler, int id, int x, int y) {
+	public SlotFilteredVoid(Container itemHandler, int id, int x, int y) {
 		super(itemHandler, id, x, y);
 	}
 
-	public SlotFilteredVoid(Inventory itemHandler, int id, int x, int y, ItemStack[] filterList) {
+	public SlotFilteredVoid(Container itemHandler, int id, int x, int y, ItemStack[] filterList) {
 		super(itemHandler, id, x, y);
 		this.filter.addAll(Arrays.asList(filterList));
 	}
 
 	@Override
-	public boolean canInsert(ItemStack stack) {
+	public boolean mayPlace(ItemStack stack) {
 		for (ItemStack itemStack : filter) {
 			if (itemStack.getItem().equals(stack.getItem())) {
 				return false;
 			}
 		}
 
-		return super.canInsert(stack);
+		return super.mayPlace(stack);
 	}
 
 	@Override
-	public void setStack(ItemStack arg0) {
+	public void setByPlayer(ItemStack arg0) {
 
 	}
 }

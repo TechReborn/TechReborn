@@ -24,15 +24,15 @@
 
 package reborncore.mixin.common;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -40,20 +40,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.common.powerSystem.RcEnergyItem;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class MixinPlayerEntity extends LivingEntity {
-	protected MixinPlayerEntity(EntityType<? extends LivingEntity> type, World world) {
+	protected MixinPlayerEntity(EntityType<? extends LivingEntity> type, Level world) {
 		super(type, world);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
-		PlayerEntity playerEntity = (PlayerEntity) (Object) this;
+		Player playerEntity = (Player) (Object) this;
 		if (playerEntity.isSpectator()) return;
-		if (!playerEntity.playerScreenHandler.onServer) {
-			ItemStack stack = playerEntity.playerScreenHandler.getCursorStack();
+		if (!playerEntity.inventoryMenu.active) {
+			ItemStack stack = playerEntity.inventoryMenu.getCarried();
 			if (stack.getItem() instanceof ArmorBlockEntityTicker ticker) {
-				stack.remove(DataComponentTypes.CUSTOM_DATA);
+				stack.remove(DataComponents.CUSTOM_DATA);
 				ticker.tickArmor(stack, false, playerEntity);
 			}
 			return;
@@ -61,9 +61,9 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 
 		Class<?> suit = null;
 		int count = 0;
-		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+		for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
 			if (equipmentSlot == EquipmentSlot.BODY) continue;
-			ItemStack stack = playerEntity.getEquippedStack(equipmentSlot);
+			ItemStack stack = playerEntity.getItemBySlot(equipmentSlot);
 			if (!(stack.getItem() instanceof RcEnergyItem item)) {
 				break;
 			}
@@ -78,13 +78,13 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 			count++;
 		}
 
-		for (EquipmentSlot equipmentSlot : AttributeModifierSlot.ARMOR) {
+		for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
 			if (equipmentSlot == EquipmentSlot.BODY) continue;
-			ItemStack stack = playerEntity.getEquippedStack(equipmentSlot);
+			ItemStack stack = playerEntity.getItemBySlot(equipmentSlot);
 			if (stack.getItem() instanceof ArmorBlockEntityTicker ticker) {
 				// mark tick
-				if (!stack.contains(DataComponentTypes.CUSTOM_DATA)) {
-					stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+				if (!stack.has(DataComponents.CUSTOM_DATA)) {
+					stack.set(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
 				}
 				ticker.tickArmor(stack, count == 4, playerEntity);
 			}

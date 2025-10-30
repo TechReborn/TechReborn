@@ -24,16 +24,15 @@
 
 package reborncore.common.blockentity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiPredicate;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Writes a multiblock for either verification or hologram rendering
@@ -53,7 +52,7 @@ public interface MultiblockWriter {
 	 * @param state     {@link BlockState} The state for the hologram
 	 * @return {@link MultiblockWriter} This. Useful for chaining
 	 */
-	MultiblockWriter add(int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state);
+	MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state);
 
 	/**
 	 * Fills a section between (ax, ay, az) to (bx, by, bz)
@@ -68,7 +67,7 @@ public interface MultiblockWriter {
 	 * @param state     {@link BlockState} The state for the hologram
 	 * @return {@link MultiblockWriter} This. Useful for chaining
 	 */
-	default MultiblockWriter fill(int ax, int ay, int az, int bx, int by, int bz, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
+	default MultiblockWriter fill(int ax, int ay, int az, int bx, int by, int bz, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
 		for (int x = ax; x < bx; x++) {
 			for (int y = ay; y < by; y++) {
 				for (int z = az; z < bz; z++) {
@@ -94,13 +93,13 @@ public interface MultiblockWriter {
 	 * @param holeHologramState {@link BlockState} The hole state for the hologram
 	 * @return {@link MultiblockWriter} This. Useful for chaining
 	 */
-	default MultiblockWriter ring(Direction.Axis through, int pX, int pY, int pZ, BiPredicate<BlockView, BlockPos> predicate, BlockState state, BiPredicate<BlockView, BlockPos> holePredicate, BlockState holeHologramState) {
+	default MultiblockWriter ring(Direction.Axis through, int pX, int pY, int pZ, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state, BiPredicate<BlockGetter, BlockPos> holePredicate, BlockState holeHologramState) {
 		if (holePredicate == null) {
 			holePredicate = predicate.negate();
 		}
 
 		if (holeHologramState == null) {
-			holeHologramState = Blocks.AIR.getDefaultState();
+			holeHologramState = Blocks.AIR.defaultBlockState();
 		}
 
 		if (through == Direction.Axis.X) {
@@ -138,8 +137,8 @@ public interface MultiblockWriter {
 		return this;
 	}
 
-	default MultiblockWriter ringWithAir(Direction.Axis through, int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
-		return ring(through, x, y, z, predicate, state, (view, pos) -> view.getBlockState(pos).getBlock() == Blocks.AIR, Blocks.AIR.getDefaultState());
+	default MultiblockWriter ringWithAir(Direction.Axis through, int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
+		return ring(through, x, y, z, predicate, state, (view, pos) -> view.getBlockState(pos).getBlock() == Blocks.AIR, Blocks.AIR.defaultBlockState());
 	}
 
 	default MultiblockWriter add(int x, int y, int z, BlockState state) {
@@ -151,7 +150,7 @@ public interface MultiblockWriter {
 	}
 
 	default MultiblockWriter fill(int ax, int ay, int az, int bx, int by, int bz, Block block) {
-		return fill(ax, ay, az, bx, by, bz, (view, pos) -> view.getBlockState(pos).isOf(block), block.getDefaultState());
+		return fill(ax, ay, az, bx, by, bz, (view, pos) -> view.getBlockState(pos).is(block), block.defaultBlockState());
 	}
 
 	default MultiblockWriter ring(Direction.Axis through, int x, int y, int z, BlockState state, BlockState holeState) {
@@ -163,7 +162,7 @@ public interface MultiblockWriter {
 	}
 
 	default MultiblockWriter ringWithAir(Direction.Axis through, int x, int y, int z, Block block) {
-		return ringWithAir(through, x, y, z, (view, pos) -> view.getBlockState(pos).isOf(block), block.getDefaultState());
+		return ringWithAir(through, x, y, z, (view, pos) -> view.getBlockState(pos).is(block), block.defaultBlockState());
 	}
 
 	default MultiblockWriter translate(int offsetX, int offsetY, int offsetZ) {
@@ -195,7 +194,7 @@ public interface MultiblockWriter {
 	record DebugWriter(MultiblockWriter writer) implements MultiblockWriter {
 
 		@Override
-		public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
+		public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
 			System.out.printf("\t%d\t%d\t%d\t%s\n", x, y, z, state.getBlock());
 
 			if (writer != null) {
@@ -211,11 +210,11 @@ public interface MultiblockWriter {
 	 */
 	class MultiblockVerifier implements MultiblockWriter {
 		private final BlockPos relative;
-		private final BlockView view;
+		private final BlockGetter view;
 
 		private boolean valid = true;
 
-		public MultiblockVerifier(BlockPos relative, BlockView view) {
+		public MultiblockVerifier(BlockPos relative, BlockGetter view) {
 			this.relative = relative;
 			this.view = view;
 		}
@@ -225,9 +224,9 @@ public interface MultiblockWriter {
 		}
 
 		@Override
-		public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
+		public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
 			if (valid) {
-				valid = predicate.test(view, relative.add(x, y, z));
+				valid = predicate.test(view, relative.offset(x, y, z));
 			}
 
 			return this;
@@ -243,8 +242,8 @@ public interface MultiblockWriter {
 		}
 
 		@Override
-		public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockView, BlockPos> predicate, BlockState state) {
-			pos.add(relative.add(x, y, z));
+		public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
+			pos.add(relative.offset(x, y, z));
 
 			return this;
 		}

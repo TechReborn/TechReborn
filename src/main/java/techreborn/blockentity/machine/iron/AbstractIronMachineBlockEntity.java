@@ -24,15 +24,15 @@
 
 package techreborn.blockentity.machine.iron;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -82,10 +82,10 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	 * @return {@code int} Number of ticks
 	 */
 	private int getItemBurnTime(ItemStack stack) {
-		if (stack.isEmpty() || world == null) {
+		if (stack.isEmpty() || level == null) {
 			return 0;
 		}
-		return (int) (world.getFuelRegistry().getFuelTicks(stack) * TechRebornConfig.fuelScale);
+		return (int) (level.fuelValues().burnDuration(stack) * TechRebornConfig.fuelScale);
 	}
 
 	/**
@@ -125,34 +125,34 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	}
 
 	private void updateState() {
-		BlockState state = world.getBlockState(pos);
+		BlockState state = level.getBlockState(worldPosition);
 		if (state.getBlock() instanceof BlockMachineBase blockMachineBase) {
-			if (state.get(BlockMachineBase.ACTIVE) != burnTime > 0)
-				blockMachineBase.setActive(burnTime > 0, world, pos);
+			if (state.getValue(BlockMachineBase.ACTIVE) != burnTime > 0)
+				blockMachineBase.setActive(burnTime > 0, level, worldPosition);
 		}
 	}
 
 	// MachineBaseBlockEntity
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
-		burnTime = view.getInt("BurnTime", 0);
-		totalBurnTime = view.getInt("TotalBurnTime", 0);
-		progress = view.getInt("Progress", 0);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
+		burnTime = view.getIntOr("BurnTime", 0);
+		totalBurnTime = view.getIntOr("TotalBurnTime", 0);
+		progress = view.getIntOr("Progress", 0);
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		view.putInt("BurnTime", burnTime);
 		view.putInt("TotalBurnTime", totalBurnTime);
 		view.putInt("Progress", progress);
 	}
 
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world.isClient) {
+		if (world.isClientSide) {
 			return;
 		}
 		boolean isBurning = isBurning();
@@ -162,17 +162,17 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 		boolean canSmelt = canSmelt();
 		if (!isBurning && canSmelt) {
-			burnTime = totalBurnTime = getItemBurnTime(inventory.getStack(fuelSlot));
+			burnTime = totalBurnTime = getItemBurnTime(inventory.getItem(fuelSlot));
 			if (burnTime > 0) {
 				// Fuel slot
-				ItemStack fuelStack = inventory.getStack(fuelSlot);
-				ItemStack remainderStack = fuelStack.getItem().getRecipeRemainder();
+				ItemStack fuelStack = inventory.getItem(fuelSlot);
+				ItemStack remainderStack = fuelStack.getItem().getCraftingRemainder();
 				if (!remainderStack.isEmpty()) {
-					inventory.setStack(fuelSlot, remainderStack);
+					inventory.setItem(fuelSlot, remainderStack);
 				} else if (fuelStack.getCount() > 1) {
 					inventory.shrinkSlot(fuelSlot, 1);
 				} else if (fuelStack.getCount() == 1) {
-					inventory.setStack(fuelSlot, ItemStack.EMPTY);
+					inventory.setItem(fuelSlot, ItemStack.EMPTY);
 				}
 			}
 		}
@@ -192,7 +192,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 			updateState();
 		}
 		if (inventory.hasChanged()) {
-			markDirty();
+			setChanged();
 		}
 	}
 
@@ -209,7 +209,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(Player entityPlayer) {
 		return new ItemStack(toolDrop);
 	}
 

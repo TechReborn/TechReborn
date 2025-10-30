@@ -24,24 +24,23 @@
 
 package reborncore.common.network.clientbound;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
-public record QueueItemStacksPayload(List<ItemStack> stacks) implements CustomPayload {
-	public static final Id<QueueItemStacksPayload> ID = new Id<>(Identifier.of("reborncore:stacks_to_render"));
-	public static final PacketCodec<RegistryByteBuf, QueueItemStacksPayload> PACKET_CODEC = PacketCodec.tuple(
-		ItemStack.OPTIONAL_PACKET_CODEC.collect(PacketCodecs.toList()), QueueItemStacksPayload::stacks,
+public record QueueItemStacksPayload(List<ItemStack> stacks) implements CustomPacketPayload {
+	public static final Type<QueueItemStacksPayload> ID = new Type<>(ResourceLocation.parse("reborncore:stacks_to_render"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, QueueItemStacksPayload> PACKET_CODEC = StreamCodec.composite(
+		ItemStack.OPTIONAL_STREAM_CODEC.apply(ByteBufCodecs.list()), QueueItemStacksPayload::stacks,
 		QueueItemStacksPayload::new
 	);
 
 	@Override
-	public Id<? extends CustomPayload> getId() {
+	public Type<? extends CustomPacketPayload> type() {
 		return ID;
 	}
 }

@@ -24,14 +24,13 @@
 
 package reborncore.api;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ToolManager implements ICustomToolHandler {
 
@@ -39,7 +38,7 @@ public class ToolManager implements ICustomToolHandler {
 	public List<ICustomToolHandler> customToolHandlerList = new ArrayList<>();
 
 	@Override
-	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
+	public boolean handleTool(ItemStack stack, BlockPos pos, Level world, Player player, Direction side, boolean damage) {
 		if (stack == null || stack.isEmpty()) {
 			return false;
 		}

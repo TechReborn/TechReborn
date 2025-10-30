@@ -24,10 +24,10 @@
 
 package techreborn.blockentity.machine.multiblock;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
@@ -67,7 +67,7 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 
 	// IContainerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("Distillationtower").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 35, 27).slot(1, 35, 47).outputSlot(2, 79, 37).outputSlot(3, 99, 37)
 				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().syncShapeValue()

@@ -24,29 +24,6 @@
 
 package reborncore.common.blockentity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.storage.NbtWriteView;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.ErrorReporter;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -69,11 +46,34 @@ import reborncore.common.util.Tank;
 import static reborncore.RebornCore.LOGGER;
 
 import java.util.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.Container;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Created by modmuss50 on 04/11/2016.
  */
-public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTicker<MachineBaseBlockEntity>, IUpgradeable, IUpgradeHandler, IListInfoProvider, Inventory, SidedInventory, RedstoneConfigurable, ChunkEventListener {
+public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTicker<MachineBaseBlockEntity>, IUpgradeable, IUpgradeHandler, IListInfoProvider, Container, WorldlyContainer, RedstoneConfigurable, ChunkEventListener {
 
 	public RebornInventory<MachineBaseBlockEntity> upgradeInventory = new RebornInventory<>(getUpgradeSlotCount(), "upgrades", 1, this, (slotID, stack, face, direction, blockEntity) -> true);
 	private SlotConfiguration slotConfiguration;
@@ -133,7 +133,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	public void rematch() {
-		MultiblockWriter.MultiblockVerifier verifier = new MultiblockWriter.MultiblockVerifier(getPos(), getWorld());
+		MultiblockWriter.MultiblockVerifier verifier = new MultiblockWriter.MultiblockVerifier(getBlockPos(), getLevel());
 		writeMultiblock(verifier.rotate(getFacing().getOpposite()));
 		shapeValid = verifier.isValid();
 		needsRematch = false;
@@ -156,17 +156,17 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 	public void unlink() {
 		if (shape != null) {
-			unregisterListeners(world);
+			unregisterListeners(level);
 			shape = null;
 		}
 	}
 
 	public void registerMultiblockVerify() {
-		MultiblockWriter.MultiblockShapeFormer writer = new MultiblockWriter.MultiblockShapeFormer(getPos());
+		MultiblockWriter.MultiblockShapeFormer writer = new MultiblockWriter.MultiblockShapeFormer(getBlockPos());
 		writeMultiblock(writer.rotate(getFacing().getOpposite()));
 
 		shape = writer.getPos();
-		registerListeners(world);
+		registerListeners(level);
 		needsRematch = true;
 	}
 
@@ -181,13 +181,13 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		return spannedChunks;
 	}
 
-	public void registerListeners(World world) {
+	public void registerListeners(Level world) {
 		for (ChunkPos chunkPos : getSpannedChunks()) {
 			ChunkEventListeners.listeners.add(world, chunkPos, this);
 		}
 	}
 
-	public void unregisterListeners(World world) {
+	public void unregisterListeners(Level world) {
 		for (ChunkPos chunkPos : getSpannedChunks()) {
 			ChunkEventListeners.listeners.remove(world, chunkPos, this);
 		}
@@ -211,10 +211,10 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public final void markRemoved() {
-		super.markRemoved();
+	public final void setRemoved() {
+		super.setRemoved();
 
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			unlink();
 		}
 	}
@@ -222,8 +222,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private void syncIfNecessary(){
 		if (this.markSync && this.tickTime % syncCoolDown == 0) {
 			this.markSync = false;
-			if (world == null || world.isClient) { return; }
-			NetworkManager.sendToTracking(new CustomDescriptionPayload(this.pos, this.createNbt(world.getRegistryManager())), this);
+			if (level == null || level.isClientSide) { return; }
+			NetworkManager.sendToTracking(new CustomDescriptionPayload(this.worldPosition, this.saveWithoutMetadata(level.registryAccess())), this);
 		}
 	}
 
@@ -248,31 +248,31 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 				fluidConfiguration = new FluidConfiguration();
 			}
 		}
-		if (hasMultiblock() && world != null && !world.isClient) {
+		if (hasMultiblock() && level != null && !level.isClientSide) {
 			registerMultiblockVerify();
 		}
 	}
 
 	@Nullable
 	@Override
-	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		return BlockEntityUpdateS2CPacket.create(this);
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
-	public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
-		NbtCompound compound;
-		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(getReporterContext(), LOGGER)) {
-			NbtWriteView view = NbtWriteView.create(logging, registryLookup);
-			super.writeData(view);
-			writeData(view);
-			compound = view.getNbt();
+	public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
+		CompoundTag compound;
+		try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(problemPath(), LOGGER)) {
+			TagValueOutput view = TagValueOutput.createWithContext(logging, registryLookup);
+			super.saveAdditional(view);
+			saveAdditional(view);
+			compound = view.buildResult();
 		}
 		return compound;
 	}
 
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (tickTime == 0) {
 			onLoad();
 		}
@@ -285,14 +285,14 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		if (canBeUpgraded()) {
 			resetUpgrades();
 			for (int i = 0; i < getUpgradeSlotCount(); i++) {
-				ItemStack stack = getUpgradeInventory().getStack(i);
+				ItemStack stack = getUpgradeInventory().getItem(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof IUpgrade) {
 					((IUpgrade) stack.getItem()).process(this, this, stack);
 				}
 			}
 			afterUpgradesApplication();
 		}
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
@@ -320,32 +320,32 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	public int getFacingInt() {
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = level.getBlockState(worldPosition).getBlock();
 		if (block instanceof BlockMachineBase) {
-			return ((BlockMachineBase) block).getFacing(world.getBlockState(pos)).getIndex();
+			return ((BlockMachineBase) block).getFacing(level.getBlockState(worldPosition)).get3DDataValue();
 		}
 		return 0;
 	}
 
 	public Direction getFacingEnum() {
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = level.getBlockState(worldPosition).getBlock();
 		if (block instanceof BlockMachineBase) {
-			return ((BlockMachineBase) block).getFacing(world.getBlockState(pos));
+			return ((BlockMachineBase) block).getFacing(level.getBlockState(worldPosition));
 		}
 		return Direction.NORTH;
 	}
 
 	public void setFacing(Direction enumFacing) {
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = level.getBlockState(worldPosition).getBlock();
 		if (block instanceof BlockMachineBase) {
-			((BlockMachineBase) block).setFacing(enumFacing, world, pos);
+			((BlockMachineBase) block).setFacing(enumFacing, level, worldPosition);
 		}
 	}
 
 	public boolean isActive() {
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = level.getBlockState(worldPosition).getBlock();
 		if (block instanceof BlockMachineBase) {
-			return world.getBlockState(pos).get(BlockMachineBase.ACTIVE);
+			return level.getBlockState(worldPosition).getValue(BlockMachineBase.ACTIVE);
 		}
 		return false;
 	}
@@ -371,22 +371,22 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
 		if (getOptionalInventory().isPresent()) {
 			getOptionalInventory().get().read(view);
 		}
 		if (getOptionalCrafter().isPresent()) {
 			getOptionalCrafter().get().read(view);
 		}
-		view.getOptionalReadView("slotConfig").ifPresentOrElse(config -> {
+		view.child("slotConfig").ifPresentOrElse(config -> {
 			slotConfiguration = new SlotConfiguration(config);
 		}, () -> {
 			if (getOptionalInventory().isPresent()) {
 				slotConfiguration = new SlotConfiguration(getOptionalInventory().get());
 			}
 		});
-		view.getOptionalReadView("fluidConfig").ifPresent(config -> {
+		view.child("fluidConfig").ifPresent(config -> {
 			fluidConfiguration = new FluidConfiguration(config);
 		});
 		redstoneConfiguration = view.read("redstoneConfig", RedstoneConfiguration.CODEC.codec()).orElseGet(RedstoneConfiguration::new);
@@ -394,8 +394,8 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		if (getOptionalInventory().isPresent()) {
 			getOptionalInventory().get().write(view);
 		}
@@ -403,19 +403,19 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			getOptionalCrafter().get().write(view);
 		}
 		if (slotConfiguration != null) {
-			slotConfiguration.write(view.get("slotConfig"));
+			slotConfiguration.write(view.child("slotConfig"));
 		}
 		if (fluidConfiguration != null) {
-			fluidConfiguration.write(view.get("fluidConfig"));
+			fluidConfiguration.write(view.child("fluidConfig"));
 		}
 		upgradeInventory.write(view, "Upgrades");
-		view.put("redstoneConfig", RedstoneConfiguration.CODEC.codec(), redstoneConfiguration);
+		view.store("redstoneConfig", RedstoneConfiguration.CODEC.codec(), redstoneConfiguration);
 	}
 
 	// Inventory end
 
 	@Override
-	public Inventory getUpgradeInventory() {
+	public Container getUpgradeInventory() {
 		return upgradeInventory;
 	}
 
@@ -506,25 +506,25 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
+	public void addInfo(List<Component> info, boolean isReal, boolean hasData) {
 		if (hasData) {
 			if (getOptionalInventory().isPresent()) {
-				info.add(Text.literal(Formatting.GOLD + "" + getOptionalInventory().get().getContents() + Formatting.GRAY + " items"));
+				info.add(Component.literal(ChatFormatting.GOLD + "" + getOptionalInventory().get().getContents() + ChatFormatting.GRAY + " items"));
 			}
 			if (!upgradeInventory.isEmpty()) {
-				info.add(Text.literal(Formatting .GOLD + "" + upgradeInventory.getContents() + Formatting .GRAY + " upgrades"));
+				info.add(Component.literal(ChatFormatting .GOLD + "" + upgradeInventory.getContents() + ChatFormatting .GRAY + " upgrades"));
 			}
 		}
 	}
 
 	public Block getBlockType(){
-		return world.getBlockState(pos).getBlock();
+		return level.getBlockState(worldPosition).getBlock();
 	}
 
 	@Override
-	public int size() {
+	public int getContainerSize() {
 		if(getOptionalInventory().isPresent()){
-			return getOptionalInventory().get().size();
+			return getOptionalInventory().get().getContainerSize();
 		}
 		return 0;
 	}
@@ -538,46 +538,46 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public ItemStack getStack(int i) {
+	public ItemStack getItem(int i) {
 		if(getOptionalInventory().isPresent()){
-			return getOptionalInventory().get().getStack(i);
+			return getOptionalInventory().get().getItem(i);
 		}
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public ItemStack removeStack(int i, int i1) {
+	public ItemStack removeItem(int i, int i1) {
 		if(getOptionalInventory().isPresent()){
-			return getOptionalInventory().get().removeStack(i, i1);
+			return getOptionalInventory().get().removeItem(i, i1);
 		}
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public ItemStack removeStack(int i) {
+	public ItemStack removeItemNoUpdate(int i) {
 		if(getOptionalInventory().isPresent()){
-			return getOptionalInventory().get().removeStack(i);
+			return getOptionalInventory().get().removeItemNoUpdate(i);
 		}
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public void setStack(int i, ItemStack itemStack) {
+	public void setItem(int i, ItemStack itemStack) {
 		if(getOptionalInventory().isPresent()){
-			getOptionalInventory().get().setStack(i, itemStack);
+			getOptionalInventory().get().setItem(i, itemStack);
 		}
 	}
 
 	@Override
-	public boolean canPlayerUse(PlayerEntity playerEntity) {
+	public boolean stillValid(Player playerEntity) {
 		if(getOptionalInventory().isPresent()){
-			return getOptionalInventory().get().canPlayerUse(playerEntity);
+			return getOptionalInventory().get().stillValid(playerEntity);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean isValid(int slot, ItemStack stack) {
+	public boolean canPlaceItem(int slot, ItemStack stack) {
 		if (slotConfiguration == null) {
 			return false;
 		}
@@ -592,9 +592,9 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void clear() {
+	public void clearContent() {
 		if(getOptionalInventory().isPresent()){
-			getOptionalInventory().get().clear();
+			getOptionalInventory().get().clearContent();
 		}
 	}
 
@@ -605,7 +605,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public int[] getAvailableSlots(Direction side) {
+	public int[] getSlotsForFace(Direction side) {
 		if(slotConfiguration == null){
 			return new int[]{}; // I think should be ok, if needed this can return all the slots
 		}
@@ -616,7 +616,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public boolean canInsert(int index, ItemStack stack, @Nullable Direction direction) {
+	public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
 		if(direction == null || slotConfiguration == null){
 			return false;
 		}
@@ -633,7 +633,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public boolean canExtract(int index, ItemStack stack, Direction direction) {
+	public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
 		if (slotConfiguration == null) {
 			return false;
 		}
@@ -642,11 +642,11 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		return slotConfig.getSlotIO().ioConfig.isExtract();
 	}
 
-	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState){
+	public void onBreak(Level world, Player playerEntity, BlockPos blockPos, BlockState blockState){
 
 	}
 
-	public void onPlace(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack){
+	public void onPlace(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack){
 
 	}
 

@@ -24,12 +24,6 @@
 
 package reborncore.common.screen.builder;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.Vec3d;
 import org.apache.commons.lang3.Range;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -38,6 +32,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.TransientCraftingContainer;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec3;
 
 public class ScreenHandlerBuilder {
 
@@ -48,7 +48,7 @@ public class ScreenHandlerBuilder {
 
 	final List<SyncedObject<?>> objectValues;
 
-	final List<Consumer<CraftingInventory>> craftEvents;
+	final List<Consumer<TransientCraftingContainer>> craftEvents;
 
 	public ScreenHandlerBuilder(final String name) {
 
@@ -63,7 +63,7 @@ public class ScreenHandlerBuilder {
 		this.craftEvents = new ArrayList<>();
 	}
 
-	public PlayerScreenHandlerBuilder player(final PlayerInventory player) {
+	public PlayerScreenHandlerBuilder player(final Inventory player) {
 		return new PlayerScreenHandlerBuilder(this, player);
 	}
 
@@ -79,9 +79,9 @@ public class ScreenHandlerBuilder {
 		this.blockEntityInventoryRanges.add(range);
 	}
 
-	private Predicate<PlayerEntity> isUsable(MachineBaseBlockEntity blockEntity) {
-		return playerEntity -> blockEntity.getWorld().getBlockEntity(blockEntity.getPos()) == blockEntity
-				&& playerEntity.getPos().distanceTo(Vec3d.of(blockEntity.getPos())) < 16;
+	private Predicate<Player> isUsable(MachineBaseBlockEntity blockEntity) {
+		return playerEntity -> blockEntity.getLevel().getBlockEntity(blockEntity.getBlockPos()) == blockEntity
+				&& playerEntity.position().distanceTo(Vec3.atLowerCornerOf(blockEntity.getBlockPos())) < 16;
 	}
 
 	public BuiltScreenHandler create(final MachineBaseBlockEntity blockEntity, int syncID) {

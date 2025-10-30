@@ -24,8 +24,8 @@
 
 package reborncore.common.fluid.container;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
 
 public interface ItemFluidInfo {
 

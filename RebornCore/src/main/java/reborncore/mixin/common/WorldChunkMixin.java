@@ -24,18 +24,18 @@
 
 package reborncore.mixin.common;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.ChunkSection;
-import net.minecraft.world.chunk.UpgradeData;
-import net.minecraft.world.chunk.WorldChunk;
-import net.minecraft.world.gen.chunk.BlendingData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunkSection;
+import net.minecraft.world.level.chunk.UpgradeData;
+import net.minecraft.world.level.levelgen.blending.BlendingData;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,23 +45,23 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import reborncore.common.misc.world.ChunkEventListeners;
 
-@Mixin(WorldChunk.class)
-public abstract class WorldChunkMixin extends Chunk {
-	public WorldChunkMixin(ChunkPos pos, UpgradeData upgradeData, HeightLimitView heightLimitView, Registry<Biome> biome, long inhabitedTime,
-						@Nullable ChunkSection[] sectionArrayInitializer, @Nullable BlendingData blendingData) {
+@Mixin(LevelChunk.class)
+public abstract class WorldChunkMixin extends ChunkAccess {
+	public WorldChunkMixin(ChunkPos pos, UpgradeData upgradeData, LevelHeightAccessor heightLimitView, Registry<Biome> biome, long inhabitedTime,
+						@Nullable LevelChunkSection[] sectionArrayInitializer, @Nullable BlendingData blendingData) {
 		super(pos, upgradeData, heightLimitView, biome, inhabitedTime, sectionArrayInitializer, blendingData);
 		throw new AssertionError();
 	}
 
 	@Shadow
 	@Final
-	World world;
+	Level world;
 
 	@SuppressWarnings("rawtypes")
 	@Inject(method = "setBlockState", at = @At("HEAD"))
 	private void onSetBlockState(BlockPos pos, BlockState state, int flags, CallbackInfoReturnable cir) {
-		if (!world.isClient()) {
-			ChunkEventListeners.onBlockStateChange(world, this.pos, pos);
+		if (!world.isClientSide()) {
+			ChunkEventListeners.onBlockStateChange(world, this.chunkPos, pos);
 		}
 	}
 }

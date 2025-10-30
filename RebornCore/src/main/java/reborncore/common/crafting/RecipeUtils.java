@@ -24,39 +24,39 @@
 
 package reborncore.common.crafting;
 
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.AdvancementRequirements;
-import net.minecraft.advancement.AdvancementRewards;
-import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
 public class RecipeUtils {
-	public static <T extends RebornRecipe> List<T> getRecipes(World world, RecipeType<T> type) {
-		return streamRecipeEntries(world, type).map(RecipeEntry::value).toList();
+	public static <T extends RebornRecipe> List<T> getRecipes(Level world, RecipeType<T> type) {
+		return streamRecipeEntries(world, type).map(RecipeHolder::value).toList();
 	}
 
-	public static <T extends RebornRecipe> List<RecipeEntry<T>> getRecipeEntries(World world, RecipeType<T> type) {
+	public static <T extends RebornRecipe> List<RecipeHolder<T>> getRecipeEntries(Level world, RecipeType<T> type) {
 		return streamRecipeEntries(world, type).toList();
 	}
 
-	private static <T extends RebornRecipe> Stream<RecipeEntry<T>> streamRecipeEntries(World world, RecipeType<T> type) {
-		if (!(world instanceof ServerWorld serverWorld)) {
+	private static <T extends RebornRecipe> Stream<RecipeHolder<T>> streamRecipeEntries(Level world, RecipeType<T> type) {
+		if (!(world instanceof ServerLevel serverWorld)) {
 			throw new IllegalArgumentException("World must be a ServerWorld");
 		}
 
-		return serverWorld.getRecipeManager().values().stream()
+		return serverWorld.recipeAccess().getRecipes().stream()
 			.filter(recipe -> recipe.value().getType() == type)
-			.map(recipe -> (RecipeEntry<T>) recipe);
+			.map(recipe -> (RecipeHolder<T>) recipe);
 	}
 
 	/**
@@ -70,13 +70,13 @@ public class RecipeUtils {
 	 * @param registryKey the key of the recipe
 	 * @throws NullPointerException If any parameter refers to <code>null</code>.
 	 */
-	public static void addToastDefaults(@NotNull Advancement.Builder builder, @NotNull RegistryKey<Recipe<?>> registryKey) {
+	public static void addToastDefaults(@NotNull Advancement.Builder builder, @NotNull ResourceKey<Recipe<?>> registryKey) {
 		Objects.requireNonNull(builder);
 		Objects.requireNonNull(registryKey);
 		builder
-			.criterion("has_the_recipe", RecipeUnlockedCriterion.create(registryKey))
+			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(registryKey))
 			.rewards(AdvancementRewards.Builder.recipe(registryKey))
-			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
+			.requirements(AdvancementRequirements.Strategy.OR);
 	}
 
 }

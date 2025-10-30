@@ -24,16 +24,15 @@
 
 package reborncore.common.screen;
 
-import net.minecraft.screen.ScreenHandlerListener;
-import net.minecraft.server.network.ServerPlayerEntity;
-
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.util.Optional;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.ContainerListener;
 
 // Helper to access the ServerPlayerEntity instance from a ScreenHandlerListener
 public class ServerPlayerEntityScreenHandlerHelper {
-	private static final String CLASS_NAME = ServerPlayerEntity.class.getName() + "$2";
+	private static final String CLASS_NAME = ServerPlayer.class.getName() + "$2";
 	private static final String FIELD_NAME = "field_29183";
 
 	private static final Class<?> CLAZZ;
@@ -43,15 +42,15 @@ public class ServerPlayerEntityScreenHandlerHelper {
 		try {
 			CLAZZ = Class.forName(CLASS_NAME);
 			VAR_HANDLE = MethodHandles.privateLookupIn(CLAZZ, MethodHandles.lookup())
-				.findVarHandle(CLAZZ, FIELD_NAME, ServerPlayerEntity.class);
+				.findVarHandle(CLAZZ, FIELD_NAME, ServerPlayer.class);
 		} catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
 			throw new ExceptionInInitializerError(e);
 		}
 	}
 
-	public static Optional<ServerPlayerEntity> getServerPlayerEntity(ScreenHandlerListener screenHandlerListener) {
+	public static Optional<ServerPlayer> getServerPlayerEntity(ContainerListener screenHandlerListener) {
 		if (screenHandlerListener.getClass() == CLAZZ) {
-			return Optional.of((ServerPlayerEntity) VAR_HANDLE.get(screenHandlerListener));
+			return Optional.of((ServerPlayer) VAR_HANDLE.get(screenHandlerListener));
 		}
 
 		return Optional.empty();
