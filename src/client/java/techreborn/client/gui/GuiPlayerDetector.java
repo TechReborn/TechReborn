@@ -25,9 +25,9 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonUpDown;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -38,39 +38,39 @@ public class GuiPlayerDetector extends GuiBase<BuiltScreenHandler> {
 
 	final PlayerDetectorBlockEntity blockEntity;
 
-	public GuiPlayerDetector(int syncID, final PlayerEntity player, final PlayerDetectorBlockEntity blockEntity) {
+	public GuiPlayerDetector(int syncID, final Player player, final PlayerDetectorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 
 	private void onClick(int amount) {
-		ClientPlayNetworking.send(new DetectorRadiusPayload(blockEntity.getPos(), amount));
+		ClientPlayNetworking.send(new DetectorRadiusPayload(blockEntity.getBlockPos(), amount));
 	}
 
 	@Override
 	public void init() {
 		super.init();
 
-		addDrawableChild(new GuiButtonUpDown(x + 64, y + 40, this, b -> onClick(16), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 64 + 12, y + 40, this, b -> onClick(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-16), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 64, topPos + 40, this, b -> onClick(16), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 64 + 12, topPos + 40, this, b -> onClick(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 64 + 24, topPos + 40, this, b -> onClick(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 64 + 36, topPos + 40, this, b -> onClick(-16), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, float partialTicks, int mouseX, int mouseY) {
-		super.drawBackground(drawContext, partialTicks, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, float partialTicks, int mouseX, int mouseY) {
+		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		if (hideGuiElements()) return;
 
-		Text text = Text.literal("Radius: ").append(String.valueOf(blockEntity.getCurrentRadius()));
+		Component text = Component.literal("Radius: ").append(String.valueOf(blockEntity.getCurrentRadius()));
 		drawCentredText(drawContext, text, 25, theme.titleColor().rgba(), layer);
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

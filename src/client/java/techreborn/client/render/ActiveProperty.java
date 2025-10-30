@@ -26,13 +26,13 @@ package techreborn.client.render;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.client.render.item.property.select.SelectProperty;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 import techreborn.TechReborn;
 import techreborn.component.TRDataComponentTypes;
@@ -42,16 +42,16 @@ import techreborn.items.armor.BatpackItem;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.items.tool.industrial.NanosaberItem;
 
-public record ActiveProperty() implements SelectProperty<PowerType> {
-	public static Identifier ID = Identifier.of(TechReborn.MOD_ID, "active");
+public record ActiveProperty() implements SelectItemModelProperty<PowerType> {
+	public static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "active");
 	public static Codec<PowerType> VALUE_CODEC = PowerType.CODEC;
-	public static final SelectProperty.Type<ActiveProperty, PowerType> TYPE = SelectProperty.Type.create(
+	public static final SelectItemModelProperty.Type<ActiveProperty, PowerType> TYPE = SelectItemModelProperty.Type.create(
 		MapCodec.unit(new ActiveProperty()), PowerType.CODEC
 	);
 
 	@Override
-	public PowerType getValue(
-		ItemStack stack, ClientWorld world, LivingEntity entity, int seed, ItemDisplayContext mode
+	public PowerType get(
+		ItemStack stack, ClientLevel world, LivingEntity entity, int seed, ItemDisplayContext mode
 	) {
 		Item item = stack.getItem();
 		if (item instanceof NanosaberItem nanosaber) {
@@ -60,7 +60,7 @@ public record ActiveProperty() implements SelectProperty<PowerType> {
 			return PowerType.ON;
 		} else if (item instanceof ChainsawItem chainsaw) {
 			if (SimpleEnergyItem.getStoredEnergyUnchecked(stack) < chainsaw.getCost()) return PowerType.OFF;
-			if (entity == null || !entity.getMainHandStack().equals(stack)) return PowerType.OFF;
+			if (entity == null || !entity.getMainHandItem().equals(stack)) return PowerType.OFF;
 			return PowerType.ON;
 		} else if (item instanceof BatteryItem || item instanceof BatpackItem) {
 			return SimpleEnergyItem.getStoredEnergyUnchecked(stack) == 0 ? PowerType.OFF : PowerType.ON;
@@ -71,7 +71,7 @@ public record ActiveProperty() implements SelectProperty<PowerType> {
 	}
 
 	@Override
-	public SelectProperty.Type<ActiveProperty, PowerType> getType() {
+	public SelectItemModelProperty.Type<ActiveProperty, PowerType> type() {
 		return TYPE;
 	}
 

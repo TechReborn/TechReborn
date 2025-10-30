@@ -25,8 +25,8 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -37,14 +37,14 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 
 	final RollingMachineBlockEntity rollingMachine;
 
-	public GuiRollingMachine(int syncID, final PlayerEntity player, final RollingMachineBlockEntity blockEntityRollingmachine) {
+	public GuiRollingMachine(int syncID, final Player player, final RollingMachineBlockEntity blockEntityRollingmachine) {
 		super(player, blockEntityRollingmachine, blockEntityRollingmachine.createScreenHandler(syncID, player));
 		this.rollingMachine = blockEntityRollingmachine;
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, f, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		int gridYPos = 22;
@@ -65,8 +65,8 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -76,7 +76,7 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 		if (isPointInRect(130, 4, 20, 12, mouseX, mouseY)) {
-			ClientPlayNetworking.send(new RollingMachineLockPayload(rollingMachine.getPos(), !rollingMachine.locked));
+			ClientPlayNetworking.send(new RollingMachineLockPayload(rollingMachine.getBlockPos(), !rollingMachine.locked));
 			return true;
 		}
 		return super.mouseClicked(mouseX, mouseY, mouseButton);

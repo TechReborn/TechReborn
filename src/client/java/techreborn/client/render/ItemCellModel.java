@@ -27,25 +27,33 @@ package techreborn.client.render;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.data.TextureKey;
-import net.minecraft.client.item.ItemModelManager;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.item.ItemRenderState;
-import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.render.model.*;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.FaceBakery;
+import net.minecraft.client.renderer.block.model.TextureSlots;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.item.ModelRenderProperties;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BlockModelRotation;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.QuadCollection;
+import net.minecraft.client.resources.model.ResolvableModel;
+import net.minecraft.client.resources.model.ResolvedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.Nullable;
@@ -58,67 +66,67 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ItemCellModel implements ItemModel {
-	public static final Identifier ID = Identifier.of(TechReborn.MOD_ID, "model/cell");
-	public static final Identifier CELL = Identifier.of(TechReborn.MOD_ID, "item/cell");
-	public static final Identifier CELL_BASE = CELL.withSuffixedPath("_base");
-	public static final Identifier CELL_BACKGROUND = CELL.withSuffixedPath("_background");
-	public static final Identifier CELL_GLASS = CELL.withSuffixedPath("_glass");
-	private final RenderLayer layer;
-	private final ModelSettings settings;
+	public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "model/cell");
+	public static final ResourceLocation CELL = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "item/cell");
+	public static final ResourceLocation CELL_BASE = CELL.withSuffix("_base");
+	public static final ResourceLocation CELL_BACKGROUND = CELL.withSuffix("_background");
+	public static final ResourceLocation CELL_GLASS = CELL.withSuffix("_glass");
+	private final RenderType layer;
+	private final ModelRenderProperties settings;
 	private final Function<Fluid, Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bake;
 	private final HashMap<Fluid, Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> CACHE_BAKED = new HashMap<>();
-	ItemCellModel(ModelSettings modelSettings, Function<Fluid, Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bakeModel) {
-		layer = TexturedRenderLayers.getItemEntityTranslucentCull();
+	ItemCellModel(ModelRenderProperties modelSettings, Function<Fluid, Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bakeModel) {
+		layer = Sheets.translucentItemSheet();
 		settings = modelSettings;
 		bake = bakeModel;
 	}
 
 	@Override
 	public void update(
-		ItemRenderState state,
+		ItemStackRenderState state,
 		ItemStack stack,
-		ItemModelManager resolver,
+		ItemModelResolver resolver,
 		ItemDisplayContext displayContext,
-		@Nullable ClientWorld world,
+		@Nullable ClientLevel world,
 		@Nullable LivingEntity user,
 		int seed
 	) {
-		state.addModelKey(this);
-		ItemRenderState.LayerRenderState layerRenderState = state.newLayer();
-		layerRenderState.setRenderLayer(layer);
+		state.appendModelIdentityElement(this);
+		ItemStackRenderState.LayerRenderState layerRenderState = state.newLayer();
+		layerRenderState.setRenderType(layer);
 		Fluid fluid = stack.getItem() instanceof ItemFluidInfo fluidInfo ? fluidInfo.getFluid(stack) : Fluids.EMPTY;
-		state.addModelKey(fluid);
+		state.appendModelIdentityElement(fluid);
 		Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer> baked = CACHE_BAKED.computeIfAbsent(fluid, bake);
-		layerRenderState.getQuads().addAll(baked.getLeft());
-		layerRenderState.setVertices(baked.getMiddle());
-		layerRenderState.initTints(1)[0] = baked.getRight();
-		settings.addSettings(layerRenderState, displayContext);
+		layerRenderState.prepareQuadList().addAll(baked.getLeft());
+		layerRenderState.setExtents(baked.getMiddle());
+		layerRenderState.prepareTintLayers(1)[0] = baked.getRight();
+		settings.applyToLayer(layerRenderState, displayContext);
 	}
 
 	public record Unbaked() implements ItemModel.Unbaked {
 		public static final MapCodec<ItemCellModel.Unbaked> CODEC = MapCodec.unit(ItemCellModel.Unbaked::new);
 
 		@Override
-		public void resolve(ResolvableModel.Resolver resolver) {
+		public void resolveDependencies(ResolvableModel.Resolver resolver) {
 			resolver.markDependency(CELL_BASE);
 			resolver.markDependency(CELL_BACKGROUND);
 			resolver.markDependency(CELL_GLASS);
 		}
 
 		@Override
-		public ItemModel bake(ItemModel.BakeContext context) {
-			Baker baker = context.blockModelBaker();
-			BakedSimpleModel baseModel = baker.getModel(CELL_BASE);
-			BakedSimpleModel backgroundModel = baker.getModel(CELL_BACKGROUND);
-			BakedSimpleModel glassModel = baker.getModel(CELL_GLASS);
-			List<BakedQuad> backgroundQuads = backgroundModel.bakeGeometry(backgroundModel.getTextures(), baker, ModelRotation.X0_Y0).getAllQuads();
-			ModelTextures modelTextures = baseModel.getTextures();
-			ModelSettings modelSettings = ModelSettings.resolveSettings(baker, baseModel, modelTextures);
-			List<BakedQuad> baseQuads = baseModel.bakeGeometry(modelTextures, baker, ModelRotation.X0_Y0).getAllQuads();
-			List<BakedQuad> glassQuads = glassModel.bakeGeometry(glassModel.getTextures(), baker, ModelRotation.X0_Y0).getAllQuads();
+		public ItemModel bake(ItemModel.BakingContext context) {
+			ModelBaker baker = context.blockModelBaker();
+			ResolvedModel baseModel = baker.getModel(CELL_BASE);
+			ResolvedModel backgroundModel = baker.getModel(CELL_BACKGROUND);
+			ResolvedModel glassModel = baker.getModel(CELL_GLASS);
+			List<BakedQuad> backgroundQuads = backgroundModel.bakeTopGeometry(backgroundModel.getTopTextureSlots(), baker, BlockModelRotation.X0_Y0).getAll();
+			TextureSlots modelTextures = baseModel.getTopTextureSlots();
+			ModelRenderProperties modelSettings = ModelRenderProperties.fromResolvedModel(baker, baseModel, modelTextures);
+			List<BakedQuad> baseQuads = baseModel.bakeTopGeometry(modelTextures, baker, BlockModelRotation.X0_Y0).getAll();
+			List<BakedQuad> glassQuads = glassModel.bakeTopGeometry(glassModel.getTopTextureSlots(), baker, BlockModelRotation.X0_Y0).getAll();
 			return new ItemCellModel(modelSettings, (Fluid fluid) -> {
 				List<BakedQuad> list = new ArrayList<>(backgroundQuads);
-				Pair<Sprite, Integer> pair = parseFluid(fluid);
+				Pair<TextureAtlasSprite, Integer> pair = parseFluid(fluid);
 				if (pair != null) {
 					list.addAll(bakeFluidQuads(baker, backgroundModel, pair.getLeft()));
 					list.addAll(replaceTint(baseQuads, -1));
@@ -134,34 +142,34 @@ public class ItemCellModel implements ItemModel {
 		}
 
 		@Nullable
-		public static Pair<Sprite, Integer> parseFluid(Fluid fluid) {
+		public static Pair<TextureAtlasSprite, Integer> parseFluid(Fluid fluid) {
 			FluidRenderHandler handler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
 			if (handler == null) {
 				return null;
 			}
-			MinecraftClient client = MinecraftClient.getInstance();
+			Minecraft client = Minecraft.getInstance();
 			if (client.player == null) {
 				return null;
 			}
-			FluidState state = fluid.getDefaultState();
-			int tint = handler.getFluidColor(client.world, client.player.getBlockPos(), state) | 0xFF000000;
-			Sprite sprite = handler.getFluidSprites(client.world, BlockPos.ORIGIN, state)[0];
+			FluidState state = fluid.defaultFluidState();
+			int tint = handler.getFluidColor(client.level, client.player.blockPosition(), state) | 0xFF000000;
+			TextureAtlasSprite sprite = handler.getFluidSprites(client.level, BlockPos.ZERO, state)[0];
 			return Pair.of(sprite, tint);
 		}
 
-		public static List<BakedQuad> bakeFluidQuads(Baker baker, BakedSimpleModel model, Sprite sprite) {
-			SpriteIdentifier texture = new SpriteIdentifier(sprite.getAtlasId(), sprite.getContents().getId());
-			ModelTextures.Textures textures = new ModelTextures.Textures.Builder()
-				.addSprite(TextureKey.TEXTURE.getName(), texture).build();
-			ModelTextures sprites = new ModelTextures.Builder().addLast(textures).build(null);
-			BakedGeometry baked = model.getGeometry().bake(sprites, baker, ModelRotation.X0_Y0, model);
-			return replaceTint(baked.getAllQuads(), 0);
+		public static List<BakedQuad> bakeFluidQuads(ModelBaker baker, ResolvedModel model, TextureAtlasSprite sprite) {
+			Material texture = new Material(sprite.atlasLocation(), sprite.contents().name());
+			TextureSlots.Data textures = new TextureSlots.Data.Builder()
+				.addTexture(TextureSlot.TEXTURE.getId(), texture).build();
+			TextureSlots sprites = new TextureSlots.Resolver().addLast(textures).resolve(null);
+			QuadCollection baked = model.getTopGeometry().bake(sprites, baker, BlockModelRotation.X0_Y0, model);
+			return replaceTint(baked.getAll(), 0);
 		}
 
 		public static Supplier<Vector3f[]> bakeVector(List<BakedQuad> quads) {
 			Set<Vector3f> set = new HashSet<>();
 			for (BakedQuad bakedQuad : quads) {
-				BakedQuadFactory.calculatePosition(bakedQuad.vertexData(), set::add);
+				FaceBakery.extractPositions(bakedQuad.vertices(), set::add);
 			}
 			Vector3f[] vector = set.toArray(Vector3f[]::new);
 			return () -> vector;
@@ -170,13 +178,13 @@ public class ItemCellModel implements ItemModel {
 		public static List<BakedQuad> replaceTint(List<BakedQuad> quads, int index) {
 			List<BakedQuad> list = new ArrayList<>(quads.size());
 			for (BakedQuad quad : quads) {
-				list.add(new BakedQuad(quad.vertexData(), index, quad.face(), quad.sprite(), quad.shade(), quad.lightEmission()));
+				list.add(new BakedQuad(quad.vertices(), index, quad.direction(), quad.sprite(), quad.shade(), quad.lightEmission()));
 			}
 			return list;
 		}
 
 		@Override
-		public MapCodec<ItemCellModel.Unbaked> getCodec() {
+		public MapCodec<ItemCellModel.Unbaked> type() {
 			return CODEC;
 		}
 	}

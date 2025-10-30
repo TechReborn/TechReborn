@@ -25,10 +25,10 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.ClientChunkManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonUpDown;
@@ -41,51 +41,51 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 
 	final ChunkLoaderBlockEntity blockEntity;
 
-	public GuiChunkLoader(int syncID, PlayerEntity player, ChunkLoaderBlockEntity blockEntity) {
+	public GuiChunkLoader(int syncID, Player player, ChunkLoaderBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 
 	public void init() {
 		super.init();
-		addDrawableChild(new GuiButtonUpDown(x + 64, y + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 64 + 12, y + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 64, topPos + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 64 + 12, topPos + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 64 + 24, topPos + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 64 + 36, topPos + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
 
-		addDrawableChild(
-			ButtonWidget.builder(getToogleText(ClientChunkManager.isShow()), button -> {
+		addRenderableWidget(
+			Button.builder(getToogleText(ClientChunkManager.isShow()), button -> {
 				button.setMessage(getToogleText(!ClientChunkManager.isShow()));
-				ClientChunkManager.toggleLoadedChunks(blockEntity.getPos());
+				ClientChunkManager.toggleLoadedChunks(blockEntity.getBlockPos());
 			})
-			.position(x + 10, y + 70)
+			.pos(leftPos + 10, topPos + 70)
 			.size(155, 20)
 			.build()
 		);
 	}
 
-	private Text getToogleText(Boolean show) {
+	private Component getToogleText(Boolean show) {
 		if (show) {
-			return Text.translatable("gui.techreborn.chunk.hide_loaded_chunks");
+			return Component.translatable("gui.techreborn.chunk.hide_loaded_chunks");
 		} else {
-			return Text.translatable("gui.techreborn.chunk.show_loaded_chunks");
+			return Component.translatable("gui.techreborn.chunk.show_loaded_chunks");
 		}
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, float partialTicks, int mouseX, int mouseY) {
-		super.drawBackground(drawContext, partialTicks, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, float partialTicks, int mouseX, int mouseY) {
+		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		if (hideGuiElements()) return;
 
-		Text text = Text.translatable("gui.techreborn.chunk.radius")
+		Component text = Component.translatable("gui.techreborn.chunk.radius")
 				.append(": ")
 				.append(String.valueOf(blockEntity.getRadius()));
 		drawCentredText(drawContext, text, 25, theme.titleColor().rgba(), layer);
 	}
 
 	public void onClick(int amount) {
-		ClientPlayNetworking.send(new ChunkloaderPayload(blockEntity.getPos(), amount, ClientChunkManager.hasChunksForLoader(blockEntity.getPos())));
+		ClientPlayNetworking.send(new ChunkloaderPayload(blockEntity.getBlockPos(), amount, ClientChunkManager.hasChunksForLoader(blockEntity.getBlockPos())));
 	}
 }

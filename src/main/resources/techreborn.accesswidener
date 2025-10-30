@@ -27,7 +27,7 @@ accessible field net/minecraft/world/level/levelgen/structure/pools/StructureTem
 accessible method net/minecraft/world/level/block/CropBlock getAgeProperty ()Lnet/minecraft/world/level/block/state/properties/IntegerProperty;
 
 extendable method net/minecraft/world/level/ServerExplosion calculateExplodedPositions ()Ljava/util/List;
-extendable    method   net/minecraft/client/model/Model render (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;III)V
+extendable method net/minecraft/client/model/Model renderToBuffer (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V
 
 extendable method net/minecraft/data/recipe/RecipeGenerator$RecipeProvider run (Lnet/minecraft/data/DataWriter;)Ljava/util/concurrent/CompletableFuture;
 

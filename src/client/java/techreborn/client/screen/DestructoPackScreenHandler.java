@@ -24,20 +24,20 @@
 
 package techreborn.client.screen;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import reborncore.common.screen.slot.SlotFilteredVoid;
 import reborncore.common.util.RebornInventory;
 import techreborn.init.TRContent;
 
-public class DestructoPackScreenHandler extends ScreenHandler {
+public class DestructoPackScreenHandler extends AbstractContainerMenu {
 
-	private final PlayerEntity player;
+	private final Player player;
 	private final RebornInventory<?> inv;
 
-	public DestructoPackScreenHandler(int syncID, PlayerEntity player) {
+	public DestructoPackScreenHandler(int syncID, Player player) {
 		super(null, syncID);
 		this.player = player;
 		inv = new RebornInventory<>(1, "destructopack", 64, null);
@@ -45,12 +45,12 @@ public class DestructoPackScreenHandler extends ScreenHandler {
 	}
 
 	@Override
-	public ItemStack quickMove(PlayerEntity player, int index) {
+	public ItemStack quickMoveStack(Player player, int index) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public boolean canUse(PlayerEntity arg0) {
+	public boolean stillValid(Player arg0) {
 		return true;
 	}
 

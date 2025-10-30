@@ -42,17 +42,17 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.GuiBase;
@@ -75,7 +75,7 @@ import java.util.function.Function;
 import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
 
 public class ReiPlugin implements REIClientPlugin {
-	public static final Map<RecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
+	public static final Map<RecipeType<?>, ItemLike> iconMap = new HashMap<>();
 
 	public ReiPlugin() {
 		iconMap.put(ModRecipes.ALLOY_SMELTER, Machine.ALLOY_SMELTER);
@@ -155,7 +155,7 @@ public class ReiPlugin implements REIClientPlugin {
 		registry.addWorkstations(CategoryIdentifier.of(TechReborn.MOD_ID, Machine.PLASMA_GENERATOR.name), EntryStacks.of(Machine.PLASMA_GENERATOR));
 	}
 
-	private void addWorkstations(Identifier identifier, EntryStack<?>... stacks) {
+	private void addWorkstations(ResourceLocation identifier, EntryStack<?>... stacks) {
 		CategoryRegistry.getInstance().addWorkstations(CategoryIdentifier.of(identifier), stacks);
 	}
 
@@ -163,8 +163,8 @@ public class ReiPlugin implements REIClientPlugin {
 		CategoryRegistry.getInstance().addWorkstations(CategoryIdentifier.of(getTypeId(type)), stacks);
 	}
 
-	private static Identifier getTypeId(RecipeType<?> type) {
-		return Objects.requireNonNull(Registries.RECIPE_TYPE.getId(type));
+	private static ResourceLocation getTypeId(RecipeType<?> type) {
+		return Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.getKey(type));
 	}
 
 	@Override
@@ -204,10 +204,10 @@ public class ReiPlugin implements REIClientPlugin {
 			}
 
 			switch (direction) {
-				case RIGHT -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
-				case LEFT -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
-				case UP -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
-				case DOWN -> drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
+				case RIGHT -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		});
 	}
@@ -226,7 +226,7 @@ public class ReiPlugin implements REIClientPlugin {
 
 	private record EnergyEntryRenderer(EntryAnimation animation, Function<TooltipContext, Tooltip> tooltipBuilder) implements Renderer {
 		@Override
-			public void render(DrawContext drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
+			public void render(GuiGraphics drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
 				int width = bounds.width + 2;
 				int height = bounds.height + 2;
 				int innerHeight = height - 2;
@@ -234,7 +234,7 @@ public class ReiPlugin implements REIClientPlugin {
 				drawSpriteStretched(drawContext, GuiSprites.POWER_BAR_BASE, bounds.x - 1, bounds.y - 1, 14, 50);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
-					innerDisplayHeight = MathHelper.ceil(System.currentTimeMillis() / (Math.round(animation.duration * 1000.0 / innerHeight) / 1000.0) % innerHeight);
+					innerDisplayHeight = Mth.ceil(System.currentTimeMillis() / (Math.round(animation.duration * 1000.0 / innerHeight) / 1000.0) % innerHeight);
 					if (animation.animationType == EntryAnimationType.DOWNWARDS)
 						innerDisplayHeight = innerHeight - innerDisplayHeight;
 				} else innerDisplayHeight = innerHeight;
@@ -250,14 +250,14 @@ public class ReiPlugin implements REIClientPlugin {
 
 	private record FluidStackRenderer(EntryAnimation animation, EntryRenderer<FluidStack> parent) implements EntryRenderer<FluidStack> {
 		@Override
-			public void render(EntryStack<FluidStack> entry, DrawContext drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
+			public void render(EntryStack<FluidStack> entry, GuiGraphics drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
 				int width = bounds.width;
 				int height = bounds.height;
 
 				drawSpriteStretched(drawContext, GuiSprites.TANK_BACKGROUND, bounds.x - 4, bounds.y - 4, 22, 56);
 				int innerDisplayHeight;
 				if (animation.animationType != EntryAnimationType.NONE) {
-					innerDisplayHeight = MathHelper.ceil(System.currentTimeMillis() / (Math.round(animation.duration * 1000.0 / height) / 1000.0) % height);
+					innerDisplayHeight = Mth.ceil(System.currentTimeMillis() / (Math.round(animation.duration * 1000.0 / height) / 1000.0) % height);
 					if (animation.animationType == EntryAnimationType.DOWNWARDS)
 						innerDisplayHeight = height - innerDisplayHeight;
 				} else innerDisplayHeight = height;
@@ -265,7 +265,7 @@ public class ReiPlugin implements REIClientPlugin {
 				drawSpriteStretched(drawContext, GuiSprites.TANK_FOREGROUND, bounds.x - 1, bounds.y - 1, 16, 50);
 			}
 
-			public void drawFluid(DrawContext drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
+			public void drawFluid(GuiGraphics drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
 				y += height - drawHeight;
 				FluidRenderHandler handler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
 
@@ -274,18 +274,18 @@ public class ReiPlugin implements REIClientPlugin {
 					return;
 				}
 
-				final Sprite sprite = handler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
-				int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
+				final TextureAtlasSprite sprite = handler.getFluidSprites(Minecraft.getInstance().level, BlockPos.ZERO, fluid.defaultFluidState())[0];
+				int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidColor(Minecraft.getInstance().level, BlockPos.ZERO, fluid.defaultFluidState());
 				int shaderColor = color | 0xFF000000;
 				int count = drawHeight / width;
 				int remainder = drawHeight % width;
 				for (int i = 0; i < count; i++) {
-					drawContext.drawSpriteStretched(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, shaderColor);
+					drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, shaderColor);
 					y += width;
 				}
 				if (remainder != 0) {
 					drawContext.enableScissor(x, y, x + width, y + remainder);
-					drawContext.drawSpriteStretched(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, shaderColor);
+					drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, shaderColor);
 					drawContext.disableScissor();
 				}
 			}

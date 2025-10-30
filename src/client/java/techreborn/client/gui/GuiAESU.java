@@ -25,9 +25,9 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import org.joml.Matrix3x2fStack;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonUpDown;
@@ -41,7 +41,7 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 
 	final AdjustableSUBlockEntity blockEntity;
 
-	public GuiAESU(int syncID, final PlayerEntity player, final AdjustableSUBlockEntity aesu) {
+	public GuiAESU(int syncID, final Player player, final AdjustableSUBlockEntity aesu) {
 		super(player, aesu, aesu.createScreenHandler(syncID, player));
 		this.blockEntity = aesu;
 	}
@@ -49,15 +49,15 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public void init() {
 		super.init();
-		addDrawableChild(new GuiButtonUpDown(x + 121, y + 79, this, b -> onClick(256), UpDownButtonType.FASTFORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 121 + 12, y + 79, this, b -> onClick(64), UpDownButtonType.FORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 121 + 24, y + 79, this, b -> onClick(-64), UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 121 + 36, y + 79, this, b -> onClick(-256), UpDownButtonType.FASTREWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 121, topPos + 79, this, b -> onClick(256), UpDownButtonType.FASTFORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 121 + 12, topPos + 79, this, b -> onClick(64), UpDownButtonType.FORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 121 + 24, topPos + 79, this, b -> onClick(-64), UpDownButtonType.REWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 121 + 36, topPos + 79, this, b -> onClick(-256), UpDownButtonType.FASTREWIND));
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, f, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		this.drawSlot(drawContext, 62, 45, layer);
@@ -67,15 +67,15 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		if (!hideGuiElements()) {
-			final Matrix3x2fStack matrices = drawContext.getMatrices();
+			final Matrix3x2fStack matrices = drawContext.pose();
 			matrices.pushMatrix();
 			matrices.scale(0.6f, 0.6f);
-			Text text = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
+			Component text = Component.literal(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getEnergy()))
 					.append("/")
 					.append(PowerSystem.getLocalizedPowerNoSuffix(blockEntity.getMaxStoredPower()))
 					.append(" ")
@@ -89,6 +89,6 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void onClick(int amount) {
-		ClientPlayNetworking.send(new AESUConfigPayload(blockEntity.getPos(), amount, hasShiftDown(), hasControlDown()));
+		ClientPlayNetworking.send(new AESUConfigPayload(blockEntity.getBlockPos(), amount, hasShiftDown(), hasControlDown()));
 	}
 }

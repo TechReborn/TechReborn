@@ -24,10 +24,10 @@
 
 package techreborn.client.keybindings;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 import techreborn.packets.serverbound.QuantumSuitSprintPayload;
 import techreborn.packets.serverbound.SuitNightVisionPayload;
@@ -36,19 +36,19 @@ public class KeyBindings {
 	// Actual keybindings are in TechRebornClient
 	public static final String CATEGORY = "key.techreborn.category";
 
-	public static KeyBinding suitNightVision;
-	public static KeyBinding quantumSuitSprint;
+	public static KeyMapping suitNightVision;
+	public static KeyMapping quantumSuitSprint;
 
 	public static void registerKeys() {
 		suitNightVision = KeyBindingHelper.registerKeyBinding(
-			new KeyBinding("key.techreborn.suitNightVision",
-				InputUtil.Type.KEYSYM,
+			new KeyMapping("key.techreborn.suitNightVision",
+				InputConstants.Type.KEYSYM,
 				GLFW.GLFW_KEY_N,
 				CATEGORY));
 
 		quantumSuitSprint = KeyBindingHelper.registerKeyBinding(
-			new KeyBinding("key.techreborn.quantumSuitSprint",
-				InputUtil.Type.KEYSYM,
+			new KeyMapping("key.techreborn.quantumSuitSprint",
+				InputConstants.Type.KEYSYM,
 				GLFW.GLFW_KEY_R,
 				CATEGORY));
 	}

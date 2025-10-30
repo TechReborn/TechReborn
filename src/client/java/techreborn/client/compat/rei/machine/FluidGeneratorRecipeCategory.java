@@ -34,9 +34,9 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import reborncore.client.gui.GuiBuilder;
 import techreborn.TechReborn;
 import techreborn.client.compat.rei.ReiPlugin;
@@ -61,8 +61,8 @@ public class FluidGeneratorRecipeCategory implements DisplayCategory<FluidGenera
 	}
 
 	@Override
-	public Text getTitle() {
-		return Text.translatable(identifier.toString());
+	public Component getTitle() {
+		return Component.translatable(identifier.toString());
 	}
 
 	@Override
@@ -75,11 +75,11 @@ public class FluidGeneratorRecipeCategory implements DisplayCategory<FluidGenera
 		List<Widget> widgets = Lists.newArrayList();
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 108, bounds.y + 8, 14, 50), recipeDisplay.getTotalEnergy(), ReiPlugin.EntryAnimation.upwards(5000), tooltipContext -> {
-			List<Text> list = Lists.newArrayList();
-			list.add(Text.translatable("techreborn.jei.recipe.energy"));
-			list.add(Text.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getTotalEnergy()).formatted(Formatting.GRAY));
-			list.add(Text.of(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.of("techreborn", "")));
+			List<Component> list = Lists.newArrayList();
+			list.add(Component.translatable("techreborn.jei.recipe.energy"));
+			list.add(Component.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getTotalEnergy()).withStyle(ChatFormatting.GRAY));
+			list.add(Component.literal(""));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(ResourceLocation.fromNamespaceAndPath("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 		widgets.add(ReiPlugin.createFluidDisplay(new Rectangle(bounds.x + 16, bounds.y + 8, 16, 50), recipeDisplay.getInputEntries().get(0).get(0).cast(), ReiPlugin.EntryAnimation.downwards(5000)));

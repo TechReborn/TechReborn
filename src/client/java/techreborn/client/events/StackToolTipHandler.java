@@ -27,21 +27,21 @@ package techreborn.client.events;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.BaseBlockEntityProvider;
 import techreborn.blocks.cable.CableBlock;
@@ -76,60 +76,60 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	}
 
 	@Override
-	public void getTooltip(ItemStack stack, Item.TooltipContext tooltipContext, TooltipType tooltipType, List<Text> lines) {
+	public void getTooltip(ItemStack stack, Item.TooltipContext tooltipContext, TooltipFlag tooltipType, List<Component> lines) {
 		Item item = stack.getItem();
 
 		// Can currently be executed by a ForkJoinPool.commonPool-worker when REI is in async search mode
 		// We skip this method until a thread-safe solution is in place
-		if (!MinecraftClient.getInstance().isOnThread())
+		if (!Minecraft.getInstance().isSameThread())
 			return;
 
 		if (!ITEM_ID.computeIfAbsent(item, StackToolTipHandler::isTRItem))
 			return;
 
 		// Machine info and upgrades helper section
-		Block block = Block.getBlockFromItem(item);
+		Block block = Block.byItem(item);
 
 		if (block instanceof BaseBlockEntityProvider) {
-			ToolTipAssistUtils.addInfo(item.getTranslationKey(), lines);
+			ToolTipAssistUtils.addInfo(item.getDescriptionId(), lines);
 		}
 
 		if (block instanceof CableBlock cable) {
-			BlockEntity blockEntity = cable.createBlockEntity(BlockPos.ORIGIN, block.getDefaultState());
+			BlockEntity blockEntity = cable.newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
 			if (blockEntity != null) {
 				((IListInfoProvider) blockEntity).addInfo(lines, false, false);
 			}
 		}
 
 		if (item instanceof UpgradeItem upgrade) {
-			ToolTipAssistUtils.addInfo(item.getTranslationKey(), lines, false);
+			ToolTipAssistUtils.addInfo(item.getDescriptionId(), lines, false);
 			lines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.fromItem(upgrade), stack.getCount(), Screen.hasShiftDown()));
 		}
 
 		if (item instanceof DynamicCellItem cell) {
 			Fluid fluid = cell.getFluid(stack);
-			if (!(fluid instanceof FlowableFluid) && fluid != Fluids.EMPTY)
+			if (!(fluid instanceof FlowingFluid) && fluid != Fluids.EMPTY)
 				ToolTipAssistUtils.addInfo("unplaceable_fluid", lines, false);
 		}
 
 		if (item == TRContent.Upgrades.SUPERCONDUCTOR.item && Screen.hasControlDown()) {
-			lines.add(Text.literal(Formatting.GOLD + "Blame obstinate_3 for this"));
+			lines.add(Component.literal(ChatFormatting.GOLD + "Blame obstinate_3 for this"));
 		}
 
 		if (item == TRContent.OMNI_TOOL) {
-			lines.add(Text.literal(Formatting.YELLOW + I18n.translate("techreborn.tooltip.omnitool_motto")));
+			lines.add(Component.literal(ChatFormatting.YELLOW + I18n.get("techreborn.tooltip.omnitool_motto")));
 		}
 
 		if (block == TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block && Screen.hasControlDown()) {
-			lines.add(Text.literal("Round and round it goes"));
+			lines.add(Component.literal("Round and round it goes"));
 		}
 
 		if (UNOBTAINABLE_ORES.contains(block)) {
-			lines.add(Text.translatable("techreborn.tooltip.unobtainable").formatted(Formatting.AQUA));
+			lines.add(Component.translatable("techreborn.tooltip.unobtainable").withStyle(ChatFormatting.AQUA));
 		} else if (OreDepthSyncHandler.getOreDepthMap().containsKey(block)) {
 			OreDepth oreDepth = OreDepthSyncHandler.getOreDepthMap().get(block);
-			Text text = getOreDepthText(oreDepth);
-			lines.add(text.copy().formatted(Formatting.AQUA));
+			Component text = getOreDepthText(oreDepth);
+			lines.add(text.copy().withStyle(ChatFormatting.AQUA));
 		}
 
 		if (item instanceof NanoSuitItem suit) {
@@ -140,13 +140,13 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	}
 
 	private static boolean isTRItem(Item item) {
-		return Registries.ITEM.getId(item).getNamespace().equals("techreborn");
+		return BuiltInRegistries.ITEM.getKey(item).getNamespace().equals("techreborn");
 	}
 
-	private static Text getOreDepthText(OreDepth depth) {
-		return Text.translatable("techreborn.tooltip.ores.%s".formatted(depth.dimension().name().toLowerCase(Locale.ROOT)),
-				Text.literal(String.valueOf(depth.minY())).formatted(Formatting.YELLOW),
-				Text.literal(String.valueOf(depth.maxY())).formatted(Formatting.YELLOW)
+	private static Component getOreDepthText(OreDepth depth) {
+		return Component.translatable("techreborn.tooltip.ores.%s".formatted(depth.dimension().name().toLowerCase(Locale.ROOT)),
+				Component.literal(String.valueOf(depth.minY())).withStyle(ChatFormatting.YELLOW),
+				Component.literal(String.valueOf(depth.maxY())).withStyle(ChatFormatting.YELLOW)
 		);
 	}
 }

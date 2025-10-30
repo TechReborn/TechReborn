@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonExtended;
 import reborncore.client.gui.GuiBuilder;
@@ -36,14 +36,14 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 
 	private final ImplosionCompressorBlockEntity blockEntity;
 
-	public GuiImplosionCompressor(int syncID, final PlayerEntity player, final ImplosionCompressorBlockEntity blockEntity) {
+	public GuiImplosionCompressor(int syncID, final Player player, final ImplosionCompressorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, f, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, f, mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
 		drawSlot(drawContext, 8, 72, layer);
@@ -59,8 +59,8 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

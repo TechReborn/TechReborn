@@ -35,12 +35,12 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeType;
 import reborncore.client.gui.GuiBuilder;
 import techreborn.compat.rei.FluidReplicatorRecipeDisplay;
 import techreborn.recipe.recipes.FluidReplicatorRecipe;
@@ -57,8 +57,8 @@ public class FluidReplicatorRecipeCategory implements DisplayCategory<FluidRepli
 		this.recipeType = recipeType;
 	}
 
-	private Identifier id() {
-		return Registries.RECIPE_TYPE.getId(recipeType);
+	private ResourceLocation id() {
+		return BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
 	}
 
 	@Override
@@ -67,8 +67,8 @@ public class FluidReplicatorRecipeCategory implements DisplayCategory<FluidRepli
 	}
 
 	@Override
-	public Text getTitle() {
-		return Text.translatable(id().toString());
+	public Component getTitle() {
+		return Component.translatable(id().toString());
 	}
 
 	@Override
@@ -83,12 +83,12 @@ public class FluidReplicatorRecipeCategory implements DisplayCategory<FluidRepli
 		List<Widget> widgets = Lists.newArrayList();
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 8, bounds.y + 8, 14, 50), recipeDisplay.getEnergy(), ReiPlugin.EntryAnimation.downwards(5000), tooltipContext -> {
-			List<Text> list = Lists.newArrayList();
-			list.add(Text.translatable("techreborn.jei.recipe.energy"));
-			list.add(Text.translatable("techreborn.jei.recipe.running.cost", "E", recipeDisplay.getEnergy()).formatted(Formatting.GRAY));
-			list.add(Text.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getEnergy() * recipeDisplay.getTime()).formatted(Formatting.GRAY));
-			list.add(Text.of(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.of("techreborn", "")));
+			List<Component> list = Lists.newArrayList();
+			list.add(Component.translatable("techreborn.jei.recipe.energy"));
+			list.add(Component.translatable("techreborn.jei.recipe.running.cost", "E", recipeDisplay.getEnergy()).withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getEnergy() * recipeDisplay.getTime()).withStyle(ChatFormatting.GRAY));
+			list.add(Component.literal(""));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(ResourceLocation.fromNamespaceAndPath("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 
@@ -96,7 +96,7 @@ public class FluidReplicatorRecipeCategory implements DisplayCategory<FluidRepli
 		widgets.add(ReiPlugin.createProgressBar(bounds.x + 46 + 21, bounds.y + 30, recipeDisplay.getTime() * 50, GuiBuilder.ProgressDirection.RIGHT));
 		widgets.add(ReiPlugin.createFluidDisplay(new Rectangle(bounds.x + 46 + 46, bounds.y + 8, 16, 50), recipeDisplay.getOutputEntries().get(0).get(0).cast(), ReiPlugin.EntryAnimation.upwards(5000)));
 
-		widgets.add(Widgets.createLabel(new Point(bounds.x + 24, bounds.y + 5), Text.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
+		widgets.add(Widgets.createLabel(new Point(bounds.x + 24, bounds.y + 5), Component.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
 				.shadow(false)
 				.leftAligned()
 				.color(0xFF404040, 0xFFBBBBBB)
