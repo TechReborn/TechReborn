@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.tag.convention.v2.TagUtil;
 import net.minecraft.block.*;
+import net.minecraft.block.Oxidizable.OxidationLevel;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
@@ -75,6 +76,7 @@ import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
+import techreborn.blocks.cable.OxidizableCableBlock;
 import techreborn.blocks.generator.BlockFusionCoil;
 import techreborn.blocks.generator.BlockFusionControlComputer;
 import techreborn.blocks.generator.BlockSolarPanel;
@@ -466,19 +468,27 @@ public class TRContent {
 	}
 
 	public enum Cables implements BlockInfo {
-		COPPER(128, 12.0, true, RcEnergyTier.MEDIUM),
-		TIN(32, 12.0, true, RcEnergyTier.LOW),
-		GOLD(512, 12.0, true, RcEnergyTier.HIGH),
-		HV(2048, 12.0, true, RcEnergyTier.EXTREME),
-		GLASSFIBER(8192, 12.0, false, RcEnergyTier.INSANE),
-		INSULATED_COPPER(128, 10.0, false, RcEnergyTier.MEDIUM),
-		INSULATED_GOLD(512, 10.0, false, RcEnergyTier.HIGH),
-		INSULATED_HV(2048, 10.0, false, RcEnergyTier.EXTREME),
-		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, RcEnergyTier.INFINITE);
+		COPPER(128, 12.0, true, RcEnergyTier.MEDIUM, true),
+		TIN(32, 12.0, true, RcEnergyTier.LOW, false),
+		GOLD(512, 12.0, true, RcEnergyTier.HIGH, false),
+		HV(2048, 12.0, true, RcEnergyTier.EXTREME, false),
+		GLASSFIBER(8192, 12.0, false, RcEnergyTier.INSANE, false),
+		INSULATED_COPPER(128, 10.0, false, RcEnergyTier.MEDIUM, true),
+		INSULATED_GOLD(512, 10.0, false, RcEnergyTier.HIGH, false),
+		INSULATED_HV(2048, 10.0, false, RcEnergyTier.EXTREME, false),
+		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, RcEnergyTier.INFINITE, false);
 
 
 		public final String name;
 		public final CableBlock block;
+		public final CableBlock exposed;
+		public final CableBlock weathered;
+		public final CableBlock oxidized;
+		public final boolean oxidizable;
+		public final CableBlock waxedBlock;
+		public final CableBlock waxedExposed;
+		public final CableBlock waxedWeathered;
+		public final CableBlock waxedOxidized;
 
 		public final int transferRate;
 		public final int defaultTransferRate;
@@ -488,7 +498,7 @@ public class TRContent {
 		public final RcEnergyTier tier;
 
 
-		Cables(int transferRate, double cableThickness, boolean canKill, RcEnergyTier tier) {
+		Cables(int transferRate, double cableThickness, boolean canKill, RcEnergyTier tier, boolean oxidizable) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
@@ -496,8 +506,35 @@ public class TRContent {
 			this.canKill = canKill;
 			this.defaultCanKill = canKill;
 			this.tier = tier;
-			this.block = new CableBlock(this, name + "_cable");
-			InitUtils.setup(block, name + "_cable");
+			this.oxidizable = oxidizable;
+			if (oxidizable) {
+				this.block = new OxidizableCableBlock(OxidationLevel.UNAFFECTED, this, name + "_cable");
+				InitUtils.setup(block, name + "_cable");
+				this.exposed = new OxidizableCableBlock(OxidationLevel.EXPOSED, this, name + "_exposed_cable");
+				InitUtils.setup(exposed, name + "_exposed_cable");
+				this.weathered = new OxidizableCableBlock(OxidationLevel.WEATHERED, this, name + "_weathered_cable");
+				InitUtils.setup(weathered, name + "_weathered_cable");
+				this.oxidized = new OxidizableCableBlock(OxidationLevel.OXIDIZED, this, name + "_oxidized_cable");
+				InitUtils.setup(oxidized, name + "_oxidized_cable");
+				this.waxedBlock = new CableBlock(this, name + "_waxed_cable");
+				InitUtils.setup(waxedBlock, name + "_waxed_cable");
+				this.waxedExposed = new CableBlock(this, name + "_waxed_exposed_cable");
+				InitUtils.setup(waxedExposed, name + "_waxed_exposed_cable");
+				this.waxedWeathered = new CableBlock(this, name + "_waxed_weathered_cable");
+				InitUtils.setup(waxedWeathered, name + "_waxed_weathered_cable");
+				this.waxedOxidized = new CableBlock(this, name + "_waxed_oxidized_cable");
+				InitUtils.setup(waxedOxidized, name + "_waxed_oxidized_cable");
+			} else {
+				this.block = new CableBlock(this, name + "_cable");
+				InitUtils.setup(block, name + "_cable");
+				this.exposed = null;
+				this.weathered = null;
+				this.oxidized = null;
+				this.waxedBlock = null;
+				this.waxedExposed = null;
+				this.waxedWeathered = null;
+				this.waxedOxidized = null;
+			}
 		}
 
 		@Override

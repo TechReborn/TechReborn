@@ -43,6 +43,7 @@ import net.minecraft.item.ItemConvertible
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.util.Identifier
 import org.apache.commons.lang3.tuple.Pair
+import org.apache.commons.lang3.tuple.Triple
 import techreborn.client.render.ActiveProperty
 import techreborn.client.render.ItemBucketModel
 import techreborn.client.render.ItemCellModel
@@ -69,6 +70,8 @@ import techreborn.init.TRContent.RawMetals
 import techreborn.init.TRContent.Gems
 import techreborn.init.TRContent.Upgrades
 import techreborn.init.TRContent.Cables
+import techreborn.datagen.models.TemplateModel.Uploadable
+import static techreborn.TechReborn.MOD_ID
 
 import java.util.concurrent.CompletableFuture
 import java.util.function.BiConsumer
@@ -359,17 +362,34 @@ class ModelProvider extends FabricModelProvider {
 			TemplateModel.FLUID.upload(info.block)
 			TemplateState.SINGLE.upload(info.block)
 		}
-		def toCable = { BlockInfo info ->
-			Identifier core = TemplateModel.CABLE_CORE.upload(info.block)
-			Identifier side = TemplateModel.CABLE_SIDE.upload(info.block)
-			TemplateState.CABLE.apply(core, side).upload(info.block)
-			generator.registerItemModel(info.asItem())
+		def cableCore = TemplateModel.CABLE_CORE.apply(Identifier.of(MOD_ID, "block/cables/cable_core_template"))
+		def cableSide = TemplateModel.CABLE_SIDE.apply(Identifier.of(MOD_ID, "block/cables/cable_side_template"))
+		def cableThickCore = TemplateModel.CABLE_THICK_CORE.apply(Identifier.of(MOD_ID, "block/cables/cable_thick_core_template"))
+		def cableThickSide = TemplateModel.CABLE_THICK_SIDE.apply(Identifier.of(MOD_ID, "block/cables/cable_thick_side_template"))
+		def uploadCable = { Uploadable<Block> coreTemplate, Uploadable<Block> sideTemplate, Block block, Block waxed ->
+			Identifier core = coreTemplate.upload(block)
+			Identifier side = sideTemplate.upload(block)
+			TemplateState.CABLE.apply(core, side).upload(block)
+			Identifier item = generator.uploadItemModel(block.asItem())
+			generator.registerItemModel(block.asItem(), item)
+			if (waxed != null) {
+				TemplateState.CABLE.apply(core, side).upload(waxed)
+				generator.registerItemModel(waxed.asItem(), item)
+			}
 		}
-		def toThickCable = { BlockInfo info ->
-			Identifier core = TemplateModel.CABLE_THICK_CORE.upload(info.block)
-			Identifier side = TemplateModel.CABLE_THICK_SIDE.upload(info.block)
-			TemplateState.CABLE.apply(core, side).upload(info.block)
-			generator.registerItemModel(info.asItem())
+		def toCable = { BlockInfo info -> uploadCable(cableCore, cableSide, info.block, null) }
+		def toThickCable = { BlockInfo info -> uploadCable(cableThickCore, cableThickSide, info.block, null) }
+		def toOxidizableCable = { Cables cable ->
+			uploadCable(cableCore, cableSide, cable.block, cable.waxedBlock)
+			uploadCable(cableCore, cableSide, cable.exposed, cable.waxedExposed)
+			uploadCable(cableCore, cableSide, cable.weathered, cable.waxedWeathered)
+			uploadCable(cableCore, cableSide, cable.oxidized, cable.waxedOxidized)
+		}
+		def toOxidizableThickCable = { Cables cable ->
+			uploadCable(cableThickCore, cableThickSide, cable.block, cable.waxedBlock)
+			uploadCable(cableThickCore, cableThickSide, cable.exposed, cable.waxedExposed)
+			uploadCable(cableThickCore, cableThickSide, cable.weathered, cable.waxedWeathered)
+			uploadCable(cableThickCore, cableThickSide, cable.oxidized, cable.waxedOxidized)
 		}
 
 		add Ores, toCubeAll
@@ -484,18 +504,18 @@ class ModelProvider extends FabricModelProvider {
 		add Machine.MATTER_FABRICATOR, toMatterFabricator
 		add Machine.SOLID_CANNING_MACHINE, toSolidCanningMachine
 		add List.of(
-			Cables.COPPER,
 			Cables.TIN,
 			Cables.GOLD,
 			Cables.HV,
 			Cables.GLASSFIBER,
 		), toCable
 		add List.of(
-			Cables.INSULATED_COPPER,
 			Cables.INSULATED_GOLD,
 			Cables.INSULATED_HV,
 			Cables.SUPERCONDUCTOR,
 		), toThickCable
+		add Cables.COPPER, toOxidizableCable
+		add Cables.INSULATED_COPPER, toOxidizableThickCable
 		add TRContent.NUKE, toOrientable
 		add TRContent.REINFORCED_GLASS, toBlockCubeAll
 		add TRContent.COMPUTER_CUBE, toComputerCube

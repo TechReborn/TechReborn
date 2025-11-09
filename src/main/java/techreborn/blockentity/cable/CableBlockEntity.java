@@ -27,6 +27,7 @@ package techreborn.blockentity.cable;
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Oxidizable.OxidationLevel;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.entity.player.PlayerEntity;
@@ -52,6 +53,7 @@ import reborncore.common.util.StringUtils;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleSidedEnergyContainer;
 import techreborn.blocks.cable.CableBlock;
+import techreborn.blocks.cable.OxidizableCableBlock;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -80,6 +82,8 @@ public class CableBlockEntity extends BlockEntity
 		}
 	};
 	private TRContent.Cables cableType = null;
+	public boolean noOxidized = true;
+	private boolean keepAlive = false;
 	@Nullable
 	private BlockState cover = null;
 	long lastTick = 0;
@@ -108,6 +112,9 @@ public class CableBlockEntity extends BlockEntity
 	public CableBlockEntity(BlockPos pos, BlockState state, TRContent.Cables type) {
 		super(TRBlockEntities.CABLE, pos, state);
 		this.cableType = type;
+		if (type.oxidizable && state.getBlock() instanceof OxidizableCableBlock block) {
+			noOxidized = block.getDegradationLevel() != OxidationLevel.OXIDIZED;
+		}
 	}
 
 	TRContent.Cables getCableType() {
@@ -208,7 +215,7 @@ public class CableBlockEntity extends BlockEntity
 				// Schedule a rebuild next tick.
 				// This is just a reference change, the iterator remains valid.
 				targets = null;
-			} else {
+			} else if (noOxidized) {
 				targetStorages.add(new OfferedEnergyStorage(this, target.directionTo, storage));
 			}
 		}
@@ -303,6 +310,31 @@ public class CableBlockEntity extends BlockEntity
 		@Nullable
 		EnergyStorage find() {
 			return cache.find(directionTo.getOpposite());
+		}
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+		BlockState state = world.getBlockState(pos);
+		if (state.getBlock() instanceof CableBlock block && block.type == cableType) {
+			keepAlive = true;
+			if (cableType.oxidizable && state.getBlock() instanceof OxidizableCableBlock oxidizable) {
+				noOxidized = oxidizable.getDegradationLevel() != OxidationLevel.OXIDIZED;
+			}
+			setCachedState(state);
+		} else {
+			super.onBlockReplaced(pos, oldState);
+		}
+	}
+
+	@Override
+	public void markRemoved() {
+		if (keepAlive) {
+			keepAlive = false;
+			world.getChunk(pos).setBlockEntity(this);
+		} else {
+			super.markRemoved();
 		}
 	}
 }
