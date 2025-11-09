@@ -41,15 +41,15 @@ public abstract class MixinCraftingResultSlot {
 
 	@Shadow
 	@Final
-	private CraftingContainer input;
+	private CraftingContainer craftSlots;
 
 	@Shadow
 	@Final
 	private Player player;
 
-	@Inject(method = "onCrafted(Lnet/minecraft/item/ItemStack;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;onCraftByPlayer(Lnet/minecraft/entity/player/PlayerEntity;I)V", shift = At.Shift.AFTER))
+	@Inject(method = "checkTakeAchievements(Lnet/minecraft/world/item/ItemStack;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;onCraftedBy(Lnet/minecraft/world/entity/player/Player;I)V", shift = At.Shift.AFTER))
 	private void onCrafted(ItemStack itemStack, CallbackInfo info) {
-		ItemCraftCallback.EVENT.invoker().onCraft(itemStack, input, player);
+		ItemCraftCallback.EVENT.invoker().onCraft(itemStack, craftSlots, player);
 	}
 
 }

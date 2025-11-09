@@ -38,7 +38,7 @@ public class MixinBucketItem implements ItemFluidInfo {
 
 	@Shadow
 	@Final
-	private Fluid fluid;
+	private Fluid content;
 
 	@Override
 	public ItemStack getEmpty() {
@@ -52,6 +52,6 @@ public class MixinBucketItem implements ItemFluidInfo {
 
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
-		return fluid;
+		return content;
 	}
 }

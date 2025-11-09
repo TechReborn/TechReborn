@@ -42,15 +42,15 @@ public class MixinGameRenderer {
 
 	@Shadow
 	@Final
-	private Minecraft client;
+	private Minecraft minecraft;
 
-	@Redirect(method = "updateFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getFovMultiplier(ZF)F"))
+	@Redirect(method = "tickFov", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getFieldOfViewModifier(ZF)F"))
 	private float updateFovMultiplier(AbstractClientPlayer playerEntity, boolean firstPerson, float fovEffectScale) {
 		float playerSpeed = playerEntity.getFieldOfViewModifier(firstPerson, fovEffectScale);
 		for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
 			ItemStack stack = playerEntity.getItemBySlot(equipmentSlot);
 			if (stack.getItem() instanceof ArmorFovHandler) {
-				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, client.player);
+				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, minecraft.player);
 			}
 		}
 		return playerSpeed;

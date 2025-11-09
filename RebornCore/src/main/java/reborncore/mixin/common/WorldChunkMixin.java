@@ -55,13 +55,13 @@ public abstract class WorldChunkMixin extends ChunkAccess {
 
 	@Shadow
 	@Final
-	Level world;
+	Level level;
 
 	@SuppressWarnings("rawtypes")
 	@Inject(method = "setBlockState", at = @At("HEAD"))
 	private void onSetBlockState(BlockPos pos, BlockState state, int flags, CallbackInfoReturnable cir) {
-		if (!world.isClientSide()) {
-			ChunkEventListeners.onBlockStateChange(world, this.chunkPos, pos);
+		if (!level.isClientSide()) {
+			ChunkEventListeners.onBlockStateChange(level, this.chunkPos, pos);
 		}
 	}
 }

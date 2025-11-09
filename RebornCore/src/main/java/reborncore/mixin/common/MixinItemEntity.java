@@ -39,7 +39,7 @@ import reborncore.common.misc.RebornCoreTags;
 @Mixin(ItemEntity.class)
 public abstract class MixinItemEntity extends Entity {
 	@Shadow
-	public abstract ItemStack getStack();
+	public abstract ItemStack getItem();
 
 	public MixinItemEntity(EntityType<?> type, Level world) {
 		super(type, world);
@@ -47,8 +47,8 @@ public abstract class MixinItemEntity extends Entity {
 
 	@Inject(method = "tick", at = @At("RETURN"))
 	public void tick(CallbackInfo info) {
-		if (!level().isClientSide && isInWater() && !getStack().isEmpty()) {
-			if (getStack().is(RebornCoreTags.WATER_EXPLOSION_ITEM)) {
+		if (!level().isClientSide && isInWater() && !getItem().isEmpty()) {
+			if (getItem().is(RebornCoreTags.WATER_EXPLOSION_ITEM)) {
 				level().explode(this, getX(), getY(), getZ(), 2F, Level.ExplosionInteraction.NONE);
 				this.remove(RemovalReason.KILLED);
 			}
