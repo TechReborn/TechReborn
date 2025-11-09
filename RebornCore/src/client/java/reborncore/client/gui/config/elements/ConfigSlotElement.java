@@ -51,7 +51,7 @@ public class ConfigSlotElement extends ParentElement {
 		super(x, y, type.getButtonSprite(), type.getTextureWidth(), type.getTextureHeight());
 		this.type = type;
 		this.inventory = slotInventory;
-		this.id = slot.index;
+		this.id = slot.getContainerSlot();
 
 		SlotConfigPopupElement popupElement;
 
