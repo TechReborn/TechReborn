@@ -29,7 +29,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -148,11 +148,12 @@ public class SlotConfigGui extends GuiTab {
 	}
 
 	@Override
-	public boolean keyPress(int keyCode, int scanCode, int modifiers) {
-		if (Screen.hasControlDown() && keyCode == GLFW.GLFW_KEY_C) {
+	public boolean keyPress(KeyEvent key) {
+		int keyCode = key.key();
+		if (key.hasControlDown() && keyCode == GLFW.GLFW_KEY_C) {
 			copyToClipboard();
 			return true;
-		} else if (Screen.hasControlDown() && keyCode == GLFW.GLFW_KEY_V) {
+		} else if (key.hasControlDown() && keyCode == GLFW.GLFW_KEY_V) {
 			pasteFromClipboard();
 			return true;
 		} else if (keyCode == GLFW.GLFW_KEY_ESCAPE && selectedSlot != null) {

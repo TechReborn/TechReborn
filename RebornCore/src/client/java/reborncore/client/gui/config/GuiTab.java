@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.config;
 
+import net.minecraft.client.input.KeyEvent;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
@@ -65,7 +66,7 @@ public abstract class GuiTab {
 
 	public void mouseReleased(double mouseX, double mouseY, int state) {}
 
-	public boolean keyPress(int keyCode, int scanCode, int modifiers) {
+	public boolean keyPress(KeyEvent key) {
 		return false;
 	}
 

@@ -24,6 +24,8 @@
 
 package reborncore.client.gui;
 
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
@@ -250,22 +252,22 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-		if (getTab().map(guiTab -> guiTab.click(mouseX, mouseY, mouseButton)).orElse(false)) {
+	public boolean mouseClicked(MouseButtonEvent mouse, boolean doubled) {
+		if (getTab().map(guiTab -> guiTab.click(mouse.x(), mouse.y(), mouse.button())).orElse(false)) {
 			return true;
 		}
-		return super.mouseClicked(mouseX, mouseY, mouseButton);
+		return super.mouseClicked(mouse, doubled);
 	}
 
 	@Override
-	public boolean mouseReleased(double mouseX, double mouseY, int state) {
-		getTab().ifPresent(guiTab -> guiTab.mouseReleased(mouseX, mouseY, state));
+	public boolean mouseReleased(MouseButtonEvent mouse) {
+		getTab().ifPresent(guiTab -> guiTab.mouseReleased(mouse.x(), mouse.y(), mouse.button()));
 		int offset = 0;
 		if (!upgrades) {
 			offset = 80;
 		}
 		for (GuiTab tab : tabs) {
-			if (isHovering(-26, 84 - offset, 30, 23, mouseX, mouseY)) {
+			if (isHovering(-26, 84 - offset, 30, 23, mouse.x(), mouse.y())) {
 				if (selectedTab == tab) {
 					closeSelectedTab();
 				} else {
@@ -276,19 +278,19 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 			offset -= 24;
 		}
 
-		return super.mouseReleased(mouseX, mouseY, state);
+		return super.mouseReleased(mouse);
 	}
 
 	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		if (getTab().map(guiTab -> guiTab.keyPress(keyCode, scanCode, modifiers)).orElse(false)) {
+	public boolean keyPressed(KeyEvent key) {
+		if (getTab().map(guiTab -> guiTab.keyPress(key)).orElse(false)) {
 			return true;
 		}
-		if (selectedTab != null && keyCode == GLFW.GLFW_KEY_ESCAPE) {
+		if (selectedTab != null && key.key() == GLFW.GLFW_KEY_ESCAPE) {
 			closeSelectedTab();
 			return true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers);
+		return super.keyPressed(key);
 	}
 
 	@Override
@@ -380,9 +382,9 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	@Override
-	protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top, int mouseButton) {
+	protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top) {
 		// Upgrades are normally outside the bounds, so let's pretend we are within the bounds if there is a slot here.
-		return getHoveredSlot(mouseX, mouseY) == null && super.hasClickedOutside(mouseX, mouseY, left, top, mouseButton);
+		return getHoveredSlot(mouseX, mouseY) == null && super.hasClickedOutside(mouseX, mouseY, left, top);
 	}
 
 	public List<GuiTab> getTabs() {

@@ -497,7 +497,8 @@ public class GuiBuilder {
 		int percentage = percentage(maxEnergyStored, energyStored);
 		if (gui.isPointInRect(x + 1, y + 1, 11, 48, mouseX, mouseY)) {
 			List<Component> list = Lists.newArrayList();
-			if (Screen.hasShiftDown()) {
+			boolean hasShift = Minecraft.getInstance().hasShiftDown();
+			if (hasShift) {
 				list.add(
 						Component.literal(PowerSystem.getLocalizedPowerFullNoSuffix(energyStored))
 								.withStyle(ChatFormatting.GOLD)
@@ -522,7 +523,7 @@ public class GuiBuilder {
 			);
 
 			if (gui.be instanceof IListInfoProvider) {
-				if (Screen.hasShiftDown()) {
+				if (hasShift) {
 					((IListInfoProvider) gui.be).addInfo(list, true, true);
 				} else {
 					list.add(Component.empty());

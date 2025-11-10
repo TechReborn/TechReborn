@@ -25,6 +25,7 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -89,6 +90,7 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void onClick(int amount) {
-		ClientPlayNetworking.send(new AESUConfigPayload(blockEntity.getBlockPos(), amount, hasShiftDown(), hasControlDown()));
+		Minecraft mc = Minecraft.getInstance();
+		ClientPlayNetworking.send(new AESUConfigPayload(blockEntity.getBlockPos(), amount, mc.hasShiftDown(), mc.hasControlDown()));
 	}
 }
