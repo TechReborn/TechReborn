@@ -92,7 +92,7 @@ public class ServerBoundPackets {
 			holder.setPriority(payload.priority());
 
 			//Syncs back to the client
-			NetworkManager.sendToAll(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), context.player().getServer());
+			NetworkManager.sendToAll(new SlotSyncPayload(payload.pos(), machine.getSlotConfiguration()), context.player().level().getServer());
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(SlotSavePayload.ID, (payload, context) -> {
