@@ -28,9 +28,11 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.debug.DebugValueAccess;
 import net.minecraft.world.level.ChunkPos;
 import org.joml.Matrix4f;
 import reborncore.common.chunkloading.ChunkLoaderManager;
@@ -67,7 +69,7 @@ public class ClientChunkManager {
 				.anyMatch(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(Minecraft.getInstance().level)));
 	}
 
-	public static void render(PoseStack matrices, MultiBufferSource vertexConsumers, double x, double y, double z) {
+	public static void render(PoseStack matrices, MultiBufferSource vertexConsumers, double x, double y, double z, DebugValueAccess debugValueAccess, Frustum frustum) {
 		int size = loadedChunks.size();
 		if (size == 0) {
 			return;
