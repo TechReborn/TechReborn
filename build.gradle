@@ -6,7 +6,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
-	id 'fabric-loom' version '1.12-SNAPSHOT'
+	id 'fabric-loom' version '1.13-SNAPSHOT'
     id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
 }
 
@@ -184,7 +184,7 @@ dependencies {
 
     include project(":RebornCore")
 
-    optionalREIDependency(true)
+    optionalREIDependency(false)
     optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
@@ -237,9 +237,7 @@ publishMods {
 
     def options = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-        minecraftVersions.add("1.21.6")
-        minecraftVersions.add("1.21.7")
-        minecraftVersions.add("1.21.8")
+        minecraftVersions.add("1.21.10")
 
         requires {
             slug = "fabric-api"
