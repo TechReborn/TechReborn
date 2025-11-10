@@ -154,7 +154,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		if (level == null) {
 			return;
 		}
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return;
 		}
 
@@ -185,7 +185,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 			return;
 		}
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return;
 		}
 
@@ -335,7 +335,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity2) {
 		super.tick(world, pos, state, blockEntity2);
-		if (world == null || world.isClientSide) {
+		if (world == null || world.isClientSide()) {
 			return;
 		}
 		if (getStored() <= 0) {

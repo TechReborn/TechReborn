@@ -58,7 +58,7 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	public void ignite(Level worldIn, BlockPos pos, BlockState state, LivingEntity igniter) {
-		if (!worldIn.isClientSide) {
+		if (!worldIn.isClientSide()) {
 			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (float) pos.getX() + 0.5F,
 					pos.getY(), (float) pos.getZ() + 0.5F, igniter);
 			worldIn.addFreshEntity(entitynukeprimed);
@@ -77,7 +77,7 @@ public class BlockNuke extends BaseBlock {
 
 	@Override
 	protected void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, InsideBlockEffectApplier handler) {
-		if (!worldIn.isClientSide && entityIn instanceof Projectile projectileEntity) {
+		if (!worldIn.isClientSide() && entityIn instanceof Projectile projectileEntity) {
 			LivingEntity shooter = null;
 			if (projectileEntity.getOwner() instanceof LivingEntity) {
 				shooter = (LivingEntity) projectileEntity.getOwner();

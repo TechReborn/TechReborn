@@ -214,7 +214,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public final void setRemoved() {
 		super.setRemoved();
 
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			unlink();
 		}
 	}
@@ -222,7 +222,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	private void syncIfNecessary(){
 		if (this.markSync && this.tickTime % syncCoolDown == 0) {
 			this.markSync = false;
-			if (level == null || level.isClientSide) { return; }
+			if (level == null || level.isClientSide()) { return; }
 			NetworkManager.sendToTracking(new CustomDescriptionPayload(this.worldPosition, this.saveWithoutMetadata(level.registryAccess())), this);
 		}
 	}
@@ -248,7 +248,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 				fluidConfiguration = new FluidConfiguration();
 			}
 		}
-		if (hasMultiblock() && level != null && !level.isClientSide) {
+		if (hasMultiblock() && level != null && !level.isClientSide()) {
 			registerMultiblockVerify();
 		}
 	}
@@ -292,7 +292,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			}
 			afterUpgradesApplication();
 		}
-		if (world == null || world.isClientSide) {
+		if (world == null || world.isClientSide()) {
 			return;
 		}
 

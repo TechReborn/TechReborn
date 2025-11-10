@@ -92,7 +92,7 @@ public class MultiblockWorldRegistry {
 	public void tickStart() {
 		if (controllers.size() > 0) {
 			for (MultiblockControllerBase controller : controllers) {
-				if (controller.worldObj == worldObj && controller.worldObj.isClientSide == worldObj.isClientSide) {
+				if (controller.worldObj == worldObj && controller.worldObj.isClientSide() == worldObj.isClientSide()) {
 					if (controller.isEmpty()) {
 						// This happens on the server when the user breaks the
 						// last block. It's fine.

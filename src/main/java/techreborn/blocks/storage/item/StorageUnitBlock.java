@@ -62,7 +62,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 
 	@Override
 	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hitResult) {
-		if (unitType == TRContent.StorageUnit.CREATIVE || worldIn.isClientSide) {
+		if (unitType == TRContent.StorageUnit.CREATIVE || worldIn.isClientSide()) {
 			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 
@@ -109,7 +109,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
 		super.attack(state, world, pos, player);
 
-		if (world.isClientSide) return;
+		if (world.isClientSide()) return;
 
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
 		if (storageEntity == null) {

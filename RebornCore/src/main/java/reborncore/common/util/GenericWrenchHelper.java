@@ -51,7 +51,7 @@ public class GenericWrenchHelper implements ICustomToolHandler {
 
 	@Override
 	public boolean handleTool(ItemStack stack, BlockPos pos, Level world, Player player, Direction side, boolean damage) {
-		if (this.damage && damage && !world.isClientSide) {
+		if (this.damage && damage && !world.isClientSide()) {
 			stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 		}
 		return true;

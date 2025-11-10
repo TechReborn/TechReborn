@@ -110,7 +110,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide) {
+		if (world == null || world.isClientSide()) {
 			return;
 		}
 		charge(10);
@@ -181,7 +181,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		if (currentRecipe == null) {
 			return Optional.empty();
 		}
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return Optional.empty();
 		}
 		if (!locked) {

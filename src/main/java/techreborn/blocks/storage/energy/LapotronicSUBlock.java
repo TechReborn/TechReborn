@@ -53,7 +53,7 @@ public class LapotronicSUBlock extends EnergyStorageBlock {
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
 		super.setPlacedBy(world, pos, state, player, itemstack);
-		if (!world.isClientSide && world.getBlockEntity(pos) instanceof LapotronicSUBlockEntity blockEntity) {
+		if (!world.isClientSide() && world.getBlockEntity(pos) instanceof LapotronicSUBlockEntity blockEntity) {
 			blockEntity.checkNeighbors();
 		}
 	}
@@ -70,7 +70,7 @@ public class LapotronicSUBlock extends EnergyStorageBlock {
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getDirection())) {
-				if (!worldIn.isClientSide && blockEntity instanceof LapotronicSUBlockEntity target) {
+				if (!worldIn.isClientSide() && blockEntity instanceof LapotronicSUBlockEntity target) {
 					target.disconnectNetwork();
 				}
 				return InteractionResult.PASS;

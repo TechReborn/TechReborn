@@ -158,7 +158,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 				((CableBlockEntity) blockEntity).setCover(null);
 				worldIn.setBlockAndUpdate(pos, state.setValue(COVERED, false));
 				worldIn.playSound(playerIn, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 0.6F, 1.0F);
-				if (!worldIn.isClientSide) {
+				if (!worldIn.isClientSide()) {
 					Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), TRContent.Plates.WOOD.getStack());
 				}
 				return InteractionResult.SUCCESS;
@@ -173,7 +173,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 				&& stack.getItem() == TRContent.Plates.WOOD.asItem()) {
 			worldIn.setBlockAndUpdate(pos, state.setValue(COVERED, true));
 			worldIn.playSound(playerIn, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 0.6F, 1.0F);
-			if (!worldIn.isClientSide && !playerIn.isCreative()) {
+			if (!worldIn.isClientSide() && !playerIn.isCreative()) {
 				stack.shrink(1);
 			}
 			return InteractionResult.SUCCESS;

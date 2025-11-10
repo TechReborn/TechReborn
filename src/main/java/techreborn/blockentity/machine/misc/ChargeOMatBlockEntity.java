@@ -57,7 +57,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
 
-		if (world == null || world.isClientSide) {
+		if (world == null || world.isClientSide()) {
 			return;
 		}
 		for (int i = 0; i < 6; i++) {

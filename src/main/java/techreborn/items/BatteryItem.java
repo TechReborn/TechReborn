@@ -70,7 +70,7 @@ public class BatteryItem extends Item implements RcEnergyItem {
 	@Override
 	public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, @Nullable EquipmentSlot slot) {
 		TRItemUtils.checkActive(stack, 1, entity);
-		if (world.isClientSide) {
+		if (world.isClientSide()) {
 			return;
 		}
 		if (!TRItemUtils.isActive(stack)){

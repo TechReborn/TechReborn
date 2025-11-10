@@ -70,7 +70,7 @@ public class WrenchUtils {
 						}
 					}
 
-					if (!worldIn.isClientSide) {
+					if (!worldIn.isClientSide()) {
 						if (dropContents) {
 							ItemHandlerUtils.dropContainedItems(worldIn, pos);
 						}

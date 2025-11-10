@@ -135,7 +135,7 @@ public class BlockRubberLog extends RotatedPillarBlock {
 			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == hitResult.getDirection()) {
 				worldIn.setBlockAndUpdate(pos, state.setValue(HAS_SAP, false).setValue(SAP_SIDE, Direction.from2DDataValue(0)));
 				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundSource.BLOCKS, 0.6F, 1F);
-				if (worldIn.isClientSide) {
+				if (worldIn.isClientSide()) {
 					return InteractionResult.SUCCESS;
 				}
 				if (stack.getItem() instanceof ElectricTreetapItem item) {

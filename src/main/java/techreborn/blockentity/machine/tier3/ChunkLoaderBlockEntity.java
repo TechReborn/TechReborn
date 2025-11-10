@@ -109,7 +109,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	// MachineBaseBlockEntity
 	@Override
 	public void onBreak(Level world, Player playerEntity, BlockPos blockPos, BlockState blockState) {
-		if (world.isClientSide) {
+		if (world.isClientSide()) {
 			return;
 		}
 		unloadAll();
@@ -119,7 +119,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	@Override
 	public void onPlace(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		ownerUdid = placer.getStringUUID();
-		if (worldIn.isClientSide) return;
+		if (worldIn.isClientSide()) return;
 		reload();
 	}
 

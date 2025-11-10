@@ -45,7 +45,7 @@ public class WrenchItem extends Item implements IToolHandler {
 
 	@Override
 	public boolean handleTool(ItemStack stack, BlockPos pos, Level world, Player player, Direction side, boolean damage) {
-		if (!player.level().isClientSide && damage) {
+		if (!player.level().isClientSide() && damage) {
 			stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 		}
 		return true;

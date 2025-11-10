@@ -408,7 +408,7 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 	public void onLoad() {
 		super.onLoad();
 		// Compatible with older versions: initialize neighbors
-		if (level != null && !level.isClientSide && ((neighbors & 0b10000000) != 0)) {
+		if (level != null && !level.isClientSide() && ((neighbors & 0b10000000) != 0)) {
 			neighbors = 0b000000;
 			for (int i = 0; i < DIRECTIONS_LENGTH; i++) {
 				if (level.getBlockEntity(worldPosition.relative(DIRECTIONS[i])) instanceof LSUStorageBlockEntity) {

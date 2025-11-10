@@ -59,7 +59,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
 		super.setPlacedBy(world, pos, state, player, itemstack);
-		if (!world.isClientSide && world.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
+		if (!world.isClientSide() && world.getBlockEntity(pos) instanceof LSUStorageBlockEntity blockEntity) {
 			blockEntity.connectNeighbors();
 		}
 	}
@@ -77,7 +77,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getDirection())) {
-				if (!worldIn.isClientSide && blockEntity instanceof LSUStorageBlockEntity target) {
+				if (!worldIn.isClientSide() && blockEntity instanceof LSUStorageBlockEntity target) {
 					target.disconnectNeighbors();
 				}
 				return InteractionResult.PASS;

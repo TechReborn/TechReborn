@@ -72,7 +72,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world.isClientSide) {
+		if (world.isClientSide()) {
 			return;
 		}
 		if (world.getGameTime() % 20 == 0) {

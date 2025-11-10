@@ -184,7 +184,7 @@ public record GuiType<T extends BlockEntity>(ResourceLocation identifier, MenuTy
 
 	@Override
 	public void open(Player player, BlockPos pos, Level world) {
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			//This is awful
 			player.openMenu(new ExtendedScreenHandlerFactory<ScreenHandlerData>() {
 				@Override

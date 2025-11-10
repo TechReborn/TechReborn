@@ -206,7 +206,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		super.tick(world, pos, state, blockEntity);
 		charge(2);
 
-		if (world == null || world.isClientSide) {
+		if (world == null || world.isClientSide()) {
 			return;
 		}
 

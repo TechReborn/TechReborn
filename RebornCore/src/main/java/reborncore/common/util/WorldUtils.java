@@ -75,7 +75,7 @@ public class WorldUtils {
 
 		float factor = 0.05F;
 		entityItem.setDeltaMovement(new Vec3(rand.nextGaussian() * factor, rand.nextGaussian() * factor + 0.2F, rand.nextGaussian() * factor));
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			world.addFreshEntity(entityItem);
 		}
 	}

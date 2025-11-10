@@ -86,7 +86,7 @@ public class TRCauldronBehavior {
 	}
 
 	static InteractionResult fillCauldronFromCell(Level world, BlockPos pos, Player player, InteractionHand hand, ItemStack stack, BlockState state, SoundEvent soundEvent) {
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(TRContent.CELL)));
 			player.awardStat(Stats.FILL_CAULDRON);
 			world.setBlockAndUpdate(pos, state);
