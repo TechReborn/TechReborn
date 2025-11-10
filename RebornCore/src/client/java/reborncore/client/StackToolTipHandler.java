@@ -37,9 +37,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import reborncore.RebornCore;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.BaseBlock;
@@ -115,7 +117,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 				if ((block instanceof BaseBlockEntityProvider)) {
 					BlockEntity blockEntity = ((EntityBlock) block).newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
 					boolean hasData = false;
-					CustomData nbtComponent = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
+					TypedEntityData<BlockEntityType<?>> nbtComponent = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
 					if (nbtComponent != null) {
 						nbtComponent.loadInto(blockEntity, Minecraft.getInstance().level.registryAccess());
 						hasData = true;

@@ -46,7 +46,7 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PlayerHeadItem;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
@@ -442,7 +442,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(problemPath(), LOGGER)) {
 				TagValueOutput view = TagValueOutput.createWithContext(logging, level.registryAccess());
 				saveAdditional(view);
-				dropStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(view.buildResult()));
+				dropStack.set(DataComponents.BLOCK_ENTITY_DATA, TypedEntityData.of(getType(), view.buildResult()));
 			}
 		}
 
