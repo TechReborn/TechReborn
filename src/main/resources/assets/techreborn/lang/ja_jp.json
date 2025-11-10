@@ -824,7 +824,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "超高",
   "techreborn.message.info.block.techreborn.elevator": "プレイヤーを上または下のエレベーターまでテレポートさせる",
   "_comment29": "キーバインド",
-  "key.techreborn.category": "TechRebornカテゴリ",
+  "key.category.techreborn.main": "TechRebornカテゴリ",
   "key.techreborn.config": "設定",
   "key.techreborn.suitNightVision": "ナノ/クァンタム  ヘルメット - 暗視効果の切り替え",
   "key.techreborn.quantumSuitSprint": "クァンタムレギンス - 走る速度の切り替え",

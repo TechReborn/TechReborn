@@ -821,7 +821,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Extremo",
   "techreborn.message.info.block.techreborn.elevator": "Teletransporta al jugador arriba o abajo al siguiente bloque libre de ascensor",
   "_comment29": "Atajos de teclado",
-  "key.techreborn.category": "Categoría de TechReborn",
+  "key.category.techreborn.main": "Categoría de TechReborn",
   "key.techreborn.config": "Configuración",
   "key.techreborn.suitNightVision": "Casco - Alternar visión nocturna",
   "key.techreborn.quantumSuitSprint": "Traje Cuántico - alternar velocidad de carrera",

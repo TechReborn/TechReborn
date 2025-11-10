@@ -821,7 +821,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Extrém",
   "techreborn.message.info.block.techreborn.elevator": "Teleportálja a játékost a felette vagy alatta legközelebbi liftblokkra",
   "_comment29": "Billentyűzetbeállítások",
-  "key.techreborn.category": "TechReborn Kategória",
+  "key.category.techreborn.main": "TechReborn Kategória",
   "key.techreborn.config": "Beállítások",
   "key.techreborn.suitNightVision": "Nano- és kvantumsisak - Éjjellátó be/ki",
   "key.techreborn.quantumSuitSprint": "Kvantum lábszárvédő - Furtási sebesség beállítása",

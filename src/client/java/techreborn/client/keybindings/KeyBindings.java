@@ -28,13 +28,17 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.KeyMapping.Category;
+import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 import techreborn.packets.serverbound.QuantumSuitSprintPayload;
 import techreborn.packets.serverbound.SuitNightVisionPayload;
 
+import static techreborn.TechReborn.MOD_ID;
+
 public class KeyBindings {
 	// Actual keybindings are in TechRebornClient
-	public static final String CATEGORY = "key.techreborn.category";
+	public static final Category CATEGORY = new Category(ResourceLocation.fromNamespaceAndPath(MOD_ID, "main"));
 
 	public static KeyMapping suitNightVision;
 	public static KeyMapping quantumSuitSprint;

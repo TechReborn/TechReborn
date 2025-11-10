@@ -821,7 +821,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Extrémní",
   "techreborn.message.info.block.techreborn.elevator": "Teleportuje hráče nahoru nebo dolů do dalšího volného výtahu",
   "_comment29": "Klávesové zkratky",
-  "key.techreborn.category": "TechReborn Kategorie",
+  "key.category.techreborn.main": "TechReborn Kategorie",
   "key.techreborn.config": "Konfigurace",
   "key.techreborn.suitNightVision": "Nano/Kvantová přilba - Přepnout vidění ve tmě",
   "key.techreborn.quantumSuitSprint": "Kvantové kalhoty - přepnout rychlost běžení",

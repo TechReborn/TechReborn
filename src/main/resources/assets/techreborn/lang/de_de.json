@@ -821,7 +821,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Extrem",
   "techreborn.message.info.block.techreborn.elevator": "Teleportiert Spieler auf oder ab zum nächsten freien Fahrstuhlblock",
   "_comment29": "Tastenbelegung",
-  "key.techreborn.category": "TechReborn Kategorie",
+  "key.category.techreborn.main": "TechReborn Kategorie",
   "key.techreborn.config": "Konfiguration",
   "key.techreborn.suitNightVision": "Nano/Quantenanzug Helm - Nachtsicht umschalten",
   "key.techreborn.quantumSuitSprint": "Quantenanzug Hose - Sprintgeschwindigkeit umschalten",

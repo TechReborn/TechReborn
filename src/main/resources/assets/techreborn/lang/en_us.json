@@ -861,7 +861,7 @@
   "techreborn.message.info.block.techreborn.elevator": "Teleports player up or down to the next free elevator block",
 
   "_comment29": "Keybindings",
-  "key.techreborn.category": "TechReborn Category",
+  "key.category.techreborn.main": "TechReborn Category",
   "key.techreborn.config": "Config",
   "key.techreborn.suitNightVision": "Nano/Quantum Suit Helmet - Toggle Night Vision",
   "key.techreborn.quantumSuitSprint": "Quantum Suit Leggings - Toggle Sprint Speed",
