@@ -40,7 +40,10 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.CachedOrthoProjectionMatrixBuffer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -111,13 +114,16 @@ public class ItemStackRenderer implements HudRenderCallback {
 		matrices.translate(8, 8, 150);
 		matrices.scale(16.0F, -16.0F, 16.0F);
 		boolean bl = !itemRenderState.usesBlockLight();
-		Lighting diffuseLighting = Minecraft.getInstance().gameRenderer.getLighting();
+		GameRenderer gameRenderer = Minecraft.getInstance().gameRenderer;
+		Lighting diffuseLighting = gameRenderer.getLighting();
 		if (bl) {
 			diffuseLighting.setupFor(Lighting.Entry.ITEMS_FLAT);
 		} else {
 			diffuseLighting.setupFor(Lighting.Entry.ITEMS_3D);
 		}
-		itemRenderState.render(matrices, vertexConsumers, 15728880, OverlayTexture.NO_OVERLAY);
+		FeatureRenderDispatcher renderDispatcher = gameRenderer.getFeatureRenderDispatcher();
+		itemRenderState.submit(matrices, renderDispatcher.getSubmitNodeStorage(), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
+		renderDispatcher.renderAllFeatures();
 		vertexConsumers.endBatch();
 		matrix4fStack.popMatrix();
 		RenderSystem.restoreProjectionMatrix();
