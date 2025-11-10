@@ -24,6 +24,7 @@
 
 package techreborn.blocks.generator;
 
+import net.minecraft.core.Direction;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
@@ -44,7 +45,7 @@ public class GenericGeneratorBlock extends GenericMachineBlock {
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos, Direction direction) {
 		return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
 	}
 }
