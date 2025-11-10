@@ -24,65 +24,74 @@
 
 package reborncore.client;
 
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldExtractionContext;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderContext;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.debug.DebugRenderer;
+import net.minecraft.client.renderer.state.BlockOutlineRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class BlockOutlineRenderer implements WorldRenderEvents.BlockOutline {
-
+public class BlockOutlineRenderer implements WorldRenderEvents.BeforeBlockOutline, WorldRenderEvents.AfterBlockOutlineExtraction {
+	public static RenderStateDataKey<List<VoxelShape>> KEY = RenderStateDataKey.create(() -> "MultiBlockBreakingTool");
 	@Override
-	public boolean onBlockOutline(WorldRenderContext worldRenderContext, WorldRenderContext.BlockOutlineContext context) {
-		List<VoxelShape> shapes = new ArrayList<>();
-
-		Level world = context.entity().level();
-		BlockPos targetPos = context.blockPos();
-
-		if (context.entity() == Minecraft.getInstance().player) {
-			LocalPlayer clientPlayerEntity = Minecraft.getInstance().player;
-
-			ItemStack stack = clientPlayerEntity.getMainHandItem();
-			if (stack.isEmpty()) {
-				return true;
-			}
-
-			if (stack.getItem() instanceof MultiBlockBreakingTool) {
-				Set<BlockPos> blockPosList = ((MultiBlockBreakingTool) stack.getItem()).getBlocksToBreak(stack, clientPlayerEntity.level(), targetPos, clientPlayerEntity);
-
-				for (BlockPos pos : blockPosList) {
-					if (pos.equals(targetPos)) {
-						continue;
+	public void afterBlockOutlineExtraction(WorldExtractionContext context, @Nullable HitResult result) {
+		if (result instanceof BlockHitResult blockHitResult) {
+			LocalPlayer player = Minecraft.getInstance().player;
+			if (player == context.camera().getEntity()) {
+				ItemStack stack = player.getMainHandItem();
+				if (!stack.isEmpty() && stack.getItem() instanceof MultiBlockBreakingTool tool) {
+					BlockPos targetPos = blockHitResult.getBlockPos();
+					Level level = player.level();
+					Set<BlockPos> blockPosList = tool.getBlocksToBreak(stack, level, targetPos, player);
+					List<VoxelShape> shapes = new ArrayList<>();
+					for (BlockPos pos : blockPosList) {
+						if (pos.equals(targetPos)) {
+							continue;
+						}
+						BlockState blockState = level.getBlockState(pos);
+						shapes.add(blockState.getShape(level, pos, CollisionContext.of(player)).move(pos.getX() - targetPos.getX(), pos.getY() - targetPos.getY(), pos.getZ() - targetPos.getZ()));
 					}
-
-					BlockState blockState = world.getBlockState(pos);
-					shapes.add(blockState.getShape(world, pos, CollisionContext.of(clientPlayerEntity)).move(pos.getX() - targetPos.getX(), pos.getY() - targetPos.getY(), pos.getZ() - targetPos.getZ()));
-
+					if (shapes.isEmpty()) {
+						return;
+					}
+					context.worldState().blockOutlineRenderState.setData(KEY, shapes);
 				}
 			}
 		}
+	}
 
-		if (!shapes.isEmpty()) {
-			VoxelShape shape = context.blockState().getShape(world, targetPos, CollisionContext.of(context.entity()));
+	@Override
+	public boolean beforeBlockOutline(WorldRenderContext worldRenderContext, BlockOutlineRenderState context) {
+		List<VoxelShape> shapes = context.getData(KEY);
+		if (shapes != null) {
+			VoxelShape shape = context.shape();
 
 			for (VoxelShape voxelShape : shapes) {
 				shape = Shapes.or(shape, voxelShape);
 			}
 
-			DebugRenderer.renderVoxelShape(worldRenderContext.matrixStack(), worldRenderContext.consumers().getBuffer(RenderType.lines()), shape, (double)targetPos.getX() - context.cameraX(), (double)targetPos.getY() - context.cameraY(), (double)targetPos.getZ() - context.cameraZ(), 0.0F, 0.0F, 0.0F, 0.4F, true);
+			BlockPos targetPos = context.pos();
+			Vec3 camera = worldRenderContext.worldState().cameraRenderState.pos;
+			DebugRenderer.renderVoxelShape(worldRenderContext.matrices(), worldRenderContext.consumers().getBuffer(RenderType.lines()), shape, (double)targetPos.getX() - camera.x, (double)targetPos.getY() - camera.y, (double)targetPos.getZ() - camera.z, 0.0F, 0.0F, 0.0F, 0.4F, true);
 		}
 
 		return true;
