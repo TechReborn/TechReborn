@@ -278,7 +278,7 @@ public class TRItemGroup {
 			TRContent.MachineBlocks.BASIC.getFrame(),
 			TRContent.MachineBlocks.ADVANCED.getFrame(),
 			TRContent.MachineBlocks.INDUSTRIAL.getFrame());
-		entries.addAfter(Items.CHAIN, TRContent.REFINED_IRON_FENCE);
+		entries.addAfter(Items.IRON_CHAIN, TRContent.REFINED_IRON_FENCE);
 		entries.addBefore(Items.COPPER_BLOCK,
 			TRContent.StorageBlocks.RAW_TIN,
 			TRContent.StorageBlocks.RAW_TIN.getStairsBlock(),
