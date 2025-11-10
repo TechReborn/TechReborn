@@ -24,7 +24,6 @@
 
 package reborncore.common.fluid;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
