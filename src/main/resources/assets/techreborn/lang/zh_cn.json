@@ -824,7 +824,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "极高",
   "techreborn.message.info.block.techreborn.elevator": "向上或向下传送玩家到下一个可用的电梯块",
   "_comment29": "按键绑定",
-  "key.techreborn.category": "科技复兴",
+  "key.category.techreborn.main": "科技复兴",
   "key.techreborn.config": "配置",
   "key.techreborn.suitNightVision": "纳米/量子头盔 - 切换夜视",
   "key.techreborn.quantumSuitSprint": "量子护腿 - 切换冲刺速度",

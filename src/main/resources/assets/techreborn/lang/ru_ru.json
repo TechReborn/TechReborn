@@ -821,7 +821,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Экстремальный",
   "techreborn.message.info.block.techreborn.elevator": "Телепортирует игрока вверх или вниз к следующему свободному лифту",
   "_comment29": "Горячие клавиши",
-  "key.techreborn.category": "Раздел TechReborn",
+  "key.category.techreborn.main": "Раздел TechReborn",
   "key.techreborn.config": "Конфиг",
   "key.techreborn.suitNightVision": "Нано/Квантовый шлем - Переключить ночное видение",
   "key.techreborn.quantumSuitSprint": "Квантовые штаны - Переключить скорость бега",

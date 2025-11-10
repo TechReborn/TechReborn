@@ -821,7 +821,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Екстремальний",
   "techreborn.message.info.block.techreborn.elevator": "Телепортує гравця вгору або вниз до наступного вільного ліфта",
   "_comment29": "Гарячі клавіші",
-  "key.techreborn.category": "Категорія TechReborn",
+  "key.category.techreborn.main": "Категорія TechReborn",
   "key.techreborn.config": "Конфігурація",
   "key.techreborn.suitNightVision": "Шолом - перемикнути нічне бачення",
   "key.techreborn.quantumSuitSprint": "Квантовий костюм - перемикати швидкість спринту",

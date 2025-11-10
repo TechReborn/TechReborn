@@ -821,7 +821,7 @@
   "techreborn.message.info.block.techreborn.launchpad.extreme": "Ekstremalny",
   "techreborn.message.info.block.techreborn.elevator": "Teleportuje gracza w górę lub w dół do następnego wolnego bloku windy.",
   "_comment29": "Skróty klawiszowe",
-  "key.techreborn.category": "TechReborn",
+  "key.category.techreborn.main": "TechReborn",
   "key.techreborn.config": "Konfiguracja",
   "key.techreborn.suitNightVision": "Hełm Nano/Quantum - Przełącz tryb nocnego widzenia",
   "key.techreborn.quantumSuitSprint": "Legginsy Quantum - Przełącz prędkość sprintu",
