@@ -26,29 +26,53 @@ package techreborn.client.render.entitys;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 /**
  * Created by drcrazy on 07-Jan-20 for TechReborn-1.15.
  */
-public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseBlockEntity> {
+public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseBlockEntity, StorageUnitRenderer.StorageUnitRenderState> {
+	private final ItemModelResolver itemModelResolver;
+	private final Font font;
 
 	public StorageUnitRenderer(BlockEntityRendererProvider.Context ctx) {
+		this.itemModelResolver = ctx.itemModelResolver();
+		this.font = ctx.font();
 	}
 
 	@Override
-	public void render(StorageUnitBaseBlockEntity storage, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+	public @NotNull StorageUnitRenderState createRenderState() {
+		return new StorageUnitRenderState();
+	}
+
+	@Override
+	public void extractRenderState(
+		StorageUnitBaseBlockEntity storage,
+		StorageUnitRenderState state,
+		float f,
+		Vec3 vec3,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+	) {
+		BlockEntityRenderState.extractBase(storage, state, crumblingOverlay);
 		if (storage.getLevel() == null) {
 			return;
 		}
@@ -56,47 +80,68 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		if (stack.isEmpty()) {
 			return;
 		}
+		// Item rendering
+		state.direction = storage.getFacing();
+		state.rotate = (state.direction.get2DDataValue() - 2) * 90F;
+		state.lightAbove = LevelRenderer.getLightColor(storage.getLevel(), storage.getBlockPos().relative(storage.getFacing()));
+		state.item = new ItemStackRenderState();
+		itemModelResolver.updateForTopItem(state.item, stack, ItemDisplayContext.FIXED, storage.getLevel(), null, 0);
+		// Text rendering
+		state.count = Component.literal(String.valueOf(storage.storedAmount)).getVisualOrderText();
+		state.countX = (float) (-font.width(state.count) / 2);
+		state.countY = -4f + 40;
+		state.name = Component.literal(stack.getHoverName().getString(18)).getVisualOrderText();
+		state.nameX = (float) (-font.width(state.name) / 2);
+		state.nameY = -4f - 40;
+	}
 
+	@Override
+	public void submit(
+		StorageUnitRenderState state,
+		PoseStack matrices,
+		SubmitNodeCollector submitNodeCollector,
+		CameraRenderState cameraRenderState
+	) {
+		if (state.direction == null) {
+			return;
+		}
 		// Item rendering
 		matrices.pushPose();
-		Direction direction = storage.getFacing();
-		matrices.mulPose(Axis.YP.rotationDegrees((direction.get2DDataValue() - 2) * 90F));
+		matrices.mulPose(Axis.YP.rotationDegrees(state.rotate));
 		matrices.scale(0.5F, 0.5F, 0.5F);
-		switch (direction) {
+		switch (state.direction) {
 			case NORTH, WEST -> matrices.translate(1, 1, 0);
 			case SOUTH -> matrices.translate(-1, 1, -2);
 			case EAST -> matrices.translate(-1, 1, 2);
 		}
-		int lightAbove = LevelRenderer.getLightColor(storage.getLevel(), storage.getBlockPos().relative(storage.getFacing()));
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, lightAbove, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, storage.getLevel(), 0);
+		state.item.submit(matrices, submitNodeCollector, state.lightAbove, OverlayTexture.NO_OVERLAY, 0);
 		matrices.popPose();
-
 		// Text rendering
 		matrices.pushPose();
-		Font textRenderer = Minecraft.getInstance().font;
-		Direction facing = storage.getFacing();
-
 		// Render item only on horizontal facing #2183
-		if (Direction.Plane.HORIZONTAL.test(facing) ){
+		if (Direction.Plane.HORIZONTAL.test(state.direction)) {
 			matrices.translate(0.5, 0.5, 0.5); // Translate center
-			matrices.mulPose(Axis.YP.rotationDegrees(-facing.getCounterClockWise().toYRot() + 90)); // Rotate depending on face
+			matrices.mulPose(Axis.YP.rotationDegrees(-state.direction.getCounterClockWise().toYRot() + 90)); // Rotate depending on face
 			matrices.translate(0, 0, -0.505); // Translate forward
 		}
-
 		matrices.scale(-0.01f, -0.01F, -0.01f);
-
-		float xPosition;
-
 		// Render item count
-		String count = String.valueOf(storage.storedAmount);
-		xPosition = (float) (-textRenderer.width(count) / 2);
-		textRenderer.drawInBatch(count, xPosition, -4f + 40, 0, false, matrices.last().pose(), vertexConsumers, Font.DisplayMode.NORMAL, 0, light);
-
+		submitNodeCollector.submitText(matrices, state.countX, state.countY, state.count, false, Font.DisplayMode.NORMAL, state.lightCoords, 0xFF000000, 0, 0);
 		// Render name
-		String item = stack.getHoverName().getString(18);
-		xPosition = (float) (-textRenderer.width(item) / 2);
-		textRenderer.drawInBatch(item, xPosition, -4f - 40, 0, false, matrices.last().pose(), vertexConsumers, Font.DisplayMode.NORMAL, 0, light);
-
+		submitNodeCollector.submitText(matrices, state.nameX, state.nameY, state.name, false, Font.DisplayMode.NORMAL, state.lightCoords, 0xFF000000, 0, 0);
 		matrices.popPose();
+	}
+
+	public static class StorageUnitRenderState extends BlockEntityRenderState {
+		public Direction direction;
+		public float rotate;
+		public int lightAbove;
+		public ItemStackRenderState item;
+		public FormattedCharSequence count;
+		public float countX;
+		public float countY;
+		public FormattedCharSequence name;
+		public float nameX;
+		public float nameY;
 	}
 }
