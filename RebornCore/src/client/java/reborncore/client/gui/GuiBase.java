@@ -390,6 +390,6 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	public static TextureAtlasSprite getSprite(Material spriteIdentifier) {
-		return Minecraft.getInstance().getGuiSprites().getSprite(spriteIdentifier.texture());
+		return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(spriteIdentifier.atlasLocation()).getSprite(spriteIdentifier.texture());
 	}
 }
