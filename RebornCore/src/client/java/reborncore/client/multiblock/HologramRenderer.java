@@ -24,17 +24,15 @@
 
 package reborncore.client.multiblock;
 
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import reborncore.common.blockentity.MultiblockWriter;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.List;
 import java.util.function.BiPredicate;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -48,31 +46,19 @@ import net.minecraft.world.level.material.FluidState;
 /**
  * Renders a hologram
  */
-public
-record HologramRenderer(Level view, PoseStack matrix, MultiBufferSource vertexConsumerProvider,
-						float scale) implements MultiblockWriter {
-	private static final BlockPos OUT_OF_WORLD_POS = new BlockPos(0, 260, 0); // Bad hack; disables lighting
-
+public record HologramRenderer(BlockRenderDispatcher blockRenderManager, ItemModelResolver itemModelResolver, Level view, List<HologramRenderState> states) implements MultiblockWriter {
 	@Override
 	public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
-		final BlockRenderDispatcher blockRenderManager = Minecraft.getInstance().getBlockRenderer();
-		matrix.pushPose();
-		matrix.translate(x, y, z);
-		matrix.translate(0.5, 0.5, 0.5);
-		matrix.scale(scale, scale, scale);
-
-
 		if (state.getBlock() instanceof LiquidBlock) {
 			FluidState fluidState = state.getFluidState();
-			Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(fluidState.getType().getBucket()), ItemDisplayContext.FIXED, 15728880, OverlayTexture.NO_OVERLAY, matrix, vertexConsumerProvider, view, 0);
+			ItemStackRenderState item = new ItemStackRenderState();
+			itemModelResolver.updateForTopItem(item, new ItemStack(fluidState.getType().getBucket()), ItemDisplayContext.FIXED, view, null, 0);
+			states.add(new HologramRenderState.FluidItem(x, y, z, item));
 		} else {
-			matrix.translate(-0.5, -0.5, -0.5);
-			VertexConsumer consumer = vertexConsumerProvider.getBuffer(ItemBlockRenderTypes.getRenderType(state));
+			RenderType layer = ItemBlockRenderTypes.getRenderType(state);
 			List<BlockModelPart> parts = blockRenderManager.getBlockModel(state).collectParts(RandomSource.create());
-			blockRenderManager.renderBatched(state, OUT_OF_WORLD_POS, view, matrix, consumer, false, parts);
+			states.add(new HologramRenderState.Block(blockRenderManager, view, x, y, z, layer, state, parts));
 		}
-
-		matrix.popPose();
 		return this;
 	}
 }
