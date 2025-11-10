@@ -27,13 +27,19 @@ package techreborn.client.render.entitys;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -45,7 +51,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Function;
 
-public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity> {
+public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity, TurbineRenderer.TurbineRenderState> {
 	private static final Set<Direction> ALL_DIRECTIONS = EnumSet.allOf(Direction.class);
 	private static final TurbineModel MODEL = TurbineModel.create();
 	public static final ResourceLocation TEXTURE = ResourceLocation.parse("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
@@ -54,27 +60,42 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 	}
 
 	@Override
-	public void render(WindMillBlockEntity blockEntity, float tickDelta, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int light, int overlay, Vec3 cameraPos) {
+	public @NotNull TurbineRenderState createRenderState() {
+		return new TurbineRenderState();
+	}
+
+	@Override
+	public void extractRenderState(
+		WindMillBlockEntity blockEntity,
+		TurbineRenderState state,
+		float tickDelta,
+		Vec3 vec3,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+	) {
+		BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlay);
 		Direction facing = blockEntity.getFacing();
-		int renderLight = LevelRenderer.getLightColor(blockEntity.getLevel(), blockEntity.getBlockPos().relative(facing));
+		state.layer = RenderType.entitySolid(TEXTURE);
+		state.rotate = -facing.getCounterClockWise().toYRot() + 90;
+		state.spin = blockEntity.bladeAngle + tickDelta * blockEntity.spinSpeed;
+		state.light = LevelRenderer.getLightColor(blockEntity.getLevel(), blockEntity.getBlockPos().relative(facing));
+	}
 
-		final VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entitySolid(TEXTURE));
-
+	@Override
+	public void submit(
+		TurbineRenderState state,
+		PoseStack matrixStack,
+		SubmitNodeCollector submitNodeCollector,
+		CameraRenderState cameraRenderState
+	) {
 		matrixStack.pushPose();
 		matrixStack.translate(0.5, 0, 0.5);
-		matrixStack.mulPose(Axis.YP.rotationDegrees(-facing.getCounterClockWise().toYRot() + 90));
+		matrixStack.mulPose(Axis.YP.rotationDegrees(state.rotate));
 		matrixStack.translate(0, -1, -0.56);
-
-		float spin = blockEntity.bladeAngle + tickDelta * blockEntity.spinSpeed;
-		MODEL.setSpin(spin);
-		MODEL.renderToBuffer(matrixStack, vertexConsumer, renderLight, overlay);
-
+		submitNodeCollector.submitModel(MODEL, state.spin, matrixStack, state.layer, state.light, OverlayTexture.NO_OVERLAY, 0, state.breakProgress);
 		matrixStack.popPose();
 	}
 
-
-
-	private static class TurbineModel extends Model {
+	private static class TurbineModel extends Model<Float> {
 		private static TurbineModel create() {
 			ModelPart.Cube[] baseCuboids = {
 					new ModelPart.Cube(0, 0, -2.0F, -2.0F, -1.0F, 4F, 4F, 2F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS),
@@ -123,13 +144,21 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity>
 			super(root, layerFactory);
 		}
 
-		private void setSpin(float z) {
-			root.zRot = z;
+		@Override
+		public void setupAnim(Float spin) {
+			root.zRot = spin;
 		}
 
 		@Override
 		public void renderToBuffer(PoseStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
 			root.render(matrices, vertices, light, overlay);
 		}
+	}
+
+	public static class TurbineRenderState extends BlockEntityRenderState {
+		public RenderType layer;
+		public float rotate;
+		public float spin;
+		public int light;
 	}
 }
