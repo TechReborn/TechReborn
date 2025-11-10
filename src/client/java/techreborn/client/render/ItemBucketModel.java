@@ -42,12 +42,13 @@ import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import techreborn.TechReborn;
@@ -77,7 +78,7 @@ public class ItemBucketModel implements ItemModel {
 		ItemModelResolver resolver,
 		ItemDisplayContext displayContext,
 		@Nullable ClientLevel world,
-		@Nullable LivingEntity user,
+		@Nullable ItemOwner user,
 		int seed
 	) {
 		state.appendModelIdentityElement(this);
@@ -106,7 +107,7 @@ public class ItemBucketModel implements ItemModel {
 		}
 
 		@Override
-		public ItemModel bake(BakingContext context) {
+		public @NotNull ItemModel bake(BakingContext context) {
 			ModelBaker baker = context.blockModelBaker();
 			ResolvedModel backgroundModel = baker.getModel(BUCKET_BACKGROUND);
 			List<BakedQuad> backgroundQuads = backgroundModel.bakeTopGeometry(backgroundModel.getTopTextureSlots(), baker, BlockModelRotation.X0_Y0).getAll();
@@ -129,7 +130,7 @@ public class ItemBucketModel implements ItemModel {
 		}
 
 		@Override
-		public MapCodec<ItemBucketModel.Unbaked> type() {
+		public @NotNull MapCodec<ItemBucketModel.Unbaked> type() {
 			return CODEC;
 		}
 	}
