@@ -24,6 +24,7 @@
 
 package reborncore.common;
 
+import net.minecraft.world.item.component.TypedEntityData;
 import org.jetbrains.annotations.Nullable;
 
 import static reborncore.RebornCore.LOGGER;
@@ -36,7 +37,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -63,7 +63,7 @@ public abstract class BaseBlockEntityProvider extends BaseBlock implements Entit
 			TagValueOutput view = TagValueOutput.createWithContext(logging, world.registryAccess());
 			blockEntity.saveWithId(view);
 			CompoundTag blockEntityData = view.buildResult();
-			newStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(blockEntityData));
+			newStack.set(DataComponents.BLOCK_ENTITY_DATA, TypedEntityData.of(blockEntity.getType(), blockEntityData));
 		}
 		return Optional.of(newStack);
 	}
@@ -72,11 +72,10 @@ public abstract class BaseBlockEntityProvider extends BaseBlock implements Entit
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
 		super.setPlacedBy(world, pos, state, placer, itemStack);
 
-		CustomData nbtComponent = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
+		TypedEntityData<BlockEntityType<?>> nbtComponent = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
 		if (nbtComponent == null) {
 			return;
 		}
-
 		nbtComponent.loadInto(world.getBlockEntity(pos), world.registryAccess());
 	}
 
