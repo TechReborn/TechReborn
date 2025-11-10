@@ -24,23 +24,23 @@
 
 package techreborn.datagen.advancement
 
-import net.minecraft.advancement.Advancement
-import net.minecraft.advancement.AdvancementCriterion
-import net.minecraft.advancement.AdvancementEntry
-import net.minecraft.advancement.AdvancementFrame
-import net.minecraft.advancement.criterion.CriterionConditions
-import net.minecraft.item.ItemConvertible
-import net.minecraft.item.ItemStack
-import net.minecraft.text.Text
-import net.minecraft.util.Identifier
+import net.minecraft.advancements.Advancement
+import net.minecraft.advancements.Criterion
+import net.minecraft.advancements.AdvancementHolder
+import net.minecraft.advancements.AdvancementType
+import net.minecraft.advancements.CriterionTriggerInstance
+import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.ItemStack
+import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 
 class AdvancementFactory {
 	private String name
 	private ItemStack icon
-	private AdvancementFrame frame = AdvancementFrame.TASK
-	private List<AdvancementCriterion<? extends CriterionConditions>> conditionsList = []
-	private AdvancementEntry parent
-	private Identifier background
+	private AdvancementType frame = AdvancementType.TASK
+	private List<Criterion<? extends CriterionTriggerInstance>> conditionsList = []
+	private AdvancementHolder parent
+	private ResourceLocation background
 	private boolean hidden = false
 
 	void name(String name) {
@@ -51,23 +51,23 @@ class AdvancementFactory {
 		this.icon = icon
 	}
 
-	void icon(ItemConvertible item) {
+	void icon(ItemLike item) {
 		icon new ItemStack(item)
 	}
 
-	void frame(AdvancementFrame frame) {
+	void frame(AdvancementType frame) {
 		this.frame = frame
 	}
 
-	void condition(AdvancementCriterion<? extends CriterionConditions> condition) {
+	void condition(Criterion<? extends CriterionTriggerInstance> condition) {
 		this.conditionsList << condition
 	}
 
-	void parent(AdvancementEntry advancement) {
+	void parent(AdvancementHolder advancement) {
 		this.parent = advancement
 	}
 
-	void background(Identifier identifier) {
+	void background(ResourceLocation identifier) {
 		this.background = identifier
 	}
 
@@ -75,16 +75,16 @@ class AdvancementFactory {
 		this.hidden = hidden
 	}
 
-	AdvancementEntry build() {
+	AdvancementHolder build() {
 		Objects.requireNonNull(name, "No name set")
 		assert conditionsList.size() > 0
 
-		def builder = Advancement.Builder.createUntelemetered()
+		def builder = Advancement.Builder.recipeAdvancement()
 
 		builder.display(
 			icon,
-			Text.translatable("advancements.techreborn.${name}"),
-			Text.translatable("advancements.techreborn.${name}.desc"),
+			Component.translatable("advancements.techreborn.${name}"),
+			Component.translatable("advancements.techreborn.${name}.desc"),
 			background,
 			frame,
 			true,
@@ -94,13 +94,13 @@ class AdvancementFactory {
 
 		int i = 0
 		conditionsList.forEach {
-			builder.criterion("crit_${i++}", it)
+			builder.addCriterion("crit_${i++}", it)
 		}
 
 		if (parent != null) {
 			builder.parent(parent)
 		}
 
-		return builder.build(Identifier.of("techreborn:${name}"))
+		return builder.build(ResourceLocation.parse("techreborn:${name}"))
 	}
 }

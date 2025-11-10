@@ -26,47 +26,47 @@ package techreborn.datagen.models
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import net.minecraft.block.Block
-import net.minecraft.client.data.ModelIds
-import net.minecraft.client.data.TextureKey
-import net.minecraft.client.data.TextureMap
-import net.minecraft.client.render.model.json.ModelElement
-import net.minecraft.client.render.model.json.ModelElementFace
-import net.minecraft.client.render.model.json.ModelRotation
-import net.minecraft.client.render.model.json.Transformation
-import net.minecraft.item.Item
-import net.minecraft.item.ItemDisplayContext
-import net.minecraft.util.Identifier
-import net.minecraft.util.math.AxisRotation
-import net.minecraft.util.math.Direction
+import net.minecraft.world.level.block.Block
+import net.minecraft.client.data.models.model.ModelLocationUtils
+import net.minecraft.client.data.models.model.TextureSlot
+import net.minecraft.client.data.models.model.TextureMapping
+import net.minecraft.client.renderer.block.model.BlockElement
+import net.minecraft.client.renderer.block.model.BlockElementFace
+import net.minecraft.client.renderer.block.model.BlockElementRotation
+import net.minecraft.client.renderer.block.model.ItemTransform
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemDisplayContext
+import net.minecraft.resources.ResourceLocation
+import com.mojang.math.Quadrant
+import net.minecraft.core.Direction
 import org.jetbrains.annotations.Nullable
 import org.joml.Vector3fc
 
 class JsonModel {
 	@Nullable
-	Identifier parent
+	ResourceLocation parent
 	@Nullable
 	DisplayMap display
 	@Nullable
-	TextureMap textures
+	TextureMapping textures
 	@Nullable
-	List<ModelElement> elements
+	List<BlockElement> elements
 	@Nullable
 	CtmMap ctm
 
 	@Nullable
 	String variant
 	@Nullable
-	TextureKey[] variantKeys
+	TextureSlot[] variantKeys
 	@Nullable
-	Identifier id
+	ResourceLocation id
 
 	JsonModel id(Object target) {
 		if (target instanceof Block) {
-			id = ModelIds.getBlockModelId(target)
+			id = ModelLocationUtils.getModelLocation(target)
 		} else if (target instanceof Item) {
-			id = ModelIds.getItemModelId(target)
-		} else if (target instanceof Identifier) {
+			id = ModelLocationUtils.getModelLocation(target)
+		} else if (target instanceof ResourceLocation) {
 			id = target
 		} else {
 			throw new IllegalArgumentException("Unknown target type: $target")
@@ -90,7 +90,7 @@ class JsonModel {
 		return model
 	}
 
-	JsonModel add(Identifier parent) {
+	JsonModel add(ResourceLocation parent) {
 		this.parent = parent
 		return this
 	}
@@ -105,7 +105,7 @@ class JsonModel {
 		return this
 	}
 
-	JsonModel add(TextureMap textures, TextureKey... keys) {
+	JsonModel add(TextureMapping textures, TextureSlot... keys) {
 		if (keys.length > 0) {
 			this.variantKeys = keys
 			this.textures = variant != null ? suffix(textures, keys, variant) : textures
@@ -115,7 +115,7 @@ class JsonModel {
 		return this
 	}
 
-	JsonModel add(List<ModelElement> elements) {
+	JsonModel add(List<BlockElement> elements) {
 		this.elements = elements
 		return this
 	}
@@ -132,19 +132,19 @@ class JsonModel {
 		}
 	}
 
-	Identifier upload() {
+	ResourceLocation upload() {
 		if (this.id == null) throw new IllegalStateException("No target specified")
-		Identifier id = variant == null || variant == "_off" ? this.id : this.id.withSuffixedPath(variant)
+		ResourceLocation id = variant == null || variant == "_off" ? this.id : this.id.withSuffix(variant)
 		ModelProvider.modelCollector.accept(id, () -> toJson())
 		return id
 	}
 
-	static TextureMap suffix(TextureMap textures, TextureKey[] keys, String variant) {
-		TextureMap map = textures
+	static TextureMapping suffix(TextureMapping textures, TextureSlot[] keys, String variant) {
+		TextureMapping map = textures
 		for (int i = 0, len = keys.length; i < len; i++) {
-			Identifier texture = map.getTexture(keys[i]).withSuffixedPath(variant)
+			ResourceLocation texture = map.get(keys[i]).withSuffix(variant)
 			if (i == 0) {
-				textures = map.copyAndAdd(keys[0], texture)
+				textures = map.copyAndUpdate(keys[0], texture)
 			} else {
 				textures.put(keys[i], texture)
 			}
@@ -153,13 +153,13 @@ class JsonModel {
 	}
 
 	static class DisplayMap {
-		final Map<ItemDisplayContext, Transformation> entries = new HashMap<>()
+		final Map<ItemDisplayContext, ItemTransform> entries = new HashMap<>()
 		DisplayMap create() {
 			DisplayMap display = new DisplayMap()
 			display.entries.putAll(entries)
 			return display
 		}
-		DisplayMap put(ItemDisplayContext mode, Transformation transformation) {
+		DisplayMap put(ItemDisplayContext mode, ItemTransform transformation) {
 			entries.put(mode, transformation)
 			return this
 		}
@@ -167,8 +167,8 @@ class JsonModel {
 
 	static class CtmMap {
 		final int version = 1
-		final TextureMap entries = new TextureMap()
-		CtmMap put(TextureKey key, Identifier id) {
+		final TextureMapping entries = new TextureMapping()
+		CtmMap put(TextureSlot key, ResourceLocation id) {
 			entries.put(key, id)
 			return this
 		}
@@ -190,7 +190,7 @@ class JsonModel {
 	private static JsonObject toJson(DisplayMap display) {
 		JsonObject json = new JsonObject()
 		display.entries.forEach((mode, transformation) -> {
-			json.add(mode.asString(), toJson(transformation))
+			json.add(mode.getSerializedName(), toJson(transformation))
 		})
 		return json
 	}
@@ -203,7 +203,7 @@ class JsonModel {
 		return data
 	}
 
-	private static JsonObject toJson(Transformation transformation) {
+	private static JsonObject toJson(ItemTransform transformation) {
 		JsonObject json = new JsonObject()
 		if (transformation.rotation().x() != 0 || transformation.rotation().y() != 0 || transformation.rotation().z() != 0) {
 			json.add("rotation", toJson(transformation.rotation()))
@@ -217,18 +217,18 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonObject toJson(TextureMap texture) {
+	private static JsonObject toJson(TextureMapping texture) {
 		JsonObject json = new JsonObject()
-		texture.entries.forEach((key, value) -> {
-			json.addProperty(key.getName(), value.toString())
+		texture.slots.forEach((key, value) -> {
+			json.addProperty(key.getId(), value.toString())
 		})
 		return json
 	}
 
-	private static JsonObject toJson(ModelRotation rotation) {
+	private static JsonObject toJson(BlockElementRotation rotation) {
 		JsonObject json = new JsonObject()
 		json.addProperty("angle", rotation.angle())
-		json.addProperty("axis", rotation.axis().asString())
+		json.addProperty("axis", rotation.axis().getSerializedName())
 		json.add("origin", toJson(rotation.origin()))
 		if (rotation.rescale()) {
 			json.addProperty("rescale", true)
@@ -236,7 +236,7 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonArray toJson(ModelElementFace.UV uv) {
+	private static JsonArray toJson(BlockElementFace.UVs uv) {
 		JsonArray json = new JsonArray()
 		json.add(uv.minU())
 		json.add(uv.minV())
@@ -245,41 +245,41 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonObject toJson(ModelElementFace face) {
+	private static JsonObject toJson(BlockElementFace face) {
 		JsonObject json = new JsonObject()
-		json.addProperty("texture", face.textureId())
-		Direction cullFace = face.cullFace()
+		json.addProperty("texture", face.texture())
+		Direction cullFace = face.cullForDirection()
 		if (cullFace != null) {
-			json.addProperty("cullface", cullFace.asString())
+			json.addProperty("cullface", cullFace.getSerializedName())
 		}
 		int tintIndex = face.tintIndex()
 		if (tintIndex != -1) {
 			json.addProperty("tintindex", tintIndex)
 		}
-		ModelElementFace.UV uv = face.uvs();
+		BlockElementFace.UVs uv = face.uvs()
 		if (uv != null) {
 			json.add("uv", toJson(uv))
 		}
-		if (face.rotation() != AxisRotation.R0) {
+		if (face.rotation() != Quadrant.R0) {
 			json.addProperty("rotation", switch (face.rotation()) {
-				case AxisRotation.R90 -> 90
-				case AxisRotation.R180 -> 180
-				case AxisRotation.R270 -> 270
+				case Quadrant.R90 -> 90
+				case Quadrant.R180 -> 180
+				case Quadrant.R270 -> 270
 				default -> 0
 			})
 		}
 		return json
 	}
 
-	private static JsonObject toJson(Map<Direction, ModelElementFace> faces) {
+	private static JsonObject toJson(Map<Direction, BlockElementFace> faces) {
 		JsonObject json = new JsonObject()
 		faces.forEach((direction, face) -> {
-			json.add(direction.asString(), toJson(face))
+			json.add(direction.getSerializedName(), toJson(face))
 		})
 		return json
 	}
 
-	private static JsonObject toJson(ModelElement element) {
+	private static JsonObject toJson(BlockElement element) {
 		JsonObject json = new JsonObject()
 		json.add("from", toJson(element.from()))
 		json.add("to", toJson(element.to()))
@@ -290,7 +290,7 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonArray toJson(List<ModelElement> elements) {
+	private static JsonArray toJson(List<BlockElement> elements) {
 		JsonArray json = new JsonArray()
 		elements.forEach((element) -> {
 			json.add(toJson(element))

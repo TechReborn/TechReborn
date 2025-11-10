@@ -25,18 +25,18 @@
 package techreborn.datagen.recipes.crafting
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.data.recipe.ShapedRecipeJsonBuilder
-import net.minecraft.data.recipe.ShapelessRecipeJsonBuilder
-import net.minecraft.data.recipe.StonecuttingRecipeJsonBuilder
-import net.minecraft.item.ItemConvertible
-import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
-import net.minecraft.recipe.StonecuttingRecipe
-import net.minecraft.recipe.book.RecipeCategory
-import net.minecraft.registry.RegistryKey
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.util.Identifier
+import net.minecraft.data.recipes.ShapedRecipeBuilder
+import net.minecraft.data.recipes.ShapelessRecipeBuilder
+import net.minecraft.data.recipes.SingleItemRecipeBuilder
+import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.crafting.StonecutterRecipe
+import net.minecraft.data.recipes.RecipeCategory
+import net.minecraft.resources.ResourceKey
+import net.minecraft.core.registries.Registries
+import net.minecraft.core.HolderLookup
+import net.minecraft.resources.ResourceLocation
 import reborncore.common.recipes.PaddedShapedRecipeJsonBuilder
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -46,7 +46,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Function
 
 class CraftingRecipesProvider extends TechRebornRecipesProvider {
-	CraftingRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	CraftingRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -196,51 +196,51 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("UUU")
 			.pattern("U  ")
 			.pattern("   ")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.ALUMINUM)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.ALUMINUM)))
 		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.CHROME)
 			.pattern("UUU")
 			.pattern("UU ")
 			.pattern(" U ")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.CHROME)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.CHROME)))
 		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.PLATINUM)
 			.pattern("UUU")
 			.pattern("UU ")
 			.pattern("   ")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.PLATINUM)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.PLATINUM)))
 		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.TITANIUM)
 			.pattern("UUU")
 			.pattern("U U")
 			.pattern("   ")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.TITANIUM)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.TITANIUM)))
 		// nuggets
 		dir = rootDir + "nugget/"
 		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Nuggets.NETHERITE)
 			.pattern("UUU")
 			.pattern("UUU")
 			.pattern("UU ")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Nuggets.NETHERITE)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Nuggets.NETHERITE)))
 		// raw ores
 		dir = rootDir + "raw/"
 		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, Items.RAW_COPPER)
 			.pattern("U  ")
 			.pattern("   ")
 			.pattern(" U ")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.RAW_COPPER)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.RAW_COPPER)))
 		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.LEAD)
 			.pattern("   ")
 			.pattern("U  ")
 			.pattern("U  ")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.LEAD)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.LEAD)))
 		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.TIN)
 			.pattern("   ")
 			.pattern(" U ")
 			.pattern("  U")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TIN)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TIN)))
 		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.TUNGSTEN)
 			.pattern("UUU")
 			.pattern("UUU")
 			.pattern("   ")
-			.offerTo(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TUNGSTEN)))
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TUNGSTEN)))
 	}
 
 	void generateMisc() {
@@ -249,17 +249,17 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("NDN")
 			.pattern("DDD")
 			.pattern("NDN")
-			.offerTo(this.exporter, getRecipeKey("crafting_table/parts/"+TRContent.Parts.TEMPLATE_TEMPLATE.name))
-		ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.MISC, new ItemStack(Items.RESIN_CLUMP, 2))
-			.input(TRContent.Parts.SAP, 2)
-			.input(Items.SLIME_BALL)
-			.criterion("has_sap", getCriterionConditions(TRContent.Parts.SAP))
-			.offerTo(this.exporter, getRecipeKey("crafting_table/parts/resin_clump"))
-		ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.MISC, new ItemStack(TRContent.Parts.SAP, 8))
-			.input(Items.RESIN_CLUMP, 4)
-			.input(Items.WATER_BUCKET)
-			.criterion("has_resin_clump", getCriterionConditions(Items.RESIN_CLUMP))
-			.offerTo(this.exporter, getRecipeKey("crafting_table/parts/sap"))
+			.save(this.exporter, getRecipeKey("crafting_table/parts/"+TRContent.Parts.TEMPLATE_TEMPLATE.name))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStack(Items.RESIN_CLUMP, 2))
+			.requires(TRContent.Parts.SAP, 2)
+			.requires(Items.SLIME_BALL)
+			.unlockedBy("has_sap", getCriterionConditions(TRContent.Parts.SAP))
+			.save(this.exporter, getRecipeKey("crafting_table/parts/resin_clump"))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStack(TRContent.Parts.SAP, 8))
+			.requires(Items.RESIN_CLUMP, 4)
+			.requires(Items.WATER_BUCKET)
+			.unlockedBy("has_resin_clump", getCriterionConditions(Items.RESIN_CLUMP))
+			.save(this.exporter, getRecipeKey("crafting_table/parts/sap"))
 	}
 
 	def static recipeNameString(String prefix, def input, def output, String source = null, String result = null) {
@@ -277,13 +277,13 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def static getRecipeKey(String name) {
-		return RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(TechReborn.MOD_ID, name))
+		return ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name))
 	}
 
-	def offerMonoShapelessRecipe(def input, int inputSize, ItemConvertible output, int outputSize, String source, prefix = "", String result = null, RecipeCategory category = RecipeCategory.MISC) {
-		ShapelessRecipeJsonBuilder.create(itemLookup, category, output, outputSize).input(createIngredient(input), inputSize)
-				.criterion(getCriterionName(input), getCriterionConditions(input))
-				.offerTo(this.exporter, getRecipeKey(recipeNameString(prefix, input, output, source, result)))
+	def offerMonoShapelessRecipe(def input, int inputSize, ItemLike output, int outputSize, String source, prefix = "", String result = null, RecipeCategory category = RecipeCategory.MISC) {
+		ShapelessRecipeBuilder.shapeless(itemLookup, category, output, outputSize).requires(createIngredient(input), inputSize)
+				.unlockedBy(getCriterionName(input), getCriterionConditions(input))
+				.save(this.exporter, getRecipeKey(recipeNameString(prefix, input, output, source, result)))
 	}
 
 	def static materialTypeString(String prefix, def material, String type, Function<?, String> modifier) {
@@ -295,144 +295,144 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		return s.toString()
 	}
 
-	def createMonoShapeRecipe(def input, ItemConvertible output, char character, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
-		return ShapedRecipeJsonBuilder.create(itemLookup, category, output, outputAmount)
-				.input(character, createIngredient(input))
-				.criterion(getCriterionName(input), getCriterionConditions(input))
+	def createMonoShapeRecipe(def input, ItemLike output, char character, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
+		return ShapedRecipeBuilder.shaped(itemLookup, category, output, outputAmount)
+				.define(character, createIngredient(input))
+				.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 	}
 
-	def createDuoShapeRecipe(def input1, def input2, ItemConvertible output, char char1, char char2, boolean crit1 = true, boolean crit2 = false, RecipeCategory category = RecipeCategory.MISC) {
-		ShapedRecipeJsonBuilder factory = ShapedRecipeJsonBuilder.create(itemLookup, category, output)
-				.input(char1, createIngredient(input1))
-				.input(char2, createIngredient(input2))
+	def createDuoShapeRecipe(def input1, def input2, ItemLike output, char char1, char char2, boolean crit1 = true, boolean crit2 = false, RecipeCategory category = RecipeCategory.MISC) {
+		ShapedRecipeBuilder factory = ShapedRecipeBuilder.shaped(itemLookup, category, output)
+				.define(char1, createIngredient(input1))
+				.define(char2, createIngredient(input2))
 		if (crit1)
-			factory = factory.criterion(getCriterionName(input1), getCriterionConditions(input1))
+			factory = factory.unlockedBy(getCriterionName(input1), getCriterionConditions(input1))
 		if (crit2)
-			factory = factory.criterion(getCriterionName(input2), getCriterionConditions(input2))
+			factory = factory.unlockedBy(getCriterionName(input2), getCriterionConditions(input2))
 		return factory
 	}
 
-	def createStonecutterRecipe(def input, ItemConvertible output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
-		return new StonecuttingRecipeJsonBuilder(category, StonecuttingRecipe.&new, createIngredient(input), output, outputAmount)
-				.criterion(getCriterionName(input), getCriterionConditions(input))
+	def createStonecutterRecipe(def input, ItemLike output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
+		return new SingleItemRecipeBuilder(category, StonecutterRecipe.&new, createIngredient(input), output, outputAmount)
+				.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 	}
 
-	def offerSlabRecipe(def material, ItemConvertible output, prefix = "") {
+	def offerSlabRecipe(def material, ItemLike output, prefix = "") {
 		createMonoShapeRecipe(material, output, 'X' as char, 6)
 				.pattern("XXX")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, "slab", TechRebornRecipesProvider::getName)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "slab", TechRebornRecipesProvider::getName)))
 	}
 
-	def offerSlabRecipeStonecutter(def material, ItemConvertible output, prefix = "") {
+	def offerSlabRecipeStonecutter(def material, ItemLike output, prefix = "") {
 		createStonecutterRecipe(material, output, 2)
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, "slab", TechRebornRecipesProvider::getName) + "_stonecutter"))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "slab", TechRebornRecipesProvider::getName) + "_stonecutter"))
 	}
 
-	def offerStairsRecipe(def material, ItemConvertible output, prefix = "") {
+	def offerStairsRecipe(def material, ItemLike output, prefix = "") {
 		createMonoShapeRecipe(material, output, 'X' as char, 4)
 				.pattern("X  ")
 				.pattern("XX ")
 				.pattern("XXX")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, "stairs", TechRebornRecipesProvider::getName)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "stairs", TechRebornRecipesProvider::getName)))
 	}
 
-	def offerStairsRecipeStonecutter(def material, ItemConvertible output, prefix = "") {
+	def offerStairsRecipeStonecutter(def material, ItemLike output, prefix = "") {
 		createStonecutterRecipe(material, output)
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, "stairs", TechRebornRecipesProvider::getName) + "_stonecutter"))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "stairs", TechRebornRecipesProvider::getName) + "_stonecutter"))
 	}
 
-	def offerWallRecipe(def material, ItemConvertible output, prefix = "") {
+	def offerWallRecipe(def material, ItemLike output, prefix = "") {
 		createMonoShapeRecipe(material, output, 'X' as char, 6)
 				.pattern("XXX")
 				.pattern("XXX")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, "wall", TechRebornRecipesProvider::getName)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "wall", TechRebornRecipesProvider::getName)))
 	}
 
-	def offerWallRecipeStonecutter(def material, ItemConvertible output, prefix = "") {
+	def offerWallRecipeStonecutter(def material, ItemLike output, prefix = "") {
 		createStonecutterRecipe(material, output)
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, "wall", TechRebornRecipesProvider::getName) + "_stonecutter"))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "wall", TechRebornRecipesProvider::getName) + "_stonecutter"))
 	}
 
-	def offerAxeRecipe(def material, ItemConvertible output, prefix = "", String type = "axe") {
+	def offerAxeRecipe(def material, ItemLike output, prefix = "", String type = "axe") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("XX")
 				.pattern("X#")
 				.pattern(" #")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerHoeRecipe(def material, ItemConvertible output, prefix = "", String type = "hoe") {
+	def offerHoeRecipe(def material, ItemLike output, prefix = "", String type = "hoe") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("XX")
 				.pattern(" #")
 				.pattern(" #")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerPickaxeRecipe(def material, ItemConvertible output, prefix = "", String type = "pickaxe") {
+	def offerPickaxeRecipe(def material, ItemLike output, prefix = "", String type = "pickaxe") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("XXX")
 				.pattern(" # ")
 				.pattern(" # ")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerShovelRecipe(def material, ItemConvertible output, prefix = "", String type = "shovel") {
+	def offerShovelRecipe(def material, ItemLike output, prefix = "", String type = "shovel") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("X")
 				.pattern("#")
 				.pattern("#")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerSwordRecipe(def material, ItemConvertible output, prefix = "", String type = "sword") {
+	def offerSwordRecipe(def material, ItemLike output, prefix = "", String type = "sword") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("X")
 				.pattern("X")
 				.pattern("#")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerBootsRecipe(def material, ItemConvertible output, prefix = "", String type = "boots") {
+	def offerBootsRecipe(def material, ItemLike output, prefix = "", String type = "boots") {
 		createMonoShapeRecipe(material, output, 'X' as char)
 				.pattern("X X")
 				.pattern("X X")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerChestplateRecipe(def material, ItemConvertible output, prefix = "", String type = "chestplate") {
+	def offerChestplateRecipe(def material, ItemLike output, prefix = "", String type = "chestplate") {
 		createMonoShapeRecipe(material, output, 'X' as char)
 				.pattern("X X")
 				.pattern("XXX")
 				.pattern("XXX")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerHelmetRecipe(def material, ItemConvertible output, prefix = "", String type = "helmet") {
+	def offerHelmetRecipe(def material, ItemLike output, prefix = "", String type = "helmet") {
 		createMonoShapeRecipe(material, output, 'X' as char)
 				.pattern("XXX")
 				.pattern("X X")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerLeggingsRecipe(def material, ItemConvertible output, prefix = "", String type = "leggings") {
+	def offerLeggingsRecipe(def material, ItemLike output, prefix = "", String type = "leggings") {
 		createMonoShapeRecipe(material, output, 'X' as char)
 				.pattern("XXX")
 				.pattern("X X")
 				.pattern("X X")
-				.offerTo(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def createPureUuMatterPaddedRecipe(RecipeCategory category, ItemConvertible output) {
+	def createPureUuMatterPaddedRecipe(RecipeCategory category, ItemLike output) {
 		var input = TRContent.Parts.UU_MATTER
-		return PaddedShapedRecipeJsonBuilder.create(itemLookup, category, output, 1)
-			.input('U' as char, createIngredient(input))
-			.criterion(getCriterionName(input), getCriterionConditions(input))
+		return PaddedShapedRecipeJsonBuilder.shaped(itemLookup, category, output, 1)
+			.define('U' as char, createIngredient(input))
+			.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 	}
 
 }

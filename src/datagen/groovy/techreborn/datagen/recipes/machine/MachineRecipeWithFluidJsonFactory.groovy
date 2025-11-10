@@ -24,9 +24,9 @@
 
 package techreborn.datagen.recipes.machine
 
-import net.minecraft.fluid.Fluid
-import net.minecraft.fluid.Fluids
-import net.minecraft.recipe.RecipeType
+import net.minecraft.world.level.material.Fluid
+import net.minecraft.world.level.material.Fluids
+import net.minecraft.world.item.crafting.RecipeType
 import reborncore.common.crafting.RebornFluidRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.ModFluids

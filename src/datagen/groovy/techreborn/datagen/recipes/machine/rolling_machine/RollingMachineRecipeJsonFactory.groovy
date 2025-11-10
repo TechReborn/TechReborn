@@ -24,14 +24,14 @@
 
 package techreborn.datagen.recipes.machine.rolling_machine
 
-import net.minecraft.data.recipe.CraftingRecipeJsonBuilder
-import net.minecraft.item.ItemStack
-import net.minecraft.recipe.RawShapedRecipe
-import net.minecraft.recipe.ShapedRecipe
-import net.minecraft.registry.Registries
-import net.minecraft.registry.RegistryKey
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.util.Identifier
+import net.minecraft.data.recipes.RecipeBuilder
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.ShapedRecipePattern
+import net.minecraft.world.item.crafting.ShapedRecipe
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceKey
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceLocation
 import techreborn.recipe.recipes.RollingMachineRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.crafting.ShapedRecipeFactory
@@ -75,12 +75,12 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 	@SuppressWarnings('GroovyAccessibility')
 	protected RollingMachineRecipe createRecipe() {
 		def builder = shapedRecipeFactory.build()
-		RawShapedRecipe rawShapedRecipe = builder.validate(RegistryKey.of(RegistryKeys.RECIPE, Identifier.of("dummy")))
+		ShapedRecipePattern rawShapedRecipe = builder.ensureValid(ResourceKey.create(Registries.RECIPE, ResourceLocation.withDefaultNamespace("dummy")))
 		ShapedRecipe shapedRecipe = new ShapedRecipe(
 			Objects.requireNonNullElse(builder.group, ""),
-			CraftingRecipeJsonBuilder.toCraftingCategory(builder.category),
+			RecipeBuilder.determineBookCategory(builder.category),
 			rawShapedRecipe,
-			new ItemStack(builder.output, builder.count),
+			new ItemStack(builder.result, builder.count),
 			builder.showNotification
 		)
 		return new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, power, time, shapedRecipe)
@@ -88,9 +88,9 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 
 	@Override
 	def getIdentifier() {
-		def outputId = Registries.ITEM.getId(shapedRecipeFactory.output.item)
-		def recipeId = Registries.RECIPE_TYPE.getId(type)
-		return Identifier.of("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
+		def outputId = BuiltInRegistries.ITEM.getKey(shapedRecipeFactory.output.item)
+		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
+		return ResourceLocation.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	@Override

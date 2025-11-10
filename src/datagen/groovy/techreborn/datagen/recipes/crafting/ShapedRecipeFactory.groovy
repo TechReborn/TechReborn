@@ -24,20 +24,20 @@
 
 package techreborn.datagen.recipes.crafting
 
-import net.minecraft.data.recipe.RecipeGenerator
-import net.minecraft.data.recipe.ShapedRecipeJsonBuilder
-import net.minecraft.item.Item
-import net.minecraft.item.ItemConvertible
-import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
-import net.minecraft.recipe.Ingredient
-import net.minecraft.recipe.book.RecipeCategory
-import net.minecraft.registry.RegistryEntryLookup
-import net.minecraft.registry.tag.TagKey
+import net.minecraft.data.recipes.RecipeProvider
+import net.minecraft.data.recipes.ShapedRecipeBuilder
+import net.minecraft.world.item.Item
+import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.data.recipes.RecipeCategory
+import net.minecraft.core.HolderGetter
+import net.minecraft.tags.TagKey
 
 class ShapedRecipeFactory {
-	public RecipeGenerator generator
-	public RegistryEntryLookup<Item> itemLookup
+	public RecipeProvider generator
+	public HolderGetter<Item> itemLookup
 	int width
 	int height
 
@@ -45,7 +45,7 @@ class ShapedRecipeFactory {
 	ItemStack output
 	RecipeCategory category = RecipeCategory.MISC
 
-	ShapedRecipeFactory(RecipeGenerator generator, RegistryEntryLookup<Item> itemLookup, int width, int height) {
+	ShapedRecipeFactory(RecipeProvider generator, HolderGetter<Item> itemLookup, int width, int height) {
 		this.generator = generator
 		this.itemLookup = itemLookup
 		this.width = width
@@ -80,11 +80,11 @@ class ShapedRecipeFactory {
 		this.pattern = pattern
 	}
 
-	ShapedRecipeJsonBuilder build() {
+	ShapedRecipeBuilder build() {
 		Objects.requireNonNull(output, "Output not set")
 		Objects.requireNonNull(pattern, "Pattern not set")
 
-		ShapedRecipeJsonBuilder builder = ShapedRecipeJsonBuilder.create(itemLookup, category, output.item, output.count)
+		ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(itemLookup, category, output.item, output.count)
 
 		List<String> rows = []
 		Map<Object, Character> ingredients = makeIngredients()
@@ -103,10 +103,10 @@ class ShapedRecipeFactory {
 		}
 
 		rows.each { builder.pattern(it) }
-		ingredients.each { builder.input(it.value, toIngredient(it.key)) }
+		ingredients.each { builder.define(it.value, toIngredient(it.key)) }
 
 		// TODO, this is just to make the validation pass
-		builder.criterion(RecipeGenerator.hasItem(Items.AIR), generator.conditionsFromItem(Items.AIR))
+		builder.unlockedBy(RecipeProvider.getHasName(Items.AIR), generator.has(Items.AIR))
 
 		return builder
 	}
@@ -139,11 +139,11 @@ class ShapedRecipeFactory {
 		if (object instanceof Ingredient) {
 			return object
 		} else if (object instanceof ItemStack) {
-			return Ingredient.ofStacks(object)
-		} else if (object instanceof ItemConvertible) {
-			return Ingredient.ofItems(object)
+			return Ingredient.of(object)
+		} else if (object instanceof ItemLike) {
+			return Ingredient.of(object)
 		} else if (object instanceof TagKey) {
-			return Ingredient.ofTag(itemLookup.getOrThrow(object))
+			return Ingredient.of(itemLookup.getOrThrow(object))
 		} else {
 			throw new IllegalArgumentException("Invalid pattern element: $object")
 		}

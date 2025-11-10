@@ -26,22 +26,22 @@ package techreborn.datagen.tags
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.tag.PointOfInterestTypeTags
-import net.minecraft.world.poi.PointOfInterestType
+import net.minecraft.core.registries.Registries
+import net.minecraft.core.HolderLookup
+import net.minecraft.tags.PoiTypeTags
+import net.minecraft.world.entity.ai.village.poi.PoiType
 import techreborn.init.TRVillager
 
 import java.util.concurrent.CompletableFuture
 
-class TRPointOfInterestTagProvider extends FabricTagProvider<PointOfInterestType> {
-	TRPointOfInterestTagProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-		super(dataOutput, RegistryKeys.POINT_OF_INTEREST_TYPE, registriesFuture)
+class TRPointOfInterestTagProvider extends FabricTagProvider<PoiType> {
+	TRPointOfInterestTagProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(dataOutput, Registries.POINT_OF_INTEREST_TYPE, registriesFuture)
 	}
 
 	@Override
-	protected void configure(RegistryWrapper.WrapperLookup arg) {
-		builder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE)
+	protected void addTags(HolderLookup.Provider arg) {
+		builder(PoiTypeTags.ACQUIRABLE_JOB_SITE)
 			.add(TRVillager.METALLURGIST_POI_KEY)
 			.add(TRVillager.ELECTRICIAN_POI_KEY)
 	}

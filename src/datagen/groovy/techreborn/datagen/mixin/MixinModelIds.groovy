@@ -24,35 +24,35 @@
 
 package techreborn.datagen.mixin
 
-import net.minecraft.block.Block
-import net.minecraft.client.data.ModelIds
-import net.minecraft.item.Item
-import net.minecraft.util.Identifier
+import net.minecraft.world.level.block.Block
+import net.minecraft.client.data.models.model.ModelLocationUtils
+import net.minecraft.world.item.Item
+import net.minecraft.resources.ResourceLocation
 import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import techreborn.datagen.models.TexturePaths
 
-@Mixin(ModelIds.class)
+@Mixin(ModelLocationUtils.class)
 class MixinModelIds {
-	@Inject(method = "getItemModelId(Lnet/minecraft/item/Item;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
-	private static void getItemModelId(Item item, CallbackInfoReturnable<Identifier> cir) {
+	@Inject(method = "getModelLocation(Lnet/minecraft/world/item/Item;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
+	private static void getModelLocation(Item item, CallbackInfoReturnable<ResourceLocation> cir) {
 		TexturePaths.ifPresent(item, cir::setReturnValue)
 	}
 
-	@Inject(method = "getItemSubModelId(Lnet/minecraft/item/Item;Ljava/lang/String;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
-	private static void getItemSubModelId(Item item, String suffix, CallbackInfoReturnable<Identifier> cir) {
+	@Inject(method = "getModelLocation(Lnet/minecraft/world/item/Item;Ljava/lang/String;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
+	private static void getModelLocation(Item item, String suffix, CallbackInfoReturnable<ResourceLocation> cir) {
 		TexturePaths.ifPresent(item, suffix, cir::setReturnValue)
 	}
 
-	@Inject(method = "getBlockModelId(Lnet/minecraft/block/Block;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
-	private static void getBlockModelId(Block block, CallbackInfoReturnable<Identifier> cir) {
+	@Inject(method = "getModelLocation(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
+	private static void getModelLocation(Block block, CallbackInfoReturnable<ResourceLocation> cir) {
 		TexturePaths.ifPresent(block, cir::setReturnValue)
 	}
 
-	@Inject(method = "getBlockSubModelId(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
-	private static void getBlockSubModelId(Block block, String suffix, CallbackInfoReturnable<Identifier> cir) {
+	@Inject(method = "getModelLocation(Lnet/minecraft/world/level/block/Block;Ljava/lang/String;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
+	private static void getModelLocation(Block block, String suffix, CallbackInfoReturnable<ResourceLocation> cir) {
 		TexturePaths.ifPresent(block, suffix, cir::setReturnValue)
 	}
 }

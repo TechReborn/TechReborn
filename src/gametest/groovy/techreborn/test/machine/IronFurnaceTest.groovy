@@ -25,7 +25,7 @@
 package techreborn.test.machine
 
 
-import net.minecraft.item.Items
+import net.minecraft.world.item.Items
 import net.minecraft.test.GameTest
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity
 import techreborn.config.TechRebornConfig

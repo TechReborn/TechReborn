@@ -24,10 +24,10 @@
 
 package techreborn.test
 
-import net.minecraft.item.ItemConvertible
-import net.minecraft.item.ItemStack
+import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.ItemStack
 import net.minecraft.test.TestContext
-import net.minecraft.util.math.BlockPos
+import net.minecraft.core.BlockPos
 import reborncore.common.blockentity.MachineBaseBlockEntity
 import techreborn.init.TRContent
 
@@ -76,7 +76,7 @@ class TRTestContext extends TestContext {
 			this.machinePos = machinePos
 		}
 
-		def input(ItemConvertible item, int slot = -1) {
+		def input(ItemLike item, int slot = -1) {
 			this.input(new ItemStack(item), slot)
 		}
 
@@ -89,7 +89,7 @@ class TRTestContext extends TestContext {
 			blockEntity.inventory.setStack(slot, stack)
 		}
 
-		def expectOutput(ItemConvertible item, int ticks, int slot = -1) {
+		def expectOutput(ItemLike item, int ticks, int slot = -1) {
 			expectOutput(new ItemStack(item), ticks, slot)
 		}
 

@@ -24,39 +24,39 @@
 
 package techreborn.datagen.models
 
-import net.minecraft.block.Block
-import net.minecraft.client.data.BlockStateVariantMap
-import net.minecraft.client.data.MultipartBlockModelDefinitionCreator
-import net.minecraft.client.data.VariantsBlockModelDefinitionCreator
-import net.minecraft.client.render.model.json.ModelVariantOperator
-import net.minecraft.client.render.model.json.MultipartModelConditionBuilder
-import net.minecraft.client.render.model.json.WeightedVariant
+import net.minecraft.world.level.block.Block
+import net.minecraft.client.data.models.blockstates.PropertyDispatch
+import net.minecraft.client.data.models.blockstates.MultiPartGenerator
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
+import net.minecraft.client.renderer.block.model.VariantMutator
+import net.minecraft.client.data.models.blockstates.ConditionBuilder
+import net.minecraft.client.data.models.MultiVariant
 import org.jetbrains.annotations.Nullable
 
 class StateModel {
-	List<WeightedVariant> variants = new ArrayList<>()
-	List<BlockStateVariantMap<?>> variantMaps = new ArrayList<>()
+	List<MultiVariant> variants = new ArrayList<>()
+	List<PropertyDispatch<?>> variantMaps = new ArrayList<>()
 	@Nullable
-	List<MultipartModelConditionBuilder> conditions
+	List<ConditionBuilder> conditions
 
 	StateModel multipart() {
 		conditions = new ArrayList<>()
 		return this
 	}
 
-	StateModel add(WeightedVariant variant) {
+	StateModel add(MultiVariant variant) {
 		variants.add(variant)
 		if (conditions != null) conditions.add(null)
 		return this
 	}
 
-	StateModel add(MultipartModelConditionBuilder condition, WeightedVariant variant) {
+	StateModel add(ConditionBuilder condition, MultiVariant variant) {
 		variants.add(variant)
 		conditions.add(condition)
 		return this
 	}
 
-	StateModel add(BlockStateVariantMap<?> map) {
+	StateModel add(PropertyDispatch<?> map) {
 		variantMaps.add(map)
 		return this
 	}
@@ -69,34 +69,34 @@ class StateModel {
 
 	void upload(Block block) {
 		if (conditions == null) {
-			VariantsBlockModelDefinitionCreator supplier
+			MultiVariantGenerator supplier
 			if (variants.isEmpty()) {
-				VariantsBlockModelDefinitionCreator.Empty empty = VariantsBlockModelDefinitionCreator.of(block)
+				MultiVariantGenerator.Empty empty = MultiVariantGenerator.dispatch(block)
 				if (variantMaps.isEmpty()) {
 					throw new IllegalStateException("No target specified")
 				}
-				supplier = empty.with(variantMaps.get(0) as BlockStateVariantMap<WeightedVariant>)
+				supplier = empty.with(variantMaps.get(0) as PropertyDispatch<MultiVariant>)
 				for (int i = 1, len = variantMaps.size(); i < len; i++) {
-					supplier = supplier.coordinate(variantMaps.get(i) as BlockStateVariantMap<ModelVariantOperator>)
+					supplier = supplier.with(variantMaps.get(i) as PropertyDispatch<VariantMutator>)
 				}
 			} else {
-				supplier = VariantsBlockModelDefinitionCreator.of(block, variants.get(0))
-				for (BlockStateVariantMap<?> map : variantMaps) {
-					supplier = supplier.coordinate(map as BlockStateVariantMap<ModelVariantOperator>)
+				supplier = MultiVariantGenerator.dispatch(block, variants.get(0))
+				for (PropertyDispatch<?> map : variantMaps) {
+					supplier = supplier.with(map as PropertyDispatch<VariantMutator>)
 				}
 			}
-			ModelProvider.stateGenerator.blockStateCollector.accept(supplier)
+			ModelProvider.stateGenerator.blockStateOutput.accept(supplier)
 		} else {
-			MultipartBlockModelDefinitionCreator supplier = MultipartBlockModelDefinitionCreator.create(block)
+			MultiPartGenerator supplier = MultiPartGenerator.multiPart(block)
 			for (int i = 0, len = conditions.size(); i < len; i++) {
-				MultipartModelConditionBuilder condition = conditions.get(i)
+				ConditionBuilder condition = conditions.get(i)
 				if (condition == null) {
 					supplier.with(variants.get(i))
 				} else {
 					supplier.with(condition, variants.get(i))
 				}
 			}
-			ModelProvider.stateGenerator.blockStateCollector.accept(supplier)
+			ModelProvider.stateGenerator.blockStateOutput.accept(supplier)
 		}
 	}
 }

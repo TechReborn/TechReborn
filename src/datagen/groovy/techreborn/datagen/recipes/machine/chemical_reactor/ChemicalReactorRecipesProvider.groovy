@@ -25,11 +25,11 @@
 package techreborn.datagen.recipes.machine.chemical_reactor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.fluid.Fluids
-import net.minecraft.item.Item
-import net.minecraft.item.Items
-import net.minecraft.registry.Registries
-import net.minecraft.registry.RegistryWrapper
+import net.minecraft.world.level.material.Fluids
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.Items
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.HolderLookup
 import reborncore.common.util.ColoredItem
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -43,7 +43,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 	public final int DYE_POWER = 25
 	public final int DYE_TIME = 250
 
-	ChemicalReactorRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	ChemicalReactorRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -169,7 +169,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	static def getColorSource(Item item, ColoredItem color) {
-		return Registries.ITEM.getId(item).path + "_with_" + Registries.ITEM.getId(color.getDye()).path
+		return BuiltInRegistries.ITEM.getKey(item).path + "_with_" + BuiltInRegistries.ITEM.getKey(color.getDye()).path
 	}
 
 	// no recipes for beds and banners since the chemical reactor cannot color partially

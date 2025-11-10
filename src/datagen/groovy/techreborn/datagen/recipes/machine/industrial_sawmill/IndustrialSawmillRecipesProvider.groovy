@@ -25,11 +25,9 @@
 package techreborn.datagen.recipes.machine.industrial_sawmill
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.tag.ItemTags
-import net.minecraft.resource.featuretoggle.FeatureFlags
+import net.minecraft.world.item.Items
+import net.minecraft.core.HolderLookup
+import net.minecraft.tags.ItemTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -37,7 +35,7 @@ import java.util.concurrent.CompletableFuture
 
 class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 
-	IndustrialSawmillRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	IndustrialSawmillRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -140,7 +138,7 @@ class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 				power 30
 				time 200
 				fluidAmount 125*count // in millibuckets
-				source item.id().path
+				source item.location().path
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}

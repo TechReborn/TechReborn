@@ -27,12 +27,12 @@ package techreborn.datagen.tags
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.BlockTagProvider
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags
-import net.minecraft.block.Blocks
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.tag.BlockTags
-import net.minecraft.registry.tag.TagKey
-import net.minecraft.util.Identifier
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.core.registries.Registries
+import net.minecraft.core.HolderLookup
+import net.minecraft.tags.BlockTags
+import net.minecraft.tags.TagKey
+import net.minecraft.resources.ResourceLocation
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
@@ -40,15 +40,15 @@ import java.util.concurrent.CompletableFuture
 
 class TRBlockTagProvider extends BlockTagProvider {
 
-	TRBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	TRBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
 	@Override
-	protected void configure(RegistryWrapper.WrapperLookup lookup) {
+	protected void addTags(HolderLookup.Provider lookup) {
 		valueLookupBuilder(TRContent.BlockTags.DRILL_MINEABLE)
-			.addOptionalTag(BlockTags.PICKAXE_MINEABLE)
-			.addOptionalTag(BlockTags.SHOVEL_MINEABLE)
+			.addOptionalTag(BlockTags.MINEABLE_WITH_PICKAXE)
+			.addOptionalTag(BlockTags.MINEABLE_WITH_SHOVEL)
 
 		valueLookupBuilder(TRContent.BlockTags.JACKHAMMER_MINEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_NETHER)
@@ -58,7 +58,7 @@ class TRBlockTagProvider extends BlockTagProvider {
 			.addOptionalTag(BlockTags.SNOW)
 			.addOptionalTag(BlockTags.NYLIUM)
 			.addOptionalTag(BlockTags.WART_BLOCKS)
-			.addOptionalTag(TagKey.of(RegistryKeys.BLOCK, Identifier.of("c","stone")))
+			.addOptionalTag(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c","stone")))
 			.addOptional(Blocks.END_STONE)
 			.addOptional(Blocks.SAND)
 			.addOptional(Blocks.RED_SAND)
@@ -72,16 +72,16 @@ class TRBlockTagProvider extends BlockTagProvider {
 
 		valueLookupBuilder(TRContent.BlockTags.OMNI_TOOL_MINEABLE)
 			.addTag(TRContent.BlockTags.DRILL_MINEABLE)
-			.addOptionalTag(BlockTags.AXE_MINEABLE)
+			.addOptionalTag(BlockTags.MINEABLE_WITH_AXE)
 		// TODO 1.20.5
 //			.addOptionalTag(FabricMineableTags.SHEARS_MINEABLE.id())
 //			.addOptionalTag(FabricMineableTags.SWORD_MINEABLE.id())
 
-		valueLookupBuilder(BlockTags.HOE_MINEABLE)
+		valueLookupBuilder(BlockTags.MINEABLE_WITH_HOE)
 			.add(TRContent.RUBBER_LEAVES)
 
 		TRContent.Ores.values().each {
-			valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+			valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 				.add(it.block)
 		}
 
@@ -91,12 +91,12 @@ class TRBlockTagProvider extends BlockTagProvider {
 		}
 
 		TRContent.StorageBlocks.values().each {
-			valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+			valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 				.add(it.block, it.stairsBlock, it.slabBlock, it.wallBlock)
 		}
 
 		TRContent.MachineBlocks.values().each {
-			valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+			valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 				.add(it.casing)
 		}
 
@@ -176,7 +176,7 @@ class TRBlockTagProvider extends BlockTagProvider {
 		}
 
 		valueLookupBuilder(TRContent.BlockTags.NONE_SOLID_COVERS)
-			.addOptionalTag(TagKey.of(RegistryKeys.BLOCK, Identifier.of("ae2", "whitelisted/facades")))
+			.addOptionalTag(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ae2", "whitelisted/facades")))
 			.forceAddTag(ConventionalBlockTags.GLASS_BLOCKS)
 	}
 }
