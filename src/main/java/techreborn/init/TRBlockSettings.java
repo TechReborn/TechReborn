@@ -69,7 +69,7 @@ public class TRBlockSettings {
 			.setId(key(name));
 
 		if (noCollision) {
-			settings.noCollission();
+			settings.noCollision();
 		}
 
 		return settings;
