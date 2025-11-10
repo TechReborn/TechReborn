@@ -62,7 +62,7 @@ public class ChunkLoaderManager extends SavedData {
 	private static final int RADIUS = 1;
 
 	public static void register() {
-		CHUNK_LOADER = TicketType.register("reborncore:chunk_loader", 0L, true, TicketType.TicketUse.LOADING_AND_SIMULATION);
+		CHUNK_LOADER = TicketType.register("reborncore:chunk_loader", 0L, 15);
 	}
 
 	public ChunkLoaderManager() {
