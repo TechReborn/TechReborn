@@ -31,7 +31,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.SpecialGuiElementRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -52,7 +52,9 @@ public class RebornCoreClient implements ClientModInitializer {
 		ClientBoundPacketHandlers.init();
 		HudRenderCallback.EVENT.register(new ItemStackRenderer());
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
-		WorldRenderEvents.BLOCK_OUTLINE.register(new BlockOutlineRenderer());
+		BlockOutlineRenderer outline = new BlockOutlineRenderer();
+		WorldRenderEvents.AFTER_BLOCK_OUTLINE_EXTRACTION.register(outline);
+		WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register(outline);
 		SpecialGuiElementRegistry.register(MachineFaceElementRenderer::new);
 
 		/* register UnloadHandler */
