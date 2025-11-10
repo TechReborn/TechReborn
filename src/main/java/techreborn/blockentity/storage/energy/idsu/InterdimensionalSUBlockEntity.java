@@ -61,7 +61,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return EnergyStorage.EMPTY;
 		}
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			// Can't access the global storage, return a dummy. (Only for existence checks)
 			return new SimpleEnergyStorage(TechRebornConfig.idsuMaxEnergy, 0, 0);
 		}
@@ -84,7 +84,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return 0;
 		}
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return clientEnergy;
 		}
 		return IDSUManager.getPlayer(level.getServer(), ownerUdid).getEnergy();
@@ -95,7 +95,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return;
 		}
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			clientEnergy = energy;
 		} else {
 			IDSUManager.getPlayer(level.getServer(), ownerUdid).setEnergy(energy);
@@ -107,7 +107,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return;
 		}
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			throw new UnsupportedOperationException("cannot set energy on the client!");
 		}
 		long energy = IDSUManager.getPlayer(level.getServer(), ownerUdid).getEnergy();

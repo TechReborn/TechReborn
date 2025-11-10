@@ -66,7 +66,7 @@ public class UseBlockHandler implements UseBlockCallback{
 			if (strippedBlock != null) {
 				// Play stripping sound
 				world.playSound(playerEntity, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-				if (world.isClientSide) {
+				if (world.isClientSide()) {
 					return InteractionResult.SUCCESS;
 				}
 

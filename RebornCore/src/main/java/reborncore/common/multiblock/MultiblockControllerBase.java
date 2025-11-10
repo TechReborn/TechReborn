@@ -153,7 +153,7 @@ public abstract class MultiblockControllerBase {
 		if (!connectedParts.add(part)) {
 			RebornCore.LOGGER.warn(
 				String.format("[%s] Controller %s is double-adding part %d @ %s. This is unusual. If you encounter odd behavior, please tear down the machine and rebuild it.",
-					(worldObj.isClientSide ? "CLIENT" : "SERVER"), hashCode(), part.hashCode(), coord));
+					(worldObj.isClientSide() ? "CLIENT" : "SERVER"), hashCode(), part.hashCode(), coord));
 		}
 
 		part.onAttached(this);
@@ -294,7 +294,7 @@ public abstract class MultiblockControllerBase {
 		if (!connectedParts.remove(part)) {
 			RebornCore.LOGGER.warn(
 				String.format("[%s] Double-removing part (%d) @ %d, %d, %d, this is unexpected and may cause problems. If you encounter anomalies, please tear down the reactor and rebuild it.",
-					worldObj.isClientSide ? "CLIENT" : "SERVER", part.hashCode(), part.getBlockPos().getX(),
+					worldObj.isClientSide() ? "CLIENT" : "SERVER", part.hashCode(), part.getBlockPos().getX(),
 					part.getBlockPos().getY(), part.getBlockPos().getZ()));
 		}
 
@@ -544,7 +544,7 @@ public abstract class MultiblockControllerBase {
 			return;
 		}
 
-		if (worldObj.isClientSide) {
+		if (worldObj.isClientSide()) {
 			updateClient();
 		} else if (updateServer()) {
 			// If this returns true, the server has changed its internal data.
@@ -799,7 +799,7 @@ public abstract class MultiblockControllerBase {
 			// Strip dead parts from both and retry
 			RebornCore.LOGGER.warn(
 				String.format("[%s] Encountered two controllers with the same reference coordinate. Auditing connected parts and retrying.",
-					worldObj.isClientSide ? "CLIENT" : "SERVER"));
+					worldObj.isClientSide() ? "CLIENT" : "SERVER"));
 			auditParts();
 			otherController.auditParts();
 
@@ -813,7 +813,7 @@ public abstract class MultiblockControllerBase {
 					getPartsListString()));
 				RebornCore.LOGGER.error(String.format("Other Controller (%d): size (%d), coords: %s", otherController.hashCode(),
 					otherController.connectedParts.size(), otherController.getPartsListString()));
-				throw new IllegalArgumentException("[" + (worldObj.isClientSide ? "CLIENT" : "SERVER")
+				throw new IllegalArgumentException("[" + (worldObj.isClientSide() ? "CLIENT" : "SERVER")
 					+ "] Two controllers with the same reference coord that somehow both have valid parts - this should never happen!");
 			}
 
@@ -863,7 +863,7 @@ public abstract class MultiblockControllerBase {
 
 		connectedParts.removeAll(deadParts);
 		RebornCore.LOGGER.warn(String.format("[%s] Controller found %d dead parts during an audit, %d parts remain attached",
-			worldObj.isClientSide ? "CLIENT" : "SERVER", deadParts.size(), connectedParts.size()));
+			worldObj.isClientSide() ? "CLIENT" : "SERVER", deadParts.size(), connectedParts.size()));
 	}
 
 	/**
@@ -1071,7 +1071,7 @@ public abstract class MultiblockControllerBase {
 	 * @see MultiblockControllerBase#markReferenceCoordForUpdate()
 	 */
 	protected void markReferenceCoordDirty() {
-		if (worldObj == null || worldObj.isClientSide) {
+		if (worldObj == null || worldObj.isClientSide()) {
 			return;
 		}
 

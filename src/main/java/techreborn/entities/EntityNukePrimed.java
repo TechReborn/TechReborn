@@ -90,7 +90,7 @@ public class EntityNukePrimed extends PrimedTnt {
 
 		if (this.getFuse() <= 0) {
 			this.remove(RemovalReason.KILLED);
-			if (!this.level().isClientSide) {
+			if (!this.level().isClientSide()) {
 				this.explodeNuke();
 			}
 		} else {

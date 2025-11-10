@@ -131,7 +131,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	 * Call this on the blockEntity tick
 	 */
 	public void updateEntity() {
-		if (blockEntity.getLevel() == null || blockEntity.getLevel().isClientSide) {
+		if (blockEntity.getLevel() == null || blockEntity.getLevel().isClientSide()) {
 			return;
 		}
 		ticksSinceLastChange++;
@@ -306,7 +306,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 			currentTickTime = data.getIntOr("currentTickTime", 0);
 		});
 
-		if (blockEntity != null && blockEntity.getLevel() != null && blockEntity.getLevel().isClientSide) {
+		if (blockEntity != null && blockEntity.getLevel() != null && blockEntity.getLevel().isClientSide()) {
 			blockEntity.getLevel().sendBlockUpdated(blockEntity.getBlockPos(),
 					blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()),
 					blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()), 3);

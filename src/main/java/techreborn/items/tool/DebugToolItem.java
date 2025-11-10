@@ -59,7 +59,7 @@ public class DebugToolItem extends Item {
 		if (block == null) {
 			return InteractionResult.FAIL;
 		}
-		if (context.getLevel().isClientSide) {
+		if (context.getLevel().isClientSide()) {
 			return InteractionResult.SUCCESS;
 		}
 		sendMessage(context, Component.literal(getRegistryName(block)));
@@ -86,7 +86,7 @@ public class DebugToolItem extends Item {
 	}
 
 	private void sendMessage(UseOnContext context, Component message) {
-		if (context.getLevel().isClientSide || context.getPlayer() == null) {
+		if (context.getLevel().isClientSide() || context.getPlayer() == null) {
 			return;
 		}
 		context.getPlayer().displayClientMessage(message, false); // TODO check if this is correct boolean

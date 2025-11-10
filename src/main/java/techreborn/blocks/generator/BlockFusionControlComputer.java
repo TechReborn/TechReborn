@@ -88,7 +88,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	@Override
 	public void stepOn(final Level worldIn, final BlockPos pos, final BlockState state,  final Entity entityIn) {
 		super.stepOn(worldIn, pos, state, entityIn);
-		if (!worldIn.isClientSide && worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity blockEntity) {
+		if (!worldIn.isClientSide() && worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity blockEntity) {
 			if (blockEntity.craftingTickTime != 0 && blockEntity.isShapeValid()) {
 				entityIn.hurtServer((ServerLevel) worldIn, TRDamageTypes.create(worldIn, TRDamageTypes.FUSION), 200F);
 			}

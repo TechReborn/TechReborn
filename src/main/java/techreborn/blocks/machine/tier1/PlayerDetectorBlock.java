@@ -103,7 +103,7 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 						if (!drop.isEmpty()) {
 							popResource(worldIn, pos, drop);
 						}
-						if (!worldIn.isClientSide) {
+						if (!worldIn.isClientSide()) {
 							worldIn.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 						}
 						return InteractionResult.SUCCESS;

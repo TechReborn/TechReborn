@@ -85,7 +85,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide){
+		if (world == null || world.isClientSide()){
 			return;
 		}
 

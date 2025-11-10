@@ -143,7 +143,7 @@ public class CableBlockEntity extends BlockEntity
 
 	public void setCover(BlockState cover) {
 		this.cover = cover;
-		if (level != null && !level.isClientSide) {
+		if (level != null && !level.isClientSide()) {
 			NetworkManager.sendToTracking(new CustomDescriptionPayload(getBlockPos(), this.saveWithoutMetadata(level.registryAccess())), this);
 		}
 	}
@@ -253,7 +253,7 @@ public class CableBlockEntity extends BlockEntity
 	// BlockEntityTicker
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, CableBlockEntity blockEntity2) {
-		if (world == null || world.isClientSide) {
+		if (world == null || world.isClientSide()) {
 			return;
 		}
 

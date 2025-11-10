@@ -103,7 +103,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	@Override
 	public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(worldIn, pos, state, placer, stack);
-		if (worldIn.isClientSide) return;
+		if (worldIn.isClientSide()) return;
 
 		Direction facing = placer.getDirection().getOpposite();
 		setFacing(facing, worldIn, pos);

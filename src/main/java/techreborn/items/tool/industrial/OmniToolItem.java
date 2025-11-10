@@ -134,7 +134,7 @@ public class OmniToolItem extends Item implements RcEnergyItem, IToolHandler {
 	// IToolHandler
 	@Override
 	public boolean handleTool(ItemStack stack, BlockPos pos, Level world, Player player, Direction side, boolean damage) {
-		if (!player.level().isClientSide && this.getStoredEnergy(stack) >= 5.0) {
+		if (!player.level().isClientSide() && this.getStoredEnergy(stack) >= 5.0) {
 			this.tryUseEnergy(stack, 5);
 			return true;
 		} else {

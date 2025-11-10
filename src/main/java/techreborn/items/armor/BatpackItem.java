@@ -45,7 +45,7 @@ public class BatpackItem extends TREnergyArmourItem implements RcEnergyItem {
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, ServerLevel worldIn, Entity entityIn, @Nullable EquipmentSlot slot) {
-		if (worldIn.isClientSide) {
+		if (worldIn.isClientSide()) {
 			return;
 		}
 		if (entityIn instanceof Player) {

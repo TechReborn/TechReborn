@@ -89,7 +89,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide) {
+		if (world == null || world.isClientSide()) {
 			return;
 		}
 		if (getEnergy() > getMaxStoredPower()) {
@@ -101,7 +101,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public void onLoad() {
 		super.onLoad();
-		if (level == null || level.isClientSide) return;
+		if (level == null || level.isClientSide()) return;
 
 		// 1. Collect information and change the relationship between surrounding blocks
 		byte flagInvalidNeighbors = 0b000000;

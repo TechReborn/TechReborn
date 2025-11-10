@@ -65,7 +65,7 @@ public class TankUnitBlock extends BlockMachineBase {
 
 	@Override
 	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hitResult) {
-		if (unitType == TRContent.TankUnit.CREATIVE || worldIn.isClientSide) {
+		if (unitType == TRContent.TankUnit.CREATIVE || worldIn.isClientSide()) {
 			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 

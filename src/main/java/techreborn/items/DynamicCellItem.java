@@ -135,7 +135,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				}
 			} else {
 				//noinspection deprecation
-				if (!world.isClientSide && canPlace && !blockState.liquid()) {
+				if (!world.isClientSide() && canPlace && !blockState.liquid()) {
 					world.destroyBlock(pos, true);
 				}
 
@@ -213,7 +213,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 					return InteractionResult.SUCCESS.heldItemTransformedTo(getEmpty());
 				} else {
 					stack.shrink(1);
-					if (!world.isClientSide) {
+					if (!world.isClientSide()) {
 						insertOrDropStack(player, (ServerLevel) world, getEmpty());
 					}
 

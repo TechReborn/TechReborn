@@ -152,7 +152,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world.isClientSide) {
+		if (world.isClientSide()) {
 			return;
 		}
 		boolean isBurning = isBurning();

@@ -80,7 +80,7 @@ public class PaintingToolItem extends Item {
 				((CableBlockEntity) blockEntity).setCover(cover);
 
 				context.getLevel().playSound(player, context.getClickedPos(), SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 0.6F, 1.0F);
-				if (!context.getLevel().isClientSide) {
+				if (!context.getLevel().isClientSide()) {
 					context.getItemInHand().hurtAndBreak(1, player, context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
 				}
 

@@ -65,7 +65,7 @@ public class BlockComputerCube extends BlockMachineBase {
 					popResource(worldIn, pos, drop);
 					worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSounds.BLOCK_DISMANTLE,
 							SoundSource.BLOCKS, 0.6F, 1F);
-					if (!worldIn.isClientSide) {
+					if (!worldIn.isClientSide()) {
 						worldIn.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 					}
 					return InteractionResult.SUCCESS;

@@ -89,7 +89,7 @@ public class SlotConfiguration implements NBTSerializable {
 				}
 			}
 		}
-		if (!machineBase.getLevel().isClientSide && machineBase.getLevel().getGameTime() % machineBase.slotTransferSpeed() == 0) {
+		if (!machineBase.getLevel().isClientSide() && machineBase.getLevel().getGameTime() % machineBase.slotTransferSpeed() == 0) {
 			getSlotDetails().forEach(slotConfigHolder -> slotConfigHolder.handleItemIO(machineBase));
 		}
 	}
