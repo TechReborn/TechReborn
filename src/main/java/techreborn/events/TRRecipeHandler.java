@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 public class TRRecipeHandler {
 
 	public static void unlockTRRecipes(ServerPlayer playerMP) {
-		MinecraftServer server = playerMP.getServer();
+		MinecraftServer server = playerMP.level().getServer();
 		if (server == null) return;
 		RecipeManager recipeManager = server.getRecipeManager();
 		RecipeMap preparedRecipes = recipeManager.recipes;
