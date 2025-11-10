@@ -65,9 +65,10 @@ public class RebornExplosion extends ServerExplosion {
 	}
 
 	@Override
-	public void explode() {
+	public int explode() {
 		StopWatch watch = new StopWatch();
 		watch.start();
+		int i = 0;
 		for (int tx = -radius; tx < radius + 1; tx++) {
 			for (int ty = -radius; ty < radius + 1; ty++) {
 				for (int tz = -radius; tz < radius + 1; tz++) {
@@ -78,12 +79,14 @@ public class RebornExplosion extends ServerExplosion {
 						if (block != Blocks.BEDROCK && !state.isAir()) {
 							block.wasExploded(level(), pos, this);
 							level().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+							i++;
 						}
 					}
 				}
 			}
 		}
 		RebornCore.LOGGER.info("The explosion took" + watch + " to explode");
+		return i;
 	}
 
 	@Nullable
