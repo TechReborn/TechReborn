@@ -340,6 +340,7 @@ public class GuiBuilder {
 
 		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 76, y, 9 + 2, tips);
 		explanation.setX(x - 81);
+		explanation.setScrollAmount(0);
 		explanation.render(drawContext, mouseX, mouseY, 1.0f);
 	}
 
@@ -377,8 +378,8 @@ public class GuiBuilder {
 			}
 
 			@Override
-			public void render(GuiGraphics drawContext, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
-				drawContext.drawWordWrap(Minecraft.getInstance().font, tip, x, y, width, theme.subtitleColor().rgba());
+			public void renderContent(GuiGraphics drawContext, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+				drawContext.drawWordWrap(Minecraft.getInstance().font, tip, getContentX(), getContentY(), getWidth(), theme.subtitleColor().rgba());
 			}
 		}
 	}
