@@ -76,7 +76,7 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	@Override
-	protected void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, InsideBlockEffectApplier handler) {
+	protected void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, InsideBlockEffectApplier handler, boolean bl) {
 		if (!worldIn.isClientSide() && entityIn instanceof Projectile projectileEntity) {
 			LivingEntity shooter = null;
 			if (projectileEntity.getOwner() instanceof LivingEntity) {
