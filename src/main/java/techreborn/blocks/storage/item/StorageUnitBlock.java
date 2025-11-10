@@ -25,6 +25,7 @@
 package techreborn.blocks.storage.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -96,7 +97,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos, Direction direction) {
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
 		if (storageEntity == null){
 			return 0;
