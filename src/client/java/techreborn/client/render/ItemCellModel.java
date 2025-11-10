@@ -48,7 +48,7 @@ import net.minecraft.client.resources.model.ResolvableModel;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
@@ -56,6 +56,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -88,7 +89,7 @@ public class ItemCellModel implements ItemModel {
 		ItemModelResolver resolver,
 		ItemDisplayContext displayContext,
 		@Nullable ClientLevel world,
-		@Nullable LivingEntity user,
+		@Nullable ItemOwner user,
 		int seed
 	) {
 		state.appendModelIdentityElement(this);
@@ -114,7 +115,7 @@ public class ItemCellModel implements ItemModel {
 		}
 
 		@Override
-		public ItemModel bake(ItemModel.BakingContext context) {
+		public @NotNull ItemModel bake(ItemModel.BakingContext context) {
 			ModelBaker baker = context.blockModelBaker();
 			ResolvedModel baseModel = baker.getModel(CELL_BASE);
 			ResolvedModel backgroundModel = baker.getModel(CELL_BACKGROUND);
@@ -184,7 +185,7 @@ public class ItemCellModel implements ItemModel {
 		}
 
 		@Override
-		public MapCodec<ItemCellModel.Unbaked> type() {
+		public @NotNull MapCodec<ItemCellModel.Unbaked> type() {
 			return CODEC;
 		}
 	}
