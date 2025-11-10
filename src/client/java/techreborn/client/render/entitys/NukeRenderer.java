@@ -26,13 +26,14 @@ package techreborn.client.render.entitys;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.TntMinecartRenderer;
 import net.minecraft.client.renderer.entity.state.TntRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
 
@@ -40,21 +41,18 @@ import techreborn.init.TRContent;
  * Created by Mark on 13/03/2016.
  */
 public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntRenderState> {
-	private final BlockRenderDispatcher blockRenderManager;
-
 	public NukeRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 		this.shadowRadius = 0.5F;
-		this.blockRenderManager = ctx.getBlockRenderDispatcher();
 	}
 
 	@Override
-	public TntRenderState createRenderState() {
+	public @NotNull TntRenderState createRenderState() {
 		return new TntRenderState();
 	}
 
 	@Override
-	public void render(TntRenderState state, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int light) {
+	public void submit(TntRenderState state, PoseStack matrixStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
 		matrixStack.pushPose();
 		matrixStack.translate(1D, 0.5D, 0);
 		if (state.fuseRemainingInTicks < 10.0F) {
@@ -69,13 +67,14 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntRenderStat
 		matrixStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
 		if (state.blockState != null) {
-			TntMinecartRenderer.renderWhiteSolidBlock(blockRenderManager, state.blockState, matrixStack, vertexConsumerProvider, light, (int) state.fuseRemainingInTicks / 5 % 2 == 0);
+			TntMinecartRenderer.submitWhiteSolidBlock(state.blockState, matrixStack, submitNodeCollector, state.lightCoords, (int) state.fuseRemainingInTicks / 5 % 2 == 0, state.outlineColor);
 		}
 		matrixStack.popPose();
-		super.render(state, matrixStack, vertexConsumerProvider, light);
+		super.submit(state, matrixStack, submitNodeCollector, cameraRenderState);
 	}
 
-	public void updateRenderState(EntityNukePrimed entity, TntRenderState state, float f) {
+	@Override
+	public void extractRenderState(EntityNukePrimed entity, TntRenderState state, float f) {
 		super.extractRenderState(entity, state, f);
 		state.fuseRemainingInTicks = (float) entity.getFuse() - f + 1.0F;
 		state.blockState = TRContent.NUKE.defaultBlockState();
