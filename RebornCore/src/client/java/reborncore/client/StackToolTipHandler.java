@@ -27,7 +27,6 @@ package reborncore.client;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -36,7 +35,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -76,7 +74,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 			tooltipLines.add(1, line1);
 
-			if (Screen.hasShiftDown()) {
+			if (Minecraft.getInstance().hasShiftDown()) {
 				int percentage = percentage(energyItem.getStoredEnergy(itemStack), energyItem.getEnergyCapacity(itemStack));
 				MutableComponent line2  = StringUtils.getPercentageText(percentage);
 				line2.append(" ");

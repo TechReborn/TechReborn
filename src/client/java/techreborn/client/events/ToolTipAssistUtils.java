@@ -24,6 +24,7 @@
 
 package techreborn.client.events;
 
+import net.minecraft.client.Minecraft;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -36,7 +37,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -83,7 +83,7 @@ public class ToolTipAssistUtils {
 		String key = ("techreborn.message.info." + inKey);
 
 		if (I18n.exists(key)) {
-			if (!hidden || Screen.hasShiftDown()) {
+			if (!hidden || Minecraft.getInstance().hasShiftDown()) {
 				String info = I18n.get(key);
 				List<MutableComponent> infoLines = Arrays.stream(info.split("\\r?\\n"))
 					.map(infoLine -> Component.literal(infoColour + infoLine)).toList();

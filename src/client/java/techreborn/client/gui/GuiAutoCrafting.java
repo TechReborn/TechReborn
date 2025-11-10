@@ -26,6 +26,7 @@ package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import reborncore.client.gui.GuiBase;
@@ -79,11 +80,11 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-		if (isPointInRect(145, 4, 20, 12, mouseX, mouseY)) {
+	public boolean mouseClicked(MouseButtonEvent mouse, boolean doubled) {
+		if (isPointInRect(145, 4, 20, 12, mouse.x(), mouse.y())) {
 			ClientPlayNetworking.send(new AutoCraftingLockPayload(blockEntityAutoCraftingTable.getBlockPos(), !blockEntityAutoCraftingTable.locked));
 			return true;
 		}
-		return super.mouseClicked(mouseX, mouseY, mouseButton);
+		return super.mouseClicked(mouse, doubled);
 	}
 }

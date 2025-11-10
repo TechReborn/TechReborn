@@ -25,6 +25,7 @@
 package reborncore.client.gui.widget;
 
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import reborncore.common.misc.TriConsumer;
 
@@ -47,10 +48,10 @@ public class GuiButtonExtended extends Button {
 	}
 
 	@Override
-	public void onClick(double mouseX, double mouseY) {
+	public void onClick(MouseButtonEvent mouse, boolean doubled) {
 		if (clickHandler != null) {
-			clickHandler.accept(this, mouseX, mouseY);
+			clickHandler.accept(this, mouse.x(), mouse.y());
 		}
-		super.onClick(mouseX, mouseY);
+		super.onClick(mouse, doubled);
 	}
 }

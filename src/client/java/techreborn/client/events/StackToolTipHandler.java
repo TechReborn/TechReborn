@@ -29,7 +29,6 @@ import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -81,7 +80,8 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 		// Can currently be executed by a ForkJoinPool.commonPool-worker when REI is in async search mode
 		// We skip this method until a thread-safe solution is in place
-		if (!Minecraft.getInstance().isSameThread())
+		Minecraft mc = Minecraft.getInstance();
+		if (!mc.isSameThread())
 			return;
 
 		if (!ITEM_ID.computeIfAbsent(item, StackToolTipHandler::isTRItem))
@@ -103,7 +103,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 		if (item instanceof UpgradeItem upgrade) {
 			ToolTipAssistUtils.addInfo(item.getDescriptionId(), lines, false);
-			lines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.fromItem(upgrade), stack.getCount(), Screen.hasShiftDown()));
+			lines.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.fromItem(upgrade), stack.getCount(), mc.hasShiftDown()));
 		}
 
 		if (item instanceof DynamicCellItem cell) {
@@ -112,7 +112,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 				ToolTipAssistUtils.addInfo("unplaceable_fluid", lines, false);
 		}
 
-		if (item == TRContent.Upgrades.SUPERCONDUCTOR.item && Screen.hasControlDown()) {
+		if (item == TRContent.Upgrades.SUPERCONDUCTOR.item && mc.hasControlDown()) {
 			lines.add(Component.literal(ChatFormatting.GOLD + "Blame obstinate_3 for this"));
 		}
 
@@ -120,7 +120,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			lines.add(Component.literal(ChatFormatting.YELLOW + I18n.get("techreborn.tooltip.omnitool_motto")));
 		}
 
-		if (block == TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block && Screen.hasControlDown()) {
+		if (block == TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block && mc.hasControlDown()) {
 			lines.add(Component.literal("Round and round it goes"));
 		}
 
@@ -133,9 +133,9 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		}
 
 		if (item instanceof NanoSuitItem suit) {
-			suit.appendArmorTooltip(stack, lines, Screen.hasShiftDown());
+			suit.appendArmorTooltip(stack, lines, mc.hasShiftDown());
 		} else if (item instanceof QuantumSuitItem suit) {
-			suit.appendArmorTooltip(stack, lines, Screen.hasShiftDown());
+			suit.appendArmorTooltip(stack, lines, mc.hasShiftDown());
 		}
 	}
 
