@@ -223,8 +223,8 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 	}
 
 	@Override
-	protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity, InsideBlockEffectApplier handler) {
-		super.entityInside(state, world, pos, entity, handler);
+	protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity, InsideBlockEffectApplier handler, boolean bl) {
+		super.entityInside(state, world, pos, entity, handler, bl);
 		if (!type.canKill) {
 			return;
 		}
