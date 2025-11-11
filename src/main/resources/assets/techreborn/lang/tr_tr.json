@@ -836,6 +836,7 @@
   "techreborn.jei.recipe.processing.time.3": "%s sn",
   "techreborn.jei.recipe.heat": "Sıcaklık",
   "techreborn.jei.recipe.generator.total": "E toplam: %s",
+  "techreborn.jei.recipe.energy": "Enerji",
   "techreborn.jei.desc.rubberSap": "Reçine elde etmek için bir kauçuk ağacı bulmanız veya bir kauçuk ağacı fidanı elde etmeniz ve onu büyütmeye devam etmeniz gerekir. Bir kauçuk ağacı elde ettikten sonra, ağacın üzerinde küçük sarımsı noktalar arayın. Eğer hiç göremezseniz, biraz bekleyin ve sonunda bu sarı “reçine” lekelerini göreceksiniz. Reçine toplamak için bir Ağaç Musluğu kullanın ve bunu kütüğün üzerinde kullanın.",
   "techreborn.jei.desc.scrapBox": "Hurda kutuları elde basit bir kullanımla veya dağıtıcılar tarafından açılabilir. Bu doğru, hurda kutularınızı dağıtıcılara atın ve onlara bir redstone sinyali verin ve bum! Rastgele eşya!",
   "techreborn.jei.desc.scrapBoxNoDispenser": "Hurda kutuları elde basit bir kullanımla açılabilir!",
