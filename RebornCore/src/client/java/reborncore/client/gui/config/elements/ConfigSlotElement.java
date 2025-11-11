@@ -24,24 +24,24 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.screen.slot.BaseSlot;
 
 import java.util.Arrays;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 
 public class ConfigSlotElement extends ParentElement {
 	private final SlotType type;
-	private final Inventory inventory;
+	private final Container inventory;
 	private final int id;
 	private final int height;
 
-	public ConfigSlotElement(Inventory slotInventory,
+	public ConfigSlotElement(Container slotInventory,
 							BaseSlot slot,
 							SlotType type,
 							int x,
@@ -51,7 +51,7 @@ public class ConfigSlotElement extends ParentElement {
 		super(x, y, type.getButtonSprite(), type.getTextureWidth(), type.getTextureHeight());
 		this.type = type;
 		this.inventory = slotInventory;
-		this.id = slot.getIndex();
+		this.id = slot.getContainerSlot();
 
 		SlotConfigPopupElement popupElement;
 
@@ -65,17 +65,17 @@ public class ConfigSlotElement extends ParentElement {
 
 		int checkboxY = y + 44;
 		if (inputEnabled) {
-			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autoinput"), x - 26, checkboxY += 15,
+			elements.add(new CheckBoxElement(Component.translatable("reborncore.gui.slotconfig.autoinput"), x - 26, checkboxY += 15,
 				checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(id).autoInput(),
 				() -> popupElement.updateCheckBox("input", gui)));
 		}
 
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.autooutput"), x - 26, checkboxY += 15,
+		elements.add(new CheckBoxElement(Component.translatable("reborncore.gui.slotconfig.autooutput"), x - 26, checkboxY += 15,
 			checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(id).autoOutput(),
 			() -> popupElement.updateCheckBox("output", gui)));
 
 		if (filterEnabled) {
-			elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.slotconfig.filter_input"), x - 26, checkboxY + 15,
+			elements.add(new CheckBoxElement(Component.translatable("reborncore.gui.slotconfig.filter_input"), x - 26, checkboxY + 15,
 				checkBoxElement ->  gui.getMachine().getSlotConfiguration().getSlotDetails(id).filter(),
 				() -> popupElement.updateCheckBox("filter", gui)));
 		}
@@ -92,12 +92,12 @@ public class ConfigSlotElement extends ParentElement {
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		ItemStack stack = inventory.getStack(id);
+	public void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+		ItemStack stack = inventory.getItem(id);
 		int xPos = getX() + 1 + gui.getGuiLeft();
 		int yPos = getY() + 1 + gui.getGuiTop();
 
-		drawContext.drawItem(stack, xPos, yPos);
+		drawContext.renderItem(stack, xPos, yPos);
 
 		if (isMouseWithinRect(gui, mouseX, mouseY)) {
 			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY(), type.getTextureWidth(), type.getTextureHeight());

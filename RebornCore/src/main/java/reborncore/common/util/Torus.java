@@ -28,13 +28,12 @@ import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.util.math.BlockPos;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import net.minecraft.core.BlockPos;
 
 public class Torus {
 	private static final ExecutorService GEN_EXECUTOR = Executors.newSingleThreadExecutor();
@@ -46,7 +45,7 @@ public class Torus {
 			for (int y = -radius; y < radius; y++) {
 				for (int z = -radius; z < radius; z++) {
 					if (Math.pow(radius / 2 - Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)), 2) + Math.pow(z, 2) < Math.pow(radius * 0.05, 2)) {
-						posLists.add(origin.add(x, z, y));
+						posLists.add(origin.offset(x, z, y));
 					}
 				}
 			}

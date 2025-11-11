@@ -24,10 +24,10 @@
 
 package reborncore.common.util;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import reborncore.api.items.InventoryBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -45,7 +45,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	public RebornInventory(int size, String invName, int invStackLimit, T blockEntity, IInventoryAccess<T> access) {
 		super(size);
 		name = invName;
-		stackLimit = (invStackLimit == 64 ? Items.AIR.getMaxCount() : invStackLimit); // Blame asie for this
+		stackLimit = (invStackLimit == 64 ? Items.AIR.getDefaultMaxStackSize() : invStackLimit); // Blame asie for this
 		this.blockEntity = blockEntity;
 		this.inventoryAccess = access;
 	}
@@ -68,14 +68,14 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	}
 
 	@Override
-	public void setStack(int slot, @NotNull ItemStack stack) {
-		super.setStack(slot, stack);
+	public void setItem(int slot, @NotNull ItemStack stack) {
+		super.setItem(slot, stack);
 		setHashChanged();
 	}
 
 	@Override
-	public ItemStack removeStack(int i, int i1) {
-		ItemStack stack = super.removeStack(i, i1);
+	public ItemStack removeItem(int i, int i1) {
+		ItemStack stack = super.removeItem(i, i1);
 
 		if (!stack.isEmpty()) {
 			setHashChanged();
@@ -85,34 +85,34 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	}
 
 	@Override
-	public int getMaxCountPerStack() {
+	public int getMaxStackSize() {
 		return stackLimit;
 	}
 
 	public ItemStack shrinkSlot(int slot, int count) {
-		ItemStack stack = getStack(slot);
-		stack.decrement(count);
+		ItemStack stack = getItem(slot);
+		stack.shrink(count);
 		setHashChanged();
 		return stack;
 	}
 
-	public void read(ReadView view) {
+	public void read(ValueInput view) {
 		read(view, "Items");
 	}
 
-	public void read(ReadView view, String tag) {
-		view.getOptionalReadView(tag).ifPresent(data -> {
+	public void read(ValueInput view, String tag) {
+		view.child(tag).ifPresent(data -> {
 			readData(data);
 			hasChanged = true;
 		});
 	}
 
-	public void write(WriteView view) {
+	public void write(ValueOutput view) {
 		write(view, "Items");
 	}
 
-	public void write(WriteView view, String tag) {
-		writeData(view.get(tag));
+	public void write(ValueOutput view, String tag) {
+		writeData(view.child(tag));
 	}
 
 
@@ -137,7 +137,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 
 	public void setHashChanged() {
 		this.hasChanged = true;
-		this.markDirty();
+		this.setChanged();
 	}
 
 	public void setHashChanged(boolean changed) {
@@ -153,9 +153,9 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	}
 
 	@Override
-	public void markDirty() {
-		super.markDirty();
-		blockEntity.markDirty();
+	public void setChanged() {
+		super.setChanged();
+		blockEntity.setChanged();
 	}
 
 }

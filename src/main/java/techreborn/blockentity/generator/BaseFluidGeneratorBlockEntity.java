@@ -24,16 +24,6 @@
 
 package techreborn.blockentity.generator;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -48,6 +38,16 @@ import reborncore.common.util.Tank;
 import techreborn.recipe.recipes.FluidGeneratorRecipe;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider {
 	private final int euTick;
@@ -76,9 +76,9 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
@@ -86,7 +86,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 		// Check cells input slot 2 time per second
 		if (ticksSinceLastChange >= 10) {
-			ItemStack inputStack = inventory.getStack(0);
+			ItemStack inputStack = inventory.getItem(0);
 			if (!inputStack.isEmpty()) {
 				if (FluidUtils.containsMatchingFluid(inputStack, f -> getRecipeForFluid(f) != null)) {
 					FluidUtils.drainContainers(tank, inventory, 0, 1);
@@ -113,15 +113,15 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
 					tank.modifyFluid(fluidInstance -> fluidInstance.subtractAmount(FluidValue.fromRaw(currentWithdraw)));
-					lastOutput = world.getTime();
+					lastOutput = world.getGameTime();
 				}
 			}
 		}
 
-		if (world.getTime() - lastOutput < 30 && !isActive()) {
-			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
-		} else if (world.getTime() - lastOutput > 30 && isActive()) {
-			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
+		if (world.getGameTime() - lastOutput < 30 && !isActive()) {
+			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
+		} else if (world.getGameTime() - lastOutput > 30 && isActive()) {
+			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 		}
 	}
 
@@ -142,7 +142,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	public List<FluidGeneratorRecipe> getRecipes() {
-		return RecipeUtils.getRecipes(world, recipeType);
+		return RecipeUtils.getRecipes(level, recipeType);
 	}
 
 	@Nullable
@@ -177,14 +177,14 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
 		tank.read(view);
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		tank.write(view);
 	}
 

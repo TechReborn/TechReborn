@@ -28,13 +28,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.display.SlotDisplay;
-
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -49,9 +48,9 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 		Codec.INT.optionalFieldOf("count", 1).forGetter(SizedIngredient::count),
 		Ingredient.CODEC.fieldOf("ingredient").forGetter(SizedIngredient::ingredient)
 	).apply(instance, SizedIngredient::new));
-	public static PacketCodec<RegistryByteBuf, SizedIngredient> PACKET_CODEC = PacketCodec.tuple(
-		PacketCodecs.INTEGER, SizedIngredient::count,
-		Ingredient.PACKET_CODEC, SizedIngredient::ingredient,
+	public static StreamCodec<RegistryFriendlyByteBuf, SizedIngredient> PACKET_CODEC = StreamCodec.composite(
+		ByteBufCodecs.INT, SizedIngredient::count,
+		Ingredient.CONTENTS_STREAM_CODEC, SizedIngredient::ingredient,
 		SizedIngredient::new
 	);
 
@@ -73,10 +72,10 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 		CustomIngredient customIngredient = ingredient.getCustomIngredient();
 		Stream<ItemStack> stacks;
 		if (customIngredient != null) {
-			stacks = ((SlotDisplay.CompositeSlotDisplay) customIngredient.toDisplay()).contents().stream()
-				.map(display -> ((SlotDisplay.StackSlotDisplay) display).stack());
+			stacks = ((SlotDisplay.Composite) customIngredient.toDisplay()).contents().stream()
+				.map(display -> ((SlotDisplay.ItemStackSlotDisplay) display).stack());
 		} else {
-			stacks = ingredient.entries.stream().map(entry -> new ItemStack(entry.value()));
+			stacks = ingredient.values.stream().map(entry -> new ItemStack(entry.value()));
 		}
 		return stacks.peek(itemStack -> itemStack.setCount(count)).toList();
 	}

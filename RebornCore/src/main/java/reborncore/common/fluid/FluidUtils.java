@@ -34,15 +34,15 @@ import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.block.Block;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
@@ -55,7 +55,7 @@ public class FluidUtils {
 
 	@NotNull
 	public static Fluid fluidFromBlock(Block block) {
-		if (block instanceof FluidBlock fluidBlock) {
+		if (block instanceof LiquidBlock fluidBlock) {
 			return fluidBlock.fluid;
 		}
 
@@ -63,14 +63,14 @@ public class FluidUtils {
 	}
 
 	public static List<Fluid> getAllFluids() {
-		return Registries.FLUID.stream().collect(Collectors.toList());
+		return BuiltInRegistries.FLUID.stream().collect(Collectors.toList());
 	}
 
-	public static boolean drainContainers(Tank tank, Inventory inventory, int inputSlot, int outputSlot) {
+	public static boolean drainContainers(Tank tank, Container inventory, int inputSlot, int outputSlot) {
 		return drainContainers(tank, inventory, inputSlot, outputSlot, false);
 	}
 
-	public static boolean drainContainers(Tank tank, Inventory inventory, int inputSlot, int outputSlot, boolean voidFluid) {
+	public static boolean drainContainers(Tank tank, Container inventory, int inputSlot, int outputSlot, boolean voidFluid) {
 		Storage<FluidVariant> itemStorage = getItemFluidStorage(inventory, inputSlot, outputSlot);
 
 		if (voidFluid) {
@@ -90,7 +90,7 @@ public class FluidUtils {
 		}
 	}
 
-	public static boolean fillContainers(Tank source, Inventory inventory, int inputSlot, int outputSlot) {
+	public static boolean fillContainers(Tank source, Container inventory, int inputSlot, int outputSlot) {
 		return StorageUtil.move(
 				source,
 				getItemFluidStorage(inventory, inputSlot, outputSlot),
@@ -100,7 +100,7 @@ public class FluidUtils {
 		) > 0;
 	}
 
-	private static Storage<FluidVariant> getItemFluidStorage(Inventory inventory, int inputSlot, int outputSlot) {
+	private static Storage<FluidVariant> getItemFluidStorage(Container inventory, int inputSlot, int outputSlot) {
 		var invWrapper = InventoryStorage.of(inventory, null);
 		var input = invWrapper.getSlot(inputSlot);
 		var output = invWrapper.getSlot(outputSlot);
@@ -171,7 +171,7 @@ public class FluidUtils {
 	}
 
 	@Deprecated
-	public static boolean interactWithFluidHandler(PlayerEntity playerIn, Tank tank) {
+	public static boolean interactWithFluidHandler(Player playerIn, Tank tank) {
 		// TODO
 		return false;
 	}
@@ -182,6 +182,6 @@ public class FluidUtils {
 	}
 
 	public static String getFluidName(@NotNull Fluid fluid) {
-		return Text.translatable(fluid.getDefaultState().getBlockState().getBlock().getTranslationKey()).getString();
+		return Component.translatable(fluid.defaultFluidState().createLegacyBlock().getBlock().getDescriptionId()).getString();
 	}
 }

@@ -24,14 +24,14 @@
 
 package reborncore.common.multiblock;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import reborncore.RebornCore;
 import reborncore.common.util.WorldUtils;
 
 import java.util.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.ChunkAccess;
 
 /**
  * This class manages all the multiblock controllers that exist in a given
@@ -42,7 +42,7 @@ import java.util.*;
  */
 public class MultiblockWorldRegistry {
 
-	private World worldObj;
+	private Level worldObj;
 
 	// Active controllers
 	private Set<MultiblockControllerBase> controllers;
@@ -71,7 +71,7 @@ public class MultiblockWorldRegistry {
 	private Object partsAwaitingChunkLoadMutex;
 	private Object orphanedPartsMutex;
 
-	public MultiblockWorldRegistry(final World world) {
+	public MultiblockWorldRegistry(final Level world) {
 		worldObj = world;
 
 		controllers = new HashSet<>();
@@ -92,7 +92,7 @@ public class MultiblockWorldRegistry {
 	public void tickStart() {
 		if (controllers.size() > 0) {
 			for (MultiblockControllerBase controller : controllers) {
-				if (controller.worldObj == worldObj && controller.worldObj.isClient == worldObj.isClient) {
+				if (controller.worldObj == worldObj && controller.worldObj.isClientSide == worldObj.isClientSide) {
 					if (controller.isEmpty()) {
 						// This happens on the server when the user breaks the
 						// last block. It's fine.
@@ -398,9 +398,9 @@ public class MultiblockWorldRegistry {
 	 * awaiting load to the list of parts which are orphans and therefore will
 	 * be added to the machines after the next world tick.
 	 *
-	 * @param chunk {@link Chunk} Chunk that was loaded
+	 * @param chunk {@link ChunkAccess} Chunk that was loaded
 	 */
-	public void onChunkLoaded(Chunk chunk) {
+	public void onChunkLoaded(ChunkAccess chunk) {
 		int chunkHash = chunk.getPos().hashCode();
 		if (partsAwaitingChunkLoad.containsKey(chunkHash)) {
 			synchronized (partsAwaitingChunkLoadMutex) {

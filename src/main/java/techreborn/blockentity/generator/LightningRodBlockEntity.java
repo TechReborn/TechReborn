@@ -24,18 +24,18 @@
 
 package techreborn.blockentity.generator;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LightningEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -55,9 +55,9 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient){
+		if (world == null || world.isClientSide){
 			return;
 		}
 
@@ -65,7 +65,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 			--onStatusHoldTicks;
 		}
 
-		Block BEBlock = getCachedState().getBlock();
+		Block BEBlock = getBlockState().getBlock();
 		if (!(BEBlock instanceof BlockMachineBase machineBaseBlock)) {
 			return;
 		}
@@ -75,20 +75,20 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 			onStatusHoldTicks = -1;
 		}
 
-		final float weatherStrength = world.getThunderGradient(1.0F);
+		final float weatherStrength = world.getThunderLevel(1.0F);
 		if (weatherStrength > 0.2F) {
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
 			final float lightStrikeChance = (100F - TechRebornConfig.lightningRodChanceOfStrike) * 20F;
 			final float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * (1.1F - weatherStrength);
 			if (world.random.nextInt((int) Math.floor(totalChance)) == 0) {
-				if (!isValidIronFence(pos.up().getY())) {
+				if (!isValidIronFence(pos.above().getY())) {
 					onStatusHoldTicks = 400;
 					return;
 				}
 
-				LightningEntity lightningBolt = EntityType.LIGHTNING_BOLT.create(world, SpawnReason.TRIGGERED);
-				lightningBolt.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos())));
-				world.spawnEntity(lightningBolt);
+				LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(world, EntitySpawnReason.TRIGGERED);
+				lightningBolt.snapTo(Vec3.atBottomCenterOf(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, getBlockPos())));
+				world.addFreshEntity(lightningBolt);
 				addEnergy((long) (TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength)));
 				machineBaseBlock.setActive(true, world, pos);
 				onStatusHoldTicks = 400;
@@ -98,9 +98,9 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	public float getLightningStrikeMultiplier() {
-		final float actualHeight = world.getTopYInclusive();
-		final float groundLevel = world.getSeaLevel() + 1;
-		for (int i = pos.getY() + 1; i < actualHeight; i++) {
+		final float actualHeight = level.getMaxY();
+		final float groundLevel = level.getSeaLevel() + 1;
+		for (int i = worldPosition.getY() + 1; i < actualHeight; i++) {
 			if (!isValidIronFence(i)) {
 				if (groundLevel >= i)
 					return 4.3F;
@@ -113,10 +113,10 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	public boolean isValidIronFence(int y) {
-		if (world == null){
+		if (level == null){
 			return false;
 		}
-		Block block = this.world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock();
+		Block block = this.level.getBlockState(new BlockPos(worldPosition.getX(), y, worldPosition.getZ())).getBlock();
 		return block == TRContent.REFINED_IRON_FENCE;
 	}
 
@@ -141,7 +141,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	}
 
 	@Override
-	public ItemStack getToolDrop(PlayerEntity playerIn) {
+	public ItemStack getToolDrop(Player playerIn) {
 		return TRContent.Machine.LIGHTNING_ROD.getStack();
 	}
 }

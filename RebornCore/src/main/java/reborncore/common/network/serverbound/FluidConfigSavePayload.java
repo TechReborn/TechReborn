@@ -24,24 +24,24 @@
 
 package reborncore.common.network.serverbound;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.network.BlockPosPayload;
 
-public record FluidConfigSavePayload(BlockPos pos, FluidConfiguration.FluidConfig fluidConfiguration) implements CustomPayload, BlockPosPayload {
-	public static final Id<FluidConfigSavePayload> ID = new Id<>(Identifier.of("reborncore:config_save"));
-	public static final PacketCodec<RegistryByteBuf, FluidConfigSavePayload> PACKET_CODEC = PacketCodec.tuple(
-		BlockPos.PACKET_CODEC, FluidConfigSavePayload::pos,
+public record FluidConfigSavePayload(BlockPos pos, FluidConfiguration.FluidConfig fluidConfiguration) implements CustomPacketPayload, BlockPosPayload {
+	public static final Type<FluidConfigSavePayload> ID = new Type<>(ResourceLocation.parse("reborncore:config_save"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, FluidConfigSavePayload> PACKET_CODEC = StreamCodec.composite(
+		BlockPos.STREAM_CODEC, FluidConfigSavePayload::pos,
 		FluidConfiguration.FluidConfig.PACKET_CODEC, FluidConfigSavePayload::fluidConfiguration,
 		FluidConfigSavePayload::new
 	);
 
 	@Override
-	public Id<? extends CustomPayload> getId() {
+	public Type<? extends CustomPacketPayload> type() {
 		return ID;
 	}
 }

@@ -24,41 +24,40 @@
 
 package techreborn.client.render.entitys;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.model.BlockModelPart;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity> {
 
-	public CableCoverRenderer(BlockEntityRendererFactory.Context ctx) {
+	public CableCoverRenderer(BlockEntityRendererProvider.Context ctx) {
 	}
 
 	@Override
-	public void render(CableBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
-		if (!blockEntity.getCachedState().get(CableBlock.COVERED) || blockEntity.getWorld() == null) {
+	public void render(CableBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, Vec3 cameraPos) {
+		if (!blockEntity.getBlockState().getValue(CableBlock.COVERED) || blockEntity.getLevel() == null) {
 			return;
 		}
 
-		final BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
+		final BlockRenderDispatcher blockRenderManager = Minecraft.getInstance().getBlockRenderer();
 		final BlockState renderData = blockEntity.getRenderData();
-		final BlockState coverState = renderData != null ? renderData : Blocks.OAK_PLANKS.getDefaultState();
-		final VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayers.getEntityBlockLayer(coverState));
-		List<BlockModelPart> parts = blockRenderManager.getModel(coverState).getParts(Random.create());
-		blockRenderManager.renderBlock(coverState, blockEntity.getPos(), blockEntity.getWorld(), matrices, consumer, true, parts);
+		final BlockState coverState = renderData != null ? renderData : Blocks.OAK_PLANKS.defaultBlockState();
+		final VertexConsumer consumer = vertexConsumers.getBuffer(ItemBlockRenderTypes.getRenderType(coverState));
+		List<BlockModelPart> parts = blockRenderManager.getBlockModel(coverState).collectParts(RandomSource.create());
+		blockRenderManager.renderBatched(coverState, blockEntity.getBlockPos(), blockEntity.getLevel(), matrices, consumer, true, parts);
 	}
 
 }

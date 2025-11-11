@@ -24,17 +24,6 @@
 
 package reborncore.common.multiblock;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.block.OrientationHelper;
 import reborncore.RebornCore;
 import reborncore.api.blockentity.UnloadHandler;
 
@@ -42,6 +31,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.ExperimentalRedstoneUtils;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Base logic class for Multiblock-connected {@link BlockEntity} entities. Most multiblock
@@ -53,7 +53,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	private boolean visited;
 
 	private boolean saveMultiblockData;
-	private NbtCompound cachedMultiblockData;
+	private CompoundTag cachedMultiblockData;
 	//private boolean paused;
 
 	public MultiblockBlockEntityBase(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -107,7 +107,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 		if (this.controller != null) {
 			RebornCore.LOGGER.info(
 				String.format("[assert] Part @ (%d, %d, %d) should be detached already, but detected that it was not. This is not a fatal error, and will be repaired, but is unusual.",
-					getPos().getX(), getPos().getY(), getPos().getZ()));
+					getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()));
 			this.controller = null;
 		}
 	}
@@ -115,33 +115,33 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	// /// Overrides from base BlockEntity methods
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
 
 		// We can't directly initialize a multiblock controller yet, so we cache
 		// the data here until
 		// we receive a "validate()" call, which creates the controller and hands
 		// off the cached data.
-		view.read("multiblockData", NbtCompound.CODEC).ifPresent(data -> {
+		view.read("multiblockData", CompoundTag.CODEC).ifPresent(data -> {
 			this.cachedMultiblockData = data;
 		});
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 
 		if (isMultiblockSaveDelegate() && isConnected()) {
-			NbtCompound multiblockData = new NbtCompound();
+			CompoundTag multiblockData = new CompoundTag();
 			this.controller.write(multiblockData);
-			view.put("multiblockData", NbtCompound.CODEC, multiblockData);
+			view.store("multiblockData", CompoundTag.CODEC, multiblockData);
 		}
 	}
 
 	@Override
-	public void markRemoved() {
+	public void setRemoved() {
 		detachSelf(false);
-		super.markRemoved();
+		super.setRemoved();
 	}
 
 	/**
@@ -171,17 +171,17 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	 * <p>TL;DR: Here there be dragons.</p>
 	 */
 	@Override
-	public void cancelRemoval() {
-		super.cancelRemoval();
-		MultiblockRegistry.onPartAdded(this.getWorld(), this);
+	public void clearRemoved() {
+		super.clearRemoved();
+		MultiblockRegistry.onPartAdded(this.getLevel(), this);
 	}
 
 	// Network Communication
 	@Override
-	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		NbtCompound packetData = new NbtCompound();
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		CompoundTag packetData = new CompoundTag();
 		encodeDescriptionPacket(packetData);
-		return BlockEntityUpdateS2CPacket.create(this);
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	// /// Things to override in most implementations (IMultiblockPart)
@@ -191,12 +191,12 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	 * having to worry about sending the packet itself. Decode this data in
 	 * {@link #decodeDescriptionPacket}.
 	 *
-	 * @param packetData {@link NbtCompound} An NBT compound tag into which
+	 * @param packetData {@link CompoundTag} An NBT compound tag into which
 	 *                   you should write your custom description data.
 	 */
-	protected void encodeDescriptionPacket(NbtCompound packetData) {
+	protected void encodeDescriptionPacket(CompoundTag packetData) {
 		if (this.isMultiblockSaveDelegate() && isConnected()) {
-			NbtCompound tag = new NbtCompound();
+			CompoundTag tag = new CompoundTag();
 			getMultiblockController().formatDescriptionPacket(tag);
 			packetData.put("multiblockData", tag);
 		}
@@ -206,12 +206,12 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	 * Override this to easily read in data from a {@link BlockEntity}'s description
 	 * packet. Encoded in {@link #encodeDescriptionPacket}.
 	 *
-	 * @param packetData {@link NbtCompound} The NBT data from the {@link BlockEntity}
+	 * @param packetData {@link CompoundTag} The NBT data from the {@link BlockEntity}
 	 *                   entity's description packet.
 	 */
-	protected void decodeDescriptionPacket(NbtCompound packetData) {
+	protected void decodeDescriptionPacket(CompoundTag packetData) {
 		if (packetData.contains("multiblockData")) {
-			NbtCompound tag = packetData.getCompoundOrEmpty("multiblockData");
+			CompoundTag tag = packetData.getCompoundOrEmpty("multiblockData");
 			if (isConnected()) {
 				getMultiblockController().decodeDescriptionPacket(tag);
 			} else {
@@ -227,7 +227,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	}
 
 	@Override
-	public NbtCompound getMultiblockSaveData() {
+	public CompoundTag getMultiblockSaveData() {
 		return this.cachedMultiblockData;
 	}
 
@@ -265,7 +265,7 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 
 	@Override
 	public BlockPos getWorldLocation() {
-		return this.getPos();
+		return this.getBlockPos();
 	}
 
 	@Override
@@ -325,8 +325,8 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 
 		for (Direction facing : Direction.values()) {
 
-			neighborPosition = partPosition.offset(facing);
-			te = this.world.getBlockEntity(neighborPosition);
+			neighborPosition = partPosition.relative(facing);
+			te = this.level.getBlockEntity(neighborPosition);
 
 			if (te instanceof IMultiblockPart) {
 				neighborParts.add((IMultiblockPart) te);
@@ -338,17 +338,17 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 
 	@Override
 	public void onOrphaned(MultiblockControllerBase controller, int oldSize, int newSize) {
-		this.markDirty();
-		getWorld().markDirty(getPos());
+		this.setChanged();
+		getLevel().blockEntityChanged(getBlockPos());
 	}
 
 	// /// Helper functions for notifying neighboring blocks
 	protected void notifyNeighborsOfBlockChange() {
-		world.updateNeighborsAlways(getPos(), getCachedState().getBlock(), OrientationHelper.getEmissionOrientation(world, null, null));
+		level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock(), ExperimentalRedstoneUtils.initialOrientation(level, null, null));
 	}
 
 	protected void notifyNeighborsOfBlockEntityChange() {
-		world.updateNeighborsAlways(getPos(), getCachedState().getBlock(), OrientationHelper.getEmissionOrientation(world, null, null));
+		level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock(), ExperimentalRedstoneUtils.initialOrientation(level, null, null));
 	}
 
 	// /// Private/Protected Logic Helpers
@@ -367,6 +367,6 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 		}
 
 		// Clean part out of lists in the registry
-		MultiblockRegistry.onPartRemovedFromWorld(getWorld(), this);
+		MultiblockRegistry.onPartRemovedFromWorld(getLevel(), this);
 	}
 }

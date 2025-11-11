@@ -24,10 +24,10 @@
 
 package techreborn.blockentity.machine.tier0.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 /**
@@ -42,13 +42,13 @@ public class BlockProcessorUtils {
 
 	/**
 	 * <b>Get the hardness to break of a block</b>
-	 * @param world {@link World} the world where the blockInFront is in
+	 * @param world {@link Level} the world where the blockInFront is in
 	 * @param blockInFront {@link BlockState} the block from which to get the hardness
 	 * @param positionInFront {@link BlockPos} the position of the block from which to get the hardness
 	 * @return the hardness to break of the supplied {@link BlockState}
 	 */
-	public static float getHardness(World world, BlockState blockInFront, BlockPos positionInFront) {
-		return blockInFront.getHardness(world, positionInFront);
+	public static float getHardness(Level world, BlockState blockInFront, BlockPos positionInFront) {
+		return blockInFront.getDestroySpeed(world, positionInFront);
 	}
 
 
@@ -87,6 +87,6 @@ public class BlockProcessorUtils {
 	 * @return
 	 */
 	public static BlockPos getFrontBlockPosition(MachineBaseBlockEntity blockEntity, BlockPos pos) {
-		return pos.offset(blockEntity.getFacing() == null? Direction.NORTH : blockEntity.getFacing());
+		return pos.relative(blockEntity.getFacing() == null? Direction.NORTH : blockEntity.getFacing());
 	}
 }

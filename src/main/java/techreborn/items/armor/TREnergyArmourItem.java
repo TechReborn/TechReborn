@@ -24,13 +24,13 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.EquippableComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.Equippable;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -41,25 +41,25 @@ public abstract class TREnergyArmourItem extends Item implements RcEnergyItem {
 	public final long maxCharge;
 	private final RcEnergyTier energyTier;
 
-	public TREnergyArmourItem(ArmorMaterial material, EquipmentType slot, long maxCharge, RcEnergyTier energyTier, String name) {
-		super(TRItemSettings.unbreakable(name).maxCount(1).armor(material, slot));
+	public TREnergyArmourItem(ArmorMaterial material, ArmorType slot, long maxCharge, RcEnergyTier energyTier, String name) {
+		super(TRItemSettings.unbreakable(name).stacksTo(1).humanoidArmor(material, slot));
 		this.maxCharge = maxCharge;
 		this.energyTier = energyTier;
 	}
 
 	// Item
 	@Override
-	public int getItemBarStep(ItemStack stack) {
+	public int getBarWidth(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
+	public boolean isBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getItemBarColor(ItemStack stack) {
+	public int getBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 
@@ -76,7 +76,7 @@ public abstract class TREnergyArmourItem extends Item implements RcEnergyItem {
 
 	@Nullable
 	public EquipmentSlot getSlotType() {
-		EquippableComponent equippableComponent = this.getComponents().get(DataComponentTypes.EQUIPPABLE);
+		Equippable equippableComponent = this.components().get(DataComponents.EQUIPPABLE);
 		return equippableComponent != null ? equippableComponent.slot() : null;
 	}
 }

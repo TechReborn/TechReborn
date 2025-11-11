@@ -24,14 +24,14 @@
 
 package reborncore.common.fluid;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.FluidBlock;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
-public class RebornFluidBlock extends FluidBlock {
+public class RebornFluidBlock extends LiquidBlock {
 
 	private final RebornFluid fluid;
 
-	public RebornFluidBlock(RebornFluid fluid, Block.Settings properties) {
+	public RebornFluidBlock(RebornFluid fluid, BlockBehaviour.Properties properties) {
 		super(fluid, properties);
 		this.fluid = fluid;
 	}

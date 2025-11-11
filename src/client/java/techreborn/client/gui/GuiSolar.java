@@ -24,9 +24,9 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
@@ -35,23 +35,23 @@ public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 
 	final SolarPanelBlockEntity blockEntity;
 
-	public GuiSolar(int syncID, PlayerEntity player, SolarPanelBlockEntity panel) {
+	public GuiSolar(int syncID, Player player, SolarPanelBlockEntity panel) {
 		super(player, panel, panel.createScreenHandler(syncID, player));
 		this.blockEntity = panel;
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(drawContext, this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 
 		if (!blockEntity.isGenerating()) {
-			builder.drawText(drawContext, this, Text.translatable("techreborn.message.panel_blocked"), 10, 20, 0xffb81f1f);
+			builder.drawText(drawContext, this, Component.translatable("techreborn.message.panel_blocked"), 10, 20, 0xffb81f1f);
 		}
 
-		builder.drawText(drawContext, this, Text.literal("Generating: " + blockEntity.getGenerationRate() + " E/t"), 10, 30, 0xff000000);
+		builder.drawText(drawContext, this, Component.literal("Generating: " + blockEntity.getGenerationRate() + " E/t"), 10, 30, 0xff000000);
 
 	}
 }

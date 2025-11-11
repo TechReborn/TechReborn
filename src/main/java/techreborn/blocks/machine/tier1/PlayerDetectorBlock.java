@@ -24,26 +24,26 @@
 
 package techreborn.blocks.machine.tier1;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.api.blockentity.IMachineGuiHandler;
@@ -55,90 +55,90 @@ import techreborn.init.TRBlockSettings;
 
 public class PlayerDetectorBlock extends BlockMachineBase {
 
-	public static final EnumProperty<PlayerDetectorType> TYPE = EnumProperty.of("type", PlayerDetectorType.class);
+	public static final EnumProperty<PlayerDetectorType> TYPE = EnumProperty.create("type", PlayerDetectorType.class);
 
 	public PlayerDetectorBlock(String name) {
 		super(TRBlockSettings.playerDetector(name), true);
-		this.setDefaultState(this.getStateManager().getDefaultState().with(TYPE, PlayerDetectorType.ALL));
+		this.registerDefaultState(this.getStateDefinition().any().setValue(TYPE, PlayerDetectorType.ALL));
 	}
 
 	// BlockMachineBase
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new PlayerDetectorBlockEntity(pos, state);
 	}
 
 	@Override
-	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		super.onPlaced(worldIn, pos, state, placer, stack);
+	public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		super.setPlacedBy(worldIn, pos, state, placer, stack);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 		if (blockEntity instanceof PlayerDetectorBlockEntity) {
-			((PlayerDetectorBlockEntity) blockEntity).ownerUdid = placer.getUuid().toString();
+			((PlayerDetectorBlockEntity) blockEntity).ownerUdid = placer.getUUID().toString();
 		}
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
-		if (!playerIn.canModifyBlocks()){
-			return super.onUse(state, worldIn, pos, playerIn, hitResult);
+	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hitResult) {
+		if (!playerIn.mayBuild()){
+			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 		if (blockEntity == null) {
-			return super.onUse(state, worldIn, pos, playerIn, hitResult);
+			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 
-		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
-		PlayerDetectorType type = state.get(TYPE);
+		ItemStack stack = playerIn.getItemInHand(InteractionHand.MAIN_HAND);
+		PlayerDetectorType type = state.getValue(TYPE);
 		PlayerDetectorType newType = type;
-		Formatting color = Formatting.GREEN;
+		ChatFormatting color = ChatFormatting.GREEN;
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
-			if (ToolManager.INSTANCE.handleTool(stack, pos, worldIn, playerIn, hitResult.getSide(), false)) {
-				if (playerIn.isSneaking()) {
+			if (ToolManager.INSTANCE.handleTool(stack, pos, worldIn, playerIn, hitResult.getDirection(), false)) {
+				if (playerIn.isShiftKeyDown()) {
 					if (blockEntity instanceof IToolDrop) {
 						ItemStack drop = ((IToolDrop) blockEntity).getToolDrop(playerIn);
 						if (drop == null) {
-							return ActionResult.PASS;
+							return InteractionResult.PASS;
 						}
 						if (!drop.isEmpty()) {
-							dropStack(worldIn, pos, drop);
+							popResource(worldIn, pos, drop);
 						}
-						if (!worldIn.isClient) {
-							worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+						if (!worldIn.isClientSide) {
+							worldIn.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 						}
-						return ActionResult.SUCCESS;
+						return InteractionResult.SUCCESS;
 					}
 				} else {
 					if (type == PlayerDetectorType.ALL) {
 						newType = PlayerDetectorType.OTHERS;
-						color = Formatting.RED;
+						color = ChatFormatting.RED;
 					} else if (type == PlayerDetectorType.OTHERS) {
 						newType = PlayerDetectorType.YOU;
-						color = Formatting.BLUE;
+						color = ChatFormatting.BLUE;
 					} else if (type == PlayerDetectorType.YOU) {
 						newType = PlayerDetectorType.ALL;
 					}
-					worldIn.setBlockState(pos, state.with(TYPE, newType));
+					worldIn.setBlockAndUpdate(pos, state.setValue(TYPE, newType));
 				}
 			}
 		}
 
-		if (playerIn instanceof ServerPlayerEntity serverPlayerEntity) {
-			serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.detects")
-											.formatted(Formatting.GRAY)
+		if (playerIn instanceof ServerPlayer serverPlayerEntity) {
+			serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.detects")
+											.withStyle(ChatFormatting.GRAY)
 											.append(" ")
 											.append(
-												Text.literal(StringUtils.toFirstCapital(newType.asString()))
-													.formatted(color)
+												Component.literal(StringUtils.toFirstCapital(newType.getSerializedName()))
+													.withStyle(color)
 											), true);
 		}
 
-		if (getGui() != null && !playerIn.isSneaking()) {
+		if (getGui() != null && !playerIn.isShiftKeyDown()) {
 			getGui().open(playerIn, pos, worldIn);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
@@ -147,20 +147,20 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(TYPE);
 	}
 
 	// AbstractBlock
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean emitsRedstonePower(BlockState state) {
+	public boolean isSignalSource(BlockState state) {
 		return true;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public int getWeakRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
+	public int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
 		BlockEntity entity = blockAccess.getBlockEntity(pos);
 		if (entity instanceof PlayerDetectorBlockEntity) {
 			return ((PlayerDetectorBlockEntity) entity).isProvidingPower() ? 15 : 0;
@@ -168,7 +168,7 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 		return 0;
 	}
 
-	public enum PlayerDetectorType implements StringIdentifiable {
+	public enum PlayerDetectorType implements StringRepresentable {
 		ALL("all"), OTHERS("others"), YOU("you");
 
 		private final String name;
@@ -183,7 +183,7 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 		}
 
 		@Override
-		public String asString() {
+		public String getSerializedName() {
 			return this.name;
 		}
 	}

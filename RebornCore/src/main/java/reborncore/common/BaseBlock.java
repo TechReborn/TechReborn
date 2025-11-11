@@ -24,21 +24,20 @@
 
 package reborncore.common;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-
 import java.util.List;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.block.Block;
 
 public abstract class BaseBlock extends Block {
 
-	public BaseBlock(Settings builder) {
+	public BaseBlock(Properties builder) {
 		super(builder);
 	}
 
-	public void appendTooltip(ItemStack itemStack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
+	public void appendTooltip(ItemStack itemStack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag options) {
 	}
 
 	public int getRenderType() {

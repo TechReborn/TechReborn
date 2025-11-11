@@ -29,15 +29,15 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.item.model.ItemModelTypes;
-import net.minecraft.client.render.item.property.select.SelectProperties;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.item.ItemModels;
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
@@ -69,20 +69,20 @@ public class TechRebornClient implements ClientModInitializer {
 				pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
 			}
 		});
-		ItemModelTypes.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
-		ItemModelTypes.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
-		SelectProperties.ID_MAPPER.put(ActiveProperty.ID, ActiveProperty.TYPE);
+		ItemModels.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
+		ItemModels.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
+		SelectItemModelProperties.ID_MAPPER.put(ActiveProperty.ID, ActiveProperty.TYPE);
 
 		KeyBindings.registerKeys();
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			while (KeyBindings.suitNightVision.wasPressed()) {
+			while (KeyBindings.suitNightVision.isDown()) {
 				KeyBindings.handleSuitNVToggle();
 			}
 		});
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			while (KeyBindings.quantumSuitSprint.wasPressed()) {
+			while (KeyBindings.quantumSuitSprint.isDown()) {
 				KeyBindings.handleQuantumSuitSprintToggle();
 			}
 		});
@@ -93,36 +93,36 @@ public class TechRebornClient implements ClientModInitializer {
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
 
-		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.putBlock(cable.block, BlockRenderLayer.CUTOUT));
+		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.putBlock(cable.block, ChunkSectionLayer.CUTOUT));
 
-		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, BlockRenderLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_LED.block, BlockRenderLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.ALARM.block, BlockRenderLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.RUBBER_SAPLING, BlockRenderLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.REINFORCED_GLASS, BlockRenderLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.RESIN_BASIN.block, BlockRenderLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.POTTED_RUBBER_SAPLING, BlockRenderLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.FISHING_STATION.block, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_LED.block, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.ALARM.block, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.REINFORCED_GLASS, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.RESIN_BASIN.block, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.POTTED_RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TRContent.Machine.FISHING_STATION.block, ChunkSectionLayer.CUTOUT);
 
-		BlockRenderLayerMap.putBlock(TRContent.RUBBER_LEAVES, BlockRenderLayer.CUTOUT_MIPPED);
+		BlockRenderLayerMap.putBlock(TRContent.RUBBER_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
 
 		for (ModFluids fluid : ModFluids.values()) {
-			BlockRenderLayerMap.putFluid(fluid.getFluid(), BlockRenderLayer.TRANSLUCENT);
-			BlockRenderLayerMap.putFluid(fluid.getFlowingFluid(), BlockRenderLayer.TRANSLUCENT);
+			BlockRenderLayerMap.putFluid(fluid.getFluid(), ChunkSectionLayer.TRANSLUCENT);
+			BlockRenderLayerMap.putFluid(fluid.getFlowingFluid(), ChunkSectionLayer.TRANSLUCENT);
 		}
 
-		BlockEntityRendererFactories.register(TRBlockEntities.INDUSTRIAL_GRINDER, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.FUSION_CONTROL_COMPUTER, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.VACUUM_FREEZER, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.FLUID_REPLICATOR, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.INDUSTRIAL_SAWMILL, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.DISTILLATION_TOWER, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.GREENHOUSE_CONTROLLER, MultiblockRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.STORAGE_UNIT, StorageUnitRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.CABLE, CableCoverRenderer::new);
-		BlockEntityRendererFactories.register(TRBlockEntities.WIND_MILL, TurbineRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.INDUSTRIAL_GRINDER, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.FUSION_CONTROL_COMPUTER, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.VACUUM_FREEZER, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.FLUID_REPLICATOR, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.INDUSTRIAL_SAWMILL, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.DISTILLATION_TOWER, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.GREENHOUSE_CONTROLLER, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.STORAGE_UNIT, StorageUnitRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.CABLE, CableCoverRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.WIND_MILL, TurbineRenderer::new);
 
 		EntityRendererRegistry.register(TRContent.ENTITY_NUKE, NukeRenderer::new);
 
@@ -131,16 +131,16 @@ public class TechRebornClient implements ClientModInitializer {
 		ClientJumpEvent.EVENT.register(new ClientJumpHandler());
 
 		// Skip error sprite
-		MachineFaceElementRenderer.BLACKLIST.add(Identifier.of("techreborn", "block/machines/tier2_machines/fishing_station_net"));
-		MachineFaceElementRenderer.BLACKLIST.add(Identifier.of("techreborn", "block/machines/tier2_machines/fishing_station_net_side"));
+		MachineFaceElementRenderer.BLACKLIST.add(ResourceLocation.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net"));
+		MachineFaceElementRenderer.BLACKLIST.add(ResourceLocation.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net_side"));
 	}
 
 	//Need the item instance in a few places, this makes it easier
 	private interface ItemModelPredicateProvider<T extends Item> {
 
-		float call(T item, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed);
+		float call(T item, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed);
 
-		default float unclampedCall(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
+		default float unclampedCall(ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
 			//noinspection unchecked
 			return call((T) stack.getItem(), stack, world, entity, seed);
 		}

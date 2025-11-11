@@ -24,13 +24,13 @@
 
 package techreborn.multiblocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
@@ -44,7 +44,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	public boolean isStar = false;
 	public int height = 0;
 
-	public MultiBlockCasing(World world) {
+	public MultiBlockCasing(Level world) {
 		super(world);
 	}
 
@@ -213,7 +213,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NbtCompound data) {
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, CompoundTag data) {
 
 	}
 
@@ -302,27 +302,27 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	public void write(NbtCompound data) {
+	public void write(CompoundTag data) {
 
 	}
 
 	@Override
-	public void read(NbtCompound data) {
+	public void read(CompoundTag data) {
 
 	}
 
 	@Override
-	public void formatDescriptionPacket(NbtCompound data) {
+	public void formatDescriptionPacket(CompoundTag data) {
 
 	}
 
 	@Override
-	public void decodeDescriptionPacket(NbtCompound data) {
+	public void decodeDescriptionPacket(CompoundTag data) {
 
 	}
 
 	@Override
-	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException {
+	protected void isBlockGoodForInterior(Level world, int x, int y, int z) throws MultiblockValidationException {
 		BlockState state = world.getBlockState(new BlockPos(x, y, z));
 
 		if (state.isAir()) {
@@ -335,7 +335,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException {
+	protected void isBlockGoodForFrame(Level world, int x, int y, int z) throws MultiblockValidationException {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 		if (block instanceof BlockMachineCasing) {
 

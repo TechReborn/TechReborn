@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier0.block.BlockBreakerBlockEntity;
@@ -35,14 +35,14 @@ public class GuiBlockBreaker extends GuiBase<BuiltScreenHandler> {
 
 	final BlockBreakerBlockEntity blockEntity;
 
-	public GuiBlockBreaker(int syncID, final PlayerEntity player, final BlockBreakerBlockEntity blockEntity) {
+	public GuiBlockBreaker(int syncID, final Player player, final BlockBreakerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, f, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		BlockBreakerProcessor processor = blockEntity.getProcessor();
@@ -57,8 +57,8 @@ public class GuiBlockBreaker extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

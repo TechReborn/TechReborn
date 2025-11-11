@@ -31,11 +31,11 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeType;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.compat.rei.MachineRecipeDisplay;
 import techreborn.client.compat.rei.ReiPlugin;
@@ -50,8 +50,8 @@ public abstract class AbstractMachineCategory<R extends RebornRecipe> implements
 		this.recipeType = rebornRecipeType;
 	}
 
-	private Identifier id() {
-		return Registries.RECIPE_TYPE.getId(recipeType);
+	private ResourceLocation id() {
+		return BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
 	}
 
 
@@ -61,8 +61,8 @@ public abstract class AbstractMachineCategory<R extends RebornRecipe> implements
 	}
 
 	@Override
-	public Text getTitle() {
-		return Text.translatable(id().toString());
+	public Component getTitle() {
+		return Component.translatable(id().toString());
 	}
 
 	@Override

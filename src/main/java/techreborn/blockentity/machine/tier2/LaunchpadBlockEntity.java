@@ -24,19 +24,6 @@
 
 package techreborn.blockentity.machine.tier2;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -50,6 +37,19 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
 
 public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
@@ -106,13 +106,13 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
 		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 
-		if (world.getTime() % TechRebornConfig.launchpadInterval != 0) {
+		if (world.getGameTime() % TechRebornConfig.launchpadInterval != 0) {
 			return;
 		}
 
@@ -121,13 +121,13 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 		final int energyCost = selectedEnergyCost();
 
 		if (getStored() > energyCost) {
-			List<Entity> entities = world.getNonSpectatingEntities(Entity.class, new Box(0d,1d,0d,1d,2d,1d).offset(pos));
+			List<Entity> entities = world.getEntitiesOfClass(Entity.class, new AABB(0d,1d,0d,1d,2d,1d).move(pos));
 			if (entities.isEmpty()) {
 				return;
 			}
-			world.playSound(null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 1f, 1f);
+			world.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 1f, 1f);
 			for (Entity entity : entities) {
-				entity.addVelocity(0d, speed, 0d);
+				entity.push(0d, speed, 0d);
 			}
 			useEnergy(energyCost);
 		}
@@ -154,14 +154,14 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
-		selection = view.getInt("selection", 0);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
+		selection = view.getIntOr("selection", 0);
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		view.putInt("selection", selection);
 	}
 
@@ -178,19 +178,19 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity p0) {
+	public ItemStack getToolDrop(Player p0) {
 		return TRContent.Machine.LAUNCHPAD.getStack();
 	}
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("launchpad")
 				.player(player.getInventory())
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.syncEnergyValue()
-				.sync(PacketCodecs.INTEGER, this::getSelection, this::setSelection)
+				.sync(ByteBufCodecs.INT, this::getSelection, this::setSelection)
 				.addInventory().create(this, syncID);
 	}
 

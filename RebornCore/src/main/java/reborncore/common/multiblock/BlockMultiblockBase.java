@@ -24,7 +24,7 @@
 
 package reborncore.common.multiblock;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import reborncore.common.BaseBlockEntityProvider;
 
 /*
@@ -33,7 +33,7 @@ import reborncore.common.BaseBlockEntityProvider;
  */
 public abstract class BlockMultiblockBase extends BaseBlockEntityProvider {
 
-	protected BlockMultiblockBase(Block.Settings builder) {
+	protected BlockMultiblockBase(BlockBehaviour.Properties builder) {
 		super(builder);
 	}
 }

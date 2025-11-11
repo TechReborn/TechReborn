@@ -25,19 +25,18 @@
 package reborncore.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
+import net.minecraft.world.level.ChunkPos;
 import org.joml.Matrix4f;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.network.serverbound.ChunkLoaderRequestPayload;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,25 +64,25 @@ public class ClientChunkManager {
 	public static boolean hasChunksForLoader(BlockPos pos) {
 		return loadedChunks.stream()
 				.filter(loadedChunk -> loadedChunk.chunkLoader().equals(pos))
-				.anyMatch(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(MinecraftClient.getInstance().world)));
+				.anyMatch(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(Minecraft.getInstance().level)));
 	}
 
-	public static void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, double x, double y, double z) {
+	public static void render(PoseStack matrices, MultiBufferSource vertexConsumers, double x, double y, double z) {
 		int size = loadedChunks.size();
 		if (size == 0) {
 			return;
 		}
 
-		final MinecraftClient minecraftClient = MinecraftClient.getInstance();
-		Identifier worldName = ChunkLoaderManager.getWorldName(minecraftClient.world);
+		final Minecraft minecraftClient = Minecraft.getInstance();
+		ResourceLocation worldName = ChunkLoaderManager.getWorldName(minecraftClient.level);
 		int[] posX = new int[size], posZ = new int[size];
 		int right = 0, startX, startZ, maxX = Integer.MIN_VALUE, minX = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE;
 		for (int i = 0; i < size; i++) {
 			ChunkLoaderManager.LoadedChunk chunk = loadedChunks.get(i);
 			if (chunk.world().equals(worldName)) {
 				ChunkPos pos = chunk.chunk();
-				startX = posX[right] = pos.getStartX();
-				startZ = posZ[right] = pos.getStartZ();
+				startX = posX[right] = pos.getMinBlockX();
+				startZ = posZ[right] = pos.getMinBlockZ();
 				if (maxX < startX) maxX = startX;
 				if (minX > startX) minX = startX;
 				if (maxZ < startZ) maxZ = startZ;
@@ -96,11 +95,11 @@ public class ClientChunkManager {
 		}
 		size = right;
 
-		int bottom = minecraftClient.world.getBottomY();
-		int top = minecraftClient.world.getTopYInclusive() + 1;
+		int bottom = minecraftClient.level.getMinY();
+		int top = minecraftClient.level.getMaxY() + 1;
 		DrawContext ctx = new DrawContext(
-			vertexConsumers.getBuffer(RenderLayer.getDebugLineStrip(1.0)),
-			matrices.peek().getPositionMatrix(),
+			vertexConsumers.getBuffer(RenderType.debugLineStrip(1.0)),
+			matrices.last().pose(),
 			x, y, z, bottom, top
 		);
 
@@ -142,11 +141,11 @@ public class ClientChunkManager {
 	}
 
 	static class DrawContext {
-		private static final int NONE = ColorHelper.getArgb(0, 0, 0, 0);
-		private static final int RED = ColorHelper.getArgb(127, 255, 0, 0);
-		private static final int BLUE = ColorHelper.getArgb(255, 63, 63, 255);
-		private static final int DARK_CYAN = ColorHelper.getArgb(255, 0, 155, 155);
-		private static final int YELLOW = ColorHelper.getArgb(255, 255, 255, 0);
+		private static final int NONE = ARGB.color(0, 0, 0, 0);
+		private static final int RED = ARGB.color(127, 255, 0, 0);
+		private static final int BLUE = ARGB.color(255, 63, 63, 255);
+		private static final int DARK_CYAN = ARGB.color(255, 0, 155, 155);
+		private static final int YELLOW = ARGB.color(255, 255, 255, 0);
 		private final VertexConsumer vertexConsumer;
 		private final Matrix4f matrix4f;
 		private final double cameraX;
@@ -182,10 +181,10 @@ public class ClientChunkManager {
 		}
 
 		public void drawVertical(int color, float x, float z) {
-			vertexConsumer.vertex(matrix4f, x, bottom, z).color(NONE);
-			vertexConsumer.vertex(matrix4f, x, bottom, z).color(color);
-			vertexConsumer.vertex(matrix4f, x, top, z).color(color);
-			vertexConsumer.vertex(matrix4f, x, top, z).color(NONE);
+			vertexConsumer.addVertex(matrix4f, x, bottom, z).setColor(NONE);
+			vertexConsumer.addVertex(matrix4f, x, bottom, z).setColor(color);
+			vertexConsumer.addVertex(matrix4f, x, top, z).setColor(color);
+			vertexConsumer.addVertex(matrix4f, x, top, z).setColor(NONE);
 		}
 
 		public void drawVerticalRed(int x, int z) {
@@ -205,13 +204,13 @@ public class ClientChunkManager {
 		}
 
 		public void drawHorizontal(int color, float y) {
-			vertexConsumer.vertex(matrix4f, x1, y, z1).color(NONE);
-			vertexConsumer.vertex(matrix4f, x1, y, z1).color(color);
-			vertexConsumer.vertex(matrix4f, x1, y, z2).color(color);
-			vertexConsumer.vertex(matrix4f, x2, y, z2).color(color);
-			vertexConsumer.vertex(matrix4f, x2, y, z1).color(color);
-			vertexConsumer.vertex(matrix4f, x1, y, z1).color(color);
-			vertexConsumer.vertex(matrix4f, x1, y, z1).color(NONE);
+			vertexConsumer.addVertex(matrix4f, x1, y, z1).setColor(NONE);
+			vertexConsumer.addVertex(matrix4f, x1, y, z1).setColor(color);
+			vertexConsumer.addVertex(matrix4f, x1, y, z2).setColor(color);
+			vertexConsumer.addVertex(matrix4f, x2, y, z2).setColor(color);
+			vertexConsumer.addVertex(matrix4f, x2, y, z1).setColor(color);
+			vertexConsumer.addVertex(matrix4f, x1, y, z1).setColor(color);
+			vertexConsumer.addVertex(matrix4f, x1, y, z1).setColor(NONE);
 		}
 
 		public void drawHorizontalBlue(int y) {

@@ -24,27 +24,27 @@
 
 package reborncore.client.multiblock;
 
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Vec3d;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.world.phys.Vec3;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements BlockEntityRenderer<T> {
 
-	public MultiblockRenderer(BlockEntityRendererFactory.Context ctx) {
+	public MultiblockRenderer(BlockEntityRendererProvider.Context ctx) {
 	}
 
 	@Override
-	public void render(T blockEntity, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay, Vec3d cameraPos) {
+	public void render(T blockEntity, float partialTicks, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int light, int overlay, Vec3 cameraPos) {
 		if (blockEntity.renderMultiblock && !blockEntity.isShapeValid()) {
-			blockEntity.writeMultiblock(new HologramRenderer(blockEntity.getWorld(), matrixStack, vertexConsumerProvider, 0.4F).rotate(blockEntity.getFacing().getOpposite()));
+			blockEntity.writeMultiblock(new HologramRenderer(blockEntity.getLevel(), matrixStack, vertexConsumerProvider, 0.4F).rotate(blockEntity.getFacing().getOpposite()));
 		}
 	}
 
 	@Override
-	public boolean rendersOutsideBoundingBox() {
+	public boolean shouldRenderOffScreen() {
 		return true;
 	}
 }

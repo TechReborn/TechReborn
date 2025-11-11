@@ -24,11 +24,11 @@
 
 package techreborn.datagen.recipes.machine.fluid_generator
 
-import net.minecraft.fluid.Fluid
-import net.minecraft.fluid.Fluids
-import net.minecraft.recipe.RecipeType
-import net.minecraft.registry.Registries
-import net.minecraft.util.Identifier
+import net.minecraft.world.level.material.Fluid
+import net.minecraft.world.level.material.Fluids
+import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.init.ModFluids
@@ -79,8 +79,8 @@ class FluidGeneratorRecipeJsonFactory extends MachineRecipeJsonFactory<FluidGene
 
 	@Override
 	def getIdentifier() {
-		def outputId = Registries.FLUID.getId(fluid)
-		def recipeId = Registries.RECIPE_TYPE.getId(type)
-		return Identifier.of("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
+		def outputId = BuiltInRegistries.FLUID.getKey(fluid)
+		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
+		return ResourceLocation.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 }

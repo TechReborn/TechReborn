@@ -24,9 +24,9 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import techreborn.init.TRBlockSettings;
 
 public class BlockRefinedIronFence extends FenceBlock {
@@ -36,7 +36,7 @@ public class BlockRefinedIronFence extends FenceBlock {
 	}
 
 	@Override
-	public boolean canConnect(BlockState blockState, boolean boolean_1, Direction direction) {
+	public boolean connectsTo(BlockState blockState, boolean boolean_1, Direction direction) {
 		return blockState.getBlock() == this;
 	}
 }

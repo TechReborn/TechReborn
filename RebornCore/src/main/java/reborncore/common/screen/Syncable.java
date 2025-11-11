@@ -24,17 +24,16 @@
 
 package reborncore.common.screen;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public interface Syncable {
 
 	void configureSync(Context context);
 
 	interface Context {
-		<T> void sync(PacketCodec<? super RegistryByteBuf, T> codec, Supplier<T> supplier, Consumer<T> setter);
+		<T> void sync(StreamCodec<? super RegistryFriendlyByteBuf, T> codec, Supplier<T> supplier, Consumer<T> setter);
 	}
 }

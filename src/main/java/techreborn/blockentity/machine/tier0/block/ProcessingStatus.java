@@ -24,12 +24,12 @@
 
 package techreborn.blockentity.machine.tier0.block;
 
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 /**
  * <b>Interface describing different statuses of a Processing Machine</b>
  * <br>
- * Used to define {@link Text} for UI elements based on the positive, neutral or negative status of a machine
+ * Used to define {@link Component} for UI elements based on the positive, neutral or negative status of a machine
  *
  * @author SimonFlapse
  */
@@ -39,7 +39,7 @@ public interface ProcessingStatus {
 	 *
 	 * @return The translatable text for displaying in a UI
 	 */
-	Text getText();
+	Component getText();
 
 	/**
 	 * <b>The processing status with current progress formatted</b>
@@ -49,7 +49,7 @@ public interface ProcessingStatus {
 	 * @param progress	{@code int} the current progress as an integer between 0 and 100. Displayed as a percentage (Eg. 75%)
 	 * @return The translatable text for displaying in a UI
 	 */
-	Text getProgressText(int progress);
+	Component getProgressText(int progress);
 
 	/**
 	 * <b>The color to be used for the status text</b>

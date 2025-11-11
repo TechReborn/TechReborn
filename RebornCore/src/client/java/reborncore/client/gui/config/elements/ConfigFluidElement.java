@@ -24,8 +24,8 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 
@@ -41,10 +41,10 @@ public class ConfigFluidElement extends ParentElement {
 		elements.add(popupElement = new FluidConfigPopupElement(x - 22, y - 22, getHeight(), this));
 		elements.add(new ButtonElement(x + 37, y - 25, GuiSprites.EXIT_BUTTON, 13, 13, gui::closeSelectedTab));
 
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 59,
+		elements.add(new CheckBoxElement(Component.translatable("reborncore.gui.fluidconfig.pullin"), x - 26, y + 59,
 			checkBoxElement -> gui.getMachine().fluidConfiguration.autoInput(),
 			() -> popupElement.updateCheckBox("input", gui)));
-		elements.add(new CheckBoxElement(Text.translatable("reborncore.gui.fluidconfig.pumpout"), x - 26, y + 74,
+		elements.add(new CheckBoxElement(Component.translatable("reborncore.gui.fluidconfig.pumpout"), x - 26, y + 74,
 			checkBoxElement -> gui.getMachine().fluidConfiguration.autoOutput(),
 			() -> popupElement.updateCheckBox("output", gui)));
 	}
@@ -60,7 +60,7 @@ public class ConfigFluidElement extends ParentElement {
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+	public void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		if (isMouseWithinRect(gui, mouseX, mouseY)) {
 			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY(), type.getTextureWidth(), type.getTextureHeight());
 		}

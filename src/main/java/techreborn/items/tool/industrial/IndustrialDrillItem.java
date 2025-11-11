@@ -24,17 +24,6 @@
 
 package techreborn.items.tool.industrial;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
@@ -43,6 +32,17 @@ import techreborn.utils.TRItemUtils;
 import techreborn.utils.ToolsUtil;
 
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class IndustrialDrillItem extends DrillItem {
 
@@ -50,7 +50,7 @@ public class IndustrialDrillItem extends DrillItem {
 		super(TRToolMaterials.INDUSTRIAL_DRILL, TechRebornConfig.industrialDrillCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 20.0F, name);
 	}
 
-	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
+	private boolean shouldBreak(Player playerIn, Level worldIn, BlockPos originalPos, BlockPos pos) {
 		if (originalPos.equals(pos)) {
 			return false;
 		}
@@ -58,25 +58,25 @@ public class IndustrialDrillItem extends DrillItem {
 		if (blockState.isAir()) {
 			return false;
 		}
-		if (blockState.isLiquid()) {
+		if (blockState.liquid()) {
 			return false;
 		}
-		float blockHardness = blockState.calcBlockBreakingDelta(playerIn, worldIn, pos);
+		float blockHardness = blockState.getDestroyProgress(playerIn, worldIn, pos);
 		if (blockHardness == -1.0F) {
 			return false;
 		}
-		float originalHardness = worldIn.getBlockState(originalPos).getHardness(worldIn, originalPos);
+		float originalHardness = worldIn.getBlockState(originalPos).getDestroySpeed(worldIn, originalPos);
 		return !((originalHardness / blockHardness) > 10.0F);
 	}
 
 	// DrillItem
 	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean mineBlock(ItemStack stack, Level worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
 		if (!TRItemUtils.isActive(stack)) {
-			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+			return super.mineBlock(stack, worldIn, stateIn, pos, entityLiving);
 		}
-		if (!(entityLiving instanceof PlayerEntity playerIn)) {
-			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+		if (!(entityLiving instanceof Player playerIn)) {
+			return super.mineBlock(stack, worldIn, stateIn, pos, entityLiving);
 		}
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1)) {
 			if (shouldBreak(playerIn, worldIn, pos, additionalPos)) {
@@ -84,27 +84,27 @@ public class IndustrialDrillItem extends DrillItem {
 			}
 		}
 
-		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+		return super.mineBlock(stack, worldIn, stateIn, pos, entityLiving);
 	}
 
 	// Item
 	@Override
-	public ActionResult use(final World world, final PlayerEntity player, final Hand hand) {
-		final ItemStack stack = player.getStackInHand(hand);
-		if (player.isSneaking()) {
+	public InteractionResult use(final Level world, final Player player, final InteractionHand hand) {
+		final ItemStack stack = player.getItemInHand(hand);
+		if (player.isShiftKeyDown()) {
 			TRItemUtils.switchActive(stack, cost, player);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
+	public void onUseTick(Level world, LivingEntity entity, ItemStack stack, int i) {
 		TRItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
 		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 }

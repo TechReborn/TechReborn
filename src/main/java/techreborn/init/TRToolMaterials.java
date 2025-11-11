@@ -24,7 +24,7 @@
 
 package techreborn.init;
 
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.world.item.ToolMaterial;
 
 /**
  * We use custom materials to allow LevelZ to tweak the mining level of our tools.

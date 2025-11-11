@@ -24,18 +24,18 @@
 
 package techreborn.blocks.storage.item;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.RebornInventory;
@@ -56,60 +56,60 @@ public class StorageUnitBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new StorageUnitBaseBlockEntity(pos, state, unitType);
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
-		if (unitType == TRContent.StorageUnit.CREATIVE || worldIn.isClient) {
-			return super.onUse(state, worldIn, pos, playerIn, hitResult);
+	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hitResult) {
+		if (unitType == TRContent.StorageUnit.CREATIVE || worldIn.isClientSide) {
+			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
 		if (storageEntity == null) {
-			return super.onUse(state, worldIn, pos, playerIn, hitResult);
+			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 		if (storageEntity.isFull()) {
-			return super.onUse(state, worldIn, pos, playerIn, hitResult);
+			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 
-		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
-		if (!storageEntity.isValid(StorageUnitBaseBlockEntity.INPUT_SLOT, stackInHand)) {
-			return super.onUse(state, worldIn, pos, playerIn, hitResult);
+		ItemStack stackInHand = playerIn.getItemInHand(InteractionHand.MAIN_HAND);
+		if (!storageEntity.canPlaceItem(StorageUnitBaseBlockEntity.INPUT_SLOT, stackInHand)) {
+			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		Item itemInHand = stackInHand.getItem();
 		if (itemInHand instanceof WrenchItem){
-			return super.onUse(state, worldIn, pos, playerIn, hitResult);
+			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		// Add item which is the same type (in users inventory) into storage
-		for (int i = 0; i < playerIn.getInventory().size() && !storageEntity.isFull(); i++) {
-			ItemStack curStack = playerIn.getInventory().getStack(i);
+		for (int i = 0; i < playerIn.getInventory().getContainerSize() && !storageEntity.isFull(); i++) {
+			ItemStack curStack = playerIn.getInventory().getItem(i);
 			if (curStack.getItem() == itemInHand) {
-				playerIn.getInventory().setStack(i, storageEntity.processInput(curStack));
+				playerIn.getInventory().setItem(i, storageEntity.processInput(curStack));
 			}
 		}
 
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
 		if (storageEntity == null){
 			return 0;
 		}
 		float delta = (float) storageEntity.getCurrentCapacity()/storageEntity.getMaxCapacity();
-		return MathHelper.lerpPositive(delta, 0, 15);
+		return Mth.lerpDiscrete(delta, 0, 15);
 	}
 
 	@Override
-	public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-		super.onBlockBreakStart(state, world, pos, player);
+	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
+		super.attack(state, world, pos, player);
 
-		if (world.isClient) return;
+		if (world.isClientSide) return;
 
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
 		if (storageEntity == null) {
@@ -119,24 +119,24 @@ public class StorageUnitBlock extends BlockMachineBase {
 			return;
 		}
 
-		ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
+		ItemStack stackInHand = player.getItemInHand(InteractionHand.MAIN_HAND);
 
 		// Let's assume that player is trying to break this block, rather than get an item from storage
-		if (stackInHand.contains(DataComponentTypes.WEAPON)) {
+		if (stackInHand.has(DataComponents.WEAPON)) {
 			return;
 		}
 		RebornInventory<StorageUnitBaseBlockEntity> inventory = storageEntity.getInventory();
-		ItemStack out = inventory.getStack(StorageUnitBaseBlockEntity.OUTPUT_SLOT);
+		ItemStack out = inventory.getItem(StorageUnitBaseBlockEntity.OUTPUT_SLOT);
 
 		// Full stack if sneaking
-		if (player.isSneaking()) {
-			WorldUtils.dropItem(out, world, player.getBlockPos());
+		if (player.isShiftKeyDown()) {
+			WorldUtils.dropItem(out, world, player.blockPosition());
 			out.setCount(0);
 		} else {
 			ItemStack dropStack = out.copy();
 			dropStack.setCount(1);
-			WorldUtils.dropItem(dropStack, world, player.getBlockPos());
-			out.decrement(1);
+			WorldUtils.dropItem(dropStack, world, player.blockPosition());
+			out.shrink(1);
 		}
 
 		inventory.setHashChanged();

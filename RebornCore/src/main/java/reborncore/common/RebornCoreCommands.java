@@ -32,20 +32,20 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.command.argument.ItemStackArgumentType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerChunkManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.world.chunk.ChunkStatus;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.item.ItemArgument;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.clientbound.QueueItemStacksPayload;
 
@@ -61,26 +61,26 @@ import java.util.stream.Collectors;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class RebornCoreCommands {
 
 	private final static ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
-	private final static SuggestionProvider<ServerCommandSource> MOD_SUGGESTIONS = (context, builder) ->
-			CommandSource.suggestMatching(FabricLoader.getInstance().getAllMods().stream().map(modContainer -> modContainer.getMetadata().getId()), builder);
+	private final static SuggestionProvider<CommandSourceStack> MOD_SUGGESTIONS = (context, builder) ->
+			SharedSuggestionProvider.suggest(FabricLoader.getInstance().getAllMods().stream().map(modContainer -> modContainer.getMetadata().getId()), builder);
 
 	public static void setup() {
 		CommandRegistrationCallback.EVENT.register((RebornCoreCommands::addCommands));
 	}
 
-	private static void addCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
+	private static void addCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registryAccess, Commands.CommandSelection environment) {
 		dispatcher.register(
 				literal("reborncore")
 
 					.then(
 						literal("generate")
-							.requires(source -> source.hasPermissionLevel(3))
+							.requires(source -> source.hasPermission(3))
 							.then(argument("size", integer())
 									.executes(RebornCoreCommands::generate)
 							)
@@ -88,11 +88,11 @@ public class RebornCoreCommands {
 
 					.then(
 						literal("flyspeed")
-							.requires(source -> source.hasPermissionLevel(3))
+							.requires(source -> source.hasPermission(3))
 							.then(argument("speed", integer(1, 10))
 									.executes(ctx -> flySpeed(ctx, ImmutableList.of(ctx.getSource().getPlayer())))
-									.then(CommandManager.argument("players", EntityArgumentType.players())
-											.executes(ctx -> flySpeed(ctx, EntityArgumentType.getPlayers(ctx, "players")))
+									.then(Commands.argument("players", EntityArgument.players())
+											.executes(ctx -> flySpeed(ctx, EntityArgument.getPlayers(ctx, "players")))
 									)
 							)
 					)
@@ -110,7 +110,7 @@ public class RebornCoreCommands {
 							.then(
 								literal("item")
 									.then(
-										argument("item", ItemStackArgumentType.itemStack(registryAccess))
+										argument("item", ItemArgument.item(registryAccess))
 										.executes(RebornCoreCommands::itemRenderer)
 									)
 							)
@@ -122,11 +122,11 @@ public class RebornCoreCommands {
 		);
 	}
 
-	private static int generate(CommandContext<ServerCommandSource> ctx) {
+	private static int generate(CommandContext<CommandSourceStack> ctx) {
 		final int size = getInteger(ctx, "size");
 
-		final ServerWorld world = ctx.getSource().getWorld();
-		final ServerChunkManager serverChunkManager = world.getChunkManager();
+		final ServerLevel world = ctx.getSource().getLevel();
+		final ServerChunkCache serverChunkManager = world.getChunkSource();
 		final AtomicInteger completed = new AtomicInteger(0);
 
 		for (int x = -(size / 2); x < size / 2; x++) {
@@ -136,7 +136,7 @@ public class RebornCoreCommands {
 				CompletableFuture.supplyAsync(() -> serverChunkManager.getChunk(chunkPosX, chunkPosZ, ChunkStatus.FULL, true), EXECUTOR_SERVICE)
 						.whenComplete((chunk, throwable) -> {
 									int max = (int) Math.pow(size, 2);
-									ctx.getSource().sendFeedback(() -> Text.literal(String.format("Finished generating %d:%d (%d/%d %d%%)", chunk.getPos().x, chunk.getPos().z, completed.getAndIncrement(), max, completed.get() == 0 ? 0 : (int) ((completed.get() * 100.0f) / max))), true);
+									ctx.getSource().sendSuccess(() -> Component.literal(String.format("Finished generating %d:%d (%d/%d %d%%)", chunk.getPos().x, chunk.getPos().z, completed.getAndIncrement(), max, completed.get() == 0 ? 0 : (int) ((completed.get() * 100.0f) / max))), true);
 								}
 						);
 			}
@@ -144,21 +144,21 @@ public class RebornCoreCommands {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static int flySpeed(CommandContext<ServerCommandSource> ctx, Collection<ServerPlayerEntity> players) {
+	private static int flySpeed(CommandContext<CommandSourceStack> ctx, Collection<ServerPlayer> players) {
 		final int speed = getInteger(ctx, "speed");
 		players.stream()
-				.peek(player -> player.getAbilities().setFlySpeed(speed / 20F))
-				.forEach(ServerPlayerEntity::sendAbilitiesUpdate);
+				.peek(player -> player.getAbilities().setFlyingSpeed(speed / 20F))
+				.forEach(ServerPlayer::onUpdateAbilities);
 
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static int renderMod(CommandContext<ServerCommandSource> ctx) {
+	private static int renderMod(CommandContext<CommandSourceStack> ctx) {
 		String modid = StringArgumentType.getString(ctx, "modid");
 
-		List<ItemStack> list = Registries.ITEM.getIds().stream()
+		List<ItemStack> list = BuiltInRegistries.ITEM.keySet().stream()
 				.filter(identifier -> identifier.getNamespace().equals(modid))
-				.map(Registries.ITEM::get)
+				.map(BuiltInRegistries.ITEM::getValue)
 				.map(ItemStack::new)
 				.collect(Collectors.toList());
 
@@ -166,20 +166,20 @@ public class RebornCoreCommands {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static int itemRenderer(CommandContext<ServerCommandSource> ctx) {
-		Item item = ItemStackArgumentType.getItemStackArgument(ctx, "item").getItem();
+	private static int itemRenderer(CommandContext<CommandSourceStack> ctx) {
+		Item item = ItemArgument.getItem(ctx, "item").getItem();
 		queueRender(Collections.singletonList(new ItemStack(item)), ctx);
 
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static int handRenderer(CommandContext<ServerCommandSource> ctx) {
-		queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getSelectedStack()), ctx);
+	private static int handRenderer(CommandContext<CommandSourceStack> ctx) {
+		queueRender(Collections.singletonList(ctx.getSource().getPlayer().getInventory().getSelectedItem()), ctx);
 
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static void queueRender(List<ItemStack> stacks, CommandContext<ServerCommandSource> ctx) {
+	private static void queueRender(List<ItemStack> stacks, CommandContext<CommandSourceStack> ctx) {
 		NetworkManager.sendToPlayer(new QueueItemStacksPayload(stacks), ctx.getSource().getPlayer());
 	}
 }

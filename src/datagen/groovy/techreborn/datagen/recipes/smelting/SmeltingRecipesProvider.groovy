@@ -25,15 +25,15 @@
 package techreborn.datagen.recipes.smelting
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.data.recipe.CookingRecipeJsonBuilder
-import net.minecraft.item.ItemConvertible
-import net.minecraft.item.Items
-import net.minecraft.recipe.AbstractCookingRecipe
-import net.minecraft.recipe.BlastingRecipe
-import net.minecraft.recipe.RecipeSerializer
-import net.minecraft.recipe.SmeltingRecipe
-import net.minecraft.recipe.book.RecipeCategory
-import net.minecraft.registry.RegistryWrapper
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder
+import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.crafting.AbstractCookingRecipe
+import net.minecraft.world.item.crafting.BlastingRecipe
+import net.minecraft.world.item.crafting.RecipeSerializer
+import net.minecraft.world.item.crafting.SmeltingRecipe
+import net.minecraft.data.recipes.RecipeCategory
+import net.minecraft.core.HolderLookup
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
@@ -41,7 +41,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class SmeltingRecipesProvider extends TechRebornRecipesProvider {
-	SmeltingRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	SmeltingRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -72,17 +72,17 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 		}
 	}
 
-	def offerSmelting(def input, ItemConvertible output, float experience = 0.5f, int cookingTime = 200) {
-		offerCookingRecipe(input, output, experience, cookingTime, RecipeSerializer.SMELTING, SmeltingRecipe.&new, "smelting/")
+	def offerSmelting(def input, ItemLike output, float experience = 0.5f, int cookingTime = 200) {
+		offerCookingRecipe(input, output, experience, cookingTime, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe.&new, "smelting/")
 	}
 
-	def offerBlasting(def input, ItemConvertible output, float experience = 0.5f, int cookingTime = 200) {
-		offerCookingRecipe(input, output, experience, cookingTime, RecipeSerializer.BLASTING, BlastingRecipe.&new, "blasting/")
+	def offerBlasting(def input, ItemLike output, float experience = 0.5f, int cookingTime = 200) {
+		offerCookingRecipe(input, output, experience, cookingTime, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe.&new, "blasting/")
 	}
 
-	<T extends AbstractCookingRecipe> void offerCookingRecipe(def input, ItemConvertible output, float experience, int cookingTime, RecipeSerializer<T> serializer, AbstractCookingRecipe.RecipeFactory<T> recipeFactory, String prefix = "", RecipeCategory category = RecipeCategory.MISC) {
-		CookingRecipeJsonBuilder.create(createIngredient(input), category, output, experience, cookingTime, serializer, recipeFactory)
-				.criterion(getCriterionName(input), getCriterionConditions(input))
-				.offerTo(this.exporter, TechReborn.MOD_ID + ":" + prefix + getInputPath(output) + "_from_" + getInputPath(input))
+	<T extends AbstractCookingRecipe> void offerCookingRecipe(def input, ItemLike output, float experience, int cookingTime, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipeFactory, String prefix = "", RecipeCategory category = RecipeCategory.MISC) {
+		SimpleCookingRecipeBuilder.generic(createIngredient(input), category, output, experience, cookingTime, serializer, recipeFactory)
+				.unlockedBy(getCriterionName(input), getCriterionConditions(input))
+				.save(this.exporter, TechReborn.MOD_ID + ":" + prefix + getInputPath(output) + "_from_" + getInputPath(input))
 	}
 }

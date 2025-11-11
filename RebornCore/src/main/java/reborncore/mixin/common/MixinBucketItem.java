@@ -24,10 +24,10 @@
 
 package reborncore.mixin.common;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.material.Fluid;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,7 +38,7 @@ public class MixinBucketItem implements ItemFluidInfo {
 
 	@Shadow
 	@Final
-	private Fluid fluid;
+	private Fluid content;
 
 	@Override
 	public ItemStack getEmpty() {
@@ -47,11 +47,11 @@ public class MixinBucketItem implements ItemFluidInfo {
 
 	@Override
 	public ItemStack getFull(Fluid fluid) {
-		return new ItemStack(fluid.getBucketItem());
+		return new ItemStack(fluid.getBucket());
 	}
 
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
-		return fluid;
+		return content;
 	}
 }

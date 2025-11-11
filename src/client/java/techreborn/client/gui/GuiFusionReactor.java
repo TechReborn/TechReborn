@@ -25,10 +25,10 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
@@ -48,7 +48,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 
 	private final FusionControlComputerBlockEntity blockEntity;
 
-	public GuiFusionReactor(int syncID, final PlayerEntity player, final FusionControlComputerBlockEntity blockEntity) {
+	public GuiFusionReactor(int syncID, final Player player, final FusionControlComputerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
@@ -56,15 +56,15 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public void init() {
 		super.init();
-		addDrawableChild(new GuiButtonUpDown(x + 121, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 121 + 12, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 121 + 24, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1), UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 121 + 36, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.FASTREWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 121, topPos + 79, this, (Button buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 121 + 12, topPos + 79, this, (Button buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 121 + 24, topPos + 79, this, (Button buttonWidget) -> sendSizeChange(-1), UpDownButtonType.REWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 121 + 36, topPos + 79, this, (Button buttonWidget) -> sendSizeChange(-5), UpDownButtonType.FASTREWIND));
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float partialTicks, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, partialTicks, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float partialTicks, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		drawSlot(drawContext, 34, 47, layer);
@@ -78,8 +78,8 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -88,7 +88,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
 			drawCentredText(drawContext, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
 			if (blockEntity.state == 2) {
-				drawCentredText(drawContext, Text.literal(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
+				drawCentredText(drawContext, Component.literal(PowerSystem.getLocalizedPower(blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(drawContext, this, layer);
@@ -100,19 +100,19 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 				if (stackSize.get().getLeft() > 0) {
 
 					drawCentredText(drawContext,
-							Text.literal("Required Coils: ")
+							Component.literal("Required Coils: ")
 									.append(String.valueOf(stackSize.get().getLeft()))
 									.append("x64 +")
 									.append(String.valueOf(stackSize.get().getRight()))
 							, 25, 0xFFFFFFFF, layer);
 				} else {
-					drawCentredText(drawContext, Text.literal("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFFFF, layer);
+					drawCentredText(drawContext, Component.literal("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFFFF, layer);
 				}
 
 			}
 		}
-		drawContext.drawText(this.textRenderer, Text.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFFFF, true);
-		drawContext.drawText(this.textRenderer, Text.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFFFF, true);
+		drawContext.drawString(this.font, Component.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFFFF, true);
+		drawContext.drawString(this.font, Component.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFFFF, true);
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, this.blockEntity.getEnergy(), this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}
@@ -122,7 +122,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	private void sendSizeChange(int sizeDelta) {
-		ClientPlayNetworking.send(new FusionControlSizePayload(blockEntity.getPos(), sizeDelta));
+		ClientPlayNetworking.send(new FusionControlSizePayload(blockEntity.getBlockPos(), sizeDelta));
 	}
 
 	public Optional<Pair<Integer, Integer>> getCoilStackCount() {

@@ -24,11 +24,11 @@
 
 package reborncore.common.screen.builder;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.EquippableComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.equipment.Equippable;
 import org.apache.commons.lang3.Range;
 import reborncore.common.screen.ScreenIcons;
 import reborncore.common.screen.slot.PlayerInventorySlot;
@@ -36,13 +36,13 @@ import reborncore.common.screen.slot.SpriteSlot;
 
 public final class PlayerScreenHandlerBuilder {
 
-	private final PlayerInventory player;
+	private final Inventory player;
 	private final ScreenHandlerBuilder parent;
 	private Range<Integer> main;
 	private Range<Integer> hotbar;
 	private Range<Integer> armor;
 
-	PlayerScreenHandlerBuilder(final ScreenHandlerBuilder parent, final PlayerInventory player) {
+	PlayerScreenHandlerBuilder(final ScreenHandlerBuilder parent, final Inventory player) {
 		this.player = player;
 		this.parent = parent;
 	}
@@ -103,10 +103,10 @@ public final class PlayerScreenHandlerBuilder {
 		}
 
 		private PlayerArmorScreenHandlerBuilder armor(final int xStart, final int yStart,
-													final EquipmentSlot slotType, final Identifier sprite) {
-			this.parent.parent.slots.add(new SpriteSlot(this.parent.player, slotType.getOffsetEntitySlotId(PlayerInventory.MAIN_SIZE), xStart, yStart, sprite, 1)
+													final EquipmentSlot slotType, final ResourceLocation sprite) {
+			this.parent.parent.slots.add(new SpriteSlot(this.parent.player, slotType.getIndex(Inventory.INVENTORY_SIZE), xStart, yStart, sprite, 1)
 					.setFilter(stack -> {
-						EquippableComponent equippableComponent = stack.get(DataComponentTypes.EQUIPPABLE);
+						Equippable equippableComponent = stack.get(DataComponents.EQUIPPABLE);
 						return equippableComponent != null && equippableComponent.slot() == slotType;
 					}));
 			return this;

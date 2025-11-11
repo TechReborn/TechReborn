@@ -24,24 +24,24 @@
 
 package reborncore.common.util;
 
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import reborncore.api.blockentity.IUpgradeable;
 
 public class ItemHandlerUtils {
 
-	public static void dropContainedItems(World world, BlockPos pos) {
+	public static void dropContainedItems(Level world, BlockPos pos) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity == null) {
 			return;
 		}
-		if (blockEntity instanceof Inventory inventory) {
+		if (blockEntity instanceof Container inventory) {
 			dropItemHandler(world, pos, inventory);
 		}
 		if (blockEntity instanceof IUpgradeable) {
@@ -49,20 +49,20 @@ public class ItemHandlerUtils {
 		}
 	}
 
-	public static void dropItemHandler(World world, BlockPos pos, Inventory inventory) {
-		for (int i = 0; i < inventory.size(); i++) {
-			ItemStack itemStack = inventory.getStack(i);
+	public static void dropItemHandler(Level world, BlockPos pos, Container inventory) {
+		for (int i = 0; i < inventory.getContainerSize(); i++) {
+			ItemStack itemStack = inventory.getItem(i);
 			if (itemStack.isEmpty()) {
 				continue;
 			}
 			if (itemStack.getCount() > 0) {
 				if (itemStack.getItem() instanceof BlockItem) {
-					if (((BlockItem) itemStack.getItem()).getBlock() instanceof FluidBlock) {
+					if (((BlockItem) itemStack.getItem()).getBlock() instanceof LiquidBlock) {
 						continue;
 					}
 				}
 			}
-			ItemScatterer.spawn(world, pos.getX(), pos.getY(),
+			Containers.dropItemStack(world, pos.getX(), pos.getY(),
 					pos.getZ(), itemStack);
 		}
 	}

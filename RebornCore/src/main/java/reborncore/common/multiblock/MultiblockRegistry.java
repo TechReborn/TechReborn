@@ -24,12 +24,12 @@
 
 package reborncore.common.multiblock;
 
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import reborncore.RebornCore;
 
 import java.util.HashMap;
 import java.util.Set;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.ChunkAccess;
 
 /**
  * This is a very static singleton registry class which directs incoming events
@@ -39,14 +39,14 @@ import java.util.Set;
  */
 public class MultiblockRegistry {
 	// World > WorldRegistry map
-	private static HashMap<World, MultiblockWorldRegistry> registries = new HashMap<>();
+	private static HashMap<Level, MultiblockWorldRegistry> registries = new HashMap<>();
 
 	/**
 	 * Called before Tile Entities are ticked in the world. Do bookkeeping here.
 	 *
-	 * @param world {@link World} The world being ticked
+	 * @param world {@link Level} The world being ticked
 	 */
-	public static void tickStart(World world) {
+	public static void tickStart(Level world) {
 		if (registries.containsKey(world)) {
 			MultiblockWorldRegistry registry = registries.get(world);
 			registry.processMultiblockChanges();
@@ -57,10 +57,10 @@ public class MultiblockRegistry {
 	/**
 	 * Called when the world has finished loading a chunk.
 	 *
-	 * @param world {@link World} The world which has finished loading a chunk
-	 * @param chunk {@link Chunk} Loaded chunk
+	 * @param world {@link Level} The world which has finished loading a chunk
+	 * @param chunk {@link ChunkAccess} Loaded chunk
 	 */
-	public static void onChunkLoaded(World world, Chunk chunk) {
+	public static void onChunkLoaded(Level world, ChunkAccess chunk) {
 		if (registries.containsKey(world)) {
 			registries.get(world).onChunkLoaded(chunk);
 		}
@@ -70,10 +70,10 @@ public class MultiblockRegistry {
 	 * Register a new part in the system. The part has been created either
 	 * through user action or via a chunk loading.
 	 *
-	 * @param world {@link World} The world into which this part is loading.
+	 * @param world {@link Level} The world into which this part is loading.
 	 * @param part  {@link IMultiblockPart} The part being loaded.
 	 */
-	public static void onPartAdded(World world, IMultiblockPart part) {
+	public static void onPartAdded(Level world, IMultiblockPart part) {
 		MultiblockWorldRegistry registry = getOrCreateRegistry(world);
 		registry.onPartAdded(part);
 	}
@@ -81,10 +81,10 @@ public class MultiblockRegistry {
 	/**
 	 * Call to remove a part from world lists.
 	 *
-	 * @param world {@link World} The world from which a multiblock part is being removed.
+	 * @param world {@link Level} The world from which a multiblock part is being removed.
 	 * @param part  {@link IMultiblockPart} The part being removed.
 	 */
-	public static void onPartRemovedFromWorld(World world, IMultiblockPart part) {
+	public static void onPartRemovedFromWorld(Level world, IMultiblockPart part) {
 		if (registries.containsKey(world)) {
 			registries.get(world).onPartRemovedFromWorld(part);
 		}
@@ -95,9 +95,9 @@ public class MultiblockRegistry {
 	 * Called whenever a world is unloaded. Unload the relevant registry, if we
 	 * have one.
 	 *
-	 * @param world {@link World} The world being unloaded.
+	 * @param world {@link Level} The world being unloaded.
 	 */
-	public static void onWorldUnloaded(World world) {
+	public static void onWorldUnloaded(Level world) {
 		if (registries.containsKey(world)) {
 			registries.get(world).onWorldUnloaded();
 			registries.remove(world);
@@ -108,10 +108,10 @@ public class MultiblockRegistry {
 	 * Call to mark a controller as dirty. Dirty means that parts have been
 	 * added or removed this tick.
 	 *
-	 * @param world      {@link World} The world containing the multiblock
+	 * @param world      {@link Level} The world containing the multiblock
 	 * @param controller {@link MultiblockControllerBase} The dirty controller
 	 */
-	public static void addDirtyController(World world, MultiblockControllerBase controller) {
+	public static void addDirtyController(Level world, MultiblockControllerBase controller) {
 		if (registries.containsKey(world)) {
 			registries.get(world).addDirtyController(controller);
 		} else {
@@ -123,10 +123,10 @@ public class MultiblockRegistry {
 	 * Call to mark a controller as dead. It should only be marked as dead when
 	 * it has no connected parts. It will be removed after the next world tick.
 	 *
-	 * @param world      {@link World} The world formerly containing the multiblock
+	 * @param world      {@link Level} The world formerly containing the multiblock
 	 * @param controller {@link MultiblockControllerBase} The dead controller
 	 */
-	public static void addDeadController(World world, MultiblockControllerBase controller) {
+	public static void addDeadController(Level world, MultiblockControllerBase controller) {
 		if (registries.containsKey(world)) {
 			registries.get(world).addDeadController(controller);
 		} else {
@@ -137,11 +137,11 @@ public class MultiblockRegistry {
 	}
 
 	/**
-	 * @param world {@link World} The world whose controllers you wish to retrieve.
+	 * @param world {@link Level} The world whose controllers you wish to retrieve.
 	 * @return {@link Set} An unmodifiable set of {@link MultiblockControllerBase}
 	 * controllers active in the given world, or null if there are none.
 	 */
-	public static Set<MultiblockControllerBase> getControllersFromWorld(World world) {
+	public static Set<MultiblockControllerBase> getControllersFromWorld(Level world) {
 		if (registries.containsKey(world)) {
 			return registries.get(world).getControllers();
 		}
@@ -150,7 +150,7 @@ public class MultiblockRegistry {
 
 	// / *** PRIVATE HELPERS *** ///
 
-	private static MultiblockWorldRegistry getOrCreateRegistry(World world) {
+	private static MultiblockWorldRegistry getOrCreateRegistry(Level world) {
 		if (registries.containsKey(world)) {
 			return registries.get(world);
 		} else {

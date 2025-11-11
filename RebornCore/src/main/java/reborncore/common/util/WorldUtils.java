@@ -24,47 +24,47 @@
 
 package reborncore.common.util;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.SectionPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Created by Mark on 13/03/2016.
  */
 public class WorldUtils {
 
-	public static void updateBlock(World world, BlockPos pos) {
+	public static void updateBlock(Level world, BlockPos pos) {
 		BlockState state = world.getBlockState(pos);
-		world.updateListeners(pos, state, state, 3);
+		world.sendBlockUpdated(pos, state, state, 3);
 	}
 
 	/**
 	 * Checks if chunk is loaded using proper chunk manager
 	 *
-	 * @param world {@link World} World object
+	 * @param world {@link Level} World object
 	 * @param pos   {@link BlockPos} X and Z coordinates to check
 	 * @return {@code boolean} True if chunk is loaded
 	 */
-	public static boolean isChunkLoaded(World world, BlockPos pos){
-		return world.getChunkManager().isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ()));
+	public static boolean isChunkLoaded(Level world, BlockPos pos){
+		return world.getChunkSource().hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()));
 	}
 
 
-	public static void dropItem(ItemStack itemStack, World world, BlockPos pos) {
-		Random rand = Random.create();
+	public static void dropItem(ItemStack itemStack, Level world, BlockPos pos) {
+		RandomSource rand = RandomSource.create();
 
 		float dX = rand.nextFloat() * 0.8F + 0.1F;
 		float dY = rand.nextFloat() * 0.8F + 0.1F;
@@ -74,24 +74,24 @@ public class WorldUtils {
 				itemStack.copy());
 
 		float factor = 0.05F;
-		entityItem.setVelocity(new Vec3d(rand.nextGaussian() * factor, rand.nextGaussian() * factor + 0.2F, rand.nextGaussian() * factor));
-		if (!world.isClient) {
-			world.spawnEntity(entityItem);
+		entityItem.setDeltaMovement(new Vec3(rand.nextGaussian() * factor, rand.nextGaussian() * factor + 0.2F, rand.nextGaussian() * factor));
+		if (!world.isClientSide) {
+			world.addFreshEntity(entityItem);
 		}
 	}
 
-	public static void dropItem(Item item, World world, BlockPos pos) {
+	public static void dropItem(Item item, Level world, BlockPos pos) {
 		dropItem(new ItemStack(item), world, pos);
 	}
 
-	public static void dropItems(List<ItemStack> itemStackList, World world, BlockPos pos) {
+	public static void dropItems(List<ItemStack> itemStackList, Level world, BlockPos pos) {
 		for (final ItemStack itemStack : itemStackList) {
 			WorldUtils.dropItem(itemStack, world, pos);
 			itemStack.setCount(0);
 		}
 	}
 
-	public static RegistryEntryLookup<Block> getBlockRegistryWrapper(@Nullable World world) {
-		return world != null ? world.createCommandRegistryWrapper(RegistryKeys.BLOCK) : Registries.BLOCK;
+	public static HolderGetter<Block> getBlockRegistryWrapper(@Nullable Level world) {
+		return world != null ? world.holderLookup(Registries.BLOCK) : BuiltInRegistries.BLOCK;
 	}
 }

@@ -27,8 +27,8 @@ package techreborn.datagen
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.minecraft.registry.RegistryBuilder
-import net.minecraft.registry.RegistryKeys
+import net.minecraft.core.RegistrySetBuilder
+import net.minecraft.core.registries.Registries
 import techreborn.TechReborn
 import techreborn.datagen.advancement.TRAdvancementProvider
 import techreborn.datagen.compat.Ae2
@@ -122,9 +122,9 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 	}
 
 	@Override
-	void buildRegistry(RegistryBuilder registryBuilder) {
-		registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, TRDynamicContent::damageTypes)
-		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, TRDynamicContent::configuredFeatures)
-		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, TRDynamicContent::placedFeatures)
+	void buildRegistry(RegistrySetBuilder registryBuilder) {
+		registryBuilder.add(Registries.DAMAGE_TYPE, TRDynamicContent::damageTypes)
+		registryBuilder.add(Registries.CONFIGURED_FEATURE, TRDynamicContent::configuredFeatures)
+		registryBuilder.add(Registries.PLACED_FEATURE, TRDynamicContent::placedFeatures)
 	}
 }

@@ -26,25 +26,25 @@ package techreborn.datagen.recipes
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
-import net.minecraft.advancement.AdvancementCriterion
-import net.minecraft.advancement.criterion.InventoryChangedCriterion
-import net.minecraft.data.recipe.RecipeGenerator
-import net.minecraft.data.recipe.RecipeExporter
-import net.minecraft.fluid.Fluid
-import net.minecraft.item.Item
-import net.minecraft.item.ItemConvertible
-import net.minecraft.item.ItemStack
-import net.minecraft.predicate.component.ComponentMapPredicate
-import net.minecraft.predicate.component.ComponentsPredicate
-import net.minecraft.predicate.item.ItemPredicate
-import net.minecraft.recipe.Ingredient
-import net.minecraft.recipe.RecipeType
-import net.minecraft.registry.Registries
-import net.minecraft.registry.RegistryEntryLookup
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.tag.TagKey
-import net.minecraft.util.Identifier
+import net.minecraft.advancements.Criterion
+import net.minecraft.advancements.critereon.InventoryChangeTrigger
+import net.minecraft.data.recipes.RecipeProvider
+import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.world.level.material.Fluid
+import net.minecraft.world.item.Item
+import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.ItemStack
+import net.minecraft.core.component.DataComponentExactPredicate
+import net.minecraft.advancements.critereon.DataComponentMatchers
+import net.minecraft.advancements.critereon.ItemPredicate
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.HolderGetter
+import net.minecraft.core.registries.Registries
+import net.minecraft.core.HolderLookup
+import net.minecraft.tags.TagKey
+import net.minecraft.resources.ResourceLocation
 import techreborn.component.TRDataComponentTypes
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipeJsonFactory
@@ -66,18 +66,18 @@ import techreborn.recipe.recipes.FluidGeneratorRecipe
 import java.util.concurrent.CompletableFuture
 
 abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
-	protected RecipeExporter exporter
-	public Set<Identifier> exportedRecipes = []
-	public RegistryEntryLookup<Item> itemLookup
-	public RecipeGenerator generator
+	protected RecipeOutput exporter
+	public Set<ResourceLocation> exportedRecipes = []
+	public HolderGetter<Item> itemLookup
+	public RecipeProvider generator
 
-	TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
 	@Override
-	protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup wrapperLookup, RecipeExporter recipeExporter) {
-		itemLookup = wrapperLookup.getOrThrow(RegistryKeys.ITEM)
+	protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
+		itemLookup = wrapperLookup.lookupOrThrow(Registries.ITEM)
 		exporter = recipeExporter
 		generator = new TechRebornRecipeGenerator(wrapperLookup, recipeExporter)
 		return generator
@@ -89,61 +89,61 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		if (input instanceof Ingredient) {
 			return input
 		}
-		if (input instanceof ItemConvertible) {
-			return Ingredient.ofItems(input)
+		if (input instanceof ItemLike) {
+			return Ingredient.of(input)
 		}
 		if (input instanceof TagKey) {
-			return Ingredient.ofTag(itemLookup.getOrThrow(input))
+			return Ingredient.of(itemLookup.getOrThrow(input))
 		}
 
 		throw new IllegalArgumentException()
 	}
 
 	static String getCriterionName(def input) {
-		if (input instanceof ItemConvertible) {
-			return RecipeGenerator.hasItem(input)
+		if (input instanceof ItemLike) {
+			return RecipeProvider.getHasName(input)
 		} else if (input instanceof TagKey) {
-			return "has_tag_" + input.id().toUnderscoreSeparatedString()
+			return "has_tag_" + input.location().toDebugFileName()
 		}
 
 		throw new IllegalArgumentException()
 	}
 
-	AdvancementCriterion<InventoryChangedCriterion.Conditions> getCriterionConditions(def input) {
-		if (input instanceof ItemConvertible) {
-			return generator.conditionsFromItem(input)
+	Criterion<InventoryChangeTrigger.TriggerInstance> getCriterionConditions(def input) {
+		if (input instanceof ItemLike) {
+			return generator.has(input)
 		} else if (input instanceof TagKey) {
-			return generator.conditionsFromTag(input)
+			return generator.has(input)
 		} else if (input instanceof ItemPredicate)
-			return RecipeGenerator.conditionsFromItemPredicates(input)
+			return RecipeProvider.inventoryTrigger(input)
 
 		throw new IllegalArgumentException()
 	}
 
 	ItemPredicate getCellItemPredicate(ModFluids fluid){
-		return ItemPredicate.Builder.create()
-			.items(itemLookup, TRContent.CELL.asItem())
-			.components(ComponentsPredicate.Builder.create()
-				.exact(ComponentMapPredicate.of(TRDataComponentTypes.FLUID, fluid.fluid.registryEntry))
+		return ItemPredicate.Builder.item()
+			.of(itemLookup, TRContent.CELL.asItem())
+			.withComponents(DataComponentMatchers.Builder.components()
+				.exact(DataComponentExactPredicate.expect(TRDataComponentTypes.FLUID, fluid.fluid.builtInRegistryHolder()))
 				.build())
 			.build()
 	}
 
 	static String getInputPath(def input) {
-		if (input instanceof ItemConvertible) {
-			return RecipeGenerator.getItemPath(input)
+		if (input instanceof ItemLike) {
+			return RecipeProvider.getItemName(input)
 		} else if (input instanceof TagKey) {
-			return input.id().toString().replace(":", "_")
+			return input.location().toString().replace(":", "_")
 		}
 
 		throw new IllegalArgumentException()
 	}
 
 	static String getName(def input) {
-		if (input instanceof ItemConvertible) {
-			return RecipeGenerator.getItemPath(input)
+		if (input instanceof ItemLike) {
+			return RecipeProvider.getItemName(input)
 		} else if (input instanceof TagKey) {
-			String name = input.id().toString()
+			String name = input.location().toString()
 			if (name.contains(":"))
 				name = name.substring(name.indexOf(":")+1)
 			return name
@@ -154,11 +154,11 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	static String getNamePart1(def input) {
 		String name
-		if (input instanceof ItemConvertible) {
-			name = RecipeGenerator.getItemPath(input)
+		if (input instanceof ItemLike) {
+			name = RecipeProvider.getItemName(input)
 			return name.substring(0,name.indexOf("_"))
 		} else if (input instanceof TagKey) {
-			name = input.id().toString()
+			name = input.location().toString()
 			if (name.contains(":"))
 				name = name.substring(name.indexOf(":")+1)
 			return name.substring(name.indexOf("/"))
@@ -167,7 +167,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		throw new IllegalArgumentException()
 	}
 
-	static ItemStack stack(ItemConvertible itemConvertible, int count = 1) {
+	static ItemStack stack(ItemLike itemConvertible, int count = 1) {
 		return new ItemStack(itemConvertible, count)
 	}
 
@@ -181,7 +181,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	// Todo refactor me out, used to help port json recipes
 	static ItemStack stack(String id, int count = 1) {
-		def item = Registries.ITEM.get(Identifier.of(id))
+		def item = BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(id))
 		return new ItemStack(item, count)
 	}
 
@@ -191,7 +191,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 			throw new UnsupportedOperationException()
 		}
 
-		return TagKey.of(RegistryKeys.ITEM, Identifier.of(id))
+		return TagKey.create(Registries.ITEM, ResourceLocation.parse(id))
 	}
 
 	def offerAlloySmelterRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
@@ -283,8 +283,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected Identifier getRecipeIdentifier(Identifier identifier) {
-		return Identifier.of("techreborn", super.getRecipeIdentifier(identifier).path)
+	protected ResourceLocation getRecipeIdentifier(ResourceLocation identifier) {
+		return ResourceLocation.fromNamespaceAndPath("techreborn", super.getRecipeIdentifier(identifier).path)
 	}
 
 	@Override
@@ -292,13 +292,13 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		return "Recipes / " + getClass().name
 	}
 
-	class TechRebornRecipeGenerator extends RecipeGenerator {
-		protected TechRebornRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
+	class TechRebornRecipeGenerator extends RecipeProvider {
+		protected TechRebornRecipeGenerator(HolderLookup.Provider registries, RecipeOutput exporter) {
 			super(registries, exporter)
 		}
 
 		@Override
-		void generate() {
+		void buildRecipes() {
 			TechRebornRecipesProvider.this.generateRecipes()
 		}
 	}

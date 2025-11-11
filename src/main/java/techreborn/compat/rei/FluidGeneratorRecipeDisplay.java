@@ -32,9 +32,9 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import techreborn.recipe.recipes.FluidGeneratorRecipe;
 
 import java.util.List;
@@ -47,12 +47,12 @@ public class FluidGeneratorRecipeDisplay implements Display {
 			Codec.STRING.fieldOf("category").forGetter(d -> d.category.getIdentifier().toString()),
 			Codec.INT.fieldOf("totalEnergy").forGetter(FluidGeneratorRecipeDisplay::getTotalEnergy)
 		).apply(instance, FluidGeneratorRecipeDisplay::new)),
-		PacketCodec.tuple(
-			EntryIngredient.streamCodec().collect(PacketCodecs.toList()),
+		StreamCodec.composite(
+			EntryIngredient.streamCodec().apply(ByteBufCodecs.list()),
 			FluidGeneratorRecipeDisplay::getInputEntries,
-			PacketCodecs.STRING,
+			ByteBufCodecs.STRING_UTF8,
 			d -> d.category.getIdentifier().toString(),
-			PacketCodecs.INTEGER,
+			ByteBufCodecs.INT,
 			FluidGeneratorRecipeDisplay::getTotalEnergy,
 			FluidGeneratorRecipeDisplay::new
 		)
@@ -68,7 +68,7 @@ public class FluidGeneratorRecipeDisplay implements Display {
 		this.totalEnergy = totalEnergy;
 	}
 
-	public FluidGeneratorRecipeDisplay(FluidGeneratorRecipe recipe, Identifier category) {
+	public FluidGeneratorRecipeDisplay(FluidGeneratorRecipe recipe, ResourceLocation category) {
 		this.category = CategoryIdentifier.of(category);
 		this.inputs = Lists.newArrayList();
 		this.totalEnergy = recipe.power() * 1000;
@@ -91,7 +91,7 @@ public class FluidGeneratorRecipeDisplay implements Display {
 	}
 
 	@Override
-	public Optional<Identifier> getDisplayLocation() {
+	public Optional<ResourceLocation> getDisplayLocation() {
 		return Optional.empty();
 	}
 

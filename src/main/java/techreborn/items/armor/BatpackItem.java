@@ -24,13 +24,13 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -39,17 +39,17 @@ import reborncore.common.util.ItemUtils;
 public class BatpackItem extends TREnergyArmourItem implements RcEnergyItem {
 
 	public BatpackItem(long maxCharge, ArmorMaterial material, RcEnergyTier tier, String name) {
-		super(material, EquipmentType.CHESTPLATE, maxCharge, tier, name);
+		super(material, ArmorType.CHESTPLATE, maxCharge, tier, name);
 	}
 
 	// Item
 	@Override
-	public void inventoryTick(ItemStack stack, ServerWorld worldIn, Entity entityIn, @Nullable EquipmentSlot slot) {
-		if (worldIn.isClient) {
+	public void inventoryTick(ItemStack stack, ServerLevel worldIn, Entity entityIn, @Nullable EquipmentSlot slot) {
+		if (worldIn.isClientSide) {
 			return;
 		}
-		if (entityIn instanceof PlayerEntity) {
-			ItemUtils.distributePowerToInventory((PlayerEntity) entityIn, stack, this.getTier().getMaxOutput());
+		if (entityIn instanceof Player) {
+			ItemUtils.distributePowerToInventory((Player) entityIn, stack, this.getTier().getMaxOutput());
 		}
 	}
 }

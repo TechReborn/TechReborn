@@ -25,10 +25,10 @@
 package techreborn.datagen.recipes.machine.centrifuge
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.fluid.Fluids
-import net.minecraft.item.Items
-import net.minecraft.registry.Registries
-import net.minecraft.registry.RegistryWrapper
+import net.minecraft.world.level.material.Fluids
+import net.minecraft.world.item.Items
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.HolderLookup
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.ModFluids
@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture
 
 class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 
-	CentrifugeRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	CentrifugeRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -74,7 +74,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			offerCentrifugeRecipe {
 				ingredients stack(item, count), TRContent.CELL
 				outputs cellStack(ModFluids.METHANE)
-				id("centrifuge/methan_cell_from_" + Registries.ITEM.getId(item).path)
+				id("centrifuge/methan_cell_from_" + BuiltInRegistries.ITEM.getKey(item).path)
 				power 5
 				time 100
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -88,7 +88,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			offerCentrifugeRecipe {
 				ingredients stack(item, count), TRContent.CELL
 				outputs cellStack(ModFluids.METHANE), TRContent.Dusts.CALCITE
-				id("centrifuge/methan_cell_from_" + Registries.ITEM.getId(item).path)
+				id("centrifuge/methan_cell_from_" + BuiltInRegistries.ITEM.getKey(item).path)
 				power 5
 				time 500
 				criterion getCriterionName(item), getCriterionConditions(item)

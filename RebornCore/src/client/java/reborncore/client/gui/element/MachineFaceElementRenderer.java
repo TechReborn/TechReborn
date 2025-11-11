@@ -25,64 +25,64 @@
 package reborncore.client.gui.element;
 
 import com.mojang.blaze3d.textures.GpuTextureView;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import net.fabricmc.fabric.api.client.rendering.v1.SpecialGuiElementRegistry;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.render.SpecialGuiElementRenderer;
+import net.minecraft.client.gui.render.TextureSetup;
+import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
+import net.minecraft.client.gui.render.state.BlitRenderState;
 import net.minecraft.client.gui.render.state.GuiRenderState;
-import net.minecraft.client.gui.render.state.TexturedQuadGuiElementRenderState;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.BlockModelPart;
-import net.minecraft.client.render.model.BlockStateModel;
-import net.minecraft.client.texture.TextureSetup;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import org.joml.Matrix3x2f;
 import org.joml.Quaternionfc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MachineFaceElementRenderer extends SpecialGuiElementRenderer<MachineFaceState> {
+public class MachineFaceElementRenderer extends PictureInPictureRenderer<MachineFaceState> {
 	private static final Direction[] DIRECTIONS = Direction.values();
 	private static final RenderHandler renderHandler = new RenderHandler();
 	private static final RenderElementHandler elementHandler = new RenderElementHandler();
-	public static final List<Identifier> BLACKLIST = new ArrayList<>();
+	public static final List<ResourceLocation> BLACKLIST = new ArrayList<>();
 
 	public MachineFaceElementRenderer(SpecialGuiElementRegistry.Context context) {
 		super(context.vertexConsumers());
 	}
 
 	@Override
-	public Class<MachineFaceState> getElementClass() {
+	public Class<MachineFaceState> getRenderStateClass() {
 		return MachineFaceState.class;
 	}
 
 	@Override
-	protected String getName() {
+	protected String getTextureLabel() {
 		return "machine face";
 	}
 
 	@Override
-	protected void render(MachineFaceState state, MatrixStack matrices) {
-		renderHandler.update(state, matrices, vertexConsumers);
-		renderHandler.render(2, 0, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //left
-		renderHandler.render(1, 0, RotationAxis.NEGATIVE_X.rotationDegrees(90F)); //top
+	protected void renderToTexture(MachineFaceState state, PoseStack matrices) {
+		renderHandler.update(state, matrices, bufferSource);
+		renderHandler.render(2, 0, Axis.YP.rotationDegrees(90F)); //left
+		renderHandler.render(1, 0, Axis.XN.rotationDegrees(90F)); //top
 		renderHandler.render(); //center
-		renderHandler.render(-1, 1, RotationAxis.POSITIVE_X.rotationDegrees(90F)); //bottom
-		renderHandler.render(-2, 0, RotationAxis.POSITIVE_Y.rotationDegrees(90F)); //right
-		renderHandler.render(-2, 0, RotationAxis.POSITIVE_Y.rotationDegrees(180F)); //back
+		renderHandler.render(-1, 1, Axis.XP.rotationDegrees(90F)); //bottom
+		renderHandler.render(-2, 0, Axis.YP.rotationDegrees(90F)); //right
+		renderHandler.render(-2, 0, Axis.YP.rotationDegrees(180F)); //back
 		renderHandler.clear();
 	}
 
 	@Override
-	protected void renderElement(MachineFaceState element, GuiRenderState state) {
+	protected void blitTexture(MachineFaceState element, GuiRenderState state) {
 		elementHandler.update(element, state, textureView);
 		elementHandler.render(4, 23); //left
 		elementHandler.render(23, 4); //top
@@ -96,7 +96,7 @@ public class MachineFaceElementRenderer extends SpecialGuiElementRenderer<Machin
 	static class RenderHandler {
 		private VertexConsumer vertexConsumer;
 		private BlockStateModel model;
-		private MatrixStack.Entry source;
+		private PoseStack.Pose source;
 		private int light;
 
 		public void clear() {
@@ -107,7 +107,7 @@ public class MachineFaceElementRenderer extends SpecialGuiElementRenderer<Machin
 		}
 
 		public void render(float x, float y, Quaternionfc quaternionfc) {
-			MatrixStack.Entry entry = source.copy();
+			PoseStack.Pose entry = source.copy();
 			entry.translate(x, y, 0);
 			entry.rotate(quaternionfc);
 			render(entry);
@@ -117,8 +117,8 @@ public class MachineFaceElementRenderer extends SpecialGuiElementRenderer<Machin
 			render(source);
 		}
 
-		private void render(MatrixStack.Entry entry) {
-			for (BlockModelPart blockModelPart : model.getParts(Random.create(42L))) {
+		private void render(PoseStack.Pose entry) {
+			for (BlockModelPart blockModelPart : model.collectParts(RandomSource.create(42L))) {
 				for (Direction direction : DIRECTIONS) {
 					renderQuads(entry, blockModelPart.getQuads(direction));
 				}
@@ -126,20 +126,20 @@ public class MachineFaceElementRenderer extends SpecialGuiElementRenderer<Machin
 			}
 		}
 
-		private void renderQuads(MatrixStack.Entry entry, List<BakedQuad> bakedQuads) {
+		private void renderQuads(PoseStack.Pose entry, List<BakedQuad> bakedQuads) {
 			for (BakedQuad bakedQuad : bakedQuads) {
-				if (BLACKLIST.contains(bakedQuad.sprite().getContents().getId())) {
+				if (BLACKLIST.contains(bakedQuad.sprite().contents().name())) {
 					continue;
 				}
-				vertexConsumer.quad(entry, bakedQuad, 1.0F, 1.0F, 1.0F, 1.0F, light, OverlayTexture.DEFAULT_UV);
+				vertexConsumer.putBulkData(entry, bakedQuad, 1.0F, 1.0F, 1.0F, 1.0F, light, OverlayTexture.NO_OVERLAY);
 			}
 		}
 
-		public void update(MachineFaceState state, MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers) {
-			vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getSolid());
+		public void update(MachineFaceState state, PoseStack matrices, MultiBufferSource.BufferSource vertexConsumers) {
+			vertexConsumer = vertexConsumers.getBuffer(RenderType.solid());
 			model = state.model();
-			light = OverlayTexture.getU(15F);
-			source = matrices.peek();
+			light = OverlayTexture.u(15F);
+			source = matrices.last();
 			source.scale(-16F, -16F, 0);
 		}
 	}
@@ -167,7 +167,7 @@ public class MachineFaceElementRenderer extends SpecialGuiElementRenderer<Machin
 			int top = y1 + y;
 			float u1 = i / 6F;
 			float u2 = (i + 1) / 6F;
-			state.addSimpleElementToCurrentLayer(new TexturedQuadGuiElementRenderState(
+			state.submitBlitToCurrentLayer(new BlitRenderState(
 				RenderPipelines.GUI_TEXTURED_PREMULTIPLIED_ALPHA,
 				texture,
 				pose,
@@ -187,10 +187,10 @@ public class MachineFaceElementRenderer extends SpecialGuiElementRenderer<Machin
 
 		public void update(MachineFaceState element, GuiRenderState guiRenderState, GpuTextureView textureView) {
 			state = guiRenderState;
-			texture = TextureSetup.withoutGlTexture(textureView);
+			texture = TextureSetup.singleTexture(textureView);
 			pose = element.pose();
-			x1 = element.x1();
-			y1 = element.y1();
+			x1 = element.x0();
+			y1 = element.y0();
 			i = -1;
 		}
 	}

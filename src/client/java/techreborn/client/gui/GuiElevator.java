@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.ElevatorBlockEntity;
@@ -34,14 +34,14 @@ public class GuiElevator extends GuiBase<BuiltScreenHandler> {
 
 	final ElevatorBlockEntity blockEntity;
 
-	public GuiElevator(int syncID, final PlayerEntity player, final ElevatorBlockEntity blockEntity) {
+	public GuiElevator(int syncID, final Player player, final ElevatorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

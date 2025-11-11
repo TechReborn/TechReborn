@@ -24,9 +24,9 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
@@ -55,7 +55,7 @@ public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity impleme
 
 	// IContainerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("scrapboxinator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).filterSlot(0, 55, 45, stack -> stack.getItem() == TRContent.SCRAP_BOX).outputSlot(1, 101, 45)
 				.energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);

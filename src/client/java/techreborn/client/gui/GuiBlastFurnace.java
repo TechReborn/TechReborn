@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonExtended;
 import reborncore.client.gui.GuiBuilder;
@@ -37,7 +37,7 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 	private final IndustrialBlastFurnaceBlockEntity blockEntity;
 	boolean hasMultiBlock;
 
-	public GuiBlastFurnace(int syncID, final PlayerEntity player, final IndustrialBlastFurnaceBlockEntity blockEntity) {
+	public GuiBlastFurnace(int syncID, final Player player, final IndustrialBlastFurnaceBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
@@ -49,8 +49,8 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, f, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, f, mouseX, mouseY);
 		this.hasMultiBlock = this.blockEntity.getCachedHeat() != 0;
 
 		final GuiBase.Layer layer = Layer.BACKGROUND;
@@ -67,8 +67,8 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		this.hasMultiBlock = blockEntity.getCachedHeat() != 0;
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 

@@ -24,13 +24,13 @@
 
 package techreborn.blockentity.machine.tier3;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -65,9 +65,9 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private boolean spaceForOutput(int slot) {
-		return inventory.getStack(slot).isEmpty()
-				|| ItemUtils.isItemEqual(inventory.getStack(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)
-				&& inventory.getStack(slot).getCount() < 64;
+		return inventory.getItem(slot).isEmpty()
+				|| ItemUtils.isItemEqual(inventory.getItem(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)
+				&& inventory.getItem(slot).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
@@ -80,15 +80,15 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private void addOutputProducts(int slot) {
-		if (inventory.getStack(slot).isEmpty()) {
-			inventory.setStack(slot, TRContent.Parts.UU_MATTER.getStack());
-		} else if (ItemUtils.isItemEqual(this.inventory.getStack(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)) {
-			inventory.getStack(slot).setCount((Math.min(64, 1 + inventory.getStack(slot).getCount())));
+		if (inventory.getItem(slot).isEmpty()) {
+			inventory.setItem(slot, TRContent.Parts.UU_MATTER.getStack());
+		} else if (ItemUtils.isItemEqual(this.inventory.getItem(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)) {
+			inventory.getItem(slot).setCount((Math.min(64, 1 + inventory.getItem(slot).getCount())));
 		}
 	}
 
 	public int getValue(ItemStack itemStack) {
-		if (itemStack.isOf(TRContent.Parts.SCRAP.asItem())) {
+		if (itemStack.is(TRContent.Parts.SCRAP.asItem())) {
 			return 200;
 		} else if (itemStack.getItem() == TRContent.SCRAP_BOX) {
 			return 2000;
@@ -113,16 +113,16 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 	// TilePowerAcceptor
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
 		this.charge(11);
 
 		for (int i = 0; i < 6; i++) {
-			final ItemStack stack = inventory.getStack(i);
+			final ItemStack stack = inventory.getItem(i);
 			if (!stack.isEmpty() && spaceForOutput()) {
 				final int amp = getValue(stack);
 				final int euNeeded = amp * TechRebornConfig.matterFabricatorEnergyPerAmp;
@@ -170,7 +170,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(Player entityPlayer) {
 		return TRContent.Machine.MATTER_FABRICATOR.getStack();
 	}
 
@@ -182,11 +182,11 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 	// IContainerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("matterfabricator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20).slot(4, 110, 20)
 				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
 				.outputSlot(9, 100, 66).outputSlot(10, 120, 66).energySlot(11, 8, 72).syncEnergyValue()
-				.sync(PacketCodecs.INTEGER, this::getProgress, this::setProgress).addInventory().create(this, syncID);
+				.sync(ByteBufCodecs.INT, this::getProgress, this::setProgress).addInventory().create(this, syncID);
 	}
 }

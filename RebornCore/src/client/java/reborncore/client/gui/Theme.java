@@ -26,22 +26,22 @@ package reborncore.client.gui;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.ColorCode;
+import net.minecraft.util.ColorRGBA;
 
 public record Theme(
-	ColorCode titleColor,
-	ColorCode subtitleColor,
-	ColorCode warningTextColor,
-	ColorCode ioInputColor,
-	ColorCode ioOutputColor,
-	ColorCode ioBothColor
+	ColorRGBA titleColor,
+	ColorRGBA subtitleColor,
+	ColorRGBA warningTextColor,
+	ColorRGBA ioInputColor,
+	ColorRGBA ioOutputColor,
+	ColorRGBA ioBothColor
 ) {
 	public static final Codec<Theme> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-		ColorCode.CODEC.fieldOf("titleColor").forGetter(Theme::titleColor),
-		ColorCode.CODEC.fieldOf("subtitleColor").forGetter(Theme::subtitleColor),
-		ColorCode.CODEC.fieldOf("warningTextColor").forGetter(Theme::warningTextColor),
-		ColorCode.CODEC.fieldOf("ioInputColor").forGetter(Theme::ioInputColor),
-		ColorCode.CODEC.fieldOf("ioOutputColor").forGetter(Theme::ioOutputColor),
-		ColorCode.CODEC.fieldOf("ioBothColor").forGetter(Theme::ioBothColor)
+		ColorRGBA.CODEC.fieldOf("titleColor").forGetter(Theme::titleColor),
+		ColorRGBA.CODEC.fieldOf("subtitleColor").forGetter(Theme::subtitleColor),
+		ColorRGBA.CODEC.fieldOf("warningTextColor").forGetter(Theme::warningTextColor),
+		ColorRGBA.CODEC.fieldOf("ioInputColor").forGetter(Theme::ioInputColor),
+		ColorRGBA.CODEC.fieldOf("ioOutputColor").forGetter(Theme::ioOutputColor),
+		ColorRGBA.CODEC.fieldOf("ioBothColor").forGetter(Theme::ioBothColor)
 	).apply(instance, Theme::new));
 }

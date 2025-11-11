@@ -24,20 +24,20 @@
 
 package techreborn.blockentity.machine.misc;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import reborncore.api.IToolDrop;
 import techreborn.blocks.misc.BlockAlarm;
 import techreborn.init.ModSounds;
@@ -53,7 +53,7 @@ public class AlarmBlockEntity extends BlockEntity
 	}
 
 	public void rightClick(Entity entity) {
-		if (world == null) return;
+		if (level == null) return;
 
 		if (selectedSound < 3) {
 			selectedSound++;
@@ -61,9 +61,9 @@ public class AlarmBlockEntity extends BlockEntity
 			selectedSound = 1;
 		}
 
-		if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-			serverPlayerEntity.sendMessage(Text.translatable("techreborn.message.alarm")
-											.formatted(Formatting.GRAY)
+		if (entity instanceof ServerPlayer serverPlayerEntity) {
+			serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.alarm")
+											.withStyle(ChatFormatting.GRAY)
 											.append(" Alarm ")
 											.append(String.valueOf(selectedSound)), true);
 		}
@@ -71,29 +71,29 @@ public class AlarmBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		view.putInt("selectedSound", this.selectedSound);
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
-		selectedSound = view.getInt("selectedSound", 0);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
+		selectedSound = view.getIntOr("selectedSound", 0);
 	}
 
 	// Tickable
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, AlarmBlockEntity blockEntity) {
-		if (world == null || world.isClient()) return;
-		if (world.getTime() % 25 != 0) return;
+	public void tick(Level world, BlockPos pos, BlockState state, AlarmBlockEntity blockEntity) {
+		if (world == null || world.isClientSide()) return;
+		if (world.getGameTime() % 25 != 0) return;
 
-		if (world.isReceivingRedstonePower(getPos())) {
+		if (world.hasNeighborSignal(getBlockPos())) {
 			BlockAlarm.setActive(true, world, pos);
 			switch (selectedSound) {
-				case 1 -> world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM, SoundCategory.BLOCKS, 4F, 1F);
-				case 2 -> world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM_2, SoundCategory.BLOCKS, 4F, 1F);
-				case 3 -> world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM_3, SoundCategory.BLOCKS, 4F, 1F);
+				case 1 -> world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM, SoundSource.BLOCKS, 4F, 1F);
+				case 2 -> world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM_2, SoundSource.BLOCKS, 4F, 1F);
+				case 3 -> world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM_3, SoundSource.BLOCKS, 4F, 1F);
 			}
 		} else {
 			BlockAlarm.setActive(false, world, pos);
@@ -102,7 +102,7 @@ public class AlarmBlockEntity extends BlockEntity
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(final Player entityPlayer) {
 		return TRContent.Machine.ALARM.getStack();
 	}
 }

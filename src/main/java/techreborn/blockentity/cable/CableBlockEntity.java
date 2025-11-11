@@ -25,23 +25,23 @@
 package techreborn.blockentity.cable;
 
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -114,10 +114,10 @@ public class CableBlockEntity extends BlockEntity
 		if (cableType != null) {
 			return cableType;
 		}
-		if (world == null) {
+		if (level == null) {
 			return TRContent.Cables.COPPER;
 		}
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = level.getBlockState(worldPosition).getBlock();
 		if (block instanceof CableBlock) {
 			return ((CableBlock) block).type;
 		}
@@ -143,8 +143,8 @@ public class CableBlockEntity extends BlockEntity
 
 	public void setCover(BlockState cover) {
 		this.cover = cover;
-		if (world != null && !world.isClient) {
-			NetworkManager.sendToTracking(new CustomDescriptionPayload(getPos(), this.createNbt(world.getRegistryManager())), this);
+		if (level != null && !level.isClientSide) {
+			NetworkManager.sendToTracking(new CustomDescriptionPayload(getBlockPos(), this.saveWithoutMetadata(level.registryAccess())), this);
 		}
 	}
 
@@ -157,10 +157,10 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	private BlockApiCache<EnergyStorage, Direction> getAdjacentCache(Direction direction) {
-		if (adjacentCaches[direction.getIndex()] == null) {
-			adjacentCaches[direction.getIndex()] = BlockApiCache.create(EnergyStorage.SIDED, (ServerWorld) world, pos.offset(direction));
+		if (adjacentCaches[direction.get3DDataValue()] == null) {
+			adjacentCaches[direction.get3DDataValue()] = BlockApiCache.create(EnergyStorage.SIDED, (ServerLevel) level, worldPosition.relative(direction));
 		}
-		return adjacentCaches[direction.getIndex()];
+		return adjacentCaches[direction.get3DDataValue()];
 	}
 
 	@Nullable
@@ -169,14 +169,14 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	void appendTargets(List<OfferedEnergyStorage> targetStorages) {
-		ServerWorld serverWorld = (ServerWorld) world;
+		ServerLevel serverWorld = (ServerLevel) level;
 		if (serverWorld == null) {
 			return;
 		}
 
 		// Update our targets if necessary.
 		if (targets == null) {
-			BlockState newBlockState = getCachedState();
+			BlockState newBlockState = getBlockState();
 
 			targets = new ArrayList<>();
 			for (Direction direction : Direction.values()) {
@@ -194,10 +194,10 @@ public class CableBlockEntity extends BlockEntity
 					targets.add(new CableTarget(direction, adjCache));
 				}
 
-				newBlockState = newBlockState.with(CableBlock.PROPERTY_MAP.get(direction), foundSomething);
+				newBlockState = newBlockState.setValue(CableBlock.PROPERTY_MAP.get(direction), foundSomething);
 			}
 
-			serverWorld.setBlockState(getPos(), newBlockState);
+			serverWorld.setBlockAndUpdate(getBlockPos(), newBlockState);
 		}
 
 		// Fill the list.
@@ -219,30 +219,30 @@ public class CableBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
-		return createNbt(registryLookup);
+	public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
+		return saveWithoutMetadata(registryLookup);
 	}
 
 	@Override
-	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		NbtCompound nbtTag = new NbtCompound();
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		CompoundTag nbtTag = new CompoundTag();
 		// writeNbt(nbtTag);
-		return BlockEntityUpdateS2CPacket.create(this);
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
-	public void readData(ReadView view) {
-		super.readData(view);
-		energyContainer.amount = view.getLong("energy", 0);
+	public void loadAdditional(ValueInput view) {
+		super.loadAdditional(view);
+		energyContainer.amount = view.getLongOr("energy", 0);
 		cover = view.read("cover", BlockState.CODEC).orElse(null);
 	}
 
 	@Override
-	public void writeData(WriteView view) {
-		super.writeData(view);
+	public void saveAdditional(ValueOutput view) {
+		super.saveAdditional(view);
 		view.putLong("energy", energyContainer.amount);
 		if (cover != null) {
-			view.put("cover", BlockState.CODEC, cover);
+			view.store("cover", BlockState.CODEC, cover);
 		}
 	}
 
@@ -252,8 +252,8 @@ public class CableBlockEntity extends BlockEntity
 
 	// BlockEntityTicker
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, CableBlockEntity blockEntity2) {
-		if (world == null || world.isClient) {
+	public void tick(Level world, BlockPos pos, BlockState state, CableBlockEntity blockEntity2) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
@@ -262,34 +262,34 @@ public class CableBlockEntity extends BlockEntity
 
 	// IListInfoProvider
 	@Override
-	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
+	public void addInfo(List<Component> info, boolean isReal, boolean hasData) {
 		info.add(
-			Text.translatable("techreborn.tooltip.transferRate")
-				.formatted(Formatting.GRAY)
+			Component.translatable("techreborn.tooltip.transferRate")
+				.withStyle(ChatFormatting.GRAY)
 				.append(": ")
 				.append(PowerSystem.getLocalizedPower(getCableType().transferRate))
-				.formatted(Formatting.GOLD)
+				.withStyle(ChatFormatting.GOLD)
 				.append("/t")
 		);
 
 		info.add(
-			Text.translatable("techreborn.tooltip.tier")
-				.formatted(Formatting.GRAY)
+			Component.translatable("techreborn.tooltip.tier")
+				.withStyle(ChatFormatting.GRAY)
 				.append(": ")
 				.append(
-					Text.literal(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
-						.formatted(Formatting.GOLD)
+					Component.literal(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
+						.withStyle(ChatFormatting.GOLD)
 				)
 		);
 
 		if (!getCableType().canKill) {
-			info.add(Text.translatable("techreborn.tooltip.cable.can_cover").formatted(Formatting.GRAY));
+			info.add(Component.translatable("techreborn.tooltip.cable.can_cover").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity playerIn) {
+	public ItemStack getToolDrop(Player playerIn) {
 		return new ItemStack(getCableType().block);
 	}
 

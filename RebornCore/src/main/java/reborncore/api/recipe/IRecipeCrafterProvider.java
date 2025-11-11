@@ -24,7 +24,7 @@
 
 package reborncore.api.recipe;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;

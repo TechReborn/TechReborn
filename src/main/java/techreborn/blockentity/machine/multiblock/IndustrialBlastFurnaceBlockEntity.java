@@ -24,15 +24,6 @@
 
 package techreborn.blockentity.machine.multiblock;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.recipes.RecipeCrafter;
@@ -50,6 +41,15 @@ import techreborn.init.TRContent;
 import techreborn.multiblocks.MultiBlockCasing;
 
 import java.util.function.BiPredicate;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
@@ -73,19 +73,19 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 		Block basic = TRContent.MachineBlocks.BASIC.getCasing();
 		Block advanced = TRContent.MachineBlocks.ADVANCED.getCasing();
 		Block industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing();
-		BlockState lava = Blocks.LAVA.getDefaultState();
+		BlockState lava = Blocks.LAVA.defaultBlockState();
 
-		BiPredicate<BlockView, BlockPos> casing = (view, pos) -> {
+		BiPredicate<BlockGetter, BlockPos> casing = (view, pos) -> {
 			Block block = view.getBlockState(pos).getBlock();
 			return basic == block || advanced == block || industrial == block;
 		};
 
-		BiPredicate<BlockView, BlockPos> maybeLava = (view, pos) -> {
+		BiPredicate<BlockGetter, BlockPos> maybeLava = (view, pos) -> {
 			BlockState state = view.getBlockState(pos);
 			return state == lava || state.getBlock() == Blocks.AIR;
 		};
 
-		BlockState state = basic.getDefaultState();
+		BlockState state = basic.defaultBlockState();
 		writer.translate(1, 0, -1)
 				.fill(0, 0, 0, 3, 1, 3, casing, state)
 				.ring(Direction.Axis.Y, 3, 1, 3, casing, state, maybeLava, lava)
@@ -99,8 +99,8 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 		}
 
 		// Bottom center of multiblock
-		final BlockPos location = pos.offset(getFacing().getOpposite(), 2);
-		final BlockEntity blockEntity = world.getBlockEntity(location);
+		final BlockPos location = worldPosition.relative(getFacing().getOpposite(), 2);
+		final BlockEntity blockEntity = level.getBlockEntity(location);
 
 		if (blockEntity instanceof MachineCasingBlockEntity) {
 			if (((MachineCasingBlockEntity) blockEntity).isConnected()
@@ -110,17 +110,17 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 				int heat = 0;
 
 				// Bottom center shouldn't have any blockEntity entities below it
-				if (world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
-						.getBlock() == blockEntity.getWorld().getBlockState(blockEntity.getPos()).getBlock()) {
+				if (level.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
+						.getBlock() == blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getBlock()) {
 					return 0;
 				}
 
 				for (final IMultiblockPart part : casing.connectedParts) {
-					heat += BlockMachineCasing.getHeatFromState(part.getCachedState());
+					heat += BlockMachineCasing.getHeatFromState(part.getBlockState());
 				}
 
-				if (world.getBlockState(location.offset(Direction.UP, 1)).getBlock() == Blocks.LAVA
-						&& world.getBlockState(location.offset(Direction.UP, 2)).getBlock() == Blocks.LAVA) {
+				if (level.getBlockState(location.relative(Direction.UP, 1)).getBlock() == Blocks.LAVA
+						&& level.getBlockState(location.relative(Direction.UP, 2)).getBlock() == Blocks.LAVA) {
 					heat += 500;
 				}
 				return heat;
@@ -140,11 +140,11 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 
 	// IContainerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("blastfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
-				.sync(PacketCodecs.INTEGER, this::getHeat, this::setHeat)
+				.sync(ByteBufCodecs.INT, this::getHeat, this::setHeat)
 				.syncShapeValue().addInventory().create(this, syncID);
 	}
 

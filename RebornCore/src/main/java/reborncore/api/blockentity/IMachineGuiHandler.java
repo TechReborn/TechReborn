@@ -24,12 +24,12 @@
 
 package reborncore.api.blockentity;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public interface IMachineGuiHandler {
 
-	void open(PlayerEntity player, BlockPos pos, World world);
+	void open(Player player, BlockPos pos, Level world);
 
 }

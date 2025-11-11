@@ -24,7 +24,7 @@
 
 package reborncore.common.util;
 
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 public enum MachineFacing {
@@ -44,25 +44,25 @@ public enum MachineFacing {
 		}
 		if (this == RIGHT) {
 			// North -> West
-			int i = machineBase.getFacing().getOpposite().getHorizontalQuarterTurns() + 1;
+			int i = machineBase.getFacing().getOpposite().get2DDataValue() + 1;
 			if (i > 3) {
 				i = 0;
 			}
 			if (i < 0) {
 				i = 3;
 			}
-			return Direction.fromHorizontalQuarterTurns(i);
+			return Direction.from2DDataValue(i);
 		}
 		if (this == LEFT) {
 			// North -> East
-			int i = machineBase.getFacing().getOpposite().getHorizontalQuarterTurns() - 1;
+			int i = machineBase.getFacing().getOpposite().get2DDataValue() - 1;
 			if (i > 3) {
 				i = 0;
 			}
 			if (i < 0) {
 				i = 3;
 			}
-			return Direction.fromHorizontalQuarterTurns(i);
+			return Direction.from2DDataValue(i);
 		}
 		if (this == UP) {
 			return Direction.UP;

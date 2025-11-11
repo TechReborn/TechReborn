@@ -24,13 +24,13 @@
 
 package techreborn.items.tool;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
@@ -59,40 +59,40 @@ public class JackhammerItem extends Item implements RcEnergyItem {
 	 * @param pos         Additional block to check
 	 * @return Returns true if block should be broken by AOE mining
 	 */
-	protected boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos) {
+	protected boolean shouldBreak(Level worldIn, BlockPos originalPos, BlockPos pos) {
 		if (originalPos.equals(pos)) {
 			return false;
 		}
-		return worldIn.getBlockState(pos).isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE);
+		return worldIn.getBlockState(pos).is(TRContent.BlockTags.JACKHAMMER_MINEABLE);
 	}
 
 	// Item
 	@Override
-	public float getMiningSpeed(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= cost && state.isIn(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
-			return super.getMiningSpeed(stack, state);
+	public float getDestroySpeed(ItemStack stack, BlockState state) {
+		if (getStoredEnergy(stack) >= cost && state.is(TRContent.BlockTags.JACKHAMMER_MINEABLE)) {
+			return super.getDestroySpeed(stack, state);
 		}
 		return unpoweredSpeed;
 	}
 
 	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean mineBlock(ItemStack stack, Level worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		tryUseEnergy(stack, cost);
 		return true;
 	}
 
 	@Override
-	public int getItemBarStep(ItemStack stack) {
+	public int getBarWidth(ItemStack stack) {
 		return ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean isItemBarVisible(ItemStack stack) {
+	public boolean isBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getItemBarColor(ItemStack stack) {
+	public int getBarColor(ItemStack stack) {
 		return ItemUtils.getColorForDurabilityBar(stack);
 	}
 

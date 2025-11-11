@@ -24,7 +24,7 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.TransparentBlock;
+import net.minecraft.world.level.block.TransparentBlock;
 import techreborn.init.TRBlockSettings;
 
 public class BlockReinforcedGlass extends TransparentBlock {

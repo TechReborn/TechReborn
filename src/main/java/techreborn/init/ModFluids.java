@@ -25,16 +25,16 @@
 package techreborn.init;
 
 
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import reborncore.common.fluid.*;
 import techreborn.TechReborn;
 import techreborn.init.TRContent.BlockInfo;
 
 import java.util.Locale;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 public enum ModFluids implements BlockInfo {
 	BERYLLIUM,
@@ -79,16 +79,16 @@ public enum ModFluids implements BlockInfo {
 
 	private RebornFluidBlock block;
 	private RebornBucketItem bucket;
-	private final Identifier identifier;
+	private final ResourceLocation identifier;
 
 	ModFluids() {
 		name = this.toString().toLowerCase(Locale.ROOT);
-		this.identifier = Identifier.of(TechReborn.MOD_ID, name);
+		this.identifier = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name);
 
 		FluidSettings fluidSettings = FluidSettings.create();
 
-		Identifier texture_still = Identifier.of(TechReborn.MOD_ID, "block/fluids/" + name + "_still");
-		Identifier texture_flowing = Identifier.of(TechReborn.MOD_ID, "block/fluids/" + name + "_flowing");
+		ResourceLocation texture_still = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/fluids/" + name + "_still");
+		ResourceLocation texture_flowing = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/fluids/" + name + "_flowing");
 
 		fluidSettings.setStillTexture(texture_still);
 		fluidSettings.setFlowingTexture(texture_flowing);
@@ -99,15 +99,15 @@ public enum ModFluids implements BlockInfo {
 		};
 
 		block = new RebornFluidBlock(stillFluid, TRBlockSettings.fluid(identifier.getPath()));
-		bucket = new RebornBucketItem(stillFluid, TRItemSettings.item(identifier.getPath() + "_bucket").recipeRemainder(Items.BUCKET).maxCount(1));
+		bucket = new RebornBucketItem(stillFluid, TRItemSettings.item(identifier.getPath() + "_bucket").craftRemainder(Items.BUCKET).stacksTo(1));
 	}
 
 	public void register() {
 		RebornFluidManager.register(stillFluid, identifier);
-		RebornFluidManager.register(flowingFluid, Identifier.of(TechReborn.MOD_ID, identifier.getPath() + "_flowing"));
+		RebornFluidManager.register(flowingFluid, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, identifier.getPath() + "_flowing"));
 
-		Registry.register(Registries.BLOCK, identifier, block);
-		Registry.register(Registries.ITEM, Identifier.of(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
+		Registry.register(BuiltInRegistries.BLOCK, identifier, block);
+		Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public enum ModFluids implements BlockInfo {
 		return block;
 	}
 
-	public Identifier getIdentifier() {
+	public ResourceLocation getIdentifier() {
 		return identifier;
 	}
 

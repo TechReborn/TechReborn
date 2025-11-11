@@ -24,26 +24,26 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlock;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockSettings;
 
 import java.util.List;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class BlockFusionCoil extends BaseBlock {
 
@@ -52,31 +52,31 @@ public class BlockFusionCoil extends BaseBlock {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
+	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn,
 							BlockHitResult hitResult) {
 
-		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
-		if (tool.isEmpty()) return ActionResult.PASS;
-		if (!ToolManager.INSTANCE.canHandleTool(tool)) return ActionResult.PASS;
+		ItemStack tool = playerIn.getItemInHand(InteractionHand.MAIN_HAND);
+		if (tool.isEmpty()) return InteractionResult.PASS;
+		if (!ToolManager.INSTANCE.canHandleTool(tool)) return InteractionResult.PASS;
 
-		if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, hitResult.getSide(), false)) {
-			if (!playerIn.isSneaking()) return ActionResult.PASS;
+		if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, hitResult.getDirection(), false)) {
+			if (!playerIn.isShiftKeyDown()) return InteractionResult.PASS;
 			ItemStack drop = new ItemStack(this);
-			dropStack(worldIn, pos, drop);
+			popResource(worldIn, pos, drop);
 			worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSounds.BLOCK_DISMANTLE,
-					SoundCategory.BLOCKS, 0.6F, 1F);
-			if (!worldIn.isClient) {
-				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+					SoundSource.BLOCKS, 0.6F, 1F);
+			if (!worldIn.isClientSide) {
+				worldIn.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 			}
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
+	public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag options) {
 		super.appendTooltip(stack, context, tooltip, options);
-		tooltip.add(Text.translatable("techreborn.tooltip.fusion_coil").formatted(Formatting.BLUE));
+		tooltip.add(Component.translatable("techreborn.tooltip.fusion_coil").withStyle(ChatFormatting.BLUE));
 	}
 }

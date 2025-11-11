@@ -24,10 +24,10 @@
 
 package reborncore.api;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public interface IToolDrop {
 
-	ItemStack getToolDrop(PlayerEntity p0);
+	ItemStack getToolDrop(Player p0);
 }

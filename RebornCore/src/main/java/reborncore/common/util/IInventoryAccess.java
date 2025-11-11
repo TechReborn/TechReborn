@@ -24,8 +24,8 @@
 
 package reborncore.common.util;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 public interface IInventoryAccess<T extends MachineBaseBlockEntity> {

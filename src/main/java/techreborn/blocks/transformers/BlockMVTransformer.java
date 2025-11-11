@@ -24,9 +24,9 @@
 
 package techreborn.blocks.transformers;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import techreborn.blockentity.transformers.MVTransformerBlockEntity;
 
 /**
@@ -39,7 +39,7 @@ public class BlockMVTransformer extends BlockTransformer {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new MVTransformerBlockEntity(pos, state);
 	}
 

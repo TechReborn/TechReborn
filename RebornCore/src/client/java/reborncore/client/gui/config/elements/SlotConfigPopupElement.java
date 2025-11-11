@@ -25,11 +25,11 @@
 package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.text.Text;
-import net.minecraft.util.ColorCode;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.ColorRGBA;
 import reborncore.RebornCore;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
@@ -94,14 +94,14 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 								configHolder.first = null;
 							}
 						}
-						ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, configHolder));
+						ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getBlockPos(), id, configHolder));
 
 						if (configHolder.getSideDetail(side).getSlotIO().getIoConfig() != SlotConfiguration.ExtractConfig.NONE) {
 							return;
 						}
 					} else {
 						int priority = pencil.equals("FIRST") ? side.ordinal() * 10 + 6 : 60 + side.ordinal();
-						ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, true, true, false, priority));
+						ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getBlockPos(), id, true, true, false, priority));
 					}
 					nextConfig = allowInput ? SlotConfiguration.ExtractConfig.INPUT : SlotConfiguration.ExtractConfig.OUTPUT;
 					break;
@@ -112,10 +112,10 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 					if (configHolder != null) {
 						if (configHolder.first == side) {
 							configHolder.first = null;
-							ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, configHolder));
+							ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getBlockPos(), id, configHolder));
 						} else if (configHolder.last == side) {
 							configHolder.last = null;
-							ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, configHolder));
+							ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getBlockPos(), id, configHolder));
 						}
 					}
 
@@ -134,7 +134,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 
 		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(nextConfig);
 		SlotConfiguration.SlotConfig newConfig = new SlotConfiguration.SlotConfig(side, slotIO, id);
-		ClientPlayNetworking.send(new SlotSavePayload(guiBase.be.getPos(), newConfig));
+		ClientPlayNetworking.send(new SlotSavePayload(guiBase.be.getBlockPos(), newConfig));
 	}
 
 	public void updateCheckBox(String type, GuiBase<?> guiBase) {
@@ -153,11 +153,11 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			configHolder.setFilter(!configHolder.filter());
 		}
 
-		ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getPos(), id, configHolder));
+		ClientPlayNetworking.send(new IoSavePayload(guiBase.be.getBlockPos(), id, configHolder));
 	}
 
 	@Override
-	protected void drawSateColor(DrawContext drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
+	protected void drawSateColor(GuiGraphics drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -167,10 +167,10 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 			return;
 		}
 		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(side);
-		ColorCode color = switch (slotConfig.getSlotIO().getIoConfig()) {
+		ColorRGBA color = switch (slotConfig.getSlotIO().getIoConfig()) {
 			case INPUT -> theme.ioInputColor();
 			case OUTPUT -> theme.ioOutputColor();
-			default -> new ColorCode(0);
+			default -> new ColorRGBA(0);
 		};
 		drawContext.fill(sx, sy, sx + 18, sy + 18, color.rgba());
 		if (side == slotConfigHolder.first) {
@@ -180,9 +180,9 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 		}
 	}
 
-	protected void drawTag(DrawContext drawContext, GuiBase<?> gui, int sx, int sy, String tag) {
-		TextRenderer textRenderer = gui.getTextRenderer();
-		Text text = Text.of(tag);
-		drawContext.drawText(textRenderer, text, sx + 10 - textRenderer.getWidth(tag) / 2, sy + 6, -1, false);
+	protected void drawTag(GuiGraphics drawContext, GuiBase<?> gui, int sx, int sy, String tag) {
+		Font textRenderer = gui.getFont();
+		Component text = Component.nullToEmpty(tag);
+		drawContext.drawString(textRenderer, text, sx + 10 - textRenderer.width(tag) / 2, sy + 6, -1, false);
 	}
 }

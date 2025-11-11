@@ -23,12 +23,12 @@
  */
 
 package reborncore.common.screen;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import reborncore.RebornCore;
 
 public class ScreenIcons {
-	public static Identifier HEAD = Identifier.of(RebornCore.MOD_ID, "gui/slot_sprites/armour_head");
-	public static Identifier CHEST = Identifier.of(RebornCore.MOD_ID, "gui/slot_sprites/armour_chest");
-	public static Identifier LEGS = Identifier.of(RebornCore.MOD_ID, "gui/slot_sprites/armour_legs");
-	public static Identifier FEET = Identifier.of(RebornCore.MOD_ID, "gui/slot_sprites/armour_feet");
+	public static ResourceLocation HEAD = ResourceLocation.fromNamespaceAndPath(RebornCore.MOD_ID, "gui/slot_sprites/armour_head");
+	public static ResourceLocation CHEST = ResourceLocation.fromNamespaceAndPath(RebornCore.MOD_ID, "gui/slot_sprites/armour_chest");
+	public static ResourceLocation LEGS = ResourceLocation.fromNamespaceAndPath(RebornCore.MOD_ID, "gui/slot_sprites/armour_legs");
+	public static ResourceLocation FEET = ResourceLocation.fromNamespaceAndPath(RebornCore.MOD_ID, "gui/slot_sprites/armour_feet");
 }

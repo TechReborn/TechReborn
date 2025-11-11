@@ -24,15 +24,15 @@
 
 package techreborn.items;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import techreborn.init.TRItemSettings;
 
 public class GpsItem extends Item {
@@ -42,17 +42,17 @@ public class GpsItem extends Item {
 	}
 
 	@Override
-	public ActionResult use(World world, PlayerEntity player, Hand hand) {
-		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
-			BlockPos pos = player.getBlockPos();
-			serverPlayerEntity.sendMessage(Text.literal(" X:").formatted(Formatting.GRAY)
-											.append(Text.literal(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
-											.append(Text.literal(" Y:").formatted(Formatting.GRAY))
-											.append(Text.literal(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
-											.append(Text.literal(" Z:").formatted(Formatting.GRAY))
-											.append(Text.literal(String.valueOf(pos.getZ())).formatted(Formatting.GOLD)), true);
-			return ActionResult.SUCCESS;
+	public InteractionResult use(Level world, Player player, InteractionHand hand) {
+		if (player instanceof ServerPlayer serverPlayerEntity) {
+			BlockPos pos = player.blockPosition();
+			serverPlayerEntity.displayClientMessage(Component.literal(" X:").withStyle(ChatFormatting.GRAY)
+											.append(Component.literal(String.valueOf(pos.getX())).withStyle(ChatFormatting.GOLD))
+											.append(Component.literal(" Y:").withStyle(ChatFormatting.GRAY))
+											.append(Component.literal(String.valueOf(pos.getY())).withStyle(ChatFormatting.GOLD))
+											.append(Component.literal(" Z:").withStyle(ChatFormatting.GRAY))
+											.append(Component.literal(String.valueOf(pos.getZ())).withStyle(ChatFormatting.GOLD)), true);
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 }

@@ -25,9 +25,8 @@
 package techreborn.datagen.recipes.machine.alloy_smelter
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
-import net.minecraft.registry.RegistryWrapper
+import net.minecraft.world.item.Items
+import net.minecraft.core.HolderLookup
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
@@ -35,7 +34,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class AlloySmelterRecipesProvider extends TechRebornRecipesProvider {
-	AlloySmelterRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	AlloySmelterRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

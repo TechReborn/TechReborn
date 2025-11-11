@@ -24,22 +24,22 @@
 
 package techreborn.client;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 
-public interface GuiFactory<T extends BlockEntity> extends HandledScreens.Provider<BuiltScreenHandler, HandledScreen<BuiltScreenHandler>> {
-	HandledScreen<BuiltScreenHandler> create(int syncId, PlayerEntity playerEntity, T blockEntity);
+public interface GuiFactory<T extends BlockEntity> extends MenuScreens.ScreenConstructor<BuiltScreenHandler, AbstractContainerScreen<BuiltScreenHandler>> {
+	AbstractContainerScreen<BuiltScreenHandler> create(int syncId, Player playerEntity, T blockEntity);
 
 	@Override
-	default HandledScreen<BuiltScreenHandler> create(BuiltScreenHandler builtScreenHandler, PlayerInventory playerInventory, Text text) {
-		PlayerEntity playerEntity = playerInventory.player;
+	default AbstractContainerScreen<BuiltScreenHandler> create(BuiltScreenHandler builtScreenHandler, Inventory playerInventory, Component text) {
+		Player playerEntity = playerInventory.player;
 		//noinspection unchecked
 		T blockEntity = (T) builtScreenHandler.getBlockEntity();
-		return create(builtScreenHandler.syncId, playerEntity, blockEntity);
+		return create(builtScreenHandler.containerId, playerEntity, blockEntity);
 	}
 }

@@ -29,19 +29,19 @@ import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.StringNbtReader;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.storage.NbtReadView;
-import net.minecraft.storage.NbtWriteView;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ErrorReporter;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.util.NBTSerializable;
@@ -53,19 +53,19 @@ import java.util.stream.Collectors;
 import static reborncore.RebornCore.LOGGER;
 
 public class SlotConfiguration implements NBTSerializable {
-	public static final PacketCodec<ByteBuf, SlotConfiguration> PACKET_CODEC = SlotConfigHolder.PACKET_CODEC
-		.collect(PacketCodecs.toList())
-		.xmap(SlotConfiguration::new, SlotConfiguration::getSlotDetails);
+	public static final StreamCodec<ByteBuf, SlotConfiguration> PACKET_CODEC = SlotConfigHolder.PACKET_CODEC
+		.apply(ByteBufCodecs.list())
+		.map(SlotConfiguration::new, SlotConfiguration::getSlotDetails);
 
 	List<SlotConfigHolder> slotDetails = new ArrayList<>();
 
 	@Nullable
-	Inventory inventory;
+	Container inventory;
 
 	public SlotConfiguration(RebornInventory<?> inventory) {
 		this.inventory = inventory;
 
-		for (int i = 0; i < inventory.size(); i++) {
+		for (int i = 0; i < inventory.getContainerSize(); i++) {
 			updateSlotDetails(new SlotConfigHolder(i));
 		}
 	}
@@ -79,8 +79,8 @@ public class SlotConfiguration implements NBTSerializable {
 		if (inventory == null && machineBase.getOptionalInventory().isPresent()) {
 			inventory = machineBase.getOptionalInventory().get();
 		}
-		if (inventory != null && slotDetails.size() != inventory.size()) {
-			for (int i = 0; i < inventory.size(); i++) {
+		if (inventory != null && slotDetails.size() != inventory.getContainerSize()) {
+			for (int i = 0; i < inventory.getContainerSize(); i++) {
 				SlotConfigHolder holder = getSlotDetails(i);
 				if (holder == null) {
 					LOGGER.debug("Fixed slot " + i + " in " + machineBase);
@@ -89,12 +89,12 @@ public class SlotConfiguration implements NBTSerializable {
 				}
 			}
 		}
-		if (!machineBase.getWorld().isClient && machineBase.getWorld().getTime() % machineBase.slotTransferSpeed() == 0) {
+		if (!machineBase.getLevel().isClientSide && machineBase.getLevel().getGameTime() % machineBase.slotTransferSpeed() == 0) {
 			getSlotDetails().forEach(slotConfigHolder -> slotConfigHolder.handleItemIO(machineBase));
 		}
 	}
 
-	public SlotConfiguration(ReadView view) {
+	public SlotConfiguration(ValueInput view) {
 		read(view);
 	}
 
@@ -132,31 +132,31 @@ public class SlotConfiguration implements NBTSerializable {
 	}
 
 	@Override
-	public void write(WriteView view) {
+	public void write(ValueOutput view) {
 		view.putInt("size", slotDetails.size());
 		for (int i = 0; i < slotDetails.size(); i++) {
-			slotDetails.get(i).write(view.get("slot_" + i));
+			slotDetails.get(i).write(view.child("slot_" + i));
 		}
 	}
 
 	@Override
-	public void read(ReadView view) {
-		int size = view.getInt("size", 0);
+	public void read(ValueInput view) {
+		int size = view.getIntOr("size", 0);
 		for (int i = 0; i < size; i++) {
-			view.getOptionalReadView("slot_" + i).ifPresent(slot -> {
+			view.child("slot_" + i).ifPresent(slot -> {
 				updateSlotDetails(new SlotConfigHolder(slot));
 			});
 		}
 	}
 
 	public static class SlotConfigHolder implements NBTSerializable {
-		public static final PacketCodec<ByteBuf, SlotConfigHolder> PACKET_CODEC = PacketCodec.tuple(
-			PacketCodecs.INTEGER, SlotConfigHolder::getSlotID,
-			PacketCodecs.map(HashMap::new, Direction.PACKET_CODEC, SlotConfig.PACKET_CODEC), SlotConfigHolder::getSideMap,
-			PacketCodecs.BOOLEAN, SlotConfigHolder::autoInput,
-			PacketCodecs.BOOLEAN, SlotConfigHolder::autoOutput,
-			PacketCodecs.BOOLEAN, SlotConfigHolder::filter,
-			PacketCodecs.INTEGER, SlotConfigHolder::getPriority,
+		public static final StreamCodec<ByteBuf, SlotConfigHolder> PACKET_CODEC = StreamCodec.composite(
+			ByteBufCodecs.INT, SlotConfigHolder::getSlotID,
+			ByteBufCodecs.map(HashMap::new, Direction.STREAM_CODEC, SlotConfig.PACKET_CODEC), SlotConfigHolder::getSideMap,
+			ByteBufCodecs.BOOL, SlotConfigHolder::autoInput,
+			ByteBufCodecs.BOOL, SlotConfigHolder::autoOutput,
+			ByteBufCodecs.BOOL, SlotConfigHolder::filter,
+			ByteBufCodecs.INT, SlotConfigHolder::getPriority,
 			SlotConfigHolder::new
 		);
 
@@ -181,7 +181,7 @@ public class SlotConfiguration implements NBTSerializable {
 			Arrays.stream(Direction.values()).forEach(facing -> sideMap.put(facing, new SlotConfig(facing, slotID)));
 		}
 
-		public SlotConfigHolder(ReadView view) {
+		public SlotConfigHolder(ValueInput view) {
 			sideMap = new HashMap<>();
 			read(view);
 			Validate.isTrue(Arrays.stream(Direction.values())
@@ -277,9 +277,9 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public void write(WriteView view) {
+		public void write(ValueOutput view) {
 			view.putInt("slotID", slotID);
-			Arrays.stream(Direction.values()).forEach(facing -> sideMap.get(facing).write(view.get("side_" + facing.ordinal())));
+			Arrays.stream(Direction.values()).forEach(facing -> sideMap.get(facing).write(view.child("side_" + facing.ordinal())));
 			view.putBoolean("input", input);
 			view.putBoolean("output", output);
 			view.putBoolean("filter", filter);
@@ -289,18 +289,18 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public void read(ReadView view) {
+		public void read(ValueInput view) {
 			sideMap.clear();
-			slotID = view.getInt("slotID", 0);
+			slotID = view.getIntOr("slotID", 0);
 			Arrays.stream(Direction.values()).forEach(facing -> {
-				view.getOptionalReadView("side_" + facing.ordinal()).ifPresent(config -> {
+				view.child("side_" + facing.ordinal()).ifPresent(config -> {
 					sideMap.put(facing, new SlotConfig(config));
 				});
 			});
-			input = view.getBoolean("input", false);
-			output = view.getBoolean("output", false);
-			filter = view.getBoolean("filter", false);
-			view.getOptionalInt("priority").ifPresentOrElse(this::setPriority, () -> {
+			input = view.getBooleanOr("input", false);
+			output = view.getBooleanOr("output", false);
+			filter = view.getBooleanOr("filter", false);
+			view.getInt("priority").ifPresentOrElse(this::setPriority, () -> {
 				first = null;
 				last = null;
 			});
@@ -308,10 +308,10 @@ public class SlotConfiguration implements NBTSerializable {
 	}
 
 	public static class SlotConfig implements NBTSerializable {
-		public static final PacketCodec<ByteBuf, SlotConfig> PACKET_CODEC = PacketCodec.tuple(
-			Direction.PACKET_CODEC, SlotConfig::getSide,
+		public static final StreamCodec<ByteBuf, SlotConfig> PACKET_CODEC = StreamCodec.composite(
+			Direction.STREAM_CODEC, SlotConfig::getSide,
 			SlotIO.PACKET_CODEC, SlotConfig::getSlotIO,
-			PacketCodecs.INTEGER, SlotConfig::getSlotID,
+			ByteBufCodecs.INT, SlotConfig::getSlotID,
 			SlotConfig::new
 		);
 
@@ -331,7 +331,7 @@ public class SlotConfiguration implements NBTSerializable {
 			this.slotID = slotID;
 		}
 
-		public SlotConfig(ReadView view) {
+		public SlotConfig(ValueInput view) {
 			read(view);
 			Validate.notNull(side, "error when loading slot config");
 			Validate.notNull(slotIO, "error when loading slot config");
@@ -353,13 +353,13 @@ public class SlotConfiguration implements NBTSerializable {
 
 		private void handleItemInput(MachineBaseBlockEntity machineBase) {
 			RebornInventory<?> inventory = machineBase.getOptionalInventory().get();
-			ItemStack targetStack = inventory.getStack(slotID);
-			if (targetStack.getMaxCount() == targetStack.getCount()) {
+			ItemStack targetStack = inventory.getItem(slotID);
+			if (targetStack.getMaxStackSize() == targetStack.getCount()) {
 				return;
 			}
 
 			StorageUtil.move(
-					ItemStorage.SIDED.find(machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+					ItemStorage.SIDED.find(machineBase.getLevel(), machineBase.getBlockPos().relative(side), side.getOpposite()),
 					InventoryStorage.of(machineBase, null).getSlot(slotID),
 					iv -> true,
 					4, // Move up to 4 per tick.
@@ -369,14 +369,14 @@ public class SlotConfiguration implements NBTSerializable {
 
 		private void handleItemOutput(MachineBaseBlockEntity machineBase) {
 			RebornInventory<?> inventory = machineBase.getOptionalInventory().get();
-			ItemStack sourceStack = inventory.getStack(slotID);
+			ItemStack sourceStack = inventory.getItem(slotID);
 			if (sourceStack.isEmpty()) {
 				return;
 			}
 
 			StorageUtil.move(
 					InventoryStorage.of(machineBase, null).getSlot(slotID),
-					ItemStorage.SIDED.find(machineBase.getWorld(), machineBase.getPos().offset(side), side.getOpposite()),
+					ItemStorage.SIDED.find(machineBase.getLevel(), machineBase.getBlockPos().relative(side), side.getOpposite()),
 					iv -> true,
 					Long.MAX_VALUE,
 					null
@@ -384,31 +384,31 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public void write(WriteView view) {
+		public void write(ValueOutput view) {
 			view.putInt("side", side.ordinal());
-			slotIO.write(view.get("config"));
+			slotIO.write(view.child("config"));
 			view.putInt("slot", slotID);
 		}
 
 		@Override
-		public void read(ReadView view) {
-			side = Direction.values()[view.getInt("side", 0)];
-			view.getOptionalReadView("config").ifPresent(config -> {
+		public void read(ValueInput view) {
+			side = Direction.values()[view.getIntOr("side", 0)];
+			view.child("config").ifPresent(config -> {
 				slotIO = new SlotIO(config);
 			});
-			slotID = view.getInt("slot", 0);
+			slotID = view.getIntOr("slot", 0);
 		}
 	}
 
 	public static class SlotIO implements NBTSerializable {
-		public static final PacketCodec<ByteBuf, SlotIO> PACKET_CODEC = PacketCodec.tuple(
+		public static final StreamCodec<ByteBuf, SlotIO> PACKET_CODEC = StreamCodec.composite(
 			ExtractConfig.PACKET_CODEC, SlotIO::getIoConfig,
 			SlotIO::new
 		);
 
 		ExtractConfig ioConfig;
 
-		public SlotIO(ReadView view) {
+		public SlotIO(ValueInput view) {
 			read(view);
 		}
 
@@ -421,13 +421,13 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public void write(WriteView view) {
+		public void write(ValueOutput view) {
 			view.putInt("config", ioConfig.ordinal());
 		}
 
 		@Override
-		public void read(ReadView view) {
-			ioConfig = ExtractConfig.values()[view.getInt("config", 0)];
+		public void read(ValueInput view) {
+			ioConfig = ExtractConfig.values()[view.getIntOr("config", 0)];
 		}
 	}
 
@@ -436,8 +436,8 @@ public class SlotConfiguration implements NBTSerializable {
 		INPUT(false, true),
 		OUTPUT(true, false);
 
-		public static final PacketCodec<ByteBuf, ExtractConfig> PACKET_CODEC = PacketCodecs.INTEGER
-			.xmap(integer -> ExtractConfig.values()[integer], Enum::ordinal);
+		public static final StreamCodec<ByteBuf, ExtractConfig> PACKET_CODEC = ByteBufCodecs.INT
+			.map(integer -> ExtractConfig.values()[integer], Enum::ordinal);
 
 		boolean extract;
 		boolean insert;
@@ -464,27 +464,27 @@ public class SlotConfiguration implements NBTSerializable {
 		}
 	}
 
-	public String toJson(String machineIdent, RegistryWrapper.WrapperLookup registryLookup) {
-		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(() -> "SlotConfiguration", LOGGER)) {
-			NbtWriteView view = NbtWriteView.create(logging, registryLookup);
-			write(view.get("data"));
+	public String toJson(String machineIdent, HolderLookup.Provider registryLookup) {
+		try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(() -> "SlotConfiguration", LOGGER)) {
+			TagValueOutput view = TagValueOutput.createWithContext(logging, registryLookup);
+			write(view.child("data"));
 			view.putString("machine", machineIdent);
-			return view.getNbt().toString();
+			return view.buildResult().toString();
 		}
 	}
 
-	public void readJson(String json, String machineIdent, RegistryWrapper.WrapperLookup registryLookup) throws UnsupportedOperationException {
-		NbtCompound compound;
+	public void readJson(String json, String machineIdent, HolderLookup.Provider registryLookup) throws UnsupportedOperationException {
+		CompoundTag compound;
 		try {
-			compound = StringNbtReader.readCompound(json);
+			compound = TagParser.parseCompoundFully(json);
 		} catch (CommandSyntaxException e) {
 			throw new UnsupportedOperationException("Clipboard contents isn't a valid slot configuration");
 		}
 		if (!compound.contains("machine") || !compound.getString("machine").orElseThrow().equals(machineIdent)) {
 			throw new UnsupportedOperationException("Machine config is not for this machine.");
 		}
-		try (ErrorReporter.Logging logging = new ErrorReporter.Logging(() -> "SlotConfiguration", LOGGER)) {
-			read(NbtReadView.create(logging, registryLookup, compound.getCompoundOrEmpty("data")));
+		try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(() -> "SlotConfiguration", LOGGER)) {
+			read(TagValueInput.create(logging, registryLookup, compound.getCompoundOrEmpty("data")));
 		}
 	}
 
@@ -501,7 +501,7 @@ public class SlotConfiguration implements NBTSerializable {
 					return ((SlotFilter) blockEntity).isStackValid(index, itemStackIn);
 				}
 			}
-			return blockEntity.isValid(index, itemStackIn);
+			return blockEntity.canPlaceItem(index, itemStackIn);
 		}
 		return false;
 	}

@@ -24,25 +24,25 @@
 
 package reborncore.common.network.clientbound;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import reborncore.common.network.BlockPosPayload;
 
-public record CustomDescriptionPayload(BlockPos pos, NbtCompound nbt) implements CustomPayload, BlockPosPayload {
-	public static final Id<CustomDescriptionPayload> ID = new Id<>(Identifier.of("reborncore:custom_description"));
-	public static final PacketCodec<RegistryByteBuf, CustomDescriptionPayload> PACKET_CODEC = PacketCodec.tuple(
-		BlockPos.PACKET_CODEC, CustomDescriptionPayload::pos,
-		PacketCodecs.NBT_COMPOUND, CustomDescriptionPayload::nbt,
+public record CustomDescriptionPayload(BlockPos pos, CompoundTag nbt) implements CustomPacketPayload, BlockPosPayload {
+	public static final Type<CustomDescriptionPayload> ID = new Type<>(ResourceLocation.parse("reborncore:custom_description"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, CustomDescriptionPayload> PACKET_CODEC = StreamCodec.composite(
+		BlockPos.STREAM_CODEC, CustomDescriptionPayload::pos,
+		ByteBufCodecs.COMPOUND_TAG, CustomDescriptionPayload::nbt,
 		CustomDescriptionPayload::new
 	);
 
 	@Override
-	public Id<? extends CustomPayload> getId() {
+	public Type<? extends CustomPacketPayload> type() {
 		return ID;
 	}
 }

@@ -24,35 +24,35 @@
 
 package reborncore.common.util;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import reborncore.api.ICustomToolHandler;
 
 public class GenericWrenchHelper implements ICustomToolHandler {
 
-	Identifier itemLocation;
+	ResourceLocation itemLocation;
 	boolean damage;
 
-	public GenericWrenchHelper(Identifier itemLocation, boolean damage) {
+	public GenericWrenchHelper(ResourceLocation itemLocation, boolean damage) {
 		this.itemLocation = itemLocation;
 		this.damage = damage;
 	}
 
 	@Override
 	public boolean canHandleTool(ItemStack stack) {
-		return Registries.ITEM.getId(stack.getItem()).equals(itemLocation);
+		return BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(itemLocation);
 	}
 
 	@Override
-	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
-		if (this.damage && damage && !world.isClient) {
-			stack.damage(1, player, EquipmentSlot.MAINHAND);
+	public boolean handleTool(ItemStack stack, BlockPos pos, Level world, Player player, Direction side, boolean damage) {
+		if (this.damage && damage && !world.isClientSide) {
+			stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 		}
 		return true;
 	}

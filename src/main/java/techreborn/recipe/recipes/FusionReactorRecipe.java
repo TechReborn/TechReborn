@@ -27,15 +27,6 @@ package techreborn.recipe.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.display.RecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
-import net.minecraft.util.dynamic.Codecs;
 import reborncore.common.crafting.RebornRecipeDisplay;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RebornRecipe;
@@ -44,6 +35,15 @@ import techreborn.init.TRContent;
 
 import java.util.List;
 import java.util.function.Function;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * @author drcrazy
@@ -53,24 +53,24 @@ public record FusionReactorRecipe(RecipeType<? extends FusionReactorRecipe> type
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
 		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
 		Codec.INT.fieldOf("power").forGetter(RebornRecipe::power),
-		Codecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
+		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
 		Codec.INT.fieldOf("startEnergy").forGetter(FusionReactorRecipe::getStartEnergy),
-		Codecs.POSITIVE_INT.fieldOf("minSize").forGetter(FusionReactorRecipe::getMinSize)
+		ExtraCodecs.POSITIVE_INT.fieldOf("minSize").forGetter(FusionReactorRecipe::getMinSize)
 	).apply(instance, (ingredients, outputs, power, time, startE, minSize) -> new FusionReactorRecipe(type, ingredients, outputs, power, time, startE, minSize)));
-	public static Function<RecipeType<FusionReactorRecipe>, PacketCodec<RegistryByteBuf, FusionReactorRecipe>> PACKET_CODEC = type -> PacketCodec.tuple(
-		SizedIngredient.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::ingredients,
-		ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), RebornRecipe::outputs,
-		PacketCodecs.INTEGER, RebornRecipe::power,
-		PacketCodecs.INTEGER, RebornRecipe::time,
-		PacketCodecs.INTEGER, FusionReactorRecipe::getStartEnergy,
-		PacketCodecs.INTEGER, FusionReactorRecipe::getMinSize,
+	public static Function<RecipeType<FusionReactorRecipe>, StreamCodec<RegistryFriendlyByteBuf, FusionReactorRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
+		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
+		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ByteBufCodecs.INT, RebornRecipe::power,
+		ByteBufCodecs.INT, RebornRecipe::time,
+		ByteBufCodecs.INT, FusionReactorRecipe::getStartEnergy,
+		ByteBufCodecs.INT, FusionReactorRecipe::getMinSize,
 		(ingredients, outputs, power, time, startE, minSize) -> new FusionReactorRecipe(type, ingredients, outputs, power, time, startE, minSize)
 	);
 
 	@Override
-	public List<RecipeDisplay> getDisplays() {
+	public List<RecipeDisplay> display() {
 		ItemStack stack = new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER);
-		return List.of(new RebornRecipeDisplay(new SlotDisplay.StackSlotDisplay(stack)));
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(stack)));
 	}
 
 	public int getStartEnergy() {

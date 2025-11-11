@@ -28,12 +28,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.StringIdentifiable;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 
 import java.util.Collections;
@@ -44,6 +38,12 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 
 public record RedstoneConfiguration(Map<Element, State> stateMap) {
 	// Set in TR to be a better item such as a battery or a cell
@@ -53,8 +53,8 @@ public record RedstoneConfiguration(Map<Element, State> stateMap) {
 	public static final MapCodec<RedstoneConfiguration> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.unboundedMap(Element.CODEC, State.CODEC).fieldOf("elements").forGetter(RedstoneConfiguration::stateMap)
 	).apply(instance, RedstoneConfiguration::new));
-	private static final PacketCodec<ByteBuf, Map<Element, State>> STATE_MAP_CODEC = PacketCodecs.map(HashMap::new, Element.PACKET_CODEC, State.PACKET_CODEC);
-	public static final PacketCodec<ByteBuf, RedstoneConfiguration> PACKET_CODEC = STATE_MAP_CODEC.xmap(RedstoneConfiguration::new, RedstoneConfiguration::stateMap);
+	private static final StreamCodec<ByteBuf, Map<Element, State>> STATE_MAP_CODEC = ByteBufCodecs.map(HashMap::new, Element.PACKET_CODEC, State.PACKET_CODEC);
+	public static final StreamCodec<ByteBuf, RedstoneConfiguration> PACKET_CODEC = STATE_MAP_CODEC.map(RedstoneConfiguration::new, RedstoneConfiguration::stateMap);
 
 	public RedstoneConfiguration() {
 		this(Collections.emptyMap());
@@ -87,13 +87,13 @@ public record RedstoneConfiguration(Map<Element, State> stateMap) {
 		if (state == State.IGNORED) {
 			return true;
 		}
-		boolean hasRedstonePower = blockEntity.getWorld().isReceivingRedstonePower(blockEntity.getPos());
+		boolean hasRedstonePower = blockEntity.getLevel().hasNeighborSignal(blockEntity.getBlockPos());
 		boolean enabledState = state == State.ENABLED_ON;
 		return enabledState == hasRedstonePower;
 	}
 
 	// Could be power input/output, item/fluid io, machine processing
-	public record Element(String name, Predicate<MachineBaseBlockEntity> isApplicable, Supplier<ItemStack> icon) implements StringIdentifiable {
+	public record Element(String name, Predicate<MachineBaseBlockEntity> isApplicable, Supplier<ItemStack> icon) implements StringRepresentable {
 		public static Element ITEM_IO = new Element("item_io", () -> new ItemStack(Blocks.HOPPER));
 		public static Element POWER_IO = new Element("power_io", () -> powerStack);
 		public static Element FLUID_IO = new Element("fluid_io", type -> type.getTank() != null, () -> fluidStack);
@@ -104,9 +104,9 @@ public record RedstoneConfiguration(Map<Element, State> stateMap) {
 		private static final Map<String, Element> ELEMENT_MAP = ELEMENTS.stream()
 			.collect(Collectors.toMap(Element::name, Function.identity()));
 
-		public static final Codec<Element> CODEC = StringIdentifiable.createBasicCodec(() -> ELEMENTS.toArray(Element[]::new));
-		public static final PacketCodec<ByteBuf, Element> PACKET_CODEC = PacketCodecs.STRING
-			.xmap(ELEMENT_MAP::get, Element::name);
+		public static final Codec<Element> CODEC = StringRepresentable.fromValues(() -> ELEMENTS.toArray(Element[]::new));
+		public static final StreamCodec<ByteBuf, Element> PACKET_CODEC = ByteBufCodecs.STRING_UTF8
+			.map(ELEMENT_MAP::get, Element::name);
 
 		public Element(String name, Supplier<ItemStack> icon) {
 			this(name, (be) -> true, icon);
@@ -117,21 +117,21 @@ public record RedstoneConfiguration(Map<Element, State> stateMap) {
 		}
 
 		@Override
-		public String asString() {
+		public String getSerializedName() {
 			return name;
 		}
 	}
 
-	public enum State implements StringIdentifiable {
+	public enum State implements StringRepresentable {
 		IGNORED,
 		ENABLED_ON,
 		ENABLED_OFF;
-		public static final Codec<State> CODEC = StringIdentifiable.createCodec(State::values);
-		public static final PacketCodec<ByteBuf, State> PACKET_CODEC = PacketCodecs.INTEGER
-			.xmap(integer -> State.values()[integer], Enum::ordinal);
+		public static final Codec<State> CODEC = StringRepresentable.fromEnum(State::values);
+		public static final StreamCodec<ByteBuf, State> PACKET_CODEC = ByteBufCodecs.INT
+			.map(integer -> State.values()[integer], Enum::ordinal);
 
 		@Override
-		public String asString() {
+		public String getSerializedName() {
 			return name();
 		}
 	}

@@ -26,7 +26,7 @@ package techreborn.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import techreborn.client.gui.GuiManual;
 import techreborn.events.OreDepthSyncHandler;
 import techreborn.packets.clientbound.OpenManualPayload;
@@ -39,7 +39,7 @@ public class ClientboundPacketHandlers {
 		});
 
 		ClientPlayNetworking.registerGlobalReceiver(OpenManualPayload.ID, (payload, context) ->
-			MinecraftClient.getInstance().setScreen(new GuiManual())
+			Minecraft.getInstance().setScreen(new GuiManual())
 		);
 	}
 }

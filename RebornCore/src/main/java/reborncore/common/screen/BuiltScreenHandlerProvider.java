@@ -24,8 +24,8 @@
 
 package reborncore.common.screen;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 public interface BuiltScreenHandlerProvider {
-	BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player);
+	BuiltScreenHandler createScreenHandler(int syncID, Player player);
 }

@@ -28,13 +28,13 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Pair;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.recipes.IRecipeInput;
 import team.reborn.energy.api.EnergyStorage;
@@ -55,7 +55,7 @@ public class ItemUtils {
 		if (a.isEmpty() || b.isEmpty()) {
 			return false;
 		}
-		if (matchComponent && ItemStack.areItemsAndComponentsEqual(a, b)) {
+		if (matchComponent && ItemStack.isSameItemSameComponents(a, b)) {
 			return true;
 		}
 		if (useTags) {
@@ -70,7 +70,7 @@ public class ItemUtils {
 		List<ItemStack> stacks = getBlockEntityStacks(shulkerStack);
 
 		for (ItemStack stack : stacks) {
-			if (ItemStack.areItemsAndComponentsEqual(targetStack, stack)) {
+			if (ItemStack.isSameItemSameComponents(targetStack, stack)) {
 				return true;
 			}
 		}
@@ -81,7 +81,7 @@ public class ItemUtils {
 		if (stacks == null) return 0;
 		int defaultValue = 0;
 		for (ItemStack stack : stacks) {
-			if (ItemStack.areItemsAndComponentsEqual(targetStack, stack)) {
+			if (ItemStack.isSameItemSameComponents(targetStack, stack)) {
 				defaultValue += stack.getCount();
 			}
 		}
@@ -101,10 +101,10 @@ public class ItemUtils {
 		int extracted = 0;
 		for (ItemStack stack : stacks) {
 			if (stack.isEmpty()) continue;
-			if (ItemStack.areItemsAndComponentsEqual(targetStack, stack)) {
+			if (ItemStack.isSameItemSameComponents(targetStack, stack)) {
 				int count = stack.getCount();
 				int toExtract = Math.min(maxAmount, count);
-				stack.decrement(toExtract);
+				stack.shrink(toExtract);
 				maxAmount -= toExtract;
 				extracted += toExtract;
 			}
@@ -114,29 +114,29 @@ public class ItemUtils {
 		return extracted;
 	}
 
-	public static Pair<Integer, ItemStack> extractFromShulker(ItemStack shulkerStack, DefaultedList<ItemStack> entityStack, ItemStack targetStack, int capacity) {
+	public static Tuple<Integer, ItemStack> extractFromShulker(ItemStack shulkerStack, NonNullList<ItemStack> entityStack, ItemStack targetStack, int capacity) {
 		ItemStack newStack = shulkerStack.copy();
 		if (entityStack == null) {
-			return new Pair<>(0, shulkerStack);
+			return new Tuple<>(0, shulkerStack);
 		}
 
 		int extracted = extractableFromCachedShulker(entityStack, targetStack, capacity);
 		if (extracted == 0) {
-			return new Pair<>(0, shulkerStack);
+			return new Tuple<>(0, shulkerStack);
 		}
 
 		if (isStackListEmpty(entityStack)) {
-			newStack.set(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT);
-			return new Pair<>(extracted, newStack);
+			newStack.set(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
+			return new Tuple<>(extracted, newStack);
 		}
-		newStack.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(entityStack));
-		return new Pair<>(extracted, newStack);
+		newStack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(entityStack));
+		return new Tuple<>(extracted, newStack);
 	}
 
-	public static DefaultedList<ItemStack> getBlockEntityStacks(ItemStack targetStack) {
+	public static NonNullList<ItemStack> getBlockEntityStacks(ItemStack targetStack) {
 		int maxSize = 128; // theorical max is 255
-		DefaultedList<ItemStack> returnStacks = DefaultedList.ofSize(maxSize, ItemStack.EMPTY);
-		targetStack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyTo(returnStacks);
+		NonNullList<ItemStack> returnStacks = NonNullList.withSize(maxSize, ItemStack.EMPTY);
+		targetStack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(returnStacks);
 
 		return returnStacks;
 	}
@@ -148,10 +148,10 @@ public class ItemUtils {
 		if (stack1.getCount() != stack2.getCount()) {
 			return false;
 		}
-		if (ItemStack.areItemsAndComponentsEqual(stack1, stack2)) {
+		if (ItemStack.isSameItemSameComponents(stack1, stack2)) {
 			return true;
 		}
-		if (stack1.getComponents() == ComponentMap.EMPTY || stack2.getComponents() == ComponentMap.EMPTY) {
+		if (stack1.getComponents() == DataComponentMap.EMPTY || stack2.getComponents() == DataComponentMap.EMPTY) {
 			return false;
 		}
 		ItemStack stack1Copy = stack1.copy();
@@ -159,7 +159,7 @@ public class ItemUtils {
 		ItemStack stack2Copy = stack2.copy();
 		stack2Copy.remove(EnergyStorage.ENERGY_COMPONENT);
 
-		return ItemStack.areItemsAndComponentsEqual(stack1Copy, stack2Copy);
+		return ItemStack.isSameItemSameComponents(stack1Copy, stack2Copy);
 	}
 
 	//TODO tags
@@ -197,30 +197,30 @@ public class ItemUtils {
 	/**
 	 * Output energy from item to other items in inventory
 	 *
-	 * @param player    {@link PlayerEntity} Player having powered item
+	 * @param player    {@link Player} Player having powered item
 	 * @param itemStack {@link ItemStack} Powered item
 	 * @param maxOutput {@code int} Maximum output rate of powered item
 	 */
-	public static void distributePowerToInventory(PlayerEntity player, ItemStack itemStack, long maxOutput) {
+	public static void distributePowerToInventory(Player player, ItemStack itemStack, long maxOutput) {
 		distributePowerToInventory(player, itemStack, maxOutput, (stack) -> true);
 	}
 
 	/**
 	 * Output energy from item to other items in inventory
 	 *
-	 * @param player    {@link PlayerEntity} Player having powered item
+	 * @param player    {@link Player} Player having powered item
 	 * @param itemStack {@link ItemStack} Powered item
 	 * @param maxOutput {@code int} Maximum output rate of powered item
 	 * @param filter    {@link Predicate} Filter for items to output to
 	 * @throws IllegalArgumentException If failed to locate stack in players inventory
 	 */
-	public static void distributePowerToInventory(PlayerEntity player, ItemStack itemStack, long maxOutput, Predicate<ItemStack> filter) {
+	public static void distributePowerToInventory(Player player, ItemStack itemStack, long maxOutput, Predicate<ItemStack> filter) {
 		// Locate the current stack in the player inventory.
 		PlayerInventoryStorage playerInv = PlayerInventoryStorage.of(player);
 		SingleSlotStorage<ItemVariant> sourceSlot = null;
 
-		for (int i = 0; i < player.getInventory().size(); i++) {
-			if (player.getInventory().getStack(i) == itemStack) {
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+			if (player.getInventory().getItem(i) == itemStack) {
 				sourceSlot = playerInv.getSlots().get(i);
 				break;
 			}
@@ -236,8 +236,8 @@ public class ItemUtils {
 			return;
 		}
 
-		for (int i = 0; i < player.getInventory().size(); i++) {
-			ItemStack invStack = player.getInventory().getStack(i);
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+			ItemStack invStack = player.getInventory().getItem(i);
 
 			if (invStack.isEmpty() || !filter.test(invStack)) {
 				continue;

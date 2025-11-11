@@ -25,27 +25,27 @@
 package techreborn.client.render;
 
 import com.google.common.base.Charsets;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.model.json.JsonUnbakedModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.resource.Resource;
-import net.minecraft.util.Identifier;
 import techreborn.TechReborn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 
 public class ModelHelper {
 
-	public static final ModelTransformation DEFAULT_ITEM_TRANSFORMS = loadTransformFromJson(Identifier.of("minecraft:models/item/generated"));
-	public static final ModelTransformation HANDHELD_ITEM_TRANSFORMS = loadTransformFromJson(Identifier.of("minecraft:models/item/handheld"));
+	public static final ItemTransforms DEFAULT_ITEM_TRANSFORMS = loadTransformFromJson(ResourceLocation.parse("minecraft:models/item/generated"));
+	public static final ItemTransforms HANDHELD_ITEM_TRANSFORMS = loadTransformFromJson(ResourceLocation.parse("minecraft:models/item/handheld"));
 
-	public static ModelTransformation loadTransformFromJson(Identifier location) {
+	public static ItemTransforms loadTransformFromJson(ResourceLocation location) {
 		try {
 
-			return JsonUnbakedModel.deserialize(getReaderForResource(location)).transformations();
+			return BlockModel.fromStream(getReaderForResource(location)).transforms();
 		} catch (IOException exception) {
 			TechReborn.LOGGER.warn("Can't load resource " + location);
 			exception.printStackTrace();
@@ -53,10 +53,10 @@ public class ModelHelper {
 		}
 	}
 
-	public static Reader getReaderForResource(Identifier location) throws IOException {
-		Identifier file = Identifier.of(location.getNamespace(), location.getPath() + ".json");
-		Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(file).orElseThrow();
-		return new BufferedReader(new InputStreamReader(resource.getInputStream(), Charsets.UTF_8));
+	public static Reader getReaderForResource(ResourceLocation location) throws IOException {
+		ResourceLocation file = ResourceLocation.fromNamespaceAndPath(location.getNamespace(), location.getPath() + ".json");
+		Resource resource = Minecraft.getInstance().getResourceManager().getResource(file).orElseThrow();
+		return new BufferedReader(new InputStreamReader(resource.open(), Charsets.UTF_8));
 	}
 
 }

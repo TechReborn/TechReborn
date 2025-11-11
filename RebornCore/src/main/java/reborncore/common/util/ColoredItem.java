@@ -25,14 +25,14 @@
 package reborncore.common.util;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 public enum ColoredItem {
 

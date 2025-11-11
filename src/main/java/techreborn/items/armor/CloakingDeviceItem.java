@@ -24,9 +24,9 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorType;
 import reborncore.api.items.ArmorBlockEntityTicker;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -36,7 +36,7 @@ import techreborn.init.TRArmorMaterials;
 public class CloakingDeviceItem extends TREnergyArmourItem implements ArmorBlockEntityTicker, ArmorRemoveHandler {
 	// 40M FE capacity with 8k FE\t charge rate
 	public CloakingDeviceItem(String name) {
-		super(TRArmorMaterials.CLOAKING_DEVICE, EquipmentType.CHESTPLATE, TechRebornConfig.cloakingDeviceCharge, RcEnergyTier.INSANE, name);
+		super(TRArmorMaterials.CLOAKING_DEVICE, ArmorType.CHESTPLATE, TechRebornConfig.cloakingDeviceCharge, RcEnergyTier.INSANE, name);
 	}
 
 	// TREnergyArmourItem
@@ -45,7 +45,7 @@ public class CloakingDeviceItem extends TREnergyArmourItem implements ArmorBlock
 
 	// ArmorBlockEntityTicker
 	@Override
-	public void tickArmor(ItemStack stack, boolean hasFullSuit, PlayerEntity playerEntity) {
+	public void tickArmor(ItemStack stack, boolean hasFullSuit, Player playerEntity) {
 		if (tryUseEnergy(stack, TechRebornConfig.cloakingDeviceCost)) {
 			playerEntity.setInvisible(true);
 		} else {
@@ -57,7 +57,7 @@ public class CloakingDeviceItem extends TREnergyArmourItem implements ArmorBlock
 
 	// ArmorRemoveHandler
 	@Override
-	public void onRemoved(PlayerEntity playerEntity) {
+	public void onRemoved(Player playerEntity) {
 		if (playerEntity.isInvisible()) {
 			playerEntity.setInvisible(false);
 		}

@@ -24,12 +24,6 @@
 
 package techreborn.items;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.util.WorldUtils;
 import techreborn.init.ModRecipes;
@@ -38,6 +32,12 @@ import techreborn.init.TRItemSettings;
 import techreborn.recipe.recipes.ScrapBoxRecipe;
 
 import java.util.List;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ScrapBoxItem extends Item {
 
@@ -46,20 +46,20 @@ public class ScrapBoxItem extends Item {
 	}
 
 	@Override
-	public ActionResult use(World world, PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
-		if (stack.isOf(TRContent.SCRAP_BOX)) {
-			if (world.isClient) {
-				return ActionResult.SUCCESS;
+	public InteractionResult use(Level world, Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (stack.is(TRContent.SCRAP_BOX)) {
+			if (world.isClientSide) {
+				return InteractionResult.SUCCESS;
 			}
 			List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(world, ModRecipes.SCRAPBOX);
 			int random = world.random.nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).outputs().get(0);
-			WorldUtils.dropItem(out, world, player.getBlockPos());
+			WorldUtils.dropItem(out, world, player.blockPosition());
 			ItemStack copy = stack.copy();
-			copy.decrement(1);
-			return ActionResult.SUCCESS.withNewHandStack(copy);
+			copy.shrink(1);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(copy);
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 }

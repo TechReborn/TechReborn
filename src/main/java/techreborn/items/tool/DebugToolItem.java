@@ -24,24 +24,24 @@
 
 package techreborn.items.tool;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.command.BlockDataObject;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.registry.Registries;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
 import reborncore.common.powerSystem.PowerSystem;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.init.TRItemSettings;
 
 import java.util.Map.Entry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.commands.data.BlockDataAccessor;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 
 /**
  * Created by Mark on 20/03/2016.
@@ -53,80 +53,80 @@ public class DebugToolItem extends Item {
 	}
 
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext context) {
-		BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
+	public InteractionResult useOn(UseOnContext context) {
+		BlockState blockState = context.getLevel().getBlockState(context.getClickedPos());
 		Block block = blockState.getBlock();
 		if (block == null) {
-			return ActionResult.FAIL;
+			return InteractionResult.FAIL;
 		}
-		if (context.getWorld().isClient) {
-			return ActionResult.SUCCESS;
+		if (context.getLevel().isClientSide) {
+			return InteractionResult.SUCCESS;
 		}
-		sendMessage(context, Text.literal(getRegistryName(block)));
+		sendMessage(context, Component.literal(getRegistryName(block)));
 
-		for (Entry<Property<?>, Comparable<?>> entry : blockState.getEntries().entrySet()) {
-			sendMessage(context, Text.literal(getPropertyString(entry)));
+		for (Entry<Property<?>, Comparable<?>> entry : blockState.getValues().entrySet()) {
+			sendMessage(context, Component.literal(getPropertyString(entry)));
 		}
 
-		EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.getWorld(), context.getBlockPos(), context.getSide());
+		EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.getLevel(), context.getClickedPos(), context.getClickedFace());
 		if (energyStorage != null) {
-			sendMessage(context, Text.literal(getRCPower(energyStorage)));
+			sendMessage(context, Component.literal(getRCPower(energyStorage)));
 		}
 
-		BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
+		BlockEntity blockEntity = context.getLevel().getBlockEntity(context.getClickedPos());
 		if (blockEntity == null) {
-			return ActionResult.CONSUME;
+			return InteractionResult.CONSUME;
 		}
 
-		sendMessage(context, Text.literal(getBlockEntityType(blockEntity)));
+		sendMessage(context, Component.literal(getBlockEntityType(blockEntity)));
 
 		sendMessage(context, getBlockEntityTags(blockEntity));
 
-		return ActionResult.CONSUME;
+		return InteractionResult.CONSUME;
 	}
 
-	private void sendMessage(ItemUsageContext context, Text message) {
-		if (context.getWorld().isClient || context.getPlayer() == null) {
+	private void sendMessage(UseOnContext context, Component message) {
+		if (context.getLevel().isClientSide || context.getPlayer() == null) {
 			return;
 		}
-		context.getPlayer().sendMessage(message, false); // TODO check if this is correct boolean
+		context.getPlayer().displayClientMessage(message, false); // TODO check if this is correct boolean
 	}
 
 	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
 		Property<?> property = entryIn.getKey();
 		Comparable<?> comparable = entryIn.getValue();
-		String s = Util.getValueAsString(property, comparable);
+		String s = Util.getPropertyName(property, comparable);
 		if (Boolean.TRUE.equals(comparable)) {
-			s = Formatting.GREEN + s;
+			s = ChatFormatting.GREEN + s;
 		} else if (Boolean.FALSE.equals(comparable)) {
-			s = Formatting.RED + s;
+			s = ChatFormatting.RED + s;
 		}
 
 		return property.getName() + ": " + s;
 	}
 
 	private String getRegistryName(Block block) {
-		String s = "" + Formatting.GREEN;
+		String s = "" + ChatFormatting.GREEN;
 		s += "Block Registry Name: ";
-		s += Formatting.BLUE;
-		s += Registries.BLOCK.getId(block);
+		s += ChatFormatting.BLUE;
+		s += BuiltInRegistries.BLOCK.getKey(block);
 
 		return s;
 	}
 
 	private String getBlockEntityType(BlockEntity blockEntity) {
-		String s = "" + Formatting.GREEN;
+		String s = "" + ChatFormatting.GREEN;
 		s += "Block Entity: ";
-		s += Formatting.BLUE;
+		s += ChatFormatting.BLUE;
 		s += blockEntity.getType().toString();
 
 		return s;
 	}
 
 	private String getRCPower(EnergyStorage energyStorage) {
-		String s = "" + Formatting.GREEN;
+		String s = "" + ChatFormatting.GREEN;
 		s += "Power: ";
-		s += Formatting.BLUE;
+		s += ChatFormatting.BLUE;
 		s += PowerSystem.getLocalizedPower(energyStorage.getAmount());
 		s += "/";
 		s += PowerSystem.getLocalizedPower(energyStorage.getCapacity());
@@ -134,11 +134,11 @@ public class DebugToolItem extends Item {
 		return s;
 	}
 
-	private Text getBlockEntityTags(BlockEntity blockEntity){
-		MutableText s = Text.literal("BlockEntity Tags:").formatted(Formatting.GREEN);
+	private Component getBlockEntityTags(BlockEntity blockEntity){
+		MutableComponent s = Component.literal("BlockEntity Tags:").withStyle(ChatFormatting.GREEN);
 
-		BlockDataObject bdo = new BlockDataObject(blockEntity, blockEntity.getPos());
-		s.append(bdo.getNbt().toString());
+		BlockDataAccessor bdo = new BlockDataAccessor(blockEntity, blockEntity.getBlockPos());
+		s.append(bdo.getData().toString());
 
 		return s;
 	}

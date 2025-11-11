@@ -25,14 +25,14 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ButtonTextures;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.TexturedButtonWidget;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -44,47 +44,47 @@ import java.util.Objects;
 
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	final IronFurnaceBlockEntity blockEntity;
-	private static final Identifier EXP_BUTTON_TEXTURE = Identifier.ofVanilla("item/experience_bottle");
+	private static final ResourceLocation EXP_BUTTON_TEXTURE = ResourceLocation.withDefaultNamespace("item/experience_bottle");
 
-	public GuiIronFurnace(int syncID, PlayerEntity player, IronFurnaceBlockEntity furnace) {
+	public GuiIronFurnace(int syncID, Player player, IronFurnaceBlockEntity furnace) {
 		super(player, furnace, furnace.createScreenHandler(syncID, player));
 		this.blockEntity = furnace;
 	}
 
-	public void onClick(ButtonWidget buttonWidget) {
-		ClientPlayNetworking.send(new ExperiencePayload(blockEntity.getPos()));
+	public void onClick(Button buttonWidget) {
+		ClientPlayNetworking.send(new ExperiencePayload(blockEntity.getBlockPos()));
 	}
 
 	@Override
 	public void init() {
 		super.init();
-		addDrawableChild(new XpButtonWidget(this::onClick));
+		addRenderableWidget(new XpButtonWidget(this::onClick));
 	}
 
-	private class XpButtonWidget extends TexturedButtonWidget {
-		private static final ButtonTextures TEXTURES = new ButtonTextures(EXP_BUTTON_TEXTURE, EXP_BUTTON_TEXTURE);
+	private class XpButtonWidget extends ImageButton {
+		private static final WidgetSprites TEXTURES = new WidgetSprites(EXP_BUTTON_TEXTURE, EXP_BUTTON_TEXTURE);
 
-		public XpButtonWidget(PressAction pressAction) {
+		public XpButtonWidget(OnPress pressAction) {
 			super(getGuiLeft() + 116,
 				getGuiTop() + 58,
 				16,
 				16,
 				TEXTURES,
 				pressAction,
-				Text.empty());
+				Component.empty());
 		}
 
 		@Override
-		public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+		public void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
 			super.renderWidget(context, mouseX, mouseY, delta);
 
-			if (hovered) {
-				context.drawTooltip(getTextRenderer(), getTooltipText(), mouseX, mouseY);
+			if (isHovered) {
+				context.setTooltipForNextFrame(getFont(), getTooltipText(), mouseX, mouseY);
 			}
 		}
 
-		private Text getTooltipText() {
-			PlayerEntity player = MinecraftClient.getInstance().player;
+		private Component getTooltipText() {
+			Player player = Minecraft.getInstance().player;
 			Objects.requireNonNull(player);
 			String message = ": ";
 
@@ -92,9 +92,9 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 			if (furnaceExp <= 0) {
 				message = message + "0";
 			} else {
-				float expTillLevel = (1.0F - player.experienceProgress) * player.getNextLevelExperience();
+				float expTillLevel = (1.0F - player.experienceProgress) * player.getXpNeededForNextLevel();
 				if (furnaceExp <= expTillLevel) {
-					int percentage = (int) (blockEntity.experience * 100 / player.getNextLevelExperience());
+					int percentage = (int) (blockEntity.experience * 100 / player.getXpNeededForNextLevel());
 					message = message + "+"
 						+ (percentage > 0 ? String.valueOf(percentage) : "<1")
 						+ "%";
@@ -109,14 +109,14 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 				}
 			}
 
-			return Text.translatable("techreborn.tooltip.experience")
+			return Component.translatable("techreborn.tooltip.experience")
 				.append(message);
 		}
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, float lastFrameDuration, int mouseX, int mouseY) {
-		super.drawBackground(drawContext, lastFrameDuration, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, float lastFrameDuration, int mouseX, int mouseY) {
+		super.renderBg(drawContext, lastFrameDuration, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Input slot
@@ -128,8 +128,8 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

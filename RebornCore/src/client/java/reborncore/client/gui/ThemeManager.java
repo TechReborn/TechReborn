@@ -27,10 +27,9 @@ package reborncore.client.gui;
 import com.google.gson.*;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,20 +40,20 @@ public class ThemeManager implements SimpleResourceReloadListener<Theme> {
 	private static Theme theme = null;
 
 	@Override
-	public Identifier getFabricId() {
-		return Identifier.of("reborncore", "theme_manager");
+	public ResourceLocation getFabricId() {
+		return ResourceLocation.fromNamespaceAndPath("reborncore", "theme_manager");
 	}
 
 	@Override
 	public CompletableFuture<Theme> load(ResourceManager manager, Executor executor) {
 		return CompletableFuture.supplyAsync(() -> {
-			Optional<Resource> theme = manager.getResource(Identifier.of("reborncore", "theme.json"));
+			Optional<Resource> theme = manager.getResource(ResourceLocation.fromNamespaceAndPath("reborncore", "theme.json"));
 
 			if (theme.isEmpty()) {
 				throw new IllegalStateException("Failed to find reborn core theme.json");
 			}
 
-			try (InputStreamReader reader = new InputStreamReader(theme.get().getInputStream())) {
+			try (InputStreamReader reader = new InputStreamReader(theme.get().open())) {
 				JsonElement element = JsonParser.parseReader(reader);
 				return Theme.CODEC.parse(JsonOps.INSTANCE, element).getOrThrow(JsonParseException::new);
 			} catch (Exception e) {

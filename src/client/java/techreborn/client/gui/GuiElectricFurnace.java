@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -35,14 +35,14 @@ public class GuiElectricFurnace extends GuiBase<BuiltScreenHandler> {
 
 	final ElectricFurnaceBlockEntity blockEntity;
 
-	public GuiElectricFurnace(int syncID, final PlayerEntity player, final ElectricFurnaceBlockEntity blockEntity) {
+	public GuiElectricFurnace(int syncID, final Player player, final ElectricFurnaceBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, float partialTicks, int mouseX, int mouseY) {
-		super.drawBackground(drawContext, partialTicks, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, float partialTicks, int mouseX, int mouseY) {
+		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
 		Layer layer = Layer.BACKGROUND;
 
 		drawSlot(drawContext, 8, 72, layer);
@@ -52,8 +52,8 @@ public class GuiElectricFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

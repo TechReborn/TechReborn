@@ -24,21 +24,20 @@
 
 package reborncore.common.screen.slot;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-
 import java.util.function.Predicate;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 
 public class FilteredSlot extends BaseSlot {
 
 	private Predicate<ItemStack> filter;
 	private int stackLimit = 64;
 
-	public FilteredSlot(final Inventory inventory, final int index, final int xPosition, final int yPosition) {
+	public FilteredSlot(final Container inventory, final int index, final int xPosition, final int yPosition) {
 		super(inventory, index, xPosition, yPosition);
 	}
 
-	public FilteredSlot(final Inventory inventory, final int index, final int xPosition, final int yPosition, int stackLimit) {
+	public FilteredSlot(final Container inventory, final int index, final int xPosition, final int yPosition, int stackLimit) {
 		super(inventory, index, xPosition, yPosition);
 		this.stackLimit = stackLimit;
 	}
@@ -49,7 +48,7 @@ public class FilteredSlot extends BaseSlot {
 	}
 
 	@Override
-	public boolean canInsert(final ItemStack stack) {
+	public boolean mayPlace(final ItemStack stack) {
 		try {
 			return this.filter.test(stack);
 		} catch (NullPointerException e) {
@@ -58,7 +57,7 @@ public class FilteredSlot extends BaseSlot {
 	}
 
 	@Override
-	public int getMaxItemCount() {
+	public int getMaxStackSize() {
 		return stackLimit;
 	}
 }

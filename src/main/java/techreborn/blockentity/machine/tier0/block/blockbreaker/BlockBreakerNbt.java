@@ -24,9 +24,9 @@
 
 package techreborn.blockentity.machine.tier0.block.blockbreaker;
 
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 import techreborn.blockentity.machine.tier0.block.ProcessingStatus;
 
@@ -43,22 +43,22 @@ class BlockBreakerNbt {
 	protected int currentBreakTime;
 	protected ProcessingStatus status = BlockBreakerStatus.IDLE;
 
-	public void writeData(WriteView view) {
+	public void writeData(ValueOutput view) {
 		view.putInt("breakTime", this.breakTime);
 		view.putInt("currentBreakTime", this.currentBreakTime);
 		view.putInt("blockBreakerStatus", getStatus());
 	}
 
-	public void readData(ReadView view) {
-		this.breakTime = view.getInt("breakTime", 0);
-		this.currentBreakTime = view.getInt("currentBreakTime", 0);
-		setStatus(view.getInt("blockBreakerStatus", 0));
+	public void readData(ValueInput view) {
+		this.breakTime = view.getIntOr("breakTime", 0);
+		this.currentBreakTime = view.getIntOr("currentBreakTime", 0);
+		setStatus(view.getIntOr("blockBreakerStatus", 0));
 	}
 
 	public BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder) {
-		return builder.sync(PacketCodecs.INTEGER, this::getBreakTime, this::setBreakTime)
-			.sync(PacketCodecs.INTEGER, this::getCurrentBreakTime, this::setCurrentBreakTime)
-			.sync(PacketCodecs.INTEGER, this::getStatus, this::setStatus);
+		return builder.sync(ByteBufCodecs.INT, this::getBreakTime, this::setBreakTime)
+			.sync(ByteBufCodecs.INT, this::getCurrentBreakTime, this::setCurrentBreakTime)
+			.sync(ByteBufCodecs.INT, this::getStatus, this::setStatus);
 	}
 
 	protected int getBreakTime() {

@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -35,14 +35,14 @@ public class GuiIndustrialElectrolyzer extends GuiBase<BuiltScreenHandler> {
 
 	final IndustrialElectrolyzerBlockEntity blockEntity;
 
-	public GuiIndustrialElectrolyzer(int syncID, final PlayerEntity player, final IndustrialElectrolyzerBlockEntity blockEntity) {
+	public GuiIndustrialElectrolyzer(int syncID, final Player player, final IndustrialElectrolyzerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, f, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		//Battery slot
@@ -55,8 +55,8 @@ public class GuiIndustrialElectrolyzer extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 84, 52, mouseX, mouseY, GuiBuilder.ProgressDirection.UP, layer);

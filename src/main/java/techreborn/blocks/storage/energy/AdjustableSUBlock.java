@@ -24,9 +24,9 @@
 
 package techreborn.blocks.storage.energy;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 
@@ -37,7 +37,7 @@ public class AdjustableSUBlock extends EnergyStorageBlock {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new AdjustableSUBlockEntity(pos, state);
 	}
 

@@ -24,10 +24,6 @@
 
 package techreborn.recipe;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.recipes.RecipeCrafter;
@@ -37,6 +33,10 @@ import techreborn.init.ModRecipes;
 
 import java.util.List;
 import java.util.Objects;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class RecyclerRecipeCrafter extends RecipeCrafter {
 
@@ -47,7 +47,7 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 	@Override
 	public void updateCurrentRecipe() {
 		currentTickTime = 0;
-		List<RebornRecipe> recipeList = RecipeUtils.getRecipes(blockEntity.getWorld(), ModRecipes.RECYCLER);
+		List<RebornRecipe> recipeList = RecipeUtils.getRecipes(blockEntity.getLevel(), ModRecipes.RECYCLER);
 		if (recipeList.isEmpty() || !hasAllInputs()) {
 			setCurrentRecipe(null);
 			currentNeededTicks = 0;
@@ -64,7 +64,7 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 		boolean hasItem = false;
 		// Check if we have at least something in input slots. Foreach input slot in case of several input slots
 		for (int inputSlot : inputSlots) {
-			if (inventory.getStack(inputSlot).isEmpty()) continue;
+			if (inventory.getItem(inputSlot).isEmpty()) continue;
 			hasItem = true;
 			break;
 		}
@@ -78,7 +78,7 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 		}
 		// Uses input. Foreach input slot in case of several input slots
 		for (int inputSlot : inputSlots) {
-			if (inventory.getStack(inputSlot).isEmpty()) continue;
+			if (inventory.getItem(inputSlot).isEmpty()) continue;
 			inventory.shrinkSlot(inputSlot, 1);
 			break;
 		}
@@ -86,8 +86,8 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 
 	@Override
 	public void fitStack(ItemStack stack, int slot) {
-		final World world = Objects.requireNonNull(blockEntity.getWorld());
-		final Random random = world.random;
+		final Level world = Objects.requireNonNull(blockEntity.getLevel());
+		final RandomSource random = world.random;
 
 		final int randomChance = random.nextInt(TechRebornConfig.recyclerChance);
 		if (randomChance == 0) {

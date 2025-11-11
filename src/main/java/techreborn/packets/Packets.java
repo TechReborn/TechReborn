@@ -25,7 +25,7 @@
 package techreborn.packets;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import techreborn.packets.clientbound.OpenManualPayload;
 import techreborn.packets.serverbound.AESUConfigPayload;
 import techreborn.packets.serverbound.AutoCraftingLockPayload;
@@ -49,11 +49,11 @@ public class Packets {
 		serverbound(PayloadTypeRegistry.playC2S());
 	}
 
-	private static void clientbound(PayloadTypeRegistry<RegistryByteBuf> registry) {
+	private static void clientbound(PayloadTypeRegistry<RegistryFriendlyByteBuf> registry) {
 		registry.register(OpenManualPayload.ID, OpenManualPayload.CODEC);
 	}
 
-	private static void serverbound(PayloadTypeRegistry<RegistryByteBuf> registry) {
+	private static void serverbound(PayloadTypeRegistry<RegistryFriendlyByteBuf> registry) {
 		registry.register(AESUConfigPayload.ID, AESUConfigPayload.CODEC);
 		registry.register(AutoCraftingLockPayload.ID, AutoCraftingLockPayload.CODEC);
 		registry.register(ChunkloaderPayload.ID, ChunkloaderPayload.CODEC);

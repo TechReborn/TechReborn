@@ -24,33 +24,47 @@
 
 package techreborn.datagen.dynamic
 
-import net.minecraft.block.BlockState
-import net.minecraft.block.Blocks
-import net.minecraft.entity.damage.DamageEffects
-import net.minecraft.entity.damage.DamageType
-import net.minecraft.registry.Registerable
-import net.minecraft.registry.RegistryEntryLookup
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.tag.BlockTags
-import net.minecraft.structure.rule.BlockMatchRuleTest
-import net.minecraft.structure.rule.BlockStateMatchRuleTest
-import net.minecraft.structure.rule.RuleTest
-import net.minecraft.structure.rule.TagMatchRuleTest
-import net.minecraft.util.collection.Pool
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.Direction
-import net.minecraft.util.math.intprovider.ConstantIntProvider
-import net.minecraft.world.Heightmap
-import net.minecraft.world.gen.YOffset
-import net.minecraft.world.gen.blockpredicate.BlockPredicate
-import net.minecraft.world.gen.feature.*
-import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize
-import net.minecraft.world.gen.foliage.BlobFoliagePlacer
-import net.minecraft.world.gen.heightprovider.UniformHeightProvider
-import net.minecraft.world.gen.placementmodifier.*
-import net.minecraft.world.gen.stateprovider.BlockStateProvider
-import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider
-import net.minecraft.world.gen.trunk.StraightTrunkPlacer
+import net.minecraft.data.worldgen.features.FeatureUtils
+import net.minecraft.data.worldgen.placement.PlacementUtils
+import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.damagesource.DamageEffects
+import net.minecraft.world.damagesource.DamageType
+import net.minecraft.data.worldgen.BootstrapContext
+import net.minecraft.core.HolderGetter
+import net.minecraft.core.registries.Registries
+import net.minecraft.tags.BlockTags
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration
+import net.minecraft.world.level.levelgen.placement.BiomeFilter
+import net.minecraft.world.level.levelgen.placement.CountPlacement
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement
+import net.minecraft.world.level.levelgen.placement.RarityFilter
+import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest
+import net.minecraft.util.random.WeightedList
+import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
+import net.minecraft.util.valueproviders.ConstantInt
+import net.minecraft.world.level.levelgen.Heightmap
+import net.minecraft.world.level.levelgen.VerticalAnchor
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature
+import net.minecraft.world.level.levelgen.feature.Feature
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration
+import net.minecraft.world.level.levelgen.placement.PlacedFeature
+import net.minecraft.world.level.levelgen.placement.PlacementModifier
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer
+import net.minecraft.world.level.levelgen.heightproviders.UniformHeight
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer
+import net.minecraft.world.level.levelgen.feature.LakeFeature
 import techreborn.blocks.misc.BlockRubberLog
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
@@ -61,13 +75,13 @@ import techreborn.world.TargetDimension
 import techreborn.world.WorldGenerator
 
 class TRDynamicContent {
-	static void damageTypes(Registerable<DamageType> registry) {
+	static void damageTypes(BootstrapContext<DamageType> registry) {
 		registry.register(TRDamageTypes.ELECTRIC_SHOCK, new DamageType("electric_shock", 0.1F, DamageEffects.BURNING))
 		registry.register(TRDamageTypes.FUSION, new DamageType("fusion", 0.1F, DamageEffects.BURNING))
 	}
 
-	static void configuredFeatures(Registerable<ConfiguredFeature> registry) {
-		def placedFeatureLookup = registry.getRegistryLookup(RegistryKeys.PLACED_FEATURE)
+	static void configuredFeatures(BootstrapContext<ConfiguredFeature> registry) {
+		def placedFeatureLookup = registry.lookup(Registries.PLACED_FEATURE)
 
 		WorldGenerator.ORE_FEATURES.forEach {
 			registry.register(it.configuredFeature(), createOreConfiguredFeature(it))
@@ -78,8 +92,8 @@ class TRDynamicContent {
 		registry.register(WorldGenerator.RUBBER_TREE_PATCH_FEATURE, createRubberPatchTreeConfiguredFeature(placedFeatureLookup))
 	}
 
-	static void placedFeatures(Registerable<PlacedFeature> registry) {
-		def configuredFeatureLookup = registry.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE)
+	static void placedFeatures(BootstrapContext<PlacedFeature> registry) {
+		def configuredFeatureLookup = registry.lookup(Registries.CONFIGURED_FEATURE)
 
 		WorldGenerator.ORE_FEATURES.forEach {
 			registry.register(it.placedFeature(), createOrePlacedFeature(configuredFeatureLookup, it))
@@ -94,88 +108,88 @@ class TRDynamicContent {
 	private static ConfiguredFeature createOreConfiguredFeature(TROreFeatureConfig config) {
 		def oreFeatureConfig = switch (config.ore().distribution.dimension) {
 			case TargetDimension.OVERWORLD -> createOverworldOreFeatureConfig(config)
-			case TargetDimension.NETHER -> createSimpleOreFeatureConfig(new BlockMatchRuleTest(Blocks.NETHERRACK), config)
-			case TargetDimension.END -> createSimpleOreFeatureConfig(new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState()), config)
+			case TargetDimension.NETHER -> createSimpleOreFeatureConfig(new BlockMatchTest(Blocks.NETHERRACK), config)
+			case TargetDimension.END -> createSimpleOreFeatureConfig(new BlockStateMatchTest(Blocks.END_STONE.defaultBlockState()), config)
 		}
 
 		return new ConfiguredFeature<>(Feature.ORE, oreFeatureConfig)
 	}
 
-	private static OreFeatureConfig createOverworldOreFeatureConfig(TROreFeatureConfig config) {
+	private static OreConfiguration createOverworldOreFeatureConfig(TROreFeatureConfig config) {
 		if (config.ore().getDeepslate() != null) {
-			return new OreFeatureConfig(List.of(
-				OreFeatureConfig.createTarget(new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES), config.ore().block.getDefaultState()),
-				OreFeatureConfig.createTarget(new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), config.ore().getDeepslate().block.getDefaultState())
+			return new OreConfiguration(List.of(
+				OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), config.ore().block.defaultBlockState()),
+				OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), config.ore().getDeepslate().block.defaultBlockState())
 			), config.ore().distribution.veinSize)
 		}
 
-		return createSimpleOreFeatureConfig(new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES), config)
+		return createSimpleOreFeatureConfig(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), config)
 	}
 
-	private static OreFeatureConfig createSimpleOreFeatureConfig(RuleTest test, TROreFeatureConfig config) {
-		return new OreFeatureConfig(test, config.ore().block.getDefaultState(), config.ore().distribution.veinSize)
+	private static OreConfiguration createSimpleOreFeatureConfig(RuleTest test, TROreFeatureConfig config) {
+		return new OreConfiguration(test, config.ore().block.defaultBlockState(), config.ore().distribution.veinSize)
 	}
 
-	private static PlacedFeature createOrePlacedFeature(RegistryEntryLookup<ConfiguredFeature> configuredFeatureLookup, TROreFeatureConfig config) {
+	private static PlacedFeature createOrePlacedFeature(HolderGetter<ConfiguredFeature> configuredFeatureLookup, TROreFeatureConfig config) {
 		return new PlacedFeature(configuredFeatureLookup.getOrThrow(config.configuredFeature()), getOrePlacementModifiers(config))
 	}
 
 	private static List<PlacementModifier> getOrePlacementModifiers(TROreFeatureConfig config) {
 		return oreModifiers(
-			CountPlacementModifier.of(config.ore().distribution.veinsPerChunk),
-			HeightRangePlacementModifier.uniform(
+			CountPlacement.of(config.ore().distribution.veinsPerChunk),
+			HeightRangePlacement.uniform(
 				config.ore().distribution.minOffset,
-				YOffset.fixed(config.ore().distribution.maxY)
+				VerticalAnchor.absolute(config.ore().distribution.maxY)
 			)
 		)
 	}
 
 	private static List<PlacementModifier> oreModifiers(PlacementModifier first, PlacementModifier second) {
-		return List.of(first, SquarePlacementModifier.of(), second, BiomePlacementModifier.of())
+		return List.of(first, InSquarePlacement.spread(), second, BiomeFilter.biome())
 	}
 
 	// Oil lake
 	private static ConfiguredFeature createOilLakeConfiguredFeature() {
 		return new ConfiguredFeature<>(Feature.LAKE,
-				new LakeFeature.Config(
-					BlockStateProvider.of(ModFluids.OIL.getBlock().getDefaultState()),
-					BlockStateProvider.of(Blocks.STONE.getDefaultState())
+				new LakeFeature.Configuration(
+					BlockStateProvider.simple(ModFluids.OIL.getBlock().defaultBlockState()),
+					BlockStateProvider.simple(Blocks.STONE.defaultBlockState())
 				)
 			)
 	}
 
-	private static PlacedFeature createOilLakePlacedFeature(RegistryEntryLookup<ConfiguredFeature> lookup) {
+	private static PlacedFeature createOilLakePlacedFeature(HolderGetter<ConfiguredFeature> lookup) {
 		return new PlacedFeature(
 			lookup.getOrThrow(WorldGenerator.OIL_LAKE_FEATURE), List.of(
-				RarityFilterPlacementModifier.of(20),
-				HeightRangePlacementModifier.of(UniformHeightProvider.create(YOffset.fixed(0), YOffset.getTop())),
-				EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.bothOf(BlockPredicate.not(BlockPredicate.IS_AIR), BlockPredicate.insideWorldBounds(new BlockPos(0, -5, 0))), 32),
-				SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5)
+				RarityFilter.onAverageOnceEvery(20),
+				HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.absolute(0), VerticalAnchor.top())),
+				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.allOf(BlockPredicate.not(BlockPredicate.ONLY_IN_AIR_PREDICATE), BlockPredicate.insideWorld(new BlockPos(0, -5, 0))), 32),
+				SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5)
 			)
 		)
 	}
 
 	// Rubber tree
 	private static ConfiguredFeature createRubberTreeConfiguredFeature() {
-		final Pool.Builder<BlockState> logDataPool = Pool.<BlockState>builder()
-			.add(TRContent.RUBBER_LOG.getDefaultState(), 6)
+		final WeightedList.Builder<BlockState> logDataPool = WeightedList.<BlockState>builder()
+			.add(TRContent.RUBBER_LOG.defaultBlockState(), 6)
 
 		Arrays.stream(Direction.values())
 			.filter(direction -> direction.getAxis().isHorizontal())
-			.map(direction -> TRContent.RUBBER_LOG.getDefaultState()
-				.with(BlockRubberLog.HAS_SAP, true)
-				.with(BlockRubberLog.SAP_SIDE, direction)
+			.map(direction -> TRContent.RUBBER_LOG.defaultBlockState()
+				.setValue(BlockRubberLog.HAS_SAP, true)
+				.setValue(BlockRubberLog.SAP_SIDE, direction)
 			)
 			.forEach(state -> logDataPool.add(state, 1))
 
 		return new ConfiguredFeature<>(Feature.TREE,
-			new TreeFeatureConfig.Builder(
-				new WeightedBlockStateProvider(logDataPool),
+			new TreeConfiguration.TreeConfigurationBuilder(
+				new WeightedStateProvider(logDataPool),
 				new StraightTrunkPlacer(6, 3, 0),
-				BlockStateProvider.of(TRContent.RUBBER_LEAVES.getDefaultState()),
+				BlockStateProvider.simple(TRContent.RUBBER_LEAVES.defaultBlockState()),
 				new BlobFoliagePlacer(
-					ConstantIntProvider.create(2),
-					ConstantIntProvider.create(0),
+					ConstantInt.of(2),
+					ConstantInt.of(0),
 					3
 				),
 				new TwoLayersFeatureSize(
@@ -184,33 +198,33 @@ class TRDynamicContent {
 					1
 				))
 				.decorators(List.of(
-					new RubberTreeSpikeDecorator(4, BlockStateProvider.of(TRContent.RUBBER_LEAVES.getDefaultState()))
+					new RubberTreeSpikeDecorator(4, BlockStateProvider.simple(TRContent.RUBBER_LEAVES.defaultBlockState()))
 				)).build()
 		)
 	}
 
-	private static PlacedFeature createRubberTreePlacedFeature(RegistryEntryLookup<ConfiguredFeature> lookup) {
+	private static PlacedFeature createRubberTreePlacedFeature(HolderGetter<ConfiguredFeature> lookup) {
 		return new PlacedFeature(lookup.getOrThrow(WorldGenerator.RUBBER_TREE_FEATURE), List.of(
-			PlacedFeatures.wouldSurvive(TRContent.RUBBER_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(TRContent.RUBBER_SAPLING)
 		))
 	}
 
-	private static ConfiguredFeature createRubberPatchTreeConfiguredFeature(RegistryEntryLookup<PlacedFeature> lookup) {
+	private static ConfiguredFeature createRubberPatchTreeConfiguredFeature(HolderGetter<PlacedFeature> lookup) {
 		return new ConfiguredFeature<>(Feature.RANDOM_PATCH,
-			ConfiguredFeatures.createRandomPatchFeatureConfig(
+			FeatureUtils.simpleRandomPatchConfiguration(
 				6, lookup.getOrThrow(WorldGenerator.RUBBER_TREE_PLACED_FEATURE)
 			)
 		)
 	}
 
-	private static PlacedFeature createRubberTreePatchPlacedFeature(RegistryEntryLookup<ConfiguredFeature> lookup) {
+	private static PlacedFeature createRubberTreePatchPlacedFeature(HolderGetter<ConfiguredFeature> lookup) {
 		return new PlacedFeature(
 			lookup.getOrThrow(WorldGenerator.RUBBER_TREE_PATCH_FEATURE),
 			List.of(
-				RarityFilterPlacementModifier.of(3),
-				SquarePlacementModifier.of(),
-				PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-				BiomePlacementModifier.of()
+				RarityFilter.onAverageOnceEvery(3),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
 			)
 		)
 	}

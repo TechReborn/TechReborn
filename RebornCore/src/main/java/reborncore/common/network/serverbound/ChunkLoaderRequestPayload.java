@@ -24,22 +24,22 @@
 
 package reborncore.common.network.serverbound;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import reborncore.common.network.BlockPosPayload;
 
-public record ChunkLoaderRequestPayload(BlockPos pos) implements CustomPayload, BlockPosPayload {
-	public static final CustomPayload.Id<ChunkLoaderRequestPayload> ID = new CustomPayload.Id<>(Identifier.of("reborncore:chunk_loader_request"));
-	public static final PacketCodec<RegistryByteBuf, ChunkLoaderRequestPayload> PACKET_CODEC = PacketCodec.tuple(
-		BlockPos.PACKET_CODEC, ChunkLoaderRequestPayload::pos,
+public record ChunkLoaderRequestPayload(BlockPos pos) implements CustomPacketPayload, BlockPosPayload {
+	public static final CustomPacketPayload.Type<ChunkLoaderRequestPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.parse("reborncore:chunk_loader_request"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, ChunkLoaderRequestPayload> PACKET_CODEC = StreamCodec.composite(
+		BlockPos.STREAM_CODEC, ChunkLoaderRequestPayload::pos,
 		ChunkLoaderRequestPayload::new
 	);
 
 	@Override
-	public Id<? extends CustomPayload> getId() {
+	public Type<? extends CustomPacketPayload> type() {
 		return ID;
 	}
 }

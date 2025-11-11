@@ -27,9 +27,8 @@ package techreborn.world;
 import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import java.util.function.Predicate;
 
 public enum TargetDimension {
@@ -37,8 +36,8 @@ public enum TargetDimension {
 	NETHER(BiomeSelectors.foundInTheNether()),
 	END(BiomeSelectors.foundInTheEnd());
 
-	public static final PacketCodec<ByteBuf, TargetDimension> PACKET_CODEC = PacketCodecs.INTEGER
-		.xmap(integer -> TargetDimension.values()[integer], Enum::ordinal);
+	public static final StreamCodec<ByteBuf, TargetDimension> PACKET_CODEC = ByteBufCodecs.INT
+		.map(integer -> TargetDimension.values()[integer], Enum::ordinal);
 
 	public final Predicate<BiomeSelectionContext> biomeSelector;
 

@@ -25,10 +25,10 @@
 package reborncore.client.gui.config;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.network.serverbound.SetRedstoneStatePayload;
@@ -57,7 +57,7 @@ public class RedstoneConfigGui extends GuiTab {
 	}
 
 	@Override
-	public void draw(DrawContext drawContext, int mouseX, int mouseY) {
+	public void draw(GuiGraphics drawContext, int mouseX, int mouseY) {
 		if (guiBase.getMachine() == null) return;
 		RedstoneConfiguration configuration = guiBase.getMachine().getRedstoneConfiguration();
 		List<RedstoneConfiguration.Element> elements = guiBase.getMachine().getRedstoneElements();
@@ -68,14 +68,14 @@ public class RedstoneConfigGui extends GuiTab {
 		int i = 0;
 		int spread = elements.size() == 3 ? 27 : 18;
 		for (RedstoneConfiguration.Element element : elements) {
-			drawContext.drawItem(element.icon().get(), x - 3, y + (i * spread) - 5);
-			drawContext.drawText(guiBase.getTextRenderer(), Text.translatable("reborncore.gui.fluidconfig." + element.name()), x + 15, y + (i * spread), -1, false);
+			drawContext.renderItem(element.icon().get(), x - 3, y + (i * spread) - 5);
+			drawContext.drawString(guiBase.getFont(), Component.translatable("reborncore.gui.fluidconfig." + element.name()), x + 15, y + (i * spread), -1, false);
 
 			boolean hovered = withinBounds(guiBase, mouseX, mouseY, x + 92, y + (i * spread) - 2, 63, 15);
 			int color = hovered ? 0xFF8b8b8b : 0x668b8b8b;
 			drawContext.fill(x + 91, y + (i * spread) - 2, x + 93 + 65, y + (i * spread) + 10, color);
 
-			Text name = Text.translatable("reborncore.gui.fluidconfig." + configuration.getState(element).name().toLowerCase(Locale.ROOT));
+			Component name = Component.translatable("reborncore.gui.fluidconfig." + configuration.getState(element).name().toLowerCase(Locale.ROOT));
 			guiBase.drawCentredText(drawContext, name, y + (i * spread), -1, x + 37, GuiBase.Layer.FOREGROUND);
 			i++;
 		}
@@ -100,7 +100,7 @@ public class RedstoneConfigGui extends GuiTab {
 					ns = 0;
 				}
 				RedstoneConfiguration.State nextState = RedstoneConfiguration.State.values()[ns];
-				ClientPlayNetworking.send(new SetRedstoneStatePayload(guiBase.getMachine().getPos(), element, nextState));
+				ClientPlayNetworking.send(new SetRedstoneStatePayload(guiBase.getMachine().getBlockPos(), element, nextState));
 				return true;
 			}
 			i++;

@@ -24,18 +24,18 @@
 
 package techreborn.blocks.storage.fluid;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.BlockHitResult;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
@@ -59,18 +59,18 @@ public class TankUnitBlock extends BlockMachineBase {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new TankUnitBaseBlockEntity(pos, state, unitType);
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, BlockHitResult hitResult) {
-		if (unitType == TRContent.TankUnit.CREATIVE || worldIn.isClient) {
-			return super.onUse(state, worldIn, pos, playerIn, hitResult);
+	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hitResult) {
+		if (unitType == TRContent.TankUnit.CREATIVE || worldIn.isClientSide) {
+			return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 		}
 
 		final TankUnitBaseBlockEntity tankUnitEntity = (TankUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
-		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
+		ItemStack stackInHand = playerIn.getItemInHand(InteractionHand.MAIN_HAND);
 		Item itemInHand = stackInHand.getItem();
 
 		// Assuming ItemFluidInfo is 1 BUCKET, for now only allow exact amount or less
@@ -95,7 +95,7 @@ public class TankUnitBlock extends BlockMachineBase {
 					int amountTransferBuckets = (int) Math.min(amountInTank.getRawValue() / FluidValue.BUCKET.getRawValue(), stackInHand.getCount());
 
 					// Remove items from player
-					stackInHand.decrement(amountTransferBuckets);
+					stackInHand.shrink(amountTransferBuckets);
 
 					// Deposit into inventory, one by one (Stupid buckets)
 					for(int i = 0; i < amountTransferBuckets; i++){
@@ -103,23 +103,23 @@ public class TankUnitBlock extends BlockMachineBase {
 
 						boolean didInsert;
 
-						ItemStack selectedStack = playerIn.getMainHandStack();
+						ItemStack selectedStack = playerIn.getMainHandItem();
 
 						// Insert to select if it can, otherwise anywhere.
 						if(selectedStack.isEmpty()){
-							playerIn.setStackInHand(Hand.MAIN_HAND, item);
+							playerIn.setItemInHand(InteractionHand.MAIN_HAND, item);
 							didInsert = true;
-						}else if(isSameItemFluid(item, selectedStack) && selectedStack.getCount() < selectedStack.getMaxCount()) {
-							selectedStack.increment(1);
+						}else if(isSameItemFluid(item, selectedStack) && selectedStack.getCount() < selectedStack.getMaxStackSize()) {
+							selectedStack.grow(1);
 							didInsert = true;
 						}else {
-							didInsert = playerIn.getInventory().insertStack(item);
+							didInsert = playerIn.getInventory().add(item);
 						}
 
 
 						// If didn't insert, just drop it.
 						if(!didInsert){
-							WorldUtils.dropItem(item,worldIn,  playerIn.getBlockPos());
+							WorldUtils.dropItem(item,worldIn,  playerIn.blockPosition());
 						}
 					}
 
@@ -127,7 +127,7 @@ public class TankUnitBlock extends BlockMachineBase {
 					tankInstance.setFluidAmount(tankInstance.getFluidAmount().subtract(
 						FluidValue.BUCKET.multiply(amountTransferBuckets)));
 				}else{
-					return ActionResult.FAIL;
+					return InteractionResult.FAIL;
 				}
 			}else{
 				// If tank can fit fluid and amount, add it
@@ -141,21 +141,21 @@ public class TankUnitBlock extends BlockMachineBase {
 					// Give players the empty stuff back
 					ItemStack returnStack = itemFluid.getEmpty();
 					returnStack.setCount(amount);
-					playerIn.setStackInHand(Hand.MAIN_HAND, returnStack);
+					playerIn.setItemInHand(InteractionHand.MAIN_HAND, returnStack);
 				}
 			}
 
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 
-		return super.onUse(state, worldIn, pos, playerIn, hitResult);
+		return super.useWithoutItem(state, worldIn, pos, playerIn, hitResult);
 	}
 
 	boolean isSameItemFluid(ItemStack i1, ItemStack i2){
 		// Only care about cells, buckets don't stack
 		if(i1.getItem() instanceof DynamicCellItem dc1 && i2.getItem() instanceof DynamicCellItem dc2){
-			return dc1.getFluid(i1).matchesType(dc2.getFluid(i2));
+			return dc1.getFluid(i1).isSame(dc2.getFluid(i2));
 		}
 
 		return false;

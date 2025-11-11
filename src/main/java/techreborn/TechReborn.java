@@ -25,9 +25,9 @@
 package techreborn;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.material.Fluids;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.RedstoneConfiguration;
@@ -98,12 +98,12 @@ public class TechReborn implements ModInitializer {
 		RedstoneConfiguration.fluidStack = DynamicCellItem.getCellWithFluid(Fluids.LAVA);
 		RedstoneConfiguration.powerStack = new ItemStack(TRContent.RED_CELL_BATTERY);
 
-		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.RUBBER_SAPLING.asItem(), 0.3F);
-		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.RUBBER_LEAVES.asItem(), 0.3F);
-		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.Parts.PLANTBALL.asItem(), 1F);
-		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.Parts.COMPRESSED_PLANTBALL.asItem(), 1F);
-		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.Dusts.SAW.asItem(), 0.3F);
-		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.SmallDusts.SAW.asItem(), 0.1F);
+		ComposterBlock.COMPOSTABLES.put(TRContent.RUBBER_SAPLING.asItem(), 0.3F);
+		ComposterBlock.COMPOSTABLES.put(TRContent.RUBBER_LEAVES.asItem(), 0.3F);
+		ComposterBlock.COMPOSTABLES.put(TRContent.Parts.PLANTBALL.asItem(), 1F);
+		ComposterBlock.COMPOSTABLES.put(TRContent.Parts.COMPRESSED_PLANTBALL.asItem(), 1F);
+		ComposterBlock.COMPOSTABLES.put(TRContent.Dusts.SAW.asItem(), 0.3F);
+		ComposterBlock.COMPOSTABLES.put(TRContent.SmallDusts.SAW.asItem(), 0.1F);
 
 		TechRebornTemplates.init();
 

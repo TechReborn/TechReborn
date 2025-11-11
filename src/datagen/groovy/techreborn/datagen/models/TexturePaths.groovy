@@ -24,11 +24,11 @@
 
 package techreborn.datagen.models
 
-import net.minecraft.block.Block
-import net.minecraft.block.Blocks
-import net.minecraft.client.data.TextureMap
-import net.minecraft.item.Item
-import net.minecraft.util.Identifier
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.client.data.models.model.TextureMapping
+import net.minecraft.world.item.Item
+import net.minecraft.resources.ResourceLocation
 import techreborn.TechReborn
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
@@ -58,48 +58,48 @@ import java.util.function.Consumer
 import java.util.function.Function
 
 class TexturePaths {
-	public static Map<Block, Identifier> blockPaths = [:]
-	public static Map<Item, Identifier> itemPaths = [:]
-	public static Map<Object, Identifier> aliasPaths = [:]
+	public static Map<Block, ResourceLocation> blockPaths = [:]
+	public static Map<Item, ResourceLocation> itemPaths = [:]
+	public static Map<Object, ResourceLocation> aliasPaths = [:]
 
-	static <T> void ifPresent(Map<T, Identifier> map, T target, Consumer<Identifier> callback) {
+	static <T> void ifPresent(Map<T, ResourceLocation> map, T target, Consumer<ResourceLocation> callback) {
 		def id = map.get(target)
 		if (id) callback.accept(id)
 	}
 
-	static <T> void ifPresent(Map<T, Identifier> map, T target, String suffix, Consumer<Identifier> callback) {
+	static <T> void ifPresent(Map<T, ResourceLocation> map, T target, String suffix, Consumer<ResourceLocation> callback) {
 		def id = map.get(target)
-		if (id) callback.accept(id.withSuffixedPath(suffix))
+		if (id) callback.accept(id.withSuffix(suffix))
 	}
 
-	static void ifPresent(Item item, Consumer<Identifier> callback) {
+	static void ifPresent(Item item, Consumer<ResourceLocation> callback) {
 		ifPresent(itemPaths, item, callback)
 	}
 
-	static void ifPresent(Item item, String suffix, Consumer<Identifier> callback) {
+	static void ifPresent(Item item, String suffix, Consumer<ResourceLocation> callback) {
 		ifPresent(itemPaths, item, suffix, callback)
 	}
 
-	static void ifPresent(Block block, Consumer<Identifier> callback) {
+	static void ifPresent(Block block, Consumer<ResourceLocation> callback) {
 		ifPresent(blockPaths, block, callback)
 	}
 
-	static void ifPresentOrAlias(Block block, Consumer<Identifier> callback) {
+	static void ifPresentOrAlias(Block block, Consumer<ResourceLocation> callback) {
 		def id = Optional.ofNullable(aliasPaths.get(block)).orElseGet(() -> blockPaths.get(block))
 		if (id) callback.accept(id)
 	}
 
-	static void ifPresent(Block block, String suffix, Consumer<Identifier> callback) {
+	static void ifPresent(Block block, String suffix, Consumer<ResourceLocation> callback) {
 		ifPresent(blockPaths, block, suffix, callback)
 	}
 
 	static void add(Block block, String path) {
-		blockPaths.put(block, Identifier.of(TechReborn.MOD_ID, "block/" + path))
-		itemPaths.put(block.asItem(), Identifier.of(TechReborn.MOD_ID, "item/" + path))
+		blockPaths.put(block, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/" + path))
+		itemPaths.put(block.asItem(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "item/" + path))
 	}
 
 	static void add(Item item, String path) {
-		itemPaths.put(item, Identifier.of(TechReborn.MOD_ID, "item/" + path))
+		itemPaths.put(item, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "item/" + path))
 	}
 
 	static void add(def info, String path) {
@@ -135,10 +135,10 @@ class TexturePaths {
 	}
 
 	static void alias(Block block, String path) {
-		aliasPaths.put(block, Identifier.of(TechReborn.MOD_ID, "block/" + path))
+		aliasPaths.put(block, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/" + path))
 	}
 
-	static void alias(Block block, Identifier id) {
+	static void alias(Block block, ResourceLocation id) {
 		aliasPaths.put(block, id)
 	}
 
@@ -266,7 +266,7 @@ class TexturePaths {
 		add Machine.RESIN_BASIN, { "machines/tier0_machines/resin_basin/$it.name" }
 		add TRContent.COMPUTER_CUBE, "machines/tier2_machines/computer_cube"
 		add TRContent.REFINED_IRON_FENCE, "misc/refined_iron_fence"
-		alias TRContent.REFINED_IRON_FENCE, TextureMap.getId(Blocks.IRON_BLOCK)
+		alias TRContent.REFINED_IRON_FENCE, TextureMapping.getBlockTexture(Blocks.IRON_BLOCK)
 		add TRContent.COPPER_WALL, "misc/copper_wall"
 		alias TRContent.COPPER_WALL, "storage/copper_storage_block"
 		add TRContent.NUKE, "misc/nuke"
@@ -370,29 +370,29 @@ class TexturePaths {
 		add TRContent.LAPOTRONIC_ORB, "battery/lapotronic_orb"
 	}
 
-	public static Identifier generatorDir = Identifier.of(TechReborn.MOD_ID, "block/machines/generators/")
-	public static Identifier machineTier0Dir = Identifier.of(TechReborn.MOD_ID, "block/machines/tier0_machines/")
-	public static Identifier machineTier1Dir = Identifier.of(TechReborn.MOD_ID, "block/machines/tier1_machines/")
-	public static Identifier machineTier2Dir = Identifier.of(TechReborn.MOD_ID, "block/machines/tier2_machines/")
-	public static Identifier machineTier3Dir = Identifier.of(TechReborn.MOD_ID, "block/machines/tier3_machines/")
-	public static Identifier machineTier1Bottom = machineTier1Dir.withSuffixedPath("machine_bottom")
-	public static Identifier machineTier1Side = machineTier1Dir.withSuffixedPath("machine_side")
-	public static Identifier machineTier2Top = machineTier2Dir.withSuffixedPath("machine_top")
-	public static Identifier machineTier2Bottom = machineTier2Dir.withSuffixedPath("machine_bottom")
-	public static Identifier machineTier2West = machineTier2Dir.withSuffixedPath("machine_west")
-	public static Identifier machineTier2East = machineTier2Dir.withSuffixedPath("machine_east")
-	public static Identifier machineTier2Back = machineTier2Dir.withSuffixedPath("machine_back")
-	public static Identifier machineTier3Top = machineTier3Dir.withSuffixedPath("machine_top")
-	public static Identifier machineTier3Bottom = machineTier3Dir.withSuffixedPath("machine_bottom")
-	public static Identifier machineTier3Back = machineTier3Dir.withSuffixedPath("machine_back")
-	public static Identifier generatorBottom = generatorDir.withSuffixedPath("generator_bottom")
-	public static Identifier generatorSide = generatorDir.withSuffixedPath("generator_side")
-	public static Identifier generatorTop = generatorDir.withSuffixedPath("generator_top")
-	public static Identifier quantumTop = machineTier3Dir.withSuffixedPath("quantum_top")
-	public static Identifier quantumBottom = machineTier3Dir.withSuffixedPath("quantum_bottom")
-	public static Identifier quantumSolarPanelSide = generatorDir.withSuffixedPath("quantum_solar_panel_side")
-	public static Identifier solarPanelSide = generatorDir.withSuffixedPath("solar_panel_side")
-	public static Identifier basicUnitBottom = machineTier0Dir.withSuffixedPath("basic_unit_bottom")
-	public static Identifier advancedUnitBottom = machineTier1Dir.withSuffixedPath("advanced_unit_bottom")
-	public static Identifier industrialUnitBottom = machineTier2Dir.withSuffixedPath("storage_bottom")
+	public static ResourceLocation generatorDir = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/machines/generators/")
+	public static ResourceLocation machineTier0Dir = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/machines/tier0_machines/")
+	public static ResourceLocation machineTier1Dir = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/machines/tier1_machines/")
+	public static ResourceLocation machineTier2Dir = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/machines/tier2_machines/")
+	public static ResourceLocation machineTier3Dir = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/machines/tier3_machines/")
+	public static ResourceLocation machineTier1Bottom = machineTier1Dir.withSuffix("machine_bottom")
+	public static ResourceLocation machineTier1Side = machineTier1Dir.withSuffix("machine_side")
+	public static ResourceLocation machineTier2Top = machineTier2Dir.withSuffix("machine_top")
+	public static ResourceLocation machineTier2Bottom = machineTier2Dir.withSuffix("machine_bottom")
+	public static ResourceLocation machineTier2West = machineTier2Dir.withSuffix("machine_west")
+	public static ResourceLocation machineTier2East = machineTier2Dir.withSuffix("machine_east")
+	public static ResourceLocation machineTier2Back = machineTier2Dir.withSuffix("machine_back")
+	public static ResourceLocation machineTier3Top = machineTier3Dir.withSuffix("machine_top")
+	public static ResourceLocation machineTier3Bottom = machineTier3Dir.withSuffix("machine_bottom")
+	public static ResourceLocation machineTier3Back = machineTier3Dir.withSuffix("machine_back")
+	public static ResourceLocation generatorBottom = generatorDir.withSuffix("generator_bottom")
+	public static ResourceLocation generatorSide = generatorDir.withSuffix("generator_side")
+	public static ResourceLocation generatorTop = generatorDir.withSuffix("generator_top")
+	public static ResourceLocation quantumTop = machineTier3Dir.withSuffix("quantum_top")
+	public static ResourceLocation quantumBottom = machineTier3Dir.withSuffix("quantum_bottom")
+	public static ResourceLocation quantumSolarPanelSide = generatorDir.withSuffix("quantum_solar_panel_side")
+	public static ResourceLocation solarPanelSide = generatorDir.withSuffix("solar_panel_side")
+	public static ResourceLocation basicUnitBottom = machineTier0Dir.withSuffix("basic_unit_bottom")
+	public static ResourceLocation advancedUnitBottom = machineTier1Dir.withSuffix("advanced_unit_bottom")
+	public static ResourceLocation industrialUnitBottom = machineTier2Dir.withSuffix("storage_bottom")
 }

@@ -27,9 +27,9 @@ package techreborn.datagen.tags
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.ItemTagProvider
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
-import net.minecraft.item.Items
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.tag.ItemTags
+import net.minecraft.world.item.Items
+import net.minecraft.core.HolderLookup
+import net.minecraft.tags.ItemTags
 import reborncore.common.misc.RebornCoreTags
 import techreborn.datagen.TRConventionalTags
 import techreborn.init.ModFluids
@@ -38,12 +38,12 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class TRItemTagProvider extends ItemTagProvider {
-	TRItemTagProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	TRItemTagProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(dataOutput, registriesFuture)
 	}
 
 	@Override
-	protected void configure(RegistryWrapper.WrapperLookup arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		TRContent.Ores.values().each { ore ->
 			valueLookupBuilder(ore.asTag()).add(ore.asItem())
 			valueLookupBuilder(TRContent.ItemTags.ORES).add(ore.asItem())

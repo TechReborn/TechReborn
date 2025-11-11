@@ -26,20 +26,20 @@ package techreborn.datagen.recipes.machine
 
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
-import net.minecraft.advancement.Advancement.Builder
-import net.minecraft.advancement.AdvancementCriterion
-import net.minecraft.advancement.criterion.InventoryChangedCriterion
-import net.minecraft.data.recipe.RecipeExporter
-import net.minecraft.item.ItemConvertible
-import net.minecraft.item.ItemStack
-import net.minecraft.recipe.Recipe
-import net.minecraft.recipe.RecipeType
-import net.minecraft.registry.Registries
-import net.minecraft.registry.RegistryKey
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.registry.tag.TagKey
-import net.minecraft.resource.featuretoggle.FeatureFlag
-import net.minecraft.util.Identifier
+import net.minecraft.advancements.Advancement.Builder
+import net.minecraft.advancements.Criterion
+import net.minecraft.advancements.critereon.InventoryChangeTrigger
+import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceKey
+import net.minecraft.core.registries.Registries
+import net.minecraft.tags.TagKey
+import net.minecraft.world.flag.FeatureFlag
+import net.minecraft.resources.ResourceLocation
 import org.jetbrains.annotations.NotNull
 import reborncore.common.crafting.SizedIngredient
 import reborncore.common.crafting.RebornRecipe
@@ -50,13 +50,13 @@ import techreborn.init.ModRecipes
 class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final RecipeType<R> type
 	protected final TechRebornRecipesProvider provider
-	protected final Builder builder = Builder.create()
+	protected final Builder builder = Builder.advancement()
 
 	protected final List<SizedIngredient> ingredients = new ArrayList<>()
 	protected final List<ItemStack> outputs = new ArrayList<>()
 	protected int power = -1
 	protected int time = -1
-	protected Identifier customId = null
+	protected ResourceLocation customId = null
 	protected String source = null
 	protected List<ResourceCondition> conditions = []
 
@@ -78,7 +78,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 	def ingredients(Object... objects) {
 		for (object in objects) {
-			if (object instanceof ItemConvertible) {
+			if (object instanceof ItemLike) {
 				ingredient {
 					item object
 				}
@@ -90,13 +90,13 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				ingredient {
 					stack object
 				}
-			} else if (object instanceof Identifier) {
+			} else if (object instanceof ResourceLocation) {
 				ingredient {
 					ident object
 				}
 			} else if (object instanceof String) {
 				ingredient {
-					ident(Identifier.of(object))
+					ident(ResourceLocation.parse(object))
 				}
 			} else {
 				throw new IllegalArgumentException()
@@ -130,11 +130,11 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	private static ItemStack ofStack(Object object) {
 		if (object instanceof ItemStack) {
 			return object
-		} else if (object instanceof ItemConvertible) {
+		} else if (object instanceof ItemLike) {
 			return new ItemStack(object.asItem())
 		} else if (object instanceof String) {
 			// TODO remove me, done to aid porting from json files
-			def item = Registries.ITEM.get(Identifier.of(object))
+			def item = BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(object))
 			return new ItemStack(item)
 		} else {
 			throw new UnsupportedOperationException()
@@ -151,17 +151,17 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
-	def id(Identifier identifier) {
+	def id(ResourceLocation identifier) {
 		this.customId = identifier
 		return this
 	}
 
-	def source(ItemConvertible item) {
-		return source(Registries.ITEM.getId(item.asItem()).getPath())
+	def source(ItemLike item) {
+		return source(BuiltInRegistries.ITEM.getKey(item.asItem()).getPath())
 	}
 
 	def source(String s) {
-		Identifier.ofVanilla(s) // Just to validate that it is a valid identifier path
+		ResourceLocation.withDefaultNamespace(s) // Just to validate that it is a valid identifier path
 		this.source = s
 		return this
 	}
@@ -178,7 +178,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	}
 
 	MachineRecipeJsonFactory id(String path) {
-		return id(Identifier.of("techreborn", path))
+		return id(ResourceLocation.fromNamespaceAndPath("techreborn", path))
 	}
 
 	/**
@@ -206,12 +206,12 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		}
 	}
 
-	MachineRecipeJsonFactory<R> criterion(String string, AdvancementCriterion<InventoryChangedCriterion.Conditions> criterion) {
-		builder.criterion(string, criterion)
+	MachineRecipeJsonFactory<R> criterion(String string, Criterion<InventoryChangeTrigger.TriggerInstance> criterion) {
+		builder.addCriterion(string, criterion)
 		return this
 	}
 
-	void offerTo(RecipeExporter exporter) {
+	void offerTo(RecipeOutput exporter) {
 		validate()
 		def recipeId = getIdentifier()
 
@@ -220,7 +220,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			def id
 			do {
 				i++
-				id = Identifier.of(recipeId.toString() + "_" + i)
+				id = ResourceLocation.parse(recipeId.toString() + "_" + i)
 			} while (provider.exportedRecipes.contains(id))
 
 			recipeId = id
@@ -228,8 +228,8 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		provider.exportedRecipes.add(recipeId)
 
-		Identifier advancementId = Identifier.of(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
-		RegistryKey<Recipe> key = RegistryKey.of(RegistryKeys.RECIPE, recipeId)
+		ResourceLocation advancementId = ResourceLocation.fromNamespaceAndPath(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
+		ResourceKey<Recipe> key = ResourceKey.create(Registries.RECIPE, recipeId)
 		RecipeUtils.addToastDefaults(builder, key)
 
 		def recipe = createRecipe()
@@ -250,9 +250,9 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			throw new IllegalStateException("Recipe has no outputs")
 		}
 
-		def outputId = Registries.ITEM.getId(outputs[0].item)
-		def recipeId = Registries.RECIPE_TYPE.getId(type)
-		return Identifier.of("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
+		def outputId = BuiltInRegistries.ITEM.getKey(outputs[0].item)
+		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
+		return ResourceLocation.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	def feature(FeatureFlag flag) {

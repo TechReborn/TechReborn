@@ -24,15 +24,15 @@
 
 package reborncore.client.gui.element;
 
-import net.minecraft.client.gui.ScreenRect;
-import net.minecraft.client.gui.render.state.special.SpecialGuiElementRenderState;
-import net.minecraft.client.render.model.BlockStateModel;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
+import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2f;
 
 public record MachineFaceState(
-	Matrix3x2f pose, BlockStateModel model, int x1, int y1, int x2, int y2, float scale, @Nullable ScreenRect scissorArea, ScreenRect bounds
-) implements SpecialGuiElementRenderState {
+	Matrix3x2f pose, BlockStateModel model, int x0, int y0, int x1, int y1, float scale, @Nullable ScreenRectangle scissorArea, ScreenRectangle bounds
+) implements PictureInPictureRenderState {
 	public static final int TEXTURE_HEIGHT = 16;
 	public static final int TEXTURE_WIDTH = 6 * TEXTURE_HEIGHT;
 	public static final int TEXTURE_SIZE = 62;
@@ -47,7 +47,7 @@ public record MachineFaceState(
 			y + TEXTURE_HEIGHT,
 			1,
 			null,
-			new ScreenRect(x, y, TEXTURE_SIZE, TEXTURE_SIZE).transformEachVertex(pose)
+			new ScreenRectangle(x, y, TEXTURE_SIZE, TEXTURE_SIZE).transformMaxBounds(pose)
 		);
 	}
 }

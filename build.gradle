@@ -49,7 +49,7 @@ allprojects {
     // Shared deps between TR and RC
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
-        mappings "net.fabricmc:yarn:${project.yarn_version}:v2"
+        mappings loom.officialMojangMappings()
         modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         //Fabric api
@@ -154,13 +154,6 @@ fabricApi {
 }
 
 sourceSets {
-    gametest {
-        compileClasspath += main.compileClasspath
-        runtimeClasspath += main.runtimeClasspath
-        compileClasspath += main.output
-        runtimeClasspath += main.output
-    }
-
     datagen {
         compileClasspath += main.compileClasspath
         runtimeClasspath += main.runtimeClasspath
@@ -180,9 +173,6 @@ allprojects {
                 sourceSet project(":").sourceSets.main
                 sourceSet project(":").sourceSets.client
             }
-            "techreborn-gametest" {
-                sourceSet project(":").sourceSets.gametest
-            }
         }
     }
 }
@@ -197,14 +187,8 @@ dependencies {
     optionalREIDependency(true)
     optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
-    // Use groovy for datagen/gametest, if you are copying this you prob dont want it.
-    gametestImplementation 'org.apache.groovy:groovy:4.0.21'
+    // Use groovy for datagen, if you are copying this you prob dont want it.
     datagenImplementation 'org.apache.groovy:groovy:4.0.21'
-
-    gametestImplementation ("com.google.truth:truth:1.1.3") {
-        exclude module: "guava"
-        exclude module: "asm"
-    }
 }
 
 def optionalDependency(String dep) {
@@ -227,27 +211,6 @@ def optionalREIDependency(runtime = true) {
 	if (runtime) {
 		dependencies.modClientRuntimeOnly(dep, exclude)
 	}
-}
-
-loom {
-    runs {
-        // Use to run the tests
-        gametest {
-            server()
-            name "Game Test"
-            vmArg "-Dfabric-api.gametest"
-            vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/junit.xml"
-            runDir "build/gametest"
-            source sourceSets.gametest
-        }
-
-        // Use to debug tests
-        gametestClient {
-            client()
-            name "Game Test Client"
-            source sourceSets.gametest
-        }
-    }
 }
 
 tasks.sourcesJar.dependsOn runDatagen

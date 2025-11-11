@@ -24,12 +24,11 @@
 
 package reborncore.api;
 
-import net.minecraft.text.Text;
-
 import java.util.List;
+import net.minecraft.network.chat.Component;
 
 public interface IListInfoProvider {
 
-	void addInfo(List<Text> info, boolean isReal, boolean hasData);
+	void addInfo(List<Component> info, boolean isReal, boolean hasData);
 
 }

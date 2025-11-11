@@ -25,9 +25,9 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonUpDown;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -39,7 +39,7 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 
 	private final PumpBlockEntity blockEntity;
 
-	public GuiPump(int syncID, final PlayerEntity player, final PumpBlockEntity blockEntity) {
+	public GuiPump(int syncID, final Player player, final PumpBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
@@ -48,28 +48,28 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 	public void init() {
 		super.init();
 
-		addDrawableChild(new GuiButtonUpDown(x + 84, y + 30, this, b -> onClickDepth(10), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 12, y + 30, this, b -> onClickDepth(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 24, y + 30, this, b -> onClickDepth(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 36, y + 30, this, b -> onClickDepth(-10), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 84, topPos + 30, this, b -> onClickDepth(10), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 84 + 12, topPos + 30, this, b -> onClickDepth(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 84 + 24, topPos + 30, this, b -> onClickDepth(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 84 + 36, topPos + 30, this, b -> onClickDepth(-10), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
 
-		addDrawableChild(new GuiButtonUpDown(x + 84, y + 55, this, b -> onClick(10), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 12, y + 55, this, b -> onClick(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 24, y + 55, this, b -> onClick(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
-		addDrawableChild(new GuiButtonUpDown(x + 84 + 36, y + 55, this, b -> onClick(-10), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 84, topPos + 55, this, b -> onClick(10), GuiButtonUpDown.UpDownButtonType.FASTFORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 84 + 12, topPos + 55, this, b -> onClick(1), GuiButtonUpDown.UpDownButtonType.FORWARD));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 84 + 24, topPos + 55, this, b -> onClick(-1), GuiButtonUpDown.UpDownButtonType.REWIND));
+		addRenderableWidget(new GuiButtonUpDown(leftPos + 84 + 36, topPos + 55, this, b -> onClick(-10), GuiButtonUpDown.UpDownButtonType.FASTREWIND));
 	}
 
 	private void onClickDepth(int amount) {
-		ClientPlayNetworking.send(new PumpDepthPayload(blockEntity.getPos(), amount));
+		ClientPlayNetworking.send(new PumpDepthPayload(blockEntity.getBlockPos(), amount));
 	}
 
 	private void onClick(int amount) {
-		ClientPlayNetworking.send(new PumpRangePayload(blockEntity.getPos(), amount));
+		ClientPlayNetworking.send(new PumpRangePayload(blockEntity.getBlockPos(), amount));
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float partialTicks, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, partialTicks, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float partialTicks, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		if (hideGuiElements()) return;
@@ -77,22 +77,22 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 8, 72, layer); // Battery slot
 
 		drawText(drawContext,
-			Text.translatable("gui.techreborn.pump.depth", Integer.toString(PumpBlockEntity.MIN_DEPTH), Integer.toString(PumpBlockEntity.MAX_DEPTH))
+			Component.translatable("gui.techreborn.pump.depth", Integer.toString(PumpBlockEntity.MIN_DEPTH), Integer.toString(PumpBlockEntity.MAX_DEPTH))
 				.append(Integer.toString(blockEntity.getDepth())),
 			80, 20, 0xff404040, layer);
 		drawText(drawContext,
-			Text.translatable("gui.techreborn.pump.range", Integer.toString(PumpBlockEntity.MIN_RANGE), Integer.toString(PumpBlockEntity.MAX_RANGE))
+			Component.translatable("gui.techreborn.pump.range", Integer.toString(PumpBlockEntity.MIN_RANGE), Integer.toString(PumpBlockEntity.MAX_RANGE))
 				.append(Integer.toString(blockEntity.getRange())),
 			80, 45, 0xff404040, layer);
 
 		if (blockEntity.getExhausted()) {
-			drawText(drawContext, Text.translatable("gui.techreborn.pump.exhausted"), 80, 75, 0xff800000, layer);
+			drawText(drawContext, Component.translatable("gui.techreborn.pump.exhausted"), 80, 75, 0xff800000, layer);
 		}
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawTank(drawContext, this, 33, 25, mouseX, mouseY, blockEntity.getTank().getFluidInstance(), blockEntity.getTank().getFluidValueCapacity(), blockEntity.getTank().isEmpty(), layer);

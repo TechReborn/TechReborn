@@ -28,8 +28,8 @@ import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.crafting.RecipeType;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.compat.rei.MachineRecipeDisplay;
@@ -55,7 +55,7 @@ public class ElectrolyzerCategory<R extends RebornRecipe> extends AbstractEnergy
 		widgets.add(Widgets.createSlot(new Point(bounds.x + 55 + 17 - 9 + 40, bounds.y + 36 - 22)).entries(getOutput(recipeDisplay, 3)).disableBackground().markOutput());
 		widgets.add(ReiPlugin.createProgressBar(bounds.x + 55 + 21, bounds.y + 36 + 4, recipeDisplay.getTime() * 50, GuiBuilder.ProgressDirection.UP));
 
-		widgets.add(Widgets.createLabel(new Point(bounds.getMaxX() - 17, bounds.getMaxY() - 13), Text.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
+		widgets.add(Widgets.createLabel(new Point(bounds.getMaxX() - 17, bounds.getMaxY() - 13), Component.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(recipeDisplay.getTime() / 20.0)))
 				.shadow(false)
 				.rightAligned()
 				.color(0xFF404040, 0xFFBBBBBB)

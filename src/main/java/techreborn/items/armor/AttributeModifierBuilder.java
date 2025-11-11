@@ -24,139 +24,139 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.equipment.ArmorType;
 
 import static techreborn.TechReborn.MOD_ID;
 
 public class AttributeModifierBuilder {
-	public static final TooltipDisplayComponent ATTRIBUTE_HIDE = new TooltipDisplayComponent(
+	public static final TooltipDisplay ATTRIBUTE_HIDE = new TooltipDisplay(
 		false,
-		new LinkedHashSet<>(Set.of(DataComponentTypes.UNBREAKABLE, DataComponentTypes.ATTRIBUTE_MODIFIERS))
+		new LinkedHashSet<>(Set.of(DataComponents.UNBREAKABLE, DataComponents.ATTRIBUTE_MODIFIERS))
 	);
-	private final AttributeModifiersComponent.Builder builder;
-	private final AttributeModifierSlot target;
+	private final ItemAttributeModifiers.Builder builder;
+	private final EquipmentSlotGroup target;
 
 	public AttributeModifierBuilder() {
 		this(null);
 	}
 
-	public AttributeModifierBuilder(@Nullable EquipmentType slot) {
-		builder = AttributeModifiersComponent.builder();
-		target = slot == null ? null : AttributeModifierSlot.forEquipmentSlot(slot.getEquipmentSlot());
+	public AttributeModifierBuilder(@Nullable ArmorType slot) {
+		builder = ItemAttributeModifiers.builder();
+		target = slot == null ? null : EquipmentSlotGroup.bySlot(slot.getSlot());
 	}
 
-	private EntityAttributeModifier modifier(String path, double value) {
-		Identifier id = Identifier.of(MOD_ID, (target == null ? path : path + "/" + target.asString()));
-		return new EntityAttributeModifier(id, value, EntityAttributeModifier.Operation.ADD_VALUE);
+	private AttributeModifier modifier(String path, double value) {
+		ResourceLocation id = ResourceLocation.fromNamespaceAndPath(MOD_ID, (target == null ? path : path + "/" + target.getSerializedName()));
+		return new AttributeModifier(id, value, AttributeModifier.Operation.ADD_VALUE);
 	}
 
 	public AttributeModifierBuilder armor(int i) {
-		builder.add(EntityAttributes.ARMOR, modifier("suit_armor", i), target);
+		builder.add(Attributes.ARMOR, modifier("suit_armor", i), target);
 		return this;
 	}
 
 	public AttributeModifierBuilder toughness(int i) {
-		builder.add(EntityAttributes.ARMOR_TOUGHNESS, modifier("suit_armor_toughness", i), target);
+		builder.add(Attributes.ARMOR_TOUGHNESS, modifier("suit_armor_toughness", i), target);
 		return this;
 	}
 
 	public AttributeModifierBuilder knockback(double i) {
-		builder.add(EntityAttributes.KNOCKBACK_RESISTANCE, modifier("suit_knockback_resistance", i / 10), target);
+		builder.add(Attributes.KNOCKBACK_RESISTANCE, modifier("suit_knockback_resistance", i / 10), target);
 		return this;
 	}
 
-	public AttributeModifiersComponent build() {
+	public ItemAttributeModifiers build() {
 		return builder.build();
 	}
 
-	public static boolean equals(@Nullable AttributeModifiersComponent attributes, AttributeModifiersComponent target) {
+	public static boolean equals(@Nullable ItemAttributeModifiers attributes, ItemAttributeModifiers target) {
 		if (attributes == null) {
 			return false;
 		}
-		List<AttributeModifiersComponent.Entry> m1 = attributes.modifiers();
-		List<AttributeModifiersComponent.Entry> m2 = target.modifiers();
+		List<ItemAttributeModifiers.Entry> m1 = attributes.modifiers();
+		List<ItemAttributeModifiers.Entry> m2 = target.modifiers();
 		if (m1.size() < m2.size()) {
 			return false;
 		}
-		Map<Identifier, Double> map = new HashMap<>();
-		m1.forEach(entry -> map.put(entry.modifier().id(), entry.modifier().value()));
-		for (AttributeModifiersComponent.Entry entry : m2) {
-			if (map.get(entry.modifier().id()) != entry.modifier().value()) {
+		Map<ResourceLocation, Double> map = new HashMap<>();
+		m1.forEach(entry -> map.put(entry.modifier().id(), entry.modifier().amount()));
+		for (ItemAttributeModifiers.Entry entry : m2) {
+			if (map.get(entry.modifier().id()) != entry.modifier().amount()) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public static void appendText(List<Text> tooltip, AttributeModifiersComponent attributes, Formatting formatting) {
+	public static void appendText(List<Component> tooltip, ItemAttributeModifiers attributes, ChatFormatting formatting) {
 		attributes.modifiers().forEach(entry -> {
-			tooltip.add(AttributeModifierBuilder.text(entry.attribute(), entry.modifier(), entry.modifier().value()).formatted(formatting));
+			tooltip.add(AttributeModifierBuilder.text(entry.attribute(), entry.modifier(), entry.modifier().amount()).withStyle(formatting));
 		});
 	}
 
-	public static void appendEnchantmentText(List<Text> tooltip, ItemStack stack, EquipmentSlot slotType, Formatting formatting) {
-		EnchantmentHelper.applyAttributeModifiers(
-			stack, AttributeModifierSlot.forEquipmentSlot(slotType), (entry, modifier) -> {
-				tooltip.add(AttributeModifierBuilder.text(entry, modifier, modifier.value()).formatted(formatting));
+	public static void appendEnchantmentText(List<Component> tooltip, ItemStack stack, EquipmentSlot slotType, ChatFormatting formatting) {
+		EnchantmentHelper.forEachModifier(
+			stack, EquipmentSlotGroup.bySlot(slotType), (entry, modifier) -> {
+				tooltip.add(AttributeModifierBuilder.text(entry, modifier, modifier.amount()).withStyle(formatting));
 			}
 		);
 	}
 
-	public static void appendArmorEnchantmentText(List<Text> tooltip, ItemStack stack, Formatting formatting) {
+	public static void appendArmorEnchantmentText(List<Component> tooltip, ItemStack stack, ChatFormatting formatting) {
 		MutableBoolean mutableBoolean = new MutableBoolean(true);
-		EnchantmentHelper.applyAttributeModifiers(
-			stack, AttributeModifierSlot.ARMOR, (entry, modifier) -> {
+		EnchantmentHelper.forEachModifier(
+			stack, EquipmentSlotGroup.ARMOR, (entry, modifier) -> {
 				if (mutableBoolean.isTrue()) {
-					tooltip.add(ScreenTexts.EMPTY);
-					tooltip.add(Text.translatable("item.modifiers.armor").formatted(Formatting.GRAY));
+					tooltip.add(CommonComponents.EMPTY);
+					tooltip.add(Component.translatable("item.modifiers.armor").withStyle(ChatFormatting.GRAY));
 					mutableBoolean.setFalse();
 				}
-				tooltip.add(AttributeModifierBuilder.text(entry, modifier, modifier.value()).formatted(formatting));
+				tooltip.add(AttributeModifierBuilder.text(entry, modifier, modifier.amount()).withStyle(formatting));
 			}
 		);
 	}
 
 	public static void appendDiffText(
-		List<Text> tooltip,
-		@Nullable AttributeModifiersComponent attributes,
-		AttributeModifiersComponent target,
-		Formatting formatting
+		List<Component> tooltip,
+		@Nullable ItemAttributeModifiers attributes,
+		ItemAttributeModifiers target,
+		ChatFormatting formatting
 	) {
-		Map<Identifier, Double> map = new HashMap<>();
+		Map<ResourceLocation, Double> map = new HashMap<>();
 		if (attributes != null) {
-			attributes.modifiers().forEach(entry -> map.put(entry.modifier().id(), entry.modifier().value()));
+			attributes.modifiers().forEach(entry -> map.put(entry.modifier().id(), entry.modifier().amount()));
 		}
 		target.modifiers().forEach(entry -> {
-			double value = entry.modifier().value() - map.getOrDefault(entry.modifier().id(), 0d);
+			double value = entry.modifier().amount() - map.getOrDefault(entry.modifier().id(), 0d);
 			if (value != 0) {
-				tooltip.add(AttributeModifierBuilder.text(entry.attribute(), entry.modifier(), value).formatted(formatting));
+				tooltip.add(AttributeModifierBuilder.text(entry.attribute(), entry.modifier(), value).withStyle(formatting));
 			}
 		});
 	}
 
-	public static void appendEnd(List<Text> tooltip, List<Text> buffer) {
-		TextColor skip = TextColor.fromFormatting(Formatting.DARK_GRAY);
+	public static void appendEnd(List<Component> tooltip, List<Component> buffer) {
+		TextColor skip = TextColor.fromLegacyFormat(ChatFormatting.DARK_GRAY);
 		for (int i = tooltip.size() - 1; i >= 0; i--) {
 			if (tooltip.get(i).getStyle().getColor() != skip) {
 				tooltip.addAll(i + 1, buffer);
@@ -165,21 +165,21 @@ public class AttributeModifierBuilder {
 		}
 	}
 
-	private static MutableText text(RegistryEntry<EntityAttribute> attribute, EntityAttributeModifier modifier, double value) {
-		EntityAttributeModifier.Operation operation = modifier.operation();
-		if (operation == EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE || operation == EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) {
+	private static MutableComponent text(Holder<Attribute> attribute, AttributeModifier modifier, double value) {
+		AttributeModifier.Operation operation = modifier.operation();
+		if (operation == AttributeModifier.Operation.ADD_MULTIPLIED_BASE || operation == AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) {
 			value = value * 100.0;
-		} else if (EntityAttributes.KNOCKBACK_RESISTANCE.matchesKey(attribute.getKey().orElseThrow())) {
+		} else if (Attributes.KNOCKBACK_RESISTANCE.is(attribute.unwrapKey().orElseThrow())) {
 			value *= 10;
 		}
-		return Text.translatable(
-			(value > 0 ? "attribute.modifier.plus." : "attribute.modifier.take.") + operation.getId(),
-			AttributeModifiersComponent.DECIMAL_FORMAT.format(value > 0 ? value : -value),
-			Text.translatable(attribute.value().getTranslationKey())
+		return Component.translatable(
+			(value > 0 ? "attribute.modifier.plus." : "attribute.modifier.take.") + operation.id(),
+			ItemAttributeModifiers.ATTRIBUTE_MODIFIER_FORMAT.format(value > 0 ? value : -value),
+			Component.translatable(attribute.value().getDescriptionId())
 		);
 	}
 
-	public static MutableText text(EquipmentSlot slotType) {
-		return Text.translatable("item.modifiers." + AttributeModifierSlot.forEquipmentSlot(slotType).asString());
+	public static MutableComponent text(EquipmentSlot slotType) {
+		return Component.translatable("item.modifiers." + EquipmentSlotGroup.bySlot(slotType).getSerializedName());
 	}
 }

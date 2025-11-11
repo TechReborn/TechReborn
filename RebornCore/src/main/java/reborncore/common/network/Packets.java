@@ -25,7 +25,7 @@
 package reborncore.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import reborncore.common.network.clientbound.ChunkSyncPayload;
 import reborncore.common.network.clientbound.CustomDescriptionPayload;
 import reborncore.common.network.clientbound.FluidConfigSyncPayload;
@@ -46,7 +46,7 @@ public class Packets {
 		serverbound(PayloadTypeRegistry.playC2S());
 	}
 
-	private static void clientbound(PayloadTypeRegistry<RegistryByteBuf> registry) {
+	private static void clientbound(PayloadTypeRegistry<RegistryFriendlyByteBuf> registry) {
 		registry.register(ChunkSyncPayload.ID, ChunkSyncPayload.PACKET_CODEC);
 		registry.register(CustomDescriptionPayload.ID, CustomDescriptionPayload.PACKET_CODEC);
 		registry.register(FluidConfigSyncPayload.ID, FluidConfigSyncPayload.PACKET_CODEC);
@@ -55,7 +55,7 @@ public class Packets {
 		registry.register(SlotSyncPayload.ID, SlotSyncPayload.PACKET_CODEC);
 	}
 
-	private static void serverbound(PayloadTypeRegistry<RegistryByteBuf> registry) {
+	private static void serverbound(PayloadTypeRegistry<RegistryFriendlyByteBuf> registry) {
 		registry.register(ChunkLoaderRequestPayload.ID, ChunkLoaderRequestPayload.PACKET_CODEC);
 		registry.register(FluidConfigSavePayload.ID, FluidConfigSavePayload.PACKET_CODEC);
 		registry.register(FluidIoSavePayload.ID, FluidIoSavePayload.PACKET_CODEC);

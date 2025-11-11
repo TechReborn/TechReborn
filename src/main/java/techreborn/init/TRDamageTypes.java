@@ -24,21 +24,21 @@
 
 package techreborn.init;
 
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.level.Level;
 import techreborn.TechReborn;
 
 public final class TRDamageTypes {
-	public static final RegistryKey<DamageType> ELECTRIC_SHOCK = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(TechReborn.MOD_ID, "electric_shock"));
-	public static final RegistryKey<DamageType> FUSION = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(TechReborn.MOD_ID, "fusion"));
+	public static final ResourceKey<DamageType> ELECTRIC_SHOCK = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "electric_shock"));
+	public static final ResourceKey<DamageType> FUSION = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fusion"));
 
-	public static DamageSource create(World world, RegistryKey<DamageType> key) {
+	public static DamageSource create(Level world, ResourceKey<DamageType> key) {
 		return new DamageSource(
-			world.getRegistryManager().getOrThrow(RegistryKeys.DAMAGE_TYPE).getOrThrow(key)
+			world.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(key)
 		);
 	}
 }

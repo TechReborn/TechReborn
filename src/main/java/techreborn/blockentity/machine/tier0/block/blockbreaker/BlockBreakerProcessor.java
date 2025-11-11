@@ -24,18 +24,6 @@
 
 package techreborn.blockentity.machine.tier0.block.blockbreaker;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import techreborn.blockentity.machine.tier0.block.BlockProcessable;
 import techreborn.blockentity.machine.tier0.block.BlockProcessor;
@@ -46,11 +34,23 @@ import techreborn.init.TRContent;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * <b>Class handling the process of breaking a block</b>
  * <br>
- * The main purpose of this class is to implement the {@link #onTick(World, BlockPos)}.
+ * The main purpose of this class is to implement the {@link #onTick(Level, BlockPos)}.
  * This method defines the logic for breaking a block
  *
  * @author SimonFlapse
@@ -82,28 +82,28 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		return status;
 	}
 
-	public ProcessingStatus onTick(World world, BlockPos positionInFront) {
+	public ProcessingStatus onTick(Level world, BlockPos positionInFront) {
 		handleBlockBreakingProgressReset(world, positionInFront);
 
 		if (!ensureRedstoneEnabled()) return status;
 
 		if (!handleInterrupted()) return status;
 
-		ItemStack outputItemStack = processable.getInventory().getStack(outputSlot);
+		ItemStack outputItemStack = processable.getInventory().getItem(outputSlot);
 
 		BlockState blockInFront = world.getBlockState(positionInFront);
 
 		if (!handleBlockInFrontRemoved(blockInFront)) return status;
 
-		Item currentBreakingItem = processable.getInventory().getStack(fakeInputSlot).getItem();
-		ItemStack item = blockInFront.getBlock().asItem().getDefaultStack();
+		Item currentBreakingItem = processable.getInventory().getItem(fakeInputSlot).getItem();
+		ItemStack item = blockInFront.getBlock().asItem().getDefaultInstance();
 		final List<ItemStack> blockDrops;
 
-		if (world instanceof ServerWorld serverWorld) {
-			LootWorldContext.Builder builder = new LootWorldContext.Builder(serverWorld)
-				.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(positionInFront))
-				.add(LootContextParameters.TOOL, TRContent.Machine.BLOCK_BREAKER.getStack());
-			blockDrops = blockInFront.getDroppedStacks(builder);
+		if (world instanceof ServerLevel serverWorld) {
+			LootParams.Builder builder = new LootParams.Builder(serverWorld)
+				.withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(positionInFront))
+				.withParameter(LootContextParams.TOOL, TRContent.Machine.BLOCK_BREAKER.getStack());
+			blockDrops = blockInFront.getDrops(builder);
 		} else {
 			blockDrops = Collections.singletonList(item);
 		}
@@ -115,11 +115,11 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 
 		ItemStack fakeItem = item.copy();
 
-		if (fakeItem.isOf(Items.AIR)) {
+		if (fakeItem.is(Items.AIR)) {
 			currentBreakingItem = null;
 		}
 
-		processable.getInventory().setStack(fakeInputSlot, fakeItem);
+		processable.getInventory().setItem(fakeInputSlot, fakeItem);
 
 		float hardness = BlockProcessorUtils.getHardness(world, blockInFront, positionInFront);
 
@@ -150,7 +150,7 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		return true;
 	}
 
-	private void handleBlockBreakingProgressReset(World world, BlockPos pos) {
+	private void handleBlockBreakingProgressReset(Level world, BlockPos pos) {
 		//Resets the BlockBreakingProgress, otherwise the progress will be buggy when a new block has been placed
 		if (currentBreakTime == 0) {
 			setBlockBreakingProgress(world, pos, -1);
@@ -170,8 +170,8 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 
 	private boolean handleBlockInFrontRemoved(BlockState blockInFront) {
 		//Makes sure that if the block in front is removed, the processing resets
-		if (blockInFront.isOf(Blocks.AIR)) {
-			processable.getInventory().setStack(fakeInputSlot, ItemStack.EMPTY);
+		if (blockInFront.is(Blocks.AIR)) {
+			processable.getInventory().setItem(fakeInputSlot, ItemStack.EMPTY);
 			resetProcessing(0);
 		}
 
@@ -183,7 +183,7 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		//If breaking the block returns no output, skip breaking it
 		//Blocks with a hardness below 0 are unbreakable
 		//shulker boxes don't drop their content when broken, so ignore them for now
-		if (blockInFront.isAir() || fakeItem.isEmpty() || hardness < 0 || blockInFront.isIn(BlockTags.SHULKER_BOXES)) {
+		if (blockInFront.isAir() || fakeItem.isEmpty() || hardness < 0 || blockInFront.is(BlockTags.SHULKER_BOXES)) {
 			return breakControlFlow(BlockBreakerStatus.IDLE);
 		}
 
@@ -192,7 +192,7 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 
 	private boolean ensureBlockNotReplaced(Item currentBreakingItem, ItemStack item) {
 		//Ensures that a piston cannot be abused to push in another block without resetting the progress
-		if (currentBreakingItem != null && !ItemStack.EMPTY.isOf(currentBreakingItem) && !item.isOf(currentBreakingItem)) {
+		if (currentBreakingItem != null && !ItemStack.EMPTY.is(currentBreakingItem) && !item.is(currentBreakingItem)) {
 			return breakControlFlow(BlockBreakerStatus.INTERRUPTED);
 		}
 
@@ -205,19 +205,19 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		}
 
 		//Ensures that the block is the same as the one currently in the output slot
-		if (!currentStack.isOf(ItemStack.EMPTY.getItem()) && !currentStack.isOf(blockDrop.getItem())) {
+		if (!currentStack.is(ItemStack.EMPTY.getItem()) && !currentStack.is(blockDrop.getItem())) {
 			return breakControlFlow(BlockBreakerStatus.OUTPUT_BLOCKED);
 		}
 
 		//Ensure that output slot can fit the block
-		if (currentStack.getMaxCount() < currentStack.getCount() + blockDrop.getCount()) {
+		if (currentStack.getMaxStackSize() < currentStack.getCount() + blockDrop.getCount()) {
 			return breakControlFlow(BlockBreakerStatus.OUTPUT_FULL);
 		}
 
 		return true;
 	}
 
-	private boolean increaseBreakTime(World world, BlockPos blockPos) {
+	private boolean increaseBreakTime(Level world, BlockPos blockPos) {
 		//if (!tryUseExact(getEuPerTick(baseCostToBreak))) {
 		if (!processable.consumeEnergy(baseCostToBreak)) {
 			return breakControlFlow(BlockBreakerStatus.NO_ENERGY);
@@ -228,18 +228,18 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		return true;
 	}
 
-	private void breakBlock(World world, BlockPos positionInFront, ItemStack currentStack, ItemStack blockDrop) {
+	private void breakBlock(Level world, BlockPos positionInFront, ItemStack currentStack, ItemStack blockDrop) {
 		if (currentBreakTime >= breakTime) {
 
-			world.breakBlock(positionInFront, false);
+			world.destroyBlock(positionInFront, false);
 
 			resetProcessing(0);
 
 			if (blockDrop == null || blockDrop.getCount() == 0) {
 				return;
 			}
-			if (currentStack.isOf(ItemStack.EMPTY.getItem())) {
-				processable.getInventory().setStack(outputSlot, blockDrop);
+			if (currentStack.is(ItemStack.EMPTY.getItem())) {
+				processable.getInventory().setItem(outputSlot, blockDrop);
 			} else {
 				int currentCount = currentStack.getCount();
 				currentStack.setCount(currentCount + blockDrop.getCount());
@@ -252,12 +252,12 @@ public class BlockBreakerProcessor extends BlockBreakerNbt implements BlockProce
 		breakTime = baseBreakTime;
 	}
 
-	private void setBlockBreakingProgress(World world, BlockPos blockPos) {
+	private void setBlockBreakingProgress(Level world, BlockPos blockPos) {
 		setBlockBreakingProgress(world, blockPos, getProgress() / 10);
 	}
 
-	private void setBlockBreakingProgress(World world, BlockPos blockPos, int breakingProgress) {
-		world.setBlockBreakingInfo(processorId.hashCode(), blockPos, breakingProgress);
+	private void setBlockBreakingProgress(Level world, BlockPos blockPos, int breakingProgress) {
+		world.destroyBlockProgress(processorId.hashCode(), blockPos, breakingProgress);
 	}
 
 	@Override

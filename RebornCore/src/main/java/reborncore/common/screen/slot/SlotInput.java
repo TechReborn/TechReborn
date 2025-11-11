@@ -24,22 +24,22 @@
 
 package reborncore.common.screen.slot;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 
 public class SlotInput extends BaseSlot {
 
-	public SlotInput(Inventory itemHandler, int par2, int par3, int par4) {
+	public SlotInput(Container itemHandler, int par2, int par3, int par4) {
 		super(itemHandler, par2, par3, par4);
 	}
 
 	@Override
-	public boolean canInsert(ItemStack par1ItemStack) {
+	public boolean mayPlace(ItemStack par1ItemStack) {
 		return true;
 	}
 
 	@Override
-	public int getMaxItemCount() {
+	public int getMaxStackSize() {
 		return 64;
 	}
 

@@ -24,9 +24,9 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import org.joml.Matrix3x2fStack;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
@@ -37,14 +37,14 @@ public class GuiMFSU extends GuiBase<BuiltScreenHandler> {
 
 	final HighVoltageSUBlockEntity mfsu;
 
-	public GuiMFSU(int syncID, final PlayerEntity player, final HighVoltageSUBlockEntity mfsu) {
+	public GuiMFSU(int syncID, final Player player, final HighVoltageSUBlockEntity mfsu) {
 		super(player, mfsu, mfsu.createScreenHandler(syncID, player));
 		this.mfsu = mfsu;
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(drawContext, f, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+		super.renderBg(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(drawContext, 62, 45, layer);
@@ -53,13 +53,13 @@ public class GuiMFSU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, final int mouseX, final int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
-		final Matrix3x2fStack matrices = drawContext.getMatrices();
+		final Matrix3x2fStack matrices = drawContext.pose();
 		matrices.pushMatrix();
 		matrices.scale(0.6f, 0.6f);
-		drawCentredText(drawContext, Text.literal(PowerSystem.getLocalizedPowerNoSuffix(mfsu.getEnergy()) + "/" + PowerSystem.getLocalizedPower(mfsu.getMaxStoredPower())), 35, 0xff000000, 58, layer);
+		drawCentredText(drawContext, Component.literal(PowerSystem.getLocalizedPowerNoSuffix(mfsu.getEnergy()) + "/" + PowerSystem.getLocalizedPower(mfsu.getMaxStoredPower())), 35, 0xff000000, 58, layer);
 		matrices.popMatrix();
 
 		builder.drawMultiEnergyBar(drawContext, this, 81, 28, (int) mfsu.getEnergy(), (int) mfsu.getMaxStoredPower(), mouseX, mouseY, 0, layer);

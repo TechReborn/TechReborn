@@ -27,21 +27,21 @@ package techreborn.datagen.models
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
-import net.minecraft.block.Block
-import net.minecraft.client.data.BlockStateModelGenerator
-import net.minecraft.client.data.ItemModelGenerator
-import net.minecraft.client.data.ItemModels
-import net.minecraft.client.data.ModelIds
-import net.minecraft.client.data.ModelSupplier
-import net.minecraft.client.data.Models
-import net.minecraft.client.data.TextureMap
-import net.minecraft.client.data.TexturedModel
-import net.minecraft.data.family.BlockFamilies
-import net.minecraft.data.family.BlockFamily
-import net.minecraft.item.Item
-import net.minecraft.item.ItemConvertible
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.util.Identifier
+import net.minecraft.world.level.block.Block
+import net.minecraft.client.data.models.BlockModelGenerators
+import net.minecraft.client.data.models.ItemModelGenerators
+import net.minecraft.client.data.models.model.ItemModelUtils
+import net.minecraft.client.data.models.model.ModelLocationUtils
+import net.minecraft.client.data.models.model.ModelInstance
+import net.minecraft.client.data.models.model.ModelTemplates
+import net.minecraft.client.data.models.model.TextureMapping
+import net.minecraft.client.data.models.model.TexturedModel
+import net.minecraft.data.BlockFamilies
+import net.minecraft.data.BlockFamily
+import net.minecraft.world.item.Item
+import net.minecraft.world.level.ItemLike
+import net.minecraft.core.HolderLookup
+import net.minecraft.resources.ResourceLocation
 import org.apache.commons.lang3.tuple.Pair
 import techreborn.client.render.ActiveProperty
 import techreborn.client.render.ItemBucketModel
@@ -75,11 +75,11 @@ import java.util.function.BiConsumer
 import java.util.function.Consumer
 
 class ModelProvider extends FabricModelProvider {
-	static BlockStateModelGenerator stateGenerator
-	static ItemModelGenerator itemGenerator
-	static BiConsumer<Identifier, ModelSupplier> modelCollector
+	static BlockModelGenerators stateGenerator
+	static ItemModelGenerators itemGenerator
+	static BiConsumer<ResourceLocation, ModelInstance> modelCollector
 
-	ModelProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	ModelProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output)
 	}
 
@@ -100,37 +100,37 @@ class ModelProvider extends FabricModelProvider {
 	}
 
 	@Override
-	void generateBlockStateModels(BlockStateModelGenerator generator) {
+	void generateBlockStateModels(BlockModelGenerators generator) {
 		stateGenerator = generator
-		modelCollector = generator.modelCollector
+		modelCollector = generator.modelOutput
 
 		def toOrientable = { Block block ->
-			generator.registerSingleton(block, TexturedModel.ORIENTABLE)
+			generator.createTrivialBlock(block, TexturedModel.ORIENTABLE_ONLY_TOP)
 		}
 		def toCubeAll = { BlockInfo info ->
-			generator.registerSimpleCubeAll(info.block)
+			generator.createTrivialCube(info.block)
 		}
-		def toBlockCubeAll = generator::registerSimpleCubeAll
+		def toBlockCubeAll = generator::createTrivialCube
 		def toCubeColumn = { BlockInfo info ->
-			generator.registerSingleton(info.block, TexturedModel.CUBE_COLUMN)
+			generator.createTrivialBlock(info.block, TexturedModel.COLUMN)
 		}
 		def toCubeBottomTop = { BlockInfo info ->
-			generator.registerSingleton(info.block, TexturedModel.CUBE_BOTTOM_TOP)
+			generator.createTrivialBlock(info.block, TexturedModel.CUBE_TOP_BOTTOM)
 		}
 		def toFamilyBlock = { FamilyBlockInfo info ->
-			BlockFamily family = BlockFamilies.register(info.block).slab(info.slabBlock).stairs(info.stairsBlock).wall(info.wallBlock).build()
-			generator.registerCubeAllModelTexturePool(info.block).family(family)
+			BlockFamily family = BlockFamilies.familyBuilder(info.block).slab(info.slabBlock).stairs(info.stairsBlock).wall(info.wallBlock).getFamily()
+			generator.family(info.block).generateFor(family)
 		}
 		def toFence = { Block block ->
-			generator.new BlockStateModelGenerator.BlockTexturePool(TextureMap.texture(block)).fence(block)
+			generator.new BlockModelGenerators.BlockFamilyProvider(TextureMapping.defaultTexture(block)).fence(block)
 		}
 		def toWall = { Block block ->
-			generator.new BlockStateModelGenerator.BlockTexturePool(TextureMap.all(block)).wall(block)
+			generator.new BlockModelGenerators.BlockFamilyProvider(TextureMapping.cube(block)).wall(block)
 		}
 		def toRubberLog = { Block block ->
-			Identifier vertical = TexturedModel.END_FOR_TOP_CUBE_COLUMN.upload(block, modelCollector)
-			Identifier horizontal = TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL.upload(block, modelCollector)
-			Identifier with_sap = TemplateModel.RUBBER_LOG_WITH_SAP.upload(block)
+			ResourceLocation vertical = TexturedModel.COLUMN_ALT.create(block, modelCollector)
+			ResourceLocation horizontal = TexturedModel.COLUMN_HORIZONTAL_ALT.create(block, modelCollector)
+			ResourceLocation with_sap = TemplateModel.RUBBER_LOG_WITH_SAP.upload(block)
 			TemplateState.RUBBER_LOG.apply(vertical, horizontal, with_sap).upload(block)
 		}
 		def toEnergyOrientable = { BlockInfo info ->
@@ -138,13 +138,13 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_FACING.upload(info.block)
 		}
 		def toSolarPanelCubeBottomTop = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.SOLAR_PANEL.apply(info.block)
 			)
 			TemplateState.ACTIVE.apply(pair).upload(info.block)
 		}
 		def toQuantumSolarPanel = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.QUANTUM_SOLAR_PANEL.apply(info.block)
 			)
 			TemplateState.ACTIVE.apply(pair).upload(info.block)
@@ -154,60 +154,60 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE.upload(info.block)
 		}
 		def toGeneratorCubeBottomTop = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.GENERATOR_CUBE_BOTTOM_TOP.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toPlasmaGenerator = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.CUBE_BOTTOM_TOP_SIDE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toGasTurbine = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.GAS_TURBINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toFusionControlComputer = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.FUSION_CONTROL_COMPUTER.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toSolidFuelGenerator = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.SOLID_FUEL_GENERATOR.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toWindMill = { BlockInfo info ->
-			Identifier off = TemplateModel.WIND_MILL.upload(info.block)
+			ResourceLocation off = TemplateModel.WIND_MILL.upload(info.block)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(Pair.of(off, off)).upload(info.block)
 		}
 		def toAlarm = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ALARM_LIGHT.apply(info.block)
 			)
 			TemplateState.ACTIVE_UP_DEFAULT_FACING.apply(pair).upload(info.block)
 		}
 		def toLampIncandescent = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.LAMP_INCANDESCENT_LIGHT.apply(info.block)
 			)
 			TemplateState.ACTIVE_UP_DEFAULT_FACING.apply(pair).upload(info.block)
 		}
 		def toLampLed = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.LAMP_LED_LIGHT.apply(info.block)
 			)
 			TemplateState.ACTIVE_UP_DEFAULT_FACING.apply(pair).upload(info.block)
 		}
 		def toMachineBlock = { MachineBlockInfo info ->
-			generator.registerSimpleCubeAll(info.frame)
-			generator.registerSimpleCubeAll(info.casing)
+			generator.createTrivialCube(info.frame)
+			generator.createTrivialCube(info.casing)
 		}
 		def toBasicTankUnit = { BlockInfo info ->
 			TemplateModel.BASIC_TANK_UNIT.upload(info.block)
@@ -218,7 +218,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toBasicMachine = { BlockInfo info ->
-			Identifier off = TemplateModel.BASIC_MACHINE.upload(info.block)
+			ResourceLocation off = TemplateModel.BASIC_MACHINE.upload(info.block)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(Pair.of(off, off)).upload(info.block)
 		}
 		def toSideFrontTopBottom = { BlockInfo info ->
@@ -226,15 +226,15 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toActiveBasicMachine = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.BASIC_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toResinBasin = { BlockInfo info ->
-			Identifier empty = TemplateModel.RESIN_BASIN_EMPTY.upload(info.block)
-			Identifier flowing = TemplateModel.RESIN_BASIN_FLOWING.upload(info.block)
-			Identifier full = TemplateModel.RESIN_BASIN_FULL.upload(info.block)
+			ResourceLocation empty = TemplateModel.RESIN_BASIN_EMPTY.upload(info.block)
+			ResourceLocation flowing = TemplateModel.RESIN_BASIN_FLOWING.upload(info.block)
+			ResourceLocation full = TemplateModel.RESIN_BASIN_FULL.upload(info.block)
 			TemplateState.RESIN_BASIN.apply(empty, flowing, full).upload(info.block)
 		}
 		def toAdvancedTankUnit = { BlockInfo info ->
@@ -246,7 +246,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toActiveAdvancedMachine = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ADVANCED_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -260,23 +260,23 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE.upload(info.block)
 		}
 		def toGreenhouseController = { BlockInfo info ->
-			Identifier off = TemplateModel.ADVANCED_MACHINE.upload(info.block)
+			ResourceLocation off = TemplateModel.ADVANCED_MACHINE.upload(info.block)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(Pair.of(off, off)).upload(info.block)
 		}
 		def toGrinder = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ADVANCED_MACHINE_WITH_TOP.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toPlayerDetector = { BlockInfo info ->
-			Identifier all = TemplateModel.CUBE_ALL.upload(info.block)
-			Identifier others = TemplateModel.PLAYER_DETECTOR_OTHERS.upload(info.block)
-			Identifier you = TemplateModel.PLAYER_DETECTOR_YOU.upload(info.block)
+			ResourceLocation all = TemplateModel.CUBE_ALL.upload(info.block)
+			ResourceLocation others = TemplateModel.PLAYER_DETECTOR_OTHERS.upload(info.block)
+			ResourceLocation you = TemplateModel.PLAYER_DETECTOR_YOU.upload(info.block)
 			TemplateState.PLAYER_DETECTOR.apply(all, others, you).upload(info.block)
 		}
 		def toChargeOMat = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.CHARGE_O_MAT.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -286,7 +286,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(block)
 		}
 		def toActiveFrontMachine = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ACTIVE_FRONT_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -296,13 +296,13 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toActiveSideMachine = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ACTIVE_SIDE_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toActiveTopFrontMachine = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ACTIVE_TOP_FRONT_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -320,7 +320,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE.upload(info.block)
 		}
 		def toPump = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.PUMP.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -338,21 +338,21 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toFluidReplicator = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.FLUID_REPLICATOR.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toMatterFabricator = { BlockInfo info ->
-			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.CUBE_BOTTOM_TOP_SIDE.apply(info.block)
 			)
 			TemplateState.ACTIVE.apply(pair).upload(info.block)
 		}
 		def toSolidCanningMachine = { BlockInfo info ->
-			Identifier off = ModelIds.getBlockModelId(Machine.COMPRESSOR.block)
-			generator.registerItemModel(info.asItem(), off)
-			Identifier on = off.withSuffixedPath("_on")
+			ResourceLocation off = ModelLocationUtils.getModelLocation(Machine.COMPRESSOR.block)
+			generator.registerSimpleItemModel(info.asItem(), off)
+			ResourceLocation on = off.withSuffix("_on")
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(Pair.of(off, on)).upload(info.block)
 		}
 		def toFluid = { BlockInfo info ->
@@ -360,16 +360,16 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE.upload(info.block)
 		}
 		def toCable = { BlockInfo info ->
-			Identifier core = TemplateModel.CABLE_CORE.upload(info.block)
-			Identifier side = TemplateModel.CABLE_SIDE.upload(info.block)
+			ResourceLocation core = TemplateModel.CABLE_CORE.upload(info.block)
+			ResourceLocation side = TemplateModel.CABLE_SIDE.upload(info.block)
 			TemplateState.CABLE.apply(core, side).upload(info.block)
-			generator.registerItemModel(info.asItem())
+			generator.registerSimpleFlatItemModel(info.asItem())
 		}
 		def toThickCable = { BlockInfo info ->
-			Identifier core = TemplateModel.CABLE_THICK_CORE.upload(info.block)
-			Identifier side = TemplateModel.CABLE_THICK_SIDE.upload(info.block)
+			ResourceLocation core = TemplateModel.CABLE_THICK_CORE.upload(info.block)
+			ResourceLocation side = TemplateModel.CABLE_THICK_SIDE.upload(info.block)
 			TemplateState.CABLE.apply(core, side).upload(info.block)
-			generator.registerItemModel(info.asItem())
+			generator.registerSimpleFlatItemModel(info.asItem())
 		}
 
 		add Ores, toCubeAll
@@ -503,11 +503,11 @@ class ModelProvider extends FabricModelProvider {
 		add TRContent.REFINED_IRON_FENCE, toFence
 		add TRContent.COPPER_WALL, toWall
 
-		generator.registerFlowerPotPlantAndItem(TRContent.RUBBER_SAPLING, TRContent.POTTED_RUBBER_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED)
-		generator.createLogTexturePool(TRContent.RUBBER_LOG).wood(TRContent.RUBBER_WOOD)
-		generator.createLogTexturePool(TRContent.RUBBER_LOG_STRIPPED).log(TRContent.RUBBER_LOG_STRIPPED).wood(TRContent.STRIPPED_RUBBER_WOOD)
-		generator.registerSingleton(TRContent.RUBBER_LEAVES, TexturedModel.LEAVES)
-		BlockFamily family = BlockFamilies.register(TRContent.RUBBER_PLANKS)
+		generator.createPlantWithDefaultItem(TRContent.RUBBER_SAPLING, TRContent.POTTED_RUBBER_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED)
+		generator.woodProvider(TRContent.RUBBER_LOG).wood(TRContent.RUBBER_WOOD)
+		generator.woodProvider(TRContent.RUBBER_LOG_STRIPPED).logWithHorizontal(TRContent.RUBBER_LOG_STRIPPED).wood(TRContent.STRIPPED_RUBBER_WOOD)
+		generator.createTrivialBlock(TRContent.RUBBER_LEAVES, TexturedModel.LEAVES)
+		BlockFamily family = BlockFamilies.familyBuilder(TRContent.RUBBER_PLANKS)
 			.button(TRContent.RUBBER_BUTTON)
 			.fence(TRContent.RUBBER_FENCE)
 			.fenceGate(TRContent.RUBBER_FENCE_GATE)
@@ -516,63 +516,63 @@ class ModelProvider extends FabricModelProvider {
 			.stairs(TRContent.RUBBER_STAIR)
 			.door(TRContent.RUBBER_DOOR)
 			.trapdoor(TRContent.RUBBER_TRAPDOOR)
-			.build()
-		generator.registerCubeAllModelTexturePool(TRContent.RUBBER_PLANKS).family(family)
+			.getFamily()
+		generator.family(TRContent.RUBBER_PLANKS).generateFor(family)
 
 		// The BasicItemModel model will be automatically registered through the resolveAndValidate function of the ModelProvider class
 		// Just make sure Registries.ITEM contains the id of the block
 	}
 
 	@Override
-	void generateItemModels(ItemModelGenerator generator) {
+	void generateItemModels(ItemModelGenerators generator) {
 		itemGenerator = generator
-		modelCollector = generator.modelCollector
+		modelCollector = generator.modelOutput
 
-		def toGenerated = { ItemConvertible info ->
-			generator.register(info.asItem(), Models.GENERATED)
+		def toGenerated = { ItemLike info ->
+			generator.generateFlatItem(info.asItem(), ModelTemplates.FLAT_ITEM)
 		}
 		def toHandheld = { Item item ->
-			generator.register(item, Models.HANDHELD)
+			generator.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM)
 		}
 		def toEnergyItem = { Item item ->
-			Identifier id = TemplateModel.ENERGY_ITEM.upload(item)
-			Identifier active = TemplateModel.ENERGY_ITEM_ACTIVE.upload(item)
-			generator.output.accept(item, ItemModels.select(
+			ResourceLocation id = TemplateModel.ENERGY_ITEM.upload(item)
+			ResourceLocation active = TemplateModel.ENERGY_ITEM_ACTIVE.upload(item)
+			generator.itemModelOutput.accept(item, ItemModelUtils.select(
 				new ActiveProperty(),
-				ItemModels.basic(id),
-				ItemModels.switchCase(PowerType.ON, ItemModels.basic(active))
+				ItemModelUtils.plainModel(id),
+				ItemModelUtils.when(PowerType.ON, ItemModelUtils.plainModel(active))
 			))
 		}
 		def toHandheldEnergyItem = { Item item ->
-			Identifier id = TemplateModel.ENERGY_ITEM_HANDHELD.upload(item)
-			Identifier active = TemplateModel.ENERGY_ITEM_HANDHELD_ACTIVE.upload(item)
-			generator.output.accept(item, ItemModels.select(
+			ResourceLocation id = TemplateModel.ENERGY_ITEM_HANDHELD.upload(item)
+			ResourceLocation active = TemplateModel.ENERGY_ITEM_HANDHELD_ACTIVE.upload(item)
+			generator.itemModelOutput.accept(item, ItemModelUtils.select(
 				new ActiveProperty(),
-				ItemModels.basic(id),
-				ItemModels.switchCase(PowerType.ON, ItemModels.basic(active))
+				ItemModelUtils.plainModel(id),
+				ItemModelUtils.when(PowerType.ON, ItemModelUtils.plainModel(active))
 			))
 		}
 		def toNanosaber = { Item item ->
-			Identifier off = TemplateModel.NANOSABER_OFF.upload(item)
-			Identifier on = TemplateModel.NANOSABER_ON.upload(item)
-			Identifier low = TemplateModel.NANOSABER_LOW.upload(item)
-			generator.output.accept(item, ItemModels.select(
+			ResourceLocation off = TemplateModel.NANOSABER_OFF.upload(item)
+			ResourceLocation on = TemplateModel.NANOSABER_ON.upload(item)
+			ResourceLocation low = TemplateModel.NANOSABER_LOW.upload(item)
+			generator.itemModelOutput.accept(item, ItemModelUtils.select(
 				new ActiveProperty(),
-				ItemModels.basic(off),
-				ItemModels.switchCase(PowerType.ON, ItemModels.basic(on)),
-				ItemModels.switchCase(PowerType.LOW, ItemModels.basic(low)),
+				ItemModelUtils.plainModel(off),
+				ItemModelUtils.when(PowerType.ON, ItemModelUtils.plainModel(on)),
+				ItemModelUtils.when(PowerType.LOW, ItemModelUtils.plainModel(low)),
 			))
 		}
 		def toCell = { Item item ->
-			generator.output.accept(item, new ItemCellModel.Unbaked())
+			generator.itemModelOutput.accept(item, new ItemCellModel.Unbaked())
 			TemplateModel.CELL_BASE.upload(item)
 			TemplateModel.CELL_BACKGROUND.upload(item)
 			TemplateModel.CELL_GLASS.upload(item)
 		}
 		def toFluidBucket = { ModFluids modFluids ->
-			generator.output.accept(modFluids.bucket, new ItemBucketModel.Unbaked(modFluids.fluid))
+			generator.itemModelOutput.accept(modFluids.bucket, new ItemBucketModel.Unbaked(modFluids.fluid))
 		}
-		def toBucket = { Identifier id ->
+		def toBucket = { ResourceLocation id ->
 			TemplateModel.BUCKET_BASE.upload(id)
 			TemplateModel.BUCKET_BACKGROUND.upload(id)
 		}

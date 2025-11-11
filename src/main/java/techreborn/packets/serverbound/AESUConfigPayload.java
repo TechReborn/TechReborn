@@ -24,28 +24,28 @@
 
 package techreborn.packets.serverbound;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
 
-public record AESUConfigPayload (BlockPos pos, int buttonID, boolean shift, boolean ctrl) implements CustomPayload, BlockPosPayload {
-	public static final CustomPayload.Id<AESUConfigPayload> ID = new CustomPayload.Id<>(Identifier.of(TechReborn.MOD_ID, "aesu"));
-	public static final PacketCodec<RegistryByteBuf, AESUConfigPayload> CODEC = PacketCodec.tuple(
-		BlockPos.PACKET_CODEC, AESUConfigPayload::pos,
-		PacketCodecs.INTEGER, AESUConfigPayload::buttonID,
-		PacketCodecs.BOOLEAN, AESUConfigPayload::shift,
-		PacketCodecs.BOOLEAN, AESUConfigPayload::ctrl,
+public record AESUConfigPayload (BlockPos pos, int buttonID, boolean shift, boolean ctrl) implements CustomPacketPayload, BlockPosPayload {
+	public static final CustomPacketPayload.Type<AESUConfigPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "aesu"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, AESUConfigPayload> CODEC = StreamCodec.composite(
+		BlockPos.STREAM_CODEC, AESUConfigPayload::pos,
+		ByteBufCodecs.INT, AESUConfigPayload::buttonID,
+		ByteBufCodecs.BOOL, AESUConfigPayload::shift,
+		ByteBufCodecs.BOOL, AESUConfigPayload::ctrl,
 		AESUConfigPayload::new
 	);
 
 	@Override
-	public Id<? extends CustomPayload> getId() {
+	public Type<? extends CustomPacketPayload> type() {
 		return ID;
 	}
 }

@@ -24,19 +24,19 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.SmeltingRecipe;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -81,15 +81,15 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private void updateCurrentRecipe() {
-		ItemStack stack = inventory.getStack(inputSlot);
+		ItemStack stack = inventory.getItem(inputSlot);
 		if (stack.isEmpty()) {
 			resetCrafter();
 			return;
 		}
-		if (world == null) return;
-		MinecraftServer server = world.getServer();
+		if (level == null) return;
+		MinecraftServer server = level.getServer();
 		if (server == null) return;
-		Optional<SmeltingRecipe> testRecipe = server.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(stack), world).map(RecipeEntry::value);
+		Optional<SmeltingRecipe> testRecipe = server.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), level).map(RecipeHolder::value);
 		if (!testRecipe.isPresent()) {
 			resetCrafter();
 			return;
@@ -99,26 +99,26 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		}
 		currentRecipe = testRecipe.get();
 		cookTime = 0;
-		cookTimeTotal = Math.max((int) (currentRecipe.getCookingTime() * (1.0 - getSpeedMultiplier())), 1);
+		cookTimeTotal = Math.max((int) (currentRecipe.cookingTime() * (1.0 - getSpeedMultiplier())), 1);
 		updateState();
 	}
 
 	private boolean canAcceptOutput(SmeltingRecipe recipe, int slot) {
-		ItemStack recipeOutput = recipe.craft(new SingleStackRecipeInput(inventory.getStack(slot)), getWorld().getRegistryManager());
+		ItemStack recipeOutput = recipe.assemble(new SingleRecipeInput(inventory.getItem(slot)), getLevel().registryAccess());
 		if (recipeOutput.isEmpty()) {
 			return false;
 		}
-		if (inventory.getStack(slot).isEmpty()) {
+		if (inventory.getItem(slot).isEmpty()) {
 			return true;
 		}
-		if (ItemUtils.isItemEqual(inventory.getStack(slot), recipeOutput, true, true)) {
-			return recipeOutput.getCount() + inventory.getStack(slot).getCount() <= recipeOutput.getMaxCount();
+		if (ItemUtils.isItemEqual(inventory.getItem(slot), recipeOutput, true, true)) {
+			return recipeOutput.getCount() + inventory.getItem(slot).getCount() <= recipeOutput.getMaxStackSize();
 		}
 		return false;
 	}
 
 	public boolean canCraftAgain() {
-		if (inventory.getStack(inputSlot).isEmpty()) {
+		if (inventory.getItem(inputSlot).isEmpty()) {
 			return false;
 		}
 		if (currentRecipe == null) {
@@ -127,7 +127,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (!canAcceptOutput(currentRecipe, outputSlot)) {
 			return false;
 		}
-		return !(getEnergy() < currentRecipe.getCookingTime() * getEuPerTick(EnergyPerTick));
+		return !(getEnergy() < currentRecipe.cookingTime() * getEuPerTick(EnergyPerTick));
 	}
 
 	private void resetCrafter() {
@@ -138,25 +138,25 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private void updateState() {
-		Block furnaceBlock = getWorld().getBlockState(pos).getBlock();
+		Block furnaceBlock = getLevel().getBlockState(worldPosition).getBlock();
 
 		if (furnaceBlock instanceof BlockMachineBase blockMachineBase) {
 			boolean isActive = currentRecipe != null || canCraftAgain();
-			blockMachineBase.setActive(isActive, world, pos);
+			blockMachineBase.setActive(isActive, level, worldPosition);
 		}
-		world.updateListeners(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+		level.sendBlockUpdated(worldPosition, level.getBlockState(worldPosition), level.getBlockState(worldPosition), 3);
 	}
 
 	private boolean hasAllInputs(SmeltingRecipe recipe) {
 		if (recipe == null) {
 			return false;
 		}
-		ItemStack stack = inventory.getStack(inputSlot);
+		ItemStack stack = inventory.getItem(inputSlot);
 		if (stack.isEmpty()) {
 			return false;
 		}
 
-		return recipe.matches(new SingleStackRecipeInput(stack), world);
+		return recipe.matches(new SingleRecipeInput(stack), level);
 	}
 
 	private void craftRecipe(SmeltingRecipe recipe) {
@@ -166,15 +166,15 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (!canAcceptOutput(recipe, outputSlot)) {
 			return;
 		}
-		ItemStack outputStack = inventory.getStack(outputSlot);
-		ItemStack result = recipe.craft(new SingleStackRecipeInput(inventory.getStack(outputSlot)), getWorld().getRegistryManager());
+		ItemStack outputStack = inventory.getItem(outputSlot);
+		ItemStack result = recipe.assemble(new SingleRecipeInput(inventory.getItem(outputSlot)), getLevel().registryAccess());
 		if (outputStack.isEmpty()) {
-			inventory.setStack(outputSlot, result.copy());
+			inventory.setItem(outputSlot, result.copy());
 		} else {
-			outputStack.increment(result.getCount());
+			outputStack.grow(result.getCount());
 		}
 
-		inventory.getStack(inputSlot).decrement(1);
+		inventory.getItem(inputSlot).shrink(1);
 	}
 
 	public int getProgressScaled(int scale) {
@@ -202,11 +202,11 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	// TilePowerAcceptor
 	@Override
-	public void tick(World world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
 		charge(2);
 
-		if (world == null || world.isClient) {
+		if (world == null || world.isClientSide) {
 			return;
 		}
 
@@ -265,7 +265,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(final Player entityPlayer) {
 		return TRContent.Machine.ELECTRIC_FURNACE.getStack();
 	}
 
@@ -277,9 +277,9 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("electricfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.sync(PacketCodecs.INTEGER, this::getCookTime, this::setCookTime).sync(PacketCodecs.INTEGER, this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
+				.sync(ByteBufCodecs.INT, this::getCookTime, this::setCookTime).sync(ByteBufCodecs.INT, this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
 	}
 }

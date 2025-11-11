@@ -25,15 +25,15 @@
 package techreborn.world;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.HeightContext;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import org.jetbrains.annotations.Nullable;
 import techreborn.init.TRContent;
 
@@ -44,11 +44,11 @@ import java.util.List;
 /**
  * Client synced DTO for ore depth
  */
-public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimension dimension) {
-	public static final PacketCodec<ByteBuf, OreDepth> PACKET_CODEC = PacketCodec.tuple(
-		Identifier.PACKET_CODEC, OreDepth::identifier,
-		PacketCodecs.INTEGER, OreDepth::minY,
-		PacketCodecs.INTEGER, OreDepth::maxY,
+public record OreDepth(ResourceLocation identifier, int minY, int maxY, TargetDimension dimension) {
+	public static final StreamCodec<ByteBuf, OreDepth> PACKET_CODEC = StreamCodec.composite(
+		ResourceLocation.STREAM_CODEC, OreDepth::identifier,
+		ByteBufCodecs.INT, OreDepth::minY,
+		ByteBufCodecs.INT, OreDepth::maxY,
 		TargetDimension.PACKET_CODEC, OreDepth::dimension,
 		OreDepth::new
 	);
@@ -61,14 +61,14 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 			if (ore.isDeepslate()) continue;
 
 			if (ore.distribution != null) {
-				final Identifier blockId = Registries.BLOCK.getId(ore.block);
-				final HeightContext heightContext = getHeightContext(server, ore.distribution.dimension);
+				final ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(ore.block);
+				final WorldGenerationContext heightContext = getHeightContext(server, ore.distribution.dimension);
 
 				if (heightContext == null) {
 					continue;
 				}
 
-				final int minY = ore.distribution.minOffset.getY(heightContext);
+				final int minY = ore.distribution.minOffset.resolveY(heightContext);
 				final int maxY = ore.distribution.maxY;
 
 				depths.add(new OreDepth(blockId, minY, maxY, ore.distribution.dimension));
@@ -76,7 +76,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 				TRContent.Ores deepslate = ore.getDeepslate();
 				if (deepslate == null) continue;
 
-				final Identifier deepSlateBlockId = Registries.BLOCK.getId(deepslate.block);
+				final ResourceLocation deepSlateBlockId = BuiltInRegistries.BLOCK.getKey(deepslate.block);
 				depths.add(new OreDepth(deepSlateBlockId, minY, maxY, ore.distribution.dimension));
 			}
 		}
@@ -85,19 +85,19 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 	}
 
 	@Nullable
-	private static HeightContext getHeightContext(MinecraftServer server, TargetDimension dimension) {
-		RegistryKey<World> key = switch (dimension) {
-			case OVERWORLD -> World.OVERWORLD;
-			case NETHER ->  World.NETHER;
-			case END ->  World.END;
+	private static WorldGenerationContext getHeightContext(MinecraftServer server, TargetDimension dimension) {
+		ResourceKey<Level> key = switch (dimension) {
+			case OVERWORLD -> Level.OVERWORLD;
+			case NETHER ->  Level.NETHER;
+			case END ->  Level.END;
 		};
 
-		final ServerWorld world = server.getWorld(key);
+		final ServerLevel world = server.getLevel(key);
 
 		if (world == null) {
 			return null;
 		}
 
-		return new HeightContext(world.getChunkManager().getChunkGenerator(), world);
+		return new WorldGenerationContext(world.getChunkSource().getGenerator(), world);
 	}
 }

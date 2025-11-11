@@ -24,11 +24,11 @@
 
 package techreborn.blockentity.generator.advanced;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -46,7 +46,7 @@ public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity i
 	}
 
 	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(Player entityPlayer) {
 		return TRContent.Machine.THERMAL_GENERATOR.getStack();
 	}
 
@@ -61,10 +61,10 @@ public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity i
 	}
 
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("thermalgenerator").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
-				.sync(PacketCodecs.INTEGER, this::getTicksSinceLastChange, this::setTicksSinceLastChange)
+				.sync(ByteBufCodecs.INT, this::getTicksSinceLastChange, this::setTicksSinceLastChange)
 				.sync(FluidValue.PACKET_CODEC, this::getTankAmount, this::setTankAmount)
 				.sync(tank)
 				.addInventory().create(this, syncID);

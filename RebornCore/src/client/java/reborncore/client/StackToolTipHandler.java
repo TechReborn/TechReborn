@@ -25,21 +25,21 @@
 package reborncore.client;
 
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import reborncore.RebornCore;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.BaseBlock;
@@ -54,11 +54,11 @@ import java.util.List;
 public class StackToolTipHandler implements ItemTooltipCallback {
 
 	@Override
-	public void getTooltip(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipType tooltipType, List<Text> tooltipLines) {
+	public void getTooltip(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipFlag tooltipType, List<Component> tooltipLines) {
 		Item item = itemStack.getItem();
-		Block block = Block.getBlockFromItem(item);
+		Block block = Block.byItem(item);
 		if (block instanceof BaseBlock baseBlock) {
-			List<Text> list = new ArrayList<>();
+			List<Component> list = new ArrayList<>();
 			baseBlock.appendTooltip(itemStack, tooltipContext, list, tooltipType);
 			tooltipLines.addAll(1, list);
 		}
@@ -67,45 +67,45 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			((IListInfoProvider) item).addInfo(tooltipLines, false, false);
 		}
 		else if (item instanceof RcEnergyItem energyItem) {
-			MutableText line1 = Text.literal(PowerSystem.getLocalizedPowerNoSuffix(energyItem.getStoredEnergy(itemStack)));
+			MutableComponent line1 = Component.literal(PowerSystem.getLocalizedPowerNoSuffix(energyItem.getStoredEnergy(itemStack)));
 			line1.append("/");
 			line1.append(PowerSystem.getLocalizedPower(energyItem.getEnergyCapacity(itemStack)));
-			line1.formatted(Formatting.GOLD);
+			line1.withStyle(ChatFormatting.GOLD);
 
 			tooltipLines.add(1, line1);
 
 			if (Screen.hasShiftDown()) {
 				int percentage = percentage(energyItem.getStoredEnergy(itemStack), energyItem.getEnergyCapacity(itemStack));
-				MutableText line2  = StringUtils.getPercentageText(percentage);
+				MutableComponent line2  = StringUtils.getPercentageText(percentage);
 				line2.append(" ");
-				line2.formatted(Formatting.GRAY);
-				line2.append(I18n.translate("reborncore.gui.tooltip.power_charged"));
+				line2.withStyle(ChatFormatting.GRAY);
+				line2.append(I18n.get("reborncore.gui.tooltip.power_charged"));
 				tooltipLines.add(2, line2);
 
 				double inputRate = energyItem.getEnergyMaxInput(itemStack);
 				double outputRate = energyItem.getEnergyMaxOutput(itemStack);
 
-				MutableText line3 = Text.literal("");
+				MutableComponent line3 = Component.literal("");
 				if (inputRate != 0 && inputRate == outputRate){
-					line3.append(I18n.translate("techreborn.tooltip.transferRate"));
+					line3.append(I18n.get("techreborn.tooltip.transferRate"));
 					line3.append(" : ");
-					line3.formatted(Formatting.GRAY);
+					line3.withStyle(ChatFormatting.GRAY);
 					line3.append(PowerSystem.getLocalizedPower(inputRate));
-					line3.formatted(Formatting.GOLD);
+					line3.withStyle(ChatFormatting.GOLD);
 				}
 				else if(inputRate != 0){
-					line3.append(I18n.translate("reborncore.tooltip.energy.inputRate"));
+					line3.append(I18n.get("reborncore.tooltip.energy.inputRate"));
 					line3.append(" : ");
-					line3.formatted(Formatting.GRAY);
+					line3.withStyle(ChatFormatting.GRAY);
 					line3.append(PowerSystem.getLocalizedPower(inputRate));
-					line3.formatted(Formatting.GOLD);
+					line3.withStyle(ChatFormatting.GOLD);
 				}
 				else if (outputRate !=0){
-					line3.append(I18n.translate("reborncore.tooltip.energy.outputRate"));
+					line3.append(I18n.get("reborncore.tooltip.energy.outputRate"));
 					line3.append(" : ");
-					line3.formatted(Formatting.GRAY);
+					line3.withStyle(ChatFormatting.GRAY);
 					line3.append(PowerSystem.getLocalizedPower(outputRate));
-					line3.formatted(Formatting.GOLD);
+					line3.withStyle(ChatFormatting.GOLD);
 				}
 				tooltipLines.add(3, line3);
 			}
@@ -113,20 +113,20 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		else {
 			try {
 				if ((block instanceof BaseBlockEntityProvider)) {
-					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(BlockPos.ORIGIN, block.getDefaultState());
+					BlockEntity blockEntity = ((EntityBlock) block).newBlockEntity(BlockPos.ZERO, block.defaultBlockState());
 					boolean hasData = false;
-					NbtComponent nbtComponent = itemStack.get(DataComponentTypes.BLOCK_ENTITY_DATA);
+					CustomData nbtComponent = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
 					if (nbtComponent != null) {
-						nbtComponent.applyToBlockEntity(blockEntity, MinecraftClient.getInstance().world.getRegistryManager());
+						nbtComponent.loadInto(blockEntity, Minecraft.getInstance().level.registryAccess());
 						hasData = true;
-						tooltipLines.add(Text.literal(I18n.translate("reborncore.tooltip.has_data")).formatted(Formatting.DARK_GREEN));
+						tooltipLines.add(Component.literal(I18n.get("reborncore.tooltip.has_data")).withStyle(ChatFormatting.DARK_GREEN));
 					}
 					if (blockEntity instanceof IListInfoProvider) {
 						((IListInfoProvider) blockEntity).addInfo(tooltipLines, false, hasData);
 					}
 				}
 			} catch (NullPointerException e) {
-				RebornCore.LOGGER.debug("Failed to load info for " + itemStack.getName());
+				RebornCore.LOGGER.debug("Failed to load info for " + itemStack.getHoverName());
 			}
 		}
 	}

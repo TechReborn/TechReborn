@@ -25,44 +25,43 @@
 package reborncore.common.crafting;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
 import java.util.function.Function;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 
 public class RecipeManager {
-	public static RecipeType<RebornRecipe> newRecipeType(Identifier name) {
+	public static RecipeType<RebornRecipe> newRecipeType(ResourceLocation name) {
 		return newRecipeType(name, RebornRecipe.CODEC, RebornRecipe.PACKET_CODEC);
 	}
 
-	public static <R extends RebornRecipe> RecipeType<R> newRecipeType(Identifier name, Function<RecipeType<R>, MapCodec<R>> codec, Function<RecipeType<R>, PacketCodec<RegistryByteBuf, R>> packetCodec) {
+	public static <R extends RebornRecipe> RecipeType<R> newRecipeType(ResourceLocation name, Function<RecipeType<R>, MapCodec<R>> codec, Function<RecipeType<R>, StreamCodec<RegistryFriendlyByteBuf, R>> packetCodec) {
 		RecipeType<R> type = new RecipeType<R>() {
 			@Override
 			public String toString() {
 				return name.toString();
 			}
 		};
-		Registry.register(Registries.RECIPE_TYPE, name, type);
+		Registry.register(BuiltInRegistries.RECIPE_TYPE, name, type);
 
-		record Serializer<R extends RebornRecipe>(MapCodec<R> codec, PacketCodec<RegistryByteBuf, R> packetCodec) implements RecipeSerializer<R> {}
+		record Serializer<R extends RebornRecipe>(MapCodec<R> codec, StreamCodec<RegistryFriendlyByteBuf, R> streamCodec) implements RecipeSerializer<R> {}
 		Serializer<R> serializer = new Serializer<>(codec.apply(type), packetCodec.apply(type));
-		Registry.register(Registries.RECIPE_SERIALIZER, name, serializer);
+		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, name, serializer);
 
 		return type;
 	}
 
 	public static List<RecipeType<?>> getRecipeTypes(String namespace) {
 		//noinspection unchecked
-		return Registries.RECIPE_TYPE.getKeys().stream()
-			.filter(key -> key.getValue().getNamespace().startsWith(namespace))
-			.map((Function<RegistryKey<RecipeType<?>>, RecipeType<?>>) key -> Registries.RECIPE_TYPE.get(key.getValue()))
+		return BuiltInRegistries.RECIPE_TYPE.registryKeySet().stream()
+			.filter(key -> key.location().getNamespace().startsWith(namespace))
+			.map((Function<ResourceKey<RecipeType<?>>, RecipeType<?>>) key -> BuiltInRegistries.RECIPE_TYPE.getValue(key.location()))
 			.toList();
 	}
 }

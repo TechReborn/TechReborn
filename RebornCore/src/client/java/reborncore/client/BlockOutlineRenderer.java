@@ -26,17 +26,17 @@ package reborncore.client;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.debug.DebugRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.debug.DebugRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import reborncore.common.misc.MultiBlockBreakingTool;
 
 import java.util.ArrayList;
@@ -49,19 +49,19 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BlockOutline {
 	public boolean onBlockOutline(WorldRenderContext worldRenderContext, WorldRenderContext.BlockOutlineContext context) {
 		List<VoxelShape> shapes = new ArrayList<>();
 
-		World world = context.entity().getWorld();
+		Level world = context.entity().level();
 		BlockPos targetPos = context.blockPos();
 
-		if (context.entity() == MinecraftClient.getInstance().player) {
-			ClientPlayerEntity clientPlayerEntity = MinecraftClient.getInstance().player;
+		if (context.entity() == Minecraft.getInstance().player) {
+			LocalPlayer clientPlayerEntity = Minecraft.getInstance().player;
 
-			ItemStack stack = clientPlayerEntity.getMainHandStack();
+			ItemStack stack = clientPlayerEntity.getMainHandItem();
 			if (stack.isEmpty()) {
 				return true;
 			}
 
 			if (stack.getItem() instanceof MultiBlockBreakingTool) {
-				Set<BlockPos> blockPosList = ((MultiBlockBreakingTool) stack.getItem()).getBlocksToBreak(stack, clientPlayerEntity.getWorld(), targetPos, clientPlayerEntity);
+				Set<BlockPos> blockPosList = ((MultiBlockBreakingTool) stack.getItem()).getBlocksToBreak(stack, clientPlayerEntity.level(), targetPos, clientPlayerEntity);
 
 				for (BlockPos pos : blockPosList) {
 					if (pos.equals(targetPos)) {
@@ -69,20 +69,20 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BlockOutline {
 					}
 
 					BlockState blockState = world.getBlockState(pos);
-					shapes.add(blockState.getOutlineShape(world, pos, ShapeContext.of(clientPlayerEntity)).offset(pos.getX() - targetPos.getX(), pos.getY() - targetPos.getY(), pos.getZ() - targetPos.getZ()));
+					shapes.add(blockState.getShape(world, pos, CollisionContext.of(clientPlayerEntity)).move(pos.getX() - targetPos.getX(), pos.getY() - targetPos.getY(), pos.getZ() - targetPos.getZ()));
 
 				}
 			}
 		}
 
 		if (!shapes.isEmpty()) {
-			VoxelShape shape = context.blockState().getOutlineShape(world, targetPos, ShapeContext.of(context.entity()));
+			VoxelShape shape = context.blockState().getShape(world, targetPos, CollisionContext.of(context.entity()));
 
 			for (VoxelShape voxelShape : shapes) {
-				shape = VoxelShapes.union(shape, voxelShape);
+				shape = Shapes.or(shape, voxelShape);
 			}
 
-			DebugRenderer.drawVoxelShapeOutlines(worldRenderContext.matrixStack(), worldRenderContext.consumers().getBuffer(RenderLayer.getLines()), shape, (double)targetPos.getX() - context.cameraX(), (double)targetPos.getY() - context.cameraY(), (double)targetPos.getZ() - context.cameraZ(), 0.0F, 0.0F, 0.0F, 0.4F, true);
+			DebugRenderer.renderVoxelShape(worldRenderContext.matrixStack(), worldRenderContext.consumers().getBuffer(RenderType.lines()), shape, (double)targetPos.getX() - context.cameraX(), (double)targetPos.getY() - context.cameraY(), (double)targetPos.getZ() - context.cameraZ(), 0.0F, 0.0F, 0.0F, 0.4F, true);
 		}
 
 		return true;

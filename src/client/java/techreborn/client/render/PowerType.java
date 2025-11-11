@@ -25,14 +25,14 @@
 package techreborn.client.render;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum PowerType implements StringIdentifiable {
+public enum PowerType implements StringRepresentable {
 	OFF("off"),
 	ON("on"),
 	LOW("low");
 
-	public static final Codec<PowerType> CODEC = StringIdentifiable.createCodec(PowerType::values);
+	public static final Codec<PowerType> CODEC = StringRepresentable.fromEnum(PowerType::values);
 	private final String name;
 
 	PowerType(final String name) {
@@ -40,7 +40,7 @@ public enum PowerType implements StringIdentifiable {
 	}
 
 	@Override
-	public String asString() {
+	public String getSerializedName() {
 		return this.name;
 	}
 }

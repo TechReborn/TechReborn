@@ -25,12 +25,12 @@
 package techreborn.datagen.recipes.machine.extractor
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.minecraft.item.ItemConvertible
-import net.minecraft.item.Items
-import net.minecraft.recipe.Ingredient
-import net.minecraft.registry.Registries
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.tag.ItemTags
+import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.HolderLookup
+import net.minecraft.tags.ItemTags
 import reborncore.common.crafting.SizedIngredient
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
@@ -38,7 +38,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class ExtractorRecipesProvider extends TechRebornRecipesProvider {
-	ExtractorRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	ExtractorRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -193,7 +193,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients item
 				outputs dye
-				source Registries.ITEM.getId(item.asItem()).path
+				source BuiltInRegistries.ITEM.getKey(item.asItem()).path
 				power 10
 				time 300
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -312,7 +312,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			offerExtractorRecipe {
 				ingredients input
 				outputs output
-				source input as ItemConvertible
+				source input as ItemLike
 				power 10
 				time 300
 				criterion getCriterionName(input), getCriterionConditions(input)
@@ -442,7 +442,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		}
 		// cells
 		offerExtractorRecipe {
-			addCustomIngredient(new SizedIngredient(1, Ingredient.ofItems(TRContent.CELL)))
+			addCustomIngredient(new SizedIngredient(1, Ingredient.of(TRContent.CELL)))
 			outputs TRContent.CELL
 			power exPower
 			time exTime

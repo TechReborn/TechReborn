@@ -24,11 +24,11 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class TechRebornStairsBlock extends StairsBlock {
-	public TechRebornStairsBlock(BlockState baseBlockState, Settings settings) {
+public class TechRebornStairsBlock extends StairBlock {
+	public TechRebornStairsBlock(BlockState baseBlockState, Properties settings) {
 		super(baseBlockState, settings);
 	}
 }

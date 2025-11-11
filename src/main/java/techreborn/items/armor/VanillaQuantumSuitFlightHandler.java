@@ -24,30 +24,30 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.entity.player.PlayerAbilities;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Abilities;
+import net.minecraft.world.entity.player.Player;
 
 public class VanillaQuantumSuitFlightHandler extends QuantumSuitFlightHandler {
 	@Override
-	public void setAllowFlight(PlayerEntity playerEntity, boolean allowed) {
-		final PlayerAbilities abilities = playerEntity.getAbilities();
-		final boolean requiresChanges = abilities.allowFlying != allowed || (!allowed && abilities.flying);
+	public void setAllowFlight(Player playerEntity, boolean allowed) {
+		final Abilities abilities = playerEntity.getAbilities();
+		final boolean requiresChanges = abilities.mayfly != allowed || (!allowed && abilities.flying);
 
 		if (!requiresChanges) {
 			return;
 		}
 
-		abilities.allowFlying = allowed;
+		abilities.mayfly = allowed;
 
 		if (!allowed) {
 			abilities.flying = false;
 		}
 
-		playerEntity.sendAbilitiesUpdate();
+		playerEntity.onUpdateAbilities();
 	}
 
 	@Override
-	public boolean isFlying(PlayerEntity playerEntity) {
+	public boolean isFlying(Player playerEntity) {
 		return playerEntity.getAbilities().flying;
 	}
 }

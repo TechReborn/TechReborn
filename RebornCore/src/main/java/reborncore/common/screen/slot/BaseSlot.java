@@ -24,11 +24,10 @@
 
 package reborncore.common.screen.slot;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-
 import java.util.function.Predicate;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Created by modmuss50 on 11/04/2016.
@@ -37,11 +36,11 @@ public class BaseSlot extends Slot {
 
 	private Predicate<ItemStack> filter = (stack) -> true;
 
-	public BaseSlot(Inventory inventoryIn, int index, int xPosition, int yPosition) {
+	public BaseSlot(Container inventoryIn, int index, int xPosition, int yPosition) {
 		super(inventoryIn, index, xPosition, yPosition);
 	}
 
-	public BaseSlot(Inventory inventoryIn, int index, int xPosition, int yPosition, Predicate<ItemStack> filter) {
+	public BaseSlot(Container inventoryIn, int index, int xPosition, int yPosition, Predicate<ItemStack> filter) {
 		super(inventoryIn, index, xPosition, yPosition);
 		this.filter = filter;
 	}
@@ -51,7 +50,7 @@ public class BaseSlot extends Slot {
 	}
 
 	@Override
-	public boolean canInsert(ItemStack stack) {
+	public boolean mayPlace(ItemStack stack) {
 		return filter.test(stack);
 	}
 

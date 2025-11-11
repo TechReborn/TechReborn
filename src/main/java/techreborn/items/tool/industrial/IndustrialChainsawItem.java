@@ -24,20 +24,6 @@
 
 package techreborn.items.tool.industrial;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRToolMaterials;
@@ -48,6 +34,20 @@ import techreborn.utils.ToolsUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class IndustrialChainsawItem extends ChainsawItem {
 
@@ -60,18 +60,18 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	}
 
 	private boolean isValidLog(BlockState state) {
-		return state.isIn(BlockTags.LOGS);
+		return state.is(BlockTags.LOGS);
 	}
 
 	private boolean isValidLeaves(BlockState state) {
-		return state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.WART_BLOCKS) || state.isOf(Blocks.SHROOMLIGHT);
+		return state.is(BlockTags.LEAVES) || state.is(BlockTags.WART_BLOCKS) || state.is(Blocks.SHROOMLIGHT);
 	}
 
 	private boolean isValidStartBlock(BlockState state) {
 		return isValidLog(state) || isValidLeaves(state);
 	}
 
-	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves) {
+	private void findWood(Level world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves) {
 		//Limit the amount of wood to be broken to 64 blocks.
 		if (wood.size() >= 64) {
 			return;
@@ -81,7 +81,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 			return;
 		}
 		for (Direction facing : SEARCH_ORDER) {
-			BlockPos checkPos = pos.offset(facing);
+			BlockPos checkPos = pos.relative(facing);
 			if (!wood.contains(checkPos) && !leaves.contains(checkPos)) {
 				BlockState state = world.getBlockState(checkPos);
 
@@ -98,7 +98,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 
 	//ChainsawItem
 	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean mineBlock(ItemStack stack, Level worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		List<BlockPos> wood = new ArrayList<>();
 		List<BlockPos> leaves = new ArrayList<>();
 		if (TRItemUtils.isActive(stack) && (lastCheckedBlockState == null || isValidStartBlock(lastCheckedBlockState))) {
@@ -110,33 +110,33 @@ public class IndustrialChainsawItem extends ChainsawItem {
 			leaves.remove(pos);
 			leaves.forEach(pos1 -> ToolsUtil.breakBlock(stack, worldIn, pos1, entityLiving, 0));
 		}
-		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
+		return super.mineBlock(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
 	// Item
 	@Override
-	public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity miner) {
+	public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos, LivingEntity miner) {
 		lastCheckedBlockState = state;
-		return super.canMine(stack, state, world, pos, miner);
+		return super.canDestroyBlock(stack, state, world, pos, miner);
 	}
 
 	@Override
-	public ActionResult use(final World world, final PlayerEntity player, final Hand hand) {
-		final ItemStack stack = player.getStackInHand(hand);
-		if (player.isSneaking()) {
+	public InteractionResult use(final Level world, final Player player, final InteractionHand hand) {
+		final ItemStack stack = player.getItemInHand(hand);
+		if (player.isShiftKeyDown()) {
 			TRItemUtils.switchActive(stack, cost, player);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
+	public void onUseTick(Level world, LivingEntity entity, ItemStack stack, int i) {
 		TRItemUtils.checkActive(stack, cost, entity);
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
 		TRItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 }

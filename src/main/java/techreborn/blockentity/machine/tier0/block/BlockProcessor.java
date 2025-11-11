@@ -24,22 +24,22 @@
 
 package techreborn.blockentity.machine.tier0.block;
 
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
 
 public interface BlockProcessor {
 
-	ProcessingStatus onTick(World world, BlockPos positionInFront);
+	ProcessingStatus onTick(Level world, BlockPos positionInFront);
 	ProcessingStatus getStatusEnum();
 
 	int getCurrentTickTime();
 	int getTickTime();
 
-	void readData(ReadView view);
-	void writeData(WriteView view);
+	void readData(ValueInput view);
+	void writeData(ValueOutput view);
 	BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder);
 
 	default int getProgress() {

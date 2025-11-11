@@ -24,11 +24,11 @@
 
 package reborncore.api;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * Added onto an item
@@ -40,13 +40,13 @@ public interface IToolHandler {
 	 *
 	 * @param stack  {@link ItemStack} The held itemstack
 	 * @param pos    {@link BlockPos} The pos of the block
-	 * @param world  {@link World} The world of the block
-	 * @param player {@link PlayerEntity} The player that activated the block
+	 * @param world  {@link Level} The world of the block
+	 * @param player {@link Player} The player that activated the block
 	 * @param side   {@link Direction} The side that the player activated
 	 * @param damage {@code boolean} If the tool should be damaged, or power taken
 	 * @return {@code boolean} If the tool can handle being activated on the block,
 	 * return false when the tool is broken or out of power for example.
 	 */
-	boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage);
+	boolean handleTool(ItemStack stack, BlockPos pos, Level world, Player player, Direction side, boolean damage);
 
 }

@@ -25,12 +25,11 @@
 package techreborn.datagen.recipes.machine.grinder
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions
-import net.minecraft.item.Items
-import net.minecraft.registry.Registries
-import net.minecraft.registry.RegistryWrapper
-import net.minecraft.registry.tag.ItemTags
+import net.minecraft.world.item.Items
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.HolderLookup
+import net.minecraft.tags.ItemTags
 import techreborn.datagen.TRConventionalTags
 import techreborn.datagen.compat.Ae2
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -39,7 +38,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class GrinderRecipesProvider extends TechRebornRecipesProvider {
-	GrinderRecipesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	GrinderRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -244,7 +243,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			(Items.SMOOTH_SANDSTONE_STAIRS) : 3,
 			(Items.SANDSTONE_WALL) : 3,
 			(Items.SANDSTONE_SLAB) : 2,
-			(Items.CUT_SANDSTONE_SLAB) : 2,
+			(Items.CUT_STANDSTONE_SLAB) : 2,
 			(Items.SMOOTH_SANDSTONE_SLAB) : 2,
 		].each {item, count ->
 			offerGrinderRecipe {
@@ -329,7 +328,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				outputs stack(TRContent.SmallDusts.SAW, count)
 				power 3
 				time 180
-				source item.id().path
+				source item.location().path
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}
@@ -343,7 +342,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				outputs stack(TRContent.SmallDusts.SAW, count)
 				power 3
 				time 180
-				source Registries.ITEM.getId(item).path
+				source BuiltInRegistries.ITEM.getKey(item).path
 				criterion getCriterionName(item), getCriterionConditions(item)
 			}
 		}

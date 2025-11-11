@@ -28,21 +28,21 @@ import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.village.TradeOffers;
-import net.minecraft.village.VillagerProfession;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import reborncore.common.util.TradeUtils;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
@@ -53,21 +53,21 @@ import java.util.function.Predicate;
 
 public class TRVillager {
 
-	public static final Identifier METALLURGIST_ID = Identifier.of(TechReborn.MOD_ID, "metallurgist");
-	public static final Identifier ELECTRICIAN_ID = Identifier.of(TechReborn.MOD_ID, "electrician");
+	public static final ResourceLocation METALLURGIST_ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "metallurgist");
+	public static final ResourceLocation ELECTRICIAN_ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "electrician");
 
-	public static final PointOfInterestType METALLURGIST_POI = PointOfInterestHelper.register(
+	public static final PoiType METALLURGIST_POI = PointOfInterestHelper.register(
 		METALLURGIST_ID, 1, 1, TRContent.Machine.IRON_ALLOY_FURNACE.block
 	);
-	public static final PointOfInterestType ELECTRICIAN_POI = PointOfInterestHelper.register(
+	public static final PoiType ELECTRICIAN_POI = PointOfInterestHelper.register(
 		ELECTRICIAN_ID, 1, 1, TRContent.Machine.SOLID_FUEL_GENERATOR.block
 	);
-	public static final RegistryKey<PointOfInterestType> METALLURGIST_POI_KEY = RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, METALLURGIST_ID);
-	public static final RegistryKey<PointOfInterestType> ELECTRICIAN_POI_KEY = RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, ELECTRICIAN_ID);
+	public static final ResourceKey<PoiType> METALLURGIST_POI_KEY = ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, METALLURGIST_ID);
+	public static final ResourceKey<PoiType> ELECTRICIAN_POI_KEY = ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, ELECTRICIAN_ID);
 
-	public static final RegistryKey<VillagerProfession> METALLURGIST_PROFESSION = registerVillagerProfession(METALLURGIST_ID, METALLURGIST_POI_KEY, SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH);
+	public static final ResourceKey<VillagerProfession> METALLURGIST_PROFESSION = registerVillagerProfession(METALLURGIST_ID, METALLURGIST_POI_KEY, SoundEvents.VILLAGER_WORK_TOOLSMITH);
 
-	public static final RegistryKey<VillagerProfession> ELECTRICIAN_PROFESSION = registerVillagerProfession(ELECTRICIAN_ID, ELECTRICIAN_POI_KEY, ModSounds.CABLE_SHOCK);
+	public static final ResourceKey<VillagerProfession> ELECTRICIAN_PROFESSION = registerVillagerProfession(ELECTRICIAN_ID, ELECTRICIAN_POI_KEY, ModSounds.CABLE_SHOCK);
 
 	private TRVillager() {/* No instantiation. */}
 
@@ -122,8 +122,8 @@ public class TRVillager {
 	}
 
 	public static void registerWanderingTraderTrades() {
-		List<TradeOffers.Factory> extraCommonTrades = new LinkedList<>();
-		List<TradeOffers.Factory> extraRareTrades = new LinkedList<>();
+		List<VillagerTrades.ItemListing> extraCommonTrades = new LinkedList<>();
+		List<VillagerTrades.ItemListing> extraRareTrades = new LinkedList<>();
 		// specify extra trades below here
 		extraCommonTrades.add(TradeUtils.createSell(TRContent.RUBBER_SAPLING, 5, 1, 8, 1));
 		// registration of the trades, no changes necessary for new trades
@@ -143,13 +143,13 @@ public class TRVillager {
 		final String[] types = new String[] {"desert", "plains", "savanna", "snowy", "taiga"};
 		for (String type : types) {
 			DynamicRegistrySetupCallback.EVENT.register(registryManager ->
-				registryManager.registerEntryAdded(RegistryKeys.TEMPLATE_POOL, ((rawId, id, pool) -> {
-					if (id.equals(Identifier.of("minecraft", "village/"+type+"/houses"))) {
+				registryManager.registerEntryAdded(Registries.TEMPLATE_POOL, ((rawId, id, pool) -> {
+					if (id.equals(ResourceLocation.fromNamespaceAndPath("minecraft", "village/"+type+"/houses"))) {
 						if (TechRebornConfig.enableMetallurgistGeneration) {
-							pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_metallurgist").apply(StructurePool.Projection.RIGID));
+							pool.templates.add(StructurePoolElement.single(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_metallurgist").apply(StructureTemplatePool.Projection.RIGID));
 						}
 						if (TechRebornConfig.enableElectricianGeneration) {
-							pool.elements.add(StructurePoolElement.ofSingle(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_electrician").apply(StructurePool.Projection.RIGID));
+							pool.templates.add(StructurePoolElement.single(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_electrician").apply(StructureTemplatePool.Projection.RIGID));
 						}
 					}
 				}))
@@ -157,14 +157,14 @@ public class TRVillager {
 		}
 	}
 
-	private static RegistryKey<VillagerProfession> registerVillagerProfession(Identifier id, RegistryKey<PointOfInterestType> heldWorkstation, SoundEvent event) {
-		RegistryKey<VillagerProfession> key = RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, id);
-		Predicate<RegistryEntry<PointOfInterestType>> match = entry -> entry.matchesKey(heldWorkstation);
+	private static ResourceKey<VillagerProfession> registerVillagerProfession(ResourceLocation id, ResourceKey<PoiType> heldWorkstation, SoundEvent event) {
+		ResourceKey<VillagerProfession> key = ResourceKey.create(Registries.VILLAGER_PROFESSION, id);
+		Predicate<Holder<PoiType>> match = entry -> entry.is(heldWorkstation);
 		Registry.register(
-			Registries.VILLAGER_PROFESSION,
+			BuiltInRegistries.VILLAGER_PROFESSION,
 			key,
 			new VillagerProfession(
-				Text.translatable("entity.minecraft.villager." + id.getPath()),
+				Component.translatable("entity.minecraft.villager." + id.getPath()),
 				match,
 				match,
 				ImmutableSet.of(),

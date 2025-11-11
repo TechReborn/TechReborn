@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -35,14 +35,14 @@ public class GuiAlloyFurnace extends GuiBase<BuiltScreenHandler> {
 
 	final IronAlloyFurnaceBlockEntity blockEntity;
 
-	public GuiAlloyFurnace(int syncID, PlayerEntity player, IronAlloyFurnaceBlockEntity alloyFurnace) {
+	public GuiAlloyFurnace(int syncID, Player player, IronAlloyFurnaceBlockEntity alloyFurnace) {
 		super(player, alloyFurnace, alloyFurnace.createScreenHandler(syncID, player));
 		this.blockEntity = alloyFurnace;
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, float lastFrameDuration, int mouseX, int mouseY) {
-		super.drawBackground(drawContext, lastFrameDuration, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, float lastFrameDuration, int mouseX, int mouseY) {
+		super.renderBg(drawContext, lastFrameDuration, mouseX, mouseY);
 		GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Input slots
@@ -55,8 +55,8 @@ public class GuiAlloyFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

@@ -25,23 +25,23 @@
 package techreborn.world;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import techreborn.init.TRContent;
 
 import java.util.function.Predicate;
 
-public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, RegistryKey<ConfiguredFeature<?, ?>> configuredFeature, RegistryKey<PlacedFeature> placedFeature) {
+public record TROreFeatureConfig(ResourceLocation id, TRContent.Ores ore, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, ResourceKey<PlacedFeature> placedFeature) {
 	public static TROreFeatureConfig of(TRContent.Ores ore) {
-		Identifier id = Identifier.of("techreborn", ore.name + "_ore");
+		ResourceLocation id = ResourceLocation.fromNamespaceAndPath("techreborn", ore.name + "_ore");
 		return new TROreFeatureConfig(
 			id,
 			ore,
-			RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, id),
-			RegistryKey.of(RegistryKeys.PLACED_FEATURE, id)
+			ResourceKey.create(Registries.CONFIGURED_FEATURE, id),
+			ResourceKey.create(Registries.PLACED_FEATURE, id)
 		);
 	}
 

@@ -26,10 +26,9 @@ package reborncore.common.misc.world;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import java.util.Set;
 
 public class ChunkEventListeners {
@@ -39,7 +38,7 @@ public class ChunkEventListeners {
 		ServerLifecycleEvents.SERVER_STOPPED.register(minecraftServer -> serverStopCleanup());
 
 		ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
-			if (!world.isClient()) {
+			if (!world.isClientSide()) {
 				Set<ChunkEventListener> cels = listeners.get(world, chunk.getPos());
 				if (cels != null) {
 					for (ChunkEventListener cel : cels) {
@@ -49,7 +48,7 @@ public class ChunkEventListeners {
 			}
 		});
 		ServerChunkEvents.CHUNK_UNLOAD.register((world, chunk) -> {
-			if (!world.isClient()) {
+			if (!world.isClientSide()) {
 				Set<ChunkEventListener> cels = listeners.get(world, chunk.getPos());
 				if (cels != null) {
 					for (ChunkEventListener cel : cels) {
@@ -60,8 +59,8 @@ public class ChunkEventListeners {
 		});
 	}
 
-	public static void onBlockStateChange(World world, ChunkPos chunkPos, BlockPos pos) {
-		if (!world.isClient()) {
+	public static void onBlockStateChange(Level world, ChunkPos chunkPos, BlockPos pos) {
+		if (!world.isClientSide()) {
 			Set<ChunkEventListener> cels = listeners.get(world, chunkPos);
 			if (cels != null) {
 				for (ChunkEventListener cel : cels) {

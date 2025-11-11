@@ -37,16 +37,16 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.InputIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeType;
 import reborncore.client.gui.GuiBuilder;
+import techreborn.client.compat.rei.ReiPlugin;
 import techreborn.compat.rei.RollingMachineDisplay;
 import techreborn.recipe.recipes.RollingMachineRecipe;
-import techreborn.client.compat.rei.ReiPlugin;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -60,8 +60,8 @@ public class RollingMachineCategory implements DisplayCategory<RollingMachineDis
 		this.recipeType = recipeType;
 	}
 
-	private Identifier id() {
-		return Registries.RECIPE_TYPE.getId(recipeType);
+	private ResourceLocation id() {
+		return BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
 	}
 
 
@@ -71,8 +71,8 @@ public class RollingMachineCategory implements DisplayCategory<RollingMachineDis
 	}
 
 	@Override
-	public Text getTitle() {
-		return Text.translatable(id().toString());
+	public Component getTitle() {
+		return Component.translatable(id().toString());
 	}
 
 	@Override
@@ -86,12 +86,12 @@ public class RollingMachineCategory implements DisplayCategory<RollingMachineDis
 		List<Widget> widgets = new ArrayList<>();
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 8, bounds.y + 8, 14, 50), display.getEnergy(), ReiPlugin.EntryAnimation.downwards(5000), tooltipContext -> {
-			List<Text> list = new ArrayList<>();
-			list.add(Text.translatable("techreborn.jei.recipe.energy"));
-			list.add(Text.translatable("techreborn.jei.recipe.running.cost", "E", display.getEnergy()).formatted(Formatting.GRAY));
-			list.add(Text.translatable("techreborn.jei.recipe.generator.total", display.getEnergy() * display.getTime()).formatted(Formatting.GRAY));
-			list.add(Text.of(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.of("techreborn", "")));
+			List<Component> list = new ArrayList<>();
+			list.add(Component.translatable("techreborn.jei.recipe.energy"));
+			list.add(Component.translatable("techreborn.jei.recipe.running.cost", "E", display.getEnergy()).withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("techreborn.jei.recipe.generator.total", display.getEnergy() * display.getTime()).withStyle(ChatFormatting.GRAY));
+			list.add(Component.literal(""));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(ResourceLocation.fromNamespaceAndPath("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 		widgets.add(ReiPlugin.createProgressBar(startPoint.x + 68, startPoint.y + 22, display.getTime() * 50, GuiBuilder.ProgressDirection.RIGHT));
@@ -106,7 +106,7 @@ public class RollingMachineCategory implements DisplayCategory<RollingMachineDis
 		}
 		widgets.addAll(slots);
 		widgets.add(Widgets.createSlot(new Point(startPoint.x + 95, startPoint.y + 19)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());
-		widgets.add(Widgets.createLabel(new Point(bounds.getMaxX() - 5, bounds.y + 5), Text.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(display.getTime() / 20.0)))
+		widgets.add(Widgets.createLabel(new Point(bounds.getMaxX() - 5, bounds.y + 5), Component.translatable("techreborn.jei.recipe.processing.time.3", new DecimalFormat("###.##").format(display.getTime() / 20.0)))
 			.shadow(false)
 			.rightAligned()
 			.color(0xFF404040, 0xFFBBBBBB)

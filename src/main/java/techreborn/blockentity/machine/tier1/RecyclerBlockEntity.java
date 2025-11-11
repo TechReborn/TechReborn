@@ -24,12 +24,12 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -56,12 +56,12 @@ public class RecyclerBlockEntity extends GenericMachineBlockEntity implements Bu
 		if ((item instanceof IUpgrade)) {
 			return false;
 		}
-		return !TechRebornConfig.recyclerBlackList.contains(Registries.ITEM.getId(item).toString());
+		return !TechRebornConfig.recyclerBlackList.contains(BuiltInRegistries.ITEM.getKey(item).toString());
 	}
 
 	// BuiltScreenHandlerProvider
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("recycler").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45, RecyclerBlockEntity::canRecycle)
 				.outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()

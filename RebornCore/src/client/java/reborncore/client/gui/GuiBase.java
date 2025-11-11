@@ -24,23 +24,6 @@
 
 package reborncore.client.gui;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Selectable;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
@@ -51,8 +34,25 @@ import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.slot.PlayerInventorySlot;
 
 import java.util.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.Fluid;
 
-public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
+public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 	public static FluidCellProvider fluidCellProvider = fluid -> ItemStack.EMPTY;
 	public static ItemStack wrenchStack = ItemStack.EMPTY;
 
@@ -70,8 +70,8 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 
 	public boolean upgrades;
 
-	public GuiBase(PlayerEntity player, BlockEntity blockEntity, T screenHandler) {
-		super(screenHandler, player.getInventory(), Text.literal(I18n.translate(blockEntity.getCachedState().getBlock().getTranslationKey())));
+	public GuiBase(Player player, BlockEntity blockEntity, T screenHandler) {
+		super(screenHandler, player.getInventory(), Component.literal(I18n.get(blockEntity.getBlockState().getBlock().getDescriptionId())));
 		this.be = blockEntity;
 		this.builtScreenHandler = (BuiltScreenHandler) screenHandler;
 		tabs = GuiTab.TABS.stream()
@@ -82,29 +82,29 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	public int getScreenWidth() {
-		return backgroundWidth;
+		return imageWidth;
 	}
 
-	public void drawSlot(DrawContext drawContext, int x, int y, Layer layer) {
+	public void drawSlot(GuiGraphics drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
-			x += this.x;
-			y += this.y;
+			x += this.leftPos;
+			y += this.topPos;
 		}
 		builder.drawSlot(drawContext, x - 1, y - 1);
 	}
 
-	public void drawOutputSlotBar(DrawContext drawContext, int x, int y, int count, Layer layer) {
+	public void drawOutputSlotBar(GuiGraphics drawContext, int x, int y, int count, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
-			x += this.x;
-			y += this.y;
+			x += this.leftPos;
+			y += this.topPos;
 		}
 		builder.drawOutputSlotBar(drawContext, x - 4, y - 4, count);
 	}
 
-	public void drawArmourSlots(DrawContext drawContext, int x, int y, Layer layer) {
+	public void drawArmourSlots(GuiGraphics drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
-			x += this.x;
-			y += this.y;
+			x += this.leftPos;
+			y += this.topPos;
 		}
 		builder.drawSlot(drawContext, x - 1, y - 1);
 		builder.drawSlot(drawContext, x - 1, y - 1 + 18);
@@ -112,10 +112,10 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 		builder.drawSlot(drawContext, x - 1, y - 1 + 18 + 18 + 18);
 	}
 
-	public void drawOutputSlot(DrawContext drawContext, int x, int y, Layer layer) {
+	public void drawOutputSlot(GuiGraphics drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
-			x += this.x;
-			y += this.y;
+			x += this.leftPos;
+			y += this.topPos;
 		}
 		builder.drawOutputSlot(drawContext, x - 5, y - 5);
 	}
@@ -129,30 +129,30 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, float lastFrameDuration, int mouseX, int mouseY) {
-		drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+	protected void renderBg(GuiGraphics drawContext, float lastFrameDuration, int mouseX, int mouseY) {
+		drawContext.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
-		builder.drawDefaultBackground(drawContext, x, y, xSize, ySize);
+		builder.drawDefaultBackground(drawContext, leftPos, topPos, xSize, ySize);
 		if (drawPlayerSlots) {
-			builder.drawPlayerSlots(drawContext, this, x + backgroundWidth / 2, y + 93, true);
+			builder.drawPlayerSlots(drawContext, this, leftPos + imageWidth / 2, topPos + 93, true);
 		}
 		if (tryAddUpgrades() && be instanceof IUpgradeable upgradeable) {
 			if (upgradeable.canBeUpgraded()) {
-				builder.drawUpgrades(drawContext, this, x - 24, y + 6);
+				builder.drawUpgrades(drawContext, this, leftPos - 24, topPos + 6);
 				upgrades = true;
 			}
 		}
 		int offset = upgrades ? 86 : 6;
 		for (GuiTab slot : tabs) {
 			if (slot.enabled()) {
-				builder.drawSlotTab(drawContext, this, x - 24, y + offset, slot.stack());
+				builder.drawSlotTab(drawContext, this, leftPos - 24, topPos + offset, slot.stack());
 				offset += 24;
 			}
 		}
 
 		final GuiBase<T> gui = this;
-		getTab().ifPresent(guiTab -> builder.drawSlotConfigTips(drawContext, gui, x + backgroundWidth / 2, y + 93, mouseX, mouseY, guiTab));
+		getTab().ifPresent(guiTab -> builder.drawSlotConfigTips(drawContext, gui, leftPos + imageWidth / 2, topPos + 93, mouseX, mouseY, guiTab));
 
 	}
 
@@ -176,39 +176,39 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
+	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
 		drawTitle(drawContext);
 	}
 
 	@Override
-	public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+	public void render(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
 		super.render(drawContext, mouseX, mouseY, partialTicks);
-		this.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+		this.renderTooltip(drawContext, mouseX, mouseY);
 
-		drawContext.getMatrices().pushMatrix();
-		drawContext.getMatrices().translate(this.x, this.y);
+		drawContext.pose().pushMatrix();
+		drawContext.pose().translate(this.leftPos, this.topPos);
 		getTab().ifPresent(guiTab -> guiTab.draw(drawContext, mouseX, mouseY));
-		drawContext.getMatrices().popMatrix();
+		drawContext.pose().popMatrix();
 	}
 
 	@Override
-	protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
-		if (isPointWithinBounds(-25, 6, 24, 80, mouseX, mouseY) && upgrades
-				&& this.focusedSlot != null && !this.focusedSlot.hasStack()) {
-			List<Text> list = new ArrayList<>();
-			list.add(Text.translatable("reborncore.gui.tooltip.upgrades"));
-			drawContext.drawTooltip(MinecraftClient.getInstance().textRenderer, list, mouseX, mouseY);
+	protected void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
+		if (isHovering(-25, 6, 24, 80, mouseX, mouseY) && upgrades
+				&& this.hoveredSlot != null && !this.hoveredSlot.hasItem()) {
+			List<Component> list = new ArrayList<>();
+			list.add(Component.translatable("reborncore.gui.tooltip.upgrades"));
+			drawContext.setComponentTooltipForNextFrame(Minecraft.getInstance().font, list, mouseX, mouseY);
 		}
 		int offset = upgrades ? 82 : 0;
 		for (GuiTab tab : tabs) {
-			if (isPointWithinBounds(-26, 6 + offset, 24, 23, mouseX, mouseY)) {
-				drawContext.drawTooltip(MinecraftClient.getInstance().textRenderer, Collections.singletonList(Text.translatable(tab.name())), mouseX, mouseY);
+			if (isHovering(-26, 6 + offset, 24, 23, mouseX, mouseY)) {
+				drawContext.setComponentTooltipForNextFrame(Minecraft.getInstance().font, Collections.singletonList(Component.translatable(tab.name())), mouseX, mouseY);
 			}
 			offset += 24;
 		}
 
-		for (Selectable selectable : selectables) {
-			if (selectable instanceof ClickableWidget clickable) {
+		for (NarratableEntry selectable : narratables) {
+			if (selectable instanceof AbstractWidget clickable) {
 				if (clickable.isHovered()) {
 					// TODO 1.19.3
 					// clickable.renderTooltip(matrixStack, mouseX, mouseY);
@@ -217,35 +217,35 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			}
 
 		}
-		super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+		super.renderTooltip(drawContext, mouseX, mouseY);
 	}
 
-	protected void drawTitle(DrawContext drawContext) {
-		drawCentredText(drawContext, Text.translatable(be.getCachedState().getBlock().getTranslationKey()), 6, theme.titleColor().rgba(), Layer.FOREGROUND);
+	protected void drawTitle(GuiGraphics drawContext) {
+		drawCentredText(drawContext, Component.translatable(be.getBlockState().getBlock().getDescriptionId()), 6, theme.titleColor().rgba(), Layer.FOREGROUND);
 	}
 
-	public void drawCentredText(DrawContext drawContext, Text text, int y, int colour, Layer layer) {
-		drawText(drawContext, text, (backgroundWidth / 2 - getTextRenderer().getWidth(text) / 2), y, colour, layer);
+	public void drawCentredText(GuiGraphics drawContext, Component text, int y, int colour, Layer layer) {
+		drawText(drawContext, text, (imageWidth / 2 - getFont().width(text) / 2), y, colour, layer);
 	}
 
-	public void drawCentredText(DrawContext drawContext, Text text, int y, int colour, int modifier, Layer layer) {
-		drawText(drawContext, text, (backgroundWidth / 2 - (getTextRenderer().getWidth(text)) / 2) + modifier, y, colour, layer);
+	public void drawCentredText(GuiGraphics drawContext, Component text, int y, int colour, int modifier, Layer layer) {
+		drawText(drawContext, text, (imageWidth / 2 - (getFont().width(text)) / 2) + modifier, y, colour, layer);
 	}
 
-	public void drawText(DrawContext drawContext, Text text, int x, int y, int colour, Layer layer) {
+	public void drawText(GuiGraphics drawContext, Component text, int x, int y, int colour, Layer layer) {
 		int factorX = 0;
 		int factorY = 0;
 		if (layer == Layer.BACKGROUND) {
-			factorX = this.x;
-			factorY = this.y;
+			factorX = this.leftPos;
+			factorY = this.topPos;
 		}
-		drawContext.drawText(MinecraftClient.getInstance().textRenderer, text, x + factorX, y + factorY, colour, false);
+		drawContext.drawString(Minecraft.getInstance().font, text, x + factorX, y + factorY, colour, false);
 	}
 
 	public GuiButtonHologram addHologramButton(int x, int y, int id, Layer layer) {
-		GuiButtonHologram buttonHologram = new GuiButtonHologram(x + this.x, y + this.y, var1 -> {
+		GuiButtonHologram buttonHologram = new GuiButtonHologram(x + this.leftPos, y + this.topPos, var1 -> {
 		});
-		addSelectableChild(buttonHologram);
+		addWidget(buttonHologram);
 		return buttonHologram;
 	}
 
@@ -265,7 +265,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 			offset = 80;
 		}
 		for (GuiTab tab : tabs) {
-			if (isPointWithinBounds(-26, 84 - offset, 30, 23, mouseX, mouseY)) {
+			if (isHovering(-26, 84 - offset, 30, 23, mouseX, mouseY)) {
 				if (selectedTab == tab) {
 					closeSelectedTab();
 				} else {
@@ -292,9 +292,9 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	@Override
-	public void close() {
+	public void onClose() {
 		closeSelectedTab();
-		super.close();
+		super.onClose();
 	}
 
 	public MachineBaseBlockEntity getMachine() {
@@ -311,7 +311,7 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	 * @return {@code boolean} Returns true if mouse pointer is in region specified
 	 */
 	public boolean isPointInRect(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY) {
-		return super.isPointWithinBounds(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+		return super.isHovering(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 	}
 
 	public enum Layer {
@@ -327,23 +327,23 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	public int getGuiLeft() {
-		return x;
+		return leftPos;
 	}
 
 	public int getGuiTop() {
-		return y;
+		return topPos;
 	}
 
-	public MinecraftClient getMinecraft() {
+	public Minecraft getMinecraft() {
 		// Just to stop complaints from IDEA
-		if (client == null) {
+		if (minecraft == null) {
 			throw new NullPointerException("Minecraft client is null.");
 		}
-		return this.client;
+		return this.minecraft;
 	}
 
-	public TextRenderer getTextRenderer() {
-		return this.textRenderer;
+	public Font getFont() {
+		return this.font;
 	}
 
 	public Optional<GuiTab> getTab() {
@@ -380,16 +380,16 @@ public class GuiBase<T extends ScreenHandler> extends HandledScreen<T> {
 	}
 
 	@Override
-	protected boolean isClickOutsideBounds(double mouseX, double mouseY, int left, int top, int mouseButton) {
+	protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top, int mouseButton) {
 		// Upgrades are normally outside the bounds, so let's pretend we are within the bounds if there is a slot here.
-		return getSlotAt(mouseX, mouseY) == null && super.isClickOutsideBounds(mouseX, mouseY, left, top, mouseButton);
+		return getHoveredSlot(mouseX, mouseY) == null && super.hasClickedOutside(mouseX, mouseY, left, top, mouseButton);
 	}
 
 	public List<GuiTab> getTabs() {
 		return tabs;
 	}
 
-	public static Sprite getSprite(SpriteIdentifier spriteIdentifier) {
-		return MinecraftClient.getInstance().getGuiAtlasManager().getSprite(spriteIdentifier.getTextureId());
+	public static TextureAtlasSprite getSprite(Material spriteIdentifier) {
+		return Minecraft.getInstance().getGuiSprites().getSprite(spriteIdentifier.texture());
 	}
 }

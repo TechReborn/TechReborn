@@ -24,12 +24,12 @@
 
 package techreborn.items;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import reborncore.common.network.NetworkManager;
 import techreborn.init.TRItemSettings;
 import techreborn.packets.clientbound.OpenManualPayload;
@@ -37,15 +37,15 @@ import techreborn.packets.clientbound.OpenManualPayload;
 public class ManualItem extends Item {
 
 	public ManualItem(String name) {
-		super(TRItemSettings.item(name).maxCount(1));
+		super(TRItemSettings.item(name).stacksTo(1));
 	}
 
 	@Override
-	public ActionResult use(final World world, final PlayerEntity player, final Hand hand) {
-		if (player instanceof ServerPlayerEntity serverPlayerEntity) {
+	public InteractionResult use(final Level world, final Player player, final InteractionHand hand) {
+		if (player instanceof ServerPlayer serverPlayerEntity) {
 			NetworkManager.sendToPlayer(new OpenManualPayload(), serverPlayerEntity);
 		}
 
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 }

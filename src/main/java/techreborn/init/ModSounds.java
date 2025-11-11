@@ -24,10 +24,10 @@
 
 package techreborn.init;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import reborncore.common.recipes.ICrafterSoundHandler;
 import techreborn.config.TechRebornConfig;
 
@@ -50,13 +50,13 @@ public class ModSounds {
 
 		@Override
 		public void playSound(boolean firstRun, BlockEntity blockEntity) {
-			World world = blockEntity.getWorld();
+			Level world = blockEntity.getLevel();
 			if (world == null) {
 				return;
 			}
 
-			world.playSound(null, blockEntity.getPos().getX(), blockEntity.getPos().getY(),
-					blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN, SoundCategory.BLOCKS, TechRebornConfig.machineSoundVolume, 1F);
+			world.playSound(null, blockEntity.getBlockPos().getX(), blockEntity.getBlockPos().getY(),
+					blockEntity.getBlockPos().getZ(), ModSounds.MACHINE_RUN, SoundSource.BLOCKS, TechRebornConfig.machineSoundVolume, 1F);
 		}
 	}
 }

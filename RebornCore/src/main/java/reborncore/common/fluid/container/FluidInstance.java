@@ -27,10 +27,10 @@ package reborncore.common.fluid.container;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import reborncore.common.fluid.FluidValue;
 
 public record FluidInstance(FluidVariant fluidVariant, FluidValue amount) {
@@ -40,7 +40,7 @@ public record FluidInstance(FluidVariant fluidVariant, FluidValue amount) {
 		FluidVariant.CODEC.fieldOf("fluid").forGetter(FluidInstance::fluidVariant),
 		FluidValue.CODEC.fieldOf("amount").forGetter(FluidInstance::getAmount)
 	).apply(instance, FluidInstance::new));
-	public static final PacketCodec<RegistryByteBuf, FluidInstance> PACKET_CODEC = PacketCodec.tuple(
+	public static final StreamCodec<RegistryFriendlyByteBuf, FluidInstance> PACKET_CODEC = StreamCodec.composite(
 		FluidVariant.PACKET_CODEC, FluidInstance::fluidVariant,
 		FluidValue.PACKET_CODEC, FluidInstance::getAmount,
 		FluidInstance::new

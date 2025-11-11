@@ -25,15 +25,22 @@
 package techreborn.client.render;
 
 import net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.render.model.*;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.client.renderer.block.model.SimpleModelWrapper;
+import net.minecraft.client.renderer.block.model.TextureSlots;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BlockModelRotation;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.QuadCollection;
+import net.minecraft.client.resources.model.ResolvedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
 import techreborn.blocks.misc.BlockMachineCasing;
 import techreborn.utils.DirectionUtils;
 
@@ -44,53 +51,53 @@ public record MachineCasingModel(BlockModelPart part) implements BlockStateModel
 	@SuppressWarnings("deprecation")
 	public static void resolveBlockStates(BlockStateResolver.Context context) {
 		BlockMachineCasing block = (BlockMachineCasing) context.block();
-		Identifier model = Registries.BLOCK.getId(block).withPrefixedPath(MODEL_PATH);
-		SpriteIdentifier alone = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, model);
-		SpriteIdentifier start = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, model.withSuffixedPath("_start"));
-		SpriteIdentifier middle = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, model.withSuffixedPath("_middle"));
-		SpriteIdentifier end = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, model.withSuffixedPath("_end"));
-		ModelTextures.Textures.Builder builder = new ModelTextures.Textures.Builder();
-		builder.addSprite(Direction.DOWN.getId(), alone);
-		builder.addSprite(Direction.UP.getId(), alone);
-		block.getStateManager().getStates().forEach(state -> {
-			for (Direction direction : Direction.Type.HORIZONTAL) {
-				switch (DirectionUtils.getHorizontalPart(direction, state.get(DirectionUtils.HORIZONTAL_NEIGHBORS))) {
-					case ALONE -> builder.addSprite(direction.getId(), alone);
-					case START -> builder.addSprite(direction.getId(), start);
-					case MIDDLE -> builder.addSprite(direction.getId(), middle);
-					case END -> builder.addSprite(direction.getId(), end);
+		ResourceLocation model = BuiltInRegistries.BLOCK.getKey(block).withPrefix(MODEL_PATH);
+		Material alone = new Material(TextureAtlas.LOCATION_BLOCKS, model);
+		Material start = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_start"));
+		Material middle = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_middle"));
+		Material end = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_end"));
+		TextureSlots.Data.Builder builder = new TextureSlots.Data.Builder();
+		builder.addTexture(Direction.DOWN.getName(), alone);
+		builder.addTexture(Direction.UP.getName(), alone);
+		block.getStateDefinition().getPossibleStates().forEach(state -> {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				switch (DirectionUtils.getHorizontalPart(direction, state.getValue(DirectionUtils.HORIZONTAL_NEIGHBORS))) {
+					case ALONE -> builder.addTexture(direction.getName(), alone);
+					case START -> builder.addTexture(direction.getName(), start);
+					case MIDDLE -> builder.addTexture(direction.getName(), middle);
+					case END -> builder.addTexture(direction.getName(), end);
 				}
 			}
-			ModelTextures textures = new ModelTextures.Builder().addLast(builder.build()).build(null);
+			TextureSlots textures = new TextureSlots.Resolver().addLast(builder.build()).resolve(null);
 			context.setModel(state, new Unbaked(model, textures, alone));
 		});
 	}
 
 	@Override
-	public void addParts(Random random, List<BlockModelPart> parts) {
+	public void collectParts(RandomSource random, List<BlockModelPart> parts) {
 		parts.add(part);
 	}
 
 	@Override
-	public Sprite particleSprite() {
-		return part.particleSprite();
+	public TextureAtlasSprite particleIcon() {
+		return part.particleIcon();
 	}
 
-	public record Unbaked(Identifier id, ModelTextures textures, SpriteIdentifier particle) implements BlockStateModel.UnbakedGrouped {
+	public record Unbaked(ResourceLocation id, TextureSlots textures, Material particle) implements BlockStateModel.UnbakedRoot {
 		@Override
-		public BlockStateModel bake(BlockState state, Baker baker) {
-			BakedSimpleModel model = baker.getModel(id);
-			BakedGeometry baked = model.getGeometry().bake(textures, baker, ModelRotation.X0_Y0, model);
-			return new MachineCasingModel(new GeometryBakedModel(baked, model.getAmbientOcclusion(), baker.getSpriteGetter().get(particle, model)));
+		public BlockStateModel bake(BlockState state, ModelBaker baker) {
+			ResolvedModel model = baker.getModel(id);
+			QuadCollection baked = model.getTopGeometry().bake(textures, baker, BlockModelRotation.X0_Y0, model);
+			return new MachineCasingModel(new SimpleModelWrapper(baked, model.getTopAmbientOcclusion(), baker.sprites().get(particle, model)));
 		}
 
 		@Override
-		public Object getEqualityGroup(BlockState state) {
+		public Object visualEqualityGroup(BlockState state) {
 			return this;
 		}
 
 		@Override
-		public void resolve(Resolver resolver) {
+		public void resolveDependencies(Resolver resolver) {
 			resolver.markDependency(id);
 		}
 	}

@@ -24,15 +24,6 @@
 
 package techreborn.blockentity.transformers;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -44,6 +35,15 @@ import techreborn.blocks.transformers.BlockTransformer;
 import techreborn.config.TechRebornConfig;
 
 import java.util.List;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Created by Rushmead
@@ -120,12 +120,12 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements 
 	// MachineBaseBlockEntity
 	@Override
 	public Direction getFacingEnum() {
-		if (world == null) {
+		if (level == null) {
 			return null;
 		}
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = level.getBlockState(worldPosition).getBlock();
 		if (block instanceof BlockTransformer) {
-			return ((BlockTransformer) block).getFacing(world.getBlockState(pos));
+			return ((BlockTransformer) block).getFacing(level.getBlockState(worldPosition));
 		}
 		return null;
 	}
@@ -137,40 +137,40 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements 
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(PlayerEntity playerIn) {
+	public ItemStack getToolDrop(Player playerIn) {
 		return new ItemStack(wrenchDrop);
 	}
 
 	// IListInfoProvider
 	@Override
-	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
+	public void addInfo(List<Component> info, boolean isReal, boolean hasData) {
 		info.add(
-				Text.translatable("reborncore.tooltip.energy.inputRate")
-						.formatted(Formatting.GRAY)
+				Component.translatable("reborncore.tooltip.energy.inputRate")
+						.withStyle(ChatFormatting.GRAY)
 						.append(": ")
 						.append(PowerSystem.getLocalizedPower(getMaxInput(null)))
-						.formatted(Formatting.GOLD)
+						.withStyle(ChatFormatting.GOLD)
 		);
 		info.add(
-				Text.translatable("techreborn.tooltip.input_tier")
-						.formatted(Formatting.GRAY)
+				Component.translatable("techreborn.tooltip.input_tier")
+						.withStyle(ChatFormatting.GRAY)
 						.append(": ")
 						.append(StringUtils.toFirstCapitalAllLowercase(inputTier.toString()))
-						.formatted(Formatting.GOLD)
+						.withStyle(ChatFormatting.GOLD)
 		);
 		info.add(
-				Text.translatable("reborncore.tooltip.energy.outputRate")
-						.formatted(Formatting.GRAY)
+				Component.translatable("reborncore.tooltip.energy.outputRate")
+						.withStyle(ChatFormatting.GRAY)
 						.append(": ")
 						.append(PowerSystem.getLocalizedPower(getMaxOutput(null)))
-						.formatted(Formatting.GOLD)
+						.withStyle(ChatFormatting.GOLD)
 		);
 		info.add(
-				Text.translatable("techreborn.tooltip.output_tier")
-						.formatted(Formatting.GRAY)
+				Component.translatable("techreborn.tooltip.output_tier")
+						.withStyle(ChatFormatting.GRAY)
 						.append(": ")
 						.append(StringUtils.toFirstCapitalAllLowercase(outputTier.toString()))
-						.formatted(Formatting.GOLD)
+						.withStyle(ChatFormatting.GOLD)
 		);
 	}
 }

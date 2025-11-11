@@ -24,13 +24,13 @@
 
 package techreborn.events;
 
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.PreparedRecipes;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeMap;
+import net.minecraft.world.item.crafting.RecipeType;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
@@ -40,26 +40,26 @@ import java.util.stream.Collectors;
 
 public class TRRecipeHandler {
 
-	public static void unlockTRRecipes(ServerPlayerEntity playerMP) {
+	public static void unlockTRRecipes(ServerPlayer playerMP) {
 		MinecraftServer server = playerMP.getServer();
 		if (server == null) return;
-		ServerRecipeManager recipeManager = server.getRecipeManager();
-		PreparedRecipes preparedRecipes = recipeManager.preparedRecipes;
+		RecipeManager recipeManager = server.getRecipeManager();
+		RecipeMap preparedRecipes = recipeManager.recipes;
 
-		Collection<RecipeEntry<?>> recipeList = preparedRecipes.getAll(RecipeType.CRAFTING).stream()
+		Collection<RecipeHolder<?>> recipeList = preparedRecipes.byType(RecipeType.CRAFTING).stream()
 			.filter(TRRecipeHandler::isRecipeValid)
 			.collect(Collectors.toCollection(ArrayList::new));
-		playerMP.unlockRecipes(recipeList);
+		playerMP.awardRecipes(recipeList);
 	}
 
-	private static boolean isRecipeValid(RecipeEntry<CraftingRecipe> recipe) {
+	private static boolean isRecipeValid(RecipeHolder<CraftingRecipe> recipe) {
 		if (recipe.id() == null) {
 			return false;
 		}
-		if (!recipe.id().getValue().getNamespace().equals(TechReborn.MOD_ID)) {
+		if (!recipe.id().location().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
-		return recipe.value().getIngredientPlacement().getIngredients().stream()
+		return recipe.value().placementInfo().ingredients().stream()
 			.noneMatch(ingredient -> ingredient.test(TRContent.Parts.UU_MATTER.getStack()));
 	}
 

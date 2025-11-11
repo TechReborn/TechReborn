@@ -24,7 +24,7 @@
 
 package reborncore.common.misc.world;
 
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 public interface ChunkEventListener {
 	void onBlockUpdate(BlockPos pos);

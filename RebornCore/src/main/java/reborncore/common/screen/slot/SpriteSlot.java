@@ -24,33 +24,33 @@
 
 package reborncore.common.screen.slot;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import org.jetbrains.annotations.Nullable;
 
 public class SpriteSlot extends FilteredSlot {
 
-	private final Identifier spriteName;
+	private final ResourceLocation spriteName;
 	int stackSize;
 
-	public SpriteSlot(final Inventory inventory, final int index, final int xPosition, final int yPosition, final Identifier sprite, final int stackSize) {
+	public SpriteSlot(final Container inventory, final int index, final int xPosition, final int yPosition, final ResourceLocation sprite, final int stackSize) {
 		super(inventory, index, xPosition, yPosition);
 		this.spriteName = sprite;
 		this.stackSize = stackSize;
 	}
 
-	public SpriteSlot(final Inventory inventory, final int index, final int xPosition, final int yPosition, final Identifier sprite) {
+	public SpriteSlot(final Container inventory, final int index, final int xPosition, final int yPosition, final ResourceLocation sprite) {
 		this(inventory, index, xPosition, yPosition, sprite, 64);
 	}
 
 	@Override
-	public int getMaxItemCount() {
+	public int getMaxStackSize() {
 		return this.stackSize;
 	}
 
 	@Override
 	@Nullable
-	public Identifier getBackgroundSprite() {
+	public ResourceLocation getNoItemIcon() {
 		return spriteName;
 	}
 }

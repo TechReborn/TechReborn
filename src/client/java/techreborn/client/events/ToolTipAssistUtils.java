@@ -24,11 +24,6 @@
 
 package techreborn.client.events;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -40,56 +35,61 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 
 public class ToolTipAssistUtils {
 
 	// Colour constants
-	private static final Formatting instructColour = Formatting.BLUE;
+	private static final ChatFormatting instructColour = ChatFormatting.BLUE;
 
-	private static final Formatting infoColour = Formatting.GOLD;
-	private static final Formatting statColour = Formatting.GOLD;
+	private static final ChatFormatting infoColour = ChatFormatting.GOLD;
+	private static final ChatFormatting statColour = ChatFormatting.GOLD;
 
-	private static final Formatting posColour = Formatting.GREEN;
-	private static final Formatting negColour = Formatting.RED;
+	private static final ChatFormatting posColour = ChatFormatting.GREEN;
+	private static final ChatFormatting negColour = ChatFormatting.RED;
 
-	public static List<Text> getUpgradeStats(TRContent.Upgrades upgradeType, int count, boolean shiftHeld) {
-		List<Text> tips = new ArrayList<>();
+	public static List<Component> getUpgradeStats(TRContent.Upgrades upgradeType, int count, boolean shiftHeld) {
+		List<Component> tips = new ArrayList<>();
 		boolean shouldStackCalculate = count > 1;
 
 		switch (upgradeType) {
 			case OVERCLOCKER -> {
-				tips.add(getStatStringUnit(I18n.translate("techreborn.tooltip.upgrade.speed_increase"), calculateSpeed(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%", true));
-				tips.add(getStatStringUnit(I18n.translate("techreborn.tooltip.upgrade.energy_increase"), calculateEnergyIncrease(TechRebornConfig.overclockerPower + 1, count, shiftHeld), "x", false));
+				tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.speed_increase"), calculateSpeed(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%", true));
+				tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.energy_increase"), calculateEnergyIncrease(TechRebornConfig.overclockerPower + 1, count, shiftHeld), "x", false));
 			}
 			case TRANSFORMER -> shouldStackCalculate = false;
-			case ENERGY_STORAGE -> tips.add(getStatStringUnit(I18n.translate("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E", true));
-			case SUPERCONDUCTOR -> tips.add(getStatStringUnit(I18n.translate("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%", true));
+			case ENERGY_STORAGE -> tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E", true));
+			case SUPERCONDUCTOR -> tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%", true));
 		}
 
 		// Add reminder that they can use shift to calculate the entire stack
 		if (shouldStackCalculate && !shiftHeld) {
-			tips.add(Text.literal(instructColour + I18n.translate("techreborn.tooltip.stack_info")));
+			tips.add(Component.literal(instructColour + I18n.get("techreborn.tooltip.stack_info")));
 		}
 
 		return tips;
 	}
 
-	public static void addInfo(String inKey, List<Text> list) {
+	public static void addInfo(String inKey, List<Component> list) {
 		addInfo(inKey, list, true);
 	}
 
-	public static void addInfo(String inKey, List<Text> list, boolean hidden) {
+	public static void addInfo(String inKey, List<Component> list, boolean hidden) {
 		String key = ("techreborn.message.info." + inKey);
 
-		if (I18n.hasTranslation(key)) {
+		if (I18n.exists(key)) {
 			if (!hidden || Screen.hasShiftDown()) {
-				String info = I18n.translate(key);
-				List<MutableText> infoLines = Arrays.stream(info.split("\\r?\\n"))
-					.map(infoLine -> Text.literal(infoColour + infoLine)).toList();
+				String info = I18n.get(key);
+				List<MutableComponent> infoLines = Arrays.stream(info.split("\\r?\\n"))
+					.map(infoLine -> Component.literal(infoColour + infoLine)).toList();
 				list.addAll(1, infoLines);
 			} else {
-				list.add(Text.literal(instructColour + I18n.translate("techreborn.tooltip.more_info")));
+				list.add(Component.literal(instructColour + I18n.get("techreborn.tooltip.more_info")));
 			}
 		}
 	}
@@ -131,9 +131,9 @@ public class ToolTipAssistUtils {
 		return calculatedVal;
 	}
 
-	private static Text getStatStringUnit(String text, double value, String unit, boolean isPositive) {
+	private static Component getStatStringUnit(String text, double value, String unit, boolean isPositive) {
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US); // Always use dot
 		NumberFormat formatter = new DecimalFormat("##.##", symbols); // Round to 2 decimal places
-		return Text.literal(statColour + text + ": " + ((isPositive) ? posColour : negColour) + formatter.format(value) + unit);
+		return Component.literal(statColour + text + ": " + ((isPositive) ? posColour : negColour) + formatter.format(value) + unit);
 	}
 }

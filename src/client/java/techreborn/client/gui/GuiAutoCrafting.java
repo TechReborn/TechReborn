@@ -25,9 +25,9 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -40,14 +40,14 @@ import techreborn.packets.serverbound.AutoCraftingLockPayload;
 public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	final AutoCraftingTableBlockEntity blockEntityAutoCraftingTable;
 
-	public GuiAutoCrafting(int syncID, PlayerEntity player, AutoCraftingTableBlockEntity blockEntity) {
+	public GuiAutoCrafting(int syncID, Player player, AutoCraftingTableBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntityAutoCraftingTable = blockEntity;
 	}
 
 	@Override
-	protected void drawForeground(DrawContext drawContext, int mouseX, int mouseY) {
-		super.drawForeground(drawContext, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntityAutoCraftingTable.getProgress(), blockEntityAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -55,8 +55,8 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(DrawContext drawContext, final float f, int mouseX, int mouseY) {
-		super.drawBackground(drawContext, f, mouseX, mouseY);
+	protected void renderBg(GuiGraphics drawContext, final float f, int mouseX, int mouseY) {
+		super.renderBg(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -71,8 +71,8 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 		if (result != null) {
 			int x = 95 + getGuiLeft();
 			int y = 42 + getGuiTop();
-			drawContext.drawItem(result, x, y);
-			drawContext.drawStackOverlay(getTextRenderer(), result, x, y, null);
+			drawContext.renderItem(result, x, y);
+			drawContext.renderItemDecorations(getFont(), result, x, y, null);
 		}
 
 		builder.drawLockButton(drawContext, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);
@@ -81,7 +81,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 		if (isPointInRect(145, 4, 20, 12, mouseX, mouseY)) {
-			ClientPlayNetworking.send(new AutoCraftingLockPayload(blockEntityAutoCraftingTable.getPos(), !blockEntityAutoCraftingTable.locked));
+			ClientPlayNetworking.send(new AutoCraftingLockPayload(blockEntityAutoCraftingTable.getBlockPos(), !blockEntityAutoCraftingTable.locked));
 			return true;
 		}
 		return super.mouseClicked(mouseX, mouseY, mouseButton);

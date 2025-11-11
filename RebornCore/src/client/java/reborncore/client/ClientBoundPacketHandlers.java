@@ -25,14 +25,14 @@
 package reborncore.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.storage.NbtReadView;
-import net.minecraft.util.ErrorReporter;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.TagValueInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.RebornCore;
@@ -52,12 +52,12 @@ public class ClientBoundPacketHandlers {
 
 	public static void init() {
 		ClientPlayNetworking.registerGlobalReceiver(CustomDescriptionPayload.ID, (payload, context) -> {
-			World world = MinecraftClient.getInstance().world;
-			if (world.isChunkLoaded(payload.pos())) {
+			ClientLevel world = Minecraft.getInstance().level;
+			if (world.isLoaded(payload.pos())) {
 				BlockEntity blockentity = world.getBlockEntity(payload.pos());
 				if (blockentity != null && payload.nbt() != null) {
-					try (ErrorReporter.Logging logging = new ErrorReporter.Logging(blockentity.getReporterContext(), LOGGER)) {
-						blockentity.read(NbtReadView.create(logging, world.getRegistryManager(), payload.nbt()));
+					try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(blockentity.problemPath(), LOGGER)) {
+						blockentity.loadWithComponents(TagValueInput.create(logging, world.registryAccess(), payload.nbt()));
 					}
 				}
 			}
@@ -65,10 +65,10 @@ public class ClientBoundPacketHandlers {
 
 		ClientPlayNetworking.registerGlobalReceiver(FluidConfigSyncPayload.ID, (payload, context) -> {
 			FluidConfiguration fluidConfiguration = payload.fluidConfiguration();
-			if (!MinecraftClient.getInstance().world.isChunkLoaded(payload.pos())) {
+			if (!Minecraft.getInstance().level.isLoaded(payload.pos())) {
 				return;
 			}
-			MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) MinecraftClient.getInstance().world.getBlockEntity(payload.pos());
+			MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) Minecraft.getInstance().level.getBlockEntity(payload.pos());
 			if (machineBase == null || machineBase.fluidConfiguration == null || fluidConfiguration == null) {
 				RebornCore.LOGGER.error("Failed to sync fluid config data to " + payload.pos());
 				return;
@@ -80,21 +80,21 @@ public class ClientBoundPacketHandlers {
 
 		ClientPlayNetworking.registerGlobalReceiver(SlotSyncPayload.ID, (payload, context) -> {
 			SlotConfiguration slotConfig = payload.slotConfig();
-			if (!MinecraftClient.getInstance().world.isChunkLoaded(payload.pos())) {
+			if (!Minecraft.getInstance().level.isLoaded(payload.pos())) {
 				return;
 			}
-			MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) MinecraftClient.getInstance().world.getBlockEntity(payload.pos());
+			MachineBaseBlockEntity machineBase = (MachineBaseBlockEntity) Minecraft.getInstance().level.getBlockEntity(payload.pos());
 			if (machineBase == null || machineBase.getSlotConfiguration() == null || slotConfig == null || slotConfig.getSlotDetails() == null) {
 				RebornCore.LOGGER.error("Failed to sync slot data to " + payload.pos());
 				return;
 			}
-			MinecraftClient.getInstance().execute(() -> slotConfig.getSlotDetails().forEach(slotConfigHolder -> machineBase.getSlotConfiguration().updateSlotDetails(slotConfigHolder)));
+			Minecraft.getInstance().execute(() -> slotConfig.getSlotDetails().forEach(slotConfigHolder -> machineBase.getSlotConfiguration().updateSlotDetails(slotConfigHolder)));
 		});
 
 		ClientPlayNetworking.registerGlobalReceiver(ScreenHandlerUpdatePayload.ID, (payload, context) -> {
-			Screen gui = MinecraftClient.getInstance().currentScreen;
-			if (gui instanceof HandledScreen handledScreen) {
-				ScreenHandler screenHandler = handledScreen.getScreenHandler();
+			Screen gui = Minecraft.getInstance().screen;
+			if (gui instanceof AbstractContainerScreen handledScreen) {
+				AbstractContainerMenu screenHandler = handledScreen.getMenu();
 				if (screenHandler instanceof BuiltScreenHandler builtScreenHandler) {
 					builtScreenHandler.applyScreenHandlerData(payload.data());
 				}

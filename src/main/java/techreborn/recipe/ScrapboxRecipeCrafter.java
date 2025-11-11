@@ -24,7 +24,6 @@
 
 package techreborn.recipe;
 
-import net.minecraft.block.entity.BlockEntity;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -32,6 +31,7 @@ import techreborn.init.ModRecipes;
 import techreborn.recipe.recipes.ScrapBoxRecipe;
 
 import java.util.List;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * @author drcrazy
@@ -52,14 +52,14 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 	@Override
 	public void updateCurrentRecipe() {
 		if(RecipeListCache == null){
-			RecipeListCache = RecipeUtils.getRecipes(blockEntity.getWorld(), ModRecipes.SCRAPBOX);
+			RecipeListCache = RecipeUtils.getRecipes(blockEntity.getLevel(), ModRecipes.SCRAPBOX);
 		}
 		List<ScrapBoxRecipe> scrapboxRecipeList = RecipeListCache;
 		if (scrapboxRecipeList.isEmpty()) {
 			setCurrentRecipe(null);
 			return;
 		}
-		int random = blockEntity.getWorld().random.nextInt(scrapboxRecipeList.size());
+		int random = blockEntity.getLevel().random.nextInt(scrapboxRecipeList.size());
 		// Sets the current recipe then syncs
 		setCurrentRecipe(scrapboxRecipeList.get(random));
 		this.currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);

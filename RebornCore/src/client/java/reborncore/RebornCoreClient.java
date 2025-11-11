@@ -35,8 +35,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.client.*;
 import reborncore.client.gui.ThemeManager;
@@ -61,21 +61,21 @@ public class RebornCoreClient implements ClientModInitializer {
 		});
 
 		ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-			String strangeMcLang = client.getLanguageManager().getLanguage();
+			String strangeMcLang = client.getLanguageManager().getSelected();
 			RebornCore.locale = Locale.forLanguageTag(strangeMcLang.substring(0, 2));
 		});
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (client.options.jumpKey.isPressed()) {
+			if (client.options.keyJump.isDown()) {
 				ClientJumpEvent.EVENT.invoker().jump();
 			}
 		});
 
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES)
+		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
 			.registerReloadListener(new ThemeManager());
 
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			Identifier.of("reborncore", "reborncore_darkmode"),
+			ResourceLocation.fromNamespaceAndPath("reborncore", "reborncore_darkmode"),
 			FabricLoader.getInstance().getModContainer("reborncore").get(),
 			ResourcePackActivationType.NORMAL
 		);

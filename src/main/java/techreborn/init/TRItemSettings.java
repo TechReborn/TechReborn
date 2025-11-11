@@ -24,33 +24,33 @@
 
 package techreborn.init;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.TooltipDisplay;
 import techreborn.TechReborn;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class TRItemSettings {
-	public static TooltipDisplayComponent UNBREAKABLE_HIDE = new TooltipDisplayComponent(
-		false, new LinkedHashSet<>(Set.of(DataComponentTypes.UNBREAKABLE))
+	public static TooltipDisplay UNBREAKABLE_HIDE = new TooltipDisplay(
+		false, new LinkedHashSet<>(Set.of(DataComponents.UNBREAKABLE))
 	);
 
-	public static Item.Settings item(String name) {
-		return new Item.Settings().registryKey(key(name));
+	public static Item.Properties item(String name) {
+		return new Item.Properties().setId(key(name));
 	}
 
-	public static Item.Settings unbreakable(String name) {
-		return item(name).component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE)
-			.component(DataComponentTypes.TOOLTIP_DISPLAY, UNBREAKABLE_HIDE);
+	public static Item.Properties unbreakable(String name) {
+		return item(name).component(DataComponents.UNBREAKABLE, Unit.INSTANCE)
+			.component(DataComponents.TOOLTIP_DISPLAY, UNBREAKABLE_HIDE);
 	}
 
-	public static RegistryKey<Item> key(String name) {
-		return RegistryKey.of(Registries.ITEM.getKey(), Identifier.of(TechReborn.MOD_ID, name));
+	public static ResourceKey<Item> key(String name) {
+		return ResourceKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 	}
 }

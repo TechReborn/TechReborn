@@ -24,7 +24,7 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.resources.model.Material;
 import reborncore.client.gui.GuiSprites;
 
 public enum SlotType {
@@ -34,11 +34,11 @@ public enum SlotType {
 	int slotOffsetY;
 	int textureWidth;
 	int textureHeight;
-	SpriteIdentifier sprite;
-	SpriteIdentifier buttonSprite;
-	SpriteIdentifier buttonHoverOverlay;
+	Material sprite;
+	Material buttonSprite;
+	Material buttonHoverOverlay;
 
-	SlotType(int slotOffsetX, int slotOffsetY, int textureWidth, int textureHeight, SpriteIdentifier sprite, SpriteIdentifier buttonSprite, SpriteIdentifier buttonHoverOverlay) {
+	SlotType(int slotOffsetX, int slotOffsetY, int textureWidth, int textureHeight, Material sprite, Material buttonSprite, Material buttonHoverOverlay) {
 		this.slotOffsetX = slotOffsetX;
 		this.slotOffsetY = slotOffsetY;
 		this.textureWidth  = textureWidth;
@@ -56,15 +56,15 @@ public enum SlotType {
 		return textureHeight;
 	}
 
-	public SpriteIdentifier getSprite() {
+	public Material getSprite() {
 		return sprite;
 	}
 
-	public SpriteIdentifier getButtonSprite() {
+	public Material getButtonSprite() {
 		return buttonSprite;
 	}
 
-	public SpriteIdentifier getButtonHoverOverlay() {
+	public Material getButtonHoverOverlay() {
 		return buttonHoverOverlay;
 	}
 }

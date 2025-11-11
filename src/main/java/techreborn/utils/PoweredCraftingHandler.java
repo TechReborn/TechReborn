@@ -24,20 +24,20 @@
 
 package techreborn.utils;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.RecipeInputInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
 import reborncore.api.events.ItemCraftCallback;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
 
 import java.util.stream.IntStream;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 public final class PoweredCraftingHandler implements ItemCraftCallback {
 
@@ -49,10 +49,10 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 	}
 
 	@Override
-	public void onCraft(ItemStack stack, RecipeInputInventory craftingInventory, PlayerEntity playerEntity) {
+	public void onCraft(ItemStack stack, CraftingContainer craftingInventory, Player playerEntity) {
 		if (stack.getItem() instanceof RcEnergyItem energyItem) {
-			long totalEnergy = IntStream.range(0, craftingInventory.size())
-					.mapToObj(craftingInventory::getStack)
+			long totalEnergy = IntStream.range(0, craftingInventory.getContainerSize())
+					.mapToObj(craftingInventory::getItem)
 					.filter(s -> !s.isEmpty())
 					.mapToLong(s -> {
 						if (s.getItem() instanceof RcEnergyItem inputItem) {
@@ -66,29 +66,29 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 			energyItem.setStoredEnergy(stack, Math.min(totalEnergy, energyItem.getEnergyCapacity(stack)));
 		}
 
-		if (!Registries.ITEM.getId(stack.getItem()).getNamespace().equalsIgnoreCase(TechReborn.MOD_ID)) {
+		if (!BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equalsIgnoreCase(TechReborn.MOD_ID)) {
 			return;
 		}
 
-		ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(ItemEnchantmentsComponent.DEFAULT);
+		ItemEnchantments.Mutable builder = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
 
 		boolean didEnchant = false;
 
-		for (int i = 0; i < craftingInventory.size(); i++) {
-			ItemStack ingredient = craftingInventory.getStack(i);
+		for (int i = 0; i < craftingInventory.getContainerSize(); i++) {
+			ItemStack ingredient = craftingInventory.getItem(i);
 			if (ingredient.isEmpty()) {
 				continue;
 			}
-			ItemEnchantmentsComponent existing = stack.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+			ItemEnchantments existing = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
 
-			for (RegistryEntry<Enchantment> enchantment : existing.getEnchantments()) {
-				builder.add(enchantment, existing.getLevel(enchantment));
+			for (Holder<Enchantment> enchantment : existing.keySet()) {
+				builder.upgrade(enchantment, existing.getLevel(enchantment));
 				didEnchant = true;
 			}
 		}
 
 		if (didEnchant) {
-			EnchantmentHelper.set(stack, builder.build());
+			EnchantmentHelper.setEnchantments(stack, builder.toImmutable());
 		}
 	}
 

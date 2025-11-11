@@ -24,13 +24,13 @@
 
 package reborncore.client.gui.config;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 import java.util.Collections;
 import java.util.List;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.item.ItemStack;
 
 public abstract class GuiTab {
 	public static List<GuiTabFactory> TABS = List.of(
@@ -57,7 +57,7 @@ public abstract class GuiTab {
 
 	public void close() {};
 
-	public abstract void draw(DrawContext drawContext, int x, int y);
+	public abstract void draw(GuiGraphics drawContext, int x, int y);
 
 	public boolean click(double mouseX, double mouseY, int mouseButton) {
 		return false;

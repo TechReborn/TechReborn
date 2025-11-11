@@ -24,25 +24,25 @@
 
 package reborncore.common.screen.slot;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.common.util.RebornInventory;
 
 public class UpgradeSlot extends BaseSlot {
 
-	public UpgradeSlot(final net.minecraft.inventory.Inventory inventory, final int index, final int xPosition, final int yPosition) {
+	public UpgradeSlot(final net.minecraft.world.Container inventory, final int index, final int xPosition, final int yPosition) {
 		super(inventory, index, xPosition, yPosition);
 	}
 
 	@Override
-	public boolean canInsert(final ItemStack stack) {
+	public boolean mayPlace(final ItemStack stack) {
 		if (!(stack.getItem() instanceof IUpgrade upgrade)) {
 			return false;
 		}
 		IUpgradeable upgradeable = null;
-		RebornInventory inv = (RebornInventory) inventory;
+		RebornInventory inv = (RebornInventory) container;
 		BlockEntity blockEntity = inv.getBlockEntity();
 		if (blockEntity instanceof IUpgradeable) {
 			upgradeable = (IUpgradeable) blockEntity;
@@ -51,7 +51,7 @@ public class UpgradeSlot extends BaseSlot {
 	}
 
 	@Override
-	public int getMaxItemCount() {
+	public int getMaxStackSize() {
 		return 1;
 	}
 
