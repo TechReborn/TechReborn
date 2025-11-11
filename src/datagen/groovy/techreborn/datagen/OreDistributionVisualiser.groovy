@@ -22,14 +22,14 @@
  * SOFTWARE.
  */
 
-package techreborn
+package techreborn.datagen
 
-import net.minecraft.Bootstrap
 import net.minecraft.SharedConstants
-import net.minecraft.registry.BuiltinRegistries
-import net.minecraft.world.EmptyBlockView
-import net.minecraft.world.gen.HeightContext
-import net.minecraft.world.gen.chunk.DebugChunkGenerator
+import net.minecraft.core.registries.Registries
+import net.minecraft.server.Bootstrap
+import net.minecraft.world.level.EmptyBlockGetter
+import net.minecraft.world.level.levelgen.DebugLevelSource
+import net.minecraft.world.level.levelgen.WorldGenerationContext
 import techreborn.world.OreDistribution
 import techreborn.world.TargetDimension
 
@@ -55,7 +55,7 @@ class OreDistributionVisualiser {
 	static void main(String[] args) {
 		// Start the game up enough
 		SharedConstants.createGameVersion()
-		Bootstrap.initialize()
+		Bootstrap.bootStrap()
 
 		generateOreDistributionVisualization()
 	}
@@ -99,24 +99,24 @@ class OreDistributionVisualiser {
 				.toList()
 	}
 
-	private static class FixedHeightContext extends HeightContext {
+	private static class FixedHeightContext extends WorldGenerationContext {
 		final int minY
 		final int height
 
 		FixedHeightContext(int minY, int height) {
-			super(new DebugChunkGenerator(BuiltinRegistries.BIOME), EmptyBlockView.INSTANCE)
+			super(new DebugLevelSource(Registries.BIOME), EmptyBlockGetter.INSTANCE)
 
 			this.minY = minY
 			this.height = height
 		}
 
 		@Override
-		int getMinY() {
+		int getMinGenY() {
 			return minY
 		}
 
 		@Override
-		int getHeight() {
+		int getGenDepth() {
 			return height
 		}
 	}
