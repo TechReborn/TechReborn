@@ -21,7 +21,7 @@ jobs:
       - run: ./gradlew build --stacktrace -x runDatagen
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: build/libs/
