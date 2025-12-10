@@ -59,6 +59,10 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BeforeBlockOutlin
 			if (player == context.camera().getEntity()) {
 				ItemStack stack = player.getMainHandItem();
 				if (!stack.isEmpty() && stack.getItem() instanceof MultiBlockBreakingTool tool) {
+					BlockOutlineRenderState state = context.worldState().blockOutlineRenderState;
+					if (state == null) {
+						return;
+					}
 					BlockPos targetPos = blockHitResult.getBlockPos();
 					Level level = player.level();
 					Set<BlockPos> blockPosList = tool.getBlocksToBreak(stack, level, targetPos, player);
@@ -73,7 +77,7 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BeforeBlockOutlin
 					if (shapes.isEmpty()) {
 						return;
 					}
-					context.worldState().blockOutlineRenderState.setData(KEY, shapes);
+					state.setData(KEY, shapes);
 				}
 			}
 		}
