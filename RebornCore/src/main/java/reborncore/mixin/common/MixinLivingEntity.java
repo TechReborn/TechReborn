@@ -25,23 +25,24 @@
 package reborncore.mixin.common;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import reborncore.api.events.ApplyArmorToDamageCallback;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+
 
 @Mixin(LivingEntity.class)
 abstract class MixinLivingEntity {
 
-	@Inject(method = "applyArmorToDamage", at = @At("RETURN"), cancellable = true)
-	public void onApplyArmorToDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir){
+	@ModifyReturnValue(method = "applyArmorToDamage", at = @At("RETURN"))
+	public float onApplyArmorToDamage(float original) {
 
 		LivingEntity entity = (LivingEntity) (Object) this;
-		if (! (entity instanceof PlayerEntity)) { return; }
+		if (!(entity instanceof PlayerEntity)) {
+			return original;
+		}
 
-		cir.setReturnValue(ApplyArmorToDamageCallback.EVENT.invoker().applyArmorToDamage((PlayerEntity) entity, source, amount));
+		return ApplyArmorToDamageCallback.EVENT.invoker().applyArmorToDamage((PlayerEntity) entity, original);
 	}
 }

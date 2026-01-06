@@ -26,16 +26,15 @@ package reborncore.api.events;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 
 public interface ApplyArmorToDamageCallback {
 
 	Event<ApplyArmorToDamageCallback> EVENT = EventFactory.createArrayBacked(ApplyArmorToDamageCallback.class,
-			(listeners) -> (player, damageSource, amount) -> {
-				float damageAmount = amount;
+			(listeners) -> (player, originalAmount) -> {
+				float damageAmount = originalAmount;
 				for (ApplyArmorToDamageCallback listener : listeners){
-					damageAmount = listener.applyArmorToDamage(player, damageSource, damageAmount);
+					damageAmount = listener.applyArmorToDamage(player, damageAmount);
 				}
 				return damageAmount;
 			});
@@ -47,9 +46,9 @@ public interface ApplyArmorToDamageCallback {
 	 * <p>Event is called after damage is being reduced by armor already and before damage reduction from enchants.</p>
 	 *
 	 * @param player {@link PlayerEntity} Player being damaged
-	 * @param source {@link DamageSource} Type of damage
-	 * @param amount {@code float} Current amount of damage
+	 * @param originalAmount {@code float} Current amount of damage
 	 * @return {@code float} Amount of damage after reduction
 	 */
-	float applyArmorToDamage(PlayerEntity player, DamageSource source, float amount);
+	//float applyArmorToDamage(PlayerEntity player, DamageSource source, float amount);
+	float applyArmorToDamage(PlayerEntity player, float originalAmount);
 }
