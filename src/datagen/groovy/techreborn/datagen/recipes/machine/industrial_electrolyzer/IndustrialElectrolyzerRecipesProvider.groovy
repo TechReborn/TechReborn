@@ -110,7 +110,7 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 			power 50
 			time 1400
 			ingredients stack(TRContent.Dusts.COAL), cellStack(Fluids.EMPTY)
-			outputs cellStack(ModFluids.CARBON, 2)
+			outputs cellStack(ModFluids.CARBON)
 		}
 		offerIndustrialElectrolyzerRecipe {
 			power 50
@@ -133,7 +133,7 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 		offerIndustrialElectrolyzerRecipe {
 			power 50
 			time 1100
-			ingredients stack(TRContent.Dusts.FLINT, 8), cellStack(Fluids.EMPTY)
+			ingredients stack(TRContent.Dusts.FLINT, 8), cellStack(Fluids.EMPTY, 2)
 			outputs cellStack(ModFluids.SILICON), cellStack(ModFluids.COMPRESSED_AIR)
 		}
 		offerIndustrialElectrolyzerRecipe {
@@ -205,7 +205,7 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 		offerIndustrialElectrolyzerRecipe {
 			power 40
 			time 1000
-			ingredients stack(Items.SAND, 16), cellStack(Fluids.EMPTY)
+			ingredients stack(Items.SAND, 16), cellStack(Fluids.EMPTY, 2)
 			outputs cellStack(ModFluids.SILICON), cellStack(ModFluids.COMPRESSED_AIR)
 		}
 		offerIndustrialElectrolyzerRecipe {
