@@ -518,7 +518,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			ingredient {
 				stack cellStack(ModFluids.CARBON, 5)
 			}
-			outputs stack(Items.SOUL_SAND, 8)
+			outputs stack(Items.SOUL_SAND, 8), stack(TRContent.CELL, 5)
 		}
 		offerBlastFurnaceRecipe {
 			power 128
