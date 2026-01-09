@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.machine;
+/*package techreborn.client.compat.rei.machine;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -68,3 +68,4 @@ public class BlastFurnaceCategory<R extends RebornRecipe> extends AbstractEnergy
 		return widgets;
 	}
 }
+*/

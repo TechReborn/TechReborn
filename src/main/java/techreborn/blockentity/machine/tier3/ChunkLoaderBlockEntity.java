@@ -88,7 +88,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		int loadRadius = radius - 1;
 		for (int i = -loadRadius; i <= loadRadius; i++) {
 			for (int j = -loadRadius; j <= loadRadius; j++) {
-				ChunkPos loadPos = new ChunkPos(rootPos.x + i, rootPos.z + j);
+				ChunkPos loadPos = new ChunkPos(rootPos.x() + i, rootPos.z() + j);
 
 				if (!manager.isChunkLoaded(getLevel(), loadPos, getBlockPos())) {
 					manager.loadChunk(getLevel(), loadPos, getBlockPos(), ownerUdid);
@@ -103,7 +103,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	public ChunkPos getChunkPos() {
-		return new ChunkPos(getBlockPos());
+		return ChunkPos.containing(getBlockPos());
 	}
 
 	// MachineBaseBlockEntity

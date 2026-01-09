@@ -30,7 +30,6 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.FaceBakery;
@@ -39,6 +38,7 @@ import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.item.ModelRenderProperties;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.client.resources.model.Material;
@@ -59,6 +59,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
 
@@ -74,9 +75,9 @@ public class ItemCellModel implements ItemModel {
 	public static final Identifier CELL_GLASS = CELL.withSuffix("_glass");
 	private final RenderType layer;
 	private final ModelRenderProperties settings;
-	private final Function<Fluid, Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bake;
-	private final HashMap<Fluid, Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> CACHE_BAKED = new HashMap<>();
-	ItemCellModel(ModelRenderProperties modelSettings, Function<Fluid, Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bakeModel) {
+	private final Function<Fluid, Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer>> bake;
+	private final HashMap<Fluid, Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer>> CACHE_BAKED = new HashMap<>();
+	ItemCellModel(ModelRenderProperties modelSettings, Function<Fluid, Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer>> bakeModel) {
 		layer = Sheets.translucentItemSheet();
 		settings = modelSettings;
 		bake = bakeModel;
@@ -97,7 +98,7 @@ public class ItemCellModel implements ItemModel {
 		layerRenderState.setRenderType(layer);
 		Fluid fluid = stack.getItem() instanceof ItemFluidInfo fluidInfo ? fluidInfo.getFluid(stack) : Fluids.EMPTY;
 		state.appendModelIdentityElement(fluid);
-		Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer> baked = CACHE_BAKED.computeIfAbsent(fluid, bake);
+		Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer> baked = CACHE_BAKED.computeIfAbsent(fluid, bake);
 		layerRenderState.prepareQuadList().addAll(baked.getLeft());
 		layerRenderState.setExtents(baked.getMiddle());
 		layerRenderState.prepareTintLayers(1)[0] = baked.getRight();
@@ -120,11 +121,11 @@ public class ItemCellModel implements ItemModel {
 			ResolvedModel baseModel = baker.getModel(CELL_BASE);
 			ResolvedModel backgroundModel = baker.getModel(CELL_BACKGROUND);
 			ResolvedModel glassModel = baker.getModel(CELL_GLASS);
-			List<BakedQuad> backgroundQuads = backgroundModel.bakeTopGeometry(backgroundModel.getTopTextureSlots(), baker, BlockModelRotation.X0_Y0).getAll();
+			List<BakedQuad> backgroundQuads = backgroundModel.bakeTopGeometry(backgroundModel.getTopTextureSlots(), baker, BlockModelRotation.IDENTITY).getAll();
 			TextureSlots modelTextures = baseModel.getTopTextureSlots();
 			ModelRenderProperties modelSettings = ModelRenderProperties.fromResolvedModel(baker, baseModel, modelTextures);
-			List<BakedQuad> baseQuads = baseModel.bakeTopGeometry(modelTextures, baker, BlockModelRotation.X0_Y0).getAll();
-			List<BakedQuad> glassQuads = glassModel.bakeTopGeometry(glassModel.getTopTextureSlots(), baker, BlockModelRotation.X0_Y0).getAll();
+			List<BakedQuad> baseQuads = baseModel.bakeTopGeometry(modelTextures, baker, BlockModelRotation.IDENTITY).getAll();
+			List<BakedQuad> glassQuads = glassModel.bakeTopGeometry(glassModel.getTopTextureSlots(), baker, BlockModelRotation.IDENTITY).getAll();
 			return new ItemCellModel(modelSettings, (Fluid fluid) -> {
 				List<BakedQuad> list = new ArrayList<>(backgroundQuads);
 				Pair<TextureAtlasSprite, Integer> pair = parseFluid(fluid);
@@ -163,23 +164,26 @@ public class ItemCellModel implements ItemModel {
 			TextureSlots.Data textures = new TextureSlots.Data.Builder()
 				.addTexture(TextureSlot.TEXTURE.getId(), texture).build();
 			TextureSlots sprites = new TextureSlots.Resolver().addLast(textures).resolve(null);
-			QuadCollection baked = model.getTopGeometry().bake(sprites, baker, BlockModelRotation.X0_Y0, model);
+			QuadCollection baked = model.getTopGeometry().bake(sprites, baker, BlockModelRotation.IDENTITY, model);
 			return replaceTint(baked.getAll(), 0);
 		}
 
-		public static Supplier<Vector3f[]> bakeVector(List<BakedQuad> quads) {
-			Set<Vector3f> set = new HashSet<>();
+		public static Supplier<Vector3fc[]> bakeVector(List<BakedQuad> quads) {
+			Set<Vector3fc> set = new HashSet<>();
 			for (BakedQuad bakedQuad : quads) {
-				FaceBakery.extractPositions(bakedQuad.vertices(), set::add);
+				set.add(bakedQuad.position0());
+				set.add(bakedQuad.position1());
+				set.add(bakedQuad.position2());
+				set.add(bakedQuad.position3());
 			}
-			Vector3f[] vector = set.toArray(Vector3f[]::new);
+			Vector3fc[] vector = set.toArray(Vector3fc[]::new);
 			return () -> vector;
 		}
 
 		public static List<BakedQuad> replaceTint(List<BakedQuad> quads, int index) {
 			List<BakedQuad> list = new ArrayList<>(quads.size());
 			for (BakedQuad quad : quads) {
-				list.add(new BakedQuad(quad.vertices(), index, quad.direction(), quad.sprite(), quad.shade(), quad.lightEmission()));
+				list.add(new BakedQuad(quad.position0(), quad.position1(), quad.position2(), quad.position3(), quad.packedUV0(), quad.packedUV1(), quad.packedUV2(), quad.packedUV3(), index, quad.direction(), quad.sprite(), quad.shade(), quad.lightEmission()));
 			}
 			return list;
 		}

@@ -71,7 +71,7 @@ public class BlockNuke extends BaseBlock {
 	public void wasExploded(ServerLevel worldIn, BlockPos pos, Explosion explosionIn) {
 		EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (float) pos.getX() + 0.5F,
 				pos.getY(), (float) pos.getZ() + 0.5F, explosionIn.getIndirectSourceEntity());
-		entitynukeprimed.setFuse(worldIn.random.nextInt(TechRebornConfig.nukeFuseTime / 4) + TechRebornConfig.nukeFuseTime / 8);
+		entitynukeprimed.setFuse(worldIn.getRandom().nextInt(TechRebornConfig.nukeFuseTime / 4) + TechRebornConfig.nukeFuseTime / 8);
 		worldIn.addFreshEntity(entitynukeprimed);
 	}
 

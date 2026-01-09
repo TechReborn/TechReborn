@@ -59,7 +59,7 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 			setCurrentRecipe(null);
 			return;
 		}
-		int random = blockEntity.getLevel().random.nextInt(scrapboxRecipeList.size());
+		int random = blockEntity.getLevel().getRandom().nextInt(scrapboxRecipeList.size());
 		// Sets the current recipe then syncs
 		setCurrentRecipe(scrapboxRecipeList.get(random));
 		this.currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);

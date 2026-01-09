@@ -27,8 +27,9 @@ package reborncore.client;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
@@ -69,7 +70,7 @@ public class ClientChunkManager {
 				.anyMatch(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(Minecraft.getInstance().level)));
 	}
 
-	public static void render(PoseStack matrices, MultiBufferSource vertexConsumers, double x, double y, double z, DebugValueAccess debugValueAccess, Frustum frustum) {
+	public static void render(double camX, double camY, double camZ, DebugValueAccess debugValues, final Frustum frustum, final float partialTicks) {
 		int size = loadedChunks.size();
 		if (size == 0) {
 			return;
@@ -99,11 +100,13 @@ public class ClientChunkManager {
 
 		int bottom = minecraftClient.level.getMinY();
 		int top = minecraftClient.level.getMaxY() + 1;
-		DrawContext ctx = new DrawContext(
-			vertexConsumers.getBuffer(RenderType.debugLineStrip(1.0)),
-			matrices.last().pose(),
-			x, y, z, bottom, top
-		);
+		// TODO: convert to gizmo
+		DrawContext ctx = null;
+		// DrawContext ctx = new DrawContext(
+		// 	vertexConsumers.getBuffer(RenderTypes.lines()),
+		// 	matrices.last().pose(),
+		// 	x, y, z, bottom, top
+		// );
 
 		int chunkSize = 16, middle = chunkSize / 2, end = chunkSize;
 		for (int i = 0; i < size; i++) {

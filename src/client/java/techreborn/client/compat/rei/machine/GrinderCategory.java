@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/*
 package techreborn.client.compat.rei.machine;
 
 import com.google.common.collect.Lists;
@@ -82,3 +83,4 @@ public class GrinderCategory<R extends RebornRecipe> extends AbstractMachineCate
 		return 88;
 	}
 }
+*/

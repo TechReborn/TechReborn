@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine
 
-import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients
 import net.minecraft.core.component.DataComponentPatch
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.ItemLike
@@ -78,7 +78,7 @@ class IngredientBuilder {
 			Ingredient ingredient = Ingredient.of(HolderSet.direct(stack.getItemHolder()))
 
 			if (!components.isEmpty()) {
-				ingredient = new ComponentsIngredient(ingredient, components).toVanilla()
+				ingredient = DefaultCustomIngredients.components(ingredient, components)
 			}
 
 			return new SizedIngredient(stack.getCount(), ingredient)

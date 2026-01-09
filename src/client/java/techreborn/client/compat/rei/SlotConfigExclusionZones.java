@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/* TODO: REI compat
 package techreborn.client.compat.rei;
 
 import com.google.common.collect.Lists;
@@ -60,3 +61,4 @@ public class SlotConfigExclusionZones implements ExclusionZonesProvider<GuiBase<
 		return Collections.emptyList();
 	}
 }
+*/

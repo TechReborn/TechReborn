@@ -122,7 +122,7 @@ public class ModRegistry {
 	}
 
 	private static Item.Properties settings(Block block) {
-		return settings(block.properties().id.location().getPath());
+		return settings(block.properties().id.identifier().getPath());
 	}
 
 	private static Item.Properties settings(String name) {

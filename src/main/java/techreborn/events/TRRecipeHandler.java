@@ -56,7 +56,7 @@ public class TRRecipeHandler {
 		if (recipe.id() == null) {
 			return false;
 		}
-		if (!recipe.id().location().getNamespace().equals(TechReborn.MOD_ID)) {
+		if (!recipe.id().identifier().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
 		return recipe.value().placementInfo().ingredients().stream()

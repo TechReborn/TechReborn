@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/*
 package techreborn.client.compat.rei.machine;
 
 import me.shedaniel.math.Point;
@@ -61,3 +62,4 @@ public class TwoInputsCenterOutputCategory<R extends RebornRecipe> extends Abstr
 		return widgets;
 	}
 }
+*/

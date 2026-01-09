@@ -87,7 +87,7 @@ public record MachineCasingModel(BlockModelPart part) implements BlockStateModel
 		@Override
 		public BlockStateModel bake(BlockState state, ModelBaker baker) {
 			ResolvedModel model = baker.getModel(id);
-			QuadCollection baked = model.getTopGeometry().bake(textures, baker, BlockModelRotation.X0_Y0, model);
+			QuadCollection baked = model.getTopGeometry().bake(textures, baker, BlockModelRotation.IDENTITY, model);
 			return new MachineCasingModel(new SimpleModelWrapper(baked, model.getTopAmbientOcclusion(), baker.sprites().get(particle, model)));
 		}
 

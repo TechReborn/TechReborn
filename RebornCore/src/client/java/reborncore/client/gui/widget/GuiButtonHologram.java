@@ -34,7 +34,7 @@ public class GuiButtonHologram extends GuiButtonExtended {
 	}
 
 	@Override
-	protected void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
+	public void renderContents(GuiGraphics graphics, int mouseX, int mouseY, float a) {
 
 	}
 }

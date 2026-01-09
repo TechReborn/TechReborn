@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.machine;
+/*package techreborn.client.compat.rei.machine;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -67,4 +67,4 @@ public class ElectrolyzerCategory<R extends RebornRecipe> extends AbstractEnergy
 	public int getDisplayHeight() {
 		return 66;
 	}
-}
+}*/

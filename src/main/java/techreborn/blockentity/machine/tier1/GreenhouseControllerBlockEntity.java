@@ -104,7 +104,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			) {
 				if (getStored() > TechRebornConfig.greenhouseControllerEnergyPerBonemeal) {
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerBonemeal);
-					blockState.randomTick((ServerLevel) level, blockPos, level.random);
+					blockState.randomTick((ServerLevel) level, blockPos, level.getRandom());
 				}
 			}
 		}

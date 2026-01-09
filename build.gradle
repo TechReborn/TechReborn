@@ -5,7 +5,7 @@ plugins {
 	id 'idea'
 	id 'eclipse'
 	id 'maven-publish'
-	id 'com.diffplug.spotless' version '6.19.0'
+	// id 'com.diffplug.spotless' version '6.19.0'
 	id 'net.fabricmc.fabric-loom' version '1.14-SNAPSHOT'
     id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
 }
@@ -39,7 +39,7 @@ allprojects {
 
     apply plugin: "net.fabricmc.fabric-loom"
     apply plugin: "maven-publish"
-	apply plugin: "com.diffplug.spotless"
+	// apply plugin: "com.diffplug.spotless"
 
     repositories {
         maven { url 'https://jitpack.io' }
@@ -107,25 +107,25 @@ allprojects {
         }
     }
 
-	spotless {
-		java {
-			licenseHeaderFile(file("HEADER"))
-			removeUnusedImports()
-			indentWithTabs()
-			trimTrailingWhitespace()
-			endWithNewline()
-		}
-	}
+	// spotless {
+	// 	java {
+	// 		licenseHeaderFile(file("HEADER"))
+	// 		removeUnusedImports()
+	// 		indentWithTabs()
+	// 		trimTrailingWhitespace()
+	// 		endWithNewline()
+	// 	}
+	// }
 }
 
-spotless {
-	groovy {
-		licenseHeaderFile(file("HEADER"))
-		indentWithTabs()
-		trimTrailingWhitespace()
-		endWithNewline()
-	}
-}
+//spotless {
+//    groovy {
+//        licenseHeaderFile(file("HEADER"))
+//        indentWithTabs()
+//        trimTrailingWhitespace()
+//        endWithNewline()
+//    }
+//}
 
 processResources {
     doLast {
@@ -193,7 +193,7 @@ dependencies {
     // optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
-    datagenImplementation 'org.apache.groovy:groovy:4.0.21'
+    datagenImplementation 'org.apache.groovy:groovy:5.0.3'
 }
 
 def optionalDependency(String dep) {
@@ -218,7 +218,8 @@ def optionalREIDependency(runtime = true) {
 	}
 }
 
-tasks.sourcesJar.dependsOn runDatagen
+// TODO: Datagen
+// tasks.sourcesJar.dependsOn runDatagen
 
 jar {
 	exclude "**/*.psd"
@@ -226,8 +227,8 @@ jar {
 
     // A bit of a hack to allow the generated sources when they already exist
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    dependsOn 'runDatagen'
+    // TODO: Datagen
+    // dependsOn 'runDatagen'
 }
 
 import groovy.json.JsonSlurper

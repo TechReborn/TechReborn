@@ -25,10 +25,10 @@
 package techreborn.datagen.recipes.machine
 
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
-import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions
 import net.minecraft.advancements.Advancement.Builder
 import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.critereon.InventoryChangeTrigger
+import net.minecraft.advancements.criterion.InventoryChangeTrigger
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
@@ -235,7 +235,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		def recipe = createRecipe()
 
 		if (!conditions.isEmpty()) {
-			FabricDataGenHelper.addConditions(recipe, conditions.toArray() as ResourceCondition[])
+			recipe.add(ResourceConditions.CONDITIONS_KEY, ResourceCondition.LIST_CODEC.encodeStart(JsonOps.INSTANCE, Arrays.asList(conditions)).getOrThrow());
 		}
 
 		exporter.accept(key, recipe, builder.build(advancementId))

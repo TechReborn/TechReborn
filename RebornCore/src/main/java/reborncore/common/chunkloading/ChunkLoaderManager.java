@@ -160,7 +160,7 @@ public class ChunkLoaderManager extends SavedData {
 	}
 
 	public static Identifier getWorldName(Level world){
-		return world.dimension().location();
+		return world.dimension().identifier();
 	}
 
 	public static ResourceKey<Level> getDimensionRegistryKey(Level world){
@@ -191,8 +191,8 @@ public class ChunkLoaderManager extends SavedData {
 	public record LoadedChunk(ChunkPos chunk, Identifier world, String player, BlockPos chunkLoader) {
 		public static Codec<ChunkPos> CHUNK_POS_CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
-					Codec.INT.fieldOf("x").forGetter(p -> p.x),
-					Codec.INT.fieldOf("z").forGetter(p -> p.z)
+					Codec.INT.fieldOf("x").forGetter(p -> p.x()),
+					Codec.INT.fieldOf("z").forGetter(p -> p.z())
 				)
 				.apply(instance, ChunkPos::new));
 
@@ -206,8 +206,8 @@ public class ChunkLoaderManager extends SavedData {
 				.apply(instance, LoadedChunk::new));
 
 		public static StreamCodec<ByteBuf, ChunkPos> CHUNK_POS_PACKET_CODEC = StreamCodec.composite(
-			ByteBufCodecs.INT, chunkPos -> chunkPos.x,
-			ByteBufCodecs.INT, chunkPos -> chunkPos.z,
+			ByteBufCodecs.INT, chunkPos -> chunkPos.x(),
+			ByteBufCodecs.INT, chunkPos -> chunkPos.z(),
 			ChunkPos::new
 		);
 

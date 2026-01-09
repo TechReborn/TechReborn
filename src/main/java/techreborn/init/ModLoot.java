@@ -24,7 +24,7 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -40,6 +40,7 @@ import techreborn.init.TRContent.Parts;
 public class ModLoot {
 
 	public static void init() {
+
 
 		LootPoolEntryContainer copperIngot = makeEntry(Items.COPPER_INGOT);
 		LootPoolEntryContainer tinIngot = makeEntry(Ingots.TIN);
@@ -86,8 +87,8 @@ public class ModLoot {
 				.with(industrialFrame).with(industrialCircuit).with(energyFlowChip).setRolls(UniformGenerator.between(1.0f, 3.0f))
 				.build();
 
-		LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
-			String stringId = key.location().toString();
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, _) -> {
+			String stringId = key.identifier().toString();
 			if (!stringId.startsWith("minecraft:gameplay") && !stringId.startsWith("minecraft:chests")) {
 				return;
 			}

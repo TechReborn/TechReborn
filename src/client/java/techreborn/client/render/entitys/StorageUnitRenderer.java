@@ -83,7 +83,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Item rendering
 		state.direction = storage.getFacing();
 		state.rotate = (state.direction.get2DDataValue() - 2) * 90F;
-		state.lightAbove = LevelRenderer.getLightColor(storage.getLevel(), storage.getBlockPos().relative(storage.getFacing()));
+		state.lightAbove = LevelRenderer.getLightCoords(storage.getLevel(), storage.getBlockPos().relative(storage.getFacing()));
 		state.item = new ItemStackRenderState();
 		itemModelResolver.updateForTopItem(state.item, stack, ItemDisplayContext.FIXED, storage.getLevel(), null, 0);
 		// Text rendering

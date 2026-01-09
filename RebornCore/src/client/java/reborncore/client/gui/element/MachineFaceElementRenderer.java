@@ -35,10 +35,10 @@ import net.minecraft.client.gui.render.state.BlitRenderState;
 import net.minecraft.client.gui.render.state.GuiRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -136,7 +136,7 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 		}
 
 		public void update(MachineFaceState state, PoseStack matrices, MultiBufferSource.BufferSource vertexConsumers) {
-			vertexConsumer = vertexConsumers.getBuffer(RenderType.solid());
+			vertexConsumer = vertexConsumers.getBuffer(RenderTypes.solidMovingBlock());
 			model = state.model();
 			light = OverlayTexture.u(15F);
 			source = matrices.last();
@@ -187,7 +187,8 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 
 		public void update(MachineFaceState element, GuiRenderState guiRenderState, GpuTextureView textureView) {
 			state = guiRenderState;
-			texture = TextureSetup.singleTexture(textureView);
+			// TODO: Texture sampler
+			// texture = TextureSetup.singleTexture(textureView);
 			pose = element.pose();
 			x1 = element.x0();
 			y1 = element.y0();

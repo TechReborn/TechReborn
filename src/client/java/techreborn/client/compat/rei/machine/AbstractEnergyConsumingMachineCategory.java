@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.machine;
+/*package techreborn.client.compat.rei.machine;
 
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Rectangle;
@@ -60,4 +60,4 @@ public abstract class AbstractEnergyConsumingMachineCategory<R extends RebornRec
 		}));
 		return widgets;
 	}
-}
+}*/

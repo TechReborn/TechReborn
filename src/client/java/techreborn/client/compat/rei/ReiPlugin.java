@@ -24,6 +24,7 @@
 
 package techreborn.client.compat.rei;
 
+/* TODO: REI compat
 import dev.architectury.fluid.FluidStack;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.entry.renderer.EntryRenderer;
@@ -317,3 +318,4 @@ public class ReiPlugin implements REIClientPlugin {
 		NONE
 	}
 }
+*/

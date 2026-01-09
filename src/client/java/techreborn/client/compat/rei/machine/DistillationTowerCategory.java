@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.machine;
+/*package techreborn.client.compat.rei.machine;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -61,4 +61,4 @@ public class DistillationTowerCategory<R extends RebornRecipe> extends AbstractE
 		);
 		return widgets;
 	}
-}
+}*/

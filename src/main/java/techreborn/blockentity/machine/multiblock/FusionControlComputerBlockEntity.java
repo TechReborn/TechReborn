@@ -446,7 +446,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			return Identifier.fromNamespaceAndPath("null", "null");
 		}
 
-		return currentRecipeEntry.id().location();
+		return currentRecipeEntry.id().identifier();
 	}
 
 	public void setCurrentRecipeID(Identifier currentRecipeID) {

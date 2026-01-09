@@ -41,13 +41,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.CachedOrthoProjectionMatrixBuffer;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4fStack;
@@ -122,7 +122,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 			diffuseLighting.setupFor(Lighting.Entry.ITEMS_3D);
 		}
 		FeatureRenderDispatcher renderDispatcher = gameRenderer.getFeatureRenderDispatcher();
-		itemRenderState.submit(matrices, renderDispatcher.getSubmitNodeStorage(), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
+		itemRenderState.submit(matrices, renderDispatcher.getSubmitNodeStorage(), LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
 		renderDispatcher.renderAllFeatures();
 		vertexConsumers.endBatch();
 		matrix4fStack.popMatrix();

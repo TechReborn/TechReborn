@@ -24,9 +24,9 @@
 
 package reborncore.client.multiblock;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import reborncore.common.blockentity.MultiblockWriter;
 import java.util.List;
 import java.util.function.BiPredicate;

@@ -30,7 +30,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.PoiTypeTags
 import net.minecraft.world.entity.ai.village.poi.PoiType
-import techreborn.init.TRVillager
+//import techreborn.init.TRVillager
 
 import java.util.concurrent.CompletableFuture
 
@@ -41,8 +41,8 @@ class TRPointOfInterestTagProvider extends FabricTagProvider<PoiType> {
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		builder(PoiTypeTags.ACQUIRABLE_JOB_SITE)
+		/*builder(PoiTypeTags.ACQUIRABLE_JOB_SITE)
 			.add(TRVillager.METALLURGIST_POI_KEY)
-			.add(TRVillager.ELECTRICIAN_POI_KEY)
+			.add(TRVillager.ELECTRICIAN_POI_KEY)*/
 	}
 }

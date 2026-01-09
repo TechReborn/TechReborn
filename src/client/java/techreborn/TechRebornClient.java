@@ -104,7 +104,7 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockRenderLayerMap.putBlock(TRContent.POTTED_RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(TRContent.Machine.FISHING_STATION.block, ChunkSectionLayer.CUTOUT);
 
-		BlockRenderLayerMap.putBlock(TRContent.RUBBER_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
+		BlockRenderLayerMap.putBlock(TRContent.RUBBER_LEAVES, ChunkSectionLayer.CUTOUT);
 
 		for (ModFluids fluid : ModFluids.values()) {
 			BlockRenderLayerMap.putFluid(fluid.getFluid(), ChunkSectionLayer.TRANSLUCENT);

@@ -80,7 +80,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
 			final float lightStrikeChance = (100F - TechRebornConfig.lightningRodChanceOfStrike) * 20F;
 			final float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * (1.1F - weatherStrength);
-			if (world.random.nextInt((int) Math.floor(totalChance)) == 0) {
+			if (world.getRandom().nextInt((int) Math.floor(totalChance)) == 0) {
 				if (!isValidIronFence(pos.above().getY())) {
 					onStatusHoldTicks = 400;
 					return;

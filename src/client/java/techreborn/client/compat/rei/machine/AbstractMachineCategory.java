@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.machine;
+/*package techreborn.client.compat.rei.machine;
 
 import me.shedaniel.rei.api.client.gui.DisplayRenderer;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -84,4 +84,4 @@ public abstract class AbstractMachineCategory<R extends RebornRecipe> implements
 		List<EntryIngredient> outputs = recipeDisplay.getOutputEntries();
 		return outputs.size() > index ? outputs.get(index) : EntryIngredient.empty();
 	}
-}
+}*/

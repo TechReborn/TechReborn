@@ -75,7 +75,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 		}
 
 		@Override
-		public void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
+		public void renderContents(GuiGraphics context, int mouseX, int mouseY, float delta) {
 			super.renderWidget(context, mouseX, mouseY, delta);
 
 			if (isHovered) {

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.client.compat.rei.machine;
+/*package techreborn.client.compat.rei.machine;
 
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Rectangle;
@@ -86,4 +86,4 @@ public class FluidGeneratorRecipeCategory implements DisplayCategory<FluidGenera
 		widgets.add(ReiPlugin.createProgressBar(bounds.x + 76 - 16, bounds.y + 48 - 19, 5000, GuiBuilder.ProgressDirection.RIGHT));
 		return widgets;
 	}
-}
+}*/

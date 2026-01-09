@@ -25,7 +25,7 @@
 package techreborn.init;
 
 import java.util.EnumMap;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;

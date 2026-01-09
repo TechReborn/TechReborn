@@ -57,7 +57,7 @@ public class EntityNukePrimed extends PrimedTnt {
 		this(TRContent.ENTITY_NUKE, world);
 
 		this.setPos(x, y, z);
-		double d = world.random.nextDouble() * 6.2831854820251465;
+		double d = world.getRandom().nextDouble() * 6.2831854820251465;
 		this.setDeltaMovement(-Math.sin(d) * 0.02, 0.2f, -Math.cos(d) * 0.02);
 		this.setFuse(80);
 		this.xo = x;

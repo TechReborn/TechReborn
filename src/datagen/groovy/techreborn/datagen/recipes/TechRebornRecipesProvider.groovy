@@ -27,7 +27,7 @@ package techreborn.datagen.recipes
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.critereon.InventoryChangeTrigger
+import net.minecraft.advancements.criterion.InventoryChangeTrigger
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.world.level.material.Fluid
@@ -35,8 +35,8 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
 import net.minecraft.core.component.DataComponentExactPredicate
-import net.minecraft.advancements.critereon.DataComponentMatchers
-import net.minecraft.advancements.critereon.ItemPredicate
+import net.minecraft.advancements.criterion.DataComponentMatchers
+import net.minecraft.advancements.criterion.ItemPredicate
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.core.registries.BuiltInRegistries

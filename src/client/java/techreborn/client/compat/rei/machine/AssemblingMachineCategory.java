@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/*
 package techreborn.client.compat.rei.machine;
 
 import me.shedaniel.math.Point;
@@ -60,3 +61,4 @@ public class AssemblingMachineCategory<R extends RebornRecipe> extends AbstractE
 		return widgets;
 	}
 }
+*/
