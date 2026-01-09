@@ -74,9 +74,11 @@ public class ModRegistry {
 		registerFluids();
 		registerSounds();
 		registerApis();
+		/* TODO: Villager trading
 		TRVillager.registerVillagerTrades();
 		TRVillager.registerWanderingTraderTrades();
 		TRVillager.registerVillagerHouses();
+		*/
 	}
 
 	private static void registerBlocks() {

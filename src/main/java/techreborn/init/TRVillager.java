@@ -24,6 +24,7 @@
 
 package techreborn.init;
 
+/* TODO: Villager trading
 import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -69,7 +70,9 @@ public class TRVillager {
 
 	public static final ResourceKey<VillagerProfession> ELECTRICIAN_PROFESSION = registerVillagerProfession(ELECTRICIAN_ID, ELECTRICIAN_POI_KEY, ModSounds.CABLE_SHOCK);
 
-	private TRVillager() {/* No instantiation. */}
+	private TRVillager() {*/
+/* No instantiation. *//*
+}
 
 	public static void registerVillagerTrades() {
 		// metallurgist
@@ -175,3 +178,4 @@ public class TRVillager {
 		return key;
 	}
 }
+*/
