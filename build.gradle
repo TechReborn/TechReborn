@@ -41,10 +41,6 @@ allprojects {
     apply plugin: "maven-publish"
 	// apply plugin: "com.diffplug.spotless"
 
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-
     loom {
         runtimeOnlyLog4j = true
         splitEnvironmentSourceSets()
@@ -56,8 +52,7 @@ allprojects {
         implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         //Fabric api
-        // implementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
-        implementation 'lol.bai:fabric-api-stub:a7bc1f3d8a'
+        implementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
 
         include(api("teamreborn:energy:${project.energy_version}")) {
             transitive = false
