@@ -54,12 +54,12 @@ public final class OreDepthSyncHandler {
 	}
 
 	public static void setup() {
-		PayloadTypeRegistry.configurationS2C().register(OreDepthPayload.ID, OreDepthPayload.PACKET_CODEC);
+		PayloadTypeRegistry.clientboundConfiguration().register(OreDepthPayload.ID, OreDepthPayload.PACKET_CODEC);
 
 		ServerConfigurationConnectionEvents.CONFIGURE.register((handler, server) -> {
 			if (ServerConfigurationNetworking.canSend(handler, OreDepthPayload.ID)) {
 				List<OreDepth> oreDepths = OreDepth.create(server);
-				var packet = ServerConfigurationNetworking.createS2CPacket(new OreDepthPayload(oreDepths));
+				var packet = ServerConfigurationNetworking.createClientboundPacket(new OreDepthPayload(oreDepths));
 				handler.send(packet, null);
 			} else {
 				LOGGER.error("Client cannot receive ore depth packet. This may mean that TechReborn is not installed on the client.");

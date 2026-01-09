@@ -24,7 +24,7 @@
 
 package reborncore.common.blocks;
 
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -193,7 +193,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 			} else if (stack.getItem() instanceof IUpgrade && blockEntity instanceof IUpgradeable upgradeableEntity) {
 				if (upgradeableEntity.canBeUpgraded()) {
 					int inserted = (int) insertItemStacked(
-							InventoryStorage.of(upgradeableEntity.getUpgradeInventory(), null),
+							ContainerStorage.of(upgradeableEntity.getUpgradeInventory(), null),
 							ItemVariant.of(stack),
 							stack.getCount()
 					);
@@ -214,7 +214,7 @@ public abstract class BlockMachineBase extends BaseBlockEntityProvider implement
 	}
 
 	// TODO: use the fabric one when it will be PR'ed.
-	public static long insertItemStacked(InventoryStorage inventory, ItemVariant variant, long maxAmount) {
+	public static long insertItemStacked(ContainerStorage inventory, ItemVariant variant, long maxAmount) {
 		long inserted = 0;
 		try (Transaction tx = Transaction.openOuter()) {
 			outer: for (int loop = 0; loop < 2; ++loop) {

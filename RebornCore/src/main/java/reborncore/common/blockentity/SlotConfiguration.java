@@ -26,7 +26,7 @@ package reborncore.common.blockentity;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.netty.buffer.ByteBuf;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.minecraft.core.Direction;
@@ -360,7 +360,7 @@ public class SlotConfiguration implements NBTSerializable {
 
 			StorageUtil.move(
 					ItemStorage.SIDED.find(machineBase.getLevel(), machineBase.getBlockPos().relative(side), side.getOpposite()),
-					InventoryStorage.of(machineBase, null).getSlot(slotID),
+					ContainerStorage.of(machineBase, null).getSlot(slotID),
 					iv -> true,
 					4, // Move up to 4 per tick.
 					null
@@ -375,7 +375,7 @@ public class SlotConfiguration implements NBTSerializable {
 			}
 
 			StorageUtil.move(
-					InventoryStorage.of(machineBase, null).getSlot(slotID),
+					ContainerStorage.of(machineBase, null).getSlot(slotID),
 					ItemStorage.SIDED.find(machineBase.getLevel(), machineBase.getBlockPos().relative(side), side.getOpposite()),
 					iv -> true,
 					Long.MAX_VALUE,

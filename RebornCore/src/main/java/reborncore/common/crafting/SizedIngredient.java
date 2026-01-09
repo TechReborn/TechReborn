@@ -72,7 +72,7 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 		CustomIngredient customIngredient = ingredient.getCustomIngredient();
 		Stream<ItemStack> stacks;
 		if (customIngredient != null) {
-			stacks = ((SlotDisplay.Composite) customIngredient.toDisplay()).contents().stream()
+			stacks = ((SlotDisplay.Composite) customIngredient.display()).contents().stream()
 				.map(display -> ((SlotDisplay.ItemStackSlotDisplay) display).stack());
 		} else {
 			stacks = ingredient.values.stream().map(entry -> new ItemStack(entry.value()));

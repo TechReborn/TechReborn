@@ -25,7 +25,7 @@
 package reborncore.common.powerSystem;
 
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -168,7 +168,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		Container inventory = getOptionalInventory().get();
 
 		EnergyStorageUtil.move(
-				ContainerItemContext.ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(slot)).find(EnergyStorage.ITEM),
+				ContainerItemContext.ofSingleSlot(ContainerStorage.of(inventory, null).getSlots().get(slot)).find(EnergyStorage.ITEM),
 				getSideEnergyStorage(null),
 				Long.MAX_VALUE,
 				null
@@ -197,7 +197,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 		EnergyStorageUtil.move(
 				getSideEnergyStorage(null),
-				ContainerItemContext.ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(slot)).find(EnergyStorage.ITEM),
+				ContainerItemContext.ofSingleSlot(ContainerStorage.of(inventory, null).getSlots().get(slot)).find(EnergyStorage.ITEM),
 				Long.MAX_VALUE,
 				null
 		);

@@ -28,7 +28,7 @@ import com.mojang.blaze3d.textures.GpuTextureView;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.fabricmc.fabric.api.client.rendering.v1.SpecialGuiElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.PictureInPictureRendererRegistry;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.gui.render.state.BlitRenderState;
@@ -55,8 +55,8 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 	private static final RenderElementHandler elementHandler = new RenderElementHandler();
 	public static final List<Identifier> BLACKLIST = new ArrayList<>();
 
-	public MachineFaceElementRenderer(SpecialGuiElementRegistry.Context context) {
-		super(context.vertexConsumers());
+	public MachineFaceElementRenderer(PictureInPictureRendererRegistry.Context context) {
+		super(context.bufferSource());
 	}
 
 	@Override

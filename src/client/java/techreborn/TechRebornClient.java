@@ -25,7 +25,7 @@
 package techreborn;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.ChunkSectionLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -93,22 +93,22 @@ public class TechRebornClient implements ClientModInitializer {
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
 
-		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.putBlock(cable.block, ChunkSectionLayer.CUTOUT));
+		Arrays.stream(TRContent.Cables.values()).forEach(cable -> ChunkSectionLayerMap.putBlock(cable.block, ChunkSectionLayer.CUTOUT));
 
-		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_LED.block, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.ALARM.block, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.REINFORCED_GLASS, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.RESIN_BASIN.block, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.POTTED_RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.FISHING_STATION.block, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.Machine.LAMP_LED.block, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.Machine.ALARM.block, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.REINFORCED_GLASS, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.Machine.RESIN_BASIN.block, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.POTTED_RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.Machine.FISHING_STATION.block, ChunkSectionLayer.CUTOUT);
 
-		BlockRenderLayerMap.putBlock(TRContent.RUBBER_LEAVES, ChunkSectionLayer.CUTOUT);
+		ChunkSectionLayerMap.putBlock(TRContent.RUBBER_LEAVES, ChunkSectionLayer.CUTOUT);
 
 		for (ModFluids fluid : ModFluids.values()) {
-			BlockRenderLayerMap.putFluid(fluid.getFluid(), ChunkSectionLayer.TRANSLUCENT);
-			BlockRenderLayerMap.putFluid(fluid.getFlowingFluid(), ChunkSectionLayer.TRANSLUCENT);
+			ChunkSectionLayerMap.putFluid(fluid.getFluid(), ChunkSectionLayer.TRANSLUCENT);
+			ChunkSectionLayerMap.putFluid(fluid.getFlowingFluid(), ChunkSectionLayer.TRANSLUCENT);
 		}
 
 		BlockEntityRenderers.register(TRBlockEntities.INDUSTRIAL_GRINDER, MultiblockRenderer::new);

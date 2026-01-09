@@ -27,7 +27,7 @@ package reborncore.common.fluid;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
@@ -101,7 +101,7 @@ public class FluidUtils {
 	}
 
 	private static Storage<FluidVariant> getItemFluidStorage(Container inventory, int inputSlot, int outputSlot) {
-		var invWrapper = InventoryStorage.of(inventory, null);
+		var invWrapper = ContainerStorage.of(inventory, null);
 		var input = invWrapper.getSlot(inputSlot);
 		var output = invWrapper.getSlot(outputSlot);
 		var context = new ContainerItemContext() {

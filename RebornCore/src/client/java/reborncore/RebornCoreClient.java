@@ -30,8 +30,8 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.SpecialGuiElementRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.PictureInPictureRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -53,9 +53,9 @@ public class RebornCoreClient implements ClientModInitializer {
 		HudRenderCallback.EVENT.register(new ItemStackRenderer());
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
 		BlockOutlineRenderer outline = new BlockOutlineRenderer();
-		WorldRenderEvents.AFTER_BLOCK_OUTLINE_EXTRACTION.register(outline);
-		WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register(outline);
-		SpecialGuiElementRegistry.register(MachineFaceElementRenderer::new);
+		LevelRenderEvents.AFTER_BLOCK_OUTLINE_EXTRACTION.register(outline);
+		LevelRenderEvents.BEFORE_BLOCK_OUTLINE.register(outline);
+		PictureInPictureRendererRegistry.register(MachineFaceElementRenderer::new);
 
 		/* register UnloadHandler */
 		ClientBlockEntityEvents.BLOCK_ENTITY_UNLOAD.register((blockEntity, world) -> {

@@ -29,7 +29,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerBlockEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
@@ -99,7 +99,7 @@ public class RebornCore implements ModInitializer {
 		each game loop. SERVER and WORLD ticks only run on the server. WORLDLOAD
 		ticks run only on the server, and only when worlds are loaded.
 		 */
-		ServerTickEvents.START_WORLD_TICK.register(MultiblockRegistry::tickStart);
+		ServerTickEvents.START_LEVEL_TICK.register(MultiblockRegistry::tickStart);
 
 		// packets
 		ServerBoundPackets.init();
@@ -116,8 +116,8 @@ public class RebornCore implements ModInitializer {
 			if (blockEntity instanceof UnloadHandler) ((UnloadHandler) blockEntity).onUnload();
 		});
 
-		ServerWorldEvents.LOAD.register((server, world) -> ChunkLoaderManager.get(world).onServerWorldLoad(world));
-		ServerTickEvents.START_WORLD_TICK.register(world -> ChunkLoaderManager.get(world).onServerWorldTick(world));
+		ServerLevelEvents.LOAD.register((server, world) -> ChunkLoaderManager.get(world).onServerWorldLoad(world));
+		ServerTickEvents.START_LEVEL_TICK.register(world -> ChunkLoaderManager.get(world).onServerWorldTick(world));
 
 		ServerEntityEvents.EQUIPMENT_CHANGE.register((livingEntity, equipmentSlot, previousStack, currentStack) -> {
 			if (livingEntity instanceof Player playerEntity

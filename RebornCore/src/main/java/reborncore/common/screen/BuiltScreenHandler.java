@@ -27,7 +27,7 @@ package reborncore.common.screen;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.FriendlyByteBufs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -149,7 +149,7 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private byte[] writeScreenHandlerData(Map<IdentifiedSyncedObject<?>, Object> updatedValues) {
-		RegistryFriendlyByteBuf byteBuf = new RegistryFriendlyByteBuf(PacketByteBufs.create(), blockEntity.getLevel().registryAccess());
+		RegistryFriendlyByteBuf byteBuf = new RegistryFriendlyByteBuf(FriendlyByteBufs.create(), blockEntity.getLevel().registryAccess());
 
 		byteBuf.writeInt(updatedValues.size());
 		for (Map.Entry<IdentifiedSyncedObject<?>, Object> entry : updatedValues.entrySet()) {
