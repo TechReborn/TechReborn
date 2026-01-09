@@ -41,7 +41,7 @@ import net.minecraft.data.BlockFamily
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.ItemLike
 import net.minecraft.core.HolderLookup
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import org.apache.commons.lang3.tuple.Pair
 import techreborn.client.render.ActiveProperty
 import techreborn.client.render.ItemBucketModel
@@ -77,7 +77,7 @@ import java.util.function.Consumer
 class ModelProvider extends FabricModelProvider {
 	static BlockModelGenerators stateGenerator
 	static ItemModelGenerators itemGenerator
-	static BiConsumer<ResourceLocation, ModelInstance> modelCollector
+	static BiConsumer<Identifier, ModelInstance> modelCollector
 
 	ModelProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output)
@@ -128,9 +128,9 @@ class ModelProvider extends FabricModelProvider {
 			generator.new BlockModelGenerators.BlockFamilyProvider(TextureMapping.cube(block)).wall(block)
 		}
 		def toRubberLog = { Block block ->
-			ResourceLocation vertical = TexturedModel.COLUMN_ALT.create(block, modelCollector)
-			ResourceLocation horizontal = TexturedModel.COLUMN_HORIZONTAL_ALT.create(block, modelCollector)
-			ResourceLocation with_sap = TemplateModel.RUBBER_LOG_WITH_SAP.upload(block)
+			Identifier vertical = TexturedModel.COLUMN_ALT.create(block, modelCollector)
+			Identifier horizontal = TexturedModel.COLUMN_HORIZONTAL_ALT.create(block, modelCollector)
+			Identifier with_sap = TemplateModel.RUBBER_LOG_WITH_SAP.upload(block)
 			TemplateState.RUBBER_LOG.apply(vertical, horizontal, with_sap).upload(block)
 		}
 		def toEnergyOrientable = { BlockInfo info ->
@@ -138,13 +138,13 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_FACING.upload(info.block)
 		}
 		def toSolarPanelCubeBottomTop = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.SOLAR_PANEL.apply(info.block)
 			)
 			TemplateState.ACTIVE.apply(pair).upload(info.block)
 		}
 		def toQuantumSolarPanel = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.QUANTUM_SOLAR_PANEL.apply(info.block)
 			)
 			TemplateState.ACTIVE.apply(pair).upload(info.block)
@@ -154,53 +154,53 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE.upload(info.block)
 		}
 		def toGeneratorCubeBottomTop = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.GENERATOR_CUBE_BOTTOM_TOP.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toPlasmaGenerator = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.CUBE_BOTTOM_TOP_SIDE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toGasTurbine = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.GAS_TURBINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toFusionControlComputer = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.FUSION_CONTROL_COMPUTER.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toSolidFuelGenerator = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.SOLID_FUEL_GENERATOR.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toWindMill = { BlockInfo info ->
-			ResourceLocation off = TemplateModel.WIND_MILL.upload(info.block)
+			Identifier off = TemplateModel.WIND_MILL.upload(info.block)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(Pair.of(off, off)).upload(info.block)
 		}
 		def toAlarm = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ALARM_LIGHT.apply(info.block)
 			)
 			TemplateState.ACTIVE_UP_DEFAULT_FACING.apply(pair).upload(info.block)
 		}
 		def toLampIncandescent = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.LAMP_INCANDESCENT_LIGHT.apply(info.block)
 			)
 			TemplateState.ACTIVE_UP_DEFAULT_FACING.apply(pair).upload(info.block)
 		}
 		def toLampLed = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.LAMP_LED_LIGHT.apply(info.block)
 			)
 			TemplateState.ACTIVE_UP_DEFAULT_FACING.apply(pair).upload(info.block)
@@ -218,7 +218,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toBasicMachine = { BlockInfo info ->
-			ResourceLocation off = TemplateModel.BASIC_MACHINE.upload(info.block)
+			Identifier off = TemplateModel.BASIC_MACHINE.upload(info.block)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(Pair.of(off, off)).upload(info.block)
 		}
 		def toSideFrontTopBottom = { BlockInfo info ->
@@ -226,15 +226,15 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toActiveBasicMachine = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.BASIC_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toResinBasin = { BlockInfo info ->
-			ResourceLocation empty = TemplateModel.RESIN_BASIN_EMPTY.upload(info.block)
-			ResourceLocation flowing = TemplateModel.RESIN_BASIN_FLOWING.upload(info.block)
-			ResourceLocation full = TemplateModel.RESIN_BASIN_FULL.upload(info.block)
+			Identifier empty = TemplateModel.RESIN_BASIN_EMPTY.upload(info.block)
+			Identifier flowing = TemplateModel.RESIN_BASIN_FLOWING.upload(info.block)
+			Identifier full = TemplateModel.RESIN_BASIN_FULL.upload(info.block)
 			TemplateState.RESIN_BASIN.apply(empty, flowing, full).upload(info.block)
 		}
 		def toAdvancedTankUnit = { BlockInfo info ->
@@ -246,7 +246,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toActiveAdvancedMachine = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ADVANCED_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -260,23 +260,23 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE.upload(info.block)
 		}
 		def toGreenhouseController = { BlockInfo info ->
-			ResourceLocation off = TemplateModel.ADVANCED_MACHINE.upload(info.block)
+			Identifier off = TemplateModel.ADVANCED_MACHINE.upload(info.block)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(Pair.of(off, off)).upload(info.block)
 		}
 		def toGrinder = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ADVANCED_MACHINE_WITH_TOP.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toPlayerDetector = { BlockInfo info ->
-			ResourceLocation all = TemplateModel.CUBE_ALL.upload(info.block)
-			ResourceLocation others = TemplateModel.PLAYER_DETECTOR_OTHERS.upload(info.block)
-			ResourceLocation you = TemplateModel.PLAYER_DETECTOR_YOU.upload(info.block)
+			Identifier all = TemplateModel.CUBE_ALL.upload(info.block)
+			Identifier others = TemplateModel.PLAYER_DETECTOR_OTHERS.upload(info.block)
+			Identifier you = TemplateModel.PLAYER_DETECTOR_YOU.upload(info.block)
 			TemplateState.PLAYER_DETECTOR.apply(all, others, you).upload(info.block)
 		}
 		def toChargeOMat = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.CHARGE_O_MAT.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -286,7 +286,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(block)
 		}
 		def toActiveFrontMachine = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ACTIVE_FRONT_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -296,13 +296,13 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toActiveSideMachine = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ACTIVE_SIDE_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toActiveTopFrontMachine = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.ACTIVE_TOP_FRONT_MACHINE.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -320,7 +320,7 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE.upload(info.block)
 		}
 		def toPump = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.PUMP.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
@@ -338,21 +338,21 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE_NORTH_DEFAULT_H_FACING.upload(info.block)
 		}
 		def toFluidReplicator = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.FLUID_REPLICATOR.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
 		}
 		def toMatterFabricator = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.CUBE_BOTTOM_TOP_SIDE.apply(info.block)
 			)
 			TemplateState.ACTIVE.apply(pair).upload(info.block)
 		}
 		def toSolidCanningMachine = { BlockInfo info ->
-			ResourceLocation off = ModelLocationUtils.getModelLocation(Machine.COMPRESSOR.block)
+			Identifier off = ModelLocationUtils.getModelLocation(Machine.COMPRESSOR.block)
 			generator.registerSimpleItemModel(info.asItem(), off)
-			ResourceLocation on = off.withSuffix("_on")
+			Identifier on = off.withSuffix("_on")
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(Pair.of(off, on)).upload(info.block)
 		}
 		def toFluid = { BlockInfo info ->
@@ -360,14 +360,14 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.SINGLE.upload(info.block)
 		}
 		def toCable = { BlockInfo info ->
-			ResourceLocation core = TemplateModel.CABLE_CORE.upload(info.block)
-			ResourceLocation side = TemplateModel.CABLE_SIDE.upload(info.block)
+			Identifier core = TemplateModel.CABLE_CORE.upload(info.block)
+			Identifier side = TemplateModel.CABLE_SIDE.upload(info.block)
 			TemplateState.CABLE.apply(core, side).upload(info.block)
 			generator.registerSimpleFlatItemModel(info.asItem())
 		}
 		def toThickCable = { BlockInfo info ->
-			ResourceLocation core = TemplateModel.CABLE_THICK_CORE.upload(info.block)
-			ResourceLocation side = TemplateModel.CABLE_THICK_SIDE.upload(info.block)
+			Identifier core = TemplateModel.CABLE_THICK_CORE.upload(info.block)
+			Identifier side = TemplateModel.CABLE_THICK_SIDE.upload(info.block)
 			TemplateState.CABLE.apply(core, side).upload(info.block)
 			generator.registerSimpleFlatItemModel(info.asItem())
 		}
@@ -535,8 +535,8 @@ class ModelProvider extends FabricModelProvider {
 			generator.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM)
 		}
 		def toEnergyItem = { Item item ->
-			ResourceLocation id = TemplateModel.ENERGY_ITEM.upload(item)
-			ResourceLocation active = TemplateModel.ENERGY_ITEM_ACTIVE.upload(item)
+			Identifier id = TemplateModel.ENERGY_ITEM.upload(item)
+			Identifier active = TemplateModel.ENERGY_ITEM_ACTIVE.upload(item)
 			generator.itemModelOutput.accept(item, ItemModelUtils.select(
 				new ActiveProperty(),
 				ItemModelUtils.plainModel(id),
@@ -544,8 +544,8 @@ class ModelProvider extends FabricModelProvider {
 			))
 		}
 		def toHandheldEnergyItem = { Item item ->
-			ResourceLocation id = TemplateModel.ENERGY_ITEM_HANDHELD.upload(item)
-			ResourceLocation active = TemplateModel.ENERGY_ITEM_HANDHELD_ACTIVE.upload(item)
+			Identifier id = TemplateModel.ENERGY_ITEM_HANDHELD.upload(item)
+			Identifier active = TemplateModel.ENERGY_ITEM_HANDHELD_ACTIVE.upload(item)
 			generator.itemModelOutput.accept(item, ItemModelUtils.select(
 				new ActiveProperty(),
 				ItemModelUtils.plainModel(id),
@@ -553,9 +553,9 @@ class ModelProvider extends FabricModelProvider {
 			))
 		}
 		def toNanosaber = { Item item ->
-			ResourceLocation off = TemplateModel.NANOSABER_OFF.upload(item)
-			ResourceLocation on = TemplateModel.NANOSABER_ON.upload(item)
-			ResourceLocation low = TemplateModel.NANOSABER_LOW.upload(item)
+			Identifier off = TemplateModel.NANOSABER_OFF.upload(item)
+			Identifier on = TemplateModel.NANOSABER_ON.upload(item)
+			Identifier low = TemplateModel.NANOSABER_LOW.upload(item)
 			generator.itemModelOutput.accept(item, ItemModelUtils.select(
 				new ActiveProperty(),
 				ItemModelUtils.plainModel(off),
@@ -572,7 +572,7 @@ class ModelProvider extends FabricModelProvider {
 		def toFluidBucket = { ModFluids modFluids ->
 			generator.itemModelOutput.accept(modFluids.bucket, new ItemBucketModel.Unbaked(modFluids.fluid))
 		}
-		def toBucket = { ResourceLocation id ->
+		def toBucket = { Identifier id ->
 			TemplateModel.BUCKET_BASE.upload(id)
 			TemplateModel.BUCKET_BACKGROUND.upload(id)
 		}

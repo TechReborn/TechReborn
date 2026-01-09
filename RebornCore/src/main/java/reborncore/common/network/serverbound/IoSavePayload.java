@@ -29,12 +29,12 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.BlockPosPayload;
 
 public record IoSavePayload(BlockPos pos, int slotID, boolean input, boolean output, boolean filter, int priority) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<IoSavePayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.parse("reborncore:io_save"));
+	public static final CustomPacketPayload.Type<IoSavePayload> ID = new CustomPacketPayload.Type<>(Identifier.parse("reborncore:io_save"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, IoSavePayload> PACKET_CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, IoSavePayload::pos,
 		ByteBufCodecs.INT, IoSavePayload::slotID,

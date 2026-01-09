@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.block.model.BlockElementRotation
 import net.minecraft.client.renderer.block.model.ItemTransform
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemDisplayContext
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import com.mojang.math.Quadrant
 import net.minecraft.core.Direction
 import org.apache.commons.lang3.function.TriFunction
@@ -50,13 +50,13 @@ class TemplateModel {
 	static TextureSlot KEY_THREE = TextureSlot.create("3")
 	static TextureSlot KEY_FOUR = TextureSlot.create("4")
 	static TextureSlot KEY_MISSING = TextureSlot.create("missing")
-	static ResourceLocation HANDHELD = ResourceLocation.withDefaultNamespace("item/handheld")
-	static JsonModel GENERATED = new JsonModel().add(ResourceLocation.withDefaultNamespace("item/generated"))
-	static JsonModel ORIENTABLE = new JsonModel().add(ResourceLocation.withDefaultNamespace("block/orientable"))
-	static JsonModel CUBE_BOTTOM_TOP = new JsonModel().add(ResourceLocation.withDefaultNamespace("block/cube_bottom_top"))
-	static JsonModel BLOCK = new JsonModel().add(ResourceLocation.withDefaultNamespace("block/block"))
+	static Identifier HANDHELD = Identifier.withDefaultNamespace("item/handheld")
+	static JsonModel GENERATED = new JsonModel().add(Identifier.withDefaultNamespace("item/generated"))
+	static JsonModel ORIENTABLE = new JsonModel().add(Identifier.withDefaultNamespace("block/orientable"))
+	static JsonModel CUBE_BOTTOM_TOP = new JsonModel().add(Identifier.withDefaultNamespace("block/cube_bottom_top"))
+	static JsonModel BLOCK = new JsonModel().add(Identifier.withDefaultNamespace("block/block"))
 	static Uploadable CUBE_ALL = (Block block) -> new JsonModel()
-		.add(ResourceLocation.withDefaultNamespace("block/cube_all")).id(block).add(TextureMapping.cube(block), TextureSlot.ALL)
+		.add(Identifier.withDefaultNamespace("block/cube_all")).id(block).add(TextureMapping.cube(block), TextureSlot.ALL)
 	static JsonModel.DisplayMap CELL_DISPLAY = new JsonModel.DisplayMap()
 		.put(ItemDisplayContext.GROUND, transformation(0, 0, 0, 0, 2, 0, 0.5, 0.5, 0.5))
 		.put(ItemDisplayContext.HEAD, transformation(0, 180, 0, 0, 13, 7, 1, 1, 1))
@@ -375,13 +375,13 @@ class TemplateModel {
 	@FunctionalInterface
 	interface Uploadable<T> {
 		JsonModel apply(T);
-		default ResourceLocation upload(T target) {
+		default Identifier upload(T target) {
 			apply(target).upload()
 		}
 	}
 	@FunctionalInterface
 	interface Active {
-		Pair<ResourceLocation, ResourceLocation> upload(JsonModel model);
+		Pair<Identifier, Identifier> upload(JsonModel model);
 	}
 	static Active ACTIVE = (JsonModel model) -> Pair.of(model.suffix("_off").upload(), model.suffix("_on").upload())
 	static Uploadable<Item> ENERGY_ITEM = (Item item) -> GENERATED.create(item).add(TextureMapping.layer0(item), TextureSlot.LAYER0)
@@ -411,7 +411,7 @@ class TemplateModel {
 	static Function<Block, JsonModel> CUBE_BOTTOM_TOP_SIDE = { Block block ->
 		CUBE_BOTTOM_TOP.create(block).add(TextureMapping.cubeBottomTop(block), TextureSlot.TOP, TextureSlot.SIDE)
 	}
-	static TriFunction<Block, ResourceLocation, ResourceLocation, JsonModel> CUBE_BOTTOM_TOP_BASE = { Block block, ResourceLocation id, ResourceLocation bottom ->
+	static TriFunction<Block, Identifier, Identifier, JsonModel> CUBE_BOTTOM_TOP_BASE = { Block block, Identifier id, Identifier bottom ->
 		CUBE_BOTTOM_TOP.create(block).add(
 			cubeBottomTop(
 				id.withSuffix("_top"),
@@ -479,7 +479,7 @@ class TemplateModel {
 			id.withSuffix("_front"),
 		))
 	}
-	static TriFunction<Block, ResourceLocation, ResourceLocation, JsonModel> STORAGE_UNIT = { Block block, ResourceLocation id, ResourceLocation bottom ->
+	static TriFunction<Block, Identifier, Identifier, JsonModel> STORAGE_UNIT = { Block block, Identifier id, Identifier bottom ->
 		ORIENTABLE.create(block).add(orientable(
 			id.withSuffix("_top"),
 			bottom,
@@ -490,7 +490,7 @@ class TemplateModel {
 	static def BASIC_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, TexturePaths.basicUnitBottom) }
 	static def ADVANCED_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, TexturePaths.advancedUnitBottom) }
 	static def INDUSTRIAL_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, TexturePaths.industrialUnitBottom) }
-	static TriFunction<Block, ResourceLocation, ResourceLocation, JsonModel> ORIENTABLE_TOP_SIDE_BOTTOM = { Block block, ResourceLocation id, ResourceLocation bottom ->
+	static TriFunction<Block, Identifier, Identifier, JsonModel> ORIENTABLE_TOP_SIDE_BOTTOM = { Block block, Identifier id, Identifier bottom ->
 		ORIENTABLE.create(block).add(orientable(
 			id.withSuffix("_top"),
 			bottom,
@@ -512,7 +512,7 @@ class TemplateModel {
 	static def QUANTUM_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.quantumBottom) }
 	static def LAUNCHPAD = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.machineTier2Bottom) }
 	static def ELEVATOR = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, id.withSuffix("_top")) }
-	static TriFunction<Block, ResourceLocation, ResourceLocation, JsonModel> MACHINE_BASE = { Block block, ResourceLocation id, ResourceLocation base ->
+	static TriFunction<Block, Identifier, Identifier, JsonModel> MACHINE_BASE = { Block block, Identifier id, Identifier base ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				base.withSuffix("machine_top"),
@@ -546,7 +546,7 @@ class TemplateModel {
 			TextureSlot.TOP, TextureSlot.FRONT
 		)
 	}
-	static TriFunction<Block, ResourceLocation, ResourceLocation, JsonModel> ACTIVE_FRONT_MACHINE_BASE = { Block block, ResourceLocation id, ResourceLocation base ->
+	static TriFunction<Block, Identifier, Identifier, JsonModel> ACTIVE_FRONT_MACHINE_BASE = { Block block, Identifier id, Identifier base ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				base.withSuffix("machine_top"),
@@ -601,7 +601,7 @@ class TemplateModel {
 	}
 	static def FLUID_REPLICATOR = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, TexturePaths.machineTier3Dir) }
 
-	static BiFunction<Block, ResourceLocation, JsonModel> LIGHT_BLOCK = (Block block, ResourceLocation id) -> BLOCK.create(block).add(
+	static BiFunction<Block, Identifier, JsonModel> LIGHT_BLOCK = (Block block, Identifier id) -> BLOCK.create(block).add(
 		new TextureMapping().put(TextureSlot.PARTICLE, id).put(KEY_ZERO, id),
 		TextureSlot.PARTICLE, KEY_ZERO
 	)
@@ -633,7 +633,7 @@ class TemplateModel {
 			),
 		))
 	}
-	static BiFunction<Block, ResourceLocation, JsonModel> RESIN_BASIN_BASE = (Block block, ResourceLocation id) -> new JsonModel().id(block).add(
+	static BiFunction<Block, Identifier, JsonModel> RESIN_BASIN_BASE = (Block block, Identifier id) -> new JsonModel().id(block).add(
 		new TextureMapping().put(TextureSlot.PARTICLE, id.withSuffix("_sap_flowing"))
 			.put(KEY_ZERO, id.withSuffix("_top"))
 			.put(KEY_ONE, id.withSuffix("_side"))
@@ -707,7 +707,7 @@ class TemplateModel {
 			).put(TextureSlot.PARTICLE, TexturePaths.machineTier2Top)
 			.put(KEY_ZERO, id.withSuffix("_net"))
 			.put(KEY_ONE, id.withSuffix("_net_side"))
-			.put(KEY_MISSING, ResourceLocation.withDefaultNamespace("missingno"))
+			.put(KEY_MISSING, Identifier.withDefaultNamespace("missingno"))
 		)
 	}
 	static def RUBBER_LOG_WITH_SAP = wrapperBlock { block, id ->
@@ -720,10 +720,10 @@ class TemplateModel {
 	static def FLUID = wrapperBlock { block, id ->
 		new JsonModel().id(block).add(TextureMapping.particle(id.withSuffix("_still")))
 	}
-	static BiFunction<Block, ResourceLocation, JsonModel> CABLE_CORE_BASE = { Block block, ResourceLocation id ->
+	static BiFunction<Block, Identifier, JsonModel> CABLE_CORE_BASE = { Block block, Identifier id ->
 		new JsonModel().id(block).suffix("_core").add(texture(id))
 	}
-	static BiFunction<Block, ResourceLocation, JsonModel> CABLE_SIDE_BASE = { Block block, ResourceLocation id ->
+	static BiFunction<Block, Identifier, JsonModel> CABLE_SIDE_BASE = { Block block, Identifier id ->
 		new JsonModel().id(block).suffix("_side").add(texture(id))
 	}
 	static def CABLE_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_CORE_ELEMENT) }
@@ -748,28 +748,28 @@ class TemplateModel {
 	static def CELL_GLASS = wrapperItem { item, id ->
 		CELL_TEMPLATE.create(item).suffix("_glass").add(TextureMapping.defaultTexture(id), TextureSlot.TEXTURE)
 	}
-	static Uploadable<ResourceLocation> BUCKET_BASE = { ResourceLocation id ->
+	static Uploadable<Identifier> BUCKET_BASE = { Identifier id ->
 		GENERATED.create(id).suffix("_base").add(CELL_DISPLAY).add(
 			TextureMapping.layer0(id).put(TextureSlot.PARTICLE, id),
 			TextureSlot.LAYER0, TextureSlot.PARTICLE
 		)
 	}
-	static Uploadable<ResourceLocation> BUCKET_BACKGROUND = { ResourceLocation id ->
+	static Uploadable<Identifier> BUCKET_BACKGROUND = { Identifier id ->
 		BUCKET_TEMPLATE.create(id).suffix("_background").add(TextureMapping.defaultTexture(id), TextureSlot.TEXTURE)
 	}
 
-	static TextureMapping orientable(ResourceLocation top, ResourceLocation front, ResourceLocation side) {
+	static TextureMapping orientable(Identifier top, Identifier front, Identifier side) {
 		return new TextureMapping()
 			.put(TextureSlot.TOP, top)
 			.put(TextureSlot.FRONT, front)
 			.put(TextureSlot.SIDE, side)
 	}
 
-	static TextureMapping orientable(ResourceLocation top, ResourceLocation bottom, ResourceLocation side, ResourceLocation front) {
+	static TextureMapping orientable(Identifier top, Identifier bottom, Identifier side, Identifier front) {
 		return orientable(top, front, side).put(TextureSlot.BOTTOM, bottom)
 	}
 
-	static TextureMapping orientable(ResourceLocation up, ResourceLocation bottom, ResourceLocation west, ResourceLocation east, ResourceLocation south, ResourceLocation front) {
+	static TextureMapping orientable(Identifier up, Identifier bottom, Identifier west, Identifier east, Identifier south, Identifier front) {
 		return new TextureMapping()
 			.put(TextureSlot.UP, up)
 			.put(TextureSlot.BOTTOM, bottom)
@@ -779,14 +779,14 @@ class TemplateModel {
 			.put(TextureSlot.FRONT, front)
 	}
 
-	static TextureMapping cubeBottomTop(ResourceLocation top, ResourceLocation bottom, ResourceLocation side) {
+	static TextureMapping cubeBottomTop(Identifier top, Identifier bottom, Identifier side) {
 		return new TextureMapping()
 			.put(TextureSlot.TOP, top)
 			.put(TextureSlot.BOTTOM, bottom)
 			.put(TextureSlot.SIDE, side)
 	}
 
-	static TextureMapping texture(ResourceLocation id) {
+	static TextureMapping texture(Identifier id) {
 		return new TextureMapping().put(TextureSlot.TEXTURE, id).put(TextureSlot.PARTICLE, id)
 	}
 
@@ -806,11 +806,11 @@ class TemplateModel {
 		return new ItemTransform(new Vector3f(x1, y1, z1), new Vector3f(x2, y2, z2), new Vector3f(x3, y3, z3))
 	}
 
-	static Uploadable<Block> wrapperBlock(BiFunction<Block, ResourceLocation, JsonModel> fun) {
+	static Uploadable<Block> wrapperBlock(BiFunction<Block, Identifier, JsonModel> fun) {
 		return (Block block) -> fun.apply(block, TextureMapping.getBlockTexture(block))
 	}
 
-	static Uploadable<Item> wrapperItem(BiFunction<Item, ResourceLocation, JsonModel> fun) {
+	static Uploadable<Item> wrapperItem(BiFunction<Item, Identifier, JsonModel> fun) {
 		return (Item item) -> fun.apply(item, TextureMapping.getItemTexture(item))
 	}
 }

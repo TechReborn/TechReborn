@@ -41,7 +41,7 @@ import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -57,10 +57,10 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public class ItemBucketModel implements ItemModel {
-	public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "model/bucket");
-	public static final ResourceLocation BUCKET = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "item/bucket");
-	public static final ResourceLocation BUCKET_BASE = BUCKET.withSuffix("_base");
-	public static final ResourceLocation BUCKET_BACKGROUND = BUCKET.withSuffix("_background");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "model/bucket");
+	public static final Identifier BUCKET = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "item/bucket");
+	public static final Identifier BUCKET_BASE = BUCKET.withSuffix("_base");
+	public static final Identifier BUCKET_BACKGROUND = BUCKET.withSuffix("_background");
 	private final RenderType layer;
 	private final ModelRenderProperties settings;
 	private final Supplier<Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bake;
@@ -94,7 +94,7 @@ public class ItemBucketModel implements ItemModel {
 	public record Unbaked(Fluid fluid) implements ItemModel.Unbaked {
 		public static final MapCodec<ItemBucketModel.Unbaked> CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-				ResourceLocation.CODEC.xmap(BuiltInRegistries.FLUID::getValue, BuiltInRegistries.FLUID::getKey)
+				Identifier.CODEC.xmap(BuiltInRegistries.FLUID::getValue, BuiltInRegistries.FLUID::getKey)
 					.fieldOf("fluid").forGetter(techreborn.client.render.ItemBucketModel.Unbaked::fluid)
 			)
 			.apply(instance, ItemBucketModel.Unbaked::new)

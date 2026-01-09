@@ -31,7 +31,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
@@ -44,7 +44,7 @@ import java.util.Objects;
 
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	final IronFurnaceBlockEntity blockEntity;
-	private static final ResourceLocation EXP_BUTTON_TEXTURE = ResourceLocation.withDefaultNamespace("item/experience_bottle");
+	private static final Identifier EXP_BUTTON_TEXTURE = Identifier.withDefaultNamespace("item/experience_bottle");
 
 	public GuiIronFurnace(int syncID, Player player, IronFurnaceBlockEntity furnace) {
 		super(player, furnace, furnace.createScreenHandler(syncID, player));

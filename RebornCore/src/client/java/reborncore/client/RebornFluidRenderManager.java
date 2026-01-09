@@ -29,7 +29,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourceReloadListenerKeys;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.material.Fluid;
@@ -66,8 +66,8 @@ public class RebornFluidRenderManager implements SimpleSynchronousResourceReload
 	}
 
 	@Override
-	public ResourceLocation getFabricId() {
-		return ResourceLocation.fromNamespaceAndPath("reborncore", "fluid_render_manager");
+	public Identifier getFabricId() {
+		return Identifier.fromNamespaceAndPath("reborncore", "fluid_render_manager");
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class RebornFluidRenderManager implements SimpleSynchronousResourceReload
 	}
 
 	@Override
-	public Collection<ResourceLocation> getFabricDependencies() {
+	public Collection<Identifier> getFabricDependencies() {
 		return Collections.singletonList(ResourceReloadListenerKeys.TEXTURES);
 	}
 }

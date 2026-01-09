@@ -33,7 +33,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import reborncore.common.crafting.RebornRecipe;
@@ -50,7 +50,7 @@ public abstract class AbstractMachineCategory<R extends RebornRecipe> implements
 		this.recipeType = rebornRecipeType;
 	}
 
-	private ResourceLocation id() {
+	private Identifier id() {
 		return BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
 	}
 

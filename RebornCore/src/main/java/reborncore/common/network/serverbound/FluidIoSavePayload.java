@@ -29,11 +29,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.network.BlockPosPayload;
 
 public record FluidIoSavePayload(BlockPos pos, boolean input, boolean output) implements CustomPacketPayload, BlockPosPayload {
-	public static final Type<FluidIoSavePayload> ID = new Type<>(ResourceLocation.parse("reborncore:fluid_io_save"));
+	public static final Type<FluidIoSavePayload> ID = new Type<>(Identifier.parse("reborncore:fluid_io_save"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, FluidIoSavePayload> PACKET_CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, FluidIoSavePayload::pos,
 		ByteBufCodecs.BOOL, FluidIoSavePayload::input,

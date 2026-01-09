@@ -40,7 +40,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import reborncore.client.gui.GuiBuilder;
@@ -60,7 +60,7 @@ public class RollingMachineCategory implements DisplayCategory<RollingMachineDis
 		this.recipeType = recipeType;
 	}
 
-	private ResourceLocation id() {
+	private Identifier id() {
 		return BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
 	}
 
@@ -91,7 +91,7 @@ public class RollingMachineCategory implements DisplayCategory<RollingMachineDis
 			list.add(Component.translatable("techreborn.jei.recipe.running.cost", "E", display.getEnergy()).withStyle(ChatFormatting.GRAY));
 			list.add(Component.translatable("techreborn.jei.recipe.generator.total", display.getEnergy() * display.getTime()).withStyle(ChatFormatting.GRAY));
 			list.add(Component.literal(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(ResourceLocation.fromNamespaceAndPath("techreborn", "")));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.fromNamespaceAndPath("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 		widgets.add(ReiPlugin.createProgressBar(startPoint.x + 68, startPoint.y + 22, display.getTime() * 50, GuiBuilder.ProgressDirection.RIGHT));

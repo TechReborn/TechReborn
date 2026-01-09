@@ -36,7 +36,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
 import reborncore.api.IListInfoProvider;
@@ -57,7 +57,7 @@ import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
 public class GuiBuilder {
 	private static final Component SPACE_TEXT = Component.literal(" ");
 	@Deprecated
-	public static final ResourceLocation GUI_ELEMENTS = ResourceLocation.fromNamespaceAndPath("reborncore", "textures/gui/guielements.png");
+	public static final Identifier GUI_ELEMENTS = Identifier.fromNamespaceAndPath("reborncore", "textures/gui/guielements.png");
 	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
 	public void drawDefaultBackground(GuiGraphics drawContext, int x, int y, int width, int height) {

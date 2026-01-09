@@ -32,7 +32,7 @@ import net.minecraft.advancements.CriterionTriggerInstance
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 class AdvancementFactory {
 	private String name
@@ -40,7 +40,7 @@ class AdvancementFactory {
 	private AdvancementType frame = AdvancementType.TASK
 	private List<Criterion<? extends CriterionTriggerInstance>> conditionsList = []
 	private AdvancementHolder parent
-	private ResourceLocation background
+	private Identifier background
 	private boolean hidden = false
 
 	void name(String name) {
@@ -67,7 +67,7 @@ class AdvancementFactory {
 		this.parent = advancement
 	}
 
-	void background(ResourceLocation identifier) {
+	void background(Identifier identifier) {
 		this.background = identifier
 	}
 
@@ -101,6 +101,6 @@ class AdvancementFactory {
 			builder.parent(parent)
 		}
 
-		return builder.build(ResourceLocation.parse("techreborn:${name}"))
+		return builder.build(Identifier.parse("techreborn:${name}"))
 	}
 }

@@ -28,12 +28,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.network.BlockPosPayload;
 
 public record SetRedstoneStatePayload(BlockPos pos, RedstoneConfiguration.Element element, RedstoneConfiguration.State state) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<SetRedstoneStatePayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.parse("reborncore:set_redstone_state"));
+	public static final CustomPacketPayload.Type<SetRedstoneStatePayload> ID = new CustomPacketPayload.Type<>(Identifier.parse("reborncore:set_redstone_state"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, SetRedstoneStatePayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, SetRedstoneStatePayload::pos,
 		RedstoneConfiguration.Element.PACKET_CODEC, SetRedstoneStatePayload::element,

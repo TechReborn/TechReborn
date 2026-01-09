@@ -30,7 +30,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.debug.DebugValueAccess;
 import net.minecraft.world.level.ChunkPos;
@@ -76,7 +76,7 @@ public class ClientChunkManager {
 		}
 
 		final Minecraft minecraftClient = Minecraft.getInstance();
-		ResourceLocation worldName = ChunkLoaderManager.getWorldName(minecraftClient.level);
+		Identifier worldName = ChunkLoaderManager.getWorldName(minecraftClient.level);
 		int[] posX = new int[size], posZ = new int[size];
 		int right = 0, startX, startZ, maxX = Integer.MIN_VALUE, minX = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE;
 		for (int i = 0; i < size; i++) {

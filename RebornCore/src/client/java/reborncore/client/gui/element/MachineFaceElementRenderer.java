@@ -41,7 +41,7 @@ import net.minecraft.client.renderer.block.model.BlockModelPart;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import org.joml.Matrix3x2f;
 import org.joml.Quaternionfc;
@@ -53,7 +53,7 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 	private static final Direction[] DIRECTIONS = Direction.values();
 	private static final RenderHandler renderHandler = new RenderHandler();
 	private static final RenderElementHandler elementHandler = new RenderElementHandler();
-	public static final List<ResourceLocation> BLACKLIST = new ArrayList<>();
+	public static final List<Identifier> BLACKLIST = new ArrayList<>();
 
 	public MachineFaceElementRenderer(SpecialGuiElementRegistry.Context context) {
 		super(context.vertexConsumers());

@@ -38,7 +38,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import reborncore.client.gui.GuiBuilder;
@@ -57,7 +57,7 @@ public class FluidReplicatorRecipeCategory implements DisplayCategory<FluidRepli
 		this.recipeType = recipeType;
 	}
 
-	private ResourceLocation id() {
+	private Identifier id() {
 		return BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
 	}
 
@@ -88,7 +88,7 @@ public class FluidReplicatorRecipeCategory implements DisplayCategory<FluidRepli
 			list.add(Component.translatable("techreborn.jei.recipe.running.cost", "E", recipeDisplay.getEnergy()).withStyle(ChatFormatting.GRAY));
 			list.add(Component.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getEnergy() * recipeDisplay.getTime()).withStyle(ChatFormatting.GRAY));
 			list.add(Component.literal(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(ResourceLocation.fromNamespaceAndPath("techreborn", "")));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.fromNamespaceAndPath("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 

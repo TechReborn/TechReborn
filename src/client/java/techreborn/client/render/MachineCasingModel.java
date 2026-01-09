@@ -38,7 +38,7 @@ import net.minecraft.client.resources.model.QuadCollection;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import techreborn.blocks.misc.BlockMachineCasing;
@@ -51,7 +51,7 @@ public record MachineCasingModel(BlockModelPart part) implements BlockStateModel
 	@SuppressWarnings("deprecation")
 	public static void resolveBlockStates(BlockStateResolver.Context context) {
 		BlockMachineCasing block = (BlockMachineCasing) context.block();
-		ResourceLocation model = BuiltInRegistries.BLOCK.getKey(block).withPrefix(MODEL_PATH);
+		Identifier model = BuiltInRegistries.BLOCK.getKey(block).withPrefix(MODEL_PATH);
 		Material alone = new Material(TextureAtlas.LOCATION_BLOCKS, model);
 		Material start = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_start"));
 		Material middle = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_middle"));
@@ -83,7 +83,7 @@ public record MachineCasingModel(BlockModelPart part) implements BlockStateModel
 		return part.particleIcon();
 	}
 
-	public record Unbaked(ResourceLocation id, TextureSlots textures, Material particle) implements BlockStateModel.UnbakedRoot {
+	public record Unbaked(Identifier id, TextureSlots textures, Material particle) implements BlockStateModel.UnbakedRoot {
 		@Override
 		public BlockStateModel bake(BlockState state, ModelBaker baker) {
 			ResolvedModel model = baker.getModel(id);

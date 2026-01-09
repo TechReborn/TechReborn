@@ -28,12 +28,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.network.BlockPosPayload;
 
 public record SlotSyncPayload(BlockPos pos, SlotConfiguration slotConfig) implements CustomPacketPayload, BlockPosPayload {
-	public static final Type<SlotSyncPayload> ID = new Type<>(ResourceLocation.parse("reborncore:slot_sync"));
+	public static final Type<SlotSyncPayload> ID = new Type<>(Identifier.parse("reborncore:slot_sync"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, SlotSyncPayload> PACKET_CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, SlotSyncPayload::pos,
 		SlotConfiguration.PACKET_CODEC, SlotSyncPayload::slotConfig,

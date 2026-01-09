@@ -27,11 +27,11 @@ package techreborn.packets.clientbound;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import techreborn.TechReborn;
 
 public record OpenManualPayload() implements CustomPacketPayload {
-	public static final CustomPacketPayload.Type<OpenManualPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "open_manual"));
+	public static final CustomPacketPayload.Type<OpenManualPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "open_manual"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, OpenManualPayload> CODEC = StreamCodec.unit(new OpenManualPayload());
 
 	@Override

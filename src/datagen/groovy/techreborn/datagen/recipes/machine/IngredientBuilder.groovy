@@ -34,7 +34,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.HolderSet
 import net.minecraft.tags.TagKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import reborncore.common.crafting.SizedIngredient
 import techreborn.component.TRDataComponentTypes
 import techreborn.init.TRContent
@@ -103,7 +103,7 @@ class IngredientBuilder {
 	}
 
 	@Deprecated
-	def ident(ResourceLocation identifier) {
+	def ident(Identifier identifier) {
 		return item(BuiltInRegistries.ITEM.getValue(identifier))
 	}
 

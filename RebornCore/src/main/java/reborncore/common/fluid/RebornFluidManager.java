@@ -28,18 +28,18 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class RebornFluidManager {
 
-	private static final HashMap<ResourceLocation, RebornFluid> fluids = new HashMap<>();
+	private static final HashMap<Identifier, RebornFluid> fluids = new HashMap<>();
 
-	public static void register(RebornFluid rebornFluid, ResourceLocation identifier) {
+	public static void register(RebornFluid rebornFluid, Identifier identifier) {
 		fluids.put(identifier, rebornFluid);
 		Registry.register(BuiltInRegistries.FLUID, identifier, rebornFluid);
 	}
 
-	public static HashMap<ResourceLocation, RebornFluid> getFluids() {
+	public static HashMap<Identifier, RebornFluid> getFluids() {
 		return fluids;
 	}
 

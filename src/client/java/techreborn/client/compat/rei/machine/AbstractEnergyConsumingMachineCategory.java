@@ -32,7 +32,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeType;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.compat.rei.MachineRecipeDisplay;
@@ -55,7 +55,7 @@ public abstract class AbstractEnergyConsumingMachineCategory<R extends RebornRec
 			list.add(Component.translatable("techreborn.jei.recipe.running.cost", "E", recipeDisplay.getEnergy()).withStyle(ChatFormatting.GRAY));
 			list.add(Component.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getEnergy() * recipeDisplay.getTime()).withStyle(ChatFormatting.GRAY));
 			list.add(Component.literal(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(ResourceLocation.fromNamespaceAndPath("techreborn", "")));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.fromNamespaceAndPath("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 		return widgets;

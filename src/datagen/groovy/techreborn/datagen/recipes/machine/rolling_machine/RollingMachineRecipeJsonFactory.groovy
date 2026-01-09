@@ -31,7 +31,7 @@ import net.minecraft.world.item.crafting.ShapedRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import techreborn.recipe.recipes.RollingMachineRecipe
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.crafting.ShapedRecipeFactory
@@ -75,7 +75,7 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 	@SuppressWarnings('GroovyAccessibility')
 	protected RollingMachineRecipe createRecipe() {
 		def builder = shapedRecipeFactory.build()
-		ShapedRecipePattern rawShapedRecipe = builder.ensureValid(ResourceKey.create(Registries.RECIPE, ResourceLocation.withDefaultNamespace("dummy")))
+		ShapedRecipePattern rawShapedRecipe = builder.ensureValid(ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace("dummy")))
 		ShapedRecipe shapedRecipe = new ShapedRecipe(
 			Objects.requireNonNullElse(builder.group, ""),
 			RecipeBuilder.determineBookCategory(builder.category),
@@ -90,7 +90,7 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 	def getIdentifier() {
 		def outputId = BuiltInRegistries.ITEM.getKey(shapedRecipeFactory.output.item)
 		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
-		return ResourceLocation.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
+		return Identifier.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	@Override

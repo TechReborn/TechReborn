@@ -28,10 +28,10 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record ScreenHandlerUpdatePayload(byte[] data) implements CustomPacketPayload {
-	public static final Type<ScreenHandlerUpdatePayload> ID = new Type<>(ResourceLocation.parse("reborncore:screen_handler_update"));
+	public static final Type<ScreenHandlerUpdatePayload> ID = new Type<>(Identifier.parse("reborncore:screen_handler_update"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, ScreenHandlerUpdatePayload> PACKET_CODEC = StreamCodec.composite(
 		ByteBufCodecs.BYTE_ARRAY, ScreenHandlerUpdatePayload::data,
 		ScreenHandlerUpdatePayload::new

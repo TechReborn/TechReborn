@@ -29,12 +29,12 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
 public record DetectorRadiusPayload(BlockPos pos, int buttonAmount) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<DetectorRadiusPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "detector_radius"));
+	public static final CustomPacketPayload.Type<DetectorRadiusPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "detector_radius"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, DetectorRadiusPayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, DetectorRadiusPayload::pos,
 		ByteBufCodecs.INT, DetectorRadiusPayload::buttonAmount,

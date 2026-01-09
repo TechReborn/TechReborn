@@ -36,7 +36,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 
 public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
@@ -64,7 +64,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 		drawSlot(drawContext, 48, gridYPos + 36, layer);
 
 		if (!blockEntity.isShapeValid()) {
-			drawContext.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.fromNamespaceAndPath("techreborn", "textures/item/part/digital_display.png"), leftPos + 68, topPos + 22, 0, 0, 16, 16, 16, 16);
+			drawContext.blit(RenderPipelines.GUI_TEXTURED, Identifier.fromNamespaceAndPath("techreborn", "textures/item/part/digital_display.png"), leftPos + 68, topPos + 22, 0, 0, 16, 16, 16, 16);
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
 				List<Component> list = Arrays.stream(I18n.get("techreborn.tooltip.greenhouse.upgrade_available")
 						.split("\\r?\\n"))

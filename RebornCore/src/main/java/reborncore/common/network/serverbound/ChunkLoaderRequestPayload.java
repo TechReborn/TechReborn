@@ -28,11 +28,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.network.BlockPosPayload;
 
 public record ChunkLoaderRequestPayload(BlockPos pos) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<ChunkLoaderRequestPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.parse("reborncore:chunk_loader_request"));
+	public static final CustomPacketPayload.Type<ChunkLoaderRequestPayload> ID = new CustomPacketPayload.Type<>(Identifier.parse("reborncore:chunk_loader_request"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, ChunkLoaderRequestPayload> PACKET_CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, ChunkLoaderRequestPayload::pos,
 		ChunkLoaderRequestPayload::new

@@ -24,7 +24,7 @@
 
 package reborncore.common.util;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-public record IdentifiableObject<T>(@NotNull T object, @NotNull ResourceLocation identifier) { }
+public record IdentifiableObject<T>(@NotNull T object, @NotNull Identifier identifier) { }

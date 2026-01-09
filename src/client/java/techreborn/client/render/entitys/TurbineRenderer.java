@@ -36,7 +36,7 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -54,7 +54,7 @@ import java.util.function.Function;
 public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity, TurbineRenderer.TurbineRenderState> {
 	private static final Set<Direction> ALL_DIRECTIONS = EnumSet.allOf(Direction.class);
 	private static final TurbineModel MODEL = TurbineModel.create();
-	public static final ResourceLocation TEXTURE = ResourceLocation.parse("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
+	public static final Identifier TEXTURE = Identifier.parse("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
 
 	public TurbineRenderer(BlockEntityRendererProvider.Context ctx) {
 	}
@@ -140,7 +140,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 			model.zRot = z;
 		}
 
-		public TurbineModel(ModelPart root, Function<ResourceLocation, RenderType> layerFactory) {
+		public TurbineModel(ModelPart root, Function<Identifier, RenderType> layerFactory) {
 			super(root, layerFactory);
 		}
 

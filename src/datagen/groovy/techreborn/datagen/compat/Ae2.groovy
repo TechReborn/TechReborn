@@ -29,14 +29,14 @@ import net.minecraft.world.item.Item
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 class Ae2 {
 	static String AE2_MOD_ID = "ae2"
-	static ResourceLocation CERTUS_QUARTZ_DUST = ResourceLocation.fromNamespaceAndPath(AE2_MOD_ID, "certus_quartz_dust")
-	static ResourceLocation CERTUS_QUARTZ_CRYSTAL = ResourceLocation.fromNamespaceAndPath(AE2_MOD_ID, "certus_quartz_crystal")
-	static ResourceLocation FLUIX_CRYSTAL = ResourceLocation.fromNamespaceAndPath(AE2_MOD_ID, "fluix_crystal")
-	static ResourceLocation FLUIX_DUST = ResourceLocation.fromNamespaceAndPath(AE2_MOD_ID, "fluix_dust")
+	static Identifier CERTUS_QUARTZ_DUST = Identifier.fromNamespaceAndPath(AE2_MOD_ID, "certus_quartz_dust")
+	static Identifier CERTUS_QUARTZ_CRYSTAL = Identifier.fromNamespaceAndPath(AE2_MOD_ID, "certus_quartz_crystal")
+	static Identifier FLUIX_CRYSTAL = Identifier.fromNamespaceAndPath(AE2_MOD_ID, "fluix_crystal")
+	static Identifier FLUIX_DUST = Identifier.fromNamespaceAndPath(AE2_MOD_ID, "fluix_dust")
 
 
 	static void setup() {
@@ -66,7 +66,7 @@ class Ae2 {
 		return getItem(FLUIX_DUST)
 	}
 
-	private static Item getItem(ResourceLocation name) {
+	private static Item getItem(Identifier name) {
 		if (!BuiltInRegistries.ITEM.containsKey(name)) {
 			throw new IllegalArgumentException("Item not found: " + name)
 		}
@@ -74,7 +74,7 @@ class Ae2 {
 		return BuiltInRegistries.ITEM.getValue(name)
 	}
 
-	private static void registerItem(ResourceLocation name) {
+	private static void registerItem(Identifier name) {
 		Registry.register(BuiltInRegistries.ITEM, name, new Item(new Item.Properties().setId(ResourceKey.create(BuiltInRegistries.ITEM.key(), name))))
 	}
 }

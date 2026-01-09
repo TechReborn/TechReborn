@@ -44,7 +44,7 @@ import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.TagKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import techreborn.component.TRDataComponentTypes
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipeJsonFactory
@@ -67,7 +67,7 @@ import java.util.concurrent.CompletableFuture
 
 abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	protected RecipeOutput exporter
-	public Set<ResourceLocation> exportedRecipes = []
+	public Set<Identifier> exportedRecipes = []
 	public HolderGetter<Item> itemLookup
 	public RecipeProvider generator
 
@@ -181,7 +181,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 
 	// Todo refactor me out, used to help port json recipes
 	static ItemStack stack(String id, int count = 1) {
-		def item = BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(id))
+		def item = BuiltInRegistries.ITEM.getValue(Identifier.parse(id))
 		return new ItemStack(item, count)
 	}
 
@@ -191,7 +191,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 			throw new UnsupportedOperationException()
 		}
 
-		return TagKey.create(Registries.ITEM, ResourceLocation.parse(id))
+		return TagKey.create(Registries.ITEM, Identifier.parse(id))
 	}
 
 	def offerAlloySmelterRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
@@ -283,8 +283,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected ResourceLocation getRecipeIdentifier(ResourceLocation identifier) {
-		return ResourceLocation.fromNamespaceAndPath("techreborn", super.getRecipeIdentifier(identifier).path)
+	protected Identifier getRecipeIdentifier(Identifier identifier) {
+		return Identifier.fromNamespaceAndPath("techreborn", super.getRecipeIdentifier(identifier).path)
 	}
 
 	@Override

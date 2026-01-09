@@ -35,7 +35,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import reborncore.api.blockentity.UnloadHandler;
 import reborncore.client.*;
@@ -77,7 +77,7 @@ public class RebornCoreClient implements ClientModInitializer {
 			.registerReloadListener(new ThemeManager());
 
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			ResourceLocation.fromNamespaceAndPath("reborncore", "reborncore_darkmode"),
+			Identifier.fromNamespaceAndPath("reborncore", "reborncore_darkmode"),
 			FabricLoader.getInstance().getModContainer("reborncore").get(),
 			ResourcePackActivationType.NORMAL
 		);

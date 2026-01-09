@@ -35,7 +35,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -116,7 +116,7 @@ public class FrequencyTransmitterItem extends Item {
 			});
 	}
 
-	private static ResourceLocation getDimName(ResourceKey<Level> dimensionRegistryKey) {
+	private static Identifier getDimName(ResourceKey<Level> dimensionRegistryKey) {
 		return dimensionRegistryKey.location();
 	}
 }

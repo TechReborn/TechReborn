@@ -26,7 +26,7 @@ package techreborn.init;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -271,6 +271,6 @@ public class TRBlockSettings {
 	}
 
 	public static ResourceKey<Block> key(String name) {
-		return ResourceKey.create(BuiltInRegistries.BLOCK.key(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+		return ResourceKey.create(BuiltInRegistries.BLOCK.key(), Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 	}
 }

@@ -32,7 +32,7 @@ import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.client.gui.Theme;
 import reborncore.client.gui.ThemeManager;
 import techreborn.config.TechRebornConfig;
@@ -40,7 +40,7 @@ import techreborn.packets.serverbound.RefundPayload;
 
 public class GuiManual extends Screen {
 
-	private static final ResourceLocation MANUAL_TEXTURE = ResourceLocation.fromNamespaceAndPath("techreborn", "textures/gui/manual.png");
+	private static final Identifier MANUAL_TEXTURE = Identifier.fromNamespaceAndPath("techreborn", "textures/gui/manual.png");
 	final int guiWidth = 207;
 	final int guiHeight = 195;
 	private static final Component text1 = Component.translatable("techreborn.manual.wiki");

@@ -47,7 +47,7 @@ import net.minecraft.client.resources.model.QuadCollection;
 import net.minecraft.client.resources.model.ResolvableModel;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -67,11 +67,11 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ItemCellModel implements ItemModel {
-	public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "model/cell");
-	public static final ResourceLocation CELL = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "item/cell");
-	public static final ResourceLocation CELL_BASE = CELL.withSuffix("_base");
-	public static final ResourceLocation CELL_BACKGROUND = CELL.withSuffix("_background");
-	public static final ResourceLocation CELL_GLASS = CELL.withSuffix("_glass");
+	public static final Identifier ID = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "model/cell");
+	public static final Identifier CELL = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "item/cell");
+	public static final Identifier CELL_BASE = CELL.withSuffix("_base");
+	public static final Identifier CELL_BACKGROUND = CELL.withSuffix("_background");
+	public static final Identifier CELL_GLASS = CELL.withSuffix("_glass");
 	private final RenderType layer;
 	private final ModelRenderProperties settings;
 	private final Function<Fluid, Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bake;

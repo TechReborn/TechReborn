@@ -30,11 +30,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.network.BlockPosPayload;
 
 public record CustomDescriptionPayload(BlockPos pos, CompoundTag nbt) implements CustomPacketPayload, BlockPosPayload {
-	public static final Type<CustomDescriptionPayload> ID = new Type<>(ResourceLocation.parse("reborncore:custom_description"));
+	public static final Type<CustomDescriptionPayload> ID = new Type<>(Identifier.parse("reborncore:custom_description"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, CustomDescriptionPayload> PACKET_CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, CustomDescriptionPayload::pos,
 		ByteBufCodecs.COMPOUND_TAG, CustomDescriptionPayload::nbt,

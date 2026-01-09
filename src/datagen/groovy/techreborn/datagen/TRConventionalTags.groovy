@@ -28,7 +28,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.BlockTags
 import net.minecraft.tags.TagKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 class TRConventionalTags {
 	public static final TagKey<Item> ADVANCED_ALLOY_BLOCKS = register("storage_blocks/advanced_alloy")
@@ -160,6 +160,6 @@ class TRConventionalTags {
 	public static final TagKey<Item> SULFURS = register("sulfurs")
 
 	private static TagKey<Item> register(String name) {
-		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name))
+		return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", name))
 	}
 }

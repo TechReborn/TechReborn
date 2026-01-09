@@ -47,7 +47,7 @@ import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4fStack;
@@ -91,7 +91,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 		float scaleFactor = window.getGuiScale();
 		final int drawSize = Math.min(framebuffer.height, SIZE);
 		int left = (int) (drawSize / scaleFactor) + 5;
-		ResourceLocation identifier = BuiltInRegistries.ITEM.getKey(stack.getItem());
+		Identifier identifier = BuiltInRegistries.ITEM.getKey(stack.getItem());
 		drawContext.drawString(client.font, "Rendering " + identifier, left, 5, -1, false);
 		drawContext.drawString(client.font, queue + " items left", left, 15, -1, false);
 
