@@ -57,7 +57,7 @@ allprojects {
 
         //Fabric api
         // implementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
-        implementation 'lol.bai:fabric-api-stub:9b1f19dc04'
+        implementation 'lol.bai:fabric-api-stub:a7bc1f3d8a'
 
         include(api("teamreborn:energy:${project.energy_version}")) {
             transitive = false
