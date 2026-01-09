@@ -6,7 +6,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
-	id 'fabric-loom' version '1.13-SNAPSHOT'
+	id 'net.fabricmc.fabric-loom' version '1.14-SNAPSHOT'
     id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
 }
 
@@ -37,7 +37,7 @@ group = 'TechReborn'
 allprojects {
     version = project.mod_version + (ENV.GITHUB_ACTIONS ? "" : "+local")
 
-    apply plugin: "fabric-loom"
+    apply plugin: "net.fabricmc.fabric-loom"
     apply plugin: "maven-publish"
 	apply plugin: "com.diffplug.spotless"
 
@@ -49,13 +49,12 @@ allprojects {
     // Shared deps between TR and RC
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
-        mappings loom.officialMojangMappings()
-        modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+        implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         //Fabric api
-        modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
+        implementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
 
-        include(modApi("teamreborn:energy:${project.energy_version}")) {
+        include(api("teamreborn:energy:${project.energy_version}")) {
             transitive = false
         }
     }
@@ -71,13 +70,13 @@ allprojects {
 
     tasks.withType(JavaCompile).configureEach {
         it.options.encoding = "UTF-8"
-        it.options.release = 21
+        it.options.release = 25
     }
 
     java {
         withSourcesJar()
-		sourceCompatibility = JavaVersion.VERSION_21
-		targetCompatibility = JavaVersion.VERSION_21
+		sourceCompatibility = JavaVersion.VERSION_25
+		targetCompatibility = JavaVersion.VERSION_25
     }
 
     publishing {
@@ -179,13 +178,14 @@ allprojects {
 
 // TechReborn specific dependencies
 dependencies {
-    api project(path: ":RebornCore", configuration: "namedElements")
+    api project(":RebornCore")
     clientImplementation project(":RebornCore").sourceSets.client.output
 
     include project(":RebornCore")
 
-    optionalREIDependency(false)
-    optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
+    // TODO: REI and PAL compat
+    // optionalREIDependency(false)
+    // optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
     datagenImplementation 'org.apache.groovy:groovy:4.0.21'
@@ -196,7 +196,7 @@ def optionalDependency(String dep) {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc"
     }
-    dependencies.modCompileOnly(dep, exclude)
+    dependencies.compileOnly(dep, exclude)
 }
 
 def optionalREIDependency(runtime = true) {
@@ -205,11 +205,11 @@ def optionalREIDependency(runtime = true) {
 		exclude group: "net.fabricmc"
 	}
 	String dep = "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-	dependencies.modClientCompileOnly(dep, exclude)
-	dependencies.modCompileOnly(dep, exclude)
+	dependencies.clientCompileOnly(dep, exclude)
+	dependencies.compileOnly(dep, exclude)
 
 	if (runtime) {
-		dependencies.modClientRuntimeOnly(dep, exclude)
+		dependencies.clientRuntimeOnly(dep, exclude)
 	}
 }
 
@@ -247,7 +247,7 @@ publishMods {
     curseforge("curseforgeTechReborn") {
         from options
         projectId = "233564"
-        file = remapJar.archiveFile
+        file = jar.archiveFile
 
         embeds {
             slug = "reborncore"
@@ -260,13 +260,13 @@ publishMods {
     curseforge("curseforgeRebornCore") {
         from options
         projectId = "237903"
-        file = project(":RebornCore").tasks.remapJar.archiveFile
+        file = project(":RebornCore").tasks.jar.archiveFile
 		displayName = "RebornCore ${project.version}"
     }
 
 	github {
-		file = remapJar.archiveFile
-		additionalFiles.from project(":RebornCore").tasks.remapJar.archiveFile
+		file = jar.archiveFile
+		additionalFiles.from project(":RebornCore").tasks.jar.archiveFile
 		repository = providers.environmentVariable("GITHUB_REPOSITORY").orElse("dryrun")
 		accessToken = providers.environmentVariable("GITHUB_TOKEN")
 		commitish = providers.environmentVariable("GITHUB_REF_NAME").orElse("dryrun")

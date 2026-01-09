@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/* TODO: REI compat
 package techreborn.compat.rei;
 
 import com.mojang.serialization.Codec;
@@ -167,3 +168,4 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 		return SERIALIZER;
 	}
 }
+*/

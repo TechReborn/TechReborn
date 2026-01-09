@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/* TODO: PAL compat
 package techreborn.compat.pal;
 
 import net.fabricmc.api.ModInitializer;
@@ -43,3 +44,4 @@ public class PlayerAbilityLibCompat implements ModInitializer {
 		QuantumSuitItem.HANDLER = new PalQuantumSuitFlightHandler();
 	}
 }
+*/

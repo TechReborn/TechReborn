@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/* TODO: REI compat
 package techreborn.compat.rei;
 
 import dev.architectury.event.CompoundEventResult;
@@ -151,3 +152,4 @@ public class ReiCommonPlugin implements REICommonPlugin {
 		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid_replicator"), FluidReplicatorRecipeDisplay.SERIALIZER);
 	}
 }
+*/

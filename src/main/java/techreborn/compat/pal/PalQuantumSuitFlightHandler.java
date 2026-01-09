@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/* TODO: PAL compat
 package techreborn.compat.pal;
 
 import io.github.ladysnake.pal.AbilitySource;
@@ -53,3 +54,4 @@ public class PalQuantumSuitFlightHandler extends QuantumSuitFlightHandler {
 		return playerEntity.getAbilities().flying && QUANTUM_CHESTPLATE_FLIGHT.isActivelyGranting(playerEntity, VanillaAbilities.ALLOW_FLYING);
 	}
 }
+*/

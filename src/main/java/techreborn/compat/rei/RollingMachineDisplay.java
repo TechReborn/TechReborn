@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/* TODO: REI compat
 package techreborn.compat.rei;
 
 import com.mojang.serialization.Codec;
@@ -159,3 +160,4 @@ public class RollingMachineDisplay implements CraftingDisplay {
 		return SERIALIZER;
 	}
 }
+*/

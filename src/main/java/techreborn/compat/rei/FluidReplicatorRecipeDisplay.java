@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/* TODO: REI compat
 package techreborn.compat.rei;
 
 import com.mojang.serialization.Codec;
@@ -46,9 +47,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+*/
 /**
  * @author drcrazy
- */
+ *//*
+
 public class FluidReplicatorRecipeDisplay implements Display {
 	public static final DisplaySerializer<FluidReplicatorRecipeDisplay> SERIALIZER = DisplaySerializer.of(
 		RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -153,3 +156,4 @@ public class FluidReplicatorRecipeDisplay implements Display {
 		return SERIALIZER;
 	}
 }
+*/

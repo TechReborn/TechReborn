@@ -24,6 +24,7 @@
 
 package techreborn.compat.rei;
 
+/* TODO: REI compat
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -104,3 +105,4 @@ public class FluidGeneratorRecipeDisplay implements Display {
 		return totalEnergy;
 	}
 }
+*/
