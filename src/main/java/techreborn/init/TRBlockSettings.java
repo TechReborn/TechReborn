@@ -270,6 +270,14 @@ public class TRBlockSettings {
 			.setId(key(name));
 	}
 
+	public static BlockBehaviour.Properties nuclearReactor(String name) {
+		return metal(name);
+	}
+
+	public static BlockBehaviour.Properties reactorChamber(String name) {
+		return metal(name);
+	}
+
 	public static ResourceKey<Block> key(String name) {
 		return ResourceKey.create(BuiltInRegistries.BLOCK.key(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 	}

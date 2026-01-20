@@ -125,7 +125,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	@Override
 	public void init() {
 		super.init();
-		for (GuiTab tab : tabs) {
+		for (GuiTab tab : getTabs()) {
 			tab.open();
 		}
 	}
@@ -202,7 +202,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 			drawContext.setComponentTooltipForNextFrame(Minecraft.getInstance().font, list, mouseX, mouseY);
 		}
 		int offset = upgrades ? 82 : 0;
-		for (GuiTab tab : tabs) {
+		for (GuiTab tab : getTabs()) {
 			if (isHovering(-26, 6 + offset, 24, 23, mouseX, mouseY)) {
 				drawContext.setComponentTooltipForNextFrame(Minecraft.getInstance().font, Collections.singletonList(Component.translatable(tab.name())), mouseX, mouseY);
 			}
@@ -266,7 +266,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		if (!upgrades) {
 			offset = 80;
 		}
-		for (GuiTab tab : tabs) {
+		for (GuiTab tab : getTabs()) {
 			if (isHovering(-26, 84 - offset, 30, 23, mouse.x(), mouse.y())) {
 				if (selectedTab == tab) {
 					closeSelectedTab();

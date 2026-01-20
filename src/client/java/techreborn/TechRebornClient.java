@@ -120,6 +120,7 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockEntityRenderers.register(TRBlockEntities.DISTILLATION_TOWER, MultiblockRenderer::new);
 		BlockEntityRenderers.register(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
 		BlockEntityRenderers.register(TRBlockEntities.GREENHOUSE_CONTROLLER, MultiblockRenderer::new);
+		BlockEntityRenderers.register(TRBlockEntities.NUCLEAR_REACTOR, MultiblockRenderer::new);
 		BlockEntityRenderers.register(TRBlockEntities.STORAGE_UNIT, StorageUnitRenderer::new);
 		BlockEntityRenderers.register(TRBlockEntities.CABLE, CableCoverRenderer::new);
 		BlockEntityRenderers.register(TRBlockEntities.WIND_MILL, TurbineRenderer::new);
