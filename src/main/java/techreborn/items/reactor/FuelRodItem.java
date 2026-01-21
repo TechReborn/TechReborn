@@ -104,22 +104,44 @@ public class FuelRodItem extends ReactorComponentItem {
 	}
 
 	/**
-	 * Distribute heat to adjacent heat acceptors, remainder goes to reactor hull.
+	 * Distribute heat evenly to adjacent heat acceptors, remainder goes to reactor hull.
 	 */
 	private void distributeHeat(NuclearReactorBlockEntity reactor, int x, int y, int heat) {
-		// Try to distribute to each adjacent heat acceptor
 		int[] dx = {-1, 1, 0, 0};
 		int[] dy = {0, 0, -1, 1};
 
-		for (int i = 0; i < 4 && heat > 0; i++) {
+		// Count how many adjacent slots can accept heat
+		int acceptorCount = 0;
+		for (int i = 0; i < 4; i++) {
 			if (reactor.canAcceptHeatAt(x + dx[i], y + dy[i])) {
-				heat = reactor.transferHeatTo(x + dx[i], y + dy[i], heat);
+				acceptorCount++;
 			}
 		}
 
-		// Remaining heat goes to reactor hull
-		if (heat > 0) {
+		if (acceptorCount == 0) {
+			// No adjacent acceptors, all heat goes to reactor hull
 			reactor.addHeat(heat);
+			return;
+		}
+
+		// Distribute heat evenly to adjacent components
+		int heatPerComponent = heat / acceptorCount;
+		int remainder = heat % acceptorCount;
+		int totalOverflow = 0;
+
+		for (int i = 0; i < 4; i++) {
+			if (reactor.canAcceptHeatAt(x + dx[i], y + dy[i])) {
+				// First 'remainder' components get one extra heat unit
+				int heatToTransfer = heatPerComponent + (remainder > 0 ? 1 : 0);
+				if (remainder > 0) remainder--;
+				int overflow = reactor.transferHeatTo(x + dx[i], y + dy[i], heatToTransfer);
+				totalOverflow += overflow;
+			}
+		}
+
+		// Any overflow goes to reactor hull
+		if (totalOverflow > 0) {
+			reactor.addHeat(totalOverflow);
 		}
 	}
 
