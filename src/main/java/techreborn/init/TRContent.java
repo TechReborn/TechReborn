@@ -949,7 +949,7 @@ public class TRContent {
 
 		// Reactor plating - increases max heat capacity
 		REACTOR_PLATING(new ReactorPlatingItem("reactor_plating", 1000, 0.95f)),
-		HEAT_CAPACITY_REACTOR_PLATING(new ReactorPlatingItem("heat_capacity_reactor_plating", 2000, 1.0f)),
+		HEAT_CAPACITY_REACTOR_PLATING(new ReactorPlatingItem("heat_capacity_reactor_plating", 1700, 0.99f)),
 		CONTAINMENT_REACTOR_PLATING(new ReactorPlatingItem("containment_reactor_plating", 500, 0.9f));
 
 		private final String name;
