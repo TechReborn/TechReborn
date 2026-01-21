@@ -279,6 +279,15 @@ publishMods {
         }
     }
 
+    def mrOptions = modrinthOptions {
+        accessToken = providers.environmentVariable("MODRINTH_API_KEY")
+        minecraftVersions.add("1.20.1")
+
+        requires {
+            slug = "fabric-api"
+        }
+    }
+
     curseforge("curseforgeTechReborn") {
         from options
         projectId = "233564"
@@ -297,6 +306,22 @@ publishMods {
         projectId = "237903"
         file = project(":RebornCore").tasks.remapJar.archiveFile
 		displayName = "RebornCore ${project.version}"
+    }
+
+    modrinth("modrinthTechReborn") {
+        from mrOptions
+        projectId = "3eMENr4V"
+        file = remapJar.archiveFile
+
+        embeds {
+            slug = "reborncore"
+        }
+    }
+
+    modrinth("modrinthRebornCore") {
+        from mrOptions
+        projectId = "3NCrJdj3"
+        file = project(":RebornCore").tasks.remapJar.archiveFile
     }
 
 	github {
