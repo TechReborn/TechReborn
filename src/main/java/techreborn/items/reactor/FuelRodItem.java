@@ -31,22 +31,18 @@ import techreborn.init.TRContent;
 
 /**
  * Fuel rod that generates EU and heat in the nuclear reactor.
- *
- * EU generation = pulses per cell iteration
- * Heat generation = triangular(pulses) * 4, where triangular(n) = n*(n+1)/2
- *
- * Pulses come from:
- * - Base pulses: 1 + cells/2 (single=1, dual=2, quad=3)
- * - Adjacent fuel rods: +1 per adjacent rod
- * - Adjacent reflectors: +1 per adjacent reflector
  */
 public class FuelRodItem extends ReactorComponentItem {
 
 	protected final int cellCount;
+	protected final int baseEU;  // Base EU per pulse
+	protected final int baseHeat; // Base heat per pulse
 
-	public FuelRodItem(String name, int maxDuration, int cellCount) {
+	public FuelRodItem(String name, int maxDuration, int cellCount, int baseEU, int baseHeat) {
 		super(name, maxDuration);
 		this.cellCount = cellCount;
+		this.baseEU = baseEU;
+		this.baseHeat = baseHeat;
 	}
 
 	@Override
@@ -58,24 +54,22 @@ public class FuelRodItem extends ReactorComponentItem {
 	public void processComponent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
 		if (!reactor.isActive()) return;
 
-		// Count pulses from adjacent components
+		// Count pulses from adjacent components (fuel rods and reflectors)
 		int adjacentPulses = countAdjacentPulses(reactor, x, y);
 
-		// Process each cell in the rod
-		int basePulses = 1 + cellCount / 2; // single=1, dual=2, quad=3
+		// Neutron pulses per cell = 1 + floor(cellCount/2) + adjacentPulses
+		// The floor(cellCount/2) term accounts for internal adjacency within the fuel cell
+		// - Single: 1 + 0 = 1, Dual: 1 + 1 = 2, Quad: 1 + 2 = 3
+		int pulses = 1 + cellCount / 2 + adjacentPulses;
 
-		for (int cell = 0; cell < cellCount; cell++) {
-			int pulses = basePulses + adjacentPulses;
+		int totalEU = cellCount * baseEU * pulses;
+		reactor.addEuOutput(totalEU);
 
-			// Generate EU (1 EU per pulse)
-			reactor.addEuOutput(pulses);
+		int triangular = pulses * (pulses + 1) / 2;
+		int totalHeat = cellCount * baseHeat * triangular;
 
-			// Generate heat: triangular(pulses) * 4
-			int heat = (pulses * pulses + pulses) / 2 * 4;
-
-			// Distribute heat to adjacent heat acceptors
-			distributeHeat(reactor, x, y, heat);
-		}
+		// Distribute heat evenly to adjacent heat acceptors
+		distributeHeat(reactor, x, y, totalHeat);
 
 		// Consume fuel
 		if (consumeDurability(stack, 1)) {

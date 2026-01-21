@@ -904,10 +904,10 @@ public class TRContent {
 	}
 
 	public enum NuclearReactorComponents implements ItemInfo, TagConvertible<Item> {
-		// Uranium fuel rods - last 20,000 seconds
-		URANIUM_FUEL_ROD(new FuelRodItem("uranium_fuel_rod", 20_000, 1)),
-		DUAL_URANIUM_FUEL_ROD(new FuelRodItem("dual_uranium_fuel_rod", 20_000, 2)),
-		QUAD_URANIUM_FUEL_ROD(new FuelRodItem("quad_uranium_fuel_rod", 20_000, 4)),
+		// Uranium fuel rods - last 20,000 seconds, 5 base EU, 4 base heat
+		URANIUM_FUEL_ROD(new FuelRodItem("uranium_fuel_rod", 20_000, 1, 5, 4)),
+		DUAL_URANIUM_FUEL_ROD(new FuelRodItem("dual_uranium_fuel_rod", 20_000, 2, 5, 4)),
+		QUAD_URANIUM_FUEL_ROD(new FuelRodItem("quad_uranium_fuel_rod", 20_000, 4, 5, 4)),
 
 		// Depleted fuel rods
 		DEPLETED_URANIUM_FUEL_ROD(new DepletedFuelRodItem("depleted_uranium_fuel_rod", 1)),
