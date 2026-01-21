@@ -937,8 +937,8 @@ public class TRContent {
 
 		// Heat exchangers - transfer heat between components and reactor
 		// Parameters: heatStorage, componentTransfer, reactorTransfer
-		HEAT_EXCHANGER(new HeatExchangerItem("heat_exchanger", 2500, 4, 12)),
-		ADVANCED_HEAT_EXCHANGER(new HeatExchangerItem("advanced_heat_exchanger", 10000, 8, 24)),
+		HEAT_EXCHANGER(new HeatExchangerItem("heat_exchanger", 2500, 12, 4)),
+		ADVANCED_HEAT_EXCHANGER(new HeatExchangerItem("advanced_heat_exchanger", 10000, 24, 8)),
 		REACTOR_HEAT_EXCHANGER(new HeatExchangerItem("reactor_heat_exchanger", 5000, 0, 72)),
 		COMPONENT_HEAT_EXCHANGER(new HeatExchangerItem("component_heat_exchanger", 5000, 36, 0)),
 
