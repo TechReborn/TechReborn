@@ -38,6 +38,8 @@ import techreborn.blockentity.generator.nuclear.NuclearReactorBlockEntity;
  */
 public class NeutronReflectorItem extends ReactorComponentItem {
 
+	private static final int[][] ADJACENT = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
 	public NeutronReflectorItem(String name, int maxDurability) {
 		super(name, maxDurability);
 	}
@@ -54,10 +56,9 @@ public class NeutronReflectorItem extends ReactorComponentItem {
 
 		// Take damage for each adjacent fuel rod
 		int damage = 0;
-		if (reactor.hasFuelRodAt(x - 1, y)) damage++;
-		if (reactor.hasFuelRodAt(x + 1, y)) damage++;
-		if (reactor.hasFuelRodAt(x, y - 1)) damage++;
-		if (reactor.hasFuelRodAt(x, y + 1)) damage++;
+		for (int[] offset : ADJACENT) {
+			if (reactor.hasFuelRodAt(x + offset[0], y + offset[1])) damage++;
+		}
 
 		if (damage > 0 && consumeDurability(stack, damage)) {
 			reactor.setItemAt(x, y, ItemStack.EMPTY);

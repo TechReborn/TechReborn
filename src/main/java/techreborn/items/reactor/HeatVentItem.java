@@ -39,6 +39,8 @@ import techreborn.blockentity.generator.nuclear.NuclearReactorBlockEntity;
  */
 public class HeatVentItem extends CoolantCellItem {
 
+	private static final int[][] ADJACENT = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
 	private final int selfVent;
 	private final int reactorVent;
 	private final int componentVent;
@@ -78,23 +80,12 @@ public class HeatVentItem extends CoolantCellItem {
 
 		// Cool adjacent components
 		if (componentVent > 0) {
-			coolAdjacent(stack, reactor, x - 1, y);
-			coolAdjacent(stack, reactor, x + 1, y);
-			coolAdjacent(stack, reactor, x, y - 1);
-			coolAdjacent(stack, reactor, x, y + 1);
+			for (int[] offset : ADJACENT) {
+				ItemStack other = reactor.getItemAt(x + offset[0], y + offset[1]);
+				if (other != null && !other.isEmpty() && other.getItem() instanceof ReactorComponentItem comp && comp.canStoreHeat()) {
+					comp.addHeat(other, reactor, x + offset[0], y + offset[1], -componentVent);
+				}
+			}
 		}
-	}
-
-	/**
-	 * Cool an adjacent component by removing heat from it.
-	 * The removed heat is vented (discarded).
-	 */
-	private void coolAdjacent(ItemStack selfStack, NuclearReactorBlockEntity reactor, int x, int y) {
-		ItemStack stack = reactor.getItemAt(x, y);
-		if (stack == null || stack.isEmpty()) return;
-		if (!(stack.getItem() instanceof ReactorComponentItem comp)) return;
-		if (!comp.canStoreHeat()) return;
-		// Try to remove componentVent heat from the adjacent component
-		comp.addHeat(stack, reactor, x, y, -componentVent);
 	}
 }

@@ -118,22 +118,18 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 		int size = getReactorSize();
 
-		// Heat generation and management
-		for (int y = 0; y < GRID_HEIGHT; y++) {
-			for (int x = 0; x < size; x++) {
-				ItemStack stack = getItemAt(x, y);
-				if (!stack.isEmpty() && stack.getItem() instanceof ReactorComponentItem comp) {
-					comp.processHeat(stack, this, x, y);
-				}
-			}
-		}
-
-		// EU generation and fuel consumption
-		for (int y = 0; y < GRID_HEIGHT; y++) {
-			for (int x = 0; x < size; x++) {
-				ItemStack stack = getItemAt(x, y);
-				if (!stack.isEmpty() && stack.getItem() instanceof ReactorComponentItem comp) {
-					comp.processEnergy(stack, this, x, y);
+		// Process all components
+		// Heat first, then energy
+		for (int pass = 0; pass < 2; pass++) {
+			for (int y = 0; y < GRID_HEIGHT; y++) {
+				for (int x = 0; x < size; x++) {
+					ItemStack stack = getItemAt(x, y);
+					if (!stack.isEmpty() && stack.getItem() instanceof ReactorComponentItem comp) {
+						// Heat generation and management
+						if (pass == 0) comp.processHeat(stack, this, x, y);
+						// EU generation and fuel consumption
+						else comp.processEnergy(stack, this, x, y);
+					}
 				}
 			}
 		}

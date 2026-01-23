@@ -34,6 +34,8 @@ import techreborn.init.TRContent;
  */
 public class FuelRodItem extends ReactorComponentItem {
 
+	private static final int[][] ADJACENT = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
 	protected final int cellCount;
 	protected final int baseEU;  // Base EU per pulse
 	protected final int baseHeat; // Base heat per pulse
@@ -95,32 +97,23 @@ public class FuelRodItem extends ReactorComponentItem {
 	 */
 	private int countAdjacentPulses(NuclearReactorBlockEntity reactor, int x, int y) {
 		int pulses = 0;
-		pulses += countPulseAt(reactor, x - 1, y);
-		pulses += countPulseAt(reactor, x + 1, y);
-		pulses += countPulseAt(reactor, x, y - 1);
-		pulses += countPulseAt(reactor, x, y + 1);
+		for (int[] offset : ADJACENT) {
+			ItemStack stack = reactor.getItemAt(x + offset[0], y + offset[1]);
+			if (stack != null && !stack.isEmpty() && stack.getItem() instanceof ReactorComponentItem comp && (comp.isFuelRod() || comp.isReflector())) {
+				pulses++;
+			}
+		}
 		return pulses;
-	}
-
-	private int countPulseAt(NuclearReactorBlockEntity reactor, int x, int y) {
-		ItemStack stack = reactor.getItemAt(x, y);
-		if (stack == null || stack.isEmpty()) return 0;
-		if (!(stack.getItem() instanceof ReactorComponentItem comp)) return 0;
-		// Fuel rods and reflectors both add pulses
-		return (comp.isFuelRod() || comp.isReflector()) ? 1 : 0;
 	}
 
 	/**
 	 * Distribute heat evenly to adjacent heat acceptors, remainder goes to reactor hull.
 	 */
 	private void distributeHeat(NuclearReactorBlockEntity reactor, int x, int y, int heat) {
-		int[] dx = {-1, 1, 0, 0};
-		int[] dy = {0, 0, -1, 1};
-
 		// Count how many adjacent slots can accept heat
 		int acceptorCount = 0;
-		for (int i = 0; i < 4; i++) {
-			if (reactor.canAcceptHeatAt(x + dx[i], y + dy[i])) {
+		for (int[] offset : ADJACENT) {
+			if (reactor.canAcceptHeatAt(x + offset[0], y + offset[1])) {
 				acceptorCount++;
 			}
 		}
@@ -132,18 +125,16 @@ public class FuelRodItem extends ReactorComponentItem {
 		}
 
 		// Distribute heat evenly to adjacent components, adding back any rejected heat.
-
 		int remainingHeat = heat;
-		for (int i = 0; i < 4 && remainingHeat > 0; i++) {
-			if (reactor.canAcceptHeatAt(x + dx[i], y + dy[i])) {
+		for (int[] offset : ADJACENT) {
+			if (remainingHeat <= 0) break;
+			if (reactor.canAcceptHeatAt(x + offset[0], y + offset[1])) {
 				int heatToTransfer = remainingHeat / acceptorCount;
-				remainingHeat -= heatToTransfer;
 				acceptorCount--;
-
-				// Try to transfer heat
-				int result = reactor.transferHeatTo(x + dx[i], y + dy[i], heatToTransfer);
-				// Add result back to pool (negative means absorbed, positive means rejected)
-				remainingHeat += result;
+				// Try to transfer heat and add result back to pool
+				// (negative means absorbed, positive means rejected)
+				int result = reactor.transferHeatTo(x + offset[0], y + offset[1], heatToTransfer);
+				remainingHeat += result - heatToTransfer;
 			}
 		}
 
