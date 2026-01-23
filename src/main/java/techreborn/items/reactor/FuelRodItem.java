@@ -131,24 +131,25 @@ public class FuelRodItem extends ReactorComponentItem {
 			return;
 		}
 
-		// Distribute heat evenly to adjacent components
-		int heatPerComponent = heat / acceptorCount;
-		int remainder = heat % acceptorCount;
-		int totalOverflow = 0;
+		// Distribute heat evenly to adjacent components, adding back any rejected heat.
 
-		for (int i = 0; i < 4; i++) {
+		int remainingHeat = heat;
+		for (int i = 0; i < 4 && remainingHeat > 0; i++) {
 			if (reactor.canAcceptHeatAt(x + dx[i], y + dy[i])) {
-				// First 'remainder' components get one extra heat unit
-				int heatToTransfer = heatPerComponent + (remainder > 0 ? 1 : 0);
-				if (remainder > 0) remainder--;
-				int overflow = reactor.transferHeatTo(x + dx[i], y + dy[i], heatToTransfer);
-				totalOverflow += overflow;
+				int heatToTransfer = remainingHeat / acceptorCount;
+				remainingHeat -= heatToTransfer;
+				acceptorCount--;
+
+				// Try to transfer heat
+				int result = reactor.transferHeatTo(x + dx[i], y + dy[i], heatToTransfer);
+				// Add result back to pool (negative means absorbed, positive means rejected)
+				remainingHeat += result;
 			}
 		}
 
-		// Any overflow goes to reactor hull
-		if (totalOverflow > 0) {
-			reactor.addHeat(totalOverflow);
+		// Any remaining heat goes to reactor hull
+		if (remainingHeat > 0) {
+			reactor.addHeat(remainingHeat);
 		}
 	}
 
