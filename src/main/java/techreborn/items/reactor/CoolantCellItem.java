@@ -44,7 +44,8 @@ public class CoolantCellItem extends ReactorComponentItem {
 
 	@Override
 	public boolean canStoreHeat() {
-		return true;
+		// Component Heat Vent has heatCapacity=0 - it can't store heat, only cool adjacent
+		return maxDurability > 0;
 	}
 
 	@Override
@@ -66,13 +67,13 @@ public class CoolantCellItem extends ReactorComponentItem {
 		if (newHeat > max) {
 			// Component overheated - destroy it
 			reactor.setItemAt(x, y, ItemStack.EMPTY);
-			return newHeat - max; // Return overflow
+			return max - newHeat + 1;
 		}
 
 		if (newHeat < 0) {
 			// Can't remove more heat than stored
 			stack.set(TRDataComponentTypes.STORED_HEAT, 0);
-			return 0;
+			return newHeat; // Return how much cooling was rejected
 		}
 
 		stack.set(TRDataComponentTypes.STORED_HEAT, newHeat);
