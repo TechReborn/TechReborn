@@ -36,6 +36,8 @@ import techreborn.blockentity.generator.nuclear.NuclearReactorBlockEntity;
  */
 public class HeatExchangerItem extends CoolantCellItem {
 
+	private static final int[][] ADJACENT = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
 	private final int componentTransfer;
 	private final int reactorTransfer;
 
@@ -52,79 +54,63 @@ public class HeatExchangerItem extends CoolantCellItem {
 
 		// Track net heat change to apply to this heat exchanger at the end
 		int heatDelta = 0;
+		int currentHeat = getCurrentHeat(stack);
 
 		// Exchange with adjacent components
 		if (componentTransfer > 0) {
-			heatDelta = exchangeWithAdjacent(stack, reactor, x - 1, y, heatDelta, maxHeat);
-			heatDelta = exchangeWithAdjacent(stack, reactor, x + 1, y, heatDelta, maxHeat);
-			heatDelta = exchangeWithAdjacent(stack, reactor, x, y - 1, heatDelta, maxHeat);
-			heatDelta = exchangeWithAdjacent(stack, reactor, x, y + 1, heatDelta, maxHeat);
-		}
-
-		// Exchange with reactor hull
-		if (reactorTransfer > 0) {
-			int currentHeat = getCurrentHeat(stack);
-			int reactorHeat = reactor.getHeat();
-			int reactorMax = reactor.getMaxHeat();
-			if (reactorMax > 0) {
-				int transfer = calculateTransfer(currentHeat, maxHeat, reactorHeat, reactorMax, reactorTransfer);
-				heatDelta -= transfer;
-				reactor.setHeat(reactorHeat + transfer);
+			for (int[] offset : ADJACENT) {
+				ItemStack other = reactor.getItemAt(x + offset[0], y + offset[1]);
+				if (other != null && !other.isEmpty() && other.getItem() instanceof ReactorComponentItem comp && comp.canStoreHeat()) {
+					int otherMax = comp.getMaxHeat(other);
+					if (otherMax > 0) {
+						int transfer = calculateTransfer(currentHeat, maxHeat, comp.getCurrentHeat(other), otherMax, componentTransfer);
+						heatDelta -= transfer;
+						heatDelta += comp.addHeat(other, reactor, x + offset[0], y + offset[1], transfer);
+					}
+				}
 			}
 		}
 
-		// Apply accumulated heat change to this heat exchanger
+		// Exchange with reactor hull
+		if (reactorTransfer > 0 && reactor.getMaxHeat() > 0) {
+			int transfer = calculateTransfer(currentHeat, maxHeat, reactor.getHeat(), reactor.getMaxHeat(), reactorTransfer);
+			heatDelta -= transfer;
+			reactor.setHeat(reactor.getHeat() + transfer);
+		}
+
 		addHeat(stack, reactor, x, y, heatDelta);
-	}
-
-	/**
-	 * Exchange heat with an adjacent component.
-	 * @param heatDelta accumulated heat delta for the exchanger
-	 * @return updated heat delta
-	 */
-	private int exchangeWithAdjacent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y, int heatDelta, int maxHeat) {
-		ItemStack otherStack = reactor.getItemAt(x, y);
-		if (otherStack == null || otherStack.isEmpty()) return heatDelta;
-		if (!(otherStack.getItem() instanceof ReactorComponentItem other)) return heatDelta;
-		if (!other.canStoreHeat()) return heatDelta;
-
-		int otherHeat = other.getCurrentHeat(otherStack);
-		int otherMax = other.getMaxHeat(otherStack);
-		if (otherMax <= 0) return heatDelta;
-
-		// Need current heat of exchanger for percentage calculation
-		int currentHeat = getCurrentHeat(stack);
-
-		int transfer = calculateTransfer(currentHeat, maxHeat, otherHeat, otherMax, componentTransfer);
-
-		// Assume we'll give/take `transfer` (positive = we send, negative = we receive)
-		heatDelta -= transfer;
-		// Apply to target, get back rejected amount
-		int rejected = other.addHeat(otherStack, reactor, x, y, transfer);
-		// Add back what was rejected
-		heatDelta += rejected;
-
-		return heatDelta;
 	}
 
 	/**
 	 * Calculate heat transfer based on fill percentages.
 	 * Heat flows from higher % to lower %.
 	 *
-	 * @return positive = heat flows from source (first) to target (second)
+	 * @param currentHeat exchanger's current heat
+	 * @param maxHeat exchanger's max heat
+	 * @param targetHeat target component's current heat
+	 * @param targetMax target component's max heat
+	 * @param maxTransfer maximum transfer rate (componentTransfer or reactorTransfer)
+	 * @return positive = send to target, negative = receive from target
 	 */
-	private int calculateTransfer(int heat1, int max1, int heat2, int max2, int maxTransfer) {
-		// Calculate fill percentages (scaled to avoid float)
-		int percent1 = heat1 * 100 / max1;
-		int percent2 = heat2 * 100 / max2;
+	private int calculateTransfer(int currentHeat, int maxHeat, int targetHeat, int targetMax, int maxTransfer) {
+		double currentPercent = currentHeat * 100.0 / maxHeat;
+		double targetPercent = targetHeat * 100.0 / targetMax;
+		double combinedPercent = targetPercent + currentPercent / 2.0;
 
-		int diff = percent1 - percent2;
-		if (diff == 0) return 0;
+		// Cap at maxTransfer
+		int transfer = Math.min((int) (targetMax / 100.0 * combinedPercent), maxTransfer);
 
-		// Transfer proportional to difference, clamped to max
-		int transfer = Math.min(Math.abs(diff) * maxTransfer / 100, maxTransfer);
+		// Throttle at low combinedPercent percentages
+		// Divisors are 8,4,2 for steps 1,2,3 = 2^(4-step)
+		int step = Math.min((int) (combinedPercent / 0.25), 4);
+		if (step == 0) transfer = 1;
+		else if (step < 4) transfer = maxTransfer >> (4 - step);
 
-		// Negative diff means heat flows to us (from target)
-		return diff > 0 ? transfer : -transfer;
+		double currentRounded = Math.round(currentPercent * 10.0) / 10.0;
+		double targetRounded = Math.round(targetPercent * 10.0) / 10.0;
+
+		if (targetRounded > currentRounded) return -transfer;  // Receive from target
+		if (targetRounded == currentRounded) return 0;         // Equal, no transfer
+		return transfer;                                   // Send to target
 	}
 }
