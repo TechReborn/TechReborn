@@ -51,36 +51,50 @@ public class HeatVentItem extends CoolantCellItem {
 	}
 
 	@Override
-	public void processComponent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
+	public void processHeat(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
 		// Pull heat from reactor hull
 		if (reactorVent > 0) {
 			int reactorHeat = reactor.getHeat();
-			int pull = Math.min(reactorHeat, reactorVent);
-			if (pull > 0) {
-				int overflow = addHeat(stack, reactor, x, y, pull);
-				reactor.setHeat(reactorHeat - pull + overflow);
+			int reactorDrain = Math.min(reactorHeat, reactorVent);
+
+			if (reactorDrain > 0) {
+				// Try to add heat to self
+				int result = addHeat(stack, reactor, x, y, reactorDrain);
+				if (result <= 0) {
+					// Heat was accepted (or component died accepting it)
+					// Drain the hull
+					reactor.setHeat(reactorHeat - reactorDrain);
+				}
+				// Else, heat was rejected - don't drain hull
 			}
 		}
 
 		// Dissipate heat from self
 		if (selfVent > 0) {
+			// Vent heat is removed and discarded
+			// The rejected cooling (if any) means we didn't have that much heat
 			addHeat(stack, reactor, x, y, -selfVent);
 		}
 
 		// Cool adjacent components
 		if (componentVent > 0) {
-			coolAdjacent(reactor, x - 1, y);
-			coolAdjacent(reactor, x + 1, y);
-			coolAdjacent(reactor, x, y - 1);
-			coolAdjacent(reactor, x, y + 1);
+			coolAdjacent(stack, reactor, x - 1, y);
+			coolAdjacent(stack, reactor, x + 1, y);
+			coolAdjacent(stack, reactor, x, y - 1);
+			coolAdjacent(stack, reactor, x, y + 1);
 		}
 	}
 
-	private void coolAdjacent(NuclearReactorBlockEntity reactor, int x, int y) {
+	/**
+	 * Cool an adjacent component by removing heat from it.
+	 * The removed heat is vented (discarded).
+	 */
+	private void coolAdjacent(ItemStack selfStack, NuclearReactorBlockEntity reactor, int x, int y) {
 		ItemStack stack = reactor.getItemAt(x, y);
 		if (stack == null || stack.isEmpty()) return;
 		if (!(stack.getItem() instanceof ReactorComponentItem comp)) return;
 		if (!comp.canStoreHeat()) return;
+		// Try to remove componentVent heat from the adjacent component
 		comp.addHeat(stack, reactor, x, y, -componentVent);
 	}
 }

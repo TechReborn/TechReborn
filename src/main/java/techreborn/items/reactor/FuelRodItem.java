@@ -51,7 +51,7 @@ public class FuelRodItem extends ReactorComponentItem {
 	}
 
 	@Override
-	public void processComponent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
+	public void processHeat(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
 		if (!reactor.isActive()) return;
 
 		// Count pulses from adjacent components (fuel rods and reflectors)
@@ -62,14 +62,27 @@ public class FuelRodItem extends ReactorComponentItem {
 		// - Single: 1 + 0 = 1, Dual: 1 + 1 = 2, Quad: 1 + 2 = 3
 		int pulses = 1 + cellCount / 2 + adjacentPulses;
 
-		int totalEU = cellCount * baseEU * pulses;
-		reactor.addEuOutput(totalEU);
-
+		// Heat = cellCount × baseHeat × triangular(neutronPulses)
 		int triangular = pulses * (pulses + 1) / 2;
 		int totalHeat = cellCount * baseHeat * triangular;
 
 		// Distribute heat evenly to adjacent heat acceptors
 		distributeHeat(reactor, x, y, totalHeat);
+	}
+
+	@Override
+	public void processEnergy(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
+		if (!reactor.isActive()) return;
+
+		// Count pulses from adjacent components (fuel rods and reflectors)
+		int adjacentPulses = countAdjacentPulses(reactor, x, y);
+
+		// Neutron pulses per cell = 1 + floor(cellCount/2) + adjacentPulses
+		int pulses = 1 + cellCount / 2 + adjacentPulses;
+
+		// EU/t = cellCount × baseEU × neutronPulses
+		int totalEU = cellCount * baseEU * pulses;
+		reactor.addEuOutput(totalEU);
 
 		// Consume fuel
 		if (consumeDurability(stack, 1)) {

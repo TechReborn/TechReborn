@@ -102,7 +102,7 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 	}
 
 	/**
-	 * Main reactor processing - single pass through all components.
+	 * Main reactor processing
 	 */
 	private void processReactor() {
 		if (level == null) return;
@@ -116,13 +116,24 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 		maxHeat = TechRebornConfig.nuclearReactorMaxHeat;
 		heatEffectModifier = 1.0f;
 
-		// Process all components
 		int size = getReactorSize();
+
+		// Heat generation and management
 		for (int y = 0; y < GRID_HEIGHT; y++) {
 			for (int x = 0; x < size; x++) {
 				ItemStack stack = getItemAt(x, y);
 				if (!stack.isEmpty() && stack.getItem() instanceof ReactorComponentItem comp) {
-					comp.processComponent(stack, this, x, y);
+					comp.processHeat(stack, this, x, y);
+				}
+			}
+		}
+
+		// EU generation and fuel consumption
+		for (int y = 0; y < GRID_HEIGHT; y++) {
+			for (int x = 0; x < size; x++) {
+				ItemStack stack = getItemAt(x, y);
+				if (!stack.isEmpty() && stack.getItem() instanceof ReactorComponentItem comp) {
+					comp.processEnergy(stack, this, x, y);
 				}
 			}
 		}

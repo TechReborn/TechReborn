@@ -44,7 +44,7 @@ public class ReactorPlatingItem extends ReactorComponentItem {
 	}
 
 	@Override
-	public void processComponent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
+	public void processHeat(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
 		reactor.addMaxHeat(heatCapacityBonus);
 		if (explosionMultiplier < 1.0f) {
 			reactor.multiplyHeatEffectModifier(explosionMultiplier);

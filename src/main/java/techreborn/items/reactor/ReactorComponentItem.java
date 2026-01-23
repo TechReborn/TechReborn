@@ -52,10 +52,20 @@ public abstract class ReactorComponentItem extends Item {
 	// Component processing
 
 	/**
-	 * Process this component for one reactor cycle.
-	 * Called once per second for each component in the reactor.
+	 * Process heat operations for this component.
+	 * Called during the heat phase - handles heat generation,
+	 * distribution, pulling from hull, self-venting, and component cooling.
 	 */
-	public void processComponent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
+	public void processHeat(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
+		// Default: do nothing
+	}
+
+	/**
+	 * Process energy operations for this component.
+	 * Called during the energy phase - handles EU generation
+	 * and fuel consumption.
+	 */
+	public void processEnergy(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
 		// Default: do nothing
 	}
 

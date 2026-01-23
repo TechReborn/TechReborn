@@ -48,7 +48,7 @@ public class NeutronReflectorItem extends ReactorComponentItem {
 	}
 
 	@Override
-	public void processComponent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
+	public void processHeat(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
 		if (!reactor.isActive()) return;
 		if (maxDurability <= 0) return; // Infinite durability
 

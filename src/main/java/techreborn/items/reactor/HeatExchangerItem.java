@@ -46,51 +46,65 @@ public class HeatExchangerItem extends CoolantCellItem {
 	}
 
 	@Override
-	public void processComponent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
-		int myHeat = getCurrentHeat(stack);
-		int myMax = getMaxHeat(stack);
-		if (myMax <= 0) return;
+	public void processHeat(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y) {
+		int maxHeat = getMaxHeat(stack);
+		if (maxHeat <= 0) return;
+
+		// Track net heat change to apply to this heat exchanger at the end
+		int heatDelta = 0;
 
 		// Exchange with adjacent components
 		if (componentTransfer > 0) {
-			myHeat = exchangeWithAdjacent(stack, reactor, x - 1, y, myHeat, myMax);
-			myHeat = exchangeWithAdjacent(stack, reactor, x + 1, y, myHeat, myMax);
-			myHeat = exchangeWithAdjacent(stack, reactor, x, y - 1, myHeat, myMax);
-			myHeat = exchangeWithAdjacent(stack, reactor, x, y + 1, myHeat, myMax);
+			heatDelta = exchangeWithAdjacent(stack, reactor, x - 1, y, heatDelta, maxHeat);
+			heatDelta = exchangeWithAdjacent(stack, reactor, x + 1, y, heatDelta, maxHeat);
+			heatDelta = exchangeWithAdjacent(stack, reactor, x, y - 1, heatDelta, maxHeat);
+			heatDelta = exchangeWithAdjacent(stack, reactor, x, y + 1, heatDelta, maxHeat);
 		}
 
 		// Exchange with reactor hull
 		if (reactorTransfer > 0) {
+			int currentHeat = getCurrentHeat(stack);
 			int reactorHeat = reactor.getHeat();
 			int reactorMax = reactor.getMaxHeat();
 			if (reactorMax > 0) {
-				int transfer = calculateTransfer(myHeat, myMax, reactorHeat, reactorMax, reactorTransfer);
-				myHeat -= transfer;
+				int transfer = calculateTransfer(currentHeat, maxHeat, reactorHeat, reactorMax, reactorTransfer);
+				heatDelta -= transfer;
 				reactor.setHeat(reactorHeat + transfer);
 			}
 		}
 
-		// Update our heat
-		addHeat(stack, reactor, x, y, myHeat - getCurrentHeat(stack));
+		// Apply accumulated heat change to this heat exchanger
+		addHeat(stack, reactor, x, y, heatDelta);
 	}
 
-	private int exchangeWithAdjacent(ItemStack myStack, NuclearReactorBlockEntity reactor, int x, int y, int myHeat, int myMax) {
+	/**
+	 * Exchange heat with an adjacent component.
+	 * @param heatDelta accumulated heat delta for the exchanger
+	 * @return updated heat delta
+	 */
+	private int exchangeWithAdjacent(ItemStack stack, NuclearReactorBlockEntity reactor, int x, int y, int heatDelta, int maxHeat) {
 		ItemStack otherStack = reactor.getItemAt(x, y);
-		if (otherStack == null || otherStack.isEmpty()) return myHeat;
-		if (!(otherStack.getItem() instanceof ReactorComponentItem other)) return myHeat;
-		if (!other.canStoreHeat()) return myHeat;
+		if (otherStack == null || otherStack.isEmpty()) return heatDelta;
+		if (!(otherStack.getItem() instanceof ReactorComponentItem other)) return heatDelta;
+		if (!other.canStoreHeat()) return heatDelta;
 
 		int otherHeat = other.getCurrentHeat(otherStack);
 		int otherMax = other.getMaxHeat(otherStack);
-		if (otherMax <= 0) return myHeat;
+		if (otherMax <= 0) return heatDelta;
 
-		int transfer = calculateTransfer(myHeat, myMax, otherHeat, otherMax, componentTransfer);
+		// Need current heat of exchanger for percentage calculation
+		int currentHeat = getCurrentHeat(stack);
 
-		// Apply transfer (positive = heat flows from us to other)
-		myHeat -= transfer;
-		other.addHeat(otherStack, reactor, x, y, transfer);
+		int transfer = calculateTransfer(currentHeat, maxHeat, otherHeat, otherMax, componentTransfer);
 
-		return myHeat;
+		// Assume we'll give/take `transfer` (positive = we send, negative = we receive)
+		heatDelta -= transfer;
+		// Apply to target, get back rejected amount
+		int rejected = other.addHeat(otherStack, reactor, x, y, transfer);
+		// Add back what was rejected
+		heatDelta += rejected;
+
+		return heatDelta;
 	}
 
 	/**
