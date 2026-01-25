@@ -44,6 +44,8 @@ import techreborn.blockentity.generator.advanced.*;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 import techreborn.blockentity.generator.basic.WaterMillBlockEntity;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
+import techreborn.blockentity.generator.nuclear.NuclearReactorBlockEntity;
+import techreborn.blockentity.generator.nuclear.ReactorChamberBlockEntity;
 import techreborn.blockentity.lighting.LampBlockEntity;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
@@ -125,6 +127,8 @@ public class TRBlockEntities {
 	public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = register(SolarPanelBlockEntity::new, "solar_panel", TRContent.SolarPanels.values());
 	public static final BlockEntityType<WaterMillBlockEntity> WATER_MILL = register(WaterMillBlockEntity::new, "water_mill", TRContent.Machine.WATER_MILL);
 	public static final BlockEntityType<WindMillBlockEntity> WIND_MILL = register(WindMillBlockEntity::new, "wind_mill", TRContent.Machine.WIND_MILL);
+	public static final BlockEntityType<NuclearReactorBlockEntity> NUCLEAR_REACTOR = register(NuclearReactorBlockEntity::new, "nuclear_reactor", TRContent.Machine.NUCLEAR_REACTOR);
+	public static final BlockEntityType<ReactorChamberBlockEntity> REACTOR_CHAMBER = register(ReactorChamberBlockEntity::new, "reactor_chamber", TRContent.Machine.REACTOR_CHAMBER);
 	public static final BlockEntityType<RecyclerBlockEntity> RECYCLER = register(RecyclerBlockEntity::new, "recycler", TRContent.Machine.RECYCLER);
 	public static final BlockEntityType<LowVoltageSUBlockEntity> LOW_VOLTAGE_SU = register(LowVoltageSUBlockEntity::new, "low_voltage_su", TRContent.Machine.LOW_VOLTAGE_SU);
 	public static final BlockEntityType<MediumVoltageSUBlockEntity> MEDIUM_VOLTAGE_SU = register(MediumVoltageSUBlockEntity::new, "medium_voltage_su", TRContent.Machine.MEDIUM_VOLTAGE_SU);

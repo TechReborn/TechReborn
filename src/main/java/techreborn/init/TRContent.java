@@ -86,6 +86,8 @@ import techreborn.blocks.generator.BlockFusionCoil;
 import techreborn.blocks.generator.BlockFusionControlComputer;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.blocks.generator.GenericGeneratorBlock;
+import techreborn.blocks.generator.nuclear.NuclearReactorBlock;
+import techreborn.blocks.generator.nuclear.ReactorChamberBlock;
 import techreborn.blocks.lighting.LampBlock;
 import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
@@ -107,6 +109,13 @@ import techreborn.items.UpgradeItem;
 import techreborn.items.UpgraderItem;
 import techreborn.items.armor.NanoSuitItem;
 import techreborn.items.armor.QuantumSuitItem;
+import techreborn.items.reactor.CoolantCellItem;
+import techreborn.items.reactor.DepletedFuelRodItem;
+import techreborn.items.reactor.FuelRodItem;
+import techreborn.items.reactor.HeatExchangerItem;
+import techreborn.items.reactor.HeatVentItem;
+import techreborn.items.reactor.NeutronReflectorItem;
+import techreborn.items.reactor.ReactorPlatingItem;
 import techreborn.utils.InitUtils;
 import techreborn.world.OreDistribution;
 
@@ -841,6 +850,8 @@ public class TRContent {
 		THERMAL_GENERATOR(new GenericGeneratorBlock(GuiType.THERMAL_GENERATOR, ThermalGeneratorBlockEntity::new, "thermal_generator")),
 		WATER_MILL(new GenericGeneratorBlock(null, WaterMillBlockEntity::new, "water_mill")),
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new, "wind_mill")),
+		NUCLEAR_REACTOR(new NuclearReactorBlock("nuclear_reactor")),
+		REACTOR_CHAMBER(new ReactorChamberBlock("reactor_chamber")),
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new, "drain")),
 		PUMP(new GenericMachineBlock(GuiType.PUMP, PumpBlockEntity::new, "pump")),
@@ -889,6 +900,94 @@ public class TRContent {
 		@Override
 		public Block getBlock() {
 			return block;
+		}
+	}
+
+	public enum NuclearReactorComponents implements ItemInfo, TagConvertible<Item> {
+		// Uranium fuel rods - last 20,000 seconds, 5 base EU, 4 base heat
+		URANIUM_FUEL_ROD(new FuelRodItem("uranium_fuel_rod", 20_000, 1, 5, 4)),
+		DUAL_URANIUM_FUEL_ROD(new FuelRodItem("dual_uranium_fuel_rod", 20_000, 2, 5, 4)),
+		QUAD_URANIUM_FUEL_ROD(new FuelRodItem("quad_uranium_fuel_rod", 20_000, 4, 5, 4)),
+
+		// Depleted fuel rods
+		DEPLETED_URANIUM_FUEL_ROD(new DepletedFuelRodItem("depleted_uranium_fuel_rod", 1)),
+		DUAL_DEPLETED_URANIUM_FUEL_ROD(new DepletedFuelRodItem("dual_depleted_uranium_fuel_rod", 2)),
+		QUAD_DEPLETED_URANIUM_FUEL_ROD(new DepletedFuelRodItem("quad_depleted_uranium_fuel_rod", 4)),
+
+		// Coolant cells - store heat
+		WATER_COOLANT_CELL_10K(new CoolantCellItem("water_coolant_cell_10k", 10_000)),
+		WATER_COOLANT_CELL_30K(new CoolantCellItem("water_coolant_cell_30k", 30_000)),
+		WATER_COOLANT_CELL_60K(new CoolantCellItem("water_coolant_cell_60k", 60_000)),
+
+		HELIUM_COOLANT_CELL_60K(new CoolantCellItem("helium_coolant_cell_60k", 60_000)),
+		HELIUM_COOLANT_CELL_180K(new CoolantCellItem("helium_coolant_cell_180k", 180_000)),
+		HELIUM_COOLANT_CELL_360K(new CoolantCellItem("helium_coolant_cell_360k", 360_000)),
+
+		NAK_COOLANT_CELL_60K(new CoolantCellItem("nak_coolant_cell_60k", 60_000)),
+		NAK_COOLANT_CELL_180K(new CoolantCellItem("nak_coolant_cell_180k", 180_000)),
+		NAK_COOLANT_CELL_360K(new CoolantCellItem("nak_coolant_cell_360k", 360_000)),
+
+		// Heat vents - dissipate heat
+		// Parameters: heatStorage, selfVent, reactorVent, componentVent
+		HEAT_VENT(new HeatVentItem("heat_vent", 1000, 6, 0, 0)),
+		ADVANCED_HEAT_VENT(new HeatVentItem("advanced_heat_vent", 1000, 12, 0, 0)),
+		REACTOR_HEAT_VENT(new HeatVentItem("reactor_heat_vent", 1000, 5, 5, 0)),
+		OVERCLOCKED_HEAT_VENT(new HeatVentItem("overclocked_heat_vent", 1000, 20, 36, 0)),
+		COMPONENT_HEAT_VENT(new HeatVentItem("component_heat_vent", 0, 0, 0, 4)),
+
+		// Heat exchangers - transfer heat between components and reactor
+		// Parameters: heatStorage, componentTransfer, reactorTransfer
+		HEAT_EXCHANGER(new HeatExchangerItem("heat_exchanger", 2500, 12, 4)),
+		ADVANCED_HEAT_EXCHANGER(new HeatExchangerItem("advanced_heat_exchanger", 10000, 24, 8)),
+		REACTOR_HEAT_EXCHANGER(new HeatExchangerItem("reactor_heat_exchanger", 5000, 0, 72)),
+		COMPONENT_HEAT_EXCHANGER(new HeatExchangerItem("component_heat_exchanger", 5000, 36, 0)),
+
+		// Neutron reflectors - reflect pulses back to fuel rods
+		NEUTRON_REFLECTOR(new NeutronReflectorItem("neutron_reflector", 30_000)),
+		THICK_NEUTRON_REFLECTOR(new NeutronReflectorItem("thick_neutron_reflector", 120_000)),
+		IRIDIUM_NEUTRON_REFLECTOR(new NeutronReflectorItem("iridium_neutron_reflector", -1)), // -1 = infinite durability
+
+		// Reactor plating - increases max heat capacity
+		REACTOR_PLATING(new ReactorPlatingItem("reactor_plating", 1000, 0.95f)),
+		HEAT_CAPACITY_REACTOR_PLATING(new ReactorPlatingItem("heat_capacity_reactor_plating", 1700, 0.99f)),
+		CONTAINMENT_REACTOR_PLATING(new ReactorPlatingItem("containment_reactor_plating", 500, 0.9f));
+
+		private final String name;
+		private final Item item;
+		private final TagKey<Item> tag;
+
+		NuclearReactorComponents(Item item) {
+			this.item = item;
+			this.name = this.toString().toLowerCase(Locale.ROOT);
+			InitUtils.setup(item, name);
+			tag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "reactor_components/" + name));
+		}
+
+		public Item getItem() {
+			return item;
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		public ItemStack getStack() {
+			return new ItemStack(item);
+		}
+
+		public ItemStack getStack(int amount) {
+			return new ItemStack(item, amount);
+		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
+
+		@Override
+		public TagKey<Item> asTag() {
+			return tag;
 		}
 	}
 
@@ -1421,23 +1520,6 @@ public class TRContent {
 		CUPRONICKEL_HEATING_COIL,
 		KANTHAL_HEATING_COIL,
 		NICHROME_HEATING_COIL,
-
-		NEUTRON_REFLECTOR,
-		THICK_NEUTRON_REFLECTOR,
-		IRIDIUM_NEUTRON_REFLECTOR,
-
-		//java vars can't start with numbers, so these get suffixes
-		WATER_COOLANT_CELL_10K,
-		WATER_COOLANT_CELL_30K,
-		WATER_COOLANT_CELL_60K,
-
-		HELIUM_COOLANT_CELL_60K,
-		HELIUM_COOLANT_CELL_180K,
-		HELIUM_COOLANT_CELL_360K,
-
-		NAK_COOLANT_CELL_60K,
-		NAK_COOLANT_CELL_180K,
-		NAK_COOLANT_CELL_360K,
 
 		RUBBER,
 		SAP,

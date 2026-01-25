@@ -34,6 +34,7 @@ import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
 import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.ThermalGeneratorBlockEntity;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
+import techreborn.blockentity.generator.nuclear.NuclearReactorBlockEntity;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
@@ -112,6 +113,7 @@ public record ClientGuiType<T extends BlockEntity>(GuiType<T> guiType, GuiFactor
 	public static final ClientGuiType<ElevatorBlockEntity> ELEVATOR = register(GuiType.ELEVATOR, GuiElevator::new);
 	public static final ClientGuiType<FishingStationBlockEntity> FISHING_STATION = register(GuiType.FISHING_STATION, GuiFishingStation::new);
 	public static final ClientGuiType<PumpBlockEntity> PUMP = register(GuiType.PUMP, GuiPump::new);
+	public static final ClientGuiType<NuclearReactorBlockEntity> NUCLEAR_REACTOR = register(GuiType.NUCLEAR_REACTOR, GuiNuclearReactor::new);
 
 	public static <T extends BlockEntity> ClientGuiType<T> register(GuiType<T> type, GuiFactory<T> factory) {
 		return new ClientGuiType<>(type, factory);

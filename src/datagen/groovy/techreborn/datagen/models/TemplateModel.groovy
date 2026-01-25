@@ -512,6 +512,17 @@ class TemplateModel {
 	static def QUANTUM_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.quantumBottom) }
 	static def LAUNCHPAD = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.machineTier2Bottom) }
 	static def ELEVATOR = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, id.withSuffix("_top")) }
+	static def NUCLEAR_REACTOR = wrapperBlock { block, id ->
+		ORIENTABLE.create(block).add(
+			orientable(
+			id.withSuffix("_top"),
+			id.withSuffix("_bottom"),
+			id.withSuffix("_side"),
+			id.withSuffix("_front"),
+			),
+			TextureSlot.FRONT
+		)
+	}
 	static TriFunction<Block, ResourceLocation, ResourceLocation, JsonModel> MACHINE_BASE = { Block block, ResourceLocation id, ResourceLocation base ->
 		ORIENTABLE.create(block).add(
 			orientable(

@@ -53,6 +53,7 @@ import techreborn.init.TRContent.RawMetals
 import techreborn.init.TRContent.Gems
 import techreborn.init.TRContent.Upgrades
 import techreborn.init.TRContent.Cables
+import techreborn.init.TRContent.NuclearReactorComponents
 
 import java.util.function.Consumer
 import java.util.function.Function
@@ -162,6 +163,11 @@ class TexturePaths {
 		add MachineBlocks, { "machines/structure/${it.name}_machine" }
 		add ModFluids, { "fluids/${it.name}" }
 		add Cables, { "cables/${it.name}_cable" }
+		add NuclearReactorComponents, { "part/nuclear/$it.name" }
+		add List.of(
+			Machine.NUCLEAR_REACTOR,
+			Machine.REACTOR_CHAMBER,
+		), { "machines/generators/nuclear/$it.name" }
 		add List.of(
 			Machine.ADJUSTABLE_SU,
 			Machine.EV_TRANSFORMER,

@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2024 TechReborn
+ * Copyright (c) 2026 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,26 @@
  * SOFTWARE.
  */
 
-package techreborn.init;
+package techreborn.items.reactor;
 
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.TooltipDisplay;
-import techreborn.TechReborn;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import techreborn.init.TRItemSettings;
 
-public class TRItemSettings {
-	public static TooltipDisplay UNBREAKABLE_HIDE = new TooltipDisplay(
-		false, new LinkedHashSet<>(Set.of(DataComponents.UNBREAKABLE))
-	);
+/**
+ * Depleted fuel rods - byproduct of used fuel rods.
+ * In the future, it will be possible to reprocess them into new fuel.
+ */
+public class DepletedFuelRodItem extends Item {
 
-	public static Item.Properties item(String name) {
-		return new Item.Properties().setId(key(name));
+	private final int cellCount;
+
+	public DepletedFuelRodItem(String name, int cellCount) {
+		super(TRItemSettings.item(name));
+		this.cellCount = cellCount;
 	}
 
-	public static Item.Properties unbreakable(String name) {
-		return item(name).component(DataComponents.UNBREAKABLE, Unit.INSTANCE)
-			.component(DataComponents.TOOLTIP_DISPLAY, UNBREAKABLE_HIDE);
-	}
-
-	public static Item.Properties reactorComponent(String name) {
-		return item(name);
-	}
-
-	public static ResourceKey<Item> key(String name) {
-		return ResourceKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+	public int getCellCount() {
+		return cellCount;
 	}
 }

@@ -69,6 +69,7 @@ import techreborn.init.TRContent.RawMetals
 import techreborn.init.TRContent.Gems
 import techreborn.init.TRContent.Upgrades
 import techreborn.init.TRContent.Cables
+import techreborn.init.TRContent.NuclearReactorComponents
 
 import java.util.concurrent.CompletableFuture
 import java.util.function.BiConsumer
@@ -371,6 +372,12 @@ class ModelProvider extends FabricModelProvider {
 			TemplateState.CABLE.apply(core, side).upload(info.block)
 			generator.registerSimpleFlatItemModel(info.asItem())
 		}
+		def toNuclearReactor = { BlockInfo info ->
+			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+				TemplateModel.NUCLEAR_REACTOR.apply(info.block)
+			)
+			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)
+		}
 
 		add Ores, toCubeAll
 		add StorageBlocks, toFamilyBlock
@@ -388,6 +395,7 @@ class ModelProvider extends FabricModelProvider {
 			Machine.MV_TRANSFORMER,
 		), toEnergyOrientable
 		add Machine.LSU_STORAGE, toCubeAll
+		add Machine.REACTOR_CHAMBER, toCubeAll
 		add List.of(
 			SolarPanels.BASIC,
 			SolarPanels.ADVANCED,
@@ -502,6 +510,7 @@ class ModelProvider extends FabricModelProvider {
 		add TRContent.RUBBER_LOG, toRubberLog
 		add TRContent.REFINED_IRON_FENCE, toFence
 		add TRContent.COPPER_WALL, toWall
+		add Machine.NUCLEAR_REACTOR, toNuclearReactor
 
 		generator.createPlantWithDefaultItem(TRContent.RUBBER_SAPLING, TRContent.POTTED_RUBBER_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED)
 		generator.woodProvider(TRContent.RUBBER_LOG).wood(TRContent.RUBBER_WOOD)
@@ -586,6 +595,7 @@ class ModelProvider extends FabricModelProvider {
 		add RawMetals, toGenerated
 		add Gems, toGenerated
 		add Upgrades, toGenerated
+		add NuclearReactorComponents, toGenerated
 		add List.of(
 			StorageUnit.CRUDE.upgrader.get(),
 			StorageUnit.BASIC.upgrader.get(),

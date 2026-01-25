@@ -118,6 +118,7 @@ public class TRItemGroup {
 		stuff.addAll(Arrays.stream(TRContent.Nuggets.values()).toList());
 		stuff.addAll(Arrays.stream(TRContent.Plates.values()).toList());
 		stuff.addAll(Arrays.stream(TRContent.StorageBlocks.values()).filter(block -> !block.name().startsWith("RAW")).toList());
+		stuff.addAll(Arrays.stream(TRContent.NuclearReactorComponents.values()).toList());
 		stuff.sort(new MaterialComparator().thenComparing(new MaterialTypeComparator()));
 		for (Object item : stuff) {
 			entries.accept((ItemLike)item);
@@ -744,26 +745,44 @@ public class TRItemGroup {
 			TRContent.Parts.CUPRONICKEL_HEATING_COIL,
 			TRContent.Parts.NICHROME_HEATING_COIL,
 			TRContent.Parts.KANTHAL_HEATING_COIL,
-			TRContent.Parts.NEUTRON_REFLECTOR,
-			TRContent.Parts.THICK_NEUTRON_REFLECTOR,
-			TRContent.Parts.IRIDIUM_NEUTRON_REFLECTOR,
 			TRContent.Parts.DIAMOND_SAW_BLADE,
 			TRContent.Parts.DIAMOND_GRINDING_HEAD,
 			TRContent.Parts.TUNGSTEN_GRINDING_HEAD);
 		entries.addBefore(Items.FIREWORK_STAR,
 			TRContent.Parts.BASIC_DISPLAY,
 			TRContent.Parts.DIGITAL_DISPLAY);
-		// cell-parts
+		// nuclear reactor parts
 		entries.addAfter(Items.PHANTOM_MEMBRANE,
-			TRContent.Parts.WATER_COOLANT_CELL_10K,
-			TRContent.Parts.WATER_COOLANT_CELL_30K,
-			TRContent.Parts.WATER_COOLANT_CELL_60K,
-			TRContent.Parts.NAK_COOLANT_CELL_60K,
-			TRContent.Parts.NAK_COOLANT_CELL_180K,
-			TRContent.Parts.NAK_COOLANT_CELL_360K,
-			TRContent.Parts.HELIUM_COOLANT_CELL_60K,
-			TRContent.Parts.HELIUM_COOLANT_CELL_180K,
-			TRContent.Parts.HELIUM_COOLANT_CELL_360K);
+			TRContent.NuclearReactorComponents.URANIUM_FUEL_ROD,
+			TRContent.NuclearReactorComponents.DUAL_URANIUM_FUEL_ROD,
+			TRContent.NuclearReactorComponents.QUAD_URANIUM_FUEL_ROD,
+			TRContent.NuclearReactorComponents.DEPLETED_URANIUM_FUEL_ROD,
+			TRContent.NuclearReactorComponents.DUAL_DEPLETED_URANIUM_FUEL_ROD,
+			TRContent.NuclearReactorComponents.QUAD_DEPLETED_URANIUM_FUEL_ROD,
+			TRContent.NuclearReactorComponents.WATER_COOLANT_CELL_10K,
+			TRContent.NuclearReactorComponents.WATER_COOLANT_CELL_30K,
+			TRContent.NuclearReactorComponents.WATER_COOLANT_CELL_60K,
+			TRContent.NuclearReactorComponents.NAK_COOLANT_CELL_60K,
+			TRContent.NuclearReactorComponents.NAK_COOLANT_CELL_180K,
+			TRContent.NuclearReactorComponents.NAK_COOLANT_CELL_360K,
+			TRContent.NuclearReactorComponents.HELIUM_COOLANT_CELL_60K,
+			TRContent.NuclearReactorComponents.HELIUM_COOLANT_CELL_180K,
+			TRContent.NuclearReactorComponents.HELIUM_COOLANT_CELL_360K,
+			TRContent.NuclearReactorComponents.NEUTRON_REFLECTOR,
+			TRContent.NuclearReactorComponents.THICK_NEUTRON_REFLECTOR,
+			TRContent.NuclearReactorComponents.IRIDIUM_NEUTRON_REFLECTOR,
+			TRContent.NuclearReactorComponents.HEAT_VENT,
+			TRContent.NuclearReactorComponents.ADVANCED_HEAT_VENT,
+			TRContent.NuclearReactorComponents.REACTOR_HEAT_VENT,
+			TRContent.NuclearReactorComponents.OVERCLOCKED_HEAT_VENT,
+			TRContent.NuclearReactorComponents.COMPONENT_HEAT_VENT,
+			TRContent.NuclearReactorComponents.HEAT_EXCHANGER,
+			TRContent.NuclearReactorComponents.ADVANCED_HEAT_EXCHANGER,
+			TRContent.NuclearReactorComponents.REACTOR_HEAT_EXCHANGER,
+			TRContent.NuclearReactorComponents.COMPONENT_HEAT_EXCHANGER,
+			TRContent.NuclearReactorComponents.REACTOR_PLATING,
+			TRContent.NuclearReactorComponents.HEAT_CAPACITY_REACTOR_PLATING,
+			TRContent.NuclearReactorComponents.CONTAINMENT_REACTOR_PLATING);
 	}
 
 	private static void addOperator(FabricItemGroupEntries entries) {

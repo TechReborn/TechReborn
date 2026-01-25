@@ -54,7 +54,7 @@ class SolidCanningMachineRecipesProvider extends TechRebornRecipesProvider {
 			ingredient {
 				tag(TRConventionalTags.TIN_INGOTS, 2)
 			}
-			outputs TRContent.Parts.HELIUM_COOLANT_CELL_60K
+			outputs TRContent.NuclearReactorComponents.HELIUM_COOLANT_CELL_60K
 		}
 		offerSolidCanningMachineRecipe {
 			power 1
@@ -69,7 +69,7 @@ class SolidCanningMachineRecipesProvider extends TechRebornRecipesProvider {
 			ingredient {
 				tag(TRConventionalTags.TIN_INGOTS, 2)
 			}
-			outputs stack(TRContent.Parts.WATER_COOLANT_CELL_10K, 2)
+			outputs stack(TRContent.NuclearReactorComponents.WATER_COOLANT_CELL_10K, 2)
 		}
 	}
 }
