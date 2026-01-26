@@ -559,6 +559,7 @@ public class TRContent {
 		SPHALERITE(OreDistribution.SPHALERITE),
 		TIN(OreDistribution.TIN),
 		TUNGSTEN(OreDistribution.TUNGSTEN, true),
+		URANIUM(OreDistribution.URANIUM, true),
 
 		DEEPSLATE_BAUXITE(BAUXITE),
 		DEEPSLATE_GALENA(GALENA),
@@ -571,7 +572,8 @@ public class TRContent {
 		DEEPSLATE_SILVER(SILVER),
 		DEEPSLATE_SODALITE(SODALITE),
 		DEEPSLATE_TIN(TIN),
-		DEEPSLATE_TUNGSTEN(TUNGSTEN);
+		DEEPSLATE_TUNGSTEN(TUNGSTEN),
+		DEEPSLATE_URANIUM(URANIUM);
 
 		public final String name;
 		public final Block block;
@@ -670,6 +672,7 @@ public class TRContent {
 		RAW_SILVER(2f, 2f),
 		RAW_TIN(2f, 2f),
 		RAW_TUNGSTEN(2f, 2f),
+		RAW_URANIUM(2f, 2f),
 		RED_GARNET(5f, 6f),
 		REFINED_IRON(5f, 6f),
 		RUBY(5f, 6f),
@@ -1038,7 +1041,7 @@ public class TRContent {
 	}
 
 	public enum RawMetals implements ItemInfo, TagConvertible<Item> {
-		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN;
+		IRIDIUM, LEAD, SILVER, TIN, TUNGSTEN, URANIUM;
 
 		public final String name;
 		private final Item item;

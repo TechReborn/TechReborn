@@ -792,6 +792,9 @@ public class TechRebornConfig {
 	@Config(config = "world", category = "generation", key = "enableTungstenOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, tungsten ores will generate in the world")
 	public static boolean enableTungstenOreGeneration = true;
 
+	@Config(config = "world", category = "generation", key = "enableUraniumOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, uranium ores will generate in the world")
+	public static boolean enableUraniumOreGeneration = true;
+
 	@Config(config = "world", category = "generation", key = "enableRubberTreeGeneration", comment = "When enabled rubber trees will generate in the world")
 	public static boolean enableRubberTreeGeneration = true;
 

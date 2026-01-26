@@ -140,6 +140,7 @@
   "block.techreborn.sphalerite_ore": "Sphalerite Ore",
   "block.techreborn.tin_ore": "Tin Ore",
   "block.techreborn.tungsten_ore": "Tungsten Ore",
+  "block.techreborn.uranium_ore": "Uranium Ore",
 
   "_comment2.2": "Ores",
   "block.techreborn.deepslate_bauxite_ore": "Deepslate Bauxite Ore",
@@ -158,7 +159,7 @@
   "block.techreborn.deepslate_sphalerite_ore": "Deepslate Sphalerite Ore",
   "block.techreborn.deepslate_tin_ore": "Deepslate Tin Ore",
   "block.techreborn.deepslate_tungsten_ore": "Deepslate Tungsten Ore",
-
+  "block.techreborn.deepslate_uranium_ore": "Deepslate Uranium Ore",
 
   "_comment3": "Storage",
   "block.techreborn.advanced_alloy_storage_block": "Block of Advanced Alloy",
@@ -294,6 +295,10 @@
   "block.techreborn.zinc_storage_block_stairs": "Zinc Stairs",
   "block.techreborn.zinc_storage_block_slab": "Zinc Slab",
   "block.techreborn.zinc_storage_block_wall": "Zinc Wall",
+  "block.techreborn.raw_uranium_storage_block": "Block of Raw Uranium",
+  "block.techreborn.raw_uranium_storage_block_stairs": "Raw Uranium Stairs",
+  "block.techreborn.raw_uranium_storage_block_slab": "Raw Uranium Slab",
+  "block.techreborn.raw_uranium_storage_block_wall": "Raw Uranium Wall",
 
   "_comment4": "Cables",
   "block.techreborn.copper_cable": "Copper Cable",
@@ -457,6 +462,7 @@
   "item.techreborn.raw_silver": "Raw Silver",
   "item.techreborn.raw_tin": "Raw Tin",
   "item.techreborn.raw_tungsten": "Raw Tungsten",
+  "item.techreborn.raw_uranium": "Raw Uranium",
 
   "_comment8": "Small Dusts",
   "item.techreborn.almandine_small_dust": "Small Pile of Almandine Dust",
