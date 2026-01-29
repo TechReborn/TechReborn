@@ -71,7 +71,9 @@ public enum ModFluids implements BlockInfo {
 	SULFURIC_ACID,
 	TRITIUM,
 	WOLFRAMIUM,
-	BIOFUEL;
+	BIOFUEL,
+	FLUORINE,
+	NITRIC_ACID;
 
 	public final String name;
 	private RebornFluid stillFluid;

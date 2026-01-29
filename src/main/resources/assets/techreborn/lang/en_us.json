@@ -360,6 +360,8 @@
   "block.techreborn.sodium_sulfide": "Sodium Sulfide",
   "block.techreborn.sodium_persulfate": "Sodium Persulfate",
   "block.techreborn.sulfuric_acid": "Sulfuric Acid",
+  "block.techreborn.fluorine": "Fluorine",
+  "block.techreborn.nitric_acid": "Nitric Acid",
 
   "_comment6": "Fluids",
   "fluid.fluidberylium": "Beryllium",
@@ -397,6 +399,8 @@
   "fluid.fluidtritium": "Tritium",
   "fluid.fluidwolframium": "Wolframium",
   "fluid.fluidbiofuel": "BioFuel",
+  "fluid.fluidfluorine": "Fluorine",
+  "fluid.fluidnitricacid": "Nitric Acid",
 
   "_comment7": "Dusts",
   "item.techreborn.almandine_dust": "Almandine Dust",
@@ -1106,6 +1110,8 @@
   "item.techreborn.tritium_bucket": "Tritium",
   "item.techreborn.wolframium_bucket": "Wolframium",
   "item.techreborn.biofuel_bucket": "Biofuel",
+  "item.techreborn.fluorine_bucket": "Fluorine",
+  "item.techreborn.nitric_acid_bucket": "Nitric Acid",
 
   "_comment27": "Gui",
   "gui.techreborn.unit.wrenchtip": "Wrench unit to retain contents",

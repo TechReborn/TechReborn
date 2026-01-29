@@ -544,7 +544,33 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(Items.WITHER_ROSE), getCriterionConditions(Items.WITHER_ROSE)
 			criterion getCriterionName(Items.SKELETON_SKULL), getCriterionConditions(Items.SKELETON_SKULL)
 		}
-
+		offerChemicalReactorRecipe {
+			power 40
+			time 600
+			ingredient {
+				stack cellStack(ModFluids.NITROGEN_DIOXIDE)
+			}
+			ingredient {
+				stack cellStack(Fluids.WATER)
+			}
+			outputs cellStack(ModFluids.NITRIC_ACID, 2)
+			id("chemical_reactor/nitric_acid")
+			criterion "has_nitrogen_dioxide_cell", getCriterionConditions(getCellItemPredicate(ModFluids.NITROGEN_DIOXIDE))
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 1000
+			ingredient {
+				stack cellStack(ModFluids.GLYCERYL)
+			}
+			ingredient {
+				stack cellStack(ModFluids.NITRIC_ACID)
+			}
+			outputs cellStack(ModFluids.NITROFUEL, 2)
+			id("chemical_reactor/nitrofuel_nitration")
+			criterion "has_glyceryl_cell", getCriterionConditions(getCellItemPredicate(ModFluids.GLYCERYL))
+			criterion "has_nitric_acid_cell", getCriterionConditions(getCellItemPredicate(ModFluids.NITRIC_ACID))
+		}
 	}
 
 	void generateWarped(){
