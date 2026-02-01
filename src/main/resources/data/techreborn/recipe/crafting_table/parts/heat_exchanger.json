@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "CEC",
+        "TCT",
+        "CTC"
+    ],
+    "key": {
+        "C": "#c:plates/copper",
+        "E": "techreborn:electronic_circuit",
+        "T": "#c:plates/tin"
+    },
+    "result": {
+        "id": "techreborn:heat_exchanger"
+    }
+}
