@@ -910,6 +910,9 @@ public class TRContent {
 		// Fuel pellets
 		URANIUM_FUEL_PELLET(new Item(TRItemSettings.item("uranium_fuel_pellet"))),
 
+		// Empty fuel rod
+		EMPTY_FUEL_ROD(new Item(TRItemSettings.item("empty_fuel_rod"))),
+
 		// Uranium fuel rods - last 20,000 seconds, 5 base EU, 4 base heat
 		URANIUM_FUEL_ROD(new FuelRodItem("uranium_fuel_rod", 20_000, 1, 5, 4)),
 		DUAL_URANIUM_FUEL_ROD(new FuelRodItem("dual_uranium_fuel_rod", 20_000, 2, 5, 4)),

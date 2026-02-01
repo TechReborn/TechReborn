@@ -1174,6 +1174,7 @@
   "techreborn.tooltip.reactor.durability": "Durability",
   "techreborn.tooltip.reactor.infinite": "Infinite",
   "techreborn.tooltip.reactor.heat_warning": "Component is heated",
+  "item.techreborn.empty_fuel_rod": "Empty Fuel Rod",
   "item.techreborn.uranium_fuel_pellet":  "Uranium Fuel Pellet",
   "item.techreborn.uranium_fuel_rod":  "Uranium Fuel Rod",
   "item.techreborn.dual_uranium_fuel_rod": "Dual Uranium Fuel Rod",

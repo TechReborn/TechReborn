@@ -756,6 +756,7 @@ public class TRItemGroup {
 			TRContent.Parts.DIGITAL_DISPLAY);
 		// nuclear reactor parts
 		entries.addAfter(Items.PHANTOM_MEMBRANE,
+			TRContent.NuclearReactorComponents.EMPTY_FUEL_ROD,
 			TRContent.NuclearReactorComponents.URANIUM_FUEL_ROD,
 			TRContent.NuclearReactorComponents.DUAL_URANIUM_FUEL_ROD,
 			TRContent.NuclearReactorComponents.QUAD_URANIUM_FUEL_ROD,
