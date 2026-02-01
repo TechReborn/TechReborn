@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PCP",
+        "RRR",
+        "PGP"
+    ],
+    "key": {
+        "C": "techreborn:advanced_circuit",
+        "G": "techreborn:solid_fuel_generator",
+        "P": "techreborn:industrial_alloy_plate",
+        "R": "techreborn:reactor_chamber"
+    },
+    "result": {
+        "id": "techreborn:nuclear_reactor"
+    }
+}

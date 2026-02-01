@@ -714,6 +714,7 @@ public class TRItemGroup {
 			TRContent.Ingots.ALUMINUM,
 			TRContent.Ingots.TITANIUM,
 			TRContent.Ingots.CHROME,
+			TRContent.Ingots.INDUSTRIAL_ALLOY,
 			TRContent.Ingots.IRIDIUM,
 			TRContent.Ingots.IRIDIUM_ALLOY,
 			TRContent.Ingots.TUNGSTEN,
