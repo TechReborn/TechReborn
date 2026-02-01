@@ -571,6 +571,20 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			criterion "has_glyceryl_cell", getCriterionConditions(getCellItemPredicate(ModFluids.GLYCERYL))
 			criterion "has_nitric_acid_cell", getCriterionConditions(getCellItemPredicate(ModFluids.NITRIC_ACID))
 		}
+		offerChemicalReactorRecipe {
+			power 60
+			time 1200
+			ingredient {
+				tag(TRConventionalTags.URANIUM_DUSTS)
+			}
+			ingredient {
+				stack cellStack(ModFluids.FLUORINE)
+			}
+			outputs cellStack(ModFluids.URANIUM_HEXAFLUORIDE)
+			id("chemical_reactor/uranium_hexafluoride")
+			criterion "has_uranium_dust", getCriterionConditions(TRConventionalTags.URANIUM_DUSTS)
+			criterion "has_fluorine_cell", getCriterionConditions(getCellItemPredicate(ModFluids.FLUORINE))
+		}
 	}
 
 	void generateWarped(){

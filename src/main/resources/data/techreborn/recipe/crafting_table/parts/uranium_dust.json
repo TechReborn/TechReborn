@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "DDD",
+        "DSD",
+        "DDD"
+    ],
+    "key": {
+        "D": "techreborn:uranium_238_dust",
+        "S": "techreborn:uranium_235_small_dust"
+    },
+    "result": {
+        "id": "techreborn:uranium_dust"
+    }
+}

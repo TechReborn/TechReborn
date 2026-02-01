@@ -799,6 +799,26 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			source "tungsten_ore_with_water"
 			criterion getCriterionName(TRContent.Ores.TUNGSTEN.asTag()), getCriterionConditions(TRContent.Ores.TUNGSTEN.asTag())
 		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.RawMetals.URANIUM.asTag()
+			outputs stack(TRContent.Dusts.URANIUM, 3)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "raw_uranium_with_water"
+			criterion getCriterionName(TRContent.RawMetals.URANIUM.asTag()), getCriterionConditions(TRContent.RawMetals.URANIUM.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.RawMetals.URANIUM.asTag()
+			outputs stack(TRContent.Dusts.URANIUM, 5)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
+			source "raw_uranium_with_sodium_persulfate"
+			criterion getCriterionName(TRContent.RawMetals.URANIUM.asTag()), getCriterionConditions(TRContent.RawMetals.URANIUM.asTag())
+		}
 	}
 	void generateMisc(){
 		offerIndustrialGrinderRecipe {

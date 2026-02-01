@@ -362,6 +362,7 @@
   "block.techreborn.sulfuric_acid": "Sulfuric Acid",
   "block.techreborn.fluorine": "Fluorine",
   "block.techreborn.nitric_acid": "Nitric Acid",
+  "block.techreborn.uranium_hexafluoride": "Uranium Hexafluoride",
 
   "_comment6": "Fluids",
   "fluid.fluidberylium": "Beryllium",
@@ -401,6 +402,7 @@
   "fluid.fluidbiofuel": "BioFuel",
   "fluid.fluidfluorine": "Fluorine",
   "fluid.fluidnitricacid": "Nitric Acid",
+  "fluid.fluiduraniumhexafluoride": "Uranium Hexafluoride",
 
   "_comment7": "Dusts",
   "item.techreborn.almandine_dust": "Almandine Dust",
@@ -460,6 +462,9 @@
   "item.techreborn.uvarovite_dust": "Uvarovite Dust",
   "item.techreborn.yellow_garnet_dust": "Yellow Garnet Dust",
   "item.techreborn.zinc_dust": "Zinc Dust",
+  "item.techreborn.uranium_dust": "Uranium Dust",
+  "item.techreborn.uranium_235_dust": "Uranium-235 Dust",
+  "item.techreborn.uranium_238_dust": "Uranium-238 Dust",
 
   "item.techreborn.raw_iridium": "Raw Iridium",
   "item.techreborn.raw_lead": "Raw Lead",
@@ -532,6 +537,9 @@
   "item.techreborn.uvarovite_small_dust": "Small Pile of Uvarovite Dust",
   "item.techreborn.yellow_garnet_small_dust": "Small Pile of Yellow Garnet Dust",
   "item.techreborn.zinc_small_dust": "Small Pile of Zinc Dust",
+  "item.techreborn.uranium_small_dust": "Small Pile of Uranium Dust",
+  "item.techreborn.uranium_235_small_dust": "Small Pile of Uranium-235 Dust",
+  "item.techreborn.uranium_238_small_dust": "Small Pile of Uranium-238 Dust",
 
   "_comment9": "Gems",
   "item.techreborn.ruby_gem": "Ruby",
@@ -1114,6 +1122,7 @@
   "item.techreborn.biofuel_bucket": "Biofuel",
   "item.techreborn.fluorine_bucket": "Fluorine",
   "item.techreborn.nitric_acid_bucket": "Nitric Acid",
+  "item.techreborn.uranium_hexafluoride_bucket": "Uranium Hexafluoride",
 
   "_comment27": "Gui",
   "gui.techreborn.unit.wrenchtip": "Wrench unit to retain contents",
@@ -1165,6 +1174,7 @@
   "techreborn.tooltip.reactor.durability": "Durability",
   "techreborn.tooltip.reactor.infinite": "Infinite",
   "techreborn.tooltip.reactor.heat_warning": "Component is heated",
+  "item.techreborn.uranium_fuel_pellet":  "Uranium Fuel Pellet",
   "item.techreborn.uranium_fuel_rod":  "Uranium Fuel Rod",
   "item.techreborn.dual_uranium_fuel_rod": "Dual Uranium Fuel Rod",
   "item.techreborn.quad_uranium_fuel_rod":  "Quad Uranium Fuel Rod",
