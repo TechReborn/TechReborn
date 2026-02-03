@@ -1,15 +1,15 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "LEL",
+        "DED",
         "HCH",
-        "LEL"
+        "DED"
     ],
     "key": {
         "C": "#c:plates/copper",
+        "D": "#c:plates/diamond",
         "E": "techreborn:electronic_circuit",
-        "H": "techreborn:heat_exchanger",
-        "L": "#c:plates/lazurite"
+        "H": "techreborn:heat_exchanger"
     },
     "result": {
         "id": "techreborn:advanced_heat_exchanger"
