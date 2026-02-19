@@ -801,7 +801,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.RawMetals.URANIUM.asTag()
-			outputs stack(TRContent.Dusts.URANIUM, 3)
+			outputs stack(TRContent.Dusts.URANIUM, 3), TRContent.Nuggets.LEAD
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -811,7 +811,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.RawMetals.URANIUM.asTag()
-			outputs stack(TRContent.Dusts.URANIUM, 5)
+			outputs stack(TRContent.Dusts.URANIUM, 5), stack(TRContent.Nuggets.LEAD, 3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -820,7 +820,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRContent.RawMetals.URANIUM.asTag()), getCriterionConditions(TRContent.RawMetals.URANIUM.asTag())
 		}
 	}
-	void generateMisc(){
+	void generateMisc() {
 		offerIndustrialGrinderRecipe {
 			ingredients TRConventionalTags.CERTUS_QUARTZ_ORES
 			outputs stack(Ae2.certusQuartzCrystal, 2), stack(Ae2.certusQuartzDust, 5)
