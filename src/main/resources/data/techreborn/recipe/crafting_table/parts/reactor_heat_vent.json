@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "PPP",
+        "PVP",
+        "PPP"
+    ],
+    "key": {
+        "P": "#c:plates/copper",
+        "V": "techreborn:heat_vent"
+    },
+    "result": {
+        "id": "techreborn:reactor_heat_vent"
+    }
+}

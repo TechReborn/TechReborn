@@ -71,5 +71,11 @@ class SolidCanningMachineRecipesProvider extends TechRebornRecipesProvider {
 			}
 			outputs stack(TRContent.NuclearReactorComponents.WATER_COOLANT_CELL_10K, 2)
 		}
+		offerSolidCanningMachineRecipe {
+			power 30
+			time 200
+			ingredients TRContent.NuclearReactorComponents.URANIUM_FUEL_PELLET, TRContent.NuclearReactorComponents.EMPTY_FUEL_ROD
+			outputs TRContent.NuclearReactorComponents.URANIUM_FUEL_ROD
+		}
 	}
 }

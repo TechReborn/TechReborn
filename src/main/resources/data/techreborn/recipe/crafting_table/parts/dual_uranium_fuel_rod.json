@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RAR"
+    ],
+    "key": {
+        "A": "techreborn:advanced_alloy_plate",
+        "R": "techreborn:uranium_fuel_rod"
+    },
+    "result": {
+        "id": "techreborn:dual_uranium_fuel_rod"
+    }
+}

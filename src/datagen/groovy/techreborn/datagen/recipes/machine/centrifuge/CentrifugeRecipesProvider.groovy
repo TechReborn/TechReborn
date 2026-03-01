@@ -545,5 +545,12 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			outputs stack(TRContent.Nuggets.TIN, 3)
 			id("centrifuge/zinc_dust")
 		}
+		offerCentrifugeRecipe {
+			power 10
+			time 1600
+			ingredients cellStack(ModFluids.URANIUM_HEXAFLUORIDE)
+			outputs stack(TRContent.Dusts.URANIUM_238, 8), TRContent.SmallDusts.URANIUM_235, cellStack(ModFluids.COMPRESSED_AIR)
+			id("centrifuge/uranium_hexafluoride_cell")
+		}
 	}
 }

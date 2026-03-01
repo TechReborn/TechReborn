@@ -133,6 +133,7 @@ public class TRItemGroup {
 		entries.addAfter(TRContent.RawMetals.SILVER, TRContent.StorageBlocks.RAW_SILVER);
 		entries.addAfter(TRContent.RawMetals.IRIDIUM, TRContent.StorageBlocks.RAW_IRIDIUM);
 		entries.addAfter(TRContent.RawMetals.TUNGSTEN, TRContent.StorageBlocks.RAW_TUNGSTEN);
+		entries.addAfter(TRContent.RawMetals.URANIUM, TRContent.StorageBlocks.RAW_URANIUM);
 		for (TRContent.StorageBlocks block : TRContent.StorageBlocks.values()) {
 			entries.addAfter(block,
 				block.getStairsBlock(),
@@ -424,7 +425,7 @@ public class TRItemGroup {
 		entries.addAfter(Items.DEEPSLATE_REDSTONE_ORE,
 			TRContent.Ores.RUBY, TRContent.Ores.DEEPSLATE_RUBY,
 			TRContent.Ores.SAPPHIRE, TRContent.Ores.DEEPSLATE_SAPPHIRE);
-		entries.addAfter(Items.DEEPSLATE_DIAMOND_ORE, TRContent.Ores.IRIDIUM, TRContent.Ores.DEEPSLATE_IRIDIUM);
+		entries.addAfter(Items.DEEPSLATE_DIAMOND_ORE, TRContent.Ores.IRIDIUM, TRContent.Ores.DEEPSLATE_IRIDIUM, TRContent.Ores.URANIUM, TRContent.Ores.DEEPSLATE_URANIUM);
 		entries.addAfter(Items.NETHER_GOLD_ORE,
 			TRContent.Ores.CINNABAR,
 			TRContent.Ores.PYRITE,
@@ -440,7 +441,8 @@ public class TRItemGroup {
 			TRContent.StorageBlocks.RAW_SILVER);
 		entries.addAfter(Items.RAW_GOLD_BLOCK,
 			TRContent.StorageBlocks.RAW_IRIDIUM,
-			TRContent.StorageBlocks.RAW_TUNGSTEN);
+			TRContent.StorageBlocks.RAW_TUNGSTEN,
+			TRContent.StorageBlocks.RAW_URANIUM);
 		entries.addAfter(Items.MANGROVE_LOG, TRContent.RUBBER_LOG);
 		entries.addAfter(Items.MUDDY_MANGROVE_ROOTS, TRContent.RUBBER_LEAVES);
 		entries.addAfter(Items.MANGROVE_PROPAGULE, TRContent.RUBBER_SAPLING);
@@ -712,6 +714,7 @@ public class TRItemGroup {
 			TRContent.Ingots.ALUMINUM,
 			TRContent.Ingots.TITANIUM,
 			TRContent.Ingots.CHROME,
+			TRContent.Ingots.INDUSTRIAL_ALLOY,
 			TRContent.Ingots.IRIDIUM,
 			TRContent.Ingots.IRIDIUM_ALLOY,
 			TRContent.Ingots.TUNGSTEN,
@@ -753,6 +756,7 @@ public class TRItemGroup {
 			TRContent.Parts.DIGITAL_DISPLAY);
 		// nuclear reactor parts
 		entries.addAfter(Items.PHANTOM_MEMBRANE,
+			TRContent.NuclearReactorComponents.EMPTY_FUEL_ROD,
 			TRContent.NuclearReactorComponents.URANIUM_FUEL_ROD,
 			TRContent.NuclearReactorComponents.DUAL_URANIUM_FUEL_ROD,
 			TRContent.NuclearReactorComponents.QUAD_URANIUM_FUEL_ROD,

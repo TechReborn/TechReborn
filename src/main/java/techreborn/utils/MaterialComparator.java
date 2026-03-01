@@ -97,6 +97,7 @@ public class MaterialComparator implements Comparator<Enum<?>> {
 		"MAGNESIUM",
 		"MANGANESE",
 		"MAGNALIUM",
+		"INDUSTRIAL_ALLOY",
 		"PHOSPHOROUS",
 		"SULFUR",
 		"SALTPETER",
