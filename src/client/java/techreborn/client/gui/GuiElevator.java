@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -40,7 +40,7 @@ public class GuiElevator extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+	protected void renderLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
 		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 

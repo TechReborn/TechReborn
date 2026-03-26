@@ -26,7 +26,7 @@ package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ColorRGBA;
@@ -157,7 +157,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 	}
 
 	@Override
-	protected void drawSateColor(GuiGraphics drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
+	protected void drawSateColor(GuiGraphicsExtractor drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();
@@ -180,7 +180,7 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 		}
 	}
 
-	protected void drawTag(GuiGraphics drawContext, GuiBase<?> gui, int sx, int sy, String tag) {
+	protected void drawTag(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int sx, int sy, String tag) {
 		Font textRenderer = gui.getFont();
 		Component text = Component.nullToEmpty(tag);
 		drawContext.drawString(textRenderer, text, sx + 10 - textRenderer.width(tag) / 2, sy + 6, -1, false);

@@ -44,7 +44,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
@@ -227,7 +227,7 @@ public class ReiPlugin implements REIClientPlugin {
 
 	private record EnergyEntryRenderer(EntryAnimation animation, Function<TooltipContext, Tooltip> tooltipBuilder) implements Renderer {
 		@Override
-			public void render(GuiGraphics drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
+			public void render(GuiGraphicsExtractor drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
 				int width = bounds.width + 2;
 				int height = bounds.height + 2;
 				int innerHeight = height - 2;
@@ -251,7 +251,7 @@ public class ReiPlugin implements REIClientPlugin {
 
 	private record FluidStackRenderer(EntryAnimation animation, EntryRenderer<FluidStack> parent) implements EntryRenderer<FluidStack> {
 		@Override
-			public void render(EntryStack<FluidStack> entry, GuiGraphics drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
+			public void render(EntryStack<FluidStack> entry, GuiGraphicsExtractor drawContext, Rectangle bounds, int mouseX, int mouseY, float delta) {
 				int width = bounds.width;
 				int height = bounds.height;
 
@@ -266,7 +266,7 @@ public class ReiPlugin implements REIClientPlugin {
 				drawSpriteStretched(drawContext, GuiSprites.TANK_FOREGROUND, bounds.x - 1, bounds.y - 1, 16, 50);
 			}
 
-			public void drawFluid(GuiGraphics drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
+			public void drawFluid(GuiGraphicsExtractor drawContext, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
 				y += height - drawHeight;
 				FluidRenderHandler handler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
 

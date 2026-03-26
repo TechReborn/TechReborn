@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
@@ -41,7 +41,7 @@ public class GuiAlloyFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, float lastFrameDuration, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor drawContext, float lastFrameDuration, int mouseX, int mouseY) {
 		super.renderBg(drawContext, lastFrameDuration, mouseX, mouseY);
 		GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
@@ -55,7 +55,7 @@ public class GuiAlloyFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+	protected void renderLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		super.renderLabels(drawContext, mouseX, mouseY);
 		GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 

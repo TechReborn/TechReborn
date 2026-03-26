@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
@@ -41,7 +41,7 @@ public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+	protected void renderLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 

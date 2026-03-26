@@ -55,7 +55,7 @@ import net.minecraft.world.level.saveddata.SavedDataType;
 public class ChunkLoaderManager extends SavedData {
 
 	public static Codec<ChunkLoaderManager> CODEC = Codec.list(LoadedChunk.CODEC).xmap(ChunkLoaderManager::fromChunks, ChunkLoaderManager::getLoadedChunks);
-	public static final SavedDataType<ChunkLoaderManager> TYPE = new SavedDataType<>("chunk_loader", ChunkLoaderManager::new, CODEC, null);
+	public static final SavedDataType<ChunkLoaderManager> TYPE = new SavedDataType<>(Identifier.fromNamespaceAndPath("reborncore", "chunk_loader"), ChunkLoaderManager::new, CODEC, null);
 
 	private static TicketType CHUNK_LOADER;
 	private static final String KEY = "reborncore_chunk_loader";

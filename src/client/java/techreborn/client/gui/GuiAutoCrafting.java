@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +47,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+	protected void renderLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
@@ -56,7 +56,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, final float f, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor drawContext, final float f, int mouseX, int mouseY) {
 		super.renderBg(drawContext, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 		for (int i = 0; i < 3; i++) {

@@ -24,7 +24,7 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 
@@ -45,7 +45,7 @@ public class ButtonElement extends ElementBase {
 	}
 
 	@Override
-	public void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+	public void draw(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		setSprite(isMouseWithinRect(gui, mouseX, mouseY) ? buttonSprite.hovered() : buttonSprite.normal());
 		super.draw(drawContext, gui, mouseX, mouseY);
 	}

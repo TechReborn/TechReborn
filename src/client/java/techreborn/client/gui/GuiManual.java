@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.util.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -91,7 +91,7 @@ public class GuiManual extends Screen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+	public void renderBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
 		super.renderBackground(drawContext, mouseX, mouseY, delta);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
@@ -99,7 +99,7 @@ public class GuiManual extends Screen {
 	}
 
 	@Override
-	public void render(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
+	public void render(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
 		super.render(drawContext, mouseX, mouseY, partialTicks);
 
 		int centerY = (height / 2) - guiHeight / 2;

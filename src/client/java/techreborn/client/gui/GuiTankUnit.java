@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
@@ -43,7 +43,7 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor drawContext, final float f, final int mouseX, final int mouseY) {
 		super.renderBg(drawContext, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
@@ -53,7 +53,7 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+	protected void renderLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
 		super.renderLabels(drawContext, mouseX, mouseY);
 
 		// Draw input/out
@@ -82,7 +82,7 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	public void render(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
+	public void render(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
 		super.render(drawContext, mouseX, mouseY, partialTicks);
 		renderTooltip(drawContext, mouseX, mouseY);
 	}

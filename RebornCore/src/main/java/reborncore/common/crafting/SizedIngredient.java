@@ -32,6 +32,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import java.util.List;
@@ -68,15 +69,15 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 		return ingredient.test(itemStack);
 	}
 
-	public List<ItemStack> getPreviewStacks() {
+	public List<ItemStackTemplate> getPreviewStacks() {
 		CustomIngredient customIngredient = ingredient.getCustomIngredient();
-		Stream<ItemStack> stacks;
+		Stream<ItemStackTemplate> stacks;
 		if (customIngredient != null) {
 			stacks = ((SlotDisplay.Composite) customIngredient.display()).contents().stream()
 				.map(display -> ((SlotDisplay.ItemStackSlotDisplay) display).stack());
 		} else {
-			stacks = ingredient.values.stream().map(entry -> new ItemStack(entry.value()));
+			stacks = ingredient.values.stream().map(entry -> new ItemStackTemplate(entry.value()));
 		}
-		return stacks.peek(itemStack -> itemStack.setCount(count)).toList();
+		return stacks.peek(item -> new ItemStackTemplate(item.item().value(), count)).toList();
 	}
 }

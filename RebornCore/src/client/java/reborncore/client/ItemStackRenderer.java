@@ -38,7 +38,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.CachedOrthoProjectionMatrixBuffer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -66,7 +66,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 	private static final int SIZE = 512;
 
 	@Override
-	public void onHudRender(GuiGraphics drawContext, DeltaTracker tickCounter) {
+	public void onHudRender(GuiGraphicsExtractor drawContext, DeltaTracker tickCounter) {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
 			if (guiProjectionMatrix == null) {
 				guiProjectionMatrix = new CachedOrthoProjectionMatrixBuffer("gui", 1000.0F, 11000.0F, true);
@@ -76,7 +76,7 @@ public class ItemStackRenderer implements HudRenderCallback {
 		}
 	}
 
-	private void export(GuiGraphics drawContext, ItemStack stack, int queue) {
+	private void export(GuiGraphicsExtractor drawContext, ItemStack stack, int queue) {
 		Minecraft client = Minecraft.getInstance();
 		RenderTarget framebuffer = client.getMainRenderTarget();
 		GpuTexture gpuTexture = framebuffer.getColorTexture();

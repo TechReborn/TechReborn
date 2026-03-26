@@ -169,7 +169,7 @@ public class RebornCoreCommands {
 	}
 
 	private static int itemRenderer(CommandContext<CommandSourceStack> ctx) {
-		Item item = ItemArgument.getItem(ctx, "item").getItem();
+		Item item = ItemArgument.getItem(ctx, "item").item().value();
 		queueRender(Collections.singletonList(new ItemStack(item)), ctx);
 
 		return Command.SINGLE_SUCCESS;

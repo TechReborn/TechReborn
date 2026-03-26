@@ -24,7 +24,7 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
@@ -60,7 +60,7 @@ public class ConfigFluidElement extends ParentElement {
 	}
 
 	@Override
-	public void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+	public void draw(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		if (isMouseWithinRect(gui, mouseX, mouseY)) {
 			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY(), type.getTextureWidth(), type.getTextureHeight());
 		}

@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
@@ -58,7 +58,7 @@ public class GuiLaunchpad extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor drawContext, float partialTicks, int mouseX, int mouseY) {
 		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
@@ -69,7 +69,7 @@ public class GuiLaunchpad extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+	protected void renderLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
 		super.renderLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 

@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
@@ -44,7 +44,7 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor drawContext, final float f, final int mouseX, final int mouseY) {
 		super.renderBg(drawContext, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
@@ -66,7 +66,7 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
+	protected void renderLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
 		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 

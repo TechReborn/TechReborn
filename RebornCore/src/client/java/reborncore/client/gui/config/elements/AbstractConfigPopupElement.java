@@ -34,7 +34,7 @@ import reborncore.common.util.MachineFacing;
 import java.util.Arrays;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.resources.model.Material;
@@ -88,7 +88,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 	}
 
 	@Override
-	public final void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+	public final void draw(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		drawContext.pose().pushMatrix();
 		int x = adjustX(gui, getX() - 8);
 		int y = adjustY(gui, getY() - 7);
@@ -170,7 +170,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	protected abstract void cycleConfig(Direction side, GuiBase<?> guiBase);
 
-	protected abstract void drawSateColor(GuiGraphics drawContext, GuiBase<?> gui, Direction side, int inx, int iny);
+	protected abstract void drawSateColor(GuiGraphicsExtractor drawContext, GuiBase<?> gui, Direction side, int inx, int iny);
 
 	protected boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY, GuiBase<?> guiBase) {
 		rectX += getX();
@@ -181,7 +181,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 
 	protected abstract int getPencilColor(String pencil);
 
-	protected void drawPencil(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY, int x, int y) {
+	protected void drawPencil(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int mouseX, int mouseY, int x, int y) {
 		int mx = mouseX - gui.getGuiLeft();
 		int my = mouseY - gui.getGuiTop();
 		x += 5;

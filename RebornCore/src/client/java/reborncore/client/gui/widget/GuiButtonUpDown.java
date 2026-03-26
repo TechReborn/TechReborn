@@ -29,7 +29,7 @@ import reborncore.client.gui.GuiSprites;
 
 import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
@@ -48,7 +48,7 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	}
 
 	@Override
-	public void renderContents(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
+	public void renderContents(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
 		if (gui.hideGuiElements()) return;
 		drawSpriteStretched(drawContext, type.spriteIdentifier, getX(), getY(), getWidth(), getHeight());
 	}

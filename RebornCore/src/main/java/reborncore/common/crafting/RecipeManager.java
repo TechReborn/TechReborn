@@ -25,16 +25,17 @@
 package reborncore.common.crafting;
 
 import com.mojang.serialization.MapCodec;
-import java.util.List;
-import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+
+import java.util.List;
+import java.util.function.Function;
 
 public class RecipeManager {
 	public static RecipeType<RebornRecipe> newRecipeType(Identifier name) {
@@ -50,8 +51,7 @@ public class RecipeManager {
 		};
 		Registry.register(BuiltInRegistries.RECIPE_TYPE, name, type);
 
-		record Serializer<R extends RebornRecipe>(MapCodec<R> codec, StreamCodec<RegistryFriendlyByteBuf, R> streamCodec) implements RecipeSerializer<R> {}
-		Serializer<R> serializer = new Serializer<>(codec.apply(type), packetCodec.apply(type));
+		RecipeSerializer<R> serializer = new RecipeSerializer<>(codec.apply(type), packetCodec.apply(type));
 		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, name, serializer);
 
 		return type;

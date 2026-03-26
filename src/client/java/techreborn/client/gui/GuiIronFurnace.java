@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
@@ -75,7 +75,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 		}
 
 		@Override
-		public void renderContents(GuiGraphics context, int mouseX, int mouseY, float delta) {
+		public void renderContents(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
 			super.renderWidget(context, mouseX, mouseY, delta);
 
 			if (isHovered) {
@@ -115,7 +115,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, float lastFrameDuration, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor drawContext, float lastFrameDuration, int mouseX, int mouseY) {
 		super.renderBg(drawContext, lastFrameDuration, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
@@ -128,7 +128,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+	protected void renderLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		super.renderLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 

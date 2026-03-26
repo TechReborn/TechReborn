@@ -25,7 +25,7 @@
 package reborncore.client.gui.config.elements;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Direction;
 import net.minecraft.util.ColorRGBA;
 import reborncore.RebornCore;
@@ -93,7 +93,7 @@ public class FluidConfigPopupElement extends AbstractConfigPopupElement {
 	}
 
 	@Override
-	protected void drawSateColor(GuiGraphics drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
+	protected void drawSateColor(GuiGraphicsExtractor drawContext, GuiBase<?> gui, Direction side, int inx, int iny) {
 		iny += 4;
 		int sx = inx + getX() + gui.getGuiLeft();
 		int sy = iny + getY() + gui.getGuiTop();

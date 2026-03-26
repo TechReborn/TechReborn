@@ -6,7 +6,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	// id 'com.diffplug.spotless' version '6.19.0'
-	id 'net.fabricmc.fabric-loom' version '1.14-SNAPSHOT'
+	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
     id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
 }
 

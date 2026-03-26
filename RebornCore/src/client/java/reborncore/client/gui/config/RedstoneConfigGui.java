@@ -25,7 +25,7 @@
 package reborncore.client.gui.config;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -57,7 +57,7 @@ public class RedstoneConfigGui extends GuiTab {
 	}
 
 	@Override
-	public void draw(GuiGraphics drawContext, int mouseX, int mouseY) {
+	public void draw(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		if (guiBase.getMachine() == null) return;
 		RedstoneConfiguration configuration = guiBase.getMachine().getRedstoneConfiguration();
 		List<RedstoneConfiguration.Element> elements = guiBase.getMachine().getRedstoneElements();
