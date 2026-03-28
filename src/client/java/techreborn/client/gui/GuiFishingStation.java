@@ -40,8 +40,8 @@ public class GuiFishingStation extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor drawContext, final float f, final int mouseX, final int mouseY) {
-		super.renderBg(drawContext, f, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float f) {
+		super.extractBackground(drawContext, mouseX, mouseY, f);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		drawSlot(drawContext, 8, 72, layer);
@@ -57,8 +57,8 @@ public class GuiFishingStation extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

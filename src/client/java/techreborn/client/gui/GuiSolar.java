@@ -41,8 +41,8 @@ public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(drawContext, this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

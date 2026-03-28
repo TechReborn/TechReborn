@@ -31,4 +31,6 @@ changelog.txt
 /RebornCore/.gradle
 /RebornCore/build
 /RebornCore/out
+/RebornCore/.settings
+/RebornCore/bin
 

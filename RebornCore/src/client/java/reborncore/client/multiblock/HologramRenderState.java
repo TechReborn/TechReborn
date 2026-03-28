@@ -28,8 +28,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.Lightmap;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.block.BlockStateModelSet;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -67,14 +67,22 @@ public interface HologramRenderState {
 		}
 	}
 
+	// TODO 26.1: BlockRenderDispatcher was removed in Minecraft 26.1
+	// The block rendering system was completely redesigned with the new render state extraction pattern.
+	// This record needs to be reimplemented to work with BlockStateModelSet and the new rendering architecture.
+	// See: BlockStateModelSet.get(BlockState) for getting models
+	// See: vanilla code for examples of new block rendering approach
+	/*
 	record Block(
-		BlockRenderDispatcher blockRenderManager, Level view, int x, int y, int z, RenderType layer, BlockState state, List<BlockModelPart> parts
+		BlockStateModelSet blockModelSet, Level view, int x, int y, int z, RenderType layer, BlockState state, List<BlockStateModelPart> parts
 	) implements HologramRenderState, SubmitNodeCollector.CustomGeometryRenderer {
 		@Override
 		public void render(PoseStack.Pose pose, VertexConsumer vertexConsumer) {
 			PoseStack matrix = new PoseStack();
 			matrix.mulPose(pose.pose());
-			blockRenderManager.renderBatched(state, OUT_OF_WORLD_POS, view, matrix, vertexConsumer, false, parts);
+			// TODO 26.1: renderBatched method no longer exists
+			// Need to implement new rendering approach
+			// blockRenderManager.renderBatched(state, OUT_OF_WORLD_POS, view, matrix, vertexConsumer, false, parts);
 		}
 
 		@Override
@@ -83,4 +91,5 @@ public interface HologramRenderState {
 			submitNodeCollector.submitCustomGeometry(poseStack, layer, this);
 		}
 	}
+	*/
 }

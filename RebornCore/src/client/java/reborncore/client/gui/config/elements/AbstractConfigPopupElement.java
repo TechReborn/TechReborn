@@ -35,9 +35,9 @@ import java.util.Arrays;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.BlockStateModel;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.renderer.block.BlockStateModelSet;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
@@ -69,7 +69,7 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 	@Nullable
 	public String pencil;
 
-	public AbstractConfigPopupElement(int x, int y, int height, Material sprite, int textureWidth, int textureHeight, String[] pencils) {
+	public AbstractConfigPopupElement(int x, int y, int height, SpriteId sprite, int textureWidth, int textureHeight, String[] pencils) {
 		super(x, y, sprite, textureWidth, textureHeight);
 		this.height = height;
 		this.pencils = pencils;
@@ -107,10 +107,10 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 		final MachineBaseBlockEntity machine = ((MachineBaseBlockEntity) gui.be);
 		final BlockState state = machine.getBlockState();
 		final BlockState defaultState = state.getBlock().defaultBlockState();
-		final BlockRenderDispatcher dispatcher = client.getBlockRenderer();
-		final BlockStateModel model = dispatcher.getBlockModelShaper().getBlockModel(defaultState);
+		final BlockStateModelSet modelSet = client.getModelManager().getBlockStateModelSet();
+		final BlockStateModel model = modelSet.get(defaultState);
 
-		drawContext.guiRenderState.submitPicturesInPictureState(new MachineFaceState(
+		drawContext.guiRenderState.addPicturesInPictureState(new MachineFaceState(
 			new Matrix3x2f(drawContext.pose()),
 			model,
 			gui.getGuiLeft() + getX(),
@@ -201,10 +201,10 @@ public abstract class AbstractConfigPopupElement extends ElementBase {
 				color = 0x668b8b8b;
 			}
 			drawContext.fill(x, y, x2, y2, color);
-			letter = Component.nullToEmpty(pencil.substring(0, 1));
-			x3 = x + (pencilWidth - textRenderer.width(letter)) / 2;
-			drawContext.drawString(textRenderer, letter, x3, y3, -1, false);
-			x = x2 + 1;
+		letter = Component.nullToEmpty(pencil.substring(0, 1));
+		x3 = x + (pencilWidth - textRenderer.width(letter)) / 2;
+		drawContext.text(textRenderer, letter, x3, y3, -1, false);
+		x = x2 + 1;
 		}
 	}
 }

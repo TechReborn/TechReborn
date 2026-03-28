@@ -25,14 +25,15 @@
 package reborncore.client.multiblock;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockStateModelSet;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -43,11 +44,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements BlockEntityRenderer<T, MultiblockRenderer.MultiblockRenderState> {
-	private final BlockRenderDispatcher blockRenderDispatcher;
+	private final BlockStateModelSet blockStateModelSet;
 	private final ItemModelResolver itemModelResolver;
 
 	public MultiblockRenderer(BlockEntityRendererProvider.Context ctx) {
-		this.blockRenderDispatcher = ctx.blockRenderDispatcher();
+		this.blockStateModelSet = Minecraft.getInstance().getModelManager().getBlockStateModelSet();
 		this.itemModelResolver = ctx.itemModelResolver();
 	}
 
@@ -65,10 +66,12 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlay);
+		// TODO 26.1: HologramRenderer needs BlockStateModelSet now instead of BlockRenderDispatcher
+		// Also, the HologramRenderState.Block record is commented out due to rendering system changes
 		if (blockEntity.renderMultiblock && !blockEntity.isShapeValid()) {
 			List<HologramRenderState> states = new ArrayList<>();
 			Direction direction = blockEntity.getFacing().getOpposite();
-			blockEntity.writeMultiblock(new HologramRenderer(blockRenderDispatcher, itemModelResolver, blockEntity.getLevel(), states).rotate(direction));
+			blockEntity.writeMultiblock(new HologramRenderer(blockStateModelSet, itemModelResolver, blockEntity.getLevel(), states).rotate(direction));
 			if (states.isEmpty()) {
 				return;
 			}

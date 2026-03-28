@@ -183,6 +183,6 @@ public class SlotConfigPopupElement extends AbstractConfigPopupElement {
 	protected void drawTag(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int sx, int sy, String tag) {
 		Font textRenderer = gui.getFont();
 		Component text = Component.nullToEmpty(tag);
-		drawContext.drawString(textRenderer, text, sx + 10 - textRenderer.width(tag) / 2, sy + 6, -1, false);
+		drawContext.text(textRenderer, text, sx + 10 - textRenderer.width(tag) / 2, sy + 6, -1, false);
 	}
 }

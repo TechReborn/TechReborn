@@ -40,6 +40,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -70,7 +71,7 @@ public record FusionReactorRecipe(RecipeType<? extends FusionReactorRecipe> type
 	@Override
 	public List<RecipeDisplay> display() {
 		ItemStack stack = new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER);
-		return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(stack)));
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(stack))));
 	}
 
 	public int getStartEnergy() {

@@ -104,7 +104,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private boolean canAcceptOutput(SmeltingRecipe recipe, int slot) {
-		ItemStack recipeOutput = recipe.assemble(new SingleRecipeInput(inventory.getItem(slot)), getLevel().registryAccess());
+		ItemStack recipeOutput = recipe.assemble(new SingleRecipeInput(inventory.getItem(slot)));
 		if (recipeOutput.isEmpty()) {
 			return false;
 		}
@@ -167,7 +167,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		ItemStack outputStack = inventory.getItem(outputSlot);
-		ItemStack result = recipe.assemble(new SingleRecipeInput(inventory.getItem(outputSlot)), getLevel().registryAccess());
+		ItemStack result = recipe.assemble(new SingleRecipeInput(inventory.getItem(outputSlot)));
 		if (outputStack.isEmpty()) {
 			inventory.setItem(outputSlot, result.copy());
 		} else {

@@ -32,8 +32,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BlockModel;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.resources.model.cuboid.CuboidModel;
+import net.minecraft.client.resources.model.cuboid.ItemTransforms;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 
@@ -45,7 +45,7 @@ public class ModelHelper {
 	public static ItemTransforms loadTransformFromJson(Identifier location) {
 		try {
 
-			return BlockModel.fromStream(getReaderForResource(location)).transforms();
+			return CuboidModel.fromStream(getReaderForResource(location)).transforms();
 		} catch (IOException exception) {
 			TechReborn.LOGGER.warn("Can't load resource " + location);
 			exception.printStackTrace();

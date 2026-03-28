@@ -91,23 +91,23 @@ public class GuiManual extends Screen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
-		super.renderBackground(drawContext, mouseX, mouseY, delta);
+	public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
+		super.extractBackground(drawContext, mouseX, mouseY, delta);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
 		drawContext.blit(RenderPipelines.GUI_TEXTURED, MANUAL_TEXTURE, centerX, centerY, 0, 0, guiWidth, guiHeight, 256, 256);
 	}
 
 	@Override
-	public void render(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
-		super.render(drawContext, mouseX, mouseY, partialTicks);
+	public void extractRenderState(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
+		super.extractRenderState(drawContext, mouseX, mouseY, partialTicks);
 
 		int centerY = (height / 2) - guiHeight / 2;
 
-		drawContext.drawString(font, text1, (width / 2) - font.width(text1) / 2, centerY + 40, theme.titleColor().rgba(), false);
-		drawContext.drawString(font, text2, (width / 2) - font.width(text2) / 2, centerY + 90, theme.titleColor().rgba(), false);
+		drawContext.text(font, text1, (width / 2) - font.width(text1) / 2, centerY + 40, theme.titleColor().rgba(), false);
+		drawContext.text(font, text2, (width / 2) - font.width(text2) / 2, centerY + 90, theme.titleColor().rgba(), false);
 		if (TechRebornConfig.allowManualRefund) {
-			drawContext.drawString(font, text3, (width / 2) - font.width(text3) / 2, centerY + 140, theme.titleColor().rgba(), false);
+			drawContext.text(font, text3, (width / 2) - font.width(text3) / 2, centerY + 140, theme.titleColor().rgba(), false);
 		}
 	}
 }

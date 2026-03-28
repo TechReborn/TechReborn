@@ -68,7 +68,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 			TRItemUtils.switchActive(stack, cost, entity);
 			stack.set(TRDataComponentTypes.AOE5, false);
 			if (entity instanceof ServerPlayer serverPlayerEntity) {
-				serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.setTo").withStyle(ChatFormatting.GRAY).append(" ").append(Component.literal("3*3").withStyle(ChatFormatting.GOLD)), true);
+				serverPlayerEntity.sendOverlayMessage(Component.translatable("techreborn.message.setTo").withStyle(ChatFormatting.GRAY).append(" ").append(Component.literal("3*3").withStyle(ChatFormatting.GOLD)));
 			}
 		} else {
 			if (isAOE5(stack)) {
@@ -77,7 +77,7 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 			} else {
 				stack.set(TRDataComponentTypes.AOE5, true);
 				if (entity instanceof ServerPlayer serverPlayerEntity) {
-					serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.setTo").withStyle(ChatFormatting.GRAY).append(" ").append(Component.literal("5*5").withStyle(ChatFormatting.GOLD)), true);
+					serverPlayerEntity.sendOverlayMessage(Component.translatable("techreborn.message.setTo").withStyle(ChatFormatting.GRAY).append(" ").append(Component.literal("5*5").withStyle(ChatFormatting.GOLD)));
 				}
 			}
 		}

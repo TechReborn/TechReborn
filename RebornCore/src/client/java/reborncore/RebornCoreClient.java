@@ -29,7 +29,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.PictureInPictureRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -50,7 +50,7 @@ public class RebornCoreClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		RebornFluidRenderManager.setupClient();
 		ClientBoundPacketHandlers.init();
-		HudRenderCallback.EVENT.register(new ItemStackRenderer());
+		HudElementRegistry.addLast(Identifier.fromNamespaceAndPath("reborncore", "item_stack_renderer"), new ItemStackRenderer());
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
 		BlockOutlineRenderer outline = new BlockOutlineRenderer();
 		LevelRenderEvents.AFTER_BLOCK_OUTLINE_EXTRACTION.register(outline);

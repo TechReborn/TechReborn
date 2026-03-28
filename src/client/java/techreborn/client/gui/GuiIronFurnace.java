@@ -75,8 +75,8 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 		}
 
 		@Override
-		public void renderContents(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
-			super.renderWidget(context, mouseX, mouseY, delta);
+		public void extractContents(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+			super.extractContents(context, mouseX, mouseY, delta);
 
 			if (isHovered) {
 				context.setTooltipForNextFrame(getFont(), getTooltipText(), mouseX, mouseY);
@@ -115,8 +115,8 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor drawContext, float lastFrameDuration, int mouseX, int mouseY) {
-		super.renderBg(drawContext, lastFrameDuration, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float lastFrameDuration) {
+		super.extractBackground(drawContext, mouseX, mouseY, lastFrameDuration);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Input slot
@@ -128,8 +128,8 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

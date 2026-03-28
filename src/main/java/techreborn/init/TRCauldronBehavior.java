@@ -26,6 +26,7 @@ package techreborn.init;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -52,8 +53,15 @@ public class TRCauldronBehavior {
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
 			}
 
-			return CauldronInteraction.fillBucket(state, world, pos, player, hand, stack,
-					DynamicCellItem.getCellWithFluid(Fluids.LAVA), (stateX) -> true, SoundEvents.BUCKET_FILL_LAVA);
+			if (!world.isClientSide()) {
+				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, DynamicCellItem.getCellWithFluid(Fluids.LAVA)));
+				player.awardStat(Stats.USE_CAULDRON);
+				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+				world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+				world.playSound(null, pos, SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 1.0F, 1.0F);
+				world.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
+			}
+			return InteractionResult.SUCCESS;
 		};
 
 		CauldronInteraction FILL_CELL_WITH_WATER = (state, world, pos, player, hand, stack) -> {
@@ -61,8 +69,15 @@ public class TRCauldronBehavior {
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
 			}
 
-			return CauldronInteraction.fillBucket(state, world, pos, player, hand, stack,
-					DynamicCellItem.getCellWithFluid(Fluids.WATER), (stateX) -> true, SoundEvents.BUCKET_FILL);
+			if (!world.isClientSide()) {
+				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, DynamicCellItem.getCellWithFluid(Fluids.WATER)));
+				player.awardStat(Stats.USE_CAULDRON);
+				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+				LayeredCauldronBlock.lowerFillLevel(state, world, pos);
+				world.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+				world.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
+			}
+			return InteractionResult.SUCCESS;
 		};
 
 		CauldronInteraction FILL_FROM_CELL = (state, world, pos, player, hand, stack) -> {
@@ -80,9 +95,9 @@ public class TRCauldronBehavior {
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		};
 
-		CauldronInteraction.LAVA.map().put(TRContent.CELL, FILL_CELL_WITH_LAVA);
-		CauldronInteraction.WATER.map().put(TRContent.CELL, FILL_CELL_WITH_WATER);
-		CauldronInteraction.EMPTY.map().put(TRContent.CELL, FILL_FROM_CELL);
+		CauldronInteractions.LAVA.put(TRContent.CELL, FILL_CELL_WITH_LAVA);
+		CauldronInteractions.WATER.put(TRContent.CELL, FILL_CELL_WITH_WATER);
+		CauldronInteractions.EMPTY.put(TRContent.CELL, FILL_FROM_CELL);
 	}
 
 	static InteractionResult fillCauldronFromCell(Level world, BlockPos pos, Player player, InteractionHand hand, ItemStack stack, BlockState state, SoundEvent soundEvent) {

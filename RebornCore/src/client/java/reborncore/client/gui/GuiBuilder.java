@@ -85,7 +85,7 @@ public class GuiBuilder {
 	}
 
 	public void drawText(GuiGraphicsExtractor drawContext, GuiBase<?> gui, Component text, int x, int y, int color) {
-		drawContext.drawString(gui.getFont(), text, x, y, color, false);
+		drawContext.text(gui.getFont(), text, x, y, color, false);
 	}
 
 	public void drawProgressBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, double progress, int x, int y) {
@@ -613,7 +613,13 @@ public class GuiBuilder {
 		if (fluid.fluid() == Fluids.EMPTY) {
 			return;
 		}
-		final TextureAtlasSprite sprite = FluidVariantRendering.getSprite(fluid.fluidVariant());
+		// Get sprite from vanilla FluidModel instead of Fabric's FluidVariantRendering
+		final TextureAtlasSprite sprite = Minecraft.getInstance()
+			.getModelManager()
+			.getFluidStateModelSet()
+			.get(fluid.fluid().defaultFluidState())
+			.stillMaterial()
+			.sprite();
 		int color = FluidVariantRendering.getColor(fluid.fluidVariant());
 
 		final int drawHeight = (int) (fluid.getAmount().getRawValue() / (maxCapacity * 1F) * height);

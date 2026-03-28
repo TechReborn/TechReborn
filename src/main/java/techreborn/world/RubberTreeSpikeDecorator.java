@@ -67,7 +67,7 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 					if (!generator.level().isStateAtPosition(sPos, state -> state.isAir() || state.is(TRContent.RUBBER_LOG) || state.is(BlockTags.REPLACEABLE_BY_TREES))) {
 						return;
 					}
-					generator.setBlock(sPos, provider.getState(generator.random(), sPos));
+					generator.setBlock(sPos, provider.getState(generator.level(), generator.random(), sPos));
 				}
 			});
 	}

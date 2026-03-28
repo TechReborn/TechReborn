@@ -39,13 +39,15 @@ import reborncore.common.explosion.RebornExplosion;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
+import java.util.UUID;
+
 /**
  * Created by Mark on 13/03/2016.
  */
 public class EntityNukePrimed extends PrimedTnt {
 	@Nullable LivingEntity owner;
 
-	private final ServerBossEvent bossBar = new ServerBossEvent(Component.translatable("block.techreborn.nuke"), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS);
+	private final ServerBossEvent bossBar = new ServerBossEvent(UUID.randomUUID(), Component.translatable("block.techreborn.nuke"), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS);
 
 
 	public EntityNukePrimed(EntityType<? extends EntityNukePrimed> type, Level world) {
@@ -94,7 +96,7 @@ public class EntityNukePrimed extends PrimedTnt {
 				this.explodeNuke();
 			}
 		} else {
-			this.updateInWaterStateAndDoFluidPushing();
+			this.updateFluidInteraction();
 		}
 	}
 

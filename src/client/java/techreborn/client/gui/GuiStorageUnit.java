@@ -44,8 +44,8 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor drawContext, final float f, final int mouseX, final int mouseY) {
-		super.renderBg(drawContext, f, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float f) {
+		super.extractBackground(drawContext, mouseX, mouseY, f);
 		final Layer layer = Layer.BACKGROUND;
 
 		// Draw slots
@@ -56,8 +56,8 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 
 		// Draw in/out labels
 		builder.drawText(drawContext, this, Component.translatable("gui.techreborn.unit.in"), 100, 43, theme.titleColor().rgba());
@@ -68,19 +68,19 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 
 		if (storedAmount == 0 && !storageEntity.isLocked()) {
 
-			drawContext.drawString(font, Component.translatable("techreborn.tooltip.unit.empty"), 10, 20, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("techreborn.tooltip.unit.empty"), 10, 20, theme.titleColor().rgba(), false);
 		} else {
-			drawContext.drawString(font, Component.translatable("gui.techreborn.storage.store"), 10, 20, theme.titleColor().rgba(), false);
-			drawContext.drawString(font, storageEntity.getDisplayedStack().getHoverName(), 10, 30, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("gui.techreborn.storage.store"), 10, 20, theme.titleColor().rgba(), false);
+			drawContext.text(font, storageEntity.getDisplayedStack().getHoverName(), 10, 30, theme.titleColor().rgba(), false);
 
-			drawContext.drawString(font, Component.translatable("gui.techreborn.storage.amount"), 10, 50, theme.titleColor().rgba(), false);
-			drawContext.drawString(font, String.valueOf(storedAmount), 10, 60, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("gui.techreborn.storage.amount"), 10, 50, theme.titleColor().rgba(), false);
+			drawContext.text(font, String.valueOf(storedAmount), 10, 60, theme.titleColor().rgba(), false);
 
 			String percentFilled = String.valueOf((int) ((double) storedAmount / (double) storageEntity.getMaxCapacity() * 100));
 
-			drawContext.drawString(font, Component.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, theme.titleColor().rgba(), false);
 
-			drawContext.drawString(font, Component.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, theme.titleColor().rgba(), false);
 		}
 	}
 

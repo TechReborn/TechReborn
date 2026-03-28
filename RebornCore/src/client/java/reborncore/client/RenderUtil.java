@@ -27,7 +27,7 @@ package reborncore.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
 
 /**
@@ -35,6 +35,6 @@ import net.minecraft.resources.Identifier;
  */
 public class RenderUtil {
 	public static TextureAtlasSprite getSprite(Identifier identifier) {
-		return Minecraft.getInstance().getAtlasManager().get(new Material(TextureAtlas.LOCATION_BLOCKS, identifier));
+		return Minecraft.getInstance().getAtlasManager().get(new SpriteId(TextureAtlas.LOCATION_BLOCKS, identifier));
 	}
 }

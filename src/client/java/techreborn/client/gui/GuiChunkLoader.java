@@ -73,8 +73,8 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor drawContext, float partialTicks, int mouseX, int mouseY) {
-		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float partialTicks) {
+		super.extractBackground(drawContext, mouseX, mouseY, partialTicks);
 		final Layer layer = Layer.BACKGROUND;
 
 		if (hideGuiElements()) return;

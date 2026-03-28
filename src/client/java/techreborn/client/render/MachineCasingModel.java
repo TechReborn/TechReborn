@@ -24,81 +24,20 @@
 
 package techreborn.client.render;
 
-import net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
-import net.minecraft.client.renderer.block.model.BlockStateModel;
-import net.minecraft.client.renderer.block.model.SimpleModelWrapper;
-import net.minecraft.client.renderer.block.model.TextureSlots;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BlockModelRotation;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBaker;
-import net.minecraft.client.resources.model.QuadCollection;
-import net.minecraft.client.resources.model.ResolvedModel;
-import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.state.BlockState;
-import techreborn.blocks.misc.BlockMachineCasing;
-import techreborn.utils.DirectionUtils;
+// TODO 26.1: MachineCasingModel disabled — depends on BlockStateResolver / ModelLoadingPlugin
+// which are not available in the current Fabric API for 26.1.
+// The machine casing block states need to be handled via JSON blockstate files instead.
+//
+// Original implementation used:
+//   - net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver
+//   - net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin
+//   - BlockStateModel / BlockStateModel.UnbakedRoot
+//   - TextureSlots / TextureSlots.Data / TextureSlots.Resolver
+//   - SimpleModelWrapper, Material, BlockModelRotation, QuadCollection, ResolvedModel
+//
+// To restore: implement using the available Fabric API model loading hooks once they are
+// available for 26.1, or switch to blockstate JSON files per direction variant.
 
-import java.util.List;
-
-public record MachineCasingModel(BlockModelPart part) implements BlockStateModel {
-	public static final String MODEL_PATH = "block/machines/structure/";
-	@SuppressWarnings("deprecation")
-	public static void resolveBlockStates(BlockStateResolver.Context context) {
-		BlockMachineCasing block = (BlockMachineCasing) context.block();
-		Identifier model = BuiltInRegistries.BLOCK.getKey(block).withPrefix(MODEL_PATH);
-		Material alone = new Material(TextureAtlas.LOCATION_BLOCKS, model);
-		Material start = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_start"));
-		Material middle = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_middle"));
-		Material end = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_end"));
-		TextureSlots.Data.Builder builder = new TextureSlots.Data.Builder();
-		builder.addTexture(Direction.DOWN.getName(), alone);
-		builder.addTexture(Direction.UP.getName(), alone);
-		block.getStateDefinition().getPossibleStates().forEach(state -> {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				switch (DirectionUtils.getHorizontalPart(direction, state.getValue(DirectionUtils.HORIZONTAL_NEIGHBORS))) {
-					case ALONE -> builder.addTexture(direction.getName(), alone);
-					case START -> builder.addTexture(direction.getName(), start);
-					case MIDDLE -> builder.addTexture(direction.getName(), middle);
-					case END -> builder.addTexture(direction.getName(), end);
-				}
-			}
-			TextureSlots textures = new TextureSlots.Resolver().addLast(builder.build()).resolve(null);
-			context.setModel(state, new Unbaked(model, textures, alone));
-		});
-	}
-
-	@Override
-	public void collectParts(RandomSource random, List<BlockModelPart> parts) {
-		parts.add(part);
-	}
-
-	@Override
-	public TextureAtlasSprite particleIcon() {
-		return part.particleIcon();
-	}
-
-	public record Unbaked(Identifier id, TextureSlots textures, Material particle) implements BlockStateModel.UnbakedRoot {
-		@Override
-		public BlockStateModel bake(BlockState state, ModelBaker baker) {
-			ResolvedModel model = baker.getModel(id);
-			QuadCollection baked = model.getTopGeometry().bake(textures, baker, BlockModelRotation.IDENTITY, model);
-			return new MachineCasingModel(new SimpleModelWrapper(baked, model.getTopAmbientOcclusion(), baker.sprites().get(particle, model)));
-		}
-
-		@Override
-		public Object visualEqualityGroup(BlockState state) {
-			return this;
-		}
-
-		@Override
-		public void resolveDependencies(Resolver resolver) {
-			resolver.markDependency(id);
-		}
-	}
+public class MachineCasingModel {
+	// Stub — no usable implementation until model loading API is available
 }

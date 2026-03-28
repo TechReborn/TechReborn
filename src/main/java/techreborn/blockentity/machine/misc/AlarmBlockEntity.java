@@ -62,10 +62,10 @@ public class AlarmBlockEntity extends BlockEntity
 		}
 
 		if (entity instanceof ServerPlayer serverPlayerEntity) {
-			serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.alarm")
+			serverPlayerEntity.sendOverlayMessage(Component.translatable("techreborn.message.alarm")
 											.withStyle(ChatFormatting.GRAY)
 											.append(" Alarm ")
-											.append(String.valueOf(selectedSound)), true);
+											.append(String.valueOf(selectedSound)));
 		}
 	}
 

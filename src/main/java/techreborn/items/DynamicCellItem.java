@@ -68,7 +68,6 @@ import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
 import techreborn.init.TRItemSettings;
 
-import java.util.Optional;
 
 /**
  * Created by modmuss50 on 17/05/2016.
@@ -259,10 +258,10 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 		@Override
 		protected FluidVariant getResource(ItemVariant currentVariant) {
-			Optional<? extends Holder<Fluid>> registryEntry = currentVariant.getComponents().get(TRDataComponentTypes.FLUID);
+			Holder<Fluid> fluidHolder = currentVariant.getComponents().get(TRDataComponentTypes.FLUID);
 
-			if (registryEntry != null && registryEntry.isPresent()) {
-				return FluidVariant.of(registryEntry.get().value());
+			if (fluidHolder != null) {
+				return FluidVariant.of(fluidHolder.value());
 			}
 
 			return FluidVariant.of(Fluids.EMPTY);

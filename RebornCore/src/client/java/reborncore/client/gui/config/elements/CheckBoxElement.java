@@ -29,7 +29,7 @@ import reborncore.client.gui.GuiSprites;
 
 import java.util.function.Predicate;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.network.chat.Component;
 
 public class CheckBoxElement extends ElementBase {
@@ -66,7 +66,7 @@ public class CheckBoxElement extends ElementBase {
 
 	@Override
 	public void draw(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
-		Material sprite = checkBoxSprite.normal();
+		SpriteId sprite = checkBoxSprite.normal();
 		int textureWidth = getWidth();
 		int textureHeight = getHeight();
 		if (ticked.test(this)) {

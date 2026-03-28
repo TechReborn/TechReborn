@@ -117,7 +117,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		RecipeHolder<SmeltingRecipe> matchingRecipe = refreshRecipe(stack);
 
 		if (matchingRecipe != null) {
-			return matchingRecipe.value().assemble(new SingleRecipeInput(stack), getLevel().registryAccess()).copy();
+			return matchingRecipe.value().assemble(new SingleRecipeInput(stack)).copy();
 		}
 
 		return ItemStack.EMPTY;

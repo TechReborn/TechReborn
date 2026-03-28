@@ -41,8 +41,8 @@ public class GuiRecycler extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor drawContext, final float f, final int mouseX, final int mouseY) {
-		super.renderBg(drawContext, f, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float f) {
+		super.extractBackground(drawContext, mouseX, mouseY, f);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Battery slot
@@ -54,8 +54,8 @@ public class GuiRecycler extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

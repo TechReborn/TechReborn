@@ -27,11 +27,13 @@ package techreborn.client.render.entitys;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.BlockModelResolver;
+import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.TntMinecartRenderer;
 import net.minecraft.client.renderer.entity.state.TntRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import techreborn.entities.EntityNukePrimed;
@@ -41,9 +43,13 @@ import techreborn.init.TRContent;
  * Created by Mark on 13/03/2016.
  */
 public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntRenderState> {
+	public static final BlockDisplayContext BLOCK_DISPLAY_CONTEXT = BlockDisplayContext.create();
+	private final BlockModelResolver blockModelResolver;
+
 	public NukeRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 		this.shadowRadius = 0.5F;
+		this.blockModelResolver = ctx.getBlockModelResolver();
 	}
 
 	@Override
@@ -66,7 +72,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntRenderStat
 
 		matrixStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
-		if (state.blockState != null) {
+		if (!state.blockState.isEmpty()) {
 			TntMinecartRenderer.submitWhiteSolidBlock(state.blockState, matrixStack, submitNodeCollector, state.lightCoords, (int) state.fuseRemainingInTicks / 5 % 2 == 0, state.outlineColor);
 		}
 		matrixStack.popPose();
@@ -77,6 +83,6 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntRenderStat
 	public void extractRenderState(EntityNukePrimed entity, TntRenderState state, float f) {
 		super.extractRenderState(entity, state, f);
 		state.fuseRemainingInTicks = (float) entity.getFuse() - f + 1.0F;
-		state.blockState = TRContent.NUKE.defaultBlockState();
+		blockModelResolver.update(state.blockState, TRContent.NUKE.defaultBlockState(), BLOCK_DISPLAY_CONTEXT);
 	}
 }

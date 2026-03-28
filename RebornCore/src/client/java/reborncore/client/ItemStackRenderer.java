@@ -34,12 +34,13 @@ import com.mojang.blaze3d.systems.CommandEncoder;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.GpuTexture;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.CachedOrthoProjectionMatrixBuffer;
+import net.minecraft.client.renderer.ProjectionMatrixBuffer;
+import net.minecraft.client.renderer.Projection;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
@@ -61,15 +62,17 @@ import java.nio.file.Path;
  * and then ported to 1.15
  * Thanks 2xsaiko for fixing the lighting + odd issues above
  */
-public class ItemStackRenderer implements HudRenderCallback {
-	private static CachedOrthoProjectionMatrixBuffer guiProjectionMatrix;
+public class ItemStackRenderer implements HudElement {
+	private static ProjectionMatrixBuffer guiProjectionMatrix;
+	private static Projection guiProjection;
 	private static final int SIZE = 512;
 
 	@Override
-	public void onHudRender(GuiGraphicsExtractor drawContext, DeltaTracker tickCounter) {
+	public void extractRenderState(GuiGraphicsExtractor drawContext, DeltaTracker tickCounter) {
 		if (!ItemStackRenderManager.RENDER_QUEUE.isEmpty()) {
 			if (guiProjectionMatrix == null) {
-				guiProjectionMatrix = new CachedOrthoProjectionMatrixBuffer("gui", 1000.0F, 11000.0F, true);
+				guiProjectionMatrix = new ProjectionMatrixBuffer("gui");
+				guiProjection = new Projection();
 			}
 			ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.remove();
 			export(drawContext, itemStack, ItemStackRenderManager.RENDER_QUEUE.size());
@@ -92,13 +95,14 @@ public class ItemStackRenderer implements HudRenderCallback {
 		final int drawSize = Math.min(framebuffer.height, SIZE);
 		int left = (int) (drawSize / scaleFactor) + 5;
 		Identifier identifier = BuiltInRegistries.ITEM.getKey(stack.getItem());
-		drawContext.drawString(client.font, "Rendering " + identifier, left, 5, -1, false);
-		drawContext.drawString(client.font, queue + " items left", left, 15, -1, false);
+		drawContext.text(client.font, "Rendering " + identifier, left, 5, -1, false);
+		drawContext.text(client.font, queue + " items left", left, 15, -1, false);
 
 		// draw item stack
 		RenderSystem.backupProjectionMatrix();
+		guiProjection.setupOrtho(1000.0F, 11000.0F, window.getWidth() / scaleFactor, window.getHeight() / scaleFactor, true);
 		RenderSystem.setProjectionMatrix(
-			guiProjectionMatrix.getBuffer(window.getWidth() / scaleFactor, window.getHeight() / scaleFactor),
+			guiProjectionMatrix.getBuffer(guiProjection),
 			ProjectionType.ORTHOGRAPHIC
 		);
 		Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();

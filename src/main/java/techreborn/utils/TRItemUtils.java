@@ -62,13 +62,13 @@ public class TRItemUtils {
 		}
 
 		if (player instanceof ServerPlayer serverPlayerEntity) {
-			serverPlayerEntity.displayClientMessage(Component.translatable("reborncore.message.energyError")
+			serverPlayerEntity.sendOverlayMessage(Component.translatable("reborncore.message.energyError")
 				.withStyle(ChatFormatting.GRAY)
 				.append(" ")
 				.append(
 					Component.translatable("reborncore.message.deactivating")
 						.withStyle(ChatFormatting.GOLD)
-				), true);
+				));
 		}
 
 		stack.set(TRDataComponentTypes.IS_ACTIVE, false);
@@ -87,24 +87,24 @@ public class TRItemUtils {
 			stack.set(TRDataComponentTypes.IS_ACTIVE, true);
 
 			if (entity instanceof ServerPlayer serverPlayerEntity) {
-				serverPlayerEntity.displayClientMessage(Component.translatable("reborncore.message.setTo")
+				serverPlayerEntity.sendOverlayMessage(Component.translatable("reborncore.message.setTo")
 					.withStyle(ChatFormatting.GRAY)
 					.append(" ")
 					.append(
 						Component.translatable("reborncore.message.active")
 							.withStyle(ChatFormatting.GOLD)
-					), true);
+					));
 			}
 		} else {
 			stack.set(TRDataComponentTypes.IS_ACTIVE, false);
 			if (entity instanceof ServerPlayer serverPlayerEntity) {
-				serverPlayerEntity.displayClientMessage(Component.translatable("reborncore.message.setTo")
+				serverPlayerEntity.sendOverlayMessage(Component.translatable("reborncore.message.setTo")
 					.withStyle(ChatFormatting.GRAY)
 					.append(" ")
 					.append(
 						Component.translatable("reborncore.message.inactive")
 							.withStyle(ChatFormatting.GOLD)
-					), true);
+					));
 			}
 		}
 	}

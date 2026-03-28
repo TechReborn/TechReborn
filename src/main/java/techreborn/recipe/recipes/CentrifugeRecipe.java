@@ -39,6 +39,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -61,7 +62,7 @@ public record CentrifugeRecipe(RecipeType<? extends CentrifugeRecipe> type, List
 	@Override
 	public List<RecipeDisplay> display() {
 		ItemStack stack = new ItemStack(TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
-		return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(stack)));
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(stack))));
 	}
 
 }
