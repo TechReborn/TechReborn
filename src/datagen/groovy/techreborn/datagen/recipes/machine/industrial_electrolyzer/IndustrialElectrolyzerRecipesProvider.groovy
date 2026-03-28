@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.industrial_electrolyzer
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.item.Items
 import net.minecraft.core.HolderLookup
@@ -35,7 +35,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
-	IndustrialElectrolyzerRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	IndustrialElectrolyzerRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

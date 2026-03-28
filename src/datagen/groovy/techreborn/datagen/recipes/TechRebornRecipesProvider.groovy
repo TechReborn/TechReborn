@@ -24,7 +24,8 @@
 
 package techreborn.datagen.recipes
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.criterion.InventoryChangeTrigger
@@ -71,7 +72,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	public HolderGetter<Item> itemLookup
 	public RecipeProvider generator
 
-	TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	TechRebornRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.industrial_sawmill
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.world.item.Items
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.ItemTags
@@ -35,7 +35,7 @@ import java.util.concurrent.CompletableFuture
 
 class IndustrialSawmillRecipesProvider extends TechRebornRecipesProvider {
 
-	IndustrialSawmillRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	IndustrialSawmillRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

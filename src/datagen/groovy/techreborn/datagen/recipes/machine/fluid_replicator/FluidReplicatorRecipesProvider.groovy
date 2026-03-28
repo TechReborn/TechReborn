@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.fluid_replicator
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.core.HolderLookup
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -34,7 +34,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class FluidReplicatorRecipesProvider extends TechRebornRecipesProvider {
-	FluidReplicatorRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	FluidReplicatorRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

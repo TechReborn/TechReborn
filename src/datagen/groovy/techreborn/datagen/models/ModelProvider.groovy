@@ -25,7 +25,7 @@
 package techreborn.datagen.models
 
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.BlockModelGenerators
@@ -79,7 +79,7 @@ class ModelProvider extends FabricModelProvider {
 	static ItemModelGenerators itemGenerator
 	static BiConsumer<Identifier, ModelInstance> modelCollector
 
-	ModelProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	ModelProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output)
 	}
 

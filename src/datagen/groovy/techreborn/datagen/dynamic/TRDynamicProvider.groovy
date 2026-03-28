@@ -24,7 +24,7 @@
 
 package techreborn.datagen.dynamic
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
@@ -32,7 +32,7 @@ import net.minecraft.core.HolderLookup
 import java.util.concurrent.CompletableFuture
 
 class TRDynamicProvider extends FabricDynamicRegistryProvider {
-	TRDynamicProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	TRDynamicProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

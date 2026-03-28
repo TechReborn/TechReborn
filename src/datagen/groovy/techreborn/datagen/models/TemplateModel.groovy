@@ -24,13 +24,13 @@
 
 package techreborn.datagen.models
 
+import net.minecraft.client.resources.model.cuboid.CuboidFace
+import net.minecraft.client.resources.model.cuboid.CuboidModelElement
+import net.minecraft.client.resources.model.cuboid.CuboidRotation
+import net.minecraft.client.resources.model.cuboid.ItemTransform
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.model.TextureSlot
 import net.minecraft.client.data.models.model.TextureMapping
-import net.minecraft.client.renderer.block.model.BlockElement
-import net.minecraft.client.renderer.block.model.BlockElementFace
-import net.minecraft.client.renderer.block.model.BlockElementRotation
-import net.minecraft.client.renderer.block.model.ItemTransform
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.resources.Identifier
@@ -64,61 +64,61 @@ class TemplateModel {
 		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, -90, 25, 1.13, 3.2, 1.13, 0.68, 0.68, 0.68))
 		.put(ItemDisplayContext.FIXED, transformation(0, 180, 0, 0, 0, 0, 1, 1, 1))
 	static JsonModel CELL_TEMPLATE = new JsonModel().add(List.of(
-		new BlockElement(new Vector3f(7, 4, 7.5), new Vector3f(10, 12, 8.5), Map.of(
+		new CuboidModelElement(new Vector3f(7, 4, 7.5), new Vector3f(10, 12, 8.5), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(7, 4, 10, 12)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(7, 4, 10, 12)),
 		))
 	))
 	static JsonModel BUCKET_TEMPLATE = new JsonModel().add(List.of(
-		new BlockElement(new Vector3f(4, 11, 7.5), new Vector3f(12, 13, 8.5), Map.of(
+		new CuboidModelElement(new Vector3f(4, 11, 7.5), new Vector3f(12, 13, 8.5), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(4, 3, 12, 5)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(4, 3, 12, 5)),
 		)),
-		new BlockElement(new Vector3f(5, 10, 7.5), new Vector3f(11, 11, 8.5), Map.of(
+		new CuboidModelElement(new Vector3f(5, 10, 7.5), new Vector3f(11, 11, 8.5), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(5, 5, 11, 6)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(5, 5, 11, 6)),
 		)),
-		new BlockElement(new Vector3f(3, 11, 7.5), new Vector3f(4, 12, 8.5), Map.of(
+		new CuboidModelElement(new Vector3f(3, 11, 7.5), new Vector3f(4, 12, 8.5), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(12, 4, 13, 5)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(12, 4, 13, 5)),
 		)),
-		new BlockElement(new Vector3f(12, 11, 7.5), new Vector3f(13, 12, 8.5), Map.of(
+		new CuboidModelElement(new Vector3f(12, 11, 7.5), new Vector3f(13, 12, 8.5), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(3, 4, 4, 5)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(3, 4, 4, 5)),
 		)),
 	))
-	static BlockElementFace CABLE_FACE_1 = face(TextureSlot.TEXTURE, uvs(1, 1, 5, 5))
-	static BlockElementFace CABLE_FACE_2 = face(TextureSlot.TEXTURE, uvs(0, 7, 6, 11))
-	static BlockElementFace CABLE_FACE_3 = face(TextureSlot.TEXTURE, uvs(0, 7, 6, 11), Quadrant.R90)
-	static BlockElementFace CABLE_FACE_4 = face(TextureSlot.TEXTURE, uvs(0, 0, 6, 6))
-	static BlockElementFace CABLE_FACE_5 = face(TextureSlot.TEXTURE, uvs(0, 6, 5, 12))
-	static BlockElementFace CABLE_FACE_6 = face(TextureSlot.TEXTURE, uvs(0, 6, 5, 12), Quadrant.R90)
-	static List<BlockElement> CABLE_CORE_ELEMENT = List.of(
-		new BlockElement(new Vector3f(6, 6, 6), new Vector3f(10, 10, 10), Map.of(
+	static CuboidFace CABLE_FACE_1 = face(TextureSlot.TEXTURE, uvs(1, 1, 5, 5))
+	static CuboidFace CABLE_FACE_2 = face(TextureSlot.TEXTURE, uvs(0, 7, 6, 11))
+	static CuboidFace CABLE_FACE_3 = face(TextureSlot.TEXTURE, uvs(0, 7, 6, 11), Quadrant.R90)
+	static CuboidFace CABLE_FACE_4 = face(TextureSlot.TEXTURE, uvs(0, 0, 6, 6))
+	static CuboidFace CABLE_FACE_5 = face(TextureSlot.TEXTURE, uvs(0, 6, 5, 12))
+	static CuboidFace CABLE_FACE_6 = face(TextureSlot.TEXTURE, uvs(0, 6, 5, 12), Quadrant.R90)
+	static List<CuboidModelElement> CABLE_CORE_ELEMENT = List.of(
+		new CuboidModelElement(new Vector3f(6, 6, 6), new Vector3f(10, 10, 10), Map.of(
 			Direction.NORTH, CABLE_FACE_1, Direction.EAST, CABLE_FACE_1, Direction.SOUTH, CABLE_FACE_1,
 			Direction.WEST, CABLE_FACE_1, Direction.UP, CABLE_FACE_1, Direction.DOWN, CABLE_FACE_1
 		))
 	)
-	static List<BlockElement> CABLE_SIDE_ELEMENT = List.of(
-		new BlockElement(new Vector3f(6, 6, 0), new Vector3f(10, 10, 6), Map.of(
+	static List<CuboidModelElement> CABLE_SIDE_ELEMENT = List.of(
+		new CuboidModelElement(new Vector3f(6, 6, 0), new Vector3f(10, 10, 6), Map.of(
 			Direction.NORTH, CABLE_FACE_1, Direction.EAST, CABLE_FACE_2,
-			Direction.SOUTH, new BlockElementFace(
+			Direction.SOUTH, new CuboidFace(
 				Direction.SOUTH, -1, TextureSlot.TEXTURE.toString(),
 				uvs(1, 1, 5, 5), Quadrant.R0
 			),
 			Direction.WEST, CABLE_FACE_2, Direction.UP, CABLE_FACE_3, Direction.DOWN, CABLE_FACE_3
 		))
 	)
-	static List<BlockElement> CABLE_THICK_CORE_ELEMENT = List.of(
-		new BlockElement(new Vector3f(5, 5, 5), new Vector3f(11, 11, 11), Map.of(
+	static List<CuboidModelElement> CABLE_THICK_CORE_ELEMENT = List.of(
+		new CuboidModelElement(new Vector3f(5, 5, 5), new Vector3f(11, 11, 11), Map.of(
 			Direction.NORTH, CABLE_FACE_4, Direction.EAST, CABLE_FACE_4, Direction.SOUTH, CABLE_FACE_4,
 			Direction.WEST, CABLE_FACE_4, Direction.UP, CABLE_FACE_4, Direction.DOWN, CABLE_FACE_4
 		))
 	)
-	static List<BlockElement> CABLE_THICK_SIDE_ELEMENT = List.of(
-		new BlockElement(new Vector3f(5, 5, 0), new Vector3f(11, 11, 5), Map.of(
+	static List<CuboidModelElement> CABLE_THICK_SIDE_ELEMENT = List.of(
+		new CuboidModelElement(new Vector3f(5, 5, 0), new Vector3f(11, 11, 5), Map.of(
 			Direction.NORTH, CABLE_FACE_4, Direction.EAST, CABLE_FACE_5,
-			Direction.SOUTH, new BlockElementFace(
+			Direction.SOUTH, new CuboidFace(
 				Direction.SOUTH, -1, TextureSlot.TEXTURE.toString(),
 				uvs(0, 0, 6, 6), Quadrant.R0
 			),
@@ -132,10 +132,10 @@ class TemplateModel {
 		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 5.5, 0, 0.60, 0.60, 0.60))
 	static JsonModel.DisplayMap LIGHT_DISPLAY_2 = LIGHT_DISPLAY_BASE.create()
 		.put(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, transformation(0, 35, 0 , 0, 4.3, 0, 0.60, 0.60, 0.60))
-	static BlockElementFace LIGHT_FACE_1 = face(KEY_ZERO, uvs(0.0, 0.0, 1.0, 1.0))
-	static BlockElementFace LIGHT_FACE_2 = face(KEY_ZERO, uvs(1.0,1.0,15.0,15.0))
-	static BlockElementFace LIGHT_FACE_3 = face(KEY_ZERO, uvs(1.0,2.0,15.0,0.0))
-	static Map<Direction, BlockElementFace> LIGHT_BASE_ELEMENT = Map.of(
+	static CuboidFace LIGHT_FACE_1 = face(KEY_ZERO, uvs(0.0, 0.0, 1.0, 1.0))
+	static CuboidFace LIGHT_FACE_2 = face(KEY_ZERO, uvs(1.0,1.0,15.0,15.0))
+	static CuboidFace LIGHT_FACE_3 = face(KEY_ZERO, uvs(1.0,2.0,15.0,0.0))
+	static Map<Direction, CuboidFace> LIGHT_BASE_ELEMENT = Map.of(
 		Direction.DOWN, LIGHT_FACE_1,
 		Direction.UP, LIGHT_FACE_2,
 		Direction.NORTH, LIGHT_FACE_3,
@@ -152,107 +152,107 @@ class TemplateModel {
 		.put(ItemDisplayContext.GROUND, transformation(0, 0, 0, 0, 3, 0, 0.25, 0.25, 0.25))
 		.put(ItemDisplayContext.FIXED, transformation(0, -90, 0, 0, 0, 0, 0.5, 0.5, 0.5))
 		.put(ItemDisplayContext.HEAD, transformation(0, 0, 0, 0, 11.75, 0, 1, 1, 1))
-	static BlockElementFace RESIN_BASIN_FACE_1 = face(KEY_ONE, uvs(0, 8, 16, 16))
-	static BlockElementFace RESIN_BASIN_FACE_2 = face(KEY_TWO, uvs(0, 0, 14, 1))
-	static BlockElementFace RESIN_BASIN_FACE_3 = face(KEY_THREE, uvs(0, 0, 1, 6))
-	static BlockElementFace RESIN_BASIN_FACE_4 = face(KEY_THREE, uvs(1, 9, 15, 15))
-	static BlockElementFace RESIN_BASIN_FACE_5 = face(KEY_THREE, uvs(0, 0, 14, 6))
-	static BlockElementFace RESIN_BASIN_FACE_6 = face(KEY_THREE, uvs(0, 0, 1, 14))
-	static BlockElementFace RESIN_BASIN_FACE_7 = face(KEY_THREE, uvs(0, 0, 14, 1))
-	static BlockElementFace RESIN_BASIN_FACE_8 = face(KEY_THREE, uvs(0, 0, 1, 3))
-	static BlockElementFace RESIN_BASIN_FACE_9 = face(KEY_THREE, uvs(0, 0, 10, 3))
-	static BlockElementFace RESIN_BASIN_FACE_10 = face(KEY_THREE, uvs(0, 0, 1, 10))
-	static BlockElementFace RESIN_BASIN_FACE_11 = face(KEY_THREE, uvs(0, 0, 3, 1))
-	static BlockElementFace RESIN_BASIN_FACE_12 = face(KEY_THREE, uvs(0, 0, 10, 1))
-	static BlockElementFace RESIN_BASIN_FACE_13 = face(KEY_THREE, uvs(0, 0, 3, 10))
-	static BlockElementFace RESIN_BASIN_FACE_14 = face(KEY_TWO, uvs(0, 0, 1, 4))
-	static List<BlockElement> RESIN_BASIN_BASE_ELEMENT = List.of(
-		new BlockElement(new Vector3f(0, 0, 0), new Vector3f(16, 8, 16), Map.of(
+	static CuboidFace RESIN_BASIN_FACE_1 = face(KEY_ONE, uvs(0, 8, 16, 16))
+	static CuboidFace RESIN_BASIN_FACE_2 = face(KEY_TWO, uvs(0, 0, 14, 1))
+	static CuboidFace RESIN_BASIN_FACE_3 = face(KEY_THREE, uvs(0, 0, 1, 6))
+	static CuboidFace RESIN_BASIN_FACE_4 = face(KEY_THREE, uvs(1, 9, 15, 15))
+	static CuboidFace RESIN_BASIN_FACE_5 = face(KEY_THREE, uvs(0, 0, 14, 6))
+	static CuboidFace RESIN_BASIN_FACE_6 = face(KEY_THREE, uvs(0, 0, 1, 14))
+	static CuboidFace RESIN_BASIN_FACE_7 = face(KEY_THREE, uvs(0, 0, 14, 1))
+	static CuboidFace RESIN_BASIN_FACE_8 = face(KEY_THREE, uvs(0, 0, 1, 3))
+	static CuboidFace RESIN_BASIN_FACE_9 = face(KEY_THREE, uvs(0, 0, 10, 3))
+	static CuboidFace RESIN_BASIN_FACE_10 = face(KEY_THREE, uvs(0, 0, 1, 10))
+	static CuboidFace RESIN_BASIN_FACE_11 = face(KEY_THREE, uvs(0, 0, 3, 1))
+	static CuboidFace RESIN_BASIN_FACE_12 = face(KEY_THREE, uvs(0, 0, 10, 1))
+	static CuboidFace RESIN_BASIN_FACE_13 = face(KEY_THREE, uvs(0, 0, 3, 10))
+	static CuboidFace RESIN_BASIN_FACE_14 = face(KEY_TWO, uvs(0, 0, 1, 4))
+	static List<CuboidModelElement> RESIN_BASIN_BASE_ELEMENT = List.of(
+		new CuboidModelElement(new Vector3f(0, 0, 0), new Vector3f(16, 8, 16), Map.of(
 			Direction.NORTH, RESIN_BASIN_FACE_1, Direction.EAST, RESIN_BASIN_FACE_1,
 			Direction.SOUTH, RESIN_BASIN_FACE_1, Direction.WEST, RESIN_BASIN_FACE_1,
 			Direction.UP, face(KEY_ZERO, uvs(0, 0, 16, 16)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 16, 16)),
 		)),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(1, 2, 1), new Vector3f(15, 3, 15),
 			Map.of(
 				Direction.NORTH, RESIN_BASIN_FACE_2, Direction.EAST, RESIN_BASIN_FACE_2,
 				Direction.SOUTH, RESIN_BASIN_FACE_2, Direction.WEST, RESIN_BASIN_FACE_2,
 				Direction.UP, face(KEY_TWO, uvs(1, 1, 15, 15)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 14, 14)),
 			),
-			new BlockElementRotation(new Vector3f(9, 10, 9), Direction.Axis.Y, 0, false), true, 0
+			new CuboidRotation(new Vector3f(9, 10, 9), Direction.Axis.Y, 0, false), true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(2, 2, 1), new Vector3f(3, 8, 15),
 			Map.of(
 				Direction.NORTH, RESIN_BASIN_FACE_3, Direction.EAST, RESIN_BASIN_FACE_4, Direction.SOUTH, RESIN_BASIN_FACE_3,
 				Direction.WEST, RESIN_BASIN_FACE_5, Direction.UP, RESIN_BASIN_FACE_6, Direction.DOWN, RESIN_BASIN_FACE_6
 			),
-			new BlockElementRotation(new Vector3f(2.5, 5, 8), Direction.Axis.Z, 22.5, false), true, 0
+			new CuboidRotation(new Vector3f(2.5, 5, 8), Direction.Axis.Z, 22.5, false), true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(13, 2, 1), new Vector3f(14, 8, 15),
 			Map.of(
 				Direction.NORTH, RESIN_BASIN_FACE_3, Direction.EAST, RESIN_BASIN_FACE_4, Direction.SOUTH, RESIN_BASIN_FACE_3,
 				Direction.WEST, RESIN_BASIN_FACE_4, Direction.UP, RESIN_BASIN_FACE_6, Direction.DOWN, RESIN_BASIN_FACE_6,
 			),
-			new BlockElementRotation(new Vector3f(13.5, 5, 8), Direction.Axis.Z, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(13.5, 5, 8), Direction.Axis.Z, -22.5, false), true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(1, 2, 2), new Vector3f(15, 8, 3),
 			Map.of(
 				Direction.NORTH, RESIN_BASIN_FACE_5, Direction.EAST, RESIN_BASIN_FACE_3, Direction.SOUTH, RESIN_BASIN_FACE_4,
 				Direction.WEST, RESIN_BASIN_FACE_3, Direction.UP, RESIN_BASIN_FACE_7, Direction.DOWN, RESIN_BASIN_FACE_7,
 			),
-			new BlockElementRotation(new Vector3f(8, 5, 2.5), Direction.Axis.X, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 5, 2.5), Direction.Axis.X, -22.5, false), true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(1, 2, 13), new Vector3f(15, 8, 14),
 			Map.of(
 				Direction.NORTH, face(KEY_THREE, uvs(1, 8, 15, 14)), Direction.EAST, RESIN_BASIN_FACE_3,
 				Direction.SOUTH, face(KEY_THREE, uvs(1, 9, 15, 15)), Direction.WEST, RESIN_BASIN_FACE_3,
 				Direction.UP, RESIN_BASIN_FACE_7, Direction.DOWN, RESIN_BASIN_FACE_7,
 			),
-			new BlockElementRotation(new Vector3f(8, 5, 13.5), Direction.Axis.X, 22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 5, 13.5), Direction.Axis.X, 22.5, false), true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(5.5, 11, 9), new Vector3f(6.5, 14, 19),
 			Map.of(
 				Direction.NORTH, RESIN_BASIN_FACE_8, Direction.EAST, RESIN_BASIN_FACE_9, Direction.SOUTH, RESIN_BASIN_FACE_8,
 				Direction.WEST, RESIN_BASIN_FACE_9, Direction.UP, RESIN_BASIN_FACE_10, Direction.DOWN, RESIN_BASIN_FACE_10,
 			),
-			new BlockElementRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(9.5, 11, 9), new Vector3f(10.5, 14, 19),
 			Map.of(
 				Direction.NORTH, RESIN_BASIN_FACE_8, Direction.EAST, RESIN_BASIN_FACE_9, Direction.SOUTH, RESIN_BASIN_FACE_8,
 				Direction.WEST, RESIN_BASIN_FACE_9, Direction.UP, RESIN_BASIN_FACE_10, Direction.DOWN, RESIN_BASIN_FACE_10,
 			),
-			new BlockElementRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(6.5, 11, 9), new Vector3f(9.5, 12, 19),
 			Map.of(
 				Direction.NORTH, RESIN_BASIN_FACE_11, Direction.EAST, RESIN_BASIN_FACE_12, Direction.SOUTH, RESIN_BASIN_FACE_11,
 				Direction.WEST, RESIN_BASIN_FACE_12, Direction.UP, RESIN_BASIN_FACE_13, Direction.DOWN, RESIN_BASIN_FACE_13,
 			),
-			new BlockElementRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(6, 11, 15.99), new Vector3f(10, 15, 16.99),
 			Map.of(
 				Direction.NORTH, face(KEY_TWO, uvs(6, 6, 10, 10)), Direction.EAST, RESIN_BASIN_FACE_14,
 				Direction.SOUTH, face(KEY_TWO, uvs(0, 0, 4, 4)), Direction.WEST, RESIN_BASIN_FACE_14,
 				Direction.UP, face(KEY_TWO, uvs(6, 6, 10, 7)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 4, 1)),
 			),
-			new BlockElementRotation(new Vector3f(14, 9, 24), Direction.Axis.Y, 0, false), true, 0
+			new CuboidRotation(new Vector3f(14, 9, 24), Direction.Axis.Y, 0, false), true, 0
 		),
 	)
 	static JsonModel.DisplayMap FISHING_STATION_DISPLAY = new JsonModel.DisplayMap().put(
 		ItemDisplayContext.GUI, transformation(30, 225, 0, -1, 0, 0, 0.5, 0.5, 0.5)
 	)
-	static BlockElementRotation FISHING_STATION_ROTATION_1 = new BlockElementRotation(new Vector3f(1, 0, 4), Direction.Axis.X, 22.5, false)
-	static Map<Direction, BlockElementFace> FISHING_STATION_FACE_MAP_1 = Map.of(
+	static CuboidRotation FISHING_STATION_ROTATION_1 = new CuboidRotation(new Vector3f(1, 0, 4), Direction.Axis.X, 22.5, false)
+	static Map<Direction, CuboidFace> FISHING_STATION_FACE_MAP_1 = Map.of(
 		Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 1, 1), Quadrant.R180),
 		Direction.EAST, face(KEY_ZERO, uvs(0, 0, 1, 14), Quadrant.R90),
 		Direction.SOUTH, face(KEY_ZERO, uvs(0, 0, 1, 1)),
@@ -260,15 +260,15 @@ class TemplateModel {
 		Direction.UP, face(KEY_ZERO, uvs(0, 0, 1, 14)),
 		Direction.DOWN, face(KEY_ZERO, uvs(0, 0, 1, 14), Quadrant.R180),
 	)
-	static BlockElementRotation FISHING_STATION_ROTATION_2 = new BlockElementRotation(new Vector3f(1, 0, 4), Direction.Axis.X, -22.5, false)
-	static BlockElementFace MISSING_FACE = face(KEY_MISSING, uvs(0, 0, 0, 9))
-	static Map<Direction, BlockElementFace> FISHING_STATION_FACE_MAP_2 = Map.of(
+	static CuboidRotation FISHING_STATION_ROTATION_2 = new CuboidRotation(new Vector3f(1, 0, 4), Direction.Axis.X, -22.5, false)
+	static CuboidFace MISSING_FACE = face(KEY_MISSING, uvs(0, 0, 0, 9))
+	static Map<Direction, CuboidFace> FISHING_STATION_FACE_MAP_2 = Map.of(
 		Direction.NORTH, MISSING_FACE, Direction.EAST, face(KEY_ONE, uvs(7, 0, 16, 9)),
 		Direction.SOUTH, MISSING_FACE, Direction.WEST, face(KEY_ONE, uvs(7, 0, 16, 9), Quadrant.R90),
 		Direction.UP, MISSING_FACE, Direction.DOWN, MISSING_FACE,
 	)
-	static List<BlockElement> FISHING_STATION_ELEMENTS = List.of(
-		new BlockElement(new Vector3f(0, 0, 0), new Vector3f(16, 16, 16), Map.of(
+	static List<CuboidModelElement> FISHING_STATION_ELEMENTS = List.of(
+		new CuboidModelElement(new Vector3f(0, 0, 0), new Vector3f(16, 16, 16), Map.of(
 			Direction.NORTH, face(TextureSlot.NORTH, uvs(0, 0, 16, 16)),
 			Direction.EAST, face(TextureSlot.EAST, uvs(0, 0, 16, 16)),
 			Direction.SOUTH, face(TextureSlot.SOUTH, uvs(0, 0, 16, 16)),
@@ -276,15 +276,15 @@ class TemplateModel {
 			Direction.UP, face(TextureSlot.UP, uvs(0, 0, 16, 16)),
 			Direction.DOWN, face(TextureSlot.DOWN, uvs(0, 0, 16, 16)),
 		)),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(1, 0, -10), new Vector3f(2, 1, 4),
 			FISHING_STATION_FACE_MAP_1, FISHING_STATION_ROTATION_1, true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(14, 0, -10), new Vector3f(15, 1, 4),
 			FISHING_STATION_FACE_MAP_1, FISHING_STATION_ROTATION_1, true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(2, 0.5, -9.5), new Vector3f(14, 0.5, 4.5),
 			Map.of(
 				Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 12, 0), Quadrant.R180),
@@ -296,11 +296,11 @@ class TemplateModel {
 			),
 			FISHING_STATION_ROTATION_1, true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(14.5, 1, -5), new Vector3f(14.5, 10, 4),
 			FISHING_STATION_FACE_MAP_2, FISHING_STATION_ROTATION_2, true, 0
 		),
-		new BlockElement(
+		new CuboidModelElement(
 			new Vector3f(1.5, 1, -5), new Vector3f(1.5, 10, 4),
 			FISHING_STATION_FACE_MAP_2, FISHING_STATION_ROTATION_2, true, 0
 		),
@@ -313,8 +313,8 @@ class TemplateModel {
 		.put(ItemDisplayContext.GUI, transformation(90, 45, -90, -3.75, -3.75, 0, 0.65, 0.65, 0.65))
 		.put(ItemDisplayContext.GROUND, transformation(45, 0, 0, 0, 3, -2, 0.5, 0.5, 0.5))
 		.put(ItemDisplayContext.FIXED, transformation(0, 90, 0, 0, -4, 0, 0.5, 0.5, 0.5))
-	static List<BlockElement> NANOSABER_ELEMENT = List.of(
-		new BlockElement(new Vector3f(7, 0, 7), new Vector3f(9, 5, 9), Map.of(
+	static List<CuboidModelElement> NANOSABER_ELEMENT = List.of(
+		new CuboidModelElement(new Vector3f(7, 0, 7), new Vector3f(9, 5, 9), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(5, 4, 6, 6.5)),
 			Direction.EAST, face(TextureSlot.TEXTURE, uvs(4, 4, 5, 6.5)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(7, 4, 8, 6.5)),
@@ -322,7 +322,7 @@ class TemplateModel {
 			Direction.UP, face(TextureSlot.TEXTURE, uvs(6, 4, 5, 3)),
 			Direction.DOWN, face(TextureSlot.TEXTURE, uvs(7, 3, 6, 4)),
 		)),
-		new BlockElement(new Vector3f(5.5, 5, 5.5), new Vector3f(10.5, 6, 10.5), Map.of(
+		new CuboidModelElement(new Vector3f(5.5, 5, 5.5), new Vector3f(10.5, 6, 10.5), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(6.5, 2.5, 9, 3)),
 			Direction.EAST, face(TextureSlot.TEXTURE, uvs(4, 2.5, 6.5, 3)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(11.5, 2.5, 14, 3)),
@@ -330,7 +330,7 @@ class TemplateModel {
 			Direction.UP, face(TextureSlot.TEXTURE, uvs(9, 2.5, 6.5, 0)),
 			Direction.DOWN, face(TextureSlot.TEXTURE, uvs(11.5, 0, 9, 2.5)),
 		)),
-		new BlockElement(new Vector3f(7.5, 6, 7), new Vector3f(8.5, 30, 9), Map.of(
+		new CuboidModelElement(new Vector3f(7.5, 6, 7), new Vector3f(8.5, 30, 9), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(1, 1, 1.5, 13)),
 			Direction.EAST, face(TextureSlot.TEXTURE, uvs(0, 1, 1, 13)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(2.5, 1, 3, 13)),
@@ -338,7 +338,7 @@ class TemplateModel {
 			Direction.UP, face(TextureSlot.TEXTURE, uvs(1.5, 1, 1, 0)),
 			Direction.DOWN, face(TextureSlot.TEXTURE, uvs(2, 0, 1.5, 1)),
 		)),
-		new BlockElement(new Vector3f(7, 6, 7.5), new Vector3f(9, 9, 10.5), Map.of(
+		new CuboidModelElement(new Vector3f(7, 6, 7.5), new Vector3f(9, 9, 10.5), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(1.5, 14.5, 2.5, 16)),
 			Direction.EAST, face(TextureSlot.TEXTURE, uvs(0, 14.5, 1.5, 16)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(4, 14.5, 5, 16)),
@@ -346,7 +346,7 @@ class TemplateModel {
 			Direction.UP, face(TextureSlot.TEXTURE, uvs(2.5, 14.5, 1.5, 13)),
 			Direction.DOWN, face(TextureSlot.TEXTURE, uvs(3.5, 13, 2.5, 14.5)),
 		)),
-		new BlockElement(new Vector3f(8, 6, 6), new Vector3f(8, 30, 7), Map.of(
+		new CuboidModelElement(new Vector3f(8, 6, 6), new Vector3f(8, 30, 7), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(3.5, 0.5, 3.5, 12.5)),
 			Direction.EAST, face(TextureSlot.TEXTURE, uvs(3, 0.5, 3.5, 12.5)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(4, 0.5, 4, 12.5)),
@@ -354,7 +354,7 @@ class TemplateModel {
 			Direction.UP, face(TextureSlot.TEXTURE, uvs(3.5, 0.5, 3.5, 0)),
 			Direction.DOWN, face(TextureSlot.TEXTURE, uvs(3.5, 0, 3.5, 0.5)),
 		)),
-		new BlockElement(new Vector3f(8, 30, 7), new Vector3f(8, 32, 8), Map.of(
+		new CuboidModelElement(new Vector3f(8, 30, 7), new Vector3f(8, 32, 8), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(4.5, 1.5, 4.5, 2.5)),
 			Direction.EAST, face(TextureSlot.TEXTURE, uvs(4, 1.5, 4.5, 2.5)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(5, 1.5, 5, 2.5)),
@@ -362,7 +362,7 @@ class TemplateModel {
 			Direction.UP, face(TextureSlot.TEXTURE, uvs(4.5, 1.5, 4.5, 1)),
 			Direction.DOWN, face(TextureSlot.TEXTURE, uvs(4.5, 1, 4.5, 1.5)),
 		)),
-		new BlockElement(new Vector3f(7.5, 30, 8), new Vector3f(8.5, 32, 9), Map.of(
+		new CuboidModelElement(new Vector3f(7.5, 30, 8), new Vector3f(8.5, 32, 9), Map.of(
 			Direction.NORTH, face(TextureSlot.TEXTURE, uvs(4.5, 0.5, 5, 1.5)),
 			Direction.EAST, face(TextureSlot.TEXTURE, uvs(4, 0.5, 4.5, 1.5)),
 			Direction.SOUTH, face(TextureSlot.TEXTURE, uvs(5.5, 0.5, 6, 1.5)),
@@ -607,24 +607,24 @@ class TemplateModel {
 	)
 	static def ALARM_LIGHT = wrapperBlock { block, id ->
 		LIGHT_BLOCK.apply(block, id).add(LIGHT_DISPLAY_1).add(List.of(
-			new BlockElement(new Vector3f(3, 0, 3), new Vector3f(13, 3, 13), LIGHT_BASE_ELEMENT,)
+			new CuboidModelElement(new Vector3f(3, 0, 3), new Vector3f(13, 3, 13), LIGHT_BASE_ELEMENT,)
 		))
 	}
 	static def LAMP_LED_LIGHT = wrapperBlock { block, id ->
 		LIGHT_BLOCK.apply(block, id).add(LIGHT_DISPLAY_1).add(List.of(
-			new BlockElement(new Vector3f(2, 0, 2), new Vector3f(14, 2, 14), LIGHT_BASE_ELEMENT)
+			new CuboidModelElement(new Vector3f(2, 0, 2), new Vector3f(14, 2, 14), LIGHT_BASE_ELEMENT)
 		))
 	}
 	static def LAMP_INCANDESCENT_LIGHT = wrapperBlock { block, id ->
 		LIGHT_BLOCK.apply(block, id).add(LIGHT_DISPLAY_2).add(List.of(
-			new BlockElement(
+			new CuboidModelElement(
 				new Vector3f(5, 0, 5), new Vector3f(11, 2, 11),
 				Map.of(
 					Direction.DOWN, LIGHT_FACE_1, Direction.UP, LIGHT_FACE_1, Direction.NORTH, LIGHT_FACE_1,
 					Direction.SOUTH, LIGHT_FACE_1, Direction.WEST, LIGHT_FACE_1, Direction.EAST, LIGHT_FACE_1,
 				)
 			),
-			new BlockElement(
+			new CuboidModelElement(
 				new Vector3f(4, 2, 4), new Vector3f(12, 10, 12),
 				Map.of(
 					Direction.DOWN, LIGHT_FACE_2, Direction.UP, LIGHT_FACE_2, Direction.NORTH, LIGHT_FACE_2,
@@ -644,8 +644,8 @@ class TemplateModel {
 		RESIN_BASIN_BASE.apply(block, id).add(RESIN_BASIN_BASE_ELEMENT).add(RESIN_BASIN_DISPLAY)
 	}
 	static def RESIN_BASIN_FLOWING = wrapperBlock { block, id ->
-		List<BlockElement> elements = new ArrayList<>(RESIN_BASIN_BASE_ELEMENT)
-		elements.add(new BlockElement(
+		List<CuboidModelElement> elements = new ArrayList<>(RESIN_BASIN_BASE_ELEMENT)
+		elements.add(new CuboidModelElement(
 			new Vector3f(6.5, 11, 9), new Vector3f(9.5, 12, 19),
 			Map.of(
 				Direction.NORTH, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 1)),
@@ -655,11 +655,11 @@ class TemplateModel {
 				Direction.UP, face(TextureSlot.PARTICLE, uvs(0, 6, 3, 16)),
 				Direction.DOWN, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 10)),
 			),
-			new BlockElementRotation(new Vector3f(8, 11.25, 14), Direction.Axis.X, -22.5, false),
+			new CuboidRotation(new Vector3f(8, 11.25, 14), Direction.Axis.X, -22.5, false),
 			true,
 			0
 		))
-		elements.add(new BlockElement(
+		elements.add(new CuboidModelElement(
 			new Vector3f(6.5, 3, 9.1), new Vector3f(9.5, 10, 9.6),
 			Map.of(
 				Direction.NORTH, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 7)),
@@ -669,7 +669,7 @@ class TemplateModel {
 				Direction.UP, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 0.5)),
 				Direction.DOWN, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 0.5)),
 			),
-			new BlockElementRotation(new Vector3f(13, 11, 17), Direction.Axis.X, 0, false),
+			new CuboidRotation(new Vector3f(13, 11, 17), Direction.Axis.X, 0, false),
 			true,
 			0
 		))
@@ -678,8 +678,8 @@ class TemplateModel {
 	static def RESIN_BASIN_FULL = wrapperBlock { block, id ->
 		JsonModel model = RESIN_BASIN_BASE.apply(block, id)
 		model.textures = model.textures.copyAndUpdate(KEY_FOUR, id.withSuffix("_sap_still"))
-		List<BlockElement> elements = new ArrayList<>(RESIN_BASIN_BASE_ELEMENT)
-		elements.add(new BlockElement(
+		List<CuboidModelElement> elements = new ArrayList<>(RESIN_BASIN_BASE_ELEMENT)
+		elements.add(new CuboidModelElement(
 			new Vector3f(1, 1, 1), new Vector3f(15, 6, 15),
 			Map.of(
 				Direction.NORTH, face(KEY_FOUR, uvs(0, 0, 14, 5)),
@@ -689,7 +689,7 @@ class TemplateModel {
 				Direction.UP, face(KEY_FOUR, uvs(1, 1, 15, 15)),
 				Direction.DOWN, face(KEY_FOUR, uvs(0, 0, 14, 14)),
 			),
-			new BlockElementRotation(new Vector3f(9, 13, 9), Direction.Axis.Y, 0, false),
+			new CuboidRotation(new Vector3f(9, 13, 9), Direction.Axis.Y, 0, false),
 			true,
 			0
 		))
@@ -790,16 +790,16 @@ class TemplateModel {
 		return new TextureMapping().put(TextureSlot.TEXTURE, id).put(TextureSlot.PARTICLE, id)
 	}
 
-	static BlockElementFace.UVs uvs(float x1, float y1, float x2, float y2) {
-		return new BlockElementFace.UVs(x1, y1, x2, y2)
+	static CuboidFace.UVs uvs(float x1, float y1, float x2, float y2) {
+		return new CuboidFace.UVs(x1, y1, x2, y2)
 	}
 
-	static BlockElementFace face(TextureSlot texture, BlockElementFace.UVs uvs) {
-		return new BlockElementFace(null, -1, texture.toString(), uvs, Quadrant.R0)
+	static CuboidFace face(TextureSlot texture, CuboidFace.UVs uvs) {
+		return new CuboidFace(null, -1, texture.toString(), uvs, Quadrant.R0)
 	}
 
-	static BlockElementFace face(TextureSlot texture, BlockElementFace.UVs uvs, Quadrant rotation) {
-		return new BlockElementFace(null, -1, texture.toString(), uvs, rotation)
+	static CuboidFace face(TextureSlot texture, CuboidFace.UVs uvs, Quadrant rotation) {
+		return new CuboidFace(null, -1, texture.toString(), uvs, rotation)
 	}
 
 	static ItemTransform transformation(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {

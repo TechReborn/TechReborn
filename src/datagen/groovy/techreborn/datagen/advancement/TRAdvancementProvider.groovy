@@ -24,7 +24,7 @@
 
 package techreborn.datagen.advancement
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
 import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.AdvancementHolder
@@ -49,7 +49,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 	public HolderGetter<Item> itemLookup
 	private Consumer<AdvancementHolder> consumer
 
-	public TRAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public TRAdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

@@ -24,11 +24,11 @@
 
 package techreborn.datagen.models
 
+import net.minecraft.client.renderer.block.dispatch.Variant
+import net.minecraft.client.renderer.block.dispatch.VariantMutator
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
 import net.minecraft.client.data.models.model.TextureMapping
-import net.minecraft.client.renderer.block.model.Variant
-import net.minecraft.client.renderer.block.model.VariantMutator
 import net.minecraft.client.data.models.blockstates.ConditionBuilder
 import net.minecraft.client.data.models.MultiVariant
 import net.minecraft.world.level.block.state.properties.BlockStateProperties

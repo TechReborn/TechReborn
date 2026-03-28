@@ -24,8 +24,8 @@
 
 package techreborn.datagen.loottables
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.item.enchantment.Enchantment
 import net.minecraft.world.item.enchantment.Enchantments
@@ -43,9 +43,9 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 import java.util.function.Function
 
-class BlockLootTableProvider extends FabricBlockLootTableProvider {
+class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
-	BlockLootTableProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	BlockLootTableProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

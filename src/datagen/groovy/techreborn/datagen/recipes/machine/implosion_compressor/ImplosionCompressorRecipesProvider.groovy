@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.implosion_compressor
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.world.item.Items
 import net.minecraft.core.HolderLookup
 import techreborn.datagen.TRConventionalTags
@@ -34,7 +34,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class ImplosionCompressorRecipesProvider extends TechRebornRecipesProvider {
-	ImplosionCompressorRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	ImplosionCompressorRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

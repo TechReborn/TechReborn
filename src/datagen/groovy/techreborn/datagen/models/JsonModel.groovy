@@ -26,14 +26,14 @@ package techreborn.datagen.models
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import net.minecraft.client.resources.model.cuboid.CuboidFace
+import net.minecraft.client.resources.model.cuboid.CuboidModelElement
+import net.minecraft.client.resources.model.cuboid.CuboidRotation
+import net.minecraft.client.resources.model.cuboid.ItemTransform
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.model.ModelLocationUtils
 import net.minecraft.client.data.models.model.TextureSlot
 import net.minecraft.client.data.models.model.TextureMapping
-import net.minecraft.client.renderer.block.model.BlockElement
-import net.minecraft.client.renderer.block.model.BlockElementFace
-import net.minecraft.client.renderer.block.model.BlockElementRotation
-import net.minecraft.client.renderer.block.model.ItemTransform
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.resources.Identifier
@@ -50,7 +50,7 @@ class JsonModel {
 	@Nullable
 	TextureMapping textures
 	@Nullable
-	List<BlockElement> elements
+	List<CuboidModelElement> elements
 	@Nullable
 	CtmMap ctm
 
@@ -115,7 +115,7 @@ class JsonModel {
 		return this
 	}
 
-	JsonModel add(List<BlockElement> elements) {
+	JsonModel add(List<CuboidModelElement> elements) {
 		this.elements = elements
 		return this
 	}
@@ -225,7 +225,7 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonObject toJson(BlockElementRotation rotation) {
+	private static JsonObject toJson(CuboidRotation rotation) {
 		JsonObject json = new JsonObject()
 		json.addProperty("angle", rotation.angle())
 		json.addProperty("axis", rotation.axis().getSerializedName())
@@ -236,7 +236,7 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonArray toJson(BlockElementFace.UVs uv) {
+	private static JsonArray toJson(CuboidFace.UVs uv) {
 		JsonArray json = new JsonArray()
 		json.add(uv.minU())
 		json.add(uv.minV())
@@ -245,7 +245,7 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonObject toJson(BlockElementFace face) {
+	private static JsonObject toJson(CuboidFace face) {
 		JsonObject json = new JsonObject()
 		json.addProperty("texture", face.texture())
 		Direction cullFace = face.cullForDirection()
@@ -256,7 +256,7 @@ class JsonModel {
 		if (tintIndex != -1) {
 			json.addProperty("tintindex", tintIndex)
 		}
-		BlockElementFace.UVs uv = face.uvs()
+		CuboidFace.UVs uv = face.uvs()
 		if (uv != null) {
 			json.add("uv", toJson(uv))
 		}
@@ -271,7 +271,7 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonObject toJson(Map<Direction, BlockElementFace> faces) {
+	private static JsonObject toJson(Map<Direction, CuboidFace> faces) {
 		JsonObject json = new JsonObject()
 		faces.forEach((direction, face) -> {
 			json.add(direction.getSerializedName(), toJson(face))
@@ -279,7 +279,7 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonObject toJson(BlockElement element) {
+	private static JsonObject toJson(CuboidModelElement element) {
 		JsonObject json = new JsonObject()
 		json.add("from", toJson(element.from()))
 		json.add("to", toJson(element.to()))
@@ -290,7 +290,7 @@ class JsonModel {
 		return json
 	}
 
-	private static JsonArray toJson(List<BlockElement> elements) {
+	private static JsonArray toJson(List<CuboidModelElement> elements) {
 		JsonArray json = new JsonArray()
 		elements.forEach((element) -> {
 			json.add(toJson(element))

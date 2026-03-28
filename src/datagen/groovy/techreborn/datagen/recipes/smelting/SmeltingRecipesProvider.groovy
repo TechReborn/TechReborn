@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.smelting
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.Items
@@ -41,7 +41,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class SmeltingRecipesProvider extends TechRebornRecipesProvider {
-	SmeltingRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	SmeltingRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

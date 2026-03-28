@@ -24,8 +24,8 @@
 
 package techreborn.datagen.tags
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.BlockTagProvider
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider.BlockTagsProvider
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.core.registries.Registries
@@ -38,9 +38,9 @@ import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
 
-class TRBlockTagProvider extends BlockTagProvider {
+class TRBlockTagProvider extends BlockTagsProvider {
 
-	TRBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	TRBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
