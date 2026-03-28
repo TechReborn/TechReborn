@@ -27,6 +27,8 @@ package reborncore.client.gui;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.model.sprite.SpriteId;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
@@ -56,7 +58,7 @@ import net.minecraft.world.level.material.Fluid;
 
 public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 	public static FluidCellProvider fluidCellProvider = fluid -> ItemStack.EMPTY;
-	public static ItemStack wrenchStack = ItemStack.EMPTY;
+	public static ItemStackTemplate wrenchStack = null;
 
 	public GuiBuilder builder = new GuiBuilder();
 	public BlockEntity be;

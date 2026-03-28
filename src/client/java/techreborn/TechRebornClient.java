@@ -26,17 +26,15 @@ package techreborn;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-// TODO 26.1: ModelLoadingPlugin API not available — MachineCasingModel block state resolver not registered
-// import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemModels;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
@@ -46,7 +44,9 @@ import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
 import techreborn.client.events.StackToolTipHandler;
 import techreborn.client.keybindings.KeyBindings;
-import techreborn.client.render.*;
+import techreborn.client.render.ActiveProperty;
+import techreborn.client.render.ItemBucketModel;
+import techreborn.client.render.ItemCellModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
@@ -54,6 +54,9 @@ import techreborn.client.render.entitys.TurbineRenderer;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCellItem;
+
+// TODO 26.1: ModelLoadingPlugin API not available — MachineCasingModel block state resolver not registered
+// import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 
 public class TechRebornClient implements ClientModInitializer {
 
@@ -87,7 +90,7 @@ public class TechRebornClient implements ClientModInitializer {
 		StackToolTipHandler.setup();
 		ClientboundPacketHandlers.init();
 
-		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
+		GuiBase.wrenchStack = new ItemStackTemplate(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
 
 		// TODO 26.1: ChunkSectionLayerMap / BlockRenderLayerMap removed — render layers now defined in model JSON files

@@ -44,16 +44,17 @@ public class MixinGameRenderer {
 	@Final
 	private Minecraft minecraft;
 
-	@Redirect(method = "tickFov", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getFieldOfViewModifier(ZF)F"))
-	private float updateFovMultiplier(AbstractClientPlayer playerEntity, boolean firstPerson, float fovEffectScale) {
-		float playerSpeed = playerEntity.getFieldOfViewModifier(firstPerson, fovEffectScale);
-		for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
-			ItemStack stack = playerEntity.getItemBySlot(equipmentSlot);
-			if (stack.getItem() instanceof ArmorFovHandler) {
-				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, minecraft.player);
-			}
-		}
-		return playerSpeed;
-	}
+	// TODO 26.1
+//	@Redirect(method = "tickFov", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getFieldOfViewModifier(ZF)F"))
+//	private float updateFovMultiplier(AbstractClientPlayer playerEntity, boolean firstPerson, float fovEffectScale) {
+//		float playerSpeed = playerEntity.getFieldOfViewModifier(firstPerson, fovEffectScale);
+//		for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
+//			ItemStack stack = playerEntity.getItemBySlot(equipmentSlot);
+//			if (stack.getItem() instanceof ArmorFovHandler) {
+//				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, minecraft.player);
+//			}
+//		}
+//		return playerSpeed;
+//	}
 
 }

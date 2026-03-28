@@ -34,6 +34,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -47,6 +48,7 @@ import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -95,6 +97,18 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	public static ItemStack getCellWithFluid(Fluid fluid) {
 		return getCellWithFluid(fluid, 1);
+	}
+
+	public static ItemStackTemplate getTempalteCellWithFluid(Fluid fluid, int stackSize) {
+		Validate.notNull(fluid, "Can't get cell with NULL fluid");
+		ItemStackTemplate template = new ItemStackTemplate(TRContent.CELL.builtInRegistryHolder(), stackSize, DataComponentPatch.builder()
+			.set(TRDataComponentTypes.FLUID, fluid.builtInRegistryHolder())
+			.build());
+		return template;
+	}
+
+	public static ItemStackTemplate getTempalteCellWithFluid(Fluid fluid) {
+		return getTempalteCellWithFluid(fluid, 1);
 	}
 
 	public static ItemStack getEmptyCell(int amount) {

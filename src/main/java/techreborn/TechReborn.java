@@ -26,6 +26,7 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.material.Fluids;
 import org.slf4j.Logger;
@@ -95,8 +96,8 @@ public class TechReborn implements ModInitializer {
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
-		RedstoneConfiguration.fluidStack = DynamicCellItem.getCellWithFluid(Fluids.LAVA);
-		RedstoneConfiguration.powerStack = new ItemStack(TRContent.RED_CELL_BATTERY);
+		RedstoneConfiguration.fluidStack = DynamicCellItem.getTempalteCellWithFluid(Fluids.LAVA);
+		RedstoneConfiguration.powerStack = new ItemStackTemplate(TRContent.RED_CELL_BATTERY);
 
 		ComposterBlock.COMPOSTABLES.put(TRContent.RUBBER_SAPLING.asItem(), 0.3F);
 		ComposterBlock.COMPOSTABLES.put(TRContent.RUBBER_LEAVES.asItem(), 0.3F);

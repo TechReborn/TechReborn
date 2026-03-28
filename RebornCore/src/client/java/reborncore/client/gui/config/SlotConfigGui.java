@@ -69,7 +69,7 @@ public class SlotConfigGui extends GuiTab {
 
 	@Override
 	public ItemStack stack() {
-		return GuiBase.wrenchStack;
+		return GuiBase.wrenchStack.create();
 	}
 
 	@Override
