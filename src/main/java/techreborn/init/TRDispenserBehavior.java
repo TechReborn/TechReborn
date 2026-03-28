@@ -61,7 +61,7 @@ public class TRDispenserBehavior {
 				public ItemStack execute(BlockSource pointer, ItemStack stack) {
 					List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(pointer.level(), ModRecipes.SCRAPBOX);
 					int random = RandomSource.create().nextInt(scrapboxRecipeList.size());
-					ItemStack out = scrapboxRecipeList.get(random).outputs().getFirst().copy();
+					ItemStack out = scrapboxRecipeList.get(random).outputs().getFirst().create();
 					stack.split(1);
 
 					Direction facing = pointer.state().getValue(DispenserBlock.FACING);

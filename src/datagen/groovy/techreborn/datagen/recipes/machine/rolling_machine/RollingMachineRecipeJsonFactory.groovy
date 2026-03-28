@@ -24,20 +24,21 @@
 
 package techreborn.datagen.recipes.machine.rolling_machine
 
-import net.minecraft.data.recipes.RecipeBuilder
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.ShapedRecipePattern
-import net.minecraft.world.item.crafting.ShapedRecipe
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceKey
 import net.minecraft.core.registries.Registries
+import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.resources.Identifier
-import techreborn.recipe.recipes.RollingMachineRecipe
+import net.minecraft.resources.ResourceKey
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.ItemStackTemplate
+import net.minecraft.world.item.crafting.ShapedRecipe
+import net.minecraft.world.item.crafting.ShapedRecipePattern
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.crafting.ShapedRecipeFactory
 import techreborn.datagen.recipes.machine.IngredientBuilder
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.init.ModRecipes
+import techreborn.recipe.recipes.RollingMachineRecipe
 
 class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMachineRecipe> {
 	def _ = null
@@ -64,7 +65,7 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 		shapedRecipeFactory.pattern(pattern)
 	}
 
-	def result(ItemStack output) {
+	def result(ItemStackTemplate output) {
 		shapedRecipeFactory.output(output)
 	}
 
@@ -88,7 +89,7 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 
 	@Override
 	def getIdentifier() {
-		def outputId = BuiltInRegistries.ITEM.getKey(shapedRecipeFactory.output.item)
+		def outputId = BuiltInRegistries.ITEM.getKey(shapedRecipeFactory.output.item().value())
 		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
 		return Identifier.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}

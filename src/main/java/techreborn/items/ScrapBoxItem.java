@@ -54,7 +54,7 @@ public class ScrapBoxItem extends Item {
 			}
 			List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(world, ModRecipes.SCRAPBOX);
 			int random = world.getRandom().nextInt(scrapboxRecipeList.size());
-			ItemStack out = scrapboxRecipeList.get(random).outputs().get(0);
+			ItemStack out = scrapboxRecipeList.get(random).outputs().get(0).create();
 			WorldUtils.dropItem(out, world, player.blockPosition());
 			ItemStack copy = stack.copy();
 			copy.shrink(1);

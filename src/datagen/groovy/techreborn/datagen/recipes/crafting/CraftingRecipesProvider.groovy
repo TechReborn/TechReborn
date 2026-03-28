@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.data.recipes.ShapelessRecipeBuilder
 import net.minecraft.data.recipes.SingleItemRecipeBuilder
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -249,12 +250,12 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("DDD")
 			.pattern("NDN")
 			.save(this.exporter, getRecipeKey("crafting_table/parts/"+TRContent.Parts.TEMPLATE_TEMPLATE.name))
-		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStack(Items.RESIN_CLUMP, 2))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(Items.RESIN_CLUMP, 2))
 			.requires(TRContent.Parts.SAP, 2)
 			.requires(Items.SLIME_BALL)
 			.unlockedBy("has_sap", getCriterionConditions(TRContent.Parts.SAP))
 			.save(this.exporter, getRecipeKey("crafting_table/parts/resin_clump"))
-		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStack(TRContent.Parts.SAP, 8))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(TRContent.Parts.SAP.asItem(), 8))
 			.requires(Items.RESIN_CLUMP, 4)
 			.requires(Items.WATER_BUCKET)
 			.unlockedBy("has_resin_clump", getCriterionConditions(Items.RESIN_CLUMP))
@@ -427,11 +428,11 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
+	// TODO 26.1 fix the padding, use an empty ingredient
 	def createPureUuMatterPaddedRecipe(RecipeCategory category, ItemLike output) {
 		var input = TRContent.Parts.UU_MATTER
-		return PaddedShapedRecipeJsonBuilder.shaped(itemLookup, category, output, 1)
+		return ShapedRecipeBuilder.shaped(itemLookup, category, output, 1)
 			.define('U' as char, createIngredient(input))
 			.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 	}
-
 }

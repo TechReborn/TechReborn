@@ -57,25 +57,25 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public interface RebornRecipe extends Recipe<RebornRecipeInput> {
 	Function<RecipeType<RebornRecipe>, MapCodec<RebornRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
-		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
+		Codec.list(ItemStackTemplate.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
 		ExtraCodecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
 		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time)
 	).apply(instance, (ingredients, outputs, power, time) -> new Default(type, ingredients, outputs, power, time)));
 	Function<RecipeType<RebornRecipe>, StreamCodec<RegistryFriendlyByteBuf, RebornRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
 		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
-		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
 		ByteBufCodecs.INT, RebornRecipe::power,
 		ByteBufCodecs.INT, RebornRecipe::time,
 		(ingredients, outputs, power, time) -> new Default(type, ingredients, outputs, power, time)
 	);
 
 	@ApiStatus.Internal
-	record Default(RecipeType<? extends RebornRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) implements RebornRecipe {
+	record Default(RecipeType<? extends RebornRecipe> type, List<SizedIngredient> ingredients, List<ItemStackTemplate> outputs, int power, int time) implements RebornRecipe {
 	}
 
 	RecipeType<? extends RebornRecipe> type();
 	List<SizedIngredient> ingredients();
-	List<ItemStack> outputs();
+	List<ItemStackTemplate> outputs();
 	int power();
 	int time();
 

@@ -27,6 +27,7 @@ package techreborn.datagen.recipes.crafting
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -42,7 +43,7 @@ class ShapedRecipeFactory {
 	int height
 
 	Object[] pattern
-	ItemStack output
+	ItemStackTemplate output
 	RecipeCategory category = RecipeCategory.MISC
 
 	ShapedRecipeFactory(RecipeProvider generator, HolderGetter<Item> itemLookup, int width, int height) {
@@ -54,7 +55,7 @@ class ShapedRecipeFactory {
 
 	def _ = null
 
-	def output(ItemStack output) {
+	def output(ItemStackTemplate output) {
 		this.output = output
 	}
 
@@ -84,7 +85,7 @@ class ShapedRecipeFactory {
 		Objects.requireNonNull(output, "Output not set")
 		Objects.requireNonNull(pattern, "Pattern not set")
 
-		ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(itemLookup, category, output.item, output.count)
+		ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(itemLookup, category, output.item().value(), output.count())
 
 		List<String> rows = []
 		Map<Object, Character> ingredients = makeIngredients()
@@ -138,7 +139,7 @@ class ShapedRecipeFactory {
 	private toIngredient(Object object) {
 		if (object instanceof Ingredient) {
 			return object
-		} else if (object instanceof ItemStack) {
+		} else if (object instanceof ItemStackTemplate) {
 			return Ingredient.of(object)
 		} else if (object instanceof ItemLike) {
 			return Ingredient.of(object)

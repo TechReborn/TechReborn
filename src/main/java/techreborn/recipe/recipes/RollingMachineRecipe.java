@@ -26,6 +26,7 @@ package techreborn.recipe.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.item.ItemStackTemplate;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeInput;
 import reborncore.common.crafting.SizedIngredient;
@@ -50,7 +51,7 @@ public record RollingMachineRecipe(RecipeType<? extends RollingMachineRecipe> ty
 	).apply(instance, (power, time, shaped) -> new RollingMachineRecipe(type, power, time, shaped)));
 	public static Function<RecipeType<RollingMachineRecipe>, StreamCodec<RegistryFriendlyByteBuf, RollingMachineRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
 		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
-		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
 		ByteBufCodecs.INT, RebornRecipe::power,
 		ByteBufCodecs.INT, RebornRecipe::time,
 		ShapedRecipe.SERIALIZER.streamCodec(), RollingMachineRecipe::getShapedRecipe,
@@ -58,9 +59,10 @@ public record RollingMachineRecipe(RecipeType<? extends RollingMachineRecipe> ty
 	);
 
 	@Override
-	public List<ItemStack> outputs() {
+	public List<ItemStackTemplate> outputs() {
 		// Input does not affect the result
-		return Collections.singletonList(shapedRecipe.assemble(null));
+		ItemStack stack = shapedRecipe.assemble(null);
+		return Collections.singletonList(new ItemStackTemplate(stack.getItem().builtInRegistryHolder(), stack.getCount(), stack.getComponentsPatch()));
 	}
 
 	@Override

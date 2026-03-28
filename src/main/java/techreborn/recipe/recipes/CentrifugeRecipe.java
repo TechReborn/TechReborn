@@ -44,16 +44,16 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 
-public record CentrifugeRecipe(RecipeType<? extends CentrifugeRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) implements RebornRecipe {
+public record CentrifugeRecipe(RecipeType<? extends CentrifugeRecipe> type, List<SizedIngredient> ingredients, List<ItemStackTemplate> outputs, int power, int time) implements RebornRecipe {
 	public static Function<RecipeType<CentrifugeRecipe>, MapCodec<CentrifugeRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
-		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
+		Codec.list(ItemStackTemplate.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
 		ExtraCodecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
 		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time)
 	).apply(instance, (ingredients, outputs, power, time) -> new CentrifugeRecipe(type, ingredients, outputs, power, time)));
 	public static Function<RecipeType<CentrifugeRecipe>, StreamCodec<RegistryFriendlyByteBuf, CentrifugeRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
 		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
-		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
 		ByteBufCodecs.INT, RebornRecipe::power,
 		ByteBufCodecs.INT, RebornRecipe::time,
 		(ingredients, outputs, power, time) -> new CentrifugeRecipe(type, ingredients, outputs, power, time)

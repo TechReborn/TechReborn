@@ -24,14 +24,16 @@
 
 package techreborn.datagen.recipes.machine
 
+import com.mojang.serialization.JsonOps
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions
+import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancements.Advancement.Builder
 import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.criterion.InventoryChangeTrigger
 import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.core.registries.BuiltInRegistries
@@ -53,7 +55,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final Builder builder = Builder.advancement()
 
 	protected final List<SizedIngredient> ingredients = new ArrayList<>()
-	protected final List<ItemStack> outputs = new ArrayList<>()
+	protected final List<ItemStackTemplate> outputs = new ArrayList<>()
 	protected int power = -1
 	protected int time = -1
 	protected Identifier customId = null
@@ -86,7 +88,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				ingredient {
 					tag object
 				}
-			} else if (object instanceof ItemStack) {
+			} else if (object instanceof ItemStackTemplate) {
 				ingredient {
 					stack object
 				}
@@ -127,15 +129,15 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
-	private static ItemStack ofStack(Object object) {
-		if (object instanceof ItemStack) {
+	private static ItemStackTemplate ofStack(Object object) {
+		if (object instanceof ItemStackTemplate) {
 			return object
 		} else if (object instanceof ItemLike) {
-			return new ItemStack(object.asItem())
+			return new ItemStackTemplate(object.asItem())
 		} else if (object instanceof String) {
 			// TODO remove me, done to aid porting from json files
 			def item = BuiltInRegistries.ITEM.getValue(Identifier.parse(object))
-			return new ItemStack(item)
+			return new ItemStackTemplate(item)
 		} else {
 			throw new UnsupportedOperationException()
 		}
@@ -235,7 +237,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		def recipe = createRecipe()
 
 		if (!conditions.isEmpty()) {
-			recipe.add(ResourceConditions.CONDITIONS_KEY, ResourceCondition.LIST_CODEC.encodeStart(JsonOps.INSTANCE, Arrays.asList(conditions)).getOrThrow());
+			FabricDataGenHelper.addConditions(recipe, conditions.toArray(new ResourceCondition[0]))
 		}
 
 		exporter.accept(key, recipe, builder.build(advancementId))

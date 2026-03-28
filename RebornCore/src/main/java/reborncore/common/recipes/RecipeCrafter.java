@@ -24,6 +24,7 @@
 
 package reborncore.common.recipes;
 
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -158,7 +159,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 			}
 			// If it has reached the recipe tick time
 			if (currentRecipe != null && currentTickTime >= currentNeededTicks && hasAllInputs()) {
-				final List<ItemStack> outputs = currentRecipe.outputs();
+				final List<ItemStack> outputs = currentRecipe.outputs().stream().map(ItemStackTemplate::create).toList();
 
 				boolean canGiveInvAll = true;
 				// Checks to see if it can fit the output
@@ -213,7 +214,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 			if (!hasAllInputs(recipe)) continue;
 			if (!recipe.canCraft(blockEntity)) continue;
 
-			final List<ItemStack> outputs = recipe.outputs();
+			final List<ItemStack> outputs = recipe.outputs().stream().map(ItemStackTemplate::create).toList();
 
 			// This checks to see if it can fit all the outputs
 			boolean hasOutputSpace = true;
@@ -324,7 +325,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	public boolean canCraftAgain() {
 		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getLevel(), recipeType)) {
 			if (recipe.canCraft(blockEntity) && hasAllInputs(recipe)) {
-				final List<ItemStack> outputs = recipe.outputs();
+				final List<ItemStack> outputs = recipe.outputs().stream().map(ItemStackTemplate::create).toList();
 
 				for (int i = 0; i < outputs.size(); i++) {
 					if (!canFitOutput(outputs.get(i), outputSlots[i])) {

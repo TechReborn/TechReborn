@@ -164,7 +164,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 */
 	private boolean validateRecipe(RecipeHolder<FusionReactorRecipe> entry) {
 		FusionReactorRecipe recipe = entry.value();
-		return hasAllInputs(recipe) && canFitStack(recipe.outputs().getFirst(), outputStackSlot, true);
+		return hasAllInputs(recipe) && canFitStack(recipe.outputs().getFirst().create(), outputStackSlot, true);
 	}
 
 	/**
@@ -312,7 +312,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 					craftingTickTime++;
 				}
 			} else if (craftingTickTime >= currentRecipe.time()) {
-				ItemStack result = currentRecipe.outputs().getFirst();
+				ItemStack result = currentRecipe.outputs().getFirst().create();
 				if (canFitStack(result, outputStackSlot, true)) {
 					if (inventory.getItem(outputStackSlot).isEmpty()) {
 						inventory.setItem(outputStackSlot, result.copy());

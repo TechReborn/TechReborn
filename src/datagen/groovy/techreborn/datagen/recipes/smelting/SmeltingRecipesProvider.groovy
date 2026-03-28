@@ -26,6 +26,7 @@ package techreborn.datagen.recipes.smelting
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder
+import net.minecraft.world.item.crafting.CookingBookCategory
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.AbstractCookingRecipe
@@ -73,15 +74,15 @@ class SmeltingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def offerSmelting(def input, ItemLike output, float experience = 0.5f, int cookingTime = 200) {
-		offerCookingRecipe(input, output, experience, cookingTime, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe.&new, "smelting/")
+		offerCookingRecipe(input, output, experience, cookingTime, SmeltingRecipe.&new, "smelting/")
 	}
 
 	def offerBlasting(def input, ItemLike output, float experience = 0.5f, int cookingTime = 200) {
-		offerCookingRecipe(input, output, experience, cookingTime, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe.&new, "blasting/")
+		offerCookingRecipe(input, output, experience, cookingTime, BlastingRecipe.&new, "blasting/")
 	}
 
-	<T extends AbstractCookingRecipe> void offerCookingRecipe(def input, ItemLike output, float experience, int cookingTime, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipeFactory, String prefix = "", RecipeCategory category = RecipeCategory.MISC) {
-		SimpleCookingRecipeBuilder.generic(createIngredient(input), category, output, experience, cookingTime, serializer, recipeFactory)
+	<T extends AbstractCookingRecipe> void offerCookingRecipe(def input, ItemLike output, float experience, int cookingTime, AbstractCookingRecipe.Factory<T> recipeFactory, String prefix = "", RecipeCategory category = RecipeCategory.MISC) {
+		SimpleCookingRecipeBuilder.generic(createIngredient(input), category, CookingBookCategory.MISC, output, experience, cookingTime, recipeFactory)
 				.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 				.save(this.exporter, TechReborn.MOD_ID + ":" + prefix + getInputPath(output) + "_from_" + getInputPath(input))
 	}

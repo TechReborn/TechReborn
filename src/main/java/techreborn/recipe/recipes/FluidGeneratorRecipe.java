@@ -69,7 +69,7 @@ public record FluidGeneratorRecipe(RecipeType<? extends FluidGeneratorRecipe> ty
 	}
 
 	@Override
-	public List<ItemStack> outputs() {
+	public List<ItemStackTemplate> outputs() {
 		return List.of();
 	}
 

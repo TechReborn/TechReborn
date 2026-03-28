@@ -46,17 +46,17 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public record BlastFurnaceRecipe(RecipeType<? extends BlastFurnaceRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, int heat) implements RebornRecipe {
+public record BlastFurnaceRecipe(RecipeType<? extends BlastFurnaceRecipe> type, List<SizedIngredient> ingredients, List<ItemStackTemplate> outputs, int power, int time, int heat) implements RebornRecipe {
 	public static Function<RecipeType<BlastFurnaceRecipe>, MapCodec<BlastFurnaceRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
-		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
+		Codec.list(ItemStackTemplate.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
 		ExtraCodecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
 		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
 		ExtraCodecs.POSITIVE_INT.fieldOf("heat").forGetter(BlastFurnaceRecipe::getHeat)
 	).apply(instance, (ingredients, outputs, power, time, heat) -> new BlastFurnaceRecipe(type, ingredients, outputs, power, time, heat)));
 	public static Function<RecipeType<BlastFurnaceRecipe>, StreamCodec<RegistryFriendlyByteBuf, BlastFurnaceRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
 		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
-		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
 		ByteBufCodecs.INT, RebornRecipe::power,
 		ByteBufCodecs.INT, RebornRecipe::time,
 		ByteBufCodecs.INT, BlastFurnaceRecipe::getHeat,
