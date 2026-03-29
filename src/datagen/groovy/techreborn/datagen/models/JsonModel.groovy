@@ -222,7 +222,7 @@ class JsonModel {
 	private static JsonObject toJson(TextureMapping texture) {
 		JsonObject json = new JsonObject()
 		texture.slots.forEach((key, value) -> {
-			json.addProperty(key.getId(), value.toString())
+			json.addProperty(key.getId(), value.sprite().toString())
 		})
 		return json
 	}
