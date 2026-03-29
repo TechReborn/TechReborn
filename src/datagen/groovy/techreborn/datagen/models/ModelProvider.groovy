@@ -373,7 +373,7 @@ class ModelProvider extends FabricModelProvider {
 			generator.registerSimpleFlatItemModel(info.asItem())
 		}
 		def toNuclearReactor = { BlockInfo info ->
-			Pair<ResourceLocation, ResourceLocation> pair = TemplateModel.ACTIVE.upload(
+			Pair<Identifier, Identifier> pair = TemplateModel.ACTIVE.upload(
 				TemplateModel.NUCLEAR_REACTOR.apply(info.block)
 			)
 			TemplateState.ACTIVE_NORTH_DEFAULT_H_FACING.apply(pair).upload(info.block)

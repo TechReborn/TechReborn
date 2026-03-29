@@ -277,7 +277,7 @@ publishMods {
     modrinth("modrinthTechReborn") {
         from mrOptions
         projectId = "3eMENr4V"
-        file = remapJar.archiveFile
+        file = jar.archiveFile
 
         embeds {
             slug = "reborncore"
@@ -287,7 +287,7 @@ publishMods {
     modrinth("modrinthRebornCore") {
         from mrOptions
         projectId = "3NCrJdj3"
-        file = project(":RebornCore").tasks.remapJar.archiveFile
+        file = project(":RebornCore").tasks.jar.archiveFile
     }
 
 	github {

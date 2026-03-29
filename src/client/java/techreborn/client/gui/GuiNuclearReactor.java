@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import java.util.List;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 
 import reborncore.client.gui.GuiBase;
@@ -41,7 +41,7 @@ import techreborn.blockentity.generator.nuclear.NuclearReactorBlockEntity;
  * Base reactor has 3 columns (18 slots), each chamber adds 1 column (6 slots).
  *
  * Note: This GUI uses a custom layout that doesn't fit the standard RebornCore GUI.
- * We override renderBg to draw a custom larger background and disable automatic
+ * We override extractBackground to draw a custom larger background and disable automatic
  * player slot drawing.
  */
 public class GuiNuclearReactor extends GuiBase<BuiltScreenHandler> {
@@ -57,38 +57,33 @@ public class GuiNuclearReactor extends GuiBase<BuiltScreenHandler> {
 	private static final int PLAYER_INV_Y = 146;
 
 	public GuiNuclearReactor(int syncID, Player player, NuclearReactorBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player), 176, 228);
 		this.blockEntity = blockEntity;
-		this.imageWidth = 176;
-		this.imageHeight = 228;
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, float partialTicks, int mouseX, int mouseY) {
+	public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float lastFrameDuration) {
 		// Note: we override the entire background drawing to fit the custom layout
-		// of the reactor Draw background for the side where we generally have
+		// of the reactor. Draw background for the side where we generally have
 		// upgrades, but in this case we will have the energy bar and the multiblock
-		// hologram button
+		// hologram button.
 		builder.drawDefaultBackground(drawContext, leftPos - 25, topPos + 6, 28, 75);
-		// Draw main background, but larger than usual to fit the reactor grid and
-		// player inventory
+		// Draw main background, larger than usual to fit the reactor grid and player inventory.
 		builder.drawDefaultBackground(drawContext, leftPos, topPos, 176, 228);
 
 		final Layer layer = Layer.BACKGROUND;
 
 		int availableColumns = blockEntity.getReactorSize();
 
-		// Draw reactor grid slots (9x6)
+		// Draw reactor grid slots
 		for (int row = 0; row < NuclearReactorBlockEntity.GRID_HEIGHT; row++) {
 			for (int col = 0; col < NuclearReactorBlockEntity.GRID_WIDTH; col++) {
 				int x = GRID_X + col * SLOT_SIZE;
 				int y = GRID_Y + row * SLOT_SIZE;
 
 				if (col < availableColumns) {
-					// Draw normal slot for available columns
 					drawSlot(drawContext, x, y, layer);
 				} else {
-					// Draw locked slot indicator
 					drawLockedSlot(drawContext, x, y);
 				}
 			}
@@ -116,11 +111,11 @@ public class GuiNuclearReactor extends GuiBase<BuiltScreenHandler> {
 	 * Draw a locked slot indicator for unavailable reactor slots.
 	 * Shows an X mark over a grayed-out slot.
 	 */
-	private void drawLockedSlot(GuiGraphics drawContext, int x, int y) {
+	private void drawLockedSlot(GuiGraphicsExtractor drawContext, int x, int y) {
 		int absX = leftPos + x;
 		int absY = topPos + y;
 
-		// Draw base slot (slightly offset like builder.drawSlot)
+		// Draw base slot
 		builder.drawSlot(drawContext, absX - 1, absY - 1);
 
 		// Draw X mark
@@ -136,7 +131,7 @@ public class GuiNuclearReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+	protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		// Draw title
 		drawTitle(drawContext);
 

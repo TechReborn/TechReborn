@@ -516,10 +516,10 @@ class TemplateModel {
 	static def NUCLEAR_REACTOR = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-			id.withSuffix("_top"),
-			id.withSuffix("_bottom"),
-			id.withSuffix("_side"),
-			id.withSuffix("_front"),
+			withSuffix(id, "_top"),
+			withSuffix(id, "_bottom"),
+			withSuffix(id, "_side"),
+			withSuffix(id, "_front"),
 			),
 			TextureSlot.FRONT
 		)

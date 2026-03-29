@@ -133,7 +133,7 @@ public class TRItemGroup {
 		entries.insertAfter(TRContent.RawMetals.SILVER, TRContent.StorageBlocks.RAW_SILVER);
 		entries.insertAfter(TRContent.RawMetals.IRIDIUM, TRContent.StorageBlocks.RAW_IRIDIUM);
 		entries.insertAfter(TRContent.RawMetals.TUNGSTEN, TRContent.StorageBlocks.RAW_TUNGSTEN);
-		entries.addAfter(TRContent.RawMetals.URANIUM, TRContent.StorageBlocks.RAW_URANIUM);
+		entries.insertAfter(TRContent.RawMetals.URANIUM, TRContent.StorageBlocks.RAW_URANIUM);
 		for (TRContent.StorageBlocks block : TRContent.StorageBlocks.values()) {
 			entries.insertAfter(block,
 				block.getStairsBlock(),

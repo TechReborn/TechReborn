@@ -969,7 +969,7 @@ public class TRContent {
 			this.item = item;
 			this.name = this.toString().toLowerCase(Locale.ROOT);
 			InitUtils.setup(item, name);
-			tag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "reactor_components/" + name));
+			tag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "reactor_components/" + name));
 		}
 
 		public Item getItem() {

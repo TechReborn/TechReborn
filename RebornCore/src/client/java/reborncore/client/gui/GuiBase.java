@@ -75,7 +75,11 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	public boolean upgrades;
 
 	public GuiBase(Player player, BlockEntity blockEntity, T screenHandler) {
-		super(screenHandler, player.getInventory(), Component.literal(I18n.get(blockEntity.getBlockState().getBlock().getDescriptionId())));
+		this(player, blockEntity, screenHandler, 176, 166);
+	}
+
+	public GuiBase(Player player, BlockEntity blockEntity, T screenHandler, int imageWidth, int imageHeight) {
+		super(screenHandler, player.getInventory(), Component.literal(I18n.get(blockEntity.getBlockState().getBlock().getDescriptionId())), imageWidth, imageHeight);
 		this.be = blockEntity;
 		this.builtScreenHandler = (BuiltScreenHandler) screenHandler;
 		tabs = GuiTab.TABS.stream()
