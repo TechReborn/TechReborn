@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     container:
-      image: eclipse-temurin:21-jdk
+      image: eclipse-temurin:25-jdk
       options: --user root
     steps:
       - run: apt update && apt install git -y
