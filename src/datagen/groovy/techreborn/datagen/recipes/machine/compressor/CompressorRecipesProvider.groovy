@@ -44,8 +44,8 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 	@Override
 	void generateRecipes() {
 		TRContent.Plates.values().each {plate ->
-			if (plate == TRContent.Plates.IRIDIUM_ALLOY) {
-				// Iridium alloy plate should be gated behind Implosion Compressor
+			if (plate == TRContent.Plates.IRIDIUM_ALLOY || plate == TRContent.Plates.INDUSTRIAL_ALLOY) {
+				// Iridium and industrial alloy plates should be gated behind Implosion Compressor
 				return
 			}
 			if (plate.getSource() != null) {

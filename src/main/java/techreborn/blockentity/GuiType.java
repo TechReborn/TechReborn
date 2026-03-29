@@ -50,6 +50,7 @@ import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
+import techreborn.blockentity.generator.nuclear.NuclearReactorBlockEntity;
 import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.ThermalGeneratorBlockEntity;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
@@ -151,6 +152,7 @@ public record GuiType<T extends BlockEntity>(Identifier identifier, MenuType<Bui
 	public static final GuiType<ElevatorBlockEntity> ELEVATOR = register("elevator");
 	public static final GuiType<FishingStationBlockEntity> FISHING_STATION = register("fishing_station");
 	public static final GuiType<PumpBlockEntity> PUMP = register("pump");
+	public static final GuiType<NuclearReactorBlockEntity> NUCLEAR_REACTOR = register("nuclear_reactor");
 
 
 	private static <T extends BlockEntity> GuiType<T> register(String path) {

@@ -1,0 +1,15 @@
+{
+    "type": "reborncore:padded",
+    "pattern": [
+        "UU ",
+        " U ",
+        " SU"
+    ],
+    "key": {
+        "S": "minecraft:deepslate",
+        "U": "techreborn:uu_matter"
+    },
+    "result": {
+        "id": "techreborn:deepslate_uranium_ore"
+    }
+}

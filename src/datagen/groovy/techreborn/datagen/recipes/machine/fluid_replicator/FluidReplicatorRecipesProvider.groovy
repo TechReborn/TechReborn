@@ -113,6 +113,12 @@ class FluidReplicatorRecipesProvider extends TechRebornRecipesProvider {
 			ingredients stack(TRContent.Parts.UU_MATTER, 6)
 		}
 		offerFluidReplicatorRecipe {
+			power 40
+			time 200
+			fluid ModFluids.URANIUM_HEXAFLUORIDE
+			ingredients stack(TRContent.Parts.UU_MATTER, 8)
+		}
+		offerFluidReplicatorRecipe {
 			power 20
 			time 20
 			fluid Fluids.WATER

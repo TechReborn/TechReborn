@@ -160,5 +160,19 @@ class ImplosionCompressorRecipesProvider extends TechRebornRecipesProvider {
 			outputs Items.SCULK_CATALYST, stack(TRContent.SmallDusts.ENDER_EYE, 2)
 			criterion getCriterionName(Items.SCULK), getCriterionConditions(Items.SCULK)
 		}
+		offerImplosionCompressorRecipe {
+			power 30
+			time 2000
+			ingredients TRContent.Ingots.INDUSTRIAL_ALLOY,  stack(Items.TNT, 8)
+			outputs TRContent.Plates.INDUSTRIAL_ALLOY, stack(TRContent.Dusts.DARK_ASHES, 4)
+			criterion getCriterionName(TRContent.Ingots.INDUSTRIAL_ALLOY), getCriterionConditions(TRContent.Ingots.INDUSTRIAL_ALLOY)
+		}
+		offerImplosionCompressorRecipe {
+			power 30
+			time 2000
+			ingredients TRContent.Ingots.INDUSTRIAL_ALLOY,  stack(Items.END_CRYSTAL, 2)
+			outputs TRContent.Plates.INDUSTRIAL_ALLOY, stack(TRContent.SmallDusts.ENDER_EYE, 2)
+			criterion getCriterionName(TRContent.Ingots.INDUSTRIAL_ALLOY), getCriterionConditions(TRContent.Ingots.INDUSTRIAL_ALLOY)
+		}
 	}
 }

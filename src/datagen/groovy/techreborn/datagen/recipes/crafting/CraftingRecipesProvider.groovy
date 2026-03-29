@@ -241,6 +241,11 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("UUU")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TUNGSTEN)))
+		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.URANIUM)
+			.pattern("UUU")
+			.pattern("U  ")
+			.pattern("  U")
+			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.URANIUM)))
 	}
 
 	void generateMisc() {

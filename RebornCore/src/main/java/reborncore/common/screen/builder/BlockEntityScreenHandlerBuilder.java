@@ -106,6 +106,12 @@ public class BlockEntityScreenHandlerBuilder {
 		return this;
 	}
 
+	public BlockEntityScreenHandlerBuilder filterSlot(final int index, final int x, final int y,
+													final Predicate<ItemStack> filter, final int stackLimit) {
+		this.parent.slots.add(new FilteredSlot(this.inventory, index, x, y, stackLimit).setFilter(filter));
+		return this;
+	}
+
 	public BlockEntityScreenHandlerBuilder energySlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.inventory, index, x, y)
 				.setFilter(EnergyStorageUtil::isEnergyStorage));

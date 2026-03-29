@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -111,6 +112,16 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 		return 0;
 	}
 
+	private void updateState(boolean active) {
+		assert level != null;
+		final BlockState BlockStateContainer = level.getBlockState(worldPosition);
+		if (BlockStateContainer.getBlock() instanceof final BlockMachineBase blockMachineBase) {
+			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != active) {
+				blockMachineBase.setActive(active, level, worldPosition);
+			}
+		}
+	}
+
 	// TilePowerAcceptor
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
@@ -121,6 +132,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 		this.charge(11);
 
+		boolean hasProcessedInputs = false;
 		for (int i = 0; i < 6; i++) {
 			final ItemStack stack = inventory.getItem(i);
 			if (!stack.isEmpty() && spaceForOutput()) {
@@ -130,9 +142,12 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 					useEnergy(euNeeded);
 					amplifier += amp;
 					inventory.shrinkSlot(i, 1);
+					hasProcessedInputs = true;
 				}
 			}
 		}
+
+		updateState(hasProcessedInputs);
 
 		if (amplifier >= TechRebornConfig.matterFabricatorFabricationRate) {
 			if (spaceForOutput()) {

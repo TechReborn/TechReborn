@@ -162,6 +162,27 @@ public class TechRebornConfig {
 	@Config(config = "generators", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Per Tick")
 	public static int solidFuelGeneratorOutputAmount = 10;
 
+	@Config(config = "generators", category = "nuclear_reactor", key = "NuclearReactorMaxEnergy", comment = "Nuclear Reactor Max Energy")
+	public static int nuclearReactorMaxEnergy = 100_000_000;
+
+	@Config(config = "generators", category = "nuclear_reactor", key = "NuclearReactorMaxOutput", comment = "Nuclear Reactor Max Output")
+	public static int nuclearReactorMaxOutput = 8192;
+
+	@Config(config = "generators", category = "nuclear_reactor", key = "NuclearReactorMaxHeat", comment = "Nuclear Reactor Base Max Heat (before plating)")
+	public static int nuclearReactorMaxHeat = 10_000;
+
+	@Config(config = "generators", category = "nuclear_reactor", key = "NuclearReactorEUMultiplier", comment = "Multiplier for EU output from fuel rods")
+	public static double nuclearReactorEUMultiplier = 1.0;
+
+	@Config(config = "generators", category = "nuclear_reactor", key = "NuclearReactorTickRate", comment = "Ticks between reactor processing cycles (20 = 1 second)")
+	public static int nuclearReactorTickRate = 20;
+
+	@Config(config = "generators", category = "nuclear_reactor", key = "NuclearReactorExplosionEnabled", comment = "Enable Nuclear Reactor Explosions on Meltdown")
+	public static boolean nuclearReactorExplosionEnabled = false;
+
+	@Config(config = "generators", category = "nuclear_reactor", key = "NuclearReactorExplosionPowerLimit", comment = "Maximum explosion power for meltdowns")
+	public static float nuclearReactorExplosionPowerLimit = 45.0f;
+
 	// Items
 	@Config(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber")
 	public static int nanosaberCharge = 1_000_000;
@@ -770,6 +791,9 @@ public class TechRebornConfig {
 
 	@Config(config = "world", category = "generation", key = "enableTungstenOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, tungsten ores will generate in the world")
 	public static boolean enableTungstenOreGeneration = true;
+
+	@Config(config = "world", category = "generation", key = "enableUraniumOreGeneration", comment = "When enabled and enableOreGeneration isn't disabled, uranium ores will generate in the world")
+	public static boolean enableUraniumOreGeneration = true;
 
 	@Config(config = "world", category = "generation", key = "enableRubberTreeGeneration", comment = "When enabled rubber trees will generate in the world")
 	public static boolean enableRubberTreeGeneration = true;

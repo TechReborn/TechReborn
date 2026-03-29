@@ -513,6 +513,17 @@ class TemplateModel {
 	static def QUANTUM_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.quantumBottom)) }
 	static def LAUNCHPAD = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.machineTier2Bottom)) }
 	static def ELEVATOR = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, withSuffix(id, "_top")) }
+	static def NUCLEAR_REACTOR = wrapperBlock { block, id ->
+		ORIENTABLE.create(block).add(
+			orientable(
+			id.withSuffix("_top"),
+			id.withSuffix("_bottom"),
+			id.withSuffix("_side"),
+			id.withSuffix("_front"),
+			),
+			TextureSlot.FRONT
+		)
+	}
 	static TriFunction<Block, Material, Material, JsonModel> MACHINE_BASE = { Block block, Material id, Material base ->
 		ORIENTABLE.create(block).add(
 			orientable(

@@ -50,6 +50,10 @@ public class TRItemSettings {
 			.component(DataComponents.TOOLTIP_DISPLAY, UNBREAKABLE_HIDE);
 	}
 
+	public static Item.Properties reactorComponent(String name) {
+		return item(name);
+	}
+
 	public static ResourceKey<Item> key(String name) {
 		return ResourceKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 	}

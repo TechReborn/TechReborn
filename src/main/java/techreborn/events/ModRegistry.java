@@ -141,6 +141,7 @@ public class ModRegistry {
 		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
 		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
 		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(NuclearReactorComponents.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
 
 		RebornRegistry.registerItem(TRContent.QUANTUM_HELMET = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorType.HELMET, "quantum_helmet"), "quantum_helmet"));
 		RebornRegistry.registerItem(TRContent.QUANTUM_CHESTPLATE = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorType.CHESTPLATE, "quantum_chestplate"), "quantum_chestplate"));

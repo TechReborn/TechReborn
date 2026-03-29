@@ -542,5 +542,21 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			outputs TRContent.Ingots.STEEL, stack(TRContent.CELL, 2)
 			source("refined_iron_and_carbon")
 		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 1200
+			heat 2000
+			ingredients stack(TRContent.Dusts.URANIUM_238, 8), TRContent.Dusts.URANIUM_235
+			outputs TRContent.NuclearReactorComponents.URANIUM_FUEL_PELLET
+			id "blast_furnace/uranium_fuel_pellet"
+		}
+		offerBlastFurnaceRecipe {
+			power 128
+			time 1200
+			heat 2000
+			ingredients stack(TRContent.Dusts.URANIUM_238, 8), stack(TRContent.SmallDusts.URANIUM_235, 4)
+			outputs TRContent.NuclearReactorComponents.URANIUM_FUEL_PELLET
+			id "blast_furnace/uranium_fuel_pellet_small_dusts"
+		}
 	}
 }

@@ -256,6 +256,24 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 			ingredients cellStack(Fluids.WATER)
 			outputs cellStack(ModFluids.ELECTROLYZED_WATER)
 		}
+		offerIndustrialElectrolyzerRecipe {
+			power 60
+			time 1400
+			ingredients stack(Items.BONE_MEAL, 6), cellStack(ModFluids.SULFURIC_ACID, 3)
+			outputs cellStack(ModFluids.CALCIUM, 2), cellStack(ModFluids.FLUORINE), stack(TRContent.Dusts.PHOSPHOROUS)
+		}
+		offerIndustrialElectrolyzerRecipe {
+			power 60
+			time 1600
+			ingredients stack(TRContent.Dusts.GRANITE, 29), cellStack(Fluids.EMPTY, 4)
+			outputs stack(Items.SAND, 20), stack(TRContent.Dusts.ALUMINUM, 5), cellStack(ModFluids.POTASSIUM, 3), cellStack(ModFluids.FLUORINE)
+		}
+		offerIndustrialElectrolyzerRecipe {
+			power 60
+			time 1000
+			ingredients stack(TRContent.Dusts.SALTPETER, 10), cellStack(ModFluids.SULFURIC_ACID, 4)
+			outputs cellStack(ModFluids.NITRIC_ACID, 2), cellStack(ModFluids.POTASSIUM, 2), stack(TRContent.Dusts.SULFUR, 4), stack(TRContent.Dusts.DARK_ASHES, 2)
+		}
 	}
 
 	void generateCopper(){

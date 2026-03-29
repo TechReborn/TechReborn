@@ -168,5 +168,15 @@ class RollingMachineRecipesProvider extends TechRebornRecipesProvider {
 			)
 			result stack(Items.RAIL, 24)
 		}
+		offerRollingMachineRecipe {
+			power 20
+			time 400
+			pattern (
+				_, TRContent.Plates.MAGNALIUM, _,
+				_, TRContent.Plates.MAGNALIUM, _,
+				_, TRContent.Plates.MAGNALIUM, _
+			)
+			result stack(TRContent.NuclearReactorComponents.EMPTY_FUEL_ROD, 6)
+		}
 	}
 }
