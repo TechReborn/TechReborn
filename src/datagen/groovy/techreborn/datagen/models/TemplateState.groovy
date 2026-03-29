@@ -26,6 +26,7 @@ package techreborn.datagen.models
 
 import net.minecraft.client.renderer.block.dispatch.Variant
 import net.minecraft.client.renderer.block.dispatch.VariantMutator
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
 import net.minecraft.client.data.models.model.TextureMapping
@@ -164,8 +165,11 @@ class TemplateState {
 	static ConditionBuilder when() {
 		return new ConditionBuilder();
 	}
+	static MultiVariant model(Material id) {
+		return new MultiVariant(WeightedList.of(new Variant(id.sprite())))
+	}
 	static MultiVariant model(Identifier id) {
-		return new MultiVariant(WeightedList.of(new Variant(id)));
+		return model(new Material(id))
 	}
 	static MultiVariant model(Block block) {
 		return model(TextureMapping.getBlockTexture(block))

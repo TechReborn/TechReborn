@@ -14,8 +14,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "techreborn.TechReborn",
-      "techreborn.compat.pal.PlayerAbilityLibCompat"
+      "techreborn.TechReborn"
     ],
     "client": [
       "techreborn.TechRebornClient"

@@ -25,12 +25,10 @@
 package techreborn.datagen.recipes.machine.rolling_machine
 
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.resources.Identifier
-import net.minecraft.resources.ResourceKey
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ItemStackTemplate
+import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.ShapedRecipe
 import net.minecraft.world.item.crafting.ShapedRecipePattern
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -76,13 +74,12 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 	@SuppressWarnings('GroovyAccessibility')
 	protected RollingMachineRecipe createRecipe() {
 		def builder = shapedRecipeFactory.build()
-		ShapedRecipePattern rawShapedRecipe = builder.ensureValid(ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace("dummy")))
+		ShapedRecipePattern pattern = ShapedRecipePattern.of(builder.key as Map<Character, Ingredient>, builder.rows as List<String>)
 		ShapedRecipe shapedRecipe = new ShapedRecipe(
-			Objects.requireNonNullElse(builder.group, ""),
-			RecipeBuilder.determineBookCategory(builder.category),
-			rawShapedRecipe,
-			new ItemStack(builder.result, builder.count),
-			builder.showNotification
+			RecipeBuilder.createCraftingCommonInfo(builder.showNotification),
+			RecipeBuilder.createCraftingBookInfo(builder.category, builder.group),
+			pattern,
+			builder.result
 		)
 		return new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, power, time, shapedRecipe)
 	}

@@ -30,6 +30,7 @@ import net.minecraft.client.resources.model.cuboid.CuboidFace
 import net.minecraft.client.resources.model.cuboid.CuboidModelElement
 import net.minecraft.client.resources.model.cuboid.CuboidRotation
 import net.minecraft.client.resources.model.cuboid.ItemTransform
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.model.ModelLocationUtils
 import net.minecraft.client.data.models.model.TextureSlot
@@ -142,11 +143,12 @@ class JsonModel {
 	static TextureMapping suffix(TextureMapping textures, TextureSlot[] keys, String variant) {
 		TextureMapping map = textures
 		for (int i = 0, len = keys.length; i < len; i++) {
-			Identifier texture = map.get(keys[i]).withSuffix(variant)
+			def mat = map.get(keys[i])
+			Identifier texture = mat.sprite().withSuffix(variant)
 			if (i == 0) {
-				textures = map.copyAndUpdate(keys[0], texture)
+				textures = map.copyAndUpdate(keys[0], new Material(texture, mat.forceTranslucent()))
 			} else {
-				textures.put(keys[i], texture)
+				textures.put(keys[i], new Material(texture, mat.forceTranslucent()))
 			}
 		}
 		return textures
@@ -168,7 +170,7 @@ class JsonModel {
 	static class CtmMap {
 		final int version = 1
 		final TextureMapping entries = new TextureMapping()
-		CtmMap put(TextureSlot key, Identifier id) {
+		CtmMap put(TextureSlot key, Material id) {
 			entries.put(key, id)
 			return this
 		}
@@ -226,9 +228,10 @@ class JsonModel {
 	}
 
 	private static JsonObject toJson(CuboidRotation rotation) {
+		CuboidRotation.SingleAxisRotation singleAxisRotation = rotation.value() as CuboidRotation.SingleAxisRotation
 		JsonObject json = new JsonObject()
-		json.addProperty("angle", rotation.angle())
-		json.addProperty("axis", rotation.axis().getSerializedName())
+		json.addProperty("angle", singleAxisRotation.angle())
+		json.addProperty("axis", singleAxisRotation.axis().getSerializedName())
 		json.add("origin", toJson(rotation.origin()))
 		if (rotation.rescale()) {
 			json.addProperty("rescale", true)

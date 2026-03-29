@@ -27,6 +27,7 @@ package techreborn.datagen.models
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.client.data.models.model.TextureMapping
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.world.item.Item
 import net.minecraft.resources.Identifier
 import techreborn.TechReborn
@@ -140,6 +141,10 @@ class TexturePaths {
 
 	static void alias(Block block, Identifier id) {
 		aliasPaths.put(block, id)
+	}
+
+	static void alias(Block block, Material material) {
+		aliasPaths.put(block, material.sprite())
 	}
 
 	static void alias(BlockInfo info, String path) {

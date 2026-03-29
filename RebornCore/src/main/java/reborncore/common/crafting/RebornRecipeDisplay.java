@@ -40,7 +40,7 @@ public record RebornRecipeDisplay(SlotDisplay result, SlotDisplay craftingStatio
 
 	public RebornRecipeDisplay(SlotDisplay craftingStation) {
 		// TODO unlockedItem
-		this(new SlotDisplay.ItemStackSlotDisplay(new ItemStackTemplate(Items.AIR)), craftingStation);
+		this(SlotDisplay.Empty.INSTANCE, craftingStation);
 	}
 
 	@Override

@@ -29,6 +29,7 @@ import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.advancements.AdvancementType
 import net.minecraft.advancements.CriterionTriggerInstance
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
 import net.minecraft.network.chat.Component
@@ -36,7 +37,7 @@ import net.minecraft.resources.Identifier
 
 class AdvancementFactory {
 	private String name
-	private ItemStack icon
+	private ItemStackTemplate icon
 	private AdvancementType frame = AdvancementType.TASK
 	private List<Criterion<? extends CriterionTriggerInstance>> conditionsList = []
 	private AdvancementHolder parent
@@ -47,12 +48,12 @@ class AdvancementFactory {
 		this.name = name
 	}
 
-	void icon(ItemStack icon) {
+	void icon(ItemStackTemplate icon) {
 		this.icon = icon
 	}
 
 	void icon(ItemLike item) {
-		icon new ItemStack(item)
+		icon new ItemStackTemplate(item.asItem())
 	}
 
 	void frame(AdvancementType frame) {

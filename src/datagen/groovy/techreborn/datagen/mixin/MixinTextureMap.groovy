@@ -24,6 +24,7 @@
 
 package techreborn.datagen.mixin
 
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.model.TextureMapping
 import net.minecraft.world.item.Item
@@ -37,23 +38,23 @@ import techreborn.datagen.models.TexturePaths
 // Do as I say, not as I do. Only write mixins in Java!
 @Mixin(TextureMapping.class)
 class MixinTextureMap {
-	@Inject(method = "getItemTexture(Lnet/minecraft/world/item/Item;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-	private static void getId(Item item, CallbackInfoReturnable<Identifier> cir) {
-		TexturePaths.ifPresent(item, cir::setReturnValue)
+	@Inject(method = "getItemTexture(Lnet/minecraft/world/item/Item;)Lnet/minecraft/client/resources/model/sprite/Material;", at = @At("HEAD"), cancellable = true)
+	private static void getId(Item item, CallbackInfoReturnable<Material> cir) {
+		TexturePaths.ifPresent(item, { Identifier id -> cir.setReturnValue(new Material(id)) })
 	}
 
-	@Inject(method = "getItemTexture(Lnet/minecraft/world/item/Item;Ljava/lang/String;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-	private static void getItemSubModelId(Item item, String suffix, CallbackInfoReturnable<Identifier> cir) {
-		TexturePaths.ifPresent(item, suffix, cir::setReturnValue)
+	@Inject(method = "getItemTexture(Lnet/minecraft/world/item/Item;Ljava/lang/String;)Lnet/minecraft/client/resources/model/sprite/Material;", at = @At("HEAD"), cancellable = true)
+	private static void getItemSubModelId(Item item, String suffix, CallbackInfoReturnable<Material> cir) {
+		TexturePaths.ifPresent(item, suffix, { Identifier id -> cir.setReturnValue(new Material(id)) })
 	}
 
-	@Inject(method = "getBlockTexture(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-	private static void getId(Block block, CallbackInfoReturnable<Identifier> cir) {
-		TexturePaths.ifPresentOrAlias(block, cir::setReturnValue)
+	@Inject(method = "getBlockTexture(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/client/resources/model/sprite/Material;", at = @At("HEAD"), cancellable = true)
+	private static void getId(Block block, CallbackInfoReturnable<Material> cir) {
+		TexturePaths.ifPresentOrAlias(block, { Identifier id -> cir.setReturnValue(new Material(id)) })
 	}
 
-	@Inject(method = "getBlockTexture(Lnet/minecraft/world/level/block/Block;Ljava/lang/String;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-	private static void getBlockSubModelId(Block block, String suffix, CallbackInfoReturnable<Identifier> cir) {
-		TexturePaths.ifPresent(block, suffix, cir::setReturnValue)
+	@Inject(method = "getBlockTexture(Lnet/minecraft/world/level/block/Block;Ljava/lang/String;)Lnet/minecraft/client/resources/model/sprite/Material;", at = @At("HEAD"), cancellable = true)
+	private static void getBlockSubModelId(Block block, String suffix, CallbackInfoReturnable<Material> cir) {
+		TexturePaths.ifPresent(block, suffix, { Identifier id -> cir.setReturnValue(new Material(id)) })
 	}
 }

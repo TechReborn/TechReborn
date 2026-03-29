@@ -28,6 +28,7 @@ import net.minecraft.client.resources.model.cuboid.CuboidFace
 import net.minecraft.client.resources.model.cuboid.CuboidModelElement
 import net.minecraft.client.resources.model.cuboid.CuboidRotation
 import net.minecraft.client.resources.model.cuboid.ItemTransform
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.model.TextureSlot
 import net.minecraft.client.data.models.model.TextureMapping
@@ -179,7 +180,7 @@ class TemplateModel {
 				Direction.SOUTH, RESIN_BASIN_FACE_2, Direction.WEST, RESIN_BASIN_FACE_2,
 				Direction.UP, face(KEY_TWO, uvs(1, 1, 15, 15)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 14, 14)),
 			),
-			new CuboidRotation(new Vector3f(9, 10, 9), Direction.Axis.Y, 0, false), true, 0
+			new CuboidRotation(new Vector3f(9, 10, 9), new CuboidRotation.SingleAxisRotation(Direction.Axis.Y, 0), false), true, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(2, 2, 1), new Vector3f(3, 8, 15),
@@ -187,7 +188,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_3, Direction.EAST, RESIN_BASIN_FACE_4, Direction.SOUTH, RESIN_BASIN_FACE_3,
 				Direction.WEST, RESIN_BASIN_FACE_5, Direction.UP, RESIN_BASIN_FACE_6, Direction.DOWN, RESIN_BASIN_FACE_6
 			),
-			new CuboidRotation(new Vector3f(2.5, 5, 8), Direction.Axis.Z, 22.5, false), true, 0
+			new CuboidRotation(new Vector3f(2.5, 5, 8), new CuboidRotation.SingleAxisRotation(Direction.Axis.Z, 22.5), false), true, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(13, 2, 1), new Vector3f(14, 8, 15),
@@ -195,7 +196,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_3, Direction.EAST, RESIN_BASIN_FACE_4, Direction.SOUTH, RESIN_BASIN_FACE_3,
 				Direction.WEST, RESIN_BASIN_FACE_4, Direction.UP, RESIN_BASIN_FACE_6, Direction.DOWN, RESIN_BASIN_FACE_6,
 			),
-			new CuboidRotation(new Vector3f(13.5, 5, 8), Direction.Axis.Z, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(13.5, 5, 8), new CuboidRotation.SingleAxisRotation(Direction.Axis.Z, -22.5), false), true, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(1, 2, 2), new Vector3f(15, 8, 3),
@@ -203,7 +204,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_5, Direction.EAST, RESIN_BASIN_FACE_3, Direction.SOUTH, RESIN_BASIN_FACE_4,
 				Direction.WEST, RESIN_BASIN_FACE_3, Direction.UP, RESIN_BASIN_FACE_7, Direction.DOWN, RESIN_BASIN_FACE_7,
 			),
-			new CuboidRotation(new Vector3f(8, 5, 2.5), Direction.Axis.X, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 5, 2.5), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(1, 2, 13), new Vector3f(15, 8, 14),
@@ -212,7 +213,7 @@ class TemplateModel {
 				Direction.SOUTH, face(KEY_THREE, uvs(1, 9, 15, 15)), Direction.WEST, RESIN_BASIN_FACE_3,
 				Direction.UP, RESIN_BASIN_FACE_7, Direction.DOWN, RESIN_BASIN_FACE_7,
 			),
-			new CuboidRotation(new Vector3f(8, 5, 13.5), Direction.Axis.X, 22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 5, 13.5), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, 22.5), false), true, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(5.5, 11, 9), new Vector3f(6.5, 14, 19),
@@ -220,7 +221,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_8, Direction.EAST, RESIN_BASIN_FACE_9, Direction.SOUTH, RESIN_BASIN_FACE_8,
 				Direction.WEST, RESIN_BASIN_FACE_9, Direction.UP, RESIN_BASIN_FACE_10, Direction.DOWN, RESIN_BASIN_FACE_10,
 			),
-			new CuboidRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(9.5, 11, 9), new Vector3f(10.5, 14, 19),
@@ -228,7 +229,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_8, Direction.EAST, RESIN_BASIN_FACE_9, Direction.SOUTH, RESIN_BASIN_FACE_8,
 				Direction.WEST, RESIN_BASIN_FACE_9, Direction.UP, RESIN_BASIN_FACE_10, Direction.DOWN, RESIN_BASIN_FACE_10,
 			),
-			new CuboidRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(6.5, 11, 9), new Vector3f(9.5, 12, 19),
@@ -236,7 +237,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_11, Direction.EAST, RESIN_BASIN_FACE_12, Direction.SOUTH, RESIN_BASIN_FACE_11,
 				Direction.WEST, RESIN_BASIN_FACE_12, Direction.UP, RESIN_BASIN_FACE_13, Direction.DOWN, RESIN_BASIN_FACE_13,
 			),
-			new CuboidRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(6, 11, 15.99), new Vector3f(10, 15, 16.99),
@@ -245,13 +246,13 @@ class TemplateModel {
 				Direction.SOUTH, face(KEY_TWO, uvs(0, 0, 4, 4)), Direction.WEST, RESIN_BASIN_FACE_14,
 				Direction.UP, face(KEY_TWO, uvs(6, 6, 10, 7)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 4, 1)),
 			),
-			new CuboidRotation(new Vector3f(14, 9, 24), Direction.Axis.Y, 0, false), true, 0
+			new CuboidRotation(new Vector3f(14, 9, 24), new CuboidRotation.SingleAxisRotation(Direction.Axis.Y, 0), false), true, 0
 		),
 	)
 	static JsonModel.DisplayMap FISHING_STATION_DISPLAY = new JsonModel.DisplayMap().put(
 		ItemDisplayContext.GUI, transformation(30, 225, 0, -1, 0, 0, 0.5, 0.5, 0.5)
 	)
-	static CuboidRotation FISHING_STATION_ROTATION_1 = new CuboidRotation(new Vector3f(1, 0, 4), Direction.Axis.X, 22.5, false)
+	static CuboidRotation FISHING_STATION_ROTATION_1 = new CuboidRotation(new Vector3f(1, 0, 4), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, 22.5), false)
 	static Map<Direction, CuboidFace> FISHING_STATION_FACE_MAP_1 = Map.of(
 		Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 1, 1), Quadrant.R180),
 		Direction.EAST, face(KEY_ZERO, uvs(0, 0, 1, 14), Quadrant.R90),
@@ -260,7 +261,7 @@ class TemplateModel {
 		Direction.UP, face(KEY_ZERO, uvs(0, 0, 1, 14)),
 		Direction.DOWN, face(KEY_ZERO, uvs(0, 0, 1, 14), Quadrant.R180),
 	)
-	static CuboidRotation FISHING_STATION_ROTATION_2 = new CuboidRotation(new Vector3f(1, 0, 4), Direction.Axis.X, -22.5, false)
+	static CuboidRotation FISHING_STATION_ROTATION_2 = new CuboidRotation(new Vector3f(1, 0, 4), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false)
 	static CuboidFace MISSING_FACE = face(KEY_MISSING, uvs(0, 0, 0, 9))
 	static Map<Direction, CuboidFace> FISHING_STATION_FACE_MAP_2 = Map.of(
 		Direction.NORTH, MISSING_FACE, Direction.EAST, face(KEY_ONE, uvs(7, 0, 16, 9)),
@@ -381,7 +382,7 @@ class TemplateModel {
 	}
 	@FunctionalInterface
 	interface Active {
-		Pair<Identifier, Identifier> upload(JsonModel model);
+		Pair<Material, Material> upload(JsonModel model);
 	}
 	static Active ACTIVE = (JsonModel model) -> Pair.of(model.suffix("_off").upload(), model.suffix("_on").upload())
 	static Uploadable<Item> ENERGY_ITEM = (Item item) -> GENERATED.create(item).add(TextureMapping.layer0(item), TextureSlot.LAYER0)
@@ -391,9 +392,9 @@ class TemplateModel {
 	static def SOLAR_PANEL = wrapperBlock { block, id ->
 		CUBE_BOTTOM_TOP.create(block).add(
 			cubeBottomTop(
-				id.withSuffix("_top"),
-				TexturePaths.generatorBottom,
-				TexturePaths.solarPanelSide,
+				withSuffix(id, "_top"),
+				new Material(TexturePaths.generatorBottom),
+				new Material(TexturePaths.solarPanelSide),
 			),
 			TextureSlot.SIDE
 		)
@@ -401,9 +402,9 @@ class TemplateModel {
 	static def QUANTUM_SOLAR_PANEL = wrapperBlock { block, id ->
 		CUBE_BOTTOM_TOP.create(block).add(
 			cubeBottomTop(
-				id.withSuffix("_top"),
-				TexturePaths.quantumBottom,
-				TexturePaths.quantumSolarPanelSide,
+				withSuffix(id, "_top"),
+				new Material(TexturePaths.quantumBottom),
+				new Material(TexturePaths.quantumSolarPanelSide),
 			),
 			TextureSlot.SIDE
 		)
@@ -411,24 +412,24 @@ class TemplateModel {
 	static Function<Block, JsonModel> CUBE_BOTTOM_TOP_SIDE = { Block block ->
 		CUBE_BOTTOM_TOP.create(block).add(TextureMapping.cubeBottomTop(block), TextureSlot.TOP, TextureSlot.SIDE)
 	}
-	static TriFunction<Block, Identifier, Identifier, JsonModel> CUBE_BOTTOM_TOP_BASE = { Block block, Identifier id, Identifier bottom ->
+	static TriFunction<Block, Material, Material, JsonModel> CUBE_BOTTOM_TOP_BASE = { Block block, Material id, Material bottom ->
 		CUBE_BOTTOM_TOP.create(block).add(
 			cubeBottomTop(
-				id.withSuffix("_top"),
+				withSuffix(id, "_top"),
 				bottom,
-				id.withSuffix("_side"),
+				withSuffix(id, "_side"),
 			),
 			TextureSlot.TOP, TextureSlot.SIDE
 		)
 	}
-	static def GENERATOR_CUBE_BOTTOM_TOP = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, TexturePaths.generatorBottom) }
-	static def CHARGE_O_MAT = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, TexturePaths.machineTier2Bottom) }
-	static def CHUNK_LOADER = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, TexturePaths.machineTier3Bottom) }
+	static def GENERATOR_CUBE_BOTTOM_TOP = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.generatorBottom)) }
+	static def CHARGE_O_MAT = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.machineTier2Bottom)) }
+	static def CHUNK_LOADER = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.machineTier3Bottom)) }
 	static def ENERGY = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
-			id.withSuffix("_side"),
-			id.withSuffix("_front"),
-			id.withSuffix("_side"),
+			withSuffix(id, "_side"),
+			withSuffix(id, "_front"),
+			withSuffix(id, "_side"),
 		))
 	}
 	static Uploadable ORIENTABLE_SIDE_FRONT_TOP_BOTTOM = { Block block ->
@@ -437,10 +438,10 @@ class TemplateModel {
 	static def GAS_TURBINE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				id.withSuffix("_top"),
-				TexturePaths.generatorBottom,
-				TexturePaths.generatorSide,
-				TexturePaths.generatorSide,
+				withSuffix(id, "_top"),
+				new Material(TexturePaths.generatorBottom),
+				new Material(TexturePaths.generatorSide),
+				new Material(TexturePaths.generatorSide),
 			),
 			TextureSlot.TOP, TextureSlot.FRONT
 		)
@@ -448,12 +449,12 @@ class TemplateModel {
 	static def FUSION_CONTROL_COMPUTER = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				TexturePaths.machineTier3Top,
-				id.withSuffix("_bottom"),
-				id.withSuffix("_west"),
-				id.withSuffix("_east"),
-				TexturePaths.machineTier3Back,
-				id.withSuffix("_front"),
+				new Material(TexturePaths.machineTier3Top),
+				withSuffix(id, "_bottom"),
+				withSuffix(id, "_west"),
+				withSuffix(id, "_east"),
+				new Material(TexturePaths.machineTier3Back),
+				withSuffix(id, "_front"),
 			),
 			TextureSlot.FRONT
 		)
@@ -461,76 +462,76 @@ class TemplateModel {
 	static def SOLID_FUEL_GENERATOR = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				TexturePaths.generatorTop,
-				TexturePaths.generatorBottom,
-				TexturePaths.generatorSide,
-				TexturePaths.generatorSide,
+				new Material(TexturePaths.generatorTop),
+				new Material(TexturePaths.generatorBottom),
+				new Material(TexturePaths.generatorSide),
+				new Material(TexturePaths.generatorSide),
 			),
 			TextureSlot.FRONT
 		)
 	}
 	static def WIND_MILL = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
-			id.withSuffix("_top"),
-			id.withSuffix("_bottom"),
-			id.withSuffix("_west"),
-			id.withSuffix("_east"),
-			TexturePaths.generatorBottom,
-			id.withSuffix("_front"),
+			withSuffix(id, "_top"),
+			withSuffix(id, "_bottom"),
+			withSuffix(id, "_west"),
+			withSuffix(id, "_east"),
+			new Material(TexturePaths.generatorBottom),
+			withSuffix(id, "_front"),
 		))
 	}
-	static TriFunction<Block, Identifier, Identifier, JsonModel> STORAGE_UNIT = { Block block, Identifier id, Identifier bottom ->
+	static TriFunction<Block, Material, Material, Material> STORAGE_UNIT = { Block block, Material id, Material bottom ->
 		ORIENTABLE.create(block).add(orientable(
-			id.withSuffix("_top"),
+			withSuffix(id, "_top"),
 			bottom,
-			id.withSuffix("_side"),
-			id.withSuffix("_front"),
+			withSuffix(id, "_side"),
+			withSuffix(id, "_front"),
 		))
 	}
-	static def BASIC_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, TexturePaths.basicUnitBottom) }
-	static def ADVANCED_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, TexturePaths.advancedUnitBottom) }
-	static def INDUSTRIAL_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, TexturePaths.industrialUnitBottom) }
-	static TriFunction<Block, Identifier, Identifier, JsonModel> ORIENTABLE_TOP_SIDE_BOTTOM = { Block block, Identifier id, Identifier bottom ->
+	static def BASIC_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.basicUnitBottom)) }
+	static def ADVANCED_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.advancedUnitBottom)) }
+	static def INDUSTRIAL_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.industrialUnitBottom)) }
+	static TriFunction<Block, Material, Material, JsonModel> ORIENTABLE_TOP_SIDE_BOTTOM = { Block block, Material id, Material bottom ->
 		ORIENTABLE.create(block).add(orientable(
-			id.withSuffix("_top"),
+			withSuffix(id, "_top"),
 			bottom,
-			id.withSuffix("_side"),
-			id.withSuffix("_side"),
+			withSuffix(id, "_side"),
+			withSuffix(id, "_side"),
 		))
 	}
 	static def QUANTUM_STORAGE_UNIT = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
-			TexturePaths.quantumTop,
-			TexturePaths.quantumBottom,
-			id.withSuffix("_side"),
-			id.withSuffix("_front"),
+			new Material(TexturePaths.quantumTop),
+			new Material(TexturePaths.quantumBottom),
+			withSuffix(id, "_side"),
+			withSuffix(id, "_front"),
 		))
 	}
-	static def BASIC_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.basicUnitBottom) }
-	static def ADVANCED_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.advancedUnitBottom) }
-	static def INDUSTRIAL_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.industrialUnitBottom) }
-	static def QUANTUM_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.quantumBottom) }
-	static def LAUNCHPAD = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, TexturePaths.machineTier2Bottom) }
-	static def ELEVATOR = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, id.withSuffix("_top")) }
-	static TriFunction<Block, Identifier, Identifier, JsonModel> MACHINE_BASE = { Block block, Identifier id, Identifier base ->
+	static def BASIC_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.basicUnitBottom)) }
+	static def ADVANCED_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.advancedUnitBottom)) }
+	static def INDUSTRIAL_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.industrialUnitBottom)) }
+	static def QUANTUM_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.quantumBottom)) }
+	static def LAUNCHPAD = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.machineTier2Bottom)) }
+	static def ELEVATOR = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, withSuffix(id, "_top")) }
+	static TriFunction<Block, Material, Material, JsonModel> MACHINE_BASE = { Block block, Material id, Material base ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				base.withSuffix("machine_top"),
-				base.withSuffix("machine_bottom"),
-				base.withSuffix("machine_side"),
-				id.withSuffix("_front"),
+				withSuffix(base, "machine_top"),
+				withSuffix(base, "machine_bottom"),
+				withSuffix(base, "machine_side"),
+				withSuffix(id, "_front"),
 			),
 			TextureSlot.FRONT
 		)
 	}
-	static def BASIC_MACHINE = wrapperBlock { block, id -> MACHINE_BASE.apply(block, id, TexturePaths.machineTier0Dir) }
-	static def ADVANCED_MACHINE = wrapperBlock { block, id -> MACHINE_BASE.apply(block, id, TexturePaths.machineTier1Dir) }
+	static def BASIC_MACHINE = wrapperBlock { block, id -> MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier0Dir)) }
+	static def ADVANCED_MACHINE = wrapperBlock { block, id -> MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier1Dir)) }
 	static def COMPUTER_CUBE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
-			TexturePaths.machineTier2Top,
-			TexturePaths.machineTier1Bottom,
-			id.withSuffix("_side"),
-			id.withSuffix("_front"),
+			new Material(TexturePaths.machineTier2Top),
+			new Material(TexturePaths.machineTier1Bottom),
+			withSuffix(id, "_side"),
+			withSuffix(id, "_front"),
 		))
 	}
 	static def PLAYER_DETECTOR_OTHERS = wrapperBlock { block, id -> CUBE_ALL.apply(block).suffix("_others") }
@@ -538,37 +539,37 @@ class TemplateModel {
 	static def ADVANCED_MACHINE_WITH_TOP = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				id.withSuffix("_top"),
-				TexturePaths.machineTier1Bottom,
-				TexturePaths.machineTier1Side,
-				id.withSuffix("_front")
+				withSuffix(id, "_top"),
+				new Material(TexturePaths.machineTier1Bottom),
+				new Material(TexturePaths.machineTier1Side),
+				withSuffix(id, "_front")
 			),
 			TextureSlot.TOP, TextureSlot.FRONT
 		)
 	}
-	static TriFunction<Block, Identifier, Identifier, JsonModel> ACTIVE_FRONT_MACHINE_BASE = { Block block, Identifier id, Identifier base ->
+	static TriFunction<Block, Material, Material, JsonModel> ACTIVE_FRONT_MACHINE_BASE = { Block block, Material id, Material base ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				base.withSuffix("machine_top"),
-				base.withSuffix("machine_bottom"),
-				base.withSuffix("machine_west"),
-				base.withSuffix("machine_east"),
-				base.withSuffix("machine_back"),
-				id.withSuffix("_front"),
+				withSuffix(base, "machine_top"),
+				withSuffix(base, "machine_bottom"),
+				withSuffix(base, "machine_west"),
+				withSuffix(base, "machine_east"),
+				withSuffix(base, "machine_back"),
+				withSuffix(id, "_front"),
 			),
 			TextureSlot.FRONT
 		)
 	}
-	static def ACTIVE_FRONT_MACHINE = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, TexturePaths.machineTier2Dir) }
+	static def ACTIVE_FRONT_MACHINE = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier2Dir)) }
 	static def ACTIVE_SIDE_MACHINE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				TexturePaths.machineTier2Top,
-				TexturePaths.machineTier2Bottom,
-				id.withSuffix("_west"),
-				id.withSuffix("_east"),
-				TexturePaths.machineTier2Back,
-				id.withSuffix("_front"),
+				new Material(TexturePaths.machineTier2Top),
+				new Material(TexturePaths.machineTier2Bottom),
+				withSuffix(id, "_west"),
+				withSuffix(id, "_east"),
+				new Material(TexturePaths.machineTier2Back),
+				withSuffix(id, "_front")
 			),
 			TextureSlot.WEST, TextureSlot.EAST, TextureSlot.FRONT
 		)
@@ -576,12 +577,12 @@ class TemplateModel {
 	static def ACTIVE_TOP_FRONT_MACHINE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				id.withSuffix("_top"),
-				TexturePaths.machineTier2Bottom,
-				TexturePaths.machineTier2West,
-				TexturePaths.machineTier2East,
-				TexturePaths.machineTier2Back,
-				id.withSuffix("_front"),
+				withSuffix(id, "_top"),
+				new Material(TexturePaths.machineTier2Bottom),
+				new Material(TexturePaths.machineTier2West),
+				new Material(TexturePaths.machineTier2East),
+				new Material(TexturePaths.machineTier2Back),
+				withSuffix(id, "_front"),
 			),
 			TextureSlot.UP, TextureSlot.FRONT
 		)
@@ -589,19 +590,19 @@ class TemplateModel {
 	static def PUMP = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-				id.withSuffix("_top"),
-				id.withSuffix("_bottom"),
-				id.withSuffix("_side"),
-				id.withSuffix("_side"),
-				id.withSuffix("_front"),
-				id.withSuffix("_front"),
+				withSuffix(id, "_top"),
+				withSuffix(id, "_bottom"),
+				withSuffix(id, "_side"),
+				withSuffix(id, "_side"),
+				withSuffix(id, "_front"),
+				withSuffix(id, "_front"),
 			),
 			TextureSlot.SOUTH, TextureSlot.FRONT
 		)
 	}
-	static def FLUID_REPLICATOR = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, TexturePaths.machineTier3Dir) }
+	static def FLUID_REPLICATOR = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier3Dir)) }
 
-	static BiFunction<Block, Identifier, JsonModel> LIGHT_BLOCK = (Block block, Identifier id) -> BLOCK.create(block).add(
+	static BiFunction<Block, Material, JsonModel> LIGHT_BLOCK = (Block block, Material id) -> BLOCK.create(block).add(
 		new TextureMapping().put(TextureSlot.PARTICLE, id).put(KEY_ZERO, id),
 		TextureSlot.PARTICLE, KEY_ZERO
 	)
@@ -633,12 +634,12 @@ class TemplateModel {
 			),
 		))
 	}
-	static BiFunction<Block, Identifier, JsonModel> RESIN_BASIN_BASE = (Block block, Identifier id) -> new JsonModel().id(block).add(
-		new TextureMapping().put(TextureSlot.PARTICLE, id.withSuffix("_sap_flowing"))
-			.put(KEY_ZERO, id.withSuffix("_top"))
-			.put(KEY_ONE, id.withSuffix("_side"))
-			.put(KEY_TWO, id.withSuffix("_bottom"))
-			.put(KEY_THREE, id.withSuffix("_inner"))
+	static BiFunction<Block, Material, JsonModel> RESIN_BASIN_BASE = (Block block, Material id) -> new JsonModel().id(block).add(
+		new TextureMapping().put(TextureSlot.PARTICLE, withSuffix(id, "_sap_flowing"))
+			.put(KEY_ZERO, withSuffix(id, "_top"))
+			.put(KEY_ONE, withSuffix(id, "_side"))
+			.put(KEY_TWO, withSuffix(id, "_bottom"))
+			.put(KEY_THREE, withSuffix(id, "_inner"))
 	)
 	static def RESIN_BASIN_EMPTY = wrapperBlock { block, id ->
 		RESIN_BASIN_BASE.apply(block, id).add(RESIN_BASIN_BASE_ELEMENT).add(RESIN_BASIN_DISPLAY)
@@ -655,7 +656,7 @@ class TemplateModel {
 				Direction.UP, face(TextureSlot.PARTICLE, uvs(0, 6, 3, 16)),
 				Direction.DOWN, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 10)),
 			),
-			new CuboidRotation(new Vector3f(8, 11.25, 14), Direction.Axis.X, -22.5, false),
+			new CuboidRotation(new Vector3f(8, 11.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false),
 			true,
 			0
 		))
@@ -669,7 +670,7 @@ class TemplateModel {
 				Direction.UP, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 0.5)),
 				Direction.DOWN, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 0.5)),
 			),
-			new CuboidRotation(new Vector3f(13, 11, 17), Direction.Axis.X, 0, false),
+			new CuboidRotation(new Vector3f(13, 11, 17), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, 0), false),
 			true,
 			0
 		))
@@ -677,7 +678,7 @@ class TemplateModel {
 	}
 	static def RESIN_BASIN_FULL = wrapperBlock { block, id ->
 		JsonModel model = RESIN_BASIN_BASE.apply(block, id)
-		model.textures = model.textures.copyAndUpdate(KEY_FOUR, id.withSuffix("_sap_still"))
+		model.textures = model.textures.copyAndUpdate(KEY_FOUR, withSuffix(id, "_sap_still"))
 		List<CuboidModelElement> elements = new ArrayList<>(RESIN_BASIN_BASE_ELEMENT)
 		elements.add(new CuboidModelElement(
 			new Vector3f(1, 1, 1), new Vector3f(15, 6, 15),
@@ -689,7 +690,7 @@ class TemplateModel {
 				Direction.UP, face(KEY_FOUR, uvs(1, 1, 15, 15)),
 				Direction.DOWN, face(KEY_FOUR, uvs(0, 0, 14, 14)),
 			),
-			new CuboidRotation(new Vector3f(9, 13, 9), Direction.Axis.Y, 0, false),
+			new CuboidRotation(new Vector3f(9, 13, 9), new CuboidRotation.SingleAxisRotation(Direction.Axis.Y, 0), false),
 			true,
 			0
 		))
@@ -698,32 +699,32 @@ class TemplateModel {
 	static def FISHING_STATION = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(FISHING_STATION_DISPLAY).add(FISHING_STATION_ELEMENTS).add(
 			orientable(
-				TexturePaths.machineTier2Top,
-				TexturePaths.machineTier2Bottom,
-				TexturePaths.machineTier2West,
-				TexturePaths.machineTier2East,
-				TexturePaths.machineTier2Back,
+				new Material(TexturePaths.machineTier2Top),
+				new Material(TexturePaths.machineTier2Bottom),
+				new Material(TexturePaths.machineTier2West),
+				new Material(TexturePaths.machineTier2East),
+				new Material(TexturePaths.machineTier2Back),
 				id,
-			).put(TextureSlot.PARTICLE, TexturePaths.machineTier2Top)
-			.put(KEY_ZERO, id.withSuffix("_net"))
-			.put(KEY_ONE, id.withSuffix("_net_side"))
-			.put(KEY_MISSING, Identifier.withDefaultNamespace("missingno"))
+			).put(TextureSlot.PARTICLE, new Material(TexturePaths.machineTier2Top))
+			.put(KEY_ZERO, withSuffix(id, "_net"))
+			.put(KEY_ONE, withSuffix(id, "_net_side"))
+			.put(KEY_MISSING, new Material(Identifier.withDefaultNamespace("missingno")))
 		)
 	}
 	static def RUBBER_LOG_WITH_SAP = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).suffix("_with_sap").add(orientable(
-			id.withSuffix("_top"),
-			id.withSuffix("_sap"),
+			withSuffix(id, "_top"),
+			withSuffix(id, "_sap"),
 			id,
 		))
 	}
-	static def FLUID = wrapperBlock { block, id ->
-		new JsonModel().id(block).add(TextureMapping.particle(id.withSuffix("_still")))
+	static def FLUID = wrapperBlock { block, material ->
+		new JsonModel().id(block).add(TextureMapping.particle(withSuffix(material, "_still")))
 	}
-	static BiFunction<Block, Identifier, JsonModel> CABLE_CORE_BASE = { Block block, Identifier id ->
+	static BiFunction<Block, Material, JsonModel> CABLE_CORE_BASE = { Block block, Material id ->
 		new JsonModel().id(block).suffix("_core").add(texture(id))
 	}
-	static BiFunction<Block, Identifier, JsonModel> CABLE_SIDE_BASE = { Block block, Identifier id ->
+	static BiFunction<Block, Material, JsonModel> CABLE_SIDE_BASE = { Block block, Material id ->
 		new JsonModel().id(block).suffix("_side").add(texture(id))
 	}
 	static def CABLE_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_CORE_ELEMENT) }
@@ -750,26 +751,26 @@ class TemplateModel {
 	}
 	static Uploadable<Identifier> BUCKET_BASE = { Identifier id ->
 		GENERATED.create(id).suffix("_base").add(CELL_DISPLAY).add(
-			TextureMapping.layer0(id).put(TextureSlot.PARTICLE, id),
+			TextureMapping.layer0(new Material(id)).put(TextureSlot.PARTICLE, new Material(id)),
 			TextureSlot.LAYER0, TextureSlot.PARTICLE
 		)
 	}
 	static Uploadable<Identifier> BUCKET_BACKGROUND = { Identifier id ->
-		BUCKET_TEMPLATE.create(id).suffix("_background").add(TextureMapping.defaultTexture(id), TextureSlot.TEXTURE)
+		BUCKET_TEMPLATE.create(id).suffix("_background").add(TextureMapping.defaultTexture(new Material(id)), TextureSlot.TEXTURE)
 	}
 
-	static TextureMapping orientable(Identifier top, Identifier front, Identifier side) {
+	static TextureMapping orientable(Material top, Material front, Material side) {
 		return new TextureMapping()
 			.put(TextureSlot.TOP, top)
 			.put(TextureSlot.FRONT, front)
 			.put(TextureSlot.SIDE, side)
 	}
 
-	static TextureMapping orientable(Identifier top, Identifier bottom, Identifier side, Identifier front) {
+	static TextureMapping orientable(Material top, Material bottom, Material side, Material front) {
 		return orientable(top, front, side).put(TextureSlot.BOTTOM, bottom)
 	}
 
-	static TextureMapping orientable(Identifier up, Identifier bottom, Identifier west, Identifier east, Identifier south, Identifier front) {
+	static TextureMapping orientable(Material up, Material bottom, Material west, Material east, Material south, Material front) {
 		return new TextureMapping()
 			.put(TextureSlot.UP, up)
 			.put(TextureSlot.BOTTOM, bottom)
@@ -779,14 +780,14 @@ class TemplateModel {
 			.put(TextureSlot.FRONT, front)
 	}
 
-	static TextureMapping cubeBottomTop(Identifier top, Identifier bottom, Identifier side) {
+	static TextureMapping cubeBottomTop(Material top, Material bottom, Material side) {
 		return new TextureMapping()
 			.put(TextureSlot.TOP, top)
 			.put(TextureSlot.BOTTOM, bottom)
 			.put(TextureSlot.SIDE, side)
 	}
 
-	static TextureMapping texture(Identifier id) {
+	static TextureMapping texture(Material id) {
 		return new TextureMapping().put(TextureSlot.TEXTURE, id).put(TextureSlot.PARTICLE, id)
 	}
 
@@ -806,11 +807,15 @@ class TemplateModel {
 		return new ItemTransform(new Vector3f(x1, y1, z1), new Vector3f(x2, y2, z2), new Vector3f(x3, y3, z3))
 	}
 
-	static Uploadable<Block> wrapperBlock(BiFunction<Block, Identifier, JsonModel> fun) {
+	static Uploadable<Block> wrapperBlock(BiFunction<Block, Material, JsonModel> fun) {
 		return (Block block) -> fun.apply(block, TextureMapping.getBlockTexture(block))
 	}
 
-	static Uploadable<Item> wrapperItem(BiFunction<Item, Identifier, JsonModel> fun) {
+	static Uploadable<Item> wrapperItem(BiFunction<Item, Material, JsonModel> fun) {
 		return (Item item) -> fun.apply(item, TextureMapping.getItemTexture(item))
+	}
+
+	static Material withSuffix(Material material, String suffix) {
+		return new Material(material.sprite().withSuffix(suffix), material.forceTranslucent())
 	}
 }
