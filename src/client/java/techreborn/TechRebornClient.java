@@ -47,6 +47,7 @@ import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ActiveProperty;
 import techreborn.client.render.ItemBucketModel;
 import techreborn.client.render.ItemCellModel;
+import techreborn.client.render.MachineCasingModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
@@ -55,19 +56,17 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCellItem;
 
-// TODO 26.1: ModelLoadingPlugin API not available — MachineCasingModel block state resolver not registered
-// import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 
 public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		// TODO 26.1: ModelLoadingPlugin not available — MachineCasingModel block state resolver not registered
-		// ModelLoadingPlugin.register((pluginContext) -> {
-		// 	for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
-		// 		pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
-		// 	}
-		// });
+		 ModelLoadingPlugin.register((pluginContext) -> {
+		 	for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
+		 		pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
+		 	}
+		 });
 
 		ItemModels.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
 		ItemModels.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
