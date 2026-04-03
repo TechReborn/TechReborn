@@ -24,18 +24,17 @@
 
 package reborncore.client.multiblock;
 
+import net.minecraft.client.renderer.block.BlockModelRenderState;
+import net.minecraft.client.renderer.block.BlockModelResolver;
+import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import reborncore.common.blockentity.MultiblockWriter;
+
 import java.util.List;
 import java.util.function.BiPredicate;
-// TODO 26.1: ItemBlockRenderTypes removed - needs replacement
-// import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.block.BlockStateModelSet;
-import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -45,16 +44,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 
 /**
- * Renders a hologram
- * 
- * TODO 26.1: This class needs to be reimplemented for the new rendering architecture
- * - BlockRenderDispatcher was removed
- * - ItemBlockRenderTypes was removed
- * - Block rendering now uses BlockStateModelSet
- * - Need to determine render layer differently (possibly from BlockState directly)
- * - HologramRenderState.Block record is commented out and needs reimplementation
+ * Renders a hologram of a multiblock structure.
  */
-public record HologramRenderer(BlockStateModelSet blockModelSet, ItemModelResolver itemModelResolver, Level view, List<HologramRenderState> states) implements MultiblockWriter {
+public record HologramRenderer(BlockModelResolver blockModelResolver, ItemModelResolver itemModelResolver, Level view, List<HologramRenderState> states) implements MultiblockWriter {
+	private static final BlockDisplayContext BLOCK_DISPLAY_CONTEXT = BlockDisplayContext.create();
+
 	@Override
 	public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
 		if (state.getBlock() instanceof LiquidBlock) {
@@ -63,15 +57,9 @@ public record HologramRenderer(BlockStateModelSet blockModelSet, ItemModelResolv
 			itemModelResolver.updateForTopItem(item, new ItemStack(fluidState.getType().getBucket()), ItemDisplayContext.FIXED, view, null, 0);
 			states.add(new HologramRenderState.FluidItem(x, y, z, item));
 		} else {
-			// TODO 26.1: ItemBlockRenderTypes.getRenderType no longer exists
-			// Need to find new way to get render layer for block state
-			// RenderType layer = ItemBlockRenderTypes.getRenderType(state);
-			
-			// TODO 26.1: getBlockModel and collectParts API changed
-			// List<BlockStateModelPart> parts = blockModelSet.get(state).collectParts(RandomSource.create());
-			
-			// TODO 26.1: HologramRenderState.Block is commented out
-			// states.add(new HologramRenderState.Block(blockModelSet, view, x, y, z, layer, state, parts));
+			BlockModelRenderState blockModelRenderState = new BlockModelRenderState();
+			blockModelResolver.update(blockModelRenderState, state, BLOCK_DISPLAY_CONTEXT);
+			states.add(new HologramRenderState.Block(x, y, z, blockModelRenderState));
 		}
 		return this;
 	}
