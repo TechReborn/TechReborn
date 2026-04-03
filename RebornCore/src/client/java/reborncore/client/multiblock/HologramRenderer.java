@@ -24,14 +24,12 @@
 
 package reborncore.client.multiblock;
 
-import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import reborncore.common.blockentity.MultiblockWriter;
 
-import java.util.List;
 import java.util.function.BiPredicate;
 
 import net.minecraft.core.BlockPos;
@@ -46,20 +44,20 @@ import net.minecraft.world.level.material.FluidState;
 /**
  * Renders a hologram of a multiblock structure.
  */
-public record HologramRenderer(BlockModelResolver blockModelResolver, ItemModelResolver itemModelResolver, Level view, List<HologramRenderState> states) implements MultiblockWriter {
+public record HologramRenderer(BlockModelResolver blockModelResolver, ItemModelResolver itemModelResolver, Level view, MultiblockRenderer.MultiblockRenderState renderState) implements MultiblockWriter {
 	private static final BlockDisplayContext BLOCK_DISPLAY_CONTEXT = BlockDisplayContext.create();
 
 	@Override
 	public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
 		if (state.getBlock() instanceof LiquidBlock) {
 			FluidState fluidState = state.getFluidState();
-			ItemStackRenderState item = new ItemStackRenderState();
+			ItemStackRenderState item = renderState.nextItemStackRenderState();
 			itemModelResolver.updateForTopItem(item, new ItemStack(fluidState.getType().getBucket()), ItemDisplayContext.FIXED, view, null, 0);
-			states.add(new HologramRenderState.FluidItem(x, y, z, item));
+			renderState.states.add(new HologramRenderState.FluidItem(x, y, z, item));
 		} else {
-			BlockModelRenderState blockModelRenderState = new BlockModelRenderState();
+			var blockModelRenderState = renderState.nextBlockModelRenderState();
 			blockModelResolver.update(blockModelRenderState, state, BLOCK_DISPLAY_CONTEXT);
-			states.add(new HologramRenderState.Block(x, y, z, blockModelRenderState));
+			renderState.states.add(new HologramRenderState.Block(x, y, z, blockModelRenderState));
 		}
 		return this;
 	}
