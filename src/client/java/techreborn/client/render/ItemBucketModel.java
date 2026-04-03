@@ -24,7 +24,6 @@
 
 package techreborn.client.render;
 
-import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -61,11 +60,11 @@ public class ItemBucketModel implements ItemModel {
 	public static final Identifier BUCKET_BASE = BUCKET.withSuffix("_base");
 	public static final Identifier BUCKET_BACKGROUND = BUCKET.withSuffix("_background");
 	private final ModelRenderProperties settings;
-	private final Supplier<Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer>> bake;
+	private final Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer> baked;
 
-	public ItemBucketModel(ModelRenderProperties modelSettings, Supplier<Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer>> quadsProvider) {
+	public ItemBucketModel(ModelRenderProperties modelSettings, Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer> baked) {
 		settings = modelSettings;
-		bake = Suppliers.memoize(quadsProvider::get);
+		this.baked = baked;
 	}
 
 	@Override
@@ -80,7 +79,6 @@ public class ItemBucketModel implements ItemModel {
 	) {
 		state.appendModelIdentityElement(this);
 		ItemStackRenderState.LayerRenderState layerRenderState = state.newLayer();
-		Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer> baked = bake.get();
 		layerRenderState.prepareQuadList().addAll(baked.getLeft());
 		layerRenderState.setExtents(baked.getMiddle());
 		int tint = baked.getRight();
@@ -114,18 +112,20 @@ public class ItemBucketModel implements ItemModel {
 			TextureSlots modelTextures = baseModel.getTopTextureSlots();
 			List<BakedQuad> baseQuads = baseModel.bakeTopGeometry(modelTextures, baker, BlockModelRotation.IDENTITY).getAll();
 			ModelRenderProperties modelSettings = ModelRenderProperties.fromResolvedModel(baker, baseModel, modelTextures);
-			return new ItemBucketModel(modelSettings, () -> {
+
+			Pair<TextureAtlasSprite, Integer> pair = ItemCellModel.Unbaked.parseFluid(fluid, baker);
+			Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer> baked;
+			if (pair != null) {
+				List<BakedQuad> list = new ArrayList<>();
+				list.addAll(ItemCellModel.Unbaked.bakeFluidQuads(baker, backgroundModel, pair.getLeft()));
+				list.addAll(ItemCellModel.Unbaked.replaceTint(baseQuads, -1));
+				baked = Triple.of(list, ItemCellModel.Unbaked.bakeVector(list), pair.getRight());
+			} else {
 				List<BakedQuad> list = new ArrayList<>(backgroundQuads);
-				Pair<TextureAtlasSprite, Integer> pair = ItemCellModel.Unbaked.parseFluid(fluid);
-				if (pair != null) {
-					list.addAll(ItemCellModel.Unbaked.bakeFluidQuads(baker, backgroundModel, pair.getLeft()));
-					list.addAll(ItemCellModel.Unbaked.replaceTint(baseQuads, -1));
-					return Triple.of(list, ItemCellModel.Unbaked.bakeVector(list), pair.getRight());
-				} else {
-					list.addAll(baseQuads);
-					return Triple.of(list, ItemCellModel.Unbaked.bakeVector(list), -1);
-				}
-			});
+				list.addAll(baseQuads);
+				baked = Triple.of(list, ItemCellModel.Unbaked.bakeVector(list), -1);
+			}
+			return new ItemBucketModel(modelSettings, baked);
 		}
 
 		@Override
