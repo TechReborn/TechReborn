@@ -142,6 +142,10 @@ public class ModRegistry {
 		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
 		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
 		Arrays.stream(NuclearReactorComponents.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(Cells.values()).forEach(value -> {
+			RebornRegistry.registerItem(value.asItem());
+			value.getCellItem().registerFluidApi();
+		});
 
 		RebornRegistry.registerItem(TRContent.QUANTUM_HELMET = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorType.HELMET, "quantum_helmet"), "quantum_helmet"));
 		RebornRegistry.registerItem(TRContent.QUANTUM_CHESTPLATE = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorType.CHESTPLATE, "quantum_chestplate"), "quantum_chestplate"));
@@ -248,8 +252,6 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.SCRAP_BOX = InitUtils.setup(new ScrapBoxItem("scrap_box"), "scrap_box"));
 		RebornRegistry.registerItem(TRContent.MANUAL = InitUtils.setup(new ManualItem("manual"), "manual"));
 		RebornRegistry.registerItem(TRContent.DEBUG_TOOL = InitUtils.setup(new DebugToolItem("debug_tool"), "debug_tool"));
-		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCellItem("cell"), "cell"));
-		TRContent.CELL.registerFluidApi();
 
 		TechReborn.LOGGER.debug("TechReborn's Items Loaded");
 	}

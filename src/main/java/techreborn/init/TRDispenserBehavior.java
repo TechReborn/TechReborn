@@ -29,7 +29,7 @@ import reborncore.common.fluid.RebornBucketItem;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
-import techreborn.items.DynamicCellItem;
+import techreborn.items.CellItem;
 import techreborn.recipe.recipes.ScrapBoxRecipe;
 
 import java.util.List;
@@ -72,14 +72,14 @@ public class TRDispenserBehavior {
 			});
 		}
 
-		DispenserBlock.registerBehavior(TRContent.CELL, new DefaultDispenseItemBehavior() {
+		DefaultDispenseItemBehavior cellBehavior = new DefaultDispenseItemBehavior() {
 			public ItemStack execute(BlockSource pointer, ItemStack stack) {
-				DynamicCellItem cell = (DynamicCellItem) stack.getItem();
+				CellItem cell = (CellItem) stack.getItem();
 				LevelAccessor iWorld = pointer.level();
 				BlockPos blockPos = pointer.pos().relative(pointer.state().getValue(DispenserBlock.FACING));
 				BlockState blockState = iWorld.getBlockState(blockPos);
 				Block block = blockState.getBlock();
-				if (cell.getFluid(stack) == Fluids.EMPTY) {
+				if (cell.getCellFluid() == Fluids.EMPTY) {
 					// fill cell
 					if (block instanceof BucketPickup) {
 						ItemStack fluidContainer = ((BucketPickup) block).pickupBlock(null, iWorld, blockPos, blockState);
@@ -92,7 +92,7 @@ public class TRDispenserBehavior {
 						if (!(fluid instanceof FlowingFluid)) {
 							return super.execute(pointer, stack);
 						} else {
-							ItemStack filledCell = DynamicCellItem.getCellWithFluid(fluid, 1);
+							ItemStack filledCell = TRContent.Cells.getCellByFluid(fluid).getStack();
 							if (stack.getCount() == 1) {
 								stack = filledCell;
 							} else {
@@ -122,7 +122,11 @@ public class TRDispenserBehavior {
 					return stack;
 				}
 			}
-		});
+		};
+
+		for (TRContent.Cells cell : TRContent.Cells.values()) {
+			DispenserBlock.registerBehavior(cell.asItem(), cellBehavior);
+		}
 
 		for (ModFluids fluid : ModFluids.values()) {
 			DispenserBlock.registerBehavior(fluid, new DefaultDispenseItemBehavior() {

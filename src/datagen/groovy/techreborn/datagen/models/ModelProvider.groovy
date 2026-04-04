@@ -572,11 +572,14 @@ class ModelProvider extends FabricModelProvider {
 				ItemModelUtils.when(PowerType.LOW, ItemModelUtils.plainModel(low)),
 			))
 		}
-		def toCell = { Item item ->
+		def toCell = { TRContent.Cells cell ->
+			def item = cell.asItem()
 			generator.itemModelOutput.accept(item, new ItemCellModel.Unbaked())
-			TemplateModel.CELL_BASE.upload(item)
-			TemplateModel.CELL_BACKGROUND.upload(item)
-			TemplateModel.CELL_GLASS.upload(item)
+			if (cell == TRContent.Cells.EMPTY) {
+				TemplateModel.CELL_BASE.upload(item)
+				TemplateModel.CELL_BACKGROUND.upload(item)
+				TemplateModel.CELL_GLASS.upload(item)
+			}
 		}
 		def toFluidBucket = { ModFluids modFluids ->
 			generator.itemModelOutput.accept(modFluids.bucket, new ItemBucketModel.Unbaked(modFluids.fluid))
@@ -689,7 +692,7 @@ class ModelProvider extends FabricModelProvider {
 			TRContent.FREQUENCY_TRANSMITTER,
 		), toEnergyItem
 		add TRContent.NANOSABER, toNanosaber
-		add TRContent.CELL, toCell
+		add TRContent.Cells, toCell
 		add ModFluids, toFluidBucket
 		add ItemBucketModel.BUCKET, toBucket
 	}

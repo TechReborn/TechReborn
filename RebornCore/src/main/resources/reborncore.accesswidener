@@ -35,3 +35,5 @@ accessible method net/minecraft/server/level/TicketType register (Ljava/lang/Str
 accessible field net/minecraft/client/gui/render/pip/PictureInPictureRenderer textureView Lcom/mojang/blaze3d/textures/GpuTextureView;
 
 accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
+
+accessible field net/minecraft/data/worldgen/biome/OverworldBiomes NORMAL_WATER_COLOR I

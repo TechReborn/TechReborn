@@ -33,8 +33,6 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantItemStorage
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -48,7 +46,6 @@ import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -62,57 +59,33 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.ItemFluidInfo;
-import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
 import techreborn.init.TRItemSettings;
 
+public class CellItem extends Item implements ItemFluidInfo {
 
-/**
- * Created by modmuss50 on 17/05/2016.
- */
-public class DynamicCellItem extends Item implements ItemFluidInfo {
+	private final Fluid fluid;
 
-	public DynamicCellItem(String name) {
-		super(TRItemSettings.item(name).stacksTo(16).component(TRDataComponentTypes.FLUID, Fluids.EMPTY.builtInRegistryHolder()));
+	public CellItem(String name, Fluid fluid) {
+		super(TRItemSettings.item(name).stacksTo(16));
+		this.fluid = fluid;
 	}
 
-	// Thanks vanilla :)
+	public Fluid getCellFluid() {
+		return fluid;
+	}
+
+	public boolean isEmpty() {
+		return fluid == Fluids.EMPTY;
+	}
+
 	@SuppressWarnings("deprecation")
 	private void playEmptyingSound(@Nullable Player playerEntity, LevelAccessor world, BlockPos blockPos, Fluid fluid) {
 		SoundEvent soundEvent = fluid.is(FluidTags.LAVA) ? SoundEvents.BUCKET_EMPTY_LAVA : SoundEvents.BUCKET_EMPTY;
 		world.playSound(playerEntity, blockPos, soundEvent, SoundSource.BLOCKS, 1.0F, 1.0F);
-	}
-
-	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
-		Validate.notNull(fluid, "Can't get cell with NULL fluid");
-		ItemStack stack = new ItemStack(TRContent.CELL, stackSize);
-		stack.set(TRDataComponentTypes.FLUID, fluid.builtInRegistryHolder());
-		stack.setCount(stackSize);
-		return stack;
-	}
-
-	public static ItemStack getCellWithFluid(Fluid fluid) {
-		return getCellWithFluid(fluid, 1);
-	}
-
-	public static ItemStackTemplate getTempalteCellWithFluid(Fluid fluid, int stackSize) {
-		Validate.notNull(fluid, "Can't get cell with NULL fluid");
-		ItemStackTemplate template = new ItemStackTemplate(TRContent.CELL.builtInRegistryHolder(), stackSize, DataComponentPatch.builder()
-			.set(TRDataComponentTypes.FLUID, fluid.builtInRegistryHolder())
-			.build());
-		return template;
-	}
-
-	public static ItemStackTemplate getTempalteCellWithFluid(Fluid fluid) {
-		return getTempalteCellWithFluid(fluid, 1);
-	}
-
-	public static ItemStack getEmptyCell(int amount) {
-		return new ItemStack(TRContent.CELL, amount);
 	}
 
 	private void insertOrDropStack(Player playerEntity, ServerLevel world, ItemStack stack) {
@@ -122,7 +95,6 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	}
 
 	public boolean placeFluid(@Nullable Player player, Level world, BlockPos pos, @Nullable BlockHitResult hitResult, ItemStack filledCell) {
-		Fluid fluid = getFluid(filledCell);
 		if (fluid == Fluids.EMPTY) {
 			return false;
 		}
@@ -133,8 +105,9 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof LiquidBlockContainer) || !((LiquidBlockContainer) blockState.getBlock()).canPlaceLiquid(player, world, pos, blockState, fluid))) {
 			return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().relative(hitResult.getDirection()), null, filledCell);
 		} else {
-			//noinspection deprecation
-			if (world.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos) && fluid.is(FluidTags.WATER)) {
+			@SuppressWarnings("deprecation")
+			boolean evaporates = world.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos) && fluid.is(FluidTags.WATER);
+			if (evaporates) {
 				int i = pos.getX();
 				int j = pos.getY();
 				int k = pos.getZ();
@@ -148,7 +121,6 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 					this.playEmptyingSound(player, world, pos, fluid);
 				}
 			} else {
-				//noinspection deprecation
 				if (!world.isClientSide() && canPlace && !blockState.liquid()) {
 					world.destroyBlock(pos, true);
 				}
@@ -162,9 +134,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	@Override
 	public Component getName(ItemStack itemStack) {
-		Fluid fluid = getFluid(itemStack);
 		if (fluid != Fluids.EMPTY) {
-			// TODO use translation keys for fluid and the cell https://fabric.asie.pl/wiki/tutorial:lang?s[]=translation might be useful
 			return Component.literal(Component.translatable("item.techreborn.cell.fluid").getString().replace("$fluid$", FluidUtils.getFluidName(fluid)));
 		}
 		return super.getName(itemStack);
@@ -173,10 +143,9 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	@Override
 	public InteractionResult use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		Fluid containedFluid = getFluid(stack);
 
-		BlockHitResult hitResult = getPlayerPOVHitResult(world, player, containedFluid == Fluids.EMPTY ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
-			if (hitResult.getType() == HitResult.Type.MISS || !(containedFluid instanceof FlowingFluid || Fluids.EMPTY == containedFluid)) {
+		BlockHitResult hitResult = getPlayerPOVHitResult(world, player, fluid == Fluids.EMPTY ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
+		if (hitResult.getType() == HitResult.Type.MISS || !(fluid instanceof FlowingFluid || Fluids.EMPTY == fluid)) {
 			return InteractionResult.PASS;
 		}
 		if (hitResult.getType() != HitResult.Type.BLOCK) {
@@ -196,19 +165,17 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 		BlockState hitState = world.getBlockState(hitPos);
 
-		if (containedFluid == Fluids.EMPTY) {
+		if (fluid == Fluids.EMPTY) {
 			if (!(hitState.getBlock() instanceof BucketPickup fluidDrainable)) {
 				return InteractionResult.FAIL;
 			}
-			// This will give us bucket, not a cell
 			ItemStack itemStack = fluidDrainable.pickupBlock(player, world, hitPos, hitState);
 			if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemFluidInfo) {
 				Fluid drainFluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack);
 				fluidDrainable.getPickupSound().ifPresent((sound) -> player.playSound(sound, 1.0F, 1.0F));
 				world.gameEvent(player, GameEvent.FLUID_PICKUP, hitPos);
-				// Replace bucket item with cell item
-				itemStack = getCellWithFluid(drainFluid, 1);
-				ItemStack resultStack = ItemUtils.createFilledResult(stack, player, itemStack, false);
+				ItemStack filledCell = TRContent.Cells.getCellByFluid(drainFluid).getStack();
+				ItemStack resultStack = ItemUtils.createFilledResult(stack, player, filledCell, false);
 				if (resultStack == stack) {
 					return InteractionResult.SUCCESS;
 				} else {
@@ -218,7 +185,6 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		} else {
 			placePos = hitState.getBlock() instanceof LiquidBlockContainer ? hitPos : placePos;
 			if (this.placeFluid(player, world, placePos, hitResult, stack)) {
-
 				if (player.getAbilities().instabuild) {
 					return InteractionResult.SUCCESS;
 				}
@@ -242,18 +208,17 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	// ItemFluidInfo
 	@Override
 	public ItemStack getEmpty() {
-		return new ItemStack(this);
+		return new ItemStack(TRContent.Cells.EMPTY.asItem());
 	}
 
 	@Override
 	public ItemStack getFull(Fluid fluid) {
-		return getCellWithFluid(fluid);
+		return TRContent.Cells.getCellByFluid(fluid).getStack();
 	}
 
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
-		Holder<Fluid> fluidEntry = itemStack.getOrDefault(TRDataComponentTypes.FLUID, Fluids.EMPTY.builtInRegistryHolder());
-		return fluidEntry.value();
+		return fluid;
 	}
 
 	public void registerFluidApi() {
@@ -272,18 +237,15 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 		@Override
 		protected FluidVariant getResource(ItemVariant currentVariant) {
-			Holder<Fluid> fluidHolder = currentVariant.getComponents().get(TRDataComponentTypes.FLUID);
-
-			if (fluidHolder != null) {
-				return FluidVariant.of(fluidHolder.value());
+			if (fluid != Fluids.EMPTY) {
+				return FluidVariant.of(fluid);
 			}
-
 			return FluidVariant.of(Fluids.EMPTY);
 		}
 
 		@Override
 		protected long getAmount(ItemVariant currentVariant) {
-			return getResource(currentVariant).isBlank() ? 0 : FluidConstants.BUCKET;
+			return fluid == Fluids.EMPTY ? 0 : FluidConstants.BUCKET;
 		}
 
 		@Override
@@ -296,15 +258,13 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 			if (newAmount != 0 && newAmount != FluidConstants.BUCKET) {
 				throw new IllegalArgumentException("Only amounts of 0 and 1 bucket are supported! This is a bug!");
 			}
-			// TODO: this is not ideal since we delete any extra NBT, but it probably doesn't matter in practice?
 			if (newResource.isBlank() || newAmount == 0) {
-				return ItemVariant.of(DynamicCellItem.this);
+				return ItemVariant.of(TRContent.Cells.EMPTY.asItem());
 			} else {
-				return ItemVariant.of(getCellWithFluid(newResource.getFluid()));
+				return ItemVariant.of(TRContent.Cells.getCellByFluid(newResource.getFluid()).asItem());
 			}
 		}
 
-		// A few "hacks" to ensure that transfer is always exactly 0 or 1 bucket.
 		@Override
 		public long insert(FluidVariant insertedResource, long maxAmount, TransactionContext transaction) {
 			if (isResourceBlank() && maxAmount >= FluidConstants.BUCKET) {
