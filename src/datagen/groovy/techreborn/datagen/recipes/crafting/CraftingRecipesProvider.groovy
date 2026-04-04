@@ -192,56 +192,56 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		String dir
 		// dusts
 		dir = rootDir + "dust/"
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.ALUMINUM)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Dusts.ALUMINUM, 'U' as char)
 			.pattern("UUU")
 			.pattern("U  ")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.ALUMINUM)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.CHROME)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Dusts.CHROME, 'U' as char)
 			.pattern("UUU")
 			.pattern("UU ")
 			.pattern(" U ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.CHROME)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.PLATINUM)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Dusts.PLATINUM, 'U' as char)
 			.pattern("UUU")
 			.pattern("UU ")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.PLATINUM)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.TITANIUM)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Dusts.TITANIUM, 'U' as char)
 			.pattern("UUU")
 			.pattern("U U")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.TITANIUM)))
 		// nuggets
 		dir = rootDir + "nugget/"
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Nuggets.NETHERITE)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Nuggets.NETHERITE, 'U' as char)
 			.pattern("UUU")
 			.pattern("UUU")
 			.pattern("UU ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Nuggets.NETHERITE)))
 		// raw ores
 		dir = rootDir + "raw/"
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, Items.RAW_COPPER)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, Items.RAW_COPPER, 'U' as char)
 			.pattern("U  ")
 			.pattern("   ")
 			.pattern(" U ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.RAW_COPPER)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.LEAD)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.RawMetals.LEAD, 'U' as char)
 			.pattern("   ")
 			.pattern("U  ")
 			.pattern("U  ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.LEAD)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.TIN)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.RawMetals.TIN, 'U' as char)
 			.pattern("   ")
 			.pattern(" U ")
 			.pattern("  U")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TIN)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.TUNGSTEN)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.RawMetals.TUNGSTEN, 'U' as char)
 			.pattern("UUU")
 			.pattern("UUU")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TUNGSTEN)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.URANIUM)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.RawMetals.URANIUM, 'U' as char)
 			.pattern("UUU")
 			.pattern("U  ")
 			.pattern("  U")
@@ -433,11 +433,4 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	// TODO 26.1 fix the padding, use an empty ingredient
-	def createPureUuMatterPaddedRecipe(RecipeCategory category, ItemLike output) {
-		var input = TRContent.Parts.UU_MATTER
-		return ShapedRecipeBuilder.shaped(itemLookup, category, output, 1)
-			.define('U' as char, createIngredient(input))
-			.unlockedBy(getCriterionName(input), getCriterionConditions(input))
-	}
 }
