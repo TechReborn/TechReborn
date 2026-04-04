@@ -10,26 +10,6 @@ plugins {
     id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
 }
 
-repositories {
-	maven {
-        name "REI"
-		url "https://maven.shedaniel.me/"
-        content {
-            includeGroup "me.shedaniel"
-            includeGroup "me.shedaniel.cloth"
-            includeGroup "dev.architectury"
-        }
-	}
-    maven {
-        name "Ladysnake Mods"
-        url "https://maven.ladysnake.org/releases"
-        content {
-            includeGroup "io.github.ladysnake"
-        }
-    }
-	mavenCentral()
-}
-
 def ENV = System.getenv()
 
 group = 'TechReborn'
@@ -183,10 +163,6 @@ dependencies {
 
     include project(":RebornCore")
 
-    // TODO: REI and PAL compat
-    // optionalREIDependency(false)
-    // optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
-
     // Use groovy for datagen, if you are copying this you prob dont want it.
     datagenImplementation 'org.apache.groovy:groovy:5.0.3'
 }
@@ -199,19 +175,6 @@ def optionalDependency(String dep) {
     dependencies.compileOnly(dep, exclude)
 }
 
-def optionalREIDependency(runtime = true) {
-	def exclude = {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude group: "net.fabricmc"
-	}
-	String dep = "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-	dependencies.clientCompileOnly(dep, exclude)
-	dependencies.compileOnly(dep, exclude)
-
-	if (runtime) {
-		dependencies.clientRuntimeOnly(dep, exclude)
-	}
-}
 
 // TODO: Datagen
 // tasks.sourcesJar.dependsOn runDatagen
@@ -261,9 +224,6 @@ publishMods {
 
         embeds {
             slug = "reborncore"
-        }
-        optional {
-            slug = "roughly-enough-items"
         }
     }
 
