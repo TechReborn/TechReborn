@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
@@ -68,8 +68,8 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, final float partialTicks, final int mouseX, final int mouseY) {
-		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float partialTicks) {
+		super.extractBackground(drawContext, mouseX, mouseY, partialTicks);
 		final Layer layer = Layer.BACKGROUND;
 
 		if (hideGuiElements()) return;
@@ -91,8 +91,8 @@ public class GuiPump extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawTank(drawContext, this, 33, 25, mouseX, mouseY, blockEntity.getTank().getFluidInstance(), blockEntity.getTank().getFluidValueCapacity(), blockEntity.getTank().isEmpty(), layer);

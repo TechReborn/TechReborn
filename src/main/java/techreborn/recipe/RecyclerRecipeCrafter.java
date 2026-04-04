@@ -87,7 +87,7 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 	@Override
 	public void fitStack(ItemStack stack, int slot) {
 		final Level world = Objects.requireNonNull(blockEntity.getLevel());
-		final RandomSource random = world.random;
+		final RandomSource random = world.getRandom();
 
 		final int randomChance = random.nextInt(TechRebornConfig.recyclerChance);
 		if (randomChance == 0) {

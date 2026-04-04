@@ -26,6 +26,7 @@ package techreborn.recipe.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.item.ItemStackTemplate;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeInput;
 import reborncore.common.crafting.SizedIngredient;
@@ -33,14 +34,12 @@ import reborncore.common.crafting.SizedIngredient;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.PlacementInfo;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
@@ -48,27 +47,28 @@ public record RollingMachineRecipe(RecipeType<? extends RollingMachineRecipe> ty
 	public static Function<RecipeType<RollingMachineRecipe>, MapCodec<RollingMachineRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		ExtraCodecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
 		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
-		RecipeSerializer.SHAPED_RECIPE.codec().forGetter(RollingMachineRecipe::getShapedRecipe)
+		ShapedRecipe.SERIALIZER.codec().forGetter(RollingMachineRecipe::getShapedRecipe)
 	).apply(instance, (power, time, shaped) -> new RollingMachineRecipe(type, power, time, shaped)));
 	public static Function<RecipeType<RollingMachineRecipe>, StreamCodec<RegistryFriendlyByteBuf, RollingMachineRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
 		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
-		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
 		ByteBufCodecs.INT, RebornRecipe::power,
 		ByteBufCodecs.INT, RebornRecipe::time,
-		RecipeSerializer.SHAPED_RECIPE.streamCodec(), RollingMachineRecipe::getShapedRecipe,
+		ShapedRecipe.SERIALIZER.streamCodec(), RollingMachineRecipe::getShapedRecipe,
 		(ingredients, outputs, power, time, shaped) -> new RollingMachineRecipe(type, power, time, shaped)
 	);
 
 	@Override
-	public List<ItemStack> outputs() {
+	public List<ItemStackTemplate> outputs() {
 		// Input does not affect the result
-		return Collections.singletonList(shapedRecipe.assemble(null, null));
+		ItemStack stack = shapedRecipe.assemble(null);
+		return Collections.singletonList(new ItemStackTemplate(stack.getItem().builtInRegistryHolder(), stack.getCount(), stack.getComponentsPatch()));
 	}
 
 	@Override
-	public ItemStack assemble(RebornRecipeInput inventory, HolderLookup.Provider lookup) {
+	public ItemStack assemble(RebornRecipeInput inventory) {
 		// Input does not affect the result
-		return shapedRecipe.assemble(null, lookup);
+		return shapedRecipe.assemble(null);
 	}
 
 	@Override

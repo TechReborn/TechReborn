@@ -156,9 +156,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (lastRecipe != null && lastRecipe.matches(input, world)) {
 			if (outputPreview == ItemStack.EMPTY) {
 				balanceTable.updateLayout(input);
-				outputPreview = lastRecipe.assemble(input, world.registryAccess());
+				outputPreview = lastRecipe.assemble(input);
 			} else if (lastRecipe instanceof CustomRecipe && balanceTable.updateLayout(input)) {
-				outputPreview = lastRecipe.assemble(input, world.registryAccess());
+				outputPreview = lastRecipe.assemble(input);
 			}
 			return true;
 		}
@@ -168,7 +168,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 				.getRecipeFor(RecipeType.CRAFTING, input, world).map(RecipeHolder::value);
 			if (testRecipe.isPresent()) {
 				lastRecipe = testRecipe.get();
-				outputPreview = lastRecipe.assemble(input, world.registryAccess());
+				outputPreview = lastRecipe.assemble(input);
 				return true;
 			} else {
 				outputPreview = ItemStack.EMPTY;

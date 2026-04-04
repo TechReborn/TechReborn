@@ -40,6 +40,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -48,10 +49,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 /**
  * @author drcrazy
  */
-public record FusionReactorRecipe(RecipeType<? extends FusionReactorRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time, int startE, int minSize) implements RebornRecipe {
+public record FusionReactorRecipe(RecipeType<? extends FusionReactorRecipe> type, List<SizedIngredient> ingredients, List<ItemStackTemplate> outputs, int power, int time, int startE, int minSize) implements RebornRecipe {
 	public static Function<RecipeType<FusionReactorRecipe>, MapCodec<FusionReactorRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
-		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
+		Codec.list(ItemStackTemplate.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
 		Codec.INT.fieldOf("power").forGetter(RebornRecipe::power),
 		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time),
 		Codec.INT.fieldOf("startEnergy").forGetter(FusionReactorRecipe::getStartEnergy),
@@ -59,7 +60,7 @@ public record FusionReactorRecipe(RecipeType<? extends FusionReactorRecipe> type
 	).apply(instance, (ingredients, outputs, power, time, startE, minSize) -> new FusionReactorRecipe(type, ingredients, outputs, power, time, startE, minSize)));
 	public static Function<RecipeType<FusionReactorRecipe>, StreamCodec<RegistryFriendlyByteBuf, FusionReactorRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
 		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
-		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
 		ByteBufCodecs.INT, RebornRecipe::power,
 		ByteBufCodecs.INT, RebornRecipe::time,
 		ByteBufCodecs.INT, FusionReactorRecipe::getStartEnergy,
@@ -70,7 +71,7 @@ public record FusionReactorRecipe(RecipeType<? extends FusionReactorRecipe> type
 	@Override
 	public List<RecipeDisplay> display() {
 		ItemStack stack = new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER);
-		return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(stack)));
+		return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(stack))));
 	}
 
 	public int getStartEnergy() {

@@ -24,12 +24,12 @@
 
 package techreborn.datagen.tags
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.ItemTagProvider
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
-import net.minecraft.world.item.Items
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.ItemTags
+import net.minecraft.world.item.Items
 import reborncore.common.misc.RebornCoreTags
 import techreborn.datagen.TRConventionalTags
 import techreborn.init.ModFluids
@@ -37,8 +37,8 @@ import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
 
-class TRItemTagProvider extends ItemTagProvider {
-	TRItemTagProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+class TRItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
+	TRItemTagProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(dataOutput, registriesFuture)
 	}
 
@@ -239,7 +239,7 @@ class TRItemTagProvider extends ItemTagProvider {
 		valueLookupBuilder(ItemTags.MINING_LOOT_ENCHANTABLE)
 			.add(TRContent.OMNI_TOOL)
 
-		valueLookupBuilder(ItemTags.SWORD_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.WEAPON_ENCHANTABLE)
 			.add(TRContent.OMNI_TOOL)
 
 		valueLookupBuilder(TRConventionalTags.FROGLIGHTS)

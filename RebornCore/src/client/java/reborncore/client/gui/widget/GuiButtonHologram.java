@@ -24,7 +24,7 @@
 
 package reborncore.client.gui.widget;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
@@ -34,7 +34,7 @@ public class GuiButtonHologram extends GuiButtonExtended {
 	}
 
 	@Override
-	protected void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
+	public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
 
 	}
 }

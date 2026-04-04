@@ -25,7 +25,7 @@
 package reborncore.client.gui.config;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -57,7 +57,7 @@ public class RedstoneConfigGui extends GuiTab {
 	}
 
 	@Override
-	public void draw(GuiGraphics drawContext, int mouseX, int mouseY) {
+	public void draw(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		if (guiBase.getMachine() == null) return;
 		RedstoneConfiguration configuration = guiBase.getMachine().getRedstoneConfiguration();
 		List<RedstoneConfiguration.Element> elements = guiBase.getMachine().getRedstoneElements();
@@ -68,8 +68,8 @@ public class RedstoneConfigGui extends GuiTab {
 		int i = 0;
 		int spread = elements.size() == 3 ? 27 : 18;
 		for (RedstoneConfiguration.Element element : elements) {
-			drawContext.renderItem(element.icon().get(), x - 3, y + (i * spread) - 5);
-			drawContext.drawString(guiBase.getFont(), Component.translatable("reborncore.gui.fluidconfig." + element.name()), x + 15, y + (i * spread), -1, false);
+			drawContext.item(element.icon().get(), x - 3, y + (i * spread) - 5);
+			drawContext.text(guiBase.getFont(), Component.translatable("reborncore.gui.fluidconfig." + element.name()), x + 15, y + (i * spread), -1, false);
 
 			boolean hovered = withinBounds(guiBase, mouseX, mouseY, x + 92, y + (i * spread) - 2, 63, 15);
 			int color = hovered ? 0xFF8b8b8b : 0x668b8b8b;

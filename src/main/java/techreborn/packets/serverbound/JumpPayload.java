@@ -28,12 +28,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
 public record JumpPayload (BlockPos pos) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<JumpPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "jump"));
+	public static final CustomPacketPayload.Type<JumpPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "jump"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, JumpPayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, JumpPayload::pos,
 		JumpPayload::new

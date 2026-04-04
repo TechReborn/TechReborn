@@ -26,6 +26,7 @@ package techreborn.blockentity.storage.energy.idsu;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -41,7 +42,7 @@ import java.util.List;
 
 public class IDSUManager extends SavedData {
 	public static Codec<IDSUManager> CODEC = Codec.list(IDSUPlayer.CODEC).xmap(IDSUManager::fromIDSUPlayers, IDSUManager::getPlayers);
-	private static final SavedDataType<IDSUManager> TYPE = new SavedDataType<>("techreborn_idsu", IDSUManager::new, CODEC, null);
+	private static final SavedDataType<IDSUManager> TYPE = new SavedDataType<>(Identifier.fromNamespaceAndPath("techreborn", "idsu"), IDSUManager::new, CODEC, null);
 	private static final String KEY = "techreborn_idsu";
 
 	private IDSUManager() {

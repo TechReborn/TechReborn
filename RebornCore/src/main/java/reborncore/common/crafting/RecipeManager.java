@@ -25,23 +25,25 @@
 package reborncore.common.crafting;
 
 import com.mojang.serialization.MapCodec;
-import java.util.List;
-import java.util.function.Function;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import java.util.List;
+import java.util.function.Function;
+
 public class RecipeManager {
-	public static RecipeType<RebornRecipe> newRecipeType(ResourceLocation name) {
+	public static RecipeType<RebornRecipe> newRecipeType(Identifier name) {
 		return newRecipeType(name, RebornRecipe.CODEC, RebornRecipe.PACKET_CODEC);
 	}
 
-	public static <R extends RebornRecipe> RecipeType<R> newRecipeType(ResourceLocation name, Function<RecipeType<R>, MapCodec<R>> codec, Function<RecipeType<R>, StreamCodec<RegistryFriendlyByteBuf, R>> packetCodec) {
+	public static <R extends RebornRecipe> RecipeType<R> newRecipeType(Identifier name, Function<RecipeType<R>, MapCodec<R>> codec, Function<RecipeType<R>, StreamCodec<RegistryFriendlyByteBuf, R>> packetCodec) {
 		RecipeType<R> type = new RecipeType<R>() {
 			@Override
 			public String toString() {
@@ -50,9 +52,9 @@ public class RecipeManager {
 		};
 		Registry.register(BuiltInRegistries.RECIPE_TYPE, name, type);
 
-		record Serializer<R extends RebornRecipe>(MapCodec<R> codec, StreamCodec<RegistryFriendlyByteBuf, R> streamCodec) implements RecipeSerializer<R> {}
-		Serializer<R> serializer = new Serializer<>(codec.apply(type), packetCodec.apply(type));
+		RecipeSerializer<R> serializer = new RecipeSerializer<>(codec.apply(type), packetCodec.apply(type));
 		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, name, serializer);
+		RecipeSynchronization.synchronizeRecipeSerializer(serializer);
 
 		return type;
 	}
@@ -60,8 +62,8 @@ public class RecipeManager {
 	public static List<RecipeType<?>> getRecipeTypes(String namespace) {
 		//noinspection unchecked
 		return BuiltInRegistries.RECIPE_TYPE.registryKeySet().stream()
-			.filter(key -> key.location().getNamespace().startsWith(namespace))
-			.map((Function<ResourceKey<RecipeType<?>>, RecipeType<?>>) key -> BuiltInRegistries.RECIPE_TYPE.getValue(key.location()))
+			.filter(key -> key.identifier().getNamespace().startsWith(namespace))
+			.map((Function<ResourceKey<RecipeType<?>>, RecipeType<?>>) key -> BuiltInRegistries.RECIPE_TYPE.getValue(key.identifier()))
 			.toList();
 	}
 }

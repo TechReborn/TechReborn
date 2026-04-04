@@ -27,14 +27,14 @@ package reborncore.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.resources.model.sprite.SpriteId;
+import net.minecraft.resources.Identifier;
 
 /**
  * Created by Gigabit101 on 08/08/2016.
  */
 public class RenderUtil {
-	public static TextureAtlasSprite getSprite(ResourceLocation identifier) {
-		return Minecraft.getInstance().getAtlasManager().get(new Material(TextureAtlas.LOCATION_BLOCKS, identifier));
+	public static TextureAtlasSprite getSprite(Identifier identifier) {
+		return Minecraft.getInstance().getAtlasManager().get(new SpriteId(TextureAtlas.LOCATION_BLOCKS, identifier));
 	}
 }

@@ -27,7 +27,7 @@ package techreborn.events;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
@@ -74,9 +74,11 @@ public class ModRegistry {
 		registerFluids();
 		registerSounds();
 		registerApis();
+		/* TODO: Villager trading
 		TRVillager.registerVillagerTrades();
 		TRVillager.registerWanderingTraderTrades();
 		TRVillager.registerVillagerHouses();
+		*/
 	}
 
 	private static void registerBlocks() {
@@ -120,12 +122,12 @@ public class ModRegistry {
 	}
 
 	private static Item.Properties settings(Block block) {
-		return settings(block.properties().id.location().getPath());
+		return settings(block.properties().id.identifier().getPath());
 	}
 
 	private static Item.Properties settings(String name) {
 		return TRItemSettings.item(name)
-			.setId(ResourceKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name)))
+			.setId(ResourceKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name)))
 			.overrideDescription("block.techreborn." + name);
 	}
 
@@ -140,6 +142,10 @@ public class ModRegistry {
 		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
 		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
 		Arrays.stream(NuclearReactorComponents.values()).forEach(value -> RebornRegistry.registerItem(value.asItem()));
+		Arrays.stream(Cells.values()).forEach(value -> {
+			RebornRegistry.registerItem(value.asItem());
+			value.getCellItem().registerFluidApi();
+		});
 
 		RebornRegistry.registerItem(TRContent.QUANTUM_HELMET = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorType.HELMET, "quantum_helmet"), "quantum_helmet"));
 		RebornRegistry.registerItem(TRContent.QUANTUM_CHESTPLATE = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, ArmorType.CHESTPLATE, "quantum_chestplate"), "quantum_chestplate"));
@@ -246,8 +252,6 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.SCRAP_BOX = InitUtils.setup(new ScrapBoxItem("scrap_box"), "scrap_box"));
 		RebornRegistry.registerItem(TRContent.MANUAL = InitUtils.setup(new ManualItem("manual"), "manual"));
 		RebornRegistry.registerItem(TRContent.DEBUG_TOOL = InitUtils.setup(new DebugToolItem("debug_tool"), "debug_tool"));
-		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCellItem("cell"), "cell"));
-		TRContent.CELL.registerFluidApi();
 
 		TechReborn.LOGGER.debug("TechReborn's Items Loaded");
 	}

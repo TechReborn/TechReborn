@@ -14,17 +14,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "techreborn.TechReborn",
-      "techreborn.compat.pal.PlayerAbilityLibCompat"
+      "techreborn.TechReborn"
     ],
     "client": [
       "techreborn.TechRebornClient"
     ],
-    "rei_client": [
-		"techreborn.client.compat.rei.ReiPlugin"
-    ],
-    "rei_common": [
-		"techreborn.compat.rei.ReiCommonPlugin"
+    "jei_mod_plugin": [
+		"techreborn.client.compat.jei.JEIPlugin"
     ]
   },
   "custom": {
@@ -34,12 +30,11 @@
 	]
   },
   "depends": {
-    "fabricloader": ">=0.17.3",
+    "fabricloader": ">=0.18.4",
 	"fabric-api": ">=0.138.3+1.21.10",
     "reborncore": "*",
-	"team_reborn_energy": ">=4.2.0",
-	"fabric-biome-api-v1": ">=16.0.10",
-  	"minecraft": ">=1.21.10- <1.21.11-"
+	"team_reborn_energy": ">=5.0.0",
+  	"minecraft": "~26.1-"
   },
   "accessWidener": "techreborn.accesswidener",
   "authors": [

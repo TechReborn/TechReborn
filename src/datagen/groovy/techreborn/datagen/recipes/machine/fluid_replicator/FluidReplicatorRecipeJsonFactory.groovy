@@ -25,7 +25,7 @@
 package techreborn.datagen.recipes.machine.fluid_replicator
 
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import reborncore.common.fluid.FluidValue
 import reborncore.common.fluid.container.FluidInstance
 import techreborn.recipe.recipes.FluidReplicatorRecipe
@@ -58,6 +58,6 @@ class FluidReplicatorRecipeJsonFactory extends MachineRecipeWithFluidJsonFactory
 	def getIdentifier() {
 		def outputId = BuiltInRegistries.FLUID.getKey(fluid)
 		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
-		return ResourceLocation.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
+		return Identifier.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 }

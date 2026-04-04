@@ -163,13 +163,13 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		boolean canSmelt = canSmelt();
 		if (!isBurning && canSmelt) {
 			burnTime = totalBurnTime = getItemBurnTime(inventory.getItem(fuelSlot));
-			if (burnTime > 0) {
-				// Fuel slot
-				ItemStack fuelStack = inventory.getItem(fuelSlot);
-				ItemStack remainderStack = fuelStack.getItem().getCraftingRemainder();
-				if (!remainderStack.isEmpty()) {
-					inventory.setItem(fuelSlot, remainderStack);
-				} else if (fuelStack.getCount() > 1) {
+		if (burnTime > 0) {
+			// Fuel slot
+			ItemStack fuelStack = inventory.getItem(fuelSlot);
+			ItemStack remainderStack = fuelStack.getItem().getCraftingRemainder().create();
+			if (!remainderStack.isEmpty()) {
+				inventory.setItem(fuelSlot, remainderStack);
+			} else if (fuelStack.getCount() > 1) {
 					inventory.shrinkSlot(fuelSlot, 1);
 				} else if (fuelStack.getCount() == 1) {
 					inventory.setItem(fuelSlot, ItemStack.EMPTY);

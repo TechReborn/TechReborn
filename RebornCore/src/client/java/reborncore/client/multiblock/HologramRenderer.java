@@ -24,17 +24,15 @@
 
 package reborncore.client.multiblock;
 
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.BlockModelResolver;
+import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import reborncore.common.blockentity.MultiblockWriter;
-import java.util.List;
+
 import java.util.function.BiPredicate;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -44,20 +42,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 
 /**
- * Renders a hologram
+ * Renders a hologram of a multiblock structure.
  */
-public record HologramRenderer(BlockRenderDispatcher blockRenderManager, ItemModelResolver itemModelResolver, Level view, List<HologramRenderState> states) implements MultiblockWriter {
+public record HologramRenderer(BlockModelResolver blockModelResolver, ItemModelResolver itemModelResolver, Level view, MultiblockRenderer.MultiblockRenderState renderState) implements MultiblockWriter {
+	private static final BlockDisplayContext BLOCK_DISPLAY_CONTEXT = BlockDisplayContext.create();
+
 	@Override
 	public MultiblockWriter add(int x, int y, int z, BiPredicate<BlockGetter, BlockPos> predicate, BlockState state) {
 		if (state.getBlock() instanceof LiquidBlock) {
 			FluidState fluidState = state.getFluidState();
-			ItemStackRenderState item = new ItemStackRenderState();
+			ItemStackRenderState item = renderState.nextItemStackRenderState();
 			itemModelResolver.updateForTopItem(item, new ItemStack(fluidState.getType().getBucket()), ItemDisplayContext.FIXED, view, null, 0);
-			states.add(new HologramRenderState.FluidItem(x, y, z, item));
+			renderState.states.add(new HologramRenderState.FluidItem(x, y, z, item));
 		} else {
-			RenderType layer = ItemBlockRenderTypes.getRenderType(state);
-			List<BlockModelPart> parts = blockRenderManager.getBlockModel(state).collectParts(RandomSource.create());
-			states.add(new HologramRenderState.Block(blockRenderManager, view, x, y, z, layer, state, parts));
+			var blockModelRenderState = renderState.nextBlockModelRenderState();
+			blockModelResolver.update(blockModelRenderState, state, BLOCK_DISPLAY_CONTEXT);
+			renderState.states.add(new HologramRenderState.Block(x, y, z, blockModelRenderState));
 		}
 		return this;
 	}

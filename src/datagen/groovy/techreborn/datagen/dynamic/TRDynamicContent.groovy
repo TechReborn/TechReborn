@@ -24,8 +24,12 @@
 
 package techreborn.datagen.dynamic
 
+import net.minecraft.core.Holder
+import net.minecraft.core.HolderSet
 import net.minecraft.data.worldgen.features.FeatureUtils
 import net.minecraft.data.worldgen.placement.PlacementUtils
+import net.minecraft.util.valueproviders.IntProvider
+import net.minecraft.util.valueproviders.UniformInt
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.damagesource.DamageEffects
@@ -34,12 +38,14 @@ import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.BlockTags
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration
 import net.minecraft.world.level.levelgen.placement.BiomeFilter
 import net.minecraft.world.level.levelgen.placement.CountPlacement
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement
 import net.minecraft.world.level.levelgen.placement.RarityFilter
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest
@@ -75,6 +81,8 @@ import techreborn.world.TargetDimension
 import techreborn.world.WorldGenerator
 
 class TRDynamicContent {
+	private static Holder.Reference<ConfiguredFeature<?, ?>> RUBBER_TREE_PLACED_FEATURE_HOLDER = null
+
 	static void damageTypes(BootstrapContext<DamageType> registry) {
 		registry.register(TRDamageTypes.ELECTRIC_SHOCK, new DamageType("electric_shock", 0.1F, DamageEffects.BURNING))
 		registry.register(TRDamageTypes.FUSION, new DamageType("fusion", 0.1F, DamageEffects.BURNING))
@@ -88,7 +96,7 @@ class TRDynamicContent {
 		}
 
 		registry.register(WorldGenerator.OIL_LAKE_FEATURE, createOilLakeConfiguredFeature())
-		registry.register(WorldGenerator.RUBBER_TREE_FEATURE, createRubberTreeConfiguredFeature())
+		RUBBER_TREE_PLACED_FEATURE_HOLDER = registry.register(WorldGenerator.RUBBER_TREE_FEATURE, createRubberTreeConfiguredFeature())
 		registry.register(WorldGenerator.RUBBER_TREE_PATCH_FEATURE, createRubberPatchTreeConfiguredFeature(placedFeatureLookup))
 	}
 
@@ -209,10 +217,16 @@ class TRDynamicContent {
 		))
 	}
 
+	// TODO 26.1 check this is correct
 	private static ConfiguredFeature createRubberPatchTreeConfiguredFeature(HolderGetter<PlacedFeature> lookup) {
-		return new ConfiguredFeature<>(Feature.RANDOM_PATCH,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				6, lookup.getOrThrow(WorldGenerator.RUBBER_TREE_PLACED_FEATURE)
+		return new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR,
+			new SimpleRandomFeatureConfiguration(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						RUBBER_TREE_PLACED_FEATURE_HOLDER,
+						RandomOffsetPlacement.horizontal(new UniformInt(1, 6)),
+					),
+				)
 			)
 		)
 	}

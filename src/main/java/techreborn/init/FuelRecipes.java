@@ -24,12 +24,12 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
 
 // Class containing definitions of burnable materials
 public class FuelRecipes {
 	public static void init() {
-		FuelRegistryEvents.BUILD.register( (builder, context) -> {
+		FuelValueEvents.BUILD.register( (builder, context) -> {
 			// Basing it off https://minecraft.wiki/w/Template:Smelting_table
 			// one and a half smelt time
 			final int oneAndAHalf = context.baseSmeltTime() * 3 / 2;

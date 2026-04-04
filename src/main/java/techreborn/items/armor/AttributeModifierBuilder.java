@@ -35,7 +35,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -67,7 +67,7 @@ public class AttributeModifierBuilder {
 	}
 
 	private AttributeModifier modifier(String path, double value) {
-		ResourceLocation id = ResourceLocation.fromNamespaceAndPath(MOD_ID, (target == null ? path : path + "/" + target.getSerializedName()));
+		Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, (target == null ? path : path + "/" + target.getSerializedName()));
 		return new AttributeModifier(id, value, AttributeModifier.Operation.ADD_VALUE);
 	}
 
@@ -99,7 +99,7 @@ public class AttributeModifierBuilder {
 		if (m1.size() < m2.size()) {
 			return false;
 		}
-		Map<ResourceLocation, Double> map = new HashMap<>();
+		Map<Identifier, Double> map = new HashMap<>();
 		m1.forEach(entry -> map.put(entry.modifier().id(), entry.modifier().amount()));
 		for (ItemAttributeModifiers.Entry entry : m2) {
 			if (map.get(entry.modifier().id()) != entry.modifier().amount()) {
@@ -143,7 +143,7 @@ public class AttributeModifierBuilder {
 		ItemAttributeModifiers target,
 		ChatFormatting formatting
 	) {
-		Map<ResourceLocation, Double> map = new HashMap<>();
+		Map<Identifier, Double> map = new HashMap<>();
 		if (attributes != null) {
 			attributes.modifiers().forEach(entry -> map.put(entry.modifier().id(), entry.modifier().amount()));
 		}

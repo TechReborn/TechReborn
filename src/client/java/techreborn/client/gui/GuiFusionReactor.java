@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -63,8 +63,8 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, final float partialTicks, final int mouseX, final int mouseY) {
-		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float partialTicks) {
+		super.extractBackground(drawContext, mouseX, mouseY, partialTicks);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		drawSlot(drawContext, 34, 47, layer);
@@ -78,8 +78,8 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -111,8 +111,8 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 
 			}
 		}
-		drawContext.drawString(this.font, Component.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFFFF, true);
-		drawContext.drawString(this.font, Component.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFFFF, true);
+		drawContext.text(this.font, Component.literal("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFFFF, true);
+		drawContext.text(this.font, Component.literal(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFFFF, true);
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, this.blockEntity.getEnergy(), this.blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);
 	}

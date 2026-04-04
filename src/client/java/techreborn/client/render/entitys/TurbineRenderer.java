@@ -27,16 +27,17 @@ package techreborn.client.render.entitys;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -54,7 +55,7 @@ import java.util.function.Function;
 public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity, TurbineRenderer.TurbineRenderState> {
 	private static final Set<Direction> ALL_DIRECTIONS = EnumSet.allOf(Direction.class);
 	private static final TurbineModel MODEL = TurbineModel.create();
-	public static final ResourceLocation TEXTURE = ResourceLocation.parse("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
+	public static final Identifier TEXTURE = Identifier.parse("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
 
 	public TurbineRenderer(BlockEntityRendererProvider.Context ctx) {
 	}
@@ -74,10 +75,10 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 	) {
 		BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlay);
 		Direction facing = blockEntity.getFacing();
-		state.layer = RenderType.entitySolid(TEXTURE);
+		state.layer = RenderTypes.entitySolid(TEXTURE);
 		state.rotate = -facing.getCounterClockWise().toYRot() + 90;
 		state.spin = blockEntity.bladeAngle + tickDelta * blockEntity.spinSpeed;
-		state.light = LevelRenderer.getLightColor(blockEntity.getLevel(), blockEntity.getBlockPos().relative(facing));
+		state.light = LevelRenderer.getLightCoords(blockEntity.getLevel(), blockEntity.getBlockPos().relative(facing));
 	}
 
 	@Override
@@ -131,7 +132,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 			});
 			base.setPos(0.0F, 24.0F, 0.0F);
 
-			return new TurbineModel(base, RenderType::entityCutoutNoCull);
+			return new TurbineModel(base, RenderTypes::entityCutout);
 		}
 
 		private static void setRotation(ModelPart model, float x, float y, float z) {
@@ -140,7 +141,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 			model.zRot = z;
 		}
 
-		public TurbineModel(ModelPart root, Function<ResourceLocation, RenderType> layerFactory) {
+		public TurbineModel(ModelPart root, Function<Identifier, RenderType> layerFactory) {
 			super(root, layerFactory);
 		}
 

@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
@@ -43,8 +43,8 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
-		super.renderBg(drawContext, f, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float f) {
+		super.extractBackground(drawContext, mouseX, mouseY, f);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Draw slots
@@ -53,8 +53,8 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 
 		// Draw input/out
 		builder.drawText(drawContext, this, Component.translatable("gui.techreborn.unit.in"), 100, 43, theme.titleColor().rgba());
@@ -64,26 +64,20 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
 
 		if (fluid.isEmpty()) {
-			drawContext.drawString(font, Component.translatable("techreborn.tooltip.unit.empty"), 10, 20, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("techreborn.tooltip.unit.empty"), 10, 20, theme.titleColor().rgba(), false);
 		} else {
-			drawContext.drawString(font, Component.translatable("gui.techreborn.tank.type"), 10, 20, theme.titleColor().rgba(), false);
-			drawContext.drawString(font, FluidUtils.getFluidName(fluid).replace("_", " "), 10, 30, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("gui.techreborn.tank.type"), 10, 20, theme.titleColor().rgba(), false);
+			drawContext.text(font, FluidUtils.getFluidName(fluid).replace("_", " "), 10, 30, theme.titleColor().rgba(), false);
 
 
-			drawContext.drawString(font, Component.translatable("gui.techreborn.tank.amount"), 10, 50, theme.titleColor().rgba(), false);
-			drawContext.drawString(font, fluid.getAmount().toString(), 10, 60, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("gui.techreborn.tank.amount"), 10, 50, theme.titleColor().rgba(), false);
+			drawContext.text(font, fluid.getAmount().toString(), 10, 60, theme.titleColor().rgba(), false);
 
 			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getFluidValueCapacity().getRawValue() * 100));
 
-			drawContext.drawString(font, Component.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, theme.titleColor().rgba(), false);
+			drawContext.text(font, Component.translatable("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, theme.titleColor().rgba(), false);
 
-			drawContext.drawString(font, Component.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, theme.warningTextColor().rgba(), false);
+			drawContext.text(font, Component.translatable("gui.techreborn.unit.wrenchtip"), 10, 80, theme.warningTextColor().rgba(), false);
 		}
-	}
-
-	@Override
-	public void render(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
-		super.render(drawContext, mouseX, mouseY, partialTicks);
-		renderTooltip(drawContext, mouseX, mouseY);
 	}
 }

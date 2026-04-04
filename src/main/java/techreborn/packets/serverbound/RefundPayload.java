@@ -27,11 +27,11 @@ package techreborn.packets.serverbound;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import techreborn.TechReborn;
 
 public record RefundPayload() implements CustomPacketPayload {
-	public static final CustomPacketPayload.Type<RefundPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "refund"));
+	public static final CustomPacketPayload.Type<RefundPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "refund"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, RefundPayload> CODEC = StreamCodec.unit(new RefundPayload());
 
 	@Override

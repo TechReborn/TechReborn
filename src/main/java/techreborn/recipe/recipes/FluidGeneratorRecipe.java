@@ -42,6 +42,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -68,7 +69,7 @@ public record FluidGeneratorRecipe(RecipeType<? extends FluidGeneratorRecipe> ty
 	}
 
 	@Override
-	public List<ItemStack> outputs() {
+	public List<ItemStackTemplate> outputs() {
 		return List.of();
 	}
 
@@ -94,7 +95,7 @@ public record FluidGeneratorRecipe(RecipeType<? extends FluidGeneratorRecipe> ty
 			stack = new ItemStack(TRContent.Machine.PLASMA_GENERATOR);
 		}
 		if (stack != null) {
-			return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(stack)));
+			return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(stack))));
 		}
 
 		return RebornRecipe.super.display();

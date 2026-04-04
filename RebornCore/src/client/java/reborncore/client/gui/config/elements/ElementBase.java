@@ -24,8 +24,9 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.network.chat.Component;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
@@ -35,12 +36,12 @@ import reborncore.client.gui.ThemeManager;
 public class ElementBase {
 	private final int x;
 	private final int y;
-	private Material sprite;
+	private SpriteId sprite;
 	private final int textureWidth;
 	private final int textureHeight;
 	protected final Theme theme;
 
-	public ElementBase(int x, int y, Material sprite, int textureWidth, int textureHeight) {
+	public ElementBase(int x, int y, SpriteId sprite, int textureWidth, int textureHeight) {
 		this.sprite = sprite;
 		this.textureWidth = textureWidth;
 		this.textureHeight = textureHeight;
@@ -49,11 +50,11 @@ public class ElementBase {
 		theme = ThemeManager.getTheme();
 	}
 
-	protected void setSprite(Material sprite) {
+	protected void setSprite(SpriteId sprite) {
 		this.sprite = sprite;
 	}
 
-	public void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+	public void draw(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		drawSprite(drawContext, gui, sprite, x, y, textureWidth, textureHeight);
 	}
 
@@ -97,13 +98,13 @@ public class ElementBase {
 		return gui.isPointInRect(x + gui.getGuiLeft(), y + gui.getGuiTop(), xSize, ySize, mouseX, mouseY);
 	}
 
-	public void drawText(GuiGraphics drawContext, GuiBase<?> gui, Component text, int x, int y, int color) {
+	public void drawText(GuiGraphicsExtractor drawContext, GuiBase<?> gui, Component text, int x, int y, int color) {
 		x = adjustX(gui, x);
 		y = adjustY(gui, y);
-		drawContext.drawString(gui.getFont(), text, x, y, color, false);
+		drawContext.text(gui.getFont(), text, x, y, color, false);
 	}
 
-	public void drawSprite(GuiGraphics drawContext, GuiBase<?> gui, Material spriteIdentifier, int x, int y, int textureWidth, int textureHeight) {
+	public void drawSprite(GuiGraphicsExtractor drawContext, GuiBase<?> gui, SpriteId spriteIdentifier, int x, int y, int textureWidth, int textureHeight) {
 		GuiSprites.drawSpriteStretched(drawContext, spriteIdentifier, x + gui.getGuiLeft(), y + gui.getGuiTop(), textureWidth, textureHeight);
 	}
 }

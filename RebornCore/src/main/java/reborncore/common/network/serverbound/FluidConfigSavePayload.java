@@ -28,12 +28,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.blockentity.FluidConfiguration;
 import reborncore.common.network.BlockPosPayload;
 
 public record FluidConfigSavePayload(BlockPos pos, FluidConfiguration.FluidConfig fluidConfiguration) implements CustomPacketPayload, BlockPosPayload {
-	public static final Type<FluidConfigSavePayload> ID = new Type<>(ResourceLocation.parse("reborncore:config_save"));
+	public static final Type<FluidConfigSavePayload> ID = new Type<>(Identifier.parse("reborncore:config_save"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, FluidConfigSavePayload> PACKET_CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, FluidConfigSavePayload::pos,
 		FluidConfiguration.FluidConfig.PACKET_CODEC, FluidConfigSavePayload::fluidConfiguration,

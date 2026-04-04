@@ -8,15 +8,13 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        java: [ 21-jdk ]
     runs-on: ubuntu-24.04
-    container:
-      image: eclipse-temurin:${{ matrix.java }}
-      options: --user root
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'microsoft'
+          java-version: '25'
       - run: ./gradlew runDatagen --stacktrace
       - run: ./gradlew build --stacktrace -x runDatagen
 

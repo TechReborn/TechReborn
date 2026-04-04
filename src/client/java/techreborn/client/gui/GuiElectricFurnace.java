@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
@@ -41,8 +41,8 @@ public class GuiElectricFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, float partialTicks, int mouseX, int mouseY) {
-		super.renderBg(drawContext, partialTicks, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float lastFrameDuration) {
+		super.extractBackground(drawContext, mouseX, mouseY, lastFrameDuration);
 		Layer layer = Layer.BACKGROUND;
 
 		drawSlot(drawContext, 8, 72, layer);
@@ -52,8 +52,8 @@ public class GuiElectricFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 		Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

@@ -30,7 +30,7 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 import java.util.Collections;
 import java.util.List;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 
 public abstract class GuiTab {
@@ -58,7 +58,7 @@ public abstract class GuiTab {
 
 	public void close() {};
 
-	public abstract void draw(GuiGraphics drawContext, int x, int y);
+	public abstract void draw(GuiGraphicsExtractor drawContext, int x, int y);
 
 	public boolean click(double mouseX, double mouseY, int mouseButton) {
 		return false;

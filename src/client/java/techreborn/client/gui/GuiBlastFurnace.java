@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.widget.GuiButtonExtended;
@@ -49,8 +49,8 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, final float f, final int mouseX, final int mouseY) {
-		super.renderBg(drawContext, f, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float f) {
+		super.extractBackground(drawContext, mouseX, mouseY, f);
 		this.hasMultiBlock = this.blockEntity.getCachedHeat() != 0;
 
 		final GuiBase.Layer layer = Layer.BACKGROUND;
@@ -67,8 +67,8 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, final int mouseX, final int mouseY) {
-		super.renderLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
+		super.extractLabels(drawContext, mouseX, mouseY);
 		this.hasMultiBlock = blockEntity.getCachedHeat() != 0;
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 

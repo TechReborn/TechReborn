@@ -29,12 +29,12 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
 public record PumpRangePayload (BlockPos pos, int buttonAmount) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<PumpRangePayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "pump_range"));
+	public static final CustomPacketPayload.Type<PumpRangePayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "pump_range"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, PumpRangePayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, PumpRangePayload::pos,
 		ByteBufCodecs.INT, PumpRangePayload::buttonAmount,

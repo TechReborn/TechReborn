@@ -24,21 +24,22 @@
 
 package techreborn.client.render;
 
+
 import net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
-import net.minecraft.client.renderer.block.model.BlockStateModel;
-import net.minecraft.client.renderer.block.model.SimpleModelWrapper;
-import net.minecraft.client.renderer.block.model.TextureSlots;
+import net.minecraft.client.renderer.block.dispatch.BlockModelRotation;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BlockModelRotation;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
-import net.minecraft.client.resources.model.QuadCollection;
 import net.minecraft.client.resources.model.ResolvedModel;
+import net.minecraft.client.resources.model.SimpleModelWrapper;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.geometry.QuadCollection;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.client.resources.model.sprite.TextureSlots;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import techreborn.blocks.misc.BlockMachineCasing;
@@ -46,16 +47,16 @@ import techreborn.utils.DirectionUtils;
 
 import java.util.List;
 
-public record MachineCasingModel(BlockModelPart part) implements BlockStateModel {
+public record MachineCasingModel(BlockStateModelPart part) implements BlockStateModel {
 	public static final String MODEL_PATH = "block/machines/structure/";
-	@SuppressWarnings("deprecation")
+
 	public static void resolveBlockStates(BlockStateResolver.Context context) {
 		BlockMachineCasing block = (BlockMachineCasing) context.block();
-		ResourceLocation model = BuiltInRegistries.BLOCK.getKey(block).withPrefix(MODEL_PATH);
-		Material alone = new Material(TextureAtlas.LOCATION_BLOCKS, model);
-		Material start = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_start"));
-		Material middle = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_middle"));
-		Material end = new Material(TextureAtlas.LOCATION_BLOCKS, model.withSuffix("_end"));
+		Identifier model = BuiltInRegistries.BLOCK.getKey(block).withPrefix(MODEL_PATH);
+		Material alone = new Material(model);
+		Material start = new Material(model.withSuffix("_start"));
+		Material middle = new Material(model.withSuffix("_middle"));
+		Material end = new Material(model.withSuffix("_end"));
 		TextureSlots.Data.Builder builder = new TextureSlots.Data.Builder();
 		builder.addTexture(Direction.DOWN.getName(), alone);
 		builder.addTexture(Direction.UP.getName(), alone);
@@ -74,21 +75,26 @@ public record MachineCasingModel(BlockModelPart part) implements BlockStateModel
 	}
 
 	@Override
-	public void collectParts(RandomSource random, List<BlockModelPart> parts) {
-		parts.add(part);
+	public void collectParts(RandomSource random, List<BlockStateModelPart> output) {
+		output.add(part);
 	}
 
 	@Override
-	public TextureAtlasSprite particleIcon() {
-		return part.particleIcon();
+	public Material.Baked particleMaterial() {
+		return part.particleMaterial();
 	}
 
-	public record Unbaked(ResourceLocation id, TextureSlots textures, Material particle) implements BlockStateModel.UnbakedRoot {
+	@Override
+	public @BakedQuad.MaterialFlags int materialFlags() {
+		return 0;
+	}
+
+	public record Unbaked(Identifier id, TextureSlots textures, Material particle) implements BlockStateModel.UnbakedRoot {
 		@Override
 		public BlockStateModel bake(BlockState state, ModelBaker baker) {
 			ResolvedModel model = baker.getModel(id);
-			QuadCollection baked = model.getTopGeometry().bake(textures, baker, BlockModelRotation.X0_Y0, model);
-			return new MachineCasingModel(new SimpleModelWrapper(baked, model.getTopAmbientOcclusion(), baker.sprites().get(particle, model)));
+			QuadCollection baked = model.getTopGeometry().bake(textures, baker, BlockModelRotation.IDENTITY, model);
+			return new MachineCasingModel(new SimpleModelWrapper(baked, model.getTopAmbientOcclusion(), baker.materials().get(particle, model)));
 		}
 
 		@Override

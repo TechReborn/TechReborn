@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+/* TODO: Villager trading
 package reborncore.common.util;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
@@ -38,16 +39,16 @@ public final class TradeUtils {
 
 		public static final int SIZE = MASTER.ordinal() + 1;
 
-		/**
+		*//**
 		 * The number value of the job level as used internally.
 		 * @return the level of the job as an int
-		 */
+		 *//*
 		public int asInt() {
 			return ordinal() + 1; // internally job levels start with 1, but ordinal() starts with 0
 		}
 	}
 
-	private TradeUtils() {/* No instantiation. */}
+	private TradeUtils() {*//* No instantiation. *//*}
 
 	public static VillagerTrades.ItemListing createSell(ItemLike item, int price, int count, int maxUses, int experience) {
 		return new VillagerTrades.ItemsForEmeralds(item.asItem(), price, count, maxUses, experience);
@@ -79,4 +80,4 @@ public final class TradeUtils {
 		VillagerTrades.TRADES.put(profession, allTrades);
 	}
 
-}
+}*/

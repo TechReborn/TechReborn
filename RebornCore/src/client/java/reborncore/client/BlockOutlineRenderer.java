@@ -25,14 +25,12 @@
 package reborncore.client;
 
 import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldExtractionContext;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderContext;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.debug.DebugRenderer;
-import net.minecraft.client.renderer.state.BlockOutlineRenderState;
+import net.minecraft.client.renderer.state.level.BlockOutlineRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -50,16 +48,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class BlockOutlineRenderer implements WorldRenderEvents.BeforeBlockOutline, WorldRenderEvents.AfterBlockOutlineExtraction {
+public class BlockOutlineRenderer implements LevelRenderEvents.BeforeBlockOutline, LevelRenderEvents.AfterBlockOutlineExtraction {
 	public static RenderStateDataKey<List<VoxelShape>> KEY = RenderStateDataKey.create(() -> "MultiBlockBreakingTool");
 	@Override
-	public void afterBlockOutlineExtraction(WorldExtractionContext context, @Nullable HitResult result) {
+	public void afterBlockOutlineExtraction(LevelExtractionContext context, @Nullable HitResult result) {
 		if (result instanceof BlockHitResult blockHitResult) {
 			LocalPlayer player = Minecraft.getInstance().player;
-			if (player == context.camera().getEntity()) {
+			if (player == context.camera().entity()) {
 				ItemStack stack = player.getMainHandItem();
 				if (!stack.isEmpty() && stack.getItem() instanceof MultiBlockBreakingTool tool) {
-					BlockOutlineRenderState state = context.worldState().blockOutlineRenderState;
+					BlockOutlineRenderState state = context.levelState().blockOutlineRenderState;
 					if (state == null) {
 						return;
 					}
@@ -84,7 +82,7 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BeforeBlockOutlin
 	}
 
 	@Override
-	public boolean beforeBlockOutline(WorldRenderContext worldRenderContext, BlockOutlineRenderState context) {
+	public boolean beforeBlockOutline(LevelRenderContext worldRenderContext, BlockOutlineRenderState context) {
 		List<VoxelShape> shapes = context.getData(KEY);
 		if (shapes != null) {
 			VoxelShape shape = context.shape();
@@ -94,8 +92,9 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BeforeBlockOutlin
 			}
 
 			BlockPos targetPos = context.pos();
-			Vec3 camera = worldRenderContext.worldState().cameraRenderState.pos;
-			DebugRenderer.renderVoxelShape(worldRenderContext.matrices(), worldRenderContext.consumers().getBuffer(RenderType.lines()), shape, (double)targetPos.getX() - camera.x, (double)targetPos.getY() - camera.y, (double)targetPos.getZ() - camera.z, 0.0F, 0.0F, 0.0F, 0.4F, true);
+			Vec3 camera = worldRenderContext.levelState().cameraRenderState.pos;
+			// TODO: Block outline renderer
+			// DebugRenderer.renderVoxelShape(worldRenderContext.matrices(), worldRenderContext.consumers().getBuffer(RenderType.lines()), shape, (double)targetPos.getX() - camera.x, (double)targetPos.getY() - camera.y, (double)targetPos.getZ() - camera.z, 0.0F, 0.0F, 0.0F, 0.4F, true);
 		}
 
 		return true;

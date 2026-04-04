@@ -35,7 +35,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -64,7 +64,7 @@ public class FrequencyTransmitterItem extends Item {
 		stack.set(TRDataComponentTypes.FREQUENCY_TRANSMITTER, globalPos);
 
 		if (context.getPlayer() instanceof ServerPlayer serverPlayerEntity) {
-			serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.setTo")
+			serverPlayerEntity.sendOverlayMessage(Component.translatable("techreborn.message.setTo")
 											.append(Component.literal(" X:").withStyle(ChatFormatting.GRAY))
 											.append(Component.literal(String.valueOf(pos.getX())).withStyle(ChatFormatting.GOLD))
 											.append(Component.literal(" Y:").withStyle(ChatFormatting.GRAY))
@@ -74,7 +74,7 @@ public class FrequencyTransmitterItem extends Item {
 											.append(" ")
 											.append(Component.translatable("techreborn.message.in").withStyle(ChatFormatting.GRAY))
 											.append(" ")
-											.append(Component.literal(getDimName(globalPos.dimension()).toString()).withStyle(ChatFormatting.GOLD)), true);
+											.append(Component.literal(getDimName(globalPos.dimension()).toString()).withStyle(ChatFormatting.GOLD)));
 		}
 
 		return InteractionResult.SUCCESS;
@@ -92,13 +92,13 @@ public class FrequencyTransmitterItem extends Item {
 			stack.remove(TRDataComponentTypes.FREQUENCY_TRANSMITTER);
 
 			if (player instanceof ServerPlayer serverPlayerEntity) {
-				serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.coordsHaveBeen")
+				serverPlayerEntity.sendOverlayMessage(Component.translatable("techreborn.message.coordsHaveBeen")
 												.withStyle(ChatFormatting.GRAY)
 												.append(" ")
 												.append(
 													Component.translatable("techreborn.message.cleared")
 														.withStyle(ChatFormatting.GOLD)
-												), true);
+												));
 			}
 		}
 
@@ -116,7 +116,7 @@ public class FrequencyTransmitterItem extends Item {
 			});
 	}
 
-	private static ResourceLocation getDimName(ResourceKey<Level> dimensionRegistryKey) {
-		return dimensionRegistryKey.location();
+	private static Identifier getDimName(ResourceKey<Level> dimensionRegistryKey) {
+		return dimensionRegistryKey.identifier();
 	}
 }

@@ -24,7 +24,7 @@
 
 package techreborn.blockentity.storage.item;
 
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.SlottedStorage;
@@ -603,7 +603,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	public Storage<ItemVariant> getExposedStorage(Direction side) {
 		return new CombinedSlottedStorage<>(List.of(
 				getInternalStoreStorage(side),
-				InventoryStorage.of(this, side)
+				ContainerStorage.of(this, side)
 		));
 	}
 }

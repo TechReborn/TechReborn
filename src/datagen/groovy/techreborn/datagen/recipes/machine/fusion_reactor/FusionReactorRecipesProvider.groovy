@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.fusion_reactor
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.core.HolderLookup
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.ModFluids
@@ -33,7 +33,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class FusionReactorRecipesProvider extends TechRebornRecipesProvider {
-	FusionReactorRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	FusionReactorRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

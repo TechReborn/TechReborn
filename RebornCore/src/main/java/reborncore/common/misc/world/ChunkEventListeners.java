@@ -37,7 +37,7 @@ public class ChunkEventListeners {
 	public static void init() {
 		ServerLifecycleEvents.SERVER_STOPPED.register(minecraftServer -> serverStopCleanup());
 
-		ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
+		ServerChunkEvents.CHUNK_LOAD.register((world, chunk, _) -> {
 			if (!world.isClientSide()) {
 				Set<ChunkEventListener> cels = listeners.get(world, chunk.getPos());
 				if (cels != null) {

@@ -175,7 +175,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 
 		assert shape != null;
 		for (BlockPos pos : shape) {
-			spannedChunks.add(new ChunkPos(pos));
+			spannedChunks.add(ChunkPos.containing(pos));
 		}
 
 		return spannedChunks;

@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.grinder
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions
 import net.minecraft.world.item.Items
 import net.minecraft.core.registries.BuiltInRegistries
@@ -38,7 +38,7 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class GrinderRecipesProvider extends TechRebornRecipesProvider {
-	GrinderRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	GrinderRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

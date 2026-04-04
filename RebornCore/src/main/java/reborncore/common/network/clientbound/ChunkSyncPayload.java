@@ -31,10 +31,10 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record ChunkSyncPayload(List<ChunkLoaderManager.LoadedChunk> chunks) implements CustomPacketPayload {
-	public static final Type<ChunkSyncPayload> ID = new Type<>(ResourceLocation.parse("reborncore:sync_chunks"));
+	public static final Type<ChunkSyncPayload> ID = new Type<>(Identifier.parse("reborncore:sync_chunks"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, ChunkSyncPayload> PACKET_CODEC = StreamCodec.composite(
 		ChunkLoaderManager.LoadedChunk.PACKET_CODEC.apply(ByteBufCodecs.list()), ChunkSyncPayload::chunks,
 		ChunkSyncPayload::new

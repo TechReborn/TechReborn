@@ -45,12 +45,12 @@ public class GpsItem extends Item {
 	public InteractionResult use(Level world, Player player, InteractionHand hand) {
 		if (player instanceof ServerPlayer serverPlayerEntity) {
 			BlockPos pos = player.blockPosition();
-			serverPlayerEntity.displayClientMessage(Component.literal(" X:").withStyle(ChatFormatting.GRAY)
+			serverPlayerEntity.sendOverlayMessage(Component.literal(" X:").withStyle(ChatFormatting.GRAY)
 											.append(Component.literal(String.valueOf(pos.getX())).withStyle(ChatFormatting.GOLD))
 											.append(Component.literal(" Y:").withStyle(ChatFormatting.GRAY))
 											.append(Component.literal(String.valueOf(pos.getY())).withStyle(ChatFormatting.GOLD))
 											.append(Component.literal(" Z:").withStyle(ChatFormatting.GRAY))
-											.append(Component.literal(String.valueOf(pos.getZ())).withStyle(ChatFormatting.GOLD)), true);
+											.append(Component.literal(String.valueOf(pos.getZ())).withStyle(ChatFormatting.GOLD)));
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;

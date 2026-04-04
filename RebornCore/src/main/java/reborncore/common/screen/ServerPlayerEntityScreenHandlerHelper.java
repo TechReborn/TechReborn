@@ -30,10 +30,10 @@ import java.util.Optional;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.ContainerListener;
 
-// Helper to access the ServerPlayerEntity instance from a ScreenHandlerListener
+// Helper to access the ServerPlayerEntity instance from a ContainerListener
 public class ServerPlayerEntityScreenHandlerHelper {
 	private static final String CLASS_NAME = ServerPlayer.class.getName() + "$2";
-	private static final String FIELD_NAME = "field_29183";
+	private static final String FIELD_NAME = "this$0";
 
 	private static final Class<?> CLAZZ;
 	private static final VarHandle VAR_HANDLE;

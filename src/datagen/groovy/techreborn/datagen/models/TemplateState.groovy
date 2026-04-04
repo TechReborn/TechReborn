@@ -24,15 +24,16 @@
 
 package techreborn.datagen.models
 
+import net.minecraft.client.renderer.block.dispatch.Variant
+import net.minecraft.client.renderer.block.dispatch.VariantMutator
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
 import net.minecraft.client.data.models.model.TextureMapping
-import net.minecraft.client.renderer.block.model.Variant
-import net.minecraft.client.renderer.block.model.VariantMutator
 import net.minecraft.client.data.models.blockstates.ConditionBuilder
 import net.minecraft.client.data.models.MultiVariant
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.util.random.WeightedList
 import net.minecraft.core.Direction
 import org.apache.commons.lang3.function.TriFunction
@@ -76,21 +77,21 @@ class TemplateState {
 
 	@FunctionalInterface
 	interface Uploadable {
-		ResourceLocation upload(Block block);
+		Identifier upload(Block block);
 	}
 	static Uploadable SINGLE = (Block block) -> new StateModel().add(model(block)).upload(block)
 	static Uploadable SINGLE_NORTH_DEFAULT_FACING = (Block block) -> new StateModel().add(model(block)).add(NORTH_DEFAULT_FACING).upload(block)
 	static Uploadable SINGLE_NORTH_DEFAULT_H_FACING = (Block block) -> new StateModel().add(model(block)).add(NORTH_DEFAULT_H_FACING).upload(block)
-	static Function<Pair<ResourceLocation, ResourceLocation>, StateModel> ACTIVE = (Pair<ResourceLocation, ResourceLocation> pair) -> new StateModel().add(
+	static Function<Pair<Identifier, Identifier>, StateModel> ACTIVE = (Pair<Identifier, Identifier> pair) -> new StateModel().add(
 		PropertyDispatch.initial(BlockMachineBase.ACTIVE).select(false, model(pair.left)).select(true, model(pair.right))
 	)
-	static Function<Pair<ResourceLocation, ResourceLocation>, StateModel> ACTIVE_NORTH_DEFAULT_H_FACING = (Pair<ResourceLocation, ResourceLocation> pair) -> {
+	static Function<Pair<Identifier, Identifier>, StateModel> ACTIVE_NORTH_DEFAULT_H_FACING = (Pair<Identifier, Identifier> pair) -> {
 		ACTIVE.apply(pair).add(NORTH_DEFAULT_H_FACING)
 	}
-	static Function<Pair<ResourceLocation, ResourceLocation>, StateModel> ACTIVE_UP_DEFAULT_FACING = (Pair<ResourceLocation, ResourceLocation> pair) -> {
+	static Function<Pair<Identifier, Identifier>, StateModel> ACTIVE_UP_DEFAULT_FACING = (Pair<Identifier, Identifier> pair) -> {
 		ACTIVE.apply(pair).add(UP_DEFAULT_FACING)
 	}
-	static TriFunction<ResourceLocation, ResourceLocation, ResourceLocation, StateModel> RESIN_BASIN = (ResourceLocation empty, ResourceLocation flowing, ResourceLocation full) -> {
+	static TriFunction<Identifier, Identifier, Identifier, StateModel> RESIN_BASIN = (Identifier empty, Identifier flowing, Identifier full) -> {
 		new StateModel().add(
 			PropertyDispatch.initial(ResinBasinBlock.POURING, ResinBasinBlock.FULL)
 				.select(false, false, model(empty))
@@ -99,7 +100,7 @@ class TemplateState {
 				.select(true, true, model(full))
 		).add(NORTH_DEFAULT_H_FACING)
 	}
-	static TriFunction<ResourceLocation, ResourceLocation, ResourceLocation, StateModel> PLAYER_DETECTOR = (ResourceLocation all, ResourceLocation others, ResourceLocation you) -> {
+	static TriFunction<Identifier, Identifier, Identifier, StateModel> PLAYER_DETECTOR = (Identifier all, Identifier others, Identifier you) -> {
 		new StateModel().add(
 			PropertyDispatch.initial(PlayerDetectorBlock.TYPE)
 				.select(PlayerDetectorBlock.PlayerDetectorType.ALL, model(all))
@@ -107,7 +108,7 @@ class TemplateState {
 				.select(PlayerDetectorBlock.PlayerDetectorType.YOU, model(you))
 		)
 	}
-	static TriFunction<ResourceLocation, ResourceLocation, ResourceLocation, StateModel> RUBBER_LOG = (ResourceLocation vertical, ResourceLocation horizontal, ResourceLocation with_sap) -> {
+	static TriFunction<Identifier, Identifier, Identifier, StateModel> RUBBER_LOG = (Identifier vertical, Identifier horizontal, Identifier with_sap) -> {
 		PropertyDispatch.C3<MultiVariant, Direction.Axis, Direction, Boolean> map = PropertyDispatch
 			.initial(BlockStateProperties.AXIS, BlockStateProperties.HORIZONTAL_FACING, BlockRubberLog.HAS_SAP)
 		for (Direction.Axis axis : Direction.Axis.VALUES) {
@@ -141,7 +142,7 @@ class TemplateState {
 		}
 		return new StateModel().add(map)
 	}
-	static BiFunction<ResourceLocation, ResourceLocation, StateModel> CABLE = (ResourceLocation core, ResourceLocation side) -> {
+	static BiFunction<Identifier, Identifier, StateModel> CABLE = (Identifier core, Identifier side) -> {
 		new StateModel().multipart().add(model(core))
 			.add(when().term(BlockStateProperties.NORTH, true), model(side))
 			.add(
@@ -164,8 +165,11 @@ class TemplateState {
 	static ConditionBuilder when() {
 		return new ConditionBuilder();
 	}
-	static MultiVariant model(ResourceLocation id) {
-		return new MultiVariant(WeightedList.of(new Variant(id)));
+	static MultiVariant model(Material id) {
+		return new MultiVariant(WeightedList.of(new Variant(id.sprite())))
+	}
+	static MultiVariant model(Identifier id) {
+		return model(new Material(id))
 	}
 	static MultiVariant model(Block block) {
 		return model(TextureMapping.getBlockTexture(block))

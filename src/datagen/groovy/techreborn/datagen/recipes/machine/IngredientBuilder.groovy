@@ -24,9 +24,9 @@
 
 package techreborn.datagen.recipes.machine
 
-import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient
-import net.minecraft.core.component.DataComponentPatch
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
@@ -34,16 +34,14 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.HolderSet
 import net.minecraft.tags.TagKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import reborncore.common.crafting.SizedIngredient
-import techreborn.component.TRDataComponentTypes
-import techreborn.init.TRContent
 
 class IngredientBuilder {
 	public HolderGetter<Item> itemLookup
 	private TagKey<Item> tag
 	private Integer tagCount = -1
-	private List<ItemStack> stacks = []
+	private List<ItemStackTemplate> stacks = []
 
 	private IngredientBuilder(HolderGetter<Item> itemLookup) {
 		this.itemLookup = itemLookup;
@@ -66,22 +64,15 @@ class IngredientBuilder {
 			}
 
 			def stack = stacks[0]
-			def components = stack.getComponentsPatch()
+			def components = stack.components()
 
-			// A bit of a hack to force the component changes to require the specified fluid, especially if empty
-			if (stack.item == TRContent.CELL) {
-				def builder = DataComponentPatch.builder()
-				builder.set(TRDataComponentTypes.FLUID, stack.get(TRDataComponentTypes.FLUID))
-				components = builder.build()
-			}
-
-			Ingredient ingredient = Ingredient.of(HolderSet.direct(stack.getItemHolder()))
+			Ingredient ingredient = Ingredient.of(HolderSet.direct(stack.item()))
 
 			if (!components.isEmpty()) {
-				ingredient = new ComponentsIngredient(ingredient, components).toVanilla()
+				ingredient = DefaultCustomIngredients.components(ingredient, components)
 			}
 
-			return new SizedIngredient(stack.getCount(), ingredient)
+			return new SizedIngredient(stack.count(), ingredient)
 		}
 
 		throw new IllegalStateException("No input")
@@ -94,16 +85,16 @@ class IngredientBuilder {
 	}
 
 	def item(ItemLike itemConvertible) {
-		return stack(new ItemStack(itemConvertible.asItem()))
+		return stack(new ItemStackTemplate(itemConvertible.asItem()))
 	}
 
-	def stack(ItemStack itemStack) {
+	def stack(ItemStackTemplate itemStack) {
 		stacks.add(itemStack)
 		return this
 	}
 
 	@Deprecated
-	def ident(ResourceLocation identifier) {
+	def ident(Identifier identifier) {
 		return item(BuiltInRegistries.ITEM.getValue(identifier))
 	}
 

@@ -119,7 +119,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			return 0;
 		}
 
-		float skyAngle = level.getTimeOfDay(0);
+		float skyAngle = (level.getOverworldClockTime() % 24000) / 24000f;
 
 		// Ok, we are actively generating power, but check for a few conditions that would restrict
 		// the generation to minimal production...

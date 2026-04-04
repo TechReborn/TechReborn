@@ -28,7 +28,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.Slot;
@@ -69,7 +69,7 @@ public class SlotConfigGui extends GuiTab {
 
 	@Override
 	public ItemStack stack() {
-		return GuiBase.wrenchStack;
+		return GuiBase.wrenchStack.create();
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class SlotConfigGui extends GuiTab {
 	}
 
 	@Override
-	public void draw(GuiGraphics drawContext, int x, int y) {
+	public void draw(GuiGraphicsExtractor drawContext, int x, int y) {
 		BuiltScreenHandler container = guiBase.builtScreenHandler;
 		for (Slot slot : container.slots) {
 			if (guiBase.be != slot.container) {

@@ -27,6 +27,7 @@ package reborncore.common.crafting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.ApiStatus;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -39,7 +40,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -56,35 +57,35 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public interface RebornRecipe extends Recipe<RebornRecipeInput> {
 	Function<RecipeType<RebornRecipe>, MapCodec<RebornRecipe>> CODEC = type -> RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.list(SizedIngredient.CODEC.codec()).fieldOf("ingredients").forGetter(RebornRecipe::ingredients),
-		Codec.list(ItemStack.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
+		Codec.list(ItemStackTemplate.CODEC).fieldOf("outputs").forGetter(RebornRecipe::outputs),
 		ExtraCodecs.POSITIVE_INT.fieldOf("power").forGetter(RebornRecipe::power),
 		ExtraCodecs.POSITIVE_INT.fieldOf("time").forGetter(RebornRecipe::time)
 	).apply(instance, (ingredients, outputs, power, time) -> new Default(type, ingredients, outputs, power, time)));
 	Function<RecipeType<RebornRecipe>, StreamCodec<RegistryFriendlyByteBuf, RebornRecipe>> PACKET_CODEC = type -> StreamCodec.composite(
 		SizedIngredient.PACKET_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::ingredients,
-		ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
+		ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), RebornRecipe::outputs,
 		ByteBufCodecs.INT, RebornRecipe::power,
 		ByteBufCodecs.INT, RebornRecipe::time,
 		(ingredients, outputs, power, time) -> new Default(type, ingredients, outputs, power, time)
 	);
 
 	@ApiStatus.Internal
-	record Default(RecipeType<? extends RebornRecipe> type, List<SizedIngredient> ingredients, List<ItemStack> outputs, int power, int time) implements RebornRecipe {
+	record Default(RecipeType<? extends RebornRecipe> type, List<SizedIngredient> ingredients, List<ItemStackTemplate> outputs, int power, int time) implements RebornRecipe {
 	}
 
 	RecipeType<? extends RebornRecipe> type();
 	List<SizedIngredient> ingredients();
-	List<ItemStack> outputs();
+	List<ItemStackTemplate> outputs();
 	int power();
 	int time();
 
 	@Override
 	default List<RecipeDisplay> display() {
-		ResourceLocation typeId = BuiltInRegistries.RECIPE_TYPE.getKey(type());
+		Identifier typeId = BuiltInRegistries.RECIPE_TYPE.getKey(type());
 		Optional<Item> catalyst = BuiltInRegistries.ITEM.getOptional(typeId);
 
 		if (catalyst.isPresent()) {
-			ItemStack stack = new ItemStack(catalyst.get());
+			ItemStackTemplate stack = new ItemStackTemplate(catalyst.get());
 			return List.of(new RebornRecipeDisplay(new SlotDisplay.ItemStackSlotDisplay(stack)));
 		}
 
@@ -134,8 +135,18 @@ public interface RebornRecipe extends Recipe<RebornRecipeInput> {
 	}
 
 	@Override
-	default ItemStack assemble(RebornRecipeInput inventory, HolderLookup.Provider lookup) {
+	default ItemStack assemble(RebornRecipeInput input) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	default boolean showNotification() {
+		return false;
+	}
+
+	@Override
+	default String group() {
+		return "";
 	}
 
 	@Override

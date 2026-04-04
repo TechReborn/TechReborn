@@ -1,13 +1,11 @@
-accessWidener	v2	named
+accessWidener	v2	official
 
 
 accessible field net/minecraft/data/recipes/ShapedRecipeBuilder items Lnet/minecraft/core/HolderGetter;
 accessible field net/minecraft/data/recipes/ShapedRecipeBuilder category Lnet/minecraft/data/recipes/RecipeCategory;
-accessible field net/minecraft/data/recipes/ShapedRecipeBuilder result Lnet/minecraft/world/item/Item;
-accessible field net/minecraft/data/recipes/ShapedRecipeBuilder count I
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder result Lnet/minecraft/world/item/ItemStackTemplate;
 accessible field net/minecraft/data/recipes/ShapedRecipeBuilder rows Ljava/util/List;
 accessible field net/minecraft/data/recipes/ShapedRecipeBuilder key Ljava/util/Map;
-accessible field net/minecraft/data/recipes/ShapedRecipeBuilder criteria Ljava/util/Map;
 accessible field net/minecraft/data/recipes/ShapedRecipeBuilder group Ljava/lang/String;
 accessible field net/minecraft/data/recipes/ShapedRecipeBuilder showNotification Z
 accessible method net/minecraft/data/recipes/ShapedRecipeBuilder <init> (Lnet/minecraft/core/HolderGetter;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;I)V
@@ -35,3 +33,7 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties
 accessible    field    net/minecraft/client/data/models/model/TextureMapping    slots           Ljava/util/Map;
 accessible method net/minecraft/server/level/TicketType register (Ljava/lang/String;JI)Lnet/minecraft/server/level/TicketType;
 accessible field net/minecraft/client/gui/render/pip/PictureInPictureRenderer textureView Lcom/mojang/blaze3d/textures/GpuTextureView;
+
+accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
+
+accessible field net/minecraft/data/worldgen/biome/OverworldBiomes NORMAL_WATER_COLOR I

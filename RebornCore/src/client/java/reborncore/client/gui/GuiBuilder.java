@@ -28,15 +28,15 @@ import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
 import reborncore.api.IListInfoProvider;
@@ -57,14 +57,14 @@ import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
 public class GuiBuilder {
 	private static final Component SPACE_TEXT = Component.literal(" ");
 	@Deprecated
-	public static final ResourceLocation GUI_ELEMENTS = ResourceLocation.fromNamespaceAndPath("reborncore", "textures/gui/guielements.png");
+	public static final Identifier GUI_ELEMENTS = Identifier.fromNamespaceAndPath("reborncore", "textures/gui/guielements.png");
 	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
-	public void drawDefaultBackground(GuiGraphics drawContext, int x, int y, int width, int height) {
+	public void drawDefaultBackground(GuiGraphicsExtractor drawContext, int x, int y, int width, int height) {
 		drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, GuiSprites.BACKGROUND.texture(), x, y, width, height);
 	}
 
-	public void drawPlayerSlots(GuiGraphics drawContext, Screen gui, int posX, int posY, boolean center) {
+	public void drawPlayerSlots(GuiGraphicsExtractor drawContext, Screen gui, int posX, int posY, boolean center) {
 		if (center) {
 			posX -= 81;
 		}
@@ -80,15 +80,15 @@ public class GuiBuilder {
 		}
 	}
 
-	public void drawSlot(GuiGraphics drawContext,int posX, int posY) {
+	public void drawSlot(GuiGraphicsExtractor drawContext,int posX, int posY) {
 		drawSpriteStretched(drawContext, GuiSprites.SLOT, posX, posY, 18, 18);
 	}
 
-	public void drawText(GuiGraphics drawContext, GuiBase<?> gui, Component text, int x, int y, int color) {
-		drawContext.drawString(gui.getFont(), text, x, y, color, false);
+	public void drawText(GuiGraphicsExtractor drawContext, GuiBase<?> gui, Component text, int x, int y, int color) {
+		drawContext.text(gui.getFont(), text, x, y, color, false);
 	}
 
-	public void drawProgressBar(GuiGraphics drawContext, GuiBase<?> gui, double progress, int x, int y) {
+	public void drawProgressBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, double progress, int x, int y) {
 		drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 18, 22, 15, 256, 256);
 		int j = (int) (progress);
 		if (j > 0) {
@@ -96,7 +96,7 @@ public class GuiBuilder {
 		}
 	}
 
-	public void drawOutputSlot(GuiGraphics drawContext, int x, int y) {
+	public void drawOutputSlot(GuiGraphicsExtractor drawContext, int x, int y) {
 		drawSpriteStretched(drawContext, GuiSprites.OUTPUT_SLOT, x, y, 26, 26);
 	}
 
@@ -111,7 +111,7 @@ public class GuiBuilder {
 	 * @param layer  {@link GuiBase.Layer} The layer to draw on
 	 * @param locked {@code boolean} Set to true if it is in locked state
 	 */
-	public void drawLockButton(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer, boolean locked) {
+	public void drawLockButton(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer, boolean locked) {
 		if (gui.hideGuiElements()) return;
 		int x2 = x, y2 = y;
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -141,7 +141,7 @@ public class GuiBuilder {
 	 * @param mouseY {@code int} Mouse cursor position to check for tooltip
 	 * @param layer  {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawHologramButton(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
+	public void drawHologramButton(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (gui.isTabOpen()) return;
 		boolean hasTooltip = gui.isPointInRect(x, y, 20, 12, mouseX, mouseY);
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -170,7 +170,7 @@ public class GuiBuilder {
 	 * @param max   {@code int} Maximum heat value
 	 * @param layer {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawBigHeatBar(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int value, int max, GuiBase.Layer layer) {
+	public void drawBigHeatBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int value, int max, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
@@ -206,7 +206,7 @@ public class GuiBuilder {
 	 * @param format {@link String} Formatted value to put on the bar
 	 * @param layer  {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawBigBlueBar(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, Component line2, String format, GuiBase.Layer layer) {
+	public void drawBigBlueBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, Component line2, String format, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
@@ -267,12 +267,12 @@ public class GuiBuilder {
 		}
 	}
 
-	public void drawBigBlueBar(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
+	public void drawBigBlueBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
 		drawBigBlueBar(drawContext, gui, x, y, value, max, mouseX, mouseY, suffix, Component.empty(), Integer.toString(value), layer);
 
 	}
 
-	public void drawBigBlueBar(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, GuiBase.Layer layer) {
+	public void drawBigBlueBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int value, int max, int mouseX, int mouseY, GuiBase.Layer layer) {
 		drawBigBlueBar(drawContext, gui, x, y, value, max, mouseX, mouseY, "", Component.empty(), "", layer);
 	}
 
@@ -282,7 +282,7 @@ public class GuiBuilder {
 	 * @param gui   {@link GuiBase} The GUI to draw on
 	 * @param layer {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawMultiblockMissingBar(GuiGraphics drawContext, GuiBase<?> gui, GuiBase.Layer layer) {
+	public void drawMultiblockMissingBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		int x = 0;
 		int y = 4;
@@ -306,7 +306,7 @@ public class GuiBuilder {
 	 * @param x   {@code int} Top left corner where to place slots
 	 * @param y   {@code int} Top left corner where to place slots
 	 */
-	public void drawUpgrades(GuiGraphics drawContext, GuiBase<?> gui, int x, int y) {
+	public void drawUpgrades(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y) {
 		drawSpriteStretched(drawContext, GuiSprites.UPGRADES, x, y, 24, 81);
 	}
 
@@ -318,9 +318,9 @@ public class GuiBuilder {
 	 * @param y     {@code int} Top left corner where to place tab
 	 * @param stack {@link ItemStack} Item to show as tab icon
 	 */
-	public void drawSlotTab(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, ItemStack stack) {
+	public void drawSlotTab(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, ItemStack stack) {
 		drawSpriteStretched(drawContext, GuiSprites.SLOT_TAB, x, y, 24, 24);
-		drawContext.renderItem(stack, x + 5, y + 4);
+		drawContext.item(stack, x + 5, y + 4);
 	}
 
 
@@ -333,7 +333,7 @@ public class GuiBuilder {
 	 * @param mouseX {@code int} Mouse cursor position
 	 * @param mouseY {@code int} Mouse cursor position
 	 */
-	public void drawSlotConfigTips(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiTab guiTab) {
+	public void drawSlotConfigTips(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiTab guiTab) {
 		List<Component> tips = guiTab.getTips().stream()
 				.map(Component::translatable)
 				.collect(Collectors.toList());
@@ -341,7 +341,7 @@ public class GuiBuilder {
 		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 76, y, 9 + 2, tips);
 		explanation.setX(x - 81);
 		explanation.setScrollAmount(0);
-		explanation.render(drawContext, mouseX, mouseY, 1.0f);
+		explanation.extractRenderState(drawContext, mouseX, mouseY, 1.0f);
 	}
 
 	private static class TipsListWidget extends AbstractSelectionList<TipsListWidget.TipsListEntry> {
@@ -361,9 +361,9 @@ public class GuiBuilder {
 		}
 
 		@Override
-		public void renderListItems(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+		public void extractListItems(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
 			drawContext.fill(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), 0xff202020);
-			super.renderListItems(drawContext, mouseX, mouseY, delta);
+			super.extractListItems(drawContext, mouseX, mouseY, delta);
 		}
 
 		@Override
@@ -378,8 +378,8 @@ public class GuiBuilder {
 			}
 
 			@Override
-			public void renderContent(GuiGraphics drawContext, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
-				drawContext.drawWordWrap(Minecraft.getInstance().font, tip, getContentX(), getContentY(), getWidth(), theme.subtitleColor().rgba());
+			public void extractContent(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+				drawContext.textWithWordWrap(Minecraft.getInstance().font, tip, getContentX(), getContentY(), getWidth(), theme.subtitleColor().rgba());
 			}
 		}
 	}
@@ -395,7 +395,7 @@ public class GuiBuilder {
 	 * @param maxOutput {@code int} Energy output value
 	 * @param layer     {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawEnergyOutput(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int maxOutput, GuiBase.Layer layer) {
+	public void drawEnergyOutput(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int maxOutput, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		Component text = Component.literal(PowerSystem.getLocalizedPowerNoSuffix(maxOutput))
 				.append(SPACE_TEXT)
@@ -424,7 +424,7 @@ public class GuiBuilder {
 	 * @param direction   {@link ProgressDirection} Direction of the progress arrow
 	 * @param layer       {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawProgressBar(GuiGraphics drawContext, GuiBase<?> gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, ProgressDirection direction, GuiBase.Layer layer) {
+	public void drawProgressBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, ProgressDirection direction, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
@@ -478,7 +478,7 @@ public class GuiBuilder {
 	 * @param buttonID        {@code int} Button ID used to switch energy systems
 	 * @param layer           {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawMultiEnergyBar(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, long energyStored, long maxEnergyStored, int mouseX,
+	public void drawMultiEnergyBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, long energyStored, long maxEnergyStored, int mouseX,
 								int mouseY, int buttonID, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -555,7 +555,7 @@ public class GuiBuilder {
 	 * @param isTankEmpty {@code boolean} True if tank is empty
 	 * @param layer       {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawTank(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, FluidInstance fluid, FluidValue maxCapacity, boolean isTankEmpty, GuiBase.Layer layer) {
+	public void drawTank(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, FluidInstance fluid, FluidValue maxCapacity, boolean isTankEmpty, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
@@ -609,11 +609,17 @@ public class GuiBuilder {
 	 * @param height      {@code int} Height of fluid to draw
 	 * @param maxCapacity {@code int} Maximum capacity of tank
 	 */
-	public void drawFluid(GuiGraphics drawContext, GuiBase<?> gui, FluidInstance fluid, int x, int y, int width, int height, long maxCapacity) {
+	public void drawFluid(GuiGraphicsExtractor drawContext, GuiBase<?> gui, FluidInstance fluid, int x, int y, int width, int height, long maxCapacity) {
 		if (fluid.fluid() == Fluids.EMPTY) {
 			return;
 		}
-		final TextureAtlasSprite sprite = FluidVariantRendering.getSprite(fluid.fluidVariant());
+		// Get sprite from vanilla FluidModel instead of Fabric's FluidVariantRendering
+		final TextureAtlasSprite sprite = Minecraft.getInstance()
+			.getModelManager()
+			.getFluidStateModelSet()
+			.get(fluid.fluid().defaultFluidState())
+			.stillMaterial()
+			.sprite();
 		int color = FluidVariantRendering.getColor(fluid.fluidVariant());
 
 		final int drawHeight = (int) (fluid.getAmount().getRawValue() / (maxCapacity * 1F) * height);
@@ -643,7 +649,7 @@ public class GuiBuilder {
 	 * @param mouseY      {@code int} Mouse cursor position to check for tooltip
 	 * @param layer       {@link GuiBase.Layer} The layer to draw on
 	 */
-	public void drawBurnBar(GuiGraphics drawContext, GuiBase<?> gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
+	public void drawBurnBar(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
@@ -670,7 +676,7 @@ public class GuiBuilder {
 	 * @param y     {@code int} Top left corner where to place slots bar
 	 * @param count {@code int} Number of output slots
 	 */
-	public void drawOutputSlotBar(GuiGraphics drawContext, int x, int y, int count) {
+	public void drawOutputSlotBar(GuiGraphicsExtractor drawContext, int x, int y, int count) {
 		drawSpriteStretched(drawContext, GuiSprites.SLOT_BAR_RIGHT, x, y, 3, 26);
 		x += 3;
 		for (int i = 1; i <= count; i++) {
@@ -692,8 +698,8 @@ public class GuiBuilder {
 		LEFT(74, 160, 58, 160, 16, 10),
 		DOWN(78, 170, 88, 170, 10, 16),
 		UP(58, 170, 68, 170, 10, 16);
-		public final Material baseSprite;
-		public final Material overlaySprite;
+		public final SpriteId baseSprite;
+		public final SpriteId overlaySprite;
 		public final int x;
 		public final int y;
 		public final int xActive;

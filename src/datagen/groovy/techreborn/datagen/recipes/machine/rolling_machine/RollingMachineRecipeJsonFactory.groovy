@@ -24,20 +24,19 @@
 
 package techreborn.datagen.recipes.machine.rolling_machine
 
-import net.minecraft.data.recipes.RecipeBuilder
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.ShapedRecipePattern
-import net.minecraft.world.item.crafting.ShapedRecipe
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceKey
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceLocation
-import techreborn.recipe.recipes.RollingMachineRecipe
+import net.minecraft.data.recipes.RecipeBuilder
+import net.minecraft.resources.Identifier
+import net.minecraft.world.item.ItemStackTemplate
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.ShapedRecipe
+import net.minecraft.world.item.crafting.ShapedRecipePattern
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.datagen.recipes.crafting.ShapedRecipeFactory
 import techreborn.datagen.recipes.machine.IngredientBuilder
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.init.ModRecipes
+import techreborn.recipe.recipes.RollingMachineRecipe
 
 class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMachineRecipe> {
 	def _ = null
@@ -64,7 +63,7 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 		shapedRecipeFactory.pattern(pattern)
 	}
 
-	def result(ItemStack output) {
+	def result(ItemStackTemplate output) {
 		shapedRecipeFactory.output(output)
 	}
 
@@ -75,22 +74,21 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 	@SuppressWarnings('GroovyAccessibility')
 	protected RollingMachineRecipe createRecipe() {
 		def builder = shapedRecipeFactory.build()
-		ShapedRecipePattern rawShapedRecipe = builder.ensureValid(ResourceKey.create(Registries.RECIPE, ResourceLocation.withDefaultNamespace("dummy")))
+		ShapedRecipePattern pattern = ShapedRecipePattern.of(builder.key as Map<Character, Ingredient>, builder.rows as List<String>)
 		ShapedRecipe shapedRecipe = new ShapedRecipe(
-			Objects.requireNonNullElse(builder.group, ""),
-			RecipeBuilder.determineBookCategory(builder.category),
-			rawShapedRecipe,
-			new ItemStack(builder.result, builder.count),
-			builder.showNotification
+			RecipeBuilder.createCraftingCommonInfo(builder.showNotification),
+			RecipeBuilder.createCraftingBookInfo(builder.category, builder.group),
+			pattern,
+			builder.result
 		)
 		return new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, power, time, shapedRecipe)
 	}
 
 	@Override
 	def getIdentifier() {
-		def outputId = BuiltInRegistries.ITEM.getKey(shapedRecipeFactory.output.item)
+		def outputId = BuiltInRegistries.ITEM.getKey(shapedRecipeFactory.output.item().value())
 		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
-		return ResourceLocation.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
+		return Identifier.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	@Override

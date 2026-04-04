@@ -24,16 +24,16 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTabOutput;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -42,12 +42,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.material.Fluid;
-import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
 import techreborn.component.TRDataComponentTypes;
-import techreborn.items.DynamicCellItem;
+import techreborn.init.TRContent.Cells;
 import techreborn.items.armor.NanoSuitItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.tool.basic.RockCutterItem;
@@ -60,24 +58,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TRItemGroup {
-	private static final ResourceKey<CreativeModeTab> ITEM_GROUP = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "item_group"));
+	private static final ResourceKey<CreativeModeTab> ITEM_GROUP = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "item_group"));
 
 	public static void register() {
-		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ITEM_GROUP, FabricItemGroup.builder()
+		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ITEM_GROUP, FabricCreativeModeTab.builder()
 			.title(Component.translatable("itemGroup.techreborn.item_group"))
 			.icon(() -> new ItemStack(TRContent.NUKE))
 			.build());
 
-		ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP).register(TRItemGroup::entries);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(TRItemGroup::addBuildingBlocks);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(TRItemGroup::addColoredBlocks);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(TRItemGroup::addNaturalBlocks);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(TRItemGroup::addFunctionalBlocks);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(TRItemGroup::addRedstoneBlocks);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(TRItemGroup::addTools);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(TRItemGroup::addCombat);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(TRItemGroup::addIngredients);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.OP_BLOCKS).register(TRItemGroup::addOperator);
+		CreativeModeTabEvents.modifyOutputEvent(ITEM_GROUP).register(TRItemGroup::entries);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(TRItemGroup::addBuildingBlocks);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(TRItemGroup::addColoredBlocks);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(TRItemGroup::addNaturalBlocks);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(TRItemGroup::addFunctionalBlocks);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(TRItemGroup::addRedstoneBlocks);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(TRItemGroup::addTools);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(TRItemGroup::addCombat);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(TRItemGroup::addIngredients);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.OP_BLOCKS).register(TRItemGroup::addOperator);
 	}
 
 	private static final ItemLike[] rubberOrderSmall = new ItemLike[]{
@@ -96,7 +94,7 @@ public class TRItemGroup {
 		TRContent.RUBBER_BUTTON
 	};
 
-	private static void entries(FabricItemGroupEntries entries) {
+	private static void entries(FabricCreativeModeTabOutput entries) {
 		// rubber tree and related stuff
 		entries.accept(TRContent.RUBBER_SAPLING);
 		entries.accept(TRContent.RUBBER_LEAVES);
@@ -123,19 +121,19 @@ public class TRItemGroup {
 		for (Object item : stuff) {
 			entries.accept((ItemLike)item);
 		}
-		entries.addAfter(TRContent.Plates.COPPER, TRContent.COPPER_WALL);
-		entries.addAfter(TRContent.Plates.IRON, TRContent.REFINED_IRON_FENCE);
-		entries.addBefore(TRContent.Plates.CARBON,
+		entries.insertAfter(TRContent.Plates.COPPER, TRContent.COPPER_WALL);
+		entries.insertAfter(TRContent.Plates.IRON, TRContent.REFINED_IRON_FENCE);
+		entries.insertBefore(TRContent.Plates.CARBON,
 			TRContent.Parts.CARBON_FIBER,
 			TRContent.Parts.CARBON_MESH);
-		entries.addAfter(TRContent.RawMetals.TIN, TRContent.StorageBlocks.RAW_TIN);
-		entries.addAfter(TRContent.RawMetals.LEAD, TRContent.StorageBlocks.RAW_LEAD);
-		entries.addAfter(TRContent.RawMetals.SILVER, TRContent.StorageBlocks.RAW_SILVER);
-		entries.addAfter(TRContent.RawMetals.IRIDIUM, TRContent.StorageBlocks.RAW_IRIDIUM);
-		entries.addAfter(TRContent.RawMetals.TUNGSTEN, TRContent.StorageBlocks.RAW_TUNGSTEN);
-		entries.addAfter(TRContent.RawMetals.URANIUM, TRContent.StorageBlocks.RAW_URANIUM);
+		entries.insertAfter(TRContent.RawMetals.TIN, TRContent.StorageBlocks.RAW_TIN);
+		entries.insertAfter(TRContent.RawMetals.LEAD, TRContent.StorageBlocks.RAW_LEAD);
+		entries.insertAfter(TRContent.RawMetals.SILVER, TRContent.StorageBlocks.RAW_SILVER);
+		entries.insertAfter(TRContent.RawMetals.IRIDIUM, TRContent.StorageBlocks.RAW_IRIDIUM);
+		entries.insertAfter(TRContent.RawMetals.TUNGSTEN, TRContent.StorageBlocks.RAW_TUNGSTEN);
+		entries.insertAfter(TRContent.RawMetals.URANIUM, TRContent.StorageBlocks.RAW_URANIUM);
 		for (TRContent.StorageBlocks block : TRContent.StorageBlocks.values()) {
-			entries.addAfter(block,
+			entries.insertAfter(block,
 				block.getStairsBlock(),
 				block.getSlabBlock(),
 				block.getWallBlock()
@@ -145,7 +143,7 @@ public class TRItemGroup {
 			if (!ore.isDeepslate()) {
 				continue;
 			}
-			entries.addAfter(ore.getUnDeepslate(), ore);
+			entries.insertAfter(ore.getUnDeepslate(), ore);
 		}
 
 		// fluids
@@ -156,7 +154,7 @@ public class TRItemGroup {
 		addContent(TRContent.Parts.values(), entries);
 		entries.accept(TRContent.FREQUENCY_TRANSMITTER);
 		entries.accept(TRContent.REINFORCED_GLASS);
-		entries.addAfter(TRContent.Parts.SCRAP, TRContent.SCRAP_BOX);
+		entries.insertAfter(TRContent.Parts.SCRAP, TRContent.SCRAP_BOX);
 
 		// machines
 		entries.accept(TRContent.WRENCH);
@@ -274,14 +272,14 @@ public class TRItemGroup {
 		entries.accept(TRContent.DEBUG_TOOL);
 	}
 
-	private static void addBuildingBlocks(FabricItemGroupEntries entries) {
-		entries.addAfter(Items.MANGROVE_BUTTON, rubberOrderSmall);
-		entries.addAfter(Items.AMETHYST_BLOCK,
+	private static void addBuildingBlocks(FabricCreativeModeTabOutput entries) {
+		entries.insertAfter(Items.MANGROVE_BUTTON, rubberOrderSmall);
+		entries.insertAfter(Items.AMETHYST_BLOCK,
 			TRContent.MachineBlocks.BASIC.getFrame(),
 			TRContent.MachineBlocks.ADVANCED.getFrame(),
 			TRContent.MachineBlocks.INDUSTRIAL.getFrame());
-		entries.addAfter(Items.IRON_CHAIN, TRContent.REFINED_IRON_FENCE);
-		entries.addBefore(Items.COPPER_BLOCK,
+		entries.insertAfter(Items.IRON_CHAIN, TRContent.REFINED_IRON_FENCE);
+		entries.insertBefore(Items.COPPER_BLOCK,
 			TRContent.StorageBlocks.RAW_TIN,
 			TRContent.StorageBlocks.RAW_TIN.getStairsBlock(),
 			TRContent.StorageBlocks.RAW_TIN.getSlabBlock(),
@@ -302,8 +300,8 @@ public class TRItemGroup {
 			TRContent.StorageBlocks.STEEL.getStairsBlock(),
 			TRContent.StorageBlocks.STEEL.getSlabBlock(),
 			TRContent.StorageBlocks.STEEL.getWallBlock());
-		entries.addAfter(Items.CUT_COPPER_SLAB, TRContent.COPPER_WALL);
-		entries.addAfter(Items.WAXED_OXIDIZED_CUT_COPPER_SLAB,
+		entries.insertAfter(Items.CUT_COPPER_SLAB, TRContent.COPPER_WALL);
+		entries.insertAfter(Items.WAXED_OXIDIZED_CUT_COPPER_SLAB,
 			TRContent.StorageBlocks.RAW_LEAD,
 			TRContent.StorageBlocks.RAW_LEAD.getStairsBlock(),
 			TRContent.StorageBlocks.RAW_LEAD.getSlabBlock(),
@@ -410,59 +408,59 @@ public class TRItemGroup {
 			TRContent.StorageBlocks.IRIDIUM_REINFORCED_TUNGSTENSTEEL.getWallBlock());
 	}
 
-	private static void addColoredBlocks(FabricItemGroupEntries entries) {
-		entries.addBefore(Items.TINTED_GLASS, TRContent.REINFORCED_GLASS);
+	private static void addColoredBlocks(FabricCreativeModeTabOutput entries) {
+		entries.insertBefore(Items.TINTED_GLASS, TRContent.REINFORCED_GLASS);
 	}
 
-	private static void addNaturalBlocks(FabricItemGroupEntries entries) {
-		entries.addBefore(Items.IRON_ORE, TRContent.Ores.TIN, TRContent.Ores.DEEPSLATE_TIN);
-		entries.addAfter(Items.DEEPSLATE_COPPER_ORE,
+	private static void addNaturalBlocks(FabricCreativeModeTabOutput entries) {
+		entries.insertBefore(Items.IRON_ORE, TRContent.Ores.TIN, TRContent.Ores.DEEPSLATE_TIN);
+		entries.insertAfter(Items.DEEPSLATE_COPPER_ORE,
 			TRContent.Ores.LEAD, TRContent.Ores.DEEPSLATE_LEAD,
 			TRContent.Ores.SILVER, TRContent.Ores.DEEPSLATE_SILVER);
-		entries.addAfter(Items.DEEPSLATE_GOLD_ORE,
+		entries.insertAfter(Items.DEEPSLATE_GOLD_ORE,
 			TRContent.Ores.GALENA, TRContent.Ores.DEEPSLATE_GALENA,
 			TRContent.Ores.BAUXITE, TRContent.Ores.DEEPSLATE_BAUXITE);
-		entries.addAfter(Items.DEEPSLATE_REDSTONE_ORE,
+		entries.insertAfter(Items.DEEPSLATE_REDSTONE_ORE,
 			TRContent.Ores.RUBY, TRContent.Ores.DEEPSLATE_RUBY,
 			TRContent.Ores.SAPPHIRE, TRContent.Ores.DEEPSLATE_SAPPHIRE);
-		entries.addAfter(Items.DEEPSLATE_DIAMOND_ORE, TRContent.Ores.IRIDIUM, TRContent.Ores.DEEPSLATE_IRIDIUM, TRContent.Ores.URANIUM, TRContent.Ores.DEEPSLATE_URANIUM);
-		entries.addAfter(Items.NETHER_GOLD_ORE,
+		entries.insertAfter(Items.DEEPSLATE_DIAMOND_ORE, TRContent.Ores.IRIDIUM, TRContent.Ores.DEEPSLATE_IRIDIUM, TRContent.Ores.URANIUM, TRContent.Ores.DEEPSLATE_URANIUM);
+		entries.insertAfter(Items.NETHER_GOLD_ORE,
 			TRContent.Ores.CINNABAR,
 			TRContent.Ores.PYRITE,
 			TRContent.Ores.SPHALERITE);
-		entries.addAfter(Items.ANCIENT_DEBRIS,
+		entries.insertAfter(Items.ANCIENT_DEBRIS,
 			TRContent.Ores.PERIDOT,
 			TRContent.Ores.SHELDONITE,
 			TRContent.Ores.SODALITE,
 			TRContent.Ores.TUNGSTEN);
-		entries.addBefore(Items.RAW_IRON_BLOCK, TRContent.StorageBlocks.RAW_TIN);
-		entries.addAfter(Items.RAW_COPPER_BLOCK,
+		entries.insertBefore(Items.RAW_IRON_BLOCK, TRContent.StorageBlocks.RAW_TIN);
+		entries.insertAfter(Items.RAW_COPPER_BLOCK,
 			TRContent.StorageBlocks.RAW_LEAD,
 			TRContent.StorageBlocks.RAW_SILVER);
-		entries.addAfter(Items.RAW_GOLD_BLOCK,
+		entries.insertAfter(Items.RAW_GOLD_BLOCK,
 			TRContent.StorageBlocks.RAW_IRIDIUM,
 			TRContent.StorageBlocks.RAW_TUNGSTEN,
 			TRContent.StorageBlocks.RAW_URANIUM);
-		entries.addAfter(Items.MANGROVE_LOG, TRContent.RUBBER_LOG);
-		entries.addAfter(Items.MUDDY_MANGROVE_ROOTS, TRContent.RUBBER_LEAVES);
-		entries.addAfter(Items.MANGROVE_PROPAGULE, TRContent.RUBBER_SAPLING);
+		entries.insertAfter(Items.MANGROVE_LOG, TRContent.RUBBER_LOG);
+		entries.insertAfter(Items.MUDDY_MANGROVE_ROOTS, TRContent.RUBBER_LEAVES);
+		entries.insertAfter(Items.MANGROVE_PROPAGULE, TRContent.RUBBER_SAPLING);
 	}
 
-	private static void addFunctionalBlocks(FabricItemGroupEntries entries) {
-		entries.addAfter(Items.END_ROD,
+	private static void addFunctionalBlocks(FabricCreativeModeTabOutput entries) {
+		entries.insertAfter(Items.END_ROD,
 			TRContent.Machine.LAMP_INCANDESCENT,
 			TRContent.Machine.LAMP_LED);
-		entries.addBefore(Items.CRYING_OBSIDIAN, TRContent.StorageBlocks.HOT_TUNGSTENSTEEL);
-		entries.addAfter(Items.CRAFTING_TABLE,
+		entries.insertBefore(Items.CRYING_OBSIDIAN, TRContent.StorageBlocks.HOT_TUNGSTENSTEEL);
+		entries.insertAfter(Items.CRAFTING_TABLE,
 			TRContent.Machine.AUTO_CRAFTING_TABLE,
 			TRContent.Machine.BLOCK_BREAKER,
 			TRContent.Machine.BLOCK_PLACER);
-		entries.addAfter(Items.STONECUTTER, TRContent.Machine.RESIN_BASIN);
-		entries.addAfter(Items.SMITHING_TABLE, TRContent.Machine.ASSEMBLY_MACHINE);
-		entries.addAfter(Items.FURNACE,
+		entries.insertAfter(Items.STONECUTTER, TRContent.Machine.RESIN_BASIN);
+		entries.insertAfter(Items.SMITHING_TABLE, TRContent.Machine.ASSEMBLY_MACHINE);
+		entries.insertAfter(Items.FURNACE,
 			TRContent.Machine.IRON_FURNACE,
 			TRContent.Machine.ELECTRIC_FURNACE);
-		entries.addAfter(Items.BLAST_FURNACE,
+		entries.insertAfter(Items.BLAST_FURNACE,
 			TRContent.Machine.INDUSTRIAL_BLAST_FURNACE,
 			TRContent.Machine.IRON_ALLOY_FURNACE,
 			TRContent.Machine.ALLOY_SMELTER,
@@ -471,32 +469,32 @@ public class TRItemGroup {
 			TRContent.Machine.INDUSTRIAL_SAWMILL,
 			TRContent.Machine.ROLLING_MACHINE,
 			TRContent.Machine.VACUUM_FREEZER);
-		entries.addAfter(Items.SCAFFOLDING,
+		entries.insertAfter(Items.SCAFFOLDING,
 			TRContent.Machine.ELEVATOR,
 			TRContent.Machine.LAUNCHPAD);
-		entries.addAfter(Items.COMPOSTER,
+		entries.insertAfter(Items.COMPOSTER,
 			TRContent.Machine.COMPRESSOR,
 			TRContent.Machine.SOLID_CANNING_MACHINE,
 			TRContent.Machine.RECYCLER,
 			TRContent.Machine.SCRAPBOXINATOR,
 			TRContent.Machine.MATTER_FABRICATOR);
-		entries.addBefore(Items.BREWING_STAND, TRContent.Machine.IMPLOSION_COMPRESSOR);
-		entries.addBefore(Items.CAULDRON,
+		entries.insertBefore(Items.BREWING_STAND, TRContent.Machine.IMPLOSION_COMPRESSOR);
+		entries.insertBefore(Items.CAULDRON,
 			TRContent.Machine.EXTRACTOR,
 			TRContent.Machine.CHEMICAL_REACTOR,
 			TRContent.Machine.INDUSTRIAL_CENTRIFUGE,
 			TRContent.Machine.INDUSTRIAL_ELECTROLYZER,
 			TRContent.Machine.DISTILLATION_TOWER);
-		entries.addAfter(Items.CAULDRON,
+		entries.insertAfter(Items.CAULDRON,
 			TRContent.Machine.DRAIN,
 			TRContent.Machine.PUMP,
 			TRContent.Machine.FLUID_REPLICATOR,
 			TRContent.Machine.FISHING_STATION);
-		entries.addAfter(Items.LODESTONE, TRContent.Machine.CHUNK_LOADER);
-		entries.addAfter(Items.BEEHIVE, TRContent.Machine.GREENHOUSE_CONTROLLER);
-		entries.addAfter(Items.LIGHTNING_ROD, TRContent.Machine.LIGHTNING_ROD);
+		entries.insertAfter(Items.LODESTONE, TRContent.Machine.CHUNK_LOADER);
+		entries.insertAfter(Items.BEEHIVE, TRContent.Machine.GREENHOUSE_CONTROLLER);
+		entries.insertAfter(Items.LIGHTNING_ROD, TRContent.Machine.LIGHTNING_ROD);
 		// inventory stuff
-		entries.addAfter(Items.ENDER_CHEST,
+		entries.insertAfter(Items.ENDER_CHEST,
 			TRContent.StorageUnit.BUFFER,
 			TRContent.StorageUnit.CRUDE,
 			TRContent.StorageUnit.BASIC,
@@ -509,7 +507,7 @@ public class TRItemGroup {
 			TRContent.TankUnit.INDUSTRIAL,
 			TRContent.TankUnit.QUANTUM,
 			TRContent.TankUnit.CREATIVE);
-		entries.addBefore(Items.SKELETON_SKULL,
+		entries.insertBefore(Items.SKELETON_SKULL,
 			// blocks
 			TRContent.MachineBlocks.BASIC.getCasing(),
 			TRContent.MachineBlocks.ADVANCED.getCasing(),
@@ -558,18 +556,18 @@ public class TRItemGroup {
 			TRContent.Machine.WIRE_MILL);
 	}
 
-	private static void addRedstoneBlocks(FabricItemGroupEntries entries) {
-		entries.addBefore(Items.SCULK_SENSOR, TRContent.Machine.ALARM);
-		entries.addAfter(Items.WHITE_WOOL, TRContent.Machine.PLAYER_DETECTOR);
+	private static void addRedstoneBlocks(FabricCreativeModeTabOutput entries) {
+		entries.insertBefore(Items.SCULK_SENSOR, TRContent.Machine.ALARM);
+		entries.insertAfter(Items.WHITE_WOOL, TRContent.Machine.PLAYER_DETECTOR);
 	}
 
-	private static void addTools(FabricItemGroupEntries entries) {
-		entries.addBefore(Items.GOLDEN_SHOVEL,
+	private static void addTools(FabricCreativeModeTabOutput entries) {
+		entries.insertBefore(Items.GOLDEN_SHOVEL,
 			TRContent.BRONZE_SPADE,
 			TRContent.BRONZE_PICKAXE,
 			TRContent.BRONZE_AXE,
 			TRContent.BRONZE_HOE);
-		entries.addBefore(Items.DIAMOND_SHOVEL,
+		entries.insertBefore(Items.DIAMOND_SHOVEL,
 			TRContent.RUBY_SPADE,
 			TRContent.RUBY_PICKAXE,
 			TRContent.RUBY_AXE,
@@ -583,7 +581,7 @@ public class TRItemGroup {
 			TRContent.PERIDOT_AXE,
 			TRContent.PERIDOT_HOE);
 		// order very important here
-		entries.addBefore(Items.BUCKET, TRContent.TREE_TAP);
+		entries.insertBefore(Items.BUCKET, TRContent.TREE_TAP);
 		addPoweredItem(TRContent.ELECTRIC_TREE_TAP, entries, Items.BUCKET, false);
 		addPoweredItem(TRContent.ROCK_CUTTER, entries, Items.BUCKET, false);
 		addPoweredItem(TRContent.BASIC_DRILL, entries, Items.BUCKET, false);
@@ -596,7 +594,7 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.ADVANCED_CHAINSAW, entries, Items.BUCKET, false);
 		addPoweredItem(TRContent.INDUSTRIAL_CHAINSAW, entries, Items.BUCKET, false);
 		addPoweredItem(TRContent.OMNI_TOOL, entries, Items.BUCKET, false);
-		entries.addBefore(Items.BUCKET, TRContent.CELL);
+		entries.insertBefore(Items.BUCKET, TRContent.Cells.EMPTY);
 		addPoweredItem(TRContent.RED_CELL_BATTERY, entries, Items.OAK_BOAT, false);
 		addPoweredItem(TRContent.LITHIUM_ION_BATTERY, entries, Items.OAK_BOAT, false);
 		addPoweredItem(TRContent.LITHIUM_ION_BATPACK, entries, Items.OAK_BOAT, false);
@@ -605,17 +603,17 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.LAPOTRONIC_ORB, entries, Items.OAK_BOAT, false);
 		addPoweredItem(TRContent.LAPOTRONIC_ORBPACK, entries, Items.OAK_BOAT, false);
 		// now order not important again
-		entries.addBefore(Items.SHEARS,
+		entries.insertBefore(Items.SHEARS,
 			TRContent.SCRAP_BOX,
 			TRContent.Plates.WOOD,
 			TRContent.PAINTING_TOOL);
-		entries.addAfter(Items.RECOVERY_COMPASS, TRContent.GPS);
-		entries.addAfter(Items.SPYGLASS, TRContent.WRENCH);
+		entries.insertAfter(Items.RECOVERY_COMPASS, TRContent.GPS);
+		entries.insertAfter(Items.SPYGLASS, TRContent.WRENCH);
 	}
 
-	private static void addCombat(FabricItemGroupEntries entries) {
+	private static void addCombat(FabricCreativeModeTabOutput entries) {
 		addNanosaber(entries, Items.WOODEN_AXE, true);
-		entries.addAfter(Items.IRON_BOOTS,
+		entries.insertAfter(Items.IRON_BOOTS,
 			TRContent.STEEL_HELMET,
 			TRContent.STEEL_CHESTPLATE,
 			TRContent.STEEL_LEGGINGS,
@@ -624,12 +622,12 @@ public class TRItemGroup {
 			TRContent.BRONZE_CHESTPLATE,
 			TRContent.BRONZE_LEGGINGS,
 			TRContent.BRONZE_BOOTS);
-		entries.addBefore(Items.GOLDEN_HELMET,
+		entries.insertBefore(Items.GOLDEN_HELMET,
 			TRContent.SILVER_HELMET,
 			TRContent.SILVER_CHESTPLATE,
 			TRContent.SILVER_LEGGINGS,
 			TRContent.SILVER_BOOTS);
-		entries.addBefore(Items.DIAMOND_HELMET,
+		entries.insertBefore(Items.DIAMOND_HELMET,
 			TRContent.RUBY_HELMET,
 			TRContent.RUBY_CHESTPLATE,
 			TRContent.RUBY_LEGGINGS,
@@ -651,29 +649,29 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.NANO_LEGGINGS, entries, Items.TURTLE_HELMET, false);
 		addPoweredItem(TRContent.NANO_BOOTS, entries, Items.TURTLE_HELMET, false);
 		addPoweredItem(TRContent.CLOAKING_DEVICE, entries, Items.LEATHER_HORSE_ARMOR, false);
-		entries.addAfter(Items.END_CRYSTAL, TRContent.NUKE);
+		entries.insertAfter(Items.END_CRYSTAL, TRContent.NUKE);
 	}
 
-	private static void addIngredients(FabricItemGroupEntries entries) {
+	private static void addIngredients(FabricCreativeModeTabOutput entries) {
 		// raw / gem
-		entries.addBefore(Items.RAW_IRON, TRContent.RawMetals.TIN);
-		entries.addAfter(Items.RAW_COPPER,
+		entries.insertBefore(Items.RAW_IRON, TRContent.RawMetals.TIN);
+		entries.insertAfter(Items.RAW_COPPER,
 			TRContent.RawMetals.LEAD,
 			TRContent.RawMetals.SILVER);
-		entries.addBefore(Items.EMERALD,
+		entries.insertBefore(Items.EMERALD,
 			TRContent.Gems.RUBY,
 			TRContent.Gems.SAPPHIRE,
 			TRContent.Gems.PERIDOT,
 			TRContent.Gems.RED_GARNET,
 			TRContent.Gems.YELLOW_GARNET);
-		entries.addAfter(Items.DIAMOND,
+		entries.insertAfter(Items.DIAMOND,
 			TRContent.RawMetals.IRIDIUM,
 			TRContent.RawMetals.TUNGSTEN);
 		// nuggets
-		entries.addBefore(Items.IRON_NUGGET,
+		entries.insertBefore(Items.IRON_NUGGET,
 			TRContent.Nuggets.TIN,
 			TRContent.Nuggets.ZINC);
-		entries.addAfter(Items.IRON_NUGGET,
+		entries.insertAfter(Items.IRON_NUGGET,
 			TRContent.Nuggets.REFINED_IRON,
 			TRContent.Nuggets.STEEL,
 			TRContent.Nuggets.COPPER,
@@ -682,8 +680,8 @@ public class TRItemGroup {
 			TRContent.Nuggets.BRONZE,
 			TRContent.Nuggets.BRASS,
 			TRContent.Nuggets.INVAR);
-		entries.addBefore(Items.GOLD_NUGGET, TRContent.Nuggets.SILVER);
-		entries.addAfter(Items.GOLD_NUGGET,
+		entries.insertBefore(Items.GOLD_NUGGET, TRContent.Nuggets.SILVER);
+		entries.insertAfter(Items.GOLD_NUGGET,
 			TRContent.Nuggets.ELECTRUM,
 			TRContent.Nuggets.ALUMINUM,
 			TRContent.Nuggets.TITANIUM,
@@ -694,13 +692,13 @@ public class TRItemGroup {
 			TRContent.Nuggets.TUNGSTEN,
 			TRContent.Nuggets.NETHERITE);
 		// ingots
-		entries.addBefore(Items.IRON_INGOT,
+		entries.insertBefore(Items.IRON_INGOT,
 			TRContent.Ingots.TIN,
 			TRContent.Ingots.ZINC);
-		entries.addAfter(Items.IRON_INGOT,
+		entries.insertAfter(Items.IRON_INGOT,
 			TRContent.Ingots.REFINED_IRON,
 			TRContent.Ingots.STEEL);
-		entries.addAfter(Items.COPPER_INGOT,
+		entries.insertAfter(Items.COPPER_INGOT,
 			TRContent.Ingots.LEAD,
 			TRContent.Ingots.NICKEL,
 			TRContent.Ingots.BRONZE,
@@ -708,8 +706,8 @@ public class TRItemGroup {
 			TRContent.Ingots.MIXED_METAL,
 			TRContent.Ingots.ADVANCED_ALLOY,
 			TRContent.Ingots.INVAR);
-		entries.addBefore(Items.GOLD_INGOT, TRContent.Ingots.SILVER);
-		entries.addAfter(Items.GOLD_INGOT,
+		entries.insertBefore(Items.GOLD_INGOT, TRContent.Ingots.SILVER);
+		entries.insertAfter(Items.GOLD_INGOT,
 			TRContent.Ingots.ELECTRUM,
 			TRContent.Ingots.ALUMINUM,
 			TRContent.Ingots.TITANIUM,
@@ -722,22 +720,22 @@ public class TRItemGroup {
 			TRContent.Ingots.HOT_TUNGSTENSTEEL);
 		// dusts and small dusts
 		// misc
-		entries.addAfter(Items.STICK,
+		entries.insertAfter(Items.STICK,
 			TRContent.Parts.PLANTBALL,
 			TRContent.Parts.COMPRESSED_PLANTBALL);
-		entries.addAfter(Items.HONEYCOMB,
+		entries.insertAfter(Items.HONEYCOMB,
 			TRContent.Parts.SAP,
 			TRContent.Parts.RUBBER,
 			TRContent.Parts.SCRAP);
-		entries.addBefore(Items.PRISMARINE_SHARD, TRContent.Parts.SPONGE_PIECE);
-		entries.addBefore(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE, TRContent.Parts.TEMPLATE_TEMPLATE);
-		entries.addBefore(Items.BRICK,
+		entries.insertBefore(Items.PRISMARINE_SHARD, TRContent.Parts.SPONGE_PIECE);
+		entries.insertBefore(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE, TRContent.Parts.TEMPLATE_TEMPLATE);
+		entries.insertBefore(Items.BRICK,
 			TRContent.Parts.CARBON_FIBER,
 			TRContent.Parts.CARBON_MESH);
-		entries.addBefore(Items.NETHER_STAR, TRContent.Parts.SYNTHETIC_REDSTONE_CRYSTAL);
-		entries.addAfter(Items.NETHERITE_INGOT, TRContent.Parts.UU_MATTER);
+		entries.insertBefore(Items.NETHER_STAR, TRContent.Parts.SYNTHETIC_REDSTONE_CRYSTAL);
+		entries.insertAfter(Items.NETHERITE_INGOT, TRContent.Parts.UU_MATTER);
 		// machine parts
-		entries.addAfter(Items.NETHER_BRICK,
+		entries.insertAfter(Items.NETHER_BRICK,
 			TRContent.Parts.ELECTRONIC_CIRCUIT,
 			TRContent.Parts.ADVANCED_CIRCUIT,
 			TRContent.Parts.INDUSTRIAL_CIRCUIT,
@@ -751,11 +749,11 @@ public class TRItemGroup {
 			TRContent.Parts.DIAMOND_SAW_BLADE,
 			TRContent.Parts.DIAMOND_GRINDING_HEAD,
 			TRContent.Parts.TUNGSTEN_GRINDING_HEAD);
-		entries.addBefore(Items.FIREWORK_STAR,
+		entries.insertBefore(Items.FIREWORK_STAR,
 			TRContent.Parts.BASIC_DISPLAY,
 			TRContent.Parts.DIGITAL_DISPLAY);
 		// nuclear reactor parts
-		entries.addAfter(Items.PHANTOM_MEMBRANE,
+		entries.insertAfter(Items.PHANTOM_MEMBRANE,
 			TRContent.NuclearReactorComponents.EMPTY_FUEL_ROD,
 			TRContent.NuclearReactorComponents.URANIUM_FUEL_ROD,
 			TRContent.NuclearReactorComponents.DUAL_URANIUM_FUEL_ROD,
@@ -789,28 +787,25 @@ public class TRItemGroup {
 			TRContent.NuclearReactorComponents.CONTAINMENT_REACTOR_PLATING);
 	}
 
-	private static void addOperator(FabricItemGroupEntries entries) {
+	private static void addOperator(FabricCreativeModeTabOutput entries) {
 		if (entries.shouldShowOpRestrictedItems()) {
-			entries.addAfter(Items.DEBUG_STICK, TRContent.DEBUG_TOOL);
+			entries.insertAfter(Items.DEBUG_STICK, TRContent.DEBUG_TOOL);
 		}
 	}
 
-	private static void addContent(ItemLike[] items, FabricItemGroupEntries entries) {
+	private static void addContent(ItemLike[] items, FabricCreativeModeTabOutput entries) {
 		for (ItemLike item : items) {
 			entries.accept(item);
 		}
 	}
 
-	private static void addCells(FabricItemGroupEntries entries) {
-		entries.accept(DynamicCellItem.getEmptyCell(1));
-		for (Fluid fluid : FluidUtils.getAllFluids()) {
-			if (fluid.isSource(fluid.defaultFluidState())) {
-				entries.accept(DynamicCellItem.getCellWithFluid(fluid));
-			}
+	private static void addCells(FabricCreativeModeTabOutput entries) {
+		for (Cells cell : Cells.values()) {
+			entries.accept(cell.asItem());
 		}
 	}
 
-	private static void addPoweredItem(Item item, FabricItemGroupEntries entries, ItemLike before, boolean includeUncharged) {
+	private static void addPoweredItem(Item item, FabricCreativeModeTabOutput entries, ItemLike before, boolean includeUncharged) {
 		ItemStack uncharged = new ItemStack(item);
 		ItemStack charged = new ItemStack(item);
 		RcEnergyItem energyItem = (RcEnergyItem) item;
@@ -832,15 +827,15 @@ public class TRItemGroup {
 		}
 		else {
 			if (includeUncharged) {
-				entries.addBefore(before, uncharged, charged);
+				entries.insertBefore(before, uncharged, charged);
 			}
 			else {
-				entries.addBefore(before, charged);
+				entries.insertBefore(before, charged);
 			}
 		}
 	}
 
-	private static void addRockCutter(FabricItemGroupEntries entries, ItemLike before, boolean includeUncharged) {
+	private static void addRockCutter(FabricCreativeModeTabOutput entries, ItemLike before, boolean includeUncharged) {
 		HolderLookup.RegistryLookup<Enchantment> enchantmentRegistry = entries.getContext().holders().lookupOrThrow(Registries.ENCHANTMENT);
 		RockCutterItem rockCutter = (RockCutterItem) TRContent.ROCK_CUTTER;
 
@@ -858,15 +853,15 @@ public class TRItemGroup {
 		}
 		else {
 			if (includeUncharged) {
-				entries.addBefore(before, uncharged, charged);
+				entries.insertBefore(before, uncharged, charged);
 			}
 			else {
-				entries.addBefore(before, charged);
+				entries.insertBefore(before, charged);
 			}
 		}
 	}
 
-	private static void addNanosaber(FabricItemGroupEntries entries, ItemLike before, boolean onlyPoweredAndActive) {
+	private static void addNanosaber(FabricCreativeModeTabOutput entries, ItemLike before, boolean onlyPoweredAndActive) {
 		NanosaberItem nanosaber = (NanosaberItem) TRContent.NANOSABER;
 
 		ItemStack inactiveUncharged = new ItemStack(nanosaber);
@@ -889,10 +884,10 @@ public class TRItemGroup {
 		}
 		else {
 			if (!onlyPoweredAndActive) {
-				entries.addBefore(before, inactiveUncharged, inactiveCharged, activeCharged);
+				entries.insertBefore(before, inactiveUncharged, inactiveCharged, activeCharged);
 			}
 			else {
-				entries.addBefore(before, activeCharged);
+				entries.insertBefore(before, activeCharged);
 			}
 		}
 	}

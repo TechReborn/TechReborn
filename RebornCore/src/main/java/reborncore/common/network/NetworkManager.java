@@ -44,7 +44,7 @@ public class NetworkManager {
 	}
 
 	public static void sendToWorld(CustomPacketPayload payload, ServerLevel world) {
-		send(payload, PlayerLookup.world(world));
+		send(payload, PlayerLookup.level(world));
 	}
 
 

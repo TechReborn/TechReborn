@@ -24,10 +24,11 @@
 
 package techreborn.datagen.recipes.crafting
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.data.recipes.ShapelessRecipeBuilder
 import net.minecraft.data.recipes.SingleItemRecipeBuilder
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -36,8 +37,7 @@ import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.resources.ResourceKey
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
-import net.minecraft.resources.ResourceLocation
-import reborncore.common.recipes.PaddedShapedRecipeJsonBuilder
+import net.minecraft.resources.Identifier
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
@@ -46,7 +46,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Function
 
 class CraftingRecipesProvider extends TechRebornRecipesProvider {
-	CraftingRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	CraftingRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -192,56 +192,56 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		String dir
 		// dusts
 		dir = rootDir + "dust/"
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.ALUMINUM)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Dusts.ALUMINUM, 'U' as char)
 			.pattern("UUU")
 			.pattern("U  ")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.ALUMINUM)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.CHROME)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Dusts.CHROME, 'U' as char)
 			.pattern("UUU")
 			.pattern("UU ")
 			.pattern(" U ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.CHROME)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.PLATINUM)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Dusts.PLATINUM, 'U' as char)
 			.pattern("UUU")
 			.pattern("UU ")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.PLATINUM)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Dusts.TITANIUM)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Dusts.TITANIUM, 'U' as char)
 			.pattern("UUU")
 			.pattern("U U")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Dusts.TITANIUM)))
 		// nuggets
 		dir = rootDir + "nugget/"
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.Nuggets.NETHERITE)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.Nuggets.NETHERITE, 'U' as char)
 			.pattern("UUU")
 			.pattern("UUU")
 			.pattern("UU ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Nuggets.NETHERITE)))
 		// raw ores
 		dir = rootDir + "raw/"
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, Items.RAW_COPPER)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, Items.RAW_COPPER, 'U' as char)
 			.pattern("U  ")
 			.pattern("   ")
 			.pattern(" U ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.RAW_COPPER)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.LEAD)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.RawMetals.LEAD, 'U' as char)
 			.pattern("   ")
 			.pattern("U  ")
 			.pattern("U  ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.LEAD)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.TIN)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.RawMetals.TIN, 'U' as char)
 			.pattern("   ")
 			.pattern(" U ")
 			.pattern("  U")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TIN)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.TUNGSTEN)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.RawMetals.TUNGSTEN, 'U' as char)
 			.pattern("UUU")
 			.pattern("UUU")
 			.pattern("   ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.RawMetals.TUNGSTEN)))
-		createPureUuMatterPaddedRecipe(RecipeCategory.MISC, TRContent.RawMetals.URANIUM)
+		createMonoShapeRecipe(TRContent.Parts.UU_MATTER, TRContent.RawMetals.URANIUM, 'U' as char)
 			.pattern("UUU")
 			.pattern("U  ")
 			.pattern("  U")
@@ -255,12 +255,12 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("DDD")
 			.pattern("NDN")
 			.save(this.exporter, getRecipeKey("crafting_table/parts/"+TRContent.Parts.TEMPLATE_TEMPLATE.name))
-		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStack(Items.RESIN_CLUMP, 2))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(Items.RESIN_CLUMP, 2))
 			.requires(TRContent.Parts.SAP, 2)
 			.requires(Items.SLIME_BALL)
 			.unlockedBy("has_sap", getCriterionConditions(TRContent.Parts.SAP))
 			.save(this.exporter, getRecipeKey("crafting_table/parts/resin_clump"))
-		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStack(TRContent.Parts.SAP, 8))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(TRContent.Parts.SAP.asItem(), 8))
 			.requires(Items.RESIN_CLUMP, 4)
 			.requires(Items.WATER_BUCKET)
 			.unlockedBy("has_resin_clump", getCriterionConditions(Items.RESIN_CLUMP))
@@ -282,7 +282,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def static getRecipeKey(String name) {
-		return ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name))
+		return ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name))
 	}
 
 	def offerMonoShapelessRecipe(def input, int inputSize, ItemLike output, int outputSize, String source, prefix = "", String result = null, RecipeCategory category = RecipeCategory.MISC) {
@@ -431,13 +431,6 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.pattern("X X")
 				.pattern("X X")
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
-	}
-
-	def createPureUuMatterPaddedRecipe(RecipeCategory category, ItemLike output) {
-		var input = TRContent.Parts.UU_MATTER
-		return PaddedShapedRecipeJsonBuilder.shaped(itemLookup, category, output, 1)
-			.define('U' as char, createIngredient(input))
-			.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 	}
 
 }

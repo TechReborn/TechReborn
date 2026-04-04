@@ -121,7 +121,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			if (world.getGameTime() % 2 == 0) {
 				balanceRecipe(craftMatrix);
 			}
-			currentRecipeOutput = currentRecipe.getShapedRecipe().assemble(recipeInput(craftMatrix), getLevel().registryAccess());
+			currentRecipeOutput = currentRecipe.getShapedRecipe().assemble(recipeInput(craftMatrix));
 		} else {
 			currentRecipeOutput = ItemStack.EMPTY;
 		}
@@ -350,7 +350,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		if (recipe == null) {
 			return ItemStack.EMPTY;
 		}
-		return recipe.assemble(null, getLevel().registryAccess());
+		return recipe.assemble(null);
 	}
 
 	public RollingMachineRecipe findMatchingRecipe(TransientCraftingContainer inv, Level world) {

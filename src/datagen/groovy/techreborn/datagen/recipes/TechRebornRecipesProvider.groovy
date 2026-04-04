@@ -24,19 +24,17 @@
 
 package techreborn.datagen.recipes
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.critereon.InventoryChangeTrigger
+import net.minecraft.advancements.criterion.InventoryChangeTrigger
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.ItemLike
-import net.minecraft.world.item.ItemStack
-import net.minecraft.core.component.DataComponentExactPredicate
-import net.minecraft.advancements.critereon.DataComponentMatchers
-import net.minecraft.advancements.critereon.ItemPredicate
+import net.minecraft.advancements.criterion.ItemPredicate
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.core.registries.BuiltInRegistries
@@ -44,8 +42,7 @@ import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.TagKey
-import net.minecraft.resources.ResourceLocation
-import techreborn.component.TRDataComponentTypes
+import net.minecraft.resources.Identifier
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
@@ -60,18 +57,18 @@ import techreborn.datagen.recipes.machine.scrapbox.ScrapboxRecipeJsonFactory
 import techreborn.init.ModFluids
 import techreborn.init.ModRecipes
 import techreborn.init.TRContent
-import techreborn.items.DynamicCellItem
+import techreborn.init.TRContent.Cells
 import techreborn.recipe.recipes.FluidGeneratorRecipe
 
 import java.util.concurrent.CompletableFuture
 
 abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	protected RecipeOutput exporter
-	public Set<ResourceLocation> exportedRecipes = []
+	public Set<Identifier> exportedRecipes = []
 	public HolderGetter<Item> itemLookup
 	public RecipeProvider generator
 
-	TechRebornRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	TechRebornRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -121,11 +118,9 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	ItemPredicate getCellItemPredicate(ModFluids fluid){
+		def cell = Cells.getCellByFluid(fluid.getFluid())
 		return ItemPredicate.Builder.item()
-			.of(itemLookup, TRContent.CELL.asItem())
-			.withComponents(DataComponentMatchers.Builder.components()
-				.exact(DataComponentExactPredicate.expect(TRDataComponentTypes.FLUID, fluid.fluid.builtInRegistryHolder()))
-				.build())
+			.of(itemLookup, cell.asItem())
 			.build()
 	}
 
@@ -167,22 +162,23 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 		throw new IllegalArgumentException()
 	}
 
-	static ItemStack stack(ItemLike itemConvertible, int count = 1) {
-		return new ItemStack(itemConvertible, count)
+	static ItemStackTemplate stack(ItemLike itemConvertible, int count = 1) {
+		return new ItemStackTemplate(itemConvertible.asItem(), count)
 	}
 
-	static ItemStack cellStack(ModFluids fluid, int count = 1) {
+	static ItemStackTemplate cellStack(ModFluids fluid, int count = 1) {
 		return cellStack(fluid.getFluid(), count)
 	}
 
-	static ItemStack cellStack(Fluid fluid, int count = 1) {
-		return DynamicCellItem.getCellWithFluid(fluid, count)
+	static ItemStackTemplate cellStack(Fluid fluid, int count = 1) {
+		def cell = Cells.getCellByFluid(fluid)
+		return new ItemStackTemplate(cell.asItem(), count)
 	}
 
 	// Todo refactor me out, used to help port json recipes
-	static ItemStack stack(String id, int count = 1) {
-		def item = BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(id))
-		return new ItemStack(item, count)
+	static ItemStackTemplate stack(String id, int count = 1) {
+		def item = BuiltInRegistries.ITEM.getValue(Identifier.parse(id))
+		return new ItemStackTemplate(item, count)
 	}
 
 	// Todo refactor me out, used to help port json recipes
@@ -191,7 +187,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 			throw new UnsupportedOperationException()
 		}
 
-		return TagKey.create(Registries.ITEM, ResourceLocation.parse(id))
+		return TagKey.create(Registries.ITEM, Identifier.parse(id))
 	}
 
 	def offerAlloySmelterRecipe(@DelegatesTo(value = MachineRecipeJsonFactory.class, strategy = Closure.DELEGATE_FIRST) Closure closure) {
@@ -283,8 +279,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected ResourceLocation getRecipeIdentifier(ResourceLocation identifier) {
-		return ResourceLocation.fromNamespaceAndPath("techreborn", super.getRecipeIdentifier(identifier).path)
+	protected Identifier getRecipeIdentifier(Identifier identifier) {
+		return Identifier.fromNamespaceAndPath("techreborn", super.getRecipeIdentifier(identifier).path)
 	}
 
 	@Override

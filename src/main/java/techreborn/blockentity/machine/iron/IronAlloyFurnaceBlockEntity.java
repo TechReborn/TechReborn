@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.iron;
 
+import net.minecraft.world.item.ItemStackTemplate;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.SizedIngredient;
 import reborncore.common.crafting.RecipeUtils;
@@ -91,7 +92,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 		ItemStack itemstack = null;
 		for (RebornRecipe recipeType : RecipeUtils.getRecipes(level, ModRecipes.ALLOY_SMELTER)) {
 			if (hasAllInputs(recipeType)) {
-				List<ItemStack> outputs = recipeType.outputs();
+				List<ItemStack> outputs = recipeType.outputs().stream().map(ItemStackTemplate::create).toList();
 				recipeCookingTime = recipeType.time();
 
 				if(outputs.isEmpty()){
@@ -125,7 +126,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 			return;
 		}
 
-		ItemStack outputStack = currentRecipe.outputs().get(0);
+		ItemStack outputStack = currentRecipe.outputs().get(0).create();
 		if (outputStack.isEmpty()) {
 			return;
 		}

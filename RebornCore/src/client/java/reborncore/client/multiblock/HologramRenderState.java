@@ -25,23 +25,13 @@
 package reborncore.client.multiblock;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.List;
+import net.minecraft.util.LightCoordsUtil;
 
 public interface HologramRenderState {
-	BlockPos OUT_OF_WORLD_POS = new BlockPos(0, 260, 0); // Bad hack; disables lighting
-
 	void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector);
 
 	default void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, float scale) {
@@ -62,24 +52,15 @@ public interface HologramRenderState {
 	record FluidItem(int x, int y, int z, ItemStackRenderState state) implements HologramRenderState {
 		@Override
 		public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
-			state.submit(poseStack, submitNodeCollector, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
+			state.submit(poseStack, submitNodeCollector, LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
 		}
 	}
 
-	record Block(
-		BlockRenderDispatcher blockRenderManager, Level view, int x, int y, int z, RenderType layer, BlockState state, List<BlockModelPart> parts
-	) implements HologramRenderState, SubmitNodeCollector.CustomGeometryRenderer {
-		@Override
-		public void render(PoseStack.Pose pose, VertexConsumer vertexConsumer) {
-			PoseStack matrix = new PoseStack();
-			matrix.mulPose(pose.pose());
-			blockRenderManager.renderBatched(state, OUT_OF_WORLD_POS, view, matrix, vertexConsumer, false, parts);
-		}
-
+	record Block(int x, int y, int z, BlockModelRenderState blockModelRenderState) implements HologramRenderState {
 		@Override
 		public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
 			poseStack.translate(-0.5, -0.5, -0.5);
-			submitNodeCollector.submitCustomGeometry(poseStack, layer, this);
+			blockModelRenderState.submit(poseStack, submitNodeCollector, LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
 		}
 	}
 }

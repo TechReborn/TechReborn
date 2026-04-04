@@ -41,7 +41,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -55,7 +55,7 @@ import net.minecraft.world.level.saveddata.SavedDataType;
 public class ChunkLoaderManager extends SavedData {
 
 	public static Codec<ChunkLoaderManager> CODEC = Codec.list(LoadedChunk.CODEC).xmap(ChunkLoaderManager::fromChunks, ChunkLoaderManager::getLoadedChunks);
-	public static final SavedDataType<ChunkLoaderManager> TYPE = new SavedDataType<>("chunk_loader", ChunkLoaderManager::new, CODEC, null);
+	public static final SavedDataType<ChunkLoaderManager> TYPE = new SavedDataType<>(Identifier.fromNamespaceAndPath("reborncore", "chunk_loader"), ChunkLoaderManager::new, CODEC, null);
 
 	private static TicketType CHUNK_LOADER;
 	private static final String KEY = "reborncore_chunk_loader";
@@ -159,8 +159,8 @@ public class ChunkLoaderManager extends SavedData {
 		}
 	}
 
-	public static ResourceLocation getWorldName(Level world){
-		return world.dimension().location();
+	public static Identifier getWorldName(Level world){
+		return world.dimension().identifier();
 	}
 
 	public static ResourceKey<Level> getDimensionRegistryKey(Level world){
@@ -188,32 +188,32 @@ public class ChunkLoaderManager extends SavedData {
 		world.getChunkSource().addTicketWithRadius(ChunkLoaderManager.CHUNK_LOADER, chunkPos, RADIUS);
 	}
 
-	public record LoadedChunk(ChunkPos chunk, ResourceLocation world, String player, BlockPos chunkLoader) {
+	public record LoadedChunk(ChunkPos chunk, Identifier world, String player, BlockPos chunkLoader) {
 		public static Codec<ChunkPos> CHUNK_POS_CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
-					Codec.INT.fieldOf("x").forGetter(p -> p.x),
-					Codec.INT.fieldOf("z").forGetter(p -> p.z)
+					Codec.INT.fieldOf("x").forGetter(p -> p.x()),
+					Codec.INT.fieldOf("z").forGetter(p -> p.z())
 				)
 				.apply(instance, ChunkPos::new));
 
 		public static Codec<LoadedChunk> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
 					CHUNK_POS_CODEC.fieldOf("chunk").forGetter(LoadedChunk::chunk),
-					ResourceLocation.CODEC.fieldOf("world").forGetter(LoadedChunk::world),
+					Identifier.CODEC.fieldOf("world").forGetter(LoadedChunk::world),
 					Codec.STRING.fieldOf("player").forGetter(LoadedChunk::player),
 					BlockPos.CODEC.fieldOf("chunkLoader").forGetter(LoadedChunk::chunkLoader)
 				)
 				.apply(instance, LoadedChunk::new));
 
 		public static StreamCodec<ByteBuf, ChunkPos> CHUNK_POS_PACKET_CODEC = StreamCodec.composite(
-			ByteBufCodecs.INT, chunkPos -> chunkPos.x,
-			ByteBufCodecs.INT, chunkPos -> chunkPos.z,
+			ByteBufCodecs.INT, chunkPos -> chunkPos.x(),
+			ByteBufCodecs.INT, chunkPos -> chunkPos.z(),
 			ChunkPos::new
 		);
 
 		public static StreamCodec<ByteBuf, LoadedChunk> PACKET_CODEC = StreamCodec.composite(
 			CHUNK_POS_PACKET_CODEC, LoadedChunk::chunk,
-			ResourceLocation.STREAM_CODEC, LoadedChunk::world,
+			Identifier.STREAM_CODEC, LoadedChunk::world,
 			ByteBufCodecs.STRING_UTF8, LoadedChunk::player,
 			BlockPos.STREAM_CODEC, LoadedChunk::chunkLoader,
 			LoadedChunk::new

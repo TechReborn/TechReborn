@@ -24,23 +24,23 @@
 
 package techreborn.datagen.tags
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.BlockTagProvider
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider.BlockTagsProvider
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.BlockTags
 import net.minecraft.tags.TagKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
 import java.util.concurrent.CompletableFuture
 
-class TRBlockTagProvider extends BlockTagProvider {
+class TRBlockTagProvider extends BlockTagsProvider {
 
-	TRBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	TRBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
@@ -58,7 +58,7 @@ class TRBlockTagProvider extends BlockTagProvider {
 			.addOptionalTag(BlockTags.SNOW)
 			.addOptionalTag(BlockTags.NYLIUM)
 			.addOptionalTag(BlockTags.WART_BLOCKS)
-			.addOptionalTag(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c","stone")))
+			.addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c","stone")))
 			.addOptional(Blocks.END_STONE)
 			.addOptional(Blocks.SAND)
 			.addOptional(Blocks.RED_SAND)
@@ -176,7 +176,7 @@ class TRBlockTagProvider extends BlockTagProvider {
 		}
 
 		valueLookupBuilder(TRContent.BlockTags.NONE_SOLID_COVERS)
-			.addOptionalTag(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ae2", "whitelisted/facades")))
+			.addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ae2", "whitelisted/facades")))
 			.forceAddTag(ConventionalBlockTags.GLASS_BLOCKS)
 	}
 }

@@ -30,7 +30,7 @@ import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.screen.slot.BaseSlot;
 
 import java.util.Arrays;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -92,12 +92,12 @@ public class ConfigSlotElement extends ParentElement {
 	}
 
 	@Override
-	public void draw(GuiGraphics drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
+	public void draw(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int mouseX, int mouseY) {
 		ItemStack stack = inventory.getItem(id);
 		int xPos = getX() + 1 + gui.getGuiLeft();
 		int yPos = getY() + 1 + gui.getGuiTop();
 
-		drawContext.renderItem(stack, xPos, yPos);
+		drawContext.item(stack, xPos, yPos);
 
 		if (isMouseWithinRect(gui, mouseX, mouseY)) {
 			drawSprite(drawContext, gui, type.getButtonHoverOverlay(), getX(), getY(), type.getTextureWidth(), type.getTextureHeight());

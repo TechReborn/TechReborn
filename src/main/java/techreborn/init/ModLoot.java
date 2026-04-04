@@ -24,7 +24,7 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -41,6 +41,7 @@ public class ModLoot {
 
 	public static void init() {
 
+
 		LootPoolEntryContainer copperIngot = makeEntry(Items.COPPER_INGOT);
 		LootPoolEntryContainer tinIngot = makeEntry(Ingots.TIN);
 		LootPoolEntryContainer leadIngot = makeEntry(Ingots.LEAD);
@@ -51,9 +52,9 @@ public class ModLoot {
 		LootPoolEntryContainer basicCircuit = makeEntry(Parts.ELECTRONIC_CIRCUIT);
 		LootPoolEntryContainer rubberSapling = makeEntry(TRContent.RUBBER_SAPLING, 25);
 
-		LootPool poolBasic = LootPool.lootPool().with(copperIngot).with(tinIngot)
-			.with(leadIngot).with(silverIngot).with(refinedIronIngot).with(advancedAlloyIngot)
-			.with(basicFrame).with(basicCircuit).with(rubberSapling).setRolls(UniformGenerator.between(1.0f, 2.0f))
+		LootPool poolBasic = LootPool.lootPool().add(copperIngot).add(tinIngot)
+			.add(leadIngot).add(silverIngot).add(refinedIronIngot).add(advancedAlloyIngot)
+			.add(basicFrame).add(basicCircuit).add(rubberSapling).setRolls(UniformGenerator.between(1.0f, 2.0f))
 			.build();
 
 		LootPoolEntryContainer aluminumIngot = makeEntry(Ingots.ALUMINUM);
@@ -66,9 +67,9 @@ public class ModLoot {
 		LootPoolEntryContainer advancedCircuit = makeEntry(Parts.ADVANCED_CIRCUIT);
 		LootPoolEntryContainer dataStorageChip = makeEntry(Parts.DATA_STORAGE_CHIP);
 
-		LootPool poolAdvanced = LootPool.lootPool().with(aluminumIngot).with(electrumIngot)
-			.with(invarIngot).with(nickelIngot).with(steelIngot).with(zincIngot)
-			.with(advancedFrame).with(advancedCircuit).with(dataStorageChip).setRolls(UniformGenerator.between(1.0f, 3.0f))
+		LootPool poolAdvanced = LootPool.lootPool().add(aluminumIngot).add(electrumIngot)
+			.add(invarIngot).add(nickelIngot).add(steelIngot).add(zincIngot)
+			.add(advancedFrame).add(advancedCircuit).add(dataStorageChip).setRolls(UniformGenerator.between(1.0f, 3.0f))
 			.build();
 
 		LootPoolEntryContainer chromeIngot = makeEntry(Ingots.CHROME);
@@ -81,13 +82,13 @@ public class ModLoot {
 		LootPoolEntryContainer industrialCircuit = makeEntry(Parts.INDUSTRIAL_CIRCUIT);
 		LootPoolEntryContainer energyFlowChip = makeEntry(Parts.ENERGY_FLOW_CHIP);
 
-		LootPool poolIndustrial = LootPool.lootPool().with(chromeIngot).with(iridiumIngot)
-				.with(platinumIngot).with(titaniumIngot).with(tungstenIngot).with(tungstensteelIngot)
-				.with(industrialFrame).with(industrialCircuit).with(energyFlowChip).setRolls(UniformGenerator.between(1.0f, 3.0f))
+		LootPool poolIndustrial = LootPool.lootPool().add(chromeIngot).add(iridiumIngot)
+				.add(platinumIngot).add(titaniumIngot).add(tungstenIngot).add(tungstensteelIngot)
+				.add(industrialFrame).add(industrialCircuit).add(energyFlowChip).setRolls(UniformGenerator.between(1.0f, 3.0f))
 				.build();
 
-		LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
-			String stringId = key.location().toString();
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, _) -> {
+			String stringId = key.identifier().toString();
 			if (!stringId.startsWith("minecraft:gameplay") && !stringId.startsWith("minecraft:chests")) {
 				return;
 			}
@@ -115,9 +116,9 @@ public class ModLoot {
 						"minecraft:chests/ancient_city"
 						-> tableBuilder.pool(poolIndustrial);
 					case "minecraft:archeology/trail_ruins_common"
-						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(LootItem.lootTableItem(Parts.RUBBER).build()));
+						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.add(LootItem.lootTableItem(Parts.RUBBER).build()));
 					case "minecraft:gameplay/cat_morning_gift"
-						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.with(LootItem.lootTableItem(Parts.SCRAP).setWeight(5).build()));
+						-> tableBuilder.modifyPools(poolBuilder -> poolBuilder.add(LootItem.lootTableItem(Parts.SCRAP).setWeight(5).build()));
 				}
 			}
 
@@ -144,7 +145,7 @@ public class ModLoot {
 						.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.0f, 0.9f))).build();
 					LootPoolEntryContainer scrap = LootItem.lootTableItem(Parts.SCRAP).setWeight(10).build();
 					tableBuilder.modifyPools(poolBuilder -> poolBuilder
-						.with(rubber).with(treeTap).with(scrap));
+						.add(rubber).add(treeTap).add(scrap));
 				}
 			}
 		});

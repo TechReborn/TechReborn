@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.centrifuge
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.item.Items
 import net.minecraft.core.registries.BuiltInRegistries
@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture
 
 class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 
-	CentrifugeRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	CentrifugeRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 

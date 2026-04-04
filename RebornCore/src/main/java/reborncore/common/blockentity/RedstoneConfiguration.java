@@ -28,6 +28,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.world.item.ItemStackTemplate;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 
 import java.util.Collections;
@@ -47,8 +48,8 @@ import net.minecraft.world.level.block.Blocks;
 
 public record RedstoneConfiguration(Map<Element, State> stateMap) {
 	// Set in TR to be a better item such as a battery or a cell
-	public static ItemStack powerStack = new ItemStack(Items.CARROT_ON_A_STICK);
-	public static ItemStack fluidStack = new ItemStack(Items.BUCKET);
+	public static ItemStackTemplate powerStack = new ItemStackTemplate(Items.CARROT_ON_A_STICK);
+	public static ItemStackTemplate fluidStack = new ItemStackTemplate(Items.BUCKET);
 
 	public static final MapCodec<RedstoneConfiguration> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.unboundedMap(Element.CODEC, State.CODEC).fieldOf("elements").forGetter(RedstoneConfiguration::stateMap)
@@ -95,8 +96,8 @@ public record RedstoneConfiguration(Map<Element, State> stateMap) {
 	// Could be power input/output, item/fluid io, machine processing
 	public record Element(String name, Predicate<MachineBaseBlockEntity> isApplicable, Supplier<ItemStack> icon) implements StringRepresentable {
 		public static Element ITEM_IO = new Element("item_io", () -> new ItemStack(Blocks.HOPPER));
-		public static Element POWER_IO = new Element("power_io", () -> powerStack);
-		public static Element FLUID_IO = new Element("fluid_io", type -> type.getTank() != null, () -> fluidStack);
+		public static Element POWER_IO = new Element("power_io", () -> powerStack.create());
+		public static Element FLUID_IO = new Element("fluid_io", type -> type.getTank() != null, () -> fluidStack.create());
 		public static Element RECIPE_PROCESSING = new Element("recipe_processing", type -> type instanceof IRecipeCrafterProvider, () -> new ItemStack(Blocks.CRAFTING_TABLE));
 		private static final List<Element> ELEMENTS = List.of(
 			ITEM_IO, POWER_IO, FLUID_IO, RECIPE_PROCESSING

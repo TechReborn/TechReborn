@@ -28,7 +28,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -160,12 +160,12 @@ public class TRBlockEntities {
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(BiFunction<BlockPos, BlockState, T> supplier, String name, Block... blocks) {
 		Validate.isTrue(blocks.length > 0, "no blocks for blockEntity entity type!");
-		return register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name).toString(), FabricBlockEntityTypeBuilder.create(supplier::apply, blocks));
+		return register(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name).toString(), FabricBlockEntityTypeBuilder.create(supplier::apply, blocks));
 	}
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(String id, FabricBlockEntityTypeBuilder<T> builder) {
 		BlockEntityType<T> blockEntityType = builder.build(null);
-		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, ResourceLocation.parse(id), blockEntityType);
+		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Identifier.parse(id), blockEntityType);
 		TRBlockEntities.TYPES.add(blockEntityType);
 		return blockEntityType;
 	}

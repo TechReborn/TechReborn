@@ -25,15 +25,15 @@
 package techreborn.blockentity;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -100,7 +100,7 @@ import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 
-public record GuiType<T extends BlockEntity>(ResourceLocation identifier, MenuType<BuiltScreenHandler> screenHandlerType) implements IMachineGuiHandler {
+public record GuiType<T extends BlockEntity>(Identifier identifier, MenuType<BuiltScreenHandler> screenHandlerType) implements IMachineGuiHandler {
 	public static final GuiType<AdjustableSUBlockEntity> AESU = register("aesu");
 	public static final GuiType<IronAlloyFurnaceBlockEntity> ALLOY_FURNACE = register("alloy_furnace");
 	public static final GuiType<AlloySmelterBlockEntity> ALLOY_SMELTER = register("alloy_smelter");
@@ -156,12 +156,12 @@ public record GuiType<T extends BlockEntity>(ResourceLocation identifier, MenuTy
 
 
 	private static <T extends BlockEntity> GuiType<T> register(String path) {
-		var id = ResourceLocation.fromNamespaceAndPath("techreborn", path);
-		var screenHandlerType = Registry.register(BuiltInRegistries.MENU, id, new ExtendedScreenHandlerType<>(getScreenHandlerFactory(id), ScreenHandlerData.PACKET_CODEC));
+		var id = Identifier.fromNamespaceAndPath("techreborn", path);
+		var screenHandlerType = Registry.register(BuiltInRegistries.MENU, id, new ExtendedMenuType<>(getScreenHandlerFactory(id), ScreenHandlerData.PACKET_CODEC));
 		return new GuiType<>(id, screenHandlerType);
 	}
 
-	private static ExtendedScreenHandlerType.ExtendedFactory<BuiltScreenHandler, ScreenHandlerData> getScreenHandlerFactory(ResourceLocation identifier) {
+	private static ExtendedMenuType.ExtendedFactory<BuiltScreenHandler, ScreenHandlerData> getScreenHandlerFactory(Identifier identifier) {
 		return (syncId, playerInventory, payload) -> {
 			if (!payload.isWithinDistance(playerInventory.player, 16)) {
 				throw new IllegalStateException("Player cannot use this block entity as its too far away");
@@ -188,7 +188,7 @@ public record GuiType<T extends BlockEntity>(ResourceLocation identifier, MenuTy
 	public void open(Player player, BlockPos pos, Level world) {
 		if (!world.isClientSide()) {
 			//This is awful
-			player.openMenu(new ExtendedScreenHandlerFactory<ScreenHandlerData>() {
+			player.openMenu(new ExtendedMenuProvider<ScreenHandlerData>() {
 				@Override
 				public ScreenHandlerData getScreenOpeningData(ServerPlayer player) {
 					return new ScreenHandlerData(pos);
@@ -217,7 +217,7 @@ public record GuiType<T extends BlockEntity>(ResourceLocation identifier, MenuTy
 		);
 	}
 
-	public ResourceLocation getIdentifier() {
+	public Identifier getIdentifier() {
 		return identifier;
 	}
 

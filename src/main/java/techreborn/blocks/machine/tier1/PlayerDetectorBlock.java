@@ -124,13 +124,13 @@ public class PlayerDetectorBlock extends BlockMachineBase {
 		}
 
 		if (playerIn instanceof ServerPlayer serverPlayerEntity) {
-			serverPlayerEntity.displayClientMessage(Component.translatable("techreborn.message.detects")
+			serverPlayerEntity.sendOverlayMessage(Component.translatable("techreborn.message.detects")
 											.withStyle(ChatFormatting.GRAY)
 											.append(" ")
 											.append(
 												Component.literal(StringUtils.toFirstCapital(newType.getSerializedName()))
 													.withStyle(color)
-											), true);
+											));
 		}
 
 		if (getGui() != null && !playerIn.isShiftKeyDown()) {

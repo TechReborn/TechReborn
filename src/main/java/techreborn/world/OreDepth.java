@@ -29,7 +29,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -44,9 +44,9 @@ import java.util.List;
 /**
  * Client synced DTO for ore depth
  */
-public record OreDepth(ResourceLocation identifier, int minY, int maxY, TargetDimension dimension) {
+public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimension dimension) {
 	public static final StreamCodec<ByteBuf, OreDepth> PACKET_CODEC = StreamCodec.composite(
-		ResourceLocation.STREAM_CODEC, OreDepth::identifier,
+		Identifier.STREAM_CODEC, OreDepth::identifier,
 		ByteBufCodecs.INT, OreDepth::minY,
 		ByteBufCodecs.INT, OreDepth::maxY,
 		TargetDimension.PACKET_CODEC, OreDepth::dimension,
@@ -61,7 +61,7 @@ public record OreDepth(ResourceLocation identifier, int minY, int maxY, TargetDi
 			if (ore.isDeepslate()) continue;
 
 			if (ore.distribution != null) {
-				final ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(ore.block);
+				final Identifier blockId = BuiltInRegistries.BLOCK.getKey(ore.block);
 				final WorldGenerationContext heightContext = getHeightContext(server, ore.distribution.dimension);
 
 				if (heightContext == null) {
@@ -76,7 +76,7 @@ public record OreDepth(ResourceLocation identifier, int minY, int maxY, TargetDi
 				TRContent.Ores deepslate = ore.getDeepslate();
 				if (deepslate == null) continue;
 
-				final ResourceLocation deepSlateBlockId = BuiltInRegistries.BLOCK.getKey(deepslate.block);
+				final Identifier deepSlateBlockId = BuiltInRegistries.BLOCK.getKey(deepslate.block);
 				depths.add(new OreDepth(deepSlateBlockId, minY, maxY, ore.distribution.dimension));
 			}
 		}

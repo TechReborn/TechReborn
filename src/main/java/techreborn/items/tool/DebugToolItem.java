@@ -30,7 +30,7 @@ import techreborn.init.TRItemSettings;
 
 import java.util.Map.Entry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -64,9 +64,9 @@ public class DebugToolItem extends Item {
 		}
 		sendMessage(context, Component.literal(getRegistryName(block)));
 
-		for (Entry<Property<?>, Comparable<?>> entry : blockState.getValues().entrySet()) {
-			sendMessage(context, Component.literal(getPropertyString(entry)));
-		}
+		blockState.getValues().forEach(value -> {
+			sendMessage(context, Component.literal(getPropertyString(value)));
+		});
 
 		EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.getLevel(), context.getClickedPos(), context.getClickedFace());
 		if (energyStorage != null) {
@@ -89,12 +89,12 @@ public class DebugToolItem extends Item {
 		if (context.getLevel().isClientSide() || context.getPlayer() == null) {
 			return;
 		}
-		context.getPlayer().displayClientMessage(message, false); // TODO check if this is correct boolean
+		context.getPlayer().sendSystemMessage(message);
 	}
 
-	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
-		Property<?> property = entryIn.getKey();
-		Comparable<?> comparable = entryIn.getValue();
+	private String getPropertyString(net.minecraft.world.level.block.state.properties.Property.Value<?> value) {
+		net.minecraft.world.level.block.state.properties.Property<?> property = value.property();
+		Comparable<?> comparable = value.value();
 		String s = Util.getPropertyName(property, comparable);
 		if (Boolean.TRUE.equals(comparable)) {
 			s = ChatFormatting.GREEN + s;

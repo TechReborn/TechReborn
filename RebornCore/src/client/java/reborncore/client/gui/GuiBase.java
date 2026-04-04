@@ -24,8 +24,13 @@
 
 package reborncore.client.gui;
 
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.resources.model.sprite.SpriteId;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
@@ -38,14 +43,13 @@ import reborncore.common.screen.slot.PlayerInventorySlot;
 import java.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -56,7 +60,7 @@ import net.minecraft.world.level.material.Fluid;
 
 public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 	public static FluidCellProvider fluidCellProvider = fluid -> ItemStack.EMPTY;
-	public static ItemStack wrenchStack = ItemStack.EMPTY;
+	public static ItemStackTemplate wrenchStack = null;
 
 	public GuiBuilder builder = new GuiBuilder();
 	public BlockEntity be;
@@ -73,7 +77,11 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	public boolean upgrades;
 
 	public GuiBase(Player player, BlockEntity blockEntity, T screenHandler) {
-		super(screenHandler, player.getInventory(), Component.literal(I18n.get(blockEntity.getBlockState().getBlock().getDescriptionId())));
+		this(player, blockEntity, screenHandler, 176, 166);
+	}
+
+	public GuiBase(Player player, BlockEntity blockEntity, T screenHandler, int imageWidth, int imageHeight) {
+		super(screenHandler, player.getInventory(), Component.literal(I18n.get(blockEntity.getBlockState().getBlock().getDescriptionId())), imageWidth, imageHeight);
 		this.be = blockEntity;
 		this.builtScreenHandler = (BuiltScreenHandler) screenHandler;
 		tabs = GuiTab.TABS.stream()
@@ -87,7 +95,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		return imageWidth;
 	}
 
-	public void drawSlot(GuiGraphics drawContext, int x, int y, Layer layer) {
+	public void drawSlot(GuiGraphicsExtractor drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += this.leftPos;
 			y += this.topPos;
@@ -95,7 +103,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		builder.drawSlot(drawContext, x - 1, y - 1);
 	}
 
-	public void drawOutputSlotBar(GuiGraphics drawContext, int x, int y, int count, Layer layer) {
+	public void drawOutputSlotBar(GuiGraphicsExtractor drawContext, int x, int y, int count, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += this.leftPos;
 			y += this.topPos;
@@ -103,7 +111,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		builder.drawOutputSlotBar(drawContext, x - 4, y - 4, count);
 	}
 
-	public void drawArmourSlots(GuiGraphics drawContext, int x, int y, Layer layer) {
+	public void drawArmourSlots(GuiGraphicsExtractor drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += this.leftPos;
 			y += this.topPos;
@@ -114,7 +122,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		builder.drawSlot(drawContext, x - 1, y - 1 + 18 + 18 + 18);
 	}
 
-	public void drawOutputSlot(GuiGraphics drawContext, int x, int y, Layer layer) {
+	public void drawOutputSlot(GuiGraphicsExtractor drawContext, int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += this.leftPos;
 			y += this.topPos;
@@ -131,7 +139,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics drawContext, float lastFrameDuration, int mouseX, int mouseY) {
+	public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float lastFrameDuration) {
 		drawContext.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
@@ -178,14 +186,14 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphics drawContext, int mouseX, int mouseY) {
+	protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		drawTitle(drawContext);
 	}
 
 	@Override
-	public void render(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
-		super.render(drawContext, mouseX, mouseY, partialTicks);
-		this.renderTooltip(drawContext, mouseX, mouseY);
+	public void extractRenderState(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
+		super.extractRenderState(drawContext, mouseX, mouseY, partialTicks);
+		this.extractTooltip(drawContext, mouseX, mouseY);
 
 		drawContext.pose().pushMatrix();
 		drawContext.pose().translate(this.leftPos, this.topPos);
@@ -194,7 +202,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	@Override
-	protected void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
+	protected void extractTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
 		if (isHovering(-25, 6, 24, 80, mouseX, mouseY) && upgrades
 				&& this.hoveredSlot != null && !this.hoveredSlot.hasItem()) {
 			List<Component> list = new ArrayList<>();
@@ -219,29 +227,29 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 			}
 
 		}
-		super.renderTooltip(drawContext, mouseX, mouseY);
+		super.extractTooltip(drawContext, mouseX, mouseY);
 	}
 
-	protected void drawTitle(GuiGraphics drawContext) {
+	protected void drawTitle(GuiGraphicsExtractor drawContext) {
 		drawCentredText(drawContext, Component.translatable(be.getBlockState().getBlock().getDescriptionId()), 6, theme.titleColor().rgba(), Layer.FOREGROUND);
 	}
 
-	public void drawCentredText(GuiGraphics drawContext, Component text, int y, int colour, Layer layer) {
+	public void drawCentredText(GuiGraphicsExtractor drawContext, Component text, int y, int colour, Layer layer) {
 		drawText(drawContext, text, (imageWidth / 2 - getFont().width(text) / 2), y, colour, layer);
 	}
 
-	public void drawCentredText(GuiGraphics drawContext, Component text, int y, int colour, int modifier, Layer layer) {
+	public void drawCentredText(GuiGraphicsExtractor drawContext, Component text, int y, int colour, int modifier, Layer layer) {
 		drawText(drawContext, text, (imageWidth / 2 - (getFont().width(text)) / 2) + modifier, y, colour, layer);
 	}
 
-	public void drawText(GuiGraphics drawContext, Component text, int x, int y, int colour, Layer layer) {
+	public void drawText(GuiGraphicsExtractor drawContext, Component text, int x, int y, int colour, Layer layer) {
 		int factorX = 0;
 		int factorY = 0;
 		if (layer == Layer.BACKGROUND) {
 			factorX = this.leftPos;
 			factorY = this.topPos;
 		}
-		drawContext.drawString(Minecraft.getInstance().font, text, x + factorX, y + factorY, colour, false);
+		drawContext.text(Minecraft.getInstance().font, text, x + factorX, y + factorY, colour, false);
 	}
 
 	public GuiButtonHologram addHologramButton(int x, int y, int id, Layer layer) {
@@ -391,7 +399,12 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		return tabs;
 	}
 
-	public static TextureAtlasSprite getSprite(Material spriteIdentifier) {
+	public static TextureAtlasSprite getSprite(SpriteId spriteIdentifier) {
 		return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(spriteIdentifier.atlasLocation()).getSprite(spriteIdentifier.texture());
+	}
+
+	@Override
+	public <T extends Renderable> T addRenderableOnly(T renderable) {
+		return super.addRenderableOnly(renderable);
 	}
 }

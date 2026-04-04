@@ -40,10 +40,10 @@ import java.util.List;
 public class MixinDebugRenderer {
 	@Shadow
 	@Final
-	private List<SimpleDebugRenderer> opaqueRenderers;
+	private List<SimpleDebugRenderer> renderers;
 
 	@Inject(method = "refreshRendererList", at = @At("TAIL"))
 	private void register(CallbackInfo ci) {
-		this.opaqueRenderers.add(ClientChunkManager::render);
+		this.renderers.add(ClientChunkManager::render);
 	}
 }

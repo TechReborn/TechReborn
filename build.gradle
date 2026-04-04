@@ -5,29 +5,9 @@ plugins {
 	id 'idea'
 	id 'eclipse'
 	id 'maven-publish'
-	id 'com.diffplug.spotless' version '6.19.0'
-	id 'fabric-loom' version '1.13-SNAPSHOT'
+	// id 'com.diffplug.spotless' version '6.19.0'
+	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
     id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
-}
-
-repositories {
-	maven {
-        name "REI"
-		url "https://maven.shedaniel.me/"
-        content {
-            includeGroup "me.shedaniel"
-            includeGroup "me.shedaniel.cloth"
-            includeGroup "dev.architectury"
-        }
-	}
-    maven {
-        name "Ladysnake Mods"
-        url "https://maven.ladysnake.org/releases"
-        content {
-            includeGroup "io.github.ladysnake"
-        }
-    }
-	mavenCentral()
 }
 
 def ENV = System.getenv()
@@ -37,9 +17,9 @@ group = 'TechReborn'
 allprojects {
     version = project.mod_version + (ENV.GITHUB_ACTIONS ? "" : "+local")
 
-    apply plugin: "fabric-loom"
+    apply plugin: "net.fabricmc.fabric-loom"
     apply plugin: "maven-publish"
-	apply plugin: "com.diffplug.spotless"
+	// apply plugin: "com.diffplug.spotless"
 
     loom {
         runtimeOnlyLog4j = true
@@ -49,13 +29,12 @@ allprojects {
     // Shared deps between TR and RC
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
-        mappings loom.officialMojangMappings()
-        modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+        implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         //Fabric api
-        modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
+        implementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
 
-        include(modApi("teamreborn:energy:${project.energy_version}")) {
+        include(api("teamreborn:energy:${project.energy_version}")) {
             transitive = false
         }
     }
@@ -71,13 +50,13 @@ allprojects {
 
     tasks.withType(JavaCompile).configureEach {
         it.options.encoding = "UTF-8"
-        it.options.release = 21
+        it.options.release = 25
     }
 
     java {
         withSourcesJar()
-		sourceCompatibility = JavaVersion.VERSION_21
-		targetCompatibility = JavaVersion.VERSION_21
+		sourceCompatibility = JavaVersion.VERSION_25
+		targetCompatibility = JavaVersion.VERSION_25
     }
 
     publishing {
@@ -103,25 +82,25 @@ allprojects {
         }
     }
 
-	spotless {
-		java {
-			licenseHeaderFile(file("HEADER"))
-			removeUnusedImports()
-			indentWithTabs()
-			trimTrailingWhitespace()
-			endWithNewline()
-		}
-	}
+	// spotless {
+	// 	java {
+	// 		licenseHeaderFile(file("HEADER"))
+	// 		removeUnusedImports()
+	// 		indentWithTabs()
+	// 		trimTrailingWhitespace()
+	// 		endWithNewline()
+	// 	}
+	// }
 }
 
-spotless {
-	groovy {
-		licenseHeaderFile(file("HEADER"))
-		indentWithTabs()
-		trimTrailingWhitespace()
-		endWithNewline()
-	}
-}
+//spotless {
+//    groovy {
+//        licenseHeaderFile(file("HEADER"))
+//        indentWithTabs()
+//        trimTrailingWhitespace()
+//        endWithNewline()
+//    }
+//}
 
 processResources {
     doLast {
@@ -177,43 +156,37 @@ allprojects {
     }
 }
 
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "ModMaven"
+                url = "https://modmaven.dev"
+            }
+        }
+        filter {
+            includeGroup "mezz.jei"
+        }
+    }
+}
+
 // TechReborn specific dependencies
 dependencies {
-    api project(path: ":RebornCore", configuration: "namedElements")
+    api project(":RebornCore")
     clientImplementation project(":RebornCore").sourceSets.client.output
 
     include project(":RebornCore")
 
-    optionalREIDependency(false)
-    optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
+    compileOnly("mezz.jei:jei-26.1.1-fabric-api:29.3.0.22")
+    runtimeOnly("mezz.jei:jei-26.1.1-fabric:29.3.0.22")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
-    datagenImplementation 'org.apache.groovy:groovy:4.0.21'
+    datagenImplementation 'org.apache.groovy:groovy:5.0.3'
 }
 
-def optionalDependency(String dep) {
-    def exclude = {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude group: "net.fabricmc"
-    }
-    dependencies.modCompileOnly(dep, exclude)
-}
 
-def optionalREIDependency(runtime = true) {
-	def exclude = {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude group: "net.fabricmc"
-	}
-	String dep = "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-	dependencies.modClientCompileOnly(dep, exclude)
-	dependencies.modCompileOnly(dep, exclude)
-
-	if (runtime) {
-		dependencies.modClientRuntimeOnly(dep, exclude)
-	}
-}
-
-tasks.sourcesJar.dependsOn runDatagen
+// TODO: Datagen
+// tasks.sourcesJar.dependsOn runDatagen
 
 jar {
 	exclude "**/*.psd"
@@ -221,8 +194,8 @@ jar {
 
     // A bit of a hack to allow the generated sources when they already exist
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    dependsOn 'runDatagen'
+    // TODO: Datagen
+    // dependsOn 'runDatagen'
 }
 
 import groovy.json.JsonSlurper
@@ -256,27 +229,24 @@ publishMods {
     curseforge("curseforgeTechReborn") {
         from options
         projectId = "233564"
-        file = remapJar.archiveFile
+        file = jar.archiveFile
 
         embeds {
             slug = "reborncore"
-        }
-        optional {
-            slug = "roughly-enough-items"
         }
     }
 
     curseforge("curseforgeRebornCore") {
         from options
         projectId = "237903"
-        file = project(":RebornCore").tasks.remapJar.archiveFile
+        file = project(":RebornCore").tasks.jar.archiveFile
 		displayName = "RebornCore ${project.version}"
     }
 
     modrinth("modrinthTechReborn") {
         from mrOptions
         projectId = "3eMENr4V"
-        file = remapJar.archiveFile
+        file = jar.archiveFile
 
         embeds {
             slug = "reborncore"
@@ -286,12 +256,12 @@ publishMods {
     modrinth("modrinthRebornCore") {
         from mrOptions
         projectId = "3NCrJdj3"
-        file = project(":RebornCore").tasks.remapJar.archiveFile
+        file = project(":RebornCore").tasks.jar.archiveFile
     }
 
 	github {
-		file = remapJar.archiveFile
-		additionalFiles.from project(":RebornCore").tasks.remapJar.archiveFile
+		file = jar.archiveFile
+		additionalFiles.from project(":RebornCore").tasks.jar.archiveFile
 		repository = providers.environmentVariable("GITHUB_REPOSITORY").orElse("dryrun")
 		accessToken = providers.environmentVariable("GITHUB_TOKEN")
 		commitish = providers.environmentVariable("GITHUB_REF_NAME").orElse("dryrun")

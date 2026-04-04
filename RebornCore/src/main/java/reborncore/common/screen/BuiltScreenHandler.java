@@ -27,7 +27,7 @@ package reborncore.common.screen;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.FriendlyByteBufs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -48,6 +48,7 @@ import reborncore.common.screen.builder.SyncedObject;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RangeUtil;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,7 +150,7 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private byte[] writeScreenHandlerData(Map<IdentifiedSyncedObject<?>, Object> updatedValues) {
-		RegistryFriendlyByteBuf byteBuf = new RegistryFriendlyByteBuf(PacketByteBufs.create(), blockEntity.getLevel().registryAccess());
+		RegistryFriendlyByteBuf byteBuf = new RegistryFriendlyByteBuf(FriendlyByteBufs.create(), blockEntity.getLevel().registryAccess());
 
 		byteBuf.writeInt(updatedValues.size());
 		for (Map.Entry<IdentifiedSyncedObject<?>, Object> entry : updatedValues.entrySet()) {
@@ -330,5 +331,13 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 		public void set(T value) {
 			object.setter().accept(value);
 		}
+	}
+
+	public List<Range<Integer>> getPlayerSlotRanges() {
+		return Collections.unmodifiableList(playerSlotRanges);
+	}
+
+	public List<Range<Integer>> getBlockEntitySlotRanges() {
+		return Collections.unmodifiableList(blockEntitySlotRanges);
 	}
 }

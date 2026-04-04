@@ -25,50 +25,48 @@
 package techreborn;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.item.ItemModels;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
-import reborncore.client.gui.element.MachineFaceElementRenderer;
 import reborncore.client.multiblock.MultiblockRenderer;
 import techreborn.client.ClientGuiType;
 import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
 import techreborn.client.events.StackToolTipHandler;
 import techreborn.client.keybindings.KeyBindings;
-import techreborn.client.render.*;
+import techreborn.client.render.ActiveProperty;
+import techreborn.client.render.ItemBucketModel;
+import techreborn.client.render.ItemCellModel;
+import techreborn.client.render.MachineCasingModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
 import techreborn.client.render.entitys.TurbineRenderer;
-import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.items.DynamicCellItem;
 
-import java.util.Arrays;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 
 public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		ModelLoadingPlugin.register((pluginContext) -> {
-			for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
-				pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
-			}
-		});
+		 ModelLoadingPlugin.register((pluginContext) -> {
+		 	for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
+		 		pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
+		 	}
+		 });
+
 		ItemModels.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
 		ItemModels.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
 		SelectItemModelProperties.ID_MAPPER.put(ActiveProperty.ID, ActiveProperty.TYPE);
@@ -90,26 +88,24 @@ public class TechRebornClient implements ClientModInitializer {
 		StackToolTipHandler.setup();
 		ClientboundPacketHandlers.init();
 
-		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
-		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
+		GuiBase.wrenchStack = new ItemStackTemplate(TRContent.WRENCH);
+		GuiBase.fluidCellProvider = fluid -> TRContent.Cells.getCellByFluid(fluid).getStack();
 
-		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.putBlock(cable.block, ChunkSectionLayer.CUTOUT));
-
-		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.LAMP_LED.block, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.ALARM.block, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.REINFORCED_GLASS, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.RESIN_BASIN.block, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.POTTED_RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(TRContent.Machine.FISHING_STATION.block, ChunkSectionLayer.CUTOUT);
-
-		BlockRenderLayerMap.putBlock(TRContent.RUBBER_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
-
-		for (ModFluids fluid : ModFluids.values()) {
-			BlockRenderLayerMap.putFluid(fluid.getFluid(), ChunkSectionLayer.TRANSLUCENT);
-			BlockRenderLayerMap.putFluid(fluid.getFlowingFluid(), ChunkSectionLayer.TRANSLUCENT);
-		}
+		// TODO 26.1: ChunkSectionLayerMap / BlockRenderLayerMap removed — render layers now defined in model JSON files
+		// Arrays.stream(TRContent.Cables.values()).forEach(cable -> ChunkSectionLayerMap.putBlock(cable.block, ChunkSectionLayer.CUTOUT));
+		// ChunkSectionLayerMap.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, ChunkSectionLayer.CUTOUT);
+		// ChunkSectionLayerMap.putBlock(TRContent.Machine.LAMP_LED.block, ChunkSectionLayer.CUTOUT);
+		// ChunkSectionLayerMap.putBlock(TRContent.Machine.ALARM.block, ChunkSectionLayer.CUTOUT);
+		// ChunkSectionLayerMap.putBlock(TRContent.RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
+		// ChunkSectionLayerMap.putBlock(TRContent.REINFORCED_GLASS, ChunkSectionLayer.CUTOUT);
+		// ChunkSectionLayerMap.putBlock(TRContent.Machine.RESIN_BASIN.block, ChunkSectionLayer.CUTOUT);
+		// ChunkSectionLayerMap.putBlock(TRContent.POTTED_RUBBER_SAPLING, ChunkSectionLayer.CUTOUT);
+		// ChunkSectionLayerMap.putBlock(TRContent.Machine.FISHING_STATION.block, ChunkSectionLayer.CUTOUT);
+		// ChunkSectionLayerMap.putBlock(TRContent.RUBBER_LEAVES, ChunkSectionLayer.CUTOUT);
+		// for (ModFluids fluid : ModFluids.values()) {
+		// 	ChunkSectionLayerMap.putFluid(fluid.getFluid(), ChunkSectionLayer.TRANSLUCENT);
+		// 	ChunkSectionLayerMap.putFluid(fluid.getFlowingFluid(), ChunkSectionLayer.TRANSLUCENT);
+		// }
 
 		BlockEntityRenderers.register(TRBlockEntities.INDUSTRIAL_GRINDER, MultiblockRenderer::new);
 		BlockEntityRenderers.register(TRBlockEntities.FUSION_CONTROL_COMPUTER, MultiblockRenderer::new);
@@ -131,9 +127,9 @@ public class TechRebornClient implements ClientModInitializer {
 
 		ClientJumpEvent.EVENT.register(new ClientJumpHandler());
 
-		// Skip error sprite
-		MachineFaceElementRenderer.BLACKLIST.add(ResourceLocation.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net"));
-		MachineFaceElementRenderer.BLACKLIST.add(ResourceLocation.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net_side"));
+		// TODO 26.1: MachineFaceElementRenderer.BLACKLIST — check if MachineFaceElementRenderer still exists in RebornCore
+		// MachineFaceElementRenderer.BLACKLIST.add(Identifier.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net"));
+		// MachineFaceElementRenderer.BLACKLIST.add(Identifier.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net_side"));
 	}
 
 	//Need the item instance in a few places, this makes it easier
@@ -148,3 +144,4 @@ public class TechRebornClient implements ClientModInitializer {
 
 	}
 }
+

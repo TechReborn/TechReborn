@@ -42,8 +42,8 @@ import reborncore.common.network.serverbound.SlotSavePayload;
 
 public class Packets {
 	public static void register() {
-		clientbound(PayloadTypeRegistry.playS2C());
-		serverbound(PayloadTypeRegistry.playC2S());
+		clientbound(PayloadTypeRegistry.clientboundPlay());
+		serverbound(PayloadTypeRegistry.serverboundPlay());
 	}
 
 	private static void clientbound(PayloadTypeRegistry<RegistryFriendlyByteBuf> registry) {

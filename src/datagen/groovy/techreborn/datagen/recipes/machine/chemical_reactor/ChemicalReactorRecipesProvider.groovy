@@ -24,7 +24,7 @@
 
 package techreborn.datagen.recipes.machine.chemical_reactor
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
@@ -43,7 +43,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 	public final int DYE_POWER = 25
 	public final int DYE_TIME = 250
 
-	ChemicalReactorRecipesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	ChemicalReactorRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
 	}
 
