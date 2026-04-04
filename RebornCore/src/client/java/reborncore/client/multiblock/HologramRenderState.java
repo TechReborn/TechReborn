@@ -25,24 +25,13 @@
 package reborncore.client.multiblock;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.Lightmap;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.block.BlockStateModelSet;
-import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.LightCoordsUtil;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.List;
 
 public interface HologramRenderState {
-	BlockPos OUT_OF_WORLD_POS = new BlockPos(0, 260, 0); // Bad hack; disables lighting
-
 	void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector);
 
 	default void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, float scale) {
@@ -67,29 +56,11 @@ public interface HologramRenderState {
 		}
 	}
 
-	// TODO 26.1: BlockRenderDispatcher was removed in Minecraft 26.1
-	// The block rendering system was completely redesigned with the new render state extraction pattern.
-	// This record needs to be reimplemented to work with BlockStateModelSet and the new rendering architecture.
-	// See: BlockStateModelSet.get(BlockState) for getting models
-	// See: vanilla code for examples of new block rendering approach
-	/*
-	record Block(
-		BlockStateModelSet blockModelSet, Level view, int x, int y, int z, RenderType layer, BlockState state, List<BlockStateModelPart> parts
-	) implements HologramRenderState, SubmitNodeCollector.CustomGeometryRenderer {
-		@Override
-		public void render(PoseStack.Pose pose, VertexConsumer vertexConsumer) {
-			PoseStack matrix = new PoseStack();
-			matrix.mulPose(pose.pose());
-			// TODO 26.1: renderBatched method no longer exists
-			// Need to implement new rendering approach
-			// blockRenderManager.renderBatched(state, OUT_OF_WORLD_POS, view, matrix, vertexConsumer, false, parts);
-		}
-
+	record Block(int x, int y, int z, BlockModelRenderState blockModelRenderState) implements HologramRenderState {
 		@Override
 		public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
 			poseStack.translate(-0.5, -0.5, -0.5);
-			submitNodeCollector.submitCustomGeometry(poseStack, layer, this);
+			blockModelRenderState.submit(poseStack, submitNodeCollector, LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
 		}
 	}
-	*/
 }

@@ -27,11 +27,9 @@ package techreborn.datagen.recipes.machine.extractor
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.Items
-import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.ItemTags
-import reborncore.common.crafting.SizedIngredient
 import techreborn.datagen.recipes.TechRebornRecipesProvider
 import techreborn.init.TRContent
 
@@ -441,12 +439,15 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		// cells
-		offerExtractorRecipe {
-			addCustomIngredient(new SizedIngredient(1, Ingredient.of(TRContent.CELL)))
-			outputs TRContent.CELL
-			power exPower
-			time exTime
-			criterion getCriterionName(TRContent.CELL), getCriterionConditions(TRContent.CELL)
+		TRContent.Cells.values().findAll { it != TRContent.Cells.EMPTY }.each { cell ->
+			offerExtractorRecipe {
+				ingredients cell.asItem()
+				outputs TRContent.CELL
+				source cell.asItem()
+				power exPower
+				time exTime
+				criterion getCriterionName(cell.asItem()), getCriterionConditions(cell.asItem())
+			}
 		}
 	}
 

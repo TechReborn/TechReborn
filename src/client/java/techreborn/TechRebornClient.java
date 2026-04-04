@@ -54,7 +54,6 @@ import techreborn.client.render.entitys.StorageUnitRenderer;
 import techreborn.client.render.entitys.TurbineRenderer;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.items.DynamicCellItem;
 
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 
@@ -90,7 +89,7 @@ public class TechRebornClient implements ClientModInitializer {
 		ClientboundPacketHandlers.init();
 
 		GuiBase.wrenchStack = new ItemStackTemplate(TRContent.WRENCH);
-		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
+		GuiBase.fluidCellProvider = fluid -> TRContent.Cells.getCellByFluid(fluid).getStack();
 
 		// TODO 26.1: ChunkSectionLayerMap / BlockRenderLayerMap removed — render layers now defined in model JSON files
 		// Arrays.stream(TRContent.Cables.values()).forEach(cable -> ChunkSectionLayerMap.putBlock(cable.block, ChunkSectionLayer.CUTOUT));

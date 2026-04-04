@@ -25,7 +25,6 @@
 package techreborn.datagen.recipes.machine
 
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients
-import net.minecraft.core.component.DataComponentPatch
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
@@ -37,8 +36,6 @@ import net.minecraft.core.HolderSet
 import net.minecraft.tags.TagKey
 import net.minecraft.resources.Identifier
 import reborncore.common.crafting.SizedIngredient
-import techreborn.component.TRDataComponentTypes
-import techreborn.init.TRContent
 
 class IngredientBuilder {
 	public HolderGetter<Item> itemLookup
@@ -68,13 +65,6 @@ class IngredientBuilder {
 
 			def stack = stacks[0]
 			def components = stack.components()
-
-			// A bit of a hack to force the component changes to require the specified fluid, especially if empty
-			if (stack.item == TRContent.CELL) {
-				def builder = DataComponentPatch.builder()
-				builder.set(TRDataComponentTypes.FLUID, stack.get(TRDataComponentTypes.FLUID))
-				components = builder.build()
-			}
 
 			Ingredient ingredient = Ingredient.of(HolderSet.direct(stack.item()))
 

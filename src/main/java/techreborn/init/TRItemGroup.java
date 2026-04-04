@@ -42,12 +42,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.material.Fluid;
-import reborncore.common.fluid.FluidUtils;
 import reborncore.common.powerSystem.RcEnergyItem;
 import techreborn.TechReborn;
 import techreborn.component.TRDataComponentTypes;
-import techreborn.items.DynamicCellItem;
+import techreborn.init.TRContent.Cells;
 import techreborn.items.armor.NanoSuitItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.tool.basic.RockCutterItem;
@@ -596,7 +594,7 @@ public class TRItemGroup {
 		addPoweredItem(TRContent.ADVANCED_CHAINSAW, entries, Items.BUCKET, false);
 		addPoweredItem(TRContent.INDUSTRIAL_CHAINSAW, entries, Items.BUCKET, false);
 		addPoweredItem(TRContent.OMNI_TOOL, entries, Items.BUCKET, false);
-		entries.insertBefore(Items.BUCKET, TRContent.CELL);
+		entries.insertBefore(Items.BUCKET, TRContent.Cells.EMPTY);
 		addPoweredItem(TRContent.RED_CELL_BATTERY, entries, Items.OAK_BOAT, false);
 		addPoweredItem(TRContent.LITHIUM_ION_BATTERY, entries, Items.OAK_BOAT, false);
 		addPoweredItem(TRContent.LITHIUM_ION_BATPACK, entries, Items.OAK_BOAT, false);
@@ -802,11 +800,8 @@ public class TRItemGroup {
 	}
 
 	private static void addCells(FabricCreativeModeTabOutput entries) {
-		entries.accept(DynamicCellItem.getEmptyCell(1));
-		for (Fluid fluid : FluidUtils.getAllFluids()) {
-			if (fluid.isSource(fluid.defaultFluidState())) {
-				entries.accept(DynamicCellItem.getCellWithFluid(fluid));
-			}
+		for (Cells cell : Cells.values()) {
+			entries.accept(cell.asItem());
 		}
 	}
 

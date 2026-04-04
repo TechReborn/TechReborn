@@ -38,7 +38,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.items.DynamicCellItem;
 
 public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 	public IndustrialCentrifugeBlockEntity(BlockPos pos, BlockState state) {
@@ -54,8 +53,8 @@ public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity i
 	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("centrifuge").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
-				.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
-				.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
+				.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, TRContent.Cells.EMPTY.getStack(), true, true))
+				.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, TRContent.Cells.EMPTY.getStack(), true, true))
 				.outputSlot(2, 82, 44).outputSlot(3, 101, 25)
 				.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
 				.syncCrafterValue().addInventory().create(this, syncID);

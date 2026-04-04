@@ -34,8 +34,6 @@ import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.ItemLike
-import net.minecraft.core.component.DataComponentExactPredicate
-import net.minecraft.advancements.criterion.DataComponentMatchers
 import net.minecraft.advancements.criterion.ItemPredicate
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeType
@@ -45,7 +43,6 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.TagKey
 import net.minecraft.resources.Identifier
-import techreborn.component.TRDataComponentTypes
 import techreborn.datagen.recipes.machine.MachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipeJsonFactory
 import techreborn.datagen.recipes.machine.blast_furnace.BlastFurnaceRecipeJsonFactory
@@ -60,7 +57,7 @@ import techreborn.datagen.recipes.machine.scrapbox.ScrapboxRecipeJsonFactory
 import techreborn.init.ModFluids
 import techreborn.init.ModRecipes
 import techreborn.init.TRContent
-import techreborn.items.DynamicCellItem
+import techreborn.init.TRContent.Cells
 import techreborn.recipe.recipes.FluidGeneratorRecipe
 
 import java.util.concurrent.CompletableFuture
@@ -121,11 +118,9 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	ItemPredicate getCellItemPredicate(ModFluids fluid){
+		def cell = Cells.getCellByFluid(fluid.getFluid())
 		return ItemPredicate.Builder.item()
-			.of(itemLookup, TRContent.CELL.asItem())
-			.withComponents(DataComponentMatchers.Builder.components()
-				.exact(DataComponentExactPredicate.expect(TRDataComponentTypes.FLUID, fluid.fluid.builtInRegistryHolder()))
-				.build())
+			.of(itemLookup, cell.asItem())
 			.build()
 	}
 
@@ -176,7 +171,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	static ItemStackTemplate cellStack(Fluid fluid, int count = 1) {
-		return DynamicCellItem.getTempalteCellWithFluid(fluid, count)
+		def cell = Cells.getCellByFluid(fluid)
+		return new ItemStackTemplate(cell.asItem(), count)
 	}
 
 	// Todo refactor me out, used to help port json recipes

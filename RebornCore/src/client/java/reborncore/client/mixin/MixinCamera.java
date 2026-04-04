@@ -24,9 +24,9 @@
 
 package reborncore.client.mixin;
 
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.ItemStack;
@@ -37,24 +37,22 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import reborncore.api.items.ArmorFovHandler;
 
-@Mixin(GameRenderer.class)
-public class MixinGameRenderer {
+@Mixin(Camera.class)
+public class MixinCamera {
 
 	@Shadow
 	@Final
 	private Minecraft minecraft;
 
-	// TODO 26.1
-//	@Redirect(method = "tickFov", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getFieldOfViewModifier(ZF)F"))
-//	private float updateFovMultiplier(AbstractClientPlayer playerEntity, boolean firstPerson, float fovEffectScale) {
-//		float playerSpeed = playerEntity.getFieldOfViewModifier(firstPerson, fovEffectScale);
-//		for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
-//			ItemStack stack = playerEntity.getItemBySlot(equipmentSlot);
-//			if (stack.getItem() instanceof ArmorFovHandler) {
-//				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, minecraft.player);
-//			}
-//		}
-//		return playerSpeed;
-//	}
-
+	@Redirect(method = "tickFov", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getFieldOfViewModifier(ZF)F"))
+	private float modifyFov(AbstractClientPlayer playerEntity, boolean firstPerson, float fovEffectScale) {
+		float playerSpeed = playerEntity.getFieldOfViewModifier(firstPerson, fovEffectScale);
+		for (EquipmentSlot equipmentSlot : EquipmentSlotGroup.ARMOR) {
+			ItemStack stack = playerEntity.getItemBySlot(equipmentSlot);
+			if (stack.getItem() instanceof ArmorFovHandler) {
+				playerSpeed = ((ArmorFovHandler) stack.getItem()).changeFov(playerSpeed, stack, minecraft.player);
+			}
+		}
+		return playerSpeed;
+	}
 }

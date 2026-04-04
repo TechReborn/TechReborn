@@ -28,7 +28,6 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.material.Fluids;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.RedstoneConfiguration;
@@ -50,7 +49,6 @@ import techreborn.init.TRCauldronBehavior;
 import techreborn.init.TRContent;
 import techreborn.init.TRDispenserBehavior;
 import techreborn.init.template.TechRebornTemplates;
-import techreborn.items.DynamicCellItem;
 import techreborn.packets.Packets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PoweredCraftingHandler;
@@ -96,7 +94,7 @@ public class TechReborn implements ModInitializer {
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
-		RedstoneConfiguration.fluidStack = DynamicCellItem.getTempalteCellWithFluid(Fluids.LAVA);
+		RedstoneConfiguration.fluidStack = new ItemStackTemplate(TRContent.Cells.LAVA.asItem());
 		RedstoneConfiguration.powerStack = new ItemStackTemplate(TRContent.RED_CELL_BATTERY);
 
 		ComposterBlock.COMPOSTABLES.put(TRContent.RUBBER_SAPLING.asItem(), 0.3F);

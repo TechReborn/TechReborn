@@ -25,9 +25,8 @@
 package reborncore.client.multiblock;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.block.BlockStateModelSet;
+import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
@@ -40,15 +39,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
+import net.minecraft.client.renderer.block.BlockModelRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements BlockEntityRenderer<T, MultiblockRenderer.MultiblockRenderState> {
-	private final BlockStateModelSet blockStateModelSet;
+	private final BlockModelResolver blockModelResolver;
 	private final ItemModelResolver itemModelResolver;
 
 	public MultiblockRenderer(BlockEntityRendererProvider.Context ctx) {
-		this.blockStateModelSet = Minecraft.getInstance().getModelManager().getBlockStateModelSet();
+		this.blockModelResolver = ctx.blockModelResolver();
 		this.itemModelResolver = ctx.itemModelResolver();
 	}
 
@@ -66,16 +68,10 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlay);
-		// TODO 26.1: HologramRenderer needs BlockStateModelSet now instead of BlockRenderDispatcher
-		// Also, the HologramRenderState.Block record is commented out due to rendering system changes
+		state.resetPools();
 		if (blockEntity.renderMultiblock && !blockEntity.isShapeValid()) {
-			List<HologramRenderState> states = new ArrayList<>();
 			Direction direction = blockEntity.getFacing().getOpposite();
-			blockEntity.writeMultiblock(new HologramRenderer(blockStateModelSet, itemModelResolver, blockEntity.getLevel(), states).rotate(direction));
-			if (states.isEmpty()) {
-				return;
-			}
-			state.states = states;
+			blockEntity.writeMultiblock(new HologramRenderer(blockModelResolver, itemModelResolver, blockEntity.getLevel(), state).rotate(direction));
 		}
 	}
 
@@ -86,10 +82,8 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 		SubmitNodeCollector submitNodeCollector,
 		CameraRenderState cameraRenderState
 	) {
-		if (state.states != null) {
-			for (HologramRenderState hologram : state.states) {
-				hologram.submit(poseStack, submitNodeCollector, 0.4F);
-			}
+		for (HologramRenderState hologram : state.states) {
+			hologram.submit(poseStack, submitNodeCollector, 0.4F);
 		}
 	}
 
@@ -99,6 +93,30 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 	}
 
 	public static class MultiblockRenderState extends BlockEntityRenderState {
-		List<HologramRenderState> states;
+		final List<HologramRenderState> states = new ArrayList<>();
+		private final List<BlockModelRenderState> blockModelPool = new ArrayList<>();
+		private final List<ItemStackRenderState> itemStatePool = new ArrayList<>();
+		private int blockPoolIndex;
+		private int itemPoolIndex;
+
+		void resetPools() {
+			states.clear();
+			blockPoolIndex = 0;
+			itemPoolIndex = 0;
+		}
+
+		BlockModelRenderState nextBlockModelRenderState() {
+			if (blockPoolIndex >= blockModelPool.size()) {
+				blockModelPool.add(new BlockModelRenderState());
+			}
+			return blockModelPool.get(blockPoolIndex++);
+		}
+
+		ItemStackRenderState nextItemStackRenderState() {
+			if (itemPoolIndex >= itemStatePool.size()) {
+				itemStatePool.add(new ItemStackRenderState());
+			}
+			return itemStatePool.get(itemPoolIndex++);
+		}
 	}
 }

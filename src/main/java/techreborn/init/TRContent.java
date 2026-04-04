@@ -104,7 +104,7 @@ import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.ModRegistry;
-import techreborn.items.DynamicCellItem;
+import techreborn.items.CellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.UpgraderItem;
 import techreborn.items.armor.NanoSuitItem;
@@ -123,6 +123,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 
 public class TRContent {
 	public static final Marker DATAGEN = MarkerFactory.getMarker("datagen");
@@ -192,7 +195,12 @@ public class TRContent {
 	public static Item GPS;
 	public static Item SCRAP_BOX;
 	public static Item MANUAL;
-	public static DynamicCellItem CELL;
+
+	/**
+	 * @deprecated Use {@link Cells#EMPTY} instead. This field is kept for backward compatibility.
+	 */
+	@Deprecated
+	public static Item CELL;
 
 	//Quantum Suit
 	public static QuantumSuitItem QUANTUM_HELMET;
@@ -998,6 +1006,108 @@ public class TRContent {
 		public TagKey<Item> asTag() {
 			return tag;
 		}
+	}
+
+	public enum Cells implements ItemInfo {
+		EMPTY("cell", Fluids.EMPTY),
+		WATER("water_cell", Fluids.WATER),
+		LAVA("lava_cell", Fluids.LAVA),
+		BERYLLIUM("beryllium_cell", ModFluids.BERYLLIUM),
+		CALCIUM("calcium_cell", ModFluids.CALCIUM),
+		CALCIUM_CARBONATE("calcium_carbonate_cell", ModFluids.CALCIUM_CARBONATE),
+		CARBON("carbon_cell", ModFluids.CARBON),
+		CARBON_FIBER("carbon_fiber_cell", ModFluids.CARBON_FIBER),
+		CHLORITE("chlorite_cell", ModFluids.CHLORITE),
+		COMPRESSED_AIR("compressed_air_cell", ModFluids.COMPRESSED_AIR),
+		DEUTERIUM("deuterium_cell", ModFluids.DEUTERIUM),
+		DIESEL("diesel_cell", ModFluids.DIESEL),
+		ELECTROLYZED_WATER("electrolyzed_water_cell", ModFluids.ELECTROLYZED_WATER),
+		GLYCERYL("glyceryl_cell", ModFluids.GLYCERYL),
+		HELIUM("helium_cell", ModFluids.HELIUM),
+		HELIUM3("helium3_cell", ModFluids.HELIUM3),
+		HELIUMPLASMA("heliumplasma_cell", ModFluids.HELIUMPLASMA),
+		HYDROGEN("hydrogen_cell", ModFluids.HYDROGEN),
+		LITHIUM("lithium_cell", ModFluids.LITHIUM),
+		MERCURY("mercury_cell", ModFluids.MERCURY),
+		METHANE("methane_cell", ModFluids.METHANE),
+		NITRO_CARBON("nitro_carbon_cell", ModFluids.NITRO_CARBON),
+		NITRO_DIESEL("nitro_diesel_cell", ModFluids.NITRO_DIESEL),
+		NITROCOAL_FUEL("nitrocoal_fuel_cell", ModFluids.NITROCOAL_FUEL),
+		NITROFUEL("nitrofuel_cell", ModFluids.NITROFUEL),
+		NITROGEN("nitrogen_cell", ModFluids.NITROGEN),
+		NITROGEN_DIOXIDE("nitrogen_dioxide_cell", ModFluids.NITROGEN_DIOXIDE),
+		OIL("oil_cell", ModFluids.OIL),
+		POTASSIUM("potassium_cell", ModFluids.POTASSIUM),
+		SILICON("silicon_cell", ModFluids.SILICON),
+		SODIUM("sodium_cell", ModFluids.SODIUM),
+		SODIUM_SULFIDE("sodium_sulfide_cell", ModFluids.SODIUM_SULFIDE),
+		SODIUM_PERSULFATE("sodium_persulfate_cell", ModFluids.SODIUM_PERSULFATE),
+		SULFUR("sulfur_cell", ModFluids.SULFUR),
+		SULFURIC_ACID("sulfuric_acid_cell", ModFluids.SULFURIC_ACID),
+		TRITIUM("tritium_cell", ModFluids.TRITIUM),
+		WOLFRAMIUM("wolframium_cell", ModFluids.WOLFRAMIUM),
+		BIOFUEL("biofuel_cell", ModFluids.BIOFUEL),
+		FLUORINE("fluorine_cell", ModFluids.FLUORINE),
+		NITRIC_ACID("nitric_acid_cell", ModFluids.NITRIC_ACID),
+		URANIUM_HEXAFLUORIDE("uranium_hexafluoride_cell", ModFluids.URANIUM_HEXAFLUORIDE);
+
+		private final String name;
+		private final CellItem item;
+		private final Fluid fluid;
+
+		private static final Map<Fluid, Cells> BY_FLUID = new IdentityHashMap<>();
+
+		static {
+			for (Cells cell : values()) {
+				BY_FLUID.put(cell.fluid, cell);
+			}
+		}
+
+		Cells(String name, Fluid fluid) {
+			this.name = name;
+			this.fluid = fluid;
+			this.item = new CellItem(name, fluid);
+			InitUtils.setup(item, name);
+		}
+
+		Cells(String name, ModFluids modFluid) {
+			this(name, modFluid.getFluid());
+		}
+
+		public static Cells getCellByFluid(Fluid fluid) {
+			return BY_FLUID.getOrDefault(fluid, EMPTY);
+		}
+
+		public CellItem getCellItem() {
+			return item;
+		}
+
+		public Fluid getFluid() {
+			return fluid;
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		public ItemStack getStack() {
+			return new ItemStack(item);
+		}
+
+		public ItemStack getStack(int amount) {
+			return new ItemStack(item, amount);
+		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
+	}
+
+	static {
+		// Initialize the CELL backward-compat field after Cells enum is loaded
+		CELL = Cells.EMPTY.asItem();
 	}
 
 	public enum Dusts implements ItemInfo, TagConvertible<Item> {

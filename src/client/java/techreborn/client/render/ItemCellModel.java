@@ -33,6 +33,8 @@ import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.item.ModelRenderProperties;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ResolvableModel;
@@ -45,6 +47,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.color.block.BlockTintSources;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.fabricmc.fabric.impl.client.rendering.fluid.FluidRenderingRegistryImpl;
@@ -131,7 +135,28 @@ public class ItemCellModel implements ItemModel {
 			// Bake all registered fluids eagerly while baker is still valid
 			Map<Fluid, Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer>> bakedFluids = new IdentityHashMap<>();
 			Map<FluidModel.Unbaked, TextureAtlasSprite> spriteCache = new IdentityHashMap<>();
-			for (Map.Entry<Fluid, FluidModel.Unbaked> entry : FluidRenderingRegistryImpl.getUnbakedModels().entrySet()) {
+
+			// Include vanilla fluids that are not in Fabric's registry
+			Map<Fluid, FluidModel.Unbaked> allFluidModels = new IdentityHashMap<>(FluidRenderingRegistryImpl.getUnbakedModels());
+			// BlockTintSources.water() returns -1 (white) without biome context,
+			// which leaves the grayscale water texture untinted. Use the standard
+			// overworld water color from OverworldBiomes instead.
+			FluidModel.Unbaked waterModel = new FluidModel.Unbaked(
+				new Material(Identifier.withDefaultNamespace("block/water_still")),
+				new Material(Identifier.withDefaultNamespace("block/water_flow")),
+				new Material(Identifier.withDefaultNamespace("block/water_overlay")),
+				BlockTintSources.constant(OverworldBiomes.NORMAL_WATER_COLOR)
+			);
+			FluidModel.Unbaked lavaModel = new FluidModel.Unbaked(
+				new Material(Identifier.withDefaultNamespace("block/lava_still")),
+				new Material(Identifier.withDefaultNamespace("block/lava_flow")),
+				null,
+				null
+			);
+			allFluidModels.putIfAbsent(Fluids.WATER, waterModel);
+			allFluidModels.putIfAbsent(Fluids.LAVA, lavaModel);
+
+			for (Map.Entry<Fluid, FluidModel.Unbaked> entry : allFluidModels.entrySet()) {
 				Fluid fluid = entry.getKey();
 				FluidModel.Unbaked unbaked = entry.getValue();
 				TextureAtlasSprite sprite = spriteCache.computeIfAbsent(unbaked,
@@ -141,7 +166,7 @@ public class ItemCellModel implements ItemModel {
 					? unbaked.tintSource().color(fluid.defaultFluidState().createLegacyBlock()) | 0xFF000000
 					: 0xFFFFFFFF;
 				List<BakedQuad> list = new ArrayList<>();
-				list.addAll(bakeFluidQuads(baker, backgroundModel, sprite));
+				list.addAll(makeCutout(bakeFluidQuads(baker, backgroundModel, sprite)));
 				list.addAll(replaceTint(baseQuads, -1));
 				list.addAll(glassQuads);
 				bakedFluids.put(fluid, Triple.of(list, bakeVector(list), tint));
@@ -157,7 +182,24 @@ public class ItemCellModel implements ItemModel {
 			}
 			FluidModel.Unbaked unbaked = FluidRenderingRegistryImpl.getUnbakedModels().get(fluid);
 			if (unbaked == null) {
-				return null;
+				// Vanilla fluids are not in Fabric's registry
+				if (fluid == Fluids.WATER) {
+					unbaked = new FluidModel.Unbaked(
+						new Material(Identifier.withDefaultNamespace("block/water_still")),
+						new Material(Identifier.withDefaultNamespace("block/water_flow")),
+						new Material(Identifier.withDefaultNamespace("block/water_overlay")),
+						BlockTintSources.constant(OverworldBiomes.NORMAL_WATER_COLOR)
+					);
+				} else if (fluid == Fluids.LAVA) {
+					unbaked = new FluidModel.Unbaked(
+						new Material(Identifier.withDefaultNamespace("block/lava_still")),
+						new Material(Identifier.withDefaultNamespace("block/lava_flow")),
+						null,
+						null
+					);
+				} else {
+					return null;
+				}
 			}
 			TextureAtlasSprite sprite = baker.materials().get(unbaked.stillMaterial(), () -> "fluid").sprite();
 			int tint = unbaked.tintSource() != null
@@ -189,6 +231,31 @@ public class ItemCellModel implements ItemModel {
 			}
 			Vector3fc[] vector = set.toArray(Vector3fc[]::new);
 			return () -> vector;
+		}
+
+		/**
+		 * Force quads to use the cutout (opaque) item render type instead of
+		 * translucent, so semi-transparent fluid textures render as fully opaque.
+		 */
+		static List<BakedQuad> makeCutout(List<BakedQuad> quads) {
+			RenderType cutoutType = Sheets.cutoutBlockItemSheet();
+			List<BakedQuad> result = new ArrayList<>(quads.size());
+			for (BakedQuad quad : quads) {
+				BakedQuad.MaterialInfo oldInfo = quad.materialInfo();
+				if (oldInfo.itemRenderType() == cutoutType) {
+					result.add(quad);
+				} else {
+					result.add(new BakedQuad(
+						quad.position0(), quad.position1(), quad.position2(), quad.position3(),
+						quad.packedUV0(), quad.packedUV1(), quad.packedUV2(), quad.packedUV3(),
+						quad.direction(), new BakedQuad.MaterialInfo(
+							oldInfo.sprite(), oldInfo.layer(), cutoutType,
+							oldInfo.tintIndex(), oldInfo.shade(), oldInfo.lightEmission()
+						)
+					));
+				}
+			}
+			return result;
 		}
 
 		public static List<BakedQuad> replaceTint(List<BakedQuad> quads, int index) {
