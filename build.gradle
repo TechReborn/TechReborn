@@ -210,7 +210,8 @@ publishMods {
 
     def options = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-        minecraftVersions.add("1.21.10")
+        minecraftVersions.add("26.1.1")
+        minecraftVersions.add("26.1")
 
         requires {
             slug = "fabric-api"
@@ -219,7 +220,8 @@ publishMods {
 
     def mrOptions = modrinthOptions {
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
-        minecraftVersions.add("1.21.10")
+        minecraftVersions.add("26.1.1")
+        minecraftVersions.add("26.1")
 
         requires {
             slug = "fabric-api"
