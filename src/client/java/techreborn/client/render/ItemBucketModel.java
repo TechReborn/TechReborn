@@ -117,7 +117,7 @@ public class ItemBucketModel implements ItemModel {
 			Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer> baked;
 			if (pair != null) {
 				List<BakedQuad> list = new ArrayList<>();
-				list.addAll(ItemCellModel.Unbaked.bakeFluidQuads(baker, backgroundModel, pair.getLeft()));
+				list.addAll(ItemCellModel.Unbaked.makeCutout(ItemCellModel.Unbaked.bakeFluidQuads(baker, backgroundModel, pair.getLeft())));
 				list.addAll(ItemCellModel.Unbaked.replaceTint(baseQuads, -1));
 				baked = Triple.of(list, ItemCellModel.Unbaked.bakeVector(list), pair.getRight());
 			} else {

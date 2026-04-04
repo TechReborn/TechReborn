@@ -33,6 +33,8 @@ import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.item.ModelRenderProperties;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ResolvableModel;
@@ -164,7 +166,7 @@ public class ItemCellModel implements ItemModel {
 					? unbaked.tintSource().color(fluid.defaultFluidState().createLegacyBlock()) | 0xFF000000
 					: 0xFFFFFFFF;
 				List<BakedQuad> list = new ArrayList<>();
-				list.addAll(bakeFluidQuads(baker, backgroundModel, sprite));
+				list.addAll(makeCutout(bakeFluidQuads(baker, backgroundModel, sprite)));
 				list.addAll(replaceTint(baseQuads, -1));
 				list.addAll(glassQuads);
 				bakedFluids.put(fluid, Triple.of(list, bakeVector(list), tint));
@@ -229,6 +231,31 @@ public class ItemCellModel implements ItemModel {
 			}
 			Vector3fc[] vector = set.toArray(Vector3fc[]::new);
 			return () -> vector;
+		}
+
+		/**
+		 * Force quads to use the cutout (opaque) item render type instead of
+		 * translucent, so semi-transparent fluid textures render as fully opaque.
+		 */
+		static List<BakedQuad> makeCutout(List<BakedQuad> quads) {
+			RenderType cutoutType = Sheets.cutoutBlockItemSheet();
+			List<BakedQuad> result = new ArrayList<>(quads.size());
+			for (BakedQuad quad : quads) {
+				BakedQuad.MaterialInfo oldInfo = quad.materialInfo();
+				if (oldInfo.itemRenderType() == cutoutType) {
+					result.add(quad);
+				} else {
+					result.add(new BakedQuad(
+						quad.position0(), quad.position1(), quad.position2(), quad.position3(),
+						quad.packedUV0(), quad.packedUV1(), quad.packedUV2(), quad.packedUV3(),
+						quad.direction(), new BakedQuad.MaterialInfo(
+							oldInfo.sprite(), oldInfo.layer(), cutoutType,
+							oldInfo.tintIndex(), oldInfo.shade(), oldInfo.lightEmission()
+						)
+					));
+				}
+			}
+			return result;
 		}
 
 		public static List<BakedQuad> replaceTint(List<BakedQuad> quads, int index) {
