@@ -25,10 +25,10 @@
 package techreborn.datagen.dynamic
 
 import net.minecraft.core.Holder
-import net.minecraft.core.HolderSet
 import net.minecraft.data.worldgen.features.FeatureUtils
 import net.minecraft.data.worldgen.placement.PlacementUtils
 import net.minecraft.util.valueproviders.IntProvider
+import net.minecraft.util.valueproviders.TrapezoidInt
 import net.minecraft.util.valueproviders.UniformInt
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.Blocks
@@ -38,7 +38,6 @@ import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.BlockTags
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration
 import net.minecraft.world.level.levelgen.placement.BiomeFilter
 import net.minecraft.world.level.levelgen.placement.CountPlacement
@@ -48,6 +47,7 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement
 import net.minecraft.world.level.levelgen.placement.RarityFilter
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter
+import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest
@@ -81,23 +81,18 @@ import techreborn.world.TargetDimension
 import techreborn.world.WorldGenerator
 
 class TRDynamicContent {
-	private static Holder.Reference<ConfiguredFeature<?, ?>> RUBBER_TREE_PLACED_FEATURE_HOLDER = null
-
 	static void damageTypes(BootstrapContext<DamageType> registry) {
 		registry.register(TRDamageTypes.ELECTRIC_SHOCK, new DamageType("electric_shock", 0.1F, DamageEffects.BURNING))
 		registry.register(TRDamageTypes.FUSION, new DamageType("fusion", 0.1F, DamageEffects.BURNING))
 	}
 
 	static void configuredFeatures(BootstrapContext<ConfiguredFeature> registry) {
-		def placedFeatureLookup = registry.lookup(Registries.PLACED_FEATURE)
-
 		WorldGenerator.ORE_FEATURES.forEach {
 			registry.register(it.configuredFeature(), createOreConfiguredFeature(it))
 		}
 
 		registry.register(WorldGenerator.OIL_LAKE_FEATURE, createOilLakeConfiguredFeature())
-		RUBBER_TREE_PLACED_FEATURE_HOLDER = registry.register(WorldGenerator.RUBBER_TREE_FEATURE, createRubberTreeConfiguredFeature())
-		registry.register(WorldGenerator.RUBBER_TREE_PATCH_FEATURE, createRubberPatchTreeConfiguredFeature(placedFeatureLookup))
+		registry.register(WorldGenerator.RUBBER_TREE_FEATURE, createRubberTreeConfiguredFeature())
 	}
 
 	static void placedFeatures(BootstrapContext<PlacedFeature> registry) {
@@ -108,7 +103,6 @@ class TRDynamicContent {
 		}
 
 		registry.register(WorldGenerator.OIL_LAKE_PLACED_FEATURE, createOilLakePlacedFeature(configuredFeatureLookup))
-		registry.register(WorldGenerator.RUBBER_TREE_PLACED_FEATURE, createRubberTreePlacedFeature(configuredFeatureLookup))
 		registry.register(WorldGenerator.RUBBER_TREE_PATCH_PLACED_FEATURE, createRubberTreePatchPlacedFeature(configuredFeatureLookup))
 	}
 
@@ -177,6 +171,22 @@ class TRDynamicContent {
 		)
 	}
 
+	private static PlacedFeature createRubberTreePatchPlacedFeature(HolderGetter<ConfiguredFeature> lookup) {
+		return new PlacedFeature(
+			lookup.getOrThrow(WorldGenerator.RUBBER_TREE_FEATURE),
+			List.of(
+				RarityFilter.onAverageOnceEvery(3),
+				InSquarePlacement.spread(),
+				SurfaceWaterDepthFilter.forMaxDepth(0),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+				CountPlacement.of(UniformInt.of(1, 6)),
+				RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(6)),
+				PlacementUtils.filteredByBlockSurvival(TRContent.RUBBER_SAPLING),
+				BiomeFilter.biome()
+			)
+		)
+	}
+
 	// Rubber tree
 	private static ConfiguredFeature createRubberTreeConfiguredFeature() {
 		final WeightedList.Builder<BlockState> logDataPool = WeightedList.<BlockState>builder()
@@ -208,38 +218,6 @@ class TRDynamicContent {
 				.decorators(List.of(
 					new RubberTreeSpikeDecorator(4, BlockStateProvider.simple(TRContent.RUBBER_LEAVES.defaultBlockState()))
 				)).build()
-		)
-	}
-
-	private static PlacedFeature createRubberTreePlacedFeature(HolderGetter<ConfiguredFeature> lookup) {
-		return new PlacedFeature(lookup.getOrThrow(WorldGenerator.RUBBER_TREE_FEATURE), List.of(
-			PlacementUtils.filteredByBlockSurvival(TRContent.RUBBER_SAPLING)
-		))
-	}
-
-	// TODO 26.1 check this is correct
-	private static ConfiguredFeature createRubberPatchTreeConfiguredFeature(HolderGetter<PlacedFeature> lookup) {
-		return new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR,
-			new SimpleRandomFeatureConfiguration(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						RUBBER_TREE_PLACED_FEATURE_HOLDER,
-						RandomOffsetPlacement.horizontal(new UniformInt(1, 6)),
-					),
-				)
-			)
-		)
-	}
-
-	private static PlacedFeature createRubberTreePatchPlacedFeature(HolderGetter<ConfiguredFeature> lookup) {
-		return new PlacedFeature(
-			lookup.getOrThrow(WorldGenerator.RUBBER_TREE_PATCH_FEATURE),
-			List.of(
-				RarityFilter.onAverageOnceEvery(3),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
-			)
 		)
 	}
 }
