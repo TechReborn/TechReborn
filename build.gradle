@@ -184,18 +184,8 @@ dependencies {
     datagenImplementation 'org.apache.groovy:groovy:5.0.3'
 }
 
-
-// TODO: Datagen
-// tasks.sourcesJar.dependsOn runDatagen
-
 jar {
 	exclude "**/*.psd"
-    from file('src/main/generated')
-
-    // A bit of a hack to allow the generated sources when they already exist
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    // TODO: Datagen
-    // dependsOn 'runDatagen'
 }
 
 import groovy.json.JsonSlurper

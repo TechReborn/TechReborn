@@ -26,6 +26,7 @@ jobs:
         with:
           context: changelog
           workflow_id: release.yml
+      - run: ./gradlew runDatagen --stacktrace
       - run: ./gradlew build publish publishMods --stacktrace -x test
         env:
           RELEASE_CHANNEL: ${{ github.event.inputs.channel }}
