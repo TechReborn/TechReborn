@@ -24,6 +24,8 @@
 
 package reborncore.client.gui;
 
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.model.sprite.SpriteId;
@@ -399,5 +401,10 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 
 	public static TextureAtlasSprite getSprite(SpriteId spriteIdentifier) {
 		return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(spriteIdentifier.atlasLocation()).getSprite(spriteIdentifier.texture());
+	}
+
+	@Override
+	public <T extends Renderable> T addRenderableOnly(T renderable) {
+		return super.addRenderableOnly(renderable);
 	}
 }

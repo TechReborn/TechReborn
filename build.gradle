@@ -156,6 +156,20 @@ allprojects {
     }
 }
 
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "ModMaven"
+                url = "https://modmaven.dev"
+            }
+        }
+        filter {
+            includeGroup "mezz.jei"
+        }
+    }
+}
+
 // TechReborn specific dependencies
 dependencies {
     api project(":RebornCore")
@@ -163,16 +177,11 @@ dependencies {
 
     include project(":RebornCore")
 
+    compileOnly("mezz.jei:jei-26.1.1-fabric-api:29.3.0.22")
+    runtimeOnly("mezz.jei:jei-26.1.1-fabric:29.3.0.22")
+
     // Use groovy for datagen, if you are copying this you prob dont want it.
     datagenImplementation 'org.apache.groovy:groovy:5.0.3'
-}
-
-def optionalDependency(String dep) {
-    def exclude = {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude group: "net.fabricmc"
-    }
-    dependencies.compileOnly(dep, exclude)
 }
 
 

@@ -25,6 +25,7 @@
 package reborncore.common.crafting;
 
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -53,6 +54,7 @@ public class RecipeManager {
 
 		RecipeSerializer<R> serializer = new RecipeSerializer<>(codec.apply(type), packetCodec.apply(type));
 		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, name, serializer);
+		RecipeSynchronization.synchronizeRecipeSerializer(serializer);
 
 		return type;
 	}

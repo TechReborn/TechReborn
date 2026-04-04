@@ -48,6 +48,7 @@ import reborncore.common.screen.builder.SyncedObject;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RangeUtil;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -330,5 +331,13 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 		public void set(T value) {
 			object.setter().accept(value);
 		}
+	}
+
+	public List<Range<Integer>> getPlayerSlotRanges() {
+		return Collections.unmodifiableList(playerSlotRanges);
+	}
+
+	public List<Range<Integer>> getBlockEntitySlotRanges() {
+		return Collections.unmodifiableList(blockEntitySlotRanges);
 	}
 }

@@ -19,11 +19,8 @@
     "client": [
       "techreborn.TechRebornClient"
     ],
-    "rei_client": [
-		"techreborn.client.compat.rei.ReiPlugin"
-    ],
-    "rei_common": [
-		"techreborn.compat.rei.ReiCommonPlugin"
+    "jei_mod_plugin": [
+		"techreborn.client.compat.jei.JEIPlugin"
     ]
   },
   "custom": {
