@@ -58,11 +58,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
 
-public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> implements RenderTarget {
 	public static FluidCellProvider fluidCellProvider = fluid -> ItemStack.EMPTY;
 	public static ItemStackTemplate wrenchStack = null;
 
-	public GuiBuilder builder = new GuiBuilder();
+	public GuiBuilder builder = GuiBuilder.INSTANCE;
 	public BlockEntity be;
 	@Nullable
 	public BuiltScreenHandler builtScreenHandler;
@@ -320,6 +320,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	 * @param pointY     {@code int} Mouse pointer
 	 * @return {@code boolean} Returns true if mouse pointer is in region specified
 	 */
+	@Override
 	public boolean isPointInRect(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY) {
 		return super.isHovering(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 	}
@@ -336,10 +337,12 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		return be instanceof MachineBaseBlockEntity && builtScreenHandler != null;
 	}
 
+	@Override
 	public int getGuiLeft() {
 		return leftPos;
 	}
 
+	@Override
 	public int getGuiTop() {
 		return topPos;
 	}
@@ -352,6 +355,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		return this.minecraft;
 	}
 
+	@Override
 	public Font getFont() {
 		return this.font;
 	}
@@ -367,6 +371,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		return selectedTab != null;
 	}
 
+	@Override
 	public boolean hideGuiElements() {
 		return selectedTab != null && selectedTab.hideGuiElements();
 	}

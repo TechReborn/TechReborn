@@ -99,7 +99,7 @@ public final class GuiSprites {
 		);
 	}
 
-	public static void drawSpriteStretched(GuiGraphicsExtractor drawContext, SpriteId spriteIdentifier, int x, int y, int width, int height, int textureWidth, int textureHeight, GuiBase<?> gui) {
+	public static void drawSpriteStretched(GuiGraphicsExtractor drawContext, SpriteId spriteIdentifier, int x, int y, int width, int height, int textureWidth, int textureHeight, RenderTarget gui) {
 		drawSpriteStretched(drawContext, spriteIdentifier, x, y, width, height, textureWidth, textureHeight, gui.getGuiLeft(), gui.getGuiTop());
 	}
 

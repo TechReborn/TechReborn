@@ -3,6 +3,7 @@ package techreborn.client.compat.jei.gui.render;
 import mezz.jei.api.gui.drawable.IDrawable;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
+import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 
@@ -11,8 +12,6 @@ import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
 public class ProgressBarDrawable implements IDrawable {
 	private final GuiBuilder.ProgressDirection direction;
 	private final int millisPerCycle;
-
-	private final GuiBuilder builder = new GuiBuilder();
 
 	public ProgressBarDrawable(GuiBuilder.ProgressDirection direction, int millisPerCycle) {
 		this.direction = direction;
@@ -63,18 +62,8 @@ public class ProgressBarDrawable implements IDrawable {
 
 	@Override
 	public void draw(GuiGraphicsExtractor drawContext, int x, int y) {
-		drawSpriteStretched(drawContext, direction.baseSprite, x, y, direction.width, direction.height);
-
-		int j = (int) ((double) System.currentTimeMillis() % millisPerCycle / (double) millisPerCycle * 16);
-		if (j < 0) {
-			j = 0;
-		}
-
-		switch (direction) {
-			case RIGHT -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
-			case LEFT -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
-			case UP -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
-			case DOWN -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
-		}
+		int progress = Math.toIntExact(System.currentTimeMillis() % millisPerCycle);
+		int maxProgress = millisPerCycle;
+		GuiBuilder.INSTANCE.drawProgressBar(drawContext, JeiRenderTarget.INSTANCE, progress, maxProgress, x, y, -1, -1, direction, GuiBase.Layer.FOREGROUND);
 	}
 }
