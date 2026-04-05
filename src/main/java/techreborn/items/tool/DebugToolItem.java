@@ -28,7 +28,6 @@ import reborncore.common.powerSystem.PowerSystem;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.init.TRItemSettings;
 
-import java.util.Map.Entry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.util.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -41,7 +40,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
 
 /**
  * Created by Mark on 20/03/2016.

@@ -54,7 +54,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.fabricmc.fabric.impl.client.rendering.fluid.FluidRenderingRegistryImpl;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;

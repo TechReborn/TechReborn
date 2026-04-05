@@ -43,7 +43,6 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 

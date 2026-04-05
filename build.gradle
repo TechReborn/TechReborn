@@ -5,7 +5,7 @@ plugins {
 	id 'idea'
 	id 'eclipse'
 	id 'maven-publish'
-	// id 'com.diffplug.spotless' version '6.19.0'
+	id 'com.diffplug.spotless' version '6.19.0'
 	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
     id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
 }
@@ -19,7 +19,7 @@ allprojects {
 
     apply plugin: "net.fabricmc.fabric-loom"
     apply plugin: "maven-publish"
-	// apply plugin: "com.diffplug.spotless"
+	apply plugin: "com.diffplug.spotless"
 
     loom {
         runtimeOnlyLog4j = true
@@ -84,25 +84,25 @@ allprojects {
 
     apply from: rootProject.file('gradle/package-info.gradle')
 
-	// spotless {
-	// 	java {
-	// 		licenseHeaderFile(file("HEADER"))
-	// 		removeUnusedImports()
-	// 		indentWithTabs()
-	// 		trimTrailingWhitespace()
-	// 		endWithNewline()
-	// 	}
-	// }
+	 spotless {
+	 	java {
+	 		licenseHeaderFile(file("HEADER"))
+	 		removeUnusedImports()
+	 		indentWithTabs()
+	 		trimTrailingWhitespace()
+	 		endWithNewline()
+	 	}
+	 }
 }
 
-//spotless {
-//    groovy {
-//        licenseHeaderFile(file("HEADER"))
-//        indentWithTabs()
-//        trimTrailingWhitespace()
-//        endWithNewline()
-//    }
-//}
+spotless {
+    groovy {
+        licenseHeaderFile(file("HEADER"))
+        indentWithTabs()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
 
 processResources {
     doLast {

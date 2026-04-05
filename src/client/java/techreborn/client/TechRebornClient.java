@@ -59,11 +59,11 @@ public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		 ModelLoadingPlugin.register((pluginContext) -> {
-		 	for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
-		 		pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
-		 	}
-		 });
+		ModelLoadingPlugin.register((pluginContext) -> {
+			for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
+				pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
+			}
+		});
 
 		ItemModels.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
 		ItemModels.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
@@ -142,4 +142,3 @@ public class TechRebornClient implements ClientModInitializer {
 
 	}
 }
-

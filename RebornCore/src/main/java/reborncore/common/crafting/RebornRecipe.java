@@ -35,7 +35,6 @@ import reborncore.api.recipe.IRecipeCrafterProvider;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

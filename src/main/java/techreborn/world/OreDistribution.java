@@ -24,7 +24,6 @@
 
 package techreborn.world;
 
-import org.jspecify.annotations.NonNull;
 import techreborn.config.TechRebornConfig;
 
 import java.util.Objects;

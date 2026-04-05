@@ -35,7 +35,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import reborncore.common.util.NBTSerializable;
 

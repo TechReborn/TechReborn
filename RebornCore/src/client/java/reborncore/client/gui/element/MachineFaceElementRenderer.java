@@ -142,7 +142,7 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 				quadInstance.setColor(ARGB.white(1.0F)); // Opaque white color
 				quadInstance.setLightCoords(light);
 				quadInstance.setOverlayCoords(OverlayTexture.NO_OVERLAY);
-				
+
 				vertexConsumer.putBakedQuad(entry, bakedQuad, quadInstance);
 			}
 		}

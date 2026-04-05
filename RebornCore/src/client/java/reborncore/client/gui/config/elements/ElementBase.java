@@ -24,7 +24,6 @@
 
 package reborncore.client.gui.config.elements;
 
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.network.chat.Component;

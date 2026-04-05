@@ -25,7 +25,6 @@
 package techreborn;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.block.ComposterBlock;
 import org.slf4j.Logger;

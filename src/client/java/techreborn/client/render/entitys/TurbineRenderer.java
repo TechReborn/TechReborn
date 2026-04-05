@@ -39,7 +39,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;

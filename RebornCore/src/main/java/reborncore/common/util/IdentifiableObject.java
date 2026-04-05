@@ -25,6 +25,5 @@
 package reborncore.common.util;
 
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
 
 public record IdentifiableObject<T>(T object, Identifier identifier) { }
