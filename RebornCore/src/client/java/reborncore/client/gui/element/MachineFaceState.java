@@ -27,7 +27,7 @@ package reborncore.client.gui.element;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.joml.Matrix3x2f;
 
 public record MachineFaceState(

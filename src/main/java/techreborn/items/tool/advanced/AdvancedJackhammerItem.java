@@ -24,7 +24,7 @@
 
 package techreborn.items.tool.advanced;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.powerSystem.RcEnergyTier;
 import techreborn.config.TechRebornConfig;

@@ -50,8 +50,8 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import reborncore.api.blockentity.IUpgrade;
@@ -637,8 +637,7 @@ public class TRContent {
 			return tag;
 		}
 
-		@Nullable
-		public TRContent.Ores getDeepslate() {
+		public TRContent.@Nullable Ores getDeepslate() {
 			Preconditions.checkArgument(!isDeepslate());
 			return deepslateMap.get(this);
 		}
@@ -1218,7 +1217,7 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the raw metals to their storage block equivalent.
 		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
-		public static @NotNull Map<RawMetals, StorageBlocks> getRM2SBMap() {
+		public static Map<RawMetals, StorageBlocks> getRM2SBMap() {
 			return Arrays.stream(values())
 					.map(rawMetal -> new Tuple<>(rawMetal, rawMetal.getStorageBlock()))
 					.filter(entry -> entry.getB() != null) // ensure storage block equivalent exists
@@ -1230,7 +1229,7 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the raw metals to their ore block equivalent.
 		 * If an ore block equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
-		public static @NotNull Map<RawMetals, Ores> getRM2OBMap() {
+		public static Map<RawMetals, Ores> getRM2OBMap() {
 			return Arrays.stream(values())
 					.map(rawMetal -> new Tuple<>(rawMetal, rawMetal.getOre()))
 					.filter(entry -> entry.getB() != null) // ensure ore block equivalent exists
@@ -1314,7 +1313,7 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the small dusts to their dust equivalent.
 		 * If a dust equivalent doesn't exist, the small dust will not be in the keys of this map.
 		 */
-		public static @NotNull Map<SmallDusts, ItemLike> getSD2DMap() {
+		public static Map<SmallDusts, ItemLike> getSD2DMap() {
 			return Arrays.stream(values())
 					.map(smallDust -> new Tuple<>(smallDust, smallDust.getDust()))
 					.filter(entry -> entry.getB() != null) // ensure dust equivalent exists
@@ -1405,7 +1404,7 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the gems to their dust item equivalent.
 		 * If a dust item equivalent doesn't exist, the gem will not be in the keys of this map.
 		 */
-		public static @NotNull Map<Gems, Dusts> getG2DMap() {
+		public static Map<Gems, Dusts> getG2DMap() {
 			return Arrays.stream(values())
 					.map(gem -> new Tuple<>(gem, gem.getDust()))
 					.filter(entry -> entry.getB() != null) // ensure dust item equivalent exists
@@ -1417,7 +1416,7 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the gems to their storage block equivalent.
 		 * If a storage block equivalent doesn't exist, the gem will not be in the keys of this map.
 		 */
-		public static @NotNull Map<Gems, StorageBlocks> getG2SBMap() {
+		public static Map<Gems, StorageBlocks> getG2SBMap() {
 			return Arrays.stream(values())
 					.map(gem -> new Tuple<>(gem, gem.getStorageBlock()))
 					.filter(entry -> entry.getB() != null) // ensure storage block equivalent exists
@@ -1508,7 +1507,7 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the ingots to their dust item equivalent.
 		 * If a dust item equivalent doesn't exist, the ingot will not be in the keys of this map.
 		 */
-		public static @NotNull Map<Ingots, Dusts> getI2DMap() {
+		public static Map<Ingots, Dusts> getI2DMap() {
 			return Arrays.stream(values())
 					.map(gem -> new Tuple<>(gem, gem.getDust()))
 					.filter(entry -> entry.getB() != null) // ensure dust item equivalent exists
@@ -1520,7 +1519,7 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the ingots to their storage block equivalent.
 		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
-		public static @NotNull Map<Ingots, ItemLike> getI2SBMap() {
+		public static Map<Ingots, ItemLike> getI2SBMap() {
 			return Arrays.stream(values())
 					.map(ingot -> new Tuple<>(ingot, ingot.getStorageBlock()))
 					.filter(entry -> entry.getB() != null) // ensure storage block equivalent exists
@@ -1607,7 +1606,7 @@ public class TRContent {
 		 * @return A non {@code null} map mapping the nuggets to their ingot equivalent.
 		 * If an ingot equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
-		public static @NotNull Map<Nuggets, ItemLike> getN2IMap() {
+		public static Map<Nuggets, ItemLike> getN2IMap() {
 			return Arrays.stream(values())
 					.map(nugget -> new Tuple<>(nugget, nugget.getIngot()))
 					.filter(entry -> entry.getB() != null) // ensure ingot equivalent exists

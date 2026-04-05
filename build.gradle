@@ -82,6 +82,8 @@ allprojects {
         }
     }
 
+    apply from: rootProject.file('gradle/package-info.gradle')
+
 	// spotless {
 	// 	java {
 	// 		licenseHeaderFile(file("HEADER"))

@@ -25,7 +25,7 @@
 package techreborn.blockentity.machine.tier2;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;

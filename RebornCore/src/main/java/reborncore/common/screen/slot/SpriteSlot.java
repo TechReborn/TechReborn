@@ -26,7 +26,7 @@ package reborncore.common.screen.slot;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class SpriteSlot extends FilteredSlot {
 

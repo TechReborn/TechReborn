@@ -33,7 +33,7 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.client.ClientChatUtils;
 import reborncore.client.gui.GuiBase;

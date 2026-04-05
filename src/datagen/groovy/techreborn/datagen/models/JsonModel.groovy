@@ -40,7 +40,7 @@ import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.resources.Identifier
 import com.mojang.math.Quadrant
 import net.minecraft.core.Direction
-import org.jetbrains.annotations.Nullable
+import org.jspecify.annotations.Nullable
 import org.joml.Vector3fc
 
 class JsonModel {

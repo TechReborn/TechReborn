@@ -25,7 +25,7 @@
 package reborncore.common;
 
 import net.minecraft.world.item.component.TypedEntityData;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import static reborncore.RebornCore.LOGGER;
 

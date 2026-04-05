@@ -42,7 +42,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.tags.TagKey
 import net.minecraft.world.flag.FeatureFlag
 import net.minecraft.resources.Identifier
-import org.jetbrains.annotations.NotNull
+import org.jspecify.annotations.NonNull
 import reborncore.common.crafting.SizedIngredient
 import reborncore.common.crafting.RebornRecipe
 import reborncore.common.crafting.RecipeUtils
@@ -173,7 +173,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
-	@NotNull String getSourceAppendix() {
+	String getSourceAppendix() {
 		if (source == null)
 			return ""
 		return "_from_" + source

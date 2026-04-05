@@ -52,7 +52,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;

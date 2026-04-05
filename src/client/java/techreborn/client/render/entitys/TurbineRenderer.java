@@ -39,8 +39,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -61,7 +61,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 	}
 
 	@Override
-	public @NotNull TurbineRenderState createRenderState() {
+	public TurbineRenderState createRenderState() {
 		return new TurbineRenderState();
 	}
 
@@ -71,7 +71,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 		TurbineRenderState state,
 		float tickDelta,
 		Vec3 vec3,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+		ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlay);
 		Direction facing = blockEntity.getFacing();

@@ -25,7 +25,7 @@
 package techreborn.utils;
 
 import com.google.common.collect.ImmutableSet;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.powerSystem.RcEnergyItem;
 
 import java.util.Collections;

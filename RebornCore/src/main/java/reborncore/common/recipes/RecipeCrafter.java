@@ -25,7 +25,7 @@
 package reborncore.common.recipes;
 
 import net.minecraft.world.item.ItemStackTemplate;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.RebornCore;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.blocks.BlockMachineBase;

@@ -43,8 +43,8 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 /**
@@ -60,7 +60,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 	}
 
 	@Override
-	public @NotNull StorageUnitRenderState createRenderState() {
+	public StorageUnitRenderState createRenderState() {
 		return new StorageUnitRenderState();
 	}
 
@@ -70,7 +70,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		StorageUnitRenderState state,
 		float f,
 		Vec3 vec3,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+		ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderState.extractBase(storage, state, crumblingOverlay);
 		if (storage.getLevel() == null) {

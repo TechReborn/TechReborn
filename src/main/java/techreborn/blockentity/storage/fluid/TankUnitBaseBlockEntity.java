@@ -26,7 +26,7 @@ package techreborn.blockentity.storage.fluid;
 
 import net.minecraft.world.item.component.TypedEntityData;
 import org.apache.commons.lang3.text.WordUtils;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;

@@ -35,8 +35,8 @@ import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 import net.minecraft.client.renderer.block.BlockModelRenderState;
@@ -55,7 +55,7 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 	}
 
 	@Override
-	public @NotNull MultiblockRenderState createRenderState() {
+	public MultiblockRenderState createRenderState() {
 		return new MultiblockRenderState();
 	}
 
@@ -65,7 +65,7 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 		MultiblockRenderState state,
 		float f,
 		Vec3 vec3,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+		ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlay);
 		state.resetPools();

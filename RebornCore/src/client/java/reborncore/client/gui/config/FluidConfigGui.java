@@ -24,7 +24,7 @@
 
 package reborncore.client.gui.config;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.config.elements.ConfigFluidElement;
 import reborncore.client.gui.config.elements.SlotType;

@@ -24,7 +24,7 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;

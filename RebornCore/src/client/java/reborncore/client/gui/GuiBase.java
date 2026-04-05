@@ -31,7 +31,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.config.GuiTab;

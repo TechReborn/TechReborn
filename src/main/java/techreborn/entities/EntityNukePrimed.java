@@ -34,7 +34,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.explosion.RebornExplosion;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;

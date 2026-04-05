@@ -30,24 +30,24 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 import org.apache.commons.lang3.Validate;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import reborncore.api.items.InventoryBase;
 
 public class InventoryItem extends InventoryBase implements DataComponentHolder {
 
 	// ItemStack of InventoryItem
-	@NotNull
+	@NonNull
 	ItemStack stack;
 	private final DataComponentMap components = DataComponentMap.EMPTY;
 
-	private InventoryItem(@NotNull ItemStack stack, int size) {
+	private InventoryItem(ItemStack stack, int size) {
 		super(size);
 		Validate.notNull(stack, "Stack is empty");
 		Validate.isTrue(!stack.isEmpty());
 		this.stack = stack;
 	}
 
-	public @NotNull ItemStack getContainerStack() {
+	public ItemStack getContainerStack() {
 		return stack;
 	}
 

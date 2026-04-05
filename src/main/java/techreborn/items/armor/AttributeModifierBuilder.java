@@ -25,7 +25,7 @@
 package techreborn.items.armor;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.*;
 import net.minecraft.ChatFormatting;

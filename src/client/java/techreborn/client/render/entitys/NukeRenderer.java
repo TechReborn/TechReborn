@@ -35,7 +35,7 @@ import net.minecraft.client.renderer.entity.TntMinecartRenderer;
 import net.minecraft.client.renderer.entity.state.TntRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
 
@@ -53,7 +53,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntRenderStat
 	}
 
 	@Override
-	public @NotNull TntRenderState createRenderState() {
+	public TntRenderState createRenderState() {
 		return new TntRenderState();
 	}
 

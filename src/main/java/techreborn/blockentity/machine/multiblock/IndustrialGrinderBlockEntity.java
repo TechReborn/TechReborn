@@ -33,7 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.fluid.FluidUtils;

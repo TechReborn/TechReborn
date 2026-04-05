@@ -43,7 +43,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 
@@ -53,7 +53,7 @@ import java.util.stream.Collectors;
 
 public class FluidUtils {
 
-	@NotNull
+	@NonNull
 	public static Fluid fluidFromBlock(Block block) {
 		if (block instanceof LiquidBlock fluidBlock) {
 			return fluidBlock.fluid;
@@ -130,7 +130,7 @@ public class FluidUtils {
 		return storage != null ? storage : Storage.empty();
 	}
 
-	public static boolean fluidEquals(@NotNull Fluid fluid, @NotNull Fluid fluid1) {
+	public static boolean fluidEquals(Fluid fluid, Fluid fluid1) {
 		return fluid == fluid1;
 	}
 
@@ -176,12 +176,12 @@ public class FluidUtils {
 		return false;
 	}
 
-	public static String getFluidName(@NotNull FluidInstance fluidInstance) {
+	public static String getFluidName(FluidInstance fluidInstance) {
 		// TODO: use FluidVariantRendering
 		return getFluidName(fluidInstance.fluid());
 	}
 
-	public static String getFluidName(@NotNull Fluid fluid) {
+	public static String getFluidName(Fluid fluid) {
 		return Component.translatable(fluid.defaultFluidState().createLegacyBlock().getBlock().getDescriptionId()).getString();
 	}
 }

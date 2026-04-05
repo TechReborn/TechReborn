@@ -24,7 +24,7 @@
 
 package techreborn.world;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import techreborn.config.TechRebornConfig;
 
 import java.util.Objects;
@@ -53,7 +53,7 @@ public enum OreDistribution {
 	public final int veinsPerChunk;
 	public final VerticalAnchor minOffset;
 	public final int maxY; // Max height of ore in numbers of blocks from the bottom of the world
-	public @NotNull final UniformInt experienceDropped;
+	public final UniformInt experienceDropped;
 	public final TargetDimension dimension;
 	private final boolean generating;
 

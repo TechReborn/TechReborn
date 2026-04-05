@@ -26,13 +26,13 @@ package reborncore.common.util;
 
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @Deprecated
 public interface NBTSerializable {
 
-	void write(@NotNull ValueOutput view);
+	void write(ValueOutput view);
 
-	void read(@NotNull ValueInput view);
+	void read(ValueInput view);
 
 }

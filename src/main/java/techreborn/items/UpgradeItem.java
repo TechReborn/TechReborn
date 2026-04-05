@@ -26,8 +26,8 @@ package techreborn.items;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.recipes.IUpgradeHandler;
@@ -43,10 +43,10 @@ public class UpgradeItem extends Item implements IUpgrade {
 
 	@Override
 	public void process(
-			@NotNull MachineBaseBlockEntity blockEntity,
+			MachineBaseBlockEntity blockEntity,
 			@Nullable
 					IUpgradeHandler handler,
-			@NotNull
+			@NonNull
 					ItemStack stack) {
 		behavior.process(blockEntity, handler, stack);
 	}

@@ -35,8 +35,8 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.util.NBTSerializable;
 
 import java.util.*;
@@ -147,7 +147,7 @@ public class FluidConfiguration implements NBTSerializable {
 	}
 
 	@Override
-	public void read(@NotNull ValueInput view) {
+	public void read(ValueInput view) {
 		sideMap.clear();
 		Arrays.stream(Direction.values()).forEach(facing -> {
 			view.child("side_" + facing.ordinal()).ifPresent(config -> {
@@ -197,7 +197,7 @@ public class FluidConfiguration implements NBTSerializable {
 		}
 
 		@Override
-		public void read(@NotNull ValueInput view) {
+		public void read(ValueInput view) {
 			side = Direction.values()[view.getIntOr("side", 0)];
 			ioConfig = FluidConfiguration.ExtractConfig.values()[view.getIntOr("config", 0)];
 		}

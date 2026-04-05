@@ -24,8 +24,8 @@
 
 package techreborn.blockentity.machine.tier2;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
@@ -137,7 +137,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	@Override
-	@NotNull
+	@NonNull
 	public Tank getTank() {
 		if (this.tank == null) {
 			this.tank = createTank();
@@ -283,7 +283,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		}
 	}
 
-	@NotNull
+	@NonNull
 	private Fluid getFluid(BlockState blockState) {
 		FluidState fluidState = blockState.getFluidState();
 		Fluid fluid = fluidState.getType();
@@ -292,7 +292,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 
 	}
 
-	@NotNull
+	@NonNull
 	private NonNullList<ItemStack> getDrops(BlockState blockState) {
 		Block block = blockState.getBlock();
 		Item item = block.asItem();
@@ -334,7 +334,6 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 		 *
 		 * @return an Iterator.
 		 */
-		@NotNull
 		@Override
 		public java.util.Iterator<BlockPos> iterator() {
 			return new java.util.Iterator<>() {

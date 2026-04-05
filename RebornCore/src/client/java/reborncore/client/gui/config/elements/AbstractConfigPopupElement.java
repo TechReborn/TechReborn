@@ -24,7 +24,7 @@
 
 package reborncore.client.gui.config.elements;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.joml.Matrix3x2f;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.element.MachineFaceState;

@@ -35,8 +35,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -64,7 +64,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		super(TRBlockEntities.SOLID_FUEL_GENERATOR, pos, state);
 	}
 
-	public static int getItemBurnTime(Level world, @NotNull ItemStack stack) {
+	public static int getItemBurnTime(Level world, ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
 		}

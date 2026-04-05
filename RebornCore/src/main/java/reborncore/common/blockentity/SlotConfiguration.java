@@ -43,7 +43,7 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.apache.commons.lang3.Validate;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.util.NBTSerializable;
 import reborncore.common.util.RebornInventory;
 

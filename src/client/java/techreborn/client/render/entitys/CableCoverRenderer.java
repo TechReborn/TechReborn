@@ -40,8 +40,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blocks.cable.CableBlock;
 
@@ -54,7 +54,7 @@ public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity,
 	}
 
 	@Override
-	public @NotNull CableCoverRenderState createRenderState() {
+	public CableCoverRenderState createRenderState() {
 		return new CableCoverRenderState();
 	}
 
@@ -64,7 +64,7 @@ public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity,
 		CableCoverRenderState state,
 		float f,
 		Vec3 vec3,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+		ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlay);
 		if (!blockEntity.getBlockState().getValue(CableBlock.COVERED) || blockEntity.getLevel() == null) {

@@ -54,8 +54,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.fabricmc.fabric.impl.client.rendering.fluid.FluidRenderingRegistryImpl;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -115,7 +115,7 @@ public class ItemCellModel implements ItemModel {
 		}
 
 		@Override
-		public @NotNull ItemModel bake(ItemModel.BakingContext context, Matrix4fc transformation) {
+		public ItemModel bake(ItemModel.BakingContext context, Matrix4fc transformation) {
 			ModelBaker baker = context.blockModelBaker();
 			ResolvedModel baseModel = baker.getModel(CELL_BASE);
 			ResolvedModel backgroundModel = baker.getModel(CELL_BACKGROUND);
@@ -273,7 +273,7 @@ public class ItemCellModel implements ItemModel {
 		}
 
 		@Override
-		public @NotNull MapCodec<ItemCellModel.Unbaked> type() {
+		public MapCodec<ItemCellModel.Unbaked> type() {
 			return CODEC;
 		}
 	}

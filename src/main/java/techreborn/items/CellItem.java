@@ -59,7 +59,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.init.TRContent;

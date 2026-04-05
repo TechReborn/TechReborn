@@ -46,8 +46,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -121,7 +121,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 
 			@Override
-			public void setItem(int slot, @NotNull ItemStack stack) {
+			public void setItem(int slot, ItemStack stack) {
 				super.setItem(slot, stack);
 				syncStack(slot, stack);
 			}

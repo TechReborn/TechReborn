@@ -45,8 +45,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 import techreborn.TechReborn;
@@ -104,7 +104,7 @@ public class ItemBucketModel implements ItemModel {
 		}
 
 		@Override
-		public @NotNull ItemModel bake(BakingContext context, Matrix4fc transformation) {
+		public ItemModel bake(BakingContext context, Matrix4fc transformation) {
 			ModelBaker baker = context.blockModelBaker();
 			ResolvedModel backgroundModel = baker.getModel(BUCKET_BACKGROUND);
 			List<BakedQuad> backgroundQuads = backgroundModel.bakeTopGeometry(backgroundModel.getTopTextureSlots(), baker, BlockModelRotation.IDENTITY).getAll();
@@ -129,7 +129,7 @@ public class ItemBucketModel implements ItemModel {
 		}
 
 		@Override
-		public @NotNull MapCodec<ItemBucketModel.Unbaked> type() {
+		public MapCodec<ItemBucketModel.Unbaked> type() {
 			return CODEC;
 		}
 	}

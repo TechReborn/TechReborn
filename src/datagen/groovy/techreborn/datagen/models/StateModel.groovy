@@ -31,7 +31,7 @@ import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
 import net.minecraft.client.renderer.block.dispatch.VariantMutator
 import net.minecraft.world.level.block.Block
-import org.jetbrains.annotations.Nullable
+import org.jspecify.annotations.Nullable
 
 class StateModel {
 	List<MultiVariant> variants = new ArrayList<>()

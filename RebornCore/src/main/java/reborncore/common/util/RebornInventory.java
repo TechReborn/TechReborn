@@ -28,7 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import reborncore.api.items.InventoryBase;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.SlotConfiguration;
@@ -68,7 +68,7 @@ public class RebornInventory<T extends MachineBaseBlockEntity> extends Inventory
 	}
 
 	@Override
-	public void setItem(int slot, @NotNull ItemStack stack) {
+	public void setItem(int slot, ItemStack stack) {
 		super.setItem(slot, stack);
 		setHashChanged();
 	}

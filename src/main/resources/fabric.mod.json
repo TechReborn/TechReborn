@@ -17,7 +17,7 @@
       "techreborn.TechReborn"
     ],
     "client": [
-      "techreborn.TechRebornClient"
+      "techreborn.client.TechRebornClient"
     ],
     "jei_mod_plugin": [
 		"techreborn.client.compat.jei.JEIPlugin"

@@ -32,7 +32,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 import techreborn.config.TechRebornConfig;
@@ -48,7 +48,7 @@ public class IDSUManager extends SavedData {
 	private IDSUManager() {
 	}
 
-	@NotNull
+	@NonNull
 	public static IDSUPlayer getPlayer(MinecraftServer server, String uuid) {
 		return get(server).getPlayer(uuid);
 	}
@@ -60,7 +60,7 @@ public class IDSUManager extends SavedData {
 
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
 
-	@NotNull
+	@NonNull
 	public IDSUPlayer getPlayer(String uuid) {
 		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer(uuid, this::setDirty));
 	}

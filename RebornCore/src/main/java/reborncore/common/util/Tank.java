@@ -33,7 +33,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.screen.Syncable;
@@ -51,12 +51,12 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 		this.capacity = capacity;
 	}
 
-	@NotNull
+	@NonNull
 	public FluidInstance getFluidInstance() {
 		return fluidInstance;
 	}
 
-	@NotNull
+	@NonNull
 	public Fluid getFluid() {
 		return getFluidInstance().fluid();
 	}
@@ -99,7 +99,7 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 		});
 	}
 
-	public void setFluid(@NotNull Fluid f) {
+	public void setFluid(Fluid f) {
 		modifyFluid(fluidInstance -> fluidInstance.withFluid(f));
 	}
 
@@ -116,7 +116,7 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 		setFluidInstance(operator.apply(fluidInstance));
 	}
 
-	public void setFluidInstance(@NotNull FluidInstance fluidInstance) {
+	public void setFluidInstance(FluidInstance fluidInstance) {
 		this.fluidInstance = fluidInstance;
 	}
 

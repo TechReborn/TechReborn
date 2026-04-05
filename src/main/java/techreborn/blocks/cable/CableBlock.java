@@ -25,7 +25,7 @@
 package techreborn.blocks.cable;
 
 import com.mojang.serialization.MapCodec;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;

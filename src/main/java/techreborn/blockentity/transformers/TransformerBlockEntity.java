@@ -24,7 +24,7 @@
 
 package techreborn.blockentity.transformers;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;

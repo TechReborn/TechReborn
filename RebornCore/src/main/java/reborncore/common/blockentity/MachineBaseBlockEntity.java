@@ -25,8 +25,8 @@
 package reborncore.common.blockentity;
 
 import org.apache.commons.lang3.Validate;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.IUpgradeable;
@@ -598,7 +598,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		}
 	}
 
-	@NotNull
+	@NonNull
 	public SlotConfiguration getSlotConfiguration() {
 		Validate.notNull(slotConfiguration, "slotConfiguration cannot be null");
 		return slotConfiguration;

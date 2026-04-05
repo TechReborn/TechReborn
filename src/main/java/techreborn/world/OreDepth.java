@@ -34,7 +34,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.WorldGenerationContext;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;

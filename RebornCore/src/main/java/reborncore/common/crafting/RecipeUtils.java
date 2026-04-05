@@ -24,7 +24,7 @@
 
 package reborncore.common.crafting;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -70,7 +70,7 @@ public class RecipeUtils {
 	 * @param registryKey the key of the recipe
 	 * @throws NullPointerException If any parameter refers to <code>null</code>.
 	 */
-	public static void addToastDefaults(@NotNull Advancement.Builder builder, @NotNull ResourceKey<Recipe<?>> registryKey) {
+	public static void addToastDefaults(Advancement.Builder builder, ResourceKey<Recipe<?>> registryKey) {
 		Objects.requireNonNull(builder);
 		Objects.requireNonNull(registryKey);
 		builder

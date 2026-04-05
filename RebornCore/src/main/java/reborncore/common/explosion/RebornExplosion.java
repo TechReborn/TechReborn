@@ -25,8 +25,8 @@
 package reborncore.common.explosion;
 
 import org.apache.commons.lang3.time.StopWatch;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import reborncore.RebornCore;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class RebornExplosion extends ServerExplosion {
 	@Nullable
 	LivingEntity livingBase;
 
-	public RebornExplosion(@NotNull BlockPos center, @NotNull ServerLevel world, int radius) {
+	public RebornExplosion(BlockPos center, ServerLevel world, int radius) {
 		super(world, null, null, null, center.getCenter(), radius, false, BlockInteraction.DESTROY);
 		this.center = center;
 		this.radius = radius;

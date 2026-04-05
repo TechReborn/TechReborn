@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn;
+package techreborn.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -35,12 +35,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.multiblock.MultiblockRenderer;
-import techreborn.client.ClientGuiType;
-import techreborn.client.ClientboundPacketHandlers;
 import techreborn.client.events.ClientJumpHandler;
 import techreborn.client.events.StackToolTipHandler;
 import techreborn.client.keybindings.KeyBindings;

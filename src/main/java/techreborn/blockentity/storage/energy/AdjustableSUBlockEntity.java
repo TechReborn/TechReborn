@@ -25,7 +25,7 @@
 package techreborn.blockentity.storage.energy;
 
 import net.minecraft.world.item.component.TypedEntityData;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;

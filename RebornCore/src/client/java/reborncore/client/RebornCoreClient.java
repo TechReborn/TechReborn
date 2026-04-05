@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore;
+package reborncore.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents;
@@ -37,8 +37,8 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
+import reborncore.RebornCore;
 import reborncore.api.blockentity.UnloadHandler;
-import reborncore.client.*;
 import reborncore.client.gui.ThemeManager;
 import reborncore.client.gui.element.MachineFaceElementRenderer;
 
