@@ -62,9 +62,9 @@ allprojects {
     publishing {
         publications {
             register("maven", MavenPublication) {
-                groupId project.name
-                artifactId project.base.archivesName.get() + "-" + (ENV.GITHUB_REF_NAME ?: "local")
-                version project.version
+                groupId = project.name
+                artifactId = project.base.archivesName.get() + "-" + (ENV.GITHUB_REF_NAME ?: "local")
+                version = project.version
 
                 from components.java
             }
