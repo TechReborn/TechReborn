@@ -9,8 +9,7 @@
         "T": "#c:ingots/tin",
         "C": {
             "fabric:type": "reborncore:fluid_container",
-            "fluid": "techreborn:helium",
-            "amount": 1000
+            "fluid": "techreborn:helium"
         }
     },
     "result": {

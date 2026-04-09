@@ -7,7 +7,10 @@
     ],
     "key": {
         "T": "#c:ingots/tin",
-        "W": "minecraft:water_bucket"
+        "W": {
+            "fabric:type": "reborncore:fluid_container",
+            "fluid": "minecraft:water"
+        }
     },
     "result": {
         "id": "techreborn:water_coolant_cell_10k",
