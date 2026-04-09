@@ -33,6 +33,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -76,45 +77,38 @@ public class FluidContainerIngredient implements CustomIngredient {
 		return amountMb * DROPLETS_PER_MB;
 	}
 
+	/**
+	 * Tests whether the given stack can provide the required fluid amount.
+	 * Uses a simulated extraction to ensure the container actually supports
+	 * extracting the exact amount (e.g., cells only allow full-bucket extraction,
+	 * so a recipe requiring 500 Mb will not accept a 1000 Mb cell).
+	 */
 	@Override
 	public boolean test(ItemStack stack) {
 		if (stack.isEmpty()) return false;
-
-		Storage<FluidVariant> fluidStorage = ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM);
-		if (fluidStorage == null) return false;
-
-		FluidVariant target = FluidVariant.of(fluid.value());
-		long available = 0;
-
-		for (var view : fluidStorage) {
-			if (view.getResource().equals(target)) {
-				available += view.getAmount();
-			}
-		}
-
-		return available >= getAmountDroplets();
+		return canExtractFluid(ContainerItemContext.withConstant(stack));
 	}
 
 	@Override
 	public Stream<Holder<Item>> items() {
-		Fluid targetFluid = fluid.value();
-		long requiredDroplets = getAmountDroplets();
 		return BuiltInRegistries.ITEM.stream()
-			.filter(item -> {
-				ItemStack stack = new ItemStack(item);
-				Storage<FluidVariant> fluidStorage = ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM);
-				if (fluidStorage == null) return false;
-
-				FluidVariant target = FluidVariant.of(targetFluid);
-				long available = 0;
-				for (var view : fluidStorage) {
-					if (view.getResource().equals(target)) {
-						available += view.getAmount();
-					}
-				}
-				return available >= requiredDroplets;
-			})
+			.filter(item -> canExtractFluid(ContainerItemContext.withConstant(new ItemStack(item))))
 			.map(Item::builtInRegistryHolder);
+	}
+
+	private boolean canExtractFluid(ContainerItemContext context) {
+		Storage<FluidVariant> fluidStorage = context.find(FluidStorage.ITEM);
+		if (fluidStorage == null) return false;
+
+		FluidVariant target = FluidVariant.of(fluid.value());
+		long required = getAmountDroplets();
+
+		// Simulate extraction to verify the container actually supports it
+		try (Transaction tx = Transaction.openOuter()) {
+			long extracted = fluidStorage.extract(target, required, tx);
+			// Transaction is never committed, so nothing is actually modified
+			return extracted >= required;
+		}
 	}
 
 	@Override
