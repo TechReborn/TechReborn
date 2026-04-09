@@ -52,18 +52,10 @@ import net.minecraft.world.level.material.Fluid;
 
 import java.util.stream.Stream;
 
-public class FluidContainerIngredient implements CustomIngredient {
+public record FluidContainerIngredient(Holder<Fluid> fluid, long amountMb) implements CustomIngredient {
 	public static final CustomIngredientSerializer<FluidContainerIngredient> SERIALIZER = new Serializer();
 
 	private static final long DROPLETS_PER_MB = FluidConstants.BUCKET / 1000;
-
-	private final Holder<Fluid> fluid;
-	private final long amountMb;
-
-	public FluidContainerIngredient(Holder<Fluid> fluid, long amountMb) {
-		this.fluid = fluid;
-		this.amountMb = amountMb;
-	}
 
 	public Holder<Fluid> getFluid() {
 		return fluid;
