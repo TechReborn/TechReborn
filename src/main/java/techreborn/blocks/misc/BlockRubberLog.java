@@ -86,11 +86,6 @@ public class BlockRubberLog extends RotatedPillarBlock {
 		}
 	}
 
-	/* FIXME @Override
-	public boolean isIn(Tag<Block> tagIn) {
-		return tagIn == BlockTags.LOGS;
-	}*/
-
 	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState playerWillDestroy(Level worldIn, BlockPos pos, BlockState state, Player player) {

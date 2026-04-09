@@ -71,7 +71,6 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		}
 
 		@Override
-		@SuppressWarnings("UnstableApiUsage")
 		protected void onFinalCommit() {
 			if (level != null) {
 				level.updateNeighbourForOutputSignal(worldPosition, PowerAcceptorBlockEntity.this.getBlockState().getBlock());
