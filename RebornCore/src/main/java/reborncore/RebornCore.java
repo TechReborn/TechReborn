@@ -30,6 +30,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerBlockEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
@@ -46,6 +47,7 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.config.Configuration;
+import reborncore.common.fluid.container.FluidContainerIngredient;
 import reborncore.common.misc.ModSounds;
 import reborncore.common.misc.RebornCoreTags;
 import reborncore.common.misc.world.ChunkEventListeners;
@@ -72,6 +74,8 @@ public class RebornCore implements ModInitializer {
 	public void onInitialize() {
 		new Configuration(RebornCoreConfig.class, MOD_ID);
 		CalenderUtils.loadCalender(); // Done early as some features need this
+
+		CustomIngredientSerializer.register(FluidContainerIngredient.SERIALIZER);
 
 		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.parse("intergrateddynamics:wrench"), false));
 		ToolManager.INSTANCE.customToolHandlerList.add(new GenericWrenchHelper(Identifier.parse("thermal:wrench"), false));

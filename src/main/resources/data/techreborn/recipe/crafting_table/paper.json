@@ -4,7 +4,10 @@
         "#c:dusts/saw",
         "#c:dusts/saw",
         "#c:dusts/saw",
-        "minecraft:water_bucket"
+        {
+            "fabric:type": "reborncore:fluid_container",
+            "fluid": "minecraft:water"
+        }
     ],
     "result": {
         "id": "minecraft:paper",

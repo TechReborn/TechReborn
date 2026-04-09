@@ -7,7 +7,10 @@
     ],
     "key": {
         "T": "#c:ingots/tin",
-        "C": "techreborn:helium_bucket"
+        "C": {
+            "fabric:type": "reborncore:fluid_container",
+            "fluid": "techreborn:helium"
+        }
     },
     "result": {
         "id": "techreborn:helium_coolant_cell_60k"
