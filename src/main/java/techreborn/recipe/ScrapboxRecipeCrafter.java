@@ -56,14 +56,34 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 		}
 		List<ScrapBoxRecipe> scrapboxRecipeList = RecipeListCache;
 		if (scrapboxRecipeList.isEmpty()) {
-			setCurrentRecipe(null);
 			return;
 		}
-		int random = blockEntity.getLevel().getRandom().nextInt(scrapboxRecipeList.size());
-		// Sets the current recipe then syncs
-		setCurrentRecipe(scrapboxRecipeList.get(random));
-		this.currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
-		this.currentTickTime = 0;
-		setIsActive();
+
+		// Check if current recipe still valid
+		if (currentRecipe != null) {
+			if (!isValidRecipe(currentRecipe)) {
+				resetCrafter();
+				return;
+			}
+		}
+
+		if (currentRecipe == null) {
+			// Sets the current recipe
+			int random = blockEntity.getLevel().getRandom().nextInt(scrapboxRecipeList.size());
+			ScrapBoxRecipe recipe = scrapboxRecipeList.get(random);
+
+			if (isValidRecipe(recipe)) {
+				setCurrentRecipe(recipe);
+				this.currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
+				this.currentTickTime = 0;
+			}
+		}
+	}
+
+	@Override
+	protected void completeCraft(){
+		super.completeCraft();
+		// reset recipe so we will pick another random output
+		resetCrafter();
 	}
 }

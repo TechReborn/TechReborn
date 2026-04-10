@@ -300,7 +300,7 @@ public class GuiBuilder {
 		drawContext.fillGradient(x, y + 20, x + 176, y + 20 + 48, 0xC0000000, 0xC0000000);
 		drawContext.fillGradient(x, y + 68, x + 176, y + 70 + 20, 0xC0000000, 0x00000000);
 
-		drawContext.centeredText(gui.getFont(), Component.translatable("reborncore.gui.missingmultiblock_desc"), x + 88, y + 10, 0xFFFFFFFF);
+		drawContext.centeredText(gui.getFont(), Component.translatable("reborncore.gui.missingmultiblock"), x + 88, y + 10, 0xFFFFFFFF);
 	}
 
 	/**

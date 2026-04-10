@@ -46,17 +46,25 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 
 	@Override
 	public void updateCurrentRecipe() {
-		currentTickTime = 0;
 		List<RebornRecipe> recipeList = RecipeUtils.getRecipes(blockEntity.getLevel(), ModRecipes.RECYCLER);
-		if (recipeList.isEmpty() || !hasAllInputs()) {
-			setCurrentRecipe(null);
-			currentNeededTicks = 0;
-			setIsActive();
-			return;
+		if (recipeList.isEmpty()) return;
+
+		// Check if current recipe still valid
+		if (currentRecipe != null) {
+			if (!isValidRecipe(currentRecipe)) {
+				resetCrafter();
+			}
 		}
-		setCurrentRecipe(recipeList.get(0));
-		currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
-		setIsActive();
+
+		if (currentRecipe == null) {
+			RebornRecipe recipe = recipeList.getFirst();
+			if (!isValidRecipe(recipe)) return;
+
+			// Sets the current recipe
+			setCurrentRecipe(recipe);
+			currentNeededTicks = 0;
+			currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
+		}
 	}
 
 	@Override
