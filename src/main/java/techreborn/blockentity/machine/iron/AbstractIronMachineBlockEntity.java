@@ -27,6 +27,7 @@ package techreborn.blockentity.machine.iron;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -166,7 +167,8 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		if (burnTime > 0) {
 			// Fuel slot
 			ItemStack fuelStack = inventory.getItem(fuelSlot);
-			ItemStack remainderStack = fuelStack.getItem().getCraftingRemainder().create();
+			ItemStackTemplate remainder = fuelStack.getItem().getCraftingRemainder();
+			ItemStack remainderStack = remainder != null ? remainder.create() : ItemStack.EMPTY;
 			if (!remainderStack.isEmpty()) {
 				inventory.setItem(fuelSlot, remainderStack);
 			} else if (fuelStack.getCount() > 1) {
