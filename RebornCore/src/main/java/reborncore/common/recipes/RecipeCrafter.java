@@ -419,7 +419,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	}
 
 	public void setInvDirty(boolean isDirty) {
-		inventory.setHashChanged(isDirty);
+		inventory.setHasChanged(isDirty);
 	}
 
 	/**
