@@ -114,7 +114,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		if (block instanceof CropBlock cropBlock) {
-			processAgedCrop(blockState, blockPos, cropBlock.getAgeProperty(), ((CropBlock) block).getMaxAge(), 0);
+			processAgedCrop(blockState, blockPos, cropBlock.getAgeProperty(), cropBlock.getMaxAge(), 0);
 		} else if (block instanceof NetherWartBlock) {
 			processAgedCrop(blockState, blockPos, NetherWartBlock.AGE, 3, 0);
 		} else if (block instanceof SweetBerryBushBlock) {
@@ -156,6 +156,11 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
 					level.setBlockAndUpdate(blockPos.above(y), blockState.setValue(BlockStateProperties.BERRIES, false));
 				}
+			}
+		}
+		else if (blockState.is(Blocks.MELON)) {
+			if (tryHarvestBlock(blockState, blockPos)) {
+				level.destroyBlock(blockPos, false);
 			}
 		}
 	}
