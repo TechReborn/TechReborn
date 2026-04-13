@@ -204,7 +204,7 @@ public class RecipeCrafter implements IUpgradeHandler {
 	 */
 	protected boolean isValidRecipe(RebornRecipe recipe) {
 		// Check input
-		if (!hasAllInputs()) return false;
+		if (!hasAllInputs(recipe)) return false;
 
 		// Machine specific checks, like multiblock
 		if (!recipe.canCraft(blockEntity)) return false;
