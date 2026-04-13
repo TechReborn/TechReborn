@@ -190,7 +190,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		}
 
 		if (isBurning != isBurning()) {
-			inventory.setHashChanged();
+			inventory.setHasChanged();
 			updateState();
 		}
 		if (inventory.hasChanged()) {

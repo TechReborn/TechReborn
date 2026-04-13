@@ -272,7 +272,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		sourceStack.shrink(1);
 		inventory.getItem(bestSlot.getLeft()).grow(1);
-		inventory.setHashChanged();
+		inventory.setHasChanged();
 
 		return Optional.of(getCraftingMatrix());
 	}

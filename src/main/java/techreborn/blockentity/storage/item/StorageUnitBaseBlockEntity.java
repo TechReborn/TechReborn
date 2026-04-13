@@ -213,7 +213,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				}
 				addStoredItemCount(amount);
 				inputStack = pair.getB().copy();
-				inventory.setHashChanged();
+				inventory.setHasChanged();
 			}
 			return inputStack;
 		}
@@ -239,7 +239,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			inputStack.shrink(reminder);
 		}
 
-		inventory.setHashChanged();
+		inventory.setHasChanged();
 		return inputStack;
 	}
 
@@ -593,7 +593,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 				@Override
 				protected void onFinalCommit() {
-					inventory.setHashChanged();
+					inventory.setHasChanged();
 				}
 			};
 		}

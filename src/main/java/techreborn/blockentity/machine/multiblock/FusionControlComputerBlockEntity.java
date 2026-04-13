@@ -268,7 +268,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 		// Force check every second
 		if (world.getGameTime() % 20 == 0) {
-			inventory.setHashChanged();
+			inventory.setHasChanged();
 		}
 
 		if (!isShapeValid()) {

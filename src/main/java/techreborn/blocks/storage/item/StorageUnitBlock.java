@@ -140,7 +140,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 			out.shrink(1);
 		}
 
-		inventory.setHashChanged();
+		inventory.setHasChanged();
 	}
 
 	@Override
