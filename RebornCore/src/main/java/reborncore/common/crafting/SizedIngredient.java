@@ -78,6 +78,6 @@ public record SizedIngredient(int count, Ingredient ingredient) implements Predi
 		} else {
 			stacks = ingredient.values.stream().map(entry -> new ItemStackTemplate(entry.value()));
 		}
-		return stacks.peek(item -> new ItemStackTemplate(item.item().value(), count)).toList();
+		return stacks.map(item -> new ItemStackTemplate(item.item().value(), count)).toList();
 	}
 }
