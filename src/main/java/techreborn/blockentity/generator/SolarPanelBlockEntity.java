@@ -124,7 +124,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		// Ok, we are actively generating power, but check for a few conditions that would restrict
 		// the generation to minimal production...
 		if (!level.dimensionType().hasSkyLight() || // No light source in dimension (e.g. nether or end)
-			(skyAngle > 0.25 && skyAngle < 0.75) || // Light source is below horizon
+			(skyAngle > 0.5) || // Light source is below horizon
 			(level.isRaining() || level.isThundering())) { // Weather is present
 			return getPanel().generationRateN;
 		}
@@ -133,12 +133,12 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		// the level of generation based on % of time through the day, with peak production at noon and
 		// a smooth transition to night production as sun rises/sets
 		float multiplier;
-		if (skyAngle > 0.75) {
+		if (skyAngle < 0.25) {
 			// Morning to noon
-			multiplier = (0.25f - (1 - skyAngle)) / 0.25f;
+			multiplier = skyAngle / 0.25f;
 		} else {
 			// Noon to sunset
-			multiplier = (0.25f - skyAngle) / 0.25f;
+			multiplier = (0.5f - skyAngle) / 0.25f;
 		}
 
 		return (int)Math.ceil(getPanel().generationRateN + (dayNightRange * multiplier));
