@@ -52,16 +52,16 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
 
-		if (world == null) {
+		if (level == null) {
 			return;
 		}
 
 		boolean generating = pos.getY() > 64;
 
-		if (world.isClientSide()) {
+		if (level.isClientSide()) {
 			bladeAngle += spinSpeed;
 
 			if (generating) {
@@ -73,7 +73,7 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 		if (generating) {
 			int actualPower = TechRebornConfig.windMillBaseEnergy;
-			if (world.isThundering()) {
+			if (level.isThundering()) {
 				actualPower *= TechRebornConfig.windMillThunderMultiplier;
 			}
 			addEnergy(actualPower); // Value taken from

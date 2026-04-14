@@ -25,6 +25,7 @@
 package techreborn.blockentity.machine.tier0.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -48,9 +49,9 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 	protected BlockProcessor processor;
 
 	/**
-	 * @param blockEntityType
-	 * @param pos
-	 * @param state
+	 * @param blockEntityType	Type of BlockEntity
+	 * @param pos				BlockPos BlockEntity position
+	 * @param state				BlockState BlockEntity state
 	 * @param name            {@link String} Name for a {@link BlockEntity}.
 	 * @param maxInput        {@code int} Maximum energy input, value in EU
 	 * @param maxEnergy       {@code int} Maximum energy buffer, value in EU
@@ -82,7 +83,7 @@ public class AbstractBlockBlockEntity extends GenericMachineBlockEntity implemen
 	@Override
 	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()) {
+		if (!(level instanceof ServerLevel)) {
 			return;
 		}
 

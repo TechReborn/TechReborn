@@ -30,6 +30,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
@@ -42,6 +43,7 @@ import org.jspecify.annotations.Nullable;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.RedstoneConfiguration;
+import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -251,7 +253,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync additional energy storage values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * {@link BuiltScreenHandlerProvider}
 	 *
 	 * @return {@code long} Size of additional energy buffer
 	 */
@@ -261,7 +263,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync additional energy storage values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * {@link BuiltScreenHandlerProvider}
 	 *
 	 * @param extraPowerStorage {@code long} Size of additional energy buffer
 	 */
@@ -271,7 +273,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync energy change values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * {@link BuiltScreenHandlerProvider}
 	 *
 	 * @return {@code long} Energy change per tick
 	 */
@@ -281,7 +283,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync energy change values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * {@link BuiltScreenHandlerProvider}
 	 *
 	 * @param powerChange {@code long} Energy change per tick
 	 */
@@ -291,7 +293,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync energy values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * {@link BuiltScreenHandlerProvider}
 	 *
 	 * @return {@code long} Energy stored in block entity
 	 */
@@ -301,7 +303,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	/**
 	 * Wrapper method used to sync energy values with client via
-	 * {@link BlockEntityScreenHandlerBuilder}
+	 * {@link BuiltScreenHandlerProvider}
 	 *
 	 * @param energy {@code long} Energy stored in block entity
 	 */
@@ -332,9 +334,9 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 
 	// MachineBaseBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity2) {
-		super.tick(world, pos, state, blockEntity2);
-		if (world == null || world.isClientSide()) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity2) {
+		super.tick(level, pos, state, blockEntity2);
+		if (!(level instanceof ServerLevel serverLevel)) {
 			return;
 		}
 		if (getStored() <= 0) {
@@ -347,7 +349,7 @@ public abstract class PowerAcceptorBlockEntity extends MachineBaseBlockEntity im
 		for (Direction side : Direction.values()) {
 			EnergyStorageUtil.move(
 					getSideEnergyStorage(side),
-					EnergyStorage.SIDED.find(world, pos.relative(side), side.getOpposite()),
+					EnergyStorage.SIDED.find(level, pos.relative(side), side.getOpposite()),
 					Long.MAX_VALUE,
 					null
 			);

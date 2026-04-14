@@ -26,6 +26,7 @@ package techreborn.blockentity.machine.misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -54,10 +55,10 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
 
-		if (world == null || world.isClientSide()) {
+		if (!(level instanceof ServerLevel)) {
 			return;
 		}
 		for (int i = 0; i < 6; i++) {

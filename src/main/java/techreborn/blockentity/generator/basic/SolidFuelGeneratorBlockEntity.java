@@ -27,6 +27,7 @@ package techreborn.blockentity.generator.basic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
@@ -84,9 +85,9 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()){
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)){
 			return;
 		}
 
@@ -104,7 +105,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 		if (burnTime == 0) {
 			updateState();
-			burnTime = totalBurnTime = SolidFuelGeneratorBlockEntity.getItemBurnTime(world, inventory.getItem(fuelSlot));
+			burnTime = totalBurnTime = SolidFuelGeneratorBlockEntity.getItemBurnTime(serverLevel, inventory.getItem(fuelSlot));
 			if (burnTime > 0) {
 				updateState();
 				burnItem = inventory.getItem(fuelSlot);

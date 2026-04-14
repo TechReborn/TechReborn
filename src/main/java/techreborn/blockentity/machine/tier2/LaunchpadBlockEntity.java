@@ -106,13 +106,13 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (level == null || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 
-		if (world.getGameTime() % TechRebornConfig.launchpadInterval != 0) {
+		if (level.getGameTime() % TechRebornConfig.launchpadInterval != 0) {
 			return;
 		}
 
@@ -121,11 +121,11 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 		final int energyCost = selectedEnergyCost();
 
 		if (getStored() > energyCost) {
-			List<Entity> entities = world.getEntitiesOfClass(Entity.class, new AABB(0d,1d,0d,1d,2d,1d).move(pos));
+			List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(0d,1d,0d,1d,2d,1d).move(pos));
 			if (entities.isEmpty()) {
 				return;
 			}
-			world.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 1f, 1f);
+			level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 1f, 1f);
 			for (Entity entity : entities) {
 				entity.push(0d, speed, 0d);
 			}

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.energy;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.component.TypedEntityData;
 import org.jspecify.annotations.Nullable;
 import reborncore.api.blockentity.IUpgrade;
@@ -90,16 +91,16 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	// EnergyStorageBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)) {
 			return;
 		}
 
 		if (OUTPUT > getMaxConfigOutput()) {
 			OUTPUT = getMaxConfigOutput();
 		}
-		if (world.getGameTime() % 20 == 0) {
+		if (serverLevel.getGameTime() % 20 == 0) {
 			checkTier();
 		}
 	}

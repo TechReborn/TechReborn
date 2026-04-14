@@ -26,6 +26,7 @@ package techreborn.blockentity.machine.tier3;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -108,18 +109,18 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 
 	// MachineBaseBlockEntity
 	@Override
-	public void onBreak(Level world, Player playerEntity, BlockPos blockPos, BlockState blockState) {
-		if (world.isClientSide()) {
+	public void onBreak(Level level, Player playerEntity, BlockPos blockPos, BlockState blockState) {
+		if (!(level instanceof ServerLevel)) {
 			return;
 		}
 		unloadAll();
-		ChunkLoaderManager.get(world).clearClient((ServerPlayer) playerEntity);
+		ChunkLoaderManager.get(level).clearClient((ServerPlayer) playerEntity);
 	}
 
 	@Override
-	public void onPlace(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+	public void onPlace(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		ownerUdid = placer.getStringUUID();
-		if (worldIn.isClientSide()) return;
+		if (level.isClientSide()) return;
 		reload();
 	}
 

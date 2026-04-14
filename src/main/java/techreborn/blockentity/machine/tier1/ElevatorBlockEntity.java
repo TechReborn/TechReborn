@@ -180,16 +180,16 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (!(world instanceof ServerLevel) || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel) || getStored() <= 0 || !isActive(RedstoneConfiguration.Element.POWER_IO)) {
 			return;
 		}
 
 		// teleporting up must be done via mixin for now
 		Optional<BlockPos> downTarget = null;
 
-		List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(0d,1d,0d,1d,2d,1d).move(pos));
+		List<Player> players = serverLevel.getEntitiesOfClass(Player.class, new AABB(0d,1d,0d,1d,2d,1d).move(pos));
 		if (players.size() == 0) {
 			return;
 		}

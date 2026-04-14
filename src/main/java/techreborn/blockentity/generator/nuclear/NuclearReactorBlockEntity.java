@@ -79,12 +79,12 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 	// Tick processing
 
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
 
-		if (world == null) return;
+		if (level == null) return;
 
-		if (world.isClientSide()) {
+		if (level.isClientSide()) {
 			// Maybe add client-side heat particles? smoke/fire/etc.
 			return;
 		}

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.tier2;
 
+import net.minecraft.server.level.ServerLevel;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -187,10 +188,10 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	}
 
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
 
-		if (world == null || world.isClientSide()) return;
+		if (!(level instanceof ServerLevel serverLevel)) return;
 
 		//do nothing if all liquids have been exhausted
 		if (this.exhausted) return;
@@ -200,31 +201,31 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			//pumping time completed?
 			//has space to store?
 			//has enough energy to pump?
-			if ((world.getGameTime() >= timeToPump)) {
+			if ((serverLevel.getGameTime() >= timeToPump)) {
 				//not enough energy to pump?
 				if (getEnergy() < (long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier())) {
 					//don't drop target, retry it again later
-					timeToPump = world.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+					timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;
 				}
 				//recheck the target
-				BlockState blockState = world.getBlockState(pumpedTargetBlockPos);
+				BlockState blockState = serverLevel.getBlockState(pumpedTargetBlockPos);
 				Fluid fluid = getFluid(blockState);
 				//no longer fluid there?
 				if (fluid == Fluids.EMPTY) {
 					//play oops
 					if (!isMuffled()) {
-						world.playSound(null, this.worldPosition, SoundEvents.DISPENSER_FAIL, SoundSource.BLOCKS, 1.0f, 1.0f);
+						serverLevel.playSound(null, this.worldPosition, SoundEvents.DISPENSER_FAIL, SoundSource.BLOCKS, 1.0f, 1.0f);
 					}
 					//drop target (and find the next)
 					pumpedTargetBlockPos = null;
-					world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
+					serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 					return;
 				}
 				//cannot fit fluid into the tank?
 				if (!getTank().canFit(fluid, FluidValue.BUCKET)) {
 					//don't drop target, retry it again later
-					timeToPump = world.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+					timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 					return;
 				}
 				//fill tank
@@ -235,48 +236,48 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				}
 				//play sound
 				if (!isMuffled()) {
-					world.playSound(null, this.worldPosition, getTank().getFluid().getPickupSound().orElse(SoundEvents.BUCKET_FILL), SoundSource.BLOCKS, 1.0f, 1.0f);
+					serverLevel.playSound(null, this.worldPosition, getTank().getFluid().getPickupSound().orElse(SoundEvents.BUCKET_FILL), SoundSource.BLOCKS, 1.0f, 1.0f);
 				}
 				//consume energy
 				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier()));
 				//extract drops
 				NonNullList<ItemStack> drops = getDrops(blockState);
-				if (!drops.isEmpty()) Containers.dropContents(world, pumpedTargetBlockPos, drops);
+				if (!drops.isEmpty()) Containers.dropContents(serverLevel, pumpedTargetBlockPos, drops);
 				//replace target with solid based on dimension
 				final Block replacementBlock;
-				final ResourceKey<Level> worldRegistryKey = world.dimension();
+				final ResourceKey<Level> worldRegistryKey = serverLevel.dimension();
 				if (worldRegistryKey == Level.NETHER) replacementBlock = Blocks.BLACKSTONE;
 				else if (worldRegistryKey == Level.END) replacementBlock = Blocks.END_STONE;
 				else replacementBlock = Blocks.COBBLESTONE;
-				world.setBlockAndUpdate(pumpedTargetBlockPos, replacementBlock.defaultBlockState());
+				serverLevel.setBlockAndUpdate(pumpedTargetBlockPos, replacementBlock.defaultBlockState());
 				pumpedTargetBlockPos = null;
 			}
 		} else if (!getTank().isFull()) {
 			//find next target
-			findNextToPump(world);
+			findNextToPump(serverLevel);
 			if (pumpedTargetBlockPos != null) {
-				timeToPump = world.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+				timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
 			} else {
 				//else - consider exhausted
-				world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
+				serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 				this.exhausted = true;
 			}
 		}
 
 	}
 
-	private void findNextToPump(Level world) {
+	private void findNextToPump(Level level) {
 		if (finder == null) {
 			setupFinder();
 		}
 		while (finder.hasNext()) {
 			BlockPos blockPos = finder.next();
 
-			BlockState blockState = world.getBlockState(blockPos);
+			BlockState blockState = level.getBlockState(blockPos);
 			Fluid fluid = getFluid(blockState);
 			if (fluid != Fluids.EMPTY && (fluid == getTank().getFluid() || getTank().getFluid() == Fluids.EMPTY)) {
 				//if any found - start pumping
-				world.setBlockAndUpdate(worldPosition, world.getBlockState(worldPosition).setValue(BlockMachineBase.ACTIVE, true));
+				level.setBlockAndUpdate(worldPosition, level.getBlockState(worldPosition).setValue(BlockMachineBase.ACTIVE, true));
 				pumpedTargetBlockPos = blockPos;
 				return;
 			}

@@ -26,6 +26,7 @@ package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -81,9 +82,9 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	// TileGenericMachine
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()){
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel)){
 			return;
 		}
 

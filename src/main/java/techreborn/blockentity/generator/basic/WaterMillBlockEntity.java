@@ -26,6 +26,7 @@ package techreborn.blockentity.generator.basic;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -70,19 +71,19 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 	}
 
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world.isClientSide()) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)) {
 			return;
 		}
-		if (world.getGameTime() % 20 == 0) {
+		if (serverLevel.getGameTime() % 20 == 0) {
 			checkForWater();
 		}
 		if (waterBlocks > 0) {
 			addEnergyProbabilistic(waterBlocks * TechRebornConfig.waterMillEnergyMultiplier);
-			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
+			serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
 		} else {
-			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
+			serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 		}
 	}
 

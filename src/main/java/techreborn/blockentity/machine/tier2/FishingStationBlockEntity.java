@@ -97,9 +97,9 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()){
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)){
 			return;
 		}
 
@@ -113,23 +113,23 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 
 		int speed = (int) Math.round(getSpeedMultiplier() / TechRebornConfig.overclockerSpeed) + 1;
 
-		if (world.getGameTime() % (TechRebornConfig.fishingStationInterval/speed) != 0) {
+		if (serverLevel.getGameTime() % (TechRebornConfig.fishingStationInterval/speed) != 0) {
 			return;
 		}
 
 		BlockPos frontPos = pos.relative(getFacing());
-		FluidState frontFluid = world.getFluidState(frontPos);
+		FluidState frontFluid = serverLevel.getFluidState(frontPos);
 		if (!frontFluid.isSourceOfType(Fluids.WATER)) {
 			return;
 		}
 
 
-		final LootParams lootContextParameterSet = new LootParams.Builder((ServerLevel) world)
+		final LootParams lootContextParameterSet = new LootParams.Builder(serverLevel)
 			.withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(frontPos))
 			.withParameter(LootContextParams.TOOL, TRContent.Machine.FISHING_STATION.getStack())
 			.create(LootContextParamSets.FISHING);
 
-		final LootTable lootTable = world.getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING);
+		final LootTable lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING);
 		final ObjectArrayList<ItemStack> list = lootTable.getRandomItems(lootContextParameterSet);
 		if (insertIntoInv(list)){
 			useEnergy(useRequirement);

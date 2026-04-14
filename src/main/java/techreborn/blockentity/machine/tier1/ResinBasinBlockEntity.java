@@ -30,6 +30,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -67,9 +68,9 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	}
 
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()) return;
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)) return;
 
 		boolean shouldUpdateState = false;
 
@@ -77,8 +78,8 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 			pouringTimer--;
 
 			// Play pouring audio
-			if (world.getGameTime() % 20 == 0) {
-				world.playSound(null, pos, ModSounds.SAP_EXTRACT, SoundSource.BLOCKS, 1F, 1F);
+			if (serverLevel.getGameTime() % 20 == 0) {
+				serverLevel.playSound(null, pos, ModSounds.SAP_EXTRACT, SoundSource.BLOCKS, 1F, 1F);
 			}
 
 			if (pouringTimer <= 0) {
@@ -107,21 +108,21 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		boolean readyToHarvest = !isFull && !isPouring;
 
 		// Ensuring it's placed on a log
-		if ((readyToHarvest || world.getGameTime() % 20 == 0) && !validPlacement()) {
+		if ((readyToHarvest || serverLevel.getGameTime() % 20 == 0) && !validPlacement()) {
 			// Not placed on log, drop on ground
-			world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-			WorldUtils.dropItem(TRContent.Machine.RESIN_BASIN.asItem(), world, pos);
+			serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+			WorldUtils.dropItem(TRContent.Machine.RESIN_BASIN.asItem(), serverLevel, pos);
 			return;
 		}
 
 		if (readyToHarvest) {
 			// Check for rubber
-			if (world.getGameTime() % TechRebornConfig.checkForSapTime == 0) {
+			if (serverLevel.getGameTime() % TechRebornConfig.checkForSapTime == 0) {
 				BlockPos targetRubber = getLogWithSap();
 
 				if (targetRubber != null) {
 					// We have a valid sap log, harvest it
-					world.setBlockAndUpdate(targetRubber, world.getBlockState(targetRubber).setValue(BlockRubberLog.HAS_SAP, false).setValue(BlockRubberLog.SAP_SIDE, Direction.from2DDataValue(0)));
+					serverLevel.setBlockAndUpdate(targetRubber, serverLevel.getBlockState(targetRubber).setValue(BlockRubberLog.HAS_SAP, false).setValue(BlockRubberLog.SAP_SIDE, Direction.from2DDataValue(0)));
 					isPouring = true;
 					pouringTimer = TechRebornConfig.sapTimeTicks;
 					shouldUpdateState = true;
@@ -171,7 +172,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	public void onLoad() {
 		super.onLoad();
 
-		if (level == null || level.isClientSide()) return;
+		if (!(level instanceof ServerLevel)) return;
 
 		// Set facing
 		direction = level.getBlockState(worldPosition).getValue(ResinBasinBlock.FACING).getOpposite();

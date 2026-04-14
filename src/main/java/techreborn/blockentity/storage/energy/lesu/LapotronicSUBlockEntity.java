@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.energy.lesu;
 
+import net.minecraft.server.level.ServerLevel;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -87,9 +88,9 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	// EnergyStorageBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel)) {
 			return;
 		}
 		if (getEnergy() > getMaxStoredPower()) {
@@ -101,7 +102,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public void onLoad() {
 		super.onLoad();
-		if (level == null || level.isClientSide()) return;
+		if (!(level instanceof ServerLevel)) return;
 
 		// 1. Collect information and change the relationship between surrounding blocks
 		byte flagInvalidNeighbors = 0b000000;

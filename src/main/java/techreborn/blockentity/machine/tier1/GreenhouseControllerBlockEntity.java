@@ -218,9 +218,9 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()){
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)){
 			return;
 		}
 		if (multiblockCenter == null) {
@@ -238,7 +238,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			ticksToNextMultiblockCheck = 200;
 		}
 
-		if (world.getGameTime() % 20 == 0) {
+		if (serverLevel.getGameTime() % 20 == 0) {
 			double cyclesLimit = getSpeedMultiplier() * 4 + 1;
 			while (cyclesLimit-- > 0) {
 				workCycle();

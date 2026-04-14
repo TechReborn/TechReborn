@@ -29,6 +29,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -243,31 +244,31 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
 
-		if (world == null || world.isClientSide()) {
+		if (!(level instanceof ServerLevel serverLevel)) {
 			return;
 		}
 
 		// Move this to here from the nbt read method, as it now requires the world as of 1.14
 		if (checkNBTRecipe) {
 			checkNBTRecipe = false;
-			for (RecipeHolder<FusionReactorRecipe> entry : RecipeUtils.getRecipeEntries(world, ModRecipes.FUSION_REACTOR)) {
+			for (RecipeHolder<FusionReactorRecipe> entry : RecipeUtils.getRecipeEntries(serverLevel, ModRecipes.FUSION_REACTOR)) {
 				if (validateRecipe(entry)) {
 					this.currentRecipeEntry = entry;
 				}
 			}
 		}
 
-		if (lastTick == world.getGameTime()) {
+		if (lastTick == serverLevel.getGameTime()) {
 			// Prevent tick accelerators, blame obstinate for this.
 			return;
 		}
-		lastTick = world.getGameTime();
+		lastTick = serverLevel.getGameTime();
 
 		// Force check every second
-		if (world.getGameTime() % 20 == 0) {
+		if (serverLevel.getGameTime() % 20 == 0) {
 			inventory.setHasChanged();
 		}
 

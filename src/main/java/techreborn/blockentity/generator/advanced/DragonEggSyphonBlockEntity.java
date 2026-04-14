@@ -26,6 +26,7 @@ package techreborn.blockentity.generator.advanced;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -63,22 +64,22 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)) {
 			return;
 		}
 
-		if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
+		if (serverLevel.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
 				.getBlock() == Blocks.DRAGON_EGG) {
 			if (tryAddingEnergy(TechRebornConfig.dragonEggSyphonEnergyPerTick))
-				lastOutput = world.getGameTime();
+				lastOutput = serverLevel.getGameTime();
 		}
 
-		if (world.getGameTime() - lastOutput < 30 && !isActive()) {
-			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
-		} else if (world.getGameTime() - lastOutput > 30 && isActive()) {
-			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
+		if (serverLevel.getGameTime() - lastOutput < 30 && !isActive()) {
+			serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
+		} else if (serverLevel.getGameTime() - lastOutput > 30 && isActive()) {
+			serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 		}
 	}
 

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.fluid;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.component.TypedEntityData;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jspecify.annotations.Nullable;
@@ -95,10 +96,10 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 
 	// MachineBaseBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
 
-		if (world == null || world.isClientSide()){
+		if (!(level instanceof ServerLevel)){
 			return;
 		}
 

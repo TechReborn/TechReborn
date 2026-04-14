@@ -26,6 +26,7 @@ package techreborn.blockentity.lighting;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -49,9 +50,9 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)) {
 			return;
 		}
 		Block b = state.getBlock();
@@ -63,10 +64,10 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 		if (getStored() > cost) {
 			useEnergy(cost);
 			if (!LampBlock.isActive(state)) {
-				LampBlock.setActive(true, world, pos);
+				LampBlock.setActive(true, serverLevel, pos);
 			}
 		} else if (LampBlock.isActive(state)) {
-			LampBlock.setActive(false, world, pos);
+			LampBlock.setActive(false, serverLevel, pos);
 		}
 	}
 

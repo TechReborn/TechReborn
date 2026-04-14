@@ -24,6 +24,7 @@
 
 package reborncore.common.blockentity;
 
+import net.minecraft.server.level.ServerLevel;
 import org.apache.commons.lang3.Validate;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -214,7 +215,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	public final void setRemoved() {
 		super.setRemoved();
 
-		if (!level.isClientSide()) {
+		if (level instanceof ServerLevel) {
 			unlink();
 		}
 	}
@@ -272,7 +273,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
 		if (tickTime == 0) {
 			onLoad();
 		}
@@ -292,7 +293,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 			}
 			afterUpgradesApplication();
 		}
-		if (world == null || world.isClientSide()) {
+		if (!(level instanceof ServerLevel)) {
 			return;
 		}
 

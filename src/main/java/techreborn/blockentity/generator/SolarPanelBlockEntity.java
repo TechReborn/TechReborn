@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.generator;
 
+import net.minecraft.server.level.ServerLevel;
 import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -148,9 +149,9 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	// Overrides
 
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)) {
 			return;
 		}
 
@@ -158,7 +159,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			checkOverfill = false;
 			setEnergy(Integer.MAX_VALUE);
 			for (Direction side : Direction.values()) {
-				BlockEntity to = world.getBlockEntity(pos.relative(side));
+				BlockEntity to = serverLevel.getBlockEntity(pos.relative(side));
 				if (to instanceof PowerAcceptorBlockEntity receiver) {
 					if (receiver.getMaxInput(side.getOpposite()) > 0){
 						receiver.setStored(receiver.getMaxStoredPower());
@@ -169,7 +170,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		}
 
 		// State checking and updating
-		if (world.getGameTime() % 20 == 0) {
+		if (serverLevel.getGameTime() % 20 == 0) {
 			checkOverfill = true;
 			updateState();
 		}

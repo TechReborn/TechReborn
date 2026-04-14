@@ -241,9 +241,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	// PowerAcceptorBlockEntity
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide() || getStored() < euTick) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel) || getStored() < euTick) {
 			return;
 		}
 		if (inventoryCrafting.isEmpty()) {
@@ -253,7 +253,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 		CraftingInput.Positioned positioned = inventoryCrafting.asPositionedCraftInput();
 		CraftingInput input = positioned.input();
-		if (!updateCurrentRecipe((ServerLevel) world, input)) {
+		if (!updateCurrentRecipe(serverLevel, input)) {
 			progress = 0;
 			return;
 		}
@@ -293,10 +293,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 			progress++;
 			if (!isMuffled()) {
-				long time = world.getGameTime();
+				long time = serverLevel.getGameTime();
 				if (time - lastSoundTime > RECIPE_TIME) {
 					lastSoundTime = time;
-					world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
+					serverLevel.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
 						SoundSource.BLOCKS, 0.3F, 0.8F);
 				}
 			}

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.generator;
 
+import net.minecraft.server.level.ServerLevel;
 import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -76,9 +77,9 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void tick(Level world, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
-		super.tick(world, pos, state, blockEntity);
-		if (world == null || world.isClientSide()) {
+	public void tick(Level level, BlockPos pos, BlockState state, MachineBaseBlockEntity blockEntity) {
+		super.tick(level, pos, state, blockEntity);
+		if (!(level instanceof ServerLevel serverLevel)) {
 			return;
 		}
 
@@ -113,15 +114,15 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
 					tank.modifyFluid(fluidInstance -> fluidInstance.subtractAmount(FluidValue.fromRaw(currentWithdraw)));
-					lastOutput = world.getGameTime();
+					lastOutput = serverLevel.getGameTime();
 				}
 			}
 		}
 
-		if (world.getGameTime() - lastOutput < 30 && !isActive()) {
-			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
-		} else if (world.getGameTime() - lastOutput > 30 && isActive()) {
-			world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
+		if (serverLevel.getGameTime() - lastOutput < 30 && !isActive()) {
+			serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
+		} else if (serverLevel.getGameTime() - lastOutput > 30 && isActive()) {
+			serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
 		}
 	}
 
