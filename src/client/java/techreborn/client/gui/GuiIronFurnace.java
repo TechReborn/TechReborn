@@ -29,6 +29,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -45,6 +46,7 @@ import java.util.Objects;
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	final IronFurnaceBlockEntity blockEntity;
 	private static final Identifier EXP_BUTTON_TEXTURE = Identifier.withDefaultNamespace("item/experience_bottle");
+	private XpButtonWidget xpButton;
 
 	public GuiIronFurnace(int syncID, Player player, IronFurnaceBlockEntity furnace) {
 		super(player, furnace, furnace.createScreenHandler(syncID, player));
@@ -58,7 +60,46 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public void init() {
 		super.init();
-		addRenderableWidget(new XpButtonWidget(this::onClick));
+		xpButton = new XpButtonWidget(this::onClick);
+		addRenderableWidget(xpButton);
+	}
+
+	@Override
+	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+		if (xpButton != null) {
+			xpButton.setTooltip(Tooltip.create(getTooltipText()));
+		}
+		super.render(graphics, mouseX, mouseY, delta);
+	}
+
+	private Component getTooltipText() {
+		Player player = Minecraft.getInstance().player;
+		Objects.requireNonNull(player);
+		String message = ": ";
+
+		float furnaceExp = blockEntity.experience;
+		if (furnaceExp <= 0) {
+			message = message + "0";
+		} else {
+			float expTillLevel = (1.0F - player.experienceProgress) * player.getXpNeededForNextLevel();
+			if (furnaceExp <= expTillLevel) {
+				int percentage = (int) (blockEntity.experience * 100 / player.getXpNeededForNextLevel());
+				message = message + "+"
+					+ (percentage > 0 ? String.valueOf(percentage) : "<1")
+					+ "%";
+			} else {
+				int levels = 0;
+				furnaceExp -= expTillLevel;
+				while (furnaceExp > 0) {
+					furnaceExp -= PlayerUtils.getLevelExperience(player.experienceLevel);
+					++levels;
+				}
+				message = message + "+" + levels + "L";
+			}
+		}
+
+		return Component.translatable("techreborn.tooltip.experience")
+			.append(message);
 	}
 
 	private class XpButtonWidget extends ImageButton {
@@ -72,45 +113,6 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 				TEXTURES,
 				pressAction,
 				Component.empty());
-		}
-
-		@Override
-		public void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
-			super.renderWidget(context, mouseX, mouseY, delta);
-
-			if (isHovered) {
-				context.setTooltipForNextFrame(getFont(), getTooltipText(), mouseX, mouseY);
-			}
-		}
-
-		private Component getTooltipText() {
-			Player player = Minecraft.getInstance().player;
-			Objects.requireNonNull(player);
-			String message = ": ";
-
-			float furnaceExp = blockEntity.experience;
-			if (furnaceExp <= 0) {
-				message = message + "0";
-			} else {
-				float expTillLevel = (1.0F - player.experienceProgress) * player.getXpNeededForNextLevel();
-				if (furnaceExp <= expTillLevel) {
-					int percentage = (int) (blockEntity.experience * 100 / player.getXpNeededForNextLevel());
-					message = message + "+"
-						+ (percentage > 0 ? String.valueOf(percentage) : "<1")
-						+ "%";
-				} else {
-					int levels = 0;
-					furnaceExp -= expTillLevel;
-					while (furnaceExp > 0) {
-						furnaceExp -= PlayerUtils.getLevelExperience(player.experienceLevel);
-						++levels;
-					}
-					message = message + "+" + levels + "L";
-				}
-			}
-
-			return Component.translatable("techreborn.tooltip.experience")
-				.append(message);
 		}
 	}
 
