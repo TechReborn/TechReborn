@@ -227,8 +227,9 @@ class JsonModel {
 
 	private static JsonObject toJson(BlockElementRotation rotation) {
 		JsonObject json = new JsonObject()
-		json.addProperty("angle", rotation.angle())
-		json.addProperty("axis", rotation.axis().getSerializedName())
+		BlockElementRotation.SingleAxisRotation rot = (BlockElementRotation.SingleAxisRotation) rotation.value()
+		json.addProperty("angle", rot.angle())
+		json.addProperty("axis", rot.axis().getSerializedName())
 		json.add("origin", toJson(rotation.origin()))
 		if (rotation.rescale()) {
 			json.addProperty("rescale", true)
