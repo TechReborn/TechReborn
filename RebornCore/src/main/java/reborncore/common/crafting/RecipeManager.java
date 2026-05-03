@@ -60,8 +60,8 @@ public class RecipeManager {
 	public static List<RecipeType<?>> getRecipeTypes(String namespace) {
 		//noinspection unchecked
 		return BuiltInRegistries.RECIPE_TYPE.registryKeySet().stream()
-			.filter(key -> key.location().getNamespace().startsWith(namespace))
-			.map((Function<ResourceKey<RecipeType<?>>, RecipeType<?>>) key -> BuiltInRegistries.RECIPE_TYPE.getValue(key.location()))
+			.filter(key -> key.identifier().getNamespace().startsWith(namespace))
+			.map((Function<ResourceKey<RecipeType<?>>, RecipeType<?>>) key -> BuiltInRegistries.RECIPE_TYPE.getValue(key.identifier()))
 			.toList();
 	}
 }

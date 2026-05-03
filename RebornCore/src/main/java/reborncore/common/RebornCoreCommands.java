@@ -43,6 +43,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
@@ -68,7 +69,7 @@ public class RebornCoreCommands {
 
 	private final static ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
 	private final static SuggestionProvider<CommandSourceStack> MOD_SUGGESTIONS = (context, builder) ->
-			SharedSuggestionProvider.suggest(FabricLoader.getInstance().getAllMods().stream().map(modContainer -> modContainer.getMetadata().getId()), builder);
+		SharedSuggestionProvider.suggest(FabricLoader.getInstance().getAllMods().stream().map(modContainer -> modContainer.getMetadata().getId()), builder);
 
 	public static void setup() {
 		CommandRegistrationCallback.EVENT.register((RebornCoreCommands::addCommands));
@@ -76,49 +77,49 @@ public class RebornCoreCommands {
 
 	private static void addCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registryAccess, Commands.CommandSelection environment) {
 		dispatcher.register(
-				literal("reborncore")
+			literal("reborncore")
 
-					.then(
-						literal("generate")
-							.requires(source -> source.hasPermission(3))
-							.then(argument("size", integer())
-									.executes(RebornCoreCommands::generate)
+				.then(
+					literal("generate")
+						.requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
+						.then(argument("size", integer())
+							.executes(RebornCoreCommands::generate)
+						)
+				)
+
+				.then(
+					literal("flyspeed")
+						.requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
+						.then(argument("speed", integer(1, 10))
+							.executes(ctx -> flySpeed(ctx, ImmutableList.of(ctx.getSource().getPlayer())))
+							.then(Commands.argument("players", EntityArgument.players())
+								.executes(ctx -> flySpeed(ctx, EntityArgument.getPlayers(ctx, "players")))
 							)
-					)
+						)
+				)
 
-					.then(
-						literal("flyspeed")
-							.requires(source -> source.hasPermission(3))
-							.then(argument("speed", integer(1, 10))
-									.executes(ctx -> flySpeed(ctx, ImmutableList.of(ctx.getSource().getPlayer())))
-									.then(Commands.argument("players", EntityArgument.players())
-											.executes(ctx -> flySpeed(ctx, EntityArgument.getPlayers(ctx, "players")))
-									)
-							)
-					)
-
-					.then(
-						literal("render")
-							.then(
-								literal("mod")
-									.then(
-										argument("modid", word())
+				.then(
+					literal("render")
+						.then(
+							literal("mod")
+								.then(
+									argument("modid", word())
 										.suggests(MOD_SUGGESTIONS)
 										.executes(RebornCoreCommands::renderMod)
-									)
-							)
-							.then(
-								literal("item")
-									.then(
-										argument("item", ItemArgument.item(registryAccess))
+								)
+						)
+						.then(
+							literal("item")
+								.then(
+									argument("item", ItemArgument.item(registryAccess))
 										.executes(RebornCoreCommands::itemRenderer)
-									)
-							)
-							.then(
-								literal("hand")
+								)
+						)
+						.then(
+							literal("hand")
 								.executes(RebornCoreCommands::handRenderer)
-							)
-					)
+						)
+				)
 		);
 	}
 
@@ -134,11 +135,11 @@ public class RebornCoreCommands {
 				final int chunkPosX = x;
 				final int chunkPosZ = z;
 				CompletableFuture.supplyAsync(() -> serverChunkManager.getChunk(chunkPosX, chunkPosZ, ChunkStatus.FULL, true), EXECUTOR_SERVICE)
-						.whenComplete((chunk, throwable) -> {
-									int max = (int) Math.pow(size, 2);
-									ctx.getSource().sendSuccess(() -> Component.literal(String.format("Finished generating %d:%d (%d/%d %d%%)", chunk.getPos().x, chunk.getPos().z, completed.getAndIncrement(), max, completed.get() == 0 ? 0 : (int) ((completed.get() * 100.0f) / max))), true);
-								}
-						);
+					.whenComplete((chunk, throwable) -> {
+							int max = (int) Math.pow(size, 2);
+							ctx.getSource().sendSuccess(() -> Component.literal(String.format("Finished generating %d:%d (%d/%d %d%%)", chunk.getPos().x, chunk.getPos().z, completed.getAndIncrement(), max, completed.get() == 0 ? 0 : (int) ((completed.get() * 100.0f) / max))), true);
+						}
+					);
 			}
 		}
 		return Command.SINGLE_SUCCESS;
@@ -147,8 +148,8 @@ public class RebornCoreCommands {
 	private static int flySpeed(CommandContext<CommandSourceStack> ctx, Collection<ServerPlayer> players) {
 		final int speed = getInteger(ctx, "speed");
 		players.stream()
-				.peek(player -> player.getAbilities().setFlyingSpeed(speed / 20F))
-				.forEach(ServerPlayer::onUpdateAbilities);
+			.peek(player -> player.getAbilities().setFlyingSpeed(speed / 20F))
+			.forEach(ServerPlayer::onUpdateAbilities);
 
 		return Command.SINGLE_SUCCESS;
 	}
@@ -157,10 +158,10 @@ public class RebornCoreCommands {
 		String modid = StringArgumentType.getString(ctx, "modid");
 
 		List<ItemStack> list = BuiltInRegistries.ITEM.keySet().stream()
-				.filter(identifier -> identifier.getNamespace().equals(modid))
-				.map(BuiltInRegistries.ITEM::getValue)
-				.map(ItemStack::new)
-				.collect(Collectors.toList());
+			.filter(identifier -> identifier.getNamespace().equals(modid))
+			.map(BuiltInRegistries.ITEM::getValue)
+			.map(ItemStack::new)
+			.collect(Collectors.toList());
 
 		queueRender(list, ctx);
 		return Command.SINGLE_SUCCESS;
