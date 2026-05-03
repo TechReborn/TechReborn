@@ -28,7 +28,6 @@ import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.TextureSlots;
@@ -36,6 +35,7 @@ import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.item.ModelRenderProperties;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.client.resources.model.ModelBaker;
@@ -50,7 +50,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import techreborn.TechReborn;
 
 import java.util.*;
@@ -63,9 +63,9 @@ public class ItemBucketModel implements ItemModel {
 	public static final Identifier BUCKET_BACKGROUND = BUCKET.withSuffix("_background");
 	private final RenderType layer;
 	private final ModelRenderProperties settings;
-	private final Supplier<Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> bake;
+	private final Supplier<Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer>> bake;
 
-	public ItemBucketModel(ModelRenderProperties modelSettings, Supplier<Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer>> quadsProvider) {
+	public ItemBucketModel(ModelRenderProperties modelSettings, Supplier<Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer>> quadsProvider) {
 		layer = Sheets.translucentItemSheet();
 		settings = modelSettings;
 		bake = Suppliers.memoize(quadsProvider::get);
@@ -84,9 +84,9 @@ public class ItemBucketModel implements ItemModel {
 		state.appendModelIdentityElement(this);
 		ItemStackRenderState.LayerRenderState layerRenderState = state.newLayer();
 		layerRenderState.setRenderType(layer);
-		Triple<List<BakedQuad>, Supplier<Vector3f[]>, Integer> baked = bake.get();
+		Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer> baked = bake.get();
 		layerRenderState.prepareQuadList().addAll(baked.getLeft());
-		layerRenderState.setExtents(baked.getMiddle());
+		layerRenderState.setExtents(() -> baked.getMiddle().get());
 		layerRenderState.prepareTintLayers(1)[0] = baked.getRight();
 		settings.applyToLayer(layerRenderState, displayContext);
 	}
@@ -94,10 +94,10 @@ public class ItemBucketModel implements ItemModel {
 	public record Unbaked(Fluid fluid) implements ItemModel.Unbaked {
 		public static final MapCodec<ItemBucketModel.Unbaked> CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-				Identifier.CODEC.xmap(BuiltInRegistries.FLUID::getValue, BuiltInRegistries.FLUID::getKey)
-					.fieldOf("fluid").forGetter(techreborn.client.render.ItemBucketModel.Unbaked::fluid)
-			)
-			.apply(instance, ItemBucketModel.Unbaked::new)
+					Identifier.CODEC.xmap(BuiltInRegistries.FLUID::getValue, BuiltInRegistries.FLUID::getKey)
+						.fieldOf("fluid").forGetter(techreborn.client.render.ItemBucketModel.Unbaked::fluid)
+				)
+				.apply(instance, ItemBucketModel.Unbaked::new)
 		);
 
 		@Override
@@ -110,10 +110,10 @@ public class ItemBucketModel implements ItemModel {
 		public @NotNull ItemModel bake(BakingContext context) {
 			ModelBaker baker = context.blockModelBaker();
 			ResolvedModel backgroundModel = baker.getModel(BUCKET_BACKGROUND);
-			List<BakedQuad> backgroundQuads = backgroundModel.bakeTopGeometry(backgroundModel.getTopTextureSlots(), baker, BlockModelRotation.X0_Y0).getAll();
+			List<BakedQuad> backgroundQuads = backgroundModel.bakeTopGeometry(backgroundModel.getTopTextureSlots(), baker, BlockModelRotation.IDENTITY).getAll();
 			ResolvedModel baseModel = baker.getModel(BUCKET_BASE);
 			TextureSlots modelTextures = baseModel.getTopTextureSlots();
-			List<BakedQuad> baseQuads = baseModel.bakeTopGeometry(modelTextures, baker, BlockModelRotation.X0_Y0).getAll();
+			List<BakedQuad> baseQuads = baseModel.bakeTopGeometry(modelTextures, baker, BlockModelRotation.IDENTITY).getAll();
 			ModelRenderProperties modelSettings = ModelRenderProperties.fromResolvedModel(baker, baseModel, modelTextures);
 			return new ItemBucketModel(modelSettings, () -> {
 				List<BakedQuad> list = new ArrayList<>(backgroundQuads);

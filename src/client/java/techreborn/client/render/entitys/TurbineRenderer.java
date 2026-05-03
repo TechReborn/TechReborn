@@ -27,7 +27,8 @@ package techreborn.client.render.entitys;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -74,7 +75,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 	) {
 		BlockEntityRenderState.extractBase(blockEntity, state, crumblingOverlay);
 		Direction facing = blockEntity.getFacing();
-		state.layer = RenderType.entitySolid(TEXTURE);
+		state.layer = RenderTypes.entitySolid(TEXTURE);
 		state.rotate = -facing.getCounterClockWise().toYRot() + 90;
 		state.spin = blockEntity.bladeAngle + tickDelta * blockEntity.spinSpeed;
 		state.light = LevelRenderer.getLightColor(blockEntity.getLevel(), blockEntity.getBlockPos().relative(facing));
@@ -98,14 +99,14 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 	private static class TurbineModel extends Model<Float> {
 		private static TurbineModel create() {
 			ModelPart.Cube[] baseCuboids = {
-					new ModelPart.Cube(0, 0, -2.0F, -2.0F, -1.0F, 4F, 4F, 2F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS),
-					new ModelPart.Cube(0, 6, -1.0F, -1.0F, -2.0F, 2F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
+				new ModelPart.Cube(0, 0, -2.0F, -2.0F, -1.0F, 4F, 4F, 2F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS),
+				new ModelPart.Cube(0, 6, -1.0F, -1.0F, -2.0F, 2F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 			};
 
 			ModelPart base = new ModelPart(Arrays.asList(baseCuboids), new HashMap<>() {
 				{
 					ModelPart.Cube[] blade1Cuboids = {
-							new ModelPart.Cube(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
+						new ModelPart.Cube(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade1 = new ModelPart(Arrays.asList(blade1Cuboids), Collections.emptyMap());
 					blade1.setPos(0.0F, 0.0F, 0.0F);
@@ -113,7 +114,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 					put("blade1", blade1);
 
 					ModelPart.Cube[] blade2Cuboids = {
-							new ModelPart.Cube(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
+						new ModelPart.Cube(0, 9, -24.0F, -1.0F, -0.5F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade2 = new ModelPart(Arrays.asList(blade2Cuboids), Collections.emptyMap());
 					blade2.setPos(0.0F, 0.0F, 0.0F);
@@ -121,7 +122,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 					put("blade2", blade2);
 
 					ModelPart.Cube[] blade3Cuboids = {
-							new ModelPart.Cube(0, 9, -24.0F, -2.0F, -1.075F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
+						new ModelPart.Cube(0, 9, -24.0F, -2.0F, -1.075F, 24F, 2F, 1F, 0F, 0F, 0F, false, 64F, 64F, ALL_DIRECTIONS)
 					};
 					ModelPart blade3 = new ModelPart(Arrays.asList(blade3Cuboids), Collections.emptyMap());
 					blade3.setPos(0.0F, 0.0F, 0.0F);
@@ -131,7 +132,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 			});
 			base.setPos(0.0F, 24.0F, 0.0F);
 
-			return new TurbineModel(base, RenderType::entityCutoutNoCull);
+			return new TurbineModel(base, RenderTypes::entityCutout);
 		}
 
 		private static void setRotation(ModelPart model, float x, float y, float z) {
