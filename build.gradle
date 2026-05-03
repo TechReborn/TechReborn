@@ -188,7 +188,7 @@ dependencies {
     optionalDependency("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
-    datagenImplementation 'org.apache.groovy:groovy:4.0.21'
+    datagenImplementation 'org.apache.groovy:groovy:4.0.28'
 }
 
 def optionalDependency(String dep) {

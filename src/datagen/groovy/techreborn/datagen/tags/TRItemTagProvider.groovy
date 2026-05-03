@@ -239,7 +239,7 @@ class TRItemTagProvider extends ItemTagProvider {
 		valueLookupBuilder(ItemTags.MINING_LOOT_ENCHANTABLE)
 			.add(TRContent.OMNI_TOOL)
 
-		valueLookupBuilder(ItemTags.SWORD_ENCHANTABLE)
+		valueLookupBuilder(ItemTags.WEAPON_ENCHANTABLE)
 			.add(TRContent.OMNI_TOOL)
 
 		valueLookupBuilder(TRConventionalTags.FROGLIGHTS)

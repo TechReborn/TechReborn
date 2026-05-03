@@ -103,9 +103,9 @@ class TemplateModel {
 		new BlockElement(new Vector3f(6, 6, 0), new Vector3f(10, 10, 6), Map.of(
 			Direction.NORTH, CABLE_FACE_1, Direction.EAST, CABLE_FACE_2,
 			Direction.SOUTH, new BlockElementFace(
-				Direction.SOUTH, -1, TextureSlot.TEXTURE.toString(),
-				uvs(1, 1, 5, 5), Quadrant.R0
-			),
+			Direction.SOUTH, -1, TextureSlot.TEXTURE.toString(),
+			uvs(1, 1, 5, 5), Quadrant.R0
+		),
 			Direction.WEST, CABLE_FACE_2, Direction.UP, CABLE_FACE_3, Direction.DOWN, CABLE_FACE_3
 		))
 	)
@@ -119,9 +119,9 @@ class TemplateModel {
 		new BlockElement(new Vector3f(5, 5, 0), new Vector3f(11, 11, 5), Map.of(
 			Direction.NORTH, CABLE_FACE_4, Direction.EAST, CABLE_FACE_5,
 			Direction.SOUTH, new BlockElementFace(
-				Direction.SOUTH, -1, TextureSlot.TEXTURE.toString(),
-				uvs(0, 0, 6, 6), Quadrant.R0
-			),
+			Direction.SOUTH, -1, TextureSlot.TEXTURE.toString(),
+			uvs(0, 0, 6, 6), Quadrant.R0
+		),
 			Direction.WEST, CABLE_FACE_5, Direction.UP, CABLE_FACE_6, Direction.DOWN, CABLE_FACE_6
 		))
 	)
@@ -179,7 +179,7 @@ class TemplateModel {
 				Direction.SOUTH, RESIN_BASIN_FACE_2, Direction.WEST, RESIN_BASIN_FACE_2,
 				Direction.UP, face(KEY_TWO, uvs(1, 1, 15, 15)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 14, 14)),
 			),
-			new BlockElementRotation(new Vector3f(9, 10, 9), Direction.Axis.Y, 0, false), true, 0
+			new BlockElementRotation(new Vector3f(9, 10, 9), new BlockElementRotation.SingleAxisRotation(Direction.Axis.Y, 0), false), true, 0
 		),
 		new BlockElement(
 			new Vector3f(2, 2, 1), new Vector3f(3, 8, 15),
@@ -187,7 +187,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_3, Direction.EAST, RESIN_BASIN_FACE_4, Direction.SOUTH, RESIN_BASIN_FACE_3,
 				Direction.WEST, RESIN_BASIN_FACE_5, Direction.UP, RESIN_BASIN_FACE_6, Direction.DOWN, RESIN_BASIN_FACE_6
 			),
-			new BlockElementRotation(new Vector3f(2.5, 5, 8), Direction.Axis.Z, 22.5, false), true, 0
+			new BlockElementRotation(new Vector3f(2.5, 5, 8), new BlockElementRotation.SingleAxisRotation(Direction.Axis.Z, 22.5), false), true, 0
 		),
 		new BlockElement(
 			new Vector3f(13, 2, 1), new Vector3f(14, 8, 15),
@@ -195,7 +195,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_3, Direction.EAST, RESIN_BASIN_FACE_4, Direction.SOUTH, RESIN_BASIN_FACE_3,
 				Direction.WEST, RESIN_BASIN_FACE_4, Direction.UP, RESIN_BASIN_FACE_6, Direction.DOWN, RESIN_BASIN_FACE_6,
 			),
-			new BlockElementRotation(new Vector3f(13.5, 5, 8), Direction.Axis.Z, -22.5, false), true, 0
+			new BlockElementRotation(new Vector3f(13.5, 5, 8), new BlockElementRotation.SingleAxisRotation(Direction.Axis.Z, -22.5), false), true, 0
 		),
 		new BlockElement(
 			new Vector3f(1, 2, 2), new Vector3f(15, 8, 3),
@@ -203,7 +203,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_5, Direction.EAST, RESIN_BASIN_FACE_3, Direction.SOUTH, RESIN_BASIN_FACE_4,
 				Direction.WEST, RESIN_BASIN_FACE_3, Direction.UP, RESIN_BASIN_FACE_7, Direction.DOWN, RESIN_BASIN_FACE_7,
 			),
-			new BlockElementRotation(new Vector3f(8, 5, 2.5), Direction.Axis.X, -22.5, false), true, 0
+			new BlockElementRotation(new Vector3f(8, 5, 2.5), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
 		),
 		new BlockElement(
 			new Vector3f(1, 2, 13), new Vector3f(15, 8, 14),
@@ -212,7 +212,7 @@ class TemplateModel {
 				Direction.SOUTH, face(KEY_THREE, uvs(1, 9, 15, 15)), Direction.WEST, RESIN_BASIN_FACE_3,
 				Direction.UP, RESIN_BASIN_FACE_7, Direction.DOWN, RESIN_BASIN_FACE_7,
 			),
-			new BlockElementRotation(new Vector3f(8, 5, 13.5), Direction.Axis.X, 22.5, false), true, 0
+			new BlockElementRotation(new Vector3f(8, 5, 13.5), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, 22.5), false), true, 0
 		),
 		new BlockElement(
 			new Vector3f(5.5, 11, 9), new Vector3f(6.5, 14, 19),
@@ -220,7 +220,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_8, Direction.EAST, RESIN_BASIN_FACE_9, Direction.SOUTH, RESIN_BASIN_FACE_8,
 				Direction.WEST, RESIN_BASIN_FACE_9, Direction.UP, RESIN_BASIN_FACE_10, Direction.DOWN, RESIN_BASIN_FACE_10,
 			),
-			new BlockElementRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new BlockElementRotation(new Vector3f(8, 12.25, 14), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
 		),
 		new BlockElement(
 			new Vector3f(9.5, 11, 9), new Vector3f(10.5, 14, 19),
@@ -228,7 +228,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_8, Direction.EAST, RESIN_BASIN_FACE_9, Direction.SOUTH, RESIN_BASIN_FACE_8,
 				Direction.WEST, RESIN_BASIN_FACE_9, Direction.UP, RESIN_BASIN_FACE_10, Direction.DOWN, RESIN_BASIN_FACE_10,
 			),
-			new BlockElementRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new BlockElementRotation(new Vector3f(8, 12.25, 14), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
 		),
 		new BlockElement(
 			new Vector3f(6.5, 11, 9), new Vector3f(9.5, 12, 19),
@@ -236,7 +236,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_11, Direction.EAST, RESIN_BASIN_FACE_12, Direction.SOUTH, RESIN_BASIN_FACE_11,
 				Direction.WEST, RESIN_BASIN_FACE_12, Direction.UP, RESIN_BASIN_FACE_13, Direction.DOWN, RESIN_BASIN_FACE_13,
 			),
-			new BlockElementRotation(new Vector3f(8, 12.25, 14), Direction.Axis.X, -22.5, false), true, 0
+			new BlockElementRotation(new Vector3f(8, 12.25, 14), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
 		),
 		new BlockElement(
 			new Vector3f(6, 11, 15.99), new Vector3f(10, 15, 16.99),
@@ -245,13 +245,13 @@ class TemplateModel {
 				Direction.SOUTH, face(KEY_TWO, uvs(0, 0, 4, 4)), Direction.WEST, RESIN_BASIN_FACE_14,
 				Direction.UP, face(KEY_TWO, uvs(6, 6, 10, 7)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 4, 1)),
 			),
-			new BlockElementRotation(new Vector3f(14, 9, 24), Direction.Axis.Y, 0, false), true, 0
+			new BlockElementRotation(new Vector3f(14, 9, 24), new BlockElementRotation.SingleAxisRotation(Direction.Axis.Y, 0), false), true, 0
 		),
 	)
 	static JsonModel.DisplayMap FISHING_STATION_DISPLAY = new JsonModel.DisplayMap().put(
 		ItemDisplayContext.GUI, transformation(30, 225, 0, -1, 0, 0, 0.5, 0.5, 0.5)
 	)
-	static BlockElementRotation FISHING_STATION_ROTATION_1 = new BlockElementRotation(new Vector3f(1, 0, 4), Direction.Axis.X, 22.5, false)
+	static BlockElementRotation FISHING_STATION_ROTATION_1 = new BlockElementRotation(new Vector3f(1, 0, 4), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, 22.5), false)
 	static Map<Direction, BlockElementFace> FISHING_STATION_FACE_MAP_1 = Map.of(
 		Direction.NORTH, face(KEY_ZERO, uvs(0, 0, 1, 1), Quadrant.R180),
 		Direction.EAST, face(KEY_ZERO, uvs(0, 0, 1, 14), Quadrant.R90),
@@ -260,7 +260,7 @@ class TemplateModel {
 		Direction.UP, face(KEY_ZERO, uvs(0, 0, 1, 14)),
 		Direction.DOWN, face(KEY_ZERO, uvs(0, 0, 1, 14), Quadrant.R180),
 	)
-	static BlockElementRotation FISHING_STATION_ROTATION_2 = new BlockElementRotation(new Vector3f(1, 0, 4), Direction.Axis.X, -22.5, false)
+	static BlockElementRotation FISHING_STATION_ROTATION_2 = new BlockElementRotation(new Vector3f(1, 0, 4), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false)
 	static BlockElementFace MISSING_FACE = face(KEY_MISSING, uvs(0, 0, 0, 9))
 	static Map<Direction, BlockElementFace> FISHING_STATION_FACE_MAP_2 = Map.of(
 		Direction.NORTH, MISSING_FACE, Direction.EAST, face(KEY_ONE, uvs(7, 0, 16, 9)),
@@ -515,10 +515,10 @@ class TemplateModel {
 	static def NUCLEAR_REACTOR = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
-			id.withSuffix("_top"),
-			id.withSuffix("_bottom"),
-			id.withSuffix("_side"),
-			id.withSuffix("_front"),
+				id.withSuffix("_top"),
+				id.withSuffix("_bottom"),
+				id.withSuffix("_side"),
+				id.withSuffix("_front"),
 			),
 			TextureSlot.FRONT
 		)
@@ -666,7 +666,7 @@ class TemplateModel {
 				Direction.UP, face(TextureSlot.PARTICLE, uvs(0, 6, 3, 16)),
 				Direction.DOWN, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 10)),
 			),
-			new BlockElementRotation(new Vector3f(8, 11.25, 14), Direction.Axis.X, -22.5, false),
+			new BlockElementRotation(new Vector3f(8, 11.25, 14), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false),
 			true,
 			0
 		))
@@ -680,7 +680,7 @@ class TemplateModel {
 				Direction.UP, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 0.5)),
 				Direction.DOWN, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 0.5)),
 			),
-			new BlockElementRotation(new Vector3f(13, 11, 17), Direction.Axis.X, 0, false),
+			new BlockElementRotation(new Vector3f(13, 11, 17), new BlockElementRotation.SingleAxisRotation(Direction.Axis.X, 0), false),
 			true,
 			0
 		))
@@ -700,7 +700,7 @@ class TemplateModel {
 				Direction.UP, face(KEY_FOUR, uvs(1, 1, 15, 15)),
 				Direction.DOWN, face(KEY_FOUR, uvs(0, 0, 14, 14)),
 			),
-			new BlockElementRotation(new Vector3f(9, 13, 9), Direction.Axis.Y, 0, false),
+			new BlockElementRotation(new Vector3f(9, 13, 9), new BlockElementRotation.SingleAxisRotation(Direction.Axis.Y, 0), false),
 			true,
 			0
 		))
@@ -716,9 +716,9 @@ class TemplateModel {
 				TexturePaths.machineTier2Back,
 				id,
 			).put(TextureSlot.PARTICLE, TexturePaths.machineTier2Top)
-			.put(KEY_ZERO, id.withSuffix("_net"))
-			.put(KEY_ONE, id.withSuffix("_net_side"))
-			.put(KEY_MISSING, Identifier.withDefaultNamespace("missingno"))
+				.put(KEY_ZERO, id.withSuffix("_net"))
+				.put(KEY_ONE, id.withSuffix("_net_side"))
+				.put(KEY_MISSING, Identifier.withDefaultNamespace("missingno"))
 		)
 	}
 	static def RUBBER_LOG_WITH_SAP = wrapperBlock { block, id ->
