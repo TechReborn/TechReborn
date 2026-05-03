@@ -31,6 +31,7 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.permissions.Permissions;
 import techreborn.init.TRContent;
 
 import java.io.IOException;
@@ -47,17 +48,17 @@ public class TechRebornTemplates {
 
 	public static void init() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(
-				literal("techreborn")
-						.then(literal("template")
-								.requires(source -> source.hasPermission(3))
-								.requires(source -> FabricLoader.getInstance().isDevelopmentEnvironment())
-								.then(literal("generate")
-										.then(
-												argument("path", greedyString())
-														.executes(TechRebornTemplates::process)
-										)
-								)
+			literal("techreborn")
+				.then(literal("template")
+					.requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
+					.requires(source -> FabricLoader.getInstance().isDevelopmentEnvironment())
+					.then(literal("generate")
+						.then(
+							argument("path", greedyString())
+								.executes(TechRebornTemplates::process)
 						)
+					)
+				)
 		));
 	}
 
@@ -80,8 +81,8 @@ public class TechRebornTemplates {
 
 	private static void process(TemplateProcessor processor) throws IOException {
 		processor.processSimpleBlocks("storage_blocks", Arrays.stream(TRContent.StorageBlocks.values())
-				.map(TRContent.StorageBlocks::getBlock)
-				.collect(Collectors.toList())
+			.map(TRContent.StorageBlocks::getBlock)
+			.collect(Collectors.toList())
 		);
 	}
 

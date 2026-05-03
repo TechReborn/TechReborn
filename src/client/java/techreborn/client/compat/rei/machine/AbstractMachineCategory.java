@@ -50,7 +50,7 @@ public abstract class AbstractMachineCategory<R extends RebornRecipe> implements
 		this.recipeType = rebornRecipeType;
 	}
 
-	private ResourceLocation id() {
+	private Identifier id() {
 		return BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
 	}
 

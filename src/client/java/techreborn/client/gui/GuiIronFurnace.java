@@ -44,7 +44,7 @@ import java.util.Objects;
 
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	final IronFurnaceBlockEntity blockEntity;
-	private static final ResourceLocation EXP_BUTTON_TEXTURE = ResourceLocation.withDefaultNamespace("item/experience_bottle");
+	private static final Identifier EXP_BUTTON_TEXTURE = Identifier.withDefaultNamespace("item/experience_bottle");
 
 	public GuiIronFurnace(int syncID, Player player, IronFurnaceBlockEntity furnace) {
 		super(player, furnace, furnace.createScreenHandler(syncID, player));

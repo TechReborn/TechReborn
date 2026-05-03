@@ -54,7 +54,7 @@ import java.util.function.Function;
 public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity, TurbineRenderer.TurbineRenderState> {
 	private static final Set<Direction> ALL_DIRECTIONS = EnumSet.allOf(Direction.class);
 	private static final TurbineModel MODEL = TurbineModel.create();
-	public static final ResourceLocation TEXTURE = ResourceLocation.parse("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
+	public static final Identifier TEXTURE = Identifier.parse("techreborn:textures/block/machines/generators/wind_mill_turbine.png");
 
 	public TurbineRenderer(BlockEntityRendererProvider.Context ctx) {
 	}
@@ -140,7 +140,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 			model.zRot = z;
 		}
 
-		public TurbineModel(ModelPart root, Function<ResourceLocation, RenderType> layerFactory) {
+		public TurbineModel(ModelPart root, Function<Identifier, RenderType> layerFactory) {
 			super(root, layerFactory);
 		}
 

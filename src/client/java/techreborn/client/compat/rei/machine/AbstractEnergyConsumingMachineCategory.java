@@ -55,7 +55,7 @@ public abstract class AbstractEnergyConsumingMachineCategory<R extends RebornRec
 			list.add(Component.translatable("techreborn.jei.recipe.running.cost", "E", recipeDisplay.getEnergy()).withStyle(ChatFormatting.GRAY));
 			list.add(Component.translatable("techreborn.jei.recipe.generator.total", recipeDisplay.getEnergy() * recipeDisplay.getTime()).withStyle(ChatFormatting.GRAY));
 			list.add(Component.literal(""));
-			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(ResourceLocation.fromNamespaceAndPath("techreborn", "")));
+			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(Identifier.fromNamespaceAndPath("techreborn", "")));
 			return Tooltip.create(tooltipContext.getPoint(), list);
 		}));
 		return widgets;

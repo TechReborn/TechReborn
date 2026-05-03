@@ -155,7 +155,7 @@ public class ReiPlugin implements REIClientPlugin {
 		registry.addWorkstations(CategoryIdentifier.of(TechReborn.MOD_ID, Machine.PLASMA_GENERATOR.name), EntryStacks.of(Machine.PLASMA_GENERATOR));
 	}
 
-	private void addWorkstations(ResourceLocation identifier, EntryStack<?>... stacks) {
+	private void addWorkstations(Identifier identifier, EntryStack<?>... stacks) {
 		CategoryRegistry.getInstance().addWorkstations(CategoryIdentifier.of(identifier), stacks);
 	}
 
@@ -163,7 +163,7 @@ public class ReiPlugin implements REIClientPlugin {
 		CategoryRegistry.getInstance().addWorkstations(CategoryIdentifier.of(getTypeId(type)), stacks);
 	}
 
-	private static ResourceLocation getTypeId(RecipeType<?> type) {
+	private static Identifier getTypeId(RecipeType<?> type) {
 		return Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.getKey(type));
 	}
 

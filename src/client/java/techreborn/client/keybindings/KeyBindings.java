@@ -38,7 +38,7 @@ import static techreborn.TechReborn.MOD_ID;
 
 public class KeyBindings {
 	// Actual keybindings are in TechRebornClient
-	public static final Category CATEGORY = new Category(ResourceLocation.fromNamespaceAndPath(MOD_ID, "main"));
+	public static final Category CATEGORY = new Category(Identifier.fromNamespaceAndPath(MOD_ID, "main"));
 
 	public static KeyMapping suitNightVision;
 	public static KeyMapping quantumSuitSprint;

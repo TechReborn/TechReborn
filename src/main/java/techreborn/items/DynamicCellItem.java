@@ -54,6 +54,7 @@ import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -120,7 +121,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 			return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().relative(hitResult.getDirection()), null, filledCell);
 		} else {
 			//noinspection deprecation
-			if (world.dimensionType().ultraWarm() && fluid.is(FluidTags.WATER)) {
+			if (world.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos) && fluid.is(FluidTags.WATER)) {
 				int i = pos.getX();
 				int j = pos.getY();
 				int k = pos.getZ();
@@ -162,7 +163,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		Fluid containedFluid = getFluid(stack);
 
 		BlockHitResult hitResult = getPlayerPOVHitResult(world, player, containedFluid == Fluids.EMPTY ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
-			if (hitResult.getType() == HitResult.Type.MISS || !(containedFluid instanceof FlowingFluid || Fluids.EMPTY == containedFluid)) {
+		if (hitResult.getType() == HitResult.Type.MISS || !(containedFluid instanceof FlowingFluid || Fluids.EMPTY == containedFluid)) {
 			return InteractionResult.PASS;
 		}
 		if (hitResult.getType() != HitResult.Type.BLOCK) {

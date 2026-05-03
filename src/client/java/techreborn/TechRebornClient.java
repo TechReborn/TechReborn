@@ -132,8 +132,8 @@ public class TechRebornClient implements ClientModInitializer {
 		ClientJumpEvent.EVENT.register(new ClientJumpHandler());
 
 		// Skip error sprite
-		MachineFaceElementRenderer.BLACKLIST.add(ResourceLocation.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net"));
-		MachineFaceElementRenderer.BLACKLIST.add(ResourceLocation.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net_side"));
+		MachineFaceElementRenderer.BLACKLIST.add(Identifier.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net"));
+		MachineFaceElementRenderer.BLACKLIST.add(Identifier.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net_side"));
 	}
 
 	//Need the item instance in a few places, this makes it easier

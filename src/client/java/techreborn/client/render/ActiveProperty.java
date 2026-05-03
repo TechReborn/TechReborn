@@ -43,7 +43,7 @@ import techreborn.items.tool.ChainsawItem;
 import techreborn.items.tool.industrial.NanosaberItem;
 
 public record ActiveProperty() implements SelectItemModelProperty<PowerType> {
-	public static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "active");
+	public static Identifier ID = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "active");
 	public static Codec<PowerType> VALUE_CODEC = PowerType.CODEC;
 	public static final SelectItemModelProperty.Type<ActiveProperty, PowerType> TYPE = SelectItemModelProperty.Type.create(
 		MapCodec.unit(new ActiveProperty()), PowerType.CODEC
