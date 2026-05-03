@@ -36,7 +36,7 @@ import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.resources.ResourceKey
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import reborncore.common.recipes.PaddedShapedRecipeJsonBuilder
 import techreborn.TechReborn
 import techreborn.datagen.recipes.TechRebornRecipesProvider
@@ -282,7 +282,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 	}
 
 	def static getRecipeKey(String name) {
-		return ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name))
+		return ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name))
 	}
 
 	def offerMonoShapelessRecipe(def input, int inputSize, ItemLike output, int outputSize, String source, prefix = "", String result = null, RecipeCategory category = RecipeCategory.MISC) {

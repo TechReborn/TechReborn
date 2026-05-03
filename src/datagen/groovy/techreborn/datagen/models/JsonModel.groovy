@@ -36,7 +36,7 @@ import net.minecraft.client.renderer.block.model.BlockElementRotation
 import net.minecraft.client.renderer.block.model.ItemTransform
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemDisplayContext
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import com.mojang.math.Quadrant
 import net.minecraft.core.Direction
 import org.jetbrains.annotations.Nullable
@@ -44,7 +44,7 @@ import org.joml.Vector3fc
 
 class JsonModel {
 	@Nullable
-	ResourceLocation parent
+	Identifier parent
 	@Nullable
 	DisplayMap display
 	@Nullable
@@ -59,14 +59,14 @@ class JsonModel {
 	@Nullable
 	TextureSlot[] variantKeys
 	@Nullable
-	ResourceLocation id
+	Identifier id
 
 	JsonModel id(Object target) {
 		if (target instanceof Block) {
 			id = ModelLocationUtils.getModelLocation(target)
 		} else if (target instanceof Item) {
 			id = ModelLocationUtils.getModelLocation(target)
-		} else if (target instanceof ResourceLocation) {
+		} else if (target instanceof Identifier) {
 			id = target
 		} else {
 			throw new IllegalArgumentException("Unknown target type: $target")
@@ -90,7 +90,7 @@ class JsonModel {
 		return model
 	}
 
-	JsonModel add(ResourceLocation parent) {
+	JsonModel add(Identifier parent) {
 		this.parent = parent
 		return this
 	}
@@ -132,9 +132,9 @@ class JsonModel {
 		}
 	}
 
-	ResourceLocation upload() {
+	Identifier upload() {
 		if (this.id == null) throw new IllegalStateException("No target specified")
-		ResourceLocation id = variant == null || variant == "_off" ? this.id : this.id.withSuffix(variant)
+		Identifier id = variant == null || variant == "_off" ? this.id : this.id.withSuffix(variant)
 		ModelProvider.modelCollector.accept(id, () -> toJson())
 		return id
 	}
@@ -142,7 +142,7 @@ class JsonModel {
 	static TextureMapping suffix(TextureMapping textures, TextureSlot[] keys, String variant) {
 		TextureMapping map = textures
 		for (int i = 0, len = keys.length; i < len; i++) {
-			ResourceLocation texture = map.get(keys[i]).withSuffix(variant)
+			Identifier texture = map.get(keys[i]).withSuffix(variant)
 			if (i == 0) {
 				textures = map.copyAndUpdate(keys[0], texture)
 			} else {
@@ -168,7 +168,7 @@ class JsonModel {
 	static class CtmMap {
 		final int version = 1
 		final TextureMapping entries = new TextureMapping()
-		CtmMap put(TextureSlot key, ResourceLocation id) {
+		CtmMap put(TextureSlot key, Identifier id) {
 			entries.put(key, id)
 			return this
 		}

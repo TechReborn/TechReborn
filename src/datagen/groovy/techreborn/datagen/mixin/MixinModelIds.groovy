@@ -27,7 +27,7 @@ package techreborn.datagen.mixin
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.model.ModelLocationUtils
 import net.minecraft.world.item.Item
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
@@ -36,23 +36,23 @@ import techreborn.datagen.models.TexturePaths
 
 @Mixin(ModelLocationUtils.class)
 class MixinModelIds {
-	@Inject(method = "getModelLocation(Lnet/minecraft/world/item/Item;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-	private static void getModelLocation(Item item, CallbackInfoReturnable<ResourceLocation> cir) {
+	@Inject(method = "getModelLocation(Lnet/minecraft/world/item/Item;)Lnet/minecraft/resources/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getModelLocation(Item item, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.ifPresent(item, cir::setReturnValue)
 	}
 
-	@Inject(method = "getModelLocation(Lnet/minecraft/world/item/Item;Ljava/lang/String;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-	private static void getModelLocation(Item item, String suffix, CallbackInfoReturnable<ResourceLocation> cir) {
+	@Inject(method = "getModelLocation(Lnet/minecraft/world/item/Item;Ljava/lang/String;)Lnet/minecraft/resources/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getModelLocation(Item item, String suffix, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.ifPresent(item, suffix, cir::setReturnValue)
 	}
 
-	@Inject(method = "getModelLocation(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-	private static void getModelLocation(Block block, CallbackInfoReturnable<ResourceLocation> cir) {
+	@Inject(method = "getModelLocation(Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/resources/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getModelLocation(Block block, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.ifPresent(block, cir::setReturnValue)
 	}
 
-	@Inject(method = "getModelLocation(Lnet/minecraft/world/level/block/Block;Ljava/lang/String;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
-	private static void getModelLocation(Block block, String suffix, CallbackInfoReturnable<ResourceLocation> cir) {
+	@Inject(method = "getModelLocation(Lnet/minecraft/world/level/block/Block;Ljava/lang/String;)Lnet/minecraft/resources/Identifier;", at = @At("HEAD"), cancellable = true)
+	private static void getModelLocation(Block block, String suffix, CallbackInfoReturnable<Identifier> cir) {
 		TexturePaths.ifPresent(block, suffix, cir::setReturnValue)
 	}
 }

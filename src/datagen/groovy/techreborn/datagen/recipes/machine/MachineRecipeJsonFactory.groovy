@@ -28,7 +28,7 @@ import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancements.Advancement.Builder
 import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.critereon.InventoryChangeTrigger
+import net.minecraft.advancements.criterion.InventoryChangeTrigger
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
@@ -39,7 +39,7 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.TagKey
 import net.minecraft.world.flag.FeatureFlag
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import org.jetbrains.annotations.NotNull
 import reborncore.common.crafting.SizedIngredient
 import reborncore.common.crafting.RebornRecipe
@@ -56,7 +56,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	protected final List<ItemStack> outputs = new ArrayList<>()
 	protected int power = -1
 	protected int time = -1
-	protected ResourceLocation customId = null
+	protected Identifier customId = null
 	protected String source = null
 	protected List<ResourceCondition> conditions = []
 
@@ -90,13 +90,13 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 				ingredient {
 					stack object
 				}
-			} else if (object instanceof ResourceLocation) {
+			} else if (object instanceof Identifier) {
 				ingredient {
 					ident object
 				}
 			} else if (object instanceof String) {
 				ingredient {
-					ident(ResourceLocation.parse(object))
+					ident(Identifier.parse(object))
 				}
 			} else {
 				throw new IllegalArgumentException()
@@ -134,7 +134,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			return new ItemStack(object.asItem())
 		} else if (object instanceof String) {
 			// TODO remove me, done to aid porting from json files
-			def item = BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(object))
+			def item = BuiltInRegistries.ITEM.getValue(Identifier.parse(object))
 			return new ItemStack(item)
 		} else {
 			throw new UnsupportedOperationException()
@@ -151,7 +151,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
-	def id(ResourceLocation identifier) {
+	def id(Identifier identifier) {
 		this.customId = identifier
 		return this
 	}
@@ -161,7 +161,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	}
 
 	def source(String s) {
-		ResourceLocation.withDefaultNamespace(s) // Just to validate that it is a valid identifier path
+		Identifier.withDefaultNamespace(s) // Just to validate that it is a valid identifier path
 		this.source = s
 		return this
 	}
@@ -178,7 +178,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 	}
 
 	MachineRecipeJsonFactory id(String path) {
-		return id(ResourceLocation.fromNamespaceAndPath("techreborn", path))
+		return id(Identifier.fromNamespaceAndPath("techreborn", path))
 	}
 
 	/**
@@ -220,7 +220,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			def id
 			do {
 				i++
-				id = ResourceLocation.parse(recipeId.toString() + "_" + i)
+				id = Identifier.parse(recipeId.toString() + "_" + i)
 			} while (provider.exportedRecipes.contains(id))
 
 			recipeId = id
@@ -228,7 +228,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		provider.exportedRecipes.add(recipeId)
 
-		ResourceLocation advancementId = ResourceLocation.fromNamespaceAndPath(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
+		Identifier advancementId = Identifier.fromNamespaceAndPath(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		ResourceKey<Recipe> key = ResourceKey.create(Registries.RECIPE, recipeId)
 		RecipeUtils.addToastDefaults(builder, key)
 
@@ -252,7 +252,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		def outputId = BuiltInRegistries.ITEM.getKey(outputs[0].item)
 		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
-		return ResourceLocation.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
+		return Identifier.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	def feature(FeatureFlag flag) {
