@@ -36,7 +36,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import reborncore.client.gui.GuiBuilder;
 import techreborn.TechReborn;
 import techreborn.client.compat.rei.ReiPlugin;

@@ -41,7 +41,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -159,8 +159,8 @@ public class ChunkLoaderManager extends SavedData {
 		}
 	}
 
-	public static ResourceLocation getWorldName(Level world){
-		return world.dimension().location();
+	public static Identifier getWorldName(Level world){
+		return world.dimension().identifier();
 	}
 
 	public static ResourceKey<Level> getDimensionRegistryKey(Level world){
@@ -188,7 +188,7 @@ public class ChunkLoaderManager extends SavedData {
 		world.getChunkSource().addTicketWithRadius(ChunkLoaderManager.CHUNK_LOADER, chunkPos, RADIUS);
 	}
 
-	public record LoadedChunk(ChunkPos chunk, ResourceLocation world, String player, BlockPos chunkLoader) {
+	public record LoadedChunk(ChunkPos chunk, Identifier world, String player, BlockPos chunkLoader) {
 		public static Codec<ChunkPos> CHUNK_POS_CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
 					Codec.INT.fieldOf("x").forGetter(p -> p.x),
@@ -199,7 +199,7 @@ public class ChunkLoaderManager extends SavedData {
 		public static Codec<LoadedChunk> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
 					CHUNK_POS_CODEC.fieldOf("chunk").forGetter(LoadedChunk::chunk),
-					ResourceLocation.CODEC.fieldOf("world").forGetter(LoadedChunk::world),
+					Identifier.CODEC.fieldOf("world").forGetter(LoadedChunk::world),
 					Codec.STRING.fieldOf("player").forGetter(LoadedChunk::player),
 					BlockPos.CODEC.fieldOf("chunkLoader").forGetter(LoadedChunk::chunkLoader)
 				)
@@ -213,7 +213,7 @@ public class ChunkLoaderManager extends SavedData {
 
 		public static StreamCodec<ByteBuf, LoadedChunk> PACKET_CODEC = StreamCodec.composite(
 			CHUNK_POS_PACKET_CODEC, LoadedChunk::chunk,
-			ResourceLocation.STREAM_CODEC, LoadedChunk::world,
+			Identifier.STREAM_CODEC, LoadedChunk::world,
 			ByteBufCodecs.STRING_UTF8, LoadedChunk::player,
 			BlockPos.STREAM_CODEC, LoadedChunk::chunkLoader,
 			LoadedChunk::new

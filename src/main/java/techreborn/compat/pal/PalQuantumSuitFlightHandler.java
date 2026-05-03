@@ -27,7 +27,7 @@ package techreborn.compat.pal;
 import io.github.ladysnake.pal.AbilitySource;
 import io.github.ladysnake.pal.Pal;
 import io.github.ladysnake.pal.VanillaAbilities;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import techreborn.TechReborn;
 import techreborn.items.armor.QuantumSuitFlightHandler;

@@ -25,7 +25,7 @@
 package reborncore.common.screen.builder;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.equipment.Equippable;
@@ -103,7 +103,7 @@ public final class PlayerScreenHandlerBuilder {
 		}
 
 		private PlayerArmorScreenHandlerBuilder armor(final int xStart, final int yStart,
-													final EquipmentSlot slotType, final ResourceLocation sprite) {
+													final EquipmentSlot slotType, final Identifier sprite) {
 			this.parent.parent.slots.add(new SpriteSlot(this.parent.player, slotType.getIndex(Inventory.INVENTORY_SIZE), xStart, yStart, sprite, 1)
 					.setFilter(stack -> {
 						Equippable equippableComponent = stack.get(DataComponents.EQUIPPABLE);

@@ -24,28 +24,28 @@
 
 package reborncore.common.fluid;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class FluidSettings {
 
-	private ResourceLocation flowingTexture = ResourceLocation.parse("reborncore:nope");
-	private ResourceLocation stillTexture = ResourceLocation.parse("reborncore:nope");
+	private Identifier flowingTexture = Identifier.parse("reborncore:nope");
+	private Identifier stillTexture = Identifier.parse("reborncore:nope");
 
-	public FluidSettings setFlowingTexture(ResourceLocation flowingTexture) {
+	public FluidSettings setFlowingTexture(Identifier flowingTexture) {
 		this.flowingTexture = flowingTexture;
 		return this;
 	}
 
-	public FluidSettings setStillTexture(ResourceLocation stillTexture) {
+	public FluidSettings setStillTexture(Identifier stillTexture) {
 		this.stillTexture = stillTexture;
 		return this;
 	}
 
-	public ResourceLocation getFlowingTexture() {
+	public Identifier getFlowingTexture() {
 		return flowingTexture;
 	}
 
-	public ResourceLocation getStillTexture() {
+	public Identifier getStillTexture() {
 		return stillTexture;
 	}
 
