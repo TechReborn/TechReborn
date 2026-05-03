@@ -30,8 +30,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.debug.DebugRenderer;
+import net.minecraft.client.renderer.ShapeRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.BlockOutlineRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -56,7 +56,7 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BeforeBlockOutlin
 	public void afterBlockOutlineExtraction(WorldExtractionContext context, @Nullable HitResult result) {
 		if (result instanceof BlockHitResult blockHitResult) {
 			LocalPlayer player = Minecraft.getInstance().player;
-			if (player == context.camera().getEntity()) {
+			if (player == context.camera().entity()) {
 				ItemStack stack = player.getMainHandItem();
 				if (!stack.isEmpty() && stack.getItem() instanceof MultiBlockBreakingTool tool) {
 					BlockOutlineRenderState state = context.worldState().blockOutlineRenderState;
@@ -95,7 +95,16 @@ public class BlockOutlineRenderer implements WorldRenderEvents.BeforeBlockOutlin
 
 			BlockPos targetPos = context.pos();
 			Vec3 camera = worldRenderContext.worldState().cameraRenderState.pos;
-			DebugRenderer.renderVoxelShape(worldRenderContext.matrices(), worldRenderContext.consumers().getBuffer(RenderType.lines()), shape, (double)targetPos.getX() - camera.x, (double)targetPos.getY() - camera.y, (double)targetPos.getZ() - camera.z, 0.0F, 0.0F, 0.0F, 0.4F, true);
+			ShapeRenderer.renderShape(
+				worldRenderContext.matrices(),
+				worldRenderContext.consumers().getBuffer(RenderTypes.lines()),
+				shape,
+				(double) targetPos.getX() - camera.x,
+				(double) targetPos.getY() - camera.y,
+				(double) targetPos.getZ() - camera.z,
+				0x66000000,
+				1.0F
+			);
 		}
 
 		return true;

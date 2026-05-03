@@ -26,14 +26,18 @@ package reborncore.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
+import net.minecraft.gizmos.GizmoStyle;
+import net.minecraft.gizmos.Gizmos;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.debug.DebugValueAccess;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.network.serverbound.ChunkLoaderRequestPayload;
@@ -65,8 +69,49 @@ public class ClientChunkManager {
 
 	public static boolean hasChunksForLoader(BlockPos pos) {
 		return loadedChunks.stream()
-				.filter(loadedChunk -> loadedChunk.chunkLoader().equals(pos))
-				.anyMatch(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(Minecraft.getInstance().level)));
+			.filter(loadedChunk -> loadedChunk.chunkLoader().equals(pos))
+			.anyMatch(loadedChunk -> loadedChunk.world().equals(ChunkLoaderManager.getWorldName(Minecraft.getInstance().level)));
+	}
+
+	public static void render(double x, double y, double z, DebugValueAccess debugValueAccess, Frustum frustum, float tickDelta) {
+		if (loadedChunks.isEmpty()) {
+			return;
+		}
+
+		final Minecraft minecraftClient = Minecraft.getInstance();
+		if (minecraftClient.level == null) {
+			return;
+		}
+
+		Identifier worldName = ChunkLoaderManager.getWorldName(minecraftClient.level);
+		int minX = Integer.MAX_VALUE;
+		int minZ = Integer.MAX_VALUE;
+		int maxX = Integer.MIN_VALUE;
+		int maxZ = Integer.MIN_VALUE;
+		int bottom = minecraftClient.level.getMinY();
+		int top = minecraftClient.level.getMaxY() + 1;
+
+		for (ChunkLoaderManager.LoadedChunk chunk : loadedChunks) {
+			if (!chunk.world().equals(worldName)) {
+				continue;
+			}
+
+			ChunkPos pos = chunk.chunk();
+			int startX = pos.getMinBlockX();
+			int startZ = pos.getMinBlockZ();
+
+			minX = Math.min(minX, startX);
+			minZ = Math.min(minZ, startZ);
+			maxX = Math.max(maxX, startX);
+			maxZ = Math.max(maxZ, startZ);
+
+			Gizmos.cuboid(new AABB(startX, bottom, startZ, startX + 16, top, startZ + 16), GizmoStyle.stroke(ARGB.color(255, 63, 63, 255)));
+			Gizmos.line(new Vec3(startX + 8, bottom, startZ + 8), new Vec3(startX + 8, top, startZ + 8), ARGB.color(127, 255, 0, 0));
+		}
+
+		if (minX != Integer.MAX_VALUE) {
+			Gizmos.cuboid(new AABB(minX, bottom, minZ, maxX + 16, top, maxZ + 16), GizmoStyle.stroke(ARGB.color(255, 0, 155, 155), 1.5F));
+		}
 	}
 
 	public static void render(PoseStack matrices, MultiBufferSource vertexConsumers, double x, double y, double z, DebugValueAccess debugValueAccess, Frustum frustum) {
@@ -76,7 +121,7 @@ public class ClientChunkManager {
 		}
 
 		final Minecraft minecraftClient = Minecraft.getInstance();
-		ResourceLocation worldName = ChunkLoaderManager.getWorldName(minecraftClient.level);
+		Identifier worldName = ChunkLoaderManager.getWorldName(minecraftClient.level);
 		int[] posX = new int[size], posZ = new int[size];
 		int right = 0, startX, startZ, maxX = Integer.MIN_VALUE, minX = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE;
 		for (int i = 0; i < size; i++) {
@@ -100,7 +145,7 @@ public class ClientChunkManager {
 		int bottom = minecraftClient.level.getMinY();
 		int top = minecraftClient.level.getMaxY() + 1;
 		DrawContext ctx = new DrawContext(
-			vertexConsumers.getBuffer(RenderType.debugLineStrip(1.0)),
+			vertexConsumers.getBuffer(RenderTypes.lines()),
 			matrices.last().pose(),
 			x, y, z, bottom, top
 		);

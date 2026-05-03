@@ -57,7 +57,7 @@ import static reborncore.client.gui.GuiSprites.drawSpriteStretched;
 public class GuiBuilder {
 	private static final Component SPACE_TEXT = Component.literal(" ");
 	@Deprecated
-	public static final ResourceLocation GUI_ELEMENTS = ResourceLocation.fromNamespaceAndPath("reborncore", "textures/gui/guielements.png");
+	public static final Identifier GUI_ELEMENTS = Identifier.fromNamespaceAndPath("reborncore", "textures/gui/guielements.png");
 	private static final boolean EXPERIMENTAL_PROGRESS_BAR = false;
 
 	public void drawDefaultBackground(GuiGraphics drawContext, int x, int y, int width, int height) {
@@ -185,7 +185,7 @@ public class GuiBuilder {
 			drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10, 256, 256);
 
 			Component text = Component.literal(String.valueOf(value))
-					.append(Component.translatable("reborncore.gui.heat"));
+				.append(Component.translatable("reborncore.gui.heat"));
 
 			gui.drawCentredText(drawContext, text, y + 5, 0xFFFFFFFF, layer);
 		}
@@ -226,37 +226,37 @@ public class GuiBuilder {
 			List<Component> list = new ArrayList<>();
 
 			list.add(
-					Component.literal(String.valueOf(value))
-							.withStyle(ChatFormatting.GOLD)
-							.append("/")
-							.append(String.valueOf(max))
-							.append(suffix)
+				Component.literal(String.valueOf(value))
+					.withStyle(ChatFormatting.GOLD)
+					.append("/")
+					.append(String.valueOf(max))
+					.append(suffix)
 			);
 
 			list.add(
-					Component.literal(String.valueOf(percentage))
-							.withStyle(StringUtils.getPercentageColour(percentage))
-							.append("%")
-							.append(
-									Component.translatable("reborncore.gui.tooltip.dsu_fullness")
-											.withStyle(ChatFormatting.GRAY)
-							)
+				Component.literal(String.valueOf(percentage))
+					.withStyle(StringUtils.getPercentageColour(percentage))
+					.append("%")
+					.append(
+						Component.translatable("reborncore.gui.tooltip.dsu_fullness")
+							.withStyle(ChatFormatting.GRAY)
+					)
 			);
 
 			list.add(line2);
 
 			if (value > max) {
 				list.add(
-						Component.literal("Yo this is storing more than it should be able to")
-								.withStyle(ChatFormatting.GRAY)
+					Component.literal("Yo this is storing more than it should be able to")
+						.withStyle(ChatFormatting.GRAY)
 				);
 				list.add(
-						Component.literal("prolly a bug")
-								.withStyle(ChatFormatting.GRAY)
+					Component.literal("prolly a bug")
+						.withStyle(ChatFormatting.GRAY)
 				);
 				list.add(
-						Component.literal("pls report and tell how tf you did this")
-								.withStyle(ChatFormatting.GRAY)
+					Component.literal("pls report and tell how tf you did this")
+						.withStyle(ChatFormatting.GRAY)
 				);
 			}
 			if (layer == GuiBase.Layer.FOREGROUND) {
@@ -335,8 +335,8 @@ public class GuiBuilder {
 	 */
 	public void drawSlotConfigTips(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiTab guiTab) {
 		List<Component> tips = guiTab.getTips().stream()
-				.map(Component::translatable)
-				.collect(Collectors.toList());
+			.map(Component::translatable)
+			.collect(Collectors.toList());
 
 		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 76, y, 9 + 2, tips);
 		explanation.setX(x - 81);
@@ -398,9 +398,9 @@ public class GuiBuilder {
 	public void drawEnergyOutput(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, int maxOutput, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		Component text = Component.literal(PowerSystem.getLocalizedPowerNoSuffix(maxOutput))
-				.append(SPACE_TEXT)
-				.append(PowerSystem.ABBREVIATION)
-				.append(" ");
+			.append(SPACE_TEXT)
+			.append(PowerSystem.ABBREVIATION)
+			.append(" ");
 
 		int width = gui.getFont().width(text);
 		gui.drawText(drawContext, text, x - width - 2, y + 5, 0xff000000, layer);
@@ -457,9 +457,9 @@ public class GuiBuilder {
 			int percentage = percentage(maxProgress, progress);
 			List<Component> list = new ArrayList<>();
 			list.add(
-					Component.literal(String.valueOf(percentage))
-							.withStyle(StringUtils.getPercentageColour(percentage))
-							.append("%")
+				Component.literal(String.valueOf(percentage))
+					.withStyle(StringUtils.getPercentageColour(percentage))
+					.append("%")
 			);
 			drawContext.setComponentTooltipForNextFrame(gui.getFont(), list, mouseX, mouseY);
 		}
@@ -479,7 +479,7 @@ public class GuiBuilder {
 	 * @param layer           {@link GuiBase.Layer} The layer to draw on
 	 */
 	public void drawMultiEnergyBar(GuiGraphics drawContext, GuiBase<?> gui, int x, int y, long energyStored, long maxEnergyStored, int mouseX,
-								int mouseY, int buttonID, GuiBase.Layer layer) {
+								   int mouseY, int buttonID, GuiBase.Layer layer) {
 		if (gui.hideGuiElements()) return;
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
@@ -501,26 +501,26 @@ public class GuiBuilder {
 			boolean hasShift = Minecraft.getInstance().hasShiftDown();
 			if (hasShift) {
 				list.add(
-						Component.literal(PowerSystem.getLocalizedPowerFullNoSuffix(energyStored))
-								.withStyle(ChatFormatting.GOLD)
-								.append("/")
-								.append(PowerSystem.getLocalizedPowerFull(maxEnergyStored))
+					Component.literal(PowerSystem.getLocalizedPowerFullNoSuffix(energyStored))
+						.withStyle(ChatFormatting.GOLD)
+						.append("/")
+						.append(PowerSystem.getLocalizedPowerFull(maxEnergyStored))
 				);
 			} else {
 				list.add(
-						Component.literal(PowerSystem.getLocalizedPowerNoSuffix(energyStored))
-								.withStyle(ChatFormatting.GOLD)
-								.append("/")
-								.append(PowerSystem.getLocalizedPower(maxEnergyStored))
+					Component.literal(PowerSystem.getLocalizedPowerNoSuffix(energyStored))
+						.withStyle(ChatFormatting.GOLD)
+						.append("/")
+						.append(PowerSystem.getLocalizedPower(maxEnergyStored))
 				);
 			}
 			list.add(
-					StringUtils.getPercentageText(percentage)
-							.append(SPACE_TEXT)
-							.append(
-									Component.translatable("reborncore.gui.tooltip.power_charged")
-											.withStyle(ChatFormatting.GRAY)
-							)
+				StringUtils.getPercentageText(percentage)
+					.append(SPACE_TEXT)
+					.append(
+						Component.translatable("reborncore.gui.tooltip.power_charged")
+							.withStyle(ChatFormatting.GRAY)
+					)
 			);
 
 			if (gui.be instanceof IListInfoProvider) {
@@ -530,11 +530,11 @@ public class GuiBuilder {
 					list.add(Component.empty());
 
 					list.add(
-							Component.literal("Shift")
-									.withStyle(ChatFormatting.BLUE)
-									.append(SPACE_TEXT)
-									.withStyle(ChatFormatting.GRAY)
-									.append(Component.translatable("reborncore.gui.tooltip.power_moreinfo"))
+						Component.literal("Shift")
+							.withStyle(ChatFormatting.BLUE)
+							.append(SPACE_TEXT)
+							.withStyle(ChatFormatting.GRAY)
+							.append(Component.translatable("reborncore.gui.tooltip.power_moreinfo"))
 					);
 				}
 			}
@@ -580,18 +580,18 @@ public class GuiBuilder {
 				list.add(Component.translatable("reborncore.gui.tooltip.tank_empty").withStyle(ChatFormatting.GOLD));
 			} else {
 				list.add(
-						Component.literal(String.format("%s / %s", amount, maxCapacity))
-								.withStyle(ChatFormatting.GOLD)
-								.append(SPACE_TEXT)
-								.append(FluidUtils.getFluidName(fluid))
+					Component.literal(String.format("%s / %s", amount, maxCapacity))
+						.withStyle(ChatFormatting.GOLD)
+						.append(SPACE_TEXT)
+						.append(FluidUtils.getFluidName(fluid))
 				);
 			}
 
 			list.add(
-					StringUtils.getPercentageText(percentage)
-							.withStyle(ChatFormatting.GRAY)
-							.append(SPACE_TEXT)
-							.append(Component.translatable("reborncore.gui.tooltip.tank_fullness"))
+				StringUtils.getPercentageText(percentage)
+					.withStyle(ChatFormatting.GRAY)
+					.append(SPACE_TEXT)
+					.append(Component.translatable("reborncore.gui.tooltip.tank_fullness"))
 			);
 
 			drawContext.setComponentTooltipForNextFrame(gui.getFont(), list, mouseX, mouseY);
