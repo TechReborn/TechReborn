@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.widget;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
@@ -45,6 +46,11 @@ public class GuiButtonExtended extends Button {
 	public GuiButtonExtended clickHandler(TriConsumer<GuiButtonExtended, Double, Double> consumer) {
 		clickHandler = consumer;
 		return this;
+	}
+
+	@Override
+	protected void renderContents(GuiGraphics guiGraphics, int i, int j, float f) {
+
 	}
 
 	@Override

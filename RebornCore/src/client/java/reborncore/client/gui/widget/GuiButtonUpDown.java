@@ -48,7 +48,7 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	}
 
 	@Override
-	public void renderWidget(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
+	protected void renderContents(GuiGraphics drawContext, int mouseX, int mouseY, float partialTicks) {
 		if (gui.hideGuiElements()) return;
 		drawSpriteStretched(drawContext, type.spriteIdentifier, getX(), getY(), getWidth(), getHeight());
 	}
