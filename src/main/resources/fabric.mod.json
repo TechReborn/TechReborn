@@ -1,70 +1,70 @@
 {
-  "schemaVersion": 1,
-  "id": "techreborn",
-  "version": "${version}",
-  "name": "Tech Reborn",
-  "icon": "assets/techreborn/icon.png",
-  "description": "A completely standalone tech mod including tools and machines to gather resources, process materials, and progress through the mod.",
-  "license": "MIT",
-  "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/techreborn",
-    "sources": "https://github.com/TechReborn/TechReborn",
-    "issues": "https://github.com/TechReborn/TechReborn/issues"
-  },
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "techreborn.TechReborn",
-      "techreborn.compat.pal.PlayerAbilityLibCompat"
-    ],
-    "client": [
-      "techreborn.TechRebornClient"
-    ],
-    "rei_client": [
-		"techreborn.client.compat.rei.ReiPlugin"
-    ],
-    "rei_common": [
-		"techreborn.compat.rei.ReiCommonPlugin"
-    ]
-  },
-  "custom": {
-	"dashloader:customobject": [
-	  "techreborn.client.compat.dashloader.DashDynamicBucketBakedModel",
-	  "techreborn.client.compat.dashloader.DashDynamicCellBakedModel"
+	"schemaVersion": 1,
+	"id": "techreborn",
+	"version": "${version}",
+	"name": "Tech Reborn",
+	"icon": "assets/techreborn/icon.png",
+	"description": "A completely standalone tech mod including tools and machines to gather resources, process materials, and progress through the mod.",
+	"license": "MIT",
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/techreborn",
+		"sources": "https://github.com/TechReborn/TechReborn",
+		"issues": "https://github.com/TechReborn/TechReborn/issues"
+	},
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"techreborn.TechReborn",
+			"techreborn.compat.pal.PlayerAbilityLibCompat"
+		],
+		"client": [
+			"techreborn.TechRebornClient"
+		],
+		"rei_client": [
+			"techreborn.client.compat.rei.ReiPlugin"
+		],
+		"rei_common": [
+			"techreborn.compat.rei.ReiCommonPlugin"
+		]
+	},
+	"custom": {
+		"dashloader:customobject": [
+			"techreborn.client.compat.dashloader.DashDynamicBucketBakedModel",
+			"techreborn.client.compat.dashloader.DashDynamicCellBakedModel"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"fabric-api": ">=0.141.3+1.21.11",
+		"reborncore": "*",
+		"team_reborn_energy": ">=4.2.0",
+		"fabric-biome-api-v1": ">=16.0.10",
+		"minecraft": ">=1.21.11"
+	},
+	"accessWidener": "techreborn.accesswidener",
+	"authors": [
+		"Team Reborn",
+		"modmuss50",
+		"drcrazy"
+	],
+	"contributors": [
+		"Gigabit101",
+		"TheMattaBase",
+		"Mj11jM",
+		"Mazdallier",
+		"tntrololol",
+		"joflashstudios",
+		"lclc98",
+		"Lordmau5",
+		"mezz",
+		"Prospector",
+		"Rushmead",
+		"Yulife",
+		"Dragon2488",
+		"MrBretze",
+		"Ourten",
+		"Dimmerworld",
+		"coderbot",
+		"estebes"
 	]
-  },
-  "depends": {
-    "fabricloader": ">=0.17.3",
-	"fabric-api": ">=0.138.3+1.21.10",
-    "reborncore": "*",
-	"team_reborn_energy": ">=4.2.0",
-	"fabric-biome-api-v1": ">=16.0.10",
-  	"minecraft": ">=1.21.10- <1.21.11-"
-  },
-  "accessWidener": "techreborn.accesswidener",
-  "authors": [
-    "Team Reborn",
-    "modmuss50",
-    "drcrazy"
-  ],
-  "contributors": [
-    "Gigabit101",
-    "TheMattaBase",
-    "Mj11jM",
-    "Mazdallier",
-    "tntrololol",
-    "joflashstudios",
-    "lclc98",
-    "Lordmau5",
-    "mezz",
-    "Prospector",
-    "Rushmead",
-    "Yulife",
-    "Dragon2488",
-    "MrBretze",
-    "Ourten",
-    "Dimmerworld",
-    "coderbot",
-    "estebes"
-  ]
 }
