@@ -24,7 +24,6 @@
 
 package reborncore.client.multiblock;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import reborncore.common.blockentity.MultiblockWriter;
@@ -55,7 +54,7 @@ public record HologramRenderer(BlockRenderDispatcher blockRenderManager, ItemMod
 			itemModelResolver.updateForTopItem(item, new ItemStack(fluidState.getType().getBucket()), ItemDisplayContext.FIXED, view, null, 0);
 			states.add(new HologramRenderState.FluidItem(x, y, z, item));
 		} else {
-			RenderType layer = ItemBlockRenderTypes.getRenderType(state);
+			var layer = ItemBlockRenderTypes.getRenderType(state);
 			List<BlockModelPart> parts = blockRenderManager.getBlockModel(state).collectParts(RandomSource.create());
 			states.add(new HologramRenderState.Block(blockRenderManager, view, x, y, z, layer, state, parts));
 		}
