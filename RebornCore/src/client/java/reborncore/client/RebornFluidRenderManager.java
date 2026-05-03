@@ -66,8 +66,8 @@ public class RebornFluidRenderManager implements SimpleSynchronousResourceReload
 	}
 
 	@Override
-	public ResourceLocation getFabricId() {
-		return ResourceLocation.fromNamespaceAndPath("reborncore", "fluid_render_manager");
+	public Identifier getFabricId() {
+		return Identifier.fromNamespaceAndPath("reborncore", "fluid_render_manager");
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class RebornFluidRenderManager implements SimpleSynchronousResourceReload
 	}
 
 	@Override
-	public Collection<ResourceLocation> getFabricDependencies() {
+	public Collection<Identifier> getFabricDependencies() {
 		return Collections.singletonList(ResourceReloadListenerKeys.TEXTURES);
 	}
 }

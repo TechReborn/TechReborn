@@ -77,7 +77,7 @@ public class RebornCoreClient implements ClientModInitializer {
 			.registerReloadListener(new ThemeManager());
 
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			ResourceLocation.fromNamespaceAndPath("reborncore", "reborncore_darkmode"),
+			Identifier.fromNamespaceAndPath("reborncore", "reborncore_darkmode"),
 			FabricLoader.getInstance().getModContainer("reborncore").get(),
 			ResourcePackActivationType.NORMAL
 		);

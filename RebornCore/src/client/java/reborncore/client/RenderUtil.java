@@ -34,7 +34,7 @@ import net.minecraft.resources.Identifier;
  * Created by Gigabit101 on 08/08/2016.
  */
 public class RenderUtil {
-	public static TextureAtlasSprite getSprite(ResourceLocation identifier) {
+	public static TextureAtlasSprite getSprite(Identifier identifier) {
 		return Minecraft.getInstance().getAtlasManager().get(new Material(TextureAtlas.LOCATION_BLOCKS, identifier));
 	}
 }

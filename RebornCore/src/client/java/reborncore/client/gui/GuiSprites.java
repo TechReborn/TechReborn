@@ -83,7 +83,7 @@ public final class GuiSprites {
 	public static final CheckBox LIGHT_CHECK_BOX = new CheckBox(LIGHT_CHECK_BOX_NORMAL, LIGHT_CHECK_BOX_TICKED);
 
 	public static Material create(String name) {
-		return new Material(ResourceLocation.parse("gui"), ResourceLocation.fromNamespaceAndPath("reborncore", name));
+		return new Material(Identifier.parse("gui"), Identifier.fromNamespaceAndPath("reborncore", name));
 	}
 
 	public static void drawSpriteStretched(GuiGraphics drawContext, Material spriteIdentifier, int x, int y, int textureWidth, int textureHeight) {
