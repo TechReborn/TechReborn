@@ -31,7 +31,7 @@ import net.minecraft.resources.Identifier;
 import techreborn.TechReborn;
 
 public record SuitNightVisionPayload() implements CustomPacketPayload {
-	public static final CustomPacketPayload.Type<SuitNightVisionPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "suit_night_vision"));
+	public static final CustomPacketPayload.Type<SuitNightVisionPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "suit_night_vision"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, SuitNightVisionPayload> CODEC = StreamCodec.unit(new SuitNightVisionPayload());
 
 	@Override

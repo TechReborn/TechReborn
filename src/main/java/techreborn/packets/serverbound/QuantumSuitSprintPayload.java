@@ -31,7 +31,7 @@ import net.minecraft.resources.Identifier;
 import techreborn.TechReborn;
 
 public record QuantumSuitSprintPayload() implements CustomPacketPayload {
-	public static final CustomPacketPayload.Type<QuantumSuitSprintPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "quantum_suit_sprint"));
+	public static final CustomPacketPayload.Type<QuantumSuitSprintPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "quantum_suit_sprint"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, QuantumSuitSprintPayload> CODEC = StreamCodec.unit(new QuantumSuitSprintPayload());
 
 	@Override

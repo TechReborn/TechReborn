@@ -60,7 +60,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TRItemGroup {
-	private static final ResourceKey<CreativeModeTab> ITEM_GROUP = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "item_group"));
+	private static final ResourceKey<CreativeModeTab> ITEM_GROUP = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "item_group"));
 
 	public static void register() {
 		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ITEM_GROUP, FabricItemGroup.builder()

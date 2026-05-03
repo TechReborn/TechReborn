@@ -52,7 +52,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 		RecordCodecBuilder.mapCodec(instance -> instance.group(
 			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(RollingMachineDisplay::getInputEntries),
 			EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(RollingMachineDisplay::getOutputEntries),
-			ResourceLocation.CODEC.optionalFieldOf("location").forGetter(RollingMachineDisplay::getDisplayLocation),
+			Identifier.CODEC.optionalFieldOf("location").forGetter(RollingMachineDisplay::getDisplayLocation),
 			Codec.INT.fieldOf("width").forGetter(RollingMachineDisplay::getWidth),
 			Codec.INT.fieldOf("height").forGetter(RollingMachineDisplay::getHeight),
 			Codec.INT.fieldOf("energy").forGetter(RollingMachineDisplay::getEnergy),
@@ -61,7 +61,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 		StreamCodec.composite(
 			EntryIngredient.streamCodec().apply(ByteBufCodecs.list()), RollingMachineDisplay::getInputEntries,
 			EntryIngredient.streamCodec().apply(ByteBufCodecs.list()), RollingMachineDisplay::getOutputEntries,
-			ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC), RollingMachineDisplay::getDisplayLocation,
+			ByteBufCodecs.optional(Identifier.STREAM_CODEC), RollingMachineDisplay::getDisplayLocation,
 			ByteBufCodecs.INT, RollingMachineDisplay::getWidth,
 			ByteBufCodecs.INT, RollingMachineDisplay::getHeight,
 			ByteBufCodecs.INT, RollingMachineDisplay::getEnergy,
@@ -72,7 +72,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 
 	private final List<EntryIngredient> inputs;
 	private final List<EntryIngredient> outputs;
-	private final Optional<ResourceLocation> location;
+	private final Optional<Identifier> location;
 	private final int width;
 	private final int height;
 	private final int energy;
@@ -81,7 +81,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 	public RollingMachineDisplay(
 		List<EntryIngredient> inputs,
 		List<EntryIngredient> outputs,
-		Optional<ResourceLocation> location,
+		Optional<Identifier> location,
 		int width,
 		int height,
 		int energy,
@@ -106,7 +106,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 			opt -> opt.map(EntryIngredients::ofIngredient).orElse(EntryIngredient.empty())
 		);
 		this.outputs = List.of(EntryIngredients.of(shapedRecipe.assemble(null, null)));
-		this.location = Optional.of(entry.id().location());
+		this.location = Optional.of(entry.id().identifier());
 		this.width = shapedRecipe.getWidth();
 		this.height = shapedRecipe.getHeight();
 	}
@@ -135,7 +135,7 @@ public class RollingMachineDisplay implements CraftingDisplay {
 	}
 
 	@Override
-	public Optional<ResourceLocation> getDisplayLocation() {
+	public Optional<Identifier> getDisplayLocation() {
 		return location;
 	}
 

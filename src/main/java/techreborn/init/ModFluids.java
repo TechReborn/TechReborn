@@ -82,16 +82,16 @@ public enum ModFluids implements BlockInfo {
 
 	private RebornFluidBlock block;
 	private RebornBucketItem bucket;
-	private final ResourceLocation identifier;
+	private final Identifier identifier;
 
 	ModFluids() {
 		name = this.toString().toLowerCase(Locale.ROOT);
-		this.identifier = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name);
+		this.identifier = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name);
 
 		FluidSettings fluidSettings = FluidSettings.create();
 
-		ResourceLocation texture_still = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/fluids/" + name + "_still");
-		ResourceLocation texture_flowing = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "block/fluids/" + name + "_flowing");
+		Identifier texture_still = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "block/fluids/" + name + "_still");
+		Identifier texture_flowing = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "block/fluids/" + name + "_flowing");
 
 		fluidSettings.setStillTexture(texture_still);
 		fluidSettings.setFlowingTexture(texture_flowing);
@@ -107,10 +107,10 @@ public enum ModFluids implements BlockInfo {
 
 	public void register() {
 		RebornFluidManager.register(stillFluid, identifier);
-		RebornFluidManager.register(flowingFluid, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, identifier.getPath() + "_flowing"));
+		RebornFluidManager.register(flowingFluid, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, identifier.getPath() + "_flowing"));
 
 		Registry.register(BuiltInRegistries.BLOCK, identifier, block);
-		Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
+		Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public enum ModFluids implements BlockInfo {
 		return block;
 	}
 
-	public ResourceLocation getIdentifier() {
+	public Identifier getIdentifier() {
 		return identifier;
 	}
 

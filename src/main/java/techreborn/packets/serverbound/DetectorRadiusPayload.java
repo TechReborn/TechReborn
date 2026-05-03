@@ -34,7 +34,7 @@ import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
 public record DetectorRadiusPayload(BlockPos pos, int buttonAmount) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<DetectorRadiusPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "detector_radius"));
+	public static final CustomPacketPayload.Type<DetectorRadiusPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "detector_radius"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, DetectorRadiusPayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, DetectorRadiusPayload::pos,
 		ByteBufCodecs.INT, DetectorRadiusPayload::buttonAmount,

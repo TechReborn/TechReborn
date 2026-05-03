@@ -35,7 +35,7 @@ import techreborn.TechReborn;
 
 
 public record AESUConfigPayload (BlockPos pos, int buttonID, boolean shift, boolean ctrl) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<AESUConfigPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "aesu"));
+	public static final CustomPacketPayload.Type<AESUConfigPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "aesu"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, AESUConfigPayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, AESUConfigPayload::pos,
 		ByteBufCodecs.INT, AESUConfigPayload::buttonID,

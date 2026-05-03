@@ -54,22 +54,22 @@ import java.util.function.Consumer;
 public class WorldGenerator {
 	public static final List<TROreFeatureConfig> ORE_FEATURES = getOreFeatures();
 
-	public static final ResourceLocation OIL_LAKE_ID = ResourceLocation.fromNamespaceAndPath("techreborn", "oil_lake");
+	public static final Identifier OIL_LAKE_ID = Identifier.fromNamespaceAndPath("techreborn", "oil_lake");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> OIL_LAKE_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, OIL_LAKE_ID);
 	public static final ResourceKey<PlacedFeature> OIL_LAKE_PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, OIL_LAKE_ID);
 
-	public static final ResourceLocation RUBBER_TREE_ID = ResourceLocation.fromNamespaceAndPath("techreborn", "rubber_tree");
+	public static final Identifier RUBBER_TREE_ID = Identifier.fromNamespaceAndPath("techreborn", "rubber_tree");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> RUBBER_TREE_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, RUBBER_TREE_ID);
 	public static final ResourceKey<PlacedFeature> RUBBER_TREE_PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, RUBBER_TREE_ID);
 
-	public static final ResourceLocation RUBBER_TREE_PATCH_ID = ResourceLocation.fromNamespaceAndPath("techreborn", "rubber_tree_patch");
+	public static final Identifier RUBBER_TREE_PATCH_ID = Identifier.fromNamespaceAndPath("techreborn", "rubber_tree_patch");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> RUBBER_TREE_PATCH_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, RUBBER_TREE_PATCH_ID);
 	public static final ResourceKey<PlacedFeature> RUBBER_TREE_PATCH_PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, RUBBER_TREE_PATCH_ID);
 
-	public static final TreeDecoratorType<RubberTreeSpikeDecorator> RUBBER_TREE_SPIKE = Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, ResourceLocation.fromNamespaceAndPath("techreborn", "rubber_tree_spike"), new TreeDecoratorType<>(RubberTreeSpikeDecorator.CODEC));
+	public static final TreeDecoratorType<RubberTreeSpikeDecorator> RUBBER_TREE_SPIKE = Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, Identifier.fromNamespaceAndPath("techreborn", "rubber_tree_spike"), new TreeDecoratorType<>(RubberTreeSpikeDecorator.CODEC));
 
 	public static final TreeGrower RUBBER_TREE_SAPLING_GENERATOR = new TreeGrower(
-		ResourceLocation.fromNamespaceAndPath("techreborn", "rubber_tree").toString(),
+		Identifier.fromNamespaceAndPath("techreborn", "rubber_tree").toString(),
 		Optional.empty(),
 		Optional.of(RUBBER_TREE_FEATURE),
 		Optional.empty()
@@ -80,7 +80,7 @@ public class WorldGenerator {
 			return;
 		}
 
-		BiomeModifications.create(ResourceLocation.fromNamespaceAndPath("techreborn", "features"))
+		BiomeModifications.create(Identifier.fromNamespaceAndPath("techreborn", "features"))
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), oreModifier())
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_FOREST)
 					.or(BiomeSelectors.tag(BiomeTags.IS_TAIGA))

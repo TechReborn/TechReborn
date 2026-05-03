@@ -34,7 +34,7 @@ import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
 public record LaunchSpeedPayload(BlockPos pos, int buttonAmount) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<LaunchSpeedPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "launch_speed"));
+	public static final CustomPacketPayload.Type<LaunchSpeedPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "launch_speed"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, LaunchSpeedPayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, LaunchSpeedPayload::pos,
 		ByteBufCodecs.INT, LaunchSpeedPayload::buttonAmount,

@@ -38,8 +38,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
@@ -53,8 +53,8 @@ import java.util.function.Predicate;
 
 public class TRVillager {
 
-	public static final ResourceLocation METALLURGIST_ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "metallurgist");
-	public static final ResourceLocation ELECTRICIAN_ID = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "electrician");
+	public static final Identifier METALLURGIST_ID = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "metallurgist");
+	public static final Identifier ELECTRICIAN_ID = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "electrician");
 
 	public static final PoiType METALLURGIST_POI = PointOfInterestHelper.register(
 		METALLURGIST_ID, 1, 1, TRContent.Machine.IRON_ALLOY_FURNACE.block
@@ -144,7 +144,7 @@ public class TRVillager {
 		for (String type : types) {
 			DynamicRegistrySetupCallback.EVENT.register(registryManager ->
 				registryManager.registerEntryAdded(Registries.TEMPLATE_POOL, ((rawId, id, pool) -> {
-					if (id.equals(ResourceLocation.fromNamespaceAndPath("minecraft", "village/"+type+"/houses"))) {
+					if (id.equals(Identifier.fromNamespaceAndPath("minecraft", "village/"+type+"/houses"))) {
 						if (TechRebornConfig.enableMetallurgistGeneration) {
 							pool.templates.add(StructurePoolElement.single(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_metallurgist").apply(StructureTemplatePool.Projection.RIGID));
 						}
@@ -157,7 +157,7 @@ public class TRVillager {
 		}
 	}
 
-	private static ResourceKey<VillagerProfession> registerVillagerProfession(ResourceLocation id, ResourceKey<PoiType> heldWorkstation, SoundEvent event) {
+	private static ResourceKey<VillagerProfession> registerVillagerProfession(Identifier id, ResourceKey<PoiType> heldWorkstation, SoundEvent event) {
 		ResourceKey<VillagerProfession> key = ResourceKey.create(Registries.VILLAGER_PROFESSION, id);
 		Predicate<Holder<PoiType>> match = entry -> entry.is(heldWorkstation);
 		Registry.register(

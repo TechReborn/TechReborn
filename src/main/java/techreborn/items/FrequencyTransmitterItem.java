@@ -116,7 +116,7 @@ public class FrequencyTransmitterItem extends Item {
 			});
 	}
 
-	private static ResourceLocation getDimName(ResourceKey<Level> dimensionRegistryKey) {
-		return dimensionRegistryKey.location();
+	private static Identifier getDimName(ResourceKey<Level> dimensionRegistryKey) {
+		return dimensionRegistryKey.identifier();
 	}
 }

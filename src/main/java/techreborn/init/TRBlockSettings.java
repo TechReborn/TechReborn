@@ -279,6 +279,6 @@ public class TRBlockSettings {
 	}
 
 	public static ResourceKey<Block> key(String name) {
-		return ResourceKey.create(BuiltInRegistries.BLOCK.key(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+		return ResourceKey.create(BuiltInRegistries.BLOCK.key(), Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 	}
 }

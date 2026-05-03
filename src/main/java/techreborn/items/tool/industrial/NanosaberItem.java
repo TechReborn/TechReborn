@@ -56,10 +56,10 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 public class NanosaberItem extends Item implements RcEnergyItem {
-	private static final AttributeModifier ENABLED_ATTACK_DAMAGE_MODIFIER = new AttributeModifier(ResourceLocation.fromNamespaceAndPath("techreborn", "nano_saber_attack_damage"), TechRebornConfig.nanosaberDamage, AttributeModifier.Operation.ADD_VALUE);
-	private static final AttributeModifier ENABLED_ATTACK_SPEED_MODIFIER = new AttributeModifier(ResourceLocation.fromNamespaceAndPath("techreborn", "nano_saber_attack_speed"), 3, AttributeModifier.Operation.ADD_VALUE);
-	private static final AttributeModifier DISABLED_ATTACK_DAMAGE_MODIFIER = new AttributeModifier(ResourceLocation.fromNamespaceAndPath("techreborn", "nano_saber_attack_damage"), 0, AttributeModifier.Operation.ADD_VALUE);
-	private static final AttributeModifier DISABLED_ATTACK_SPEED_MODIFIER = new AttributeModifier(ResourceLocation.fromNamespaceAndPath("techreborn", "nano_saber_attack_speed"), 0, AttributeModifier.Operation.ADD_VALUE);
+	private static final AttributeModifier ENABLED_ATTACK_DAMAGE_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_damage"), TechRebornConfig.nanosaberDamage, AttributeModifier.Operation.ADD_VALUE);
+	private static final AttributeModifier ENABLED_ATTACK_SPEED_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_speed"), 3, AttributeModifier.Operation.ADD_VALUE);
+	private static final AttributeModifier DISABLED_ATTACK_DAMAGE_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_damage"), 0, AttributeModifier.Operation.ADD_VALUE);
+	private static final AttributeModifier DISABLED_ATTACK_SPEED_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_speed"), 0, AttributeModifier.Operation.ADD_VALUE);
 
 	// 1ME max charge with 2k charge rate
 	public NanosaberItem(String name) {

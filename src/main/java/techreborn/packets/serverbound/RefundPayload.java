@@ -31,7 +31,7 @@ import net.minecraft.resources.Identifier;
 import techreborn.TechReborn;
 
 public record RefundPayload() implements CustomPacketPayload {
-	public static final CustomPacketPayload.Type<RefundPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "refund"));
+	public static final CustomPacketPayload.Type<RefundPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "refund"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, RefundPayload> CODEC = StreamCodec.unit(new RefundPayload());
 
 	@Override

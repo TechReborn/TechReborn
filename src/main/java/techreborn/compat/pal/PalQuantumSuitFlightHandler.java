@@ -33,7 +33,7 @@ import techreborn.TechReborn;
 import techreborn.items.armor.QuantumSuitFlightHandler;
 
 public class PalQuantumSuitFlightHandler extends QuantumSuitFlightHandler {
-	private static final AbilitySource QUANTUM_CHESTPLATE_FLIGHT = Pal.getAbilitySource(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "quantum_chestplate_flight"), AbilitySource.CONSUMABLE);
+	private static final AbilitySource QUANTUM_CHESTPLATE_FLIGHT = Pal.getAbilitySource(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "quantum_chestplate_flight"), AbilitySource.CONSUMABLE);
 
 	@Override
 	public void setAllowFlight(Player playerEntity, boolean allowed) {

@@ -65,12 +65,12 @@ public class TRDataComponentTypes {
 		DataComponentType.<Integer>builder().persistent(PrimitiveCodec.INT).networkSynchronized(ByteBufCodecs.INT).build();
 
 	public static void init(){
-		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "is_active"), IS_ACTIVE);
-		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "aoe5"), AOE5);
-		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "frequency_transmitter"), FREQUENCY_TRANSMITTER);
-		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "painting_cover"), PAINTING_COVER);
-		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid"), FLUID);
-		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "stored_heat"), STORED_HEAT);
-		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fuel_remaining"), FUEL_REMAINING);
+		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "is_active"), IS_ACTIVE);
+		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "aoe5"), AOE5);
+		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "frequency_transmitter"), FREQUENCY_TRANSMITTER);
+		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "painting_cover"), PAINTING_COVER);
+		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid"), FLUID);
+		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "stored_heat"), STORED_HEAT);
+		Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "fuel_remaining"), FUEL_REMAINING);
 	}
 }

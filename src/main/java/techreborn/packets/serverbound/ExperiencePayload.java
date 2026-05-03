@@ -33,7 +33,7 @@ import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
 public record ExperiencePayload (BlockPos pos) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<ExperiencePayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "experience"));
+	public static final CustomPacketPayload.Type<ExperiencePayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "experience"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, ExperiencePayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, ExperiencePayload::pos,
 		ExperiencePayload::new

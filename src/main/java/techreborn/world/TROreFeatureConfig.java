@@ -34,9 +34,9 @@ import techreborn.init.TRContent;
 
 import java.util.function.Predicate;
 
-public record TROreFeatureConfig(ResourceLocation id, TRContent.Ores ore, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, ResourceKey<PlacedFeature> placedFeature) {
+public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, ResourceKey<PlacedFeature> placedFeature) {
 	public static TROreFeatureConfig of(TRContent.Ores ore) {
-		ResourceLocation id = ResourceLocation.fromNamespaceAndPath("techreborn", ore.name + "_ore");
+		Identifier id = Identifier.fromNamespaceAndPath("techreborn", ore.name + "_ore");
 		return new TROreFeatureConfig(
 			id,
 			ore,

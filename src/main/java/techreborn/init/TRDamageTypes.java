@@ -33,8 +33,8 @@ import net.minecraft.world.level.Level;
 import techreborn.TechReborn;
 
 public final class TRDamageTypes {
-	public static final ResourceKey<DamageType> ELECTRIC_SHOCK = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "electric_shock"));
-	public static final ResourceKey<DamageType> FUSION = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fusion"));
+	public static final ResourceKey<DamageType> ELECTRIC_SHOCK = ResourceKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "electric_shock"));
+	public static final ResourceKey<DamageType> FUSION = ResourceKey.create(Registries.DAMAGE_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "fusion"));
 
 	public static DamageSource create(Level world, ResourceKey<DamageType> key) {
 		return new DamageSource(

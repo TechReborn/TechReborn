@@ -30,7 +30,7 @@ import techreborn.init.TRItemSettings;
 
 import java.util.Map.Entry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;

@@ -25,7 +25,7 @@
 package techreborn.utils;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -37,10 +37,10 @@ import techreborn.TechReborn;
 
 public class InitUtils {
 	public static <I extends Item> I setup(I item, String name) {
-		RebornRegistry.registerIdent(item, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+		RebornRegistry.registerIdent(item, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 
 		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-			String expect = Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+			String expect = Util.makeDescriptionId("item", Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 			String actual = item.getDescriptionId();
 
 			if (!expect.equals(actual)) {
@@ -53,10 +53,10 @@ public class InitUtils {
 	}
 
 	public static <B extends Block> B setup(B block, String name) {
-		RebornRegistry.registerIdent(block, ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+		RebornRegistry.registerIdent(block, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 
 		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-			String expect = Util.makeDescriptionId("block", ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+			String expect = Util.makeDescriptionId("block", Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 			String actual = block.getDescriptionId();
 
 			if (!expect.equals(actual)) {
@@ -69,7 +69,7 @@ public class InitUtils {
 	}
 
 	public static SoundEvent setup(String name) {
-		ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name);
+		Identifier identifier = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier));
 	}
 

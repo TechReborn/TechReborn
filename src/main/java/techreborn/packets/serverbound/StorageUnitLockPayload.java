@@ -34,7 +34,7 @@ import reborncore.common.network.BlockPosPayload;
 import techreborn.TechReborn;
 
 public record StorageUnitLockPayload(BlockPos pos, boolean locked) implements CustomPacketPayload, BlockPosPayload {
-	public static final CustomPacketPayload.Type<StorageUnitLockPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "storage_unit_lock"));
+	public static final CustomPacketPayload.Type<StorageUnitLockPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "storage_unit_lock"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, StorageUnitLockPayload> CODEC = StreamCodec.composite(
 		BlockPos.STREAM_CODEC, StorageUnitLockPayload::pos,
 		ByteBufCodecs.BOOL, StorageUnitLockPayload::locked,

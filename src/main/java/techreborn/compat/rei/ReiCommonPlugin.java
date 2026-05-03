@@ -117,7 +117,7 @@ public class ReiCommonPlugin implements REICommonPlugin {
 	}
 
 	private void registerFluidGeneratorDisplays(ServerDisplayRegistry registry, RecipeType<FluidGeneratorRecipe> generator, TRContent.Machine machine) {
-		ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, machine.name);
+		Identifier identifier = Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, machine.name);
 		registry.beginRecipeFiller(FluidGeneratorRecipe.class)
 			.filterType(generator)
 			.fill(recipe -> new FluidGeneratorRecipeDisplay(recipe.value(), identifier));
@@ -145,9 +145,9 @@ public class ReiCommonPlugin implements REICommonPlugin {
 
 	@Override
 	public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
-		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "machine"), MachineRecipeDisplay.SERIALIZER);
-		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "rolling_machine"), RollingMachineDisplay.SERIALIZER);
-		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid_generator"), FluidGeneratorRecipeDisplay.SERIALIZER);
-		registry.register(ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid_replicator"), FluidReplicatorRecipeDisplay.SERIALIZER);
+		registry.register(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "machine"), MachineRecipeDisplay.SERIALIZER);
+		registry.register(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "rolling_machine"), RollingMachineDisplay.SERIALIZER);
+		registry.register(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid_generator"), FluidGeneratorRecipeDisplay.SERIALIZER);
+		registry.register(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "fluid_replicator"), FluidReplicatorRecipeDisplay.SERIALIZER);
 	}
 }

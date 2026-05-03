@@ -53,7 +53,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 			Codec.STRING.fieldOf("category").forGetter(d -> d.category.getIdentifier().toString()),
 			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(MachineRecipeDisplay::getInputEntries),
 			EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(MachineRecipeDisplay::getOutputEntries),
-			ResourceLocation.CODEC.optionalFieldOf("location").forGetter(MachineRecipeDisplay::getDisplayLocation),
+			Identifier.CODEC.optionalFieldOf("location").forGetter(MachineRecipeDisplay::getDisplayLocation),
 			Codec.INT.fieldOf("energy").forGetter(MachineRecipeDisplay::getEnergy),
 			Codec.INT.fieldOf("heat").forGetter(MachineRecipeDisplay::getHeat),
 			Codec.INT.fieldOf("time").forGetter(MachineRecipeDisplay::getTime),
@@ -66,7 +66,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 			MachineRecipeDisplay::getInputEntries,
 			EntryIngredient.streamCodec().apply(ByteBufCodecs.list()),
 			MachineRecipeDisplay::getOutputEntries,
-			ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC),
+			ByteBufCodecs.optional(Identifier.STREAM_CODEC),
 			MachineRecipeDisplay::getDisplayLocation,
 			ByteBufCodecs.INT,
 			MachineRecipeDisplay::getEnergy,
@@ -83,7 +83,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	private final CategoryIdentifier<?> category;
 	private final List<EntryIngredient> inputs;
 	private final List<EntryIngredient> outputs;
-	private final Optional<ResourceLocation> location;
+	private final Optional<Identifier> location;
 	private final int energy;
 	private int heat = 0;
 	private final int time;
@@ -93,7 +93,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 		String category,
 		List<EntryIngredient> inputs,
 		List<EntryIngredient> outputs,
-		Optional<ResourceLocation> location,
+		Optional<Identifier> location,
 		int energy,
 		int heat,
 		int time,
@@ -114,7 +114,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 		this.category = CategoryIdentifier.of(Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType())));
 		this.inputs = CollectionUtils.map(recipe.ingredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
 		this.outputs = recipe.outputs().stream().map(EntryIngredients::of).collect(Collectors.toList());
-		this.location = Optional.of(entry.id().location());
+		this.location = Optional.of(entry.id().identifier());
 		this.time = recipe.time();
 		this.energy = recipe.power();
 		if (recipe instanceof BlastFurnaceRecipe) {
@@ -143,7 +143,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements Display {
 	}
 
 	@Override
-	public Optional<ResourceLocation> getDisplayLocation() {
+	public Optional<Identifier> getDisplayLocation() {
 		return location;
 	}
 

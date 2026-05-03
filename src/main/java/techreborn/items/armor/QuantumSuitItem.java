@@ -84,7 +84,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 				break;
 			case LEGGINGS: {
 				AttributeModifier modifier = new AttributeModifier(
-					ResourceLocation.fromNamespaceAndPath("techreborn", "quantum_movement_speed"),
+					Identifier.fromNamespaceAndPath("techreborn", "quantum_movement_speed"),
 					0.15,
 					AttributeModifier.Operation.ADD_VALUE
 				);

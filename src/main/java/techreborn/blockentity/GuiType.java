@@ -100,7 +100,7 @@ import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 
-public record GuiType<T extends BlockEntity>(ResourceLocation identifier, MenuType<BuiltScreenHandler> screenHandlerType) implements IMachineGuiHandler {
+public record GuiType<T extends BlockEntity>(Identifier identifier, MenuType<BuiltScreenHandler> screenHandlerType) implements IMachineGuiHandler {
 	public static final GuiType<AdjustableSUBlockEntity> AESU = register("aesu");
 	public static final GuiType<IronAlloyFurnaceBlockEntity> ALLOY_FURNACE = register("alloy_furnace");
 	public static final GuiType<AlloySmelterBlockEntity> ALLOY_SMELTER = register("alloy_smelter");
@@ -156,12 +156,12 @@ public record GuiType<T extends BlockEntity>(ResourceLocation identifier, MenuTy
 
 
 	private static <T extends BlockEntity> GuiType<T> register(String path) {
-		var id = ResourceLocation.fromNamespaceAndPath("techreborn", path);
+		var id = Identifier.fromNamespaceAndPath("techreborn", path);
 		var screenHandlerType = Registry.register(BuiltInRegistries.MENU, id, new ExtendedScreenHandlerType<>(getScreenHandlerFactory(id), ScreenHandlerData.PACKET_CODEC));
 		return new GuiType<>(id, screenHandlerType);
 	}
 
-	private static ExtendedScreenHandlerType.ExtendedFactory<BuiltScreenHandler, ScreenHandlerData> getScreenHandlerFactory(ResourceLocation identifier) {
+	private static ExtendedScreenHandlerType.ExtendedFactory<BuiltScreenHandler, ScreenHandlerData> getScreenHandlerFactory(Identifier identifier) {
 		return (syncId, playerInventory, payload) -> {
 			if (!payload.isWithinDistance(playerInventory.player, 16)) {
 				throw new IllegalStateException("Player cannot use this block entity as its too far away");
@@ -217,7 +217,7 @@ public record GuiType<T extends BlockEntity>(ResourceLocation identifier, MenuTy
 		);
 	}
 
-	public ResourceLocation getIdentifier() {
+	public Identifier getIdentifier() {
 		return identifier;
 	}
 

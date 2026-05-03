@@ -120,12 +120,12 @@ public class ModRegistry {
 	}
 
 	private static Item.Properties settings(Block block) {
-		return settings(block.properties().id.location().getPath());
+		return settings(block.properties().id.identifier().getPath());
 	}
 
 	private static Item.Properties settings(String name) {
 		return TRItemSettings.item(name)
-			.setId(ResourceKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name)))
+			.setId(ResourceKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name)))
 			.overrideDescription("block.techreborn." + name);
 	}
 

@@ -55,6 +55,6 @@ public class TRItemSettings {
 	}
 
 	public static ResourceKey<Item> key(String name) {
-		return ResourceKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(TechReborn.MOD_ID, name));
+		return ResourceKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name));
 	}
 }

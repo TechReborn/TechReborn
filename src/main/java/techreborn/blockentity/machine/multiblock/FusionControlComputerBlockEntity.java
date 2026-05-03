@@ -397,7 +397,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 				.sync(ByteBufCodecs.INT, this::getSize, this::setSize)
 				.sync(ByteBufCodecs.INT, this::getState, this::setState)
 				.sync(ByteBufCodecs.INT, this::getNeededPower, this::setNeededPower)
-				.sync(ResourceLocation.STREAM_CODEC, this::getCurrentRecipeID, this::setCurrentRecipeID)
+				.sync(Identifier.STREAM_CODEC, this::getCurrentRecipeID, this::setCurrentRecipeID)
 				.syncShapeValue()
 				.addInventory()
 				.create(this, syncID);
@@ -441,15 +441,15 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		this.neededPower = neededPower;
 	}
 
-	public ResourceLocation getCurrentRecipeID() {
+	public Identifier getCurrentRecipeID() {
 		if (currentRecipeEntry == null) {
-			return ResourceLocation.fromNamespaceAndPath("null", "null");
+			return Identifier.fromNamespaceAndPath("null", "null");
 		}
 
-		return currentRecipeEntry.id().location();
+		return currentRecipeEntry.id().identifier();
 	}
 
-	public void setCurrentRecipeID(ResourceLocation currentRecipeID) {
+	public void setCurrentRecipeID(Identifier currentRecipeID) {
 		if (currentRecipeID.getPath().equals("null")) {
 			currentRecipeEntry = null;
 			return;
@@ -458,7 +458,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		this.currentRecipeEntry = getRecipeFromID(currentRecipeID);
 	}
 
-	private RecipeHolder<FusionReactorRecipe> getRecipeFromID(ResourceLocation identifier) {
+	private RecipeHolder<FusionReactorRecipe> getRecipeFromID(Identifier identifier) {
 		return RecipeUtils.getRecipeEntries(level, ModRecipes.FUSION_REACTOR).stream()
 			.filter(recipe -> recipe.id().equals(identifier))
 			.findFirst()

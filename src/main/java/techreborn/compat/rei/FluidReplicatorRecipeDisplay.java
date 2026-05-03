@@ -55,7 +55,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 			Codec.STRING.fieldOf("category").forGetter(d -> d.category.getIdentifier().toString()),
 			EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(FluidReplicatorRecipeDisplay::getInputEntries),
 			EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(FluidReplicatorRecipeDisplay::getOutputEntries),
-			ResourceLocation.CODEC.optionalFieldOf("location").forGetter(FluidReplicatorRecipeDisplay::getDisplayLocation),
+			Identifier.CODEC.optionalFieldOf("location").forGetter(FluidReplicatorRecipeDisplay::getDisplayLocation),
 			FluidInstance.CODEC.optionalFieldOf("fluidInstance").forGetter(d -> Optional.ofNullable(d.fluidInstance)),
 			Codec.INT.fieldOf("energy").forGetter(FluidReplicatorRecipeDisplay::getEnergy),
 			Codec.INT.fieldOf("time").forGetter(FluidReplicatorRecipeDisplay::getTime)
@@ -67,7 +67,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 			FluidReplicatorRecipeDisplay::getInputEntries,
 			EntryIngredient.streamCodec().apply(ByteBufCodecs.list()),
 			FluidReplicatorRecipeDisplay::getOutputEntries,
-			ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC),
+			ByteBufCodecs.optional(Identifier.STREAM_CODEC),
 			FluidReplicatorRecipeDisplay::getDisplayLocation,
 			ByteBufCodecs.optional(FluidInstance.PACKET_CODEC),
 			d -> Optional.ofNullable(d.fluidInstance),
@@ -80,7 +80,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 	);
 
 	private final CategoryIdentifier<?> category;
-	private final Optional<ResourceLocation> location;
+	private final Optional<Identifier> location;
 	private final List<EntryIngredient> inputs;
 	private final List<EntryIngredient> outputs;
 	private final FluidInstance fluidInstance;
@@ -91,7 +91,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 		String category,
 		List<EntryIngredient> inputs,
 		List<EntryIngredient> outputs,
-		Optional<ResourceLocation> location,
+		Optional<Identifier> location,
 		Optional<FluidInstance> fluidInstance,
 		int energy,
 		int time
@@ -108,7 +108,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 	public FluidReplicatorRecipeDisplay(RecipeHolder<RebornRecipe> entry) {
 		FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) entry.value();
 		this.category = CategoryIdentifier.of(Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType())));
-		this.location = Optional.of(entry.id().location());
+		this.location = Optional.of(entry.id().identifier());
 		this.inputs = CollectionUtils.map(recipe.ingredients(), ing -> EntryIngredients.ofItemStacks(ing.getPreviewStacks()));
 		this.fluidInstance = recipe.fluid();
 		this.outputs = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryIngredients.of(fluidInstance.fluid(), fluidInstance.getAmount().getRawValue()));
@@ -144,7 +144,7 @@ public class FluidReplicatorRecipeDisplay implements Display {
 	}
 
 	@Override
-	public Optional<ResourceLocation> getDisplayLocation() {
+	public Optional<Identifier> getDisplayLocation() {
 		return location;
 	}
 

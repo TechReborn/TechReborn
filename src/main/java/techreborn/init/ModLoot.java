@@ -87,7 +87,7 @@ public class ModLoot {
 				.build();
 
 		LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
-			String stringId = key.location().toString();
+			String stringId = key.identifier().toString();
 			if (!stringId.startsWith("minecraft:gameplay") && !stringId.startsWith("minecraft:chests")) {
 				return;
 			}
