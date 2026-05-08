@@ -24,16 +24,18 @@
 
 package reborncore;
 
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import org.apache.commons.lang3.Validate;
 
 import java.util.HashMap;
 import java.util.function.Function;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 
 /**
  * Created by Gigabit101 on 16/08/2016.
@@ -51,13 +53,10 @@ public class RebornRegistry {
 	 */
 	public static void registerBlock(Block block, Item.Properties settings, Identifier name) {
 		Registry.register(BuiltInRegistries.BLOCK, name, block);
-		BlockItem itemBlock = new BlockItem(block, settings);
-		Registry.register(BuiltInRegistries.ITEM, name, itemBlock);
-	}
-
-	public static void registerBlock(Block block, Function<Block, BlockItem> blockItemFunction, Identifier name) {
-		Registry.register(BuiltInRegistries.BLOCK, name, block);
-		BlockItem itemBlock = blockItemFunction.apply(block);
+		Item.Properties itemSettings = settings.setId(
+			ResourceKey.create(Registries.ITEM, name)
+		);
+		BlockItem itemBlock = new BlockItem(block, itemSettings);
 		Registry.register(BuiltInRegistries.ITEM, name, itemBlock);
 	}
 
@@ -68,6 +67,12 @@ public class RebornRegistry {
 	 * @param block     {@link Block} Block to register
 	 * @param itemGroup {@link Item.Properties} Settings settings for {@link BlockItem}
 	 */
+	public static void registerBlock(Block block, Function<Block, BlockItem> blockItemFunction, Identifier name) {
+		Registry.register(BuiltInRegistries.BLOCK, name, block);
+		BlockItem itemBlock = blockItemFunction.apply(block);
+		Registry.register(BuiltInRegistries.ITEM, name, itemBlock);
+	}
+
 	public static void registerBlock(Block block, Item.Properties itemGroup) {
 		Validate.isTrue(objIdentMap.containsKey(block));
 		registerBlock(block, itemGroup, objIdentMap.get(block));
