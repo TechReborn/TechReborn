@@ -92,7 +92,7 @@ public class ClientBoundPacketHandlers {
 		});
 
 		ClientPlayNetworking.registerGlobalReceiver(ScreenHandlerUpdatePayload.ID, (payload, context) -> {
-			Screen gui = Minecraft.getInstance().screen;
+			Screen gui = Minecraft.getInstance().gui.screen();
 			if (gui instanceof AbstractContainerScreen handledScreen) {
 				AbstractContainerMenu screenHandler = handledScreen.getMenu();
 				if (screenHandler instanceof BuiltScreenHandler builtScreenHandler) {

@@ -155,7 +155,10 @@ class TRDynamicContent {
 		return new ConfiguredFeature<>(Feature.LAKE,
 				new LakeFeature.Configuration(
 					BlockStateProvider.simple(ModFluids.OIL.getBlock().defaultBlockState()),
-					BlockStateProvider.simple(Blocks.STONE.defaultBlockState())
+					BlockStateProvider.simple(Blocks.STONE.defaultBlockState()),
+					BlockPredicate.alwaysTrue(),
+					BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
+					BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
 				)
 			)
 	}
@@ -214,7 +217,8 @@ class TRDynamicContent {
 					1,
 					0,
 					1
-				))
+				),
+				BlockStateProvider.simple(Blocks.DIRT.defaultBlockState()))
 				.decorators(List.of(
 					new RubberTreeSpikeDecorator(4, BlockStateProvider.simple(TRContent.RUBBER_LEAVES.defaultBlockState()))
 				)).build()

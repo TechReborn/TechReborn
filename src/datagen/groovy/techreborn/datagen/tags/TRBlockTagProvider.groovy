@@ -27,12 +27,16 @@ package techreborn.datagen.tags
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider.BlockTagsProvider
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags
-import net.minecraft.world.level.block.Blocks
-import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
+import net.minecraft.data.tags.BlockItemTagAppender
+import net.minecraft.tags.BlockItemTags
 import net.minecraft.tags.BlockTags
 import net.minecraft.tags.TagKey
 import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceKey
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
@@ -44,13 +48,47 @@ class TRBlockTagProvider extends BlockTagsProvider {
 		super(output, registriesFuture)
 	}
 
+	protected BlockAppender builder(TagKey<Block> tag) {
+		return new BlockAppender(super.builder(tag))
+	}
+
+	private static ResourceKey<Block> key(Block block) {
+		return block.builtInRegistryHolder().key()
+	}
+
+	private static final class BlockAppender extends BlockItemTagAppender<Block> {
+		BlockAppender(BlockItemTagAppender<Block> original) {
+			super(original)
+		}
+
+		@Override
+		protected ResourceKey<Block> convertElement(net.minecraft.references.BlockItemId element) {
+			return element.block()
+		}
+
+		BlockAppender add(Block... blocks) {
+			blocks.each { add(TRBlockTagProvider.key(it)) }
+			return this
+		}
+
+		BlockAppender addOptional(Block block) {
+			addOptional(TRBlockTagProvider.key(block))
+			return this
+		}
+
+		BlockAppender forceAddTag(TagKey<Block> tag) {
+			addOptionalTag(tag)
+			return this
+		}
+	}
+
 	@Override
 	protected void addTags(HolderLookup.Provider lookup) {
-		valueLookupBuilder(TRContent.BlockTags.DRILL_MINEABLE)
+		builder(TRContent.BlockTags.DRILL_MINEABLE)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_PICKAXE)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_SHOVEL)
 
-		valueLookupBuilder(TRContent.BlockTags.JACKHAMMER_MINEABLE)
+		builder(TRContent.BlockTags.JACKHAMMER_MINEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_NETHER)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.addOptionalTag(BlockTags.DIRT)
@@ -70,112 +108,112 @@ class TRBlockTagProvider extends BlockTagsProvider {
 			.addOptional(Blocks.SOUL_SAND)
 			.addOptional(Blocks.SOUL_SOIL)
 
-		valueLookupBuilder(TRContent.BlockTags.OMNI_TOOL_MINEABLE)
+		builder(TRContent.BlockTags.OMNI_TOOL_MINEABLE)
 			.addTag(TRContent.BlockTags.DRILL_MINEABLE)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_AXE)
 		// TODO 1.20.5
 //			.addOptionalTag(FabricMineableTags.SHEARS_MINEABLE.id())
 //			.addOptionalTag(FabricMineableTags.SWORD_MINEABLE.id())
 
-		valueLookupBuilder(BlockTags.MINEABLE_WITH_HOE)
+		builder(BlockTags.MINEABLE_WITH_HOE)
 			.add(TRContent.RUBBER_LEAVES)
 
 		TRContent.Ores.values().each {
-			valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+			builder(BlockTags.MINEABLE_WITH_PICKAXE)
 				.add(it.block)
 		}
 
 		TRContent.Ores.values().each {
-			valueLookupBuilder(ConventionalBlockTags.ORES)
+			builder(ConventionalBlockTags.ORES)
 				.add(it.block)
 		}
 
 		TRContent.StorageBlocks.values().each {
-			valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+			builder(BlockTags.MINEABLE_WITH_PICKAXE)
 				.add(it.block, it.stairsBlock, it.slabBlock, it.wallBlock)
 		}
 
 		TRContent.MachineBlocks.values().each {
-			valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+			builder(BlockTags.MINEABLE_WITH_PICKAXE)
 				.add(it.casing)
 		}
 
-		valueLookupBuilder(BlockTags.FENCES)
+		builder(BlockTags.FENCES)
 			.add(TRContent.RUBBER_FENCE)
 			.add(TRContent.REFINED_IRON_FENCE)
 
-		valueLookupBuilder(BlockTags.GUARDED_BY_PIGLINS)
+		builder(BlockTags.GUARDED_BY_PIGLINS)
 			.add(TRContent.StorageBlocks.ELECTRUM.block)
 
-		valueLookupBuilder(BlockTags.LEAVES)
+		builder(BlockTags.LEAVES)
 			.add(TRContent.RUBBER_LEAVES)
 
-		valueLookupBuilder(TRContent.BlockTags.RUBBER_LOGS)
+		builder(TRContent.BlockTags.RUBBER_LOGS)
 			.add(TRContent.RUBBER_LOG)
 			.add(TRContent.RUBBER_LOG_STRIPPED)
 			.add(TRContent.RUBBER_WOOD)
 			.add(TRContent.STRIPPED_RUBBER_WOOD)
 
-		valueLookupBuilder(BlockTags.LOGS_THAT_BURN)
+		builder(BlockItemTags.LOGS_THAT_BURN.block())
 			.addTag(TRContent.BlockTags.RUBBER_LOGS)
 
-		valueLookupBuilder(BlockTags.PLANKS)
+		builder(BlockTags.PLANKS)
 			.add(TRContent.RUBBER_PLANKS)
 
-		valueLookupBuilder(BlockTags.SAPLINGS)
+		builder(BlockItemTags.SAPLINGS.block())
 			.add(TRContent.RUBBER_SAPLING)
 
-		valueLookupBuilder(BlockTags.SLABS)
+		builder(BlockTags.SLABS)
 			.add(TRContent.RUBBER_SLAB)
 
 		TRContent.StorageBlocks.values().each {
-			valueLookupBuilder(BlockTags.SLABS)
+			builder(BlockTags.SLABS)
 				.add(it.slabBlock)
 		}
 
-		valueLookupBuilder(BlockTags.STAIRS)
+		builder(BlockTags.STAIRS)
 			.add(TRContent.RUBBER_STAIR)
 
 		TRContent.StorageBlocks.values().each {
-			valueLookupBuilder(BlockTags.STAIRS)
+			builder(BlockTags.STAIRS)
 				.add(it.stairsBlock)
 		}
 
 		TRContent.StorageBlocks.values().each {
-			valueLookupBuilder(BlockTags.WALLS)
+			builder(BlockTags.WALLS)
 				.add(it.wallBlock)
 		}
 
-		valueLookupBuilder(BlockTags.WALLS)
+		builder(BlockTags.WALLS)
 			.add(TRContent.COPPER_WALL)
 
-		valueLookupBuilder(BlockTags.WOODEN_BUTTONS)
+		builder(BlockTags.WOODEN_BUTTONS)
 			.add(TRContent.RUBBER_BUTTON)
 
-		valueLookupBuilder(BlockTags.WOODEN_DOORS)
+		builder(BlockTags.WOODEN_DOORS)
 			.add(TRContent.RUBBER_DOOR)
 
-		valueLookupBuilder(BlockTags.WOODEN_FENCES)
+		builder(BlockTags.WOODEN_FENCES)
 			.add(TRContent.RUBBER_FENCE)
 
-		valueLookupBuilder(BlockTags.WOODEN_PRESSURE_PLATES)
+		builder(BlockTags.WOODEN_PRESSURE_PLATES)
 			.add(TRContent.RUBBER_PRESSURE_PLATE)
 
-		valueLookupBuilder(BlockTags.WOODEN_SLABS)
+		builder(BlockTags.WOODEN_SLABS)
 			.add(TRContent.RUBBER_SLAB)
 
-		valueLookupBuilder(BlockTags.WOODEN_STAIRS)
+		builder(BlockTags.WOODEN_STAIRS)
 			.add(TRContent.RUBBER_STAIR)
 
-		valueLookupBuilder(BlockTags.WOODEN_TRAPDOORS)
+		builder(BlockTags.WOODEN_TRAPDOORS)
 			.add(TRContent.RUBBER_TRAPDOOR)
 
 		ModFluids.values().each {
-			valueLookupBuilder(BlockTags.REPLACEABLE)
+			builder(BlockTags.REPLACEABLE)
 			.add(it.block)
 		}
 
-		valueLookupBuilder(TRContent.BlockTags.NONE_SOLID_COVERS)
+		builder(TRContent.BlockTags.NONE_SOLID_COVERS)
 			.addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ae2", "whitelisted/facades")))
 			.forceAddTag(ConventionalBlockTags.GLASS_BLOCKS)
 	}

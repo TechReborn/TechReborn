@@ -265,22 +265,22 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateGlassFromGlassPane() {
 		[
 			(Items.GLASS_PANE) : Items.GLASS,
-			(Items.BLACK_STAINED_GLASS_PANE) : Items.BLACK_STAINED_GLASS,
-			(Items.BLUE_STAINED_GLASS_PANE) : Items.BLACK_STAINED_GLASS,
-			(Items.BROWN_STAINED_GLASS_PANE) : Items.BROWN_STAINED_GLASS,
-			(Items.CYAN_STAINED_GLASS_PANE) : Items.CYAN_STAINED_GLASS,
-			(Items.GRAY_STAINED_GLASS_PANE) : Items.GRAY_STAINED_GLASS,
-			(Items.GREEN_STAINED_GLASS_PANE) : Items.GREEN_STAINED_GLASS,
-			(Items.LIGHT_BLUE_STAINED_GLASS_PANE) : Items.LIGHT_BLUE_STAINED_GLASS,
-			(Items.LIGHT_GRAY_STAINED_GLASS_PANE) : Items.LIGHT_GRAY_STAINED_GLASS,
-			(Items.LIME_STAINED_GLASS_PANE) : Items.LIME_STAINED_GLASS,
-			(Items.MAGENTA_STAINED_GLASS_PANE) : Items.MAGENTA_STAINED_GLASS,
-			(Items.ORANGE_STAINED_GLASS_PANE) : Items.ORANGE_STAINED_GLASS,
-			(Items.PINK_STAINED_GLASS_PANE) : Items.PINK_STAINED_GLASS,
-			(Items.PURPLE_STAINED_GLASS_PANE) : Items.PURPLE_STAINED_GLASS,
-			(Items.RED_STAINED_GLASS_PANE) : Items.RED_STAINED_GLASS,
-			(Items.WHITE_STAINED_GLASS_PANE) : Items.WHITE_STAINED_GLASS,
-			(Items.YELLOW_STAINED_GLASS_PANE) : Items.YELLOW_STAINED_GLASS
+			(Items.STAINED_GLASS_PANE.black()) : Items.STAINED_GLASS.black(),
+			(Items.STAINED_GLASS_PANE.blue()) : Items.STAINED_GLASS.blue(),
+			(Items.STAINED_GLASS_PANE.brown()) : Items.STAINED_GLASS.brown(),
+			(Items.STAINED_GLASS_PANE.cyan()) : Items.STAINED_GLASS.cyan(),
+			(Items.STAINED_GLASS_PANE.gray()) : Items.STAINED_GLASS.gray(),
+			(Items.STAINED_GLASS_PANE.green()) : Items.STAINED_GLASS.green(),
+			(Items.STAINED_GLASS_PANE.lightBlue()) : Items.STAINED_GLASS.lightBlue(),
+			(Items.STAINED_GLASS_PANE.lightGray()) : Items.STAINED_GLASS.lightGray(),
+			(Items.STAINED_GLASS_PANE.lime()) : Items.STAINED_GLASS.lime(),
+			(Items.STAINED_GLASS_PANE.magenta()) : Items.STAINED_GLASS.magenta(),
+			(Items.STAINED_GLASS_PANE.orange()) : Items.STAINED_GLASS.orange(),
+			(Items.STAINED_GLASS_PANE.pink()) : Items.STAINED_GLASS.pink(),
+			(Items.STAINED_GLASS_PANE.purple()) : Items.STAINED_GLASS.purple(),
+			(Items.STAINED_GLASS_PANE.red()) : Items.STAINED_GLASS.red(),
+			(Items.STAINED_GLASS_PANE.white()) : Items.STAINED_GLASS.white(),
+			(Items.STAINED_GLASS_PANE.yellow()) : Items.STAINED_GLASS.yellow()
 		].each {(pane,glass) ->
 			offerBlastFurnaceRecipe {
 				ingredients stack(pane, 10)

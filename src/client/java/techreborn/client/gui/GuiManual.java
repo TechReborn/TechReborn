@@ -75,18 +75,18 @@ public class GuiManual extends Screen {
 			addRenderableWidget(
 				Button.builder(Component.translatable("techreborn.manual.refundbtn"), button -> {
 					ClientPlayNetworking.send(new RefundPayload());
-					minecraft.setScreen(null);
+					minecraft.gui.setScreen(null);
 				}).bounds((width / 2 - 30), y + 160, 60, 20).build()
 			);
 		}
 	}
 
 	private void openLink(String url) {
-		minecraft.setScreen(new ConfirmLinkScreen(t -> {
+		minecraft.gui.setScreen(new ConfirmLinkScreen(t -> {
 			if (t) {
 				Util.getPlatform().openUri(url);
 			}
-			this.minecraft.setScreen(this);
+			this.minecraft.gui.setScreen(this);
 		}, url, false));
 	}
 

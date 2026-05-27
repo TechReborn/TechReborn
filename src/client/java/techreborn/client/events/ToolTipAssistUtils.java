@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -82,7 +83,7 @@ public class ToolTipAssistUtils {
 	public static void addInfo(String inKey, List<Component> list, boolean hidden) {
 		String key = ("techreborn.message.info." + inKey);
 
-		if (I18n.exists(key)) {
+		if (!Language.getInstance().getOrDefault(key, key).equals(key)) {
 			if (!hidden || Minecraft.getInstance().hasShiftDown()) {
 				String info = I18n.get(key);
 				List<MutableComponent> infoLines = Arrays.stream(info.split("\\r?\\n"))

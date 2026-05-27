@@ -279,7 +279,7 @@ public class TRItemGroup {
 			TRContent.MachineBlocks.ADVANCED.getFrame(),
 			TRContent.MachineBlocks.INDUSTRIAL.getFrame());
 		entries.insertAfter(Items.IRON_CHAIN, TRContent.REFINED_IRON_FENCE);
-		entries.insertBefore(Items.COPPER_BLOCK,
+		entries.insertBefore(Items.COPPER_BLOCK.weathering().unaffected(),
 			TRContent.StorageBlocks.RAW_TIN,
 			TRContent.StorageBlocks.RAW_TIN.getStairsBlock(),
 			TRContent.StorageBlocks.RAW_TIN.getSlabBlock(),
@@ -300,8 +300,8 @@ public class TRItemGroup {
 			TRContent.StorageBlocks.STEEL.getStairsBlock(),
 			TRContent.StorageBlocks.STEEL.getSlabBlock(),
 			TRContent.StorageBlocks.STEEL.getWallBlock());
-		entries.insertAfter(Items.CUT_COPPER_SLAB, TRContent.COPPER_WALL);
-		entries.insertAfter(Items.WAXED_OXIDIZED_CUT_COPPER_SLAB,
+		entries.insertAfter(Items.CUT_COPPER_SLAB.weathering().unaffected(), TRContent.COPPER_WALL);
+		entries.insertAfter(Items.CUT_COPPER_SLAB.waxed().oxidized(),
 			TRContent.StorageBlocks.RAW_LEAD,
 			TRContent.StorageBlocks.RAW_LEAD.getStairsBlock(),
 			TRContent.StorageBlocks.RAW_LEAD.getSlabBlock(),
@@ -492,7 +492,7 @@ public class TRItemGroup {
 			TRContent.Machine.FISHING_STATION);
 		entries.insertAfter(Items.LODESTONE, TRContent.Machine.CHUNK_LOADER);
 		entries.insertAfter(Items.BEEHIVE, TRContent.Machine.GREENHOUSE_CONTROLLER);
-		entries.insertAfter(Items.LIGHTNING_ROD, TRContent.Machine.LIGHTNING_ROD);
+		entries.insertAfter(Items.LIGHTNING_ROD.weathering().unaffected(), TRContent.Machine.LIGHTNING_ROD);
 		// inventory stuff
 		entries.insertAfter(Items.ENDER_CHEST,
 			TRContent.StorageUnit.BUFFER,
@@ -558,7 +558,7 @@ public class TRItemGroup {
 
 	private static void addRedstoneBlocks(FabricCreativeModeTabOutput entries) {
 		entries.insertBefore(Items.SCULK_SENSOR, TRContent.Machine.ALARM);
-		entries.insertAfter(Items.WHITE_WOOL, TRContent.Machine.PLAYER_DETECTOR);
+		entries.insertAfter(Items.WOOL.white(), TRContent.Machine.PLAYER_DETECTOR);
 	}
 
 	private static void addTools(FabricCreativeModeTabOutput entries) {

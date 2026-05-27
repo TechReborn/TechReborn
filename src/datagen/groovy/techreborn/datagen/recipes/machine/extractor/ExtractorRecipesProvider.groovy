@@ -55,27 +55,27 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 	// ONLY for doubling vanilla single dye recipes
 	void generateDoubleDyes() {
 		[
-			(Items.INK_SAC) : Items.BLACK_DYE,
-			(Items.WITHER_ROSE) : Items.BLACK_DYE,
-			(Items.CORNFLOWER) :  Items.BLUE_DYE,
-			(Items.LAPIS_LAZULI) : Items.BLUE_DYE,
-			(Items.COCOA_BEANS) : Items.BROWN_DYE,
-			(Items.CLOSED_EYEBLOSSOM) : Items.GRAY_DYE,
-			(Items.BLUE_ORCHID) : Items.LIGHT_BLUE_DYE,
-			(Items.AZURE_BLUET) : Items.LIGHT_GRAY_DYE,
-			(Items.OXEYE_DAISY) : Items.LIGHT_GRAY_DYE,
-			(Items.WHITE_TULIP) : Items.LIGHT_GRAY_DYE,
-			(Items.ALLIUM) : Items.MAGENTA_DYE,
-			(Items.OPEN_EYEBLOSSOM) : Items.ORANGE_DYE,
-			(Items.ORANGE_TULIP) : Items.ORANGE_DYE,
-			(Items.TORCHFLOWER) : Items.ORANGE_DYE,
-			(Items.PINK_TULIP) : Items.PINK_DYE,
-			(Items.PINK_PETALS) : Items.PINK_DYE,
-			(Items.POPPY) : Items.RED_DYE,
-			(Items.RED_TULIP) : Items.RED_DYE,
-			(Items.BONE_MEAL) : Items.WHITE_DYE,
-			(Items.LILY_OF_THE_VALLEY) : Items.WHITE_DYE,
-			(Items.DANDELION) : Items.YELLOW_DYE
+			(Items.INK_SAC) : Items.DYE.black(),
+			(Items.WITHER_ROSE) : Items.DYE.black(),
+			(Items.CORNFLOWER) :  Items.DYE.blue(),
+			(Items.LAPIS_LAZULI) : Items.DYE.blue(),
+			(Items.COCOA_BEANS) : Items.DYE.brown(),
+			(Items.CLOSED_EYEBLOSSOM) : Items.DYE.gray(),
+			(Items.BLUE_ORCHID) : Items.DYE.lightBlue(),
+			(Items.AZURE_BLUET) : Items.DYE.lightGray(),
+			(Items.OXEYE_DAISY) : Items.DYE.lightGray(),
+			(Items.WHITE_TULIP) : Items.DYE.lightGray(),
+			(Items.ALLIUM) : Items.DYE.magenta(),
+			(Items.OPEN_EYEBLOSSOM) : Items.DYE.orange(),
+			(Items.ORANGE_TULIP) : Items.DYE.orange(),
+			(Items.TORCHFLOWER) : Items.DYE.orange(),
+			(Items.PINK_TULIP) : Items.DYE.pink(),
+			(Items.PINK_PETALS) : Items.DYE.pink(),
+			(Items.POPPY) : Items.DYE.red(),
+			(Items.RED_TULIP) : Items.DYE.red(),
+			(Items.BONE_MEAL) : Items.DYE.white(),
+			(Items.LILY_OF_THE_VALLEY) : Items.DYE.white(),
+			(Items.DANDELION) : Items.DYE.yellow()
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
@@ -91,11 +91,11 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 	// ONLY for doubling vanilla double dye recipes
 	void generateQuadrupleDyes() {
 		[
-			(Items.PITCHER_PLANT) : Items.CYAN_DYE,
-			(Items.LILAC) : Items.MAGENTA_DYE,
-			(Items.PEONY) : Items.PINK_DYE,
-			(Items.ROSE_BUSH) : Items.RED_DYE,
-			(Items.SUNFLOWER) : Items.YELLOW_DYE
+			(Items.PITCHER_PLANT) : Items.DYE.cyan(),
+			(Items.LILAC) : Items.DYE.magenta(),
+			(Items.PEONY) : Items.DYE.pink(),
+			(Items.ROSE_BUSH) : Items.DYE.red(),
+			(Items.SUNFLOWER) : Items.DYE.yellow()
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
@@ -109,16 +109,16 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 	}
 	void generateDyesFromCoralBlock() {
 		[
-			(Items.TUBE_CORAL_BLOCK) : Items.BLUE_DYE,
-			(Items.BRAIN_CORAL_BLOCK) : Items.PINK_DYE,
-			(Items.BUBBLE_CORAL_BLOCK) : Items.PURPLE_DYE,
-			(Items.FIRE_CORAL_BLOCK) : Items.RED_DYE,
-			(Items.HORN_CORAL_BLOCK) : Items.YELLOW_DYE,
-			(Items.DEAD_TUBE_CORAL_BLOCK) : Items.GRAY_DYE,
-			(Items.DEAD_BRAIN_CORAL_BLOCK) : Items.GRAY_DYE,
-			(Items.DEAD_BUBBLE_CORAL_BLOCK) : Items.GRAY_DYE,
-			(Items.DEAD_FIRE_CORAL_BLOCK) : Items.GRAY_DYE,
-			(Items.DEAD_HORN_CORAL_BLOCK) : Items.GRAY_DYE
+			(Items.TUBE_CORAL_BLOCK) : Items.DYE.blue(),
+			(Items.BRAIN_CORAL_BLOCK) : Items.DYE.pink(),
+			(Items.BUBBLE_CORAL_BLOCK) : Items.DYE.purple(),
+			(Items.FIRE_CORAL_BLOCK) : Items.DYE.red(),
+			(Items.HORN_CORAL_BLOCK) : Items.DYE.yellow(),
+			(Items.DEAD_TUBE_CORAL_BLOCK) : Items.DYE.gray(),
+			(Items.DEAD_BRAIN_CORAL_BLOCK) : Items.DYE.gray(),
+			(Items.DEAD_BUBBLE_CORAL_BLOCK) : Items.DYE.gray(),
+			(Items.DEAD_FIRE_CORAL_BLOCK) : Items.DYE.gray(),
+			(Items.DEAD_HORN_CORAL_BLOCK) : Items.DYE.gray()
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
@@ -133,26 +133,26 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateDyesFromSmallCoral() {
 		[
-			(Items.TUBE_CORAL) : Items.BLUE_DYE,
-			(Items.TUBE_CORAL_FAN) : Items.BLUE_DYE,
-			(Items.BRAIN_CORAL) : Items.PINK_DYE,
-			(Items.BRAIN_CORAL_FAN) : Items.PINK_DYE,
-			(Items.BUBBLE_CORAL) : Items.PURPLE_DYE,
-			(Items.BUBBLE_CORAL_FAN) : Items.PURPLE_DYE,
-			(Items.FIRE_CORAL) : Items.RED_DYE,
-			(Items.FIRE_CORAL_FAN) : Items.RED_DYE,
-			(Items.HORN_CORAL) : Items.YELLOW_DYE,
-			(Items.HORN_CORAL_FAN) : Items.YELLOW_DYE,
-			(Items.DEAD_TUBE_CORAL) : Items.GRAY_DYE,
-			(Items.DEAD_TUBE_CORAL_FAN) : Items.GRAY_DYE,
-			(Items.DEAD_BRAIN_CORAL) : Items.GRAY_DYE,
-			(Items.DEAD_BRAIN_CORAL_FAN) : Items.GRAY_DYE,
-			(Items.DEAD_BUBBLE_CORAL) : Items.GRAY_DYE,
-			(Items.DEAD_BUBBLE_CORAL_FAN) : Items.GRAY_DYE,
-			(Items.DEAD_FIRE_CORAL) : Items.GRAY_DYE,
-			(Items.DEAD_FIRE_CORAL_FAN) : Items.GRAY_DYE,
-			(Items.DEAD_HORN_CORAL) : Items.GRAY_DYE,
-			(Items.DEAD_HORN_CORAL_FAN) : Items.GRAY_DYE
+			(Items.TUBE_CORAL) : Items.DYE.blue(),
+			(Items.TUBE_CORAL_FAN) : Items.DYE.blue(),
+			(Items.BRAIN_CORAL) : Items.DYE.pink(),
+			(Items.BRAIN_CORAL_FAN) : Items.DYE.pink(),
+			(Items.BUBBLE_CORAL) : Items.DYE.purple(),
+			(Items.BUBBLE_CORAL_FAN) : Items.DYE.purple(),
+			(Items.FIRE_CORAL) : Items.DYE.red(),
+			(Items.FIRE_CORAL_FAN) : Items.DYE.red(),
+			(Items.HORN_CORAL) : Items.DYE.yellow(),
+			(Items.HORN_CORAL_FAN) : Items.DYE.yellow(),
+			(Items.DEAD_TUBE_CORAL) : Items.DYE.gray(),
+			(Items.DEAD_TUBE_CORAL_FAN) : Items.DYE.gray(),
+			(Items.DEAD_BRAIN_CORAL) : Items.DYE.gray(),
+			(Items.DEAD_BRAIN_CORAL_FAN) : Items.DYE.gray(),
+			(Items.DEAD_BUBBLE_CORAL) : Items.DYE.gray(),
+			(Items.DEAD_BUBBLE_CORAL_FAN) : Items.DYE.gray(),
+			(Items.DEAD_FIRE_CORAL) : Items.DYE.gray(),
+			(Items.DEAD_FIRE_CORAL_FAN) : Items.DYE.gray(),
+			(Items.DEAD_HORN_CORAL) : Items.DYE.gray(),
+			(Items.DEAD_HORN_CORAL_FAN) : Items.DYE.gray()
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
@@ -168,9 +168,9 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateDyesFromFroglight() {
 		[
-			(Items.OCHRE_FROGLIGHT) : Items.YELLOW_DYE,
-			(Items.VERDANT_FROGLIGHT) : Items.GREEN_DYE,
-			(Items.PEARLESCENT_FROGLIGHT) : Items.PURPLE_DYE
+			(Items.OCHRE_FROGLIGHT) : Items.DYE.yellow(),
+			(Items.VERDANT_FROGLIGHT) : Items.DYE.green(),
+			(Items.PEARLESCENT_FROGLIGHT) : Items.DYE.purple()
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients stack(item, 3)
@@ -185,8 +185,8 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateDyesFromMisc() {
 		[
-			(Items.PRISMARINE_SHARD) : Items.CYAN_DYE,
-			(TRContent.Parts.PLANTBALL) : Items.GREEN_DYE
+			(Items.PRISMARINE_SHARD) : Items.DYE.cyan(),
+			(TRContent.Parts.PLANTBALL) : Items.DYE.green()
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
@@ -198,8 +198,8 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		[
-			(Items.SWEET_BERRIES) : Items.RED_DYE,
-			(Items.GLOW_BERRIES) : Items.ORANGE_DYE
+			(Items.SWEET_BERRIES) : Items.DYE.red(),
+			(Items.GLOW_BERRIES) : Items.DYE.orange()
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients stack(item, 4)
@@ -212,7 +212,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerExtractorRecipe {
 			ingredients stack(Items.CARROT, 3)
-			outputs Items.ORANGE_DYE
+			outputs Items.DYE.orange()
 			source Items.CARROT
 			power 10
 			time 300
@@ -220,7 +220,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerExtractorRecipe {
 			ingredients Items.BEETROOT
-			outputs stack(Items.RED_DYE, 2)
+			outputs stack(Items.DYE.red(), 2)
 			source Items.BEETROOT
 			power 10
 			time 300
@@ -228,7 +228,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerExtractorRecipe {
 			ingredients Items.SHULKER_SHELL
-			outputs stack(Items.PURPLE_DYE, 4)
+			outputs stack(Items.DYE.purple(), 4)
 			source Items.SHULKER_SHELL
 			power 10
 			time 300

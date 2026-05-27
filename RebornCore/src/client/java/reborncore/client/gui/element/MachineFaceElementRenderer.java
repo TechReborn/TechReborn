@@ -28,25 +28,23 @@ import com.mojang.blaze3d.textures.GpuTextureView;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.FilterMode;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.QuadInstance;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.fabricmc.fabric.api.client.rendering.v1.PictureInPictureRendererRegistry;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.state.gui.BlitRenderState;
 import net.minecraft.client.renderer.state.gui.GuiRenderState;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.ARGB;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
+import org.joml.Matrix4f;
 import org.joml.Matrix3x2f;
 import org.joml.Quaternionfc;
 
@@ -60,7 +58,6 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 	public static final List<Identifier> BLACKLIST = new ArrayList<>();
 
 	public MachineFaceElementRenderer(PictureInPictureRendererRegistry.Context context) {
-		super(context.bufferSource());
 	}
 
 	@Override
@@ -74,8 +71,8 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 	}
 
 	@Override
-	protected void renderToTexture(MachineFaceState state, PoseStack matrices) {
-		renderHandler.update(state, matrices, bufferSource);
+	protected void renderToTexture(MachineFaceState state, PoseStack matrices, SubmitNodeCollector submitNodeCollector) {
+		renderHandler.update(state, submitNodeCollector);
 		renderHandler.render(2, 0, Axis.YP.rotationDegrees(90F)); //left
 		renderHandler.render(1, 0, Axis.XN.rotationDegrees(90F)); //top
 		renderHandler.render(); //center
@@ -98,61 +95,56 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 	}
 
 	static class RenderHandler {
-		private VertexConsumer vertexConsumer;
 		private BlockStateModel model;
-		private PoseStack.Pose source;
-		private int light;
+		private SubmitNodeCollector submitNodeCollector;
 
 		public void clear() {
-			vertexConsumer = null;
 			model = null;
-			source = null;
-			light = 0;
+			submitNodeCollector = null;
 		}
 
 		public void render(float x, float y, Quaternionfc quaternionfc) {
-			PoseStack.Pose entry = source.copy();
+			PoseStack entry = new PoseStack();
 			entry.translate(x, y, 0);
-			entry.rotate(quaternionfc);
+			entry.mulPose(quaternionfc);
 			render(entry);
 		}
 
 		public void render() {
-			render(source);
+			render(new PoseStack());
 		}
 
-		private void render(PoseStack.Pose entry) {
-			List<BlockStateModelPart> parts = new ArrayList<>();
+		private void render(PoseStack poseStack) {
+			BlockModelRenderState renderState = new BlockModelRenderState();
+			var parts = renderState.setupModel(new Matrix4f(), model.hasMaterialFlag(BakedQuad.FLAG_TRANSLUCENT));
 			model.collectParts(RandomSource.create(42L), parts);
-			for (BlockStateModelPart blockModelPart : parts) {
+			parts.removeIf(part -> {
 				for (Direction direction : DIRECTIONS) {
-					renderQuads(entry, blockModelPart.getQuads(direction));
+					if (containsBlacklistedQuad(part.getQuads(direction))) {
+						return true;
+					}
 				}
-				renderQuads(entry, blockModelPart.getQuads(null));
+				return containsBlacklistedQuad(part.getQuads(null));
+			});
+			if (parts.isEmpty()) {
+				return;
 			}
+			poseStack.scale(-16F, -16F, 16F);
+			renderState.submit(poseStack, submitNodeCollector, LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
 		}
 
-			private void renderQuads(PoseStack.Pose entry, List<BakedQuad> bakedQuads) {
+		private boolean containsBlacklistedQuad(List<BakedQuad> bakedQuads) {
 			for (BakedQuad bakedQuad : bakedQuads) {
 				if (BLACKLIST.contains(bakedQuad.materialInfo().sprite().contents().name())) {
-					continue;
+					return true;
 				}
-				// Create QuadInstance with color, light, and overlay data
-				QuadInstance quadInstance = new QuadInstance();
-				quadInstance.setColor(ARGB.white(1.0F)); // Opaque white color
-				quadInstance.setLightCoords(light);
-				quadInstance.setOverlayCoords(OverlayTexture.NO_OVERLAY);
-
-				vertexConsumer.putBakedQuad(entry, bakedQuad, quadInstance);
 			}
+			return false;
 		}
 
-		public void update(MachineFaceState state, PoseStack matrices, MultiBufferSource.BufferSource vertexConsumers) {
-			vertexConsumer = vertexConsumers.getBuffer(RenderTypes.solidMovingBlock());
+		public void update(MachineFaceState state, SubmitNodeCollector submitNodeCollector) {
 			model = state.model();
-			light = OverlayTexture.u(15F);
-			source = matrices.last();
-			source.scale(-16F, -16F, 0);
+			this.submitNodeCollector = submitNodeCollector;
 		}
 	}
 

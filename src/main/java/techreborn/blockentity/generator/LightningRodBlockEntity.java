@@ -28,7 +28,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -87,7 +87,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 					return;
 				}
 
-				LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
+				LightningBolt lightningBolt = EntityTypes.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
 				lightningBolt.snapTo(Vec3.atBottomCenterOf(serverLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, getBlockPos())));
 				serverLevel.addFreshEntity(lightningBolt);
 				addEnergy((long) (TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength)));

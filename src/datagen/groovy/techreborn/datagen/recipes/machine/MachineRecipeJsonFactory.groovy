@@ -29,8 +29,8 @@ import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.advancements.Advancement.Builder
-import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.criterion.InventoryChangeTrigger
+import net.minecraft.advancements.triggers.Criterion
+import net.minecraft.advancements.triggers.InventoryChangeTrigger
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike

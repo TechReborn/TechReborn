@@ -203,9 +203,9 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		offerChemicalReactorRecipe {
 			power 30
 			time 400
-			ingredients stack(Items.PRISMARINE, 2), Items.BLACK_DYE
+			ingredients stack(Items.PRISMARINE, 2), Items.DYE.black()
 			outputs Items.DARK_PRISMARINE
-			criterion getCriterionName(Items.BLACK_DYE), getCriterionConditions(Items.BLACK_DYE)
+			criterion getCriterionName(Items.DYE.black()), getCriterionConditions(Items.DYE.black())
 		}
 		offerChemicalReactorRecipe {
 			power 30
@@ -517,9 +517,9 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		offerChemicalReactorRecipe {
 			power 30
 			time 400
-			ingredients Items.BLUE_DYE, Items.OCHRE_FROGLIGHT
+			ingredients Items.DYE.blue(), Items.OCHRE_FROGLIGHT
 			outputs Items.VERDANT_FROGLIGHT
-			criterion getCriterionName(Items.BLUE_DYE), getCriterionConditions(Items.BLUE_DYE)
+			criterion getCriterionName(Items.DYE.blue()), getCriterionConditions(Items.DYE.blue())
 			criterion getCriterionName(Items.OCHRE_FROGLIGHT), getCriterionConditions(Items.OCHRE_FROGLIGHT)
 		}
 		offerChemicalReactorRecipe {

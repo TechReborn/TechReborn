@@ -180,7 +180,7 @@ dependencies {
     include project(":RebornCore")
 
     compileOnly("mezz.jei:jei-26.1.1-fabric-api:29.3.0.22")
-    runtimeOnly("mezz.jei:jei-26.1.1-fabric:29.3.0.22")
+    //runtimeOnly("mezz.jei:jei-26.1.1-fabric:29.3.0.22")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
     datagenImplementation 'org.apache.groovy:groovy:5.0.3'
@@ -202,9 +202,7 @@ publishMods {
 
     def options = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-        minecraftVersions.add("26.1.2")
-        minecraftVersions.add("26.1.1")
-        minecraftVersions.add("26.1")
+        minecraftVersions.add("26.2-pre-1")
 
         requires {
             slug = "fabric-api"
@@ -213,9 +211,7 @@ publishMods {
 
     def mrOptions = modrinthOptions {
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
-        minecraftVersions.add("26.1.2")
-        minecraftVersions.add("26.1.1")
-        minecraftVersions.add("26.1")
+        minecraftVersions.add("26.2-pre-1")
 
         requires {
             slug = "fabric-api"

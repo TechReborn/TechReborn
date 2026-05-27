@@ -30,6 +30,6 @@ import net.minecraft.network.chat.Component;
 public class ClientChatUtils {
 	public static void addHudMessage(Component text) {
 		final Minecraft client = Minecraft.getInstance();
-		client.gui.getChat().addClientSystemMessage(text);
+		client.gui.hud.getChat().addClientSystemMessage(text);
 	}
 }

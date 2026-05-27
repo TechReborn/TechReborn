@@ -53,7 +53,8 @@ public class RebornCoreClient implements ClientModInitializer {
 		HudElementRegistry.addLast(Identifier.fromNamespaceAndPath("reborncore", "item_stack_renderer"), new ItemStackRenderer());
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
 		BlockOutlineRenderer outline = new BlockOutlineRenderer();
-		LevelRenderEvents.AFTER_BLOCK_OUTLINE_EXTRACTION.register(outline);
+		// TODO 26.2-pre-1: Re-enable once BlockOutlineRenderer is ported back to AfterBlockOutlineExtraction.
+		// LevelRenderEvents.AFTER_BLOCK_OUTLINE_EXTRACTION.register(outline);
 		LevelRenderEvents.BEFORE_BLOCK_OUTLINE.register(outline);
 		PictureInPictureRendererRegistry.register(MachineFaceElementRenderer::new);
 

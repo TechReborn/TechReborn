@@ -24,79 +24,82 @@
 
 package reborncore.client;
 
-import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
-import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.state.level.BlockOutlineRenderState;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
-import reborncore.common.misc.MultiBlockBreakingTool;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-public class BlockOutlineRenderer implements LevelRenderEvents.BeforeBlockOutline, LevelRenderEvents.AfterBlockOutlineExtraction {
-	public static RenderStateDataKey<List<VoxelShape>> KEY = RenderStateDataKey.create(() -> "MultiBlockBreakingTool");
-	@Override
-	public void afterBlockOutlineExtraction(LevelExtractionContext context, @Nullable HitResult result) {
-		if (result instanceof BlockHitResult blockHitResult) {
-			LocalPlayer player = Minecraft.getInstance().player;
-			if (player == context.camera().entity()) {
-				ItemStack stack = player.getMainHandItem();
-				if (!stack.isEmpty() && stack.getItem() instanceof MultiBlockBreakingTool tool) {
-					BlockOutlineRenderState state = context.levelState().blockOutlineRenderState;
-					if (state == null) {
-						return;
-					}
-					BlockPos targetPos = blockHitResult.getBlockPos();
-					Level level = player.level();
-					Set<BlockPos> blockPosList = tool.getBlocksToBreak(stack, level, targetPos, player);
-					List<VoxelShape> shapes = new ArrayList<>();
-					for (BlockPos pos : blockPosList) {
-						if (pos.equals(targetPos)) {
-							continue;
-						}
-						BlockState blockState = level.getBlockState(pos);
-						shapes.add(blockState.getShape(level, pos, CollisionContext.of(player)).move(pos.getX() - targetPos.getX(), pos.getY() - targetPos.getY(), pos.getZ() - targetPos.getZ()));
-					}
-					if (shapes.isEmpty()) {
-						return;
-					}
-					state.setData(KEY, shapes);
-				}
-			}
-		}
-	}
-
+public class BlockOutlineRenderer implements LevelRenderEvents.BeforeBlockOutline {
 	@Override
 	public boolean beforeBlockOutline(LevelRenderContext worldRenderContext, BlockOutlineRenderState context) {
-		List<VoxelShape> shapes = context.getData(KEY);
-		if (shapes != null) {
-			VoxelShape shape = context.shape();
-
-			for (VoxelShape voxelShape : shapes) {
-				shape = Shapes.or(shape, voxelShape);
-			}
-
-			BlockPos targetPos = context.pos();
-			Vec3 camera = worldRenderContext.levelState().cameraRenderState.pos;
-			// TODO: Block outline renderer
-			// DebugRenderer.renderVoxelShape(worldRenderContext.matrices(), worldRenderContext.consumers().getBuffer(RenderType.lines()), shape, (double)targetPos.getX() - camera.x, (double)targetPos.getY() - camera.y, (double)targetPos.getZ() - camera.z, 0.0F, 0.0F, 0.0F, 0.4F, true);
-		}
-
+		/*
+		 * TODO 26.2-pre-1: Restore the multiblock outline renderer once the new block-outline
+		 * extraction/render path is understood well enough to port the previous implementation.
+		 *
+		 * Previous implementation before the 26.2-pre-1 port:
+		 *
+		 * List<VoxelShape> shapes = context.getData(KEY);
+		 * if (shapes != null) {
+		 * 	VoxelShape shape = context.shape();
+		 *
+		 * 	for (VoxelShape voxelShape : shapes) {
+		 * 		shape = Shapes.or(shape, voxelShape);
+		 * 	}
+		 *
+		 * 	BlockPos targetPos = context.pos();
+		 * 	Vec3 camera = worldRenderContext.levelState().cameraRenderState.pos;
+		 * 	DebugRenderer.renderVoxelShape(
+		 * 		worldRenderContext.matrices(),
+		 * 		worldRenderContext.consumers().getBuffer(RenderType.lines()),
+		 * 		shape,
+		 * 		(double) targetPos.getX() - camera.x,
+		 * 		(double) targetPos.getY() - camera.y,
+		 * 		(double) targetPos.getZ() - camera.z,
+		 * 		0.0F,
+		 * 		0.0F,
+		 * 		0.0F,
+		 * 		0.4F,
+		 * 		true
+		 * 	);
+		 * }
+		 *
+		 * This also previously implemented LevelRenderEvents.AfterBlockOutlineExtraction and used:
+		 *
+		 * public static RenderStateDataKey<List<VoxelShape>> KEY = RenderStateDataKey.create(() -> "MultiBlockBreakingTool");
+		 *
+		 * @Override
+		 * public void afterBlockOutlineExtraction(LevelExtractionContext context, @Nullable HitResult result) {
+		 * 	if (result instanceof BlockHitResult blockHitResult) {
+		 * 		LocalPlayer player = Minecraft.getInstance().player;
+		 * 		if (player == context.camera().entity()) {
+		 * 			ItemStack stack = player.getMainHandItem();
+		 * 			if (!stack.isEmpty() && stack.getItem() instanceof MultiBlockBreakingTool tool) {
+		 * 				BlockOutlineRenderState state = context.levelState().blockOutlineRenderState;
+		 * 				if (state == null) {
+		 * 					return;
+		 * 				}
+		 * 				BlockPos targetPos = blockHitResult.getBlockPos();
+		 * 				Level level = player.level();
+		 * 				Set<BlockPos> blockPosList = tool.getBlocksToBreak(stack, level, targetPos, player);
+		 * 				List<VoxelShape> shapes = new ArrayList<>();
+		 * 				for (BlockPos pos : blockPosList) {
+		 * 					if (pos.equals(targetPos)) {
+		 * 						continue;
+		 * 					}
+		 * 					BlockState blockState = level.getBlockState(pos);
+		 * 					shapes.add(blockState.getShape(level, pos, CollisionContext.of(player)).move(
+		 * 						pos.getX() - targetPos.getX(),
+		 * 						pos.getY() - targetPos.getY(),
+		 * 						pos.getZ() - targetPos.getZ()
+		 * 					));
+		 * 				}
+		 * 				if (shapes.isEmpty()) {
+		 * 					return;
+		 * 				}
+		 * 				state.setData(KEY, shapes);
+		 * 			}
+		 * 		}
+		 * 	}
+		 * }
+		 */
 		return true;
 	}
 }

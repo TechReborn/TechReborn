@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2020 TechReborn
+ * Copyright (c) 2026 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,24 +22,5 @@
  * SOFTWARE.
  */
 
-package techreborn.client;
-
-import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.Minecraft;
-import techreborn.client.gui.GuiManual;
-import techreborn.events.OreDepthSyncHandler;
-import techreborn.packets.clientbound.OpenManualPayload;
-
-@SuppressWarnings("UnstableApiUsage")
-public class ClientboundPacketHandlers {
-	public static void init() {
-		ClientConfigurationNetworking.registerGlobalReceiver(OreDepthSyncHandler.OreDepthPayload.ID, (payload, context) -> {
-			OreDepthSyncHandler.updateDepths(payload.oreDepths());
-		});
-
-		ClientPlayNetworking.registerGlobalReceiver(OpenManualPayload.ID, (payload, context) ->
-			Minecraft.getInstance().gui.setScreen(new GuiManual())
-		);
-	}
-}
+@org.jspecify.annotations.NullMarked
+package net.minecraft.util;

@@ -45,7 +45,6 @@ import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ActiveProperty;
 import techreborn.client.render.ItemBucketModel;
 import techreborn.client.render.ItemCellModel;
-import techreborn.client.render.MachineCasingModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
@@ -53,17 +52,16 @@ import techreborn.client.render.entitys.TurbineRenderer;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
-
 public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		ModelLoadingPlugin.register((pluginContext) -> {
-			for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
-				pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
-			}
-		});
+		// TODO 26.2-pre-1: Re-enable once MachineCasingModel is ported to the replacement model-loading API.
+		// ModelLoadingPlugin.register((pluginContext) -> {
+		// 	for (TRContent.MachineBlocks block : TRContent.MachineBlocks.values()) {
+		// 		pluginContext.registerBlockStateResolver(block.casing, MachineCasingModel::resolveBlockStates);
+		// 	}
+		// });
 
 		ItemModels.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
 		ItemModels.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);

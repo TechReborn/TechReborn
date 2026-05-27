@@ -51,22 +51,22 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateBed() {
 		[
-			(Items.BLACK_WOOL): Items.BLACK_BED,
-			(Items.BLUE_WOOL): Items.BLUE_BED,
-			(Items.BROWN_WOOL): Items.BROWN_BED,
-			(Items.CYAN_WOOL): Items.CYAN_BED,
-			(Items.GRAY_WOOL): Items.GRAY_BED,
-			(Items.GREEN_WOOL): Items.GREEN_BED,
-			(Items.LIGHT_BLUE_WOOL): Items.LIGHT_BLUE_BED,
-			(Items.LIGHT_GRAY_WOOL): Items.LIGHT_GRAY_BED,
-			(Items.LIME_WOOL): Items.LIME_BED,
-			(Items.MAGENTA_WOOL): Items.MAGENTA_BED,
-			(Items.ORANGE_WOOL): Items.ORANGE_BED,
-			(Items.PINK_WOOL): Items.PINK_BED,
-			(Items.PURPLE_WOOL): Items.PURPLE_BED,
-			(Items.RED_WOOL): Items.RED_BED,
-			(Items.WHITE_WOOL): Items.WHITE_BED,
-			(Items.YELLOW_WOOL): Items.YELLOW_BED
+			(Items.WOOL.black()): Items.BED.black(),
+			(Items.WOOL.blue()): Items.BED.blue(),
+			(Items.WOOL.brown()): Items.BED.brown(),
+			(Items.WOOL.cyan()): Items.BED.cyan(),
+			(Items.WOOL.gray()): Items.BED.gray(),
+			(Items.WOOL.green()): Items.BED.green(),
+			(Items.WOOL.lightBlue()): Items.BED.lightBlue(),
+			(Items.WOOL.lightGray()): Items.BED.lightGray(),
+			(Items.WOOL.lime()): Items.BED.lime(),
+			(Items.WOOL.magenta()): Items.BED.magenta(),
+			(Items.WOOL.orange()): Items.BED.orange(),
+			(Items.WOOL.pink()): Items.BED.pink(),
+			(Items.WOOL.purple()): Items.BED.purple(),
+			(Items.WOOL.red()): Items.BED.red(),
+			(Items.WOOL.white()): Items.BED.white(),
+			(Items.WOOL.yellow()): Items.BED.yellow()
 		].each {wool, bed ->
 			offerAssemblingMachineRecipe {
 				ingredients stack(wool, 2), ItemTags.PLANKS
@@ -105,9 +105,9 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 		}
 		[
 			(Items.TERRACOTTA) : Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE,
-			(Items.BROWN_TERRACOTTA) : Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE,
-			(Items.GRAY_TERRACOTTA) : Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE,
-			(Items.LIGHT_GRAY_TERRACOTTA) : Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE
+			(Items.DYED_TERRACOTTA.brown()) : Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.DYED_TERRACOTTA.gray()) : Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.DYED_TERRACOTTA.lightGray()) : Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE
 		].each {material, template ->
 			offerAssemblingMachineRecipe {
 				ingredients stack(material, 2), TRContent.Parts.TEMPLATE_TEMPLATE
