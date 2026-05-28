@@ -206,9 +206,13 @@ class ModelProvider extends FabricModelProvider {
 			)
 			TemplateState.ACTIVE_UP_DEFAULT_FACING.apply(pair).upload(info.block)
 		}
+		def toMachineCasing = { Block block ->
+			List<Identifier> ids = TemplateModel.MACHINE_CASING.upload(block)
+			TemplateState.MACHINE_CASING.apply(ids).upload(block)
+		}
 		def toMachineBlock = { MachineBlockInfo info ->
 			generator.createTrivialCube(info.frame)
-			generator.createTrivialCube(info.casing)
+			toMachineCasing info.casing
 		}
 		def toBasicTankUnit = { BlockInfo info ->
 			TemplateModel.BASIC_TANK_UNIT.upload(info.block)
@@ -528,8 +532,8 @@ class ModelProvider extends FabricModelProvider {
 			.getFamily()
 		generator.family(TRContent.RUBBER_PLANKS).generateFor(family)
 
-		// The BasicItemModel model will be automatically registered through the resolveAndValidate function of the ModelProvider class
-		// Just make sure Registries.ITEM contains the id of the block
+		// The CuboidItemModelWrapper model will be automatically registered through the finalizeAndValidate function of the ModelProvider class
+		// Just make sure BuiltInRegistries.ITEM contains the id of the block
 	}
 
 	@Override
