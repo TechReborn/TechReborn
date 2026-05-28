@@ -24,6 +24,7 @@
 
 package techreborn.datagen.models
 
+import net.minecraft.client.data.models.model.ModelLocationUtils
 import net.minecraft.client.resources.model.cuboid.CuboidFace
 import net.minecraft.client.resources.model.cuboid.CuboidModelElement
 import net.minecraft.client.resources.model.cuboid.CuboidRotation
@@ -40,6 +41,8 @@ import net.minecraft.core.Direction
 import org.apache.commons.lang3.function.TriFunction
 import org.apache.commons.lang3.tuple.Pair
 import org.joml.Vector3f
+import techreborn.utils.DirectionUtils
+import techreborn.utils.DirectionUtils.HorizontalPart
 
 import java.util.function.BiFunction
 import java.util.function.Function
@@ -50,6 +53,10 @@ class TemplateModel {
 	static TextureSlot KEY_TWO = TextureSlot.create("2")
 	static TextureSlot KEY_THREE = TextureSlot.create("3")
 	static TextureSlot KEY_FOUR = TextureSlot.create("4")
+	static TextureSlot KEY_ALONE = TextureSlot.create("alone")
+	static TextureSlot KEY_START = TextureSlot.create("start")
+	static TextureSlot KEY_MIDDLE = TextureSlot.create("middle")
+	static TextureSlot KEY_END = TextureSlot.create("end")
 	static TextureSlot KEY_MISSING = TextureSlot.create("missing")
 	static Identifier HANDHELD = Identifier.withDefaultNamespace("item/handheld")
 	static JsonModel GENERATED = new JsonModel().add(Identifier.withDefaultNamespace("item/generated"))
@@ -374,17 +381,19 @@ class TemplateModel {
 	)
 
 	@FunctionalInterface
-	interface Uploadable<T> {
+	interface Upload<V, R> {
+		R upload(V target);
+	}
+	@FunctionalInterface
+	interface Uploadable<T> extends Upload<T, Identifier> {
 		JsonModel apply(T);
+		@Override
 		default Identifier upload(T target) {
 			apply(target).upload()
 		}
 	}
-	@FunctionalInterface
-	interface Active {
-		Pair<Material, Material> upload(JsonModel model);
-	}
-	static Active ACTIVE = (JsonModel model) -> Pair.of(model.suffix("_off").upload(), model.suffix("_on").upload())
+	static Upload<JsonModel, Pair<Identifier, Identifier>> ACTIVE = (JsonModel model) ->
+		Pair.of(model.suffix("_off").upload(), model.suffix("_on").upload())
 	static Uploadable<Item> ENERGY_ITEM = (Item item) -> GENERATED.create(item).add(TextureMapping.layer0(item), TextureSlot.LAYER0)
 	static Uploadable<Item> ENERGY_ITEM_ACTIVE = (Item item) -> ENERGY_ITEM.apply(item).suffix("_active")
 	static Uploadable<Item> ENERGY_ITEM_HANDHELD = (Item item) -> ENERGY_ITEM.apply(item).add(HANDHELD)
@@ -742,6 +751,35 @@ class TemplateModel {
 	static def CABLE_SIDE = wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(CABLE_SIDE_ELEMENT) }
 	static def CABLE_THICK_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_THICK_CORE_ELEMENT) }
 	static def CABLE_THICK_SIDE = wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(CABLE_THICK_SIDE_ELEMENT) }
+	static Upload<Block, List<Identifier>> MACHINE_CASING = { Block block ->
+		Material texture = TextureMapping.getBlockTexture(block)
+		Identifier id = ModelLocationUtils.getModelLocation(block)
+		TextureMapping textures = new TextureMapping()
+			.put(KEY_ALONE, texture)
+			.put(KEY_START, withSuffix(texture, "_start"))
+			.put(KEY_MIDDLE, withSuffix(texture, "_middle"))
+			.put(KEY_END, withSuffix(texture, "_end"))
+			.put(TextureSlot.create(TextureSlot.UP.getId(), KEY_ALONE), null)
+			.put(TextureSlot.create(TextureSlot.DOWN.getId(), KEY_ALONE), null)
+			.put(TextureSlot.create(TextureSlot.PARTICLE.getId(), KEY_ALONE), null)
+		Identifier parent = new JsonModel().add(Identifier.withDefaultNamespace("block/cube"))
+			.id(id.withSuffix("_textures")).add(textures).upload()
+		int size = 16;
+		List<Identifier> ids = new ArrayList<>(size)
+		for (int i = 0; i < size; i++) {
+			textures = new TextureMapping()
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				switch (DirectionUtils.getHorizontalPart(direction, i)) {
+					case HorizontalPart.ALONE -> textures.put(TextureSlot.create(direction.getName(), KEY_ALONE), null)
+					case HorizontalPart.START -> textures.put(TextureSlot.create(direction.getName(), KEY_START), null)
+					case HorizontalPart.MIDDLE -> textures.put(TextureSlot.create(direction.getName(), KEY_MIDDLE), null)
+					case HorizontalPart.END -> textures.put(TextureSlot.create(direction.getName(), KEY_END), null)
+				}
+			}
+			ids.add(new JsonModel().add(parent).id(i > 0 ? id.withSuffix("_" + i) : id).add(textures).upload())
+		}
+		return ids
+	}
 	static def NANOSABER_BASE = wrapperItem { item, id ->
 		new JsonModel().add(NANOSABER_DISPLAY).add(NANOSABER_ELEMENT).id(item).add(texture(id), TextureSlot.TEXTURE, TextureSlot.PARTICLE)
 	}

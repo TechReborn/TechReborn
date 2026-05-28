@@ -26,6 +26,7 @@ package techreborn.datagen.models
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.mojang.serialization.JsonOps
 import net.minecraft.client.resources.model.cuboid.CuboidFace
 import net.minecraft.client.resources.model.cuboid.CuboidModelElement
 import net.minecraft.client.resources.model.cuboid.CuboidRotation
@@ -222,7 +223,11 @@ class JsonModel {
 	private static JsonObject toJson(TextureMapping texture) {
 		JsonObject json = new JsonObject()
 		texture.slots.forEach((key, value) -> {
-			json.addProperty(key.getId(), value.sprite().toString())
+			if (value != null) {
+				json.add(key.getId(), Material.CODEC.encodeStart(JsonOps.INSTANCE, value).getOrThrow())
+			} else {
+				json.addProperty(key.getId(), key.parent.toString())
+			}
 		})
 		return json
 	}
