@@ -34,7 +34,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Tuple;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -120,7 +119,6 @@ import techreborn.world.OreDistribution;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.minecraft.world.level.material.Fluid;
@@ -1159,8 +1157,8 @@ public class TRContent {
 
 		public final String name;
 		private final Item item;
-		private final Ores ore;
-		private final StorageBlocks storageBlock;
+		private final @Nullable Ores ore;
+		private final @Nullable StorageBlocks storageBlock;
 		private final TagKey<Item> tag;
 
 		RawMetals() {
@@ -1203,10 +1201,12 @@ public class TRContent {
 			return tag;
 		}
 
+		@Nullable
 		public StorageBlocks getStorageBlock() {
 			return storageBlock;
 		}
 
+		@Nullable
 		public Ores getOre() {
 			return ore;
 		}
@@ -1217,10 +1217,7 @@ public class TRContent {
 		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
 		public static Map<RawMetals, StorageBlocks> getRM2SBMap() {
-			return Arrays.stream(values())
-					.map(rawMetal -> new Tuple<>(rawMetal, rawMetal.getStorageBlock()))
-					.filter(entry -> entry.getB() != null) // ensure storage block equivalent exists
-					.collect(Collectors.toMap(Tuple::getA, Tuple::getB));
+			return getMap(values(), RawMetals::getStorageBlock);
 		}
 
 		/**
@@ -1229,10 +1226,7 @@ public class TRContent {
 		 * If an ore block equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
 		public static Map<RawMetals, Ores> getRM2OBMap() {
-			return Arrays.stream(values())
-					.map(rawMetal -> new Tuple<>(rawMetal, rawMetal.getOre()))
-					.filter(entry -> entry.getB() != null) // ensure ore block equivalent exists
-					.collect(Collectors.toMap(Tuple::getA, Tuple::getB));
+			return getMap(values(), RawMetals::getOre);
 		}
 	}
 
@@ -1246,10 +1240,10 @@ public class TRContent {
 
 		public final String name;
 		private final Item item;
-		private final ItemLike dust;
+		private final @Nullable ItemLike dust;
 		private final TagKey<Item> tag;
 
-		SmallDusts(String tagNameBase, ItemLike dustVariant) {
+		SmallDusts(@Nullable String tagNameBase, @Nullable ItemLike dustVariant) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_small_dust"));
 			if (dustVariant == null)
@@ -1300,6 +1294,7 @@ public class TRContent {
 			return tag;
 		}
 
+		@Nullable
 		public ItemLike getDust() {
 			return dust;
 		}
@@ -1313,10 +1308,7 @@ public class TRContent {
 		 * If a dust equivalent doesn't exist, the small dust will not be in the keys of this map.
 		 */
 		public static Map<SmallDusts, ItemLike> getSD2DMap() {
-			return Arrays.stream(values())
-					.map(smallDust -> new Tuple<>(smallDust, smallDust.getDust()))
-					.filter(entry -> entry.getB() != null) // ensure dust equivalent exists
-					.collect(Collectors.toMap(Tuple::getA, Tuple::getB));
+			return getMap(values(), SmallDusts::getDust);
 		}
 	}
 
@@ -1325,9 +1317,9 @@ public class TRContent {
 
 		public final String name;
 		private final Item item;
-		private final Dusts dust;
-		private final Ores ore;
-		private final StorageBlocks storageBlock;
+		private final @Nullable Dusts dust;
+		private final @Nullable Ores ore;
+		private final @Nullable StorageBlocks storageBlock;
 		private final TagKey<Item> tag;
 
 		Gems() {
@@ -1386,14 +1378,17 @@ public class TRContent {
 			return tag;
 		}
 
+		@Nullable
 		public Dusts getDust() {
 			return dust;
 		}
 
+		@Nullable
 		public Ores getOre() {
 			return ore;
 		}
 
+		@Nullable
 		public StorageBlocks getStorageBlock() {
 			return storageBlock;
 		}
@@ -1404,10 +1399,7 @@ public class TRContent {
 		 * If a dust item equivalent doesn't exist, the gem will not be in the keys of this map.
 		 */
 		public static Map<Gems, Dusts> getG2DMap() {
-			return Arrays.stream(values())
-					.map(gem -> new Tuple<>(gem, gem.getDust()))
-					.filter(entry -> entry.getB() != null) // ensure dust item equivalent exists
-					.collect(Collectors.toMap(Tuple::getA, Tuple::getB));
+			return getMap(values(), Gems::getDust);
 		}
 
 		/**
@@ -1416,10 +1408,7 @@ public class TRContent {
 		 * If a storage block equivalent doesn't exist, the gem will not be in the keys of this map.
 		 */
 		public static Map<Gems, StorageBlocks> getG2SBMap() {
-			return Arrays.stream(values())
-					.map(gem -> new Tuple<>(gem, gem.getStorageBlock()))
-					.filter(entry -> entry.getB() != null) // ensure storage block equivalent exists
-					.collect(Collectors.toMap(Tuple::getA, Tuple::getB));
+			return getMap(values(), Gems::getStorageBlock);
 		}
 	}
 
@@ -1430,11 +1419,11 @@ public class TRContent {
 
 		public final String name;
 		private final Item item;
-		private final Dusts dust;
-		private final StorageBlocks storageBlock;
+		private final @Nullable Dusts dust;
+		private final @Nullable StorageBlocks storageBlock;
 		private final TagKey<Item> tag;
 
-		Ingots(String tagNameBase) {
+		Ingots(@Nullable String tagNameBase) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_ingot"));
 			Dusts dustVariant = null;
@@ -1493,10 +1482,12 @@ public class TRContent {
 			return tag;
 		}
 
+		@Nullable
 		public Dusts getDust() {
 			return dust;
 		}
 
+		@Nullable
 		public StorageBlocks getStorageBlock() {
 			return storageBlock;
 		}
@@ -1507,10 +1498,7 @@ public class TRContent {
 		 * If a dust item equivalent doesn't exist, the ingot will not be in the keys of this map.
 		 */
 		public static Map<Ingots, Dusts> getI2DMap() {
-			return Arrays.stream(values())
-					.map(gem -> new Tuple<>(gem, gem.getDust()))
-					.filter(entry -> entry.getB() != null) // ensure dust item equivalent exists
-					.collect(Collectors.toMap(Tuple::getA, Tuple::getB));
+			return getMap(values(), Ingots::getDust);
 		}
 
 		/**
@@ -1519,10 +1507,7 @@ public class TRContent {
 		 * If a storage block equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
 		public static Map<Ingots, ItemLike> getI2SBMap() {
-			return Arrays.stream(values())
-					.map(ingot -> new Tuple<>(ingot, ingot.getStorageBlock()))
-					.filter(entry -> entry.getB() != null) // ensure storage block equivalent exists
-					.collect(Collectors.toMap(Tuple::getA, Tuple::getB));
+			return getMap(values(), Ingots::getStorageBlock);
 		}
 	}
 
@@ -1534,11 +1519,11 @@ public class TRContent {
 
 		public final String name;
 		private final Item item;
-		private final ItemLike ingot;
+		private final @Nullable ItemLike ingot;
 		private final boolean ofGem;
 		private final TagKey<Item> tag;
 
-		Nuggets(String tagNameBase, ItemLike ingotVariant, boolean ofGem) {
+		Nuggets(@Nullable String tagNameBase, @Nullable ItemLike ingotVariant, boolean ofGem) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(TRItemSettings.item(name + "_nugget"));
 			if (ingotVariant == null)
@@ -1555,7 +1540,7 @@ public class TRContent {
 			tag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "nuggets/" + Objects.requireNonNullElse(tagNameBase, name)));
 		}
 
-		Nuggets(ItemLike ingotVariant, boolean ofGem) {
+		Nuggets(@Nullable ItemLike ingotVariant, boolean ofGem) {
 			this(null, ingotVariant, ofGem);
 		}
 
@@ -1590,6 +1575,7 @@ public class TRContent {
 			return tag;
 		}
 
+		@Nullable
 		public ItemLike getIngot() {
 			return ingot;
 		}
@@ -1606,10 +1592,7 @@ public class TRContent {
 		 * If an ingot equivalent doesn't exist, the raw metal will not be in the keys of this map.
 		 */
 		public static Map<Nuggets, ItemLike> getN2IMap() {
-			return Arrays.stream(values())
-					.map(nugget -> new Tuple<>(nugget, nugget.getIngot()))
-					.filter(entry -> entry.getB() != null) // ensure ingot equivalent exists
-					.collect(Collectors.toMap(Tuple::getA, Tuple::getB));
+			return getMap(values(), Nuggets::getIngot);
 		}
 	}
 
@@ -1912,6 +1895,17 @@ public class TRContent {
 		.sized(1f, 1f)
 		.clientTrackingRange(10)
 		.build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "nuke")));
+
+	private static <K, V> Map<K, V> getMap(K[] values, Function<K, @Nullable V> getter) {
+		Map<K, V> map = new HashMap<>();
+		for (K key : values) {
+			V value = getter.apply(key);
+			if (value != null) {
+				map.put(key, value);
+			}
+		}
+		return map;
+	}
 
 	public static void register() {
 		ModRegistry.register();

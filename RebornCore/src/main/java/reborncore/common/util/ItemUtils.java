@@ -24,6 +24,7 @@
 
 package reborncore.common.util;
 
+import it.unimi.dsi.fastutil.ints.IntObjectPair;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
@@ -31,7 +32,6 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
@@ -114,23 +114,23 @@ public class ItemUtils {
 		return extracted;
 	}
 
-	public static Tuple<Integer, ItemStack> extractFromShulker(ItemStack shulkerStack, NonNullList<ItemStack> entityStack, ItemStack targetStack, int capacity) {
+	public static IntObjectPair<ItemStack> extractFromShulker(ItemStack shulkerStack, NonNullList<ItemStack> entityStack, ItemStack targetStack, int capacity) {
 		ItemStack newStack = shulkerStack.copy();
 		if (entityStack == null) {
-			return new Tuple<>(0, shulkerStack);
+			return IntObjectPair.of(0, shulkerStack);
 		}
 
 		int extracted = extractableFromCachedShulker(entityStack, targetStack, capacity);
 		if (extracted == 0) {
-			return new Tuple<>(0, shulkerStack);
+			return IntObjectPair.of(0, shulkerStack);
 		}
 
 		if (isStackListEmpty(entityStack)) {
 			newStack.set(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
-			return new Tuple<>(extracted, newStack);
+			return IntObjectPair.of(extracted, newStack);
 		}
 		newStack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(entityStack));
-		return new Tuple<>(extracted, newStack);
+		return IntObjectPair.of(extracted, newStack);
 	}
 
 	public static NonNullList<ItemStack> getBlockEntityStacks(ItemStack targetStack) {
