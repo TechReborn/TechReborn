@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.item;
 
+import it.unimi.dsi.fastutil.ints.IntObjectPair;
 import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
@@ -43,7 +44,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PlayerHeadItem;
@@ -205,15 +205,15 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		int reminder = maxCapacity - getCurrentCapacity();
 		NonNullList<ItemStack> optionalShulkerStack = ItemUtils.getBlockEntityStacks(inputStack);
 		if (isLocked() && ItemUtils.canExtractFromCachedShulker(optionalShulkerStack, lockedItemStack) > 0 ) {
-			Tuple<Integer, ItemStack> pair = ItemUtils.extractFromShulker(inputStack, optionalShulkerStack, lockedItemStack, reminder);
-			if (pair.getA() != 0) {
-				int amount = pair.getA();
+			IntObjectPair<ItemStack> pair = ItemUtils.extractFromShulker(inputStack, optionalShulkerStack, lockedItemStack, reminder);
+			if (pair.leftInt() != 0) {
+				int amount = pair.leftInt();
 				if (storeItemStack.isEmpty()) {
 					storeItemStack = lockedItemStack.copy();
 					amount = amount -1;
 				}
 				addStoredItemCount(amount);
-				inputStack = pair.getB().copy();
+				inputStack = pair.right().copy();
 				inventory.setHasChanged();
 			}
 			return inputStack;
