@@ -29,12 +29,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
 import org.jspecify.annotations.Nullable;
 
 import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.EnergyStorageUtil;
 import techreborn.init.TRBlockEntities;
 
 public class ReactorChamberBlockEntity extends BlockEntity {
@@ -100,6 +102,33 @@ public class ReactorChamberBlockEntity extends BlockEntity {
 		super(TRBlockEntities.REACTOR_CHAMBER, pos, state);
 	}
 
+	/**
+	 * Push energy from the reactor to adjacent to reactor chamber blocks each tick.
+	 */
+	public static void tick(Level level, BlockPos pos, BlockState state, ReactorChamberBlockEntity chamber) {
+		if (level.isClientSide()) {
+			return;
+		}
+
+		if (chamber.getLinkedReactor() == null) {
+			return;
+		}
+
+		for (Direction side : Direction.values()) {
+			EnergyStorage source = chamber.getSideEnergyStorage(side);
+			if (source == null) {
+				continue;
+			}
+
+			EnergyStorageUtil.move(
+					source,
+					EnergyStorage.SIDED.find(level, pos.relative(side), side.getOpposite()),
+					Long.MAX_VALUE,
+					null
+			);
+		}
+	}
+
 	@Nullable
 	public BlockPos getLinkedReactorPos() {
 		return linkedReactorPos;
@@ -131,15 +160,16 @@ public class ReactorChamberBlockEntity extends BlockEntity {
 	 */
 	@Nullable
 	public EnergyStorage getSideEnergyStorage(@Nullable Direction side) {
-		// Only provide energy on sides not facing the reactor
-		if (linkedReactorPos != null && side != null) {
+		// Only provide energy on sides not facing the reactor and only if it's linked to a reactor
+		if (linkedReactorPos != null && getLinkedReactor() != null && side != null) {
 			BlockPos sidePos = worldPosition.relative(side);
 			if (sidePos.equals(linkedReactorPos)) {
 				// Don't provide energy on the side facing the reactor
 				return null;
 			}
+			return energyProxy;
 		}
-		return energyProxy;
+		return null;
 	}
 
 	@Override
