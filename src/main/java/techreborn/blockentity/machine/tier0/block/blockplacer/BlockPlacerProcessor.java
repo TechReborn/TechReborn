@@ -56,6 +56,8 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 	private final int basePlaceTime;
 	private final int baseCostToPlace;
 
+	private Item currentPlacingItem;
+
 	public BlockPlacerProcessor(BlockProcessable processable, int inputSlot, int fakeOutputSlot, int basePlaceTime, int baseCostToPlace) {
 		this.processable = processable;
 
@@ -95,8 +97,6 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 
 		if (!ensureBlockCanBePlaced(blockInFront, inputItemStack, 1)) return status;
 
-		Item currentPlacingItem = processable.getInventory().getItem(fakeOutputSlot).getItem();
-
 		ItemStack fakeItem = inputItemStack.copy();
 
 		if (fakeItem.is(Items.AIR)) {
@@ -112,6 +112,8 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 		this.placeTime = BlockProcessorUtils.getProcessTimeWithHardness(processable, basePlaceTime, hardness);
 
 		if (!ensureItemNotReplaced(currentPlacingItem, inputItemStack)) return status;
+
+		currentPlacingItem = inputItemStack.getItem();
 
 		if (!increasePlaceTime()) return status;
 
@@ -212,6 +214,7 @@ public class BlockPlacerProcessor extends BlockPlacerNbt implements BlockProcess
 	private void resetProcessing(int tick) {
 		this.currentPlaceTime = tick;
 		this.placeTime = basePlaceTime;
+		this.currentPlacingItem = null;
 		this.processable.getInventory().setItem(fakeOutputSlot, ItemStack.EMPTY);
 	}
 
