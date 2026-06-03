@@ -28,11 +28,10 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.screen.BuiltScreenHandler;
@@ -44,7 +43,7 @@ import java.util.Objects;
 
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	final IronFurnaceBlockEntity blockEntity;
-	private static final Identifier EXP_BUTTON_TEXTURE = Identifier.withDefaultNamespace("item/experience_bottle");
+	private static final ItemStack EXP_BUTTON_STACK = new ItemStack(Items.EXPERIENCE_BOTTLE);
 
 	public GuiIronFurnace(int syncID, Player player, IronFurnaceBlockEntity furnace) {
 		super(player, furnace, furnace.createScreenHandler(syncID, player));
@@ -61,22 +60,20 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 		addRenderableWidget(new XpButtonWidget(this::onClick));
 	}
 
-	private class XpButtonWidget extends ImageButton {
-		private static final WidgetSprites TEXTURES = new WidgetSprites(EXP_BUTTON_TEXTURE, EXP_BUTTON_TEXTURE);
-
+	private class XpButtonWidget extends Button {
 		public XpButtonWidget(OnPress pressAction) {
 			super(getGuiLeft() + 116,
 				getGuiTop() + 58,
 				16,
 				16,
-				TEXTURES,
+				Component.empty(),
 				pressAction,
-				Component.empty());
+				DEFAULT_NARRATION);
 		}
 
 		@Override
 		public void extractContents(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
-			super.extractContents(context, mouseX, mouseY, delta);
+			context.item(EXP_BUTTON_STACK, getX(), getY());
 
 			if (isHovered) {
 				context.setTooltipForNextFrame(getFont(), getTooltipText(), mouseX, mouseY);

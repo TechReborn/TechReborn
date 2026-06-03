@@ -157,7 +157,8 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 		if (level == null) return 0;
 		int count = 0;
 		for (Direction dir : Direction.values()) {
-			if (level.getBlockEntity(worldPosition.relative(dir)) instanceof ReactorChamberBlockEntity) {
+			if (level.getBlockEntity(worldPosition.relative(dir)) instanceof ReactorChamberBlockEntity addedChamber) {
+				addedChamber.setLinkedReactorPos(worldPosition);
 				count++;
 			}
 		}

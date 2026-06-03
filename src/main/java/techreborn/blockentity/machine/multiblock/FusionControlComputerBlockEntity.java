@@ -28,7 +28,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -61,6 +60,7 @@ import techreborn.init.TRContent;
 public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public int craftingTickTime = 0;
+	public int craftingTotalTime = 0;
 	public int neededPower = 0;
 	public int size = 6;
 	public int state = -1;
@@ -88,10 +88,10 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		} else if (state == 0) {
 			return Component.translatable("gui.techreborn.fusion.norecipe");
 		} else if (state == 1) {
-			if (currentRecipeEntry == null) {
+			if (neededPower == 0) {
 				return Component.translatable("gui.techreborn.fusion.charging");
 			}
-			int percentage = percentage(currentRecipeEntry.value().getStartEnergy(), getEnergy());
+			int percentage = percentage(neededPower, getEnergy());
 			return Component.translatable("gui.techreborn.fusion.chargingdetailed", StringUtils.getPercentageText(percentage));
 		} else if (state == 2) {
 			return Component.translatable("gui.techreborn.fusion.crafting");
@@ -115,6 +115,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	private void resetCrafter() {
 		currentRecipeEntry = null;
 		craftingTickTime = 0;
+		craftingTotalTime = 0;
 		neededPower = 0;
 		hasStartedCrafting = false;
 	}
@@ -150,6 +151,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			if (validateRecipe(entry)) {
 				currentRecipeEntry = entry;
 				craftingTickTime = 0;
+				craftingTotalTime = entry.value().time();
 				neededPower = entry.value().getStartEnergy();
 				hasStartedCrafting = false;
 				break;
@@ -215,8 +217,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	// GenericMachineBlockEntity
 	@Override
 	public int getProgressScaled(int scale) {
-		if (craftingTickTime != 0 && currentRecipeEntry != null && currentRecipeEntry.value().time() != 0) {
-			return craftingTickTime * scale / currentRecipeEntry.value().time();
+		if (craftingTickTime != 0 && craftingTotalTime != 0) {
+			return craftingTickTime * scale / craftingTotalTime;
 		}
 		return 0;
 	}
@@ -257,6 +259,8 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			for (RecipeHolder<FusionReactorRecipe> entry : RecipeUtils.getRecipeEntries(serverLevel, ModRecipes.FUSION_REACTOR)) {
 				if (validateRecipe(entry)) {
 					this.currentRecipeEntry = entry;
+					this.craftingTotalTime = entry.value().time();
+					this.neededPower = entry.value().getStartEnergy();
 				}
 			}
 		}
@@ -351,6 +355,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	public void loadAdditional(ValueInput view) {
 		super.loadAdditional(view);
 		this.craftingTickTime = view.getIntOr("craftingTickTime", 0);
+		this.craftingTotalTime = view.getIntOr("craftingTotalTime", 0);
 		this.neededPower = view.getIntOr("neededPower", 0);
 		this.hasStartedCrafting = view.getBooleanOr("hasStartedCrafting", false);
 		if (view.getBooleanOr("hasActiveRecipe", false) && this.currentRecipeEntry == null) {
@@ -365,6 +370,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	public void saveAdditional(ValueOutput view) {
 		super.saveAdditional(view);
 		view.putInt("craftingTickTime", this.craftingTickTime);
+		view.putInt("craftingTotalTime", this.craftingTotalTime);
 		view.putInt("neededPower", this.neededPower);
 		view.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
 		view.putBoolean("hasActiveRecipe", this.currentRecipeEntry != null);
@@ -395,10 +401,10 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		return new ScreenHandlerBuilder("fusionreactor").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
 				.sync(ByteBufCodecs.INT, this::getCraftingTickTime, this::setCraftingTickTime)
+				.sync(ByteBufCodecs.INT, this::getCraftingTotalTime, this::setCraftingTotalTime)
 				.sync(ByteBufCodecs.INT, this::getSize, this::setSize)
 				.sync(ByteBufCodecs.INT, this::getState, this::setState)
 				.sync(ByteBufCodecs.INT, this::getNeededPower, this::setNeededPower)
-				.sync(Identifier.STREAM_CODEC, this::getCurrentRecipeID, this::setCurrentRecipeID)
 				.syncShapeValue()
 				.addInventory()
 				.create(this, syncID);
@@ -410,6 +416,14 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	public void setCraftingTickTime(int craftingTickTime) {
 		this.craftingTickTime = craftingTickTime;
+	}
+
+	public int getCraftingTotalTime() {
+		return craftingTotalTime;
+	}
+
+	public void setCraftingTotalTime(int craftingTotalTime) {
+		this.craftingTotalTime = craftingTotalTime;
 	}
 
 	public int getSize() {
@@ -440,29 +454,5 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	public void setNeededPower(int neededPower) {
 		this.neededPower = neededPower;
-	}
-
-	public Identifier getCurrentRecipeID() {
-		if (currentRecipeEntry == null) {
-			return Identifier.fromNamespaceAndPath("null", "null");
-		}
-
-		return currentRecipeEntry.id().identifier();
-	}
-
-	public void setCurrentRecipeID(Identifier currentRecipeID) {
-		if (currentRecipeID.getPath().equals("null")) {
-			currentRecipeEntry = null;
-			return;
-		}
-
-		this.currentRecipeEntry = getRecipeFromID(currentRecipeID);
-	}
-
-	private RecipeHolder<FusionReactorRecipe> getRecipeFromID(Identifier identifier) {
-		return RecipeUtils.getRecipeEntries(level, ModRecipes.FUSION_REACTOR).stream()
-			.filter(recipe -> recipe.id().equals(identifier))
-			.findFirst()
-			.orElse(null);
 	}
 }
