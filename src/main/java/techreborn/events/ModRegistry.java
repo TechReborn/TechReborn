@@ -45,6 +45,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import team.reborn.energy.api.EnergyStorage;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
+import techreborn.blockentity.generator.nuclear.ReactorChamberBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.blocks.misc.*;
 import techreborn.config.TechRebornConfig;
@@ -274,6 +275,7 @@ public class ModRegistry {
 
 	private static void registerApis() {
 		EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getSideEnergyStorage, TRBlockEntities.CABLE);
+		EnergyStorage.SIDED.registerForBlockEntity(ReactorChamberBlockEntity::getSideEnergyStorage, TRBlockEntities.REACTOR_CHAMBER);
 		ItemStorage.SIDED.registerForBlockEntity(StorageUnitBaseBlockEntity::getExposedStorage, TRBlockEntities.STORAGE_UNIT);
 	}
 }
