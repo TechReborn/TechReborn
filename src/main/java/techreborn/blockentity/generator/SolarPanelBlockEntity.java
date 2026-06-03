@@ -48,6 +48,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -59,9 +60,6 @@ import net.minecraft.world.level.storage.ValueInput;
 public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
 	private boolean generating = false;
-
-	// Range of panel between day/night production; we calculate this only when panel is updated
-	private int dayNightRange = 0;
 
 	private SolarPanels panel;
 
@@ -82,7 +80,6 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			panel = solarPanelBlock.panelType;
 		}
 
-		dayNightRange = getPanel().generationRateD - getPanel().generationRateN;
 	}
 
 	// Setters/getters that provide boolean interface to underlying generating int; something about
@@ -120,29 +117,21 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			return 0;
 		}
 
-		float skyAngle = (level.getOverworldClockTime() % 24000) / 24000f;
-
 		// Ok, we are actively generating power, but check for a few conditions that would restrict
 		// the generation to minimal production...
 		if (!level.dimensionType().hasSkyLight() || // No light source in dimension (e.g. nether or end)
-			(skyAngle > 0.5) || // Light source is below horizon
 			(level.isRaining() || level.isThundering())) { // Weather is present
 			return getPanel().generationRateN;
 		}
 
 		// At this point, we know a light source is present, and it's clear weather. We need to determine
-		// the level of generation based on % of time through the day, with peak production at noon and
-		// a smooth transition to night production as sun rises/sets
-		float multiplier;
-		if (skyAngle < 0.25) {
-			// Morning to noon
-			multiplier = skyAngle / 0.25f;
-		} else {
-			// Noon to sunset
-			multiplier = (0.5f - skyAngle) / 0.25f;
-		}
+		// the level of generation based on the actual vanilla sun angle, with peak production at noon
+		// and a smooth transition to night production as sun rises/sets.
+		float sunAngle = level.environmentAttributes().getValue(EnvironmentAttributes.SUN_ANGLE, worldPosition) * (float)(Math.PI / 180.0);
+		float daylightMultiplier = Math.max(0, (float)Math.cos(sunAngle));
+		SolarPanels panel = getPanel();
 
-		return (int)Math.ceil(getPanel().generationRateN + (dayNightRange * multiplier));
+		return (int)Math.ceil(panel.generationRateN + ((panel.generationRateD - panel.generationRateN) * daylightMultiplier));
 	}
 
 
