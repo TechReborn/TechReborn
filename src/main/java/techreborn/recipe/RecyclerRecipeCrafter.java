@@ -28,6 +28,7 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
+import techreborn.blockentity.machine.tier1.RecyclerBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 
@@ -68,11 +69,13 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 	}
 
 	@Override
-	public boolean hasAllInputs() {
+	public boolean hasAllInputs(RebornRecipe recipe) {
 		boolean hasItem = false;
-		// Check if we have at least something in input slots. Foreach input slot in case of several input slots
+		// Check if we have something recyclable in input slots
 		for (int inputSlot : inputSlots) {
-			if (inventory.getItem(inputSlot).isEmpty()) continue;
+			ItemStack stack = inventory.getItem(inputSlot);
+			if (stack.isEmpty()) continue;
+			if (!RecyclerBlockEntity.canRecycle(stack)) return false;
 			hasItem = true;
 			break;
 		}
