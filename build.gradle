@@ -6,8 +6,8 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
-	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
-    id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
+	id 'net.fabricmc.fabric-loom' version '1.17.0-alpha.14'
+    id 'me.modmuss50.mod-publish-plugin' version '2.0.0-beta.2'
 }
 
 def ENV = System.getenv()
@@ -24,6 +24,10 @@ allprojects {
     loom {
         runtimeOnlyLog4j = true
         splitEnvironmentSourceSets()
+
+        runs.configureEach {
+            it.preferGradleTask = true
+        }
     }
 
     // Shared deps between TR and RC
@@ -132,6 +136,10 @@ fabricApi {
         createSourceSet = true
         modId = "techreborn-datagen"
     }
+    configureTests {
+        createSourceSet = true
+        modId = "techreborn-tests"
+    }
 }
 
 sourceSets {
@@ -175,7 +183,7 @@ repositories {
 // TechReborn specific dependencies
 dependencies {
     api project(":RebornCore")
-    clientImplementation project(":RebornCore").sourceSets.client.output
+    clientImplementation this.project(":RebornCore").sourceSets.client.output
 
     include project(":RebornCore")
 
@@ -209,6 +217,9 @@ publishMods {
         requires {
             slug = "fabric-api"
         }
+
+        client = true
+        server = true
     }
 
     def mrOptions = modrinthOptions {
