@@ -49,11 +49,13 @@ public class BatteryItem extends Item implements RcEnergyItem {
 
 	private final int maxEnergy;
 	private final RcEnergyTier tier;
+	private final int ioRate;
 
-	public BatteryItem(int maxEnergy, RcEnergyTier tier, String name) {
+	public BatteryItem(int maxEnergy, RcEnergyTier tier, int ioRate, String name) {
 		super(TRItemSettings.item(name).stacksTo(1));
 		this.maxEnergy = maxEnergy;
 		this.tier = tier;
+		this.ioRate = ioRate;
 	}
 
 	// Item
@@ -112,6 +114,16 @@ public class BatteryItem extends Item implements RcEnergyItem {
 	@Override
 	public RcEnergyTier getTier() {
 		return tier;
+	}
+
+	@Override
+	public long getEnergyMaxInput(ItemStack stack) {
+		return ioRate;
+	}
+
+	@Override
+	public long getEnergyMaxOutput(ItemStack stack) {
+		return ioRate;
 	}
 
 }
