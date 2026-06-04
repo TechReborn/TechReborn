@@ -343,7 +343,62 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "upgrades", key = "super_conductor", comment = "Energy flow power increase")
 	public static double superConductorCount = 1;
 
+	// Cables
+	@Config(config = "items", category = "cable", key = "copperCableTransferRate", comment = "Copper Cable Transfer Rate")
+	public static int copperCableTransferRate = 128;
+
+	@Config(config = "items", category = "cable", key = "tinCableTransferRate", comment = "Tin Cable Transfer Rate")
+	public static int tinCableTransferRate = 32;
+
+	@Config(config = "items", category = "cable", key = "goldCableTransferRate", comment = "Gold Cable Transfer Rate")
+	public static int goldCableTransferRate = 512;
+
+	@Config(config = "items", category = "cable", key = "hvCableTransferRate", comment = "HV Cable Transfer Rate")
+	public static int hvCableTransferRate = 2048;
+
+	@Config(config = "items", category = "cable", key = "glassfiberCableTransferRate", comment = "Glassfiber Cable Transfer Rate")
+	public static int glassfiberCableTransferRate = 8192;
+
+	@Config(config = "items", category = "cable", key = "insulatedCopperCableTransferRate", comment = "Insulated Copper Cable Transfer Rate")
+	public static int insulatedCopperCableTransferRate = 128;
+
+	@Config(config = "items", category = "cable", key = "insulatedGoldCableTransferRate", comment = "Insulated Gold Cable Transfer Rate")
+	public static int insulatedGoldCableTransferRate = 512;
+
+	@Config(config = "items", category = "cable", key = "insulatedHvCableTransferRate", comment = "Insulated HV Cable Transfer Rate")
+	public static int insulatedHvCableTransferRate = 2048;
+
+	@Config(config = "items", category = "cable", key = "superconductorCableTransferRate", comment = "Superconductor Cable Transfer Rate")
+	public static int superconductorCableTransferRate = Integer.MAX_VALUE / 4;
+
 	// Storages
+	@Config(config = "machines", category = "batbox", key = "BatboxMaxEnergy", comment = "Batbox Max Energy")
+	public static int batboxMaxEnergy = 40_000;
+
+	@Config(config = "machines", category = "batbox", key = "BatboxMaxInput", comment = "Batbox Max Input")
+	public static int batboxMaxInput = 32;
+
+	@Config(config = "machines", category = "batbox", key = "BatboxMaxOutput", comment = "Batbox Max Output")
+	public static int batboxMaxOutput = 32;
+
+	@Config(config = "machines", category = "mfe", key = "MfeMaxEnergy", comment = "MFE Max Energy")
+	public static int mfeMaxEnergy = 4_000_000;
+
+	@Config(config = "machines", category = "mfe", key = "MfeMaxInput", comment = "MFE Max Input")
+	public static int mfeMaxInput = 128;
+
+	@Config(config = "machines", category = "mfe", key = "MfeMaxOutput", comment = "MFE Max Output")
+	public static int mfeMaxOutput = 128;
+
+	@Config(config = "machines", category = "mfsu", key = "MfsuMaxEnergy", comment = "MFSU Max Energy")
+	public static int mfsuMaxEnergy = 40_000_000;
+
+	@Config(config = "machines", category = "mfsu", key = "MfsuMaxInput", comment = "MFSU Max Input")
+	public static int mfsuMaxInput = 512;
+
+	@Config(config = "machines", category = "mfsu", key = "MfsuMaxOutput", comment = "MFSU Max Output")
+	public static int mfsuMaxOutput = 512;
+
 	@Config(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block")
 	public static int lesuStoragePerBlock = 4_000_000;
 
