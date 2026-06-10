@@ -169,4 +169,25 @@ class RebornCoreConfigApiTest {
 				}
 				""".trim(), Files.readString(tempDir.resolve("reborncore").resolve("write_defaults.cfg")).trim());
 	}
+
+	@Test
+	void rejectInvalidKeys() {
+		Config config = RebornCoreConfigApi.config(Identifier.parse("reborncore:reject_invalid_keys"));
+
+		assertThrows(IllegalStateException.class, () -> config.stringValue("has space", "value"));
+		assertThrows(IllegalStateException.class, () -> config.group("group name"));
+		assertThrows(IllegalStateException.class, () -> config.stringValue("has:colon", "value"));
+		assertThrows(IllegalStateException.class, () -> config.stringValue("has\"quote", "value"));
+	}
+
+	@Test
+	void allowSimpleUnquotedKeys() {
+		Config config = RebornCoreConfigApi.config(Identifier.parse("reborncore:allow_simple_unquoted_keys"));
+
+		config.stringValue("simple", "value");
+		config.stringValue("with_underscore", "value");
+		config.stringValue("with-dash", "value");
+		config.stringValue("with.dot", "value");
+		config.stringValue("with+plus", "value");
+	}
 }

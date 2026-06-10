@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.mojang.brigadier.StringReader;
 import com.mojang.serialization.Codec;
 
 import reborncore.common.config2.ConfigGroup;
@@ -58,12 +59,24 @@ public class ConfigGroupImpl extends AbstractConfigNode implements ConfigGroup {
 	}
 
 	private <T extends AbstractConfigNode> T addEntry(String key, T entry) {
+		validateKey(key);
+
 		if (entries.containsKey(key)) {
 			throw new IllegalStateException("Entry with key '" + key + "' already exists in the config group");
 		}
 
 		entries.put(key, entry);
 		return entry;
+	}
+
+	private void validateKey(String key) {
+		if (key.isEmpty()) {
+			throw new IllegalStateException("Config keys cannot be empty");
+		}
+
+		if (!key.chars().allMatch(character -> StringReader.isAllowedInUnquotedString((char) character))) {
+			throw new IllegalStateException("Config keys must be valid unquoted SNBT keys: " + key);
+		}
 	}
 
 	public Map<String, AbstractConfigNode> getEntries() {

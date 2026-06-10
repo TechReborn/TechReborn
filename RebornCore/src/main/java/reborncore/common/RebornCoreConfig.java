@@ -32,7 +32,7 @@ import reborncore.common.config2.RebornCoreConfigApi;
 public final class RebornCoreConfig {
 	private static final Config CONFIG = RebornCoreConfigApi.config(Identifier.fromNamespaceAndPath("reborncore", "misc"));
 
-	public static final ConfigValue<String> selectedSystem = CONFIG.stringValue("Selected Energy system", "E")
+	public static final ConfigValue<String> selectedSystem = CONFIG.stringValue("selectedSystem", "E")
 		.comment("Possible values are: E (was FE, EU)");
 
 	private RebornCoreConfig() {
