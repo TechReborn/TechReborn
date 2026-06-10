@@ -66,7 +66,7 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements IToolDro
 			return;
 		}
 
-		int ticks = TechRebornConfig.ticksUntilNextDrainAttempt;
+		int ticks = TechRebornConfig.ticksUntilNextDrainAttempt.get();
 		if (ticks > 0 && serverLevel.getGameTime() % ticks == 0) {
 
 			if (internalTank.isEmpty()) {

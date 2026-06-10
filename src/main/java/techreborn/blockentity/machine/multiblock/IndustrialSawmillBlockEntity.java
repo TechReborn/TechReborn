@@ -58,7 +58,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	int ticksSinceLastChange;
 
 	public IndustrialSawmillBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.INDUSTRIAL_SAWMILL, pos, state, "IndustrialSawmill", TechRebornConfig.industrialSawmillMaxInput, TechRebornConfig.industrialSawmillMaxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
+		super(TRBlockEntities.INDUSTRIAL_SAWMILL, pos, state, "IndustrialSawmill", TechRebornConfig.industrialSawmillMaxInput.get(), TechRebornConfig.industrialSawmillMaxEnergy.get(), TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4};
 		this.inventory = new RebornInventory<>(7, "SawmillBlockEntity", 64, this);

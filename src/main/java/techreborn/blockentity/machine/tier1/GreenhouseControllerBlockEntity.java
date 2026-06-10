@@ -102,14 +102,14 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 			if (block instanceof BonemealableBlock || block instanceof VegetationBlock
 					|| block instanceof SugarCaneBlock	|| block instanceof CactusBlock
 			) {
-				if (getStored() > TechRebornConfig.greenhouseControllerEnergyPerBonemeal) {
-					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerBonemeal);
+				if (getStored() > TechRebornConfig.greenhouseControllerEnergyPerBonemeal.get()) {
+					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerBonemeal.get());
 					blockState.randomTick((ServerLevel) level, blockPos, level.getRandom());
 				}
 			}
 		}
 
-		if (getStored() < TechRebornConfig.greenhouseControllerEnergyPerHarvest){
+		if (getStored() < TechRebornConfig.greenhouseControllerEnergyPerHarvest.get()){
 			return;
 		}
 
@@ -144,7 +144,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 				if (blockState.getValue(BlockRubberLog.HAS_SAP)
 						&& insertIntoInv(Collections.singletonList(TRContent.Parts.SAP.getStack()))
 				) {
-					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
+					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest.get());
 					level.setBlockAndUpdate(blockPos.above(y), blockState.setValue(BlockRubberLog.HAS_SAP, false).setValue(BlockRubberLog.SAP_SIDE, Direction.from2DDataValue(0)));
 				}
 			}
@@ -153,7 +153,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 				if (blockState.getValue(BlockStateProperties.BERRIES)
 					&& insertIntoInv(Collections.singletonList(new ItemStack(Items.GLOW_BERRIES, 1)))
 				){
-					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
+					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest.get());
 					level.setBlockAndUpdate(blockPos.above(y), blockState.setValue(BlockStateProperties.BERRIES, false));
 				}
 			}
@@ -179,7 +179,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	private boolean tryHarvestBlock(BlockState blockState, BlockPos blockPos) {
 		if (insertIntoInv(Block.getDrops(blockState, (ServerLevel) level, blockPos, null))) {
-			useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
+			useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest.get());
 			return true;
 		}
 		return false;
@@ -229,7 +229,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 		charge(6);
 
-		if (getStored() < getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) {
+		if (getStored() < getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick.get())) {
 			return;
 		}
 
@@ -253,7 +253,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.greenhouseControllerMaxEnergy;
+		return TechRebornConfig.greenhouseControllerMaxEnergy.get();
 	}
 
 	@Override
@@ -263,7 +263,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.greenhouseControllerMaxInput;
+		return TechRebornConfig.greenhouseControllerMaxInput.get();
 	}
 
 	// MachineBaseBlockEntity

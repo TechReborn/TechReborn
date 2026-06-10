@@ -58,7 +58,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	int ticksSinceLastChange;
 
 	public IndustrialGrinderBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.INDUSTRIAL_GRINDER, pos, state, "IndustrialGrinder", TechRebornConfig.industrialGrinderMaxInput, TechRebornConfig.industrialGrinderMaxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
+		super(TRBlockEntities.INDUSTRIAL_GRINDER, pos, state, "IndustrialGrinder", TechRebornConfig.industrialGrinderMaxInput.get(), TechRebornConfig.industrialGrinderMaxEnergy.get(), TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(8, "IndustrialGrinderBlockEntity", 64, this);

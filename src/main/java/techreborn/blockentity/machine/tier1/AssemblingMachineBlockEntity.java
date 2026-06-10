@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 public class AssemblingMachineBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public AssemblingMachineBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.ASSEMBLY_MACHINE, pos, state, "AssemblingMachine", TechRebornConfig.assemblingMachineMaxInput, TechRebornConfig.assemblingMachineMaxEnergy, TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
+		super(TRBlockEntities.ASSEMBLY_MACHINE, pos, state, "AssemblingMachine", TechRebornConfig.assemblingMachineMaxInput.get(), TechRebornConfig.assemblingMachineMaxEnergy.get(), TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "AssemblingMachineBlockEntity", 64, this);

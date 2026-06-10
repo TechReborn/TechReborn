@@ -68,7 +68,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.chargeOMatBMaxEnergy;
+		return TechRebornConfig.chargeOMatBMaxEnergy.get();
 	}
 
 	@Override
@@ -79,12 +79,12 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.chargeOMatBMaxOutput;
+		return TechRebornConfig.chargeOMatBMaxOutput.get();
 	}
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.chargeOMatBMaxInput;
+		return TechRebornConfig.chargeOMatBMaxInput.get();
 	}
 
 	// MachineBaseBlockEntity

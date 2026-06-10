@@ -80,7 +80,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements 
 		if (side == null) {
 			return true;
 		}
-		if (TechRebornConfig.IC2TransformersStyle) {
+		if (TechRebornConfig.IC2TransformersStyle.get()) {
 			return getFacing() == side;
 		}
 		return getFacing() != side;
@@ -91,7 +91,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity implements 
 		if (side == null) {
 			return true;
 		}
-		if (TechRebornConfig.IC2TransformersStyle) {
+		if (TechRebornConfig.IC2TransformersStyle.get()) {
 			return getFacing() != side;
 		}
 		return getFacing() == side;

@@ -309,11 +309,11 @@ public class TRContent {
 	}
 
 	public enum SolarPanels implements BlockInfo {
-		BASIC(RcEnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
-		ADVANCED(RcEnergyTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
-		INDUSTRIAL(RcEnergyTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
-		ULTIMATE(RcEnergyTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
-		QUANTUM(RcEnergyTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
+		BASIC(RcEnergyTier.MICRO, TechRebornConfig.basicGenerationRateD.get(), TechRebornConfig.basicGenerationRateN.get()),
+		ADVANCED(RcEnergyTier.LOW, TechRebornConfig.advancedGenerationRateD.get(), TechRebornConfig.advancedGenerationRateN.get()),
+		INDUSTRIAL(RcEnergyTier.MEDIUM, TechRebornConfig.industrialGenerationRateD.get(), TechRebornConfig.industrialGenerationRateN.get()),
+		ULTIMATE(RcEnergyTier.HIGH, TechRebornConfig.ultimateGenerationRateD.get(), TechRebornConfig.ultimateGenerationRateN.get()),
+		QUANTUM(RcEnergyTier.EXTREME, TechRebornConfig.quantumGenerationRateD.get(), TechRebornConfig.quantumGenerationRateN.get()),
 		CREATIVE(RcEnergyTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
 
 		public final String name;
@@ -334,7 +334,7 @@ public class TRContent {
 			this.generationRateD = generationRateD;
 			this.generationRateN = generationRateN;
 
-			internalCapacity = generationRateD * TechRebornConfig.solarInternalCapacityMultiplier;
+			internalCapacity = generationRateD * TechRebornConfig.solarInternalCapacityMultiplier.get();
 
 			InitUtils.setup(block, name + "_solar_panel");
 		}
@@ -357,11 +357,11 @@ public class TRContent {
 
 	public enum StorageUnit implements BlockInfo {
 		BUFFER(1, false),
-		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage, true),
-		BASIC(TechRebornConfig.basicStorageUnitMaxStorage, true),
-		ADVANCED(TechRebornConfig.advancedStorageUnitMaxStorage, true),
-		INDUSTRIAL(TechRebornConfig.industrialStorageUnitMaxStorage, true),
-		QUANTUM(TechRebornConfig.quantumStorageUnitMaxStorage, false),
+		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage.get(), true),
+		BASIC(TechRebornConfig.basicStorageUnitMaxStorage.get(), true),
+		ADVANCED(TechRebornConfig.advancedStorageUnitMaxStorage.get(), true),
+		INDUSTRIAL(TechRebornConfig.industrialStorageUnitMaxStorage.get(), true),
+		QUANTUM(TechRebornConfig.quantumStorageUnitMaxStorage.get(), false),
 		CREATIVE(Integer.MAX_VALUE, false);
 
 		public final String name;
@@ -426,10 +426,10 @@ public class TRContent {
 	}
 
 	public enum TankUnit implements BlockInfo {
-		BASIC(TechRebornConfig.basicTankUnitCapacity),
-		ADVANCED(TechRebornConfig.advancedTankUnitMaxStorage),
-		INDUSTRIAL(TechRebornConfig.industrialTankUnitCapacity),
-		QUANTUM(TechRebornConfig.quantumTankUnitCapacity),
+		BASIC(TechRebornConfig.basicTankUnitCapacity.get()),
+		ADVANCED(TechRebornConfig.advancedTankUnitMaxStorage.get()),
+		INDUSTRIAL(TechRebornConfig.industrialTankUnitCapacity.get()),
+		QUANTUM(TechRebornConfig.quantumTankUnitCapacity.get()),
 		CREATIVE(Integer.MAX_VALUE / 1000);
 
 		public final String name;
@@ -1822,8 +1822,8 @@ public class TRContent {
 				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
 			if (handler != null) {
-				handler.addSpeedMultiplier(TechRebornConfig.overclockerSpeed);
-				handler.addPowerMultiplier(TechRebornConfig.overclockerPower);
+				handler.addSpeedMultiplier(TechRebornConfig.overclockerSpeed.get());
+				handler.addPowerMultiplier(TechRebornConfig.overclockerPower.get());
 			}
 			if (powerAcceptor != null) {
 				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(null);
@@ -1845,7 +1845,7 @@ public class TRContent {
 				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
 			if (powerAcceptor != null) {
-				powerAcceptor.extraPowerStorage += TechRebornConfig.energyStoragePower;
+				powerAcceptor.extraPowerStorage += TechRebornConfig.energyStoragePower.get();
 			}
 		}),
 		SUPERCONDUCTOR((blockEntity, handler, stack) -> {
@@ -1854,7 +1854,7 @@ public class TRContent {
 				aesu = (AdjustableSUBlockEntity) blockEntity;
 			}
 			if (aesu != null) {
-				aesu.superconductors += TechRebornConfig.superConductorCount;
+				aesu.superconductors += TechRebornConfig.superConductorCount.get();
 			}
 		}),
 		MUFFLER((blockEntity, handler, stack) -> {

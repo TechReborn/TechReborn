@@ -89,7 +89,7 @@ public class IDSUManager extends SavedData {
 		private String uuid;
 		private Runnable markDirty = () -> {};
 		// This storage is never exposed directly, it's always wrapped behind getMaxInput()/getMaxOutput() checks
-		private final SimpleEnergyStorage storage = new SimpleEnergyStorage(TechRebornConfig.idsuMaxEnergy, Long.MAX_VALUE, Long.MAX_VALUE) {
+		private final SimpleEnergyStorage storage = new SimpleEnergyStorage(TechRebornConfig.idsuMaxEnergy.get(), Long.MAX_VALUE, Long.MAX_VALUE) {
 			@Override
 			protected void onFinalCommit() {
 				markDirty.run();

@@ -42,7 +42,7 @@ import techreborn.init.TRContent;
 public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public SemiFluidGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.SEMI_FLUID_GENERATOR, pos, state, ModRecipes.SEMI_FLUID_GENERATOR, "SemiFluidGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.semiFluidGeneratorEnergyPerTick);
+		super(TRBlockEntities.SEMI_FLUID_GENERATOR, pos, state, ModRecipes.SEMI_FLUID_GENERATOR, "SemiFluidGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.semiFluidGeneratorEnergyPerTick.get());
 	}
 
 	@Override
@@ -52,12 +52,12 @@ public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.semiFluidGeneratorMaxEnergy;
+		return TechRebornConfig.semiFluidGeneratorMaxEnergy.get();
 	}
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.semiFluidGeneratorMaxOutput;
+		return TechRebornConfig.semiFluidGeneratorMaxOutput.get();
 	}
 
 	@Override

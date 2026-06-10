@@ -54,7 +54,7 @@ import net.minecraft.world.phys.AABB;
 public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
 	public static final int MAX_SELECTION = 3;
-	private int selection = TechRebornConfig.launchpadDefaultSelection;
+	private int selection = TechRebornConfig.launchpadDefaultSelection.get();
 
 	public LaunchpadBlockEntity(BlockPos pos, BlockState state) {
 		super(TRBlockEntities.LAUNCHPAD, pos, state);
@@ -76,20 +76,20 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	public double selectedSpeed() {
 		return switch(selection) {
-			case 0 -> TechRebornConfig.launchpadSpeedLow;
-			case 1 -> TechRebornConfig.launchpadSpeedMedium;
-			case 2 -> TechRebornConfig.launchpadSpeedHigh;
-			case MAX_SELECTION -> TechRebornConfig.launchpadSpeedExtreme;
+			case 0 -> TechRebornConfig.launchpadSpeedLow.get();
+			case 1 -> TechRebornConfig.launchpadSpeedMedium.get();
+			case 2 -> TechRebornConfig.launchpadSpeedHigh.get();
+			case MAX_SELECTION -> TechRebornConfig.launchpadSpeedExtreme.get();
 			default -> throw new IllegalArgumentException("Impossible launchpad selection value!");
 		};
 	}
 
 	public int selectedEnergyCost() {
 		return switch(selection) {
-			case 0 -> TechRebornConfig.launchpadEnergyLow;
-			case 1 -> TechRebornConfig.launchpadEnergyMedium;
-			case 2 -> TechRebornConfig.launchpadEnergyHigh;
-			case MAX_SELECTION -> TechRebornConfig.launchpadEnergyExtreme;
+			case 0 -> TechRebornConfig.launchpadEnergyLow.get();
+			case 1 -> TechRebornConfig.launchpadEnergyMedium.get();
+			case 2 -> TechRebornConfig.launchpadEnergyHigh.get();
+			case MAX_SELECTION -> TechRebornConfig.launchpadEnergyExtreme.get();
 			default -> throw new IllegalArgumentException("Impossible launchpad selection value!");
 		};
 	}
@@ -112,7 +112,7 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 			return;
 		}
 
-		if (level.getGameTime() % TechRebornConfig.launchpadInterval != 0) {
+		if (level.getGameTime() % TechRebornConfig.launchpadInterval.get() != 0) {
 			return;
 		}
 
@@ -135,7 +135,7 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.launchpadMaxEnergy;
+		return TechRebornConfig.launchpadMaxEnergy.get();
 	}
 
 	@Override
@@ -150,7 +150,7 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.launchpadMaxInput;
+		return TechRebornConfig.launchpadMaxInput.get();
 	}
 
 	@Override

@@ -306,7 +306,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.autoCraftingTableMaxEnergy;
+		return TechRebornConfig.autoCraftingTableMaxEnergy.get();
 	}
 
 	@Override
@@ -316,7 +316,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.autoCraftingTableMaxInput;
+		return TechRebornConfig.autoCraftingTableMaxInput.get();
 	}
 
 	@Override

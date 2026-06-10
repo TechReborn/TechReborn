@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public PlasmaGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.PLASMA_GENERATOR, pos, state, ModRecipes.PLASMA_GENERATOR, "PlasmaGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.plasmaGeneratorEnergyPerTick);
+		super(TRBlockEntities.PLASMA_GENERATOR, pos, state, ModRecipes.PLASMA_GENERATOR, "PlasmaGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.plasmaGeneratorEnergyPerTick.get());
 	}
 
 	@Override
@@ -51,12 +51,12 @@ public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.plasmaGeneratorMaxEnergy;
+		return TechRebornConfig.plasmaGeneratorMaxEnergy.get();
 	}
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.plasmaGeneratorMaxOutput;
+		return TechRebornConfig.plasmaGeneratorMaxOutput.get();
 	}
 
 	@Override

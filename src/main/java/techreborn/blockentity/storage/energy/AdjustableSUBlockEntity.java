@@ -60,7 +60,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public int superconductors = 0;
 
 	public AdjustableSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.ADJUSTABLE_SU, pos, state, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, RcEnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
+		super(TRBlockEntities.ADJUSTABLE_SU, pos, state, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, RcEnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy.get());
 	}
 
 	public int getMaxConfigOutput() {

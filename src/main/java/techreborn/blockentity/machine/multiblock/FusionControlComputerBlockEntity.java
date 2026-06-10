@@ -106,7 +106,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 */
 	public void changeSize(int sizeDelta) {
 		int newSize = size + sizeDelta;
-		this.size = Math.max(6, Math.min(TechRebornConfig.fusionControlComputerMaxCoilSize, newSize));
+		this.size = Math.max(6, Math.min(TechRebornConfig.fusionControlComputerMaxCoilSize.get(), newSize));
 	}
 
 	/**
@@ -225,7 +225,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 	@Override
 	public long getBaseMaxPower() {
-		return Math.min((long) (TechRebornConfig.fusionControlComputerMaxEnergy * getPowerMultiplier()), Long.MAX_VALUE);
+		return Math.min((long) (TechRebornConfig.fusionControlComputerMaxEnergy.get() * getPowerMultiplier()), Long.MAX_VALUE);
 	}
 
 	@Override
@@ -233,7 +233,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		if (!hasStartedCrafting) {
 			return 0;
 		}
-		return TechRebornConfig.fusionControlComputerMaxOutput;
+		return TechRebornConfig.fusionControlComputerMaxOutput.get();
 	}
 
 	@Override
@@ -241,7 +241,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		if (hasStartedCrafting) {
 			return 0;
 		}
-		return TechRebornConfig.fusionControlComputerMaxInput;
+		return TechRebornConfig.fusionControlComputerMaxInput.get();
 	}
 
 	// PowerAcceptorBlockEntity
@@ -363,7 +363,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		}
 		this.size = view.getIntOr("size", 0);
 		//Done here to force the smaller size, will be useful if people lag out on a large one.
-		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize);
+		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize.get());
 	}
 
 	@Override

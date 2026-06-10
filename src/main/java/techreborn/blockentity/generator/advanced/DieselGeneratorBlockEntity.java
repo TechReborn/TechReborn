@@ -42,7 +42,7 @@ import techreborn.init.TRContent;
 public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public DieselGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.DIESEL_GENERATOR, pos, state, ModRecipes.DIESEL_GENERATOR, "DieselGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.dieselGeneratorEnergyPerTick);
+		super(TRBlockEntities.DIESEL_GENERATOR, pos, state, ModRecipes.DIESEL_GENERATOR, "DieselGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.dieselGeneratorEnergyPerTick.get());
 	}
 
 	@Override
@@ -52,12 +52,12 @@ public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.dieselGeneratorMaxEnergy;
+		return TechRebornConfig.dieselGeneratorMaxEnergy.get();
 	}
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.dieselGeneratorMaxOutput;
+		return TechRebornConfig.dieselGeneratorMaxOutput.get();
 	}
 
 	@Override

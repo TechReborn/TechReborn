@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public AlloySmelterBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.ALLOY_SMELTER, pos, state, "AlloySmelter", TechRebornConfig.alloySmelterMaxInput, TechRebornConfig.alloySmelterMaxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
+		super(TRBlockEntities.ALLOY_SMELTER, pos, state, "AlloySmelter", TechRebornConfig.alloySmelterMaxInput.get(), TechRebornConfig.alloySmelterMaxEnergy.get(), TRContent.Machine.ALLOY_SMELTER.block, 3);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "AlloySmelterBlockEntity", 64, this);

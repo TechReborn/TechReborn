@@ -79,7 +79,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 		final float weatherStrength = serverLevel.getThunderLevel(1.0F);
 		if (weatherStrength > 0.2F) {
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
-			final float lightStrikeChance = (100F - TechRebornConfig.lightningRodChanceOfStrike) * 20F;
+			final float lightStrikeChance = (100F - TechRebornConfig.lightningRodChanceOfStrike.get()) * 20F;
 			final float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * (1.1F - weatherStrength);
 			if (serverLevel.getRandom().nextInt((int) Math.floor(totalChance)) == 0) {
 				if (!isValidIronFence(pos.above().getY())) {
@@ -90,7 +90,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 				LightningBolt lightningBolt = EntityTypes.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
 				lightningBolt.snapTo(Vec3.atBottomCenterOf(serverLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, getBlockPos())));
 				serverLevel.addFreshEntity(lightningBolt);
-				addEnergy((long) (TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength)));
+				addEnergy((long) (TechRebornConfig.lightningRodBaseEnergyStrike.get() * (0.3F + weatherStrength)));
 				machineBaseBlock.setActive(true, serverLevel, pos);
 				onStatusHoldTicks = 400;
 			}
@@ -123,7 +123,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.lightningRodMaxEnergy;
+		return TechRebornConfig.lightningRodMaxEnergy.get();
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.lightningRodMaxOutput;
+		return TechRebornConfig.lightningRodMaxOutput.get();
 	}
 
 	@Override

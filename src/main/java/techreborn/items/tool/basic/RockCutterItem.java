@@ -57,7 +57,7 @@ public class RockCutterItem extends Item implements RcEnergyItem {
 
 	@Override
 	public float getDestroySpeed(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) < TechRebornConfig.rockCutterCost) {
+		if (getStoredEnergy(stack) < TechRebornConfig.rockCutterCost.get()) {
 			return 1.0f;
 		} else {
 			return Items.DIAMOND_PICKAXE.getDestroySpeed(stack, state);
@@ -67,7 +67,7 @@ public class RockCutterItem extends Item implements RcEnergyItem {
 	// MiningToolItem
 	@Override
 	public boolean mineBlock(ItemStack stack, Level worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		tryUseEnergy(stack, TechRebornConfig.rockCutterCost);
+		tryUseEnergy(stack, TechRebornConfig.rockCutterCost.get());
 		return true;
 	}
 
@@ -100,7 +100,7 @@ public class RockCutterItem extends Item implements RcEnergyItem {
 	// RcEnergyItem
 	@Override
 	public long getEnergyCapacity(ItemStack stack) {
-		return TechRebornConfig.rockCutterCharge;
+		return TechRebornConfig.rockCutterCharge.get();
 	}
 
 	@Override

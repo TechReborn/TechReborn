@@ -62,7 +62,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	int ticksSinceLastChange;
 
 	public FluidReplicatorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.FLUID_REPLICATOR, pos, state, "FluidReplicator", TechRebornConfig.fluidReplicatorMaxInput, TechRebornConfig.fluidReplicatorMaxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
+		super(TRBlockEntities.FLUID_REPLICATOR, pos, state, "FluidReplicator", TechRebornConfig.fluidReplicatorMaxInput.get(), TechRebornConfig.fluidReplicatorMaxEnergy.get(), TRContent.Machine.FLUID_REPLICATOR.block, 3);
 		this.inventory = new RebornInventory<>(4, "FluidReplicatorBlockEntity", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(ModRecipes.FLUID_REPLICATOR, this, 1, 0, this.inventory, new int[]{0}, null);
 		this.tank = new Tank("FluidReplicatorBlockEntity", FluidReplicatorBlockEntity.TANK_CAPACITY);

@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 public class GrinderBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public GrinderBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.GRINDER,  pos, state, "Grinder", TechRebornConfig.grinderMaxInput, TechRebornConfig.grinderMaxEnergy, TRContent.Machine.GRINDER.block, 2);
+		super(TRBlockEntities.GRINDER,  pos, state, "Grinder", TechRebornConfig.grinderMaxInput.get(), TechRebornConfig.grinderMaxEnergy.get(), TRContent.Machine.GRINDER.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "GrinderBlockEntity", 64, this);

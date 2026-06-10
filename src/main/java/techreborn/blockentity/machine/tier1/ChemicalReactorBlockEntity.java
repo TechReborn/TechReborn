@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public ChemicalReactorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.CHEMICAL_REACTOR, pos, state, "ChemicalReactor", TechRebornConfig.chemicalReactorMaxInput, TechRebornConfig.chemicalReactorMaxEnergy, TRContent.Machine.CHEMICAL_REACTOR.block, 3);
+		super(TRBlockEntities.CHEMICAL_REACTOR, pos, state, "ChemicalReactor", TechRebornConfig.chemicalReactorMaxInput.get(), TechRebornConfig.chemicalReactorMaxEnergy.get(), TRContent.Machine.CHEMICAL_REACTOR.block, 3);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "ChemicalReactorBlockEntity", 64, this);

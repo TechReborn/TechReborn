@@ -134,14 +134,14 @@ public class BlockRubberLog extends RotatedPillarBlock {
 					return InteractionResult.SUCCESS;
 				}
 				if (stack.getItem() instanceof ElectricTreetapItem item) {
-					item.tryUseEnergy(stack, TechRebornConfig.electricTreetapCost);
+					item.tryUseEnergy(stack, TechRebornConfig.electricTreetapCost.get());
 				} else {
 					stack.hurtAndBreak(1, playerIn, EquipmentSlot.MAINHAND);
 				}
 				if (!playerIn.getInventory().add(TRContent.Parts.SAP.getStack())) {
 					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.relative(hitResult.getDirection()));
 				}
-				if (playerIn instanceof ServerPlayer && !TechRebornConfig.vanillaUnlockRecipes) {
+				if (playerIn instanceof ServerPlayer && !TechRebornConfig.vanillaUnlockRecipes.get()) {
 					TRRecipeHandler.unlockTRRecipes((ServerPlayer) playerIn);
 				}
 				return InteractionResult.SUCCESS;

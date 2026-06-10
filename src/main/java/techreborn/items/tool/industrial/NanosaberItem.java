@@ -56,7 +56,7 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 public class NanosaberItem extends Item implements RcEnergyItem {
-	private static final AttributeModifier ENABLED_ATTACK_DAMAGE_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_damage"), TechRebornConfig.nanosaberDamage, AttributeModifier.Operation.ADD_VALUE);
+	private static final AttributeModifier ENABLED_ATTACK_DAMAGE_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_damage"), TechRebornConfig.nanosaberDamage.get(), AttributeModifier.Operation.ADD_VALUE);
 	private static final AttributeModifier ENABLED_ATTACK_SPEED_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_speed"), 3, AttributeModifier.Operation.ADD_VALUE);
 	private static final AttributeModifier DISABLED_ATTACK_DAMAGE_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_damage"), 0, AttributeModifier.Operation.ADD_VALUE);
 	private static final AttributeModifier DISABLED_ATTACK_SPEED_MODIFIER = new AttributeModifier(Identifier.fromNamespaceAndPath("techreborn", "nano_saber_attack_speed"), 0, AttributeModifier.Operation.ADD_VALUE);
@@ -69,13 +69,13 @@ public class NanosaberItem extends Item implements RcEnergyItem {
 	// SwordItem
 	@Override
 	public void hurtEnemy(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
-		tryUseEnergy(stack, TechRebornConfig.nanosaberCost);
+		tryUseEnergy(stack, TechRebornConfig.nanosaberCost.get());
 	}
 
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, ServerLevel worldIn, Entity entityIn, @Nullable EquipmentSlot slot) {
-		TRItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost, entityIn);
+		TRItemUtils.checkActive(stack, TechRebornConfig.nanosaberCost.get(), entityIn);
 
 		boolean isActive = stack.get(TRDataComponentTypes.IS_ACTIVE) == Boolean.TRUE;
 		ItemAttributeModifiers attributes = stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
@@ -88,7 +88,7 @@ public class NanosaberItem extends Item implements RcEnergyItem {
 	public InteractionResult use(final Level world, final Player player, final InteractionHand hand) {
 		final ItemStack stack = player.getItemInHand(hand);
 		if (player.isShiftKeyDown()) {
-			TRItemUtils.switchActive(stack, TechRebornConfig.nanosaberCost, player);
+			TRItemUtils.switchActive(stack, TechRebornConfig.nanosaberCost.get(), player);
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
@@ -117,7 +117,7 @@ public class NanosaberItem extends Item implements RcEnergyItem {
 	// RcEnergyItem
 	@Override
 	public long getEnergyCapacity(ItemStack stack) {
-		return TechRebornConfig.nanosaberCharge;
+		return TechRebornConfig.nanosaberCharge.get();
 	}
 
 	@Override

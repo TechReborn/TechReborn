@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 public class ExtractorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public ExtractorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.EXTRACTOR, pos, state, "Extractor", TechRebornConfig.extractorMaxInput, TechRebornConfig.extractorMaxEnergy, TRContent.Machine.EXTRACTOR.block, 2);
+		super(TRBlockEntities.EXTRACTOR, pos, state, "Extractor", TechRebornConfig.extractorMaxInput.get(), TechRebornConfig.extractorMaxEnergy.get(), TRContent.Machine.EXTRACTOR.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "ExtractorBlockEntity", 64, this);
