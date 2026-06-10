@@ -32,6 +32,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
+import reborncore.common.config.LegacyConfigCleanup;
 import reborncore.common.config2.Config;
 import reborncore.common.config2.ConfigGroup;
 import reborncore.common.config2.ConfigValue;
@@ -41,11 +42,16 @@ import reborncore.common.config2.RebornCoreConfigApi;
 public final class TechRebornConfig {
 	private static final String MOD_ID = "techreborn";
 	private static final Codec<Float> CLAMPED_FLOAT_CODEC = Codec.FLOAT.xmap(value -> Mth.clamp(value, 0.0F, 1.0F), value -> value);
-	private static final Config GENERATORS = RebornCoreConfigApi.config(Identifier.fromNamespaceAndPath(MOD_ID, "generators"));
-	private static final Config ITEMS = RebornCoreConfigApi.config(Identifier.fromNamespaceAndPath(MOD_ID, "items"));
-	private static final Config MACHINES = RebornCoreConfigApi.config(Identifier.fromNamespaceAndPath(MOD_ID, "machines"));
-	private static final Config MISC = RebornCoreConfigApi.config(Identifier.fromNamespaceAndPath(MOD_ID, "misc"));
-	private static final Config WORLD = RebornCoreConfigApi.config(Identifier.fromNamespaceAndPath(MOD_ID, "world"));
+	private static final Identifier GENERATORS_ID = Identifier.fromNamespaceAndPath(MOD_ID, "generators");
+	private static final Identifier ITEMS_ID = Identifier.fromNamespaceAndPath(MOD_ID, "items");
+	private static final Identifier MACHINES_ID = Identifier.fromNamespaceAndPath(MOD_ID, "machines");
+	private static final Identifier MISC_ID = Identifier.fromNamespaceAndPath(MOD_ID, "misc");
+	private static final Identifier WORLD_ID = Identifier.fromNamespaceAndPath(MOD_ID, "world");
+	private static final Config GENERATORS = RebornCoreConfigApi.config(GENERATORS_ID);
+	private static final Config ITEMS = RebornCoreConfigApi.config(ITEMS_ID);
+	private static final Config MACHINES = RebornCoreConfigApi.config(MACHINES_ID);
+	private static final Config MISC = RebornCoreConfigApi.config(MISC_ID);
+	private static final Config WORLD = RebornCoreConfigApi.config(WORLD_ID);
 
 	private static final ConfigGroup GENERATORS_SOLAR_PANEL_GENERAL = GENERATORS.group("solarPanelGeneral");
 	public static final ConfigValue<Integer> solarInternalCapacityMultiplier = GENERATORS_SOLAR_PANEL_GENERAL.codec("internalCapacity", Codec.INT, 2000).comment("Multiplier for internal capacity of solar panels (multiplier * day generation rate)");
@@ -435,6 +441,7 @@ public final class TechRebornConfig {
 	}
 
 	public static void init() {
+		LegacyConfigCleanup.delete(GENERATORS_ID, ITEMS_ID, MACHINES_ID, MISC_ID, WORLD_ID);
 		RebornCoreConfigApi.register(GENERATORS);
 		RebornCoreConfigApi.register(ITEMS);
 		RebornCoreConfigApi.register(MACHINES);

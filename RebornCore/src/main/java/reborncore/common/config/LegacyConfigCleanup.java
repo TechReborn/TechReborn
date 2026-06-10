@@ -22,26 +22,34 @@
  * SOFTWARE.
  */
 
-package reborncore.common;
+package reborncore.common.config;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
-import reborncore.common.config.LegacyConfigCleanup;
-import reborncore.common.config2.Config;
-import reborncore.common.config2.ConfigValue;
-import reborncore.common.config2.RebornCoreConfigApi;
 
-public final class RebornCoreConfig {
-	private static final Identifier CONFIG_ID = Identifier.fromNamespaceAndPath("reborncore", "misc");
-	private static final Config CONFIG = RebornCoreConfigApi.config(CONFIG_ID);
+public final class LegacyConfigCleanup {
+	private static final String LEGACY_FILE_EXTENSION = ".json";
 
-	public static final ConfigValue<String> selectedSystem = CONFIG.stringValue("selectedSystem", "E")
-		.comment("Possible values are: E (was FE, EU)");
-
-	private RebornCoreConfig() {
+	private LegacyConfigCleanup() {
 	}
 
-	public static void init() {
-		LegacyConfigCleanup.delete(CONFIG_ID);
-		RebornCoreConfigApi.register(CONFIG);
+	public static void delete(Identifier... configIds) {
+		delete(FabricLoader.getInstance().getConfigDir(), configIds);
+	}
+
+	public static void delete(Path configDir, Identifier... configIds) {
+		for (Identifier configId : configIds) {
+			Path legacyPath = configDir.resolve(configId.getNamespace()).resolve(configId.getPath() + LEGACY_FILE_EXTENSION);
+
+			try {
+				Files.deleteIfExists(legacyPath);
+			} catch (IOException e) {
+				throw new RuntimeException("Failed to delete legacy config file: " + legacyPath, e);
+			}
+		}
 	}
 }
