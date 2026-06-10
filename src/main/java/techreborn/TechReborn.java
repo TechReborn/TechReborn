@@ -30,7 +30,6 @@ import net.minecraft.world.level.block.ComposterBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.RedstoneConfiguration;
-import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.GuiType;
@@ -59,7 +58,7 @@ public class TechReborn implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		new Configuration(TechRebornConfig.class, "techreborn");
+		TechRebornConfig.init();
 		TRContent.register();
 
 		// Done to force the class to load
@@ -72,8 +71,7 @@ public class TechReborn implements ModInitializer {
 		ServerboundPackets.init();
 		OreDepthSyncHandler.setup();
 
-		if (TechRebornConfig.machineSoundVolume > 0) {
-			if (TechRebornConfig.machineSoundVolume > 1) TechRebornConfig.machineSoundVolume = 1F;
+		if (TechRebornConfig.machineSoundVolume.get() > 0) {
 			RecipeCrafter.soundHandler = new ModSounds.SoundHandler();
 		}
 		ModLoot.init();
@@ -91,7 +89,7 @@ public class TechReborn implements ModInitializer {
 		FuelRecipes.init();
 
 
-		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
+		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize.get());
 
 		RedstoneConfiguration.fluidStack = new ItemStackTemplate(TRContent.Cells.LAVA.asItem());
 		RedstoneConfiguration.powerStack = new ItemStackTemplate(TRContent.RED_CELL_BATTERY);

@@ -24,19 +24,31 @@
 
 package reborncore.common.config2.impl;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 import reborncore.common.config2.Config;
+import reborncore.common.config2.impl.serialization.ConfigParser;
+import reborncore.common.config2.impl.serialization.ConfigWriter;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class FabricConfigApiImpl {
+	private static final String FILE_EXTENSION = ".cfg";
 	private static final Map<Identifier, Config> CONFIGS = new HashMap<>();
 
 	private FabricConfigApiImpl() {
 	}
 
 	public static void register(Config config) {
+		register(config, FabricLoader.getInstance().getConfigDir());
+	}
+
+	public static void register(Config config, Path configDir) {
 		ConfigRoot root = (ConfigRoot) config;
 		Identifier id = root.getId();
 
@@ -47,6 +59,35 @@ public final class FabricConfigApiImpl {
 		// Don't allow any further modification to the config specification
 		root.finalizeSpec();
 
+		Path configPath = resolvePath(configDir, id);
+		loadConfig(root, configPath);
+		saveConfig(root, configPath);
+
 		CONFIGS.put(id, config);
+	}
+
+	private static Path resolvePath(Path configDir, Identifier id) {
+		return configDir.resolve(id.getNamespace()).resolve(id.getPath() + FILE_EXTENSION);
+	}
+
+	private static void loadConfig(ConfigRoot root, Path path) {
+		if (!Files.exists(path)) {
+			return;
+		}
+
+		try {
+			ConfigParser.loadInto(Files.readString(path, StandardCharsets.UTF_8), root);
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to read config file: " + path, e);
+		}
+	}
+
+	private static void saveConfig(ConfigRoot root, Path path) {
+		try {
+			Files.createDirectories(path.getParent());
+			Files.writeString(path, ConfigWriter.writeToSNBT(root), StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to write config file: " + path, e);
+		}
 	}
 }

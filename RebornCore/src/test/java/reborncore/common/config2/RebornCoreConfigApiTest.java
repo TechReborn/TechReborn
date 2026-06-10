@@ -27,15 +27,19 @@ package reborncore.common.config2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
 import com.mojang.serialization.Codec;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import net.minecraft.resources.Identifier;
 
 import reborncore.common.config2.impl.ConfigGroupImpl;
+import reborncore.common.config2.impl.FabricConfigApiImpl;
 import reborncore.common.config2.impl.serialization.ConfigParser;
 import reborncore.common.config2.impl.serialization.ConfigWriter;
 
@@ -122,14 +126,47 @@ class RebornCoreConfigApiTest {
 	}
 
 	@Test
-	void registerFinalizesConfigSpec() {
+	void registerFinalizesConfigSpec(@TempDir Path tempDir) {
 		Config config = RebornCoreConfigApi.config(Identifier.parse("reborncore:register_finalizes_spec"));
 		ConfigValue<String> value = config.stringValue("value", "hello");
 
-		RebornCoreConfigApi.register(config);
+		FabricConfigApiImpl.register(config, tempDir);
 
 		assertThrows(IllegalStateException.class, () -> config.stringValue("other", "world"));
 		assertThrows(IllegalStateException.class, () -> config.group("group"));
 		assertThrows(IllegalStateException.class, () -> value.comment("late comment"));
+	}
+
+	@Test
+	void registerLoadsFromConfigDir(@TempDir Path tempDir) throws Exception {
+		Path configFile = tempDir.resolve("reborncore").resolve("load_from_dir.cfg");
+		Files.createDirectories(configFile.getParent());
+		Files.writeString(configFile, """
+				{
+					value: "loaded"
+				}
+				""");
+
+		Config config = RebornCoreConfigApi.config(Identifier.parse("reborncore:load_from_dir"));
+		ConfigValue<String> value = config.stringValue("value", "default");
+
+		FabricConfigApiImpl.register(config, tempDir);
+
+		assertEquals("loaded", value.get());
+	}
+
+	@Test
+	void registerWritesDefaultsToConfigDir(@TempDir Path tempDir) throws Exception {
+		Config config = RebornCoreConfigApi.config(Identifier.parse("reborncore:write_defaults"));
+		config.stringValue("value", "default").comment("Example value");
+
+		FabricConfigApiImpl.register(config, tempDir);
+
+		assertEquals("""
+				{
+					// Example value
+					value: "default"
+				}
+				""".trim(), Files.readString(tempDir.resolve("reborncore").resolve("write_defaults.cfg")).trim());
 	}
 }

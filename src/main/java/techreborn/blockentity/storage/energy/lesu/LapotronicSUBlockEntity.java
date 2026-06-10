@@ -63,20 +63,20 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	public byte neighbors = 0b000000;
 
 	public LapotronicSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.LAPOTRONIC_SU, pos, state, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, RcEnergyTier.LOW, TechRebornConfig.lesuStoragePerBlock);
+		super(TRBlockEntities.LAPOTRONIC_SU, pos, state, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, RcEnergyTier.LOW, TechRebornConfig.lesuStoragePerBlock.get());
 		checkOverfill = false;
-		this.maxOutput = TechRebornConfig.lesuBaseOutput;
+		this.maxOutput = TechRebornConfig.lesuBaseOutput.get();
 	}
 
 	private void setMaxStorage() {
-		maxStorage = (connectedBlocks + 1) * TechRebornConfig.lesuStoragePerBlock;
+		maxStorage = (connectedBlocks + 1) * TechRebornConfig.lesuStoragePerBlock.get();
 		if (maxStorage < 0) {
 			maxStorage = Integer.MAX_VALUE;
 		}
 	}
 
 	private void setIORate() {
-		maxOutput = TechRebornConfig.lesuBaseOutput + (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock);
+		maxOutput = TechRebornConfig.lesuBaseOutput.get() + (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock.get());
 		if (connectedBlocks < 32) {
 			maxInput = RcEnergyTier.LOW.getMaxInput();
 		} else if (connectedBlocks < 128) {

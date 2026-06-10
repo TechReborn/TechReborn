@@ -148,10 +148,10 @@ public class TRVillager {
 			DynamicRegistrySetupCallback.EVENT.register(registryManager ->
 				registryManager.registerEntryAdded(Registries.TEMPLATE_POOL, ((rawId, id, pool) -> {
 					if (id.equals(Identifier.fromNamespaceAndPath("minecraft", "village/"+type+"/houses"))) {
-						if (TechRebornConfig.enableMetallurgistGeneration) {
+						if (TechRebornConfig.enableMetallurgistGeneration.get()) {
 							pool.templates.add(StructurePoolElement.single(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_metallurgist").apply(StructureTemplatePool.Projection.RIGID));
 						}
-						if (TechRebornConfig.enableElectricianGeneration) {
+						if (TechRebornConfig.enableElectricianGeneration.get()) {
 							pool.templates.add(StructurePoolElement.single(TechReborn.MOD_ID + ":village/" + type + "/houses/" + type + "_electrician").apply(StructureTemplatePool.Projection.RIGID));
 						}
 					}

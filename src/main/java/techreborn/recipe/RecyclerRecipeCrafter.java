@@ -100,7 +100,7 @@ public class RecyclerRecipeCrafter extends RecipeCrafter {
 		final Level world = Objects.requireNonNull(blockEntity.getLevel());
 		final RandomSource random = world.getRandom();
 
-		final int randomChance = random.nextInt(TechRebornConfig.recyclerChance);
+		final int randomChance = random.nextInt(TechRebornConfig.recyclerChance.get());
 		if (randomChance == 0) {
 			super.fitStack(stack, slot);
 		}

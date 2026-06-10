@@ -55,7 +55,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public AdvancedJackhammerItem(String name) {
-		super(TRToolMaterials.ADVANCED_JACKHAMMER, TechRebornConfig.advancedJackhammerCharge, RcEnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost, name);
+		super(TRToolMaterials.ADVANCED_JACKHAMMER, TechRebornConfig.advancedJackhammerCharge.get(), RcEnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost.get(), name);
 	}
 
 	// JackhammerItem

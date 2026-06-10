@@ -42,7 +42,7 @@ import techreborn.init.TRContent;
 public class IndustrialElectrolyzerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public IndustrialElectrolyzerBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.INDUSTRIAL_ELECTROLYZER, pos, state, "IndustrialElectrolyzer", TechRebornConfig.industrialElectrolyzerMaxInput, TechRebornConfig.industrialElectrolyzerMaxEnergy, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
+		super(TRBlockEntities.INDUSTRIAL_ELECTROLYZER, pos, state, "IndustrialElectrolyzer", TechRebornConfig.industrialElectrolyzerMaxInput.get(), TechRebornConfig.industrialElectrolyzerMaxEnergy.get(), TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(7, "IndustrialElectrolyzerBlockEntity", 64, this);

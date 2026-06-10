@@ -45,7 +45,7 @@ import techreborn.init.TRContent;
 public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public VacuumFreezerBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.VACUUM_FREEZER, pos, state, "VacuumFreezer", TechRebornConfig.vacuumFreezerMaxInput, TechRebornConfig.vacuumFreezerMaxEnergy, TRContent.Machine.VACUUM_FREEZER.block, 2);
+		super(TRBlockEntities.VACUUM_FREEZER, pos, state, "VacuumFreezer", TechRebornConfig.vacuumFreezerMaxInput.get(), TechRebornConfig.vacuumFreezerMaxEnergy.get(), TRContent.Machine.VACUUM_FREEZER.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "VacuumFreezerBlockEntity", 64, this);

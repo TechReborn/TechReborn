@@ -92,10 +92,10 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		}
 
 		discharge(1);
-		if (getFreeSpace() >= TechRebornConfig.solidFuelGeneratorOutputAmount) {
+		if (getFreeSpace() >= TechRebornConfig.solidFuelGeneratorOutputAmount.get()) {
 			if (burnTime > 0) {
 				burnTime--;
-				addEnergy(TechRebornConfig.solidFuelGeneratorOutputAmount);
+				addEnergy(TechRebornConfig.solidFuelGeneratorOutputAmount.get());
 				isBurning = true;
 			}
 		} else {
@@ -127,7 +127,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.solidFuelGeneratorMaxEnergy;
+		return TechRebornConfig.solidFuelGeneratorMaxEnergy.get();
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.solidFuelGeneratorMaxOutput;
+		return TechRebornConfig.solidFuelGeneratorMaxOutput.get();
 	}
 
 	@Override

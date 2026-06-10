@@ -46,7 +46,6 @@ import reborncore.common.RebornCoreConfig;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.chunkloading.ChunkLoaderManager;
-import reborncore.common.config.Configuration;
 import reborncore.common.fluid.container.FluidContainerIngredient;
 import reborncore.common.misc.ModSounds;
 import reborncore.common.misc.RebornCoreTags;
@@ -72,7 +71,7 @@ public class RebornCore implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		new Configuration(RebornCoreConfig.class, MOD_ID);
+		RebornCoreConfig.init();
 		CalenderUtils.loadCalender(); // Done early as some features need this
 
 		CustomIngredientSerializer.register(FluidContainerIngredient.SERIALIZER);

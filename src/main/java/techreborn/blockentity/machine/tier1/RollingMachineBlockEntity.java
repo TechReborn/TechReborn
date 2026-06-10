@@ -89,7 +89,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.rollingMachineMaxEnergy;
+		return TechRebornConfig.rollingMachineMaxEnergy.get();
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.rollingMachineMaxInput;
+		return TechRebornConfig.rollingMachineMaxInput.get();
 	}
 
 	@Override

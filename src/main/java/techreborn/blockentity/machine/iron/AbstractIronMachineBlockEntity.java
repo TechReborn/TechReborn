@@ -87,7 +87,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		if (stack.isEmpty() || level == null) {
 			return 0;
 		}
-		return (int) (level.fuelValues().burnDuration(stack) * TechRebornConfig.fuelScale);
+		return (int) (level.fuelValues().burnDuration(stack) * TechRebornConfig.fuelScale.get());
 	}
 
 	/**

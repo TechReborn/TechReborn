@@ -93,7 +93,7 @@ public class ModLoot {
 				return;
 			}
 
-			if (TechRebornConfig.enableOverworldLoot) {
+			if (TechRebornConfig.enableOverworldLoot.get()) {
 				switch (stringId) {
 					case "minecraft:chests/abandoned_mineshaft",
 						"minecraft:chests/desert_pyramid",
@@ -122,7 +122,7 @@ public class ModLoot {
 				}
 			}
 
-			if (TechRebornConfig.enableNetherLoot) {
+			if (TechRebornConfig.enableNetherLoot.get()) {
 				if (stringId.equals("minecraft:chests/nether_bridge") ||
 						stringId.equals("minecraft:chests/bastion_bridge") ||
 						stringId.equals("minecraft:chests/bastion_hoglin_stable") ||
@@ -132,13 +132,13 @@ public class ModLoot {
 				}
 			}
 
-			if (TechRebornConfig.enableEndLoot) {
+			if (TechRebornConfig.enableEndLoot.get()) {
 				if (stringId.equals("minecraft:chests/end_city_treasure")) {
 					tableBuilder.pool(poolIndustrial);
 				}
 			}
 
-			if (TechRebornConfig.enableFishingJunkLoot) {
+			if (TechRebornConfig.enableFishingJunkLoot.get()) {
 				if (stringId.equals("minecraft:gameplay/fishing/junk")) {
 					LootPoolEntryContainer rubber = LootItem.lootTableItem(Parts.RUBBER).setWeight(10).build();
 					LootPoolEntryContainer treeTap = LootItem.lootTableItem(TRContent.TREE_TAP).setWeight(10)

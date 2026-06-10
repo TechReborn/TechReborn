@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 public class SolidCanningMachineBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public SolidCanningMachineBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.SOLID_CANNING_MACHINE, pos, state, "SolidCanningMachine", TechRebornConfig.solidCanningMachineMaxInput, TechRebornConfig.solidCanningMachineMaxEnergy, TRContent.Machine.SOLID_CANNING_MACHINE.block, 3);
+		super(TRBlockEntities.SOLID_CANNING_MACHINE, pos, state, "SolidCanningMachine", TechRebornConfig.solidCanningMachineMaxInput.get(), TechRebornConfig.solidCanningMachineMaxEnergy.get(), TRContent.Machine.SOLID_CANNING_MACHINE.block, 3);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "SolidCanningMachineBlockEntity", 64, this);

@@ -53,7 +53,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	private long clientEnergy;
 
 	public InterdimensionalSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.INTERDIMENSIONAL_SU, pos, state, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, RcEnergyTier.INSANE, TechRebornConfig.idsuMaxEnergy);
+		super(TRBlockEntities.INTERDIMENSIONAL_SU, pos, state, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, RcEnergyTier.INSANE, TechRebornConfig.idsuMaxEnergy.get());
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		}
 		if (level.isClientSide()) {
 			// Can't access the global storage, return a dummy. (Only for existence checks)
-			return new SimpleEnergyStorage(TechRebornConfig.idsuMaxEnergy, 0, 0);
+			return new SimpleEnergyStorage(TechRebornConfig.idsuMaxEnergy.get(), 0, 0);
 		}
 		EnergyStorage globalStorage = IDSUManager.getPlayer(level.getServer(), ownerUdid).getStorage();
 		return new DelegatingEnergyStorage(globalStorage, null) {

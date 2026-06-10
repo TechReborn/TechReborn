@@ -251,7 +251,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.electricFurnaceMaxEnergy;
+		return TechRebornConfig.electricFurnaceMaxEnergy.get();
 	}
 
 	@Override
@@ -261,7 +261,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.electricFurnaceMaxInput;
+		return TechRebornConfig.electricFurnaceMaxInput.get();
 	}
 
 	// IToolDrop

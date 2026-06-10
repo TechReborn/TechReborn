@@ -105,15 +105,15 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 
 		charge(6);
 
-		long useRequirement = getEuPerTick(TechRebornConfig.fishingStationEnergyPerCatch);
+		long useRequirement = getEuPerTick(TechRebornConfig.fishingStationEnergyPerCatch.get());
 
 		if (getStored() < useRequirement) {
 			return;
 		}
 
-		int speed = (int) Math.round(getSpeedMultiplier() / TechRebornConfig.overclockerSpeed) + 1;
+		int speed = (int) Math.round(getSpeedMultiplier() / TechRebornConfig.overclockerSpeed.get()) + 1;
 
-		if (serverLevel.getGameTime() % (TechRebornConfig.fishingStationInterval/speed) != 0) {
+		if (serverLevel.getGameTime() % (TechRebornConfig.fishingStationInterval.get()/speed) != 0) {
 			return;
 		}
 
@@ -138,7 +138,7 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.fishingStationMaxEnergy;
+		return TechRebornConfig.fishingStationMaxEnergy.get();
 	}
 
 	@Override
@@ -153,7 +153,7 @@ public class FishingStationBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.fishingStationMaxInput;
+		return TechRebornConfig.fishingStationMaxInput.get();
 	}
 
 	// IToolDrop

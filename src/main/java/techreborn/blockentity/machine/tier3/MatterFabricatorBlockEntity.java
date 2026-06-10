@@ -108,7 +108,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 	public int getProgressScaled(int scale) {
 		if (amplifier != 0) {
-			return Math.min(amplifier * scale / TechRebornConfig.matterFabricatorFabricationRate, 100);
+			return Math.min(amplifier * scale / TechRebornConfig.matterFabricatorFabricationRate.get(), 100);
 		}
 		return 0;
 	}
@@ -138,7 +138,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 			final ItemStack stack = inventory.getItem(i);
 			if (!stack.isEmpty() && spaceForOutput()) {
 				final int amp = getValue(stack);
-				final int euNeeded = amp * TechRebornConfig.matterFabricatorEnergyPerAmp;
+				final int euNeeded = amp * TechRebornConfig.matterFabricatorEnergyPerAmp.get();
 				if (amp != 0 && getStored() > euNeeded) {
 					useEnergy(euNeeded);
 					amplifier += amp;
@@ -150,17 +150,17 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 		updateState(hasProcessedInputs);
 
-		if (amplifier >= TechRebornConfig.matterFabricatorFabricationRate) {
+		if (amplifier >= TechRebornConfig.matterFabricatorFabricationRate.get()) {
 			if (spaceForOutput()) {
 				addOutputProducts();
-				amplifier -= TechRebornConfig.matterFabricatorFabricationRate;
+				amplifier -= TechRebornConfig.matterFabricatorFabricationRate.get();
 			}
 		}
 	}
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.matterFabricatorMaxEnergy;
+		return TechRebornConfig.matterFabricatorMaxEnergy.get();
 	}
 
 	@Override
@@ -175,7 +175,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.matterFabricatorMaxInput;
+		return TechRebornConfig.matterFabricatorMaxInput.get();
 	}
 
 	// TileMachineBase

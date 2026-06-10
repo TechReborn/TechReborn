@@ -52,7 +52,7 @@ public class EntityNukePrimed extends PrimedTnt {
 
 	public EntityNukePrimed(EntityType<? extends EntityNukePrimed> type, Level world) {
 		super(type, world);
-		setFuse(TechRebornConfig.nukeFuseTime);
+		setFuse(TechRebornConfig.nukeFuseTime.get());
 	}
 
 	public EntityNukePrimed(Level world, double x, double y, double z, @Nullable LivingEntity owner) {
@@ -66,7 +66,7 @@ public class EntityNukePrimed extends PrimedTnt {
 		this.yo = y;
 		this.zo = z;
 		this.owner = owner;
-		setFuse(TechRebornConfig.nukeFuseTime);
+		setFuse(TechRebornConfig.nukeFuseTime.get());
 	}
 
 	@Nullable
@@ -88,7 +88,7 @@ public class EntityNukePrimed extends PrimedTnt {
 		}
 
 		setFuse(getFuse() - 1);
-		bossBar.setProgress((float) getFuse() / TechRebornConfig.nukeFuseTime);
+		bossBar.setProgress((float) getFuse() / TechRebornConfig.nukeFuseTime.get());
 
 		if (this.getFuse() <= 0) {
 			this.remove(RemovalReason.KILLED);
@@ -101,10 +101,10 @@ public class EntityNukePrimed extends PrimedTnt {
 	}
 
 	public void explodeNuke() {
-		if (!TechRebornConfig.nukeEnabled) {
+		if (!TechRebornConfig.nukeEnabled.get()) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(blockPosition(), (ServerLevel)level(), TechRebornConfig.nukeRadius);
+		RebornExplosion nukeExplosion = new RebornExplosion(blockPosition(), (ServerLevel)level(), TechRebornConfig.nukeRadius.get());
 		nukeExplosion.setLivingBase(getOwner());
 		nukeExplosion.explode();
 	}

@@ -61,7 +61,7 @@ public class ElectricTreetapItem extends Item implements RcEnergyItem {
 	// RcEnergyItem
 	@Override
 	public long getEnergyCapacity(ItemStack stack) {
-		return TechRebornConfig.electricTreetapCharge;
+		return TechRebornConfig.electricTreetapCharge.get();
 	}
 
 	@Override

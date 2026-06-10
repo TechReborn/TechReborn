@@ -58,7 +58,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public IndustrialJackhammerItem(String name) {
-		super(TRToolMaterials.INDUSTRIAL_JACKHAMMER, TechRebornConfig.industrialJackhammerCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost, name);
+		super(TRToolMaterials.INDUSTRIAL_JACKHAMMER, TechRebornConfig.industrialJackhammerCharge.get(), RcEnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost.get(), name);
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5

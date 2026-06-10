@@ -248,7 +248,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 			return;
 		}
 
-		if (TechRebornConfig.uninsulatedElectrocutionDamage) {
+		if (TechRebornConfig.uninsulatedElectrocutionDamage.get()) {
 			if (type == TRContent.Cables.HV) {
 				entity.igniteForSeconds(1);
 			}
@@ -258,11 +258,11 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 			}
 			blockEntityCable.setEnergy(0);
 		}
-		if (TechRebornConfig.uninsulatedElectrocutionSound) {
+		if (TechRebornConfig.uninsulatedElectrocutionSound.get()) {
 			world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.CABLE_SHOCK, SoundSource.BLOCKS,
 					0.6F, 1F);
 		}
-		if (TechRebornConfig.uninsulatedElectrocutionParticles) {
+		if (TechRebornConfig.uninsulatedElectrocutionParticles.get()) {
 			world.addParticle(ParticleTypes.CRIT, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
 		}
 	}

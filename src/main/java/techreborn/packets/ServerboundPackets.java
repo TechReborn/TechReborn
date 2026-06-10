@@ -82,7 +82,7 @@ public class ServerboundPackets {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(RefundPayload.ID, (payload, context) -> {
-			if (!TechRebornConfig.allowManualRefund) {
+			if (!TechRebornConfig.allowManualRefund.get()) {
 				return;
 			}
 			Inventory inventory = context.player().getInventory();

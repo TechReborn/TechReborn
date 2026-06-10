@@ -59,7 +59,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	private final ItemAttributeModifiers fullSuitAttributes;
 
 	public NanoSuitItem(ArmorMaterial material, ArmorType slot, String name) {
-		super(material, slot, TechRebornConfig.nanoSuitCapacity, RcEnergyTier.HIGH, name);
+		super(material, slot, TechRebornConfig.nanoSuitCapacity.get(), RcEnergyTier.HIGH, name);
 		switch (slot) {
 			case HELMET, BOOTS:
 				noPowerAttributes = new AttributeModifierBuilder(slot).armor(1).build();
@@ -90,7 +90,7 @@ public class NanoSuitItem extends TREnergyArmourItem implements ArmorBlockEntity
 	public void tickArmor(ItemStack stack, boolean hasFullSuit, Player playerEntity) {
 		// Night Vision
 		if (this.getSlotType() == EquipmentSlot.HEAD) {
-			if (TRItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
+			if (TRItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost.get())) {
 				playerEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 220, 1, false, false));
 			} else {
 				playerEntity.removeEffect(MobEffects.NIGHT_VISION);

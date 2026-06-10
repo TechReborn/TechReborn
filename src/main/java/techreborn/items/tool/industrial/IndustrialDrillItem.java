@@ -47,7 +47,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class IndustrialDrillItem extends DrillItem {
 
 	public IndustrialDrillItem(String name) {
-		super(TRToolMaterials.INDUSTRIAL_DRILL, TechRebornConfig.industrialDrillCharge, RcEnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 20.0F, name);
+		super(TRToolMaterials.INDUSTRIAL_DRILL, TechRebornConfig.industrialDrillCharge.get(), RcEnergyTier.INSANE, TechRebornConfig.industrialDrillCost.get(), 20.0F, name);
 	}
 
 	private boolean shouldBreak(Player playerIn, Level worldIn, BlockPos originalPos, BlockPos pos) {
