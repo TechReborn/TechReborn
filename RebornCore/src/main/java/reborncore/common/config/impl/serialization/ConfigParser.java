@@ -22,62 +22,26 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl;
+package reborncore.common.config.impl.serialization;
 
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-import com.mojang.serialization.Codec;
-import reborncore.common.config2.ConfigValue;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.TagParser;
 
-public class ConfigValueImpl<T> extends AbstractConfigNode implements ConfigValue<T> {
-	private final Codec<T> codec;
-	private final T defaultValue;
+import reborncore.common.config.impl.ConfigGroupImpl;
 
-	private final ReadWriteLock lock = new ReentrantReadWriteLock();
-	private T value = null;
+public class ConfigParser {
+	private static final String COMMENT_PATTERN = "(?m)^\\s*//.*(?:\\R)?";
 
-	public ConfigValueImpl(Codec<T> codec, T defaultValue) {
-		this.codec = codec;
-		this.defaultValue = defaultValue;
-	}
-
-	@Override
-	public T get() {
-		lock.readLock().lock();
-
+	public static void loadInto(String content, ConfigGroupImpl config) {
 		try {
-			if (value == null) {
-				return defaultValue;
-			}
-
-			return value;
-		} finally {
-			lock.readLock().unlock();
+			String snbt = content.replaceAll(COMMENT_PATTERN, "");
+			var nbt = TagParser.create(NbtOps.INSTANCE).parseFully(new StringReader(snbt));
+			config.codec().decode(NbtOps.INSTANCE, nbt).getOrThrow();
+		} catch (CommandSyntaxException e) {
+			throw new RuntimeException(e);
 		}
-	}
-
-	public void setValue(T value) {
-		lock.writeLock().lock();
-
-		try {
-			this.value = value;
-		} finally {
-			lock.writeLock().unlock();
-		}
-	}
-
-	@Override
-	public Codec<ConfigValueImpl<T>> codec() {
-		return codec.xmap(newVal -> {
-			setValue(newVal);
-			return this;
-		}, ConfigValueImpl::get);
-	}
-
-	@Override
-	public ConfigValueImpl<T> comment(String comment) {
-		super.comment(comment);
-		return this;
 	}
 }

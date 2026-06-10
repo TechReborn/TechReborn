@@ -23,6 +23,6 @@
  */
 
 @NullMarked
-package reborncore.common.config2;
+package reborncore.common.config.impl.serialization;
 
 import org.jspecify.annotations.NullMarked;

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl.serialization;
+package reborncore.common.config.impl.serialization;
 
 import java.util.ArrayList;
 import java.util.List;

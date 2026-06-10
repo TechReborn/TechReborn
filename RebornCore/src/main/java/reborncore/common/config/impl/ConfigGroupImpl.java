@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl;
+package reborncore.common.config.impl;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -31,9 +31,9 @@ import java.util.Map;
 import com.mojang.brigadier.StringReader;
 import com.mojang.serialization.Codec;
 
-import reborncore.common.config2.ConfigGroup;
-import reborncore.common.config2.ConfigValue;
-import reborncore.common.config2.impl.serialization.ConfigGroupCodec;
+import reborncore.common.config.ConfigGroup;
+import reborncore.common.config.ConfigValue;
+import reborncore.common.config.impl.serialization.ConfigGroupCodec;
 
 public class ConfigGroupImpl extends AbstractConfigNode implements ConfigGroup {
 	private final Map<String, AbstractConfigNode> entries = new LinkedHashMap<>();

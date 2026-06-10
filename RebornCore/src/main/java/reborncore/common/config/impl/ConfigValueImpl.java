@@ -22,42 +22,62 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl;
+package reborncore.common.config.impl;
+
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.mojang.serialization.Codec;
-import org.jetbrains.annotations.Nullable;
+import reborncore.common.config.ConfigValue;
 
-import reborncore.common.config2.ConfigNode;
+public class ConfigValueImpl<T> extends AbstractConfigNode implements ConfigValue<T> {
+	private final Codec<T> codec;
+	private final T defaultValue;
 
-public abstract class AbstractConfigNode implements ConfigNode {
-	private boolean finalized = false;
-	private String comment = null;
+	private final ReadWriteLock lock = new ReentrantReadWriteLock();
+	private T value = null;
 
-	public abstract Codec<? extends AbstractConfigNode> codec();
+	public ConfigValueImpl(Codec<T> codec, T defaultValue) {
+		this.codec = codec;
+		this.defaultValue = defaultValue;
+	}
 
 	@Override
-	public ConfigNode comment(String comment) {
-		validateSpecChange();
+	public T get() {
+		lock.readLock().lock();
 
-		if (this.comment != null) {
-			throw new IllegalStateException("Comment already set");
+		try {
+			if (value == null) {
+				return defaultValue;
+			}
+
+			return value;
+		} finally {
+			lock.readLock().unlock();
 		}
+	}
 
-		this.comment = comment;
+	public void setValue(T value) {
+		lock.writeLock().lock();
+
+		try {
+			this.value = value;
+		} finally {
+			lock.writeLock().unlock();
+		}
+	}
+
+	@Override
+	public Codec<ConfigValueImpl<T>> codec() {
+		return codec.xmap(newVal -> {
+			setValue(newVal);
+			return this;
+		}, ConfigValueImpl::get);
+	}
+
+	@Override
+	public ConfigValueImpl<T> comment(String comment) {
+		super.comment(comment);
 		return this;
-	}
-
-	public @Nullable String getComment() {
-		return this.comment;
-	}
-
-	public void finalizeSpec() {
-		finalized = true;
-	}
-
-	protected void validateSpecChange() {
-		if (finalized) {
-			throw new IllegalStateException("Cannot alter configuration spec after it has been finalized");
-		}
 	}
 }

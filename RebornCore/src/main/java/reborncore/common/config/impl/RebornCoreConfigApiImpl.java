@@ -22,13 +22,13 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl;
+package reborncore.common.config.impl;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
-import reborncore.common.config2.Config;
-import reborncore.common.config2.impl.serialization.ConfigParser;
-import reborncore.common.config2.impl.serialization.ConfigWriter;
+import reborncore.common.config.Config;
+import reborncore.common.config.impl.serialization.ConfigParser;
+import reborncore.common.config.impl.serialization.ConfigWriter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -37,11 +37,11 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class FabricConfigApiImpl {
+public final class RebornCoreConfigApiImpl {
 	private static final String FILE_EXTENSION = ".cfg";
 	private static final Map<Identifier, Config> CONFIGS = new HashMap<>();
 
-	private FabricConfigApiImpl() {
+	private RebornCoreConfigApiImpl() {
 	}
 
 	public static void register(Config config) {

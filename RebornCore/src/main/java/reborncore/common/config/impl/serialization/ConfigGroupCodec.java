@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl.serialization;
+package reborncore.common.config.impl.serialization;
 
 import java.util.Map;
 import java.util.Optional;
@@ -36,7 +36,7 @@ import com.mojang.serialization.RecordBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import reborncore.common.config2.impl.AbstractConfigNode;
+import reborncore.common.config.impl.AbstractConfigNode;
 
 /**
  * We need a codec is that is resilient to errors in the input data.

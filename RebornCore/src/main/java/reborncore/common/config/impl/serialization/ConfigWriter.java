@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl.serialization;
+package reborncore.common.config.impl.serialization;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -33,8 +33,8 @@ import com.mojang.serialization.DataResult;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 
-import reborncore.common.config2.impl.AbstractConfigNode;
-import reborncore.common.config2.impl.ConfigGroupImpl;
+import reborncore.common.config.impl.AbstractConfigNode;
+import reborncore.common.config.impl.ConfigGroupImpl;
 
 public class ConfigWriter {
 	public static String writeToSNBT(ConfigGroupImpl config) {

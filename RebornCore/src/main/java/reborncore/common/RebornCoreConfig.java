@@ -26,9 +26,9 @@ package reborncore.common;
 
 import net.minecraft.resources.Identifier;
 import reborncore.common.config.LegacyConfigCleanup;
-import reborncore.common.config2.Config;
-import reborncore.common.config2.ConfigValue;
-import reborncore.common.config2.RebornCoreConfigApi;
+import reborncore.common.config.Config;
+import reborncore.common.config.ConfigValue;
+import reborncore.common.config.RebornCoreConfigApi;
 
 public final class RebornCoreConfig {
 	private static final Identifier CONFIG_ID = Identifier.fromNamespaceAndPath("reborncore", "misc");

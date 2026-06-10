@@ -22,26 +22,46 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl.serialization;
+package reborncore.common.config.impl;
 
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.TagParser;
+import net.fabricmc.loader.api.FabricLoader;
 
-import reborncore.common.config2.impl.ConfigGroupImpl;
+public class ConfigDirWatcher {
+	private static ConfigDirWatcher INSTANCE = null;
 
-public class ConfigParser {
-	private static final String COMMENT_PATTERN = "(?m)^\\s*//.*(?:\\R)?";
+	public static void startWatching() throws IOException {
+		if (INSTANCE == null) {
+			INSTANCE = new ConfigDirWatcher();
+		}
+	}
 
-	public static void loadInto(String content, ConfigGroupImpl config) {
-		try {
-			String snbt = content.replaceAll(COMMENT_PATTERN, "");
-			var nbt = TagParser.create(NbtOps.INSTANCE).parseFully(new StringReader(snbt));
-			config.codec().decode(NbtOps.INSTANCE, nbt).getOrThrow();
-		} catch (CommandSyntaxException e) {
-			throw new RuntimeException(e);
+	private final Path configDir;
+	private final WatchService watchService;
+
+	private ConfigDirWatcher() throws IOException {
+		configDir = FabricLoader.getInstance().getConfigDir();
+		watchService = FileSystems.getDefault().newWatchService();
+
+		configDir.register(
+				watchService,
+				StandardWatchEventKinds.ENTRY_MODIFY);
+	}
+
+	private void poll() throws InterruptedException {
+		WatchKey key;
+		while ((key = watchService.take()) != null) {
+			for (WatchEvent<?> event : key.pollEvents()) {
+				// TODO: Handle the event
+			}
+			key.reset();
 		}
 	}
 }

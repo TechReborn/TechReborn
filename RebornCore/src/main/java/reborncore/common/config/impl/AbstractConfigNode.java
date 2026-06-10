@@ -22,22 +22,42 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2;
+package reborncore.common.config.impl;
 
-import org.jetbrains.annotations.ApiStatus;
+import com.mojang.serialization.Codec;
+import org.jetbrains.annotations.Nullable;
 
-import net.minecraft.resources.Identifier;
+import reborncore.common.config.ConfigNode;
 
-import reborncore.common.config2.impl.ConfigRoot;
-import reborncore.common.config2.impl.FabricConfigApiImpl;
+public abstract class AbstractConfigNode implements ConfigNode {
+	private boolean finalized = false;
+	private String comment = null;
 
-@ApiStatus.NonExtendable
-public interface RebornCoreConfigApi {
-	static Config config(Identifier id) {
-		return new ConfigRoot(id);
+	public abstract Codec<? extends AbstractConfigNode> codec();
+
+	@Override
+	public ConfigNode comment(String comment) {
+		validateSpecChange();
+
+		if (this.comment != null) {
+			throw new IllegalStateException("Comment already set");
+		}
+
+		this.comment = comment;
+		return this;
 	}
 
-	static void register(Config config) {
-		FabricConfigApiImpl.register(config);
+	public @Nullable String getComment() {
+		return this.comment;
+	}
+
+	public void finalizeSpec() {
+		finalized = true;
+	}
+
+	protected void validateSpecChange() {
+		if (finalized) {
+			throw new IllegalStateException("Cannot alter configuration spec after it has been finalized");
+		}
 	}
 }

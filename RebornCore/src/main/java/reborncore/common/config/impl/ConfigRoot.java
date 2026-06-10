@@ -1,7 +1,7 @@
 /*
- * This file is part of TechReborn, licensed under the MIT License (MIT).
+ * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2026 TechReborn
+ * Copyright (c) 2016-2017 TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,26 @@
  * SOFTWARE.
  */
 
-@NullMarked
-package reborncore.common.config2.impl;
+package reborncore.common.config.impl;
 
-import org.jspecify.annotations.NullMarked;
+import net.minecraft.resources.Identifier;
+
+import reborncore.common.config.Config;
+
+public class ConfigRoot extends ConfigGroupImpl implements Config {
+	private final Identifier id;
+
+	public ConfigRoot(Identifier id) {
+		this.id = id;
+	}
+
+	public Identifier getId() {
+		return id;
+	}
+
+	@Override
+	public ConfigRoot comment(String comment) {
+		super.comment(comment);
+		return this;
+	}
+}

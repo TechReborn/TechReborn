@@ -33,10 +33,10 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 import reborncore.common.config.LegacyConfigCleanup;
-import reborncore.common.config2.Config;
-import reborncore.common.config2.ConfigGroup;
-import reborncore.common.config2.ConfigValue;
-import reborncore.common.config2.RebornCoreConfigApi;
+import reborncore.common.config.Config;
+import reborncore.common.config.ConfigGroup;
+import reborncore.common.config.ConfigValue;
+import reborncore.common.config.RebornCoreConfigApi;
 
 // All moved into one class as it's a lot easier to find the config values when you know where they all are
 public final class TechRebornConfig {

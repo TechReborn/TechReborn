@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2;
+package reborncore.common.config;
 
 import org.jetbrains.annotations.ApiStatus;
 

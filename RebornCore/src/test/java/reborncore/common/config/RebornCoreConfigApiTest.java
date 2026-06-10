@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2;
+package reborncore.common.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,10 +38,10 @@ import org.junit.jupiter.api.io.TempDir;
 
 import net.minecraft.resources.Identifier;
 
-import reborncore.common.config2.impl.ConfigGroupImpl;
-import reborncore.common.config2.impl.FabricConfigApiImpl;
-import reborncore.common.config2.impl.serialization.ConfigParser;
-import reborncore.common.config2.impl.serialization.ConfigWriter;
+import reborncore.common.config.impl.ConfigGroupImpl;
+import reborncore.common.config.impl.RebornCoreConfigApiImpl;
+import reborncore.common.config.impl.serialization.ConfigParser;
+import reborncore.common.config.impl.serialization.ConfigWriter;
 
 class RebornCoreConfigApiTest {
 	@Test
@@ -130,7 +130,7 @@ class RebornCoreConfigApiTest {
 		Config config = RebornCoreConfigApi.config(Identifier.parse("reborncore:register_finalizes_spec"));
 		ConfigValue<String> value = config.stringValue("value", "hello");
 
-		FabricConfigApiImpl.register(config, tempDir);
+		RebornCoreConfigApiImpl.register(config, tempDir);
 
 		assertThrows(IllegalStateException.class, () -> config.stringValue("other", "world"));
 		assertThrows(IllegalStateException.class, () -> config.group("group"));
@@ -150,7 +150,7 @@ class RebornCoreConfigApiTest {
 		Config config = RebornCoreConfigApi.config(Identifier.parse("reborncore:load_from_dir"));
 		ConfigValue<String> value = config.stringValue("value", "default");
 
-		FabricConfigApiImpl.register(config, tempDir);
+		RebornCoreConfigApiImpl.register(config, tempDir);
 
 		assertEquals("loaded", value.get());
 	}
@@ -160,7 +160,7 @@ class RebornCoreConfigApiTest {
 		Config config = RebornCoreConfigApi.config(Identifier.parse("reborncore:write_defaults"));
 		config.stringValue("value", "default").comment("Example value");
 
-		FabricConfigApiImpl.register(config, tempDir);
+		RebornCoreConfigApiImpl.register(config, tempDir);
 
 		assertEquals("""
 				{

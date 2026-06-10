@@ -22,26 +22,14 @@
  * SOFTWARE.
  */
 
-package reborncore.common.config2.impl;
+package reborncore.common.config;
 
-import net.minecraft.resources.Identifier;
+import java.util.function.Supplier;
 
-import reborncore.common.config2.Config;
+import org.jetbrains.annotations.ApiStatus;
 
-public class ConfigRoot extends ConfigGroupImpl implements Config {
-	private final Identifier id;
-
-	public ConfigRoot(Identifier id) {
-		this.id = id;
-	}
-
-	public Identifier getId() {
-		return id;
-	}
-
+@ApiStatus.NonExtendable
+public interface ConfigValue<T> extends Supplier<T>, ConfigNode {
 	@Override
-	public ConfigRoot comment(String comment) {
-		super.comment(comment);
-		return this;
-	}
+	ConfigValue<T> comment(String comment);
 }
