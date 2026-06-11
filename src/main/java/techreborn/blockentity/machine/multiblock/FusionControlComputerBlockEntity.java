@@ -70,6 +70,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	RecipeHolder<FusionReactorRecipe> currentRecipeEntry = null;
 	boolean hasStartedCrafting = false;
 	boolean checkNBTRecipe = false;
+	String activeRecipeId = "";
 	long lastTick = -1;
 
 	public FusionControlComputerBlockEntity(BlockPos pos, BlockState state) {
@@ -114,6 +115,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	 */
 	private void resetCrafter() {
 		currentRecipeEntry = null;
+		activeRecipeId = "";
 		craftingTickTime = 0;
 		craftingTotalTime = 0;
 		neededPower = 0;
@@ -149,14 +151,35 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	private void updateCurrentRecipe() {
 		for (RecipeHolder<FusionReactorRecipe> entry : RecipeUtils.getRecipeEntries(level, ModRecipes.FUSION_REACTOR)) {
 			if (validateRecipe(entry)) {
-				currentRecipeEntry = entry;
-				craftingTickTime = 0;
-				craftingTotalTime = entry.value().time();
-				neededPower = entry.value().getStartEnergy();
-				hasStartedCrafting = false;
+				setCurrentRecipe(entry);
 				break;
 			}
 		}
+	}
+
+	private void setCurrentRecipe(RecipeHolder<FusionReactorRecipe> entry) {
+		currentRecipeEntry = entry;
+		activeRecipeId = entry.id() == null ? "" : entry.id().identifier().toString();
+		craftingTickTime = 0;
+		craftingTotalTime = entry.value().time();
+		neededPower = entry.value().getStartEnergy();
+		hasStartedCrafting = false;
+	}
+
+	private void restoreCurrentRecipe(ServerLevel level) {
+		for (RecipeHolder<FusionReactorRecipe> entry : RecipeUtils.getRecipeEntries(level, ModRecipes.FUSION_REACTOR)) {
+			String recipeId = entry.id() == null ? "" : entry.id().identifier().toString();
+			if (!activeRecipeId.isEmpty() && activeRecipeId.equals(recipeId)) {
+				currentRecipeEntry = entry;
+				return;
+			}
+			if (activeRecipeId.isEmpty() && validateRecipe(entry)) {
+				currentRecipeEntry = entry;
+				activeRecipeId = recipeId;
+				return;
+			}
+		}
+		resetCrafter();
 	}
 
 	/**
@@ -256,13 +279,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		// Move this to here from the nbt read method, as it now requires the world as of 1.14
 		if (checkNBTRecipe) {
 			checkNBTRecipe = false;
-			for (RecipeHolder<FusionReactorRecipe> entry : RecipeUtils.getRecipeEntries(serverLevel, ModRecipes.FUSION_REACTOR)) {
-				if (validateRecipe(entry)) {
-					this.currentRecipeEntry = entry;
-					this.craftingTotalTime = entry.value().time();
-					this.neededPower = entry.value().getStartEnergy();
-				}
-			}
+			restoreCurrentRecipe(serverLevel);
 		}
 
 		if (lastTick == serverLevel.getGameTime()) {
@@ -358,6 +375,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		this.craftingTotalTime = view.getIntOr("craftingTotalTime", 0);
 		this.neededPower = view.getIntOr("neededPower", 0);
 		this.hasStartedCrafting = view.getBooleanOr("hasStartedCrafting", false);
+		this.activeRecipeId = view.getStringOr("activeRecipeId", "");
 		if (view.getBooleanOr("hasActiveRecipe", false) && this.currentRecipeEntry == null) {
 			checkNBTRecipe = true;
 		}
@@ -374,6 +392,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		view.putInt("neededPower", this.neededPower);
 		view.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
 		view.putBoolean("hasActiveRecipe", this.currentRecipeEntry != null);
+		view.putString("activeRecipeId", this.activeRecipeId);
 		view.putInt("size", size);
 	}
 
