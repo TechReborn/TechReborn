@@ -49,8 +49,8 @@ public class ApplyArmorToDamageHandler implements ApplyArmorToDamageCallback {
 			Item stackItem = stack.getItem();
 			if (stackItem instanceof NanoSuitItem item) {
 				long energy = item.getStoredEnergy(stack);
-				if (energy > TechRebornConfig.nanoArmorEnergyCost) {
-					item.setStoredEnergy(stack, energy - TechRebornConfig.nanoArmorEnergyCost);
+				if (energy > TechRebornConfig.nanoArmorEnergyCost.get()) {
+					item.setStoredEnergy(stack, energy - TechRebornConfig.nanoArmorEnergyCost.get());
 				} else if (energy != 0) {
 					item.setStoredEnergy(stack, 0);
 				}
@@ -66,7 +66,7 @@ public class ApplyArmorToDamageHandler implements ApplyArmorToDamageCallback {
 			}
 
 			double damageToAbsorb = Math.min(stackEnergy, amount * 0.2d);
-			if (item.tryUseEnergy(stack, (long) (damageToAbsorb * TechRebornConfig.damageAbsorbCost))) {
+			if (item.tryUseEnergy(stack, (long) (damageToAbsorb * TechRebornConfig.damageAbsorbCost.get()))) {
 				damageAbsorbed += damageToAbsorb;
 			}
 		}

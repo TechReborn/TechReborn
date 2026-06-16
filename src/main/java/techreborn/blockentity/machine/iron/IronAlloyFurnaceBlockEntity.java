@@ -148,7 +148,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 
 	@Override
 	protected int cookingTime() {
-		return (int) (recipeCookingTime / TechRebornConfig.cookingScale);
+		return (int) (recipeCookingTime / TechRebornConfig.cookingScale.get());
 	}
 
 	public int getRecipeCookingTime() {

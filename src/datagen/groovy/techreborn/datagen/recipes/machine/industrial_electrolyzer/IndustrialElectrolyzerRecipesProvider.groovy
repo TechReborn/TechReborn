@@ -278,15 +278,15 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateCopper(){
 		[
-			(Items.COPPER_BLOCK) : Items.EXPOSED_COPPER,
-			(Items.CHISELED_COPPER) : Items.EXPOSED_CHISELED_COPPER,
-			(Items.COPPER_GRATE) : Items.EXPOSED_COPPER_GRATE,
-			(Items.CUT_COPPER) : Items.EXPOSED_CUT_COPPER,
-			(Items.CUT_COPPER_STAIRS) : Items.EXPOSED_CUT_COPPER_STAIRS,
-			(Items.CUT_COPPER_SLAB) : Items.EXPOSED_CUT_COPPER_SLAB,
-			(Items.COPPER_DOOR) : Items.EXPOSED_COPPER_DOOR,
-			(Items.COPPER_TRAPDOOR) : Items.EXPOSED_COPPER_TRAPDOOR,
-			(Items.COPPER_BULB) : Items.EXPOSED_COPPER_BULB
+			(Items.COPPER_BLOCK.weathering().unaffected()) : Items.COPPER_BLOCK.weathering().exposed(),
+			(Items.CHISELED_COPPER.weathering().unaffected()) : Items.CHISELED_COPPER.weathering().exposed(),
+			(Items.COPPER_GRATE.weathering().unaffected()) : Items.COPPER_GRATE.weathering().exposed(),
+			(Items.CUT_COPPER.weathering().unaffected()) : Items.CUT_COPPER.weathering().exposed(),
+			(Items.CUT_COPPER_STAIRS.weathering().unaffected()) : Items.CUT_COPPER_STAIRS.weathering().exposed(),
+			(Items.CUT_COPPER_SLAB.weathering().unaffected()) : Items.CUT_COPPER_SLAB.weathering().exposed(),
+			(Items.COPPER_DOOR.weathering().unaffected()) : Items.COPPER_DOOR.weathering().exposed(),
+			(Items.COPPER_TRAPDOOR.weathering().unaffected()) : Items.COPPER_TRAPDOOR.weathering().exposed(),
+			(Items.COPPER_BULB.weathering().unaffected()) : Items.COPPER_BULB.weathering().exposed()
 		].each {source, result ->
 			offerIndustrialElectrolyzerRecipe {
 				power 30
@@ -297,15 +297,15 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		[
-			(Items.EXPOSED_COPPER) : Items.WEATHERED_COPPER,
-			(Items.EXPOSED_CHISELED_COPPER) : Items.WEATHERED_CHISELED_COPPER,
-			(Items.EXPOSED_COPPER_GRATE) : Items.WEATHERED_COPPER_GRATE,
-			(Items.EXPOSED_CUT_COPPER) : Items.WEATHERED_CUT_COPPER,
-			(Items.EXPOSED_CUT_COPPER_STAIRS) : Items.WEATHERED_CUT_COPPER_STAIRS,
-			(Items.EXPOSED_CUT_COPPER_SLAB) : Items.WEATHERED_CUT_COPPER_SLAB,
-			(Items.EXPOSED_COPPER_DOOR) : Items.WEATHERED_COPPER_DOOR,
-			(Items.EXPOSED_COPPER_TRAPDOOR) : Items.WEATHERED_COPPER_TRAPDOOR,
-			(Items.EXPOSED_COPPER_BULB) : Items.WEATHERED_COPPER_BULB
+			(Items.COPPER_BLOCK.weathering().exposed()) : Items.COPPER_BLOCK.weathering().weathered(),
+			(Items.CHISELED_COPPER.weathering().exposed()) : Items.CHISELED_COPPER.weathering().weathered(),
+			(Items.COPPER_GRATE.weathering().exposed()) : Items.COPPER_GRATE.weathering().weathered(),
+			(Items.CUT_COPPER.weathering().exposed()) : Items.CUT_COPPER.weathering().weathered(),
+			(Items.CUT_COPPER_STAIRS.weathering().exposed()) : Items.CUT_COPPER_STAIRS.weathering().weathered(),
+			(Items.CUT_COPPER_SLAB.weathering().exposed()) : Items.CUT_COPPER_SLAB.weathering().weathered(),
+			(Items.COPPER_DOOR.weathering().exposed()) : Items.COPPER_DOOR.weathering().weathered(),
+			(Items.COPPER_TRAPDOOR.weathering().exposed()) : Items.COPPER_TRAPDOOR.weathering().weathered(),
+			(Items.COPPER_BULB.weathering().exposed()) : Items.COPPER_BULB.weathering().weathered()
 		].each {source, result ->
 			offerIndustrialElectrolyzerRecipe {
 				power 30
@@ -316,15 +316,15 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		[
-			(Items.WEATHERED_COPPER) : Items.OXIDIZED_COPPER,
-			(Items.WEATHERED_CHISELED_COPPER) : Items.OXIDIZED_CHISELED_COPPER,
-			(Items.WEATHERED_COPPER_GRATE) : Items.OXIDIZED_COPPER_GRATE,
-			(Items.WEATHERED_CUT_COPPER) : Items.OXIDIZED_CUT_COPPER,
-			(Items.WEATHERED_CUT_COPPER_STAIRS) : Items.OXIDIZED_CUT_COPPER_STAIRS,
-			(Items.WEATHERED_CUT_COPPER_SLAB) : Items.OXIDIZED_CUT_COPPER_SLAB,
-			(Items.WEATHERED_COPPER_DOOR) : Items.OXIDIZED_COPPER_DOOR,
-			(Items.WEATHERED_COPPER_TRAPDOOR) : Items.OXIDIZED_COPPER_TRAPDOOR,
-			(Items.WEATHERED_COPPER_BULB) : Items.OXIDIZED_COPPER_BULB
+			(Items.COPPER_BLOCK.weathering().weathered()) : Items.COPPER_BLOCK.weathering().oxidized(),
+			(Items.CHISELED_COPPER.weathering().weathered()) : Items.CHISELED_COPPER.weathering().oxidized(),
+			(Items.COPPER_GRATE.weathering().weathered()) : Items.COPPER_GRATE.weathering().oxidized(),
+			(Items.CUT_COPPER.weathering().weathered()) : Items.CUT_COPPER.weathering().oxidized(),
+			(Items.CUT_COPPER_STAIRS.weathering().weathered()) : Items.CUT_COPPER_STAIRS.weathering().oxidized(),
+			(Items.CUT_COPPER_SLAB.weathering().weathered()) : Items.CUT_COPPER_SLAB.weathering().oxidized(),
+			(Items.COPPER_DOOR.weathering().weathered()) : Items.COPPER_DOOR.weathering().oxidized(),
+			(Items.COPPER_TRAPDOOR.weathering().weathered()) : Items.COPPER_TRAPDOOR.weathering().oxidized(),
+			(Items.COPPER_BULB.weathering().weathered()) : Items.COPPER_BULB.weathering().oxidized()
 		].each {source, result ->
 			offerIndustrialElectrolyzerRecipe {
 				power 30

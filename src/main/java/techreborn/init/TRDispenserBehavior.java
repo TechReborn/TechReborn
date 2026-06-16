@@ -56,7 +56,7 @@ import net.minecraft.world.level.material.Fluids;
 public class TRDispenserBehavior {
 
 	public static void init() {
-		if (TechRebornConfig.dispenseScrapboxes) {
+		if (TechRebornConfig.dispenseScrapboxes.get()) {
 			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new DefaultDispenseItemBehavior() {
 				public ItemStack execute(BlockSource pointer, ItemStack stack) {
 					List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(pointer.level(), ModRecipes.SCRAPBOX);

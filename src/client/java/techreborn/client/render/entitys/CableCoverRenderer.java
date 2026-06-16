@@ -72,7 +72,7 @@ public class CableCoverRenderer implements BlockEntityRenderer<CableBlockEntity,
 		final BlockState renderData = blockEntity.getRenderData();
 		state.cover = renderData != null ? renderData : Blocks.OAK_PLANKS.defaultBlockState();
 		// TODO 26.1: render type for covers is now baked into model quads; using cutout as default
-		state.layer = Sheets.cutoutBlockSheet();
+		state.layer = Sheets.cutoutBlockItemSheet();
 		RandomSource random = RandomSource.create();
 		random.setSeed(42L);
 		state.parts = new ArrayList<>();

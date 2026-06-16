@@ -1,0 +1,11 @@
+{
+	"schemaVersion": 1,
+	"id": "techreborn-tests",
+	"version": "0.0.0",
+	"name": "Tech Reborn Test",
+	"entrypoints": {
+		"fabric-client-gametest": [
+			"techreborn.test.client.TechRebornClientTests"
+		]
+	}
+}

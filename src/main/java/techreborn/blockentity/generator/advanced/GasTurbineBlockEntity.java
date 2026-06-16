@@ -42,7 +42,7 @@ import techreborn.init.TRContent;
 public class GasTurbineBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public GasTurbineBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.GAS_TURBINE, pos, state, ModRecipes.GAS_GENERATOR, "GasTurbineBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.gasTurbineEnergyPerTick);
+		super(TRBlockEntities.GAS_TURBINE, pos, state, ModRecipes.GAS_GENERATOR, "GasTurbineBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.gasTurbineEnergyPerTick.get());
 	}
 
 	@Override
@@ -52,12 +52,12 @@ public class GasTurbineBlockEntity extends BaseFluidGeneratorBlockEntity impleme
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.gasTurbineMaxEnergy;
+		return TechRebornConfig.gasTurbineMaxEnergy.get();
 	}
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.gasTurbineMaxOutput;
+		return TechRebornConfig.gasTurbineMaxOutput.get();
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 
 		if (state.getValue(ResinBasinBlock.POURING)) {
 			this.isPouring = true;
-			pouringTimer = TechRebornConfig.sapTimeTicks;
+			pouringTimer = TechRebornConfig.sapTimeTicks.get();
 		}
 	}
 
@@ -117,14 +117,14 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 
 		if (readyToHarvest) {
 			// Check for rubber
-			if (serverLevel.getGameTime() % TechRebornConfig.checkForSapTime == 0) {
+			if (serverLevel.getGameTime() % TechRebornConfig.checkForSapTime.get() == 0) {
 				BlockPos targetRubber = getLogWithSap();
 
 				if (targetRubber != null) {
 					// We have a valid sap log, harvest it
 					serverLevel.setBlockAndUpdate(targetRubber, serverLevel.getBlockState(targetRubber).setValue(BlockRubberLog.HAS_SAP, false).setValue(BlockRubberLog.SAP_SIDE, Direction.from2DDataValue(0)));
 					isPouring = true;
-					pouringTimer = TechRebornConfig.sapTimeTicks;
+					pouringTimer = TechRebornConfig.sapTimeTicks.get();
 					shouldUpdateState = true;
 				}
 			}

@@ -27,7 +27,6 @@ package techreborn.client.render.entitys;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -38,6 +37,7 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -82,7 +82,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Item rendering
 		state.direction = storage.getFacing();
 		state.rotate = (state.direction.get2DDataValue() - 2) * 90F;
-		state.lightAbove = LevelRenderer.getLightCoords(storage.getLevel(), storage.getBlockPos().relative(storage.getFacing()));
+		state.lightAbove = LightCoordsUtil.getLightCoords(storage.getLevel(), storage.getBlockPos().relative(storage.getFacing()));
 		state.item = new ItemStackRenderState();
 		itemModelResolver.updateForTopItem(state.item, stack, ItemDisplayContext.FIXED, storage.getLevel(), null, 0);
 		// Text rendering

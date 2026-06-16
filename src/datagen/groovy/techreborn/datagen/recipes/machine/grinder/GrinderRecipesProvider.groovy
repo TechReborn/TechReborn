@@ -283,22 +283,22 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateConcretePowder() {
 		[
-			(Items.BLACK_CONCRETE): Items.BLACK_CONCRETE_POWDER,
-			(Items.BLUE_CONCRETE): Items.BLUE_CONCRETE_POWDER,
-			(Items.BROWN_CONCRETE): Items.BROWN_CONCRETE_POWDER,
-			(Items.CYAN_CONCRETE): Items.CYAN_CONCRETE_POWDER,
-			(Items.GRAY_CONCRETE): Items.GRAY_CONCRETE_POWDER,
-			(Items.GREEN_CONCRETE): Items.GREEN_CONCRETE_POWDER,
-			(Items.LIGHT_BLUE_CONCRETE): Items.LIGHT_BLUE_CONCRETE_POWDER,
-			(Items.LIGHT_GRAY_CONCRETE): Items.LIGHT_GRAY_CONCRETE_POWDER,
-			(Items.LIME_CONCRETE): Items.LIME_CONCRETE_POWDER,
-			(Items.MAGENTA_CONCRETE): Items.MAGENTA_CONCRETE_POWDER,
-			(Items.ORANGE_CONCRETE): Items.ORANGE_CONCRETE_POWDER,
-			(Items.PINK_CONCRETE): Items.PINK_CONCRETE_POWDER,
-			(Items.PURPLE_CONCRETE): Items.PURPLE_CONCRETE_POWDER,
-			(Items.RED_CONCRETE): Items.RED_CONCRETE_POWDER,
-			(Items.WHITE_CONCRETE): Items.WHITE_CONCRETE_POWDER,
-			(Items.YELLOW_CONCRETE): Items.YELLOW_CONCRETE_POWDER
+			(Items.CONCRETE.black()): Items.CONCRETE_POWDER.black(),
+			(Items.CONCRETE.blue()): Items.CONCRETE_POWDER.blue(),
+			(Items.CONCRETE.brown()): Items.CONCRETE_POWDER.brown(),
+			(Items.CONCRETE.cyan()): Items.CONCRETE_POWDER.cyan(),
+			(Items.CONCRETE.gray()): Items.CONCRETE_POWDER.gray(),
+			(Items.CONCRETE.green()): Items.CONCRETE_POWDER.green(),
+			(Items.CONCRETE.lightBlue()): Items.CONCRETE_POWDER.lightBlue(),
+			(Items.CONCRETE.lightGray()): Items.CONCRETE_POWDER.lightGray(),
+			(Items.CONCRETE.lime()): Items.CONCRETE_POWDER.lime(),
+			(Items.CONCRETE.magenta()): Items.CONCRETE_POWDER.magenta(),
+			(Items.CONCRETE.orange()): Items.CONCRETE_POWDER.orange(),
+			(Items.CONCRETE.pink()): Items.CONCRETE_POWDER.pink(),
+			(Items.CONCRETE.purple()): Items.CONCRETE_POWDER.purple(),
+			(Items.CONCRETE.red()): Items.CONCRETE_POWDER.red(),
+			(Items.CONCRETE.white()): Items.CONCRETE_POWDER.white(),
+			(Items.CONCRETE.yellow()): Items.CONCRETE_POWDER.yellow()
 		].each {concrete, concretePowder ->
 			offerGrinderRecipe {
 				ingredients concrete

@@ -31,48 +31,98 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.ColorCollection;
+import org.jspecify.annotations.Nullable;
 
 public enum ColoredItem {
 
-	BLACK(Items.BLACK_DYE, Items.BLACK_WOOL, Items.BLACK_CARPET, Items.BLACK_BED, Items.BLACK_STAINED_GLASS, Items.BLACK_STAINED_GLASS_PANE, Items.BLACK_TERRACOTTA, Items.BLACK_GLAZED_TERRACOTTA, Items.BLACK_CONCRETE_POWDER, Items.BLACK_CONCRETE, Items.BLACK_SHULKER_BOX, Items.BLACK_BANNER, Items.BLACK_CANDLE),
-	BLUE(Items.BLUE_DYE, Items.BLUE_WOOL, Items.BLUE_CARPET, Items.BLUE_BED, Items.BLUE_STAINED_GLASS, Items.BLUE_STAINED_GLASS_PANE, Items.BLUE_TERRACOTTA, Items.BLUE_GLAZED_TERRACOTTA, Items.BLUE_CONCRETE_POWDER, Items.BLUE_CONCRETE, Items.BLUE_SHULKER_BOX, Items.BLUE_BANNER, Items.BLUE_CANDLE),
-	BROWN(Items.BROWN_DYE, Items.BROWN_WOOL, Items.BROWN_CARPET, Items.BROWN_BED, Items.BROWN_STAINED_GLASS, Items.BROWN_STAINED_GLASS_PANE, Items.BROWN_TERRACOTTA, Items.BROWN_GLAZED_TERRACOTTA, Items.BROWN_CONCRETE_POWDER, Items.BROWN_CONCRETE, Items.BROWN_SHULKER_BOX, Items.BROWN_BANNER, Items.BROWN_CANDLE),
-	CYAN(Items.CYAN_DYE, Items.CYAN_WOOL, Items.CYAN_CARPET, Items.CYAN_BED, Items.CYAN_STAINED_GLASS, Items.CYAN_STAINED_GLASS_PANE, Items.CYAN_TERRACOTTA, Items.CYAN_GLAZED_TERRACOTTA, Items.CYAN_CONCRETE_POWDER, Items.CYAN_CONCRETE, Items.CYAN_SHULKER_BOX, Items.CYAN_BANNER, Items.CYAN_CANDLE),
-	GRAY(Items.GRAY_DYE, Items.GRAY_WOOL, Items.GRAY_CARPET, Items.GRAY_BED, Items.GRAY_STAINED_GLASS, Items.GRAY_STAINED_GLASS_PANE, Items.GRAY_TERRACOTTA, Items.GRAY_GLAZED_TERRACOTTA, Items.GRAY_CONCRETE_POWDER, Items.GRAY_CONCRETE, Items.GRAY_SHULKER_BOX, Items.GRAY_BANNER, Items.GRAY_CANDLE),
-	GREEN(Items.GREEN_DYE, Items.GREEN_WOOL, Items.GREEN_CARPET, Items.GREEN_BED, Items.GREEN_STAINED_GLASS, Items.GREEN_STAINED_GLASS_PANE, Items.GREEN_TERRACOTTA, Items.GREEN_GLAZED_TERRACOTTA, Items.GREEN_CONCRETE_POWDER, Items.GREEN_CONCRETE, Items.GREEN_SHULKER_BOX, Items.GREEN_BANNER, Items.GREEN_CANDLE),
-	LIGHT_BLUE(Items.LIGHT_BLUE_DYE, Items.LIGHT_BLUE_WOOL, Items.LIGHT_BLUE_CARPET, Items.LIGHT_BLUE_BED, Items.LIGHT_BLUE_STAINED_GLASS, Items.LIGHT_BLUE_STAINED_GLASS_PANE, Items.LIGHT_BLUE_TERRACOTTA, Items.LIGHT_BLUE_GLAZED_TERRACOTTA, Items.LIGHT_BLUE_CONCRETE_POWDER, Items.LIGHT_BLUE_CONCRETE, Items.LIGHT_BLUE_SHULKER_BOX, Items.LIGHT_BLUE_BANNER, Items.LIGHT_BLUE_CANDLE),
-	LIGHT_GRAY(Items.LIGHT_GRAY_DYE, Items.LIGHT_GRAY_WOOL, Items.LIGHT_GRAY_CARPET, Items.LIGHT_GRAY_BED, Items.LIGHT_GRAY_STAINED_GLASS, Items.LIGHT_GRAY_STAINED_GLASS_PANE, Items.LIGHT_GRAY_TERRACOTTA, Items.LIGHT_GRAY_GLAZED_TERRACOTTA, Items.LIGHT_GRAY_CONCRETE_POWDER, Items.LIGHT_GRAY_CONCRETE, Items.LIGHT_GRAY_SHULKER_BOX, Items.LIGHT_GRAY_BANNER, Items.LIGHT_GRAY_CANDLE),
-	LIME(Items.LIME_DYE, Items.LIME_WOOL, Items.LIME_CARPET, Items.LIME_BED, Items.LIME_STAINED_GLASS, Items.LIME_STAINED_GLASS_PANE, Items.LIME_TERRACOTTA, Items.LIME_GLAZED_TERRACOTTA, Items.LIME_CONCRETE_POWDER, Items.LIME_CONCRETE, Items.LIME_SHULKER_BOX, Items.LIME_BANNER, Items.LIME_CANDLE),
-	MAGENTA(Items.MAGENTA_DYE, Items.MAGENTA_WOOL, Items.MAGENTA_CARPET, Items.MAGENTA_BED, Items.MAGENTA_STAINED_GLASS, Items.MAGENTA_STAINED_GLASS_PANE, Items.MAGENTA_TERRACOTTA, Items.MAGENTA_GLAZED_TERRACOTTA, Items.MAGENTA_CONCRETE_POWDER, Items.MAGENTA_CONCRETE, Items.MAGENTA_SHULKER_BOX, Items.MAGENTA_BANNER, Items.MAGENTA_CANDLE),
+	BLACK(DyeColor.BLACK, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	BLUE(DyeColor.BLUE, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	BROWN(DyeColor.BROWN, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	CYAN(DyeColor.CYAN, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	GRAY(DyeColor.GRAY, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	GREEN(DyeColor.GREEN, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	LIGHT_BLUE(DyeColor.LIGHT_BLUE, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	LIGHT_GRAY(DyeColor.LIGHT_GRAY, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	LIME(DyeColor.LIME, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	MAGENTA(DyeColor.MAGENTA, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
 	NEUTRAL(null, null, null, null, Items.GLASS, Items.GLASS_PANE, Items.TERRACOTTA, null, null, null, Items.SHULKER_BOX, null, Items.CANDLE),
-	ORANGE(Items.ORANGE_DYE, Items.ORANGE_WOOL, Items.ORANGE_CARPET, Items.ORANGE_BED, Items.ORANGE_STAINED_GLASS, Items.ORANGE_STAINED_GLASS_PANE, Items.ORANGE_TERRACOTTA, Items.ORANGE_GLAZED_TERRACOTTA, Items.ORANGE_CONCRETE_POWDER, Items.ORANGE_CONCRETE, Items.ORANGE_SHULKER_BOX, Items.ORANGE_BANNER, Items.ORANGE_CANDLE),
-	PINK(Items.PINK_DYE, Items.PINK_WOOL, Items.PINK_CARPET, Items.PINK_BED, Items.PINK_STAINED_GLASS, Items.PINK_STAINED_GLASS_PANE, Items.PINK_TERRACOTTA, Items.PINK_GLAZED_TERRACOTTA, Items.PINK_CONCRETE_POWDER, Items.PINK_CONCRETE, Items.PINK_SHULKER_BOX, Items.PINK_BANNER, Items.PINK_CANDLE),
-	PURPLE(Items.PURPLE_DYE, Items.PURPLE_WOOL, Items.PURPLE_CARPET, Items.PURPLE_BED, Items.PURPLE_STAINED_GLASS, Items.PURPLE_STAINED_GLASS_PANE, Items.PURPLE_TERRACOTTA, Items.PURPLE_GLAZED_TERRACOTTA, Items.PURPLE_CONCRETE_POWDER, Items.PURPLE_CONCRETE, Items.PURPLE_SHULKER_BOX, Items.PURPLE_BANNER, Items.PURPLE_CANDLE),
-	RED(Items.RED_DYE, Items.RED_WOOL, Items.RED_CARPET, Items.RED_BED, Items.RED_STAINED_GLASS, Items.RED_STAINED_GLASS_PANE, Items.RED_TERRACOTTA, Items.RED_GLAZED_TERRACOTTA, Items.RED_CONCRETE_POWDER, Items.RED_CONCRETE, Items.RED_SHULKER_BOX, Items.RED_BANNER, Items.RED_CANDLE),
-	WHITE(Items.WHITE_DYE, Items.WHITE_WOOL, Items.WHITE_CARPET, Items.WHITE_BED, Items.WHITE_STAINED_GLASS, Items.WHITE_STAINED_GLASS_PANE, Items.WHITE_TERRACOTTA, Items.WHITE_GLAZED_TERRACOTTA, Items.WHITE_CONCRETE_POWDER, Items.WHITE_CONCRETE, Items.WHITE_SHULKER_BOX, Items.WHITE_BANNER, Items.WHITE_CANDLE),
-	YELLOW(Items.YELLOW_DYE, Items.YELLOW_WOOL, Items.YELLOW_CARPET, Items.YELLOW_BED, Items.YELLOW_STAINED_GLASS, Items.YELLOW_STAINED_GLASS_PANE, Items.YELLOW_TERRACOTTA, Items.YELLOW_GLAZED_TERRACOTTA, Items.YELLOW_CONCRETE_POWDER, Items.YELLOW_CONCRETE, Items.YELLOW_SHULKER_BOX, Items.YELLOW_BANNER, Items.YELLOW_CANDLE);
+	ORANGE(DyeColor.ORANGE, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	PINK(DyeColor.PINK, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	PURPLE(DyeColor.PURPLE, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	RED(DyeColor.RED, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	WHITE(DyeColor.WHITE, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE),
+	YELLOW(DyeColor.YELLOW, Items.DYE, Items.WOOL, Items.CARPET, Items.BED, Items.STAINED_GLASS, Items.STAINED_GLASS_PANE, Items.DYED_TERRACOTTA, Items.GLAZED_TERRACOTTA, Items.CONCRETE_POWDER, Items.CONCRETE, Items.DYED_SHULKER_BOX, Items.BANNER, Items.DYED_CANDLE);
 
-	private Item dye;
-	private Item wool;
-	private Item carpet;
-	private Item bed;
-	private Item glass;
-	private Item glassPane;
-	private Item terracotta;
-	private Item glazedTerracotta;
-	private Item concretePowder;
-	private Item concrete;
-	private Item shulkerBox;
-	private Item banner;
-	private Item candle;
+	private final @Nullable Item dye;
+	private final @Nullable Item wool;
+	private final @Nullable Item carpet;
+	private final @Nullable Item bed;
+	private final @Nullable Item glass;
+	private final @Nullable Item glassPane;
+	private final @Nullable Item terracotta;
+	private final @Nullable Item glazedTerracotta;
+	private final @Nullable Item concretePowder;
+	private final @Nullable Item concrete;
+	private final @Nullable Item shulkerBox;
+	private final @Nullable Item banner;
+	private final @Nullable Item candle;
 
-	private static Map<Pair<ColoredItem, ColoredItem>, ColoredItem> vanillaMixingMap = null;
-	private static Map<Pair<ColoredItem, ColoredItem>, ColoredItem> extendedMixingMap = null;
-	private static Map<Pair<ColoredItem, ColoredItem>, ColoredItem> extendedMixingMapNoNeutral = null;
+	private static @Nullable Map<Pair<ColoredItem, ColoredItem>, ColoredItem> vanillaMixingMap = null;
+	private static @Nullable Map<Pair<ColoredItem, ColoredItem>, ColoredItem> extendedMixingMap = null;
+	private static @Nullable Map<Pair<ColoredItem, ColoredItem>, ColoredItem> extendedMixingMapNoNeutral = null;
 
-	ColoredItem(Item dye, Item wool, Item carpet, Item bed, Item glass, Item glassPane, Item terracotta, Item glazedTerracotta, Item concretePowder, Item concrete, Item shulkerBox, Item banner, Item candle) {
+	ColoredItem(
+		DyeColor color,
+		ColorCollection<Item> dye,
+		ColorCollection<Item> wool,
+		ColorCollection<Item> carpet,
+		ColorCollection<Item> bed,
+		ColorCollection<Item> glass,
+		ColorCollection<Item> glassPane,
+		ColorCollection<Item> terracotta,
+		ColorCollection<Item> glazedTerracotta,
+		ColorCollection<Item> concretePowder,
+		ColorCollection<Item> concrete,
+		ColorCollection<Item> shulkerBox,
+		ColorCollection<Item> banner,
+		ColorCollection<Item> candle
+	) {
+		this(
+			dye.pick(color),
+			wool.pick(color),
+			carpet.pick(color),
+			bed.pick(color),
+			glass.pick(color),
+			glassPane.pick(color),
+			terracotta.pick(color),
+			glazedTerracotta.pick(color),
+			concretePowder.pick(color),
+			concrete.pick(color),
+			shulkerBox.pick(color),
+			banner.pick(color),
+			candle.pick(color)
+		);
+	}
+
+	ColoredItem(
+		@Nullable Item dye,
+		@Nullable Item wool,
+		@Nullable Item carpet,
+		@Nullable Item bed,
+		@Nullable Item glass,
+		@Nullable Item glassPane,
+		@Nullable Item terracotta,
+		@Nullable Item glazedTerracotta,
+		@Nullable Item concretePowder,
+		@Nullable Item concrete,
+		@Nullable Item shulkerBox,
+		@Nullable Item banner,
+		@Nullable Item candle
+	) {
 		this.dye = dye;
 		this.wool = wool;
 		this.carpet = carpet;

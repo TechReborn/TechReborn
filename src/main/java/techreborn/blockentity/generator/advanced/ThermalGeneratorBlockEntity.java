@@ -42,7 +42,7 @@ import techreborn.init.TRContent;
 public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public ThermalGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.THERMAL_GEN, pos, state, ModRecipes.THERMAL_GENERATOR, "ThermalGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.thermalGeneratorEnergyPerTick);
+		super(TRBlockEntities.THERMAL_GEN, pos, state, ModRecipes.THERMAL_GENERATOR, "ThermalGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.thermalGeneratorEnergyPerTick.get());
 	}
 
 	@Override
@@ -52,12 +52,12 @@ public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity i
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.thermalGeneratorMaxEnergy;
+		return TechRebornConfig.thermalGeneratorMaxEnergy.get();
 	}
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.thermalGeneratorMaxOutput;
+		return TechRebornConfig.thermalGeneratorMaxOutput.get();
 	}
 
 	@Override

@@ -130,7 +130,7 @@ public class TRBlockSettings {
 	}
 
 	public static BlockBehaviour.Properties copperWall(String name) {
-		return BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)
+		return BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK.weathering().unaffected())
 			.strength(2f, 2f)
 			.setId(key(name));
 	}

@@ -72,9 +72,9 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 		}
 
 		if (generating) {
-			int actualPower = TechRebornConfig.windMillBaseEnergy;
+			int actualPower = TechRebornConfig.windMillBaseEnergy.get();
 			if (level.isThundering()) {
-				actualPower *= TechRebornConfig.windMillThunderMultiplier;
+				actualPower *= TechRebornConfig.windMillThunderMultiplier.get();
 			}
 			addEnergy(actualPower); // Value taken from
 			// http://wiki.industrial-craft.net/?title=Wind_Mill
@@ -84,7 +84,7 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.windMillMaxEnergy;
+		return TechRebornConfig.windMillMaxEnergy.get();
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.windMillMaxOutput;
+		return TechRebornConfig.windMillMaxOutput.get();
 	}
 
 	@Override

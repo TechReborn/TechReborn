@@ -35,7 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class DirectionUtils {
-	public enum HORIZONTAL_PART {
+	public enum HorizontalPart {
 		ALONE,
 		START,
 		MIDDLE,
@@ -134,11 +134,11 @@ public class DirectionUtils {
 		loadNeighbors(world, pos, state, HORIZONTAL_NEIGHBORS, HORIZONTAL_LENGTH, predicate);
 	}
 
-	public static HORIZONTAL_PART getHorizontalPart(Direction direction, int neighbors) {
+	public static HorizontalPart getHorizontalPart(Direction direction, int neighbors) {
 		byte[] flags = HORIZONTAL_MAP.get(direction);
-		if ((neighbors & flags[1]) == flags[1]) return HORIZONTAL_PART.MIDDLE;
-		if ((neighbors & flags[0]) == flags[0]) return HORIZONTAL_PART.START;
-		if ((neighbors & flags[2]) == flags[2]) return HORIZONTAL_PART.END;
-		return HORIZONTAL_PART.ALONE;
+		if ((neighbors & flags[1]) == flags[1]) return HorizontalPart.MIDDLE;
+		if ((neighbors & flags[0]) == flags[0]) return HorizontalPart.START;
+		if ((neighbors & flags[2]) == flags[2]) return HorizontalPart.END;
+		return HorizontalPart.ALONE;
 	}
 }

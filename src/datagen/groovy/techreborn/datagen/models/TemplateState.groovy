@@ -26,7 +26,6 @@ package techreborn.datagen.models
 
 import net.minecraft.client.renderer.block.dispatch.Variant
 import net.minecraft.client.renderer.block.dispatch.VariantMutator
-import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.world.level.block.Block
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
 import net.minecraft.client.data.models.model.TextureMapping
@@ -42,6 +41,7 @@ import reborncore.common.blocks.BlockMachineBase
 import techreborn.blocks.machine.tier1.PlayerDetectorBlock
 import techreborn.blocks.machine.tier1.ResinBasinBlock
 import techreborn.blocks.misc.BlockRubberLog
+import techreborn.utils.DirectionUtils
 
 import java.util.function.BiFunction
 import java.util.function.Function
@@ -162,16 +162,20 @@ class TemplateState {
 				model(side).with(X_ROT_90)
 			)
 	}
+	static Function<List<Identifier>, StateModel> MACHINE_CASING = (List<Identifier> ids) -> {
+		PropertyDispatch.C1<MultiVariant, Integer> map = PropertyDispatch.initial(DirectionUtils.HORIZONTAL_NEIGHBORS)
+		for (int i = 0, size = ids.size(); i < size; i++) {
+			map.select(i, model(ids[i]))
+		}
+		return new StateModel().add(map)
+	}
 	static ConditionBuilder when() {
 		return new ConditionBuilder();
 	}
-	static MultiVariant model(Material id) {
-		return new MultiVariant(WeightedList.of(new Variant(id.sprite())))
-	}
 	static MultiVariant model(Identifier id) {
-		return model(new Material(id))
+		return new MultiVariant(WeightedList.of(new Variant(id)))
 	}
 	static MultiVariant model(Block block) {
-		return model(TextureMapping.getBlockTexture(block))
+		return model(TextureMapping.getBlockTexture(block).sprite())
 	}
 }

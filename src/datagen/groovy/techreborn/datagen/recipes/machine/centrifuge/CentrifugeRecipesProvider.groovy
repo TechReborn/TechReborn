@@ -129,7 +129,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 500
 			ingredients stack(Items.BRAIN_CORAL_BLOCK, 12), TRContent.CELL
-			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_BRAIN_CORAL, 24), stack(Items.DEAD_BRAIN_CORAL_FAN, 12), stack(Items.PINK_DYE, 16)
+			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_BRAIN_CORAL, 24), stack(Items.DEAD_BRAIN_CORAL_FAN, 12), stack(Items.DYE.pink(), 16)
 			id("centrifuge/brain_coral_block")
 		}
 		offerCentrifugeRecipe {
@@ -152,7 +152,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 500
 			ingredients stack(Items.BUBBLE_CORAL_BLOCK, 12), TRContent.CELL
-			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_BUBBLE_CORAL, 24), stack(Items.DEAD_BUBBLE_CORAL_FAN, 12), stack(Items.PURPLE_DYE, 16)
+			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_BUBBLE_CORAL, 24), stack(Items.DEAD_BUBBLE_CORAL_FAN, 12), stack(Items.DYE.purple(), 16)
 			id("centrifuge/bubble_coral_block")
 		}
 		offerCentrifugeRecipe {
@@ -235,7 +235,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 500
 			ingredients stack(Items.FIRE_CORAL_BLOCK, 12), TRContent.CELL
-			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_FIRE_CORAL, 24), stack(Items.DEAD_FIRE_CORAL_FAN, 12), stack(Items.RED_DYE, 16)
+			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_FIRE_CORAL, 24), stack(Items.DEAD_FIRE_CORAL_FAN, 12), stack(Items.DYE.red(), 16)
 			id("centrifuge/fire_coral_block")
 		}
 		offerCentrifugeRecipe {
@@ -249,7 +249,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 500
 			ingredients stack(Items.GLOW_BERRIES, 32), TRContent.CELL
-			outputs stack(Items.ORANGE_DYE, 2), cellStack(ModFluids.METHANE), stack(Items.GLOWSTONE_DUST, 2)
+			outputs stack(Items.DYE.orange(), 2), cellStack(ModFluids.METHANE), stack(Items.GLOWSTONE_DUST, 2)
 			id("centrifuge/glow_berries")
 		}
 		offerCentrifugeRecipe {
@@ -293,7 +293,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 500
 			ingredients stack(Items.HORN_CORAL_BLOCK, 12), TRContent.CELL
-			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_HORN_CORAL, 24), stack(Items.DEAD_HORN_CORAL_FAN, 12), stack(Items.YELLOW_DYE, 16)
+			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_HORN_CORAL, 24), stack(Items.DEAD_HORN_CORAL_FAN, 12), stack(Items.DYE.yellow(), 16)
 			id("centrifuge/horn_coral_block")
 		}
 		offerCentrifugeRecipe {
@@ -496,14 +496,14 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 500
 			ingredients stack(Items.SWEET_BERRIES, 32), TRContent.CELL
-			outputs cellStack(ModFluids.METHANE), stack(Items.RED_DYE, 5)
+			outputs cellStack(ModFluids.METHANE), stack(Items.DYE.red(), 5)
 			id("centrifuge/sweet_berries")
 		}
 		offerCentrifugeRecipe {
 			power 5
 			time 500
 			ingredients stack(Items.TUBE_CORAL_BLOCK, 12), TRContent.CELL
-			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_TUBE_CORAL, 24), stack(Items.DEAD_TUBE_CORAL_FAN, 12), stack(Items.BLUE_DYE, 16)
+			outputs cellStack(ModFluids.METHANE), stack(Items.DEAD_TUBE_CORAL, 24), stack(Items.DEAD_TUBE_CORAL_FAN, 12), stack(Items.DYE.blue(), 16)
 			id("centrifuge/tube_coral_block")
 		}
 		offerCentrifugeRecipe {

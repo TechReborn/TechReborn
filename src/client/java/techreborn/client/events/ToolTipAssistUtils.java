@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -59,12 +60,12 @@ public class ToolTipAssistUtils {
 
 		switch (upgradeType) {
 			case OVERCLOCKER -> {
-				tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.speed_increase"), calculateSpeed(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%", true));
-				tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.energy_increase"), calculateEnergyIncrease(TechRebornConfig.overclockerPower + 1, count, shiftHeld), "x", false));
+				tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.speed_increase"), calculateSpeed(TechRebornConfig.overclockerSpeed.get() * 100, count, shiftHeld), "%", true));
+				tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.energy_increase"), calculateEnergyIncrease(TechRebornConfig.overclockerPower.get() + 1, count, shiftHeld), "x", false));
 			}
 			case TRANSFORMER -> shouldStackCalculate = false;
-			case ENERGY_STORAGE -> tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E", true));
-			case SUPERCONDUCTOR -> tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%", true));
+			case ENERGY_STORAGE -> tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.storage_increase"), calculateValue(TechRebornConfig.energyStoragePower.get(), count, shiftHeld), " E", true));
+			case SUPERCONDUCTOR -> tips.add(getStatStringUnit(I18n.get("techreborn.tooltip.upgrade.flow_increase"), calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount.get() + 2)) * 100, count, shiftHeld), "%", true));
 		}
 
 		// Add reminder that they can use shift to calculate the entire stack
@@ -82,7 +83,7 @@ public class ToolTipAssistUtils {
 	public static void addInfo(String inKey, List<Component> list, boolean hidden) {
 		String key = ("techreborn.message.info." + inKey);
 
-		if (I18n.exists(key)) {
+		if (!Language.getInstance().getOrDefault(key, key).equals(key)) {
 			if (!hidden || Minecraft.getInstance().hasShiftDown()) {
 				String info = I18n.get(key);
 				List<MutableComponent> infoLines = Arrays.stream(info.split("\\r?\\n"))

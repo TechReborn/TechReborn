@@ -44,7 +44,7 @@ import techreborn.init.TRContent;
 public class RecyclerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public RecyclerBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.RECYCLER, pos, state, "Recycler", TechRebornConfig.recyclerMaxInput, TechRebornConfig.recyclerMaxEnergy, TRContent.Machine.RECYCLER.block, 2);
+		super(TRBlockEntities.RECYCLER, pos, state, "Recycler", TechRebornConfig.recyclerMaxInput.get(), TechRebornConfig.recyclerMaxEnergy.get(), TRContent.Machine.RECYCLER.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this);
@@ -56,7 +56,7 @@ public class RecyclerBlockEntity extends GenericMachineBlockEntity implements Bu
 		if ((item instanceof IUpgrade)) {
 			return false;
 		}
-		return !TechRebornConfig.recyclerBlackList.contains(BuiltInRegistries.ITEM.getKey(item).toString());
+		return !TechRebornConfig.recyclerBlackList.get().contains(BuiltInRegistries.ITEM.getKey(item).toString());
 	}
 
 	// BuiltScreenHandlerProvider

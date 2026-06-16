@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 
 public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 	public IndustrialCentrifugeBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.INDUSTRIAL_CENTRIFUGE, pos, state, "IndustrialCentrifuge", TechRebornConfig.industrialCentrifugeMaxInput, TechRebornConfig.industrialCentrifugeMaxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
+		super(TRBlockEntities.INDUSTRIAL_CENTRIFUGE, pos, state, "IndustrialCentrifuge", TechRebornConfig.industrialCentrifugeMaxInput.get(), TechRebornConfig.industrialCentrifugeMaxEnergy.get(), TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(7, "IndustrialCentrifugeBlockEntity", 64, this);

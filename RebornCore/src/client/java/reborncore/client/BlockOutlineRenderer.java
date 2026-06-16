@@ -24,12 +24,16 @@
 
 package reborncore.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
 import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.BlockOutlineRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -48,55 +52,79 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class BlockOutlineRenderer implements LevelRenderEvents.BeforeBlockOutline, LevelRenderEvents.AfterBlockOutlineExtraction {
-	public static RenderStateDataKey<List<VoxelShape>> KEY = RenderStateDataKey.create(() -> "MultiBlockBreakingTool");
-	@Override
-	public void afterBlockOutlineExtraction(LevelExtractionContext context, @Nullable HitResult result) {
-		if (result instanceof BlockHitResult blockHitResult) {
-			LocalPlayer player = Minecraft.getInstance().player;
-			if (player == context.camera().entity()) {
-				ItemStack stack = player.getMainHandItem();
-				if (!stack.isEmpty() && stack.getItem() instanceof MultiBlockBreakingTool tool) {
-					BlockOutlineRenderState state = context.levelState().blockOutlineRenderState;
-					if (state == null) {
-						return;
-					}
-					BlockPos targetPos = blockHitResult.getBlockPos();
-					Level level = player.level();
-					Set<BlockPos> blockPosList = tool.getBlocksToBreak(stack, level, targetPos, player);
-					List<VoxelShape> shapes = new ArrayList<>();
-					for (BlockPos pos : blockPosList) {
-						if (pos.equals(targetPos)) {
-							continue;
-						}
-						BlockState blockState = level.getBlockState(pos);
-						shapes.add(blockState.getShape(level, pos, CollisionContext.of(player)).move(pos.getX() - targetPos.getX(), pos.getY() - targetPos.getY(), pos.getZ() - targetPos.getZ()));
-					}
-					if (shapes.isEmpty()) {
-						return;
-					}
-					state.setData(KEY, shapes);
-				}
-			}
-		}
-	}
+public class BlockOutlineRenderer implements LevelRenderEvents.BeforeBlockOutline, LevelExtractionEvents.AfterBlockOutlineExtraction {
+	private static final RenderStateDataKey<List<VoxelShape>> KEY = RenderStateDataKey.create(() -> "MultiBlockBreakingTool");
 
 	@Override
-	public boolean beforeBlockOutline(LevelRenderContext worldRenderContext, BlockOutlineRenderState context) {
-		List<VoxelShape> shapes = context.getData(KEY);
+	public boolean beforeBlockOutline(LevelRenderContext context, BlockOutlineRenderState outlineRenderState) {
+		List<VoxelShape> shapes = ((FabricRenderState) outlineRenderState).getData(KEY);
 		if (shapes != null) {
-			VoxelShape shape = context.shape();
+			VoxelShape shape = outlineRenderState.shape();
 
 			for (VoxelShape voxelShape : shapes) {
 				shape = Shapes.or(shape, voxelShape);
 			}
 
-			BlockPos targetPos = context.pos();
-			Vec3 camera = worldRenderContext.levelState().cameraRenderState.pos;
-			// TODO: Block outline renderer
-			// DebugRenderer.renderVoxelShape(worldRenderContext.matrices(), worldRenderContext.consumers().getBuffer(RenderType.lines()), shape, (double)targetPos.getX() - camera.x, (double)targetPos.getY() - camera.y, (double)targetPos.getZ() - camera.z, 0.0F, 0.0F, 0.0F, 0.4F, true);
+			BlockPos targetPos = outlineRenderState.pos();
+			Vec3 camera = context.levelState().cameraRenderState.pos;
+			PoseStack poseStack = context.poseStack();
+			poseStack.pushPose();
+			poseStack.translate(targetPos.getX() - camera.x, targetPos.getY() - camera.y, targetPos.getZ() - camera.z);
+			context.submitNodeCollector().submitShapeOutline(
+				poseStack,
+				shape,
+				RenderTypes.lines(),
+				0x66000000,
+				context.gameRenderer().gameRenderState().windowRenderState.appropriateLineWidth,
+				outlineRenderState.isTranslucent()
+			);
+			poseStack.popPose();
 		}
 
 		return true;
+	}
+
+	@Override
+	public void afterBlockOutlineExtraction(LevelExtractionContext context, @Nullable HitResult result) {
+		if (!(result instanceof BlockHitResult blockHitResult)) {
+			return;
+		}
+
+		LocalPlayer player = Minecraft.getInstance().player;
+		if (player == null || player != context.camera().entity()) {
+			return;
+		}
+
+		ItemStack stack = player.getMainHandItem();
+		if (stack.isEmpty() || !(stack.getItem() instanceof MultiBlockBreakingTool tool)) {
+			return;
+		}
+
+		BlockOutlineRenderState state = context.levelState().blockOutlineRenderState;
+		if (state == null) {
+			return;
+		}
+
+		BlockPos targetPos = blockHitResult.getBlockPos();
+		Level level = player.level();
+		Set<BlockPos> blockPosList = tool.getBlocksToBreak(stack, level, targetPos, player);
+		List<VoxelShape> shapes = new ArrayList<>();
+
+		for (BlockPos pos : blockPosList) {
+			if (pos.equals(targetPos)) {
+				continue;
+			}
+
+			BlockState blockState = level.getBlockState(pos);
+			shapes.add(blockState.getShape(level, pos, CollisionContext.of(player)).move(
+				pos.getX() - targetPos.getX(),
+				pos.getY() - targetPos.getY(),
+				pos.getZ() - targetPos.getZ()
+			));
+		}
+
+		if (!shapes.isEmpty()) {
+			((FabricRenderState) state).setData(KEY, shapes);
+		}
 	}
 }

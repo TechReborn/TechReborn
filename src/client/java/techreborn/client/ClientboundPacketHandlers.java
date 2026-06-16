@@ -39,7 +39,7 @@ public class ClientboundPacketHandlers {
 		});
 
 		ClientPlayNetworking.registerGlobalReceiver(OpenManualPayload.ID, (payload, context) ->
-			Minecraft.getInstance().setScreen(new GuiManual())
+			Minecraft.getInstance().gui.setScreen(new GuiManual())
 		);
 	}
 }

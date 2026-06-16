@@ -44,7 +44,7 @@ import techreborn.init.TRContent;
 public class DistillationTowerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public DistillationTowerBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.DISTILLATION_TOWER, pos, state, "DistillationTower", TechRebornConfig.distillationTowerMaxInput, TechRebornConfig.distillationTowerMaxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
+		super(TRBlockEntities.DISTILLATION_TOWER, pos, state, "DistillationTower", TechRebornConfig.distillationTowerMaxInput.get(), TechRebornConfig.distillationTowerMaxEnergy.get(), TRContent.Machine.DISTILLATION_TOWER.block, 6);
 		final int[] inputs = new int[]{0, 1};
 		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(7, "DistillationTowerBlockEntity", 64, this);

@@ -37,6 +37,7 @@ import net.minecraft.world.level.ServerExplosion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Created by modmuss50 on 12/03/2016.
@@ -49,7 +50,7 @@ public class RebornExplosion extends ServerExplosion {
 	LivingEntity livingBase;
 
 	public RebornExplosion(BlockPos center, ServerLevel world, int radius) {
-		super(world, null, null, null, center.getCenter(), radius, false, BlockInteraction.DESTROY);
+		super(world, null, null, null, Vec3.atCenterOf(center), radius, false, BlockInteraction.DESTROY);
 		this.center = center;
 		this.radius = radius;
 	}

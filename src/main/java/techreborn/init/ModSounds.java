@@ -56,7 +56,7 @@ public class ModSounds {
 			}
 
 			world.playSound(null, blockEntity.getBlockPos().getX(), blockEntity.getBlockPos().getY(),
-					blockEntity.getBlockPos().getZ(), ModSounds.MACHINE_RUN, SoundSource.BLOCKS, TechRebornConfig.machineSoundVolume, 1F);
+					blockEntity.getBlockPos().getZ(), ModSounds.MACHINE_RUN, SoundSource.BLOCKS, TechRebornConfig.machineSoundVolume.get(), 1F);
 		}
 	}
 }

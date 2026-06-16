@@ -6,8 +6,8 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
-	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
-    id 'me.modmuss50.mod-publish-plugin' version '0.7.4'
+	id 'net.fabricmc.fabric-loom' version '1.17.11'
+    id 'me.modmuss50.mod-publish-plugin' version '2.0.0'
 }
 
 def ENV = System.getenv()
@@ -24,12 +24,19 @@ allprojects {
     loom {
         runtimeOnlyLog4j = true
         splitEnvironmentSourceSets()
+
+        runs.configureEach {
+            it.preferGradleTask = true
+        }
     }
 
     // Shared deps between TR and RC
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
         implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+        testImplementation platform("org.junit:junit-bom:5.13.4")
+        testImplementation "org.junit.jupiter:junit-jupiter"
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 
         //Fabric api
         implementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
@@ -51,6 +58,10 @@ allprojects {
     tasks.withType(JavaCompile).configureEach {
         it.options.encoding = "UTF-8"
         it.options.release = 25
+    }
+
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
     }
 
     java {
@@ -132,6 +143,10 @@ fabricApi {
         createSourceSet = true
         modId = "techreborn-datagen"
     }
+    configureTests {
+        createSourceSet = true
+        modId = "techreborn-tests"
+    }
 }
 
 sourceSets {
@@ -175,12 +190,12 @@ repositories {
 // TechReborn specific dependencies
 dependencies {
     api project(":RebornCore")
-    clientImplementation project(":RebornCore").sourceSets.client.output
+    clientImplementation this.project(":RebornCore").sourceSets.client.output
 
     include project(":RebornCore")
 
     compileOnly("mezz.jei:jei-26.1.1-fabric-api:29.3.0.22")
-    runtimeOnly("mezz.jei:jei-26.1.1-fabric:29.3.0.22")
+    //runtimeOnly("mezz.jei:jei-26.1.1-fabric:29.3.0.22")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
     datagenImplementation 'org.apache.groovy:groovy:5.0.3'
@@ -202,20 +217,19 @@ publishMods {
 
     def options = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-        minecraftVersions.add("26.1.2")
-        minecraftVersions.add("26.1.1")
-        minecraftVersions.add("26.1")
+        minecraftVersions.add("26.2")
 
         requires {
             slug = "fabric-api"
         }
+
+        client = true
+        server = true
     }
 
     def mrOptions = modrinthOptions {
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
-        minecraftVersions.add("26.1.2")
-        minecraftVersions.add("26.1.1")
-        minecraftVersions.add("26.1")
+        minecraftVersions.add("26.2")
 
         requires {
             slug = "fabric-api"

@@ -53,8 +53,8 @@ public class BlockBreakerBlockEntity extends AbstractBlockBlockEntity implements
 	public static final int FAKE_INPUT_SLOT = 2;
 
 	public BlockBreakerBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.BLOCK_BREAKER, pos, state, "Block Breaker", TechRebornConfig.blockBreakerMaxInput, TechRebornConfig.blockBreakerMaxEnergy, TRContent.Machine.BLOCK_BREAKER.block, ENERGY_SLOT);
-		processor = new BlockBreakerProcessor(this, OUTPUT_SLOT, FAKE_INPUT_SLOT, TechRebornConfig.blockBreakerBaseBreakTime, TechRebornConfig.blockBreakerEnergyPerTick);
+		super(TRBlockEntities.BLOCK_BREAKER, pos, state, "Block Breaker", TechRebornConfig.blockBreakerMaxInput.get(), TechRebornConfig.blockBreakerMaxEnergy.get(), TRContent.Machine.BLOCK_BREAKER.block, ENERGY_SLOT);
+		processor = new BlockBreakerProcessor(this, OUTPUT_SLOT, FAKE_INPUT_SLOT, TechRebornConfig.blockBreakerBaseBreakTime.get(), TechRebornConfig.blockBreakerEnergyPerTick.get());
 		inventory = new RebornInventory<>(3, "BlockBreakerBlockEntity", 64, this){
 			@Override
 			public ItemStack getItem(int i) {

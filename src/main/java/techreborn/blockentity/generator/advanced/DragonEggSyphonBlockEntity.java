@@ -72,7 +72,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 		if (serverLevel.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
 				.getBlock() == Blocks.DRAGON_EGG) {
-			if (tryAddingEnergy(TechRebornConfig.dragonEggSyphonEnergyPerTick))
+			if (tryAddingEnergy(TechRebornConfig.dragonEggSyphonEnergyPerTick.get()))
 				lastOutput = serverLevel.getGameTime();
 		}
 
@@ -85,7 +85,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.dragonEggSyphonMaxEnergy;
+		return TechRebornConfig.dragonEggSyphonMaxEnergy.get();
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.dragonEggSyphonMaxOutput;
+		return TechRebornConfig.dragonEggSyphonMaxOutput.get();
 	}
 
 	@Override

@@ -26,7 +26,6 @@ package techreborn.client.render.entitys;
 
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -38,6 +37,7 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
@@ -77,7 +77,7 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 		state.layer = RenderTypes.entitySolid(TEXTURE);
 		state.rotate = -facing.getCounterClockWise().toYRot() + 90;
 		state.spin = blockEntity.bladeAngle + tickDelta * blockEntity.spinSpeed;
-		state.light = LevelRenderer.getLightCoords(blockEntity.getLevel(), blockEntity.getBlockPos().relative(facing));
+		state.light = LightCoordsUtil.getLightCoords(blockEntity.getLevel(), blockEntity.getBlockPos().relative(facing));
 	}
 
 	@Override

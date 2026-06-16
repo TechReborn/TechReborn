@@ -24,9 +24,22 @@
 
 package reborncore.common;
 
+import net.minecraft.resources.Identifier;
 import reborncore.common.config.Config;
+import reborncore.common.config.ConfigValue;
+import reborncore.common.config.RebornCoreConfigApi;
 
-public class RebornCoreConfig {
-	@Config(config = "misc", key = "Selected Energy system", comment = "Possible values are: E (was FE, EU)")
-	public static String selectedSystem = "E";
+public final class RebornCoreConfig {
+	private static final Identifier CONFIG_ID = Identifier.fromNamespaceAndPath("reborncore", "misc");
+	private static final Config CONFIG = RebornCoreConfigApi.config(CONFIG_ID);
+
+	public static final ConfigValue<String> selectedSystem = CONFIG.stringValue("selectedSystem", "E")
+		.comment("Possible values are: E (was FE, EU)");
+
+	private RebornCoreConfig() {
+	}
+
+	public static void init() {
+		RebornCoreConfigApi.register(CONFIG);
+	}
 }

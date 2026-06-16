@@ -63,8 +63,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	public void handleGuiInputFromClient(int buttonID, @Nullable Player playerEntity) {
 		radius += buttonID;
 
-		if (radius > TechRebornConfig.chunkLoaderMaxRadius) {
-			radius = TechRebornConfig.chunkLoaderMaxRadius;
+		if (radius > TechRebornConfig.chunkLoaderMaxRadius.get()) {
+			radius = TechRebornConfig.chunkLoaderMaxRadius.get();
 		}
 		if (radius <= 1) {
 			radius = 1;

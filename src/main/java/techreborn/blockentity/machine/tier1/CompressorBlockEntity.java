@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 public class CompressorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public CompressorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.COMPRESSOR, pos, state, "Compressor", TechRebornConfig.compressorMaxInput, TechRebornConfig.compressorMaxEnergy, TRContent.Machine.COMPRESSOR.block, 2);
+		super(TRBlockEntities.COMPRESSOR, pos, state, "Compressor", TechRebornConfig.compressorMaxInput.get(), TechRebornConfig.compressorMaxEnergy.get(), TRContent.Machine.COMPRESSOR.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "CompressorBlockEntity", 64, this);

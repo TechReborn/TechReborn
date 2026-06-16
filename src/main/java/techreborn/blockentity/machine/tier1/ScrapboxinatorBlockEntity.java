@@ -40,7 +40,7 @@ import techreborn.init.TRContent;
 public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public ScrapboxinatorBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.SCRAPBOXINATOR, pos, state, "Scrapboxinator", TechRebornConfig.scrapboxinatorMaxInput, TechRebornConfig.scrapboxinatorMaxEnergy, TRContent.Machine.SCRAPBOXINATOR.block, 2);
+		super(TRBlockEntities.SCRAPBOXINATOR, pos, state, "Scrapboxinator", TechRebornConfig.scrapboxinatorMaxInput.get(), TechRebornConfig.scrapboxinatorMaxEnergy.get(), TRContent.Machine.SCRAPBOXINATOR.block, 2);
 		final int[] inputs = new int[]{0};
 		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "ScrapboxinatorBlockEntity", 64, this);

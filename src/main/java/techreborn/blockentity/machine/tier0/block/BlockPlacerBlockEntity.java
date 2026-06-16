@@ -26,6 +26,7 @@ package techreborn.blockentity.machine.tier0.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
@@ -52,9 +53,17 @@ public class BlockPlacerBlockEntity extends AbstractBlockBlockEntity implements 
 	public static final int FAKE_OUTPUT_SLOT = 2;
 
 	public BlockPlacerBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.BLOCK_PLACER, pos, state, "Block Placer", TechRebornConfig.blockPlacerMaxInput, TechRebornConfig.blockPlacerMaxEnergy, TRContent.Machine.BLOCK_PLACER.block, ENERGY_SLOT);
-		processor = new BlockPlacerProcessor(this, INPUT_SLOT, FAKE_OUTPUT_SLOT, TechRebornConfig.blockPlacerBaseBreakTime, TechRebornConfig.blockPlacerEnergyPerTick);
-		inventory = new RebornInventory<>(3, "BlockPlacerBlockEntity", 64, this);
+		super(TRBlockEntities.BLOCK_PLACER, pos, state, "Block Placer", TechRebornConfig.blockPlacerMaxInput.get(), TechRebornConfig.blockPlacerMaxEnergy.get(), TRContent.Machine.BLOCK_PLACER.block, ENERGY_SLOT);
+		processor = new BlockPlacerProcessor(this, INPUT_SLOT, FAKE_OUTPUT_SLOT, TechRebornConfig.blockPlacerBaseBreakTime.get(), TechRebornConfig.blockPlacerEnergyPerTick.get());
+		inventory = new RebornInventory<>(3, "BlockPlacerBlockEntity", 64, this) {
+			@Override
+			public ItemStack getItem(int i) {
+				if (i == FAKE_OUTPUT_SLOT) {
+					return ItemStack.EMPTY;
+				}
+				return super.getItem(i);
+			}
+		};
 	}
 
 	// BuiltScreenHandlerProvider

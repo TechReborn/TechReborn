@@ -38,6 +38,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -57,6 +59,12 @@ public class ReactorChamberBlock extends Block implements EntityBlock {
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ReactorChamberBlockEntity(pos, state);
+	}
+
+	// Ticker for reactor chambers to push energy to external blocks each tick.
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		return (world, blockPos, blockState, blockEntity) -> ReactorChamberBlockEntity.tick(world, blockPos, blockState, (ReactorChamberBlockEntity) blockEntity);
 	}
 
 	@Override

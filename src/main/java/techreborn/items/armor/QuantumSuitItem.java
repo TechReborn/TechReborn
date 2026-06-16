@@ -68,7 +68,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	private final ItemAttributeModifiers fullSuitSprintAttributes;
 
 	public QuantumSuitItem(ArmorMaterial material, ArmorType slot, String name) {
-		super(material, slot, TechRebornConfig.quantumSuitCapacity, RcEnergyTier.INSANE, name);
+		super(material, slot, TechRebornConfig.quantumSuitCapacity.get(), RcEnergyTier.INSANE, name);
 		switch (slot) {
 			case HELMET, BOOTS:
 				noPowerAttributes = new AttributeModifierBuilder(slot).armor(3).toughness(2).build();
@@ -110,44 +110,44 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		switch (getSlotType()) {
 			case HEAD -> {
 				// Water Breathing
-				if (playerEntity.isUnderWater() && tryUseEnergy(stack, TechRebornConfig.quantumSuitBreathingCost)) {
+				if (playerEntity.isUnderWater() && tryUseEnergy(stack, TechRebornConfig.quantumSuitBreathingCost.get())) {
 					playerEntity.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 5, 1));
 				}
 
 				// Night Vision
-				if (TRItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost)) {
+				if (TRItemUtils.isActive(stack) && tryUseEnergy(stack, TechRebornConfig.suitNightVisionCost.get())) {
 					playerEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 220, 1, false, false));
 				} else {
 					playerEntity.removeEffect(MobEffects.NIGHT_VISION);
 				}
 			}
 			case CHEST -> {
-				if (TechRebornConfig.quantumSuitEnableFlight && playerEntity instanceof ServerPlayer && !playerEntity.isCreative()) {
-					if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitFlyingCost) {
+				if (TechRebornConfig.quantumSuitEnableFlight.get() && playerEntity instanceof ServerPlayer && !playerEntity.isCreative()) {
+					if (getStoredEnergy(stack) > TechRebornConfig.quantumSuitFlyingCost.get()) {
 						HANDLER.setAllowFlight(playerEntity, true);
 
 						if (HANDLER.isFlying(playerEntity)) {
-							tryUseEnergy(stack, TechRebornConfig.quantumSuitFlyingCost);
+							tryUseEnergy(stack, TechRebornConfig.quantumSuitFlyingCost.get());
 						}
 						playerEntity.setOnGround(true);
 					} else {
 						HANDLER.setAllowFlight(playerEntity, false);
 					}
 				}
-				if (playerEntity.isOnFire() && tryUseEnergy(stack, TechRebornConfig.fireExtinguishCost)) {
+				if (playerEntity.isOnFire() && tryUseEnergy(stack, TechRebornConfig.fireExtinguishCost.get())) {
 					playerEntity.clearFire();
 				}
 			}
 			case LEGS -> {
-				boolean sprint = TechRebornConfig.quantumSuitEnableSprint && TRItemUtils.isActive(stack);
+				boolean sprint = TechRebornConfig.quantumSuitEnableSprint.get() && TRItemUtils.isActive(stack);
 				if (sprint && playerEntity.isSprinting()) {
-					tryUseEnergy(stack, TechRebornConfig.quantumSuitSprintingCost);
+					tryUseEnergy(stack, TechRebornConfig.quantumSuitSprintingCost.get());
 				}
 				applyModifier(stack, hasFullSuit, sprint);
 				return;
 			}
 			case FEET -> {
-				if (playerEntity.isSwimming() && tryUseEnergy(stack, TechRebornConfig.quantumSuitSwimmingCost)) {
+				if (playerEntity.isSwimming() && tryUseEnergy(stack, TechRebornConfig.quantumSuitSwimmingCost.get())) {
 					playerEntity.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 5, 1, true, false));
 				}
 			}
@@ -173,7 +173,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		ItemAttributeModifiers attributes = stack.get(DataComponents.ATTRIBUTE_MODIFIERS);
 		long energy = getStoredEnergy(stack);
 		if (energy > 0) {
-			if (sprintEnable && energy >= TechRebornConfig.quantumSuitSprintingCost) {
+			if (sprintEnable && energy >= TechRebornConfig.quantumSuitSprintingCost.get()) {
 				if (hasFullSuit) {
 					applyModifierAndHide(stack, attributes, fullSuitSprintAttributes);
 				} else {
@@ -193,7 +193,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 	@Override
 	public void onRemoved(Player playerEntity) {
 		EquipmentSlot slotType = this.getSlotType();
-		if (slotType == EquipmentSlot.CHEST && TechRebornConfig.quantumSuitEnableFlight) {
+		if (slotType == EquipmentSlot.CHEST && TechRebornConfig.quantumSuitEnableFlight.get()) {
 			if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
 				HANDLER.setAllowFlight(playerEntity, false);
 			}
@@ -232,7 +232,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 		}
 
 		// Will only add Inactive/Active tooltip if sprint is enabled
-		if (this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint) {
+		if (this.getSlotType() == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint.get()) {
 			TRItemUtils.buildActiveTooltip(stack, tooltip);
 		}
 	}
@@ -254,7 +254,7 @@ public class QuantumSuitItem extends TREnergyArmourItem implements ArmorBlockEnt
 			} else {
 				AttributeModifierBuilder.appendText(
 					buffer,
-					slotType == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint && TRItemUtils.isActive(stack) ? hasPowerSprintAttributes : hasPowerAttributes,
+					slotType == EquipmentSlot.LEGS && TechRebornConfig.quantumSuitEnableSprint.get() && TRItemUtils.isActive(stack) ? hasPowerSprintAttributes : hasPowerAttributes,
 					ChatFormatting.BLUE
 				);
 			}

@@ -65,7 +65,7 @@ public class OmniToolItem extends Item implements RcEnergyItem, IToolHandler {
 
 	@Override
 	public float getDestroySpeed(ItemStack stack, BlockState state) {
-		if (getStoredEnergy(stack) >= TechRebornConfig.omniToolCost) {
+		if (getStoredEnergy(stack) >= TechRebornConfig.omniToolCost.get()) {
 			return TRToolMaterials.OMNI_TOOL.speed();
 		}
 		Tool toolComponent = stack.get(DataComponents.TOOL);
@@ -74,13 +74,13 @@ public class OmniToolItem extends Item implements RcEnergyItem, IToolHandler {
 
 	@Override
 	public boolean mineBlock(ItemStack stack, Level worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		tryUseEnergy(stack, TechRebornConfig.omniToolCost);
+		tryUseEnergy(stack, TechRebornConfig.omniToolCost.get());
 		return true;
 	}
 
 	@Override
 	public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (tryUseEnergy(stack, TechRebornConfig.omniToolHitCost) && target.level() instanceof ServerLevel serverWorld) {
+		if (tryUseEnergy(stack, TechRebornConfig.omniToolHitCost.get()) && target.level() instanceof ServerLevel serverWorld) {
 			target.hurtServer(serverWorld, serverWorld.damageSources().playerAttack((Player) attacker), 8F);
 		}
 	}
@@ -118,7 +118,7 @@ public class OmniToolItem extends Item implements RcEnergyItem, IToolHandler {
 	// RcEnergyItem
 	@Override
 	public long getEnergyCapacity(ItemStack stack) {
-		return TechRebornConfig.omniToolCharge;
+		return TechRebornConfig.omniToolCharge.get();
 	}
 
 	@Override

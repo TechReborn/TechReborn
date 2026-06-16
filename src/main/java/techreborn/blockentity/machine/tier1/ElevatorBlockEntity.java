@@ -94,12 +94,12 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	public Optional<BlockPos> nextUpElevator() {
 		BlockPos upPos = getBlockPos().above().above();
-		if (!TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getBlockPos().above()) || !isAirOrElevator(getBlockPos().above().above()))) {
+		if (!TechRebornConfig.allowElevatingThroughBlocks.get() && (!isAirOrElevator(getBlockPos().above()) || !isAirOrElevator(getBlockPos().above().above()))) {
 			return Optional.empty();
 		}
 		do {
 			upPos = upPos.above();
-			if (!TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(upPos)) {
+			if (!TechRebornConfig.allowElevatingThroughBlocks.get() && !isAirOrElevator(upPos)) {
 				return Optional.empty();
 			}
 		} while (upPos.getY() <= getLevel().getMaxY() && !isValidTarget(upPos));
@@ -111,12 +111,12 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	public Optional<BlockPos> nextDownElevator() {
 		BlockPos downPos = getBlockPos().below().below();
-		if (!TechRebornConfig.allowElevatingThroughBlocks && (!isAirOrElevator(getBlockPos().below()) || !isAirOrElevator(getBlockPos().below().below()))) {
+		if (!TechRebornConfig.allowElevatingThroughBlocks.get() && (!isAirOrElevator(getBlockPos().below()) || !isAirOrElevator(getBlockPos().below().below()))) {
 			return Optional.empty();
 		}
 		do {
 			downPos = downPos.below();
-			if (!TechRebornConfig.allowElevatingThroughBlocks && !isAirOrElevator(downPos)) {
+			if (!TechRebornConfig.allowElevatingThroughBlocks.get() && !isAirOrElevator(downPos)) {
 				return Optional.empty();
 			}
 		} while (downPos.getY() >= getLevel().getMinY() && !isValidTarget(downPos));
@@ -130,7 +130,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	 * @param targetPos the position of another elevator
 	 */
 	public int energyCost(final BlockPos targetPos) {
-		return Math.max(Math.abs(targetPos.getY()-getBlockPos().getY())*TechRebornConfig.elevatorEnergyPerBlock,0);
+		return Math.max(Math.abs(targetPos.getY()-getBlockPos().getY())*TechRebornConfig.elevatorEnergyPerBlock.get(),0);
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	}
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.elevatorMaxEnergy;
+		return TechRebornConfig.elevatorMaxEnergy.get();
 	}
 
 	@Override
@@ -224,7 +224,7 @@ public class ElevatorBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.elevatorMaxInput;
+		return TechRebornConfig.elevatorMaxInput.get();
 	}
 
 	// MachineBaseBlockEntity

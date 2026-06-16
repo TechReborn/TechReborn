@@ -17,6 +17,7 @@ jobs:
           java-version: '25'
       - run: ./gradlew runDatagen --stacktrace
       - run: ./gradlew build --stacktrace
+      - run: ./gradlew runClientGameTest --stacktrace
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

@@ -68,8 +68,8 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 	public void handleGuiInputFromClient(int amount) {
 		radius += amount;
 
-		if (radius > TechRebornConfig.playerDetectorMaxRadius) {
-			radius = TechRebornConfig.playerDetectorMaxRadius;
+		if (radius > TechRebornConfig.playerDetectorMaxRadius.get()) {
+			radius = TechRebornConfig.playerDetectorMaxRadius.get();
 		}
 		if (radius <= 1) {
 			radius = 1;
@@ -91,7 +91,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 		boolean lastRedstone = redstone;
 		redstone = false;
-		if (getStored() > TechRebornConfig.playerDetectorEuPerTick) {
+		if (getStored() > TechRebornConfig.playerDetectorEuPerTick.get()) {
 			for (Player player : serverLevel.players()) {
 				if (player.isSpectator()){
 					continue;
@@ -111,7 +111,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 					}
 				}
 			}
-			useEnergy(TechRebornConfig.playerDetectorEuPerTick);
+			useEnergy(TechRebornConfig.playerDetectorEuPerTick.get());
 		}
 		if (lastRedstone != redstone) {
 			WorldUtils.updateBlock(serverLevel, pos);
@@ -121,7 +121,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.playerDetectorMaxEnergy;
+		return TechRebornConfig.playerDetectorMaxEnergy.get();
 	}
 
 	@Override
@@ -136,7 +136,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	@Override
 	public long getBaseMaxInput() {
-		return TechRebornConfig.playerDetectorMaxInput;
+		return TechRebornConfig.playerDetectorMaxInput.get();
 	}
 
 	@Override

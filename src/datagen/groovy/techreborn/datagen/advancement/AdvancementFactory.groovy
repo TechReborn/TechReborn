@@ -25,10 +25,10 @@
 package techreborn.datagen.advancement
 
 import net.minecraft.advancements.Advancement
-import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.advancements.AdvancementType
 import net.minecraft.advancements.CriterionTriggerInstance
+import net.minecraft.advancements.triggers.Criterion
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack

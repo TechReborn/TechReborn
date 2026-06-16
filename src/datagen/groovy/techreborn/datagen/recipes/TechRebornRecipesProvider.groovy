@@ -26,15 +26,15 @@ package techreborn.datagen.recipes
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
-import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.criterion.InventoryChangeTrigger
+import net.minecraft.advancements.predicates.ItemPredicate
+import net.minecraft.advancements.triggers.Criterion
+import net.minecraft.advancements.triggers.InventoryChangeTrigger
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.ItemLike
-import net.minecraft.advancements.criterion.ItemPredicate
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.core.registries.BuiltInRegistries

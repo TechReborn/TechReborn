@@ -65,7 +65,7 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	// Core state
 	private int heat = 0;
-	private int maxHeat = TechRebornConfig.nuclearReactorMaxHeat;
+	private int maxHeat = TechRebornConfig.nuclearReactorMaxHeat.get();
 	private float heatEffectModifier = 1.0f;
 	private int euPerTick = 0;
 	private int chamberCount = 0;
@@ -91,11 +91,11 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 		// Generate EU continuously
 		if (euPerTick > 0) {
-			addEnergy((long) (euPerTick * TechRebornConfig.nuclearReactorEUMultiplier));
+			addEnergy((long) (euPerTick * TechRebornConfig.nuclearReactorEUMultiplier.get()));
 		}
 
 		// Process reactor once per second
-		if (++tickCounter >= TechRebornConfig.nuclearReactorTickRate) {
+		if (++tickCounter >= TechRebornConfig.nuclearReactorTickRate.get()) {
 			tickCounter = 0;
 			processReactor();
 		}
@@ -113,7 +113,7 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 		// Reset cycle values
 		euPerTick = 0;
-		maxHeat = TechRebornConfig.nuclearReactorMaxHeat;
+		maxHeat = TechRebornConfig.nuclearReactorMaxHeat.get();
 		heatEffectModifier = 1.0f;
 
 		int size = getReactorSize();
@@ -157,7 +157,8 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 		if (level == null) return 0;
 		int count = 0;
 		for (Direction dir : Direction.values()) {
-			if (level.getBlockEntity(worldPosition.relative(dir)) instanceof ReactorChamberBlockEntity) {
+			if (level.getBlockEntity(worldPosition.relative(dir)) instanceof ReactorChamberBlockEntity addedChamber) {
+				addedChamber.setLinkedReactorPos(worldPosition);
 				count++;
 			}
 		}
@@ -210,7 +211,7 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 	private void meltdown() {
 		if (level == null) return;
 		// If explosions disabled, just disable energy generation and keep heat maxed out
-		if (!TechRebornConfig.nuclearReactorExplosionEnabled) {
+		if (!TechRebornConfig.nuclearReactorExplosionEnabled.get()) {
 			heat = maxHeat;
 			euPerTick = 0;
 			return;
@@ -230,7 +231,7 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 			inventory.setItem(i, ItemStack.EMPTY);
 		}
 
-		power = Math.min(power * heatEffectModifier * modifier, TechRebornConfig.nuclearReactorExplosionPowerLimit);
+		power = Math.min(power * heatEffectModifier * modifier, TechRebornConfig.nuclearReactorExplosionPowerLimit.get());
 
 		// Remove chambers
 		for (Direction dir : Direction.values()) {
@@ -393,7 +394,7 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.nuclearReactorMaxEnergy;
+		return TechRebornConfig.nuclearReactorMaxEnergy.get();
 	}
 
 	@Override
@@ -408,7 +409,7 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.nuclearReactorMaxOutput;
+		return TechRebornConfig.nuclearReactorMaxOutput.get();
 	}
 
 	@Override

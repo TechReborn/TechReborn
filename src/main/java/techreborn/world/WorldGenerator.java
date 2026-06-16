@@ -76,7 +76,7 @@ public class WorldGenerator {
 	);
 
 	public static void initWorldGen() {
-		if (!TechRebornConfig.enableOreGeneration && !TechRebornConfig.enableRubberTreeGeneration && !TechRebornConfig.enableOilLakeGeneration) {
+		if (!TechRebornConfig.enableOreGeneration.get() && !TechRebornConfig.enableRubberTreeGeneration.get() && !TechRebornConfig.enableOilLakeGeneration.get()) {
 			return;
 		}
 
@@ -90,7 +90,7 @@ public class WorldGenerator {
 
 	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> oreModifier() {
 		return (biomeSelectionContext, biomeModificationContext) -> {
-			if (!TechRebornConfig.enableOreGeneration) {
+			if (!TechRebornConfig.enableOreGeneration.get()) {
 				return;
 			}
 
@@ -111,7 +111,7 @@ public class WorldGenerator {
 	}
 
 	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> rubberTreeModifier() {
-		if (!TechRebornConfig.enableRubberTreeGeneration) {
+		if (!TechRebornConfig.enableRubberTreeGeneration.get()) {
 			return (biomeSelectionContext, biomeModificationContext) -> {};
 		}
 
@@ -120,7 +120,7 @@ public class WorldGenerator {
 	}
 
 	private static Consumer<BiomeModificationContext> oilLakeModifier(){
-		if (!TechRebornConfig.enableOilLakeGeneration) {
+		if (!TechRebornConfig.enableOilLakeGeneration.get()) {
 			return (biomeModificationContext) -> {};
 		}
 

@@ -26,15 +26,15 @@ package techreborn.datagen.advancement
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
-import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.advancements.AdvancementType
-import net.minecraft.advancements.criterion.InventoryChangeTrigger
-import net.minecraft.advancements.criterion.ItemUsedOnLocationTrigger
+import net.minecraft.advancements.predicates.ItemPredicate
+import net.minecraft.advancements.triggers.Criterion
+import net.minecraft.advancements.triggers.InventoryChangeTrigger
+import net.minecraft.advancements.triggers.ItemUsedOnLocationTrigger
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.ItemLike
-import net.minecraft.advancements.criterion.ItemPredicate
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup

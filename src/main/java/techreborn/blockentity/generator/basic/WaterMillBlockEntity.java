@@ -80,7 +80,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 			checkForWater();
 		}
 		if (waterBlocks > 0) {
-			addEnergyProbabilistic(waterBlocks * TechRebornConfig.waterMillEnergyMultiplier);
+			addEnergyProbabilistic(waterBlocks * TechRebornConfig.waterMillEnergyMultiplier.get());
 			serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, true));
 		} else {
 			serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
@@ -89,7 +89,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	@Override
 	public long getBaseMaxPower() {
-		return TechRebornConfig.waterMillMaxEnergy;
+		return TechRebornConfig.waterMillMaxEnergy.get();
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	@Override
 	public long getBaseMaxOutput() {
-		return TechRebornConfig.waterMillMaxOutput;
+		return TechRebornConfig.waterMillMaxOutput.get();
 	}
 
 	@Override

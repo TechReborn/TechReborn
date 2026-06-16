@@ -85,7 +85,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 	private int depth;
 
 	public PumpBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.PUMP, pos, state, "Pump", TechRebornConfig.pumpMaxInput, TechRebornConfig.pumpMaxEnergy, TRContent.Machine.PUMP.block, 0);
+		super(TRBlockEntities.PUMP, pos, state, "Pump", TechRebornConfig.pumpMaxInput.get(), TechRebornConfig.pumpMaxEnergy.get(), TRContent.Machine.PUMP.block, 0);
 		this.inventory = new RebornInventory<>(1, "PumpBlockEntity", 64, this);
 		this.exhausted = false;
 		this.range = DEFAULT_RANGE;
@@ -203,9 +203,9 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			//has enough energy to pump?
 			if ((serverLevel.getGameTime() >= timeToPump)) {
 				//not enough energy to pump?
-				if (getEnergy() < (long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier())) {
+				if (getEnergy() < (long) (TechRebornConfig.pumpEnergyToCollect.get() * getPowerMultiplier())) {
 					//don't drop target, retry it again later
-					timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+					timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete.get() * (1 - getSpeedMultiplier()));
 					return;
 				}
 				//recheck the target
@@ -225,7 +225,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				//cannot fit fluid into the tank?
 				if (!getTank().canFit(fluid, FluidValue.BUCKET)) {
 					//don't drop target, retry it again later
-					timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+					timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete.get() * (1 - getSpeedMultiplier()));
 					return;
 				}
 				//fill tank
@@ -239,7 +239,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 					serverLevel.playSound(null, this.worldPosition, getTank().getFluid().getPickupSound().orElse(SoundEvents.BUCKET_FILL), SoundSource.BLOCKS, 1.0f, 1.0f);
 				}
 				//consume energy
-				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect * getPowerMultiplier()));
+				this.useEnergy((long) (TechRebornConfig.pumpEnergyToCollect.get() * getPowerMultiplier()));
 				//extract drops
 				NonNullList<ItemStack> drops = getDrops(blockState);
 				if (!drops.isEmpty()) Containers.dropContents(serverLevel, pumpedTargetBlockPos, drops);
@@ -256,7 +256,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			//find next target
 			findNextToPump(serverLevel);
 			if (pumpedTargetBlockPos != null) {
-				timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete * (1 - getSpeedMultiplier()));
+				timeToPump = serverLevel.getGameTime() + (long) (TechRebornConfig.pumpTicksToComplete.get() * (1 - getSpeedMultiplier()));
 			} else {
 				//else - consider exhausted
 				serverLevel.setBlockAndUpdate(pos, serverLevel.getBlockState(pos).setValue(BlockMachineBase.ACTIVE, false));
@@ -346,7 +346,7 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 				@Override
 				public BlockPos next() {
 					final BlockPos pos;
-					if (TechRebornConfig.pumpIterateOutwards) {
+					if (TechRebornConfig.pumpIterateOutwards.get()) {
 						pos = layer.get(index % layerSize).below(1 + index / layerSize);
 					} else {
 						pos = layer.get((m - index - 1) % layerSize).below(1 + (m - index - 1) / layerSize);

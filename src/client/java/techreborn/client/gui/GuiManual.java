@@ -71,22 +71,22 @@ public class GuiManual extends Screen {
 			}).bounds((width / 2 - 30), y + 110, 60, 20).build()
 		);
 
-		if (TechRebornConfig.allowManualRefund) {
+		if (TechRebornConfig.allowManualRefund.get()) {
 			addRenderableWidget(
 				Button.builder(Component.translatable("techreborn.manual.refundbtn"), button -> {
 					ClientPlayNetworking.send(new RefundPayload());
-					minecraft.setScreen(null);
+					minecraft.gui.setScreen(null);
 				}).bounds((width / 2 - 30), y + 160, 60, 20).build()
 			);
 		}
 	}
 
 	private void openLink(String url) {
-		minecraft.setScreen(new ConfirmLinkScreen(t -> {
+		minecraft.gui.setScreen(new ConfirmLinkScreen(t -> {
 			if (t) {
 				Util.getPlatform().openUri(url);
 			}
-			this.minecraft.setScreen(this);
+			this.minecraft.gui.setScreen(this);
 		}, url, false));
 	}
 
@@ -106,7 +106,7 @@ public class GuiManual extends Screen {
 
 		drawContext.text(font, text1, (width / 2) - font.width(text1) / 2, centerY + 40, theme.titleColor().rgba(), false);
 		drawContext.text(font, text2, (width / 2) - font.width(text2) / 2, centerY + 90, theme.titleColor().rgba(), false);
-		if (TechRebornConfig.allowManualRefund) {
+		if (TechRebornConfig.allowManualRefund.get()) {
 			drawContext.text(font, text3, (width / 2) - font.width(text3) / 2, centerY + 140, theme.titleColor().rgba(), false);
 		}
 	}
