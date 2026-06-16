@@ -6,8 +6,8 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
-	id 'net.fabricmc.fabric-loom' version '1.17.0-alpha.14'
-    id 'me.modmuss50.mod-publish-plugin' version '2.0.0-beta.2'
+	id 'net.fabricmc.fabric-loom' version '1.17.11'
+    id 'me.modmuss50.mod-publish-plugin' version '2.0.0'
 }
 
 def ENV = System.getenv()
