@@ -25,7 +25,6 @@
 package reborncore.common;
 
 import net.minecraft.resources.Identifier;
-import reborncore.common.config.LegacyConfigCleanup;
 import reborncore.common.config.Config;
 import reborncore.common.config.ConfigValue;
 import reborncore.common.config.RebornCoreConfigApi;
@@ -41,7 +40,6 @@ public final class RebornCoreConfig {
 	}
 
 	public static void init() {
-		LegacyConfigCleanup.delete(CONFIG_ID);
 		RebornCoreConfigApi.register(CONFIG);
 	}
 }

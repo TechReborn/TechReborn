@@ -32,7 +32,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
-import reborncore.common.config.LegacyConfigCleanup;
 import reborncore.common.config.Config;
 import reborncore.common.config.ConfigGroup;
 import reborncore.common.config.ConfigValue;
@@ -441,7 +440,6 @@ public final class TechRebornConfig {
 	}
 
 	public static void init() {
-		LegacyConfigCleanup.delete(GENERATORS_ID, ITEMS_ID, MACHINES_ID, MISC_ID, WORLD_ID);
 		RebornCoreConfigApi.register(GENERATORS);
 		RebornCoreConfigApi.register(ITEMS);
 		RebornCoreConfigApi.register(MACHINES);
