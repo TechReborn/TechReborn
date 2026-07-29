@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"C",
+		"H",
+		"C"
+	],
+	"key": {
+		"C": "techreborn:superconductor_cable",
+		"H": "techreborn:hv_transformer"
+    },
+	"result": {
+		"id": "techreborn:ev_transformer"
+	}
+}

@@ -154,5 +154,17 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 			outputs cellStack(ModFluids.COMPRESSED_AIR)
 			id "compressor/compressed_air_cell"
 		}
+		offerCompressorRecipe {
+			power 10
+			time 300
+			ingredients stack(Items.WIND_CHARGE, 4)
+			outputs Items.BREEZE_ROD
+		}
+		offerCompressorRecipe {
+			power 10
+			time 1000
+			ingredients TRContent.StorageBlocks.IRIDIUM
+			outputs Items.HEAVY_CORE
+		}
 	}
 }

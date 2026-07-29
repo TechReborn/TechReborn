@@ -585,6 +585,22 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 			criterion "has_uranium_dust", getCriterionConditions(TRConventionalTags.URANIUM_DUSTS)
 			criterion "has_fluorine_cell", getCriterionConditions(getCellItemPredicate(ModFluids.FLUORINE))
 		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 400
+			ingredients Items.IRON_SWORD, stack(Items.PRISMARINE_SHARD, 4)
+			outputs Items.TRIDENT
+			criterion getCriterionName(Items.IRON_SWORD), getCriterionConditions(Items.IRON_SWORD)
+			criterion getCriterionName(Items.PRISMARINE_SHARD), getCriterionConditions(Items.PRISMARINE_SHARD)
+		}
+		offerChemicalReactorRecipe {
+			power 30
+			time 300
+			ingredients Items.LEATHER, TRContent.Dusts.CALCITE
+			outputs Items.PHANTOM_MEMBRANE
+			criterion getCriterionName(Items.LEATHER), getCriterionConditions(Items.LEATHER)
+			criterion getCriterionName(TRContent.Dusts.CALCITE), getCriterionConditions(TRContent.Dusts.CALCITE)
+		}
 	}
 
 	void generateWarped(){

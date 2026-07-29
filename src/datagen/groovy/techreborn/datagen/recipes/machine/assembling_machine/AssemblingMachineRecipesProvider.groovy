@@ -81,9 +81,11 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateSmithingTemplates() {
 		[
+			(Items.COPPER_BLOCK) : Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE,
 			(Items.COBBLESTONE) : Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE,
 			(Items.SANDSTONE) : Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE,
 			(Items.END_STONE_BRICKS) : Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.BREEZE_ROD) : Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE,
 			(Items.NETHERRACK) : Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
 			(Items.NETHER_BRICKS) : Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE,
 			(Items.SMOOTH_STONE) : Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE,
@@ -196,6 +198,12 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 				stack cellStack(ModFluids.LITHIUM, 2)
 			}
 			outputs TRContent.LITHIUM_ION_BATTERY
+			power 20
+			time 200
+		}
+		offerAssemblingMachineRecipe {
+			ingredients Items.CRAFTING_TABLE, TRContent.Parts.ADVANCED_CIRCUIT
+			outputs Items.CRAFTER
 			power 20
 			time 200
 		}
