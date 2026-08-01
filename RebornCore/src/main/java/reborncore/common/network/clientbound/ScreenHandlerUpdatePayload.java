@@ -29,16 +29,39 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
+import reborncore.common.screen.builder.SyncedObjectType;
+import reborncore.common.screen.builder.SyncedObjectTypes;
 
-public record ScreenHandlerUpdatePayload(byte[] data) implements CustomPacketPayload {
+import java.util.List;
+
+public record ScreenHandlerUpdatePayload(List<UpdatedValue<?>> updatedValues) implements CustomPacketPayload {
 	public static final Type<ScreenHandlerUpdatePayload> ID = new Type<>(Identifier.parse("reborncore:screen_handler_update"));
-	public static final StreamCodec<RegistryFriendlyByteBuf, ScreenHandlerUpdatePayload> PACKET_CODEC = StreamCodec.composite(
-		ByteBufCodecs.BYTE_ARRAY, ScreenHandlerUpdatePayload::data,
-		ScreenHandlerUpdatePayload::new
+	private static final StreamCodec<RegistryFriendlyByteBuf, UpdatedValue<?>> UPDATED_VALUE_CODEC = SyncedObjectTypes.STREAM_CODEC.dispatch(
+		UpdatedValue::type,
+		ScreenHandlerUpdatePayload::updatedValueCodec
 	);
+	public static final StreamCodec<RegistryFriendlyByteBuf, ScreenHandlerUpdatePayload> PACKET_CODEC = UPDATED_VALUE_CODEC.apply(ByteBufCodecs.list()).map(
+		ScreenHandlerUpdatePayload::new,
+		ScreenHandlerUpdatePayload::updatedValues
+	);
+
+	public ScreenHandlerUpdatePayload {
+		updatedValues = List.copyOf(updatedValues);
+	}
+
+	private static <T> StreamCodec<RegistryFriendlyByteBuf, UpdatedValue<T>> updatedValueCodec(SyncedObjectType<T> type) {
+		return StreamCodec.composite(
+			ByteBufCodecs.VAR_INT, UpdatedValue::id,
+			type.codec(), UpdatedValue::value,
+			(id, value) -> new UpdatedValue<>(type, id, value)
+		);
+	}
 
 	@Override
 	public Type<? extends CustomPacketPayload> type() {
 		return ID;
+	}
+
+	public record UpdatedValue<T>(SyncedObjectType<T> type, int id, T value) {
 	}
 }

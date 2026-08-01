@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.generator;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.server.level.ServerLevel;
 import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
@@ -47,7 +49,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -285,7 +286,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("solar_panel").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
-				.sync(ByteBufCodecs.BOOL, this::isGenerating, this::setIsGenerating)
+				.sync(SyncedObjectTypes.BOOL, this::isGenerating, this::setIsGenerating)
 				.addInventory().create(this, syncID);
 	}
 }

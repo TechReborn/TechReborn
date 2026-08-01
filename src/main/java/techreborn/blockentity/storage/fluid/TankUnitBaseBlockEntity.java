@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.storage.fluid;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.component.TypedEntityData;
 import org.apache.commons.lang3.text.WordUtils;
@@ -48,7 +50,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -205,7 +206,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		return new ScreenHandlerBuilder("tank").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
 				.sync(tank)
-				.sync(ByteBufCodecs.VAR_LONG, this::getMaxCapacity, this::setMaxCapacity)
+				.sync(SyncedObjectTypes.VAR_LONG, this::getMaxCapacity, this::setMaxCapacity)
 
 				.addInventory().create(this, syncID);
 	}

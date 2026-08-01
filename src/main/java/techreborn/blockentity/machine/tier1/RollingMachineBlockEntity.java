@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
@@ -50,7 +52,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.TransientCraftingContainer;
@@ -439,8 +440,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			.onCraft(inv -> this.inventory.setItem(1, findMatchingRecipeOutput(getCraftingMatrix(), this.level)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
-			.syncEnergyValue().sync(ByteBufCodecs.INT, this::getBurnTime, this::setBurnTime).sync(ByteBufCodecs.INT, this::getLockedInt, this::setLockedInt)
-			.sync(ByteBufCodecs.INT, this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(SyncedObjectTypes.INT, this::getBurnTime, this::setBurnTime).sync(SyncedObjectTypes.INT, this::getLockedInt, this::setLockedInt)
+			.sync(SyncedObjectTypes.INT, this::getCurrentRecipeTime, this::setCurrentRecipeTime).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentRecipeTime() {

@@ -24,8 +24,9 @@
 
 package techreborn.blockentity.machine.iron;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -228,11 +229,11 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		return new ScreenHandlerBuilder("ironfurnace").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
-				.sync(ByteBufCodecs.INT, this::getBurnTime, this::setBurnTime)
-				.sync(ByteBufCodecs.INT, this::getProgress, this::setProgress)
-				.sync(ByteBufCodecs.INT, this::getTotalBurnTime, this::setTotalBurnTime)
-				.sync(ByteBufCodecs.FLOAT, this::getExperience, this::setExperience)
-				.sync(ByteBufCodecs.INT, this::getRecipeCookingTime, this::setRecipeCookingTime)
+				.sync(SyncedObjectTypes.INT, this::getBurnTime, this::setBurnTime)
+				.sync(SyncedObjectTypes.INT, this::getProgress, this::setProgress)
+				.sync(SyncedObjectTypes.INT, this::getTotalBurnTime, this::setTotalBurnTime)
+				.sync(SyncedObjectTypes.FLOAT, this::getExperience, this::setExperience)
+				.sync(SyncedObjectTypes.INT, this::getRecipeCookingTime, this::setRecipeCookingTime)
 				.addInventory().create(this, syncID);
 	}
 }

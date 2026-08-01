@@ -24,9 +24,10 @@
 
 package techreborn.blockentity.generator.nuclear;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -463,6 +464,6 @@ public class NuclearReactorBlockEntity extends PowerAcceptorBlockEntity implemen
 			}
 		}
 
-		return builder.sync(ByteBufCodecs.INT, this::getHeat, this::setHeat).sync(ByteBufCodecs.INT, this::getMaxHeat, this::setMaxHeat).sync(ByteBufCodecs.INT, this::getEuPerTick, this::setEuPerTick).sync(ByteBufCodecs.INT, this::getChamberCount, this::setChamberCount).syncEnergyValue().addInventory().create(this, syncID);
+		return builder.sync(SyncedObjectTypes.INT, this::getHeat, this::setHeat).sync(SyncedObjectTypes.INT, this::getMaxHeat, this::setMaxHeat).sync(SyncedObjectTypes.INT, this::getEuPerTick, this::setEuPerTick).sync(SyncedObjectTypes.INT, this::getChamberCount, this::setChamberCount).syncEnergyValue().addInventory().create(this, syncID);
 	}
 }

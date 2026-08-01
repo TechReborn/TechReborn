@@ -24,11 +24,12 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -358,10 +359,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
 			.outputSlot(OUTPUT_SLOT, 145, 42)
 			.outputSlot(EXTRA_OUTPUT_SLOT, 145, 70)
-			.syncEnergyValue().sync(ByteBufCodecs.INT, this::getProgress, this::setProgress)
-			.sync(ByteBufCodecs.INT, this::getMaxProgress, this::setMaxProgress)
-			.sync(ByteBufCodecs.INT, this::getLockedInt, this::setLockedInt)
-			.sync(ItemStack.OPTIONAL_STREAM_CODEC, this::getOutputPreview, this::setOutputPreview)
+			.syncEnergyValue().sync(SyncedObjectTypes.INT, this::getProgress, this::setProgress)
+			.sync(SyncedObjectTypes.INT, this::getMaxProgress, this::setMaxProgress)
+			.sync(SyncedObjectTypes.INT, this::getLockedInt, this::setLockedInt)
+			.sync(SyncedObjectTypes.ITEM_STACK, this::getOutputPreview, this::setOutputPreview)
 			.addInventory().create(this, syncID);
 	}
 

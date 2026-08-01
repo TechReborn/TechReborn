@@ -24,9 +24,10 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -281,6 +282,6 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("electricfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.sync(ByteBufCodecs.INT, this::getCookTime, this::setCookTime).sync(ByteBufCodecs.INT, this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
+				.sync(SyncedObjectTypes.INT, this::getCookTime, this::setCookTime).sync(SyncedObjectTypes.INT, this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
 	}
 }

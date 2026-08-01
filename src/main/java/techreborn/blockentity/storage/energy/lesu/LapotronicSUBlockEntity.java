@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.storage.energy.lesu;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.server.level.ServerLevel;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.RcEnergyTier;
@@ -39,7 +41,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -206,7 +207,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("lesu").player(player.getInventory()).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
-				.sync(ByteBufCodecs.INT, this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
+				.sync(SyncedObjectTypes.INT, this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
 	}
 
 	public int getConnectedBlocksNum() {

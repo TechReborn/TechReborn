@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.machine.iron;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.world.item.ItemStackTemplate;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.SizedIngredient;
@@ -39,7 +41,6 @@ import techreborn.init.TRContent;
 
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -166,10 +167,10 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity 
 				.slot(0, 47, 17)
 				.slot(1, 65, 17)
 				.outputSlot(2, 116, 35).fuelSlot(3, 56, 53)
-				.sync(ByteBufCodecs.INT, this::getBurnTime, this::setBurnTime)
-				.sync(ByteBufCodecs.INT, this::getProgress, this::setProgress)
-				.sync(ByteBufCodecs.INT, this::getTotalBurnTime, this::setTotalBurnTime)
-				.sync(ByteBufCodecs.INT, this::getRecipeCookingTime, this::setRecipeCookingTime)
+				.sync(SyncedObjectTypes.INT, this::getBurnTime, this::setBurnTime)
+				.sync(SyncedObjectTypes.INT, this::getProgress, this::setProgress)
+				.sync(SyncedObjectTypes.INT, this::getTotalBurnTime, this::setTotalBurnTime)
+				.sync(SyncedObjectTypes.INT, this::getRecipeCookingTime, this::setRecipeCookingTime)
 				.addInventory().create(this, syncID);
 	}
 

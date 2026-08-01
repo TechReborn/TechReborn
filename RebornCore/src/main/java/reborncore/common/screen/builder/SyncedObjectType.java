@@ -1,7 +1,7 @@
 /*
  * This file is part of RebornCore, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2021 TeamReborn
+ * Copyright (c) 2026 TeamReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,27 @@
  * SOFTWARE.
  */
 
-package reborncore.common.screen;
+package reborncore.common.screen.builder;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import reborncore.common.screen.builder.SyncedObjectType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
 
-public interface Syncable {
+/** Identifies a screen-handler value codec on both sides of a network connection. */
+public final class SyncedObjectType<T> {
+	private final Identifier id;
+	private final StreamCodec<? super RegistryFriendlyByteBuf, T> codec;
 
-	void configureSync(Context context);
+	SyncedObjectType(Identifier id, StreamCodec<? super RegistryFriendlyByteBuf, T> codec) {
+		this.id = id;
+		this.codec = codec;
+	}
 
-	interface Context {
-		<T> void sync(SyncedObjectType<T> type, Supplier<T> supplier, Consumer<T> setter);
+	public Identifier id() {
+		return id;
+	}
+
+	public StreamCodec<? super RegistryFriendlyByteBuf, T> codec() {
+		return codec;
 	}
 }
