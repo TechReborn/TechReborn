@@ -168,10 +168,15 @@ public final class TechRebornConfig {
 	public static final ConfigValue<Integer> lapotronPackCharge = ITEMS_POWER.intValue("lapotronPackCharge", 100_000_000).comment("Energy Capacity for Lapotron Pack");
 	public static final ConfigValue<Integer> lithiumBatpackCharge = ITEMS_POWER.intValue("LithiumBatpackCharge", 600_000).comment("Energy Capacity for Lithium Batpack");
 	public static final ConfigValue<Integer> redCellBatteryMaxCharge = ITEMS_POWER.intValue("redCellBatteryMaxCharge", 10_000).comment("Energy Capacity for Red Cell Battery");
+	public static final ConfigValue<Integer> redCellBatteryIORate = ITEMS_POWER.intValue("redCellBatteryIORate", 32).comment("Transfer Rate for Red Cell Battery");
 	public static final ConfigValue<Integer> lithiumIonBatteryMaxCharge = ITEMS_POWER.intValue("lithiumIonBatteryMaxCharge", 100_000).comment("Energy Capacity for Lithium Ion Battery");
+	public static final ConfigValue<Integer> lithiumIonBatteryIORate = ITEMS_POWER.intValue("lithiumIonBatteryIORate", 128).comment("Transfer Rate for Lithium Ion Battery");
 	public static final ConfigValue<Integer> energyCrystalMaxCharge = ITEMS_POWER.intValue("energyCrystalMaxCharge", 1_000_000).comment("Energy Capacity for Energy Crystal");
+	public static final ConfigValue<Integer> energyCrystalIORate = ITEMS_POWER.intValue("energyCrystalIORate", 512).comment("Transfer Rate for Energy Crystal");
 	public static final ConfigValue<Integer> lapotronCrystalMaxCharge = ITEMS_POWER.intValue("lapotronCrystalMaxCharge", 10_000_000).comment("Energy Capacity for Lapotron Crystal");
+	public static final ConfigValue<Integer> lapotronCrystalIORate = ITEMS_POWER.intValue("lapotronCrystalIORate", 2048).comment("Transfer Rate for Lapotron Crystal");
 	public static final ConfigValue<Integer> lapotronicOrbMaxCharge = ITEMS_POWER.intValue("lapotronicOrbMaxCharge", 100_000_000).comment("Energy Capacity for Lapotronic Orb");
+	public static final ConfigValue<Integer> lapotronicOrbIORate = ITEMS_POWER.intValue("lapotronicOrbIORate", 8192).comment("Transfer Rate for Lapotronic Orb");
 	public static final ConfigValue<Long> cloakingDeviceCharge = ITEMS_POWER.longValue("cloakingDeviceCharge", 40_000_000L).comment("Energy Capacity for Cloaking Device");
 	public static final ConfigValue<Integer> cloakingDeviceCost = ITEMS_POWER.intValue("clockingDeviceEnergyUsage", 10).comment("Cloaking device energy usage");
 	public static final ConfigValue<Long> quantumSuitCapacity = ITEMS_POWER.longValue("quantumSuitCapacity", 40_000_000L).comment("Quantum Suit Energy Capacity");
@@ -192,6 +197,32 @@ public final class TechRebornConfig {
 	public static final ConfigValue<Double> overclockerPower = ITEMS_UPGRADES.doubleValue("overclocker_power", 0.75).comment("Overclocker behavior power multiplier");
 	public static final ConfigValue<Double> energyStoragePower = ITEMS_UPGRADES.doubleValue("energy_storage", 40_000.0).comment("Energy storage behavior extra power");
 	public static final ConfigValue<Double> superConductorCount = ITEMS_UPGRADES.doubleValue("super_conductor", 1.0).comment("Energy flow power increase");
+
+	private static final ConfigGroup ITEMS_CABLE = ITEMS.group("cable");
+	public static final ConfigValue<Integer> copperCableTransferRate = ITEMS_CABLE.intValue("copperCableTransferRate", 128).comment("Copper Cable Transfer Rate");
+	public static final ConfigValue<Integer> tinCableTransferRate = ITEMS_CABLE.intValue("tinCableTransferRate", 32).comment("Tin Cable Transfer Rate");
+	public static final ConfigValue<Integer> goldCableTransferRate = ITEMS_CABLE.intValue("goldCableTransferRate", 512).comment("Gold Cable Transfer Rate");
+	public static final ConfigValue<Integer> hvCableTransferRate = ITEMS_CABLE.intValue("hvCableTransferRate", 2048).comment("HV Cable Transfer Rate");
+	public static final ConfigValue<Integer> glassfiberCableTransferRate = ITEMS_CABLE.intValue("glassfiberCableTransferRate", 8192).comment("Glassfiber Cable Transfer Rate");
+	public static final ConfigValue<Integer> insulatedCopperCableTransferRate = ITEMS_CABLE.intValue("insulatedCopperCableTransferRate", 128).comment("Insulated Copper Cable Transfer Rate");
+	public static final ConfigValue<Integer> insulatedGoldCableTransferRate = ITEMS_CABLE.intValue("insulatedGoldCableTransferRate", 512).comment("Insulated Gold Cable Transfer Rate");
+	public static final ConfigValue<Integer> insulatedHvCableTransferRate = ITEMS_CABLE.intValue("insulatedHvCableTransferRate", 2048).comment("Insulated HV Cable Transfer Rate");
+	public static final ConfigValue<Integer> superconductorCableTransferRate = ITEMS_CABLE.intValue("superconductorCableTransferRate", Integer.MAX_VALUE / 4).comment("Superconductor Cable Transfer Rate");
+
+	private static final ConfigGroup MACHINES_BATBOX = MACHINES.group("batbox");
+	public static final ConfigValue<Integer> batboxMaxEnergy = MACHINES_BATBOX.intValue("BatboxMaxEnergy", 40_000).comment("Batbox Max Energy");
+	public static final ConfigValue<Integer> batboxMaxInput = MACHINES_BATBOX.intValue("BatboxMaxInput", 32).comment("Batbox Max Input");
+	public static final ConfigValue<Integer> batboxMaxOutput = MACHINES_BATBOX.intValue("BatboxMaxOutput", 32).comment("Batbox Max Output");
+
+	private static final ConfigGroup MACHINES_MFE = MACHINES.group("mfe");
+	public static final ConfigValue<Integer> mfeMaxEnergy = MACHINES_MFE.intValue("MfeMaxEnergy", 4_000_000).comment("MFE Max Energy");
+	public static final ConfigValue<Integer> mfeMaxInput = MACHINES_MFE.intValue("MfeMaxInput", 128).comment("MFE Max Input");
+	public static final ConfigValue<Integer> mfeMaxOutput = MACHINES_MFE.intValue("MfeMaxOutput", 128).comment("MFE Max Output");
+
+	private static final ConfigGroup MACHINES_MFSU = MACHINES.group("mfsu");
+	public static final ConfigValue<Integer> mfsuMaxEnergy = MACHINES_MFSU.intValue("MfsuMaxEnergy", 40_000_000).comment("MFSU Max Energy");
+	public static final ConfigValue<Integer> mfsuMaxInput = MACHINES_MFSU.intValue("MfsuMaxInput", 512).comment("MFSU Max Input");
+	public static final ConfigValue<Integer> mfsuMaxOutput = MACHINES_MFSU.intValue("MfsuMaxOutput", 512).comment("MFSU Max Output");
 
 	private static final ConfigGroup MACHINES_LESU = MACHINES.group("lesu");
 	public static final ConfigValue<Integer> lesuStoragePerBlock = MACHINES_LESU.intValue("LesuMaxEnergyPerBlock", 4_000_000).comment("LESU Max Energy Per Block");
