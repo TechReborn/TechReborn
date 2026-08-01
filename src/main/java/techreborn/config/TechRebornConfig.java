@@ -277,17 +277,32 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "redCellBatteryMaxCharge", comment = "Energy Capacity for Red Cell Battery")
 	public static int redCellBatteryMaxCharge = 10_000;
 
+	@Config(config = "items", category = "power", key = "redCellBatteryIORate", comment = "Transfer Rate for Red Cell Battery")
+	public static int redCellBatteryIORate = 32;
+
 	@Config(config = "items", category = "power", key = "lithiumIonBatteryMaxCharge", comment = "Energy Capacity for Lithium Ion Battery")
 	public static int lithiumIonBatteryMaxCharge = 100_000;
+
+	@Config(config = "items", category = "power", key = "lithiumIonBatteryIORate", comment = "Transfer Rate for Lithium Ion Battery")
+	public static int lithiumIonBatteryIORate = 128;
 
 	@Config(config = "items", category = "power", key = "energyCrystalMaxCharge", comment = "Energy Capacity for Energy Crystal")
 	public static int energyCrystalMaxCharge = 1_000_000;
 
+	@Config(config = "items", category = "power", key = "energyCrystalIORate", comment = "Transfer Rate for Energy Crystal")
+	public static int energyCrystalIORate = 512;
+
 	@Config(config = "items", category = "power", key = "lapotronCrystalMaxCharge", comment = "Energy Capacity for Lapotron Crystal")
 	public static int lapotronCrystalMaxCharge = 10_000_000;
 
+	@Config(config = "items", category = "power", key = "lapotronCrystalIORate", comment = "Transfer Rate for Lapotron Crystal")
+	public static int lapotronCrystalIORate = 2048;
+
 	@Config(config = "items", category = "power", key = "lapotronicOrbMaxCharge", comment = "Energy Capacity for Lapotronic Orb")
 	public static int lapotronicOrbMaxCharge = 100_000_000;
+
+	@Config(config = "items", category = "power", key = "lapotronicOrbIORate", comment = "Transfer Rate for Lapotronic Orb")
+	public static int lapotronicOrbIORate = 8192;
 
 	@Config(config = "items", category = "power", key = "cloakingDeviceCharge", comment = "Energy Capacity for Cloaking Device")
 	public static long cloakingDeviceCharge = 40_000_000;
@@ -343,7 +358,62 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "upgrades", key = "super_conductor", comment = "Energy flow power increase")
 	public static double superConductorCount = 1;
 
+	// Cables
+	@Config(config = "items", category = "cable", key = "copperCableTransferRate", comment = "Copper Cable Transfer Rate")
+	public static int copperCableTransferRate = 128;
+
+	@Config(config = "items", category = "cable", key = "tinCableTransferRate", comment = "Tin Cable Transfer Rate")
+	public static int tinCableTransferRate = 32;
+
+	@Config(config = "items", category = "cable", key = "goldCableTransferRate", comment = "Gold Cable Transfer Rate")
+	public static int goldCableTransferRate = 512;
+
+	@Config(config = "items", category = "cable", key = "hvCableTransferRate", comment = "HV Cable Transfer Rate")
+	public static int hvCableTransferRate = 2048;
+
+	@Config(config = "items", category = "cable", key = "glassfiberCableTransferRate", comment = "Glassfiber Cable Transfer Rate")
+	public static int glassfiberCableTransferRate = 8192;
+
+	@Config(config = "items", category = "cable", key = "insulatedCopperCableTransferRate", comment = "Insulated Copper Cable Transfer Rate")
+	public static int insulatedCopperCableTransferRate = 128;
+
+	@Config(config = "items", category = "cable", key = "insulatedGoldCableTransferRate", comment = "Insulated Gold Cable Transfer Rate")
+	public static int insulatedGoldCableTransferRate = 512;
+
+	@Config(config = "items", category = "cable", key = "insulatedHvCableTransferRate", comment = "Insulated HV Cable Transfer Rate")
+	public static int insulatedHvCableTransferRate = 2048;
+
+	@Config(config = "items", category = "cable", key = "superconductorCableTransferRate", comment = "Superconductor Cable Transfer Rate")
+	public static int superconductorCableTransferRate = Integer.MAX_VALUE / 4;
+
 	// Storages
+	@Config(config = "machines", category = "batbox", key = "BatboxMaxEnergy", comment = "Batbox Max Energy")
+	public static int batboxMaxEnergy = 40_000;
+
+	@Config(config = "machines", category = "batbox", key = "BatboxMaxInput", comment = "Batbox Max Input")
+	public static int batboxMaxInput = 32;
+
+	@Config(config = "machines", category = "batbox", key = "BatboxMaxOutput", comment = "Batbox Max Output")
+	public static int batboxMaxOutput = 32;
+
+	@Config(config = "machines", category = "mfe", key = "MfeMaxEnergy", comment = "MFE Max Energy")
+	public static int mfeMaxEnergy = 4_000_000;
+
+	@Config(config = "machines", category = "mfe", key = "MfeMaxInput", comment = "MFE Max Input")
+	public static int mfeMaxInput = 128;
+
+	@Config(config = "machines", category = "mfe", key = "MfeMaxOutput", comment = "MFE Max Output")
+	public static int mfeMaxOutput = 128;
+
+	@Config(config = "machines", category = "mfsu", key = "MfsuMaxEnergy", comment = "MFSU Max Energy")
+	public static int mfsuMaxEnergy = 40_000_000;
+
+	@Config(config = "machines", category = "mfsu", key = "MfsuMaxInput", comment = "MFSU Max Input")
+	public static int mfsuMaxInput = 512;
+
+	@Config(config = "machines", category = "mfsu", key = "MfsuMaxOutput", comment = "MFSU Max Output")
+	public static int mfsuMaxOutput = 512;
+
 	@Config(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block")
 	public static int lesuStoragePerBlock = 4_000_000;
 
@@ -378,14 +448,14 @@ public class TechRebornConfig {
 	public static int industrialStorageUnitMaxStorage = 1 << 16; // 2^16, around 65,000, holds 2^10=1024 64-stacks
 
 	@Config(config = "machines", category = "storage", key = "IndustrialTankUnitCapacity", comment = "How much liquid an Industrial Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int industrialTankUnitCapacity = 1 << 10; // 2^10, around 1,000, holds 2^6=64 16-stacks cells (content only)
+	public static int industrialTankUnitCapacity = 1 << 10; // 2^10, around 1,000, holds 2^6=64 16-stacks cells (content
+															// only)
 
 	@Config(config = "machines", category = "storage", key = "QuantumStorageUnitMaxStorage", comment = "Maximum amount of items a Quantum Storage Unit can store (Compat: == MAX_VALUE)")
 	public static int quantumStorageUnitMaxStorage = Integer.MAX_VALUE;
 
 	@Config(config = "machines", category = "storage", key = "QuantumTankUnitCapacity", comment = "How much liquid a Quantum Tank Unit can take (Value in buckets, 1000 Mb)(Compat: == MAX_VALUE)")
 	public static int quantumTankUnitCapacity = Integer.MAX_VALUE / 1000;
-
 
 	// Machines
 	@Config(config = "machines", category = "player_detector", key = "PlayerDetectorMaxInput", comment = "Player Detector Max Input (Energy per tick)")

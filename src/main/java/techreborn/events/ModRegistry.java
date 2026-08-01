@@ -215,12 +215,12 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.STEEL_BOOTS = InitUtils.setup(new Item(TRItemSettings.item("steel_boots").stacksTo(1).humanoidArmor(TRArmorMaterials.STEEL, ArmorType.BOOTS)), "steel_boots"));
 
 		// Battery
-		RebornRegistry.registerItem(TRContent.RED_CELL_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.redCellBatteryMaxCharge, RcEnergyTier.LOW, "red_cell_battery"), "red_cell_battery"));
-		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.lithiumIonBatteryMaxCharge, RcEnergyTier.MEDIUM, "lithium_ion_battery"), "lithium_ion_battery"));
+		RebornRegistry.registerItem(TRContent.RED_CELL_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.redCellBatteryMaxCharge, RcEnergyTier.LOW, TechRebornConfig.redCellBatteryIORate, "red_cell_battery"), "red_cell_battery"));
+		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.lithiumIonBatteryMaxCharge, RcEnergyTier.MEDIUM, TechRebornConfig.lithiumIonBatteryIORate, "lithium_ion_battery"), "lithium_ion_battery"));
 		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATPACK = InitUtils.setup(new BatpackItem(TechRebornConfig.lithiumBatpackCharge, TRArmorMaterials.LITHIUM_BATPACK, RcEnergyTier.MEDIUM, "lithium_ion_batpack"), "lithium_ion_batpack"));
-		RebornRegistry.registerItem(TRContent.ENERGY_CRYSTAL = InitUtils.setup(new BatteryItem(TechRebornConfig.energyCrystalMaxCharge, RcEnergyTier.HIGH, "energy_crystal"), "energy_crystal"));
-		RebornRegistry.registerItem(TRContent.LAPOTRON_CRYSTAL = InitUtils.setup(new BatteryItem(TechRebornConfig.lapotronCrystalMaxCharge, RcEnergyTier.EXTREME, "lapotron_crystal"), "lapotron_crystal"));
-		RebornRegistry.registerItem(TRContent.LAPOTRONIC_ORB = InitUtils.setup(new BatteryItem(TechRebornConfig.lapotronicOrbMaxCharge, RcEnergyTier.INSANE, "lapotronic_orb"), "lapotronic_orb"));
+		RebornRegistry.registerItem(TRContent.ENERGY_CRYSTAL = InitUtils.setup(new BatteryItem(TechRebornConfig.energyCrystalMaxCharge, RcEnergyTier.HIGH, TechRebornConfig.energyCrystalIORate, "energy_crystal"), "energy_crystal"));
+		RebornRegistry.registerItem(TRContent.LAPOTRON_CRYSTAL = InitUtils.setup(new BatteryItem(TechRebornConfig.lapotronCrystalMaxCharge, RcEnergyTier.EXTREME, TechRebornConfig.lapotronCrystalIORate, "lapotron_crystal"), "lapotron_crystal"));
+		RebornRegistry.registerItem(TRContent.LAPOTRONIC_ORB = InitUtils.setup(new BatteryItem(TechRebornConfig.lapotronicOrbMaxCharge, RcEnergyTier.INSANE, TechRebornConfig.lapotronicOrbIORate, "lapotronic_orb"), "lapotronic_orb"));
 		RebornRegistry.registerItem(TRContent.LAPOTRONIC_ORBPACK = InitUtils.setup(new BatpackItem(TechRebornConfig.lapotronPackCharge, TRArmorMaterials.LAPOTRONIC_ORBPACK, RcEnergyTier.INSANE, "lapotronic_orbpack"), "lapotronic_orbpack"));
 
 		// Tools

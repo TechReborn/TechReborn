@@ -503,6 +503,10 @@ public class TRContent {
 		public final String name;
 		public final CableBlock block;
 
+		/**
+		 * @deprecated Use {@link #getTransferRate()} instead to respect the config dynamically.
+		 */
+		@Deprecated
 		public final int transferRate;
 		public final int defaultTransferRate;
 		public final double cableThickness;
@@ -531,6 +535,21 @@ public class TRContent {
 		@Override
 		public CableBlock getBlock() {
 			return block;
+		}
+
+		public int getTransferRate() {
+			switch (this) {
+				case COPPER: return TechRebornConfig.copperCableTransferRate;
+				case TIN: return TechRebornConfig.tinCableTransferRate;
+				case GOLD: return TechRebornConfig.goldCableTransferRate;
+				case HV: return TechRebornConfig.hvCableTransferRate;
+				case GLASSFIBER: return TechRebornConfig.glassfiberCableTransferRate;
+				case INSULATED_COPPER: return TechRebornConfig.insulatedCopperCableTransferRate;
+				case INSULATED_GOLD: return TechRebornConfig.insulatedGoldCableTransferRate;
+				case INSULATED_HV: return TechRebornConfig.insulatedHvCableTransferRate;
+				case SUPERCONDUCTOR: return TechRebornConfig.superconductorCableTransferRate;
+				default: return defaultTransferRate;
+			}
 		}
 
 		public ItemStack getStack() {
