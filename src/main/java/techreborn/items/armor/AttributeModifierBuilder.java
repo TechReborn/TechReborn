@@ -102,7 +102,8 @@ public class AttributeModifierBuilder {
 		Map<Identifier, Double> map = new HashMap<>();
 		m1.forEach(entry -> map.put(entry.modifier().id(), entry.modifier().amount()));
 		for (ItemAttributeModifiers.Entry entry : m2) {
-			if (map.get(entry.modifier().id()) != entry.modifier().amount()) {
+			Double amount = map.get(entry.modifier().id());
+			if (amount == null || amount != entry.modifier().amount()) {
 				return false;
 			}
 		}
