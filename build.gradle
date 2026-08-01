@@ -185,6 +185,15 @@ repositories {
             includeGroup "mezz.jei"
         }
     }
+    maven {
+        name "REI"
+        url "https://maven.shedaniel.me/"
+        content {
+            includeGroup "me.shedaniel"
+            includeGroup "me.shedaniel.cloth"
+            includeGroup "dev.architectury"
+        }
+    }
 }
 
 // TechReborn specific dependencies
@@ -194,11 +203,29 @@ dependencies {
 
     include project(":RebornCore")
 
+    optionalREIDependency(false)
+
     compileOnly("mezz.jei:jei-26.1.1-fabric-api:29.3.0.22")
     //runtimeOnly("mezz.jei:jei-26.1.1-fabric:29.3.0.22")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
     datagenImplementation 'org.apache.groovy:groovy:5.0.3'
+}
+
+def optionalREIDependency(runtime = true) {
+    def exclude = {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc"
+    }
+    String dep = "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    dependencies.clientCompileOnly(dep, exclude)
+    dependencies.compileOnly(dep, exclude)
+    dependencies.compileOnly("dev.architectury:architectury-fabric:${project.architectury_api}", exclude)
+        dependencies.compileOnly("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config}", exclude)
+
+    if (runtime) {
+        dependencies.clientRuntimeOnly(dep, exclude)
+    }
 }
 
 jar {

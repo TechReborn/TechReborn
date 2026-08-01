@@ -21,7 +21,13 @@
     ],
     "jei_mod_plugin": [
 		"techreborn.client.compat.jei.JEIPlugin"
-    ]
+    ],
+	"rei_client": [
+		"techreborn.client.compat.rei.ReiPlugin"
+	],
+	"rei_common": [
+		"techreborn.compat.rei.ReiCommonPlugin"
+	]
   },
   "custom": {
 	"dashloader:customobject": [
