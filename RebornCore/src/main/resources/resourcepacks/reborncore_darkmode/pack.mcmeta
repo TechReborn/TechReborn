@@ -1,6 +1,8 @@
 {
     "pack": {
-        "pack_format": 34,
+        "pack_format": 88,
+        "min_format": [88, 0],
+        "max_format": 2147483647,
         "description": {
             "text": "TechReborn Dark Mode"
         }
