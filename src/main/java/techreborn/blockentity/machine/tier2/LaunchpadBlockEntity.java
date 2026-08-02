@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.machine.tier2;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import org.jspecify.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
@@ -39,7 +41,6 @@ import techreborn.init.TRContent;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -190,7 +191,7 @@ public class LaunchpadBlockEntity extends PowerAcceptorBlockEntity implements IT
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.syncEnergyValue()
-				.sync(ByteBufCodecs.INT, this::getSelection, this::setSelection)
+				.sync(SyncedObjectTypes.INT, this::getSelection, this::setSelection)
 				.addInventory().create(this, syncID);
 	}
 

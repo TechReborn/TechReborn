@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.storage.energy;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.component.TypedEntityData;
 import org.jspecify.annotations.Nullable;
@@ -43,7 +45,6 @@ import static techreborn.TechReborn.LOGGER;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -173,7 +174,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("aesu").player(player.getInventory()).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().sync(ByteBufCodecs.INT, this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(SyncedObjectTypes.INT, this::getCurrentOutput, this::setCurrentOutput).addInventory().create(this, syncID);
 	}
 
 	public int getCurrentOutput() {

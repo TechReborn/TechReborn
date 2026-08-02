@@ -24,9 +24,10 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -178,7 +179,7 @@ public class PlayerDetectorBlockEntity extends PowerAcceptorBlockEntity implemen
 				.inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.syncEnergyValue()
-				.sync(ByteBufCodecs.INT, this::getCurrentRadius, this::setCurrentRadius)
+				.sync(SyncedObjectTypes.INT, this::getCurrentRadius, this::setCurrentRadius)
 				.addInventory().create(this, syncID);
 	}
 

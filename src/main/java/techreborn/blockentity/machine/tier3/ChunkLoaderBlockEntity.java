@@ -24,8 +24,9 @@
 
 package techreborn.blockentity.machine.tier3;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -158,7 +159,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, Player player) {
 		return new ScreenHandlerBuilder("chunkloader").player(player.getInventory()).inventory().hotbar().addInventory()
-				.blockEntity(this).sync(ByteBufCodecs.INT, this::getRadius, this::setRadius).addInventory().create(this, syncID);
+				.blockEntity(this).sync(SyncedObjectTypes.INT, this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 
 	public int getRadius() {

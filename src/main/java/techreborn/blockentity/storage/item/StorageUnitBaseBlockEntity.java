@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.storage.item;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import it.unimi.dsi.fastutil.ints.IntObjectPair;
 import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -40,7 +42,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
@@ -489,10 +490,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				.blockEntity(this)
 				.slot(INPUT_SLOT, 100, 53)
 				.outputSlot(OUTPUT_SLOT, 140, 53)
-				.sync(ByteBufCodecs.INT, this::isLockedInt, this::setLockedInt)
-				.sync(ByteBufCodecs.COMPOUND_TAG, this::getStoredStackNBT, this::setStoredStackFromNBT)
-				.sync(ByteBufCodecs.INT, this::getStoredAmount, this::setStoredAmount)
-				.sync(ByteBufCodecs.INT, this::getMaxCapacity, this::setMaxCapacity)
+				.sync(SyncedObjectTypes.INT, this::isLockedInt, this::setLockedInt)
+				.sync(SyncedObjectTypes.COMPOUND_TAG, this::getStoredStackNBT, this::setStoredStackFromNBT)
+				.sync(SyncedObjectTypes.INT, this::getStoredAmount, this::setStoredAmount)
+				.sync(SyncedObjectTypes.INT, this::getMaxCapacity, this::setMaxCapacity)
 				.addInventory().create(this, syncID);
 
 		// Note that inventory is synced, and it gets the stack from that

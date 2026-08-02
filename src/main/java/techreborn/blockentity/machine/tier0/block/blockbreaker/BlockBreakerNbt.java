@@ -24,7 +24,8 @@
 
 package techreborn.blockentity.machine.tier0.block.blockbreaker;
 
-import net.minecraft.network.codec.ByteBufCodecs;
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
@@ -56,9 +57,9 @@ class BlockBreakerNbt {
 	}
 
 	public BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder) {
-		return builder.sync(ByteBufCodecs.INT, this::getBreakTime, this::setBreakTime)
-			.sync(ByteBufCodecs.INT, this::getCurrentBreakTime, this::setCurrentBreakTime)
-			.sync(ByteBufCodecs.INT, this::getStatus, this::setStatus);
+		return builder.sync(SyncedObjectTypes.INT, this::getBreakTime, this::setBreakTime)
+			.sync(SyncedObjectTypes.INT, this::getCurrentBreakTime, this::setCurrentBreakTime)
+			.sync(SyncedObjectTypes.INT, this::getStatus, this::setStatus);
 	}
 
 	protected int getBreakTime() {

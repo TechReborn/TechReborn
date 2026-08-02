@@ -65,7 +65,7 @@ public class TRCauldronBehavior {
 		};
 
 		CauldronInteraction FILL_CELL_WITH_WATER = (state, world, pos, player, hand, stack) -> {
-			if (!FluidUtils.isContainerEmpty(stack)) {
+			if (!FluidUtils.isContainerEmpty(stack) || state.getValue(LayeredCauldronBlock.LEVEL) != 3) {
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
 			}
 
@@ -73,7 +73,7 @@ public class TRCauldronBehavior {
 				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, TRContent.Cells.WATER.getStack()));
 				player.awardStat(Stats.USE_CAULDRON);
 				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-				LayeredCauldronBlock.lowerFillLevel(state, world, pos);
+				world.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
 				world.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
 				world.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
 			}

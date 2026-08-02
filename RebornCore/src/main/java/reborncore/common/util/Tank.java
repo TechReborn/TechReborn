@@ -37,6 +37,7 @@ import org.jspecify.annotations.NonNull;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.screen.Syncable;
+import reborncore.common.screen.builder.SyncedObjectTypes;
 
 import java.util.function.UnaryOperator;
 
@@ -105,7 +106,7 @@ public class Tank extends SnapshotParticipant<FluidInstance> implements Syncable
 
 	@Override
 	public void configureSync(Context context) {
-		context.sync(FluidInstance.PACKET_CODEC, this::getFluidInstance, this::setFluidInstance);
+		context.sync(SyncedObjectTypes.FLUID_INSTANCE, this::getFluidInstance, this::setFluidInstance);
 	}
 
 	public FluidValue getFluidAmount() {

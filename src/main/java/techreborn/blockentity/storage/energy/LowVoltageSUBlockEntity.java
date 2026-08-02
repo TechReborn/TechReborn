@@ -31,6 +31,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -40,7 +41,9 @@ import techreborn.init.TRContent;
 public class LowVoltageSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	public LowVoltageSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.LOW_VOLTAGE_SU, pos, state, "BatBox", 2, TRContent.Machine.LOW_VOLTAGE_SU.block, RcEnergyTier.LOW, 40_000);
+		super(TRBlockEntities.LOW_VOLTAGE_SU, pos, state, "BatBox", 2, TRContent.Machine.LOW_VOLTAGE_SU.block, RcEnergyTier.LOW, TechRebornConfig.batboxMaxEnergy.get());
+		this.maxInput = TechRebornConfig.batboxMaxInput.get();
+		this.maxOutput = TechRebornConfig.batboxMaxOutput.get();
 	}
 
 	@Override

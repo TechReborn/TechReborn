@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.recipes.RecipeCrafter;
@@ -43,7 +45,6 @@ import techreborn.multiblocks.MultiBlockCasing;
 import java.util.function.BiPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -144,7 +145,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 		return new ScreenHandlerBuilder("blastfurnace").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
-				.sync(ByteBufCodecs.INT, this::getHeat, this::setHeat)
+				.sync(SyncedObjectTypes.INT, this::getHeat, this::setHeat)
 				.syncShapeValue().addInventory().create(this, syncID);
 	}
 

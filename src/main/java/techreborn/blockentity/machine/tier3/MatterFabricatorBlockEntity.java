@@ -24,9 +24,10 @@
 
 package techreborn.blockentity.machine.tier3;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -203,6 +204,6 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 				.blockEntity(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20).slot(4, 110, 20)
 				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
 				.outputSlot(9, 100, 66).outputSlot(10, 120, 66).energySlot(11, 8, 72).syncEnergyValue()
-				.sync(ByteBufCodecs.INT, this::getProgress, this::setProgress).addInventory().create(this, syncID);
+				.sync(SyncedObjectTypes.INT, this::getProgress, this::setProgress).addInventory().create(this, syncID);
 	}
 }

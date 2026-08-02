@@ -96,7 +96,7 @@ public class ClientBoundPacketHandlers {
 			if (gui instanceof AbstractContainerScreen handledScreen) {
 				AbstractContainerMenu screenHandler = handledScreen.getMenu();
 				if (screenHandler instanceof BuiltScreenHandler builtScreenHandler) {
-					builtScreenHandler.applyScreenHandlerData(payload.data());
+					builtScreenHandler.applyScreenHandlerData(payload.updatedValues());
 				}
 			}
 		});

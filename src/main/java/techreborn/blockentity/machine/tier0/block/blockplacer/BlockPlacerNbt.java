@@ -24,7 +24,8 @@
 
 package techreborn.blockentity.machine.tier0.block.blockplacer;
 
-import net.minecraft.network.codec.ByteBufCodecs;
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import reborncore.common.screen.builder.BlockEntityScreenHandlerBuilder;
@@ -56,9 +57,9 @@ class BlockPlacerNbt {
 	}
 
 	public BlockEntityScreenHandlerBuilder syncNbt(BlockEntityScreenHandlerBuilder builder) {
-		return builder.sync(ByteBufCodecs.INT, this::getPlaceTime, this::setPlaceTime)
-			.sync(ByteBufCodecs.INT, this::getCurrentPlaceTime, this::setCurrentPlaceTime)
-			.sync(ByteBufCodecs.INT, this::getStatus, this::setStatus);
+		return builder.sync(SyncedObjectTypes.INT, this::getPlaceTime, this::setPlaceTime)
+			.sync(SyncedObjectTypes.INT, this::getCurrentPlaceTime, this::setCurrentPlaceTime)
+			.sync(SyncedObjectTypes.INT, this::getStatus, this::setStatus);
 	}
 
 	protected int getPlaceTime() {

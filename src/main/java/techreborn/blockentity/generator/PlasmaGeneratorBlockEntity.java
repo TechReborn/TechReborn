@@ -24,8 +24,9 @@
 
 package techreborn.blockentity.generator;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,8 +64,8 @@ public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("plasmagenerator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
-				.sync(ByteBufCodecs.INT, this::getTicksSinceLastChange, this::setTicksSinceLastChange)
-				.sync(FluidValue.PACKET_CODEC, this::getTankAmount, this::setTankAmount)
+				.sync(SyncedObjectTypes.INT, this::getTicksSinceLastChange, this::setTicksSinceLastChange)
+				.sync(SyncedObjectTypes.FLUID_VALUE, this::getTankAmount, this::setTankAmount)
 				.sync(tank)
 				.addInventory().create(this, syncID);
 	}

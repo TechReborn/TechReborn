@@ -24,6 +24,8 @@
 
 package techreborn.blockentity.machine.tier2;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.server.level.ServerLevel;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -44,7 +46,6 @@ import techreborn.init.TRContent;
 import java.util.ArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -180,9 +181,9 @@ public class PumpBlockEntity extends GenericMachineBlockEntity implements BuiltS
 			.energySlot(0, 8, 72)
 			.sync(getTank())
 			.syncEnergyValue()
-			.sync(ByteBufCodecs.INT, this::getDepth, this::setDepth)
-			.sync(ByteBufCodecs.INT, this::getRange, this::setRange)
-			.sync(ByteBufCodecs.BOOL, this::getExhausted, this::setExhausted)
+			.sync(SyncedObjectTypes.INT, this::getDepth, this::setDepth)
+			.sync(SyncedObjectTypes.INT, this::getRange, this::setRange)
+			.sync(SyncedObjectTypes.BOOL, this::getExhausted, this::setExhausted)
 			.addInventory()
 			.create(this, syncID);
 	}
