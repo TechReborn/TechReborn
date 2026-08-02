@@ -24,10 +24,11 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -400,11 +401,11 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("fusionreactor").player(player.getInventory()).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
-				.sync(ByteBufCodecs.INT, this::getCraftingTickTime, this::setCraftingTickTime)
-				.sync(ByteBufCodecs.INT, this::getCraftingTotalTime, this::setCraftingTotalTime)
-				.sync(ByteBufCodecs.INT, this::getSize, this::setSize)
-				.sync(ByteBufCodecs.INT, this::getState, this::setState)
-				.sync(ByteBufCodecs.INT, this::getNeededPower, this::setNeededPower)
+				.sync(SyncedObjectTypes.INT, this::getCraftingTickTime, this::setCraftingTickTime)
+				.sync(SyncedObjectTypes.INT, this::getCraftingTotalTime, this::setCraftingTotalTime)
+				.sync(SyncedObjectTypes.INT, this::getSize, this::setSize)
+				.sync(SyncedObjectTypes.INT, this::getState, this::setState)
+				.sync(SyncedObjectTypes.INT, this::getNeededPower, this::setNeededPower)
 				.syncShapeValue()
 				.addInventory()
 				.create(this, syncID);

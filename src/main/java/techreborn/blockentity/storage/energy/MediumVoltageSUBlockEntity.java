@@ -31,6 +31,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -43,7 +44,9 @@ public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity impleme
 	 * MFE should store 4M energy with 128 E/t I/O
 	 */
 	public MediumVoltageSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, pos, state, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, RcEnergyTier.MEDIUM, 4_000_000);
+		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, pos, state, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, RcEnergyTier.MEDIUM, TechRebornConfig.mfeMaxEnergy.get());
+		this.maxInput = TechRebornConfig.mfeMaxInput.get();
+		this.maxOutput = TechRebornConfig.mfeMaxOutput.get();
 	}
 
 	@Override

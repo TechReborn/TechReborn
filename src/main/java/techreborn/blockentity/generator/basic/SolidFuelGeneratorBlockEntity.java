@@ -24,9 +24,10 @@
 
 package techreborn.blockentity.generator.basic;
 
+import reborncore.common.screen.builder.SyncedObjectTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
@@ -202,7 +203,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	public BuiltScreenHandler createScreenHandler(int syncID, final Player player) {
 		return new ScreenHandlerBuilder("generator").player(player.getInventory()).inventory().hotbar().addInventory()
 				.blockEntity(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
-				.sync(ByteBufCodecs.INT, this::getBurnTime, this::setBurnTime)
-				.sync(ByteBufCodecs.INT, this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
+				.sync(SyncedObjectTypes.INT, this::getBurnTime, this::setBurnTime)
+				.sync(SyncedObjectTypes.INT, this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
 	}
 }

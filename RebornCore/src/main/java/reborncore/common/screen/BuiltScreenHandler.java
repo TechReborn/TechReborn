@@ -24,14 +24,9 @@
 
 package reborncore.common.screen;
 
-import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.fabricmc.fabric.api.networking.v1.FriendlyByteBufs;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -44,10 +39,13 @@ import org.apache.commons.lang3.Range;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.clientbound.ScreenHandlerUpdatePayload;
+import reborncore.common.network.clientbound.ScreenHandlerUpdatePayload.UpdatedValue;
 import reborncore.common.screen.builder.SyncedObject;
+import reborncore.common.screen.builder.SyncedObjectType;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RangeUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +62,7 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 
 	// Holds the SyncPair along with the last value
 	private final Map<IdentifiedSyncedObject<?>, Object> syncPairCache = new HashMap<>();
-	private final Int2ObjectMap<IdentifiedSyncedObject<?>> syncPairIdLookup = new Int2ObjectOpenHashMap<>();
+	private final Int2ObjectMap<SyncedObject<?>> syncPairIdLookup = new Int2ObjectOpenHashMap<>();
 
 	private List<Consumer<TransientCraftingContainer>> craftEvents;
 
@@ -88,9 +86,9 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 		for (final SyncedObject<?> syncedObject : syncedObjects) {
 			// Add a new sync pair to the cache with a null value
 			int id = syncPairCache.size() + 1;
-			var syncPair = new IdentifiedSyncedObject(syncedObject, id);
+			var syncPair = new IdentifiedSyncedObject(syncedObject.type(), id);
 			this.syncPairCache.put(syncPair, null);
-			this.syncPairIdLookup.put(id, syncPair);
+			this.syncPairIdLookup.put(id, syncedObject);
 		}
 	}
 
@@ -127,13 +125,13 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 	}
 
 	private void sendContentUpdatePacketToListener(final ContainerListener listener) {
-		Map<IdentifiedSyncedObject<?>, Object> updatedValues = new HashMap<>();
+		List<UpdatedValue<?>> updatedValues = new ArrayList<>();
 
 		this.syncPairCache.replaceAll((identifiedSyncedObject, cached) -> {
-			final Object value = identifiedSyncedObject.get();
+			final Object value = syncPairIdLookup.get(identifiedSyncedObject.id()).get();
 
 			if (!value.equals(cached)) {
-				updatedValues.put(identifiedSyncedObject, value);
+				updatedValues.add(createUpdatedValue(identifiedSyncedObject, value));
 				return value;
 			}
 			return null;
@@ -143,36 +141,24 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 			return;
 		}
 
-		byte[] data = writeScreenHandlerData(updatedValues);
 		ServerPlayerEntityScreenHandlerHelper.getServerPlayerEntity(listener)
-			.ifPresent(serverPlayerEntity -> NetworkManager.sendToPlayer(new ScreenHandlerUpdatePayload(data), serverPlayerEntity));
+			.ifPresent(serverPlayerEntity -> NetworkManager.sendToPlayer(new ScreenHandlerUpdatePayload(updatedValues), serverPlayerEntity));
 	}
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
-	private byte[] writeScreenHandlerData(Map<IdentifiedSyncedObject<?>, Object> updatedValues) {
-		RegistryFriendlyByteBuf byteBuf = new RegistryFriendlyByteBuf(FriendlyByteBufs.create(), blockEntity.getLevel().registryAccess());
-
-		byteBuf.writeInt(updatedValues.size());
-		for (Map.Entry<IdentifiedSyncedObject<?>, Object> entry : updatedValues.entrySet()) {
-			StreamCodec codec = entry.getKey().object().codec();
-			byteBuf.writeInt(entry.getKey().id());
-			codec.encode(byteBuf, entry.getValue());
+	public void applyScreenHandlerData(List<UpdatedValue<?>> updatedValues) {
+		for (UpdatedValue<?> updatedValue : updatedValues) {
+			SyncedObject syncedObject = syncPairIdLookup.get(updatedValue.id());
+			if (syncedObject == null || !syncedObject.type().equals(updatedValue.type())) {
+				throw new IllegalStateException("Unknown screen handler synced object " + updatedValue);
+			}
+			syncedObject.set(updatedValue.value());
 		}
-
-		return byteBuf.array();
 	}
 
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void applyScreenHandlerData(byte[] data) {
-		RegistryFriendlyByteBuf byteBuf = new RegistryFriendlyByteBuf(new FriendlyByteBuf(Unpooled.wrappedBuffer(data)), blockEntity.getLevel().registryAccess());
-		int size = byteBuf.readInt();
-
-		for (int i = 0; i < size; i++) {
-			int id = byteBuf.readInt();
-			IdentifiedSyncedObject syncedObject = syncPairIdLookup.get(id);
-			Object value = syncedObject.object().codec().decode(byteBuf);
-			syncedObject.set(value);
-		}
+	@SuppressWarnings("unchecked")
+	private static <T> UpdatedValue<T> createUpdatedValue(IdentifiedSyncedObject<T> syncedObject, Object value) {
+		return new UpdatedValue<>(syncedObject.type(), syncedObject.id(), (T) value);
 	}
 
 	@Override
@@ -323,14 +309,7 @@ public class BuiltScreenHandler extends AbstractContainerMenu {
 		return type;
 	}
 
-	private record IdentifiedSyncedObject<T>(SyncedObject<T> object, int id) {
-		public T get() {
-			return object.getter().get();
-		}
-
-		public void set(T value) {
-			object.setter().accept(value);
-		}
+	private record IdentifiedSyncedObject<T>(SyncedObjectType<T> type, int id) {
 	}
 
 	public List<Range<Integer>> getPlayerSlotRanges() {

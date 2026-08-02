@@ -31,6 +31,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.screen.BuiltScreenHandler;
 import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -43,7 +44,9 @@ public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implement
 	 * MFSU should store 40M Energy with 512 E/t I/O
 	 */
 	public HighVoltageSUBlockEntity(BlockPos pos, BlockState state) {
-		super(TRBlockEntities.HIGH_VOLTAGE_SU, pos, state, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, RcEnergyTier.HIGH, 40_000_000);
+		super(TRBlockEntities.HIGH_VOLTAGE_SU, pos, state, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, RcEnergyTier.HIGH, TechRebornConfig.mfsuMaxEnergy.get());
+		this.maxInput = TechRebornConfig.mfsuMaxInput.get();
+		this.maxOutput = TechRebornConfig.mfsuMaxOutput.get();
 	}
 
 	@Override

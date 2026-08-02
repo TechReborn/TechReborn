@@ -26,8 +26,13 @@ package reborncore.common.screen.builder;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
 
-public record SyncedObject<T>(StreamCodec<? super RegistryFriendlyByteBuf, T> codec, Supplier<T> getter, Consumer<T> setter) {
+public record SyncedObject<T>(SyncedObjectType<T> type, Supplier<T> getter, Consumer<T> setter) {
+	public T get() {
+		return getter.get();
+	}
+
+	public void set(T value) {
+		setter.accept(value);
+	}
 }
