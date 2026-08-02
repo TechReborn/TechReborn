@@ -54,6 +54,8 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		generateRedSand()
 		generateConcretePowder()
 		generateSawdust()
+		generateCinnabar()
+		generateSulfur()
 		generateMisc()
 	}
 
@@ -273,6 +275,81 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			offerGrinderRecipe {
 				ingredients item
 				outputs stack(Items.RED_SAND, count)
+				power count
+				time 200
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+	}
+	void generateCinnabar() {
+		[
+			(Items.CINNABAR): 1,
+			(Items.CINNABAR_WALL) :1,
+			(Items.CHISELED_CINNABAR) : 1,
+			(Items.POLISHED_CINNABAR) : 1,
+			(Items.POLISHED_CINNABAR_WALL) : 1,
+			(Items.CINNABAR_BRICKS): 1,
+			(Items.CINNABAR_BRICK_WALL) :1,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.Dusts.CINNABAR, count)
+				power count
+				time 200
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		[
+			(Items.CINNABAR_STAIRS): 3,
+			(Items.CINNABAR_SLAB) : 2,
+			(Items.POLISHED_CINNABAR_STAIRS) : 3,
+			(Items.POLISHED_CINNABAR_SLAB) : 2,
+			(Items.CINNABAR_BRICK_STAIRS): 3,
+			(Items.CINNABAR_BRICK_SLAB) : 2,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.SmallDusts.CINNABAR, count)
+				power count
+				time 200
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+	}
+	void generateSulfur() {
+		[
+			(Items.SULFUR): 1,
+			(Items.SULFUR_WALL) :1,
+			(Items.CHISELED_SULFUR) : 1,
+			(Items.POLISHED_SULFUR) : 1,
+			(Items.POLISHED_SULFUR_WALL) : 1,
+			(Items.SULFUR_BRICKS): 1,
+			(Items.POTENT_SULFUR): 9,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.Dusts.SULFUR, count)
+				power count
+				time 200
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		[
+			(Items.SULFUR_STAIRS): 3,
+			(Items.SULFUR_SLAB) : 2,
+			(Items.POLISHED_SULFUR_STAIRS) : 3,
+			(Items.POLISHED_SULFUR_SLAB) : 2,
+			(Items.SULFUR_BRICK_STAIRS): 3,
+			(Items.SULFUR_BRICK_SLAB) : 2,
+			(Items.SULFUR_SPIKE): 1,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.SmallDusts.SULFUR, count)
 				power count
 				time 200
 				source item
