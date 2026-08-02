@@ -81,7 +81,7 @@ class AssemblingMachineRecipesProvider extends TechRebornRecipesProvider {
 
 	void generateSmithingTemplates() {
 		[
-			(Items.COPPER_BLOCK) : Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE,
+			(Items.COPPER_BLOCK.weathering().unaffected()) : Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE,
 			(Items.COBBLESTONE) : Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE,
 			(Items.SANDSTONE) : Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE,
 			(Items.END_STONE_BRICKS) : Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE,
