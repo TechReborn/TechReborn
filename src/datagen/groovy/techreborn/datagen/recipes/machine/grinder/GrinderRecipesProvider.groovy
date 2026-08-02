@@ -284,19 +284,30 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 	}
 	void generateCinnabar() {
 		[
-			(Items.CINNABAR): 4,
+			(Items.CINNABAR): 1,
+			(Items.CINNABAR_WALL) :1,
+			(Items.CHISELED_CINNABAR) : 1,
+			(Items.POLISHED_CINNABAR) : 1,
+			(Items.POLISHED_CINNABAR_WALL) : 1,
+			(Items.CINNABAR_BRICKS): 1,
+			(Items.CINNABAR_BRICK_WALL) :1,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.Dusts.CINNABAR, count)
+				power count
+				time 200
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		[
 			(Items.CINNABAR_STAIRS): 3,
 			(Items.CINNABAR_SLAB) : 2,
-			(Items.CINNABAR_WALL) :4,
-			(Items.CHISELED_CINNABAR) : 4,
-			(Items.POLISHED_CINNABAR) : 4,
 			(Items.POLISHED_CINNABAR_STAIRS) : 3,
 			(Items.POLISHED_CINNABAR_SLAB) : 2,
-			(Items.POLISHED_CINNABAR_WALL) : 4,
-			(Items.CINNABAR_BRICKS): 4,
 			(Items.CINNABAR_BRICK_STAIRS): 3,
 			(Items.CINNABAR_BRICK_SLAB) : 2,
-			(Items.CINNABAR_BRICK_WALL) :4,
 		].each {item, count ->
 			offerGrinderRecipe {
 				ingredients item
@@ -310,21 +321,31 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 	}
 	void generateSulfur() {
 		[
-			(Items.SULFUR): 4,
+			(Items.SULFUR): 1,
+			(Items.SULFUR_WALL) :1,
+			(Items.CHISELED_SULFUR) : 1,
+			(Items.POLISHED_SULFUR) : 1,
+			(Items.POLISHED_SULFUR_WALL) : 1,
+			(Items.SULFUR_BRICKS): 1,
+			(Items.POTENT_SULFUR): 9,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.Dusts.SULFUR, count)
+				power count
+				time 200
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		[
 			(Items.SULFUR_STAIRS): 3,
 			(Items.SULFUR_SLAB) : 2,
-			(Items.SULFUR_WALL) :4,
-			(Items.CHISELED_SULFUR) : 4,
-			(Items.POLISHED_SULFUR) : 4,
 			(Items.POLISHED_SULFUR_STAIRS) : 3,
 			(Items.POLISHED_SULFUR_SLAB) : 2,
-			(Items.POLISHED_SULFUR_WALL) : 4,
-			(Items.SULFUR_BRICKS): 4,
 			(Items.SULFUR_BRICK_STAIRS): 3,
 			(Items.SULFUR_BRICK_SLAB) : 2,
-			(Items.SULFUR_BRICK_WALL) :4,
 			(Items.SULFUR_SPIKE): 1,
-			(Items.POTENT_SULFUR): 36,
 		].each {item, count ->
 			offerGrinderRecipe {
 				ingredients item

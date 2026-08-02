@@ -525,6 +525,12 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.requires(Items.WATER_BUCKET)
 			.unlockedBy("has_resin_clump", getCriterionConditions(Items.RESIN_CLUMP))
 			.save(this.exporter, getRecipeKey("crafting_table/parts/sap"))
+		createMonoShapeRecipe(TRContent.Parts.SCRAP, TRContent.SCRAP_BOX,
+			'S' as char)
+			.pattern("SSS")
+			.pattern("SSS")
+			.pattern("SSS")
+			.save(this.exporter, getRecipeKey("crafting_table/scrap_box"))
 	}
 
 	def static recipeNameString(String prefix, def input, def output, String source = null, String result = null) {
