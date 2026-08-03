@@ -674,7 +674,7 @@ public class TRItemGroup {
 		entries.insertAfter(Items.IRON_NUGGET,
 			TRContent.Nuggets.REFINED_IRON,
 			TRContent.Nuggets.STEEL,
-			TRContent.Nuggets.COPPER,
+			Items.COPPER_NUGGET,
 			TRContent.Nuggets.LEAD,
 			TRContent.Nuggets.NICKEL,
 			TRContent.Nuggets.BRONZE,

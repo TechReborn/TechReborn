@@ -1530,7 +1530,7 @@ public class TRContent {
 	}
 
 	public enum Nuggets implements ItemInfo, TagConvertible<Item> {
-		ALUMINUM, BRASS, BRONZE, CHROME(CHROME_TAG_NAME_BASE), COPPER(Items.COPPER_INGOT, false), DIAMOND(Items.DIAMOND, true),
+		ALUMINUM, BRASS, BRONZE, CHROME(CHROME_TAG_NAME_BASE), DIAMOND(Items.DIAMOND, true),
 		ELECTRUM, EMERALD(Items.EMERALD, true), HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD,
 		NETHERITE, /* We do NOT link to the netherite ingot here, because we want custom conversion recipes! */
 		NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
