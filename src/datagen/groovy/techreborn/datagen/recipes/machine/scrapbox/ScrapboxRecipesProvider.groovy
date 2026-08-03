@@ -88,7 +88,7 @@ class ScrapboxRecipesProvider extends TechRebornRecipesProvider {
 		"techreborn:yellow_garnet_small_dust",
 		"minecraft:iron_nugget",
 		"techreborn:charcoal_small_dust",
-		"techreborn:copper_nugget",
+		"minecraft:copper_nugget",
 		"minecraft:pink_bed",
 		"techreborn:almandine_small_dust",
 		"techreborn:yellow_garnet_gem",

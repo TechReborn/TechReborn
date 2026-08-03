@@ -138,14 +138,14 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			ingredient {
 				tag(TRConventionalTags.BRASS_DUSTS, 4)
 			}
-			outputs stack(TRContent.Nuggets.COPPER, 27), stack(TRContent.Nuggets.ZINC, 9)
+			outputs stack(Items.COPPER_NUGGET, 27), stack(TRContent.Nuggets.ZINC, 9)
 			id("centrifuge/brass_dust")
 		}
 		offerCentrifugeRecipe {
 			power 10
 			time 6000
 			ingredients stack(TRContent.Dusts.BRONZE, 4)
-			outputs stack(TRContent.Nuggets.COPPER, 27), stack(TRContent.Nuggets.TIN, 9)
+			outputs stack(Items.COPPER_NUGGET, 27), stack(TRContent.Nuggets.TIN, 9)
 			id("centrifuge/bronze_dust")
 		}
 		offerCentrifugeRecipe {
@@ -360,7 +360,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 3440
 			ingredients stack(TRContent.Dusts.NICKEL, 3)
-			outputs stack(Items.IRON_NUGGET, 3), stack(Items.GOLD_NUGGET, 3), stack(TRContent.Nuggets.COPPER, 3)
+			outputs stack(Items.IRON_NUGGET, 3), stack(Items.GOLD_NUGGET, 3), stack(Items.COPPER_NUGGET, 3)
 			id("centrifuge/nickel_dust")
 		}
 		offerCentrifugeRecipe {
@@ -390,7 +390,7 @@ class CentrifugeRecipesProvider extends TechRebornRecipesProvider {
 			power 5
 			time 2400
 			ingredients Items.RAW_GOLD
-			outputs TRContent.Nuggets.COPPER, TRContent.Nuggets.NICKEL
+			outputs Items.COPPER_NUGGET, TRContent.Nuggets.NICKEL
 			id("centrifuge/raw_gold")
 		}
 		offerCentrifugeRecipe {

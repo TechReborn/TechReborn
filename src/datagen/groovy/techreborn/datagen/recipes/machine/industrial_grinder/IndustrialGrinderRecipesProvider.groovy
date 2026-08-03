@@ -561,7 +561,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRConventionalTags.GOLD_ORES
-			outputs stack(Items.RAW_GOLD, 2), stack(TRContent.Nuggets.COPPER, 3), stack(TRContent.Nuggets.NICKEL)
+			outputs stack(Items.RAW_GOLD, 2), stack(Items.COPPER_NUGGET, 3), stack(TRContent.Nuggets.NICKEL)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -571,7 +571,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients BlockTags.GOLD_ORES
-			outputs stack(Items.RAW_GOLD, 3), stack(TRContent.Nuggets.COPPER, 3), stack(TRContent.Nuggets.NICKEL)
+			outputs stack(Items.RAW_GOLD, 3), stack(Items.COPPER_NUGGET, 3), stack(TRContent.Nuggets.NICKEL)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
