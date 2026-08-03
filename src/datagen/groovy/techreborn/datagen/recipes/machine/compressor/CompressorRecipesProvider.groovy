@@ -163,7 +163,7 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 		offerCompressorRecipe {
 			power 10
 			time 1000
-			ingredients TRContent.StorageBlocks.IRIDIUM
+			ingredients TRContent.StorageBlocks.RAW_IRIDIUM
 			outputs Items.HEAVY_CORE
 		}
 	}
