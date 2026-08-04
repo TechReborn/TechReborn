@@ -103,9 +103,9 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 		dropSelf(TRContent.REFINED_IRON_FENCE)
 		dropSelf(TRContent.REINFORCED_GLASS)
 
-		addOreDrop(TRContent.Ores.BAUXITE)
-		addOreDrop(TRContent.Ores.GALENA)
-		addOreDrop(TRContent.Ores.SHELDONITE)
+		addOreDrop(TRContent.Ores.BAUXITE, block -> createSingleItemTableWithSilkTouch(block, TRContent.Dusts.BAUXITE.asItem(), UniformGenerator.between(1.0F, 3.0F)))
+		addOreDrop(TRContent.Ores.GALENA, block -> createSingleItemTableWithSilkTouch(block, TRContent.Dusts.GALENA.asItem(), UniformGenerator.between(1.0F, 3.0F)))
+		addOreDrop(TRContent.Ores.SHELDONITE, block -> createSingleItemTableWithSilkTouch(block, TRContent.Dusts.PLATINUM.asItem(), UniformGenerator.between(1.0F, 2.0F)))
 		addOreDrop(TRContent.Ores.IRIDIUM, block -> createOreDrop(block, TRContent.RawMetals.IRIDIUM.asItem()))
 		addOreDrop(TRContent.Ores.LEAD, block -> createOreDrop(block, TRContent.RawMetals.LEAD.asItem()))
 		addOreDrop(TRContent.Ores.SILVER, block -> createOreDrop(block, TRContent.RawMetals.SILVER.asItem()))
