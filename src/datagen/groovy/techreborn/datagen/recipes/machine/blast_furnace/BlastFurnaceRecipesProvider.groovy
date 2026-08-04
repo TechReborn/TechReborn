@@ -479,14 +479,14 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		offerBlastFurnaceRecipe {
 			power 128
 			time 3600
-			heat 2500
+			heat 1500
 			ingredients TRConventionalTags.TITANIUM_DUSTS
 			outputs TRContent.Ingots.TITANIUM
 		}
 		offerBlastFurnaceRecipe {
 			power 128
 			time 3600
-			heat 2500
+			heat 1500
 			ingredients stack(TRContent.SmallDusts.TITANIUM, 4)
 			outputs TRContent.Ingots.TITANIUM
 			source("small_dust")
