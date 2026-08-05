@@ -54,11 +54,13 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		generateHelmet()
 		generateLeggings()
 		generateHorseArmor()
+		generateNautilusArmor()
 		generateSword()
 		generateShovel()
 		generateHoe()
 		generateAxe()
 		generatePickaxe()
+		generateSpear()
 		generateGlassFromGlassPane()
 		generateAnvil()
 		generateSherds()
@@ -172,6 +174,25 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		}
 	}
 
+	void generateNautilusArmor() {
+		final int count = 2
+		[
+			(Items.COPPER_HORSE_ARMOR)	: stack(Items.COPPER_INGOT, count),
+			(Items.GOLDEN_HORSE_ARMOR) : stack(Items.GOLD_INGOT, count),
+			(Items.IRON_HORSE_ARMOR) : stack(Items.IRON_INGOT, count)
+		].each {nautilusArmor, materialStack ->
+			offerBlastFurnaceRecipe {
+				ingredients nautilusArmor, Items.SAND
+				outputs materialStack, TRContent.Dusts.DARK_ASHES
+				power TOOL_POWER
+				time TOOL_TIME
+				heat TOOL_HEAT
+				source "nautilus_armor"
+				criterion getCriterionName(nautilusArmor), getCriterionConditions(nautilusArmor)
+			}
+		}
+	}
+
 	void generateSword() {
 		final int count = 5
 		[
@@ -268,6 +289,25 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 				heat TOOL_HEAT
 				source "pickaxe"
 				criterion getCriterionName(pickaxe), getCriterionConditions(pickaxe)
+			}
+		}
+	}
+
+	void generateSpear() {
+		final int count = 3
+		[
+			(Items.COPPER_SPEAR)		: stack(Items.COPPER_NUGGET, count),
+			(Items.GOLDEN_SPEAR)       : stack(Items.GOLD_NUGGET, count),
+			(Items.IRON_SPEAR)         : stack(Items.IRON_NUGGET, count),
+		].each {spear, materialStack ->
+			offerBlastFurnaceRecipe {
+				ingredients spear, Items.SAND
+				outputs materialStack, TRContent.Dusts.DARK_ASHES
+				power TOOL_POWER
+				time TOOL_TIME
+				heat TOOL_HEAT
+				source "spear"
+				criterion getCriterionName(spear), getCriterionConditions(spear)
 			}
 		}
 	}
