@@ -177,9 +177,9 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 	void generateNautilusArmor() {
 		final int count = 2
 		[
-			(Items.COPPER_HORSE_ARMOR)	: stack(Items.COPPER_INGOT, count),
-			(Items.GOLDEN_HORSE_ARMOR) : stack(Items.GOLD_INGOT, count),
-			(Items.IRON_HORSE_ARMOR) : stack(Items.IRON_INGOT, count)
+			(Items.COPPER_NAUTILUS_ARMOR)	: stack(Items.COPPER_INGOT, count),
+			(Items.GOLDEN_NAUTILUS_ARMOR) : stack(Items.GOLD_INGOT, count),
+			(Items.IRON_NAUTILUS_ARMOR) : stack(Items.IRON_INGOT, count)
 		].each {nautilusArmor, materialStack ->
 			offerBlastFurnaceRecipe {
 				ingredients nautilusArmor, Items.SAND
