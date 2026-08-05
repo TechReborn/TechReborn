@@ -376,21 +376,21 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		offerBlastFurnaceRecipe {
 			power 128
 			time 100
-			heat 1000
+			heat 3000
 			ingredients Items.COBBLESTONE
 			outputs Items.BLACKSTONE
 		}
 		offerBlastFurnaceRecipe {
 			power 128
 			time 800
-			heat 2500
+			heat 1700
 			ingredients TRContent.Dusts.CHROME
 			outputs TRContent.Ingots.CHROME
 		}
 		offerBlastFurnaceRecipe {
 			power 128
 			time 800
-			heat 2500
+			heat 1700
 			ingredients stack(TRContent.SmallDusts.CHROME, 4)
 			outputs TRContent.Ingots.CHROME
 			source("small_dust")
@@ -405,7 +405,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		offerBlastFurnaceRecipe {
 			power 128
 			time 800
-			heat 2500
+			heat 2000
 			ingredients TRContent.RawMetals.IRIDIUM
 			outputs TRContent.Ingots.IRIDIUM
 		}
@@ -494,14 +494,14 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 		offerBlastFurnaceRecipe {
 			power 128
 			time 2000
-			heat 3000
+			heat 2500
 			ingredients TRConventionalTags.RAW_TUNGSTEN_ORES
 			outputs TRContent.Ingots.TUNGSTEN
 		}
 		offerBlastFurnaceRecipe {
 			power 128
 			time 2000
-			heat 3000
+			heat 2500
 			ingredients stack(TRContent.SmallDusts.TUNGSTEN, 4)
 			outputs TRContent.Ingots.TUNGSTEN
 			source("small_dust")
