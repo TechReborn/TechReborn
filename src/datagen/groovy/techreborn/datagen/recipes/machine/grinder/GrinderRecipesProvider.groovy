@@ -53,6 +53,10 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		generateSand()
 		generateRedSand()
 		generateConcretePowder()
+		generateGranite()
+		generateDiorite()
+		generateAndesite()
+		generateQuartz()
 		generateSawdust()
 		generateCinnabar()
 		generateSulfur()
@@ -154,18 +158,6 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			time 270
 			ingredients stack(Items.NETHER_QUARTZ_ORE)
 			outputs stack(Items.QUARTZ, 2)
-		}
-		offerGrinderRecipe {
-			power 4
-			time 270
-			ingredients stack(Items.QUARTZ)
-			outputs stack(TRContent.Dusts.QUARTZ)
-		}
-		offerGrinderRecipe {
-			power 4
-			time 1080
-			ingredients stack(Items.QUARTZ_BLOCK)
-			outputs stack(TRContent.Dusts.QUARTZ, 4)
 		}
 		offerGrinderRecipe {
 			power 2
@@ -282,6 +274,127 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 	}
+	void generateGranite() {
+		[
+			(Items.GRANITE): 2,
+			(Items.GRANITE_WALL): 2,
+			(Items.POLISHED_GRANITE) : 2,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.Dusts.GRANITE, count)
+				power 4
+				time 270
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		[
+			(Items.GRANITE_STAIRS): 6,
+			(Items.GRANITE_SLAB): 4,
+			(Items.POLISHED_GRANITE_STAIRS) : 6,
+			(Items.POLISHED_GRANITE_SLAB) : 4,
+		].each { item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.SmallDusts.GRANITE, count)
+				power 4
+				time 270
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+	}
+	void generateDiorite() {
+		[
+			(Items.DIORITE): 2,
+			(Items.DIORITE_WALL): 2,
+			(Items.POLISHED_DIORITE) : 2,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.Dusts.DIORITE, count)
+				power 4
+				time 270
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		[
+			(Items.DIORITE_STAIRS): 6,
+			(Items.DIORITE_SLAB): 4,
+			(Items.POLISHED_DIORITE_STAIRS) : 6,
+			(Items.POLISHED_DIORITE_SLAB) : 4,
+		].each { item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.SmallDusts.DIORITE, count)
+				power 4
+				time 270
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+	}
+	void generateAndesite() {
+		[
+			(Items.ANDESITE): 2,
+			(Items.ANDESITE_WALL): 2,
+			(Items.POLISHED_ANDESITE) : 2,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.Dusts.ANDESITE, count)
+				power 4
+				time 270
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		[
+			(Items.ANDESITE_STAIRS): 6,
+			(Items.ANDESITE_SLAB): 4,
+			(Items.POLISHED_ANDESITE_STAIRS) : 6,
+			(Items.POLISHED_ANDESITE_SLAB) : 4,
+		].each { item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(TRContent.SmallDusts.ANDESITE, count)
+				power 4
+				time 270
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+	}
+	void generateQuartz() {
+		[
+			(Items.QUARTZ_BLOCK): 4,
+			(Items.QUARTZ_STAIRS): 3,
+			(Items.QUARTZ_SLAB) : 2,
+			(Items.CHISELED_QUARTZ_BLOCK) : 4,
+			(Items.QUARTZ_BRICKS): 4,
+			(Items.QUARTZ_PILLAR): 4,
+			(Items.SMOOTH_QUARTZ): 4,
+			(Items.SMOOTH_QUARTZ_STAIRS): 3,
+			(Items.SMOOTH_QUARTZ_SLAB): 2,
+		].each {item, count ->
+			offerGrinderRecipe {
+				ingredients item
+				outputs stack(Items.QUARTZ, count)
+				power 4
+				time 270
+				source item
+				criterion getCriterionName(item), getCriterionConditions(item)
+			}
+		}
+		offerGrinderRecipe {
+			power 4
+			time 270
+			ingredients Items.QUARTZ
+			outputs TRContent.Dusts.QUARTZ
+		}
+	}
 	void generateCinnabar() {
 		[
 			(Items.CINNABAR): 1,
@@ -295,7 +408,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			offerGrinderRecipe {
 				ingredients item
 				outputs stack(TRContent.Dusts.CINNABAR, count)
-				power count
+				power 4
 				time 200
 				source item
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -332,7 +445,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			offerGrinderRecipe {
 				ingredients item
 				outputs stack(TRContent.Dusts.SULFUR, count)
-				power count
+				power 4
 				time 200
 				source item
 				criterion getCriterionName(item), getCriterionConditions(item)
@@ -505,22 +618,10 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			outputs stack("techreborn:pyrite_dust", 2)
 		}
 		offerGrinderRecipe {
-			power 4
-			time 200
-			ingredients stack("minecraft:blaze_rod")
-			outputs stack("minecraft:blaze_powder", 4)
-		}
-		offerGrinderRecipe {
 			power 2
 			time 150
 			ingredients stack("minecraft:glow_berries", 4)
 			outputs stack("techreborn:glowstone_small_dust")
-		}
-		offerGrinderRecipe {
-			power 4
-			time 270
-			ingredients stack("minecraft:andesite")
-			outputs stack("techreborn:andesite_dust", 2)
 		}
 		offerGrinderRecipe {
 			power 2
@@ -596,12 +697,6 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerGrinderRecipe {
 			power 2
-			time 1440
-			ingredients stack("minecraft:diorite")
-			outputs stack("techreborn:diorite_dust")
-		}
-		offerGrinderRecipe {
-			power 2
 			time 270
 			ingredients TRConventionalTags.GALENA_ORES
 			outputs stack("techreborn:galena_dust", 2)
@@ -632,12 +727,6 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 			ingredients TRConventionalTags.LIMESTORE
 			outputs stack("techreborn:marble_dust")
 			condition ResourceConditions.tagsPopulated(TRConventionalTags.LIMESTORE)
-		}
-		offerGrinderRecipe {
-			power 4
-			time 270
-			ingredients stack("minecraft:granite")
-			outputs stack("techreborn:granite_dust", 2)
 		}
 		offerGrinderRecipe {
 			power 2

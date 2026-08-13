@@ -61,21 +61,26 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			(Items.LAPIS_LAZULI) : Items.DYE.blue(),
 			(Items.COCOA_BEANS) : Items.DYE.brown(),
 			(Items.CLOSED_EYEBLOSSOM) : Items.DYE.gray(),
+			(Items.CACTUS) : Items.DYE.green(),
 			(Items.BLUE_ORCHID) : Items.DYE.lightBlue(),
 			(Items.AZURE_BLUET) : Items.DYE.lightGray(),
 			(Items.OXEYE_DAISY) : Items.DYE.lightGray(),
 			(Items.WHITE_TULIP) : Items.DYE.lightGray(),
+			(Items.SEA_PICKLE) : Items.DYE.lime(),
 			(Items.ALLIUM) : Items.DYE.magenta(),
 			(Items.OPEN_EYEBLOSSOM) : Items.DYE.orange(),
 			(Items.ORANGE_TULIP) : Items.DYE.orange(),
 			(Items.TORCHFLOWER) : Items.DYE.orange(),
+			(Items.CACTUS_FLOWER) : Items.DYE.pink(),
 			(Items.PINK_TULIP) : Items.DYE.pink(),
 			(Items.PINK_PETALS) : Items.DYE.pink(),
 			(Items.POPPY) : Items.DYE.red(),
 			(Items.RED_TULIP) : Items.DYE.red(),
 			(Items.BONE_MEAL) : Items.DYE.white(),
 			(Items.LILY_OF_THE_VALLEY) : Items.DYE.white(),
-			(Items.DANDELION) : Items.DYE.yellow()
+			(Items.DANDELION) : Items.DYE.yellow(),
+			(Items.GOLDEN_DANDELION) : Items.DYE.yellow(),
+			(Items.WILDFLOWERS) : Items.DYE.yellow()
 		].each { item, dye ->
 			offerExtractorRecipe {
 				ingredients item
@@ -300,6 +305,7 @@ class ExtractorRecipesProvider extends TechRebornRecipesProvider {
 			}
 		}
 		[
+			(Items.DRIED_GHAST) : Items.GHAST_TEAR,
 			(TRContent.RUBBER_SAPLING) : TRContent.Parts.RUBBER,
 			(Items.STICKY_PISTON) : Items.SLIME_BALL,
 			(Items.BOW) : Items.STRING,

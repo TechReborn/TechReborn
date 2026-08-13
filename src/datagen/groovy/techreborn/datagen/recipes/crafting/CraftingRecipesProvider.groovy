@@ -28,6 +28,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.data.recipes.ShapelessRecipeBuilder
 import net.minecraft.data.recipes.SingleItemRecipeBuilder
+import net.minecraft.tags.ItemTags
+import net.minecraft.tags.TagKey
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
@@ -86,61 +88,23 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			offerWallRecipe(block.asTag(), block.getWallBlock(), "crafting_table/storage_block/")
 			offerWallRecipeStonecutter(block.asTag(), block.getWallBlock(), "crafting_table/storage_block/")
 		}
-		generateToolRecipes()
 		generateArmorRecipes()
+		generateBatteryRecipes()
+		generateCableRecipes()
+		generateIngotRecipes()
+//		generateMachineRecipes()
+		generateMachineBlockRecipes()
+//		generateMiscBlockRecipes()
+		generatePartRecipes()
+//		generateSolarPanelRecipes()
+//		generateStorageBlockRecipes()
+		generateToolRecipes()
+//		generateUnitRecipes()
+//		generateUpgradeRecipes()
 		generateUuMatterRecipes()
-		generateMisc()
 	}
-
-	def generateToolRecipes() {
-		// add axes
-		[
-				(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_AXE,
-				(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_AXE,
-				(TRContent.Gems.RUBY)            : TRContent.RUBY_AXE,
-				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_AXE
-		].each { material, axe ->
-			offerAxeRecipe(material, axe, "crafting_table/tool/")
-		}
-		// add hoes
-		[
-				(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_HOE,
-				(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_HOE,
-				(TRContent.Gems.RUBY)            : TRContent.RUBY_HOE,
-				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_HOE
-		].each { material, hoe ->
-			offerHoeRecipe(material, hoe, "crafting_table/tool/")
-		}
-		// add pickaxes
-		[
-				(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_PICKAXE,
-				(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_PICKAXE,
-				(TRContent.Gems.RUBY)            : TRContent.RUBY_PICKAXE,
-				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_PICKAXE
-		].each { material, pickaxe ->
-			offerPickaxeRecipe(material, pickaxe, "crafting_table/tool/")
-		}
-		// add shovels
-		[
-				(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_SPADE,
-				(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_SPADE,
-				(TRContent.Gems.RUBY)            : TRContent.RUBY_SPADE,
-				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SPADE
-		].each { material, shovel ->
-			offerShovelRecipe(material, shovel, "crafting_table/tool/", "spade")
-		}
-		// add swords
-		[
-				(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_SWORD,
-				(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_SWORD,
-				(TRContent.Gems.RUBY)            : TRContent.RUBY_SWORD,
-				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SWORD
-		].each { material, sword ->
-			offerSwordRecipe(material, sword, "crafting_table/tool/")
-		}
-	}
-
 	def generateArmorRecipes() {
+		String rootDir = "crafting_table/armor/"
 		// add boots
 		[
 				(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_BOOTS,
@@ -150,7 +114,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Ingots.SILVER)        : TRContent.SILVER_BOOTS,
 				(TRContent.Ingots.STEEL)         : TRContent.STEEL_BOOTS
 		].each { material, boots ->
-			offerBootsRecipe(material, boots, "crafting_table/armor/")
+			offerBootsRecipe(material, boots, rootDir)
 		}
 		// add chestplate
 		[
@@ -161,7 +125,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Ingots.SILVER)        : TRContent.SILVER_CHESTPLATE,
 				(TRContent.Ingots.STEEL)         : TRContent.STEEL_CHESTPLATE
 		].each { material, chestplate ->
-			offerChestplateRecipe(material, chestplate, "crafting_table/armor/")
+			offerChestplateRecipe(material, chestplate, rootDir)
 		}
 		// add helmets
 		[
@@ -172,7 +136,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Ingots.SILVER)        : TRContent.SILVER_HELMET,
 				(TRContent.Ingots.STEEL)         : TRContent.STEEL_HELMET
 		].each { material, helmet ->
-			offerHelmetRecipe(material, helmet, "crafting_table/armor/")
+			offerHelmetRecipe(material, helmet, rootDir)
 		}
 		// add leggings
 		[
@@ -183,10 +147,526 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Ingots.SILVER)        : TRContent.SILVER_LEGGINGS,
 				(TRContent.Ingots.STEEL)         : TRContent.STEEL_LEGGINGS
 		].each { material, leggings ->
-			offerLeggingsRecipe(material, leggings, "crafting_table/armor/")
+			offerLeggingsRecipe(material, leggings, rootDir)
+		}
+		//trinkets
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.LITHIUM_ION_BATPACK)
+			.pattern("BCB")
+			.pattern("BPB")
+			.pattern("B B")
+			.define('C' as Character, TRContent.Parts.ADVANCED_CIRCUIT)
+			.define('P' as Character, TRContent.Plates.ALUMINUM.asTag())
+			.define('B' as Character, TRContent.LITHIUM_ION_BATTERY)
+			.unlockedBy("has_lithium_ion_battery", getCriterionConditions(TRContent.LITHIUM_ION_BATTERY))
+			.save(this.exporter, getRecipeKey(rootDir+"lithium_ion_batpack"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.LAPOTRONIC_ORBPACK)
+			.pattern("FOF")
+			.pattern("SPS")
+			.pattern("FIF")
+			.define('F' as Character, TRContent.Parts.ENERGY_FLOW_CHIP)
+			.define('O' as Character, TRContent.LAPOTRONIC_ORB)
+			.define('S' as Character, TRContent.Parts.SUPERCONDUCTOR)
+			.define('P' as Character, TRContent.LITHIUM_ION_BATPACK)
+			.define('I' as Character, TRContent.Ingots.IRIDIUM.asTag())
+			.unlockedBy("has_lapotronic_orb", getCriterionConditions(TRContent.LAPOTRONIC_ORB))
+			.save(this.exporter, getRecipeKey(rootDir+"lapotronic_orbpack"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.CLOAKING_DEVICE)
+			.pattern("CIC")
+			.pattern("IOI")
+			.pattern("CIC")
+			.define('C' as Character, TRContent.Ingots.CHROME.asTag())
+			.define('I' as Character, TRContent.Plates.IRIDIUM_ALLOY.asTag())
+			.define('O' as Character, TRContent.LAPOTRONIC_ORB)
+			.unlockedBy("has_lapotronic_orb", getCriterionConditions(TRContent.LAPOTRONIC_ORB))
+			.save(this.exporter, getRecipeKey(rootDir+"cloaking_device"))
+		//nano
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.NANO_HELMET)
+			.pattern("CEC")
+			.pattern("C C")
+			.define('C' as Character, TRContent.Plates.CARBON.asTag())
+			.define('E' as Character, TRContent.ENERGY_CRYSTAL)
+			.unlockedBy("has_energy_crystal", getCriterionConditions(TRContent.ENERGY_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"nano_helmet"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.NANO_CHESTPLATE)
+			.pattern("C C")
+			.pattern("CEC")
+			.pattern("CAC")
+			.define('C' as Character, TRContent.Plates.CARBON.asTag())
+			.define('A' as Character, TRContent.Parts.ADVANCED_CIRCUIT)
+			.define('E' as Character, TRContent.ENERGY_CRYSTAL)
+			.unlockedBy("has_energy_crystal", getCriterionConditions(TRContent.ENERGY_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"nano_chestplate"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.NANO_LEGGINGS)
+			.pattern("CAC")
+			.pattern("E E")
+			.pattern("C C")
+			.define('C' as Character, TRContent.Plates.CARBON.asTag())
+			.define('A' as Character, TRContent.Parts.ADVANCED_CIRCUIT)
+			.define('E' as Character, TRContent.ENERGY_CRYSTAL)
+			.unlockedBy("has_energy_crystal", getCriterionConditions(TRContent.ENERGY_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"nano_leggings"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.NANO_BOOTS)
+			.pattern("E E")
+			.pattern("C C")
+			.define('C' as Character, TRContent.Plates.CARBON.asTag())
+			.define('E' as Character, TRContent.ENERGY_CRYSTAL)
+			.unlockedBy("has_energy_crystal", getCriterionConditions(TRContent.ENERGY_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"nano_boots"))
+		//quantum
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.QUANTUM_HELMET)
+			.pattern("DLD")
+			.pattern("S S")
+			.define('S' as Character, TRContent.Parts.SUPERCONDUCTOR)
+			.define('L' as Character, TRContent.LAPOTRON_CRYSTAL)
+			.define('D' as Character, TRContent.Parts.DATA_STORAGE_CHIP)
+			.unlockedBy("has_lapotron_crystal", getCriterionConditions(TRContent.LAPOTRON_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"quantum_helmet"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.QUANTUM_CHESTPLATE)
+			.pattern("P P")
+			.pattern("SLS")
+			.pattern("DID")
+			.define('P' as Character, TRContent.Plates.TUNGSTENSTEEL.asTag())
+			.define('S' as Character, TRContent.Parts.SUPERCONDUCTOR)
+			.define('L' as Character, TRContent.LAPOTRON_CRYSTAL)
+			.define('D' as Character, TRContent.Parts.DATA_STORAGE_CHIP)
+			.define('I' as Character, TRContent.NuclearReactorComponents.IRIDIUM_NEUTRON_REFLECTOR)
+			.unlockedBy("has_lapotron_crystal", getCriterionConditions(TRContent.LAPOTRON_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"quantum_chestplate"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.QUANTUM_LEGGINGS)
+			.pattern("DLD")
+			.pattern("S S")
+			.pattern("P P")
+			.define('P' as Character, TRContent.Plates.TUNGSTENSTEEL.asTag())
+			.define('S' as Character, TRContent.Parts.SUPERCONDUCTOR)
+			.define('L' as Character, TRContent.LAPOTRON_CRYSTAL)
+			.define('D' as Character, TRContent.Parts.DATA_STORAGE_CHIP)
+			.unlockedBy("has_lapotron_crystal", getCriterionConditions(TRContent.LAPOTRON_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"quantum_leggings"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.QUANTUM_BOOTS)
+			.pattern("L L")
+			.pattern("D D")
+			.pattern("S S")
+			.define('S' as Character, TRContent.Parts.SUPERCONDUCTOR)
+			.define('L' as Character, TRContent.LAPOTRON_CRYSTAL)
+			.define('D' as Character, TRContent.Parts.DATA_STORAGE_CHIP)
+			.unlockedBy("has_lapotron_crystal", getCriterionConditions(TRContent.LAPOTRON_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"quantum_boots"))
+	}
+	def generateBatteryRecipes(){
+		String rootDir = "crafting_table/battery/"
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.RED_CELL_BATTERY)
+			.pattern(" W ")
+			.pattern("TRT")
+			.pattern("TRT")
+			.define('W' as Character, TRContent.Cables.INSULATED_COPPER)
+			.define('R' as Character, Items.REDSTONE)
+			.define('T' as Character, TRContent.Ingots.LEAD.asTag())
+			.unlockedBy("has_insulated_copper_cable", getCriterionConditions(TRContent.Cables.INSULATED_COPPER))
+			.save(this.exporter, getRecipeKey(rootDir+"red_cell_battery"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.LAPOTRON_CRYSTAL)
+			.pattern("LCL")
+			.pattern("LEL")
+			.pattern("LCL")
+			.define('L' as Character, TRContent.Plates.LAZURITE.asTag())
+			.define('C' as Character, TRContent.Parts.INDUSTRIAL_CIRCUIT)
+			.define('E' as Character, TRContent.ENERGY_CRYSTAL)
+			.unlockedBy("has_industrial_circuit", getCriterionConditions(TRContent.Parts.INDUSTRIAL_CIRCUIT))
+			.save(this.exporter, getRecipeKey(rootDir+"lapotron_crystal"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.LAPOTRONIC_ORB)
+			.pattern("LLL")
+			.pattern("LPL")
+			.pattern("LLL")
+			.define('L' as Character, TRContent.LAPOTRON_CRYSTAL)
+			.define('P' as Character, TRContent.Plates.IRIDIUM_ALLOY.asTag())
+			.unlockedBy("has_lapotron_crystal", getCriterionConditions(TRContent.LAPOTRON_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"lapotronic_orb"))
+	}
+	def generateCableRecipes(){
+		String rootDir = "crafting_table/cable/"
+		//low
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.TIN,9)
+			.pattern("III")
+			.define('I' as Character, TRContent.Ingots.TIN.asTag())
+			.unlockedBy("has_tin_ingot", getCriterionConditions(TRContent.Ingots.TIN.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"tin_cable"))
+		//medium
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.COPPER,6)
+			.pattern("III")
+			.define('I' as Character, Items.COPPER_INGOT)
+			.unlockedBy("has_copper_ingot", getCriterionConditions(Items.COPPER_INGOT))
+			.save(this.exporter, getRecipeKey(rootDir+"copper_cable"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.INSULATED_COPPER,6)
+			.pattern("RRR")
+			.pattern("III")
+			.pattern("RRR")
+			.define('I' as Character, Items.COPPER_INGOT)
+			.define('R' as Character, TRContent.Parts.RUBBER)
+			.unlockedBy("has_copper_ingot", getCriterionConditions(Items.COPPER_INGOT))
+			.save(this.exporter, getRecipeKey(rootDir+"insulated_copper_cable"))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, TRContent.Cables.INSULATED_COPPER)
+			.requires(TRContent.Parts.RUBBER)
+			.requires(TRContent.Cables.COPPER)
+			.unlockedBy("has_copper_cable", getCriterionConditions(TRContent.Cables.COPPER))
+			.save(this.exporter, getRecipeKey(rootDir+"insulated_copper_cable_shapeless"))
+		//high
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.GOLD,12)
+			.pattern("III")
+			.define('I' as Character, Items.GOLD_INGOT)
+			.unlockedBy("has_gold_ingot", getCriterionConditions(Items.GOLD_INGOT))
+			.save(this.exporter, getRecipeKey(rootDir+"gold_cable"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.INSULATED_GOLD,4)
+			.pattern("RRR")
+			.pattern("RIR")
+			.pattern("RRR")
+			.define('I' as Character, Items.GOLD_INGOT)
+			.define('R' as Character, TRContent.Parts.RUBBER)
+			.unlockedBy("has_gold_ingot", getCriterionConditions(Items.GOLD_INGOT))
+			.save(this.exporter, getRecipeKey(rootDir+"insulated_gold_cable"))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, TRContent.Cables.INSULATED_GOLD)
+			.requires(TRContent.Parts.RUBBER,2)
+			.requires(TRContent.Cables.GOLD)
+			.unlockedBy("has_gold_cable", getCriterionConditions(TRContent.Cables.GOLD))
+			.save(this.exporter, getRecipeKey(rootDir+"insulated_gold_cable_shapeless"))
+		//extreme
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.HV,12)
+			.pattern("III")
+			.define('I' as Character, TRContent.Ingots.REFINED_IRON.asTag())
+			.unlockedBy("has_refined_iron_ingot", getCriterionConditions(TRContent.Ingots.REFINED_IRON.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"hv_cable"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.INSULATED_HV,4)
+			.pattern("RRR")
+			.pattern("RIR")
+			.pattern("RRR")
+			.define('I' as Character, TRContent.Ingots.REFINED_IRON.asTag())
+			.define('R' as Character, TRContent.Parts.RUBBER)
+			.unlockedBy("has_refined_iron_ingot", getCriterionConditions(TRContent.Ingots.REFINED_IRON.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"insulated_hv_cable"))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, TRContent.Cables.INSULATED_HV)
+			.requires(TRContent.Parts.RUBBER,2)
+			.requires(TRContent.Ingots.REFINED_IRON.asTag())
+			.unlockedBy("has_hv_cable", getCriterionConditions(TRContent.Ingots.REFINED_IRON.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"insulated_hv_cable_shapeless"))
+		//insane
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.GLASSFIBER)
+			.pattern("GGG")
+			.pattern("EDE")
+			.pattern("GGG")
+			.define('G' as Character, Items.GLASS)
+			.define('E' as Character, TRContent.Dusts.ELECTRUM)
+			.define('D' as Character, TRContent.Dusts.DIAMOND)
+			.unlockedBy("has_electrum_dust", getCriterionConditions(TRContent.Dusts.ELECTRUM.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"glassfiber_cable"))
+		//infinite
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Cables.SUPERCONDUCTOR)
+			.pattern("MFM")
+			.pattern("SSS")
+			.pattern("MFM")
+			.define('M' as Character, TRContent.MachineBlocks.ADVANCED.frame)
+			.define('F' as Character, TRContent.Parts.ENERGY_FLOW_CHIP)
+			.define('S' as Character, TRContent.Parts.SUPERCONDUCTOR)
+			.unlockedBy("has_lapotron_crystal", getCriterionConditions(TRContent.LAPOTRON_CRYSTAL))
+			.save(this.exporter, getRecipeKey(rootDir+"superconductor_cable"))
+	}
+	def generateIngotRecipes(){
+		//x2
+		mixed_metal_ingot(TRContent.Ingots.REFINED_IRON.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.TIN.asTag(),2,"iron1")
+		mixed_metal_ingot(TRContent.Ingots.REFINED_IRON.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.TIN.asTag(),2,"iron2")
+		mixed_metal_ingot(TRContent.Ingots.REFINED_IRON.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ZINC.asTag(),2,"iron3")
+		mixed_metal_ingot(TRContent.Ingots.REFINED_IRON.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ZINC.asTag(),2,"iron4")
+		//x3
+		mixed_metal_ingot(TRContent.Ingots.REFINED_IRON.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ALUMINUM.asTag(),3,"iron5")
+		mixed_metal_ingot(TRContent.Ingots.REFINED_IRON.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ALUMINUM.asTag(),3,"iron6")
+		mixed_metal_ingot(TRContent.Ingots.NICKEL.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.TIN.asTag(),3,"nickel1")
+		mixed_metal_ingot(TRContent.Ingots.NICKEL.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.TIN.asTag(),3,"nickel2")
+		mixed_metal_ingot(TRContent.Ingots.NICKEL.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ZINC.asTag(),3,"nickel3")
+		mixed_metal_ingot(TRContent.Ingots.NICKEL.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ZINC.asTag(),3,"nickel4")
+		//x4
+		mixed_metal_ingot(TRContent.Ingots.NICKEL.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ALUMINUM.asTag(),4,"nickel5")
+		mixed_metal_ingot(TRContent.Ingots.NICKEL.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ALUMINUM.asTag(),4,"nickel6")
+		mixed_metal_ingot(TRContent.Ingots.INVAR.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.TIN.asTag(),4,"invar1")
+		mixed_metal_ingot(TRContent.Ingots.INVAR.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.TIN.asTag(),4,"invar2")
+		mixed_metal_ingot(TRContent.Ingots.INVAR.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ZINC.asTag(),4,"invar3")
+		mixed_metal_ingot(TRContent.Ingots.INVAR.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ZINC.asTag(),4,"invar4")
+		//x5
+		mixed_metal_ingot(TRContent.Ingots.INVAR.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ALUMINUM.asTag(),5,"invar5")
+		mixed_metal_ingot(TRContent.Ingots.INVAR.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ALUMINUM.asTag(),5,"invar6")
+		mixed_metal_ingot(TRContent.Ingots.TITANIUM.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.TIN.asTag(),5,"titanium1")
+		mixed_metal_ingot(TRContent.Ingots.TITANIUM.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.TIN.asTag(),5,"titanium2")
+		mixed_metal_ingot(TRContent.Ingots.TITANIUM.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ZINC.asTag(),5,"titanium3")
+		mixed_metal_ingot(TRContent.Ingots.TITANIUM.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ZINC.asTag(),5,"titanium4")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTEN.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.TIN.asTag(),5,"tungsten1")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTEN.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.TIN.asTag(),5,"tungsten2")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTEN.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ZINC.asTag(),5,"tungsten3")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTEN.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ZINC.asTag(),5,"tungsten4")
+		//x6
+		mixed_metal_ingot(TRContent.Ingots.TITANIUM.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ALUMINUM.asTag(),6,"titanium5")
+		mixed_metal_ingot(TRContent.Ingots.TITANIUM.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ALUMINUM.asTag(),6,"titanium6")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTEN.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ALUMINUM.asTag(),6,"tungsten5")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTEN.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ALUMINUM.asTag(),6,"tungsten6")
+		//x8
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTENSTEEL.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.TIN.asTag(),8,"tungsten_steel1")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTENSTEEL.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.TIN.asTag(),8,"tungsten_steel2")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTENSTEEL.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ZINC.asTag(),8,"tungsten_steel3")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTENSTEEL.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ZINC.asTag(),8,"tungsten_steel4")
+		//x9
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTENSTEEL.asTag(),TRContent.Ingots.BRONZE.asTag(),TRContent.Ingots.ALUMINUM.asTag(),9,"tungsten_steel5")
+		mixed_metal_ingot(TRContent.Ingots.TUNGSTENSTEEL.asTag(),TRContent.Ingots.BRASS.asTag(),TRContent.Ingots.ALUMINUM.asTag(),9,"tungsten_steel6")
+
+		String rootDir = "crafting_table/ingot/"
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Ingots.INDUSTRIAL_ALLOY)
+			.pattern("SCS")
+			.pattern("IMI")
+			.pattern("SCS")
+			.define('C' as Character, TRContent.Ingots.CHROME.asTag())
+			.define('I' as Character, TRContent.Ingots.INVAR.asTag())
+			.define('M' as Character, TRContent.SmallDusts.MANGANESE.asTag())
+			.define('S' as Character, TRContent.Plates.STEEL.asTag())
+			.unlockedBy("has_steel_ingot", getCriterionConditions(TRContent.Ingots.STEEL.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"industrial_alloy_ingot"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Ingots.IRIDIUM_ALLOY)
+			.pattern("IAI")
+			.pattern("ADA")
+			.pattern("IAI")
+			.define('A' as Character, TRContent.Plates.ADVANCED_ALLOY.asTag())
+			.define('D' as Character, TRContent.Dusts.DIAMOND.asTag())
+			.define('I' as Character, TRContent.Plates.IRIDIUM.asTag())
+			.unlockedBy("has_iridium_ingot", getCriterionConditions(TRContent.Ingots.IRIDIUM.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"iridium_alloy_ingot"))
+	}
+	def generateMachineBlockRecipes(){
+		String rootDir = "crafting_table/machine_block/"
+		//basic:frame
+		createMonoShapeRecipe(TRContent.Ingots.REFINED_IRON.asTag(), TRContent.MachineBlocks.BASIC.frame,
+			'R' as char)
+			.pattern("RRR")
+			.pattern("R R")
+			.pattern("RRR")
+			.save(this.exporter, getRecipeKey(rootDir+"basic_machine_frame_refined_iron"))
+		createMonoShapeRecipe(TRContent.Ingots.ALUMINUM.asTag(), TRContent.MachineBlocks.BASIC.frame,
+			'A' as char)
+			.pattern("AAA")
+			.pattern("A A")
+			.pattern("AAA")
+			.save(this.exporter, getRecipeKey(rootDir+"basic_machine_frame_aluminum"))
+		//basic:casing
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.MachineBlocks.BASIC.casing)
+			.pattern("CAC")
+			.define('A' as Character, TRContent.MachineBlocks.BASIC.frame)
+			.define('C' as Character, TRContent.Parts.ELECTRONIC_CIRCUIT)
+			.unlockedBy("has_basic_machine_frame", getCriterionConditions(TRContent.MachineBlocks.BASIC.frame))
+			.save(this.exporter, getRecipeKey(rootDir+"basic_machine_casing"))
+		//advanced:frame
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.MachineBlocks.ADVANCED.frame)
+			.pattern(" C ")
+			.pattern("AMA")
+			.pattern(" C ")
+			.define('A' as Character, TRContent.Plates.ADVANCED_ALLOY.asTag())
+			.define('C' as Character, TRContent.Plates.CARBON.asTag())
+			.define('M' as Character, TRContent.MachineBlocks.BASIC.frame)
+			.unlockedBy("has_basic_machine_frame", getCriterionConditions(TRContent.MachineBlocks.BASIC.frame))
+			.save(this.exporter, getRecipeKey(rootDir+"advanced_machine_frame"))
+		//advanced:casing
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.MachineBlocks.ADVANCED.casing)
+			.pattern(" R ")
+			.pattern("CAC")
+			.pattern(" R ")
+			.define('A' as Character, TRContent.MachineBlocks.ADVANCED.frame)
+			.define('R' as Character, TRContent.Plates.STEEL.asTag())
+			.define('C' as Character, TRContent.Parts.ADVANCED_CIRCUIT)
+			.unlockedBy("has_steel_ingot", getCriterionConditions(TRContent.Ingots.STEEL.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"advanced_machine_casing"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.MachineBlocks.ADVANCED.casing)
+			.pattern(" R ")
+			.pattern("CAC")
+			.pattern(" R ")
+			.define('A' as Character, TRContent.MachineBlocks.BASIC.casing)
+			.define('R' as Character, TRContent.Plates.STEEL.asTag())
+			.define('C' as Character, TRContent.Parts.ADVANCED_CIRCUIT)
+			.unlockedBy("has_steel_ingot", getCriterionConditions(TRContent.Ingots.STEEL.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"advanced_machine_casing_alt"))
+		//industrial:frame
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.MachineBlocks.INDUSTRIAL.frame)
+			.pattern("CTC")
+			.pattern("TBT")
+			.pattern("CTC")
+			.define('B' as Character, TRContent.MachineBlocks.ADVANCED.frame)
+			.define('C' as Character, TRContent.Plates.CHROME.asTag())
+			.define('T' as Character, TRContent.Plates.TITANIUM.asTag())
+			.unlockedBy("has_titanium_ingot", getCriterionConditions(TRContent.Ingots.TITANIUM.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"industrial_machine_frame"))
+		//industrial:casing
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.MachineBlocks.INDUSTRIAL.casing)
+			.pattern(" R ")
+			.pattern("CAC")
+			.pattern(" R ")
+			.define('A' as Character, TRContent.MachineBlocks.INDUSTRIAL.frame)
+			.define('R' as Character, TRContent.Plates.CHROME.asTag())
+			.define('C' as Character, TRContent.Parts.DATA_STORAGE_CORE)
+			.unlockedBy("has_chromium_ingot", getCriterionConditions(TRContent.Ingots.CHROME.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"industrial_machine_casing"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.MachineBlocks.INDUSTRIAL.casing)
+			.pattern(" R ")
+			.pattern("CAC")
+			.pattern(" R ")
+			.define('A' as Character, TRContent.MachineBlocks.ADVANCED.casing)
+			.define('R' as Character, TRContent.Plates.CHROME.asTag())
+			.define('C' as Character, TRContent.Parts.DATA_STORAGE_CORE)
+			.unlockedBy("has_chromium_ingot", getCriterionConditions(TRContent.Ingots.CHROME.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"industrial_machine_casing_alt"))
+	}
+	def generatePartRecipes(){
+		String rootDir = "crafting_table/parts/"
+		//guidebook
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(TRContent.MANUAL))
+			.requires(Items.BOOK)
+			.requires(TRContent.Ingots.REFINED_IRON.asTag())
+			.unlockedBy("has_refined_iron_ingot", getCriterionConditions(TRContent.Ingots.REFINED_IRON.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"manual"))
+		//rubber
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(Items.RESIN_CLUMP, 2))
+			.requires(TRContent.Parts.SAP, 2)
+			.requires(Items.SLIME_BALL)
+			.unlockedBy("has_sap", getCriterionConditions(TRContent.Parts.SAP))
+			.save(this.exporter, getRecipeKey(rootDir+"resin_clump"))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(TRContent.Parts.SAP.asItem(), 8))
+			.requires(Items.RESIN_CLUMP, 4)
+			.requires(Items.WATER_BUCKET)
+			.unlockedBy("has_resin_clump", getCriterionConditions(Items.RESIN_CLUMP))
+			.save(this.exporter, getRecipeKey(rootDir+"sap"))
+		//carbon
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Parts.CARBON_FIBER)
+			.pattern(" C ")
+			.pattern("C C")
+			.pattern(" C ")
+			.define('C' as Character, TRContent.Dusts.COAL)
+			.unlockedBy("has_coal", getCriterionConditions(Items.COAL))
+			.save(this.exporter, getRecipeKey(rootDir+"carbon_fiber"))
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, TRContent.Parts.CARBON_MESH)
+			.requires(TRContent.Parts.CARBON_FIBER,2)
+			.unlockedBy("has_coal", getCriterionConditions(Items.COAL))
+			.save(this.exporter, getRecipeKey(rootDir+"carbon_mesh"))
+		//circuit
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Parts.ELECTRONIC_CIRCUIT)
+			.pattern("WWW")
+			.pattern("SRS")
+			.pattern("WWW")
+			.define('R' as Character, TRContent.Ingots.REFINED_IRON.asTag())
+			.define('W' as Character, TRContent.Cables.INSULATED_COPPER)
+			.define('S' as Character, Items.REDSTONE)
+			.unlockedBy("has_refined_iron_ingot", getCriterionConditions(TRContent.Ingots.REFINED_IRON.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"electronic_circuit"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Parts.ADVANCED_CIRCUIT)
+			.pattern("RGR")
+			.pattern("LCL")
+			.pattern("RGR")
+			.define('R' as Character, Items.REDSTONE)
+			.define('C' as Character, TRContent.Parts.ELECTRONIC_CIRCUIT)
+			.define('G' as Character, Items.GLOWSTONE_DUST)
+			.define('L' as Character, Items.LAPIS_LAZULI)
+			.unlockedBy("has_electronic_circuit", getCriterionConditions(TRContent.Parts.ELECTRONIC_CIRCUIT))
+			.save(this.exporter, getRecipeKey(rootDir+"advanced_circuit"))
+		//display
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Parts.BASIC_DISPLAY)
+			.pattern("ADA")
+			.pattern("DCD")
+			.pattern("AGA")
+			.define('A' as Character, TRContent.Plates.REFINED_IRON.asTag())
+			.define('G' as Character, TRContent.Parts.ELECTRONIC_CIRCUIT)
+			.define('C' as Character, Items.GLASS_PANE)
+			.define('D' as Character, Items.DYE.black())
+			.unlockedBy("has_refined_iron_ingot", getCriterionConditions(TRContent.Ingots.REFINED_IRON.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"basic_display"))
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Parts.DIGITAL_DISPLAY)
+			.pattern("ADA")
+			.pattern("DCD")
+			.pattern("AGA")
+			.define('A' as Character, TRContent.Plates.ALUMINUM.asTag())
+			.define('G' as Character, TRContent.Parts.ELECTRONIC_CIRCUIT)
+			.define('C' as Character, Items.GLASS_PANE)
+			.define('D' as Character, Items.DYE.black())
+			.unlockedBy("has_aluminum_ingot", getCriterionConditions(TRContent.Ingots.ALUMINUM.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"digital_display"))
+		//cell
+		createMonoShapeRecipe(TRContent.Ingots.TIN.asTag(), TRContent.Cells.EMPTY,
+			'T' as char,4)
+			.pattern(" T ")
+			.pattern("T T")
+			.pattern(" T ")
+			.save(this.exporter, getRecipeKey("crafting_table/cell_tin"))
+		createMonoShapeRecipe(TRContent.Ingots.ALUMINUM.asTag(), TRContent.Cells.EMPTY,
+			'A' as char,4)
+			.pattern(" A ")
+			.pattern("A A")
+			.pattern(" A ")
+			.save(this.exporter, getRecipeKey("crafting_table/cell_aluminum"))
+		//scrap
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(TRContent.SCRAP_BOX))
+			.requires(TRContent.Parts.SCRAP, 9)
+			.unlockedBy("has_scrap", getCriterionConditions(TRContent.Parts.SCRAP))
+			.save(this.exporter, getRecipeKey("crafting_table/scrap_box"))
+		//template
+		createDuoShapeRecipe(Items.DIAMOND, TRContent.Nuggets.NETHERITE.asTag(), TRContent.Parts.TEMPLATE_TEMPLATE,
+			'D' as char, 'N' as char)
+			.pattern("NDN")
+			.pattern("DDD")
+			.pattern("NDN")
+			.save(this.exporter, getRecipeKey(rootDir+TRContent.Parts.TEMPLATE_TEMPLATE.name))
+		//vanilla
+		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, Items.GUNPOWDER,2)
+			.requires(TRContent.Dusts.CHARCOAL.asTag())
+			.requires(TRContent.Dusts.SULFUR.asTag())
+			.requires(TRContent.Dusts.SALTPETER.asTag())
+			.requires(TRContent.Dusts.SALTPETER.asTag())
+			.unlockedBy("has_saltpeter_dust", getCriterionConditions(TRContent.Dusts.SALTPETER.asTag()))
+			.save(this.exporter, getRecipeKey("crafting_table/tech_reborn_gunpowder"))
+	}
+	def generateToolRecipes() {
+		// add axes
+		[
+			(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_AXE,
+			(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_AXE,
+			(TRContent.Gems.RUBY)            : TRContent.RUBY_AXE,
+			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_AXE
+		].each { material, axe ->
+			offerAxeRecipe(material, axe, "crafting_table/tool/")
+		}
+		// add hoes
+		[
+			(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_HOE,
+			(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_HOE,
+			(TRContent.Gems.RUBY)            : TRContent.RUBY_HOE,
+			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_HOE
+		].each { material, hoe ->
+			offerHoeRecipe(material, hoe, "crafting_table/tool/")
+		}
+		// add pickaxes
+		[
+			(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_PICKAXE,
+			(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_PICKAXE,
+			(TRContent.Gems.RUBY)            : TRContent.RUBY_PICKAXE,
+			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_PICKAXE
+		].each { material, pickaxe ->
+			offerPickaxeRecipe(material, pickaxe, "crafting_table/tool/")
+		}
+		// add shovels
+		[
+			(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_SPADE,
+			(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_SPADE,
+			(TRContent.Gems.RUBY)            : TRContent.RUBY_SPADE,
+			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SPADE
+		].each { material, shovel ->
+			offerShovelRecipe(material, shovel, "crafting_table/tool/", "spade")
+		}
+		// add swords
+		[
+			(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_SWORD,
+			(TRContent.Gems.PERIDOT)         : TRContent.PERIDOT_SWORD,
+			(TRContent.Gems.RUBY)            : TRContent.RUBY_SWORD,
+			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SWORD
+		].each { material, sword ->
+			offerSwordRecipe(material, sword, "crafting_table/tool/")
 		}
 	}
-
 	def generateUuMatterRecipes() {
 		String rootDir = "crafting_table/uu_matter/"
 		String dir
@@ -507,32 +987,6 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("UEU")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Ores.TUNGSTEN)))
 	}
-
-	void generateMisc() {
-		createDuoShapeRecipe(Items.DIAMOND, TRContent.Nuggets.NETHERITE, TRContent.Parts.TEMPLATE_TEMPLATE,
-			'D' as char, 'N' as char)
-			.pattern("NDN")
-			.pattern("DDD")
-			.pattern("NDN")
-			.save(this.exporter, getRecipeKey("crafting_table/parts/"+TRContent.Parts.TEMPLATE_TEMPLATE.name))
-		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(Items.RESIN_CLUMP, 2))
-			.requires(TRContent.Parts.SAP, 2)
-			.requires(Items.SLIME_BALL)
-			.unlockedBy("has_sap", getCriterionConditions(TRContent.Parts.SAP))
-			.save(this.exporter, getRecipeKey("crafting_table/parts/resin_clump"))
-		ShapelessRecipeBuilder.shapeless(itemLookup, RecipeCategory.MISC, new ItemStackTemplate(TRContent.Parts.SAP.asItem(), 8))
-			.requires(Items.RESIN_CLUMP, 4)
-			.requires(Items.WATER_BUCKET)
-			.unlockedBy("has_resin_clump", getCriterionConditions(Items.RESIN_CLUMP))
-			.save(this.exporter, getRecipeKey("crafting_table/parts/sap"))
-		createMonoShapeRecipe(TRContent.Parts.SCRAP, TRContent.SCRAP_BOX,
-			'S' as char)
-			.pattern("SSS")
-			.pattern("SSS")
-			.pattern("SSS")
-			.save(this.exporter, getRecipeKey("crafting_table/scrap_box"))
-	}
-
 	def static recipeNameString(String prefix, def input, def output, String source = null, String result = null) {
 		StringBuilder s = new StringBuilder()
 		s.append(prefix)
@@ -697,6 +1151,19 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.pattern("X X")
 				.pattern("X X")
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
+	}
+
+	def mixed_metal_ingot(TagKey main_metal,TagKey copper_alloy,TagKey base_metal,int count,String random){
+		String rootDir = "crafting_table/ingot/"
+		ShapedRecipeBuilder.shaped(itemLookup, RecipeCategory.MISC, TRContent.Ingots.MIXED_METAL,count)
+			.pattern("MMM")
+			.pattern("CCC")
+			.pattern("BBB")
+			.define('M' as Character, main_metal)
+			.define('C' as Character, copper_alloy)
+			.define('B' as Character, base_metal)
+			.unlockedBy("has_bronze_ingot", getCriterionConditions(TRContent.Ingots.BRONZE.asTag()))
+			.save(this.exporter, getRecipeKey(rootDir+"mixed_metal_ingot_"+random))
 	}
 
 }
