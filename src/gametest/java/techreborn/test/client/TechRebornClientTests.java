@@ -28,12 +28,17 @@ import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
 
-// Run tests using ./gradlew runClientGameTest
+// Run tests using ./gradlew runClientGametest
 public class TechRebornClientTests implements FabricClientGameTest {
 	@Override
 	public void runTest(ClientGameTestContext context) {
 		try (TestSingleplayerContext singleplayer = context.worldBuilder().create()) {
-			// For now just checks we can load a world.
+			ClientTestHarness test = new ClientTestHarness(context, singleplayer.getServer());
+			test.prepareWorld();
+			MachineInteractionTests.run(test);
+			MachineProcessingTests.run(test);
+			EnergyNetworkTests.run(test);
+			MultiblockMachineTests.run(test);
 		}
 	}
 }
