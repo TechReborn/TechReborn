@@ -45,6 +45,7 @@ import techreborn.blockentity.GuiType;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
+import techreborn.items.UpgraderItem;
 import techreborn.items.tool.WrenchItem;
 
 public class StorageUnitBlock extends BlockMachineBase {
@@ -59,6 +60,15 @@ public class StorageUnitBlock extends BlockMachineBase {
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new StorageUnitBaseBlockEntity(pos, state, unitType);
+	}
+
+	@Override
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+			Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (stack.getItem() instanceof UpgraderItem) {
+			return InteractionResult.PASS;
+		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	@Override

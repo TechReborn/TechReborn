@@ -41,9 +41,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.inventory.Slot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.client.gui.GuiBase;
+import reborncore.common.screen.slot.PlayerInventorySlot;
 
 final class ClientTestHarness {
 	static final int TEST_Y = 100;
@@ -125,11 +127,11 @@ final class ClientTestHarness {
 	}
 
 	void useBlockWithItem(BlockPos pos, ItemStack stack) {
-		context.runOnClient(client -> {
-			client.player.getInventory().setSelectedSlot(HOTBAR_SLOT);
-			client.player.getInventory().setSelectedItem(stack);
-			client.gameMode.handleCreativeModeItemAdd(stack, 36 + HOTBAR_SLOT);
-		});
+		setHotbarItem(stack);
+		useBlockWithHeldItem(pos);
+	}
+
+	void useBlockWithHeldItem(BlockPos pos) {
 		useBlock(pos);
 		context.waitTicks(5);
 	}
@@ -152,7 +154,40 @@ final class ClientTestHarness {
 		context.waitTick();
 	}
 
+	void mineBlockWithInput(BlockPos pos, int ticks) {
+		lookAt(pos);
+		context.getInput().holdMouseFor(0, ticks);
+		context.waitTicks(2);
+	}
+
+	void attackBlockWithInput(BlockPos pos) {
+		lookAt(pos);
+		context.getInput().pressMouse(0);
+		context.waitTicks(2);
+	}
+
+	void jumpWithInput() {
+		context.getInput().holdKeyFor(options -> options.keyJump, 5);
+		context.waitTicks(2);
+	}
+
+	void sneakWithInput(int ticks) {
+		context.getInput().holdKeyFor(options -> options.keyShift, ticks);
+		context.waitTicks(2);
+	}
+
+	void runCommand(String command) {
+		server.runCommand(command);
+	}
+
 	void openUi(BlockPos pos, Class<? extends BlockEntity> expectedType, String screenshotName) {
+		openUi(pos, expectedType);
+		context.waitTicks(2);
+		context.takeScreenshot(screenshotName);
+		closeUi();
+	}
+
+	void openUi(BlockPos pos, Class<? extends BlockEntity> expectedType) {
 		clearDroppedItems();
 		clearHand();
 		useBlock(pos);
@@ -163,10 +198,52 @@ final class ClientTestHarness {
 				throw new AssertionError("Unexpected UI or block entity for block at " + pos);
 			}
 		});
-		context.waitTicks(2);
-		context.takeScreenshot(screenshotName);
+	}
+
+	void closeUi() {
 		context.getInput().pressKey(options -> options.keyInventory);
 		context.waitForScreen(null);
+	}
+
+	void setHotbarItem(ItemStack stack) {
+		context.runOnClient(client -> {
+			client.player.getInventory().setSelectedSlot(HOTBAR_SLOT);
+			client.player.getInventory().setSelectedItem(stack);
+			client.gameMode.handleCreativeModeItemAdd(stack, 36 + HOTBAR_SLOT);
+		});
+		context.waitTicks(2);
+	}
+
+	void clickPlayerSlot(int inventorySlot) {
+		clickSlot((gui, slot) -> slot instanceof PlayerInventorySlot && slot.getContainerSlot() == inventorySlot,
+			"player inventory slot " + inventorySlot);
+	}
+
+	void clickMachineSlot(Class<? extends Slot> slotType, int inventorySlot) {
+		clickSlot((gui, slot) -> slotType.isInstance(slot)
+				&& slot.getContainerSlot() == inventorySlot
+				&& (slotType == reborncore.common.screen.slot.UpgradeSlot.class || slot.container == gui.be),
+			slotType.getSimpleName() + " " + inventorySlot);
+	}
+
+	void clickGui(int relativeX, int relativeY) {
+		double[] cursor = context.computeOnClient(client -> {
+			if (!(client.gui.screen() instanceof GuiBase<?> gui)) {
+				throw new AssertionError("Expected a Tech Reborn GUI");
+			}
+			return scaleCursor(client,
+				gui.getGuiLeft() + relativeX,
+				gui.getGuiTop() + relativeY
+			);
+		});
+		context.getInput().setCursorPos(cursor[0], cursor[1]);
+		context.getInput().pressMouse(0);
+		context.waitTicks(2);
+	}
+
+	void screenshotUi(String name) {
+		context.waitTicks(2);
+		context.takeScreenshot(name);
 	}
 
 	void screenshot(BlockPos lookAt, String name) {
@@ -232,6 +309,29 @@ final class ClientTestHarness {
 		context.getInput().lookAt(lookAt);
 		context.waitTick();
 		context.getInput().pressKey(options -> options.keyUse);
+	}
+
+	private void clickSlot(BiPredicate<GuiBase<?>, Slot> predicate, String description) {
+		double[] cursor = context.computeOnClient(client -> {
+			if (!(client.gui.screen() instanceof GuiBase<?> gui)) {
+				throw new AssertionError("Expected a Tech Reborn GUI while clicking " + description);
+			}
+			Slot slot = gui.getMenu().slots.stream()
+				.filter(candidate -> predicate.test(gui, candidate))
+				.findFirst()
+				.orElseThrow(() -> new AssertionError("Could not find " + description));
+			return scaleCursor(client, gui.getGuiLeft() + slot.x + 8, gui.getGuiTop() + slot.y + 8);
+		});
+		context.getInput().setCursorPos(cursor[0], cursor[1]);
+		context.getInput().pressMouse(0);
+		context.waitTicks(2);
+	}
+
+	private static double[] scaleCursor(net.minecraft.client.Minecraft client, double x, double y) {
+		return new double[] {
+			x * client.getWindow().getWidth() / client.getWindow().getGuiScaledWidth(),
+			y * client.getWindow().getHeight() / client.getWindow().getGuiScaledHeight()
+		};
 	}
 
 	private record WorldMultiblockWriter(ServerLevel level, BlockPos origin) implements MultiblockWriter {
