@@ -29,51 +29,32 @@ import reborncore.common.util.WorldUtils;
 
 import java.util.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.server.level.ServerLevel;
 
 /**
- * This class manages all the multiblock controllers that exist in a given
- * world, either client- or server-side. You must create different registries
- * for server and client worlds.
+ * This class manages all the multiblock controllers that exist in a server
+ * level.
  *
  * @author Erogenous Beef
  */
-public class MultiblockWorldRegistry {
-
-	private Level worldObj;
-
+final class MultiblockWorldRegistry {
 	// Active controllers
-	private Set<MultiblockControllerBase> controllers;
+	private final Set<MultiblockControllerBase> controllers;
 	// Controllers whose parts lists have changed
-	private Set<MultiblockControllerBase> dirtyControllers;
+	private final Set<MultiblockControllerBase> dirtyControllers;
 	// Controllers which are empty
-	private Set<MultiblockControllerBase> deadControllers;
+	private final Set<MultiblockControllerBase> deadControllers;
 
 	// A list of orphan parts - parts which currently have no master, but should
 	// seek one this tick
-	// Indexed by the hashed chunk coordinate
-	// This can be added-to asynchronously via chunk loads!
 	private Set<IMultiblockPart> orphanedParts;
 
 	// A list of parts which have been detached during internal operations
-	private Set<IMultiblockPart> detachedParts;
+	private final Set<IMultiblockPart> detachedParts;
 
-	// A list of parts whose chunks have not yet finished loading
-	// They will be added to the orphan list when they are finished loading.
-	// Indexed by the hashed chunk coordinate
-	// This can be added-to asynchronously via chunk loads!
-	private HashMap<Integer, Set<IMultiblockPart>> partsAwaitingChunkLoad;
+	private final Object orphanedPartsMutex;
 
-	// Mutexes to protect lists which may be changed due to asynchronous events,
-	// such as chunk loads
-	private Object partsAwaitingChunkLoadMutex;
-	private Object orphanedPartsMutex;
-
-	public MultiblockWorldRegistry(final Level world) {
-		worldObj = world;
-
+	MultiblockWorldRegistry() {
 		controllers = new HashSet<>();
 		deadControllers = new HashSet<>();
 		dirtyControllers = new HashSet<>();
@@ -81,18 +62,24 @@ public class MultiblockWorldRegistry {
 		detachedParts = new HashSet<>();
 		orphanedParts = new HashSet<>();
 
-		partsAwaitingChunkLoad = new HashMap<>();
-		partsAwaitingChunkLoadMutex = new Object();
 		orphanedPartsMutex = new Object();
+	}
+
+	/**
+	 * Processes pending changes and ticks every multiblock in this level.
+	 */
+	void tick(ServerLevel world) {
+		processMultiblockChanges(world);
+		tickStart(world);
 	}
 
 	/**
 	 * Called before Tile Entities are ticked in the world. Run game logic.
 	 */
-	public void tickStart() {
+	private void tickStart(ServerLevel world) {
 		if (controllers.size() > 0) {
 			for (MultiblockControllerBase controller : controllers) {
-				if (controller.worldObj == worldObj && controller.worldObj.isClientSide() == worldObj.isClientSide()) {
+				if (controller.worldObj == world) {
 					if (controller.isEmpty()) {
 						// This happens on the server when the user breaks the
 						// last block. It's fine.
@@ -110,7 +97,7 @@ public class MultiblockWorldRegistry {
 	/**
 	 * Called prior to processing multiblock controllers. Do bookkeeping.
 	 */
-	public void processMultiblockChanges() {
+	private void processMultiblockChanges(ServerLevel world) {
 		BlockPos coord;
 
 		// Merge pools - sets of adjacent machines which should be merged later
@@ -121,11 +108,7 @@ public class MultiblockWorldRegistry {
 
 			// Keep the synchronized block small. We can't iterate over
 			// orphanedParts directly
-			// because the client does not know which chunks are actually
-			// loaded, so attachToNeighbors()
-			// is not chunk-safe on the client, because Minecraft is stupid.
-			// It's possible to polyfill this, but the polyfill is too slow for
-			// comfort.
+			// while another thread may add newly-loaded parts.
 			synchronized (orphanedPartsMutex) {
 				if (orphanedParts.size() > 0) {
 					orphansToProcess = orphanedParts;
@@ -141,7 +124,7 @@ public class MultiblockWorldRegistry {
 				// controller
 				for (IMultiblockPart orphan : orphansToProcess) {
 					coord = orphan.getWorldLocation();
-					if (!WorldUtils.isChunkLoaded(worldObj, coord)) {
+					if (!WorldUtils.isChunkLoaded(world, coord)) {
 						continue;
 					}
 
@@ -151,7 +134,7 @@ public class MultiblockWorldRegistry {
 					}
 
 					// This block has been replaced by another.
-					if (worldObj.getBlockEntity(coord) != orphan) {
+					if (world.getBlockEntity(coord) != orphan) {
 						continue;
 					}
 
@@ -307,34 +290,12 @@ public class MultiblockWorldRegistry {
 
 	/**
 	 * Called when a multiblock part is added to the world, either via
-	 * chunk-load or user action. If its chunk is loaded, it will be processed
-	 * during the next tick. If the chunk is not loaded, it will be added to a
-	 * list of objects waiting for a chunkload.
+	 * chunk-load or user action. It will be processed during the next tick.
 	 *
 	 * @param part {@link IMultiblockPart} The part which is being added to this world.
 	 */
-	public void onPartAdded(IMultiblockPart part) {
-		BlockPos pos = part.getWorldLocation();
-
-		if (!WorldUtils.isChunkLoaded(worldObj, pos)) {
-			// Part goes into the waiting-for-chunk-load list
-			Set<IMultiblockPart> partSet;
-			int chunkHash = ChunkPos.containing(pos).hashCode();
-
-			synchronized (partsAwaitingChunkLoadMutex) {
-				if (!partsAwaitingChunkLoad.containsKey(chunkHash)) {
-					partSet = new HashSet<>();
-					partsAwaitingChunkLoad.put(chunkHash, partSet);
-				} else {
-					partSet = partsAwaitingChunkLoad.get(chunkHash);
-				}
-
-				partSet.add(part);
-			}
-		} else {
-			// Part goes into the orphan queue, to be checked this tick
-			addOrphanedPartThreadsafe(part);
-		}
+	void onPartAdded(IMultiblockPart part) {
+		addOrphanedPartThreadsafe(part);
 	}
 
 	/**
@@ -344,23 +305,7 @@ public class MultiblockWorldRegistry {
 	 *
 	 * @param part {@link IMultiblockPart} The part which is being removed.
 	 */
-	public void onPartRemovedFromWorld(IMultiblockPart part) {
-		BlockPos pos = part.getWorldLocation();
-		if (pos != null) {
-			int chunkHash = ChunkPos.containing(pos).hashCode();
-
-			if (partsAwaitingChunkLoad.containsKey(chunkHash)) {
-				synchronized (partsAwaitingChunkLoadMutex) {
-					if (partsAwaitingChunkLoad.containsKey(chunkHash)) {
-						partsAwaitingChunkLoad.get(chunkHash).remove(part);
-						if (partsAwaitingChunkLoad.get(chunkHash).size() <= 0) {
-							partsAwaitingChunkLoad.remove(chunkHash);
-						}
-					}
-				}
-			}
-		}
-
+	void onPartRemovedFromWorld(IMultiblockPart part) {
 		detachedParts.remove(part);
 		if (orphanedParts.contains(part)) {
 			synchronized (orphanedPartsMutex) {
@@ -372,54 +317,13 @@ public class MultiblockWorldRegistry {
 	}
 
 	/**
-	 * Called when the world which this World Registry represents is fully
-	 * unloaded from the system. Does some housekeeping just to be nice.
-	 */
-	public void onWorldUnloaded() {
-		controllers.clear();
-		deadControllers.clear();
-		dirtyControllers.clear();
-
-		detachedParts.clear();
-
-		synchronized (partsAwaitingChunkLoadMutex) {
-			partsAwaitingChunkLoad.clear();
-		}
-
-		synchronized (orphanedPartsMutex) {
-			orphanedParts.clear();
-		}
-
-		worldObj = null;
-	}
-
-	/**
-	 * Called when a chunk has finished loading. Adds all the parts which are
-	 * awaiting load to the list of parts which are orphans and therefore will
-	 * be added to the machines after the next world tick.
-	 *
-	 * @param chunk {@link ChunkAccess} Chunk that was loaded
-	 */
-	public void onChunkLoaded(ChunkAccess chunk) {
-		int chunkHash = chunk.getPos().hashCode();
-		if (partsAwaitingChunkLoad.containsKey(chunkHash)) {
-			synchronized (partsAwaitingChunkLoadMutex) {
-				if (partsAwaitingChunkLoad.containsKey(chunkHash)) {
-					addAllOrphanedPartsThreadsafe(partsAwaitingChunkLoad.get(chunkHash));
-					partsAwaitingChunkLoad.remove(chunkHash);
-				}
-			}
-		}
-	}
-
-	/**
 	 * Registers a controller as dead. It will be cleaned up at the end of the
 	 * next world tick. Note that a controller must shed all of its blocks
 	 * before being marked as dead, or the system will complain at you.
 	 *
 	 * @param deadController {@link MultiblockControllerBase} The controller which is dead.
 	 */
-	public void addDeadController(MultiblockControllerBase deadController) {
+	void addDeadController(MultiblockControllerBase deadController) {
 		this.deadControllers.add(deadController);
 	}
 
@@ -430,19 +334,8 @@ public class MultiblockWorldRegistry {
 	 *
 	 * @param dirtyController {@link MultiblockControllerBase} The dirty controller.
 	 */
-	public void addDirtyController(MultiblockControllerBase dirtyController) {
+	void addDirtyController(MultiblockControllerBase dirtyController) {
 		this.dirtyControllers.add(dirtyController);
-	}
-
-	/**
-	 * Use this only if you know what you're doing. You should rarely need to
-	 * iterate over all controllers in a world!
-	 *
-	 * @return {@link Set} An (unmodifiable) set of {@link MultiblockControllerBase}
-	 * controllers which are active in this world.
-	 */
-	public Set<MultiblockControllerBase> getControllers() {
-		return Collections.unmodifiableSet(controllers);
 	}
 
 	/* *** PRIVATE HELPERS *** */

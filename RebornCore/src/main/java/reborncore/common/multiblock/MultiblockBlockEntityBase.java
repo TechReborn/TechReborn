@@ -35,6 +35,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -173,7 +174,9 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 	@Override
 	public void clearRemoved() {
 		super.clearRemoved();
-		MultiblockRegistry.onPartAdded(this.getLevel(), this);
+		if (getLevel() instanceof ServerLevel serverLevel) {
+			MultiblockRegistry.onPartAdded(serverLevel, this);
+		}
 	}
 
 	// Network Communication
@@ -367,6 +370,8 @@ public abstract class MultiblockBlockEntityBase extends IMultiblockPart implemen
 		}
 
 		// Clean part out of lists in the registry
-		MultiblockRegistry.onPartRemovedFromWorld(getLevel(), this);
+		if (getLevel() instanceof ServerLevel serverLevel) {
+			MultiblockRegistry.onPartRemovedFromWorld(serverLevel, this);
+		}
 	}
 }

@@ -24,140 +24,61 @@
 
 package reborncore.common.multiblock;
 
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import org.jspecify.annotations.Nullable;
 import reborncore.RebornCore;
 
-import java.util.HashMap;
-import java.util.Set;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.chunk.ChunkAccess;
-
 /**
- * This is a very static singleton registry class which directs incoming events
- * to sub-objects, which actually manage each individual world's multiblocks.
- *
- * @author Erogenous Beef
+ * Directs multiblock operations to the registry attached to each server level.
  */
-public class MultiblockRegistry {
-	// World > WorldRegistry map
-	private static HashMap<Level, MultiblockWorldRegistry> registries = new HashMap<>();
+public final class MultiblockRegistry {
+	private static final AttachmentType<MultiblockWorldRegistry> REGISTRY_ATTACHMENT = AttachmentRegistry.create(
+		Identifier.fromNamespaceAndPath(RebornCore.MOD_ID, "multiblock_registry")
+	);
 
-	/**
-	 * Called before Tile Entities are ticked in the world. Do bookkeeping here.
-	 *
-	 * @param world {@link Level} The world being ticked
-	 */
-	public static void tickStart(Level world) {
-		if (registries.containsKey(world)) {
-			MultiblockWorldRegistry registry = registries.get(world);
-			registry.processMultiblockChanges();
-			registry.tickStart();
+	private MultiblockRegistry() {
+	}
+
+	public static void tickStart(ServerLevel world) {
+		MultiblockWorldRegistry registry = getRegistry(world);
+		if (registry != null) {
+			registry.tick(world);
 		}
 	}
 
-	/**
-	 * Called when the world has finished loading a chunk.
-	 *
-	 * @param world {@link Level} The world which has finished loading a chunk
-	 * @param chunk {@link ChunkAccess} Loaded chunk
-	 */
-	public static void onChunkLoaded(Level world, ChunkAccess chunk) {
-		if (registries.containsKey(world)) {
-			registries.get(world).onChunkLoaded(chunk);
+	public static void onPartAdded(ServerLevel world, IMultiblockPart part) {
+		world.getAttachedOrCreate(REGISTRY_ATTACHMENT, MultiblockWorldRegistry::new).onPartAdded(part);
+	}
+
+	public static void onPartRemovedFromWorld(ServerLevel world, IMultiblockPart part) {
+		MultiblockWorldRegistry registry = getRegistry(world);
+		if (registry != null) {
+			registry.onPartRemovedFromWorld(part);
 		}
 	}
 
-	/**
-	 * Register a new part in the system. The part has been created either
-	 * through user action or via a chunk loading.
-	 *
-	 * @param world {@link Level} The world into which this part is loading.
-	 * @param part  {@link IMultiblockPart} The part being loaded.
-	 */
-	public static void onPartAdded(Level world, IMultiblockPart part) {
-		MultiblockWorldRegistry registry = getOrCreateRegistry(world);
-		registry.onPartAdded(part);
-	}
-
-	/**
-	 * Call to remove a part from world lists.
-	 *
-	 * @param world {@link Level} The world from which a multiblock part is being removed.
-	 * @param part  {@link IMultiblockPart} The part being removed.
-	 */
-	public static void onPartRemovedFromWorld(Level world, IMultiblockPart part) {
-		if (registries.containsKey(world)) {
-			registries.get(world).onPartRemovedFromWorld(part);
-		}
-
-	}
-
-	/**
-	 * Called whenever a world is unloaded. Unload the relevant registry, if we
-	 * have one.
-	 *
-	 * @param world {@link Level} The world being unloaded.
-	 */
-	public static void onWorldUnloaded(Level world) {
-		if (registries.containsKey(world)) {
-			registries.get(world).onWorldUnloaded();
-			registries.remove(world);
-		}
-	}
-
-	/**
-	 * Call to mark a controller as dirty. Dirty means that parts have been
-	 * added or removed this tick.
-	 *
-	 * @param world      {@link Level} The world containing the multiblock
-	 * @param controller {@link MultiblockControllerBase} The dirty controller
-	 */
-	public static void addDirtyController(Level world, MultiblockControllerBase controller) {
-		if (registries.containsKey(world)) {
-			registries.get(world).addDirtyController(controller);
+	public static void addDirtyController(ServerLevel world, MultiblockControllerBase controller) {
+		MultiblockWorldRegistry registry = getRegistry(world);
+		if (registry != null) {
+			registry.addDirtyController(controller);
 		} else {
-			RebornCore.LOGGER.error("Adding a dirty controller to a world that has no registered controllers! This is most likely not an issue with reborn core, please check the full log file for more information!");
+			RebornCore.LOGGER.error("Adding a dirty controller to a level with no multiblock registry");
 		}
 	}
 
-	/**
-	 * Call to mark a controller as dead. It should only be marked as dead when
-	 * it has no connected parts. It will be removed after the next world tick.
-	 *
-	 * @param world      {@link Level} The world formerly containing the multiblock
-	 * @param controller {@link MultiblockControllerBase} The dead controller
-	 */
-	public static void addDeadController(Level world, MultiblockControllerBase controller) {
-		if (registries.containsKey(world)) {
-			registries.get(world).addDeadController(controller);
+	public static void addDeadController(ServerLevel world, MultiblockControllerBase controller) {
+		MultiblockWorldRegistry registry = getRegistry(world);
+		if (registry != null) {
+			registry.addDeadController(controller);
 		} else {
-			RebornCore.LOGGER.warn(String.format(
-				"Controller %d in world %s marked as dead, but that world is not tracked! Controller is being ignored.",
-				controller.hashCode(), world));
+			RebornCore.LOGGER.warn("Controller {} in level {} marked as dead, but that level has no multiblock registry", controller.hashCode(), world);
 		}
 	}
 
-	/**
-	 * @param world {@link Level} The world whose controllers you wish to retrieve.
-	 * @return {@link Set} An unmodifiable set of {@link MultiblockControllerBase}
-	 * controllers active in the given world, or null if there are none.
-	 */
-	public static Set<MultiblockControllerBase> getControllersFromWorld(Level world) {
-		if (registries.containsKey(world)) {
-			return registries.get(world).getControllers();
-		}
-		return null;
+	private static @Nullable MultiblockWorldRegistry getRegistry(ServerLevel world) {
+		return world.getAttached(REGISTRY_ATTACHMENT);
 	}
-
-	// / *** PRIVATE HELPERS *** ///
-
-	private static MultiblockWorldRegistry getOrCreateRegistry(Level world) {
-		if (registries.containsKey(world)) {
-			return registries.get(world);
-		} else {
-			MultiblockWorldRegistry newRegistry = new MultiblockWorldRegistry(world);
-			registries.put(world, newRegistry);
-			return newRegistry;
-		}
-	}
-
 }

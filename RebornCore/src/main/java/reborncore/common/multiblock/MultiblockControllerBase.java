@@ -32,6 +32,7 @@ import java.util.LinkedList;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -212,7 +213,7 @@ public abstract class MultiblockControllerBase {
 			}
 		}
 
-		MultiblockRegistry.addDirtyController(worldObj, this);
+		addDirtyController();
 	}
 
 	/**
@@ -300,11 +301,11 @@ public abstract class MultiblockControllerBase {
 
 		if (connectedParts.isEmpty()) {
 			// Destroy/unregister
-			MultiblockRegistry.addDeadController(this.worldObj, this);
+			addDeadController();
 			return;
 		}
 
-		MultiblockRegistry.addDirtyController(this.worldObj, this);
+		addDirtyController();
 
 		// Find new save delegate if we need to.
 		if (referenceCoord == null) {
@@ -535,7 +536,7 @@ public abstract class MultiblockControllerBase {
 	public final void updateMultiblockEntity() {
 		if (connectedParts.isEmpty()) {
 			// This shouldn't happen, but just in case...
-			MultiblockRegistry.addDeadController(this.worldObj, this);
+			addDeadController();
 			return;
 		}
 
@@ -878,7 +879,7 @@ public abstract class MultiblockControllerBase {
 		}
 
 		if (this.isEmpty()) {
-			MultiblockRegistry.addDeadController(worldObj, this);
+			addDeadController();
 			return null;
 		}
 
@@ -925,7 +926,7 @@ public abstract class MultiblockControllerBase {
 			// There are no valid parts remaining. The entire multiblock was
 			// unloaded during a chunk unload. Halt.
 			shouldCheckForDisconnections = false;
-			MultiblockRegistry.addDeadController(worldObj, this);
+			addDeadController();
 			return null;
 		} else {
 			referencePart.becomeMultiblockSaveDelegate();
@@ -1038,6 +1039,18 @@ public abstract class MultiblockControllerBase {
 
 		if (theChosenOne != null) {
 			theChosenOne.becomeMultiblockSaveDelegate();
+		}
+	}
+
+	private void addDirtyController() {
+		if (worldObj instanceof ServerLevel serverLevel) {
+			MultiblockRegistry.addDirtyController(serverLevel, this);
+		}
+	}
+
+	private void addDeadController() {
+		if (worldObj instanceof ServerLevel serverLevel) {
+			MultiblockRegistry.addDeadController(serverLevel, this);
 		}
 	}
 
