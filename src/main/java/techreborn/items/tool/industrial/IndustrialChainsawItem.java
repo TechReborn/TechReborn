@@ -81,6 +81,9 @@ public class IndustrialChainsawItem extends ChainsawItem {
 			return;
 		}
 		for (Direction facing : SEARCH_ORDER) {
+			if (wood.size() >= 64) {
+				return;
+			}
 			BlockPos checkPos = pos.relative(facing);
 			if (!wood.contains(checkPos) && !leaves.contains(checkPos)) {
 				BlockState state = world.getBlockState(checkPos);

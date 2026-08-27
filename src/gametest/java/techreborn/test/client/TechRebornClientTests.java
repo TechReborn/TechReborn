@@ -38,6 +38,9 @@ public class TechRebornClientTests implements FabricClientGameTest {
 		ClientTestHarness test = new ClientTestHarness(context, singleplayer.getServer());
 		test.prepareWorld();
 		RealGuiInteractionTests.run(test);
+		AdvancedMiningToolTests.run(test);
+		PoweredGearTests.run(test);
+		UtilityItemInteractionTests.run(test);
 		NuclearReactorTests.run(test);
 		ElectricItemTests.run(test);
 		EnvironmentalGeneratorTests.run(test);

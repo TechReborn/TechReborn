@@ -32,6 +32,7 @@ import java.util.function.Predicate;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestServerContext;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -136,6 +137,31 @@ final class ClientTestHarness {
 		context.waitTicks(5);
 	}
 
+	void sneakUseBlockWithHeldItem(BlockPos pos) {
+		lookAt(pos);
+		context.getInput().holdKey(options -> options.keyShift);
+		context.waitTick();
+		context.getInput().pressKey(options -> options.keyUse);
+		context.getInput().releaseKey(options -> options.keyShift);
+		context.waitTicks(3);
+	}
+
+	void useHeldItem() {
+		context.getInput().lookAt(0, -90);
+		context.waitTick();
+		context.getInput().pressKey(options -> options.keyUse);
+		context.waitTicks(3);
+	}
+
+	void sneakUseHeldItem() {
+		context.getInput().lookAt(0, -90);
+		context.getInput().holdKey(options -> options.keyShift);
+		context.waitTick();
+		context.getInput().pressKey(options -> options.keyUse);
+		context.getInput().releaseKey(options -> options.keyShift);
+		context.waitTicks(3);
+	}
+
 	void movePlayer(double x, double y, double z) {
 		onServer(minecraftServer -> minecraftServer.getPlayerList().getPlayers().getFirst().teleportTo(
 			level(minecraftServer), x, y, z, Set.of(), 0, 0, false
@@ -164,6 +190,12 @@ final class ClientTestHarness {
 		lookAt(pos);
 		context.getInput().pressMouse(0);
 		context.waitTicks(2);
+	}
+
+	void attackAt(BlockPos pos) {
+		lookAt(pos);
+		context.getInput().pressMouse(0);
+		context.waitTicks(4);
 	}
 
 	void jumpWithInput() {
@@ -244,6 +276,15 @@ final class ClientTestHarness {
 	void screenshotUi(String name) {
 		context.waitTicks(2);
 		context.takeScreenshot(name);
+	}
+
+	void screenshotInventory(String name) {
+		context.getInput().pressKey(options -> options.keyInventory);
+		context.waitForScreen(InventoryScreen.class);
+		context.waitTicks(2);
+		context.takeScreenshot(name);
+		context.getInput().pressKey(options -> options.keyInventory);
+		context.waitForScreen(null);
 	}
 
 	void screenshot(BlockPos lookAt, String name) {
