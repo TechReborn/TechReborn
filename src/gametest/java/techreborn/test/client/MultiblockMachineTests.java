@@ -44,6 +44,7 @@ final class MultiblockMachineTests {
 		testBlastFurnaceMissingCasing(test);
 		testFusionReactorFormation(test);
 		testFusionReactorIgnition(test);
+		testFusionReactorCompletion(test);
 		testFusionReactorMissingCoil(test);
 	}
 
@@ -164,6 +165,17 @@ final class MultiblockMachineTests {
 		test.screenshot(missingCoil, "odd-fusion-reactor-missing-coil");
 		resetPlayerPosition(test);
 		test.openUi(CONTROLLER_POS, FusionControlComputerBlockEntity.class, "odd-fusion-reactor-invalid-ui");
+	}
+
+	private static void testFusionReactorCompletion(ClientTestHarness test) {
+		test.onServer(server -> {
+			FusionControlComputerBlockEntity reactor = fusionReactor(server);
+			reactor.craftingTickTime = reactor.craftingTotalTime;
+			reactor.setChanged();
+		});
+		test.waitForServer(server -> fusionReactor(server).inventory.getItem(2).is(TRContent.Cells.HELIUM3.asItem()),
+			20, "Fusion reactor did not finish its ignited recipe");
+		test.openUi(CONTROLLER_POS, FusionControlComputerBlockEntity.class, "multiblock-fusion-reactor-complete");
 	}
 
 	private static void placeBlastFurnace(ClientTestHarness test) {

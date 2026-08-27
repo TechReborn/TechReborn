@@ -27,18 +27,29 @@ package techreborn.test.client;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
+import net.fabricmc.fabric.api.client.gametest.v1.world.TestWorldSave;
 
 // Run tests using ./gradlew runClientGametest
 public class TechRebornClientTests implements FabricClientGameTest {
 	@Override
 	public void runTest(ClientGameTestContext context) {
+		TestWorldSave worldSave;
 		try (TestSingleplayerContext singleplayer = context.worldBuilder().create()) {
 			ClientTestHarness test = new ClientTestHarness(context, singleplayer.getServer());
 			test.prepareWorld();
+			UpgradeAndEnergyTests.run(test);
+			FluidAndGeneratorTests.run(test);
+			AutomationAndMovementTests.run(test);
 			MachineInteractionTests.run(test);
 			MachineProcessingTests.run(test);
 			EnergyNetworkTests.run(test);
 			MultiblockMachineTests.run(test);
+			AdvancedMultiblockTests.run(test);
+			PersistenceTests.prepare(test);
+			worldSave = singleplayer.getWorldSave();
+		}
+		try (TestSingleplayerContext singleplayer = worldSave.open()) {
+			PersistenceTests.verify(new ClientTestHarness(context, singleplayer.getServer()));
 		}
 	}
 }

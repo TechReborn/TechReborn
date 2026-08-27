@@ -141,6 +141,17 @@ final class ClientTestHarness {
 		context.waitTicks(2);
 	}
 
+	void sprintJumpForward(int ticks) {
+		context.getInput().holdKey(options -> options.keyUp);
+		context.getInput().holdKey(options -> options.keySprint);
+		context.getInput().holdKey(options -> options.keyJump);
+		context.waitTicks(ticks);
+		context.getInput().releaseKey(options -> options.keyJump);
+		context.getInput().releaseKey(options -> options.keySprint);
+		context.getInput().releaseKey(options -> options.keyUp);
+		context.waitTick();
+	}
+
 	void openUi(BlockPos pos, Class<? extends BlockEntity> expectedType, String screenshotName) {
 		clearDroppedItems();
 		clearHand();
@@ -163,6 +174,11 @@ final class ClientTestHarness {
 		context.getInput().lookAt(lookAt);
 		context.waitTicks(2);
 		context.takeScreenshot(name);
+	}
+
+	void lookAt(BlockPos pos) {
+		context.getInput().lookAt(pos);
+		context.waitTick();
 	}
 
 	void waitTicks(int ticks) {
