@@ -36,6 +36,8 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -45,6 +47,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.inventory.Slot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blockentity.MultiblockWriter;
+import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.screen.slot.PlayerInventorySlot;
 
@@ -80,6 +83,25 @@ final class ClientTestHarness {
 			);
 		});
 		context.waitTicks(2);
+	}
+
+	void resetTestState() {
+		runCommand("gamemode creative @a");
+		runCommand("kill @e[type=!minecraft:player]");
+		onServer(minecraftServer -> {
+			var player = minecraftServer.getPlayerList().getPlayers().getFirst();
+			player.getInventory().clearContent();
+			player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+			player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+			player.setItemSlot(EquipmentSlot.LEGS, ItemStack.EMPTY);
+			player.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
+			player.removeAllEffects();
+			player.clearFire();
+			player.setSprinting(false);
+			player.setSwimming(false);
+		});
+		movePlayer(PLAYER_POS.getX() + 0.5, TEST_Y, PLAYER_POS.getZ() + 0.5);
+		clearTestArea();
 	}
 
 	void placeWithInput(BlockPos pos, Block block) {
@@ -180,6 +202,15 @@ final class ClientTestHarness {
 		context.waitTick();
 	}
 
+	void sprintForward(int ticks) {
+		context.getInput().holdKey(options -> options.keyUp);
+		context.getInput().holdKey(options -> options.keySprint);
+		context.waitTicks(ticks);
+		context.getInput().releaseKey(options -> options.keySprint);
+		context.getInput().releaseKey(options -> options.keyUp);
+		context.waitTick();
+	}
+
 	void mineBlockWithInput(BlockPos pos, int ticks) {
 		lookAt(pos);
 		context.getInput().holdMouseFor(0, ticks);
@@ -239,6 +270,16 @@ final class ClientTestHarness {
 
 	void setHotbarItem(ItemStack stack) {
 		context.runOnClient(client -> {
+			client.player.getInventory().setSelectedSlot(HOTBAR_SLOT);
+			client.player.getInventory().setSelectedItem(stack);
+			client.gameMode.handleCreativeModeItemAdd(stack, 36 + HOTBAR_SLOT);
+		});
+		context.waitTicks(2);
+	}
+
+	void setCraftedHotbarItem(ItemStack stack) {
+		context.runOnClient(client -> {
+			stack.getItem().onCraftedPostProcess(stack, client.level);
 			client.player.getInventory().setSelectedSlot(HOTBAR_SLOT);
 			client.player.getInventory().setSelectedItem(stack);
 			client.gameMode.handleCreativeModeItemAdd(stack, 36 + HOTBAR_SLOT);
@@ -325,6 +366,21 @@ final class ClientTestHarness {
 
 	static ServerLevel level(MinecraftServer server) {
 		return server.overworld();
+	}
+
+	static ItemStack charged(Item item) {
+		ItemStack stack = new ItemStack(item);
+		RcEnergyItem energyItem = (RcEnergyItem) item;
+		energyItem.setStoredEnergy(stack, energyItem.getEnergyCapacity(stack));
+		return stack;
+	}
+
+	static long energy(ItemStack stack) {
+		return stack.getItem() instanceof RcEnergyItem energyItem ? energyItem.getStoredEnergy(stack) : 0;
+	}
+
+	static ItemStack held(MinecraftServer server) {
+		return server.getPlayerList().getPlayers().getFirst().getMainHandItem();
 	}
 
 	static <T> T requireBlockEntity(MinecraftServer server, BlockPos pos, Class<T> type) {

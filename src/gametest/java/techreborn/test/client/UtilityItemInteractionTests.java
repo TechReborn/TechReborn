@@ -24,9 +24,10 @@
 
 package techreborn.test.client;
 
+import static techreborn.test.client.ClientTestHarness.held;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import techreborn.blockentity.cable.CableBlockEntity;
@@ -134,22 +135,7 @@ final class UtilityItemInteractionTests {
 		test.screenshot(dieselSupport.west(), "items-fluid-cell-techreborn-diesel-placed");
 	}
 
-	private static ItemStack held(net.minecraft.server.MinecraftServer server) {
-		return server.getPlayerList().getPlayers().getFirst().getMainHandItem();
-	}
-
 	private static void reset(ClientTestHarness test) {
-		test.runCommand("gamemode creative @a");
-		test.onServer(server -> {
-			var player = server.getPlayerList().getPlayers().getFirst();
-			player.getInventory().clearContent();
-			player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.LEGS, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
-		});
-		test.movePlayer(ClientTestHarness.PLAYER_POS.getX() + 0.5, ClientTestHarness.TEST_Y,
-			ClientTestHarness.PLAYER_POS.getZ() + 0.5);
-		test.clearTestArea();
+		test.resetTestState();
 	}
 }

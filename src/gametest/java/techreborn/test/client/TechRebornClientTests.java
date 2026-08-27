@@ -49,16 +49,16 @@ public class TechRebornClientTests implements FabricClientGameTest {
 		StorageUnitTests.run(test);
 		EnergyBoundaryTests.run(test);
 		UpgradeAndEnergyTests.run(test);
-			FluidAndGeneratorTests.run(test);
-			AutomationAndMovementTests.run(test);
-			MachineInteractionTests.run(test);
-			MachineProcessingTests.run(test);
-			EnergyNetworkTests.run(test);
+		FluidAndGeneratorTests.run(test);
+		AutomationAndMovementTests.run(test);
+		MachineInteractionTests.run(test);
+		MachineProcessingTests.run(test);
+		EnergyNetworkTests.run(test);
 		MultiblockMachineTests.run(test);
 		AdvancedMultiblockTests.run(test);
 		AdvancedProcessingChainTests.run(test);
-			PersistenceTests.prepare(test);
-			worldSave = singleplayer.getWorldSave();
+		PersistenceTests.prepare(test);
+		worldSave = singleplayer.getWorldSave();
 		}
 		try (TestSingleplayerContext singleplayer = worldSave.open()) {
 			PersistenceTests.verify(new ClientTestHarness(context, singleplayer.getServer()));

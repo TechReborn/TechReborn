@@ -24,11 +24,14 @@
 
 package techreborn.test.client;
 
+import static techreborn.test.client.ClientTestHarness.charged;
+import static techreborn.test.client.ClientTestHarness.energy;
+import static techreborn.test.client.ClientTestHarness.held;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import reborncore.common.powerSystem.RcEnergyItem;
@@ -65,28 +68,31 @@ final class PoweredGearTests {
 			var player = server.getPlayerList().getPlayers().getFirst();
 			return player.getAbilities().mayfly && player.hasEffect(MobEffects.NIGHT_VISION);
 		}, 20, "Powered quantum suit did not enable flight and night vision");
-		test.assertServer(server -> server.getPlayerList().getPlayers().getFirst().getArmorValue() > 0,
-			"Full quantum suit did not apply powered armor attributes");
+		test.assertServer(server -> server.getPlayerList().getPlayers().getFirst().getArmorValue() == 30,
+			"Full quantum suit did not apply all powered armor attributes");
 
 		long[] leggingsBefore = new long[1];
 		test.onServer(server -> {
 			var player = server.getPlayerList().getPlayers().getFirst();
 			leggingsBefore[0] = energy(player.getItemBySlot(EquipmentSlot.LEGS));
-			player.setSprinting(true);
 			player.setRemainingFireTicks(100);
 		});
 		test.waitForServer(server -> !server.getPlayerList().getPlayers().getFirst().isOnFire(), 10,
 			"Quantum chestplate did not extinguish the burning player");
-		test.waitTicks(5);
+		test.sprintForward(5);
 		test.assertServer(server -> energy(server.getPlayerList().getPlayers().getFirst()
 			.getItemBySlot(EquipmentSlot.LEGS)) < leggingsBefore[0],
-			"Active quantum leggings did not spend energy while sprinting");
+			"Active quantum leggings did not spend energy during real sprint input");
 
 		BlockPos waterPos = ClientTestHarness.PLAYER_POS;
-		test.setBlock(waterPos, Blocks.WATER);
-		test.setBlock(waterPos.above(), Blocks.WATER);
+		for (int x = -1; x <= 1; x++) {
+			for (int z = -1; z <= 3; z++) {
+				test.setBlock(waterPos.offset(x, 0, z), Blocks.WATER);
+				test.setBlock(waterPos.offset(x, 1, z), Blocks.WATER);
+			}
+		}
 		test.movePlayer(waterPos.getX() + 0.5, waterPos.getY(), waterPos.getZ() + 0.5);
-		test.onServer(server -> server.getPlayerList().getPlayers().getFirst().setSwimming(true));
+		test.sprintForward(5);
 		test.waitForServer(server -> {
 			var player = server.getPlayerList().getPlayers().getFirst();
 			return player.hasEffect(MobEffects.WATER_BREATHING)
@@ -169,36 +175,7 @@ final class PoweredGearTests {
 			new net.minecraft.world.phys.AABB(1, 99, -1, 3, 103, 1));
 	}
 
-	private static ItemStack charged(Item item) {
-		ItemStack stack = new ItemStack(item);
-		RcEnergyItem energyItem = (RcEnergyItem) item;
-		energyItem.setStoredEnergy(stack, energyItem.getEnergyCapacity(stack));
-		return stack;
-	}
-
-	private static long energy(ItemStack stack) {
-		return stack.getItem() instanceof RcEnergyItem energyItem ? energyItem.getStoredEnergy(stack) : 0;
-	}
-
-	private static ItemStack held(net.minecraft.server.MinecraftServer server) {
-		return server.getPlayerList().getPlayers().getFirst().getMainHandItem();
-	}
-
 	private static void reset(ClientTestHarness test) {
-		test.runCommand("gamemode creative @a");
-		test.runCommand("kill @e[type=!minecraft:player]");
-		test.onServer(server -> {
-			var player = server.getPlayerList().getPlayers().getFirst();
-			player.getInventory().clearContent();
-			player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.LEGS, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
-			player.setSprinting(false);
-			player.setSwimming(false);
-		});
-		test.movePlayer(ClientTestHarness.PLAYER_POS.getX() + 0.5, ClientTestHarness.TEST_Y,
-			ClientTestHarness.PLAYER_POS.getZ() + 0.5);
-		test.clearTestArea();
+		test.resetTestState();
 	}
 }

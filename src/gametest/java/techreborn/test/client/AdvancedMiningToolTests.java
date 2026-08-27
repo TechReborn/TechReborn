@@ -24,23 +24,22 @@
 
 package techreborn.test.client;
 
+import static techreborn.test.client.ClientTestHarness.charged;
+import static techreborn.test.client.ClientTestHarness.energy;
+import static techreborn.test.client.ClientTestHarness.held;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.powerSystem.RcEnergyItem;
+import reborncore.common.blocks.BlockMachineBase;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.component.TRDataComponentTypes;
 import techreborn.init.TRContent;
-import techreborn.items.tool.DrillItem;
-import techreborn.items.tool.basic.RockCutterItem;
-import techreborn.items.tool.industrial.IndustrialChainsawItem;
 import techreborn.utils.TRItemUtils;
 
 final class AdvancedMiningToolTests {
@@ -55,7 +54,8 @@ final class AdvancedMiningToolTests {
 		testIndustrialChainsawFellsConnectedTree(test);
 		testIndustrialChainsawHonorsTraversalLimit(test);
 		testOmniToolMiningAndWrenchEnergy(test);
-		testRockCutterSilkTouchAndElectricTreetap(test);
+		testRockCutterSilkTouch(test);
+		testElectricTreetap(test);
 	}
 
 	private static void testIndustrialDrillThreeByThreeAndSafetyFilters(ClientTestHarness test) {
@@ -75,8 +75,8 @@ final class AdvancedMiningToolTests {
 			"Industrial drill did not clear its three-by-three stone footprint");
 		test.assertServer(server -> ClientTestHarness.level(server).getBlockState(protectedPos).is(Blocks.BEDROCK),
 			"Industrial drill AOE removed an unbreakable block");
-		test.assertServer(server -> ((DrillItem) held(server).getItem()).getStoredEnergy(held(server))
-			< ((DrillItem) drill.getItem()).getEnergyCapacity(drill), "Industrial drill AOE did not consume energy");
+		test.assertServer(server -> energy(held(server)) < energy(drill),
+			"Industrial drill AOE did not consume energy");
 		test.screenshot(TARGET, "tools-industrial-drill-three-by-three-result");
 	}
 
@@ -126,10 +126,12 @@ final class AdvancedMiningToolTests {
 		test.waitForServer(server -> {
 			var level = ClientTestHarness.level(server);
 			return level.getBlockState(base).isAir() && level.getBlockState(base.above(3)).isAir()
-				&& level.getBlockState(base.above(2).east()).isAir();
+				&& level.getBlockState(base.above()).isAir()
+				&& level.getBlockState(base.above(2)).isAir()
+				&& level.getBlockState(base.above(2).east()).isAir()
+				&& level.getBlockState(base.above(3).west()).isAir();
 		}, 20, "Industrial chainsaw did not fell the connected tree");
-		test.assertServer(server -> ((IndustrialChainsawItem) held(server).getItem()).getStoredEnergy(held(server))
-			< ((IndustrialChainsawItem) held(server).getItem()).getEnergyCapacity(held(server)),
+		test.assertServer(server -> energy(held(server)) < energy(charged(TRContent.INDUSTRIAL_CHAINSAW)),
 			"Industrial chainsaw did not consume energy for connected logs");
 		test.screenshot(base.above(2), "tools-industrial-chainsaw-connected-tree-felled");
 	}
@@ -156,7 +158,7 @@ final class AdvancedMiningToolTests {
 					}
 				}
 			}
-			return remaining >= 5;
+			return remaining == 5;
 		}, "Industrial chainsaw exceeded its 64-log traversal safety limit");
 		test.screenshot(first, "tools-industrial-chainsaw-traversal-limit");
 	}
@@ -182,22 +184,28 @@ final class AdvancedMiningToolTests {
 		BlockPos machinePos = ClientTestHarness.INTERACTION_POS;
 		test.setBlock(machinePos, TRContent.Machine.ELECTRIC_FURNACE.block);
 		long[] before = new long[1];
-		test.onServer(server -> before[0] = energy(held(server)));
+		Direction[] facingBefore = new Direction[1];
+		test.onServer(server -> {
+			before[0] = energy(held(server));
+			facingBefore[0] = ClientTestHarness.level(server).getBlockState(machinePos)
+				.getValue(BlockMachineBase.FACING);
+		});
 		test.useBlockWithHeldItem(machinePos);
 		test.assertServer(server -> energy(held(server)) == before[0] - 5,
 			"Omni tool wrench interaction did not consume five energy");
 		test.assertServer(server -> ClientTestHarness.requireBlockEntity(server, machinePos,
-			MachineBaseBlockEntity.class) != null, "Omni tool wrench interaction removed the machine unexpectedly");
+			MachineBaseBlockEntity.class).getBlockState().getValue(BlockMachineBase.FACING) != facingBefore[0],
+			"Omni tool wrench interaction did not rotate the machine");
 		test.screenshot(machinePos, "tools-omni-tool-mining-and-wrench");
 	}
 
-	private static void testRockCutterSilkTouchAndElectricTreetap(ClientTestHarness test) {
+	private static void testRockCutterSilkTouch(ClientTestHarness test) {
 		reset(test);
 		BlockPos glass = ClientTestHarness.INTERACTION_POS;
 		test.setBlock(glass, Blocks.GLASS);
-		test.setHotbarItem(charged(TRContent.ROCK_CUTTER));
-		test.onServer(server -> ((RockCutterItem) held(server).getItem())
-			.onCraftedPostProcess(held(server), ClientTestHarness.level(server)));
+		test.setCraftedHotbarItem(charged(TRContent.ROCK_CUTTER));
+		test.assertServer(server -> held(server).isEnchanted(),
+			"Crafted rock cutter did not receive its Silk Touch enchantment");
 		test.runCommand("gamemode survival @a");
 		test.screenshot(glass, "tools-rock-cutter-silk-touch-ready");
 		test.mineBlockWithInput(glass, 35);
@@ -207,7 +215,9 @@ final class AdvancedMiningToolTests {
 				new net.minecraft.world.phys.AABB(glass).inflate(2)).stream()
 				.anyMatch(entity -> entity.getItem().is(Items.GLASS)),
 			"Rock cutter did not preserve glass with its crafted silk-touch behavior");
+	}
 
+	private static void testElectricTreetap(ClientTestHarness test) {
 		reset(test);
 		BlockPos log = ClientTestHarness.INTERACTION_POS;
 		test.onServer(server -> ClientTestHarness.level(server).setBlockAndUpdate(log,
@@ -246,33 +256,7 @@ final class AdvancedMiningToolTests {
 		return count;
 	}
 
-	private static ItemStack charged(Item item) {
-		ItemStack stack = new ItemStack(item);
-		RcEnergyItem energyItem = (RcEnergyItem) item;
-		energyItem.setStoredEnergy(stack, energyItem.getEnergyCapacity(stack));
-		return stack;
-	}
-
-	private static long energy(ItemStack stack) {
-		return ((RcEnergyItem) stack.getItem()).getStoredEnergy(stack);
-	}
-
-	private static ItemStack held(net.minecraft.server.MinecraftServer server) {
-		return server.getPlayerList().getPlayers().getFirst().getMainHandItem();
-	}
-
 	private static void reset(ClientTestHarness test) {
-		test.runCommand("gamemode creative @a");
-		test.onServer(server -> {
-			var player = server.getPlayerList().getPlayers().getFirst();
-			player.getInventory().clearContent();
-			player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.LEGS, ItemStack.EMPTY);
-			player.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
-		});
-		test.movePlayer(ClientTestHarness.PLAYER_POS.getX() + 0.5, ClientTestHarness.TEST_Y,
-			ClientTestHarness.PLAYER_POS.getZ() + 0.5);
-		test.clearTestArea();
+		test.resetTestState();
 	}
 }
