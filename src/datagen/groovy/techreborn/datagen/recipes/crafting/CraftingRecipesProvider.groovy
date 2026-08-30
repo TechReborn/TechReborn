@@ -621,6 +621,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.save(this.exporter, getRecipeKey("crafting_table/tech_reborn_gunpowder"))
 	}
 	def generateToolRecipes() {
+		String rootDir = "crafting_table/tool/"
 		// add axes
 		[
 			(TRContent.Ingots.BRONZE.asTag()): TRContent.BRONZE_AXE,
@@ -628,7 +629,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			(TRContent.Gems.RUBY)            : TRContent.RUBY_AXE,
 			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_AXE
 		].each { material, axe ->
-			offerAxeRecipe(material, axe, "crafting_table/tool/")
+			offerAxeRecipe(material, axe, rootDir)
 		}
 		// add hoes
 		[
@@ -637,7 +638,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			(TRContent.Gems.RUBY)            : TRContent.RUBY_HOE,
 			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_HOE
 		].each { material, hoe ->
-			offerHoeRecipe(material, hoe, "crafting_table/tool/")
+			offerHoeRecipe(material, hoe, rootDir)
 		}
 		// add pickaxes
 		[
@@ -646,7 +647,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			(TRContent.Gems.RUBY)            : TRContent.RUBY_PICKAXE,
 			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_PICKAXE
 		].each { material, pickaxe ->
-			offerPickaxeRecipe(material, pickaxe, "crafting_table/tool/")
+			offerPickaxeRecipe(material, pickaxe, rootDir)
 		}
 		// add shovels
 		[
@@ -655,7 +656,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			(TRContent.Gems.RUBY)            : TRContent.RUBY_SPADE,
 			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SPADE
 		].each { material, shovel ->
-			offerShovelRecipe(material, shovel, "crafting_table/tool/", "spade")
+			offerShovelRecipe(material, shovel, rootDir, "spade")
 		}
 		// add swords
 		[
@@ -664,7 +665,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			(TRContent.Gems.RUBY)            : TRContent.RUBY_SWORD,
 			(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SWORD
 		].each { material, sword ->
-			offerSwordRecipe(material, sword, "crafting_table/tool/")
+			offerSwordRecipe(material, sword, rootDir)
 		}
 	}
 	def generateUuMatterRecipes() {
