@@ -410,33 +410,23 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		final int oreTime = 100
 		final long oreAmount = 1000L
 		offerIndustrialGrinderRecipe {
-			ingredients Items.ANCIENT_DEBRIS
-			outputs stack(Items.NETHERITE_SCRAP, 2), stack(Items.GOLD_NUGGET, 5)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid Fluids.WATER
-			source "ancient_debris_with_water"
-			criterion getCriterionName(Items.ANCIENT_DEBRIS), getCriterionConditions(Items.ANCIENT_DEBRIS)
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients Items.ANCIENT_DEBRIS
-			outputs stack(Items.NETHERITE_SCRAP, 3), stack(Items.GOLD_NUGGET, 3)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid ModFluids.MERCURY.getFluid()
-			source "ancient_debris_with_mercury"
-			criterion getCriterionName(Items.ANCIENT_DEBRIS), getCriterionConditions(Items.ANCIENT_DEBRIS)
-		}
-		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.BAUXITE.asTag()
-			outputs stack(TRContent.Dusts.BAUXITE, 4), TRContent.Dusts.ALUMINUM
+			outputs stack(TRContent.Dusts.BAUXITE, 3), TRContent.Dusts.ALUMINUM
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
 			fluid Fluids.WATER
 			source "bauxite_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.BAUXITE.asTag()), getCriterionConditions(TRContent.Ores.BAUXITE.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.BAUXITE.asTag()
+			outputs stack(TRContent.Dusts.BAUXITE, 6),stack(TRContent.Dusts.ALUMINUM, 2), TRContent.Dusts.TITANIUM
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "bauxite_ore_with_mercury"
 			criterion getCriterionName(TRContent.Ores.BAUXITE.asTag()), getCriterionConditions(TRContent.Ores.BAUXITE.asTag())
 		}
 		offerIndustrialGrinderRecipe {
@@ -451,7 +441,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRConventionalTags.COAL_ORES
-			outputs stack(Items.COAL, 3)
+			outputs stack(Items.COAL, 3),stack(TRContent.Dusts.COAL,1)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -461,7 +451,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRConventionalTags.COAL_ORES
-			outputs stack(Items.COAL, 4)
+			outputs stack(Items.COAL, 4),stack(TRContent.Dusts.COAL,2)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -469,9 +459,10 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			source "coal_ore_with_mercury"
 			criterion getCriterionName(TRConventionalTags.COAL_ORES), getCriterionConditions(TRConventionalTags.COAL_ORES)
 		}
+		//copper gold
 		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.COPPER_ORES
-			outputs stack(Items.RAW_COPPER, 2), stack(Items.GOLD_NUGGET, 3)
+			ingredients BlockTags.COPPER_ORES
+			outputs stack(Items.RAW_COPPER, 8), stack(Items.GOLD_NUGGET, 3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -480,8 +471,8 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRConventionalTags.COPPER_ORES), getCriterionConditions(TRConventionalTags.COPPER_ORES)
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.COPPER_ORES
-			outputs stack(Items.RAW_COPPER, 3), stack(Items.GOLD_NUGGET, 3)
+			ingredients BlockTags.COPPER_ORES
+			outputs stack(Items.RAW_COPPER, 12), Items.RAW_GOLD, stack(TRContent.Nuggets.NICKEL,3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -490,8 +481,8 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRConventionalTags.COPPER_ORES), getCriterionConditions(TRConventionalTags.COPPER_ORES)
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.COPPER_ORES
-			outputs stack(Items.RAW_COPPER, 2), Items.RAW_GOLD, TRContent.Dusts.NICKEL
+			ingredients BlockTags.COPPER_ORES
+			outputs stack(Items.RAW_COPPER, 12), stack(Items.GOLD_NUGGET,3), TRContent.Dusts.NICKEL
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -500,68 +491,8 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRConventionalTags.COPPER_ORES), getCriterionConditions(TRConventionalTags.COPPER_ORES)
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.DIAMOND_ORES
-			outputs Items.DIAMOND, stack(TRContent.SmallDusts.DIAMOND, 6), TRContent.Dusts.COAL
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid Fluids.WATER
-			source "diamond_ore_with_water"
-			criterion getCriterionName(TRConventionalTags.DIAMOND_ORES), getCriterionConditions(TRConventionalTags.DIAMOND_ORES)
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.DIAMOND_ORES
-			outputs stack(Items.DIAMOND, 2), stack(TRContent.SmallDusts.DIAMOND, 3)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid ModFluids.MERCURY.getFluid()
-			source "diamond_ore_with_mercury"
-			criterion getCriterionName(TRConventionalTags.DIAMOND_ORES), getCriterionConditions(TRConventionalTags.DIAMOND_ORES)
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.EMERALD_ORES
-			outputs Items.EMERALD, stack(TRContent.SmallDusts.EMERALD, 6)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid Fluids.WATER
-			source "emerald_ore_with_water"
-			criterion getCriterionName(TRConventionalTags.EMERALD_ORES), getCriterionConditions(TRConventionalTags.EMERALD_ORES)
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.EMERALD_ORES
-			outputs stack(Items.EMERALD, 2), stack(TRContent.SmallDusts.EMERALD, 3)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid ModFluids.MERCURY.getFluid()
-			source "emerald_ore_with_mercury"
-			criterion getCriterionName(TRConventionalTags.EMERALD_ORES), getCriterionConditions(TRConventionalTags.EMERALD_ORES)
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.GALENA.asTag()
-			outputs stack(TRContent.Dusts.GALENA, 2), TRContent.Dusts.SULFUR
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid Fluids.WATER
-			source "galena_ore_with_water"
-			criterion getCriterionName(TRContent.Dusts.GALENA.asTag()), getCriterionConditions(TRContent.Dusts.GALENA.asTag())
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.GALENA.asTag()
-			outputs stack(TRContent.Dusts.GALENA, 2), TRContent.Dusts.SULFUR, TRContent.RawMetals.SILVER
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid ModFluids.MERCURY.getFluid()
-			source "galena_ore_with_mercury"
-			criterion getCriterionName(TRContent.Ores.GALENA.asTag()), getCriterionConditions(TRContent.Ores.GALENA.asTag())
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.GOLD_ORES
-			outputs stack(Items.RAW_GOLD, 2), stack(Items.COPPER_NUGGET, 3), stack(TRContent.Nuggets.NICKEL)
+			ingredients BlockTags.GOLD_ORES
+			outputs stack(Items.RAW_GOLD, 3), stack(Items.COPPER_NUGGET, 3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -571,7 +502,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients BlockTags.GOLD_ORES
-			outputs stack(Items.RAW_GOLD, 3), stack(Items.COPPER_NUGGET, 3), stack(TRContent.Nuggets.NICKEL)
+			outputs stack(Items.RAW_GOLD, 4), Items.RAW_COPPER, stack(TRContent.Nuggets.NICKEL,3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -581,7 +512,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients BlockTags.GOLD_ORES
-			outputs stack(Items.RAW_GOLD, 2), Items.RAW_COPPER, TRContent.Dusts.NICKEL
+			outputs stack(Items.RAW_GOLD, 4), stack(Items.COPPER_NUGGET, 3), TRContent.Dusts.NICKEL
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -589,39 +520,10 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			source "gold_ore_with_sodium_persulfate"
 			criterion getCriterionName(BlockTags.GOLD_ORES), getCriterionConditions(BlockTags.GOLD_ORES)
 		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.IRIDIUM.asTag()
-			outputs TRContent.RawMetals.IRIDIUM, stack(TRContent.SmallDusts.PLATINUM, 2)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid Fluids.WATER
-			source "iridium_ore_with_water"
-			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.IRIDIUM.asTag()
-			outputs stack(TRContent.RawMetals.IRIDIUM, 2), stack(TRContent.SmallDusts.PLATINUM, 2)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid ModFluids.MERCURY.getFluid()
-			source "iridium_ore_with_mercury"
-			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.IRIDIUM.asTag()
-			outputs TRContent.RawMetals.IRIDIUM, TRContent.Dusts.PLATINUM
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
-			source "iridium_ore_with_sodium_persulfate"
-			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
-		}
+		//iron tin
 		offerIndustrialGrinderRecipe {
 			ingredients BlockTags.IRON_ORES
-			outputs stack(Items.RAW_IRON, 3), stack(TRContent.Nuggets.TIN, 3), stack(TRContent.Nuggets.NICKEL, 3)
+			outputs stack(Items.RAW_IRON, 3), stack(TRContent.Nuggets.TIN, 3), stack(TRContent.Nuggets.ZINC, 3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -630,18 +532,79 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(BlockTags.IRON_ORES), getCriterionConditions(BlockTags.IRON_ORES)
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients TRConventionalTags.LAPIS_ORES
-			outputs stack(Items.LAPIS_LAZULI, 12), stack(TRContent.Dusts.LAZURITE, 3)
+			ingredients BlockTags.IRON_ORES
+			outputs stack(Items.RAW_IRON, 4), TRContent.RawMetals.TIN, stack(TRContent.Nuggets.ZINC,3)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "iron_ore_with_mercury"
+			criterion getCriterionName(BlockTags.IRON_ORES), getCriterionConditions(BlockTags.IRON_ORES)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients BlockTags.IRON_ORES
+			outputs stack(Items.RAW_IRON, 4), stack(TRContent.Nuggets.TIN, 3), stack(TRContent.Dusts.NICKEL)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
+			source "iron_ore_with_persulfate"
+			criterion getCriterionName(BlockTags.IRON_ORES), getCriterionConditions(BlockTags.IRON_ORES)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.TIN.asTag()
+			outputs stack(TRContent.RawMetals.TIN, 3), stack(Items.IRON_NUGGET, 3), stack(TRContent.Nuggets.ZINC, 3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
 			fluid Fluids.WATER
-			source "lapis_ore_with_water"
-			criterion getCriterionName(TRConventionalTags.LAPIS_ORES), getCriterionConditions(TRConventionalTags.LAPIS_ORES)
+			source "tin_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.TIN.asTag()), getCriterionConditions(TRContent.Ores.TIN.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.TIN.asTag()
+			outputs stack(TRContent.RawMetals.TIN, 4), Items.RAW_IRON, stack(TRContent.Nuggets.ZINC, 3)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "tin_ore_with_sodium_mercury"
+			criterion getCriterionName(TRContent.Ores.TIN.asTag()), getCriterionConditions(TRContent.Ores.TIN.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.TIN.asTag()
+			outputs stack(TRContent.RawMetals.TIN, 4),  stack(Items.IRON_NUGGET, 3), TRContent.Dusts.ZINC
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
+			source "tin_ore_with_sodium_persulfate"
+			criterion getCriterionName(TRContent.Ores.TIN.asTag()), getCriterionConditions(TRContent.Ores.TIN.asTag())
+		}
+		//has galena
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.GALENA.asTag()
+			outputs stack(TRContent.Dusts.GALENA, 4), TRContent.Dusts.SULFUR
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "galena_ore_with_water"
+			criterion getCriterionName(TRContent.Dusts.GALENA.asTag()), getCriterionConditions(TRContent.Dusts.GALENA.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.GALENA.asTag()
+			outputs stack(TRContent.Dusts.GALENA, 8), stack(TRContent.Dusts.SULFUR,2)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "galena_ore_with_mercury"
+			criterion getCriterionName(TRContent.Ores.GALENA.asTag()), getCriterionConditions(TRContent.Ores.GALENA.asTag())
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.LEAD.asTag()
-			outputs stack(TRContent.RawMetals.LEAD, 2), stack(TRContent.SmallDusts.GALENA, 2)
+			outputs stack(TRContent.RawMetals.LEAD, 3), stack(TRContent.Dusts.GALENA, 1)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -650,24 +613,44 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRContent.Ores.LEAD.asTag()), getCriterionConditions(TRContent.Ores.LEAD.asTag())
 		}
 		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.SILVER.asTag()
+			outputs stack(TRContent.RawMetals.SILVER, 3), stack(TRContent.Dusts.GALENA, 1)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "silver_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.SILVER.asTag()), getCriterionConditions(TRContent.Ores.SILVER.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.LAPIS_ORES
+			outputs stack(Items.LAPIS_LAZULI, 16)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "lapis_ore_with_water"
+			criterion getCriterionName(TRConventionalTags.LAPIS_ORES), getCriterionConditions(TRConventionalTags.LAPIS_ORES)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.LAPIS_ORES
+			outputs stack(Items.LAPIS_LAZULI, 36)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "lapis_ore_with_mercury"
+			criterion getCriterionName(TRConventionalTags.LAPIS_ORES), getCriterionConditions(TRConventionalTags.LAPIS_ORES)
+		}
+		offerIndustrialGrinderRecipe {
 			ingredients Items.NETHER_QUARTZ_ORE
-			outputs stack(Items.QUARTZ, 2), stack(TRContent.SmallDusts.SULFUR, 2)
+			outputs stack(Items.QUARTZ, 3), stack(TRContent.Dusts.SULFUR)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
 			fluid Fluids.WATER
 			source "nether_quartz_ore_with_water"
 			criterion getCriterionName(Items.NETHER_QUARTZ_ORE), getCriterionConditions(Items.NETHER_QUARTZ_ORE)
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.PERIDOT.asTag()
-			outputs TRContent.Gems.PERIDOT, stack(TRContent.SmallDusts.PERIDOT, 6), stack(TRContent.SmallDusts.EMERALD, 2)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid Fluids.WATER
-			source "peridot_ore_with_water"
-			criterion getCriterionName(TRContent.Ores.PERIDOT.asTag()), getCriterionConditions(TRContent.Ores.PERIDOT.asTag())
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.PYRITE.asTag()
@@ -681,7 +664,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRConventionalTags.REDSTONE_ORES
-			outputs stack(Items.REDSTONE, 10), stack(TRContent.SmallDusts.GLOWSTONE, 2)
+			outputs stack(Items.REDSTONE, 8), stack(TRContent.SmallDusts.GLOWSTONE, 2)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -690,8 +673,59 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRConventionalTags.REDSTONE_ORES), getCriterionConditions(TRConventionalTags.REDSTONE_ORES)
 		}
 		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.REDSTONE_ORES
+			outputs stack(Items.REDSTONE, 16), stack(Items.GLOWSTONE_DUST, 1)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "redstone_ore_with_mercury"
+			criterion getCriterionName(TRConventionalTags.REDSTONE_ORES), getCriterionConditions(TRConventionalTags.REDSTONE_ORES)
+		}
+		//gems
+		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.DIAMOND_ORES
+			outputs stack(Items.DIAMOND, 3), stack(TRContent.Dusts.DIAMOND,1), TRContent.Dusts.COAL
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "diamond_ore_with_water"
+			criterion getCriterionName(TRConventionalTags.DIAMOND_ORES), getCriterionConditions(TRConventionalTags.DIAMOND_ORES)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.DIAMOND_ORES
+			outputs stack(Items.DIAMOND, 6), stack(TRContent.Dusts.DIAMOND,2), TRContent.Dusts.COAL
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "diamond_ore_with_mercury"
+			criterion getCriterionName(TRConventionalTags.DIAMOND_ORES), getCriterionConditions(TRConventionalTags.DIAMOND_ORES)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.EMERALD_ORES
+			outputs stack(Items.EMERALD,3), stack(TRContent.Dusts.ALUMINUM, 1)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "emerald_ore_with_water"
+			criterion getCriterionName(TRConventionalTags.EMERALD_ORES), getCriterionConditions(TRConventionalTags.EMERALD_ORES)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRConventionalTags.EMERALD_ORES
+			outputs stack(Items.EMERALD,6), stack(TRContent.Dusts.ALUMINUM, 2)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "emerald_ore_with_mercury"
+			criterion getCriterionName(TRConventionalTags.EMERALD_ORES), getCriterionConditions(TRConventionalTags.EMERALD_ORES)
+		}
+		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.RUBY.asTag()
-			outputs TRContent.Gems.RUBY, stack(TRContent.SmallDusts.RUBY, 6), stack(TRContent.SmallDusts.RED_GARNET, 2)
+			outputs stack(TRContent.Gems.RUBY,3), stack(TRContent.Dusts.RUBY, 1), stack(TRContent.SmallDusts.RED_GARNET, 2)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -701,7 +735,7 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.SAPPHIRE.asTag()
-			outputs TRContent.Gems.SAPPHIRE, stack(TRContent.SmallDusts.SAPPHIRE, 6), stack(TRContent.SmallDusts.PERIDOT, 2)
+			outputs stack(TRContent.Gems.SAPPHIRE,3), stack(TRContent.Dusts.SAPPHIRE, 1), stack(TRContent.SmallDusts.PERIDOT, 2)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -710,8 +744,18 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRContent.Ores.SAPPHIRE.asTag()), getCriterionConditions(TRContent.Ores.SAPPHIRE.asTag())
 		}
 		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.PERIDOT.asTag()
+			outputs stack(TRContent.Gems.PERIDOT,3), stack(TRContent.Dusts.PERIDOT, 1), stack(TRContent.SmallDusts.EMERALD, 2)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "peridot_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.PERIDOT.asTag()), getCriterionConditions(TRContent.Ores.PERIDOT.asTag())
+		}
+		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.SHELDONITE.asTag()
-			outputs stack(TRContent.Dusts.PLATINUM, 2), TRContent.Dusts.NICKEL, stack(TRContent.Nuggets.IRIDIUM, 2)
+			outputs stack(TRContent.Dusts.PLATINUM, 3), TRContent.Dusts.NICKEL, stack(TRContent.Nuggets.IRIDIUM, 3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -721,23 +765,13 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.SHELDONITE.asTag()
-			outputs stack(TRContent.Dusts.PLATINUM, 3), TRContent.Dusts.NICKEL, stack(TRContent.Nuggets.IRIDIUM, 2)
+			outputs stack(TRContent.Dusts.PLATINUM, 4), TRContent.Dusts.NICKEL, stack(TRContent.RawMetals.IRIDIUM)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
 			fluid ModFluids.MERCURY.getFluid()
 			source "sheldonite_ore_with_mercury"
 			criterion getCriterionName(TRContent.Ores.SHELDONITE.asTag()), getCriterionConditions(TRContent.Ores.SHELDONITE.asTag())
-		}
-		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.SILVER.asTag()
-			outputs stack(TRContent.RawMetals.SILVER, 2), stack(TRContent.SmallDusts.GALENA, 2)
-			power orePower
-			time oreTime
-			fluidAmount oreAmount
-			fluid Fluids.WATER
-			source "silver_ore_with_water"
-			criterion getCriterionName(TRContent.Ores.SILVER.asTag()), getCriterionConditions(TRContent.Ores.SILVER.asTag())
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.SODALITE.asTag()
@@ -770,24 +804,34 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRContent.Ores.SPHALERITE.asTag()), getCriterionConditions(TRContent.Ores.SPHALERITE.asTag())
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.TIN.asTag()
-			outputs stack(TRContent.RawMetals.TIN, 2), stack(Items.IRON_NUGGET, 3), stack(TRContent.Nuggets.ZINC, 3)
+			ingredients TRContent.Ores.IRIDIUM.asTag()
+			outputs TRContent.RawMetals.IRIDIUM, stack(TRContent.SmallDusts.PLATINUM, 2)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
 			fluid Fluids.WATER
-			source "tin_ore_with_water"
-			criterion getCriterionName(TRContent.Ores.TIN.asTag()), getCriterionConditions(TRContent.Ores.TIN.asTag())
+			source "iridium_ore_with_water"
+			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients TRContent.Ores.TIN.asTag()
-			outputs stack(TRContent.RawMetals.TIN, 2), Items.RAW_IRON, TRContent.Dusts.ZINC
+			ingredients TRContent.Ores.IRIDIUM.asTag()
+			outputs stack(TRContent.RawMetals.IRIDIUM, 2), stack(TRContent.SmallDusts.PLATINUM, 2)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "iridium_ore_with_mercury"
+			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.IRIDIUM.asTag()
+			outputs TRContent.RawMetals.IRIDIUM, TRContent.Dusts.PLATINUM
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
 			fluid ModFluids.SODIUM_PERSULFATE.getFluid()
-			source "tin_ore_with_sodium_persulfate"
-			criterion getCriterionName(TRContent.Ores.TIN.asTag()), getCriterionConditions(TRContent.Ores.TIN.asTag())
+			source "iridium_ore_with_sodium_persulfate"
+			criterion getCriterionName(TRContent.Ores.IRIDIUM.asTag()), getCriterionConditions(TRContent.Ores.IRIDIUM.asTag())
 		}
 		offerIndustrialGrinderRecipe {
 			ingredients TRContent.Ores.TUNGSTEN.asTag()
@@ -800,8 +844,28 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRContent.Ores.TUNGSTEN.asTag()), getCriterionConditions(TRContent.Ores.TUNGSTEN.asTag())
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients TRContent.RawMetals.URANIUM.asTag()
-			outputs stack(TRContent.Dusts.URANIUM, 3), TRContent.Nuggets.LEAD
+			ingredients Items.ANCIENT_DEBRIS
+			outputs stack(Items.NETHERITE_SCRAP, 2), stack(Items.GOLD_NUGGET, 5)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid Fluids.WATER
+			source "ancient_debris_with_water"
+			criterion getCriterionName(Items.ANCIENT_DEBRIS), getCriterionConditions(Items.ANCIENT_DEBRIS)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients Items.ANCIENT_DEBRIS
+			outputs stack(Items.NETHERITE_SCRAP, 3), stack(Items.GOLD_NUGGET, 3)
+			power orePower
+			time oreTime
+			fluidAmount oreAmount
+			fluid ModFluids.MERCURY.getFluid()
+			source "ancient_debris_with_mercury"
+			criterion getCriterionName(Items.ANCIENT_DEBRIS), getCriterionConditions(Items.ANCIENT_DEBRIS)
+		}
+		offerIndustrialGrinderRecipe {
+			ingredients TRContent.Ores.URANIUM.asTag()
+			outputs stack(TRContent.RawMetals.URANIUM, 3), stack(TRContent.Nuggets.LEAD, 3)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
@@ -810,8 +874,8 @@ class IndustrialGrinderRecipesProvider extends TechRebornRecipesProvider {
 			criterion getCriterionName(TRContent.RawMetals.URANIUM.asTag()), getCriterionConditions(TRContent.RawMetals.URANIUM.asTag())
 		}
 		offerIndustrialGrinderRecipe {
-			ingredients TRContent.RawMetals.URANIUM.asTag()
-			outputs stack(TRContent.Dusts.URANIUM, 5), stack(TRContent.Nuggets.LEAD, 3)
+			ingredients TRContent.Ores.URANIUM.asTag()
+			outputs stack(TRContent.RawMetals.URANIUM, 4), stack(TRContent.RawMetals.LEAD)
 			power orePower
 			time oreTime
 			fluidAmount oreAmount
