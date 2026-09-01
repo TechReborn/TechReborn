@@ -52,6 +52,8 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 
 	@Override
 	void generateRecipes() {
+		CraftingRecipeData.generate(new CraftingRecipeFactory(this, itemLookup, exporter))
+
 		// add dust from small dust and vice versa recipes
 		TRContent.SmallDusts.getSD2DMap().each { input, output ->
 			offerMonoShapelessRecipe(input, 4, output, 1, "small", "crafting_table/dust/")
@@ -255,10 +257,10 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.COAL_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, Items.DEEPSLATE_COAL_ORE,
-			'U' as char, 'D' as char)
+			'U' as char, 'S' as char)
 			.pattern("U  ")
 			.pattern(" U ")
-			.pattern(" D ")
+			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.DEEPSLATE_COAL_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.STONE, Items.IRON_ORE,
 			'U' as char, 'S' as char)
@@ -267,10 +269,10 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.IRON_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, Items.DEEPSLATE_IRON_ORE,
-			'U' as char, 'D' as char)
+			'U' as char, 'S' as char)
 			.pattern("U U")
 			.pattern("   ")
-			.pattern(" D ")
+			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.DEEPSLATE_IRON_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.STONE, Items.COPPER_ORE,
 			'U' as char, 'S' as char)
@@ -291,10 +293,10 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.GOLD_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, Items.DEEPSLATE_GOLD_ORE,
-			'U' as char, 'D' as char)
+			'U' as char, 'S' as char)
 			.pattern("   ")
 			.pattern("UUU")
-			.pattern(" D ")
+			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.DEEPSLATE_GOLD_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.STONE, Items.REDSTONE_ORE,
 			'U' as char, 'S' as char)
@@ -303,22 +305,22 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("USU")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.REDSTONE_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, Items.DEEPSLATE_REDSTONE_ORE,
-			'U' as char, 'D' as char)
+			'U' as char, 'S' as char)
 			.pattern("   ")
 			.pattern(" U ")
-			.pattern("UDU")
+			.pattern("USU")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.DEEPSLATE_REDSTONE_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.STONE, Items.EMERALD_ORE,
 			'U' as char, 'S' as char)
-			.pattern("U  ")
+			.pattern("UUU")
 			.pattern("U U")
-			.pattern(" S ")
+			.pattern("US ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.EMERALD_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, Items.DEEPSLATE_EMERALD_ORE,
-			'U' as char, 'D' as char)
-			.pattern("U  ")
+			'U' as char, 'S' as char)
+			.pattern("UUU")
 			.pattern("U U")
-			.pattern(" D ")
+			.pattern("US ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.DEEPSLATE_EMERALD_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.STONE, Items.LAPIS_ORE,
 			'U' as char, 'S' as char)
@@ -327,10 +329,10 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.LAPIS_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, Items.DEEPSLATE_LAPIS_ORE,
-			'U' as char, 'D' as char)
+			'U' as char, 'S' as char)
 			.pattern("U  ")
 			.pattern("U  ")
-			.pattern(" D ")
+			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.DEEPSLATE_LAPIS_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.STONE, Items.DIAMOND_ORE,
 			'U' as char, 'S' as char)
@@ -339,16 +341,16 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("US ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.DIAMOND_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, Items.DEEPSLATE_DIAMOND_ORE,
-			'U' as char, 'D' as char)
+			'U' as char, 'S' as char)
 			.pattern("UU ")
 			.pattern("UUU")
-			.pattern("UD ")
+			.pattern("US ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.DEEPSLATE_DIAMOND_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.NETHERRACK, Items.NETHER_GOLD_ORE,
-			'U' as char, 'N' as char)
+			'U' as char, 'S' as char)
 			.pattern("   ")
 			.pattern("UUU")
-			.pattern(" N ")
+			.pattern(" S ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, Items.NETHER_GOLD_ORE)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.NETHERRACK, Items.NETHER_QUARTZ_ORE,
 			'U' as char, 'N' as char)
@@ -453,10 +455,10 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern("US ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Ores.IRIDIUM)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, TRContent.Ores.DEEPSLATE_IRIDIUM,
-			'U' as char, 'D' as char)
+			'U' as char, 'S' as char)
 			.pattern("UUU")
 			.pattern("UU ")
-			.pattern("UD ")
+			.pattern("US ")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Ores.DEEPSLATE_IRIDIUM)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.STONE, TRContent.Ores.URANIUM,
 			'U' as char, 'S' as char)
@@ -465,10 +467,10 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.pattern(" SU")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Ores.URANIUM)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.DEEPSLATE, TRContent.Ores.DEEPSLATE_URANIUM,
-			'U' as char, 'D' as char)
+			'U' as char, 'S' as char)
 			.pattern("UU ")
 			.pattern(" U ")
-			.pattern(" DU")
+			.pattern(" SU")
 			.save(this.exporter, getRecipeKey(recipeNameString(dir, null, TRContent.Ores.DEEPSLATE_URANIUM)))
 		createDuoShapeRecipe(TRContent.Parts.UU_MATTER, Items.NETHERRACK, TRContent.Ores.PYRITE,
 			'U' as char, 'N' as char)
@@ -526,10 +528,10 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.unlockedBy("has_resin_clump", getCriterionConditions(Items.RESIN_CLUMP))
 			.save(this.exporter, getRecipeKey("crafting_table/parts/sap"))
 		createMonoShapeRecipe(TRContent.Parts.SCRAP, TRContent.SCRAP_BOX,
-			'S' as char)
-			.pattern("SSS")
-			.pattern("SSS")
-			.pattern("SSS")
+			'I' as char)
+			.pattern("III")
+			.pattern("III")
+			.pattern("III")
 			.save(this.exporter, getRecipeKey("crafting_table/scrap_box"))
 	}
 

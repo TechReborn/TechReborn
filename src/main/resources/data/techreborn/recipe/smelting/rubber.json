@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": "techreborn:sap",
-  "result": {
-	  "id": "techreborn:rubber"
-  },
-  "experience": 0.5,
-  "cookingtime": 200
-}

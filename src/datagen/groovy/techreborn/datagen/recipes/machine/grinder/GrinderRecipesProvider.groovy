@@ -453,7 +453,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 100
-			ingredients tag("techreborn:calcite_small_dust_material")
+			ingredients TRContent.ItemTags.CALCITE_SMALL_DUST_MATERIAL
 			outputs stack("techreborn:calcite_small_dust")
 		}
 		offerGrinderRecipe {
@@ -471,7 +471,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 180
-			ingredients tag("techreborn:gravel_material")
+			ingredients TRContent.ItemTags.GRAVEL_MATERIAL
 			outputs stack("minecraft:gravel")
 		}
 		offerGrinderRecipe {
@@ -561,7 +561,7 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 		offerGrinderRecipe {
 			power 2
 			time 400
-			ingredients tag("techreborn:calcite_dust_material")
+			ingredients TRContent.ItemTags.CALCITE_DUST_MATERIAL
 			outputs stack("techreborn:calcite_dust")
 		}
 		offerGrinderRecipe {
