@@ -48,6 +48,7 @@ import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.init.TRBlockSettings;
 import techreborn.init.TRContent;
 import techreborn.items.CellItem;
+import techreborn.items.UpgraderItem;
 
 public class TankUnitBlock extends BlockMachineBase {
 
@@ -61,6 +62,15 @@ public class TankUnitBlock extends BlockMachineBase {
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new TankUnitBaseBlockEntity(pos, state, unitType);
+	}
+
+	@Override
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+			Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (stack.getItem() instanceof UpgraderItem) {
+			return InteractionResult.PASS;
+		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	@Override

@@ -66,7 +66,6 @@ public class PaintingToolItem extends Item {
 
 			if (opaqueFullCube || blockState.is(TRContent.BlockTags.NONE_SOLID_COVERS)) {
 				context.getItemInHand().set(TRDataComponentTypes.PAINTING_COVER, blockState);
-				context.getItemInHand().set(TRDataComponentTypes.PAINTING_COVER, blockState);
 				return InteractionResult.SUCCESS;
 			}
 			return InteractionResult.FAIL;
