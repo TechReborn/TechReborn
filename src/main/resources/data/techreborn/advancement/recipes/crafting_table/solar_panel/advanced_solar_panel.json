@@ -19,7 +19,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/solar_panel/advanced_solar_panel"
+		"recipes": "techreborn:crafting_table/solar_panel/advanced_solar_panel"
 	  }
 	}
   },

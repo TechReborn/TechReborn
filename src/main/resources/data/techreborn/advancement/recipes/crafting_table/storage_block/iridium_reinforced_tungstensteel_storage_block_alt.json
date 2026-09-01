@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
 	"recipes": [
-	  "techreborn:crafting_table/storage_ingot/iridium_reinforced_stone_storage_ingot_alt"
+	  "techreborn:crafting_table/storage_block/iridium_reinforced_tungstensteel_storage_block_alt"
 	]
   },
   "criteria": {
@@ -29,7 +29,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/storage_ingot/iridium_reinforced_stone_storage_ingot_alt"
+		"recipes": "techreborn:crafting_table/storage_block/iridium_reinforced_tungstensteel_storage_block_alt"
 	  }
 	}
   },

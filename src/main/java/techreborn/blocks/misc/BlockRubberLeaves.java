@@ -25,8 +25,6 @@
 package techreborn.blocks.misc;
 
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ColorParticleOption;
@@ -34,27 +32,19 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.FallingParticlesLeavesBlock;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import techreborn.init.TRBlockSettings;
 
-public class BlockRubberLeaves extends LeavesBlock {
-	public static final MapCodec<BlockRubberLeaves> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(propertiesCodec()).apply(instance, BlockRubberLeaves::new)
-	);
-
+public class BlockRubberLeaves extends FallingParticlesLeavesBlock {
 	public BlockRubberLeaves(String name) {
-		super(0.01F, TRBlockSettings.rubberLeaves(name));
+		super(0.01F, AmbientLeavesBlockSoundPlayer.noAmbientSound(), TRBlockSettings.rubberLeaves(name));
 		FlammableBlockRegistry.getDefaultInstance().add(this, 30, 60);
 	}
 
 	public BlockRubberLeaves(BlockBehaviour.Properties settings) {
-		super(0.01F, settings);
-	}
-
-	@Override
-	public MapCodec<BlockRubberLeaves> codec() {
-		return CODEC;
+		super(0.01F, AmbientLeavesBlockSoundPlayer.noAmbientSound(), settings);
 	}
 
 	@Override

@@ -29,7 +29,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/cable/glassfiber_cable_6"
+		"recipes": "techreborn:crafting_table/cable/glassfiber_cable_6"
 	  }
 	}
   },

@@ -19,7 +19,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/unit/upgrader/advanced_unit_upgrader"
+		"recipes": "techreborn:crafting_table/unit/upgrader/advanced_unit_upgrader"
 	  }
 	}
   },

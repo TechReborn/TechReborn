@@ -31,12 +31,15 @@ import net.minecraft.advancements.triggers.Criterion
 import net.minecraft.advancements.triggers.InventoryChangeTrigger
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.data.worldgen.BootstrapContext
+import net.minecraft.advancements.Advancement
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
@@ -73,10 +76,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
+	protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
 		itemLookup = wrapperLookup.lookupOrThrow(Registries.ITEM)
-		exporter = recipeExporter
-		generator = new TechRebornRecipeGenerator(wrapperLookup, recipeExporter)
+		generator = new TechRebornRecipeGenerator(recipes, advancements)
+		exporter = generator.output
 		return generator
 	}
 
@@ -289,8 +292,8 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	class TechRebornRecipeGenerator extends RecipeProvider {
-		protected TechRebornRecipeGenerator(HolderLookup.Provider registries, RecipeOutput exporter) {
-			super(registries, exporter)
+		protected TechRebornRecipeGenerator(BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+			super(recipes, advancements)
 		}
 
 		@Override

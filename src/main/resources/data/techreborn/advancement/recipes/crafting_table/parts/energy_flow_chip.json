@@ -29,7 +29,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/parts/energy_flow_chip"
+		"recipes": "techreborn:crafting_table/parts/energy_flow_chip"
 	  }
 	}
   },

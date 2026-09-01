@@ -29,7 +29,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/unit/storage/basic_storage_unit"
+		"recipes": "techreborn:crafting_table/unit/storage/basic_storage_unit"
 	  }
 	}
   },

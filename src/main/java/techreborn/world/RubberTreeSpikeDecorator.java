@@ -31,6 +31,7 @@ import techreborn.init.TRContent;
 
 import java.util.Comparator;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
@@ -45,9 +46,9 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 	);
 
 	private final int spireHeight;
-	private final BlockStateProvider provider;
+	private final Holder<BlockStateProvider> provider;
 
-	public RubberTreeSpikeDecorator(int spireHeight, BlockStateProvider spireBlockState) {
+	public RubberTreeSpikeDecorator(int spireHeight, Holder<BlockStateProvider> spireBlockState) {
 		this.spireHeight = spireHeight;
 		this.provider = spireBlockState;
 	}
@@ -67,7 +68,7 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 					if (!generator.level().isStateAtPosition(sPos, state -> state.isAir() || state.is(TRContent.RUBBER_LOG) || state.is(BlockTags.REPLACEABLE_BY_TREES))) {
 						return;
 					}
-					generator.setBlock(sPos, provider.getState(generator.level(), generator.random(), sPos));
+					generator.setBlock(sPos, provider.value().getState(generator.level(), generator.random(), sPos));
 				}
 			});
 	}
@@ -76,7 +77,7 @@ public class RubberTreeSpikeDecorator  extends TreeDecorator {
 		return spireHeight;
 	}
 
-	public BlockStateProvider getProvider() {
+	public Holder<BlockStateProvider> getProvider() {
 		return provider;
 	}
 }

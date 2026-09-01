@@ -26,14 +26,17 @@ package techreborn.events;
 
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.BlockTransformer;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockTransformers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -51,7 +54,8 @@ public class UseBlockHandler implements UseBlockCallback{
 	public InteractionResult interact(Player playerEntity, Level world, InteractionHand hand, BlockHitResult blockHitResult) {
 		ItemStack stack = playerEntity.getItemInHand(hand);
 
-		if (stack.getItem() instanceof AxeItem) {
+		Holder<BlockTransformer> transformer = stack.get(DataComponents.BLOCK_TRANSFORMER);
+		if (transformer != null && transformer.is(BlockTransformers.AXE)) {
 			BlockPos pos = blockHitResult.getBlockPos();
 			BlockState hitState = world.getBlockState(pos);
 			Block hitBlock = hitState.getBlock();
@@ -65,7 +69,7 @@ public class UseBlockHandler implements UseBlockCallback{
 
 			if (strippedBlock != null) {
 				// Play stripping sound
-				world.playSound(playerEntity, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+				world.playSound(playerEntity, pos, SoundEvents.AXE_STRIP.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
 				if (world.isClientSide()) {
 					return InteractionResult.SUCCESS;
 				}

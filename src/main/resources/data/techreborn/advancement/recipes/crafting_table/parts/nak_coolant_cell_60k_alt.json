@@ -39,7 +39,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/parts/nak_coolant_cell_60k_alt"
+		"recipes": "techreborn:crafting_table/parts/nak_coolant_cell_60k_alt"
 	  }
 	}
   },

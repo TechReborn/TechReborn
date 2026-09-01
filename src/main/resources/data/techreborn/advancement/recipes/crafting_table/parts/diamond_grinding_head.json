@@ -19,7 +19,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/parts/diamond_grinding_head"
+		"recipes": "techreborn:crafting_table/parts/diamond_grinding_head"
 	  }
 	}
   },

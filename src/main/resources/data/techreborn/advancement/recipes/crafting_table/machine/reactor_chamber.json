@@ -29,7 +29,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/machine/reactor_chamber"
+		"recipes": "techreborn:crafting_table/machine/reactor_chamber"
 	  }
 	}
   },

@@ -29,6 +29,7 @@ import com.mojang.serialization.DataResult;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -121,7 +122,7 @@ public class BlockEntityScreenHandlerBuilder {
 
 	public BlockEntityScreenHandlerBuilder fuelSlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.inventory, index, x, y).setFilter(
-			(stack) -> this.world.fuelValues().isFuel(stack)
+			(stack) -> stack.has(DataComponents.COOKING_FUEL)
 		));
 		return this;
 	}

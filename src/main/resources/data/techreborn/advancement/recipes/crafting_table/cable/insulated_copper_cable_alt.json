@@ -29,7 +29,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/cable/insulated_copper_cable_alt"
+		"recipes": "techreborn:crafting_table/cable/insulated_copper_cable_alt"
 	  }
 	}
   },

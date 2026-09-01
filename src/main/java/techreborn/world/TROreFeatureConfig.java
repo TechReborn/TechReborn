@@ -28,19 +28,19 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import techreborn.init.TRContent;
 
 import java.util.function.Predicate;
 
-public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, ResourceKey<PlacedFeature> placedFeature) {
+public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, ResourceKey<Feature> feature, ResourceKey<PlacedFeature> placedFeature) {
 	public static TROreFeatureConfig of(TRContent.Ores ore) {
 		Identifier id = Identifier.fromNamespaceAndPath("techreborn", ore.name + "_ore");
 		return new TROreFeatureConfig(
 			id,
 			ore,
-			ResourceKey.create(Registries.CONFIGURED_FEATURE, id),
+			ResourceKey.create(Registries.FEATURE, id),
 			ResourceKey.create(Registries.PLACED_FEATURE, id)
 		);
 	}

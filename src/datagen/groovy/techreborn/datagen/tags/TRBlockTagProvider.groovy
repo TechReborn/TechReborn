@@ -26,7 +26,6 @@ package techreborn.datagen.tags
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider.BlockTagsProvider
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.tags.BlockItemTagAppender
@@ -43,6 +42,8 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class TRBlockTagProvider extends BlockTagsProvider {
+	private static final TagKey<Block> COMMON_ORES = TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "ores"))
+	private static final TagKey<Block> COMMON_GLASS_BLOCKS = TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "glass_blocks"))
 
 	TRBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
@@ -124,7 +125,7 @@ class TRBlockTagProvider extends BlockTagsProvider {
 		}
 
 		TRContent.Ores.values().each {
-			builder(ConventionalBlockTags.ORES)
+			builder(COMMON_ORES)
 				.add(it.block)
 		}
 
@@ -215,6 +216,6 @@ class TRBlockTagProvider extends BlockTagsProvider {
 
 		builder(TRContent.BlockTags.NONE_SOLID_COVERS)
 			.addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ae2", "whitelisted/facades")))
-			.forceAddTag(ConventionalBlockTags.GLASS_BLOCKS)
+			.forceAddTag(COMMON_GLASS_BLOCKS)
 	}
 }

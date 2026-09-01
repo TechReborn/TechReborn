@@ -27,7 +27,7 @@ package techreborn.items.tool;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
@@ -37,7 +37,7 @@ import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRItemSettings;
 
-public class ChainsawItem extends AxeItem implements RcEnergyItem {
+public class ChainsawItem extends Item implements RcEnergyItem {
 
 	public final int maxCharge;
 	public final RcEnergyTier tier;
@@ -47,7 +47,7 @@ public class ChainsawItem extends AxeItem implements RcEnergyItem {
 
 
 	public ChainsawItem(ToolMaterial material, int energyCapacity, RcEnergyTier tier, int cost, float poweredSpeed, String name) {
-		super(material, 3f, -2.9f, TRItemSettings.unbreakable(name));
+		super(TRItemSettings.unbreakable(name).axe(material, 3f, -2.9f));
 		this.maxCharge = energyCapacity;
 		this.tier = tier;
 		this.cost = cost;

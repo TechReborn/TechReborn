@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.config;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -34,7 +35,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
 import reborncore.client.ClientChatUtils;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.config.elements.ConfigSlotElement;
@@ -150,13 +150,13 @@ public class SlotConfigGui extends GuiTab {
 	@Override
 	public boolean keyPress(KeyEvent key) {
 		int keyCode = key.key();
-		if (key.hasControlDown() && keyCode == GLFW.GLFW_KEY_C) {
+		if (key.hasControlDown() && keyCode == InputConstants.KEY_C) {
 			copyToClipboard();
 			return true;
-		} else if (key.hasControlDown() && keyCode == GLFW.GLFW_KEY_V) {
+		} else if (key.hasControlDown() && keyCode == InputConstants.KEY_V) {
 			pasteFromClipboard();
 			return true;
-		} else if (keyCode == GLFW.GLFW_KEY_ESCAPE && selectedSlot != null) {
+		} else if (keyCode == InputConstants.KEY_ESCAPE && selectedSlot != null) {
 			selectedSlot = null;
 			return true;
 		}

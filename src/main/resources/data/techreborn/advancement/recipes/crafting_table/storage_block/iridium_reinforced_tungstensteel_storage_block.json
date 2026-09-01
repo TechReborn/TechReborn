@@ -29,7 +29,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/storage_block/iridium_reinforced_stone_storage_block"
+		"recipes": "techreborn:crafting_table/storage_block/iridium_reinforced_stone_storage_block"
 	  }
 	}
   },

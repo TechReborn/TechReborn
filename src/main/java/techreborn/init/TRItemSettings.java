@@ -31,6 +31,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import techreborn.TechReborn;
 
 import java.util.LinkedHashSet;
@@ -42,7 +43,12 @@ public class TRItemSettings {
 	);
 
 	public static Item.Properties item(String name) {
-		return new Item.Properties().setId(key(name));
+		Item.Properties properties = FuelRecipes.apply(name, new Item.Properties().setId(key(name)));
+		return switch (name) {
+			case "rubber_sapling", "rubber_leaves", "saw_dust", "saw_small_dust" -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW);
+			case "plantball", "compressed_plantball" -> properties.compostable(ContextIntProviders.COMPOSTABLE_ALWAYS_ADD_ONE);
+			default -> properties;
+		};
 	}
 
 	public static Item.Properties unbreakable(String name) {

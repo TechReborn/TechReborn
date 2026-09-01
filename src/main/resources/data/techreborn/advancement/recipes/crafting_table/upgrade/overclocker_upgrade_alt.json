@@ -19,7 +19,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/upgrade/overclocker_upgrade_alt"
+		"recipes": "techreborn:crafting_table/upgrade/overclocker_upgrade_alt"
 	  }
 	}
   },

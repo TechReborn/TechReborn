@@ -100,7 +100,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Gems.RUBY)            : TRContent.RUBY_AXE,
 				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_AXE
 		].each { material, axe ->
-			offerAxeRecipe(material, axe, "crafting_table/tool/")
+			offerAxeRecipe(material, axe, "crafting_table/tool")
 		}
 		// add hoes
 		[
@@ -109,7 +109,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Gems.RUBY)            : TRContent.RUBY_HOE,
 				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_HOE
 		].each { material, hoe ->
-			offerHoeRecipe(material, hoe, "crafting_table/tool/")
+			offerHoeRecipe(material, hoe, "crafting_table/tool")
 		}
 		// add pickaxes
 		[
@@ -118,7 +118,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Gems.RUBY)            : TRContent.RUBY_PICKAXE,
 				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_PICKAXE
 		].each { material, pickaxe ->
-			offerPickaxeRecipe(material, pickaxe, "crafting_table/tool/")
+			offerPickaxeRecipe(material, pickaxe, "crafting_table/tool")
 		}
 		// add shovels
 		[
@@ -127,7 +127,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Gems.RUBY)            : TRContent.RUBY_SPADE,
 				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SPADE
 		].each { material, shovel ->
-			offerShovelRecipe(material, shovel, "crafting_table/tool/", "spade")
+			offerShovelRecipe(material, shovel, "crafting_table/tool", "spade")
 		}
 		// add swords
 		[
@@ -136,7 +136,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Gems.RUBY)            : TRContent.RUBY_SWORD,
 				(TRContent.Gems.SAPPHIRE)        : TRContent.SAPPHIRE_SWORD
 		].each { material, sword ->
-			offerSwordRecipe(material, sword, "crafting_table/tool/")
+			offerSwordRecipe(material, sword, "crafting_table/tool")
 		}
 	}
 
@@ -150,7 +150,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Ingots.SILVER)        : TRContent.SILVER_BOOTS,
 				(TRContent.Ingots.STEEL)         : TRContent.STEEL_BOOTS
 		].each { material, boots ->
-			offerBootsRecipe(material, boots, "crafting_table/armor/")
+			offerBootsRecipe(material, boots, "crafting_table/armor")
 		}
 		// add chestplate
 		[
@@ -161,7 +161,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Ingots.SILVER)        : TRContent.SILVER_CHESTPLATE,
 				(TRContent.Ingots.STEEL)         : TRContent.STEEL_CHESTPLATE
 		].each { material, chestplate ->
-			offerChestplateRecipe(material, chestplate, "crafting_table/armor/")
+			offerChestplateRecipe(material, chestplate, "crafting_table/armor")
 		}
 		// add helmets
 		[
@@ -172,7 +172,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Ingots.SILVER)        : TRContent.SILVER_HELMET,
 				(TRContent.Ingots.STEEL)         : TRContent.STEEL_HELMET
 		].each { material, helmet ->
-			offerHelmetRecipe(material, helmet, "crafting_table/armor/")
+			offerHelmetRecipe(material, helmet, "crafting_table/armor")
 		}
 		// add leggings
 		[
@@ -183,7 +183,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				(TRContent.Ingots.SILVER)        : TRContent.SILVER_LEGGINGS,
 				(TRContent.Ingots.STEEL)         : TRContent.STEEL_LEGGINGS
 		].each { material, leggings ->
-			offerLeggingsRecipe(material, leggings, "crafting_table/armor/")
+			offerLeggingsRecipe(material, leggings, "crafting_table/armor")
 		}
 	}
 

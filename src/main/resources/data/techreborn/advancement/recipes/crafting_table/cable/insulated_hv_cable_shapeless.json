@@ -29,7 +29,7 @@
 	"has_the_recipe": {
 	  "trigger": "minecraft:recipe_unlocked",
 	  "conditions": {
-		"recipe": "techreborn:crafting_table/cable/insulated_hv_cable_shapeless"
+		"recipes": "techreborn:crafting_table/cable/insulated_hv_cable_shapeless"
 	  }
 	}
   },
