@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": "minecraft:raw_iron_block",
-  "result": {
-	  "id": "minecraft:iron_block"
-  },
-  "experience": 4.5,
-  "cookingtime": 750
-}

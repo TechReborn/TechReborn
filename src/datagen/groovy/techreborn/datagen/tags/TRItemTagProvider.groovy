@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.tags.BlockItemTagAppender
 import net.minecraft.core.HolderLookup
+import net.minecraft.resources.Identifier
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.Identifier
 import net.minecraft.tags.BlockItemTags
@@ -82,6 +83,10 @@ class TRItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
+		addConventionalTags()
+		addToolTags()
+		addMachineMaterialTags()
+
 		TRContent.Ores.values().each { ore ->
 			builder(ore.asTag()).add(ore.asItem())
 			builder(TRContent.ItemTags.ORES).add(ore.asItem())
@@ -344,5 +349,110 @@ class TRItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 			.add(TRContent.STEEL_BOOTS)
 			.add(TRContent.NANO_BOOTS)
 			.add(TRContent.QUANTUM_BOOTS)
+	}
+
+	private void addConventionalTags() {
+		builder(TRConventionalTags.BARRELS_WOODEN).add(Items.BARREL)
+		builder(TRConventionalTags.BASALT).add(Items.BASALT, Items.POLISHED_BASALT, Items.SMOOTH_BASALT)
+
+		builder(TRConventionalTags.LIVING_CORAL_BLOCKS)
+			.add(Items.TUBE_CORAL_BLOCK, Items.BRAIN_CORAL_BLOCK, Items.BUBBLE_CORAL_BLOCK, Items.FIRE_CORAL_BLOCK, Items.HORN_CORAL_BLOCK)
+		builder(TRConventionalTags.DEAD_CORAL_BLOCKS)
+			.add(Items.DEAD_TUBE_CORAL_BLOCK, Items.DEAD_BRAIN_CORAL_BLOCK, Items.DEAD_BUBBLE_CORAL_BLOCK, Items.DEAD_FIRE_CORAL_BLOCK, Items.DEAD_HORN_CORAL_BLOCK)
+		builder(TRConventionalTags.CORAL_BLOCKS)
+			.addTag(TRConventionalTags.LIVING_CORAL_BLOCKS)
+			.addTag(TRConventionalTags.DEAD_CORAL_BLOCKS)
+
+		builder(TRConventionalTags.LIVING_CORAL_FANS)
+			.add(Items.TUBE_CORAL_FAN, Items.BRAIN_CORAL_FAN, Items.BUBBLE_CORAL_FAN, Items.FIRE_CORAL_FAN, Items.HORN_CORAL_FAN)
+		builder(TRConventionalTags.DEAD_CORAL_FANS)
+			.add(Items.DEAD_TUBE_CORAL_FAN, Items.DEAD_BRAIN_CORAL_FAN, Items.DEAD_BUBBLE_CORAL_FAN, Items.DEAD_FIRE_CORAL_FAN, Items.DEAD_HORN_CORAL_FAN)
+		builder(TRConventionalTags.CORAL_FANS)
+			.addTag(TRConventionalTags.LIVING_CORAL_FANS)
+			.addTag(TRConventionalTags.DEAD_CORAL_FANS)
+
+		builder(TRConventionalTags.LIVING_CORAL_PLANTS)
+			.add(Items.TUBE_CORAL, Items.BRAIN_CORAL, Items.BUBBLE_CORAL, Items.FIRE_CORAL, Items.HORN_CORAL)
+		builder(TRConventionalTags.DEAD_CORAL_PLANTS)
+			.add(Items.DEAD_TUBE_CORAL, Items.DEAD_BRAIN_CORAL, Items.DEAD_BUBBLE_CORAL, Items.DEAD_FIRE_CORAL, Items.DEAD_HORN_CORAL)
+		builder(TRConventionalTags.CORAL_PLANTS)
+			.addTag(TRConventionalTags.LIVING_CORAL_PLANTS)
+			.addTag(TRConventionalTags.DEAD_CORAL_PLANTS)
+
+		builder(TRContent.Dusts.COAL.asTag()).add(TRContent.Dusts.CHARCOAL)
+		builder(TRConventionalTags.COOKED_MEAT)
+			.add(Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_COD, Items.COOKED_MUTTON, Items.COOKED_PORKCHOP, Items.COOKED_RABBIT, Items.COOKED_SALMON)
+		builder(TRConventionalTags.RAW_MEAT)
+			.add(Items.BEEF, Items.CHICKEN, Items.COD, Items.MUTTON, Items.PORKCHOP, Items.RABBIT, Items.SALMON)
+		builder(TRConventionalTags.GRASS_VARIANTS)
+			.add(Items.SHORT_GRASS, Items.TALL_GRASS, Items.FERN, Items.LARGE_FERN, Items.MOSS_CARPET, Items.SEAGRASS)
+
+		[
+			coal: [Items.COAL_ORE, Items.DEEPSLATE_COAL_ORE],
+			copper: [Items.COPPER_ORE, Items.DEEPSLATE_COPPER_ORE],
+			diamond: [Items.DIAMOND_ORE, Items.DEEPSLATE_DIAMOND_ORE],
+			emerald: [Items.EMERALD_ORE, Items.DEEPSLATE_EMERALD_ORE],
+			gold: [Items.GOLD_ORE, Items.DEEPSLATE_GOLD_ORE],
+			iron: [Items.IRON_ORE, Items.DEEPSLATE_IRON_ORE],
+			lapis: [Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE],
+			redstone: [Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE],
+		].each { material, ores -> builder(itemTag('c', "ores/$material")).add(*ores) }
+
+		builder(TRConventionalTags.PLANKS_THAT_BURN).add(TRContent.RUBBER_PLANKS)
+		builder(TRConventionalTags.SMALL_CORALS_BLUE).add(Items.TUBE_CORAL, Items.TUBE_CORAL_FAN)
+		builder(TRConventionalTags.SMALL_CORALS_DEAD)
+			.addTag(TRConventionalTags.DEAD_CORAL_PLANTS)
+			.addTag(TRConventionalTags.DEAD_CORAL_FANS)
+		builder(TRConventionalTags.SMALL_CORALS_PINK).add(Items.BRAIN_CORAL, Items.BRAIN_CORAL_FAN)
+		builder(TRConventionalTags.SMALL_CORALS_PURPLE).add(Items.BUBBLE_CORAL, Items.BUBBLE_CORAL_FAN)
+		builder(TRConventionalTags.SMALL_CORALS_RED).add(Items.FIRE_CORAL, Items.FIRE_CORAL_FAN)
+		builder(TRConventionalTags.SMALL_CORALS_YELLOW).add(Items.HORN_CORAL, Items.HORN_CORAL_FAN)
+		builder(TRConventionalTags.SPONGES).add(Items.SPONGE, Items.WET_SPONGE)
+		builder(TRConventionalTags.WORKBENCH).add(Items.CRAFTING_TABLE)
+	}
+
+	private void addToolTags() {
+		builder(ItemTags.AXES)
+			.add(TRContent.BRONZE_AXE, TRContent.RUBY_AXE, TRContent.SAPPHIRE_AXE, TRContent.PERIDOT_AXE,
+				TRContent.BASIC_CHAINSAW, TRContent.ADVANCED_CHAINSAW, TRContent.INDUSTRIAL_CHAINSAW, TRContent.OMNI_TOOL)
+		builder(ItemTags.HOES)
+			.add(TRContent.BRONZE_HOE, TRContent.RUBY_HOE, TRContent.SAPPHIRE_HOE, TRContent.PERIDOT_HOE)
+		builder(ItemTags.PICKAXES)
+			.add(TRContent.BRONZE_PICKAXE, TRContent.RUBY_PICKAXE, TRContent.SAPPHIRE_PICKAXE, TRContent.PERIDOT_PICKAXE,
+				TRContent.BASIC_DRILL, TRContent.ADVANCED_DRILL, TRContent.INDUSTRIAL_DRILL,
+				TRContent.BASIC_JACKHAMMER, TRContent.ADVANCED_JACKHAMMER, TRContent.INDUSTRIAL_JACKHAMMER,
+				TRContent.ROCK_CUTTER, TRContent.OMNI_TOOL)
+		builder(ItemTags.SHOVELS)
+			.add(TRContent.BRONZE_SPADE, TRContent.RUBY_SPADE, TRContent.SAPPHIRE_SPADE, TRContent.PERIDOT_SPADE,
+				TRContent.BASIC_DRILL, TRContent.ADVANCED_DRILL, TRContent.INDUSTRIAL_DRILL, TRContent.OMNI_TOOL)
+		builder(ItemTags.SWORDS)
+			.add(TRContent.BRONZE_SWORD, TRContent.RUBY_SWORD, TRContent.SAPPHIRE_SWORD, TRContent.PERIDOT_SWORD,
+				TRContent.NANOSABER, TRContent.BASIC_CHAINSAW, TRContent.ADVANCED_CHAINSAW, TRContent.INDUSTRIAL_CHAINSAW, TRContent.OMNI_TOOL)
+	}
+
+	private void addMachineMaterialTags() {
+		builder(TRContent.ItemTags.CALCITE_DUST_MATERIAL)
+			.add(Items.CALCITE, Items.DRIPSTONE_BLOCK)
+			.addTag(TRConventionalTags.CORAL_BLOCKS)
+		builder(TRContent.ItemTags.CALCITE_SMALL_DUST_MATERIAL)
+			.add(Items.BONE_MEAL, Items.POINTED_DRIPSTONE, Items.NAUTILUS_SHELL)
+			.addTag(TRConventionalTags.CORAL_FANS)
+			.addTag(TRConventionalTags.CORAL_PLANTS)
+		builder(TRContent.ItemTags.GRAVEL_MATERIAL)
+			.add(Items.STONE, Items.SMOOTH_STONE, Items.COBBLESTONE, Items.DEEPSLATE, Items.DEEPSLATE_BRICKS,
+				Items.CRACKED_DEEPSLATE_BRICKS, Items.DEEPSLATE_TILES, Items.CRACKED_DEEPSLATE_TILES,
+				Items.POLISHED_DEEPSLATE, Items.CHISELED_DEEPSLATE, Items.COBBLED_DEEPSLATE, Items.BLACKSTONE,
+				Items.POLISHED_BLACKSTONE, Items.CHISELED_POLISHED_BLACKSTONE, Items.POLISHED_BLACKSTONE_BRICKS,
+				Items.CRACKED_POLISHED_BLACKSTONE_BRICKS)
+			.forceAddTag(ItemTags.STONE_BRICKS)
+		builder(TRContent.ItemTags.PLANTBALL_MATERIAL)
+			.add(Items.BEETROOT, Items.CARROT, Items.POTATO, Items.WHEAT, Items.MELON, Items.SUGAR_CANE,
+				Items.CACTUS, Items.APPLE, Items.PUMPKIN, Items.KELP, Items.SWEET_BERRIES)
+			.forceAddTag(ItemTags.LEAVES)
+			.forceAddTag(ItemTags.SAPLINGS)
+	}
+
+	private static TagKey<Item> itemTag(String namespace, String path) {
+		return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, path))
 	}
 }

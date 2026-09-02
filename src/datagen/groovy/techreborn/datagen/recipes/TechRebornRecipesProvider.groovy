@@ -121,7 +121,11 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	}
 
 	ItemPredicate getCellItemPredicate(ModFluids fluid){
-		def cell = Cells.getCellByFluid(fluid.getFluid())
+		return getCellItemPredicate(fluid.getFluid())
+	}
+
+	ItemPredicate getCellItemPredicate(Fluid fluid){
+		def cell = Cells.getCellByFluid(fluid)
 		return ItemPredicate.Builder.item()
 			.of(itemLookup, cell.asItem())
 			.build()

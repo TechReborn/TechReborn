@@ -127,7 +127,7 @@ class CompressorRecipesProvider extends TechRebornRecipesProvider {
 			power 2
 			time 400
 			ingredient {
-				tag(tag("techreborn:plantball_material"), 8)
+				tag(TRContent.ItemTags.PLANTBALL_MATERIAL, 8)
 			}
 			outputs TRContent.Parts.COMPRESSED_PLANTBALL
 		}

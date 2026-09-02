@@ -283,6 +283,10 @@ public class TRContent {
 		public static final TagKey<Item> SAPPHIRE_TOOL_MATERIALS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TagUtil.C_TAG_NAMESPACE, "sapphire_tool_materials"));
 		public static final TagKey<Item> PERIDOT_TOOL_MATERIALS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TagUtil.C_TAG_NAMESPACE, "peridot_tool_materials"));
 		public static final TagKey<Item> TRIM_TEMPLATES = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "trim_templates"));
+		public static final TagKey<Item> CALCITE_DUST_MATERIAL = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "calcite_dust_material"));
+		public static final TagKey<Item> CALCITE_SMALL_DUST_MATERIAL = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "calcite_small_dust_material"));
+		public static final TagKey<Item> GRAVEL_MATERIAL = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "gravel_material"));
+		public static final TagKey<Item> PLANTBALL_MATERIAL = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "plantball_material"));
 		private ItemTags() {
 		}
 	}

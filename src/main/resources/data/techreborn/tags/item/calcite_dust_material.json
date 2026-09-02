@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:calcite",
-    "#c:coral_blocks",
-    "minecraft:dripstone_block"
-  ]
-}

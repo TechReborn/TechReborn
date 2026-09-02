@@ -85,6 +85,9 @@ class TRBlockTagProvider extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider lookup) {
+		addConventionalTags()
+		addMiningLevelTags()
+
 		builder(TRContent.BlockTags.DRILL_MINEABLE)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_PICKAXE)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_SHOVEL)
@@ -217,5 +220,53 @@ class TRBlockTagProvider extends BlockTagsProvider {
 		builder(TRContent.BlockTags.NONE_SOLID_COVERS)
 			.addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("ae2", "whitelisted/facades")))
 			.forceAddTag(COMMON_GLASS_BLOCKS)
+	}
+
+	private void addConventionalTags() {
+		builder(blockTag('c', 'basalt'))
+			.add(Blocks.BASALT, Blocks.POLISHED_BASALT)
+
+		TRContent.Ores.values().each { ore ->
+			builder(TagKey.create(Registries.BLOCK, ore.asTag().location()))
+				.add(ore.block)
+		}
+
+		TRContent.StorageBlocks.values()
+			.findAll { block -> block != TRContent.StorageBlocks.ADVANCED_ALLOY && !block.name.startsWith('hot_') && !block.name.startsWith('raw_') }
+			.each { block ->
+				builder(blockTag('c', "storage/${block.name}"))
+					.add(block.block)
+			}
+	}
+
+	private void addMiningLevelTags() {
+		def diamondOres = [TRContent.Ores.IRIDIUM, TRContent.Ores.SHELDONITE, TRContent.Ores.SODALITE, TRContent.Ores.TUNGSTEN]
+		def diamondStorage = [
+			TRContent.StorageBlocks.HOT_TUNGSTENSTEEL,
+			TRContent.StorageBlocks.IRIDIUM,
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_STONE,
+			TRContent.StorageBlocks.IRIDIUM_REINFORCED_TUNGSTENSTEEL,
+			TRContent.StorageBlocks.RAW_IRIDIUM,
+			TRContent.StorageBlocks.RAW_TUNGSTEN,
+			TRContent.StorageBlocks.TITANIUM,
+			TRContent.StorageBlocks.TUNGSTEN,
+			TRContent.StorageBlocks.TUNGSTENSTEEL,
+		]
+
+		def requiresDiamond = builder(BlockTags.NEEDS_DIAMOND_TOOL)
+		TRContent.Ores.values().findAll { ore -> (ore.isDeepslate() ? ore.unDeepslate : ore) in diamondOres }.each { requiresDiamond.add(it.block) }
+		diamondStorage.each { requiresDiamond.add(it.block) }
+
+		def requiresIron = builder(BlockTags.NEEDS_IRON_TOOL)
+		TRContent.Ores.values().findAll { ore -> (ore.isDeepslate() ? ore.unDeepslate : ore) != TRContent.Ores.TIN && !((ore.isDeepslate() ? ore.unDeepslate : ore) in diamondOres) }.each { requiresIron.add(it.block) }
+		TRContent.StorageBlocks.values().findAll { !(it in diamondStorage) }.each { requiresIron.add(it.block) }
+		TRContent.MachineBlocks.values().each { requiresIron.add(it.casing) }
+
+		builder(BlockTags.NEEDS_STONE_TOOL)
+			.add(TRContent.Ores.TIN.block, TRContent.Ores.DEEPSLATE_TIN.block)
+	}
+
+	private static TagKey<Block> blockTag(String namespace, String path) {
+		return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(namespace, path))
 	}
 }

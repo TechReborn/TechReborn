@@ -34,6 +34,7 @@ import techreborn.datagen.advancement.TRAdvancementProvider
 import techreborn.datagen.compat.Ae2
 import techreborn.datagen.loottables.BlockLootTableProvider
 import techreborn.datagen.models.ModelProvider
+import techreborn.datagen.models.TREquipmentAssetProvider
 import techreborn.datagen.recipes.crafting.CraftingRecipesProvider
 import techreborn.datagen.recipes.machine.alloy_smelter.AlloySmelterRecipesProvider
 import techreborn.datagen.recipes.machine.assembling_machine.AssemblingMachineRecipesProvider
@@ -77,6 +78,9 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 		def add = { FabricDataGenerator.Pack.RegistryDependentFactory factory ->
 			pack.addProvider factory
 		}
+		def addSimple = { FabricDataGenerator.Pack.Factory factory ->
+			pack.addProvider factory
+		}
 
 		add TRItemTagProvider::new
 		add TRPointOfInterestTagProvider::new
@@ -110,6 +114,7 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 		add FluidGeneratorRecipeProvider::new
 
 		add ModelProvider::new
+		addSimple TREquipmentAssetProvider::new
 		add BlockLootTableProvider::new
 
 		add TRDynamicProvider::new
