@@ -29,13 +29,24 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.item.enchantment.Enchantment
 import net.minecraft.world.item.enchantment.Enchantments
+import net.minecraft.advancements.predicates.DataComponentMatchers
+import net.minecraft.advancements.predicates.EnchantmentPredicate
+import net.minecraft.advancements.predicates.ItemPredicate
+import net.minecraft.advancements.predicates.MinMaxBounds
+import net.minecraft.core.Holder
+import net.minecraft.core.component.predicates.DataComponentPredicates
+import net.minecraft.core.component.predicates.EnchantmentsPredicate
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.storage.loot.LootPool
 import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.entries.LootItem
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator
+import net.minecraft.world.level.storage.loot.providers.number.ints.ConstantValue
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider
+import net.minecraft.world.level.storage.loot.providers.number.ints.UniformGenerator
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition
+import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition
+import net.minecraft.world.level.storage.loot.predicates.MatchTool
 import net.minecraft.core.registries.Registries
 import net.minecraft.core.HolderLookup
 import techreborn.init.TRContent
@@ -44,9 +55,36 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Function
 
 class BlockLootTableProvider extends FabricBlockLootSubProvider {
+	private final HolderLookup.Provider registries
+	private final Holder<LootItemCondition> canShear
+	private final Holder<LootItemCondition> canSilkTouch
 
 	BlockLootTableProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
+		registries = registriesFuture.join()
+		def items = registries.lookupOrThrow(Registries.ITEM)
+		def enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT)
+		canShear = Holder.direct(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, Items.SHEARS)).build())
+		canSilkTouch = Holder.direct(MatchTool.toolMatches(
+			ItemPredicate.Builder.item().withComponents(
+				DataComponentMatchers.Builder.components().partial(
+					DataComponentPredicates.ENCHANTMENTS,
+					EnchantmentsPredicate.enchantments(List.of(
+						new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))
+					))
+				).build()
+			)
+		).build())
+	}
+
+	@Override
+	public Holder<LootItemCondition> hasShears() {
+		return canShear
+	}
+
+	@Override
+	public Holder<LootItemCondition> hasSilkTouch() {
+		return canSilkTouch
 	}
 
 	@Override
@@ -118,7 +156,7 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 		addOreDrop(TRContent.Ores.SODALITE, this::sodaliteOreDrops)
 		addOreDrop(TRContent.Ores.SPHALERITE, this::sphaleriteOreDrops)
 		addOreDrop(TRContent.Ores.PYRITE, block -> createOreDrop(block, TRContent.Dusts.PYRITE.asItem()))
-		addOreDrop(TRContent.Ores.PERIDOT, block -> createSingleItemTableWithSilkTouch(block, TRContent.Gems.PERIDOT.asItem(), UniformGenerator.between(1.0F, 2.0F)))
+		addOreDrop(TRContent.Ores.PERIDOT, block -> createSingleItemTableWithSilkTouch(block, TRContent.Gems.PERIDOT.asItem(), uniform(1, 2)))
 	}
 
 	private void addOreDrop(TRContent.Ores ore) {
@@ -137,6 +175,18 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 		}
 	}
 
+	private static Holder<ContextIntProvider> constant(int value) {
+		return Holder.direct(new ConstantValue(value))
+	}
+
+	private static Holder<ContextIntProvider> uniform(int min, int max) {
+		return Holder.direct(new UniformGenerator(constant(min), constant(max)))
+	}
+
+	private Holder<LootItemCondition> withoutSilkTouch() {
+		return Holder.direct(new InvertedLootItemCondition(hasSilkTouch()))
+	}
+
 	private LootTable.Builder cinnabarOreDrops(Block drop) {
 		HolderLookup.RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT)
 		return this.applyExplosionDecay(
@@ -144,21 +194,21 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(constant(1))
 						.add(LootItem.lootTableItem(TRContent.Dusts.CINNABAR.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(0.0F, 1.0F))
+						.setRolls(uniform(0, 1))
 						.add(LootItem.lootTableItem(Items.REDSTONE))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(constant(1))
 						.add(LootItem.lootTableItem(drop))
 						.when(this.hasSilkTouch())
 				)
@@ -172,21 +222,21 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(1.0F, 2.0F))
+						.setRolls(uniform(1, 2))
 						.add(LootItem.lootTableItem(TRContent.Gems.RUBY.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(0.0F, 1.0F))
+						.setRolls(uniform(0, 1))
 						.add(LootItem.lootTableItem(TRContent.Gems.RED_GARNET.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(constant(1))
 						.add(LootItem.lootTableItem(drop))
 						.when(this.hasSilkTouch())
 				)
@@ -200,21 +250,21 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(1.0F, 2.0F))
+						.setRolls(uniform(1, 2))
 						.add(LootItem.lootTableItem(TRContent.Gems.SAPPHIRE.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(0.0F, 1.0F))
+						.setRolls(uniform(0, 1))
 						.add(LootItem.lootTableItem(TRContent.Gems.PERIDOT.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(constant(1))
 						.add(LootItem.lootTableItem(drop))
 						.when(this.hasSilkTouch())
 				)
@@ -228,21 +278,21 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(constant(1))
 						.add(LootItem.lootTableItem(TRContent.Dusts.SODALITE.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(0.0F, 1.0F))
+						.setRolls(uniform(0, 1))
 						.add(LootItem.lootTableItem(TRContent.Dusts.ALUMINUM.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(constant(1))
 						.add(LootItem.lootTableItem(drop))
 						.when(this.hasSilkTouch())
 				)
@@ -256,21 +306,21 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(constant(1))
 						.add(LootItem.lootTableItem(TRContent.Dusts.SPHALERITE.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(0.0F, 1.0F))
+						.setRolls(uniform(0, 1))
 						.add(LootItem.lootTableItem(TRContent.Gems.YELLOW_GARNET.asItem()))
 						.apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
-						.when(this.hasSilkTouch().invert())
+						.when(withoutSilkTouch())
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(constant(1))
 						.add(LootItem.lootTableItem(drop))
 						.when(this.hasSilkTouch())
 				)

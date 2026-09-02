@@ -53,6 +53,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.util.Prediction;
 
 public class ResinBasinBlock extends BaseBlockEntityProvider {
 
@@ -96,7 +97,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 		ItemStack sap = basin.empty();
 		if (sap.isEmpty())
 			return InteractionResult.PASS;
-		player.getInventory().placeItemBackInInventory(sap);
+		player.getInventory().placeItemBackInInventory(sap, Prediction.SERVER_ONLY);
 		return InteractionResult.SUCCESS;
 	}
 

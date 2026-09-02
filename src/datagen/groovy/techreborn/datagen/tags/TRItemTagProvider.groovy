@@ -28,10 +28,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.tags.BlockItemTagAppender
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
 import net.minecraft.core.HolderLookup
 import net.minecraft.resources.Identifier
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.Identifier
 import net.minecraft.tags.BlockItemTags
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
@@ -46,6 +46,8 @@ import techreborn.init.TRContent
 import java.util.concurrent.CompletableFuture
 
 class TRItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
+	private static final TagKey<Item> COMMON_INGOTS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "ingots"))
+
 	TRItemTagProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(dataOutput, registriesFuture)
 	}
@@ -113,7 +115,7 @@ class TRItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 			builder(ingot.asTag()).add(ingot.asItem())
 			builder(TRContent.ItemTags.INGOTS).add(ingot.asItem())
 		}
-		builder(ConventionalItemTags.INGOTS)
+		builder(COMMON_INGOTS)
 			.addTag(TRContent.ItemTags.INGOTS)
 		TRContent.Nuggets.values().each { nugget ->
 			builder(nugget.asTag()).add(nugget.asItem())

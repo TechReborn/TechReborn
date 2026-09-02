@@ -27,12 +27,10 @@ accessible method net/minecraft/world/level/block/CropBlock getAgeProperty ()Lne
 extendable method net/minecraft/world/level/ServerExplosion calculateExplodedPositions ()Ljava/util/List;
 extendable method net/minecraft/client/model/Model renderToBuffer (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V
 
-extendable method net/minecraft/data/recipes/RecipeProvider$Runner run (Lnet/minecraft/data/CachedOutput;)Ljava/util/concurrent/CompletableFuture;
-
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties id Lnet/minecraft/resources/ResourceKey;
 accessible    field    net/minecraft/client/data/models/model/TextureMapping    slots           Ljava/util/Map;
 accessible method net/minecraft/server/level/TicketType register (Ljava/lang/String;JI)Lnet/minecraft/server/level/TicketType;
-accessible field net/minecraft/client/gui/render/pip/PictureInPictureRenderer textureView Lcom/mojang/blaze3d/textures/GpuTextureView;
+accessible field net/minecraft/client/gui/render/pip/PictureInPictureRenderer textureView Lcom/mojang/renderpearl/api/textures/GpuTextureView;
 
 accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
 

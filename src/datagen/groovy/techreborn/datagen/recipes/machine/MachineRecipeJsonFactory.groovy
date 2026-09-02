@@ -232,15 +232,18 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		Identifier advancementId = Identifier.fromNamespaceAndPath(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
 		ResourceKey<Recipe> key = ResourceKey.create(Registries.RECIPE, recipeId)
-		RecipeUtils.addToastDefaults(builder, key)
+		RecipeUtils.addToastDefaults(exporter, builder, key)
 
 		def recipe = createRecipe()
+		def advancement = builder.build(advancementId)
 
 		if (!conditions.isEmpty()) {
-			FabricDataGenHelper.addConditions(recipe, conditions.toArray(new ResourceCondition[0]))
+			def resourceConditions = conditions.toArray(new ResourceCondition[0])
+			FabricDataGenHelper.addConditions(recipe, resourceConditions)
+			advancement = null
 		}
 
-		exporter.accept(key, recipe, builder.build(advancementId))
+		exporter.accept(key, recipe, advancement)
 	}
 
 	def getIdentifier() {

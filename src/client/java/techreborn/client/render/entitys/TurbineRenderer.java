@@ -89,9 +89,14 @@ public class TurbineRenderer implements BlockEntityRenderer<WindMillBlockEntity,
 	) {
 		matrixStack.pushPose();
 		matrixStack.translate(0.5, 0, 0.5);
-		matrixStack.mulPose(Axis.YP.rotationDegrees(state.rotate));
+		matrixStack.rotateDegrees(Axis.YP, state.rotate);
 		matrixStack.translate(0, -1, -0.56);
-		submitNodeCollector.submitModel(MODEL, state.spin, matrixStack, state.layer, state.light, OverlayTexture.NO_OVERLAY, 0, state.breakProgress);
+		submitNodeCollector.submitModel(MODEL, state.spin, matrixStack, state.layer, state.light, OverlayTexture.NO_OVERLAY, 0);
+		if (state.breakProgress != null) {
+			submitNodeCollector.order(1).submitCrumblingOverlay(
+				MODEL, state.spin, matrixStack, state.layer, state.light, OverlayTexture.NO_OVERLAY, -1, state.breakProgress
+			);
+		}
 		matrixStack.popPose();
 	}
 

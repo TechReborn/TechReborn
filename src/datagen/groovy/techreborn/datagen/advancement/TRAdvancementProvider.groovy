@@ -47,6 +47,7 @@ import java.util.function.Consumer
 
 class TRAdvancementProvider extends FabricAdvancementProvider {
 	public HolderGetter<Item> itemLookup
+	private HolderGetter<Block> blockLookup
 	private Consumer<AdvancementHolder> consumer
 
 	public TRAdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -56,6 +57,7 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 	@Override
 	void generateAdvancement(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
 		this.itemLookup = registryLookup.lookupOrThrow(Registries.ITEM)
+		this.blockLookup = registryLookup.lookupOrThrow(Registries.BLOCK)
 		this.consumer = consumer
 
 		def root = create {
@@ -464,8 +466,8 @@ class TRAdvancementProvider extends FabricAdvancementProvider {
 		}
 	}
 
-	private static Criterion<ItemUsedOnLocationTrigger.TriggerInstance> placedBlock(Block block) {
-		return ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block)
+	private Criterion<ItemUsedOnLocationTrigger.TriggerInstance> placedBlock(Block block) {
+		return ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(blockLookup, block)
 	}
 
 	private static Criterion<InventoryChangeTrigger.TriggerInstance> inventoryChanged(ItemLike... items) {

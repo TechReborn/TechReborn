@@ -24,11 +24,11 @@
 
 package reborncore.client.gui.element;
 
-import com.mojang.blaze3d.textures.GpuTextureView;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.textures.FilterMode;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.mojang.renderpearl.api.textures.FilterMode;
+import com.mojang.renderpearl.api.textures.GpuTextureView;
 import net.fabricmc.fabric.api.client.rendering.v1.PictureInPictureRendererRegistry;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
@@ -106,7 +106,7 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 		public void render(float x, float y, Quaternionfc quaternionfc) {
 			PoseStack entry = new PoseStack();
 			entry.translate(x, y, 0);
-			entry.mulPose(quaternionfc);
+			entry.rotate(quaternionfc);
 			render(entry);
 		}
 

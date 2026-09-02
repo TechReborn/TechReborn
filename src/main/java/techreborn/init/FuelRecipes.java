@@ -24,35 +24,50 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.api.registry.FuelValueEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CookingFuel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.Optional;
 
 // Class containing definitions of burnable materials
 public class FuelRecipes {
-	public static void init() {
-		FuelValueEvents.BUILD.register( (builder, context) -> {
-			// Basing it off https://minecraft.wiki/w/Template:Smelting_table
-			// one and a half smelt time
-			final int oneAndAHalf = context.baseSmeltTime() * 3 / 2;
-			// Rubber spam
-			builder.add(TRContent.RUBBER_BUTTON, oneAndAHalf);
-			builder.add(TRContent.RUBBER_LOG, oneAndAHalf);
-			builder.add(TRContent.RUBBER_LOG_STRIPPED, oneAndAHalf);
-			builder.add(TRContent.RUBBER_WOOD, oneAndAHalf);
-			builder.add(TRContent.STRIPPED_RUBBER_WOOD, oneAndAHalf);
-			builder.add(TRContent.RUBBER_PLANKS, oneAndAHalf);
-			builder.add(TRContent.RUBBER_SLAB, oneAndAHalf / 2);
-			builder.add(TRContent.RUBBER_FENCE, oneAndAHalf);
-			builder.add(TRContent.RUBBER_FENCE_GATE, oneAndAHalf);
-			builder.add(TRContent.RUBBER_STAIR, oneAndAHalf);
-			builder.add(TRContent.RUBBER_TRAPDOOR, oneAndAHalf);
-			builder.add(TRContent.RUBBER_PRESSURE_PLATE, oneAndAHalf);
-			builder.add(TRContent.RUBBER_DOOR, context.baseSmeltTime());
-			builder.add(TRContent.RUBBER_SAPLING, context.baseSmeltTime() / 2);
-			// Other stuff
-			builder.add(TRContent.Machine.RESIN_BASIN, oneAndAHalf);
-			builder.add(TRContent.Plates.WOOD, oneAndAHalf);
-			builder.add(TRContent.TREE_TAP, context.baseSmeltTime());
-			}
-		);
+	public static Item.Properties apply(String name, Item.Properties properties) {
+		ResourceKey<ContextIntProvider> burnTime = switch (name) {
+			case "rubber_slab" -> ContextIntProviders.COOKING_TIME_WOOD_SLABS;
+			case "rubber_door", "treetap" -> ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE;
+			case "rubber_sapling" -> ContextIntProviders.COOKING_TIME_DRY_PLANTS;
+			case "rubber_button", "rubber_log", "rubber_log_stripped", "rubber_wood", "stripped_rubber_wood",
+				"rubber_planks", "rubber_fence", "rubber_fence_gate", "rubber_stair", "rubber_trapdoor",
+				"rubber_pressure_plate", "resin_basin", "wood_plate" -> ContextIntProviders.COOKING_TIME_WOOD_BLOCKS;
+			default -> null;
+		};
+		return burnTime == null ? properties : properties.cookingFuel(burnTime);
+	}
+
+	public static int getBurnTime(Level level, BlockPos pos, ItemStack stack) {
+		CookingFuel fuel = stack.get(DataComponents.COOKING_FUEL);
+		if (fuel == null || !(level instanceof ServerLevel serverLevel)) {
+			return 0;
+		}
+		LootContext context = new LootContext.Builder(
+			new LootParams.Builder(serverLevel)
+				.withParameter(LootContextParams.BLOCK_STATE, level.getBlockState(pos))
+				.withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+				.create(LootContextParamSets.BLOCK_INTERACT)
+		).create(Optional.empty());
+		return fuel.burnTime().get(context, 0);
 	}
 }

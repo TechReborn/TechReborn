@@ -187,7 +187,7 @@ class TemplateModel {
 				Direction.SOUTH, RESIN_BASIN_FACE_2, Direction.WEST, RESIN_BASIN_FACE_2,
 				Direction.UP, face(KEY_TWO, uvs(1, 1, 15, 15)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 14, 14)),
 			),
-			new CuboidRotation(new Vector3f(9, 10, 9), new CuboidRotation.SingleAxisRotation(Direction.Axis.Y, 0), false), true, 0
+			new CuboidRotation(new Vector3f(9, 10, 9), new CuboidRotation.SingleAxisRotation(Direction.Axis.Y, 0), false), null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(2, 2, 1), new Vector3f(3, 8, 15),
@@ -195,7 +195,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_3, Direction.EAST, RESIN_BASIN_FACE_4, Direction.SOUTH, RESIN_BASIN_FACE_3,
 				Direction.WEST, RESIN_BASIN_FACE_5, Direction.UP, RESIN_BASIN_FACE_6, Direction.DOWN, RESIN_BASIN_FACE_6
 			),
-			new CuboidRotation(new Vector3f(2.5, 5, 8), new CuboidRotation.SingleAxisRotation(Direction.Axis.Z, 22.5), false), true, 0
+			new CuboidRotation(new Vector3f(2.5, 5, 8), new CuboidRotation.SingleAxisRotation(Direction.Axis.Z, 22.5), false), null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(13, 2, 1), new Vector3f(14, 8, 15),
@@ -203,7 +203,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_3, Direction.EAST, RESIN_BASIN_FACE_4, Direction.SOUTH, RESIN_BASIN_FACE_3,
 				Direction.WEST, RESIN_BASIN_FACE_4, Direction.UP, RESIN_BASIN_FACE_6, Direction.DOWN, RESIN_BASIN_FACE_6,
 			),
-			new CuboidRotation(new Vector3f(13.5, 5, 8), new CuboidRotation.SingleAxisRotation(Direction.Axis.Z, -22.5), false), true, 0
+			new CuboidRotation(new Vector3f(13.5, 5, 8), new CuboidRotation.SingleAxisRotation(Direction.Axis.Z, -22.5), false), null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(1, 2, 2), new Vector3f(15, 8, 3),
@@ -211,7 +211,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_5, Direction.EAST, RESIN_BASIN_FACE_3, Direction.SOUTH, RESIN_BASIN_FACE_4,
 				Direction.WEST, RESIN_BASIN_FACE_3, Direction.UP, RESIN_BASIN_FACE_7, Direction.DOWN, RESIN_BASIN_FACE_7,
 			),
-			new CuboidRotation(new Vector3f(8, 5, 2.5), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
+			new CuboidRotation(new Vector3f(8, 5, 2.5), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(1, 2, 13), new Vector3f(15, 8, 14),
@@ -220,7 +220,7 @@ class TemplateModel {
 				Direction.SOUTH, face(KEY_THREE, uvs(1, 9, 15, 15)), Direction.WEST, RESIN_BASIN_FACE_3,
 				Direction.UP, RESIN_BASIN_FACE_7, Direction.DOWN, RESIN_BASIN_FACE_7,
 			),
-			new CuboidRotation(new Vector3f(8, 5, 13.5), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, 22.5), false), true, 0
+			new CuboidRotation(new Vector3f(8, 5, 13.5), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, 22.5), false), null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(5.5, 11, 9), new Vector3f(6.5, 14, 19),
@@ -228,7 +228,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_8, Direction.EAST, RESIN_BASIN_FACE_9, Direction.SOUTH, RESIN_BASIN_FACE_8,
 				Direction.WEST, RESIN_BASIN_FACE_9, Direction.UP, RESIN_BASIN_FACE_10, Direction.DOWN, RESIN_BASIN_FACE_10,
 			),
-			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(9.5, 11, 9), new Vector3f(10.5, 14, 19),
@@ -236,7 +236,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_8, Direction.EAST, RESIN_BASIN_FACE_9, Direction.SOUTH, RESIN_BASIN_FACE_8,
 				Direction.WEST, RESIN_BASIN_FACE_9, Direction.UP, RESIN_BASIN_FACE_10, Direction.DOWN, RESIN_BASIN_FACE_10,
 			),
-			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(6.5, 11, 9), new Vector3f(9.5, 12, 19),
@@ -244,7 +244,7 @@ class TemplateModel {
 				Direction.NORTH, RESIN_BASIN_FACE_11, Direction.EAST, RESIN_BASIN_FACE_12, Direction.SOUTH, RESIN_BASIN_FACE_11,
 				Direction.WEST, RESIN_BASIN_FACE_12, Direction.UP, RESIN_BASIN_FACE_13, Direction.DOWN, RESIN_BASIN_FACE_13,
 			),
-			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), true, 0
+			new CuboidRotation(new Vector3f(8, 12.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false), null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(6, 11, 15.99), new Vector3f(10, 15, 16.99),
@@ -253,7 +253,7 @@ class TemplateModel {
 				Direction.SOUTH, face(KEY_TWO, uvs(0, 0, 4, 4)), Direction.WEST, RESIN_BASIN_FACE_14,
 				Direction.UP, face(KEY_TWO, uvs(6, 6, 10, 7)), Direction.DOWN, face(KEY_TWO, uvs(0, 0, 4, 1)),
 			),
-			new CuboidRotation(new Vector3f(14, 9, 24), new CuboidRotation.SingleAxisRotation(Direction.Axis.Y, 0), false), true, 0
+			new CuboidRotation(new Vector3f(14, 9, 24), new CuboidRotation.SingleAxisRotation(Direction.Axis.Y, 0), false), null, 0
 		),
 	)
 	static JsonModel.DisplayMap FISHING_STATION_DISPLAY = new JsonModel.DisplayMap().put(
@@ -286,11 +286,11 @@ class TemplateModel {
 		)),
 		new CuboidModelElement(
 			new Vector3f(1, 0, -10), new Vector3f(2, 1, 4),
-			FISHING_STATION_FACE_MAP_1, FISHING_STATION_ROTATION_1, true, 0
+			FISHING_STATION_FACE_MAP_1, FISHING_STATION_ROTATION_1, null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(14, 0, -10), new Vector3f(15, 1, 4),
-			FISHING_STATION_FACE_MAP_1, FISHING_STATION_ROTATION_1, true, 0
+			FISHING_STATION_FACE_MAP_1, FISHING_STATION_ROTATION_1, null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(2, 0.5, -9.5), new Vector3f(14, 0.5, 4.5),
@@ -302,15 +302,15 @@ class TemplateModel {
 				Direction.UP, face(KEY_ZERO, uvs(4, 0, 16, 14)),
 				Direction.DOWN, face(KEY_ZERO, uvs(4, 0, 16, 14), Quadrant.R180),
 			),
-			FISHING_STATION_ROTATION_1, true, 0
+			FISHING_STATION_ROTATION_1, null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(14.5, 1, -5), new Vector3f(14.5, 10, 4),
-			FISHING_STATION_FACE_MAP_2, FISHING_STATION_ROTATION_2, true, 0
+			FISHING_STATION_FACE_MAP_2, FISHING_STATION_ROTATION_2, null, 0
 		),
 		new CuboidModelElement(
 			new Vector3f(1.5, 1, -5), new Vector3f(1.5, 10, 4),
-			FISHING_STATION_FACE_MAP_2, FISHING_STATION_ROTATION_2, true, 0
+			FISHING_STATION_FACE_MAP_2, FISHING_STATION_ROTATION_2, null, 0
 		),
 	)
 	static JsonModel.DisplayMap NANOSABER_DISPLAY = new JsonModel.DisplayMap()
@@ -677,7 +677,7 @@ class TemplateModel {
 				Direction.DOWN, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 10)),
 			),
 			new CuboidRotation(new Vector3f(8, 11.25, 14), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, -22.5), false),
-			true,
+			null,
 			0
 		))
 		elements.add(new CuboidModelElement(
@@ -691,7 +691,7 @@ class TemplateModel {
 				Direction.DOWN, face(TextureSlot.PARTICLE, uvs(0, 0, 3, 0.5)),
 			),
 			new CuboidRotation(new Vector3f(13, 11, 17), new CuboidRotation.SingleAxisRotation(Direction.Axis.X, 0), false),
-			true,
+			null,
 			0
 		))
 		RESIN_BASIN_BASE.apply(block, id).add(elements).suffix("_flowing")
@@ -711,7 +711,7 @@ class TemplateModel {
 				Direction.DOWN, face(KEY_FOUR, uvs(0, 0, 14, 14)),
 			),
 			new CuboidRotation(new Vector3f(9, 13, 9), new CuboidRotation.SingleAxisRotation(Direction.Axis.Y, 0), false),
-			true,
+			null,
 			0
 		))
 		model.add(elements).suffix("_full")

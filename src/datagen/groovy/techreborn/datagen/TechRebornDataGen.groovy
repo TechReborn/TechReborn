@@ -129,7 +129,7 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 	@Override
 	void buildRegistry(RegistrySetBuilder registryBuilder) {
 		registryBuilder.add(Registries.DAMAGE_TYPE, TRDynamicContent::damageTypes)
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, TRDynamicContent::configuredFeatures)
+		registryBuilder.add(Registries.FEATURE, TRDynamicContent::features)
 		registryBuilder.add(Registries.PLACED_FEATURE, TRDynamicContent::placedFeatures)
 	}
 }

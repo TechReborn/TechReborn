@@ -24,7 +24,6 @@
 
 package techreborn.blocks.cable;
 
-import com.mojang.serialization.MapCodec;
 import org.jspecify.annotations.Nullable;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
@@ -114,11 +113,6 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 		registerDefaultState(this.getStateDefinition().any().setValue(EAST, false).setValue(WEST, false).setValue(NORTH, false)
 				.setValue(SOUTH, false).setValue(UP, false).setValue(DOWN, false).setValue(WATERLOGGED, false).setValue(COVERED, false));
 		BlockWrenchEventHandler.wrenchableBlocks.add(this);
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		throw new IllegalStateException("CableBlock does not support getCodec!");
 	}
 
 	// BlockWithEntity

@@ -32,7 +32,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent.Ingots;
 import techreborn.init.TRContent.Parts;
@@ -54,7 +55,7 @@ public class ModLoot {
 
 		LootPool poolBasic = LootPool.lootPool().add(copperIngot).add(tinIngot)
 			.add(leadIngot).add(silverIngot).add(refinedIronIngot).add(advancedAlloyIngot)
-			.add(basicFrame).add(basicCircuit).add(rubberSapling).setRolls(UniformGenerator.between(1.0f, 2.0f))
+			.add(basicFrame).add(basicCircuit).add(rubberSapling).setRolls(ContextIntProviders.between(1, 2))
 			.build();
 
 		LootPoolEntryContainer aluminumIngot = makeEntry(Ingots.ALUMINUM);
@@ -69,7 +70,7 @@ public class ModLoot {
 
 		LootPool poolAdvanced = LootPool.lootPool().add(aluminumIngot).add(electrumIngot)
 			.add(invarIngot).add(nickelIngot).add(steelIngot).add(zincIngot)
-			.add(advancedFrame).add(advancedCircuit).add(dataStorageChip).setRolls(UniformGenerator.between(1.0f, 3.0f))
+			.add(advancedFrame).add(advancedCircuit).add(dataStorageChip).setRolls(ContextIntProviders.between(1, 3))
 			.build();
 
 		LootPoolEntryContainer chromeIngot = makeEntry(Ingots.CHROME);
@@ -84,7 +85,7 @@ public class ModLoot {
 
 		LootPool poolIndustrial = LootPool.lootPool().add(chromeIngot).add(iridiumIngot)
 				.add(platinumIngot).add(titaniumIngot).add(tungstenIngot).add(tungstensteelIngot)
-				.add(industrialFrame).add(industrialCircuit).add(energyFlowChip).setRolls(UniformGenerator.between(1.0f, 3.0f))
+				.add(industrialFrame).add(industrialCircuit).add(energyFlowChip).setRolls(ContextIntProviders.between(1, 3))
 				.build();
 
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, _) -> {
@@ -142,7 +143,7 @@ public class ModLoot {
 				if (stringId.equals("minecraft:gameplay/fishing/junk")) {
 					LootPoolEntryContainer rubber = LootItem.lootTableItem(Parts.RUBBER).setWeight(10).build();
 					LootPoolEntryContainer treeTap = LootItem.lootTableItem(TRContent.TREE_TAP).setWeight(10)
-						.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.0f, 0.9f))).build();
+						.apply(SetItemDamageFunction.setDamage(ContextFloatProviders.between(0.0f, 0.9f))).build();
 					LootPoolEntryContainer scrap = LootItem.lootTableItem(Parts.SCRAP).setWeight(10).build();
 					tableBuilder.modifyPools(poolBuilder -> poolBuilder
 						.add(rubber).add(treeTap).add(scrap));
@@ -171,7 +172,7 @@ public class ModLoot {
 	 */
 	private static LootPoolEntryContainer makeEntry(ItemLike item, int weight) {
 		return LootItem.lootTableItem(item).setWeight(weight)
-				.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))).build();
+				.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2))).build();
 	}
 
 

@@ -35,30 +35,30 @@ public class TechRebornClientTests implements FabricClientGameTest {
 	public void runTest(ClientGameTestContext context) {
 		TestWorldSave worldSave;
 		try (TestSingleplayerContext singleplayer = context.worldBuilder().create()) {
-		ClientTestHarness test = new ClientTestHarness(context, singleplayer.getServer());
-		test.prepareWorld();
-		RealGuiInteractionTests.run(test);
-		AdvancedMiningToolTests.run(test);
-		PoweredGearTests.run(test);
-		UtilityItemInteractionTests.run(test);
-		NuclearReactorTests.run(test);
-		ElectricItemTests.run(test);
-		EnvironmentalGeneratorTests.run(test);
-		WorldInteractionMachineTests.run(test);
-		MobilityAndDetectionTests.run(test);
-		StorageUnitTests.run(test);
-		EnergyBoundaryTests.run(test);
-		UpgradeAndEnergyTests.run(test);
-		FluidAndGeneratorTests.run(test);
-		AutomationAndMovementTests.run(test);
-		MachineInteractionTests.run(test);
-		MachineProcessingTests.run(test);
-		EnergyNetworkTests.run(test);
-		MultiblockMachineTests.run(test);
-		AdvancedMultiblockTests.run(test);
-		AdvancedProcessingChainTests.run(test);
-		PersistenceTests.prepare(test);
-		worldSave = singleplayer.getWorldSave();
+			ClientTestHarness test = new ClientTestHarness(context, singleplayer.getServer());
+			test.prepareWorld();
+			RealGuiInteractionTests.run(test);
+			AdvancedMiningToolTests.run(test);
+			PoweredGearTests.run(test);
+			UtilityItemInteractionTests.run(test);
+			NuclearReactorTests.run(test);
+			ElectricItemTests.run(test);
+			EnvironmentalGeneratorTests.run(test);
+			WorldInteractionMachineTests.run(test);
+			MobilityAndDetectionTests.run(test);
+			StorageUnitTests.run(test);
+			EnergyBoundaryTests.run(test);
+			UpgradeAndEnergyTests.run(test);
+			FluidAndGeneratorTests.run(test);
+			AutomationAndMovementTests.run(test);
+			MachineInteractionTests.run(test);
+			MachineProcessingTests.run(test);
+			EnergyNetworkTests.run(test);
+			MultiblockMachineTests.run(test);
+			AdvancedMultiblockTests.run(test);
+			AdvancedProcessingChainTests.run(test);
+			PersistenceTests.prepare(test);
+			worldSave = singleplayer.getWorldSave();
 		}
 		try (TestSingleplayerContext singleplayer = worldSave.open()) {
 			PersistenceTests.verify(new ClientTestHarness(context, singleplayer.getServer()));
