@@ -26,11 +26,13 @@ package techreborn.init;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import techreborn.TechReborn;
 
@@ -38,6 +40,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class TRItemSettings {
+	private static final ResourceKey<ContextIntProvider> COMPOSTABLE_VERY_LOW = ResourceKey.create(
+		Registries.CONTEXT_INT_PROVIDER,
+		Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "compostable/very_low")
+	);
 	public static TooltipDisplay UNBREAKABLE_HIDE = new TooltipDisplay(
 		false, new LinkedHashSet<>(Set.of(DataComponents.UNBREAKABLE))
 	);
@@ -45,7 +51,8 @@ public class TRItemSettings {
 	public static Item.Properties item(String name) {
 		Item.Properties properties = FuelRecipes.apply(name, new Item.Properties().setId(key(name)));
 		return switch (name) {
-			case "rubber_sapling", "rubber_leaves", "saw_dust", "saw_small_dust" -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW);
+			case "rubber_sapling", "rubber_leaves", "saw_dust" -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW);
+			case "saw_small_dust" -> properties.compostable(COMPOSTABLE_VERY_LOW);
 			case "plantball", "compressed_plantball" -> properties.compostable(ContextIntProviders.COMPOSTABLE_ALWAYS_ADD_ONE);
 			default -> properties;
 		};
