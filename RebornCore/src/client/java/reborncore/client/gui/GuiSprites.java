@@ -108,7 +108,11 @@ public final class GuiSprites {
 	}
 
 	public static void drawSpriteStretched(GuiGraphicsExtractor drawContext, SpriteId spriteIdentifier, int x, int y, int width, int height, int textureWidth, int textureHeight, int sx, int sy) {
-		drawContext.enableScissor(x + sx, y + sy,  x + width+ sx, y + height+ sy);
+		if (width <= 0 || height <= 0) {
+			return;
+		}
+
+		drawContext.enableScissor(x + sx, y + sy, x + width + sx, y + height + sy);
 		drawSpriteStretched(
 			drawContext,
 			spriteIdentifier,

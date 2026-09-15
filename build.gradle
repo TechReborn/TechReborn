@@ -6,7 +6,7 @@ plugins {
 	id 'eclipse'
 	id 'maven-publish'
 	id 'com.diffplug.spotless' version '6.19.0'
-	id 'net.fabricmc.fabric-loom' version '1.17.11'
+	id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
     id 'me.modmuss50.mod-publish-plugin' version '2.0.0'
 }
 
@@ -244,7 +244,7 @@ publishMods {
 
     def options = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-        minecraftVersions.add("26.2")
+		minecraftVersions.add("26.3")
 
         requires {
             slug = "fabric-api"
@@ -256,7 +256,7 @@ publishMods {
 
     def mrOptions = modrinthOptions {
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
-        minecraftVersions.add("26.2")
+		minecraftVersions.add("26.3")
 
         requires {
             slug = "fabric-api"

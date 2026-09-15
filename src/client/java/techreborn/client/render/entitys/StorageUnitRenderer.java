@@ -106,7 +106,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		}
 		// Item rendering
 		matrices.pushPose();
-		matrices.mulPose(Axis.YP.rotationDegrees(state.rotate));
+		matrices.rotateDegrees(Axis.YP, state.rotate);
 		matrices.scale(0.5F, 0.5F, 0.5F);
 		switch (state.direction) {
 			case NORTH, WEST -> matrices.translate(1, 1, 0);
@@ -120,7 +120,7 @@ public class StorageUnitRenderer implements BlockEntityRenderer<StorageUnitBaseB
 		// Render item only on horizontal facing #2183
 		if (Direction.Plane.HORIZONTAL.test(state.direction)) {
 			matrices.translate(0.5, 0.5, 0.5); // Translate center
-			matrices.mulPose(Axis.YP.rotationDegrees(-state.direction.getCounterClockWise().toYRot() + 90)); // Rotate depending on face
+			matrices.rotateDegrees(Axis.YP, -state.direction.getCounterClockWise().toYRot() + 90); // Rotate depending on face
 			matrices.translate(0, 0, -0.505); // Translate forward
 		}
 		matrices.scale(-0.01f, -0.01F, -0.01f);

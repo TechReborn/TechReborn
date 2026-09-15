@@ -48,6 +48,7 @@ import reborncore.common.screen.BuiltScreenHandlerProvider;
 import reborncore.common.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.FuelRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -65,11 +66,11 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		super(TRBlockEntities.SOLID_FUEL_GENERATOR, pos, state);
 	}
 
-	public static int getItemBurnTime(Level world, ItemStack stack) {
+	public static int getItemBurnTime(Level world, BlockPos pos, ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
 		}
-		return world.fuelValues().burnDuration(stack) / 4;
+		return FuelRecipes.getBurnTime(world, pos, stack) / 4;
 	}
 
 	private void updateState() {
@@ -106,7 +107,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 		if (burnTime == 0) {
 			updateState();
-			burnTime = totalBurnTime = SolidFuelGeneratorBlockEntity.getItemBurnTime(serverLevel, inventory.getItem(fuelSlot));
+			burnTime = totalBurnTime = SolidFuelGeneratorBlockEntity.getItemBurnTime(serverLevel, worldPosition, inventory.getItem(fuelSlot));
 			if (burnTime > 0) {
 				updateState();
 				burnItem = inventory.getItem(fuelSlot);

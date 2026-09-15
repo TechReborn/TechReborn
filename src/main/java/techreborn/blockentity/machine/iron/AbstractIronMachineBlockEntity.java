@@ -42,6 +42,7 @@ import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.FuelRecipes;
 
 public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, SlotConfiguration.SlotFilter {
 
@@ -87,7 +88,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		if (stack.isEmpty() || level == null) {
 			return 0;
 		}
-		return (int) (level.fuelValues().burnDuration(stack) * TechRebornConfig.fuelScale.get());
+		return (int) (FuelRecipes.getBurnTime(level, worldPosition, stack) * TechRebornConfig.fuelScale.get());
 	}
 
 	/**

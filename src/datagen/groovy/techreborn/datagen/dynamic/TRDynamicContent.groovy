@@ -38,13 +38,12 @@ import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.BlockTags
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration
 import net.minecraft.world.level.levelgen.placement.BiomeFilter
 import net.minecraft.world.level.levelgen.placement.CountPlacement
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement
 import net.minecraft.world.level.levelgen.placement.RarityFilter
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter
@@ -59,9 +58,10 @@ import net.minecraft.util.valueproviders.ConstantInt
 import net.minecraft.world.level.levelgen.Heightmap
 import net.minecraft.world.level.levelgen.VerticalAnchor
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature
+import net.minecraft.world.level.levelgen.feature.BlockReplacement
 import net.minecraft.world.level.levelgen.feature.Feature
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration
+import net.minecraft.world.level.levelgen.feature.OreFeature
+import net.minecraft.world.level.levelgen.feature.TreeFeature
 import net.minecraft.world.level.levelgen.placement.PlacedFeature
 import net.minecraft.world.level.levelgen.placement.PlacementModifier
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize
@@ -86,54 +86,54 @@ class TRDynamicContent {
 		registry.register(TRDamageTypes.FUSION, new DamageType("fusion", 0.1F, DamageEffects.BURNING))
 	}
 
-	static void configuredFeatures(BootstrapContext<ConfiguredFeature> registry) {
+	static void features(BootstrapContext<Feature> registry) {
 		WorldGenerator.ORE_FEATURES.forEach {
-			registry.register(it.configuredFeature(), createOreConfiguredFeature(it))
+			registry.register(it.feature(), createOreFeature(it))
 		}
 
-		registry.register(WorldGenerator.OIL_LAKE_FEATURE, createOilLakeConfiguredFeature())
-		registry.register(WorldGenerator.RUBBER_TREE_FEATURE, createRubberTreeConfiguredFeature())
+		registry.register(WorldGenerator.OIL_LAKE_FEATURE, createOilLakeFeature())
+		registry.register(WorldGenerator.RUBBER_TREE_FEATURE, createRubberTreeFeature())
 	}
 
 	static void placedFeatures(BootstrapContext<PlacedFeature> registry) {
-		def configuredFeatureLookup = registry.lookup(Registries.CONFIGURED_FEATURE)
+		def featureLookup = registry.lookup(Registries.FEATURE)
 
 		WorldGenerator.ORE_FEATURES.forEach {
-			registry.register(it.placedFeature(), createOrePlacedFeature(configuredFeatureLookup, it))
+			registry.register(it.placedFeature(), createOrePlacedFeature(featureLookup, it))
 		}
 
-		registry.register(WorldGenerator.OIL_LAKE_PLACED_FEATURE, createOilLakePlacedFeature(configuredFeatureLookup))
-		registry.register(WorldGenerator.RUBBER_TREE_PATCH_PLACED_FEATURE, createRubberTreePatchPlacedFeature(configuredFeatureLookup))
+		registry.register(WorldGenerator.OIL_LAKE_PLACED_FEATURE, createOilLakePlacedFeature(featureLookup))
+		registry.register(WorldGenerator.RUBBER_TREE_PATCH_PLACED_FEATURE, createRubberTreePatchPlacedFeature(featureLookup))
 	}
 
 	// Ores
-	private static ConfiguredFeature createOreConfiguredFeature(TROreFeatureConfig config) {
-		def oreFeatureConfig = switch (config.ore().distribution.dimension) {
-			case TargetDimension.OVERWORLD -> createOverworldOreFeatureConfig(config)
-			case TargetDimension.NETHER -> createSimpleOreFeatureConfig(new BlockMatchTest(Blocks.NETHERRACK), config)
-			case TargetDimension.END -> createSimpleOreFeatureConfig(new BlockStateMatchTest(Blocks.END_STONE.defaultBlockState()), config)
+	private static Feature createOreFeature(TROreFeatureConfig config) {
+		def targets = switch (config.ore().distribution.dimension) {
+			case TargetDimension.OVERWORLD -> createOverworldOreTargets(config)
+			case TargetDimension.NETHER -> createSimpleOreTargets(new BlockMatchTest(Blocks.NETHERRACK), config)
+			case TargetDimension.END -> createSimpleOreTargets(new BlockStateMatchTest(Blocks.END_STONE.defaultBlockState()), config)
 		}
 
-		return new ConfiguredFeature<>(Feature.ORE, oreFeatureConfig)
+		return new OreFeature(targets, config.ore().distribution.veinSize)
 	}
 
-	private static OreConfiguration createOverworldOreFeatureConfig(TROreFeatureConfig config) {
+	private static List<BlockReplacement> createOverworldOreTargets(TROreFeatureConfig config) {
 		if (config.ore().getDeepslate() != null) {
-			return new OreConfiguration(List.of(
-				OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), config.ore().block.defaultBlockState()),
-				OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), config.ore().getDeepslate().block.defaultBlockState())
-			), config.ore().distribution.veinSize)
+			return List.of(
+				BlockReplacement.replace(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), config.ore().block.defaultBlockState()),
+				BlockReplacement.replace(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), config.ore().getDeepslate().block.defaultBlockState())
+			)
 		}
 
-		return createSimpleOreFeatureConfig(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), config)
+		return createSimpleOreTargets(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), config)
 	}
 
-	private static OreConfiguration createSimpleOreFeatureConfig(RuleTest test, TROreFeatureConfig config) {
-		return new OreConfiguration(test, config.ore().block.defaultBlockState(), config.ore().distribution.veinSize)
+	private static List<BlockReplacement> createSimpleOreTargets(RuleTest test, TROreFeatureConfig config) {
+		return List.of(BlockReplacement.replace(test, config.ore().block.defaultBlockState()))
 	}
 
-	private static PlacedFeature createOrePlacedFeature(HolderGetter<ConfiguredFeature> configuredFeatureLookup, TROreFeatureConfig config) {
-		return new PlacedFeature(configuredFeatureLookup.getOrThrow(config.configuredFeature()), getOrePlacementModifiers(config))
+	private static PlacedFeature createOrePlacedFeature(HolderGetter<Feature> featureLookup, TROreFeatureConfig config) {
+		return new PlacedFeature(featureLookup.getOrThrow(config.feature()), getOrePlacementModifiers(config))
 	}
 
 	private static List<PlacementModifier> getOrePlacementModifiers(TROreFeatureConfig config) {
@@ -151,19 +151,17 @@ class TRDynamicContent {
 	}
 
 	// Oil lake
-	private static ConfiguredFeature createOilLakeConfiguredFeature() {
-		return new ConfiguredFeature<>(Feature.LAKE,
-				new LakeFeature.Configuration(
-					BlockStateProvider.simple(ModFluids.OIL.getBlock().defaultBlockState()),
-					BlockStateProvider.simple(Blocks.STONE.defaultBlockState()),
-					BlockPredicate.alwaysTrue(),
-					BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
-					BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
-				)
-			)
+	private static Feature createOilLakeFeature() {
+		return new LakeFeature(
+			BlockStateProvider.holderOf(ModFluids.OIL.getBlock().defaultBlockState()),
+			BlockStateProvider.holderOf(Blocks.STONE.defaultBlockState()),
+			BlockPredicate.alwaysTrue(),
+			BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
+			BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
+		)
 	}
 
-	private static PlacedFeature createOilLakePlacedFeature(HolderGetter<ConfiguredFeature> lookup) {
+	private static PlacedFeature createOilLakePlacedFeature(HolderGetter<Feature> lookup) {
 		return new PlacedFeature(
 			lookup.getOrThrow(WorldGenerator.OIL_LAKE_FEATURE), List.of(
 				RarityFilter.onAverageOnceEvery(20),
@@ -174,7 +172,7 @@ class TRDynamicContent {
 		)
 	}
 
-	private static PlacedFeature createRubberTreePatchPlacedFeature(HolderGetter<ConfiguredFeature> lookup) {
+	private static PlacedFeature createRubberTreePatchPlacedFeature(HolderGetter<Feature> lookup) {
 		return new PlacedFeature(
 			lookup.getOrThrow(WorldGenerator.RUBBER_TREE_FEATURE),
 			List.of(
@@ -183,7 +181,7 @@ class TRDynamicContent {
 				SurfaceWaterDepthFilter.forMaxDepth(0),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 				CountPlacement.of(UniformInt.of(1, 6)),
-				RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(6)),
+				OffsetPlacement.horizontal(TrapezoidInt.triangle(6)),
 				PlacementUtils.filteredByBlockSurvival(TRContent.RUBBER_SAPLING),
 				BiomeFilter.biome()
 			)
@@ -191,7 +189,7 @@ class TRDynamicContent {
 	}
 
 	// Rubber tree
-	private static ConfiguredFeature createRubberTreeConfiguredFeature() {
+	private static Feature createRubberTreeFeature() {
 		final WeightedList.Builder<BlockState> logDataPool = WeightedList.<BlockState>builder()
 			.add(TRContent.RUBBER_LOG.defaultBlockState(), 6)
 
@@ -203,11 +201,10 @@ class TRDynamicContent {
 			)
 			.forEach(state -> logDataPool.add(state, 1))
 
-		return new ConfiguredFeature<>(Feature.TREE,
-			new TreeConfiguration.TreeConfigurationBuilder(
+		return new TreeFeature.Builder(
 				new WeightedStateProvider(logDataPool),
 				new StraightTrunkPlacer(6, 3, 0),
-				BlockStateProvider.simple(TRContent.RUBBER_LEAVES.defaultBlockState()),
+				BlockStateProvider.of(TRContent.RUBBER_LEAVES.defaultBlockState()),
 				new BlobFoliagePlacer(
 					ConstantInt.of(2),
 					ConstantInt.of(0),
@@ -218,10 +215,9 @@ class TRDynamicContent {
 					0,
 					1
 				),
-				BlockStateProvider.simple(Blocks.DIRT.defaultBlockState()))
+				BlockStateProvider.holderOf(Blocks.DIRT.defaultBlockState()))
 				.decorators(List.of(
-					new RubberTreeSpikeDecorator(4, BlockStateProvider.simple(TRContent.RUBBER_LEAVES.defaultBlockState()))
+					new RubberTreeSpikeDecorator(4, BlockStateProvider.holderOf(TRContent.RUBBER_LEAVES.defaultBlockState()))
 				)).build()
-		)
 	}
 }

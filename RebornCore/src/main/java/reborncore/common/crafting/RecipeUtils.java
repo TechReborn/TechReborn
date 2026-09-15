@@ -32,6 +32,8 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.triggers.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.crafting.Recipe;
@@ -65,15 +67,17 @@ public class RecipeUtils {
 	 *     <li>criterion "has_the_recipe" via OR</li>
 	 *     <li>reward: the specified recipe</li>
 	 * </ul>
+	 * @param output the recipe output providing registry lookups
 	 * @param builder the advancement task builder to expand
 	 * @param registryKey the key of the recipe
 	 * @throws NullPointerException If any parameter refers to <code>null</code>.
 	 */
-	public static void addToastDefaults(Advancement.Builder builder, ResourceKey<Recipe<?>> registryKey) {
+	public static void addToastDefaults(RecipeOutput output, Advancement.Builder builder, ResourceKey<Recipe<?>> registryKey) {
+		Objects.requireNonNull(output);
 		Objects.requireNonNull(builder);
 		Objects.requireNonNull(registryKey);
 		builder
-			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(registryKey))
+			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(registryKey)))
 			.rewards(AdvancementRewards.Builder.recipe(registryKey))
 			.requirements(AdvancementRequirements.Strategy.OR);
 	}

@@ -24,13 +24,13 @@
 
 package reborncore.client.gui;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.config.GuiTab;
 import reborncore.client.gui.widget.GuiButtonHologram;
@@ -292,7 +292,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		if (getTab().map(guiTab -> guiTab.keyPress(key)).orElse(false)) {
 			return true;
 		}
-		if (selectedTab != null && key.key() == GLFW.GLFW_KEY_ESCAPE) {
+		if (selectedTab != null && key.key() == InputConstants.KEY_ESCAPE) {
 			closeSelectedTab();
 			return true;
 		}

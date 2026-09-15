@@ -26,7 +26,6 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.level.block.ComposterBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reborncore.common.blockentity.RedstoneConfiguration;
@@ -38,7 +37,6 @@ import techreborn.config.TechRebornConfig;
 import techreborn.events.ApplyArmorToDamageHandler;
 import techreborn.events.OreDepthSyncHandler;
 import techreborn.events.UseBlockHandler;
-import techreborn.init.FuelRecipes;
 import techreborn.init.ModLoot;
 import techreborn.init.ModRecipes;
 import techreborn.init.ModSounds;
@@ -86,20 +84,10 @@ public class TechReborn implements ModInitializer {
 		PoweredCraftingHandler.setup();
 		UseBlockHandler.init();
 		ApplyArmorToDamageHandler.init();
-		FuelRecipes.init();
-
-
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize.get());
 
 		RedstoneConfiguration.fluidStack = new ItemStackTemplate(TRContent.Cells.LAVA.asItem());
 		RedstoneConfiguration.powerStack = new ItemStackTemplate(TRContent.RED_CELL_BATTERY);
-
-		ComposterBlock.COMPOSTABLES.put(TRContent.RUBBER_SAPLING.asItem(), 0.3F);
-		ComposterBlock.COMPOSTABLES.put(TRContent.RUBBER_LEAVES.asItem(), 0.3F);
-		ComposterBlock.COMPOSTABLES.put(TRContent.Parts.PLANTBALL.asItem(), 1F);
-		ComposterBlock.COMPOSTABLES.put(TRContent.Parts.COMPRESSED_PLANTBALL.asItem(), 1F);
-		ComposterBlock.COMPOSTABLES.put(TRContent.Dusts.SAW.asItem(), 0.3F);
-		ComposterBlock.COMPOSTABLES.put(TRContent.SmallDusts.SAW.asItem(), 0.1F);
 
 		TechRebornTemplates.init();
 

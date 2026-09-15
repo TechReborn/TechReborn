@@ -69,7 +69,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntRenderStat
 			matrixStack.scale(j, j, j);
 		}
 
-		matrixStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
+		matrixStack.rotateDegrees(Axis.YP, -90.0F);
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
 		if (!state.blockState.isEmpty()) {
 			TntMinecartRenderer.submitWhiteSolidBlock(state.blockState, matrixStack, submitNodeCollector, state.lightCoords, (int) state.fuseRemainingInTicks / 5 % 2 == 0, state.outlineColor);

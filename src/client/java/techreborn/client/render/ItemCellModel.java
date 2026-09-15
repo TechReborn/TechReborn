@@ -40,6 +40,7 @@ import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ResolvableModel;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.geometry.ItemQuads;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
@@ -94,7 +95,7 @@ public class ItemCellModel implements ItemModel {
 		Fluid fluid = stack.getItem() instanceof ItemFluidInfo fluidInfo ? fluidInfo.getFluid(stack) : Fluids.EMPTY;
 		state.appendModelIdentityElement(fluid);
 		Triple<List<BakedQuad>, Supplier<Vector3fc[]>, Integer> baked = bakedFluids.getOrDefault(fluid, emptyBaked);
-		layerRenderState.prepareQuadList().addAll(baked.getLeft());
+		layerRenderState.setQuads(ItemQuads.split(baked.getLeft()));
 		layerRenderState.setExtents(baked.getMiddle());
 		int tint = baked.getRight();
 		if (tint != -1) {
@@ -249,7 +250,8 @@ public class ItemCellModel implements ItemModel {
 						quad.packedUV0(), quad.packedUV1(), quad.packedUV2(), quad.packedUV3(),
 						quad.direction(), new BakedQuad.MaterialInfo(
 							oldInfo.sprite(), oldInfo.layer(), cutoutType,
-							oldInfo.tintIndex(), oldInfo.shade(), oldInfo.lightEmission()
+							oldInfo.itemGlintRenderType(), oldInfo.itemGlintSpecialRenderType(),
+							oldInfo.tintIndex(), oldInfo.shadeDirectionOverride(), oldInfo.lightEmission()
 						)
 					));
 				}
@@ -262,7 +264,8 @@ public class ItemCellModel implements ItemModel {
 			for (BakedQuad quad : quads) {
 				BakedQuad.MaterialInfo oldInfo = quad.materialInfo();
 				BakedQuad.MaterialInfo newInfo = new BakedQuad.MaterialInfo(
-					oldInfo.sprite(), oldInfo.layer(), oldInfo.itemRenderType(), index, oldInfo.shade(), oldInfo.lightEmission()
+					oldInfo.sprite(), oldInfo.layer(), oldInfo.itemRenderType(), oldInfo.itemGlintRenderType(),
+					oldInfo.itemGlintSpecialRenderType(), index, oldInfo.shadeDirectionOverride(), oldInfo.lightEmission()
 				);
 				list.add(new BakedQuad(quad.position0(), quad.position1(), quad.position2(), quad.position3(),
 					quad.packedUV0(), quad.packedUV1(), quad.packedUV2(), quad.packedUV3(),

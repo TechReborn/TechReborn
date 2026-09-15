@@ -24,13 +24,19 @@
 
 package techreborn.test.client;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.systems.RenderSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestServerContext;
+import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.BlockPos;
@@ -56,6 +62,7 @@ final class ClientTestHarness {
 	static final BlockPos PLAYER_POS = new BlockPos(0, TEST_Y, 0);
 	static final BlockPos INTERACTION_POS = new BlockPos(2, TEST_Y, 0);
 	private static final int HOTBAR_SLOT = 0;
+	private static int screenshotCounter;
 
 	private final ClientGameTestContext context;
 	private final TestServerContext server;
@@ -213,19 +220,19 @@ final class ClientTestHarness {
 
 	void mineBlockWithInput(BlockPos pos, int ticks) {
 		lookAt(pos);
-		context.getInput().holdMouseFor(0, ticks);
+		context.getInput().holdMouseFor(InputConstants.MOUSE_BUTTON_LEFT, ticks);
 		context.waitTicks(2);
 	}
 
 	void attackBlockWithInput(BlockPos pos) {
 		lookAt(pos);
-		context.getInput().pressMouse(0);
+		context.getInput().pressMouse(InputConstants.MOUSE_BUTTON_LEFT);
 		context.waitTicks(2);
 	}
 
 	void attackAt(BlockPos pos) {
 		lookAt(pos);
-		context.getInput().pressMouse(0);
+		context.getInput().pressMouse(InputConstants.MOUSE_BUTTON_LEFT);
 		context.waitTicks(4);
 	}
 
@@ -246,7 +253,7 @@ final class ClientTestHarness {
 	void openUi(BlockPos pos, Class<? extends BlockEntity> expectedType, String screenshotName) {
 		openUi(pos, expectedType);
 		context.waitTicks(2);
-		context.takeScreenshot(screenshotName);
+		takeScreenshot(screenshotName);
 		closeUi();
 	}
 
@@ -310,20 +317,20 @@ final class ClientTestHarness {
 			);
 		});
 		context.getInput().setCursorPos(cursor[0], cursor[1]);
-		context.getInput().pressMouse(0);
+		context.getInput().pressMouse(InputConstants.MOUSE_BUTTON_LEFT);
 		context.waitTicks(2);
 	}
 
 	void screenshotUi(String name) {
 		context.waitTicks(2);
-		context.takeScreenshot(name);
+		takeScreenshot(name);
 	}
 
 	void screenshotInventory(String name) {
 		context.getInput().pressKey(options -> options.keyInventory);
 		context.waitForScreen(InventoryScreen.class);
 		context.waitTicks(2);
-		context.takeScreenshot(name);
+		takeScreenshot(name);
 		context.getInput().pressKey(options -> options.keyInventory);
 		context.waitForScreen(null);
 	}
@@ -332,7 +339,34 @@ final class ClientTestHarness {
 		clearDroppedItems();
 		context.getInput().lookAt(lookAt);
 		context.waitTicks(2);
-		context.takeScreenshot(name);
+		takeScreenshot(name);
+	}
+
+	private void takeScreenshot(String name) {
+		CompletableFuture<Void> future = new CompletableFuture<>();
+		context.runOnClient(client -> {
+			Path directory = client.gameDirectory.toPath().resolve("screenshots");
+			try {
+				Files.createDirectories(directory);
+			} catch (Throwable throwable) {
+				future.completeExceptionally(throwable);
+				return;
+			}
+			Path destination = directory.resolve("%04d_%s.png".formatted(screenshotCounter++, name));
+			Screenshot.takeScreenshot(client.gameRenderer.mainRenderTarget(), image -> {
+				try (image) {
+					image.writeToFile(destination);
+					future.complete(null);
+				} catch (Throwable throwable) {
+					future.completeExceptionally(throwable);
+				}
+			});
+			RenderSystem.getDevice().createCommandEncoder().submit();
+		});
+		while (!future.isDone()) {
+			context.waitTick();
+		}
+		future.join();
 	}
 
 	void lookAt(BlockPos pos) {
@@ -420,14 +454,14 @@ final class ClientTestHarness {
 			return scaleCursor(client, gui.getGuiLeft() + slot.x + 8, gui.getGuiTop() + slot.y + 8);
 		});
 		context.getInput().setCursorPos(cursor[0], cursor[1]);
-		context.getInput().pressMouse(0);
+		context.getInput().pressMouse(InputConstants.MOUSE_BUTTON_LEFT);
 		context.waitTicks(2);
 	}
 
 	private static double[] scaleCursor(net.minecraft.client.Minecraft client, double x, double y) {
 		return new double[] {
-			x * client.getWindow().getWidth() / client.getWindow().getGuiScaledWidth(),
-			y * client.getWindow().getHeight() / client.getWindow().getGuiScaledHeight()
+			x * client.getWindow().getScreenWidth() / client.getWindow().getGuiScaledWidth(),
+			y * client.getWindow().getScreenHeight() / client.getWindow().getGuiScaledHeight()
 		};
 	}
 

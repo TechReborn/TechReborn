@@ -25,16 +25,17 @@
 package reborncore.client;
 
 import com.mojang.blaze3d.ProjectionType;
-import com.mojang.blaze3d.buffers.GpuBuffer;
-import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.systems.CommandEncoder;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.textures.GpuTexture;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.renderpearl.api.buffers.GpuBuffer;
+import com.mojang.renderpearl.api.buffers.GpuBufferSlice;
+import com.mojang.renderpearl.api.commands.CommandEncoder;
+import com.mojang.renderpearl.api.commands.RenderPass;
+import com.mojang.renderpearl.api.textures.GpuTexture;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.DeltaTracker;
@@ -43,6 +44,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.render.GuiRenderer;
 import net.minecraft.client.renderer.Projection;
 import net.minecraft.client.renderer.ProjectionMatrixBuffer;
+import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.SubmitNodeStorage;
 import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -57,6 +59,8 @@ import org.joml.Matrix4fStack;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
+import java.util.OptionalDouble;
 
 public class ItemStackRenderer implements HudElement {
 	private static final int SIZE = 512;
@@ -104,8 +108,6 @@ public class ItemStackRenderer implements HudElement {
 			guiProjection.setupOrtho(1000.0F, 11000.0F, window.getWidth() / scaleFactor, window.getHeight() / scaleFactor, true);
 			RenderSystem.setProjectionMatrix(guiProjectionMatrix.getBuffer(guiProjection), ProjectionType.ORTHOGRAPHIC);
 			modelViewStack.translate(0, 0, -11000);
-			RenderSystem.outputColorTextureOverride = framebuffer.getColorTextureView();
-			RenderSystem.outputDepthTextureOverride = framebuffer.getDepthTextureView();
 			RenderSystem.enableScissorForRenderTypeDraws(0, framebuffer.height - drawSize, drawSize, drawSize);
 
 			PoseStack poseStack = new PoseStack();
@@ -121,14 +123,34 @@ public class ItemStackRenderer implements HudElement {
 			client.gameRenderer.lighting().setupFor(lighting);
 
 			SubmitNodeStorage submitNodeStorage = new SubmitNodeStorage();
-			FeatureRenderDispatcher renderDispatcher = client.gameRenderer.featureRenderDispatcher();
 			itemRenderState.submit(poseStack, submitNodeStorage, LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
-			renderDispatcher.renderAllFeatures(submitNodeStorage);
+			try (
+				RenderBuffers renderBuffers = new RenderBuffers(Runtime.getRuntime().availableProcessors());
+				FeatureRenderDispatcher renderDispatcher = new FeatureRenderDispatcher(
+					renderBuffers,
+					client.getModelManager(),
+					client.getAtlasManager(),
+					client.font,
+					client.gameRenderer.gameRenderState()
+				)
+			) {
+				try (
+					FeatureRenderDispatcher.PreparedFrame frame = renderDispatcher.prepareFrame(submitNodeStorage);
+					RenderPass renderPass = RenderSystem.getDevice().createCommandEncoder().createRenderPass(
+						() -> "RebornCore item export",
+						framebuffer.getColorTextureView(),
+						Optional.empty(),
+						framebuffer.getDepthTextureView(),
+						OptionalDouble.empty()
+					)
+				) {
+					RenderSystem.bindDefaultUniforms(renderPass);
+					FeatureRenderDispatcher.renderAllFeatures(renderPass, frame);
+				}
+			}
 			poseStack.popPose();
 		} finally {
 			RenderSystem.disableScissorForRenderTypeDraws();
-			RenderSystem.outputColorTextureOverride = null;
-			RenderSystem.outputDepthTextureOverride = null;
 			modelViewStack.popMatrix();
 			RenderSystem.restoreProjectionMatrix();
 		}

@@ -30,7 +30,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyMapping.Category;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
 import techreborn.packets.serverbound.QuantumSuitSprintPayload;
 import techreborn.packets.serverbound.SuitNightVisionPayload;
 
@@ -46,14 +45,14 @@ public class KeyBindings {
 	public static void registerKeys() {
 		suitNightVision = KeyMappingHelper.registerKeyMapping(
 			new KeyMapping("key.techreborn.suitNightVision",
-				InputConstants.Type.KEYSYM,
-				GLFW.GLFW_KEY_N,
+				InputConstants.Type.KEYBOARD,
+				InputConstants.KEY_N,
 				CATEGORY));
 
 		quantumSuitSprint = KeyMappingHelper.registerKeyMapping(
 			new KeyMapping("key.techreborn.quantumSuitSprint",
-				InputConstants.Type.KEYSYM,
-				GLFW.GLFW_KEY_R,
+				InputConstants.Type.KEYBOARD,
+				InputConstants.KEY_R,
 				CATEGORY));
 	}
 

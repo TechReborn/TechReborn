@@ -82,16 +82,13 @@ class AdvancementFactory {
 
 		def builder = Advancement.Builder.recipeAdvancement()
 
-		builder.display(
-			icon,
-			Component.translatable("advancements.techreborn.${name}"),
-			Component.translatable("advancements.techreborn.${name}.desc"),
-			background,
-			frame,
-			true,
-			true,
-			hidden
-		)
+		def title = Component.translatable("advancements.techreborn.${name}")
+		def description = Component.translatable("advancements.techreborn.${name}.desc")
+		if (background != null) {
+			builder.rootDisplay(icon, title, description, background, frame, true, true, hidden)
+		} else {
+			builder.display(icon, title, description, frame, true, true, hidden)
+		}
 
 		int i = 0
 		conditionsList.forEach {

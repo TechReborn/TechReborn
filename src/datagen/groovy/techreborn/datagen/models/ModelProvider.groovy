@@ -116,7 +116,7 @@ class ModelProvider extends FabricModelProvider {
 			generator.createTrivialBlock(info.block, TexturedModel.COLUMN)
 		}
 		def toCubeBottomTop = { BlockInfo info ->
-			generator.createTrivialBlock(info.block, TexturedModel.CUBE_TOP_BOTTOM)
+			generator.createTrivialBlock(info.block, TexturedModel.CUBE_BOTTOM_TOP)
 		}
 		def toFamilyBlock = { FamilyBlockInfo info ->
 			BlockFamily family = BlockFamilies.familyBuilder(info.block).slab(info.slabBlock).stairs(info.stairsBlock).wall(info.wallBlock).getFamily()

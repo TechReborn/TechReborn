@@ -36,6 +36,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.geometry.ItemQuads;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -78,7 +79,7 @@ public class ItemBucketModel implements ItemModel {
 	) {
 		state.appendModelIdentityElement(this);
 		ItemStackRenderState.LayerRenderState layerRenderState = state.newLayer();
-		layerRenderState.prepareQuadList().addAll(baked.getLeft());
+		layerRenderState.setQuads(ItemQuads.split(baked.getLeft()));
 		layerRenderState.setExtents(baked.getMiddle());
 		int tint = baked.getRight();
 		if (tint != -1) {

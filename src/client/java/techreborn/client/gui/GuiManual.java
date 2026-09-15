@@ -25,7 +25,6 @@
 package techreborn.client.gui;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.util.Util;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
@@ -37,6 +36,8 @@ import reborncore.client.gui.Theme;
 import reborncore.client.gui.ThemeManager;
 import techreborn.config.TechRebornConfig;
 import techreborn.packets.serverbound.RefundPayload;
+
+import java.net.URI;
 
 public class GuiManual extends Screen {
 
@@ -82,12 +83,7 @@ public class GuiManual extends Screen {
 	}
 
 	private void openLink(String url) {
-		minecraft.gui.setScreen(new ConfirmLinkScreen(t -> {
-			if (t) {
-				Util.getPlatform().openUri(url);
-			}
-			this.minecraft.gui.setScreen(this);
-		}, url, false));
+		ConfirmLinkScreen.confirmLinkNow(this, URI.create(url), false);
 	}
 
 	@Override
