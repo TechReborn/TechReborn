@@ -199,7 +199,10 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 		offerIndustrialElectrolyzerRecipe {
 			power 60
 			time 1400
-			ingredients stack(TRContent.Dusts.SALTPETER, 10), cellStack(Fluids.EMPTY, 7)
+			ingredient {
+				tag(TRContent.Dusts.SALTPETER.asTag(), 10)
+			}
+			ingredients cellStack(Fluids.EMPTY, 7)
 			outputs cellStack(ModFluids.POTASSIUM, 2), cellStack(ModFluids.NITROGEN, 2), cellStack(ModFluids.COMPRESSED_AIR, 3)
 		}
 		offerIndustrialElectrolyzerRecipe {
@@ -271,7 +274,10 @@ class IndustrialElectrolyzerRecipesProvider extends TechRebornRecipesProvider {
 		offerIndustrialElectrolyzerRecipe {
 			power 60
 			time 1000
-			ingredients stack(TRContent.Dusts.SALTPETER, 10), cellStack(ModFluids.SULFURIC_ACID, 4)
+			ingredient {
+				tag(TRContent.Dusts.SALTPETER.asTag(), 10)
+			}
+			ingredients cellStack(ModFluids.SULFURIC_ACID, 4)
 			outputs cellStack(ModFluids.NITRIC_ACID, 2), cellStack(ModFluids.POTASSIUM, 2), stack(TRContent.Dusts.SULFUR, 4), stack(TRContent.Dusts.DARK_ASHES, 2)
 		}
 	}
