@@ -109,7 +109,7 @@ class CraftingRecipeData {
 
 	private static void crafting_table_dust(CraftingRecipeFactory recipes) {
 		recipes.shapeless(TRContent.Dusts.BASALT, 1, null, [TRContent.SmallDusts.COAL, TRContent.SmallDusts.OBSIDIAN, TRContent.SmallDusts.COAL, TRContent.SmallDusts.OBSIDIAN])
-		recipes.shapeless(Items.GUNPOWDER, 2, null, [TRContent.Dusts.CHARCOAL, TRContent.Dusts.SULFUR, TRContent.Dusts.SALTPETER, TRContent.Dusts.SALTPETER])
+		recipes.shapeless(Items.GUNPOWDER, 2, null, [TRContent.Dusts.COAL.asTag(), TRContent.Dusts.SULFUR.asTag(), TRContent.Dusts.SALTPETER.asTag(), TRContent.Dusts.SALTPETER.asTag()])
 		recipes.shapeless(TRContent.Dusts.MARBLE, 1, null, [TRContent.SmallDusts.OBSIDIAN, TRContent.Dusts.DIORITE, TRContent.Dusts.DIORITE, TRContent.Dusts.DIORITE])
 	}
 
