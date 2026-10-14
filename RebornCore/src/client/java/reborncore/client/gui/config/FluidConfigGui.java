@@ -74,7 +74,8 @@ public class FluidConfigGui extends GuiTab {
 
 	@Override
 	public boolean click(double mouseX, double mouseY, int mouseButton) {
-		if (mouseButton == 0 && fluidConfigElement != null) {
+		// SDL left click is button 1 (AbstractWidget#isValidClickButton). Button 0 was the GLFW left button.
+		if (mouseButton == 1 && fluidConfigElement != null) {
 			return fluidConfigElement.onClick(guiBase, mouseX, mouseY);
 		}
 
