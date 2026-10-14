@@ -121,6 +121,7 @@ class TRConventionalTags {
 	public static final TagKey<Item> REDSTONE_ORES = ItemTags.REDSTONE_ORES
 	public static final TagKey<Item> REFINED_IRON_BLOCKS = register("storage_blocks/refined_iron")
 	public static final TagKey<Item> REFINED_IRON_INGOTS = register("ingots/refined_iron")
+	public static final TagKey<Item> RUBBER_INGOTS = register("ingots/rubber")
 	public static final TagKey<Item> RUBIES = register("rubies")
 	public static final TagKey<Item> RUBY_BLOCKS = register("storage_blocks/ruby")
 	public static final TagKey<Item> RUBY_DUSTS = register("dusts/ruby")

@@ -399,6 +399,7 @@ class TRItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		].each { material, ores -> builder(itemTag('c', "ores/$material")).add(*ores) }
 
 		builder(TRConventionalTags.PLANKS_THAT_BURN).add(TRContent.RUBBER_PLANKS)
+		builder(TRConventionalTags.RUBBER_INGOTS).add(TRContent.Parts.RUBBER)
 		builder(TRConventionalTags.SMALL_CORALS_BLUE).add(Items.TUBE_CORAL, Items.TUBE_CORAL_FAN)
 		builder(TRConventionalTags.SMALL_CORALS_DEAD)
 			.addTag(TRConventionalTags.DEAD_CORAL_PLANTS)

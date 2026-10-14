@@ -31,6 +31,7 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.material.Fluids
+import techreborn.datagen.TRConventionalTags
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
 
@@ -91,13 +92,13 @@ class CraftingRecipeData {
 		recipes.shaped(TRContent.Cables.GLASSFIBER, 8, 'glassfiber_cable', ['GGG', 'EDE', 'GGG'], ['G': Items.GLASS, 'E': TRContent.Dusts.ELECTRUM.asTag(), 'D': TRContent.Dusts.DIAMOND.asTag()])
 		recipes.shaped(TRContent.Cables.GOLD, 12, null, ['III'], ['I': Items.GOLD_INGOT])
 		recipes.shaped(TRContent.Cables.HV, 12, null, ['III'], ['I': TRContent.Ingots.REFINED_IRON])
-		recipes.shaped(TRContent.Cables.INSULATED_COPPER, 6, 'insulated_copper_cable', ['RRR', 'III', 'RRR'], ['I': Items.COPPER_INGOT, 'R': TRContent.Parts.RUBBER])
-		recipes.shaped(TRContent.Cables.INSULATED_COPPER, 6, 'insulated_copper_cable', ['RIR', 'RIR', 'RIR'], ['I': Items.COPPER_INGOT, 'R': TRContent.Parts.RUBBER])
-		recipes.shapeless(TRContent.Cables.INSULATED_COPPER, 1, 'insulated_copper_cable', [TRContent.Parts.RUBBER, TRContent.Cables.COPPER])
-		recipes.shaped(TRContent.Cables.INSULATED_GOLD, 4, 'insulated_gold_cable', ['RRR', 'RIR', 'RRR'], ['I': Items.GOLD_INGOT, 'R': TRContent.Parts.RUBBER])
-		recipes.shapeless(TRContent.Cables.INSULATED_GOLD, 1, 'insulated_gold_cable', [TRContent.Parts.RUBBER, TRContent.Parts.RUBBER, TRContent.Cables.GOLD])
-		recipes.shaped(TRContent.Cables.INSULATED_HV, 4, 'insulated_hv_cable', ['RRR', 'RIR', 'RRR'], ['I': TRContent.Ingots.REFINED_IRON, 'R': TRContent.Parts.RUBBER])
-		recipes.shapeless(TRContent.Cables.INSULATED_HV, 1, 'insulated_hv_cable', [TRContent.Parts.RUBBER, TRContent.Parts.RUBBER, TRContent.Cables.HV])
+		recipes.shaped(TRContent.Cables.INSULATED_COPPER, 6, 'insulated_copper_cable', ['RRR', 'III', 'RRR'], ['I': Items.COPPER_INGOT, 'R': TRConventionalTags.RUBBER_INGOTS])
+		recipes.shaped(TRContent.Cables.INSULATED_COPPER, 6, 'insulated_copper_cable', ['RIR', 'RIR', 'RIR'], ['I': Items.COPPER_INGOT, 'R': TRConventionalTags.RUBBER_INGOTS])
+		recipes.shapeless(TRContent.Cables.INSULATED_COPPER, 1, 'insulated_copper_cable', [TRConventionalTags.RUBBER_INGOTS, TRContent.Cables.COPPER])
+		recipes.shaped(TRContent.Cables.INSULATED_GOLD, 4, 'insulated_gold_cable', ['RRR', 'RIR', 'RRR'], ['I': Items.GOLD_INGOT, 'R': TRConventionalTags.RUBBER_INGOTS])
+		recipes.shapeless(TRContent.Cables.INSULATED_GOLD, 1, 'insulated_gold_cable', [TRConventionalTags.RUBBER_INGOTS, TRConventionalTags.RUBBER_INGOTS, TRContent.Cables.GOLD])
+		recipes.shaped(TRContent.Cables.INSULATED_HV, 4, 'insulated_hv_cable', ['RRR', 'RIR', 'RRR'], ['I': TRContent.Ingots.REFINED_IRON, 'R': TRConventionalTags.RUBBER_INGOTS])
+		recipes.shapeless(TRContent.Cables.INSULATED_HV, 1, 'insulated_hv_cable', [TRConventionalTags.RUBBER_INGOTS, TRConventionalTags.RUBBER_INGOTS, TRContent.Cables.HV])
 		recipes.shaped(TRContent.Cables.SUPERCONDUCTOR, 1, null, ['MFM', 'SSS', 'MFM'], ['M': TRContent.MachineBlocks.ADVANCED.frame, 'F': TRContent.Parts.ENERGY_FLOW_CHIP, 'S': TRContent.Parts.SUPERCONDUCTOR])
 		recipes.shaped(TRContent.Cables.TIN, 9, null, ['III'], ['I': TRContent.Ingots.TIN.asTag()])
 	}
@@ -371,12 +372,12 @@ class CraftingRecipeData {
 		recipes.shaped(TRContent.StorageUnit.INDUSTRIAL, 1, null, ['PPP', 'XBX', 'CDC'], ['P': TRContent.Plates.STEEL.asTag(), 'B': TRContent.MachineBlocks.INDUSTRIAL.frame, 'D': TRContent.Parts.DIGITAL_DISPLAY, 'X': TRContent.StorageUnit.ADVANCED, 'C': TRContent.Parts.INDUSTRIAL_CIRCUIT])
 		recipes.shaped(TRContent.StorageUnit.QUANTUM, 1, null, ['PPP', 'XBX', 'CDC'], ['P': TRContent.Plates.TUNGSTEN.asTag(), 'B': TRContent.MachineBlocks.INDUSTRIAL.frame, 'X': TRContent.StorageUnit.INDUSTRIAL, 'D': TRContent.Parts.DIGITAL_DISPLAY, 'C': TRContent.Parts.DATA_STORAGE_CHIP])
 		recipes.shaped(TRContent.StorageUnit.BUFFER, 1, null, ['WWW', 'WPW', 'WWW'], ['P': Items.PAPER, 'W': TRContent.Plates.WOOD.asTag()])
-		recipes.shaped(TRContent.TankUnit.ADVANCED, 1, 'advanced_tank_unit', [' C ', 'RBR', ' C '], ['B': TRContent.StorageUnit.ADVANCED, 'R': TRContent.Parts.RUBBER, 'C': TRContent.Cells.EMPTY])
+		recipes.shaped(TRContent.TankUnit.ADVANCED, 1, 'advanced_tank_unit', [' C ', 'RBR', ' C '], ['B': TRContent.StorageUnit.ADVANCED, 'R': TRConventionalTags.RUBBER_INGOTS, 'C': TRContent.Cells.EMPTY])
 		recipes.shaped(TRContent.TankUnit.ADVANCED, 1, 'advanced_tank_unit', ['PPP', 'XBX', 'CDC'], ['P': TRContent.Plates.ELECTRUM.asTag(), 'B': TRContent.MachineBlocks.ADVANCED.frame, 'D': TRContent.Parts.DIGITAL_DISPLAY, 'X': TRContent.TankUnit.BASIC, 'C': TRContent.Parts.ADVANCED_CIRCUIT])
-		recipes.shaped(TRContent.TankUnit.BASIC, 1, null, [' C ', 'RBR', ' C '], ['B': TRContent.StorageUnit.BASIC, 'R': TRContent.Parts.RUBBER, 'C': TRContent.Cells.EMPTY])
-		recipes.shaped(TRContent.TankUnit.INDUSTRIAL, 1, 'industrial_tank_unit', [' C ', 'RBR', ' C '], ['B': TRContent.StorageUnit.INDUSTRIAL, 'R': TRContent.Parts.RUBBER, 'C': TRContent.Cells.EMPTY])
+		recipes.shaped(TRContent.TankUnit.BASIC, 1, null, [' C ', 'RBR', ' C '], ['B': TRContent.StorageUnit.BASIC, 'R': TRConventionalTags.RUBBER_INGOTS, 'C': TRContent.Cells.EMPTY])
+		recipes.shaped(TRContent.TankUnit.INDUSTRIAL, 1, 'industrial_tank_unit', [' C ', 'RBR', ' C '], ['B': TRContent.StorageUnit.INDUSTRIAL, 'R': TRConventionalTags.RUBBER_INGOTS, 'C': TRContent.Cells.EMPTY])
 		recipes.shaped(TRContent.TankUnit.INDUSTRIAL, 1, 'industrial_tank_unit', ['PPP', 'XBX', 'CDC'], ['P': TRContent.Plates.STEEL.asTag(), 'B': TRContent.MachineBlocks.INDUSTRIAL.frame, 'D': TRContent.Parts.DIGITAL_DISPLAY, 'X': TRContent.TankUnit.ADVANCED, 'C': TRContent.Parts.INDUSTRIAL_CIRCUIT])
-		recipes.shaped(TRContent.TankUnit.QUANTUM, 1, 'quantum_tank_unit', [' C ', 'RBR', ' C '], ['B': TRContent.StorageUnit.QUANTUM, 'C': TRContent.Cells.EMPTY, 'R': TRContent.Parts.RUBBER])
+		recipes.shaped(TRContent.TankUnit.QUANTUM, 1, 'quantum_tank_unit', [' C ', 'RBR', ' C '], ['B': TRContent.StorageUnit.QUANTUM, 'C': TRContent.Cells.EMPTY, 'R': TRConventionalTags.RUBBER_INGOTS])
 		recipes.shaped(TRContent.TankUnit.QUANTUM, 1, 'quantum_tank_unit', ['PPP', 'XBX', 'CDC'], ['P': TRContent.Plates.TUNGSTEN.asTag(), 'B': TRContent.MachineBlocks.INDUSTRIAL.frame, 'X': TRContent.TankUnit.INDUSTRIAL, 'D': TRContent.Parts.DIGITAL_DISPLAY, 'C': TRContent.Parts.DATA_STORAGE_CHIP])
 		recipes.shaped(TRContent.StorageUnit.ADVANCED.getUpgrader().orElseThrow(), 1, null, ['PPP', 'XB ', 'CDC'], ['P': TRContent.Plates.STEEL.asTag(), 'B': TRContent.MachineBlocks.INDUSTRIAL.frame, 'D': TRContent.Parts.DIGITAL_DISPLAY, 'X': TRContent.StorageUnit.ADVANCED, 'C': TRContent.Parts.INDUSTRIAL_CIRCUIT])
 		recipes.shaped(TRContent.StorageUnit.BASIC.getUpgrader().orElseThrow(), 1, null, ['PPP', 'XB ', 'CDC'], ['P': TRContent.Plates.ELECTRUM.asTag(), 'B': TRContent.MachineBlocks.ADVANCED.frame, 'D': TRContent.Parts.DIGITAL_DISPLAY, 'X': TRContent.StorageUnit.BASIC, 'C': TRContent.Parts.ADVANCED_CIRCUIT])
