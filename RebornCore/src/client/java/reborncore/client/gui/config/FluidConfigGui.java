@@ -24,6 +24,7 @@
 
 package reborncore.client.gui.config;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import org.jspecify.annotations.Nullable;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.config.elements.ConfigFluidElement;
@@ -74,8 +75,7 @@ public class FluidConfigGui extends GuiTab {
 
 	@Override
 	public boolean click(double mouseX, double mouseY, int mouseButton) {
-		// SDL left click is button 1 (AbstractWidget#isValidClickButton). Button 0 was the GLFW left button.
-		if (mouseButton == 1 && fluidConfigElement != null) {
+		if (mouseButton == InputConstants.MOUSE_BUTTON_LEFT && fluidConfigElement != null) {
 			return fluidConfigElement.onClick(guiBase, mouseX, mouseY);
 		}
 
