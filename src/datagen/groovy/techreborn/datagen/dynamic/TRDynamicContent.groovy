@@ -119,10 +119,11 @@ class TRDynamicContent {
 	}
 
 	private static List<BlockReplacement> createOverworldOreTargets(TROreFeatureConfig config) {
-		if (config.ore().getDeepslate() != null) {
+		def deepslate = config.ore().getDeepslate()
+		if (deepslate != null) {
 			return List.of(
 				BlockReplacement.replace(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), config.ore().block.defaultBlockState()),
-				BlockReplacement.replace(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), config.ore().getDeepslate().block.defaultBlockState())
+				BlockReplacement.replace(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), deepslate.block.defaultBlockState())
 			)
 		}
 

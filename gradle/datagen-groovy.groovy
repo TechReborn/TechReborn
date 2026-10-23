@@ -1,5 +1,5 @@
 import groovy.transform.TypeChecked
 
 withConfig(configuration) {
-    ast(TypeChecked)
+    ast(TypeChecked, extensions: 'groovy.typecheckers.NullChecker')
 }

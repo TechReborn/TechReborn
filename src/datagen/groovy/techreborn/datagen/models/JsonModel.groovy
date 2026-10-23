@@ -135,8 +135,11 @@ class JsonModel {
 	}
 
 	Identifier upload() {
-		if (this.id == null) throw new IllegalStateException("No target specified")
-		Identifier id = variant == null || variant == "_off" ? this.id : this.id.withSuffix(variant)
+		Identifier targetId = this.id
+		if (targetId == null) {
+			throw new IllegalStateException("No target specified")
+		}
+		Identifier id = variant == null || variant == "_off" ? targetId : targetId.withSuffix(variant)
 		ModelProvider.modelCollector.accept(id, () -> toJson())
 		return id
 	}
@@ -226,7 +229,11 @@ class JsonModel {
 			if (value != null) {
 				json.add(key.getId(), Material.CODEC.encodeStart(JsonOps.INSTANCE, value).getOrThrow())
 			} else {
-				json.addProperty(key.getId(), key.parent.toString())
+				TextureSlot parent = key.parent
+				if (parent == null) {
+					throw new IllegalStateException("No texture or parent specified for slot: ${key.getId()}")
+				}
+				json.addProperty(key.getId(), parent.toString())
 			}
 		})
 		return json

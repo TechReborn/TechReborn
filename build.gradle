@@ -214,6 +214,7 @@ dependencies {
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
     datagenImplementation 'org.apache.groovy:groovy:6.0.0'
+    datagenCompileOnly 'org.apache.groovy:groovy-typecheckers:6.0.0'
 }
 
 def optionalREIDependency(runtime = true) {

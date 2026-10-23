@@ -51,6 +51,9 @@ class StateModel {
 	}
 
 	StateModel add(ConditionBuilder condition, MultiVariant variant) {
+		if (conditions == null) {
+			throw new IllegalStateException("Conditional variants require a multipart model")
+		}
 		variants.add(variant)
 		conditions.add(condition)
 		return this

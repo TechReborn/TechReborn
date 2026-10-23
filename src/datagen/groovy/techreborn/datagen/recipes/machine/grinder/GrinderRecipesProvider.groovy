@@ -97,24 +97,28 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				time 200
 				criterion getCriterionName(gem.asTag()), getCriterionConditions(gem.asTag())
 			}
-			if (gem.getOre() != null)
+			def ore = gem.getOre()
+			if (ore != null) {
 				offerGrinderRecipe {
-					ingredients gem.getOre().asTag()
+					ingredients ore.asTag()
 					outputs stack(dust,2)
 					power 2
 					time 220
 					source "ore"
-					criterion getCriterionName(gem.getOre().asTag()), getCriterionConditions(gem.getOre().asTag())
+					criterion getCriterionName(ore.asTag()), getCriterionConditions(ore.asTag())
 				}
-			if (gem.getStorageBlock() != null)
+			}
+			def storageBlock = gem.getStorageBlock()
+			if (storageBlock != null) {
 				offerGrinderRecipe {
-					ingredients gem.getStorageBlock().asTag()
+					ingredients storageBlock.asTag()
 					outputs stack(dust,9)
 					power 2
 					time 1500
 					source "block"
-					criterion getCriterionName(gem.getStorageBlock().asTag()), getCriterionConditions(gem.getStorageBlock().asTag())
+					criterion getCriterionName(storageBlock.asTag()), getCriterionConditions(storageBlock.asTag())
 				}
+			}
 		}
 	}
 
@@ -208,15 +212,17 @@ class GrinderRecipesProvider extends TechRebornRecipesProvider {
 				time 200
 				criterion getCriterionName(ingot.asTag()), getCriterionConditions(ingot.asTag())
 			}
-			if (ingot.getStorageBlock() != null)
+			def storageBlock = ingot.getStorageBlock()
+			if (storageBlock != null) {
 				offerGrinderRecipe {
-					ingredients ingot.getStorageBlock().asTag()
+					ingredients storageBlock.asTag()
 					outputs stack(dust,9)
 					power 5
 					time 1500
 					source "block"
-					criterion getCriterionName(ingot.getStorageBlock().asTag()), getCriterionConditions(ingot.getStorageBlock().asTag())
+					criterion getCriterionName(storageBlock.asTag()), getCriterionConditions(storageBlock.asTag())
 				}
+			}
 		}
 	}
 
